@@ -1,0 +1,12 @@
+node_modules/
+.svelte-kit/
+.turbo/
+.vercel/
+.vercel-source-remnant/
+build/
+dist/
+coverage/
+dev/*.log
+.env*
+*.tsbuildinfo
+.DS_Store
