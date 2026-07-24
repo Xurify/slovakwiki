@@ -9,6 +9,12 @@
     pronunciation: "pronunciation",
     word: "dictionary",
   };
+
+  const kindLabel = {
+    grammar: "Grammar",
+    pronunciation: "Pronunciation",
+    word: "Dictionary",
+  };
 </script>
 
 <svelte:head>
@@ -17,10 +23,14 @@
 </svelte:head>
 
 <main>
-  <header class="entry-hero">
+  <header class="entry-header">
     <div class="shell">
-      <a class="back" href="/wiki">← Reference index</a>
-      <p class="eyebrow">{entry.kind} · {entry.category}</p>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/wiki">Reference index</a>
+        <span aria-hidden="true">/</span>
+        <span>{kindLabel[entry.kind]}</span>
+      </nav>
+      <p class="eyebrow">{entry.category}</p>
       <div class="title-row">
         <h1 lang="sk">{entry.slovak}</h1>
         <p>{entry.english}</p>
@@ -31,200 +41,215 @@
 
   <div class="shell entry-layout">
     <article>
-      <section>
+      <section aria-labelledby="usage-heading">
         <p class="section-label">Usage</p>
-        <h2>How to use it</h2>
-        {#each entry.body as paragraph}
+        <h2 id="usage-heading">How to use it</h2>
+        {#each entry.body as paragraph, index (index)}
           <p>{paragraph}</p>
         {/each}
       </section>
 
-      <section>
+      <section aria-labelledby="examples-heading">
         <p class="section-label">Examples</p>
-        <h2>In a sentence</h2>
-        <div class="examples">
-          {#each entry.examples as example, index}
-            <div class="example">
-              <span>{String(index + 1).padStart(2, "0")}</span>
+        <h2 id="examples-heading">In a sentence</h2>
+        <ol class="examples">
+          {#each entry.examples as example, index (`${example.slovak}-${index}`)}
+            <li>
+              <span class="number">{String(index + 1).padStart(2, "0")}</span>
               <div>
                 <p lang="sk">{example.slovak}</p>
                 <small>{example.english}</small>
               </div>
-            </div>
+            </li>
           {/each}
-        </div>
+        </ol>
       </section>
 
-      <section class="source">
+      <section class="source" aria-labelledby="source-heading">
         <p class="section-label">Source</p>
-        <h2>Reference</h2>
+        <h2 id="source-heading">Reference</h2>
         <a href={entry.source}>Jazykovedný ústav Ľudovíta Štúra SAV ↗</a>
       </section>
     </article>
 
-    <aside>
-      <p class="section-label">Related entries</p>
-      {#each entry.related as relatedSlug}
-        {@const relatedEntry = entryBySlug.get(relatedSlug)}
-        {#if relatedEntry}
-          <a href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}">
-            <strong lang="sk">{relatedEntry.slovak}</strong>
-            <span>{relatedEntry.english}</span>
-            <small>→</small>
-          </a>
-        {/if}
-      {/each}
+    <aside aria-labelledby="related-heading">
+      <h2 id="related-heading">Related entries</h2>
+      <ul>
+        {#each entry.related as relatedSlug (relatedSlug)}
+          {@const relatedEntry = entryBySlug.get(relatedSlug)}
+          {#if relatedEntry}
+            <li>
+              <a href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}">
+                <span>
+                  <strong lang="sk">{relatedEntry.slovak}</strong>
+                  <small>{relatedEntry.english}</small>
+                </span>
+                <span aria-hidden="true">›</span>
+              </a>
+            </li>
+          {/if}
+        {/each}
+      </ul>
     </aside>
   </div>
 </main>
 
 <style>
-  .entry-hero {
-    padding-block: 30px 48px;
+  .entry-header {
+    padding-block: 28px 34px;
     border-bottom: 1px solid var(--line);
-    background: var(--sky);
+    background: var(--surface-subtle);
   }
 
-  .back {
-    display: inline-block;
-    margin-bottom: 32px;
+  .breadcrumb {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 26px;
+    color: var(--muted);
+    font-size: 0.76rem;
+  }
+
+  .breadcrumb a {
     color: var(--blue);
-    font-size: 0.78rem;
-    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .title-row {
     display: flex;
     align-items: baseline;
-    gap: 26px;
+    flex-wrap: wrap;
+    gap: 12px 24px;
   }
 
   h1 {
-    color: var(--coral);
-    font-family: "Fraunces Variable", serif;
-    font-size: 4.6rem;
-    font-weight: 630;
+    color: var(--ink);
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
   }
 
   .title-row > p {
     margin: 0;
-    color: var(--plum);
-    font-family: "Fraunces Variable", serif;
-    font-size: 1.4rem;
-    font-style: italic;
+    color: var(--muted-strong);
+    font-size: 1.12rem;
+    font-weight: 600;
   }
 
   .summary {
-    max-width: 680px;
-    margin: 15px 0 0;
+    max-width: 720px;
+    margin: 14px 0 0;
     color: var(--muted);
   }
 
   .entry-layout {
     display: grid;
-    grid-template-columns: minmax(0, 720px) 280px;
+    grid-template-columns: minmax(0, 760px) minmax(230px, 280px);
     align-items: start;
     justify-content: space-between;
-    gap: 70px;
-    padding-block: 50px 82px;
+    gap: 64px;
+    padding-block: 40px 68px;
   }
 
   article section + section {
-    margin-top: 54px;
-    padding-top: 38px;
+    margin-top: 42px;
+    padding-top: 32px;
     border-top: 1px solid var(--line);
   }
 
-  .section-label {
-    margin: 0 0 8px;
-    color: var(--ochre);
-    font-size: 0.71rem;
-    font-weight: 780;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  h2 {
-    margin-bottom: 19px;
-    color: var(--plum);
-    font-family: "Fraunces Variable", serif;
-    font-size: 2rem;
+  article h2 {
+    margin-bottom: 16px;
+    font-size: 1.45rem;
   }
 
   article section > p:not(.section-label) {
-    max-width: 68ch;
-    color: var(--muted);
+    max-width: 70ch;
+    color: var(--muted-strong);
   }
 
   aside {
     position: sticky;
-    top: 88px;
-    padding: 24px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--surface);
+    top: 82px;
+    border-top: 3px solid var(--ink);
   }
 
-  aside > a {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 3px 10px;
-    padding-block: 13px;
+  aside h2 {
+    padding: 14px 8px 11px;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  aside ul,
+  .examples {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  aside a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    min-height: 58px;
+    padding: 10px 8px;
     border-bottom: 1px solid var(--line);
   }
 
-  aside > a:last-child {
-    border-bottom: 0;
+  aside a:hover {
+    background: var(--surface-subtle);
+  }
+
+  aside a > span:first-child {
+    display: grid;
+    gap: 2px;
   }
 
   aside strong {
-    color: var(--plum);
-  }
-
-  aside span {
-    color: var(--muted);
-    font-size: 0.76rem;
+    color: var(--blue);
+    font-size: 0.9rem;
   }
 
   aside small {
-    grid-row: 1 / 3;
-    grid-column: 2;
-    align-self: center;
-    color: var(--coral);
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+
+  aside a > span:last-child {
+    color: var(--blue);
   }
 
   .examples {
     border-top: 1px solid var(--line);
   }
 
-  .example {
+  .examples li {
     display: grid;
-    grid-template-columns: 38px 1fr;
-    gap: 16px;
-    padding-block: 18px;
+    grid-template-columns: 34px 1fr;
+    gap: 14px;
+    padding-block: 15px;
     border-bottom: 1px solid var(--line);
   }
 
-  .example > span {
-    color: var(--coral);
-    font-size: 0.72rem;
+  .number {
+    color: var(--muted);
+    font-size: 0.7rem;
     font-weight: 750;
   }
 
-  .example p {
-    margin: 0 0 4px;
-    color: var(--plum);
-    font-family: "Fraunces Variable", serif;
-    font-size: 1.1rem;
-    font-weight: 600;
+  .examples p {
+    margin: 0 0 3px;
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 650;
   }
 
-  .example small {
+  .examples small {
     color: var(--muted);
   }
 
   .source a {
-    color: var(--coral);
+    color: var(--blue);
     font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -233,7 +258,7 @@
   @media (max-width: 850px) {
     .entry-layout {
       grid-template-columns: 1fr;
-      gap: 46px;
+      gap: 42px;
     }
 
     aside {
@@ -242,22 +267,12 @@
   }
 
   @media (max-width: 600px) {
-    .entry-hero {
-      padding-block: 24px 38px;
-    }
-
-    .title-row {
-      align-items: start;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    h1 {
-      font-size: 3.5rem;
+    .entry-header {
+      padding-block: 22px 28px;
     }
 
     .entry-layout {
-      padding-block: 38px 62px;
+      padding-block: 30px 50px;
     }
   }
 </style>

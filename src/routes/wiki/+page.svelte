@@ -100,10 +100,10 @@
 
       <nav aria-label="Content type">
         <p class="nav-label">Browse</p>
-        {#each kindFilters as filter}
+        {#each kindFilters as filter (filter.value)}
           <button
             aria-pressed={activeKind === filter.value}
-            class:active={activeKind === filter.value}
+            class={activeKind === filter.value ? "active" : ""}
             type="button"
             onclick={() => selectKind(filter.value)}
           >
@@ -121,16 +121,16 @@
         <p class="nav-label">Topics</p>
         <button
           aria-pressed={activeCategory === "all"}
-          class:active={activeCategory === "all"}
+          class={activeCategory === "all" ? "active" : ""}
           type="button"
           onclick={() => (activeCategory = "all")}
         >
           <span>All topics</span>
         </button>
-        {#each categories as [ category, count ]}
+        {#each categories as [ category, count ] (category)}
           <button
             aria-pressed={activeCategory === category}
-            class:active={activeCategory === category}
+            class={activeCategory === category ? "active" : ""}
             type="button"
             onclick={() => (activeCategory = category)}
           >
@@ -171,10 +171,10 @@
       </div>
 
       <nav class="mobile-kinds" aria-label="Content type">
-        {#each kindFilters as filter}
+        {#each kindFilters as filter (filter.value)}
           <button
             aria-pressed={activeKind === filter.value}
-            class:active={activeKind === filter.value}
+            class={activeKind === filter.value ? "active" : ""}
             type="button"
             onclick={() => selectKind(filter.value)}
           >
@@ -183,19 +183,40 @@
         {/each}
       </nav>
 
+      <nav class="mobile-topics" aria-label="Topics">
+        <button
+          aria-pressed={activeCategory === "all"}
+          class={activeCategory === "all" ? "active" : ""}
+          type="button"
+          onclick={() => (activeCategory = "all")}
+        >
+          All topics
+        </button>
+        {#each categories as [category] (category)}
+          <button
+            aria-pressed={activeCategory === category}
+            class={activeCategory === category ? "active" : ""}
+            type="button"
+            onclick={() => (activeCategory = category)}
+          >
+            {category}
+          </button>
+        {/each}
+      </nav>
+
       <nav class="alphabet" aria-label="Filter by first letter">
         <button
           aria-pressed={activeLetter === "all"}
-          class:active={activeLetter === "all"}
+          class={activeLetter === "all" ? "active" : ""}
           type="button"
           onclick={() => (activeLetter = "all")}
         >
           All
         </button>
-        {#each availableLetters as letter}
+        {#each availableLetters as letter (letter)}
           <button
             aria-pressed={activeLetter === letter}
-            class:active={activeLetter === letter}
+            class={activeLetter === letter ? "active" : ""}
             type="button"
             onclick={() => (activeLetter = letter)}
           >
@@ -222,7 +243,7 @@
 
       {#if visibleEntries.length}
         <div class="results">
-          {#each visibleEntries as entry}
+          {#each visibleEntries as entry (entry.slug)}
             <a class="result" href="/{routeBase[entry.kind]}/{entry.slug}">
               <span class="slovak" lang="sk">{entry.slovak}</span>
               <span class="english">{entry.english}</span>
@@ -247,32 +268,25 @@
 </main>
 
 <style>
-  :global(body) {
-    background: oklch(0.985 0.002 250);
-  }
-
   .reference {
-    min-height: calc(100vh - 64px);
-    background: oklch(0.985 0.002 250);
-    color: oklch(0.23 0.012 255);
-    font-family:
-      Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: calc(100vh - 58px);
+    background: var(--surface);
   }
 
   .reference-shell {
     display: grid;
-    width: min(1280px, calc(100% - 48px));
+    width: min(1280px, calc(100% - 40px));
     grid-template-columns: 232px minmax(0, 1fr);
     margin: 0 auto;
   }
 
   .sidebar {
     position: sticky;
-    top: 64px;
-    height: calc(100vh - 64px);
+    top: 58px;
+    height: calc(100vh - 58px);
     overflow-y: auto;
-    padding: 34px 28px 48px 0;
-    border-right: 1px solid oklch(0.9 0.006 250);
+    padding: 30px 26px 48px 0;
+    border-right: 1px solid var(--line);
   }
 
   .sidebar-title {
@@ -288,13 +302,13 @@
 
   .sidebar-title span,
   .sidebar small {
-    color: oklch(0.55 0.015 255);
+    color: var(--muted);
     font-size: 0.7rem;
   }
 
   .nav-label {
     margin: 0 0 8px;
-    color: oklch(0.5 0.02 255);
+    color: var(--muted);
     font-size: 0.67rem;
     font-weight: 720;
     letter-spacing: 0.08em;
@@ -310,30 +324,32 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    padding: 7px 10px;
+    min-height: 36px;
+    padding: 7px 9px;
     border: 0;
-    border-radius: 5px;
+    border-radius: 2px;
     background: transparent;
-    color: oklch(0.39 0.018 255);
+    color: var(--muted-strong);
     cursor: pointer;
     font-size: 0.82rem;
     text-align: left;
   }
 
   .sidebar button:hover {
-    background: oklch(0.96 0.006 250);
-    color: oklch(0.23 0.012 255);
+    background: var(--surface-subtle);
+    color: var(--ink);
   }
 
   .sidebar button.active {
-    background: oklch(0.94 0.025 250);
-    color: oklch(0.42 0.14 255);
+    box-shadow: inset 3px 0 var(--blue);
+    background: var(--surface-selected);
+    color: var(--blue);
     font-weight: 680;
   }
 
   .content {
     min-width: 0;
-    padding: 52px 0 96px 56px;
+    padding: 42px 0 80px 48px;
   }
 
   .content-header {
@@ -345,16 +361,14 @@
 
   .breadcrumb {
     margin: 0 0 18px;
-    color: oklch(0.51 0.1 255);
+    color: var(--blue);
     font-size: 0.73rem;
     font-weight: 680;
   }
 
   h1 {
     margin: 0;
-    color: oklch(0.19 0.01 255);
-    font-family: inherit;
-    font-size: clamp(2.4rem, 4vw, 3.5rem);
+    font-size: clamp(2.2rem, 4vw, 3.15rem);
     font-weight: 720;
     letter-spacing: -0.045em;
     line-height: 1;
@@ -362,7 +376,7 @@
 
   .content-header p:last-child {
     margin: 12px 0 0;
-    color: oklch(0.5 0.018 255);
+    color: var(--muted);
     font-size: 0.92rem;
   }
 
@@ -373,7 +387,7 @@
   .search-area > label {
     display: block;
     margin-bottom: 8px;
-    color: oklch(0.36 0.02 255);
+    color: var(--muted-strong);
     font-size: 0.76rem;
     font-weight: 650;
   }
@@ -383,21 +397,20 @@
     display: flex;
     height: 44px;
     align-items: center;
-    border: 1px solid oklch(0.82 0.012 255);
-    border-radius: 6px;
-    background: oklch(0.998 0.001 250);
+    border: 1px solid var(--line-strong);
+    border-radius: 0;
+    background: var(--surface);
   }
 
   .search-control:focus-within {
-    border-color: oklch(0.51 0.14 255);
-    box-shadow: 0 0 0 3px oklch(0.91 0.04 250);
+    border-color: var(--blue);
   }
 
   .search-control svg {
     width: 18px;
     margin-left: 13px;
     fill: none;
-    stroke: oklch(0.48 0.02 255);
+    stroke: var(--muted);
     stroke-linecap: round;
     stroke-width: 1.8;
   }
@@ -418,13 +431,14 @@
     margin-right: 12px;
     border: 0;
     background: transparent;
-    color: oklch(0.47 0.13 255);
+    color: var(--blue);
     cursor: pointer;
     font-size: 0.75rem;
     font-weight: 650;
   }
 
-  .mobile-kinds {
+  .mobile-kinds,
+  .mobile-topics {
     display: none;
   }
 
@@ -433,7 +447,7 @@
     overflow-x: auto;
     gap: 2px;
     padding-bottom: 18px;
-    border-bottom: 1px solid oklch(0.87 0.008 255);
+    border-bottom: 1px solid var(--line);
   }
 
   .alphabet button {
@@ -441,21 +455,21 @@
     height: 30px;
     padding: 0 7px;
     border: 0;
-    border-radius: 4px;
+    border-radius: 2px;
     background: transparent;
-    color: oklch(0.44 0.06 255);
+    color: var(--blue);
     cursor: pointer;
     font-size: 0.76rem;
     font-weight: 650;
   }
 
   .alphabet button:hover {
-    background: oklch(0.95 0.01 250);
+    background: var(--surface-subtle);
   }
 
   .alphabet button.active {
-    background: oklch(0.47 0.15 255);
-    color: oklch(0.985 0.002 250);
+    background: var(--blue);
+    color: white;
   }
 
   .results-toolbar {
@@ -467,13 +481,13 @@
 
   .results-toolbar p {
     margin: 0;
-    color: oklch(0.5 0.018 255);
+    color: var(--muted);
     font-size: 0.76rem;
   }
 
   .results-toolbar strong {
     margin-right: 4px;
-    color: oklch(0.24 0.012 255);
+    color: var(--ink);
   }
 
   .table-head,
@@ -487,10 +501,10 @@
   .table-head {
     min-height: 36px;
     padding: 0 14px;
-    border: 1px solid oklch(0.87 0.008 255);
-    border-radius: 5px 5px 0 0;
-    background: oklch(0.965 0.006 250);
-    color: oklch(0.5 0.018 255);
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--surface-subtle);
+    color: var(--muted);
     font-size: 0.66rem;
     font-weight: 720;
     letter-spacing: 0.06em;
@@ -498,16 +512,16 @@
   }
 
   .results {
-    border: 1px solid oklch(0.87 0.008 255);
+    border: 1px solid var(--line);
     border-top: 0;
-    border-radius: 0 0 5px 5px;
-    background: oklch(0.998 0.001 250);
+    border-radius: 0;
+    background: var(--surface);
   }
 
   .result {
     min-height: 58px;
     padding: 8px 14px;
-    border-bottom: 1px solid oklch(0.9 0.006 250);
+    border-bottom: 1px solid var(--line);
   }
 
   .result:last-child {
@@ -515,22 +529,22 @@
   }
 
   .result:hover {
-    background: oklch(0.965 0.018 250);
+    background: var(--surface-subtle);
   }
 
   .slovak {
-    color: oklch(0.4 0.14 255);
+    color: var(--blue);
     font-size: 0.96rem;
     font-weight: 690;
   }
 
   .english {
-    color: oklch(0.3 0.012 255);
+    color: var(--ink);
     font-size: 0.84rem;
   }
 
   .type {
-    color: oklch(0.53 0.018 255);
+    color: var(--muted);
     font-size: 0.72rem;
     text-transform: capitalize;
   }
@@ -538,7 +552,7 @@
   .result svg {
     width: 16px;
     fill: none;
-    stroke: oklch(0.61 0.02 255);
+    stroke: var(--muted);
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.8;
@@ -546,7 +560,7 @@
 
   .empty {
     padding: 72px 24px;
-    border: 1px solid oklch(0.87 0.008 255);
+    border: 1px solid var(--line);
     border-top: 0;
     text-align: center;
   }
@@ -559,16 +573,16 @@
 
   .empty p {
     margin: 8px 0 18px;
-    color: oklch(0.5 0.018 255);
+    color: var(--muted);
     font-size: 0.84rem;
   }
 
   .empty button {
     padding: 8px 12px;
-    border: 1px solid oklch(0.75 0.03 255);
-    border-radius: 5px;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
     background: transparent;
-    color: oklch(0.42 0.14 255);
+    color: var(--blue);
     cursor: pointer;
     font-size: 0.78rem;
     font-weight: 650;
@@ -600,7 +614,8 @@
       font-size: 2.55rem;
     }
 
-    .mobile-kinds {
+    .mobile-kinds,
+    .mobile-topics {
       display: flex;
       overflow-x: auto;
       gap: 5px;
@@ -608,20 +623,27 @@
       padding-bottom: 2px;
     }
 
-    .mobile-kinds button {
+    .mobile-kinds button,
+    .mobile-topics button {
       flex: 0 0 auto;
+      min-height: 36px;
       padding: 7px 10px;
-      border: 1px solid oklch(0.84 0.012 255);
-      border-radius: 5px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
       background: transparent;
-      color: oklch(0.44 0.02 255);
+      color: var(--muted-strong);
       font-size: 0.74rem;
     }
 
-    .mobile-kinds button.active {
-      border-color: oklch(0.47 0.15 255);
-      background: oklch(0.47 0.15 255);
-      color: oklch(0.985 0.002 250);
+    .mobile-kinds button.active,
+    .mobile-topics button.active {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: white;
+    }
+
+    .mobile-topics {
+      margin-top: -7px;
     }
 
     .alphabet {
@@ -633,8 +655,8 @@
     }
 
     .results {
-      border-top: 1px solid oklch(0.87 0.008 255);
-      border-radius: 5px;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
     }
 
     .result {
@@ -650,7 +672,7 @@
 
     .english {
       grid-column: 1;
-      color: oklch(0.48 0.018 255);
+      color: var(--muted);
       font-size: 0.78rem;
     }
 

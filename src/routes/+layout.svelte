@@ -7,5 +7,7 @@
 </script>
 
 <Header />
-{@render children()}
+<div id="main-content" tabindex="-1">
+  {@render children()}
+</div>
 <Footer />

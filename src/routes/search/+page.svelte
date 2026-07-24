@@ -14,30 +14,34 @@
 <main>
   <header class="page-intro">
     <div class="shell">
-      <p class="eyebrow">Search</p>
-      <h1>{query ? `“${query}”` : "Search the atlas"}</h1>
-      <p>
-        {results.length} {results.length === 1 ? "entry" : "entries"} found. Slovak
-        diacritics are optional.
+      <nav aria-label="Breadcrumb">
+        <a href="/wiki">Reference index</a>
+        <span aria-hidden="true">/</span>
+        <span>Search</span>
+      </nav>
+      <h1>{query ? `Results for “${query}”` : "Search the atlas"}</h1>
+      <p role="status" aria-live="polite" aria-atomic="true">
+        {results.length} {results.length === 1 ? "entry" : "entries"} found.
+        Slovak diacritics are optional.
       </p>
     </div>
   </header>
 
-  <section class="shell results">
+  <section class="shell results" aria-labelledby="results-heading">
     {#if results.length}
       <div class="results-head">
-        <h2>Matches</h2>
-        <a href="/wiki">Browse complete index</a>
+        <h2 id="results-heading">Matches</h2>
+        <a class="text-link" href="/wiki">Browse complete index</a>
       </div>
-      <div class="grid">
-        {#each results as entry}
+      <div class="result-list">
+        {#each results as entry (entry.slug)}
           <EntryCard {entry} />
         {/each}
       </div>
     {:else}
       <div class="empty">
         <p class="section-label">No result</p>
-        <h2>No matching entry yet</h2>
+        <h2 id="results-heading">No matching entry yet</h2>
         <p>Try an English meaning, a shorter Slovak word, or the complete index.</p>
         <a class="button" href="/wiki">Browse the wiki</a>
       </div>
@@ -47,52 +51,58 @@
 
 <style>
   .page-intro {
-    padding-block: 46px;
+    padding-block: 30px;
     border-bottom: 1px solid var(--line);
-    background: var(--sky);
+    background: var(--surface-subtle);
   }
 
-  h1 {
-    color: var(--plum);
-    font-family: "Fraunces Variable", serif;
-    font-size: 3.4rem;
-    font-weight: 650;
-  }
-
-  .page-intro p:last-child {
-    margin: 13px 0 0;
+  nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
     color: var(--muted);
+    font-size: 0.76rem;
+  }
+
+  nav a {
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .page-intro h1 {
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+  }
+
+  .page-intro p {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 0.88rem;
   }
 
   .results {
-    padding-block: 42px 78px;
+    padding-block: 30px 64px;
   }
 
   .results-head {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 18px;
+    gap: 20px;
+    padding-bottom: 13px;
+    border-bottom: 3px solid var(--ink);
   }
 
-  .results-head h2,
-  .empty h2 {
-    color: var(--plum);
-    font-family: "Fraunces Variable", serif;
+  .results-head h2 {
+    font-size: 1.2rem;
   }
 
-  .results-head a {
-    color: var(--coral);
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  .result-list {
+    border-bottom: 1px solid var(--line);
   }
 
   .empty {
     max-width: 620px;
-    padding: 45px 0;
-    text-align: left;
   }
 
   .empty > p:not(.section-label) {
@@ -100,6 +110,6 @@
   }
 
   .empty .button {
-    margin-top: 14px;
+    margin-top: 12px;
   }
 </style>

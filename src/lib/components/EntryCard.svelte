@@ -8,95 +8,113 @@
     pronunciation: "pronunciation",
     word: "dictionary",
   };
+
+  const kindLabel = {
+    grammar: "Grammar",
+    pronunciation: "Pronunciation",
+    word: "Word",
+  };
 </script>
 
-<a class="entry-card" href="/{routeBase[entry.kind]}/{entry.slug}">
-  <span class="kind">{entry.kind}</span>
-  <h3 lang="sk">{entry.slovak}</h3>
-  <p class="meaning">{entry.english}</p>
-  <p class="summary">{entry.summary}</p>
-  <span class="read">Open entry <span aria-hidden="true">→</span></span>
+<a class="entry-row" href="/{routeBase[entry.kind]}/{entry.slug}">
+  <span class="kind">{kindLabel[entry.kind]}</span>
+  <span class="term">
+    <strong lang="sk">{entry.slovak}</strong>
+    <small>{entry.english}</small>
+  </span>
+  <span class="summary">{entry.summary}</span>
+  <span class="open" aria-hidden="true">›</span>
 </a>
 
 <style>
-  .entry-card {
-    position: relative;
-    display: flex;
-    min-height: 210px;
-    flex-direction: column;
-    padding: 22px 24px 24px 0;
-    border: 0;
+  .entry-row {
+    display: grid;
+    grid-template-columns: 110px minmax(180px, 0.8fr) minmax(260px, 1.5fr) 20px;
+    align-items: center;
+    gap: 18px;
+    min-height: 78px;
+    padding: 13px 12px;
     border-bottom: 1px solid var(--line);
-    border-radius: 0;
-    background: transparent;
-    transition:
-      border-color 160ms ease,
-      transform 160ms ease,
-      box-shadow 160ms ease;
   }
 
-  .entry-card:hover {
-    transform: none;
-    box-shadow: none;
+  .entry-row:hover {
+    background: var(--surface-subtle);
   }
 
-  .entry-card:nth-child(even) {
-    padding-right: 0;
-    padding-left: 24px;
-    border-left: 1px solid var(--line);
-  }
-
-  .kind {
-    align-self: start;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    color: var(--muted);
-    font-size: 0.7rem;
-    font-weight: 750;
-    text-transform: capitalize;
-  }
-
-  h3 {
-    margin: 16px 0 2px;
-    color: var(--blue);
-    font-size: 1.45rem;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .meaning {
-    color: var(--red);
-    font-weight: 680;
-  }
-
-  .summary {
-    margin-top: 14px;
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-
-  .read {
-    margin-top: auto;
-    padding-top: 20px;
-    color: var(--blue);
-    font-size: 0.86rem;
-    font-weight: 720;
-  }
-
-  .entry-card:hover .read,
-  .entry-card:hover h3 {
+  .entry-row:hover strong {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
-  @media (max-width: 800px) {
-    .entry-card,
-    .entry-card:nth-child(even) {
-      padding-inline: 0;
-      border-left: 0;
+  .kind {
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .term {
+    display: grid;
+    gap: 3px;
+  }
+
+  strong {
+    color: var(--blue);
+    font-size: 1rem;
+  }
+
+  small {
+    color: var(--muted-strong);
+    font-size: 0.8rem;
+  }
+
+  .summary {
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .open {
+    color: var(--blue);
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 700px) {
+    .entry-row {
+      grid-template-columns: 88px 1fr 16px;
+      gap: 10px;
+    }
+
+    .summary {
+      grid-column: 2;
+      margin-top: -3px;
+    }
+
+    .open {
+      grid-row: 1 / 3;
+      grid-column: 3;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .entry-row {
+      grid-template-columns: 1fr 16px;
+      padding-inline: 8px;
+    }
+
+    .kind {
+      grid-column: 1;
+    }
+
+    .term,
+    .summary {
+      grid-column: 1;
+    }
+
+    .open {
+      grid-row: 1 / 4;
+      grid-column: 2;
     }
   }
 </style>
