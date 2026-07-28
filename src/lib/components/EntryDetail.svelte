@@ -24,30 +24,6 @@
 
 <main class="entry">
   <div class="entry-shell">
-    <aside class="entry-nav" aria-label="Entry context">
-      <a class="wiki-link" href="/wiki">Slovak Wiki</a>
-      <section>
-        <p class="rail-label">Classification</p>
-        <dl>
-          <div>
-            <dt>Section</dt>
-            <dd>{kindLabel[entry.kind]}</dd>
-          </div>
-          <div>
-            <dt>Topic</dt>
-            <dd>{entry.category}</dd>
-          </div>
-        </dl>
-      </section>
-      <nav aria-label="Reference sections">
-        <p class="rail-label">Browse</p>
-        <a href="/wiki">All entries</a>
-        <a href="/wiki">Dictionary</a>
-        <a href="/wiki">Grammar</a>
-        <a href="/wiki">Pronunciation</a>
-      </nav>
-    </aside>
-
     <article class="entry-content">
       <header class="entry-header">
         <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -128,10 +104,9 @@
 <style>
   .entry-shell {
     display: grid;
-    grid-template-columns: 200px minmax(0, 1fr) 210px;
+    grid-template-columns: minmax(0, 1fr) 210px;
   }
 
-  .entry-nav,
   .entry-context {
     position: sticky;
     top: var(--header-height);
@@ -140,27 +115,8 @@
     padding: 28px 18px 46px;
   }
 
-  .entry-nav {
-    border-right: 1px solid var(--line);
-  }
-
   .entry-context {
     border-left: 1px solid var(--line);
-  }
-
-  .wiki-link {
-    display: block;
-    margin-bottom: 30px;
-    padding: 7px 9px;
-    border-radius: 6px;
-    background: var(--accent-soft);
-    color: var(--accent-dark);
-    font-family: var(--font-reading);
-    font-weight: 700;
-  }
-
-  .entry-nav section + nav {
-    margin-top: 30px;
   }
 
   .rail-label {
@@ -172,37 +128,11 @@
     text-transform: uppercase;
   }
 
-  .entry-nav dl {
-    display: grid;
-    gap: 10px;
-    margin: 0;
-  }
-
-  .entry-nav dl div {
-    display: grid;
-    gap: 2px;
-  }
-
-  .entry-nav dt {
-    color: var(--muted);
-    font-size: 0.62rem;
-    text-transform: uppercase;
-  }
-
-  .entry-nav dd {
-    margin: 0;
-    color: var(--ink-soft);
-    font-family: var(--font-reading);
-    font-size: 0.82rem;
-  }
-
-  .entry-nav nav,
   .entry-context nav {
     display: grid;
     border-left: 2px solid var(--line);
   }
 
-  .entry-nav nav a,
   .entry-context nav a {
     padding: 5px 0 5px 10px;
     color: var(--ink-soft);
@@ -210,7 +140,6 @@
     font-size: 0.8rem;
   }
 
-  .entry-nav nav a:hover,
   .entry-context nav a:hover {
     color: var(--accent-dark);
     text-decoration: underline;
@@ -392,13 +321,12 @@
 
   @media (max-width: 1080px) {
     .entry-shell {
-      grid-template-columns: 190px minmax(0, 1fr);
+      display: block;
     }
 
     .entry-context {
       position: static;
       display: grid;
-      grid-column: 2;
       grid-template-columns: 1fr 1fr;
       gap: 30px;
       padding: 24px 30px 42px;
@@ -412,31 +340,6 @@
   }
 
   @media (max-width: 760px) {
-    .entry-shell {
-      display: block;
-    }
-
-    .entry-nav {
-      position: static;
-      display: flex;
-      overflow-x: auto;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      border-right: 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .wiki-link {
-      flex: 0 0 auto;
-      margin: 0;
-    }
-
-    .entry-nav section,
-    .entry-nav nav {
-      display: none;
-    }
-
     .entry-content {
       padding: 28px 14px 52px;
     }
