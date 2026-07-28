@@ -15,7 +15,6 @@
 <style>
   footer {
     border-top: 1px solid var(--line);
-    border-radius: 0 0 var(--frame-radius) var(--frame-radius);
     background: color-mix(in srgb, var(--surface-subtle) 62%, transparent);
   }
 
@@ -54,10 +53,6 @@
   }
 
   @media (max-width: 680px) {
-    footer {
-      border-radius: 0;
-    }
-
     .footer-inner,
     nav {
       align-items: start;

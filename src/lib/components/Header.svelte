@@ -81,7 +81,6 @@
     top: 0;
     min-height: var(--header-height);
     border-bottom: 1px solid var(--line);
-    border-radius: var(--frame-radius) var(--frame-radius) 0 0;
     background: color-mix(in srgb, var(--paper) 94%, transparent);
     backdrop-filter: blur(12px);
   }
@@ -194,10 +193,6 @@
   }
 
   @media (max-width: 760px) {
-    .site-header {
-      border-radius: 0;
-    }
-
     .header-inner {
       grid-template-columns: 1fr auto;
       gap: 0 10px;
