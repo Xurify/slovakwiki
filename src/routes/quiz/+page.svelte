@@ -79,18 +79,6 @@
       <h1>Essential words</h1>
       <p class="lead">Ten Slovak prompts. Choose the closest English meaning.</p>
     </div>
-    {#if !finished}
-      <dl>
-        <div>
-          <dt>Progress</dt>
-          <dd>{currentQuestion + 1} / {questions.length}</dd>
-        </div>
-        <div>
-          <dt>Correct</dt>
-          <dd>{score}</dd>
-        </div>
-      </dl>
-    {/if}
   </header>
 
   {#if finished}
@@ -111,61 +99,105 @@
     </section>
   {:else}
     <section class="quiz-workspace" aria-labelledby="question-heading">
-      <div class="question-panel">
-        <div class="question-meta">
-          <span>Question {String(currentQuestion + 1).padStart(2, "0")}</span>
-          <span>Slovak → English</span>
-        </div>
-        <p class="prompt-label">What does this mean?</p>
-        <h2 id="question-heading" lang="sk">{current.prompt}</h2>
-      </div>
-
-      <div class="answer-panel">
-        <h3>Choose one answer</h3>
-        <div class="options">
-          {#each current.options as option (option)}
-            {@const status = optionStatus(option)}
-            <button
-              class={status}
-              type="button"
-              disabled={selectedAnswer !== null}
-              aria-pressed={selectedAnswer === option}
-              onclick={() => handleSelect(option)}
+      <aside class="quiz-progress" aria-label="Quiz progress">
+        <p class="rail-label">Assessment</p>
+        <dl>
+          <div>
+            <dt>Question</dt>
+            <dd>{currentQuestion + 1} / {questions.length}</dd>
+          </div>
+          <div>
+            <dt>Correct</dt>
+            <dd>{score}</dd>
+          </div>
+          <div>
+            <dt>Format</dt>
+            <dd>Slovak → English</dd>
+          </div>
+        </dl>
+        <ol aria-label="Question progress">
+          {#each questions as question, index (question.prompt)}
+            <li
+              class={index === currentQuestion ? "current" : index < currentQuestion ? "done" : ""}
+              aria-current={index === currentQuestion ? "step" : undefined}
             >
-              <span>{option}</span>
-              {#if status === "correct"}
-                <strong>Correct answer</strong>
-              {:else if status === "wrong"}
-                <strong>Your answer</strong>
-              {/if}
-            </button>
+              <span>{index + 1}</span>
+              <small>{index < currentQuestion ? "Done" : index === currentQuestion ? "Now" : ""}</small>
+            </li>
           {/each}
+        </ol>
+      </aside>
+
+      <div class="quiz-center">
+        <div class="question-panel">
+          <div class="question-meta">
+            <span>Question {String(currentQuestion + 1).padStart(2, "0")}</span>
+            <span>Slovak → English</span>
+          </div>
+          <p class="prompt-label">What does this mean?</p>
+          <h2 id="question-heading" lang="sk">{current.prompt}</h2>
         </div>
 
-        <div class="feedback" aria-live="polite" aria-atomic="true">
-          {#if selectedAnswer}
-            <p class={selectedAnswer === current.answer ? "selected-correct" : ""}>
-              <strong>{selectedAnswer === current.answer ? "Correct" : "Not quite"}</strong>
-              <span>{feedbackText}</span>
-            </p>
-            <button class="button" type="button" onclick={handleNext}>
-              {currentQuestion === questions.length - 1 ? "See results" : "Next question"}
-            </button>
-          {:else}
-            <p class="waiting">Select an answer to continue.</p>
-          {/if}
+        <div class="answer-panel">
+          <h3>Choose one answer</h3>
+          <div class="options">
+            {#each current.options as option (option)}
+              {@const status = optionStatus(option)}
+              <button
+                class={status}
+                type="button"
+                disabled={selectedAnswer !== null}
+                aria-pressed={selectedAnswer === option}
+                onclick={() => handleSelect(option)}
+              >
+                <span>{option}</span>
+                {#if status === "correct"}
+                  <strong>Correct answer</strong>
+                {:else if status === "wrong"}
+                  <strong>Your answer</strong>
+                {/if}
+              </button>
+            {/each}
+          </div>
+
+          <div class="feedback" aria-live="polite" aria-atomic="true">
+            {#if selectedAnswer}
+              <p class={selectedAnswer === current.answer ? "selected-correct" : ""}>
+                <strong>{selectedAnswer === current.answer ? "Correct" : "Not quite"}</strong>
+                <span>{feedbackText}</span>
+              </p>
+              <button class="button" type="button" onclick={handleNext}>
+                {currentQuestion === questions.length - 1 ? "See results" : "Next question"}
+              </button>
+            {:else}
+              <p class="waiting">Select an answer to continue.</p>
+            {/if}
+          </div>
         </div>
       </div>
+
+      <aside class="quiz-context" aria-label="Quiz instructions">
+        <section>
+          <p class="rail-label">How it works</p>
+          <p>Choose the closest English meaning. Each answer locks after selection.</p>
+        </section>
+        <section>
+          <p class="rail-label">Current score</p>
+          <strong>{score}</strong>
+          <span>correct so far</span>
+        </section>
+        <section>
+          <p class="rail-label">Need review?</p>
+          <a href="/wiki">Open reference index</a>
+        </section>
+      </aside>
     </section>
   {/if}
 </main>
 
 <style>
   .quiz-head {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 40px;
+    max-width: 760px;
     padding-bottom: 28px;
     border-bottom: 1px solid var(--line);
   }
@@ -174,39 +206,106 @@
     font-size: clamp(2rem, 4vw, 3rem);
   }
 
-  dl {
-    display: flex;
-    margin: 0;
-    border: 1px solid var(--line);
-  }
-
-  dl div {
-    min-width: 96px;
-    padding: 11px 14px;
-  }
-
-  dl div + div {
-    border-left: 1px solid var(--line);
-  }
-
-  dt {
-    color: var(--muted);
-    font-size: 0.68rem;
-    text-transform: uppercase;
-  }
-
-  dd {
-    margin: 4px 0 0;
-    font-size: 0.95rem;
-    font-weight: 750;
-  }
-
   .quiz-workspace {
     display: grid;
-    grid-template-columns: minmax(280px, 0.72fr) minmax(420px, 1.28fr);
+    grid-template-columns: 180px minmax(0, 1fr) 190px;
+    align-items: stretch;
     min-height: 470px;
     margin-top: 28px;
     border: 1px solid var(--line);
+  }
+
+  .quiz-progress,
+  .quiz-context {
+    padding: 20px 16px 28px;
+    background: color-mix(in srgb, var(--surface-subtle) 55%, transparent);
+  }
+
+  .quiz-progress {
+    border-right: 1px solid var(--line);
+  }
+
+  .quiz-context {
+    border-left: 1px solid var(--line);
+  }
+
+  .rail-label {
+    margin: 0 0 10px;
+    color: var(--accent);
+    font-size: 0.61rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .quiz-progress dl {
+    display: grid;
+    gap: 12px;
+    margin: 0 0 22px;
+  }
+
+  .quiz-progress dl div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .quiz-progress dt {
+    color: var(--muted);
+    font-size: 0.61rem;
+    text-transform: uppercase;
+  }
+
+  .quiz-progress dd {
+    margin: 0;
+    font-family: var(--font-reading);
+    font-size: 0.84rem;
+    font-weight: 650;
+  }
+
+  .quiz-progress ol {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+    margin: 0;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+  }
+
+  .quiz-progress li {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--muted);
+  }
+
+  .quiz-progress li > span {
+    display: grid;
+    width: 23px;
+    height: 23px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    font-size: 0.62rem;
+  }
+
+  .quiz-progress li.current > span {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+  }
+
+  .quiz-progress li.done > span {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .quiz-progress li small {
+    font-size: 0.56rem;
+  }
+
+  .quiz-center {
+    min-width: 0;
   }
 
   .question-panel,
@@ -215,8 +314,8 @@
   }
 
   .question-panel {
-    border-right: 1px solid var(--line);
-    background: var(--surface-subtle);
+    border-bottom: 1px solid var(--line);
+    background: transparent;
   }
 
   .question-meta {
@@ -238,7 +337,8 @@
   }
 
   .question-panel h2 {
-    color: var(--blue);
+    color: var(--ink);
+    font-family: var(--font-reading);
     font-size: clamp(2.4rem, 6vw, 4.2rem);
   }
 
@@ -263,7 +363,7 @@
     padding: 11px 14px;
     border: 0;
     border-bottom: 1px solid var(--line);
-    background: var(--surface);
+    background: transparent;
     color: var(--ink);
     cursor: pointer;
     text-align: left;
@@ -372,14 +472,86 @@
     margin-top: 18px;
   }
 
-  @media (max-width: 800px) {
+  .quiz-context section + section {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .quiz-context p:not(.rail-label) {
+    margin: 0;
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .quiz-context section > strong {
+    display: block;
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+
+  .quiz-context section > span {
+    color: var(--muted);
+    font-size: 0.65rem;
+  }
+
+  .quiz-context a {
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-size: 0.8rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 1050px) {
+    .quiz-workspace {
+      grid-template-columns: 170px minmax(0, 1fr);
+    }
+
+    .quiz-context {
+      display: grid;
+      grid-column: 2;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .quiz-context section + section {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+
+  @media (max-width: 760px) {
     .quiz-workspace {
       grid-template-columns: 1fr;
     }
 
-    .question-panel {
+    .quiz-progress {
       border-right: 0;
       border-bottom: 1px solid var(--line);
+    }
+
+    .quiz-progress ol {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .quiz-progress li {
+      display: block;
+    }
+
+    .quiz-progress li small {
+      display: none;
+    }
+
+    .quiz-context {
+      grid-column: 1;
     }
 
     .prompt-label {
@@ -388,12 +560,6 @@
   }
 
   @media (max-width: 560px) {
-    .quiz-head {
-      align-items: start;
-      flex-direction: column;
-      gap: 20px;
-    }
-
     .question-panel,
     .answer-panel,
     .result {
@@ -403,6 +569,16 @@
     .feedback {
       align-items: stretch;
       flex-direction: column;
+    }
+
+    .quiz-context {
+      grid-template-columns: 1fr;
+    }
+
+    .quiz-context section + section {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
     }
   }
 </style>

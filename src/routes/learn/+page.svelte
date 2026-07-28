@@ -69,15 +69,6 @@
         Six phrases for greeting someone, responding, and leaving naturally.
       </p>
     </div>
-    <div class="progress-wrap">
-      <div class="progress-label">
-        <span>Lesson progress</span>
-        <strong>{progressText}</strong>
-      </div>
-      <progress max={lessonWords.length} value={progressValue}>
-        {progressValue} of {lessonWords.length}
-      </progress>
-    </div>
   </header>
 
   <div class="lesson-workspace">
@@ -127,10 +118,6 @@
           <p lang="sk">{lessonWords[currentStep].slovak}</p>
           <p>{lessonWords[currentStep].english}</p>
         </div>
-        <div class="usage">
-          <h2>Usage note</h2>
-          <p>{lessonWords[currentStep].note}</p>
-        </div>
         <div class="stage-actions">
           <span>{progressText}</span>
           <button class="button" type="button" onclick={handleNext}>
@@ -139,15 +126,52 @@
         </div>
       {/if}
     </section>
+
+    <aside class="lesson-context" aria-label="Lesson context">
+      <section>
+        <p class="rail-label">Progress</p>
+        <div class="progress-label">
+          <span>Lesson 1 of 4</span>
+          <strong>{progressText}</strong>
+        </div>
+        <progress max={lessonWords.length} value={progressValue}>
+          {progressValue} of {lessonWords.length}
+        </progress>
+      </section>
+
+      <section>
+        <p class="rail-label">Usage note</p>
+        <p class="usage-note">
+          {complete
+            ? "Review any phrase from the lesson outline or continue to practice."
+            : lessonWords[currentStep].note}
+        </p>
+      </section>
+
+      <section>
+        <p class="rail-label">Lesson details</p>
+        <dl>
+          <div>
+            <dt>Level</dt>
+            <dd>A1 beginner</dd>
+          </div>
+          <div>
+            <dt>Phrases</dt>
+            <dd>{lessonWords.length}</dd>
+          </div>
+          <div>
+            <dt>Topic</dt>
+            <dd>Greetings</dd>
+          </div>
+        </dl>
+      </section>
+    </aside>
   </div>
 </main>
 
 <style>
   .lesson-head {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    align-items: end;
-    gap: 52px;
+    max-width: 760px;
     padding-bottom: 28px;
     border-bottom: 1px solid var(--line);
   }
@@ -156,17 +180,13 @@
     font-size: clamp(2rem, 4vw, 3rem);
   }
 
-  .progress-wrap {
-    display: grid;
-    gap: 9px;
-  }
-
   .progress-label {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    gap: 14px;
+    gap: 4px;
     color: var(--muted);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
 
   .progress-label strong {
@@ -196,22 +216,33 @@
 
   .lesson-workspace {
     display: grid;
-    grid-template-columns: 260px minmax(0, 1fr);
+    grid-template-columns: 220px minmax(0, 1fr) 210px;
     align-items: start;
-    gap: 20px;
+    gap: 0;
     padding-top: 28px;
   }
 
   .lesson-nav,
-  .lesson-stage {
+  .lesson-stage,
+  .lesson-context {
+    min-width: 0;
     border: 1px solid var(--line);
-    background: var(--surface);
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+  }
+
+  .lesson-nav {
+    border-right: 0;
+  }
+
+  .lesson-context {
+    border-left: 0;
   }
 
   .lesson-nav h2 {
     margin: 0;
     padding: 14px 15px;
-    border-bottom: 3px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+    color: var(--accent-dark);
     font-size: 0.8rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -287,8 +318,8 @@
   }
 
   .lesson-stage {
-    min-height: 430px;
-    padding: 28px 32px;
+    min-height: 470px;
+    padding: 30px 34px;
   }
 
   .stage-head {
@@ -309,7 +340,8 @@
 
   .phrase p:first-child {
     margin: 0;
-    color: var(--blue);
+    color: var(--ink);
+    font-family: var(--font-reading);
     font-size: clamp(2.4rem, 6vw, 4.5rem);
     font-weight: 750;
     letter-spacing: -0.04em;
@@ -321,24 +353,6 @@
     color: var(--muted-strong);
     font-size: 1.08rem;
     font-weight: 600;
-  }
-
-  .usage {
-    padding: 16px 18px;
-    border-left: 3px solid var(--line-strong);
-    background: var(--surface-subtle);
-  }
-
-  .usage h2 {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .usage p {
-    margin: 5px 0 0;
   }
 
   .stage-actions {
@@ -377,14 +391,84 @@
     margin-top: 20px;
   }
 
-  @media (max-width: 800px) {
-    .lesson-head,
+  .lesson-context {
+    padding: 18px 16px 30px;
+  }
+
+  .lesson-context section + section {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .rail-label {
+    margin: 0 0 10px;
+    color: var(--accent);
+    font-size: 0.61rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .lesson-context progress {
+    margin-top: 10px;
+  }
+
+  .usage-note {
+    margin: 0;
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .lesson-context dl {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .lesson-context dl div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .lesson-context dt {
+    color: var(--muted);
+    font-size: 0.61rem;
+    text-transform: uppercase;
+  }
+
+  .lesson-context dd {
+    margin: 0;
+    font-family: var(--font-reading);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 1050px) {
     .lesson-workspace {
-      grid-template-columns: 1fr;
+      grid-template-columns: 220px minmax(0, 1fr);
     }
 
-    .lesson-head {
+    .lesson-context {
+      display: grid;
+      grid-column: 2;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 24px;
+      border-top: 0;
+      border-left: 1px solid var(--line);
+    }
+
+    .lesson-context section + section {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .lesson-workspace {
+      grid-template-columns: 1fr;
     }
 
     .lesson-nav ol {
@@ -395,15 +479,39 @@
     .lesson-nav li:nth-child(odd) {
       border-right: 1px solid var(--line);
     }
+
+    .lesson-nav,
+    .lesson-stage,
+    .lesson-context {
+      border: 1px solid var(--line);
+    }
+
+    .lesson-stage,
+    .lesson-context {
+      border-top: 0;
+    }
+
+    .lesson-context {
+      grid-column: 1;
+    }
   }
 
   @media (max-width: 520px) {
     .lesson-nav ol {
-      grid-template-columns: 1fr;
+      display: flex;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
 
+    .lesson-nav ol::-webkit-scrollbar {
+      display: none;
+    }
+
+    .lesson-nav li,
     .lesson-nav li:nth-child(odd) {
-      border-right: 0;
+      min-width: 158px;
+      border-right: 1px solid var(--line);
     }
 
     .lesson-stage {
@@ -414,6 +522,16 @@
     .stage-actions {
       align-items: stretch;
       flex-direction: column;
+    }
+
+    .lesson-context {
+      grid-template-columns: 1fr;
+    }
+
+    .lesson-context section + section {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
     }
   }
 </style>

@@ -32,13 +32,13 @@
     grid-template-columns: 110px minmax(180px, 0.8fr) minmax(260px, 1.5fr) 20px;
     align-items: center;
     gap: 18px;
-    min-height: 78px;
-    padding: 13px 12px;
+    min-height: 72px;
+    padding: 12px 10px;
     border-bottom: 1px solid var(--line);
   }
 
   .entry-row:hover {
-    background: var(--surface-subtle);
+    background: color-mix(in srgb, var(--surface-subtle) 65%, transparent);
   }
 
   .entry-row:hover strong {
@@ -60,23 +60,26 @@
   }
 
   strong {
-    color: var(--blue);
-    font-size: 1rem;
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-size: 1.02rem;
   }
 
   small {
     color: var(--muted-strong);
+    font-family: var(--font-reading);
     font-size: 0.8rem;
   }
 
   .summary {
-    color: var(--muted);
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
     font-size: 0.84rem;
     line-height: 1.45;
   }
 
   .open {
-    color: var(--blue);
+    color: var(--accent);
     font-size: 1.3rem;
   }
 

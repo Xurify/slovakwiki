@@ -6,8 +6,10 @@
   let { children } = $props();
 </script>
 
-<Header />
-<div id="main-content" tabindex="-1">
-  {@render children()}
+<div class="app-frame">
+  <Header />
+  <div id="main-content" tabindex="-1">
+    {@render children()}
+  </div>
+  <Footer />
 </div>
-<Footer />

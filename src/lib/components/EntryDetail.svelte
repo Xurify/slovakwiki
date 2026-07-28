@@ -22,26 +22,49 @@
   <meta name="description" content={entry.summary}>
 </svelte:head>
 
-<main>
-  <header class="entry-header">
-    <div class="shell">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/wiki">Reference index</a>
-        <span aria-hidden="true">/</span>
-        <span>{kindLabel[entry.kind]}</span>
+<main class="entry">
+  <div class="entry-shell">
+    <aside class="entry-nav" aria-label="Entry context">
+      <a class="wiki-link" href="/wiki">Slovak Wiki</a>
+      <section>
+        <p class="rail-label">Classification</p>
+        <dl>
+          <div>
+            <dt>Section</dt>
+            <dd>{kindLabel[entry.kind]}</dd>
+          </div>
+          <div>
+            <dt>Topic</dt>
+            <dd>{entry.category}</dd>
+          </div>
+        </dl>
+      </section>
+      <nav aria-label="Reference sections">
+        <p class="rail-label">Browse</p>
+        <a href="/wiki">All entries</a>
+        <a href="/wiki">Dictionary</a>
+        <a href="/wiki">Grammar</a>
+        <a href="/wiki">Pronunciation</a>
       </nav>
-      <p class="eyebrow">{entry.category}</p>
-      <div class="title-row">
-        <h1 lang="sk">{entry.slovak}</h1>
-        <p>{entry.english}</p>
-      </div>
-      <p class="summary">{entry.summary}</p>
-    </div>
-  </header>
+    </aside>
 
-  <div class="shell entry-layout">
-    <article>
-      <section aria-labelledby="usage-heading">
+    <article class="entry-content">
+      <header class="entry-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/wiki">Reference</a>
+          <span aria-hidden="true">/</span>
+          <span>{kindLabel[entry.kind]}</span>
+        </nav>
+        <h1 lang="sk">{entry.slovak}</h1>
+        <div class="entry-meta">
+          <span class="status-dot" aria-hidden="true"></span>
+          <strong>{entry.english}</strong>
+          <span>{entry.category}</span>
+        </div>
+        <p class="summary">{entry.summary}</p>
+      </header>
+
+      <section id="usage" aria-labelledby="usage-heading">
         <p class="section-label">Usage</p>
         <h2 id="usage-heading">How to use it</h2>
         {#each entry.body as paragraph, index (index)}
@@ -49,7 +72,7 @@
         {/each}
       </section>
 
-      <section aria-labelledby="examples-heading">
+      <section id="examples" aria-labelledby="examples-heading">
         <p class="section-label">Examples</p>
         <h2 id="examples-heading">In a sentence</h2>
         <ol class="examples">
@@ -65,214 +88,364 @@
         </ol>
       </section>
 
-      <section class="source" aria-labelledby="source-heading">
+      <section class="source" id="source" aria-labelledby="source-heading">
         <p class="section-label">Source</p>
         <h2 id="source-heading">Reference</h2>
         <a href={entry.source}>Jazykovedný ústav Ľudovíta Štúra SAV ↗</a>
       </section>
     </article>
 
-    <aside aria-labelledby="related-heading">
-      <h2 id="related-heading">Related entries</h2>
-      <ul>
-        {#each entry.related as relatedSlug (relatedSlug)}
-          {@const relatedEntry = entryBySlug.get(relatedSlug)}
-          {#if relatedEntry}
-            <li>
-              <a href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}">
-                <span>
+    <aside class="entry-context" aria-label="Entry navigation">
+      <section>
+        <p class="rail-label">On this page</p>
+        <nav aria-label="Page sections">
+          <a class="active" href="#usage">How to use it</a>
+          <a href="#examples">Examples</a>
+          <a href="#source">Reference</a>
+        </nav>
+      </section>
+
+      <section>
+        <p class="rail-label">Related entries</p>
+        <ul>
+          {#each entry.related as relatedSlug (relatedSlug)}
+            {@const relatedEntry = entryBySlug.get(relatedSlug)}
+            {#if relatedEntry}
+              <li>
+                <a href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}">
                   <strong lang="sk">{relatedEntry.slovak}</strong>
                   <small>{relatedEntry.english}</small>
-                </span>
-                <span aria-hidden="true">›</span>
-              </a>
-            </li>
-          {/if}
-        {/each}
-      </ul>
+                </a>
+              </li>
+            {/if}
+          {/each}
+        </ul>
+      </section>
     </aside>
   </div>
 </main>
 
 <style>
-  .entry-header {
-    padding-block: 28px 34px;
-    border-bottom: 1px solid var(--line);
-    background: var(--surface-subtle);
-  }
-
-  .breadcrumb {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 26px;
-    color: var(--muted);
-    font-size: 0.76rem;
-  }
-
-  .breadcrumb a {
-    color: var(--blue);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .title-row {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 12px 24px;
-  }
-
-  h1 {
-    color: var(--ink);
-    font-size: clamp(2.5rem, 5vw, 4.2rem);
-  }
-
-  .title-row > p {
-    margin: 0;
-    color: var(--muted-strong);
-    font-size: 1.12rem;
-    font-weight: 600;
-  }
-
-  .summary {
-    max-width: 720px;
-    margin: 14px 0 0;
-    color: var(--muted);
-  }
-
-  .entry-layout {
+  .entry-shell {
     display: grid;
-    grid-template-columns: minmax(0, 760px) minmax(230px, 280px);
-    align-items: start;
-    justify-content: space-between;
-    gap: 64px;
-    padding-block: 40px 68px;
+    grid-template-columns: 200px minmax(0, 1fr) 210px;
   }
 
-  article section + section {
-    margin-top: 42px;
-    padding-top: 32px;
-    border-top: 1px solid var(--line);
-  }
-
-  article h2 {
-    margin-bottom: 16px;
-    font-size: 1.45rem;
-  }
-
-  article section > p:not(.section-label) {
-    max-width: 70ch;
-    color: var(--muted-strong);
-  }
-
-  aside {
+  .entry-nav,
+  .entry-context {
     position: sticky;
-    top: 82px;
-    border-top: 3px solid var(--ink);
+    top: var(--header-height);
+    height: fit-content;
+    min-width: 0;
+    padding: 28px 18px 46px;
   }
 
-  aside h2 {
-    padding: 14px 8px 11px;
-    border-bottom: 1px solid var(--line);
-    font-size: 0.82rem;
-    letter-spacing: 0.02em;
+  .entry-nav {
+    border-right: 1px solid var(--line);
+  }
+
+  .entry-context {
+    border-left: 1px solid var(--line);
+  }
+
+  .wiki-link {
+    display: block;
+    margin-bottom: 30px;
+    padding: 7px 9px;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-weight: 700;
+  }
+
+  .entry-nav section + nav {
+    margin-top: 30px;
+  }
+
+  .rail-label {
+    margin: 0 0 9px;
+    color: var(--muted);
+    font-size: 0.61rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  aside ul,
-  .examples {
+  .entry-nav dl {
+    display: grid;
+    gap: 10px;
     margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
-  aside a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    min-height: 58px;
-    padding: 10px 8px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  aside a:hover {
-    background: var(--surface-subtle);
-  }
-
-  aside a > span:first-child {
+  .entry-nav dl div {
     display: grid;
     gap: 2px;
   }
 
-  aside strong {
-    color: var(--blue);
-    font-size: 0.9rem;
+  .entry-nav dt {
+    color: var(--muted);
+    font-size: 0.62rem;
+    text-transform: uppercase;
   }
 
-  aside small {
+  .entry-nav dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
+    font-size: 0.82rem;
+  }
+
+  .entry-nav nav,
+  .entry-context nav {
+    display: grid;
+    border-left: 2px solid var(--line);
+  }
+
+  .entry-nav nav a,
+  .entry-context nav a {
+    padding: 5px 0 5px 10px;
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
+    font-size: 0.8rem;
+  }
+
+  .entry-nav nav a:hover,
+  .entry-context nav a:hover {
+    color: var(--accent-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .entry-context nav a.active {
+    border-left: 2px solid var(--accent);
+    margin-left: -2px;
+    color: var(--accent-dark);
+  }
+
+  .entry-content {
+    width: min(100%, 760px);
+    justify-self: center;
+    padding: 34px 30px 74px;
+  }
+
+  .entry-header {
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 20px;
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+
+  .breadcrumb a {
+    color: var(--accent-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  h1 {
+    font-size: clamp(2.7rem, 5vw, 4.4rem);
+  }
+
+  .entry-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px 12px;
+    margin-top: 12px;
     color: var(--muted);
     font-size: 0.72rem;
   }
 
-  aside a > span:last-child {
-    color: var(--blue);
+  .entry-meta strong {
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-size: 0.92rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border: 2px solid var(--accent-soft);
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .summary {
+    max-width: 66ch;
+    margin: 18px 0 0;
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
+    font-size: 1.03rem;
+  }
+
+  .entry-content > section {
+    scroll-margin-top: 72px;
+    padding-top: 34px;
+  }
+
+  .entry-content > section + section {
+    margin-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .entry-content h2 {
+    margin-bottom: 10px;
+    font-size: 1.48rem;
+  }
+
+  .entry-content section > p:not(.section-label) {
+    max-width: 67ch;
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
+    font-size: 0.98rem;
+    line-height: 1.7;
   }
 
   .examples {
-    border-top: 1px solid var(--line);
+    margin: 18px 0 0;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--surface-subtle) 58%, transparent);
+    list-style: none;
   }
 
   .examples li {
     display: grid;
-    grid-template-columns: 34px 1fr;
-    gap: 14px;
-    padding-block: 15px;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    padding: 14px 16px;
     border-bottom: 1px solid var(--line);
   }
 
+  .examples li:last-child {
+    border-bottom: 0;
+  }
+
   .number {
-    color: var(--muted);
-    font-size: 0.7rem;
+    color: var(--accent);
+    font-size: 0.65rem;
     font-weight: 750;
   }
 
   .examples p {
-    margin: 0 0 3px;
+    margin: 0 0 2px;
     color: var(--ink);
+    font-family: var(--font-reading);
     font-size: 1rem;
     font-weight: 650;
   }
 
   .examples small {
     color: var(--muted);
+    font-size: 0.75rem;
   }
 
   .source a {
-    color: var(--blue);
-    font-weight: 700;
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-weight: 650;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
-  @media (max-width: 850px) {
-    .entry-layout {
-      grid-template-columns: 1fr;
-      gap: 42px;
+  .entry-context section + section {
+    margin-top: 30px;
+  }
+
+  .entry-context ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry-context li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .entry-context li a {
+    display: grid;
+    gap: 2px;
+    padding-block: 9px;
+  }
+
+  .entry-context li strong {
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-size: 0.82rem;
+  }
+
+  .entry-context li small {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 0.68rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1080px) {
+    .entry-shell {
+      grid-template-columns: 190px minmax(0, 1fr);
     }
 
-    aside {
+    .entry-context {
       position: static;
+      display: grid;
+      grid-column: 2;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      padding: 24px 30px 42px;
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .entry-context section + section {
+      margin-top: 0;
     }
   }
 
-  @media (max-width: 600px) {
-    .entry-header {
-      padding-block: 22px 28px;
+  @media (max-width: 760px) {
+    .entry-shell {
+      display: block;
     }
 
-    .entry-layout {
-      padding-block: 30px 50px;
+    .entry-nav {
+      position: static;
+      display: flex;
+      overflow-x: auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wiki-link {
+      flex: 0 0 auto;
+      margin: 0;
+    }
+
+    .entry-nav section,
+    .entry-nav nav {
+      display: none;
+    }
+
+    .entry-content {
+      padding: 28px 14px 52px;
+    }
+
+    .entry-context {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      padding: 26px 14px 40px;
     }
   }
 </style>

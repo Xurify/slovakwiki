@@ -187,15 +187,15 @@
 <style>
   .intro {
     border-bottom: 1px solid var(--line);
-    background: var(--surface-subtle);
+    background: color-mix(in srgb, var(--surface-subtle) 36%, transparent);
   }
 
   .intro-grid {
     display: grid;
     grid-template-columns: minmax(320px, 0.85fr) minmax(420px, 1.15fr);
     align-items: center;
-    gap: 72px;
-    padding-block: 38px;
+    gap: 64px;
+    padding-block: 42px;
   }
 
   .intro h1 {
@@ -213,7 +213,8 @@
     display: flex;
     min-height: 48px;
     border: 1px solid var(--line-strong);
-    background: var(--surface);
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
   }
 
   .main-search > div:focus-within {
@@ -232,14 +233,15 @@
   .main-search button {
     min-width: 92px;
     border: 0;
-    background: var(--blue);
+    border-radius: 0 8px 8px 0;
+    background: var(--accent);
     color: white;
     cursor: pointer;
     font-weight: 750;
   }
 
   .main-search button:hover {
-    background: var(--blue-dark);
+    background: var(--accent-dark);
   }
 
   .main-search > p {
@@ -252,14 +254,14 @@
   }
 
   .main-search a {
-    color: var(--blue);
+    color: var(--accent-dark);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
   .dashboard {
     display: grid;
-    grid-template-columns: minmax(0, 1.45fr) minmax(310px, 0.75fr);
+    grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.68fr);
     align-items: start;
     gap: 20px;
     padding-block: 28px 64px;
@@ -273,7 +275,8 @@
 
   .panel {
     border: 1px solid var(--line);
-    background: var(--surface);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--surface) 58%, transparent);
     padding: 24px;
   }
 
@@ -291,8 +294,8 @@
   }
 
   .featured .panel-head h2 {
-    color: var(--blue);
-    font-size: 2rem;
+    color: var(--ink);
+    font-size: 2.2rem;
   }
 
   .translation {
@@ -328,12 +331,15 @@
   blockquote {
     margin: 18px 0 15px;
     padding: 13px 16px;
-    border-left: 3px solid var(--blue);
-    background: var(--surface-subtle);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--surface-subtle) 65%, transparent);
   }
 
   blockquote p {
     margin: 0;
+    font-family: var(--font-reading);
     font-weight: 650;
   }
 
@@ -373,11 +379,12 @@
 
   .word-list a:hover,
   .reference a:hover {
-    background: var(--surface-subtle);
+    background: color-mix(in srgb, var(--surface-subtle) 64%, transparent);
   }
 
   .word-list strong {
-    color: var(--blue);
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
   }
 
   .word-list span {
@@ -421,8 +428,8 @@
   }
 
   .current .step-number {
-    border-color: var(--blue);
-    background: var(--blue);
+    border-color: var(--accent);
+    background: var(--accent);
     color: white;
   }
 
@@ -465,7 +472,8 @@
     min-height: 42px;
     padding: 7px 6px;
     border-bottom: 1px solid var(--line);
-    color: var(--blue);
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
     font-size: 0.8rem;
   }
 

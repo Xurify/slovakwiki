@@ -150,7 +150,7 @@
         </div>
       </header>
 
-      <div class="search-area">
+      <div class="search-area" id="wiki-search-section">
         <label for="wiki-search">Search all entries</label>
         <div class="search-control">
           <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -204,7 +204,7 @@
         {/each}
       </nav>
 
-      <nav class="alphabet" aria-label="Filter by first letter">
+      <nav class="alphabet" id="wiki-alphabet" aria-label="Filter by first letter">
         <button
           aria-pressed={activeLetter === "all"}
           class={activeLetter === "all" ? "active" : ""}
@@ -242,7 +242,7 @@
       </div>
 
       {#if visibleEntries.length}
-        <div class="results">
+        <div class="results" id="wiki-results">
           {#each visibleEntries as entry (entry.slug)}
             <a class="result" href="/{routeBase[entry.kind]}/{entry.slug}">
               <span class="slovak" lang="sk">{entry.slovak}</span>
@@ -264,28 +264,65 @@
         </div>
       {/if}
     </section>
+
+    <aside class="context-rail" aria-label="Wiki context">
+      <section>
+        <p class="rail-label">On this page</p>
+        <nav aria-label="Wiki page sections">
+          <a href="#wiki-search-section">Search</a>
+          <a href="#wiki-alphabet">Alphabet</a>
+          <a href="#wiki-results">Entries</a>
+        </nav>
+      </section>
+
+      <section>
+        <p class="rail-label">Current view</p>
+        <dl>
+          <div>
+            <dt>Type</dt>
+            <dd>{kindFilters.find((filter) => filter.value === activeKind)?.label}</dd>
+          </div>
+          <div>
+            <dt>Topic</dt>
+            <dd>{activeCategory === "all" ? "All topics" : activeCategory}</dd>
+          </div>
+          <div>
+            <dt>Letter</dt>
+            <dd>{activeLetter === "all" ? "Any" : activeLetter}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section>
+        <p class="rail-label">Continue</p>
+        <nav aria-label="Continue learning">
+          <a href="/learn">Beginner path</a>
+          <a href="/quiz">Vocabulary quiz</a>
+        </nav>
+      </section>
+    </aside>
   </div>
 </main>
 
 <style>
   .reference {
     min-height: calc(100vh - 58px);
-    background: var(--surface);
+    background: transparent;
   }
 
   .reference-shell {
     display: grid;
-    width: min(1280px, calc(100% - 40px));
-    grid-template-columns: 232px minmax(0, 1fr);
+    width: 100%;
+    grid-template-columns: 215px minmax(0, 1fr) 205px;
     margin: 0 auto;
   }
 
   .sidebar {
     position: sticky;
-    top: 58px;
-    height: calc(100vh - 58px);
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height) - 28px);
     overflow-y: auto;
-    padding: 30px 26px 48px 0;
+    padding: 30px 18px 48px 20px;
     border-right: 1px solid var(--line);
   }
 
@@ -349,7 +386,7 @@
 
   .content {
     min-width: 0;
-    padding: 42px 0 80px 48px;
+    padding: 38px 32px 78px;
   }
 
   .content-header {
@@ -368,7 +405,7 @@
 
   h1 {
     margin: 0;
-    font-size: clamp(2.2rem, 4vw, 3.15rem);
+    font-size: clamp(2.35rem, 4vw, 3.35rem);
     font-weight: 720;
     letter-spacing: -0.045em;
     line-height: 1;
@@ -377,6 +414,7 @@
   .content-header p:last-child {
     margin: 12px 0 0;
     color: var(--muted);
+    font-family: var(--font-reading);
     font-size: 0.92rem;
   }
 
@@ -518,6 +556,77 @@
     background: var(--surface);
   }
 
+  .context-rail {
+    position: sticky;
+    top: var(--header-height);
+    min-width: 0;
+    height: fit-content;
+    padding: 30px 20px 48px 16px;
+    border-left: 1px solid var(--line);
+  }
+
+  .context-rail section + section {
+    margin-top: 30px;
+  }
+
+  .rail-label {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .context-rail nav {
+    display: grid;
+    border-left: 2px solid var(--line);
+  }
+
+  .context-rail nav a {
+    padding: 5px 0 5px 10px;
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-size: 0.8rem;
+  }
+
+  .context-rail nav a:first-child {
+    border-left: 2px solid var(--accent);
+    margin-left: -2px;
+  }
+
+  .context-rail nav a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .context-rail dl {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .context-rail dl div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .context-rail dt {
+    color: var(--muted);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+  }
+
+  .context-rail dd {
+    overflow: hidden;
+    margin: 0;
+    color: var(--ink-soft);
+    font-family: var(--font-reading);
+    font-size: 0.8rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .result {
     min-height: 58px;
     padding: 8px 14px;
@@ -588,10 +697,31 @@
     font-weight: 650;
   }
 
+  @media (max-width: 1100px) {
+    .reference-shell {
+      grid-template-columns: 215px minmax(0, 1fr);
+    }
+
+    .context-rail {
+      position: static;
+      display: grid;
+      grid-column: 2;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      padding: 24px 32px 42px;
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .context-rail section + section {
+      margin-top: 0;
+    }
+  }
+
   @media (max-width: 760px) {
     .reference-shell {
       display: block;
-      width: min(100% - 28px, 620px);
+      width: 100%;
     }
 
     .sidebar {
@@ -599,7 +729,7 @@
     }
 
     .content {
-      padding: 36px 0 72px;
+      padding: 32px 14px 58px;
     }
 
     .content-header {
@@ -621,6 +751,13 @@
       gap: 5px;
       margin-bottom: 16px;
       padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .mobile-kinds::-webkit-scrollbar,
+    .mobile-topics::-webkit-scrollbar,
+    .alphabet::-webkit-scrollbar {
+      display: none;
     }
 
     .mobile-kinds button,
@@ -648,6 +785,7 @@
 
     .alphabet {
       padding-bottom: 14px;
+      scrollbar-width: none;
     }
 
     .table-head {
@@ -683,6 +821,13 @@
     .result svg {
       grid-column: 2;
       grid-row: 1 / 3;
+    }
+
+    .context-rail {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 26px 14px 40px;
     }
   }
 </style>

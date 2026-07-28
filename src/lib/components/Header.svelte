@@ -26,8 +26,25 @@
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
 <header class="site-header">
-  <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Slovak Atlas home">Slovak Atlas</a>
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="Slovak Atlas home">
+      <span>Slovak</span>
+      <strong>Atlas</strong>
+    </a>
+
+    <form class="header-search" role="search" onsubmit={handleSubmit}>
+      <label class="sr-only" for="header-search">Search Slovak Atlas</label>
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
+      </svg>
+      <input
+        id="header-search"
+        bind:value={query}
+        type="search"
+        placeholder="Search or ask…"
+      >
+      <button type="submit">Go</button>
+    </form>
 
     <nav aria-label="Main navigation">
       {#each links as link (link.href)}
@@ -36,17 +53,6 @@
         </a>
       {/each}
     </nav>
-
-    <form class="header-search" role="search" onsubmit={handleSubmit}>
-      <label class="sr-only" for="header-search">Search Slovak Atlas</label>
-      <input
-        id="header-search"
-        bind:value={query}
-        type="search"
-        placeholder="Search words or topics"
-      >
-      <button type="submit">Search</button>
-    </form>
   </div>
 </header>
 
@@ -58,9 +64,10 @@
     left: 8px;
     transform: translateY(-160%);
     padding: 10px 14px;
-    border: 2px solid var(--blue);
+    border: 2px solid var(--accent);
+    border-radius: 6px;
     background: var(--surface);
-    color: var(--blue);
+    color: var(--accent-dark);
     font-weight: 700;
   }
 
@@ -72,38 +79,55 @@
     position: sticky;
     z-index: 20;
     top: 0;
+    min-height: var(--header-height);
     border-bottom: 1px solid var(--line);
-    background: var(--surface);
+    border-radius: var(--frame-radius) var(--frame-radius) 0 0;
+    background: color-mix(in srgb, var(--paper) 94%, transparent);
+    backdrop-filter: blur(12px);
   }
 
   .header-inner {
     display: grid;
-    grid-template-columns: auto auto minmax(250px, 1fr);
+    width: calc(100% - 32px);
+    min-height: var(--header-height);
+    grid-template-columns: minmax(150px, 1fr) minmax(280px, 430px) minmax(150px, 1fr);
     align-items: center;
-    min-height: 58px;
-    gap: 32px;
+    gap: 24px;
+    margin-inline: auto;
   }
 
   .brand {
+    display: inline-flex;
+    width: fit-content;
+    align-items: baseline;
+    gap: 5px;
+    font-size: 0.82rem;
+  }
+
+  .brand span {
+    color: var(--muted-strong);
+  }
+
+  .brand strong {
     color: var(--ink);
-    font-size: 1.02rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-family: var(--font-reading);
+    font-size: 1rem;
   }
 
   nav {
     display: flex;
+    justify-self: end;
     align-self: stretch;
   }
 
   nav a {
     display: flex;
-    min-width: 68px;
+    min-width: 58px;
     align-items: center;
     justify-content: center;
-    border-bottom: 3px solid transparent;
+    border-bottom: 2px solid transparent;
     color: var(--muted);
-    font-size: 0.88rem;
+    font-size: 0.76rem;
     font-weight: 650;
   }
 
@@ -112,77 +136,103 @@
   }
 
   nav a[aria-current="page"] {
-    border-bottom-color: var(--blue);
-    color: var(--blue);
+    border-bottom-color: var(--accent);
+    color: var(--accent-dark);
   }
 
   .header-search {
     display: flex;
-    justify-self: end;
-    width: min(100%, 410px);
+    width: 100%;
+    min-height: 34px;
+    align-items: center;
     border: 1px solid var(--line-strong);
-    background: var(--surface);
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--surface) 75%, transparent);
   }
 
   .header-search:focus-within {
-    border-color: var(--blue);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-soft) 80%, transparent);
+  }
+
+  .header-search svg {
+    width: 15px;
+    margin-left: 11px;
+    fill: none;
+    stroke: var(--muted);
+    stroke-linecap: round;
+    stroke-width: 1.8;
   }
 
   .header-search input {
     min-width: 0;
-    min-height: 38px;
+    min-height: 34px;
     flex: 1;
     border: 0;
     outline: 0;
     background: transparent;
-    padding: 0 11px;
+    padding: 0 10px;
     color: var(--ink);
-    font-size: 0.84rem;
+    font-size: 0.76rem;
   }
 
   .header-search button {
-    min-width: 68px;
+    min-width: 46px;
+    align-self: stretch;
     border: 0;
     border-left: 1px solid var(--line);
-    background: var(--surface-subtle);
-    color: var(--blue);
+    border-radius: 0 8px 8px 0;
+    background: transparent;
+    color: var(--accent-dark);
     cursor: pointer;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     font-weight: 750;
   }
 
   .header-search button:hover {
-    background: var(--blue-light);
+    background: var(--accent-soft);
   }
 
   @media (max-width: 760px) {
+    .site-header {
+      border-radius: 0;
+    }
+
     .header-inner {
       grid-template-columns: 1fr auto;
-      gap: 0 14px;
-      padding-top: 8px;
+      gap: 0 10px;
+      padding-top: 5px;
     }
 
     nav a {
-      min-width: 58px;
+      min-width: 52px;
       min-height: 42px;
     }
 
     .header-search {
       grid-column: 1 / -1;
-      justify-self: stretch;
-      width: 100%;
-      margin-block: 7px 10px;
+      grid-row: 2;
+      margin-block: 4px 9px;
+    }
+
+    .header-search,
+    .header-search input {
+      min-height: 42px;
     }
   }
 
-  @media (max-width: 400px) {
-    .brand {
-      font-size: 0.92rem;
+  @media (max-width: 390px) {
+    .header-inner {
+      width: calc(100% - 20px);
+    }
+
+    .brand span {
+      display: none;
     }
 
     nav a {
-      min-width: 52px;
-      font-size: 0.8rem;
+      min-width: 48px;
+      font-size: 0.72rem;
     }
   }
 </style>
