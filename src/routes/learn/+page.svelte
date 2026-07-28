@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-  <title>Beginner Slovak Path | Slovak Atlas</title>
+  <title>Beginner Slovak Path | Slovak Wiki</title>
   <meta
     name="description"
     content="Start learning Slovak with a short first-contact lesson."

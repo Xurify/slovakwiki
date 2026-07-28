@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-  <title>{entry.slovak} — {entry.english} | Slovak Atlas</title>
+  <title>{entry.slovak} — {entry.english} | Slovak Wiki</title>
   <meta name="description" content={entry.summary}>
 </svelte:head>
 

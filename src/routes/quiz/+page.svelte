@@ -65,7 +65,7 @@
 </script>
 
 <svelte:head>
-  <title>Slovak Vocabulary Quiz | Slovak Atlas</title>
+  <title>Slovak Vocabulary Quiz | Slovak Wiki</title>
   <meta
     name="description"
     content="Practice essential Slovak vocabulary in a quick quiz."

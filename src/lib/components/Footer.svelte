@@ -1,7 +1,7 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <strong>Slovak Atlas</strong>
+      <strong>Slovak Wiki</strong>
       <p>Reference and lessons for English speakers.</p>
     </div>
     <nav aria-label="Footer navigation">

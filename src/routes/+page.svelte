@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-  <title>Slovak Atlas — Slovak language reference and lessons</title>
+  <title>Slovak Wiki — Slovak language reference and lessons</title>
   <meta
     name="description"
     content="A practical Slovak dictionary, grammar reference, pronunciation guide, and beginner course for English speakers."

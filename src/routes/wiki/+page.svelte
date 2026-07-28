@@ -83,7 +83,7 @@
 </script>
 
 <svelte:head>
-  <title>Slovak Wiki | Slovak Atlas</title>
+  <title>Slovak Wiki — Slovak language reference and lessons</title>
   <meta
     name="description"
     content="Search Slovak words, grammar notes, and pronunciation guides."

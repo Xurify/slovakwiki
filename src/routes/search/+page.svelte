@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>{query ? `${query} — Search` : "Search"} | Slovak Atlas</title>
+  <title>{query ? `${query} — Search` : "Search"} | Slovak Wiki</title>
 </svelte:head>
 
 <main>

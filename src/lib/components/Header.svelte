@@ -27,13 +27,13 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="/" aria-label="Slovak Atlas home">
+    <a class="brand" href="/" aria-label="Slovak Wiki home">
       <span>Slovak</span>
-      <strong>Atlas</strong>
+      <strong>Wiki</strong>
     </a>
 
     <form class="header-search" role="search" onsubmit={handleSubmit}>
-      <label class="sr-only" for="header-search">Search Slovak Atlas</label>
+      <label class="sr-only" for="header-search">Search Slovak Wiki</label>
       <svg aria-hidden="true" viewBox="0 0 24 24">
         <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
       </svg>
