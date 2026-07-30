@@ -1,4 +1,4 @@
-import type { ContentEntry } from "./types";
+import type { CaseTopic, ContentEntry, GrammarTopic, PronunciationTopic } from "./types";
 
 const dictionarySource = "https://slovnik.juls.savba.sk/";
 const languageSource = "https://www.juls.savba.sk/";
@@ -301,7 +301,7 @@ export const words: ContentEntry[] = wordSeed.map((word) => ({
   tags: [word.category.toLowerCase(), "beginner"],
 }));
 
-export const grammarEntries: ContentEntry[] = [
+export const grammarEntries: GrammarTopic[] = [
   {
     slug: "grammatical-gender",
     slovak: "gramatický rod",
@@ -321,6 +321,19 @@ export const grammarEntries: ContentEntry[] = [
     related: ["muz", "zena", "mesto"],
     source: languageSource,
     tags: ["nouns", "gender", "beginner"],
+    lookFor: "Match the adjective ending to the noun's gender: -ý, -á, or -é.",
+    pathGroup: "Nouns",
+    order: 1,
+    rule: [
+      "Every Slovak noun has a grammatical gender: masculine, feminine, or neuter.",
+      "Learn each noun with its gender because it changes adjective endings, pronouns, and past-tense verbs.",
+    ],
+    pattern: {
+      label: "Adjective endings follow gender",
+      lines: ["masculine adjective ending: -ý", "feminine adjective ending: -á", "neuter adjective ending: -é"],
+    },
+    watchOut: "A final letter can suggest gender, but it does not guarantee it. Learn the noun and its pattern together.",
+    nextSlug: "cases-overview",
   },
   {
     slug: "present-tense",
@@ -340,6 +353,19 @@ export const grammarEntries: ContentEntry[] = [
     related: ["rozumiem", "hovorit", "ucit-sa"],
     source: languageSource,
     tags: ["verbs", "present tense", "beginner"],
+    lookFor: "Find the final letters on the verb. They tell you who is doing the action.",
+    pathGroup: "Verbs",
+    order: 3,
+    rule: [
+      "Present-tense endings show who performs an action, so Slovak often omits the subject pronoun.",
+      "Memorize common verbs as a complete pattern instead of translating one ending at a time.",
+    ],
+    pattern: {
+      label: "Rozumieť — to understand",
+      lines: ["ja → -m", "ty → -š", "on / ona → no ending"],
+    },
+    watchOut: "The infinitive is not a shortcut to the present tense. Learn each verb's stem and endings together.",
+    nextSlug: "word-order",
   },
   {
     slug: "cases-overview",
@@ -359,6 +385,33 @@ export const grammarEntries: ContentEntry[] = [
     related: ["kava", "mesto", "grammatical-gender"],
     source: languageSource,
     tags: ["cases", "nouns", "intermediate"],
+    lookFor: "First, identify who or what performs the action. That noun is usually nominative.",
+    caseOverview: [
+      {
+        slug: "nominative",
+        name: "Nominative",
+        question: "Kto? Čo? · Who? What?",
+        role: "Subject",
+        explanation: "Names the person, thing, or idea doing the action. In Peter číta knihu, Peter is nominative.",
+      },
+      { slug: "genitive", name: "Genitive", researchPrompt: "Add its question and main uses." },
+      { slug: "dative", name: "Dative", researchPrompt: "Add its question and main uses." },
+      { slug: "accusative", name: "Accusative", researchPrompt: "Add its question and main uses." },
+      { slug: "locative", name: "Locative", researchPrompt: "Add its question and main uses." },
+      { slug: "instrumental", name: "Instrumental", researchPrompt: "Add its question and main uses." },
+    ],
+    pathGroup: "Nouns",
+    order: 2,
+    rule: [
+      "Cases change noun endings according to the noun's role in a sentence.",
+      "Begin by recognizing subjects in nominative and direct objects in accusative. Add other cases through common phrases.",
+    ],
+    pattern: {
+      label: "The noun changes with its role",
+      lines: ["Mám kávu. · I have coffee.", "Bývam v meste. · I live in the city."],
+    },
+    watchOut: "Do not try to memorize all six case tables at once. Start with patterns you can use in complete phrases.",
+    nextSlug: "present-tense",
   },
   {
     slug: "word-order",
@@ -379,10 +432,62 @@ export const grammarEntries: ContentEntry[] = [
     related: ["present-tense", "cases-overview"],
     source: languageSource,
     tags: ["sentences", "word order", "intermediate"],
+    lookFor: "Compare what moves to the front. That position receives emphasis.",
+    pathGroup: "Sentences",
+    order: 4,
+    rule: [
+      "Slovak word order is flexible because case endings preserve grammatical roles.",
+      "Neutral sentences often follow subject–verb–object, while a moved word receives emphasis.",
+    ],
+    pattern: {
+      label: "Position changes emphasis",
+      lines: ["subject + verb + object → neutral", "moved word → emphasis"],
+    },
+    watchOut: "Flexible does not mean random. Put familiar information earlier and the new or emphasized part later.",
   },
 ];
 
-export const pronunciationEntries: ContentEntry[] = [
+export const caseTopics: CaseTopic[] = [
+  {
+    slug: "nominative",
+    name: "Nominative",
+    question: "Kto? Čo? · Who? What?",
+    summary: "The nominative names the subject: the person, thing, or idea doing the action.",
+    body: [
+      "Use nominative for the subject of a sentence. It answers who or what performs the action.",
+      "In Peter číta knihu, Peter is nominative because Peter performs the reading. The object knihu uses a different case.",
+    ],
+    examples: [
+      { slovak: "Peter číta knihu.", english: "Peter is reading a book.", note: "Peter is nominative because he performs the action." },
+      { slovak: "Mesto je veľké.", english: "The city is large.", note: "Mesto is nominative because it is the subject being described." },
+    ],
+    researchPrompts: [
+      "Collect three nouns in nominative from your own Slovak reading.",
+      "Compare a masculine, feminine, and neuter noun in the nominative.",
+    ],
+    status: "ready",
+    source: languageSource,
+  },
+  {
+    slug: "genitive", name: "Genitive", question: "Research question", summary: "Research draft for the genitive case.", body: [], examples: [], researchPrompts: ["Add the Slovak question.", "Add core uses and two examples."], status: "draft", source: languageSource,
+  },
+  {
+    slug: "dative", name: "Dative", question: "Research question", summary: "Research draft for the dative case.", body: [], examples: [], researchPrompts: ["Add the Slovak question.", "Add core uses and two examples."], status: "draft", source: languageSource,
+  },
+  {
+    slug: "accusative", name: "Accusative", question: "Research question", summary: "Research draft for the accusative case.", body: [], examples: [], researchPrompts: ["Add the Slovak question.", "Add core uses and two examples."], status: "draft", source: languageSource,
+  },
+  {
+    slug: "locative", name: "Locative", question: "Research question", summary: "Research draft for the locative case.", body: [], examples: [], researchPrompts: ["Add the Slovak question.", "Add core uses and two examples."], status: "draft", source: languageSource,
+  },
+  {
+    slug: "instrumental", name: "Instrumental", question: "Research question", summary: "Research draft for the instrumental case.", body: [], examples: [], researchPrompts: ["Add the Slovak question.", "Add core uses and two examples."], status: "draft", source: languageSource,
+  },
+];
+
+export const caseTopicBySlug = new Map(caseTopics.map((topic) => [topic.slug, topic]));
+
+export const pronunciationEntries: PronunciationTopic[] = [
   {
     slug: "first-syllable-stress",
     slovak: "prízvuk na prvej slabike",
@@ -401,6 +506,17 @@ export const pronunciationEntries: ContentEntry[] = [
     related: ["dakujem", "vowel-length"],
     source: languageSource,
     tags: ["stress", "rhythm", "beginner"],
+    pathGroup: "Rhythm",
+    order: 1,
+    goal: "Hear and place the steady first-syllable beat.",
+    contrasts: [
+      { left: "BRAtislava", right: "bra-ti-SLA-va", note: "Stress first syllable" },
+      { left: "ĎAkujem", right: "ďa-KU-jem", note: "Keep later syllables light" },
+    ],
+    mouthCue: "Give the first syllable a small lift. Keep the rest even; do not stretch it for stress.",
+    practiceWords: ["Bratislava", "ďakujem", "prosím"],
+    practicePhrase: { slovak: "Ďakujem za pomoc.", english: "Thank you for the help." },
+    nextSlug: "vowel-length",
   },
   {
     slug: "vowel-length",
@@ -420,6 +536,17 @@ export const pronunciationEntries: ContentEntry[] = [
     related: ["kava", "listok", "first-syllable-stress"],
     source: languageSource,
     tags: ["vowels", "length", "beginner"],
+    pathGroup: "Vowels",
+    order: 2,
+    goal: "Hold marked vowels longer without moving the stress.",
+    contrasts: [
+      { left: "a", right: "á", note: "short / long" },
+      { left: "i", right: "í", note: "short / long" },
+    ],
+    mouthCue: "Keep the vowel shape steady. Length means more time, not more force or a different vowel.",
+    practiceWords: ["káva", "lístok", "áno"],
+    practicePhrase: { slovak: "Prosím si kávu.", english: "I would like coffee." },
+    nextSlug: "soft-consonants",
   },
   {
     slug: "soft-consonants",
@@ -439,6 +566,16 @@ export const pronunciationEntries: ContentEntry[] = [
     related: ["co", "zena", "dakujem"],
     source: languageSource,
     tags: ["consonants", "diacritics", "beginner"],
+    pathGroup: "Consonants",
+    order: 3,
+    goal: "Treat marked consonants as distinct sounds, not decorated letters.",
+    contrasts: [
+      { left: "c", right: "č", note: "plain / caron" },
+      { left: "s", right: "š", note: "plain / caron" },
+    ],
+    mouthCue: "For č, š, and ž, raise the tongue slightly and let the sound pass further back in the mouth.",
+    practiceWords: ["čo", "žena", "ďakujem"],
+    practicePhrase: { slovak: "Čo to znamená?", english: "What does that mean?" },
   },
 ];
 

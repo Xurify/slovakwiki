@@ -2,13 +2,10 @@
   import { allEntries } from "$lib/content/data";
   import type { EntryKind } from "$lib/content/types";
 
-  type KindFilter = "all" | EntryKind;
+  type KindFilter = "all";
 
   const kindFilters: { label: string; value: KindFilter }[] = [
-    { label: "All content", value: "all" },
-    { label: "Dictionary", value: "word" },
-    { label: "Grammar", value: "grammar" },
-    { label: "Pronunciation", value: "pronunciation" },
+    { label: "Dictionary", value: "all" },
   ];
 
   const routeBase: Record<EntryKind, string> = {
@@ -18,7 +15,8 @@
   };
 
   const categoryCounts = new Map<string, number>();
-  for (const entry of allEntries) {
+  const dictionaryEntries = allEntries.filter((entry) => entry.kind === "word");
+  for (const entry of dictionaryEntries) {
     categoryCounts.set(entry.category, (categoryCounts.get(entry.category) ?? 0) + 1);
   }
   const categories = [...categoryCounts].toSorted(([first], [second]) =>
@@ -37,7 +35,7 @@
   let query = $state("");
 
   let kindEntries = $derived(
-    allEntries.filter((entry) => activeKind === "all" || entry.kind === activeKind)
+    dictionaryEntries
   );
 
   let availableLetters = $derived(
@@ -95,7 +93,7 @@
     <aside class="sidebar">
       <div class="sidebar-title">
         <strong>Slovak Wiki</strong>
-        <span>{allEntries.length} articles</span>
+        <span>{dictionaryEntries.length} words</span>
       </div>
 
       <nav aria-label="Content type">
@@ -109,12 +107,16 @@
           >
             <span>{filter.label}</span>
             <small>
-              {filter.value === "all"
-                ? allEntries.length
-                : allEntries.filter((entry) => entry.kind === filter.value).length}
+              {dictionaryEntries.length}
             </small>
           </button>
         {/each}
+      </nav>
+
+      <nav class="guided-links" aria-label="Reference sections">
+        <p class="nav-label">Reference sections</p>
+        <a href="/grammar"><strong>Grammar</strong><span>Rules and patterns →</span></a>
+        <a href="/pronunciation"><strong>Pronunciation</strong><span>Sounds and spelling →</span></a>
       </nav>
 
       <nav class="topics" aria-label="Topics">
@@ -144,14 +146,14 @@
     <section class="content">
       <header class="content-header">
         <div>
-          <p class="breadcrumb">Reference / Slovak</p>
-          <h1>Wiki</h1>
-          <p>Words, grammar, and pronunciation for English speakers.</p>
+          <p class="breadcrumb">Reference / Dictionary</p>
+          <h1>Dictionary</h1>
+          <p>Look up Slovak words by topic, letter, or English meaning.</p>
         </div>
       </header>
 
       <div class="search-area" id="wiki-search-section">
-        <label for="wiki-search">Search all entries</label>
+        <label for="wiki-search">Search dictionary words</label>
         <div class="search-control">
           <svg aria-hidden="true" viewBox="0 0 24 24">
             <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
@@ -170,7 +172,7 @@
         </div>
       </div>
 
-      <nav class="mobile-kinds" aria-label="Content type">
+      <nav class="mobile-kinds" aria-label="Dictionary type">
         {#each kindFilters as filter (filter.value)}
           <button
             aria-pressed={activeKind === filter.value}
@@ -181,6 +183,11 @@
             {filter.label}
           </button>
         {/each}
+      </nav>
+
+      <nav class="mobile-guides" aria-label="Reference sections">
+        <a href="/grammar">Grammar</a>
+        <a href="/pronunciation">Pronunciation</a>
       </nav>
 
       <nav class="mobile-topics" aria-label="Topics">
@@ -279,8 +286,8 @@
         <p class="rail-label">Current view</p>
         <dl>
           <div>
-            <dt>Type</dt>
-            <dd>{kindFilters.find((filter) => filter.value === activeKind)?.label}</dd>
+            <dt>Reference</dt>
+            <dd>Dictionary</dd>
           </div>
           <div>
             <dt>Topic</dt>
@@ -296,6 +303,8 @@
       <section>
         <p class="rail-label">Continue</p>
         <nav aria-label="Continue learning">
+          <a href="/grammar">Grammar</a>
+          <a href="/pronunciation">Pronunciation</a>
           <a href="/learn">Beginner path</a>
           <a href="/quiz">Vocabulary quiz</a>
         </nav>
@@ -383,6 +392,20 @@
     color: var(--blue);
     font-weight: 680;
   }
+
+  .guided-links a {
+    display: grid;
+    gap: 3px;
+    padding: 9px 8px;
+    border-left: 2px solid var(--line);
+    color: var(--accent-dark);
+    font-family: var(--font-reading);
+    font-size: 0.8rem;
+  }
+
+  .guided-links a + a { margin-top: 6px; }
+  .guided-links a:hover { border-left-color: var(--accent); background: var(--accent-soft); }
+  .guided-links span { color: var(--muted); font-size: 0.7rem; }
 
   .content {
     min-width: 0;
@@ -476,7 +499,8 @@
   }
 
   .mobile-kinds,
-  .mobile-topics {
+  .mobile-topics,
+  .mobile-guides {
     display: none;
   }
 
@@ -745,7 +769,8 @@
     }
 
     .mobile-kinds,
-    .mobile-topics {
+    .mobile-topics,
+    .mobile-guides {
       display: flex;
       overflow-x: auto;
       gap: 5px;
@@ -756,12 +781,14 @@
 
     .mobile-kinds::-webkit-scrollbar,
     .mobile-topics::-webkit-scrollbar,
+    .mobile-guides::-webkit-scrollbar,
     .alphabet::-webkit-scrollbar {
       display: none;
     }
 
     .mobile-kinds button,
-    .mobile-topics button {
+    .mobile-topics button,
+    .mobile-guides a {
       flex: 0 0 auto;
       min-height: 36px;
       padding: 7px 10px;
@@ -771,6 +798,8 @@
       color: var(--muted-strong);
       font-size: 0.74rem;
     }
+
+    .mobile-guides a { color: var(--accent-dark); font-family: var(--font-reading); }
 
     .mobile-kinds button.active,
     .mobile-topics button.active {

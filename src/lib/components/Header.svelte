@@ -95,6 +95,12 @@
     margin-inline: auto;
   }
 
+  @media (min-width: 801px) {
+    .header-inner { grid-template-columns: 1fr; }
+    .brand, nav { display: none; }
+    .header-search { max-width: 430px; justify-self: center; }
+  }
+
   .brand {
     display: inline-flex;
     width: fit-content;
@@ -229,5 +235,12 @@
       min-width: 48px;
       font-size: 0.72rem;
     }
+  }
+
+  @media (min-width: 801px) {
+    .header-inner { grid-template-columns: 1fr; }
+    .site-header .brand,
+    .site-header nav { display: none; }
+    .header-search { max-width: 430px; justify-self: center; }
   }
 </style>

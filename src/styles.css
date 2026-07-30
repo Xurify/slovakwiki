@@ -98,8 +98,14 @@ a {
   background-size: 4px 4px;
 }
 
+.app-shell {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 220px minmax(0, 1fr);
+}
+
 #main-content {
-  min-height: calc(100vh - 188px);
+  min-height: 0;
 }
 
 .shell {
@@ -216,6 +222,9 @@ p {
 }
 
 @media (max-width: 800px) {
+  .app-shell {
+    display: block;
+  }
   .app-frame {
     min-height: 100vh;
   }

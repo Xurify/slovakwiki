@@ -1,7 +1,7 @@
 <script lang="ts">
-  import EntryDetail from "$lib/components/EntryDetail.svelte";
+  import GrammarTopicDetail from "$lib/components/GrammarTopicDetail.svelte";
 
   let { data } = $props();
 </script>
 
-<EntryDetail entry={data.entry} />
+<GrammarTopicDetail topic={data.entry} />

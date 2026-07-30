@@ -1,7 +1,7 @@
 <script lang="ts">
-  import EntryDetail from "$lib/components/EntryDetail.svelte";
+  import PronunciationTopicDetail from "$lib/components/PronunciationTopicDetail.svelte";
 
   let { data } = $props();
 </script>
 
-<EntryDetail entry={data.entry} />
+<PronunciationTopicDetail topic={data.entry} />
