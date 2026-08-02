@@ -2,9 +2,16 @@
   import { onMount } from "svelte";
 
   import {
+    clearSearchHistory,
+    pushSearchHistory,
+    readSearchHistory,
+    type SearchHistoryItem,
+  } from "$lib/client/search-history";
+  import {
     searchIdleHints,
     searchKindChips,
     searchKindLabels,
+    type SearchDocKind,
   } from "$lib/content/search-documents";
   import { normalizeSearchText } from "$lib/content/search";
   import {
@@ -34,6 +41,7 @@
   let unavailable = $state(false);
   let activeIndex = $state(0);
   let results = $state<PagefindResultData[]>([]);
+  let recent = $state<SearchHistoryItem[]>([]);
   let inputEl = $state<HTMLInputElement | null>(null);
   let rootEl = $state<HTMLDivElement | null>(null);
   let searchGeneration = 0;
@@ -42,7 +50,14 @@
   const showPanel = $derived(open);
   const showIdle = $derived(showPanel && !trimmedQuery);
   const showResults = $derived(showPanel && Boolean(trimmedQuery));
-
+  const idleOptions = $derived([
+    ...recent.map((item) => ({ href: item.href, source: "recent" as const })),
+    ...searchIdleHints.map((hint) => ({
+      href: hint.href,
+      source: "hint" as const,
+    })),
+  ]);
+  const tryOffset = $derived(recent.length);
   const shellClass = $derived(
     size === "hero"
       ? cx("relative z-30 w-full max-w-[480px]", className)
@@ -71,6 +86,35 @@
     return "Result";
   }
 
+  function refreshRecent(): void {
+    recent = readSearchHistory(localStorage);
+  }
+
+  function rememberLookup(input: { href: string; kind?: string; label: string }): void {
+    const kind: SearchDocKind = isSearchDocKind(input.kind) ? input.kind : "word";
+    recent = pushSearchHistory(localStorage, {
+      href: input.href,
+      kind,
+      label: input.label,
+    });
+  }
+
+  function rememberResult(result: PagefindResultData): void {
+    rememberLookup({
+      href: result.url,
+      kind: result.meta.kind,
+      label: result.meta.title ?? result.url,
+    });
+  }
+
+  function clearRecent(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    clearSearchHistory(localStorage);
+    recent = [];
+    activeIndex = 0;
+  }
+
   function closePanel(): void {
     open = false;
     activeIndex = 0;
@@ -78,6 +122,7 @@
 
   function openPanel(): void {
     open = true;
+    refreshRecent();
     void getPagefind().then((api) => {
       if (!api) {
         unavailable = true;
@@ -159,8 +204,8 @@
     }
 
     const options = trimmedQuery
-      ? results
-      : searchIdleHints.map((hint) => ({ url: hint.href }));
+      ? results.map((result) => ({ href: result.url, result }))
+      : idleOptions;
 
     if (options.length === 0) {
       return;
@@ -180,14 +225,28 @@
 
     if (event.key === "Enter") {
       const selected = options[activeIndex];
-      if (selected) {
-        event.preventDefault();
-        goTo(selected.url);
+      if (!selected) {
+        return;
       }
+
+      event.preventDefault();
+
+      if ("result" in selected && selected.result) {
+        rememberResult(selected.result);
+      } else if (!trimmedQuery && activeIndex < recent.length) {
+        const item = recent[activeIndex];
+        if (item) {
+          rememberLookup(item);
+        }
+      }
+
+      goTo(selected.href);
     }
   }
 
   onMount(() => {
+    refreshRecent();
+
     if (initialQuery.trim()) {
       open = true;
       void runSearch(initialQuery);
@@ -319,6 +378,48 @@
           </div>
         </div>
 
+        {#if recent.length > 0}
+          <div class="flex items-center justify-between gap-3 px-3.5 pb-1 pt-3">
+            <p
+              class="m-0 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
+            >
+              Recent
+            </p>
+
+            <button
+              class="m-0 border-0 bg-transparent p-0 text-[0.68rem] font-semibold text-(--muted) underline-offset-2 hover:text-(--ink-soft) hover:underline"
+              type="button"
+              onclick={clearRecent}
+            >
+              Clear
+            </button>
+          </div>
+
+          {#each recent as item, index (item.href)}
+            <a
+              class={cx(
+                "flex items-center justify-between gap-3 px-3.5 py-2.5 text-left transition-colors",
+                activeIndex === index
+                  ? "bg-(--surface-selected) text-(--accent-dark)"
+                  : "text-(--ink-soft) hover:bg-(--surface-subtle)",
+              )}
+              id={`${id}-option-${index}`}
+              href={item.href}
+              role="option"
+              aria-selected={activeIndex === index}
+              onmouseenter={() => (activeIndex = index)}
+              onclick={() => rememberLookup(item)}
+            >
+              <span class="font-serif text-[0.95rem]" lang="sk">{item.label}</span>
+              <span
+                class="text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-(--muted)"
+              >
+                {searchKindLabels[item.kind]}
+              </span>
+            </a>
+          {/each}
+        {/if}
+
         <p
           class="m-0 px-3.5 pb-1 pt-3 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
         >
@@ -329,15 +430,15 @@
           <a
             class={cx(
               "flex items-center justify-between gap-3 px-3.5 py-2.5 text-left transition-colors",
-              activeIndex === index
+              activeIndex === tryOffset + index
                 ? "bg-(--surface-selected) text-(--accent-dark)"
                 : "text-(--ink-soft) hover:bg-(--surface-subtle)",
             )}
-            id={`${id}-option-${index}`}
+            id={`${id}-option-${tryOffset + index}`}
             href={hint.href}
             role="option"
-            aria-selected={activeIndex === index}
-            onmouseenter={() => (activeIndex = index)}
+            aria-selected={activeIndex === tryOffset + index}
+            onmouseenter={() => (activeIndex = tryOffset + index)}
           >
             <span class="font-serif text-[0.95rem]" lang={hint.lang}>{hint.label}</span>
             <span
@@ -372,6 +473,7 @@
               role="option"
               aria-selected={activeIndex === index}
               onmouseenter={() => (activeIndex = index)}
+              onclick={() => rememberResult(result)}
             >
               <span class="min-w-0">
                 <span class="block font-serif text-[0.95rem] text-(--ink)" lang="sk">

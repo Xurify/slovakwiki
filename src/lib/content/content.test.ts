@@ -12,6 +12,14 @@ import {
   writePracticeState,
   type StorageLike,
 } from "../client/practice-state";
+import {
+  clearSearchHistory,
+  normalizeHistoryHref,
+  pushSearchHistory,
+  readSearchHistory,
+  SEARCH_HISTORY_LIMIT,
+  searchHistoryKey,
+} from "../client/search-history";
 import { allEntries, caseTopics, entryBySlug, validateContent, words } from "./data";
 import { lessons, validateLessons } from "./lessons";
 import { practiceItemById, validatePracticeItems } from "./practice";
@@ -287,6 +295,24 @@ describe("Slovak content", () => {
     );
   });
 
+  it("prefers gloss-overlap related over raw frequency neighbors", () => {
+    const hrat = words.find((word) => word.slug === "hrat");
+    const dokazat = words.find((word) => word.slug === "dokazat");
+    const snazit = words.find((word) => word.slug === "snazit");
+
+    expect(
+      hrat?.related.some((slug) => ["zahrat", "hravat", "zohrat"].includes(slug)),
+    ).toBe(true);
+    expect(
+      dokazat?.related.some((slug) => ["preukazat", "dokazovat"].includes(slug)),
+    ).toBe(true);
+    expect(
+      snazit?.related.some((slug) => ["pokusit", "pokusat", "skusit"].includes(slug)),
+    ).toBe(true);
+    // Rank noise should not win when gloss peers exist
+    expect(hrat?.related).not.toEqual(expect.arrayContaining(["nevediet"]));
+  });
+
   it("matches Slovak answers without making diacritics optional", () => {
     expect(answersMatch("Čítam knihu.", "Čítam knihu.")).toBe(true);
     expect(answersMatch("čítam knihu", "Čítam knihu.")).toBe(true);
@@ -333,5 +359,55 @@ describe("Slovak content", () => {
       reviewItemIds: ["everyday/origin"],
       savedReferenceItemIds: ["grammar/first-person-reading"],
     });
+  });
+
+  it("stores recent search lookups with dedupe, cap, and clear", () => {
+    const storage = new MemoryStorage();
+
+    expect(normalizeHistoryHref("https://slovak.wiki/dictionary/ahoj?x=1")).toBe(
+      "/dictionary/ahoj",
+    );
+
+    pushSearchHistory(storage, {
+      at: 1,
+      href: "/dictionary/ahoj",
+      kind: "word",
+      label: "ahoj",
+    });
+    pushSearchHistory(storage, {
+      at: 2,
+      href: "/grammar/cases/nominative",
+      kind: "case",
+      label: "Nominative",
+    });
+    pushSearchHistory(storage, {
+      at: 3,
+      href: "https://example.com/dictionary/ahoj",
+      kind: "word",
+      label: "ahoj",
+    });
+
+    expect(readSearchHistory(storage).map((item) => item.href)).toEqual([
+      "/dictionary/ahoj",
+      "/grammar/cases/nominative",
+    ]);
+
+    for (let index = 0; index < SEARCH_HISTORY_LIMIT + 2; index += 1) {
+      pushSearchHistory(storage, {
+        at: 10 + index,
+        href: `/dictionary/word-${index}`,
+        kind: "word",
+        label: `word-${index}`,
+      });
+    }
+
+    expect(readSearchHistory(storage)).toHaveLength(SEARCH_HISTORY_LIMIT);
+    expect(readSearchHistory(storage)[0]?.href).toBe(
+      `/dictionary/word-${SEARCH_HISTORY_LIMIT + 1}`,
+    );
+
+    clearSearchHistory(storage);
+    expect(readSearchHistory(storage)).toEqual([]);
+    expect(storage.getItem(searchHistoryKey)).toBeNull();
   });
 });
