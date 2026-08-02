@@ -64,15 +64,15 @@
   }
 </script>
 
-<main class="py-12 pb-20 max-[640px]:py-8 max-[640px]:pb-14">
-  <PageShell class="max-w-[760px]">
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[880px]">
     <nav class="mb-6 flex flex-wrap gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/lessons">Lessons</TextLink>
       <span aria-hidden="true">/</span>
       <TextLink href="/lessons/{data.lesson.track}">{trackTitle}</TextLink>
     </nav>
 
-    <header class="border-b border-slate-200 pb-8">
+    <header class="max-w-[640px] border-b border-slate-200 pb-8">
       <Eyebrow>{trackTitle}</Eyebrow>
       <h1>{data.lesson.title}</h1>
       <Lead>{data.lesson.promise}</Lead>

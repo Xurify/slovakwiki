@@ -10,7 +10,7 @@
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[820px]">
+  <PageShell class="max-w-[880px]">
     <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/grammar">Grammar</TextLink>
       <span aria-hidden="true">/</span>

@@ -9,15 +9,15 @@
   let { data } = $props();
 </script>
 
-<main class="py-14 pb-20 max-[800px]:py-[30px] max-[800px]:pb-[50px]">
-  <PageShell class="max-w-[900px] pt-12">
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[880px]">
     <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/lessons">Lessons</TextLink>
       <span aria-hidden="true">/</span>
       <span>{data.track.title}</span>
     </nav>
 
-    <header class="max-w-[670px] border-b border-slate-200 pb-8">
+    <header class="max-w-[640px] border-b border-slate-200 pb-8">
       <Eyebrow>Lesson track</Eyebrow>
       <h1>{data.track.title}</h1>
       <Lead>{data.track.description}</Lead>

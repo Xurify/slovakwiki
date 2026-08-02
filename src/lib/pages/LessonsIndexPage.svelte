@@ -9,9 +9,9 @@
     "group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 -mx-4 px-4 py-6 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_60%,transparent)]";
 </script>
 
-<main class="py-14 pb-20 max-[800px]:py-[30px] max-[800px]:pb-[50px]">
-  <PageShell class="max-w-[900px] pt-14 max-[600px]:pt-8">
-    <header class="max-w-[700px]">
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[880px]">
+    <header class="max-w-[640px]">
       <Eyebrow>Lessons</Eyebrow>
       <h1>Learn Slovak in context</h1>
       <Lead>
