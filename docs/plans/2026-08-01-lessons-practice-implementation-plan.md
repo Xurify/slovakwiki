@@ -19,10 +19,6 @@ Keep the current visual language and left sidebar. Do not add Insights, Classroo
    - `Practice` → `/practice`
    - `Reference` → `/wiki`
 4. Keep current reference URLs stable, including `/wiki`, `/dictionary/[slug]`, `/grammar/...`, and `/pronunciation/...`.
-5. Replace the old pages with permanent server redirects:
-   - `src/routes/learn/+page.server.ts` → `/lessons/everyday/meet-someone`
-   - `src/routes/quiz/+page.server.ts` → `/practice`
-   - set `prerender = false` and throw SvelteKit `redirect(308, ...)` so old bookmarks retain their intent.
 
 ## 2. Introduce authored learning and practice data
 
@@ -181,8 +177,6 @@ Update `src/routes/+page.svelte` after the first lesson and Practice route work:
 - a returning learner can use `Review now` only when local Review has items;
 - reference search remains prominent.
 
-Remove the placeholder beginner-path dashboard and score-oriented Quiz content. Delete `src/lib/content/quizzes.ts` only after `/quiz` redirects and no imports remain.
-
 ## 8. Content rollout
 
 Ship complete, usable units—not empty curriculum promises—in this order:
@@ -223,6 +217,5 @@ Manual acceptance:
 - keyboard-only interaction, Reveal, feedback focus, and audio labels;
 - reload persistence for Review;
 - mobile Lessons, Practice, and Reference navigation;
-- `/learn` and `/quiz` redirect correctly;
 - no placeholder lesson/reference/practice links are exposed.
 

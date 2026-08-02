@@ -1,8 +1,10 @@
 export type EntryKind = "word" | "grammar" | "pronunciation";
 
 export interface Example {
+  demonstrates?: string;
   english: string;
   note?: string;
+  practiceItemId?: string;
   slovak: string;
 }
 
@@ -51,6 +53,10 @@ export interface GrammarTopic extends ContentEntry {
   caseOverview?: CaseReference[];
   kind: "grammar";
   lookFor: string;
+  lessonLink?: {
+    href: string;
+    label: string;
+  };
   nextSlug?: string;
   order: number;
   pathGroup: "Nouns" | "Verbs" | "Sentences";

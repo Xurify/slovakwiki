@@ -1,66 +1,14 @@
-<footer>
-  <div class="footer-inner">
+<footer class="border-t border-[var(--line)] bg-[color-mix(in_srgb,var(--paper)_84%,var(--surface))]">
+  <div class="mx-auto flex w-[calc(100%-48px)] justify-between gap-7 py-5 max-[680px]:w-[calc(100%-28px)] max-[680px]:flex-col max-[680px]:items-start">
     <div>
-      <strong>Slovak Wiki</strong>
-      <p>Reference and lessons for English speakers.</p>
+      <strong class="font-[var(--font-reading)] text-[0.9rem]">Slovak Wiki</strong>
+      <p class="mt-[3px] text-[0.7rem] text-[var(--muted)]">Reference and Slovak practice for English speakers.</p>
     </div>
-    <nav aria-label="Footer navigation">
-      <a href="/wiki">Reference index</a>
-      <a href="/learn">Beginner lessons</a>
-      <a href="https://slovnik.juls.savba.sk/">Language sources ↗</a>
+    <nav class="flex flex-wrap items-center gap-x-5 gap-y-2.5 text-[0.74rem] text-[var(--muted)] max-[680px]:flex-col max-[680px]:items-start">
+      <a class="hover:text-[var(--accent-dark)] hover:underline" href="/wiki">Reference index</a>
+      <a class="hover:text-[var(--accent-dark)] hover:underline" href="/lessons">Lessons</a>
+      <a class="hover:text-[var(--accent-dark)] hover:underline" href="/practice">Practice</a>
+      <a class="hover:text-[var(--accent-dark)] hover:underline" href="https://slovnik.juls.savba.sk/">Language sources ↗</a>
     </nav>
   </div>
 </footer>
-
-<style>
-  footer {
-    border-top: 1px solid var(--line);
-    background: color-mix(in srgb, var(--surface-subtle) 62%, transparent);
-  }
-
-  .footer-inner {
-    display: flex;
-    width: calc(100% - 48px);
-    justify-content: space-between;
-    gap: 28px;
-    margin-inline: auto;
-    padding-block: 20px;
-  }
-
-  strong {
-    font-family: var(--font-reading);
-    font-size: 0.9rem;
-  }
-
-  p {
-    margin: 3px 0 0;
-    color: var(--muted);
-    font-size: 0.7rem;
-  }
-
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px 20px;
-    color: var(--muted);
-    font-size: 0.74rem;
-  }
-
-  nav a:hover {
-    color: var(--accent-dark);
-    text-decoration: underline;
-  }
-
-  @media (max-width: 680px) {
-    .footer-inner,
-    nav {
-      align-items: start;
-      flex-direction: column;
-    }
-
-    .footer-inner {
-      width: calc(100% - 28px);
-    }
-  }
-</style>

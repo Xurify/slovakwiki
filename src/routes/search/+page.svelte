@@ -7,200 +7,25 @@
   let results = $derived(searchEntries(query));
 </script>
 
-<svelte:head>
-  <title>{query ? `${query} — Search` : "Search"} | Slovak Wiki</title>
-</svelte:head>
+<svelte:head><title>{query ? `${query} — Search` : "Search"} | Slovak Wiki</title></svelte:head>
 
 <main>
-  <header class="page-intro">
-    <div class="shell">
-      <nav aria-label="Breadcrumb">
-        <a href="/wiki">Reference index</a>
-        <span aria-hidden="true">/</span>
-        <span>Search</span>
-      </nav>
-      <h1>{query ? `Results for “${query}”` : "Search the atlas"}</h1>
-      <p role="status" aria-live="polite" aria-atomic="true">
-        {results.length} {results.length === 1 ? "entry" : "entries"} found.
-        Slovak diacritics are optional.
-      </p>
-    </div>
-  </header>
-
-  <section class="shell results" aria-labelledby="results-heading">
-    <div class="results-layout">
-      <div class="results-main">
+  <header class="border-b border-slate-200 bg-slate-50 py-8"><div class="shell"><nav class="mb-5 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb"><a class="text-blue-700 underline underline-offset-2" href="/wiki">Reference index</a><span>/</span><span>Search</span></nav><h1 class="text-4xl font-semibold tracking-tight text-slate-900">{query ? `Results for “${query}”` : "Search the atlas"}</h1><p class="mt-2 font-serif text-sm text-slate-600" role="status" aria-live="polite" aria-atomic="true">{results.length} {results.length === 1 ? "entry" : "entries"} found. Slovak diacritics are optional.</p></div></header>
+  <section class="shell py-8 pb-16" aria-labelledby="results-heading">
+    <div class="grid grid-cols-[minmax(0,1fr)_210px] gap-8 max-[760px]:grid-cols-1">
+      <div>
         {#if results.length}
-          <div class="results-head">
-            <h2 id="results-heading">Matches</h2>
-            <a class="text-link" href="/wiki">Complete index</a>
-          </div>
-          <div class="result-list">
-            {#each results as entry (entry.slug)}
-              <EntryCard {entry} />
-            {/each}
-          </div>
+          <div class="flex items-baseline justify-between gap-5 border-b border-slate-300 pb-3"><h2 id="results-heading" class="text-xl font-semibold text-slate-900">Matches</h2><a class="text-xs font-bold text-blue-800 underline underline-offset-2" href="/wiki">Complete index</a></div>
+          <div class="border-b border-slate-200">{#each results as entry (entry.slug)}<EntryCard {entry} />{/each}</div>
         {:else}
-          <div class="empty">
-            <p class="section-label">No result</p>
-            <h2 id="results-heading">No matching entry yet</h2>
-            <p>Try an English meaning, a shorter Slovak word, or the complete index.</p>
-            <a class="button" href="/wiki">Browse the wiki</a>
-          </div>
+          <div class="max-w-[620px] py-12"><p class="mb-2 text-xs font-semibold uppercase tracking-widest text-blue-700">No result</p><h2 id="results-heading" class="text-xl font-semibold text-slate-900">No matching entry yet</h2><p class="font-serif text-slate-600">Try an English meaning, a shorter Slovak word, or the complete index.</p><a class="button mt-3" href="/wiki">Browse the wiki</a></div>
         {/if}
       </div>
-
-      <aside aria-label="Search guidance">
-        <section>
-          <p class="rail-label">Search notes</p>
-          <p>Slovak diacritics are optional. English meanings and topic names also work.</p>
-        </section>
-        <section>
-          <p class="rail-label">Current query</p>
-          <strong>{query || "None"}</strong>
-          <span>{results.length} {results.length === 1 ? "match" : "matches"}</span>
-        </section>
-        <section>
-          <p class="rail-label">Browse instead</p>
-          <a href="/wiki">Open Slovak Wiki</a>
-        </section>
+      <aside class="border-l border-slate-200 pl-5 max-[760px]:border-l-0 max-[760px]:border-t max-[760px]:pl-0 max-[760px]:pt-6" aria-label="Search guidance">
+        <section><p class="mb-2 text-xs font-semibold uppercase tracking-widest text-blue-700">Search notes</p><p class="font-serif text-sm leading-6 text-slate-700">Slovak diacritics are optional. English meanings and topic names also work.</p></section>
+        <section class="mt-7"><p class="mb-2 text-xs font-semibold uppercase tracking-widest text-blue-700">Current query</p><strong class="block truncate font-serif text-blue-800">{query || "None"}</strong><span class="mt-0.5 block text-xs text-slate-500">{results.length} {results.length === 1 ? "match" : "matches"}</span></section>
+        <section class="mt-7"><p class="mb-2 text-xs font-semibold uppercase tracking-widest text-blue-700">Browse instead</p><a class="font-serif text-sm text-blue-800 underline underline-offset-2" href="/wiki">Open Slovak Wiki</a></section>
       </aside>
     </div>
   </section>
 </main>
-
-<style>
-  .page-intro {
-    padding-block: 30px;
-    border-bottom: 1px solid var(--line);
-    background: color-mix(in srgb, var(--surface-subtle) 45%, transparent);
-  }
-
-  nav {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    color: var(--muted);
-    font-size: 0.76rem;
-  }
-
-  nav a {
-    color: var(--blue);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .page-intro h1 {
-    font-size: clamp(1.8rem, 4vw, 2.7rem);
-  }
-
-  .page-intro p {
-    margin: 10px 0 0;
-    color: var(--muted);
-    font-family: var(--font-reading);
-    font-size: 0.88rem;
-  }
-
-  .results {
-    padding-block: 30px 64px;
-  }
-
-  .results-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 210px;
-    gap: 34px;
-  }
-
-  .results-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 20px;
-    padding-bottom: 13px;
-    border-bottom: 1px solid var(--line-strong);
-  }
-
-  .results-head h2 {
-    font-size: 1.2rem;
-  }
-
-  .result-list {
-    border-bottom: 1px solid var(--line);
-  }
-
-  aside {
-    padding-left: 18px;
-    border-left: 1px solid var(--line);
-  }
-
-  aside section + section {
-    margin-top: 28px;
-  }
-
-  .rail-label {
-    margin: 0 0 9px;
-    color: var(--accent);
-    font-size: 0.61rem;
-    font-weight: 750;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  aside p:not(.rail-label) {
-    margin: 0;
-    color: var(--ink-soft);
-    font-family: var(--font-reading);
-    font-size: 0.82rem;
-    line-height: 1.55;
-  }
-
-  aside strong,
-  aside span {
-    display: block;
-  }
-
-  aside strong {
-    overflow: hidden;
-    color: var(--accent-dark);
-    font-family: var(--font-reading);
-    text-overflow: ellipsis;
-  }
-
-  aside span {
-    margin-top: 2px;
-    color: var(--muted);
-    font-size: 0.66rem;
-  }
-
-  aside a {
-    color: var(--accent-dark);
-    font-family: var(--font-reading);
-    font-size: 0.8rem;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .empty {
-    max-width: 620px;
-  }
-
-  .empty > p:not(.section-label) {
-    color: var(--muted);
-  }
-
-  .empty .button {
-    margin-top: 12px;
-  }
-
-  @media (max-width: 760px) {
-    .results-layout {
-      grid-template-columns: 1fr;
-    }
-
-    aside {
-      padding: 24px 0 0;
-      border-top: 1px solid var(--line);
-      border-left: 0;
-    }
-  }
-</style>
