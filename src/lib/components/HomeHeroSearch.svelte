@@ -1,8 +1,12 @@
 <script lang="ts">
   import SearchBox from "$lib/components/SearchBox.svelte";
-  import { words } from "$lib/content/data";
 
-  const popularWords = words.slice(0, 5);
+  interface PopularWord {
+    slug: string;
+    slovak: string;
+  }
+
+  let { popularWords }: { popularWords: PopularWord[] } = $props();
 </script>
 
 <div class="mt-9 max-w-[480px]">

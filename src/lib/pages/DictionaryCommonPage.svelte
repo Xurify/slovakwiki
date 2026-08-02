@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from "$lib/components/ui/Button.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -24,12 +25,14 @@
 
   let { lists, liveByLemma, sourceUrl }: Props = $props();
 
-  let activePos = $state<FrequencyPos>("verb");
-  let query = $state("");
-
+  const PAGE_SIZE = 100;
   const tabs: FrequencyPos[] = ["verb", "noun", "adjective"];
 
-  const visibleEntries = $derived.by(() => {
+  let activePos = $state<FrequencyPos>("verb");
+  let query = $state("");
+  let visibleLimit = $state(PAGE_SIZE);
+
+  const filteredEntries = $derived.by(() => {
     const needle = query
       .normalize("NFD")
       .replace(/\p{Diacritic}/gu, "")
@@ -48,6 +51,19 @@
       return lemma.includes(needle) || Boolean(english?.includes(needle));
     });
   });
+
+  const visibleEntries = $derived(filteredEntries.slice(0, visibleLimit));
+  const hasMore = $derived(filteredEntries.length > visibleLimit);
+
+  function setPos(pos: FrequencyPos): void {
+    activePos = pos;
+    visibleLimit = PAGE_SIZE;
+  }
+
+  function setQuery(value: string): void {
+    query = value;
+    visibleLimit = PAGE_SIZE;
+  }
 
   const rowClass =
     "grid grid-cols-[3rem_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-slate-200 py-3 text-sm max-[560px]:grid-cols-[2.5rem_minmax(0,1fr)]";
@@ -93,7 +109,8 @@
         <input
           class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.95rem] outline-none"
           id="common-filter"
-          bind:value={query}
+          value={query}
+          oninput={(event) => setQuery((event.currentTarget as HTMLInputElement).value)}
           placeholder="Filter lemmas"
           type="search"
         />
@@ -102,7 +119,7 @@
             class="mr-3 cursor-pointer border-0 bg-transparent text-xs font-semibold text-blue-800"
             type="button"
             aria-label="Clear filter"
-            onclick={() => (query = "")}
+            onclick={() => setQuery("")}
           >
             Clear
           </button>
@@ -120,9 +137,7 @@
             type="button"
             role="tab"
             aria-selected={activePos === pos}
-            onclick={() => {
-              activePos = pos;
-            }}
+            onclick={() => setPos(pos)}
           >
             {FREQUENCY_POS_LABEL[pos]}
           </button>
@@ -130,21 +145,26 @@
       </div>
 
       <p class="mb-2 text-xs text-slate-500">
-        Showing {visibleEntries.length.toLocaleString("en")} of {lists[
-          activePos
-        ].length.toLocaleString("en")}
+        Showing {visibleEntries.length.toLocaleString("en")} of {filteredEntries.length.toLocaleString(
+          "en",
+        )}
         {FREQUENCY_POS_LABEL[activePos].toLowerCase()}
+        {#if filteredEntries.length !== lists[activePos].length}
+          <span class="text-slate-400">
+            · {lists[activePos].length.toLocaleString("en")} total
+          </span>
+        {/if}
       </p>
     </div>
 
-    {#if visibleEntries.length === 0}
+    {#if filteredEntries.length === 0}
       <div class="py-16 text-center">
         <h2 class="text-xl">No matches</h2>
         <p class="mt-2 text-sm text-slate-500">Try a shorter filter or clear it.</p>
         <button
           class="mt-4 cursor-pointer border-0 bg-transparent text-sm font-semibold text-blue-800 underline underline-offset-2"
           type="button"
-          onclick={() => (query = "")}
+          onclick={() => setQuery("")}
         >
           Clear filter
         </button>
@@ -185,6 +205,14 @@
           </li>
         {/each}
       </ol>
+
+      {#if hasMore}
+        <div class="mt-6 flex justify-center">
+          <Button type="button" onclick={() => (visibleLimit += PAGE_SIZE)}>
+            Show more
+          </Button>
+        </div>
+      {/if}
     {/if}
 
     <footer class="mt-14 border-t border-slate-200 pt-8 text-sm text-slate-500">

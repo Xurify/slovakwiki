@@ -6,22 +6,26 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { allEntries } from "$lib/content/data";
-  import type { EntryKind } from "$lib/content/types";
+  import type { WordOrigin } from "$lib/content/types";
 
-  const routeBase: Record<EntryKind, string> = {
-    grammar: "grammar",
-    pronunciation: "pronunciation",
-    word: "dictionary",
-  };
+  /** Compact browser row — no examples, body, related, or source metadata. */
+  export interface DictionaryIndexEntry {
+    category: string;
+    english: string;
+    origin?: WordOrigin;
+    slug: string;
+    slovak: string;
+    tags: string[];
+  }
+
+  let { entries }: { entries: DictionaryIndexEntry[] } = $props();
 
   const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives", "Names", "Places"]);
   const PAGE_SIZE = 60;
 
-  const dictionaryEntries = allEntries.filter((entry) => entry.kind === "word");
   const categoryCounts = new Map<string, number>();
 
-  for (const entry of dictionaryEntries) {
+  for (const entry of entries) {
     categoryCounts.set(entry.category, (categoryCounts.get(entry.category) ?? 0) + 1);
   }
 
@@ -32,15 +36,11 @@
     .filter(([category]) => MASS_CATEGORIES.has(category))
     .toSorted(([first], [second]) => first.localeCompare(second));
 
-  const featuredCount = dictionaryEntries.filter(
-    (entry) => entry.origin === "curated",
-  ).length;
+  const featuredCount = entries.filter((entry) => entry.origin === "curated").length;
 
   const availableLetters = [
     ...new Set(
-      dictionaryEntries.map(
-        (entry) => entry.slovak.at(0)?.toLocaleUpperCase("sk") ?? "#",
-      ),
+      entries.map((entry) => entry.slovak.at(0)?.toLocaleUpperCase("sk") ?? "#"),
     ),
   ].toSorted((first, second) => first.localeCompare(second, "sk"));
 
@@ -51,7 +51,7 @@
       label: category,
       count,
     })),
-    { value: "all", label: "All words", count: dictionaryEntries.length },
+    { value: "all", label: "All words", count: entries.length },
     ...massCategories.map(([category, count]) => ({
       value: category,
       label: category,
@@ -69,7 +69,7 @@
   let visibleLimit = $state(PAGE_SIZE);
 
   const filteredEntries = $derived(
-    dictionaryEntries
+    entries
       .filter((entry) => {
         if (activeCategory === "all") return true;
         if (activeCategory === "featured") return entry.origin === "curated";
@@ -250,7 +250,7 @@
         <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
           {#each visibleEntries as entry (entry.slug)}
             <li>
-              <a class={rowLinkClass} href="/{routeBase[entry.kind]}/{entry.slug}">
+              <a class={rowLinkClass} href="/dictionary/{entry.slug}">
                 <div class="min-w-0">
                   <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
                     <strong class="font-serif text-lg text-blue-800" lang="sk">

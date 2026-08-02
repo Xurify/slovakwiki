@@ -1,14 +1,9 @@
 import { allEntries } from "./data";
 import { searchFormsForLemma } from "./search-forms";
+import { normalizeSearchText } from "./search-ui";
 import type { ContentEntry } from "./types";
 
-export function normalizeSearchText(value: string): string {
-  return value
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLocaleLowerCase("sk")
-    .trim();
-}
+export { normalizeSearchText } from "./search-ui";
 
 export function searchEntries(query: string): ContentEntry[] {
   const normalizedQuery = normalizeSearchText(query);
@@ -42,9 +37,10 @@ export function searchEntries(query: string): ContentEntry[] {
             : searchable.includes(normalizedQuery)
               ? 1
               : 0;
+
       return { entry, score };
     })
     .filter((result) => result.score > 0)
-    .sort((left, right) => right.score - left.score)
+    .toSorted((first, second) => second.score - first.score)
     .map((result) => result.entry);
 }

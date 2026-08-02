@@ -4,7 +4,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { entryBySlug } from "$lib/content/data";
-  import { sentenceCase } from "$lib/content/search-documents";
+  import { sentenceCase } from "$lib/content/search-ui";
   import type { ContentEntry, PronunciationTopic } from "$lib/content/types";
 
   let { topic }: { topic: PronunciationTopic } = $props();

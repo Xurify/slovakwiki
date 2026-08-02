@@ -2,7 +2,7 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PronunciationDetailPage from "$lib/pages/PronunciationDetailPage.svelte";
 import { pronunciationEntries } from "$lib/content/data";
-import { sentenceCase } from "$lib/content/search-documents";
+import { sentenceCase } from "$lib/content/search-ui";
 
 export function getStaticPaths() {
   return pronunciationEntries.map((entry) => ({

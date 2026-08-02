@@ -1,11 +1,16 @@
 import { caseTopics, grammarEntries, pronunciationEntries, words } from "./data";
 import { lessons } from "./lessons";
 import { practiceSets } from "./practice";
-import { normalizeSearchText } from "./search";
 import { searchFormsForLemma } from "./search-forms";
+import { normalizeSearchText, type SearchDocKind } from "./search-ui";
 
-export type SearchDocKind =
-  "word" | "grammar" | "pronunciation" | "case" | "lesson" | "practice";
+export type { SearchDocKind } from "./search-ui";
+export {
+  searchIdleHints,
+  searchKindChips,
+  searchKindLabels,
+  sentenceCase,
+} from "./search-ui";
 
 export interface SearchDocument {
   content: string;
@@ -14,15 +19,6 @@ export interface SearchDocument {
   title: string;
   url: string;
 }
-
-export const searchKindLabels: Record<SearchDocKind, string> = {
-  word: "Word",
-  grammar: "Grammar",
-  pronunciation: "Pronunciation",
-  case: "Case",
-  lesson: "Lesson",
-  practice: "Practice",
-};
 
 function withNormalized(parts: string[]): string {
   const joined = parts.filter(Boolean).join("\n");
@@ -152,84 +148,3 @@ export function buildSearchDocuments(): SearchDocument[] {
 
   return documents;
 }
-
-/** EN topic labels: first letter up; SK lemmas stay as stored. */
-export function sentenceCase(value: string): string {
-  if (!value) {
-    return value;
-  }
-  return value.charAt(0).toLocaleUpperCase("en") + value.slice(1);
-}
-
-function requireIdleHintSource<T>(value: T | undefined, label: string): T {
-  if (!value) {
-    throw new Error(`Missing search idle hint source: ${label}`);
-  }
-  return value;
-}
-
-const idleHintWordAhoj = requireIdleHintSource(
-  words.find((entry) => entry.slug === "ahoj"),
-  "ahoj",
-);
-const idleHintWordDakujem = requireIdleHintSource(
-  words.find((entry) => entry.slug === "dakujem"),
-  "dakujem",
-);
-const idleHintCaseNominative = requireIdleHintSource(
-  caseTopics.find((topic) => topic.slug === "nominative"),
-  "nominative",
-);
-const idleHintLessonMeetSomeone = requireIdleHintSource(
-  lessons.find((lesson) => lesson.slug === "meet-someone"),
-  "meet-someone",
-);
-const idleHintPronunciationStress = requireIdleHintSource(
-  pronunciationEntries.find((entry) => entry.slug === "first-syllable-stress"),
-  "first-syllable-stress",
-);
-
-/** Try labels use canonical page titles: SK lemmas lowercase, EN names Title/Sentence case. */
-export const searchIdleHints: Array<{
-  href: string;
-  kind: SearchDocKind;
-  label: string;
-  lang?: string;
-}> = [
-  {
-    label: idleHintWordAhoj.slovak,
-    kind: "word",
-    href: `/dictionary/${idleHintWordAhoj.slug}`,
-    lang: "sk",
-  },
-  {
-    label: idleHintWordDakujem.slovak,
-    kind: "word",
-    href: `/dictionary/${idleHintWordDakujem.slug}`,
-    lang: "sk",
-  },
-  {
-    label: idleHintCaseNominative.name,
-    kind: "case",
-    href: `/grammar/cases/${idleHintCaseNominative.slug}`,
-  },
-  {
-    label: idleHintLessonMeetSomeone.title,
-    kind: "lesson",
-    href: `/lessons/${idleHintLessonMeetSomeone.track}/${idleHintLessonMeetSomeone.slug}`,
-  },
-  {
-    label: sentenceCase(idleHintPronunciationStress.english),
-    kind: "pronunciation",
-    href: `/pronunciation/${idleHintPronunciationStress.slug}`,
-  },
-];
-
-export const searchKindChips: SearchDocKind[] = [
-  "word",
-  "grammar",
-  "case",
-  "pronunciation",
-  "lesson",
-  "practice",
-];

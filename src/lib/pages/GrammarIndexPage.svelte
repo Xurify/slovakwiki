@@ -6,7 +6,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { grammarEntries } from "$lib/content/data";
-  import { sentenceCase } from "$lib/content/search-documents";
+  import { sentenceCase } from "$lib/content/search-ui";
 
   const groups = ["Nouns", "Verbs", "Sentences"] as const;
 

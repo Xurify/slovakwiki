@@ -4,7 +4,7 @@
 
   import FocusedPracticeAction from "$lib/components/FocusedPracticeAction.svelte";
   import { entryBySlug } from "$lib/content/data";
-  import { sentenceCase } from "$lib/content/search-documents";
+  import { sentenceCase } from "$lib/content/search-ui";
   import type { ContentEntry, GrammarTopic } from "$lib/content/types";
 
   let { topic }: { topic: GrammarTopic } = $props();

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import type { SearchDocKind } from "$lib/content/search-documents";
+import type { SearchDocKind } from "$lib/content/search-ui";
 
 export const searchHistoryKey = "slovak-wiki.search-history.v1";
 export const SEARCH_HISTORY_LIMIT = 8;

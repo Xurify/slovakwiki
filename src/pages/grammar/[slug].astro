@@ -2,7 +2,7 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import GrammarDetailPage from "$lib/pages/GrammarDetailPage.svelte";
 import { grammarEntries } from "$lib/content/data";
-import { sentenceCase } from "$lib/content/search-documents";
+import { sentenceCase } from "$lib/content/search-ui";
 
 export function getStaticPaths() {
   return grammarEntries.map((entry) => ({

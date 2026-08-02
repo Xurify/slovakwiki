@@ -1,11 +1,21 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import WikiPage from "$lib/pages/WikiPage.svelte";
+import { words } from "$lib/content/data";
+
+const entries = words.map((word) => ({
+  category: word.category,
+  english: word.english,
+  origin: word.origin,
+  slug: word.slug,
+  slovak: word.slovak,
+  tags: word.tags,
+}));
 ---
 
 <SiteLayout
   title="Dictionary — Slovak Wiki"
   description="Look up Slovak words by topic, letter, or English meaning."
 >
-  <WikiPage client:load />
+  <WikiPage client:load {entries} />
 </SiteLayout>

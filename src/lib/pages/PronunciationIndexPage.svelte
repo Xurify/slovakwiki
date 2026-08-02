@@ -5,7 +5,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
   import { pronunciationEntries } from "$lib/content/data";
-  import { sentenceCase } from "$lib/content/search-documents";
+  import { sentenceCase } from "$lib/content/search-ui";
 
   const groups = ["Rhythm", "Vowels", "Consonants", "Spelling"] as const;
 

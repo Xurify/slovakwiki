@@ -8,12 +8,12 @@
     type SearchHistoryItem,
   } from "$lib/client/search-history";
   import {
+    normalizeSearchText,
     searchIdleHints,
     searchKindChips,
     searchKindLabels,
     type SearchDocKind,
-  } from "$lib/content/search-documents";
-  import { normalizeSearchText } from "$lib/content/search";
+  } from "$lib/content/search-ui";
   import {
     getPagefind,
     isSearchDocKind,
