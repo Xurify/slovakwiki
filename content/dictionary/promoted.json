@@ -215,7 +215,9 @@
         "tatoebaId": 12257810
       }
     ],
-    "related": []
+    "related": [
+      "byt"
+    ]
   },
   {
     "slug": "dat",
@@ -265,7 +267,9 @@
         "tatoebaId": 2921853
       }
     ],
-    "related": []
+    "related": [
+      "mat"
+    ]
   },
   {
     "slug": "vediet",
@@ -458,7 +462,10 @@
         "tatoebaId": 8947507
       }
     ],
-    "related": []
+    "related": [
+      "pomysliet",
+      "rozmyslat"
+    ]
   },
   {
     "slug": "nemoct",
@@ -472,7 +479,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "moct"
+    ]
   },
   {
     "slug": "nevediet",
@@ -496,7 +505,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "vediet"
+    ]
   },
   {
     "slug": "hrat",
@@ -650,7 +661,9 @@
         "tatoebaId": 10185875
       }
     ],
-    "related": []
+    "related": [
+      "rozhodovat"
+    ]
   },
   {
     "slug": "cakat",
@@ -677,7 +690,9 @@
         "tatoebaId": 8354205
       }
     ],
-    "related": []
+    "related": [
+      "pockat"
+    ]
   },
   {
     "slug": "zit",
@@ -704,7 +719,9 @@
         "tatoebaId": 2786157
       }
     ],
-    "related": []
+    "related": [
+      "byvat"
+    ]
   },
   {
     "slug": "uviest",
@@ -750,7 +767,9 @@
         "tatoebaId": 9150107
       }
     ],
-    "related": []
+    "related": [
+      "vracat"
+    ]
   },
   {
     "slug": "nechciet",
@@ -774,7 +793,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "chciet"
+    ]
   },
   {
     "slug": "viest",
@@ -855,7 +876,9 @@
         "tatoebaId": 10966992
       }
     ],
-    "related": []
+    "related": [
+      "koncit"
+    ]
   },
   {
     "slug": "tvrdit",
@@ -950,7 +973,9 @@
         "tatoebaId": 2926486
       }
     ],
-    "related": []
+    "related": [
+      "pomahat"
+    ]
   },
   {
     "slug": "pokracovat",
@@ -977,7 +1002,9 @@
         "tatoebaId": 9850297
       }
     ],
-    "related": []
+    "related": [
+      "prestat"
+    ]
   },
   {
     "slug": "potrebovat",
@@ -1004,7 +1031,10 @@
         "tatoebaId": 9099224
       }
     ],
-    "related": []
+    "related": [
+      "musiet",
+      "nemusiet"
+    ]
   },
   {
     "slug": "snazit",
@@ -1031,7 +1061,10 @@
         "tatoebaId": 10076884
       }
     ],
-    "related": []
+    "related": [
+      "pokusit",
+      "skusit"
+    ]
   },
   {
     "slug": "pozriet",
@@ -1058,7 +1091,9 @@
         "tatoebaId": 2926447
       }
     ],
-    "related": []
+    "related": [
+      "pozerat"
+    ]
   },
   {
     "slug": "informovat",
@@ -1163,7 +1198,9 @@
         "tatoebaId": 13319040
       }
     ],
-    "related": []
+    "related": [
+      "zaplatit"
+    ]
   },
   {
     "slug": "ukazat",
@@ -1190,7 +1227,9 @@
         "tatoebaId": 9016843
       }
     ],
-    "related": []
+    "related": [
+      "ukazovat"
+    ]
   },
   {
     "slug": "dosiahnut",
@@ -1238,7 +1277,9 @@
         "tatoebaId": 7950361
       }
     ],
-    "related": []
+    "related": [
+      "ostat"
+    ]
   },
   {
     "slug": "citit",
@@ -1265,7 +1306,9 @@
         "tatoebaId": 8862410
       }
     ],
-    "related": []
+    "related": [
+      "pocitit"
+    ]
   },
   {
     "slug": "hladat",
@@ -1315,7 +1358,9 @@
         "tatoebaId": 2428910
       }
     ],
-    "related": []
+    "related": [
+      "vediet"
+    ]
   },
   {
     "slug": "vyhrat",
@@ -1423,7 +1468,9 @@
         "tatoebaId": 8958270
       }
     ],
-    "related": []
+    "related": [
+      "uverit"
+    ]
   },
   {
     "slug": "venovat",
@@ -1464,7 +1511,9 @@
         "tatoebaId": 8992105
       }
     ],
-    "related": []
+    "related": [
+      "stretavat"
+    ]
   },
   {
     "slug": "zmenit",
@@ -1491,7 +1540,9 @@
         "tatoebaId": 9017119
       }
     ],
-    "related": []
+    "related": [
+      "menit"
+    ]
   },
   {
     "slug": "vyjst",
@@ -1506,7 +1557,10 @@
         "tatoebaId": 9859717
       }
     ],
-    "related": []
+    "related": [
+      "vojst",
+      "prejst"
+    ]
   },
   {
     "slug": "odist",
@@ -1586,7 +1640,9 @@
         "tatoebaId": 9042501
       }
     ],
-    "related": []
+    "related": [
+      "prijimat"
+    ]
   },
   {
     "slug": "povazovat",
@@ -1640,7 +1696,10 @@
         "tatoebaId": 12571637
       }
     ],
-    "related": []
+    "related": [
+      "vojst",
+      "vyjst"
+    ]
   },
   {
     "slug": "davat",
@@ -1786,7 +1845,9 @@
         "tatoebaId": 10664683
       }
     ],
-    "related": []
+    "related": [
+      "zacat"
+    ]
   },
   {
     "slug": "predstavovat",
@@ -1884,7 +1945,10 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "musiet",
+      "potrebovat"
+    ]
   },
   {
     "slug": "uskutocnit",
@@ -2288,7 +2352,9 @@
         "tatoebaId": 9989604
       }
     ],
-    "related": []
+    "related": [
+      "zit"
+    ]
   },
   {
     "slug": "ponukat",
@@ -2440,7 +2506,11 @@
         "tatoebaId": 8923899
       }
     ],
-    "related": []
+    "related": [
+      "spytat",
+      "otazka",
+      "odpoved"
+    ]
   },
   {
     "slug": "rok",
@@ -2531,7 +2601,10 @@
         "tatoebaId": 9027444
       }
     ],
-    "related": []
+    "related": [
+      "bratislava",
+      "krajina"
+    ]
   },
   {
     "slug": "cas",
@@ -2622,7 +2695,9 @@
         "tatoebaId": 1548426
       }
     ],
-    "related": []
+    "related": [
+      "smrt"
+    ]
   },
   {
     "slug": "strana",
@@ -2731,7 +2806,9 @@
         "tatoebaId": 10092726
       }
     ],
-    "related": []
+    "related": [
+      "firma"
+    ]
   },
   {
     "slug": "zapas",
@@ -2758,7 +2835,9 @@
         "tatoebaId": 8987297
       }
     ],
-    "related": []
+    "related": [
+      "hra"
+    ]
   },
   {
     "slug": "svet",
@@ -2844,7 +2923,10 @@
         "tatoebaId": 3935510
       }
     ],
-    "related": []
+    "related": [
+      "slovensko",
+      "bratislava"
+    ]
   },
   {
     "slug": "problem",
@@ -2871,7 +2953,9 @@
         "tatoebaId": 2914094
       }
     ],
-    "related": []
+    "related": [
+      "riesenie"
+    ]
   },
   {
     "slug": "cesta",
@@ -2898,7 +2982,10 @@
         "tatoebaId": 12682865
       }
     ],
-    "related": []
+    "related": [
+      "ulica",
+      "cestovat"
+    ]
   },
   {
     "slug": "pripad",
@@ -2952,7 +3039,9 @@
         "tatoebaId": 12577404
       }
     ],
-    "related": []
+    "related": [
+      "peniaze"
+    ]
   },
   {
     "slug": "euro",
@@ -2966,7 +3055,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "peniaze"
+    ]
   },
   {
     "slug": "cast",
@@ -3013,7 +3104,9 @@
         "tatoebaId": 13735111
       }
     ],
-    "related": []
+    "related": [
+      "stat-n"
+    ]
   },
   {
     "slug": "bratislava",
@@ -3040,7 +3133,10 @@
         "tatoebaId": 12742799
       }
     ],
-    "related": []
+    "related": [
+      "slovensko",
+      "krajina"
+    ]
   },
   {
     "slug": "gol",
@@ -3113,7 +3209,9 @@
         "tatoebaId": 12728616
       }
     ],
-    "related": []
+    "related": [
+      "pravo"
+    ]
   },
   {
     "slug": "skupina",
@@ -3286,7 +3384,9 @@
         "tatoebaId": 10064464
       }
     ],
-    "related": []
+    "related": [
+      "tim"
+    ]
   },
   {
     "slug": "kniha",
@@ -3372,7 +3472,11 @@
         "tatoebaId": 5001992
       }
     ],
-    "related": []
+    "related": [
+      "spytat",
+      "odpovedat",
+      "odpoved"
+    ]
   },
   {
     "slug": "firma",
@@ -3393,7 +3497,9 @@
         "tatoebaId": 878652
       }
     ],
-    "related": []
+    "related": [
+      "spolocnost"
+    ]
   },
   {
     "slug": "kolo",
@@ -3586,7 +3692,9 @@
         "tatoebaId": 8920603
       }
     ],
-    "related": []
+    "related": [
+      "informacia"
+    ]
   },
   {
     "slug": "koniec",
@@ -3613,7 +3721,9 @@
         "tatoebaId": 9741928
       }
     ],
-    "related": []
+    "related": [
+      "zaciatok"
+    ]
   },
   {
     "slug": "jan",
@@ -3713,7 +3823,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "sprava"
+    ]
   },
   {
     "slug": "klub",
@@ -3810,7 +3922,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "dedina"
+    ]
   },
   {
     "slug": "hodina",
@@ -3869,7 +3983,9 @@
         "tatoebaId": 4404958
       }
     ],
-    "related": []
+    "related": [
+      "zapas"
+    ]
   },
   {
     "slug": "bod",
@@ -3986,7 +4102,9 @@
         "tatoebaId": 12735690
       }
     ],
-    "related": []
+    "related": [
+      "obchod"
+    ]
   },
   {
     "slug": "film",
@@ -4021,7 +4139,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "hrac"
+    ]
   },
   {
     "slug": "obdobie",
@@ -4084,7 +4204,9 @@
         "tatoebaId": 5756453
       }
     ],
-    "related": []
+    "related": [
+      "peniaze"
+    ]
   },
   {
     "slug": "system",
@@ -4554,7 +4676,9 @@
         "tatoebaId": 12782113
       }
     ],
-    "related": []
+    "related": [
+      "zakon"
+    ]
   },
   {
     "slug": "ministerstvo",
@@ -4595,7 +4719,9 @@
         "tatoebaId": 13817172
       }
     ],
-    "related": []
+    "related": [
+      "koniec"
+    ]
   },
   {
     "slug": "stav",
@@ -4796,7 +4922,9 @@
         "tatoebaId": 4728002
       }
     ],
-    "related": []
+    "related": [
+      "nizky"
+    ]
   },
   {
     "slug": "stary",
@@ -4887,7 +5015,9 @@
         "tatoebaId": 8978100
       }
     ],
-    "related": []
+    "related": [
+      "stary"
+    ]
   },
   {
     "slug": "rad",
@@ -5215,7 +5345,9 @@
         "tatoebaId": 2912441
       }
     ],
-    "related": []
+    "related": [
+      "nemozny"
+    ]
   },
   {
     "slug": "mestsky",
@@ -5353,7 +5485,9 @@
         "tatoebaId": 8980733
       }
     ],
-    "related": []
+    "related": [
+      "kratky"
+    ]
   },
   {
     "slug": "zly",
@@ -5575,7 +5709,9 @@
         "tatoebaId": 8996648
       }
     ],
-    "related": []
+    "related": [
+      "slaby"
+    ]
   },
   {
     "slug": "svaty",
@@ -5658,7 +5794,9 @@
         "tatoebaId": 2428516
       }
     ],
-    "related": []
+    "related": [
+      "vysoky"
+    ]
   },
   {
     "slug": "podobny",
@@ -5742,7 +5880,9 @@
         "tatoebaId": 8976229
       }
     ],
-    "related": []
+    "related": [
+      "prazdny"
+    ]
   },
   {
     "slug": "rovnaky",
@@ -5796,7 +5936,9 @@
         "tatoebaId": 9001972
       }
     ],
-    "related": []
+    "related": [
+      "krasny"
+    ]
   },
   {
     "slug": "zahranicny",
@@ -6280,7 +6422,9 @@
         "tatoebaId": 9819976
       }
     ],
-    "related": []
+    "related": [
+      "nespravny"
+    ]
   },
   {
     "slug": "kratky",
@@ -6307,7 +6451,9 @@
         "tatoebaId": 4740773
       }
     ],
-    "related": []
+    "related": [
+      "dlhy"
+    ]
   },
   {
     "slug": "volny",
@@ -6334,7 +6480,9 @@
         "tatoebaId": 12923482
       }
     ],
-    "related": []
+    "related": [
+      "slobodny"
+    ]
   },
   {
     "slug": "bratislavsky",
@@ -6532,7 +6680,9 @@
         "tatoebaId": 1059850
       }
     ],
-    "related": []
+    "related": [
+      "zlozity"
+    ]
   },
   {
     "slug": "detsky",
@@ -6616,7 +6766,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "uzky"
+    ]
   },
   {
     "slug": "rychly",
@@ -6643,7 +6795,9 @@
         "tatoebaId": 9005769
       }
     ],
-    "related": []
+    "related": [
+      "pomaly"
+    ]
   },
   {
     "slug": "madarsky",
@@ -6772,7 +6926,9 @@
         "tatoebaId": 10008833
       }
     ],
-    "related": []
+    "related": [
+      "rozhodnut"
+    ]
   },
   {
     "slug": "nachadzat",
@@ -6849,7 +7005,9 @@
         "tatoebaId": 8920937
       }
     ],
-    "related": []
+    "related": [
+      "posielat"
+    ]
   },
   {
     "slug": "spominat",
@@ -6972,7 +7130,9 @@
         "tatoebaId": 13322097
       }
     ],
-    "related": []
+    "related": [
+      "pouzit"
+    ]
   },
   {
     "slug": "pomahat",
@@ -6999,7 +7159,9 @@
         "tatoebaId": 13627039
       }
     ],
-    "related": []
+    "related": [
+      "pomoct"
+    ]
   },
   {
     "slug": "sledovat",
@@ -7192,7 +7354,9 @@
         "tatoebaId": 9917042
       }
     ],
-    "related": []
+    "related": [
+      "zostat"
+    ]
   },
   {
     "slug": "existovat",
@@ -7399,7 +7563,11 @@
         "tatoebaId": 12551998
       }
     ],
-    "related": []
+    "related": [
+      "odpovedat",
+      "otazka",
+      "odpoved"
+    ]
   },
   {
     "slug": "prichadzat",
@@ -7453,7 +7621,9 @@
         "tatoebaId": 12721291
       }
     ],
-    "related": []
+    "related": [
+      "najst"
+    ]
   },
   {
     "slug": "vyuzivat",
@@ -7552,7 +7722,9 @@
         "tatoebaId": 8865681
       }
     ],
-    "related": []
+    "related": [
+      "rozumiet"
+    ]
   },
   {
     "slug": "zaplatit",
@@ -7579,7 +7751,9 @@
         "tatoebaId": 9840860
       }
     ],
-    "related": []
+    "related": [
+      "platit"
+    ]
   },
   {
     "slug": "predat",
@@ -7606,7 +7780,9 @@
         "tatoebaId": 12826157
       }
     ],
-    "related": []
+    "related": [
+      "predavat"
+    ]
   },
   {
     "slug": "zucastnit",
@@ -8045,7 +8221,9 @@
         "tatoebaId": 8902764
       }
     ],
-    "related": []
+    "related": [
+      "zmenit"
+    ]
   },
   {
     "slug": "pozerat",
@@ -8095,7 +8273,9 @@
         "tatoebaId": 9697535
       }
     ],
-    "related": []
+    "related": [
+      "pouzivat"
+    ]
   },
   {
     "slug": "pytat",
@@ -8763,7 +8943,9 @@
         "tatoebaId": 8936006
       }
     ],
-    "related": []
+    "related": [
+      "naucit"
+    ]
   },
   {
     "slug": "prestat",
@@ -9363,7 +9545,9 @@
         "tatoebaId": 2914748
       }
     ],
-    "related": []
+    "related": [
+      "ucit"
+    ]
   },
   {
     "slug": "zabudnut",
@@ -9584,7 +9768,9 @@
         "tatoebaId": 12919861
       }
     ],
-    "related": []
+    "related": [
+      "ukazat"
+    ]
   },
   {
     "slug": "nesmiet",
@@ -9650,11 +9836,13 @@
     "examples": [
       {
         "slovak": "Knihu vraciam do knižnice.",
-        "english": "I return the book to the library.",
+        "english": "I am returning the book to the library.",
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "vratit"
+    ]
   },
   {
     "slug": "padnut",
@@ -9736,7 +9924,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "nosit"
+    ]
   },
   {
     "slug": "nedostat",
@@ -9951,8 +10141,8 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Prispievam na dobrú vec.",
-        "english": "I contribute to a good cause.",
+        "slovak": "Prispejem na dobrú vec.",
+        "english": "I will contribute to a good cause.",
         "note": "Curated"
       }
     ],
@@ -10081,7 +10271,10 @@
         "tatoebaId": 10033483
       }
     ],
-    "related": []
+    "related": [
+      "snazit",
+      "skusit"
+    ]
   },
   {
     "slug": "zaujat",
@@ -10462,7 +10655,9 @@
         "tatoebaId": 13143473
       }
     ],
-    "related": []
+    "related": [
+      "skoncit"
+    ]
   },
   {
     "slug": "zniet",
@@ -10524,7 +10719,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "dokoncit"
+    ]
   },
   {
     "slug": "opytat",
@@ -10607,7 +10804,10 @@
         "tatoebaId": 8947936
       }
     ],
-    "related": []
+    "related": [
+      "predat",
+      "obchod"
+    ]
   },
   {
     "slug": "zabit",
@@ -10952,7 +11152,9 @@
         "tatoebaId": 5433150
       }
     ],
-    "related": []
+    "related": [
+      "volat"
+    ]
   },
   {
     "slug": "spajat",
@@ -11154,7 +11356,10 @@
         "tatoebaId": 13066666
       }
     ],
-    "related": []
+    "related": [
+      "prejst",
+      "vyjst"
+    ]
   },
   {
     "slug": "spolupracovat",
@@ -11464,7 +11669,9 @@
         "tatoebaId": 9027212
       }
     ],
-    "related": []
+    "related": [
+      "cesta"
+    ]
   },
   {
     "slug": "zachovat",
@@ -11812,7 +12019,7 @@
     "examples": [
       {
         "slovak": "Môže pribudnúť nový problém.",
-        "english": "A new problem can be added.",
+        "english": "A new problem may arise.",
         "note": "Curated"
       }
     ],
@@ -11830,7 +12037,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "stretnut"
+    ]
   },
   {
     "slug": "zalozit",
@@ -12141,7 +12350,9 @@
         "tatoebaId": 12775386
       }
     ],
-    "related": []
+    "related": [
+      "niest"
+    ]
   },
   {
     "slug": "rozumiet",
@@ -12168,7 +12379,9 @@
         "tatoebaId": 9033816
       }
     ],
-    "related": []
+    "related": [
+      "vysvetlit"
+    ]
   },
   {
     "slug": "zavisiet",
@@ -12191,8 +12404,8 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem na to hľadieť.",
-        "english": "I want to look at it.",
+        "slovak": "Na problém treba hľadieť z viacerých uhlov.",
+        "english": "The problem should be viewed from several angles.",
         "note": "Curated"
       }
     ],
@@ -12250,7 +12463,9 @@
         "tatoebaId": 10069678
       }
     ],
-    "related": []
+    "related": [
+      "cakat"
+    ]
   },
   {
     "slug": "neexistovat",
@@ -12688,12 +12903,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem si na to pomyslieť.",
-        "english": "I want to think of it.",
+        "slovak": "Keď som počul tú pieseň, pomyslel som na domov.",
+        "english": "When I heard that song, I thought of home.",
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "mysliet",
+      "rozmyslat"
+    ]
   },
   {
     "slug": "vyberat",
@@ -13078,7 +13296,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "prijat"
+    ]
   },
   {
     "slug": "jest",
@@ -13337,7 +13557,10 @@
         "tatoebaId": 10943744
       }
     ],
-    "related": []
+    "related": [
+      "snazit",
+      "pokusit"
+    ]
   },
   {
     "slug": "zalezat",
@@ -13714,7 +13937,9 @@
         "tatoebaId": 2912447
       }
     ],
-    "related": []
+    "related": [
+      "poslat"
+    ]
   },
   {
     "slug": "vydrzat",
@@ -14225,7 +14450,10 @@
         "tatoebaId": 7421746
       }
     ],
-    "related": []
+    "related": [
+      "mysliet",
+      "pomysliet"
+    ]
   },
   {
     "slug": "odstranit",
@@ -15413,7 +15641,7 @@
     "examples": [
       {
         "slovak": "Na moju otázku iba prikývol.",
-        "english": "He only nodded at my question.",
+        "english": "He only nodded in response to my question.",
         "note": "Curated"
       }
     ],
@@ -15795,7 +16023,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "citit"
+    ]
   },
   {
     "slug": "darovat",
@@ -16082,7 +16312,9 @@
         "tatoebaId": 9865253
       }
     ],
-    "related": []
+    "related": [
+      "ukoncit"
+    ]
   },
   {
     "slug": "pozadovat",
@@ -17504,7 +17736,7 @@
     "examples": [
       {
         "slovak": "Nemohol som mu nepomôcť.",
-        "english": "I could not help him.",
+        "english": "I had no choice but to help him.",
         "note": "Curated"
       }
     ],
@@ -17697,7 +17929,7 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Ťažko odhadujem, koľko to bude stáť.",
+        "slovak": "Ťažko sa mi odhaduje, koľko to bude stáť.",
         "english": "It is hard for me to estimate how much it will cost.",
         "note": "Curated"
       }
@@ -17808,7 +18040,7 @@
     "examples": [
       {
         "slovak": "Pri nákupe si uplatnil zľavu.",
-        "english": "He applied a discount when shopping.",
+        "english": "He claimed a discount on his purchase.",
         "note": "Curated"
       }
     ],
@@ -17917,8 +18149,8 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Počas práce si dopĺňam vodu.",
-        "english": "I refill my water during work.",
+        "slovak": "Počas túry si dopĺňame zásoby vody.",
+        "english": "We replenish our water supplies during the hike.",
         "note": "Curated"
       }
     ],
@@ -17963,7 +18195,9 @@
         "tatoebaId": 2929930
       }
     ],
-    "related": []
+    "related": [
+      "verit"
+    ]
   },
   {
     "slug": "boliet",
@@ -18328,8 +18562,8 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Tento problém vyzýva odborníkov k spolupráci.",
-        "english": "This problem challenges experts to cooperate.",
+        "slovak": "Minister vyzýva odborníkov na spoluprácu.",
+        "english": "The minister is calling on experts to cooperate.",
         "note": "Curated"
       }
     ],
@@ -18343,7 +18577,7 @@
     "examples": [
       {
         "slovak": "Súd ho odsúdil na podmienečný trest.",
-        "english": "The court sentenced him to a suspended sentence.",
+        "english": "The court gave him a suspended sentence.",
         "note": "Curated"
       }
     ],
@@ -18424,7 +18658,9 @@
         "tatoebaId": 9970774
       }
     ],
-    "related": []
+    "related": [
+      "otvorit"
+    ]
   },
   {
     "slug": "citovat",
@@ -18463,7 +18699,7 @@
     "examples": [
       {
         "slovak": "Po hodine sa vodiči vystriedali.",
-        "english": "After an hour, the drivers changed places.",
+        "english": "After an hour, one driver relieved the other.",
         "note": "Curated"
       }
     ],
@@ -19869,8 +20105,8 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Banka uzatvára pobočku o šiestej.",
-        "english": "The bank closes the branch at six.",
+        "slovak": "Banka uzatvára zmluvy so zákazníkmi.",
+        "english": "The bank enters into contracts with customers.",
         "note": "Curated"
       }
     ],
@@ -24788,7 +25024,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "cesta"
+    ]
   },
   {
     "slug": "bystrica",
@@ -25744,7 +25982,9 @@
         "tatoebaId": 2927731
       }
     ],
-    "related": []
+    "related": [
+      "dcera"
+    ]
   },
   {
     "slug": "nedela",
@@ -25798,7 +26038,9 @@
         "tatoebaId": 13864606
       }
     ],
-    "related": []
+    "related": [
+      "zivot"
+    ]
   },
   {
     "slug": "podpora",
@@ -25906,7 +26148,12 @@
         "tatoebaId": 12712124
       }
     ],
-    "related": []
+    "related": [
+      "ruka",
+      "noha",
+      "hlava",
+      "oko"
+    ]
   },
   {
     "slug": "krok",
@@ -25974,7 +26221,9 @@
         "tatoebaId": 2912395
       }
     ],
-    "related": []
+    "related": [
+      "okno"
+    ]
   },
   {
     "slug": "riesenie",
@@ -26001,7 +26250,9 @@
         "tatoebaId": 11766276
       }
     ],
-    "related": []
+    "related": [
+      "problem"
+    ]
   },
   {
     "slug": "kraj",
@@ -28659,7 +28910,9 @@
         "tatoebaId": 12730496
       }
     ],
-    "related": []
+    "related": [
+      "stastie"
+    ]
   },
   {
     "slug": "televizia",
@@ -28751,8 +29004,8 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Slovan je členom veľkej jazykovej skupiny.",
-        "english": "A Slav is a member of a large language group.",
+        "slovak": "Na výstave sme sa dozvedeli viac o živote starých Slovanov.",
+        "english": "At the exhibition, we learned more about the lives of the ancient Slavs.",
         "note": "Curated"
       }
     ],
@@ -29123,7 +29376,11 @@
         "tatoebaId": 8869053
       }
     ],
-    "related": []
+    "related": [
+      "spytat",
+      "odpovedat",
+      "otazka"
+    ]
   },
   {
     "slug": "dennik",
@@ -29435,7 +29692,9 @@
         "tatoebaId": 4404765
       }
     ],
-    "related": []
+    "related": [
+      "postel"
+    ]
   },
   {
     "slug": "sestra",
@@ -29509,7 +29768,9 @@
         "tatoebaId": 9867894
       }
     ],
-    "related": []
+    "related": [
+      "manzel"
+    ]
   },
   {
     "slug": "vitaz",
@@ -29661,7 +29922,9 @@
         "tatoebaId": 10008524
       }
     ],
-    "related": []
+    "related": [
+      "manzelka"
+    ]
   },
   {
     "slug": "uver",
@@ -29938,7 +30201,9 @@
         "tatoebaId": 4805107
       }
     ],
-    "related": []
+    "related": [
+      "syn"
+    ]
   },
   {
     "slug": "narod",
@@ -30006,7 +30271,9 @@
         "tatoebaId": 2914718
       }
     ],
-    "related": []
+    "related": [
+      "radost"
+    ]
   },
   {
     "slug": "zahranicie",
@@ -30175,7 +30442,11 @@
         "tatoebaId": 9063366
       }
     ],
-    "related": []
+    "related": [
+      "jar",
+      "jesen",
+      "zima"
+    ]
   },
   {
     "slug": "postava",
@@ -30265,8 +30536,8 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Na odovzdanie projektu máme termín v piatok.",
-        "english": "Our deadline for handing in the project is Friday.",
+        "slovak": "Termín na odovzdanie projektu je v piatok.",
+        "english": "The deadline for submitting the project is Friday.",
         "note": "Curated"
       }
     ],
@@ -30502,7 +30773,9 @@
         "tatoebaId": 8867180
       }
     ],
-    "related": []
+    "related": [
+      "dvere"
+    ]
   },
   {
     "slug": "ves",
@@ -32116,7 +32389,9 @@
         "tatoebaId": 10943648
       }
     ],
-    "related": []
+    "related": [
+      "obec"
+    ]
   },
   {
     "slug": "pricina",
@@ -32254,7 +32529,11 @@
         "tatoebaId": 8862797
       }
     ],
-    "related": []
+    "related": [
+      "bolest",
+      "liek",
+      "nemocnica"
+    ]
   },
   {
     "slug": "model",
@@ -32623,7 +32902,11 @@
         "tatoebaId": 8920976
       }
     ],
-    "related": []
+    "related": [
+      "slnko",
+      "sneh",
+      "vietor"
+    ]
   },
   {
     "slug": "zamok",
@@ -32891,7 +33174,9 @@
         "tatoebaId": 9840852
       }
     ],
-    "related": []
+    "related": [
+      "choroba"
+    ]
   },
   {
     "slug": "zvolen",
@@ -33056,7 +33341,7 @@
     "examples": [
       {
         "slovak": "Po návrate domov som si dal horúci čaj.",
-        "english": "After returning home, I had a hot tea.",
+        "english": "After returning home, I had a cup of hot tea.",
         "note": "Curated"
       }
     ],
@@ -33208,7 +33493,7 @@
     "examples": [
       {
         "slovak": "Naša rodina dodržiava tradíciu pečenia koláčov na Vianoce.",
-        "english": "Our family keeps the tradition of baking cakes at Christmas.",
+        "english": "Our family observes the tradition of baking cakes at Christmas.",
         "note": "Curated"
       }
     ],
@@ -33481,7 +33766,7 @@
     "examples": [
       {
         "slovak": "Kde je námestie?",
-        "english": "Where is a square?",
+        "english": "Where is the square?",
         "note": "Curated"
       }
     ],
@@ -34253,7 +34538,7 @@
     "examples": [
       {
         "slovak": "Kde je štadión?",
-        "english": "Where is a stadium?",
+        "english": "Where is the stadium?",
         "note": "Curated"
       }
     ],
@@ -34493,7 +34778,9 @@
         "tatoebaId": 9075266
       }
     ],
-    "related": []
+    "related": [
+      "stol"
+    ]
   },
   {
     "slug": "usmev",
@@ -34547,7 +34834,11 @@
         "tatoebaId": 7708139
       }
     ],
-    "related": []
+    "related": [
+      "jar",
+      "leto",
+      "jesen"
+    ]
   },
   {
     "slug": "stredisko",
@@ -35053,7 +35344,9 @@
         "tatoebaId": 2429444
       }
     ],
-    "related": []
+    "related": [
+      "pocasie"
+    ]
   },
   {
     "slug": "struktura",
@@ -35384,7 +35677,7 @@
     "examples": [
       {
         "slovak": "Minimálna mzda sa od januára zvýšila.",
-        "english": "The minimum wage increased from January.",
+        "english": "The minimum wage has been higher since January.",
         "note": "Curated"
       }
     ],
@@ -35452,8 +35745,8 @@
     "category": "Places",
     "examples": [
       {
-        "slovak": "V Humennom sa začína výlet do okolia Laboreca.",
-        "english": "A trip around the Laborec region can begin in Humenné.",
+        "slovak": "Výlet popri Laborci sa začína v Humennom.",
+        "english": "The trip along the Laborec River begins in Humenné.",
         "note": "Curated"
       }
     ],
@@ -36129,7 +36422,11 @@
         "tatoebaId": 12635986
       }
     ],
-    "related": []
+    "related": [
+      "jar",
+      "leto",
+      "zima"
+    ]
   },
   {
     "slug": "jaroslav",
@@ -36331,8 +36628,8 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Hasiči zasiahli pri požiari v bytovom dome.",
-        "english": "Firefighters intervened in a fire in an apartment building.",
+        "slovak": "Rýchly zásah hasičov zabránil väčším škodám.",
+        "english": "The firefighters' quick response prevented greater damage.",
         "note": "Curated"
       }
     ],
@@ -36380,8 +36677,8 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Kde je rezort?",
-        "english": "Where is a ministry?",
+        "slovak": "Rezort školstva pripravuje reformu.",
+        "english": "The education ministry is preparing a reform.",
         "note": "Curated"
       }
     ],
@@ -36506,7 +36803,7 @@
     "examples": [
       {
         "slovak": "Kde je hala?",
-        "english": "Where is a hall?",
+        "english": "Where is the hall?",
         "note": "Curated"
       }
     ],
@@ -36677,7 +36974,11 @@
         "tatoebaId": 10016125
       }
     ],
-    "related": []
+    "related": [
+      "leto",
+      "jesen",
+      "zima"
+    ]
   },
   {
     "slug": "vietor",
@@ -36704,7 +37005,9 @@
         "tatoebaId": 1338568
       }
     ],
-    "related": []
+    "related": [
+      "pocasie"
+    ]
   },
   {
     "slug": "teplota",
@@ -36741,7 +37044,7 @@
     "examples": [
       {
         "slovak": "Kde je redakcia?",
-        "english": "Where is an editorial office?",
+        "english": "Where is the editorial office?",
         "note": "Curated"
       }
     ],
@@ -36953,8 +37256,8 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Pred zápasom si hráči obliekli nový dres.",
-        "english": "Before the match, the players put on a new jersey.",
+        "slovak": "Pred zápasom si hráči obliekli nové dresy.",
+        "english": "Before the match, the players put on their new jerseys.",
         "note": "Curated"
       }
     ],
@@ -38278,7 +38581,9 @@
         "tatoebaId": 8902828
       }
     ],
-    "related": []
+    "related": [
+      "pocasie"
+    ]
   },
   {
     "slug": "predstavenie",
@@ -40811,8 +41116,8 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Lopta prešla cez bránku.",
-        "english": "The ball went through the goal.",
+        "slovak": "Lopta skončila v bránke.",
+        "english": "The ball ended up in the goal.",
         "note": "Curated"
       }
     ],
@@ -41392,8 +41697,8 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Pri vybavovaní pasu potrebujete občiansky doklad.",
-        "english": "You need an identity document when applying for a passport.",
+        "slovak": "Pri vybavovaní pasu potrebujete doklad totožnosti.",
+        "english": "You need proof of identity when applying for a passport.",
         "note": "Curated"
       }
     ],
@@ -41792,7 +42097,9 @@
         "tatoebaId": 8935878
       }
     ],
-    "related": []
+    "related": [
+      "chudobny"
+    ]
   },
   {
     "slug": "bezny",
@@ -41888,7 +42195,9 @@
         "tatoebaId": 9697528
       }
     ],
-    "related": []
+    "related": [
+      "spinavy"
+    ]
   },
   {
     "slug": "moderny",
@@ -41929,7 +42238,9 @@
         "tatoebaId": 9942141
       }
     ],
-    "related": []
+    "related": [
+      "silny"
+    ]
   },
   {
     "slug": "pravny",
@@ -42716,7 +43027,9 @@
         "tatoebaId": 12625730
       }
     ],
-    "related": []
+    "related": [
+      "chory"
+    ]
   },
   {
     "slug": "horny",
@@ -43633,7 +43946,9 @@
         "tatoebaId": 13260290
       }
     ],
-    "related": []
+    "related": [
+      "plny"
+    ]
   },
   {
     "slug": "lacny",
@@ -43900,7 +44215,9 @@
         "tatoebaId": 13875097
       }
     ],
-    "related": []
+    "related": [
+      "volny"
+    ]
   },
   {
     "slug": "tajny",
@@ -44035,7 +44352,7 @@
     "examples": [
       {
         "slovak": "Banka ponúka investičný fond pre začínajúcich sporiteľov.",
-        "english": "The bank offers an investment fund for beginning savers.",
+        "english": "The bank offers an investment fund for people new to saving.",
         "note": "Curated"
       }
     ],
@@ -44093,7 +44410,9 @@
         "tatoebaId": 12838350
       }
     ],
-    "related": []
+    "related": [
+      "bohaty"
+    ]
   },
   {
     "slug": "priemyselny",
@@ -44175,7 +44494,9 @@
         "tatoebaId": 8862484
       }
     ],
-    "related": []
+    "related": [
+      "vesely"
+    ]
   },
   {
     "slug": "elektronicky",
@@ -44225,7 +44546,7 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "V Žiline sme navštívili známy žilinský podnik.",
+        "slovak": "V Žiline sme navštívili známu žilinskú reštauráciu.",
         "english": "In Žilina, we visited a well-known local restaurant.",
         "note": "Curated"
       }
@@ -44474,7 +44795,9 @@
         "tatoebaId": 8215462
       }
     ],
-    "related": []
+    "related": [
+      "studeny"
+    ]
   },
   {
     "slug": "pravidelny",
@@ -44709,7 +45032,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "siroky"
+    ]
   },
   {
     "slug": "sovietsky",
@@ -44833,8 +45158,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "V meste sme navštívili židovskú synagógu.",
-        "english": "In the city, we visited a Jewish synagogue.",
+        "slovak": "V meste sme navštívili židovské múzeum.",
+        "english": "In the city, we visited a Jewish museum.",
         "note": "Curated"
       }
     ],
@@ -45134,7 +45459,9 @@
         "tatoebaId": 8913851
       }
     ],
-    "related": []
+    "related": [
+      "jednoduchy"
+    ]
   },
   {
     "slug": "dolny",
@@ -45297,7 +45624,9 @@
         "tatoebaId": 2921815
       }
     ],
-    "related": []
+    "related": [
+      "zdravy"
+    ]
   },
   {
     "slug": "zadny",
@@ -46114,7 +46443,7 @@
     "examples": [
       {
         "slovak": "Prípravný zápas sa začne o šiestej.",
-        "english": "The preparatory match will begin at six.",
+        "english": "The friendly match will start at six.",
         "note": "Curated"
       }
     ],
@@ -46145,7 +46474,9 @@
         "tatoebaId": 12598426
       }
     ],
-    "related": []
+    "related": [
+      "teply"
+    ]
   },
   {
     "slug": "rodny",
@@ -47200,7 +47531,7 @@
     "examples": [
       {
         "slovak": "Na skúške sme mali aj písomnú časť.",
-        "english": "We also had a written part in the exam.",
+        "english": "The exam also had a written section.",
         "note": "Curated"
       }
     ],
@@ -47460,7 +47791,9 @@
         "tatoebaId": 8957866
       }
     ],
-    "related": []
+    "related": [
+      "smutny"
+    ]
   },
   {
     "slug": "zabavny",
@@ -49043,7 +49376,9 @@
         "tatoebaId": 9053546
       }
     ],
-    "related": []
+    "related": [
+      "spravny"
+    ]
   },
   {
     "slug": "hrozny",
@@ -49207,7 +49542,7 @@
     "examples": [
       {
         "slovak": "V sobotu organizujeme klubový večer.",
-        "english": "We are organizing a club evening on Saturday.",
+        "english": "We are organizing a club night on Saturday.",
         "note": "Curated"
       }
     ],
@@ -49598,7 +49933,7 @@
     "examples": [
       {
         "slovak": "Tatranský vzduch je čistý.",
-        "english": "The Tatra air is clean.",
+        "english": "The air in the Tatras is clean.",
         "note": "Curated"
       }
     ],
@@ -49629,7 +49964,9 @@
         "tatoebaId": 8936190
       }
     ],
-    "related": []
+    "related": [
+      "rychly"
+    ]
   },
   {
     "slug": "legislativny",
@@ -49812,7 +50149,9 @@
         "tatoebaId": 1036096
       }
     ],
-    "related": []
+    "related": [
+      "mozny"
+    ]
   },
   {
     "slug": "primerany",
@@ -49863,8 +50202,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Je to bezplatný človek.",
-        "english": "That is a free of charge person.",
+        "slovak": "Vstup do múzea je bezplatný.",
+        "english": "Admission to the museum is free of charge.",
         "note": "Curated"
       }
     ],
@@ -50480,7 +50819,9 @@
         "tatoebaId": 9762731
       }
     ],
-    "related": []
+    "related": [
+      "cisty"
+    ]
   },
   {
     "slug": "pozoruhodny",
@@ -51155,7 +51496,7 @@
     "examples": [
       {
         "slovak": "Turčianska obec pripravila letné slávnosti.",
-        "english": "A Turiec municipality prepared summer celebrations.",
+        "english": "A village in the Turiec region organized summer festivities.",
         "note": "Curated"
       }
     ],
@@ -51857,8 +52198,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Rimavská nemocnica otvorila nové oddelenie.",
-        "english": "The Rimavská hospital opened a new department.",
+        "slovak": "Prešli sme cez Rimavskú kotlinu.",
+        "english": "We travelled through the Rimava Basin.",
         "note": "Curated"
       }
     ],
@@ -51916,7 +52257,7 @@
     "examples": [
       {
         "slovak": "Verejnoprávne médium má slúžiť verejnosti.",
-        "english": "A public-service medium should serve the public.",
+        "english": "A public-service media outlet should serve the public.",
         "note": "Curated"
       }
     ],
@@ -52257,8 +52598,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Mesto tvorí pestrá etnická skupina.",
-        "english": "The city is made up of a diverse ethnic group.",
+        "slovak": "V meste žijú rôzne etnické skupiny.",
+        "english": "Different ethnic groups live in the city.",
         "note": "Curated"
       }
     ],
@@ -53327,7 +53668,7 @@
     "examples": [
       {
         "slovak": "V ťažkých chvíľach sa ukáže ozajstný priateľ.",
-        "english": "A true friend shows himself in difficult times.",
+        "english": "A true friend proves themselves in difficult times.",
         "note": "Curated"
       }
     ],
@@ -53802,8 +54143,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Členný tím pripravil spoločný návrh.",
-        "english": "The member-based team prepared a joint proposal.",
+        "slovak": "Výbor je päťčlenný.",
+        "english": "The committee has five members.",
         "note": "Curated"
       }
     ],
@@ -53899,8 +54240,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Tento rok oslavujeme jubilejný rok školy.",
-        "english": "This year we are celebrating the school's jubilee year.",
+        "slovak": "Tento rok sa koná jubilejný desiaty ročník festivalu.",
+        "english": "The festival celebrates its milestone tenth edition this year.",
         "note": "Curated"
       }
     ],
@@ -53984,7 +54325,7 @@
     "examples": [
       {
         "slovak": "Na budove svieti nová svetelná reklama.",
-        "english": "A new illuminated sign is lit on the building.",
+        "english": "A new illuminated sign shines on the building.",
         "note": "Curated"
       }
     ],
@@ -54151,7 +54492,7 @@
     "examples": [
       {
         "slovak": "Nad mestom bola belasá obloha.",
-        "english": "There was a sky-blue sky above the city.",
+        "english": "The sky above the city was light blue.",
         "note": "Curated"
       }
     ],
@@ -54410,7 +54751,7 @@
     "examples": [
       {
         "slovak": "Škola prijala výchovné opatrenie.",
-        "english": "The school adopted an educational measure.",
+        "english": "The school adopted a disciplinary measure.",
         "note": "Curated"
       }
     ],
@@ -54844,7 +55185,7 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Parížsky Louvre navštívia milióny turistov.",
+        "slovak": "Parížsky Louvre navštevujú milióny turistov.",
         "english": "Millions of tourists visit the Louvre in Paris.",
         "note": "Curated"
       }
@@ -54899,8 +55240,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "K hlavnému jedlu si objednal doplnkovú prílohu.",
-        "english": "He ordered an additional side dish with the main course.",
+        "slovak": "Hotel ponúka doplnkové služby.",
+        "english": "The hotel offers additional services.",
         "note": "Curated"
       }
     ],
@@ -55166,8 +55507,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Na stránke nájdete kontaktné údaje na sekretariát.",
-        "english": "You will find the secretary's contact details on the website.",
+        "slovak": "Na stránke nájdete kontaktné údaje sekretariátu.",
+        "english": "You will find the office's contact details on the website.",
         "note": "Curated"
       }
     ],
@@ -55180,8 +55521,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Pánov hlas sa ozýval z posledného radu.",
-        "english": "The Lord's voice echoed from the last row.",
+        "slovak": "Pánov hlas zaznel z neba.",
+        "english": "The Lord's voice came from heaven.",
         "note": "Curated"
       }
     ],
@@ -55500,7 +55841,7 @@
     "examples": [
       {
         "slovak": "Víťaz postúpi do celoštátneho kola súťaže.",
-        "english": "The winner will advance to the nationwide round of the competition.",
+        "english": "The winner will advance to the national round of the competition.",
         "note": "Curated"
       }
     ],
@@ -55682,7 +56023,7 @@
     "examples": [
       {
         "slovak": "Vojaci prešli cez poľnú cestu.",
-        "english": "The soldiers travelled along a field road.",
+        "english": "The soldiers crossed a farm track.",
         "note": "Curated"
       }
     ],
@@ -55836,7 +56177,7 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Predniesol vznešenú myšlienku o solidarite.",
+        "slovak": "Vyjadril vznešenú myšlienku o solidarite.",
         "english": "He expressed a noble idea about solidarity.",
         "note": "Curated"
       }
@@ -56113,8 +56454,8 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Pacient potrebuje okamžitú pomoc pre akútnu bolesť.",
-        "english": "The patient needs immediate help because of acute pain.",
+        "slovak": "Pacient s akútnou bolesťou potrebuje okamžitú pomoc.",
+        "english": "A patient with acute pain needs immediate help.",
         "note": "Curated"
       }
     ],
@@ -56299,7 +56640,9 @@
         "tatoebaId": 12761017
       }
     ],
-    "related": []
+    "related": [
+      "vlada"
+    ]
   },
   {
     "slug": "byt-n",

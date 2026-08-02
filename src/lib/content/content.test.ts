@@ -415,6 +415,9 @@ describe("Slovak content", () => {
       ["cislo", "mnozstvo"],
       ["dobry", "zly"],
       ["lahky", "tazky"],
+      ["problem", "riesenie"],
+      ["zapas", "hra"],
+      ["vlada", "stat-n"],
     ] as const;
 
     for (const [firstSlug, secondSlug] of expectedPairs) {
@@ -424,6 +427,14 @@ describe("Slovak content", () => {
       expect(first?.related).toContain(secondSlug);
       expect(second?.related).toContain(firstSlug);
     }
+  });
+
+  it("keeps expanded semantic clusters ahead of rank-neighbor fallback", () => {
+    expect(words.find((word) => word.slug === "nechciet")?.related).toContain("chciet");
+    expect(words.find((word) => word.slug === "cena")?.related).toContain("peniaze");
+    expect(words.find((word) => word.slug === "telo")?.related).toEqual(
+      expect.arrayContaining(["ruka", "noha", "hlava"]),
+    );
   });
 
   it("prefers gloss-overlap related over raw frequency neighbors", () => {

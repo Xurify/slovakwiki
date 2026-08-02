@@ -107,7 +107,7 @@
   "vracat": [
     {
       "slovak": "Knihu vraciam do knižnice.",
-      "english": "I return the book to the library.",
+      "english": "I am returning the book to the library.",
       "note": "Curated"
     }
   ],
@@ -183,8 +183,8 @@
   ],
   "prispiet": [
     {
-      "slovak": "Prispievam na dobrú vec.",
-      "english": "I contribute to a good cause.",
+      "slovak": "Prispejem na dobrú vec.",
+      "english": "I will contribute to a good cause.",
       "note": "Curated"
     }
   ],
@@ -435,8 +435,8 @@
   ],
   "pomysliet": [
     {
-      "slovak": "Chcem si na to pomyslieť.",
-      "english": "I want to think of it.",
+      "slovak": "Keď som počul tú pieseň, pomyslel som na domov.",
+      "english": "When I heard that song, I thought of home.",
       "note": "Curated"
     }
   ],
@@ -456,8 +456,8 @@
   ],
   "hladiet": [
     {
-      "slovak": "Chcem na to hľadieť.",
-      "english": "I want to look at it.",
+      "slovak": "Na problém treba hľadieť z viacerých uhlov.",
+      "english": "The problem should be viewed from several angles.",
       "note": "Curated"
     }
   ],
@@ -527,7 +527,7 @@
   "pribudnut": [
     {
       "slovak": "Môže pribudnúť nový problém.",
-      "english": "A new problem can be added.",
+      "english": "A new problem may arise.",
       "note": "Curated"
     }
   ],
@@ -590,7 +590,7 @@
   "tatransky": [
     {
       "slovak": "Tatranský vzduch je čistý.",
-      "english": "The Tatra air is clean.",
+      "english": "The air in the Tatras is clean.",
       "note": "Curated"
     }
   ],
@@ -1272,8 +1272,8 @@
   ],
   "slovan": [
     {
-      "slovak": "Slovan je členom veľkej jazykovej skupiny.",
-      "english": "A Slav is a member of a large language group.",
+      "slovak": "Na výstave sme sa dozvedeli viac o živote starých Slovanov.",
+      "english": "At the exhibition, we learned more about the lives of the ancient Slavs.",
       "note": "Curated"
     }
   ],
@@ -1454,8 +1454,8 @@
   ],
   "termin": [
     {
-      "slovak": "Na odovzdanie projektu máme termín v piatok.",
-      "english": "Our deadline for handing in the project is Friday.",
+      "slovak": "Termín na odovzdanie projektu je v piatok.",
+      "english": "The deadline for submitting the project is Friday.",
       "note": "Curated"
     }
   ],
@@ -1728,7 +1728,7 @@
   "investicny": [
     {
       "slovak": "Banka ponúka investičný fond pre začínajúcich sporiteľov.",
-      "english": "The bank offers an investment fund for beginning savers.",
+      "english": "The bank offers an investment fund for people new to saving.",
       "note": "Curated"
     }
   ],
@@ -1755,7 +1755,7 @@
   ],
   "zilinsky": [
     {
-      "slovak": "V Žiline sme navštívili známy žilinský podnik.",
+      "slovak": "V Žiline sme navštívili známu žilinskú reštauráciu.",
       "english": "In Žilina, we visited a well-known local restaurant.",
       "note": "Curated"
     }
@@ -1881,8 +1881,8 @@
   ],
   "zidovsky": [
     {
-      "slovak": "V meste sme navštívili židovskú synagógu.",
-      "english": "In the city, we visited a Jewish synagogue.",
+      "slovak": "V meste sme navštívili židovské múzeum.",
+      "english": "In the city, we visited a Jewish museum.",
       "note": "Curated"
     }
   ],
@@ -2134,7 +2134,7 @@
   "pripravny": [
     {
       "slovak": "Prípravný zápas sa začne o šiestej.",
-      "english": "The preparatory match will begin at six.",
+      "english": "The friendly match will start at six.",
       "note": "Curated"
     }
   ],
@@ -2225,7 +2225,7 @@
   "pisomny": [
     {
       "slovak": "Na skúške sme mali aj písomnú časť.",
-      "english": "We also had a written part in the exam.",
+      "english": "The exam also had a written section.",
       "note": "Curated"
     }
   ],
@@ -2819,7 +2819,7 @@
   ],
   "odhadovat": [
     {
-      "slovak": "Ťažko odhadujem, koľko to bude stáť.",
+      "slovak": "Ťažko sa mi odhaduje, koľko to bude stáť.",
       "english": "It is hard for me to estimate how much it will cost.",
       "note": "Curated"
     }
@@ -2890,7 +2890,7 @@
   "navrat": [
     {
       "slovak": "Po návrate domov som si dal horúci čaj.",
-      "english": "After returning home, I had a hot tea.",
+      "english": "After returning home, I had a cup of hot tea.",
       "note": "Curated"
     }
   ],
@@ -2911,7 +2911,7 @@
   "tradicia": [
     {
       "slovak": "Naša rodina dodržiava tradíciu pečenia koláčov na Vianoce.",
-      "english": "Our family keeps the tradition of baking cakes at Christmas.",
+      "english": "Our family observes the tradition of baking cakes at Christmas.",
       "note": "Curated"
     }
   ],
@@ -2967,7 +2967,7 @@
   "namestie": [
     {
       "slovak": "Kde je námestie?",
-      "english": "Where is a square?",
+      "english": "Where is the square?",
       "note": "Curated"
     }
   ],
@@ -3100,7 +3100,7 @@
   "stadion": [
     {
       "slovak": "Kde je štadión?",
-      "english": "Where is a stadium?",
+      "english": "Where is the stadium?",
       "note": "Curated"
     }
   ],
@@ -3254,7 +3254,7 @@
   "mzda": [
     {
       "slovak": "Minimálna mzda sa od januára zvýšila.",
-      "english": "The minimum wage increased from January.",
+      "english": "The minimum wage has been higher since January.",
       "note": "Curated"
     }
   ],
@@ -3400,8 +3400,8 @@
   ],
   "zasah": [
     {
-      "slovak": "Hasiči zasiahli pri požiari v bytovom dome.",
-      "english": "Firefighters intervened in a fire in an apartment building.",
+      "slovak": "Rýchly zásah hasičov zabránil väčším škodám.",
+      "english": "The firefighters' quick response prevented greater damage.",
       "note": "Curated"
     }
   ],
@@ -3414,8 +3414,8 @@
   ],
   "rezort": [
     {
-      "slovak": "Kde je rezort?",
-      "english": "Where is a ministry?",
+      "slovak": "Rezort školstva pripravuje reformu.",
+      "english": "The education ministry is preparing a reform.",
       "note": "Curated"
     }
   ],
@@ -3464,7 +3464,7 @@
   "hala": [
     {
       "slovak": "Kde je hala?",
-      "english": "Where is a hall?",
+      "english": "Where is the hall?",
       "note": "Curated"
     }
   ],
@@ -3499,7 +3499,7 @@
   "redakcia": [
     {
       "slovak": "Kde je redakcia?",
-      "english": "Where is an editorial office?",
+      "english": "Where is the editorial office?",
       "note": "Curated"
     }
   ],
@@ -3519,8 +3519,8 @@
   ],
   "dres": [
     {
-      "slovak": "Pred zápasom si hráči obliekli nový dres.",
-      "english": "Before the match, the players put on a new jersey.",
+      "slovak": "Pred zápasom si hráči obliekli nové dresy.",
+      "english": "Before the match, the players put on their new jerseys.",
       "note": "Curated"
     }
   ],
@@ -3856,7 +3856,7 @@
   "klubovy": [
     {
       "slovak": "V sobotu organizujeme klubový večer.",
-      "english": "We are organizing a club evening on Saturday.",
+      "english": "We are organizing a club night on Saturday.",
       "note": "Curated"
     }
   ],
@@ -4072,8 +4072,8 @@
   ],
   "bezplatny": [
     {
-      "slovak": "Je to bezplatný človek.",
-      "english": "That is a free of charge person.",
+      "slovak": "Vstup do múzea je bezplatný.",
+      "english": "Admission to the museum is free of charge.",
       "note": "Curated"
     }
   ],
@@ -4423,7 +4423,7 @@
   "turciansky": [
     {
       "slovak": "Turčianska obec pripravila letné slávnosti.",
-      "english": "A Turiec municipality prepared summer celebrations.",
+      "english": "A village in the Turiec region organized summer festivities.",
       "note": "Curated"
     }
   ],
@@ -4625,8 +4625,8 @@
   ],
   "rimavsky": [
     {
-      "slovak": "Rimavská nemocnica otvorila nové oddelenie.",
-      "english": "The Rimavská hospital opened a new department.",
+      "slovak": "Prešli sme cez Rimavskú kotlinu.",
+      "english": "We travelled through the Rimava Basin.",
       "note": "Curated"
     }
   ],
@@ -4640,7 +4640,7 @@
   "verejnopravny": [
     {
       "slovak": "Verejnoprávne médium má slúžiť verejnosti.",
-      "english": "A public-service medium should serve the public.",
+      "english": "A public-service media outlet should serve the public.",
       "note": "Curated"
     }
   ],
@@ -4744,8 +4744,8 @@
   ],
   "etnicky": [
     {
-      "slovak": "Mesto tvorí pestrá etnická skupina.",
-      "english": "The city is made up of a diverse ethnic group.",
+      "slovak": "V meste žijú rôzne etnické skupiny.",
+      "english": "Different ethnic groups live in the city.",
       "note": "Curated"
     }
   ],
@@ -5563,8 +5563,8 @@
   ],
   "branka": [
     {
-      "slovak": "Lopta prešla cez bránku.",
-      "english": "The ball went through the goal.",
+      "slovak": "Lopta skončila v bránke.",
+      "english": "The ball ended up in the goal.",
       "note": "Curated"
     }
   ],
@@ -5654,8 +5654,8 @@
   ],
   "doklad": [
     {
-      "slovak": "Pri vybavovaní pasu potrebujete občiansky doklad.",
-      "english": "You need an identity document when applying for a passport.",
+      "slovak": "Pri vybavovaní pasu potrebujete doklad totožnosti.",
+      "english": "You need proof of identity when applying for a passport.",
       "note": "Curated"
     }
   ],
@@ -5696,7 +5696,7 @@
   ],
   "parizsky": [
     {
-      "slovak": "Parížsky Louvre navštívia milióny turistov.",
+      "slovak": "Parížsky Louvre navštevujú milióny turistov.",
       "english": "Millions of tourists visit the Louvre in Paris.",
       "note": "Curated"
     }
@@ -5710,8 +5710,8 @@
   ],
   "doplnkovy": [
     {
-      "slovak": "K hlavnému jedlu si objednal doplnkovú prílohu.",
-      "english": "He ordered an additional side dish with the main course.",
+      "slovak": "Hotel ponúka doplnkové služby.",
+      "english": "The hotel offers additional services.",
       "note": "Curated"
     }
   ],
@@ -5815,15 +5815,15 @@
   ],
   "kontaktny": [
     {
-      "slovak": "Na stránke nájdete kontaktné údaje na sekretariát.",
-      "english": "You will find the secretary's contact details on the website.",
+      "slovak": "Na stránke nájdete kontaktné údaje sekretariátu.",
+      "english": "You will find the office's contact details on the website.",
       "note": "Curated"
     }
   ],
   "panov": [
     {
-      "slovak": "Pánov hlas sa ozýval z posledného radu.",
-      "english": "The Lord's voice echoed from the last row.",
+      "slovak": "Pánov hlas zaznel z neba.",
+      "english": "The Lord's voice came from heaven.",
       "note": "Curated"
     }
   ],
@@ -5921,7 +5921,7 @@
   "celostatny": [
     {
       "slovak": "Víťaz postúpi do celoštátneho kola súťaže.",
-      "english": "The winner will advance to the nationwide round of the competition.",
+      "english": "The winner will advance to the national round of the competition.",
       "note": "Curated"
     }
   ],
@@ -5991,7 +5991,7 @@
   "polny": [
     {
       "slovak": "Vojaci prešli cez poľnú cestu.",
-      "english": "The soldiers travelled along a field road.",
+      "english": "The soldiers crossed a farm track.",
       "note": "Curated"
     }
   ],
@@ -6060,7 +6060,7 @@
   ],
   "vzneseny": [
     {
-      "slovak": "Predniesol vznešenú myšlienku o solidarite.",
+      "slovak": "Vyjadril vznešenú myšlienku o solidarite.",
       "english": "He expressed a noble idea about solidarity.",
       "note": "Curated"
     }
@@ -6158,8 +6158,8 @@
   ],
   "akutny": [
     {
-      "slovak": "Pacient potrebuje okamžitú pomoc pre akútnu bolesť.",
-      "english": "The patient needs immediate help because of acute pain.",
+      "slovak": "Pacient s akútnou bolesťou potrebuje okamžitú pomoc.",
+      "english": "A patient with acute pain needs immediate help.",
       "note": "Curated"
     }
   ],
@@ -6243,7 +6243,7 @@
   "ozajstny": [
     {
       "slovak": "V ťažkých chvíľach sa ukáže ozajstný priateľ.",
-      "english": "A true friend shows himself in difficult times.",
+      "english": "A true friend proves themselves in difficult times.",
       "note": "Curated"
     }
   ],
@@ -6375,8 +6375,8 @@
   ],
   "clenny": [
     {
-      "slovak": "Členný tím pripravil spoločný návrh.",
-      "english": "The member-based team prepared a joint proposal.",
+      "slovak": "Výbor je päťčlenný.",
+      "english": "The committee has five members.",
       "note": "Curated"
     }
   ],
@@ -6389,8 +6389,8 @@
   ],
   "jubilejny": [
     {
-      "slovak": "Tento rok oslavujeme jubilejný rok školy.",
-      "english": "This year we are celebrating the school's jubilee year.",
+      "slovak": "Tento rok sa koná jubilejný desiaty ročník festivalu.",
+      "english": "The festival celebrates its milestone tenth edition this year.",
       "note": "Curated"
     }
   ],
@@ -6411,7 +6411,7 @@
   "svetelny": [
     {
       "slovak": "Na budove svieti nová svetelná reklama.",
-      "english": "A new illuminated sign is lit on the building.",
+      "english": "A new illuminated sign shines on the building.",
       "note": "Curated"
     }
   ],
@@ -6481,7 +6481,7 @@
   "belasy": [
     {
       "slovak": "Nad mestom bola belasá obloha.",
-      "english": "There was a sky-blue sky above the city.",
+      "english": "The sky above the city was light blue.",
       "note": "Curated"
     }
   ],
@@ -6558,7 +6558,7 @@
   "vychovny": [
     {
       "slovak": "Škola prijala výchovné opatrenie.",
-      "english": "The school adopted an educational measure.",
+      "english": "The school adopted a disciplinary measure.",
       "note": "Curated"
     }
   ],
@@ -6760,8 +6760,8 @@
   ],
   "humenne": [
     {
-      "slovak": "V Humennom sa začína výlet do okolia Laboreca.",
-      "english": "A trip around the Laborec region can begin in Humenné.",
+      "slovak": "Výlet popri Laborci sa začína v Humennom.",
+      "english": "The trip along the Laborec River begins in Humenné.",
       "note": "Curated"
     }
   ],
@@ -7013,7 +7013,7 @@
   "prikyvnut": [
     {
       "slovak": "Na moju otázku iba prikývol.",
-      "english": "He only nodded at my question.",
+      "english": "He only nodded in response to my question.",
       "note": "Curated"
     }
   ],
@@ -7209,7 +7209,7 @@
   "nepomoct": [
     {
       "slovak": "Nemohol som mu nepomôcť.",
-      "english": "I could not help him.",
+      "english": "I had no choice but to help him.",
       "note": "Curated"
     }
   ],
@@ -7244,14 +7244,14 @@
   "uplatnit": [
     {
       "slovak": "Pri nákupe si uplatnil zľavu.",
-      "english": "He applied a discount when shopping.",
+      "english": "He claimed a discount on his purchase.",
       "note": "Curated"
     }
   ],
   "doplnat": [
     {
-      "slovak": "Počas práce si dopĺňam vodu.",
-      "english": "I refill my water during work.",
+      "slovak": "Počas túry si dopĺňame zásoby vody.",
+      "english": "We replenish our water supplies during the hike.",
       "note": "Curated"
     }
   ],
@@ -7306,15 +7306,15 @@
   ],
   "vyzyvat": [
     {
-      "slovak": "Tento problém vyzýva odborníkov k spolupráci.",
-      "english": "This problem challenges experts to cooperate.",
+      "slovak": "Minister vyzýva odborníkov na spoluprácu.",
+      "english": "The minister is calling on experts to cooperate.",
       "note": "Curated"
     }
   ],
   "odsudit": [
     {
       "slovak": "Súd ho odsúdil na podmienečný trest.",
-      "english": "The court sentenced him to a suspended sentence.",
+      "english": "The court gave him a suspended sentence.",
       "note": "Curated"
     }
   ],
@@ -7335,7 +7335,7 @@
   "vystriedat": [
     {
       "slovak": "Po hodine sa vodiči vystriedali.",
-      "english": "After an hour, the drivers changed places.",
+      "english": "After an hour, one driver relieved the other.",
       "note": "Curated"
     }
   ],
@@ -7565,8 +7565,8 @@
   ],
   "uzatvarat": [
     {
-      "slovak": "Banka uzatvára pobočku o šiestej.",
-      "english": "The bank closes the branch at six.",
+      "slovak": "Banka uzatvára zmluvy so zákazníkmi.",
+      "english": "The bank enters into contracts with customers.",
       "note": "Curated"
     }
   ],
