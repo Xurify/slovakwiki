@@ -32,8 +32,10 @@ Script layout: see `scripts/README.md` (`dictionary/`, `search/`, `docs/`).
 - English glosses for common lemmas: `content/frequency/glosses.json`
 - Publish glossed frequency lemmas into the live dictionary (no approval gate): `bun run frequency:publish` (`--limit 100`)
 - Attach Tatoeba examples to promoted words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
+- Drop weak fill stubs so Tatoeba can reclaim: `bun run examples:reclaim` → then enrich → fill → curate
 - Fill lemmas Tatoeba cannot match: `bun run examples:fill` → then `bun run examples:curate`
-- After publish/enrich/curate content changes: `bun run index:search` so local Pagefind matches the live dictionary
+- Semantic related peers (empty related only): `bun run related:apply` (after curate; clusters in `content/dictionary/related-clusters.json`)
+- After publish/enrich/curate/related content changes: `bun run index:search` so local Pagefind matches the live dictionary
   - Skips crude/sexual/vulgar lines via `src/lib/content/example-quality.ts`
   - Download + decompress:
     - https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2

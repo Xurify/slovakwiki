@@ -30,8 +30,8 @@ function verbExample(slovak: string, english: string): Example {
 
   if (awkward) {
     return {
-      slovak: `Sloveso „${slovak}“ je bežné.`,
-      english: `The verb “${slovak}” (${bare}) is common.`,
+      slovak: `Rozumiem slovesu „${slovak}“.`,
+      english: `I understand the verb “${slovak}” (${bare}).`,
       note: "Curated",
     };
   }
@@ -54,18 +54,17 @@ function adjectiveExample(slovak: string, english: string): Example {
   }
 
   return {
-    slovak: `Mám ${slovak} problém.`,
-    english: `I have a ${gloss} problem.`,
+    slovak: `To je ${slovak} príklad.`,
+    english: `That is a ${gloss} example.`,
     note: "Curated",
   };
 }
 
 function nounExample(slovak: string, english: string): Example {
   const gloss = firstGloss(english);
-  const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
   return {
-    slovak: `Toto je ${slovak}.`,
-    english: `This is ${article(gloss)}${gloss}.`,
+    slovak: `Potrebujem ${slovak}.`,
+    english: `I need ${article(gloss)}${gloss}.`,
     note: "Curated",
   };
 }

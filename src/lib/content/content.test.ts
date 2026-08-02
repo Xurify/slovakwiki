@@ -135,6 +135,22 @@ describe("Slovak content", () => {
     }
   });
 
+  it("prefers semantic clusters over raw frequency neighbors", () => {
+    const praca = words.find((word) => word.slug === "praca");
+    const velky = words.find((word) => word.slug === "velky");
+    const skola = words.find((word) => word.slug === "skola");
+
+    expect(praca?.related).toEqual(
+      expect.arrayContaining(["peniaze", "obchod", "nakupovat"]),
+    );
+    expect(velky?.related.some((slug) => ["maly", "dlhy", "kratky"].includes(slug))).toBe(
+      true,
+    );
+    expect(skola?.related).toEqual(
+      expect.arrayContaining(["ucitel", "ziak", "student", "kniha"]),
+    );
+  });
+
   it("matches Slovak answers without making diacritics optional", () => {
     expect(answersMatch("Čítam knihu.", "Čítam knihu.")).toBe(true);
     expect(answersMatch("čítam knihu", "Čítam knihu.")).toBe(true);
