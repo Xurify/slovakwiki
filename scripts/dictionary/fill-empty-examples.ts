@@ -483,6 +483,74 @@ function exampleFor(word: {
   return { ...example, isPracticeFrame: true };
 }
 
+/** Second-frame templates for topping up underfilled lemmas. */
+function alternateExampleFor(word: {
+  category: string;
+  english: string;
+  slovak: string;
+}): Example {
+  const gloss = firstGloss(word.english);
+  const { slovak } = word;
+  let example: Example;
+
+  switch (word.category) {
+    case "Verbs": {
+      const bare = englishVerbGloss(word.english);
+      example = {
+        slovak: `Snažím sa ${slovak}.`,
+        english: `I'm trying to ${bare}.`,
+        note: "Curated",
+      };
+      break;
+    }
+    case "Adjectives":
+      example = {
+        slovak: `To je ${slovak} príklad.`,
+        english: `That is ${article(gloss)}${gloss} example.`,
+        note: "Curated",
+      };
+      break;
+    case "Names": {
+      const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
+      example = {
+        slovak: `Poznám ${capital}.`,
+        english: `I know ${capital}.`,
+        note: "Curated",
+      };
+      break;
+    }
+    case "Places": {
+      const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
+      example = {
+        slovak: `Navštívim ${capital}.`,
+        english: `I'll visit ${capital}.`,
+        note: "Curated",
+      };
+      break;
+    }
+    default: {
+      const lemma = slovak.toLocaleLowerCase("sk");
+      if (PLURAL_NOUNS.has(lemma)) {
+        example = {
+          slovak: `Potrebujem ${slovak}.`,
+          english: `I need ${gloss}.`,
+          note: "Curated",
+        };
+      } else {
+        example = {
+          slovak: `Potrebujem ${slovak}.`,
+          english: `I need ${article(gloss)}${gloss}.`,
+          note: "Curated",
+        };
+      }
+    }
+  }
+
+  return { ...example, isPracticeFrame: true };
+}
+
+const MIN_EXAMPLES = 2;
+
 const aspectPatterns: Record<string, Example[]> = {
   robit: [
     {
@@ -717,7 +785,42 @@ for (const word of empty) {
   filled += 1;
 }
 
+let toppedUp = 0;
+
+for (const word of words) {
+  if (word.kind !== "word") continue;
+  if (word.examples.some((example) => Boolean(example.demonstrates))) continue;
+
+  const existing = curated[word.slug] ?? [];
+  const promotedKeys = new Set(
+    word.examples.map((example) => example.slovak.toLocaleLowerCase("sk")),
+  );
+  const curatedKeys = new Set(
+    existing.map((example) => example.slovak.toLocaleLowerCase("sk")),
+  );
+  const knownCount = new Set([...promotedKeys, ...curatedKeys]).size;
+  if (knownCount >= MIN_EXAMPLES) continue;
+
+  const extras: Example[] = [];
+  for (const candidate of [exampleFor(word), alternateExampleFor(word)]) {
+    const key = candidate.slovak.toLocaleLowerCase("sk");
+    if (promotedKeys.has(key) || curatedKeys.has(key)) continue;
+    if (extras.some((example) => example.slovak.toLocaleLowerCase("sk") === key)) {
+      continue;
+    }
+    extras.push(candidate);
+    if (knownCount + extras.length >= MIN_EXAMPLES) break;
+  }
+
+  if (extras.length === 0) continue;
+
+  // Keep any hand rows already in curated; append practice top-ups.
+  curated[word.slug] = [...existing, ...extras];
+  toppedUp += 1;
+}
+
 writeFileSync(CURATED_PATH, `${JSON.stringify(curated, null, 2)}\n`);
 console.log(`Aspect pattern pairs: ${Object.keys(aspectPatterns).length}`);
 console.log(`Template-filled empty lemmas: ${filled}`);
+console.log(`Topped up underfilled lemmas (<${MIN_EXAMPLES}): ${toppedUp}`);
 console.log(`Total curated keys: ${Object.keys(curated).length}`);

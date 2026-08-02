@@ -8,6 +8,9 @@
  *   bun run examples:enrich
  *   bun run examples:enrich -- --per-word 3 --report tmp/missing-examples.txt
  *   bun run examples:enrich -- --replace-practice
+ *
+ * Underfilled curated/Tatoeba rows (count < per-word) get extra Tatoeba appended.
+ * Pattern examples (`demonstrates`) stay locked.
  */
 
 import { createReadStream } from "node:fs";
@@ -317,6 +320,34 @@ function toExamples(pairs: SentencePair[], limit: number): Example[] {
   return examples;
 }
 
+function exampleKey(example: Example): string {
+  return normalizeLemma(example.slovak);
+}
+
+/** Keep existing rows; append unique Tatoeba until `limit`. */
+function appendExamples(
+  existing: Example[],
+  incoming: Example[],
+  limit: number,
+): Example[] {
+  const merged = [...existing];
+  const seen = new Set(merged.map(exampleKey));
+
+  for (const example of incoming) {
+    if (merged.length >= limit) break;
+    const key = exampleKey(example);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(example);
+  }
+
+  return merged;
+}
+
+function hasPatternExamples(examples: Example[]): boolean {
+  return examples.some((example) => Boolean(example.demonstrates));
+}
+
 async function main(): Promise<void> {
   const { perWord, report, rejectReport, force, replacePractice, refreshTatoeba } =
     parseArgs(process.argv.slice(2));
@@ -352,6 +383,7 @@ async function main(): Promise<void> {
 
   const promoted = JSON.parse(await readFile(PROMOTED_PATH, "utf8")) as WordSeed[];
   let enriched = 0;
+  let appended = 0;
   let scrubbed = 0;
   let skippedProtected = 0;
   let skippedNoPractice = 0;
@@ -381,6 +413,8 @@ async function main(): Promise<void> {
 
     const practiceOnly = isPracticeOnly(word.examples);
     const hasProtected = word.examples.some(isProtectedExample);
+    const patternLocked = hasPatternExamples(word.examples);
+    const underfilled = word.examples.length > 0 && word.examples.length < perWord;
 
     if (replacePractice) {
       if (!practiceOnly) {
@@ -407,7 +441,17 @@ async function main(): Promise<void> {
     } else if (!force && !refreshTatoeba && word.examples.length >= perWord) {
       skippedProtected += 1;
       continue;
-    } else if (!force && !refreshTatoeba && hasProtected && !practiceOnly) {
+    } else if (!force && patternLocked) {
+      // Pedagogy pairs/triples stay hand-authored.
+      skippedProtected += 1;
+      continue;
+    } else if (
+      !force &&
+      !refreshTatoeba &&
+      hasProtected &&
+      !practiceOnly &&
+      !underfilled
+    ) {
       skippedProtected += 1;
       continue;
     } else if (!force && refreshTatoeba && hasProtected && !practiceOnly) {
@@ -418,13 +462,20 @@ async function main(): Promise<void> {
       }
     }
 
+    const need = Math.max(
+      perWord - word.examples.length,
+      practiceOnly || force ? perWord : 0,
+    );
+    const fetchLimit =
+      practiceOnly || force || word.examples.length === 0 ? perWord : need;
+
     const { accepted, rejectedQuality, rejectedWeak } = collectCandidates(
       word.slovak,
       word.category,
       pairs,
       index,
     );
-    const examples = toExamples(accepted, perWord);
+    const examples = toExamples(accepted, Math.max(fetchLimit, perWord));
 
     if (examples.length === 0) {
       if (practiceOnly) {
@@ -450,9 +501,23 @@ async function main(): Promise<void> {
       continue;
     }
 
-    if (practiceOnly) practiceReplaced += 1;
-    word.examples = examples;
-    enriched += 1;
+    if (practiceOnly || force || word.examples.length === 0) {
+      if (practiceOnly) practiceReplaced += 1;
+      word.examples = examples.slice(0, perWord);
+      enriched += 1;
+    } else if (underfilled) {
+      const beforeLen = word.examples.length;
+      word.examples = appendExamples(word.examples, examples, perWord);
+      if (word.examples.length > beforeLen) {
+        appended += 1;
+        enriched += 1;
+      } else {
+        skippedProtected += 1;
+      }
+    } else {
+      word.examples = examples.slice(0, perWord);
+      enriched += 1;
+    }
   }
 
   await writeFile(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`, "utf8");
@@ -482,6 +547,7 @@ async function main(): Promise<void> {
   await writeFile(rejectReport, rejectLines.join("\n"), "utf8");
 
   console.log(`Enriched/replaced: ${enriched}`);
+  console.log(`Appended Tatoeba onto underfilled: ${appended}`);
   console.log(`Practice frames replaced: ${practiceReplaced}`);
   console.log(`Practice frames retained: ${practiceRetained}`);
   console.log(`Scrubbed crude examples from: ${scrubbed} words`);

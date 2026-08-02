@@ -3,8 +3,9 @@
  *
  * Corpus-first policy:
  * - Reviewed curated / pattern (`demonstrates`) examples always win.
- * - Practice frames only fill empty or practice-only slots.
- * - Never replace Tatoeba examples with practice frames.
+ * - Practice frames only fill empty or underfilled (<2) slots.
+ * - Never replace Tatoeba/hand rows wholesale with practice frames.
+ * - Non-pattern applies union-merge so enrich appends survive.
  *
  * Usage: bun run examples:curate
  */
@@ -130,23 +131,31 @@ async function main(): Promise<void> {
     const incoming = normalizeExamples(clean);
     const reviewed = isReviewedCurated(incoming);
     const practiceOnly = isPracticeOnly(incoming);
+    const underfilled = word.examples.length < 2;
+    const patternLocked = incoming.some((example) => Boolean(example.demonstrates));
 
-    if (practiceOnly && hasTatoeba(word.examples)) {
-      skippedCorpus += 1;
-      continue;
+    // Practice frames must not replace corpus/hand rows — but may top up underfilled.
+    if (practiceOnly && !underfilled && (hasTatoeba(word.examples) || !reviewed)) {
+      if (hasTatoeba(word.examples) || !isPracticeOnly(word.examples)) {
+        skippedCorpus += 1;
+        continue;
+      }
     }
 
-    if (
-      practiceOnly &&
-      word.examples.length > 0 &&
-      !isPracticeOnly(word.examples) &&
-      !reviewed
-    ) {
-      skippedCorpus += 1;
-      continue;
+    if (patternLocked) {
+      word.examples = incoming;
+    } else {
+      // Union by Slovak text: curated/fill first, keep other promoted rows.
+      const merged: Example[] = [];
+      const seen = new Set<string>();
+      for (const example of [...incoming, ...word.examples]) {
+        const key = example.slovak.toLocaleLowerCase("sk");
+        if (seen.has(key)) continue;
+        seen.add(key);
+        merged.push(example);
+      }
+      word.examples = merged;
     }
-
-    word.examples = incoming;
 
     const english = CURATED_ENGLISH[slug];
     if (english) {
