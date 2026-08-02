@@ -399,9 +399,9 @@ const PATTERN_USAGE_NOTES: Record<string, string> = {
   bat: "Báť sa alone is a general fear. Add a noun (or infinitive) for what you are afraid of.",
   stat: "Stať sa means happen or become — not the same lemma as stáť (stand / cost).",
   "stat-v": "Stáť is stand or cost. Happen / become is stať sa — see stať.",
-  hladat: "Hľadať is the search. Nájsť is the find — same object, different stage.",
+  hladat: "Hľadať means to search. Nájsť means to find — same object, different stage.",
   najst:
-    "Nájsť is finding. Hľadať is still looking — compare the pair with the same object.",
+    "Nájsť means to find. Hľadať means to search — compare the pair with the same object.",
   zacat:
     "Začať starts an action. Prestať stops it — same infinitive for a clean contrast.",
   prestat: "Prestať stops an action. Začať starts it — same infinitive side by side.",
