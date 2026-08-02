@@ -1,10 +1,5 @@
 export type SearchDocKind =
-  | "word"
-  | "grammar"
-  | "pronunciation"
-  | "case"
-  | "lesson"
-  | "practice";
+  "word" | "grammar" | "pronunciation" | "case" | "lesson" | "practice";
 
 export function normalizeSearchText(value: string): string {
   return value

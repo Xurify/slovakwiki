@@ -47,8 +47,7 @@ export function navigationIsActive(pathname: string, href: string): boolean {
   if (href === "/dictionary") {
     return (
       pathname === "/dictionary" ||
-      (pathname.startsWith("/dictionary/") &&
-        !pathname.startsWith("/dictionary/common"))
+      (pathname.startsWith("/dictionary/") && !pathname.startsWith("/dictionary/common"))
     );
   }
 

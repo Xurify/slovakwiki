@@ -4,10 +4,7 @@ import DictionaryCommonPage from "$lib/pages/DictionaryCommonPage.svelte";
 import { words } from "$lib/content/data";
 import { findLiveWordForLemma } from "$lib/content/frequency";
 import { loadAllFrequencyLists } from "$lib/content/load-frequency";
-import {
-  FREQUENCY_POS_LABEL,
-  type FrequencyPos,
-} from "$lib/content/frequency-types";
+import { FREQUENCY_POS_LABEL, type FrequencyPos } from "$lib/content/frequency-types";
 
 export function getStaticPaths() {
   return (["verb", "noun", "adjective"] as const).map((pos) => ({

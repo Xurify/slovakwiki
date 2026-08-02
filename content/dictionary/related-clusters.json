@@ -1,105 +1,24 @@
 {
-  "like-family": [
-    "rad",
-    "pacit",
-    "lubit",
-    "mat",
-    "milovat"
-  ],
-  "modals": [
-    "moct",
-    "musiet",
-    "chciet",
-    "vediet"
-  ],
-  "motion": [
-    "ist",
-    "chodit",
-    "prist",
-    "odist"
-  ],
-  "see-hear": [
-    "pozerat",
-    "vidiet",
-    "pocuvat",
-    "pocut"
-  ],
-  "search-find": [
-    "hladat",
-    "najst"
-  ],
-  "start-stop": [
-    "zacat",
-    "prestat"
-  ],
-  "speak-say": [
-    "hovorit",
-    "povedat"
-  ],
-  "give-get": [
-    "dat",
-    "davat",
-    "dostat"
-  ],
-  "aspect-do": [
-    "robit",
-    "urobit"
-  ],
-  "aspect-take": [
-    "brat",
-    "vziat"
-  ],
-  "aspect-write": [
-    "pisat",
-    "napisat"
-  ],
-  "aspect-read": [
-    "citat",
-    "precitat"
-  ],
-  "aspect-buy": [
-    "kupovat",
-    "kupit"
-  ],
-  "aspect-eat": [
-    "jest",
-    "zjest"
-  ],
-  "aspect-drink": [
-    "pit",
-    "vypit"
-  ],
-  "aspect-open": [
-    "otvorit",
-    "otvarat"
-  ],
-  "aspect-sleep": [
-    "spat",
-    "zaspat"
-  ],
-  "be-have": [
-    "byt",
-    "mat",
-    "stat",
-    "stat-v"
-  ],
-  "food-drink": [
-    "jedlo",
-    "voda",
-    "kava",
-    "chlieb",
-    "maso",
-    "pivo",
-    "vino"
-  ],
-  "home-city": [
-    "dom",
-    "byt-n",
-    "mesto",
-    "stanica",
-    "listok",
-    "auto"
-  ],
+  "like-family": ["rad", "pacit", "lubit", "mat", "milovat"],
+  "modals": ["moct", "musiet", "chciet", "vediet"],
+  "motion": ["ist", "chodit", "prist", "odist"],
+  "see-hear": ["pozerat", "vidiet", "pocuvat", "pocut"],
+  "search-find": ["hladat", "najst"],
+  "start-stop": ["zacat", "prestat"],
+  "speak-say": ["hovorit", "povedat"],
+  "give-get": ["dat", "davat", "dostat"],
+  "aspect-do": ["robit", "urobit"],
+  "aspect-take": ["brat", "vziat"],
+  "aspect-write": ["pisat", "napisat"],
+  "aspect-read": ["citat", "precitat"],
+  "aspect-buy": ["kupovat", "kupit"],
+  "aspect-eat": ["jest", "zjest"],
+  "aspect-drink": ["pit", "vypit"],
+  "aspect-open": ["otvorit", "otvarat"],
+  "aspect-sleep": ["spat", "zaspat"],
+  "be-have": ["byt", "mat", "stat", "stat-v"],
+  "food-drink": ["jedlo", "voda", "kava", "chlieb", "maso", "pivo", "vino"],
+  "home-city": ["dom", "byt-n", "mesto", "stanica", "listok", "auto"],
   "family-people": [
     "rodina",
     "matka",
@@ -146,48 +65,12 @@
     "lahky",
     "tazky"
   ],
-  "greetings": [
-    "ahoj",
-    "dobry-den",
-    "dovidenia",
-    "dakujem",
-    "prosim",
-    "ano",
-    "nie"
-  ],
-  "questions": [
-    "kde",
-    "co",
-    "ako",
-    "kto",
-    "kolko"
-  ],
-  "work-money": [
-    "praca",
-    "peniaze",
-    "obchod",
-    "nakupovat"
-  ],
-  "health": [
-    "nemocnica",
-    "lekar",
-    "doktor",
-    "zdravie",
-    "liek"
-  ],
-  "animals": [
-    "pes",
-    "zviera"
-  ],
-  "travel": [
-    "stanica",
-    "listok",
-    "auto",
-    "autobus",
-    "lietadlo",
-    "mesto",
-    "vlak"
-  ],
+  "greetings": ["ahoj", "dobry-den", "dovidenia", "dakujem", "prosim", "ano", "nie"],
+  "questions": ["kde", "co", "ako", "kto", "kolko"],
+  "work-money": ["praca", "peniaze", "obchod", "nakupovat"],
+  "health": ["nemocnica", "lekar", "doktor", "zdravie", "liek"],
+  "animals": ["pes", "zviera"],
+  "travel": ["stanica", "listok", "auto", "autobus", "lietadlo", "mesto", "vlak"],
   "measure-count": [
     "jednotka",
     "percento",
@@ -199,399 +82,96 @@
     "cislo",
     "mnozstvo"
   ],
-  "number-concepts": [
-    "pocet",
-    "cislo",
-    "mnozstvo",
-    "kolko"
-  ],
-  "quality-good-bad": [
-    "dobry",
-    "zly"
-  ],
-  "weight-light-heavy": [
-    "lahky",
-    "tazky"
-  ],
-  "body": [
-    "ruka",
-    "noha",
-    "hlava",
-    "oko",
-    "ucho",
-    "srdce",
-    "tvar",
-    "telo"
-  ],
-  "nature": [
-    "voda",
-    "vzduch",
-    "zem",
-    "strom",
-    "kvet",
-    "les",
-    "hora",
-    "more"
-  ],
-  "colors": [
-    "biely",
-    "cierny",
-    "cerveny",
-    "modry",
-    "zeleny",
-    "zlty"
-  ],
-  "polarity-be": [
-    "byt",
-    "nebyt"
-  ],
-  "polarity-have": [
-    "mat",
-    "nemat"
-  ],
-  "polarity-can": [
-    "moct",
-    "nemoct"
-  ],
-  "polarity-want": [
-    "chciet",
-    "nechciet"
-  ],
-  "polarity-must": [
-    "musiet",
-    "nemusiet"
-  ],
-  "polarity-know-fact": [
-    "vediet",
-    "nevediet"
-  ],
-  "know-vediet-poznat": [
-    "vediet",
-    "poznat"
-  ],
-  "think-family": [
-    "mysliet",
-    "pomysliet",
-    "rozmyslat"
-  ],
-  "necessity-need-must": [
-    "potrebovat",
-    "musiet",
-    "nemusiet"
-  ],
-  "aspect-wait": [
-    "cakat",
-    "pockat"
-  ],
-  "aspect-help": [
-    "pomahat",
-    "pomoct"
-  ],
-  "aspect-decide": [
-    "rozhodovat",
-    "rozhodnut"
-  ],
-  "aspect-change": [
-    "menit",
-    "zmenit"
-  ],
-  "aspect-meet": [
-    "stretavat",
-    "stretnut"
-  ],
-  "aspect-return": [
-    "vracat",
-    "vratit"
-  ],
-  "aspect-show": [
-    "ukazovat",
-    "ukazat"
-  ],
-  "aspect-pay": [
-    "platit",
-    "zaplatit"
-  ],
-  "aspect-begin": [
-    "zacinat",
-    "zacat"
-  ],
-  "aspect-finish": [
-    "koncit",
-    "skoncit"
-  ],
-  "finish-complete-terminate": [
-    "dokoncit",
-    "ukoncit"
-  ],
-  "antonym-continue-stop": [
-    "pokracovat",
-    "prestat"
-  ],
-  "synonym-stay-remain": [
-    "zostat",
-    "ostat"
-  ],
-  "contrast-live-reside": [
-    "zit",
-    "byvat"
-  ],
-  "aspect-believe": [
-    "verit",
-    "uverit"
-  ],
-  "aspect-feel": [
-    "citit",
-    "pocitit"
-  ],
-  "try-strive-attempt": [
-    "snazit",
-    "pokusit",
-    "skusit"
-  ],
-  "aspect-use": [
-    "pouzivat",
-    "pouzit"
-  ],
-  "aspect-send": [
-    "posielat",
-    "poslat"
-  ],
-  "aspect-accept": [
-    "prijimat",
-    "prijat"
-  ],
-  "aspect-look": [
-    "pozerat",
-    "pozriet"
-  ],
-  "aspect-sell": [
-    "predavat",
-    "predat"
-  ],
-  "antonym-open-close": [
-    "otvorit",
-    "zatvorit"
-  ],
-  "aspect-call": [
-    "volat",
-    "zavolat"
-  ],
-  "motion-carry": [
-    "nosit",
-    "niest"
-  ],
-  "motion-enter-cross-exit": [
-    "vojst",
-    "prejst",
-    "vyjst"
-  ],
-  "antonym-tall-low": [
-    "vysoky",
-    "nizky"
-  ],
-  "antonym-long-short": [
-    "dlhy",
-    "kratky"
-  ],
-  "antonym-young-old": [
-    "mlady",
-    "stary"
-  ],
-  "antonym-fast-slow": [
-    "rychly",
-    "pomaly"
-  ],
-  "antonym-warm-cold": [
-    "teply",
-    "studeny"
-  ],
-  "antonym-full-empty": [
-    "plny",
-    "prazdny"
-  ],
-  "antonym-clean-dirty": [
-    "cisty",
-    "spinavy"
-  ],
-  "antonym-rich-poor": [
-    "bohaty",
-    "chudobny"
-  ],
-  "antonym-strong-weak": [
-    "silny",
-    "slaby"
-  ],
-  "antonym-cheerful-sad": [
-    "vesely",
-    "smutny"
-  ],
-  "antonym-healthy-ill": [
-    "zdravy",
-    "chory"
-  ],
-  "antonym-right-wrong": [
-    "spravny",
-    "nespravny"
-  ],
-  "antonym-possible": [
-    "mozny",
-    "nemozny"
-  ],
-  "antonym-wide-narrow": [
-    "siroky",
-    "uzky"
-  ],
-  "quality-pretty": [
-    "pekny",
-    "krasny"
-  ],
-  "antonym-simple-complex": [
-    "jednoduchy",
-    "zlozity"
-  ],
-  "contrast-free": [
-    "volny",
-    "slobodny"
-  ],
-  "geo-slovakia": [
-    "slovensko",
-    "bratislava",
-    "krajina"
-  ],
-  "settlement": [
-    "obec",
-    "dedina"
-  ],
-  "problem-solution": [
-    "problem",
-    "riesenie"
-  ],
-  "money-currency": [
-    "peniaze",
-    "euro"
-  ],
-  "price-money": [
-    "cena",
-    "peniaze"
-  ],
-  "bank-money": [
-    "banka",
-    "peniaze"
-  ],
-  "law-right": [
-    "zakon",
-    "pravo"
-  ],
-  "government-state": [
-    "vlada",
-    "stat-n"
-  ],
-  "synonym-company": [
-    "firma",
-    "spolocnost"
-  ],
-  "info-news": [
-    "informacia",
-    "sprava"
-  ],
-  "antonym-begin-end-nouns": [
-    "zaciatok",
-    "koniec"
-  ],
-  "antonym-life-death": [
-    "zivot",
-    "smrt"
-  ],
-  "sport-game-match": [
-    "hra",
-    "zapas"
-  ],
-  "sport-player-team": [
-    "hrac",
-    "tim"
-  ],
-  "market-trade": [
-    "trh",
-    "obchod"
-  ],
-  "trade-sell": [
-    "obchod",
-    "predavat"
-  ],
-  "joy-happiness": [
-    "radost",
-    "stastie"
-  ],
-  "house-openings": [
-    "okno",
-    "dvere"
-  ],
-  "furniture-table-bed": [
-    "stol",
-    "postel"
-  ],
-  "family-children": [
-    "syn",
-    "dcera"
-  ],
-  "family-spouses": [
-    "manzel",
-    "manzelka"
-  ],
-  "seasons": [
-    "jar",
-    "leto",
-    "jesen",
-    "zima"
-  ],
-  "weather-sun": [
-    "pocasie",
-    "slnko"
-  ],
-  "weather-snow": [
-    "pocasie",
-    "sneh"
-  ],
-  "weather-wind": [
-    "pocasie",
-    "vietor"
-  ],
-  "road-street": [
-    "cesta",
-    "ulica"
-  ],
-  "journey-travel": [
-    "cesta",
-    "cestovat"
-  ],
-  "illness-pain": [
-    "choroba",
-    "bolest"
-  ],
-  "illness-medicine": [
-    "choroba",
-    "liek"
-  ],
-  "illness-hospital": [
-    "choroba",
-    "nemocnica"
-  ],
-  "ask-answer": [
-    "spytat",
-    "odpovedat",
-    "otazka",
-    "odpoved"
-  ],
-  "aspect-learn-teach": [
-    "ucit",
-    "naucit"
-  ],
-  "explain-understand": [
-    "vysvetlit",
-    "rozumiet"
-  ],
-  "antonym-lose-find": [
-    "stratit",
-    "najst"
-  ]
+  "number-concepts": ["pocet", "cislo", "mnozstvo", "kolko"],
+  "quality-good-bad": ["dobry", "zly"],
+  "weight-light-heavy": ["lahky", "tazky"],
+  "body": ["ruka", "noha", "hlava", "oko", "ucho", "srdce", "tvar", "telo"],
+  "nature": ["voda", "vzduch", "zem", "strom", "kvet", "les", "hora", "more"],
+  "colors": ["biely", "cierny", "cerveny", "modry", "zeleny", "zlty"],
+  "polarity-be": ["byt", "nebyt"],
+  "polarity-have": ["mat", "nemat"],
+  "polarity-can": ["moct", "nemoct"],
+  "polarity-want": ["chciet", "nechciet"],
+  "polarity-must": ["musiet", "nemusiet"],
+  "polarity-know-fact": ["vediet", "nevediet"],
+  "know-vediet-poznat": ["vediet", "poznat"],
+  "think-family": ["mysliet", "pomysliet", "rozmyslat"],
+  "necessity-need-must": ["potrebovat", "musiet", "nemusiet"],
+  "aspect-wait": ["cakat", "pockat"],
+  "aspect-help": ["pomahat", "pomoct"],
+  "aspect-decide": ["rozhodovat", "rozhodnut"],
+  "aspect-change": ["menit", "zmenit"],
+  "aspect-meet": ["stretavat", "stretnut"],
+  "aspect-return": ["vracat", "vratit"],
+  "aspect-show": ["ukazovat", "ukazat"],
+  "aspect-pay": ["platit", "zaplatit"],
+  "aspect-begin": ["zacinat", "zacat"],
+  "aspect-finish": ["koncit", "skoncit"],
+  "finish-complete-terminate": ["dokoncit", "ukoncit"],
+  "antonym-continue-stop": ["pokracovat", "prestat"],
+  "synonym-stay-remain": ["zostat", "ostat"],
+  "contrast-live-reside": ["zit", "byvat"],
+  "aspect-believe": ["verit", "uverit"],
+  "aspect-feel": ["citit", "pocitit"],
+  "try-strive-attempt": ["snazit", "pokusit", "skusit"],
+  "aspect-use": ["pouzivat", "pouzit"],
+  "aspect-send": ["posielat", "poslat"],
+  "aspect-accept": ["prijimat", "prijat"],
+  "aspect-look": ["pozerat", "pozriet"],
+  "aspect-sell": ["predavat", "predat"],
+  "antonym-open-close": ["otvorit", "zatvorit"],
+  "aspect-call": ["volat", "zavolat"],
+  "motion-carry": ["nosit", "niest"],
+  "motion-enter-cross-exit": ["vojst", "prejst", "vyjst"],
+  "antonym-tall-low": ["vysoky", "nizky"],
+  "antonym-long-short": ["dlhy", "kratky"],
+  "antonym-young-old": ["mlady", "stary"],
+  "antonym-fast-slow": ["rychly", "pomaly"],
+  "antonym-warm-cold": ["teply", "studeny"],
+  "antonym-full-empty": ["plny", "prazdny"],
+  "antonym-clean-dirty": ["cisty", "spinavy"],
+  "antonym-rich-poor": ["bohaty", "chudobny"],
+  "antonym-strong-weak": ["silny", "slaby"],
+  "antonym-cheerful-sad": ["vesely", "smutny"],
+  "antonym-healthy-ill": ["zdravy", "chory"],
+  "antonym-right-wrong": ["spravny", "nespravny"],
+  "antonym-possible": ["mozny", "nemozny"],
+  "antonym-wide-narrow": ["siroky", "uzky"],
+  "quality-pretty": ["pekny", "krasny"],
+  "antonym-simple-complex": ["jednoduchy", "zlozity"],
+  "contrast-free": ["volny", "slobodny"],
+  "geo-slovakia": ["slovensko", "bratislava", "krajina"],
+  "settlement": ["obec", "dedina"],
+  "problem-solution": ["problem", "riesenie"],
+  "money-currency": ["peniaze", "euro"],
+  "price-money": ["cena", "peniaze"],
+  "bank-money": ["banka", "peniaze"],
+  "law-right": ["zakon", "pravo"],
+  "government-state": ["vlada", "stat-n"],
+  "synonym-company": ["firma", "spolocnost"],
+  "info-news": ["informacia", "sprava"],
+  "antonym-begin-end-nouns": ["zaciatok", "koniec"],
+  "antonym-life-death": ["zivot", "smrt"],
+  "sport-game-match": ["hra", "zapas"],
+  "sport-player-team": ["hrac", "tim"],
+  "market-trade": ["trh", "obchod"],
+  "trade-sell": ["obchod", "predavat"],
+  "joy-happiness": ["radost", "stastie"],
+  "house-openings": ["okno", "dvere"],
+  "furniture-table-bed": ["stol", "postel"],
+  "family-children": ["syn", "dcera"],
+  "family-spouses": ["manzel", "manzelka"],
+  "seasons": ["jar", "leto", "jesen", "zima"],
+  "weather-sun": ["pocasie", "slnko"],
+  "weather-snow": ["pocasie", "sneh"],
+  "weather-wind": ["pocasie", "vietor"],
+  "road-street": ["cesta", "ulica"],
+  "journey-travel": ["cesta", "cestovat"],
+  "illness-pain": ["choroba", "bolest"],
+  "illness-medicine": ["choroba", "liek"],
+  "illness-hospital": ["choroba", "nemocnica"],
+  "ask-answer": ["spytat", "odpovedat", "otazka", "odpoved"],
+  "aspect-learn-teach": ["ucit", "naucit"],
+  "explain-understand": ["vysvetlit", "rozumiet"],
+  "antonym-lose-find": ["stratit", "najst"]
 }

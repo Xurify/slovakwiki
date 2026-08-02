@@ -29,7 +29,9 @@ function unique(values: string[]): string[] {
 function asStringIds(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
   return unique(
-    value.filter((entry): entry is string => typeof entry === "string" && entry.length > 0),
+    value.filter(
+      (entry): entry is string => typeof entry === "string" && entry.length > 0,
+    ),
   );
 }
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import SearchBox from "$lib/components/SearchBox.svelte";
+  import BrandLockup from "$lib/components/ui/BrandLockup.svelte";
   import {
     isReferenceSection,
     navigationIsActive,
@@ -119,15 +120,8 @@
   <div
     class="mx-auto flex min-h-(--header-height) w-[min(var(--workspace-max),calc(100%-48px))] items-center gap-6 max-[800px]:w-[calc(100%-28px)] max-[480px]:w-[calc(100%-24px)] max-[800px]:flex-wrap max-[800px]:gap-x-3 max-[800px]:gap-y-2.5 max-[800px]:py-3"
   >
-    <a
-      class="inline-flex shrink-0 items-baseline gap-1.5"
-      href="/"
-      aria-label="Slovak Wiki home"
-    >
-      <span class="text-[0.78rem] font-semibold tracking-wide text-(--muted-strong)"
-        >Slovak</span
-      >
-      <strong class="font-serif text-[1.35rem] font-semibold text-(--ink)">Wiki</strong>
+    <a class="shrink-0" href="/" aria-label="Slovak Wiki home">
+      <BrandLockup size="header" />
     </a>
 
     <nav class="hidden items-center gap-1 min-[801px]:flex" aria-label="Main navigation">
