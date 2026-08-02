@@ -24,7 +24,11 @@
         "demonstrates": "byť + noun — identity / role"
       }
     ],
-    "related": ["mat", "bratislava", "ucitel"]
+    "related": [
+      "mat",
+      "bratislava",
+      "ucitel"
+    ]
   },
   {
     "slug": "mat",
@@ -43,7 +47,11 @@
         "note": "Curated"
       }
     ],
-    "related": ["byt", "rad", "moct"]
+    "related": [
+      "byt",
+      "rad",
+      "moct"
+    ]
   },
   {
     "slug": "moct",
@@ -70,7 +78,10 @@
         "demonstrates": "chcieť — want (see chcieť)"
       }
     ],
-    "related": ["musiet", "chciet"]
+    "related": [
+      "musiet",
+      "chciet"
+    ]
   },
   {
     "slug": "povedat",
@@ -91,7 +102,9 @@
         "demonstrates": "hovoriť — speak (see hovoriť)"
       }
     ],
-    "related": ["hovorit"]
+    "related": [
+      "hovorit"
+    ]
   },
   {
     "slug": "chciet",
@@ -118,7 +131,10 @@
         "demonstrates": "musieť — obligation (see musieť)"
       }
     ],
-    "related": ["moct", "musiet"]
+    "related": [
+      "moct",
+      "musiet"
+    ]
   },
   {
     "slug": "musiet",
@@ -145,7 +161,10 @@
         "demonstrates": "chcieť — want (see chcieť)"
       }
     ],
-    "related": ["moct", "chciet"]
+    "related": [
+      "moct",
+      "chciet"
+    ]
   },
   {
     "slug": "ist",
@@ -166,7 +185,10 @@
         "demonstrates": "chodiť — habit (see chodiť)"
       }
     ],
-    "related": ["chodit", "prist"]
+    "related": [
+      "chodit",
+      "prist"
+    ]
   },
   {
     "slug": "nebyt",
@@ -214,7 +236,9 @@
         "demonstrates": "dať si — order / treat yourself"
       }
     ],
-    "related": ["davat"]
+    "related": [
+      "davat"
+    ]
   },
   {
     "slug": "nemat",
@@ -262,7 +286,9 @@
         "demonstrates": "vedieť, že — know that"
       }
     ],
-    "related": ["nevediet"]
+    "related": [
+      "nevediet"
+    ]
   },
   {
     "slug": "zacat",
@@ -283,7 +309,9 @@
         "demonstrates": "prestať — stop (see prestať)"
       }
     ],
-    "related": ["prestat"]
+    "related": [
+      "prestat"
+    ]
   },
   {
     "slug": "prist",
@@ -304,7 +332,11 @@
         "demonstrates": "odísť — leave (see odísť)"
       }
     ],
-    "related": ["odist", "ist", "chodit"]
+    "related": [
+      "odist",
+      "ist",
+      "chodit"
+    ]
   },
   {
     "slug": "dostat",
@@ -325,7 +357,10 @@
         "demonstrates": "dostať sa — get to / manage to arrive"
       }
     ],
-    "related": ["dat", "davat"]
+    "related": [
+      "dat",
+      "davat"
+    ]
   },
   {
     "slug": "stat",
@@ -346,7 +381,11 @@
         "demonstrates": "stať sa + noun — become"
       }
     ],
-    "related": ["stat-v", "byt", "ucitel"]
+    "related": [
+      "stat-v",
+      "byt",
+      "ucitel"
+    ]
   },
   {
     "slug": "vidiet",
@@ -367,7 +406,9 @@
         "demonstrates": "pozerať — look / watch (see pozerať)"
       }
     ],
-    "related": ["pozerat"]
+    "related": [
+      "pozerat"
+    ]
   },
   {
     "slug": "robit",
@@ -388,7 +429,9 @@
         "demonstrates": "urobiť — completed (see urobiť)"
       }
     ],
-    "related": ["urobit"]
+    "related": [
+      "urobit"
+    ]
   },
   {
     "slug": "mysliet",
@@ -424,10 +467,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Je ťažké nemôcť.",
-        "english": "It is hard to be able to.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Nemôžem prísť zajtra.",
+        "english": "I can't come tomorrow.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -529,7 +571,9 @@
         "demonstrates": "hľadať — look for (see hľadať)"
       }
     ],
-    "related": ["hladat"]
+    "related": [
+      "hladat"
+    ]
   },
   {
     "slug": "urobit",
@@ -550,7 +594,9 @@
         "demonstrates": "robiť — ongoing (see robiť)"
       }
     ],
-    "related": ["robit"]
+    "related": [
+      "robit"
+    ]
   },
   {
     "slug": "patrit",
@@ -872,10 +918,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam dodať.",
-        "english": "I'm starting to add.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Dodám chýbajúce dokumenty zajtra.",
+        "english": "I'll supply the missing documents tomorrow.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -1241,7 +1286,9 @@
         "demonstrates": "nájsť — find (see nájsť)"
       }
     ],
-    "related": ["najst"]
+    "related": [
+      "najst"
+    ]
   },
   {
     "slug": "poznat",
@@ -1490,7 +1537,10 @@
         "demonstrates": "prísť — come / arrive (see prísť)"
       }
     ],
-    "related": ["prist", "ist"]
+    "related": [
+      "prist",
+      "ist"
+    ]
   },
   {
     "slug": "otvorit",
@@ -1517,7 +1567,9 @@
         "tatoebaId": 9005809
       }
     ],
-    "related": ["otvarat"]
+    "related": [
+      "otvarat"
+    ]
   },
   {
     "slug": "prijat",
@@ -1625,7 +1677,10 @@
         "tatoebaId": 8963331
       }
     ],
-    "related": ["dat", "dostat"]
+    "related": [
+      "dat",
+      "dostat"
+    ]
   },
   {
     "slug": "chodit",
@@ -1646,7 +1701,10 @@
         "demonstrates": "ísť — now / one trip (see ísť)"
       }
     ],
-    "related": ["ist", "prist"]
+    "related": [
+      "ist",
+      "prist"
+    ]
   },
   {
     "slug": "posobit",
@@ -1655,10 +1713,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam pôsobiť.",
-        "english": "I'm starting to act.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "V škole pôsobí ako učiteľ.",
+        "english": "He works as a teacher at a school.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -1784,7 +1841,9 @@
         "demonstrates": "napísať — write to completion (see napísať)"
       }
     ],
-    "related": ["napisat"]
+    "related": [
+      "napisat"
+    ]
   },
   {
     "slug": "chybat",
@@ -2183,7 +2242,9 @@
         "demonstrates": "počúvať — listen (see počúvať)"
       }
     ],
-    "related": ["pocuvat"]
+    "related": [
+      "pocuvat"
+    ]
   },
   {
     "slug": "postavit",
@@ -2333,7 +2394,9 @@
         "demonstrates": "písať — ongoing (see písať)"
       }
     ],
-    "related": ["pisat"]
+    "related": [
+      "pisat"
+    ]
   },
   {
     "slug": "sediet",
@@ -2414,7 +2477,12 @@
         "tatoebaId": 1865229
       }
     ],
-    "related": ["cas", "den", "noc", "rano"]
+    "related": [
+      "cas",
+      "den",
+      "noc",
+      "rano"
+    ]
   },
   {
     "slug": "den",
@@ -2441,7 +2509,12 @@
         "tatoebaId": 2929902
       }
     ],
-    "related": ["cas", "noc", "rano", "vecer"]
+    "related": [
+      "cas",
+      "noc",
+      "rano",
+      "vecer"
+    ]
   },
   {
     "slug": "slovensko",
@@ -2495,7 +2568,12 @@
         "tatoebaId": 2914720
       }
     ],
-    "related": ["den", "noc", "rano", "vecer"]
+    "related": [
+      "den",
+      "noc",
+      "rano",
+      "vecer"
+    ]
   },
   {
     "slug": "dieta",
@@ -2522,7 +2600,12 @@
         "tatoebaId": 7584476
       }
     ],
-    "related": ["rodina", "matka", "otec", "brat-n"]
+    "related": [
+      "rodina",
+      "matka",
+      "otec",
+      "brat-n"
+    ]
   },
   {
     "slug": "zivot",
@@ -2627,7 +2710,11 @@
         "tatoebaId": 2927649
       }
     ],
-    "related": ["peniaze", "obchod", "nakupovat"]
+    "related": [
+      "peniaze",
+      "obchod",
+      "nakupovat"
+    ]
   },
   {
     "slug": "spolocnost",
@@ -2735,7 +2822,12 @@
         "tatoebaId": 8846616
       }
     ],
-    "related": ["ucitel", "ziak", "student", "kniha"]
+    "related": [
+      "ucitel",
+      "ziak",
+      "student",
+      "kniha"
+    ]
   },
   {
     "slug": "krajina",
@@ -2899,7 +2991,12 @@
         "tatoebaId": 9959551
       }
     ],
-    "related": ["jednotka", "percento", "suma", "pocet"]
+    "related": [
+      "jednotka",
+      "percento",
+      "suma",
+      "pocet"
+    ]
   },
   {
     "slug": "vlada",
@@ -2994,7 +3091,12 @@
         "tatoebaId": 10147586
       }
     ],
-    "related": ["noha", "hlava", "oko", "ucho"]
+    "related": [
+      "noha",
+      "hlava",
+      "oko",
+      "ucho"
+    ]
   },
   {
     "slug": "zakon",
@@ -3129,7 +3231,12 @@
         "tatoebaId": 4404777
       }
     ],
-    "related": ["cas", "den", "noc", "rano"]
+    "related": [
+      "cas",
+      "den",
+      "noc",
+      "rano"
+    ]
   },
   {
     "slug": "percento",
@@ -3143,7 +3250,12 @@
         "note": "Curated"
       }
     ],
-    "related": ["jednotka", "cast", "suma", "pocet"]
+    "related": [
+      "jednotka",
+      "cast",
+      "suma",
+      "pocet"
+    ]
   },
   {
     "slug": "sutaz",
@@ -3211,7 +3323,12 @@
         "tatoebaId": 2914717
       }
     ],
-    "related": ["skola", "ucitel", "ziak", "student"]
+    "related": [
+      "skola",
+      "ucitel",
+      "ziak",
+      "student"
+    ]
   },
   {
     "slug": "pan",
@@ -3447,7 +3564,12 @@
         "tatoebaId": 2926461
       }
     ],
-    "related": ["cas", "den", "noc", "rano"]
+    "related": [
+      "cas",
+      "den",
+      "noc",
+      "rano"
+    ]
   },
   {
     "slug": "sprava",
@@ -3642,7 +3764,12 @@
         "tatoebaId": 9845129
       }
     ],
-    "related": ["ruka", "noha", "oko", "ucho"]
+    "related": [
+      "ruka",
+      "noha",
+      "oko",
+      "ucho"
+    ]
   },
   {
     "slug": "peter",
@@ -3720,7 +3847,12 @@
         "tatoebaId": 13385352
       }
     ],
-    "related": ["cas", "den", "noc", "rano"]
+    "related": [
+      "cas",
+      "den",
+      "noc",
+      "rano"
+    ]
   },
   {
     "slug": "hra",
@@ -3789,7 +3921,12 @@
         "tatoebaId": 12743165
       }
     ],
-    "related": ["ruka", "noha", "hlava", "ucho"]
+    "related": [
+      "ruka",
+      "noha",
+      "hlava",
+      "ucho"
+    ]
   },
   {
     "slug": "minuta",
@@ -3803,7 +3940,12 @@
         "note": "Curated"
       }
     ],
-    "related": ["cas", "den", "noc", "rano"]
+    "related": [
+      "cas",
+      "den",
+      "noc",
+      "rano"
+    ]
   },
   {
     "slug": "oblast",
@@ -4063,7 +4205,12 @@
         "tatoebaId": 2233455
       }
     ],
-    "related": ["rodina", "matka", "brat-n", "sestra"]
+    "related": [
+      "rodina",
+      "matka",
+      "brat-n",
+      "sestra"
+    ]
   },
   {
     "slug": "prezident",
@@ -4105,7 +4252,12 @@
         "tatoebaId": 10013969
       }
     ],
-    "related": ["cislo", "mnozstvo", "jednotka", "suma"]
+    "related": [
+      "cislo",
+      "mnozstvo",
+      "jednotka",
+      "suma"
+    ]
   },
   {
     "slug": "koruna",
@@ -4238,7 +4390,12 @@
         "tatoebaId": 2915850
       }
     ],
-    "related": ["dom", "byt-n", "mesto", "stanica"]
+    "related": [
+      "dom",
+      "byt-n",
+      "mesto",
+      "stanica"
+    ]
   },
   {
     "slug": "priestor",
@@ -4499,7 +4656,12 @@
         "tatoebaId": 8977578
       }
     ],
-    "related": ["maly", "novy", "stary", "dobry"]
+    "related": [
+      "maly",
+      "novy",
+      "stary",
+      "dobry"
+    ]
   },
   {
     "slug": "novy",
@@ -4526,7 +4688,12 @@
         "tatoebaId": 2912672
       }
     ],
-    "related": ["velky", "maly", "stary", "dobry"]
+    "related": [
+      "velky",
+      "maly",
+      "stary",
+      "dobry"
+    ]
   },
   {
     "slug": "dobry",
@@ -4553,7 +4720,12 @@
         "tatoebaId": 4767183
       }
     ],
-    "related": ["zly", "velky", "maly", "novy"]
+    "related": [
+      "zly",
+      "velky",
+      "maly",
+      "novy"
+    ]
   },
   {
     "slug": "dalsi",
@@ -4661,7 +4833,12 @@
         "tatoebaId": 8934376
       }
     ],
-    "related": ["velky", "maly", "novy", "dobry"]
+    "related": [
+      "velky",
+      "maly",
+      "novy",
+      "dobry"
+    ]
   },
   {
     "slug": "maly",
@@ -4688,7 +4865,12 @@
         "tatoebaId": 8874255
       }
     ],
-    "related": ["velky", "novy", "stary", "dobry"]
+    "related": [
+      "velky",
+      "novy",
+      "stary",
+      "dobry"
+    ]
   },
   {
     "slug": "mlady",
@@ -4736,7 +4918,11 @@
         "demonstrates": "rád + verb — like doing"
       }
     ],
-    "related": ["mat", "pacit", "lubit"]
+    "related": [
+      "mat",
+      "pacit",
+      "lubit"
+    ]
   },
   {
     "slug": "vlastny",
@@ -5204,7 +5390,12 @@
         "tatoebaId": 12775631
       }
     ],
-    "related": ["dobry", "velky", "maly", "novy"]
+    "related": [
+      "dobry",
+      "velky",
+      "maly",
+      "novy"
+    ]
   },
   {
     "slug": "byvaly",
@@ -5362,7 +5553,12 @@
         "tatoebaId": 9932457
       }
     ],
-    "related": ["lahky", "velky", "maly", "novy"]
+    "related": [
+      "lahky",
+      "velky",
+      "maly",
+      "novy"
+    ]
   },
   {
     "slug": "silny",
@@ -5726,7 +5922,12 @@
         "tatoebaId": 9951910
       }
     ],
-    "related": ["biely", "cerveny", "modry", "zeleny"]
+    "related": [
+      "biely",
+      "cerveny",
+      "modry",
+      "zeleny"
+    ]
   },
   {
     "slug": "futbalovy",
@@ -6029,7 +6230,12 @@
         "tatoebaId": 2430476
       }
     ],
-    "related": ["cierny", "cerveny", "modry", "zeleny"]
+    "related": [
+      "cierny",
+      "cerveny",
+      "modry",
+      "zeleny"
+    ]
   },
   {
     "slug": "samotny",
@@ -6234,7 +6440,12 @@
         "tatoebaId": 7584459
       }
     ],
-    "related": ["velky", "maly", "novy", "stary"]
+    "related": [
+      "velky",
+      "maly",
+      "novy",
+      "stary"
+    ]
   },
   {
     "slug": "obrovsky",
@@ -6524,7 +6735,12 @@
         "tatoebaId": 10004012
       }
     ],
-    "related": ["biely", "cierny", "modry", "zeleny"]
+    "related": [
+      "biely",
+      "cierny",
+      "modry",
+      "zeleny"
+    ]
   },
   {
     "slug": "tvorit",
@@ -6614,7 +6830,9 @@
         "demonstrates": "brať — ongoing (see brať)"
       }
     ],
-    "related": ["brat"]
+    "related": [
+      "brat"
+    ]
   },
   {
     "slug": "poslat",
@@ -6839,7 +7057,9 @@
         "demonstrates": "kupovať — ongoing (see kupovať)"
       }
     ],
-    "related": ["kupovat"]
+    "related": [
+      "kupovat"
+    ]
   },
   {
     "slug": "volat",
@@ -6860,7 +7080,9 @@
         "demonstrates": "volať sa — be named"
       }
     ],
-    "related": ["meno"]
+    "related": [
+      "meno"
+    ]
   },
   {
     "slug": "dojst",
@@ -7442,7 +7664,9 @@
         "demonstrates": "prečítať — read through (see prečítať)"
       }
     ],
-    "related": ["precitat"]
+    "related": [
+      "precitat"
+    ]
   },
   {
     "slug": "brat",
@@ -7463,7 +7687,9 @@
         "demonstrates": "vziať — one completed take (see vziať)"
       }
     ],
-    "related": ["vziat"]
+    "related": [
+      "vziat"
+    ]
   },
   {
     "slug": "nevidiet",
@@ -7860,7 +8086,9 @@
         "demonstrates": "vidieť — see (see vidieť)"
       }
     ],
-    "related": ["vidiet"]
+    "related": [
+      "vidiet"
+    ]
   },
   {
     "slug": "pouzit",
@@ -8265,7 +8493,12 @@
         "tatoebaId": 8974822
       }
     ],
-    "related": ["rad", "pacit", "lubit", "mat"]
+    "related": [
+      "rad",
+      "pacit",
+      "lubit",
+      "mat"
+    ]
   },
   {
     "slug": "sluzit",
@@ -8571,7 +8804,9 @@
         "demonstrates": "začať — begin (see začať)"
       }
     ],
-    "related": ["zacat"]
+    "related": [
+      "zacat"
+    ]
   },
   {
     "slug": "nasledovat",
@@ -8878,7 +9113,9 @@
         "demonstrates": "báť sa + noun — afraid of"
       }
     ],
-    "related": ["pes"]
+    "related": [
+      "pes"
+    ]
   },
   {
     "slug": "prinasat",
@@ -9004,7 +9241,11 @@
         "demonstrates": "páčiť sa — liking a person"
       }
     ],
-    "related": ["rad", "lubit", "mat"]
+    "related": [
+      "rad",
+      "lubit",
+      "mat"
+    ]
   },
   {
     "slug": "vstupit",
@@ -9205,7 +9446,9 @@
         "demonstrates": "počuť — hear (see počuť)"
       }
     ],
-    "related": ["pocut"]
+    "related": [
+      "pocut"
+    ]
   },
   {
     "slug": "zvitazit",
@@ -9508,10 +9751,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam niesť.",
-        "english": "I'm starting to carry.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Nesie ťažkú tašku.",
+        "english": "He is carrying a heavy bag.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10115,7 +10357,9 @@
         "demonstrates": "čítať — ongoing (see čítať)"
       }
     ],
-    "related": ["citat"]
+    "related": [
+      "citat"
+    ]
   },
   {
     "slug": "odporucat",
@@ -10151,10 +10395,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam odovzdať.",
-        "english": "I'm starting to hand over.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Odovzdám úlohu zajtra.",
+        "english": "I'll hand in the assignment tomorrow.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10337,10 +10580,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem zvyšovať kvalitu.",
-        "english": "I want to increase the quality.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Firma zvyšuje ceny.",
+        "english": "The company is raising prices.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10600,10 +10842,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem si to všimnúť.",
-        "english": "I want to notice it.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Všimol som si chybu.",
+        "english": "I noticed a mistake.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10615,10 +10856,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam doplniť.",
-        "english": "I'm starting to complete.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Doplním odpoveď o príklad.",
+        "english": "I'll add an example to the answer.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10630,10 +10870,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam poznamenať.",
-        "english": "I'm starting to note.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Poznamenal, že príde neskôr.",
+        "english": "He remarked that he would come later.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10645,10 +10884,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem chápať.",
-        "english": "I want to understand.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Už chápem, čo myslíš.",
+        "english": "I understand what you mean now.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10702,10 +10940,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam hodnotiť.",
-        "english": "I'm starting to evaluate.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Učiteľ hodnotí naše odpovede.",
+        "english": "The teacher is evaluating our answers.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10842,10 +11079,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam prezentovať.",
-        "english": "I'm starting to present.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Zajtra budem prezentovať projekt.",
+        "english": "I'll present the project tomorrow.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -10988,10 +11224,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam vykonávať.",
-        "english": "I'm starting to carry out.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Svoju prácu vykonáva starostlivo.",
+        "english": "He carries out his work carefully.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11003,10 +11238,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem zísť.",
-        "english": "I want to go down.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Zišiel z kopca pešo.",
+        "english": "He walked down the hill.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11050,7 +11284,9 @@
         "tatoebaId": 8850008
       }
     ],
-    "related": ["zaspat"]
+    "related": [
+      "zaspat"
+    ]
   },
   {
     "slug": "poradit",
@@ -11086,10 +11322,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam obsadiť.",
-        "english": "I'm starting to occupy.",
+        "slovak": "Obsadili všetky miesta v sále.",
+        "english": "They occupied all the seats in the hall.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Režisér obsadil hlavnú úlohu známym hercom.",
+        "english": "The director cast a well-known actor in the leading role.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "obsadiť — cast a role"
       }
     ],
     "related": []
@@ -11115,10 +11356,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zažiť.",
-        "english": "I'm starting to experience.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Zažili sme krásny večer.",
+        "english": "We had a wonderful evening.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11253,10 +11493,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zachovať.",
-        "english": "I'm starting to preserve.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Zachovaj pokoj.",
+        "english": "Keep calm.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11351,10 +11590,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam predložiť.",
-        "english": "I'm starting to submit.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Predložím návrh na stretnutí.",
+        "english": "I'll present the proposal at the meeting.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11428,10 +11666,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem s tebou rokovať.",
-        "english": "I want to negotiate with you.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Obe strany rokujú o dohode.",
+        "english": "Both sides are negotiating an agreement.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11458,10 +11695,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zasiahnuť.",
-        "english": "I'm starting to hit.",
+        "slovak": "Blesk zasiahol strom.",
+        "english": "Lightning struck the tree.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tá správa ho veľmi zasiahla.",
+        "english": "That news affected him deeply.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "zasiahnuť — affect emotionally"
       }
     ],
     "related": []
@@ -11473,10 +11715,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Je ťažké nenájsť.",
-        "english": "It is hard to find.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Nenašiel som kľúče.",
+        "english": "I didn't find the keys.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11618,10 +11859,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam založiť.",
-        "english": "I'm starting to found.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Založili novú firmu.",
+        "english": "They founded a new company.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11764,10 +12004,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zvoliť.",
-        "english": "I'm starting to choose.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Zvolili nového predsedu.",
+        "english": "They elected a new chairperson.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -11793,10 +12032,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam vytiahnuť.",
-        "english": "I'm starting to pull out.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Vytiahol telefón z vrecka.",
+        "english": "He took his phone out of his pocket.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12232,10 +12470,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam postúpiť.",
-        "english": "I'm starting to advance.",
+        "slovak": "Náš tím postúpil do finále.",
+        "english": "Our team advanced to the final.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prípad postúpili súdu.",
+        "english": "They referred the case to the court.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "postúpiť — refer onward"
       }
     ],
     "related": []
@@ -12274,10 +12517,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam podávať.",
-        "english": "I'm starting to hand.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Čašník podáva polievku.",
+        "english": "The waiter is serving soup.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12343,10 +12585,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zaviesť.",
-        "english": "I'm starting to introduce.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Mesto zavedie nové pravidlá.",
+        "english": "The city will introduce new rules.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12439,10 +12680,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem vzrásť kvalitu.",
-        "english": "I want to grow the quality.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Ceny minulý rok vzrástli.",
+        "english": "Prices rose last year.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12454,10 +12694,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam prihlásiť.",
-        "english": "I'm starting to register.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Prihlásim sa na kurz slovenčiny.",
+        "english": "I'll sign up for a Slovak course.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12483,10 +12722,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam vyberať.",
-        "english": "I'm starting to choose.",
+        "slovak": "Vyberám si nové topánky.",
+        "english": "I'm choosing new shoes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Každý mesiac vyberá peniaze z bankomatu.",
+        "english": "He withdraws money from an ATM every month.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "vyberať — withdraw money"
       }
     ],
     "related": []
@@ -12552,10 +12796,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam streliť.",
-        "english": "I'm starting to shoot.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Strelil gól.",
+        "english": "He scored a goal.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12567,10 +12810,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam klásť.",
-        "english": "I'm starting to lay.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Kladie veľa otázok.",
+        "english": "He asks a lot of questions.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12677,10 +12919,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zverejniť.",
-        "english": "I'm starting to publish.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Zverejnili výsledky online.",
+        "english": "They published the results online.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12734,10 +12975,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam stiahnuť.",
-        "english": "I'm starting to pull down.",
+        "slovak": "Stiahol si súbor z internetu.",
+        "english": "He downloaded a file from the internet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Stiahol kabát z vešiaka.",
+        "english": "He took the coat down from the hanger.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "stiahnuť — pull or take down"
       }
     ],
     "related": []
@@ -12847,10 +13093,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam prijímať.",
-        "english": "I'm starting to accept.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Prijímame nové objednávky.",
+        "english": "We are accepting new orders.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -12874,7 +13119,9 @@
         "demonstrates": "zjesť — eat up (see zjesť)"
       }
     ],
-    "related": ["zjest"]
+    "related": [
+      "zjest"
+    ]
   },
   {
     "slug": "otvarat",
@@ -12901,7 +13148,9 @@
         "tatoebaId": 9017076
       }
     ],
-    "related": ["otvorit"]
+    "related": [
+      "otvorit"
+    ]
   },
   {
     "slug": "spustit",
@@ -12931,10 +13180,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Môže to zmiznúť.",
-        "english": "It can disappear.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Kľúče zmizli zo stola.",
+        "english": "The keys disappeared from the table.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13077,10 +13325,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam priviesť.",
-        "english": "I'm starting to bring.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Priviedol syna do školy.",
+        "english": "He brought his son to school.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13182,10 +13429,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam sprevádzať.",
-        "english": "I'm starting to accompany.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Sprievodca sprevádza skupinu po meste.",
+        "english": "The guide is accompanying the group around the city.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13289,10 +13535,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zabezpečovať.",
-        "english": "I'm starting to ensure.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Táto služba zabezpečuje prístup k internetu.",
+        "english": "This service provides internet access.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13331,10 +13576,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam prežívať.",
-        "english": "I'm starting to experience.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Počas vojny prežívali ťažké chvíle.",
+        "english": "They lived through difficult times during the war.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13388,10 +13632,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam vybudovať.",
-        "english": "I'm starting to build.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Vybudovali nový park.",
+        "english": "They built a new park.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13445,10 +13688,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam postupovať.",
-        "english": "I'm starting to proceed.",
+        "slovak": "Pri oprave postupujte podľa návodu.",
+        "english": "Follow the instructions when making the repair.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Práca postupuje podľa plánu.",
+        "english": "The work is progressing according to plan.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "postupovať — make progress"
       }
     ],
     "related": []
@@ -13460,10 +13708,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem vypracovať.",
-        "english": "I want to work out.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Vypracoval podrobný plán.",
+        "english": "He drew up a detailed plan.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13496,10 +13743,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam vydržať.",
-        "english": "I'm starting to endure.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Táto batéria vydrží celý deň.",
+        "english": "This battery lasts all day.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13577,7 +13823,9 @@
         "demonstrates": "vypiť — drink up (see vypiť)"
       }
     ],
-    "related": ["vypit"]
+    "related": [
+      "vypit"
+    ]
   },
   {
     "slug": "vydavat",
@@ -13766,10 +14014,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam ťahať.",
-        "english": "I'm starting to pull.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Deti ťahajú sánky do kopca.",
+        "english": "The children are pulling sleds up the hill.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13808,10 +14055,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam kontrolovať.",
-        "english": "I'm starting to check.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Pred odchodom kontrolujem dvere.",
+        "english": "I check the door before leaving.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13865,10 +14111,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam objavovať.",
-        "english": "I'm starting to discover.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Deti objavujú nové miesta.",
+        "english": "Children are discovering new places.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13880,10 +14125,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam dosahovať.",
-        "english": "I'm starting to achieve.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Dosahuje dobré výsledky v škole.",
+        "english": "He achieves good results at school.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -13943,10 +14187,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam napadnúť.",
-        "english": "I'm starting to attack.",
+        "slovak": "Pes napadol poštára.",
+        "english": "The dog attacked the postman.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Napadla mi dobrá myšlienka.",
+        "english": "A good idea occurred to me.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "napadnúť — occur to someone"
       }
     ],
     "related": []
@@ -13958,10 +14207,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam dopadnúť.",
-        "english": "I'm starting to land.",
+        "slovak": "Lopta dopadla na zem.",
+        "english": "The ball landed on the ground.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Skúška dopadla dobre.",
+        "english": "The exam went well.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "dopadnúť — turn out"
       }
     ],
     "related": []
@@ -14015,10 +14269,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem ťa pozývať.",
-        "english": "I want to invite you.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Každý rok pozývame priateľov na oslavu.",
+        "english": "Every year we invite friends to a celebration.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -14030,10 +14283,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Snažím sa zbadať.",
-        "english": "I'm trying to notice.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Zbadal som svetlo v okne.",
+        "english": "I noticed a light in the window.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -14249,10 +14501,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam vybojovať.",
-        "english": "I'm starting to win by fighting.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Vybojovali si postup do finále.",
+        "english": "They fought their way into the final.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -14345,10 +14596,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam priať.",
-        "english": "I'm starting to wish.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Prajem ti veľa šťastia.",
+        "english": "I wish you lots of luck.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -14576,10 +14826,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam spôsobovať.",
-        "english": "I'm starting to cause.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Hluk spôsobuje problémy susedom.",
+        "english": "The noise is causing problems for the neighbors.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -14606,10 +14855,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam pristúpiť.",
-        "english": "I'm starting to approach.",
+        "slovak": "Pristúpil k oknu.",
+        "english": "He walked up to the window.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pristúpili k riešeniu problému.",
+        "english": "They proceeded to solve the problem.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "pristúpiť — proceed to an action"
       }
     ],
     "related": []
@@ -14721,10 +14975,15 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam odvolať.",
-        "english": "I'm starting to revoke.",
+        "slovak": "Odvolali koncert pre dážď.",
+        "english": "They cancelled the concert because of the rain.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Proti rozhodnutiu sa môže odvolať.",
+        "english": "He can appeal the decision.",
         "note": "Curated",
-        "isPracticeFrame": true
+        "demonstrates": "odvolať sa — appeal"
       }
     ],
     "related": []
@@ -14805,10 +15064,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam zahynúť.",
-        "english": "I'm starting to perish.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Pri nehode zahynuli dvaja ľudia.",
+        "english": "Two people died in the accident.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -14883,10 +15141,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam štartovať.",
-        "english": "I'm starting to start.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Bežci štartujú o deviatej.",
+        "english": "The runners start at nine.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -14967,10 +15224,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam skonštatovať.",
-        "english": "I'm starting to state.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Lekár skonštatoval zlepšenie.",
+        "english": "The doctor noted an improvement.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -15009,10 +15265,9 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Začínam podľahnúť.",
-        "english": "I'm starting to succumb.",
-        "note": "Curated",
-        "isPracticeFrame": true
+        "slovak": "Nepodľahol panike.",
+        "english": "He did not give in to panic.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -15381,7 +15636,9 @@
         "demonstrates": "kúpiť — one purchase (see kúpiť)"
       }
     ],
-    "related": ["kupit"]
+    "related": [
+      "kupit"
+    ]
   },
   {
     "slug": "oslavovat",
@@ -19552,7 +19809,11 @@
         "demonstrates": "mať rád — like (see rád)"
       }
     ],
-    "related": ["rad", "pacit", "milovat"]
+    "related": [
+      "rad",
+      "pacit",
+      "milovat"
+    ]
   },
   {
     "slug": "uspokojit",
@@ -19615,7 +19876,9 @@
         "demonstrates": "piť — ongoing (see piť)"
       }
     ],
-    "related": ["pit"]
+    "related": [
+      "pit"
+    ]
   },
   {
     "slug": "cerpat",
@@ -19825,7 +20088,9 @@
         "tatoebaId": 10000760
       }
     ],
-    "related": ["spat"]
+    "related": [
+      "spat"
+    ]
   },
   {
     "slug": "usadit",
@@ -19930,7 +20195,11 @@
         "tatoebaId": 8947511
       }
     ],
-    "related": ["praca", "peniaze", "obchod"]
+    "related": [
+      "praca",
+      "peniaze",
+      "obchod"
+    ]
   },
   {
     "slug": "zareagovat",
@@ -23746,7 +24015,9 @@
         "demonstrates": "jesť — ongoing (see jesť)"
       }
     ],
-    "related": ["jest"]
+    "related": [
+      "jest"
+    ]
   },
   {
     "slug": "doviest",
@@ -24855,7 +25126,12 @@
         "note": "Curated"
       }
     ],
-    "related": ["jednotka", "percento", "cast", "suma"]
+    "related": [
+      "jednotka",
+      "percento",
+      "cast",
+      "suma"
+    ]
   },
   {
     "slug": "sobota",
@@ -25287,7 +25563,12 @@
         "tatoebaId": 8863091
       }
     ],
-    "related": ["ruka", "noha", "hlava", "oko"]
+    "related": [
+      "ruka",
+      "noha",
+      "hlava",
+      "oko"
+    ]
   },
   {
     "slug": "pomoc",
@@ -25341,7 +25622,12 @@
         "tatoebaId": 8863014
       }
     ],
-    "related": ["ruka", "noha", "hlava", "oko"]
+    "related": [
+      "ruka",
+      "noha",
+      "hlava",
+      "oko"
+    ]
   },
   {
     "slug": "rozhodnutie",
@@ -25506,7 +25792,12 @@
         "tatoebaId": 10033654
       }
     ],
-    "related": ["skola", "ucitel", "student", "kniha"]
+    "related": [
+      "skola",
+      "ucitel",
+      "student",
+      "kniha"
+    ]
   },
   {
     "slug": "cislo",
@@ -25533,7 +25824,12 @@
         "tatoebaId": 8335848
       }
     ],
-    "related": ["pocet", "mnozstvo", "jednotka", "suma"]
+    "related": [
+      "pocet",
+      "mnozstvo",
+      "jednotka",
+      "suma"
+    ]
   },
   {
     "slug": "noc",
@@ -25560,7 +25856,12 @@
         "tatoebaId": 2430731
       }
     ],
-    "related": ["cas", "den", "rano", "vecer"]
+    "related": [
+      "cas",
+      "den",
+      "rano",
+      "vecer"
+    ]
   },
   {
     "slug": "zdroj",
@@ -25809,7 +26110,12 @@
         "tatoebaId": 9071240
       }
     ],
-    "related": ["pocet", "cislo", "jednotka", "suma"]
+    "related": [
+      "pocet",
+      "cislo",
+      "jednotka",
+      "suma"
+    ]
   },
   {
     "slug": "kultura",
@@ -26526,7 +26832,10 @@
         "tatoebaId": 9971523
       }
     ],
-    "related": ["lekar", "doktor"]
+    "related": [
+      "lekar",
+      "doktor"
+    ]
   },
   {
     "slug": "plan",
@@ -26610,7 +26919,12 @@
         "tatoebaId": 2926465
       }
     ],
-    "related": ["rodina", "otec", "brat-n", "sestra"]
+    "related": [
+      "rodina",
+      "otec",
+      "brat-n",
+      "sestra"
+    ]
   },
   {
     "slug": "proces",
@@ -26734,7 +27048,10 @@
         "tatoebaId": 8920606
       }
     ],
-    "related": ["nemocnica", "doktor"]
+    "related": [
+      "nemocnica",
+      "doktor"
+    ]
   },
   {
     "slug": "fond",
@@ -26999,7 +27316,12 @@
         "note": "Curated"
       }
     ],
-    "related": ["ruka", "hlava", "oko", "ucho"]
+    "related": [
+      "ruka",
+      "hlava",
+      "oko",
+      "ucho"
+    ]
   },
   {
     "slug": "sef",
@@ -27152,7 +27474,12 @@
         "tatoebaId": 4785706
       }
     ],
-    "related": ["skola", "ucitel", "ziak", "kniha"]
+    "related": [
+      "skola",
+      "ucitel",
+      "ziak",
+      "kniha"
+    ]
   },
   {
     "slug": "hranica",
@@ -27221,7 +27548,12 @@
         "tatoebaId": 9004711
       }
     ],
-    "related": ["voda", "vzduch", "strom", "kvet"]
+    "related": [
+      "voda",
+      "vzduch",
+      "strom",
+      "kvet"
+    ]
   },
   {
     "slug": "piatok",
@@ -28046,7 +28378,11 @@
         "tatoebaId": 9843247
       }
     ],
-    "related": ["praca", "peniaze", "nakupovat"]
+    "related": [
+      "praca",
+      "peniaze",
+      "nakupovat"
+    ]
   },
   {
     "slug": "utok",
@@ -28649,7 +28985,12 @@
         "isPracticeFrame": true
       }
     ],
-    "related": ["jednotka", "percento", "cast", "pocet"]
+    "related": [
+      "jednotka",
+      "percento",
+      "cast",
+      "pocet"
+    ]
   },
   {
     "slug": "meter",
@@ -29435,7 +29776,12 @@
         "tatoebaId": 2429353
       }
     ],
-    "related": ["rodina", "matka", "otec", "brat-n"]
+    "related": [
+      "rodina",
+      "matka",
+      "otec",
+      "brat-n"
+    ]
   },
   {
     "slug": "trencin",
@@ -30065,7 +30411,12 @@
         "tatoebaId": 2429352
       }
     ],
-    "related": ["skola", "ziak", "student", "kniha"]
+    "related": [
+      "skola",
+      "ziak",
+      "student",
+      "kniha"
+    ]
   },
   {
     "slug": "partner",
@@ -30740,7 +31091,12 @@
         "isPracticeFrame": true
       }
     ],
-    "related": ["jednotka", "percento", "cast", "suma"]
+    "related": [
+      "jednotka",
+      "percento",
+      "cast",
+      "suma"
+    ]
   },
   {
     "slug": "dusa",
@@ -30962,7 +31318,12 @@
         "tatoebaId": 9024165
       }
     ],
-    "related": ["percento", "cast", "suma", "pocet"]
+    "related": [
+      "percento",
+      "cast",
+      "suma",
+      "pocet"
+    ]
   },
   {
     "slug": "vyznam",
@@ -31031,7 +31392,11 @@
         "tatoebaId": 8863030
       }
     ],
-    "related": ["praca", "obchod", "nakupovat"]
+    "related": [
+      "praca",
+      "obchod",
+      "nakupovat"
+    ]
   },
   {
     "slug": "biskup",
@@ -31223,7 +31588,12 @@
         "tatoebaId": 8987326
       }
     ],
-    "related": ["nemocnica", "lekar", "doktor", "liek"]
+    "related": [
+      "nemocnica",
+      "lekar",
+      "doktor",
+      "liek"
+    ]
   },
   {
     "slug": "organ",
@@ -31322,7 +31692,12 @@
         "tatoebaId": 4776230
       }
     ],
-    "related": ["voda", "vzduch", "zem", "kvet"]
+    "related": [
+      "voda",
+      "vzduch",
+      "zem",
+      "kvet"
+    ]
   },
   {
     "slug": "lopta",
@@ -31667,7 +32042,9 @@
         "tatoebaId": 1035692
       }
     ],
-    "related": ["zviera"]
+    "related": [
+      "zviera"
+    ]
   },
   {
     "slug": "poda",
@@ -32501,7 +32878,12 @@
         "tatoebaId": 10132960
       }
     ],
-    "related": ["voda", "vzduch", "zem", "strom"]
+    "related": [
+      "voda",
+      "vzduch",
+      "zem",
+      "strom"
+    ]
   },
   {
     "slug": "riziko",
@@ -33140,7 +33522,12 @@
         "tatoebaId": 8936446
       }
     ],
-    "related": ["cas", "den", "noc", "rano"]
+    "related": [
+      "cas",
+      "den",
+      "noc",
+      "rano"
+    ]
   },
   {
     "slug": "lider",
@@ -33716,7 +34103,12 @@
         "tatoebaId": 12009704
       }
     ],
-    "related": ["stanica", "listok", "auto", "autobus"]
+    "related": [
+      "stanica",
+      "listok",
+      "auto",
+      "autobus"
+    ]
   },
   {
     "slug": "rozhodca",
@@ -33875,7 +34267,12 @@
         "tatoebaId": 9937122
       }
     ],
-    "related": ["voda", "vzduch", "zem", "strom"]
+    "related": [
+      "voda",
+      "vzduch",
+      "zem",
+      "strom"
+    ]
   },
   {
     "slug": "miestnost",
@@ -33950,7 +34347,12 @@
         "tatoebaId": 12778363
       }
     ],
-    "related": ["nemocnica", "lekar", "doktor", "zdravie"]
+    "related": [
+      "nemocnica",
+      "lekar",
+      "doktor",
+      "zdravie"
+    ]
   },
   {
     "slug": "vlas",
@@ -34028,7 +34430,9 @@
         "tatoebaId": 8874249
       }
     ],
-    "related": ["pes"]
+    "related": [
+      "pes"
+    ]
   },
   {
     "slug": "zamer",
@@ -34412,7 +34816,12 @@
         "tatoebaId": 8954814
       }
     ],
-    "related": ["jedlo", "voda", "kava", "chlieb"]
+    "related": [
+      "jedlo",
+      "voda",
+      "kava",
+      "chlieb"
+    ]
   },
   {
     "slug": "styl",
@@ -34928,7 +35337,12 @@
         "tatoebaId": 9858136
       }
     ],
-    "related": ["voda", "zem", "strom", "kvet"]
+    "related": [
+      "voda",
+      "zem",
+      "strom",
+      "kvet"
+    ]
   },
   {
     "slug": "kus",
@@ -35648,7 +36062,12 @@
         "tatoebaId": 13641883
       }
     ],
-    "related": ["voda", "vzduch", "zem", "strom"]
+    "related": [
+      "voda",
+      "vzduch",
+      "zem",
+      "strom"
+    ]
   },
   {
     "slug": "start",
@@ -35846,7 +36265,12 @@
         "tatoebaId": 8961187
       }
     ],
-    "related": ["stanica", "listok", "auto", "lietadlo"]
+    "related": [
+      "stanica",
+      "listok",
+      "auto",
+      "lietadlo"
+    ]
   },
   {
     "slug": "spolocenstvo",
@@ -37709,7 +38133,12 @@
         "tatoebaId": 2229017
       }
     ],
-    "related": ["stanica", "listok", "auto", "autobus"]
+    "related": [
+      "stanica",
+      "listok",
+      "auto",
+      "autobus"
+    ]
   },
   {
     "slug": "ucel",
@@ -39317,7 +39746,12 @@
         "tatoebaId": 9013059
       }
     ],
-    "related": ["jedlo", "voda", "kava", "chlieb"]
+    "related": [
+      "jedlo",
+      "voda",
+      "kava",
+      "chlieb"
+    ]
   },
   {
     "slug": "vrazda",
@@ -39533,7 +39967,12 @@
         "tatoebaId": 10004009
       }
     ],
-    "related": ["voda", "vzduch", "zem", "strom"]
+    "related": [
+      "voda",
+      "vzduch",
+      "zem",
+      "strom"
+    ]
   },
   {
     "slug": "studia",
@@ -39734,7 +40173,12 @@
         "tatoebaId": 8850023
       }
     ],
-    "related": ["cas", "den", "noc", "vecer"]
+    "related": [
+      "cas",
+      "den",
+      "noc",
+      "vecer"
+    ]
   },
   {
     "slug": "vzdelanie",
@@ -39890,7 +40334,12 @@
         "tatoebaId": 13390969
       }
     ],
-    "related": ["ruka", "noha", "hlava", "oko"]
+    "related": [
+      "ruka",
+      "noha",
+      "hlava",
+      "oko"
+    ]
   },
   {
     "slug": "katarina",
@@ -41123,7 +41572,12 @@
         "tatoebaId": 9027266
       }
     ],
-    "related": ["jedlo", "voda", "kava", "chlieb"]
+    "related": [
+      "jedlo",
+      "voda",
+      "kava",
+      "chlieb"
+    ]
   },
   {
     "slug": "hlasovanie",
@@ -41204,7 +41658,10 @@
         "tatoebaId": 9867275
       }
     ],
-    "related": ["nemocnica", "lekar"]
+    "related": [
+      "nemocnica",
+      "lekar"
+    ]
   },
   {
     "slug": "hriech",
@@ -41588,7 +42045,12 @@
         "tatoebaId": 5077148
       }
     ],
-    "related": ["jedlo", "voda", "kava", "maso"]
+    "related": [
+      "jedlo",
+      "voda",
+      "kava",
+      "maso"
+    ]
   },
   {
     "slug": "zakaz",
@@ -42548,7 +43010,12 @@
         "tatoebaId": 9003755
       }
     ],
-    "related": ["tazky", "velky", "maly", "novy"]
+    "related": [
+      "tazky",
+      "velky",
+      "maly",
+      "novy"
+    ]
   },
   {
     "slug": "zeleny",
@@ -42575,7 +43042,12 @@
         "tatoebaId": 8980782
       }
     ],
-    "related": ["biely", "cierny", "cerveny", "modry"]
+    "related": [
+      "biely",
+      "cierny",
+      "cerveny",
+      "modry"
+    ]
   },
   {
     "slug": "skvely",
@@ -43851,7 +44323,12 @@
         "tatoebaId": 9850037
       }
     ],
-    "related": ["biely", "cierny", "cerveny", "zeleny"]
+    "related": [
+      "biely",
+      "cierny",
+      "cerveny",
+      "zeleny"
+    ]
   },
   {
     "slug": "prirodny",
@@ -44942,7 +45419,12 @@
         "tatoebaId": 8935986
       }
     ],
-    "related": ["biely", "cierny", "cerveny", "modry"]
+    "related": [
+      "biely",
+      "cierny",
+      "cerveny",
+      "modry"
+    ]
   },
   {
     "slug": "letecky",
@@ -56827,7 +57309,9 @@
         "demonstrates": "stáť — cost"
       }
     ],
-    "related": ["stat"]
+    "related": [
+      "stat"
+    ]
   },
   {
     "slug": "stavat-v",
@@ -56935,7 +57419,12 @@
         "tatoebaId": 2624027
       }
     ],
-    "related": ["dom", "mesto", "stanica", "listok"]
+    "related": [
+      "dom",
+      "mesto",
+      "stanica",
+      "listok"
+    ]
   },
   {
     "slug": "rad-n",
@@ -57016,7 +57505,12 @@
         "tatoebaId": 1035709
       }
     ],
-    "related": ["rodina", "matka", "otec", "sestra"]
+    "related": [
+      "rodina",
+      "matka",
+      "otec",
+      "sestra"
+    ]
   },
   {
     "slug": "narast-n",

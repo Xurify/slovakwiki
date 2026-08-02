@@ -3232,490 +3232,489 @@
   ],
   "nemoct": [
     {
-      "slovak": "Je ťažké nemôcť.",
-      "english": "It is hard to be able to.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Nemôžem prísť zajtra.",
+      "english": "I can't come tomorrow.",
+      "note": "Curated"
     }
   ],
   "dodat": [
     {
-      "slovak": "Začínam dodať.",
-      "english": "I'm starting to add.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Dodám chýbajúce dokumenty zajtra.",
+      "english": "I'll supply the missing documents tomorrow.",
+      "note": "Curated"
     }
   ],
   "posobit": [
     {
-      "slovak": "Začínam pôsobiť.",
-      "english": "I'm starting to act.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "V škole pôsobí ako učiteľ.",
+      "english": "He works as a teacher at a school.",
+      "note": "Curated"
     }
   ],
   "niest": [
     {
-      "slovak": "Začínam niesť.",
-      "english": "I'm starting to carry.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Nesie ťažkú tašku.",
+      "english": "He is carrying a heavy bag.",
+      "note": "Curated"
     }
   ],
   "odovzdat": [
     {
-      "slovak": "Začínam odovzdať.",
-      "english": "I'm starting to hand over.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Odovzdám úlohu zajtra.",
+      "english": "I'll hand in the assignment tomorrow.",
+      "note": "Curated"
     }
   ],
   "zvysovat": [
     {
-      "slovak": "Chcem zvyšovať kvalitu.",
-      "english": "I want to increase the quality.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Firma zvyšuje ceny.",
+      "english": "The company is raising prices.",
+      "note": "Curated"
     }
   ],
   "vsimnut": [
     {
-      "slovak": "Chcem si to všimnúť.",
-      "english": "I want to notice it.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Všimol som si chybu.",
+      "english": "I noticed a mistake.",
+      "note": "Curated"
     }
   ],
   "doplnit": [
     {
-      "slovak": "Začínam doplniť.",
-      "english": "I'm starting to complete.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Doplním odpoveď o príklad.",
+      "english": "I'll add an example to the answer.",
+      "note": "Curated"
     }
   ],
   "poznamenat": [
     {
-      "slovak": "Začínam poznamenať.",
-      "english": "I'm starting to note.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Poznamenal, že príde neskôr.",
+      "english": "He remarked that he would come later.",
+      "note": "Curated"
     }
   ],
   "chapat": [
     {
-      "slovak": "Chcem chápať.",
-      "english": "I want to understand.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Už chápem, čo myslíš.",
+      "english": "I understand what you mean now.",
+      "note": "Curated"
     }
   ],
   "hodnotit": [
     {
-      "slovak": "Začínam hodnotiť.",
-      "english": "I'm starting to evaluate.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Učiteľ hodnotí naše odpovede.",
+      "english": "The teacher is evaluating our answers.",
+      "note": "Curated"
     }
   ],
   "prezentovat": [
     {
-      "slovak": "Začínam prezentovať.",
-      "english": "I'm starting to present.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Zajtra budem prezentovať projekt.",
+      "english": "I'll present the project tomorrow.",
+      "note": "Curated"
     }
   ],
   "vykonavat": [
     {
-      "slovak": "Začínam vykonávať.",
-      "english": "I'm starting to carry out.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Svoju prácu vykonáva starostlivo.",
+      "english": "He carries out his work carefully.",
+      "note": "Curated"
     }
   ],
   "zist": [
     {
-      "slovak": "Chcem zísť.",
-      "english": "I want to go down.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Zišiel z kopca pešo.",
+      "english": "He walked down the hill.",
+      "note": "Curated"
     }
   ],
   "obsadit": [
     {
-      "slovak": "Začínam obsadiť.",
-      "english": "I'm starting to occupy.",
+      "slovak": "Obsadili všetky miesta v sále.",
+      "english": "They occupied all the seats in the hall.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Režisér obsadil hlavnú úlohu známym hercom.",
+      "english": "The director cast a well-known actor in the leading role.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "obsadiť — cast a role"
     }
   ],
   "zazit": [
     {
-      "slovak": "Začínam zažiť.",
-      "english": "I'm starting to experience.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Zažili sme krásny večer.",
+      "english": "We had a wonderful evening.",
+      "note": "Curated"
     }
   ],
   "zachovat": [
     {
-      "slovak": "Začínam zachovať.",
-      "english": "I'm starting to preserve.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Zachovaj pokoj.",
+      "english": "Keep calm.",
+      "note": "Curated"
     }
   ],
   "predlozit": [
     {
-      "slovak": "Začínam predložiť.",
-      "english": "I'm starting to submit.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Predložím návrh na stretnutí.",
+      "english": "I'll present the proposal at the meeting.",
+      "note": "Curated"
     }
   ],
   "rokovat": [
     {
-      "slovak": "Chcem s tebou rokovať.",
-      "english": "I want to negotiate with you.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Obe strany rokujú o dohode.",
+      "english": "Both sides are negotiating an agreement.",
+      "note": "Curated"
     }
   ],
   "zasiahnut": [
     {
-      "slovak": "Začínam zasiahnuť.",
-      "english": "I'm starting to hit.",
+      "slovak": "Blesk zasiahol strom.",
+      "english": "Lightning struck the tree.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Tá správa ho veľmi zasiahla.",
+      "english": "That news affected him deeply.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "zasiahnuť — affect emotionally"
     }
   ],
   "nenajst": [
     {
-      "slovak": "Je ťažké nenájsť.",
-      "english": "It is hard to find.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Nenašiel som kľúče.",
+      "english": "I didn't find the keys.",
+      "note": "Curated"
     }
   ],
   "zalozit": [
     {
-      "slovak": "Začínam založiť.",
-      "english": "I'm starting to found.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Založili novú firmu.",
+      "english": "They founded a new company.",
+      "note": "Curated"
     }
   ],
   "zvolit": [
     {
-      "slovak": "Začínam zvoliť.",
-      "english": "I'm starting to choose.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Zvolili nového predsedu.",
+      "english": "They elected a new chairperson.",
+      "note": "Curated"
     }
   ],
   "vytiahnut": [
     {
-      "slovak": "Začínam vytiahnuť.",
-      "english": "I'm starting to pull out.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Vytiahol telefón z vrecka.",
+      "english": "He took his phone out of his pocket.",
+      "note": "Curated"
     }
   ],
   "postupit": [
     {
-      "slovak": "Začínam postúpiť.",
-      "english": "I'm starting to advance.",
+      "slovak": "Náš tím postúpil do finále.",
+      "english": "Our team advanced to the final.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Prípad postúpili súdu.",
+      "english": "They referred the case to the court.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "postúpiť — refer onward"
     }
   ],
   "podavat": [
     {
-      "slovak": "Začínam podávať.",
-      "english": "I'm starting to hand.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Čašník podáva polievku.",
+      "english": "The waiter is serving soup.",
+      "note": "Curated"
     }
   ],
   "zaviest": [
     {
-      "slovak": "Začínam zaviesť.",
-      "english": "I'm starting to introduce.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Mesto zavedie nové pravidlá.",
+      "english": "The city will introduce new rules.",
+      "note": "Curated"
     }
   ],
   "vzrast": [
     {
-      "slovak": "Chcem vzrásť kvalitu.",
-      "english": "I want to grow the quality.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Ceny minulý rok vzrástli.",
+      "english": "Prices rose last year.",
+      "note": "Curated"
     }
   ],
   "prihlasit": [
     {
-      "slovak": "Začínam prihlásiť.",
-      "english": "I'm starting to register.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Prihlásim sa na kurz slovenčiny.",
+      "english": "I'll sign up for a Slovak course.",
+      "note": "Curated"
     }
   ],
   "vyberat": [
     {
-      "slovak": "Začínam vyberať.",
-      "english": "I'm starting to choose.",
+      "slovak": "Vyberám si nové topánky.",
+      "english": "I'm choosing new shoes.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Každý mesiac vyberá peniaze z bankomatu.",
+      "english": "He withdraws money from an ATM every month.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "vyberať — withdraw money"
     }
   ],
   "strelit": [
     {
-      "slovak": "Začínam streliť.",
-      "english": "I'm starting to shoot.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Strelil gól.",
+      "english": "He scored a goal.",
+      "note": "Curated"
     }
   ],
   "klast": [
     {
-      "slovak": "Začínam klásť.",
-      "english": "I'm starting to lay.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Kladie veľa otázok.",
+      "english": "He asks a lot of questions.",
+      "note": "Curated"
     }
   ],
   "zverejnit": [
     {
-      "slovak": "Začínam zverejniť.",
-      "english": "I'm starting to publish.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Zverejnili výsledky online.",
+      "english": "They published the results online.",
+      "note": "Curated"
     }
   ],
   "stiahnut": [
     {
-      "slovak": "Začínam stiahnuť.",
-      "english": "I'm starting to pull down.",
+      "slovak": "Stiahol si súbor z internetu.",
+      "english": "He downloaded a file from the internet.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Stiahol kabát z vešiaka.",
+      "english": "He took the coat down from the hanger.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "stiahnuť — pull or take down"
     }
   ],
   "prijimat": [
     {
-      "slovak": "Začínam prijímať.",
-      "english": "I'm starting to accept.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Prijímame nové objednávky.",
+      "english": "We are accepting new orders.",
+      "note": "Curated"
     }
   ],
   "zmiznut": [
     {
-      "slovak": "Môže to zmiznúť.",
-      "english": "It can disappear.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Kľúče zmizli zo stola.",
+      "english": "The keys disappeared from the table.",
+      "note": "Curated"
     }
   ],
   "priviest": [
     {
-      "slovak": "Začínam priviesť.",
-      "english": "I'm starting to bring.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Priviedol syna do školy.",
+      "english": "He brought his son to school.",
+      "note": "Curated"
     }
   ],
   "sprevadzat": [
     {
-      "slovak": "Začínam sprevádzať.",
-      "english": "I'm starting to accompany.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Sprievodca sprevádza skupinu po meste.",
+      "english": "The guide is accompanying the group around the city.",
+      "note": "Curated"
     }
   ],
   "zabezpecovat": [
     {
-      "slovak": "Začínam zabezpečovať.",
-      "english": "I'm starting to ensure.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Táto služba zabezpečuje prístup k internetu.",
+      "english": "This service provides internet access.",
+      "note": "Curated"
     }
   ],
   "prezivat": [
     {
-      "slovak": "Začínam prežívať.",
-      "english": "I'm starting to experience.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Počas vojny prežívali ťažké chvíle.",
+      "english": "They lived through difficult times during the war.",
+      "note": "Curated"
     }
   ],
   "vybudovat": [
     {
-      "slovak": "Začínam vybudovať.",
-      "english": "I'm starting to build.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Vybudovali nový park.",
+      "english": "They built a new park.",
+      "note": "Curated"
     }
   ],
   "postupovat": [
     {
-      "slovak": "Začínam postupovať.",
-      "english": "I'm starting to proceed.",
+      "slovak": "Pri oprave postupujte podľa návodu.",
+      "english": "Follow the instructions when making the repair.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Práca postupuje podľa plánu.",
+      "english": "The work is progressing according to plan.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "postupovať — make progress"
     }
   ],
   "vypracovat": [
     {
-      "slovak": "Chcem vypracovať.",
-      "english": "I want to work out.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Vypracoval podrobný plán.",
+      "english": "He drew up a detailed plan.",
+      "note": "Curated"
     }
   ],
   "vydrzat": [
     {
-      "slovak": "Začínam vydržať.",
-      "english": "I'm starting to endure.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Táto batéria vydrží celý deň.",
+      "english": "This battery lasts all day.",
+      "note": "Curated"
     }
   ],
   "tahat": [
     {
-      "slovak": "Začínam ťahať.",
-      "english": "I'm starting to pull.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Deti ťahajú sánky do kopca.",
+      "english": "The children are pulling sleds up the hill.",
+      "note": "Curated"
     }
   ],
   "kontrolovat": [
     {
-      "slovak": "Začínam kontrolovať.",
-      "english": "I'm starting to check.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Pred odchodom kontrolujem dvere.",
+      "english": "I check the door before leaving.",
+      "note": "Curated"
     }
   ],
   "objavovat": [
     {
-      "slovak": "Začínam objavovať.",
-      "english": "I'm starting to discover.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Deti objavujú nové miesta.",
+      "english": "Children are discovering new places.",
+      "note": "Curated"
     }
   ],
   "dosahovat": [
     {
-      "slovak": "Začínam dosahovať.",
-      "english": "I'm starting to achieve.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Dosahuje dobré výsledky v škole.",
+      "english": "He achieves good results at school.",
+      "note": "Curated"
     }
   ],
   "napadnut": [
     {
-      "slovak": "Začínam napadnúť.",
-      "english": "I'm starting to attack.",
+      "slovak": "Pes napadol poštára.",
+      "english": "The dog attacked the postman.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Napadla mi dobrá myšlienka.",
+      "english": "A good idea occurred to me.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "napadnúť — occur to someone"
     }
   ],
   "dopadnut": [
     {
-      "slovak": "Začínam dopadnúť.",
-      "english": "I'm starting to land.",
+      "slovak": "Lopta dopadla na zem.",
+      "english": "The ball landed on the ground.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Skúška dopadla dobre.",
+      "english": "The exam went well.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "dopadnúť — turn out"
     }
   ],
   "pozyvat": [
     {
-      "slovak": "Chcem ťa pozývať.",
-      "english": "I want to invite you.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Každý rok pozývame priateľov na oslavu.",
+      "english": "Every year we invite friends to a celebration.",
+      "note": "Curated"
     }
   ],
   "zbadat": [
     {
-      "slovak": "Snažím sa zbadať.",
-      "english": "I'm trying to notice.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Zbadal som svetlo v okne.",
+      "english": "I noticed a light in the window.",
+      "note": "Curated"
     }
   ],
   "vybojovat": [
     {
-      "slovak": "Začínam vybojovať.",
-      "english": "I'm starting to win by fighting.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Vybojovali si postup do finále.",
+      "english": "They fought their way into the final.",
+      "note": "Curated"
     }
   ],
   "priat": [
     {
-      "slovak": "Začínam priať.",
-      "english": "I'm starting to wish.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Prajem ti veľa šťastia.",
+      "english": "I wish you lots of luck.",
+      "note": "Curated"
     }
   ],
   "sposobovat": [
     {
-      "slovak": "Začínam spôsobovať.",
-      "english": "I'm starting to cause.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Hluk spôsobuje problémy susedom.",
+      "english": "The noise is causing problems for the neighbors.",
+      "note": "Curated"
     }
   ],
   "pristupit": [
     {
-      "slovak": "Začínam pristúpiť.",
-      "english": "I'm starting to approach.",
+      "slovak": "Pristúpil k oknu.",
+      "english": "He walked up to the window.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pristúpili k riešeniu problému.",
+      "english": "They proceeded to solve the problem.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "pristúpiť — proceed to an action"
     }
   ],
   "odvolat": [
     {
-      "slovak": "Začínam odvolať.",
-      "english": "I'm starting to revoke.",
+      "slovak": "Odvolali koncert pre dážď.",
+      "english": "They cancelled the concert because of the rain.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Proti rozhodnutiu sa môže odvolať.",
+      "english": "He can appeal the decision.",
       "note": "Curated",
-      "isPracticeFrame": true
+      "demonstrates": "odvolať sa — appeal"
     }
   ],
   "zahynut": [
     {
-      "slovak": "Začínam zahynúť.",
-      "english": "I'm starting to perish.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Pri nehode zahynuli dvaja ľudia.",
+      "english": "Two people died in the accident.",
+      "note": "Curated"
     }
   ],
   "startovat": [
     {
-      "slovak": "Začínam štartovať.",
-      "english": "I'm starting to start.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Bežci štartujú o deviatej.",
+      "english": "The runners start at nine.",
+      "note": "Curated"
     }
   ],
   "skonstatovat": [
     {
-      "slovak": "Začínam skonštatovať.",
-      "english": "I'm starting to state.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Lekár skonštatoval zlepšenie.",
+      "english": "The doctor noted an improvement.",
+      "note": "Curated"
     }
   ],
   "podlahnut": [
     {
-      "slovak": "Začínam podľahnúť.",
-      "english": "I'm starting to succumb.",
-      "note": "Curated",
-      "isPracticeFrame": true
+      "slovak": "Nepodľahol panike.",
+      "english": "He did not give in to panic.",
+      "note": "Curated"
     }
   ],
   "naznacit": [

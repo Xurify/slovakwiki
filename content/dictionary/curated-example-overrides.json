@@ -607,5 +607,492 @@
       "english": "I want to contribute to the solution.",
       "note": "Curated"
     }
+  ],
+  "nemoct": [
+    {
+      "slovak": "Nemôžem prísť zajtra.",
+      "english": "I can't come tomorrow.",
+      "note": "Curated"
+    }
+  ],
+  "dodat": [
+    {
+      "slovak": "Dodám chýbajúce dokumenty zajtra.",
+      "english": "I'll supply the missing documents tomorrow.",
+      "note": "Curated"
+    }
+  ],
+  "posobit": [
+    {
+      "slovak": "V škole pôsobí ako učiteľ.",
+      "english": "He works as a teacher at a school.",
+      "note": "Curated"
+    }
+  ],
+  "niest": [
+    {
+      "slovak": "Nesie ťažkú tašku.",
+      "english": "He is carrying a heavy bag.",
+      "note": "Curated"
+    }
+  ],
+  "odovzdat": [
+    {
+      "slovak": "Odovzdám úlohu zajtra.",
+      "english": "I'll hand in the assignment tomorrow.",
+      "note": "Curated"
+    }
+  ],
+  "zvysovat": [
+    {
+      "slovak": "Firma zvyšuje ceny.",
+      "english": "The company is raising prices.",
+      "note": "Curated"
+    }
+  ],
+  "vsimnut": [
+    {
+      "slovak": "Všimol som si chybu.",
+      "english": "I noticed a mistake.",
+      "note": "Curated"
+    }
+  ],
+  "doplnit": [
+    {
+      "slovak": "Doplním odpoveď o príklad.",
+      "english": "I'll add an example to the answer.",
+      "note": "Curated"
+    }
+  ],
+  "poznamenat": [
+    {
+      "slovak": "Poznamenal, že príde neskôr.",
+      "english": "He remarked that he would come later.",
+      "note": "Curated"
+    }
+  ],
+  "chapat": [
+    {
+      "slovak": "Už chápem, čo myslíš.",
+      "english": "I understand what you mean now.",
+      "note": "Curated"
+    }
+  ],
+  "hodnotit": [
+    {
+      "slovak": "Učiteľ hodnotí naše odpovede.",
+      "english": "The teacher is evaluating our answers.",
+      "note": "Curated"
+    }
+  ],
+  "prezentovat": [
+    {
+      "slovak": "Zajtra budem prezentovať projekt.",
+      "english": "I'll present the project tomorrow.",
+      "note": "Curated"
+    }
+  ],
+  "vykonavat": [
+    {
+      "slovak": "Svoju prácu vykonáva starostlivo.",
+      "english": "He carries out his work carefully.",
+      "note": "Curated"
+    }
+  ],
+  "zist": [
+    {
+      "slovak": "Zišiel z kopca pešo.",
+      "english": "He walked down the hill.",
+      "note": "Curated"
+    }
+  ],
+  "obsadit": [
+    {
+      "slovak": "Obsadili všetky miesta v sále.",
+      "english": "They occupied all the seats in the hall.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Režisér obsadil hlavnú úlohu známym hercom.",
+      "english": "The director cast a well-known actor in the leading role.",
+      "note": "Curated",
+      "demonstrates": "obsadiť — cast a role"
+    }
+  ],
+  "zazit": [
+    {
+      "slovak": "Zažili sme krásny večer.",
+      "english": "We had a wonderful evening.",
+      "note": "Curated"
+    }
+  ],
+  "zachovat": [
+    {
+      "slovak": "Zachovaj pokoj.",
+      "english": "Keep calm.",
+      "note": "Curated"
+    }
+  ],
+  "predlozit": [
+    {
+      "slovak": "Predložím návrh na stretnutí.",
+      "english": "I'll present the proposal at the meeting.",
+      "note": "Curated"
+    }
+  ],
+  "rokovat": [
+    {
+      "slovak": "Obe strany rokujú o dohode.",
+      "english": "Both sides are negotiating an agreement.",
+      "note": "Curated"
+    }
+  ],
+  "zasiahnut": [
+    {
+      "slovak": "Blesk zasiahol strom.",
+      "english": "Lightning struck the tree.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Tá správa ho veľmi zasiahla.",
+      "english": "That news affected him deeply.",
+      "note": "Curated",
+      "demonstrates": "zasiahnuť — affect emotionally"
+    }
+  ],
+  "nenajst": [
+    {
+      "slovak": "Nenašiel som kľúče.",
+      "english": "I didn't find the keys.",
+      "note": "Curated"
+    }
+  ],
+  "zalozit": [
+    {
+      "slovak": "Založili novú firmu.",
+      "english": "They founded a new company.",
+      "note": "Curated"
+    }
+  ],
+  "zvolit": [
+    {
+      "slovak": "Zvolili nového predsedu.",
+      "english": "They elected a new chairperson.",
+      "note": "Curated"
+    }
+  ],
+  "vytiahnut": [
+    {
+      "slovak": "Vytiahol telefón z vrecka.",
+      "english": "He took his phone out of his pocket.",
+      "note": "Curated"
+    }
+  ],
+  "postupit": [
+    {
+      "slovak": "Náš tím postúpil do finále.",
+      "english": "Our team advanced to the final.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Prípad postúpili súdu.",
+      "english": "They referred the case to the court.",
+      "note": "Curated",
+      "demonstrates": "postúpiť — refer onward"
+    }
+  ],
+  "podavat": [
+    {
+      "slovak": "Čašník podáva polievku.",
+      "english": "The waiter is serving soup.",
+      "note": "Curated"
+    }
+  ],
+  "zaviest": [
+    {
+      "slovak": "Mesto zavedie nové pravidlá.",
+      "english": "The city will introduce new rules.",
+      "note": "Curated"
+    }
+  ],
+  "vzrast": [
+    {
+      "slovak": "Ceny minulý rok vzrástli.",
+      "english": "Prices rose last year.",
+      "note": "Curated"
+    }
+  ],
+  "prihlasit": [
+    {
+      "slovak": "Prihlásim sa na kurz slovenčiny.",
+      "english": "I'll sign up for a Slovak course.",
+      "note": "Curated"
+    }
+  ],
+  "vyberat": [
+    {
+      "slovak": "Vyberám si nové topánky.",
+      "english": "I'm choosing new shoes.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Každý mesiac vyberá peniaze z bankomatu.",
+      "english": "He withdraws money from an ATM every month.",
+      "note": "Curated",
+      "demonstrates": "vyberať — withdraw money"
+    }
+  ],
+  "strelit": [
+    {
+      "slovak": "Strelil gól.",
+      "english": "He scored a goal.",
+      "note": "Curated"
+    }
+  ],
+  "klast": [
+    {
+      "slovak": "Kladie veľa otázok.",
+      "english": "He asks a lot of questions.",
+      "note": "Curated"
+    }
+  ],
+  "zverejnit": [
+    {
+      "slovak": "Zverejnili výsledky online.",
+      "english": "They published the results online.",
+      "note": "Curated"
+    }
+  ],
+  "stiahnut": [
+    {
+      "slovak": "Stiahol si súbor z internetu.",
+      "english": "He downloaded a file from the internet.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Stiahol kabát z vešiaka.",
+      "english": "He took the coat down from the hanger.",
+      "note": "Curated",
+      "demonstrates": "stiahnuť — pull or take down"
+    }
+  ],
+  "prijimat": [
+    {
+      "slovak": "Prijímame nové objednávky.",
+      "english": "We are accepting new orders.",
+      "note": "Curated"
+    }
+  ],
+  "zmiznut": [
+    {
+      "slovak": "Kľúče zmizli zo stola.",
+      "english": "The keys disappeared from the table.",
+      "note": "Curated"
+    }
+  ],
+  "priviest": [
+    {
+      "slovak": "Priviedol syna do školy.",
+      "english": "He brought his son to school.",
+      "note": "Curated"
+    }
+  ],
+  "sprevadzat": [
+    {
+      "slovak": "Sprievodca sprevádza skupinu po meste.",
+      "english": "The guide is accompanying the group around the city.",
+      "note": "Curated"
+    }
+  ],
+  "zabezpecovat": [
+    {
+      "slovak": "Táto služba zabezpečuje prístup k internetu.",
+      "english": "This service provides internet access.",
+      "note": "Curated"
+    }
+  ],
+  "prezivat": [
+    {
+      "slovak": "Počas vojny prežívali ťažké chvíle.",
+      "english": "They lived through difficult times during the war.",
+      "note": "Curated"
+    }
+  ],
+  "vybudovat": [
+    {
+      "slovak": "Vybudovali nový park.",
+      "english": "They built a new park.",
+      "note": "Curated"
+    }
+  ],
+  "postupovat": [
+    {
+      "slovak": "Pri oprave postupujte podľa návodu.",
+      "english": "Follow the instructions when making the repair.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Práca postupuje podľa plánu.",
+      "english": "The work is progressing according to plan.",
+      "note": "Curated",
+      "demonstrates": "postupovať — make progress"
+    }
+  ],
+  "vypracovat": [
+    {
+      "slovak": "Vypracoval podrobný plán.",
+      "english": "He drew up a detailed plan.",
+      "note": "Curated"
+    }
+  ],
+  "vydrzat": [
+    {
+      "slovak": "Táto batéria vydrží celý deň.",
+      "english": "This battery lasts all day.",
+      "note": "Curated"
+    }
+  ],
+  "tahat": [
+    {
+      "slovak": "Deti ťahajú sánky do kopca.",
+      "english": "The children are pulling sleds up the hill.",
+      "note": "Curated"
+    }
+  ],
+  "kontrolovat": [
+    {
+      "slovak": "Pred odchodom kontrolujem dvere.",
+      "english": "I check the door before leaving.",
+      "note": "Curated"
+    }
+  ],
+  "objavovat": [
+    {
+      "slovak": "Deti objavujú nové miesta.",
+      "english": "Children are discovering new places.",
+      "note": "Curated"
+    }
+  ],
+  "dosahovat": [
+    {
+      "slovak": "Dosahuje dobré výsledky v škole.",
+      "english": "He achieves good results at school.",
+      "note": "Curated"
+    }
+  ],
+  "napadnut": [
+    {
+      "slovak": "Pes napadol poštára.",
+      "english": "The dog attacked the postman.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Napadla mi dobrá myšlienka.",
+      "english": "A good idea occurred to me.",
+      "note": "Curated",
+      "demonstrates": "napadnúť — occur to someone"
+    }
+  ],
+  "dopadnut": [
+    {
+      "slovak": "Lopta dopadla na zem.",
+      "english": "The ball landed on the ground.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Skúška dopadla dobre.",
+      "english": "The exam went well.",
+      "note": "Curated",
+      "demonstrates": "dopadnúť — turn out"
+    }
+  ],
+  "pozyvat": [
+    {
+      "slovak": "Každý rok pozývame priateľov na oslavu.",
+      "english": "Every year we invite friends to a celebration.",
+      "note": "Curated"
+    }
+  ],
+  "zbadat": [
+    {
+      "slovak": "Zbadal som svetlo v okne.",
+      "english": "I noticed a light in the window.",
+      "note": "Curated"
+    }
+  ],
+  "vybojovat": [
+    {
+      "slovak": "Vybojovali si postup do finále.",
+      "english": "They fought their way into the final.",
+      "note": "Curated"
+    }
+  ],
+  "priat": [
+    {
+      "slovak": "Prajem ti veľa šťastia.",
+      "english": "I wish you lots of luck.",
+      "note": "Curated"
+    }
+  ],
+  "sposobovat": [
+    {
+      "slovak": "Hluk spôsobuje problémy susedom.",
+      "english": "The noise is causing problems for the neighbors.",
+      "note": "Curated"
+    }
+  ],
+  "pristupit": [
+    {
+      "slovak": "Pristúpil k oknu.",
+      "english": "He walked up to the window.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pristúpili k riešeniu problému.",
+      "english": "They proceeded to solve the problem.",
+      "note": "Curated",
+      "demonstrates": "pristúpiť — proceed to an action"
+    }
+  ],
+  "odvolat": [
+    {
+      "slovak": "Odvolali koncert pre dážď.",
+      "english": "They cancelled the concert because of the rain.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Proti rozhodnutiu sa môže odvolať.",
+      "english": "He can appeal the decision.",
+      "note": "Curated",
+      "demonstrates": "odvolať sa — appeal"
+    }
+  ],
+  "zahynut": [
+    {
+      "slovak": "Pri nehode zahynuli dvaja ľudia.",
+      "english": "Two people died in the accident.",
+      "note": "Curated"
+    }
+  ],
+  "startovat": [
+    {
+      "slovak": "Bežci štartujú o deviatej.",
+      "english": "The runners start at nine.",
+      "note": "Curated"
+    }
+  ],
+  "skonstatovat": [
+    {
+      "slovak": "Lekár skonštatoval zlepšenie.",
+      "english": "The doctor noted an improvement.",
+      "note": "Curated"
+    }
+  ],
+  "podlahnut": [
+    {
+      "slovak": "Nepodľahol panike.",
+      "english": "He did not give in to panic.",
+      "note": "Curated"
+    }
   ]
 }
