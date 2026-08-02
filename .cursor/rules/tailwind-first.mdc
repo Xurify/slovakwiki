@@ -1,0 +1,30 @@
+---
+description: Tailwind-first UI — no new custom CSS classes; use utilities and components
+alwaysApply: true
+---
+
+# Tailwind first
+
+**Never add new layout/look classes to `src/styles.css`.** Style with Tailwind utilities in Svelte/Astro markup, or extract a shared component under `src/lib/components/`.
+
+`styles.css` is only for `@theme` tokens, global base (`html`/`body`/focus/headings), and rare cases Tailwind cannot express.
+
+## Bad
+
+```css
+.section-heading {
+  display: flex;
+  gap: var(--space-6);
+  border-bottom: 1px solid var(--line);
+}
+```
+
+## Good
+
+```svelte
+<div class="flex items-start justify-between gap-6 border-b border-slate-200 pb-4">
+```
+
+Reuse Tailwind bundles from `src/lib/ui/classes.ts`. Prefer `src/lib/components/ui/Button.svelte` for CTA buttons/links.
+
+Full conventions: see root `AGENTS.md`.

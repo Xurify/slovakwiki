@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { button, cx, sectionLabel, surfacePanel } from "$lib/ui/classes";
+
   import { tick } from "svelte";
   import { answersMatch } from "$lib/client/practice-state";
   import type { LessonExercise } from "$lib/content/learning-types";
@@ -17,11 +19,11 @@
   function removeTile(index: number): void { if (!submitted) builtTiles = builtTiles.filter((_, tileIndex) => tileIndex !== index); }
 </script>
 
-<section class="surface-panel bg-white p-7 max-[560px]:px-4 max-[560px]:py-5" aria-labelledby="interaction-heading">
+<section class={cx(surfacePanel, "bg-white", "p-7", "max-[560px]:px-4", "max-[560px]:py-5")} aria-labelledby="interaction-heading">
   {#if exercise.type === "personal"}
-    <p class="section-label">Say it yourself</p><h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>{#if exercise.example}<p class="mt-4 border-l-4 border-blue-600 bg-slate-50 px-3.5 py-3 font-serif text-lg text-blue-800" lang="sk">{exercise.example}</p>{/if}<button class="button mt-6" type="button" onclick={() => onresolve({ needsReview: false })}>I said it</button>
+    <p class={sectionLabel}>Say it yourself</p><h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>{#if exercise.example}<p class="mt-4 border-l-4 border-blue-600 bg-slate-50 px-3.5 py-3 font-serif text-lg text-blue-800" lang="sk">{exercise.example}</p>{/if}<button class={cx(button, "mt-6")} type="button" onclick={() => onresolve({ needsReview: false })}>I said it</button>
   {:else}
-    <p class="section-label">Your turn</p><h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>
+    <p class={sectionLabel}>Your turn</p><h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>
     {#if exercise.context?.length}<div class="mt-5"><LessonScene scene={exercise.context} /></div>{/if}
     {#if exercise.type === "choice"}
       <div class="mt-6 grid gap-2 border-t border-slate-200" aria-label="Answer choices">{#each exercise.choices as choice (choice.id)}<button class={`w-full cursor-pointer border-0 border-b border-slate-200 px-3 py-4 text-left font-serif text-base font-semibold transition-[background-color,color,padding-left] hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "bg-blue-50 pl-4 text-blue-800" : "bg-transparent text-slate-900"}`} disabled={submitted} type="button" aria-pressed={selectedId === choice.id} onclick={() => (selectedId = choice.id)}>{choice.label}</button>{/each}</div>
@@ -31,9 +33,9 @@
       <label class="mt-6 grid gap-2 text-xs font-bold text-slate-600"><span>{exercise.inputLabel}</span><input class="min-h-[50px] w-full border border-slate-300 bg-white px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100" bind:value={input} disabled={submitted} autocomplete="off" autocapitalize="none" lang="sk"></label>
     {/if}
     {#if submitted}
-      <div bind:this={feedbackPanel} class={`mt-6 grid gap-1 border-l-4 p-4 ${correct ? "border-emerald-600 bg-emerald-50" : "border-rose-600 bg-rose-50"}`} aria-live="polite" tabindex="-1"><p class="m-0 text-xs font-bold uppercase text-slate-600">{correct ? "That works." : "Try this."}</p>{#if exercise.feedback.correction}<strong class="font-serif text-lg text-slate-900" lang="sk">{exercise.feedback.correction}</strong>{/if}{#if exercise.feedback.english}<small class="text-slate-500">{exercise.feedback.english}</small>{/if}<span class="mt-1 max-w-[67ch] font-serif leading-6 text-slate-700">{exercise.feedback.why}</span></div><button class="button mt-6" type="button" onclick={continueLesson}>Continue</button>
+      <div bind:this={feedbackPanel} class={`mt-6 grid gap-1 border-l-4 p-4 ${correct ? "border-emerald-600 bg-emerald-50" : "border-rose-600 bg-rose-50"}`} aria-live="polite" tabindex="-1"><p class="m-0 text-xs font-bold uppercase text-slate-600">{correct ? "That works." : "Try this."}</p>{#if exercise.feedback.correction}<strong class="font-serif text-lg text-slate-900" lang="sk">{exercise.feedback.correction}</strong>{/if}{#if exercise.feedback.english}<small class="text-slate-500">{exercise.feedback.english}</small>{/if}<span class="mt-1 max-w-[67ch] font-serif leading-6 text-slate-700">{exercise.feedback.why}</span></div><button class={cx(button, "mt-6")} type="button" onclick={continueLesson}>Continue</button>
     {:else}
-      <div class="mt-6 flex items-center gap-4 max-[560px]:flex-col max-[560px]:items-stretch"><button class="button mt-0 max-[560px]:w-full" type="button" disabled={!canCheck} onclick={check}>Check</button>{#if exercise.type === "typed"}<button class="cursor-pointer border-0 bg-transparent text-xs font-bold text-blue-800 underline underline-offset-2" type="button" onclick={reveal}>Reveal answer</button>{/if}</div>
+      <div class="mt-6 flex items-center gap-4 max-[560px]:flex-col max-[560px]:items-stretch"><button class={cx(button, "mt-0", "max-[560px]:w-full")} type="button" disabled={!canCheck} onclick={check}>Check</button>{#if exercise.type === "typed"}<button class="cursor-pointer border-0 bg-transparent text-xs font-bold text-blue-800 underline underline-offset-2" type="button" onclick={reveal}>Reveal answer</button>{/if}</div>
     {/if}
   {/if}
 </section>

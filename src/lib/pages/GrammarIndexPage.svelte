@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { cx, shell } from "$lib/ui/classes";
+
   import { grammarEntries } from "$lib/content/data";
 
   const groups = ["Nouns", "Verbs", "Sentences"] as const;
@@ -6,7 +8,7 @@
 
 <main>
   <header class="border-b border-slate-200 bg-slate-50 py-7">
-    <div class="shell">
+    <div class={shell}>
       <p class="mb-4 text-xs font-semibold uppercase tracking-wide text-blue-700">Reference / Grammar</p>
       <h1 class="text-5xl font-semibold tracking-tight text-slate-900">Grammar</h1>
       <p class="mt-3 max-w-2xl font-serif text-base text-slate-700">
@@ -16,7 +18,7 @@
     </div>
   </header>
 
-  <section class="shell max-w-5xl space-y-7 py-8 pb-16" aria-label="Grammar topics">
+  <section class={cx(shell, "max-w-5xl", "space-y-7", "py-8", "pb-16")} aria-label="Grammar topics">
     {#each groups as group (group)}
       {@const topics = grammarEntries.filter((topic) => topic.pathGroup === group)}
       {#if topics.length}

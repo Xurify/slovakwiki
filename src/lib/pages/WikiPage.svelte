@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { contextRail, cx, railLabel } from "$lib/ui/classes";
+
   import { allEntries } from "$lib/content/data";
   import type { EntryKind } from "$lib/content/types";
 
@@ -169,7 +171,7 @@
           Search dictionary words
         </label>
         <div
-          class="flex h-11 items-center border border-slate-300 bg-white focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-100"
+          class="flex h-11 items-center border border-slate-300 bg-white"
         >
           <svg
             class="ml-3 w-4 fill-none stroke-slate-400"
@@ -336,26 +338,26 @@
     </section>
 
     <aside
-      class="context-rail sticky top-(--header-height) h-fit border-l border-slate-200 px-4 py-8 pb-12 max-[1100px]:col-start-2 max-[1100px]:grid max-[1100px]:grid-cols-3 max-[1100px]:gap-6 max-[1100px]:border-l-0 max-[1100px]:border-t max-[1100px]:px-8 max-[1100px]:py-6 max-[760px]:static max-[760px]:grid-cols-1 max-[760px]:gap-6 max-[760px]:px-3.5"
+      class={cx(contextRail, "sticky", "top-(--header-height)", "h-fit", "border-l", "border-slate-200", "px-4", "py-8", "pb-12", "max-[1100px]:col-start-2", "max-[1100px]:grid", "max-[1100px]:grid-cols-3", "max-[1100px]:gap-6", "max-[1100px]:border-l-0", "max-[1100px]:border-t", "max-[1100px]:px-8", "max-[1100px]:py-6", "max-[760px]:static", "max-[760px]:grid-cols-1", "max-[760px]:gap-6", "max-[760px]:px-3.5")}
       aria-label="Wiki context"
     >
       <section>
-        <p class="rail-label">On this page</p>
-        <nav class="grid border-l-2 border-slate-200">
+        <p class={railLabel}>On this page</p>
+        <nav class="grid">
           <a
-            class="py-1.5 pl-2.5 font-serif text-sm text-blue-800"
+            class="border-l-2 border-blue-600 py-1.5 pl-2.5 font-serif text-sm text-blue-800"
             href="#wiki-search-section"
           >
             Search
           </a>
           <a
-            class="py-1.5 pl-2.5 font-serif text-sm text-blue-800"
+            class="border-l-2 border-slate-200 py-1.5 pl-2.5 font-serif text-sm text-slate-700 hover:border-blue-600 hover:text-blue-800 hover:underline"
             href="#wiki-alphabet"
           >
             Alphabet
           </a>
           <a
-            class="py-1.5 pl-2.5 font-serif text-sm text-blue-800"
+            class="border-l-2 border-slate-200 py-1.5 pl-2.5 font-serif text-sm text-slate-700 hover:border-blue-600 hover:text-blue-800 hover:underline"
             href="#wiki-results"
           >
             Entries
@@ -364,7 +366,7 @@
       </section>
 
       <section>
-        <p class="rail-label">Current view</p>
+        <p class={railLabel}>Current view</p>
         <dl class="grid gap-3">
           <div>
             <dt class="text-xs uppercase text-slate-500">Reference</dt>
@@ -386,7 +388,7 @@
       </section>
 
       <section>
-        <p class="rail-label">Continue</p>
+        <p class={railLabel}>Continue</p>
         <nav class="grid">
           <a
             class="py-1.5 font-serif text-sm text-blue-800 hover:underline"

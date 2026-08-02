@@ -20,12 +20,12 @@
       <strong class="font-(--font-reading) text-base text-(--ink)">Wiki</strong>
     </a>
 
-    <form class="flex min-h-10 w-full items-center rounded-(--control-radius) border border-(--line-strong) bg-(--surface) transition-[border-color,box-shadow] focus-within:border-(--accent) focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent-soft)_80%,transparent)] max-[760px]:col-span-full max-[760px]:row-start-2 max-[760px]:my-1 max-[760px]:mb-[9px] max-[760px]:min-h-[42px] min-[801px]:max-w-[520px] min-[801px]:justify-self-center" action="/search" method="get" role="search">
+    <form class="flex min-h-10 w-full items-center rounded-(--control-radius) border border-(--line-strong) bg-(--surface) max-[760px]:col-span-full max-[760px]:row-start-2 max-[760px]:my-1 max-[760px]:mb-[9px] max-[760px]:min-h-[42px] min-[801px]:max-w-[520px] min-[801px]:justify-self-center" action="/search" method="get" role="search">
       <label class="sr-only" for="header-search">Search Slovak Wiki</label>
       <svg class="ml-[11px] w-[15px] shrink-0 fill-none stroke-(--muted) stroke-[1.8]" aria-hidden="true" viewBox="0 0 24 24">
         <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
       </svg>
-      <input class="min-h-[34px] min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.76rem] text-(--ink) outline-0 max-[760px]:min-h-[42px]" id="header-search" name="q" value={query} type="search" placeholder="Search or ask…">
+      <input class="min-h-[34px] min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.76rem] text-(--ink) outline-none max-[760px]:min-h-[42px]" id="header-search" name="q" value={query} type="search" placeholder="Search or ask…">
       <button class="min-w-[46px] cursor-pointer self-stretch rounded-r-(--control-radius) border-0 border-l border-(--line) bg-transparent text-[0.7rem] font-extrabold text-(--accent-dark) hover:bg-(--accent-soft)" type="submit">Go</button>
     </form>
 
