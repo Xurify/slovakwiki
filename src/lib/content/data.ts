@@ -5,6 +5,7 @@ import { type FrequencyPos } from "./frequency-types";
 import type {
   CaseTopic,
   ContentEntry,
+  Example,
   GrammarTopic,
   PronunciationTopic,
   WordFrequency,
@@ -428,7 +429,30 @@ const PATTERN_USAGE_NOTES: Record<string, string> = {
   vypit: "Vypiť drinks something up. Piť is the ongoing drinking.",
 };
 
-function wordAttribution(origin: WordOrigin) {
+function frequencyExampleNote(examples: Example[]): string {
+  const hasTatoeba = examples.some((example) => example.note === "Tatoeba");
+  const hasPractice = examples.some((example) => example.isPracticeFrame);
+  const hasReviewed = examples.some(
+    (example) =>
+      (example.note === "Curated" || example.demonstrates) && !example.isPracticeFrame,
+  );
+
+  if (hasTatoeba && !hasPractice && !hasReviewed) {
+    return "English gloss from the frequency publish path. Example sentences from Tatoeba (CC BY 2.0 FR).";
+  }
+  if (hasTatoeba) {
+    return "English gloss from the frequency publish path. Includes Tatoeba example sentences when present.";
+  }
+  if (hasReviewed && !hasPractice) {
+    return "English gloss from the frequency publish path. Hand-reviewed example sentences.";
+  }
+  if (hasPractice) {
+    return "English gloss from the frequency publish path. Practice frames used until a corpus example is available.";
+  }
+  return "English gloss from the frequency publish path.";
+}
+
+function wordAttribution(origin: WordOrigin, examples: Example[]) {
   if (origin === "curated") {
     return {
       source: dictionarySource,
@@ -439,15 +463,14 @@ function wordAttribution(origin: WordOrigin) {
   return {
     source: snkSourceUrl,
     sourceLabel: "Slovak National Corpus (SNK)",
-    sourceNote:
-      "English gloss from the frequency publish path. Example sentences from Tatoeba when present.",
+    sourceNote: frequencyExampleNote(examples),
   };
 }
 
 const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   const origin: WordOrigin = curatedSlugs.has(word.slug) ? "curated" : "frequency";
   const frequency = wordFrequency(word);
-  const attribution = wordAttribution(origin);
+  const attribution = wordAttribution(origin, word.examples);
 
   return {
     ...word,

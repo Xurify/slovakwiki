@@ -7,6 +7,7 @@
  * Usage:
  *   bun run examples:enrich
  *   bun run examples:enrich -- --per-word 3 --report tmp/missing-examples.txt
+ *   bun run examples:enrich -- --replace-practice
  */
 
 import { createReadStream } from "node:fs";
@@ -16,7 +17,10 @@ import readline from "node:readline";
 import { fileURLToPath } from "node:url";
 
 import type { ContentEntry, Example } from "../../src/lib/content/types";
-import { isCleanExample } from "../../src/lib/content/example-quality";
+import {
+  isAcceptableCorpusExample,
+  isCleanExample,
+} from "../../src/lib/content/example-quality";
 import { normalizeLemma } from "../../src/lib/content/frequency";
 import { ROOT } from "../lib/paths";
 
@@ -31,19 +35,34 @@ interface SentencePair {
   tatoebaId: number;
 }
 
+type RejectReason =
+  "no-candidates" | "quality" | "weak-match" | "already-protected" | "no-practice-frame";
+
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
 const PROMOTED_PATH = path.join(ROOT, "content", "dictionary", "promoted.json");
 
 const TOKEN_RE = /[\p{L}\p{M}]+/gu;
 
-function parseArgs(argv: string[]): { perWord: number; report: string; force: boolean } {
+function parseArgs(argv: string[]): {
+  force: boolean;
+  perWord: number;
+  refreshTatoeba: boolean;
+  rejectReport: string;
+  replacePractice: boolean;
+  report: string;
+} {
   let perWord = 3;
   let report = path.join(ROOT, "tmp", "missing-examples.txt");
+  let rejectReport = path.join(ROOT, "tmp", "enrich-rejects.tsv");
   let force = false;
+  let replacePractice = false;
+  let refreshTatoeba = false;
 
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--force") force = true;
+    if (arg === "--replace-practice") replacePractice = true;
+    if (arg === "--refresh-tatoeba") refreshTatoeba = true;
     if (arg === "--per-word" && argv[index + 1]) {
       perWord = Number(argv[index + 1]);
       index += 1;
@@ -52,9 +71,13 @@ function parseArgs(argv: string[]): { perWord: number; report: string; force: bo
       report = path.resolve(argv[index + 1]!);
       index += 1;
     }
+    if (arg === "--reject-report" && argv[index + 1]) {
+      rejectReport = path.resolve(argv[index + 1]!);
+      index += 1;
+    }
   }
 
-  return { perWord, report, force };
+  return { perWord, report, rejectReport, force, replacePractice, refreshTatoeba };
 }
 
 function tokenize(text: string): string[] {
@@ -68,16 +91,12 @@ function verbStem(lemma: string): string | undefined {
   return stem.length >= 4 ? stem : undefined;
 }
 
-function scorePair(pair: SentencePair, lemma: string): number {
-  let score = 0;
-  const length = pair.slovak.length;
-  if (length >= 12 && length <= 90) score += 3;
-  else if (length <= 120) score += 1;
-  if (lemmaAppearsAsToken(pair.slovak, lemma)) score += 6;
-  else if (pair.slovak.toLocaleLowerCase("sk").includes(lemma.toLocaleLowerCase("sk")))
-    score += 1;
-  if (/[.!?]$/.test(pair.slovak.trim())) score += 1;
-  return score;
+/** Inflectional leftovers after a verb stem — keeps nemocnici from matching nemôcť. */
+const VERB_REST =
+  /^(ť|t|l|la|lo|li|ly|ím|íš|í|íme|íte|ia|am|áš|á|áme|áte|ajú|em|eš|e|ieme|iete|ú|iem|ol|ola|olo|oli|m|š|s|me|te|u|a|ou|ej)?$/iu;
+
+function isVerbCategory(category: string): boolean {
+  return category === "Verbs";
 }
 
 function lemmaAppearsAsToken(text: string, lemma: string): boolean {
@@ -85,6 +104,58 @@ function lemmaAppearsAsToken(text: string, lemma: string): boolean {
   return tokenize(text).some(
     (token) => targets.has(token) || targets.has(normalizeLemma(token)),
   );
+}
+
+function verbInflectionEvidence(text: string, lemma: string): boolean {
+  const stem = verbStem(lemma);
+  if (!stem || stem.length < 5) return false;
+  const stemNorm = normalizeLemma(stem);
+  if (stemNorm.length < 5) return false;
+
+  return tokenize(text).some((token) => {
+    const norm = normalizeLemma(token);
+    if (!norm.startsWith(stemNorm)) return false;
+    if (norm.length < stemNorm.length || norm.length > stemNorm.length + 5) return false;
+    const rest = norm.slice(stemNorm.length);
+    return VERB_REST.test(rest);
+  });
+}
+
+function scorePair(pair: SentencePair, lemma: string, category: string): number {
+  let score = 0;
+  const length = pair.slovak.length;
+  if (length >= 12 && length <= 90) score += 3;
+  else if (length <= 120) score += 1;
+
+  if (lemmaAppearsAsToken(pair.slovak, lemma)) score += 8;
+  else if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma))
+    score += 4;
+  else if (pair.slovak.toLocaleLowerCase("sk").includes(lemma.toLocaleLowerCase("sk")))
+    score += 1;
+
+  if (/[.!?]$/.test(pair.slovak.trim())) score += 1;
+  if (/^[A-ZÁÄČĎÉÍĽĹŇÓÔŔŠŤÚÝŽ]/.test(pair.slovak.trim())) score += 1;
+  return score;
+}
+
+function hasStrongMatch(pair: SentencePair, lemma: string, category: string): boolean {
+  if (lemmaAppearsAsToken(pair.slovak, lemma)) return true;
+  if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma)) return true;
+  return false;
+}
+
+function isPracticeOnly(examples: Example[]): boolean {
+  return (
+    examples.length > 0 && examples.every((example) => example.isPracticeFrame === true)
+  );
+}
+
+function isProtectedExample(example: Example): boolean {
+  if (example.demonstrates) return true;
+  if (example.isPracticeFrame) return false;
+  if (example.note === "Tatoeba") return true;
+  if (example.note === "Curated") return true;
+  return true;
 }
 
 async function loadTsvMap(
@@ -154,14 +225,15 @@ function buildIndex(pairs: SentencePair[]): Map<string, number[]> {
 
 function collectCandidates(
   lemma: string,
+  category: string,
   pairs: SentencePair[],
   index: Map<string, number[]>,
-): SentencePair[] {
+): { accepted: SentencePair[]; rejectedQuality: number; rejectedWeak: number } {
   const exactKeys = new Set<string>([
     lemma.toLocaleLowerCase("sk"),
     normalizeLemma(lemma),
   ]);
-  const stem = verbStem(lemma);
+  const stem = isVerbCategory(category) ? verbStem(lemma) : undefined;
   const stemNorm = stem ? normalizeLemma(stem) : undefined;
 
   const hitIndexes = new Set<number>();
@@ -170,24 +242,37 @@ function collectCandidates(
     for (const pairIndex of index.get(key) ?? []) hitIndexes.add(pairIndex);
   }
 
-  // Safer stem fallback: only tokens that start with a long stem and stay close in length.
-  if (stem && stemNorm && stem.length >= 5) {
+  // Safer stem fallback for verbs only: long stem + inflectional remainder.
+  if (stem && stemNorm && stemNorm.length >= 5) {
     for (const [token, pairIndexes] of index) {
-      if (token.length < stem.length || token.length > stem.length + 5) continue;
-      if (!(token.startsWith(stem) || token.startsWith(stemNorm))) continue;
+      if (!token.startsWith(stemNorm)) continue;
+      if (token.length < stemNorm.length || token.length > stemNorm.length + 5) continue;
+      const rest = token.slice(stemNorm.length);
+      if (!VERB_REST.test(rest)) continue;
       for (const pairIndex of pairIndexes) hitIndexes.add(pairIndex);
     }
   }
 
-  const candidates = [...hitIndexes]
-    .map((pairIndex) => pairs[pairIndex]!)
-    .filter((pair) => pair.slovak.length >= 8 && pair.slovak.length <= 140)
-    .filter((pair) => pair.english.length <= 160)
-    .filter((pair) => isCleanExample(pair.slovak, pair.english))
-    .toSorted((a, b) => scorePair(b, lemma) - scorePair(a, lemma));
+  let rejectedQuality = 0;
+  let rejectedWeak = 0;
+  const accepted: SentencePair[] = [];
 
-  const exact = candidates.filter((pair) => lemmaAppearsAsToken(pair.slovak, lemma));
-  return exact.length > 0 ? exact : candidates;
+  for (const pairIndex of hitIndexes) {
+    const pair = pairs[pairIndex]!;
+    if (!isAcceptableCorpusExample(pair.slovak, pair.english)) {
+      rejectedQuality += 1;
+      continue;
+    }
+    if (!hasStrongMatch(pair, lemma, category)) {
+      rejectedWeak += 1;
+      continue;
+    }
+    accepted.push(pair);
+  }
+
+  accepted.sort((a, b) => scorePair(b, lemma, category) - scorePair(a, lemma, category));
+
+  return { accepted, rejectedQuality, rejectedWeak };
 }
 
 function toExamples(pairs: SentencePair[], limit: number): Example[] {
@@ -202,6 +287,7 @@ function toExamples(pairs: SentencePair[], limit: number): Example[] {
       slovak: pair.slovak,
       english: pair.english,
       note: "Tatoeba",
+      tatoebaId: pair.tatoebaId,
     });
     if (examples.length >= limit) break;
   }
@@ -210,7 +296,8 @@ function toExamples(pairs: SentencePair[], limit: number): Example[] {
 }
 
 async function main(): Promise<void> {
-  const { perWord, report, force } = parseArgs(process.argv.slice(2));
+  const { perWord, report, rejectReport, force, replacePractice, refreshTatoeba } =
+    parseArgs(process.argv.slice(2));
 
   const slkPath = path.join(TATOEBA_DIR, "slk_sentences.tsv");
   const engPath = path.join(TATOEBA_DIR, "eng_sentences.tsv");
@@ -244,30 +331,104 @@ async function main(): Promise<void> {
   const promoted = JSON.parse(await readFile(PROMOTED_PATH, "utf8")) as WordSeed[];
   let enriched = 0;
   let scrubbed = 0;
-  let skippedHasExamples = 0;
+  let skippedProtected = 0;
+  let skippedNoPractice = 0;
+  let practiceReplaced = 0;
+  let practiceRetained = 0;
   const missing: WordSeed[] = [];
+  const rejects: { slug: string; reason: RejectReason; detail: string }[] = [];
 
   for (const word of promoted) {
     const before = word.examples.length;
-    const cleaned = word.examples.filter((example) =>
-      isCleanExample(example.slovak, example.english),
-    );
-    if (cleaned.length < before) scrubbed += 1;
-    word.examples = cleaned;
 
-    if (!force && word.examples.length >= perWord) {
-      skippedHasExamples += 1;
-      continue;
+    // Scrub only crude corpus/unsafe lines; keep curated + practice frames.
+    let nextExamples = word.examples.filter((example) => {
+      if (example.isPracticeFrame) return true;
+      if (example.demonstrates) return true;
+      if (example.note === "Curated") return true;
+      return isCleanExample(example.slovak, example.english);
+    });
+
+    // Optional repair pass: drop prior Tatoeba rows and rematch with current rules.
+    if (refreshTatoeba) {
+      nextExamples = nextExamples.filter((example) => example.note !== "Tatoeba");
     }
 
-    const candidates = collectCandidates(word.slovak, pairs, index);
-    const examples = toExamples(candidates, perWord);
+    if (nextExamples.length < before) scrubbed += 1;
+    word.examples = nextExamples;
+
+    const practiceOnly = isPracticeOnly(word.examples);
+    const hasProtected = word.examples.some(isProtectedExample);
+
+    if (replacePractice) {
+      if (!practiceOnly) {
+        if (hasProtected) {
+          skippedProtected += 1;
+          rejects.push({
+            slug: word.slug,
+            reason: "already-protected",
+            detail: "Has curated/Tatoeba/pattern examples",
+          });
+          continue;
+        } else if (word.examples.length === 0) {
+          // Fall through and try to enrich empty entries.
+        } else {
+          skippedNoPractice += 1;
+          rejects.push({
+            slug: word.slug,
+            reason: "no-practice-frame",
+            detail: "Not practice-only; skipped under --replace-practice",
+          });
+          continue;
+        }
+      }
+    } else if (!force && !refreshTatoeba && word.examples.length >= perWord) {
+      skippedProtected += 1;
+      continue;
+    } else if (!force && !refreshTatoeba && hasProtected && !practiceOnly) {
+      skippedProtected += 1;
+      continue;
+    } else if (!force && refreshTatoeba && hasProtected && !practiceOnly) {
+      // Keep curated/pattern examples; only refill when Tatoeba rows were cleared.
+      if (word.examples.length >= perWord) {
+        skippedProtected += 1;
+        continue;
+      }
+    }
+
+    const { accepted, rejectedQuality, rejectedWeak } = collectCandidates(
+      word.slovak,
+      word.category,
+      pairs,
+      index,
+    );
+    const examples = toExamples(accepted, perWord);
 
     if (examples.length === 0) {
-      if (word.examples.length === 0) missing.push(word);
+      if (practiceOnly) {
+        practiceRetained += 1;
+        rejects.push({
+          slug: word.slug,
+          reason:
+            rejectedQuality + rejectedWeak > 0
+              ? rejectedWeak > rejectedQuality
+                ? "weak-match"
+                : "quality"
+              : "no-candidates",
+          detail: `quality=${rejectedQuality}; weak=${rejectedWeak}`,
+        });
+      } else if (word.examples.length === 0) {
+        missing.push(word);
+        rejects.push({
+          slug: word.slug,
+          reason: "no-candidates",
+          detail: `quality=${rejectedQuality}; weak=${rejectedWeak}`,
+        });
+      }
       continue;
     }
 
+    if (practiceOnly) practiceReplaced += 1;
     word.examples = examples;
     enriched += 1;
   }
@@ -278,6 +439,7 @@ async function main(): Promise<void> {
     `# Words still missing Tatoeba examples (${missing.length})`,
     `# Generated ${new Date().toISOString()}`,
     `# Source: Tatoeba dumps in tmp/tatoeba/`,
+    `# Mode: ${replacePractice ? "replace-practice" : force ? "force" : "default"}`,
     "",
     ...missing
       .toSorted((a, b) => a.slovak.localeCompare(b.slovak, "sk"))
@@ -286,11 +448,32 @@ async function main(): Promise<void> {
   ];
   await writeFile(report, missingLines.join("\n"), "utf8");
 
+  const rejectLines = [
+    "slug\treason\tdetail",
+    ...rejects.map((row) =>
+      [row.slug, row.reason, row.detail]
+        .map((cell) => String(cell).replace(/\t|\r?\n/g, " "))
+        .join("\t"),
+    ),
+    "",
+  ];
+  await writeFile(rejectReport, rejectLines.join("\n"), "utf8");
+
   console.log(`Enriched/replaced: ${enriched}`);
+  console.log(`Practice frames replaced: ${practiceReplaced}`);
+  console.log(`Practice frames retained: ${practiceRetained}`);
   console.log(`Scrubbed crude examples from: ${scrubbed} words`);
-  console.log(`Skipped (already had enough clean examples): ${skippedHasExamples}`);
+  console.log(`Skipped protected entries: ${skippedProtected}`);
+  if (replacePractice) {
+    console.log(`Skipped non-practice entries: ${skippedNoPractice}`);
+  }
   console.log(`Still missing examples: ${missing.length}`);
+  console.log(`Reject rows: ${rejects.length}`);
+  console.log(
+    `Mode: ${replacePractice ? "replace-practice" : refreshTatoeba ? "refresh-tatoeba" : force ? "force" : "default"}`,
+  );
   console.log(`Report: ${path.relative(ROOT, report)}`);
+  console.log(`Reject report: ${path.relative(ROOT, rejectReport)}`);
 }
 
 const isDirectRun =

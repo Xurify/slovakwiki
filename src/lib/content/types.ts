@@ -12,6 +12,8 @@ export interface Example {
   note?: string;
   practiceItemId?: string;
   slovak: string;
+  /** Tatoeba sentence id for the Slovak side when note is "Tatoeba". */
+  tatoebaId?: number;
 }
 
 export interface WordFrequency {

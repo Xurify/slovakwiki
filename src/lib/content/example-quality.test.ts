@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { isCleanExample } from "./example-quality";
+import {
+  isAcceptableCorpusExample,
+  isCleanExample,
+  isWellFormedExample,
+} from "./example-quality";
 
 describe("example quality", () => {
   it("allows ordinary learner sentences", () => {
@@ -37,5 +41,25 @@ describe("example quality", () => {
         "For the safety of our children, please do not enter porn sites.",
       ),
     ).toBe(false);
+  });
+
+  it("rejects malformed and glossary-like pairs", () => {
+    expect(isWellFormedExample("krátke", "short")).toBe(false);
+    expect(isWellFormedExample("Slovo (imperfective).", "Word (imperfective).")).toBe(
+      false,
+    );
+    expect(isWellFormedExample("A | B.", "A | B.")).toBe(false);
+    expect(isWellFormedExample("Rovnaký text.", "Rovnaký text.")).toBe(false);
+    expect(isWellFormedExample("Kedy môžeš prísť?", "When can you come?")).toBe(true);
+  });
+
+  it("requires both safety and structure for corpus acceptance", () => {
+    expect(isAcceptableCorpusExample("Kedy môžeš prísť?", "When can you come?")).toBe(
+      true,
+    );
+    expect(
+      isAcceptableCorpusExample("Celú noc jebali.", "They fucked all night long."),
+    ).toBe(false);
+    expect(isAcceptableCorpusExample("krátke", "short")).toBe(false);
   });
 });

@@ -1,6 +1,10 @@
 /**
  * Merge hand-curated example sentences into promoted dictionary words.
- * Curated examples always win for a slug (replace Tatoeba / older curated).
+ *
+ * Corpus-first policy:
+ * - Reviewed curated / pattern (`demonstrates`) examples always win.
+ * - Practice frames only fill empty or practice-only slots.
+ * - Never replace Tatoeba examples with practice frames.
  *
  * Usage: bun run examples:curate
  */
@@ -72,6 +76,33 @@ const CURATED_ENGLISH: Record<string, string> = {
   rad: "glad; (mať rád) to like",
 };
 
+function normalizeExamples(examples: Example[]): Example[] {
+  return examples.map((example) => ({
+    slovak: example.slovak,
+    english: example.english,
+    note: example.note ?? "Curated",
+    ...(example.demonstrates ? { demonstrates: example.demonstrates } : {}),
+    ...(example.isPracticeFrame ? { isPracticeFrame: true } : {}),
+    ...(example.tatoebaId ? { tatoebaId: example.tatoebaId } : {}),
+  }));
+}
+
+function isPracticeOnly(examples: Example[]): boolean {
+  return (
+    examples.length > 0 && examples.every((example) => example.isPracticeFrame === true)
+  );
+}
+
+function hasTatoeba(examples: Example[]): boolean {
+  return examples.some((example) => example.note === "Tatoeba");
+}
+
+function isReviewedCurated(examples: Example[]): boolean {
+  return examples.some(
+    (example) => example.demonstrates || example.isPracticeFrame !== true,
+  );
+}
+
 async function main(): Promise<void> {
   const promoted = JSON.parse(await readFile(PROMOTED_PATH, "utf8")) as WordSeed[];
   const curated = JSON.parse(await readFile(CURATED_PATH, "utf8")) as Record<
@@ -80,6 +111,7 @@ async function main(): Promise<void> {
   >;
 
   let filled = 0;
+  let skippedCorpus = 0;
   let missingSlug = 0;
 
   for (const [slug, examples] of Object.entries(curated)) {
@@ -95,13 +127,26 @@ async function main(): Promise<void> {
     );
     if (clean.length === 0) continue;
 
-    word.examples = clean.map((example) => ({
-      slovak: example.slovak,
-      english: example.english,
-      note: example.note ?? "Curated",
-      ...(example.demonstrates ? { demonstrates: example.demonstrates } : {}),
-      ...(example.isPracticeFrame ? { isPracticeFrame: true } : {}),
-    }));
+    const incoming = normalizeExamples(clean);
+    const reviewed = isReviewedCurated(incoming);
+    const practiceOnly = isPracticeOnly(incoming);
+
+    if (practiceOnly && hasTatoeba(word.examples)) {
+      skippedCorpus += 1;
+      continue;
+    }
+
+    if (
+      practiceOnly &&
+      word.examples.length > 0 &&
+      !isPracticeOnly(word.examples) &&
+      !reviewed
+    ) {
+      skippedCorpus += 1;
+      continue;
+    }
+
+    word.examples = incoming;
 
     const english = CURATED_ENGLISH[slug];
     if (english) {
@@ -118,6 +163,7 @@ async function main(): Promise<void> {
 
   await writeFile(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`, "utf8");
   console.log(`Applied curated examples to ${filled} words`);
+  console.log(`Skipped practice frames over Tatoeba: ${skippedCorpus}`);
   console.log(`Missing slugs: ${missingSlug}`);
   console.log(`→ ${path.relative(ROOT, PROMOTED_PATH)}`);
 }

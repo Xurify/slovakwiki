@@ -145,6 +145,23 @@
                               >
                                 Practice frame
                               </small>
+                            {:else if example.note === "Tatoeba" && example.tatoebaId}
+                              <small class="mt-1 block text-xs text-slate-400">
+                                <a
+                                  class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
+                                  href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}
+                                  rel="noopener noreferrer"
+                                  target="_blank"
+                                >
+                                  Tatoeba #{example.tatoebaId}
+                                </a>
+                              </small>
+                            {:else if example.note === "Curated" || example.demonstrates}
+                              <small
+                                class="mt-1 block text-xs font-medium text-slate-400"
+                              >
+                                Reviewed
+                              </small>
                             {/if}
                           </div>
                         </li>
@@ -170,6 +187,21 @@
                       {#if example.isPracticeFrame}
                         <small class="mt-1 block text-xs font-medium text-slate-400">
                           Practice frame
+                        </small>
+                      {:else if example.note === "Tatoeba" && example.tatoebaId}
+                        <small class="mt-1 block text-xs text-slate-400">
+                          <a
+                            class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
+                            href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            Tatoeba #{example.tatoebaId}
+                          </a>
+                        </small>
+                      {:else if example.note === "Curated" || example.demonstrates}
+                        <small class="mt-1 block text-xs font-medium text-slate-400">
+                          Reviewed
                         </small>
                       {/if}
                     </div>

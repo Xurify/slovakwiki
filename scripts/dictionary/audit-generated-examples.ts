@@ -42,13 +42,21 @@ if (!Number.isSafeInteger(limit) || limit < 1) {
   throw new Error("--limit must be a positive integer.");
 }
 
-const rows: AuditRow[] = words
-  .filter(
-    (word) =>
-      word.kind === "word" &&
-      word.examples.length > 0 &&
-      word.examples.every((example) => example.isPracticeFrame),
-  )
+const practiceOnly = words.filter(
+  (word) =>
+    word.kind === "word" &&
+    word.examples.length > 0 &&
+    word.examples.every((example) => example.isPracticeFrame),
+);
+
+const tatoebaWords = words.filter((word) =>
+  word.examples.some((example) => example.note === "Tatoeba"),
+);
+const curatedWords = words.filter((word) =>
+  word.examples.some((example) => example.note === "Curated" && !example.isPracticeFrame),
+);
+
+const rows: AuditRow[] = practiceOnly
   .map((word) => {
     const example = word.examples[0]!;
     const row: AuditRow = {
@@ -74,7 +82,9 @@ for (const row of rows) {
   byCategory.set(row.category, (byCategory.get(row.category) ?? 0) + 1);
 }
 
-console.log(`Generated practice frames: ${rows.length}`);
+console.log(`Generated practice frames retained: ${rows.length}`);
+console.log(`Words with Tatoeba examples: ${tatoebaWords.length}`);
+console.log(`Words with hand-curated examples: ${curatedWords.length}`);
 for (const [category, count] of byCategory) {
   console.log(`${category}: ${count}`);
 }

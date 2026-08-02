@@ -222,6 +222,62 @@ describe("Slovak content", () => {
     expect(bad.map((word) => word.slug)).toEqual([]);
   });
 
+  it("keeps hand-curated overrides free of practice-frame flags", () => {
+    const expected = [
+      "ocitnut",
+      "podielat",
+      "stretavat",
+      "zavisiet",
+      "tatransky",
+      "vracat",
+      "informacia",
+    ];
+
+    for (const slug of expected) {
+      const word = words.find((entry) => entry.slug === slug);
+      expect(word?.examples.length).toBeGreaterThan(0);
+      expect(word?.examples.every((example) => !example.isPracticeFrame)).toBe(true);
+      expect(word?.examples[0]?.note).toBe("Curated");
+    }
+  });
+
+  it("keeps Tatoeba examples marked as corpus sources", () => {
+    const tatoeba = words.filter((word) =>
+      word.examples.some((example) => example.note === "Tatoeba"),
+    );
+    expect(tatoeba.length).toBeGreaterThan(100);
+    expect(
+      tatoeba.every((word) =>
+        word.examples
+          .filter((example) => example.note === "Tatoeba")
+          .every((example) => !example.isPracticeFrame),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not claim Tatoeba in sourceNote when only practice frames exist", () => {
+    const practiceOnly = words.find(
+      (word) =>
+        word.origin === "frequency" &&
+        word.examples.length > 0 &&
+        word.examples.every((example) => example.isPracticeFrame),
+    );
+    expect(practiceOnly).toBeDefined();
+    expect(practiceOnly?.sourceNote).toContain("Practice frames");
+    expect(practiceOnly?.sourceNote).not.toContain("Tatoeba");
+
+    const tatoebaOnly = words.find(
+      (word) =>
+        word.origin === "frequency" &&
+        word.examples.some((example) => example.note === "Tatoeba") &&
+        word.examples.every(
+          (example) => example.note === "Tatoeba" || example.demonstrates,
+        ),
+    );
+    expect(tatoebaOnly).toBeDefined();
+    expect(tatoebaOnly?.sourceNote).toContain("Tatoeba");
+  });
+
   it("uses classed infinitive frames for leftover verb fills", () => {
     const isFillFrame = (slovak: string): boolean =>
       /^Chcem /u.test(slovak) ||
