@@ -6,7 +6,7 @@
 
   import { entryBySlug } from "$lib/content/data";
   import { FREQUENCY_POS_LABEL } from "$lib/content/frequency-types";
-  import type { ContentEntry } from "$lib/content/types";
+  import type { ContentEntry, Example } from "$lib/content/types";
 
   let { entry }: { entry: ContentEntry } = $props();
 
@@ -24,6 +24,26 @@
   const sourceLabel = $derived(
     entry.sourceLabel ?? "Jazykovedný ústav Ľudovíta Štúra SAV",
   );
+
+  function groupExamplesByPattern(
+    examples: Example[],
+  ): { label: string; examples: Example[] }[] {
+    const groups: { label: string; examples: Example[] }[] = [];
+    const indexByLabel = new Map<string, number>();
+
+    for (const example of examples) {
+      const label = example.demonstrates?.trim() || "Other";
+      const existing = indexByLabel.get(label);
+      if (existing === undefined) {
+        indexByLabel.set(label, groups.length);
+        groups.push({ label, examples: [example] });
+      } else {
+        groups[existing]!.examples.push(example);
+      }
+    }
+
+    return groups;
+  }
 </script>
 
 <main class="py-10 pb-16 max-[760px]:py-7">
@@ -80,23 +100,57 @@
             <Eyebrow>Examples</Eyebrow>
             <h2 id="examples-heading" class="mb-4">In a sentence</h2>
 
-            <ol class="m-0 list-none border-t border-slate-200 p-0">
-              {#each entry.examples as example, index (`${example.slovak}-${index}`)}
-                <li
-                  class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4"
-                >
-                  <span class="text-xs font-bold tabular-nums text-slate-400">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+            {#if entry.examples.some((example) => example.demonstrates)}
+              <div class="grid gap-8">
+                {#each groupExamplesByPattern(entry.examples) as group (group.label)}
                   <div>
-                    <p class="m-0 font-serif font-semibold text-slate-900" lang="sk">
-                      {example.slovak}
+                    <p
+                      class="mb-3 border-b border-slate-200 pb-2 font-sans text-xs font-semibold tracking-wide text-slate-500 uppercase"
+                    >
+                      {group.label}
                     </p>
-                    <small class="text-sm text-slate-500">{example.english}</small>
+                    <ol class="m-0 list-none p-0">
+                      {#each group.examples as example, index (`${example.slovak}-${index}`)}
+                        <li
+                          class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4 last:border-b-0"
+                        >
+                          <span class="text-xs font-bold tabular-nums text-slate-400">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <div>
+                            <p
+                              class="m-0 font-serif font-semibold text-slate-900"
+                              lang="sk"
+                            >
+                              {example.slovak}
+                            </p>
+                            <small class="text-sm text-slate-500">{example.english}</small>
+                          </div>
+                        </li>
+                      {/each}
+                    </ol>
                   </div>
-                </li>
-              {/each}
-            </ol>
+                {/each}
+              </div>
+            {:else}
+              <ol class="m-0 list-none border-t border-slate-200 p-0">
+                {#each entry.examples as example, index (`${example.slovak}-${index}`)}
+                  <li
+                    class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4"
+                  >
+                    <span class="text-xs font-bold tabular-nums text-slate-400">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p class="m-0 font-serif font-semibold text-slate-900" lang="sk">
+                        {example.slovak}
+                      </p>
+                      <small class="text-sm text-slate-500">{example.english}</small>
+                    </div>
+                  </li>
+                {/each}
+              </ol>
+            {/if}
 
             {#if entry.examples.some((example) => example.note === "Tatoeba")}
               <p class="mt-4 text-xs text-slate-500">

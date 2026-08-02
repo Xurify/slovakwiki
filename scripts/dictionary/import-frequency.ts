@@ -82,12 +82,31 @@ function buildLemmaIndex(
   for (const pos of Object.keys(lists) as FrequencyPos[]) {
     for (const entry of lists[pos].entries) {
       const key = normalizeLemma(entry.lemma);
+      const exactLower = entry.lemma.toLocaleLowerCase("sk");
       const hit = { rank: entry.rank, pos: entry.pos };
+
       const existing = index[key];
       if (!existing || entry.rank < existing.rank) {
         index[key] = hit;
       }
-      index[`${key}|${entry.pos}`] = hit;
+
+      const posKey = `${key}|${entry.pos}`;
+      const existingPos = index[posKey];
+      if (!existingPos || entry.rank < existingPos.rank) {
+        index[posKey] = hit;
+      }
+
+      const exactKey = `exact:${exactLower}`;
+      const existingExact = index[exactKey];
+      if (!existingExact || entry.rank < existingExact.rank) {
+        index[exactKey] = hit;
+      }
+
+      const exactPosKey = `exact:${exactLower}|${entry.pos}`;
+      const existingExactPos = index[exactPosKey];
+      if (!existingExactPos || entry.rank < existingExactPos.rank) {
+        index[exactPosKey] = hit;
+      }
     }
   }
 

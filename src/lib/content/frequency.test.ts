@@ -23,6 +23,12 @@ describe("frequency helpers", () => {
     expect(findLiveWordForLemma("ďakujem", words)?.slug).toBe("dakujem");
   });
 
+  it("does not link diacritic near-misses to the wrong word", () => {
+    expect(findLiveWordForLemma("štát", words)?.slovak).not.toBe("stať");
+    expect(findLiveWordForLemma("brat", words)?.slovak).not.toBe("brať");
+    expect(findLiveWordForLemma("byt", words)?.slovak).not.toBe("byť");
+  });
+
   it("lists frequency lemmas missing from the live dictionary", () => {
     const entries: FrequencyEntry[] = [
       {

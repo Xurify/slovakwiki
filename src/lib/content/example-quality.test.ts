@@ -6,6 +6,7 @@ describe("example quality", () => {
   it("allows ordinary learner sentences", () => {
     expect(isCleanExample("Kedy môžeš prísť?", "When can you come?")).toBe(true);
     expect(isCleanExample("Mám rád knihy.", "I like books.")).toBe(true);
+    expect(isCleanExample("Pes má hustú srsť.", "The dog has thick fur.")).toBe(true);
   });
 
   it("blocks crude and sexual sentences", () => {

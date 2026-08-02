@@ -12,7 +12,7 @@ import {
   writePracticeState,
   type StorageLike,
 } from "../client/practice-state";
-import { allEntries, caseTopics, validateContent, words } from "./data";
+import { allEntries, caseTopics, entryBySlug, validateContent, words } from "./data";
 import { lessons, validateLessons } from "./lessons";
 import { practiceItemById, validatePracticeItems } from "./practice";
 import { normalizeSearchText, searchEntries } from "./search";
@@ -115,7 +115,30 @@ describe("Slovak content", () => {
   it("attaches frequency rank for SNK lemmas", () => {
     const byt = words.find((word) => word.slug === "byt");
     expect(byt?.frequency?.pos).toBe("verb");
-    expect(byt?.frequency?.rank).toBeTypeOf("number");
+    expect(byt?.frequency?.rank).toBe(1);
+
+    const velky = words.find((word) => word.slovak === "veľký");
+    expect(velky?.frequency?.rank).toBe(1);
+
+    const slovensky = words.find((word) => word.slug === "slovensky");
+    expect(slovensky?.origin).toBe("curated");
+    expect(slovensky?.frequency).toBeUndefined();
+  });
+
+  it("publishes diacritic near-homographs under disambiguated slugs", () => {
+    expect(words.find((word) => word.slovak === "štát")?.slug).toBe("stat-n");
+    expect(words.find((word) => word.slovak === "byt")?.slug).toBe("byt-n");
+    expect(words.find((word) => word.slovak === "slovenský")?.slug).toBe("slovensky-a");
+  });
+
+  it("fills related neighbors for frequency-promoted words", () => {
+    const promoted = words.find(
+      (word) => word.origin === "frequency" && word.frequency?.rank === 2,
+    );
+    expect(promoted?.related.length).toBeGreaterThan(0);
+    for (const relatedSlug of promoted?.related ?? []) {
+      expect(entryBySlug.has(relatedSlug)).toBe(true);
+    }
   });
 
   it("matches Slovak answers without making diacritics optional", () => {

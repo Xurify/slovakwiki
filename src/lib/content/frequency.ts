@@ -24,8 +24,12 @@ export function findLiveWordForLemma(
   const exact = words.find((word) => word.slovak === lemma);
   if (exact) return exact;
 
-  const normalized = normalizeLemma(lemma);
-  return words.find((word) => normalizeLemma(word.slovak) === normalized);
+  // Case-insensitive only — never strip diacritics (štát ≠ stať, brat ≠ brať).
+  const lower = lemma.toLocaleLowerCase("sk");
+  const caseMatches = words.filter(
+    (word) => word.slovak.toLocaleLowerCase("sk") === lower,
+  );
+  return caseMatches.length === 1 ? caseMatches[0] : undefined;
 }
 
 export function frequencyEntriesMissingFromDictionary(

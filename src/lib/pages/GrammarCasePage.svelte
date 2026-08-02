@@ -85,6 +85,20 @@
           </ul>
         </section>
       {/if}
+
+      <section
+        id="source"
+        class="mt-10 border-t border-slate-200 pt-10"
+        aria-labelledby="source-heading"
+      >
+        <Eyebrow>Source</Eyebrow>
+        <h2 id="source-heading" class="mb-3">Reference</h2>
+        <TextLink href={topic.source}>Jazykovedný ústav Ľudovíta Štúra SAV ↗</TextLink>
+        <p class="mt-3 text-sm text-slate-500">
+          Full attribution on
+          <TextLink href="/references">References</TextLink>.
+        </p>
+      </section>
     </article>
   </PageShell>
 </main>

@@ -64,10 +64,10 @@
           <h2 id="contrast-heading" class="mb-3 text-2xl">Sound contrasts</h2>
 
           <div
-            class="mt-5 grid grid-cols-2 gap-6 rounded border border-slate-200 bg-slate-50 p-3.5 max-[560px]:grid-cols-1 max-[560px]:gap-4"
+            class="mt-5 grid grid-cols-2 divide-x divide-slate-200 overflow-hidden rounded border border-slate-200 bg-slate-50 max-[560px]:grid-cols-1 max-[560px]:divide-x-0 max-[560px]:divide-y"
           >
             {#each topic.contrasts as contrast (contrast.left)}
-              <div class="grid gap-1">
+              <div class="grid gap-1 p-3.5">
                 <strong class="font-serif text-blue-800" lang="sk">
                   {contrast.left} / {contrast.right}
                 </strong>
@@ -109,6 +109,20 @@
             <span class="text-sm text-slate-500">{topic.practicePhrase.english}</span>
           </blockquote>
         </section>
+
+        <section
+          id="source"
+          class="scroll-mt-[72px] mt-10 border-t border-slate-200 pt-8"
+          aria-labelledby="source-heading"
+        >
+          <Eyebrow>Source</Eyebrow>
+          <h2 id="source-heading" class="mb-3 text-2xl">Reference</h2>
+          <TextLink href={topic.source}>Jazykovedný ústav Ľudovíta Štúra SAV ↗</TextLink>
+          <p class="mt-3 text-sm text-slate-500">
+            Full attribution on
+            <TextLink href="/references">References</TextLink>.
+          </p>
+        </section>
       </article>
 
       <aside class={asideClass}>
@@ -138,6 +152,12 @@
               href="#practice-heading"
             >
               Practice
+            </a>
+            <a
+              class="py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
+              href="#source"
+            >
+              Source
             </a>
           </nav>
         </section>

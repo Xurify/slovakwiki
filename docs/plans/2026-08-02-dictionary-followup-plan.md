@@ -1,20 +1,19 @@
 # Dictionary follow-up plan (post frequency + Tatoeba)
 
 **Date:** 2026-08-02  
-**Status:** A–E executed (trust, truthful UI, matcher tighten, index scale, hygiene)  
+**Status:** A–E done; top-200 examples at 100% coverage per POS  
 **Related:** `2026-08-02-frequency-tatoeba-dictionary-design.md`
 
 ## Audit snapshot
 
-| Metric                              | Value                                                      |
-| ----------------------------------- | ---------------------------------------------------------- |
-| Live dictionary words               | ~2,969 (31 curated + ~2,938 promoted)                      |
-| Frequency lemmas linked             | ~2,996 / 2,996 meaningful (top 1000 × 3)                   |
-| Words with examples                 | ~1,392 (47%)                                               |
-| Words missing examples              | ~1,577 (53%) — listed in `tmp/missing-examples.txt`        |
-| Generic body template on every word | 100%                                                       |
-| Promoted `related` links            | 0                                                          |
-| Pages shipped                       | `/dictionary/common`, `/references`, detail + index wiring |
+| Metric                       | Value                                                                |
+| ---------------------------- | -------------------------------------------------------------------- |
+| Live dictionary words        | ~2,986 (31 curated + ~2,955 promoted)                                |
+| Frequency lemmas linked      | ~all meaningful top-1000 × 3 (POS-disambiguated slugs)               |
+| Top-200 example coverage     | verbs / nouns / adjectives **100%** (`bun run examples:coverage`)    |
+| Words missing examples (all) | remaining are outside top-200 — `tmp/missing-examples.txt`           |
+| Promoted `related` links     | same-POS rank neighbors (runtime)                                    |
+| Pages shipped                | `/dictionary/common`, `/references`, detail + index wiring           |
 
 ### What works
 

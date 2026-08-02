@@ -1,7 +1,7 @@
 /** Block crude / sexual / vulgar Tatoeba lines from learner-facing examples. */
 
 const BLOCKED_PATTERN =
-  /\b(sex|sexual|porn|porno|orgasm|penis|vagina|vagína|boobs?|tits?|nude|nudes|horny|masturb|cock|dick|pussy|whore|fuck|fucked|fucking|shit|jeba|jebal|jebali|jebať|piča|piču|kurv|sračk|sračky|srsť|erection|blowjob|handjob)\b/iu;
+  /\b(sex|sexual|porn|porno|orgasm|penis|vagina|vagína|boobs?|tits?|nude|nudes|horny|masturb|cock|dick|pussy|whore|fuck|fucked|fucking|shit|jeba|jebal|jebali|jebať|piča|piču|kurv|sračk|sračky|erection|blowjob|handjob)\b/iu;
 
 /** Extra substrings that are unsafe even inside larger tokens. */
 const BLOCKED_SUBSTRINGS = [

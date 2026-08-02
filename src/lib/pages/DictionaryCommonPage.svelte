@@ -9,7 +9,6 @@
     type FrequencyEntry,
     type FrequencyPos,
   } from "$lib/content/frequency-types";
-  import { normalizeLemma } from "$lib/content/frequency";
 
   interface LiveLink {
     english: string;
@@ -31,10 +30,22 @@
   const tabs: FrequencyPos[] = ["verb", "noun", "adjective"];
 
   const visibleEntries = $derived.by(() => {
-    const needle = normalizeLemma(query);
+    const needle = query
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .toLocaleLowerCase("sk")
+      .trim();
     return lists[activePos].filter((entry) => {
       if (!needle) return true;
-      return normalizeLemma(entry.lemma).includes(needle);
+      const lemma = entry.lemma
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .toLocaleLowerCase("sk");
+      const english = liveByLemma[entry.lemma]?.english
+        ?.normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .toLocaleLowerCase("sk");
+      return lemma.includes(needle) || Boolean(english?.includes(needle));
     });
   });
 
@@ -141,8 +152,7 @@
     {:else}
       <ol class="mt-2" start="1">
         {#each visibleEntries as entry (entry.rank + entry.lemma)}
-          {@const live =
-            liveByLemma[entry.lemma] ?? liveByLemma[normalizeLemma(entry.lemma)]}
+          {@const live = liveByLemma[entry.lemma]}
           <li class={rowClass}>
             <span class="tabular-nums text-slate-400">{entry.rank}</span>
             <div class="min-w-0">

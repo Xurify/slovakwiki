@@ -15,7 +15,7 @@
     word: "dictionary",
   };
 
-  const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives"]);
+  const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives", "Names", "Places"]);
   const PAGE_SIZE = 60;
 
   const dictionaryEntries = allEntries.filter((entry) => entry.kind === "word");
@@ -33,7 +33,7 @@
     .toSorted(([first], [second]) => first.localeCompare(second));
 
   const featuredCount = dictionaryEntries.filter(
-    (entry) => !MASS_CATEGORIES.has(entry.category),
+    (entry) => entry.origin === "curated",
   ).length;
 
   const availableLetters = [
@@ -72,7 +72,7 @@
     dictionaryEntries
       .filter((entry) => {
         if (activeCategory === "all") return true;
-        if (activeCategory === "featured") return !MASS_CATEGORIES.has(entry.category);
+        if (activeCategory === "featured") return entry.origin === "curated";
         return entry.category === activeCategory;
       })
       .filter(
@@ -138,8 +138,8 @@
       <Eyebrow>Reference</Eyebrow>
       <h1>Dictionary</h1>
       <Lead>
-        Start with featured curated words, or browse the full list by letter and topic.
-        For frequency-ranked lemmas, open Most common.
+        Start with curated essentials, or browse the full list by letter and topic. For
+        frequency-ranked lemmas, open Most common.
       </Lead>
       <p class="mt-4 text-sm text-slate-500">
         Also browse the

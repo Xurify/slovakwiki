@@ -8,6 +8,8 @@ Grouped by job. Run via `bun run <name>` from `package.json` (preferred).
 bun run frequency:import    # SNK top-1000 → content/frequency/*.json + lemma-index.json
 bun run frequency:publish   # glosses → content/dictionary/promoted.json
 bun run examples:enrich     # Tatoeba dumps → examples on promoted words
+bun run examples:curate     # hand examples from curated-examples.json
+bun run examples:coverage   # top-N per POS example coverage report
 bun run index:search        # Pagefind for local/dev search
 ```
 
@@ -15,13 +17,15 @@ bun run index:search        # Pagefind for local/dev search
 
 Frequency lists, live dictionary publish, Tatoeba examples.
 
-| File                   | npm script          | Notes                                   |
-| ---------------------- | ------------------- | --------------------------------------- |
-| `import-frequency.ts`  | `frequency:import`  | Skips single-letter junk lemmas         |
-| `publish-frequency.ts` | `frequency:publish` | Auto-publishes simple glosses           |
-| `enrich-examples.ts`   | `examples:enrich`   | Needs `tmp/tatoeba/*.tsv`               |
-| `build-drafts.ts`      | `drafts:build`      | **Optional / legacy** — hard cases only |
-| `promote-draft.ts`     | `drafts:promote`    | **Optional / legacy**                   |
+| File | npm script | Notes |
+| --- | --- | --- |
+| `import-frequency.ts` | `frequency:import` | Skips single-letter junk lemmas |
+| `publish-frequency.ts` | `frequency:publish` | Auto-publishes glosses; `-v`/`-n`/`-a` slug suffix on collisions |
+| `enrich-examples.ts` | `examples:enrich` | Needs `tmp/tatoeba/*.tsv` |
+| `apply-curated-examples.ts` | `examples:curate` | Fills empty words from `curated-examples.json` |
+| `example-coverage.ts` | `examples:coverage` | Top-N per POS example coverage → `tmp/` |
+| `build-drafts.ts` | `drafts:build` | **Optional / legacy** — hard cases only |
+| `promote-draft.ts` | `drafts:promote` | **Optional / legacy** |
 
 Primary dictionary growth is frequency publish + example enrich, not drafts.
 

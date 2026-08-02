@@ -1,7 +1,7 @@
 import lemmaFrequencyIndex from "../../../content/frequency/lemma-index.json";
 import promotedWords from "../../../content/dictionary/promoted.json";
 import { normalizeLemma } from "./frequency";
-import { FREQUENCY_POS_LABEL, type FrequencyPos } from "./frequency-types";
+import { type FrequencyPos } from "./frequency-types";
 import type {
   CaseTopic,
   ContentEntry,
@@ -33,13 +33,24 @@ const CATEGORY_TO_POS: Record<string, FrequencyPos> = {
 };
 
 function wordFrequency(word: WordSeed): WordFrequency | undefined {
-  const key = normalizeLemma(word.slovak);
   const preferredPos = CATEGORY_TO_POS[word.category];
+  const exactLower = word.slovak.toLocaleLowerCase("sk");
 
   if (preferredPos) {
-    const preferred = frequencyIndex[`${key}|${preferredPos}`];
-    if (preferred) return preferred;
+    const preferredExact = frequencyIndex[`exact:${exactLower}|${preferredPos}`];
+    if (preferredExact) return preferredExact;
   }
+
+  const exact = frequencyIndex[`exact:${exactLower}`];
+  if (exact) return exact;
+
+  // Diacritic-fold only for mass POS publishes — never attach a folded rank to
+  // curated topic words (slovensky ≠ slovenský).
+  if (!preferredPos) return undefined;
+
+  const key = normalizeLemma(word.slovak);
+  const preferred = frequencyIndex[`${key}|${preferredPos}`];
+  if (preferred) return preferred;
 
   return frequencyIndex[key];
 }
@@ -346,14 +357,11 @@ function wordBody(word: WordSeed): string[] {
   ];
 }
 
-function wordAttribution(origin: WordOrigin, frequency: WordFrequency | undefined) {
+function wordAttribution(origin: WordOrigin) {
   if (origin === "curated") {
     return {
       source: dictionarySource,
       sourceLabel: julsSourceLabel,
-      sourceNote: frequency
-        ? `Also among the most common Slovak ${FREQUENCY_POS_LABEL[frequency.pos].toLowerCase()} in the Slovak National Corpus (#${frequency.rank}).`
-        : undefined,
     };
   }
 
@@ -365,10 +373,10 @@ function wordAttribution(origin: WordOrigin, frequency: WordFrequency | undefine
   };
 }
 
-export const words: ContentEntry[] = wordSeed.map((word) => {
+const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   const origin: WordOrigin = curatedSlugs.has(word.slug) ? "curated" : "frequency";
   const frequency = wordFrequency(word);
-  const attribution = wordAttribution(origin, frequency);
+  const attribution = wordAttribution(origin);
 
   return {
     ...word,
@@ -381,6 +389,50 @@ export const words: ContentEntry[] = wordSeed.map((word) => {
     tags: [word.category.toLowerCase(), "beginner"],
   };
 });
+
+/** Same-POS frequency neighbors for promoted words that have no related links yet. */
+function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
+  const byPos: Record<FrequencyPos, ContentEntry[]> = {
+    verb: [],
+    noun: [],
+    adjective: [],
+  };
+
+  for (const entry of entries) {
+    if (!entry.frequency || entry.related.length > 0) continue;
+    byPos[entry.frequency.pos].push(entry);
+  }
+
+  for (const pos of Object.keys(byPos) as FrequencyPos[]) {
+    byPos[pos].sort(
+      (first, second) => (first.frequency?.rank ?? 0) - (second.frequency?.rank ?? 0),
+    );
+  }
+
+  const neighbors = new Map<string, string[]>();
+
+  for (const pos of Object.keys(byPos) as FrequencyPos[]) {
+    const list = byPos[pos];
+
+    for (let index = 0; index < list.length; index += 1) {
+      const entry = list[index]!;
+      const related: string[] = [];
+      const previous = list[index - 1];
+      const next = list[index + 1];
+      if (previous) related.push(previous.slug);
+      if (next) related.push(next.slug);
+      if (related.length > 0) neighbors.set(entry.slug, related);
+    }
+  }
+
+  return entries.map((entry) => {
+    if (entry.related.length > 0) return entry;
+    const related = neighbors.get(entry.slug);
+    return related ? { ...entry, related } : entry;
+  });
+}
+
+export const words: ContentEntry[] = attachRelatedNeighbors(mappedWords);
 
 export const grammarEntries: GrammarTopic[] = [
   {

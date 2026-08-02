@@ -8,14 +8,15 @@ Tatoeba is for **example sentences**, not frequency ranking. If the SNK frequenc
 
 ## Decisions
 
-| Topic          | Choice                                                 |
-| -------------- | ------------------------------------------------------ |
-| Approach       | Frequency-first (SNK), Tatoeba optional for examples   |
-| Quality        | Trusted sources + human approve before publish         |
-| First slice    | Util + public common-lists UI; no mass auto-publish    |
-| Approval       | Repo draft JSON → promote script merges into live dict |
-| Tatoeba access | Weekly **dumps**, not live API in v1                   |
-| Attribution    | Shared references module for site + util docs          |
+| Topic           | Choice                                                                                    |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| Approach        | Frequency-first (SNK), Tatoeba for examples                                               |
+| Quality         | NSFW blocklist on enrich; prefer short clean sentences                                    |
+| Publish         | Auto-publish frequency glosses (`frequency:publish`) — no approval gate for simple lemmas |
+| Slug collisions | Bare slug first; on clash append `-v` / `-n` / `-a` (e.g. `štát` → `stat-n`)              |
+| Drafts          | Legacy / optional hard cases only — not the primary growth path                           |
+| Tatoeba access  | Weekly **dumps**, not live API in v1                                                      |
+| Attribution     | Curated → JÚĽŠ; promoted → SNK; examples → Tatoeba CC BY                                  |
 
 ## Architecture
 
@@ -23,25 +24,27 @@ Tatoeba is for **example sentences**, not frequency ranking. If the SNK frequenc
 SNK top-1000 (verbs / nouns / adjectives)
         │
         ▼
-scripts/dictionary/import-frequency.ts  →  content/frequency/*.json  (committed, attributed)
+scripts/dictionary/import-frequency.ts
+  → content/frequency/{verbs,nouns,adjectives}.json
+  → content/frequency/lemma-index.json
         │
         ├─► public UI: /dictionary/common
         │
-        └─► scripts/dictionary/build-drafts.ts
-                 + optional Tatoeba dump examples (filtered)
-                 → content/drafts/*.json
+        └─► scripts/dictionary/publish-frequency.ts
+                 + content/frequency/glosses.json
+                 → content/dictionary/promoted.json
                         │
-                        ▼ human sets status: approved
-                 scripts/dictionary/promote-draft.ts → live dictionary source
+                        ▼
+                 scripts/dictionary/enrich-examples.ts (Tatoeba dumps)
 ```
 
-Also: `scripts/dictionary/publish-frequency.ts` (gloss → live) and `scripts/dictionary/enrich-examples.ts` (Tatoeba → examples).
+Legacy (optional): `build-drafts.ts` / `promote-draft.ts` for hard cases only.
 
 **Rules**
 
 - Live site never reads drafts.
-- Frequency JSON feeds the lists UI and draft seeding only.
-- Pivot hook: swap SNK importer for a Tatoeba-frequency importer; keep the same frequency + draft schemas.
+- Frequency JSON feeds the lists UI and publish path.
+- Pivot hook: swap SNK importer for a Tatoeba-frequency importer; keep the same frequency schemas.
 - Attribution: SNK + Tatoeba CC BY (and JÚĽŠ for curated entries) via a shared references list.
 
 ## Data shapes

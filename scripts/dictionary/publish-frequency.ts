@@ -49,6 +49,12 @@ const CATEGORY_BY_POS: Record<FrequencyPos, string> = {
   adjective: "Adjectives",
 };
 
+const POS_SLUG_SUFFIX: Record<FrequencyPos, string> = {
+  verb: "v",
+  noun: "n",
+  adjective: "a",
+};
+
 function parseArgs(argv: string[]): { limit: number } {
   let limit = Number.POSITIVE_INFINITY;
 
@@ -60,6 +66,24 @@ function parseArgs(argv: string[]): { limit: number } {
   }
 
   return { limit };
+}
+
+/** Prefer bare slug; on collision append -v / -n / -a (štát → stat-n). */
+function allocateSlug(
+  lemma: string,
+  pos: FrequencyPos,
+  liveSlugs: Set<string>,
+): string | undefined {
+  const base = lemmaToSlug(lemma);
+  if (!base) return undefined;
+  if (!liveSlugs.has(base)) return base;
+
+  const withPos = `${base}-${POS_SLUG_SUFFIX[pos]}`;
+  if (!liveSlugs.has(withPos)) return withPos;
+
+  let suffix = 2;
+  while (liveSlugs.has(`${withPos}-${suffix}`)) suffix += 1;
+  return `${withPos}-${suffix}`;
 }
 
 async function loadPromoted(): Promise<WordSeed[]> {
@@ -80,11 +104,17 @@ async function main(): Promise<void> {
   >;
   const promoted = await loadPromoted();
   const liveSlugs = new Set(words.map((word) => word.slug));
-  for (const word of promoted) liveSlugs.add(word.slug);
+  const liveLemmas = new Set(words.map((word) => word.slovak.toLocaleLowerCase("sk")));
+
+  for (const word of promoted) {
+    liveSlugs.add(word.slug);
+    liveLemmas.add(word.slovak.toLocaleLowerCase("sk"));
+  }
 
   let added = 0;
   let skippedLive = 0;
   let missingGloss = 0;
+  let disambiguated = 0;
 
   for (const pos of Object.keys(POS_FILES) as FrequencyPos[]) {
     const list = JSON.parse(
@@ -92,7 +122,10 @@ async function main(): Promise<void> {
     ) as FrequencyListFile;
 
     for (const entry of list.entries.slice(0, limit)) {
-      if (findLiveWordForLemma(entry.lemma, words)) {
+      if (
+        findLiveWordForLemma(entry.lemma, words) ||
+        liveLemmas.has(entry.lemma.toLocaleLowerCase("sk"))
+      ) {
         skippedLive += 1;
         continue;
       }
@@ -103,11 +136,19 @@ async function main(): Promise<void> {
         continue;
       }
 
-      const slug = lemmaToSlug(entry.lemma);
-      if (!slug || entry.lemma.length <= 1 || liveSlugs.has(slug)) {
+      if (entry.lemma.trim().length <= 1) {
         skippedLive += 1;
         continue;
       }
+
+      const baseSlug = lemmaToSlug(entry.lemma);
+      const slug = allocateSlug(entry.lemma, pos, liveSlugs);
+      if (!slug) {
+        skippedLive += 1;
+        continue;
+      }
+
+      if (slug !== baseSlug) disambiguated += 1;
 
       const seed: WordSeed = {
         slug,
@@ -120,13 +161,14 @@ async function main(): Promise<void> {
 
       promoted.push(seed);
       liveSlugs.add(slug);
+      liveLemmas.add(entry.lemma.toLocaleLowerCase("sk"));
       added += 1;
     }
   }
 
   await writeFile(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`, "utf8");
   console.log(
-    `Published ${added} lemmas; already live ${skippedLive}; missing gloss ${missingGloss}`,
+    `Published ${added} lemmas (${disambiguated} with POS slug suffix); already live ${skippedLive}; missing gloss ${missingGloss}`,
   );
   console.log(`→ ${path.relative(ROOT, PROMOTED_PATH)}`);
 }

@@ -27,11 +27,12 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 Script layout: see `scripts/README.md` (`dictionary/`, `search/`, `docs/`).
 
 - Sources (SNK, Tatoeba, JÚĽŠ): `docs/data-sources.md` and `/references` (from `src/lib/content/references.ts`).
-- Refresh frequency JSON: `bun run frequency:import` → `content/frequency/*.json`
+- Refresh frequency JSON: `bun run frequency:import` → `content/frequency/{verbs,nouns,adjectives}.json` + `lemma-index.json`
 - **Yearly checklist:** revisit SNK corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all`, not live. Last import: `generatedAt` in `content/frequency/{verbs,nouns,adjectives}.json` (set by `frequency:import`). No auto-refresh. Bump importer + re-import only when a newer `prim-*-public-all` top-1000 ships; spot-check rank drift before commit.
 - English glosses for common lemmas: `content/frequency/glosses.json`
 - Publish glossed frequency lemmas into the live dictionary (no approval gate): `bun run frequency:publish` (`--limit 100`)
 - Attach Tatoeba examples to promoted words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
+- After publish/enrich content changes: `bun run index:search` so local Pagefind matches the live dictionary
   - Skips crude/sexual/vulgar lines via `src/lib/content/example-quality.ts`
   - Download + decompress:
     - https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2
