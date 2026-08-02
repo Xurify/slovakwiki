@@ -20,7 +20,8 @@ export const practiceItems: PracticeItem[] = [
       id: "review-formal-greeting",
       type: "choice",
       practiceItemId: "everyday/formal-greeting",
-      prompt: "You arrive at a clinic and meet the receptionist for the first time. Which greeting fits?",
+      prompt:
+        "You arrive at a clinic and meet the receptionist for the first time. Which greeting fits?",
       choices: [
         { id: "formal", label: "Dobrý deň." },
         { id: "informal", label: "Ahoj!" },
@@ -177,7 +178,8 @@ export const practiceItems: PracticeItem[] = [
       id: "review-today-reading",
       type: "choice",
       practiceItemId: "grammar/today-reading",
-      prompt: "You are writing a note about yourself: “Today I am reading a book.” Which Slovak sentence says that?",
+      prompt:
+        "You are writing a note about yourself: “Today I am reading a book.” Which Slovak sentence says that?",
       choices: [
         { id: "you", label: "Dnes čítam knihu." },
         { id: "other-person", label: "Dnes číta knihu." },

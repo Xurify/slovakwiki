@@ -29,7 +29,10 @@ export function navigationIsActive(pathname: string, href: string): boolean {
   if (href === "/grammar/terms") return pathname === href;
 
   if (href === "/grammar") {
-    return pathname === href || (pathname.startsWith("/grammar/") && !pathname.startsWith("/grammar/terms"));
+    return (
+      pathname === href ||
+      (pathname.startsWith("/grammar/") && !pathname.startsWith("/grammar/terms"))
+    );
   }
 
   return pathname === href || pathname.startsWith(`${href}/`);

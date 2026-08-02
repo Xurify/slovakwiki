@@ -62,7 +62,9 @@ describe("Slovak content", () => {
 
   it("publishes usable content for every case page", () => {
     expect(caseTopics.every((topic) => topic.status === "ready")).toBe(true);
-    expect(caseTopics.every((topic) => topic.body.length > 0 && topic.examples.length > 0)).toBe(true);
+    expect(caseTopics.every((topic) => topic.body.length > 0 && topic.examples.length > 0)).toBe(
+      true,
+    );
   });
 
   it("matches Slovak answers without making diacritics optional", () => {
@@ -75,7 +77,10 @@ describe("Slovak content", () => {
     const storage = new MemoryStorage();
     const state = saveReferenceItem(
       removeReviewItem(
-        addReviewItem(markLessonComplete(emptyPracticeState(), "everyday/meet-someone"), "everyday/origin"),
+        addReviewItem(
+          markLessonComplete(emptyPracticeState(), "everyday/meet-someone"),
+          "everyday/origin",
+        ),
         "everyday/origin",
       ),
       "grammar/first-person-reading",

@@ -31,9 +31,7 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 
 ```svelte
 <!-- ✅ Utilities in markup -->
-<div class="flex items-start justify-between gap-6 border-b border-slate-200 pb-4">
-  …
-</div>
+<div class="flex items-start justify-between gap-6 border-b border-slate-200 pb-4">…</div>
 ```
 
 Or extract a small component if reused in 3+ places.

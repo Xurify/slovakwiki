@@ -9,11 +9,9 @@ export const railLabel =
 export const shell =
   "mx-auto w-[min(var(--workspace-max),calc(100%-64px))] max-[800px]:w-[min(100%-28px,680px)]";
 
-export const page =
-  "py-14 pb-20 max-[800px]:py-[30px] max-[800px]:pb-[50px]";
+export const page = "py-14 pb-20 max-[800px]:py-[30px] max-[800px]:pb-[50px]";
 
-export const lead =
-  "mt-3.5 max-w-[680px] font-serif text-[1.04rem] text-slate-600";
+export const lead = "mt-3.5 max-w-[680px] font-serif text-[1.04rem] text-slate-600";
 
 export const textLink =
   "text-[0.82rem] font-bold text-blue-800 underline decoration-[color-mix(in_srgb,var(--accent)_55%,transparent)] underline-offset-[3px]";

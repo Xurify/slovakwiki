@@ -66,7 +66,11 @@
   class:playing
   disabled={supported === false}
   type="button"
-  aria-label={supported === false ? `${label}: unavailable` : playing ? `Stop: ${label}` : `${label}: ${text}`}
+  aria-label={supported === false
+    ? `${label}: unavailable`
+    : playing
+      ? `Stop: ${label}`
+      : `${label}: ${text}`}
   onclick={toggle}
 >
   <span class="audio-icon" class:audio-icon-visible={!playing} aria-hidden="true">▶</span>

@@ -13,6 +13,9 @@ export function getStaticPaths() {
 const { set } = Astro.props;
 ---
 
-<SiteLayout title={`${set.title} practice | Slovak Wiki`} description={`Contextual Slovak practice for ${set.title}.`}>
+<SiteLayout
+  title={`${set.title} practice | Slovak Wiki`}
+  description={`Contextual Slovak practice for ${set.title}.`}
+>
   <PracticeSetPage data={{ set }} client:load />
 </SiteLayout>

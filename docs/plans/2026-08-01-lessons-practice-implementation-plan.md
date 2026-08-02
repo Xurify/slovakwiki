@@ -218,4 +218,3 @@ Manual acceptance:
 - reload persistence for Review;
 - mobile Lessons, Practice, and Reference navigation;
 - no placeholder lesson/reference/practice links are exposed.
-

@@ -105,32 +105,32 @@ The first public content should be small, complete, and mutually reinforcing. A 
 
 ### Everyday Slovak
 
-| Unit | You can now… | Scene and language focus | Grammar bridge |
-| --- | --- | --- | --- |
-| Meet someone | greet someone, say who you are, and ask where they are from | `Dobrý deň. Volám sa …`, `Teší ma.`, `Odkiaľ ste?`, `Som z …`, `Hovoríte po slovensky?` | `byť` and formal `Vy` |
-| Numbers and personal details | give an age, phone number, address number, and simple price | `Mám dvadsať rokov.`, `Moje číslo je …`, `Koľko to stojí?` | numbers 1–4 and noun gender; numbers 5+ |
-| Days, dates, and time | arrange a simple meeting | `Dnes je pondelok.`, `Stretneme sa v utorok.`, `O tretej.`, `O pol tretej.` | `v` with days; `o` for appointment time |
-| At a café | order a drink or food politely and pay | `Prosím si kávu.`, `Dám si čaj.`, `Účet, prosím.`, `Môžem platiť kartou?` | a useful object form: `káva → kávu` |
-| Getting around town | ask where something is and understand a basic destination | `Kde je stanica?`, `Ako sa dostanem do …?`, `Idem do mesta.`, `Som v meste.` | destination vs. location: `do + genitive` / `v + locative` |
-| Shopping | ask for an item, a quantity, or a different size | `Hľadám …`, `Máte …?`, `Potrebujem väčšiu veľkosť.`, `Päť eur.` | quantity phrases and high-frequency object forms |
+| Unit                         | You can now…                                                | Scene and language focus                                                                | Grammar bridge                                             |
+| ---------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Meet someone                 | greet someone, say who you are, and ask where they are from | `Dobrý deň. Volám sa …`, `Teší ma.`, `Odkiaľ ste?`, `Som z …`, `Hovoríte po slovensky?` | `byť` and formal `Vy`                                      |
+| Numbers and personal details | give an age, phone number, address number, and simple price | `Mám dvadsať rokov.`, `Moje číslo je …`, `Koľko to stojí?`                              | numbers 1–4 and noun gender; numbers 5+                    |
+| Days, dates, and time        | arrange a simple meeting                                    | `Dnes je pondelok.`, `Stretneme sa v utorok.`, `O tretej.`, `O pol tretej.`             | `v` with days; `o` for appointment time                    |
+| At a café                    | order a drink or food politely and pay                      | `Prosím si kávu.`, `Dám si čaj.`, `Účet, prosím.`, `Môžem platiť kartou?`               | a useful object form: `káva → kávu`                        |
+| Getting around town          | ask where something is and understand a basic destination   | `Kde je stanica?`, `Ako sa dostanem do …?`, `Idem do mesta.`, `Som v meste.`            | destination vs. location: `do + genitive` / `v + locative` |
+| Shopping                     | ask for an item, a quantity, or a different size            | `Hľadám …`, `Máte …?`, `Potrebujem väčšiu veľkosť.`, `Päť eur.`                         | quantity phrases and high-frequency object forms           |
 
 ### Grammar
 
-| Unit | You can now… | Slovak production task | Reference bridge |
-| --- | --- | --- | --- |
-| `byť` in the present | say who or what something is | repair `Ja je študent.` → `Som študent / študentka.` | `byť` forms and subject pronouns |
-| Present-tense verb endings | say who is doing something now | repair `Ja číta knihu.` → `Čítam knihu.` | present tense |
-| Naming the subject | spot and use the nominative in a real sentence | choose the person performing an action, then write a new sentence | nominative case |
-| Useful object forms | make a direct request or say what you want | repair `Chcem káva.` → `Chcem kávu.` | accusative case |
-| Where versus where to | distinguish a place from a destination | complete `Som v meste.` / `Idem do mesta.` | locative and genitive with prepositions |
+| Unit                       | You can now…                                   | Slovak production task                                            | Reference bridge                        |
+| -------------------------- | ---------------------------------------------- | ----------------------------------------------------------------- | --------------------------------------- |
+| `byť` in the present       | say who or what something is                   | repair `Ja je študent.` → `Som študent / študentka.`              | `byť` forms and subject pronouns        |
+| Present-tense verb endings | say who is doing something now                 | repair `Ja číta knihu.` → `Čítam knihu.`                          | present tense                           |
+| Naming the subject         | spot and use the nominative in a real sentence | choose the person performing an action, then write a new sentence | nominative case                         |
+| Useful object forms        | make a direct request or say what you want     | repair `Chcem káva.` → `Chcem kávu.`                              | accusative case                         |
+| Where versus where to      | distinguish a place from a destination         | complete `Som v meste.` / `Idem do mesta.`                        | locative and genitive with prepositions |
 
 ### Pronunciation
 
-| Unit | You can now… | Visible or audible focus | Reference bridge |
-| --- | --- | --- | --- |
-| Read the Slovak alphabet | read common Slovak spelling without treating it as English | `č, š, ž, ch, ľ, ď, ť, ň` | alphabet and spelling |
-| Find the stress | place ordinary stress at the start of a word | `Bratislava`, `prosím`, `ďakujem` | first-syllable stress |
-| Hear vowel length | notice when a long vowel changes the written word | `a/á`, `e/é`, `i/í`, `o/ó`, `u/ú`, `y/ý` | vowel length |
+| Unit                     | You can now…                                               | Visible or audible focus                 | Reference bridge      |
+| ------------------------ | ---------------------------------------------------------- | ---------------------------------------- | --------------------- |
+| Read the Slovak alphabet | read common Slovak spelling without treating it as English | `č, š, ž, ch, ľ, ď, ť, ň`                | alphabet and spelling |
+| Find the stress          | place ordinary stress at the start of a word               | `Bratislava`, `prosím`, `ďakujem`        | first-syllable stress |
+| Hear vowel length        | notice when a long vowel changes the written word          | `a/á`, `e/é`, `i/í`, `o/ó`, `u/ú`, `y/ý` | vowel length          |
 
 ## Boundaries
 

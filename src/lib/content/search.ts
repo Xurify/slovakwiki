@@ -26,7 +26,7 @@ export function searchEntries(query: string): ContentEntry[] {
           entry.category,
           ...entry.tags,
           ...(entry.aliases ?? []),
-        ].join(" ")
+        ].join(" "),
       );
       const score = title.startsWith(normalizedQuery)
         ? 3

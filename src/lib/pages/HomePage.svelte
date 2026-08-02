@@ -14,11 +14,14 @@
     "rounded-(--frame-radius) border-0 bg-white p-6 shadow-(--shadow-border) transition-[box-shadow,transform] duration-160 ease-out hover:shadow-(--shadow-border-hover)";
   const asidePanel =
     "rounded-(--frame-radius) border-0 bg-[color-mix(in_srgb,var(--surface)_92%,transparent)] p-5 shadow-(--shadow-border) transition-[box-shadow,transform] duration-160 ease-out hover:shadow-(--shadow-border-hover)";
-  const headingRow = "flex items-start justify-between gap-6 border-b border-slate-200 pb-4 max-[600px]:gap-4 [&_:first-child]:min-w-0";
+  const headingRow =
+    "flex items-start justify-between gap-6 border-b border-slate-200 pb-4 max-[600px]:gap-4 [&_:first-child]:min-w-0";
 </script>
 
 <main>
-  <section class="border-b border-slate-200 bg-[color-mix(in_srgb,var(--surface-subtle)_68%,transparent)]">
+  <section
+    class="border-b border-slate-200 bg-[color-mix(in_srgb,var(--surface-subtle)_68%,transparent)]"
+  >
     <div
       class={cx(
         shell,
@@ -29,12 +32,15 @@
         <p class={sectionLabel}>Slovak for English speakers</p>
         <h1 class="max-w-2xl">Look it up. Learn it. Use it.</h1>
         <p class={lead}>
-          A practical Slovak reference with short lessons and practice for the forms you want to remember.
+          A practical Slovak reference with short lessons and practice for the forms you want to
+          remember.
         </p>
         <div
           class="mt-6 flex max-w-xl flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-slate-300 pt-4"
         >
-          <strong class="font-serif text-base text-blue-800" lang="sk">Dobrý deň. Ako sa máte?</strong>
+          <strong class="font-serif text-base text-blue-800" lang="sk"
+            >Dobrý deň. Ako sa máte?</strong
+          >
           <span class="text-xs text-slate-500">Good day. How are you?</span>
         </div>
       </div>
@@ -44,7 +50,9 @@
         method="get"
         role="search"
       >
-        <label class="mb-2 block text-sm font-semibold" for="home-search">Search the reference</label>
+        <label class="mb-2 block text-sm font-semibold" for="home-search"
+          >Search the reference</label
+        >
         <div class="flex min-h-[50px] rounded border border-white/30 bg-white max-[600px]:flex-col">
           <input
             class="min-w-0 flex-1 border-0 bg-transparent px-3.5 text-slate-900 outline-none max-[600px]:min-h-[46px]"
@@ -149,24 +157,20 @@
           <a class={textLink} href="/wiki">All <span aria-hidden="true">→</span></a>
         </div>
         <nav class="grid" aria-label="Reference sections">
-          {#each [
-            { href: "/wiki", title: "Dictionary", desc: "Words, meanings, and examples" },
-            { href: "/grammar", title: "Grammar", desc: "Patterns, cases, and conjugations" },
-            { href: "/pronunciation", title: "Pronunciation", desc: "Sounds, stress, and spelling" },
-            {
-              href: "/grammar/terms",
-              title: "Language terms",
-              desc: "Plain explanations of the terminology",
-            },
-          ] as item (item.href)}
-            <a class="grid gap-1 border-b border-slate-200 px-1.5 py-3 hover:bg-slate-50" href={item.href}>
+          {#each [{ href: "/wiki", title: "Dictionary", desc: "Words, meanings, and examples" }, { href: "/grammar", title: "Grammar", desc: "Patterns, cases, and conjugations" }, { href: "/pronunciation", title: "Pronunciation", desc: "Sounds, stress, and spelling" }, { href: "/grammar/terms", title: "Language terms", desc: "Plain explanations of the terminology" }] as item (item.href)}
+            <a
+              class="grid gap-1 border-b border-slate-200 px-1.5 py-3 hover:bg-slate-50"
+              href={item.href}
+            >
               <strong class="font-serif text-blue-800">{item.title}</strong>
               <small class="text-xs text-slate-500">{item.desc}</small>
             </a>
           {/each}
         </nav>
         <div class="mt-5">
-          <h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Grammar entries</h3>
+          <h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Grammar entries
+          </h3>
           <ul class="m-0 list-none p-0">
             {#each grammarEntries.slice(0, 3) as entry (entry.slug)}
               <li>
@@ -238,8 +242,12 @@
         <p class="my-4 font-serif text-sm leading-6 text-slate-700">
           Review missed or revealed forms, or practise a lesson again.
         </p>
-        <a class={cx(button, "w-full gap-2 transition-[background-color,box-shadow,transform,scale]")} href="/practice"
-          >Open Practice <span aria-hidden="true">→</span></a
+        <a
+          class={cx(
+            button,
+            "w-full gap-2 transition-[background-color,box-shadow,transform,scale]",
+          )}
+          href="/practice">Open Practice <span aria-hidden="true">→</span></a
         >
       </section>
     </aside>
