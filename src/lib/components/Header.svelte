@@ -120,14 +120,14 @@
   <div
     class="mx-auto flex min-h-(--header-height) w-[min(var(--workspace-max),calc(100%-48px))] items-center gap-6 max-[800px]:w-[calc(100%-28px)] max-[480px]:w-[calc(100%-24px)] max-[800px]:flex-wrap max-[800px]:gap-x-3 max-[800px]:gap-y-2.5 max-[800px]:py-3"
   >
-    <a class="shrink-0" href="/" aria-label="Slovak Wiki home">
+    <a class="inline-flex shrink-0 items-center" href="/" aria-label="Slovak Wiki home">
       <BrandLockup size="header" />
     </a>
 
     <nav class="hidden items-center gap-1 min-[801px]:flex" aria-label="Main navigation">
       {#each primaryNavigation as link (link.href)}
         <a
-          class="relative px-3 py-2 text-[0.82rem] font-semibold text-(--muted-strong) transition-colors hover:text-(--ink) after:absolute after:inset-x-3 after:bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-(--accent) after:transition-transform aria-[current=page]:text-(--accent-dark) aria-[current=page]:after:scale-x-100"
+          class="relative inline-flex h-10 items-center px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-(--accent) after:transition-transform aria-[current=page]:text-(--accent-dark) aria-[current=page]:after:scale-x-100"
           href={link.href}
           aria-current={isActive(link.href) ? "page" : undefined}
         >
@@ -137,7 +137,7 @@
 
       <details class="group relative">
         <summary
-          class="flex cursor-pointer list-none items-center gap-1 px-3 py-2 text-[0.82rem] font-semibold text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-dark) marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
+          class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-dark) marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
             ? 'text-(--accent-dark)'
             : ''}"
         >
