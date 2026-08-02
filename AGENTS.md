@@ -2,6 +2,26 @@
 
 Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 
+## Tooling
+
+**Bun** is the package manager and script runner for this repo (`bun.lock`).
+
+- Install: `bun install`
+- Scripts: `bun run <script>` (e.g. `bun run dev`, `bun run test`, `bun run format`)
+- Prefer Bun over npm/pnpm/yarn for installs and script runs
+- Do not refresh or commit `package-lock.json`; use `bun.lock`
+
+## Search index (Pagefind)
+
+Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
+
+- **Production build** already rebuilds the index (`astro:build:done` → writes `dist/pagefind` + `static/pagefind`).
+- **Local / `bun run dev`:** run `bun run index:search` when:
+  - first clone / missing `static/pagefind/`
+  - searchable content changed (words, grammar, cases, pronunciation, lessons, practice)
+  - header search says the index is not built yet
+- Skip re-index for pure UI/CSS/layout edits with no content changes.
+
 ## Styling: Tailwind first (non-negotiable)
 
 **Do not add new custom CSS classes for layout, spacing, typography, borders, or colors.**
@@ -76,7 +96,7 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - TypeScript strict; no `any`.
 - Keep changes focused: don't drive-by refactor unrelated files.
 - Don't invent docs the user didn't ask for.
-- After UI edits: `npm run format`, then re-check control blocks weren't re-crushed.
+- After UI edits: `bun run format`, then re-check control blocks weren't re-crushed.
 
 ## Checklist before finishing UI work
 

@@ -1,0 +1,21 @@
+---
+description: Bun package manager/scripts; when to rebuild Pagefind search index
+alwaysApply: true
+---
+
+# Bun + search index
+
+**Bun** is the package manager and script runner (`bun.lock`, `packageManager` in `package.json`).
+
+- Use `bun install` and `bun run <script>` — not npm/pnpm/yarn.
+- Do not update or rely on `package-lock.json`.
+
+## `bun run index:search`
+
+Rebuilds Pagefind into `static/pagefind/` for local/dev search.
+
+Run when: first clone, missing index, or searchable content changed (dictionary/grammar/cases/pronunciation/lessons/practice).
+
+Skip for pure UI/layout work. `bun run build` already regenerates the index for production.
+
+Full detail: root `AGENTS.md`.

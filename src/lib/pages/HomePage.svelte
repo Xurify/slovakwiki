@@ -120,18 +120,6 @@
     class="relative isolate min-h-[min(80vh,700px)] overflow-hidden"
     aria-label="Welcome"
   >
-    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-      <div
-        class="absolute -left-[12%] top-[-20%] h-[55vmax] w-[55vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--mist-1)_70%,transparent)_0%,transparent_68%)] [animation:mist-drift_18s_ease-in-out_infinite]"
-      ></div>
-      <div
-        class="absolute -right-[8%] top-[10%] h-[42vmax] w-[42vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent-soft)_85%,white)_0%,transparent_70%)] [animation:mist-drift_22s_ease-in-out_infinite_reverse]"
-      ></div>
-      <div
-        class="absolute bottom-[-18%] left-[28%] h-[36vmax] w-[48vmax] rounded-full bg-[radial-gradient(ellipse,color-mix(in_srgb,var(--mist-2)_90%,transparent)_0%,transparent_72%)]"
-      ></div>
-    </div>
-
     <div
       class="pointer-events-none absolute inset-0 select-none font-serif text-[clamp(4rem,14vw,9rem)] font-semibold leading-none tracking-[-0.06em] text-slate-900/[0.045]"
       aria-hidden="true"
@@ -145,9 +133,9 @@
     <PageShell
       class="relative flex min-h-[min(80vh,700px)] flex-col justify-center py-20 pb-16 max-[600px]:py-14"
     >
-      <div class="max-w-[40rem]">
+      <div class="max-w-160">
         <p
-          class="m-0 font-serif text-[clamp(3.25rem,8vw,5.5rem)] font-semibold leading-[0.92] tracking-[-0.05em] text-slate-900 [animation:hero-rise_0.8s_ease-out_0.05s_both]"
+          class="m-0 font-serif text-[clamp(3.25rem,8vw,5.5rem)] font-semibold leading-[0.92] tracking-[-0.05em] text-slate-900"
         >
           Slovak
           <br />
@@ -155,21 +143,16 @@
         </p>
 
         <h1
-          class="mt-5 text-[clamp(1.25rem,2.4vw,1.55rem)] font-semibold leading-snug tracking-[-0.025em] text-slate-700 [animation:hero-rise_0.8s_ease-out_0.18s_both]"
+          class="mt-5 text-[clamp(1.25rem,2.4vw,1.55rem)] font-semibold leading-snug tracking-[-0.025em] text-slate-700"
         >
           Look it up. Learn it. Use it.
         </h1>
 
-        <Lead class="mt-3 max-w-[38ch] [animation:hero-rise_0.8s_ease-out_0.28s_both]">
+        <Lead class="mt-3 max-w-[38ch]">
           Short lessons and a practical reference for the forms you want to remember.
         </Lead>
 
-        <form
-          class="mt-9 max-w-[480px] [animation:hero-rise_0.8s_ease-out_0.4s_both]"
-          action="/search"
-          method="get"
-          role="search"
-        >
+        <form class="mt-9 max-w-[480px]" action="/search" method="get" role="search">
           <label class="sr-only" for="home-search">Search Slovak Wiki</label>
           <div
             class="flex min-h-[52px] items-stretch overflow-hidden rounded-full border border-slate-300/90 bg-white/80 shadow-[0_1px_2px_rgb(20_42_56/6%),0_12px_32px_-16px_rgb(20_42_56/18%)] backdrop-blur-sm transition-[box-shadow,border-color,background-color] focus-within:border-blue-600 focus-within:bg-white focus-within:shadow-[0_0_0_4px_var(--accent-soft),0_16px_40px_-18px_rgb(20_42_56/22%)] max-[520px]:rounded-(--frame-radius) max-[520px]:flex-col"

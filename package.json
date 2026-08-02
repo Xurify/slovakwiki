@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "packageManager": "bun@1.2.19",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "build": "astro build",
     "check": "astro check",
     "preview": "astro preview --host 0.0.0.0",
     "test": "vitest run",
-    "index:search": "tsx scripts/build-search-index.ts",
+    "index:search": "bun scripts/build-search-index.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -34,7 +35,6 @@
     "prettier-plugin-svelte": "^4.1.1",
     "svelte": "^5.55.9",
     "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.4",
     "typescript": "^6.0.3",
     "vite": "^8.0.14",
     "vitest": "^4.1.7"
