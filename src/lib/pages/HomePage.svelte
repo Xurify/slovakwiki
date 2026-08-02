@@ -119,7 +119,10 @@
 {/snippet}
 
 <main>
-  <section class="relative z-20 min-h-[min(80vh,700px)]" aria-label="Welcome">
+  <section
+    class="relative z-20 min-h-[min(80vh,700px)] max-[600px]:min-h-0"
+    aria-label="Welcome"
+  >
     <div
       class="pointer-events-none absolute inset-0 overflow-hidden select-none font-serif text-[clamp(4rem,14vw,9rem)] font-semibold leading-none tracking-[-0.06em] text-slate-900/[0.045]"
       aria-hidden="true"
@@ -131,7 +134,7 @@
     </div>
 
     <PageShell
-      class="relative flex min-h-[min(80vh,700px)] flex-col justify-center py-20 pb-28 max-[600px]:py-14 max-[600px]:pb-20"
+      class="relative flex min-h-[min(80vh,700px)] flex-col justify-center py-20 pb-28 max-[600px]:min-h-0 max-[600px]:py-12 max-[600px]:pb-16"
     >
       <div class="max-w-160">
         <p

@@ -61,10 +61,7 @@
   const shellClass = $derived(
     size === "hero"
       ? cx("relative z-30 w-full max-w-[480px]", className)
-      : cx(
-          "relative ml-auto w-full max-w-[320px] max-[680px]:order-3 max-[680px]:max-w-none",
-          className,
-        ),
+      : cx("relative ml-auto w-full max-w-[320px] min-w-0", className),
   );
 
   const fieldClass = $derived(
@@ -353,7 +350,7 @@
         "max-h-[min(22rem,calc(100dvh-8rem))]",
         size === "hero"
           ? "left-0 right-0 rounded-(--frame-radius)"
-          : "right-0 w-[min(22rem,calc(100vw-1.5rem))] rounded-(--control-radius) max-[680px]:left-0 max-[680px]:right-0 max-[680px]:w-auto",
+          : "right-0 w-[min(22rem,calc(100vw-1.5rem))] rounded-(--control-radius) max-[800px]:left-0 max-[800px]:right-0 max-[800px]:w-auto",
       )}
       id={`${id}-listbox`}
       role="listbox"

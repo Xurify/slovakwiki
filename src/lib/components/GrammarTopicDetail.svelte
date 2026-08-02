@@ -32,7 +32,7 @@
 </script>
 
 <main
-  class="mx-auto grid max-w-6xl grid-cols-[minmax(0,760px)_210px] justify-center gap-14 px-[30px] py-10 pb-[74px] max-[900px]:block max-[900px]:px-6 max-[900px]:py-8 max-[560px]:px-3.5 max-[560px]:py-7"
+  class="mx-auto grid max-w-6xl grid-cols-[minmax(0,760px)_210px] justify-center gap-14 px-[30px] py-10 pb-[74px] max-[900px]:block max-[900px]:px-4 max-[900px]:py-8 max-[560px]:px-3 max-[560px]:py-7"
 >
   <article class="min-w-0">
     <nav class="mb-5 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">

@@ -2,7 +2,7 @@
   class="border-t border-(--line) bg-[color-mix(in_srgb,var(--paper)_70%,transparent)]"
 >
   <div
-    class="mx-auto flex w-[min(var(--workspace-max),calc(100%-48px))] items-center justify-between gap-6 py-8 max-[680px]:w-[calc(100%-28px)] max-[680px]:flex-col max-[680px]:items-start"
+    class="mx-auto flex w-[min(var(--workspace-max),calc(100%-48px))] items-center justify-between gap-6 py-8 max-[800px]:w-[calc(100%-28px)] max-[480px]:w-[calc(100%-24px)] max-[680px]:flex-col max-[680px]:items-start"
   >
     <div>
       <strong class="font-serif text-[0.95rem] text-(--ink)">Slovak Wiki</strong>

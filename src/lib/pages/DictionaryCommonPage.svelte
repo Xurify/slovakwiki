@@ -5,10 +5,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import {
-    FREQUENCY_POS_LABEL,
-    type FrequencyPos,
-  } from "$lib/content/frequency-types";
+  import { FREQUENCY_POS_LABEL, type FrequencyPos } from "$lib/content/frequency-types";
 
   interface CompactFrequencyEntry {
     count?: number;
@@ -133,9 +130,9 @@
     </div>
 
     <div
-      class="mt-8 flex flex-wrap items-end justify-between gap-4 border-b border-slate-200"
+      class="mt-8 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-b border-slate-200"
     >
-      <div class="flex gap-5" role="tablist" aria-label="Part of speech">
+      <div class="flex gap-4 sm:gap-5" role="tablist" aria-label="Part of speech">
         {#each tabs as tab (tab.value)}
           <a
             class={tabClass(tab.value)}
@@ -148,7 +145,7 @@
         {/each}
       </div>
 
-      <p class="mb-2 text-xs text-slate-500">
+      <p class="mb-2 w-full text-xs text-slate-500 sm:w-auto sm:text-right">
         Showing {visibleEntries.length.toLocaleString("en")} of {filteredEntries.length.toLocaleString(
           "en",
         )}

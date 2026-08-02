@@ -82,9 +82,7 @@
         const needle = normalize(query.trim());
         return (
           !needle ||
-          normalize(`${entry.slovak} ${entry.english} ${entry.category}`).includes(
-            needle,
-          )
+          normalize(`${entry.slovak} ${entry.english} ${entry.category}`).includes(needle)
         );
       })
       .toSorted((first, second) => first.slovak.localeCompare(second.slovak, "sk")),
@@ -221,7 +219,7 @@
     </nav>
 
     <div
-      class="mt-8 flex min-h-10 items-center justify-between gap-4 border-b border-slate-200 pb-3"
+      class="mt-8 flex min-h-10 flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-slate-200 pb-3"
     >
       <p class="m-0 text-sm text-slate-500">
         <strong class="tabular-nums text-slate-900">{filteredEntries.length}</strong>

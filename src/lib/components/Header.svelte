@@ -9,11 +9,98 @@
 
   let { pathname, query = "" }: { pathname: string; query?: string } = $props();
 
+  let menuOpen = $state(false);
+  let headerEl = $state<HTMLElement | null>(null);
+  let headerOffset = $state(72);
+
   function isActive(href: string): boolean {
     return navigationIsActive(pathname, href);
   }
 
+  function closeMenu(): void {
+    menuOpen = false;
+  }
+
+  function toggleMenu(): void {
+    menuOpen = !menuOpen;
+  }
+
   const referenceOpen = $derived(isReferenceSection(pathname));
+
+  const drawerMotion = $derived(
+    menuOpen
+      ? "duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
+      : "duration-200 ease-[cubic-bezier(0.2,0,0,1)]",
+  );
+
+  function linkDelay(index: number): string {
+    return menuOpen ? `${80 + index * 45}ms` : "0ms";
+  }
+
+  $effect(() => {
+    if (!headerEl) {
+      return;
+    }
+
+    function syncOffset(): void {
+      if (!headerEl) {
+        return;
+      }
+      headerOffset = Math.ceil(headerEl.getBoundingClientRect().height);
+    }
+
+    syncOffset();
+
+    const observer = new ResizeObserver(syncOffset);
+    observer.observe(headerEl);
+
+    return () => observer.disconnect();
+  });
+
+  $effect(() => {
+    function onResize(): void {
+      if (window.matchMedia("(min-width: 801px)").matches) {
+        closeMenu();
+      }
+    }
+
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  });
+
+  $effect(() => {
+    if (!menuOpen) {
+      return;
+    }
+
+    function onKeydown(event: KeyboardEvent): void {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    }
+
+    window.getSelection()?.removeAllRanges();
+
+    const main = document.getElementById("main-content");
+    const footer = document.querySelector("footer");
+    main?.setAttribute("inert", "");
+    footer?.setAttribute("inert", "");
+
+    const previousOverflow = document.body.style.overflow;
+    const previousUserSelect = document.body.style.userSelect;
+    document.body.style.overflow = "hidden";
+    document.body.style.userSelect = "none";
+    document.addEventListener("keydown", onKeydown);
+
+    return () => {
+      main?.removeAttribute("inert");
+      footer?.removeAttribute("inert");
+      document.body.style.overflow = previousOverflow;
+      document.body.style.userSelect = previousUserSelect;
+      document.removeEventListener("keydown", onKeydown);
+    };
+  });
 </script>
 
 <a
@@ -24,10 +111,13 @@
 </a>
 
 <header
-  class="sticky top-0 z-50 border-b border-(--line) bg-(--paper)/95 backdrop-blur-md"
+  bind:this={headerEl}
+  class="sticky top-0 border-b border-(--line) bg-(--paper)/95 backdrop-blur-md {menuOpen
+    ? 'z-[80]'
+    : 'z-50'}"
 >
   <div
-    class="mx-auto flex min-h-(--header-height) w-[min(var(--workspace-max),calc(100%-48px))] items-center gap-6 max-[800px]:w-[calc(100%-28px)] max-[680px]:flex-wrap max-[680px]:gap-x-3 max-[680px]:py-3"
+    class="mx-auto flex min-h-(--header-height) w-[min(var(--workspace-max),calc(100%-48px))] items-center gap-6 max-[800px]:w-[calc(100%-28px)] max-[480px]:w-[calc(100%-24px)] max-[800px]:flex-wrap max-[800px]:gap-x-3 max-[800px]:gap-y-2.5 max-[800px]:py-3"
   >
     <a
       class="inline-flex shrink-0 items-baseline gap-1.5"
@@ -85,47 +175,106 @@
       </details>
     </nav>
 
-    <SearchBox id="header-search" initialQuery={query} />
+    <SearchBox
+      class={pathname === "/"
+        ? "max-[800px]:hidden"
+        : "max-[800px]:order-3 max-[800px]:w-full max-[800px]:max-w-none"}
+      id="header-search"
+      initialQuery={query}
+    />
 
-    <details class="relative max-[800px]:block min-[801px]:hidden">
-      <summary
-        class="flex cursor-pointer list-none p-2 text-(--ink-soft) marker:content-none [&::-webkit-details-marker]:hidden"
-        aria-label="Menu"
-      >
-        <svg class="h-6 w-6 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+    <button
+      class="ml-auto flex min-h-10 min-w-10 shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-(--ink-soft) transition-transform duration-150 ease-out active:scale-[0.96] min-[801px]:hidden"
+      type="button"
+      aria-label={menuOpen ? "Close menu" : "Open menu"}
+      aria-expanded={menuOpen}
+      aria-controls="mobile-navigation"
+      onclick={toggleMenu}
+    >
+      <span class="relative block h-6 w-6" aria-hidden="true">
+        <svg
+          class="absolute inset-0 h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
+            ? 'scale-100 opacity-100 blur-0'
+            : 'scale-[0.25] opacity-0 blur-[4px]'}"
+          viewBox="0 0 24 24"
+        >
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+
+        <svg
+          class="h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
+            ? 'scale-[0.25] opacity-0 blur-[4px]'
+            : 'scale-100 opacity-100 blur-0'}"
+          viewBox="0 0 24 24"
+        >
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
-      </summary>
-
-      <nav
-        class="absolute right-0 top-full z-50 mt-2 w-[min(280px,calc(100vw-28px))] border border-(--line) bg-(--paper) px-4 py-3 shadow-(--shadow-border)"
-        aria-label="Mobile navigation"
-      >
-        {#each primaryNavigation as link (link.href)}
-          <a
-            class="block border-b border-(--line) py-3 text-[0.9rem] font-semibold text-(--ink-soft) aria-[current=page]:text-(--accent-dark)"
-            href={link.href}
-            aria-current={isActive(link.href) ? "page" : undefined}
-          >
-            {link.label}
-          </a>
-        {/each}
-
-        <p
-          class="mb-2 mt-4 text-[0.64rem] font-bold uppercase tracking-[0.1em] text-(--muted)"
-        >
-          Reference
-        </p>
-        {#each referenceNavigation as item (item.href)}
-          <a
-            class="block py-2.5 pl-2 font-serif text-sm text-(--ink-soft) aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-dark)"
-            href={item.href}
-            aria-current={isActive(item.href) ? "page" : undefined}
-          >
-            {item.label}
-          </a>
-        {/each}
-      </nav>
-    </details>
+      </span>
+    </button>
   </div>
 </header>
+
+<div
+  class="fixed inset-x-0 bottom-0 z-[60] touch-manipulation select-none bg-slate-900/30 p-0 backdrop-blur-[1px] transition-[opacity,backdrop-filter] [-webkit-touch-callout:none] min-[801px]:hidden {drawerMotion} {menuOpen
+    ? 'opacity-100'
+    : 'pointer-events-none opacity-0'}"
+  style:top="{headerOffset}px"
+  role="presentation"
+  aria-hidden="true"
+  inert={!menuOpen}
+  onpointerdown={(event) => {
+    event.preventDefault();
+    closeMenu();
+  }}
+  oncontextmenu={(event) => event.preventDefault()}
+></div>
+
+<nav
+  class="fixed bottom-0 right-0 z-[70] flex w-[min(20rem,calc(100vw-2.5rem))] flex-col overflow-y-auto border-l border-(--line) bg-(--paper) px-5 pb-8 pt-4 shadow-(--shadow-border) transition-transform will-change-transform select-none min-[801px]:hidden {drawerMotion} {menuOpen
+    ? 'translate-x-0'
+    : 'pointer-events-none translate-x-full'}"
+  style:top="{headerOffset}px"
+  id="mobile-navigation"
+  aria-label="Mobile navigation"
+  aria-hidden={!menuOpen}
+  inert={!menuOpen}
+>
+  {#each primaryNavigation as link, index (link.href)}
+    <a
+      class="block border-b border-(--line) py-3.5 text-[0.95rem] font-semibold text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:text-(--accent-dark) {drawerMotion} {menuOpen
+        ? 'translate-y-0 opacity-100 blur-0'
+        : 'translate-y-3 opacity-0 blur-[4px]'}"
+      style:transition-delay={linkDelay(index)}
+      href={link.href}
+      aria-current={isActive(link.href) ? "page" : undefined}
+      tabindex={menuOpen ? 0 : -1}
+      onclick={closeMenu}
+    >
+      {link.label}
+    </a>
+  {/each}
+
+  <p
+    class="mb-1 mt-5 text-[0.64rem] font-bold uppercase tracking-[0.1em] text-(--muted) transition-[opacity,transform,filter] {drawerMotion} {menuOpen
+      ? 'translate-y-0 opacity-100 blur-0'
+      : 'translate-y-3 opacity-0 blur-[4px]'}"
+    style:transition-delay={linkDelay(primaryNavigation.length)}
+  >
+    Reference
+  </p>
+
+  {#each referenceNavigation as item, index (item.href)}
+    <a
+      class="block border-b border-(--line)/70 py-3 font-serif text-[0.95rem] text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-dark) {drawerMotion} {menuOpen
+        ? 'translate-y-0 opacity-100 blur-0'
+        : 'translate-y-3 opacity-0 blur-[4px]'}"
+      style:transition-delay={linkDelay(primaryNavigation.length + 1 + index)}
+      href={item.href}
+      aria-current={isActive(item.href) ? "page" : undefined}
+      tabindex={menuOpen ? 0 : -1}
+      onclick={closeMenu}
+    >
+      {item.label}
+    </a>
+  {/each}
+</nav>
