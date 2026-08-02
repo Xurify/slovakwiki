@@ -92,7 +92,7 @@
   }
 
   const rowLinkClass =
-    "group grid grid-cols-[minmax(120px,0.5fr)_minmax(0,1fr)_auto] items-baseline gap-4 border-b border-slate-200 -mx-4 px-4 py-4 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)] max-[600px]:grid-cols-[1fr_auto]";
+    "group grid grid-cols-[9.5rem_minmax(0,1fr)_7.5rem_auto] items-center gap-x-4 border-b border-slate-200 -mx-4 px-4 py-4 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)] max-[600px]:grid-cols-[minmax(0,1fr)_auto] max-[600px]:gap-x-3";
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -196,15 +196,21 @@
           {#each visibleEntries as entry (entry.slug)}
             <li>
               <a class={rowLinkClass} href="/{routeBase[entry.kind]}/{entry.slug}">
-                <strong class="font-serif text-lg text-blue-800" lang="sk">
+                <strong
+                  class="font-serif text-lg text-blue-800 max-[600px]:col-start-1"
+                  lang="sk"
+                >
                   {entry.slovak}
                 </strong>
-                <span class="text-slate-700">{entry.english}</span>
-                <span class="text-xs text-slate-400 max-[600px]:hidden"
-                  >{entry.category}</span
+                <span class="text-slate-700 max-[600px]:col-start-1">{entry.english}</span
                 >
+                <span
+                  class="truncate text-right text-xs text-slate-400 max-[600px]:hidden"
+                >
+                  {entry.category}
+                </span>
                 <ArrowRight
-                  class="text-blue-800 max-[600px]:col-start-2 max-[600px]:row-span-2"
+                  class="justify-self-end text-blue-800 max-[600px]:col-start-2 max-[600px]:row-span-2 max-[600px]:row-start-1 max-[600px]:self-center"
                 />
               </a>
             </li>
