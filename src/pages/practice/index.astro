@@ -1,0 +1,8 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import PracticeIndexPage from "$lib/pages/PracticeIndexPage.svelte";
+---
+
+<SiteLayout title="Practice | Slovak Wiki" description="Review Slovak language moves you missed or practise a completed lesson topic.">
+  <PracticeIndexPage client:load />
+</SiteLayout>

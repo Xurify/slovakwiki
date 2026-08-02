@@ -1,0 +1,18 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
+import { words } from "$lib/content/data";
+
+export function getStaticPaths() {
+  return words.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<SiteLayout title={`${entry.slovak} — ${entry.english} | Slovak Wiki`} description={entry.summary}>
+  <DictionaryDetailPage data={{ entry }} />
+</SiteLayout>

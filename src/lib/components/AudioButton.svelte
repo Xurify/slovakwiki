@@ -62,7 +62,7 @@
 </script>
 
 <button
-  class="audio-button relative inline-grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-[var(--line-strong)] bg-[var(--surface)] text-[0.62rem] text-[var(--accent-dark)] shadow-[0_1px_2px_rgb(24_47_61_/_8%)] hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] hover:shadow-[var(--shadow-border-hover)] disabled:cursor-not-allowed disabled:opacity-50 [&.playing]:border-[var(--accent)] [&.playing]:bg-[var(--accent-soft)]"
+  class="audio-button relative inline-grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-(--line-strong) bg-(--surface) text-[0.62rem] text-(--accent-dark) shadow-[0_1px_2px_rgb(24_47_61_/_8%)] hover:border-(--accent) hover:bg-(--accent-soft) hover:shadow-(--shadow-border-hover) disabled:cursor-not-allowed disabled:opacity-50 [&.playing]:border-(--accent) [&.playing]:bg-(--accent-soft)"
   class:playing
   disabled={supported === false}
   type="button"

@@ -1,0 +1,18 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import GrammarDetailPage from "$lib/pages/GrammarDetailPage.svelte";
+import { grammarEntries } from "$lib/content/data";
+
+export function getStaticPaths() {
+  return grammarEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<SiteLayout title={`${entry.english} | Slovak Wiki Grammar`} description={entry.summary}>
+  <GrammarDetailPage data={{ entry }} client:idle />
+</SiteLayout>

@@ -1,0 +1,11 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import WikiPage from "$lib/pages/WikiPage.svelte";
+---
+
+<SiteLayout
+  title="Slovak Wiki — Slovak language reference and lessons"
+  description="Search Slovak words, grammar notes, and pronunciation guides."
+>
+  <WikiPage client:load />
+</SiteLayout>

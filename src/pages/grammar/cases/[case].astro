@@ -1,0 +1,18 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import GrammarCasePage from "$lib/pages/GrammarCasePage.svelte";
+import { caseTopics } from "$lib/content/data";
+
+export function getStaticPaths() {
+  return caseTopics.map((topic) => ({
+    params: { case: topic.slug },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+---
+
+<SiteLayout title={`${topic.name} case | Slovak Wiki`} description={topic.summary}>
+  <GrammarCasePage data={{ topic }} />
+</SiteLayout>

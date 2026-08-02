@@ -1,0 +1,18 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import LessonPage from "$lib/pages/LessonPage.svelte";
+import { lessons } from "$lib/content/lessons";
+
+export function getStaticPaths() {
+  return lessons.map((lesson) => ({
+    params: { lesson: lesson.slug, track: lesson.track },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+---
+
+<SiteLayout title={`${lesson.title} | Slovak Wiki Lessons`} description={lesson.promise}>
+  <LessonPage data={{ lesson }} client:load />
+</SiteLayout>

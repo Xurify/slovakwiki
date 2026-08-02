@@ -1,0 +1,18 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import PronunciationDetailPage from "$lib/pages/PronunciationDetailPage.svelte";
+import { pronunciationEntries } from "$lib/content/data";
+
+export function getStaticPaths() {
+  return pronunciationEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<SiteLayout title={`${entry.english} | Slovak Wiki Pronunciation`} description={entry.summary}>
+  <PronunciationDetailPage data={{ entry }} />
+</SiteLayout>
