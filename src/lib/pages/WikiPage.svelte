@@ -92,7 +92,7 @@
   }
 
   const rowLinkClass =
-    "group grid grid-cols-[9.5rem_minmax(0,1fr)_7.5rem_auto] items-center gap-x-4 border-b border-slate-200 -mx-4 px-4 py-4 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)] max-[600px]:grid-cols-[minmax(0,1fr)_auto] max-[600px]:gap-x-3";
+    "group flex items-start justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-3.5 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_55%,transparent)]";
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -173,10 +173,10 @@
     </nav>
 
     <div
-      class="mt-8 flex min-h-10 items-center justify-between border-b border-slate-200 pb-3"
+      class="mt-8 flex min-h-10 items-center justify-between gap-4 border-b border-slate-200 pb-3"
     >
       <p class="m-0 text-sm text-slate-500">
-        <strong class="text-slate-900">{visibleEntries.length}</strong>
+        <strong class="tabular-nums text-slate-900">{visibleEntries.length}</strong>
         {visibleEntries.length === 1 ? "result" : "results"}
       </p>
       {#if hasActiveFilters}
@@ -196,22 +196,18 @@
           {#each visibleEntries as entry (entry.slug)}
             <li>
               <a class={rowLinkClass} href="/{routeBase[entry.kind]}/{entry.slug}">
-                <strong
-                  class="font-serif text-lg text-blue-800 max-[600px]:col-start-1"
-                  lang="sk"
-                >
-                  {entry.slovak}
-                </strong>
-                <span class="text-slate-700 max-[600px]:col-start-1">{entry.english}</span
-                >
-                <span
-                  class="truncate text-right text-xs text-slate-400 max-[600px]:hidden"
-                >
-                  {entry.category}
-                </span>
-                <ArrowRight
-                  class="justify-self-end text-blue-800 max-[600px]:col-start-2 max-[600px]:row-span-2 max-[600px]:row-start-1 max-[600px]:self-center"
-                />
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                    <strong class="font-serif text-lg text-blue-800" lang="sk">
+                      {entry.slovak}
+                    </strong>
+                    <span class="text-xs text-slate-400">{entry.category}</span>
+                  </div>
+                  <span class="mt-0.5 block text-[0.95rem] leading-snug text-slate-600">
+                    {entry.english}
+                  </span>
+                </div>
+                <ArrowRight class="mt-1.5 shrink-0 text-blue-800" />
               </a>
             </li>
           {/each}
