@@ -4,6 +4,7 @@
 
   import FocusedPracticeAction from "$lib/components/FocusedPracticeAction.svelte";
   import { entryBySlug } from "$lib/content/data";
+  import { sentenceCase } from "$lib/content/search-documents";
   import type { ContentEntry, GrammarTopic } from "$lib/content/types";
 
   let { topic }: { topic: GrammarTopic } = $props();
@@ -35,7 +36,7 @@
 
     <header class="border-b border-slate-200 pb-7">
       <Eyebrow>Grammar reference</Eyebrow>
-      <h1>{topic.english}</h1>
+      <h1>{sentenceCase(topic.english)}</h1>
       <p class="mt-2 font-serif text-lg text-blue-800" lang="sk">{topic.slovak}</p>
       <p class="mt-4 max-w-[66ch] font-serif text-lg text-slate-700">{topic.summary}</p>
     </header>

@@ -5,6 +5,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
   import { pronunciationEntries } from "$lib/content/data";
+  import { sentenceCase } from "$lib/content/search-documents";
 
   const groups = ["Rhythm", "Vowels", "Consonants", "Spelling"] as const;
 
@@ -33,7 +34,7 @@
                 <a class={rowLinkClass} href="/pronunciation/{topic.slug}">
                   <div class="grid gap-1">
                     <strong class="font-serif text-lg text-blue-800"
-                      >{topic.english}</strong
+                      >{sentenceCase(topic.english)}</strong
                     >
                     <span class="font-serif text-sm text-slate-500" lang="sk"
                       >{topic.slovak}</span

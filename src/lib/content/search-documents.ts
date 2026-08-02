@@ -151,7 +151,8 @@ export function buildSearchDocuments(): SearchDocument[] {
   return documents;
 }
 
-function sentenceCase(value: string): string {
+/** EN topic labels: first letter up; SK lemmas stay as stored. */
+export function sentenceCase(value: string): string {
   if (!value) {
     return value;
   }

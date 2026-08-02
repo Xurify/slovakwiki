@@ -2,6 +2,7 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PronunciationDetailPage from "$lib/pages/PronunciationDetailPage.svelte";
 import { pronunciationEntries } from "$lib/content/data";
+import { sentenceCase } from "$lib/content/search-documents";
 
 export function getStaticPaths() {
   return pronunciationEntries.map((entry) => ({
@@ -11,10 +12,11 @@ export function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const pageTitle = sentenceCase(entry.english);
 ---
 
 <SiteLayout
-  title={`${entry.english} | Slovak Wiki Pronunciation`}
+  title={`${pageTitle} | Slovak Wiki Pronunciation`}
   description={entry.summary}
 >
   <PronunciationDetailPage data={{ entry }} />

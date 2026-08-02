@@ -47,7 +47,7 @@
     size === "hero"
       ? cx("relative z-30 w-full max-w-[480px]", className)
       : cx(
-          "relative ml-auto w-full max-w-[280px] max-[680px]:order-3 max-[680px]:max-w-none",
+          "relative ml-auto w-full max-w-[320px] max-[680px]:order-3 max-[680px]:max-w-none",
           className,
         ),
   );
@@ -290,9 +290,11 @@
   {#if showPanel}
     <div
       class={cx(
-        "absolute left-0 right-0 z-[60] mt-2 overflow-y-auto border border-(--line) bg-(--surface) shadow-(--shadow-border)",
+        "absolute z-[60] mt-2 overflow-y-auto border border-(--line) bg-(--surface) shadow-(--shadow-border)",
         "max-h-[min(22rem,calc(100dvh-8rem))]",
-        size === "hero" ? "rounded-(--frame-radius)" : "rounded-(--control-radius)",
+        size === "hero"
+          ? "left-0 right-0 rounded-(--frame-radius)"
+          : "right-0 w-[min(22rem,calc(100vw-1.5rem))] rounded-(--control-radius) max-[680px]:left-0 max-[680px]:right-0 max-[680px]:w-auto",
       )}
       id={`${id}-listbox`}
       role="listbox"

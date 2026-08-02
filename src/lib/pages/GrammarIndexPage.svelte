@@ -6,6 +6,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { grammarEntries } from "$lib/content/data";
+  import { sentenceCase } from "$lib/content/search-documents";
 
   const groups = ["Nouns", "Verbs", "Sentences"] as const;
 
@@ -37,7 +38,7 @@
                 <a class={rowLinkClass} href="/grammar/{topic.slug}">
                   <div class="grid gap-1">
                     <strong class="font-serif text-lg text-blue-800"
-                      >{topic.english}</strong
+                      >{sentenceCase(topic.english)}</strong
                     >
                     <span class="font-serif text-sm text-slate-500" lang="sk"
                       >{topic.slovak}</span
