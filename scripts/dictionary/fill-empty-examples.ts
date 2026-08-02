@@ -15,12 +15,6 @@ import type { Example } from "../../src/lib/content/types";
 import { ROOT } from "../lib/paths";
 
 const CURATED_PATH = path.join(ROOT, "content", "dictionary", "curated-examples.json");
-const OVERRIDES_PATH = path.join(
-  ROOT,
-  "content",
-  "dictionary",
-  "curated-example-overrides.json",
-);
 
 function firstGloss(english: string): string {
   return english
@@ -692,42 +686,38 @@ const curated = JSON.parse(readFileSync(CURATED_PATH, "utf8")) as Record<
   string,
   Example[]
 >;
-const overrides = JSON.parse(readFileSync(OVERRIDES_PATH, "utf8")) as Record<
-  string,
-  Example[]
->;
 
-const damagedOverrides: string[] = [];
-for (const [slug, examples] of Object.entries(overrides)) {
+const damagedCurated: string[] = [];
+for (const [slug, examples] of Object.entries(curated)) {
   const lemma =
     words.find((word) => word.slug === slug && word.kind === "word")?.slovak ?? slug;
   for (const example of examples) {
+    if (example.isPracticeFrame) continue;
     if (isDamagedExampleTemplate(example.slovak, lemma)) {
-      damagedOverrides.push(`${slug}: ${example.slovak}`);
+      damagedCurated.push(`${slug}: ${example.slovak}`);
     }
   }
 }
-if (damagedOverrides.length > 0) {
+if (damagedCurated.length > 0) {
   throw new Error(
-    `Hand overrides contain damaged fill templates (${damagedOverrides.length}). Fix curated-example-overrides.json first:\n` +
-      damagedOverrides.slice(0, 20).join("\n") +
-      (damagedOverrides.length > 20 ? `\n… +${damagedOverrides.length - 20} more` : ""),
+    `Curated examples contain damaged fill templates (${damagedCurated.length}). Fix curated-examples.json first:\n` +
+      damagedCurated.slice(0, 20).join("\n") +
+      (damagedCurated.length > 20 ? `\n… +${damagedCurated.length - 20} more` : ""),
   );
 }
 
-Object.assign(curated, aspectPatterns, overrides);
+Object.assign(curated, aspectPatterns);
 
 const empty = words.filter((word) => word.kind === "word" && word.examples.length === 0);
 let filled = 0;
 
 for (const word of empty) {
-  if (aspectPatterns[word.slug] || overrides[word.slug]) continue;
+  if (curated[word.slug]) continue;
   curated[word.slug] = [exampleFor(word)];
   filled += 1;
 }
 
 writeFileSync(CURATED_PATH, `${JSON.stringify(curated, null, 2)}\n`);
 console.log(`Aspect pattern pairs: ${Object.keys(aspectPatterns).length}`);
-console.log(`Hand-reviewed overrides: ${Object.keys(overrides).length}`);
 console.log(`Template-filled empty lemmas: ${filled}`);
 console.log(`Total curated keys: ${Object.keys(curated).length}`);

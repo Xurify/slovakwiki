@@ -233,7 +233,7 @@ describe("Slovak content", () => {
     expect(bad.map((word) => word.slug)).toEqual([]);
   });
 
-  it("keeps hand-curated overrides free of practice-frame flags", () => {
+  it("keeps hand-curated examples free of practice-frame flags", () => {
     const expected = [
       "ocitnut",
       "podielat",

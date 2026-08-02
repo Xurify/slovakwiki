@@ -55,7 +55,7 @@ export async function getPagefind(): Promise<PagefindApi | null> {
 
   if (!pagefindPromise) {
     pagefindPromise = (async () => {
-      // Generated into /pagefind by `npm run index:search` / `astro build`.
+      // Generated into /pagefind by `bun run index:search` / `astro build`.
       const loader = new Function("url", "return import(url)") as (
         url: string,
       ) => Promise<PagefindApi | { default: PagefindApi }>;

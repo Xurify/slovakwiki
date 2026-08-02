@@ -55,7 +55,7 @@ export function isAcceptableCorpusExample(slovak: string, english: string): bool
 
 /**
  * Detects thin fill-template residue that must not ship as reviewed curated examples.
- * Practice frames may still use safer classed templates; overrides must not.
+ * Practice frames may still use safer classed templates; reviewed curated must not.
  *
  * When `lemma` is provided, also flags bare one-token frames that only repeat the headword
  * (`Hľadám medaila.`, `Toto je kariéra.`). Legitimate uses like `Hľadám knihu.` for hľadať

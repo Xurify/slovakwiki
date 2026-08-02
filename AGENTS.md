@@ -42,7 +42,6 @@ Script layout: see `scripts/README.md` (`dictionary/`, `search/`, `docs/`).
     - https://downloads.tatoeba.org/exports/per_language/slk/slk-eng_links.tsv.bz2
     - https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2
   - Missing-example report: `tmp/missing-examples.txt`
-- Optional hard-case drafts: `bun run drafts:build` / `bun run drafts:promote` (approve only when a lemma needs extra care)
 - Regenerate docs from the references module: `bun run docs:data-sources`
 - Public lists UI: `/dictionary/common`
 - Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency

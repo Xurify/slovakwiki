@@ -17,12 +17,10 @@
     "examples:fill": "bun scripts/dictionary/fill-empty-examples.ts",
     "examples:coverage": "bun scripts/dictionary/example-coverage.ts",
     "examples:audit": "bun scripts/dictionary/audit-generated-examples.ts",
-    "examples:audit-curated": "bun scripts/dictionary/audit-curated-overrides.ts",
+    "examples:audit-curated": "bun scripts/dictionary/audit-curated-examples.ts",
     "examples:curate": "bun scripts/dictionary/apply-curated-examples.ts",
     "examples:reclaim": "bun scripts/dictionary/reclaim-weak-examples.ts",
     "related:apply": "bun scripts/dictionary/apply-related.ts",
-    "drafts:build": "bun scripts/dictionary/build-drafts.ts",
-    "drafts:promote": "bun scripts/dictionary/promote-draft.ts",
     "docs:data-sources": "bun scripts/docs/write-data-sources.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

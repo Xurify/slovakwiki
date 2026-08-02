@@ -12,7 +12,7 @@ High-confusion lemmas use labeled `demonstrates` example groups + Usage notes + 
 
 Every live dictionary word has ≥1 example (Tatoeba, reviewed curated examples, or generated practice frames via `bun run examples:fill` → `examples:curate`). Generated frames carry `isPracticeFrame` and the detail UI labels them honestly.
 
-Edit reviewed examples in `content/dictionary/curated-example-overrides.json` → `bun run examples:fill` → `examples:curate`. Weak stubs: `bun run examples:reclaim` → enrich → fill → curate. Semantic peers: `bun run related:apply` (`related-clusters.json`). Audit generated frames with `bun run examples:audit -- --limit 300 --report tmp/generated-example-audit.tsv`.
+Edit reviewed examples in `content/dictionary/curated-examples.json` → `bun run examples:fill` → `examples:curate`. Weak stubs: `bun run examples:reclaim` → enrich → fill → curate. Semantic peers: `bun run related:apply` (`related-clusters.json`). Audit generated frames with `bun run examples:audit -- --limit 300 --report tmp/generated-example-audit.tsv`.
 
 **Still open:** ~1.3k generated practice frames need continuing ranked review; gloss-overlap related covers many empty rails (rank±1 is last resort).
 
@@ -57,7 +57,7 @@ Edit reviewed examples in `content/dictionary/curated-example-overrides.json` �
 
 **P2 — polish / cleanup**
 
-10. Drafts workflow orphaned (empty `content/drafts/`; dual Tatoeba dump formats).
+10. ~~Drafts workflow orphaned~~ — removed (`drafts:*` scripts, `draft-types`, `content/drafts/`).
 11. Single-letter SNK junk still visible on common list as “not in dictionary yet”.
 12. ~~No related links on promoted entries~~ — clusters + rank fallback; expand clusters / gloss overlap still open.
 13. Thin automated tests around publish/enrich; References copy still sounds “draft-only”.
