@@ -1,5 +1,5 @@
 /**
- * Attach Tatoeba SK–EN example sentences to promoted dictionary words.
+ * Attach Tatoeba SK–EN example sentences to dictionary words.
  *
  * Downloads expected in tmp/tatoeba/ (see docs/data-sources.md):
  *   slk_sentences.tsv, eng_sentences.tsv, slk-eng_links.tsv
@@ -43,7 +43,7 @@ type RejectReason =
   "no-candidates" | "quality" | "weak-match" | "already-protected" | "no-practice-frame";
 
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
-const PROMOTED_PATH = path.join(ROOT, "content", "dictionary", "promoted.json");
+const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 
 const TOKEN_RE = /[\p{L}\p{M}]+/gu;
 
@@ -381,7 +381,7 @@ async function main(): Promise<void> {
   console.log("Building token index…");
   const index = buildIndex(pairs);
 
-  const promoted = JSON.parse(await readFile(PROMOTED_PATH, "utf8")) as WordSeed[];
+  const dictionaryWords = JSON.parse(await readFile(WORDS_PATH, "utf8")) as WordSeed[];
   let enriched = 0;
   let appended = 0;
   let scrubbed = 0;
@@ -392,7 +392,7 @@ async function main(): Promise<void> {
   const missing: WordSeed[] = [];
   const rejects: { slug: string; reason: RejectReason; detail: string }[] = [];
 
-  for (const word of promoted) {
+  for (const word of dictionaryWords) {
     const before = word.examples.length;
 
     // Scrub only crude corpus/unsafe lines; keep curated + practice frames.
@@ -520,7 +520,7 @@ async function main(): Promise<void> {
     }
   }
 
-  await writeFile(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`, "utf8");
+  await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
 
   const missingLines = [
     `# Words still missing Tatoeba examples (${missing.length})`,

@@ -20,7 +20,7 @@ Edit reviewed examples in `content/dictionary/curated-examples.json` → `bun ru
 
 | Metric                       | Value                                                             |
 | ---------------------------- | ----------------------------------------------------------------- |
-| Live dictionary words        | ~2,986 (31 curated + ~2,955 promoted)                             |
+| Live dictionary words        | ~2,986 (31 curated + ~2,955 in words.json)                        |
 | Frequency lemmas linked      | ~all meaningful top-1000 × 3 (POS-disambiguated slugs)            |
 | Top-200 example coverage     | verbs / nouns / adjectives **100%** (`bun run examples:coverage`) |
 | Words missing examples (all) | **0**                                                             |
@@ -59,7 +59,7 @@ Edit reviewed examples in `content/dictionary/curated-examples.json` → `bun ru
 
 10. ~~Drafts workflow orphaned~~ — removed (`drafts:*` scripts, `draft-types`, `content/drafts/`).
 11. Single-letter SNK junk still visible on common list as “not in dictionary yet”.
-12. ~~No related links on promoted entries~~ — clusters + rank fallback; expand clusters / gloss overlap still open.
+12. ~~No related links on frequency entries~~ — clusters + rank fallback; expand clusters / gloss overlap still open.
 13. Thin automated tests around publish/enrich; References copy still sounds “draft-only”.
 
 ---
@@ -84,14 +84,14 @@ Answer these so milestones stay aligned:
 
 1. **Example quality gate** in `scripts/dictionary/enrich-examples.ts`
    - Blocklist / scoring: sexual, vulgar, slurs; prefer short clean sentences
-   - Re-run with `--force` on dirty lemmas; drop bad examples from `promoted.json`
+   - Re-run with `--force` on dirty lemmas; drop bad examples from `words.json`
 2. **Body generator** in `data.ts` (or per-entry fields)
    - If `examples.length === 0`: different Usage copy (no “read the example”)
    - Optional short empty-state under Usage: “No sentence examples yet.”
 3. **Rebuild Pagefind** after content changes (`bun run index:search`); document in AGENTS checklist for dictionary publishes
 4. Smoke-check worst common lemmas (`mať`, `byť`, high-rank nouns)
 
-**Done when:** no known NSFW examples on top lemmas; empty-example pages don’t promise examples; local search finds promoted words after index.
+**Done when:** no known NSFW examples on top lemmas; empty-example pages don’t promise examples; local search finds dictionary words after index.
 
 ### Milestone B — Detail page truthfulness
 
@@ -99,7 +99,7 @@ Answer these so milestones stay aligned:
 
 1. **Attribution block**
    - Curated: JÚĽŠ (as today)
-   - Frequency-promoted: SNK + gloss note; Tatoeba under examples when present
+   - Frequency words: SNK + gloss note; Tatoeba under examples when present
 2. **Frequency context** on detail (optional line): “Among the most common Slovak verbs (#14)” → link `/dictionary/common`
 3. Show English on **common list rows** (muted secondary line) so learners don’t have to open every link
 4. Add **Most common** to Reference nav + Footer

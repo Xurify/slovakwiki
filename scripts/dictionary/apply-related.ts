@@ -1,5 +1,5 @@
 /**
- * Apply semantic related-cluster peers onto promoted words.
+ * Apply semantic related-cluster peers onto dictionary words.
  * Only fills empty `related` arrays — never overwrites curated / pattern related.
  *
  * Usage: bun run related:apply
@@ -19,7 +19,7 @@ type WordSeed = Pick<
   "slug" | "slovak" | "english" | "category" | "examples" | "related"
 >;
 
-const PROMOTED_PATH = path.join(ROOT, "content", "dictionary", "promoted.json");
+const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 const CLUSTERS_PATH = path.join(ROOT, "content", "dictionary", "related-clusters.json");
 const MAX_PEERS = 4;
 
@@ -61,7 +61,7 @@ function expandClusters(
 }
 
 async function main(): Promise<void> {
-  const promoted = JSON.parse(await readFile(PROMOTED_PATH, "utf8")) as WordSeed[];
+  const dictionaryWords = JSON.parse(await readFile(WORDS_PATH, "utf8")) as WordSeed[];
   const clusters = JSON.parse(await readFile(CLUSTERS_PATH, "utf8")) as Record<
     string,
     string[]
@@ -74,12 +74,12 @@ async function main(): Promise<void> {
 
   let filled = 0;
   let skippedHasRelated = 0;
-  let missingFromPromoted = 0;
+  let missingFromWords = 0;
 
   for (const [slug, related] of peerMap) {
-    const word = promoted.find((entry) => entry.slug === slug);
+    const word = dictionaryWords.find((entry) => entry.slug === slug);
     if (!word) {
-      missingFromPromoted += 1;
+      missingFromWords += 1;
       continue;
     }
     if (word.related.length > 0) {
@@ -90,11 +90,11 @@ async function main(): Promise<void> {
     filled += 1;
   }
 
-  await writeFile(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`, "utf8");
+  await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
   console.log(`Filled related from clusters: ${filled}`);
   console.log(`Skipped (already had related): ${skippedHasRelated}`);
-  console.log(`Cluster slugs not in promoted: ${missingFromPromoted}`);
-  console.log(`→ ${path.relative(ROOT, PROMOTED_PATH)}`);
+  console.log(`Cluster slugs not in words.json: ${missingFromWords}`);
+  console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);
 }
 
 const isDirectRun =

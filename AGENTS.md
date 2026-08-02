@@ -31,7 +31,7 @@ Script layout: see `scripts/README.md` (`dictionary/`, `search/`, `docs/`).
 - **Yearly checklist:** revisit SNK corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all`, not live. Last import: `generatedAt` in `content/frequency/{verbs,nouns,adjectives}.json` (set by `frequency:import`). No auto-refresh. Bump importer + re-import only when a newer `prim-*-public-all` top-1000 ships; spot-check rank drift before commit.
 - English glosses for common lemmas: `content/frequency/glosses.json`
 - Publish glossed frequency lemmas into the live dictionary (no approval gate): `bun run frequency:publish` (`--limit 100`)
-- Attach Tatoeba examples to promoted words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
+- Attach Tatoeba examples to dictionary words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
 - Drop weak fill stubs so Tatoeba can reclaim: `bun run examples:reclaim` → then enrich → fill → curate
 - Fill lemmas Tatoeba cannot match: `bun run examples:fill` → then `bun run examples:curate`
 - Semantic related peers (empty related only): `bun run related:apply` (after curate; clusters in `content/dictionary/related-clusters.json`)

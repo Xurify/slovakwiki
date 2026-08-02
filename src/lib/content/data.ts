@@ -1,5 +1,5 @@
 import lemmaFrequencyIndex from "../../../content/frequency/lemma-index.json";
-import promotedWords from "../../../content/dictionary/promoted.json";
+import dictionaryWords from "../../../content/dictionary/words.json";
 import { normalizeLemma } from "./frequency";
 import { type FrequencyPos } from "./frequency-types";
 import type {
@@ -449,7 +449,7 @@ const curatedWordSeed: WordSeed[] = [
   },
 ];
 
-const wordSeed: WordSeed[] = [...curatedWordSeed, ...(promotedWords as WordSeed[])];
+const wordSeed: WordSeed[] = [...curatedWordSeed, ...(dictionaryWords as WordSeed[])];
 const curatedSlugs = new Set(curatedWordSeed.map((word) => word.slug));
 
 function wordBody(word: WordSeed): string[] {
@@ -581,7 +581,7 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   };
 });
 
-/** Same-POS related links for promoted words with empty `related`. */
+/** Same-POS related links for frequency words with empty `related`. */
 function glossToken(english: string): string | null {
   const first = english.split(";")[0]!.trim().toLowerCase();
   const stripped = first

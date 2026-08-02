@@ -6,7 +6,7 @@ Grouped by job. Run via `bun run <name>` from `package.json` (preferred).
 
 ```
 bun run frequency:import    # SNK top-1000 → content/frequency/*.json + lemma-index.json
-bun run frequency:publish   # glosses → content/dictionary/promoted.json
+bun run frequency:publish   # glosses → content/dictionary/words.json
 bun run examples:reclaim    # drop weak fill stubs so Tatoeba can reclaim
 bun run examples:enrich -- --replace-practice
                             # Tatoeba dumps → replace practice frames only
@@ -29,7 +29,7 @@ Frequency lists, live dictionary publish, Tatoeba examples.
 | `publish-frequency.ts`        | `frequency:publish`      | Auto-publishes glosses; `-v`/`-n`/`-a` slug suffix on collisions                                                          |
 | `enrich-examples.ts`          | `examples:enrich`        | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< per-word); `--replace-practice` / `--refresh-tatoeba` |
 | `reclaim-weak-examples.ts`    | `examples:reclaim`       | Drops exact weak fill stubs from curated JSON                                                                             |
-| `fill-empty-examples.ts`      | `examples:fill`          | POS templates + aspect pairs; tops up lemmas with <2 examples                         |
+| `fill-empty-examples.ts`      | `examples:fill`          | POS templates + aspect pairs; tops up lemmas with <2 examples                                                             |
 | `apply-curated-examples.ts`   | `examples:curate`        | Reviewed curated wins; union-merge keeps Tatoeba; practice may top up underfilled                                         |
 | `shrink-curated-singles.ts`   | (manual)                 | Drop thin curated singles after enrich so overlay stays hand/pattern-only                                                 |
 | `apply-related.ts`            | `related:apply`          | Fills empty related from `related-clusters.json`                                                                          |

@@ -1,5 +1,5 @@
 /**
- * Merge hand-curated example sentences into promoted dictionary words.
+ * Merge hand-curated example sentences into dictionary words.
  *
  * Corpus-first policy:
  * - Reviewed curated / pattern (`demonstrates`) examples always win.
@@ -23,7 +23,7 @@ type WordSeed = Pick<
   "slug" | "slovak" | "english" | "category" | "examples" | "related"
 >;
 
-const PROMOTED_PATH = path.join(ROOT, "content", "dictionary", "promoted.json");
+const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 const CURATED_PATH = path.join(ROOT, "content", "dictionary", "curated-examples.json");
 
 /** Extra related links when curated examples are applied. */
@@ -105,7 +105,7 @@ function isReviewedCurated(examples: Example[]): boolean {
 }
 
 async function main(): Promise<void> {
-  const promoted = JSON.parse(await readFile(PROMOTED_PATH, "utf8")) as WordSeed[];
+  const dictionaryWords = JSON.parse(await readFile(WORDS_PATH, "utf8")) as WordSeed[];
   const curated = JSON.parse(await readFile(CURATED_PATH, "utf8")) as Record<
     string,
     Example[]
@@ -116,10 +116,10 @@ async function main(): Promise<void> {
   let missingSlug = 0;
 
   for (const [slug, examples] of Object.entries(curated)) {
-    const word = promoted.find((entry) => entry.slug === slug);
+    const word = dictionaryWords.find((entry) => entry.slug === slug);
     if (!word) {
       missingSlug += 1;
-      console.warn(`No promoted word for curated slug: ${slug}`);
+      console.warn(`No dictionary word for curated slug: ${slug}`);
       continue;
     }
 
@@ -145,10 +145,10 @@ async function main(): Promise<void> {
     if (patternLocked) {
       word.examples = incoming;
     } else {
-      // Union by Slovak text: curated/fill first, keep other promoted rows.
+      // Union by Slovak text: keep live rows first, then curated/fill extras.
       const merged: Example[] = [];
       const seen = new Set<string>();
-      for (const example of [...incoming, ...word.examples]) {
+      for (const example of [...word.examples, ...incoming]) {
         const key = example.slovak.toLocaleLowerCase("sk");
         if (seen.has(key)) continue;
         seen.add(key);
@@ -170,11 +170,11 @@ async function main(): Promise<void> {
     filled += 1;
   }
 
-  await writeFile(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`, "utf8");
+  await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
   console.log(`Applied curated examples to ${filled} words`);
   console.log(`Skipped practice frames over Tatoeba: ${skippedCorpus}`);
   console.log(`Missing slugs: ${missingSlug}`);
-  console.log(`→ ${path.relative(ROOT, PROMOTED_PATH)}`);
+  console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);
 }
 
 const isDirectRun =

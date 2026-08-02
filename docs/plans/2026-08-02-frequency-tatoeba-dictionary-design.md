@@ -16,7 +16,7 @@ Tatoeba is for **example sentences**, not frequency ranking. If the SNK frequenc
 | Slug collisions | Bare slug first; on clash append `-v` / `-n` / `-a` (e.g. `štát` → `stat-n`)              |
 | Drafts          | Legacy / optional hard cases only — not the primary growth path                           |
 | Tatoeba access  | Weekly **dumps**, not live API in v1                                                      |
-| Attribution     | Curated → JÚĽŠ; promoted → SNK; examples → Tatoeba CC BY                                  |
+| Attribution     | Curated → JÚĽŠ; frequency words → SNK; examples → Tatoeba CC BY                           |
 
 ## Architecture
 
@@ -32,7 +32,7 @@ scripts/dictionary/import-frequency.ts
         │
         └─► scripts/dictionary/publish-frequency.ts
                  + content/frequency/glosses.json
-                 → content/dictionary/promoted.json
+                 → content/dictionary/words.json
                         │
                         ▼
                  scripts/dictionary/enrich-examples.ts (Tatoeba dumps)

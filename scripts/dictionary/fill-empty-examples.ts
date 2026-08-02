@@ -532,14 +532,14 @@ function alternateExampleFor(word: {
       const lemma = slovak.toLocaleLowerCase("sk");
       if (PLURAL_NOUNS.has(lemma)) {
         example = {
-          slovak: `Potrebujem ${slovak}.`,
-          english: `I need ${gloss}.`,
+          slovak: `Kde sú ${slovak}?`,
+          english: `Where are the ${gloss}?`,
           note: "Curated",
         };
       } else {
         example = {
-          slovak: `Potrebujem ${slovak}.`,
-          english: `I need ${article(gloss)}${gloss}.`,
+          slovak: `Kde je ${slovak}?`,
+          english: `Where is ${article(gloss)}${gloss}?`,
           note: "Curated",
         };
       }
@@ -787,24 +787,36 @@ for (const word of empty) {
 
 let toppedUp = 0;
 
+const HAND_CURATED_SLUGS = new Set([
+  "ocitnut",
+  "podielat",
+  "stretavat",
+  "zavisiet",
+  "tatransky",
+  "vracat",
+  "informacia",
+]);
+
 for (const word of words) {
   if (word.kind !== "word") continue;
+  if (word.category === "Verbs") continue;
+  if (HAND_CURATED_SLUGS.has(word.slug)) continue;
   if (word.examples.some((example) => Boolean(example.demonstrates))) continue;
 
   const existing = curated[word.slug] ?? [];
-  const promotedKeys = new Set(
+  const existingKeys = new Set(
     word.examples.map((example) => example.slovak.toLocaleLowerCase("sk")),
   );
   const curatedKeys = new Set(
     existing.map((example) => example.slovak.toLocaleLowerCase("sk")),
   );
-  const knownCount = new Set([...promotedKeys, ...curatedKeys]).size;
+  const knownCount = new Set([...existingKeys, ...curatedKeys]).size;
   if (knownCount >= MIN_EXAMPLES) continue;
 
   const extras: Example[] = [];
   for (const candidate of [exampleFor(word), alternateExampleFor(word)]) {
     const key = candidate.slovak.toLocaleLowerCase("sk");
-    if (promotedKeys.has(key) || curatedKeys.has(key)) continue;
+    if (existingKeys.has(key) || curatedKeys.has(key)) continue;
     if (extras.some((example) => example.slovak.toLocaleLowerCase("sk") === key)) {
       continue;
     }

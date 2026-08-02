@@ -35,7 +35,7 @@ interface Gloss {
 
 const FREQUENCY_DIR = path.join(ROOT, "content", "frequency");
 const GLOSSES_PATH = path.join(FREQUENCY_DIR, "glosses.json");
-const PROMOTED_PATH = path.join(ROOT, "content", "dictionary", "promoted.json");
+const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 
 const POS_FILES: Record<FrequencyPos, string> = {
   verb: "verbs.json",
@@ -86,9 +86,9 @@ function allocateSlug(
   return `${withPos}-${suffix}`;
 }
 
-async function loadPromoted(): Promise<WordSeed[]> {
+async function loadWords(): Promise<WordSeed[]> {
   try {
-    return JSON.parse(await readFile(PROMOTED_PATH, "utf8")) as WordSeed[];
+    return JSON.parse(await readFile(WORDS_PATH, "utf8")) as WordSeed[];
   } catch {
     return [];
   }
@@ -96,17 +96,17 @@ async function loadPromoted(): Promise<WordSeed[]> {
 
 async function main(): Promise<void> {
   const { limit } = parseArgs(process.argv.slice(2));
-  await mkdir(path.dirname(PROMOTED_PATH), { recursive: true });
+  await mkdir(path.dirname(WORDS_PATH), { recursive: true });
 
   const glosses = JSON.parse(await readFile(GLOSSES_PATH, "utf8")) as Record<
     string,
     Gloss
   >;
-  const promoted = await loadPromoted();
+  const dictionaryWords = await loadWords();
   const liveSlugs = new Set(words.map((word) => word.slug));
   const liveLemmas = new Set(words.map((word) => word.slovak.toLocaleLowerCase("sk")));
 
-  for (const word of promoted) {
+  for (const word of dictionaryWords) {
     liveSlugs.add(word.slug);
     liveLemmas.add(word.slovak.toLocaleLowerCase("sk"));
   }
@@ -159,18 +159,18 @@ async function main(): Promise<void> {
         related: [],
       };
 
-      promoted.push(seed);
+      dictionaryWords.push(seed);
       liveSlugs.add(slug);
       liveLemmas.add(entry.lemma.toLocaleLowerCase("sk"));
       added += 1;
     }
   }
 
-  await writeFile(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`, "utf8");
+  await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
   console.log(
     `Published ${added} lemmas (${disambiguated} with POS slug suffix); already live ${skippedLive}; missing gloss ${missingGloss}`,
   );
-  console.log(`→ ${path.relative(ROOT, PROMOTED_PATH)}`);
+  console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);
 }
 
 const isDirectRun =

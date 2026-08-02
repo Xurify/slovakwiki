@@ -1,7 +1,7 @@
 /**
  * Remove exact weak fill-template curated examples so Tatoeba can reclaim them.
  * Keeps hand-curated and pattern (`demonstrates`) entries.
- * Also clears matching weak examples from promoted.json.
+ * Also clears matching weak examples from words.json.
  *
  * Usage: bun run examples:reclaim
  * Then: bun run examples:enrich → examples:fill → examples:curate → related:apply
@@ -19,7 +19,7 @@ type WordSeed = Pick<
 >;
 
 const CURATED_PATH = path.join(ROOT, "content", "dictionary", "curated-examples.json");
-const PROMOTED_PATH = path.join(ROOT, "content", "dictionary", "promoted.json");
+const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 
 function isWeakTemplate(example: Example): boolean {
   if (example.demonstrates) return false;
@@ -124,19 +124,19 @@ for (const [slug, examples] of Object.entries(curated)) {
 
 writeFileSync(CURATED_PATH, `${JSON.stringify(curated, null, 2)}\n`);
 
-const promoted = JSON.parse(readFileSync(PROMOTED_PATH, "utf8")) as WordSeed[];
-let clearedPromoted = 0;
+const dictionaryWords = JSON.parse(readFileSync(WORDS_PATH, "utf8")) as WordSeed[];
+let clearedWords = 0;
 
-for (const word of promoted) {
+for (const word of dictionaryWords) {
   const before = word.examples.length;
   word.examples = word.examples.filter((example) => !isWeakTemplate(example));
-  if (word.examples.length < before) clearedPromoted += 1;
+  if (word.examples.length < before) clearedWords += 1;
 }
 
-writeFileSync(PROMOTED_PATH, `${JSON.stringify(promoted, null, 2)}\n`);
+writeFileSync(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`);
 
 console.log(`Removed fully-weak curated keys: ${removedKeys}`);
 console.log(`Trimmed weak sentences from mixed keys: ${trimmedKeys}`);
 console.log(`Unchanged curated keys: ${keptKeys}`);
 console.log(`Remaining curated keys: ${Object.keys(curated).length}`);
-console.log(`Cleared weak examples on promoted words: ${clearedPromoted}`);
+console.log(`Cleared weak examples on dictionary words: ${clearedWords}`);

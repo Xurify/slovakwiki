@@ -353,13 +353,13 @@ describe("Slovak content", () => {
     );
   });
 
-  it("attributes frequency-promoted words to SNK, not JÚĽŠ", () => {
-    const promoted = words.find((word) => word.origin === "frequency");
+  it("attributes frequency dictionary words to SNK, not JÚĽŠ", () => {
+    const frequencyWord = words.find((word) => word.origin === "frequency");
     const curated = words.find((word) => word.origin === "curated");
 
-    expect(promoted).toBeDefined();
+    expect(frequencyWord).toBeDefined();
     expect(curated).toBeDefined();
-    expect(promoted?.sourceLabel).toContain("Slovak National Corpus");
+    expect(frequencyWord?.sourceLabel).toContain("Slovak National Corpus");
     expect(curated?.sourceLabel).toContain("Jazykovedný ústav");
   });
 
@@ -382,12 +382,12 @@ describe("Slovak content", () => {
     expect(words.find((word) => word.slovak === "slovenský")?.slug).toBe("slovensky-a");
   });
 
-  it("fills related neighbors for frequency-promoted words", () => {
-    const promoted = words.find(
+  it("fills related neighbors for frequency dictionary words", () => {
+    const frequencyWord = words.find(
       (word) => word.origin === "frequency" && word.frequency?.rank === 2,
     );
-    expect(promoted?.related.length).toBeGreaterThan(0);
-    for (const relatedSlug of promoted?.related ?? []) {
+    expect(frequencyWord?.related.length).toBeGreaterThan(0);
+    for (const relatedSlug of frequencyWord?.related ?? []) {
       expect(entryBySlug.has(relatedSlug)).toBe(true);
     }
   });
