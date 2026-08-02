@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
@@ -14,9 +16,10 @@
   } from "$lib/content/data";
   import { lessonTracks, lessonsForTrack } from "$lib/content/lessons";
 
+  let { heroSearch }: { heroSearch: Snippet } = $props();
+
   const featuredWord = words.find((word) => word.slug === "dakujem") ?? words[0];
   const featuredExample = featuredWord.examples[0];
-  const popularWords = words.slice(0, 5);
 
   const phraseOfTheDay = {
     gloss: [
@@ -116,12 +119,9 @@
 {/snippet}
 
 <main>
-  <section
-    class="relative isolate min-h-[min(80vh,700px)] overflow-hidden"
-    aria-label="Welcome"
-  >
+  <section class="relative z-20 min-h-[min(80vh,700px)]" aria-label="Welcome">
     <div
-      class="pointer-events-none absolute inset-0 select-none font-serif text-[clamp(4rem,14vw,9rem)] font-semibold leading-none tracking-[-0.06em] text-slate-900/[0.045]"
+      class="pointer-events-none absolute inset-0 overflow-hidden select-none font-serif text-[clamp(4rem,14vw,9rem)] font-semibold leading-none tracking-[-0.06em] text-slate-900/[0.045]"
       aria-hidden="true"
     >
       <span class="absolute left-[6%] top-[18%] rotate-[-8deg]" lang="sk">ľ</span>
@@ -131,7 +131,7 @@
     </div>
 
     <PageShell
-      class="relative flex min-h-[min(80vh,700px)] flex-col justify-center py-20 pb-16 max-[600px]:py-14"
+      class="relative flex min-h-[min(80vh,700px)] flex-col justify-center py-20 pb-28 max-[600px]:py-14 max-[600px]:pb-20"
     >
       <div class="max-w-160">
         <p
@@ -152,53 +152,7 @@
           Short lessons and a practical reference for the forms you want to remember.
         </Lead>
 
-        <form class="mt-9 max-w-[480px]" action="/search" method="get" role="search">
-          <label class="sr-only" for="home-search">Search Slovak Wiki</label>
-          <div
-            class="flex min-h-[52px] items-stretch overflow-hidden rounded-full border border-slate-300/90 bg-white/80 shadow-[0_1px_2px_rgb(20_42_56/6%),0_12px_32px_-16px_rgb(20_42_56/18%)] backdrop-blur-sm transition-[box-shadow,border-color,background-color] focus-within:border-blue-600 focus-within:bg-white focus-within:shadow-[0_0_0_4px_var(--accent-soft),0_16px_40px_-18px_rgb(20_42_56/22%)] max-[520px]:rounded-(--frame-radius) max-[520px]:flex-col"
-          >
-            <svg
-              class="ml-4 w-4 shrink-0 fill-none stroke-slate-400 stroke-[1.7] max-[520px]:hidden"
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
-              />
-            </svg>
-            <input
-              class="min-w-0 flex-1 border-0 bg-transparent px-3.5 text-[0.95rem] text-slate-900 outline-none placeholder:text-slate-400 max-[520px]:min-h-[48px] max-[520px]:px-4"
-              id="home-search"
-              name="q"
-              type="search"
-              placeholder="ďakujem, cases, soft consonants…"
-            />
-            <Button
-              class="m-1 min-w-[96px] rounded-full px-4 max-[520px]:m-0 max-[520px]:min-h-[48px] max-[520px]:rounded-none"
-              type="submit"
-            >
-              Search
-            </Button>
-          </div>
-
-          <p
-            class="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.78rem] text-slate-500"
-          >
-            <span>Try</span>
-            {#each popularWords as word, index (word.slug)}
-              {#if index > 0}
-                <span class="text-slate-300" aria-hidden="true">·</span>
-              {/if}
-              <a
-                class="font-serif text-blue-800 underline decoration-blue-800/25 underline-offset-[3px] hover:decoration-blue-800"
-                href="/dictionary/{word.slug}"
-                lang="sk"
-              >
-                {word.slovak}
-              </a>
-            {/each}
-          </p>
-        </form>
+        {@render heroSearch()}
       </div>
     </PageShell>
   </section>
@@ -226,7 +180,7 @@
       {@render rail("01", "Phrase")}
 
       <div>
-        <h2 id="phrase-heading" class="m-0 max-w-[20ch]">A phrase, taken apart</h2>
+        <h2 id="phrase-heading" class="m-0 max-w-[20ch]">Take a phrase apart</h2>
 
         <p
           class="mt-9 flex flex-wrap items-end gap-x-8 gap-y-6 font-serif text-[clamp(1.9rem,4.6vw,3rem)] font-semibold leading-none tracking-[-0.04em] text-slate-900"

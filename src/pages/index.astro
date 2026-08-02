@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import HomeHeroSearch from "$lib/components/HomeHeroSearch.svelte";
 import HomePage from "$lib/pages/HomePage.svelte";
 ---
 
@@ -7,5 +8,7 @@ import HomePage from "$lib/pages/HomePage.svelte";
   title="Slovak Wiki — Slovak language reference and practice"
   description="A practical Slovak dictionary, grammar reference, pronunciation guide, lessons, and focused practice for English speakers."
 >
-  <HomePage />
+  <HomePage>
+    <HomeHeroSearch client:load slot="heroSearch" />
+  </HomePage>
 </SiteLayout>

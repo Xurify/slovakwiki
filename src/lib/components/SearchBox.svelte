@@ -45,7 +45,7 @@
 
   const shellClass = $derived(
     size === "hero"
-      ? cx("relative w-full max-w-[480px]", className)
+      ? cx("relative z-30 w-full max-w-[480px]", className)
       : cx(
           "relative ml-auto w-full max-w-[280px] max-[680px]:order-3 max-[680px]:max-w-none",
           className,
@@ -290,7 +290,8 @@
   {#if showPanel}
     <div
       class={cx(
-        "absolute left-0 right-0 z-[60] mt-2 overflow-hidden border border-(--line) bg-(--surface) shadow-(--shadow-border)",
+        "absolute left-0 right-0 z-[60] mt-2 overflow-y-auto border border-(--line) bg-(--surface) shadow-(--shadow-border)",
+        "max-h-[min(22rem,calc(100dvh-8rem))]",
         size === "hero" ? "rounded-(--frame-radius)" : "rounded-(--control-radius)",
       )}
       id={`${id}-listbox`}
