@@ -16,6 +16,7 @@ import { allEntries, caseTopics, validateContent } from "./data";
 import { lessons, validateLessons } from "./lessons";
 import { practiceItemById, validatePracticeItems } from "./practice";
 import { normalizeSearchText, searchEntries } from "./search";
+import { buildSearchDocuments } from "./search-documents";
 
 class MemoryStorage implements StorageLike {
   private values = new Map<string, string>();
@@ -41,6 +42,21 @@ describe("Slovak content", () => {
 
   it("finds entries by their English meaning", () => {
     expect(searchEntries("hello")[0]?.slug).toBe("ahoj");
+  });
+
+  it("indexes reference and learning content for Pagefind", () => {
+    const documents = buildSearchDocuments();
+    expect(documents.some((document) => document.kind === "word")).toBe(true);
+    expect(documents.some((document) => document.kind === "case")).toBe(true);
+    expect(documents.some((document) => document.kind === "lesson")).toBe(true);
+    expect(documents.some((document) => document.kind === "practice")).toBe(true);
+    expect(
+      documents.some(
+        (document) =>
+          document.url.includes("dakujem") &&
+          normalizeSearchText(document.content).includes("dakujem"),
+      ),
+    ).toBe(true);
   });
 
   it("publishes valid, uniquely addressed entries", () => {

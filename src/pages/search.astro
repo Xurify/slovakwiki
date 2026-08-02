@@ -2,8 +2,6 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import SearchPage from "$lib/pages/SearchPage.svelte";
 
-export const prerender = false;
-
 const query = Astro.url.searchParams.get("q")?.trim() ?? "";
 const title = query ? `${query} — Search | Slovak Wiki` : "Search | Slovak Wiki";
 ---
@@ -12,5 +10,5 @@ const title = query ? `${query} — Search | Slovak Wiki` : "Search | Slovak Wik
   {title}
   description="Search Slovak Wiki in English or Slovak, with or without diacritics."
 >
-  <SearchPage {query} />
+  <SearchPage client:load {query} />
 </SiteLayout>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import SearchBox from "$lib/components/SearchBox.svelte";
   import {
     navigationIsActive,
     primaryNavigation,
@@ -25,8 +26,14 @@
   <div
     class="mx-auto flex min-h-(--header-height) w-[min(var(--workspace-max),calc(100%-48px))] items-center gap-6 max-[800px]:w-[calc(100%-28px)] max-[680px]:flex-wrap max-[680px]:gap-x-3 max-[680px]:py-3"
   >
-    <a class="inline-flex shrink-0 items-baseline gap-1.5" href="/" aria-label="Slovak Wiki home">
-      <span class="text-[0.78rem] font-semibold tracking-wide text-(--muted-strong)">Slovak</span>
+    <a
+      class="inline-flex shrink-0 items-baseline gap-1.5"
+      href="/"
+      aria-label="Slovak Wiki home"
+    >
+      <span class="text-[0.78rem] font-semibold tracking-wide text-(--muted-strong)"
+        >Slovak</span
+      >
       <strong class="font-serif text-[1.35rem] font-semibold text-(--ink)">Wiki</strong>
     </a>
 
@@ -73,29 +80,7 @@
       </details>
     </nav>
 
-    <form
-      class="ml-auto flex min-h-10 w-full max-w-[280px] items-center rounded-(--control-radius) border border-(--line-strong) bg-(--surface) transition-[box-shadow,border-color] focus-within:border-(--accent) focus-within:shadow-[0_0_0_3px_var(--accent-soft)] max-[680px]:order-3 max-[680px]:max-w-none"
-      action="/search"
-      method="get"
-      role="search"
-    >
-      <label class="sr-only" for="header-search">Search Slovak Wiki</label>
-      <svg
-        class="ml-3 w-4 shrink-0 fill-none stroke-(--muted) stroke-[1.8]"
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-      >
-        <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
-      </svg>
-      <input
-        class="min-h-[38px] min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.8rem] text-(--ink) outline-none"
-        id="header-search"
-        name="q"
-        value={query}
-        type="search"
-        placeholder="Search…"
-      />
-    </form>
+    <SearchBox id="header-search" initialQuery={query} />
 
     <details class="relative max-[800px]:block min-[801px]:hidden">
       <summary
@@ -121,7 +106,9 @@
           </a>
         {/each}
 
-        <p class="mb-2 mt-4 text-[0.64rem] font-bold uppercase tracking-[0.1em] text-(--muted)">
+        <p
+          class="mb-2 mt-4 text-[0.64rem] font-bold uppercase tracking-[0.1em] text-(--muted)"
+        >
           Reference
         </p>
         {#each referenceNavigation as item (item.href)}

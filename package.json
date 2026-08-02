@@ -9,6 +9,7 @@
     "check": "astro check",
     "preview": "astro preview --host 0.0.0.0",
     "test": "vitest run",
+    "index:search": "tsx scripts/build-search-index.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -27,11 +28,13 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.10.0",
     "astro": "^7.1.6",
+    "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-svelte": "^4.1.1",
     "svelte": "^5.55.9",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.4",
     "typescript": "^6.0.3",
     "vite": "^8.0.14",
     "vitest": "^4.1.7"

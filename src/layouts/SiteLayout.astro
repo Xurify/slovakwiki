@@ -25,7 +25,7 @@ const query = Astro.url.searchParams.get("q") ?? "";
   </head>
   <body>
     <div class="relative z-[1] flex min-h-screen min-w-0 flex-col">
-      <Header {pathname} {query} />
+      <Header client:load {pathname} {query} />
       <div id="main-content" class="min-h-0 flex-1" tabindex="-1">
         <slot />
       </div>
