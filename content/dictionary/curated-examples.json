@@ -1978,6 +1978,164 @@
       "note": "Curated"
     }
   ],
+  "lubit": [
+    {
+      "slovak": "Ľúbim Toma.",
+      "english": "I love Tom.",
+      "note": "Curated",
+      "demonstrates": "ľúbiť — love / strong like"
+    },
+    {
+      "slovak": "Mám rád Toma.",
+      "english": "I like Tom.",
+      "note": "Curated",
+      "demonstrates": "mať rád — like (see rád)"
+    }
+  ],
+  "vediet": [
+    {
+      "slovak": "Viem plávať.",
+      "english": "I know how to swim.",
+      "note": "Curated",
+      "demonstrates": "vedieť + infinitive — know how"
+    },
+    {
+      "slovak": "Viem, že prší.",
+      "english": "I know that it's raining.",
+      "note": "Curated",
+      "demonstrates": "vedieť, že — know that"
+    }
+  ],
+  "dat": [
+    {
+      "slovak": "Dám ti kávu.",
+      "english": "I'll give you coffee.",
+      "note": "Curated",
+      "demonstrates": "dať + person — give"
+    },
+    {
+      "slovak": "Dám si kávu.",
+      "english": "I'll have a coffee.",
+      "note": "Curated",
+      "demonstrates": "dať si — order / treat yourself"
+    }
+  ],
+  "pozerat": [
+    {
+      "slovak": "Pozerám film.",
+      "english": "I'm watching a film.",
+      "note": "Curated",
+      "demonstrates": "pozerať — look / watch"
+    },
+    {
+      "slovak": "Vidím film.",
+      "english": "I can see a film.",
+      "note": "Curated",
+      "demonstrates": "vidieť — see (see vidieť)"
+    }
+  ],
+  "vidiet": [
+    {
+      "slovak": "Vidím film.",
+      "english": "I can see a film.",
+      "note": "Curated",
+      "demonstrates": "vidieť — see"
+    },
+    {
+      "slovak": "Pozerám film.",
+      "english": "I'm watching a film.",
+      "note": "Curated",
+      "demonstrates": "pozerať — look / watch (see pozerať)"
+    }
+  ],
+  "pocuvat": [
+    {
+      "slovak": "Počúvam hudbu.",
+      "english": "I'm listening to music.",
+      "note": "Curated",
+      "demonstrates": "počúvať — listen"
+    },
+    {
+      "slovak": "Počujem hudbu.",
+      "english": "I hear music.",
+      "note": "Curated",
+      "demonstrates": "počuť — hear (see počuť)"
+    }
+  ],
+  "pocut": [
+    {
+      "slovak": "Počujem hudbu.",
+      "english": "I hear music.",
+      "note": "Curated",
+      "demonstrates": "počuť — hear"
+    },
+    {
+      "slovak": "Počúvam hudbu.",
+      "english": "I'm listening to music.",
+      "note": "Curated",
+      "demonstrates": "počúvať — listen (see počúvať)"
+    }
+  ],
+  "moct": [
+    {
+      "slovak": "Môžem čítať knihy.",
+      "english": "I can read books.",
+      "note": "Curated",
+      "demonstrates": "môcť — ability"
+    },
+    {
+      "slovak": "Musím čítať knihy.",
+      "english": "I have to read books.",
+      "note": "Curated",
+      "demonstrates": "musieť — obligation (see musieť)"
+    },
+    {
+      "slovak": "Chcem čítať knihy.",
+      "english": "I want to read books.",
+      "note": "Curated",
+      "demonstrates": "chcieť — want (see chcieť)"
+    }
+  ],
+  "musiet": [
+    {
+      "slovak": "Musím čítať knihy.",
+      "english": "I have to read books.",
+      "note": "Curated",
+      "demonstrates": "musieť — obligation"
+    },
+    {
+      "slovak": "Môžem čítať knihy.",
+      "english": "I can read books.",
+      "note": "Curated",
+      "demonstrates": "môcť — ability (see môcť)"
+    },
+    {
+      "slovak": "Chcem čítať knihy.",
+      "english": "I want to read books.",
+      "note": "Curated",
+      "demonstrates": "chcieť — want (see chcieť)"
+    }
+  ],
+  "chciet": [
+    {
+      "slovak": "Chcem čítať knihy.",
+      "english": "I want to read books.",
+      "note": "Curated",
+      "demonstrates": "chcieť — want"
+    },
+    {
+      "slovak": "Môžem čítať knihy.",
+      "english": "I can read books.",
+      "note": "Curated",
+      "demonstrates": "môcť — ability (see môcť)"
+    },
+    {
+      "slovak": "Musím čítať knihy.",
+      "english": "I have to read books.",
+      "note": "Curated",
+      "demonstrates": "musieť — obligation (see musieť)"
+    }
+  ],
   "pacit": [
     {
       "slovak": "Páči sa mi tá kniha.",

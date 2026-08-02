@@ -4,16 +4,26 @@
 **Status:** A–E done; top-200 examples at 100% coverage per POS  
 **Related:** `2026-08-02-frequency-tatoeba-dictionary-design.md`
 
-## Audit snapshot
+## Pattern pedagogy (2026-08-02+)
 
-| Metric                       | Value                                                                |
-| ---------------------------- | -------------------------------------------------------------------- |
-| Live dictionary words        | ~2,986 (31 curated + ~2,955 promoted)                                |
-| Frequency lemmas linked      | ~all meaningful top-1000 × 3 (POS-disambiguated slugs)               |
-| Top-200 example coverage     | verbs / nouns / adjectives **100%** (`bun run examples:coverage`)    |
-| Words missing examples (all) | remaining are outside top-200 — `tmp/missing-examples.txt`           |
-| Promoted `related` links     | same-POS rank neighbors (runtime)                                    |
-| Pages shipped                | `/dictionary/common`, `/references`, detail + index wiring           |
+High-confusion lemmas use labeled `demonstrates` example groups + Usage notes + semantic `related`:
+
+`rád`, `páčiť`, `ľúbiť`, `byť`, `ísť`/`chodiť`, `volať`, `vedieť`, `dať`, `pozerať`/`vidieť`, `počúvať`/`počuť`, `môcť`/`musieť`/`chcieť`.
+
+Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate`.
+
+**Still open:** ~1.4k words outside top-200 with no examples; most `related` still rank neighbors.
+
+---
+
+| Metric                       | Value                                                             |
+| ---------------------------- | ----------------------------------------------------------------- |
+| Live dictionary words        | ~2,986 (31 curated + ~2,955 promoted)                             |
+| Frequency lemmas linked      | ~all meaningful top-1000 × 3 (POS-disambiguated slugs)            |
+| Top-200 example coverage     | verbs / nouns / adjectives **100%** (`bun run examples:coverage`) |
+| Words missing examples (all) | remaining are outside top-200 — `tmp/missing-examples.txt`        |
+| Promoted `related` links     | same-POS rank neighbors (runtime)                                 |
+| Pages shipped                | `/dictionary/common`, `/references`, detail + index wiring        |
 
 ### What works
 

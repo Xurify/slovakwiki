@@ -26,10 +26,20 @@ const CURATED_RELATED: Record<string, string[]> = {
   mat: ["byt", "rad", "moct"],
   rad: ["mat", "pacit", "lubit"],
   pacit: ["rad", "lubit", "mat"],
+  lubit: ["rad", "pacit", "milovat"],
   volat: ["meno"],
   ist: ["chodit", "prist"],
   chodit: ["ist", "prist"],
   byt: ["mat", "bratislava", "ucitel"],
+  vediet: ["nevediet"],
+  dat: ["davat"],
+  pozerat: ["vidiet"],
+  vidiet: ["pozerat"],
+  pocuvat: ["pocut"],
+  pocut: ["pocuvat"],
+  moct: ["musiet", "chciet"],
+  musiet: ["moct", "chciet"],
+  chciet: ["moct", "musiet"],
 };
 
 /** Gloss overrides applied with curated examples (search / detail headword). */

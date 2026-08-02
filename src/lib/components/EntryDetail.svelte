@@ -105,7 +105,7 @@
                 {#each groupExamplesByPattern(entry.examples) as group (group.label)}
                   <div>
                     <p
-                      class="mb-3 border-b border-slate-200 pb-2 font-sans text-xs font-semibold tracking-wide text-slate-500 uppercase"
+                      class="mb-3 border-b border-slate-200 pb-2 font-sans text-xs font-semibold tracking-wide text-slate-500"
                     >
                       {group.label}
                     </p>
@@ -124,7 +124,8 @@
                             >
                               {example.slovak}
                             </p>
-                            <small class="text-sm text-slate-500">{example.english}</small>
+                            <small class="text-sm text-slate-500">{example.english}</small
+                            >
                           </div>
                         </li>
                       {/each}

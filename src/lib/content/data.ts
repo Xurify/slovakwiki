@@ -343,10 +343,12 @@ const curatedSlugs = new Set(curatedWordSeed.map((word) => word.slug));
 
 function wordBody(word: WordSeed): string[] {
   const usage = `Use “${word.slovak}” in everyday Slovak. Listen for its natural stress on the first syllable.`;
+  const patternNote = PATTERN_USAGE_NOTES[word.slug];
 
   if (word.examples.length > 0) {
     return [
       usage,
+      ...(patternNote ? [patternNote] : []),
       "Read the example aloud, then replace one part of the sentence with a word you already know.",
     ];
   }
@@ -356,6 +358,32 @@ function wordBody(word: WordSeed): string[] {
     "Say it aloud, then try it in a short sentence of your own. Sentence examples are not available for this word yet.",
   ];
 }
+
+/** Extra Usage copy for high-confusion pattern lemmas. */
+const PATTERN_USAGE_NOTES: Record<string, string> = {
+  rad: "English “to like” is not one Slovak verb. Use mať rád for a thing or person, and rád + a verb for an activity. Páčiť sa and ľúbiť cover nearby meanings.",
+  pacit:
+    "Páčiť sa frames liking from the thing’s side: it appeals to me. Compare mať rád on rád for the more direct “I like …”.",
+  ist: "Ísť is for going now or once. Chodiť covers the habit — the same destination, different aspect.",
+  chodit:
+    "Chodiť is the habit. Ísť is the one trip happening now — compare the pair with the same place.",
+  byt: "Byť changes meaning with what follows: a place (where), z + place (origin), or a noun (who/what you are).",
+  vediet:
+    "Vedieť + infinitive is “know how.” Vedieť, že … is “know that” — same verb, different frame.",
+  dat: "Dať hands something over. Dať si is what you order or take for yourself (coffee, food).",
+  pozerat: "Pozerať is looking or watching on purpose. Vidieť is perceiving — seeing.",
+  vidiet: "Vidieť is seeing. Pozerať is the active looking or watching.",
+  pocuvat: "Počúvať is listening on purpose. Počuť is hearing — the sound reaching you.",
+  pocut: "Počuť is hearing. Počúvať is the active listening.",
+  moct: "Môcť, musieť, and chcieť take the same infinitive — ability, obligation, and want side by side.",
+  musiet:
+    "Musieť, môcť, and chcieť take the same infinitive — obligation, ability, and want side by side.",
+  chciet:
+    "Chcieť, môcť, and musieť take the same infinitive — want, ability, and obligation side by side.",
+  volat: "Volať someone is calling them. Volať sa says what you are called — your name.",
+  lubit:
+    "Ľúbiť is stronger than mať rád — closer to love. For everyday “like,” start with rád / mať rád.",
+};
 
 function wordAttribution(origin: WordOrigin) {
   if (origin === "curated") {

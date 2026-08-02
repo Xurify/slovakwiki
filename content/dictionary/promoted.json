@@ -24,11 +24,7 @@
         "demonstrates": "byť + noun — identity / role"
       }
     ],
-    "related": [
-      "mat",
-      "bratislava",
-      "ucitel"
-    ]
+    "related": ["mat", "bratislava", "ucitel"]
   },
   {
     "slug": "mat",
@@ -47,11 +43,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "byt",
-      "rad",
-      "moct"
-    ]
+    "related": ["byt", "rad", "moct"]
   },
   {
     "slug": "moct",
@@ -60,22 +52,25 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Prídem, keď budem môcť.",
-        "english": "I will come when I can.",
-        "note": "Tatoeba"
+        "slovak": "Môžem čítať knihy.",
+        "english": "I can read books.",
+        "note": "Curated",
+        "demonstrates": "môcť — ability"
       },
       {
-        "slovak": "Nebudem môcť sem zajtra prísť.",
-        "english": "I won't be able to come here tomorrow.",
-        "note": "Tatoeba"
+        "slovak": "Musím čítať knihy.",
+        "english": "I have to read books.",
+        "note": "Curated",
+        "demonstrates": "musieť — obligation (see musieť)"
       },
       {
-        "slovak": "Prepáč, ale nebudem ti môcť pomôcť.",
-        "english": "I'm sorry, but I won't be able to help you.",
-        "note": "Tatoeba"
+        "slovak": "Chcem čítať knihy.",
+        "english": "I want to read books.",
+        "note": "Curated",
+        "demonstrates": "chcieť — want (see chcieť)"
       }
     ],
-    "related": []
+    "related": ["musiet", "chciet"]
   },
   {
     "slug": "povedat",
@@ -108,22 +103,25 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Čo viacej by som mohol chcieť?",
-        "english": "What more could I want?",
-        "note": "Tatoeba"
+        "slovak": "Chcem čítať knihy.",
+        "english": "I want to read books.",
+        "note": "Curated",
+        "demonstrates": "chcieť — want"
       },
       {
-        "slovak": "Čo viacej by som mohla chcieť?",
-        "english": "What more could I want?",
-        "note": "Tatoeba"
+        "slovak": "Môžem čítať knihy.",
+        "english": "I can read books.",
+        "note": "Curated",
+        "demonstrates": "môcť — ability (see môcť)"
       },
       {
-        "slovak": "Príďte kedykoľvek budete chcieť.",
-        "english": "Come anytime you like.",
-        "note": "Tatoeba"
+        "slovak": "Musím čítať knihy.",
+        "english": "I have to read books.",
+        "note": "Curated",
+        "demonstrates": "musieť — obligation (see musieť)"
       }
     ],
-    "related": []
+    "related": ["moct", "musiet"]
   },
   {
     "slug": "musiet",
@@ -132,22 +130,25 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Nebudeme musieť dlho čakať.",
-        "english": "We won't have to wait long.",
-        "note": "Tatoeba"
+        "slovak": "Musím čítať knihy.",
+        "english": "I have to read books.",
+        "note": "Curated",
+        "demonstrates": "musieť — obligation"
       },
       {
-        "slovak": "Budeš musieť prísť zajtra.",
-        "english": "You'll have to come tomorrow.",
-        "note": "Tatoeba"
+        "slovak": "Môžem čítať knihy.",
+        "english": "I can read books.",
+        "note": "Curated",
+        "demonstrates": "môcť — ability (see môcť)"
       },
       {
-        "slovak": "Budeme musieť čakať.",
-        "english": "We'll have to wait.",
-        "note": "Tatoeba"
+        "slovak": "Chcem čítať knihy.",
+        "english": "I want to read books.",
+        "note": "Curated",
+        "demonstrates": "chcieť — want (see chcieť)"
       }
     ],
-    "related": []
+    "related": ["moct", "chciet"]
   },
   {
     "slug": "ist",
@@ -168,10 +169,7 @@
         "demonstrates": "chodiť — habit (see chodiť)"
       }
     ],
-    "related": [
-      "chodit",
-      "prist"
-    ]
+    "related": ["chodit", "prist"]
   },
   {
     "slug": "nebyt",
@@ -204,22 +202,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Čo si mám dať na sveter?",
-        "english": "What should I put on over my sweater?",
-        "note": "Tatoeba"
+        "slovak": "Dám ti kávu.",
+        "english": "I'll give you coffee.",
+        "note": "Curated",
+        "demonstrates": "dať + person — give"
       },
       {
-        "slovak": "Nemôžem vám dať okamžitú odpoveď.",
-        "english": "I can not give you an immediate answer.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Dobré heslo by sa malo dať ťažko uhádnuť, ale ľahko zapamätať.",
-        "english": "A good password should be difficult to guess, but easy to remember.",
-        "note": "Tatoeba"
+        "slovak": "Dám si kávu.",
+        "english": "I'll have a coffee.",
+        "note": "Curated",
+        "demonstrates": "dať si — order / treat yourself"
       }
     ],
-    "related": []
+    "related": ["davat"]
   },
   {
     "slug": "nemat",
@@ -252,22 +247,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chcem vedieť kto s nami ide.",
-        "english": "I want to know who's coming with us.",
-        "note": "Tatoeba"
+        "slovak": "Viem plávať.",
+        "english": "I know how to swim.",
+        "note": "Curated",
+        "demonstrates": "vedieť + infinitive — know how"
       },
       {
-        "slovak": "Chcem vedieť, kto s nami ostáva.",
-        "english": "I want to know who's staying with us.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Bez ohľadu na to, či zajtra prídeš alebo nie, daj mi vedieť.",
-        "english": "Regardless of whether you come tomorrow or not, let me know.",
-        "note": "Tatoeba"
+        "slovak": "Viem, že prší.",
+        "english": "I know that it's raining.",
+        "note": "Curated",
+        "demonstrates": "vedieť, že — know that"
       }
     ],
-    "related": []
+    "related": ["nevediet"]
   },
   {
     "slug": "zacat",
@@ -372,22 +364,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Dom, ktorého strechu možeš vidieť tamto, je náš.",
-        "english": "The house whose roof you can see over there is ours.",
-        "note": "Tatoeba"
+        "slovak": "Vidím film.",
+        "english": "I can see a film.",
+        "note": "Curated",
+        "demonstrates": "vidieť — see"
       },
       {
-        "slovak": "Ja chcem vidieť tvoj dom.",
-        "english": "I want to see your house.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Smutné vidieť ťa ísť.",
-        "english": "Sad to see you go.",
-        "note": "Tatoeba"
+        "slovak": "Pozerám film.",
+        "english": "I'm watching a film.",
+        "note": "Curated",
+        "demonstrates": "pozerať — look / watch (see pozerať)"
       }
     ],
-    "related": []
+    "related": ["pozerat"]
   },
   {
     "slug": "robit",
@@ -1573,10 +1562,7 @@
         "demonstrates": "ísť — now / one trip (see ísť)"
       }
     ],
-    "related": [
-      "ist",
-      "prist"
-    ]
+    "related": ["ist", "prist"]
   },
   {
     "slug": "posobit",
@@ -2063,22 +2049,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Povie ti iba to, čo si myslí, že chceš počuť.",
-        "english": "She's only going to tell you what she thinks you want to hear.",
-        "note": "Tatoeba"
+        "slovak": "Počujem hudbu.",
+        "english": "I hear music.",
+        "note": "Curated",
+        "demonstrates": "počuť — hear"
       },
       {
-        "slovak": "Je zbytočné kričať o pomoc. Nikto ťa nebude počuť.",
-        "english": "There's no use crying for help. No one will hear you.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Chceš to počuť?",
-        "english": "Do you want to hear it?",
-        "note": "Tatoeba"
+        "slovak": "Počúvam hudbu.",
+        "english": "I'm listening to music.",
+        "note": "Curated",
+        "demonstrates": "počúvať — listen (see počúvať)"
       }
     ],
-    "related": []
+    "related": ["pocuvat"]
   },
   {
     "slug": "postavit",
@@ -4366,11 +4349,7 @@
         "demonstrates": "rád + verb — like doing"
       }
     ],
-    "related": [
-      "mat",
-      "pacit",
-      "lubit"
-    ]
+    "related": ["mat", "pacit", "lubit"]
   },
   {
     "slug": "vlastny",
@@ -6224,9 +6203,7 @@
         "demonstrates": "volať sa — be named"
       }
     ],
-    "related": [
-      "meno"
-    ]
+    "related": ["meno"]
   },
   {
     "slug": "dojst",
@@ -7131,22 +7108,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Zostanem tu a budem sa pozerať.",
-        "english": "I'll stay here and watch.",
-        "note": "Tatoeba"
+        "slovak": "Pozerám film.",
+        "english": "I'm watching a film.",
+        "note": "Curated",
+        "demonstrates": "pozerať — look / watch"
       },
       {
-        "slovak": "Pozerá sa na mňa.",
-        "english": "She's looking at me.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Tom sa pozerá na svet cez ružové okuliare.",
-        "english": "Tom looks at the world through rose-tinted glasses.",
-        "note": "Tatoeba"
+        "slovak": "Vidím film.",
+        "english": "I can see a film.",
+        "note": "Curated",
+        "demonstrates": "vidieť — see (see vidieť)"
       }
     ],
-    "related": []
+    "related": ["vidiet"]
   },
   {
     "slug": "pouzit",
@@ -8196,11 +8170,7 @@
         "demonstrates": "páčiť sa — liking a person"
       }
     ],
-    "related": [
-      "rad",
-      "lubit",
-      "mat"
-    ]
+    "related": ["rad", "lubit", "mat"]
   },
   {
     "slug": "vstupit",
@@ -8381,22 +8351,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Chceš počúvať hudbu?",
-        "english": "Do you want to listen to music?",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Chcete počúvať hudbu?",
-        "english": "Do you want to listen to music?",
-        "note": "Tatoeba"
-      },
-      {
         "slovak": "Počúvam hudbu.",
         "english": "I'm listening to music.",
-        "note": "Tatoeba"
+        "note": "Curated",
+        "demonstrates": "počúvať — listen"
+      },
+      {
+        "slovak": "Počujem hudbu.",
+        "english": "I hear music.",
+        "note": "Curated",
+        "demonstrates": "počuť — hear (see počuť)"
       }
     ],
-    "related": []
+    "related": ["pocut"]
   },
   {
     "slug": "zvitazit",
@@ -16564,22 +16531,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Ľúbi svojich rodičov.",
-        "english": "He loves his parents.",
-        "note": "Tatoeba"
+        "slovak": "Ľúbim Toma.",
+        "english": "I love Tom.",
+        "note": "Curated",
+        "demonstrates": "ľúbiť — love / strong like"
       },
       {
-        "slovak": "Ľúbi ma a aj ja ho ľúbim.",
-        "english": "He loves me and I love him too.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Prepáč, ľúbim ťa.",
-        "english": "I'm sorry, I love you.",
-        "note": "Tatoeba"
+        "slovak": "Mám rád Toma.",
+        "english": "I like Tom.",
+        "note": "Curated",
+        "demonstrates": "mať rád — like (see rád)"
       }
     ],
-    "related": []
+    "related": ["rad", "pacit", "milovat"]
   },
   {
     "slug": "uspokojit",
