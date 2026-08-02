@@ -42,6 +42,7 @@ type VerbFrame =
   | "perception"
   | "motion"
   | "activity"
+  | "change"
   | "transitive";
 
 /** Lemmas that usually need si in this citation form. */
@@ -66,8 +67,19 @@ const SA_EVENT = new Set([
   "udiať",
   "odohrávať",
   "vznikať",
-  "odohrávať",
 ]);
+
+function englishVerbGloss(english: string): string {
+  let bare = firstGloss(english)
+    .replace(/^to\s+/i, "")
+    .trim();
+
+  if (/^(cannot|can't)$/i.test(bare)) return "be able to";
+  if (/^can$/i.test(bare)) return "be able to";
+  if (/^must$/i.test(bare)) return "have to";
+  if (/^not\s+/i.test(bare)) bare = bare.replace(/^not\s+/i, "").trim();
+  return bare;
+}
 
 function classifyVerbFrame(slovak: string, bareGloss: string): VerbFrame {
   const gloss = bareGloss.toLowerCase();
@@ -117,6 +129,14 @@ function classifyVerbFrame(slovak: string, bareGloss: string): VerbFrame {
   }
 
   if (
+    /increase|decrease|raise|reduce|improve|change|grow|shrink|expand|strengthen|weaken|accelerate|slow/i.test(
+      gloss,
+    )
+  ) {
+    return "change";
+  }
+
+  if (
     /sleep|laugh|cry|smile|wait|work|play|rest|sit|stand|lie|live|die|dream|think|hope|fear/i.test(
       gloss,
     )
@@ -128,23 +148,21 @@ function classifyVerbFrame(slovak: string, bareGloss: string): VerbFrame {
 }
 
 function verbExample(slovak: string, english: string): Example {
-  const bare = firstGloss(english)
-    .replace(/^to\s+/i, "")
-    .trim();
+  const bare = englishVerbGloss(english);
   const lemma = slovak.toLocaleLowerCase("sk");
   const frame = classifyVerbFrame(slovak, bare);
 
   switch (frame) {
     case "negated":
       return {
-        slovak: `Je možné ${slovak}.`,
-        english: `It is possible not to ${bare}.`,
+        slovak: `Je ťažké ${slovak}.`,
+        english: `It is hard to ${bare}.`,
         note: "Curated",
       };
     case "stative":
       return {
-        slovak: `Také veci môžu ${slovak}.`,
-        english: `Such things can ${bare}.`,
+        slovak: `To môže ${slovak}.`,
+        english: `That can ${bare}.`,
         note: "Curated",
       };
     case "event":
@@ -180,14 +198,20 @@ function verbExample(slovak: string, english: string): Example {
       };
     case "perception":
       return {
-        slovak: `Je možné ${slovak}.`,
-        english: `It is possible to ${bare}.`,
+        slovak: `Snažím sa ${slovak}.`,
+        english: `I'm trying to ${bare}.`,
+        note: "Curated",
+      };
+    case "change":
+      return {
+        slovak: `Chcem ${slovak} kvalitu.`,
+        english: `I want to ${bare} the quality.`,
         note: "Curated",
       };
     case "transitive":
       return {
-        slovak: `Niekto môže ${slovak}.`,
-        english: `Someone can ${bare}.`,
+        slovak: `Začínam ${slovak}.`,
+        english: `I'm starting to ${bare}.`,
         note: "Curated",
       };
     case "motion":

@@ -22,6 +22,7 @@ import {
   isCleanExample,
 } from "../../src/lib/content/example-quality";
 import { normalizeLemma } from "../../src/lib/content/frequency";
+import { searchFormsForLemma } from "../../src/lib/content/search-forms";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
@@ -106,6 +107,24 @@ function lemmaAppearsAsToken(text: string, lemma: string): boolean {
   );
 }
 
+function morphFormKeys(lemma: string, category: string): string[] {
+  const keys = new Set<string>();
+  for (const form of searchFormsForLemma(lemma, category)) {
+    const lower = form.toLocaleLowerCase("sk");
+    keys.add(lower);
+    keys.add(normalizeLemma(form));
+  }
+  return [...keys].filter(Boolean);
+}
+
+function morphAppearsAsToken(text: string, lemma: string, category: string): boolean {
+  const keys = new Set(morphFormKeys(lemma, category));
+  if (keys.size === 0) return false;
+  return tokenize(text).some(
+    (token) => keys.has(token) || keys.has(normalizeLemma(token)),
+  );
+}
+
 function verbInflectionEvidence(text: string, lemma: string): boolean {
   const stem = verbStem(lemma);
   if (!stem || stem.length < 5) return false;
@@ -128,6 +147,7 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
   else if (length <= 120) score += 1;
 
   if (lemmaAppearsAsToken(pair.slovak, lemma)) score += 8;
+  else if (morphAppearsAsToken(pair.slovak, lemma, category)) score += 7;
   else if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma))
     score += 4;
   else if (pair.slovak.toLocaleLowerCase("sk").includes(lemma.toLocaleLowerCase("sk")))
@@ -140,6 +160,7 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
 
 function hasStrongMatch(pair: SentencePair, lemma: string, category: string): boolean {
   if (lemmaAppearsAsToken(pair.slovak, lemma)) return true;
+  if (morphAppearsAsToken(pair.slovak, lemma, category)) return true;
   if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma)) return true;
   return false;
 }
@@ -232,6 +253,7 @@ function collectCandidates(
   const exactKeys = new Set<string>([
     lemma.toLocaleLowerCase("sk"),
     normalizeLemma(lemma),
+    ...morphFormKeys(lemma, category),
   ]);
   const stem = isVerbCategory(category) ? verbStem(lemma) : undefined;
   const stemNorm = stem ? normalizeLemma(stem) : undefined;

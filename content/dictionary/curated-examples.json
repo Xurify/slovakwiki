@@ -3230,218 +3230,50 @@
       "note": "Curated"
     }
   ],
-  "zilinsky": [
-    {
-      "slovak": "Je to žilinský výraz.",
-      "english": "This is an expression from Žilina.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "spissky": [
-    {
-      "slovak": "Je to spišský výraz.",
-      "english": "This is an expression from Spiš.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "trnavsky": [
-    {
-      "slovak": "Je to trnavský výraz.",
-      "english": "This is an expression from Trnava.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "martinsky": [
-    {
-      "slovak": "Je to martinský výraz.",
-      "english": "This is an expression from Martin.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zvolensky": [
-    {
-      "slovak": "Je to zvolenský výraz.",
-      "english": "This is an expression from Zvolen.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "oravsky": [
-    {
-      "slovak": "Je to oravský výraz.",
-      "english": "This is an expression from Orava.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "rimavsky": [
-    {
-      "slovak": "Je to rimavský výraz.",
-      "english": "This is an expression from Rimavská.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "popradsky": [
-    {
-      "slovak": "Je to popradský výraz.",
-      "english": "This is an expression from Poprad.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "prievidzsky": [
-    {
-      "slovak": "Je to prievidzský výraz.",
-      "english": "This is an expression from Prievidza.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "ruzombersky": [
-    {
-      "slovak": "Je to ružomberský výraz.",
-      "english": "This is an expression from Ružomberok.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nemat": [
-    {
-      "slovak": "Je možné nemať.",
-      "english": "It is possible not to have.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "nemoct": [
     {
-      "slovak": "Je možné nemôcť.",
-      "english": "It is possible not to cannot.",
+      "slovak": "Je ťažké nemôcť.",
+      "english": "It is hard to be able to.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "dodat": [
     {
-      "slovak": "Niekto môže dodať.",
-      "english": "Someone can add.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nedat": [
-    {
-      "slovak": "Je možné nedať.",
-      "english": "It is possible not to give.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "povazovat": [
-    {
-      "slovak": "Niekto môže považovať.",
-      "english": "Someone can consider.",
+      "slovak": "Začínam dodať.",
+      "english": "I'm starting to add.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "posobit": [
     {
-      "slovak": "Niekto môže pôsobiť.",
-      "english": "Someone can act.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "tesit": [
-    {
-      "slovak": "Niekto môže tešiť.",
-      "english": "Someone can please.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "podmienka": [
-    {
-      "slovak": "Toto je podmienka.",
-      "english": "This is a condition.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "sledovat": [
-    {
-      "slovak": "Môže to sledovať.",
-      "english": "It can follow.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "dufat": [
-    {
-      "slovak": "Chcem dúfať.",
-      "english": "I want to hope.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "lezat": [
-    {
-      "slovak": "Chcem ležať.",
-      "english": "I want to lie.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "ukazovat": [
-    {
-      "slovak": "Niekto môže ukazovať.",
-      "english": "Someone can show.",
+      "slovak": "Začínam pôsobiť.",
+      "english": "I'm starting to act.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "niest": [
     {
-      "slovak": "Niekto môže niesť.",
-      "english": "Someone can carry.",
+      "slovak": "Začínam niesť.",
+      "english": "I'm starting to carry.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odovzdat": [
     {
-      "slovak": "Niekto môže odovzdať.",
-      "english": "Someone can hand over.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zniet": [
-    {
-      "slovak": "Niekto môže znieť.",
-      "english": "Someone can sound.",
+      "slovak": "Začínam odovzdať.",
+      "english": "I'm starting to hand over.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zvysovat": [
     {
-      "slovak": "Niekto môže zvyšovať.",
-      "english": "Someone can increase.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zabit": [
-    {
-      "slovak": "Niekto môže zabiť.",
-      "english": "Someone can kill.",
+      "slovak": "Chcem zvyšovať kvalitu.",
+      "english": "I want to increase the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -3456,16 +3288,16 @@
   ],
   "doplnit": [
     {
-      "slovak": "Niekto môže doplniť.",
-      "english": "Someone can complete.",
+      "slovak": "Začínam doplniť.",
+      "english": "I'm starting to complete.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "poznamenat": [
     {
-      "slovak": "Niekto môže poznamenať.",
-      "english": "Someone can note.",
+      "slovak": "Začínam poznamenať.",
+      "english": "I'm starting to note.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -3480,24 +3312,24 @@
   ],
   "hodnotit": [
     {
-      "slovak": "Niekto môže hodnotiť.",
-      "english": "Someone can evaluate.",
+      "slovak": "Začínam hodnotiť.",
+      "english": "I'm starting to evaluate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prezentovat": [
     {
-      "slovak": "Niekto môže prezentovať.",
-      "english": "Someone can present.",
+      "slovak": "Začínam prezentovať.",
+      "english": "I'm starting to present.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vykonavat": [
     {
-      "slovak": "Niekto môže vykonávať.",
-      "english": "Someone can carry out.",
+      "slovak": "Začínam vykonávať.",
+      "english": "I'm starting to carry out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -3512,32 +3344,32 @@
   ],
   "obsadit": [
     {
-      "slovak": "Niekto môže obsadiť.",
-      "english": "Someone can occupy.",
+      "slovak": "Začínam obsadiť.",
+      "english": "I'm starting to occupy.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zazit": [
     {
-      "slovak": "Niekto môže zažiť.",
-      "english": "Someone can experience.",
+      "slovak": "Začínam zažiť.",
+      "english": "I'm starting to experience.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zachovat": [
     {
-      "slovak": "Niekto môže zachovať.",
-      "english": "Someone can preserve.",
+      "slovak": "Začínam zachovať.",
+      "english": "I'm starting to preserve.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "predlozit": [
     {
-      "slovak": "Niekto môže predložiť.",
-      "english": "Someone can submit.",
+      "slovak": "Začínam predložiť.",
+      "english": "I'm starting to submit.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -3552,168 +3384,128 @@
   ],
   "zasiahnut": [
     {
-      "slovak": "Niekto môže zasiahnuť.",
-      "english": "Someone can hit.",
+      "slovak": "Začínam zasiahnuť.",
+      "english": "I'm starting to hit.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nenajst": [
     {
-      "slovak": "Je možné nenájsť.",
-      "english": "It is possible not to find.",
+      "slovak": "Je ťažké nenájsť.",
+      "english": "It is hard to find.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zalozit": [
     {
-      "slovak": "Niekto môže založiť.",
-      "english": "Someone can found.",
+      "slovak": "Začínam založiť.",
+      "english": "I'm starting to found.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zvolit": [
     {
-      "slovak": "Niekto môže zvoliť.",
-      "english": "Someone can choose.",
+      "slovak": "Začínam zvoliť.",
+      "english": "I'm starting to choose.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vytiahnut": [
     {
-      "slovak": "Niekto môže vytiahnuť.",
-      "english": "Someone can pull out.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "hodit": [
-    {
-      "slovak": "Niekto môže hodiť.",
-      "english": "Someone can throw.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nosit": [
-    {
-      "slovak": "Niekto môže nosiť.",
-      "english": "Someone can carry.",
+      "slovak": "Začínam vytiahnuť.",
+      "english": "I'm starting to pull out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "postupit": [
     {
-      "slovak": "Niekto môže postúpiť.",
-      "english": "Someone can advance.",
+      "slovak": "Začínam postúpiť.",
+      "english": "I'm starting to advance.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "podavat": [
     {
-      "slovak": "Niekto môže podávať.",
-      "english": "Someone can hand.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "tuzit": [
-    {
-      "slovak": "Niekto môže túžiť.",
-      "english": "Someone can long for.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "urcit": [
-    {
-      "slovak": "Niekto môže určiť.",
-      "english": "Someone can determine.",
+      "slovak": "Začínam podávať.",
+      "english": "I'm starting to hand.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zaviest": [
     {
-      "slovak": "Niekto môže zaviesť.",
-      "english": "Someone can introduce.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vstat": [
-    {
-      "slovak": "Niekto môže vstať.",
-      "english": "Someone can get up.",
+      "slovak": "Začínam zaviesť.",
+      "english": "I'm starting to introduce.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vzrast": [
     {
-      "slovak": "Niekto môže vzrásť.",
-      "english": "Someone can grow.",
+      "slovak": "Chcem vzrásť kvalitu.",
+      "english": "I want to grow the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prihlasit": [
     {
-      "slovak": "Niekto môže prihlásiť.",
-      "english": "Someone can register.",
+      "slovak": "Začínam prihlásiť.",
+      "english": "I'm starting to register.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vyberat": [
     {
-      "slovak": "Niekto môže vyberať.",
-      "english": "Someone can choose.",
+      "slovak": "Začínam vyberať.",
+      "english": "I'm starting to choose.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "strelit": [
     {
-      "slovak": "Niekto môže streliť.",
-      "english": "Someone can shoot.",
+      "slovak": "Začínam streliť.",
+      "english": "I'm starting to shoot.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "klast": [
     {
-      "slovak": "Niekto môže klásť.",
-      "english": "Someone can lay.",
+      "slovak": "Začínam klásť.",
+      "english": "I'm starting to lay.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zverejnit": [
     {
-      "slovak": "Niekto môže zverejniť.",
-      "english": "Someone can publish.",
+      "slovak": "Začínam zverejniť.",
+      "english": "I'm starting to publish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "stiahnut": [
     {
-      "slovak": "Niekto môže stiahnuť.",
-      "english": "Someone can pull down.",
+      "slovak": "Začínam stiahnuť.",
+      "english": "I'm starting to pull down.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prijimat": [
     {
-      "slovak": "Niekto môže prijímať.",
-      "english": "Someone can accept.",
+      "slovak": "Začínam prijímať.",
+      "english": "I'm starting to accept.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -3726,98 +3518,50 @@
       "isPracticeFrame": true
     }
   ],
-  "plnit": [
-    {
-      "slovak": "Niekto môže plniť.",
-      "english": "Someone can fill.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "stihnut": [
-    {
-      "slovak": "Niekto môže stihnúť.",
-      "english": "Someone can make.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nezabudnut": [
-    {
-      "slovak": "Je možné nezabudnúť.",
-      "english": "It is possible not to forget.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "priviest": [
     {
-      "slovak": "Niekto môže priviesť.",
-      "english": "Someone can bring.",
+      "slovak": "Začínam priviesť.",
+      "english": "I'm starting to bring.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "sprevadzat": [
     {
-      "slovak": "Niekto môže sprevádzať.",
-      "english": "Someone can accompany.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "smerovat": [
-    {
-      "slovak": "Niekto môže smerovať.",
-      "english": "Someone can head.",
+      "slovak": "Začínam sprevádzať.",
+      "english": "I'm starting to accompany.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zabezpecovat": [
     {
-      "slovak": "Niekto môže zabezpečovať.",
-      "english": "Someone can ensure.",
+      "slovak": "Začínam zabezpečovať.",
+      "english": "I'm starting to ensure.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prezivat": [
     {
-      "slovak": "Niekto môže prežívať.",
-      "english": "Someone can experience.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "volit": [
-    {
-      "slovak": "Niekto môže voliť.",
-      "english": "Someone can choose.",
+      "slovak": "Začínam prežívať.",
+      "english": "I'm starting to experience.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vybudovat": [
     {
-      "slovak": "Niekto môže vybudovať.",
-      "english": "Someone can build.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vazit": [
-    {
-      "slovak": "Také veci môžu vážiť.",
-      "english": "Such things can weigh.",
+      "slovak": "Začínam vybudovať.",
+      "english": "I'm starting to build.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "postupovat": [
     {
-      "slovak": "Niekto môže postupovať.",
-      "english": "Someone can proceed.",
+      "slovak": "Začínam postupovať.",
+      "english": "I'm starting to proceed.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -3832,64 +3576,56 @@
   ],
   "vydrzat": [
     {
-      "slovak": "Niekto môže vydržať.",
-      "english": "Someone can endure.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "prejavovat": [
-    {
-      "slovak": "Niekto môže prejavovať.",
-      "english": "Someone can show.",
+      "slovak": "Začínam vydržať.",
+      "english": "I'm starting to endure.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "tahat": [
     {
-      "slovak": "Niekto môže ťahať.",
-      "english": "Someone can pull.",
+      "slovak": "Začínam ťahať.",
+      "english": "I'm starting to pull.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "kontrolovat": [
     {
-      "slovak": "Niekto môže kontrolovať.",
-      "english": "Someone can check.",
+      "slovak": "Začínam kontrolovať.",
+      "english": "I'm starting to check.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "objavovat": [
     {
-      "slovak": "Niekto môže objavovať.",
-      "english": "Someone can discover.",
+      "slovak": "Začínam objavovať.",
+      "english": "I'm starting to discover.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "dosahovat": [
     {
-      "slovak": "Niekto môže dosahovať.",
-      "english": "Someone can achieve.",
+      "slovak": "Začínam dosahovať.",
+      "english": "I'm starting to achieve.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "napadnut": [
     {
-      "slovak": "Niekto môže napadnúť.",
-      "english": "Someone can attack.",
+      "slovak": "Začínam napadnúť.",
+      "english": "I'm starting to attack.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "dopadnut": [
     {
-      "slovak": "Niekto môže dopadnúť.",
-      "english": "Someone can land.",
+      "slovak": "Začínam dopadnúť.",
+      "english": "I'm starting to land.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -3904,224 +3640,128 @@
   ],
   "zbadat": [
     {
-      "slovak": "Je možné zbadať.",
-      "english": "It is possible to notice.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vystupovat": [
-    {
-      "slovak": "Niekto môže vystupovať.",
-      "english": "Someone can perform.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "potvrdzovat": [
-    {
-      "slovak": "Niekto môže potvrdzovať.",
-      "english": "Someone can confirm.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nebat": [
-    {
-      "slovak": "Je možné nebáť.",
-      "english": "It is possible not to be afraid.",
+      "slovak": "Snažím sa zbadať.",
+      "english": "I'm trying to notice.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vybojovat": [
     {
-      "slovak": "Niekto môže vybojovať.",
-      "english": "Someone can win by fighting.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "navrhovat": [
-    {
-      "slovak": "Niekto môže navrhovať.",
-      "english": "Someone can propose.",
+      "slovak": "Začínam vybojovať.",
+      "english": "I'm starting to win by fighting.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "priat": [
     {
-      "slovak": "Niekto môže priať.",
-      "english": "Someone can wish.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "bavit": [
-    {
-      "slovak": "Niekto môže baviť.",
-      "english": "Someone can amuse.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "divat": [
-    {
-      "slovak": "Je možné dívať.",
-      "english": "It is possible to look.",
+      "slovak": "Začínam priať.",
+      "english": "I'm starting to wish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "sposobovat": [
     {
-      "slovak": "Niekto môže spôsobovať.",
-      "english": "Someone can cause.",
+      "slovak": "Začínam spôsobovať.",
+      "english": "I'm starting to cause.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pristupit": [
     {
-      "slovak": "Niekto môže pristúpiť.",
-      "english": "Someone can approach.",
+      "slovak": "Začínam pristúpiť.",
+      "english": "I'm starting to approach.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odvolat": [
     {
-      "slovak": "Niekto môže odvolať.",
-      "english": "Someone can revoke.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "znizovat": [
-    {
-      "slovak": "Niekto môže znižovať.",
-      "english": "Someone can lower.",
+      "slovak": "Začínam odvolať.",
+      "english": "I'm starting to revoke.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zahynut": [
     {
-      "slovak": "Niekto môže zahynúť.",
-      "english": "Someone can perish.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "uznat": [
-    {
-      "slovak": "Chcem ťa uznať.",
-      "english": "I want to recognize you.",
+      "slovak": "Začínam zahynúť.",
+      "english": "I'm starting to perish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "startovat": [
     {
-      "slovak": "Niekto môže štartovať.",
-      "english": "Someone can start.",
+      "slovak": "Začínam štartovať.",
+      "english": "I'm starting to start.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "skonstatovat": [
     {
-      "slovak": "Niekto môže skonštatovať.",
-      "english": "Someone can state.",
+      "slovak": "Začínam skonštatovať.",
+      "english": "I'm starting to state.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "podlahnut": [
     {
-      "slovak": "Niekto môže podľahnúť.",
-      "english": "Someone can succumb.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "ujat": [
-    {
-      "slovak": "Niekto môže ujať.",
-      "english": "Someone can take hold.",
+      "slovak": "Začínam podľahnúť.",
+      "english": "I'm starting to succumb.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "naznacit": [
     {
-      "slovak": "Niekto môže naznačiť.",
-      "english": "Someone can indicate.",
+      "slovak": "Začínam naznačiť.",
+      "english": "I'm starting to indicate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "rozvijat": [
     {
-      "slovak": "Niekto môže rozvíjať.",
-      "english": "Someone can develop.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "naznacovat": [
-    {
-      "slovak": "Niekto môže naznačovať.",
-      "english": "Someone can indicate.",
+      "slovak": "Začínam rozvíjať.",
+      "english": "I'm starting to develop.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "rozbehnut": [
     {
-      "slovak": "Niekto môže rozbehnúť.",
-      "english": "Someone can start.",
+      "slovak": "Začínam rozbehnúť.",
+      "english": "I'm starting to start.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prikyvnut": [
     {
-      "slovak": "Niekto môže prikývnuť.",
-      "english": "Someone can nod.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "slubovat": [
-    {
-      "slovak": "Niekto môže sľubovať.",
-      "english": "Someone can promise.",
+      "slovak": "Začínam prikývnuť.",
+      "english": "I'm starting to nod.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vlozit": [
     {
-      "slovak": "Niekto môže vložiť.",
-      "english": "Someone can insert.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "spadnut": [
-    {
-      "slovak": "Chcem spadnúť.",
-      "english": "I want to fall.",
+      "slovak": "Začínam vložiť.",
+      "english": "I'm starting to insert.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "upravit": [
     {
-      "slovak": "Niekto môže upraviť.",
-      "english": "Someone can adjust.",
+      "slovak": "Začínam upraviť.",
+      "english": "I'm starting to adjust.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4136,48 +3776,32 @@
   ],
   "oslavit": [
     {
-      "slovak": "Niekto môže osláviť.",
-      "english": "Someone can celebrate.",
+      "slovak": "Začínam osláviť.",
+      "english": "I'm starting to celebrate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pocitit": [
     {
-      "slovak": "Je možné pocítiť.",
-      "english": "It is possible to feel.",
+      "slovak": "Snažím sa pocítiť.",
+      "english": "I'm trying to feel.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "hlasit": [
     {
-      "slovak": "Niekto môže hlásiť.",
-      "english": "Someone can report.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "padat": [
-    {
-      "slovak": "Chcem padať.",
-      "english": "I want to fall.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "navstevovat": [
-    {
-      "slovak": "Chcem ťa navštevovať.",
-      "english": "I want to visit you.",
+      "slovak": "Začínam hlásiť.",
+      "english": "I'm starting to report.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "dominovat": [
     {
-      "slovak": "Niekto môže dominovať.",
-      "english": "Someone can dominate.",
+      "slovak": "Začínam dominovať.",
+      "english": "I'm starting to dominate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4192,56 +3816,32 @@
   ],
   "vyvolavat": [
     {
-      "slovak": "Niekto môže vyvolávať.",
-      "english": "Someone can evoke.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "tusit": [
-    {
-      "slovak": "Niekto môže tušiť.",
-      "english": "Someone can sense.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "ovplyvnovat": [
-    {
-      "slovak": "Niekto môže ovplyvňovať.",
-      "english": "Someone can influence.",
+      "slovak": "Začínam vyvolávať.",
+      "english": "I'm starting to evoke.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vyziadat": [
     {
-      "slovak": "Niekto môže vyžiadať.",
-      "english": "Someone can request.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "radit": [
-    {
-      "slovak": "Niekto môže radiť.",
-      "english": "Someone can advise.",
+      "slovak": "Začínam vyžiadať.",
+      "english": "I'm starting to request.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "trafit": [
     {
-      "slovak": "Niekto môže trafiť.",
-      "english": "Someone can hit.",
+      "slovak": "Začínam trafiť.",
+      "english": "I'm starting to hit.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prerusit": [
     {
-      "slovak": "Niekto môže prerušiť.",
-      "english": "Someone can interrupt.",
+      "slovak": "Začínam prerušiť.",
+      "english": "I'm starting to interrupt.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4256,72 +3856,56 @@
   ],
   "nechapat": [
     {
-      "slovak": "Je možné nechápať.",
-      "english": "It is possible not to understand.",
+      "slovak": "Je ťažké nechápať.",
+      "english": "It is hard to understand.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zamerat": [
     {
-      "slovak": "Niekto môže zamerať.",
-      "english": "Someone can aim.",
+      "slovak": "Začínam zamerať.",
+      "english": "I'm starting to aim.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "striedat": [
     {
-      "slovak": "Niekto môže striedať.",
-      "english": "Someone can alternate.",
+      "slovak": "Začínam striedať.",
+      "english": "I'm starting to alternate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "utrpiet": [
     {
-      "slovak": "Niekto môže utrpieť.",
-      "english": "Someone can suffer.",
+      "slovak": "Začínam utrpieť.",
+      "english": "I'm starting to suffer.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prebrat": [
     {
-      "slovak": "Niekto môže prebrať.",
-      "english": "Someone can take over.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "mlcat": [
-    {
-      "slovak": "Niekto môže mlčať.",
-      "english": "Someone can be silent.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "skumat": [
-    {
-      "slovak": "Niekto môže skúmať.",
-      "english": "Someone can examine.",
+      "slovak": "Začínam prebrať.",
+      "english": "I'm starting to take over.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "udelit": [
     {
-      "slovak": "Niekto môže udeliť.",
-      "english": "Someone can award.",
+      "slovak": "Začínam udeliť.",
+      "english": "I'm starting to award.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zdoraznovat": [
     {
-      "slovak": "Niekto môže zdôrazňovať.",
-      "english": "Someone can emphasize.",
+      "slovak": "Začínam zdôrazňovať.",
+      "english": "I'm starting to emphasize.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4336,72 +3920,64 @@
   ],
   "neist": [
     {
-      "slovak": "Je možné neísť.",
-      "english": "It is possible not to go.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "sirit": [
-    {
-      "slovak": "Niekto môže šíriť.",
-      "english": "Someone can spread.",
+      "slovak": "Je ťažké neísť.",
+      "english": "It is hard to go.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "sutazit": [
     {
-      "slovak": "Niekto môže súťažiť.",
-      "english": "Someone can compete.",
+      "slovak": "Začínam súťažiť.",
+      "english": "I'm starting to compete.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "respektovat": [
     {
-      "slovak": "Niekto môže rešpektovať.",
-      "english": "Someone can respect.",
+      "slovak": "Začínam rešpektovať.",
+      "english": "I'm starting to respect.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pripisat": [
     {
-      "slovak": "Niekto môže pripísať.",
-      "english": "Someone can attribute.",
+      "slovak": "Začínam pripísať.",
+      "english": "I'm starting to attribute.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zachytit": [
     {
-      "slovak": "Niekto môže zachytiť.",
-      "english": "Someone can catch.",
+      "slovak": "Začínam zachytiť.",
+      "english": "I'm starting to catch.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "presadzovat": [
     {
-      "slovak": "Niekto môže presadzovať.",
-      "english": "Someone can push through.",
+      "slovak": "Začínam presadzovať.",
+      "english": "I'm starting to push through.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "bit": [
     {
-      "slovak": "Niekto môže biť.",
-      "english": "Someone can beat.",
+      "slovak": "Začínam biť.",
+      "english": "I'm starting to beat.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "oznacovat": [
     {
-      "slovak": "Niekto môže označovať.",
-      "english": "Someone can mark.",
+      "slovak": "Začínam označovať.",
+      "english": "I'm starting to mark.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4424,120 +4000,112 @@
   ],
   "komentovat": [
     {
-      "slovak": "Niekto môže komentovať.",
-      "english": "Someone can comment.",
+      "slovak": "Začínam komentovať.",
+      "english": "I'm starting to comment.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "opisovat": [
     {
-      "slovak": "Niekto môže opisovať.",
-      "english": "Someone can describe.",
+      "slovak": "Začínam opisovať.",
+      "english": "I'm starting to describe.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "merat": [
     {
-      "slovak": "Niekto môže merať.",
-      "english": "Someone can measure.",
+      "slovak": "Začínam merať.",
+      "english": "I'm starting to measure.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vyvijat": [
     {
-      "slovak": "Niekto môže vyvíjať.",
-      "english": "Someone can develop.",
+      "slovak": "Začínam vyvíjať.",
+      "english": "I'm starting to develop.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nevyjst": [
     {
-      "slovak": "Je možné nevyjsť.",
-      "english": "It is possible not to come out.",
+      "slovak": "Je ťažké nevyjsť.",
+      "english": "It is hard to come out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "opisat": [
     {
-      "slovak": "Niekto môže opísať.",
-      "english": "Someone can describe.",
+      "slovak": "Začínam opísať.",
+      "english": "I'm starting to describe.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odstartovat": [
     {
-      "slovak": "Niekto môže odštartovať.",
-      "english": "Someone can start.",
+      "slovak": "Začínam odštartovať.",
+      "english": "I'm starting to start.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zhodnotit": [
     {
-      "slovak": "Niekto môže zhodnotiť.",
-      "english": "Someone can evaluate.",
+      "slovak": "Začínam zhodnotiť.",
+      "english": "I'm starting to evaluate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "uzivat": [
     {
-      "slovak": "Niekto môže užívať.",
-      "english": "Someone can use.",
+      "slovak": "Začínam užívať.",
+      "english": "I'm starting to use.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nepomoct": [
     {
-      "slovak": "Je možné nepomôcť.",
-      "english": "It is possible not to help.",
+      "slovak": "Je ťažké nepomôcť.",
+      "english": "It is hard to help.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "visiet": [
     {
-      "slovak": "Niekto môže visieť.",
-      "english": "Someone can hang.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "delit": [
-    {
-      "slovak": "Niekto môže deliť.",
-      "english": "Someone can divide.",
+      "slovak": "Začínam visieť.",
+      "english": "I'm starting to hang.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "poukazovat": [
     {
-      "slovak": "Niekto môže poukazovať.",
-      "english": "Someone can point out.",
+      "slovak": "Začínam poukazovať.",
+      "english": "I'm starting to point out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "stanovit": [
     {
-      "slovak": "Niekto môže stanoviť.",
-      "english": "Someone can set.",
+      "slovak": "Začínam stanoviť.",
+      "english": "I'm starting to set.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odhadovat": [
     {
-      "slovak": "Niekto môže odhadovať.",
-      "english": "Someone can estimate.",
+      "slovak": "Začínam odhadovať.",
+      "english": "I'm starting to estimate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4552,288 +4120,224 @@
   ],
   "poukazat": [
     {
-      "slovak": "Niekto môže poukázať.",
-      "english": "Someone can point out.",
+      "slovak": "Začínam poukázať.",
+      "english": "I'm starting to point out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "udrziavat": [
     {
-      "slovak": "Niekto môže udržiavať.",
-      "english": "Someone can maintain.",
+      "slovak": "Začínam udržiavať.",
+      "english": "I'm starting to maintain.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "uplatnit": [
     {
-      "slovak": "Niekto môže uplatniť.",
-      "english": "Someone can apply.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "urcovat": [
-    {
-      "slovak": "Niekto môže určovať.",
-      "english": "Someone can determine.",
+      "slovak": "Začínam uplatniť.",
+      "english": "I'm starting to apply.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "doplnat": [
     {
-      "slovak": "Niekto môže dopĺňať.",
-      "english": "Someone can supplement.",
+      "slovak": "Začínam dopĺňať.",
+      "english": "I'm starting to supplement.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vysielat": [
     {
-      "slovak": "Niekto môže vysielať.",
-      "english": "Someone can broadcast.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "boliet": [
-    {
-      "slovak": "Niekto môže bolieť.",
-      "english": "Someone can hurt.",
+      "slovak": "Začínam vysielať.",
+      "english": "I'm starting to broadcast.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vylucit": [
     {
-      "slovak": "Niekto môže vylúčiť.",
-      "english": "Someone can exclude.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vyhovovat": [
-    {
-      "slovak": "Niekto môže vyhovovať.",
-      "english": "Someone can suit.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "dospiet": [
-    {
-      "slovak": "Niekto môže dospieť.",
-      "english": "Someone can reach.",
+      "slovak": "Začínam vylúčiť.",
+      "english": "I'm starting to exclude.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "priznavat": [
     {
-      "slovak": "Niekto môže priznávať.",
-      "english": "Someone can admit.",
+      "slovak": "Začínam priznávať.",
+      "english": "I'm starting to admit.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nedarit": [
     {
-      "slovak": "Je možné nedariť.",
-      "english": "It is possible not to go well.",
+      "slovak": "Je ťažké nedariť.",
+      "english": "It is hard to go well.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "siahnut": [
     {
-      "slovak": "Niekto môže siahnuť.",
-      "english": "Someone can reach.",
+      "slovak": "Začínam siahnuť.",
+      "english": "I'm starting to reach.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prekrocit": [
     {
-      "slovak": "Niekto môže prekročiť.",
-      "english": "Someone can cross.",
+      "slovak": "Začínam prekročiť.",
+      "english": "I'm starting to cross.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "komunikovat": [
     {
-      "slovak": "Niekto môže komunikovať.",
-      "english": "Someone can communicate.",
+      "slovak": "Začínam komunikovať.",
+      "english": "I'm starting to communicate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nadobudnut": [
     {
-      "slovak": "Niekto môže nadobudnúť.",
-      "english": "Someone can acquire.",
+      "slovak": "Začínam nadobudnúť.",
+      "english": "I'm starting to acquire.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "preukazat": [
     {
-      "slovak": "Niekto môže preukázať.",
-      "english": "Someone can prove.",
+      "slovak": "Začínam preukázať.",
+      "english": "I'm starting to prove.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vyzyvat": [
     {
-      "slovak": "Niekto môže vyzývať.",
-      "english": "Someone can challenge.",
+      "slovak": "Začínam vyzývať.",
+      "english": "I'm starting to challenge.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odsudit": [
     {
-      "slovak": "Niekto môže odsúdiť.",
-      "english": "Someone can condemn.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "dokazovat": [
-    {
-      "slovak": "Niekto môže dokazovať.",
-      "english": "Someone can prove.",
+      "slovak": "Začínam odsúdiť.",
+      "english": "I'm starting to condemn.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pripojit": [
     {
-      "slovak": "Niekto môže pripojiť.",
-      "english": "Someone can attach.",
+      "slovak": "Začínam pripojiť.",
+      "english": "I'm starting to attach.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "citovat": [
     {
-      "slovak": "Niekto môže citovať.",
-      "english": "Someone can quote.",
+      "slovak": "Začínam citovať.",
+      "english": "I'm starting to quote.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vystriedat": [
     {
-      "slovak": "Niekto môže vystriedať.",
-      "english": "Someone can replace.",
+      "slovak": "Začínam vystriedať.",
+      "english": "I'm starting to replace.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "strhnut": [
     {
-      "slovak": "Niekto môže strhnúť.",
-      "english": "Someone can tear off.",
+      "slovak": "Začínam strhnúť.",
+      "english": "I'm starting to tear off.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pochvalit": [
     {
-      "slovak": "Niekto môže pochváliť.",
-      "english": "Someone can praise.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "udriet": [
-    {
-      "slovak": "Niekto môže udrieť.",
-      "english": "Someone can hit.",
+      "slovak": "Chcem pochváliť kvalitu.",
+      "english": "I want to praise the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nutit": [
     {
-      "slovak": "Niekto môže nútiť.",
-      "english": "Someone can force.",
+      "slovak": "Začínam nútiť.",
+      "english": "I'm starting to force.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "akceptovat": [
     {
-      "slovak": "Niekto môže akceptovať.",
-      "english": "Someone can accept.",
+      "slovak": "Začínam akceptovať.",
+      "english": "I'm starting to accept.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nedojst": [
     {
-      "slovak": "Je možné nedôjsť.",
-      "english": "It is possible not to arrive.",
+      "slovak": "Je ťažké nedôjsť.",
+      "english": "It is hard to arrive.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "podotknut": [
     {
-      "slovak": "Niekto môže podotknúť.",
-      "english": "Someone can remark.",
+      "slovak": "Začínam podotknúť.",
+      "english": "I'm starting to remark.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zucastnovat": [
     {
-      "slovak": "Niekto môže zúčastňovať.",
-      "english": "Someone can take part.",
+      "slovak": "Začínam zúčastňovať.",
+      "english": "I'm starting to take part.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "preniest": [
     {
-      "slovak": "Niekto môže preniesť.",
-      "english": "Someone can transfer.",
+      "slovak": "Začínam preniesť.",
+      "english": "I'm starting to transfer.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vyplatit": [
     {
-      "slovak": "Niekto môže vyplatiť.",
-      "english": "Someone can pay out.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "obdivovat": [
-    {
-      "slovak": "Niekto môže obdivovať.",
-      "english": "Someone can admire.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zastupovat": [
-    {
-      "slovak": "Také veci môžu zastupovať.",
-      "english": "Such things can represent.",
+      "slovak": "Začínam vyplatiť.",
+      "english": "I'm starting to pay out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zazniet": [
     {
-      "slovak": "Niekto môže zaznieť.",
-      "english": "Someone can sound.",
+      "slovak": "Začínam zaznieť.",
+      "english": "I'm starting to sound.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4848,16 +4352,16 @@
   ],
   "upokojit": [
     {
-      "slovak": "Niekto môže upokojiť.",
-      "english": "Someone can calm.",
+      "slovak": "Začínam upokojiť.",
+      "english": "I'm starting to calm.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "ohrozovat": [
     {
-      "slovak": "Niekto môže ohrozovať.",
-      "english": "Someone can endanger.",
+      "slovak": "Začínam ohrozovať.",
+      "english": "I'm starting to endanger.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4872,8 +4376,8 @@
   ],
   "charakterizovat": [
     {
-      "slovak": "Niekto môže charakterizovať.",
-      "english": "Someone can characterize.",
+      "slovak": "Začínam charakterizovať.",
+      "english": "I'm starting to characterize.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -4888,296 +4392,280 @@
   ],
   "nestihnut": [
     {
-      "slovak": "Je možné nestihnúť.",
-      "english": "It is possible not to make.",
+      "slovak": "Je ťažké nestihnúť.",
+      "english": "It is hard to make.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "setrit": [
     {
-      "slovak": "Niekto môže šetriť.",
-      "english": "Someone can save.",
+      "slovak": "Začínam šetriť.",
+      "english": "I'm starting to save.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "spoliehat": [
     {
-      "slovak": "Niekto môže spoliehať.",
-      "english": "Someone can rely.",
+      "slovak": "Začínam spoliehať.",
+      "english": "I'm starting to rely.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "poskodit": [
     {
-      "slovak": "Niekto môže poškodiť.",
-      "english": "Someone can damage.",
+      "slovak": "Začínam poškodiť.",
+      "english": "I'm starting to damage.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "uplatnovat": [
     {
-      "slovak": "Niekto môže uplatňovať.",
-      "english": "Someone can apply.",
+      "slovak": "Začínam uplatňovať.",
+      "english": "I'm starting to apply.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "oznamovat": [
     {
-      "slovak": "Niekto môže oznamovať.",
-      "english": "Someone can announce.",
+      "slovak": "Začínam oznamovať.",
+      "english": "I'm starting to announce.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "uchadzat": [
     {
-      "slovak": "Niekto môže uchádzať.",
-      "english": "Someone can apply.",
+      "slovak": "Začínam uchádzať.",
+      "english": "I'm starting to apply.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nadviazat": [
     {
-      "slovak": "Niekto môže nadviazať.",
-      "english": "Someone can establish.",
+      "slovak": "Začínam nadviazať.",
+      "english": "I'm starting to establish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "skorovat": [
     {
-      "slovak": "Niekto môže skórovať.",
-      "english": "Someone can score.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "rozsirovat": [
-    {
-      "slovak": "Niekto môže rozširovať.",
-      "english": "Someone can expand.",
+      "slovak": "Začínam skórovať.",
+      "english": "I'm starting to score.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "sidlit": [
     {
-      "slovak": "Také veci môžu sídliť.",
-      "english": "Such things can be based.",
+      "slovak": "To môže sídliť.",
+      "english": "That can be based.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nevyuzit": [
     {
-      "slovak": "Je možné nevyužiť.",
-      "english": "It is possible not to use.",
+      "slovak": "Je ťažké nevyužiť.",
+      "english": "It is hard to use.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "splnat": [
     {
-      "slovak": "Niekto môže spĺňať.",
-      "english": "Someone can fulfill.",
+      "slovak": "Začínam spĺňať.",
+      "english": "I'm starting to fulfill.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "cerpat": [
     {
-      "slovak": "Niekto môže čerpať.",
-      "english": "Someone can draw.",
+      "slovak": "Začínam čerpať.",
+      "english": "I'm starting to draw.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zrodit": [
     {
-      "slovak": "Niekto môže zrodiť.",
-      "english": "Someone can give birth.",
+      "slovak": "Začínam zrodiť.",
+      "english": "I'm starting to give birth.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "doniest": [
     {
-      "slovak": "Niekto môže doniesť.",
-      "english": "Someone can bring.",
+      "slovak": "Začínam doniesť.",
+      "english": "I'm starting to bring.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zvazovat": [
     {
-      "slovak": "Niekto môže zvažovať.",
-      "english": "Someone can consider.",
+      "slovak": "Začínam zvažovať.",
+      "english": "I'm starting to consider.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "uzatvarat": [
     {
-      "slovak": "Niekto môže uzatvárať.",
-      "english": "Someone can close.",
+      "slovak": "Začínam uzatvárať.",
+      "english": "I'm starting to close.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "putovat": [
     {
-      "slovak": "Niekto môže putovať.",
-      "english": "Someone can wander.",
+      "slovak": "Začínam putovať.",
+      "english": "I'm starting to wander.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "financovat": [
     {
-      "slovak": "Niekto môže financovať.",
-      "english": "Someone can finance.",
+      "slovak": "Začínam financovať.",
+      "english": "I'm starting to finance.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zabudat": [
     {
-      "slovak": "Niekto môže zabúdať.",
-      "english": "Someone can forget.",
+      "slovak": "Začínam zabúdať.",
+      "english": "I'm starting to forget.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vrhnut": [
     {
-      "slovak": "Niekto môže vrhnúť.",
-      "english": "Someone can throw.",
+      "slovak": "Začínam vrhnúť.",
+      "english": "I'm starting to throw.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "lakat": [
     {
-      "slovak": "Niekto môže lákať.",
-      "english": "Someone can attract.",
+      "slovak": "Začínam lákať.",
+      "english": "I'm starting to attract.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zareagovat": [
     {
-      "slovak": "Niekto môže zareagovať.",
-      "english": "Someone can react.",
+      "slovak": "Začínam zareagovať.",
+      "english": "I'm starting to react.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "ohlasit": [
     {
-      "slovak": "Niekto môže ohlásiť.",
-      "english": "Someone can announce.",
+      "slovak": "Začínam ohlásiť.",
+      "english": "I'm starting to announce.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "horiet": [
     {
-      "slovak": "Niekto môže horieť.",
-      "english": "Someone can burn.",
+      "slovak": "Začínam horieť.",
+      "english": "I'm starting to burn.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "obracat": [
     {
-      "slovak": "Niekto môže obracať.",
-      "english": "Someone can turn.",
+      "slovak": "Začínam obracať.",
+      "english": "I'm starting to turn.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "slavit": [
     {
-      "slovak": "Niekto môže sláviť.",
-      "english": "Someone can celebrate.",
+      "slovak": "Začínam sláviť.",
+      "english": "I'm starting to celebrate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "obhajovat": [
     {
-      "slovak": "Niekto môže obhajovať.",
-      "english": "Someone can defend.",
+      "slovak": "Začínam obhajovať.",
+      "english": "I'm starting to defend.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zlepsovat": [
     {
-      "slovak": "Niekto môže zlepšovať.",
-      "english": "Someone can improve.",
+      "slovak": "Chcem zlepšovať kvalitu.",
+      "english": "I want to improve the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vysetrovat": [
     {
-      "slovak": "Niekto môže vyšetrovať.",
-      "english": "Someone can investigate.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "znasat": [
-    {
-      "slovak": "Niekto môže znášať.",
-      "english": "Someone can bear.",
+      "slovak": "Začínam vyšetrovať.",
+      "english": "I'm starting to investigate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zakazat": [
     {
-      "slovak": "Niekto môže zakázať.",
-      "english": "Someone can forbid.",
+      "slovak": "Začínam zakázať.",
+      "english": "I'm starting to forbid.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "opriet": [
     {
-      "slovak": "Niekto môže oprieť.",
-      "english": "Someone can lean.",
+      "slovak": "Začínam oprieť.",
+      "english": "I'm starting to lean.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "inspirovat": [
     {
-      "slovak": "Niekto môže inšpirovať.",
-      "english": "Someone can inspire.",
+      "slovak": "Začínam inšpirovať.",
+      "english": "I'm starting to inspire.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "spracovat": [
     {
-      "slovak": "Niekto môže spracovať.",
-      "english": "Someone can process.",
+      "slovak": "Začínam spracovať.",
+      "english": "I'm starting to process.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "inkasovat": [
     {
-      "slovak": "Niekto môže inkasovať.",
-      "english": "Someone can cash.",
+      "slovak": "Začínam inkasovať.",
+      "english": "I'm starting to cash.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5192,8 +4680,8 @@
   ],
   "uniknut": [
     {
-      "slovak": "Niekto môže uniknúť.",
-      "english": "Someone can escape.",
+      "slovak": "Začínam uniknúť.",
+      "english": "I'm starting to escape.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5208,8 +4696,8 @@
   ],
   "zriadit": [
     {
-      "slovak": "Niekto môže zriadiť.",
-      "english": "Someone can establish.",
+      "slovak": "Začínam zriadiť.",
+      "english": "I'm starting to establish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5224,152 +4712,120 @@
   ],
   "nemenit": [
     {
-      "slovak": "Je možné nemeniť.",
-      "english": "It is possible not to change.",
+      "slovak": "Je ťažké nemeniť.",
+      "english": "It is hard to change.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "posudit": [
     {
-      "slovak": "Niekto môže posúdiť.",
-      "english": "Someone can assess.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "siahat": [
-    {
-      "slovak": "Niekto môže siahať.",
-      "english": "Someone can reach.",
+      "slovak": "Začínam posúdiť.",
+      "english": "I'm starting to assess.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pocitovat": [
     {
-      "slovak": "Je možné pociťovať.",
-      "english": "It is possible to feel.",
+      "slovak": "Snažím sa pociťovať.",
+      "english": "I'm trying to feel.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "dotiahnut": [
     {
-      "slovak": "Niekto môže dotiahnuť.",
-      "english": "Someone can pull.",
+      "slovak": "Začínam dotiahnuť.",
+      "english": "I'm starting to pull.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "ovladnut": [
     {
-      "slovak": "Niekto môže ovládnuť.",
-      "english": "Someone can master.",
+      "slovak": "Začínam ovládnuť.",
+      "english": "I'm starting to master.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "porovnavat": [
     {
-      "slovak": "Niekto môže porovnávať.",
-      "english": "Someone can compare.",
+      "slovak": "Začínam porovnávať.",
+      "english": "I'm starting to compare.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zacut": [
     {
-      "slovak": "Niekto môže začuť.",
-      "english": "Someone can hear.",
+      "slovak": "Začínam začuť.",
+      "english": "I'm starting to hear.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zastavat": [
     {
-      "slovak": "Niekto môže zastávať.",
-      "english": "Someone can hold.",
+      "slovak": "Začínam zastávať.",
+      "english": "I'm starting to hold.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "porovnat": [
     {
-      "slovak": "Niekto môže porovnať.",
-      "english": "Someone can compare.",
+      "slovak": "Začínam porovnať.",
+      "english": "I'm starting to compare.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zamestnavat": [
     {
-      "slovak": "Niekto môže zamestnávať.",
-      "english": "Someone can employ.",
+      "slovak": "Začínam zamestnávať.",
+      "english": "I'm starting to employ.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "chvalit": [
     {
-      "slovak": "Niekto môže chváliť.",
-      "english": "Someone can praise.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zistovat": [
-    {
-      "slovak": "Niekto môže zisťovať.",
-      "english": "Someone can find out.",
+      "slovak": "Chcem chváliť kvalitu.",
+      "english": "I want to praise the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "preniknut": [
     {
-      "slovak": "Niekto môže preniknúť.",
-      "english": "Someone can penetrate.",
+      "slovak": "Začínam preniknúť.",
+      "english": "I'm starting to penetrate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "protestovat": [
     {
-      "slovak": "Niekto môže protestovať.",
-      "english": "Someone can protest.",
+      "slovak": "Začínam protestovať.",
+      "english": "I'm starting to protest.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "naplnat": [
     {
-      "slovak": "Niekto môže napĺňať.",
-      "english": "Someone can fill.",
+      "slovak": "Začínam napĺňať.",
+      "english": "I'm starting to fill.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odhadnut": [
     {
-      "slovak": "Niekto môže odhadnúť.",
-      "english": "Someone can estimate.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nenavidiet": [
-    {
-      "slovak": "Je možné nenávidieť.",
-      "english": "It is possible not to hate.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vyvinut": [
-    {
-      "slovak": "Niekto môže vyvinúť.",
-      "english": "Someone can develop.",
+      "slovak": "Začínam odhadnúť.",
+      "english": "I'm starting to estimate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5384,64 +4840,48 @@
   ],
   "vymenovat": [
     {
-      "slovak": "Niekto môže vymenovať.",
-      "english": "Someone can appoint.",
+      "slovak": "Začínam vymenovať.",
+      "english": "I'm starting to appoint.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vyhlasovat": [
     {
-      "slovak": "Niekto môže vyhlasovať.",
-      "english": "Someone can declare.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "riskovat": [
-    {
-      "slovak": "Niekto môže riskovať.",
-      "english": "Someone can risk.",
+      "slovak": "Začínam vyhlasovať.",
+      "english": "I'm starting to declare.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odvratit": [
     {
-      "slovak": "Niekto môže odvrátiť.",
-      "english": "Someone can avert.",
+      "slovak": "Začínam odvrátiť.",
+      "english": "I'm starting to avert.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pridavat": [
     {
-      "slovak": "Niekto môže pridávať.",
-      "english": "Someone can add.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zivit": [
-    {
-      "slovak": "Niekto môže živiť.",
-      "english": "Someone can feed.",
+      "slovak": "Začínam pridávať.",
+      "english": "I'm starting to add.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "dvihat": [
     {
-      "slovak": "Niekto môže dvíhať.",
-      "english": "Someone can lift.",
+      "slovak": "Začínam dvíhať.",
+      "english": "I'm starting to lift.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pritiahnut": [
     {
-      "slovak": "Niekto môže pritiahnuť.",
-      "english": "Someone can pull.",
+      "slovak": "Začínam pritiahnuť.",
+      "english": "I'm starting to pull.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5454,34 +4894,26 @@
       "isPracticeFrame": true
     }
   ],
-  "nepovazovat": [
-    {
-      "slovak": "Je možné nepovažovať.",
-      "english": "It is possible not to consider.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "krutit": [
     {
-      "slovak": "Niekto môže krútiť.",
-      "english": "Someone can twist.",
+      "slovak": "Začínam krútiť.",
+      "english": "I'm starting to twist.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "definovat": [
     {
-      "slovak": "Niekto môže definovať.",
-      "english": "Someone can define.",
+      "slovak": "Začínam definovať.",
+      "english": "I'm starting to define.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "posudzovat": [
     {
-      "slovak": "Niekto môže posudzovať.",
-      "english": "Someone can assess.",
+      "slovak": "Začínam posudzovať.",
+      "english": "I'm starting to assess.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5496,32 +4928,24 @@
   ],
   "evidovat": [
     {
-      "slovak": "Niekto môže evidovať.",
-      "english": "Someone can record.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pochybovat": [
-    {
-      "slovak": "Niekto môže pochybovať.",
-      "english": "Someone can doubt.",
+      "slovak": "Začínam evidovať.",
+      "english": "I'm starting to record.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vzdychnut": [
     {
-      "slovak": "Niekto môže vzdychnúť.",
-      "english": "Someone can sigh.",
+      "slovak": "Začínam vzdychnúť.",
+      "english": "I'm starting to sigh.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "pribudat": [
     {
-      "slovak": "Niekto môže pribúdať.",
-      "english": "Someone can increase.",
+      "slovak": "Chcem pribúdať kvalitu.",
+      "english": "I want to increase the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5536,40 +4960,24 @@
   ],
   "prekazat": [
     {
-      "slovak": "Niekto môže prekážať.",
-      "english": "Someone can bother.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "ucinkovat": [
-    {
-      "slovak": "Niekto môže účinkovať.",
-      "english": "Someone can act.",
+      "slovak": "Začínam prekážať.",
+      "english": "I'm starting to bother.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zameriavat": [
     {
-      "slovak": "Niekto môže zameriavať.",
-      "english": "Someone can aim.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pestovat": [
-    {
-      "slovak": "Niekto môže pestovať.",
-      "english": "Someone can grow.",
+      "slovak": "Začínam zameriavať.",
+      "english": "I'm starting to aim.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "rodit": [
     {
-      "slovak": "Niekto môže rodiť.",
-      "english": "Someone can give birth.",
+      "slovak": "Začínam rodiť.",
+      "english": "I'm starting to give birth.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5582,74 +4990,58 @@
       "isPracticeFrame": true
     }
   ],
-  "zhodnut": [
-    {
-      "slovak": "Niekto môže zhodnúť.",
-      "english": "Someone can agree.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "opierat": [
     {
-      "slovak": "Niekto môže opierať.",
-      "english": "Someone can lean.",
+      "slovak": "Začínam opierať.",
+      "english": "I'm starting to lean.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "disponovat": [
     {
-      "slovak": "Niekto môže disponovať.",
-      "english": "Someone can have at one's disposal.",
+      "slovak": "Začínam disponovať.",
+      "english": "I'm starting to have at one's disposal.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "preberat": [
     {
-      "slovak": "Niekto môže preberať.",
-      "english": "Someone can take over.",
+      "slovak": "Začínam preberať.",
+      "english": "I'm starting to take over.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odrazit": [
     {
-      "slovak": "Niekto môže odraziť.",
-      "english": "Someone can reflect.",
+      "slovak": "Začínam odraziť.",
+      "english": "I'm starting to reflect.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nariadit": [
     {
-      "slovak": "Niekto môže nariadiť.",
-      "english": "Someone can order.",
+      "slovak": "Začínam nariadiť.",
+      "english": "I'm starting to order.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "ohrozit": [
     {
-      "slovak": "Niekto môže ohroziť.",
-      "english": "Someone can endanger.",
+      "slovak": "Začínam ohroziť.",
+      "english": "I'm starting to endanger.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zaviazat": [
     {
-      "slovak": "Niekto môže zaviazať.",
-      "english": "Someone can bind.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "stahovat": [
-    {
-      "slovak": "Chcem sťahovať.",
-      "english": "I want to move.",
+      "slovak": "Začínam zaviazať.",
+      "english": "I'm starting to bind.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5664,152 +5056,136 @@
   ],
   "mavat": [
     {
-      "slovak": "Niekto môže mávať.",
-      "english": "Someone can wave.",
+      "slovak": "Začínam mávať.",
+      "english": "I'm starting to wave.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "avizovat": [
     {
-      "slovak": "Niekto môže avizovať.",
-      "english": "Someone can announce.",
+      "slovak": "Začínam avizovať.",
+      "english": "I'm starting to announce.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "argumentovat": [
     {
-      "slovak": "Niekto môže argumentovať.",
-      "english": "Someone can argue.",
+      "slovak": "Začínam argumentovať.",
+      "english": "I'm starting to argue.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "predpovedat": [
     {
-      "slovak": "Niekto môže predpovedať.",
-      "english": "Someone can predict.",
+      "slovak": "Začínam predpovedať.",
+      "english": "I'm starting to predict.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nevsimnut": [
     {
-      "slovak": "Je možné nevšimnúť.",
-      "english": "It is possible not to notice.",
+      "slovak": "Je ťažké nevšimnúť.",
+      "english": "It is hard to notice.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vykrocit": [
     {
-      "slovak": "Niekto môže vykročiť.",
-      "english": "Someone can step out.",
+      "slovak": "Začínam vykročiť.",
+      "english": "I'm starting to step out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "uverejnit": [
     {
-      "slovak": "Niekto môže uverejniť.",
-      "english": "Someone can publish.",
+      "slovak": "Začínam uverejniť.",
+      "english": "I'm starting to publish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "postihnut": [
     {
-      "slovak": "Niekto môže postihnúť.",
-      "english": "Someone can afflict.",
+      "slovak": "Začínam postihnúť.",
+      "english": "I'm starting to afflict.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zakladat": [
     {
-      "slovak": "Niekto môže zakladať.",
-      "english": "Someone can found.",
+      "slovak": "Začínam zakladať.",
+      "english": "I'm starting to found.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "preverit": [
     {
-      "slovak": "Niekto môže preveriť.",
-      "english": "Someone can check.",
+      "slovak": "Začínam preveriť.",
+      "english": "I'm starting to check.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "obetovat": [
     {
-      "slovak": "Niekto môže obetovať.",
-      "english": "Someone can sacrifice.",
+      "slovak": "Začínam obetovať.",
+      "english": "I'm starting to sacrifice.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "figurovat": [
     {
-      "slovak": "Niekto môže figurovať.",
-      "english": "Someone can figure.",
+      "slovak": "Začínam figurovať.",
+      "english": "I'm starting to figure.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zamestnat": [
     {
-      "slovak": "Niekto môže zamestnať.",
-      "english": "Someone can employ.",
+      "slovak": "Začínam zamestnať.",
+      "english": "I'm starting to employ.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prevadzkovat": [
     {
-      "slovak": "Niekto môže prevádzkovať.",
-      "english": "Someone can operate.",
+      "slovak": "Začínam prevádzkovať.",
+      "english": "I'm starting to operate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prehravat": [
     {
-      "slovak": "Niekto môže prehrávať.",
-      "english": "Someone can lose.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vztahovat": [
-    {
-      "slovak": "Niekto môže vzťahovať.",
-      "english": "Someone can relate.",
+      "slovak": "Začínam prehrávať.",
+      "english": "I'm starting to lose.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "ukladat": [
     {
-      "slovak": "Niekto môže ukladať.",
-      "english": "Someone can store.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "neuspiet": [
-    {
-      "slovak": "Je možné neuspieť.",
-      "english": "It is possible not to succeed.",
+      "slovak": "Začínam ukladať.",
+      "english": "I'm starting to store.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "utocit": [
     {
-      "slovak": "Niekto môže útočiť.",
-      "english": "Someone can attack.",
+      "slovak": "Začínam útočiť.",
+      "english": "I'm starting to attack.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5824,104 +5200,96 @@
   ],
   "orientovat": [
     {
-      "slovak": "Niekto môže orientovať.",
-      "english": "Someone can orient.",
+      "slovak": "Začínam orientovať.",
+      "english": "I'm starting to orient.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "overit": [
     {
-      "slovak": "Niekto môže overiť.",
-      "english": "Someone can verify.",
+      "slovak": "Začínam overiť.",
+      "english": "I'm starting to verify.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "ziarit": [
     {
-      "slovak": "Niekto môže žiariť.",
-      "english": "Someone can shine.",
+      "slovak": "Začínam žiariť.",
+      "english": "I'm starting to shine.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nastupovat": [
     {
-      "slovak": "Niekto môže nastupovať.",
-      "english": "Someone can board.",
+      "slovak": "Začínam nastupovať.",
+      "english": "I'm starting to board.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prislubit": [
     {
-      "slovak": "Niekto môže prisľúbiť.",
-      "english": "Someone can promise.",
+      "slovak": "Začínam prisľúbiť.",
+      "english": "I'm starting to promise.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "spravovat": [
     {
-      "slovak": "Niekto môže spravovať.",
-      "english": "Someone can administer.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zazriet": [
-    {
-      "slovak": "Niekto môže zazrieť.",
-      "english": "Someone can catch sight of.",
+      "slovak": "Začínam spravovať.",
+      "english": "I'm starting to administer.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vyvrcholit": [
     {
-      "slovak": "Niekto môže vyvrcholiť.",
-      "english": "Someone can culminate.",
+      "slovak": "Začínam vyvrcholiť.",
+      "english": "I'm starting to culminate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "obzriet": [
     {
-      "slovak": "Je možné obzrieť.",
-      "english": "It is possible to look around.",
+      "slovak": "Snažím sa obzrieť.",
+      "english": "I'm trying to look around.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nezostat": [
     {
-      "slovak": "Je možné nezostať.",
-      "english": "It is possible not to stay.",
+      "slovak": "Je ťažké nezostať.",
+      "english": "It is hard to stay.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "oboznamit": [
     {
-      "slovak": "Niekto môže oboznámiť.",
-      "english": "Someone can acquaint.",
+      "slovak": "Začínam oboznámiť.",
+      "english": "I'm starting to acquaint.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nezacat": [
     {
-      "slovak": "Je možné nezačať.",
-      "english": "It is possible not to begin.",
+      "slovak": "Je ťažké nezačať.",
+      "english": "It is hard to begin.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "posuvat": [
     {
-      "slovak": "Niekto môže posúvať.",
-      "english": "Someone can shift.",
+      "slovak": "Začínam posúvať.",
+      "english": "I'm starting to shift.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5944,32 +5312,24 @@
   ],
   "pristupovat": [
     {
-      "slovak": "Niekto môže pristupovať.",
-      "english": "Someone can approach.",
+      "slovak": "Začínam pristupovať.",
+      "english": "I'm starting to approach.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "neprekazat": [
     {
-      "slovak": "Je možné neprekážať.",
-      "english": "It is possible not to bother.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "uzit": [
-    {
-      "slovak": "Niekto môže užiť.",
-      "english": "Someone can enjoy.",
+      "slovak": "Je ťažké neprekážať.",
+      "english": "It is hard to bother.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nestretnut": [
     {
-      "slovak": "Je možné nestretnúť.",
-      "english": "It is possible not to meet.",
+      "slovak": "Je ťažké nestretnúť.",
+      "english": "It is hard to meet.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -5984,80 +5344,80 @@
   ],
   "zariadit": [
     {
-      "slovak": "Niekto môže zariadiť.",
-      "english": "Someone can arrange.",
+      "slovak": "Začínam zariadiť.",
+      "english": "I'm starting to arrange.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "identifikovat": [
     {
-      "slovak": "Niekto môže identifikovať.",
-      "english": "Someone can identify.",
+      "slovak": "Začínam identifikovať.",
+      "english": "I'm starting to identify.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odovzdavat": [
     {
-      "slovak": "Niekto môže odovzdávať.",
-      "english": "Someone can hand over.",
+      "slovak": "Začínam odovzdávať.",
+      "english": "I'm starting to hand over.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "ozyvat": [
     {
-      "slovak": "Niekto môže ozývať.",
-      "english": "Someone can respond.",
+      "slovak": "Začínam ozývať.",
+      "english": "I'm starting to respond.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nezvladnut": [
     {
-      "slovak": "Je možné nezvládnuť.",
-      "english": "It is possible not to manage.",
+      "slovak": "Je ťažké nezvládnuť.",
+      "english": "It is hard to manage.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "potrestat": [
     {
-      "slovak": "Niekto môže potrestať.",
-      "english": "Someone can punish.",
+      "slovak": "Začínam potrestať.",
+      "english": "I'm starting to punish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "sklamat": [
     {
-      "slovak": "Niekto môže sklamať.",
-      "english": "Someone can disappoint.",
+      "slovak": "Začínam sklamať.",
+      "english": "I'm starting to disappoint.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zahladiet": [
     {
-      "slovak": "Niekto môže zahľadieť.",
-      "english": "Someone can gaze.",
+      "slovak": "Začínam zahľadieť.",
+      "english": "I'm starting to gaze.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "obzerat": [
     {
-      "slovak": "Je možné obzerať.",
-      "english": "It is possible to look around.",
+      "slovak": "Snažím sa obzerať.",
+      "english": "I'm trying to look around.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zverit": [
     {
-      "slovak": "Niekto môže zveriť.",
-      "english": "Someone can entrust.",
+      "slovak": "Začínam zveriť.",
+      "english": "I'm starting to entrust.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6072,192 +5432,184 @@
   ],
   "povzbudit": [
     {
-      "slovak": "Niekto môže povzbudiť.",
-      "english": "Someone can encourage.",
+      "slovak": "Začínam povzbudiť.",
+      "english": "I'm starting to encourage.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zlikvidovat": [
     {
-      "slovak": "Niekto môže zlikvidovať.",
-      "english": "Someone can liquidate.",
+      "slovak": "Začínam zlikvidovať.",
+      "english": "I'm starting to liquidate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zaniknut": [
     {
-      "slovak": "Niekto môže zaniknúť.",
-      "english": "Someone can cease.",
+      "slovak": "Začínam zaniknúť.",
+      "english": "I'm starting to cease.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "analyzovat": [
     {
-      "slovak": "Niekto môže analyzovať.",
-      "english": "Someone can analyze.",
+      "slovak": "Začínam analyzovať.",
+      "english": "I'm starting to analyze.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "doviest": [
     {
-      "slovak": "Niekto môže doviesť.",
-      "english": "Someone can bring.",
+      "slovak": "Začínam doviesť.",
+      "english": "I'm starting to bring.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "natiahnut": [
     {
-      "slovak": "Niekto môže natiahnuť.",
-      "english": "Someone can stretch.",
+      "slovak": "Začínam natiahnuť.",
+      "english": "I'm starting to stretch.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "uhradit": [
     {
-      "slovak": "Niekto môže uhradiť.",
-      "english": "Someone can pay.",
+      "slovak": "Začínam uhradiť.",
+      "english": "I'm starting to pay.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "presviedcat": [
     {
-      "slovak": "Niekto môže presviedčať.",
-      "english": "Someone can persuade.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "jestvovat": [
-    {
-      "slovak": "Také veci môžu jestvovať.",
-      "english": "Such things can exist.",
+      "slovak": "Začínam presviedčať.",
+      "english": "I'm starting to persuade.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "obhajit": [
     {
-      "slovak": "Niekto môže obhájiť.",
-      "english": "Someone can defend.",
+      "slovak": "Začínam obhájiť.",
+      "english": "I'm starting to defend.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zaistit": [
     {
-      "slovak": "Niekto môže zaistiť.",
-      "english": "Someone can secure.",
+      "slovak": "Začínam zaistiť.",
+      "english": "I'm starting to secure.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "obliekat": [
     {
-      "slovak": "Niekto môže obliekať.",
-      "english": "Someone can dress.",
+      "slovak": "Začínam obliekať.",
+      "english": "I'm starting to dress.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "prezriet": [
     {
-      "slovak": "Je možné prezrieť.",
-      "english": "It is possible to look through.",
+      "slovak": "Snažím sa prezrieť.",
+      "english": "I'm trying to look through.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "motivovat": [
     {
-      "slovak": "Niekto môže motivovať.",
-      "english": "Someone can motivate.",
+      "slovak": "Začínam motivovať.",
+      "english": "I'm starting to motivate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vystavovat": [
     {
-      "slovak": "Niekto môže vystavovať.",
-      "english": "Someone can exhibit.",
+      "slovak": "Začínam vystavovať.",
+      "english": "I'm starting to exhibit.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "vytlacit": [
     {
-      "slovak": "Niekto môže vytlačiť.",
-      "english": "Someone can print.",
+      "slovak": "Začínam vytlačiť.",
+      "english": "I'm starting to print.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "tazit": [
     {
-      "slovak": "Niekto môže ťažiť.",
-      "english": "Someone can mine.",
+      "slovak": "Začínam ťažiť.",
+      "english": "I'm starting to mine.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "neprejst": [
     {
-      "slovak": "Je možné neprejsť.",
-      "english": "It is possible not to go through.",
+      "slovak": "Je ťažké neprejsť.",
+      "english": "It is hard to go through.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "rozdavat": [
     {
-      "slovak": "Niekto môže rozdávať.",
-      "english": "Someone can give out.",
+      "slovak": "Začínam rozdávať.",
+      "english": "I'm starting to give out.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "trestat": [
     {
-      "slovak": "Niekto môže trestať.",
-      "english": "Someone can punish.",
+      "slovak": "Začínam trestať.",
+      "english": "I'm starting to punish.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "narast": [
     {
-      "slovak": "Niekto môže narásť.",
-      "english": "Someone can grow.",
+      "slovak": "Chcem narásť kvalitu.",
+      "english": "I want to grow the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nabrat": [
     {
-      "slovak": "Niekto môže nabrať.",
-      "english": "Someone can take on.",
+      "slovak": "Začínam nabrať.",
+      "english": "I'm starting to take on.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "posilnovat": [
     {
-      "slovak": "Niekto môže posilňovať.",
-      "english": "Someone can strengthen.",
+      "slovak": "Chcem posilňovať kvalitu.",
+      "english": "I want to strengthen the quality.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "schvalovat": [
     {
-      "slovak": "Niekto môže schvaľovať.",
-      "english": "Someone can approve.",
+      "slovak": "Začínam schvaľovať.",
+      "english": "I'm starting to approve.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6272,48 +5624,48 @@
   ],
   "tiect": [
     {
-      "slovak": "Niekto môže tiecť.",
-      "english": "Someone can flow.",
+      "slovak": "Začínam tiecť.",
+      "english": "I'm starting to flow.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "podrzat": [
     {
-      "slovak": "Niekto môže podržať.",
-      "english": "Someone can hold.",
+      "slovak": "Začínam podržať.",
+      "english": "I'm starting to hold.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zrealizovat": [
     {
-      "slovak": "Niekto môže zrealizovať.",
-      "english": "Someone can realize.",
+      "slovak": "Začínam zrealizovať.",
+      "english": "I'm starting to realize.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "zastrelit": [
     {
-      "slovak": "Niekto môže zastreliť.",
-      "english": "Someone can shoot dead.",
+      "slovak": "Začínam zastreliť.",
+      "english": "I'm starting to shoot dead.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "podelit": [
     {
-      "slovak": "Niekto môže podeliť.",
-      "english": "Someone can share.",
+      "slovak": "Začínam podeliť.",
+      "english": "I'm starting to share.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "priviezt": [
     {
-      "slovak": "Niekto môže priviezť.",
-      "english": "Someone can bring.",
+      "slovak": "Začínam priviezť.",
+      "english": "I'm starting to bring.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6328,56 +5680,48 @@
   ],
   "radovat": [
     {
-      "slovak": "Niekto môže radovať.",
-      "english": "Someone can rejoice.",
+      "slovak": "Začínam radovať.",
+      "english": "I'm starting to rejoice.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "odkazat": [
     {
-      "slovak": "Také veci môžu odkázať.",
-      "english": "Such things can refer.",
+      "slovak": "To môže odkázať.",
+      "english": "That can refer.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "triumfovat": [
     {
-      "slovak": "Niekto môže triumfovať.",
-      "english": "Someone can triumph.",
+      "slovak": "Začínam triumfovať.",
+      "english": "I'm starting to triumph.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "predkladat": [
     {
-      "slovak": "Niekto môže predkladať.",
-      "english": "Someone can submit.",
+      "slovak": "Začínam predkladať.",
+      "english": "I'm starting to submit.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nepriniest": [
     {
-      "slovak": "Je možné nepriniesť.",
-      "english": "It is possible not to bring.",
+      "slovak": "Je ťažké nepriniesť.",
+      "english": "It is hard to bring.",
       "note": "Curated",
       "isPracticeFrame": true
     }
   ],
   "nezalezat": [
     {
-      "slovak": "Je možné nezáležať.",
-      "english": "It is possible not to matter.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zdroj": [
-    {
-      "slovak": "Toto je zdroj.",
-      "english": "This is a source.",
+      "slovak": "Je ťažké nezáležať.",
+      "english": "It is hard to matter.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6438,14 +5782,6 @@
       "isPracticeFrame": true
     }
   ],
-  "miera": [
-    {
-      "slovak": "Jedna miera stačí.",
-      "english": "One measure is enough.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "vyroba": [
     {
       "slovak": "Toto je výroba.",
@@ -6458,14 +5794,6 @@
     {
       "slovak": "Toto je sieť.",
       "english": "This is a network.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pracovnik": [
-    {
-      "slovak": "To je pracovník.",
-      "english": "That is a worker.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6526,14 +5854,6 @@
       "isPracticeFrame": true
     }
   ],
-  "priebeh": [
-    {
-      "slovak": "Toto je priebeh.",
-      "english": "This is a course.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "kriza": [
     {
       "slovak": "Toto je kríza.",
@@ -6582,14 +5902,6 @@
       "isPracticeFrame": true
     }
   ],
-  "potreba": [
-    {
-      "slovak": "Toto je potreba.",
-      "english": "This is a need.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "kvalita": [
     {
       "slovak": "Toto je kvalita.",
@@ -6606,34 +5918,10 @@
       "isPracticeFrame": true
     }
   ],
-  "ochrana": [
-    {
-      "slovak": "Toto je ochrana.",
-      "english": "This is a protection.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vystavba": [
-    {
-      "slovak": "Toto je výstavba.",
-      "english": "This is a construction.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "suvislost": [
     {
       "slovak": "Toto je súvislosť.",
       "english": "This is a connection.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "televizia": [
-    {
-      "slovak": "Toto je televízia.",
-      "english": "This is a television.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6766,26 +6054,10 @@
       "isPracticeFrame": true
     }
   ],
-  "univerzita": [
-    {
-      "slovak": "Kde je univerzita?",
-      "english": "Where is a university?",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "klient": [
     {
       "slovak": "To je klient.",
       "english": "That is a client.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zisk": [
-    {
-      "slovak": "Toto je zisk.",
-      "english": "This is a profit.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6802,22 +6074,6 @@
     {
       "slovak": "Toto je víťaz.",
       "english": "This is a winner.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "navsteva": [
-    {
-      "slovak": "Toto je návšteva.",
-      "english": "This is a visit.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "kontrola": [
-    {
-      "slovak": "Toto je kontrola.",
-      "english": "This is a check.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -6910,14 +6166,6 @@
       "isPracticeFrame": true
     }
   ],
-  "hladisko": [
-    {
-      "slovak": "Toto je hľadisko.",
-      "english": "This is a viewpoint.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "ucastnik": [
     {
       "slovak": "Toto je účastník.",
@@ -6930,14 +6178,6 @@
     {
       "slovak": "Kde je stavba?",
       "english": "Where is a building?",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "energia": [
-    {
-      "slovak": "Toto je energia.",
-      "english": "This is an energy.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7030,22 +6270,6 @@
       "isPracticeFrame": true
     }
   ],
-  "ihrisko": [
-    {
-      "slovak": "Kde je ihrisko?",
-      "english": "Where is a playing field?",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "snaha": [
-    {
-      "slovak": "Toto je snaha.",
-      "english": "This is an effort.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "stupen": [
     {
       "slovak": "Jeden stupeň stačí.",
@@ -7066,22 +6290,6 @@
     {
       "slovak": "Toto je príspevok.",
       "english": "This is a contribution.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "karta": [
-    {
-      "slovak": "Toto je karta.",
-      "english": "This is a card.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "jednotka": [
-    {
-      "slovak": "Jedna jednotka stačí.",
-      "english": "One unit is enough.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7166,14 +6374,6 @@
       "isPracticeFrame": true
     }
   ],
-  "poziadavka": [
-    {
-      "slovak": "Toto je požiadavka.",
-      "english": "This is a requirement.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "muzeum": [
     {
       "slovak": "Kde je múzeum?",
@@ -7210,14 +6410,6 @@
     {
       "slovak": "Volá sa Marek.",
       "english": "His/her name is Marek.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "podstata": [
-    {
-      "slovak": "Toto je podstata.",
-      "english": "This is an essence.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7294,26 +6486,10 @@
       "isPracticeFrame": true
     }
   ],
-  "choroba": [
-    {
-      "slovak": "Toto je choroba.",
-      "english": "This is an illness.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "model": [
     {
       "slovak": "Toto je model.",
       "english": "This is a model.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "navstevnik": [
-    {
-      "slovak": "Toto je návštevník.",
-      "english": "This is a visitor.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7346,14 +6522,6 @@
     {
       "slovak": "Toto je riziko.",
       "english": "This is a risk.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "kancelaria": [
-    {
-      "slovak": "Kde je kancelária?",
-      "english": "Where is an office?",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7422,14 +6590,6 @@
       "isPracticeFrame": true
     }
   ],
-  "pole": [
-    {
-      "slovak": "Kde je pole?",
-      "english": "Where is a field?",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "lider": [
     {
       "slovak": "To je líder.",
@@ -7446,26 +6606,10 @@
       "isPracticeFrame": true
     }
   ],
-  "prevadzka": [
-    {
-      "slovak": "Toto je prevádzka.",
-      "english": "This is an operation.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "fanusik": [
     {
       "slovak": "Toto je fanúšik.",
       "english": "This is a fan.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vyhoda": [
-    {
-      "slovak": "Toto je výhoda.",
-      "english": "This is an advantage.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7522,14 +6666,6 @@
     {
       "slovak": "Toto je značka.",
       "english": "This is a brand.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "stena": [
-    {
-      "slovak": "Kde je stena?",
-      "english": "Where is a wall?",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7618,14 +6754,6 @@
     {
       "slovak": "Toto je reforma.",
       "english": "This is a reform.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "atmosfera": [
-    {
-      "slovak": "Toto je atmosféra.",
-      "english": "This is an atmosphere.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7722,30 +6850,6 @@
     {
       "slovak": "Toto je samospráva.",
       "english": "This is a self-government.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "desiatka": [
-    {
-      "slovak": "Toto je desiatka.",
-      "english": "This is a ten.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "armada": [
-    {
-      "slovak": "Toto je armáda.",
-      "english": "This is an army.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "stredisko": [
-    {
-      "slovak": "Toto je stredisko.",
-      "english": "This is a center.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7902,26 +7006,10 @@
       "isPracticeFrame": true
     }
   ],
-  "novela": [
-    {
-      "slovak": "Toto je novela.",
-      "english": "This is a novella.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "reakcia": [
     {
       "slovak": "Toto je reakcia.",
       "english": "This is a reaction.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "prst": [
-    {
-      "slovak": "Toto je prst.",
-      "english": "This is a finger.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -7962,14 +7050,6 @@
     {
       "slovak": "Humenné je pekné mesto.",
       "english": "Humenné is a nice city.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "kino": [
-    {
-      "slovak": "Kde je kino?",
-      "english": "Where is a cinema?",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -8078,14 +7158,6 @@
       "isPracticeFrame": true
     }
   ],
-  "dovolenka": [
-    {
-      "slovak": "Toto je dovolenka.",
-      "english": "This is a vacation.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "vydanie": [
     {
       "slovak": "Toto je vydanie.",
@@ -8146,14 +7218,6 @@
     {
       "slovak": "Jeden objem stačí.",
       "english": "One volume is enough.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "tabor": [
-    {
-      "slovak": "Toto je tábor.",
-      "english": "This is a camp.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -8286,22 +7350,6 @@
       "isPracticeFrame": true
     }
   ],
-  "tuzba": [
-    {
-      "slovak": "Toto je túžba.",
-      "english": "This is a desire.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "uvaha": [
-    {
-      "slovak": "Toto je úvaha.",
-      "english": "This is a reflection.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "obranca": [
     {
       "slovak": "Toto je obranca.",
@@ -8314,14 +7362,6 @@
     {
       "slovak": "Kde je redakcia?",
       "english": "Where is an editorial office?",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "oslava": [
-    {
-      "slovak": "Toto je oslava.",
-      "english": "This is a celebration.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -8422,14 +7462,6 @@
       "isPracticeFrame": true
     }
   ],
-  "jazda": [
-    {
-      "slovak": "Toto je jazda.",
-      "english": "This is a ride.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "posobenie": [
     {
       "slovak": "Toto je pôsobenie.",
@@ -8466,14 +7498,6 @@
     {
       "slovak": "Volá sa Jana.",
       "english": "His/her name is Jana.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "plece": [
-    {
-      "slovak": "Toto je plece.",
-      "english": "This is a shoulder.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -8522,14 +7546,6 @@
     {
       "slovak": "Toto je výmena.",
       "english": "This is an exchange.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "potravina": [
-    {
-      "slovak": "Toto je potravina.",
-      "english": "This is a foodstuff.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -8650,14 +7666,6 @@
     {
       "slovak": "Toto je tréning.",
       "english": "This is a training.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vlna": [
-    {
-      "slovak": "Toto je vlna.",
-      "english": "This is a wave.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -8798,14 +7806,6 @@
       "isPracticeFrame": true
     }
   ],
-  "stred": [
-    {
-      "slovak": "Toto je stred.",
-      "english": "This is a middle.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "nezamestnanost": [
     {
       "slovak": "Toto je nezamestnanosť.",
@@ -8818,14 +7818,6 @@
     {
       "slovak": "To je príslušník.",
       "english": "That is a member.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "linka": [
-    {
-      "slovak": "Toto je linka.",
-      "english": "This is a line.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -8942,14 +7934,6 @@
       "isPracticeFrame": true
     }
   ],
-  "nalada": [
-    {
-      "slovak": "Toto je nálada.",
-      "english": "This is a mood.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "studia": [
     {
       "slovak": "Toto je štúdia.",
@@ -9030,14 +8014,6 @@
       "isPracticeFrame": true
     }
   ],
-  "kapitola": [
-    {
-      "slovak": "Jedna kapitola stačí.",
-      "english": "One chapter is enough.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "meciar": [
     {
       "slovak": "Volá sa Mečiar.",
@@ -9110,22 +8086,6 @@
       "isPracticeFrame": true
     }
   ],
-  "istota": [
-    {
-      "slovak": "Toto je istota.",
-      "english": "This is a certainty.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "ohlad": [
-    {
-      "slovak": "Toto je ohľad.",
-      "english": "This is a regard.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "vedec": [
     {
       "slovak": "Toto je vedec.",
@@ -9150,26 +8110,10 @@
       "isPracticeFrame": true
     }
   ],
-  "vlastnik": [
-    {
-      "slovak": "To je vlastník.",
-      "english": "That is an owner.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "financovanie": [
     {
       "slovak": "Toto je financovanie.",
       "english": "This is a funding.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "novinka": [
-    {
-      "slovak": "Jedna novinka stačí.",
-      "english": "One news item is enough.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9350,14 +8294,6 @@
       "isPracticeFrame": true
     }
   ],
-  "pracovisko": [
-    {
-      "slovak": "Toto je pracovisko.",
-      "english": "This is a workplace.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "pachatel": [
     {
       "slovak": "Toto je páchateľ.",
@@ -9434,22 +8370,6 @@
     {
       "slovak": "Toto je dôchodca.",
       "english": "This is a pensioner.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zasada": [
-    {
-      "slovak": "Toto je zásada.",
-      "english": "This is a principle.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "slza": [
-    {
-      "slovak": "Toto je slza.",
-      "english": "This is a tear.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9534,10 +8454,10 @@
       "isPracticeFrame": true
     }
   ],
-  "uplny": [
+  "zilinsky": [
     {
-      "slovak": "Ten projekt je úplný.",
-      "english": "That project is complete.",
+      "slovak": "Je to žilinský výraz.",
+      "english": "This is an expression from Žilina.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9554,14 +8474,6 @@
     {
       "slovak": "Ten dom je minimálny.",
       "english": "That house is minimal.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "tichy": [
-    {
-      "slovak": "Ten dom je tichý.",
-      "english": "That house is quiet.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9590,30 +8502,6 @@
       "isPracticeFrame": true
     }
   ],
-  "drobny": [
-    {
-      "slovak": "Ten dom je drobný.",
-      "english": "That house is tiny.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "platny": [
-    {
-      "slovak": "Ten dom je platný.",
-      "english": "That house is valid.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "teply": [
-    {
-      "slovak": "Ten dom je teplý.",
-      "english": "That house is warm.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "pravidelny": [
     {
       "slovak": "Ten dom je pravidelný.",
@@ -9638,6 +8526,14 @@
       "isPracticeFrame": true
     }
   ],
+  "spissky": [
+    {
+      "slovak": "Je to spišský výraz.",
+      "english": "This is an expression from Spiš.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
   "elektricky": [
     {
       "slovak": "Ten dom je elektrický.",
@@ -9650,22 +8546,6 @@
     {
       "slovak": "Ten muž je výhodný.",
       "english": "That man is advantageous.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "juzny": [
-    {
-      "slovak": "Ten projekt je južný.",
-      "english": "That project is southern.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "denny": [
-    {
-      "slovak": "Ten projekt je denný.",
-      "english": "That project is daily.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9726,22 +8606,6 @@
       "isPracticeFrame": true
     }
   ],
-  "mesacny": [
-    {
-      "slovak": "Ten projekt je mesačný.",
-      "english": "That project is monthly.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "osobitny": [
-    {
-      "slovak": "Ten projekt je osobitný.",
-      "english": "That project is special.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "sutazny": [
     {
       "slovak": "Ten muž je súťažný.",
@@ -9754,22 +8618,6 @@
     {
       "slovak": "Ten dom je mobilný.",
       "english": "That house is mobile.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "trvaly": [
-    {
-      "slovak": "Ten projekt je trvalý.",
-      "english": "That project is permanent.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zeleznicny": [
-    {
-      "slovak": "Ten dom je železničný.",
-      "english": "That house is railway.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9822,26 +8670,10 @@
       "isPracticeFrame": true
     }
   ],
-  "vcerajsi": [
+  "trnavsky": [
     {
-      "slovak": "Ten dom je včerajší.",
-      "english": "That house is yesterday's.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zbytocny": [
-    {
-      "slovak": "Ten projekt je zbytočný.",
-      "english": "That project is unnecessary.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zadny": [
-    {
-      "slovak": "Ten dom je zadný.",
-      "english": "That house is rear.",
+      "slovak": "Je to trnavský výraz.",
+      "english": "This is an expression from Trnava.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9858,14 +8690,6 @@
     {
       "slovak": "Ten projekt je takzvaný.",
       "english": "That project is so-called.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vynimocny": [
-    {
-      "slovak": "Ten projekt je výnimočný.",
-      "english": "That project is exceptional.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -9934,22 +8758,6 @@
       "isPracticeFrame": true
     }
   ],
-  "jadrovy": [
-    {
-      "slovak": "Ten dom je jadrový.",
-      "english": "That house is nuclear.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "opacny": [
-    {
-      "slovak": "Ten dom je opačný.",
-      "english": "That house is opposite.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "koalicny": [
     {
       "slovak": "Ten dom je koaličný.",
@@ -9966,26 +8774,10 @@
       "isPracticeFrame": true
     }
   ],
-  "dostatocny": [
-    {
-      "slovak": "Ten dom je dostatočný.",
-      "english": "That house is sufficient.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "kriticky": [
     {
       "slovak": "Ten muž je kritický.",
       "english": "That man is critical.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "slnecny": [
-    {
-      "slovak": "Ten dom je slnečný.",
-      "english": "That house is sunny.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10058,14 +8850,6 @@
     {
       "slovak": "Ten muž je turistický.",
       "english": "That man is tourist.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "strieborny": [
-    {
-      "slovak": "Ten muž je strieborný.",
-      "english": "That man is silver.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10206,14 +8990,6 @@
       "isPracticeFrame": true
     }
   ],
-  "slusny": [
-    {
-      "slovak": "Ten muž je slušný.",
-      "english": "That man is decent.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "zavazny": [
     {
       "slovak": "Ten muž je závažný.",
@@ -10270,34 +9046,10 @@
       "isPracticeFrame": true
     }
   ],
-  "telesny": [
-    {
-      "slovak": "Ten dom je telesný.",
-      "english": "That house is bodily.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "nakladny": [
     {
       "slovak": "Ten projekt je nákladný.",
       "english": "That project is freight.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "podozrivy": [
-    {
-      "slovak": "Ten dom je podozrivý.",
-      "english": "That house is suspicious.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "bezpecny": [
-    {
-      "slovak": "Ten projekt je bezpečný.",
-      "english": "That project is safe.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10358,14 +9110,6 @@
       "isPracticeFrame": true
     }
   ],
-  "lesny": [
-    {
-      "slovak": "Ten muž je lesný.",
-      "english": "That man is forest.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "menovy": [
     {
       "slovak": "Ten dom je menový.",
@@ -10374,42 +9118,10 @@
       "isPracticeFrame": true
     }
   ],
-  "predcasny": [
-    {
-      "slovak": "Ten projekt je predčasný.",
-      "english": "That project is premature.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "prudky": [
-    {
-      "slovak": "Ten projekt je prudký.",
-      "english": "That project is steep.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "ranny": [
-    {
-      "slovak": "Ten muž je ranný.",
-      "english": "That man is morning.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "terajsi": [
     {
       "slovak": "Ten projekt je terajší.",
       "english": "That project is present.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pocetny": [
-    {
-      "slovak": "Ten projekt je početný.",
-      "english": "That project is numerous.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10426,22 +9138,6 @@
     {
       "slovak": "Ten projekt je efektívny.",
       "english": "That project is efficient.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "verny": [
-    {
-      "slovak": "Ten muž je verný.",
-      "english": "That man is faithful.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nasledny": [
-    {
-      "slovak": "Ten projekt je následný.",
-      "english": "That project is subsequent.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10606,14 +9302,6 @@
       "isPracticeFrame": true
     }
   ],
-  "vesely": [
-    {
-      "slovak": "Ten dom je veselý.",
-      "english": "That house is cheerful.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "vzdelavaci": [
     {
       "slovak": "Ten dom je vzdelávací.",
@@ -10634,14 +9322,6 @@
     {
       "slovak": "Ten muž je múdry.",
       "english": "That man is wise.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nutny": [
-    {
-      "slovak": "Ten projekt je nutný.",
-      "english": "That project is necessary.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10678,14 +9358,6 @@
       "isPracticeFrame": true
     }
   ],
-  "ochranny": [
-    {
-      "slovak": "Ten projekt je ochranný.",
-      "english": "That project is protective.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "nepriaznivy": [
     {
       "slovak": "Ten dom je nepriaznivý.",
@@ -10694,26 +9366,10 @@
       "isPracticeFrame": true
     }
   ],
-  "bronzovy": [
-    {
-      "slovak": "Ten dom je bronzový.",
-      "english": "That house is bronze.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "funkcny": [
     {
       "slovak": "Ten muž je funkčný.",
       "english": "That man is functional.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "kamenny": [
-    {
-      "slovak": "Ten dom je kamenný.",
-      "english": "That house is stone.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10790,26 +9446,10 @@
       "isPracticeFrame": true
     }
   ],
-  "ladovy": [
-    {
-      "slovak": "Ten projekt je ľadový.",
-      "english": "That project is ice.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "psychicky": [
     {
       "slovak": "Ten muž je psychický.",
       "english": "That man is mental.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "neuveritelny": [
-    {
-      "slovak": "Ten muž je neuveriteľný.",
-      "english": "That man is unbelievable.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -10870,22 +9510,6 @@
       "isPracticeFrame": true
     }
   ],
-  "falosny": [
-    {
-      "slovak": "Ten projekt je falošný.",
-      "english": "That project is false.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "jednoznacny": [
-    {
-      "slovak": "Ten muž je jednoznačný.",
-      "english": "That man is unequivocal.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "webovy": [
     {
       "slovak": "Ten projekt je webový.",
@@ -10926,34 +9550,10 @@
       "isPracticeFrame": true
     }
   ],
-  "rovny": [
-    {
-      "slovak": "Ten dom je rovný.",
-      "english": "That house is straight.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "komunikacny": [
     {
       "slovak": "Ten muž je komunikačný.",
       "english": "That man is communication.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pravdepodobny": [
-    {
-      "slovak": "Ten muž je pravdepodobný.",
-      "english": "That man is probable.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "stabilny": [
-    {
-      "slovak": "Ten dom je stabilný.",
-      "english": "That house is stable.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11046,14 +9646,6 @@
       "isPracticeFrame": true
     }
   ],
-  "husty": [
-    {
-      "slovak": "Ten muž je hustý.",
-      "english": "That man is dense.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "niekdajsi": [
     {
       "slovak": "Ten dom je niekdajší.",
@@ -11082,14 +9674,6 @@
     {
       "slovak": "Ten muž je filozofický.",
       "english": "That man is philosophical.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "priatelsky": [
-    {
-      "slovak": "Je to priateľský výraz.",
-      "english": "It is a friendly expression.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11126,26 +9710,10 @@
       "isPracticeFrame": true
     }
   ],
-  "stvorcovy": [
-    {
-      "slovak": "Ten dom je štvorcový.",
-      "english": "That house is square.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "rekordny": [
     {
       "slovak": "Ten dom je rekordný.",
       "english": "That house is record.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "dusevny": [
-    {
-      "slovak": "Ten muž je duševný.",
-      "english": "That man is mental.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11166,18 +9734,18 @@
       "isPracticeFrame": true
     }
   ],
-  "zrejmy": [
-    {
-      "slovak": "Ten dom je zrejmý.",
-      "english": "That house is obvious.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "penazny": [
     {
       "slovak": "Ten dom je peňažný.",
       "english": "That house is monetary.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "martinsky": [
+    {
+      "slovak": "Je to martinský výraz.",
+      "english": "This is an expression from Martin.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11302,22 +9870,6 @@
       "isPracticeFrame": true
     }
   ],
-  "dobrovolny": [
-    {
-      "slovak": "Ten dom je dobrovoľný.",
-      "english": "That house is voluntary.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "rozumny": [
-    {
-      "slovak": "Ten muž je rozumný.",
-      "english": "That man is sensible.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "hraci": [
     {
       "slovak": "Ten muž je hrací.",
@@ -11366,6 +9918,14 @@
       "isPracticeFrame": true
     }
   ],
+  "zvolensky": [
+    {
+      "slovak": "Je to zvolenský výraz.",
+      "english": "This is an expression from Zvolen.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
   "charakteristicky": [
     {
       "slovak": "Ten muž je charakteristický.",
@@ -11386,14 +9946,6 @@
     {
       "slovak": "Ten projekt je zákonný.",
       "english": "That project is legal.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "vstupny": [
-    {
-      "slovak": "Ten dom je vstupný.",
-      "english": "That house is entrance.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11454,14 +10006,6 @@
       "isPracticeFrame": true
     }
   ],
-  "postovy": [
-    {
-      "slovak": "Ten projekt je poštový.",
-      "english": "That project is postal.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "administrativny": [
     {
       "slovak": "Ten dom je administratívny.",
@@ -11474,14 +10018,6 @@
     {
       "slovak": "Ten projekt je lokálny.",
       "english": "That project is local.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "fantasticky": [
-    {
-      "slovak": "Ten muž je fantastický.",
-      "english": "That man is fantastic.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11526,26 +10062,10 @@
       "isPracticeFrame": true
     }
   ],
-  "teroristicky": [
-    {
-      "slovak": "Ten projekt je teroristický.",
-      "english": "That project is terrorist.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "knizny": [
     {
       "slovak": "Ten projekt je knižný.",
       "english": "That project is book.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "uradny": [
-    {
-      "slovak": "Ten projekt je úradný.",
-      "english": "That project is official.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11582,34 +10102,10 @@
       "isPracticeFrame": true
     }
   ],
-  "nebesky": [
-    {
-      "slovak": "Je to nebeský výraz.",
-      "english": "It is a heavenly expression.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "pamatny": [
     {
       "slovak": "Ten muž je pamätný.",
       "english": "That man is memorable.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "autobusovy": [
-    {
-      "slovak": "Ten muž je autobusový.",
-      "english": "That man is bus.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "velkonocny": [
-    {
-      "slovak": "Ten projekt je veľkonočný.",
-      "english": "That project is Easter.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11646,14 +10142,6 @@
       "isPracticeFrame": true
     }
   ],
-  "tenky": [
-    {
-      "slovak": "Ten dom je tenký.",
-      "english": "That house is thin.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "pestry": [
     {
       "slovak": "Ten dom je pestrý.",
@@ -11678,10 +10166,10 @@
       "isPracticeFrame": true
     }
   ],
-  "pozoruhodny": [
+  "oravsky": [
     {
-      "slovak": "Ten muž je pozoruhodný.",
-      "english": "That man is remarkable.",
+      "slovak": "Je to oravský výraz.",
+      "english": "This is an expression from Orava.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11690,14 +10178,6 @@
     {
       "slovak": "Ten muž je viditeľný.",
       "english": "That man is visible.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pristupny": [
-    {
-      "slovak": "Ten dom je prístupný.",
-      "english": "That house is accessible.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11734,34 +10214,10 @@
       "isPracticeFrame": true
     }
   ],
-  "podrobny": [
-    {
-      "slovak": "Ten dom je podrobný.",
-      "english": "That house is detailed.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "slovny": [
-    {
-      "slovak": "Ten projekt je slovný.",
-      "english": "That project is verbal.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "narodnostny": [
     {
       "slovak": "Ten muž je národnostný.",
       "english": "That man is ethnic.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "mokry": [
-    {
-      "slovak": "Ten dom je mokrý.",
-      "english": "That house is wet.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11806,14 +10262,6 @@
       "isPracticeFrame": true
     }
   ],
-  "hnedy": [
-    {
-      "slovak": "Ten projekt je hnedý.",
-      "english": "That project is brown.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "talentovany": [
     {
       "slovak": "Ten projekt je talentovaný.",
@@ -11826,14 +10274,6 @@
     {
       "slovak": "Ten dom je psychologický.",
       "english": "That house is psychological.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "najomny": [
-    {
-      "slovak": "Ten dom je nájomný.",
-      "english": "That house is rental.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -11914,14 +10354,6 @@
     {
       "slovak": "Ten projekt je krízový.",
       "english": "That project is crisis.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "logicky": [
-    {
-      "slovak": "Ten projekt je logický.",
-      "english": "That project is logical.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12102,14 +10534,6 @@
       "isPracticeFrame": true
     }
   ],
-  "sluzobny": [
-    {
-      "slovak": "Ten dom je služobný.",
-      "english": "That house is service.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "otazny": [
     {
       "slovak": "Ten dom je otázny.",
@@ -12206,18 +10630,10 @@
       "isPracticeFrame": true
     }
   ],
-  "africky": [
+  "rimavsky": [
     {
-      "slovak": "Ten projekt je africký.",
-      "english": "That project is African.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "snehovy": [
-    {
-      "slovak": "Ten muž je snehový.",
-      "english": "That man is snow.",
+      "slovak": "Je to rimavský výraz.",
+      "english": "This is an expression from Rimavská.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12310,14 +10726,6 @@
       "isPracticeFrame": true
     }
   ],
-  "tajomny": [
-    {
-      "slovak": "Ten projekt je tajomný.",
-      "english": "That project is mysterious.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "irsky": [
     {
       "slovak": "Ten dom je írsky.",
@@ -12390,26 +10798,10 @@
       "isPracticeFrame": true
     }
   ],
-  "krstny": [
-    {
-      "slovak": "Ten projekt je krstný.",
-      "english": "That project is baptismal.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "dvojrocny": [
     {
       "slovak": "Ten projekt je dvojročný.",
       "english": "That project is two-year.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "nevhodny": [
-    {
-      "slovak": "Ten projekt je nevhodný.",
-      "english": "That project is inappropriate.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12446,14 +10838,6 @@
       "isPracticeFrame": true
     }
   ],
-  "pohodlny": [
-    {
-      "slovak": "Ten dom je pohodlný.",
-      "english": "That house is comfortable.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "interny": [
     {
       "slovak": "Ten projekt je interný.",
@@ -12462,26 +10846,10 @@
       "isPracticeFrame": true
     }
   ],
-  "prijatelny": [
-    {
-      "slovak": "Ten dom je prijateľný.",
-      "english": "That house is acceptable.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "rozpravkovy": [
     {
       "slovak": "Ten dom je rozprávkový.",
       "english": "That house is fairy-tale.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "dostojny": [
-    {
-      "slovak": "Ten projekt je dôstojný.",
-      "english": "That project is dignified.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12562,14 +10930,6 @@
     {
       "slovak": "Ten projekt je plastový.",
       "english": "That project is plastic.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "papierovy": [
-    {
-      "slovak": "Ten projekt je papierový.",
-      "english": "That project is paper.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12658,14 +11018,6 @@
     {
       "slovak": "Ten dom je podzemný.",
       "english": "That house is underground.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "spatny": [
-    {
-      "slovak": "Ten dom je spätný.",
-      "english": "That house is return.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12766,26 +11118,10 @@
       "isPracticeFrame": true
     }
   ],
-  "svetly": [
-    {
-      "slovak": "Ten dom je svetlý.",
-      "english": "That house is light.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "dokumentarny": [
     {
       "slovak": "Ten projekt je dokumentárny.",
       "english": "That project is documentary.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "svadobny": [
-    {
-      "slovak": "Ten dom je svadobný.",
-      "english": "That house is wedding.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12870,14 +11206,6 @@
       "isPracticeFrame": true
     }
   ],
-  "divy": [
-    {
-      "slovak": "Ten muž je divý.",
-      "english": "That man is wild.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "dodatocny": [
     {
       "slovak": "Ten muž je dodatočný.",
@@ -12890,22 +11218,6 @@
     {
       "slovak": "Je to viedenský výraz.",
       "english": "It is a Viennese expression.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "smrtelny": [
-    {
-      "slovak": "Ten muž je smrteľný.",
-      "english": "That man is fatal.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pitny": [
-    {
-      "slovak": "Ten muž je pitný.",
-      "english": "That man is drinking.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -12938,14 +11250,6 @@
     {
       "slovak": "Ten muž je firemný.",
       "english": "That man is company.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "hodny": [
-    {
-      "slovak": "Ten muž je hodný.",
-      "english": "That man is worthy.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13022,26 +11326,10 @@
       "isPracticeFrame": true
     }
   ],
-  "zvukovy": [
-    {
-      "slovak": "Ten projekt je zvukový.",
-      "english": "That project is sound.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "jubilejny": [
     {
       "slovak": "Ten muž je jubilejný.",
       "english": "That man is jubilee.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "prechodny": [
-    {
-      "slovak": "Ten muž je prechodný.",
-      "english": "That man is transitional.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13142,26 +11430,10 @@
       "isPracticeFrame": true
     }
   ],
-  "belgicky": [
-    {
-      "slovak": "Ten dom je belgický.",
-      "english": "That house is Belgian.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "belasy": [
     {
       "slovak": "Ten dom je belasý.",
       "english": "That house is sky-blue.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "archeologicky": [
-    {
-      "slovak": "Ten projekt je archeologický.",
-      "english": "That project is archaeological.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13202,6 +11474,14 @@
     {
       "slovak": "Ten dom je atletický.",
       "english": "That house is athletic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "popradsky": [
+    {
+      "slovak": "Je to popradský výraz.",
+      "english": "This is an expression from Poprad.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13270,14 +11550,6 @@
       "isPracticeFrame": true
     }
   ],
-  "absurdny": [
-    {
-      "slovak": "Ten projekt je absurdný.",
-      "english": "That project is absurd.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "kompetentny": [
     {
       "slovak": "Ten projekt je kompetentný.",
@@ -13334,10 +11606,10 @@
       "isPracticeFrame": true
     }
   ],
-  "ubohy": [
+  "prievidzsky": [
     {
-      "slovak": "Ten muž je úbohý.",
-      "english": "That man is poor.",
+      "slovak": "Je to prievidzský výraz.",
+      "english": "This is an expression from Prievidza.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13362,14 +11634,6 @@
     {
       "slovak": "Ten muž je trojročný.",
       "english": "That man is three-year.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "neviditelny": [
-    {
-      "slovak": "Ten muž je neviditeľný.",
-      "english": "That man is invisible.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13510,14 +11774,6 @@
       "isPracticeFrame": true
     }
   ],
-  "drsny": [
-    {
-      "slovak": "Ten projekt je drsný.",
-      "english": "That project is rough.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "prvotny": [
     {
       "slovak": "Ten projekt je prvotný.",
@@ -13590,6 +11846,14 @@
       "isPracticeFrame": true
     }
   ],
+  "ruzombersky": [
+    {
+      "slovak": "Je to ružomberský výraz.",
+      "english": "This is an expression from Ružomberok.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
   "percentualny": [
     {
       "slovak": "Ten projekt je percentuálny.",
@@ -13606,14 +11870,6 @@
       "isPracticeFrame": true
     }
   ],
-  "nemaly": [
-    {
-      "slovak": "Ten dom je nemalý.",
-      "english": "That house is not small.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "kontaktny": [
     {
       "slovak": "Ten dom je kontaktný.",
@@ -13626,14 +11882,6 @@
     {
       "slovak": "Je to Pánov výraz.",
       "english": "It is the Lord's expression.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "pozorny": [
-    {
-      "slovak": "Ten dom je pozorný.",
-      "english": "That house is attentive.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13682,14 +11930,6 @@
     {
       "slovak": "Ten projekt je hypotekárny.",
       "english": "That project is mortgage.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "liecivy": [
-    {
-      "slovak": "Ten dom je liečivý.",
-      "english": "That house is medicinal.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13750,14 +11990,6 @@
       "isPracticeFrame": true
     }
   ],
-  "surovy": [
-    {
-      "slovak": "Ten dom je surový.",
-      "english": "That house is raw.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "celostatny": [
     {
       "slovak": "Ten projekt je celoštátny.",
@@ -13814,14 +12046,6 @@
       "isPracticeFrame": true
     }
   ],
-  "nezmyselny": [
-    {
-      "slovak": "Ten projekt je nezmyselný.",
-      "english": "That project is nonsensical.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "potravinarsky": [
     {
       "slovak": "Ten muž je potravinársky.",
@@ -13866,14 +12090,6 @@
     {
       "slovak": "Je to Karlov výraz.",
       "english": "It is Karl's expression.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "klimaticky": [
-    {
-      "slovak": "Ten muž je klimatický.",
-      "english": "That man is climatic.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -13974,14 +12190,6 @@
       "isPracticeFrame": true
     }
   ],
-  "zrely": [
-    {
-      "slovak": "Ten projekt je zrelý.",
-      "english": "That project is mature.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "junovy": [
     {
       "slovak": "Ten muž je júnový.",
@@ -14038,14 +12246,6 @@
       "isPracticeFrame": true
     }
   ],
-  "chutny": [
-    {
-      "slovak": "Ten dom je chutný.",
-      "english": "That house is tasty.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
   "elegantny": [
     {
       "slovak": "Ten dom je elegantný.",
@@ -14066,14 +12266,6 @@
     {
       "slovak": "Ten muž je akútny.",
       "english": "That man is acute.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "zahadny": [
-    {
-      "slovak": "Ten dom je záhadný.",
-      "english": "That house is mysterious.",
       "note": "Curated",
       "isPracticeFrame": true
     }
@@ -14106,14 +12298,6 @@
     {
       "slovak": "Ten dom je racionálny.",
       "english": "That house is rational.",
-      "note": "Curated",
-      "isPracticeFrame": true
-    }
-  ],
-  "rast-n": [
-    {
-      "slovak": "Toto je rast.",
-      "english": "This is a growth.",
       "note": "Curated",
       "isPracticeFrame": true
     }

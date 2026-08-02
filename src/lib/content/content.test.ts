@@ -149,11 +149,16 @@ describe("Slovak content", () => {
   });
 
   it("uses classed noun fill frames including measure nouns", () => {
+    const meter = words.find((word) => word.slug === "meter");
+    expect(meter?.examples[0]?.slovak).toBe("Jeden meter stačí.");
+    expect(meter?.examples[0]?.english).toBe("One meter is enough.");
+    expect(meter?.examples[0]?.note).toBe("Curated");
+    expect(meter?.examples[0]?.isPracticeFrame).toBe(true);
+
     const jednotka = words.find((word) => word.slug === "jednotka");
-    expect(jednotka?.examples[0]?.slovak).toBe("Jedna jednotka stačí.");
-    expect(jednotka?.examples[0]?.english).toBe("One unit is enough.");
-    expect(jednotka?.examples[0]?.note).toBe("Curated");
-    expect(jednotka?.examples[0]?.isPracticeFrame).toBe(true);
+    expect(jednotka?.examples[0]?.note).toBe("Tatoeba");
+    expect(jednotka?.examples[0]?.tatoebaId).toBeDefined();
+    expect(jednotka?.examples[0]?.isPracticeFrame).toBeUndefined();
 
     const informacia = words.find((word) => word.slug === "informacia");
     expect(informacia?.examples[0]?.slovak).toBe("Táto informácia je dôležitá.");
@@ -283,9 +288,13 @@ describe("Slovak content", () => {
       /^Chcem /u.test(slovak) ||
       /^Môže to /u.test(slovak) ||
       /^Môže sa to /u.test(slovak) ||
+      /^To môže /u.test(slovak) ||
       /^Také veci môžu /u.test(slovak) ||
       /^Je možné /u.test(slovak) ||
+      /^Je ťažké /u.test(slovak) ||
       /^Niekto môže /u.test(slovak) ||
+      /^Začínam /u.test(slovak) ||
+      /^Snažím sa /u.test(slovak) ||
       /^Sloveso „/u.test(slovak);
 
     const leftovers = words.filter(
@@ -300,6 +309,13 @@ describe("Slovak content", () => {
     expect(leftovers.length).toBeGreaterThan(30);
     expect(
       leftovers.every((word) => !/^Sloveso „/u.test(word.examples[0]?.slovak ?? "")),
+    ).toBe(true);
+    expect(
+      leftovers.every(
+        (word) =>
+          !/^Niekto môže /u.test(word.examples[0]?.slovak ?? "") &&
+          !/^Je možné /u.test(word.examples[0]?.slovak ?? ""),
+      ),
     ).toBe(true);
 
     const prefixes = new Set(
