@@ -40,12 +40,28 @@ function isWeakTemplate(example: Example): boolean {
     return true;
   if (/^Ten príklad je .+\.$/u.test(slovak) && /^That example is /i.test(english))
     return true;
+  if (/^Ten muž je .+\.$/u.test(slovak) && /^That man is /i.test(english)) return true;
+  if (/^Ten dom je .+\.$/u.test(slovak) && /^That house is /i.test(english)) return true;
+  if (/^Ten projekt je .+\.$/u.test(slovak) && /^That project is /i.test(english))
+    return true;
+  if (/^To mesto je .+\.$/u.test(slovak) && /^That city is /i.test(english)) return true;
+  if (/^To je .+\.$/u.test(slovak) && /^That is /i.test(english)) return true;
   if (/^Tá práca je .+\.$/u.test(slovak)) return true;
   if (/^Toto je .+\.$/u.test(slovak) && /^This is /i.test(english)) return true;
   if (/^Toto sú .+\.$/u.test(slovak) && /^These are /i.test(english)) return true;
+  if (/^Kde je .+\?$/u.test(slovak) && /^Where is /i.test(english)) return true;
+  if (/^Jeden .+ stačí\.$/u.test(slovak) && /^One .+ is enough\.$/i.test(english))
+    return true;
+  if (/^Jedna .+ stačí\.$/u.test(slovak) && /^One .+ is enough\.$/i.test(english))
+    return true;
+  if (/^Jedno .+ stačí\.$/u.test(slovak) && /^One .+ is enough\.$/i.test(english))
+    return true;
   if (/^Potrebujem .+\.$/u.test(slovak) && /^I need /i.test(english)) return true;
   if (/^Volá sa .+\.$/u.test(slovak) && /^His\/her name is /i.test(english)) return true;
   if (/^Navštívim .+\.$/u.test(slovak) && /^I'll visit /i.test(english)) return true;
+  if (/^Tu je .+\.$/u.test(slovak) && /^Here is /i.test(english)) return true;
+  if (/^.+ je pekné mesto\.$/u.test(slovak) && / is a nice city\.$/i.test(english))
+    return true;
 
   return false;
 }

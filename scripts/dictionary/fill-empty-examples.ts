@@ -160,21 +160,88 @@ function verbExample(slovak: string, english: string): Example {
   }
 }
 
-function adjectiveExample(slovak: string, english: string): Example {
-  const gloss = firstGloss(english);
-  if (/á$/i.test(slovak)) {
-    return {
-      slovak: `Tá práca je ${slovak}.`,
-      english: `That job is ${gloss}.`,
-      note: "Curated",
-    };
+type AdjFrame = "person" | "house" | "project" | "work" | "neuter";
+
+function hashPick<T>(key: string, options: readonly T[]): T {
+  let hash = 0;
+  for (let index = 0; index < key.length; index += 1) {
+    hash = (hash * 31 + key.charCodeAt(index)) >>> 0;
+  }
+  return options[hash % options.length]!;
+}
+
+function classifyAdjectiveFrame(slovak: string, gloss: string): AdjFrame {
+  const g = gloss.toLowerCase();
+  const lemma = slovak.toLocaleLowerCase("sk");
+
+  // Host gender must match citation ending — never Tá práca + mužský tvar.
+  if (/á$/i.test(slovak)) return "work";
+  if (/é$/i.test(slovak)) return "neuter";
+
+  if (
+    /\b(kind|brave|smart|clever|honest|friendly|happy|sad|angry|calm|patient|lazy|rich|poor|young|old|nice|polite|rude|funny|serious|proud|shy|wise|stupid|good|bad|evil|cruel|gentle|loyal|jealous|nervous|tired|ill|sick|healthy|strong|weak|famous|popular|lonely|lucky|careful|careless|selfish|generous|strict|fair|unfair|silent|noisy|busy|free|alive|dead|married|single|drunk|sober|awake|asleep)\b/i.test(
+      g,
+    )
+  ) {
+    return "person";
   }
 
-  return {
-    slovak: `Ten príklad je ${slovak}.`,
-    english: `That example is ${gloss}.`,
-    note: "Curated",
-  };
+  if (
+    /\b(big|small|large|tiny|long|short|tall|wide|narrow|high|low|heavy|light|new|empty|full|open|closed|clean|dirty|hot|cold|warm|soft|hard|fast|slow|thick|thin|deep|shallow|round|flat|sharp|dull|bright|dark|wet|dry|quiet|loud|cheap|expensive|beautiful|ugly|modern|ancient|wooden|metal|glass|broken|fresh|raw|ripe|sweet|sour|bitter|salty)\b/i.test(
+      g,
+    )
+  ) {
+    return "house";
+  }
+
+  if (
+    /\b(important|useful|necessary|difficult|easy|possible|impossible|ready|special|main|basic|key|official|public|private|legal|illegal|professional|financial|political|social|cultural|technical|scientific|economic|military|national|international|local|global|central|final|initial|current|previous|next|future|past|common|rare|typical|normal|strange|odd|clear|unclear|simple|complex|general|specific|positive|negative|active|passive|effective|efficient|successful|failed|safe|dangerous|risk|available|missing|complete|incomplete|correct|wrong|true|false|real|fake|original|similar|different|equal|unique|ordinary)\b/i.test(
+      g,
+    )
+  ) {
+    return "project";
+  }
+
+  // Masc leftovers: rotate hosts for novelty (avoid weak "To je + -ý")
+  return hashPick(lemma, ["person", "house", "project"] as const);
+}
+
+function adjectiveExample(slovak: string, english: string): Example {
+  const gloss = firstGloss(english);
+  const frame = classifyAdjectiveFrame(slovak, gloss);
+
+  switch (frame) {
+    case "person":
+      return {
+        slovak: `Ten muž je ${slovak}.`,
+        english: `That man is ${gloss}.`,
+        note: "Curated",
+      };
+    case "house":
+      return {
+        slovak: `Ten dom je ${slovak}.`,
+        english: `That house is ${gloss}.`,
+        note: "Curated",
+      };
+    case "project":
+      return {
+        slovak: `Ten projekt je ${slovak}.`,
+        english: `That project is ${gloss}.`,
+        note: "Curated",
+      };
+    case "work":
+      return {
+        slovak: `Tá práca je ${slovak}.`,
+        english: `That job is ${gloss}.`,
+        note: "Curated",
+      };
+    case "neuter":
+      return {
+        slovak: `To mesto je ${slovak}.`,
+        english: `That city is ${gloss}.`,
+        note: "Curated",
+      };
+  }
 }
 
 /** Lemmas that are plural or plurale tantum — need "Toto sú", not "Toto je". */
@@ -195,36 +262,104 @@ const PLURAL_NOUNS = new Set([
   "data",
 ]);
 
-function isPluralNoun(slovak: string): boolean {
-  const lower = slovak.toLocaleLowerCase("sk");
-  if (PLURAL_NOUNS.has(lower)) return true;
-  // Common plurale-tantum / plural lemma endings in the frequency list
-  if (/^(peniaze|ľudia|deti)$/iu.test(lower)) return true;
-  return false;
+type NounFrame = "plural" | "person" | "place" | "measure" | "thing";
+
+function nounGenderNumeral(slovak: string): { sk: string; en: string } {
+  const lemma = slovak.toLocaleLowerCase("sk");
+  if (/[aá]$/u.test(lemma) || /osť$/u.test(lemma)) {
+    return { sk: "Jedna", en: "One" };
+  }
+  if (/[oé]$/u.test(lemma) || /um$/u.test(lemma)) {
+    return { sk: "Jedno", en: "One" };
+  }
+  return { sk: "Jeden", en: "One" };
+}
+
+function classifyNounFrame(slovak: string, gloss: string): NounFrame {
+  const lemma = slovak.toLocaleLowerCase("sk");
+  if (PLURAL_NOUNS.has(lemma)) return "plural";
+
+  const g = gloss.toLowerCase();
+  if (
+    /\b(teacher|student|pupil|doctor|nurse|man|woman|person|people|child|boy|girl|friend|father|mother|brother|sister|parent|worker|boss|king|queen|police|soldier|player|writer|artist|driver|guest|neighbor|neighbour|citizen|member|leader|expert|specialist|lawyer|judge|priest|cook|waiter|engineer|manager|author|actor|actress|singer|farmer|miner|pilot|sailor|officer|guard|thief|victim|witness|client|customer|patient|colleague|partner|owner|director|minister|president|mayor|priest|monk|nun|baby|teenager|adult|stranger|enemy|hero|fool|genius)\b/i.test(
+      g,
+    )
+  ) {
+    return "person";
+  }
+  if (
+    /\b(school|station|city|town|village|park|street|road|house|home|flat|apartment|building|hospital|church|shop|store|market|office|room|hotel|restaurant|bridge|river|mountain|forest|garden|airport|university|library|museum|factory|bank|square|stop|place|country|region|district|capital|border|coast|island|lake|sea|ocean|valley|field|farm|yard|garage|kitchen|bathroom|bedroom|hall|cinema|theater|theatre|stadium|gym|pool|zoo|cafe|bar|pub|club|temple|mosque|castle|palace|tower|wall|door|window|floor|roof|basement|attic|prison|jail|court|embassy|ministry)\b/i.test(
+      g,
+    )
+  ) {
+    return "place";
+  }
+  if (
+    /\b(unit|percent|percentage|part|piece|amount|sum|number|count|degree|level|rate|share|portion|dose|item|point|score|mark|grade|measure|quantity|size|length|width|height|weight|volume|pair|set|group|team|series|chapter|page|section|version|copy|example|case|instance|type|kind|sort|form|mode|phase|stage|step|layer|bit|byte|meter|metre|kilometer|kilometre|hour|minute|second|day|week|month|year|crown|euro|dollar|cent)\b/i.test(
+      g,
+    )
+  ) {
+    return "measure";
+  }
+  return "thing";
 }
 
 function nounExample(slovak: string, english: string): Example {
   const gloss = firstGloss(english);
-  if (isPluralNoun(slovak)) {
-    return {
-      slovak: `Toto sú ${slovak}.`,
-      english: `These are ${gloss}.`,
-      note: "Curated",
-    };
-  }
+  const frame = classifyNounFrame(slovak, gloss);
 
-  return {
-    slovak: `Toto je ${slovak}.`,
-    english: `This is ${article(gloss)}${gloss}.`,
-    note: "Curated",
-  };
+  switch (frame) {
+    case "plural":
+      return {
+        slovak: `Toto sú ${slovak}.`,
+        english: `These are ${gloss}.`,
+        note: "Curated",
+      };
+    case "person":
+      return {
+        slovak: `To je ${slovak}.`,
+        english: `That is ${article(gloss)}${gloss}.`,
+        note: "Curated",
+      };
+    case "place":
+      return {
+        slovak: `Kde je ${slovak}?`,
+        english: `Where is ${article(gloss)}${gloss}?`,
+        note: "Curated",
+      };
+    case "measure": {
+      const num = nounGenderNumeral(slovak);
+      return {
+        slovak: `${num.sk} ${slovak} stačí.`,
+        english: `${num.en} ${gloss} is enough.`,
+        note: "Curated",
+      };
+    }
+    case "thing":
+      return {
+        slovak: `Toto je ${slovak}.`,
+        english: `This is ${article(gloss)}${gloss}.`,
+        note: "Curated",
+      };
+  }
 }
 
 function article(gloss: string): string {
   if (/^(a|an|the)\s/i.test(gloss)) return "";
   // Plural English glosses often end in s — skip article
   if (/\bs$/i.test(gloss) && !/ss$/i.test(gloss)) return "";
-  return /^[aeiou]/i.test(gloss) ? "an " : "a ";
+  // Mass / uncountable — no article
+  if (
+    /^(information|advice|news|evidence|equipment|research|knowledge|progress|traffic|weather|furniture|luggage|homework|money)\b/i.test(
+      gloss,
+    )
+  ) {
+    return "";
+  }
+  // "university", "unit", "euro" — /juː/ or consonant-like u
+  if (/^uni/i.test(gloss) || /^eu/i.test(gloss) || /^one\b/i.test(gloss)) return "a ";
+  if (/^[aeiou]/i.test(gloss)) return "an ";
+  return "a ";
 }
 
 function nameExample(slovak: string): Example {
@@ -239,8 +374,8 @@ function nameExample(slovak: string): Example {
 function placeExample(slovak: string): Example {
   const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
   return {
-    slovak: `Navštívim ${capital}.`,
-    english: `I'll visit ${capital}.`,
+    slovak: `${capital} je pekné mesto.`,
+    english: `${capital} is a nice city.`,
     note: "Curated",
   };
 }

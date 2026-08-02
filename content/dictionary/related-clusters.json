@@ -68,7 +68,21 @@
   "greetings": ["ahoj", "dobry-den", "dovidenia", "dakujem", "prosim", "ano", "nie"],
   "questions": ["kde", "co", "ako", "kto", "kolko"],
   "work-money": ["praca", "peniaze", "obchod", "nakupovat"],
-  "health": ["nemocnica", "lekar", "doktor"],
+  "health": ["nemocnica", "lekar", "doktor", "zdravie", "liek"],
   "animals": ["pes", "zviera"],
-  "travel": ["stanica", "listok", "auto", "autobus", "lietadlo", "mesto"]
+  "travel": ["stanica", "listok", "auto", "autobus", "lietadlo", "mesto", "vlak"],
+  "measure-count": [
+    "jednotka",
+    "percento",
+    "cast",
+    "suma",
+    "pocet",
+    "stupen",
+    "uroven",
+    "cislo",
+    "mnozstvo"
+  ],
+  "body": ["ruka", "noha", "hlava", "oko", "ucho", "srdce", "tvar"],
+  "nature": ["voda", "vzduch", "zem", "strom", "kvet", "les", "hora", "more"],
+  "colors": ["biely", "cierny", "cerveny", "modry", "zeleny", "zlty"]
 }

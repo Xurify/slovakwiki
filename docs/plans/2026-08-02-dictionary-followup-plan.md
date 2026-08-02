@@ -14,7 +14,7 @@ Every live dictionary word has ≥1 example (Tatoeba and/or curated templates vi
 
 Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate`. Weak stubs: `bun run examples:reclaim` → enrich → fill → curate. Semantic peers: `bun run related:apply` (`related-clusters.json`).
 
-**Still open:** unclustered lemmas still fall back to SNK rank±1 neighbors; noun/adjective fill frames still mostly one-shape (verb leftovers use classed infinitive frames).
+**Still open:** unclustered lemmas still fall back to SNK rank±1 neighbors; fill frames are classed for verbs/nouns/adjectives but still templates (not Tatoeba/hand).
 
 ---
 

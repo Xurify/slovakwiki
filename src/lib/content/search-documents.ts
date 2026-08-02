@@ -2,6 +2,7 @@ import { caseTopics, grammarEntries, pronunciationEntries, words } from "./data"
 import { lessons } from "./lessons";
 import { practiceSets } from "./practice";
 import { normalizeSearchText } from "./search";
+import { searchFormsForLemma } from "./search-forms";
 
 export type SearchDocKind =
   "word" | "grammar" | "pronunciation" | "case" | "lesson" | "practice";
@@ -47,6 +48,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         entry.category,
         ...entry.tags,
         ...(entry.aliases ?? []),
+        ...searchFormsForLemma(entry.slovak, entry.category),
         ...entry.body,
         ...entry.examples.flatMap((example) => [example.slovak, example.english]),
       ]),

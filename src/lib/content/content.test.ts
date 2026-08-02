@@ -17,6 +17,7 @@ import { lessons, validateLessons } from "./lessons";
 import { practiceItemById, validatePracticeItems } from "./practice";
 import { normalizeSearchText, searchEntries } from "./search";
 import { buildSearchDocuments } from "./search-documents";
+import { conjugateVerbForTest, searchFormsForLemma } from "./search-forms";
 
 class MemoryStorage implements StorageLike {
   private values = new Map<string, string>();
@@ -42,6 +43,36 @@ describe("Slovak content", () => {
 
   it("finds entries by their English meaning", () => {
     expect(searchEntries("hello")[0]?.slug).toBe("ahoj");
+  });
+
+  it("finds verbs by common conjugated forms", () => {
+    expect(conjugateVerbForTest("navštíviť")).toContain("navštívim");
+    expect(conjugateVerbForTest("robiť")).toContain("robím");
+    expect(searchFormsForLemma("navštíviť", "Verbs")).toContain("navštívim");
+    expect(searchEntries("navštívim")[0]?.slug).toBe("navstivit");
+    expect(searchEntries("kupujem")[0]?.slug).toBe("kupovat");
+  });
+
+  it("indexes conjugated forms for Pagefind word documents", () => {
+    const documents = buildSearchDocuments();
+    const navstivit = documents.find(
+      (document) => document.url === "/dictionary/navstivit",
+    );
+    expect(navstivit).toBeDefined();
+    expect(normalizeSearchText(navstivit!.content)).toContain("navstivim");
+  });
+
+  it("does not keep Navštívim place fill stubs that steal verb form search", () => {
+    const places = words.filter((word) => word.category === "Places");
+    const polluted = places.filter((word) =>
+      word.examples.some(
+        (example) =>
+          example.note === "Curated" &&
+          !example.demonstrates &&
+          /^Navštívim .+\.$/u.test(example.slovak),
+      ),
+    );
+    expect(polluted.map((word) => word.slug)).toEqual([]);
   });
 
   it("indexes reference and learning content for Pagefind", () => {
@@ -109,16 +140,51 @@ describe("Slovak content", () => {
     expect(bad.map((word) => word.slug)).toEqual([]);
   });
 
-  it("uses nominative Toto je stubs when noun fill templates remain", () => {
+  it("uses classed noun fill frames including measure nouns", () => {
+    const jednotka = words.find((word) => word.slug === "jednotka");
+    expect(jednotka?.examples[0]?.slovak).toBe("Jedna jednotka stačí.");
+    expect(jednotka?.examples[0]?.english).toBe("One unit is enough.");
+    expect(jednotka?.examples[0]?.note).toBe("Curated");
+
     const informacia = words.find((word) => word.slug === "informacia");
-    expect(informacia?.examples[0]?.slovak).toBe("Toto je informácia.");
     expect(informacia?.examples[0]?.note).toBe("Curated");
+    expect(informacia?.examples[0]?.slovak).toMatch(/^(Toto je|To je|Kde je|Jedn[aoe])/u);
   });
 
-  it("uses predicative Ten príklad je for leftover adjective fill stubs", () => {
+  it("uses classed adjective fill frames instead of Ten príklad je", () => {
     const odborny = words.find((word) => word.slug === "odborny");
-    expect(odborny?.examples[0]?.slovak).toBe("Ten príklad je odborný.");
     expect(odborny?.examples[0]?.note).toBe("Curated");
+    expect(odborny?.examples[0]?.slovak).not.toMatch(/^Ten príklad je /u);
+    expect(odborny?.examples[0]?.slovak).toMatch(
+      /^(Ten muž je|Ten dom je|Ten projekt je|Tá práca je|To mesto je )/u,
+    );
+    expect(odborny?.examples[0]?.slovak).not.toMatch(/^To je /u);
+
+    const bad = words.filter((word) =>
+      word.examples.some(
+        (example) =>
+          example.note === "Curated" &&
+          !example.demonstrates &&
+          /^Ten príklad je /u.test(example.slovak),
+      ),
+    );
+    expect(bad.map((word) => word.slug)).toEqual([]);
+  });
+
+  it("avoids mono To je adjective fill stubs for masculine lemmas", () => {
+    const bad = words.filter(
+      (word) =>
+        word.category === "Adjectives" &&
+        /[ýí]$/u.test(word.slovak) &&
+        word.examples.some(
+          (example) =>
+            example.note === "Curated" &&
+            !example.demonstrates &&
+            /^To je /u.test(example.slovak) &&
+            /^That is /i.test(example.english ?? ""),
+        ),
+    );
+    expect(bad.map((word) => word.slug)).toEqual([]);
   });
 
   it("does not use citation-gloss verb fill stubs", () => {

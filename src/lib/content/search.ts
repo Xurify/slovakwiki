@@ -1,4 +1,5 @@
 import { allEntries } from "./data";
+import { searchFormsForLemma } from "./search-forms";
 import type { ContentEntry } from "./types";
 
 export function normalizeSearchText(value: string): string {
@@ -18,6 +19,9 @@ export function searchEntries(query: string): ContentEntry[] {
   return allEntries
     .map((entry) => {
       const title = normalizeSearchText(`${entry.slovak} ${entry.english}`);
+      const forms =
+        entry.kind === "word" ? searchFormsForLemma(entry.slovak, entry.category) : [];
+      const formHit = forms.some((form) => normalizeSearchText(form) === normalizedQuery);
       const searchable = normalizeSearchText(
         [
           entry.slovak,
@@ -26,15 +30,18 @@ export function searchEntries(query: string): ContentEntry[] {
           entry.category,
           ...entry.tags,
           ...(entry.aliases ?? []),
+          ...forms,
         ].join(" "),
       );
       const score = title.startsWith(normalizedQuery)
-        ? 3
+        ? 4
         : title.includes(normalizedQuery)
-          ? 2
-          : searchable.includes(normalizedQuery)
-            ? 1
-            : 0;
+          ? 3
+          : formHit
+            ? 2
+            : searchable.includes(normalizedQuery)
+              ? 1
+              : 0;
       return { entry, score };
     })
     .filter((result) => result.score > 0)
