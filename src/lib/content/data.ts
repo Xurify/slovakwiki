@@ -1,12 +1,50 @@
-import type { CaseTopic, ContentEntry, GrammarTopic, PronunciationTopic } from "./types";
+import lemmaFrequencyIndex from "../../../content/frequency/lemma-index.json";
+import promotedWords from "../../../content/dictionary/promoted.json";
+import { normalizeLemma } from "./frequency";
+import { FREQUENCY_POS_LABEL, type FrequencyPos } from "./frequency-types";
+import type {
+  CaseTopic,
+  ContentEntry,
+  GrammarTopic,
+  PronunciationTopic,
+  WordFrequency,
+  WordOrigin,
+} from "./types";
 
 const dictionarySource = "https://slovnik.juls.savba.sk/";
 const languageSource = "https://www.juls.savba.sk/";
+const julsSourceLabel = "Jazykovedný ústav Ľudovíta Štúra SAV";
+const snkSourceUrl =
+  "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/";
 
-const wordSeed: Pick<
+type WordSeed = Pick<
   ContentEntry,
   "slug" | "slovak" | "english" | "category" | "examples" | "related"
->[] = [
+>;
+
+type LemmaFrequencyHit = { pos: FrequencyPos; rank: number };
+
+const frequencyIndex = lemmaFrequencyIndex as Record<string, LemmaFrequencyHit>;
+
+const CATEGORY_TO_POS: Record<string, FrequencyPos> = {
+  Verbs: "verb",
+  Nouns: "noun",
+  Adjectives: "adjective",
+};
+
+function wordFrequency(word: WordSeed): WordFrequency | undefined {
+  const key = normalizeLemma(word.slovak);
+  const preferredPos = CATEGORY_TO_POS[word.category];
+
+  if (preferredPos) {
+    const preferred = frequencyIndex[`${key}|${preferredPos}`];
+    if (preferred) return preferred;
+  }
+
+  return frequencyIndex[key];
+}
+
+const curatedWordSeed: WordSeed[] = [
   {
     slug: "ahoj",
     slovak: "ahoj",
@@ -289,17 +327,60 @@ const wordSeed: Pick<
   },
 ];
 
-export const words: ContentEntry[] = wordSeed.map((word) => ({
-  ...word,
-  kind: "word",
-  summary: `${word.slovak} means “${word.english}.”`,
-  body: [
-    `Use “${word.slovak}” in everyday Slovak. Listen for its natural stress on the first syllable.`,
-    "Read the example aloud, then replace one part of the sentence with a word you already know.",
-  ],
-  source: dictionarySource,
-  tags: [word.category.toLowerCase(), "beginner"],
-}));
+const wordSeed: WordSeed[] = [...curatedWordSeed, ...(promotedWords as WordSeed[])];
+const curatedSlugs = new Set(curatedWordSeed.map((word) => word.slug));
+
+function wordBody(word: WordSeed): string[] {
+  const usage = `Use “${word.slovak}” in everyday Slovak. Listen for its natural stress on the first syllable.`;
+
+  if (word.examples.length > 0) {
+    return [
+      usage,
+      "Read the example aloud, then replace one part of the sentence with a word you already know.",
+    ];
+  }
+
+  return [
+    usage,
+    "Say it aloud, then try it in a short sentence of your own. Sentence examples are not available for this word yet.",
+  ];
+}
+
+function wordAttribution(origin: WordOrigin, frequency: WordFrequency | undefined) {
+  if (origin === "curated") {
+    return {
+      source: dictionarySource,
+      sourceLabel: julsSourceLabel,
+      sourceNote: frequency
+        ? `Also among the most common Slovak ${FREQUENCY_POS_LABEL[frequency.pos].toLowerCase()} in the Slovak National Corpus (#${frequency.rank}).`
+        : undefined,
+    };
+  }
+
+  return {
+    source: snkSourceUrl,
+    sourceLabel: "Slovak National Corpus (SNK)",
+    sourceNote:
+      "English gloss from the frequency publish path. Example sentences from Tatoeba when present.",
+  };
+}
+
+export const words: ContentEntry[] = wordSeed.map((word) => {
+  const origin: WordOrigin = curatedSlugs.has(word.slug) ? "curated" : "frequency";
+  const frequency = wordFrequency(word);
+  const attribution = wordAttribution(origin, frequency);
+
+  return {
+    ...word,
+    kind: "word",
+    summary: `${word.slovak} means “${word.english}.”`,
+    body: wordBody(word),
+    origin,
+    frequency,
+    ...attribution,
+    tags: [word.category.toLowerCase(), "beginner"],
+  };
+});
 
 export const grammarEntries: GrammarTopic[] = [
   {

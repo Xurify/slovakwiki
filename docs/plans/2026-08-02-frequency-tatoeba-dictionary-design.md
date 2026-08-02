@@ -8,14 +8,14 @@ Tatoeba is for **example sentences**, not frequency ranking. If the SNK frequenc
 
 ## Decisions
 
-| Topic | Choice |
-| --- | --- |
-| Approach | Frequency-first (SNK), Tatoeba optional for examples |
-| Quality | Trusted sources + human approve before publish |
-| First slice | Util + public common-lists UI; no mass auto-publish |
-| Approval | Repo draft JSON → promote script merges into live dict |
-| Tatoeba access | Weekly **dumps**, not live API in v1 |
-| Attribution | Shared references module for site + util docs |
+| Topic          | Choice                                                 |
+| -------------- | ------------------------------------------------------ |
+| Approach       | Frequency-first (SNK), Tatoeba optional for examples   |
+| Quality        | Trusted sources + human approve before publish         |
+| First slice    | Util + public common-lists UI; no mass auto-publish    |
+| Approval       | Repo draft JSON → promote script merges into live dict |
+| Tatoeba access | Weekly **dumps**, not live API in v1                   |
+| Attribution    | Shared references module for site + util docs          |
 
 ## Architecture
 
@@ -23,17 +23,19 @@ Tatoeba is for **example sentences**, not frequency ranking. If the SNK frequenc
 SNK top-1000 (verbs / nouns / adjectives)
         │
         ▼
-scripts/import-frequency.ts  →  content/frequency/*.json  (committed, attributed)
+scripts/dictionary/import-frequency.ts  →  content/frequency/*.json  (committed, attributed)
         │
         ├─► public UI: /dictionary/common
         │
-        └─► scripts/build-drafts.ts
+        └─► scripts/dictionary/build-drafts.ts
                  + optional Tatoeba dump examples (filtered)
                  → content/drafts/*.json
                         │
                         ▼ human sets status: approved
-                 scripts/promote-draft.ts → live dictionary source
+                 scripts/dictionary/promote-draft.ts → live dictionary source
 ```
+
+Also: `scripts/dictionary/publish-frequency.ts` (gloss → live) and `scripts/dictionary/enrich-examples.ts` (Tatoeba → examples).
 
 **Rules**
 
@@ -85,11 +87,11 @@ Unchanged public contract: only promoted, human-approved content enters the live
 
 ## Util scripts
 
-| Script | Job |
-| --- | --- |
-| `bun run frequency:import` | Parse SNK top-1000 lists → `content/frequency/*.json` |
-| `bun run drafts:build` | Diff frequency vs live words → pending drafts; optionally attach ≤2 filtered Tatoeba SK–EN examples |
-| `bun run drafts:promote` | Merge `status: "approved"` into live dict; set `promoted` + `promotedAt`; skip duplicates |
+| Script                     | Job                                                                                                 |
+| -------------------------- | --------------------------------------------------------------------------------------------------- |
+| `bun run frequency:import` | Parse SNK top-1000 lists → `content/frequency/*.json`                                               |
+| `bun run drafts:build`     | Diff frequency vs live words → pending drafts; optionally attach ≤2 filtered Tatoeba SK–EN examples |
+| `bun run drafts:promote`   | Merge `status: "approved"` into live dict; set `promoted` + `promotedAt`; skip duplicates           |
 
 **Tatoeba usage (offline)**
 

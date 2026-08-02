@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import type { AstroIntegration } from "astro";
 
-import { writeSearchIndex } from "../../scripts/build-search-index";
+import { writeSearchIndex } from "../../scripts/search/build-search-index";
 
 /** Build a Pagefind index from content modules after `astro build`. */
 export function pagefindSearch(): AstroIntegration {

@@ -1,4 +1,8 @@
+import type { FrequencyPos } from "./frequency-types";
+
 export type EntryKind = "word" | "grammar" | "pronunciation";
+
+export type WordOrigin = "curated" | "frequency";
 
 export interface Example {
   demonstrates?: string;
@@ -8,17 +12,30 @@ export interface Example {
   slovak: string;
 }
 
+export interface WordFrequency {
+  pos: FrequencyPos;
+  rank: number;
+}
+
 export interface ContentEntry {
   aliases?: string[];
   body: string[];
   category: string;
   english: string;
   examples: Example[];
+  /** Present when the lemma appears in an SNK top-1000 list. */
+  frequency?: WordFrequency;
   kind: EntryKind;
+  /** How this word entered the live dictionary. */
+  origin?: WordOrigin;
   related: string[];
   slug: string;
   slovak: string;
   source: string;
+  /** Visible attribution label for the Source section. Falls back in UI when omitted. */
+  sourceLabel?: string;
+  /** Optional secondary attribution note. */
+  sourceNote?: string;
   summary: string;
   tags: string[];
 }

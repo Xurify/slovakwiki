@@ -5,6 +5,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { entryBySlug } from "$lib/content/data";
+  import { FREQUENCY_POS_LABEL } from "$lib/content/frequency-types";
   import type { ContentEntry } from "$lib/content/types";
 
   let { entry }: { entry: ContentEntry } = $props();
@@ -19,6 +20,10 @@
     pronunciation: "Pronunciation",
     word: "Dictionary",
   };
+
+  const sourceLabel = $derived(
+    entry.sourceLabel ?? "Jazykovedný ústav Ľudovíta Štúra SAV",
+  );
 </script>
 
 <main class="py-10 pb-16 max-[760px]:py-7">
@@ -36,6 +41,16 @@
 
           <p class="mt-3 font-serif text-lg text-blue-800">{entry.english}</p>
           <p class="mt-1 text-sm text-slate-500">{entry.category}</p>
+
+          {#if entry.frequency}
+            <p class="mt-3 text-sm text-slate-500">
+              Among the most common Slovak {FREQUENCY_POS_LABEL[
+                entry.frequency.pos
+              ].toLowerCase()} (#{entry.frequency.rank}).
+              <TextLink href="/dictionary/common">Browse the list</TextLink>
+            </p>
+          {/if}
+
           <p class="mt-5 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700">
             {entry.summary}
           </p>
@@ -56,32 +71,47 @@
           {/each}
         </section>
 
-        <section
-          id="examples"
-          class="scroll-mt-[88px] mt-10 border-t border-slate-200 pt-10"
-          aria-labelledby="examples-heading"
-        >
-          <Eyebrow>Examples</Eyebrow>
-          <h2 id="examples-heading" class="mb-4">In a sentence</h2>
+        {#if entry.examples.length > 0}
+          <section
+            id="examples"
+            class="scroll-mt-[88px] mt-10 border-t border-slate-200 pt-10"
+            aria-labelledby="examples-heading"
+          >
+            <Eyebrow>Examples</Eyebrow>
+            <h2 id="examples-heading" class="mb-4">In a sentence</h2>
 
-          <ol class="m-0 list-none border-t border-slate-200 p-0">
-            {#each entry.examples as example, index (`${example.slovak}-${index}`)}
-              <li
-                class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4"
-              >
-                <span class="text-xs font-bold tabular-nums text-slate-400">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <p class="m-0 font-serif font-semibold text-slate-900" lang="sk">
-                    {example.slovak}
-                  </p>
-                  <small class="text-sm text-slate-500">{example.english}</small>
-                </div>
-              </li>
-            {/each}
-          </ol>
-        </section>
+            <ol class="m-0 list-none border-t border-slate-200 p-0">
+              {#each entry.examples as example, index (`${example.slovak}-${index}`)}
+                <li
+                  class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4"
+                >
+                  <span class="text-xs font-bold tabular-nums text-slate-400">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <p class="m-0 font-serif font-semibold text-slate-900" lang="sk">
+                      {example.slovak}
+                    </p>
+                    <small class="text-sm text-slate-500">{example.english}</small>
+                  </div>
+                </li>
+              {/each}
+            </ol>
+
+            {#if entry.examples.some((example) => example.note === "Tatoeba")}
+              <p class="mt-4 text-xs text-slate-500">
+                Example sentences from
+                <a
+                  class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
+                  href="https://tatoeba.org/"
+                  rel="noopener noreferrer"
+                  target="_blank">Tatoeba</a
+                >
+                (CC BY 2.0 FR).
+              </p>
+            {/if}
+          </section>
+        {/if}
 
         <section
           id="source"
@@ -90,7 +120,14 @@
         >
           <Eyebrow>Source</Eyebrow>
           <h2 id="source-heading" class="mb-3">Reference</h2>
-          <TextLink href={entry.source}>Jazykovedný ústav Ľudovíta Štúra SAV ↗</TextLink>
+          <TextLink href={entry.source}>{sourceLabel} ↗</TextLink>
+          {#if entry.sourceNote}
+            <p class="mt-2 max-w-[60ch] text-sm text-slate-500">{entry.sourceNote}</p>
+          {/if}
+          <p class="mt-3 text-sm text-slate-500">
+            Full attribution on
+            <TextLink href="/references">References</TextLink>.
+          </p>
         </section>
       </article>
 
@@ -107,12 +144,14 @@
             >
               How to use it
             </a>
-            <a
-              class="border-l-2 border-slate-200 py-1.5 pl-3 font-serif text-sm text-slate-600 hover:border-blue-800 hover:text-blue-800"
-              href="#examples"
-            >
-              Examples
-            </a>
+            {#if entry.examples.length > 0}
+              <a
+                class="border-l-2 border-slate-200 py-1.5 pl-3 font-serif text-sm text-slate-600 hover:border-blue-800 hover:text-blue-800"
+                href="#examples"
+              >
+                Examples
+              </a>
+            {/if}
             <a
               class="border-l-2 border-slate-200 py-1.5 pl-3 font-serif text-sm text-slate-600 hover:border-blue-800 hover:text-blue-800"
               href="#source"

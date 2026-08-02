@@ -22,6 +22,27 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
   - header search says the index is not built yet
 - Skip re-index for pure UI/CSS/layout edits with no content changes.
 
+## Frequency lists + dictionary drafts
+
+Script layout: see `scripts/README.md` (`dictionary/`, `search/`, `docs/`).
+
+- Sources (SNK, Tatoeba, JÚĽŠ): `docs/data-sources.md` and `/references` (from `src/lib/content/references.ts`).
+- Refresh frequency JSON: `bun run frequency:import` → `content/frequency/*.json`
+- **Yearly checklist:** revisit SNK corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all`, not live. Last import: `generatedAt` in `content/frequency/{verbs,nouns,adjectives}.json` (set by `frequency:import`). No auto-refresh. Bump importer + re-import only when a newer `prim-*-public-all` top-1000 ships; spot-check rank drift before commit.
+- English glosses for common lemmas: `content/frequency/glosses.json`
+- Publish glossed frequency lemmas into the live dictionary (no approval gate): `bun run frequency:publish` (`--limit 100`)
+- Attach Tatoeba examples to promoted words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
+  - Skips crude/sexual/vulgar lines via `src/lib/content/example-quality.ts`
+  - Download + decompress:
+    - https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2
+    - https://downloads.tatoeba.org/exports/per_language/slk/slk-eng_links.tsv.bz2
+    - https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2
+  - Missing-example report: `tmp/missing-examples.txt`
+- Optional hard-case drafts: `bun run drafts:build` / `bun run drafts:promote` (approve only when a lemma needs extra care)
+- Regenerate docs from the references module: `bun run docs:data-sources`
+- Public lists UI: `/dictionary/common`
+- Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency
+
 ## Styling: Tailwind first (non-negotiable)
 
 **Do not add new custom CSS classes for layout, spacing, typography, borders, or colors.**

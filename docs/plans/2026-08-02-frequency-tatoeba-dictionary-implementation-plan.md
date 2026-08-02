@@ -27,7 +27,7 @@ Do **not** mass-publish dictionary stubs. Live words stay human-approved only.
 
 1. Define Zod (or TS) types for frequency entries in `src/lib/content/frequency-types.ts`.
 2. Create `content/frequency/.gitkeep` and commit initial JSON after first successful import (verbs / nouns / adjectives).
-3. Add `scripts/import-frequency.ts`:
+3. Add `scripts/dictionary/import-frequency.ts`:
    - Fetch or accept local HTML/CSV from SNK top-1000 lemma pages (verbs, nouns, adjectives — use current public prim-* URLs; pin version in metadata).
    - Parse rank, lemma, count.
    - Write `content/frequency/verbs.json` etc. with `source` + `sourceUrl`.
@@ -51,7 +51,7 @@ If automated scrape of korpus.sk is fragile, v1 fallback: checked-in manually cu
 
 1. Types for drafts in `src/lib/content/draft-types.ts`.
 2. `content/drafts/` tracked; sample `.gitkeep`.
-3. `scripts/build-drafts.ts`:
+3. `scripts/dictionary/build-drafts.ts`:
    - Read frequency lists + live `words`.
    - For missing lemmas (start with top N configurable, default 100 per POS), write `pending` draft JSON files (one per lemma or one file per POS — prefer **one file per lemma** `content/drafts/{slug}.json` for easy approve edits).
    - Do not overwrite `approved` / `rejected` / `promoted` unless `--force`.
@@ -59,7 +59,7 @@ If automated scrape of korpus.sk is fragile, v1 fallback: checked-in manually cu
    - Read local dump path (document download from https://tatoeba.org/en/downloads and https://downloads.tatoeba.org/exports/).
    - Attach ≤2 SK–EN pairs; store `tatoebaId`.
    - Cache dumps under `tmp/tatoeba/` (gitignored).
-5. `scripts/promote-draft.ts`:
+5. `scripts/dictionary/promote-draft.ts`:
    - Read drafts with `status: "approved"`.
    - Append/merge into live dictionary source (refactor `wordSeed` toward importable JSON/TS module if needed — keep change minimal: append to a `content/dictionary/words.json` or generate a TS fragment; pick the smallest change that matches current `data.ts` pattern).
    - Mark draft `promoted` + timestamp.

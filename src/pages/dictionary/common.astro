@@ -1,0 +1,47 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import DictionaryCommonPage from "$lib/pages/DictionaryCommonPage.svelte";
+import { words } from "$lib/content/data";
+import { findLiveWordForLemma, normalizeLemma } from "$lib/content/frequency";
+import { loadAllFrequencyLists } from "$lib/content/load-frequency";
+import type { FrequencyPos } from "$lib/content/frequency-types";
+
+const allLists = await loadAllFrequencyLists();
+
+const lists = {
+  verb: allLists.verb.entries.filter((entry) => entry.lemma.trim().length > 1),
+  noun: allLists.noun.entries.filter((entry) => entry.lemma.trim().length > 1),
+  adjective: allLists.adjective.entries.filter((entry) => entry.lemma.trim().length > 1),
+} satisfies Record<FrequencyPos, typeof allLists.verb.entries>;
+
+const liveByLemma: Record<string, { english: string; href: string; lemma: string }> = {};
+
+for (const pos of Object.keys(lists) as FrequencyPos[]) {
+  for (const entry of lists[pos]) {
+    const live = findLiveWordForLemma(entry.lemma, words);
+    if (!live) continue;
+
+    const payload = {
+      english: live.english,
+      href: `/dictionary/${live.slug}`,
+      lemma: entry.lemma,
+    };
+    liveByLemma[entry.lemma] = payload;
+    liveByLemma[normalizeLemma(entry.lemma)] = payload;
+  }
+}
+
+const sourceUrl = allLists.verb.sourceUrl;
+---
+
+<SiteLayout
+  title="Most common words — Slovak Wiki"
+  description="The most common Slovak verbs, nouns, and adjectives from the Slovak National Corpus."
+>
+  <DictionaryCommonPage
+    client:load
+    lists={lists}
+    liveByLemma={liveByLemma}
+    sourceUrl={sourceUrl}
+  />
+</SiteLayout>

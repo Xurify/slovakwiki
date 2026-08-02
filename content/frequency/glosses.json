@@ -1,0 +1,9068 @@
+{
+  "byť": {
+    "english": "to be"
+  },
+  "mať": {
+    "english": "to have"
+  },
+  "môcť": {
+    "english": "can; to be able to"
+  },
+  "povedať": {
+    "english": "to say; to tell"
+  },
+  "chcieť": {
+    "english": "to want"
+  },
+  "musieť": {
+    "english": "must; to have to"
+  },
+  "ísť": {
+    "english": "to go"
+  },
+  "nebyť": {
+    "english": "not to be"
+  },
+  "dať": {
+    "english": "to give"
+  },
+  "nemať": {
+    "english": "not to have"
+  },
+  "hovoriť": {
+    "english": "to speak; to talk"
+  },
+  "vedieť": {
+    "english": "to know (how/a fact)"
+  },
+  "začať": {
+    "english": "to begin; to start"
+  },
+  "prísť": {
+    "english": "to come; to arrive"
+  },
+  "dostať": {
+    "english": "to get; to receive"
+  },
+  "stať": {
+    "english": "to happen; to become"
+  },
+  "vidieť": {
+    "english": "to see"
+  },
+  "robiť": {
+    "english": "to do; to make"
+  },
+  "myslieť": {
+    "english": "to think"
+  },
+  "nemôcť": {
+    "english": "cannot; to be unable to"
+  },
+  "nevedieť": {
+    "english": "not to know"
+  },
+  "hrať": {
+    "english": "to play"
+  },
+  "získať": {
+    "english": "to obtain; to gain"
+  },
+  "nájsť": {
+    "english": "to find"
+  },
+  "urobiť": {
+    "english": "to do; to make (perfective)"
+  },
+  "stáť": {
+    "english": "to stand; to cost"
+  },
+  "patriť": {
+    "english": "to belong"
+  },
+  "rozhodnúť": {
+    "english": "to decide"
+  },
+  "čakať": {
+    "english": "to wait"
+  },
+  "žiť": {
+    "english": "to live"
+  },
+  "uviesť": {
+    "english": "to state; to introduce"
+  },
+  "vrátiť": {
+    "english": "to return; to give back"
+  },
+  "nechcieť": {
+    "english": "not to want"
+  },
+  "viesť": {
+    "english": "to lead; to know how (drive)"
+  },
+  "dokázať": {
+    "english": "to prove; to be able to manage"
+  },
+  "skončiť": {
+    "english": "to finish; to end"
+  },
+  "tvrdiť": {
+    "english": "to claim; to assert"
+  },
+  "pracovať": {
+    "english": "to work"
+  },
+  "dodať": {
+    "english": "to add; to supply"
+  },
+  "pomôcť": {
+    "english": "to help"
+  },
+  "pokračovať": {
+    "english": "to continue"
+  },
+  "potrebovať": {
+    "english": "to need"
+  },
+  "snažiť": {
+    "english": "to try; to strive"
+  },
+  "pozrieť": {
+    "english": "to look; to watch"
+  },
+  "informovať": {
+    "english": "to inform"
+  },
+  "znamenať": {
+    "english": "to mean"
+  },
+  "podariť": {
+    "english": "to succeed; to manage"
+  },
+  "platiť": {
+    "english": "to pay; to be valid"
+  },
+  "ukázať": {
+    "english": "to show"
+  },
+  "dosiahnuť": {
+    "english": "to achieve; to reach"
+  },
+  "zostať": {
+    "english": "to stay; to remain"
+  },
+  "cítiť": {
+    "english": "to feel"
+  },
+  "hľadať": {
+    "english": "to look for; to search"
+  },
+  "poznať": {
+    "english": "to know (a person/place)"
+  },
+  "vyhrať": {
+    "english": "to win"
+  },
+  "predstaviť": {
+    "english": "to introduce; to present"
+  },
+  "nedať": {
+    "english": "not to give; not to let"
+  },
+  "veriť": {
+    "english": "to believe"
+  },
+  "venovať": {
+    "english": "to devote; to give (attention)"
+  },
+  "stretnúť": {
+    "english": "to meet"
+  },
+  "zmeniť": {
+    "english": "to change"
+  },
+  "vyjsť": {
+    "english": "to go out; to come out"
+  },
+  "odísť": {
+    "english": "to leave"
+  },
+  "otvoriť": {
+    "english": "to open"
+  },
+  "prijať": {
+    "english": "to accept; to receive"
+  },
+  "považovať": {
+    "english": "to consider; to regard"
+  },
+  "prejsť": {
+    "english": "to go across; to pass"
+  },
+  "dávať": {
+    "english": "to give (imperfective)"
+  },
+  "chodiť": {
+    "english": "to walk; to go (habitually)"
+  },
+  "pôsobiť": {
+    "english": "to act; to work (as)"
+  },
+  "zdať": {
+    "english": "to seem"
+  },
+  "nechať": {
+    "english": "to leave; to let"
+  },
+  "začínať": {
+    "english": "to begin (imperfective)"
+  },
+  "predstavovať": {
+    "english": "to represent; to introduce"
+  },
+  "písať": {
+    "english": "to write"
+  },
+  "chýbať": {
+    "english": "to be missing; to miss"
+  },
+  "nemusieť": {
+    "english": "need not; do not have to"
+  },
+  "uskutočniť": {
+    "english": "to carry out; to realize"
+  },
+  "priniesť": {
+    "english": "to bring"
+  },
+  "potvrdiť": {
+    "english": "to confirm"
+  },
+  "vybrať": {
+    "english": "to choose; to select"
+  },
+  "vytvoriť": {
+    "english": "to create"
+  },
+  "tešiť": {
+    "english": "to please; to look forward"
+  },
+  "zistiť": {
+    "english": "to find out"
+  },
+  "vyhlásiť": {
+    "english": "to declare; to announce"
+  },
+  "zvýšiť": {
+    "english": "to increase; to raise"
+  },
+  "pripraviť": {
+    "english": "to prepare"
+  },
+  "vzniknúť": {
+    "english": "to arise; to come into being"
+  },
+  "očakávať": {
+    "english": "to expect"
+  },
+  "vyzerať": {
+    "english": "to look; to appear"
+  },
+  "konať": {
+    "english": "to act; to proceed"
+  },
+  "počuť": {
+    "english": "to hear"
+  },
+  "postaviť": {
+    "english": "to build; to put up"
+  },
+  "bývať": {
+    "english": "to live; to reside"
+  },
+  "ponúkať": {
+    "english": "to offer"
+  },
+  "využiť": {
+    "english": "to use; to take advantage of"
+  },
+  "objaviť": {
+    "english": "to discover"
+  },
+  "napísať": {
+    "english": "to write (perfective)"
+  },
+  "sedieť": {
+    "english": "to sit"
+  },
+  "odpovedať": {
+    "english": "to answer"
+  },
+  "rok": {
+    "english": "year"
+  },
+  "človek": {
+    "english": "person; human"
+  },
+  "deň": {
+    "english": "day"
+  },
+  "Slovensko": {
+    "english": "Slovakia",
+    "category": "Places"
+  },
+  "čas": {
+    "english": "time"
+  },
+  "mesto": {
+    "english": "city; town"
+  },
+  "dieťa": {
+    "english": "child"
+  },
+  "život": {
+    "english": "life"
+  },
+  "strana": {
+    "english": "side; page; (political) party"
+  },
+  "miesto": {
+    "english": "place"
+  },
+  "práca": {
+    "english": "work; job"
+  },
+  "spoločnosť": {
+    "english": "society; company"
+  },
+  "zápas": {
+    "english": "match; fight"
+  },
+  "svet": {
+    "english": "world"
+  },
+  "škola": {
+    "english": "school"
+  },
+  "krajina": {
+    "english": "country; landscape"
+  },
+  "problém": {
+    "english": "problem"
+  },
+  "cesta": {
+    "english": "road; journey; way"
+  },
+  "prípad": {
+    "english": "case"
+  },
+  "cena": {
+    "english": "price; award"
+  },
+  "euro": {
+    "english": "euro"
+  },
+  "časť": {
+    "english": "part"
+  },
+  "žena": {
+    "english": "woman; wife"
+  },
+  "vláda": {
+    "english": "government"
+  },
+  "Bratislava": {
+    "english": "Bratislava",
+    "category": "Places"
+  },
+  "gól": {
+    "english": "goal (sports)"
+  },
+  "ruka": {
+    "english": "hand; arm"
+  },
+  "slovo": {
+    "english": "word"
+  },
+  "štát": {
+    "english": "state; country"
+  },
+  "zákon": {
+    "english": "law"
+  },
+  "skupina": {
+    "english": "group"
+  },
+  "vec": {
+    "english": "thing"
+  },
+  "muž": {
+    "english": "man"
+  },
+  "výsledok": {
+    "english": "result"
+  },
+  "týždeň": {
+    "english": "week"
+  },
+  "dom": {
+    "english": "house; home"
+  },
+  "percento": {
+    "english": "percent"
+  },
+  "súťaž": {
+    "english": "competition"
+  },
+  "rodina": {
+    "english": "family"
+  },
+  "hráč": {
+    "english": "player"
+  },
+  "kniha": {
+    "english": "book"
+  },
+  "pán": {
+    "english": "mister; gentleman; lord"
+  },
+  "otázka": {
+    "english": "question"
+  },
+  "firma": {
+    "english": "company; firm"
+  },
+  "kolo": {
+    "english": "round; wheel; bike"
+  },
+  "stretnutie": {
+    "english": "meeting"
+  },
+  "situácia": {
+    "english": "situation"
+  },
+  "služba": {
+    "english": "service"
+  },
+  "program": {
+    "english": "program"
+  },
+  "možnosť": {
+    "english": "possibility; option"
+  },
+  "mesiac": {
+    "english": "month; moon"
+  },
+  "správa": {
+    "english": "report; news; message"
+  },
+  "koniec": {
+    "english": "end"
+  },
+  "Ján": {
+    "english": "Ján (John)",
+    "category": "Names"
+  },
+  "zmena": {
+    "english": "change"
+  },
+  "úrad": {
+    "english": "office; authority"
+  },
+  "projekt": {
+    "english": "project"
+  },
+  "informácia": {
+    "english": "information"
+  },
+  "klub": {
+    "english": "club"
+  },
+  "hlava": {
+    "english": "head"
+  },
+  "Peter": {
+    "english": "Peter",
+    "category": "Names"
+  },
+  "obec": {
+    "english": "municipality; village"
+  },
+  "hodina": {
+    "english": "hour; lesson"
+  },
+  "hra": {
+    "english": "game; play"
+  },
+  "bod": {
+    "english": "point"
+  },
+  "oko": {
+    "english": "eye"
+  },
+  "minúta": {
+    "english": "minute"
+  },
+  "voda": {
+    "english": "water"
+  },
+  "oblasť": {
+    "english": "area; region"
+  },
+  "tréner": {
+    "english": "coach; trainer"
+  },
+  "trh": {
+    "english": "market"
+  },
+  "film": {
+    "english": "film; movie"
+  },
+  "tím": {
+    "english": "team"
+  },
+  "obdobie": {
+    "english": "period"
+  },
+  "člen": {
+    "english": "member"
+  },
+  "banka": {
+    "english": "bank"
+  },
+  "systém": {
+    "english": "system"
+  },
+  "spôsob": {
+    "english": "way; manner"
+  },
+  "záujem": {
+    "english": "interest"
+  },
+  "Martin": {
+    "english": "Martin",
+    "category": "Names"
+  },
+  "otec": {
+    "english": "father"
+  },
+  "prezident": {
+    "english": "president"
+  },
+  "počet": {
+    "english": "number; count"
+  },
+  "koruna": {
+    "english": "crown (currency/monarchy)"
+  },
+  "hosť": {
+    "english": "guest"
+  },
+  "akcia": {
+    "english": "action; event; deal"
+  },
+  "láska": {
+    "english": "love"
+  },
+  "meno": {
+    "english": "name"
+  },
+  "auto": {
+    "english": "car"
+  },
+  "priestor": {
+    "english": "space; room"
+  },
+  "predseda": {
+    "english": "chairperson; president (of a body)"
+  },
+  "vzťah": {
+    "english": "relationship"
+  },
+  "podmienka": {
+    "english": "condition"
+  },
+  "cieľ": {
+    "english": "goal; aim; target"
+  },
+  "Košice": {
+    "english": "Košice",
+    "category": "Places"
+  },
+  "poslanec": {
+    "english": "member of parliament; deputy"
+  },
+  "právo": {
+    "english": "law; right"
+  },
+  "ministerstvo": {
+    "english": "ministry"
+  },
+  "začiatok": {
+    "english": "beginning"
+  },
+  "stav": {
+    "english": "state; condition"
+  },
+  "veľký": {
+    "english": "big; large; great"
+  },
+  "nový": {
+    "english": "new"
+  },
+  "slovenský": {
+    "english": "Slovak"
+  },
+  "dobrý": {
+    "english": "good"
+  },
+  "ďalší": {
+    "english": "next; another; further"
+  },
+  "celý": {
+    "english": "whole; entire"
+  },
+  "vysoký": {
+    "english": "high; tall"
+  },
+  "starý": {
+    "english": "old"
+  },
+  "malý": {
+    "english": "small; little"
+  },
+  "mladý": {
+    "english": "young"
+  },
+  "rád": {
+    "english": "glad; happy (to)"
+  },
+  "vlastný": {
+    "english": "own"
+  },
+  "hlavný": {
+    "english": "main; chief"
+  },
+  "európsky": {
+    "english": "European"
+  },
+  "posledný": {
+    "english": "last; final"
+  },
+  "domáci": {
+    "english": "home; domestic; home (team)"
+  },
+  "dôležitý": {
+    "english": "important"
+  },
+  "minulý": {
+    "english": "past; last (previous)"
+  },
+  "základný": {
+    "english": "basic; fundamental"
+  },
+  "štátny": {
+    "english": "state; government"
+  },
+  "americký": {
+    "english": "American"
+  },
+  "ročný": {
+    "english": "annual; yearly"
+  },
+  "sociálny": {
+    "english": "social"
+  },
+  "rôzny": {
+    "english": "various; different"
+  },
+  "politický": {
+    "english": "political"
+  },
+  "finančný": {
+    "english": "financial"
+  },
+  "možný": {
+    "english": "possible"
+  },
+  "mestský": {
+    "english": "city; urban"
+  },
+  "ostatný": {
+    "english": "other; remaining"
+  },
+  "svetový": {
+    "english": "world; global"
+  },
+  "známy": {
+    "english": "known; famous"
+  },
+  "verejný": {
+    "english": "public"
+  },
+  "národný": {
+    "english": "national"
+  },
+  "dlhý": {
+    "english": "long"
+  },
+  "zlý": {
+    "english": "bad; evil"
+  },
+  "bývalý": {
+    "english": "former"
+  },
+  "český": {
+    "english": "Czech"
+  },
+  "pracovný": {
+    "english": "work; working"
+  },
+  "medzinárodný": {
+    "english": "international"
+  },
+  "istý": {
+    "english": "certain; sure"
+  },
+  "súčasný": {
+    "english": "current; contemporary"
+  },
+  "ťažký": {
+    "english": "heavy; difficult"
+  },
+  "silný": {
+    "english": "strong"
+  },
+  "svätý": {
+    "english": "holy; saint"
+  },
+  "budúci": {
+    "english": "future; next"
+  },
+  "ľudský": {
+    "english": "human"
+  },
+  "nízky": {
+    "english": "low"
+  },
+  "podobný": {
+    "english": "similar"
+  },
+  "potrebný": {
+    "english": "necessary; needed"
+  },
+  "blízky": {
+    "english": "near; close"
+  },
+  "spoločný": {
+    "english": "common; shared; joint"
+  },
+  "plný": {
+    "english": "full"
+  },
+  "rovnaký": {
+    "english": "same; identical"
+  },
+  "pekný": {
+    "english": "nice; pretty"
+  },
+  "zahraničný": {
+    "english": "foreign"
+  },
+  "životný": {
+    "english": "life; living"
+  },
+  "nemecký": {
+    "english": "German"
+  },
+  "zaujímavý": {
+    "english": "interesting"
+  },
+  "čierny": {
+    "english": "black"
+  },
+  "futbalový": {
+    "english": "football; soccer"
+  },
+  "osobný": {
+    "english": "personal"
+  },
+  "jednotlivý": {
+    "english": "individual; single"
+  },
+  "celkový": {
+    "english": "total; overall"
+  },
+  "zdravotný": {
+    "english": "health; medical"
+  },
+  "ruský": {
+    "english": "Russian"
+  },
+  "úspešný": {
+    "english": "successful"
+  },
+  "stredný": {
+    "english": "middle; secondary; average"
+  },
+  "kultúrny": {
+    "english": "cultural"
+  },
+  "miestny": {
+    "english": "local"
+  },
+  "jasný": {
+    "english": "clear; bright"
+  },
+  "ekonomický": {
+    "english": "economic"
+  },
+  "dnešný": {
+    "english": "today's; present-day"
+  },
+  "významný": {
+    "english": "significant; important"
+  },
+  "obchodný": {
+    "english": "business; commercial"
+  },
+  "biely": {
+    "english": "white"
+  },
+  "samotný": {
+    "english": "alone; itself; mere"
+  },
+  "športový": {
+    "english": "sports"
+  },
+  "správny": {
+    "english": "correct; proper"
+  },
+  "krátky": {
+    "english": "short"
+  },
+  "voľný": {
+    "english": "free; vacant"
+  },
+  "bratislavský": {
+    "english": "Bratislava (adjective)"
+  },
+  "boží": {
+    "english": "God's; divine"
+  },
+  "trestný": {
+    "english": "criminal; penal"
+  },
+  "odborný": {
+    "english": "professional; specialist"
+  },
+  "krásny": {
+    "english": "beautiful"
+  },
+  "obrovský": {
+    "english": "huge; enormous"
+  },
+  "určitý": {
+    "english": "certain; particular"
+  },
+  "zlatý": {
+    "english": "golden"
+  },
+  "historický": {
+    "english": "historical"
+  },
+  "jednoduchý": {
+    "english": "simple; easy"
+  },
+  "detský": {
+    "english": "children's; child"
+  },
+  "vhodný": {
+    "english": "suitable"
+  },
+  "pravý": {
+    "english": "right; true; real"
+  },
+  "banský": {
+    "english": "mining"
+  },
+  "široký": {
+    "english": "wide; broad"
+  },
+  "rýchly": {
+    "english": "fast; quick"
+  },
+  "maďarský": {
+    "english": "Hungarian"
+  },
+  "technický": {
+    "english": "technical"
+  },
+  "spoločenský": {
+    "english": "social; society"
+  },
+  "červený": {
+    "english": "red"
+  },
+  "tvoriť": {
+    "english": "to create; to form"
+  },
+  "rozhodovať": {
+    "english": "to decide; to be deciding"
+  },
+  "nachádzať": {
+    "english": "to find; to be located"
+  },
+  "vziať": {
+    "english": "to take"
+  },
+  "poslať": {
+    "english": "to send"
+  },
+  "spomínať": {
+    "english": "to mention; to remember"
+  },
+  "držať": {
+    "english": "to hold; to keep"
+  },
+  "stačiť": {
+    "english": "to be enough; to suffice"
+  },
+  "trvať": {
+    "english": "to last; to take (time)"
+  },
+  "používať": {
+    "english": "to use"
+  },
+  "pomáhať": {
+    "english": "to help"
+  },
+  "sledovať": {
+    "english": "to follow; to watch"
+  },
+  "kúpiť": {
+    "english": "to buy"
+  },
+  "volať": {
+    "english": "to call; to name"
+  },
+  "dôjsť": {
+    "english": "to arrive; to come about"
+  },
+  "vydať": {
+    "english": "to publish; to issue; to give out"
+  },
+  "oznámiť": {
+    "english": "to announce; to notify"
+  },
+  "žiadať": {
+    "english": "to ask for; to request"
+  },
+  "ostať": {
+    "english": "to stay; to remain"
+  },
+  "existovať": {
+    "english": "to exist"
+  },
+  "riešiť": {
+    "english": "to solve; to deal with"
+  },
+  "vyjadriť": {
+    "english": "to express"
+  },
+  "vravieť": {
+    "english": "to say; to speak"
+  },
+  "rozprávať": {
+    "english": "to talk; to tell"
+  },
+  "pripravovať": {
+    "english": "to prepare"
+  },
+  "podať": {
+    "english": "to hand over; to submit; to give"
+  },
+  "spýtať": {
+    "english": "to ask"
+  },
+  "prichádzať": {
+    "english": "to come; to arrive (imperfective)"
+  },
+  "stratiť": {
+    "english": "to lose"
+  },
+  "využívať": {
+    "english": "to use; to take advantage of"
+  },
+  "znížiť": {
+    "english": "to lower; to reduce"
+  },
+  "pridať": {
+    "english": "to add"
+  },
+  "vysvetliť": {
+    "english": "to explain"
+  },
+  "zaplatiť": {
+    "english": "to pay"
+  },
+  "predať": {
+    "english": "to sell"
+  },
+  "zúčastniť": {
+    "english": "to take part; to participate"
+  },
+  "čítať": {
+    "english": "to read"
+  },
+  "brať": {
+    "english": "to take"
+  },
+  "nevidieť": {
+    "english": "not to see"
+  },
+  "týkať": {
+    "english": "to concern; to relate to"
+  },
+  "zomrieť": {
+    "english": "to die"
+  },
+  "predpokladať": {
+    "english": "to assume; to presume"
+  },
+  "bojovať": {
+    "english": "to fight"
+  },
+  "vychádzať": {
+    "english": "to go out; to come out; to be based on"
+  },
+  "požiadať": {
+    "english": "to ask; to request"
+  },
+  "zastaviť": {
+    "english": "to stop"
+  },
+  "nedokázať": {
+    "english": "not to be able to; not to manage"
+  },
+  "dúfať": {
+    "english": "to hope"
+  },
+  "dozvedieť": {
+    "english": "to find out; to learn"
+  },
+  "zabezpečiť": {
+    "english": "to ensure; to secure"
+  },
+  "pripomínať": {
+    "english": "to remind; to resemble"
+  },
+  "fungovať": {
+    "english": "to work; to function"
+  },
+  "meniť": {
+    "english": "to change"
+  },
+  "pozerať": {
+    "english": "to look; to watch"
+  },
+  "použiť": {
+    "english": "to use"
+  },
+  "pýtať": {
+    "english": "to ask; to ask for"
+  },
+  "narodiť": {
+    "english": "to be born; to give birth"
+  },
+  "nastúpiť": {
+    "english": "to board; to take up (a post)"
+  },
+  "vysvetľovať": {
+    "english": "to explain (imperfective)"
+  },
+  "odohrať": {
+    "english": "to take place; to play out"
+  },
+  "pripomenúť": {
+    "english": "to remind"
+  },
+  "spôsobiť": {
+    "english": "to cause"
+  },
+  "poskytnúť": {
+    "english": "to provide"
+  },
+  "obrátiť": {
+    "english": "to turn; to convert"
+  },
+  "nejsť": {
+    "english": "not to go"
+  },
+  "odmietnuť": {
+    "english": "to refuse; to reject"
+  },
+  "dostávať": {
+    "english": "to get; to receive (imperfective)"
+  },
+  "pochopiť": {
+    "english": "to understand"
+  },
+  "uvádzať": {
+    "english": "to state; to introduce (imperfective)"
+  },
+  "opustiť": {
+    "english": "to leave; to abandon"
+  },
+  "milovať": {
+    "english": "to love"
+  },
+  "slúžiť": {
+    "english": "to serve"
+  },
+  "vyrovnať": {
+    "english": "to equalize; to settle; to cope"
+  },
+  "spomenúť": {
+    "english": "to mention"
+  },
+  "uvidieť": {
+    "english": "to see; to catch sight of"
+  },
+  "plánovať": {
+    "english": "to plan"
+  },
+  "ponúknuť": {
+    "english": "to offer"
+  },
+  "stávať": {
+    "english": "to become; to happen (imperfective)"
+  },
+  "reagovať": {
+    "english": "to react"
+  },
+  "ďakovať": {
+    "english": "to thank"
+  },
+  "dohodnúť": {
+    "english": "to agree; to arrange"
+  },
+  "učiť": {
+    "english": "to teach; to learn"
+  },
+  "prestať": {
+    "english": "to stop"
+  },
+  "nasledovať": {
+    "english": "to follow"
+  },
+  "priznať": {
+    "english": "to admit; to confess"
+  },
+  "konštatovať": {
+    "english": "to state; to note"
+  },
+  "poskytovať": {
+    "english": "to provide (imperfective)"
+  },
+  "uvedomiť": {
+    "english": "to realize; to become aware"
+  },
+  "ležať": {
+    "english": "to lie (be lying down)"
+  },
+  "hroziť": {
+    "english": "to threaten"
+  },
+  "podporovať": {
+    "english": "to support"
+  },
+  "podpísať": {
+    "english": "to sign"
+  },
+  "navštíviť": {
+    "english": "to visit"
+  },
+  "dodávať": {
+    "english": "to supply; to add"
+  },
+  "rásť": {
+    "english": "to grow"
+  },
+  "báť": {
+    "english": "to be afraid"
+  },
+  "prinášať": {
+    "english": "to bring"
+  },
+  "zaujímať": {
+    "english": "to interest"
+  },
+  "zobrať": {
+    "english": "to take; to take away"
+  },
+  "zaznamenať": {
+    "english": "to record; to note"
+  },
+  "páčiť": {
+    "english": "to please; to like (sa)"
+  },
+  "vstúpiť": {
+    "english": "to enter"
+  },
+  "prežiť": {
+    "english": "to survive; to experience"
+  },
+  "zostávať": {
+    "english": "to remain; to stay"
+  },
+  "vytvárať": {
+    "english": "to create"
+  },
+  "podporiť": {
+    "english": "to support"
+  },
+  "naučiť": {
+    "english": "to teach; to learn"
+  },
+  "zabudnúť": {
+    "english": "to forget"
+  },
+  "vnímať": {
+    "english": "to perceive"
+  },
+  "počúvať": {
+    "english": "to listen"
+  },
+  "zvíťaziť": {
+    "english": "to win; to triumph"
+  },
+  "prehrať": {
+    "english": "to lose (a game)"
+  },
+  "zaoberať": {
+    "english": "to deal with; to be concerned with"
+  },
+  "pustiť": {
+    "english": "to let go; to release; to play"
+  },
+  "dovoliť": {
+    "english": "to allow"
+  },
+  "ukazovať": {
+    "english": "to show"
+  },
+  "nesmieť": {
+    "english": "must not; not to be allowed"
+  },
+  "obsahovať": {
+    "english": "to contain"
+  },
+  "schváliť": {
+    "english": "to approve"
+  },
+  "vracať": {
+    "english": "to return; to give back (imperfective)"
+  },
+  "padnúť": {
+    "english": "to fall"
+  },
+  "vystúpiť": {
+    "english": "to get off; to step out; to perform"
+  },
+  "súhlasiť": {
+    "english": "to agree"
+  },
+  "niesť": {
+    "english": "to carry; to bear"
+  },
+  "nedostať": {
+    "english": "not to get; not to receive"
+  },
+  "prosiť": {
+    "english": "to ask; to beg; to request"
+  },
+  "prejaviť": {
+    "english": "to show; to express"
+  },
+  "klesnúť": {
+    "english": "to fall; to drop"
+  },
+  "uvažovať": {
+    "english": "to consider; to ponder"
+  },
+  "chytiť": {
+    "english": "to catch"
+  },
+  "absolvovať": {
+    "english": "to complete; to undergo"
+  },
+  "položiť": {
+    "english": "to put; to lay down"
+  },
+  "dariť": {
+    "english": "to go well; to succeed (sa)"
+  },
+  "udržať": {
+    "english": "to keep; to maintain"
+  },
+  "prispieť": {
+    "english": "to contribute"
+  },
+  "pohybovať": {
+    "english": "to move"
+  },
+  "upozorniť": {
+    "english": "to warn; to point out"
+  },
+  "zdôrazniť": {
+    "english": "to emphasize"
+  },
+  "vyplývať": {
+    "english": "to follow; to result"
+  },
+  "vyžadovať": {
+    "english": "to require"
+  },
+  "brániť": {
+    "english": "to defend; to prevent"
+  },
+  "pokúsiť": {
+    "english": "to try; to attempt"
+  },
+  "zaujať": {
+    "english": "to interest; to occupy; to take (a position)"
+  },
+  "presadiť": {
+    "english": "to push through; to assert"
+  },
+  "označiť": {
+    "english": "to mark; to designate"
+  },
+  "splniť": {
+    "english": "to fulfill; to meet"
+  },
+  "prechádzať": {
+    "english": "to pass; to go through"
+  },
+  "zvládnuť": {
+    "english": "to manage; to cope with"
+  },
+  "chystať": {
+    "english": "to prepare; to get ready"
+  },
+  "odchádzať": {
+    "english": "to leave; to go away"
+  },
+  "nepodariť": {
+    "english": "not to succeed; not to work out"
+  },
+  "upozorňovať": {
+    "english": "to warn; to alert (imperfective)"
+  },
+  "nastať": {
+    "english": "to occur; to come about"
+  },
+  "umožniť": {
+    "english": "to enable; to allow"
+  },
+  "stavať": {
+    "english": "to build"
+  },
+  "prečítať": {
+    "english": "to read through"
+  },
+  "odporúčať": {
+    "english": "to recommend"
+  },
+  "odovzdať": {
+    "english": "to hand over; to pass on"
+  },
+  "pochádzať": {
+    "english": "to come from; to originate"
+  },
+  "uzavrieť": {
+    "english": "to close; to conclude"
+  },
+  "prebiehať": {
+    "english": "to take place; to proceed"
+  },
+  "končiť": {
+    "english": "to end; to finish"
+  },
+  "znieť": {
+    "english": "to sound"
+  },
+  "zdvihnúť": {
+    "english": "to lift; to raise"
+  },
+  "ukončiť": {
+    "english": "to finish; to terminate"
+  },
+  "opýtať": {
+    "english": "to ask"
+  },
+  "zvyšovať": {
+    "english": "to increase; to raise"
+  },
+  "sadnúť": {
+    "english": "to sit down"
+  },
+  "predávať": {
+    "english": "to sell (imperfective)"
+  },
+  "zabiť": {
+    "english": "to kill"
+  },
+  "nepoznať": {
+    "english": "not to know; not to recognize"
+  },
+  "presvedčiť": {
+    "english": "to convince; to persuade"
+  },
+  "diať": {
+    "english": "to happen; to take place"
+  },
+  "potešiť": {
+    "english": "to please; to delight"
+  },
+  "usilovať": {
+    "english": "to strive; to seek"
+  },
+  "zachrániť": {
+    "english": "to save; to rescue"
+  },
+  "umožňovať": {
+    "english": "to enable; to allow (imperfective)"
+  },
+  "navrhnúť": {
+    "english": "to propose; to suggest"
+  },
+  "prekvapiť": {
+    "english": "to surprise"
+  },
+  "všimnúť": {
+    "english": "to notice"
+  },
+  "doplniť": {
+    "english": "to complete; to add; to supplement"
+  },
+  "poznamenať": {
+    "english": "to note; to remark"
+  },
+  "chápať": {
+    "english": "to understand"
+  },
+  "spraviť": {
+    "english": "to do; to make"
+  },
+  "zrušiť": {
+    "english": "to cancel; to abolish"
+  },
+  "hodnotiť": {
+    "english": "to evaluate; to rate"
+  },
+  "zavolať": {
+    "english": "to call"
+  },
+  "spájať": {
+    "english": "to connect; to join"
+  },
+  "odmietať": {
+    "english": "to refuse; to reject (imperfective)"
+  },
+  "nehovoriť": {
+    "english": "not to speak; not to say"
+  },
+  "organizovať": {
+    "english": "to organize"
+  },
+  "prevziať": {
+    "english": "to take over; to assume"
+  },
+  "prezentovať": {
+    "english": "to present"
+  },
+  "pamätať": {
+    "english": "to remember"
+  },
+  "nahradiť": {
+    "english": "to replace"
+  },
+  "usmiať": {
+    "english": "to smile"
+  },
+  "vojsť": {
+    "english": "to enter; to go in"
+  },
+  "spolupracovať": {
+    "english": "to cooperate"
+  },
+  "ocitnúť": {
+    "english": "to find oneself"
+  },
+  "vykonávať": {
+    "english": "to carry out; to perform"
+  },
+  "zísť": {
+    "english": "to go down; to come down"
+  },
+  "ozvať": {
+    "english": "to respond; to speak up (sa)"
+  },
+  "spať": {
+    "english": "to sleep"
+  },
+  "poradiť": {
+    "english": "to advise"
+  },
+  "obsadiť": {
+    "english": "to occupy; to cast (a role)"
+  },
+  "realizovať": {
+    "english": "to realize; to carry out"
+  },
+  "zažiť": {
+    "english": "to experience"
+  },
+  "prekonať": {
+    "english": "to overcome; to surpass"
+  },
+  "nestačiť": {
+    "english": "not to be enough; not to suffice"
+  },
+  "starať": {
+    "english": "to take care; to look after"
+  },
+  "zahrať": {
+    "english": "to play"
+  },
+  "cestovať": {
+    "english": "to travel"
+  },
+  "zachovať": {
+    "english": "to preserve; to keep"
+  },
+  "počítať": {
+    "english": "to count; to calculate; to count on"
+  },
+  "neprísť": {
+    "english": "not to come; not to arrive"
+  },
+  "vznikať": {
+    "english": "to arise; to come into being"
+  },
+  "zapojiť": {
+    "english": "to involve; to plug in; to connect"
+  },
+  "predložiť": {
+    "english": "to submit; to present"
+  },
+  "pokúšať": {
+    "english": "to try; to attempt (imperfective)"
+  },
+  "priblížiť": {
+    "english": "to bring closer; to approach"
+  },
+  "zdolať": {
+    "english": "to overcome; to defeat"
+  },
+  "rokovať": {
+    "english": "to negotiate"
+  },
+  "odvetiť": {
+    "english": "to reply; to retort"
+  },
+  "zasiahnuť": {
+    "english": "to hit; to affect; to intervene"
+  },
+  "nenájsť": {
+    "english": "not to find"
+  },
+  "správať": {
+    "english": "to behave"
+  },
+  "zlepšiť": {
+    "english": "to improve"
+  },
+  "študovať": {
+    "english": "to study"
+  },
+  "nemyslieť": {
+    "english": "not to think"
+  },
+  "pribudnúť": {
+    "english": "to be added; to increase"
+  },
+  "stretávať": {
+    "english": "to meet (imperfective)"
+  },
+  "založiť": {
+    "english": "to found; to establish"
+  },
+  "prezradiť": {
+    "english": "to reveal; to give away"
+  },
+  "stráviť": {
+    "english": "to spend (time); to digest"
+  },
+  "privítať": {
+    "english": "to welcome"
+  },
+  "nerobiť": {
+    "english": "not to do; not to make"
+  },
+  "súvisieť": {
+    "english": "to be related; to be connected"
+  },
+  "spievať": {
+    "english": "to sing"
+  },
+  "zvoliť": {
+    "english": "to choose; to elect"
+  },
+  "uvedomovať": {
+    "english": "to realize; to be aware (imperfective)"
+  },
+  "vytiahnuť": {
+    "english": "to pull out; to take out"
+  },
+  "vyvolať": {
+    "english": "to evoke; to cause; to call up"
+  },
+  "postarať": {
+    "english": "to take care; to see to"
+  },
+  "hodiť": {
+    "english": "to throw"
+  },
+  "podieľať": {
+    "english": "to take part; to share in"
+  },
+  "osloviť": {
+    "english": "to address; to speak to"
+  },
+  "nosiť": {
+    "english": "to carry; to wear"
+  },
+  "rozumieť": {
+    "english": "to understand"
+  },
+  "závisieť": {
+    "english": "to depend"
+  },
+  "hľadieť": {
+    "english": "to look; to gaze"
+  },
+  "rozšíriť": {
+    "english": "to expand; to extend"
+  },
+  "počkať": {
+    "english": "to wait"
+  },
+  "neexistovať": {
+    "english": "not to exist"
+  },
+  "vyjadrovať": {
+    "english": "to express (imperfective)"
+  },
+  "ujsť": {
+    "english": "to escape; to get away"
+  },
+  "strácať": {
+    "english": "to lose (imperfective)"
+  },
+  "kráčať": {
+    "english": "to walk; to stride"
+  },
+  "vyriešiť": {
+    "english": "to solve; to resolve"
+  },
+  "nepovedať": {
+    "english": "not to say; not to tell"
+  },
+  "zaslúžiť": {
+    "english": "to deserve"
+  },
+  "postúpiť": {
+    "english": "to advance; to proceed"
+  },
+  "chrániť": {
+    "english": "to protect"
+  },
+  "podávať": {
+    "english": "to hand; to serve; to submit (imperfective)"
+  },
+  "túžiť": {
+    "english": "to long for; to desire"
+  },
+  "určiť": {
+    "english": "to determine; to specify"
+  },
+  "zaviesť": {
+    "english": "to introduce; to bring in"
+  },
+  "obávať": {
+    "english": "to fear; to be worried"
+  },
+  "spoznať": {
+    "english": "to get to know; to recognize"
+  },
+  "vstať": {
+    "english": "to get up; to stand up"
+  },
+  "vzrásť": {
+    "english": "to grow; to rise"
+  },
+  "prihlásiť": {
+    "english": "to register; to report; to apply"
+  },
+  "pomyslieť": {
+    "english": "to think; to consider"
+  },
+  "vyberať": {
+    "english": "to choose; to select; to withdraw"
+  },
+  "nestať": {
+    "english": "not to happen; not to become"
+  },
+  "ostávať": {
+    "english": "to remain; to stay"
+  },
+  "streliť": {
+    "english": "to shoot"
+  },
+  "klásť": {
+    "english": "to lay; to put; to ask (questions)"
+  },
+  "trápiť": {
+    "english": "to trouble; to worry"
+  },
+  "investovať": {
+    "english": "to invest"
+  },
+  "zabrániť": {
+    "english": "to prevent"
+  },
+  "vzdať": {
+    "english": "to give up; to surrender"
+  },
+  "zverejniť": {
+    "english": "to publish; to make public"
+  },
+  "vyrábať": {
+    "english": "to produce; to manufacture"
+  },
+  "vyzvať": {
+    "english": "to challenge; to call on"
+  },
+  "stiahnuť": {
+    "english": "to pull down; to download; to withdraw"
+  },
+  "opakovať": {
+    "english": "to repeat"
+  },
+  "trpieť": {
+    "english": "to suffer"
+  },
+  "zvyknúť": {
+    "english": "to get used to"
+  },
+  "svedčiť": {
+    "english": "to testify; to bear witness"
+  },
+  "riadiť": {
+    "english": "to manage; to drive; to control"
+  },
+  "prijímať": {
+    "english": "to accept; to receive"
+  },
+  "jesť": {
+    "english": "to eat"
+  },
+  "otvárať": {
+    "english": "to open"
+  },
+  "spustiť": {
+    "english": "to launch; to start; to lower"
+  },
+  "zmiznúť": {
+    "english": "to disappear"
+  },
+  "plniť": {
+    "english": "to fill; to fulfill"
+  },
+  "želať": {
+    "english": "to wish"
+  },
+  "nechýbať": {
+    "english": "not to be missing; not to be absent"
+  },
+  "stihnúť": {
+    "english": "to make it; to manage in time"
+  },
+  "zaradiť": {
+    "english": "to include; to classify; to put in"
+  },
+  "nezabudnúť": {
+    "english": "not to forget"
+  },
+  "priviesť": {
+    "english": "to bring"
+  },
+  "skúsiť": {
+    "english": "to try"
+  },
+  "záležať": {
+    "english": "to matter; to depend"
+  },
+  "vykonať": {
+    "english": "to carry out; to perform"
+  },
+  "premeniť": {
+    "english": "to transform; to change"
+  },
+  "sprevádzať": {
+    "english": "to accompany"
+  },
+  "ovplyvniť": {
+    "english": "to influence"
+  },
+  "vládnuť": {
+    "english": "to rule; to govern"
+  },
+  "vyhnúť": {
+    "english": "to avoid"
+  },
+  "zbaviť": {
+    "english": "to rid; to get rid of"
+  },
+  "smerovať": {
+    "english": "to head; to aim; to direct"
+  },
+  "zabezpečovať": {
+    "english": "to ensure; to provide (imperfective)"
+  },
+  "neveriť": {
+    "english": "not to believe"
+  },
+  "prežívať": {
+    "english": "to experience; to live through"
+  },
+  "voliť": {
+    "english": "to choose; to vote"
+  },
+  "vymeniť": {
+    "english": "to exchange; to replace"
+  },
+  "vybudovať": {
+    "english": "to build; to construct"
+  },
+  "vysloviť": {
+    "english": "to pronounce; to utter"
+  },
+  "vážiť": {
+    "english": "to weigh; to value"
+  },
+  "postupovať": {
+    "english": "to proceed; to advance"
+  },
+  "vypracovať": {
+    "english": "to work out; to draft"
+  },
+  "posielať": {
+    "english": "to send (imperfective)"
+  },
+  "vydržať": {
+    "english": "to endure; to last"
+  },
+  "pozorovať": {
+    "english": "to observe"
+  },
+  "spojiť": {
+    "english": "to connect; to join"
+  },
+  "piť": {
+    "english": "to drink"
+  },
+  "vydávať": {
+    "english": "to publish; to issue (imperfective)"
+  },
+  "zopakovať": {
+    "english": "to repeat"
+  },
+  "posunúť": {
+    "english": "to shift; to move"
+  },
+  "pokladať": {
+    "english": "to consider; to put"
+  },
+  "jazdiť": {
+    "english": "to ride; to drive"
+  },
+  "vlastniť": {
+    "english": "to own"
+  },
+  "prejavovať": {
+    "english": "to show; to express (imperfective)"
+  },
+  "posilniť": {
+    "english": "to strengthen"
+  },
+  "ťahať": {
+    "english": "to pull; to drag"
+  },
+  "smiať": {
+    "english": "to laugh"
+  },
+  "kontrolovať": {
+    "english": "to check; to control"
+  },
+  "modliť": {
+    "english": "to pray"
+  },
+  "dotknúť": {
+    "english": "to touch"
+  },
+  "objavovať": {
+    "english": "to discover"
+  },
+  "dosahovať": {
+    "english": "to achieve; to reach"
+  },
+  "nazývať": {
+    "english": "to call; to name"
+  },
+  "trénovať": {
+    "english": "to train"
+  },
+  "napadnúť": {
+    "english": "to attack; to occur (to someone)"
+  },
+  "dopadnúť": {
+    "english": "to land; to turn out"
+  },
+  "rozmýšľať": {
+    "english": "to think; to ponder"
+  },
+  "odstrániť": {
+    "english": "to remove; to eliminate"
+  },
+  "pozývať": {
+    "english": "to invite"
+  },
+  "zbadať": {
+    "english": "to notice; to spot"
+  },
+  "predviesť": {
+    "english": "to demonstrate; to show"
+  },
+  "vystupovať": {
+    "english": "to perform; to get off; to appear"
+  },
+  "zodpovedať": {
+    "english": "to answer; to correspond; to be responsible"
+  },
+  "sústrediť": {
+    "english": "to concentrate; to focus"
+  },
+  "potvrdzovať": {
+    "english": "to confirm"
+  },
+  "zastať": {
+    "english": "to stop; to stand up for"
+  },
+  "oceniť": {
+    "english": "to appreciate; to value"
+  },
+  "nebáť": {
+    "english": "not to be afraid"
+  },
+  "bežať": {
+    "english": "to run"
+  },
+  "nezmeniť": {
+    "english": "not to change"
+  },
+  "vybojovať": {
+    "english": "to win by fighting; to fight for"
+  },
+  "navrhovať": {
+    "english": "to propose; to design"
+  },
+  "rátať": {
+    "english": "to count; to reckon"
+  },
+  "dochádzať": {
+    "english": "to arrive; to come about; to attend"
+  },
+  "priať": {
+    "english": "to wish"
+  },
+  "baviť": {
+    "english": "to amuse; to enjoy"
+  },
+  "otočiť": {
+    "english": "to turn"
+  },
+  "naplniť": {
+    "english": "to fill; to fulfill"
+  },
+  "odhaliť": {
+    "english": "to uncover; to reveal"
+  },
+  "dívať": {
+    "english": "to look; to watch"
+  },
+  "vyskúšať": {
+    "english": "to try out; to test"
+  },
+  "umiestniť": {
+    "english": "to place; to locate"
+  },
+  "pozvať": {
+    "english": "to invite"
+  },
+  "získavať": {
+    "english": "to obtain; to gain (imperfective)"
+  },
+  "vyraziť": {
+    "english": "to set out; to strike; to dash off"
+  },
+  "spôsobovať": {
+    "english": "to cause (imperfective)"
+  },
+  "obviniť": {
+    "english": "to accuse"
+  },
+  "pristúpiť": {
+    "english": "to approach; to proceed to"
+  },
+  "zvolať": {
+    "english": "to call; to convene; to shout"
+  },
+  "kritizovať": {
+    "english": "to criticize"
+  },
+  "nazvať": {
+    "english": "to name; to call"
+  },
+  "spočívať": {
+    "english": "to consist; to lie in"
+  },
+  "nepotrebovať": {
+    "english": "not to need"
+  },
+  "reprezentovať": {
+    "english": "to represent"
+  },
+  "odvolať": {
+    "english": "to revoke; to recall; to appeal"
+  },
+  "znižovať": {
+    "english": "to lower; to reduce (imperfective)"
+  },
+  "hlasovať": {
+    "english": "to vote"
+  },
+  "dočkať": {
+    "english": "to wait until; to live to see"
+  },
+  "zahynúť": {
+    "english": "to perish; to die"
+  },
+  "nehrať": {
+    "english": "not to play"
+  },
+  "uznať": {
+    "english": "to recognize; to acknowledge"
+  },
+  "rozdeliť": {
+    "english": "to divide; to share"
+  },
+  "štartovať": {
+    "english": "to start"
+  },
+  "odniesť": {
+    "english": "to take away; to carry off"
+  },
+  "sľúbiť": {
+    "english": "to promise"
+  },
+  "poďakovať": {
+    "english": "to thank"
+  },
+  "skonštatovať": {
+    "english": "to state; to note"
+  },
+  "neurobiť": {
+    "english": "not to do; not to make"
+  },
+  "podľahnúť": {
+    "english": "to succumb; to give in"
+  },
+  "hrávať": {
+    "english": "to play (habitual)"
+  },
+  "ujať": {
+    "english": "to take hold; to take on"
+  },
+  "zničiť": {
+    "english": "to destroy"
+  },
+  "naznačiť": {
+    "english": "to indicate; to hint"
+  },
+  "netušiť": {
+    "english": "not to suspect; not to realize"
+  },
+  "rozvíjať": {
+    "english": "to develop"
+  },
+  "naznačovať": {
+    "english": "to indicate; to suggest"
+  },
+  "rozbehnúť": {
+    "english": "to start; to set in motion"
+  },
+  "prikývnuť": {
+    "english": "to nod"
+  },
+  "sľubovať": {
+    "english": "to promise (imperfective)"
+  },
+  "vložiť": {
+    "english": "to insert; to put in"
+  },
+  "spadnúť": {
+    "english": "to fall"
+  },
+  "neznamenať": {
+    "english": "not to mean"
+  },
+  "kričať": {
+    "english": "to shout; to scream"
+  },
+  "upraviť": {
+    "english": "to adjust; to edit; to modify"
+  },
+  "klesať": {
+    "english": "to fall; to decline"
+  },
+  "porozprávať": {
+    "english": "to talk; to chat"
+  },
+  "kupovať": {
+    "english": "to buy (imperfective)"
+  },
+  "oslavovať": {
+    "english": "to celebrate"
+  },
+  "osláviť": {
+    "english": "to celebrate"
+  },
+  "ušetriť": {
+    "english": "to save; to spare"
+  },
+  "tlačiť": {
+    "english": "to press; to print; to push"
+  },
+  "blahoželať": {
+    "english": "to congratulate"
+  },
+  "naraziť": {
+    "english": "to hit; to run into"
+  },
+  "ovládať": {
+    "english": "to control; to master"
+  },
+  "pocítiť": {
+    "english": "to feel; to sense"
+  },
+  "darovať": {
+    "english": "to give; to donate"
+  },
+  "čeliť": {
+    "english": "to face; to confront"
+  },
+  "zarobiť": {
+    "english": "to earn"
+  },
+  "hlásiť": {
+    "english": "to report; to announce"
+  },
+  "padať": {
+    "english": "to fall (imperfective)"
+  },
+  "skrývať": {
+    "english": "to hide"
+  },
+  "navštevovať": {
+    "english": "to visit (imperfective)"
+  },
+  "dominovať": {
+    "english": "to dominate"
+  },
+  "prebehnúť": {
+    "english": "to run across; to take place"
+  },
+  "vyvolávať": {
+    "english": "to evoke; to cause (imperfective)"
+  },
+  "tušiť": {
+    "english": "to sense; to suspect"
+  },
+  "sťažovať": {
+    "english": "to complain; to make difficult"
+  },
+  "uvoľniť": {
+    "english": "to release; to loosen"
+  },
+  "ovplyvňovať": {
+    "english": "to influence (imperfective)"
+  },
+  "dokončiť": {
+    "english": "to finish; to complete"
+  },
+  "požadovať": {
+    "english": "to demand; to require"
+  },
+  "vyžiadať": {
+    "english": "to request; to demand"
+  },
+  "vypočuť": {
+    "english": "to hear; to listen to; to interrogate"
+  },
+  "zorganizovať": {
+    "english": "to organize"
+  },
+  "radiť": {
+    "english": "to advise"
+  },
+  "trafiť": {
+    "english": "to hit; to strike"
+  },
+  "prerušiť": {
+    "english": "to interrupt"
+  },
+  "blížiť": {
+    "english": "to approach; to draw near"
+  },
+  "zasmiať": {
+    "english": "to laugh; to burst out laughing"
+  },
+  "minúť": {
+    "english": "to spend; to miss"
+  },
+  "zájsť": {
+    "english": "to go; to drop by; to go too far"
+  },
+  "nechápať": {
+    "english": "not to understand"
+  },
+  "zamerať": {
+    "english": "to aim; to focus"
+  },
+  "striedať": {
+    "english": "to alternate; to take turns"
+  },
+  "utrpieť": {
+    "english": "to suffer; to sustain"
+  },
+  "prebrať": {
+    "english": "to take over; to discuss; to wake"
+  },
+  "mlčať": {
+    "english": "to be silent"
+  },
+  "presunúť": {
+    "english": "to move; to transfer"
+  },
+  "skúmať": {
+    "english": "to examine; to research"
+  },
+  "vypadnúť": {
+    "english": "to fall out; to drop out"
+  },
+  "nepatriť": {
+    "english": "not to belong"
+  },
+  "udeliť": {
+    "english": "to award; to grant"
+  },
+  "uplynúť": {
+    "english": "to pass; to elapse"
+  },
+  "zdôrazňovať": {
+    "english": "to emphasize (imperfective)"
+  },
+  "diskutovať": {
+    "english": "to discuss"
+  },
+  "nesúhlasiť": {
+    "english": "not to agree; to disagree"
+  },
+  "plakať": {
+    "english": "to cry; to weep"
+  },
+  "neísť": {
+    "english": "not to go"
+  },
+  "budovať": {
+    "english": "to build"
+  },
+  "šíriť": {
+    "english": "to spread"
+  },
+  "súťažiť": {
+    "english": "to compete"
+  },
+  "rešpektovať": {
+    "english": "to respect"
+  },
+  "odložiť": {
+    "english": "to put off; to postpone; to put aside"
+  },
+  "uložiť": {
+    "english": "to store; to put away; to save"
+  },
+  "pripísať": {
+    "english": "to attribute; to ascribe; to add in writing"
+  },
+  "zachytiť": {
+    "english": "to catch; to capture"
+  },
+  "vymyslieť": {
+    "english": "to invent; to think up"
+  },
+  "ukradnúť": {
+    "english": "to steal"
+  },
+  "obnoviť": {
+    "english": "to renew; to restore"
+  },
+  "presadzovať": {
+    "english": "to push through; to assert (imperfective)"
+  },
+  "nečakať": {
+    "english": "not to wait; not to expect"
+  },
+  "varovať": {
+    "english": "to warn"
+  },
+  "nepáčiť": {
+    "english": "not to please; not to like (sa)"
+  },
+  "pohnúť": {
+    "english": "to move"
+  },
+  "biť": {
+    "english": "to beat; to hit"
+  },
+  "označovať": {
+    "english": "to mark; to designate (imperfective)"
+  },
+  "zložiť": {
+    "english": "to put down; to compose; to fold"
+  },
+  "zanechať": {
+    "english": "to leave behind; to abandon"
+  },
+  "stúpnuť": {
+    "english": "to rise; to step up"
+  },
+  "mrzieť": {
+    "english": "to regret; to annoy; to be sorry"
+  },
+  "rozlúčiť": {
+    "english": "to say goodbye; to part"
+  },
+  "zadržať": {
+    "english": "to detain; to hold back"
+  },
+  "stúpať": {
+    "english": "to rise; to climb"
+  },
+  "potrvať": {
+    "english": "to last"
+  },
+  "vyrobiť": {
+    "english": "to produce; to manufacture"
+  },
+  "komentovať": {
+    "english": "to comment"
+  },
+  "opisovať": {
+    "english": "to describe"
+  },
+  "domnievať": {
+    "english": "to suppose; to believe"
+  },
+  "neplatiť": {
+    "english": "not to pay; not to be valid"
+  },
+  "merať": {
+    "english": "to measure"
+  },
+  "skúšať": {
+    "english": "to try; to test"
+  },
+  "vybaviť": {
+    "english": "to arrange; to equip; to settle"
+  },
+  "vyvíjať": {
+    "english": "to develop"
+  },
+  "variť": {
+    "english": "to cook; to boil"
+  },
+  "nerozumieť": {
+    "english": "not to understand"
+  },
+  "nevyjsť": {
+    "english": "not to come out; not to work out"
+  },
+  "opísať": {
+    "english": "to describe"
+  },
+  "odštartovať": {
+    "english": "to start; to launch"
+  },
+  "zhodnotiť": {
+    "english": "to evaluate; to assess"
+  },
+  "tváriť": {
+    "english": "to pretend; to look (as if)"
+  },
+  "letieť": {
+    "english": "to fly"
+  },
+  "užívať": {
+    "english": "to use; to enjoy; to take (medicine)"
+  },
+  "nenechať": {
+    "english": "not to leave; not to let"
+  },
+  "nepomôcť": {
+    "english": "not to help"
+  },
+  "zjaviť": {
+    "english": "to appear; to reveal"
+  },
+  "visieť": {
+    "english": "to hang"
+  },
+  "deliť": {
+    "english": "to divide; to share"
+  },
+  "poukazovať": {
+    "english": "to point out; to indicate"
+  },
+  "strieľať": {
+    "english": "to shoot"
+  },
+  "stanoviť": {
+    "english": "to set; to establish"
+  },
+  "pripadať": {
+    "english": "to seem; to fall to; to be allotted"
+  },
+  "utekať": {
+    "english": "to run; to flee"
+  },
+  "usmievať": {
+    "english": "to smile (imperfective)"
+  },
+  "odhadovať": {
+    "english": "to estimate"
+  },
+  "prepadnúť": {
+    "english": "to fall; to raid; to fail"
+  },
+  "snívať": {
+    "english": "to dream"
+  },
+  "poukázať": {
+    "english": "to point out; to indicate"
+  },
+  "udržiavať": {
+    "english": "to maintain; to keep"
+  },
+  "nedovoliť": {
+    "english": "not to allow"
+  },
+  "uplatniť": {
+    "english": "to apply; to assert"
+  },
+  "necítiť": {
+    "english": "not to feel"
+  },
+  "vyskočiť": {
+    "english": "to jump up; to leap out"
+  },
+  "nepočuť": {
+    "english": "not to hear"
+  },
+  "určovať": {
+    "english": "to determine; to specify (imperfective)"
+  },
+  "dopĺňať": {
+    "english": "to supplement; to fill in"
+  },
+  "vysielať": {
+    "english": "to broadcast; to send out"
+  },
+  "uveriť": {
+    "english": "to believe"
+  },
+  "bolieť": {
+    "english": "to hurt; to ache"
+  },
+  "vylúčiť": {
+    "english": "to exclude; to rule out"
+  },
+  "vyhovovať": {
+    "english": "to suit; to satisfy"
+  },
+  "vstupovať": {
+    "english": "to enter"
+  },
+  "prepustiť": {
+    "english": "to release; to dismiss; to fire"
+  },
+  "tráviť": {
+    "english": "to spend (time); to digest"
+  },
+  "dospieť": {
+    "english": "to reach; to come of age; to arrive at"
+  },
+  "vyčítať": {
+    "english": "to reproach; to read off"
+  },
+  "prispievať": {
+    "english": "to contribute (imperfective)"
+  },
+  "priznávať": {
+    "english": "to admit (imperfective)"
+  },
+  "zbierať": {
+    "english": "to collect; to gather"
+  },
+  "vyrásť": {
+    "english": "to grow up; to grow"
+  },
+  "nedariť": {
+    "english": "not to go well; not to succeed"
+  },
+  "zapísať": {
+    "english": "to write down; to enroll"
+  },
+  "zasahovať": {
+    "english": "to intervene; to interfere"
+  },
+  "siahnuť": {
+    "english": "to reach; to stretch for"
+  },
+  "prekročiť": {
+    "english": "to cross; to exceed"
+  },
+  "komunikovať": {
+    "english": "to communicate"
+  },
+  "nadobudnúť": {
+    "english": "to acquire; to obtain"
+  },
+  "preukázať": {
+    "english": "to prove; to demonstrate"
+  },
+  "vyzývať": {
+    "english": "to challenge; to call on (imperfective)"
+  },
+  "odsúdiť": {
+    "english": "to condemn; to convict"
+  },
+  "poraziť": {
+    "english": "to defeat; to beat"
+  },
+  "dokazovať": {
+    "english": "to prove (imperfective)"
+  },
+  "pripojiť": {
+    "english": "to attach; to connect; to join"
+  },
+  "zatvoriť": {
+    "english": "to close; to shut"
+  },
+  "citovať": {
+    "english": "to quote; to cite"
+  },
+  "pripustiť": {
+    "english": "to admit; to allow"
+  },
+  "vystriedať": {
+    "english": "to replace; to take turns"
+  },
+  "svietiť": {
+    "english": "to shine; to be on (light)"
+  },
+  "zraniť": {
+    "english": "to injure; to wound"
+  },
+  "zavrieť": {
+    "english": "to close; to shut"
+  },
+  "zahŕňať": {
+    "english": "to include; to comprise"
+  },
+  "strhnúť": {
+    "english": "to tear off; to pull down; to captivate"
+  },
+  "prinútiť": {
+    "english": "to force; to compel"
+  },
+  "odviezť": {
+    "english": "to take away; to drive away"
+  },
+  "vyhrávať": {
+    "english": "to win (imperfective)"
+  },
+  "usporiadať": {
+    "english": "to arrange; to organize"
+  },
+  "pochváliť": {
+    "english": "to praise"
+  },
+  "udrieť": {
+    "english": "to hit; to strike"
+  },
+  "nútiť": {
+    "english": "to force; to compel"
+  },
+  "akceptovať": {
+    "english": "to accept"
+  },
+  "vyhýbať": {
+    "english": "to avoid"
+  },
+  "nedôjsť": {
+    "english": "not to arrive; not to come about"
+  },
+  "uspieť": {
+    "english": "to succeed"
+  },
+  "podotknúť": {
+    "english": "to remark; to note"
+  },
+  "odstúpiť": {
+    "english": "to step down; to withdraw"
+  },
+  "objednať": {
+    "english": "to order"
+  },
+  "zúčastňovať": {
+    "english": "to take part; to participate (imperfective)"
+  },
+  "tancovať": {
+    "english": "to dance"
+  },
+  "preniesť": {
+    "english": "to transfer; to carry over"
+  },
+  "vyplatiť": {
+    "english": "to pay out; to be worth"
+  },
+  "obdivovať": {
+    "english": "to admire"
+  },
+  "obmedziť": {
+    "english": "to limit; to restrict"
+  },
+  "zastupovať": {
+    "english": "to represent; to substitute"
+  },
+  "premýšľať": {
+    "english": "to think; to ponder"
+  },
+  "zaznieť": {
+    "english": "to sound; to be heard"
+  },
+  "vyskytovať": {
+    "english": "to occur; to appear"
+  },
+  "zoznámiť": {
+    "english": "to introduce; to acquaint"
+  },
+  "čudovať": {
+    "english": "to wonder; to be surprised"
+  },
+  "upokojiť": {
+    "english": "to calm; to reassure"
+  },
+  "ohrozovať": {
+    "english": "to endanger; to threaten"
+  },
+  "zamyslieť": {
+    "english": "to think; to reflect"
+  },
+  "charakterizovať": {
+    "english": "to characterize"
+  },
+  "liečiť": {
+    "english": "to treat; to heal"
+  },
+  "prepáčiť": {
+    "english": "to forgive; to excuse"
+  },
+  "vypovedať": {
+    "english": "to testify; to state; to give notice"
+  },
+  "odohrávať": {
+    "english": "to take place; to play out (imperfective)"
+  },
+  "odviesť": {
+    "english": "to take away; to lead away; to divert"
+  },
+  "obliecť": {
+    "english": "to dress; to put on"
+  },
+  "nestihnúť": {
+    "english": "not to make it; not to manage in time"
+  },
+  "šetriť": {
+    "english": "to save; to conserve; to spare"
+  },
+  "prispôsobiť": {
+    "english": "to adapt; to adjust"
+  },
+  "spoliehať": {
+    "english": "to rely"
+  },
+  "klamať": {
+    "english": "to lie; to deceive"
+  },
+  "dopustiť": {
+    "english": "to allow; to commit"
+  },
+  "poškodiť": {
+    "english": "to damage"
+  },
+  "uplatňovať": {
+    "english": "to apply; to assert (imperfective)"
+  },
+  "oznamovať": {
+    "english": "to announce; to notify (imperfective)"
+  },
+  "uchádzať": {
+    "english": "to apply; to seek; to compete for"
+  },
+  "nadviazať": {
+    "english": "to establish; to follow up; to link"
+  },
+  "dýchať": {
+    "english": "to breathe"
+  },
+  "presťahovať": {
+    "english": "to move; to relocate"
+  },
+  "požičať": {
+    "english": "to lend; to borrow"
+  },
+  "vyhodiť": {
+    "english": "to throw out; to discard"
+  },
+  "skórovať": {
+    "english": "to score"
+  },
+  "dotýkať": {
+    "english": "to touch; to concern"
+  },
+  "rozširovať": {
+    "english": "to expand; to spread"
+  },
+  "sídliť": {
+    "english": "to be based; to reside"
+  },
+  "odpustiť": {
+    "english": "to forgive"
+  },
+  "zobudiť": {
+    "english": "to wake; to awaken"
+  },
+  "nevyužiť": {
+    "english": "not to use; not to take advantage of"
+  },
+  "preložiť": {
+    "english": "to translate; to move; to postpone"
+  },
+  "spĺňať": {
+    "english": "to fulfill; to meet"
+  },
+  "ľúbiť": {
+    "english": "to love; to like"
+  },
+  "uspokojiť": {
+    "english": "to satisfy; to content"
+  },
+  "nevrátiť": {
+    "english": "not to return; not to give back"
+  },
+  "vypiť": {
+    "english": "to drink up"
+  },
+  "čerpať": {
+    "english": "to draw; to draw on"
+  },
+  "predchádzať": {
+    "english": "to precede; to prevent"
+  },
+  "zrodiť": {
+    "english": "to give birth; to be born"
+  },
+  "doniesť": {
+    "english": "to bring"
+  },
+  "zvažovať": {
+    "english": "to consider; to weigh"
+  },
+  "mieriť": {
+    "english": "to aim; to head"
+  },
+  "uzatvárať": {
+    "english": "to close; to conclude (imperfective)"
+  },
+  "putovať": {
+    "english": "to wander; to travel"
+  },
+  "vyzdvihnúť": {
+    "english": "to lift; to highlight; to pick up"
+  },
+  "financovať": {
+    "english": "to finance"
+  },
+  "zabúdať": {
+    "english": "to forget (imperfective)"
+  },
+  "zaspať": {
+    "english": "to fall asleep"
+  },
+  "usadiť": {
+    "english": "to seat; to settle"
+  },
+  "vrhnúť": {
+    "english": "to throw; to cast"
+  },
+  "lákať": {
+    "english": "to attract; to lure"
+  },
+  "doraziť": {
+    "english": "to arrive"
+  },
+  "nakupovať": {
+    "english": "to shop; to buy"
+  },
+  "zareagovať": {
+    "english": "to react"
+  },
+  "ohlásiť": {
+    "english": "to announce; to report"
+  },
+  "opraviť": {
+    "english": "to repair; to correct"
+  },
+  "horieť": {
+    "english": "to burn"
+  },
+  "skladať": {
+    "english": "to compose; to put together; to take (an exam)"
+  },
+  "obracať": {
+    "english": "to turn; to turn over"
+  },
+  "sláviť": {
+    "english": "to celebrate"
+  },
+  "obhajovať": {
+    "english": "to defend; to advocate"
+  },
+  "zlepšovať": {
+    "english": "to improve (imperfective)"
+  },
+  "oplatiť": {
+    "english": "to be worth; to pay back"
+  },
+  "nezaujímať": {
+    "english": "not to interest"
+  },
+  "nechávať": {
+    "english": "to leave; to let (imperfective)"
+  },
+  "podobať": {
+    "english": "to resemble"
+  },
+  "vyšetrovať": {
+    "english": "to investigate"
+  },
+  "znášať": {
+    "english": "to bear; to endure; to get along"
+  },
+  "prehovoriť": {
+    "english": "to speak; to persuade"
+  },
+  "zakázať": {
+    "english": "to forbid; to ban"
+  },
+  "oprieť": {
+    "english": "to lean; to base on"
+  },
+  "ospravedlniť": {
+    "english": "to apologize; to excuse"
+  },
+  "inšpirovať": {
+    "english": "to inspire"
+  },
+  "dodržiavať": {
+    "english": "to observe; to keep; to comply with"
+  },
+  "lietať": {
+    "english": "to fly (imperfective)"
+  },
+  "spracovať": {
+    "english": "to process; to work up"
+  },
+  "umrieť": {
+    "english": "to die"
+  },
+  "inkasovať": {
+    "english": "to cash; to collect; to take (a hit)"
+  },
+  "nestáť": {
+    "english": "not to stand; not to cost; not to be worth"
+  },
+  "kandidovať": {
+    "english": "to run (for office); to candidate"
+  },
+  "približovať": {
+    "english": "to approach; to bring closer"
+  },
+  "uniknúť": {
+    "english": "to escape; to slip away"
+  },
+  "podnikať": {
+    "english": "to do business; to undertake"
+  },
+  "nebrať": {
+    "english": "not to take"
+  },
+  "vítať": {
+    "english": "to welcome"
+  },
+  "zriadiť": {
+    "english": "to establish; to set up"
+  },
+  "obísť": {
+    "english": "to go around; to bypass; to avoid"
+  },
+  "nemeniť": {
+    "english": "not to change"
+  },
+  "posúdiť": {
+    "english": "to assess; to judge"
+  },
+  "siahať": {
+    "english": "to reach; to extend"
+  },
+  "pociťovať": {
+    "english": "to feel; to sense"
+  },
+  "nepustiť": {
+    "english": "not to let go; not to release"
+  },
+  "zlomiť": {
+    "english": "to break"
+  },
+  "dotiahnuť": {
+    "english": "to pull; to finish; to tighten"
+  },
+  "predĺžiť": {
+    "english": "to extend; to prolong"
+  },
+  "chodievať": {
+    "english": "to go (habitual)"
+  },
+  "ovládnuť": {
+    "english": "to master; to seize control"
+  },
+  "odrážať": {
+    "english": "to reflect; to bounce"
+  },
+  "vyrastať": {
+    "english": "to grow up; to grow"
+  },
+  "zamieriť": {
+    "english": "to aim; to head"
+  },
+  "porovnávať": {
+    "english": "to compare"
+  },
+  "skočiť": {
+    "english": "to jump"
+  },
+  "začuť": {
+    "english": "to hear; to overhear"
+  },
+  "zastávať": {
+    "english": "to hold (a post); to advocate"
+  },
+  "chytať": {
+    "english": "to catch (imperfective)"
+  },
+  "zarábať": {
+    "english": "to earn"
+  },
+  "porovnať": {
+    "english": "to compare"
+  },
+  "zamestnávať": {
+    "english": "to employ"
+  },
+  "zaútočiť": {
+    "english": "to attack"
+  },
+  "chváliť": {
+    "english": "to praise"
+  },
+  "zisťovať": {
+    "english": "to find out; to ascertain"
+  },
+  "preniknúť": {
+    "english": "to penetrate; to get through"
+  },
+  "protestovať": {
+    "english": "to protest"
+  },
+  "napĺňať": {
+    "english": "to fill; to fulfill (imperfective)"
+  },
+  "odhadnúť": {
+    "english": "to estimate"
+  },
+  "nenávidieť": {
+    "english": "to hate"
+  },
+  "vyvinúť": {
+    "english": "to develop"
+  },
+  "ponechať": {
+    "english": "to leave; to keep"
+  },
+  "vymenovať": {
+    "english": "to appoint; to name; to list"
+  },
+  "odporučiť": {
+    "english": "to recommend"
+  },
+  "vyhlasovať": {
+    "english": "to declare; to announce"
+  },
+  "riskovať": {
+    "english": "to risk"
+  },
+  "odvrátiť": {
+    "english": "to avert; to turn away"
+  },
+  "strážiť": {
+    "english": "to guard"
+  },
+  "pridávať": {
+    "english": "to add"
+  },
+  "nedávať": {
+    "english": "not to give"
+  },
+  "živiť": {
+    "english": "to feed; to support"
+  },
+  "utiecť": {
+    "english": "to flee; to run away"
+  },
+  "dvíhať": {
+    "english": "to lift; to raise"
+  },
+  "pritiahnuť": {
+    "english": "to pull; to attract"
+  },
+  "vybehnúť": {
+    "english": "to run out; to dash out"
+  },
+  "nepovažovať": {
+    "english": "not to consider"
+  },
+  "krútiť": {
+    "english": "to twist; to turn"
+  },
+  "definovať": {
+    "english": "to define"
+  },
+  "posudzovať": {
+    "english": "to assess; to judge"
+  },
+  "udiať": {
+    "english": "to happen; to take place"
+  },
+  "evidovať": {
+    "english": "to record; to register"
+  },
+  "ponáhľať": {
+    "english": "to hurry"
+  },
+  "pochybovať": {
+    "english": "to doubt"
+  },
+  "nestratiť": {
+    "english": "not to lose"
+  },
+  "vzdychnúť": {
+    "english": "to sigh"
+  },
+  "upravovať": {
+    "english": "to adjust; to edit; to modify (imperfective)"
+  },
+  "pribúdať": {
+    "english": "to increase; to be added"
+  },
+  "zhovárať": {
+    "english": "to talk; to converse"
+  },
+  "prekážať": {
+    "english": "to bother; to obstruct"
+  },
+  "účinkovať": {
+    "english": "to act; to take effect; to perform"
+  },
+  "ignorovať": {
+    "english": "to ignore"
+  },
+  "pobrať": {
+    "english": "to take; to gather"
+  },
+  "zakončiť": {
+    "english": "to conclude; to end"
+  },
+  "porušiť": {
+    "english": "to violate; to break"
+  },
+  "vyplniť": {
+    "english": "to fill in; to complete"
+  },
+  "zameriavať": {
+    "english": "to aim; to focus (imperfective)"
+  },
+  "pestovať": {
+    "english": "to grow; to cultivate"
+  },
+  "rodiť": {
+    "english": "to give birth; to bear"
+  },
+  "javiť": {
+    "english": "to appear; to seem"
+  },
+  "dôverovať": {
+    "english": "to trust"
+  },
+  "uskutočňovať": {
+    "english": "to carry out; to realize"
+  },
+  "zhodnúť": {
+    "english": "to agree"
+  },
+  "zabrať": {
+    "english": "to occupy; to take up"
+  },
+  "zaslať": {
+    "english": "to send"
+  },
+  "opierať": {
+    "english": "to lean; to base on (imperfective)"
+  },
+  "disponovať": {
+    "english": "to have at one's disposal"
+  },
+  "preberať": {
+    "english": "to take over; to discuss (imperfective)"
+  },
+  "odraziť": {
+    "english": "to reflect; to bounce; to repel"
+  },
+  "vystreliť": {
+    "english": "to shoot; to fire"
+  },
+  "nariadiť": {
+    "english": "to order; to prescribe"
+  },
+  "ohroziť": {
+    "english": "to endanger; to threaten"
+  },
+  "objať": {
+    "english": "to embrace; to hug"
+  },
+  "pobozkať": {
+    "english": "to kiss"
+  },
+  "zaviazať": {
+    "english": "to bind; to commit"
+  },
+  "sťahovať": {
+    "english": "to move; to relocate; to download"
+  },
+  "plávať": {
+    "english": "to swim; to float"
+  },
+  "zraziť": {
+    "english": "to knock down; to reduce; to collide"
+  },
+  "zohrať": {
+    "english": "to play; to play a role"
+  },
+  "mávať": {
+    "english": "to wave"
+  },
+  "avizovať": {
+    "english": "to announce; to give notice"
+  },
+  "nechodiť": {
+    "english": "not to go; not to walk"
+  },
+  "argumentovať": {
+    "english": "to argue"
+  },
+  "predpovedať": {
+    "english": "to predict; to forecast"
+  },
+  "nevšimnúť": {
+    "english": "not to notice"
+  },
+  "zabávať": {
+    "english": "to entertain; to amuse"
+  },
+  "zapáliť": {
+    "english": "to set on fire; to light"
+  },
+  "vykročiť": {
+    "english": "to step out; to take a step"
+  },
+  "ľutovať": {
+    "english": "to regret; to pity"
+  },
+  "uverejniť": {
+    "english": "to publish"
+  },
+  "líšiť": {
+    "english": "to differ"
+  },
+  "postihnúť": {
+    "english": "to afflict; to hit; to affect"
+  },
+  "zakladať": {
+    "english": "to found; to establish (imperfective)"
+  },
+  "preveriť": {
+    "english": "to check; to verify"
+  },
+  "obetovať": {
+    "english": "to sacrifice"
+  },
+  "posadiť": {
+    "english": "to seat; to sit down"
+  },
+  "figurovať": {
+    "english": "to figure; to appear"
+  },
+  "zamestnať": {
+    "english": "to employ"
+  },
+  "pokrútiť": {
+    "english": "to shake (one's head); to twist"
+  },
+  "prevádzkovať": {
+    "english": "to operate; to run"
+  },
+  "prikázať": {
+    "english": "to order; to command"
+  },
+  "prehrávať": {
+    "english": "to lose; to play (a recording)"
+  },
+  "vzťahovať": {
+    "english": "to relate; to apply"
+  },
+  "vyslať": {
+    "english": "to send out; to dispatch"
+  },
+  "mýliť": {
+    "english": "to be mistaken; to confuse"
+  },
+  "ustúpiť": {
+    "english": "to step back; to yield"
+  },
+  "ukladať": {
+    "english": "to store; to put away; to impose"
+  },
+  "zatknúť": {
+    "english": "to arrest"
+  },
+  "neuspieť": {
+    "english": "not to succeed"
+  },
+  "zohnať": {
+    "english": "to get; to procure"
+  },
+  "útočiť": {
+    "english": "to attack"
+  },
+  "doplatiť": {
+    "english": "to pay the rest; to pay extra"
+  },
+  "nepamätať": {
+    "english": "not to remember"
+  },
+  "nasadiť": {
+    "english": "to put on; to deploy; to set"
+  },
+  "orientovať": {
+    "english": "to orient; to guide"
+  },
+  "overiť": {
+    "english": "to verify; to check"
+  },
+  "žiariť": {
+    "english": "to shine; to glow"
+  },
+  "pozdraviť": {
+    "english": "to greet"
+  },
+  "hanbiť": {
+    "english": "to be ashamed"
+  },
+  "nastupovať": {
+    "english": "to board; to take up (a post) (imperfective)"
+  },
+  "plynúť": {
+    "english": "to flow; to pass (time)"
+  },
+  "prisľúbiť": {
+    "english": "to promise"
+  },
+  "spravovať": {
+    "english": "to administer; to manage"
+  },
+  "zazrieť": {
+    "english": "to catch sight of; to spot"
+  },
+  "vyniesť": {
+    "english": "to carry out; to take out; to pronounce"
+  },
+  "vyvrcholiť": {
+    "english": "to culminate; to peak"
+  },
+  "neodpovedať": {
+    "english": "not to answer"
+  },
+  "ľahnúť": {
+    "english": "to lie down"
+  },
+  "obzrieť": {
+    "english": "to look around; to look back"
+  },
+  "nezostať": {
+    "english": "not to stay; not to remain"
+  },
+  "oboznámiť": {
+    "english": "to acquaint; to inform"
+  },
+  "nezačať": {
+    "english": "not to begin; not to start"
+  },
+  "behať": {
+    "english": "to run about"
+  },
+  "posúvať": {
+    "english": "to shift; to move (imperfective)"
+  },
+  "nezabúdať": {
+    "english": "not to forget"
+  },
+  "zavítať": {
+    "english": "to visit; to drop in"
+  },
+  "prebudiť": {
+    "english": "to awaken"
+  },
+  "vyskytnúť": {
+    "english": "to occur; to appear"
+  },
+  "zvážiť": {
+    "english": "to consider; to weigh"
+  },
+  "hádzať": {
+    "english": "to throw"
+  },
+  "pokaziť": {
+    "english": "to spoil; to break"
+  },
+  "pristupovať": {
+    "english": "to approach; to treat"
+  },
+  "neprekážať": {
+    "english": "not to bother; not to mind"
+  },
+  "užiť": {
+    "english": "to enjoy; to take; to use"
+  },
+  "nestretnúť": {
+    "english": "not to meet"
+  },
+  "pricestovať": {
+    "english": "to arrive (by travel)"
+  },
+  "zariadiť": {
+    "english": "to arrange; to furnish"
+  },
+  "identifikovať": {
+    "english": "to identify"
+  },
+  "odovzdávať": {
+    "english": "to hand over; to pass on (imperfective)"
+  },
+  "ozývať": {
+    "english": "to respond; to resound (sa)"
+  },
+  "nezvládnuť": {
+    "english": "not to manage; not to cope with"
+  },
+  "potrestať": {
+    "english": "to punish"
+  },
+  "sklamať": {
+    "english": "to disappoint"
+  },
+  "zahľadieť": {
+    "english": "to gaze; to stare"
+  },
+  "obzerať": {
+    "english": "to look around; to look at"
+  },
+  "zveriť": {
+    "english": "to entrust"
+  },
+  "podísť": {
+    "english": "to approach; to come up"
+  },
+  "zaskočiť": {
+    "english": "to surprise; to catch off guard; to drop by"
+  },
+  "povzbudiť": {
+    "english": "to encourage"
+  },
+  "triasť": {
+    "english": "to shake"
+  },
+  "skontrolovať": {
+    "english": "to check"
+  },
+  "neskončiť": {
+    "english": "not to finish; not to end"
+  },
+  "zlikvidovať": {
+    "english": "to liquidate; to eliminate"
+  },
+  "hnevať": {
+    "english": "to anger; to be angry"
+  },
+  "zaniknúť": {
+    "english": "to cease; to disappear; to die out"
+  },
+  "analyzovať": {
+    "english": "to analyze"
+  },
+  "zjesť": {
+    "english": "to eat up"
+  },
+  "doviesť": {
+    "english": "to bring; to lead to"
+  },
+  "natiahnuť": {
+    "english": "to stretch; to pull"
+  },
+  "uhradiť": {
+    "english": "to pay; to cover (a cost)"
+  },
+  "presviedčať": {
+    "english": "to persuade; to convince (imperfective)"
+  },
+  "jestvovať": {
+    "english": "to exist"
+  },
+  "obhájiť": {
+    "english": "to defend"
+  },
+  "zaistiť": {
+    "english": "to secure; to ensure"
+  },
+  "obliekať": {
+    "english": "to dress; to put on (imperfective)"
+  },
+  "prezrieť": {
+    "english": "to look through; to inspect"
+  },
+  "motivovať": {
+    "english": "to motivate"
+  },
+  "vystavovať": {
+    "english": "to exhibit; to expose"
+  },
+  "vytlačiť": {
+    "english": "to print; to push out"
+  },
+  "ťažiť": {
+    "english": "to mine; to extract; to weigh on"
+  },
+  "neprejsť": {
+    "english": "not to go through; not to pass"
+  },
+  "rozdávať": {
+    "english": "to give out; to distribute"
+  },
+  "trestať": {
+    "english": "to punish"
+  },
+  "predniesť": {
+    "english": "to deliver; to present (a speech)"
+  },
+  "narásť": {
+    "english": "to grow; to increase"
+  },
+  "nabrať": {
+    "english": "to take on; to scoop; to gain"
+  },
+  "zlyhať": {
+    "english": "to fail"
+  },
+  "posilňovať": {
+    "english": "to strengthen (imperfective)"
+  },
+  "pozostávať": {
+    "english": "to consist"
+  },
+  "schvaľovať": {
+    "english": "to approve (imperfective)"
+  },
+  "nazdávať": {
+    "english": "to think; to suppose"
+  },
+  "tiecť": {
+    "english": "to flow"
+  },
+  "podržať": {
+    "english": "to hold; to hold onto"
+  },
+  "zrealizovať": {
+    "english": "to realize; to carry out"
+  },
+  "zastreliť": {
+    "english": "to shoot dead"
+  },
+  "podeliť": {
+    "english": "to share; to divide"
+  },
+  "priviezť": {
+    "english": "to bring (by vehicle)"
+  },
+  "uznávať": {
+    "english": "to recognize; to acknowledge"
+  },
+  "radovať": {
+    "english": "to rejoice; to be glad"
+  },
+  "odkázať": {
+    "english": "to refer; to leave (in a will); to send word"
+  },
+  "triumfovať": {
+    "english": "to triumph"
+  },
+  "napraviť": {
+    "english": "to repair; to put right"
+  },
+  "predkladať": {
+    "english": "to submit; to present (imperfective)"
+  },
+  "nepriniesť": {
+    "english": "not to bring"
+  },
+  "nezáležať": {
+    "english": "not to matter"
+  },
+  "prenášať": {
+    "english": "to transfer; to carry; to transmit"
+  },
+  "sezóna": {
+    "english": "season"
+  },
+  "liga": {
+    "english": "league"
+  },
+  "dôvod": {
+    "english": "reason"
+  },
+  "Európa": {
+    "english": "Europe",
+    "category": "Places"
+  },
+  "voľba": {
+    "english": "choice; election"
+  },
+  "sila": {
+    "english": "strength; force"
+  },
+  "smer": {
+    "english": "direction; way"
+  },
+  "minister": {
+    "english": "minister"
+  },
+  "základ": {
+    "english": "basis; foundation"
+  },
+  "vedenie": {
+    "english": "leadership; management"
+  },
+  "návrh": {
+    "english": "proposal; draft"
+  },
+  "súd": {
+    "english": "court"
+  },
+  "Jozef": {
+    "english": "Joseph (given name)",
+    "category": "Names"
+  },
+  "Boh": {
+    "english": "God"
+  },
+  "hodnota": {
+    "english": "value"
+  },
+  "chvíľa": {
+    "english": "moment; while"
+  },
+  "riaditeľ": {
+    "english": "director; principal"
+  },
+  "centrum": {
+    "english": "center; centre"
+  },
+  "osoba": {
+    "english": "person"
+  },
+  "ulica": {
+    "english": "street"
+  },
+  "Bystrica": {
+    "english": "Bystrica (place name)",
+    "category": "Places"
+  },
+  "peniaz": {
+    "english": "coin; piece of money"
+  },
+  "činnosť": {
+    "english": "activity; operation"
+  },
+  "úroveň": {
+    "english": "level"
+  },
+  "sobota": {
+    "english": "Saturday"
+  },
+  "rámec": {
+    "english": "framework; frame"
+  },
+  "zmluva": {
+    "english": "contract; treaty"
+  },
+  "pohľad": {
+    "english": "look; view"
+  },
+  "divák": {
+    "english": "spectator; viewer"
+  },
+  "výkon": {
+    "english": "performance; output"
+  },
+  "úloha": {
+    "english": "task; role"
+  },
+  "šanca": {
+    "english": "chance"
+  },
+  "pravda": {
+    "english": "truth"
+  },
+  "Nitra": {
+    "english": "Nitra",
+    "category": "Places"
+  },
+  "názor": {
+    "english": "opinion"
+  },
+  "rada": {
+    "english": "advice; council"
+  },
+  "výška": {
+    "english": "height; amount"
+  },
+  "ročník": {
+    "english": "year (of study/edition); vintage"
+  },
+  "autor": {
+    "english": "author"
+  },
+  "občan": {
+    "english": "citizen"
+  },
+  "hlas": {
+    "english": "voice; vote"
+  },
+  "tvár": {
+    "english": "face"
+  },
+  "pomoc": {
+    "english": "help"
+  },
+  "srdce": {
+    "english": "heart"
+  },
+  "rozhodnutie": {
+    "english": "decision"
+  },
+  "väčšina": {
+    "english": "majority"
+  },
+  "polícia": {
+    "english": "police"
+  },
+  "Prešov": {
+    "english": "Prešov",
+    "category": "Places"
+  },
+  "rodič": {
+    "english": "parent"
+  },
+  "mužstvo": {
+    "english": "team (esp. sports)"
+  },
+  "prostredie": {
+    "english": "environment; setting"
+  },
+  "žiak": {
+    "english": "pupil; student"
+  },
+  "číslo": {
+    "english": "number"
+  },
+  "noc": {
+    "english": "night"
+  },
+  "zdroj": {
+    "english": "source"
+  },
+  "víťazstvo": {
+    "english": "victory"
+  },
+  "organizácia": {
+    "english": "organization"
+  },
+  "dielo": {
+    "english": "work (of art/literature)"
+  },
+  "Žilina": {
+    "english": "Žilina",
+    "category": "Places"
+  },
+  "obyvateľ": {
+    "english": "inhabitant; resident"
+  },
+  "syn": {
+    "english": "son"
+  },
+  "byt": {
+    "english": "apartment; flat"
+  },
+  "nedeľa": {
+    "english": "Sunday"
+  },
+  "jazyk": {
+    "english": "language; tongue"
+  },
+  "smrť": {
+    "english": "death"
+  },
+  "podpora": {
+    "english": "support"
+  },
+  "množstvo": {
+    "english": "amount; quantity"
+  },
+  "kultúra": {
+    "english": "culture"
+  },
+  "Pavol": {
+    "english": "Paul (given name)",
+    "category": "Names"
+  },
+  "telo": {
+    "english": "body"
+  },
+  "krok": {
+    "english": "step"
+  },
+  "súčasnosť": {
+    "english": "present (time); contemporaneity"
+  },
+  "dvere": {
+    "english": "door"
+  },
+  "riešenie": {
+    "english": "solution"
+  },
+  "kraj": {
+    "english": "region; edge"
+  },
+  "vojna": {
+    "english": "war"
+  },
+  "politika": {
+    "english": "politics; policy"
+  },
+  "pocit": {
+    "english": "feeling"
+  },
+  "zamestnanec": {
+    "english": "employee"
+  },
+  "daň": {
+    "english": "tax"
+  },
+  "spolupráca": {
+    "english": "cooperation"
+  },
+  "máj": {
+    "english": "May"
+  },
+  "téma": {
+    "english": "topic; theme"
+  },
+  "komisia": {
+    "english": "commission; committee"
+  },
+  "september": {
+    "english": "September"
+  },
+  "republika": {
+    "english": "republic"
+  },
+  "cirkev": {
+    "english": "church (institution)"
+  },
+  "agentúra": {
+    "english": "agency"
+  },
+  "záver": {
+    "english": "conclusion; ending"
+  },
+  "chlapec": {
+    "english": "boy"
+  },
+  "polovica": {
+    "english": "half"
+  },
+  "storočie": {
+    "english": "century"
+  },
+  "súper": {
+    "english": "opponent; rival"
+  },
+  "rozdiel": {
+    "english": "difference"
+  },
+  "forma": {
+    "english": "form"
+  },
+  "funkcia": {
+    "english": "function; post"
+  },
+  "stránka": {
+    "english": "page; side"
+  },
+  "január": {
+    "english": "January"
+  },
+  "názov": {
+    "english": "name; title"
+  },
+  "nemocnica": {
+    "english": "hospital"
+  },
+  "plán": {
+    "english": "plan"
+  },
+  "únia": {
+    "english": "union"
+  },
+  "podujatie": {
+    "english": "event"
+  },
+  "matka": {
+    "english": "mother"
+  },
+  "proces": {
+    "english": "process; trial"
+  },
+  "zariadenie": {
+    "english": "equipment; facility"
+  },
+  "list": {
+    "english": "letter; leaf"
+  },
+  "kategória": {
+    "english": "category"
+  },
+  "turnaj": {
+    "english": "tournament"
+  },
+  "príprava": {
+    "english": "preparation"
+  },
+  "lekár": {
+    "english": "doctor; physician"
+  },
+  "fond": {
+    "english": "fund"
+  },
+  "jún": {
+    "english": "June"
+  },
+  "prostriedok": {
+    "english": "means; resource; medium"
+  },
+  "úspech": {
+    "english": "success"
+  },
+  "boj": {
+    "english": "fight; struggle"
+  },
+  "príležitosť": {
+    "english": "opportunity"
+  },
+  "Slovák": {
+    "english": "Slovak (person)"
+  },
+  "región": {
+    "english": "region"
+  },
+  "marec": {
+    "english": "March"
+  },
+  "skutočnosť": {
+    "english": "reality; fact"
+  },
+  "parlament": {
+    "english": "parliament"
+  },
+  "budova": {
+    "english": "building"
+  },
+  "postup": {
+    "english": "procedure; progress"
+  },
+  "noha": {
+    "english": "leg; foot"
+  },
+  "šéf": {
+    "english": "boss; chief"
+  },
+  "vek": {
+    "english": "age"
+  },
+  "príbeh": {
+    "english": "story"
+  },
+  "podnik": {
+    "english": "enterprise; company"
+  },
+  "rad": {
+    "english": "row; series; advice"
+  },
+  "skúsenosť": {
+    "english": "experience"
+  },
+  "aktivita": {
+    "english": "activity"
+  },
+  "študent": {
+    "english": "student"
+  },
+  "hranica": {
+    "english": "border; boundary"
+  },
+  "výstava": {
+    "english": "exhibition"
+  },
+  "zem": {
+    "english": "earth; land; ground"
+  },
+  "priateľ": {
+    "english": "friend"
+  },
+  "piatok": {
+    "english": "Friday"
+  },
+  "súčasť": {
+    "english": "part; component"
+  },
+  "minulosť": {
+    "english": "past"
+  },
+  "náklad": {
+    "english": "cost; load; expense"
+  },
+  "budúcnosť": {
+    "english": "future"
+  },
+  "zmysel": {
+    "english": "sense; meaning"
+  },
+  "streda": {
+    "english": "Wednesday"
+  },
+  "apríl": {
+    "english": "April"
+  },
+  "november": {
+    "english": "November"
+  },
+  "príjem": {
+    "english": "income; receipt"
+  },
+  "október": {
+    "english": "October"
+  },
+  "územie": {
+    "english": "territory"
+  },
+  "dohoda": {
+    "english": "agreement"
+  },
+  "pohár": {
+    "english": "cup; glass; trophy"
+  },
+  "predaj": {
+    "english": "sale"
+  },
+  "rast": {
+    "english": "growth"
+  },
+  "majster": {
+    "english": "master; champion"
+  },
+  "ponuka": {
+    "english": "offer"
+  },
+  "miera": {
+    "english": "measure; degree; rate"
+  },
+  "obraz": {
+    "english": "picture; image"
+  },
+  "Mária": {
+    "english": "Mary (given name)",
+    "category": "Names"
+  },
+  "výroba": {
+    "english": "production; manufacture"
+  },
+  "brat": {
+    "english": "brother"
+  },
+  "hudba": {
+    "english": "music"
+  },
+  "dievča": {
+    "english": "girl"
+  },
+  "sieť": {
+    "english": "network; net"
+  },
+  "pracovník": {
+    "english": "worker; employee"
+  },
+  "Michal": {
+    "english": "Michael (given name)",
+    "category": "Names"
+  },
+  "futbal": {
+    "english": "football; soccer"
+  },
+  "rozvoj": {
+    "english": "development"
+  },
+  "text": {
+    "english": "text"
+  },
+  "vývoj": {
+    "english": "development; evolution"
+  },
+  "myšlienka": {
+    "english": "thought; idea"
+  },
+  "júl": {
+    "english": "July"
+  },
+  "titul": {
+    "english": "title"
+  },
+  "brankár": {
+    "english": "goalkeeper"
+  },
+  "december": {
+    "english": "December"
+  },
+  "rozpočet": {
+    "english": "budget"
+  },
+  "druh": {
+    "english": "kind; type; species"
+  },
+  "august": {
+    "english": "August"
+  },
+  "rozhovor": {
+    "english": "conversation; interview"
+  },
+  "Trnava": {
+    "english": "Trnava",
+    "category": "Places"
+  },
+  "obchod": {
+    "english": "shop; trade; business"
+  },
+  "útok": {
+    "english": "attack"
+  },
+  "premiér": {
+    "english": "prime minister"
+  },
+  "zástupca": {
+    "english": "representative; deputy"
+  },
+  "majetok": {
+    "english": "property; assets"
+  },
+  "noviny": {
+    "english": "newspaper"
+  },
+  "priebeh": {
+    "english": "course; progress (of events)"
+  },
+  "Nemecko": {
+    "english": "Germany",
+    "category": "Places"
+  },
+  "Rusko": {
+    "english": "Russia",
+    "category": "Places"
+  },
+  "kríza": {
+    "english": "crisis"
+  },
+  "rokovanie": {
+    "english": "negotiation; session"
+  },
+  "Ivan": {
+    "english": "Ivan (given name)",
+    "category": "Names"
+  },
+  "Milan": {
+    "english": "Milan (given name)",
+    "category": "Names"
+  },
+  "trieda": {
+    "english": "class"
+  },
+  "doba": {
+    "english": "period; era; time"
+  },
+  "médium": {
+    "english": "medium"
+  },
+  "divadlo": {
+    "english": "theater; theatre"
+  },
+  "konanie": {
+    "english": "proceedings; conduct; action"
+  },
+  "potreba": {
+    "english": "need"
+  },
+  "kvalita": {
+    "english": "quality"
+  },
+  "účasť": {
+    "english": "participation"
+  },
+  "chyba": {
+    "english": "mistake; error"
+  },
+  "história": {
+    "english": "history"
+  },
+  "šport": {
+    "english": "sport"
+  },
+  "ekonomika": {
+    "english": "economy; economics"
+  },
+  "február": {
+    "english": "February"
+  },
+  "ochrana": {
+    "english": "protection"
+  },
+  "výstavba": {
+    "english": "construction"
+  },
+  "súvislosť": {
+    "english": "connection; context"
+  },
+  "radosť": {
+    "english": "joy"
+  },
+  "televízia": {
+    "english": "television"
+  },
+  "suma": {
+    "english": "sum; amount"
+  },
+  "meter": {
+    "english": "meter; metre"
+  },
+  "dolár": {
+    "english": "dollar"
+  },
+  "pozícia": {
+    "english": "position"
+  },
+  "Slovan": {
+    "english": "Slav"
+  },
+  "policajt": {
+    "english": "police officer"
+  },
+  "financie": {
+    "english": "finance; finances"
+  },
+  "mama": {
+    "english": "mom; mum"
+  },
+  "predstaviteľ": {
+    "english": "representative; official"
+  },
+  "tvorba": {
+    "english": "creation; work (creative)"
+  },
+  "pani": {
+    "english": "lady; Mrs."
+  },
+  "poisťovňa": {
+    "english": "insurance company"
+  },
+  "typ": {
+    "english": "type"
+  },
+  "primátor": {
+    "english": "mayor (of a city)"
+  },
+  "čitateľ": {
+    "english": "reader"
+  },
+  "verejnosť": {
+    "english": "public"
+  },
+  "odbor": {
+    "english": "department; trade union branch; field"
+  },
+  "vozidlo": {
+    "english": "vehicle"
+  },
+  "výber": {
+    "english": "selection; choice"
+  },
+  "sloboda": {
+    "english": "freedom"
+  },
+  "štúdium": {
+    "english": "study; studies"
+  },
+  "Ježiš": {
+    "english": "Jesus",
+    "category": "Names"
+  },
+  "udalosť": {
+    "english": "event"
+  },
+  "poriadok": {
+    "english": "order"
+  },
+  "odpoveď": {
+    "english": "answer"
+  },
+  "denník": {
+    "english": "daily newspaper; diary"
+  },
+  "svetlo": {
+    "english": "light"
+  },
+  "vplyv": {
+    "english": "influence"
+  },
+  "fakt": {
+    "english": "fact"
+  },
+  "polčas": {
+    "english": "half-time; half"
+  },
+  "okolie": {
+    "english": "surroundings; vicinity"
+  },
+  "Vladimír": {
+    "english": "Vladimír (given name)",
+    "category": "Names"
+  },
+  "povinnosť": {
+    "english": "duty; obligation"
+  },
+  "univerzita": {
+    "english": "university"
+  },
+  "klient": {
+    "english": "client"
+  },
+  "umenie": {
+    "english": "art"
+  },
+  "zisk": {
+    "english": "profit; gain"
+  },
+  "pondelok": {
+    "english": "Monday"
+  },
+  "materiál": {
+    "english": "material"
+  },
+  "stôl": {
+    "english": "table"
+  },
+  "sestra": {
+    "english": "sister; nurse"
+  },
+  "Trenčín": {
+    "english": "Trenčín",
+    "category": "Places"
+  },
+  "manželka": {
+    "english": "wife"
+  },
+  "víťaz": {
+    "english": "winner"
+  },
+  "družstvo": {
+    "english": "team; cooperative"
+  },
+  "podoba": {
+    "english": "form; appearance; likeness"
+  },
+  "doprava": {
+    "english": "transport; traffic"
+  },
+  "návšteva": {
+    "english": "visit; visitor"
+  },
+  "kontrola": {
+    "english": "check; control; inspection"
+  },
+  "manžel": {
+    "english": "husband"
+  },
+  "úver": {
+    "english": "loan; credit"
+  },
+  "moc": {
+    "english": "power"
+  },
+  "okres": {
+    "english": "district"
+  },
+  "Juraj": {
+    "english": "George (given name)",
+    "category": "Names"
+  },
+  "opatrenie": {
+    "english": "measure"
+  },
+  "brána": {
+    "english": "gate"
+  },
+  "obrana": {
+    "english": "defense; defence"
+  },
+  "dôsledok": {
+    "english": "consequence"
+  },
+  "vstup": {
+    "english": "entry; entrance"
+  },
+  "majiteľ": {
+    "english": "owner"
+  },
+  "údaj": {
+    "english": "datum; piece of data"
+  },
+  "štvrtok": {
+    "english": "Thursday"
+  },
+  "Mikuláš": {
+    "english": "Nicholas (given name); St. Nicholas",
+    "category": "Names"
+  },
+  "dcéra": {
+    "english": "daughter"
+  },
+  "stanica": {
+    "english": "station"
+  },
+  "národ": {
+    "english": "nation"
+  },
+  "pacient": {
+    "english": "patient"
+  },
+  "šťastie": {
+    "english": "luck; happiness"
+  },
+  "zahraničie": {
+    "english": "abroad; foreign countries"
+  },
+  "festival": {
+    "english": "festival"
+  },
+  "strata": {
+    "english": "loss"
+  },
+  "učiteľ": {
+    "english": "teacher"
+  },
+  "partner": {
+    "english": "partner"
+  },
+  "podiel": {
+    "english": "share; portion"
+  },
+  "Tomáš": {
+    "english": "Thomas (given name)",
+    "category": "Names"
+  },
+  "leto": {
+    "english": "summer"
+  },
+  "postava": {
+    "english": "figure; character"
+  },
+  "kostol": {
+    "english": "church (building)"
+  },
+  "politik": {
+    "english": "politician"
+  },
+  "termín": {
+    "english": "deadline; date; term"
+  },
+  "prístup": {
+    "english": "access; approach"
+  },
+  "hľadisko": {
+    "english": "viewpoint; standpoint"
+  },
+  "účastník": {
+    "english": "participant"
+  },
+  "stavba": {
+    "english": "building; construction"
+  },
+  "energia": {
+    "english": "energy"
+  },
+  "strela": {
+    "english": "shot; bullet"
+  },
+  "preteky": {
+    "english": "race; competition"
+  },
+  "Praha": {
+    "english": "Prague",
+    "category": "Places"
+  },
+  "starosta": {
+    "english": "mayor (of a town)"
+  },
+  "Miroslav": {
+    "english": "Miroslav (given name)",
+    "category": "Names"
+  },
+  "fotografia": {
+    "english": "photograph; photography"
+  },
+  "výbor": {
+    "english": "committee"
+  },
+  "tabuľka": {
+    "english": "table (chart); small tablet"
+  },
+  "okno": {
+    "english": "window"
+  },
+  "ves": {
+    "english": "village"
+  },
+  "viera": {
+    "english": "faith; belief"
+  },
+  "literatúra": {
+    "english": "literature"
+  },
+  "Štefan": {
+    "english": "Stephen (given name)",
+    "category": "Names"
+  },
+  "majstrovstvá": {
+    "english": "championship"
+  },
+  "utorok": {
+    "english": "Tuesday"
+  },
+  "kandidát": {
+    "english": "candidate"
+  },
+  "vojak": {
+    "english": "soldier"
+  },
+  "ihrisko": {
+    "english": "playing field; pitch"
+  },
+  "izba": {
+    "english": "room"
+  },
+  "snaha": {
+    "english": "effort; endeavor"
+  },
+  "duch": {
+    "english": "spirit; ghost"
+  },
+  "stupeň": {
+    "english": "degree; level; grade"
+  },
+  "duša": {
+    "english": "soul"
+  },
+  "pravidlo": {
+    "english": "rule"
+  },
+  "výskum": {
+    "english": "research"
+  },
+  "súboj": {
+    "english": "duel; contest"
+  },
+  "príspevok": {
+    "english": "contribution; article; post"
+  },
+  "karta": {
+    "english": "card"
+  },
+  "tlak": {
+    "english": "pressure"
+  },
+  "farba": {
+    "english": "color; colour"
+  },
+  "odborník": {
+    "english": "expert; specialist"
+  },
+  "jednotka": {
+    "english": "unit"
+  },
+  "význam": {
+    "english": "meaning; significance"
+  },
+  "konferencia": {
+    "english": "conference"
+  },
+  "peniaze": {
+    "english": "money"
+  },
+  "biskup": {
+    "english": "bishop"
+  },
+  "pozornosť": {
+    "english": "attention"
+  },
+  "finále": {
+    "english": "final; finale"
+  },
+  "koncert": {
+    "english": "concert"
+  },
+  "František": {
+    "english": "Francis (given name)",
+    "category": "Names"
+  },
+  "predmet": {
+    "english": "subject; object"
+  },
+  "foto": {
+    "english": "photo"
+  },
+  "hovorca": {
+    "english": "spokesperson (m.)"
+  },
+  "vzhľad": {
+    "english": "appearance; look"
+  },
+  "zdravie": {
+    "english": "health"
+  },
+  "orgán": {
+    "english": "organ; authority"
+  },
+  "nádej": {
+    "english": "hope"
+  },
+  "poplatok": {
+    "english": "fee; charge"
+  },
+  "oddelenie": {
+    "english": "department; ward"
+  },
+  "strom": {
+    "english": "tree"
+  },
+  "lopta": {
+    "english": "ball"
+  },
+  "príroda": {
+    "english": "nature"
+  },
+  "žiadosť": {
+    "english": "request; application"
+  },
+  "škoda": {
+    "english": "damage; pity"
+  },
+  "krv": {
+    "english": "blood"
+  },
+  "zväz": {
+    "english": "union; association; bundle"
+  },
+  "investor": {
+    "english": "investor"
+  },
+  "reč": {
+    "english": "speech; talk"
+  },
+  "požiadavka": {
+    "english": "requirement; demand"
+  },
+  "veda": {
+    "english": "science"
+  },
+  "schopnosť": {
+    "english": "ability; capability"
+  },
+  "múzeum": {
+    "english": "museum"
+  },
+  "účet": {
+    "english": "account; bill"
+  },
+  "prax": {
+    "english": "practice; experience"
+  },
+  "podnikateľ": {
+    "english": "entrepreneur; businessperson"
+  },
+  "obsah": {
+    "english": "content"
+  },
+  "pes": {
+    "english": "dog"
+  },
+  "pôda": {
+    "english": "soil; land; ground"
+  },
+  "internet": {
+    "english": "internet"
+  },
+  "trest": {
+    "english": "punishment; penalty"
+  },
+  "Marek": {
+    "english": "Mark (given name)",
+    "category": "Names"
+  },
+  "podstata": {
+    "english": "essence; substance"
+  },
+  "vodič": {
+    "english": "driver"
+  },
+  "pozemok": {
+    "english": "plot of land; lot"
+  },
+  "komunikácia": {
+    "english": "communication"
+  },
+  "kráľ": {
+    "english": "king"
+  },
+  "dokument": {
+    "english": "document"
+  },
+  "predstava": {
+    "english": "idea; notion; imagination"
+  },
+  "článok": {
+    "english": "article; clause"
+  },
+  "investícia": {
+    "english": "investment"
+  },
+  "starostlivosť": {
+    "english": "care"
+  },
+  "osobnosť": {
+    "english": "personality; figure"
+  },
+  "čin": {
+    "english": "act; deed"
+  },
+  "sen": {
+    "english": "dream"
+  },
+  "odchod": {
+    "english": "departure; leaving"
+  },
+  "produkt": {
+    "english": "product"
+  },
+  "pohyb": {
+    "english": "movement; motion"
+  },
+  "obeť": {
+    "english": "victim; sacrifice"
+  },
+  "prejav": {
+    "english": "expression; speech; manifestation"
+  },
+  "dedina": {
+    "english": "village"
+  },
+  "príčina": {
+    "english": "cause"
+  },
+  "kontakt": {
+    "english": "contact"
+  },
+  "Marián": {
+    "english": "Marián (given name)",
+    "category": "Names"
+  },
+  "Kristus": {
+    "english": "Christ",
+    "category": "Names"
+  },
+  "duel": {
+    "english": "duel"
+  },
+  "Francúzsko": {
+    "english": "France",
+    "category": "Places"
+  },
+  "choroba": {
+    "english": "illness; disease"
+  },
+  "model": {
+    "english": "model"
+  },
+  "hviezda": {
+    "english": "star"
+  },
+  "návštevník": {
+    "english": "visitor"
+  },
+  "kôň": {
+    "english": "horse"
+  },
+  "strach": {
+    "english": "fear"
+  },
+  "čelo": {
+    "english": "forehead; front"
+  },
+  "Poľsko": {
+    "english": "Poland",
+    "category": "Places"
+  },
+  "séria": {
+    "english": "series"
+  },
+  "porovnanie": {
+    "english": "comparison"
+  },
+  "dejiny": {
+    "english": "history"
+  },
+  "spomienka": {
+    "english": "memory; recollection"
+  },
+  "les": {
+    "english": "forest; woods"
+  },
+  "riziko": {
+    "english": "risk"
+  },
+  "zákazník": {
+    "english": "customer"
+  },
+  "kňaz": {
+    "english": "priest"
+  },
+  "pokus": {
+    "english": "attempt; experiment"
+  },
+  "počasie": {
+    "english": "weather"
+  },
+  "zámok": {
+    "english": "castle; lock"
+  },
+  "kancelária": {
+    "english": "office"
+  },
+  "park": {
+    "english": "park"
+  },
+  "pokoj": {
+    "english": "peace; calm"
+  },
+  "Maďarsko": {
+    "english": "Hungary",
+    "category": "Places"
+  },
+  "Poprad": {
+    "english": "Poprad",
+    "category": "Places"
+  },
+  "kurz": {
+    "english": "course; rate (exchange)"
+  },
+  "nedostatok": {
+    "english": "shortage; lack"
+  },
+  "mládež": {
+    "english": "youth; young people"
+  },
+  "zbraň": {
+    "english": "weapon"
+  },
+  "pápež": {
+    "english": "pope"
+  },
+  "bolesť": {
+    "english": "pain"
+  },
+  "Zvolen": {
+    "english": "Zvolen",
+    "category": "Places"
+  },
+  "vznik": {
+    "english": "origin; emergence"
+  },
+  "kolega": {
+    "english": "colleague"
+  },
+  "združenie": {
+    "english": "association"
+  },
+  "príklad": {
+    "english": "example"
+  },
+  "hotel": {
+    "english": "hotel"
+  },
+  "vyhlásenie": {
+    "english": "statement; declaration"
+  },
+  "zvýšenie": {
+    "english": "increase; raise"
+  },
+  "Fico": {
+    "english": "Fico (surname)",
+    "category": "Names"
+  },
+  "návrat": {
+    "english": "return"
+  },
+  "inštitúcia": {
+    "english": "institution"
+  },
+  "novinár": {
+    "english": "journalist"
+  },
+  "pole": {
+    "english": "field"
+  },
+  "večer": {
+    "english": "evening"
+  },
+  "líder": {
+    "english": "leader"
+  },
+  "výročie": {
+    "english": "anniversary"
+  },
+  "sviatok": {
+    "english": "holiday; feast day"
+  },
+  "tradícia": {
+    "english": "tradition"
+  },
+  "prevádzka": {
+    "english": "operation; premises; service"
+  },
+  "fanúšik": {
+    "english": "fan; supporter"
+  },
+  "výhoda": {
+    "english": "advantage"
+  },
+  "zranenie": {
+    "english": "injury"
+  },
+  "papier": {
+    "english": "paper"
+  },
+  "futbalista": {
+    "english": "footballer; soccer player"
+  },
+  "technika": {
+    "english": "technique; technology"
+  },
+  "útočník": {
+    "english": "attacker; forward"
+  },
+  "ústav": {
+    "english": "institute; constitution (arch./formal)"
+  },
+  "diskusia": {
+    "english": "discussion"
+  },
+  "Prievidza": {
+    "english": "Prievidza",
+    "category": "Places"
+  },
+  "postoj": {
+    "english": "attitude; stance"
+  },
+  "značka": {
+    "english": "brand; mark; sign"
+  },
+  "jedlo": {
+    "english": "food; meal"
+  },
+  "plocha": {
+    "english": "area; surface"
+  },
+  "stena": {
+    "english": "wall"
+  },
+  "námestie": {
+    "english": "square (plaza)"
+  },
+  "osud": {
+    "english": "fate; destiny"
+  },
+  "adresa": {
+    "english": "address"
+  },
+  "kampaň": {
+    "english": "campaign"
+  },
+  "koalícia": {
+    "english": "coalition"
+  },
+  "kilometer": {
+    "english": "kilometer; kilometre"
+  },
+  "pomer": {
+    "english": "ratio; relation"
+  },
+  "pokles": {
+    "english": "decline; drop"
+  },
+  "objekt": {
+    "english": "object; building"
+  },
+  "vnútro": {
+    "english": "interior; inside"
+  },
+  "prehra": {
+    "english": "defeat; loss"
+  },
+  "hrad": {
+    "english": "castle"
+  },
+  "lietadlo": {
+    "english": "airplane; aeroplane"
+  },
+  "rozhodca": {
+    "english": "referee; arbitrator"
+  },
+  "reforma": {
+    "english": "reform"
+  },
+  "atmosféra": {
+    "english": "atmosphere"
+  },
+  "výrobok": {
+    "english": "product"
+  },
+  "scéna": {
+    "english": "scene; stage"
+  },
+  "víkend": {
+    "english": "weekend"
+  },
+  "rekonštrukcia": {
+    "english": "reconstruction; renovation"
+  },
+  "zbor": {
+    "english": "choir; corps; assembly"
+  },
+  "more": {
+    "english": "sea"
+  },
+  "miestnosť": {
+    "english": "room"
+  },
+  "ústa": {
+    "english": "mouth"
+  },
+  "liek": {
+    "english": "medicine; drug"
+  },
+  "vlas": {
+    "english": "hair (strand)"
+  },
+  "tretina": {
+    "english": "third"
+  },
+  "zastupiteľstvo": {
+    "english": "assembly; council"
+  },
+  "zviera": {
+    "english": "animal"
+  },
+  "zámer": {
+    "english": "intention; aim"
+  },
+  "časopis": {
+    "english": "magazine; journal"
+  },
+  "pieseň": {
+    "english": "song"
+  },
+  "súbor": {
+    "english": "file; set; ensemble"
+  },
+  "príchod": {
+    "english": "arrival"
+  },
+  "chuť": {
+    "english": "taste; appetite"
+  },
+  "režim": {
+    "english": "regime; mode"
+  },
+  "modlitba": {
+    "english": "prayer"
+  },
+  "školstvo": {
+    "english": "education system; schooling"
+  },
+  "úprava": {
+    "english": "adjustment; edit; treatment"
+  },
+  "organizátor": {
+    "english": "organizer"
+  },
+  "štadión": {
+    "english": "stadium"
+  },
+  "tovar": {
+    "english": "goods; merchandise"
+  },
+  "zodpovednosť": {
+    "english": "responsibility"
+  },
+  "pobyt": {
+    "english": "stay"
+  },
+  "manažér": {
+    "english": "manager"
+  },
+  "prieskum": {
+    "english": "survey; research; exploration"
+  },
+  "samospráva": {
+    "english": "self-government; local government"
+  },
+  "desiatka": {
+    "english": "ten; group of ten"
+  },
+  "víno": {
+    "english": "wine"
+  },
+  "štýl": {
+    "english": "style"
+  },
+  "armáda": {
+    "english": "army"
+  },
+  "zoznam": {
+    "english": "list"
+  },
+  "posteľ": {
+    "english": "bed"
+  },
+  "úsmev": {
+    "english": "smile"
+  },
+  "zima": {
+    "english": "winter; cold"
+  },
+  "stredisko": {
+    "english": "center; resort; facility"
+  },
+  "látka": {
+    "english": "substance; fabric; material"
+  },
+  "kariéra": {
+    "english": "career"
+  },
+  "Anna": {
+    "english": "Anna (given name)",
+    "category": "Names"
+  },
+  "postavenie": {
+    "english": "position; standing"
+  },
+  "záhrada": {
+    "english": "garden"
+  },
+  "Topoľčany": {
+    "english": "Topoľčany",
+    "category": "Places"
+  },
+  "obava": {
+    "english": "concern; fear"
+  },
+  "generácia": {
+    "english": "generation"
+  },
+  "bezpečnosť": {
+    "english": "safety; security"
+  },
+  "dlh": {
+    "english": "debt"
+  },
+  "plyn": {
+    "english": "gas"
+  },
+  "sekunda": {
+    "english": "second"
+  },
+  "volič": {
+    "english": "voter"
+  },
+  "technológia": {
+    "english": "technology"
+  },
+  "loď": {
+    "english": "ship; boat"
+  },
+  "Robert": {
+    "english": "Robert (given name)",
+    "category": "Names"
+  },
+  "reprezentácia": {
+    "english": "representation; national team"
+  },
+  "východ": {
+    "english": "east; exit"
+  },
+  "vzduch": {
+    "english": "air"
+  },
+  "kus": {
+    "english": "piece"
+  },
+  "dispozícia": {
+    "english": "disposition; layout; availability"
+  },
+  "hovorkyňa": {
+    "english": "spokesperson (f.)"
+  },
+  "telefón": {
+    "english": "telephone"
+  },
+  "Andrej": {
+    "english": "Andrew (given name)",
+    "category": "Names"
+  },
+  "seriál": {
+    "english": "series (TV); serial"
+  },
+  "slnko": {
+    "english": "sun"
+  },
+  "štruktúra": {
+    "english": "structure"
+  },
+  "úvod": {
+    "english": "introduction"
+  },
+  "chlap": {
+    "english": "guy; man"
+  },
+  "plat": {
+    "english": "salary"
+  },
+  "chrbát": {
+    "english": "back"
+  },
+  "poistenie": {
+    "english": "insurance"
+  },
+  "kapitán": {
+    "english": "captain"
+  },
+  "výdavok": {
+    "english": "expense; expenditure"
+  },
+  "princíp": {
+    "english": "principle"
+  },
+  "zdravotníctvo": {
+    "english": "healthcare; health service"
+  },
+  "nehoda": {
+    "english": "accident"
+  },
+  "post": {
+    "english": "post; position"
+  },
+  "Ružomberok": {
+    "english": "Ružomberok",
+    "category": "Places"
+  },
+  "novela": {
+    "english": "novella; amendment (law)"
+  },
+  "reakcia": {
+    "english": "reaction"
+  },
+  "výzva": {
+    "english": "challenge; call"
+  },
+  "prst": {
+    "english": "finger; toe"
+  },
+  "šampionát": {
+    "english": "championship"
+  },
+  "mzda": {
+    "english": "wage"
+  },
+  "záležitosť": {
+    "english": "matter; affair"
+  },
+  "výrobca": {
+    "english": "manufacturer; producer"
+  },
+  "Taliansko": {
+    "english": "Italy",
+    "category": "Places"
+  },
+  "Humenné": {
+    "english": "Humenné",
+    "category": "Places"
+  },
+  "kino": {
+    "english": "cinema"
+  },
+  "správanie": {
+    "english": "behavior; behaviour"
+  },
+  "zbierka": {
+    "english": "collection"
+  },
+  "vystúpenie": {
+    "english": "performance; appearance; withdrawal"
+  },
+  "Ladislav": {
+    "english": "Ladislav (given name)",
+    "category": "Names"
+  },
+  "rieka": {
+    "english": "river"
+  },
+  "poradie": {
+    "english": "order; ranking"
+  },
+  "hora": {
+    "english": "mountain"
+  },
+  "štart": {
+    "english": "start"
+  },
+  "Čína": {
+    "english": "China",
+    "category": "Places"
+  },
+  "spor": {
+    "english": "dispute; quarrel"
+  },
+  "Čadca": {
+    "english": "Čadca",
+    "category": "Places"
+  },
+  "dar": {
+    "english": "gift"
+  },
+  "sudca": {
+    "english": "judge"
+  },
+  "sadzba": {
+    "english": "rate; tariff"
+  },
+  "počítač": {
+    "english": "computer"
+  },
+  "Amerika": {
+    "english": "America",
+    "category": "Places"
+  },
+  "autobus": {
+    "english": "bus"
+  },
+  "spoločenstvo": {
+    "english": "community; fellowship"
+  },
+  "moment": {
+    "english": "moment"
+  },
+  "stovka": {
+    "english": "hundred"
+  },
+  "domov": {
+    "english": "home"
+  },
+  "nástroj": {
+    "english": "tool; instrument"
+  },
+  "Rakúsko": {
+    "english": "Austria",
+    "category": "Places"
+  },
+  "fakulta": {
+    "english": "faculty (university)"
+  },
+  "Dušan": {
+    "english": "Dušan (given name)",
+    "category": "Names"
+  },
+  "dovolenka": {
+    "english": "vacation; holiday; leave"
+  },
+  "vydanie": {
+    "english": "edition; issue; publication"
+  },
+  "hospodárstvo": {
+    "english": "economy; household"
+  },
+  "charakter": {
+    "english": "character"
+  },
+  "skúška": {
+    "english": "exam; test; trial"
+  },
+  "úsek": {
+    "english": "section; stretch"
+  },
+  "lístok": {
+    "english": "ticket; leaf; slip"
+  },
+  "dôchodok": {
+    "english": "pension; retirement"
+  },
+  "Zuzana": {
+    "english": "Susan (given name)",
+    "category": "Names"
+  },
+  "jeseň": {
+    "english": "autumn; fall"
+  },
+  "Jaroslav": {
+    "english": "Jaroslav (given name)",
+    "category": "Names"
+  },
+  "knižnica": {
+    "english": "library"
+  },
+  "kameň": {
+    "english": "stone"
+  },
+  "objem": {
+    "english": "volume"
+  },
+  "tábor": {
+    "english": "camp"
+  },
+  "dôkaz": {
+    "english": "proof; evidence"
+  },
+  "dvor": {
+    "english": "courtyard; court"
+  },
+  "medaila": {
+    "english": "medal"
+  },
+  "kamarát": {
+    "english": "friend; buddy"
+  },
+  "prvok": {
+    "english": "element"
+  },
+  "zásah": {
+    "english": "intervention; hit; strike"
+  },
+  "operácia": {
+    "english": "operation; surgery"
+  },
+  "ochorenie": {
+    "english": "disease; illness"
+  },
+  "rezort": {
+    "english": "ministry; sector; resort"
+  },
+  "omša": {
+    "english": "Mass (church service)"
+  },
+  "vzdelávanie": {
+    "english": "education; training"
+  },
+  "zníženie": {
+    "english": "reduction; decrease"
+  },
+  "hodnotenie": {
+    "english": "evaluation; rating"
+  },
+  "hokej": {
+    "english": "hockey"
+  },
+  "rýchlosť": {
+    "english": "speed"
+  },
+  "ostrov": {
+    "english": "island"
+  },
+  "hala": {
+    "english": "hall"
+  },
+  "hnutie": {
+    "english": "movement"
+  },
+  "metóda": {
+    "english": "method"
+  },
+  "priemer": {
+    "english": "average; diameter"
+  },
+  "túžba": {
+    "english": "desire; longing"
+  },
+  "snímka": {
+    "english": "shot; photo; frame"
+  },
+  "úvaha": {
+    "english": "reflection; consideration"
+  },
+  "obranca": {
+    "english": "defender"
+  },
+  "zamestnávateľ": {
+    "english": "employer"
+  },
+  "jar": {
+    "english": "spring (season)"
+  },
+  "vietor": {
+    "english": "wind"
+  },
+  "teplota": {
+    "english": "temperature"
+  },
+  "redakcia": {
+    "english": "editorial office; editors"
+  },
+  "prestávka": {
+    "english": "break; interval"
+  },
+  "oslava": {
+    "english": "celebration"
+  },
+  "nákup": {
+    "english": "purchase; shopping"
+  },
+  "výnimka": {
+    "english": "exception"
+  },
+  "ľad": {
+    "english": "ice"
+  },
+  "alkohol": {
+    "english": "alcohol"
+  },
+  "herec": {
+    "english": "actor"
+  },
+  "nárok": {
+    "english": "claim; entitlement"
+  },
+  "analytik": {
+    "english": "analyst"
+  },
+  "dres": {
+    "english": "jersey; kit"
+  },
+  "dvojica": {
+    "english": "pair; couple"
+  },
+  "výchova": {
+    "english": "upbringing; education"
+  },
+  "Nemec": {
+    "english": "German (person)"
+  },
+  "trať": {
+    "english": "track; route; course"
+  },
+  "realita": {
+    "english": "reality"
+  },
+  "sektor": {
+    "english": "sector"
+  },
+  "ropa": {
+    "english": "oil; petroleum"
+  },
+  "dôvera": {
+    "english": "trust; confidence"
+  },
+  "vôľa": {
+    "english": "will"
+  },
+  "analýza": {
+    "english": "analysis"
+  },
+  "pokuta": {
+    "english": "fine; penalty"
+  },
+  "román": {
+    "english": "novel"
+  },
+  "domácnosť": {
+    "english": "household"
+  },
+  "Česko": {
+    "english": "Czechia; Czech Republic",
+    "category": "Places"
+  },
+  "priemysel": {
+    "english": "industry"
+  },
+  "nebo": {
+    "english": "sky; heaven"
+  },
+  "areál": {
+    "english": "grounds; complex; area"
+  },
+  "jazda": {
+    "english": "ride; drive"
+  },
+  "spisovateľ": {
+    "english": "writer; author"
+  },
+  "pôsobenie": {
+    "english": "activity; effect; tenure"
+  },
+  "zasadnutie": {
+    "english": "meeting; session"
+  },
+  "subjekt": {
+    "english": "subject; entity"
+  },
+  "sused": {
+    "english": "neighbor; neighbour"
+  },
+  "strecha": {
+    "english": "roof"
+  },
+  "vyjadrenie": {
+    "english": "statement; expression"
+  },
+  "most": {
+    "english": "bridge"
+  },
+  "Jana": {
+    "english": "Jana (given name)",
+    "category": "Names"
+  },
+  "plece": {
+    "english": "shoulder"
+  },
+  "turista": {
+    "english": "tourist"
+  },
+  "priečka": {
+    "english": "bar; rung; partition"
+  },
+  "prítomnosť": {
+    "english": "presence"
+  },
+  "sídlo": {
+    "english": "seat; headquarters; residence"
+  },
+  "Richard": {
+    "english": "Richard (given name)",
+    "category": "Names"
+  },
+  "celok": {
+    "english": "whole; entirety"
+  },
+  "stanovisko": {
+    "english": "standpoint; position"
+  },
+  "vlak": {
+    "english": "train"
+  },
+  "účel": {
+    "english": "purpose"
+  },
+  "prospech": {
+    "english": "benefit; interest"
+  },
+  "zlato": {
+    "english": "gold"
+  },
+  "režisér": {
+    "english": "director (film/theater)"
+  },
+  "výmena": {
+    "english": "exchange"
+  },
+  "potravina": {
+    "english": "foodstuff; food item"
+  },
+  "Karol": {
+    "english": "Charles (given name)",
+    "category": "Names"
+  },
+  "konflikt": {
+    "english": "conflict"
+  },
+  "Senica": {
+    "english": "Senica",
+    "category": "Places"
+  },
+  "kríž": {
+    "english": "cross"
+  },
+  "strelec": {
+    "english": "shooter; striker; gunner"
+  },
+  "prehliadka": {
+    "english": "parade; inspection; show"
+  },
+  "zážitok": {
+    "english": "experience (lived)"
+  },
+  "Moskva": {
+    "english": "Moscow",
+    "category": "Places"
+  },
+  "predpoklad": {
+    "english": "assumption; prerequisite"
+  },
+  "krása": {
+    "english": "beauty"
+  },
+  "odpad": {
+    "english": "waste; refuse"
+  },
+  "Británia": {
+    "english": "Britain",
+    "category": "Places"
+  },
+  "reprezentant": {
+    "english": "representative"
+  },
+  "chodník": {
+    "english": "sidewalk; pavement; path"
+  },
+  "Tatry": {
+    "english": "Tatra Mountains",
+    "category": "Places"
+  },
+  "Ľubomír": {
+    "english": "Ľubomír (given name)",
+    "category": "Names"
+  },
+  "produkcia": {
+    "english": "production"
+  },
+  "nárast": {
+    "english": "increase; rise"
+  },
+  "kop": {
+    "english": "kick"
+  },
+  "myseľ": {
+    "english": "mind"
+  },
+  "fáza": {
+    "english": "phase"
+  },
+  "Daniel": {
+    "english": "Daniel (given name)",
+    "category": "Names"
+  },
+  "umelec": {
+    "english": "artist"
+  },
+  "Otec": {
+    "english": "Father (God); father"
+  },
+  "okolnosť": {
+    "english": "circumstance"
+  },
+  "tréning": {
+    "english": "training; practice"
+  },
+  "vlna": {
+    "english": "wave"
+  },
+  "rádio": {
+    "english": "radio"
+  },
+  "Ukrajina": {
+    "english": "Ukraine",
+    "category": "Places"
+  },
+  "opozícia": {
+    "english": "opposition"
+  },
+  "svedok": {
+    "english": "witness"
+  },
+  "hokejista": {
+    "english": "hockey player"
+  },
+  "sneh": {
+    "english": "snow"
+  },
+  "predstavenie": {
+    "english": "performance; show; introduction"
+  },
+  "profesor": {
+    "english": "professor"
+  },
+  "nehnuteľnosť": {
+    "english": "real estate; property"
+  },
+  "verzia": {
+    "english": "version"
+  },
+  "spravodlivosť": {
+    "english": "justice"
+  },
+  "spojenie": {
+    "english": "connection; link"
+  },
+  "reklama": {
+    "english": "advertisement; advertising"
+  },
+  "Róm": {
+    "english": "Roma person"
+  },
+  "Eva": {
+    "english": "Eve; Eva (given name)",
+    "category": "Names"
+  },
+  "kuchyňa": {
+    "english": "kitchen; cuisine"
+  },
+  "podanie": {
+    "english": "submission; serving; delivery"
+  },
+  "znak": {
+    "english": "sign; character; mark"
+  },
+  "ľud": {
+    "english": "people; folk"
+  },
+  "zvyšok": {
+    "english": "rest; remainder"
+  },
+  "odmena": {
+    "english": "reward; fee"
+  },
+  "záujemca": {
+    "english": "interested party; applicant"
+  },
+  "prekvapenie": {
+    "english": "surprise"
+  },
+  "riaditeľka": {
+    "english": "director (f.); principal (f.)"
+  },
+  "dávka": {
+    "english": "dose; batch; installment"
+  },
+  "letisko": {
+    "english": "airport"
+  },
+  "album": {
+    "english": "album"
+  },
+  "kauza": {
+    "english": "case (affair); cause"
+  },
+  "Londýn": {
+    "english": "London",
+    "category": "Places"
+  },
+  "zostava": {
+    "english": "lineup; composition"
+  },
+  "stred": {
+    "english": "middle; center"
+  },
+  "nezamestnanosť": {
+    "english": "unemployment"
+  },
+  "úcta": {
+    "english": "respect; esteem"
+  },
+  "Grécko": {
+    "english": "Greece",
+    "category": "Places"
+  },
+  "Roman": {
+    "english": "Roman (given name)",
+    "category": "Names"
+  },
+  "York": {
+    "english": "York",
+    "category": "Places"
+  },
+  "pád": {
+    "english": "fall; collapse"
+  },
+  "rekord": {
+    "english": "record"
+  },
+  "kúsok": {
+    "english": "piece; bit"
+  },
+  "príslušník": {
+    "english": "member; affiliate"
+  },
+  "čítanie": {
+    "english": "reading"
+  },
+  "Američan": {
+    "english": "American (person)"
+  },
+  "linka": {
+    "english": "line; route"
+  },
+  "pamiatka": {
+    "english": "monument; souvenir; memory"
+  },
+  "Vianoce": {
+    "english": "Christmas"
+  },
+  "podpredseda": {
+    "english": "vice-chair; deputy chair"
+  },
+  "výraz": {
+    "english": "expression; term"
+  },
+  "demokracia": {
+    "english": "democracy"
+  },
+  "okamih": {
+    "english": "moment; instant"
+  },
+  "Dubnica": {
+    "english": "Dubnica",
+    "category": "Places"
+  },
+  "drevo": {
+    "english": "wood"
+  },
+  "Mesto": {
+    "english": "city; town"
+  },
+  "hrdina": {
+    "english": "hero"
+  },
+  "kritérium": {
+    "english": "criterion"
+  },
+  "stopa": {
+    "english": "track; trace; footprint"
+  },
+  "konkurencia": {
+    "english": "competition"
+  },
+  "mäso": {
+    "english": "meat"
+  },
+  "vražda": {
+    "english": "murder"
+  },
+  "vedomie": {
+    "english": "consciousness; awareness"
+  },
+  "premiéra": {
+    "english": "premiere"
+  },
+  "očakávanie": {
+    "english": "expectation"
+  },
+  "Róbert": {
+    "english": "Róbert (given name)",
+    "category": "Names"
+  },
+  "disciplína": {
+    "english": "discipline"
+  },
+  "starosť": {
+    "english": "worry; care"
+  },
+  "realizácia": {
+    "english": "implementation; realization"
+  },
+  "dotácia": {
+    "english": "subsidy; grant"
+  },
+  "existencia": {
+    "english": "existence"
+  },
+  "nálada": {
+    "english": "mood"
+  },
+  "tajomstvo": {
+    "english": "secret"
+  },
+  "kvet": {
+    "english": "flower"
+  },
+  "štúdia": {
+    "english": "study (research); studio"
+  },
+  "galéria": {
+    "english": "gallery"
+  },
+  "skóre": {
+    "english": "score"
+  },
+  "oheň": {
+    "english": "fire"
+  },
+  "dojem": {
+    "english": "impression"
+  },
+  "úsilie": {
+    "english": "effort"
+  },
+  "stroj": {
+    "english": "machine"
+  },
+  "obyvateľstvo": {
+    "english": "population"
+  },
+  "faktor": {
+    "english": "factor"
+  },
+  "Stanislav": {
+    "english": "Stanislav (given name)",
+    "category": "Names"
+  },
+  "ráno": {
+    "english": "morning"
+  },
+  "vzdelanie": {
+    "english": "education"
+  },
+  "Izrael": {
+    "english": "Israel",
+    "category": "Places"
+  },
+  "trend": {
+    "english": "trend"
+  },
+  "pamäť": {
+    "english": "memory"
+  },
+  "kapitola": {
+    "english": "chapter"
+  },
+  "Mečiar": {
+    "english": "Mečiar (surname)",
+    "category": "Names"
+  },
+  "pôvod": {
+    "english": "origin"
+  },
+  "ucho": {
+    "english": "ear"
+  },
+  "Katarína": {
+    "english": "Catherine (given name)",
+    "category": "Names"
+  },
+  "gymnázium": {
+    "english": "grammar school; gymnasium (secondary)"
+  },
+  "manželstvo": {
+    "english": "marriage"
+  },
+  "prijatie": {
+    "english": "acceptance; reception; admission"
+  },
+  "oprava": {
+    "english": "repair; correction"
+  },
+  "Španielsko": {
+    "english": "Spain",
+    "category": "Places"
+  },
+  "nápad": {
+    "english": "idea"
+  },
+  "Čech": {
+    "english": "Czech (person)"
+  },
+  "zábava": {
+    "english": "entertainment; fun"
+  },
+  "eurozóna": {
+    "english": "eurozone"
+  },
+  "kritika": {
+    "english": "criticism; critique"
+  },
+  "mail": {
+    "english": "email; mail"
+  },
+  "dospelý": {
+    "english": "adult; grown-up"
+  },
+  "výhra": {
+    "english": "win; prize"
+  },
+  "istota": {
+    "english": "certainty; security"
+  },
+  "ohľad": {
+    "english": "regard; consideration"
+  },
+  "koleno": {
+    "english": "knee"
+  },
+  "vedec": {
+    "english": "scientist"
+  },
+  "test": {
+    "english": "test"
+  },
+  "rozprávka": {
+    "english": "fairy tale; story"
+  },
+  "ústava": {
+    "english": "constitution"
+  },
+  "ocenenie": {
+    "english": "award; appreciation"
+  },
+  "vina": {
+    "english": "guilt; fault"
+  },
+  "vlastník": {
+    "english": "owner"
+  },
+  "financovanie": {
+    "english": "funding; financing"
+  },
+  "novinka": {
+    "english": "news item; novelty"
+  },
+  "zamestnanie": {
+    "english": "employment; job"
+  },
+  "závod": {
+    "english": "race; plant; factory"
+  },
+  "Paríž": {
+    "english": "Paris",
+    "category": "Places"
+  },
+  "Inter": {
+    "english": "Inter (club name)"
+  },
+  "kapela": {
+    "english": "band"
+  },
+  "pošta": {
+    "english": "post office; mail"
+  },
+  "veta": {
+    "english": "sentence"
+  },
+  "skončenie": {
+    "english": "ending; completion"
+  },
+  "rozsah": {
+    "english": "scope; range; extent"
+  },
+  "káder": {
+    "english": "cadre; staff; roster"
+  },
+  "problematika": {
+    "english": "subject matter; issues"
+  },
+  "liečba": {
+    "english": "treatment"
+  },
+  "reštaurácia": {
+    "english": "restaurant"
+  },
+  "akadémia": {
+    "english": "academy"
+  },
+  "Partizánske": {
+    "english": "Partizánske",
+    "category": "Places"
+  },
+  "teória": {
+    "english": "theory"
+  },
+  "etapa": {
+    "english": "stage; leg"
+  },
+  "väzenie": {
+    "english": "prison"
+  },
+  "kruh": {
+    "english": "circle"
+  },
+  "vlastnosť": {
+    "english": "property; quality; trait"
+  },
+  "záväzok": {
+    "english": "commitment; obligation"
+  },
+  "Rím": {
+    "english": "Rome",
+    "category": "Places"
+  },
+  "zabezpečenie": {
+    "english": "security; provision; securing"
+  },
+  "lokalita": {
+    "english": "locality; location"
+  },
+  "Rus": {
+    "english": "Russian (person)"
+  },
+  "Igor": {
+    "english": "Igor (given name)",
+    "category": "Names"
+  },
+  "vrchol": {
+    "english": "peak; summit"
+  },
+  "náskok": {
+    "english": "lead; head start"
+  },
+  "súlad": {
+    "english": "harmony; accordance"
+  },
+  "jednotlivec": {
+    "english": "individual"
+  },
+  "kapacita": {
+    "english": "capacity"
+  },
+  "bránka": {
+    "english": "goal (sports); small gate"
+  },
+  "násilie": {
+    "english": "violence"
+  },
+  "zub": {
+    "english": "tooth"
+  },
+  "pracovisko": {
+    "english": "workplace"
+  },
+  "zvuk": {
+    "english": "sound"
+  },
+  "teplo": {
+    "english": "heat; warmth"
+  },
+  "tvar": {
+    "english": "shape; form"
+  },
+  "koža": {
+    "english": "skin; leather"
+  },
+  "pivo": {
+    "english": "beer"
+  },
+  "hlasovanie": {
+    "english": "vote; voting"
+  },
+  "páchateľ": {
+    "english": "perpetrator; offender"
+  },
+  "Kováč": {
+    "english": "Kováč (surname)",
+    "category": "Names"
+  },
+  "spotreba": {
+    "english": "consumption"
+  },
+  "doktor": {
+    "english": "doctor"
+  },
+  "hriech": {
+    "english": "sin"
+  },
+  "vyšetrovanie": {
+    "english": "investigation"
+  },
+  "zóna": {
+    "english": "zone"
+  },
+  "autorka": {
+    "english": "author (f.)"
+  },
+  "pojem": {
+    "english": "concept; term"
+  },
+  "požiar": {
+    "english": "fire (blaze)"
+  },
+  "dĺžka": {
+    "english": "length"
+  },
+  "báseň": {
+    "english": "poem"
+  },
+  "Skalica": {
+    "english": "Skalica",
+    "category": "Places"
+  },
+  "dôchodca": {
+    "english": "pensioner; retiree"
+  },
+  "zásada": {
+    "english": "principle"
+  },
+  "slza": {
+    "english": "tear"
+  },
+  "prúd": {
+    "english": "current; stream"
+  },
+  "iniciatíva": {
+    "english": "initiative"
+  },
+  "povrch": {
+    "english": "surface"
+  },
+  "mena": {
+    "english": "currency; name (reputation)"
+  },
+  "roh": {
+    "english": "corner; horn"
+  },
+  "doklad": {
+    "english": "document; proof"
+  },
+  "vytvorenie": {
+    "english": "creation"
+  },
+  "chlieb": {
+    "english": "bread"
+  },
+  "zákaz": {
+    "english": "ban; prohibition"
+  },
+  "mladí": {
+    "english": "young people"
+  },
+  "podnikanie": {
+    "english": "business; entrepreneurship"
+  },
+  "následok": {
+    "english": "consequence; result"
+  },
+  "šaty": {
+    "english": "clothes; dress"
+  },
+  "predpis": {
+    "english": "regulation; prescription"
+  },
+  "súkromný": {
+    "english": "private"
+  },
+  "pôvodný": {
+    "english": "original; native"
+  },
+  "školský": {
+    "english": "school; scholastic"
+  },
+  "daňový": {
+    "english": "tax; fiscal"
+  },
+  "rodinný": {
+    "english": "family; familial"
+  },
+  "stavebný": {
+    "english": "building; construction"
+  },
+  "generálny": {
+    "english": "general"
+  },
+  "vojenský": {
+    "english": "military"
+  },
+  "kvalitný": {
+    "english": "high-quality; quality"
+  },
+  "priamy": {
+    "english": "direct; straight"
+  },
+  "francúzsky": {
+    "english": "French"
+  },
+  "hospodársky": {
+    "english": "economic"
+  },
+  "bohatý": {
+    "english": "rich; wealthy"
+  },
+  "bežný": {
+    "english": "common; usual"
+  },
+  "schopný": {
+    "english": "capable; able"
+  },
+  "dopravný": {
+    "english": "transport; traffic"
+  },
+  "konkrétny": {
+    "english": "concrete; specific"
+  },
+  "čistý": {
+    "english": "clean; pure"
+  },
+  "moderný": {
+    "english": "modern"
+  },
+  "slabý": {
+    "english": "weak"
+  },
+  "právny": {
+    "english": "legal; law"
+  },
+  "skutočný": {
+    "english": "real; actual"
+  },
+  "vládny": {
+    "english": "government; governmental"
+  },
+  "drahý": {
+    "english": "expensive; dear"
+  },
+  "policajný": {
+    "english": "police"
+  },
+  "výrazný": {
+    "english": "marked; distinctive; expressive"
+  },
+  "vážny": {
+    "english": "serious"
+  },
+  "spokojný": {
+    "english": "satisfied; content"
+  },
+  "hudobný": {
+    "english": "musical"
+  },
+  "volebný": {
+    "english": "electoral; election"
+  },
+  "náročný": {
+    "english": "demanding; challenging"
+  },
+  "regionálny": {
+    "english": "regional"
+  },
+  "tradičný": {
+    "english": "traditional"
+  },
+  "umelecký": {
+    "english": "artistic"
+  },
+  "televízny": {
+    "english": "television; TV"
+  },
+  "britský": {
+    "english": "British"
+  },
+  "výborný": {
+    "english": "excellent"
+  },
+  "konečný": {
+    "english": "final; ultimate"
+  },
+  "šťastný": {
+    "english": "happy; lucky"
+  },
+  "letný": {
+    "english": "summer"
+  },
+  "špeciálny": {
+    "english": "special"
+  },
+  "aktuálny": {
+    "english": "current; topical"
+  },
+  "živý": {
+    "english": "alive; live; vivid"
+  },
+  "vnútorný": {
+    "english": "inner; internal"
+  },
+  "ľahký": {
+    "english": "light; easy"
+  },
+  "zelený": {
+    "english": "green"
+  },
+  "skvelý": {
+    "english": "great; excellent"
+  },
+  "západný": {
+    "english": "western"
+  },
+  "občiansky": {
+    "english": "civic; civil"
+  },
+  "krajský": {
+    "english": "regional (kraj); county"
+  },
+  "filmový": {
+    "english": "film; movie"
+  },
+  "pozitívny": {
+    "english": "positive"
+  },
+  "ľudový": {
+    "english": "folk; popular"
+  },
+  "tvrdý": {
+    "english": "hard; tough"
+  },
+  "zimný": {
+    "english": "winter"
+  },
+  "literárny": {
+    "english": "literary"
+  },
+  "duchovný": {
+    "english": "spiritual"
+  },
+  "Nový": {
+    "english": "new"
+  },
+  "vedecký": {
+    "english": "scientific"
+  },
+  "taliansky": {
+    "english": "Italian"
+  },
+  "cudzí": {
+    "english": "foreign; strange"
+  },
+  "vzájomný": {
+    "english": "mutual; reciprocal"
+  },
+  "zdravý": {
+    "english": "healthy"
+  },
+  "horný": {
+    "english": "upper"
+  },
+  "katolícky": {
+    "english": "Catholic"
+  },
+  "aktívny": {
+    "english": "active"
+  },
+  "záverečný": {
+    "english": "final; closing"
+  },
+  "uplynulý": {
+    "english": "past; elapsed"
+  },
+  "príjemný": {
+    "english": "pleasant; nice"
+  },
+  "hlboký": {
+    "english": "deep"
+  },
+  "poľský": {
+    "english": "Polish"
+  },
+  "nebezpečný": {
+    "english": "dangerous"
+  },
+  "východný": {
+    "english": "eastern"
+  },
+  "oficiálny": {
+    "english": "official"
+  },
+  "reálny": {
+    "english": "real; realistic"
+  },
+  "neznámy": {
+    "english": "unknown"
+  },
+  "povinný": {
+    "english": "compulsory; obligatory"
+  },
+  "priemerný": {
+    "english": "average; mediocre"
+  },
+  "prešovský": {
+    "english": "of Prešov; Prešov"
+  },
+  "hokejový": {
+    "english": "hockey"
+  },
+  "tlačový": {
+    "english": "press; print"
+  },
+  "cestovný": {
+    "english": "travel; journey"
+  },
+  "okresný": {
+    "english": "district"
+  },
+  "kresťanský": {
+    "english": "Christian"
+  },
+  "hrubý": {
+    "english": "gross; rough; coarse"
+  },
+  "zvláštny": {
+    "english": "strange; special"
+  },
+  "internetový": {
+    "english": "internet"
+  },
+  "milý": {
+    "english": "kind; dear; nice"
+  },
+  "košický": {
+    "english": "of Košice; Košice"
+  },
+  "klasický": {
+    "english": "classical; classic"
+  },
+  "centrálny": {
+    "english": "central"
+  },
+  "presný": {
+    "english": "precise; exact"
+  },
+  "liptovský": {
+    "english": "of Liptov; Liptov"
+  },
+  "olympijský": {
+    "english": "Olympic"
+  },
+  "doterajší": {
+    "english": "hitherto; previous"
+  },
+  "dlhodobý": {
+    "english": "long-term"
+  },
+  "anglický": {
+    "english": "English"
+  },
+  "bezpečnostný": {
+    "english": "security; safety"
+  },
+  "tohtoročný": {
+    "english": "this year's"
+  },
+  "vodný": {
+    "english": "water; aquatic"
+  },
+  "vianočný": {
+    "english": "Christmas"
+  },
+  "samostatný": {
+    "english": "independent; separate"
+  },
+  "cenný": {
+    "english": "valuable"
+  },
+  "úvodný": {
+    "english": "introductory; opening"
+  },
+  "ženský": {
+    "english": "female; women's"
+  },
+  "informačný": {
+    "english": "information; informational"
+  },
+  "rómsky": {
+    "english": "Roma; Romani"
+  },
+  "nočný": {
+    "english": "night; nocturnal"
+  },
+  "kľúčový": {
+    "english": "key; crucial"
+  },
+  "materský": {
+    "english": "maternal; mother"
+  },
+  "fyzický": {
+    "english": "physical"
+  },
+  "všeobecný": {
+    "english": "general; universal"
+  },
+  "Český": {
+    "english": "Czech"
+  },
+  "Európsky": {
+    "english": "European"
+  },
+  "prirodzený": {
+    "english": "natural"
+  },
+  "nitriansky": {
+    "english": "of Nitra; Nitra"
+  },
+  "negatívny": {
+    "english": "negative"
+  },
+  "slávnostný": {
+    "english": "festive; ceremonial"
+  },
+  "mimoriadny": {
+    "english": "extraordinary; special"
+  },
+  "slávny": {
+    "english": "famous"
+  },
+  "prázdny": {
+    "english": "empty"
+  },
+  "lacný": {
+    "english": "cheap"
+  },
+  "víťazný": {
+    "english": "winning; victorious"
+  },
+  "súdny": {
+    "english": "court; judicial"
+  },
+  "členský": {
+    "english": "member; membership"
+  },
+  "modrý": {
+    "english": "blue"
+  },
+  "prírodný": {
+    "english": "natural"
+  },
+  "divadelný": {
+    "english": "theatre; theatrical"
+  },
+  "severný": {
+    "english": "northern"
+  },
+  "demokratický": {
+    "english": "democratic"
+  },
+  "nevyhnutný": {
+    "english": "necessary; inevitable"
+  },
+  "čínsky": {
+    "english": "Chinese"
+  },
+  "pevný": {
+    "english": "firm; solid; fixed"
+  },
+  "náboženský": {
+    "english": "religious"
+  },
+  "slobodný": {
+    "english": "free; single (unmarried)"
+  },
+  "tajný": {
+    "english": "secret"
+  },
+  "obecný": {
+    "english": "municipal; common"
+  },
+  "rakúsky": {
+    "english": "Austrian"
+  },
+  "príslušný": {
+    "english": "relevant; competent; respective"
+  },
+  "ochotný": {
+    "english": "willing; ready"
+  },
+  "podstatný": {
+    "english": "essential; substantial"
+  },
+  "výtvarný": {
+    "english": "fine-art; visual arts"
+  },
+  "skúsený": {
+    "english": "experienced"
+  },
+  "investičný": {
+    "english": "investment"
+  },
+  "ľavý": {
+    "english": "left"
+  },
+  "chudobný": {
+    "english": "poor"
+  },
+  "priemyselný": {
+    "english": "industrial"
+  },
+  "prípadný": {
+    "english": "possible; eventual"
+  },
+  "zodpovedný": {
+    "english": "responsible"
+  },
+  "smutný": {
+    "english": "sad"
+  },
+  "elektronický": {
+    "english": "electronic"
+  },
+  "úplný": {
+    "english": "complete; full"
+  },
+  "žilinský": {
+    "english": "of Žilina; Žilina"
+  },
+  "samosprávny": {
+    "english": "self-governing"
+  },
+  "mŕtvy": {
+    "english": "dead"
+  },
+  "obyčajný": {
+    "english": "ordinary; usual"
+  },
+  "jarný": {
+    "english": "spring"
+  },
+  "nezávislý": {
+    "english": "independent"
+  },
+  "minimálny": {
+    "english": "minimal; minimum"
+  },
+  "tichý": {
+    "english": "quiet; silent"
+  },
+  "cirkevný": {
+    "english": "church; ecclesiastical"
+  },
+  "parlamentný": {
+    "english": "parliamentary"
+  },
+  "profesionálny": {
+    "english": "professional"
+  },
+  "drobný": {
+    "english": "tiny; petty; small"
+  },
+  "platný": {
+    "english": "valid; in force"
+  },
+  "teplý": {
+    "english": "warm"
+  },
+  "pravidelný": {
+    "english": "regular"
+  },
+  "Slovenský": {
+    "english": "Slovak"
+  },
+  "vtedajší": {
+    "english": "then; of that time"
+  },
+  "drevený": {
+    "english": "wooden"
+  },
+  "zdravotnícky": {
+    "english": "healthcare; medical"
+  },
+  "španielsky": {
+    "english": "Spanish"
+  },
+  "spišský": {
+    "english": "of Spiš; Spiš"
+  },
+  "elektrický": {
+    "english": "electric; electrical"
+  },
+  "výhodný": {
+    "english": "advantageous; favorable"
+  },
+  "južný": {
+    "english": "southern"
+  },
+  "denný": {
+    "english": "daily; day"
+  },
+  "individuálny": {
+    "english": "individual"
+  },
+  "normálny": {
+    "english": "normal"
+  },
+  "úzky": {
+    "english": "narrow"
+  },
+  "sovietsky": {
+    "english": "Soviet"
+  },
+  "ústavný": {
+    "english": "constitutional"
+  },
+  "častý": {
+    "english": "frequent"
+  },
+  "žltý": {
+    "english": "yellow"
+  },
+  "letecký": {
+    "english": "air; aviation"
+  },
+  "rozličný": {
+    "english": "various; diverse"
+  },
+  "židovský": {
+    "english": "Jewish"
+  },
+  "bankový": {
+    "english": "banking; bank"
+  },
+  "mesačný": {
+    "english": "monthly; lunar"
+  },
+  "osobitný": {
+    "english": "special; particular"
+  },
+  "súťažný": {
+    "english": "competitive; contest"
+  },
+  "mobilný": {
+    "english": "mobile"
+  },
+  "vzácny": {
+    "english": "rare; precious"
+  },
+  "trvalý": {
+    "english": "permanent; lasting"
+  },
+  "pokojný": {
+    "english": "calm; peaceful"
+  },
+  "železničný": {
+    "english": "railway"
+  },
+  "typický": {
+    "english": "typical"
+  },
+  "praktický": {
+    "english": "practical"
+  },
+  "percentný": {
+    "english": "percent; percentage"
+  },
+  "horúci": {
+    "english": "hot"
+  },
+  "podnikateľský": {
+    "english": "business; entrepreneurial"
+  },
+  "územný": {
+    "english": "territorial"
+  },
+  "čerstvý": {
+    "english": "fresh"
+  },
+  "zložitý": {
+    "english": "complex; complicated"
+  },
+  "Dolný": {
+    "english": "lower"
+  },
+  "trnavský": {
+    "english": "of Trnava; Trnava"
+  },
+  "včerajší": {
+    "english": "yesterday's"
+  },
+  "zbytočný": {
+    "english": "unnecessary; useless"
+  },
+  "nepríjemný": {
+    "english": "unpleasant"
+  },
+  "grécky": {
+    "english": "Greek"
+  },
+  "chorý": {
+    "english": "ill; sick"
+  },
+  "zadný": {
+    "english": "rear; back"
+  },
+  "reprezentačný": {
+    "english": "representative; national-team"
+  },
+  "takzvaný": {
+    "english": "so-called"
+  },
+  "výnimočný": {
+    "english": "exceptional"
+  },
+  "vonkajší": {
+    "english": "outer; external"
+  },
+  "časový": {
+    "english": "time; temporal"
+  },
+  "rozsiahly": {
+    "english": "extensive; vast"
+  },
+  "úžasný": {
+    "english": "amazing; wonderful"
+  },
+  "dôchodkový": {
+    "english": "pension"
+  },
+  "prezidentský": {
+    "english": "presidential"
+  },
+  "neskorý": {
+    "english": "late"
+  },
+  "nádherný": {
+    "english": "gorgeous; magnificent"
+  },
+  "akciový": {
+    "english": "share; stock"
+  },
+  "komunistický": {
+    "english": "communist"
+  },
+  "jadrový": {
+    "english": "nuclear; core"
+  },
+  "opačný": {
+    "english": "opposite"
+  },
+  "koaličný": {
+    "english": "coalition"
+  },
+  "výrobný": {
+    "english": "production; manufacturing"
+  },
+  "večný": {
+    "english": "eternal"
+  },
+  "jazykový": {
+    "english": "language; linguistic"
+  },
+  "tmavý": {
+    "english": "dark"
+  },
+  "dostatočný": {
+    "english": "sufficient"
+  },
+  "kritický": {
+    "english": "critical"
+  },
+  "slnečný": {
+    "english": "sunny; solar"
+  },
+  "japonský": {
+    "english": "Japanese"
+  },
+  "energetický": {
+    "english": "energy; energetic"
+  },
+  "mierny": {
+    "english": "mild; moderate"
+  },
+  "lekársky": {
+    "english": "medical; doctor's"
+  },
+  "maximálny": {
+    "english": "maximum; maximal"
+  },
+  "úrokový": {
+    "english": "interest (rate)"
+  },
+  "ostrý": {
+    "english": "sharp; harsh"
+  },
+  "populárny": {
+    "english": "popular"
+  },
+  "zásadný": {
+    "english": "fundamental; principled"
+  },
+  "mužský": {
+    "english": "male; men's"
+  },
+  "tvorivý": {
+    "english": "creative"
+  },
+  "Veľký": {
+    "english": "great; big"
+  },
+  "opozičný": {
+    "english": "opposition"
+  },
+  "dokonalý": {
+    "english": "perfect"
+  },
+  "turistický": {
+    "english": "tourist"
+  },
+  "umelý": {
+    "english": "artificial"
+  },
+  "strieborný": {
+    "english": "silver"
+  },
+  "výkonný": {
+    "english": "executive; high-performance"
+  },
+  "ideálny": {
+    "english": "ideal"
+  },
+  "dramatický": {
+    "english": "dramatic"
+  },
+  "prísny": {
+    "english": "strict; severe"
+  },
+  "horský": {
+    "english": "mountain"
+  },
+  "jesenný": {
+    "english": "autumn; fall"
+  },
+  "prípravný": {
+    "english": "preparatory"
+  },
+  "studený": {
+    "english": "cold"
+  },
+  "dolný": {
+    "english": "lower"
+  },
+  "rodný": {
+    "english": "native; birth"
+  },
+  "poľnohospodársky": {
+    "english": "agricultural"
+  },
+  "izraelský": {
+    "english": "Israeli"
+  },
+  "okolitý": {
+    "english": "surrounding; nearby"
+  },
+  "záchranný": {
+    "english": "rescue; emergency"
+  },
+  "dostupný": {
+    "english": "available; accessible"
+  },
+  "globálny": {
+    "english": "global"
+  },
+  "každodenný": {
+    "english": "everyday; daily"
+  },
+  "bytový": {
+    "english": "housing; apartment"
+  },
+  "mediálny": {
+    "english": "media"
+  },
+  "prítomný": {
+    "english": "present"
+  },
+  "trenčiansky": {
+    "english": "of Trenčín; Trenčín"
+  },
+  "účinný": {
+    "english": "effective"
+  },
+  "hotový": {
+    "english": "ready; finished"
+  },
+  "značný": {
+    "english": "considerable; significant"
+  },
+  "necelý": {
+    "english": "incomplete; not quite whole"
+  },
+  "tamojší": {
+    "english": "local (there); of that place"
+  },
+  "jemný": {
+    "english": "gentle; fine; delicate"
+  },
+  "slušný": {
+    "english": "decent; polite"
+  },
+  "závažný": {
+    "english": "serious; grave"
+  },
+  "tanečný": {
+    "english": "dance"
+  },
+  "nedávny": {
+    "english": "recent"
+  },
+  "odlišný": {
+    "english": "different; distinct"
+  },
+  "cestný": {
+    "english": "road; honorary"
+  },
+  "kráľovský": {
+    "english": "royal"
+  },
+  "absolútny": {
+    "english": "absolute"
+  },
+  "československý": {
+    "english": "Czechoslovak"
+  },
+  "telesný": {
+    "english": "bodily; physical"
+  },
+  "nákladný": {
+    "english": "freight; costly"
+  },
+  "podozrivý": {
+    "english": "suspicious"
+  },
+  "bezpečný": {
+    "english": "safe; secure"
+  },
+  "susedný": {
+    "english": "neighboring"
+  },
+  "finálový": {
+    "english": "final (of a final)"
+  },
+  "morálny": {
+    "english": "moral"
+  },
+  "socialistický": {
+    "english": "socialist"
+  },
+  "gólový": {
+    "english": "goal-scoring; goal"
+  },
+  "špecifický": {
+    "english": "specific"
+  },
+  "sexuálny": {
+    "english": "sexual"
+  },
+  "Banský": {
+    "english": "mining (in place names)"
+  },
+  "dlhoročný": {
+    "english": "long-standing; many-year"
+  },
+  "suchý": {
+    "english": "dry"
+  },
+  "lesný": {
+    "english": "forest; woodland"
+  },
+  "menový": {
+    "english": "currency; exchange-rate"
+  },
+  "predčasný": {
+    "english": "premature; early"
+  },
+  "chladný": {
+    "english": "cool; cold"
+  },
+  "ukrajinský": {
+    "english": "Ukrainian"
+  },
+  "prudký": {
+    "english": "steep; sudden; sharp"
+  },
+  "ranný": {
+    "english": "morning"
+  },
+  "terajší": {
+    "english": "present; current"
+  },
+  "početný": {
+    "english": "numerous"
+  },
+  "super": {
+    "english": "super; great"
+  },
+  "poslanecký": {
+    "english": "MP's; parliamentary (deputy)"
+  },
+  "trhový": {
+    "english": "market"
+  },
+  "efektívny": {
+    "english": "efficient; effective"
+  },
+  "verný": {
+    "english": "faithful; loyal"
+  },
+  "následný": {
+    "english": "subsequent; following"
+  },
+  "komerčný": {
+    "english": "commercial"
+  },
+  "operačný": {
+    "english": "operational; surgical"
+  },
+  "čestný": {
+    "english": "honorable; honorary"
+  },
+  "strategický": {
+    "english": "strategic"
+  },
+  "večerný": {
+    "english": "evening"
+  },
+  "farebný": {
+    "english": "colored; color"
+  },
+  "jedinečný": {
+    "english": "unique"
+  },
+  "kompletný": {
+    "english": "complete"
+  },
+  "stály": {
+    "english": "constant; permanent; standing"
+  },
+  "majstrovský": {
+    "english": "championship; masterly"
+  },
+  "komplexný": {
+    "english": "complex; comprehensive"
+  },
+  "písomný": {
+    "english": "written"
+  },
+  "nešťastný": {
+    "english": "unhappy; unfortunate"
+  },
+  "ústredný": {
+    "english": "central"
+  },
+  "programový": {
+    "english": "program; programmatic"
+  },
+  "banskobystrický": {
+    "english": "of Banská Bystrica"
+  },
+  "vojnový": {
+    "english": "war; wartime"
+  },
+  "pokutový": {
+    "english": "penalty; fine"
+  },
+  "organizačný": {
+    "english": "organizational"
+  },
+  "predný": {
+    "english": "front; leading"
+  },
+  "štandardný": {
+    "english": "standard"
+  },
+  "vlaňajší": {
+    "english": "last year's"
+  },
+  "strašný": {
+    "english": "terrible; awful"
+  },
+  "prestížny": {
+    "english": "prestigious"
+  },
+  "pražský": {
+    "english": "Prague; of Prague"
+  },
+  "rímsky": {
+    "english": "Roman"
+  },
+  "veselý": {
+    "english": "cheerful; merry"
+  },
+  "zábavný": {
+    "english": "entertaining; funny"
+  },
+  "vzdelávací": {
+    "english": "educational"
+  },
+  "motorový": {
+    "english": "motor; engine"
+  },
+  "múdry": {
+    "english": "wise"
+  },
+  "nutný": {
+    "english": "necessary"
+  },
+  "citlivý": {
+    "english": "sensitive"
+  },
+  "pedagogický": {
+    "english": "pedagogical; teaching"
+  },
+  "študijný": {
+    "english": "study; academic"
+  },
+  "výberový": {
+    "english": "selective; choice"
+  },
+  "spravodlivý": {
+    "english": "fair; just"
+  },
+  "sobotňajší": {
+    "english": "Saturday's"
+  },
+  "mocný": {
+    "english": "powerful; mighty"
+  },
+  "sladký": {
+    "english": "sweet"
+  },
+  "ochranný": {
+    "english": "protective"
+  },
+  "dunajský": {
+    "english": "Danube; of the Danube"
+  },
+  "nepriaznivý": {
+    "english": "unfavorable; adverse"
+  },
+  "bronzový": {
+    "english": "bronze"
+  },
+  "funkčný": {
+    "english": "functional"
+  },
+  "čudný": {
+    "english": "odd; strange"
+  },
+  "kamenný": {
+    "english": "stone"
+  },
+  "považský": {
+    "english": "of the Váh region; Považie"
+  },
+  "riadny": {
+    "english": "proper; regular; ordinary"
+  },
+  "turecký": {
+    "english": "Turkish"
+  },
+  "atraktívny": {
+    "english": "attractive"
+  },
+  "vysokoškolský": {
+    "english": "university; higher-education"
+  },
+  "rozpočtový": {
+    "english": "budget"
+  },
+  "chemický": {
+    "english": "chemical"
+  },
+  "komunálny": {
+    "english": "municipal"
+  },
+  "reklamný": {
+    "english": "advertising"
+  },
+  "kolektívny": {
+    "english": "collective"
+  },
+  "akademický": {
+    "english": "academic"
+  },
+  "ľadový": {
+    "english": "ice; icy"
+  },
+  "psychický": {
+    "english": "mental; psychological"
+  },
+  "neuveriteľný": {
+    "english": "unbelievable"
+  },
+  "originálny": {
+    "english": "original"
+  },
+  "jednotný": {
+    "english": "unified; uniform"
+  },
+  "vekový": {
+    "english": "age"
+  },
+  "hromadný": {
+    "english": "mass; collective"
+  },
+  "dočasný": {
+    "english": "temporary"
+  },
+  "minuloročný": {
+    "english": "last year's"
+  },
+  "digitálny": {
+    "english": "digital"
+  },
+  "švajčiarsky": {
+    "english": "Swiss"
+  },
+  "počítačový": {
+    "english": "computer"
+  },
+  "kanadský": {
+    "english": "Canadian"
+  },
+  "právnický": {
+    "english": "legal; lawyer's"
+  },
+  "falošný": {
+    "english": "false; fake"
+  },
+  "jednoznačný": {
+    "english": "unequivocal; clear-cut"
+  },
+  "webový": {
+    "english": "web"
+  },
+  "folklórny": {
+    "english": "folk; folklore"
+  },
+  "ligový": {
+    "english": "league"
+  },
+  "popredný": {
+    "english": "leading; prominent"
+  },
+  "závislý": {
+    "english": "dependent"
+  },
+  "náhradný": {
+    "english": "replacement; substitute"
+  },
+  "intenzívny": {
+    "english": "intensive; intense"
+  },
+  "rovný": {
+    "english": "straight; equal; flat"
+  },
+  "užitočný": {
+    "english": "useful"
+  },
+  "komunikačný": {
+    "english": "communication"
+  },
+  "pravdepodobný": {
+    "english": "probable; likely"
+  },
+  "švédsky": {
+    "english": "Swedish"
+  },
+  "stabilný": {
+    "english": "stable"
+  },
+  "autorský": {
+    "english": "author's; copyright"
+  },
+  "výskumný": {
+    "english": "research"
+  },
+  "šikovný": {
+    "english": "skilled; clever; handy"
+  },
+  "spravodajský": {
+    "english": "news; intelligence"
+  },
+  "kysucký": {
+    "english": "of Kysuce; Kysuce"
+  },
+  "mierový": {
+    "english": "peace"
+  },
+  "personálny": {
+    "english": "personnel; personal"
+  },
+  "potenciálny": {
+    "english": "potential"
+  },
+  "automobilový": {
+    "english": "automotive; car"
+  },
+  "hlúpy": {
+    "english": "stupid; silly"
+  },
+  "mládežnícky": {
+    "english": "youth"
+  },
+  "cenový": {
+    "english": "price"
+  },
+  "stranícky": {
+    "english": "party (political)"
+  },
+  "Ježišov": {
+    "english": "Jesus's"
+  },
+  "úprimný": {
+    "english": "sincere; honest"
+  },
+  "nekonečný": {
+    "english": "endless; infinite"
+  },
+  "hustý": {
+    "english": "dense; thick"
+  },
+  "niekdajší": {
+    "english": "former; one-time"
+  },
+  "strelecký": {
+    "english": "shooting; scoring"
+  },
+  "telefónny": {
+    "english": "telephone"
+  },
+  "zvyšný": {
+    "english": "remaining"
+  },
+  "filozofický": {
+    "english": "philosophical"
+  },
+  "priateľský": {
+    "english": "friendly"
+  },
+  "herný": {
+    "english": "game; gaming"
+  },
+  "tesný": {
+    "english": "tight; close"
+  },
+  "priaznivý": {
+    "english": "favorable"
+  },
+  "zvedavý": {
+    "english": "curious"
+  },
+  "srbský": {
+    "english": "Serbian"
+  },
+  "Spišský": {
+    "english": "of Spiš; Spiš"
+  },
+  "holandský": {
+    "english": "Dutch"
+  },
+  "predbežný": {
+    "english": "preliminary"
+  },
+  "tenisový": {
+    "english": "tennis"
+  },
+  "nesprávny": {
+    "english": "incorrect; wrong"
+  },
+  "hrozný": {
+    "english": "horrible; terrible"
+  },
+  "štvorcový": {
+    "english": "square"
+  },
+  "rekordný": {
+    "english": "record"
+  },
+  "duševný": {
+    "english": "mental; spiritual"
+  },
+  "celoslovenský": {
+    "english": "nationwide (Slovakia)"
+  },
+  "tragický": {
+    "english": "tragic"
+  },
+  "zrejmý": {
+    "english": "obvious; clear"
+  },
+  "peňažný": {
+    "english": "monetary; money"
+  },
+  "martinský": {
+    "english": "of Martin; Martin"
+  },
+  "klubový": {
+    "english": "club"
+  },
+  "krutý": {
+    "english": "cruel"
+  },
+  "platobný": {
+    "english": "payment"
+  },
+  "špičkový": {
+    "english": "top; cutting-edge"
+  },
+  "kontrolný": {
+    "english": "control; supervisory"
+  },
+  "palestínsky": {
+    "english": "Palestinian"
+  },
+  "vyspelý": {
+    "english": "advanced; developed"
+  },
+  "vedľajší": {
+    "english": "side; secondary"
+  },
+  "radikálny": {
+    "english": "radical"
+  },
+  "technologický": {
+    "english": "technological"
+  },
+  "štatistický": {
+    "english": "statistical"
+  },
+  "železný": {
+    "english": "iron"
+  },
+  "Kristov": {
+    "english": "Christ's"
+  },
+  "lyžiarsky": {
+    "english": "skiing"
+  },
+  "rozhlasový": {
+    "english": "radio"
+  },
+  "ružový": {
+    "english": "pink; rose"
+  },
+  "piatkový": {
+    "english": "Friday"
+  },
+  "dobrovoľný": {
+    "english": "voluntary"
+  },
+  "Národný": {
+    "english": "national"
+  },
+  "rozumný": {
+    "english": "sensible; reasonable"
+  },
+  "sivý": {
+    "english": "gray"
+  },
+  "hrdý": {
+    "english": "proud"
+  },
+  "hrací": {
+    "english": "playing; game"
+  },
+  "ropný": {
+    "english": "oil; petroleum"
+  },
+  "postupný": {
+    "english": "gradual"
+  },
+  "spotrebný": {
+    "english": "consumer; consumable"
+  },
+  "tatranský": {
+    "english": "of the Tatras; Tatra"
+  },
+  "pomalý": {
+    "english": "slow"
+  },
+  "legislatívny": {
+    "english": "legislative"
+  },
+  "predvolebný": {
+    "english": "pre-election"
+  },
+  "zvolenský": {
+    "english": "of Zvolen; Zvolen"
+  },
+  "charakteristický": {
+    "english": "characteristic"
+  },
+  "údajný": {
+    "english": "alleged"
+  },
+  "zákonný": {
+    "english": "legal; lawful"
+  },
+  "teoretický": {
+    "english": "theoretical"
+  },
+  "vstupný": {
+    "english": "entrance; entry"
+  },
+  "pomocný": {
+    "english": "auxiliary; helping"
+  },
+  "prevádzkový": {
+    "english": "operational; operating"
+  },
+  "ekologický": {
+    "english": "ecological; environmental"
+  },
+  "nemožný": {
+    "english": "impossible"
+  },
+  "primeraný": {
+    "english": "adequate; appropriate"
+  },
+  "spodný": {
+    "english": "bottom; lower"
+  },
+  "predošlý": {
+    "english": "previous; prior"
+  },
+  "bezplatný": {
+    "english": "free of charge"
+  },
+  "poštový": {
+    "english": "postal"
+  },
+  "administratívny": {
+    "english": "administrative"
+  },
+  "lokálny": {
+    "english": "local"
+  },
+  "fantastický": {
+    "english": "fantastic"
+  },
+  "marketingový": {
+    "english": "marketing"
+  },
+  "uhorský": {
+    "english": "Hungarian (historical); Magyar"
+  },
+  "evanjelický": {
+    "english": "Lutheran; evangelical"
+  },
+  "nedostatočný": {
+    "english": "insufficient"
+  },
+  "skorý": {
+    "english": "early"
+  },
+  "teroristický": {
+    "english": "terrorist"
+  },
+  "knižný": {
+    "english": "book; literary"
+  },
+  "úradný": {
+    "english": "official"
+  },
+  "rizikový": {
+    "english": "risky; risk"
+  },
+  "nevinný": {
+    "english": "innocent"
+  },
+  "pravicový": {
+    "english": "right-wing"
+  },
+  "úverový": {
+    "english": "credit; loan"
+  },
+  "konkurenčný": {
+    "english": "competitive"
+  },
+  "nebeský": {
+    "english": "heavenly; celestial"
+  },
+  "mäkký": {
+    "english": "soft"
+  },
+  "pamätný": {
+    "english": "memorable; commemorative"
+  },
+  "morský": {
+    "english": "sea; marine"
+  },
+  "autobusový": {
+    "english": "bus"
+  },
+  "veľkonočný": {
+    "english": "Easter"
+  },
+  "poistný": {
+    "english": "insurance"
+  },
+  "vďačný": {
+    "english": "grateful"
+  },
+  "iracký": {
+    "english": "Iraqi"
+  },
+  "poriadny": {
+    "english": "proper; decent; thorough"
+  },
+  "záväzný": {
+    "english": "binding; obligatory"
+  },
+  "rozvojový": {
+    "english": "development"
+  },
+  "arabský": {
+    "english": "Arab; Arabic"
+  },
+  "tenký": {
+    "english": "thin"
+  },
+  "pestrý": {
+    "english": "varied; colorful"
+  },
+  "hmotný": {
+    "english": "material; tangible"
+  },
+  "mohutný": {
+    "english": "massive; mighty"
+  },
+  "oravský": {
+    "english": "of Orava; Orava"
+  },
+  "špinavý": {
+    "english": "dirty"
+  },
+  "pozoruhodný": {
+    "english": "remarkable"
+  },
+  "viditeľný": {
+    "english": "visible"
+  },
+  "skromný": {
+    "english": "modest; humble"
+  },
+  "prístupný": {
+    "english": "accessible; approachable"
+  },
+  "tréningový": {
+    "english": "training"
+  },
+  "luxusný": {
+    "english": "luxury; luxurious"
+  },
+  "definitívny": {
+    "english": "definitive; final"
+  },
+  "symbolický": {
+    "english": "symbolic"
+  },
+  "podrobný": {
+    "english": "detailed"
+  },
+  "slovný": {
+    "english": "verbal; word"
+  },
+  "národnostný": {
+    "english": "ethnic; nationality"
+  },
+  "mokrý": {
+    "english": "wet"
+  },
+  "rozdielny": {
+    "english": "different; differing"
+  },
+  "civilný": {
+    "english": "civilian; civil"
+  },
+  "dávny": {
+    "english": "ancient; long-ago"
+  },
+  "konzervatívny": {
+    "english": "conservative"
+  },
+  "študentský": {
+    "english": "student"
+  },
+  "hnedý": {
+    "english": "brown"
+  },
+  "krvný": {
+    "english": "blood"
+  },
+  "talentovaný": {
+    "english": "talented"
+  },
+  "psychologický": {
+    "english": "psychological"
+  },
+  "nájomný": {
+    "english": "rental; tenancy"
+  },
+  "externý": {
+    "english": "external"
+  },
+  "alternatívny": {
+    "english": "alternative"
+  },
+  "spevácky": {
+    "english": "singing; vocal"
+  },
+  "nadšený": {
+    "english": "enthusiastic"
+  },
+  "kvalifikačný": {
+    "english": "qualifying; qualification"
+  },
+  "tunajší": {
+    "english": "local (here)"
+  },
+  "zmluvný": {
+    "english": "contractual"
+  },
+  "obranný": {
+    "english": "defensive; defence"
+  },
+  "legendárny": {
+    "english": "legendary"
+  },
+  "romantický": {
+    "english": "romantic"
+  },
+  "nákupný": {
+    "english": "shopping; purchase"
+  },
+  "krízový": {
+    "english": "crisis"
+  },
+  "logický": {
+    "english": "logical"
+  },
+  "slepý": {
+    "english": "blind"
+  },
+  "manželský": {
+    "english": "marital; married"
+  },
+  "netradičný": {
+    "english": "non-traditional"
+  },
+  "federálny": {
+    "english": "federal"
+  },
+  "bojový": {
+    "english": "combat; fighting"
+  },
+  "módny": {
+    "english": "fashionable"
+  },
+  "turčiansky": {
+    "english": "of Turiec; Turiec"
+  },
+  "temný": {
+    "english": "dark; gloomy"
+  },
+  "londýnsky": {
+    "english": "London; of London"
+  },
+  "kapitálový": {
+    "english": "capital"
+  },
+  "kovový": {
+    "english": "metal; metallic"
+  },
+  "cieľový": {
+    "english": "target; goal"
+  },
+  "masový": {
+    "english": "mass"
+  },
+  "bodový": {
+    "english": "point; spot"
+  },
+  "odvážny": {
+    "english": "brave; bold"
+  },
+  "účtovný": {
+    "english": "accounting"
+  },
+  "materiálny": {
+    "english": "material"
+  },
+  "opatrný": {
+    "english": "careful; cautious"
+  },
+  "sympatický": {
+    "english": "likeable; sympathetic"
+  },
+  "hasičský": {
+    "english": "firefighting; fire-brigade"
+  },
+  "akčný": {
+    "english": "action"
+  },
+  "objektívny": {
+    "english": "objective"
+  },
+  "neustály": {
+    "english": "constant; continual"
+  },
+  "smiešny": {
+    "english": "funny; ridiculous"
+  },
+  "krátkodobý": {
+    "english": "short-term"
+  },
+  "holý": {
+    "english": "bare; naked"
+  },
+  "neúspešný": {
+    "english": "unsuccessful"
+  },
+  "sprievodný": {
+    "english": "accompanying"
+  },
+  "nezvyčajný": {
+    "english": "unusual"
+  },
+  "služobný": {
+    "english": "service; official (duty)"
+  },
+  "otázny": {
+    "english": "questionable; doubtful"
+  },
+  "etický": {
+    "english": "ethical"
+  },
+  "pravdivý": {
+    "english": "true; truthful"
+  },
+  "majetkový": {
+    "english": "property; asset"
+  },
+  "náhodný": {
+    "english": "random; accidental"
+  },
+  "herecký": {
+    "english": "acting; actor's"
+  },
+  "básnický": {
+    "english": "poetic"
+  },
+  "útočný": {
+    "english": "offensive; attacking"
+  },
+  "parkovací": {
+    "english": "parking"
+  },
+  "nedeľný": {
+    "english": "Sunday"
+  },
+  "tepelný": {
+    "english": "thermal; heat"
+  },
+  "vedomý": {
+    "english": "aware; conscious"
+  },
+  "nerád": {
+    "english": "reluctant; not keen"
+  },
+  "hladký": {
+    "english": "smooth"
+  },
+  "medziročný": {
+    "english": "year-on-year"
+  },
+  "nervózny": {
+    "english": "nervous"
+  },
+  "rekreačný": {
+    "english": "recreational"
+  },
+  "africký": {
+    "english": "African"
+  },
+  "Mestský": {
+    "english": "municipal; city"
+  },
+  "rimavský": {
+    "english": "of Rimavská; Rimava"
+  },
+  "snehový": {
+    "english": "snow"
+  },
+  "agresívny": {
+    "english": "aggressive"
+  },
+  "opätovný": {
+    "english": "repeated; renewed"
+  },
+  "verejnoprávny": {
+    "english": "public-service (media/law)"
+  },
+  "otcov": {
+    "english": "father's"
+  },
+  "spotrebiteľský": {
+    "english": "consumer"
+  },
+  "spoľahlivý": {
+    "english": "reliable"
+  },
+  "nedeľňajší": {
+    "english": "Sunday's"
+  },
+  "odborový": {
+    "english": "trade-union; departmental"
+  },
+  "celosvetový": {
+    "english": "worldwide"
+  },
+  "grafický": {
+    "english": "graphic"
+  },
+  "ľavicový": {
+    "english": "left-wing"
+  },
+  "univerzitný": {
+    "english": "university"
+  },
+  "krvavý": {
+    "english": "bloody"
+  },
+  "stredajší": {
+    "english": "Wednesday's"
+  },
+  "tajomný": {
+    "english": "mysterious"
+  },
+  "írsky": {
+    "english": "Irish"
+  },
+  "inteligentný": {
+    "english": "intelligent"
+  },
+  "biologický": {
+    "english": "biological"
+  },
+  "diplomatický": {
+    "english": "diplomatic"
+  },
+  "víkendový": {
+    "english": "weekend"
+  },
+  "peší": {
+    "english": "pedestrian; on foot"
+  },
+  "unikátny": {
+    "english": "unique"
+  },
+  "chorvátsky": {
+    "english": "Croatian"
+  },
+  "etnický": {
+    "english": "ethnic"
+  },
+  "estetický": {
+    "english": "aesthetic"
+  },
+  "farský": {
+    "english": "parish"
+  },
+  "islamský": {
+    "english": "Islamic"
+  },
+  "krstný": {
+    "english": "baptismal; god-"
+  },
+  "dvojročný": {
+    "english": "two-year; biennial"
+  },
+  "nevhodný": {
+    "english": "inappropriate; unsuitable"
+  },
+  "predajný": {
+    "english": "for sale; sales"
+  },
+  "posvätný": {
+    "english": "sacred; holy"
+  },
+  "Krajský": {
+    "english": "regional (kraj)"
+  },
+  "optimálny": {
+    "english": "optimal"
+  },
+  "projektový": {
+    "english": "project"
+  },
+  "pohodlný": {
+    "english": "comfortable"
+  },
+  "interný": {
+    "english": "internal"
+  },
+  "prijateľný": {
+    "english": "acceptable"
+  },
+  "rozprávkový": {
+    "english": "fairy-tale"
+  },
+  "Južný": {
+    "english": "southern"
+  },
+  "dôstojný": {
+    "english": "dignified; worthy"
+  },
+  "Stredný": {
+    "english": "middle; central"
+  },
+  "dobový": {
+    "english": "period; of the era"
+  },
+  "hraničný": {
+    "english": "border; borderline"
+  },
+  "úsporný": {
+    "english": "economical; austerity"
+  },
+  "sporný": {
+    "english": "disputed; controversial"
+  },
+  "liberálny": {
+    "english": "liberal"
+  },
+  "divoký": {
+    "english": "wild"
+  },
+  "biblický": {
+    "english": "biblical"
+  },
+  "indický": {
+    "english": "Indian"
+  },
+  "neďaleký": {
+    "english": "nearby"
+  },
+  "rodičovský": {
+    "english": "parental"
+  },
+  "náhly": {
+    "english": "sudden"
+  },
+  "plastový": {
+    "english": "plastic"
+  },
+  "papierový": {
+    "english": "paper"
+  },
+  "valný": {
+    "english": "general (assembly); rolling"
+  },
+  "extraligový": {
+    "english": "Extraliga; top-league"
+  },
+  "vecný": {
+    "english": "factual; matter-of-fact"
+  },
+  "diaľničný": {
+    "english": "motorway; highway"
+  },
+  "slovanský": {
+    "english": "Slavic"
+  },
+  "nežný": {
+    "english": "tender; gentle"
+  },
+  "juniorský": {
+    "english": "junior"
+  },
+  "rýchlostný": {
+    "english": "speed; racing"
+  },
+  "apoštolský": {
+    "english": "apostolic"
+  },
+  "bezprostredný": {
+    "english": "immediate; direct"
+  },
+  "okrúhly": {
+    "english": "round"
+  },
+  "trénerský": {
+    "english": "coaching; coach's"
+  },
+  "okamžitý": {
+    "english": "immediate; instant"
+  },
+  "stredoveký": {
+    "english": "medieval"
+  },
+  "dominantný": {
+    "english": "dominant"
+  },
+  "podzemný": {
+    "english": "underground"
+  },
+  "spätný": {
+    "english": "return; reverse; feedback"
+  },
+  "nahý": {
+    "english": "naked"
+  },
+  "spolkový": {
+    "english": "federal (German); association"
+  },
+  "radostný": {
+    "english": "joyful"
+  },
+  "Štátny": {
+    "english": "state; national"
+  },
+  "extrémny": {
+    "english": "extreme"
+  },
+  "nelegálny": {
+    "english": "illegal"
+  },
+  "nespokojný": {
+    "english": "dissatisfied"
+  },
+  "dynamický": {
+    "english": "dynamic"
+  },
+  "zemný": {
+    "english": "earth; ground"
+  },
+  "kontroverzný": {
+    "english": "controversial"
+  },
+  "obytný": {
+    "english": "residential"
+  },
+  "formálny": {
+    "english": "formal"
+  },
+  "univerzálny": {
+    "english": "universal"
+  },
+  "problematický": {
+    "english": "problematic"
+  },
+  "Bratislavský": {
+    "english": "of Bratislava; Bratislava"
+  },
+  "disciplinárny": {
+    "english": "disciplinary"
+  },
+  "Ústavný": {
+    "english": "constitutional"
+  },
+  "obvodný": {
+    "english": "district; circuit"
+  },
+  "svetlý": {
+    "english": "light; bright"
+  },
+  "dokumentárny": {
+    "english": "documentary"
+  },
+  "svadobný": {
+    "english": "wedding"
+  },
+  "basketbalový": {
+    "english": "basketball"
+  },
+  "austrálsky": {
+    "english": "Australian"
+  },
+  "ázijský": {
+    "english": "Asian"
+  },
+  "vrcholný": {
+    "english": "peak; top"
+  },
+  "ozajstný": {
+    "english": "real; genuine"
+  },
+  "bočný": {
+    "english": "side; lateral"
+  },
+  "hodinový": {
+    "english": "hourly; hour"
+  },
+  "Okresný": {
+    "english": "district"
+  },
+  "štvrtkový": {
+    "english": "Thursday"
+  },
+  "revolučný": {
+    "english": "revolutionary"
+  },
+  "zámorský": {
+    "english": "overseas"
+  },
+  "vtipný": {
+    "english": "funny; witty"
+  },
+  "príťažlivý": {
+    "english": "attractive"
+  },
+  "divý": {
+    "english": "wild; fierce"
+  },
+  "dodatočný": {
+    "english": "additional; supplementary"
+  },
+  "viedenský": {
+    "english": "Viennese; of Vienna"
+  },
+  "smrteľný": {
+    "english": "fatal; deadly"
+  },
+  "pitný": {
+    "english": "drinking; potable"
+  },
+  "biskupský": {
+    "english": "episcopal; bishop's"
+  },
+  "zázračný": {
+    "english": "miraculous; wonder"
+  },
+  "egyptský": {
+    "english": "Egyptian"
+  },
+  "firemný": {
+    "english": "company; corporate"
+  },
+  "osamelý": {
+    "english": "lonely; solitary"
+  },
+  "hodný": {
+    "english": "worthy; worth"
+  },
+  "hodnotný": {
+    "english": "valuable; worthwhile"
+  },
+  "vatikánsky": {
+    "english": "Vatican"
+  },
+  "partnerský": {
+    "english": "partner; partnership"
+  },
+  "zúfalý": {
+    "english": "desperate"
+  },
+  "oblastný": {
+    "english": "regional; area"
+  },
+  "brazílsky": {
+    "english": "Brazilian"
+  },
+  "latinský": {
+    "english": "Latin"
+  },
+  "vlhký": {
+    "english": "humid; moist"
+  },
+  "pápežský": {
+    "english": "papal"
+  },
+  "ojedinelý": {
+    "english": "isolated; rare"
+  },
+  "členný": {
+    "english": "member; articulated"
+  },
+  "hladný": {
+    "english": "hungry"
+  },
+  "moslimský": {
+    "english": "Muslim"
+  },
+  "maličký": {
+    "english": "tiny"
+  },
+  "zvukový": {
+    "english": "sound; audio"
+  },
+  "jubilejný": {
+    "english": "jubilee; anniversary"
+  },
+  "prechodný": {
+    "english": "transitional; temporary"
+  },
+  "násilný": {
+    "english": "violent"
+  },
+  "rumunský": {
+    "english": "Romanian"
+  },
+  "kalendárny": {
+    "english": "calendar"
+  },
+  "svetelný": {
+    "english": "light; luminous"
+  },
+  "východoslovenský": {
+    "english": "eastern Slovak"
+  },
+  "komorný": {
+    "english": "chamber; intimate"
+  },
+  "plynový": {
+    "english": "gas"
+  },
+  "mimovládny": {
+    "english": "non-governmental"
+  },
+  "nasledovný": {
+    "english": "following; subsequent"
+  },
+  "primárny": {
+    "english": "primary"
+  },
+  "neziskový": {
+    "english": "non-profit"
+  },
+  "automatický": {
+    "english": "automatic"
+  },
+  "stredoeurópsky": {
+    "english": "Central European"
+  },
+  "belgický": {
+    "english": "Belgian"
+  },
+  "belasý": {
+    "english": "sky-blue; light blue"
+  },
+  "božský": {
+    "english": "divine; godly"
+  },
+  "archeologický": {
+    "english": "archaeological"
+  },
+  "liečebný": {
+    "english": "therapeutic; treatment"
+  },
+  "láskavý": {
+    "english": "kind; affectionate"
+  },
+  "fiškálny": {
+    "english": "fiscal"
+  },
+  "kňazský": {
+    "english": "priestly"
+  },
+  "hráčsky": {
+    "english": "player's; playing"
+  },
+  "atletický": {
+    "english": "athletic"
+  },
+  "naivný": {
+    "english": "naive"
+  },
+  "popradský": {
+    "english": "of Poprad; Poprad"
+  },
+  "dozorný": {
+    "english": "supervisory; oversight"
+  },
+  "preventívny": {
+    "english": "preventive"
+  },
+  "priebežný": {
+    "english": "ongoing; continuous"
+  },
+  "perfektný": {
+    "english": "perfect"
+  },
+  "realitný": {
+    "english": "real-estate"
+  },
+  "výchovný": {
+    "english": "educational; upbringing"
+  },
+  "iránsky": {
+    "english": "Iranian"
+  },
+  "vesmírny": {
+    "english": "space; cosmic"
+  },
+  "tuhý": {
+    "english": "stiff; solid; tough"
+  },
+  "absurdný": {
+    "english": "absurd"
+  },
+  "kompetentný": {
+    "english": "competent"
+  },
+  "nadmerný": {
+    "english": "excessive"
+  },
+  "amatérsky": {
+    "english": "amateur"
+  },
+  "krehký": {
+    "english": "fragile; brittle"
+  },
+  "bledý": {
+    "english": "pale"
+  },
+  "telekomunikačný": {
+    "english": "telecommunications"
+  },
+  "citový": {
+    "english": "emotional; feeling"
+  },
+  "prievidzský": {
+    "english": "of Prievidza; Prievidza"
+  },
+  "úbohý": {
+    "english": "poor; wretched"
+  },
+  "výstavný": {
+    "english": "exhibition"
+  },
+  "virtuálny": {
+    "english": "virtual"
+  },
+  "trojročný": {
+    "english": "three-year"
+  },
+  "Žilinský": {
+    "english": "of Žilina; Žilina"
+  },
+  "neviditeľný": {
+    "english": "invisible"
+  },
+  "ovocný": {
+    "english": "fruit"
+  },
+  "divácky": {
+    "english": "spectator; audience"
+  },
+  "podielový": {
+    "english": "share; mutual-fund"
+  },
+  "čiastočný": {
+    "english": "partial"
+  },
+  "premiérový": {
+    "english": "premiere; debut"
+  },
+  "stolný": {
+    "english": "table; desk"
+  },
+  "súperov": {
+    "english": "opponent's"
+  },
+  "kuchynský": {
+    "english": "kitchen"
+  },
+  "rohový": {
+    "english": "corner"
+  },
+  "vyučovací": {
+    "english": "teaching; instructional"
+  },
+  "májový": {
+    "english": "May"
+  },
+  "škodlivý": {
+    "english": "harmful"
+  },
+  "parížsky": {
+    "english": "Parisian; of Paris"
+  },
+  "nórsky": {
+    "english": "Norwegian"
+  },
+  "fínsky": {
+    "english": "Finnish"
+  },
+  "Kysucký": {
+    "english": "of Kysuce; Kysuce"
+  },
+  "doplnkový": {
+    "english": "supplementary; complementary"
+  },
+  "otvárací": {
+    "english": "opening"
+  },
+  "hotelový": {
+    "english": "hotel"
+  },
+  "drsný": {
+    "english": "rough; harsh"
+  },
+  "prvotný": {
+    "english": "primary; original"
+  },
+  "veľkolepý": {
+    "english": "magnificent; grand"
+  },
+  "elitný": {
+    "english": "elite"
+  },
+  "produktívny": {
+    "english": "productive"
+  },
+  "hviezdny": {
+    "english": "star; stellar"
+  },
+  "neistý": {
+    "english": "uncertain; unsure"
+  },
+  "učebný": {
+    "english": "teaching; textbook"
+  },
+  "zosnulý": {
+    "english": "deceased"
+  },
+  "štrukturálny": {
+    "english": "structural"
+  },
+  "Trnavský": {
+    "english": "of Trnava; Trnava"
+  },
+  "plavecký": {
+    "english": "swimming"
+  },
+  "ružomberský": {
+    "english": "of Ružomberok"
+  },
+  "percentuálny": {
+    "english": "percentage; percent"
+  },
+  "prvoligový": {
+    "english": "first-league"
+  },
+  "nemalý": {
+    "english": "not small; considerable"
+  },
+  "kontaktný": {
+    "english": "contact"
+  },
+  "Pánov": {
+    "english": "the Lord's; Mister's"
+  },
+  "pozorný": {
+    "english": "attentive; careful"
+  },
+  "masívny": {
+    "english": "massive"
+  },
+  "colný": {
+    "english": "customs"
+  },
+  "kladný": {
+    "english": "positive; affirmative"
+  },
+  "kožený": {
+    "english": "leather"
+  },
+  "tučný": {
+    "english": "fat; bold (type)"
+  },
+  "rockový": {
+    "english": "rock (music)"
+  },
+  "hypotekárny": {
+    "english": "mortgage"
+  },
+  "liečivý": {
+    "english": "medicinal; healing"
+  },
+  "autentický": {
+    "english": "authentic"
+  },
+  "seriózny": {
+    "english": "serious; respectable"
+  },
+  "halový": {
+    "english": "indoor; hall"
+  },
+  "tematický": {
+    "english": "thematic"
+  },
+  "vyšetrovací": {
+    "english": "investigative"
+  },
+  "kúpny": {
+    "english": "purchase; buying"
+  },
+  "príbuzný": {
+    "english": "related; relative"
+  },
+  "odpadový": {
+    "english": "waste"
+  },
+  "surový": {
+    "english": "raw; crude"
+  },
+  "celoštátny": {
+    "english": "nationwide"
+  },
+  "kriminálny": {
+    "english": "criminal"
+  },
+  "nulový": {
+    "english": "zero; null"
+  },
+  "pohonný": {
+    "english": "propulsion; fuel"
+  },
+  "vidiecky": {
+    "english": "rural; countryside"
+  },
+  "systémový": {
+    "english": "systemic; system"
+  },
+  "partizánsky": {
+    "english": "partisan"
+  },
+  "nezmyselný": {
+    "english": "nonsensical; pointless"
+  },
+  "potravinársky": {
+    "english": "food-industry"
+  },
+  "porovnateľný": {
+    "english": "comparable"
+  },
+  "nejasný": {
+    "english": "unclear; vague"
+  },
+  "koncertný": {
+    "english": "concert"
+  },
+  "poľný": {
+    "english": "field"
+  },
+  "nesmierny": {
+    "english": "immense; enormous"
+  },
+  "Karlov": {
+    "english": "Karl's; Charles's"
+  },
+  "Starý": {
+    "english": "old"
+  },
+  "klimatický": {
+    "english": "climatic; climate"
+  },
+  "cyklistický": {
+    "english": "cycling"
+  },
+  "štíhly": {
+    "english": "slim; slender"
+  },
+  "Ficov": {
+    "english": "Fico's"
+  },
+  "novembrový": {
+    "english": "November"
+  },
+  "gréckokatolícky": {
+    "english": "Greek Catholic"
+  },
+  "vplyvný": {
+    "english": "influential"
+  },
+  "búrlivý": {
+    "english": "stormy; turbulent"
+  },
+  "vznešený": {
+    "english": "noble; lofty"
+  },
+  "pohárový": {
+    "english": "cup (competition)"
+  },
+  "rímskokatolícky": {
+    "english": "Roman Catholic"
+  },
+  "hlasovací": {
+    "english": "voting"
+  },
+  "podnikový": {
+    "english": "company; enterprise"
+  },
+  "zrelý": {
+    "english": "mature; ripe"
+  },
+  "júnový": {
+    "english": "June"
+  },
+  "diecézny": {
+    "english": "diocesan"
+  },
+  "skalný": {
+    "english": "rock; rocky"
+  },
+  "environmentálny": {
+    "english": "environmental"
+  },
+  "celoživotný": {
+    "english": "lifelong"
+  },
+  "Trenčiansky": {
+    "english": "of Trenčín; Trenčín"
+  },
+  "miliónový": {
+    "english": "million; million-strong"
+  },
+  "menšinový": {
+    "english": "minority"
+  },
+  "chutný": {
+    "english": "tasty; delicious"
+  },
+  "štedrý": {
+    "english": "generous"
+  },
+  "elegantný": {
+    "english": "elegant"
+  },
+  "mravný": {
+    "english": "moral; ethical"
+  },
+  "akútny": {
+    "english": "acute"
+  },
+  "záhadný": {
+    "english": "mysterious; enigmatic"
+  },
+  "Považský": {
+    "english": "of the Váh region; Považie"
+  },
+  "izbový": {
+    "english": "room; indoor"
+  },
+  "srdcový": {
+    "english": "heart; cardiac"
+  },
+  "septembrový": {
+    "english": "September"
+  },
+  "racionálny": {
+    "english": "rational"
+  }
+}

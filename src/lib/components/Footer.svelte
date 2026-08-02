@@ -19,7 +19,13 @@
       <a class="hover:text-(--accent-dark) hover:underline" href="/dictionary"
         >Dictionary</a
       >
+      <a class="hover:text-(--accent-dark) hover:underline" href="/dictionary/common"
+        >Most common</a
+      >
       <a class="hover:text-(--accent-dark) hover:underline" href="/practice">Practice</a>
+      <a class="hover:text-(--accent-dark) hover:underline" href="/references"
+        >References</a
+      >
     </nav>
   </div>
 </footer>

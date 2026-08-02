@@ -63,9 +63,11 @@
           <Eyebrow>Listen for</Eyebrow>
           <h2 id="contrast-heading" class="mb-3 text-2xl">Sound contrasts</h2>
 
-          <div class="mt-5 grid grid-cols-2 gap-2.5 max-[560px]:grid-cols-1">
+          <div
+            class="mt-5 grid grid-cols-2 gap-6 rounded border border-slate-200 bg-slate-50 p-3.5 max-[560px]:grid-cols-1 max-[560px]:gap-4"
+          >
             {#each topic.contrasts as contrast (contrast.left)}
-              <div class="grid gap-1 rounded border border-slate-200 bg-slate-50 p-3.5">
+              <div class="grid gap-1">
                 <strong class="font-serif text-blue-800" lang="sk">
                   {contrast.left} / {contrast.right}
                 </strong>
@@ -75,7 +77,7 @@
           </div>
         </section>
 
-        <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
+        <section class="scroll-mt-[72px] pt-8">
           <div class="rounded border border-slate-300 bg-blue-50 p-5">
             <Eyebrow>Articulation</Eyebrow>
             <h2 id="cue-heading" class="mb-3 text-2xl">How it is formed</h2>
@@ -85,7 +87,7 @@
           </div>
         </section>
 
-        <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
+        <section class="scroll-mt-[72px] pt-8">
           <Eyebrow>Examples</Eyebrow>
           <h2 id="practice-heading" class="mb-3 text-2xl">Words and phrase</h2>
 

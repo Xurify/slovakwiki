@@ -12,7 +12,7 @@ import {
   writePracticeState,
   type StorageLike,
 } from "../client/practice-state";
-import { allEntries, caseTopics, validateContent } from "./data";
+import { allEntries, caseTopics, validateContent, words } from "./data";
 import { lessons, validateLessons } from "./lessons";
 import { practiceItemById, validatePracticeItems } from "./practice";
 import { normalizeSearchText, searchEntries } from "./search";
@@ -81,6 +81,41 @@ describe("Slovak content", () => {
     expect(
       caseTopics.every((topic) => topic.body.length > 0 && topic.examples.length > 0),
     ).toBe(true);
+  });
+
+  it("does not tell learners to read examples when a word has none", () => {
+    const withExamples = words.find((word) => word.examples.length > 0);
+    const withoutExamples = words.find((word) => word.examples.length === 0);
+
+    expect(withExamples).toBeDefined();
+    expect(withoutExamples).toBeDefined();
+    expect(
+      withExamples?.body.some((paragraph) => paragraph.includes("Read the example")),
+    ).toBe(true);
+    expect(
+      withoutExamples?.body.some((paragraph) => paragraph.includes("Read the example")),
+    ).toBe(false);
+    expect(
+      withoutExamples?.body.some((paragraph) =>
+        paragraph.includes("Sentence examples are not available"),
+      ),
+    ).toBe(true);
+  });
+
+  it("attributes frequency-promoted words to SNK, not JÚĽŠ", () => {
+    const promoted = words.find((word) => word.origin === "frequency");
+    const curated = words.find((word) => word.origin === "curated");
+
+    expect(promoted).toBeDefined();
+    expect(curated).toBeDefined();
+    expect(promoted?.sourceLabel).toContain("Slovak National Corpus");
+    expect(curated?.sourceLabel).toContain("Jazykovedný ústav");
+  });
+
+  it("attaches frequency rank for SNK lemmas", () => {
+    const byt = words.find((word) => word.slug === "byt");
+    expect(byt?.frequency?.pos).toBe("verb");
+    expect(byt?.frequency?.rank).toBeTypeOf("number");
   });
 
   it("matches Slovak answers without making diacritics optional", () => {

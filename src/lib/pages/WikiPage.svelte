@@ -15,6 +15,9 @@
     word: "dictionary",
   };
 
+  const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives"]);
+  const PAGE_SIZE = 60;
+
   const dictionaryEntries = allEntries.filter((entry) => entry.kind === "word");
   const categoryCounts = new Map<string, number>();
 
@@ -22,9 +25,17 @@
     categoryCounts.set(entry.category, (categoryCounts.get(entry.category) ?? 0) + 1);
   }
 
-  const categories = [...categoryCounts].toSorted(([first], [second]) =>
-    first.localeCompare(second),
-  );
+  const curatedCategories = [...categoryCounts]
+    .filter(([category]) => !MASS_CATEGORIES.has(category))
+    .toSorted(([first], [second]) => first.localeCompare(second));
+  const massCategories = [...categoryCounts]
+    .filter(([category]) => MASS_CATEGORIES.has(category))
+    .toSorted(([first], [second]) => first.localeCompare(second));
+
+  const featuredCount = dictionaryEntries.filter(
+    (entry) => !MASS_CATEGORIES.has(entry.category),
+  ).length;
+
   const availableLetters = [
     ...new Set(
       dictionaryEntries.map(
@@ -32,9 +43,16 @@
       ),
     ),
   ].toSorted((first, second) => first.localeCompare(second, "sk"));
+
   const topicOptions = [
-    { value: "all", label: "All topics", count: dictionaryEntries.length },
-    ...categories.map(([category, count]) => ({
+    { value: "featured", label: "Featured", count: featuredCount },
+    ...curatedCategories.map(([category, count]) => ({
+      value: category,
+      label: category,
+      count,
+    })),
+    { value: "all", label: "All words", count: dictionaryEntries.length },
+    ...massCategories.map(([category, count]) => ({
       value: category,
       label: category,
       count,
@@ -45,13 +63,18 @@
     ...availableLetters.map((letter) => ({ value: letter, label: letter })),
   ];
 
-  let activeCategory = $state("all");
+  let activeCategory = $state("featured");
   let activeLetter = $state("all");
   let query = $state("");
+  let visibleLimit = $state(PAGE_SIZE);
 
-  const visibleEntries = $derived(
+  const filteredEntries = $derived(
     dictionaryEntries
-      .filter((entry) => activeCategory === "all" || entry.category === activeCategory)
+      .filter((entry) => {
+        if (activeCategory === "all") return true;
+        if (activeCategory === "featured") return !MASS_CATEGORIES.has(entry.category);
+        return entry.category === activeCategory;
+      })
       .filter(
         (entry) =>
           activeLetter === "all" ||
@@ -68,8 +91,11 @@
       })
       .toSorted((first, second) => first.slovak.localeCompare(second.slovak, "sk")),
   );
+
+  const visibleEntries = $derived(filteredEntries.slice(0, visibleLimit));
+  const hasMore = $derived(filteredEntries.length > visibleLimit);
   const hasActiveFilters = $derived(
-    activeCategory !== "all" || activeLetter !== "all" || Boolean(query),
+    activeCategory !== "featured" || activeLetter !== "all" || Boolean(query),
   );
 
   function normalize(value: string): string {
@@ -80,9 +106,20 @@
   }
 
   function clearFilters(): void {
-    activeCategory = "all";
+    activeCategory = "featured";
     activeLetter = "all";
     query = "";
+    visibleLimit = PAGE_SIZE;
+  }
+
+  function setCategory(value: string): void {
+    activeCategory = value;
+    visibleLimit = PAGE_SIZE;
+  }
+
+  function setLetter(value: string): void {
+    activeLetter = value;
+    visibleLimit = PAGE_SIZE;
   }
 
   function chipClass(active: boolean): string {
@@ -100,7 +137,16 @@
     <header class="max-w-[640px]">
       <Eyebrow>Reference</Eyebrow>
       <h1>Dictionary</h1>
-      <Lead>Look up Slovak words by topic, letter, or English meaning.</Lead>
+      <Lead>
+        Start with featured curated words, or browse the full list by letter and topic.
+        For frequency-ranked lemmas, open Most common.
+      </Lead>
+      <p class="mt-4 text-sm text-slate-500">
+        Also browse the
+        <TextLink href="/dictionary/common"
+          >most common verbs, nouns, and adjectives</TextLink
+        >.
+      </p>
     </header>
 
     <div class="mt-10" id="wiki-search-section">
@@ -119,6 +165,7 @@
           class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.95rem] outline-none"
           id="wiki-search"
           bind:value={query}
+          oninput={() => (visibleLimit = PAGE_SIZE)}
           placeholder="Search in English or Slovak"
           type="search"
         />
@@ -127,7 +174,10 @@
             class="mr-3 cursor-pointer border-0 bg-transparent text-xs font-semibold text-blue-800"
             type="button"
             aria-label="Clear search"
-            onclick={() => (query = "")}
+            onclick={() => {
+              query = "";
+              visibleLimit = PAGE_SIZE;
+            }}
           >
             Clear
           </button>
@@ -143,7 +193,7 @@
           )}"
           type="button"
           aria-pressed={activeCategory === option.value}
-          onclick={() => (activeCategory = option.value)}
+          onclick={() => setCategory(option.value)}
         >
           {option.label}
           {#if option.count !== undefined}
@@ -165,7 +215,7 @@
           )}"
           type="button"
           aria-pressed={activeLetter === option.value}
-          onclick={() => (activeLetter = option.value)}
+          onclick={() => setLetter(option.value)}
         >
           {option.label}
         </button>
@@ -176,8 +226,13 @@
       class="mt-8 flex min-h-10 items-center justify-between gap-4 border-b border-slate-200 pb-3"
     >
       <p class="m-0 text-sm text-slate-500">
-        <strong class="tabular-nums text-slate-900">{visibleEntries.length}</strong>
-        {visibleEntries.length === 1 ? "result" : "results"}
+        <strong class="tabular-nums text-slate-900">{filteredEntries.length}</strong>
+        {filteredEntries.length === 1 ? "result" : "results"}
+        {#if hasMore}
+          <span class="text-slate-400">
+            · showing {visibleEntries.length}
+          </span>
+        {/if}
       </p>
       {#if hasActiveFilters}
         <button
@@ -212,6 +267,14 @@
             </li>
           {/each}
         </ul>
+
+        {#if hasMore}
+          <div class="mt-6 flex justify-center">
+            <Button type="button" onclick={() => (visibleLimit += PAGE_SIZE)}>
+              Show more
+            </Button>
+          </div>
+        {/if}
       {:else}
         <div class="py-16 text-center">
           <h2 class="text-xl">No matches</h2>
@@ -219,7 +282,7 @@
             Try a shorter search or reset the filters.
           </p>
           <Button class="mt-4" type="button" onclick={clearFilters}>
-            Show all entries
+            Show featured entries
           </Button>
         </div>
       {/if}
@@ -229,9 +292,11 @@
       class="mt-14 flex flex-wrap gap-x-6 gap-y-2 border-t border-slate-200 pt-8 text-sm"
       aria-label="Other reference"
     >
+      <TextLink href="/dictionary/common">Most common</TextLink>
       <TextLink href="/grammar">Grammar</TextLink>
       <TextLink href="/pronunciation">Pronunciation</TextLink>
       <TextLink href="/grammar/terms">Language terms</TextLink>
+      <TextLink href="/references">References</TextLink>
       <TextLink href="/lessons">Lessons</TextLink>
     </nav>
   </PageShell>

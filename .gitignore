@@ -8,6 +8,7 @@ build/
 dist/
 coverage/
 static/pagefind/
+tmp/
 dev/*.log
 .env*
 *.tsbuildinfo

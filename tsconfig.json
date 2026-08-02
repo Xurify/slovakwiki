@@ -16,5 +16,5 @@
     "strict": true
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "static/pagefind"]
+  "exclude": ["dist", "static/pagefind", "tmp"]
 }
