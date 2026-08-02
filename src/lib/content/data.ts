@@ -296,7 +296,7 @@ const curatedWordSeed: WordSeed[] = [
     english: "food; meal",
     category: "Food",
     examples: [{ slovak: "Toto jedlo je výborné.", english: "This food is excellent." }],
-    related: ["voda", "kava"],
+    related: ["voda", "kava", "kolac"],
   },
   {
     slug: "voda",
@@ -314,7 +314,18 @@ const curatedWordSeed: WordSeed[] = [
     english: "coffee",
     category: "Food",
     examples: [{ slovak: "Dáte si kávu?", english: "Would you like coffee?" }],
-    related: ["voda", "jedlo"],
+    related: ["voda", "jedlo", "kolac"],
+  },
+  {
+    slug: "kolac",
+    slovak: "koláč",
+    english: "cake; pastry",
+    category: "Food",
+    examples: [
+      { slovak: "Moja mama pečie koláč.", english: "My mom is baking a cake." },
+      { slovak: "Ten koláč je výborný.", english: "That cake is excellent." },
+    ],
+    related: ["jedlo", "chlieb", "kava", "voda"],
   },
   {
     slug: "mesto",

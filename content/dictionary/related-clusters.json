@@ -17,7 +17,7 @@
   "aspect-open": ["otvorit", "otvarat"],
   "aspect-sleep": ["spat", "zaspat"],
   "be-have": ["byt", "mat", "stat", "stat-v"],
-  "food-drink": ["jedlo", "voda", "kava", "chlieb", "maso", "pivo", "vino"],
+  "food-drink": ["jedlo", "voda", "kava", "chlieb", "maso", "kolac", "pivo", "vino"],
   "home-city": ["dom", "byt-n", "mesto", "stanica", "listok", "auto"],
   "family-people": [
     "rodina",
