@@ -1,8 +1,8 @@
 # Dictionary follow-up plan (post frequency + Tatoeba)
 
 **Date:** 2026-08-02  
-**Status:** A–E done; top-200 examples at 100% coverage per POS  
-**Related:** `2026-08-02-frequency-tatoeba-dictionary-design.md`
+**Status:** A–E done; full example coverage; semantic related clusters + morph-safe fill stubs (2026-08-02)  
+**Related:** `2026-08-02-frequency-tatoeba-dictionary-design.md`, `2026-08-02-semantic-related-and-examples-plan.md`
 
 ## Pattern pedagogy (2026-08-02+)
 
@@ -10,11 +10,11 @@ High-confusion lemmas use labeled `demonstrates` example groups + Usage notes + 
 
 `rád`, `páčiť`, `ľúbiť`, `byť`, `ísť`/`chodiť`, `volať`, `vedieť`, `dať`, `pozerať`/`vidieť`, `počúvať`/`počuť`, `môcť`/`musieť`/`chcieť`, `báť`, `stať`/`stáť`, `hľadať`/`nájsť`, `začať`/`prestať`, `hovoriť`/`povedať`, `prísť`/`odísť`, `dostať`, aspect pairs `robiť`/`urobiť`, `brať`/`vziať`, `písať`/`napísať`, `čítať`/`prečítať`, `kupovať`/`kúpiť`, `jesť`/`zjesť`, `piť`/`vypiť`.
 
-Every live dictionary word has ≥1 example (Tatoeba and/or curated templates via `bun scripts/dictionary/fill-empty-examples.ts` → `examples:curate`).
+Every live dictionary word has ≥1 example (Tatoeba and/or curated templates via `bun run examples:fill` → `examples:curate`). Noun fill stubs use nominative `Toto je/sú …` (not accusative `Potrebujem …`).
 
-Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate`.
+Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate`. Weak stubs: `bun run examples:reclaim` → enrich → fill → curate. Semantic peers: `bun run related:apply` (`related-clusters.json`).
 
-**Still open:** most `related` links still rank neighbors (pattern lemmas are semantic).
+**Still open:** unclustered lemmas still fall back to SNK rank±1 neighbors; noun/adjective fill frames still mostly one-shape (verb leftovers use classed infinitive frames).
 
 ---
 
@@ -23,8 +23,8 @@ Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate
 | Live dictionary words        | ~2,986 (31 curated + ~2,955 promoted)                             |
 | Frequency lemmas linked      | ~all meaningful top-1000 × 3 (POS-disambiguated slugs)            |
 | Top-200 example coverage     | verbs / nouns / adjectives **100%** (`bun run examples:coverage`) |
-| Words missing examples (all) | remaining are outside top-200 — `tmp/missing-examples.txt`        |
-| Promoted `related` links     | same-POS rank neighbors (runtime)                                 |
+| Words missing examples (all) | **0**                                                             |
+| Related links                | hand/pattern → clusters → rank±1 fallback                         |
 | Pages shipped                | `/dictionary/common`, `/references`, detail + index wiring        |
 
 ### What works
@@ -34,29 +34,35 @@ Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate
 - Tatoeba enrich attaches SK–EN examples where the corpus matches
 - Empty examples section hidden; Tatoeba CC BY note when present
 - References page + `docs/data-sources.md` + grouped `scripts/`
+- Semantic related clusters + morph-safe fill templates
 
 ### Critical gaps
 
 **P0 — trust / quality**
 
-1. **Unsafe Tatoeba examples** can ship (crude/sexual/vulgar hits on common lemmas via keyword matching). No content filter.
-2. **Body copy lies** when examples are empty (“Read the example aloud…”) — still shown under Usage for ~1.5k words.
+1. **Unsafe Tatoeba examples** can ship (crude/sexual/vulgar hits on common lemmas via keyword matching). Filter exists in `example-quality.ts` but needs ongoing tuning.
+2. ~~Body copy lies when examples are empty~~ — fixed (full coverage).
 3. **Stale local Pagefind** until `bun run index:search` / production build — site search won’t see ~3k words in dev otherwise.
 
 **P1 — product / UX at 3k scale**
 
-4. Detail pages are thin: one-line summary + generic body; no frequency rank, weak attribution (everything labeled JÚĽŠ).
+4. Detail pages are thin: one-line summary + generic body; no frequency rank on many pages.
 5. Dictionary index dumps ~3k rows with no pagination; POS categories drown curated topics.
 6. Common list shows lemma only (no English gloss on the row).
 7. Most common not in primary Reference nav / footer (easy to miss).
-8. ~1,577 lemmas still have no sentences (Tatoeba SK is small + morphology limits).
+8. ```1,577 lemmas still have no sentences~~ — covered; ~1.3k Tatoeba, rest morph-safe stubs (`Sloveso „…“ znamená` / `Toto je` / `Ten príklad je`).
+
+   ```
+
+   ```
+
 9. Stem-prefix matcher over-matches some conjugations / false friends.
 
 **P2 — polish / cleanup**
 
 10. Drafts workflow orphaned (empty `content/drafts/`; dual Tatoeba dump formats).
 11. Single-letter SNK junk still visible on common list as “not in dictionary yet”.
-12. No related links on promoted entries; Names/Places mixed into mass publish.
+12. ~~No related links on promoted entries~~ — clusters + rank fallback; expand clusters / gloss overlap still open.
 13. Thin automated tests around publish/enrich; References copy still sounds “draft-only”.
 
 ---

@@ -26,14 +26,23 @@ function isWeakTemplate(example: Example): boolean {
   const { slovak, english } = example;
 
   if (/^Chcem .+\.$/u.test(slovak) && /^I want to /i.test(english)) return true;
+  if (/^Môže to .+\.$/u.test(slovak) && /^It can /i.test(english)) return true;
+  if (/^Môže sa to .+\.$/u.test(slovak) && /^It can /i.test(english)) return true;
+  if (/^Také veci môžu .+\.$/u.test(slovak) && /^Such things can /i.test(english))
+    return true;
   if (/^Sloveso „.+“ je bežné\.$/u.test(slovak)) return true;
+  if (/^Sloveso „[^“]+“ znamená „[^“]+“\.$/u.test(slovak) && /^The verb /i.test(english))
+    return true;
   if (/^Rozumiem slovesu „.+“\.$/u.test(slovak)) return true;
   if (/^Mám .+ problém\.$/u.test(slovak) && /^I have a .+ problem\.$/i.test(english))
     return true;
   if (/^To je .+ príklad\.$/u.test(slovak) && /^That is a .+ example\.$/i.test(english))
     return true;
+  if (/^Ten príklad je .+\.$/u.test(slovak) && /^That example is /i.test(english))
+    return true;
   if (/^Tá práca je .+\.$/u.test(slovak)) return true;
   if (/^Toto je .+\.$/u.test(slovak) && /^This is /i.test(english)) return true;
+  if (/^Toto sú .+\.$/u.test(slovak) && /^These are /i.test(english)) return true;
   if (/^Potrebujem .+\.$/u.test(slovak) && /^I need /i.test(english)) return true;
   if (/^Volá sa .+\.$/u.test(slovak) && /^His\/her name is /i.test(english)) return true;
   if (/^Navštívim .+\.$/u.test(slovak) && /^I'll visit /i.test(english)) return true;

@@ -137,7 +137,7 @@
               <ol class="m-0 list-none border-t border-slate-200 p-0">
                 {#each entry.examples as example, index (`${example.slovak}-${index}`)}
                   <li
-                    class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4"
+                    class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4 last:border-b-0"
                   >
                     <span class="text-xs font-bold tabular-nums text-slate-400">
                       {String(index + 1).padStart(2, "0")}

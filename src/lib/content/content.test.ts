@@ -96,6 +96,76 @@ describe("Slovak content", () => {
     ).toBe(true);
   });
 
+  it("does not paste noun lemmas into accusative Potrebujem stubs", () => {
+    const bad = words.filter((word) =>
+      word.examples.some(
+        (example) =>
+          example.note === "Curated" &&
+          !example.demonstrates &&
+          /^Potrebujem .+\.$/u.test(example.slovak) &&
+          /^I need /i.test(example.english ?? ""),
+      ),
+    );
+    expect(bad.map((word) => word.slug)).toEqual([]);
+  });
+
+  it("uses nominative Toto je stubs when noun fill templates remain", () => {
+    const informacia = words.find((word) => word.slug === "informacia");
+    expect(informacia?.examples[0]?.slovak).toBe("Toto je informácia.");
+    expect(informacia?.examples[0]?.note).toBe("Curated");
+  });
+
+  it("uses predicative Ten príklad je for leftover adjective fill stubs", () => {
+    const odborny = words.find((word) => word.slug === "odborny");
+    expect(odborny?.examples[0]?.slovak).toBe("Ten príklad je odborný.");
+    expect(odborny?.examples[0]?.note).toBe("Curated");
+  });
+
+  it("does not use citation-gloss verb fill stubs", () => {
+    const bad = words.filter((word) =>
+      word.examples.some(
+        (example) =>
+          example.note === "Curated" &&
+          !example.demonstrates &&
+          /^Sloveso „[^“]+“ znamená /u.test(example.slovak),
+      ),
+    );
+    expect(bad.map((word) => word.slug)).toEqual([]);
+  });
+
+  it("uses classed infinitive frames for leftover verb fills", () => {
+    const isFillFrame = (slovak: string): boolean =>
+      /^Chcem /u.test(slovak) ||
+      /^Môže to /u.test(slovak) ||
+      /^Môže sa to /u.test(slovak) ||
+      /^Také veci môžu /u.test(slovak) ||
+      /^Sloveso „/u.test(slovak);
+
+    const leftovers = words.filter(
+      (word) =>
+        word.category === "Verbs" &&
+        word.examples.length === 1 &&
+        word.examples[0]?.note === "Curated" &&
+        !word.examples[0]?.demonstrates &&
+        isFillFrame(word.examples[0]?.slovak ?? ""),
+    );
+    expect(leftovers.length).toBeGreaterThan(50);
+    expect(
+      leftovers.every((word) => !/^Sloveso „/u.test(word.examples[0]?.slovak ?? "")),
+    ).toBe(true);
+
+    const prefixes = new Set(
+      leftovers.map((word) => word.examples[0]?.slovak.split(" ").slice(0, 2).join(" ")),
+    );
+    expect(prefixes.size).toBeGreaterThanOrEqual(3);
+
+    const vracat = words.find((word) => word.slug === "vracat");
+    expect(vracat?.examples[0]?.slovak).toMatch(/^Chcem vracať\.$/u);
+
+    const oznacit = words.find((word) => word.slug === "oznacit");
+    expect(oznacit?.examples[0]?.slovak).toMatch(/^Chcem to označiť\.$/u);
+  });
+
   it("attributes frequency-promoted words to SNK, not JÚĽŠ", () => {
     const promoted = words.find((word) => word.origin === "frequency");
     const curated = words.find((word) => word.origin === "curated");

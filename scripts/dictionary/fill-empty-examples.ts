@@ -19,28 +19,145 @@ function firstGloss(english: string): string {
   return english.split(";")[0]!.trim();
 }
 
+type VerbFrame =
+  | "stative"
+  | "event"
+  | "with_person"
+  | "person_object"
+  | "perception_si"
+  | "perception"
+  | "motion"
+  | "activity"
+  | "transitive";
+
+/** Lemmas that usually need si in this citation form. */
+const SI_PERCEPTION = new Set(["všimnúť", "nevšimnúť"]);
+
+/** Lemmas that usually need sa in event/possibility frames. */
+const SA_EVENT = new Set([
+  "dariť",
+  "vyskytovať",
+  "vyskytnúť",
+  "nepodariť",
+  "pribudnúť",
+  "snažiť",
+]);
+
+function classifyVerbFrame(slovak: string, bareGloss: string): VerbFrame {
+  const gloss = bareGloss.toLowerCase();
+  const lemma = slovak.toLocaleLowerCase("sk");
+
+  if (
+    /contain|include|mean|weigh|equal|belong|consist|concern|regard|exist|constitute|amount|depend|apply to|refer|comprise|represent|correspond|differ|resemble|lack|suffice|seem|be related|be based|be added/i.test(
+      gloss,
+    )
+  ) {
+    return "stative";
+  }
+
+  if (
+    /occur|happen|take place|arise|emerge|appear|follow\b|go well|not to succeed/i.test(
+      gloss,
+    )
+  ) {
+    return "event";
+  }
+
+  if (
+    /say goodbye|discuss|talk|negotiate|converse|chat|argue with|speak with/i.test(gloss)
+  ) {
+    return "with_person";
+  }
+
+  if (
+    /invite|meet|visit|help|thank|love|hate|kiss|hug|marry|know\b|recognize/i.test(gloss)
+  ) {
+    return "person_object";
+  }
+
+  if (/notice|look|feel|smell|taste|watch|observe|listen|see\b/i.test(gloss)) {
+    return SI_PERCEPTION.has(lemma) ? "perception_si" : "perception";
+  }
+
+  if (
+    /go\b|come|walk|run|drive|fly|travel|arrive|leave|return|enter|exit|move|fall|rise|climb|swim|descend|overcome/i.test(
+      gloss,
+    )
+  ) {
+    return "motion";
+  }
+
+  if (
+    /sleep|laugh|cry|smile|wait|work|play|rest|sit|stand|lie|live|die|dream|think|hope|fear/i.test(
+      gloss,
+    )
+  ) {
+    return "activity";
+  }
+
+  return "transitive";
+}
+
 function verbExample(slovak: string, english: string): Example {
   const bare = firstGloss(english)
     .replace(/^to\s+/i, "")
     .trim();
-  const awkward =
-    /contain|include|mean|weigh|equal|belong|consist|concern|regard|occur|exist|constitute|amount|depend|apply to|refer|comprise/i.test(
-      bare,
-    );
+  const lemma = slovak.toLocaleLowerCase("sk");
+  const frame = classifyVerbFrame(slovak, bare);
 
-  if (awkward) {
-    return {
-      slovak: `Rozumiem slovesu „${slovak}“.`,
-      english: `I understand the verb “${slovak}” (${bare}).`,
-      note: "Curated",
-    };
+  switch (frame) {
+    case "stative":
+      return {
+        slovak: `Také veci môžu ${slovak}.`,
+        english: `Such things can ${bare}.`,
+        note: "Curated",
+      };
+    case "event":
+      if (SA_EVENT.has(lemma)) {
+        return {
+          slovak: `Môže sa to ${slovak}.`,
+          english: `It can ${bare}.`,
+          note: "Curated",
+        };
+      }
+      return {
+        slovak: `Môže to ${slovak}.`,
+        english: `It can ${bare}.`,
+        note: "Curated",
+      };
+    case "with_person":
+      return {
+        slovak: `Chcem s tebou ${slovak}.`,
+        english: `I want to ${bare} with you.`,
+        note: "Curated",
+      };
+    case "person_object":
+      return {
+        slovak: `Chcem ťa ${slovak}.`,
+        english: `I want to ${bare} you.`,
+        note: "Curated",
+      };
+    case "perception_si":
+      return {
+        slovak: `Chcem si to ${slovak}.`,
+        english: `I want to ${bare} it.`,
+        note: "Curated",
+      };
+    case "perception":
+    case "transitive":
+      return {
+        slovak: `Chcem to ${slovak}.`,
+        english: `I want to ${bare} it.`,
+        note: "Curated",
+      };
+    case "motion":
+    case "activity":
+      return {
+        slovak: `Chcem ${slovak}.`,
+        english: `I want to ${bare}.`,
+        note: "Curated",
+      };
   }
-
-  return {
-    slovak: `Chcem ${slovak}.`,
-    english: `I want to ${bare}.`,
-    note: "Curated",
-  };
 }
 
 function adjectiveExample(slovak: string, english: string): Example {
@@ -54,23 +171,59 @@ function adjectiveExample(slovak: string, english: string): Example {
   }
 
   return {
-    slovak: `To je ${slovak} príklad.`,
-    english: `That is a ${gloss} example.`,
+    slovak: `Ten príklad je ${slovak}.`,
+    english: `That example is ${gloss}.`,
     note: "Curated",
   };
 }
 
+/** Lemmas that are plural or plurale tantum — need "Toto sú", not "Toto je". */
+const PLURAL_NOUNS = new Set([
+  "ľudia",
+  "deti",
+  "peniaze",
+  "dvere",
+  "ústá",
+  "ústa",
+  "okuliare",
+  "nožnice",
+  "šaty",
+  "vianoce",
+  "prázdniny",
+  "noviny",
+  "dáta",
+  "data",
+]);
+
+function isPluralNoun(slovak: string): boolean {
+  const lower = slovak.toLocaleLowerCase("sk");
+  if (PLURAL_NOUNS.has(lower)) return true;
+  // Common plurale-tantum / plural lemma endings in the frequency list
+  if (/^(peniaze|ľudia|deti)$/iu.test(lower)) return true;
+  return false;
+}
+
 function nounExample(slovak: string, english: string): Example {
   const gloss = firstGloss(english);
+  if (isPluralNoun(slovak)) {
+    return {
+      slovak: `Toto sú ${slovak}.`,
+      english: `These are ${gloss}.`,
+      note: "Curated",
+    };
+  }
+
   return {
-    slovak: `Potrebujem ${slovak}.`,
-    english: `I need ${article(gloss)}${gloss}.`,
+    slovak: `Toto je ${slovak}.`,
+    english: `This is ${article(gloss)}${gloss}.`,
     note: "Curated",
   };
 }
 
 function article(gloss: string): string {
   if (/^(a|an|the)\s/i.test(gloss)) return "";
+  // Plural English glosses often end in s — skip article
+  if (/\bs$/i.test(gloss) && !/ss$/i.test(gloss)) return "";
   return /^[aeiou]/i.test(gloss) ? "an " : "a ";
 }
 
