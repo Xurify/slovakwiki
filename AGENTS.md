@@ -58,12 +58,23 @@ Palette and spacing are mapped into Tailwind via `@theme` in `src/styles.css`:
 - Use standard HTML/Svelte elements only — no invented component names, no Framer Motion / motion libraries unless already imported in that file.
 - Colocate markup + Tailwind. Avoid a second stylesheet for a component.
 
+## Svelte readability (flags.games-style)
+
+Prettier wraps lines; **airiness is manual**. Keep markup breathable:
+
+1. Blank line between script clusters: imports → props → state → derived → effects/lifecycle → functions.
+2. Never crush control flow: `{#if}` / `{:else}` / `{#each}` / `{#key}` open on their own line, body indented, close on its own line.
+3. Blank line between major markup sections (`<nav>`, `<header>`, each `<section>`, `<footer>`).
+4. Long Tailwind: prefer multiline `cx("…", "…")` or a `const …Class = "…"` — not one giant `class="…"`.
+5. Sibling interactive elements (`<a>`, `<button>`, `<span>`) on separate lines inside flex/grid rows.
+
 ## Stack habits
 
 - Svelte 5 runes (`$props`, `$state`, …) as used in the repo.
 - TypeScript strict; no `any`.
 - Keep changes focused: don't drive-by refactor unrelated files.
 - Don't invent docs the user didn't ask for.
+- After UI edits: `npm run format`, then re-check control blocks weren't re-crushed.
 
 ## Checklist before finishing UI work
 

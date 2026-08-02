@@ -36,19 +36,26 @@
                 class="group grid min-h-[4.25rem] grid-cols-[minmax(150px,.76fr)_minmax(135px,.62fr)_minmax(0,1.5fr)_18px] items-center gap-[18px] border-t border-slate-200 px-3 py-3 hover:bg-slate-50 max-[650px]:grid-cols-[1fr_16px] max-[650px]:gap-x-2.5 max-[650px]:gap-y-1 max-[650px]:py-3"
                 href="/pronunciation/{topic.slug}"
               >
-                <strong class="font-serif text-base text-blue-800 hover:underline"
-                  >{topic.english}</strong
+                <strong class="font-serif text-base text-blue-800 hover:underline">
+                  {topic.english}
+                </strong>
+                <span
+                  class="font-serif text-sm text-slate-500 max-[650px]:col-start-1"
+                  lang="sk"
                 >
-                <span class="font-serif text-sm text-slate-500 max-[650px]:col-start-1" lang="sk"
-                  >{topic.slovak}</span
+                  {topic.slovak}
+                </span>
+                <p
+                  class="m-0 font-serif text-sm leading-5 text-slate-700 max-[650px]:col-start-1"
                 >
-                <p class="m-0 font-serif text-sm leading-5 text-slate-700 max-[650px]:col-start-1">
                   {topic.summary}
                 </p>
                 <i
                   class="text-xl not-italic text-blue-600 transition duration-150 ease-out group-hover:translate-x-[0.15rem] group-hover:text-(--accent-dark) max-[650px]:col-start-2 max-[650px]:row-span-3"
-                  aria-hidden="true">›</i
+                  aria-hidden="true"
                 >
+                  ›
+                </i>
               </a>
             {/each}
           </div>

@@ -9,12 +9,15 @@
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
 
   let { data } = $props();
+
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
+
   onMount(() => {
     practiceState = readPracticeState(localStorage);
     hydrated = true;
   });
+
   function recordResult(result: { itemId: string; needsReview: boolean }): void {
     if (!result.needsReview) return;
     practiceState = addReviewItem(practiceState, result.itemId);
@@ -27,10 +30,11 @@
 >
   <div class="mx-auto w-full max-w-[720px]">
     <nav class="mb-8 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <a class="text-blue-800 underline underline-offset-2" href="/practice">Practice</a><span
-        aria-hidden="true">/</span
-      ><span>Reference item</span>
+      <a class="text-blue-800 underline underline-offset-2" href="/practice">Practice</a>
+      <span aria-hidden="true">/</span>
+      <span>Reference item</span>
     </nav>
+
     <PracticePlayer items={[data.item]} mode="topic" onresult={recordResult} />
   </div>
 </main>

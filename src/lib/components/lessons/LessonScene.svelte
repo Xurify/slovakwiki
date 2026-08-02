@@ -13,14 +13,14 @@
       <div
         class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-blue-700"
       >
-        <span>{line.speaker}</span><AudioButton
-          src={line.audio?.src}
-          text={line.audio?.transcript ?? line.slovak}
-        />
+        <span>{line.speaker}</span>
+        <AudioButton src={line.audio?.src} text={line.audio?.transcript ?? line.slovak} />
       </div>
+
       <p class="m-0 font-serif text-lg font-semibold leading-6 text-slate-900" lang="sk">
         {line.slovak}
       </p>
+
       <small class="text-xs leading-5 text-slate-500">{line.english}</small>
     </article>
   {/each}

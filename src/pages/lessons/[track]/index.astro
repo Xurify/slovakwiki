@@ -13,6 +13,9 @@ export function getStaticPaths() {
 const { track, lessons } = Astro.props;
 ---
 
-<SiteLayout title={`${track.title} lessons | Slovak Wiki`} description={track.description}>
+<SiteLayout
+  title={`${track.title} lessons | Slovak Wiki`}
+  description={track.description}
+>
   <LessonTrackPage data={{ track, lessons }} />
 </SiteLayout>

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
   import { button, buttonSecondary, cx } from "$lib/ui/classes";
+
+  import type { Snippet } from "svelte";
 
   let {
     href,
@@ -20,7 +21,9 @@
     [key: string]: unknown;
   } = $props();
 
-  const classes = $derived(cx(variant === "secondary" ? buttonSecondary : button, className));
+  const classes = $derived(
+    cx(variant === "secondary" ? buttonSecondary : button, className),
+  );
 </script>
 
 {#if href}

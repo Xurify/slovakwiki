@@ -240,7 +240,9 @@ const wordSeed: Pick<
     slovak: "voda",
     english: "water",
     category: "Food",
-    examples: [{ slovak: "Prosím si pohár vody.", english: "I’d like a glass of water." }],
+    examples: [
+      { slovak: "Prosím si pohár vody.", english: "I’d like a glass of water." },
+    ],
     related: ["jedlo", "kava"],
   },
   {
@@ -399,7 +401,8 @@ export const grammarEntries: GrammarTopic[] = [
     related: ["kava", "mesto", "grammatical-gender"],
     source: languageSource,
     tags: ["cases", "nouns", "intermediate"],
-    lookFor: "First, identify who or what performs the action. That noun is usually nominative.",
+    lookFor:
+      "First, identify who or what performs the action. That noun is usually nominative.",
     caseOverview: [
       {
         slug: "nominative",
@@ -414,7 +417,8 @@ export const grammarEntries: GrammarTopic[] = [
         name: "Genitive",
         question: "Koho? Čoho? · Whose? Of what?",
         role: "Possession or source",
-        explanation: "Marks possession, amounts, absence, and phrases after z, od, do, or bez.",
+        explanation:
+          "Marks possession, amounts, absence, and phrases after z, od, do, or bez.",
       },
       {
         slug: "dative",
@@ -500,7 +504,8 @@ export const caseTopics: CaseTopic[] = [
     slug: "nominative",
     name: "Nominative",
     question: "Kto? Čo? · Who? What?",
-    summary: "The nominative names the subject: the person, thing, or idea doing the action.",
+    summary:
+      "The nominative names the subject: the person, thing, or idea doing the action.",
     body: [
       "Use nominative for the subject of a sentence. It answers who or what performs the action.",
       "In Peter číta knihu, Peter is nominative because Peter performs the reading. The object knihu uses a different case.",
@@ -593,7 +598,11 @@ export const caseTopics: CaseTopic[] = [
       "For many feminine nouns, the accusative ending differs from the nominative. Learn the object form inside a complete phrase.",
     ],
     examples: [
-      { slovak: "Mám kávu.", english: "I have coffee.", note: "kávu is the direct object of mám." },
+      {
+        slovak: "Mám kávu.",
+        english: "I have coffee.",
+        note: "kávu is the direct object of mám.",
+      },
       {
         slovak: "Vidím mesto.",
         english: "I see the city.",
@@ -640,7 +649,8 @@ export const caseTopics: CaseTopic[] = [
     slug: "instrumental",
     name: "Instrumental",
     question: "S kým? S čím? · With whom? With what?",
-    summary: "The instrumental marks company, tools, and other means, especially after s or so.",
+    summary:
+      "The instrumental marks company, tools, and other means, especially after s or so.",
     body: [
       "Use instrumental after s or so for the person or thing accompanying someone. It also marks the tool used to perform an action.",
       "Some roles and states use instrumental without s. Start with common phrases, then notice the endings in context.",
@@ -763,7 +773,11 @@ export const pronunciationEntries: PronunciationTopic[] = [
   },
 ];
 
-export const allEntries: ContentEntry[] = [...words, ...grammarEntries, ...pronunciationEntries];
+export const allEntries: ContentEntry[] = [
+  ...words,
+  ...grammarEntries,
+  ...pronunciationEntries,
+];
 
 export const entryBySlug = new Map(allEntries.map((entry) => [entry.slug, entry]));
 

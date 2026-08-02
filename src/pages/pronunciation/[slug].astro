@@ -13,6 +13,9 @@ export function getStaticPaths() {
 const { entry } = Astro.props;
 ---
 
-<SiteLayout title={`${entry.english} | Slovak Wiki Pronunciation`} description={entry.summary}>
+<SiteLayout
+  title={`${entry.english} | Slovak Wiki Pronunciation`}
+  description={entry.summary}
+>
   <PronunciationDetailPage data={{ entry }} />
 </SiteLayout>

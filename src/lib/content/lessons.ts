@@ -102,7 +102,8 @@ export const lessons: Lesson[] = [
         id: "meet-someone-greeting",
         type: "choice",
         practiceItemId: "everyday/formal-greeting",
-        prompt: "You are meeting Anna, the organiser, for the first time. What do you say?",
+        prompt:
+          "You are meeting Anna, the organiser, for the first time. What do you say?",
         choices: [
           { id: "formal", label: "Dobrý deň. Volám sa Alex." },
           { id: "informal", label: "Ahoj!" },
@@ -153,7 +154,8 @@ export const lessons: Lesson[] = [
       {
         id: "meet-someone-personal",
         type: "personal",
-        prompt: "Say the same answer with your own country. Then say it once without looking.",
+        prompt:
+          "Say the same answer with your own country. Then say it once without looking.",
         example: "Som z Kanady.",
       },
     ],
@@ -208,7 +210,8 @@ export const lessons: Lesson[] = [
         id: "present-tense-choose",
         type: "choice",
         practiceItemId: "grammar/first-person-reading",
-        prompt: "You are describing yourself. Which sentence means “I am reading a book”?",
+        prompt:
+          "You are describing yourself. Which sentence means “I am reading a book”?",
         choices: [
           { id: "first-person", label: "Čítam knihu." },
           { id: "third-person", label: "Číta knihu." },
@@ -226,7 +229,8 @@ export const lessons: Lesson[] = [
         type: "typed",
         task: "repair",
         practiceItemId: "grammar/repair-first-person-reading",
-        prompt: "You mean “I am reading a book.” Repair this Slovak sentence: Ja číta knihu.",
+        prompt:
+          "You mean “I am reading a book.” Repair this Slovak sentence: Ja číta knihu.",
         inputLabel: "Correct Slovak sentence",
         answer: "Čítam knihu.",
         acceptedAnswers: ["Ja čítam knihu."],

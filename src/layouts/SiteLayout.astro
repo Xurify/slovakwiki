@@ -25,7 +25,9 @@ const query = Astro.url.searchParams.get("q") ?? "";
     {description && <meta name="description" content={description} />}
   </head>
   <body>
-    <div class="grid min-h-screen grid-cols-[var(--sidebar-width)_minmax(0,1fr)] max-[800px]:block">
+    <div
+      class="grid min-h-screen grid-cols-[var(--sidebar-width)_minmax(0,1fr)] max-[800px]:block"
+    >
       <Sidebar {pathname} />
       <div class="flex min-h-screen min-w-0 flex-col bg-(--surface)">
         <Header {pathname} {query} />

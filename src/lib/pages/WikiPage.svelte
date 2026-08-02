@@ -22,7 +22,9 @@
   );
   const availableLetters = [
     ...new Set(
-      dictionaryEntries.map((entry) => entry.slovak.at(0)?.toLocaleUpperCase("sk") ?? "#"),
+      dictionaryEntries.map(
+        (entry) => entry.slovak.at(0)?.toLocaleUpperCase("sk") ?? "#",
+      ),
     ),
   ].toSorted((first, second) => first.localeCompare(second, "sk"));
   const topicOptions = [
@@ -47,7 +49,8 @@
       .filter((entry) => activeCategory === "all" || entry.category === activeCategory)
       .filter(
         (entry) =>
-          activeLetter === "all" || entry.slovak.at(0)?.toLocaleUpperCase("sk") === activeLetter,
+          activeLetter === "all" ||
+          entry.slovak.at(0)?.toLocaleUpperCase("sk") === activeLetter,
       )
       .filter((entry) => {
         const needle = normalize(query.trim());
@@ -78,7 +81,9 @@
   }
 
   function filterClass(active: boolean): string {
-    return active ? "bg-blue-600 text-white" : "bg-transparent text-slate-600 hover:bg-slate-100";
+    return active
+      ? "bg-blue-600 text-white"
+      : "bg-transparent text-slate-600 hover:bg-slate-100";
   }
 </script>
 
@@ -96,7 +101,9 @@
       </div>
 
       <nav class="grid gap-1" aria-label="Reference sections">
-        <p class="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">Reference</p>
+        <p class="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
+          Reference
+        </p>
         <a
           class="grid gap-1 border-l-2 border-slate-200 px-2 py-2 font-serif text-sm text-blue-800 hover:border-blue-600 hover:bg-blue-50"
           href="/grammar"
@@ -129,7 +136,9 @@
               onclick={() => (activeCategory = option.value)}
             >
               <span>{option.label}</span>
-              {#if option.count !== undefined}<small>{option.count}</small>{/if}
+              {#if option.count !== undefined}
+                <small>{option.count}</small>
+              {/if}
             </button>
           {/each}
         </div>
@@ -155,7 +164,11 @@
           Search dictionary words
         </label>
         <div class="flex h-11 items-center border border-slate-300 bg-white">
-          <svg class="ml-3 w-4 fill-none stroke-slate-400" aria-hidden="true" viewBox="0 0 24 24">
+          <svg
+            class="ml-3 w-4 fill-none stroke-slate-400"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+          >
             <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
           </svg>
           <input
@@ -266,7 +279,10 @@
                   class="grid min-h-16 grid-cols-[minmax(160px,.8fr)_minmax(220px,1.25fr)_150px_24px] items-center gap-6 px-5 py-3 hover:bg-slate-50 max-[760px]:grid-cols-[minmax(0,1fr)_18px] max-[760px]:gap-1.5 max-[760px]:px-3.5"
                   href="/{routeBase[entry.kind]}/{entry.slug}"
                 >
-                  <span class="font-semibold text-blue-700 max-[760px]:col-start-1" lang="sk">
+                  <span
+                    class="font-semibold text-blue-700 max-[760px]:col-start-1"
+                    lang="sk"
+                  >
                     {entry.slovak}
                   </span>
                   <span class="text-[0.95rem] text-slate-900 max-[760px]:col-start-1">
@@ -291,7 +307,9 @@
             class="border border-t-0 border-slate-200 px-6 py-[72px] text-center max-[760px]:border-t"
           >
             <h2 class="text-base">No matches</h2>
-            <p class="text-sm text-slate-500">Try a shorter search or reset the filters.</p>
+            <p class="text-sm text-slate-500">
+              Try a shorter search or reset the filters.
+            </p>
             <button
               class="rounded border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-blue-700"
               type="button"
@@ -307,26 +325,10 @@
     <aside
       class={cx(
         contextRail,
-        "sticky",
-        "top-(--header-height)",
-        "h-fit",
-        "border-l",
-        "border-slate-200",
-        "px-4",
-        "py-8",
-        "pb-12",
-        "max-[1100px]:col-start-2",
-        "max-[1100px]:grid",
-        "max-[1100px]:grid-cols-3",
-        "max-[1100px]:gap-6",
-        "max-[1100px]:border-l-0",
-        "max-[1100px]:border-t",
-        "max-[1100px]:px-8",
-        "max-[1100px]:py-6",
-        "max-[760px]:static",
-        "max-[760px]:grid-cols-1",
-        "max-[760px]:gap-6",
-        "max-[760px]:px-3.5",
+        "sticky top-(--header-height) h-fit border-l border-slate-200 px-4 py-8 pb-12",
+        "max-[1100px]:col-start-2 max-[1100px]:grid max-[1100px]:grid-cols-3 max-[1100px]:gap-6",
+        "max-[1100px]:border-l-0 max-[1100px]:border-t max-[1100px]:px-8 max-[1100px]:py-6",
+        "max-[760px]:static max-[760px]:grid-cols-1 max-[760px]:gap-6 max-[760px]:px-3.5",
       )}
       aria-label="Wiki context"
     >
@@ -379,16 +381,28 @@
       <section>
         <p class={railLabel}>Continue</p>
         <nav class="grid">
-          <a class="py-1.5 font-serif text-sm text-blue-800 hover:underline" href="/grammar">
+          <a
+            class="py-1.5 font-serif text-sm text-blue-800 hover:underline"
+            href="/grammar"
+          >
             Grammar
           </a>
-          <a class="py-1.5 font-serif text-sm text-blue-800 hover:underline" href="/pronunciation">
+          <a
+            class="py-1.5 font-serif text-sm text-blue-800 hover:underline"
+            href="/pronunciation"
+          >
             Pronunciation
           </a>
-          <a class="py-1.5 font-serif text-sm text-blue-800 hover:underline" href="/lessons">
+          <a
+            class="py-1.5 font-serif text-sm text-blue-800 hover:underline"
+            href="/lessons"
+          >
             Lessons
           </a>
-          <a class="py-1.5 font-serif text-sm text-blue-800 hover:underline" href="/practice">
+          <a
+            class="py-1.5 font-serif text-sm text-blue-800 hover:underline"
+            href="/practice"
+          >
             Practice
           </a>
         </nav>

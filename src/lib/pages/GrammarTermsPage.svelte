@@ -3,8 +3,9 @@
 >
   <header>
     <nav class="flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <a class="text-blue-800 underline underline-offset-2" href="/grammar">Grammar</a><span>/</span
-      ><span>Language terms</span>
+      <a class="text-blue-800 underline underline-offset-2" href="/grammar">Grammar</a>
+      <span>/</span>
+      <span>Language terms</span>
     </nav>
     <p class="mb-2 mt-6 text-xs font-semibold uppercase tracking-widest text-blue-700">
       Grammar reference
@@ -14,6 +15,7 @@
       Short definitions for the terms used in this reference.
     </p>
   </header>
+
   <dl class="mt-9 border-t border-slate-300">
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
@@ -24,34 +26,44 @@
       </dd>
       <a
         class="whitespace-nowrap text-xs font-bold text-blue-800 underline underline-offset-2"
-        href="/grammar/cases-overview">Open cases →</a
+        href="/grammar/cases-overview"
       >
+        Open cases →
+      </a>
     </div>
+
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
     >
       <dt class="font-serif text-lg font-bold text-blue-800">Declension</dt>
       <dd class="m-0 font-serif leading-6 text-slate-700">
-        The set of ending changes used by nouns, adjectives, pronouns, and numerals for case,
-        number, and gender.
+        The set of ending changes used by nouns, adjectives, pronouns, and numerals for
+        case, number, and gender.
       </dd>
       <a
         class="whitespace-nowrap text-xs font-bold text-blue-800 underline underline-offset-2"
-        href="/grammar/cases-overview">See declension through cases →</a
+        href="/grammar/cases-overview"
       >
+        See declension through cases →
+      </a>
     </div>
+
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
     >
       <dt class="font-serif text-lg font-bold text-blue-800">Conjugation</dt>
       <dd class="m-0 font-serif leading-6 text-slate-700">
-        The set of verb-form changes for person, number, tense, mood, and sometimes gender.
+        The set of verb-form changes for person, number, tense, mood, and sometimes
+        gender.
       </dd>
       <a
         class="whitespace-nowrap text-xs font-bold text-blue-800 underline underline-offset-2"
-        href="/grammar/present-tense">Open present tense →</a
+        href="/grammar/present-tense"
       >
+        Open present tense →
+      </a>
     </div>
+
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
     >
@@ -61,9 +73,12 @@
       </dd>
       <a
         class="whitespace-nowrap text-xs font-bold text-blue-800 underline underline-offset-2"
-        href="/grammar/present-tense">Open present tense →</a
+        href="/grammar/present-tense"
       >
+        Open present tense →
+      </a>
     </div>
+
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
     >
@@ -73,22 +88,28 @@
       </dd>
       <a
         class="whitespace-nowrap text-xs font-bold text-blue-800 underline underline-offset-2"
-        href="/grammar/grammatical-gender">Open grammatical gender →</a
+        href="/grammar/grammatical-gender"
       >
+        Open grammatical gender →
+      </a>
     </div>
+
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
     >
       <dt class="font-serif text-lg font-bold text-blue-800">Agreement</dt>
       <dd class="m-0 font-serif leading-6 text-slate-700">
-        When related words take matching forms, such as an adjective matching a noun's gender,
-        number, and case.
+        When related words take matching forms, such as an adjective matching a noun's
+        gender, number, and case.
       </dd>
       <a
         class="whitespace-nowrap text-xs font-bold text-blue-800 underline underline-offset-2"
-        href="/grammar/grammatical-gender">See agreement →</a
+        href="/grammar/grammatical-gender"
       >
+        See agreement →
+      </a>
     </div>
+
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
     >
@@ -99,16 +120,19 @@
       </dd>
       <a
         class="whitespace-nowrap text-xs font-bold text-blue-800 underline underline-offset-2"
-        href="/grammar/present-tense">See verb forms →</a
+        href="/grammar/present-tense"
       >
+        See verb forms →
+      </a>
     </div>
+
     <div
       class="grid grid-cols-[160px_minmax(0,1fr)_auto] items-start gap-5 border-b border-slate-200 px-3 py-4 max-[620px]:grid-cols-1 max-[620px]:gap-1"
     >
       <dt class="font-serif text-lg font-bold text-blue-800">Aspect</dt>
       <dd class="m-0 font-serif leading-6 text-slate-700">
-        Whether a verb presents an action as completed or ongoing. This reference will cover it
-        separately.
+        Whether a verb presents an action as completed or ongoing. This reference will
+        cover it separately.
       </dd>
     </div>
   </dl>

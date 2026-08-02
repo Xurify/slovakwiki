@@ -1,21 +1,47 @@
 <script lang="ts">
   import { button, cx, lead, sectionLabel, shell, textLink } from "$lib/ui/classes";
+
   import { grammarEntries, pronunciationEntries, words } from "$lib/content/data";
   import { lessonTracks, lessons } from "$lib/content/lessons";
 
   const featuredWord = words.find((word) => word.slug === "dakujem") ?? words[0];
   const popularWords = words.slice(0, 6);
+
   const trackLinks = lessonTracks.map((track) => ({
     ...track,
     lesson: lessons.find((lesson) => lesson.track === track.id),
   }));
 
-  const panel =
-    "rounded-(--frame-radius) border-0 bg-white p-6 shadow-(--shadow-border) transition-[box-shadow,transform] duration-160 ease-out hover:shadow-(--shadow-border-hover)";
-  const asidePanel =
-    "rounded-(--frame-radius) border-0 bg-[color-mix(in_srgb,var(--surface)_92%,transparent)] p-5 shadow-(--shadow-border) transition-[box-shadow,transform] duration-160 ease-out hover:shadow-(--shadow-border-hover)";
-  const headingRow =
-    "flex items-start justify-between gap-6 border-b border-slate-200 pb-4 max-[600px]:gap-4 [&_:first-child]:min-w-0";
+  const referenceSections = [
+    { href: "/wiki", title: "Dictionary", desc: "Words, meanings, and examples" },
+    { href: "/grammar", title: "Grammar", desc: "Patterns, cases, and conjugations" },
+    {
+      href: "/pronunciation",
+      title: "Pronunciation",
+      desc: "Sounds, stress, and spelling",
+    },
+    {
+      href: "/grammar/terms",
+      title: "Language terms",
+      desc: "Plain explanations of the terminology",
+    },
+  ];
+
+  const panelClass = cx(
+    "rounded-(--frame-radius) border-0 bg-white p-6 shadow-(--shadow-border)",
+    "transition-[box-shadow,transform] duration-160 ease-out",
+    "hover:shadow-(--shadow-border-hover)",
+  );
+  const asidePanelClass = cx(
+    "rounded-(--frame-radius) border-0 p-5 shadow-(--shadow-border)",
+    "bg-[color-mix(in_srgb,var(--surface)_92%,transparent)]",
+    "transition-[box-shadow,transform] duration-160 ease-out",
+    "hover:shadow-(--shadow-border-hover)",
+  );
+  const headingRowClass = cx(
+    "flex items-start justify-between gap-6 border-b border-slate-200 pb-4",
+    "max-[600px]:gap-4 [&_:first-child]:min-w-0",
+  );
 </script>
 
 <main>
@@ -25,35 +51,40 @@
     <div
       class={cx(
         shell,
-        "grid grid-cols-[minmax(320px,.88fr)_minmax(420px,1.12fr)] items-center gap-16 py-12 max-[900px]:grid-cols-1 max-[900px]:gap-7 max-[600px]:py-8",
+        "grid grid-cols-[minmax(320px,.88fr)_minmax(420px,1.12fr)] items-center gap-16 py-12",
+        "max-[900px]:grid-cols-1 max-[900px]:gap-7 max-[600px]:py-8",
       )}
     >
       <div>
         <p class={sectionLabel}>Slovak for English speakers</p>
         <h1 class="max-w-2xl">Look it up. Learn it. Use it.</h1>
         <p class={lead}>
-          A practical Slovak reference with short lessons and practice for the forms you want to
-          remember.
+          A practical Slovak reference with short lessons and practice for the forms you
+          want to remember.
         </p>
+
         <div
           class="mt-6 flex max-w-xl flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-slate-300 pt-4"
         >
-          <strong class="font-serif text-base text-blue-800" lang="sk"
-            >Dobrý deň. Ako sa máte?</strong
-          >
+          <strong class="font-serif text-base text-blue-800" lang="sk">
+            Dobrý deň. Ako sa máte?
+          </strong>
           <span class="text-xs text-slate-500">Good day. How are you?</span>
         </div>
       </div>
+
       <form
         class="rounded-lg bg-slate-800 p-6 text-white shadow-lg max-[600px]:p-4"
         action="/search"
         method="get"
         role="search"
       >
-        <label class="mb-2 block text-sm font-semibold" for="home-search"
-          >Search the reference</label
+        <label class="mb-2 block text-sm font-semibold" for="home-search">
+          Search the reference
+        </label>
+        <div
+          class="flex min-h-[50px] rounded border border-white/30 bg-white max-[600px]:flex-col"
         >
-        <div class="flex min-h-[50px] rounded border border-white/30 bg-white max-[600px]:flex-col">
           <input
             class="min-w-0 flex-1 border-0 bg-transparent px-3.5 text-slate-900 outline-none max-[600px]:min-h-[46px]"
             id="home-search"
@@ -74,8 +105,10 @@
             <a
               class="text-white underline decoration-white/50 underline-offset-2"
               href="/dictionary/{word.slug}"
-              lang="sk">{word.slovak}</a
+              lang="sk"
             >
+              {word.slovak}
+            </a>
           {/each}
         </p>
       </form>
@@ -85,19 +118,23 @@
   <section
     class={cx(
       shell,
-      "grid grid-cols-[minmax(0,1.45fr)_minmax(310px,.8fr)] items-start gap-5 py-7 pb-16 max-[900px]:grid-cols-1",
+      "grid grid-cols-[minmax(0,1.45fr)_minmax(310px,.8fr)] items-start gap-5 py-7 pb-16",
+      "max-[900px]:grid-cols-1",
     )}
   >
     <div class="grid gap-5">
-      <article class={panel}>
-        <div class={headingRow}>
+      <article class={panelClass}>
+        <div class={headingRowClass}>
           <div class="min-w-0">
             <p class={sectionLabel}>Word to know</p>
             <h2 class="text-4xl" lang="sk">{featuredWord.slovak}</h2>
           </div>
           <span class="text-sm font-semibold text-slate-600">{featuredWord.english}</span>
         </div>
-        <dl class="grid grid-cols-3 gap-3 border-b border-slate-200 py-4 max-[600px]:grid-cols-1">
+
+        <dl
+          class="grid grid-cols-3 gap-3 border-b border-slate-200 py-4 max-[600px]:grid-cols-1"
+        >
           <div class="grid gap-1">
             <dt class="text-xs text-slate-500">Reference</dt>
             <dd class="m-0 text-sm font-semibold">Dictionary</dd>
@@ -111,25 +148,34 @@
             <dd class="m-0 text-sm font-semibold">Polite speech</dd>
           </div>
         </dl>
+
         <blockquote
           class="my-4 rounded-[calc(var(--control-radius)-2px)] border border-slate-200 border-l-4 border-l-blue-600 bg-slate-50 px-4 py-3"
         >
-          <p class="m-0 font-serif font-semibold" lang="sk">{featuredWord.examples[0].slovak}</p>
-          <footer class="mt-1 text-xs text-slate-500">{featuredWord.examples[0].english}</footer>
+          <p class="m-0 font-serif font-semibold" lang="sk">
+            {featuredWord.examples[0].slovak}
+          </p>
+          <footer class="mt-1 text-xs text-slate-500">
+            {featuredWord.examples[0].english}
+          </footer>
         </blockquote>
-        <a class={textLink} href="/dictionary/{featuredWord.slug}"
-          >Open full entry <span aria-hidden="true">→</span></a
-        >
+
+        <a class={textLink} href="/dictionary/{featuredWord.slug}">
+          Open full entry <span aria-hidden="true">→</span>
+        </a>
       </article>
 
-      <section class={panel} aria-labelledby="words-heading">
-        <div class={headingRow}>
+      <section class={panelClass} aria-labelledby="words-heading">
+        <div class={headingRowClass}>
           <div class="min-w-0">
             <p class={sectionLabel}>Dictionary</p>
             <h2 id="words-heading" class="text-xl">Essential words</h2>
           </div>
-          <a class={textLink} href="/wiki">Full index <span aria-hidden="true">→</span></a>
+          <a class={textLink} href="/wiki">
+            Full index <span aria-hidden="true">→</span>
+          </a>
         </div>
+
         <ul class="m-0 grid list-none grid-cols-2 p-0 max-[600px]:grid-cols-1">
           {#each words.slice(0, 12) as word (word.slug)}
             <li class="border-b border-slate-200 odd:border-r max-[600px]:odd:border-r-0">
@@ -148,16 +194,17 @@
     </div>
 
     <aside class="grid gap-5">
-      <section class={asidePanel} aria-labelledby="reference-heading">
-        <div class={headingRow}>
+      <section class={asidePanelClass} aria-labelledby="reference-heading">
+        <div class={headingRowClass}>
           <div class="min-w-0">
             <p class={sectionLabel}>Reference</p>
             <h2 id="reference-heading" class="text-xl">Browse by topic</h2>
           </div>
           <a class={textLink} href="/wiki">All <span aria-hidden="true">→</span></a>
         </div>
+
         <nav class="grid" aria-label="Reference sections">
-          {#each [{ href: "/wiki", title: "Dictionary", desc: "Words, meanings, and examples" }, { href: "/grammar", title: "Grammar", desc: "Patterns, cases, and conjugations" }, { href: "/pronunciation", title: "Pronunciation", desc: "Sounds, stress, and spelling" }, { href: "/grammar/terms", title: "Language terms", desc: "Plain explanations of the terminology" }] as item (item.href)}
+          {#each referenceSections as item (item.href)}
             <a
               class="grid gap-1 border-b border-slate-200 px-1.5 py-3 hover:bg-slate-50"
               href={item.href}
@@ -167,6 +214,7 @@
             </a>
           {/each}
         </nav>
+
         <div class="mt-5">
           <h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
             Grammar entries
@@ -184,7 +232,10 @@
               </li>
             {/each}
           </ul>
-          <h3 class="mb-2 mt-5 text-xs font-semibold uppercase tracking-wide text-slate-500">
+
+          <h3
+            class="mb-2 mt-5 text-xs font-semibold uppercase tracking-wide text-slate-500"
+          >
             Pronunciation entries
           </h3>
           <ul class="m-0 list-none p-0">
@@ -203,17 +254,21 @@
         </div>
       </section>
 
-      <section class={asidePanel} aria-labelledby="lessons-heading">
-        <div class={headingRow}>
+      <section class={asidePanelClass} aria-labelledby="lessons-heading">
+        <div class={headingRowClass}>
           <div class="min-w-0">
             <p class={sectionLabel}>Lessons</p>
             <h2 id="lessons-heading" class="text-xl">Start with a scene</h2>
           </div>
-          <a class={textLink} href="/lessons">All lessons <span aria-hidden="true">→</span></a>
+          <a class={textLink} href="/lessons">
+            All lessons <span aria-hidden="true">→</span>
+          </a>
         </div>
+
         <p class="my-4 font-serif text-sm leading-6 text-slate-700">
           See Slovak in context, notice the pattern, then make your own sentence.
         </p>
+
         <nav class="grid border-t border-slate-200" aria-label="Lesson tracks">
           {#each trackLinks as item (item.id)}
             {#if item.lesson}
@@ -222,33 +277,37 @@
                 href="/lessons/{item.lesson.track}/{item.lesson.slug}"
               >
                 <span class="font-serif text-sm text-blue-800">{item.title}</span>
-                <small class="text-right text-xs text-slate-500"
-                  >{item.lesson.title}
-                  <b class="text-blue-800" aria-hidden="true">→</b></small
-                >
+                <small class="text-right text-xs text-slate-500">
+                  {item.lesson.title}
+                  <b class="text-blue-800" aria-hidden="true">→</b>
+                </small>
               </a>
             {/if}
           {/each}
         </nav>
       </section>
 
-      <section class={asidePanel} aria-labelledby="practice-heading">
-        <div class={headingRow}>
+      <section class={asidePanelClass} aria-labelledby="practice-heading">
+        <div class={headingRowClass}>
           <div class="min-w-0">
             <p class={sectionLabel}>Practice</p>
             <h2 id="practice-heading" class="text-xl">Keep the hard parts close</h2>
           </div>
         </div>
+
         <p class="my-4 font-serif text-sm leading-6 text-slate-700">
           Review missed or revealed forms, or practise a lesson again.
         </p>
+
         <a
           class={cx(
             button,
             "w-full gap-2 transition-[background-color,box-shadow,transform,scale]",
           )}
-          href="/practice">Open Practice <span aria-hidden="true">→</span></a
+          href="/practice"
         >
+          Open Practice <span aria-hidden="true">→</span>
+        </a>
       </section>
     </aside>
   </section>

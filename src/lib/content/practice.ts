@@ -51,7 +51,8 @@ export const practiceItems: PracticeItem[] = [
       id: "review-introduction",
       type: "build",
       practiceItemId: "everyday/introduction",
-      prompt: "A colleague says Volám sa Marta. Build your reply: “Hello. My name is Alex.”",
+      prompt:
+        "A colleague says Volám sa Marta. Build your reply: “Hello. My name is Alex.”",
       tiles: ["Alex.", "sa", "Dobrý deň.", "Volám"],
       answer: ["Dobrý deň.", "Volám", "sa", "Alex."],
       feedback: {
@@ -314,7 +315,8 @@ export function validatePracticeItems(): string[] {
 
   for (const set of practiceSets) {
     for (const itemId of set.itemIds) {
-      if (!practiceItemById.has(itemId)) issues.push(`Unknown practice item: ${set.id}/${itemId}`);
+      if (!practiceItemById.has(itemId))
+        issues.push(`Unknown practice item: ${set.id}/${itemId}`);
     }
   }
 

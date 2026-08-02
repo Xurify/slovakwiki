@@ -13,6 +13,7 @@
       Short, focused scenes that help you understand a pattern, then use it yourself.
     </p>
   </header>
+
   <section
     class="mt-10 grid grid-cols-3 gap-3.5 max-[900px]:grid-cols-1"
     aria-label="Lesson tracks"

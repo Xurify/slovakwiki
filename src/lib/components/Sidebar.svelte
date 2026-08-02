@@ -6,6 +6,7 @@
   } from "$lib/navigation";
 
   let { pathname }: { pathname: string } = $props();
+
   const isActive = (href: string): boolean => sidebarNavigationIsActive(pathname, href);
   const studyNavigation = primaryNavigation.filter((item) => item.href !== "/wiki");
 </script>
@@ -19,12 +20,13 @@
     href="/"
     aria-label="Slovak Wiki home"
   >
-    <span class="text-(--muted-strong)">Slovak</span><strong
-      class="font-(--font-reading) text-[1.05rem] text-(--ink)">Wiki</strong
-    >
+    <span class="text-(--muted-strong)">Slovak</span>
+    <strong class="font-(--font-reading) text-[1.05rem] text-(--ink)">Wiki</strong>
   </a>
 
-  <p class="mb-2 ml-2.5 text-[0.61rem] font-extrabold uppercase tracking-[0.12em] text-(--muted)">
+  <p
+    class="mb-2 ml-2.5 text-[0.61rem] font-extrabold uppercase tracking-[0.12em] text-(--muted)"
+  >
     Study
   </p>
   <nav class="grid gap-px" aria-label="Study navigation">
@@ -32,31 +34,44 @@
       <a
         class="min-h-10 rounded-r-(--control-radius) border-l-[3px] border-transparent px-2.5 py-[9px] text-[0.84rem] text-(--ink-soft) hover:bg-(--surface-subtle) hover:text-(--accent-dark) aria-[current=page]:border-(--action) aria-[current=page]:bg-(--surface-selected) aria-[current=page]:font-bold aria-[current=page]:text-(--ink)"
         href={item.href}
-        aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a
+        aria-current={isActive(item.href) ? "page" : undefined}
       >
+        {item.label}
+      </a>
     {/each}
   </nav>
 
   <nav class="mt-[33px] grid gap-px" aria-label="Reference navigation">
-    <p class="mb-2 ml-2.5 text-[0.61rem] font-extrabold uppercase tracking-[0.12em] text-(--muted)">
+    <p
+      class="mb-2 ml-2.5 text-[0.61rem] font-extrabold uppercase tracking-[0.12em] text-(--muted)"
+    >
       Reference
     </p>
     {#each referenceNavigation as item (item.href)}
       <a
         class="min-h-10 rounded-r-(--control-radius) border-l-[3px] border-transparent px-2.5 py-[9px] text-[0.84rem] text-(--ink-soft) hover:bg-(--surface-subtle) hover:text-(--accent-dark) aria-[current=page]:border-(--action) aria-[current=page]:bg-(--surface-selected) aria-[current=page]:font-bold aria-[current=page]:text-(--ink)"
         href={item.href}
-        aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a
+        aria-current={isActive(item.href) ? "page" : undefined}
       >
+        {item.label}
+      </a>
     {/each}
   </nav>
 
   <div
     class="mt-auto flex gap-3.5 border-t border-(--line) px-[9px] pt-[13px] text-[0.69rem] text-(--muted)"
   >
-    <a class="hover:text-(--accent-dark) hover:underline hover:underline-offset-3" href="/search"
-      >Search</a
-    ><a class="hover:text-(--accent-dark) hover:underline hover:underline-offset-3" href="/"
-      >About</a
+    <a
+      class="hover:text-(--accent-dark) hover:underline hover:underline-offset-3"
+      href="/search"
     >
+      Search
+    </a>
+    <a
+      class="hover:text-(--accent-dark) hover:underline hover:underline-offset-3"
+      href="/"
+    >
+      About
+    </a>
   </div>
 </aside>

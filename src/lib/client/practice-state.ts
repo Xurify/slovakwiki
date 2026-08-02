@@ -83,7 +83,10 @@ export function writePracticeState(storage: StorageLike, state: PracticeState): 
   );
 }
 
-export function markLessonComplete(state: PracticeState, lessonId: string): PracticeState {
+export function markLessonComplete(
+  state: PracticeState,
+  lessonId: string,
+): PracticeState {
   return {
     ...state,
     completedLessonIds: unique([...state.completedLessonIds, lessonId]),
@@ -120,7 +123,11 @@ export function normalizePracticeAnswer(value: string): string {
     .replace(/\s+/gu, " ");
 }
 
-export function answersMatch(value: string, answer: string, alternatives: string[] = []): boolean {
+export function answersMatch(
+  value: string,
+  answer: string,
+  alternatives: string[] = [],
+): boolean {
   const normalizedValue = normalizePracticeAnswer(value);
   return [answer, ...alternatives].some(
     (candidate) => normalizePracticeAnswer(candidate) === normalizedValue,
