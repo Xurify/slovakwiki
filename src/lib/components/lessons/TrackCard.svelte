@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { KeyPhrase, LessonTrack } from "$lib/content/learning-types";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
   let {
     lessonCount,
@@ -38,8 +39,8 @@
     class="mt-auto flex items-center justify-between gap-4 pt-6 text-xs text-slate-500"
   >
     <small>{lessonCount} {lessonCount === 1 ? "lesson" : "lessons"}</small>
-    <strong class="text-sm text-slate-700"
-      >Browse <span aria-hidden="true">→</span></strong
-    >
+    <strong class="inline-flex items-center gap-1.5 text-sm text-slate-700">
+      Browse <ArrowRight />
+    </strong>
   </footer>
 </a>

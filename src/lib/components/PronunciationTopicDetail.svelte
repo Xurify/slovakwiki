@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cx, railLabel, sectionLabel } from "$lib/ui/classes";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
 
   import { entryBySlug } from "$lib/content/data";
   import type { ContentEntry, PronunciationTopic } from "$lib/content/types";
@@ -34,14 +34,14 @@
     </nav>
 
     <header class="border-b border-slate-200 pb-7">
-      <p class={sectionLabel}>Pronunciation reference</p>
+      <Eyebrow>Pronunciation reference</Eyebrow>
       <h1>{topic.english}</h1>
       <p class="mt-2 font-serif text-lg text-blue-800" lang="sk">{topic.slovak}</p>
       <p class="mt-4 max-w-[66ch] font-serif text-lg text-slate-700">{topic.summary}</p>
     </header>
 
     <section class="scroll-mt-[72px] pt-8">
-      <p class={sectionLabel}>Overview</p>
+      <Eyebrow>Overview</Eyebrow>
       <h2 id="goal-heading" class="mb-3 text-2xl">{topic.goal}</h2>
 
       {#each topic.body as paragraph (paragraph)}
@@ -52,7 +52,7 @@
     </section>
 
     <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-      <p class={sectionLabel}>Listen for</p>
+      <Eyebrow>Listen for</Eyebrow>
       <h2 id="contrast-heading" class="mb-3 text-2xl">Sound contrasts</h2>
 
       <div class="mt-5 grid grid-cols-2 gap-2.5 max-[560px]:grid-cols-1">
@@ -69,7 +69,7 @@
 
     <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
       <div class="rounded border border-slate-300 bg-blue-50 p-5">
-        <p class={sectionLabel}>Articulation</p>
+        <Eyebrow>Articulation</Eyebrow>
         <h2 id="cue-heading" class="mb-3 text-2xl">How it is formed</h2>
         <p class="mb-0 max-w-[66ch] font-serif leading-7 text-slate-700">
           {topic.mouthCue}
@@ -78,7 +78,7 @@
     </section>
 
     <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-      <p class={sectionLabel}>Examples</p>
+      <Eyebrow>Examples</Eyebrow>
       <h2 id="practice-heading" class="mb-3 text-2xl">Words and phrase</h2>
 
       <div class="mt-4 flex flex-wrap gap-2">
@@ -105,7 +105,7 @@
     class="sticky top-(--header-height) h-fit border-l border-slate-200 pl-5 max-[900px]:static max-[900px]:mt-9 max-[900px]:grid max-[900px]:grid-cols-2 max-[900px]:gap-8 max-[900px]:border-l-0 max-[900px]:border-t max-[900px]:pl-0 max-[900px]:pt-6 max-[560px]:grid-cols-1"
   >
     <section>
-      <p class={railLabel}>In this sound</p>
+      <Eyebrow compact tone="muted">In this sound</Eyebrow>
       <nav class="grid">
         <a
           class="py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
@@ -136,7 +136,7 @@
 
     {#if relatedWords.length}
       <section>
-        <p class={railLabel}>Practice words</p>
+        <Eyebrow compact tone="muted">Practice words</Eyebrow>
         {#each relatedWords as word (word.slug)}
           <a
             class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
@@ -152,7 +152,7 @@
 
     {#if relatedTopics.length}
       <section>
-        <p class={railLabel}>Related topics</p>
+        <Eyebrow compact tone="muted">Related topics</Eyebrow>
         {#each relatedTopics as entry (entry.slug)}
           <a
             class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"

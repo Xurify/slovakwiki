@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { cx, railLabel, sectionLabel } from "$lib/ui/classes";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
 
   import FocusedPracticeAction from "$lib/components/FocusedPracticeAction.svelte";
   import { entryBySlug } from "$lib/content/data";
@@ -33,34 +34,35 @@
     </nav>
 
     <header class="border-b border-slate-200 pb-7">
-      <p class={sectionLabel}>Grammar reference</p>
+      <Eyebrow>Grammar reference</Eyebrow>
       <h1>{topic.english}</h1>
       <p class="mt-2 font-serif text-lg text-blue-800" lang="sk">{topic.slovak}</p>
       <p class="mt-4 max-w-[66ch] font-serif text-lg text-slate-700">{topic.summary}</p>
     </header>
 
     <aside class="mt-6 border-l-4 border-blue-600 bg-blue-50 px-4 py-3">
-      <p class={sectionLabel}>Look for</p>
+      <Eyebrow>Look for</Eyebrow>
       <p class="mb-0 max-w-[66ch] font-serif leading-6 text-slate-700">{topic.lookFor}</p>
     </aside>
 
     {#if topic.lessonLink}
       <aside class="mt-3 border-l-4 border-emerald-600 bg-emerald-50 px-4 py-3">
-        <p class={sectionLabel}>Lesson</p>
+        <Eyebrow>Lesson</Eyebrow>
         <p class="mb-0 font-serif leading-6 text-slate-700">
           See this form used in a short scene, then correct it yourself.
         </p>
         <a
-          class="mt-2 inline-flex gap-1.5 text-xs font-bold text-blue-800 underline underline-offset-2"
+          class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-blue-800 underline underline-offset-2"
           href={topic.lessonLink.href}
         >
-          {topic.lessonLink.label} <span aria-hidden="true">→</span>
+          {topic.lessonLink.label}
+          <ArrowRight />
         </a>
       </aside>
     {/if}
 
     <section class="scroll-mt-[72px] pt-8">
-      <p class={sectionLabel}>Core rule</p>
+      <Eyebrow>Core rule</Eyebrow>
       <h2 id="rule-heading" class="mb-3 text-2xl">What changes</h2>
 
       {#each topic.rule as paragraph (paragraph)}
@@ -72,7 +74,7 @@
 
     {#if !topic.caseOverview}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <p class={sectionLabel}>Pattern</p>
+        <Eyebrow>Pattern</Eyebrow>
         <h2 id="pattern-heading" class="mb-3 text-2xl">{topic.pattern.label}</h2>
 
         <ul class="mt-5 m-0 list-none rounded border border-slate-200 p-0">
@@ -89,7 +91,7 @@
 
     {#if topic.caseOverview}
       <section id="case-map" class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <p class={sectionLabel}>Case map</p>
+        <Eyebrow>Case map</Eyebrow>
         <h2 id="case-map-heading" class="mb-3 text-2xl">The six cases</h2>
         <p class="mb-4 font-serif text-slate-500">
           Learn the nominative first. Use the remaining rows as a map of common roles,
@@ -136,7 +138,7 @@
 
     {#if !topic.caseOverview}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <p class={sectionLabel}>See it in use</p>
+        <Eyebrow>See it in use</Eyebrow>
         <h2 id="examples-heading" class="mb-3 text-2xl">Examples</h2>
 
         <ol class="mt-5 grid list-none gap-2 p-0">
@@ -159,7 +161,7 @@
     {/if}
 
     <aside class="mt-7 border border-slate-300 bg-blue-50 p-4">
-      <p class={sectionLabel}>Note</p>
+      <Eyebrow>Note</Eyebrow>
       <p class="mb-0 max-w-[66ch] font-serif leading-7 text-slate-700">
         {topic.watchOut}
       </p>
@@ -170,7 +172,7 @@
     class="sticky top-(--header-height) h-fit border-l border-slate-200 pl-5 max-[900px]:static max-[900px]:mt-9 max-[900px]:grid max-[900px]:grid-cols-2 max-[900px]:gap-8 max-[900px]:border-l-0 max-[900px]:border-t max-[900px]:pl-0 max-[900px]:pt-6 max-[560px]:grid-cols-1"
   >
     <section>
-      <p class={railLabel}>In this topic</p>
+      <Eyebrow compact tone="muted">In this topic</Eyebrow>
       <a
         class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
         href="#rule-heading"
@@ -202,7 +204,7 @@
 
     {#if relatedWords.length}
       <section>
-        <p class={railLabel}>Words to know</p>
+        <Eyebrow compact tone="muted">Words to know</Eyebrow>
         {#each relatedWords as word (word.slug)}
           <a
             class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
@@ -218,7 +220,7 @@
 
     {#if relatedTopics.length}
       <section>
-        <p class={railLabel}>Related topics</p>
+        <Eyebrow compact tone="muted">Related topics</Eyebrow>
         {#each relatedTopics as entry (entry.slug)}
           <a
             class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"

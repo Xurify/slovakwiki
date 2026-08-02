@@ -1,4 +1,7 @@
 <script lang="ts">
+  import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
+
   import { onMount } from "svelte";
   import {
     addReviewItem,
@@ -32,22 +35,18 @@
   }
 </script>
 
-<main
-  class="px-[30px] py-12 pb-[78px] max-[600px]:px-3.5 max-[600px]:py-[30px] max-[600px]:pb-[54px]"
->
-  <div class="mx-auto w-full max-w-[720px]">
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[720px]">
     <nav class="mb-8 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <a class="text-blue-800 underline underline-offset-2" href="/practice">Practice</a>
+      <TextLink href="/practice">Practice</TextLink>
       <span aria-hidden="true">/</span>
       <span>{data.set.title}</span>
     </nav>
 
-    {#if !hydrated}
-      <p class="font-serif text-slate-500">Loading practice…</p>
-    {:else if items.length}
+    {#if hydrated}
       <PracticePlayer {items} mode="topic" onresult={recordResult} />
     {:else}
-      <p class="font-serif text-slate-700">This practice topic is not available yet.</p>
+      <p class="font-serif text-slate-500">Loading practice…</p>
     {/if}
-  </div>
+  </PageShell>
 </main>

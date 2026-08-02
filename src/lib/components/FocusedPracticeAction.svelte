@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import {
     readPracticeState,
     saveReferenceItem,
@@ -14,9 +15,9 @@
 </script>
 
 <a
-  class="mt-2.5 inline-flex w-fit gap-2 text-xs font-bold text-blue-800 underline underline-offset-2"
+  class="mt-2.5 inline-flex w-fit items-center gap-1.5 text-xs font-bold text-blue-800 underline underline-offset-2"
   href="/practice/reference/{itemId}"
   onclick={save}
 >
-  Practice this <span aria-hidden="true">→</span>
+  Practice this <ArrowRight />
 </a>

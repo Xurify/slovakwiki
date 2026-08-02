@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ContentEntry } from "$lib/content/types";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
   let { entry }: { entry: ContentEntry } = $props();
 
@@ -12,32 +13,16 @@
 </script>
 
 <a
-  class="group grid min-h-[72px] grid-cols-[110px_minmax(180px,0.8fr)_minmax(260px,1.5fr)_20px] items-center gap-[18px] border-b border-slate-200 px-2.5 py-3 hover:bg-slate-50 max-[700px]:grid-cols-[88px_1fr_16px] max-[700px]:gap-2 max-[430px]:grid-cols-[1fr_16px] max-[430px]:px-2"
+  class="group grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border-b border-slate-200 -mx-4 px-4 py-5 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)] max-[600px]:grid-cols-[1fr_auto]"
   href="/{routeBase[entry.kind]}/{entry.slug}"
 >
-  <span
-    class="text-xs font-bold uppercase tracking-wide text-slate-500 max-[430px]:col-span-1"
-  >
-    {kindLabel[entry.kind]}
-  </span>
-
-  <span class="grid gap-0.5 max-[430px]:col-span-1">
-    <strong class="font-serif text-base text-slate-800 hover:underline" lang="sk">
-      {entry.slovak}
-    </strong>
-    <small class="font-serif text-xs text-slate-600">{entry.english}</small>
-  </span>
-
-  <span
-    class="text-sm leading-5 text-slate-700 max-[700px]:col-start-2 max-[700px]:mt-[-3px] max-[430px]:col-span-1"
-  >
-    {entry.summary}
-  </span>
-
-  <span
-    class="text-xl text-blue-600 max-[700px]:col-start-3 max-[700px]:row-span-2 max-[430px]:col-start-2 max-[430px]:row-span-3"
-    aria-hidden="true"
-  >
-    ›
-  </span>
+  <div class="grid gap-1">
+    <span class="text-[0.64rem] font-bold uppercase tracking-[0.1em] text-slate-500">
+      {kindLabel[entry.kind]}
+    </span>
+    <strong class="font-serif text-lg text-blue-800" lang="sk">{entry.slovak}</strong>
+    <span class="text-sm text-slate-600">{entry.english}</span>
+    <p class="m-0 max-w-[56ch] text-sm leading-relaxed text-slate-500">{entry.summary}</p>
+  </div>
+  <ArrowRight class="mt-1 text-blue-800" />
 </a>

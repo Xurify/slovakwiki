@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { button, cx, lead, sectionLabel, textLink } from "$lib/ui/classes";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
+  import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { onMount } from "svelte";
   import {
@@ -28,19 +33,8 @@
   );
   const currentExercise = $derived(data.lesson.exercises[activeIndex]);
 
-  const pageClass = cx(
-    "px-[30px] py-12 pb-[78px]",
-    "max-[640px]:px-3.5 max-[640px]:py-8 max-[640px]:pb-[50px]",
-  );
-  const referenceLinkClass = cx(
-    "group flex min-h-16 items-center justify-between gap-4",
-    "border border-slate-200 bg-slate-50 px-4 py-3.5",
-    "font-serif text-base text-blue-800",
-    "after:font-sans after:text-lg after:text-slate-500",
-    "after:transition after:duration-150 after:ease-out after:content-['→']",
-    "hover:border-slate-300 hover:bg-blue-50",
-    "group-hover:after:translate-x-[0.15rem] group-hover:after:text-blue-800",
-  );
+  const referenceLinkClass =
+    "group flex min-h-14 items-center justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-4 font-serif text-base text-blue-800 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)]";
 
   onMount(() => {
     practiceState = readPracticeState(localStorage);
@@ -70,70 +64,66 @@
   }
 </script>
 
-<main class={pageClass}>
-  <article class="mx-auto w-full max-w-[790px]">
-    <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <a class="text-blue-800 underline underline-offset-2" href="/lessons">Lessons</a>
-      <span>/</span>
-      <a
-        class="text-blue-800 underline underline-offset-2"
-        href="/lessons/{data.lesson.track}"
-      >
-        {trackTitle}
-      </a>
+<main class="py-12 pb-20 max-[640px]:py-8 max-[640px]:pb-14">
+  <PageShell class="max-w-[760px]">
+    <nav class="mb-6 flex flex-wrap gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+      <TextLink href="/lessons">Lessons</TextLink>
+      <span aria-hidden="true">/</span>
+      <TextLink href="/lessons/{data.lesson.track}">{trackTitle}</TextLink>
     </nav>
 
-    <header class="border-b border-slate-200 py-6 pb-8">
-      <p class={sectionLabel}>{trackTitle}</p>
+    <header class="border-b border-slate-200 pb-8">
+      <Eyebrow>{trackTitle}</Eyebrow>
       <h1>{data.lesson.title}</h1>
-      <p class={lead}>{data.lesson.promise}</p>
+      <Lead>{data.lesson.promise}</Lead>
     </header>
 
-    <section class="scroll-mt-[72px] pt-8" aria-labelledby="scene-heading">
-      <p class={sectionLabel}>Start with the scene</p>
-      <h2 id="scene-heading" class="mb-4 text-2xl">Read it once</h2>
+    <section class="scroll-mt-[88px] pt-10" aria-labelledby="scene-heading">
+      <Eyebrow>Start with the scene</Eyebrow>
+      <h2 id="scene-heading" class="mb-5">Read it once</h2>
       <LessonScene scene={data.lesson.scene} />
     </section>
 
-    <section class="scroll-mt-[72px] mt-7 pt-8" aria-labelledby="phrases-heading">
-      <p class={sectionLabel}>Keep these close</p>
-      <h2 id="phrases-heading" class="mb-4 text-2xl">Key phrases</h2>
+    <section
+      class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
+      aria-labelledby="phrases-heading"
+    >
+      <Eyebrow>Keep these close</Eyebrow>
+      <h2 id="phrases-heading" class="mb-5">Key phrases</h2>
       <KeyPhraseList phrases={data.lesson.keyPhrases} />
     </section>
 
     {#if data.lesson.pattern}
-      <section class="scroll-mt-[72px] mt-7 border-t border-slate-200 pt-8">
+      <section class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10">
         <PatternNote pattern={data.lesson.pattern} />
       </section>
     {/if}
 
     <section
-      class="scroll-mt-[72px] mt-10 border-t border-slate-200 pt-8"
+      class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
       aria-labelledby="practice-heading"
     >
-      <p class={sectionLabel}>Practice in context</p>
-      <h2 id="practice-heading" class="mb-4 text-2xl">Use the scene</h2>
+      <Eyebrow>Practice in context</Eyebrow>
+      <h2 id="practice-heading" class="mb-5">Use the scene</h2>
 
       {#if !hydrated}
         <p class="font-serif text-slate-500">Loading your lesson…</p>
       {:else if finished}
-        <div class="border-l-4 border-emerald-600 bg-emerald-50 p-6">
-          <p class="m-0 text-xs font-semibold uppercase tracking-widest text-emerald-700">
-            Lesson complete
-          </p>
+        <div class="border-l-2 border-emerald-600 py-2 pl-6">
+          <Eyebrow tone="muted">Lesson complete</Eyebrow>
           <h3 class="mb-1 mt-2 font-serif text-2xl text-slate-900">
             Keep the scene, not a score.
           </h3>
-          <span class="font-serif text-slate-700">
+          <p class="m-0 font-serif text-slate-600">
             Anything you missed or revealed is ready in Review.
-          </span>
-          <div class="mt-5 flex flex-wrap items-center gap-4">
-            <a class={cx(button, "min-h-10")} href="/practice/review">Open Review</a>
-            <a class={textLink} href="/lessons">Browse lessons</a>
+          </p>
+          <div class="mt-6 flex flex-wrap items-center gap-4">
+            <Button href="/practice/review">Open Review</Button>
+            <TextLink href="/lessons">Browse lessons</TextLink>
           </div>
         </div>
       {:else}
-        <p class="m-0 mb-2 text-xs text-slate-500">
+        <p class="m-0 mb-3 text-xs text-slate-500">
           Step {activeIndex + 1} of {data.lesson.exercises.length}
         </p>
         {#key currentExercise.id}
@@ -142,14 +132,17 @@
       {/if}
     </section>
 
-    <footer class="mt-12 border-t border-slate-200 pt-8">
-      <p class={sectionLabel}>Go deeper</p>
-      <h2 class="mb-6 text-2xl">Reference</h2>
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-2">
+    <footer class="mt-14 border-t border-slate-200 pt-10">
+      <Eyebrow>Go deeper</Eyebrow>
+      <h2 class="mb-2">Reference</h2>
+      <nav class="mt-4" aria-label="Lesson reference links">
         {#each data.lesson.referenceLinks as link (link.href)}
-          <a class={referenceLinkClass} href={link.href}>{link.label}</a>
+          <a class={referenceLinkClass} href={link.href}>
+            <span>{link.label}</span>
+            <ArrowRight class="text-slate-400" />
+          </a>
         {/each}
-      </div>
+      </nav>
     </footer>
-  </article>
+  </PageShell>
 </main>

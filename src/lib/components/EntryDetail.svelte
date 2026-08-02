@@ -1,11 +1,8 @@
 <script lang="ts">
-  import {
-    contextRail,
-    cx,
-    railLabel,
-    sectionLabel,
-    surfacePanel,
-  } from "$lib/ui/classes";
+  import ContextRail from "$lib/components/ui/ContextRail.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { entryBySlug } from "$lib/content/data";
   import type { ContentEntry } from "$lib/content/types";
@@ -22,172 +19,135 @@
     pronunciation: "Pronunciation",
     word: "Dictionary",
   };
-
-  const railClass = cx(
-    contextRail,
-    "sticky",
-    "top-(--header-height)",
-    "h-fit",
-    "min-w-0",
-    "border-l",
-    "border-slate-200",
-    "px-[18px]",
-    "pb-12",
-    "pt-8",
-    "max-[1080px]:static",
-    "max-[1080px]:grid",
-    "max-[1080px]:grid-cols-2",
-    "max-[1080px]:gap-8",
-    "max-[1080px]:border-l-0",
-    "max-[1080px]:border-t",
-    "max-[1080px]:px-[30px]",
-    "max-[1080px]:py-6",
-    "max-[760px]:grid-cols-1",
-    "max-[760px]:gap-6",
-    "max-[760px]:px-3.5",
-  );
 </script>
 
-<main>
-  <div class="grid grid-cols-[minmax(0,1fr)_210px] max-[1080px]:block">
-    <article
-      class="mx-auto w-full max-w-[760px] px-[30px] py-[34px] pb-[74px] max-[760px]:px-3.5 max-[760px]:py-7 max-[760px]:pb-[52px]"
-    >
-      <header class="border-b border-slate-200 pb-7">
-        <nav class="mb-5 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-          <a class="text-blue-800 underline underline-offset-2" href="/wiki">Reference</a>
-          <span>/</span>
-          <span>{kindLabel[entry.kind]}</span>
-        </nav>
+<main class="py-10 pb-16 max-[760px]:py-7">
+  <PageShell class="max-w-[1080px]">
+    <div class="grid grid-cols-[minmax(0,1fr)_200px] gap-12 max-[900px]:block">
+      <article class="min-w-0 max-w-[720px]">
+        <header class="border-b border-slate-200 pb-8">
+          <nav class="mb-5 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+            <TextLink href="/wiki">Dictionary</TextLink>
+            <span aria-hidden="true">/</span>
+            <span>{kindLabel[entry.kind]}</span>
+          </nav>
 
-        <h1 lang="sk">{entry.slovak}</h1>
+          <h1 lang="sk">{entry.slovak}</h1>
 
-        <div
-          class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-slate-500"
-        >
-          <span
-            class="h-2 w-2 rounded-full bg-blue-600 ring-4 ring-blue-100"
-            aria-hidden="true"
-          ></span>
-          <strong class="font-serif text-base text-blue-800">{entry.english}</strong>
-          <span>{entry.category}</span>
-        </div>
-
-        <p class="mt-4 max-w-[66ch] font-serif text-lg text-slate-700">{entry.summary}</p>
-      </header>
-
-      <section id="usage" class="scroll-mt-[72px] pt-8" aria-labelledby="usage-heading">
-        <p class={sectionLabel}>Usage</p>
-        <h2 id="usage-heading" class="mb-3 text-2xl">How to use it</h2>
-
-        {#each entry.body as paragraph, index (index)}
-          <p class="max-w-[67ch] font-serif leading-7 text-slate-700">
-            {paragraph}
+          <p class="mt-3 font-serif text-lg text-blue-800">{entry.english}</p>
+          <p class="mt-1 text-sm text-slate-500">{entry.category}</p>
+          <p class="mt-5 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700">
+            {entry.summary}
           </p>
-        {/each}
-      </section>
+        </header>
 
-      <section
-        id="examples"
-        class="scroll-mt-[72px] mt-6 border-t border-slate-200 pt-8"
-        aria-labelledby="examples-heading"
-      >
-        <p class={sectionLabel}>Examples</p>
-        <h2 id="examples-heading" class="mb-3 text-2xl">In a sentence</h2>
-
-        <ol
-          class={cx(
-            surfacePanel,
-            "mt-5",
-            "m-0",
-            "list-none",
-            "rounded",
-            "bg-slate-50",
-            "p-0",
-          )}
+        <section
+          id="usage"
+          class="scroll-mt-[88px] pt-10"
+          aria-labelledby="usage-heading"
         >
-          {#each entry.examples as example, index (`${example.slovak}-${index}`)}
-            <li
-              class="grid grid-cols-[32px_1fr] gap-3 border-b border-slate-200 px-4 py-3.5 last:border-b-0"
-            >
-              <span class="text-xs font-bold text-blue-700"
-                >{String(index + 1).padStart(2, "0")}</span
+          <Eyebrow>Usage</Eyebrow>
+          <h2 id="usage-heading" class="mb-4">How to use it</h2>
+
+          {#each entry.body as paragraph, index (index)}
+            <p class="max-w-[67ch] font-serif leading-7 text-slate-700">
+              {paragraph}
+            </p>
+          {/each}
+        </section>
+
+        <section
+          id="examples"
+          class="scroll-mt-[88px] mt-10 border-t border-slate-200 pt-10"
+          aria-labelledby="examples-heading"
+        >
+          <Eyebrow>Examples</Eyebrow>
+          <h2 id="examples-heading" class="mb-4">In a sentence</h2>
+
+          <ol class="m-0 list-none border-t border-slate-200 p-0">
+            {#each entry.examples as example, index (`${example.slovak}-${index}`)}
+              <li
+                class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4"
               >
-              <div>
-                <p class="m-0 mb-0.5 font-serif font-semibold text-slate-900" lang="sk">
-                  {example.slovak}
-                </p>
-                <small class="text-xs text-slate-500">{example.english}</small>
-              </div>
-            </li>
-          {/each}
-        </ol>
-      </section>
-
-      <section
-        id="source"
-        class="scroll-mt-[72px] mt-6 border-t border-slate-200 pt-8"
-        aria-labelledby="source-heading"
-      >
-        <p class={sectionLabel}>Source</p>
-        <h2 id="source-heading" class="mb-3 text-2xl">Reference</h2>
-        <a
-          class="font-serif font-semibold text-blue-800 underline underline-offset-2"
-          href={entry.source}
-        >
-          Jazykovedný ústav Ľudovíta Štúra SAV ↗
-        </a>
-      </section>
-    </article>
-
-    <aside class={railClass} aria-label="Entry navigation">
-      <section>
-        <p class={railLabel}>On this page</p>
-        <nav class="grid">
-          <a
-            class="border-l-2 border-blue-600 py-1.5 pl-2.5 font-serif text-sm text-blue-800"
-            href="#usage"
-          >
-            How to use it
-          </a>
-          <a
-            class="border-l-2 border-slate-200 py-1.5 pl-2.5 font-serif text-sm text-slate-700 hover:border-blue-600 hover:text-blue-800 hover:underline"
-            href="#examples"
-          >
-            Examples
-          </a>
-          <a
-            class="border-l-2 border-slate-200 py-1.5 pl-2.5 font-serif text-sm text-slate-700 hover:border-blue-600 hover:text-blue-800 hover:underline"
-            href="#source"
-          >
-            Reference
-          </a>
-        </nav>
-      </section>
-
-      <section>
-        <p class={railLabel}>Related entries</p>
-        <ul class="m-0 list-none p-0">
-          {#each entry.related as relatedSlug (relatedSlug)}
-            {@const relatedEntry = entryBySlug.get(relatedSlug)}
-            {#if relatedEntry}
-              <li class="border-b border-slate-200">
-                <a
-                  class="grid gap-0.5 py-2"
-                  href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}"
-                >
-                  <strong class="font-serif text-sm text-blue-800"
-                    >{relatedEntry.slovak}</strong
-                  >
-                  <small class="truncate text-xs text-slate-500"
-                    >{relatedEntry.english}</small
-                  >
-                </a>
+                <span class="text-xs font-bold tabular-nums text-slate-400">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <p class="m-0 font-serif font-semibold text-slate-900" lang="sk">
+                    {example.slovak}
+                  </p>
+                  <small class="text-sm text-slate-500">{example.english}</small>
+                </div>
               </li>
-            {/if}
-          {/each}
-        </ul>
-      </section>
-    </aside>
-  </div>
+            {/each}
+          </ol>
+        </section>
+
+        <section
+          id="source"
+          class="scroll-mt-[88px] mt-10 border-t border-slate-200 pt-10"
+          aria-labelledby="source-heading"
+        >
+          <Eyebrow>Source</Eyebrow>
+          <h2 id="source-heading" class="mb-3">Reference</h2>
+          <TextLink href={entry.source}>Jazykovedný ústav Ľudovíta Štúra SAV ↗</TextLink>
+        </section>
+      </article>
+
+      <ContextRail
+        class="sticky top-[calc(var(--header-height)+1.5rem)] h-fit max-[900px]:static max-[900px]:mt-12 max-[900px]:border-t max-[900px]:border-slate-200 max-[900px]:pt-8"
+        aria-label="Entry navigation"
+      >
+        <section>
+          <Eyebrow compact tone="muted">On this page</Eyebrow>
+          <nav class="grid">
+            <a
+              class="border-l-2 border-blue-800 py-1.5 pl-3 font-serif text-sm text-blue-800"
+              href="#usage"
+            >
+              How to use it
+            </a>
+            <a
+              class="border-l-2 border-slate-200 py-1.5 pl-3 font-serif text-sm text-slate-600 hover:border-blue-800 hover:text-blue-800"
+              href="#examples"
+            >
+              Examples
+            </a>
+            <a
+              class="border-l-2 border-slate-200 py-1.5 pl-3 font-serif text-sm text-slate-600 hover:border-blue-800 hover:text-blue-800"
+              href="#source"
+            >
+              Source
+            </a>
+          </nav>
+        </section>
+
+        {#if entry.related.length}
+          <section>
+            <Eyebrow compact tone="muted">Related</Eyebrow>
+            <ul class="m-0 list-none p-0">
+              {#each entry.related as relatedSlug (relatedSlug)}
+                {@const relatedEntry = entryBySlug.get(relatedSlug)}
+                {#if relatedEntry}
+                  <li class="border-b border-slate-200">
+                    <a
+                      class="grid gap-0.5 py-3 transition-colors hover:text-blue-800"
+                      href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}"
+                    >
+                      <strong class="font-serif text-sm" lang="sk">
+                        {relatedEntry.slovak}
+                      </strong>
+                      <small class="truncate text-xs text-slate-500">
+                        {relatedEntry.english}
+                      </small>
+                    </a>
+                  </li>
+                {/if}
+              {/each}
+            </ul>
+          </section>
+        {/if}
+      </ContextRail>
+    </div>
+  </PageShell>
 </main>

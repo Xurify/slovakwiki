@@ -18,7 +18,6 @@
     children: Snippet;
     [key: string]: unknown;
   } = $props();
-
 </script>
 
 {#if href}

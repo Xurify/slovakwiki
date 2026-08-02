@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { button, cx, surfacePanel } from "$lib/ui/classes";
+  import Button from "$lib/components/ui/Button.svelte";
 
   import { tick } from "svelte";
   import { answersMatch } from "$lib/client/practice-state";
@@ -83,16 +83,7 @@
 </script>
 
 {#if finished}
-  <section
-    class={cx(
-      surfacePanel,
-      "max-w-[590px]",
-      "border-l-4",
-      "border-emerald-600",
-      "bg-emerald-50",
-      "p-7",
-    )}
-  >
+  <section class="max-w-[590px] border-l-2 border-emerald-600 bg-emerald-50 py-2 pl-6">
     <p class="m-0 text-xs font-semibold uppercase tracking-widest text-emerald-700">
       Finished
     </p>
@@ -103,7 +94,7 @@
       >{mode === "review"
         ? "Anything still uncertain will remain in Review."
         : "Missed or revealed items are now in Review."}</span
-    ><a class={cx(button, "mt-5")} href="/practice">Back to Practice</a>
+    ><Button class="mt-5" href="/practice">Back to Practice</Button>
   </section>
 {:else}
   <section class="max-w-[720px]" aria-labelledby="practice-question">
@@ -230,21 +221,21 @@
         {/if}
       </div>
 
-      <button class={cx(button, "mt-5")} type="button" onclick={next}>
+      <Button class="mt-5" type="button" onclick={next}>
         {activeIndex === items.length - 1 ? "Finish" : "Continue"}
-      </button>
+      </Button>
     {:else}
       <div
         class="mt-6 flex items-center gap-4 max-[540px]:flex-col max-[540px]:items-stretch"
       >
-        <button
-          class={cx(button, "mt-0", "max-[540px]:w-full")}
+        <Button
+          class="mt-0 max-[540px]:w-full"
           type="button"
           disabled={!canCheck}
           onclick={check}
         >
           Check
-        </button>
+        </Button>
 
         {#if task.type === "typed"}
           <button

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { button, cx, sectionLabel, surfacePanel } from "$lib/ui/classes";
+  import Button from "$lib/components/ui/Button.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
 
   import { tick } from "svelte";
   import { answersMatch } from "$lib/client/practice-state";
@@ -75,11 +76,11 @@
 </script>
 
 <section
-  class={cx(surfacePanel, "bg-white", "p-7", "max-[560px]:px-4", "max-[560px]:py-5")}
+  class="border border-slate-200 bg-white/90 p-7 max-[560px]:px-4 max-[560px]:py-5"
   aria-labelledby="interaction-heading"
 >
   {#if exercise.type === "personal"}
-    <p class={sectionLabel}>Say it yourself</p>
+    <Eyebrow>Say it yourself</Eyebrow>
     <h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>
 
     {#if exercise.example}
@@ -91,15 +92,11 @@
       </p>
     {/if}
 
-    <button
-      class={cx(button, "mt-6")}
-      type="button"
-      onclick={() => onresolve({ needsReview: false })}
-    >
+    <Button class="mt-6" type="button" onclick={() => onresolve({ needsReview: false })}>
       I said it
-    </button>
+    </Button>
   {:else}
-    <p class={sectionLabel}>Your turn</p>
+    <Eyebrow>Your turn</Eyebrow>
     <h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>
 
     {#if exercise.context?.length}
@@ -195,21 +192,19 @@
         </span>
       </div>
 
-      <button class={cx(button, "mt-6")} type="button" onclick={continueLesson}
-        >Continue</button
-      >
+      <Button class="mt-6" type="button" onclick={continueLesson}>Continue</Button>
     {:else}
       <div
         class="mt-6 flex items-center gap-4 max-[560px]:flex-col max-[560px]:items-stretch"
       >
-        <button
-          class={cx(button, "mt-0", "max-[560px]:w-full")}
+        <Button
+          class="mt-0 max-[560px]:w-full"
           type="button"
           disabled={!canCheck}
           onclick={check}
         >
           Check
-        </button>
+        </Button>
 
         {#if exercise.type === "typed"}
           <button

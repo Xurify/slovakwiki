@@ -1,66 +1,56 @@
 <script lang="ts">
-  import { cx, shell } from "$lib/ui/classes";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
+  import PageShell from "$lib/components/ui/PageShell.svelte";
 
   import { pronunciationEntries } from "$lib/content/data";
 
   const groups = ["Rhythm", "Vowels", "Consonants", "Spelling"] as const;
+
+  const rowLinkClass =
+    "group grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border-b border-slate-200 -mx-4 px-4 py-5 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)] max-[650px]:grid-cols-1";
 </script>
 
-<main>
-  <header class="border-b border-slate-200 bg-slate-50 py-7">
-    <div class={shell}>
-      <p class="mb-4 text-xs font-semibold uppercase tracking-wide text-blue-700">
-        Reference / Pronunciation
-      </p>
-      <h1 class="text-5xl font-semibold tracking-tight text-slate-900">Pronunciation</h1>
-      <p class="mt-3 max-w-2xl font-serif text-base text-slate-700">
-        Sounds, stress, vowel length, and marked consonants in Slovak.
-      </p>
-    </div>
-  </header>
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[880px]">
+    <header class="max-w-[640px]">
+      <Eyebrow>Reference</Eyebrow>
+      <h1>Pronunciation</h1>
+      <Lead>Sounds, stress, vowel length, and marked consonants in Slovak.</Lead>
+    </header>
 
-  <section
-    class={cx(shell, "max-w-5xl", "space-y-7", "py-8", "pb-16")}
-    aria-label="Pronunciation topics"
-  >
-    {#each groups as group (group)}
-      {@const topics = pronunciationEntries.filter((topic) => topic.pathGroup === group)}
-      {#if topics.length}
-        <section>
-          <h2 class="border-b border-slate-300 pb-2 text-xl font-semibold text-slate-900">
-            {group}
-          </h2>
-          <div class="border-b border-slate-200">
-            {#each topics as topic (topic.slug)}
-              <a
-                class="group grid min-h-[4.25rem] grid-cols-[minmax(150px,.76fr)_minmax(135px,.62fr)_minmax(0,1.5fr)_18px] items-center gap-[18px] border-t border-slate-200 px-3 py-3 hover:bg-slate-50 max-[650px]:grid-cols-[1fr_16px] max-[650px]:gap-x-2.5 max-[650px]:gap-y-1 max-[650px]:py-3"
-                href="/pronunciation/{topic.slug}"
-              >
-                <strong class="font-serif text-base text-blue-800 hover:underline">
-                  {topic.english}
-                </strong>
-                <span
-                  class="font-serif text-sm text-slate-500 max-[650px]:col-start-1"
-                  lang="sk"
-                >
-                  {topic.slovak}
-                </span>
-                <p
-                  class="m-0 font-serif text-sm leading-5 text-slate-700 max-[650px]:col-start-1"
-                >
-                  {topic.summary}
-                </p>
-                <i
-                  class="text-xl not-italic text-blue-600 transition duration-150 ease-out group-hover:translate-x-[0.15rem] group-hover:text-(--accent-dark) max-[650px]:col-start-2 max-[650px]:row-span-3"
-                  aria-hidden="true"
-                >
-                  ›
-                </i>
-              </a>
-            {/each}
-          </div>
-        </section>
-      {/if}
-    {/each}
-  </section>
+    <div class="mt-12 space-y-12" aria-label="Pronunciation topics">
+      {#each groups as group (group)}
+        {@const topics = pronunciationEntries.filter(
+          (topic) => topic.pathGroup === group,
+        )}
+        {#if topics.length}
+          <section>
+            <h2 class="border-b border-slate-200 pb-3 text-xl">{group}</h2>
+            <div>
+              {#each topics as topic (topic.slug)}
+                <a class={rowLinkClass} href="/pronunciation/{topic.slug}">
+                  <div class="grid gap-1">
+                    <strong class="font-serif text-lg text-blue-800"
+                      >{topic.english}</strong
+                    >
+                    <span class="font-serif text-sm text-slate-500" lang="sk"
+                      >{topic.slovak}</span
+                    >
+                    <p
+                      class="m-0 max-w-[56ch] font-serif text-sm leading-relaxed text-slate-600"
+                    >
+                      {topic.summary}
+                    </p>
+                  </div>
+                  <ArrowRight class="mt-1 text-blue-800 max-[650px]:hidden" />
+                </a>
+              {/each}
+            </div>
+          </section>
+        {/if}
+      {/each}
+    </div>
+  </PageShell>
 </main>

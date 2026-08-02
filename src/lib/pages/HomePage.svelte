@@ -1,314 +1,501 @@
 <script lang="ts">
-  import { button, cx, lead, sectionLabel, shell, textLink } from "$lib/ui/classes";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
+  import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { grammarEntries, pronunciationEntries, words } from "$lib/content/data";
-  import { lessonTracks, lessons } from "$lib/content/lessons";
+  import {
+    caseTopics,
+    grammarEntries,
+    pronunciationEntries,
+    words,
+  } from "$lib/content/data";
+  import { lessonTracks, lessonsForTrack } from "$lib/content/lessons";
 
   const featuredWord = words.find((word) => word.slug === "dakujem") ?? words[0];
-  const popularWords = words.slice(0, 6);
+  const featuredExample = featuredWord.examples[0];
+  const popularWords = words.slice(0, 5);
 
-  const trackLinks = lessonTracks.map((track) => ({
-    ...track,
-    lesson: lessons.find((lesson) => lesson.track === track.id),
-  }));
+  const phraseOfTheDay = {
+    gloss: [
+      { slovak: "Dobrý", english: "good" },
+      { slovak: "deň.", english: "day" },
+      { slovak: "Ako", english: "how" },
+      { slovak: "sa", english: "-self" },
+      { slovak: "máte?", english: "you have" },
+    ],
+    english: "Good day. How are you?",
+    note: "Word for word, Slovak asks how you have yourself. That small sa points the verb mať, to have, back at the person you are speaking to, and the -te ending keeps the question polite, which is what you want with anyone you have only just met.",
+  };
+
+  const trackCards = lessonTracks.map((track, index) => {
+    const trackLessons = lessonsForTrack(track.id);
+
+    return {
+      ...track,
+      index: String(index + 1).padStart(2, "0"),
+      lessonCount: trackLessons.length,
+      preview: trackLessons[0]?.keyPhrases[0],
+    };
+  });
+
+  const wordGroups = [
+    "Essentials",
+    "Greetings",
+    "Questions",
+    "People",
+    "Conversation",
+    "Learning",
+    "Food",
+  ]
+    .map((category) => ({
+      category,
+      entries: words.filter((word) => word.category === category),
+    }))
+    .filter((group) => group.entries.length > 0);
 
   const referenceSections = [
-    { href: "/wiki", title: "Dictionary", desc: "Words, meanings, and examples" },
-    { href: "/grammar", title: "Grammar", desc: "Patterns, cases, and conjugations" },
+    {
+      href: "/wiki",
+      glyph: "ľ",
+      title: "Dictionary",
+      desc: "Every word with its meaning, a sentence you could actually say, and the entries it connects to.",
+      action: "Browse words",
+    },
+    {
+      href: "/grammar",
+      glyph: "č",
+      title: "Grammar",
+      desc: "Gender, cases, and verb endings written as patterns you can copy straight into a sentence.",
+      action: "Read patterns",
+    },
     {
       href: "/pronunciation",
+      glyph: "š",
       title: "Pronunciation",
-      desc: "Sounds, stress, and spelling",
+      desc: "Where the stress lands, how long a vowel is held, and the soft consonants English ears miss.",
+      action: "Hear the sounds",
     },
     {
       href: "/grammar/terms",
+      glyph: "ť",
       title: "Language terms",
-      desc: "Plain explanations of the terminology",
+      desc: "Plain definitions for the grammar words the rest of the site leans on, so nothing arrives unexplained.",
+      action: "Check a term",
     },
   ];
 
-  const panelClass = cx(
-    "rounded-(--frame-radius) border-0 bg-white p-6 shadow-(--shadow-border)",
-    "transition-[box-shadow,transform] duration-160 ease-out",
-    "hover:shadow-(--shadow-border-hover)",
-  );
-  const asidePanelClass = cx(
-    "rounded-(--frame-radius) border-0 p-5 shadow-(--shadow-border)",
-    "bg-[color-mix(in_srgb,var(--surface)_92%,transparent)]",
-    "transition-[box-shadow,transform] duration-160 ease-out",
-    "hover:shadow-(--shadow-border-hover)",
-  );
-  const headingRowClass = cx(
-    "flex items-start justify-between gap-6 border-b border-slate-200 pb-4",
-    "max-[600px]:gap-4 [&_:first-child]:min-w-0",
-  );
+  const stats = [
+    { value: words.length, label: "dictionary entries" },
+    { value: lessonTracks.length, label: "lesson tracks" },
+    {
+      value: grammarEntries.length + pronunciationEntries.length + caseTopics.length,
+      label: "reference topics",
+    },
+  ];
+
+  function firstSense(english: string): string {
+    return english.split(";")[0].trim();
+  }
 </script>
+
+{#snippet rail(index: string, label: string)}
+  <div
+    class="sticky top-[calc(var(--header-height)+2rem)] self-start max-[880px]:static max-[880px]:flex max-[880px]:items-baseline max-[880px]:gap-3"
+  >
+    <p
+      class="m-0 font-serif text-[1.7rem] font-semibold leading-none tracking-[-0.05em] text-slate-300 tabular-nums"
+    >
+      {index}
+    </p>
+
+    <Eyebrow class="mt-3.5 max-[880px]:mt-0">{label}</Eyebrow>
+  </div>
+{/snippet}
 
 <main>
   <section
-    class="border-b border-slate-200 bg-[color-mix(in_srgb,var(--surface-subtle)_68%,transparent)]"
+    class="relative isolate min-h-[min(80vh,700px)] overflow-hidden"
+    aria-label="Welcome"
   >
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div
+        class="absolute -left-[12%] top-[-20%] h-[55vmax] w-[55vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--mist-1)_70%,transparent)_0%,transparent_68%)] [animation:mist-drift_18s_ease-in-out_infinite]"
+      ></div>
+      <div
+        class="absolute -right-[8%] top-[10%] h-[42vmax] w-[42vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent-soft)_85%,white)_0%,transparent_70%)] [animation:mist-drift_22s_ease-in-out_infinite_reverse]"
+      ></div>
+      <div
+        class="absolute bottom-[-18%] left-[28%] h-[36vmax] w-[48vmax] rounded-full bg-[radial-gradient(ellipse,color-mix(in_srgb,var(--mist-2)_90%,transparent)_0%,transparent_72%)]"
+      ></div>
+    </div>
+
     <div
-      class={cx(
-        shell,
-        "grid grid-cols-[minmax(320px,.88fr)_minmax(420px,1.12fr)] items-center gap-16 py-12",
-        "max-[900px]:grid-cols-1 max-[900px]:gap-7 max-[600px]:py-8",
-      )}
+      class="pointer-events-none absolute inset-0 select-none font-serif text-[clamp(4rem,14vw,9rem)] font-semibold leading-none tracking-[-0.06em] text-slate-900/[0.045]"
+      aria-hidden="true"
     >
-      <div>
-        <p class={sectionLabel}>Slovak for English speakers</p>
-        <h1 class="max-w-2xl">Look it up. Learn it. Use it.</h1>
-        <p class={lead}>
-          A practical Slovak reference with short lessons and practice for the forms you
-          want to remember.
+      <span class="absolute left-[6%] top-[18%] rotate-[-8deg]" lang="sk">ľ</span>
+      <span class="absolute right-[8%] top-[28%] rotate-[6deg]" lang="sk">č</span>
+      <span class="absolute bottom-[18%] left-[14%] rotate-[4deg]" lang="sk">š</span>
+      <span class="absolute bottom-[22%] right-[12%] rotate-[-5deg]" lang="sk">ť</span>
+    </div>
+
+    <PageShell
+      class="relative flex min-h-[min(80vh,700px)] flex-col justify-center py-20 pb-16 max-[600px]:py-14"
+    >
+      <div class="max-w-[40rem]">
+        <p
+          class="m-0 font-serif text-[clamp(3.25rem,8vw,5.5rem)] font-semibold leading-[0.92] tracking-[-0.05em] text-slate-900 [animation:hero-rise_0.8s_ease-out_0.05s_both]"
+        >
+          Slovak
+          <br />
+          <span class="text-blue-800">Wiki</span>
         </p>
 
-        <div
-          class="mt-6 flex max-w-xl flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-slate-300 pt-4"
+        <h1
+          class="mt-5 text-[clamp(1.25rem,2.4vw,1.55rem)] font-semibold leading-snug tracking-[-0.025em] text-slate-700 [animation:hero-rise_0.8s_ease-out_0.18s_both]"
         >
-          <strong class="font-serif text-base text-blue-800" lang="sk">
-            Dobrý deň. Ako sa máte?
-          </strong>
-          <span class="text-xs text-slate-500">Good day. How are you?</span>
+          Look it up. Learn it. Use it.
+        </h1>
+
+        <Lead class="mt-3 max-w-[38ch] [animation:hero-rise_0.8s_ease-out_0.28s_both]">
+          Short lessons and a practical reference for the forms you want to remember.
+        </Lead>
+
+        <form
+          class="mt-9 max-w-[480px] [animation:hero-rise_0.8s_ease-out_0.4s_both]"
+          action="/search"
+          method="get"
+          role="search"
+        >
+          <label class="sr-only" for="home-search">Search Slovak Wiki</label>
+          <div
+            class="flex min-h-[52px] items-stretch overflow-hidden rounded-full border border-slate-300/90 bg-white/80 shadow-[0_1px_2px_rgb(20_42_56/6%),0_12px_32px_-16px_rgb(20_42_56/18%)] backdrop-blur-sm transition-[box-shadow,border-color,background-color] focus-within:border-blue-600 focus-within:bg-white focus-within:shadow-[0_0_0_4px_var(--accent-soft),0_16px_40px_-18px_rgb(20_42_56/22%)] max-[520px]:rounded-(--frame-radius) max-[520px]:flex-col"
+          >
+            <svg
+              class="ml-4 w-4 shrink-0 fill-none stroke-slate-400 stroke-[1.7] max-[520px]:hidden"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
+              />
+            </svg>
+            <input
+              class="min-w-0 flex-1 border-0 bg-transparent px-3.5 text-[0.95rem] text-slate-900 outline-none placeholder:text-slate-400 max-[520px]:min-h-[48px] max-[520px]:px-4"
+              id="home-search"
+              name="q"
+              type="search"
+              placeholder="ďakujem, cases, soft consonants…"
+            />
+            <Button
+              class="m-1 min-w-[96px] rounded-full px-4 max-[520px]:m-0 max-[520px]:min-h-[48px] max-[520px]:rounded-none"
+              type="submit"
+            >
+              Search
+            </Button>
+          </div>
+
+          <p
+            class="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.78rem] text-slate-500"
+          >
+            <span>Try</span>
+            {#each popularWords as word, index (word.slug)}
+              {#if index > 0}
+                <span class="text-slate-300" aria-hidden="true">·</span>
+              {/if}
+              <a
+                class="font-serif text-blue-800 underline decoration-blue-800/25 underline-offset-[3px] hover:decoration-blue-800"
+                href="/dictionary/{word.slug}"
+                lang="sk"
+              >
+                {word.slovak}
+              </a>
+            {/each}
+          </p>
+        </form>
+      </div>
+    </PageShell>
+  </section>
+
+  <PageShell class="pb-24 max-[880px]:pb-16">
+    <div
+      class="grid grid-cols-3 gap-x-10 gap-y-4 border-y border-slate-200 py-7 max-[560px]:grid-cols-1 max-[560px]:py-5"
+    >
+      {#each stats as stat (stat.label)}
+        <p class="m-0 flex items-baseline gap-3">
+          <span
+            class="font-serif text-[1.75rem] font-semibold leading-none tracking-[-0.04em] text-slate-900 tabular-nums"
+          >
+            {stat.value}
+          </span>
+          <span class="text-[0.82rem] leading-tight text-slate-500">{stat.label}</span>
+        </p>
+      {/each}
+    </div>
+
+    <section
+      class="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-14 py-20 max-[880px]:grid-cols-1 max-[880px]:gap-y-7 max-[880px]:py-14"
+      aria-labelledby="phrase-heading"
+    >
+      {@render rail("01", "Phrase")}
+
+      <div>
+        <h2 id="phrase-heading" class="m-0 max-w-[20ch]">A phrase, taken apart</h2>
+
+        <p
+          class="mt-9 flex flex-wrap items-end gap-x-8 gap-y-6 font-serif text-[clamp(1.9rem,4.6vw,3rem)] font-semibold leading-none tracking-[-0.04em] text-slate-900"
+          lang="sk"
+        >
+          {#each phraseOfTheDay.gloss as token (token.slovak)}
+            <span class="grid gap-2">
+              <span>{token.slovak}</span>
+              <span
+                class="border-t border-slate-300 pt-2 font-sans text-[0.68rem] font-bold uppercase tracking-[0.12em] text-slate-500"
+                lang="en"
+              >
+                {token.english}
+              </span>
+            </span>
+          {/each}
+        </p>
+
+        <p class="mt-8 font-serif text-lg italic text-slate-700">
+          {phraseOfTheDay.english}
+        </p>
+
+        <p class="mt-4 max-w-[62ch] text-[0.95rem] leading-[1.7] text-slate-600">
+          {phraseOfTheDay.note}
+        </p>
+
+        <p class="mt-6">
+          <TextLink
+            class="inline-flex items-center gap-1.5"
+            href="/lessons/everyday/meet-someone"
+          >
+            Use it in the greeting lesson <ArrowRight />
+          </TextLink>
+        </p>
+      </div>
+    </section>
+
+    <section
+      class="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-14 border-t border-slate-200 py-20 max-[880px]:grid-cols-1 max-[880px]:gap-y-7 max-[880px]:py-14"
+      aria-labelledby="tracks-heading"
+    >
+      {@render rail("02", "Lessons")}
+
+      <div>
+        <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
+          <h2 id="tracks-heading" class="m-0">Start inside a scene</h2>
+          <TextLink href="/lessons">All lessons</TextLink>
+        </div>
+
+        <p class="mt-4 max-w-[66ch] text-[0.95rem] leading-[1.7] text-slate-600">
+          Every track opens with a short conversation, lifts out the phrases worth
+          keeping, then asks you to rebuild them from memory. There is nothing to sign up
+          for, and stopping after a single scene still counts.
+        </p>
+
+        <div class="mt-9 grid grid-cols-3 gap-4 max-[760px]:grid-cols-1">
+          {#each trackCards as track (track.id)}
+            <a
+              class="group flex flex-col rounded-(--frame-radius) bg-white/70 p-6 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] hover:-translate-y-0.5 hover:bg-white hover:shadow-(--shadow-border-hover)"
+              href="/lessons/{track.id}"
+            >
+              <div class="flex items-baseline justify-between gap-3">
+                <strong
+                  class="font-serif text-[1.3rem] font-semibold tracking-[-0.03em] text-slate-900 group-hover:text-blue-800"
+                >
+                  {track.title}
+                </strong>
+                <span class="font-serif text-sm tabular-nums text-slate-300">
+                  {track.index}
+                </span>
+              </div>
+
+              <p class="m-0 mt-2.5 text-sm leading-[1.6] text-slate-500">
+                {track.description}
+              </p>
+
+              {#if track.preview}
+                <div class="mt-6 border-t border-slate-200 pt-4">
+                  <p class="m-0 font-serif text-[1.05rem] text-slate-900" lang="sk">
+                    {track.preview.slovak}
+                  </p>
+                  <p class="m-0 mt-1 text-[0.8rem] text-slate-500">
+                    {track.preview.english}
+                  </p>
+                </div>
+              {/if}
+
+              <div
+                class="mt-auto flex items-baseline justify-between gap-3 pt-6 text-[0.78rem]"
+              >
+                <span class="text-slate-500">
+                  {track.lessonCount}
+                  {track.lessonCount === 1 ? "lesson" : "lessons"}
+                </span>
+                <span class="inline-flex items-center gap-1.5 font-bold text-blue-800">
+                  Start <ArrowRight />
+                </span>
+              </div>
+            </a>
+          {/each}
         </div>
       </div>
+    </section>
 
-      <form
-        class="rounded-lg bg-slate-800 p-6 text-white shadow-lg max-[600px]:p-4"
-        action="/search"
-        method="get"
-        role="search"
-      >
-        <label class="mb-2 block text-sm font-semibold" for="home-search">
-          Search the reference
-        </label>
-        <div
-          class="flex min-h-[50px] rounded border border-white/30 bg-white max-[600px]:flex-col"
-        >
-          <input
-            class="min-w-0 flex-1 border-0 bg-transparent px-3.5 text-slate-900 outline-none max-[600px]:min-h-[46px]"
-            id="home-search"
-            name="q"
-            type="search"
-            placeholder="Try ďakujem, cases, or soft consonants"
-          />
-          <button
-            class="min-w-[92px] cursor-pointer rounded-r bg-rose-600 px-4 font-bold text-white transition-[background-color,box-shadow,transform,scale] hover:bg-rose-700 max-[600px]:min-h-[46px] max-[600px]:rounded-b max-[600px]:rounded-r-none"
-            type="submit"
-          >
-            Search
-          </button>
+    <section
+      class="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-14 border-t border-slate-200 py-20 max-[880px]:grid-cols-1 max-[880px]:gap-y-7 max-[880px]:py-14"
+      aria-labelledby="words-heading"
+    >
+      {@render rail("03", "Dictionary")}
+
+      <div>
+        <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
+          <h2 id="words-heading" class="m-0">Words you will reach for first</h2>
+          <TextLink href="/wiki">Full index</TextLink>
         </div>
-        <p class="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-300">
-          Popular:
-          {#each popularWords as word (word.slug)}
-            <a
-              class="text-white underline decoration-white/50 underline-offset-2"
-              href="/dictionary/{word.slug}"
+
+        <div
+          class="mt-9 grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-end gap-x-10 gap-y-6 border-b border-slate-200 pb-9 max-[700px]:grid-cols-1"
+        >
+          <a class="group block" href="/dictionary/{featuredWord.slug}">
+            <Eyebrow tone="muted">Word to know</Eyebrow>
+            <p
+              class="m-0 font-serif text-[clamp(2.4rem,5vw,3.1rem)] font-semibold leading-none tracking-[-0.045em] text-slate-900 group-hover:text-blue-800"
               lang="sk"
             >
-              {word.slovak}
-            </a>
-          {/each}
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <section
-    class={cx(
-      shell,
-      "grid grid-cols-[minmax(0,1.45fr)_minmax(310px,.8fr)] items-start gap-5 py-7 pb-16",
-      "max-[900px]:grid-cols-1",
-    )}
-  >
-    <div class="grid gap-5">
-      <article class={panelClass}>
-        <div class={headingRowClass}>
-          <div class="min-w-0">
-            <p class={sectionLabel}>Word to know</p>
-            <h2 class="text-4xl" lang="sk">{featuredWord.slovak}</h2>
-          </div>
-          <span class="text-sm font-semibold text-slate-600">{featuredWord.english}</span>
-        </div>
-
-        <dl
-          class="grid grid-cols-3 gap-3 border-b border-slate-200 py-4 max-[600px]:grid-cols-1"
-        >
-          <div class="grid gap-1">
-            <dt class="text-xs text-slate-500">Reference</dt>
-            <dd class="m-0 text-sm font-semibold">Dictionary</dd>
-          </div>
-          <div class="grid gap-1">
-            <dt class="text-xs text-slate-500">Topic</dt>
-            <dd class="m-0 text-sm font-semibold">{featuredWord.category}</dd>
-          </div>
-          <div class="grid gap-1">
-            <dt class="text-xs text-slate-500">See it in</dt>
-            <dd class="m-0 text-sm font-semibold">Polite speech</dd>
-          </div>
-        </dl>
-
-        <blockquote
-          class="my-4 rounded-[calc(var(--control-radius)-2px)] border border-slate-200 border-l-4 border-l-blue-600 bg-slate-50 px-4 py-3"
-        >
-          <p class="m-0 font-serif font-semibold" lang="sk">
-            {featuredWord.examples[0].slovak}
-          </p>
-          <footer class="mt-1 text-xs text-slate-500">
-            {featuredWord.examples[0].english}
-          </footer>
-        </blockquote>
-
-        <a class={textLink} href="/dictionary/{featuredWord.slug}">
-          Open full entry <span aria-hidden="true">→</span>
-        </a>
-      </article>
-
-      <section class={panelClass} aria-labelledby="words-heading">
-        <div class={headingRowClass}>
-          <div class="min-w-0">
-            <p class={sectionLabel}>Dictionary</p>
-            <h2 id="words-heading" class="text-xl">Essential words</h2>
-          </div>
-          <a class={textLink} href="/wiki">
-            Full index <span aria-hidden="true">→</span>
+              {featuredWord.slovak}
+            </p>
+            <p class="m-0 mt-3 text-sm text-slate-500">{featuredWord.english}</p>
           </a>
-        </div>
 
-        <ul class="m-0 grid list-none grid-cols-2 p-0 max-[600px]:grid-cols-1">
-          {#each words.slice(0, 12) as word (word.slug)}
-            <li class="border-b border-slate-200 odd:border-r max-[600px]:odd:border-r-0">
-              <a
-                class="grid min-h-12 grid-cols-[minmax(90px,.75fr)_1fr_auto] items-center gap-3 px-3 py-2 text-sm hover:bg-slate-50"
-                href="/dictionary/{word.slug}"
+          {#if featuredExample}
+            <div class="border-l-2 border-blue-200 pl-6">
+              <p
+                class="m-0 font-serif text-[1.15rem] leading-[1.5] text-slate-900"
+                lang="sk"
               >
-                <strong class="font-serif text-blue-800">{word.slovak}</strong>
-                <span class="text-slate-500">{word.english}</span>
-                <span aria-hidden="true">›</span>
-              </a>
-            </li>
-          {/each}
-        </ul>
-      </section>
-    </div>
-
-    <aside class="grid gap-5">
-      <section class={asidePanelClass} aria-labelledby="reference-heading">
-        <div class={headingRowClass}>
-          <div class="min-w-0">
-            <p class={sectionLabel}>Reference</p>
-            <h2 id="reference-heading" class="text-xl">Browse by topic</h2>
-          </div>
-          <a class={textLink} href="/wiki">All <span aria-hidden="true">→</span></a>
+                {featuredExample.slovak}
+              </p>
+              <p class="m-0 mt-2 text-sm text-slate-500">{featuredExample.english}</p>
+            </div>
+          {/if}
         </div>
 
-        <nav class="grid" aria-label="Reference sections">
+        <div class="mt-9 columns-3 gap-x-10 max-[900px]:columns-2 max-[560px]:columns-1">
+          {#each wordGroups as group (group.category)}
+            <section class="mb-8 break-inside-avoid">
+              <Eyebrow tone="muted" compact>{group.category}</Eyebrow>
+
+              {#each group.entries as word (word.slug)}
+                <a
+                  class="group flex items-baseline gap-2 py-1.5"
+                  href="/dictionary/{word.slug}"
+                >
+                  <span
+                    class="font-serif text-[1rem] text-slate-900 group-hover:text-blue-800"
+                    lang="sk"
+                  >
+                    {word.slovak}
+                  </span>
+                  <span
+                    class="min-w-3 flex-1 translate-y-[-0.2em] border-b border-dotted border-slate-300"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="text-[0.8rem] text-slate-500">
+                    {firstSense(word.english)}
+                  </span>
+                </a>
+              {/each}
+            </section>
+          {/each}
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-14 border-t border-slate-200 py-20 max-[880px]:grid-cols-1 max-[880px]:gap-y-7 max-[880px]:py-14"
+      aria-labelledby="reference-heading"
+    >
+      {@render rail("04", "Reference")}
+
+      <div>
+        <h2 id="reference-heading" class="m-0">When you need the rule, not a lesson</h2>
+
+        <p class="mt-4 max-w-[66ch] text-[0.95rem] leading-[1.7] text-slate-600">
+          Four places to land when a form stops making sense halfway through a sentence.
+          Each entry keeps the explanation short, shows the pattern beside a real example,
+          and points you to the lesson that drills it.
+        </p>
+
+        <div class="mt-9 grid grid-cols-2 gap-4 max-[640px]:grid-cols-1">
           {#each referenceSections as item (item.href)}
             <a
-              class="grid gap-1 border-b border-slate-200 px-1.5 py-3 hover:bg-slate-50"
+              class="group relative isolate flex flex-col overflow-hidden rounded-(--frame-radius) bg-white/70 p-6 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] hover:-translate-y-0.5 hover:bg-white hover:shadow-(--shadow-border-hover)"
               href={item.href}
             >
-              <strong class="font-serif text-blue-800">{item.title}</strong>
-              <small class="text-xs text-slate-500">{item.desc}</small>
+              <span
+                class="pointer-events-none absolute -right-1 -top-7 -z-10 select-none font-serif text-[6rem] leading-none text-slate-900/[0.05]"
+                aria-hidden="true"
+                lang="sk"
+              >
+                {item.glyph}
+              </span>
+
+              <strong
+                class="font-serif text-xl font-semibold tracking-[-0.03em] text-slate-900 group-hover:text-blue-800"
+              >
+                {item.title}
+              </strong>
+
+              <p class="m-0 mt-2.5 text-sm leading-[1.6] text-slate-500">
+                {item.desc}
+              </p>
+
+              <span
+                class="mt-6 inline-flex items-center gap-1.5 text-[0.78rem] font-bold text-blue-800"
+              >
+                {item.action}
+                <ArrowRight />
+              </span>
             </a>
           {/each}
-        </nav>
-
-        <div class="mt-5">
-          <h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Grammar entries
-          </h3>
-          <ul class="m-0 list-none p-0">
-            {#each grammarEntries.slice(0, 3) as entry (entry.slug)}
-              <li>
-                <a
-                  class="flex justify-between gap-3 border-b border-slate-200 px-1.5 py-2 font-serif text-sm text-blue-800"
-                  href="/grammar/{entry.slug}"
-                >
-                  <span>{entry.english}</span>
-                  <small class="truncate text-slate-500" lang="sk">{entry.slovak}</small>
-                </a>
-              </li>
-            {/each}
-          </ul>
-
-          <h3
-            class="mb-2 mt-5 text-xs font-semibold uppercase tracking-wide text-slate-500"
-          >
-            Pronunciation entries
-          </h3>
-          <ul class="m-0 list-none p-0">
-            {#each pronunciationEntries.slice(0, 2) as entry (entry.slug)}
-              <li>
-                <a
-                  class="flex justify-between gap-3 border-b border-slate-200 px-1.5 py-2 font-serif text-sm text-blue-800"
-                  href="/pronunciation/{entry.slug}"
-                >
-                  <span>{entry.english}</span>
-                  <small class="truncate text-slate-500" lang="sk">{entry.slovak}</small>
-                </a>
-              </li>
-            {/each}
-          </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class={asidePanelClass} aria-labelledby="lessons-heading">
-        <div class={headingRowClass}>
-          <div class="min-w-0">
-            <p class={sectionLabel}>Lessons</p>
-            <h2 id="lessons-heading" class="text-xl">Start with a scene</h2>
-          </div>
-          <a class={textLink} href="/lessons">
-            All lessons <span aria-hidden="true">→</span>
-          </a>
+    <section
+      class="relative isolate overflow-hidden rounded-(--frame-radius) bg-slate-900 px-12 py-14 max-[720px]:px-7 max-[720px]:py-10"
+      aria-labelledby="practice-heading"
+    >
+      <span
+        class="pointer-events-none absolute -bottom-16 -right-6 -z-10 select-none font-serif text-[16rem] leading-none text-white/[0.04]"
+        aria-hidden="true"
+        lang="sk"
+      >
+        ď
+      </span>
+
+      <div class="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
+        <div>
+          <Eyebrow tone="inverse">Practice</Eyebrow>
+          <h2 id="practice-heading" class="m-0 max-w-[16ch] text-white">
+            Keep the hard forms close
+          </h2>
+          <p class="mt-4 max-w-[52ch] text-[0.95rem] leading-[1.7] text-white/70">
+            Anything you miss in a lesson is saved on this device and waiting in Review.
+            No streaks and no scores, just the handful of endings that have not settled
+            yet, ready for whenever you have five minutes.
+          </p>
         </div>
 
-        <p class="my-4 font-serif text-sm leading-6 text-slate-700">
-          See Slovak in context, notice the pattern, then make your own sentence.
-        </p>
-
-        <nav class="grid border-t border-slate-200" aria-label="Lesson tracks">
-          {#each trackLinks as item (item.id)}
-            {#if item.lesson}
-              <a
-                class="grid grid-cols-[1fr_auto] items-center gap-2 border-b border-slate-200 px-1.5 py-3 hover:bg-slate-50"
-                href="/lessons/{item.lesson.track}/{item.lesson.slug}"
-              >
-                <span class="font-serif text-sm text-blue-800">{item.title}</span>
-                <small class="text-right text-xs text-slate-500">
-                  {item.lesson.title}
-                  <b class="text-blue-800" aria-hidden="true">→</b>
-                </small>
-              </a>
-            {/if}
-          {/each}
-        </nav>
-      </section>
-
-      <section class={asidePanelClass} aria-labelledby="practice-heading">
-        <div class={headingRowClass}>
-          <div class="min-w-0">
-            <p class={sectionLabel}>Practice</p>
-            <h2 id="practice-heading" class="text-xl">Keep the hard parts close</h2>
-          </div>
-        </div>
-
-        <p class="my-4 font-serif text-sm leading-6 text-slate-700">
-          Review missed or revealed forms, or practise a lesson again.
-        </p>
-
-        <a
-          class={cx(
-            button,
-            "w-full gap-2 transition-[background-color,box-shadow,transform,scale]",
-          )}
-          href="/practice"
-        >
-          Open Practice <span aria-hidden="true">→</span>
-        </a>
-      </section>
-    </aside>
-  </section>
+        <Button href="/practice">Open Practice</Button>
+      </div>
+    </section>
+  </PageShell>
 </main>

@@ -1,7 +1,9 @@
 <script lang="ts">
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
   import { lessonPath } from "$lib/content/lessons";
 
   let { data } = $props();
@@ -9,46 +11,50 @@
 
 <main class="py-14 pb-20 max-[800px]:py-[30px] max-[800px]:pb-[50px]">
   <PageShell class="max-w-[900px] pt-12">
-  <nav class="mb-7 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-    <a class="text-blue-800 underline underline-offset-2" href="/lessons">Lessons</a>
-    <span aria-hidden="true">/</span>
-    <span>{data.track.title}</span>
-  </nav>
+    <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+      <TextLink href="/lessons">Lessons</TextLink>
+      <span aria-hidden="true">/</span>
+      <span>{data.track.title}</span>
+    </nav>
 
-  <header class="max-w-[670px] border-b border-slate-200 py-7">
-    <Eyebrow>Lesson track</Eyebrow>
-    <h1>{data.track.title}</h1>
-    <Lead>{data.track.description}</Lead>
-  </header>
+    <header class="max-w-[670px] border-b border-slate-200 pb-8">
+      <Eyebrow>Lesson track</Eyebrow>
+      <h1>{data.track.title}</h1>
+      <Lead>{data.track.description}</Lead>
+    </header>
 
-  <section aria-labelledby="lesson-list-heading">
-    <h2 id="lesson-list-heading" class="sr-only">Lessons</h2>
-    <ol class="m-0 list-none p-0">
-      {#each data.lessons as lesson, index (lesson.id)}
-        <li class="border-b border-slate-200">
-          <a
-            class="grid grid-cols-[50px_minmax(0,1fr)_auto] items-center gap-4 px-3 py-5 hover:bg-slate-50"
-            href={lessonPath(lesson)}
-          >
-            <span class="text-xs font-bold text-blue-700">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <div class="grid gap-1">
-              {#if lesson.group}
-                <small class="text-xs font-bold uppercase tracking-wide text-slate-500">
-                  {lesson.group}
-                </small>
-              {/if}
-              <strong class="font-serif text-xl text-blue-800">{lesson.title}</strong>
-              <p class="m-0 max-w-[56ch] font-serif leading-6 text-slate-700">
-                {lesson.promise}
-              </p>
-            </div>
-            <b class="text-lg text-blue-800" aria-hidden="true">→</b>
-          </a>
-        </li>
-      {/each}
-    </ol>
-  </section>
+    <section class="mt-2" aria-labelledby="lesson-list-heading">
+      <h2 id="lesson-list-heading" class="sr-only">Lessons</h2>
+      <ol class="m-0 list-none p-0">
+        {#each data.lessons as lesson, index (lesson.id)}
+          <li class="border-b border-slate-200">
+            <a
+              class="group grid grid-cols-[3rem_minmax(0,1fr)_auto] items-start gap-4 -mx-4 px-4 py-6 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)]"
+              href={lessonPath(lesson)}
+            >
+              <span class="pt-1 font-sans text-xs font-bold tabular-nums text-slate-400">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div class="grid gap-1">
+                {#if lesson.group}
+                  <small
+                    class="text-[0.64rem] font-bold uppercase tracking-[0.1em] text-slate-500"
+                  >
+                    {lesson.group}
+                  </small>
+                {/if}
+                <strong class="font-serif text-xl text-blue-800">{lesson.title}</strong>
+                <p
+                  class="m-0 max-w-[56ch] font-serif text-sm leading-relaxed text-slate-600"
+                >
+                  {lesson.promise}
+                </p>
+              </div>
+              <ArrowRight class="mt-1 text-blue-800" />
+            </a>
+          </li>
+        {/each}
+      </ol>
+    </section>
   </PageShell>
 </main>

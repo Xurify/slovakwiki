@@ -1,7 +1,6 @@
 ---
 import Footer from "$lib/components/Footer.svelte";
 import Header from "$lib/components/Header.svelte";
-import Sidebar from "$lib/components/Sidebar.svelte";
 import "../styles.css";
 
 interface Props {
@@ -25,17 +24,12 @@ const query = Astro.url.searchParams.get("q") ?? "";
     {description && <meta name="description" content={description} />}
   </head>
   <body>
-    <div
-      class="grid min-h-screen grid-cols-[var(--sidebar-width)_minmax(0,1fr)] max-[800px]:block"
-    >
-      <Sidebar {pathname} />
-      <div class="flex min-h-screen min-w-0 flex-col bg-(--surface)">
-        <Header {pathname} {query} />
-        <div id="main-content" class="min-h-0 flex-1" tabindex="-1">
-          <slot />
-        </div>
-        <Footer />
+    <div class="relative z-[1] flex min-h-screen min-w-0 flex-col">
+      <Header {pathname} {query} />
+      <div id="main-content" class="min-h-0 flex-1" tabindex="-1">
+        <slot />
       </div>
+      <Footer />
     </div>
   </body>
 </html>

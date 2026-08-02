@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { button, cx, lead, page, sectionLabel, shell, textLink } from "$lib/ui/classes";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
+  import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { onMount } from "svelte";
   import { emptyPracticeState, readPracticeState } from "$lib/client/practice-state";
@@ -21,105 +26,102 @@
     return items;
   });
 
+  const rowLinkClass =
+    "group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 -mx-4 px-4 py-5 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)]";
+
   onMount(() => {
     practiceState = readPracticeState(localStorage);
     hydrated = true;
   });
 </script>
 
-<main class={cx(shell, page, "max-w-[960px]", "pt-14", "max-[620px]:pt-8")}>
-  <header class="max-w-[690px]">
-    <p class={sectionLabel}>Practice</p>
-    <h1>Bring Slovak back.</h1>
-    <p class={lead}>
-      Review what was uncertain, or return to a lesson topic when you want another pass.
-    </p>
-  </header>
+<main class="py-14 pb-20 max-[800px]:py-[30px] max-[800px]:pb-[50px]">
+  <PageShell class="max-w-[900px] pt-14 max-[600px]:pt-8">
+    <header class="max-w-[700px]">
+      <Eyebrow>Practice</Eyebrow>
+      <h1>Bring Slovak back.</h1>
+      <Lead>
+        Review what was uncertain, or return to a lesson topic when you want another pass.
+      </Lead>
+    </header>
 
-  <section
-    class="mt-10 flex max-w-[780px] items-end justify-between gap-7 border border-slate-300 border-l-4 border-l-blue-600 bg-white p-6 max-[620px]:flex-col max-[620px]:items-stretch"
-    aria-labelledby="review-heading"
-  >
-    <div>
-      <p class={sectionLabel}>Review</p>
-      <h2 id="review-heading" class="text-2xl font-semibold text-slate-900">
-        What needs another try
-      </h2>
-      <span class="mt-2 block max-w-[50ch] font-serif leading-6 text-slate-700">
-        Missed and revealed forms return here. Nothing else is tracked.
-      </span>
-      <small class="mt-3 block text-xs text-slate-500">
-        <b class="mr-1 font-serif text-sm text-blue-800" lang="sk">Skús to znova.</b>
-        Try it again.
-      </small>
-    </div>
-    <a class={cx(button, "shrink-0", "max-[620px]:w-full")} href="/practice/review">
-      Open Review
-    </a>
-  </section>
-
-  <section class="mt-9 max-w-[780px]" aria-labelledby="topics-heading">
-    <div class="mb-3.5">
-      <p class={sectionLabel}>Practice a topic</p>
-      <h2 id="topics-heading" class="text-2xl font-semibold text-slate-900">
-        From your lessons
-      </h2>
-    </div>
-
-    {#if !hydrated || completedSets.length}
-      <div class="border-t border-slate-200">
-        {#each completedSets as set (set.id)}
-          <a
-            class="grid grid-cols-[115px_minmax(0,1fr)_auto] items-center gap-3.5 border-b border-slate-200 px-2.5 py-4 hover:bg-slate-50 max-[620px]:grid-cols-[1fr_auto]"
-            href="/practice/{set.id}"
-          >
-            <span
-              class="text-xs font-bold uppercase tracking-wide text-slate-500 max-[620px]:col-span-2"
-            >
-              {set.track}
-            </span>
-            <strong class="font-serif text-lg text-blue-800">{set.title}</strong>
-            <small class="text-xs text-slate-600">
-              Practice again <b aria-hidden="true">→</b>
-            </small>
-          </a>
-        {/each}
-      </div>
-    {:else}
-      <div class="border-y border-slate-200 py-5">
-        <p class="m-0 font-serif text-slate-700">
-          Finish a lesson to practise its language again here.
-        </p>
-        <a class={textLink} href="/lessons">Browse lessons</a>
-      </div>
-    {/if}
-  </section>
-
-  {#if hydrated && practiceState.savedReferenceItemIds.length}
     <section
-      class="mt-9 max-w-[780px] border-t border-slate-200 pt-7"
-      aria-labelledby="saved-heading"
+      class="mt-12 border-t border-slate-200 pt-10"
+      aria-labelledby="review-heading"
     >
-      <p class={sectionLabel}>Saved from Reference</p>
-      <h2 id="saved-heading" class="text-2xl font-semibold text-slate-900">
-        Focused items
-      </h2>
-      <div class="mt-3.5 border-t border-slate-200">
-        {#each savedItems as item (item.id)}
-          <a
-            class="grid grid-cols-[120px_minmax(0,1fr)_auto] items-center gap-3.5 border-b border-slate-200 px-2.5 py-4 hover:bg-slate-50 max-[620px]:grid-cols-[1fr_auto]"
-            href="/practice/reference/{item.id}"
-          >
-            <span
-              class="text-xs font-bold uppercase tracking-wide text-slate-500 max-[620px]:col-span-2"
-            >
-              {item.source.label}
-            </span>
-            <strong class="font-serif text-blue-800">{item.task.prompt}</strong>
-            <b class="text-blue-800" aria-hidden="true">→</b>
-          </a>
-        {/each}
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div class="max-w-[520px]">
+          <Eyebrow>Review</Eyebrow>
+          <h2 id="review-heading">What needs another try</h2>
+          <Lead class="mt-2">
+            Missed and revealed forms return here. Nothing else is tracked.
+          </Lead>
+          <p class="mt-3 text-sm text-slate-500">
+            <span class="font-serif text-blue-800" lang="sk">Skús to znova.</span>
+            Try it again.
+          </p>
+        </div>
+        <Button href="/practice/review">Open Review</Button>
       </div>
     </section>
-  {/if}
+
+    <section class="mt-12" aria-labelledby="topics-heading">
+      <div class="border-b border-slate-200 pb-4">
+        <Eyebrow>Practice a topic</Eyebrow>
+        <h2 id="topics-heading">From your lessons</h2>
+      </div>
+
+      {#if !hydrated || completedSets.length}
+        <div>
+          {#each completedSets as set (set.id)}
+            <a class={rowLinkClass} href="/practice/{set.id}">
+              <div class="grid gap-0.5">
+                <span
+                  class="text-[0.64rem] font-bold uppercase tracking-[0.1em] text-slate-500"
+                >
+                  {set.track}
+                </span>
+                <strong class="font-serif text-lg text-blue-800">{set.title}</strong>
+              </div>
+              <span class="inline-flex items-center gap-2 text-sm text-slate-500">
+                Practice again
+                <ArrowRight class="text-blue-800" />
+              </span>
+            </a>
+          {/each}
+        </div>
+      {:else}
+        <div class="border-b border-slate-200 py-6">
+          <p class="m-0 font-serif text-slate-600">
+            Finish a lesson to practise its language again here.
+          </p>
+          <TextLink class="mt-3 inline-block" href="/lessons">Browse lessons</TextLink>
+        </div>
+      {/if}
+    </section>
+
+    {#if hydrated && practiceState.savedReferenceItemIds.length}
+      <section class="mt-12" aria-labelledby="saved-heading">
+        <div class="border-b border-slate-200 pb-4">
+          <Eyebrow>Saved from Reference</Eyebrow>
+          <h2 id="saved-heading">Focused items</h2>
+        </div>
+        <div>
+          {#each savedItems as item (item.id)}
+            <a class={rowLinkClass} href="/practice/reference/{item.id}">
+              <div class="grid gap-0.5">
+                <span
+                  class="text-[0.64rem] font-bold uppercase tracking-[0.1em] text-slate-500"
+                >
+                  {item.source.label}
+                </span>
+                <strong class="font-serif text-blue-800">{item.task.prompt}</strong>
+              </div>
+              <ArrowRight class="text-blue-800" />
+            </a>
+          {/each}
+        </div>
+      </section>
+    {/if}
+  </PageShell>
 </main>
