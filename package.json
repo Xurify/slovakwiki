@@ -14,6 +14,7 @@
     "frequency:import": "bun scripts/dictionary/import-frequency.ts",
     "frequency:publish": "bun scripts/dictionary/publish-frequency.ts",
     "examples:enrich": "bun scripts/dictionary/enrich-examples.ts",
+    "examples:fill": "bun scripts/dictionary/fill-empty-examples.ts",
     "examples:coverage": "bun scripts/dictionary/example-coverage.ts",
     "examples:curate": "bun scripts/dictionary/apply-curated-examples.ts",
     "drafts:build": "bun scripts/dictionary/build-drafts.ts",

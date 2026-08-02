@@ -412,6 +412,20 @@ const PATTERN_USAGE_NOTES: Record<string, string> = {
   prist: "Prísť is coming / arriving. Odísť is leaving — same place, opposite direction.",
   odist: "Odísť is leaving. Prísť is arriving — same place, opposite direction.",
   dostat: "Dostať receives something. Dostať sa is getting yourself somewhere.",
+  robit: "Robiť is the ongoing action. Urobiť finishes it — same task, different aspect.",
+  urobit: "Urobiť completes the task. Robiť is still doing it — compare the pair.",
+  brat: "Brať is taking as a process. Vziať is one completed take.",
+  vziat: "Vziať takes once, to completion. Brať is the ongoing taking.",
+  pisat: "Písať is writing as you go. Napísať finishes the text.",
+  napisat: "Napísať writes something to completion. Písať is the ongoing writing.",
+  citat: "Čítať is reading along the way. Prečítať means reading it through.",
+  precitat: "Prečítať reads something through. Čítať is the ongoing reading.",
+  kupovat: "Kupovať is the buying process. Kúpiť is one completed purchase.",
+  kupit: "Kúpiť buys once. Kupovať is shopping / buying as a process.",
+  jest: "Jesť is eating. Zjesť finishes the food — eats it up.",
+  zjest: "Zjesť eats something up. Jesť is the ongoing eating.",
+  pit: "Piť is drinking. Vypiť finishes the drink.",
+  vypit: "Vypiť drinks something up. Piť is the ongoing drinking.",
 };
 
 function wordAttribution(origin: WordOrigin) {

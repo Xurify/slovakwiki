@@ -8,11 +8,13 @@
 
 High-confusion lemmas use labeled `demonstrates` example groups + Usage notes + semantic `related`:
 
-`rád`, `páčiť`, `ľúbiť`, `byť`, `ísť`/`chodiť`, `volať`, `vedieť`, `dať`, `pozerať`/`vidieť`, `počúvať`/`počuť`, `môcť`/`musieť`/`chcieť`, `báť`, `stať`/`stáť`, `hľadať`/`nájsť`, `začať`/`prestať`, `hovoriť`/`povedať`, `prísť`/`odísť`, `dostať`.
+`rád`, `páčiť`, `ľúbiť`, `byť`, `ísť`/`chodiť`, `volať`, `vedieť`, `dať`, `pozerať`/`vidieť`, `počúvať`/`počuť`, `môcť`/`musieť`/`chcieť`, `báť`, `stať`/`stáť`, `hľadať`/`nájsť`, `začať`/`prestať`, `hovoriť`/`povedať`, `prísť`/`odísť`, `dostať`, aspect pairs `robiť`/`urobiť`, `brať`/`vziať`, `písať`/`napísať`, `čítať`/`prečítať`, `kupovať`/`kúpiť`, `jesť`/`zjesť`, `piť`/`vypiť`.
+
+Every live dictionary word has ≥1 example (Tatoeba and/or curated templates via `bun scripts/dictionary/fill-empty-examples.ts` → `examples:curate`).
 
 Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate`.
 
-**Still open:** ~1.4k words outside top-200 with no examples; most `related` still rank neighbors.
+**Still open:** most `related` links still rank neighbors (pattern lemmas are semantic).
 
 ---
 

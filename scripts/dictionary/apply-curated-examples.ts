@@ -51,6 +51,20 @@ const CURATED_RELATED: Record<string, string[]> = {
   prist: ["odist", "ist", "chodit"],
   odist: ["prist", "ist"],
   dostat: ["dat", "davat"],
+  robit: ["urobit"],
+  urobit: ["robit"],
+  brat: ["vziat"],
+  vziat: ["brat"],
+  pisat: ["napisat"],
+  napisat: ["pisat"],
+  citat: ["precitat"],
+  precitat: ["citat"],
+  kupovat: ["kupit"],
+  kupit: ["kupovat"],
+  jest: ["zjest"],
+  zjest: ["jest"],
+  pit: ["vypit"],
+  vypit: ["pit"],
 };
 
 /** Gloss overrides applied with curated examples (search / detail headword). */

@@ -7,6 +7,11 @@ describe("example quality", () => {
     expect(isCleanExample("Kedy môžeš prísť?", "When can you come?")).toBe(true);
     expect(isCleanExample("Mám rád knihy.", "I like books.")).toBe(true);
     expect(isCleanExample("Pes má hustú srsť.", "The dog has thick fur.")).toBe(true);
+    expect(isCleanExample("Toto je inštitúcia.", "This is an institution.")).toBe(true);
+    expect(isCleanExample("Mám úsporný režim.", "I have an economical regime.")).toBe(
+      true,
+    );
+    expect(isCleanExample("To je sporný bod.", "That is a disputed point.")).toBe(true);
   });
 
   it("blocks crude and sexual sentences", () => {

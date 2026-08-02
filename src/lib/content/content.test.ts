@@ -83,21 +83,15 @@ describe("Slovak content", () => {
     ).toBe(true);
   });
 
-  it("does not tell learners to read examples when a word has none", () => {
-    const withExamples = words.find((word) => word.examples.length > 0);
-    const withoutExamples = words.find((word) => word.examples.length === 0);
+  it("gives every word at least one example and matching usage copy", () => {
+    const withExamples = words.filter((word) => word.examples.length > 0);
+    const withoutExamples = words.filter((word) => word.examples.length === 0);
 
-    expect(withExamples).toBeDefined();
-    expect(withoutExamples).toBeDefined();
+    expect(withoutExamples).toEqual([]);
+    expect(withExamples.length).toBe(words.length);
     expect(
-      withExamples?.body.some((paragraph) => paragraph.includes("Read the example")),
-    ).toBe(true);
-    expect(
-      withoutExamples?.body.some((paragraph) => paragraph.includes("Read the example")),
-    ).toBe(false);
-    expect(
-      withoutExamples?.body.some((paragraph) =>
-        paragraph.includes("Sentence examples are not available"),
+      withExamples.every((word) =>
+        word.body.some((paragraph) => paragraph.includes("Read the example")),
       ),
     ).toBe(true);
   });
