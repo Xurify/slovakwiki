@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   isAcceptableCorpusExample,
   isCleanExample,
+  isDamagedExampleTemplate,
   isWellFormedExample,
 } from "./example-quality";
 
@@ -61,5 +62,22 @@ describe("example quality", () => {
       isAcceptableCorpusExample("Celú noc jebali.", "They fucked all night long."),
     ).toBe(false);
     expect(isAcceptableCorpusExample("krátke", "short")).toBe(false);
+  });
+
+  it("flags damaged fill-template residue", () => {
+    expect(isDamagedExampleTemplate("Hľadám medaila.", "medaila")).toBe(true);
+    expect(isDamagedExampleTemplate("Hľadám výskumný byt.")).toBe(true);
+    expect(isDamagedExampleTemplate("Potrebujeme netradičný plán.")).toBe(true);
+    expect(isDamagedExampleTemplate("To je oravský podnik.")).toBe(true);
+    expect(isDamagedExampleTemplate("Toto je kariéra.", "kariéra")).toBe(true);
+    expect(isDamagedExampleTemplate("Začínam dodať.")).toBe(true);
+
+    // Legitimate look-for sentence for the verb hľadať.
+    expect(isDamagedExampleTemplate("Hľadám knihu.", "hľadať")).toBe(false);
+    expect(
+      isDamagedExampleTemplate("Tento chrám je pre miestnych obyvateľov posvätný."),
+    ).toBe(false);
+    expect(isDamagedExampleTemplate("Vyhral zlatú medailu.", "medaila")).toBe(false);
+    expect(isDamagedExampleTemplate("Toto je bežný problém.", "bežný")).toBe(false);
   });
 });

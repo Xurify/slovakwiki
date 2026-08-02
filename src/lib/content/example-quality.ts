@@ -52,3 +52,35 @@ export function isWellFormedExample(slovak: string, english: string): boolean {
 export function isAcceptableCorpusExample(slovak: string, english: string): boolean {
   return isCleanExample(slovak, english) && isWellFormedExample(slovak, english);
 }
+
+/**
+ * Detects thin fill-template residue that must not ship as reviewed curated examples.
+ * Practice frames may still use safer classed templates; overrides must not.
+ *
+ * When `lemma` is provided, also flags bare one-token frames that only repeat the headword
+ * (`Hľadám medaila.`, `Toto je kariéra.`). Legitimate uses like `Hľadám knihu.` for hľadať
+ * are allowed.
+ */
+export function isDamagedExampleTemplate(slovak: string, lemma?: string): boolean {
+  const sk = slovak.trim();
+
+  // Forced adjective hosts from weak fill frames.
+  if (/^Hľadám \p{L}+ byt\.$/u.test(sk)) return true;
+  if (/^(Potrebujeme|Hľadáme) \p{L}+ plán\.$/u.test(sk)) return true;
+  if (/^To je \p{L}+ podnik\.$/u.test(sk)) return true;
+  if (/^Je to \p{L}+ výraz\.$/u.test(sk)) return true;
+  if (/^Ten muž je \p{L}+\.$/u.test(sk)) return true;
+  if (/^Ten projekt je \p{L}+\.$/u.test(sk)) return true;
+  if (/^Ten dom je \p{L}+\.$/u.test(sk)) return true;
+  if (/^Začínam \p{L}+\.$/u.test(sk)) return true;
+  if (/^Niekto môže /u.test(sk)) return true;
+
+  if (lemma) {
+    const escaped = lemma.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+    if (new RegExp(`^Toto je ${escaped}\\.$`, "u").test(sk)) return true;
+    if (new RegExp(`^Hľadám ${escaped}\\.$`, "u").test(sk)) return true;
+    if (new RegExp(`^Potrebujeme ${escaped}\\.$`, "u").test(sk)) return true;
+  }
+
+  return false;
+}

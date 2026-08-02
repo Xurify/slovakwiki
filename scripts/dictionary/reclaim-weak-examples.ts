@@ -62,8 +62,25 @@ function isWeakTemplate(example: Example): boolean {
   if (/^Ten projekt je .+\.$/u.test(slovak) && /^That project is /i.test(english))
     return true;
   if (/^To mesto je .+\.$/u.test(slovak) && /^That city is /i.test(english)) return true;
+  if (/^To riešenie je .+\.$/u.test(slovak) && /^That solution is /i.test(english))
+    return true;
   if (/^To je .+\.$/u.test(slovak) && /^That is /i.test(english)) return true;
   if (/^Tá práca je .+\.$/u.test(slovak)) return true;
+  if (/^Je to .+ človek\.$/u.test(slovak) && /^That is /i.test(english)) return true;
+  if (/^Hľadám .+ byt\.$/u.test(slovak) && /^I'm looking for /i.test(english))
+    return true;
+  if (/^Hľadáme .+ riešenie\.$/u.test(slovak) && /^We're looking for /i.test(english))
+    return true;
+  if (/^Hľadáme .+ plán\.$/u.test(slovak) && /^We're looking for /i.test(english))
+    return true;
+  if (/^Hľadáme .+ prácu\.$/u.test(slovak) && /^We're looking for /i.test(english))
+    return true;
+  if (/^Potrebujeme .+ plán\.$/u.test(slovak) && /^We need /i.test(english)) return true;
+  if (/^Pracuje v .+ podniku\.$/u.test(slovak) && /^He works at /i.test(english))
+    return true;
+  if (/^To je .+ podnik\.$/u.test(slovak) && /^That is /i.test(english)) return true;
+  if (/^Potrebujeme .+\.$/u.test(slovak) && /^We need /i.test(english)) return true;
+  if (/^Hľadám .+\.$/u.test(slovak) && /^I'm looking for /i.test(english)) return true;
   if (/^Toto je .+\.$/u.test(slovak) && /^This is /i.test(english)) return true;
   if (/^Toto sú .+\.$/u.test(slovak) && /^These are /i.test(english)) return true;
   if (/^Kde je .+\?$/u.test(slovak) && /^Where is /i.test(english)) return true;

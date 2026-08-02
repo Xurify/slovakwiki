@@ -15,6 +15,7 @@ bun run examples:curate     # hand examples from curated-examples.json
 bun run related:apply       # semantic cluster peers into empty related
 bun run examples:coverage   # top-N per POS example coverage report
 bun run examples:audit      # ranked review queue for generated practice frames
+bun run examples:audit-curated # fail if curated overrides still look like fill stubs
 bun run index:search        # Pagefind for local/dev search
 ```
 
@@ -22,19 +23,20 @@ bun run index:search        # Pagefind for local/dev search
 
 Frequency lists, live dictionary publish, Tatoeba examples.
 
-| File                          | npm script          | Notes                                                                               |
-| ----------------------------- | ------------------- | ----------------------------------------------------------------------------------- |
-| `import-frequency.ts`         | `frequency:import`  | Skips single-letter junk lemmas                                                     |
-| `publish-frequency.ts`        | `frequency:publish` | Auto-publishes glosses; `-v`/`-n`/`-a` slug suffix on collisions                    |
-| `enrich-examples.ts`          | `examples:enrich`   | Needs `tmp/tatoeba/*.tsv`; morph forms + `--replace-practice` / `--refresh-tatoeba` |
-| `reclaim-weak-examples.ts`    | `examples:reclaim`  | Drops exact weak fill stubs from curated JSON                                       |
-| `fill-empty-examples.ts`      | `examples:fill`     | POS templates plus `curated-example-overrides.json` for reviewed frames             |
-| `apply-curated-examples.ts`   | `examples:curate`   | Reviewed curated wins; practice frames never overwrite Tatoeba                      |
-| `apply-related.ts`            | `related:apply`     | Fills empty related from `related-clusters.json`                                    |
-| `example-coverage.ts`         | `examples:coverage` | Top-N per POS example coverage → `tmp/`                                             |
-| `audit-generated-examples.ts` | `examples:audit`    | Ranked review queue for generated practice frames → `tmp/`                          |
-| `build-drafts.ts`             | `drafts:build`      | **Optional / legacy** — hard cases only                                             |
-| `promote-draft.ts`            | `drafts:promote`    | **Optional / legacy**                                                               |
+| File                          | npm script               | Notes                                                                               |
+| ----------------------------- | ------------------------ | ----------------------------------------------------------------------------------- |
+| `import-frequency.ts`         | `frequency:import`       | Skips single-letter junk lemmas                                                     |
+| `publish-frequency.ts`        | `frequency:publish`      | Auto-publishes glosses; `-v`/`-n`/`-a` slug suffix on collisions                    |
+| `enrich-examples.ts`          | `examples:enrich`        | Needs `tmp/tatoeba/*.tsv`; morph forms + `--replace-practice` / `--refresh-tatoeba` |
+| `reclaim-weak-examples.ts`    | `examples:reclaim`       | Drops exact weak fill stubs from curated JSON                                       |
+| `fill-empty-examples.ts`      | `examples:fill`          | POS templates plus `curated-example-overrides.json` for reviewed frames             |
+| `apply-curated-examples.ts`   | `examples:curate`        | Reviewed curated wins; practice frames never overwrite Tatoeba                      |
+| `apply-related.ts`            | `related:apply`          | Fills empty related from `related-clusters.json`                                    |
+| `example-coverage.ts`         | `examples:coverage`      | Top-N per POS example coverage → `tmp/`                                             |
+| `audit-generated-examples.ts` | `examples:audit`         | Ranked review queue for generated practice frames → `tmp/`                          |
+| `audit-curated-overrides.ts`  | `examples:audit-curated` | Fails if hand overrides still match damaged fill templates                          |
+| `build-drafts.ts`             | `drafts:build`           | **Optional / legacy** — hard cases only                                             |
+| `promote-draft.ts`            | `drafts:promote`         | **Optional / legacy**                                                               |
 
 Primary dictionary growth is frequency publish + example enrich, not drafts.
 

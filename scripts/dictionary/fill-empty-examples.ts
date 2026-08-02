@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { words } from "../../src/lib/content/data";
+import { isDamagedExampleTemplate } from "../../src/lib/content/example-quality";
 import type { Example } from "../../src/lib/content/types";
 import { ROOT } from "../lib/paths";
 
@@ -224,7 +225,8 @@ function verbExample(slovak: string, english: string): Example {
   }
 }
 
-type AdjFrame = "person" | "house" | "project" | "work" | "neuter" | "relational";
+type AdjFrame =
+  "person" | "house" | "project" | "work" | "neuter" | "relational" | "attributive";
 
 function hashPick<T>(key: string, options: readonly T[]): T {
   let hash = 0;
@@ -242,7 +244,7 @@ function classifyAdjectiveFrame(slovak: string, gloss: string): AdjFrame {
   if (/á$/i.test(slovak)) return "work";
   if (/é$/i.test(slovak)) return "neuter";
 
-  if (/(ský|ov)$/iu.test(lemma)) return "relational";
+  if (/(ský|cký|ov)$/iu.test(lemma)) return "relational";
 
   if (
     /\b(kind|brave|smart|clever|honest|friendly|happy|sad|angry|calm|patient|lazy|rich|poor|young|old|nice|polite|rude|funny|serious|proud|shy|wise|stupid|good|bad|evil|cruel|gentle|loyal|jealous|nervous|tired|ill|sick|healthy|strong|weak|famous|popular|lonely|lucky|careful|careless|selfish|generous|strict|fair|unfair|silent|noisy|busy|free|alive|dead|married|single|drunk|sober|awake|asleep)\b/i.test(
@@ -261,15 +263,15 @@ function classifyAdjectiveFrame(slovak: string, gloss: string): AdjFrame {
   }
 
   if (
-    /\b(important|useful|necessary|difficult|easy|possible|impossible|ready|special|main|basic|key|official|public|private|legal|illegal|professional|financial|political|social|cultural|technical|scientific|economic|military|national|international|local|global|central|final|initial|current|previous|next|future|past|common|rare|typical|normal|strange|odd|clear|unclear|simple|complex|general|specific|positive|negative|active|passive|effective|efficient|successful|failed|safe|dangerous|risk|available|missing|complete|incomplete|correct|wrong|true|false|real|fake|original|similar|different|equal|unique|ordinary)\b/i.test(
+    /\b(important|useful|necessary|difficult|easy|possible|impossible|ready|special|main|basic|key|official|public|private|legal|illegal|professional|financial|political|social|cultural|technical|scientific|economic|military|national|international|local|global|central|final|initial|current|previous|next|future|past|common|rare|typical|normal|strange|odd|clear|unclear|simple|complex|general|specific|positive|negative|active|passive|effective|efficient|successful|failed|safe|dangerous|risk|available|missing|complete|incomplete|correct|wrong|true|false|real|fake|original|similar|different|equal|unique|ordinary|electronic|electric|industrial|investment|visual|commercial|strategic|monetary|medical|agricultural|constitutional|presidential|parliamentary|religious|church|tourist|residential|energy|critical|ideal|dramatic|available|global|media|royal|moral|adjacent|costly|recent|distinct|absolute|binding|dance|championship|written|color|colour|steady|complex|evening|market|present|long-term|research|personnel|staff|communication|potential|peace|news|reporting|skilled|clever)\b/i.test(
       g,
     )
   ) {
     return "project";
   }
 
-  // Masc leftovers: rotate hosts for novelty (avoid weak "To je + -ý")
-  return hashPick(lemma, ["person", "house", "project"] as const);
+  // Prefer plán hosts over byt for unknown domain leftovers.
+  return hashPick(lemma, ["attributive", "project"] as const);
 }
 
 function adjectiveExample(slovak: string, english: string): Example {
@@ -285,17 +287,24 @@ function adjectiveExample(slovak: string, english: string): Example {
       };
     case "house":
       return {
-        slovak: `Ten dom je ${slovak}.`,
-        english: `That house is ${gloss}.`,
+        slovak: `Hľadám ${slovak} byt.`,
+        english: `I'm looking for ${article(gloss)}${gloss} flat.`,
         note: "Curated",
       };
     case "project":
       return {
-        slovak: `Ten projekt je ${slovak}.`,
-        english: `That project is ${gloss}.`,
+        slovak: `Hľadáme ${slovak} plán.`,
+        english: `We're looking for ${article(gloss)}${gloss} plan.`,
+        note: "Curated",
+      };
+    case "attributive":
+      return {
+        slovak: `Potrebujeme ${slovak} plán.`,
+        english: `We need ${article(gloss)}${gloss} plan.`,
         note: "Curated",
       };
     case "work":
+      // Predicative keeps citation -á form (no accusative inflection needed).
       return {
         slovak: `Tá práca je ${slovak}.`,
         english: `That job is ${gloss}.`,
@@ -303,21 +312,14 @@ function adjectiveExample(slovak: string, english: string): Example {
       };
     case "neuter":
       return {
-        slovak: `To mesto je ${slovak}.`,
-        english: `That city is ${gloss}.`,
+        slovak: `To riešenie je ${slovak}.`,
+        english: `That solution is ${gloss}.`,
         note: "Curated",
       };
     case "relational":
-      if (/^of\s+/iu.test(gloss)) {
-        return {
-          slovak: `Je to ${slovak} výraz.`,
-          english: `This is an expression from ${gloss.replace(/^of\s+/iu, "")}.`,
-          note: "Curated",
-        };
-      }
       return {
-        slovak: `Je to ${slovak} výraz.`,
-        english: `It is ${article(gloss)}${gloss} expression.`,
+        slovak: `To je ${slovak} podnik.`,
+        english: `That is ${article(gloss.replace(/^of\s+/iu, ""))}${gloss.replace(/^of\s+/iu, "")} company.`,
         note: "Curated",
       };
   }
@@ -694,6 +696,24 @@ const overrides = JSON.parse(readFileSync(OVERRIDES_PATH, "utf8")) as Record<
   string,
   Example[]
 >;
+
+const damagedOverrides: string[] = [];
+for (const [slug, examples] of Object.entries(overrides)) {
+  const lemma =
+    words.find((word) => word.slug === slug && word.kind === "word")?.slovak ?? slug;
+  for (const example of examples) {
+    if (isDamagedExampleTemplate(example.slovak, lemma)) {
+      damagedOverrides.push(`${slug}: ${example.slovak}`);
+    }
+  }
+}
+if (damagedOverrides.length > 0) {
+  throw new Error(
+    `Hand overrides contain damaged fill templates (${damagedOverrides.length}). Fix curated-example-overrides.json first:\n` +
+      damagedOverrides.slice(0, 20).join("\n") +
+      (damagedOverrides.length > 20 ? `\n… +${damagedOverrides.length - 20} more` : ""),
+  );
+}
 
 Object.assign(curated, aspectPatterns, overrides);
 

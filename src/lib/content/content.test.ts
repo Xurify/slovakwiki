@@ -21,6 +21,7 @@ import {
   searchHistoryKey,
 } from "../client/search-history";
 import { allEntries, caseTopics, entryBySlug, validateContent, words } from "./data";
+import { isDamagedExampleTemplate } from "./example-quality";
 import { lessons, validateLessons } from "./lessons";
 import { practiceItemById, validatePracticeItems } from "./practice";
 import { normalizeSearchText, searchEntries } from "./search";
@@ -150,10 +151,10 @@ describe("Slovak content", () => {
 
   it("uses classed noun fill frames including measure nouns", () => {
     const meter = words.find((word) => word.slug === "meter");
-    expect(meter?.examples[0]?.slovak).toBe("Jeden meter stačí.");
-    expect(meter?.examples[0]?.english).toBe("One meter is enough.");
+    expect(meter?.examples[0]?.slovak).toBe("Kúpili sme meter modrej látky.");
+    expect(meter?.examples[0]?.english).toBe("We bought a meter of blue fabric.");
     expect(meter?.examples[0]?.note).toBe("Curated");
-    expect(meter?.examples[0]?.isPracticeFrame).toBe(true);
+    expect(meter?.examples[0]?.isPracticeFrame).toBeUndefined();
 
     const jednotka = words.find((word) => word.slug === "jednotka");
     expect(jednotka?.examples[0]?.note).toBe("Tatoeba");
@@ -164,6 +165,11 @@ describe("Slovak content", () => {
     expect(informacia?.examples[0]?.slovak).toBe("Táto informácia je dôležitá.");
     expect(informacia?.examples[0]?.english).toBe("This information is important.");
     expect(informacia?.examples[0]?.isPracticeFrame).toBeUndefined();
+
+    const podnik = words.find((word) => word.slug === "podnik");
+    expect(podnik?.examples[0]?.note).toBe("Curated");
+    expect(podnik?.examples[0]?.isPracticeFrame).toBeUndefined();
+    expect(podnik?.examples[0]?.slovak).toContain("podnik");
   });
 
   it("uses classed adjective fill frames instead of Ten príklad je", () => {
@@ -261,15 +267,26 @@ describe("Slovak content", () => {
   });
 
   it("does not claim Tatoeba in sourceNote when only practice frames exist", () => {
+    // Practice-frame fills are fully replaced by reviewed/Tatoeba examples.
     const practiceOnly = words.find(
       (word) =>
         word.origin === "frequency" &&
         word.examples.length > 0 &&
         word.examples.every((example) => example.isPracticeFrame),
     );
-    expect(practiceOnly).toBeDefined();
-    expect(practiceOnly?.sourceNote).toContain("Practice frames");
-    expect(practiceOnly?.sourceNote).not.toContain("Tatoeba");
+    expect(practiceOnly).toBeUndefined();
+
+    const reviewedOnly = words.find(
+      (word) =>
+        word.origin === "frequency" &&
+        word.examples.length > 0 &&
+        word.examples.every(
+          (example) => example.note === "Curated" && !example.isPracticeFrame,
+        ),
+    );
+    expect(reviewedOnly).toBeDefined();
+    expect(reviewedOnly?.sourceNote).not.toContain("Tatoeba");
+    expect(reviewedOnly?.sourceNote).not.toContain("Practice frames");
 
     const tatoebaOnly = words.find(
       (word) =>
@@ -283,45 +300,25 @@ describe("Slovak content", () => {
     expect(tatoebaOnly?.sourceNote).toContain("Tatoeba");
   });
 
-  it("uses classed infinitive frames for leftover verb fills", () => {
-    const isFillFrame = (slovak: string): boolean =>
-      /^Chcem /u.test(slovak) ||
-      /^Môže to /u.test(slovak) ||
-      /^Môže sa to /u.test(slovak) ||
-      /^To môže /u.test(slovak) ||
-      /^Také veci môžu /u.test(slovak) ||
-      /^Je možné /u.test(slovak) ||
-      /^Je ťažké /u.test(slovak) ||
-      /^Niekto môže /u.test(slovak) ||
-      /^Začínam /u.test(slovak) ||
-      /^Snažím sa /u.test(slovak) ||
-      /^Sloveso „/u.test(slovak);
-
-    const leftovers = words.filter(
+  it("uses reviewed verb examples instead of leftover infinitive fill frames", () => {
+    const practiceVerbFills = words.filter(
       (word) =>
         word.category === "Verbs" &&
-        word.examples.length === 1 &&
-        word.examples[0]?.note === "Curated" &&
-        word.examples[0]?.isPracticeFrame === true &&
-        !word.examples[0]?.demonstrates &&
-        isFillFrame(word.examples[0]?.slovak ?? ""),
+        word.examples.some((example) => example.isPracticeFrame),
     );
-    expect(leftovers.length).toBeGreaterThan(30);
-    expect(
-      leftovers.every((word) => !/^Sloveso „/u.test(word.examples[0]?.slovak ?? "")),
-    ).toBe(true);
-    expect(
-      leftovers.every(
-        (word) =>
-          !/^Niekto môže /u.test(word.examples[0]?.slovak ?? "") &&
-          !/^Je možné /u.test(word.examples[0]?.slovak ?? ""),
-      ),
-    ).toBe(true);
+    expect(practiceVerbFills).toEqual([]);
 
-    const prefixes = new Set(
-      leftovers.map((word) => word.examples[0]?.slovak.split(" ").slice(0, 2).join(" ")),
+    const badPrefixes = words.filter((word) =>
+      word.examples.some(
+        (example) =>
+          example.note === "Curated" &&
+          !example.demonstrates &&
+          (/^Niekto môže /u.test(example.slovak) ||
+            /^Je možné /u.test(example.slovak) ||
+            /^Začínam /u.test(example.slovak)),
+      ),
     );
-    expect(prefixes.size).toBeGreaterThanOrEqual(3);
+    expect(badPrefixes.map((word) => word.slug)).toEqual([]);
 
     const vracat = words.find((word) => word.slug === "vracat");
     expect(vracat?.examples[0]?.slovak).toBe("Knihu vraciam do knižnice.");
@@ -330,6 +327,30 @@ describe("Slovak content", () => {
     const oznacit = words.find((word) => word.slug === "oznacit");
     expect(oznacit?.examples[0]?.slovak).toBe("Chcem označiť správnu odpoveď.");
     expect(oznacit?.examples[0]?.isPracticeFrame).toBeUndefined();
+
+    const nemoct = words.find((word) => word.slug === "nemoct");
+    expect(nemoct?.examples[0]?.slovak).toBe("Nemôžem prísť zajtra.");
+    expect(nemoct?.examples[0]?.isPracticeFrame).toBeUndefined();
+  });
+
+  it("rejects damaged fill-template residue on reviewed examples", () => {
+    const damaged = words.flatMap((word) =>
+      word.examples
+        .filter(
+          (example) =>
+            example.note === "Curated" &&
+            !example.isPracticeFrame &&
+            isDamagedExampleTemplate(example.slovak, word.slovak),
+        )
+        .map((example) => `${word.slug}: ${example.slovak}`),
+    );
+
+    expect(damaged).toEqual([]);
+
+    const posvatny = words.find((word) => word.slug === "posvatny");
+    expect(posvatny?.examples[0]?.slovak).toBe(
+      "Tento chrám je pre miestnych obyvateľov posvätný.",
+    );
   });
 
   it("attributes frequency-promoted words to SNK, not JÚĽŠ", () => {
