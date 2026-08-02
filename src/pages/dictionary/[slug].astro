@@ -1,21 +1,33 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
-import { words } from "$lib/content/data";
+import { entryBySlug, words } from "$lib/content/data";
 
 export function getStaticPaths() {
-  return words.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  return words.map((entry) => {
+    const relatedEntries = entry.related
+      .map((slug) => entryBySlug.get(slug))
+      .filter((related): related is NonNullable<typeof related> => related !== undefined)
+      .map((related) => ({
+        english: related.english,
+        kind: related.kind,
+        slug: related.slug,
+        slovak: related.slovak,
+      }));
+
+    return {
+      params: { slug: entry.slug },
+      props: { entry, relatedEntries },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, relatedEntries } = Astro.props;
 ---
 
 <SiteLayout
   title={`${entry.slovak} — ${entry.english} | Slovak Wiki`}
   description={entry.summary}
 >
-  <DictionaryDetailPage data={{ entry }} />
+  <DictionaryDetailPage data={{ entry, relatedEntries }} />
 </SiteLayout>

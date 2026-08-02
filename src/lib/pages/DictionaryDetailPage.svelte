@@ -1,23 +1,19 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
-  import { pushSearchHistory } from "$lib/client/search-history";
   import EntryDetail from "$lib/components/EntryDetail.svelte";
-  import type { ContentEntry } from "$lib/content/types";
+  import type { ContentEntry, EntryKind } from "$lib/content/types";
 
-  let { data }: { data: { entry: ContentEntry } } = $props();
+  interface RelatedEntry {
+    english: string;
+    kind: EntryKind;
+    slug: string;
+    slovak: string;
+  }
 
-  onMount(() => {
-    if (data.entry.kind !== "word") {
-      return;
-    }
-
-    pushSearchHistory(localStorage, {
-      href: `/dictionary/${data.entry.slug}`,
-      kind: "word",
-      label: data.entry.slovak,
-    });
-  });
+  let {
+    data,
+  }: {
+    data: { entry: ContentEntry; relatedEntries: RelatedEntry[] };
+  } = $props();
 </script>
 
-<EntryDetail entry={data.entry} />
+<EntryDetail entry={data.entry} relatedEntries={data.relatedEntries} />

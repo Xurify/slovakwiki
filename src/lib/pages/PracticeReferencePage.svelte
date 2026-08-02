@@ -7,6 +7,7 @@
     addReviewItem,
     emptyPracticeState,
     readPracticeState,
+    saveReferenceItem,
     writePracticeState,
   } from "$lib/client/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
@@ -17,7 +18,9 @@
   let hydrated = $state(false);
 
   onMount(() => {
-    practiceState = readPracticeState(localStorage);
+    const current = readPracticeState(localStorage);
+    practiceState = saveReferenceItem(current, data.item.id);
+    writePracticeState(localStorage, practiceState);
     hydrated = true;
   });
 

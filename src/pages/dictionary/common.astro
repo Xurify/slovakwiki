@@ -8,23 +8,34 @@ import type { FrequencyPos } from "$lib/content/frequency-types";
 
 const allLists = await loadAllFrequencyLists();
 
-const lists = {
-  verb: allLists.verb.entries.filter((entry) => entry.lemma.trim().length > 1),
-  noun: allLists.noun.entries.filter((entry) => entry.lemma.trim().length > 1),
-  adjective: allLists.adjective.entries.filter((entry) => entry.lemma.trim().length > 1),
-} satisfies Record<FrequencyPos, typeof allLists.verb.entries>;
+/** Compact rows — drop repeated source/sourceUrl/pos from each lemma. */
+function compactList(entries: { rank: number; lemma: string; count?: number }[]) {
+  return entries
+    .filter((entry) => entry.lemma.trim().length > 1)
+    .map((entry) => ({
+      rank: entry.rank,
+      lemma: entry.lemma,
+      ...(entry.count !== undefined ? { count: entry.count } : {}),
+    }));
+}
 
-const liveByLemma: Record<string, { english: string; href: string; lemma: string }> = {};
+const lists = {
+  verb: compactList(allLists.verb.entries),
+  noun: compactList(allLists.noun.entries),
+  adjective: compactList(allLists.adjective.entries),
+} satisfies Record<FrequencyPos, ReturnType<typeof compactList>>;
+
+/** lemma → { english, slug } — href built in the component. */
+const liveByLemma: Record<string, { english: string; slug: string }> = {};
 
 for (const pos of Object.keys(lists) as FrequencyPos[]) {
   for (const entry of lists[pos]) {
+    if (liveByLemma[entry.lemma]) continue;
     const live = findLiveWordForLemma(entry.lemma, words);
     if (!live) continue;
-
     liveByLemma[entry.lemma] = {
       english: live.english,
-      href: `/dictionary/${live.slug}`,
-      lemma: entry.lemma,
+      slug: live.slug,
     };
   }
 }

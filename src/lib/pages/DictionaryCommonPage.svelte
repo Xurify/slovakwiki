@@ -7,18 +7,22 @@
 
   import {
     FREQUENCY_POS_LABEL,
-    type FrequencyEntry,
     type FrequencyPos,
   } from "$lib/content/frequency-types";
 
+  interface CompactFrequencyEntry {
+    count?: number;
+    lemma: string;
+    rank: number;
+  }
+
   interface LiveLink {
     english: string;
-    href: string;
-    lemma: string;
+    slug: string;
   }
 
   interface Props {
-    lists: Record<FrequencyPos, FrequencyEntry[]>;
+    lists: Record<FrequencyPos, CompactFrequencyEntry[]>;
     liveByLemma: Record<string, LiveLink>;
     sourceUrl: string;
   }
@@ -179,7 +183,7 @@
               {#if live}
                 <a
                   class="font-serif text-base text-blue-800 underline decoration-slate-200 underline-offset-2 hover:decoration-blue-800"
-                  href={live.href}
+                  href="/dictionary/{live.slug}"
                   lang="sk"
                 >
                   {entry.lemma}

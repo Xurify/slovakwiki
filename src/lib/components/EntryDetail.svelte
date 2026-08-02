@@ -4,11 +4,23 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { entryBySlug } from "$lib/content/data";
   import { FREQUENCY_POS_LABEL } from "$lib/content/frequency-types";
-  import type { ContentEntry, Example } from "$lib/content/types";
+  import type { ContentEntry, EntryKind, Example } from "$lib/content/types";
 
-  let { entry }: { entry: ContentEntry } = $props();
+  interface RelatedEntry {
+    english: string;
+    kind: EntryKind;
+    slug: string;
+    slovak: string;
+  }
+
+  let {
+    entry,
+    relatedEntries = [],
+  }: {
+    entry: ContentEntry;
+    relatedEntries?: RelatedEntry[];
+  } = $props();
 
   const routeBase = {
     grammar: "grammar",
@@ -273,27 +285,24 @@
           </nav>
         </section>
 
-        {#if entry.related.length}
+        {#if relatedEntries.length}
           <section>
             <Eyebrow compact tone="muted">Related</Eyebrow>
             <ul class="m-0 list-none p-0">
-              {#each entry.related as relatedSlug (relatedSlug)}
-                {@const relatedEntry = entryBySlug.get(relatedSlug)}
-                {#if relatedEntry}
-                  <li class="border-b border-slate-200">
-                    <a
-                      class="grid gap-0.5 py-3 transition-colors hover:text-blue-800"
-                      href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}"
-                    >
-                      <strong class="font-serif text-sm" lang="sk">
-                        {relatedEntry.slovak}
-                      </strong>
-                      <small class="truncate text-xs text-slate-500">
-                        {relatedEntry.english}
-                      </small>
-                    </a>
-                  </li>
-                {/if}
+              {#each relatedEntries as relatedEntry (relatedEntry.slug)}
+                <li class="border-b border-slate-200">
+                  <a
+                    class="grid gap-0.5 py-3 transition-colors hover:text-blue-800"
+                    href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}"
+                  >
+                    <strong class="font-serif text-sm" lang="sk">
+                      {relatedEntry.slovak}
+                    </strong>
+                    <small class="truncate text-xs text-slate-500">
+                      {relatedEntry.english}
+                    </small>
+                  </a>
+                </li>
               {/each}
             </ul>
           </section>

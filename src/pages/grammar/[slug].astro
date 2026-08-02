@@ -1,22 +1,34 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import GrammarDetailPage from "$lib/pages/GrammarDetailPage.svelte";
-import { grammarEntries } from "$lib/content/data";
+import { entryBySlug, grammarEntries } from "$lib/content/data";
 import { sentenceCase } from "$lib/content/search-ui";
 
 export function getStaticPaths() {
-  return grammarEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  return grammarEntries.map((entry) => {
+    const relatedEntries = entry.related
+      .map((slug) => entryBySlug.get(slug))
+      .filter((related): related is NonNullable<typeof related> => related !== undefined)
+      .map((related) => ({
+        english: related.english,
+        kind: related.kind,
+        slug: related.slug,
+        slovak: related.slovak,
+      }));
+
+    return {
+      params: { slug: entry.slug },
+      props: { entry, relatedEntries },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, relatedEntries } = Astro.props;
 ---
 
 <SiteLayout
   title={`${sentenceCase(entry.english)} | Slovak Wiki Grammar`}
   description={entry.summary}
 >
-  <GrammarDetailPage data={{ entry }} client:idle />
+  <GrammarDetailPage data={{ entry, relatedEntries }} />
 </SiteLayout>

@@ -3,21 +3,28 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { entryBySlug } from "$lib/content/data";
   import { sentenceCase } from "$lib/content/search-ui";
-  import type { ContentEntry, PronunciationTopic } from "$lib/content/types";
+  import type { EntryKind, PronunciationTopic } from "$lib/content/types";
 
-  let { topic }: { topic: PronunciationTopic } = $props();
+  interface RelatedEntry {
+    english: string;
+    kind: EntryKind;
+    slug: string;
+    slovak: string;
+  }
 
-  const relatedEntries = $derived(
-    topic.related
-      .map((slug) => entryBySlug.get(slug))
-      .filter((entry): entry is ContentEntry => entry !== undefined),
-  );
+  let {
+    topic,
+    relatedEntries = [],
+  }: {
+    topic: PronunciationTopic;
+    relatedEntries?: RelatedEntry[];
+  } = $props();
+
   const relatedWords = $derived(relatedEntries.filter((entry) => entry.kind === "word"));
   const relatedTopics = $derived(relatedEntries.filter((entry) => entry.kind !== "word"));
 
-  const routeBase: Record<ContentEntry["kind"], string> = {
+  const routeBase: Record<EntryKind, string> = {
     grammar: "grammar",
     pronunciation: "pronunciation",
     word: "dictionary",

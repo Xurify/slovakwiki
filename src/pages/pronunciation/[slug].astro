@@ -1,17 +1,29 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PronunciationDetailPage from "$lib/pages/PronunciationDetailPage.svelte";
-import { pronunciationEntries } from "$lib/content/data";
+import { entryBySlug, pronunciationEntries } from "$lib/content/data";
 import { sentenceCase } from "$lib/content/search-ui";
 
 export function getStaticPaths() {
-  return pronunciationEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  return pronunciationEntries.map((entry) => {
+    const relatedEntries = entry.related
+      .map((slug) => entryBySlug.get(slug))
+      .filter((related): related is NonNullable<typeof related> => related !== undefined)
+      .map((related) => ({
+        english: related.english,
+        kind: related.kind,
+        slug: related.slug,
+        slovak: related.slovak,
+      }));
+
+    return {
+      params: { slug: entry.slug },
+      props: { entry, relatedEntries },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, relatedEntries } = Astro.props;
 const pageTitle = sentenceCase(entry.english);
 ---
 
@@ -19,5 +31,5 @@ const pageTitle = sentenceCase(entry.english);
   title={`${pageTitle} | Slovak Wiki Pronunciation`}
   description={entry.summary}
 >
-  <PronunciationDetailPage data={{ entry }} />
+  <PronunciationDetailPage data={{ entry, relatedEntries }} />
 </SiteLayout>
