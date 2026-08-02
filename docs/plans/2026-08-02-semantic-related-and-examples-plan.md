@@ -69,3 +69,4 @@
 - `bun run examples:reclaim` → enrich → fill → curate → related:apply
 - Weak `Mám … problém` / fill `Toto je` cleared; many lemmas on Tatoeba or improved stubs
 - Rank neighbors only when related still empty
+- Runtime gloss-overlap related (same POS + shared gloss token, stopwords stripped) before rank fallback

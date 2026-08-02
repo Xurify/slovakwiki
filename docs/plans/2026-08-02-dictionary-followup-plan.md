@@ -10,11 +10,11 @@ High-confusion lemmas use labeled `demonstrates` example groups + Usage notes + 
 
 `rád`, `páčiť`, `ľúbiť`, `byť`, `ísť`/`chodiť`, `volať`, `vedieť`, `dať`, `pozerať`/`vidieť`, `počúvať`/`počuť`, `môcť`/`musieť`/`chcieť`, `báť`, `stať`/`stáť`, `hľadať`/`nájsť`, `začať`/`prestať`, `hovoriť`/`povedať`, `prísť`/`odísť`, `dostať`, aspect pairs `robiť`/`urobiť`, `brať`/`vziať`, `písať`/`napísať`, `čítať`/`prečítať`, `kupovať`/`kúpiť`, `jesť`/`zjesť`, `piť`/`vypiť`.
 
-Every live dictionary word has ≥1 example (Tatoeba and/or curated templates via `bun run examples:fill` → `examples:curate`). Noun fill stubs use nominative `Toto je/sú …` (not accusative `Potrebujem …`).
+Every live dictionary word has ≥1 example (Tatoeba, reviewed curated examples, or generated practice frames via `bun run examples:fill` → `examples:curate`). Generated frames carry `isPracticeFrame` and the detail UI labels them honestly.
 
-Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate`. Weak stubs: `bun run examples:reclaim` → enrich → fill → curate. Semantic peers: `bun run related:apply` (`related-clusters.json`).
+Edit reviewed examples in `content/dictionary/curated-example-overrides.json` → `bun run examples:fill` → `examples:curate`. Weak stubs: `bun run examples:reclaim` → enrich → fill → curate. Semantic peers: `bun run related:apply` (`related-clusters.json`). Audit generated frames with `bun run examples:audit -- --limit 300 --report tmp/generated-example-audit.tsv`.
 
-**Still open:** unclustered lemmas still fall back to SNK rank±1 neighbors; fill frames are classed for verbs/nouns/adjectives but still templates (not Tatoeba/hand).
+**Still open:** ~1.3k generated practice frames need continuing ranked review; gloss-overlap related covers many empty rails (rank±1 is last resort).
 
 ---
 
@@ -24,7 +24,7 @@ Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate
 | Frequency lemmas linked      | ~all meaningful top-1000 × 3 (POS-disambiguated slugs)            |
 | Top-200 example coverage     | verbs / nouns / adjectives **100%** (`bun run examples:coverage`) |
 | Words missing examples (all) | **0**                                                             |
-| Related links                | hand/pattern → clusters → rank±1 fallback                         |
+| Related links                | hand/pattern → clusters → gloss overlap → rank±1 fallback         |
 | Pages shipped                | `/dictionary/common`, `/references`, detail + index wiring        |
 
 ### What works
@@ -34,7 +34,8 @@ Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate
 - Tatoeba enrich attaches SK–EN examples where the corpus matches
 - Empty examples section hidden; Tatoeba CC BY note when present
 - References page + `docs/data-sources.md` + grouped `scripts/`
-- Semantic related clusters + morph-safe fill templates
+- Semantic related clusters + gloss-overlap fallback
+- Practice-frame labeling, audit queue, and reviewed overrides for high-risk templates
 
 ### Critical gaps
 
@@ -50,11 +51,7 @@ Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate
 5. Dictionary index dumps ~3k rows with no pagination; POS categories drown curated topics.
 6. Common list shows lemma only (no English gloss on the row).
 7. Most common not in primary Reference nav / footer (easy to miss).
-8. ```1,577 lemmas still have no sentences~~ — covered; ~1.3k Tatoeba, rest morph-safe stubs (`Sloveso „…“ znamená` / `Toto je` / `Ten príklad je`).
-
-   ```
-
-   ```
+8. ~~1,577 lemmas still have no sentences~~ — covered; ~1.3k Tatoeba, remaining entries use reviewed examples or explicitly labeled practice frames.
 
 9. Stem-prefix matcher over-matches some conjugations / false friends.
 

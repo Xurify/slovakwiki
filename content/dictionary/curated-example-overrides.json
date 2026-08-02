@@ -1,0 +1,611 @@
+{
+  "zakladny": [
+    {
+      "slovak": "Základný krok je jednoduchý.",
+      "english": "The basic step is simple.",
+      "note": "Curated"
+    }
+  ],
+  "politicky": [
+    {
+      "slovak": "Politický problém je zložitý.",
+      "english": "The political problem is complex.",
+      "note": "Curated"
+    }
+  ],
+  "informacia": [
+    {
+      "slovak": "Táto informácia je dôležitá.",
+      "english": "This information is important.",
+      "note": "Curated"
+    }
+  ],
+  "trestny": [
+    {
+      "slovak": "Trestný čin je vážny.",
+      "english": "The criminal offense is serious.",
+      "note": "Curated"
+    }
+  ],
+  "odborny": [
+    {
+      "slovak": "Odborný článok vysvetľuje tému.",
+      "english": "The specialist article explains the topic.",
+      "note": "Curated"
+    }
+  ],
+  "vhodny": [
+    {
+      "slovak": "Tento čas je vhodný.",
+      "english": "This time is suitable.",
+      "note": "Curated"
+    }
+  ],
+  "bansky": [
+    {
+      "slovak": "Banský podnik je veľký.",
+      "english": "The mining company is large.",
+      "note": "Curated"
+    }
+  ],
+  "spolocensky": [
+    {
+      "slovak": "Spoločenský problém je vážny.",
+      "english": "The social problem is serious.",
+      "note": "Curated"
+    }
+  ],
+  "kvalitny": [
+    {
+      "slovak": "Kvalitný výrobok vydrží dlho.",
+      "english": "A high-quality product lasts a long time.",
+      "note": "Curated"
+    }
+  ],
+  "bezny": [
+    {
+      "slovak": "Toto je bežný problém.",
+      "english": "This is a common problem.",
+      "note": "Curated"
+    }
+  ],
+  "narocny": [
+    {
+      "slovak": "Náročný projekt trvá dlho.",
+      "english": "A demanding project takes a long time.",
+      "note": "Curated"
+    }
+  ],
+  "konecny": [
+    {
+      "slovak": "Konečný výsledok je známy.",
+      "english": "The final result is known.",
+      "note": "Curated"
+    }
+  ],
+  "oficialny": [
+    {
+      "slovak": "Oficiálny dokument je pripravený.",
+      "english": "The official document is ready.",
+      "note": "Curated"
+    }
+  ],
+  "cenny": [
+    {
+      "slovak": "Cenný darček poteší.",
+      "english": "A valuable gift brings joy.",
+      "note": "Curated"
+    }
+  ],
+  "klucovy": [
+    {
+      "slovak": "Kľúčový bod je dôležitý.",
+      "english": "The key point is important.",
+      "note": "Curated"
+    }
+  ],
+  "vracat": [
+    {
+      "slovak": "Knihu vraciam do knižnice.",
+      "english": "I return the book to the library.",
+      "note": "Curated"
+    }
+  ],
+  "padnut": [
+    {
+      "slovak": "Lopta môže padnúť.",
+      "english": "The ball can fall.",
+      "note": "Curated"
+    }
+  ],
+  "vitazny": [
+    {
+      "slovak": "Víťazný tím oslavuje.",
+      "english": "The winning team is celebrating.",
+      "note": "Curated"
+    }
+  ],
+  "sudny": [
+    {
+      "slovak": "Súdny spor pokračuje.",
+      "english": "The court dispute continues.",
+      "note": "Curated"
+    }
+  ],
+  "clensky": [
+    {
+      "slovak": "Členský príspevok je ročný.",
+      "english": "The membership fee is annual.",
+      "note": "Curated"
+    }
+  ],
+  "divadelny": [
+    {
+      "slovak": "Divadelný festival začína dnes.",
+      "english": "The theater festival begins today.",
+      "note": "Curated"
+    }
+  ],
+  "klesnut": [
+    {
+      "slovak": "Teplota môže klesnúť.",
+      "english": "The temperature can fall.",
+      "note": "Curated"
+    }
+  ],
+  "severny": [
+    {
+      "slovak": "Severný vietor je studený.",
+      "english": "The north wind is cold.",
+      "note": "Curated"
+    }
+  ],
+  "uvazovat": [
+    {
+      "slovak": "Uvažujem o novej práci.",
+      "english": "I am considering a new job.",
+      "note": "Curated"
+    }
+  ],
+  "absolvovat": [
+    {
+      "slovak": "Absolvujem kurz slovenčiny.",
+      "english": "I am completing a Slovak course.",
+      "note": "Curated"
+    }
+  ],
+  "darit": [
+    {
+      "slovak": "Darí sa mi v práci.",
+      "english": "Things are going well for me at work.",
+      "note": "Curated"
+    }
+  ],
+  "prispiet": [
+    {
+      "slovak": "Prispievam na dobrú vec.",
+      "english": "I contribute to a good cause.",
+      "note": "Curated"
+    }
+  ],
+  "pohybovat": [
+    {
+      "slovak": "Vlak sa môže pohybovať.",
+      "english": "The train can move.",
+      "note": "Curated"
+    }
+  ],
+  "zdoraznit": [
+    {
+      "slovak": "Chcem zdôrazniť dôležitý bod.",
+      "english": "I want to emphasize an important point.",
+      "note": "Curated"
+    }
+  ],
+  "vyplyvat": [
+    {
+      "slovak": "Z toho vyplýva dôležitý záver.",
+      "english": "An important conclusion follows from that.",
+      "note": "Curated"
+    }
+  ],
+  "vyzadovat": [
+    {
+      "slovak": "Táto práca vyžaduje čas.",
+      "english": "This work requires time.",
+      "note": "Curated"
+    }
+  ],
+  "zaujat": [
+    {
+      "slovak": "Chcem zaujať publikum.",
+      "english": "I want to interest the audience.",
+      "note": "Curated"
+    }
+  ],
+  "presadit": [
+    {
+      "slovak": "Chcem presadiť svoj návrh.",
+      "english": "I want to push through my proposal.",
+      "note": "Curated"
+    }
+  ],
+  "oznacit": [
+    {
+      "slovak": "Chcem označiť správnu odpoveď.",
+      "english": "I want to mark the correct answer.",
+      "note": "Curated"
+    }
+  ],
+  "nepodarit": [
+    {
+      "slovak": "Môže sa to nepodariť.",
+      "english": "It may not succeed.",
+      "note": "Curated"
+    }
+  ],
+  "upozornovat": [
+    {
+      "slovak": "Upozorňujem na problém.",
+      "english": "I am warning about a problem.",
+      "note": "Curated"
+    }
+  ],
+  "prebiehat": [
+    {
+      "slovak": "Stretnutie prebieha v škole.",
+      "english": "The meeting is taking place at school.",
+      "note": "Curated"
+    }
+  ],
+  "ukoncit": [
+    {
+      "slovak": "Chcem ukončiť túto prácu.",
+      "english": "I want to finish this work.",
+      "note": "Curated"
+    }
+  ],
+  "diat": [
+    {
+      "slovak": "To sa nemôže diať.",
+      "english": "That cannot be happening.",
+      "note": "Curated"
+    }
+  ],
+  "usilovat": [
+    {
+      "slovak": "Usilujem sa o zmenu.",
+      "english": "I am striving for change.",
+      "note": "Curated"
+    }
+  ],
+  "umoznovat": [
+    {
+      "slovak": "Technológia umožňuje ľuďom pracovať.",
+      "english": "Technology enables people to work.",
+      "note": "Curated"
+    }
+  ],
+  "navrhnut": [
+    {
+      "slovak": "Chcem navrhnúť riešenie.",
+      "english": "I want to propose a solution.",
+      "note": "Curated"
+    }
+  ],
+  "prevziat": [
+    {
+      "slovak": "Chcem prevziať zodpovednosť.",
+      "english": "I want to take responsibility.",
+      "note": "Curated"
+    }
+  ],
+  "investovat": [
+    {
+      "slovak": "Chcem investovať peniaze.",
+      "english": "I want to invest money.",
+      "note": "Curated"
+    }
+  ],
+  "trpiet": [
+    {
+      "slovak": "Nechcem trpieť.",
+      "english": "I do not want to suffer.",
+      "note": "Curated"
+    }
+  ],
+  "vladnut": [
+    {
+      "slovak": "Kráľ vládne krajine.",
+      "english": "The king rules the country.",
+      "note": "Curated"
+    }
+  ],
+  "region": [
+    {
+      "slovak": "Tento región je známy.",
+      "english": "This region is well known.",
+      "note": "Curated"
+    }
+  ],
+  "lacny": [
+    {
+      "slovak": "Lacný výrobok nie je vždy kvalitný.",
+      "english": "A cheap product is not always high-quality.",
+      "note": "Curated"
+    }
+  ],
+  "parlament": [
+    {
+      "slovak": "Parlament rokuje dnes.",
+      "english": "The parliament is meeting today.",
+      "note": "Curated"
+    }
+  ],
+  "noha": [
+    {
+      "slovak": "Moja noha bolí.",
+      "english": "My leg hurts.",
+      "note": "Curated"
+    }
+  ],
+  "demokraticky": [
+    {
+      "slovak": "Demokratický štát chráni práva.",
+      "english": "A democratic state protects rights.",
+      "note": "Curated"
+    }
+  ],
+  "pevny": [
+    {
+      "slovak": "Pevný stôl sa nehýbe.",
+      "english": "A solid table does not move.",
+      "note": "Curated"
+    }
+  ],
+  "tajny": [
+    {
+      "slovak": "Tajný plán zostáva skrytý.",
+      "english": "The secret plan remains hidden.",
+      "note": "Curated"
+    }
+  ],
+  "obecny": [
+    {
+      "slovak": "Obecný úrad je otvorený.",
+      "english": "The municipal office is open.",
+      "note": "Curated"
+    }
+  ],
+  "rakusky": [
+    {
+      "slovak": "Rakúsky vlak prichádza.",
+      "english": "The Austrian train is arriving.",
+      "note": "Curated"
+    }
+  ],
+  "prislusny": [
+    {
+      "slovak": "Príslušný úrad rozhodne.",
+      "english": "The relevant office will decide.",
+      "note": "Curated"
+    }
+  ],
+  "podstatny": [
+    {
+      "slovak": "Podstatný rozdiel je jasný.",
+      "english": "The essential difference is clear.",
+      "note": "Curated"
+    }
+  ],
+  "skuseny": [
+    {
+      "slovak": "Skúsený učiteľ pomáha.",
+      "english": "An experienced teacher helps.",
+      "note": "Curated"
+    }
+  ],
+  "uzavriet": [
+    {
+      "slovak": "Chcem uzavrieť dohodu.",
+      "english": "I want to conclude an agreement.",
+      "note": "Curated"
+    }
+  ],
+  "stretavat": [
+    {
+      "slovak": "Chcem sa s tebou stretávať.",
+      "english": "I want to meet with you regularly.",
+      "note": "Curated"
+    }
+  ],
+  "suvisiet": [
+    {
+      "slovak": "Tieto veci môžu súvisieť.",
+      "english": "These things can be related.",
+      "note": "Curated"
+    }
+  ],
+  "zavisiet": [
+    {
+      "slovak": "To môže závisieť od okolností.",
+      "english": "That can depend on the circumstances.",
+      "note": "Curated"
+    }
+  ],
+  "pomysliet": [
+    {
+      "slovak": "Chcem si na to pomyslieť.",
+      "english": "I want to think of it.",
+      "note": "Curated"
+    }
+  ],
+  "podielat": [
+    {
+      "slovak": "Chcem sa na tom podieľať.",
+      "english": "I want to take part in it.",
+      "note": "Curated"
+    }
+  ],
+  "oslovit": [
+    {
+      "slovak": "Chcem ťa osloviť.",
+      "english": "I want to address you.",
+      "note": "Curated"
+    }
+  ],
+  "hladiet": [
+    {
+      "slovak": "Chcem na to hľadieť.",
+      "english": "I want to look at it.",
+      "note": "Curated"
+    }
+  ],
+  "vyjadrovat": [
+    {
+      "slovak": "Chcem vyjadrovať svoj názor.",
+      "english": "I want to express my opinion.",
+      "note": "Curated"
+    }
+  ],
+  "zaradit": [
+    {
+      "slovak": "Chcem to zaradiť do zoznamu.",
+      "english": "I want to add it to the list.",
+      "note": "Curated"
+    }
+  ],
+  "spocivat": [
+    {
+      "slovak": "Problém môže spočívať v detailoch.",
+      "english": "The problem can lie in the details.",
+      "note": "Curated"
+    }
+  ],
+  "reprezentovat": [
+    {
+      "slovak": "Chcem reprezentovať svoj tím.",
+      "english": "I want to represent my team.",
+      "note": "Curated"
+    }
+  ],
+  "ocitnut": [
+    {
+      "slovak": "Môžem sa ocitnúť v ťažkej situácii.",
+      "english": "I can find myself in a difficult situation.",
+      "note": "Curated"
+    }
+  ],
+  "ozvat": [
+    {
+      "slovak": "Chcem sa ozvať zajtra.",
+      "english": "I want to get in touch tomorrow.",
+      "note": "Curated"
+    }
+  ],
+  "realizovat": [
+    {
+      "slovak": "Chcem realizovať tento plán.",
+      "english": "I want to carry out this plan.",
+      "note": "Curated"
+    }
+  ],
+  "vznikat": [
+    {
+      "slovak": "Môžu vznikať nové problémy.",
+      "english": "New problems can arise.",
+      "note": "Curated"
+    }
+  ],
+  "zdolat": [
+    {
+      "slovak": "Chcem zdolať túto prekážku.",
+      "english": "I want to overcome this obstacle.",
+      "note": "Curated"
+    }
+  ],
+  "pribudnut": [
+    {
+      "slovak": "Môže pribudnúť nový problém.",
+      "english": "A new problem can be added.",
+      "note": "Curated"
+    }
+  ],
+  "uvedomovat": [
+    {
+      "slovak": "Chcem si to uvedomovať.",
+      "english": "I want to be aware of it.",
+      "note": "Curated"
+    }
+  ],
+  "muzsky": [
+    {
+      "slovak": "To je mužský hlas.",
+      "english": "That is a male voice.",
+      "note": "Curated"
+    }
+  ],
+  "poslanecky": [
+    {
+      "slovak": "To je poslanecký návrh.",
+      "english": "That is an MP's proposal.",
+      "note": "Curated"
+    }
+  ],
+  "dunajsky": [
+    {
+      "slovak": "Dunajský most je blízko.",
+      "english": "The Danube bridge is nearby.",
+      "note": "Curated"
+    }
+  ],
+  "povazsky": [
+    {
+      "slovak": "Býva v Považskom kraji.",
+      "english": "He lives in the Považie region.",
+      "note": "Curated"
+    }
+  ],
+  "autorsky": [
+    {
+      "slovak": "To je autorský text.",
+      "english": "That is an original text.",
+      "note": "Curated"
+    }
+  ],
+  "jezisov": [
+    {
+      "slovak": "Ježišov život je známy.",
+      "english": "Jesus's life is well known.",
+      "note": "Curated"
+    }
+  ],
+  "kristov": [
+    {
+      "slovak": "Kristov kríž stojí v kostole.",
+      "english": "Christ's cross stands in the church.",
+      "note": "Curated"
+    }
+  ],
+  "tatransky": [
+    {
+      "slovak": "Tatranský vzduch je čistý.",
+      "english": "The Tatra air is clean.",
+      "note": "Curated"
+    }
+  ],
+  "vstupovat": [
+    {
+      "slovak": "Chcem vstupovať do miestnosti potichu.",
+      "english": "I want to enter the room quietly.",
+      "note": "Curated"
+    }
+  ],
+  "prispievat": [
+    {
+      "slovak": "Chcem prispievať k riešeniu.",
+      "english": "I want to contribute to the solution.",
+      "note": "Curated"
+    }
+  ]
+}

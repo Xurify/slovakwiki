@@ -23,6 +23,7 @@ const PROMOTED_PATH = path.join(ROOT, "content", "dictionary", "promoted.json");
 
 function isWeakTemplate(example: Example): boolean {
   if (example.demonstrates) return false;
+  if (example.isPracticeFrame !== true) return false;
   const { slovak, english } = example;
 
   if (/^Chcem .+\.$/u.test(slovak) && /^I want to /i.test(english)) return true;
@@ -30,6 +31,9 @@ function isWeakTemplate(example: Example): boolean {
   if (/^Môže sa to .+\.$/u.test(slovak) && /^It can /i.test(english)) return true;
   if (/^Také veci môžu .+\.$/u.test(slovak) && /^Such things can /i.test(english))
     return true;
+  if (/^Je možné .+\.$/u.test(slovak) && /^It is possible /i.test(english)) return true;
+  if (/^Niekto môže .+\.$/u.test(slovak) && /^Someone can /i.test(english)) return true;
+  if (/^Je to .+ výraz\.$/u.test(slovak) && /^It is /i.test(english)) return true;
   if (/^Sloveso „.+“ je bežné\.$/u.test(slovak)) return true;
   if (/^Sloveso „[^“]+“ znamená „[^“]+“\.$/u.test(slovak) && /^The verb /i.test(english))
     return true;

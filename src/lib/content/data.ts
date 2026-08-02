@@ -461,8 +461,72 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   };
 });
 
-/** Same-POS frequency neighbors for promoted words that have no related links yet. */
+/** Same-POS related links for promoted words with empty `related`. */
+function glossToken(english: string): string | null {
+  const first = english.split(";")[0]!.trim().toLowerCase();
+  const stripped = first
+    .replace(/^not\s+to\s+/i, "")
+    .replace(/^not\s+/i, "")
+    .replace(/^to\s+/i, "")
+    .replace(/^(a|an|the)\s+/i, "");
+  const raw = stripped.split(/[\s,/(-]+/)[0] ?? "";
+  const token = raw.replace(/[^a-z]/gi, "");
+  if (token.length < 3) return null;
+
+  const stopwords = new Set([
+    "and",
+    "are",
+    "been",
+    "being",
+    "did",
+    "does",
+    "for",
+    "from",
+    "had",
+    "has",
+    "have",
+    "into",
+    "not",
+    "the",
+    "was",
+    "were",
+    "with",
+  ]);
+  if (stopwords.has(token)) return null;
+  return token;
+}
+
 function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
+  const maxPeers = 3;
+
+  const glossBuckets = new Map<string, ContentEntry[]>();
+  for (const entry of entries) {
+    if (!entry.frequency || entry.related.length > 0) continue;
+    const token = glossToken(entry.english);
+    if (!token) continue;
+    const key = `${entry.frequency.pos}::${token}`;
+    const list = glossBuckets.get(key) ?? [];
+    list.push(entry);
+    glossBuckets.set(key, list);
+  }
+
+  const glossRelated = new Map<string, string[]>();
+  for (const list of glossBuckets.values()) {
+    if (list.length < 2) continue;
+    for (const entry of list) {
+      const peers = list
+        .filter((other) => other.slug !== entry.slug)
+        .sort(
+          (first, second) =>
+            Math.abs((first.frequency?.rank ?? 0) - (entry.frequency?.rank ?? 0)) -
+            Math.abs((second.frequency?.rank ?? 0) - (entry.frequency?.rank ?? 0)),
+        )
+        .slice(0, maxPeers)
+        .map((other) => other.slug);
+      if (peers.length > 0) glossRelated.set(entry.slug, peers);
+    }
+  }
+
   const byPos: Record<FrequencyPos, ContentEntry[]> = {
     verb: [],
     noun: [],
@@ -471,6 +535,7 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
 
   for (const entry of entries) {
     if (!entry.frequency || entry.related.length > 0) continue;
+    if (glossRelated.has(entry.slug)) continue;
     byPos[entry.frequency.pos].push(entry);
   }
 
@@ -480,7 +545,7 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
     );
   }
 
-  const neighbors = new Map<string, string[]>();
+  const rankNeighbors = new Map<string, string[]>();
 
   for (const pos of Object.keys(byPos) as FrequencyPos[]) {
     const list = byPos[pos];
@@ -492,14 +557,16 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
       const next = list[index + 1];
       if (previous) related.push(previous.slug);
       if (next) related.push(next.slug);
-      if (related.length > 0) neighbors.set(entry.slug, related);
+      if (related.length > 0) rankNeighbors.set(entry.slug, related);
     }
   }
 
   return entries.map((entry) => {
     if (entry.related.length > 0) return entry;
-    const related = neighbors.get(entry.slug);
-    return related ? { ...entry, related } : entry;
+    const fromGloss = glossRelated.get(entry.slug);
+    if (fromGloss) return { ...entry, related: fromGloss };
+    const fromRank = rankNeighbors.get(entry.slug);
+    return fromRank ? { ...entry, related: fromRank } : entry;
   });
 }
 

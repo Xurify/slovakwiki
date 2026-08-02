@@ -153,20 +153,19 @@ describe("Slovak content", () => {
     expect(jednotka?.examples[0]?.slovak).toBe("Jedna jednotka stačí.");
     expect(jednotka?.examples[0]?.english).toBe("One unit is enough.");
     expect(jednotka?.examples[0]?.note).toBe("Curated");
+    expect(jednotka?.examples[0]?.isPracticeFrame).toBe(true);
 
     const informacia = words.find((word) => word.slug === "informacia");
-    expect(informacia?.examples[0]?.note).toBe("Curated");
-    expect(informacia?.examples[0]?.slovak).toMatch(/^(Toto je|To je|Kde je|Jedn[aoe])/u);
+    expect(informacia?.examples[0]?.slovak).toBe("Táto informácia je dôležitá.");
+    expect(informacia?.examples[0]?.english).toBe("This information is important.");
+    expect(informacia?.examples[0]?.isPracticeFrame).toBeUndefined();
   });
 
   it("uses classed adjective fill frames instead of Ten príklad je", () => {
     const odborny = words.find((word) => word.slug === "odborny");
     expect(odborny?.examples[0]?.note).toBe("Curated");
-    expect(odborny?.examples[0]?.slovak).not.toMatch(/^Ten príklad je /u);
-    expect(odborny?.examples[0]?.slovak).toMatch(
-      /^(Ten muž je|Ten dom je|Ten projekt je|Tá práca je|To mesto je )/u,
-    );
-    expect(odborny?.examples[0]?.slovak).not.toMatch(/^To je /u);
+    expect(odborny?.examples[0]?.slovak).toBe("Odborný článok vysvetľuje tému.");
+    expect(odborny?.examples[0]?.isPracticeFrame).toBeUndefined();
 
     const bad = words.filter((word) =>
       word.examples.some(
@@ -179,6 +178,22 @@ describe("Slovak content", () => {
     expect(bad.map((word) => word.slug)).toEqual([]);
   });
 
+  it("replaces audited valency and relational-adjective failures with reviewed examples", () => {
+    const expected = new Map([
+      ["ocitnut", "Môžem sa ocitnúť v ťažkej situácii."],
+      ["podielat", "Chcem sa na tom podieľať."],
+      ["stretavat", "Chcem sa s tebou stretávať."],
+      ["zavisiet", "To môže závisieť od okolností."],
+      ["tatransky", "Tatranský vzduch je čistý."],
+    ]);
+
+    for (const [slug, slovak] of expected) {
+      const word = words.find((entry) => entry.slug === slug);
+      expect(word?.examples[0]?.slovak).toBe(slovak);
+      expect(word?.examples[0]?.isPracticeFrame).toBeUndefined();
+    }
+  });
+
   it("avoids mono To je adjective fill stubs for masculine lemmas", () => {
     const bad = words.filter(
       (word) =>
@@ -188,8 +203,8 @@ describe("Slovak content", () => {
           (example) =>
             example.note === "Curated" &&
             !example.demonstrates &&
-            /^To je /u.test(example.slovak) &&
-            /^That is /i.test(example.english ?? ""),
+            /^To je \S+\.$/u.test(example.slovak) &&
+            /^That is \S+\.$/i.test(example.english ?? ""),
         ),
     );
     expect(bad.map((word) => word.slug)).toEqual([]);
@@ -213,6 +228,8 @@ describe("Slovak content", () => {
       /^Môže to /u.test(slovak) ||
       /^Môže sa to /u.test(slovak) ||
       /^Také veci môžu /u.test(slovak) ||
+      /^Je možné /u.test(slovak) ||
+      /^Niekto môže /u.test(slovak) ||
       /^Sloveso „/u.test(slovak);
 
     const leftovers = words.filter(
@@ -220,10 +237,11 @@ describe("Slovak content", () => {
         word.category === "Verbs" &&
         word.examples.length === 1 &&
         word.examples[0]?.note === "Curated" &&
+        word.examples[0]?.isPracticeFrame === true &&
         !word.examples[0]?.demonstrates &&
         isFillFrame(word.examples[0]?.slovak ?? ""),
     );
-    expect(leftovers.length).toBeGreaterThan(50);
+    expect(leftovers.length).toBeGreaterThan(30);
     expect(
       leftovers.every((word) => !/^Sloveso „/u.test(word.examples[0]?.slovak ?? "")),
     ).toBe(true);
@@ -234,10 +252,12 @@ describe("Slovak content", () => {
     expect(prefixes.size).toBeGreaterThanOrEqual(3);
 
     const vracat = words.find((word) => word.slug === "vracat");
-    expect(vracat?.examples[0]?.slovak).toMatch(/^Chcem vracať\.$/u);
+    expect(vracat?.examples[0]?.slovak).toBe("Knihu vraciam do knižnice.");
+    expect(vracat?.examples[0]?.isPracticeFrame).toBeUndefined();
 
     const oznacit = words.find((word) => word.slug === "oznacit");
-    expect(oznacit?.examples[0]?.slovak).toMatch(/^Chcem to označiť\.$/u);
+    expect(oznacit?.examples[0]?.slovak).toBe("Chcem označiť správnu odpoveď.");
+    expect(oznacit?.examples[0]?.isPracticeFrame).toBeUndefined();
   });
 
   it("attributes frequency-promoted words to SNK, not JÚĽŠ", () => {
@@ -293,6 +313,24 @@ describe("Slovak content", () => {
     expect(skola?.related).toEqual(
       expect.arrayContaining(["ucitel", "ziak", "student", "kniha"]),
     );
+  });
+
+  it("keeps high-value related concepts and antonyms reciprocal", () => {
+    const expectedPairs = [
+      ["pocet", "cislo"],
+      ["pocet", "mnozstvo"],
+      ["cislo", "mnozstvo"],
+      ["dobry", "zly"],
+      ["lahky", "tazky"],
+    ] as const;
+
+    for (const [firstSlug, secondSlug] of expectedPairs) {
+      const first = words.find((word) => word.slug === firstSlug);
+      const second = words.find((word) => word.slug === secondSlug);
+
+      expect(first?.related).toContain(secondSlug);
+      expect(second?.related).toContain(firstSlug);
+    }
   });
 
   it("prefers gloss-overlap related over raw frequency neighbors", () => {

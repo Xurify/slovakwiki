@@ -27,7 +27,7 @@ function expandClusters(
   clusters: Record<string, string[]>,
   knownSlugs: Set<string>,
 ): Map<string, string[]> {
-  const peers = new Map<string, Set<string>>();
+  const peers = new Map<string, Map<string, number>>();
 
   for (const [name, members] of Object.entries(clusters)) {
     const live = members.filter((slug) => knownSlugs.has(slug));
@@ -37,17 +37,25 @@ function expandClusters(
     }
 
     for (const slug of live) {
-      const set = peers.get(slug) ?? new Set<string>();
+      const counts = peers.get(slug) ?? new Map<string, number>();
       for (const other of live) {
-        if (other !== slug) set.add(other);
+        if (other !== slug) {
+          counts.set(other, (counts.get(other) ?? 0) + 1);
+        }
       }
-      peers.set(slug, set);
+      peers.set(slug, counts);
     }
   }
 
   const result = new Map<string, string[]>();
-  for (const [slug, set] of peers) {
-    result.set(slug, [...set].slice(0, MAX_PEERS));
+  for (const [slug, counts] of peers) {
+    result.set(
+      slug,
+      [...counts.entries()]
+        .sort(([, firstCount], [, secondCount]) => secondCount - firstCount)
+        .slice(0, MAX_PEERS)
+        .map(([peer]) => peer),
+    );
   }
   return result;
 }

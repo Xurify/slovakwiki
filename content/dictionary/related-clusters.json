@@ -82,6 +82,9 @@
     "cislo",
     "mnozstvo"
   ],
+  "number-concepts": ["pocet", "cislo", "mnozstvo", "kolko"],
+  "quality-good-bad": ["dobry", "zly"],
+  "weight-light-heavy": ["lahky", "tazky"],
   "body": ["ruka", "noha", "hlava", "oko", "ucho", "srdce", "tvar"],
   "nature": ["voda", "vzduch", "zem", "strom", "kvet", "les", "hora", "more"],
   "colors": ["biely", "cierny", "cerveny", "modry", "zeleny", "zlty"]

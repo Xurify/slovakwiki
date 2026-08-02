@@ -24,6 +24,10 @@
   const sourceLabel = $derived(
     entry.sourceLabel ?? "Jazykovedný ústav Ľudovíta Štúra SAV",
   );
+  const onlyPracticeFrames = $derived(
+    entry.examples.length > 0 &&
+      entry.examples.every((example) => example.isPracticeFrame),
+  );
 
   function groupExamplesByPattern(
     examples: Example[],
@@ -97,8 +101,17 @@
             class="scroll-mt-[88px] mt-10 border-t border-slate-200 pt-10"
             aria-labelledby="examples-heading"
           >
-            <Eyebrow>Examples</Eyebrow>
-            <h2 id="examples-heading" class="mb-4">In a sentence</h2>
+            <Eyebrow>{onlyPracticeFrames ? "Practice frame" : "Examples"}</Eyebrow>
+            <h2 id="examples-heading" class="mb-4">
+              {onlyPracticeFrames ? "Try this pattern" : "In a sentence"}
+            </h2>
+
+            {#if onlyPracticeFrames}
+              <p class="mb-4 max-w-[60ch] text-sm text-slate-500">
+                A simple practice frame, generated for this entry while a corpus example
+                is unavailable.
+              </p>
+            {/if}
 
             {#if entry.examples.some((example) => example.demonstrates)}
               <div class="grid gap-8">
@@ -126,6 +139,13 @@
                             </p>
                             <small class="text-sm text-slate-500">{example.english}</small
                             >
+                            {#if example.isPracticeFrame}
+                              <small
+                                class="mt-1 block text-xs font-medium text-slate-400"
+                              >
+                                Practice frame
+                              </small>
+                            {/if}
                           </div>
                         </li>
                       {/each}
@@ -147,6 +167,11 @@
                         {example.slovak}
                       </p>
                       <small class="text-sm text-slate-500">{example.english}</small>
+                      {#if example.isPracticeFrame}
+                        <small class="mt-1 block text-xs font-medium text-slate-400">
+                          Practice frame
+                        </small>
+                      {/if}
                     </div>
                   </li>
                 {/each}

@@ -14,12 +14,26 @@ import type { Example } from "../../src/lib/content/types";
 import { ROOT } from "../lib/paths";
 
 const CURATED_PATH = path.join(ROOT, "content", "dictionary", "curated-examples.json");
+const OVERRIDES_PATH = path.join(
+  ROOT,
+  "content",
+  "dictionary",
+  "curated-example-overrides.json",
+);
 
 function firstGloss(english: string): string {
-  return english.split(";")[0]!.trim();
+  return english
+    .split(";")[0]!
+    .replace(/\s*\([^)]*\)/gu, "")
+    .replace(/^not\s+to\s+/iu, "")
+    .replace(/^to\s+/iu, "")
+    .replace(/\s+\bit\b$/iu, "")
+    .replace(/\s+/gu, " ")
+    .trim();
 }
 
 type VerbFrame =
+  | "negated"
   | "stative"
   | "event"
   | "with_person"
@@ -31,21 +45,36 @@ type VerbFrame =
   | "transitive";
 
 /** Lemmas that usually need si in this citation form. */
-const SI_PERCEPTION = new Set(["všimnúť", "nevšimnúť"]);
+const SI_PERCEPTION = new Set([
+  "uvedomovať",
+  "všimnúť",
+  "nevšimnúť",
+  "pomyslieť",
+  "zamyslieť",
+]);
 
 /** Lemmas that usually need sa in event/possibility frames. */
 const SA_EVENT = new Set([
   "dariť",
+  "diať",
+  "nedariť",
   "vyskytovať",
   "vyskytnúť",
   "nepodariť",
   "pribudnúť",
   "snažiť",
+  "udiať",
+  "odohrávať",
+  "vznikať",
+  "odohrávať",
 ]);
 
 function classifyVerbFrame(slovak: string, bareGloss: string): VerbFrame {
   const gloss = bareGloss.toLowerCase();
   const lemma = slovak.toLocaleLowerCase("sk");
+
+  if (lemma.startsWith("ne")) return "negated";
+  if (SA_EVENT.has(lemma)) return "event";
 
   if (
     /contain|include|mean|weigh|equal|belong|consist|concern|regard|exist|constitute|amount|depend|apply to|refer|comprise|represent|correspond|differ|resemble|lack|suffice|seem|be related|be based|be added/i.test(
@@ -106,6 +135,12 @@ function verbExample(slovak: string, english: string): Example {
   const frame = classifyVerbFrame(slovak, bare);
 
   switch (frame) {
+    case "negated":
+      return {
+        slovak: `Je možné ${slovak}.`,
+        english: `It is possible not to ${bare}.`,
+        note: "Curated",
+      };
     case "stative":
       return {
         slovak: `Také veci môžu ${slovak}.`,
@@ -144,10 +179,15 @@ function verbExample(slovak: string, english: string): Example {
         note: "Curated",
       };
     case "perception":
+      return {
+        slovak: `Je možné ${slovak}.`,
+        english: `It is possible to ${bare}.`,
+        note: "Curated",
+      };
     case "transitive":
       return {
-        slovak: `Chcem to ${slovak}.`,
-        english: `I want to ${bare} it.`,
+        slovak: `Niekto môže ${slovak}.`,
+        english: `Someone can ${bare}.`,
         note: "Curated",
       };
     case "motion":
@@ -160,7 +200,7 @@ function verbExample(slovak: string, english: string): Example {
   }
 }
 
-type AdjFrame = "person" | "house" | "project" | "work" | "neuter";
+type AdjFrame = "person" | "house" | "project" | "work" | "neuter" | "relational";
 
 function hashPick<T>(key: string, options: readonly T[]): T {
   let hash = 0;
@@ -177,6 +217,8 @@ function classifyAdjectiveFrame(slovak: string, gloss: string): AdjFrame {
   // Host gender must match citation ending — never Tá práca + mužský tvar.
   if (/á$/i.test(slovak)) return "work";
   if (/é$/i.test(slovak)) return "neuter";
+
+  if (/(ský|ov)$/iu.test(lemma)) return "relational";
 
   if (
     /\b(kind|brave|smart|clever|honest|friendly|happy|sad|angry|calm|patient|lazy|rich|poor|young|old|nice|polite|rude|funny|serious|proud|shy|wise|stupid|good|bad|evil|cruel|gentle|loyal|jealous|nervous|tired|ill|sick|healthy|strong|weak|famous|popular|lonely|lucky|careful|careless|selfish|generous|strict|fair|unfair|silent|noisy|busy|free|alive|dead|married|single|drunk|sober|awake|asleep)\b/i.test(
@@ -241,6 +283,19 @@ function adjectiveExample(slovak: string, english: string): Example {
         english: `That city is ${gloss}.`,
         note: "Curated",
       };
+    case "relational":
+      if (/^of\s+/iu.test(gloss)) {
+        return {
+          slovak: `Je to ${slovak} výraz.`,
+          english: `This is an expression from ${gloss.replace(/^of\s+/iu, "")}.`,
+          note: "Curated",
+        };
+      }
+      return {
+        slovak: `Je to ${slovak} výraz.`,
+        english: `It is ${article(gloss)}${gloss} expression.`,
+        note: "Curated",
+      };
   }
 }
 
@@ -255,6 +310,7 @@ const PLURAL_NOUNS = new Set([
   "okuliare",
   "nožnice",
   "šaty",
+  "financie",
   "vianoce",
   "prázdniny",
   "noviny",
@@ -269,7 +325,7 @@ function nounGenderNumeral(slovak: string): { sk: string; en: string } {
   if (/[aá]$/u.test(lemma) || /osť$/u.test(lemma)) {
     return { sk: "Jedna", en: "One" };
   }
-  if (/[oé]$/u.test(lemma) || /um$/u.test(lemma)) {
+  if (/[oé]$/u.test(lemma) || /ie$/u.test(lemma) || /um$/u.test(lemma)) {
     return { sk: "Jedno", en: "One" };
   }
   return { sk: "Jeden", en: "One" };
@@ -385,18 +441,26 @@ function exampleFor(word: {
   english: string;
   slovak: string;
 }): Example {
+  let example: Example;
+
   switch (word.category) {
     case "Verbs":
-      return verbExample(word.slovak, word.english);
+      example = verbExample(word.slovak, word.english);
+      break;
     case "Adjectives":
-      return adjectiveExample(word.slovak, word.english);
+      example = adjectiveExample(word.slovak, word.english);
+      break;
     case "Names":
-      return nameExample(word.slovak);
+      example = nameExample(word.slovak);
+      break;
     case "Places":
-      return placeExample(word.slovak);
+      example = placeExample(word.slovak);
+      break;
     default:
-      return nounExample(word.slovak, word.english);
+      example = nounExample(word.slovak, word.english);
   }
+
+  return { ...example, isPracticeFrame: true };
 }
 
 const aspectPatterns: Record<string, Example[]> = {
@@ -602,19 +666,24 @@ const curated = JSON.parse(readFileSync(CURATED_PATH, "utf8")) as Record<
   string,
   Example[]
 >;
+const overrides = JSON.parse(readFileSync(OVERRIDES_PATH, "utf8")) as Record<
+  string,
+  Example[]
+>;
 
-Object.assign(curated, aspectPatterns);
+Object.assign(curated, aspectPatterns, overrides);
 
 const empty = words.filter((word) => word.kind === "word" && word.examples.length === 0);
 let filled = 0;
 
 for (const word of empty) {
-  if (aspectPatterns[word.slug]) continue;
+  if (aspectPatterns[word.slug] || overrides[word.slug]) continue;
   curated[word.slug] = [exampleFor(word)];
   filled += 1;
 }
 
 writeFileSync(CURATED_PATH, `${JSON.stringify(curated, null, 2)}\n`);
 console.log(`Aspect pattern pairs: ${Object.keys(aspectPatterns).length}`);
+console.log(`Hand-reviewed overrides: ${Object.keys(overrides).length}`);
 console.log(`Template-filled empty lemmas: ${filled}`);
 console.log(`Total curated keys: ${Object.keys(curated).length}`);

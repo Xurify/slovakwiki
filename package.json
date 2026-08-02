@@ -16,6 +16,7 @@
     "examples:enrich": "bun scripts/dictionary/enrich-examples.ts",
     "examples:fill": "bun scripts/dictionary/fill-empty-examples.ts",
     "examples:coverage": "bun scripts/dictionary/example-coverage.ts",
+    "examples:audit": "bun scripts/dictionary/audit-generated-examples.ts",
     "examples:curate": "bun scripts/dictionary/apply-curated-examples.ts",
     "examples:reclaim": "bun scripts/dictionary/reclaim-weak-examples.ts",
     "related:apply": "bun scripts/dictionary/apply-related.ts",

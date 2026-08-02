@@ -7,6 +7,8 @@ export type WordOrigin = "curated" | "frequency";
 export interface Example {
   demonstrates?: string;
   english: string;
+  /** A safe, generated frame used when no corpus or hand-written sentence exists. */
+  isPracticeFrame?: boolean;
   note?: string;
   practiceItemId?: string;
   slovak: string;

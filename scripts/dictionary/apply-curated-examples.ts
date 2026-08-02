@@ -100,6 +100,7 @@ async function main(): Promise<void> {
       english: example.english,
       note: example.note ?? "Curated",
       ...(example.demonstrates ? { demonstrates: example.demonstrates } : {}),
+      ...(example.isPracticeFrame ? { isPracticeFrame: true } : {}),
     }));
 
     const english = CURATED_ENGLISH[slug];
