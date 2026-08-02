@@ -67,7 +67,7 @@
           aria-label="Continue learning"
         >
           <TextLink href="/lessons">Lessons</TextLink>
-          <TextLink href="/wiki">Dictionary</TextLink>
+          <TextLink href="/dictionary">Dictionary</TextLink>
         </nav>
       </section>
     {/if}

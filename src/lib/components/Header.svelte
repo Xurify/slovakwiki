@@ -1,6 +1,7 @@
 <script lang="ts">
   import SearchBox from "$lib/components/SearchBox.svelte";
   import {
+    isReferenceSection,
     navigationIsActive,
     primaryNavigation,
     referenceNavigation,
@@ -11,6 +12,8 @@
   function isActive(href: string): boolean {
     return navigationIsActive(pathname, href);
   }
+
+  const referenceOpen = $derived(isReferenceSection(pathname));
 </script>
 
 <a
@@ -38,7 +41,7 @@
     </a>
 
     <nav class="hidden items-center gap-1 min-[801px]:flex" aria-label="Main navigation">
-      {#each primaryNavigation.filter((item) => item.href !== "/wiki") as link (link.href)}
+      {#each primaryNavigation as link (link.href)}
         <a
           class="relative px-3 py-2 text-[0.82rem] font-semibold text-(--muted-strong) transition-colors hover:text-(--ink) after:absolute after:inset-x-3 after:bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-(--accent) after:transition-transform aria-[current=page]:text-(--accent-dark) aria-[current=page]:after:scale-x-100"
           href={link.href}
@@ -50,7 +53,9 @@
 
       <details class="group relative">
         <summary
-          class="flex cursor-pointer list-none items-center gap-1 px-3 py-2 text-[0.82rem] font-semibold text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-dark) marker:content-none [&::-webkit-details-marker]:hidden"
+          class="flex cursor-pointer list-none items-center gap-1 px-3 py-2 text-[0.82rem] font-semibold text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-dark) marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
+            ? 'text-(--accent-dark)'
+            : ''}"
         >
           Reference
           <svg
@@ -96,7 +101,7 @@
         class="absolute right-0 top-full z-50 mt-2 w-[min(280px,calc(100vw-28px))] border border-(--line) bg-(--paper) px-4 py-3 shadow-(--shadow-border)"
         aria-label="Mobile navigation"
       >
-        {#each primaryNavigation.filter((item) => item.href !== "/wiki") as link (link.href)}
+        {#each primaryNavigation as link (link.href)}
           <a
             class="block border-b border-(--line) py-3 text-[0.9rem] font-semibold text-(--ink-soft) aria-[current=page]:text-(--accent-dark)"
             href={link.href}

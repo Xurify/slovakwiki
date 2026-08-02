@@ -16,7 +16,9 @@
       aria-label="Footer"
     >
       <a class="hover:text-(--accent-dark) hover:underline" href="/lessons">Lessons</a>
-      <a class="hover:text-(--accent-dark) hover:underline" href="/wiki">Dictionary</a>
+      <a class="hover:text-(--accent-dark) hover:underline" href="/dictionary"
+        >Dictionary</a
+      >
       <a class="hover:text-(--accent-dark) hover:underline" href="/practice">Practice</a>
     </nav>
   </div>

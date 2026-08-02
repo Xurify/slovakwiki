@@ -27,7 +27,7 @@
       <article class="min-w-0 max-w-[720px]">
         <header class="border-b border-slate-200 pb-8">
           <nav class="mb-5 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-            <TextLink href="/wiki">Dictionary</TextLink>
+            <TextLink href="/dictionary">Dictionary</TextLink>
             <span aria-hidden="true">/</span>
             <span>{kindLabel[entry.kind]}</span>
           </nav>

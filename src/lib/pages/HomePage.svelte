@@ -61,7 +61,7 @@
 
   const referenceSections = [
     {
-      href: "/wiki",
+      href: "/dictionary",
       glyph: "ľ",
       title: "Dictionary",
       desc: "Every word with its meaning, a sentence you could actually say, and the entries it connects to.",
@@ -294,7 +294,7 @@
       <div>
         <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
           <h2 id="words-heading" class="m-0">Words you will reach for first</h2>
-          <TextLink href="/wiki">Full index</TextLink>
+          <TextLink href="/dictionary">Full index</TextLink>
         </div>
 
         <div
