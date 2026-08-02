@@ -247,9 +247,9 @@
   onMount(() => {
     refreshRecent();
 
-    if (initialQuery.trim()) {
+    if (query.trim()) {
       open = true;
-      void runSearch(initialQuery);
+      void runSearch(query);
     }
   });
 

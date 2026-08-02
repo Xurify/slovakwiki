@@ -10,7 +10,7 @@ export const primaryNavigation: NavigationItem[] = [
 
 export const referenceNavigation: NavigationItem[] = [
   { href: "/dictionary", label: "Dictionary" },
-  { href: "/dictionary/common", label: "Most common" },
+  { href: "/dictionary/common/verb", label: "Most common" },
   { href: "/grammar", label: "Grammar" },
   { href: "/pronunciation", label: "Pronunciation" },
   { href: "/grammar/terms", label: "Language terms" },
@@ -31,8 +31,10 @@ export function isReferenceSection(pathname: string): boolean {
 export function navigationIsActive(pathname: string, href: string): boolean {
   if (href === "/grammar/terms") return pathname === href;
 
-  if (href === "/dictionary/common") {
-    return pathname === "/dictionary/common";
+  if (href === "/dictionary/common" || href === "/dictionary/common/verb") {
+    return (
+      pathname === "/dictionary/common" || pathname.startsWith("/dictionary/common/")
+    );
   }
 
   if (href === "/grammar") {
@@ -45,7 +47,8 @@ export function navigationIsActive(pathname: string, href: string): boolean {
   if (href === "/dictionary") {
     return (
       pathname === "/dictionary" ||
-      (pathname.startsWith("/dictionary/") && pathname !== "/dictionary/common")
+      (pathname.startsWith("/dictionary/") &&
+        !pathname.startsWith("/dictionary/common"))
     );
   }
 

@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import type { SearchDocKind } from "$lib/content/search-ui";
 
 export const searchHistoryKey = "slovak-wiki.search-history.v1";
@@ -18,7 +16,7 @@ export interface StorageLike {
   setItem(key: string, value: string): void;
 }
 
-const kindSchema = z.enum([
+const SEARCH_KINDS = new Set<SearchDocKind>([
   "word",
   "grammar",
   "pronunciation",
@@ -27,17 +25,24 @@ const kindSchema = z.enum([
   "practice",
 ]);
 
-const itemSchema = z.object({
-  at: z.number(),
-  href: z.string().min(1),
-  kind: kindSchema,
-  label: z.string().min(1),
-});
+function isSearchDocKind(value: unknown): value is SearchDocKind {
+  return typeof value === "string" && SEARCH_KINDS.has(value as SearchDocKind);
+}
 
-const stateSchema = z.object({
-  items: z.array(itemSchema),
-  version: z.literal(1),
-});
+function parseHistoryItem(value: unknown): SearchHistoryItem | null {
+  if (!value || typeof value !== "object") return null;
+  const item = value as Record<string, unknown>;
+  if (typeof item.at !== "number" || !Number.isFinite(item.at)) return null;
+  if (typeof item.href !== "string" || item.href.trim().length === 0) return null;
+  if (typeof item.label !== "string" || item.label.trim().length === 0) return null;
+  if (!isSearchDocKind(item.kind)) return null;
+  return {
+    at: item.at,
+    href: item.href,
+    kind: item.kind,
+    label: item.label,
+  };
+}
 
 export function normalizeHistoryHref(href: string): string {
   const trimmed = href.trim();
@@ -49,9 +54,7 @@ export function normalizeHistoryHref(href: string): string {
     if (/^https?:\/\//i.test(trimmed)) {
       return new URL(trimmed).pathname;
     }
-  } catch {
-    // Fall through to path-only cleanup.
-  }
+  } catch {}
 
   const path = trimmed.split(/[?#]/u)[0] ?? trimmed;
   return path.startsWith("/") ? path : `/${path}`;
@@ -64,13 +67,21 @@ export function readSearchHistory(storage: StorageLike): SearchHistoryItem[] {
   }
 
   try {
-    const parsed = stateSchema.safeParse(JSON.parse(raw));
-    if (!parsed.success) {
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") {
       storage.removeItem(searchHistoryKey);
       return [];
     }
 
-    return parsed.data.items
+    const state = parsed as Record<string, unknown>;
+    if (state.version !== 1 || !Array.isArray(state.items)) {
+      storage.removeItem(searchHistoryKey);
+      return [];
+    }
+
+    return state.items
+      .map(parseHistoryItem)
+      .filter((item): item is SearchHistoryItem => item !== null)
       .map((item) => ({
         ...item,
         href: normalizeHistoryHref(item.href),

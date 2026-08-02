@@ -483,23 +483,23 @@ describe("Slovak content", () => {
     });
   });
 
-  it("discards stale lesson and practice ids from stored state", () => {
+  it("keeps string ids from stored practice state and drops non-strings", () => {
     const storage = new MemoryStorage();
     storage.setItem(
       practiceStateKey,
       JSON.stringify({
         version: 1,
-        completedLessonIds: ["missing-lesson", "everyday/meet-someone"],
-        reviewItemIds: ["missing-item", "everyday/origin"],
-        savedReferenceItemIds: ["missing-item", "grammar/first-person-reading"],
+        completedLessonIds: ["missing-lesson", "everyday/meet-someone", 12],
+        reviewItemIds: ["missing-item", "everyday/origin", null],
+        savedReferenceItemIds: ["missing-item", "grammar/first-person-reading", ""],
       }),
     );
 
     expect(readPracticeState(storage)).toEqual({
       version: 1,
-      completedLessonIds: ["everyday/meet-someone"],
-      reviewItemIds: ["everyday/origin"],
-      savedReferenceItemIds: ["grammar/first-person-reading"],
+      completedLessonIds: ["missing-lesson", "everyday/meet-someone"],
+      reviewItemIds: ["missing-item", "everyday/origin"],
+      savedReferenceItemIds: ["missing-item", "grammar/first-person-reading"],
     });
   });
 

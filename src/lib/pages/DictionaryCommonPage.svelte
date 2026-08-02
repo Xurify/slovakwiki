@@ -21,18 +21,24 @@
     slug: string;
   }
 
-  interface Props {
-    lists: Record<FrequencyPos, CompactFrequencyEntry[]>;
-    liveByLemma: Record<string, LiveLink>;
-    sourceUrl: string;
+  interface Tab {
+    href: string;
+    label: string;
+    value: FrequencyPos;
   }
 
-  let { lists, liveByLemma, sourceUrl }: Props = $props();
+  interface Props {
+    entries: CompactFrequencyEntry[];
+    liveByLemma: Record<string, LiveLink>;
+    pos: FrequencyPos;
+    sourceUrl: string;
+    tabs: Tab[];
+  }
+
+  let { entries, liveByLemma, pos, sourceUrl, tabs }: Props = $props();
 
   const PAGE_SIZE = 100;
-  const tabs: FrequencyPos[] = ["verb", "noun", "adjective"];
 
-  let activePos = $state<FrequencyPos>("verb");
   let query = $state("");
   let visibleLimit = $state(PAGE_SIZE);
 
@@ -42,7 +48,7 @@
       .replace(/\p{Diacritic}/gu, "")
       .toLocaleLowerCase("sk")
       .trim();
-    return lists[activePos].filter((entry) => {
+    return entries.filter((entry) => {
       if (!needle) return true;
       const lemma = entry.lemma
         .normalize("NFD")
@@ -59,11 +65,6 @@
   const visibleEntries = $derived(filteredEntries.slice(0, visibleLimit));
   const hasMore = $derived(filteredEntries.length > visibleLimit);
 
-  function setPos(pos: FrequencyPos): void {
-    activePos = pos;
-    visibleLimit = PAGE_SIZE;
-  }
-
   function setQuery(value: string): void {
     query = value;
     visibleLimit = PAGE_SIZE;
@@ -72,10 +73,10 @@
   const rowClass =
     "grid grid-cols-[3rem_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-slate-200 py-3 text-sm max-[560px]:grid-cols-[2.5rem_minmax(0,1fr)]";
 
-  const tabClass = (pos: FrequencyPos) =>
+  const tabClass = (value: FrequencyPos) =>
     [
       "border-b-2 px-1 pb-2 text-sm transition-colors",
-      activePos === pos
+      pos === value
         ? "border-blue-800 font-medium text-blue-800"
         : "border-transparent text-slate-500 hover:text-slate-800",
     ].join(" ");
@@ -135,16 +136,15 @@
       class="mt-8 flex flex-wrap items-end justify-between gap-4 border-b border-slate-200"
     >
       <div class="flex gap-5" role="tablist" aria-label="Part of speech">
-        {#each tabs as pos (pos)}
-          <button
-            class={tabClass(pos)}
-            type="button"
+        {#each tabs as tab (tab.value)}
+          <a
+            class={tabClass(tab.value)}
+            href={tab.href}
             role="tab"
-            aria-selected={activePos === pos}
-            onclick={() => setPos(pos)}
+            aria-selected={pos === tab.value}
           >
-            {FREQUENCY_POS_LABEL[pos]}
-          </button>
+            {tab.label}
+          </a>
         {/each}
       </div>
 
@@ -152,10 +152,10 @@
         Showing {visibleEntries.length.toLocaleString("en")} of {filteredEntries.length.toLocaleString(
           "en",
         )}
-        {FREQUENCY_POS_LABEL[activePos].toLowerCase()}
-        {#if filteredEntries.length !== lists[activePos].length}
+        {FREQUENCY_POS_LABEL[pos].toLowerCase()}
+        {#if filteredEntries.length !== entries.length}
           <span class="text-slate-400">
-            · {lists[activePos].length.toLocaleString("en")} total
+            · {entries.length.toLocaleString("en")} total
           </span>
         {/if}
       </p>

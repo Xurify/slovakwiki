@@ -1,10 +1,10 @@
-/**
- * Lightweight search chrome for client islands.
- * Keep this free of `$lib/content/data` so Header/SearchBox do not ship the dictionary.
- */
-
 export type SearchDocKind =
-  "word" | "grammar" | "pronunciation" | "case" | "lesson" | "practice";
+  | "word"
+  | "grammar"
+  | "pronunciation"
+  | "case"
+  | "lesson"
+  | "practice";
 
 export function normalizeSearchText(value: string): string {
   return value
@@ -32,7 +32,6 @@ export const searchKindChips: SearchDocKind[] = [
   "practice",
 ];
 
-/** EN topic labels: first letter up; SK lemmas stay as stored. */
 export function sentenceCase(value: string): string {
   if (!value) {
     return value;
@@ -40,10 +39,6 @@ export function sentenceCase(value: string): string {
   return value.charAt(0).toLocaleUpperCase("en") + value.slice(1);
 }
 
-/**
- * Idle “Try” chips. Hardcoded so client search UI never imports the full corpus.
- * Keep labels/hrefs in sync with live content when those pages rename.
- */
 export const searchIdleHints: Array<{
   href: string;
   kind: SearchDocKind;

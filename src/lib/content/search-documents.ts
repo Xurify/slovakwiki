@@ -45,8 +45,6 @@ export function buildSearchDocuments(): SearchDocument[] {
         ...entry.tags,
         ...(entry.aliases ?? []),
         ...searchFormsForLemma(entry.slovak, entry.category),
-        ...entry.body,
-        ...entry.examples.flatMap((example) => [example.slovak, example.english]),
       ]),
     });
   }
@@ -66,10 +64,8 @@ export function buildSearchDocuments(): SearchDocument[] {
         entry.watchOut,
         ...entry.tags,
         ...(entry.aliases ?? []),
-        ...entry.body,
         ...entry.rule,
         ...entry.pattern.lines,
-        ...entry.examples.flatMap((example) => [example.slovak, example.english]),
       ]),
     });
   }
@@ -89,7 +85,6 @@ export function buildSearchDocuments(): SearchDocument[] {
         entry.category,
         ...entry.tags,
         ...(entry.aliases ?? []),
-        ...entry.body,
         ...entry.practiceWords,
         entry.practicePhrase.slovak,
         entry.practicePhrase.english,
@@ -107,9 +102,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         topic.name,
         topic.question,
         topic.summary,
-        ...topic.body,
         ...topic.researchPrompts,
-        ...topic.examples.flatMap((example) => [example.slovak, example.english]),
       ]),
     });
   }
@@ -125,13 +118,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         lesson.promise,
         lesson.group ?? "",
         lesson.pattern?.title ?? "",
-        lesson.pattern?.body ?? "",
-        ...lesson.keyPhrases.flatMap((phrase) => [
-          phrase.slovak,
-          phrase.english,
-          phrase.note ?? "",
-        ]),
-        ...lesson.scene.flatMap((turn) => [turn.slovak, turn.english, turn.speaker]),
+        ...lesson.keyPhrases.flatMap((phrase) => [phrase.slovak, phrase.english]),
       ]),
     });
   }

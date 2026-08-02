@@ -8,14 +8,12 @@
 
   import type { WordOrigin } from "$lib/content/types";
 
-  /** Compact browser row — no examples, body, related, or source metadata. */
   export interface DictionaryIndexEntry {
     category: string;
     english: string;
     origin?: WordOrigin;
     slug: string;
     slovak: string;
-    tags: string[];
   }
 
   let { entries }: { entries: DictionaryIndexEntry[] } = $props();
@@ -84,9 +82,9 @@
         const needle = normalize(query.trim());
         return (
           !needle ||
-          normalize(
-            `${entry.slovak} ${entry.english} ${entry.category} ${entry.tags.join(" ")}`,
-          ).includes(needle)
+          normalize(`${entry.slovak} ${entry.english} ${entry.category}`).includes(
+            needle,
+          )
         );
       })
       .toSorted((first, second) => first.slovak.localeCompare(second.slovak, "sk")),
@@ -143,7 +141,7 @@
       </Lead>
       <p class="mt-4 text-sm text-slate-500">
         Also browse the
-        <TextLink href="/dictionary/common"
+        <TextLink href="/dictionary/common/verb"
           >most common verbs, nouns, and adjectives</TextLink
         >.
       </p>
@@ -292,7 +290,7 @@
       class="mt-14 flex flex-wrap gap-x-6 gap-y-2 border-t border-slate-200 pt-8 text-sm"
       aria-label="Other reference"
     >
-      <TextLink href="/dictionary/common">Most common</TextLink>
+      <TextLink href="/dictionary/common/verb">Most common</TextLink>
       <TextLink href="/grammar">Grammar</TextLink>
       <TextLink href="/pronunciation">Pronunciation</TextLink>
       <TextLink href="/grammar/terms">Language terms</TextLink>

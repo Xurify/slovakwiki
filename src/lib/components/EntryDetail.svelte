@@ -83,7 +83,9 @@
               Among the most common Slovak {FREQUENCY_POS_LABEL[
                 entry.frequency.pos
               ].toLowerCase()} (#{entry.frequency.rank}).
-              <TextLink href="/dictionary/common">Browse the list</TextLink>
+              <TextLink href={`/dictionary/common/${entry.frequency.pos}`}
+                >Browse the list</TextLink
+              >
             </p>
           {/if}
 

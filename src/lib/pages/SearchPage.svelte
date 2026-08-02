@@ -1,12 +1,12 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import SearchBox from "$lib/components/SearchBox.svelte";
-
-  let { query = "" }: { query?: string } = $props();
+  let { search }: { search: Snippet } = $props();
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -27,13 +27,7 @@
     </header>
 
     <div class="mt-8">
-      <SearchBox
-        id="search-page-input"
-        size="hero"
-        class="max-w-none"
-        initialQuery={query}
-        placeholder="ahoj, nominative, meet someone…"
-      />
+      {@render search()}
     </div>
   </PageShell>
 </main>

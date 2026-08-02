@@ -1,8 +1,3 @@
-import { z } from "zod";
-
-import { lessons } from "$lib/content/lessons";
-import { practiceItemById } from "$lib/content/practice";
-
 export const practiceStateKey = "slovak-wiki.practice.v1";
 
 export interface PracticeState {
@@ -18,13 +13,6 @@ export interface StorageLike {
   setItem(key: string, value: string): void;
 }
 
-const stateSchema = z.object({
-  completedLessonIds: z.array(z.string()),
-  reviewItemIds: z.array(z.string()),
-  savedReferenceItemIds: z.array(z.string()),
-  version: z.literal(1),
-});
-
 export function emptyPracticeState(): PracticeState {
   return {
     version: 1,
@@ -38,14 +26,11 @@ function unique(values: string[]): string[] {
   return [...new Set(values)];
 }
 
-const lessonIds = new Set(lessons.map((lesson) => lesson.id));
-
-function validLessonIds(values: string[]): string[] {
-  return unique(values).filter((id) => lessonIds.has(id));
-}
-
-function validPracticeItemIds(values: string[]): string[] {
-  return unique(values).filter((id) => practiceItemById.has(id));
+function asStringIds(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return unique(
+    value.filter((entry): entry is string => typeof entry === "string" && entry.length > 0),
+  );
 }
 
 export function readPracticeState(storage: StorageLike): PracticeState {
@@ -53,17 +38,23 @@ export function readPracticeState(storage: StorageLike): PracticeState {
   if (!raw) return emptyPracticeState();
 
   try {
-    const parsed = stateSchema.safeParse(JSON.parse(raw));
-    if (!parsed.success) {
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") {
+      storage.removeItem(practiceStateKey);
+      return emptyPracticeState();
+    }
+
+    const state = parsed as Record<string, unknown>;
+    if (state.version !== 1) {
       storage.removeItem(practiceStateKey);
       return emptyPracticeState();
     }
 
     return {
       version: 1,
-      completedLessonIds: validLessonIds(parsed.data.completedLessonIds),
-      reviewItemIds: validPracticeItemIds(parsed.data.reviewItemIds),
-      savedReferenceItemIds: validPracticeItemIds(parsed.data.savedReferenceItemIds),
+      completedLessonIds: asStringIds(state.completedLessonIds),
+      reviewItemIds: asStringIds(state.reviewItemIds),
+      savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
     };
   } catch {
     storage.removeItem(practiceStateKey);
@@ -76,9 +67,9 @@ export function writePracticeState(storage: StorageLike, state: PracticeState): 
     practiceStateKey,
     JSON.stringify({
       version: 1,
-      completedLessonIds: validLessonIds(state.completedLessonIds),
-      reviewItemIds: validPracticeItemIds(state.reviewItemIds),
-      savedReferenceItemIds: validPracticeItemIds(state.savedReferenceItemIds),
+      completedLessonIds: asStringIds(state.completedLessonIds),
+      reviewItemIds: asStringIds(state.reviewItemIds),
+      savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
     }),
   );
 }
