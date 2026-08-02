@@ -183,8 +183,21 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "hovoriť",
     english: "to speak",
     category: "Conversation",
-    examples: [{ slovak: "Hovoríte po anglicky?", english: "Do you speak English?" }],
-    related: ["rozumiem", "slovensky"],
+    examples: [
+      {
+        slovak: "Hovorím po slovensky.",
+        english: "I speak Slovak.",
+        note: "Curated",
+        demonstrates: "hovoriť — speak (language / ongoing)",
+      },
+      {
+        slovak: "Poviem to po slovensky.",
+        english: "I'll say it in Slovak.",
+        note: "Curated",
+        demonstrates: "povedať — say (see povedať)",
+      },
+    ],
+    related: ["povedat", "rozumiem", "slovensky"],
   },
   {
     slug: "slovensky",
@@ -383,6 +396,22 @@ const PATTERN_USAGE_NOTES: Record<string, string> = {
   volat: "Volať someone is calling them. Volať sa says what you are called — your name.",
   lubit:
     "Ľúbiť is stronger than mať rád — closer to love. For everyday “like,” start with rád / mať rád.",
+  bat: "Báť sa alone is a general fear. Add a noun (or infinitive) for what you are afraid of.",
+  stat: "Stať sa means happen or become — not the same lemma as stáť (stand / cost).",
+  "stat-v": "Stáť is stand or cost. Happen / become is stať sa — see stať.",
+  hladat: "Hľadať is the search. Nájsť is the find — same object, different stage.",
+  najst:
+    "Nájsť is finding. Hľadať is still looking — compare the pair with the same object.",
+  zacat:
+    "Začať starts an action. Prestať stops it — same infinitive for a clean contrast.",
+  prestat: "Prestať stops an action. Začať starts it — same infinitive side by side.",
+  hovorit:
+    "Hovoriť is speaking as a process or language skill. Povedať is one utterance — saying something.",
+  povedat:
+    "Povedať is saying or telling once. Hovoriť covers ongoing speech or speaking a language.",
+  prist: "Prísť is coming / arriving. Odísť is leaving — same place, opposite direction.",
+  odist: "Odísť is leaving. Prísť is arriving — same place, opposite direction.",
+  dostat: "Dostať receives something. Dostať sa is getting yourself somewhere.",
 };
 
 function wordAttribution(origin: WordOrigin) {

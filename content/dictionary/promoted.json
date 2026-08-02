@@ -79,22 +79,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Tom to nemusí povedať Mary ak nechce.",
-        "english": "Tom doesn't have to tell Mary if he doesn't want to.",
-        "note": "Tatoeba"
+        "slovak": "Poviem to po slovensky.",
+        "english": "I'll say it in Slovak.",
+        "note": "Curated",
+        "demonstrates": "povedať — say / tell"
       },
       {
-        "slovak": "Chystal sa mu to povedať.",
-        "english": "He was going to tell him.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Nie je neskoro povedať mu, že ho miluješ.",
-        "english": "It's not too late to tell him that you love him.",
-        "note": "Tatoeba"
+        "slovak": "Hovorím po slovensky.",
+        "english": "I speak Slovak.",
+        "note": "Curated",
+        "demonstrates": "hovoriť — speak (see hovoriť)"
       }
     ],
-    "related": []
+    "related": ["hovorit"]
   },
   {
     "slug": "chciet",
@@ -268,22 +265,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Radšej by si mal začať teraz.",
-        "english": "You'd better start now.",
-        "note": "Tatoeba"
+        "slovak": "Začnem čítať.",
+        "english": "I'll start reading.",
+        "note": "Curated",
+        "demonstrates": "začať — begin"
       },
       {
-        "slovak": "Zajtra môžem začať.",
-        "english": "I can start tomorrow.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Môžeme začať?",
-        "english": "Can we get started?",
-        "note": "Tatoeba"
+        "slovak": "Prestanem čítať.",
+        "english": "I'll stop reading.",
+        "note": "Curated",
+        "demonstrates": "prestať — stop (see prestať)"
       }
     ],
-    "related": []
+    "related": ["prestat"]
   },
   {
     "slug": "prist",
@@ -292,22 +286,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Môžem po teba prísť?",
-        "english": "Shall I come for you?",
-        "note": "Tatoeba"
+        "slovak": "Prídem do školy.",
+        "english": "I'll come to school.",
+        "note": "Curated",
+        "demonstrates": "prísť — come / arrive"
       },
       {
-        "slovak": "Kedy môžeš prísť?",
-        "english": "When can you come?",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Mal by si prísť.",
-        "english": "You should come over.",
-        "note": "Tatoeba"
+        "slovak": "Odídem zo školy.",
+        "english": "I'll leave school.",
+        "note": "Curated",
+        "demonstrates": "odísť — leave (see odísť)"
       }
     ],
-    "related": []
+    "related": ["odist", "ist", "chodit"]
   },
   {
     "slug": "dostat",
@@ -316,22 +307,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Boli sme sklamaní, keď sme sa dopočuli, že Tom nemohol dostať víza.",
-        "english": "We were disappointed to hear that Tom couldn't get a visa.",
-        "note": "Tatoeba"
+        "slovak": "Dostanem knihu.",
+        "english": "I'll get a book.",
+        "note": "Curated",
+        "demonstrates": "dostať — receive / get"
       },
       {
-        "slovak": "Ako dlho trvá dostať sa na stanicu?",
-        "english": "How long does it take to get to the station?",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Bude možné dostať sa tam pred zotmením?",
-        "english": "Will it be possible to get there before dark?",
-        "note": "Tatoeba"
+        "slovak": "Dostanem sa do mesta.",
+        "english": "I'll get to town.",
+        "note": "Curated",
+        "demonstrates": "dostať sa — get to / manage to arrive"
       }
     ],
-    "related": []
+    "related": ["dat", "davat"]
   },
   {
     "slug": "stat",
@@ -340,22 +328,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Povážme, čo najhoršie by sa mohlo stať.",
-        "english": "Let's consider the worst that could happen.",
-        "note": "Tatoeba"
+        "slovak": "Čo sa stalo?",
+        "english": "What happened?",
+        "note": "Curated",
+        "demonstrates": "stať sa — happen"
       },
       {
-        "slovak": "Muselo sa to niekde stať.",
-        "english": "It had to happen somewhere.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Chce sa stať lekárom.",
-        "english": "He wishes to become a doctor.",
-        "note": "Tatoeba"
+        "slovak": "Stal sa učiteľom.",
+        "english": "He became a teacher.",
+        "note": "Curated",
+        "demonstrates": "stať sa + noun — become"
       }
     ],
-    "related": []
+    "related": ["stat-v", "byt", "ucitel"]
   },
   {
     "slug": "vidiet",
@@ -529,22 +514,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Dúfajú, že sa im podarí nájsť si dobre platenú prácu.",
-        "english": "They hope to be able to find a well-paid job.",
-        "note": "Tatoeba"
+        "slovak": "Našiel som knihu.",
+        "english": "I found a book.",
+        "note": "Curated",
+        "demonstrates": "nájsť — find"
       },
       {
-        "slovak": "Nemohol som ju nájsť.",
-        "english": "I couldn't find her.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Niektoré veci je ľahšie povoliť zákonom ako nájsť na ne zdôvodnenie.",
-        "english": "Certain things are easier to legalize than legitimize.",
-        "note": "Tatoeba"
+        "slovak": "Hľadám knihu.",
+        "english": "I'm looking for a book.",
+        "note": "Curated",
+        "demonstrates": "hľadať — look for (see hľadať)"
       }
     ],
-    "related": []
+    "related": ["hladat"]
   },
   {
     "slug": "urobit",
@@ -1186,22 +1168,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Prišiel do New Yorku hľadať prácu.",
-        "english": "He came to New York in search of work.",
-        "note": "Tatoeba"
+        "slovak": "Hľadám knihu.",
+        "english": "I'm looking for a book.",
+        "note": "Curated",
+        "demonstrates": "hľadať — look for"
       },
       {
-        "slovak": "Je to ako hľadať ihlu v kope sena.",
-        "english": "It is like looking for a needle in a haystack.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Tom začal hľadať novú prácu.",
-        "english": "Tom has begun looking for a new job.",
-        "note": "Tatoeba"
+        "slovak": "Našiel som knihu.",
+        "english": "I found a book.",
+        "note": "Curated",
+        "demonstrates": "nájsť — find (see nájsť)"
       }
     ],
-    "related": []
+    "related": ["najst"]
   },
   {
     "slug": "poznat",
@@ -1416,22 +1395,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Prečo chceš dnes odísť?",
-        "english": "Why do you want to leave today?",
-        "note": "Tatoeba"
+        "slovak": "Odídem zo školy.",
+        "english": "I'll leave school.",
+        "note": "Curated",
+        "demonstrates": "odísť — leave"
       },
       {
-        "slovak": "Musím zistiť, kedy Tom plánuje odísť.",
-        "english": "I have to find out when Tom plans to leave.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Povedz mu, že chceš odísť.",
-        "english": "Tell him you'd like to leave.",
-        "note": "Tatoeba"
+        "slovak": "Prídem do školy.",
+        "english": "I'll come to school.",
+        "note": "Curated",
+        "demonstrates": "prísť — come / arrive (see prísť)"
       }
     ],
-    "related": []
+    "related": ["prist", "ist"]
   },
   {
     "slug": "otvorit",
@@ -7741,22 +7717,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Povedal som Tomovi, že by mal prestať piť.",
-        "english": "I told Tom he should stop drinking.",
-        "note": "Tatoeba"
+        "slovak": "Prestanem čítať.",
+        "english": "I'll stop reading.",
+        "note": "Curated",
+        "demonstrates": "prestať — stop"
       },
       {
-        "slovak": "Ani žiaci ani učitelia by sa nikdy nemali prestať učiť.",
-        "english": "Neither students nor teachers should ever stop learning.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Tom povedal, že by sme mali prestať.",
-        "english": "Tom said we should stop.",
-        "note": "Tatoeba"
+        "slovak": "Začnem čítať.",
+        "english": "I'll start reading.",
+        "note": "Curated",
+        "demonstrates": "začať — begin (see začať)"
       }
     ],
-    "related": []
+    "related": ["zacat"]
   },
   {
     "slug": "nasledovat",
@@ -8038,22 +8011,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Nie je dôvod sa báť.",
-        "english": "There's no reason to be afraid.",
-        "note": "Tatoeba"
+        "slovak": "Bojím sa.",
+        "english": "I'm afraid.",
+        "note": "Curated",
+        "demonstrates": "báť sa — afraid"
       },
       {
-        "slovak": "Toho sa báť nemusíte.",
-        "english": "You don't need to worry about that.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Ani jeden z nás sa nemá čoho báť.",
-        "english": "Neither of us has anything to fear.",
-        "note": "Tatoeba"
+        "slovak": "Bojím sa psa.",
+        "english": "I'm afraid of the dog.",
+        "note": "Curated",
+        "demonstrates": "báť sa + noun — afraid of"
       }
     ],
-    "related": []
+    "related": ["pes"]
   },
   {
     "slug": "prinasat",
@@ -8528,7 +8498,13 @@
     "slovak": "obsahovať",
     "english": "to contain",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Krabica obsahuje knihy.",
+        "english": "The box contains books.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -22078,7 +22054,13 @@
     "slovak": "proces",
     "english": "process; trial",
     "category": "Nouns",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Proces trvá dlho.",
+        "english": "The process takes a long time.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -22086,7 +22068,13 @@
     "slovak": "zariadenie",
     "english": "equipment; facility",
     "category": "Nouns",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Zariadenie nefunguje.",
+        "english": "The equipment is not working.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -22118,7 +22106,13 @@
     "slovak": "kategória",
     "english": "category",
     "category": "Nouns",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Vyber kategóriu.",
+        "english": "Choose a category.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -22126,7 +22120,13 @@
     "slovak": "turnaj",
     "english": "tournament",
     "category": "Nouns",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Turnaj začína zajtra.",
+        "english": "The tournament starts tomorrow.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -22134,7 +22134,13 @@
     "slovak": "príprava",
     "english": "preparation",
     "category": "Nouns",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Príprava trvá hodinu.",
+        "english": "The preparation takes an hour.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -22166,7 +22172,13 @@
     "slovak": "fond",
     "english": "fund",
     "category": "Nouns",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Fond podporuje projekty.",
+        "english": "The fund supports projects.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -22188,7 +22200,13 @@
     "slovak": "prostriedok",
     "english": "means; resource; medium",
     "category": "Nouns",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Nemám na to prostriedky.",
+        "english": "I do not have the means for that.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34642,7 +34660,13 @@
     "slovak": "vianočný",
     "english": "Christmas",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Vianočný trh je krásny.",
+        "english": "The Christmas market is beautiful.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34650,7 +34674,13 @@
     "slovak": "samostatný",
     "english": "independent; separate",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Chce byť samostatný.",
+        "english": "He wants to be independent.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34658,7 +34688,13 @@
     "slovak": "cenný",
     "english": "valuable",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "To je cenná rada.",
+        "english": "That is valuable advice.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34666,7 +34702,13 @@
     "slovak": "úvodný",
     "english": "introductory; opening",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Úvodný text je krátky.",
+        "english": "The opening text is short.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34674,7 +34716,13 @@
     "slovak": "ženský",
     "english": "female; women's",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Ženský tím vyhral.",
+        "english": "The women's team won.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34682,7 +34730,13 @@
     "slovak": "informačný",
     "english": "information; informational",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Informačný systém je nový.",
+        "english": "The information system is new.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34690,7 +34744,13 @@
     "slovak": "rómsky",
     "english": "Roma; Romani",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Hovorí po rómsky.",
+        "english": "He speaks Romani.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34698,7 +34758,13 @@
     "slovak": "nočný",
     "english": "night; nocturnal",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Nočný vlak ide neskoro.",
+        "english": "The night train leaves late.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34706,7 +34772,13 @@
     "slovak": "kľúčový",
     "english": "key; crucial",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Toto je kľúčový bod.",
+        "english": "This is a key point.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34714,7 +34786,13 @@
     "slovak": "materský",
     "english": "maternal; mother",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Materský jazyk je slovenčina.",
+        "english": "His mother tongue is Slovak.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34722,7 +34800,13 @@
     "slovak": "fyzický",
     "english": "physical",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Je fyzicky fit.",
+        "english": "He is physically fit.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34730,7 +34814,13 @@
     "slovak": "všeobecný",
     "english": "general; universal",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Všeobecný prehľad stačí.",
+        "english": "A general overview is enough.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34738,7 +34828,13 @@
     "slovak": "prirodzený",
     "english": "natural",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Je to prirodzený vývoj.",
+        "english": "It is a natural development.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34746,7 +34842,13 @@
     "slovak": "nitriansky",
     "english": "of Nitra; Nitra",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Nitriansky hrad je starý.",
+        "english": "Nitra Castle is old.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34754,7 +34856,13 @@
     "slovak": "negatívny",
     "english": "negative",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Mám negatívny pocit.",
+        "english": "I have a negative feeling.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34762,7 +34870,13 @@
     "slovak": "slávnostný",
     "english": "festive; ceremonial",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Slávnostný večer bol pekný.",
+        "english": "The ceremonial evening was nice.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -34770,7 +34884,13 @@
     "slovak": "mimoriadny",
     "english": "extraordinary; special",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Dnes je mimoriadny deň.",
+        "english": "Today is a special day.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -42378,22 +42498,19 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Toto bude stáť 30 eur.",
-        "english": "This will cost €30.",
-        "note": "Tatoeba"
+        "slovak": "Stojím tu.",
+        "english": "I'm standing here.",
+        "note": "Curated",
+        "demonstrates": "stáť — stand"
       },
       {
-        "slovak": "Nečakal som, že to bude toľko stáť.",
-        "english": "I didn't expect it to cost so much.",
-        "note": "Tatoeba"
-      },
-      {
-        "slovak": "Jelenča môže stáť hneď po narodení.",
-        "english": "A baby deer can stand as soon as it's born.",
-        "note": "Tatoeba"
+        "slovak": "To stojí päť eur.",
+        "english": "That costs five euros.",
+        "note": "Curated",
+        "demonstrates": "stáť — cost"
       }
     ],
-    "related": []
+    "related": ["stat"]
   },
   {
     "slug": "stavat-v",

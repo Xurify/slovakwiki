@@ -40,6 +40,17 @@ const CURATED_RELATED: Record<string, string[]> = {
   moct: ["musiet", "chciet"],
   musiet: ["moct", "chciet"],
   chciet: ["moct", "musiet"],
+  bat: ["pes"],
+  stat: ["stat-v", "byt", "ucitel"],
+  "stat-v": ["stat"],
+  hladat: ["najst"],
+  najst: ["hladat"],
+  zacat: ["prestat"],
+  prestat: ["zacat"],
+  povedat: ["hovorit"],
+  prist: ["odist", "ist", "chodit"],
+  odist: ["prist", "ist"],
+  dostat: ["dat", "davat"],
 };
 
 /** Gloss overrides applied with curated examples (search / detail headword). */

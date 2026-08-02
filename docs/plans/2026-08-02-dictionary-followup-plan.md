@@ -8,7 +8,7 @@
 
 High-confusion lemmas use labeled `demonstrates` example groups + Usage notes + semantic `related`:
 
-`rád`, `páčiť`, `ľúbiť`, `byť`, `ísť`/`chodiť`, `volať`, `vedieť`, `dať`, `pozerať`/`vidieť`, `počúvať`/`počuť`, `môcť`/`musieť`/`chcieť`.
+`rád`, `páčiť`, `ľúbiť`, `byť`, `ísť`/`chodiť`, `volať`, `vedieť`, `dať`, `pozerať`/`vidieť`, `počúvať`/`počuť`, `môcť`/`musieť`/`chcieť`, `báť`, `stať`/`stáť`, `hľadať`/`nájsť`, `začať`/`prestať`, `hovoriť`/`povedať`, `prísť`/`odísť`, `dostať`.
 
 Edit via `content/dictionary/curated-examples.json` → `bun run examples:curate`.
 

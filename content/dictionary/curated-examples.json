@@ -2225,5 +2225,334 @@
       "note": "Curated",
       "demonstrates": "rád + verb — like doing"
     }
+  ],
+  "bat": [
+    {
+      "slovak": "Bojím sa.",
+      "english": "I'm afraid.",
+      "note": "Curated",
+      "demonstrates": "báť sa — afraid"
+    },
+    {
+      "slovak": "Bojím sa psa.",
+      "english": "I'm afraid of the dog.",
+      "note": "Curated",
+      "demonstrates": "báť sa + noun — afraid of"
+    }
+  ],
+  "stat": [
+    {
+      "slovak": "Čo sa stalo?",
+      "english": "What happened?",
+      "note": "Curated",
+      "demonstrates": "stať sa — happen"
+    },
+    {
+      "slovak": "Stal sa učiteľom.",
+      "english": "He became a teacher.",
+      "note": "Curated",
+      "demonstrates": "stať sa + noun — become"
+    }
+  ],
+  "stat-v": [
+    {
+      "slovak": "Stojím tu.",
+      "english": "I'm standing here.",
+      "note": "Curated",
+      "demonstrates": "stáť — stand"
+    },
+    {
+      "slovak": "To stojí päť eur.",
+      "english": "That costs five euros.",
+      "note": "Curated",
+      "demonstrates": "stáť — cost"
+    }
+  ],
+  "hladat": [
+    {
+      "slovak": "Hľadám knihu.",
+      "english": "I'm looking for a book.",
+      "note": "Curated",
+      "demonstrates": "hľadať — look for"
+    },
+    {
+      "slovak": "Našiel som knihu.",
+      "english": "I found a book.",
+      "note": "Curated",
+      "demonstrates": "nájsť — find (see nájsť)"
+    }
+  ],
+  "najst": [
+    {
+      "slovak": "Našiel som knihu.",
+      "english": "I found a book.",
+      "note": "Curated",
+      "demonstrates": "nájsť — find"
+    },
+    {
+      "slovak": "Hľadám knihu.",
+      "english": "I'm looking for a book.",
+      "note": "Curated",
+      "demonstrates": "hľadať — look for (see hľadať)"
+    }
+  ],
+  "zacat": [
+    {
+      "slovak": "Začnem čítať.",
+      "english": "I'll start reading.",
+      "note": "Curated",
+      "demonstrates": "začať — begin"
+    },
+    {
+      "slovak": "Prestanem čítať.",
+      "english": "I'll stop reading.",
+      "note": "Curated",
+      "demonstrates": "prestať — stop (see prestať)"
+    }
+  ],
+  "prestat": [
+    {
+      "slovak": "Prestanem čítať.",
+      "english": "I'll stop reading.",
+      "note": "Curated",
+      "demonstrates": "prestať — stop"
+    },
+    {
+      "slovak": "Začnem čítať.",
+      "english": "I'll start reading.",
+      "note": "Curated",
+      "demonstrates": "začať — begin (see začať)"
+    }
+  ],
+  "povedat": [
+    {
+      "slovak": "Poviem to po slovensky.",
+      "english": "I'll say it in Slovak.",
+      "note": "Curated",
+      "demonstrates": "povedať — say / tell"
+    },
+    {
+      "slovak": "Hovorím po slovensky.",
+      "english": "I speak Slovak.",
+      "note": "Curated",
+      "demonstrates": "hovoriť — speak (see hovoriť)"
+    }
+  ],
+  "prist": [
+    {
+      "slovak": "Prídem do školy.",
+      "english": "I'll come to school.",
+      "note": "Curated",
+      "demonstrates": "prísť — come / arrive"
+    },
+    {
+      "slovak": "Odídem zo školy.",
+      "english": "I'll leave school.",
+      "note": "Curated",
+      "demonstrates": "odísť — leave (see odísť)"
+    }
+  ],
+  "odist": [
+    {
+      "slovak": "Odídem zo školy.",
+      "english": "I'll leave school.",
+      "note": "Curated",
+      "demonstrates": "odísť — leave"
+    },
+    {
+      "slovak": "Prídem do školy.",
+      "english": "I'll come to school.",
+      "note": "Curated",
+      "demonstrates": "prísť — come / arrive (see prísť)"
+    }
+  ],
+  "dostat": [
+    {
+      "slovak": "Dostanem knihu.",
+      "english": "I'll get a book.",
+      "note": "Curated",
+      "demonstrates": "dostať — receive / get"
+    },
+    {
+      "slovak": "Dostanem sa do mesta.",
+      "english": "I'll get to town.",
+      "note": "Curated",
+      "demonstrates": "dostať sa — get to / manage to arrive"
+    }
+  ],
+  "vianocny": [
+    {
+      "slovak": "Vianočný trh je krásny.",
+      "english": "The Christmas market is beautiful.",
+      "note": "Curated"
+    }
+  ],
+  "samostatny": [
+    {
+      "slovak": "Chce byť samostatný.",
+      "english": "He wants to be independent.",
+      "note": "Curated"
+    }
+  ],
+  "cenny": [
+    {
+      "slovak": "To je cenná rada.",
+      "english": "That is valuable advice.",
+      "note": "Curated"
+    }
+  ],
+  "uvodny": [
+    {
+      "slovak": "Úvodný text je krátky.",
+      "english": "The opening text is short.",
+      "note": "Curated"
+    }
+  ],
+  "zensky": [
+    {
+      "slovak": "Ženský tím vyhral.",
+      "english": "The women's team won.",
+      "note": "Curated"
+    }
+  ],
+  "proces": [
+    {
+      "slovak": "Proces trvá dlho.",
+      "english": "The process takes a long time.",
+      "note": "Curated"
+    }
+  ],
+  "informacny": [
+    {
+      "slovak": "Informačný systém je nový.",
+      "english": "The information system is new.",
+      "note": "Curated"
+    }
+  ],
+  "zariadenie": [
+    {
+      "slovak": "Zariadenie nefunguje.",
+      "english": "The equipment is not working.",
+      "note": "Curated"
+    }
+  ],
+  "romsky": [
+    {
+      "slovak": "Hovorí po rómsky.",
+      "english": "He speaks Romani.",
+      "note": "Curated"
+    }
+  ],
+  "nocny": [
+    {
+      "slovak": "Nočný vlak ide neskoro.",
+      "english": "The night train leaves late.",
+      "note": "Curated"
+    }
+  ],
+  "kategoria": [
+    {
+      "slovak": "Vyber kategóriu.",
+      "english": "Choose a category.",
+      "note": "Curated"
+    }
+  ],
+  "klucovy": [
+    {
+      "slovak": "Toto je kľúčový bod.",
+      "english": "This is a key point.",
+      "note": "Curated"
+    }
+  ],
+  "turnaj": [
+    {
+      "slovak": "Turnaj začína zajtra.",
+      "english": "The tournament starts tomorrow.",
+      "note": "Curated"
+    }
+  ],
+  "matersky": [
+    {
+      "slovak": "Materský jazyk je slovenčina.",
+      "english": "His mother tongue is Slovak.",
+      "note": "Curated"
+    }
+  ],
+  "priprava": [
+    {
+      "slovak": "Príprava trvá hodinu.",
+      "english": "The preparation takes an hour.",
+      "note": "Curated"
+    }
+  ],
+  "fyzicky": [
+    {
+      "slovak": "Je fyzicky fit.",
+      "english": "He is physically fit.",
+      "note": "Curated"
+    }
+  ],
+  "vseobecny": [
+    {
+      "slovak": "Všeobecný prehľad stačí.",
+      "english": "A general overview is enough.",
+      "note": "Curated"
+    }
+  ],
+  "fond": [
+    {
+      "slovak": "Fond podporuje projekty.",
+      "english": "The fund supports projects.",
+      "note": "Curated"
+    }
+  ],
+  "prostriedok": [
+    {
+      "slovak": "Nemám na to prostriedky.",
+      "english": "I do not have the means for that.",
+      "note": "Curated"
+    }
+  ],
+  "prirodzeny": [
+    {
+      "slovak": "Je to prirodzený vývoj.",
+      "english": "It is a natural development.",
+      "note": "Curated"
+    }
+  ],
+  "negativny": [
+    {
+      "slovak": "Mám negatívny pocit.",
+      "english": "I have a negative feeling.",
+      "note": "Curated"
+    }
+  ],
+  "obsahovat": [
+    {
+      "slovak": "Krabica obsahuje knihy.",
+      "english": "The box contains books.",
+      "note": "Curated"
+    }
+  ],
+  "slavnostny": [
+    {
+      "slovak": "Slávnostný večer bol pekný.",
+      "english": "The ceremonial evening was nice.",
+      "note": "Curated"
+    }
+  ],
+  "mimoriadny": [
+    {
+      "slovak": "Dnes je mimoriadny deň.",
+      "english": "Today is a special day.",
+      "note": "Curated"
+    }
+  ],
+  "nitriansky": [
+    {
+      "slovak": "Nitriansky hrad je starý.",
+      "english": "Nitra Castle is old.",
+      "note": "Curated"
+    }
   ]
 }
