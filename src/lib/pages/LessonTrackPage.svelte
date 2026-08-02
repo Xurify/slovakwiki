@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { cx, lead, page, sectionLabel, shell } from "$lib/ui/classes";
-
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
+  import PageShell from "$lib/components/ui/PageShell.svelte";
   import { lessonPath } from "$lib/content/lessons";
 
   let { data } = $props();
 </script>
 
-<main class={cx(shell, page, "max-w-[900px]", "pt-12")}>
+<main class="py-14 pb-20 max-[800px]:py-[30px] max-[800px]:pb-[50px]">
+  <PageShell class="max-w-[900px] pt-12">
   <nav class="mb-7 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
     <a class="text-blue-800 underline underline-offset-2" href="/lessons">Lessons</a>
     <span aria-hidden="true">/</span>
@@ -14,9 +16,9 @@
   </nav>
 
   <header class="max-w-[670px] border-b border-slate-200 py-7">
-    <p class={sectionLabel}>Lesson track</p>
+    <Eyebrow>Lesson track</Eyebrow>
     <h1>{data.track.title}</h1>
-    <p class={lead}>{data.track.description}</p>
+    <Lead>{data.track.description}</Lead>
   </header>
 
   <section aria-labelledby="lesson-list-heading">
@@ -48,4 +50,5 @@
       {/each}
     </ol>
   </section>
+  </PageShell>
 </main>

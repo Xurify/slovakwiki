@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { sectionLabel } from "$lib/ui/classes";
-
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   let { data } = $props();
 
   const topic = $derived(data.topic);
@@ -24,7 +23,7 @@
     </nav>
 
     <header class="border-b border-slate-200 pb-7">
-      <p class={sectionLabel}>Slovak cases</p>
+      <Eyebrow>Slovak cases</Eyebrow>
       <h1>{topic.name}</h1>
       <p class="mt-2 font-serif text-lg text-blue-800">{topic.question}</p>
       <p class="mt-4 font-serif text-lg text-slate-700">{topic.summary}</p>
@@ -32,7 +31,7 @@
 
     {#if topic.status === "ready"}
       <section class="scroll-mt-[72px] pt-8">
-        <p class={sectionLabel}>What it does</p>
+        <Eyebrow>What it does</Eyebrow>
         <h2 class="mb-3 text-2xl">Role in a sentence</h2>
         {#each topic.body as paragraph (paragraph)}
           <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
@@ -42,7 +41,7 @@
       </section>
 
       <section class="scroll-mt-[72px] mt-6 border-t border-slate-200 pt-8">
-        <p class={sectionLabel}>Annotated examples</p>
+        <Eyebrow>Annotated examples</Eyebrow>
         <h2 class="mb-3 text-2xl">What this shows</h2>
         <ol class="mt-5 grid list-none gap-2 p-0">
           {#each topic.examples as example (example.slovak)}
@@ -62,7 +61,7 @@
       </section>
     {:else}
       <section class="mt-8 rounded border border-slate-300 bg-blue-50 p-5">
-        <p class={sectionLabel}>Research draft</p>
+        <Eyebrow>Research draft</Eyebrow>
         <h2 class="mb-3 text-2xl">Build this reference</h2>
         <p class="mb-0 max-w-[66ch] font-serif leading-7 text-slate-700">
           This case has its own page now. Add the researched rule, common prepositions,
@@ -73,9 +72,9 @@
 
     {#if topic.researchPrompts.length}
       <section class="mt-6 border-t border-slate-200 pt-8">
-        <p class={sectionLabel}>
+        <Eyebrow>
           {topic.status === "ready" ? "Practice prompts" : "Research prompts"}
-        </p>
+        </Eyebrow>
         <h2 class="mb-3 text-2xl">
           {topic.status === "ready" ? "Try this next" : "What to add"}
         </h2>

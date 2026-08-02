@@ -36,12 +36,14 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 
 Or extract a small component if reused in 3+ places.
 
-### Shared class strings
+### Shared primitives
 
-Reusable Tailwind bundles live in `src/lib/ui/classes.ts` (`sectionLabel`, `shell`, `button`, `cx`, …).
-Import those — do **not** recreate them as CSS classes in `styles.css`.
+Keep Tailwind classes colocated in small Svelte components under `src/lib/components/ui/`.
 
-For interactive repeats (primary/secondary actions), prefer `src/lib/components/ui/Button.svelte`.
+- Use `Button.svelte`, `TextLink.svelte`, `Eyebrow.svelte`, `Lead.svelte`, `PageShell.svelte`, and `ContextRail.svelte` where appropriate.
+- Components own their default Tailwind classes and expose a `class` prop only for layout-level adjustments.
+- Do not export class-string bundles or `cx` helpers for page-level styling.
+- Add Bits UI only for behavior-heavy, accessible widgets (dialog, popover, select, tabs, accordion, tooltip). Do not introduce it for static cards, text, or layout.
 
 ### Design tokens
 
