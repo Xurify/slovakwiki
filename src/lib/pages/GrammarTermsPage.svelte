@@ -38,6 +38,24 @@
 
       <div class={termRowClass}>
         <div>
+          <dt class="font-serif text-lg font-semibold text-blue-800">Nominative</dt>
+          <dd class="m-0 mt-1 font-serif leading-relaxed text-slate-600">
+            The subject case: who or what performs the action. Also the usual dictionary
+            form for nouns and adjectives (the lemma), such as <span lang="sk">Peter</span
+            >
+            in <span lang="sk">Peter číta knihu</span>.
+          </dd>
+        </div>
+        <TextLink
+          class="inline-flex items-center gap-1.5"
+          href="/grammar/cases/nominative"
+        >
+          Open nominative <ArrowRight />
+        </TextLink>
+      </div>
+
+      <div class={termRowClass}>
+        <div>
           <dt class="font-serif text-lg font-semibold text-blue-800">Declension</dt>
           <dd class="m-0 mt-1 font-serif leading-relaxed text-slate-600">
             The set of ending changes used by nouns, adjectives, pronouns, and numerals
@@ -109,10 +127,25 @@
 
       <div class={termRowClass}>
         <div>
+          <dt class="font-serif text-lg font-semibold text-blue-800">Lemma</dt>
+          <dd class="m-0 mt-1 font-serif leading-relaxed text-slate-600">
+            The dictionary headword for a word: the citation form you look up. For verbs
+            that is the infinitive (<span lang="sk">robiť</span>); for nouns, nominative
+            singular (<span lang="sk">stôl</span>); for adjectives, masculine nominative
+            singular (<span lang="sk">dobrý</span>).
+          </dd>
+        </div>
+        <TextLink class="inline-flex items-center gap-1.5" href="/dictionary">
+          Open dictionary <ArrowRight />
+        </TextLink>
+      </div>
+
+      <div class={termRowClass}>
+        <div>
           <dt class="font-serif text-lg font-semibold text-blue-800">Infinitive</dt>
           <dd class="m-0 mt-1 font-serif leading-relaxed text-slate-600">
             The dictionary form of a verb: its unconjugated base form, such as rozumieť,
-            “to understand.”
+            “to understand.” For verbs, the infinitive is the lemma.
           </dd>
         </div>
         <TextLink class="inline-flex items-center gap-1.5" href="/grammar/present-tense">
