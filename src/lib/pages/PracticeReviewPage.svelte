@@ -24,7 +24,7 @@
       <PracticePlayer {items} mode="review" onresult={recordResult} />
     {:else}
       <section class="grid max-w-[920px] grid-cols-[minmax(0,1fr)_280px] border border-(--line) bg-(--surface) max-[800px]:grid-cols-1">
-        <div class="py-14 pr-14 max-[800px]:py-9 max-[800px]:pr-0">
+        <div class="px-14 py-14 max-[800px]:px-5 max-[800px]:py-9">
           <p class="mb-4 text-[0.82rem] font-bold text-(--accent-dark)">Review</p>
           <h1 class="max-w-[560px] text-[clamp(2.4rem,4vw,3.65rem)] tracking-tight">Nothing to review.</h1>
           <p class="mt-[18px] max-w-[520px] text-[0.98rem] leading-[1.65] text-(--muted-strong)">You have no missed or revealed items right now. Keep building your Slovak by starting a lesson or exploring a focused practice set.</p>

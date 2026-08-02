@@ -240,14 +240,6 @@ a {
   border-bottom: 0;
 }
 
-@media (min-width: 761px) {
-  [aria-label="Dictionary results"] > div.grid,
-  #wiki-results > a {
-    grid-template-columns: minmax(120px, 0.8fr) minmax(160px, 1.25fr) minmax(90px, 1fr) 16px;
-    gap: var(--space-4);
-  }
-}
-
 h1,
 h2,
 h3 {
