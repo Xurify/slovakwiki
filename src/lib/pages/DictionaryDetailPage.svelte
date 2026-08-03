@@ -9,6 +9,11 @@
     slovak: string;
   }
 
+  interface SenseView {
+    entry: ContentEntry;
+    exampleAudioSrcs: string[];
+  }
+
   let {
     data,
   }: {
@@ -17,6 +22,8 @@
       exampleAudioSrcs: string[];
       lemmaAudioSrc: string;
       relatedEntries: RelatedEntry[];
+      scrollToSection?: string;
+      senses: SenseView[];
     };
   } = $props();
 </script>
@@ -26,4 +33,6 @@
   exampleAudioSrcs={data.exampleAudioSrcs}
   lemmaAudioSrc={data.lemmaAudioSrc}
   relatedEntries={data.relatedEntries}
+  scrollToSection={data.scrollToSection}
+  senses={data.senses}
 />

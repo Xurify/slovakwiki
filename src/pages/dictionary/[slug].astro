@@ -6,6 +6,12 @@ import {
   resolveAudioSrc,
 } from "$lib/content/audio";
 import { entryBySlug, words } from "$lib/content/data";
+import {
+  canonicalWordSlug,
+  lemmaSenseGroup,
+  relatedSlugsForLemmaPage,
+  senseSectionId,
+} from "$lib/content/lemma-senses";
 
 export function getStaticPaths() {
   const lemmaTexts = new Set(
@@ -15,8 +21,25 @@ export function getStaticPaths() {
       .filter(Boolean),
   );
 
+  function exampleAudioSrcsFor(entry: (typeof words)[number]) {
+    return entry.examples.map((example) => {
+      const text = normalizeAudioText(example.slovak);
+      const kind = lemmaTexts.has(text) ? "lemma" : "example";
+      return resolveAudioSrc(example.slovak, kind);
+    });
+  }
+
   return words.map((entry) => {
-    const relatedEntries = entry.related
+    const senses = lemmaSenseGroup(entry, words);
+    const canonicalSlug = canonicalWordSlug(entry, words);
+    const primary =
+      senses.find((sense) => sense.slug === canonicalSlug) ?? entry;
+    const scrollToSection =
+      senses.length > 1 && entry.slug !== canonicalSlug
+        ? senseSectionId(entry.category)
+        : undefined;
+
+    const relatedEntries = relatedSlugsForLemmaPage(senses)
       .map((slug) => entryBySlug.get(slug))
       .filter((related): related is NonNullable<typeof related> => related !== undefined)
       .map((related) => ({
@@ -29,28 +52,48 @@ export function getStaticPaths() {
     return {
       params: { slug: entry.slug },
       props: {
-        entry,
+        entry: primary,
+        senses: senses.map((sense) => ({
+          entry: sense,
+          exampleAudioSrcs: exampleAudioSrcsFor(sense),
+        })),
         relatedEntries,
-        lemmaAudioSrc: resolveAudioSrc(entry.slovak, "lemma"),
-        exampleAudioSrcs: entry.examples.map((example) => {
-          const text = normalizeAudioText(example.slovak);
-          const kind = lemmaTexts.has(text) ? "lemma" : "example";
-          return resolveAudioSrc(example.slovak, kind);
-        }),
+        lemmaAudioSrc: resolveAudioSrc(primary.slovak, "lemma"),
+        exampleAudioSrcs: exampleAudioSrcsFor(primary),
+        canonicalPath: `/dictionary/${canonicalSlug}`,
+        scrollToSection,
       },
     };
   });
 }
 
-const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs } = Astro.props;
+const {
+  entry,
+  relatedEntries,
+  lemmaAudioSrc,
+  exampleAudioSrcs,
+  senses,
+  canonicalPath,
+  scrollToSection,
+} = Astro.props;
+
+const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 ---
 
 <SiteLayout
-  title={`${entry.slovak} — ${entry.english} | Slovak Wiki`}
+  title={`${entry.slovak} — ${titleEnglish} | Slovak Wiki`}
   description={entry.summary}
+  canonical={canonicalPath}
 >
   <DictionaryDetailPage
     client:load
-    data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs }}
+    data={{
+      entry,
+      relatedEntries,
+      lemmaAudioSrc,
+      exampleAudioSrcs,
+      senses,
+      scrollToSection,
+    }}
   />
 </SiteLayout>

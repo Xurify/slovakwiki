@@ -15,6 +15,7 @@
 
   interface LiveLink {
     english: string;
+    hash?: string;
     slug: string;
   }
 
@@ -180,7 +181,7 @@
               {#if live}
                 <a
                   class="font-serif text-base text-blue-800 underline decoration-slate-200 underline-offset-2 hover:decoration-blue-800"
-                  href="/dictionary/{live.slug}"
+                  href={`/dictionary/${live.slug}${live.hash ? `#${live.hash}` : ""}`}
                   lang="sk"
                 >
                   {entry.lemma}

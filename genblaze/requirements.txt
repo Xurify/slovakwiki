@@ -1,6 +1,0 @@
-# Soft-try deps — verify package names against Genblaze docs before install.
-# Kill gate: if install/API surface is wrong >30m, stop.
-genblaze-core
-genblaze-elevenlabs
-genblaze-s3
-python-dotenv

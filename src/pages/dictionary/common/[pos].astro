@@ -3,6 +3,7 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
 import DictionaryCommonPage from "$lib/pages/DictionaryCommonPage.svelte";
 import { words } from "$lib/content/data";
 import { findLiveWordForLemma } from "$lib/content/frequency";
+import { dictionaryHrefForSense } from "$lib/content/lemma-senses";
 import { loadAllFrequencyLists } from "$lib/content/load-frequency";
 import { FREQUENCY_POS_LABEL, type FrequencyPos } from "$lib/content/frequency-types";
 
@@ -24,14 +25,19 @@ const entries = sourceList.entries
     ...(entry.count !== undefined ? { count: entry.count } : {}),
   }));
 
-const liveByLemma: Record<string, { english: string; slug: string }> = {};
+const liveByLemma: Record<
+  string,
+  { english: string; slug: string; hash?: string }
+> = {};
 
 for (const entry of entries) {
   const live = findLiveWordForLemma(entry.lemma, words, pos);
   if (!live) continue;
+  const href = dictionaryHrefForSense(live, words);
   liveByLemma[entry.lemma] = {
     english: live.english,
-    slug: live.slug,
+    slug: href.slug,
+    ...(href.hash ? { hash: href.hash } : {}),
   };
 }
 

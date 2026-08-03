@@ -4,10 +4,11 @@ import Header from "$lib/components/Header.svelte";
 import "../styles.css";
 
 interface Props {
+  canonical?: string;
   description?: string;
   title: string;
 }
-const { description, title } = Astro.props;
+const { canonical, description, title } = Astro.props;
 const pathname = Astro.url.pathname;
 const query = Astro.url.searchParams.get("q") ?? "";
 ---
@@ -22,6 +23,7 @@ const query = Astro.url.searchParams.get("q") ?? "";
     <meta name="theme-color" content="#d4e2e8" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    {canonical && <link rel="canonical" href={canonical} />}
     <script is:inline>
       (function () {
         var storageKey = "slovak.wiki.theme-preference";
