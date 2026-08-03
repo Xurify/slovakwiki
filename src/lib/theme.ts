@@ -4,7 +4,7 @@ export type ResolvedTheme = "light" | "dark";
 export const THEME_STORAGE_KEY = "slovak.wiki.theme-preference";
 export const THEME_CHANGE_EVENT = "slovak-theme-change";
 
-const THEME_PREFERENCES: readonly ThemePreference[] = ["light", "dark", "system"];
+const TOGGLE_PREFERENCES: readonly ResolvedTheme[] = ["light", "dark"];
 
 export function isThemePreference(
   value: string | null | undefined,
@@ -92,9 +92,14 @@ export function applyTheme(preference: ThemePreference): ResolvedTheme {
   return theme;
 }
 
-export function cycleThemePreference(preference: ThemePreference): ThemePreference {
-  const index = THEME_PREFERENCES.indexOf(preference);
-  return THEME_PREFERENCES[(index + 1) % THEME_PREFERENCES.length] ?? "system";
+/**
+ * Toggle light ↔ dark. If currently following system, flip to the opposite of
+ * the resolved OS theme so the first click always changes appearance.
+ */
+export function cycleThemePreference(preference: ThemePreference): ResolvedTheme {
+  const current = resolveTheme(preference);
+  const index = TOGGLE_PREFERENCES.indexOf(current);
+  return TOGGLE_PREFERENCES[(index + 1) % TOGGLE_PREFERENCES.length] ?? "light";
 }
 
 export function subscribeSystemTheme(onChange: () => void): () => void {
@@ -110,13 +115,11 @@ export function subscribeSystemTheme(onChange: () => void): () => void {
 }
 
 export function themePreferenceLabel(preference: ThemePreference): string {
-  if (preference === "light") {
-    return "Light";
-  }
+  const resolved = resolveTheme(preference);
 
-  if (preference === "dark") {
+  if (resolved === "dark") {
     return "Dark";
   }
 
-  return "System";
+  return "Light";
 }
