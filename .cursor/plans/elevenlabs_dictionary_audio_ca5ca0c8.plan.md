@@ -51,14 +51,13 @@ Production URLs still come from R2 (`PUBLIC_AUDIO_BASE_URL`). Local/dev with no 
 | Option                  | Fit                                                   | Verdict                                                  |
 | ----------------------- | ----------------------------------------------------- | -------------------------------------------------------- |
 | **Cloudflare R2**       | 10 GB free, **$0 egress**, S3 API, you already use it | **Use this** — new bucket `slovak-wiki-audio`            |
-| Backblaze B2 + CF CDN   | Cheapest storage; free egress only via CF partnership | Fallback if account storage pressure becomes real        |
 | Tigris                  | 5 GB free, $0 egress, global                          | Fine alt; no existing setup                              |
 | UploadThing             | ~2 GB free, upload-app DX                             | Wrong tool for bulk static TTS library                   |
 | Vercel egress for audio | Easy if shipped in deploy                             | **Blocked** via gitignore + `.vercelignore`; R2 for prod |
 
 **Public URL:** R2 custom domain preferred (`audio.slovak.wiki` or similar) once DNS ready; until then R2 public `r2.dev` URL via `PUBLIC_AUDIO_BASE_URL`.
 
-If flags.games is near the **shared account** free-tier storage/ops limits, still prefer a separate bucket on the same account first (this library is small). Only switch to B2+CDN if dashboard shows real pressure after upload.
+If flags.games is near the **shared account** free-tier storage/ops limits, still prefer a separate bucket on the same account first (this library is small).
 
 ## Architecture
 
