@@ -124,18 +124,6 @@
           </span>
           lessons
         </p>
-        <p class="m-0">
-          {#if hydrated}
-            <span class="font-serif text-xl font-semibold tabular-nums text-slate-900">
-              {practiceState.completedLessonIds.filter((id) =>
-                lessons.some((lesson) => lesson.id === id),
-              ).length}
-            </span>
-            finished once
-          {:else}
-            …
-          {/if}
-        </p>
       </div>
     </PageShell>
   </section>
