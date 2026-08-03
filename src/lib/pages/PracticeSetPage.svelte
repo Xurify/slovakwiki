@@ -10,6 +10,7 @@
     writePracticeState,
   } from "$lib/client/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
+  import PracticePlayerSkeleton from "$lib/components/practice/PracticePlayerSkeleton.svelte";
   import { practiceItemById } from "$lib/content/practice";
 
   let { data } = $props();
@@ -46,7 +47,7 @@
     {#if hydrated}
       <PracticePlayer {items} mode="topic" onresult={recordResult} />
     {:else}
-      <p class="font-serif text-slate-500">Loading practice…</p>
+      <PracticePlayerSkeleton mode="topic" />
     {/if}
   </PageShell>
 </main>

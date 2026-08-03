@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
+  import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import {
     clearSearchHistory,
     pushSearchHistory,
@@ -66,7 +67,7 @@
 
   const fieldClass = $derived(
     size === "hero"
-      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-full border border-slate-300/90 bg-white/80 shadow-[0_1px_2px_rgb(20_42_56/6%),0_12px_32px_-16px_rgb(20_42_56/18%)] backdrop-blur-sm transition-[box-shadow,border-color,background-color] focus-within:border-blue-600 focus-within:bg-white focus-within:shadow-[0_0_0_4px_var(--accent-soft),0_16px_40px_-18px_rgb(20_42_56/22%)] max-[520px]:rounded-(--frame-radius)"
+      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-full border border-slate-300/90 bg-surface/80 shadow-(--shadow-border) backdrop-blur-sm transition-[box-shadow,border-color,background-color] focus-within:border-blue-600 focus-within:bg-surface focus-within:shadow-[0_0_0_4px_var(--accent-soft),var(--shadow-border)] max-[520px]:rounded-(--frame-radius)"
       : "flex min-h-10 w-full items-center rounded-(--control-radius) border border-(--line-strong) bg-(--surface) transition-[box-shadow,border-color] focus-within:border-(--accent) focus-within:shadow-[0_0_0_3px_var(--accent-soft)]",
   );
 
@@ -451,7 +452,9 @@
             Search index not built yet. Run a production build once, then refresh.
           </p>
         {:else if loading && results.length === 0}
-          <p class="m-0 px-3.5 py-4 text-sm text-(--muted)">Searching…</p>
+          <div class="flex items-center px-3.5 py-2.5">
+            <DotLoader label="Searching…" />
+          </div>
         {:else if results.length === 0}
           <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
             No matches for “{trimmedQuery}”. Try a shorter word or an English meaning.

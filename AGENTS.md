@@ -106,6 +106,17 @@ Palette and spacing are mapped into Tailwind via `@theme` in `src/styles.css`:
 - Use standard HTML/Svelte elements only — no invented component names, no Framer Motion / motion libraries unless already imported in that file.
 - Colocate markup + Tailwind. Avoid a second stylesheet for a component.
 
+## Loading states
+
+Pick the loading pattern by wait type:
+
+- **Real async waits** (e.g. Pagefind search): use `src/lib/components/ui/DotLoader.svelte`.
+- **Client hydration gates** (localStorage / practice state before interactive UI): use **layout skeletons**, not the dot loader.
+  - Practice set / reference / review → `PracticePlayerSkeleton.svelte` (mirrors `PracticePlayer.svelte`)
+  - Lesson practice block → `LessonPracticeSkeleton.svelte` (mirrors step label + `LessonInteraction.svelte`)
+
+**Keep skeletons honest.** If `PracticePlayer`, `LessonInteraction`, or the lesson practice section layout changes drastically (progress chrome, prompt block, choice rows, primary actions), update the matching skeleton in the same change so the placeholder still reads as that UI. Do not leave a stale skeleton that no longer resembles the real page.
+
 ## Svelte readability (flags.games-style)
 
 Prettier wraps lines; **airiness is manual**. Keep markup breathable:
@@ -130,3 +141,4 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - [ ] Styling done with Tailwind utilities and/or an existing/shared component
 - [ ] Used theme tokens (`slate` / `blue` / `rose` / `emerald`, `font-serif`, …) not one-off hex in components
 - [ ] Desktop + mobile still look correct
+- [ ] If practice/lesson interactive layout changed drastically: matching skeleton updated

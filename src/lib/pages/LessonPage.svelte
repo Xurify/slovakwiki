@@ -17,6 +17,7 @@
   import { lessonTracks } from "$lib/content/lessons";
   import KeyPhraseList from "$lib/components/lessons/KeyPhraseList.svelte";
   import LessonInteraction from "$lib/components/lessons/LessonInteraction.svelte";
+  import LessonPracticeSkeleton from "$lib/components/lessons/LessonPracticeSkeleton.svelte";
   import LessonScene from "$lib/components/lessons/LessonScene.svelte";
   import PatternNote from "$lib/components/lessons/PatternNote.svelte";
 
@@ -107,7 +108,7 @@
       <h2 id="practice-heading" class="mb-5">Use the scene</h2>
 
       {#if !hydrated}
-        <p class="font-serif text-slate-500">Loading your lesson…</p>
+        <LessonPracticeSkeleton />
       {:else if finished}
         <div class="border-l-2 border-emerald-600 py-2 pl-6">
           <Eyebrow tone="muted">Lesson complete</Eyebrow>

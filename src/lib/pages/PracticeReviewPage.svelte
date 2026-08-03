@@ -13,6 +13,7 @@
     writePracticeState,
   } from "$lib/client/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
+  import PracticePlayerSkeleton from "$lib/components/practice/PracticePlayerSkeleton.svelte";
   import { practiceItemById } from "$lib/content/practice";
 
   let practiceState = $state(emptyPracticeState());
@@ -46,7 +47,7 @@
     </nav>
 
     {#if !hydrated}
-      <p class="font-serif text-slate-500">Loading Review…</p>
+      <PracticePlayerSkeleton mode="review" />
     {:else if items.length}
       <PracticePlayer {items} mode="review" onresult={recordResult} />
     {:else}
