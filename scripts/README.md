@@ -13,9 +13,9 @@ bun run examples:enrich -- --replace-practice
 bun run examples:fill       # template stubs for lemmas Tatoeba missed
 bun run examples:curate     # hand examples from curated-examples.json → words.json
 bun run related:apply       # semantic cluster peers into empty related
-bun run examples:coverage   # top-N per POS example coverage report
-bun run examples:audit      # ranked review queue for generated practice frames
-bun run examples:audit-curated # fail if curated examples still look like fill stubs
+bun run audio:generate      # ElevenLabs → static/audio/ (gitignored)
+bun run audio:upload        # static/audio/ → Cloudflare R2
+bun run audio:status        # coverage: targets vs disk vs uploaded
 bun run index:search        # Pagefind for local/dev search
 ```
 
@@ -26,7 +26,10 @@ bun run index:search        # Pagefind for local/dev search
 | `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)   |
 | `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`      |
 | `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                      |
+| `content/audio/config.json`                   | ElevenLabs voice / model / settings (committed)                 |
+| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)            |
 | `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime |
+| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                  |
 
 ## `dictionary/`
 
@@ -47,6 +50,21 @@ Frequency lists, live dictionary publish, Tatoeba examples.
 | `audit-curated-examples.ts`   | `examples:audit-curated` | Fails if reviewed curated still match damaged fill templates                                                              |
 
 Primary dictionary growth is frequency publish + example enrich.
+
+## `audio/`
+
+ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
+
+| File          | npm script       | Notes                                                                            |
+| ------------- | ---------------- | -------------------------------------------------------------------------------- |
+| `generate.ts` | `audio:generate` | Writes `static/audio/{lemma\|example}/{hash}.mp3`; text in manifest; `--limit` / `--lemmas-only` / `--dry-run` / `--force`; needs `ELEVENLABS_API_KEY` |
+| `upload.ts`   | `audio:upload`   | Sync same key layout to R2; needs `R2_*` (+ `R2_JURISDICTION=eu` for EU buckets) |
+| `status.ts`   | `audio:status`   | Targets vs disk vs manifest uploaded                                             |
+| `shared.ts`   | (lib)            | Hash / collect / synthesize helpers                                              |
+
+Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` (future: `lesson/`, `practice/`). Hash = content address; folder = how clip is used.
+
+Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
 
 ## `search/`
 

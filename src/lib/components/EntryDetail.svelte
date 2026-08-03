@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AudioButton from "$lib/components/AudioButton.svelte";
   import ContextRail from "$lib/components/ui/ContextRail.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -16,9 +17,13 @@
 
   let {
     entry,
+    exampleAudioSrcs = [],
+    lemmaAudioSrc,
     relatedEntries = [],
   }: {
     entry: ContentEntry;
+    exampleAudioSrcs?: string[];
+    lemmaAudioSrc?: string;
     relatedEntries?: RelatedEntry[];
   } = $props();
 
@@ -43,18 +48,19 @@
 
   function groupExamplesByPattern(
     examples: Example[],
-  ): { label: string; examples: Example[] }[] {
-    const groups: { label: string; examples: Example[] }[] = [];
+  ): { label: string; items: { example: Example; index: number }[] }[] {
+    const groups: { label: string; items: { example: Example; index: number }[] }[] = [];
     const indexByLabel = new Map<string, number>();
 
-    for (const example of examples) {
+    for (let index = 0; index < examples.length; index += 1) {
+      const example = examples[index]!;
       const label = example.demonstrates?.trim() || "Other";
       const existing = indexByLabel.get(label);
       if (existing === undefined) {
         indexByLabel.set(label, groups.length);
-        groups.push({ label, examples: [example] });
+        groups.push({ label, items: [{ example, index }] });
       } else {
-        groups[existing]!.examples.push(example);
+        groups[existing]!.items.push({ example, index });
       }
     }
 
@@ -73,7 +79,19 @@
             <span>{kindLabel[entry.kind]}</span>
           </nav>
 
-          <h1 lang="sk">{entry.slovak}</h1>
+          <div class="flex items-start gap-3">
+            <h1 lang="sk">{entry.slovak}</h1>
+
+            {#if lemmaAudioSrc}
+              <div class="mt-1 shrink-0">
+                <AudioButton
+                  label={`Listen to ${entry.slovak}`}
+                  src={lemmaAudioSrc}
+                  text={entry.slovak}
+                />
+              </div>
+            {/if}
+          </div>
 
           <p class="mt-3 font-serif text-lg text-blue-800">{entry.english}</p>
           <p class="mt-1 text-sm text-slate-500">{entry.category}</p>
@@ -137,40 +155,53 @@
                       {group.label}
                     </p>
                     <ol class="m-0 list-none p-0">
-                      {#each group.examples as example, index (`${example.slovak}-${index}`)}
+                      {#each group.items as item, displayIndex (`${item.example.slovak}-${item.index}`)}
                         <li
                           class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4 last:border-b-0"
                         >
                           <span class="text-xs font-bold tabular-nums text-slate-400">
-                            {String(index + 1).padStart(2, "0")}
+                            {String(displayIndex + 1).padStart(2, "0")}
                           </span>
                           <div>
-                            <p
-                              class="m-0 font-serif font-semibold text-slate-900"
-                              lang="sk"
+                            <div class="flex items-start gap-2">
+                              <p
+                                class="m-0 min-w-0 font-serif font-semibold text-slate-900"
+                                lang="sk"
+                              >
+                                {item.example.slovak}
+                              </p>
+
+                              {#if exampleAudioSrcs[item.index]}
+                                <div class="shrink-0">
+                                  <AudioButton
+                                    label={`Listen to example: ${item.example.slovak}`}
+                                    src={exampleAudioSrcs[item.index]}
+                                    text={item.example.slovak}
+                                  />
+                                </div>
+                              {/if}
+                            </div>
+                            <small class="text-sm text-slate-500"
+                              >{item.example.english}</small
                             >
-                              {example.slovak}
-                            </p>
-                            <small class="text-sm text-slate-500">{example.english}</small
-                            >
-                            {#if example.isPracticeFrame}
+                            {#if item.example.isPracticeFrame}
                               <small
                                 class="mt-1 block text-xs font-medium text-slate-400"
                               >
                                 Practice frame
                               </small>
-                            {:else if example.note === "Tatoeba" && example.tatoebaId}
+                            {:else if item.example.note === "Tatoeba" && item.example.tatoebaId}
                               <small class="mt-1 block text-xs text-slate-400">
                                 <a
                                   class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
-                                  href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}
+                                  href={`https://tatoeba.org/sentences/show/${item.example.tatoebaId}`}
                                   rel="noopener noreferrer"
                                   target="_blank"
                                 >
-                                  Tatoeba #{example.tatoebaId}
+                                  Tatoeba #{item.example.tatoebaId}
                                 </a>
                               </small>
-                            {:else if example.note === "Curated" || example.demonstrates}
+                            {:else if item.example.note === "Curated" || item.example.demonstrates}
                               <small
                                 class="mt-1 block text-xs font-medium text-slate-400"
                               >
@@ -194,9 +225,24 @@
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <p class="m-0 font-serif font-semibold text-slate-900" lang="sk">
-                        {example.slovak}
-                      </p>
+                      <div class="flex items-start gap-2">
+                        <p
+                          class="m-0 min-w-0 font-serif font-semibold text-slate-900"
+                          lang="sk"
+                        >
+                          {example.slovak}
+                        </p>
+
+                        {#if exampleAudioSrcs[index]}
+                          <div class="shrink-0">
+                            <AudioButton
+                              label={`Listen to example: ${example.slovak}`}
+                              src={exampleAudioSrcs[index]}
+                              text={example.slovak}
+                            />
+                          </div>
+                        {/if}
+                      </div>
                       <small class="text-sm text-slate-500">{example.english}</small>
                       {#if example.isPracticeFrame}
                         <small class="mt-1 block text-xs font-medium text-slate-400">

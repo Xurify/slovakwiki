@@ -1,0 +1,21 @@
+{
+  "provider": "elevenlabs",
+  "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
+  "voiceName": "Slovak Wiki Dictionary Neutral",
+  "modelId": "eleven_v3",
+  "outputFormat": "mp3_44100_128",
+  "voiceSettings": {
+    "stability": 0.6,
+    "similarityBoost": 0.75,
+    "style": 0,
+    "speed": 0.88,
+    "useSpeakerBoost": true
+  },
+  "reservedVoices": {
+    "appCrisp": {
+      "voiceId": "H3f82Q89FWRfdJ3isCO8",
+      "voiceName": "Slovak Wiki App Crisp",
+      "note": "Saved for lessons/dialogue later — not used for dictionary yet."
+    }
+  }
+}

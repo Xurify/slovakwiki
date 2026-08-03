@@ -12,8 +12,18 @@
   let {
     data,
   }: {
-    data: { entry: ContentEntry; relatedEntries: RelatedEntry[] };
+    data: {
+      entry: ContentEntry;
+      exampleAudioSrcs: string[];
+      lemmaAudioSrc: string;
+      relatedEntries: RelatedEntry[];
+    };
   } = $props();
 </script>
 
-<EntryDetail entry={data.entry} relatedEntries={data.relatedEntries} />
+<EntryDetail
+  entry={data.entry}
+  exampleAudioSrcs={data.exampleAudioSrcs}
+  lemmaAudioSrc={data.lemmaAudioSrc}
+  relatedEntries={data.relatedEntries}
+/>

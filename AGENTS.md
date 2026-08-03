@@ -24,7 +24,7 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 
 ## Frequency lists + dictionary
 
-Script layout: see `scripts/README.md` (`dictionary/`, `search/`, `docs/`).
+Script layout: see `scripts/README.md` (`dictionary/`, `audio/`, `search/`, `docs/`).
 
 Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated seed in `src/lib/content/data.ts`). Hand/pattern example overlay: `content/dictionary/curated-examples.json` → `bun run examples:curate` (temporary; delete when phrase churn stops).
 
@@ -34,16 +34,17 @@ Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated se
 - English glosses for common lemmas: `content/frequency/glosses.json`
 - Publish glossed frequency lemmas into `content/dictionary/words.json` (no approval gate): `bun run frequency:publish` (`--limit 100`)
 - Attach Tatoeba examples to dictionary words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
-- Drop weak fill stubs so Tatoeba can reclaim: `bun run examples:reclaim` → then enrich → fill → curate
-- Fill lemmas Tatoeba cannot match: `bun run examples:fill` → then `bun run examples:curate`
-- Semantic related peers (empty related only): `bun run related:apply` (after curate; clusters in `content/dictionary/related-clusters.json`)
-- After publish/enrich/curate/related content changes: `bun run index:search` so local Pagefind matches the live dictionary
   - Skips crude/sexual/vulgar lines via `src/lib/content/example-quality.ts`
   - Download + decompress:
     - https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2
     - https://downloads.tatoeba.org/exports/per_language/slk/slk-eng_links.tsv.bz2
     - https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2
   - Missing-example report: `tmp/missing-examples.txt`
+- Drop weak fill stubs so Tatoeba can reclaim: `bun run examples:reclaim` → then enrich → fill → curate
+- Fill lemmas Tatoeba cannot match: `bun run examples:fill` → then `bun run examples:curate`
+- Semantic related peers (empty related only): `bun run related:apply` (after curate; clusters in `content/dictionary/related-clusters.json`)
+- After publish/enrich/curate/related content changes: `bun run index:search` so local Pagefind matches the live dictionary
+- Dictionary listen audio: `bun run audio:generate` (ElevenLabs → `static/audio/{lemma|example}/`, gitignored) then `bun run audio:upload` (R2, same keys). Local plays `/audio/{kind}/…`; production needs `PUBLIC_AUDIO_BASE_URL`. See `scripts/README.md` `audio/`.
 - Regenerate docs from the references module: `bun run docs:data-sources`
 - Public lists UI: `/dictionary/common`
 - Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency

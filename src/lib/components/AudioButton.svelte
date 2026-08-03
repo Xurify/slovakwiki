@@ -35,7 +35,19 @@
     if (src) {
       audio = new Audio(src);
       audio.onended = () => (playing = false);
-      audio.onerror = () => (playing = false);
+      audio.onerror = () => {
+        // Missing local/R2 file → browser TTS fallback
+        if (typeof window !== "undefined" && window.speechSynthesis) {
+          utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = "sk-SK";
+          utterance.rate = 0.82;
+          utterance.onend = () => (playing = false);
+          utterance.onerror = () => (playing = false);
+          window.speechSynthesis.speak(utterance);
+          return;
+        }
+        playing = false;
+      };
       void audio.play().catch(() => (playing = false));
       return;
     }

@@ -1,7 +1,18 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
+import {
+  normalizeAudioText,
+  resolveAudioSrc,
+} from "$lib/content/audio";
 import { entryBySlug, words } from "$lib/content/data";
+
+const lemmaTexts = new Set(
+  words
+    .filter((entry) => entry.kind === "word")
+    .map((entry) => normalizeAudioText(entry.slovak))
+    .filter(Boolean),
+);
 
 export function getStaticPaths() {
   return words.map((entry) => {
@@ -17,17 +28,30 @@ export function getStaticPaths() {
 
     return {
       params: { slug: entry.slug },
-      props: { entry, relatedEntries },
+      props: {
+        entry,
+        relatedEntries,
+        lemmaAudioSrc: resolveAudioSrc(entry.slovak, "lemma"),
+        exampleAudioSrcs: entry.examples.map((example) => {
+          const text = normalizeAudioText(example.slovak);
+          // Overlap with a headword → same clip lives under lemma/
+          const kind = lemmaTexts.has(text) ? "lemma" : "example";
+          return resolveAudioSrc(example.slovak, kind);
+        }),
+      },
     };
   });
 }
 
-const { entry, relatedEntries } = Astro.props;
+const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs } = Astro.props;
 ---
 
 <SiteLayout
   title={`${entry.slovak} — ${entry.english} | Slovak Wiki`}
   description={entry.summary}
 >
-  <DictionaryDetailPage data={{ entry, relatedEntries }} />
+  <DictionaryDetailPage
+    client:load
+    data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs }}
+  />
 </SiteLayout>

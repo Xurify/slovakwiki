@@ -8,6 +8,7 @@ build/
 dist/
 coverage/
 static/pagefind/
+static/audio/
 tmp/
 dev/*.log
 .env*
