@@ -12,8 +12,7 @@ const CATEGORY_SECTION_ID: Record<string, string> = {
 /** Anchor id for a POS section on a multi-sense lemma page. */
 export function senseSectionId(category: string): string {
   return (
-    CATEGORY_SECTION_ID[category] ??
-    category.toLocaleLowerCase("en").replace(/\s+/g, "-")
+    CATEGORY_SECTION_ID[category] ?? category.toLocaleLowerCase("en").replace(/\s+/g, "-")
   );
 }
 
@@ -73,9 +72,7 @@ export function dictionaryHrefForSense(
 }
 
 /** Related slugs across senses, excluding POS-sibling entries. */
-export function relatedSlugsForLemmaPage(
-  senses: readonly ContentEntry[],
-): string[] {
+export function relatedSlugsForLemmaPage(senses: readonly ContentEntry[]): string[] {
   const siblingSlugs = new Set(senses.map((sense) => sense.slug));
   const seen = new Set<string>();
   const related: string[] = [];

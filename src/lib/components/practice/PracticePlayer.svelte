@@ -1,19 +1,61 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
+  import ContextRail from "$lib/components/ui/ContextRail.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { tick } from "svelte";
-  import { answersMatch } from "$lib/client/practice-state";
+  import {
+    answersMatch,
+    gradeAnswer,
+    type AnswerGrade,
+  } from "$lib/client/practice-state";
   import AudioButton from "$lib/components/AudioButton.svelte";
-  import type { PracticeItem } from "$lib/content/learning-types";
+  import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
+  import type { PracticeItem, PracticeTask } from "$lib/content/learning-types";
+
+  const SK_CHARS = [
+    "á",
+    "ä",
+    "č",
+    "ď",
+    "é",
+    "í",
+    "ĺ",
+    "ľ",
+    "ň",
+    "ó",
+    "ô",
+    "ŕ",
+    "š",
+    "ť",
+    "ú",
+    "ý",
+    "ž",
+  ] as const;
+
+  function sectionTitleFor(task: PracticeTask): string {
+    if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
+    if (task.type === "cloze") return "Fill the gap";
+    if (task.type === "choice") return "Choose the answer";
+    if (task.type === "build") return "Build the sentence";
+    if (task.type === "typed") return "Write the sentence";
+    return "Practice";
+  }
 
   let {
     items,
     mode,
     onresult,
+    hintMode = "inline",
+    audioSrcs = {},
+    sectionTitle = $bindable(""),
   }: {
     items: PracticeItem[];
     mode: "review" | "topic";
     onresult: (result: { itemId: string; needsReview: boolean }) => void;
+    hintMode?: "inline" | "rail";
+    audioSrcs?: Record<string, string>;
+    sectionTitle?: string;
   } = $props();
 
   let activeIndex = $state(0);
@@ -23,20 +65,46 @@
   let submitted = $state(false);
   let revealed = $state(false);
   let finished = $state(false);
+  let hintOpen = $state(false);
   let feedbackPanel = $state<HTMLElement | null>(null);
+  let inputEl = $state<HTMLInputElement | null>(null);
 
   const current = $derived(items[activeIndex]);
   const task = $derived(current.task);
-  const correct = $derived.by(() => {
-    if (!submitted || revealed) return false;
-    if (task.type === "choice") return selectedId === task.answerId;
-    if (task.type === "build")
-      return (
-        builtTiles.length === task.answer.length &&
-        task.answer.every((tile, index) => tile === builtTiles[index])
-      );
-    return answersMatch(input, task.answer, task.acceptedAnswers);
+  const isRepair = $derived(task.type === "typed" && task.task === "repair");
+  const dialogueContext = $derived(isRepair ? [] : (task.context ?? []));
+  const repairLine = $derived(isRepair ? task.context?.[0] : undefined);
+
+  $effect(() => {
+    if (!finished) sectionTitle = sectionTitleFor(task);
   });
+
+  const frameParts = $derived(task.type === "cloze" ? task.frame.split("{}") : []);
+  const framePrefix = $derived(frameParts[0] ?? "");
+  const frameSuffix = $derived(frameParts[1] ?? "");
+  const spokenFrame = $derived(
+    task.type === "cloze" ? task.frame.replace("{}", task.answer) : "",
+  );
+
+  const grade = $derived.by<AnswerGrade | null>(() => {
+    if (!submitted || revealed) return null;
+    if (task.type === "choice")
+      return selectedId === task.answerId ? "correct" : "incorrect";
+    if (task.type === "build") {
+      const match =
+        builtTiles.length === task.answer.length &&
+        task.answer.every((tile, index) => tile === builtTiles[index]);
+      return match ? "correct" : "incorrect";
+    }
+    if (task.type === "cloze")
+      return gradeAnswer(input, task.answer, task.acceptedAnswers);
+    return answersMatch(input, task.answer, task.acceptedAnswers)
+      ? "correct"
+      : "incorrect";
+  });
+
+  const correct = $derived(grade === "correct");
+
   const canCheck = $derived.by(() => {
     if (submitted) return false;
     if (task.type === "choice") return selectedId !== null;
@@ -52,7 +120,8 @@
   }
 
   async function reveal(): Promise<void> {
-    if (submitted || task.type !== "typed") return;
+    if (submitted) return;
+    if (task.type !== "typed" && task.type !== "cloze") return;
     revealed = true;
     submitted = true;
     await tick();
@@ -67,8 +136,18 @@
     if (!submitted) builtTiles = builtTiles.filter((_, tileIndex) => tileIndex !== index);
   }
 
+  function insertChar(char: string): void {
+    if (submitted || !inputEl) return;
+    const start = inputEl.selectionStart ?? input.length;
+    const end = inputEl.selectionEnd ?? start;
+    input = input.slice(0, start) + char + input.slice(end);
+    inputEl.focus();
+    queueMicrotask(() => inputEl?.setSelectionRange(start + 1, start + 1));
+  }
+
   function next(): void {
-    onresult({ itemId: current.id, needsReview: revealed || !correct });
+    const needsReview = revealed || grade === "incorrect";
+    onresult({ itemId: current.id, needsReview });
     if (activeIndex === items.length - 1) {
       finished = true;
       return;
@@ -79,43 +158,69 @@
     selectedId = null;
     submitted = false;
     revealed = false;
+    hintOpen = false;
+  }
+
+  function feedbackLabel(): string {
+    if (revealed) return "Try this.";
+    if (grade === "correct") return "That works.";
+    if (grade === "accents") return "Almost — check the accents.";
+    return "Try this.";
+  }
+
+  function feedbackToneClass(): string {
+    if (revealed || grade === "incorrect" || grade === null)
+      return "border-rose-600 bg-rose-50";
+    if (grade === "accents") return "border-blue-600 bg-blue-50";
+    return "border-emerald-600 bg-emerald-50";
   }
 </script>
 
 {#if finished}
-  <section class="max-w-[590px] border-l-2 border-emerald-600 bg-emerald-50 py-2 pl-6">
+  <section
+    class="max-w-[590px] border-l-4 border-emerald-600 bg-emerald-50 px-5 py-5"
+    aria-labelledby="practice-finished-heading"
+  >
     <p class="m-0 text-xs font-semibold uppercase tracking-widest text-emerald-700">
       Finished
     </p>
-    <h2 id="practice-finished-heading" class="mb-1 mt-2 text-3xl">
+
+    <h2
+      id="practice-finished-heading"
+      class="mb-0 mt-3 font-serif text-3xl text-slate-900"
+    >
       Keep the useful ones close.
     </h2>
-    <span class="font-serif text-slate-700"
-      >{mode === "review"
+
+    <p class="mt-2 mb-0 text-base text-slate-700">
+      {mode === "review"
         ? "Anything still uncertain will remain in Review."
-        : "Missed or revealed items are now in Review."}</span
-    ><Button class="mt-5" href="/practice">Back to Practice</Button>
+        : "Missed or revealed items are now in Review."}
+    </p>
+
+    <div class="mt-6">
+      <Button href="/practice">Back to Practice</Button>
+    </div>
   </section>
 {:else}
   <section class="max-w-[720px]" aria-labelledby="practice-question">
     <div
-      class="flex justify-between gap-5 text-xs font-bold uppercase tracking-wide text-slate-500"
-      aria-label={`Item ${activeIndex + 1} of ${items.length}`}
+      class="flex justify-end text-xs font-bold uppercase tracking-wide text-slate-500"
+      aria-label={`Question ${activeIndex + 1} of ${items.length}, ${activeIndex} completed`}
     >
-      <span>{mode === "review" ? "Review" : "Practice"}</span>
       <span>{activeIndex + 1} of {items.length}</span>
     </div>
 
-    <div class="mt-3 h-1 bg-slate-200">
+    <div class="mt-3 h-1 bg-slate-200" aria-hidden="true">
       <span
         class="block h-full bg-blue-600 transition-[width]"
-        style:width={`${((activeIndex + 1) / items.length) * 100}%`}
+        style:width={`${(activeIndex / items.length) * 100}%`}
       ></span>
     </div>
 
-    {#if task.context?.length}
+    {#if dialogueContext.length}
       <div class="mt-8 grid border-t border-slate-200">
-        {#each task.context as line (line.id)}
+        {#each dialogueContext as line (line.id)}
           <div
             class="grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2.5 border-b border-slate-200 py-3 max-[540px]:grid-cols-[1fr_auto]"
           >
@@ -133,7 +238,27 @@
       </div>
     {/if}
 
-    <h1 id="practice-question" class="mt-8 max-w-[25ch]">{task.prompt}</h1>
+    {#if isRepair}
+      <h1 id="practice-question" class="sr-only">{task.prompt}</h1>
+    {:else}
+      <h1
+        id="practice-question"
+        class="mt-8 text-base font-semibold leading-snug text-pretty text-slate-800"
+      >
+        {task.prompt}
+      </h1>
+    {/if}
+
+    {#if repairLine}
+      <div class="mt-8 border-l-4 border-slate-300 bg-slate-50 px-4 py-3" lang="sk">
+        <p class="m-0 font-serif text-lg font-semibold text-slate-900">
+          {repairLine.slovak}
+        </p>
+        {#if repairLine.english}
+          <p class="m-0 mt-1 text-sm text-slate-500">{repairLine.english}</p>
+        {/if}
+      </div>
+    {/if}
 
     {#if task.type === "choice"}
       <div class="mt-7 grid gap-2">
@@ -184,6 +309,82 @@
           {/each}
         </div>
       </div>
+    {:else if task.type === "cloze"}
+      <div
+        class={hintMode === "rail"
+          ? "mt-7 grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem]"
+          : "mt-7 grid gap-4"}
+      >
+        <div class="grid gap-3">
+          <p
+            class="m-0 flex flex-wrap items-baseline gap-x-2 gap-y-3 font-serif text-xl leading-9"
+            lang="sk"
+          >
+            {#if framePrefix}
+              <span>{framePrefix}</span>
+            {/if}
+
+            <input
+              class="min-w-[7ch] border-0 border-b-2 border-blue-600 bg-blue-50 px-2 py-1 text-center font-serif text-xl outline-none focus:ring-2 focus:ring-blue-100"
+              style:width={`${Math.max(task.answer.length + 2, 8)}ch`}
+              bind:this={inputEl}
+              bind:value={input}
+              disabled={submitted}
+              aria-label={`Missing word: ${task.gapEn}`}
+              autocomplete="off"
+              autocapitalize="none"
+              lang="sk"
+            />
+
+            {#if frameSuffix}
+              <span>{frameSuffix}</span>
+            {/if}
+
+            {#if audioSrcs[task.id]}
+              <AudioButton src={audioSrcs[task.id]} text={spokenFrame} />
+            {/if}
+          </p>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-sm text-slate-500">{task.gapEn}</span>
+
+            <button
+              class="inline-flex items-center rounded-full border border-slate-300 px-2.5 py-0.5 text-xs font-bold text-blue-800 hover:border-blue-600 hover:bg-blue-50"
+              type="button"
+              aria-expanded={hintOpen}
+              onclick={() => (hintOpen = !hintOpen)}
+            >
+              {task.hint.chip}
+            </button>
+          </div>
+
+          <div class="flex flex-wrap gap-1" aria-label="Slovak characters">
+            {#each SK_CHARS as char (char)}
+              <button
+                class="min-w-9 border border-slate-200 bg-slate-50 px-1.5 py-1 font-serif text-sm text-slate-600 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40"
+                type="button"
+                disabled={submitted}
+                onclick={() => insertChar(char)}
+                tabindex="-1"
+              >
+                {char}
+              </button>
+            {/each}
+          </div>
+
+          {#if hintOpen && hintMode === "inline"}
+            <ClozeHintPanel hint={task.hint} variant="inline" />
+          {/if}
+        </div>
+
+        {#if hintMode === "rail"}
+          <ContextRail>
+            {#if hintOpen}
+              <ClozeHintPanel hint={task.hint} variant="rail" />
+            {/if}
+          </ContextRail>
+        {/if}
+      </div>
     {:else}
       <label class="mt-7 grid gap-2 text-xs font-bold text-slate-600">
         <span>{task.inputLabel}</span>
@@ -200,13 +401,13 @@
 
     {#if submitted}
       <div
-        class={`mt-7 grid gap-1 border-l-4 p-[18px] ${correct ? "border-emerald-600 bg-emerald-50" : "border-rose-600 bg-rose-50"}`}
+        class={`mt-7 grid gap-1 border-l-4 p-[18px] ${feedbackToneClass()}`}
         bind:this={feedbackPanel}
         aria-live="polite"
         tabindex="-1"
       >
         <p class="m-0 text-xs font-bold uppercase tracking-wide text-slate-600">
-          {correct ? "That works." : "Try this."}
+          {feedbackLabel()}
         </p>
         <strong class="font-serif text-lg" lang="sk">{current.feedback.correction}</strong
         >
@@ -218,6 +419,11 @@
         </span>
         {#if current.newUse}
           <em class="mt-1 font-serif not-italic text-blue-800">{current.newUse}</em>
+        {/if}
+        {#if task.type === "cloze" && task.lemmaId}
+          <TextLink class="mt-1 text-xs" href={`/dictionary/${task.lemmaId}`}>
+            Open in dictionary
+          </TextLink>
         {/if}
       </div>
 
@@ -237,7 +443,7 @@
           Check
         </Button>
 
-        {#if task.type === "typed"}
+        {#if task.type === "typed" || task.type === "cloze"}
           <button
             class="border-0 bg-transparent text-xs font-bold text-blue-800 underline underline-offset-2"
             type="button"

@@ -21,9 +21,7 @@
   >
     {track.title}
   </h2>
-  <p
-    class="m-0 min-h-[4.5rem] max-w-[29ch] font-serif leading-6 text-pretty text-slate-600"
-  >
+  <p class="m-0 min-h-[4.5rem] font-serif leading-6 text-pretty text-slate-600">
     {track.description}
   </p>
 

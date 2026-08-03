@@ -54,7 +54,11 @@ export function hashAudioText(text: string, config: AudioConfig): string {
   return createHash("sha256").update(material, "utf8").digest("hex").slice(0, 20);
 }
 
-export function audioRelativePath(text: string, kind: AudioKind, config: AudioConfig): string {
+export function audioRelativePath(
+  text: string,
+  kind: AudioKind,
+  config: AudioConfig,
+): string {
   return audioObjectKey(kind, hashAudioText(text, config));
 }
 
@@ -84,9 +88,7 @@ export async function ensureAudioDir(kind?: AudioKind): Promise<void> {
 }
 
 /** Unique lemma + example Slovak strings from the live dictionary merge. */
-export function collectAudioTargets(options?: {
-  lemmasOnly?: boolean;
-}): AudioTarget[] {
+export function collectAudioTargets(options?: { lemmasOnly?: boolean }): AudioTarget[] {
   const byText = new Map<string, AudioTarget>();
 
   for (const entry of words) {
@@ -157,9 +159,7 @@ export async function synthesizeElevenLabs(
   config: AudioConfig,
   apiKey: string,
 ): Promise<Uint8Array> {
-  const url = new URL(
-    `https://api.elevenlabs.io/v1/text-to-speech/${config.voiceId}`,
-  );
+  const url = new URL(`https://api.elevenlabs.io/v1/text-to-speech/${config.voiceId}`);
   url.searchParams.set("output_format", config.outputFormat);
 
   const response = await fetch(url, {

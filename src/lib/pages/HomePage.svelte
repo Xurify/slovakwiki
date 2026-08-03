@@ -151,7 +151,7 @@
           Look it up. Learn it. Use it.
         </h1>
 
-        <Lead class="mt-3 max-w-[38ch]">
+        <Lead class="mt-3">
           Short lessons and a practical reference for the forms you want to remember.
         </Lead>
 
@@ -183,7 +183,7 @@
       {@render rail("01", "Phrase")}
 
       <div>
-        <h2 id="phrase-heading" class="m-0 max-w-[20ch]">Take a phrase apart</h2>
+        <h2 id="phrase-heading" class="m-0">Take a phrase apart</h2>
 
         <p
           class="mt-9 flex flex-wrap items-end gap-x-8 gap-y-6 font-serif text-[clamp(1.9rem,4.6vw,3rem)] font-semibold leading-none tracking-[-0.04em] text-slate-900"
@@ -206,7 +206,7 @@
           {phraseOfTheDay.english}
         </p>
 
-        <p class="mt-4 max-w-[62ch] text-[0.95rem] leading-[1.7] text-slate-600">
+        <p class="mt-4 max-w-[66ch] text-[0.95rem] leading-[1.7] text-slate-600">
           {phraseOfTheDay.note}
         </p>
 
@@ -424,11 +424,11 @@
       <div class="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
         <div>
           <Eyebrow tone="inverse">Practice</Eyebrow>
-          <h2 id="practice-heading" class="m-0 max-w-[16ch] text-panel-inverse-ink">
+          <h2 id="practice-heading" class="m-0 text-panel-inverse-ink">
             Keep the hard forms close
           </h2>
           <p
-            class="mt-4 max-w-[52ch] text-[0.95rem] leading-[1.7] text-panel-inverse-ink/70"
+            class="mt-4 max-w-[70ch] text-[0.95rem] leading-[1.7] text-panel-inverse-ink/70"
           >
             Anything you miss in a lesson is saved on this device and waiting in Review.
             No streaks and no scores, just the handful of endings that have not settled

@@ -69,7 +69,9 @@ async function main(): Promise<void> {
   console.log(`Model: ${config.modelId}`);
   console.log(`Layout: static/audio/{lemma|example}/{hash}.mp3`);
   console.log(`Targets: ${targets.length}${lemmasOnly ? " (lemmas only)" : ""}`);
-  console.log(`On disk (matched): ${onDisk} (lemma=${lemmaOnDisk}, example=${exampleOnDisk})`);
+  console.log(
+    `On disk (matched): ${onDisk} (lemma=${lemmaOnDisk}, example=${exampleOnDisk})`,
+  );
   console.log(`Missing: ${missing}`);
   console.log(
     `Manifest entries: ${Object.keys(manifest).length} (matched ${inManifest})`,

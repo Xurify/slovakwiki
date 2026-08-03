@@ -43,9 +43,7 @@
                     <span class="font-serif text-sm text-slate-500" lang="sk"
                       >{topic.slovak}</span
                     >
-                    <p
-                      class="m-0 max-w-[56ch] font-serif text-sm leading-relaxed text-slate-600"
-                    >
+                    <p class="m-0 font-serif text-sm leading-relaxed text-slate-600">
                       {topic.summary}
                     </p>
                   </div>

@@ -1,10 +1,7 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
-import {
-  normalizeAudioText,
-  resolveAudioSrc,
-} from "$lib/content/audio";
+import { normalizeAudioText, resolveAudioSrc } from "$lib/content/audio";
 import { entryBySlug, words } from "$lib/content/data";
 import {
   canonicalWordSlug,
@@ -63,8 +60,7 @@ export function getStaticPaths() {
   });
 }
 
-const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses } =
-  Astro.props;
+const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses } = Astro.props;
 
 const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 ---

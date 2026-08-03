@@ -20,6 +20,7 @@
   import LessonPracticeSkeleton from "$lib/components/lessons/LessonPracticeSkeleton.svelte";
   import LessonScene from "$lib/components/lessons/LessonScene.svelte";
   import PatternNote from "$lib/components/lessons/PatternNote.svelte";
+  import { practiceSetForLesson } from "$lib/content/practice";
 
   let { data } = $props();
 
@@ -33,6 +34,8 @@
       data.lesson.track,
   );
   const currentExercise = $derived(data.lesson.exercises[activeIndex]);
+  const practiceSet = $derived(practiceSetForLesson(data.lesson.id));
+  const reviewCount = $derived(practiceState.reviewItemIds.length);
 
   const referenceLinkClass =
     "group flex min-h-14 items-center justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-4 font-serif text-base text-blue-800 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)]";
@@ -104,7 +107,7 @@
       class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
       aria-labelledby="practice-heading"
     >
-      <Eyebrow>Practice in context</Eyebrow>
+      <Eyebrow>Try it here</Eyebrow>
       <h2 id="practice-heading" class="mb-5">Use the scene</h2>
 
       {#if !hydrated}
@@ -116,10 +119,19 @@
             Keep the scene, not a score.
           </h3>
           <p class="m-0 font-serif text-slate-600">
-            Anything you missed or revealed is ready in Review.
+            {#if reviewCount > 0}
+              Anything you missed or revealed is ready in Review.
+            {:else}
+              You can practise this topic again whenever you want another pass.
+            {/if}
           </p>
           <div class="mt-6 flex flex-wrap items-center gap-4">
-            <Button href="/practice/review">Open Review</Button>
+            {#if practiceSet}
+              <Button href={`/practice/${practiceSet.id}`}>Open practice</Button>
+            {/if}
+            {#if reviewCount > 0}
+              <TextLink href="/practice/review">Open Review</TextLink>
+            {/if}
             <TextLink href="/lessons">Browse lessons</TextLink>
           </div>
         </div>

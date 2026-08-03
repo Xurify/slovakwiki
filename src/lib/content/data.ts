@@ -763,15 +763,22 @@ export const grammarEntries: GrammarTopic[] = [
       "Memorize common verbs as a complete pattern instead of translating one ending at a time.",
     ],
     pattern: {
-      label: "Rozumieť — to understand",
-      lines: ["ja → -m", "ty → -š", "on / ona → no ending"],
+      label: "Čítať — to read",
+      lines: [
+        "ja čítam",
+        "ty čítaš",
+        "on / ona číta",
+        "my čítame",
+        "vy čítate",
+        "oni / ony čítajú",
+      ],
     },
     watchOut:
       "The infinitive is not a shortcut to the present tense. Learn each verb's stem and endings together.",
     nextSlug: "word-order",
     lessonLink: {
       href: "/lessons/grammar/present-tense-i",
-      label: "Say what you do now",
+      label: "Present-tense endings",
     },
   },
   {

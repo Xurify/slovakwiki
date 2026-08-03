@@ -23,7 +23,7 @@
       <span class="text-sm text-slate-600">{phrase.english}</span>
 
       {#if phrase.note}
-        <small class="max-w-[37ch] text-sm leading-5 text-slate-500">{phrase.note}</small>
+        <small class="text-sm leading-5 text-slate-500">{phrase.note}</small>
       {/if}
     </li>
   {/each}

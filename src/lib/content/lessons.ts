@@ -24,7 +24,7 @@ export const lessons: Lesson[] = [
     track: "everyday",
     slug: "meet-someone",
     group: "Core tools",
-    title: "Meet someone",
+    title: "Greetings and introductions",
     promise: "Greet someone politely, introduce yourself, and say where you are from.",
     scene: [
       {
@@ -169,8 +169,8 @@ export const lessons: Lesson[] = [
     id: "grammar/present-tense-i",
     track: "grammar",
     slug: "present-tense-i",
-    title: "Say what you do now",
-    promise: "Change a present-tense verb to say that you are doing the action.",
+    title: "Present-tense endings",
+    promise: "Use the six present-tense endings to say who is doing the action.",
     scene: [
       {
         id: "peter-reads",
@@ -180,30 +180,61 @@ export const lessons: Lesson[] = [
         audio: { transcript: "Peter číta knihu." },
       },
       {
+        id: "ask-you",
+        speaker: "Anna",
+        slovak: "Čítaš knihu?",
+        english: "Are you reading a book?",
+        audio: { transcript: "Čítaš knihu?" },
+      },
+      {
         id: "you-read",
         speaker: "You",
-        slovak: "Čítam knihu.",
-        english: "I am reading a book.",
-        audio: { transcript: "Čítam knihu." },
+        slovak: "Áno, čítam.",
+        english: "Yes, I am reading.",
+        audio: { transcript: "Áno, čítam." },
       },
     ],
     keyPhrases: [
       {
+        slovak: "čítam",
+        english: "I read",
+        note: "ja · ending -m",
+        audio: { transcript: "čítam" },
+      },
+      {
+        slovak: "čítaš",
+        english: "you read (informal)",
+        note: "ty · ending -š",
+        audio: { transcript: "čítaš" },
+      },
+      {
         slovak: "číta",
         english: "he/she reads",
-        note: "Use this when Peter, Anna, or another one person does the action.",
+        note: "on / ona · no extra ending",
         audio: { transcript: "číta" },
       },
       {
-        slovak: "čítam",
-        english: "I read",
-        note: "The ending -m tells the listener that you are the person doing it.",
-        audio: { transcript: "čítam" },
+        slovak: "čítame",
+        english: "we read",
+        note: "my · ending -me",
+        audio: { transcript: "čítame" },
+      },
+      {
+        slovak: "čítate",
+        english: "you read (plural / formal)",
+        note: "vy · ending -te",
+        audio: { transcript: "čítate" },
+      },
+      {
+        slovak: "čítajú",
+        english: "they read",
+        note: "oni / ony · ending -jú",
+        audio: { transcript: "čítajú" },
       },
     ],
     pattern: {
-      title: "The ending changes with the person",
-      body: "Číta means he or she reads. Čítam means I read. Slovak often leaves out ja because -m already tells you who is acting.",
+      title: "Six endings, one present tense",
+      body: "Čítať shows the pattern: čítam, čítaš, číta, čítame, čítate, čítajú. Slovak often drops ja, ty, and my because the ending already says who acts. Vy covers both plural you and formal singular you.",
     },
     exercises: [
       {
@@ -229,8 +260,15 @@ export const lessons: Lesson[] = [
         type: "typed",
         task: "repair",
         practiceItemId: "grammar/repair-first-person-reading",
-        prompt:
-          "You mean “I am reading a book.” Repair this Slovak sentence: Ja číta knihu.",
+        context: [
+          {
+            id: "lesson-reading-broken",
+            speaker: "Sentence",
+            slovak: "Ja číta knihu.",
+            english: "I am reading a book.",
+          },
+        ],
+        prompt: "Repair this sentence.",
         inputLabel: "Correct Slovak sentence",
         answer: "Čítam knihu.",
         acceptedAnswers: ["Ja čítam knihu."],
@@ -241,23 +279,28 @@ export const lessons: Lesson[] = [
         },
       },
       {
-        id: "present-tense-build",
-        type: "build",
+        id: "present-tense-we-choose",
+        type: "choice",
         practiceItemId: "grammar/today-reading",
-        prompt: "Build a new sentence about what you are doing today.",
-        tiles: ["knihu.", "Dnes", "čítam"],
-        answer: ["Dnes", "čítam", "knihu."],
+        prompt: "Which sentence means “Today we are reading a book”?",
+        choices: [
+          { id: "we", label: "Dnes čítame knihu." },
+          { id: "i", label: "Dnes čítam knihu." },
+          { id: "they", label: "Dnes čítajú knihu." },
+        ],
+        answerId: "we",
         feedback: {
-          correction: "Dnes čítam knihu.",
-          english: "Today I am reading a book.",
-          why: "Dnes gives the time; čítam keeps the I ending. The subject pronoun is still unnecessary.",
+          correction: "Dnes čítame knihu.",
+          english: "Today we are reading a book.",
+          why: "Čítame ends in -me for we. Čítam is I; čítajú is they.",
         },
       },
       {
         id: "present-tense-personal",
         type: "personal",
-        prompt: "Say one true present-tense sentence about yourself.",
-        example: "Dnes pracujem.",
+        prompt:
+          "Say one true present-tense sentence about yourself or about someone else.",
+        example: "Dnes pracujem. / Peter číta noviny.",
       },
     ],
     referenceLinks: [{ href: "/grammar/present-tense", label: "Present tense" }],
@@ -266,7 +309,7 @@ export const lessons: Lesson[] = [
     id: "pronunciation/first-syllable-stress",
     track: "pronunciation",
     slug: "first-syllable-stress",
-    title: "Find the first beat",
+    title: "First-syllable stress",
     promise: "Hear the regular first-syllable stress in common Slovak words.",
     scene: [
       {

@@ -18,6 +18,7 @@
 
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
+  let sectionTitle = $state("Review");
 
   const items = $derived(
     practiceState.reviewItemIds
@@ -43,20 +44,20 @@
     <nav class="mb-8 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/practice">Practice</TextLink>
       <span aria-hidden="true">/</span>
-      <span>Review</span>
+      <span>{sectionTitle}</span>
     </nav>
 
     {#if !hydrated}
       <PracticePlayerSkeleton mode="review" />
     {:else if items.length}
-      <PracticePlayer {items} mode="review" onresult={recordResult} />
+      <PracticePlayer {items} mode="review" bind:sectionTitle onresult={recordResult} />
     {:else}
       <section class="max-w-[640px]">
         <Eyebrow>Review</Eyebrow>
         <h1>Nothing to review.</h1>
-        <p class="mt-4 max-w-[520px] font-serif leading-relaxed text-slate-600">
+        <p class="mt-4 font-serif leading-relaxed text-slate-600">
           You have no missed or revealed items right now. Keep building your Slovak by
-          starting a lesson or exploring a focused practice set.
+          starting a lesson or exploring a topic practice set.
         </p>
         <div class="mt-7 flex flex-wrap items-center gap-4">
           <Button href="/lessons">Start a lesson</Button>

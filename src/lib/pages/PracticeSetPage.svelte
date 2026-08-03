@@ -17,6 +17,7 @@
 
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
+  let hintMode = $state<"inline" | "rail">("inline");
 
   const items = $derived(
     data.set.itemIds
@@ -24,8 +25,23 @@
       .filter((item): item is NonNullable<typeof item> => item !== undefined),
   );
 
+  function initialSectionTitle(): string {
+    const first = items[0]?.task;
+    if (!first) return data.set.title;
+    if (first.type === "typed" && first.task === "repair") return "Repair this sentence";
+    if (first.type === "cloze") return "Fill the gap";
+    if (first.type === "choice") return "Choose the answer";
+    if (first.type === "build") return "Build the sentence";
+    if (first.type === "typed") return "Write the sentence";
+    return data.set.title;
+  }
+
+  let sectionTitle = $state(initialSectionTitle());
+
   onMount(() => {
     practiceState = readPracticeState(localStorage);
+    hintMode =
+      new URLSearchParams(location.search).get("hint") === "rail" ? "rail" : "inline";
     hydrated = true;
   });
 
@@ -41,11 +57,18 @@
     <nav class="mb-8 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/practice">Practice</TextLink>
       <span aria-hidden="true">/</span>
-      <span>{data.set.title}</span>
+      <span>{sectionTitle}</span>
     </nav>
 
     {#if hydrated}
-      <PracticePlayer {items} mode="topic" onresult={recordResult} />
+      <PracticePlayer
+        {items}
+        mode="topic"
+        {hintMode}
+        audioSrcs={data.clozeAudioSrcs ?? {}}
+        bind:sectionTitle
+        onresult={recordResult}
+      />
     {:else}
       <PracticePlayerSkeleton mode="topic" />
     {/if}

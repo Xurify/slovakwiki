@@ -58,7 +58,7 @@ export const searchIdleHints: Array<{
     href: "/grammar/cases/nominative",
   },
   {
-    label: "Meet someone",
+    label: "Greetings and introductions",
     kind: "lesson",
     href: "/lessons/everyday/meet-someone",
   },

@@ -16,10 +16,7 @@ export interface AudioConfig {
   modelId: string;
   outputFormat: string;
   provider: string;
-  reservedVoices?: Record<
-    string,
-    { note?: string; voiceId: string; voiceName: string }
-  >;
+  reservedVoices?: Record<string, { note?: string; voiceId: string; voiceName: string }>;
   voiceId: string;
   voiceName: string;
   voiceSettings: AudioVoiceSettings;
@@ -54,10 +51,7 @@ function hashMaterial(text: string, config: AudioConfig): string {
  * Changing provider/voice/model/settings → new hash → regen.
  * Server-only (node:crypto) — Astro frontmatter / scripts, not client bundles.
  */
-export function audioHash(
-  text: string,
-  config: AudioConfig = audioConfigData,
-): string {
+export function audioHash(text: string, config: AudioConfig = audioConfigData): string {
   return createHash("sha256")
     .update(hashMaterial(text, config), "utf8")
     .digest("hex")

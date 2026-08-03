@@ -22,7 +22,7 @@
     </span>
     <strong class="font-serif text-lg text-blue-800" lang="sk">{entry.slovak}</strong>
     <span class="text-sm text-slate-600">{entry.english}</span>
-    <p class="m-0 max-w-[56ch] text-sm leading-relaxed text-slate-500">{entry.summary}</p>
+    <p class="m-0 text-sm leading-relaxed text-slate-500">{entry.summary}</p>
   </div>
   <ArrowRight class="mt-1 text-blue-800" />
 </a>

@@ -141,3 +141,29 @@ export function answersMatch(
     (candidate) => normalizePracticeAnswer(candidate) === normalizedValue,
   );
 }
+
+export type AnswerGrade = "accents" | "correct" | "incorrect";
+
+function foldAccents(value: string): string {
+  return normalizePracticeAnswer(value)
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .normalize("NFC");
+}
+
+/**
+ * Fold is a downgrade path only: it can turn "incorrect" into "almost",
+ * never into "correct" (štát/stať fold to the same string).
+ */
+export function gradeAnswer(
+  value: string,
+  answer: string,
+  alternatives: string[] = [],
+): AnswerGrade {
+  if (answersMatch(value, answer, alternatives)) return "correct";
+  const folded = foldAccents(value);
+  const nearMiss = [answer, ...alternatives].some(
+    (candidate) => foldAccents(candidate) === folded,
+  );
+  return nearMiss ? "accents" : "incorrect";
+}

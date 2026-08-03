@@ -27,9 +27,7 @@ describe("frequency helpers", () => {
     expect(findLiveWordForLemma("domáci", words, "adjective")?.slug).toBe("domaci");
     expect(findLiveWordForLemma("domáci", words, "noun")?.slug).toBe("domaci-n");
     expect(findLiveWordForLemma("dospelý", words, "noun")?.slug).toBe("dospely");
-    expect(findLiveWordForLemma("dospelý", words, "adjective")?.slug).toBe(
-      "dospely-a",
-    );
+    expect(findLiveWordForLemma("dospelý", words, "adjective")?.slug).toBe("dospely-a");
   });
 
   it("does not link diacritic near-misses to the wrong word", () => {

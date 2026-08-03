@@ -81,7 +81,12 @@
 >
   {#if exercise.type === "personal"}
     <Eyebrow>Say it yourself</Eyebrow>
-    <h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>
+    <h2
+      id="interaction-heading"
+      class="font-serif text-xl font-semibold leading-snug text-slate-900"
+    >
+      {exercise.prompt}
+    </h2>
 
     {#if exercise.example}
       <p
@@ -97,7 +102,12 @@
     </Button>
   {:else}
     <Eyebrow>Your turn</Eyebrow>
-    <h2 id="interaction-heading" class="max-w-[31ch]">{exercise.prompt}</h2>
+    <h2
+      id="interaction-heading"
+      class="font-serif text-xl font-semibold leading-snug text-slate-900"
+    >
+      {exercise.prompt}
+    </h2>
 
     {#if exercise.context?.length}
       <div class="mt-5">

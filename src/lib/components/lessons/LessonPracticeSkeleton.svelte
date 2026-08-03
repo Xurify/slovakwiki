@@ -20,9 +20,9 @@
   >
     <span class="mb-3 block h-3 w-20 animate-pulse rounded-sm bg-slate-200"></span>
 
-    <div class="grid max-w-[31ch] gap-2.5">
-      <span class="h-8 w-full animate-pulse rounded-sm bg-slate-200"></span>
-      <span class="h-8 w-[65%] animate-pulse rounded-sm bg-slate-200"></span>
+    <div class="grid gap-2">
+      <span class="h-6 w-full animate-pulse rounded-sm bg-slate-200"></span>
+      <span class="h-6 w-[55%] animate-pulse rounded-sm bg-slate-200"></span>
     </div>
 
     <div class="mt-6 grid border-t border-slate-200" aria-hidden="true">

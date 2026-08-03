@@ -4,6 +4,7 @@ import {
   addReviewItem,
   answersMatch,
   emptyPracticeState,
+  gradeAnswer,
   markLessonComplete,
   PRACTICE_STATE_STORAGE_KEY,
   readPracticeState,
@@ -22,8 +23,14 @@ import {
 } from "../client/search-history";
 import { allEntries, caseTopics, entryBySlug, validateContent, words } from "./data";
 import { isDamagedExampleTemplate } from "./example-quality";
-import { lessons, validateLessons } from "./lessons";
-import { practiceItemById, validatePracticeItems } from "./practice";
+import { lessonById, lessons, validateLessons } from "./lessons";
+import {
+  practiceItemById,
+  practiceItems,
+  practiceSets,
+  practiceSetForLesson,
+  validatePracticeItems,
+} from "./practice";
 import { normalizeSearchText, searchEntries } from "./search";
 import { buildSearchDocuments } from "./search-documents";
 import { conjugateVerbForTest, searchFormsForLemma } from "./search-forms";
@@ -114,6 +121,20 @@ describe("Slovak content", () => {
         }
       }
     }
+  });
+
+  it("keeps practice sets linked to lessons and preserves each lesson's primary set", () => {
+    const setIds = new Set<string>();
+
+    for (const set of practiceSets) {
+      expect(setIds.has(set.id)).toBe(false);
+      setIds.add(set.id);
+      expect(lessonById.has(set.lessonId)).toBe(true);
+    }
+
+    expect(practiceSets).toHaveLength(5);
+    expect(practiceSetForLesson("grammar/present-tense-i")?.id).toBe("present-tense-i");
+    expect(practiceSetForLesson("grammar/present-tense-i")?.itemIds).toHaveLength(6);
   });
 
   it("publishes usable content for every case page", () => {
@@ -459,6 +480,27 @@ describe("Slovak content", () => {
     expect(answersMatch("Čítam knihu.", "Čítam knihu.")).toBe(true);
     expect(answersMatch("čítam knihu", "Čítam knihu.")).toBe(true);
     expect(answersMatch("Citam knihu", "Čítam knihu.")).toBe(false);
+  });
+
+  it("grades cloze answers with an accents near-miss path", () => {
+    expect(gradeAnswer("čítam", "Čítam")).toBe("correct");
+    expect(gradeAnswer("Citam", "Čítam")).toBe("accents");
+    expect(gradeAnswer("píšem", "Čítam")).toBe("incorrect");
+  });
+
+  it("resolves cloze lemma and grammar topic ids", () => {
+    const clozeItems = practiceItems.filter((item) => item.task.type === "cloze");
+    expect(clozeItems.length).toBeGreaterThanOrEqual(3);
+
+    for (const item of clozeItems) {
+      if (item.task.type !== "cloze") continue;
+      if (item.task.lemmaId) {
+        expect(entryBySlug.has(item.task.lemmaId)).toBe(true);
+      }
+      if (item.task.hint.grammarTopicId) {
+        expect(entryBySlug.has(item.task.hint.grammarTopicId)).toBe(true);
+      }
+    }
   });
 
   it("stores only completion, review, and saved-reference state", () => {

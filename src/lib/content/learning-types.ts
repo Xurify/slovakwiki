@@ -73,6 +73,31 @@ export interface TypedExercise extends ExerciseBase {
   type: "typed";
 }
 
+export interface ClozeHint {
+  chip: string;
+  grammarTopicId?: string;
+  note: string;
+  /** v1.1 progressive reveal — ignored by v1 UI */
+  reveal?: string[];
+}
+
+export interface ClozeExercise extends ExerciseBase {
+  acceptedAnswers?: string[];
+  answer: string;
+  /** Exactly one `{}` gap: "Dnes {} knihu." */
+  frame: string;
+  /** EN gloss of the missing word only */
+  gapEn: string;
+  hint: ClozeHint;
+  /** Dictionary slug → post-check lemma link + lemma audio */
+  lemmaId?: string;
+  /** v1.1 reveal step */
+  morphHint?: string;
+  /** v1.1 reveal step: EN of the whole frame */
+  sentenceEn?: string;
+  type: "cloze";
+}
+
 export interface PersonalExercise {
   example?: string;
   id: string;
@@ -97,7 +122,7 @@ export interface Lesson {
   track: LessonTrackId;
 }
 
-export type PracticeTask = ChoiceExercise | BuildExercise | TypedExercise;
+export type PracticeTask = ChoiceExercise | BuildExercise | TypedExercise | ClozeExercise;
 
 export interface PracticeItem {
   feedback: ExerciseFeedback;

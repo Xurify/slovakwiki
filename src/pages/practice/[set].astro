@@ -1,21 +1,31 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PracticeSetPage from "$lib/pages/PracticeSetPage.svelte";
-import { practiceSets } from "$lib/content/practice";
+import { clozeAudioSrcs } from "$lib/content/practice-audio";
+import { practiceItemById, practiceSets } from "$lib/content/practice";
 
 export function getStaticPaths() {
-  return practiceSets.map((set) => ({
-    params: { set: set.id },
-    props: { set },
-  }));
+  return practiceSets.map((set) => {
+    const items = set.itemIds
+      .map((itemId) => practiceItemById.get(itemId))
+      .filter((item): item is NonNullable<typeof item> => item !== undefined);
+
+    return {
+      params: { set: set.id },
+      props: {
+        set,
+        clozeAudioSrcs: clozeAudioSrcs(items),
+      },
+    };
+  });
 }
 
-const { set } = Astro.props;
+const { set, clozeAudioSrcs: audioSrcs } = Astro.props;
 ---
 
 <SiteLayout
   title={`${set.title} practice | Slovak Wiki`}
-  description={`Contextual Slovak practice for ${set.title}.`}
+  description={`Slovak practice for ${set.title}.`}
 >
-  <PracticeSetPage data={{ set }} client:load />
+  <PracticeSetPage data={{ set, clozeAudioSrcs: audioSrcs }} client:load />
 </SiteLayout>

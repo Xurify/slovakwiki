@@ -47,9 +47,7 @@
   };
 
   const senseViews = $derived(
-    senses && senses.length > 0
-      ? senses
-      : [{ entry, exampleAudioSrcs }],
+    senses && senses.length > 0 ? senses : [{ entry, exampleAudioSrcs }],
   );
   const multiSense = $derived(senseViews.length > 1);
   const sourceLabel = $derived(
@@ -57,10 +55,7 @@
   );
 
   function onlyPracticeFrames(examples: Example[]): boolean {
-    return (
-      examples.length > 0 &&
-      examples.every((example) => example.isPracticeFrame)
-    );
+    return examples.length > 0 && examples.every((example) => example.isPracticeFrame);
   }
 
   function groupExamplesByPattern(
@@ -132,7 +127,9 @@
               </p>
             {/if}
 
-            <p class="mt-5 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700">
+            <p
+              class="mt-5 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700"
+            >
               {entry.summary}
             </p>
           {/if}
@@ -140,9 +137,7 @@
 
         {#each senseViews as sense (sense.entry.slug)}
           {@const senseEntry = sense.entry}
-          {@const sectionId = multiSense
-            ? senseSectionId(senseEntry.category)
-            : "usage"}
+          {@const sectionId = multiSense ? senseSectionId(senseEntry.category) : "usage"}
           {@const examplesId = multiSense
             ? `${senseSectionId(senseEntry.category)}-examples`
             : "examples"}
@@ -205,9 +200,7 @@
                 class="scroll-mt-[88px] mt-8"
                 aria-labelledby={`${examplesId}-heading`}
               >
-                <Eyebrow
-                  >{practiceOnly ? "Practice frame" : "Examples"}</Eyebrow
-                >
+                <Eyebrow>{practiceOnly ? "Practice frame" : "Examples"}</Eyebrow>
                 <h3 id={`${examplesId}-heading`} class="mb-4 text-xl">
                   {practiceOnly ? "Try this pattern" : "In a sentence"}
                 </h3>
@@ -221,9 +214,7 @@
 
                 {#if senseEntry.examples.some((example) => example.demonstrates)}
                   <div class="grid gap-8">
-                    {#each groupExamplesByPattern(senseEntry.examples) as group (
-                      group.label
-                    )}
+                    {#each groupExamplesByPattern(senseEntry.examples) as group (group.label)}
                       <div>
                         <p
                           class="mb-3 border-b border-slate-200 pb-2 font-sans text-xs font-semibold tracking-wide text-slate-500"
@@ -231,15 +222,11 @@
                           {group.label}
                         </p>
                         <ol class="m-0 list-none p-0">
-                          {#each group.items as item, displayIndex (
-                            `${item.example.slovak}-${item.index}`
-                          )}
+                          {#each group.items as item, displayIndex (`${item.example.slovak}-${item.index}`)}
                             <li
                               class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4 last:border-b-0"
                             >
-                              <span
-                                class="text-xs font-bold tabular-nums text-slate-400"
-                              >
+                              <span class="text-xs font-bold tabular-nums text-slate-400">
                                 {String(displayIndex + 1).padStart(2, "0")}
                               </span>
                               <div>
@@ -297,9 +284,7 @@
                   </div>
                 {:else}
                   <ol class="m-0 list-none border-t border-slate-200 p-0">
-                    {#each senseEntry.examples as example, index (
-                      `${example.slovak}-${index}`
-                    )}
+                    {#each senseEntry.examples as example, index (`${example.slovak}-${index}`)}
                       <li
                         class="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-slate-200 py-4 last:border-b-0"
                       >
@@ -325,13 +310,9 @@
                               </div>
                             {/if}
                           </div>
-                          <small class="text-sm text-slate-500"
-                            >{example.english}</small
-                          >
+                          <small class="text-sm text-slate-500">{example.english}</small>
                           {#if example.isPracticeFrame}
-                            <small
-                              class="mt-1 block text-xs font-medium text-slate-400"
-                            >
+                            <small class="mt-1 block text-xs font-medium text-slate-400">
                               Practice frame
                             </small>
                           {:else if example.note === "Tatoeba" && example.tatoebaId}
@@ -346,9 +327,7 @@
                               </a>
                             </small>
                           {:else if example.note === "Curated" || example.demonstrates}
-                            <small
-                              class="mt-1 block text-xs font-medium text-slate-400"
-                            >
+                            <small class="mt-1 block text-xs font-medium text-slate-400">
                               Reviewed
                             </small>
                           {/if}

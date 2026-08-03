@@ -33,16 +33,14 @@
         <h2 id="ref-{group.id}" class="font-serif text-2xl text-blue-800">
           {group.title}
         </h2>
-        <p
-          class="mt-2 max-w-[56ch] font-serif text-[1.02rem] leading-relaxed text-slate-600"
-        >
+        <p class="mt-2 font-serif text-[1.02rem] leading-relaxed text-slate-600">
           {group.summary}
         </p>
 
         {#each referencesByGroup(group.id) as source (source.id)}
           <article class={sourceBlockClass}>
             <h3 class="font-serif text-lg font-semibold text-slate-900">{source.name}</h3>
-            <p class="mt-1 max-w-[56ch] text-sm leading-relaxed text-slate-600">
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">
               {source.usedFor}
             </p>
 

@@ -17,6 +17,7 @@
 
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
+  let sectionTitle = $state("Reference item");
 
   onMount(() => {
     const current = readPracticeState(localStorage);
@@ -37,11 +38,16 @@
     <nav class="mb-8 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/practice">Practice</TextLink>
       <span aria-hidden="true">/</span>
-      <span>Reference item</span>
+      <span>{sectionTitle}</span>
     </nav>
 
     {#if hydrated}
-      <PracticePlayer items={[data.item]} mode="topic" onresult={recordResult} />
+      <PracticePlayer
+        items={[data.item]}
+        mode="topic"
+        bind:sectionTitle
+        onresult={recordResult}
+      />
     {:else}
       <PracticePlayerSkeleton mode="topic" />
     {/if}

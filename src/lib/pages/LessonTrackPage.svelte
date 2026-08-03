@@ -44,9 +44,7 @@
                   </small>
                 {/if}
                 <strong class="font-serif text-xl text-blue-800">{lesson.title}</strong>
-                <p
-                  class="m-0 max-w-[56ch] font-serif text-sm leading-relaxed text-slate-600"
-                >
+                <p class="m-0 font-serif text-sm leading-relaxed text-slate-600">
                   {lesson.promise}
                 </p>
               </div>

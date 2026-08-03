@@ -28,9 +28,7 @@ export function findLiveWordForLemma(
   words: readonly ContentEntry[],
   preferredPos?: FrequencyPos,
 ): ContentEntry | undefined {
-  const preferredCategory = preferredPos
-    ? POS_TO_CATEGORY[preferredPos]
-    : undefined;
+  const preferredCategory = preferredPos ? POS_TO_CATEGORY[preferredPos] : undefined;
 
   const exact = words.filter((word) => word.slovak === lemma);
   if (preferredCategory) {
@@ -55,9 +53,7 @@ export function frequencyEntriesMissingFromDictionary(
   entries: readonly FrequencyEntry[],
   words: readonly ContentEntry[],
 ): FrequencyEntry[] {
-  return entries.filter(
-    (entry) => !findLiveWordForLemma(entry.lemma, words, entry.pos),
-  );
+  return entries.filter((entry) => !findLiveWordForLemma(entry.lemma, words, entry.pos));
 }
 
 export function filterFrequencyByPos(
