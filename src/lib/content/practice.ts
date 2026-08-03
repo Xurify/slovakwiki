@@ -4,6 +4,8 @@ export interface PracticeSet {
   id: string;
   itemIds: string[];
   lessonId: string;
+  previewItemId?: string;
+  sessionSize?: number;
   /** Short set-specific blurb; falls back to the linked lesson promise. */
   summary?: string;
   title: string;
@@ -427,6 +429,208 @@ export const practiceItems: PracticeItem[] = [
     },
   },
   {
+    id: "grammar/cloze-first-person-working",
+    source: {
+      kind: "lesson",
+      label: "Present-tense endings",
+      href: "/lessons/grammar/present-tense-i",
+    },
+    task: {
+      id: "review-cloze-first-person-working",
+      type: "cloze",
+      practiceItemId: "grammar/cloze-first-person-working",
+      prompt: "Fill the gap so the sentence is about you.",
+      frame: "Zajtra {} v Bratislave.",
+      answer: "pracujem",
+      gapEn: "I work / I am working",
+      lemmaId: "pracovat",
+      morphHint: "pracovať → pracujem",
+      sentenceEn: "Tomorrow I am working in Bratislava.",
+      hint: {
+        chip: "1st person sg. · -m",
+        grammarTopicId: "present-tense",
+        note: "Present -m still marks I. Pracovať takes the stem pracuj- before the ending.",
+        reveal: [
+          "The verb is pracovať.",
+          "First person singular takes -m.",
+          "p r a c u j …",
+        ],
+      },
+      feedback: {
+        correction: "Zajtra pracujem v Bratislave.",
+        english: "Tomorrow I am working in Bratislava.",
+        why: "Pracujem is I work. Keep -m when you are the one working.",
+      },
+    },
+    feedback: {
+      correction: "Zajtra pracujem v Bratislave.",
+      english: "Tomorrow I am working in Bratislava.",
+      why: "Pracujem is I work. Keep -m when you are the one working.",
+    },
+  },
+  {
+    id: "grammar/cloze-second-person-working",
+    source: {
+      kind: "lesson",
+      label: "Present-tense endings",
+      href: "/lessons/grammar/present-tense-i",
+    },
+    task: {
+      id: "review-cloze-second-person-working",
+      type: "cloze",
+      practiceItemId: "grammar/cloze-second-person-working",
+      prompt: "Fill the gap for informal you.",
+      frame: "Dnes {} v Bratislave.",
+      answer: "pracuješ",
+      gapEn: "you work / you are working",
+      lemmaId: "pracovat",
+      morphHint: "pracovať → pracuješ",
+      sentenceEn: "Today you are working in Bratislava.",
+      hint: {
+        chip: "2nd person sg. · -š",
+        grammarTopicId: "present-tense",
+        note: "The -š ending marks informal singular you. Contrast with -m for I.",
+        reveal: [
+          "The verb is pracovať.",
+          "Second person singular takes -š.",
+          "p r a c u j e …",
+        ],
+      },
+      feedback: {
+        correction: "Dnes pracuješ v Bratislave.",
+        english: "Today you are working in Bratislava.",
+        why: "Pracuješ ends in -š for informal you. Pracujem would mean I work.",
+      },
+    },
+    feedback: {
+      correction: "Dnes pracuješ v Bratislave.",
+      english: "Today you are working in Bratislava.",
+      why: "Pracuješ ends in -š for informal you. Pracujem would mean I work.",
+    },
+  },
+  {
+    id: "grammar/choice-they-reading",
+    source: {
+      kind: "lesson",
+      label: "Present-tense endings",
+      href: "/lessons/grammar/present-tense-i",
+    },
+    task: {
+      id: "review-choice-they-reading",
+      type: "choice",
+      practiceItemId: "grammar/choice-they-reading",
+      prompt: "Which sentence means “They are reading a book”?",
+      choices: [
+        { id: "they", label: "Čítajú knihu." },
+        { id: "we", label: "Čítame knihu." },
+        { id: "he", label: "Číta knihu." },
+      ],
+      answerId: "they",
+      feedback: {
+        correction: "Čítajú knihu.",
+        english: "They are reading a book.",
+        why: "Čítajú ends in -jú for they. Čítame is we; číta is he/she.",
+      },
+    },
+    feedback: {
+      correction: "Čítajú knihu.",
+      english: "They are reading a book.",
+      why: "Čítajú ends in -jú for they. Čítame is we; číta is he/she.",
+    },
+  },
+  {
+    id: "grammar/choice-formal-speaking",
+    source: {
+      kind: "lesson",
+      label: "Present-tense endings",
+      href: "/lessons/grammar/present-tense-i",
+    },
+    task: {
+      id: "review-choice-formal-speaking",
+      type: "choice",
+      practiceItemId: "grammar/choice-formal-speaking",
+      prompt: "You are speaking politely to one adult. Which question fits?",
+      choices: [
+        { id: "formal", label: "Hovoríte po slovensky?" },
+        { id: "informal", label: "Hovoríš po slovensky?" },
+        { id: "i", label: "Hovorím po slovensky?" },
+      ],
+      answerId: "formal",
+      feedback: {
+        correction: "Hovoríte po slovensky?",
+        english: "Do you speak Slovak?",
+        why: "Hovoríte (-te) is polite or plural. Hovoríš is informal singular.",
+      },
+    },
+    feedback: {
+      correction: "Hovoríte po slovensky?",
+      english: "Do you speak Slovak?",
+      why: "Hovoríte (-te) is polite or plural. Hovoríš is informal singular.",
+    },
+  },
+  {
+    id: "grammar/repair-second-person-speaking",
+    source: {
+      kind: "lesson",
+      label: "Present-tense endings",
+      href: "/lessons/grammar/present-tense-i",
+    },
+    task: {
+      id: "review-repair-second-person-speaking",
+      type: "typed",
+      task: "repair",
+      practiceItemId: "grammar/repair-second-person-speaking",
+      context: [
+        {
+          id: "review-second-person-speaking-broken",
+          speaker: "Sentence",
+          slovak: "Ty hovorím po slovensky.",
+          english: "You speak Slovak.",
+        },
+      ],
+      prompt: "Repair this sentence.",
+      inputLabel: "Correct Slovak sentence",
+      answer: "Hovoríš po slovensky.",
+      acceptedAnswers: ["Ty hovoríš po slovensky."],
+      feedback: {
+        correction: "Hovoríš po slovensky.",
+        english: "You speak Slovak.",
+        why: "Hovorím means I speak. Use hovoríš when speaking to one person informally.",
+      },
+    },
+    feedback: {
+      correction: "Hovoríš po slovensky.",
+      english: "You speak Slovak.",
+      why: "Hovorím means I speak. Use hovoríš when speaking to one person informally.",
+    },
+  },
+  {
+    id: "grammar/build-we-reading",
+    source: {
+      kind: "lesson",
+      label: "Present-tense endings",
+      href: "/lessons/grammar/present-tense-i",
+    },
+    task: {
+      id: "review-build-we-reading",
+      type: "build",
+      practiceItemId: "grammar/build-we-reading",
+      prompt: "Build: “Today we are reading a book.”",
+      tiles: ["knihu.", "Dnes", "čítame", "čítam"],
+      answer: ["Dnes", "čítame", "knihu."],
+      feedback: {
+        correction: "Dnes čítame knihu.",
+        english: "Today we are reading a book.",
+        why: "Čítame ends in -me for we. Čítam would mean I am reading.",
+      },
+    },
+    feedback: {
+      correction: "Dnes čítame knihu.",
+      english: "Today we are reading a book.",
+      why: "Čítame ends in -me for we. Čítam would mean I am reading.",
+    },
+  },
+  {
     id: "pronunciation/dakujem-stress",
     source: {
       kind: "lesson",
@@ -667,8 +871,11 @@ export const practiceSets: PracticeSet[] = [
     id: "present-tense-i",
     lessonId: "grammar/present-tense-i",
     title: "Present-tense endings",
-    summary: "Fill the six person endings on everyday verbs like čítať and hovoriť.",
+    summary:
+      "Seven random drills from a pool covering all six person endings on verbs like čítať, hovoriť, and pracovať.",
     track: "grammar",
+    previewItemId: "grammar/cloze-formal-speaking",
+    sessionSize: 7,
     itemIds: [
       "grammar/cloze-first-person-reading",
       "grammar/cloze-second-person-speaking",
@@ -676,6 +883,15 @@ export const practiceSets: PracticeSet[] = [
       "grammar/cloze-we-reading",
       "grammar/cloze-formal-speaking",
       "grammar/cloze-they-reading",
+      "grammar/cloze-first-person-working",
+      "grammar/cloze-second-person-working",
+      "grammar/first-person-reading",
+      "grammar/today-reading",
+      "grammar/choice-they-reading",
+      "grammar/choice-formal-speaking",
+      "grammar/repair-first-person-reading",
+      "grammar/repair-second-person-speaking",
+      "grammar/build-we-reading",
     ],
   },
   {
@@ -707,6 +923,28 @@ for (const set of practiceSets) {
 
 export function practiceSetForLesson(lessonId: string): PracticeSet | undefined {
   return practiceSetByLessonId.get(lessonId);
+}
+
+export function samplePracticeItemIds(
+  itemIds: readonly string[],
+  sessionSize?: number,
+): string[] {
+  const pool = [...itemIds];
+
+  for (let index = pool.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    const current = pool[index]!;
+    pool[index] = pool[swapIndex]!;
+    pool[swapIndex] = current;
+  }
+
+  if (sessionSize === undefined || sessionSize >= pool.length) return pool;
+  return pool.slice(0, Math.max(0, sessionSize));
+}
+
+export function practiceSessionCount(set: PracticeSet): number {
+  if (set.sessionSize === undefined) return set.itemIds.length;
+  return Math.min(set.sessionSize, set.itemIds.length);
 }
 
 export function validatePracticeItems(): string[] {
@@ -745,6 +983,20 @@ export function validatePracticeItems(): string[] {
     for (const itemId of set.itemIds) {
       if (!practiceItemById.has(itemId))
         issues.push(`Unknown practice item: ${set.id}/${itemId}`);
+    }
+
+    if (set.previewItemId && !set.itemIds.includes(set.previewItemId)) {
+      issues.push(`previewItemId not in set: ${set.id}/${set.previewItemId}`);
+    }
+
+    if (set.sessionSize !== undefined) {
+      if (!Number.isInteger(set.sessionSize) || set.sessionSize < 1) {
+        issues.push(`Invalid sessionSize: ${set.id}`);
+      } else if (set.sessionSize > set.itemIds.length) {
+        issues.push(
+          `sessionSize ${set.sessionSize} exceeds pool ${set.itemIds.length}: ${set.id}`,
+        );
+      }
     }
   }
 

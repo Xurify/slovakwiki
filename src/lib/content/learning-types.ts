@@ -86,14 +86,10 @@ export interface ClozeExercise extends ExerciseBase {
   answer: string;
   /** Exactly one `{}` gap: "Dnes {} knihu." */
   frame: string;
-  /** EN gloss of the missing word only */
   gapEn: string;
   hint: ClozeHint;
-  /** Dictionary slug → post-check lemma link + lemma audio */
   lemmaId?: string;
-  /** v1.1 reveal step */
   morphHint?: string;
-  /** v1.1 reveal step: EN of the whole frame */
   sentenceEn?: string;
   type: "cloze";
 }

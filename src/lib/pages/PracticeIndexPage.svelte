@@ -9,7 +9,11 @@
   import { emptyPracticeState, readPracticeState } from "$lib/client/practice-state";
   import type { PracticeItem } from "$lib/content/learning-types";
   import { lessonById, lessonTracks } from "$lib/content/lessons";
-  import { practiceItemById, practiceSets } from "$lib/content/practice";
+  import {
+    practiceItemById,
+    practiceSessionCount,
+    practiceSets,
+  } from "$lib/content/practice";
 
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
@@ -62,14 +66,14 @@
   const sheets = $derived(
     practiceSets.map((set) => {
       const lesson = lessonById.get(set.lessonId);
-      const firstItem = practiceItemById.get(set.itemIds[0] ?? "");
+      const previewItem = practiceItemById.get(set.previewItemId ?? set.itemIds[0] ?? "");
 
       return {
         set,
         purpose: set.summary ?? lesson?.promise ?? "Work through this topic again.",
-        exerciseCount: set.itemIds.length,
+        exerciseCount: practiceSessionCount(set),
         completed: practiceState.completedLessonIds.includes(set.lessonId),
-        drill: drillLine(firstItem),
+        drill: drillLine(previewItem),
         trackTitle:
           lessonTracks.find((entry) => entry.id === set.track)?.title ?? set.track,
       };
@@ -116,7 +120,7 @@
   });
 
   const totalExercises = $derived(
-    practiceSets.reduce((sum, set) => sum + set.itemIds.length, 0),
+    practiceSets.reduce((sum, set) => sum + practiceSessionCount(set), 0),
   );
 
   onMount(() => {
@@ -188,18 +192,19 @@
           </span>
           exercises
         </p>
-        <p class="m-0">
-          {#if hydrated && reviewCount > 0}
-            <span class="font-serif text-xl font-semibold tabular-nums text-rose-600">
-              {reviewCount}
-            </span>
-            waiting in Review
-          {:else if hydrated}
-            Review clear
-          {:else}
-            …
-          {/if}
-        </p>
+        {#if hydrated && reviewCount > 0}
+          <p class="m-0">
+            <a
+              class="text-inherit no-underline transition-colors hover:text-rose-600"
+              href="/practice/review"
+            >
+              <span class="font-serif text-xl font-semibold tabular-nums text-rose-600">
+                {reviewCount}
+              </span>
+              waiting in Review
+            </a>
+          </p>
+        {/if}
       </div>
     </PageShell>
   </section>

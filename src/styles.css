@@ -55,10 +55,8 @@
     background: var(--canvas);
     font-synthesis: none;
     color-scheme: light;
-    --font-ui:
-      "IBM Plex Sans Variable", "IBM Plex Sans Fallback", "Segoe UI", sans-serif;
-    --font-reading:
-      "Source Serif 4 Variable", "Source Serif 4 Fallback", Georgia, serif;
+    --font-ui: "IBM Plex Sans Variable", "IBM Plex Sans Fallback", "Segoe UI", sans-serif;
+    --font-reading: "Source Serif 4 Variable", "Source Serif 4 Fallback", Georgia, serif;
     --canvas: #d4e2e8;
     --paper: #edf3f5;
     --surface: #fafcfd;

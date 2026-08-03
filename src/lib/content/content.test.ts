@@ -29,6 +29,8 @@ import {
   practiceItems,
   practiceSets,
   practiceSetForLesson,
+  practiceSessionCount,
+  samplePracticeItemIds,
   validatePracticeItems,
 } from "./practice";
 import { normalizeSearchText, searchEntries } from "./search";
@@ -133,8 +135,22 @@ describe("Slovak content", () => {
     }
 
     expect(practiceSets).toHaveLength(5);
-    expect(practiceSetForLesson("grammar/present-tense-i")?.id).toBe("present-tense-i");
-    expect(practiceSetForLesson("grammar/present-tense-i")?.itemIds).toHaveLength(6);
+    const present = practiceSetForLesson("grammar/present-tense-i");
+    expect(present?.id).toBe("present-tense-i");
+    expect(present?.sessionSize).toBe(7);
+    expect(present?.itemIds.length).toBeGreaterThan(7);
+    expect(practiceSessionCount(present!)).toBe(7);
+  });
+
+  it("samples a shuffled practice session from the pool", () => {
+    const pool = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    const sample = samplePracticeItemIds(pool, 7);
+
+    expect(sample).toHaveLength(7);
+    expect(new Set(sample).size).toBe(7);
+    expect(sample.every((id) => pool.includes(id))).toBe(true);
+    expect(samplePracticeItemIds(["only"], 7)).toEqual(["only"]);
+    expect(samplePracticeItemIds(pool).sort()).toEqual([...pool].sort());
   });
 
   it("publishes usable content for every case page", () => {

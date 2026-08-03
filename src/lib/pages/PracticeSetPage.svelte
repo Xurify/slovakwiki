@@ -11,34 +11,46 @@
   } from "$lib/client/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
   import PracticePlayerSkeleton from "$lib/components/practice/PracticePlayerSkeleton.svelte";
-  import { practiceItemById } from "$lib/content/practice";
+  import {
+    practiceItemById,
+    samplePracticeItemIds,
+    type PracticeSet,
+  } from "$lib/content/practice";
+  import type { PracticeItem } from "$lib/content/learning-types";
 
-  let { data } = $props();
+  let {
+    data,
+  }: {
+    data: {
+      set: PracticeSet;
+      clozeAudioSrcs?: Record<string, string>;
+    };
+  } = $props();
 
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
   let hintMode = $state<"inline" | "rail">("inline");
+  let sessionItems = $state<PracticeItem[]>([]);
 
-  const items = $derived(
-    data.set.itemIds
-      .map((itemId: string) => practiceItemById.get(itemId))
-      .filter((item): item is NonNullable<typeof item> => item !== undefined),
-  );
-
-  function initialSectionTitle(): string {
-    const first = items[0]?.task;
-    if (!first) return data.set.title;
-    if (first.type === "typed" && first.task === "repair") return "Repair this sentence";
-    if (first.type === "cloze") return "Fill the gap";
-    if (first.type === "choice") return "Choose the answer";
-    if (first.type === "build") return "Build the sentence";
-    if (first.type === "typed") return "Write the sentence";
+  function sectionTitleFor(item: PracticeItem | undefined): string {
+    const task = item?.task;
+    if (!task) return data.set.title;
+    if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
+    if (task.type === "cloze") return "Fill the gap";
+    if (task.type === "choice") return "Choose the answer";
+    if (task.type === "build") return "Build the sentence";
+    if (task.type === "typed") return "Write the sentence";
     return data.set.title;
   }
 
-  let sectionTitle = $state(initialSectionTitle());
+  let sectionTitle = $state(data.set.title);
 
   onMount(() => {
+    const sampledIds = samplePracticeItemIds(data.set.itemIds, data.set.sessionSize);
+    sessionItems = sampledIds
+      .map((itemId) => practiceItemById.get(itemId))
+      .filter((item): item is PracticeItem => item !== undefined);
+    sectionTitle = sectionTitleFor(sessionItems[0]);
     practiceState = readPracticeState(localStorage);
     hintMode =
       new URLSearchParams(location.search).get("hint") === "rail" ? "rail" : "inline";
@@ -62,7 +74,7 @@
 
     {#if hydrated}
       <PracticePlayer
-        {items}
+        items={sessionItems}
         mode="topic"
         {hintMode}
         audioSrcs={data.clozeAudioSrcs ?? {}}
