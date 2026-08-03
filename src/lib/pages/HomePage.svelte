@@ -242,7 +242,7 @@
         <div class="mt-9 grid grid-cols-3 gap-4 max-[760px]:grid-cols-1">
           {#each trackCards as track (track.id)}
             <a
-              class="group flex flex-col rounded-(--frame-radius) bg-white/70 p-6 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] hover:-translate-y-0.5 hover:bg-white hover:shadow-(--shadow-border-hover)"
+              class="group flex flex-col rounded-(--frame-radius) bg-surface/70 p-6 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] hover:-translate-y-0.5 hover:bg-surface hover:shadow-(--shadow-border-hover)"
               href="/lessons/{track.id}"
             >
               <div class="flex items-baseline justify-between gap-3">
@@ -376,7 +376,7 @@
         <div class="mt-9 grid grid-cols-2 gap-4 max-[640px]:grid-cols-1">
           {#each referenceSections as item (item.href)}
             <a
-              class="group relative isolate flex flex-col overflow-hidden rounded-(--frame-radius) bg-white/70 p-6 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] hover:-translate-y-0.5 hover:bg-white hover:shadow-(--shadow-border-hover)"
+              class="group relative isolate flex flex-col overflow-hidden rounded-(--frame-radius) bg-surface/70 p-6 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] hover:-translate-y-0.5 hover:bg-surface hover:shadow-(--shadow-border-hover)"
               href={item.href}
             >
               <span
@@ -410,11 +410,11 @@
     </section>
 
     <section
-      class="relative isolate overflow-hidden rounded-(--frame-radius) bg-slate-900 px-12 py-14 max-[720px]:px-7 max-[720px]:py-10"
+      class="relative isolate overflow-hidden rounded-(--frame-radius) bg-panel-inverse px-12 py-14 max-[720px]:px-7 max-[720px]:py-10"
       aria-labelledby="practice-heading"
     >
       <span
-        class="pointer-events-none absolute -bottom-16 -right-6 -z-10 select-none font-serif text-[16rem] leading-none text-white/[0.04]"
+        class="pointer-events-none absolute -bottom-16 -right-6 -z-10 select-none font-serif text-[16rem] leading-none text-panel-inverse-ink/[0.04]"
         aria-hidden="true"
         lang="sk"
       >
@@ -424,10 +424,12 @@
       <div class="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
         <div>
           <Eyebrow tone="inverse">Practice</Eyebrow>
-          <h2 id="practice-heading" class="m-0 max-w-[16ch] text-white">
+          <h2 id="practice-heading" class="m-0 max-w-[16ch] text-panel-inverse-ink">
             Keep the hard forms close
           </h2>
-          <p class="mt-4 max-w-[52ch] text-[0.95rem] leading-[1.7] text-white/70">
+          <p
+            class="mt-4 max-w-[52ch] text-[0.95rem] leading-[1.7] text-panel-inverse-ink/70"
+          >
             Anything you miss in a lesson is saved on this device and waiting in Review.
             No streaks and no scores, just the handful of endings that have not settled
             yet, ready for whenever you have five minutes.

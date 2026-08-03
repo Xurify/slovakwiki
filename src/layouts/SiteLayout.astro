@@ -7,7 +7,6 @@ interface Props {
   description?: string;
   title: string;
 }
-
 const { description, title } = Astro.props;
 const pathname = Astro.url.pathname;
 const query = Astro.url.searchParams.get("q") ?? "";
@@ -20,8 +19,34 @@ const query = Astro.url.searchParams.get("q") ?? "";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#d4e2e8" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <script is:inline>
+      (function () {
+        var KEY = "slovak.wiki.theme-preference";
+        var preference = "system";
+        try {
+          var stored = localStorage.getItem(KEY) || localStorage.getItem("slovak.wiki.theme");
+          if (stored === "light" || stored === "dark" || stored === "system") {
+            preference = stored;
+          }
+        } catch (e) {}
+        var dark =
+          preference === "dark" ||
+          (preference === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        var theme = dark ? "dark" : "light";
+        var root = document.documentElement;
+        root.dataset.theme = theme;
+        root.dataset.themePreference = preference;
+        root.style.colorScheme = theme;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.setAttribute("content", theme === "dark" ? "#0e1a22" : "#d4e2e8");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="relative z-[1] flex min-h-screen min-w-0 flex-col">

@@ -139,7 +139,7 @@
       <div class="mt-7 grid gap-2">
         {#each task.choices as choice (choice.id)}
           <button
-            class={`min-h-14 w-full cursor-pointer rounded border px-4 py-3 text-left font-serif text-base font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-300 bg-white text-slate-900"}`}
+            class={`min-h-14 w-full cursor-pointer rounded border px-4 py-3 text-left font-serif text-base font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-300 bg-surface text-slate-900"}`}
             disabled={submitted}
             type="button"
             aria-pressed={selectedId === choice.id}
@@ -158,7 +158,7 @@
           {#if builtTiles.length}
             {#each builtTiles as tile, index (`${tile}-${index}`)}
               <button
-                class="border border-slate-300 bg-white px-2.5 py-2 font-serif font-semibold text-blue-800"
+                class="border border-slate-300 bg-surface px-2.5 py-2 font-serif font-semibold text-blue-800"
                 type="button"
                 disabled={submitted}
                 onclick={() => removeTile(index)}
@@ -174,7 +174,7 @@
         <div class="flex flex-wrap gap-2">
           {#each task.tiles as tile, index (`${tile}-${index}`)}
             <button
-              class="border border-slate-300 bg-white px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40"
+              class="border border-slate-300 bg-surface px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40"
               type="button"
               disabled={submitted || builtTiles.includes(tile)}
               onclick={() => selectTile(tile)}
@@ -188,7 +188,7 @@
       <label class="mt-7 grid gap-2 text-xs font-bold text-slate-600">
         <span>{task.inputLabel}</span>
         <input
-          class="min-h-[52px] w-full border border-slate-300 bg-white px-3 py-2 font-serif text-lg outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+          class="min-h-[52px] w-full border border-slate-300 bg-surface px-3 py-2 font-serif text-lg outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
           bind:value={input}
           disabled={submitted}
           autocomplete="off"

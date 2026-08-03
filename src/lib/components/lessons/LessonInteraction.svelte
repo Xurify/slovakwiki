@@ -76,7 +76,7 @@
 </script>
 
 <section
-  class="border border-slate-200 bg-white/90 p-7 max-[560px]:px-4 max-[560px]:py-5"
+  class="border border-slate-200 bg-surface/90 p-7 max-[560px]:px-4 max-[560px]:py-5"
   aria-labelledby="interaction-heading"
 >
   {#if exercise.type === "personal"}
@@ -128,7 +128,7 @@
           {#if builtTiles.length}
             {#each builtTiles as tile, index (`${tile}-${index}`)}
               <button
-                class="cursor-pointer border border-slate-300 bg-white px-2.5 py-1.5 font-serif font-semibold text-blue-800 disabled:cursor-default"
+                class="cursor-pointer border border-slate-300 bg-surface px-2.5 py-1.5 font-serif font-semibold text-blue-800 disabled:cursor-default"
                 type="button"
                 disabled={submitted}
                 onclick={() => removeTile(index)}
@@ -144,7 +144,7 @@
         <div class="flex flex-wrap gap-2">
           {#each exercise.tiles as tile, index (`${tile}-${index}`)}
             <button
-              class="cursor-pointer border border-slate-300 bg-white px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-40"
+              class="cursor-pointer border border-slate-300 bg-surface px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-40"
               type="button"
               disabled={submitted || builtTiles.includes(tile)}
               onclick={() => addTile(tile)}
@@ -158,7 +158,7 @@
       <label class="mt-6 grid gap-2 text-xs font-bold text-slate-600">
         <span>{exercise.inputLabel}</span>
         <input
-          class="min-h-[50px] w-full border border-slate-300 bg-white px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+          class="min-h-[50px] w-full border border-slate-300 bg-surface px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
           bind:value={input}
           disabled={submitted}
           autocomplete="off"

@@ -1,5 +1,6 @@
 <script lang="ts">
   import SearchBox from "$lib/components/SearchBox.svelte";
+  import ThemeToggle from "$lib/components/ThemeToggle.svelte";
   import BrandLockup from "$lib/components/ui/BrandLockup.svelte";
   import {
     isReferenceSection,
@@ -167,6 +168,8 @@
           {/each}
         </div>
       </details>
+
+      <ThemeToggle class="ml-1" />
     </nav>
 
     <SearchBox
@@ -209,7 +212,7 @@
 </header>
 
 <div
-  class="fixed inset-x-0 bottom-0 z-[60] touch-manipulation select-none bg-slate-900/30 p-0 backdrop-blur-[1px] transition-[opacity,backdrop-filter] [-webkit-touch-callout:none] min-[801px]:hidden {drawerMotion} {menuOpen
+  class="fixed inset-x-0 bottom-0 z-[60] touch-manipulation select-none bg-panel-inverse/30 p-0 backdrop-blur-[1px] transition-[opacity,backdrop-filter] [-webkit-touch-callout:none] min-[801px]:hidden {drawerMotion} {menuOpen
     ? 'opacity-100'
     : 'pointer-events-none opacity-0'}"
   style:top="{headerOffset}px"
@@ -271,4 +274,19 @@
       {item.label}
     </a>
   {/each}
+
+  <div
+    class="mt-6 flex items-center justify-between border-t border-(--line) pt-4 transition-[opacity,transform,filter] {drawerMotion} {menuOpen
+      ? 'translate-y-0 opacity-100 blur-0'
+      : 'translate-y-3 opacity-0 blur-[4px]'}"
+    style:transition-delay={linkDelay(
+      primaryNavigation.length + referenceNavigation.length + 1,
+    )}
+  >
+    <span class="text-[0.64rem] font-bold uppercase tracking-[0.1em] text-(--muted)">
+      Theme
+    </span>
+
+    <ThemeToggle />
+  </div>
 </nav>

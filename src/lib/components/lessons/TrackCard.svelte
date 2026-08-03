@@ -10,7 +10,7 @@
 </script>
 
 <a
-  class="group flex min-h-[304px] flex-col overflow-hidden rounded-(--frame-radius) bg-white p-6 shadow-(--shadow-border) hover:-translate-y-0.5 hover:shadow-(--shadow-border-hover)"
+  class="group flex min-h-[304px] flex-col overflow-hidden rounded-(--frame-radius) bg-surface p-6 shadow-(--shadow-border) hover:-translate-y-0.5 hover:shadow-(--shadow-border-hover)"
   href="/lessons/{track.id}"
 >
   <p class="m-0 text-xs font-semibold uppercase tracking-widest text-slate-500">

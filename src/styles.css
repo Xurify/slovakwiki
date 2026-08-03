@@ -14,6 +14,8 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-action: var(--action);
+  --color-panel-inverse: var(--panel-inverse);
+  --color-panel-inverse-ink: var(--panel-inverse-ink);
 
   /* Keep Tailwind utility names, preserve Slovak Wiki palette. */
   --color-slate-50: var(--surface-subtle);
@@ -49,9 +51,10 @@
 @layer base {
   :root {
     font-family: "IBM Plex Sans Variable", "Segoe UI", sans-serif;
-    color: #142a38;
-    background: #dce8ec;
+    color: var(--ink);
+    background: var(--canvas);
     font-synthesis: none;
+    color-scheme: light;
     --font-ui: "IBM Plex Sans Variable", "Segoe UI", sans-serif;
     --font-reading: "Source Serif 4 Variable", Georgia, serif;
     --canvas: #d4e2e8;
@@ -81,6 +84,9 @@
     --mist-2: #e8f2f6;
     --mist-3: #f5fafc;
     --grain-opacity: 0.035;
+    --panel-inverse: #142a38;
+    --panel-inverse-ink: #f4f8fa;
+    --shadow-color: #142a38;
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -94,13 +100,49 @@
     --frame-radius: 12px;
     --control-radius: 6px;
     --shadow-border:
-      0 0 0 1px rgb(20 42 56 / 7%), 0 1px 2px -1px rgb(20 42 56 / 6%),
-      0 3px 8px -4px rgb(20 42 56 / 10%);
+      0 0 0 1px color-mix(in srgb, var(--shadow-color) 7%, transparent),
+      0 1px 2px -1px color-mix(in srgb, var(--shadow-color) 6%, transparent),
+      0 3px 8px -4px color-mix(in srgb, var(--shadow-color) 10%, transparent);
     --shadow-border-hover:
-      0 0 0 1px rgb(20 42 56 / 10%), 0 4px 8px -4px rgb(20 42 56 / 10%),
-      0 10px 18px -12px rgb(20 42 56 / 16%);
+      0 0 0 1px color-mix(in srgb, var(--shadow-color) 10%, transparent),
+      0 4px 8px -4px color-mix(in srgb, var(--shadow-color) 10%, transparent),
+      0 10px 18px -12px color-mix(in srgb, var(--shadow-color) 16%, transparent);
     --header-height: 72px;
     --workspace-max: 1080px;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --canvas: #0e1a22;
+    --paper: #152430;
+    --surface: #1a2d3a;
+    --surface-subtle: #122028;
+    --surface-selected: #243a4a;
+    --ink: #e8f0f4;
+    --ink-soft: #c5d6de;
+    --muted: #8fadb9;
+    --muted-strong: #a8c0cb;
+    --line: #2a4050;
+    --line-strong: #3d5668;
+    --accent: #4a9fc4;
+    --accent-dark: #7ab8d4;
+    --accent-soft: #1a3545;
+    --action: #e07068;
+    --action-dark: #f09088;
+    --blue: #5aa8c8;
+    --blue-dark: #7ab8d4;
+    --blue-light: #1e3a4a;
+    --red: #e07068;
+    --red-light: #3a2528;
+    --green: #4a9a88;
+    --green-light: #1a332c;
+    --mist-1: #1a3a4a;
+    --mist-2: #122028;
+    --mist-3: #0e1a22;
+    --grain-opacity: 0.055;
+    --panel-inverse: #0a141c;
+    --panel-inverse-ink: #eef4f7;
+    --shadow-color: #000000;
   }
 
   * {
@@ -124,7 +166,7 @@
       radial-gradient(ellipse 120% 80% at 10% -20%, var(--mist-1) 0%, transparent 55%),
       radial-gradient(
         ellipse 90% 60% at 95% 0%,
-        color-mix(in srgb, var(--accent-soft) 70%, white) 0%,
+        color-mix(in srgb, var(--accent-soft) 70%, var(--surface)) 0%,
         transparent 50%
       ),
       linear-gradient(180deg, var(--mist-2) 0%, var(--canvas) 40%, var(--canvas) 100%);
@@ -175,7 +217,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent) 78%, white);
+    outline: 3px solid color-mix(in srgb, var(--accent) 78%, var(--surface));
     outline-offset: 3px;
   }
 
@@ -214,7 +256,7 @@
   }
 
   img {
-    outline: 1px solid rgb(20 42 56 / 10%);
+    outline: 1px solid color-mix(in srgb, var(--shadow-color) 10%, transparent);
     outline-offset: -1px;
   }
 
