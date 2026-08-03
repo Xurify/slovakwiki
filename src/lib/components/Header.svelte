@@ -180,34 +180,38 @@
       initialQuery={query}
     />
 
-    <button
-      class="ml-auto flex min-h-10 min-w-10 shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-(--ink-soft) transition-transform duration-150 ease-out active:scale-[0.96] min-[801px]:hidden"
-      type="button"
-      aria-label={menuOpen ? "Close menu" : "Open menu"}
-      aria-expanded={menuOpen}
-      aria-controls="mobile-navigation"
-      onclick={toggleMenu}
-    >
-      <span class="relative block h-6 w-6" aria-hidden="true">
-        <svg
-          class="absolute inset-0 h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
-            ? 'scale-100 opacity-100 blur-0'
-            : 'scale-[0.25] opacity-0 blur-[4px]'}"
-          viewBox="0 0 24 24"
-        >
-          <path d="M6 6l12 12M18 6 6 18" />
-        </svg>
+    <div class="ml-auto flex shrink-0 items-center gap-0.5 min-[801px]:hidden">
+      <ThemeToggle />
 
-        <svg
-          class="h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
-            ? 'scale-[0.25] opacity-0 blur-[4px]'
-            : 'scale-100 opacity-100 blur-0'}"
-          viewBox="0 0 24 24"
-        >
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </span>
-    </button>
+      <button
+        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-(--ink-soft) transition-transform duration-150 ease-out active:scale-[0.96]"
+        type="button"
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
+        aria-controls="mobile-navigation"
+        onclick={toggleMenu}
+      >
+        <span class="relative block h-6 w-6" aria-hidden="true">
+          <svg
+            class="absolute inset-0 h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
+              ? 'scale-100 opacity-100 blur-0'
+              : 'scale-[0.25] opacity-0 blur-[4px]'}"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+
+          <svg
+            class="h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
+              ? 'scale-[0.25] opacity-0 blur-[4px]'
+              : 'scale-100 opacity-100 blur-0'}"
+            viewBox="0 0 24 24"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -274,19 +278,4 @@
       {item.label}
     </a>
   {/each}
-
-  <div
-    class="mt-6 flex items-center justify-between pt-4 transition-[opacity,transform,filter] {drawerMotion} {menuOpen
-      ? 'translate-y-0 opacity-100 blur-0'
-      : 'translate-y-3 opacity-0 blur-[4px]'}"
-    style:transition-delay={linkDelay(
-      primaryNavigation.length + referenceNavigation.length + 1,
-    )}
-  >
-    <span class="text-[0.64rem] font-bold uppercase tracking-[0.1em] text-(--muted)">
-      Theme
-    </span>
-
-    <ThemeToggle />
-  </div>
 </nav>
