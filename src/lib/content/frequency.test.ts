@@ -23,6 +23,15 @@ describe("frequency helpers", () => {
     expect(findLiveWordForLemma("ďakujem", words)?.slug).toBe("dakujem");
   });
 
+  it("prefers matching POS when a lemma has multiple live entries", () => {
+    expect(findLiveWordForLemma("domáci", words, "adjective")?.slug).toBe("domaci");
+    expect(findLiveWordForLemma("domáci", words, "noun")?.slug).toBe("domaci-n");
+    expect(findLiveWordForLemma("dospelý", words, "noun")?.slug).toBe("dospely");
+    expect(findLiveWordForLemma("dospelý", words, "adjective")?.slug).toBe(
+      "dospely-a",
+    );
+  });
+
   it("does not link diacritic near-misses to the wrong word", () => {
     expect(findLiveWordForLemma("štát", words)?.slovak).not.toBe("stať");
     expect(findLiveWordForLemma("brat", words)?.slovak).not.toBe("brať");
@@ -33,7 +42,7 @@ describe("frequency helpers", () => {
     const entries: FrequencyEntry[] = [
       {
         rank: 1,
-        lemma: "ahoj",
+        lemma: "byť",
         pos: "verb",
         source: "test",
         sourceUrl: "https://example.com",

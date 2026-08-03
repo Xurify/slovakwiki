@@ -10,6 +10,7 @@ coverage/
 static/pagefind/
 static/audio/
 tmp/
+genblaze/targets.json
 dev/*.log
 .env*
 *.tsbuildinfo

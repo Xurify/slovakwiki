@@ -173,5 +173,7 @@
   "ask-answer": ["spytat", "odpovedat", "otazka", "odpoved"],
   "aspect-learn-teach": ["ucit", "naucit"],
   "explain-understand": ["vysvetlit", "rozumiet"],
-  "antonym-lose-find": ["stratit", "najst"]
+  "antonym-lose-find": ["stratit", "najst"],
+  "homograph-domaci": ["domaci", "domaci-n"],
+  "homograph-dospely": ["dospely", "dospely-a"]
 }

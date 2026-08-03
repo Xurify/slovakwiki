@@ -27,7 +27,7 @@ const entries = sourceList.entries
 const liveByLemma: Record<string, { english: string; slug: string }> = {};
 
 for (const entry of entries) {
-  const live = findLiveWordForLemma(entry.lemma, words);
+  const live = findLiveWordForLemma(entry.lemma, words, pos);
   if (!live) continue;
   liveByLemma[entry.lemma] = {
     english: live.english,
