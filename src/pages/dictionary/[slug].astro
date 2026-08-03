@@ -10,7 +10,6 @@ import {
   canonicalWordSlug,
   lemmaSenseGroup,
   relatedSlugsForLemmaPage,
-  senseSectionId,
 } from "$lib/content/lemma-senses";
 
 export function getStaticPaths() {
@@ -29,15 +28,12 @@ export function getStaticPaths() {
     });
   }
 
-  return words.map((entry) => {
+  return words.flatMap((entry) => {
     const senses = lemmaSenseGroup(entry, words);
     const canonicalSlug = canonicalWordSlug(entry, words);
-    const primary =
-      senses.find((sense) => sense.slug === canonicalSlug) ?? entry;
-    const scrollToSection =
-      senses.length > 1 && entry.slug !== canonicalSlug
-        ? senseSectionId(entry.category)
-        : undefined;
+
+    // POS siblings share one lemma page — no /domaci-n style routes.
+    if (entry.slug !== canonicalSlug) return [];
 
     const relatedEntries = relatedSlugsForLemmaPage(senses)
       .map((slug) => entryBySlug.get(slug))
@@ -49,33 +45,26 @@ export function getStaticPaths() {
         slovak: related.slovak,
       }));
 
-    return {
-      params: { slug: entry.slug },
-      props: {
-        entry: primary,
-        senses: senses.map((sense) => ({
-          entry: sense,
-          exampleAudioSrcs: exampleAudioSrcsFor(sense),
-        })),
-        relatedEntries,
-        lemmaAudioSrc: resolveAudioSrc(primary.slovak, "lemma"),
-        exampleAudioSrcs: exampleAudioSrcsFor(primary),
-        canonicalPath: `/dictionary/${canonicalSlug}`,
-        scrollToSection,
+    return [
+      {
+        params: { slug: entry.slug },
+        props: {
+          entry,
+          senses: senses.map((sense) => ({
+            entry: sense,
+            exampleAudioSrcs: exampleAudioSrcsFor(sense),
+          })),
+          relatedEntries,
+          lemmaAudioSrc: resolveAudioSrc(entry.slovak, "lemma"),
+          exampleAudioSrcs: exampleAudioSrcsFor(entry),
+        },
       },
-    };
+    ];
   });
 }
 
-const {
-  entry,
-  relatedEntries,
-  lemmaAudioSrc,
-  exampleAudioSrcs,
-  senses,
-  canonicalPath,
-  scrollToSection,
-} = Astro.props;
+const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses } =
+  Astro.props;
 
 const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 ---
@@ -83,17 +72,9 @@ const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 <SiteLayout
   title={`${entry.slovak} — ${titleEnglish} | Slovak Wiki`}
   description={entry.summary}
-  canonical={canonicalPath}
 >
   <DictionaryDetailPage
     client:load
-    data={{
-      entry,
-      relatedEntries,
-      lemmaAudioSrc,
-      exampleAudioSrcs,
-      senses,
-      scrollToSection,
-    }}
+    data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses }}
   />
 </SiteLayout>

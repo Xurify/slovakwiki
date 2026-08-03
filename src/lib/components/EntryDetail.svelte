@@ -26,14 +26,12 @@
     exampleAudioSrcs = [],
     lemmaAudioSrc,
     relatedEntries = [],
-    scrollToSection,
     senses,
   }: {
     entry: ContentEntry;
     exampleAudioSrcs?: string[];
     lemmaAudioSrc?: string;
     relatedEntries?: RelatedEntry[];
-    scrollToSection?: string;
     senses?: SenseView[];
   } = $props();
 
@@ -57,12 +55,6 @@
   const sourceLabel = $derived(
     entry.sourceLabel ?? "Jazykovedný ústav Ľudovíta Štúra SAV",
   );
-
-  $effect(() => {
-    if (!scrollToSection || typeof document === "undefined") return;
-    const target = document.getElementById(scrollToSection);
-    target?.scrollIntoView({ block: "start" });
-  });
 
   function onlyPracticeFrames(examples: Example[]): boolean {
     return (

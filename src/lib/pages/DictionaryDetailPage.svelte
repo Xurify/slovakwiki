@@ -22,7 +22,6 @@
       exampleAudioSrcs: string[];
       lemmaAudioSrc: string;
       relatedEntries: RelatedEntry[];
-      scrollToSection?: string;
       senses: SenseView[];
     };
   } = $props();
@@ -33,6 +32,5 @@
   exampleAudioSrcs={data.exampleAudioSrcs}
   lemmaAudioSrc={data.lemmaAudioSrc}
   relatedEntries={data.relatedEntries}
-  scrollToSection={data.scrollToSection}
   senses={data.senses}
 />
