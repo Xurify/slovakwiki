@@ -26,34 +26,10 @@ const query = Astro.url.searchParams.get("q") ?? "";
     <meta name="theme-color" content="#d4e2e8" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <link
-      rel="preload"
-      href={plexLatin}
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href={plexLatinExt}
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href={serifLatin}
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href={serifLatinExt}
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <link rel="preload" href={plexLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={plexLatinExt} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={serifLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={serifLatinExt} as="font" type="font/woff2" crossorigin />
     <script is:inline>
       (function () {
         var storageKey = "slovak.wiki.theme-preference";
