@@ -2,6 +2,8 @@
 
 Design: `docs/plans/2026-08-02-frequency-tatoeba-dictionary-design.md`
 
+> **Superseded:** step 4 draft build/promote was replaced by direct `frequency:publish` → `content/dictionary/words.json`.
+
 ## Scope
 
 Ship in one pass:
@@ -9,9 +11,9 @@ Ship in one pass:
 1. Shared **references** data + public References page
 2. **Frequency import** util → committed `content/frequency/*.json`
 3. Public **`/dictionary/common`** lists UI
-4. **Draft build + promote** util (Tatoeba dumps optional for examples)
+4. **Publish + enrich** (`frequency:publish` → `words.json`, then Tatoeba enrich)
 
-Do **not** mass-publish dictionary stubs. Live words stay human-approved only.
+Do **not** invent examples. Live words come from curated seed + frequency publish.
 
 ## 1. Shared references module
 
@@ -47,61 +49,48 @@ If automated scrape of korpus.sk is fragile, v1 fallback: checked-in manually cu
 6. Source footer citing SNK via references module.
 7. Optional: include in Pagefind as a single document (“common Slovak verbs nouns adjectives”) — skip if noisy; prefer explicit nav link only for v1.
 
-## 4. Draft pipeline
+## 4. Publish + examples (current)
 
-1. Types for drafts in `src/lib/content/draft-types.ts`.
-2. `content/drafts/` tracked; sample `.gitkeep`.
-3. `scripts/dictionary/build-drafts.ts`:
-   - Read frequency lists + live `words`.
-   - For missing lemmas (start with top N configurable, default 100 per POS), write `pending` draft JSON files (one per lemma or one file per POS — prefer **one file per lemma** `content/drafts/{slug}.json` for easy approve edits).
-   - Do not overwrite `approved` / `rejected` / `promoted` unless `--force`.
-4. Optional Tatoeba step (same script flag `--with-tatoeba`):
-   - Read local dump path (document download from https://tatoeba.org/en/downloads and https://downloads.tatoeba.org/exports/).
-   - Attach ≤2 SK–EN pairs; store `tatoebaId`.
-   - Cache dumps under `tmp/tatoeba/` (gitignored).
-5. `scripts/dictionary/promote-draft.ts`:
-   - Read drafts with `status: "approved"`.
-   - Append/merge into live dictionary source (refactor `wordSeed` toward importable JSON/TS module if needed — keep change minimal: append to a `content/dictionary/words.json` or generate a TS fragment; pick the smallest change that matches current `data.ts` pattern).
-   - Mark draft `promoted` + timestamp.
-6. Scripts: `drafts:build`, `drafts:promote`.
+1. `scripts/dictionary/publish-frequency.ts` → `content/dictionary/words.json`.
+2. `examples:enrich` / `fill` / `curate` / `related:apply` against `words.json`.
+3. Hand overlay: `content/dictionary/curated-examples.json`.
 
-## 5. Live dictionary wiring (minimal)
+~~Draft JSON under `content/drafts/` + promote scripts~~ — not shipped; superseded by direct publish.
 
-If promote currently cannot safely edit `data.ts` by hand-merge:
+## 5. Live dictionary wiring
 
-1. Prefer extracting `wordSeed` into `src/lib/content/words-seed.ts` or JSON so promote can append programmatically.
-2. Keep generated output formatted; run `bun run format` after promote in docs.
-3. Ensure new words get `kind: "word"`, JÚĽŠ (or draft sources) in `source`, and existing map helpers still work.
+1. `data.ts` merges `curatedWordSeed` + `words.json`.
+2. Run `bun run format` after content script writes.
+3. New words get `kind: "word"`; frequency origin → SNK attribution.
 
 ## 6. Tests
 
 1. Frequency JSON schema validation test.
 2. Lemma ↔ live entry match helper unit tests (diacritics / slug).
-3. Promote: approved draft merges once; second run idempotent.
-4. Common page: smoke that frequency data loads and known live words (e.g. if any overlap) link correctly.
+3. Publish idempotent on already-live lemmas.
+4. Common page: smoke that frequency data loads and known live words link correctly.
 
 ## 7. Docs + package.json
 
 1. `docs/data-sources.md` — all canonical links from the design.
-2. Short section in `AGENTS.md` or util README: when to run `frequency:import` / `drafts:build` / `drafts:promote`.
-3. Add bun scripts for the three commands.
+2. `AGENTS.md` + `scripts/README.md`: `frequency:import` / `frequency:publish` / examples pipeline.
+3. Bun scripts for import, publish, enrich, fill, curate, related.
 
 ## Implementation order
 
 1. References module + page (unblocks attribution everywhere)
-2. Frequency types + import (or curated seed JSON) + commit first lists
+2. Frequency types + import + commit first lists
 3. `/dictionary/common` UI + dictionary index link
-4. Draft build (without Tatoeba)
-5. Promote path + wordSeed extract if needed
-6. Tatoeba optional examples flag
-7. Tests + `docs/data-sources.md` polish
+4. `frequency:publish` → `words.json`
+5. Tatoeba enrich + curated examples overlay
+6. Tests + `docs/data-sources.md` polish
 
 ## Done when
 
-- [ ] `/references` (or `/about/references`) lists SNK, Tatoeba, JÚĽŠ with licenses
-- [ ] `content/frequency/{verbs,nouns,adjectives}.json` committed and attributed
-- [ ] `/dictionary/common` shows three top-1000 lists; live entries link; drafts never shown
-- [ ] `drafts:build` creates pending drafts for missing common lemmas
-- [ ] `drafts:promote` only publishes approved drafts into live dictionary
-- [ ] Source links documented in util docs and match the references module
-- [ ] Pivot note present on frequency importer
+- [x] `/references` lists SNK, Tatoeba, JÚĽŠ with licenses
+- [x] `content/frequency/{verbs,nouns,adjectives}.json` committed and attributed
+- [x] `/dictionary/common` shows three top-1000 lists; live entries link
+- [x] `frequency:publish` writes glossed lemmas to `content/dictionary/words.json`
+- [x] Tatoeba enrich + curated overlay feed examples on live words
+- [x] Source links documented in util docs and match the references module
+- [x] Pivot note present on frequency importer

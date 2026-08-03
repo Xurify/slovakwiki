@@ -1,8 +1,10 @@
 # Frequency lists, Tatoeba util, and verified dictionary growth
 
+> **Superseded bits:** the `content/drafts/` + `drafts:build` / `drafts:promote` path was dropped. Live bulk lemmas go straight into `content/dictionary/words.json` via `frequency:publish`. Hand examples use `curated-examples.json` → `examples:curate`.
+
 ## Goal
 
-Grow the dictionary with **high-quality, verified** Slovak lemmas (common first), expose **top-1000 verbs / nouns / adjectives** for learners, and keep a **local util** that turns trusted sources into draft entries humans approve before anything goes public.
+Grow the dictionary with **high-quality, verified** Slovak lemmas (common first), expose **top-1000 verbs / nouns / adjectives** for learners, and ship glossed frequency lemmas into the live dictionary without a separate draft queue.
 
 Tatoeba is for **example sentences**, not frequency ranking. If the SNK frequency path proves awkward, pivot the importer to Tatoeba-derived ranks without changing downstream shapes.
 
@@ -14,9 +16,10 @@ Tatoeba is for **example sentences**, not frequency ranking. If the SNK frequenc
 | Quality         | NSFW blocklist on enrich; prefer short clean sentences                                    |
 | Publish         | Auto-publish frequency glosses (`frequency:publish`) — no approval gate for simple lemmas |
 | Slug collisions | Bare slug first; on clash append `-v` / `-n` / `-a` (e.g. `štát` → `stat-n`)              |
-| Drafts          | Legacy / optional hard cases only — not the primary growth path                           |
+| Drafts          | **Removed** — publish writes `words.json` directly                                        |
 | Tatoeba access  | Weekly **dumps**, not live API in v1                                                      |
 | Attribution     | Curated → JÚĽŠ; frequency words → SNK; examples → Tatoeba CC BY                           |
+| Live file       | `content/dictionary/words.json` (was briefly named `promoted.json`)                       |
 
 ## Architecture
 
@@ -64,37 +67,24 @@ Legacy (optional): `build-drafts.ts` / `promote-draft.ts` for hard cases only.
 
 Committed under `content/frequency/` (e.g. `verbs.json`, `nouns.json`, `adjectives.json`).
 
-### Draft entry
+### Draft entry (obsolete)
 
-```ts
-{
-  status: "pending" | "approved" | "rejected" | "promoted";
-  slug: string;
-  slovak: string;
-  english?: string;
-  category?: string;
-  pos: "verb" | "noun" | "adjective";
-  frequencyRank: number;
-  examples?: { slovak: string; english: string; tatoebaId?: number }[];
-  notes?: string;
-  sources: string[];
-  promotedAt?: string;
-}
-```
-
-Tracked under `content/drafts/` for editorial review in git.
+Earlier design tracked pending lemmas under `content/drafts/` with statuses including `promoted`. That queue is gone; keep this only as historical context.
 
 ### Live dictionary
 
-Unchanged public contract: only promoted, human-approved content enters the live word seed / dictionary source. Drafts never appear in Pagefind or public pages.
+Public contract: `curatedWordSeed` in `data.ts` plus `content/dictionary/words.json`. Drafts never appear in Pagefind or public pages (and the draft store no longer exists).
 
 ## Util scripts
 
-| Script                     | Job                                                                                                 |
-| -------------------------- | --------------------------------------------------------------------------------------------------- |
-| `bun run frequency:import` | Parse SNK top-1000 lists → `content/frequency/*.json`                                               |
-| `bun run drafts:build`     | Diff frequency vs live words → pending drafts; optionally attach ≤2 filtered Tatoeba SK–EN examples |
-| `bun run drafts:promote`   | Merge `status: "approved"` into live dict; set `promoted` + `promotedAt`; skip duplicates           |
+| Script                      | Job                                                   |
+| --------------------------- | ----------------------------------------------------- |
+| `bun run frequency:import`  | Parse SNK top-1000 lists → `content/frequency/*.json` |
+| `bun run frequency:publish` | Glossed lemmas → `content/dictionary/words.json`      |
+| `bun run examples:enrich`   | Tatoeba dumps → examples on `words.json`              |
+| `bun run examples:curate`   | Apply `curated-examples.json` into `words.json`       |
+
+~~`drafts:build` / `drafts:promote`~~ — removed.
 
 **Tatoeba usage (offline)**
 
@@ -142,10 +132,9 @@ Document all source links in `docs/data-sources.md` (and/or script headers / `--
 
 ## Publish gate
 
-- `drafts:promote` only accepts `status: "approved"` with required fields (`slug`, `slovak`, English gloss).
-- Examples optional at promote time if the editor prefers to add them later.
-- Idempotent: already-live slugs skipped; promoted drafts marked so they are not re-merged blindly.
-- Rejected drafts remain as audit trail.
+- `frequency:publish` adds glossed SNK lemmas into `words.json` (idempotent on live lemmas/slugs).
+- Examples come from enrich / fill / curate after publish.
+- No draft approval queue.
 
 ## Out of scope (this design)
 

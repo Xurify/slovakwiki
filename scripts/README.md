@@ -11,13 +11,22 @@ bun run examples:reclaim    # drop weak fill stubs so Tatoeba can reclaim
 bun run examples:enrich -- --replace-practice
                             # Tatoeba dumps → replace practice frames only
 bun run examples:fill       # template stubs for lemmas Tatoeba missed
-bun run examples:curate     # hand examples from curated-examples.json
+bun run examples:curate     # hand examples from curated-examples.json → words.json
 bun run related:apply       # semantic cluster peers into empty related
 bun run examples:coverage   # top-N per POS example coverage report
 bun run examples:audit      # ranked review queue for generated practice frames
 bun run examples:audit-curated # fail if curated examples still look like fill stubs
 bun run index:search        # Pagefind for local/dev search
 ```
+
+### Content files
+
+| File                                          | Role                                                            |
+| --------------------------------------------- | --------------------------------------------------------------- |
+| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)   |
+| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`      |
+| `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                      |
+| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime |
 
 ## `dictionary/`
 
@@ -26,7 +35,7 @@ Frequency lists, live dictionary publish, Tatoeba examples.
 | File                          | npm script               | Notes                                                                                                                     |
 | ----------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `import-frequency.ts`         | `frequency:import`       | Skips single-letter junk lemmas                                                                                           |
-| `publish-frequency.ts`        | `frequency:publish`      | Auto-publishes glosses; `-v`/`-n`/`-a` slug suffix on collisions                                                          |
+| `publish-frequency.ts`        | `frequency:publish`      | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                  |
 | `enrich-examples.ts`          | `examples:enrich`        | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< per-word); `--replace-practice` / `--refresh-tatoeba` |
 | `reclaim-weak-examples.ts`    | `examples:reclaim`       | Drops exact weak fill stubs from curated JSON                                                                             |
 | `fill-empty-examples.ts`      | `examples:fill`          | POS templates + aspect pairs; tops up lemmas with <2 examples                                                             |

@@ -7,6 +7,8 @@ Keep this file aligned with `src/lib/content/references.ts`.
 
 Lexical reference used for curated dictionary entries.
 
+Live bulk lemmas: `content/dictionary/words.json` (plus hand seed in `src/lib/content/data.ts`). Example overlay: `content/dictionary/curated-examples.json`.
+
 ### JÚĽŠ Slovak dictionary (slovník)
 
 Primary source link on curated dictionary entries.

@@ -22,15 +22,17 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
   - header search says the index is not built yet
 - Skip re-index for pure UI/CSS/layout edits with no content changes.
 
-## Frequency lists + dictionary drafts
+## Frequency lists + dictionary
 
 Script layout: see `scripts/README.md` (`dictionary/`, `search/`, `docs/`).
+
+Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated seed in `src/lib/content/data.ts`). Hand/pattern example overlay: `content/dictionary/curated-examples.json` → `bun run examples:curate` (temporary; delete when phrase churn stops).
 
 - Sources (SNK, Tatoeba, JÚĽŠ): `docs/data-sources.md` and `/references` (from `src/lib/content/references.ts`).
 - Refresh frequency JSON: `bun run frequency:import` → `content/frequency/{verbs,nouns,adjectives}.json` + `lemma-index.json`
 - **Yearly checklist:** revisit SNK corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all`, not live. Last import: `generatedAt` in `content/frequency/{verbs,nouns,adjectives}.json` (set by `frequency:import`). No auto-refresh. Bump importer + re-import only when a newer `prim-*-public-all` top-1000 ships; spot-check rank drift before commit.
 - English glosses for common lemmas: `content/frequency/glosses.json`
-- Publish glossed frequency lemmas into the live dictionary (no approval gate): `bun run frequency:publish` (`--limit 100`)
+- Publish glossed frequency lemmas into `content/dictionary/words.json` (no approval gate): `bun run frequency:publish` (`--limit 100`)
 - Attach Tatoeba examples to dictionary words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
 - Drop weak fill stubs so Tatoeba can reclaim: `bun run examples:reclaim` → then enrich → fill → curate
 - Fill lemmas Tatoeba cannot match: `bun run examples:fill` → then `bun run examples:curate`
