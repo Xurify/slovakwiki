@@ -1,4 +1,6 @@
-export const practiceStateKey = "slovak-wiki.practice.v1";
+export const PRACTICE_STATE_STORAGE_KEY = "slovak.wiki.practice.v1";
+
+const LEGACY_PRACTICE_STATE_STORAGE_KEY = "slovak-wiki.practice.v1";
 
 export interface PracticeState {
   completedLessonIds: string[];
@@ -35,20 +37,32 @@ function asStringIds(value: unknown): string[] {
   );
 }
 
+function readPracticeRaw(storage: StorageLike): string | null {
+  return (
+    storage.getItem(PRACTICE_STATE_STORAGE_KEY) ??
+    storage.getItem(LEGACY_PRACTICE_STATE_STORAGE_KEY)
+  );
+}
+
+function clearPracticeKeys(storage: StorageLike): void {
+  storage.removeItem(PRACTICE_STATE_STORAGE_KEY);
+  storage.removeItem(LEGACY_PRACTICE_STATE_STORAGE_KEY);
+}
+
 export function readPracticeState(storage: StorageLike): PracticeState {
-  const raw = storage.getItem(practiceStateKey);
+  const raw = readPracticeRaw(storage);
   if (!raw) return emptyPracticeState();
 
   try {
     const parsed: unknown = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object") {
-      storage.removeItem(practiceStateKey);
+      clearPracticeKeys(storage);
       return emptyPracticeState();
     }
 
     const state = parsed as Record<string, unknown>;
     if (state.version !== 1) {
-      storage.removeItem(practiceStateKey);
+      clearPracticeKeys(storage);
       return emptyPracticeState();
     }
 
@@ -59,14 +73,14 @@ export function readPracticeState(storage: StorageLike): PracticeState {
       savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
     };
   } catch {
-    storage.removeItem(practiceStateKey);
+    clearPracticeKeys(storage);
     return emptyPracticeState();
   }
 }
 
 export function writePracticeState(storage: StorageLike, state: PracticeState): void {
   storage.setItem(
-    practiceStateKey,
+    PRACTICE_STATE_STORAGE_KEY,
     JSON.stringify({
       version: 1,
       completedLessonIds: asStringIds(state.completedLessonIds),
@@ -74,6 +88,7 @@ export function writePracticeState(storage: StorageLike, state: PracticeState): 
       savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
     }),
   );
+  storage.removeItem(LEGACY_PRACTICE_STATE_STORAGE_KEY);
 }
 
 export function markLessonComplete(

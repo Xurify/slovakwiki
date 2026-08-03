@@ -59,7 +59,7 @@
   }
 
   const buttonClass =
-    "audio-button relative inline-grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-(--line-strong) bg-(--surface) text-[0.62rem] text-(--accent-dark) shadow-(--shadow-border) hover:border-(--accent) hover:bg-(--accent-soft) hover:shadow-(--shadow-border-hover) disabled:cursor-not-allowed disabled:opacity-50 [&.playing]:border-(--accent) [&.playing]:bg-(--accent-soft)";
+    "audio-button relative inline-grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-(--line-strong) bg-(--surface) text-[0.62rem] text-(--accent-strong) shadow-(--shadow-border) hover:border-(--accent) hover:bg-(--accent-soft) hover:shadow-(--shadow-border-hover) disabled:cursor-not-allowed disabled:opacity-50 [&.playing]:border-(--accent) [&.playing]:bg-(--accent-soft)";
 
   onDestroy(stop);
 </script>

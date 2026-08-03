@@ -106,7 +106,7 @@
 </script>
 
 <a
-  class="fixed left-3 top-3 z-[100] -translate-y-[160%] rounded-(--control-radius) bg-(--surface) px-3.5 py-2.5 font-bold text-(--accent-dark) shadow-(--shadow-border) transition-transform focus:translate-y-0"
+  class="fixed left-3 top-3 z-[100] -translate-y-[160%] rounded-(--control-radius) bg-(--surface) px-3.5 py-2.5 font-bold text-(--accent-strong) shadow-(--shadow-border) transition-transform focus:translate-y-0"
   href="#main-content"
 >
   Skip to main content
@@ -128,7 +128,7 @@
     <nav class="hidden items-center gap-1 min-[801px]:flex" aria-label="Main navigation">
       {#each primaryNavigation as link (link.href)}
         <a
-          class="relative inline-flex h-10 items-center px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-(--accent) after:transition-transform aria-[current=page]:text-(--accent-dark) aria-[current=page]:after:scale-x-100"
+          class="relative inline-flex h-10 items-center px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-(--accent) after:transition-transform aria-[current=page]:text-(--accent-strong) aria-[current=page]:after:scale-x-100"
           href={link.href}
           aria-current={isActive(link.href) ? "page" : undefined}
         >
@@ -138,8 +138,8 @@
 
       <details class="group relative">
         <summary
-          class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-dark) marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
-            ? 'text-(--accent-dark)'
+          class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-strong) marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
+            ? 'text-(--accent-strong)'
             : ''}"
         >
           Reference
@@ -158,7 +158,7 @@
         >
           {#each referenceNavigation as item (item.href)}
             <a
-              class="block px-4 py-2.5 font-serif text-sm text-(--ink-soft) hover:bg-(--surface-subtle) hover:text-(--accent-dark) aria-[current=page]:bg-(--surface-selected) aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-dark)"
+              class="block px-4 py-2.5 font-serif text-sm text-(--ink-soft) hover:bg-(--surface-subtle) hover:text-(--accent-strong) aria-[current=page]:bg-(--surface-selected) aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-strong)"
               href={item.href}
               role="menuitem"
               aria-current={isActive(item.href) ? "page" : undefined}
@@ -238,7 +238,7 @@
 >
   {#each primaryNavigation as link, index (link.href)}
     <a
-      class="block border-b border-(--line) py-3.5 text-[0.95rem] font-semibold text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:text-(--accent-dark) {drawerMotion} {menuOpen
+      class="block border-b border-(--line) py-3.5 text-[0.95rem] font-semibold text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:text-(--accent-strong) {drawerMotion} {menuOpen
         ? 'translate-y-0 opacity-100 blur-0'
         : 'translate-y-3 opacity-0 blur-[4px]'}"
       style:transition-delay={linkDelay(index)}
@@ -262,7 +262,7 @@
 
   {#each referenceNavigation as item, index (item.href)}
     <a
-      class="block border-b border-(--line)/70 py-3 font-serif text-[0.95rem] text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-dark) {drawerMotion} {menuOpen
+      class="block border-b border-(--line)/70 py-3 font-serif text-[0.95rem] text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-strong) {drawerMotion} {menuOpen
         ? 'translate-y-0 opacity-100 blur-0'
         : 'translate-y-3 opacity-0 blur-[4px]'}"
       style:transition-delay={linkDelay(primaryNavigation.length + 1 + index)}
@@ -276,7 +276,7 @@
   {/each}
 
   <div
-    class="mt-6 flex items-center justify-between border-t border-(--line) pt-4 transition-[opacity,transform,filter] {drawerMotion} {menuOpen
+    class="mt-6 flex items-center justify-between pt-4 transition-[opacity,transform,filter] {drawerMotion} {menuOpen
       ? 'translate-y-0 opacity-100 blur-0'
       : 'translate-y-3 opacity-0 blur-[4px]'}"
     style:transition-delay={linkDelay(

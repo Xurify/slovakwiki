@@ -4,7 +4,7 @@
     THEME_CHANGE_EVENT,
     applyTheme,
     cycleThemePreference,
-    getBootThemePreference,
+    getInitialThemePreference,
     getStoredThemePreference,
     subscribeSystemTheme,
     themePreferenceLabel,
@@ -17,13 +17,14 @@
     class?: string;
   } = $props();
 
-  let preference = $state<ThemePreference>(getBootThemePreference());
+  // Match FOUC boot (`data-theme-preference`) on first client render.
+  let preference = $state<ThemePreference>(getInitialThemePreference());
 
   onMount(() => {
-    preference = getBootThemePreference();
+    preference = getInitialThemePreference();
 
     function onThemeChange(): void {
-      preference = getBootThemePreference();
+      preference = getInitialThemePreference();
     }
 
     window.addEventListener(THEME_CHANGE_EVENT, onThemeChange);
@@ -45,9 +46,7 @@
     applyTheme(preference);
   }
 
-  const label = $derived(
-    `Theme: ${themePreferenceLabel(preference)}. Click to cycle.`,
-  );
+  const label = $derived(`Theme: ${themePreferenceLabel(preference)}. Click to cycle.`);
 </script>
 
 <button

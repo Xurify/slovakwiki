@@ -20,15 +20,17 @@
       class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.74rem] text-(--muted-strong)"
       aria-label="Footer"
     >
-      <a class="hover:text-(--accent-dark) hover:underline" href="/lessons">Lessons</a>
-      <a class="hover:text-(--accent-dark) hover:underline" href="/dictionary"
+      <a class="hover:text-(--accent-strong) hover:underline" href="/lessons">Lessons</a>
+      <a class="hover:text-(--accent-strong) hover:underline" href="/dictionary"
         >Dictionary</a
       >
-      <a class="hover:text-(--accent-dark) hover:underline" href="/dictionary/common/verb"
-        >Most common</a
+      <a
+        class="hover:text-(--accent-strong) hover:underline"
+        href="/dictionary/common/verb">Most common</a
       >
-      <a class="hover:text-(--accent-dark) hover:underline" href="/practice">Practice</a>
-      <a class="hover:text-(--accent-dark) hover:underline" href="/references"
+      <a class="hover:text-(--accent-strong) hover:underline" href="/practice">Practice</a
+      >
+      <a class="hover:text-(--accent-strong) hover:underline" href="/references"
         >References</a
       >
     </nav>

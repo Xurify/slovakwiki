@@ -18,17 +18,15 @@ export function getStoredThemePreference(): ThemePreference {
   }
 
   try {
-    const stored =
-      localStorage.getItem(THEME_STORAGE_KEY) ??
-      localStorage.getItem("slovak.wiki.theme");
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
     return isThemePreference(stored) ? stored : "system";
   } catch {
     return "system";
   }
 }
 
-/** Prefer the FOUC boot attribute on <html>, then localStorage. */
-export function getBootThemePreference(): ThemePreference {
+/** Read preference from FOUC boot (`data-theme-preference`), then localStorage. */
+export function getInitialThemePreference(): ThemePreference {
   if (typeof document !== "undefined") {
     const fromDom = document.documentElement.dataset.themePreference;
     if (isThemePreference(fromDom)) {

@@ -5,7 +5,7 @@ import {
   answersMatch,
   emptyPracticeState,
   markLessonComplete,
-  practiceStateKey,
+  PRACTICE_STATE_STORAGE_KEY,
   readPracticeState,
   removeReviewItem,
   saveReferenceItem,
@@ -18,7 +18,7 @@ import {
   pushSearchHistory,
   readSearchHistory,
   SEARCH_HISTORY_LIMIT,
-  searchHistoryKey,
+  SEARCH_HISTORY_STORAGE_KEY,
 } from "../client/search-history";
 import { allEntries, caseTopics, entryBySlug, validateContent, words } from "./data";
 import { isDamagedExampleTemplate } from "./example-quality";
@@ -486,7 +486,7 @@ describe("Slovak content", () => {
   it("keeps string ids from stored practice state and drops non-strings", () => {
     const storage = new MemoryStorage();
     storage.setItem(
-      practiceStateKey,
+      PRACTICE_STATE_STORAGE_KEY,
       JSON.stringify({
         version: 1,
         completedLessonIds: ["missing-lesson", "everyday/meet-someone", 12],
@@ -511,19 +511,19 @@ describe("Slovak content", () => {
     );
 
     pushSearchHistory(storage, {
-      at: 1,
+      visitedAt: 1,
       href: "/dictionary/ahoj",
       kind: "word",
       label: "ahoj",
     });
     pushSearchHistory(storage, {
-      at: 2,
+      visitedAt: 2,
       href: "/grammar/cases/nominative",
       kind: "case",
       label: "Nominative",
     });
     pushSearchHistory(storage, {
-      at: 3,
+      visitedAt: 3,
       href: "https://example.com/dictionary/ahoj",
       kind: "word",
       label: "ahoj",
@@ -536,7 +536,7 @@ describe("Slovak content", () => {
 
     for (let index = 0; index < SEARCH_HISTORY_LIMIT + 2; index += 1) {
       pushSearchHistory(storage, {
-        at: 10 + index,
+        visitedAt: 10 + index,
         href: `/dictionary/word-${index}`,
         kind: "word",
         label: `word-${index}`,
@@ -550,6 +550,6 @@ describe("Slovak content", () => {
 
     clearSearchHistory(storage);
     expect(readSearchHistory(storage)).toEqual([]);
-    expect(storage.getItem(searchHistoryKey)).toBeNull();
+    expect(storage.getItem(SEARCH_HISTORY_STORAGE_KEY)).toBeNull();
   });
 });

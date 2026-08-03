@@ -58,7 +58,7 @@
       source: "hint" as const,
     })),
   ]);
-  const tryOffset = $derived(recent.length);
+  const idleHintsOffset = $derived(recent.length);
   const shellClass = $derived(
     size === "hero"
       ? cx("relative z-30 w-full max-w-[480px]", className)
@@ -398,7 +398,7 @@
               class={cx(
                 "flex items-center justify-between gap-3 px-3.5 py-2.5 text-left transition-colors",
                 activeIndex === index
-                  ? "bg-(--surface-selected) text-(--accent-dark)"
+                  ? "bg-(--surface-selected) text-(--accent-strong)"
                   : "text-(--ink-soft) hover:bg-(--surface-subtle)",
               )}
               id={`${id}-option-${index}`}
@@ -428,15 +428,15 @@
           <a
             class={cx(
               "flex items-center justify-between gap-3 px-3.5 py-2.5 text-left transition-colors",
-              activeIndex === tryOffset + index
-                ? "bg-(--surface-selected) text-(--accent-dark)"
+              activeIndex === idleHintsOffset + index
+                ? "bg-(--surface-selected) text-(--accent-strong)"
                 : "text-(--ink-soft) hover:bg-(--surface-subtle)",
             )}
-            id={`${id}-option-${tryOffset + index}`}
+            id={`${id}-option-${idleHintsOffset + index}`}
             href={hint.href}
             role="option"
-            aria-selected={activeIndex === tryOffset + index}
-            onmouseenter={() => (activeIndex = tryOffset + index)}
+            aria-selected={activeIndex === idleHintsOffset + index}
+            onmouseenter={() => (activeIndex = idleHintsOffset + index)}
           >
             <span class="font-serif text-[0.95rem]" lang={hint.lang}>{hint.label}</span>
             <span
@@ -465,7 +465,7 @@
               class={cx(
                 "flex items-start justify-between gap-3 px-3.5 py-2.5 transition-colors",
                 activeIndex === index
-                  ? "bg-(--surface-selected) text-(--accent-dark)"
+                  ? "bg-(--surface-selected) text-(--accent-strong)"
                   : "text-(--ink-soft) hover:bg-(--surface-subtle)",
               )}
               id={`${id}-option-${index}`}

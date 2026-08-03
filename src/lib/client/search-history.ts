@@ -1,13 +1,16 @@
 import type { SearchDocKind } from "$lib/content/search-ui";
 
-export const searchHistoryKey = "slovak-wiki.search-history.v1";
+export const SEARCH_HISTORY_STORAGE_KEY = "slovak.wiki.search-history.v1";
+
+const LEGACY_SEARCH_HISTORY_STORAGE_KEY = "slovak-wiki.search-history.v1";
+
 export const SEARCH_HISTORY_LIMIT = 8;
 
 export interface SearchHistoryItem {
-  at: number;
   href: string;
   kind: SearchDocKind;
   label: string;
+  visitedAt: number;
 }
 
 export interface StorageLike {
@@ -29,15 +32,29 @@ function isSearchDocKind(value: unknown): value is SearchDocKind {
   return typeof value === "string" && SEARCH_KINDS.has(value as SearchDocKind);
 }
 
+function parseVisitedAt(item: Record<string, unknown>): number | null {
+  if (typeof item.visitedAt === "number" && Number.isFinite(item.visitedAt)) {
+    return item.visitedAt;
+  }
+
+  // Legacy persisted field name.
+  if (typeof item.at === "number" && Number.isFinite(item.at)) {
+    return item.at;
+  }
+
+  return null;
+}
+
 function parseHistoryItem(value: unknown): SearchHistoryItem | null {
   if (!value || typeof value !== "object") return null;
   const item = value as Record<string, unknown>;
-  if (typeof item.at !== "number" || !Number.isFinite(item.at)) return null;
+  const visitedAt = parseVisitedAt(item);
+  if (visitedAt === null) return null;
   if (typeof item.href !== "string" || item.href.trim().length === 0) return null;
   if (typeof item.label !== "string" || item.label.trim().length === 0) return null;
   if (!isSearchDocKind(item.kind)) return null;
   return {
-    at: item.at,
+    visitedAt,
     href: item.href,
     kind: item.kind,
     label: item.label,
@@ -60,8 +77,15 @@ export function normalizeHistoryHref(href: string): string {
   return path.startsWith("/") ? path : `/${path}`;
 }
 
+function readHistoryRaw(storage: StorageLike): string | null {
+  return (
+    storage.getItem(SEARCH_HISTORY_STORAGE_KEY) ??
+    storage.getItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY)
+  );
+}
+
 export function readSearchHistory(storage: StorageLike): SearchHistoryItem[] {
-  const raw = storage.getItem(searchHistoryKey);
+  const raw = readHistoryRaw(storage);
   if (!raw) {
     return [];
   }
@@ -69,13 +93,15 @@ export function readSearchHistory(storage: StorageLike): SearchHistoryItem[] {
   try {
     const parsed: unknown = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object") {
-      storage.removeItem(searchHistoryKey);
+      storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
+      storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
       return [];
     }
 
     const state = parsed as Record<string, unknown>;
     if (state.version !== 1 || !Array.isArray(state.items)) {
-      storage.removeItem(searchHistoryKey);
+      storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
+      storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
       return [];
     }
 
@@ -89,7 +115,8 @@ export function readSearchHistory(storage: StorageLike): SearchHistoryItem[] {
       .filter((item) => item.href.length > 0)
       .slice(0, SEARCH_HISTORY_LIMIT);
   } catch {
-    storage.removeItem(searchHistoryKey);
+    storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
+    storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
     return [];
   }
 }
@@ -99,22 +126,23 @@ export function writeSearchHistory(
   items: SearchHistoryItem[],
 ): void {
   storage.setItem(
-    searchHistoryKey,
+    SEARCH_HISTORY_STORAGE_KEY,
     JSON.stringify({
       version: 1,
       items: items.slice(0, SEARCH_HISTORY_LIMIT).map((item) => ({
-        at: item.at,
+        visitedAt: item.visitedAt,
         href: normalizeHistoryHref(item.href),
         kind: item.kind,
         label: item.label.trim(),
       })),
     }),
   );
+  storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
 }
 
 export function pushSearchHistory(
   storage: StorageLike,
-  item: Omit<SearchHistoryItem, "at"> & { at?: number },
+  item: Omit<SearchHistoryItem, "visitedAt"> & { visitedAt?: number },
 ): SearchHistoryItem[] {
   const href = normalizeHistoryHref(item.href);
   const label = item.label.trim();
@@ -123,7 +151,7 @@ export function pushSearchHistory(
   }
 
   const nextItem: SearchHistoryItem = {
-    at: item.at ?? Date.now(),
+    visitedAt: item.visitedAt ?? Date.now(),
     href,
     kind: item.kind,
     label,
@@ -139,5 +167,6 @@ export function pushSearchHistory(
 }
 
 export function clearSearchHistory(storage: StorageLike): void {
-  storage.removeItem(searchHistoryKey);
+  storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
+  storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
 }
