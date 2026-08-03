@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, untrack } from "svelte";
 
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import {
@@ -36,7 +36,8 @@
     size?: "header" | "hero";
   } = $props();
 
-  let query = $state(initialQuery);
+  // Seed once from URL/`q`; local edits own `query` after that.
+  let query = $state(untrack(() => initialQuery));
   let open = $state(false);
   let loading = $state(false);
   let unavailable = $state(false);
