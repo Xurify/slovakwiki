@@ -1,6 +1,10 @@
 ---
 import Footer from "$lib/components/Footer.svelte";
 import Header from "$lib/components/Header.svelte";
+import plexLatin from "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2?url";
+import plexLatinExt from "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-ext-wght-normal.woff2?url";
+import serifLatin from "@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url";
+import serifLatinExt from "@fontsource-variable/source-serif-4/files/source-serif-4-latin-ext-wght-normal.woff2?url";
 import "../styles.css";
 
 interface Props {
@@ -22,6 +26,34 @@ const query = Astro.url.searchParams.get("q") ?? "";
     <meta name="theme-color" content="#d4e2e8" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <link
+      rel="preload"
+      href={plexLatin}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={plexLatinExt}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={serifLatin}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={serifLatinExt}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <script is:inline>
       (function () {
         var storageKey = "slovak.wiki.theme-preference";
