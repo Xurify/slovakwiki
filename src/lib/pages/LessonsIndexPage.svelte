@@ -81,9 +81,7 @@
       <span class="absolute bottom-[14%] right-[10%] -rotate-6" lang="sk">ť</span>
     </div>
 
-    <PageShell
-      class="relative flex min-h-[min(68vh,580px)] flex-col justify-center py-16 max-[600px]:min-h-0 max-[600px]:py-12"
-    >
+    <PageShell class="relative py-16 max-[600px]:py-12">
       <p
         class="m-0 font-serif text-[clamp(3rem,9vw,5.75rem)] font-semibold leading-[0.9] tracking-tighter text-slate-900"
       >
@@ -91,7 +89,7 @@
       </p>
 
       <p
-        class="mt-5 max-w-160 font-serif text-[clamp(1.15rem,2.2vw,1.45rem)] leading-snug text-slate-700"
+        class="mt-5 min-h-[2.75em] max-w-160 font-serif text-[clamp(1.15rem,2.2vw,1.45rem)] leading-snug text-slate-700"
       >
         Short scenes that teach a pattern, then ask you to use it yourself.
       </p>
