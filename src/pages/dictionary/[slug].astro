@@ -7,14 +7,14 @@ import {
 } from "$lib/content/audio";
 import { entryBySlug, words } from "$lib/content/data";
 
-const lemmaTexts = new Set(
-  words
-    .filter((entry) => entry.kind === "word")
-    .map((entry) => normalizeAudioText(entry.slovak))
-    .filter(Boolean),
-);
-
 export function getStaticPaths() {
+  const lemmaTexts = new Set(
+    words
+      .filter((entry) => entry.kind === "word")
+      .map((entry) => normalizeAudioText(entry.slovak))
+      .filter(Boolean),
+  );
+
   return words.map((entry) => {
     const relatedEntries = entry.related
       .map((slug) => entryBySlug.get(slug))
@@ -34,7 +34,6 @@ export function getStaticPaths() {
         lemmaAudioSrc: resolveAudioSrc(entry.slovak, "lemma"),
         exampleAudioSrcs: entry.examples.map((example) => {
           const text = normalizeAudioText(example.slovak);
-          // Overlap with a headword → same clip lives under lemma/
           const kind = lemmaTexts.has(text) ? "lemma" : "example";
           return resolveAudioSrc(example.slovak, kind);
         }),
