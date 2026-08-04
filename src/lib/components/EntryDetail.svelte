@@ -106,8 +106,24 @@
 </script>
 
 <main class="pb-16">
-  <section class="bg-panel-inverse" aria-labelledby="lemma-heading">
-    <PageShell class="max-w-[880px] pt-8 pb-9 max-[760px]:pt-6 max-[760px]:pb-7">
+  <section
+    class="relative isolate overflow-hidden bg-panel-inverse"
+    aria-labelledby="lemma-heading"
+  >
+    <div
+      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,color-mix(in_srgb,var(--accent)_28%,transparent),transparent_55%),radial-gradient(ellipse_at_90%_80%,color-mix(in_srgb,var(--panel-inverse-ink)_8%,transparent),transparent_50%)]"
+      aria-hidden="true"
+    ></div>
+
+    <span
+      class="pointer-events-none absolute -bottom-10 -right-4 -z-10 select-none font-serif text-[min(42vw,18rem)] leading-none text-panel-inverse-ink/4"
+      aria-hidden="true"
+      lang="sk"
+    >
+      {entry.slovak.slice(0, 1)}
+    </span>
+
+    <PageShell class="relative max-w-[880px] pt-8 pb-9 max-[760px]:pt-6 max-[760px]:pb-7">
       <nav
         class="mb-7 flex gap-2 text-xs text-panel-inverse-ink/55"
         aria-label="Breadcrumb"
@@ -122,7 +138,7 @@
         <span lang="sk">{entry.slovak}</span>
       </nav>
 
-      <div class="flex flex-wrap items-center gap-x-3.5 gap-y-3">
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
         <h1
           id="lemma-heading"
           class="m-0 font-serif text-[clamp(2.5rem,7vw,4.25rem)] leading-[0.95] text-panel-inverse-ink"
@@ -133,7 +149,6 @@
 
         {#if lemmaAudioSrc}
           <AudioButton
-            class="translate-y-[0.12em]"
             label={`Listen to ${entry.slovak}`}
             size="lg"
             src={lemmaAudioSrc}
@@ -149,31 +164,34 @@
         {heroGloss}
       </p>
 
-      <p
-        class="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-panel-inverse-ink/55"
-      >
+      <div class="mt-5 flex flex-wrap items-center gap-x-2.5 gap-y-2">
         {#if multiSense}
-          <span>{senseViews.map((sense) => sense.entry.category).join(" · ")}</span>
+          <span class="text-sm text-panel-inverse-ink/55">
+            {senseViews.map((sense) => sense.entry.category).join(" · ")}
+          </span>
         {:else}
-          <span>{entry.category}</span>
+          <span
+            class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-panel-inverse-ink/80"
+          >
+            {entry.category}
+          </span>
 
           {#if entry.frequency}
-            <span aria-hidden="true">·</span>
             <a
-              class="tabular-nums text-panel-inverse-ink/70 underline decoration-panel-inverse-ink/25 underline-offset-2 hover:text-panel-inverse-ink hover:decoration-panel-inverse-ink/50"
+              class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tabular-nums text-panel-inverse-ink/80 transition-colors hover:border-panel-inverse-ink/45 hover:bg-panel-inverse-ink/10"
               href={`/dictionary/common/${entry.frequency.pos}`}
             >
               #{entry.frequency.rank}
-              {FREQUENCY_POS_LABEL[entry.frequency.pos].toLowerCase()}
+              {FREQUENCY_POS_LABEL[entry.frequency.pos]}
             </a>
           {/if}
         {/if}
-      </p>
+      </div>
     </PageShell>
 
     {#if multiSense}
       <div
-        class="sticky top-(--header-height) z-10 border-t border-panel-inverse-ink/12 bg-panel-inverse"
+        class="sticky top-(--header-height) z-10 border-t border-panel-inverse-ink/12 bg-panel-inverse/95 backdrop-blur-sm"
       >
         <PageShell class="max-w-[880px]">
           <nav
@@ -316,11 +334,9 @@
                                 {:else}
                                   {part.text}
                                 {/if}
-                              {/each}
-
-                              {#if sense.exampleAudioSrcs[item.index]}
+                              {/each}{#if sense.exampleAudioSrcs[item.index]}
                                 <AudioButton
-                                  class="relative top-[0.15em] ml-2.5 inline-grid align-baseline"
+                                  class="ml-3 inline-grid align-middle"
                                   label={`Listen to example: ${item.example.slovak}`}
                                   size="sm"
                                   src={sense.exampleAudioSrcs[item.index]}
@@ -367,11 +383,9 @@
                           {:else}
                             {part.text}
                           {/if}
-                        {/each}
-
-                        {#if sense.exampleAudioSrcs[index]}
+                        {/each}{#if sense.exampleAudioSrcs[index]}
                           <AudioButton
-                            class="relative top-[0.15em] ml-2.5 inline-grid align-baseline"
+                            class="ml-3 inline-grid align-middle"
                             label={`Listen to example: ${example.slovak}`}
                             size="sm"
                             src={sense.exampleAudioSrcs[index]}
@@ -424,20 +438,19 @@
           aria-labelledby="related-heading"
         >
           <h2 id="related-heading" class="mb-5">Related</h2>
-          <ul class="m-0 flex list-none flex-wrap gap-x-6 gap-y-3 p-0">
+          <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
             {#each relatedEntries as relatedEntry (relatedEntry.slug)}
               <li>
                 <a
-                  class="group inline-flex flex-col gap-0.5"
+                  class="inline-flex max-w-full flex-col gap-0.5 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-3.5 py-2.5 transition-colors hover:border-blue-800 hover:bg-blue-50"
                   href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}"
                 >
-                  <strong
-                    class="font-serif text-base font-semibold text-slate-900 group-hover:text-blue-800"
-                    lang="sk"
-                  >
+                  <strong class="font-serif text-sm text-slate-900" lang="sk">
                     {relatedEntry.slovak}
                   </strong>
-                  <span class="text-sm text-slate-500">{relatedEntry.english}</span>
+                  <span class="truncate text-xs text-slate-500">
+                    {relatedEntry.english}
+                  </span>
                 </a>
               </li>
             {/each}
