@@ -21,8 +21,8 @@
       <h1>Grammar</h1>
       <Lead>
         Rules and patterns for understanding Slovak sentences.
-        <TextLink class="ml-1 inline-flex items-center gap-1" href="/grammar/terms">
-          Language terms <ArrowRight />
+        <TextLink class="ml-1 inline-flex items-center gap-1" href="/glossary">
+          Glossary <ArrowRight />
         </TextLink>
       </Lead>
     </header>

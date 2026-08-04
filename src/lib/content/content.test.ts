@@ -158,6 +158,7 @@ describe("Slovak content", () => {
     expect(entryBySlug.has("questions")).toBe(true);
     expect(entryBySlug.has("byt-present")).toBe(true);
     expect(entryBySlug.has("mat-present")).toBe(true);
+    expect(entryBySlug.has("aspect")).toBe(true);
     expect(entryBySlug.has("ty-vs-vy")).toBe(true);
     expect(entryBySlug.has("rhythmic-law")).toBe(true);
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import AudioButton from "$lib/components/AudioButton.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import GlossWithTerms from "$lib/components/GlossWithTerms.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
@@ -51,6 +52,17 @@
     multiSense
       ? senseViews.map((sense) => sense.entry.english).join(" · ")
       : entry.english,
+  );
+  const glossSenses = $derived(
+    multiSense
+      ? []
+      : entry.english
+          .split(";")
+          .map((part) => part.trim())
+          .filter(Boolean),
+  );
+  const showHeroUsageGap = $derived(
+    multiSense || senseViews.some((sense) => sense.entry.body.length > 0),
   );
 
   function onlyPracticeFrames(examples: Example[]): boolean {
@@ -158,11 +170,27 @@
         {/if}
       </div>
 
-      <p
-        class="mt-4 max-w-[42ch] font-serif text-[1.25rem] leading-snug text-panel-inverse-ink/80"
-      >
-        {heroGloss}
-      </p>
+      {#if multiSense || glossSenses.length <= 1}
+        <p
+          class="mt-4 max-w-[42ch] font-serif text-[1.25rem] leading-snug text-panel-inverse-ink/80"
+        >
+          <GlossWithTerms text={heroGloss} variant="inverse" />
+        </p>
+      {:else}
+        <ul
+          class="mt-4 m-0 grid list-none gap-1.5 p-0 font-serif text-[1.2rem] leading-snug text-panel-inverse-ink/80"
+        >
+          {#each glossSenses as sense, index (sense)}
+            <li class="flex gap-2.5">
+              <span
+                class="shrink-0 tabular-nums text-panel-inverse-ink/40"
+                aria-hidden="true">{index + 1}.</span
+              >
+              <span><GlossWithTerms text={sense} variant="inverse" /></span>
+            </li>
+          {/each}
+        </ul>
+      {/if}
 
       <div class="mt-5 flex flex-wrap items-center gap-x-2.5 gap-y-2">
         {#if multiSense}
@@ -222,6 +250,9 @@
             {#if entry.examples.length > 0}
               <a class="hover:text-panel-inverse-ink" href="#examples">Examples</a>
             {/if}
+            {#if relatedEntries.length > 0}
+              <a class="hover:text-panel-inverse-ink" href="#related">Related</a>
+            {/if}
             <a class="hover:text-panel-inverse-ink" href="#source">Source</a>
           </nav>
         </PageShell>
@@ -229,7 +260,9 @@
     {/if}
   </section>
 
-  <PageShell class="max-w-[880px] pt-10 max-[760px]:pt-8">
+  <PageShell
+    class={`max-w-[880px] ${showHeroUsageGap ? "pt-10 max-[760px]:pt-8" : "pt-8 max-[760px]:pt-6"}`}
+  >
     <article class="min-w-0">
       {#each senseViews as sense, senseIndex (sense.entry.slug)}
         {@const senseEntry = sense.entry}
@@ -260,7 +293,9 @@
         >
           {#if multiSense}
             <h2 id={`${sectionId}-heading`} class="mb-2">{senseEntry.category}</h2>
-            <p class="font-serif text-lg text-blue-800">{senseEntry.english}</p>
+            <p class="font-serif text-lg text-blue-800">
+              <GlossWithTerms text={senseEntry.english} />
+            </p>
 
             {#if senseEntry.frequency}
               <p class="mt-3 text-sm text-slate-500">
@@ -452,6 +487,7 @@
 
       {#if relatedEntries.length}
         <section
+          id="related"
           class="scroll-mt-[88px] mt-14 border-t border-slate-200 pt-10"
           aria-labelledby="related-heading"
         >

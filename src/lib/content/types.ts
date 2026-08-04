@@ -49,6 +49,13 @@ export interface GrammarPattern {
   lines: string[];
 }
 
+/** In-page sections for gloss-term deep links (e.g. #imperfective). */
+export interface GrammarTermSection {
+  body: string;
+  id: string;
+  title: string;
+}
+
 export interface CaseReference {
   explanation?: string;
   name: string;
@@ -83,6 +90,8 @@ export interface GrammarTopic extends ContentEntry {
   pathGroup: "Nouns" | "Verbs" | "Sentences";
   pattern: GrammarPattern;
   rule: string[];
+  /** Optional deep-link sections for dictionary gloss term tips. */
+  termSections?: GrammarTermSection[];
   watchOut: string;
 }
 

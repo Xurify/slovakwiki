@@ -291,7 +291,7 @@
       <TextLink href="/dictionary/common/verb">Most common</TextLink>
       <TextLink href="/grammar">Grammar</TextLink>
       <TextLink href="/pronunciation">Pronunciation</TextLink>
-      <TextLink href="/grammar/terms">Language terms</TextLink>
+      <TextLink href="/glossary">Glossary</TextLink>
       <TextLink href="/references">References</TextLink>
       <TextLink href="/lessons">Lessons</TextLink>
     </nav>

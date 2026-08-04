@@ -917,11 +917,91 @@ export const grammarEntries: GrammarTopic[] = [
     },
     watchOut:
       "Do not say Som dvadsať rokov for age. Use Mám dvadsať rokov; attach ne- to make nemám.",
-    nextSlug: "word-order",
+    nextSlug: "aspect",
     lessonLink: {
       href: "/lessons/grammar/mat-present",
       label: "Present forms of mať",
     },
+  },
+  {
+    slug: "aspect",
+    slovak: "vid",
+    english: "aspect",
+    category: "Verbs",
+    kind: "grammar",
+    summary:
+      "Slovak verbs mark whether an action is ongoing or completed — not just when it happens.",
+    body: [
+      "Most verbs come in imperfective / perfective pairs. The imperfective covers process, habit, or an unbounded activity. The perfective frames one completed or result-focused event.",
+      "Prefixes often build perfectives: písať → napísať, čítať → prečítať, robiť → urobiť. The prefix can also change meaning, so learn common pairs in full sentences.",
+      "Future tense depends on aspect: imperfective usually uses budem + infinitive (budem písať), while perfective uses a present-looking form with future meaning (napíšem).",
+    ],
+    examples: [
+      {
+        slovak: "Písal list.",
+        english: "He was writing / wrote a letter (process).",
+        demonstrates: "Imperfective písať — ongoing or unbounded writing.",
+      },
+      {
+        slovak: "Napísal list.",
+        english: "He wrote the letter (finished it).",
+        demonstrates: "Perfective napísať — the letter is done.",
+      },
+      {
+        slovak: "Chodím do práce.",
+        english: "I go to work (habitually).",
+        demonstrates: "Habitual motion verb chodiť — repeated trips, not one journey.",
+      },
+    ],
+    related: [
+      "robit",
+      "urobit",
+      "pisat",
+      "napisat",
+      "citat",
+      "precitat",
+      "ist",
+      "chodit",
+    ],
+    source: languageSource,
+    tags: ["verbs", "aspect", "intermediate"],
+    lookFor:
+      "Ask whether the speaker means the process/habit or the completed result — that choice is aspect.",
+    pathGroup: "Verbs",
+    order: 6,
+    rule: [
+      "Aspect is separate from tense: the same past time can be imperfective (process) or perfective (completed).",
+      "Learn frequent pairs together (robiť / urobiť, písať / napísať) instead of translating English tense forms one-to-one.",
+    ],
+    pattern: {
+      label: "Same idea, different aspect",
+      lines: [
+        "robiť → urobiť · do / get done",
+        "písať → napísať · write / write to completion",
+        "čítať → prečítať · read / read through",
+        "ísť / chodiť · one trip vs habit",
+      ],
+    },
+    termSections: [
+      {
+        id: "imperfective",
+        title: "Imperfective",
+        body: "Marks process, habit, or an action without a fixed endpoint — what was going on, not that it finished.",
+      },
+      {
+        id: "perfective",
+        title: "Perfective",
+        body: "Marks a completed, bounded, or result-focused event — one trip to the finish line.",
+      },
+      {
+        id: "habitual",
+        title: "Habitual motion",
+        body: "Motion verbs like chodiť cover repeated or multi-direction travel. Ísť covers one trip now or once.",
+      },
+    ],
+    watchOut:
+      "Do not map English progressive vs simple past onto aspect. Slovak chooses imperfective or perfective by how the event is framed, then places it in time.",
+    nextSlug: "word-order",
   },
   {
     slug: "cases-overview",

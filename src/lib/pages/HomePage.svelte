@@ -82,9 +82,9 @@
       action: "Hear the sounds",
     },
     {
-      href: "/grammar/terms",
+      href: "/glossary",
       glyph: "ť",
-      title: "Language terms",
+      title: "Glossary",
       desc: "Plain definitions for the grammar words the rest of the site leans on, so nothing arrives unexplained.",
       action: "Check a term",
     },

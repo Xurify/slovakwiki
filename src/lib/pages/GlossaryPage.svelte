@@ -6,21 +6,15 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   const termRowClass =
-    "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border-b border-slate-200 py-5 max-[620px]:grid-cols-1";
+    "scroll-mt-[88px] grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 border-b border-slate-200 py-5 max-[620px]:grid-cols-1";
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[880px]">
-    <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <TextLink href="/grammar">Grammar</TextLink>
-      <span aria-hidden="true">/</span>
-      <span>Language terms</span>
-    </nav>
-
     <header class="max-w-[640px]">
-      <Eyebrow>Grammar reference</Eyebrow>
-      <h1>Language terms</h1>
-      <Lead>Short definitions for the terms used in this reference.</Lead>
+      <Eyebrow>Reference</Eyebrow>
+      <h1>Glossary</h1>
+      <Lead>Short definitions for the terms used across this site.</Lead>
     </header>
 
     <dl class="mt-12 border-t border-slate-200">
@@ -153,14 +147,50 @@
         </TextLink>
       </div>
 
-      <div class={termRowClass}>
+      <div class={termRowClass} id="aspect">
         <div>
           <dt class="font-serif text-lg font-semibold text-blue-800">Aspect</dt>
           <dd class="m-0 mt-1 font-serif leading-relaxed text-slate-600">
-            Whether a verb presents an action as completed or ongoing. This reference will
-            cover it separately.
+            Whether a verb presents an action as ongoing or completed. Slovak aspect is
+            separate from tense: the same past time can be imperfective (process) or
+            perfective (finished).
           </dd>
         </div>
+        <TextLink class="inline-flex items-center gap-1.5" href="/grammar/aspect">
+          Open aspect <ArrowRight />
+        </TextLink>
+      </div>
+
+      <div class={termRowClass} id="imperfective">
+        <div>
+          <dt class="font-serif text-lg font-semibold text-blue-800">Imperfective</dt>
+          <dd class="m-0 mt-1 font-serif leading-relaxed text-slate-600">
+            The aspect for process, habit, or an unbounded activity — what was going on,
+            not that it finished. Dictionary glosses mark these verbs with (imperfective).
+          </dd>
+        </div>
+        <TextLink
+          class="inline-flex items-center gap-1.5"
+          href="/grammar/aspect#imperfective"
+        >
+          See imperfective <ArrowRight />
+        </TextLink>
+      </div>
+
+      <div class={termRowClass} id="perfective">
+        <div>
+          <dt class="font-serif text-lg font-semibold text-blue-800">Perfective</dt>
+          <dd class="m-0 mt-1 font-serif leading-relaxed text-slate-600">
+            The aspect for a completed, bounded, or result-focused event. Dictionary
+            glosses mark these verbs with (perfective).
+          </dd>
+        </div>
+        <TextLink
+          class="inline-flex items-center gap-1.5"
+          href="/grammar/aspect#perfective"
+        >
+          See perfective <ArrowRight />
+        </TextLink>
       </div>
     </dl>
   </PageShell>

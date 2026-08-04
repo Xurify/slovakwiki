@@ -80,6 +80,29 @@
       {/each}
     </section>
 
+    {#if topic.termSections && topic.termSections.length > 0}
+      <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
+        <Eyebrow>Terms</Eyebrow>
+        <h2 id="terms-heading" class="mb-3 text-2xl">Key labels</h2>
+
+        <dl class="m-0 grid gap-4">
+          {#each topic.termSections as section (section.id)}
+            <div
+              id={section.id}
+              class="scroll-mt-[88px] border-l-4 border-blue-600 bg-slate-50 px-4 py-3"
+            >
+              <dt class="font-serif text-lg font-semibold text-blue-800">
+                {section.title}
+              </dt>
+              <dd class="m-0 mt-1 max-w-[66ch] font-serif leading-6 text-slate-700">
+                {section.body}
+              </dd>
+            </div>
+          {/each}
+        </dl>
+      </section>
+    {/if}
+
     {#if !topic.caseOverview}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
         <Eyebrow>Pattern</Eyebrow>
@@ -210,6 +233,14 @@
       >
         Core rule
       </a>
+      {#if topic.termSections && topic.termSections.length > 0}
+        <a
+          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
+          href="#terms-heading"
+        >
+          Key labels
+        </a>
+      {/if}
       {#if topic.caseOverview}
         <a
           class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
