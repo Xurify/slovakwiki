@@ -1,8 +1,14 @@
 ---
+import { existsSync } from "node:fs";
+import path from "node:path";
+
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import type { AudioMountTarget } from "$lib/components/audio-mount";
+import AudioMountHost from "$lib/components/AudioMountHost.svelte";
 import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
 import { normalizeAudioText, resolveAudioSrc } from "$lib/content/audio";
 import { entryBySlug, words } from "$lib/content/data";
+import { getImageManifestEntry, resolveImageSrc } from "$lib/content/images";
 import {
   canonicalWordSlug,
   lemmaSenseGroup,
@@ -25,6 +31,29 @@ export function getStaticPaths() {
     });
   }
 
+  function resolveLemmaImage(slug: string, fallbackCaption: string) {
+    const imageEntry = getImageManifestEntry(slug);
+    if (!imageEntry || imageEntry.status !== "ok" || !imageEntry.file) return undefined;
+
+    const diskPath = path.join(
+      process.cwd(),
+      "static",
+      "images",
+      "dictionary",
+      imageEntry.file,
+    );
+    if (!existsSync(diskPath)) return undefined;
+
+    return {
+      artist: imageEntry.artist,
+      caption: imageEntry.caption?.trim() || fallbackCaption,
+      license: imageEntry.license,
+      licenseUrl: imageEntry.licenseUrl,
+      sourcePageUrl: imageEntry.sourcePageUrl,
+      src: resolveImageSrc(imageEntry.file),
+    };
+  }
+
   return words.flatMap((entry) => {
     const senses = lemmaSenseGroup(entry, words);
     const canonicalSlug = canonicalWordSlug(entry, words);
@@ -42,6 +71,8 @@ export function getStaticPaths() {
         slovak: related.slovak,
       }));
 
+    const titleEnglish = senses.map((sense) => sense.english).join(" · ");
+
     return [
       {
         params: { slug: entry.slug },
@@ -54,15 +85,49 @@ export function getStaticPaths() {
           relatedEntries,
           lemmaAudioSrc: resolveAudioSrc(entry.slovak, "lemma"),
           exampleAudioSrcs: exampleAudioSrcsFor(entry),
+          image: resolveLemmaImage(entry.slug, titleEnglish),
         },
       },
     ];
   });
 }
 
-const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses } = Astro.props;
+const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image } =
+  Astro.props;
 
 const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
+
+const audioTargets: AudioMountTarget[] = [];
+
+if (lemmaAudioSrc) {
+  audioTargets.push({
+    key: "lemma",
+    props: {
+      label: `Listen to ${entry.slovak}`,
+      size: "lg",
+      src: lemmaAudioSrc,
+      text: entry.slovak,
+      variant: "inverse",
+    },
+  });
+}
+
+for (const [senseIndex, sense] of senses.entries()) {
+  for (const [exampleIndex, example] of sense.entry.examples.entries()) {
+    const src = sense.exampleAudioSrcs[exampleIndex];
+    if (!src) continue;
+
+    audioTargets.push({
+      key: `s${senseIndex}-e${exampleIndex}`,
+      props: {
+        label: `Listen to example: ${example.slovak}`,
+        size: "sm",
+        src,
+        text: example.slovak,
+      },
+    });
+  }
+}
 ---
 
 <SiteLayout
@@ -70,7 +135,12 @@ const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
   description={entry.summary}
 >
   <DictionaryDetailPage
-    client:load
-    data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses }}
-  />
+    data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image }}
+  >
+    {
+      audioTargets.length > 0 && (
+        <AudioMountHost slot="audioMount" client:load targets={audioTargets} />
+      )
+    }
+  </DictionaryDetailPage>
 </SiteLayout>

@@ -1,143 +1,29 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { onMount } from "svelte";
-  import { emptyPracticeState, readPracticeState } from "$lib/client/practice-state";
-  import type { PracticeItem } from "$lib/content/learning-types";
-  import { lessonById, lessonTracks } from "$lib/content/lessons";
+  import { emptyPracticeState } from "$lib/client/practice-state";
   import {
-    practiceItemById,
-    practiceSessionCount,
-    practiceSets,
-  } from "$lib/content/practice";
+    buildPracticeSheets,
+    groupSheetsByTrack,
+    pickFeaturedSheet,
+    totalPracticeExercises,
+  } from "$lib/content/practice-hub";
+  import { practiceSets } from "$lib/content/practice";
 
-  let practiceState = $state(emptyPracticeState());
-  let hydrated = $state(false);
+  let { hub }: { hub?: Snippet } = $props();
 
-  function drillLine(item: PracticeItem | undefined): {
-    english: string;
-    slovak: string;
-  } {
-    if (!item) {
-      return { slovak: "…", english: "" };
-    }
-
-    const clean = (value: string) =>
-      value.includes("-") ? value.replace(/-/g, "").toLocaleLowerCase("sk-SK") : value;
-
-    const task = item.task;
-
-    if (task.type === "cloze") {
-      return {
-        slovak: task.frame.replace("{}", "______"),
-        english: task.sentenceEn ?? task.gapEn,
-      };
-    }
-
-    if (task.type === "choice") {
-      const correction = item.feedback.correction?.trim() ?? "";
-      const chosen =
-        task.choices.find((choice) => choice.id === task.answerId)?.label ?? correction;
-      return {
-        slovak: clean(correction || chosen),
-        english: item.feedback.english ?? "",
-      };
-    }
-
-    if (task.type === "build") {
-      return {
-        slovak: task.answer.join(" "),
-        english: item.feedback.english ?? "",
-      };
-    }
-
-    return {
-      slovak: task.answer,
-      english: item.feedback.english ?? "",
-    };
-  }
-
-  const sheets = $derived(
-    practiceSets.map((set) => {
-      const lesson = lessonById.get(set.lessonId);
-      const previewItem = practiceItemById.get(set.previewItemId ?? set.itemIds[0] ?? "");
-
-      return {
-        set,
-        purpose: set.summary ?? lesson?.promise ?? "Work through this topic again.",
-        exerciseCount: practiceSessionCount(set),
-        completed: practiceState.completedLessonIds.includes(set.lessonId),
-        drill: drillLine(previewItem),
-        trackTitle:
-          lessonTracks.find((entry) => entry.id === set.track)?.title ?? set.track,
-      };
-    }),
-  );
-
-  const sheetsByTrack = $derived(
-    lessonTracks
-      .map((track) => {
-        const trackSheets = sheets.filter((sheet) => sheet.set.track === track.id);
-        return {
-          track,
-          sheets: trackSheets,
-          exerciseCount: trackSheets.reduce((sum, sheet) => sum + sheet.exerciseCount, 0),
-        };
-      })
-      .filter((group) => group.sheets.length > 0),
-  );
-
-  const featured = $derived.by(() => {
-    const waiting = sheets.find((sheet) => !sheet.completed);
-    return waiting ?? sheets[0];
-  });
-
-  const primaryHref = $derived(`/practice/${featured?.set.id ?? ""}`);
-
-  const primaryLabel = $derived(
-    featured?.completed
-      ? `Try again · ${featured.set.title}`
-      : `Start · ${featured?.set.title ?? "practice"}`,
-  );
-
-  const recentDrills = $derived.by(() => {
-    const drills: {
-      drill: { english: string; slovak: string };
-      href: string;
-      id: string;
-      sourceLabel: string;
-    }[] = [];
-
-    // Newest first — same pattern as continue/recents hubs elsewhere.
-    for (const itemId of [...practiceState.savedReferenceItemIds].reverse()) {
-      const item = practiceItemById.get(itemId);
-      if (!item) continue;
-
-      drills.push({
-        id: item.id,
-        href: `/practice/reference/${item.id}`,
-        sourceLabel: item.source.label,
-        drill: drillLine(item),
-      });
-
-      if (drills.length >= 8) break;
-    }
-
-    return drills;
-  });
-
-  const totalExercises = $derived(
-    practiceSets.reduce((sum, set) => sum + practiceSessionCount(set), 0),
-  );
-
-  onMount(() => {
-    practiceState = readPracticeState(localStorage);
-    hydrated = true;
-  });
+  // SSR catalog assumes empty progress — hub island upgrades CTA / featured / recents / done.
+  const sheets = buildPracticeSheets(emptyPracticeState());
+  const sheetsByTrack = groupSheetsByTrack(sheets);
+  const featured = pickFeaturedSheet(sheets);
+  const totalExercises = totalPracticeExercises();
+  const fallbackHref = `/practice/${featured?.set.id ?? practiceSets[0]?.id ?? ""}`;
 </script>
 
 <main>
@@ -169,17 +55,12 @@
       </p>
 
       <div class="mt-9 flex flex-wrap items-center gap-4">
-        {#if hydrated}
-          <Button href={primaryHref} class="min-w-48 px-6">
-            {primaryLabel}
-            <ArrowRight />
-          </Button>
-        {:else}
-          <Button href="/practice/{practiceSets[0]?.id}" class="min-w-48 px-6">
+        <span data-practice-cta class="inline-flex">
+          <Button href={fallbackHref} class="min-w-48 px-6">
             Start
             <ArrowRight />
           </Button>
-        {/if}
+        </span>
 
         <TextLink href="/lessons" class="inline-flex items-center gap-1.5">
           Prefer a lesson first
@@ -205,70 +86,69 @@
     </PageShell>
   </section>
 
-  {#if featured}
-    <section class="border-b border-slate-200/80" aria-labelledby="continue-heading">
-      <PageShell class="py-12 max-[600px]:py-10">
-        <div
-          class="overflow-hidden rounded-(--frame-radius) bg-paper shadow-(--shadow-border)"
-        >
+  <div data-practice-featured>
+    {#if featured}
+      <section class="border-b border-slate-200/80" aria-labelledby="continue-heading">
+        <PageShell class="py-12 max-[600px]:py-10">
           <div
-            class="grid grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] max-[760px]:grid-cols-1"
+            class="overflow-hidden rounded-(--frame-radius) bg-paper shadow-(--shadow-border)"
           >
-            <a
-              class="group relative block px-8 py-9 transition-colors hover:bg-slate-50 max-[600px]:px-5 max-[600px]:py-7"
-              href="/practice/{featured.set.id}"
-              aria-labelledby="continue-heading"
-            >
-              <Eyebrow>Up next</Eyebrow>
-              <p
-                class="m-0 mt-4 font-serif text-[clamp(1.8rem,4vw,2.75rem)] font-semibold leading-[1.1] tracking-tight text-slate-900"
-                lang="sk"
-              >
-                {featured.drill.slovak}
-              </p>
-              {#if featured.drill.english}
-                <p class="m-0 mt-3 font-serif text-base italic text-slate-600">
-                  {featured.drill.english}
-                </p>
-              {/if}
-              <span
-                class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-rose-600"
-              >
-                Open set
-                <ArrowRight />
-              </span>
-            </a>
-
             <div
-              class="border-l border-slate-200 bg-slate-50 px-8 py-9 max-[760px]:border-l-0 max-[760px]:border-t max-[760px]:px-5 max-[760px]:py-6"
+              class="grid grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] max-[760px]:grid-cols-1"
             >
-              <p
-                class="m-0 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-slate-500"
+              <a
+                class="group relative block px-8 py-9 transition-colors hover:bg-slate-50 max-[600px]:px-5 max-[600px]:py-7"
+                href="/practice/{featured.set.id}"
+                aria-labelledby="continue-heading"
               >
-                {featured.trackTitle}
-              </p>
-              <h2
-                id="continue-heading"
-                class="m-0 mt-2 font-serif text-2xl text-slate-900"
-              >
-                {featured.set.title}
-              </h2>
-              <p class="m-0 mt-3 text-sm leading-relaxed text-slate-600">
-                {featured.purpose}
-              </p>
-              <p class="m-0 mt-5 text-xs text-slate-500">
-                {featured.exerciseCount}
-                {featured.exerciseCount === 1 ? "exercise" : "exercises"}
-                {#if hydrated && featured.completed}
-                  · Done once
+                <Eyebrow>Up next</Eyebrow>
+                <p
+                  class="m-0 mt-4 font-serif text-[clamp(1.8rem,4vw,2.75rem)] font-semibold leading-[1.1] tracking-tight text-slate-900"
+                  lang="sk"
+                >
+                  {featured.drill.slovak}
+                </p>
+                {#if featured.drill.english}
+                  <p class="m-0 mt-3 font-serif text-base italic text-slate-600">
+                    {featured.drill.english}
+                  </p>
                 {/if}
-              </p>
+                <span
+                  class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-rose-600"
+                >
+                  Open set
+                  <ArrowRight />
+                </span>
+              </a>
+
+              <div
+                class="border-l border-slate-200 bg-slate-50 px-8 py-9 max-[760px]:border-l-0 max-[760px]:border-t max-[760px]:px-5 max-[760px]:py-6"
+              >
+                <p
+                  class="m-0 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-slate-500"
+                >
+                  {featured.trackTitle}
+                </p>
+                <h2
+                  id="continue-heading"
+                  class="m-0 mt-2 font-serif text-2xl text-slate-900"
+                >
+                  {featured.set.title}
+                </h2>
+                <p class="m-0 mt-3 text-sm leading-relaxed text-slate-600">
+                  {featured.purpose}
+                </p>
+                <p class="m-0 mt-5 text-xs text-slate-500">
+                  {featured.exerciseCount}
+                  {featured.exerciseCount === 1 ? "exercise" : "exercises"}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </PageShell>
-    </section>
-  {/if}
+        </PageShell>
+      </section>
+    {/if}
+  </div>
 
   <section aria-labelledby="topics-heading">
     <PageShell class="py-14 pb-20 max-[600px]:py-10 max-[600px]:pb-14">
@@ -334,9 +214,7 @@
                       <span class="text-slate-500">
                         {sheet.exerciseCount}
                         {sheet.exerciseCount === 1 ? "exercise" : "exercises"}
-                        {#if hydrated && sheet.completed}
-                          · Done
-                        {/if}
+                        <span data-sheet-done={sheet.set.lessonId}></span>
                       </span>
                       <span
                         class="inline-flex items-center gap-1.5 font-bold text-blue-800"
@@ -355,56 +233,9 @@
     </PageShell>
   </section>
 
-  {#if hydrated && recentDrills.length}
-    <section class="border-t border-slate-200/80" aria-labelledby="recents-heading">
-      <PageShell class="py-12 max-[600px]:py-10">
-        <div class="mb-8 max-w-160">
-          <Eyebrow>Recently practiced</Eyebrow>
-          <h2 id="recents-heading" class="m-0">Practice again</h2>
-          <p class="mt-3 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-            Solo drills you opened from a lesson or topic. Jump back in when you want
-            another pass.
-          </p>
-        </div>
+  <div data-practice-recents></div>
 
-        <ul class="m-0 list-none p-0">
-          {#each recentDrills as entry (entry.id)}
-            <li>
-              <a
-                class="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 py-5 no-underline"
-                href={entry.href}
-              >
-                <div class="min-w-0">
-                  <p
-                    class="m-0 font-serif text-[clamp(1.15rem,2.2vw,1.45rem)] font-semibold leading-snug tracking-tight text-slate-900 group-hover:text-blue-800"
-                    lang="sk"
-                  >
-                    {entry.drill.slovak}
-                  </p>
-
-                  {#if entry.drill.english}
-                    <p class="m-0 mt-1.5 text-sm text-slate-500">
-                      {entry.drill.english}
-                    </p>
-                  {/if}
-
-                  <p class="m-0 mt-3 text-xs text-slate-500">
-                    From
-                    <span class="text-slate-700">{entry.sourceLabel}</span>
-                  </p>
-                </div>
-
-                <span
-                  class="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-blue-800"
-                >
-                  Again
-                  <ArrowRight />
-                </span>
-              </a>
-            </li>
-          {/each}
-        </ul>
-      </PageShell>
-    </section>
+  {#if hub}
+    {@render hub()}
   {/if}
 </main>

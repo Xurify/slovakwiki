@@ -15,6 +15,8 @@ import {
 } from "../../src/lib/content/audio";
 import { ROOT } from "../lib/paths";
 
+export type { AudioKind };
+
 export const AUDIO_DIR = path.join(ROOT, "static", "audio");
 export const CONFIG_PATH = path.join(ROOT, "content", "audio", "config.json");
 export const MANIFEST_PATH = path.join(ROOT, "content", "audio", "manifest.json");

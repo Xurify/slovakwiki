@@ -1,5 +1,6 @@
 <script lang="ts">
-  import AudioButton from "$lib/components/AudioButton.svelte";
+  import type { Snippet } from "svelte";
+
   import ExternalLookups from "$lib/components/ExternalLookups.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import GlossWithTerms from "$lib/components/GlossWithTerms.svelte";
@@ -8,6 +9,7 @@
 
   import { FREQUENCY_POS_LABEL } from "$lib/content/frequency-types";
   import { highlightLemmaInText } from "$lib/content/highlight-lemma";
+  import type { DictionaryImageView } from "$lib/content/images";
   import { senseSectionId } from "$lib/content/lemma-senses";
   import type { ContentEntry, EntryKind, Example } from "$lib/content/types";
 
@@ -24,19 +26,23 @@
   }
 
   let {
+    audioMount,
     entry,
     exampleAudioSrcs = [],
+    image,
     lemmaAudioSrc,
     relatedEntries = [],
     senses,
   }: {
+    /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
+    audioMount?: Snippet;
     entry: ContentEntry;
     exampleAudioSrcs?: string[];
+    image?: DictionaryImageView;
     lemmaAudioSrc?: string;
     relatedEntries?: RelatedEntry[];
     senses?: SenseView[];
   } = $props();
-
   const routeBase = {
     grammar: "grammar",
     pronunciation: "pronunciation",
@@ -143,13 +149,8 @@
         </h1>
 
         {#if lemmaAudioSrc}
-          <AudioButton
-            label={`Listen to ${entry.slovak}`}
-            size="lg"
-            src={lemmaAudioSrc}
-            text={entry.slovak}
-            variant="inverse"
-          />
+          <span class="inline-grid size-12 shrink-0 align-middle" data-audio-mount="lemma"
+          ></span>
         {/if}
       </div>
 
@@ -228,6 +229,9 @@
             aria-label="On this page"
           >
             <a class="hover:text-panel-inverse-ink" href="#lookups">Elsewhere</a>
+            {#if image}
+              <a class="hover:text-panel-inverse-ink" href="#image">Image</a>
+            {/if}
             {#if entry.body.length > 0}
               <a class="hover:text-panel-inverse-ink" href="#usage">Usage</a>
             {/if}
@@ -249,6 +253,69 @@
   >
     <article class="min-w-0">
       <ExternalLookups class="mb-10" lemma={entry.slovak} />
+
+      {#if image}
+        <section
+          id="image"
+          class="mb-10 scroll-mt-[88px]"
+          aria-labelledby="image-heading"
+        >
+          <Eyebrow>Image</Eyebrow>
+          <h2 id="image-heading" class="mb-3 text-xl">{image.caption}</h2>
+
+          <figure class="m-0 max-w-[22rem]">
+            <div
+              class="overflow-hidden rounded-(--control-radius) border border-slate-200 bg-slate-50"
+            >
+              <img
+                alt={image.caption}
+                class="block h-auto w-full object-cover"
+                decoding="async"
+                height="280"
+                loading="lazy"
+                src={image.src}
+                width="352"
+              />
+            </div>
+
+            <figcaption class="mt-2 text-xs leading-snug text-slate-500">
+              {#if image.artist}
+                <span>{image.artist}</span>
+                {#if image.license}
+                  <span aria-hidden="true"> · </span>
+                {/if}
+              {/if}
+
+              {#if image.license}
+                {#if image.licenseUrl}
+                  <a
+                    class="underline decoration-slate-300 hover:text-slate-800"
+                    href={image.licenseUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {image.license}
+                  </a>
+                {:else}
+                  <span>{image.license}</span>
+                {/if}
+              {/if}
+
+              {#if image.sourcePageUrl}
+                <span aria-hidden="true"> · </span>
+                <a
+                  class="underline decoration-slate-300 hover:text-slate-800"
+                  href={image.sourcePageUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Wikimedia
+                </a>
+              {/if}
+            </figcaption>
+          </figure>
+        </section>
+      {/if}
 
       {#each senseViews as sense, senseIndex (sense.entry.slug)}
         {@const senseEntry = sense.entry}
@@ -374,13 +441,10 @@
                                   {part.text}
                                 {/if}
                               {/each}{#if sense.exampleAudioSrcs[item.index]}
-                                <AudioButton
-                                  class="ml-3 inline-grid align-middle"
-                                  label={`Listen to example: ${item.example.slovak}`}
-                                  size="sm"
-                                  src={sense.exampleAudioSrcs[item.index]}
-                                  text={item.example.slovak}
-                                />
+                                <span
+                                  class="ml-3 inline-grid size-7 shrink-0 align-middle"
+                                  data-audio-mount={`s${senseIndex}-e${item.index}`}
+                                ></span>
                               {/if}
                             </p>
                             <p class="mt-1 m-0 text-sm leading-relaxed text-slate-500">
@@ -423,13 +487,10 @@
                             {part.text}
                           {/if}
                         {/each}{#if sense.exampleAudioSrcs[index]}
-                          <AudioButton
-                            class="ml-3 inline-grid align-middle"
-                            label={`Listen to example: ${example.slovak}`}
-                            size="sm"
-                            src={sense.exampleAudioSrcs[index]}
-                            text={example.slovak}
-                          />
+                          <span
+                            class="ml-3 inline-grid size-7 shrink-0 align-middle"
+                            data-audio-mount={`s${senseIndex}-e${index}`}
+                          ></span>
                         {/if}
                       </p>
                       <p class="mt-1 m-0 text-sm leading-relaxed text-slate-500">
@@ -515,4 +576,8 @@
       </section>
     </article>
   </PageShell>
+
+  {#if audioMount}
+    {@render audioMount()}
+  {/if}
 </main>

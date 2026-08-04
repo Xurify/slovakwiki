@@ -45,6 +45,7 @@ Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated se
 - Semantic related peers (empty related only): `bun run related:apply` (after curate; clusters in `content/dictionary/related-clusters.json`)
 - After publish/enrich/curate/related content changes: `bun run index:search` so local Pagefind matches the live dictionary
 - Dictionary listen audio: `bun run audio:generate` (ElevenLabs `eleven_multilingual_v2` → `static/audio/{lemma|example}/`, gitignored) then `bun run audio:upload` (R2, same keys). Local plays `/audio/{kind}/…`; production needs `PUBLIC_AUDIO_BASE_URL`. QA: `bun run audio:verify` (default dual Scribe+Whisper judge; `--verify` on generate + optional `rescueModelId`). See `scripts/README.md` `audio/`.
+- Dictionary lemma images: `bun run images:fetch` (Wikimedia free pageimages → `static/images/dictionary/`, gitignored; manifest in `content/images/`). Local only for now — no R2. Overrides: `content/images/overrides.json`. Coverage: `bun run images:status`. See `scripts/README.md` `images/`.
 - Regenerate docs from the references module: `bun run docs:data-sources`
 - Public lists UI: `/dictionary/common`
 - Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency
@@ -100,6 +101,59 @@ Palette and spacing are mapped into Tailwind via `@theme` in `src/styles.css`:
 - Fonts: `font-sans` (UI), `font-serif` (reading)
 - Prefer theme utilities over raw `var(--…)` in components
 
+## Astro islands (hydration)
+
+**Default: SSR static.** Hydrate only widgets that need browser JS. Nested Svelte inside an SSR parent does **not** hydrate — islands must be imported in `.astro` and passed via slots/snippets (see home + search).
+
+### Gold pattern
+
+```astro
+<!-- SSR shell — no client:* -->
+<HomePage>
+  <HomeHeroSearch client:load slot="heroSearch" {popularWords} />
+</HomePage>
+```
+
+```svelte
+<!-- HomePage.svelte -->
+let { heroSearch }: { heroSearch: Snippet } = $props();
+<!-- … -->
+{@render heroSearch()}
+```
+
+### Do / don't
+
+| Do                                                                                            | Don't                                                                               |
+| --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `client:load` / `client:only` on the interactive child                                        | `client:load` on the whole page shell for a few buttons                             |
+| Pass islands through Astro `slot="…"` → Svelte `Snippet`                                      | Import interactive widgets only inside an SSR Svelte parent and expect them to work |
+| Prefer `client:only="svelte"` when SSR would mismatch (random state, `localStorage`-first UI) | Hydrate large prose/reference trees “just in case”                                  |
+
+### When a full-page island is OK
+
+Page **is** the interactive app (filters, player, kabinet), not static chrome with a widget:
+
+- `/dictionary` (`WikiPage`) — browse/filter/paginate
+- `/dictionary/common/[pos]` — filter + show-more list
+- `/lessons` (`LessonsKabinetLayout`) — keyboard rail + localStorage progress
+- `/practice/[set]`, `/practice/reference/…` — `PracticePlayer`
+- `SiteLayout` `Header` — nav/search/theme
+
+### Reference implementations
+
+- Home: `src/pages/index.astro` + `HomePage` + `HomeHeroSearch`
+- Search: `src/pages/search.astro` + `SearchPage` + `SearchBox`
+- Grammar: SSR `GrammarDetailPage` + `ClockDrill` slot (`client:only`)
+- Lesson: SSR `LessonPage` + `LessonPracticeBlock` slot (`client:load`)
+- Dictionary lemma: SSR `DictionaryDetailPage` + `AudioMountHost` slot (mounts `AudioButton` into `[data-audio-mount]` placeholders)
+- Practice hub: SSR `PracticeIndexPage` + `PracticeHubClient` slot (mounts CTA / featured / recents; fills `[data-sheet-done]`)
+
+### Checklist before adding `client:*`
+
+- [ ] Does this component need events, `localStorage`, or browser APIs?
+- [ ] Can the parent stay SSR with this as a slotted island?
+- [ ] If yes to full-page hydrate: is the page primarily interactive (not mostly prose)?
+
 ## Components
 
 - Put reusable UI in `src/lib/components/`.
@@ -142,3 +196,4 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - [ ] Used theme tokens (`slate` / `blue` / `rose` / `emerald`, `font-serif`, …) not one-off hex in components
 - [ ] Desktop + mobile still look correct
 - [ ] If a layout with a skeleton changed drastically: matching skeleton updated
+- [ ] Hydration: no new full-page `client:*` on mostly-static shells (see **Astro islands**)

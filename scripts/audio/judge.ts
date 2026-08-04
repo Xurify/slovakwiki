@@ -159,7 +159,7 @@ export async function judgeClip(
     if (!scribeScore.ok) {
       reasons.push(`scribe:${scribeScore.unmatched.join("|") || "score"}`);
     }
-    if (prefersNearMissEnding(expected, scribe.text)) {
+    if (scribe && prefersNearMissEnding(expected, scribe.text)) {
       reasons.push("scribe:near-miss-ending");
     }
     if (
@@ -175,7 +175,7 @@ export async function judgeClip(
 
   if (whisperScore) {
     // Whisper is noisier mid-sentence — weight ending / hard fail more than full score.
-    if (prefersNearMissEnding(expected, whisper.text)) {
+    if (whisper && prefersNearMissEnding(expected, whisper.text)) {
       score = Math.min(score, 0.85);
       reasons.push("whisper:near-miss-ending");
     } else if (!whisperScore.ok && whisperScore.score < 0.75) {

@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import LessonPracticeBlock from "$lib/components/lessons/LessonPracticeBlock.svelte";
 import LessonPage from "$lib/pages/LessonPage.svelte";
 import { lessons } from "$lib/content/lessons";
 
@@ -14,5 +15,7 @@ const { lesson } = Astro.props;
 ---
 
 <SiteLayout title={`${lesson.title} | Slovak Wiki Lessons`} description={lesson.promise}>
-  <LessonPage data={{ lesson }} client:load />
+  <LessonPage data={{ lesson }}>
+    <LessonPracticeBlock slot="practice" client:load {lesson} />
+  </LessonPage>
 </SiteLayout>

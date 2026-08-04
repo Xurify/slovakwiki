@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import PracticeHubClient from "$lib/components/practice/PracticeHubClient.svelte";
 import PracticeIndexPage from "$lib/pages/PracticeIndexPage.svelte";
 ---
 
@@ -7,5 +8,7 @@ import PracticeIndexPage from "$lib/pages/PracticeIndexPage.svelte";
   title="Practice | Slovak Wiki"
   description="Work through short Slovak practice sheets by topic."
 >
-  <PracticeIndexPage client:load />
+  <PracticeIndexPage>
+    <PracticeHubClient slot="hub" client:load />
+  </PracticeIndexPage>
 </SiteLayout>
