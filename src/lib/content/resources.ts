@@ -16,6 +16,7 @@ export type ResourceCost = "free" | "freemium" | "paid" | "mixed";
 export interface ResourceLink {
   href: string;
   label: string;
+  note?: string;
 }
 
 export interface LearningResource {
@@ -146,6 +147,30 @@ export const learningResources: LearningResource[] = [
     ],
   },
   {
+    id: "learn101-slovak",
+    group: "courses",
+    name: "Learn101 — Slovak",
+    href: "https://learn101.org/slovak.php",
+    summary:
+      "Free step-by-step Slovak lessons with clickable audio: alphabet, phrases, grammar basics, vocab lists, and verbs. Simple pages — good quick reference for beginners.",
+    cost: "free",
+    level: "A1",
+    links: [
+      {
+        href: "https://learn101.org/slovak_alphabet.php",
+        label: "Alphabet",
+      },
+      {
+        href: "https://learn101.org/slovak_phrases.php",
+        label: "Phrases",
+      },
+      {
+        href: "https://learn101.org/slovak_verbs.php",
+        label: "Verbs",
+      },
+    ],
+  },
+  {
     id: "comprehensible-slovak",
     group: "courses",
     name: "Comprehensible Slovak",
@@ -234,13 +259,29 @@ export const learningResources: LearningResource[] = [
   {
     id: "memrise-slovak",
     group: "apps",
-    name: "Memrise — Slovak",
-    href: "https://www.memrise.com/en/learn-slovak",
+    name: "Memrise — Slovak (community)",
+    href: "https://community-courses.memrise.com/community/courses/english/slovak/",
     summary:
-      "Community word lists for Slovak vocabulary and phrases. Quality varies by list — preview before committing.",
+      "Community Slovak courses on Memrise’s older course platform. Official Memrise Slovak looks gone; pick a community course below.",
     cost: "freemium",
     level: "A1+",
-    note: "Slovak is community-list based rather than a single official Memrise course.",
+    links: [
+      {
+        href: "https://community-courses.memrise.com/community/course/50432/basic-slovak/",
+        label: "Basic Slovak",
+        note: "Pronunciation and numbers first, then themed vocab that steps up in difficulty (by loeiten).",
+      },
+      {
+        href: "https://community-courses.memrise.com/community/course/248886/hacking-slovak/",
+        label: "Hacking Slovak",
+        note: "Expanded Memrise-style “Hacking” course with material based on Krížom-krážom A1.",
+      },
+      {
+        href: "https://community-courses.memrise.com/community/course/416264/slovak-phrases-with-audio/",
+        label: "Slovak Phrases with audio",
+        note: "Phrase- and sentence-first course with audio; learner-built with help from a Slovak speaker.",
+      },
+    ],
   },
   {
     id: "clozemaster-slovak",

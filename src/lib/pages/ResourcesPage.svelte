@@ -142,6 +142,9 @@
                     >
                       {link.label}
                     </a>
+                    {#if link.note}
+                      <span class="mt-0.5 block text-xs text-slate-500">{link.note}</span>
+                    {/if}
                   </li>
                 {/each}
               </ul>
