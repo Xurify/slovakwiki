@@ -9,6 +9,12 @@ import {
 } from "./frequency";
 import type { FrequencyEntry } from "./frequency-types";
 import { formatReferencesMarkdown, referenceSources } from "./references";
+import {
+  featuredResources,
+  learningResources,
+  resourceGroups,
+  resourcesByGroup,
+} from "./resources";
 import { parseSnkLemmaTable } from "./snk-frequency";
 
 describe("frequency helpers", () => {
@@ -113,5 +119,26 @@ describe("references", () => {
     expect(markdown).toContain("korpus.sk");
     expect(markdown).toContain("slovnik.juls.savba.sk");
     expect(referenceSources.some((source) => source.id === "tatoeba")).toBe(true);
+  });
+});
+
+describe("resources", () => {
+  it("keeps curated learning resources in known groups", () => {
+    const groupIds = new Set(resourceGroups.map((group) => group.id));
+
+    expect(learningResources.length).toBeGreaterThan(20);
+    expect(featuredResources().length).toBeGreaterThan(3);
+
+    for (const resource of learningResources) {
+      expect(groupIds.has(resource.group)).toBe(true);
+      expect(resource.href.startsWith("http")).toBe(true);
+      expect(resource.name.trim().length).toBeGreaterThan(0);
+      expect(resource.summary.trim().length).toBeGreaterThan(0);
+    }
+
+    expect(resourcesByGroup("courses").some((r) => r.id === "slovake-eu")).toBe(true);
+    expect(resourcesByGroup("adjacent").some((r) => r.id === "duolingo-czech")).toBe(
+      true,
+    );
   });
 });

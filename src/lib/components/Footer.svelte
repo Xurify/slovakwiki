@@ -30,6 +30,9 @@
       >
       <a class="hover:text-(--accent-strong) hover:underline" href="/practice">Practice</a
       >
+      <a class="hover:text-(--accent-strong) hover:underline" href="/resources"
+        >Resources</a
+      >
       <a class="hover:text-(--accent-strong) hover:underline" href="/references"
         >References</a
       >

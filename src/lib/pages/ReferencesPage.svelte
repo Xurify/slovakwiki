@@ -24,7 +24,8 @@
       <h1>References</h1>
       <Lead>
         Trusted sources behind dictionary entries, frequency lists, and optional example
-        sentences.
+        sentences. For courses, apps, and media, see
+        <TextLink href="/resources">Resources</TextLink>.
       </Lead>
     </header>
 

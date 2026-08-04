@@ -14,6 +14,7 @@ export const referenceNavigation: NavigationItem[] = [
   { href: "/grammar", label: "Grammar" },
   { href: "/pronunciation", label: "Pronunciation" },
   { href: "/grammar/terms", label: "Language terms" },
+  { href: "/resources", label: "Resources" },
   { href: "/references", label: "References" },
 ];
 
@@ -23,6 +24,8 @@ export function isReferenceSection(pathname: string): boolean {
     pathname.startsWith("/dictionary/") ||
     pathname.startsWith("/grammar") ||
     pathname.startsWith("/pronunciation") ||
+    pathname === "/resources" ||
+    pathname.startsWith("/resources/") ||
     pathname === "/references" ||
     pathname.startsWith("/references/")
   );
