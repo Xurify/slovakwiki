@@ -9,7 +9,11 @@ import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
 import { normalizeAudioText, resolveAudioSrc } from "$lib/content/audio";
 import { entryBySlug, words } from "$lib/content/data";
 import { EXAMPLE_DISPLAY_LIMIT } from "$lib/content/example-limits";
-import { getImageManifestEntry, resolveImageSrc } from "$lib/content/images";
+import {
+  getImageManifestEntry,
+  imagesUseCdn,
+  resolveImageSrc,
+} from "$lib/content/images";
 import {
   canonicalWordSlug,
   lemmaSenseGroup,
@@ -36,14 +40,17 @@ export function getStaticPaths() {
     const imageEntry = getImageManifestEntry(slug);
     if (!imageEntry || imageEntry.status !== "ok" || !imageEntry.file) return undefined;
 
-    const diskPath = path.join(
-      process.cwd(),
-      "static",
-      "images",
-      "dictionary",
-      imageEntry.file,
-    );
-    if (!existsSync(diskPath)) return undefined;
+    // Local/dev: require file on disk. Prod CDN: trust manifest (files on R2).
+    if (!imagesUseCdn()) {
+      const diskPath = path.join(
+        process.cwd(),
+        "static",
+        "images",
+        "dictionary",
+        imageEntry.file,
+      );
+      if (!existsSync(diskPath)) return undefined;
+    }
 
     return {
       artist: imageEntry.artist,

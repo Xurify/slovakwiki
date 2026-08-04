@@ -25,6 +25,7 @@
     "audio:status": "bun scripts/audio/status.ts",
     "audio:verify": "bun scripts/audio/verify.ts",
     "images:fetch": "bun scripts/images/fetch.ts",
+    "images:upload": "bun scripts/images/upload.ts",
     "images:status": "bun scripts/images/status.ts",
     "images:stage": "bun scripts/images/stage-candidates.ts",
     "images:promote": "bun scripts/images/promote.ts",

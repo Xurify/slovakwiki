@@ -18,7 +18,8 @@ bun run related:apply       # semantic cluster peers into empty related
 bun run audio:generate      # ElevenLabs → static/audio/ (gitignored)
 bun run audio:upload        # static/audio/ → Cloudflare R2
 bun run audio:status        # coverage: targets vs disk vs uploaded
-bun run images:fetch        # Wikimedia pageimages → static/images/ (gitignored; no R2 yet)
+bun run images:fetch        # Wikimedia pageimages → static/images/ (gitignored)
+bun run images:upload       # static/images/dictionary/ → R2 (`images/dictionary/…`)
 bun run images:status       # coverage: ok vs missing vs rejected, by part of speech
 bun run index:search        # Pagefind for local/dev search
 ```
@@ -34,11 +35,11 @@ bun run index:search        # Pagefind for local/dev search
 | `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast   |
 | `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands) |
 | `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)             |
-| `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status)    |
+| `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status/uploadedAt) |
 | `content/images/overrides.json`               | Manual reject / force Commons file per slug                      |
 | `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime  |
 | `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                   |
-| `static/images/`                              | Local dictionary thumbs (gitignored; no R2 yet)                  |
+| `static/images/`                              | Local dictionary thumbs (gitignored; upload to R2 for prod)      |
 
 ## `dictionary/`
 
@@ -82,9 +83,10 @@ Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/aud
 
 ## `images/`
 
-Wikimedia free page images for dictionary lemmas (local QA only; no R2 yet).
+Wikimedia free page images for dictionary lemmas → local `static/images/` → Cloudflare R2 for production.
 
 | `fetch.ts` | `images:fetch` | SK/EN Wikipedia `pageimages`, then **Commons gloss search** for Food / Places / People / Travel / Everyday / Essentials (e.g. `obed` → “lunch meal”). **No auto Commons for Nouns / adjectives / verbs.** Person names are not dictionary entries. |
+| `upload.ts` | `images:upload` | Sync to R2; `--force` / `--only` / `--limit` / `--dry-run`; needs `R2_*` |
 | `stage-candidates.ts` | `images:stage` | Stage Commons candidates under `tmp/image-candidates/{slug}/` for visual audit |
 | `promote.ts` | `images:promote` | Promote audited candidate (`--slug` + `--pick N`) into live set |
 | `status.ts` | `images:status` | Targets vs ok/missing/rejected, by category |
@@ -96,7 +98,9 @@ Overrides in `content/images/overrides.json`: `{ "slug": { "reject": true } }` o
 
 **Image policy:** Prefer Wikipedia pageimages. If missing, auto-search Commons for learner categories with concrete referents (Food / Places / People / Travel / Everyday life / Essentials). Require free license; prefer filenames that _start_ with the gloss. General Nouns, adjectives, and verbs stay empty unless `images:stage` → visual audit → `images:promote` (polysemy / false-friend risk).
 
-Local: `/images/dictionary/{file}` when file exists under `static/images/`. Prod omits images until a later R2 upload step.
+Layout (local + R2): `images/dictionary/{file}`. Local disk: `static/images/dictionary/{file}`.
+
+Prod env: `PUBLIC_IMAGE_BASE_URL` (R2 public base, e.g. `https://cdn.slovak.wiki`). Local: leave unset → `/images/dictionary/{file}` when file exists on disk.
 
 ## `search/`
 

@@ -19,6 +19,8 @@ export interface ImageManifestEntry {
   /** Link to the file description page (Commons or Wikipedia). */
   sourcePageUrl?: string;
   status: ImageStatus;
+  /** ISO timestamp when last uploaded to R2. */
+  uploadedAt?: string;
   /** Wikipedia article title that supplied the page image. */
   wikiTitle?: string;
   wikiLang?: "en" | "sk";
@@ -48,17 +50,30 @@ export function getImageManifestEntry(slug: string): ImageManifestEntry | undefi
   return manifest[slug];
 }
 
-/** Relative object key: `dictionary/{file}`. */
+/** Relative object / public path key: `images/dictionary/{file}`. */
 export function imageObjectKey(file: string): string {
-  return `dictionary/${file}`;
+  return `images/dictionary/${file}`;
+}
+
+function imageBaseUrl(): string | undefined {
+  return import.meta.env.PUBLIC_IMAGE_BASE_URL?.replace(/\/$/, "");
+}
+
+/** True when lemma images resolve from CDN (no local disk required at build). */
+export function imagesUseCdn(): boolean {
+  return Boolean(imageBaseUrl());
 }
 
 /**
  * Public URL for a dictionary lemma image.
- * Local only for now (`/images/dictionary/…`). R2 / `PUBLIC_IMAGE_BASE_URL` later.
+ * - With `PUBLIC_IMAGE_BASE_URL` → R2 / CDN (`…/images/dictionary/{file}`)
+ * - Without → local Astro static `/images/dictionary/{file}`
  */
 export function resolveImageSrc(file: string): string {
-  return `/images/${imageObjectKey(file)}`;
+  const key = imageObjectKey(file);
+  const base = imageBaseUrl();
+  if (base) return `${base}/${key}`;
+  return `/${key}`;
 }
 
 /**

@@ -2,7 +2,7 @@
  * Shared helpers for Wikimedia dictionary image fetch / status.
  */
 
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/content/data";
@@ -24,6 +24,35 @@ export const USER_AGENT =
 export const THUMB_WIDTH = 640;
 export const MIN_THUMB_PX = 80;
 
+export const IMAGE_CACHE_CONTROL = "public, max-age=31536000, immutable";
+
+/** Public / R2 object key for a dictionary image file. */
+export function imageObjectKey(file: string): string {
+  return `images/dictionary/${file}`;
+}
+
+export function contentTypeForImageFile(file: string): string {
+  const ext = path.extname(file).toLowerCase();
+  if (ext === ".webp") return "image/webp";
+  if (ext === ".png") return "image/png";
+  if (ext === ".gif") return "image/gif";
+  if (ext === ".svg") return "image/svg+xml";
+  if (ext === ".jpg" || ext === ".jpeg") return "image/jpeg";
+  return "application/octet-stream";
+}
+
+/** Filenames present under `static/images/dictionary/`. */
+export async function listLocalImageFiles(): Promise<string[]> {
+  try {
+    const names = await readdir(IMAGES_DIR);
+    return names
+      .filter((name) => /\.(webp|png|jpe?g|gif|svg)$/i.test(name))
+      .sort((a, b) => a.localeCompare(b, "en"));
+  } catch {
+    return [];
+  }
+}
+
 export type ImageManifest = Record<string, ImageManifestEntry>;
 export type ImageOverrides = Record<string, ImageOverride>;
 
@@ -34,16 +63,17 @@ export interface ImageTarget {
   gloss: string;
   slovak: string;
   slug: string;
-  /** Learner themes from curated seed (Food, People, …). */
   topics?: string[];
 }
 
 export function parseArgs(argv: string[]): {
+  dryRun: boolean;
   force: boolean;
   limit: number | undefined;
   only: string | undefined;
   partOfSpeech: string | undefined;
 } {
+  let dryRun = false;
   let force = false;
   let limit: number | undefined;
   let only: string | undefined;
@@ -51,7 +81,8 @@ export function parseArgs(argv: string[]): {
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
-    if (arg === "--force") force = true;
+    if (arg === "--dry-run") dryRun = true;
+    else if (arg === "--force") force = true;
     else if (arg === "--limit") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 1) {
@@ -74,7 +105,7 @@ export function parseArgs(argv: string[]): {
     }
   }
 
-  return { force, limit, only, partOfSpeech };
+  return { dryRun, force, limit, only, partOfSpeech };
 }
 
 export function normalizePartOfSpeechFilter(
