@@ -61,10 +61,10 @@ export function parseArgs(argv: string[]): {
       only = argv[i + 1];
       if (!only) throw new Error("--only requires a slug");
       i += 1;
-    } else if (arg === "--part-of-speech") {
+    } else if (arg === "--pos") {
       partOfSpeech = argv[i + 1];
       if (!partOfSpeech) {
-        throw new Error("--part-of-speech requires a value (noun|verb|adjective)");
+        throw new Error("--pos requires a value (noun|verb|adjective)");
       }
       i += 1;
     } else if (arg?.startsWith("-")) {

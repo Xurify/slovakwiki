@@ -4,7 +4,7 @@
  * Usage:
  *   bun run images:fetch
  *   bun run images:fetch -- --limit 100
- *   bun run images:fetch -- --part-of-speech noun
+ *   bun run images:fetch -- --pos noun
  *   bun run images:fetch -- --only kolac --force
  */
 
@@ -405,7 +405,7 @@ async function main(): Promise<void> {
   if (limit !== undefined) targets = targets.slice(0, limit);
 
   console.log(
-    `Targets: ${targets.length}${partOfSpeech ? ` (partOfSpeech=${partOfSpeech})` : ""}`,
+    `Targets: ${targets.length}${partOfSpeech ? ` (pos=${partOfSpeech})` : ""}`,
   );
   if (only) console.log(`Only: ${only}`);
   if (force) console.log("Force: regenerating existing ok entries");

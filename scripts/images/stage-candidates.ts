@@ -2,7 +2,7 @@
  * Stage Commons image candidates for visual audit (does NOT update live manifest).
  *
  * Usage:
- *   bun run images:stage -- --part-of-speech verb --limit 20
+ *   bun run images:stage -- --pos verb --limit 20
  *   bun run images:stage -- --only robit
  *
  * Writes tmp/image-candidates/{slug}/meta.json + candidate-*.{ext}

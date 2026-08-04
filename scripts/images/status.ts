@@ -2,7 +2,7 @@
  * Coverage report for dictionary lemma images.
  *
  * Usage: bun run images:status
- *        bun run images:status -- --part-of-speech noun
+ *        bun run images:status -- --pos noun
  */
 
 import path from "node:path";
@@ -75,7 +75,7 @@ async function main(): Promise<void> {
 
   console.log(`Layout: ${path.relative(process.cwd(), IMAGES_DIR)}/{slug}.{ext}`);
   console.log(
-    `Targets: ${targets.length}${partOfSpeech ? ` (partOfSpeech=${partOfSpeech})` : ""}`,
+    `Targets: ${targets.length}${partOfSpeech ? ` (pos=${partOfSpeech})` : ""}`,
   );
   console.log(`Manifest ok: ${ok} (on disk: ${onDisk})`);
   console.log(`Missing / no entry: ${missing} (no manifest row: ${noEntry})`);
