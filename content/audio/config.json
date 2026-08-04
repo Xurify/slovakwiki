@@ -2,8 +2,7 @@
   "provider": "elevenlabs",
   "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
   "voiceName": "Slovak Wiki Dictionary Neutral",
-  "modelId": "eleven_v3",
-  "rescueModelId": "eleven_multilingual_v2",
+  "modelId": "eleven_multilingual_v2",
   "languageCode": "sk",
   "outputFormat": "mp3_44100_128",
   "voiceSettings": {

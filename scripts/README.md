@@ -63,7 +63,7 @@ Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` (future: `lesson
 
 Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
 
-**QA / accuracy:** `bun run audio:verify` / `audio:generate -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry → `rescueModelId` (`eleven_multilingual_v2`). Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
+**QA / accuracy:** Default TTS is `eleven_multilingual_v2` (cleaner SK endings than `eleven_v3`). Optional: `rescueModelId` in config for `--verify` fallback. `bun run audio:verify` / `audio:generate -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry → rescue model if set. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
 
 ## `search/`
 
