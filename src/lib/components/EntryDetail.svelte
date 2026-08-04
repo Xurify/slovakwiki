@@ -6,6 +6,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { FREQUENCY_POS_LABEL } from "$lib/content/frequency-types";
+  import { highlightLemmaInText } from "$lib/content/highlight-lemma";
   import { senseSectionId } from "$lib/content/lemma-senses";
   import type { ContentEntry, EntryKind, Example } from "$lib/content/types";
 
@@ -93,27 +94,8 @@
     return groups;
   }
 
-  /** Emphasize lemma when it appears as a whole substring (first match). */
-  function highlightLemma(
-    slovakLine: string,
-    lemma: string,
-  ): { text: string; hit: boolean }[] {
-    const needle = lemma.trim();
-    if (!needle) return [{ text: slovakLine, hit: false }];
-
-    const lowerLine = slovakLine.toLocaleLowerCase("sk");
-    const lowerNeedle = needle.toLocaleLowerCase("sk");
-    const at = lowerLine.indexOf(lowerNeedle);
-    if (at === -1) return [{ text: slovakLine, hit: false }];
-
-    const before = slovakLine.slice(0, at);
-    const match = slovakLine.slice(at, at + needle.length);
-    const after = slovakLine.slice(at + needle.length);
-    const parts: { text: string; hit: boolean }[] = [];
-    if (before) parts.push({ text: before, hit: false });
-    parts.push({ text: match, hit: true });
-    if (after) parts.push({ text: after, hit: false });
-    return parts;
+  function highlightLemma(slovakLine: string, lemma: string) {
+    return highlightLemmaInText(slovakLine, lemma, entry.category);
   }
 </script>
 
