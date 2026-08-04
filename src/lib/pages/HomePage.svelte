@@ -425,14 +425,13 @@
         <div>
           <Eyebrow tone="inverse">Practice</Eyebrow>
           <h2 id="practice-heading" class="m-0 text-panel-inverse-ink">
-            Keep the hard forms close
+            Drill the forms that stick
           </h2>
           <p
             class="mt-4 max-w-[70ch] text-[0.95rem] leading-[1.7] text-panel-inverse-ink/70"
           >
-            Anything you miss in a lesson is saved on this device and waiting in Review.
-            No streaks and no scores, just the handful of endings that have not settled
-            yet, ready for whenever you have five minutes.
+            Short topic sheets you can reopen anytime. Lesson completion stays on this
+            device so you can pick up where you left off — no streaks, no scores.
           </p>
         </div>
 

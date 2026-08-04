@@ -4,8 +4,6 @@
 
   import { onMount } from "svelte";
   import {
-    addReviewItem,
-    emptyPracticeState,
     readPracticeState,
     saveReferenceItem,
     writePracticeState,
@@ -15,22 +13,15 @@
 
   let { data } = $props();
 
-  let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
   let sectionTitle = $state("Reference item");
 
   onMount(() => {
     const current = readPracticeState(localStorage);
-    practiceState = saveReferenceItem(current, data.item.id);
-    writePracticeState(localStorage, practiceState);
+    const next = saveReferenceItem(current, data.item.id);
+    writePracticeState(localStorage, next);
     hydrated = true;
   });
-
-  function recordResult(result: { itemId: string; needsReview: boolean }): void {
-    if (!result.needsReview) return;
-    practiceState = addReviewItem(practiceState, result.itemId);
-    if (hydrated) writePracticeState(localStorage, practiceState);
-  }
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -42,14 +33,9 @@
     </nav>
 
     {#if hydrated}
-      <PracticePlayer
-        items={[data.item]}
-        mode="topic"
-        bind:sectionTitle
-        onresult={recordResult}
-      />
+      <PracticePlayer items={[data.item]} bind:sectionTitle />
     {:else}
-      <PracticePlayerSkeleton mode="topic" />
+      <PracticePlayerSkeleton />
     {/if}
   </PageShell>
 </main>

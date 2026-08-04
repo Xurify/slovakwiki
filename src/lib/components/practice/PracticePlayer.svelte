@@ -44,15 +44,11 @@
 
   let {
     items,
-    mode,
-    onresult,
     hintMode = "inline",
     audioSrcs = {},
     sectionTitle = $bindable(""),
   }: {
     items: PracticeItem[];
-    mode: "review" | "topic";
-    onresult: (result: { itemId: string; needsReview: boolean }) => void;
     hintMode?: "inline" | "rail";
     audioSrcs?: Record<string, string>;
     sectionTitle?: string;
@@ -146,8 +142,6 @@
   }
 
   function next(): void {
-    const needsReview = revealed || grade === "incorrect";
-    onresult({ itemId: current.id, needsReview });
     if (activeIndex === items.length - 1) {
       finished = true;
       return;
@@ -193,9 +187,7 @@
     </h2>
 
     <p class="mt-2 mb-0 text-base text-slate-700">
-      {mode === "review"
-        ? "Anything still uncertain will remain in Review."
-        : "Missed or revealed items are now in Review."}
+      Come back to this set whenever you want another pass.
     </p>
 
     <div class="mt-6">

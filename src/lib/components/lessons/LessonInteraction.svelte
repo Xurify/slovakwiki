@@ -12,7 +12,7 @@
     onresolve,
   }: {
     exercise: LessonExercise;
-    onresolve: (result: { needsReview: boolean; practiceItemId?: string }) => void;
+    onresolve: () => void;
   } = $props();
 
   let selectedId = $state<string | null>(null);
@@ -59,11 +59,7 @@
   }
 
   function continueLesson(): void {
-    if (graded)
-      onresolve({
-        needsReview: revealed || !correct,
-        practiceItemId: graded.practiceItemId,
-      });
+    onresolve();
   }
 
   function addTile(tile: string): void {
@@ -97,9 +93,7 @@
       </p>
     {/if}
 
-    <Button class="mt-6" type="button" onclick={() => onresolve({ needsReview: false })}>
-      I said it
-    </Button>
+    <Button class="mt-6" type="button" onclick={() => onresolve()}>I said it</Button>
   {:else}
     <Eyebrow>Your turn</Eyebrow>
     <h2

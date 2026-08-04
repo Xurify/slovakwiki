@@ -3,22 +3,14 @@
    * Hydration placeholder for PracticePlayer.
    * Keep layout in sync with PracticePlayer.svelte when that UI changes drastically.
    */
-  let {
-    mode = "topic",
-    class: className = "",
-  }: {
-    mode?: "review" | "topic";
-    class?: string;
-  } = $props();
-
-  const label = mode === "review" ? "Loading Review" : "Loading practice";
+  let { class: className = "" }: { class?: string } = $props();
 </script>
 
 <section
   class="max-w-[720px] {className}"
   aria-busy="true"
   aria-live="polite"
-  aria-label={label}
+  aria-label="Loading practice"
 >
   <div class="flex justify-end" aria-hidden="true">
     <span class="h-3 w-12 animate-pulse rounded-sm bg-slate-200"></span>

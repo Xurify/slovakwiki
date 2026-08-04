@@ -3,12 +3,6 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { onMount } from "svelte";
-  import {
-    addReviewItem,
-    emptyPracticeState,
-    readPracticeState,
-    writePracticeState,
-  } from "$lib/client/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
   import PracticePlayerSkeleton from "$lib/components/practice/PracticePlayerSkeleton.svelte";
   import {
@@ -27,7 +21,6 @@
     };
   } = $props();
 
-  let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
   let hintMode = $state<"inline" | "rail">("inline");
   let sessionItems = $state<PracticeItem[]>([]);
@@ -51,17 +44,10 @@
       .map((itemId) => practiceItemById.get(itemId))
       .filter((item): item is PracticeItem => item !== undefined);
     sectionTitle = sectionTitleFor(sessionItems[0]);
-    practiceState = readPracticeState(localStorage);
     hintMode =
       new URLSearchParams(location.search).get("hint") === "rail" ? "rail" : "inline";
     hydrated = true;
   });
-
-  function recordResult(result: { itemId: string; needsReview: boolean }): void {
-    if (!result.needsReview) return;
-    practiceState = addReviewItem(practiceState, result.itemId);
-    if (hydrated) writePracticeState(localStorage, practiceState);
-  }
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -75,14 +61,12 @@
     {#if hydrated}
       <PracticePlayer
         items={sessionItems}
-        mode="topic"
         {hintMode}
         audioSrcs={data.clozeAudioSrcs ?? {}}
         bind:sectionTitle
-        onresult={recordResult}
       />
     {:else}
-      <PracticePlayerSkeleton mode="topic" />
+      <PracticePlayerSkeleton />
     {/if}
   </PageShell>
 </main>

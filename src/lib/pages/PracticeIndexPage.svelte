@@ -18,11 +18,9 @@
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
 
-  const reviewCount = $derived(practiceState.reviewItemIds.length);
-
   function drillLine(item: PracticeItem | undefined): {
-    slovak: string;
     english: string;
+    slovak: string;
   } {
     if (!item) {
       return { slovak: "…", english: "" };
@@ -98,25 +96,38 @@
     return waiting ?? sheets[0];
   });
 
-  const primaryHref = $derived(
-    reviewCount > 0 ? "/practice/review" : `/practice/${featured?.set.id ?? ""}`,
-  );
+  const primaryHref = $derived(`/practice/${featured?.set.id ?? ""}`);
 
   const primaryLabel = $derived(
-    reviewCount > 0
-      ? `Open Review · ${reviewCount}`
-      : featured?.completed
-        ? `Try again · ${featured.set.title}`
-        : `Start · ${featured?.set.title ?? "practice"}`,
+    featured?.completed
+      ? `Try again · ${featured.set.title}`
+      : `Start · ${featured?.set.title ?? "practice"}`,
   );
 
-  const savedItems = $derived.by(() => {
-    const items: PracticeItem[] = [];
-    for (const itemId of practiceState.savedReferenceItemIds) {
+  const recentDrills = $derived.by(() => {
+    const drills: {
+      drill: { english: string; slovak: string };
+      href: string;
+      id: string;
+      sourceLabel: string;
+    }[] = [];
+
+    // Newest first — same pattern as continue/recents hubs elsewhere.
+    for (const itemId of [...practiceState.savedReferenceItemIds].reverse()) {
       const item = practiceItemById.get(itemId);
-      if (item) items.push(item);
+      if (!item) continue;
+
+      drills.push({
+        id: item.id,
+        href: `/practice/reference/${item.id}`,
+        sourceLabel: item.source.label,
+        drill: drillLine(item),
+      });
+
+      if (drills.length >= 8) break;
     }
-    return items;
+
+    return drills;
   });
 
   const totalExercises = $derived(
@@ -190,19 +201,6 @@
           </span>
           exercises
         </p>
-        {#if hydrated && reviewCount > 0}
-          <p class="m-0">
-            <a
-              class="text-inherit no-underline transition-colors hover:text-rose-600"
-              href="/practice/review"
-            >
-              <span class="font-serif text-xl font-semibold tabular-nums text-rose-600">
-                {reviewCount}
-              </span>
-              waiting in Review
-            </a>
-          </p>
-        {/if}
       </div>
     </PageShell>
   </section>
@@ -357,31 +355,51 @@
     </PageShell>
   </section>
 
-  {#if hydrated && savedItems.length}
-    <section class="border-t border-slate-200/80" aria-labelledby="saved-heading">
+  {#if hydrated && recentDrills.length}
+    <section class="border-t border-slate-200/80" aria-labelledby="recents-heading">
       <PageShell class="py-12 max-[600px]:py-10">
-        <Eyebrow>Saved items</Eyebrow>
-        <h2 id="saved-heading" class="m-0">Focused items</h2>
-        <ul class="mt-6 m-0 list-none p-0">
-          {#each savedItems as item (item.id)}
+        <div class="mb-8 max-w-160">
+          <Eyebrow>Recently practiced</Eyebrow>
+          <h2 id="recents-heading" class="m-0">Practice again</h2>
+          <p class="mt-3 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
+            Solo drills you opened from a lesson or topic. Jump back in when you want
+            another pass.
+          </p>
+        </div>
+
+        <ul class="m-0 list-none p-0">
+          {#each recentDrills as entry (entry.id)}
             <li>
               <a
-                class="group flex items-center justify-between gap-4 border-b border-slate-200 py-4"
-                href="/practice/reference/{item.id}"
+                class="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 py-5 no-underline"
+                href={entry.href}
               >
-                <div>
+                <div class="min-w-0">
                   <p
-                    class="m-0 text-[0.64rem] font-bold uppercase tracking-[0.1em] text-slate-500"
+                    class="m-0 font-serif text-[clamp(1.15rem,2.2vw,1.45rem)] font-semibold leading-snug tracking-tight text-slate-900 group-hover:text-blue-800"
+                    lang="sk"
                   >
-                    {item.source.label}
+                    {entry.drill.slovak}
                   </p>
-                  <strong
-                    class="font-serif text-lg text-slate-900 group-hover:text-blue-800"
-                  >
-                    {item.task.prompt}
-                  </strong>
+
+                  {#if entry.drill.english}
+                    <p class="m-0 mt-1.5 text-sm text-slate-500">
+                      {entry.drill.english}
+                    </p>
+                  {/if}
+
+                  <p class="m-0 mt-3 text-xs text-slate-500">
+                    From
+                    <span class="text-slate-700">{entry.sourceLabel}</span>
+                  </p>
                 </div>
-                <ArrowRight class="text-blue-800" />
+
+                <span
+                  class="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-blue-800"
+                >
+                  Again
+                  <ArrowRight />
+                </span>
               </a>
             </li>
           {/each}

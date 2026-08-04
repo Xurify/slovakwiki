@@ -4,7 +4,6 @@ const LEGACY_PRACTICE_STATE_STORAGE_KEY = "slovak-wiki.practice.v1";
 
 export interface PracticeState {
   completedLessonIds: string[];
-  reviewItemIds: string[];
   savedReferenceItemIds: string[];
   version: 1;
 }
@@ -19,7 +18,6 @@ export function emptyPracticeState(): PracticeState {
   return {
     version: 1,
     completedLessonIds: [],
-    reviewItemIds: [],
     savedReferenceItemIds: [],
   };
 }
@@ -69,7 +67,6 @@ export function readPracticeState(storage: StorageLike): PracticeState {
     return {
       version: 1,
       completedLessonIds: asStringIds(state.completedLessonIds),
-      reviewItemIds: asStringIds(state.reviewItemIds),
       savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
     };
   } catch {
@@ -84,7 +81,6 @@ export function writePracticeState(storage: StorageLike, state: PracticeState): 
     JSON.stringify({
       version: 1,
       completedLessonIds: asStringIds(state.completedLessonIds),
-      reviewItemIds: asStringIds(state.reviewItemIds),
       savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
     }),
   );
@@ -98,20 +94,6 @@ export function markLessonComplete(
   return {
     ...state,
     completedLessonIds: unique([...state.completedLessonIds, lessonId]),
-  };
-}
-
-export function addReviewItem(state: PracticeState, itemId: string): PracticeState {
-  return {
-    ...state,
-    reviewItemIds: unique([...state.reviewItemIds, itemId]),
-  };
-}
-
-export function removeReviewItem(state: PracticeState, itemId: string): PracticeState {
-  return {
-    ...state,
-    reviewItemIds: state.reviewItemIds.filter((id) => id !== itemId),
   };
 }
 

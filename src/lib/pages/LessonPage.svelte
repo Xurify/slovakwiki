@@ -8,7 +8,6 @@
 
   import { onMount } from "svelte";
   import {
-    addReviewItem,
     emptyPracticeState,
     markLessonComplete,
     readPracticeState,
@@ -35,7 +34,6 @@
   );
   const currentExercise = $derived(data.lesson.exercises[activeIndex]);
   const practiceSet = $derived(practiceSetForLesson(data.lesson.id));
-  const reviewCount = $derived(practiceState.reviewItemIds.length);
 
   const referenceLinkClass =
     "group flex min-h-14 items-center justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-4 font-serif text-base text-blue-800 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)]";
@@ -50,14 +48,7 @@
     if (hydrated) writePracticeState(localStorage, nextState);
   }
 
-  function resolveExercise(result: {
-    needsReview: boolean;
-    practiceItemId?: string;
-  }): void {
-    if (result.needsReview && result.practiceItemId) {
-      persist(addReviewItem(practiceState, result.practiceItemId));
-    }
-
+  function resolveExercise(): void {
     if (activeIndex === data.lesson.exercises.length - 1) {
       persist(markLessonComplete(practiceState, data.lesson.id));
       finished = true;
@@ -119,18 +110,11 @@
             Keep the scene, not a score.
           </h3>
           <p class="m-0 font-serif text-slate-600">
-            {#if reviewCount > 0}
-              Anything you missed or revealed is ready in Review.
-            {:else}
-              You can practise this topic again whenever you want another pass.
-            {/if}
+            You can practise this topic again whenever you want another pass.
           </p>
           <div class="mt-6 flex flex-wrap items-center gap-4">
             {#if practiceSet}
               <Button href={`/practice/${practiceSet.id}`}>Open practice</Button>
-            {/if}
-            {#if reviewCount > 0}
-              <TextLink href="/practice/review">Open Review</TextLink>
             {/if}
             <TextLink href="/lessons">Browse lessons</TextLink>
           </div>

@@ -1,14 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  addReviewItem,
   answersMatch,
   emptyPracticeState,
   gradeAnswer,
   markLessonComplete,
   PRACTICE_STATE_STORAGE_KEY,
   readPracticeState,
-  removeReviewItem,
   saveReferenceItem,
   writePracticeState,
   type StorageLike,
@@ -519,16 +517,10 @@ describe("Slovak content", () => {
     }
   });
 
-  it("stores only completion, review, and saved-reference state", () => {
+  it("stores only completion and saved-reference state", () => {
     const storage = new MemoryStorage();
     const state = saveReferenceItem(
-      removeReviewItem(
-        addReviewItem(
-          markLessonComplete(emptyPracticeState(), "everyday/meet-someone"),
-          "everyday/origin",
-        ),
-        "everyday/origin",
-      ),
+      markLessonComplete(emptyPracticeState(), "everyday/meet-someone"),
       "grammar/first-person-reading",
     );
 
@@ -536,7 +528,6 @@ describe("Slovak content", () => {
     expect(readPracticeState(storage)).toEqual({
       version: 1,
       completedLessonIds: ["everyday/meet-someone"],
-      reviewItemIds: [],
       savedReferenceItemIds: ["grammar/first-person-reading"],
     });
   });
@@ -548,7 +539,7 @@ describe("Slovak content", () => {
       JSON.stringify({
         version: 1,
         completedLessonIds: ["missing-lesson", "everyday/meet-someone", 12],
-        reviewItemIds: ["missing-item", "everyday/origin", null],
+        reviewItemIds: ["legacy-review-item"],
         savedReferenceItemIds: ["missing-item", "grammar/first-person-reading", ""],
       }),
     );
@@ -556,7 +547,6 @@ describe("Slovak content", () => {
     expect(readPracticeState(storage)).toEqual({
       version: 1,
       completedLessonIds: ["missing-lesson", "everyday/meet-someone"],
-      reviewItemIds: ["missing-item", "everyday/origin"],
       savedReferenceItemIds: ["missing-item", "grammar/first-person-reading"],
     });
   });
