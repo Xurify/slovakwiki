@@ -363,10 +363,17 @@ export const learningResources: LearningResource[] = [
     id: "tatoeba-sk",
     group: "dictionaries",
     name: "Tatoeba — Slovak sentences",
-    href: "https://tatoeba.org/en/sentences/search?from=slk&query=&to=",
+    href: "https://tatoeba.org/en/sentences/search?from=slk&query=&to=eng",
     summary:
-      "Crowd-sourced SK–EN sentence pairs. Great for seeing a word in many contexts; quality varies, so skim before memorizing.",
+      "Search tool for SK→EN example sentences. Type a Slovak word or phrase, skim parallel translations, and hear audio when contributors recorded it.",
     cost: "free",
+    note: "Crowd-sourced — quality varies. We also pull Tatoeba dumps into this site’s dictionary examples (see References).",
+    links: [
+      {
+        href: "https://tatoeba.org/en/downloads",
+        label: "Downloads / corpus exports",
+      },
+    ],
   },
   {
     id: "forvo-slovak",
