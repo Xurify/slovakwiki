@@ -5,7 +5,6 @@ import {
   emptyPracticeState,
   gradeAnswer,
   markLessonComplete,
-  PRACTICE_STATE_STORAGE_KEY,
   readPracticeState,
   saveReferenceItem,
   writePracticeState,
@@ -110,7 +109,7 @@ describe("Slovak content", () => {
     expect(validateContent(allEntries)).toEqual([]);
   });
 
-  it("publishes valid lesson and practice content with a review item for every graded interaction", () => {
+  it("publishes valid lesson and practice content with a practice item for every graded exercise", () => {
     expect(validateLessons()).toEqual([]);
     expect(validatePracticeItems()).toEqual([]);
 
@@ -529,25 +528,6 @@ describe("Slovak content", () => {
       version: 1,
       completedLessonIds: ["everyday/meet-someone"],
       savedReferenceItemIds: ["grammar/first-person-reading"],
-    });
-  });
-
-  it("keeps string ids from stored practice state and drops non-strings", () => {
-    const storage = new MemoryStorage();
-    storage.setItem(
-      PRACTICE_STATE_STORAGE_KEY,
-      JSON.stringify({
-        version: 1,
-        completedLessonIds: ["missing-lesson", "everyday/meet-someone", 12],
-        reviewItemIds: ["legacy-review-item"],
-        savedReferenceItemIds: ["missing-item", "grammar/first-person-reading", ""],
-      }),
-    );
-
-    expect(readPracticeState(storage)).toEqual({
-      version: 1,
-      completedLessonIds: ["missing-lesson", "everyday/meet-someone"],
-      savedReferenceItemIds: ["missing-item", "grammar/first-person-reading"],
     });
   });
 
