@@ -35,7 +35,6 @@ export interface PagefindApi {
   ) => Promise<PagefindSearchResponse>;
 }
 
-/** Typing pause before Pagefind runs — kept short; idle warm covers cold load. */
 export const SEARCH_DEBOUNCE_MS = 100;
 
 let pagefindPromise: Promise<PagefindApi> | null = null;
