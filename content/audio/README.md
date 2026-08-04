@@ -8,12 +8,12 @@ MP3s live under `static/audio/` (gitignored) or R2 in production.
 
 All dictionary + lesson synthesis uses the top-level block in `config.json`:
 
-| Field | Value |
-| --- | --- |
-| Provider | ElevenLabs |
-| Model | `eleven_multilingual_v2` |
-| Language hint | `sk` |
-| Format | `mp3_44100_128` |
+| Field          | Value                                                                             |
+| -------------- | --------------------------------------------------------------------------------- |
+| Provider       | ElevenLabs                                                                        |
+| Model          | `eleven_multilingual_v2`                                                          |
+| Language hint  | `sk`                                                                              |
+| Format         | `mp3_44100_128`                                                                   |
 | Voice settings | stability `0.6`, similarityBoost `0.75`, style `0`, speed `0.88`, useSpeakerBoost |
 
 Hash material includes provider + voiceId + model + settings + normalized text. Change voice or settings → new hash → regen.
@@ -22,8 +22,8 @@ Hash material includes provider + voiceId + model + settings + normalized text. 
 
 Top-level `voiceId` / `voiceName` — **not** under `characters`.
 
-| Library name | Voice ID | Used for |
-| --- | --- | --- |
+| Library name                   | Voice ID               | Used for                                            |
+| ------------------------------ | ---------------------- | --------------------------------------------------- |
 | Slovak Wiki Dictionary Neutral | `YJsJ2Mt3VRr0gCiTY6DA` | Dictionary lemmas + examples (`lemma/`, `example/`) |
 
 Also reused as the **narrator** lesson character (notices / non-person lines).
@@ -37,32 +37,32 @@ Custom voices were created with `bun run audio:voice-design` (ElevenLabs Voice D
 
 ### Active
 
-| Character id | Display | Gender | Library name | Voice ID | Dialogue speakers | Used for |
-| --- | --- | --- | --- | --- | --- | --- |
-| `anna` | Anna | female | Slovak Wiki Anna | `NU9W5gI11aREqGgopfm8` | `Anna` | Friendly peer in everyday scenes |
-| `maria` | Mária | female | Slovak Wiki Mária | `7bkfvPHZlJY9LfqOtBKb` | `Mária` | Older / admin (registration, forms) |
-| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `TJm7whRcvNsGnL3DPy67` | `Receptionist` | Front desk / check-in |
-| `alex` | Alex | male | Slovak Wiki Alex | `eK3Hn8qiedGm31Jrozgn` | `You` | Learner turns labeled You |
-| `waiter` | Waiter | male | Slovak Wiki Waiter | `vTjn72hcQp2zpBEqZUEs` | `Waiter` | Café / restaurant |
-| `guide` | Guide | neutral | Slovak Wiki Guide | `62cIpdfOMgi6hhoTD3r6` | _(none)_ | **Key phrases** + instructional lines |
-| `narrator` | Narrator | neutral | Slovak Wiki Dictionary Neutral | `YJsJ2Mt3VRr0gCiTY6DA` | `Notice`, `Sentence` | Signs / non-person lines; unknown speakers fallback |
+| Character id   | Display      | Gender  | Library name                   | Voice ID               | Dialogue speakers    | Used for                                            |
+| -------------- | ------------ | ------- | ------------------------------ | ---------------------- | -------------------- | --------------------------------------------------- |
+| `anna`         | Anna         | female  | Slovak Wiki Anna               | `NU9W5gI11aREqGgopfm8` | `Anna`               | Friendly peer in everyday scenes                    |
+| `maria`        | Mária        | female  | Slovak Wiki Mária              | `7bkfvPHZlJY9LfqOtBKb` | `Mária`              | Older / admin (registration, forms)                 |
+| `receptionist` | Receptionist | female  | Slovak Wiki Receptionist       | `TJm7whRcvNsGnL3DPy67` | `Receptionist`       | Front desk / check-in                               |
+| `alex`         | Alex         | male    | Slovak Wiki Alex               | `eK3Hn8qiedGm31Jrozgn` | `You`                | Learner turns labeled You                           |
+| `waiter`       | Waiter       | male    | Slovak Wiki Waiter             | `vTjn72hcQp2zpBEqZUEs` | `Waiter`             | Café / restaurant                                   |
+| `guide`        | Guide        | neutral | Slovak Wiki Guide              | `62cIpdfOMgi6hhoTD3r6` | _(none)_             | **Key phrases** + instructional lines               |
+| `narrator`     | Narrator     | neutral | Slovak Wiki Dictionary Neutral | `YJsJ2Mt3VRr0gCiTY6DA` | `Notice`, `Sentence` | Signs / non-person lines; unknown speakers fallback |
 
 ### Spares (no speakers yet)
 
-| Character id | Display | Gender | Shares | Notes |
-| --- | --- | --- | --- | --- |
-| `lucia` | Lucia | female | Anna’s voice | Future female story cast |
-| `marek` | Marek | male | Alex’s voice | Future male story cast |
+| Character id | Display | Gender | Shares       | Notes                    |
+| ------------ | ------- | ------ | ------------ | ------------------------ |
+| `lucia`      | Lucia   | female | Anna’s voice | Future female story cast |
+| `marek`      | Marek   | male   | Alex’s voice | Future male story cast   |
 
 Mint dedicated Voice Design takes later, then point `voiceId` here and regen.
 
 ## Layout + commands
 
-| Kind | Path | Content |
-| --- | --- | --- |
-| `lemma` | `static/audio/lemma/{hash}.mp3` | Dictionary headwords |
-| `example` | `static/audio/example/{hash}.mp3` | Dictionary examples |
-| `lesson` | `static/audio/lesson/{hash}.mp3` | Scene lines + key phrases (per-character voice in hash) |
+| Kind      | Path                              | Content                                                 |
+| --------- | --------------------------------- | ------------------------------------------------------- |
+| `lemma`   | `static/audio/lemma/{hash}.mp3`   | Dictionary headwords                                    |
+| `example` | `static/audio/example/{hash}.mp3` | Dictionary examples                                     |
+| `lesson`  | `static/audio/lesson/{hash}.mp3`  | Scene lines + key phrases (per-character voice in hash) |
 
 ```bash
 bun run audio:generate                    # dictionary + lessons (skips existing)
@@ -78,9 +78,9 @@ Lesson dialogue/content may churn — treat `lesson/` MP3s as disposable regener
 
 ## Wiring (code)
 
-| Surface | Resolve |
-| --- | --- |
-| Dictionary pages | `resolveAudioSrc(text, "lemma" \| "example")` + default config voice |
-| Lesson scene / exercise context | `characterIdForSpeaker(line.speaker)` → `lesson/` |
-| Lesson key phrases | `keyPhraseCharacterId()` → `guide` → `lesson/` |
-| Practice cloze (reuse) | `practice-audio.ts` — only if spoken frame already in dictionary manifest |
+| Surface                         | Resolve                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------- |
+| Dictionary pages                | `resolveAudioSrc(text, "lemma" \| "example")` + default config voice      |
+| Lesson scene / exercise context | `characterIdForSpeaker(line.speaker)` → `lesson/`                         |
+| Lesson key phrases              | `keyPhraseCharacterId()` → `guide` → `lesson/`                            |
+| Practice cloze (reuse)          | `practice-audio.ts` — only if spoken frame already in dictionary manifest |

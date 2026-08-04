@@ -23,19 +23,19 @@ bun run index:search        # Pagefind for local/dev search
 
 ### Content files
 
-| File                                          | Role                                                            |
-| --------------------------------------------- | --------------------------------------------------------------- |
-| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)   |
-| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`      |
-| `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                      |
-| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast |
+| File                                          | Role                                                             |
+| --------------------------------------------- | ---------------------------------------------------------------- |
+| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)    |
+| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`       |
+| `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                       |
+| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast   |
 | `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands) |
-| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)            |
-| `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status)   |
-| `content/images/overrides.json`               | Manual reject / force Commons file per slug                     |
-| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime |
-| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                  |
-| `static/images/`                              | Local dictionary thumbs (gitignored; no R2 yet)                 |
+| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)             |
+| `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status)    |
+| `content/images/overrides.json`               | Manual reject / force Commons file per slug                      |
+| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime  |
+| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                   |
+| `static/images/`                              | Local dictionary thumbs (gitignored; no R2 yet)                  |
 
 ## `dictionary/`
 

@@ -55,7 +55,7 @@
       class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
       aria-labelledby="phrases-heading"
     >
-      <Eyebrow>Keep these close</Eyebrow>
+      <Eyebrow>Keep these in mind</Eyebrow>
       <h2 id="phrases-heading" class="mb-5">Key phrases</h2>
       <KeyPhraseList phrases={data.lesson.keyPhrases} mountPrefix="phrase" />
     </section>
