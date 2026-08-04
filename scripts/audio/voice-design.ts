@@ -1,7 +1,8 @@
 /**
  * Design + save ElevenLabs Voice Design cast for lessons.
  *
- * Live IDs / cast: content/audio/config.json → characters
+ * Roster / usage: content/audio/README.md
+ * Live IDs: content/audio/config.json → characters
  *
  * Flow:
  *   1. POST /v1/text-to-voice/design  → preview MP3s in tmp/voice-design/

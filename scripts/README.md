@@ -29,6 +29,7 @@ bun run index:search        # Pagefind for local/dev search
 | `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`      |
 | `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                      |
 | `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast |
+| `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands) |
 | `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)            |
 | `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status)   |
 | `content/images/overrides.json`               | Manual reject / force Commons file per slug                     |
@@ -67,7 +68,7 @@ ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
 Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` · `lesson/{hash}.mp3`. Hash = content address (includes voice); folder = how clip is used.
 
-Voices: top-level = dictionary Neutral; `characters` in `config.json` = lesson cast (speakers, key phrases → `guide`, narrator = dictionary). Design: `bun run audio:voice-design` (prompts in `voice-design.ts`).
+**Voices:** full roster → [`content/audio/README.md`](../content/audio/README.md). IDs in `config.json`. Design prompts: `voice-design.ts`.
 
 Generate lesson clips: `bun run audio:generate -- --lessons-only`. After voice swaps: add `--force`. Lesson content may churn — treat those MP3s as disposable.
 
