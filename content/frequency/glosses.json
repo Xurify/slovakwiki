@@ -8902,40 +8902,31 @@
     "english": "rational"
   },
   "večera": {
-    "english": "dinner; evening meal",
-    "category": "Food"
+    "english": "dinner; evening meal"
   },
   "obed": {
-    "english": "lunch",
-    "category": "Food"
+    "english": "lunch"
   },
   "raňajky": {
-    "english": "breakfast",
-    "category": "Food"
+    "english": "breakfast"
   },
   "mlieko": {
-    "english": "milk",
-    "category": "Food"
+    "english": "milk"
   },
   "polievka": {
-    "english": "soup",
-    "category": "Food"
+    "english": "soup"
   },
   "čaj": {
-    "english": "tea",
-    "category": "Food"
+    "english": "tea"
   },
   "syr": {
-    "english": "cheese",
-    "category": "Food"
+    "english": "cheese"
   },
   "maslo": {
-    "english": "butter",
-    "category": "Food"
+    "english": "butter"
   },
   "cukor": {
-    "english": "sugar",
-    "category": "Food"
+    "english": "sugar"
   },
   "rastlina": {
     "english": "plant"

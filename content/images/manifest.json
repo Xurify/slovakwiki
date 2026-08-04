@@ -21486,11 +21486,11 @@
     "wikiTitle": "prezident"
   },
   "prezidentsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prezit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prezitie": {
@@ -21506,23 +21506,23 @@
     "wikiTitle": "Survival"
   },
   "prezivat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prezradit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prezriet": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priamy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priatel": {
@@ -21550,7 +21550,7 @@
     "wikiTitle": "Priateľ"
   },
   "priatelsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priatelstvo": {
@@ -21578,79 +21578,115 @@
     "wikiTitle": "Supporter"
   },
   "priaznivy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pribeh": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Misaochan2",
+    "caption": "story",
+    "commonsFile": "Story Bridge 2.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "pribeh.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Story_Bridge_2.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "príbeh"
   },
   "priblizit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priblizovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pribudat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pribudnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pribuzny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pricestovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prichadzat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prichod": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Ogidya",
+    "caption": "arrival",
+    "commonsFile": "Arrival Van Electric (Fully Charged 2022) front.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prichod.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Arrival_Van_Electric_(Fully_Charged_2022)_front.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "príchod"
   },
   "pricina": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pridat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pridavat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priebeh": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priebezny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priechod": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Photos and animation by User:Waugsberg",
+    "caption": "passage",
+    "commonsFile": "Passage animated.gif",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "priechod.gif",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Passage_animated.gif",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "priechod"
   },
   "priecka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Klafubra",
+    "caption": "bar",
+    "commonsFile": "Bar in Bristol.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "priecka.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Bar_in_Bristol.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "priečka"
   },
   "priemer": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priemerny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priemysel": {
@@ -21667,19 +21703,28 @@
     "wikiTitle": "Priemysel"
   },
   "priemyselny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prieskum": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "A.-K. D.",
+    "caption": "survey",
+    "commonsFile": "Survey point Kilmacoliver Hill.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prieskum.png",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Survey_point_Kilmacoliver_Hill.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prieskum"
   },
   "priestor": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priestupok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prievidza": {
@@ -21696,7 +21741,7 @@
     "wikiTitle": "Prievidza"
   },
   "prievidzsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priezvisko": {
@@ -21713,11 +21758,11 @@
     "wikiTitle": "Surname"
   },
   "prihlasit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prihlaska": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prihoda": {
@@ -21733,79 +21778,97 @@
     "wikiTitle": "Incident Command System"
   },
   "prihovor": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prihravka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prijat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prijatelny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prijatie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prijem": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "stevepb",
+    "caption": "income",
+    "commonsFile": "Income-tax-491626 1920 (1).jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prijem.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Income-tax-491626_1920_(1).jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "príjem"
   },
   "prijemny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prijimanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prijimat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prikaz": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prikazat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priklad": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "bdk",
+    "caption": "example",
+    "commonsFile": "Example dot jaypeg without just an.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "priklad.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Example_dot_jaypeg_without_just_an.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "príklad"
   },
   "prikyvnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prilezitost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priloha": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "primarny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "primator": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "primerany": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prinasat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "princ": {
@@ -21847,75 +21910,84 @@
     "wikiTitle": "Principle"
   },
   "priniest": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prinos": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Daniel Case",
+    "caption": "benefit",
+    "commonsFile": "Benefit Street, Providence, RI.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prinos.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Benefit_Street,_Providence,_RI.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prínos"
   },
   "prinutit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priorita": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripad": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripadat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripadny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripisat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripojenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripojit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripomenut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripomienka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripominat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priprava": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripravit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripravny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripravovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pripustit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priroda": {
@@ -21957,47 +22029,47 @@
     "wikiTitle": "Nature"
   },
   "prislub": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prislubit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prislusnik": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prislusnost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prislusny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prisny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prispevok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prispiet": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prispievat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prisposobit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prist": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pristav": {
@@ -22014,15 +22086,31 @@
     "wikiTitle": "Prístav"
   },
   "pristroj": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Kamel Khalfallah, Jean-Henri Calvet, Philippe Brunswick, Marie-Laure Névoret, Hanna Ayoub and Michel Cassir",
+    "caption": "device",
+    "commonsFile": "Device Impeto Medical.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "pristroj.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Device_Impeto_Medical.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prístroj"
   },
   "pristup": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "ACCESS CO., LTD.",
+    "caption": "access",
+    "commonsFile": "Access Company logotype.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "pristup.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Access_Company_logotype.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prístup"
   },
   "pristupit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pristupny": {
@@ -22039,19 +22127,19 @@
     "wikiTitle": "Accessibility"
   },
   "pristupovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pritazlivy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pritiahnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pritomnost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pritomny": {
@@ -22068,67 +22156,76 @@
     "wikiTitle": "Present"
   },
   "privatizacia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priviest": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priviezt": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "privitat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priznak": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priznanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priznat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "priznavat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "problem": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "problematicky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "problematika": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "proces": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "producent": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Gangadhar Thalange",
+    "caption": "producer",
+    "commonsFile": "Producer Gangadhar Thalange.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "producent.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Producer_Gangadhar_Thalange.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "producent"
   },
   "produkcia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "produkt": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "produktivny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "profesia": {
@@ -22180,27 +22277,44 @@
     "wikiTitle": "Professor"
   },
   "profil": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "name lost",
+    "caption": "profile",
+    "commonsFile": "Profile portrait of Anna of Russia.gif",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "profil.gif",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Profile_portrait_of_Anna_of_Russia.gif",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "profil"
   },
   "prognoza": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "philandju",
+    "caption": "prognosis",
+    "commonsFile": "Prognosis poor - geograph.org.uk - 7507913.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prognoza.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Prognosis_poor_-_geograph.org.uk_-_7507913.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prognóza"
   },
   "program": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "programovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "projekt": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "projektovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prokurator": {
@@ -22228,7 +22342,7 @@
     "wikiTitle": "Prosecutor"
   },
   "propagacia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prorok": {
@@ -22244,8 +22358,17 @@
     "wikiTitle": "Prophet"
   },
   "prosba": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Yathavarajan",
+    "caption": "request",
+    "commonsFile": "Request for motherhood.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prosba.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Request_for_motherhood.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prosba"
   },
   "prosim": {
     "artist": "Les Chatfield from Brighton, England",
@@ -22261,19 +22384,28 @@
     "wikiTitle": "Please"
   },
   "prosit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prospech": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Daniel Case",
+    "caption": "benefit",
+    "commonsFile": "Benefit Street, Providence, RI.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prospech.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Benefit_Street,_Providence,_RI.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prospech"
   },
   "prostredie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prostriedok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "protest": {
@@ -22290,7 +22422,7 @@
     "wikiTitle": "Protest"
   },
   "protestovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "protiutok": {
@@ -22305,16 +22437,33 @@
     "wikiTitle": "Counterattack"
   },
   "protivnik": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Charles Hubbard Judd",
+    "caption": "opponent",
+    "commonsFile": "Opponent color circle 1917.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "protivnik.png",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Opponent_color_circle_1917.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "protivník"
   },
   "provincia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "proza": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Beartham",
+    "caption": "prose",
+    "commonsFile": "PROSE Wing Design Optimization.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "proza.png",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:PROSE_Wing_Design_Optimization.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "próza"
   },
   "prsia": {
     "caption": "breasts",
@@ -22355,31 +22504,40 @@
     "wikiTitle": "Prsteň"
   },
   "prud": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prudky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prvenstvo": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Camerafiend at English Wikipedia",
+    "caption": "first place",
+    "commonsFile": "First Place Tower Tulsa.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "prvenstvo.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:First_Place_Tower_Tulsa.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "prvenstvo"
   },
   "prvok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prvoligovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "prvotny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "psychicky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "psycholog": {
@@ -22395,7 +22553,7 @@
     "wikiTitle": "Psychologist"
   },
   "psychologicky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "publikacia": {
@@ -22425,11 +22583,19 @@
     "wikiTitle": "Audience"
   },
   "puk": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Samuel D. Ehrhart / After Louis Dalrymple",
+    "caption": "puck",
+    "commonsFile": "Puck cover2.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "puk.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Puck_cover2.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "puk"
   },
   "pult": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "puska": {
@@ -22459,7 +22625,7 @@
     "wikiTitle": "Púšť"
   },
   "pustit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "put": {
@@ -22487,31 +22653,40 @@
     "wikiTitle": "Pilgrimage"
   },
   "putovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "pytat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "racionalny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rad": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rad-n": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "W.carter",
+    "caption": "row",
+    "commonsFile": "Row of white silage bales in Brastad.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rad-n.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Row_of_white_silage_bales_in_Brastad.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rad"
   },
   "rada": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "radikalny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "radio": {
@@ -22528,7 +22703,7 @@
     "wikiTitle": "Radio"
   },
   "radit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "radnica": {
@@ -22556,11 +22731,11 @@
     "wikiTitle": "Radosť"
   },
   "radostny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "radovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "raj": {
@@ -22601,16 +22776,25 @@
     "wikiTitle": "Cancer"
   },
   "rakusko": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rakusky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "ramec": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Willowbl00",
+    "caption": "framework",
+    "commonsFile": "Framework for Consent Policies.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "ramec.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Framework_for_Consent_Policies.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rámec"
   },
   "rameno": {
     "artist": "Genusfotografen (Tomas Gunnarsson) / Wikimedia Sverige",
@@ -22677,12 +22861,21 @@
     "wikiTitle": "Morning"
   },
   "rast": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rast-n": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Kgbo",
+    "caption": "growth",
+    "commonsFile": "Growth (sculpture) by Matthew Harding in Kenmore, Queensland, 01.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rast-n.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Growth_(sculpture)_by_Matthew_Harding_in_Kenmore,_Queensland,_01.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rast"
   },
   "rastlina": {
     "artist": "Rkitko",
@@ -22698,44 +22891,61 @@
     "wikiTitle": "Rastliny"
   },
   "ratat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rating": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "LucaLindholm",
+    "caption": "rating",
+    "commonsFile": "Rating sovrano dell'Italia (1986 - 2021) - Italy's debit rating (1986 - 2021).png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rating.png",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Rating_sovrano_dell%27Italia_(1986_-_2021)_-_Italy%27s_debit_rating_(1986_-_2021).png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rating"
   },
   "reagovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "reakcia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "realita": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "realitny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "realizacia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "realizovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "realny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rebricek": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Pernambucano1969",
+    "caption": "ranking",
+    "commonsFile": "Ranking.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rebricek.png",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Ranking.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rebríček"
   },
   "rec": {
     "artist": "Linda Hosek",
@@ -22763,12 +22973,20 @@
     "wikiTitle": "Recipe"
   },
   "recesia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "redakcia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "WrS.tm.pl",
+    "caption": "editorial office",
+    "commonsFile": "Editorial office of \"Gazeta Wyborcza\" in Łódź. Sienkiewicza Street 72.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "redakcia.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Editorial_office_of_%22Gazeta_Wyborcza%22_in_%C5%81%C3%B3d%C5%BA._Sienkiewicza_Street_72.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "redakcia"
   },
   "redaktor": {
     "artist": "Kochas",
@@ -22809,27 +23027,44 @@
     "wikiTitle": "Referendum"
   },
   "reforma": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Unknown author Unknown author",
+    "caption": "reform",
+    "commonsFile": "Reform 1893.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "reforma.png",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Reform_1893.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "reforma"
   },
   "region": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "regionalny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "register": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Thomas Nugent",
+    "caption": "register",
+    "commonsFile": "Register House (geograph 2901907).jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "register.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Register_House_(geograph_2901907).jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "register"
   },
   "registracia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "regulacia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "reklama": {
@@ -22845,19 +23080,28 @@
     "wikiTitle": "Reklama"
   },
   "reklamny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rekonstrukcia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rekord": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Amitbalani",
+    "caption": "record",
+    "commonsFile": "Record Player with Cassette & Radio functionality.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rekord.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Record_Player_with_Cassette_%26_Radio_functionality.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rekord"
   },
   "rekordny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rekreacny": {
@@ -22874,11 +23118,20 @@
     "wikiTitle": "Recreation"
   },
   "rektor": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Colinhester",
+    "caption": "rector",
+    "commonsFile": "Rector Waterworks Building.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rektor.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Rector_Waterworks_Building.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rektor"
   },
   "relacia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "remeslo": {
@@ -22895,32 +23148,59 @@
     "wikiTitle": "Craft"
   },
   "remiza": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Mauro Cateb",
+    "caption": "draw",
+    "commonsFile": "Draw plate and silver cheniers.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "remiza.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Draw_plate_and_silver_cheniers.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "remíza"
   },
   "reprezentacia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "reprezentacny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "reprezentant": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Tipowell0403",
+    "caption": "representative",
+    "commonsFile": "Representative Lon Burnam.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "reprezentant.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Representative_Lon_Burnam.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "reprezentant"
   },
   "reprezentovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "repriza": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "republika": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Kevmin",
+    "caption": "republic",
+    "commonsFile": "Republic Ferry County 01.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "republika.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Republic_Ferry_County_01.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "republika"
   },
   "respekt": {
     "artist": "David Bjorgen",
@@ -22936,12 +23216,21 @@
     "wikiTitle": "Respect"
   },
   "respektovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "respondent": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Mpande",
+    "caption": "respondent",
+    "commonsFile": "Respondent in Salvador.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "respondent.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Respondent_in_Salvador.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "respondent"
   },
   "restauracia": {
     "artist": "Mcg2132",
@@ -22981,55 +23270,109 @@
     "wikiTitle": "Revolúcia"
   },
   "revolucny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rezerva": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "This illustration was made by Peter Potrowl . Please credit this with : © Peter Potrowl in the immediate vicinity of the image. A link to my website sitemai.eu would be much appreciated but isn't mandatory. An email to Peter Potrowl would be appreciated too. Do not copy this image illegally by ignoring the terms of the license below, as it is not in the public domain. If you would like special permission to use, license, or purchase the image please contact me Peter Potrowl to negotiate terms. More free pictures in my website . Donations are accepted here and here .",
+    "caption": "reserve",
+    "commonsFile": "Reserve NM - 3.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rezerva.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Reserve_NM_-_3.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rezerva"
   },
   "rezia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rezim": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "reziser": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Ragalahari.com",
+    "caption": "director",
+    "commonsFile": "Director Munna.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "reziser.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Director_Munna.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "režisér"
   },
   "rezort": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Äppelmos",
+    "caption": "ministry",
+    "commonsFile": "Ministry Sweden Rock 2008.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rezort.jpg",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Ministry_Sweden_Rock_2008.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rezort"
   },
   "riadenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "riadit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "riaditel": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Ragalahari.com",
+    "caption": "director",
+    "commonsFile": "Director Munna.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "riaditel.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Director_Munna.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "riaditeľ"
   },
   "riaditelka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Ragalahari.com",
+    "caption": "director",
+    "commonsFile": "Director Munna.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "riaditelka.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Director_Munna.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "riaditeľka"
   },
   "riaditelstvo": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Md. Joni Hossain",
+    "caption": "directorate",
+    "commonsFile": "Directorate General of Nursing and Midwifery.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "riaditelstvo.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Directorate_General_of_Nursing_and_Midwifery.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "riaditeľstvo"
   },
   "riadny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "riadok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "richard": {
@@ -23058,11 +23401,11 @@
     "wikiTitle": "Rieka"
   },
   "riesenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "riesit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rim": {
@@ -23079,7 +23422,7 @@
     "wikiTitle": "Rím"
   },
   "rimavsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rimskokatolicky": {
@@ -23096,15 +23439,15 @@
     "wikiTitle": "Catholic Church"
   },
   "rimsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "risa": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "riskovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rival": {
@@ -23133,7 +23476,7 @@
     "wikiTitle": "Risk"
   },
   "rizikovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "robert": {
@@ -23150,16 +23493,34 @@
     "wikiTitle": "Robert"
   },
   "robert-n": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Майоров Владимир",
+    "caption": "Róbert",
+    "commonsFile": "Róbert Vittek1.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "robert-n.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:R%C3%B3bert_Vittek1.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "Róbert"
   },
   "robit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "robota": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Pierre Branquart (alias PJDespa)",
+    "caption": "work",
+    "commonsFile": "Work 'Composition monumentale' by Léon WUIDAR (1976-1977).jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "robota.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Work_%27Composition_monumentale%27_by_L%C3%A9on_WUIDAR_(1976-1977).jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "robota"
   },
   "robotnik": {
     "artist": "Wilhelm Biscan",
@@ -23175,7 +23536,7 @@
     "wikiTitle": "Robotník"
   },
   "rockovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rocnik": {
@@ -23192,7 +23553,7 @@
     "wikiTitle": "Year"
   },
   "rocny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rod": {
@@ -23208,8 +23569,17 @@
     "wikiTitle": "Family"
   },
   "rodak": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Satdeep Gill",
+    "caption": "native",
+    "commonsFile": "Native Garhwali Woman In Rishikesh.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rodak.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Native_Garhwali_Woman_In_Rishikesh.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rodák"
   },
   "rodic": {
     "artist": "sheldonl",
@@ -23263,19 +23633,19 @@
     "wikiTitle": "Family"
   },
   "rodit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rodny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "roh": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rohovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rok": {
@@ -23304,31 +23674,49 @@
     "wikiTitle": "Negotiation"
   },
   "rokovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rola": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rom": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "roman": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Zahirulnukman",
+    "caption": "novel",
+    "commonsFile": "Novel Wira di Bumi Warisan.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "roman.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Novel_Wira_di_Bumi_Warisan.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "román"
   },
   "roman-n": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Birmingham Museums Trust, Eloise Markwick, 2014-04-01 14:24:54",
+    "caption": "Roman",
+    "commonsFile": "Roman coin, Nummus of uncertain 4th century ruler (FindID 606956).jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "roman-n.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Roman_coin,_Nummus_of_uncertain_4th_century_ruler_(FindID_606956).jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "Roman"
   },
   "romanticky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "romsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "ropa": {
@@ -23345,7 +23733,7 @@
     "wikiTitle": "Ropa"
   },
   "ropny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rovina": {
@@ -23362,43 +23750,43 @@
     "wikiTitle": "Plain"
   },
   "rovnaky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rovnost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rovnovaha": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rovny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozbehnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozdavat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozdelenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozdelit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozdiel": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozdielny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozhlas": {
@@ -23441,19 +23829,19 @@
     "wikiTitle": "Referee"
   },
   "rozhodnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozhodnutie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozhodovanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozhodovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozhovor": {
@@ -23469,24 +23857,33 @@
     "wikiTitle": "Conversation"
   },
   "rozkaz": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozlicny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozloha": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozlucit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozlucka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Geoff Pick",
+    "caption": "farewell",
+    "commonsFile": "Farewell Hall - geograph.org.uk - 184004.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rozlucka.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Farewell_Hall_-_geograph.org.uk_-_184004.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rozlúčka"
   },
   "rozmer": {
     "artist": "Andeggs",
@@ -23502,16 +23899,25 @@
     "wikiTitle": "Dimension"
   },
   "rozmyslat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozpad": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Bob Helms",
+    "caption": "collapse",
+    "commonsFile": "Collapse upon collapse - geograph.org.uk - 1424735.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rozpad.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Collapse_upon_collapse_-_geograph.org.uk_-_1424735.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rozpad"
   },
   "rozpocet": {
     "artist": "Honoré Daumier",
@@ -23538,15 +23944,15 @@
     "wikiTitle": "Budget"
   },
   "rozpor": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozpravanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozpravat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozpravka": {
@@ -23574,63 +23980,90 @@
     "wikiTitle": "Fairy tale"
   },
   "rozsah": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Michael Graham",
+    "caption": "scope",
+    "commonsFile": "Scope Beck - geograph.org.uk - 1109728.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rozsah.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Scope_Beck_-_geograph.org.uk_-_1109728.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rozsah"
   },
   "rozsiahly": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozsirenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozsirit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozsirovanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozsirovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozsudok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozum": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Nigel Chadwick",
+    "caption": "reason",
+    "commonsFile": "Reason Hill Oast house - geograph.org.uk - 1157721.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rozum.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Reason_Hill_Oast_house_-_geograph.org.uk_-_1157721.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rozum"
   },
   "rozumiem": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozumiet": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozumny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozvijat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozvod": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "user:Borysk5",
+    "caption": "divorce",
+    "commonsFile": "Divorce laws.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rozvod.png",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Divorce_laws.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rozvod"
   },
   "rozvoj": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rozvojovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rubrika": {
@@ -23685,7 +24118,7 @@
     "wikiTitle": "Handwriting"
   },
   "rumunsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rura": {
@@ -23702,15 +24135,23 @@
     "wikiTitle": "Oven"
   },
   "rus": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Sergei Prokudin-Gorskii",
+    "caption": "Russian",
+    "commonsFile": "Russian peasant girls in front of a traditional wooden house in Kirillov.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rus.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Russian_peasant_girls_in_front_of_a_traditional_wooden_house_in_Kirillov.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "Rus"
   },
   "rusko": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rusky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "ruza": {
@@ -23739,7 +24180,7 @@
     "wikiTitle": "Ružomberok"
   },
   "ruzombersky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "ruzovy": {
@@ -23795,7 +24236,7 @@
     "wikiTitle": "Speed"
   },
   "rychly": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "rytier": {
@@ -23811,8 +24252,16 @@
     "wikiTitle": "Knight"
   },
   "rytmus": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Akteon",
+    "caption": "rhythm",
+    "commonsFile": "Rhythm death.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "rytmus.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Rhythm_death.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "rytmus"
   },
   "ryza": {
     "artist": "China News Service",
@@ -23841,11 +24290,11 @@
     "wikiTitle": "Orchard"
   },
   "sadnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sadzba": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sala": {
@@ -23887,8 +24336,17 @@
     "wikiTitle": "Cup"
   },
   "salon": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Père Igor",
+    "caption": "salon",
+    "commonsFile": "Salon (24) mairie.JPG",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "salon.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Salon_(24)_mairie.JPG",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "salón"
   },
   "samosprava": {
     "artist": "Visit Greenland from Nuuk, Greenland",
@@ -23917,7 +24375,7 @@
     "wikiTitle": "Self-governance"
   },
   "samostatny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "samota": {
@@ -23933,7 +24391,7 @@
     "wikiTitle": "Solitude"
   },
   "samotny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "samovrazda": {
@@ -23950,19 +24408,28 @@
     "wikiTitle": "Samovražda"
   },
   "sampion": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "M.Minderhoud",
+    "caption": "champion",
+    "commonsFile": "Champion 08 2006 105.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sampion.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Champion_08_2006_105.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "šampión"
   },
   "sampionat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sanca": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sankcia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "satna": {
@@ -23991,19 +24458,19 @@
     "wikiTitle": "Clothing"
   },
   "scena": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "scenar": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schema": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schod": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schodza": {
@@ -24020,15 +24487,15 @@
     "wikiTitle": "Meeting"
   },
   "schodzka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schopnost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schopny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schranka": {
@@ -24044,19 +24511,19 @@
     "wikiTitle": "Box"
   },
   "schvalenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schvalit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "schvalovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sebavedomie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sedadlo": {
@@ -24099,23 +24566,31 @@
     "wikiTitle": "Saddle"
   },
   "sef": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "LRO",
+    "caption": "boss",
+    "commonsFile": "Boss crater LRO.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sef.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Boss_crater_LRO.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "šéf"
   },
   "sefka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sefredaktor": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "segment": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sekcia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sekretar": {
@@ -24132,12 +24607,21 @@
     "wikiTitle": "Secretary"
   },
   "sekretariat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sektor": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Asikironalio",
+    "caption": "sector",
+    "commonsFile": "Sector meeting.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sektor.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Sector_meeting.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "sektor"
   },
   "sekunda": {
     "artist": "ЮК",
@@ -24152,7 +24636,7 @@
     "wikiTitle": "Second"
   },
   "semifinale": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "seminar": {
@@ -24243,28 +24727,46 @@
     "wikiTitle": "September"
   },
   "seria": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "serial": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "seriozny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "server": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "servis": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Jebulon",
+    "caption": "service",
+    "commonsFile": "Service dessert Victoria Franz-Joseph Vienna inv 191.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "servis.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Service_dessert_Victoria_Franz-Joseph_Vienna_inv_191.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "servis"
   },
   "sestnastka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Mark Hufstetler",
+    "caption": "sixteen",
+    "commonsFile": "Sixteen Montana.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sestnastka.jpg",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Sixteen_Montana.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "šestnástka"
   },
   "sestra": {
     "artist": "Lewis Hine , 1874-1940, photographer.",
@@ -24279,27 +24781,35 @@
     "wikiTitle": "Sister"
   },
   "sestricka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Atlantic Records",
+    "caption": "little sister",
+    "commonsFile": "Little Sister (1970).png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sestricka.png",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Little_Sister_(1970).png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "sestrička"
   },
   "set": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "setrit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sever": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "severny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sexualny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sezona": {
@@ -24315,19 +24825,19 @@
     "wikiTitle": "Season"
   },
   "sfera": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "show": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "siahat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "siahnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sidlisko": {
@@ -24344,7 +24854,7 @@
     "wikiTitle": "Housing estate"
   },
   "sidlit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sidlo": {
@@ -24374,8 +24884,17 @@
     "wikiTitle": "Hall"
   },
   "siet": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Luisalvaradox",
+    "caption": "network",
+    "commonsFile": "Network Manager 0.9.5.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "siet.png",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Network_Manager_0.9.5.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "sieť"
   },
   "signal": {
     "artist": "William Powell Frith",
@@ -24390,35 +24909,53 @@
     "wikiTitle": "Signal"
   },
   "sikovny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sila": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "silny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sirenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "David Dixon",
+    "caption": "spread",
+    "commonsFile": "Spread Eagle, Bredbury.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sirenie.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Spread_Eagle,_Bredbury.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "šírenie"
   },
   "sirit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sirka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "David Howard",
+    "caption": "width",
+    "commonsFile": "Width barrier on Charlton Road, Kenton - geograph.org.uk - 4773232.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sirka.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Width_barrier_on_Charlton_Road,_Kenton_-_geograph.org.uk_-_4773232.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "šírka"
   },
   "siroky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "situacia": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sivy": {
@@ -24461,7 +24998,7 @@
     "wikiTitle": "Skalica"
   },
   "skalny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skandal": {
@@ -24490,7 +25027,7 @@
     "wikiTitle": "Warehouse"
   },
   "skladat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skladatel": {
@@ -24507,7 +25044,7 @@
     "wikiTitle": "Composer"
   },
   "skladba": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skladka": {
@@ -24536,7 +25073,7 @@
     "wikiTitle": "Disappointment"
   },
   "sklamat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sklo": {
@@ -24552,24 +25089,33 @@
     "wikiTitle": "Sklo"
   },
   "sklon": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skocit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skoda": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skodlivy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Chemical Engineer",
+    "caption": "jump",
+    "commonsFile": "Jump St George's Church April 2017.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "skok.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Jump_St_George%27s_Church_April_2017.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "skok"
   },
   "skola": {
     "artist": "Tungsten",
@@ -24622,39 +25168,39 @@
     "wikiTitle": "School"
   },
   "skolstvo": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skoncenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skoncit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skonstatovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skontrolovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skore": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skorovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skory": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skratka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skrina": {
@@ -24671,43 +25217,52 @@
     "wikiTitle": "Skriňový nábytok"
   },
   "skromny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skryvat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skumanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skumat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skupina": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skupinka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Tobias \"ToMar\" Maier",
+    "caption": "small group",
+    "commonsFile": "Small group of Arion rufus.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "skupinka.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Small_group_of_Arion_rufus.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "skupinka"
   },
   "skusat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skusenost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skuseny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skusit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skuska": {
@@ -24723,27 +25278,27 @@
     "wikiTitle": "Exam"
   },
   "skutocnost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skutocny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skutok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "skvely": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slabost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slaby": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sladky": {
@@ -24772,15 +25327,15 @@
     "wikiTitle": "Lyžovanie"
   },
   "slava": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slavit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slavnost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slavnostny": {
@@ -24797,27 +25352,36 @@
     "wikiTitle": "Festival"
   },
   "slavny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slecna": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Mr.ちゅらさん",
+    "caption": "miss",
+    "commonsFile": "Miss Universe Sash.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "slecna.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Miss_Universe_Sash.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "slečna"
   },
   "sledovanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sledovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slepy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slnecny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slnko": {
@@ -24846,19 +25410,28 @@
     "wikiTitle": "Sloboda"
   },
   "slobodny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slovak": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "User:Andrein",
+    "caption": "Slovak",
+    "commonsFile": "Slovak dialects.png",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "slovak.png",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Slovak_dialects.png",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "Slovák"
   },
   "slovan": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slovansky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slovencina": {
@@ -24875,15 +25448,15 @@
     "wikiTitle": "Slovenčina"
   },
   "slovensko": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slovensky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slovensky-a": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slovnik": {
@@ -24900,7 +25473,7 @@
     "wikiTitle": "Dictionary"
   },
   "slovny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slovo": {
@@ -24917,15 +25490,15 @@
     "wikiTitle": "Word"
   },
   "slub": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slubit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slubovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sluha": {
@@ -24941,19 +25514,28 @@
     "wikiTitle": "Domestic worker"
   },
   "slusny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sluzba": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Jebulon",
+    "caption": "service",
+    "commonsFile": "Service dessert Victoria Franz-Joseph Vienna inv 191.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sluzba.jpg",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Service_dessert_Victoria_Franz-Joseph_Vienna_inv_191.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "služba"
   },
   "sluzit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sluzobny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "slza": {
@@ -24970,23 +25552,31 @@
     "wikiTitle": "Slza"
   },
   "smer": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "smernica": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Ohio. Secretary of State",
+    "caption": "directive",
+    "commonsFile": "Directive - DPLA - fd6ffddf7423f636297167a0e1a8a00d.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "smernica.jpg",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Directive_-_DPLA_-_fd6ffddf7423f636297167a0e1a8a00d.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "smernica"
   },
   "smerovanie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "smerovat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "smiat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "smiech": {
@@ -25015,8 +25605,17 @@
     "wikiTitle": "Humour"
   },
   "smola": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Mahsuri",
+    "caption": "bad luck",
+    "commonsFile": "Bad Luck Glass.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "smola.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Bad_Luck_Glass.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "smola"
   },
   "smrt": {
     "caption": "death",
@@ -25031,7 +25630,7 @@
     "wikiTitle": "Smrť"
   },
   "smrtelny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "smutny": {
@@ -25061,11 +25660,20 @@
     "wikiTitle": "Sadness"
   },
   "snaha": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "E레기",
+    "caption": "effort",
+    "commonsFile": "Effort 2019.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "snaha.jpg",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Effort_2019.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "snaha"
   },
   "snazit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sneh": {
@@ -25094,19 +25702,37 @@
     "wikiTitle": "Snow"
   },
   "snem": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Shanmugamp7",
+    "caption": "assembly",
+    "commonsFile": "Assembly Building Chandigarh.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "snem.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Assembly_Building_Chandigarh.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "snem"
   },
   "snimka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Santeri Viinamäki",
+    "caption": "shot",
+    "commonsFile": "Shot put ring.JPG",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "snimka.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Shot_put_ring.JPG",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "snímka"
   },
   "snivat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "snura": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sobas": {
@@ -25135,7 +25761,7 @@
     "wikiTitle": "Saturday"
   },
   "sobotnajsi": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "socha": {
@@ -25152,7 +25778,7 @@
     "wikiTitle": "Statue"
   },
   "socialisticky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "socializmus": {
@@ -25182,7 +25808,7 @@
     "wikiTitle": "Society"
   },
   "sofer": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "softver": {
@@ -25199,8 +25825,16 @@
     "wikiTitle": "Softvér"
   },
   "sok": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Panthro at English Wikipedia",
+    "caption": "shock",
+    "commonsFile": "Shock-cell2.PNG",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "sok.png",
+    "license": "Public domain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Shock-cell2.PNG",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "šok"
   },
   "sol": {
     "artist": "James St. John",
@@ -25228,31 +25862,31 @@
     "wikiTitle": "Solidarity"
   },
   "sou": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "sovietsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spadnut": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spajat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spalna": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spanielsko": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spanielsky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spanok": {
@@ -25268,7 +25902,7 @@
     "wikiTitle": "Spánok"
   },
   "spasa": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spat": {
@@ -25285,19 +25919,19 @@
     "wikiTitle": "Commons:sleep (audited)"
   },
   "spatny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "specialista": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "specialny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "specificky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spektrum": {
@@ -25387,15 +26021,24 @@
     "wikiTitle": "Spevák"
   },
   "spicka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Richard Webb",
+    "caption": "tip",
+    "commonsFile": "Tip - geograph.org.uk - 38063.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "spicka.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Tip_-_geograph.org.uk_-_38063.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "špička"
   },
   "spickovy": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spievat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spinavy": {
@@ -25411,8 +26054,17 @@
     "wikiTitle": "Dirt"
   },
   "spis": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "ArtistAmyKarle1",
+    "caption": "file",
+    "commonsFile": "FILE Electronic Language International Festival 2017 São Paulo Brazil banner.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "spis.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:FILE_Electronic_Language_International_Festival_2017_S%C3%A3o_Paulo_Brazil_banner.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "spis"
   },
   "spisovatel": {
     "artist": "Unknown author Unknown author",
@@ -25427,44 +26079,53 @@
     "wikiTitle": "Writer"
   },
   "spissky": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "splatka": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "splatnost": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "splnat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "splnenie": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "splnit": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spocivat": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spodny": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spoj": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
     "status": "missing"
   },
   "spojenec": {
-    "fetchedAt": "2026-08-04T19:45:15.182Z",
-    "status": "missing"
+    "artist": "Tobechi Ugwumba",
+    "caption": "ally",
+    "commonsFile": "Ally at 2GG Greninja Saga 2017.jpg",
+    "fetchedAt": "2026-08-04T20:59:50.949Z",
+    "file": "spojenec.jpg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Ally_at_2GG_Greninja_Saga_2017.jpg",
+    "status": "ok",
+    "wikiLang": "sk",
+    "wikiTitle": "spojenec"
   },
   "spojenie": {
     "fetchedAt": "2026-08-04T19:45:15.182Z",

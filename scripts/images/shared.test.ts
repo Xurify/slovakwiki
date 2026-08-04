@@ -51,26 +51,27 @@ describe("allowsCommonsAutoPromote", () => {
   });
 
   it("allows Food / Places; blocks tiny Essentials glosses", () => {
-    expect(allowsCommonsAutoPromote(target({ category: "Food", gloss: "lunch" }))).toBe(
-      true,
-    );
+    expect(
+      allowsCommonsAutoPromote(
+        target({ category: "Nouns", topics: ["Food"], gloss: "lunch" }),
+      ),
+    ).toBe(true);
     expect(
       allowsCommonsAutoPromote(target({ category: "Places", gloss: "Britain" })),
     ).toBe(true);
     expect(
-      allowsCommonsAutoPromote(target({ category: "Essentials", gloss: "yes" })),
+      allowsCommonsAutoPromote(
+        target({ category: "Phrases", topics: ["Essentials"], gloss: "yes" }),
+      ),
     ).toBe(false);
   });
 });
 
 describe("nounCommonsQueries", () => {
   it("adds meal queries for Food", () => {
-    expect(nounCommonsQueries(target({ category: "Food", gloss: "lunch" }))).toEqual([
-      "lunch",
-      "lunch food",
-      "lunch meal",
-      "lunch dish",
-    ]);
+    expect(
+      nounCommonsQueries(target({ category: "Nouns", topics: ["Food"], gloss: "lunch" })),
+    ).toEqual(["lunch", "lunch food", "lunch meal", "lunch dish"]);
   });
 });
 

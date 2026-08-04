@@ -30,12 +30,16 @@ export interface WordFrequency {
 /**
  * Runtime dictionary / grammar / pronunciation entry.
  * Hand-authored lemmas use only the `WordSeed` fields (slug, slovak, english,
- * category, examples, related) — see `content/dictionary/README.md`.
+ * category, examples, related, topics?) — see `content/dictionary/README.md`.
  * `origin`, `frequency`, `body`, `summary`, `tags`, and source* are filled in `data.ts`.
  */
 export interface ContentEntry {
   aliases?: string[];
   body: string[];
+  /**
+   * Dictionary browse bucket: `Verbs` | `Nouns` | `Adjectives` | `Places` | `Phrases`.
+   * Learner themes (Food, Greetings, …) live in `topics`, not here.
+   */
   category: string;
   english: string;
   examples: Example[];
@@ -57,6 +61,11 @@ export interface ContentEntry {
   sourceNote?: string;
   summary: string;
   tags: string[];
+  /**
+   * Optional learner themes for a future Essentials page (Food, Greetings, …).
+   * Not used as dictionary browse chips.
+   */
+  topics?: string[];
 }
 
 export interface GrammarPattern {

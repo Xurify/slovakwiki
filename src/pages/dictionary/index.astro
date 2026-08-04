@@ -6,6 +6,7 @@ import { words } from "$lib/content/data";
 const entries = words.map((word) => ({
   category: word.category,
   english: word.english,
+  frequencyRank: word.frequency?.rank,
   origin: word.origin,
   slug: word.slug,
   slovak: word.slovak,
@@ -14,7 +15,7 @@ const entries = words.map((word) => ({
 
 <SiteLayout
   title="Dictionary — Slovak Wiki"
-  description="Look up Slovak words by topic, letter, or English meaning."
+  description="Look up Slovak words by letter, part of speech, or English meaning."
 >
   <WikiPage client:load {entries} />
 </SiteLayout>

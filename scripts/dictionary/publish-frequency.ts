@@ -27,11 +27,12 @@ import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related"
+  "slug" | "slovak" | "english" | "category" | "examples" | "related" | "topics"
 >;
 
 interface Gloss {
   english: string;
+  /** Browse override — only `Places` (or other browse buckets) are honored. */
   category?: string;
 }
 
@@ -50,6 +51,24 @@ const CATEGORY_BY_PART_OF_SPEECH: Record<FrequencyPartOfSpeech, string> = {
   noun: "Nouns",
   adjective: "Adjectives",
 };
+
+/** Gloss `category` overrides allowed on publish (themes belong in curated `topics`). */
+const BROWSE_CATEGORY_OVERRIDES = new Set([
+  "Verbs",
+  "Nouns",
+  "Adjectives",
+  "Places",
+  "Phrases",
+]);
+
+function resolvePublishCategory(
+  gloss: Gloss,
+  partOfSpeech: FrequencyPartOfSpeech,
+): string {
+  const override = gloss.category?.trim();
+  if (override && BROWSE_CATEGORY_OVERRIDES.has(override)) return override;
+  return CATEGORY_BY_PART_OF_SPEECH[partOfSpeech];
+}
 
 const PART_OF_SPEECH_SLUG_SUFFIX: Record<FrequencyPartOfSpeech, string> = {
   verb: "v",
@@ -178,7 +197,7 @@ async function main(): Promise<void> {
         slug,
         slovak: entry.lemma,
         english: gloss.english.trim(),
-        category: gloss.category?.trim() || CATEGORY_BY_PART_OF_SPEECH[partOfSpeech],
+        category: resolvePublishCategory(gloss, partOfSpeech),
         examples: [],
         related: [],
       };

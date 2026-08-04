@@ -11,6 +11,8 @@
   export interface DictionaryIndexEntry {
     category: string;
     english: string;
+    /** SNK rank when known — used by the Common filter. */
+    frequencyRank?: number;
     origin?: WordOrigin;
     slug: string;
     slovak: string;
@@ -18,8 +20,18 @@
 
   let { entries }: { entries: DictionaryIndexEntry[] } = $props();
 
-  const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives", "Places"]);
+  /** SNK rank ceiling for the Common chip (top ~500 per POS → ~1500 lemmas). */
+  const COMMON_RANK_MAX = 500;
   const PAGE_SIZE = 50;
+
+  /** Fixed browse chips — thematic Food/Greetings/… live on a future Essentials page. */
+  const BROWSE_CATEGORIES = [
+    "Nouns",
+    "Verbs",
+    "Adjectives",
+    "Places",
+    "Phrases",
+  ] as const;
 
   const categoryCounts = new Map<string, number>();
 
@@ -27,14 +39,11 @@
     categoryCounts.set(entry.category, (categoryCounts.get(entry.category) ?? 0) + 1);
   }
 
-  const curatedCategories = [...categoryCounts]
-    .filter(([category]) => !MASS_CATEGORIES.has(category))
-    .toSorted(([first], [second]) => first.localeCompare(second));
-  const massCategories = [...categoryCounts]
-    .filter(([category]) => MASS_CATEGORIES.has(category))
-    .toSorted(([first], [second]) => first.localeCompare(second));
-
   const featuredCount = entries.filter((entry) => entry.origin === "curated").length;
+  const commonCount = entries.filter(
+    (entry) =>
+      entry.frequencyRank !== undefined && entry.frequencyRank <= COMMON_RANK_MAX,
+  ).length;
 
   const availableLetters = [
     ...new Set(
@@ -45,16 +54,12 @@
   const topicOptions = [
     { value: "all", label: "All words", count: entries.length },
     { value: "featured", label: "Featured", count: featuredCount },
-    ...curatedCategories.map(([category, count]) => ({
+    { value: "common", label: "Common", count: commonCount },
+    ...BROWSE_CATEGORIES.map((category) => ({
       value: category,
       label: category,
-      count,
-    })),
-    ...massCategories.map(([category, count]) => ({
-      value: category,
-      label: category,
-      count,
-    })),
+      count: categoryCounts.get(category) ?? 0,
+    })).filter((option) => option.count > 0),
   ];
   const letterOptions = [
     { value: "all", label: "All" },
@@ -72,6 +77,11 @@
       .filter((entry) => {
         if (activeCategory === "all") return true;
         if (activeCategory === "featured") return entry.origin === "curated";
+        if (activeCategory === "common") {
+          return (
+            entry.frequencyRank !== undefined && entry.frequencyRank <= COMMON_RANK_MAX
+          );
+        }
         return entry.category === activeCategory;
       })
       .filter(
@@ -200,8 +210,9 @@
       <Eyebrow>Reference</Eyebrow>
       <h1>Dictionary</h1>
       <Lead>
-        Search or browse every lemma by letter and topic. Featured is a short curated
-        starter set; for frequency-ranked lists, open Most common.
+        Search or browse every lemma by letter and part of speech. Featured is a short
+        curated starter set; Common is the SNK top 500 per list. For full ranked lists,
+        open Most common.
       </Lead>
       <p class="mt-4 text-sm text-slate-500">
         Also browse the
@@ -247,7 +258,7 @@
       </div>
     </div>
 
-    <nav class="mt-6 flex flex-wrap gap-1.5" aria-label="Filter dictionary by topic">
+    <nav class="mt-6 flex flex-wrap gap-1.5" aria-label="Filter dictionary by category">
       {#each topicOptions as option (option.value)}
         <button
           class="cursor-pointer rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors {chipClass(

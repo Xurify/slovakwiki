@@ -285,16 +285,12 @@ export function searchFormsForLemma(slovak: string, category: string): string[] 
       forms = adjectiveForms(slovak);
       break;
     case "Nouns":
-    case "Food":
-    case "People":
-    case "Travel":
-    case "Everyday life":
-    case "Learning":
-    case "Essentials":
-    case "Questions":
-    case "Conversation":
-    case "Greetings":
+    case "Places":
       forms = nounForms(slovak);
+      break;
+    case "Phrases":
+      // Fixed phrases / function words — no productive inflection index.
+      forms = [];
       break;
     default:
       forms = [];

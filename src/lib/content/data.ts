@@ -24,7 +24,7 @@ const snkSourceUrl =
  */
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related"
+  "slug" | "slovak" | "english" | "category" | "examples" | "related" | "topics"
 >;
 
 type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
@@ -65,7 +65,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "ahoj",
     slovak: "ahoj",
     english: "hello; hi; bye",
-    category: "Greetings",
+    category: "Phrases",
+    topics: ["Greetings"],
     examples: [
       { slovak: "Ahoj, ako sa máš?", english: "Hi, how are you?" },
       { slovak: "Ahoj, maj sa!", english: "Bye, take care!" },
@@ -76,7 +77,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "dakujem",
     slovak: "ďakujem",
     english: "thank you",
-    category: "Essentials",
+    category: "Phrases",
+    topics: ["Essentials"],
     examples: [
       { slovak: "Ďakujem za pomoc.", english: "Thank you for the help." },
       { slovak: "Ďakujem pekne.", english: "Thank you kindly." },
@@ -87,7 +89,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "prosim",
     slovak: "prosím",
     english: "please; you’re welcome",
-    category: "Essentials",
+    category: "Phrases",
+    topics: ["Essentials"],
     examples: [
       { slovak: "Jednu kávu, prosím.", english: "One coffee, please." },
       { slovak: "Ďakujem. — Prosím.", english: "Thank you. — You’re welcome." },
@@ -98,7 +101,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "ano",
     slovak: "áno",
     english: "yes",
-    category: "Essentials",
+    category: "Phrases",
+    topics: ["Essentials"],
     examples: [
       { slovak: "Áno, rozumiem.", english: "Yes, I understand." },
       { slovak: "Áno, prosím.", english: "Yes, please." },
@@ -109,7 +113,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "nie",
     slovak: "nie",
     english: "no; not",
-    category: "Essentials",
+    category: "Phrases",
+    topics: ["Essentials"],
     examples: [
       { slovak: "Nie, ďakujem.", english: "No, thank you." },
       { slovak: "Nie je to pravda.", english: "That is not true." },
@@ -120,7 +125,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "dobry-den",
     slovak: "dobrý deň",
     english: "good day; hello",
-    category: "Greetings",
+    category: "Phrases",
+    topics: ["Greetings"],
     examples: [
       { slovak: "Dobrý deň, pani Nováková.", english: "Hello, Ms. Nováková." },
       { slovak: "Dobrý deň, ako sa máte?", english: "Good day, how are you?" },
@@ -131,7 +137,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "dovidenia",
     slovak: "dovidenia",
     english: "goodbye",
-    category: "Greetings",
+    category: "Phrases",
+    topics: ["Greetings"],
     examples: [
       { slovak: "Ďakujem, dovidenia.", english: "Thank you, goodbye." },
       { slovak: "Dovidenia, prajem pekný deň.", english: "Goodbye, have a nice day." },
@@ -142,7 +149,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "prepacte",
     slovak: "prepáčte",
     english: "excuse me; sorry",
-    category: "Essentials",
+    category: "Phrases",
+    topics: ["Essentials"],
     examples: [
       {
         slovak: "Prepáčte, kde je stanica?",
@@ -156,7 +164,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "ako",
     slovak: "ako",
     english: "how; as; like",
-    category: "Questions",
+    category: "Phrases",
+    topics: ["Questions"],
     examples: [
       { slovak: "Ako sa voláš?", english: "What is your name?" },
       {
@@ -170,7 +179,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "kde",
     slovak: "kde",
     english: "where",
-    category: "Questions",
+    category: "Phrases",
+    topics: ["Questions"],
     examples: [
       { slovak: "Kde bývaš?", english: "Where do you live?" },
       { slovak: "Kde je toaleta?", english: "Where is the toilet?" },
@@ -181,7 +191,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "co",
     slovak: "čo",
     english: "what",
-    category: "Questions",
+    category: "Phrases",
+    topics: ["Questions"],
     examples: [
       { slovak: "Čo to znamená?", english: "What does that mean?" },
       { slovak: "Čo robíš?", english: "What are you doing?" },
@@ -192,7 +203,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "kto",
     slovak: "kto",
     english: "who",
-    category: "Questions",
+    category: "Phrases",
+    topics: ["Questions"],
     examples: [
       { slovak: "Kto je to?", english: "Who is that?" },
       { slovak: "Kto hovorí po anglicky?", english: "Who speaks English?" },
@@ -203,7 +215,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "kolko",
     slovak: "koľko",
     english: "how much; how many",
-    category: "Questions",
+    category: "Phrases",
+    topics: ["Questions"],
     examples: [
       { slovak: "Koľko to stojí?", english: "How much does it cost?" },
       { slovak: "Koľko máš rokov?", english: "How old are you?" },
@@ -214,7 +227,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "rozumiem",
     slovak: "rozumiem",
     english: "I understand",
-    category: "Conversation",
+    category: "Phrases",
+    topics: ["Conversation"],
     examples: [
       {
         slovak: "Trochu rozumiem po slovensky.",
@@ -228,7 +242,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "hovorit",
     slovak: "hovoriť",
     english: "to speak",
-    category: "Conversation",
+    category: "Verbs",
+    topics: ["Conversation"],
     examples: [
       {
         slovak: "Hovorím po slovensky.",
@@ -249,7 +264,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "slovensky",
     slovak: "slovensky",
     english: "in Slovak",
-    category: "Conversation",
+    category: "Phrases",
+    topics: ["Conversation"],
     examples: [
       { slovak: "Učím sa po slovensky.", english: "I am learning Slovak." },
       { slovak: "Hovoríte po slovensky?", english: "Do you speak Slovak?" },
@@ -260,7 +276,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "ucit-sa",
     slovak: "učiť sa",
     english: "to learn; to study",
-    category: "Learning",
+    category: "Verbs",
+    topics: ["Learning"],
     examples: [
       { slovak: "Učím sa nové slová.", english: "I am learning new words." },
       { slovak: "Učíš sa každý deň?", english: "Do you study every day?" },
@@ -271,7 +288,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "slovo",
     slovak: "slovo",
     english: "word",
-    category: "Learning",
+    category: "Nouns",
+    topics: ["Learning"],
     examples: [
       { slovak: "Toto slovo je nové.", english: "This word is new." },
       { slovak: "Neviem to slovo.", english: "I don’t know that word." },
@@ -282,7 +300,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "jazyk",
     slovak: "jazyk",
     english: "language; tongue",
-    category: "Learning",
+    category: "Nouns",
+    topics: ["Learning"],
     examples: [
       {
         slovak: "Slovenčina je slovanský jazyk.",
@@ -296,7 +315,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "dom",
     slovak: "dom",
     english: "house; home",
-    category: "Everyday life",
+    category: "Nouns",
+    topics: ["Everyday life"],
     examples: [
       { slovak: "Náš dom je malý.", english: "Our house is small." },
       { slovak: "Mám nový dom.", english: "I have a new house." },
@@ -307,7 +327,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "rodina",
     slovak: "rodina",
     english: "family",
-    category: "Everyday life",
+    category: "Nouns",
+    topics: ["Everyday life"],
     examples: [
       {
         slovak: "Moja rodina žije na Slovensku.",
@@ -321,7 +342,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "priatel",
     slovak: "priateľ",
     english: "friend; boyfriend",
-    category: "People",
+    category: "Nouns",
+    topics: ["People"],
     examples: [
       { slovak: "Peter je môj priateľ.", english: "Peter is my friend." },
       { slovak: "Idem s priateľom.", english: "I am going with a friend." },
@@ -332,7 +354,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "clovek",
     slovak: "človek",
     english: "person; human",
-    category: "People",
+    category: "Nouns",
+    topics: ["People"],
     examples: [
       { slovak: "Je to dobrý človek.", english: "He is a good person." },
       {
@@ -346,7 +369,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "muz",
     slovak: "muž",
     english: "man; husband",
-    category: "People",
+    category: "Nouns",
+    topics: ["People"],
     examples: [
       { slovak: "Ten muž čaká.", english: "That man is waiting." },
       {
@@ -360,7 +384,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "zena",
     slovak: "žena",
     english: "woman; wife",
-    category: "People",
+    category: "Nouns",
+    topics: ["People"],
     examples: [
       { slovak: "Tá žena číta.", english: "That woman is reading." },
       { slovak: "Moja žena je učiteľka.", english: "My wife is a teacher." },
@@ -371,7 +396,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "jedlo",
     slovak: "jedlo",
     english: "food; meal",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Toto jedlo je výborné.", english: "This food is excellent." },
       { slovak: "Kde je dobré jedlo?", english: "Where is good food?" },
@@ -396,7 +422,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "voda",
     slovak: "voda",
     english: "water",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Prosím si pohár vody.", english: "I’d like a glass of water." },
       { slovak: "Pijem veľa vody.", english: "I drink a lot of water." },
@@ -407,7 +434,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "kava",
     slovak: "káva",
     english: "coffee",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Dáte si kávu?", english: "Would you like coffee?" },
       { slovak: "Ráno pijem kávu.", english: "I drink coffee in the morning." },
@@ -419,7 +447,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "kolac",
     slovak: "koláč",
     english: "cake; pastry",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Moja mama pečie koláč.", english: "My mom is baking a cake." },
       { slovak: "Ten koláč je výborný.", english: "That cake is excellent." },
@@ -430,7 +459,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "vecera",
     slovak: "večera",
     english: "dinner; evening meal",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Večera je o šiestej.", english: "Dinner is at six." },
       { slovak: "Na večeru mám polievku.", english: "I have soup for dinner." },
@@ -441,7 +471,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "obed",
     slovak: "obed",
     english: "lunch",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Obed je pripravený.", english: "Lunch is ready." },
       {
@@ -455,7 +486,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "ranajky",
     slovak: "raňajky",
     english: "breakfast",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Raňajky mám o siedmej.", english: "I have breakfast at seven." },
       {
@@ -469,7 +501,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "mlieko",
     slovak: "mlieko",
     english: "milk",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Pijem ráno mlieko.", english: "I drink milk in the morning." },
       { slovak: "Mlieko je v chladničke.", english: "The milk is in the fridge." },
@@ -480,7 +513,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "polievka",
     slovak: "polievka",
     english: "soup",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Polievka je horúca.", english: "The soup is hot." },
       { slovak: "Dám si zeleninovú polievku.", english: "I’ll have vegetable soup." },
@@ -491,7 +525,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "caj",
     slovak: "čaj",
     english: "tea",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Večer pijem čaj.", english: "I drink tea in the evening." },
       { slovak: "Prosím si teplý čaj.", english: "I’d like hot tea." },
@@ -503,7 +538,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "syr",
     slovak: "syr",
     english: "cheese",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Mám rád slovenský syr.", english: "I like Slovak cheese." },
       { slovak: "Syr je na stole.", english: "The cheese is on the table." },
@@ -514,7 +550,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "maslo",
     slovak: "maslo",
     english: "butter",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Maslo je v chladničke.", english: "The butter is in the fridge." },
       { slovak: "Na chlieb dávam maslo.", english: "I put butter on bread." },
@@ -525,7 +562,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "cukor",
     slovak: "cukor",
     english: "sugar",
-    category: "Food",
+    category: "Nouns",
+    topics: ["Food"],
     examples: [
       { slovak: "Dáš si cukor do čaju?", english: "Do you want sugar in your tea?" },
       { slovak: "Káva je bez cukru.", english: "The coffee is without sugar." },
@@ -537,6 +575,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "mesto",
     english: "city; town",
     category: "Places",
+    topics: ["Places"],
     examples: [
       {
         slovak: "Bratislava je hlavné mesto.",
@@ -550,7 +589,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "stanica",
     slovak: "stanica",
     english: "station",
-    category: "Travel",
+    category: "Nouns",
+    topics: ["Travel"],
     examples: [
       { slovak: "Stanica je blízko.", english: "The station is nearby." },
       { slovak: "Idem na stanicu.", english: "I am going to the station." },
@@ -561,7 +601,8 @@ const curatedWordSeed: WordSeed[] = [
     slug: "listok",
     slovak: "lístok",
     english: "ticket; small leaf",
-    category: "Travel",
+    category: "Nouns",
+    topics: ["Travel"],
     examples: [
       {
         slovak: "Jeden lístok do Košíc, prosím.",
@@ -691,7 +732,11 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
     origin,
     frequency,
     ...attribution,
-    tags: [word.category.toLowerCase(), "beginner"],
+    tags: [
+      word.category.toLowerCase(),
+      ...(word.topics ?? []).map((topic) => topic.toLowerCase()),
+      "beginner",
+    ],
   };
 });
 

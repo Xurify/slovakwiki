@@ -34,6 +34,8 @@ export interface ImageTarget {
   gloss: string;
   slovak: string;
   slug: string;
+  /** Learner themes from curated seed (Food, People, …). */
+  topics?: string[];
 }
 
 export function parseArgs(argv: string[]): {
@@ -257,18 +259,27 @@ export function verbActionQuery(english: string): string | undefined {
 }
 
 export function isVerbLikeCategory(category: string): boolean {
-  return category === "Verbs" || category === "Conversation";
+  return category === "Verbs";
 }
 
-/** Categories safe for automatic Commons gloss search (concrete referents). */
-const COMMONS_SAFE_CATEGORIES = new Set([
+/** Themes safe for automatic Commons gloss search (concrete referents). */
+const COMMONS_SAFE_TOPICS = new Set([
   "Food",
   "Places",
   "People",
   "Everyday life",
   "Travel",
-  "Essentials",
 ]);
+
+function commonsTheme(target: ImageTarget): string | undefined {
+  if (target.category === "Places") return "Places";
+  return target.topics?.find((topic) => COMMONS_SAFE_TOPICS.has(topic));
+}
+
+/** True when target has a concrete learner theme (Food, Places, …). */
+export function hasCommonsSafeTheme(target: ImageTarget): boolean {
+  return commonsTheme(target) !== undefined;
+}
 
 const ABSTRACT_GLOSS_HEAD =
   /^(state|act|process|quality|condition|feeling|sense|amount|number|way|manner|kind|type|form|part|fact|idea|concept|system|level|rate|role|case|point|time|end|use|result|effect|change|order|group|set|list|area|side|line|thing|absolute|relative|general|special|particular|various|certain|possible|necessary|important|basic|main|real|true|false|same|other|own|such|whole|total|public|private|social|political|economic|cultural|national|international|official|personal|natural|normal|usual|common|simple|complex|modern|ancient|former|future|present|past|final|initial|primary|secondary|positive|negative|active|passive|direct|indirect|internal|external|local|global|original|typical|specific|available|responsible|successful|professional|traditional|potential|actual|current|previous|next|following|related|similar|different|additional|extra|further)$/i;
@@ -298,12 +309,12 @@ export function glossLooksConcrete(english: string): boolean {
 }
 
 /**
- * Auto-promote Commons only for concrete learner categories (Food, Places, …)
+ * Auto-promote Commons only for concrete learner themes (Food, Places, …)
  * when Wikipedia pageimages miss (e.g. obed → “lunch meal”).
  * General Nouns / adjectives / verbs: stage → promote (polysemy risk).
  */
 export function allowsCommonsAutoPromote(target: ImageTarget): boolean {
-  if (!COMMONS_SAFE_CATEGORIES.has(target.category)) return false;
+  if (!commonsTheme(target)) return false;
   const head = glossSearchTitle(target.gloss);
   if (!head || head.length < 4) return false;
   // Tiny discourse glosses → concert/brand false friends (“yes”, “okay”).
@@ -313,7 +324,7 @@ export function allowsCommonsAutoPromote(target: ImageTarget): boolean {
   return true;
 }
 
-/** Ranked Commons search queries from gloss + category (obed → lunch / lunch meal). */
+/** Ranked Commons search queries from gloss + topic (obed → lunch / lunch meal). */
 export function nounCommonsQueries(target: ImageTarget): string[] {
   const head = glossSearchTitle(target.gloss);
   if (!head) return [];
@@ -331,7 +342,7 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
 
   push(head);
 
-  switch (target.category) {
+  switch (commonsTheme(target)) {
     case "Food":
       push(`${head} food`);
       push(`${head} meal`);
@@ -350,8 +361,11 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
       push(`${head} transport`);
       push(`${head} station`);
       break;
+    case "Everyday life":
+      push(`${head} house`);
+      push(`${head} home`);
+      break;
     default:
-      push(`${head} object`);
       break;
   }
 
@@ -462,6 +476,7 @@ export function collectImageTargets(options?: {
       gloss: glossSource.english,
       slovak: canonical.slovak,
       slug,
+      topics: canonical.topics,
     });
   }
 

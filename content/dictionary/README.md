@@ -22,7 +22,8 @@ Hand-authored shape (`WordSeed`). Runtime fills `kind`, `summary`, `body`, `tags
   "slug": "dakujem",
   "slovak": "ďakujem",
   "english": "thank you",
-  "category": "Essentials",
+  "category": "Phrases",
+  "topics": ["Essentials"],
   "examples": [
     {
       "slovak": "Ďakujem za pomoc.",
@@ -46,7 +47,8 @@ Hand-authored shape (`WordSeed`). Runtime fills `kind`, `summary`, `body`, `tags
 | `slug`     | yes      | From `lemmaToSlug(slovak)` in `src/lib/content/frequency.ts`: lowercase, strip diacritics, non-alphanumeric → `-`, trim hyphens. Unique across curated seed + `words.json`. On POS collision, frequency publish uses `-v` / `-n` / `-a` (e.g. `stat-n`). |
 | `slovak`   | yes      | Lemma with correct diacritics (`ďakujem`, not `dakujem`).                                                                                                                                                                                                |
 | `english`  | yes      | Short gloss; multiple senses with `; ` (`can; to be able to`).                                                                                                                                                                                           |
-| `category` | yes      | See categories below — match the home file.                                                                                                                                                                                                              |
+| `category` | yes      | Browse bucket: `Verbs` / `Nouns` / `Adjectives` / `Places` / `Phrases`. Themes go in `topics`.                                                                                                                                                           |
+| `topics`   | no       | Optional learner themes (`Food`, `Greetings`, …) for Essentials / home previews — not dictionary chips.                                                                                                                                                  |
 | `examples` | yes      | See example rules.                                                                                                                                                                                                                                       |
 | `related`  | yes      | Array of **existing** slugs (may be `[]`). No free-text labels.                                                                                                                                                                                          |
 
@@ -64,11 +66,25 @@ Do not hand-write `origin`, `frequency`, `body`, `summary`, `tags`, or source fi
 
 ## Categories
 
-**Curated seed** (topic labels): `Greetings`, `Essentials`, `Questions`, `Conversation`, `Learning`, `Everyday life`, `People`, `Food`, `Places`, `Travel`, …
+**Browse buckets** (`category` — dictionary chips + POS): `Verbs`, `Nouns`, `Adjectives`, `Places`, `Phrases`.
 
-**`words.json` bulk** (POS / entity): `Verbs`, `Nouns`, `Adjectives`, `Places`.
+**Learner themes** (`topics` — curated seed only; future Essentials page): `Greetings`, `Essentials`, `Questions`, `Conversation`, `Learning`, `Everyday life`, `People`, `Food`, `Travel`, …
 
-Do not invent a new category unless the UI already treats it as a browse bucket. Prefer an existing label.
+`words.json` bulk rows use POS / Places only. Do not invent a new browse `category` unless the dictionary UI already treats it as a chip. Prefer an existing label. Put themes in `topics`, not `category`.
+
+Example curated seed:
+
+```json
+{
+  "slug": "jedlo",
+  "slovak": "jedlo",
+  "english": "food; meal",
+  "category": "Nouns",
+  "topics": ["Food"],
+  "examples": [],
+  "related": []
+}
+```
 
 ## Examples — how many
 
@@ -95,6 +111,6 @@ Hand-add checklist:
 ## Anti-patterns
 
 - Duplicating a curated slug into `words.json` (seed wins; bulk row is filtered out).
-- Putting topic categories (`Food`) into bulk frequency rows without intent.
+- Putting theme labels (`Food`) into `category` instead of `topics` (breaks POS browse + search forms).
 - Related entries that are English glosses or Slovak surface forms instead of slugs.
 - Stuffing weak fill stubs into the first four slots.

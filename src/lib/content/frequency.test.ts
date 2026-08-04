@@ -41,12 +41,16 @@ describe("frequency helpers", () => {
     expect(findLiveWordForLemma("dospelý", words, "adjective")?.slug).toBe("dospely-a");
   });
 
-  it("links frequency nouns/verbs to curated topical categories", () => {
+  it("links frequency nouns/verbs to curated POS categories", () => {
     expect(findLiveWordForLemma("človek", words, "noun")?.slug).toBe("clovek");
-    expect(findLiveWordForLemma("človek", words, "noun")?.category).toBe("People");
+    expect(findLiveWordForLemma("človek", words, "noun")?.category).toBe("Nouns");
+    expect(findLiveWordForLemma("človek", words, "noun")?.topics).toContain("People");
     expect(findLiveWordForLemma("mesto", words, "noun")?.category).toBe("Places");
     expect(findLiveWordForLemma("hovoriť", words, "verb")?.slug).toBe("hovorit");
-    expect(findLiveWordForLemma("hovoriť", words, "verb")?.category).toBe("Conversation");
+    expect(findLiveWordForLemma("hovoriť", words, "verb")?.category).toBe("Verbs");
+    expect(findLiveWordForLemma("hovoriť", words, "verb")?.topics).toContain(
+      "Conversation",
+    );
   });
 
   it("does not link diacritic near-misses to the wrong word", () => {

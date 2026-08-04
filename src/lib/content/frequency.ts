@@ -32,8 +32,8 @@ const FREQUENCY_PART_OF_SPEECH_CATEGORIES = new Set<string>([
 
 /**
  * Prefer the frequency part-of-speech category, then fall back to a curated
- * topical entry for the same lemma (People / Places / Conversation / …) so
- * common lists do not show “Not in dictionary yet” when the page already exists.
+ * entry for the same lemma (Places / Phrases / …) so common lists do not show
+ * “Not in dictionary yet” when the page already exists.
  */
 function pickForPreferredPartOfSpeech(
   matches: readonly ContentEntry[],

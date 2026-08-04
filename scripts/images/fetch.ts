@@ -27,6 +27,7 @@ import {
   ensureImagesDir,
   extensionFromMimeOrUrl,
   glossSearchTitle,
+  hasCommonsSafeTheme,
   isBitmapMime,
   isRejectedCommonsTitle,
   isVerbLikeCategory,
@@ -467,13 +468,9 @@ async function findCommonsHitForTarget(
         wikiTitle: target.slovak,
       };
     }
-    // Safe visual categories: accept top free hit even without title match.
-    // Skip Essentials here — short glosses need a title match.
-    if (
-      !fallback &&
-      hits[0] &&
-      ["Food", "Places", "People", "Travel", "Everyday life"].includes(target.category)
-    ) {
+    // Safe visual themes: accept top free hit even without title match.
+    // Skip Phrases / Essentials — short glosses need a title match.
+    if (!fallback && hits[0] && hasCommonsSafeTheme(target)) {
       fallback = hits[0];
     }
   }

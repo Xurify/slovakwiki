@@ -53,9 +53,9 @@
     "Learning",
     "Food",
   ]
-    .map((category) => ({
-      category,
-      entries: words.filter((word) => word.category === category),
+    .map((topic) => ({
+      category: topic,
+      entries: words.filter((word) => word.topics?.includes(topic)),
     }))
     .filter((group) => group.entries.length > 0);
 
