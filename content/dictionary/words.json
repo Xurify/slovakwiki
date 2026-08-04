@@ -54,11 +54,7 @@
         "tatoebaId": 2914677
       }
     ],
-    "related": [
-      "mat",
-      "bratislava",
-      "ucitel"
-    ]
+    "related": ["mat", "bratislava", "ucitel"]
   },
   {
     "slug": "mat",
@@ -113,11 +109,7 @@
         "tatoebaId": 8874241
       }
     ],
-    "related": [
-      "byt",
-      "rad",
-      "moct"
-    ]
+    "related": ["byt", "rad", "moct"]
   },
   {
     "slug": "moct",
@@ -174,10 +166,7 @@
         "tatoebaId": 2859045
       }
     ],
-    "related": [
-      "musiet",
-      "chciet"
-    ]
+    "related": ["musiet", "chciet"]
   },
   {
     "slug": "povedat",
@@ -234,9 +223,7 @@
         "tatoebaId": 2914705
       }
     ],
-    "related": [
-      "hovorit"
-    ]
+    "related": ["hovorit"]
   },
   {
     "slug": "chciet",
@@ -293,10 +280,7 @@
         "tatoebaId": 1044726
       }
     ],
-    "related": [
-      "moct",
-      "musiet"
-    ]
+    "related": ["moct", "musiet"]
   },
   {
     "slug": "musiet",
@@ -353,10 +337,7 @@
         "tatoebaId": 9753727
       }
     ],
-    "related": [
-      "moct",
-      "chciet"
-    ]
+    "related": ["moct", "chciet"]
   },
   {
     "slug": "ist",
@@ -413,10 +394,7 @@
         "tatoebaId": 2233475
       }
     ],
-    "related": [
-      "chodit",
-      "prist"
-    ]
+    "related": ["chodit", "prist"]
   },
   {
     "slug": "nebyt",
@@ -469,9 +447,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "byt"
-    ]
+    "related": ["byt"]
   },
   {
     "slug": "dat",
@@ -528,9 +504,7 @@
         "tatoebaId": 9968816
       }
     ],
-    "related": [
-      "davat"
-    ]
+    "related": ["davat"]
   },
   {
     "slug": "nemat",
@@ -587,9 +561,7 @@
         "tatoebaId": 5726921
       }
     ],
-    "related": [
-      "mat"
-    ]
+    "related": ["mat"]
   },
   {
     "slug": "vediet",
@@ -646,9 +618,7 @@
         "tatoebaId": 2921831
       }
     ],
-    "related": [
-      "nevediet"
-    ]
+    "related": ["nevediet"]
   },
   {
     "slug": "zacat",
@@ -705,9 +675,7 @@
         "tatoebaId": 9003731
       }
     ],
-    "related": [
-      "prestat"
-    ]
+    "related": ["prestat"]
   },
   {
     "slug": "prist",
@@ -764,11 +732,7 @@
         "tatoebaId": 8947887
       }
     ],
-    "related": [
-      "odist",
-      "ist",
-      "chodit"
-    ]
+    "related": ["odist", "ist", "chodit"]
   },
   {
     "slug": "dostat",
@@ -825,10 +789,7 @@
         "tatoebaId": 8921098
       }
     ],
-    "related": [
-      "dat",
-      "davat"
-    ]
+    "related": ["dat", "davat"]
   },
   {
     "slug": "stat",
@@ -885,11 +846,7 @@
         "tatoebaId": 9040961
       }
     ],
-    "related": [
-      "stat-v",
-      "byt",
-      "ucitel"
-    ]
+    "related": ["stat-v", "byt", "ucitel"]
   },
   {
     "slug": "vidiet",
@@ -946,9 +903,7 @@
         "tatoebaId": 8905390
       }
     ],
-    "related": [
-      "pozerat"
-    ]
+    "related": ["pozerat"]
   },
   {
     "slug": "robit",
@@ -1005,9 +960,7 @@
         "tatoebaId": 9003752
       }
     ],
-    "related": [
-      "urobit"
-    ]
+    "related": ["urobit"]
   },
   {
     "slug": "mysliet",
@@ -1064,10 +1017,7 @@
         "tatoebaId": 2915837
       }
     ],
-    "related": [
-      "pomysliet",
-      "rozmyslat"
-    ]
+    "related": ["pomysliet", "rozmyslat"]
   },
   {
     "slug": "nemoct",
@@ -1116,9 +1066,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "moct"
-    ]
+    "related": ["moct"]
   },
   {
     "slug": "nevediet",
@@ -1172,9 +1120,7 @@
         "tatoebaId": 8921026
       }
     ],
-    "related": [
-      "vediet"
-    ]
+    "related": ["vediet"]
   },
   {
     "slug": "hrat",
@@ -1345,9 +1291,7 @@
         "tatoebaId": 8862476
       }
     ],
-    "related": [
-      "hladat"
-    ]
+    "related": ["hladat"]
   },
   {
     "slug": "urobit",
@@ -1404,9 +1348,7 @@
         "tatoebaId": 8083541
       }
     ],
-    "related": [
-      "robit"
-    ]
+    "related": ["robit"]
   },
   {
     "slug": "patrit",
@@ -1520,9 +1462,7 @@
         "tatoebaId": 10048619
       }
     ],
-    "related": [
-      "rozhodovat"
-    ]
+    "related": ["rozhodovat"]
   },
   {
     "slug": "cakat",
@@ -1579,9 +1519,7 @@
         "tatoebaId": 8939214
       }
     ],
-    "related": [
-      "pockat"
-    ]
+    "related": ["pockat"]
   },
   {
     "slug": "zit",
@@ -1638,9 +1576,7 @@
         "tatoebaId": 8974898
       }
     ],
-    "related": [
-      "byvat"
-    ]
+    "related": ["byvat"]
   },
   {
     "slug": "uviest",
@@ -1746,9 +1682,7 @@
         "tatoebaId": 11766275
       }
     ],
-    "related": [
-      "vracat"
-    ]
+    "related": ["vracat"]
   },
   {
     "slug": "nechciet",
@@ -1802,9 +1736,7 @@
         "tatoebaId": 8865661
       }
     ],
-    "related": [
-      "chciet"
-    ]
+    "related": ["chciet"]
   },
   {
     "slug": "viest",
@@ -1975,9 +1907,7 @@
         "tatoebaId": 8902750
       }
     ],
-    "related": [
-      "koncit"
-    ]
+    "related": ["koncit"]
   },
   {
     "slug": "tvrdit",
@@ -2196,9 +2126,7 @@
         "tatoebaId": 8947884
       }
     ],
-    "related": [
-      "pomahat"
-    ]
+    "related": ["pomahat"]
   },
   {
     "slug": "pokracovat",
@@ -2252,9 +2180,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "prestat"
-    ]
+    "related": ["prestat"]
   },
   {
     "slug": "potrebovat",
@@ -2311,10 +2237,7 @@
         "tatoebaId": 10269305
       }
     ],
-    "related": [
-      "musiet",
-      "nemusiet"
-    ]
+    "related": ["musiet", "nemusiet"]
   },
   {
     "slug": "snazit",
@@ -2371,10 +2294,7 @@
         "tatoebaId": 10009461
       }
     ],
-    "related": [
-      "pokusit",
-      "skusit"
-    ]
+    "related": ["pokusit", "skusit"]
   },
   {
     "slug": "pozriet",
@@ -2431,9 +2351,7 @@
         "tatoebaId": 12833361
       }
     ],
-    "related": [
-      "pozerat"
-    ]
+    "related": ["pozerat"]
   },
   {
     "slug": "informovat",
@@ -2653,9 +2571,7 @@
         "tatoebaId": 8956407
       }
     ],
-    "related": [
-      "zaplatit"
-    ]
+    "related": ["zaplatit"]
   },
   {
     "slug": "ukazat",
@@ -2712,9 +2628,7 @@
         "tatoebaId": 10157107
       }
     ],
-    "related": [
-      "ukazovat"
-    ]
+    "related": ["ukazovat"]
   },
   {
     "slug": "dosiahnut",
@@ -2822,9 +2736,7 @@
         "tatoebaId": 8944756
       }
     ],
-    "related": [
-      "ostat"
-    ]
+    "related": ["ostat"]
   },
   {
     "slug": "citit",
@@ -2881,9 +2793,7 @@
         "tatoebaId": 9149973
       }
     ],
-    "related": [
-      "pocitit"
-    ]
+    "related": ["pocitit"]
   },
   {
     "slug": "hladat",
@@ -2940,9 +2850,7 @@
         "tatoebaId": 1044869
       }
     ],
-    "related": [
-      "najst"
-    ]
+    "related": ["najst"]
   },
   {
     "slug": "poznat",
@@ -2999,9 +2907,7 @@
         "tatoebaId": 9989510
       }
     ],
-    "related": [
-      "vediet"
-    ]
+    "related": ["vediet"]
   },
   {
     "slug": "vyhrat",
@@ -3227,9 +3133,7 @@
         "tatoebaId": 9002628
       }
     ],
-    "related": [
-      "uverit"
-    ]
+    "related": ["uverit"]
   },
   {
     "slug": "venovat",
@@ -3335,9 +3239,7 @@
         "tatoebaId": 10496564
       }
     ],
-    "related": [
-      "stretavat"
-    ]
+    "related": ["stretavat"]
   },
   {
     "slug": "zmenit",
@@ -3394,9 +3296,7 @@
         "tatoebaId": 12630779
       }
     ],
-    "related": [
-      "menit"
-    ]
+    "related": ["menit"]
   },
   {
     "slug": "vyjst",
@@ -3447,10 +3347,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "vojst",
-      "prejst"
-    ]
+    "related": ["vojst", "prejst"]
   },
   {
     "slug": "odist",
@@ -3507,10 +3404,7 @@
         "tatoebaId": 9733794
       }
     ],
-    "related": [
-      "prist",
-      "ist"
-    ]
+    "related": ["prist", "ist"]
   },
   {
     "slug": "otvorit",
@@ -3567,9 +3461,7 @@
         "tatoebaId": 9968810
       }
     ],
-    "related": [
-      "otvarat"
-    ]
+    "related": ["otvarat"]
   },
   {
     "slug": "prijat",
@@ -3626,9 +3518,7 @@
         "tatoebaId": 5001999
       }
     ],
-    "related": [
-      "prijimat"
-    ]
+    "related": ["prijimat"]
   },
   {
     "slug": "povazovat",
@@ -3734,10 +3624,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "vojst",
-      "vyjst"
-    ]
+    "related": ["vojst", "vyjst"]
   },
   {
     "slug": "davat",
@@ -3794,10 +3681,7 @@
         "tatoebaId": 9805555
       }
     ],
-    "related": [
-      "dat",
-      "dostat"
-    ]
+    "related": ["dat", "dostat"]
   },
   {
     "slug": "chodit",
@@ -3854,10 +3738,7 @@
         "tatoebaId": 8923869
       }
     ],
-    "related": [
-      "ist",
-      "prist"
-    ]
+    "related": ["ist", "prist"]
   },
   {
     "slug": "posobit",
@@ -4077,9 +3958,7 @@
         "tatoebaId": 9005821
       }
     ],
-    "related": [
-      "zacat"
-    ]
+    "related": ["zacat"]
   },
   {
     "slug": "predstavovat",
@@ -4185,9 +4064,7 @@
         "tatoebaId": 9958872
       }
     ],
-    "related": [
-      "napisat"
-    ]
+    "related": ["napisat"]
   },
   {
     "slug": "chybat",
@@ -4295,10 +4172,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "musiet",
-      "potrebovat"
-    ]
+    "related": ["musiet", "potrebovat"]
   },
   {
     "slug": "uskutocnit",
@@ -5112,9 +4986,7 @@
         "tatoebaId": 8982648
       }
     ],
-    "related": [
-      "pocuvat"
-    ]
+    "related": ["pocuvat"]
   },
   {
     "slug": "postavit",
@@ -5228,9 +5100,7 @@
         "tatoebaId": 9807835
       }
     ],
-    "related": [
-      "zit"
-    ]
+    "related": ["zit"]
   },
   {
     "slug": "ponukat",
@@ -5451,9 +5321,7 @@
         "tatoebaId": 10003680
       }
     ],
-    "related": [
-      "pisat"
-    ]
+    "related": ["pisat"]
   },
   {
     "slug": "sediet",
@@ -5566,11 +5434,7 @@
         "tatoebaId": 12541613
       }
     ],
-    "related": [
-      "spytat",
-      "otazka",
-      "odpoved"
-    ]
+    "related": ["spytat", "otazka", "odpoved"]
   },
   {
     "slug": "rok",
@@ -5627,12 +5491,7 @@
         "tatoebaId": 8975898
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "noc",
-      "rano"
-    ]
+    "related": ["cas", "den", "noc", "rano"]
   },
   {
     "slug": "den",
@@ -5689,12 +5548,7 @@
         "tatoebaId": 6742978
       }
     ],
-    "related": [
-      "cas",
-      "noc",
-      "rano",
-      "vecer"
-    ]
+    "related": ["cas", "noc", "rano", "vecer"]
   },
   {
     "slug": "slovensko",
@@ -5748,10 +5602,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "bratislava",
-      "krajina"
-    ]
+    "related": ["bratislava", "krajina"]
   },
   {
     "slug": "cas",
@@ -5808,12 +5659,7 @@
         "tatoebaId": 7663903
       }
     ],
-    "related": [
-      "den",
-      "noc",
-      "rano",
-      "vecer"
-    ]
+    "related": ["den", "noc", "rano", "vecer"]
   },
   {
     "slug": "dieta",
@@ -5870,12 +5716,7 @@
         "tatoebaId": 9004512
       }
     ],
-    "related": [
-      "rodina",
-      "matka",
-      "otec",
-      "brat-n"
-    ]
+    "related": ["rodina", "matka", "otec", "brat-n"]
   },
   {
     "slug": "zivot",
@@ -5932,9 +5773,7 @@
         "tatoebaId": 8947701
       }
     ],
-    "related": [
-      "smrt"
-    ]
+    "related": ["smrt"]
   },
   {
     "slug": "strana",
@@ -6102,11 +5941,7 @@
         "tatoebaId": 12871972
       }
     ],
-    "related": [
-      "peniaze",
-      "obchod",
-      "nakupovat"
-    ]
+    "related": ["peniaze", "obchod", "nakupovat"]
   },
   {
     "slug": "spolocnost",
@@ -6160,9 +5995,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "firma"
-    ]
+    "related": ["firma"]
   },
   {
     "slug": "zapas",
@@ -6216,9 +6049,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "hra"
-    ]
+    "related": ["hra"]
   },
   {
     "slug": "svet",
@@ -6332,12 +6163,7 @@
         "tatoebaId": 1753298
       }
     ],
-    "related": [
-      "ucitel",
-      "ziak",
-      "student",
-      "kniha"
-    ]
+    "related": ["ucitel", "ziak", "student", "kniha"]
   },
   {
     "slug": "krajina",
@@ -6394,10 +6220,7 @@
         "tatoebaId": 8956500
       }
     ],
-    "related": [
-      "slovensko",
-      "bratislava"
-    ]
+    "related": ["slovensko", "bratislava"]
   },
   {
     "slug": "problem",
@@ -6454,9 +6277,7 @@
         "tatoebaId": 8238392
       }
     ],
-    "related": [
-      "riesenie"
-    ]
+    "related": ["riesenie"]
   },
   {
     "slug": "cesta",
@@ -6513,10 +6334,7 @@
         "tatoebaId": 13073138
       }
     ],
-    "related": [
-      "ulica",
-      "cestovat"
-    ]
+    "related": ["ulica", "cestovat"]
   },
   {
     "slug": "pripad",
@@ -6627,9 +6445,7 @@
         "tatoebaId": 12778339
       }
     ],
-    "related": [
-      "peniaze"
-    ]
+    "related": ["peniaze"]
   },
   {
     "slug": "euro",
@@ -6679,9 +6495,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "peniaze"
-    ]
+    "related": ["peniaze"]
   },
   {
     "slug": "cast",
@@ -6732,12 +6546,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "jednotka",
-      "percento",
-      "suma",
-      "pocet"
-    ]
+    "related": ["jednotka", "percento", "suma", "pocet"]
   },
   {
     "slug": "vlada",
@@ -6791,9 +6600,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "stat-n"
-    ]
+    "related": ["stat-n"]
   },
   {
     "slug": "bratislava",
@@ -6847,10 +6654,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "slovensko",
-      "krajina"
-    ]
+    "related": ["slovensko", "krajina"]
   },
   {
     "slug": "gol",
@@ -6957,12 +6761,7 @@
         "tatoebaId": 1036102
       }
     ],
-    "related": [
-      "noha",
-      "hlava",
-      "oko",
-      "ucho"
-    ]
+    "related": ["noha", "hlava", "oko", "ucho"]
   },
   {
     "slug": "zakon",
@@ -7019,9 +6818,7 @@
         "tatoebaId": 12636059
       }
     ],
-    "related": [
-      "pravo"
-    ]
+    "related": ["pravo"]
   },
   {
     "slug": "skupina",
@@ -7243,12 +7040,7 @@
         "tatoebaId": 8867515
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "noc",
-      "rano"
-    ]
+    "related": ["cas", "den", "noc", "rano"]
   },
   {
     "slug": "percento",
@@ -7298,12 +7090,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "jednotka",
-      "cast",
-      "suma",
-      "pocet"
-    ]
+    "related": ["jednotka", "cast", "suma", "pocet"]
   },
   {
     "slug": "sutaz",
@@ -7410,9 +7197,7 @@
         "tatoebaId": 10064473
       }
     ],
-    "related": [
-      "tim"
-    ]
+    "related": ["tim"]
   },
   {
     "slug": "kniha",
@@ -7469,12 +7254,7 @@
         "tatoebaId": 8923651
       }
     ],
-    "related": [
-      "skola",
-      "ucitel",
-      "ziak",
-      "student"
-    ]
+    "related": ["skola", "ucitel", "ziak", "student"]
   },
   {
     "slug": "pan",
@@ -7588,11 +7368,7 @@
         "tatoebaId": 9978270
       }
     ],
-    "related": [
-      "spytat",
-      "odpovedat",
-      "odpoved"
-    ]
+    "related": ["spytat", "odpovedat", "odpoved"]
   },
   {
     "slug": "firma",
@@ -7643,9 +7419,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "spolocnost"
-    ]
+    "related": ["spolocnost"]
   },
   {
     "slug": "kolo",
@@ -8023,12 +7797,7 @@
         "tatoebaId": 8950878
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "noc",
-      "rano"
-    ]
+    "related": ["cas", "den", "noc", "rano"]
   },
   {
     "slug": "sprava",
@@ -8085,9 +7854,7 @@
         "tatoebaId": 10013767
       }
     ],
-    "related": [
-      "informacia"
-    ]
+    "related": ["informacia"]
   },
   {
     "slug": "koniec",
@@ -8143,9 +7910,7 @@
         "tatoebaId": 2065246
       }
     ],
-    "related": [
-      "zaciatok"
-    ]
+    "related": ["zaciatok"]
   },
   {
     "slug": "zmena",
@@ -8351,9 +8116,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "sprava"
-    ]
+    "related": ["sprava"]
   },
   {
     "slug": "klub",
@@ -8460,12 +8223,7 @@
         "tatoebaId": 8927424
       }
     ],
-    "related": [
-      "ruka",
-      "noha",
-      "oko",
-      "ucho"
-    ]
+    "related": ["ruka", "noha", "oko", "ucho"]
   },
   {
     "slug": "obec",
@@ -8514,9 +8272,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "dedina"
-    ]
+    "related": ["dedina"]
   },
   {
     "slug": "hodina",
@@ -8573,12 +8329,7 @@
         "tatoebaId": 9939401
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "noc",
-      "rano"
-    ]
+    "related": ["cas", "den", "noc", "rano"]
   },
   {
     "slug": "hra",
@@ -8635,9 +8386,7 @@
         "tatoebaId": 10022869
       }
     ],
-    "related": [
-      "zapas"
-    ]
+    "related": ["zapas"]
   },
   {
     "slug": "bod",
@@ -8743,12 +8492,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "ruka",
-      "noha",
-      "hlava",
-      "ucho"
-    ]
+    "related": ["ruka", "noha", "hlava", "ucho"]
   },
   {
     "slug": "minuta",
@@ -8798,12 +8542,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "noc",
-      "rano"
-    ]
+    "related": ["cas", "den", "noc", "rano"]
   },
   {
     "slug": "oblast",
@@ -8956,9 +8695,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "obchod"
-    ]
+    "related": ["obchod"]
   },
   {
     "slug": "film",
@@ -9059,9 +8796,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "hrac"
-    ]
+    "related": ["hrac"]
   },
   {
     "slug": "obdobie",
@@ -9216,9 +8951,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "peniaze"
-    ]
+    "related": ["peniaze"]
   },
   {
     "slug": "system",
@@ -9436,12 +9169,7 @@
         "tatoebaId": 2929915
       }
     ],
-    "related": [
-      "rodina",
-      "matka",
-      "brat-n",
-      "sestra"
-    ]
+    "related": ["rodina", "matka", "brat-n", "sestra"]
   },
   {
     "slug": "prezident",
@@ -9546,12 +9274,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "cislo",
-      "mnozstvo",
-      "jednotka",
-      "suma"
-    ]
+    "related": ["cislo", "mnozstvo", "jednotka", "suma"]
   },
   {
     "slug": "koruna",
@@ -9873,12 +9596,7 @@
         "tatoebaId": 5422204
       }
     ],
-    "related": [
-      "dom",
-      "byt-n",
-      "mesto",
-      "stanica"
-    ]
+    "related": ["dom", "byt-n", "mesto", "stanica"]
   },
   {
     "slug": "priestor",
@@ -10290,9 +10008,7 @@
         "tatoebaId": 13079284
       }
     ],
-    "related": [
-      "zakon"
-    ]
+    "related": ["zakon"]
   },
   {
     "slug": "ministerstvo",
@@ -10394,9 +10110,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "koniec"
-    ]
+    "related": ["koniec"]
   },
   {
     "slug": "stav",
@@ -10507,12 +10221,7 @@
         "tatoebaId": 9150079
       }
     ],
-    "related": [
-      "maly",
-      "novy",
-      "stary",
-      "dobry"
-    ]
+    "related": ["maly", "novy", "stary", "dobry"]
   },
   {
     "slug": "novy",
@@ -10569,12 +10278,7 @@
         "tatoebaId": 8965225
       }
     ],
-    "related": [
-      "velky",
-      "maly",
-      "stary",
-      "dobry"
-    ]
+    "related": ["velky", "maly", "stary", "dobry"]
   },
   {
     "slug": "dobry",
@@ -10631,12 +10335,7 @@
         "tatoebaId": 8936144
       }
     ],
-    "related": [
-      "zly",
-      "velky",
-      "maly",
-      "novy"
-    ]
+    "related": ["zly", "velky", "maly", "novy"]
   },
   {
     "slug": "dalsi",
@@ -10807,9 +10506,7 @@
         "tatoebaId": 4728002
       }
     ],
-    "related": [
-      "nizky"
-    ]
+    "related": ["nizky"]
   },
   {
     "slug": "stary",
@@ -10866,12 +10563,7 @@
         "tatoebaId": 9946322
       }
     ],
-    "related": [
-      "velky",
-      "maly",
-      "novy",
-      "dobry"
-    ]
+    "related": ["velky", "maly", "novy", "dobry"]
   },
   {
     "slug": "maly",
@@ -10928,12 +10620,7 @@
         "tatoebaId": 8965225
       }
     ],
-    "related": [
-      "velky",
-      "novy",
-      "stary",
-      "dobry"
-    ]
+    "related": ["velky", "novy", "stary", "dobry"]
   },
   {
     "slug": "mlady",
@@ -10990,9 +10677,7 @@
         "tatoebaId": 9942179
       }
     ],
-    "related": [
-      "stary"
-    ]
+    "related": ["stary"]
   },
   {
     "slug": "rad",
@@ -11049,11 +10734,7 @@
         "tatoebaId": 2229067
       }
     ],
-    "related": [
-      "mat",
-      "pacit",
-      "lubit"
-    ]
+    "related": ["mat", "pacit", "lubit"]
   },
   {
     "slug": "vlastny",
@@ -11323,9 +11004,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "dom"
-    ]
+    "related": ["dom"]
   },
   {
     "slug": "dolezity",
@@ -11903,9 +11582,7 @@
         "tatoebaId": 11110826
       }
     ],
-    "related": [
-      "nemozny"
-    ]
+    "related": ["nemozny"]
   },
   {
     "slug": "mestsky",
@@ -12268,9 +11945,7 @@
         "tatoebaId": 10155543
       }
     ],
-    "related": [
-      "kratky"
-    ]
+    "related": ["kratky"]
   },
   {
     "slug": "zly",
@@ -12327,12 +12002,7 @@
         "tatoebaId": 2914707
       }
     ],
-    "related": [
-      "dobry",
-      "velky",
-      "maly",
-      "novy"
-    ]
+    "related": ["dobry", "velky", "maly", "novy"]
   },
   {
     "slug": "byvaly",
@@ -12707,12 +12377,7 @@
         "tatoebaId": 13229363
       }
     ],
-    "related": [
-      "lahky",
-      "velky",
-      "maly",
-      "novy"
-    ]
+    "related": ["lahky", "velky", "maly", "novy"]
   },
   {
     "slug": "silny",
@@ -12769,9 +12434,7 @@
         "tatoebaId": 10013565
       }
     ],
-    "related": [
-      "slaby"
-    ]
+    "related": ["slaby"]
   },
   {
     "slug": "svaty",
@@ -12987,9 +12650,7 @@
         "isPracticeFrame": true
       }
     ],
-    "related": [
-      "vysoky"
-    ]
+    "related": ["vysoky"]
   },
   {
     "slug": "podobny",
@@ -13264,9 +12925,7 @@
         "tatoebaId": 12727365
       }
     ],
-    "related": [
-      "prazdny"
-    ]
+    "related": ["prazdny"]
   },
   {
     "slug": "rovnaky",
@@ -13377,9 +13036,7 @@
         "tatoebaId": 13084862
       }
     ],
-    "related": [
-      "krasny"
-    ]
+    "related": ["krasny"]
   },
   {
     "slug": "zahranicny",
@@ -13649,12 +13306,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "biely",
-      "cerveny",
-      "modry",
-      "zeleny"
-    ]
+    "related": ["biely", "cerveny", "modry", "zeleny"]
   },
   {
     "slug": "futbalovy",
@@ -14492,12 +14144,7 @@
         "tatoebaId": 9027622
       }
     ],
-    "related": [
-      "cierny",
-      "cerveny",
-      "modry",
-      "zeleny"
-    ]
+    "related": ["cierny", "cerveny", "modry", "zeleny"]
   },
   {
     "slug": "samotny",
@@ -14651,9 +14298,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "nespravny"
-    ]
+    "related": ["nespravny"]
   },
   {
     "slug": "kratky",
@@ -14705,9 +14350,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "dlhy"
-    ]
+    "related": ["dlhy"]
   },
   {
     "slug": "volny",
@@ -14763,9 +14406,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "slobodny"
-    ]
+    "related": ["slobodny"]
   },
   {
     "slug": "bratislavsky",
@@ -15025,12 +14666,7 @@
         "tatoebaId": 12988142
       }
     ],
-    "related": [
-      "velky",
-      "maly",
-      "novy",
-      "stary"
-    ]
+    "related": ["velky", "maly", "novy", "stary"]
   },
   {
     "slug": "obrovsky",
@@ -15304,9 +14940,7 @@
         "tatoebaId": 9942146
       }
     ],
-    "related": [
-      "zlozity"
-    ]
+    "related": ["zlozity"]
   },
   {
     "slug": "detsky",
@@ -15575,9 +15209,7 @@
         "tatoebaId": 12236088
       }
     ],
-    "related": [
-      "uzky"
-    ]
+    "related": ["uzky"]
   },
   {
     "slug": "rychly",
@@ -15631,9 +15263,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "pomaly"
-    ]
+    "related": ["pomaly"]
   },
   {
     "slug": "madarsky",
@@ -15848,12 +15478,7 @@
         "tatoebaId": 8951747
       }
     ],
-    "related": [
-      "biely",
-      "cierny",
-      "modry",
-      "zeleny"
-    ]
+    "related": ["biely", "cierny", "modry", "zeleny"]
   },
   {
     "slug": "tvorit",
@@ -15960,9 +15585,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "rozhodnut"
-    ]
+    "related": ["rozhodnut"]
   },
   {
     "slug": "nachadzat",
@@ -16076,9 +15699,7 @@
         "tatoebaId": 2926328
       }
     ],
-    "related": [
-      "brat"
-    ]
+    "related": ["brat"]
   },
   {
     "slug": "poslat",
@@ -16135,9 +15756,7 @@
         "tatoebaId": 12816251
       }
     ],
-    "related": [
-      "posielat"
-    ]
+    "related": ["posielat"]
   },
   {
     "slug": "spominat",
@@ -16416,9 +16035,7 @@
         "tatoebaId": 9935648
       }
     ],
-    "related": [
-      "pouzit"
-    ]
+    "related": ["pouzit"]
   },
   {
     "slug": "pomahat",
@@ -16475,9 +16092,7 @@
         "tatoebaId": 9934946
       }
     ],
-    "related": [
-      "pomoct"
-    ]
+    "related": ["pomoct"]
   },
   {
     "slug": "sledovat",
@@ -16586,9 +16201,7 @@
         "tatoebaId": 9017249
       }
     ],
-    "related": [
-      "kupovat"
-    ]
+    "related": ["kupovat"]
   },
   {
     "slug": "volat",
@@ -16645,9 +16258,7 @@
         "tatoebaId": 2428509
       }
     ],
-    "related": [
-      "meno"
-    ]
+    "related": ["meno"]
   },
   {
     "slug": "dojst",
@@ -16916,9 +16527,7 @@
         "tatoebaId": 12681294
       }
     ],
-    "related": [
-      "zostat"
-    ]
+    "related": ["zostat"]
   },
   {
     "slug": "existovat",
@@ -17353,11 +16962,7 @@
         "tatoebaId": 10060356
       }
     ],
-    "related": [
-      "odpovedat",
-      "otazka",
-      "odpoved"
-    ]
+    "related": ["odpovedat", "otazka", "odpoved"]
   },
   {
     "slug": "prichadzat",
@@ -17471,9 +17076,7 @@
         "tatoebaId": 10005216
       }
     ],
-    "related": [
-      "najst"
-    ]
+    "related": ["najst"]
   },
   {
     "slug": "vyuzivat",
@@ -17687,9 +17290,7 @@
         "tatoebaId": 10315834
       }
     ],
-    "related": [
-      "rozumiet"
-    ]
+    "related": ["rozumiet"]
   },
   {
     "slug": "zaplatit",
@@ -17746,9 +17347,7 @@
         "tatoebaId": 9734348
       }
     ],
-    "related": [
-      "platit"
-    ]
+    "related": ["platit"]
   },
   {
     "slug": "predat",
@@ -17805,9 +17404,7 @@
         "tatoebaId": 9834301
       }
     ],
-    "related": [
-      "predavat"
-    ]
+    "related": ["predavat"]
   },
   {
     "slug": "zucastnit",
@@ -17920,9 +17517,7 @@
         "tatoebaId": 4199835
       }
     ],
-    "related": [
-      "precitat"
-    ]
+    "related": ["precitat"]
   },
   {
     "slug": "brat",
@@ -17979,9 +17574,7 @@
         "tatoebaId": 1865214
       }
     ],
-    "related": [
-      "vziat"
-    ]
+    "related": ["vziat"]
   },
   {
     "slug": "nevidiet",
@@ -18798,9 +18391,7 @@
         "tatoebaId": 13933903
       }
     ],
-    "related": [
-      "zmenit"
-    ]
+    "related": ["zmenit"]
   },
   {
     "slug": "pozerat",
@@ -18857,9 +18448,7 @@
         "tatoebaId": 12721543
       }
     ],
-    "related": [
-      "vidiet"
-    ]
+    "related": ["vidiet"]
   },
   {
     "slug": "pouzit",
@@ -18916,9 +18505,7 @@
         "tatoebaId": 8936333
       }
     ],
-    "related": [
-      "pouzivat"
-    ]
+    "related": ["pouzivat"]
   },
   {
     "slug": "pytat",
@@ -19759,12 +19346,7 @@
         "tatoebaId": 10048562
       }
     ],
-    "related": [
-      "rad",
-      "pacit",
-      "lubit",
-      "mat"
-    ]
+    "related": ["rad", "pacit", "lubit", "mat"]
   },
   {
     "slug": "sluzit",
@@ -20350,9 +19932,7 @@
         "tatoebaId": 9038170
       }
     ],
-    "related": [
-      "naucit"
-    ]
+    "related": ["naucit"]
   },
   {
     "slug": "prestat",
@@ -20409,9 +19989,7 @@
         "tatoebaId": 10132681
       }
     ],
-    "related": [
-      "zacat"
-    ]
+    "related": ["zacat"]
   },
   {
     "slug": "nasledovat",
@@ -21088,9 +20666,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "pes"
-    ]
+    "related": ["pes"]
   },
   {
     "slug": "prinasat",
@@ -21364,11 +20940,7 @@
         "tatoebaId": 8862508
       }
     ],
-    "related": [
-      "rad",
-      "lubit",
-      "mat"
-    ]
+    "related": ["rad", "lubit", "mat"]
   },
   {
     "slug": "vstupit",
@@ -21692,9 +21264,7 @@
         "tatoebaId": 8869264
       }
     ],
-    "related": [
-      "ucit"
-    ]
+    "related": ["ucit"]
   },
   {
     "slug": "zabudnut",
@@ -21858,9 +21428,7 @@
         "tatoebaId": 12897802
       }
     ],
-    "related": [
-      "pocut"
-    ]
+    "related": ["pocut"]
   },
   {
     "slug": "zvitazit",
@@ -22180,9 +21748,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "ukazat"
-    ]
+    "related": ["ukazat"]
   },
   {
     "slug": "nesmiet",
@@ -22392,9 +21958,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "vratit"
-    ]
+    "related": ["vratit"]
   },
   {
     "slug": "padnut",
@@ -22607,9 +22171,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "nosit"
-    ]
+    "related": ["nosit"]
   },
   {
     "slug": "nedostat",
@@ -23545,10 +23107,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "snazit",
-      "skusit"
-    ]
+    "related": ["snazit", "skusit"]
   },
   {
     "slug": "zaujat",
@@ -24232,9 +23791,7 @@
         "tatoebaId": 8996768
       }
     ],
-    "related": [
-      "citat"
-    ]
+    "related": ["citat"]
   },
   {
     "slug": "odporucat",
@@ -24549,9 +24106,7 @@
         "tatoebaId": 9872621
       }
     ],
-    "related": [
-      "skoncit"
-    ]
+    "related": ["skoncit"]
   },
   {
     "slug": "zniet",
@@ -24707,9 +24262,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "dokoncit"
-    ]
+    "related": ["dokoncit"]
   },
   {
     "slug": "opytat",
@@ -24924,10 +24477,7 @@
         "tatoebaId": 9976738
       }
     ],
-    "related": [
-      "predat",
-      "obchod"
-    ]
+    "related": ["predat", "obchod"]
   },
   {
     "slug": "zabit",
@@ -25875,9 +25425,7 @@
         "tatoebaId": 9891306
       }
     ],
-    "related": [
-      "volat"
-    ]
+    "related": ["volat"]
   },
   {
     "slug": "spajat",
@@ -26400,10 +25948,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "prejst",
-      "vyjst"
-    ]
+    "related": ["prejst", "vyjst"]
   },
   {
     "slug": "spolupracovat",
@@ -26715,9 +26260,7 @@
         "tatoebaId": 8935874
       }
     ],
-    "related": [
-      "zaspat"
-    ]
+    "related": ["zaspat"]
   },
   {
     "slug": "poradit",
@@ -27197,9 +26740,7 @@
         "tatoebaId": 8944855
       }
     ],
-    "related": [
-      "cesta"
-    ]
+    "related": ["cesta"]
   },
   {
     "slug": "zachovat",
@@ -28181,9 +27722,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "stretnut"
-    ]
+    "related": ["stretnut"]
   },
   {
     "slug": "zalozit",
@@ -29023,9 +28562,7 @@
         "tatoebaId": 9844572
       }
     ],
-    "related": [
-      "niest"
-    ]
+    "related": ["niest"]
   },
   {
     "slug": "rozumiet",
@@ -29082,9 +28619,7 @@
         "tatoebaId": 12593606
       }
     ],
-    "related": [
-      "vysvetlit"
-    ]
+    "related": ["vysvetlit"]
   },
   {
     "slug": "zavisiet",
@@ -29292,9 +28827,7 @@
         "tatoebaId": 12817969
       }
     ],
-    "related": [
-      "cakat"
-    ]
+    "related": ["cakat"]
   },
   {
     "slug": "neexistovat",
@@ -30353,10 +29886,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "mysliet",
-      "rozmyslat"
-    ]
+    "related": ["mysliet", "rozmyslat"]
   },
   {
     "slug": "vyberat",
@@ -31344,9 +30874,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "prijat"
-    ]
+    "related": ["prijat"]
   },
   {
     "slug": "jest",
@@ -31403,9 +30931,7 @@
         "tatoebaId": 9383813
       }
     ],
-    "related": [
-      "zjest"
-    ]
+    "related": ["zjest"]
   },
   {
     "slug": "otvarat",
@@ -31457,9 +30983,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "otvorit"
-    ]
+    "related": ["otvorit"]
   },
   {
     "slug": "spustit",
@@ -31978,10 +31502,7 @@
         "tatoebaId": 13299858
       }
     ],
-    "related": [
-      "snazit",
-      "pokusit"
-    ]
+    "related": ["snazit", "pokusit"]
   },
   {
     "slug": "zalezat",
@@ -32999,9 +32520,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "poslat"
-    ]
+    "related": ["poslat"]
   },
   {
     "slug": "vydrzat",
@@ -33212,9 +32731,7 @@
         "tatoebaId": 10076915
       }
     ],
-    "related": [
-      "vypit"
-    ]
+    "related": ["vypit"]
   },
   {
     "slug": "vydavat",
@@ -34256,10 +33773,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "mysliet",
-      "pomysliet"
-    ]
+    "related": ["mysliet", "pomysliet"]
   },
   {
     "slug": "odstranit",
@@ -37883,9 +37397,7 @@
         "tatoebaId": 7584534
       }
     ],
-    "related": [
-      "kupit"
-    ]
+    "related": ["kupit"]
   },
   {
     "slug": "oslavovat",
@@ -38308,9 +37820,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "citit"
-    ]
+    "related": ["citit"]
   },
   {
     "slug": "darovat",
@@ -39087,9 +38597,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "ukoncit"
-    ]
+    "related": ["ukoncit"]
   },
   {
     "slug": "pozadovat",
@@ -44114,9 +43622,7 @@
         "tatoebaId": 9970295
       }
     ],
-    "related": [
-      "verit"
-    ]
+    "related": ["verit"]
   },
   {
     "slug": "boliet",
@@ -45444,9 +44950,7 @@
         "tatoebaId": 8950164
       }
     ],
-    "related": [
-      "otvorit"
-    ]
+    "related": ["otvorit"]
   },
   {
     "slug": "citovat",
@@ -45550,10 +45054,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "priznat",
-      "priznavat"
-    ]
+    "related": ["priznat", "priznavat"]
   },
   {
     "slug": "vystriedat",
@@ -49018,11 +48519,7 @@
         "tatoebaId": 13372186
       }
     ],
-    "related": [
-      "rad",
-      "pacit",
-      "milovat"
-    ]
+    "related": ["rad", "pacit", "milovat"]
   },
   {
     "slug": "uspokojit",
@@ -49186,9 +48683,7 @@
         "tatoebaId": 9944420
       }
     ],
-    "related": [
-      "pit"
-    ]
+    "related": ["pit"]
   },
   {
     "slug": "cerpat",
@@ -49799,9 +49294,7 @@
         "tatoebaId": 9762947
       }
     ],
-    "related": [
-      "spat"
-    ]
+    "related": ["spat"]
   },
   {
     "slug": "usadit",
@@ -50063,11 +49556,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "praca",
-      "peniaze",
-      "obchod"
-    ]
+    "related": ["praca", "peniaze", "obchod"]
   },
   {
     "slug": "zareagovat",
@@ -60697,9 +60186,7 @@
         "tatoebaId": 10020666
       }
     ],
-    "related": [
-      "jest"
-    ]
+    "related": ["jest"]
   },
   {
     "slug": "doviest",
@@ -63664,9 +63151,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "cesta"
-    ]
+    "related": ["cesta"]
   },
   {
     "slug": "bystrica",
@@ -63869,12 +63354,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "jednotka",
-      "percento",
-      "cast",
-      "suma"
-    ]
+    "related": ["jednotka", "percento", "cast", "suma"]
   },
   {
     "slug": "sobota",
@@ -64836,12 +64316,7 @@
         "tatoebaId": 13070933
       }
     ],
-    "related": [
-      "ruka",
-      "noha",
-      "hlava",
-      "oko"
-    ]
+    "related": ["ruka", "noha", "hlava", "oko"]
   },
   {
     "slug": "pomoc",
@@ -64955,12 +64430,7 @@
         "tatoebaId": 1817861
       }
     ],
-    "related": [
-      "ruka",
-      "noha",
-      "hlava",
-      "oko"
-    ]
+    "related": ["ruka", "noha", "hlava", "oko"]
   },
   {
     "slug": "rozhodnutie",
@@ -65389,12 +64859,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "skola",
-      "ucitel",
-      "student",
-      "kniha"
-    ]
+    "related": ["skola", "ucitel", "student", "kniha"]
   },
   {
     "slug": "cislo",
@@ -65451,12 +64916,7 @@
         "tatoebaId": 10033892
       }
     ],
-    "related": [
-      "pocet",
-      "mnozstvo",
-      "jednotka",
-      "suma"
-    ]
+    "related": ["pocet", "mnozstvo", "jednotka", "suma"]
   },
   {
     "slug": "noc",
@@ -65513,12 +64973,7 @@
         "tatoebaId": 8221414
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "rano",
-      "vecer"
-    ]
+    "related": ["cas", "den", "rano", "vecer"]
   },
   {
     "slug": "zdroj",
@@ -65880,9 +65335,7 @@
         "tatoebaId": 9754292
       }
     ],
-    "related": [
-      "dcera"
-    ]
+    "related": ["dcera"]
   },
   {
     "slug": "nedela",
@@ -65991,9 +65444,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "zivot"
-    ]
+    "related": ["zivot"]
   },
   {
     "slug": "podpora",
@@ -66101,12 +65552,7 @@
         "tatoebaId": 9027265
       }
     ],
-    "related": [
-      "pocet",
-      "cislo",
-      "jednotka",
-      "suma"
-    ]
+    "related": ["pocet", "cislo", "jednotka", "suma"]
   },
   {
     "slug": "kultura",
@@ -66213,12 +65659,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "ruka",
-      "noha",
-      "hlava",
-      "oko"
-    ]
+    "related": ["ruka", "noha", "hlava", "oko"]
   },
   {
     "slug": "krok",
@@ -66381,9 +65822,7 @@
         "tatoebaId": 8935886
       }
     ],
-    "related": [
-      "okno"
-    ]
+    "related": ["okno"]
   },
   {
     "slug": "riesenie",
@@ -66437,9 +65876,7 @@
         "tatoebaId": 11766276
       }
     ],
-    "related": [
-      "problem"
-    ]
+    "related": ["problem"]
   },
   {
     "slug": "kraj",
@@ -67801,10 +67238,7 @@
         "tatoebaId": 8987344
       }
     ],
-    "related": [
-      "lekar",
-      "doktor"
-    ]
+    "related": ["lekar", "doktor"]
   },
   {
     "slug": "plan",
@@ -68019,12 +67453,7 @@
         "tatoebaId": 9739177
       }
     ],
-    "related": [
-      "rodina",
-      "otec",
-      "brat-n",
-      "sestra"
-    ]
+    "related": ["rodina", "otec", "brat-n", "sestra"]
   },
   {
     "slug": "proces",
@@ -68390,10 +67819,7 @@
         "tatoebaId": 9946439
       }
     ],
-    "related": [
-      "nemocnica",
-      "doktor"
-    ]
+    "related": ["nemocnica", "doktor"]
   },
   {
     "slug": "fond",
@@ -69129,12 +68555,7 @@
         "tatoebaId": 8913837
       }
     ],
-    "related": [
-      "ruka",
-      "hlava",
-      "oko",
-      "ucho"
-    ]
+    "related": ["ruka", "hlava", "oko", "ucho"]
   },
   {
     "slug": "sef",
@@ -69505,12 +68926,7 @@
         "tatoebaId": 13036085
       }
     ],
-    "related": [
-      "skola",
-      "ucitel",
-      "ziak",
-      "kniha"
-    ]
+    "related": ["skola", "ucitel", "ziak", "kniha"]
   },
   {
     "slug": "hranica",
@@ -69670,12 +69086,7 @@
         "tatoebaId": 9749582
       }
     ],
-    "related": [
-      "voda",
-      "vzduch",
-      "strom",
-      "kvet"
-    ]
+    "related": ["voda", "vzduch", "strom", "kvet"]
   },
   {
     "slug": "piatok",
@@ -71740,11 +71151,7 @@
         "tatoebaId": 12011622
       }
     ],
-    "related": [
-      "praca",
-      "peniaze",
-      "nakupovat"
-    ]
+    "related": ["praca", "peniaze", "nakupovat"]
   },
   {
     "slug": "utok",
@@ -73139,9 +72546,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "stastie"
-    ]
+    "related": ["stastie"]
   },
   {
     "slug": "televizia",
@@ -73242,12 +72647,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "jednotka",
-      "percento",
-      "cast",
-      "pocet"
-    ]
+    "related": ["jednotka", "percento", "cast", "pocet"]
   },
   {
     "slug": "meter",
@@ -74431,11 +73831,7 @@
         "tatoebaId": 8981344
       }
     ],
-    "related": [
-      "spytat",
-      "odpovedat",
-      "otazka"
-    ]
+    "related": ["spytat", "odpovedat", "otazka"]
   },
   {
     "slug": "dennik",
@@ -75173,9 +74569,7 @@
         "tatoebaId": 8862855
       }
     ],
-    "related": [
-      "postel"
-    ]
+    "related": ["postel"]
   },
   {
     "slug": "sestra",
@@ -75232,12 +74626,7 @@
         "tatoebaId": 8994741
       }
     ],
-    "related": [
-      "rodina",
-      "matka",
-      "otec",
-      "brat-n"
-    ]
+    "related": ["rodina", "matka", "otec", "brat-n"]
   },
   {
     "slug": "trencin",
@@ -75345,9 +74734,7 @@
         "tatoebaId": 13211291
       }
     ],
-    "related": [
-      "manzel"
-    ]
+    "related": ["manzel"]
   },
   {
     "slug": "vitaz",
@@ -75717,9 +75104,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "manzelka"
-    ]
+    "related": ["manzelka"]
   },
   {
     "slug": "uver",
@@ -76354,9 +75739,7 @@
         "tatoebaId": 9754285
       }
     ],
-    "related": [
-      "syn"
-    ]
+    "related": ["syn"]
   },
   {
     "slug": "narod",
@@ -76517,9 +75900,7 @@
         "tatoebaId": 9013032
       }
     ],
-    "related": [
-      "radost"
-    ]
+    "related": ["radost"]
   },
   {
     "slug": "zahranicie",
@@ -76728,12 +76109,7 @@
         "tatoebaId": 9001752
       }
     ],
-    "related": [
-      "skola",
-      "ziak",
-      "student",
-      "kniha"
-    ]
+    "related": ["skola", "ziak", "student", "kniha"]
   },
   {
     "slug": "partner",
@@ -76890,11 +76266,7 @@
         "tatoebaId": 12704568
       }
     ],
-    "related": [
-      "jar",
-      "jesen",
-      "zima"
-    ]
+    "related": ["jar", "jesen", "zima"]
   },
   {
     "slug": "postava",
@@ -77774,9 +77146,7 @@
         "tatoebaId": 10067200
       }
     ],
-    "related": [
-      "dvere"
-    ]
+    "related": ["dvere"]
   },
   {
     "slug": "ves",
@@ -78407,12 +77777,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "jednotka",
-      "percento",
-      "cast",
-      "suma"
-    ]
+    "related": ["jednotka", "percento", "cast", "suma"]
   },
   {
     "slug": "dusa",
@@ -78940,12 +78305,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "percento",
-      "cast",
-      "suma",
-      "pocet"
-    ]
+    "related": ["percento", "cast", "suma", "pocet"]
   },
   {
     "slug": "vyznam",
@@ -79106,11 +78466,7 @@
         "tatoebaId": 9017119
       }
     ],
-    "related": [
-      "praca",
-      "obchod",
-      "nakupovat"
-    ]
+    "related": ["praca", "obchod", "nakupovat"]
   },
   {
     "slug": "biskup",
@@ -79583,12 +78939,7 @@
         "tatoebaId": 13585929
       }
     ],
-    "related": [
-      "nemocnica",
-      "lekar",
-      "doktor",
-      "liek"
-    ]
+    "related": ["nemocnica", "lekar", "doktor", "liek"]
   },
   {
     "slug": "organ",
@@ -79852,12 +79203,7 @@
         "tatoebaId": 8956549
       }
     ],
-    "related": [
-      "voda",
-      "vzduch",
-      "zem",
-      "kvet"
-    ]
+    "related": ["voda", "vzduch", "zem", "kvet"]
   },
   {
     "slug": "lopta",
@@ -80754,9 +80100,7 @@
         "tatoebaId": 4795610
       }
     ],
-    "related": [
-      "zviera"
-    ]
+    "related": ["zviera"]
   },
   {
     "slug": "poda",
@@ -81896,9 +81240,7 @@
         "tatoebaId": 13168070
       }
     ],
-    "related": [
-      "obec"
-    ]
+    "related": ["obec"]
   },
   {
     "slug": "pricina",
@@ -82155,11 +81497,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "bolest",
-      "liek",
-      "nemocnica"
-    ]
+    "related": ["bolest", "liek", "nemocnica"]
   },
   {
     "slug": "model",
@@ -82801,12 +82139,7 @@
         "tatoebaId": 13640947
       }
     ],
-    "related": [
-      "voda",
-      "vzduch",
-      "zem",
-      "strom"
-    ]
+    "related": ["voda", "vzduch", "zem", "strom"]
   },
   {
     "slug": "riziko",
@@ -83071,11 +82404,7 @@
         "tatoebaId": 9860842
       }
     ],
-    "related": [
-      "slnko",
-      "sneh",
-      "vietor"
-    ]
+    "related": ["slnko", "sneh", "vietor"]
   },
   {
     "slug": "zamok",
@@ -83713,9 +83042,7 @@
         "tatoebaId": 9942377
       }
     ],
-    "related": [
-      "choroba"
-    ]
+    "related": ["choroba"]
   },
   {
     "slug": "zvolen",
@@ -84385,12 +83712,7 @@
         "tatoebaId": 9733908
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "noc",
-      "rano"
-    ]
+    "related": ["cas", "den", "noc", "rano"]
   },
   {
     "slug": "lider",
@@ -86034,12 +85356,7 @@
         "tatoebaId": 9850311
       }
     ],
-    "related": [
-      "stanica",
-      "listok",
-      "auto",
-      "autobus"
-    ]
+    "related": ["stanica", "listok", "auto", "autobus"]
   },
   {
     "slug": "rozhodca",
@@ -86503,12 +85820,7 @@
         "tatoebaId": 12590205
       }
     ],
-    "related": [
-      "voda",
-      "vzduch",
-      "zem",
-      "strom"
-    ]
+    "related": ["voda", "vzduch", "zem", "strom"]
   },
   {
     "slug": "miestnost",
@@ -86670,12 +85982,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "nemocnica",
-      "lekar",
-      "doktor",
-      "zdravie"
-    ]
+    "related": ["nemocnica", "lekar", "doktor", "zdravie"]
   },
   {
     "slug": "vlas",
@@ -86884,9 +86191,7 @@
         "tatoebaId": 12833618
       }
     ],
-    "related": [
-      "pes"
-    ]
+    "related": ["pes"]
   },
   {
     "slug": "zamer",
@@ -87923,12 +87228,7 @@
         "tatoebaId": 9944420
       }
     ],
-    "related": [
-      "jedlo",
-      "voda",
-      "kava",
-      "chlieb"
-    ]
+    "related": ["jedlo", "voda", "kava", "chlieb"]
   },
   {
     "slug": "styl",
@@ -88144,9 +87444,7 @@
         "tatoebaId": 13140294
       }
     ],
-    "related": [
-      "stol"
-    ]
+    "related": ["stol"]
   },
   {
     "slug": "usmev",
@@ -88259,11 +87557,7 @@
         "tatoebaId": 9765954
       }
     ],
-    "related": [
-      "jar",
-      "leto",
-      "jesen"
-    ]
+    "related": ["jar", "leto", "jesen"]
   },
   {
     "slug": "stredisko",
@@ -89198,12 +88492,7 @@
         "tatoebaId": 13108503
       }
     ],
-    "related": [
-      "voda",
-      "zem",
-      "strom",
-      "kvet"
-    ]
+    "related": ["voda", "zem", "strom", "kvet"]
   },
   {
     "slug": "kus",
@@ -89516,9 +88805,7 @@
         "tatoebaId": 9850297
       }
     ],
-    "related": [
-      "pocasie"
-    ]
+    "related": ["pocasie"]
   },
   {
     "slug": "struktura",
@@ -91067,12 +90354,7 @@
         "tatoebaId": 9954773
       }
     ],
-    "related": [
-      "voda",
-      "vzduch",
-      "zem",
-      "strom"
-    ]
+    "related": ["voda", "vzduch", "zem", "strom"]
   },
   {
     "slug": "start",
@@ -91592,12 +90874,7 @@
         "tatoebaId": 8920989
       }
     ],
-    "related": [
-      "stanica",
-      "listok",
-      "auto",
-      "lietadlo"
-    ]
+    "related": ["stanica", "listok", "auto", "lietadlo"]
   },
   {
     "slug": "spolocenstvo",
@@ -92376,11 +91653,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "jar",
-      "leto",
-      "zima"
-    ]
+    "related": ["jar", "leto", "zima"]
   },
   {
     "slug": "kniznica",
@@ -93935,11 +93208,7 @@
         "tatoebaId": 12559175
       }
     ],
-    "related": [
-      "leto",
-      "jesen",
-      "zima"
-    ]
+    "related": ["leto", "jesen", "zima"]
   },
   {
     "slug": "vietor",
@@ -93993,9 +93262,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "pocasie"
-    ]
+    "related": ["pocasie"]
   },
   {
     "slug": "teplota",
@@ -96390,12 +95657,7 @@
         "tatoebaId": 8982824
       }
     ],
-    "related": [
-      "stanica",
-      "listok",
-      "auto",
-      "autobus"
-    ]
+    "related": ["stanica", "listok", "auto", "autobus"]
   },
   {
     "slug": "ucel",
@@ -98135,9 +97397,7 @@
         "tatoebaId": 10072277
       }
     ],
-    "related": [
-      "pocasie"
-    ]
+    "related": ["pocasie"]
   },
   {
     "slug": "predstavenie",
@@ -100627,12 +99887,7 @@
         "tatoebaId": 10045766
       }
     ],
-    "related": [
-      "jedlo",
-      "voda",
-      "kava",
-      "chlieb"
-    ]
+    "related": ["jedlo", "voda", "kava", "chlieb"]
   },
   {
     "slug": "vrazda",
@@ -101253,12 +100508,7 @@
         "tatoebaId": 13353513
       }
     ],
-    "related": [
-      "voda",
-      "vzduch",
-      "zem",
-      "strom"
-    ]
+    "related": ["voda", "vzduch", "zem", "strom"]
   },
   {
     "slug": "studia",
@@ -101773,12 +101023,7 @@
         "tatoebaId": 8978066
       }
     ],
-    "related": [
-      "cas",
-      "den",
-      "noc",
-      "vecer"
-    ]
+    "related": ["cas", "den", "noc", "vecer"]
   },
   {
     "slug": "vzdelanie",
@@ -102148,12 +101393,7 @@
         "tatoebaId": 13924690
       }
     ],
-    "related": [
-      "ruka",
-      "noha",
-      "hlava",
-      "oko"
-    ]
+    "related": ["ruka", "noha", "hlava", "oko"]
   },
   {
     "slug": "gymnazium",
@@ -102771,9 +102011,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "dieta"
-    ]
+    "related": ["dieta"]
   },
   {
     "slug": "vyhra",
@@ -105413,12 +104651,7 @@
         "tatoebaId": 9943444
       }
     ],
-    "related": [
-      "jedlo",
-      "voda",
-      "kava",
-      "chlieb"
-    ]
+    "related": ["jedlo", "voda", "kava", "chlieb"]
   },
   {
     "slug": "hlasovanie",
@@ -105620,10 +104853,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "nemocnica",
-      "lekar"
-    ]
+    "related": ["nemocnica", "lekar"]
   },
   {
     "slug": "hriech",
@@ -106661,12 +105891,7 @@
         "tatoebaId": 8947989
       }
     ],
-    "related": [
-      "jedlo",
-      "kolac",
-      "kava",
-      "maso"
-    ]
+    "related": ["jedlo", "kolac", "kava", "maso"]
   },
   {
     "slug": "zakaz",
@@ -107649,9 +106874,7 @@
         "tatoebaId": 9967600
       }
     ],
-    "related": [
-      "chudobny"
-    ]
+    "related": ["chudobny"]
   },
   {
     "slug": "bezny",
@@ -107916,9 +107139,7 @@
         "tatoebaId": 12696570
       }
     ],
-    "related": [
-      "spinavy"
-    ]
+    "related": ["spinavy"]
   },
   {
     "slug": "moderny",
@@ -108025,9 +107246,7 @@
         "tatoebaId": 12819887
       }
     ],
-    "related": [
-      "silny"
-    ]
+    "related": ["silny"]
   },
   {
     "slug": "pravny",
@@ -109340,12 +108559,7 @@
         "tatoebaId": 12717678
       }
     ],
-    "related": [
-      "tazky",
-      "velky",
-      "maly",
-      "novy"
-    ]
+    "related": ["tazky", "velky", "maly", "novy"]
   },
   {
     "slug": "zeleny",
@@ -109402,12 +108616,7 @@
         "tatoebaId": 13384152
       }
     ],
-    "related": [
-      "biely",
-      "cierny",
-      "cerveny",
-      "modry"
-    ]
+    "related": ["biely", "cierny", "cerveny", "modry"]
   },
   {
     "slug": "skvely",
@@ -110237,9 +109446,7 @@
         "tatoebaId": 10489589
       }
     ],
-    "related": [
-      "chory"
-    ]
+    "related": ["chory"]
   },
   {
     "slug": "horny",
@@ -113105,9 +112312,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "plny"
-    ]
+    "related": ["plny"]
   },
   {
     "slug": "lacny",
@@ -113368,12 +112573,7 @@
         "tatoebaId": 12650889
       }
     ],
-    "related": [
-      "biely",
-      "cierny",
-      "cerveny",
-      "zeleny"
-    ]
+    "related": ["biely", "cierny", "cerveny", "zeleny"]
   },
   {
     "slug": "prirodny",
@@ -113849,9 +113049,7 @@
         "tatoebaId": 13064792
       }
     ],
-    "related": [
-      "volny"
-    ]
+    "related": ["volny"]
   },
   {
     "slug": "tajny",
@@ -114419,9 +113617,7 @@
         "tatoebaId": 12838351
       }
     ],
-    "related": [
-      "bohaty"
-    ]
+    "related": ["bohaty"]
   },
   {
     "slug": "priemyselny",
@@ -114631,9 +113827,7 @@
         "tatoebaId": 13839487
       }
     ],
-    "related": [
-      "vesely"
-    ]
+    "related": ["vesely"]
   },
   {
     "slug": "elektronicky",
@@ -115457,9 +114651,7 @@
         "isPracticeFrame": true
       }
     ],
-    "related": [
-      "studeny"
-    ]
+    "related": ["studeny"]
   },
   {
     "slug": "pravidelny",
@@ -116130,9 +115322,7 @@
         "isPracticeFrame": true
       }
     ],
-    "related": [
-      "siroky"
-    ]
+    "related": ["siroky"]
   },
   {
     "slug": "sovietsky",
@@ -116346,12 +115536,7 @@
         "tatoebaId": 8935984
       }
     ],
-    "related": [
-      "biely",
-      "cierny",
-      "cerveny",
-      "modry"
-    ]
+    "related": ["biely", "cierny", "cerveny", "modry"]
   },
   {
     "slug": "letecky",
@@ -117381,9 +116566,7 @@
         "tatoebaId": 13097782
       }
     ],
-    "related": [
-      "jednoduchy"
-    ]
+    "related": ["jednoduchy"]
   },
   {
     "slug": "dolny",
@@ -117755,9 +116938,7 @@
         "tatoebaId": 9008149
       }
     ],
-    "related": [
-      "zdravy"
-    ]
+    "related": ["zdravy"]
   },
   {
     "slug": "zadny",
@@ -120232,9 +119413,7 @@
         "tatoebaId": 9927051
       }
     ],
-    "related": [
-      "teply"
-    ]
+    "related": ["teply"]
   },
   {
     "slug": "rodny",
@@ -124297,9 +123476,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "smutny"
-    ]
+    "related": ["smutny"]
   },
   {
     "slug": "zabavny",
@@ -129019,9 +128196,7 @@
         "isPracticeFrame": true
       }
     ],
-    "related": [
-      "spravny"
-    ]
+    "related": ["spravny"]
   },
   {
     "slug": "hrozny",
@@ -130854,9 +130029,7 @@
         "tatoebaId": 10057665
       }
     ],
-    "related": [
-      "rychly"
-    ]
+    "related": ["rychly"]
   },
   {
     "slug": "legislativny",
@@ -131465,9 +130638,7 @@
         "tatoebaId": 12874152
       }
     ],
-    "related": [
-      "mozny"
-    ]
+    "related": ["mozny"]
   },
   {
     "slug": "primerany",
@@ -133466,9 +132637,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "cisty"
-    ]
+    "related": ["cisty"]
   },
   {
     "slug": "pozoruhodny",
@@ -151665,9 +150834,7 @@
         "tatoebaId": 9927001
       }
     ],
-    "related": [
-      "stat"
-    ]
+    "related": ["stat"]
   },
   {
     "slug": "stavat-v",
@@ -151838,9 +151005,7 @@
         "tatoebaId": 13409825
       }
     ],
-    "related": [
-      "vlada"
-    ]
+    "related": ["vlada"]
   },
   {
     "slug": "byt-n",
@@ -151897,12 +151062,7 @@
         "tatoebaId": 2916553
       }
     ],
-    "related": [
-      "dom",
-      "mesto",
-      "stanica",
-      "listok"
-    ]
+    "related": ["dom", "mesto", "stanica", "listok"]
   },
   {
     "slug": "rad-n",
@@ -152071,12 +151231,7 @@
         "tatoebaId": 8846731
       }
     ],
-    "related": [
-      "rodina",
-      "matka",
-      "otec",
-      "sestra"
-    ]
+    "related": ["rodina", "matka", "otec", "sestra"]
   },
   {
     "slug": "narast-n",
@@ -152500,9 +151655,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "tim"
-    ]
+    "related": ["tim"]
   },
   {
     "slug": "dospely-a",
@@ -152556,9 +151709,7 @@
         "note": "Curated"
       }
     ],
-    "related": [
-      "mlady"
-    ]
+    "related": ["mlady"]
   },
   {
     "slug": "rastlina",

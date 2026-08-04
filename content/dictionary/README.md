@@ -4,12 +4,12 @@ How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../.
 
 ## Where to put it
 
-| Intent | File | Notes |
-| ------ | ---- | ----- |
-| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts) | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`. |
-| Bulk / POS lemma (SNK-style) | [`words.json`](./words.json) | Usual home for Verbs / Nouns / Adjectives / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
-| Better examples only (lemma already exists) | [`curated-examples.json`](./curated-examples.json) then `bun run examples:curate` | Overlay keyed by existing slug — not a new entry. |
-| Empty `related` peers | [`related-clusters.json`](./related-clusters.json) then `bun run related:apply` | Fills empty related arrays only. |
+| Intent                                               | File                                                                              | Notes                                                                                                                                   |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts)   | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                       |
+| Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                      | Usual home for Verbs / Nouns / Adjectives / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
+| Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun run examples:curate` | Overlay keyed by existing slug — not a new entry.                                                                                       |
+| Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun run related:apply`   | Fills empty related arrays only.                                                                                                        |
 
 Prefer curated seed for learner-facing essentials; prefer `words.json` (or `frequency:publish`) for mass POS coverage.
 
@@ -41,26 +41,26 @@ Hand-authored shape (`WordSeed`). Runtime fills `kind`, `summary`, `body`, `tags
 
 ### Fields
 
-| Field | Required | Rules |
-| ----- | -------- | ----- |
-| `slug` | yes | From `lemmaToSlug(slovak)` in `src/lib/content/frequency.ts`: lowercase, strip diacritics, non-alphanumeric → `-`, trim hyphens. Unique across curated seed + `words.json`. On POS collision, frequency publish uses `-v` / `-n` / `-a` (e.g. `stat-n`). |
-| `slovak` | yes | Lemma with correct diacritics (`ďakujem`, not `dakujem`). |
-| `english` | yes | Short gloss; multiple senses with `; ` (`can; to be able to`). |
-| `category` | yes | See categories below — match the home file. |
-| `examples` | yes | See example rules. |
-| `related` | yes | Array of **existing** slugs (may be `[]`). No free-text labels. |
+| Field      | Required | Rules                                                                                                                                                                                                                                                    |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `slug`     | yes      | From `lemmaToSlug(slovak)` in `src/lib/content/frequency.ts`: lowercase, strip diacritics, non-alphanumeric → `-`, trim hyphens. Unique across curated seed + `words.json`. On POS collision, frequency publish uses `-v` / `-n` / `-a` (e.g. `stat-n`). |
+| `slovak`   | yes      | Lemma with correct diacritics (`ďakujem`, not `dakujem`).                                                                                                                                                                                                |
+| `english`  | yes      | Short gloss; multiple senses with `; ` (`can; to be able to`).                                                                                                                                                                                           |
+| `category` | yes      | See categories below — match the home file.                                                                                                                                                                                                              |
+| `examples` | yes      | See example rules.                                                                                                                                                                                                                                       |
+| `related`  | yes      | Array of **existing** slugs (may be `[]`). No free-text labels.                                                                                                                                                                                          |
 
 Do not hand-write `origin`, `frequency`, `body`, `summary`, `tags`, or source fields into `words.json`.
 
 ### Example object (optional keys)
 
-| Field | When |
-| ----- | ---- |
-| `slovak` / `english` | Always. |
-| `note` | `"Curated"` for hand lines; `"Tatoeba"` when from corpus (keep `tatoebaId`). |
-| `demonstrates` | Short learner cue for pattern lemmas (`byť + location — where`). |
-| `tatoebaId` | Slovak-side Tatoeba id when `note` is `"Tatoeba"`. |
-| `isPracticeFrame` | Fill-script stubs only — prefer real curated/Tatoeba over these. |
+| Field                | When                                                                         |
+| -------------------- | ---------------------------------------------------------------------------- |
+| `slovak` / `english` | Always.                                                                      |
+| `note`               | `"Curated"` for hand lines; `"Tatoeba"` when from corpus (keep `tatoebaId`). |
+| `demonstrates`       | Short learner cue for pattern lemmas (`byť + location — where`).             |
+| `tatoebaId`          | Slovak-side Tatoeba id when `note` is `"Tatoeba"`.                           |
+| `isPracticeFrame`    | Fill-script stubs only — prefer real curated/Tatoeba over these.             |
 
 ## Categories
 
@@ -72,11 +72,11 @@ Do not invent a new category unless the UI already treats it as a browse bucket.
 
 ## Examples — how many
 
-| Layer | Count | Constant |
-| ----- | ----- | -------- |
-| Shown on lemma page + example audio | first **4** | `EXAMPLE_DISPLAY_LIMIT` |
-| Soft store pool (enrich default) | up to **8** | `EXAMPLE_STORE_PER_WORD` |
-| Fill tops up if below | **2** | `examples:fill` |
+| Layer                               | Count       | Constant                 |
+| ----------------------------------- | ----------- | ------------------------ |
+| Shown on lemma page + example audio | first **4** | `EXAMPLE_DISPLAY_LIMIT`  |
+| Soft store pool (enrich default)    | up to **8** | `EXAMPLE_STORE_PER_WORD` |
+| Fill tops up if below               | **2**       | `examples:fill`          |
 
 Hand-add checklist:
 

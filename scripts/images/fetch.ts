@@ -472,9 +472,7 @@ async function findCommonsHitForTarget(
     if (
       !fallback &&
       hits[0] &&
-      ["Food", "Places", "People", "Travel", "Everyday life"].includes(
-        target.category,
-      )
+      ["Food", "Places", "People", "Travel", "Everyday life"].includes(target.category)
     ) {
       fallback = hits[0];
     }

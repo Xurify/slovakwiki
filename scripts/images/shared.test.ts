@@ -43,23 +43,19 @@ describe("allowsCommonsAutoPromote", () => {
       ),
     ).toBe(false);
     expect(
-      allowsCommonsAutoPromote(
-        target({ category: "Adjectives", gloss: "red" }),
-      ),
+      allowsCommonsAutoPromote(target({ category: "Adjectives", gloss: "red" })),
     ).toBe(false);
-    expect(
-      allowsCommonsAutoPromote(target({ category: "Nouns", gloss: "bread" })),
-    ).toBe(false);
+    expect(allowsCommonsAutoPromote(target({ category: "Nouns", gloss: "bread" }))).toBe(
+      false,
+    );
   });
 
   it("allows Food / Places; blocks tiny Essentials glosses", () => {
+    expect(allowsCommonsAutoPromote(target({ category: "Food", gloss: "lunch" }))).toBe(
+      true,
+    );
     expect(
-      allowsCommonsAutoPromote(target({ category: "Food", gloss: "lunch" })),
-    ).toBe(true);
-    expect(
-      allowsCommonsAutoPromote(
-        target({ category: "Places", gloss: "Britain" }),
-      ),
+      allowsCommonsAutoPromote(target({ category: "Places", gloss: "Britain" })),
     ).toBe(true);
     expect(
       allowsCommonsAutoPromote(target({ category: "Essentials", gloss: "yes" })),
@@ -69,29 +65,26 @@ describe("allowsCommonsAutoPromote", () => {
 
 describe("nounCommonsQueries", () => {
   it("adds meal queries for Food", () => {
-    expect(nounCommonsQueries(target({ category: "Food", gloss: "lunch" }))).toEqual(
-      ["lunch", "lunch food", "lunch meal", "lunch dish"],
-    );
+    expect(nounCommonsQueries(target({ category: "Food", gloss: "lunch" }))).toEqual([
+      "lunch",
+      "lunch food",
+      "lunch meal",
+      "lunch dish",
+    ]);
   });
 });
 
 describe("commons title filters", () => {
   it("matches gloss at start of filename", () => {
-    expect(commonsTitleMatchesGloss("Lunch (27825792571).jpg", "lunch")).toBe(
-      true,
-    );
+    expect(commonsTitleMatchesGloss("Lunch (27825792571).jpg", "lunch")).toBe(true);
     expect(commonsTitleMatchesGloss("Dinner plate.jpg", "lunch")).toBe(false);
-    expect(
-      commonsTitleMatchesGloss("The Graduate Title.png", "graduate"),
-    ).toBe(false);
+    expect(commonsTitleMatchesGloss("The Graduate Title.png", "graduate")).toBe(false);
     expect(
       commonsTitleMatchesGloss("The Graduate Title.png", "graduate", {
         allowArticle: true,
       }),
     ).toBe(true);
-    expect(
-      commonsTitleMatchesGloss("Foo Absolute Bar.jpg", "absolute"),
-    ).toBe(false);
+    expect(commonsTitleMatchesGloss("Foo Absolute Bar.jpg", "absolute")).toBe(false);
   });
 
   it("rejects icons / flags / nsfw / entertainment titles", () => {

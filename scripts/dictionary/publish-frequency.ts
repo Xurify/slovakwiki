@@ -154,9 +154,7 @@ async function main(): Promise<void> {
       const glossCategory = gloss.category?.trim();
       if (
         glossCategory === "Names" ||
-        /\b(given name|surname|family name|first name|last name)\b/i.test(
-          gloss.english,
-        )
+        /\b(given name|surname|family name|first name|last name)\b/i.test(gloss.english)
       ) {
         skippedLive += 1;
         continue;

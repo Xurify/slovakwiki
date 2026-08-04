@@ -32,9 +32,7 @@ async function main(): Promise<void> {
   const glosses = JSON.parse(
     await readFile(path.join(FREQUENCY_DIR, "glosses.json"), "utf8"),
   ) as Record<string, { english?: string }>;
-  const liveLemmas = new Set(
-    words.map((word) => word.slovak.toLocaleLowerCase("sk")),
-  );
+  const liveLemmas = new Set(words.map((word) => word.slovak.toLocaleLowerCase("sk")));
   const missing: MissingGloss[] = [];
   const counts = {} as Record<FrequencyPartOfSpeech, number>;
 

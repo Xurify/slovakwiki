@@ -44,16 +44,16 @@ bun run index:search        # Pagefind for local/dev search
 
 Frequency lists, live dictionary publish, Tatoeba examples.
 
-| File                          | npm script                  | Notes                                                                                                                                                                        |
-| ----------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `import-frequency.ts`         | `frequency:import`          | Nouns use the full SNK count dump (default top 2500); verbs/adjectives keep the HTML top 1000; `--noun-limit N` / `--force`                                                  |
-| `report-missing-glosses.ts`   | `frequency:missing-glosses` | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
-| `publish-frequency.ts`        | `frequency:publish`         | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
-| `enrich-examples.ts`          | `examples:enrich`           | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
-| `reclaim-weak-examples.ts`    | `examples:reclaim`          | Drops exact weak fill stubs from curated JSON                                                                                                                                |
-| `fill-empty-examples.ts`      | `examples:fill`             | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                                                                     |
-| `apply-curated-examples.ts`   | `examples:curate`           | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                              |
-| `apply-related.ts`            | `related:apply`             | Fills empty related from `related-clusters.json`                                                                                                                             |
+| File                        | npm script                  | Notes                                                                                                                                                                        |
+| --------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `import-frequency.ts`       | `frequency:import`          | Nouns use the full SNK count dump (default top 2500); verbs/adjectives keep the HTML top 1000; `--noun-limit N` / `--force`                                                  |
+| `report-missing-glosses.ts` | `frequency:missing-glosses` | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
+| `publish-frequency.ts`      | `frequency:publish`         | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
+| `enrich-examples.ts`        | `examples:enrich`           | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
+| `reclaim-weak-examples.ts`  | `examples:reclaim`          | Drops exact weak fill stubs from curated JSON                                                                                                                                |
+| `fill-empty-examples.ts`    | `examples:fill`             | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                                                                     |
+| `apply-curated-examples.ts` | `examples:curate`           | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                              |
+| `apply-related.ts`          | `related:apply`             | Fills empty related from `related-clusters.json`                                                                                                                             |
 
 Example limits: `src/lib/content/example-limits.ts` — store pool 8 / display 4. Primary dictionary growth is frequency publish + example enrich. Example quality gates live in `src/lib/content/example-quality.ts` + tests (not separate audit scripts).
 
@@ -94,7 +94,7 @@ Flags (`fetch`/`stage`): `--limit N`, `--pos noun|verb|adjective`, `--only {slug
 
 Overrides in `content/images/overrides.json`: `{ "slug": { "reject": true } }` or `{ "commonsFile": "Foo.jpg" }`.
 
-**Image policy:** Prefer Wikipedia pageimages. If missing, auto-search Commons for learner categories with concrete referents (Food / Places / People / Travel / Everyday life / Essentials). Require free license; prefer filenames that *start* with the gloss. General Nouns, adjectives, and verbs stay empty unless `images:stage` → visual audit → `images:promote` (polysemy / false-friend risk).
+**Image policy:** Prefer Wikipedia pageimages. If missing, auto-search Commons for learner categories with concrete referents (Food / Places / People / Travel / Everyday life / Essentials). Require free license; prefer filenames that _start_ with the gloss. General Nouns, adjectives, and verbs stay empty unless `images:stage` → visual audit → `images:promote` (polysemy / false-friend risk).
 
 Local: `/images/dictionary/{file}` when file exists under `static/images/`. Prod omits images until a later R2 upload step.
 

@@ -19,7 +19,7 @@
   let { entries }: { entries: DictionaryIndexEntry[] } = $props();
 
   const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives", "Places"]);
-  const PAGE_SIZE = 60;
+  const PAGE_SIZE = 50;
 
   const categoryCounts = new Map<string, number>();
 
@@ -43,13 +43,13 @@
   ].toSorted((first, second) => first.localeCompare(second, "sk"));
 
   const topicOptions = [
+    { value: "all", label: "All words", count: entries.length },
     { value: "featured", label: "Featured", count: featuredCount },
     ...curatedCategories.map(([category, count]) => ({
       value: category,
       label: category,
       count,
     })),
-    { value: "all", label: "All words", count: entries.length },
     ...massCategories.map(([category, count]) => ({
       value: category,
       label: category,
@@ -61,10 +61,11 @@
     ...availableLetters.map((letter) => ({ value: letter, label: letter })),
   ];
 
-  let activeCategory = $state("featured");
+  let activeCategory = $state("all");
   let activeLetter = $state("all");
   let query = $state("");
-  let visibleLimit = $state(PAGE_SIZE);
+  let currentPage = $state(1);
+  let pageInput = $state("1");
 
   const filteredEntries = $derived(
     entries
@@ -88,11 +89,26 @@
       .toSorted((first, second) => first.slovak.localeCompare(second.slovak, "sk")),
   );
 
-  const visibleEntries = $derived(filteredEntries.slice(0, visibleLimit));
-  const hasMore = $derived(filteredEntries.length > visibleLimit);
-  const hasActiveFilters = $derived(
-    activeCategory !== "featured" || activeLetter !== "all" || Boolean(query),
+  const totalPages = $derived(Math.max(1, Math.ceil(filteredEntries.length / PAGE_SIZE)));
+  const safePage = $derived(Math.min(currentPage, totalPages));
+  const pageStart = $derived((safePage - 1) * PAGE_SIZE);
+  const visibleEntries = $derived(
+    filteredEntries.slice(pageStart, pageStart + PAGE_SIZE),
   );
+  const rangeLabel = $derived.by(() => {
+    if (filteredEntries.length === 0) return "0 results";
+    const from = pageStart + 1;
+    const to = pageStart + visibleEntries.length;
+    return `${from}–${to} of ${filteredEntries.length}`;
+  });
+  const pageItems = $derived(buildPageItems(safePage, totalPages));
+  const hasActiveFilters = $derived(
+    activeCategory !== "all" || activeLetter !== "all" || Boolean(query),
+  );
+
+  $effect(() => {
+    pageInput = String(safePage);
+  });
 
   function normalize(value: string): string {
     return value
@@ -101,21 +117,65 @@
       .toLocaleLowerCase();
   }
 
+  function buildPageItems(current: number, total: number): Array<number | "gap"> {
+    if (total <= 7) {
+      return Array.from({ length: total }, (_, index) => index + 1);
+    }
+
+    const items: Array<number | "gap"> = [];
+    const windowStart = Math.max(2, current - 1);
+    const windowEnd = Math.min(total - 1, current + 1);
+
+    items.push(1);
+    if (windowStart > 2) items.push("gap");
+    for (let page = windowStart; page <= windowEnd; page += 1) {
+      items.push(page);
+    }
+    if (windowEnd < total - 1) items.push("gap");
+    items.push(total);
+
+    return items;
+  }
+
+  function resetPage(): void {
+    currentPage = 1;
+  }
+
   function clearFilters(): void {
-    activeCategory = "featured";
+    activeCategory = "all";
     activeLetter = "all";
     query = "";
-    visibleLimit = PAGE_SIZE;
+    resetPage();
   }
 
   function setCategory(value: string): void {
     activeCategory = value;
-    visibleLimit = PAGE_SIZE;
+    resetPage();
   }
 
   function setLetter(value: string): void {
     activeLetter = value;
-    visibleLimit = PAGE_SIZE;
+    resetPage();
+  }
+
+  function setPage(page: number): void {
+    currentPage = Math.min(Math.max(1, page), totalPages);
+  }
+
+  function commitPageInput(): void {
+    const parsed = Number.parseInt(pageInput.trim(), 10);
+    if (Number.isNaN(parsed)) {
+      pageInput = String(safePage);
+      return;
+    }
+    setPage(parsed);
+  }
+
+  function onPageInputKeydown(event: KeyboardEvent): void {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      commitPageInput();
+    }
   }
 
   function chipClass(active: boolean): string {
@@ -123,6 +183,12 @@
       ? "border-blue-800 bg-blue-800 text-white"
       : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900";
   }
+
+  const pagerButtonClass =
+    "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors disabled:cursor-default disabled:opacity-40";
+
+  const pageInputClass =
+    "h-9 w-14 rounded-(--control-radius) border border-slate-300 bg-transparent px-2 text-center text-xs font-semibold tabular-nums text-slate-800 outline-none focus:border-blue-600";
 
   const rowLinkClass =
     "group flex items-start justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-3.5 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_55%,transparent)]";
@@ -134,8 +200,8 @@
       <Eyebrow>Reference</Eyebrow>
       <h1>Dictionary</h1>
       <Lead>
-        Start with curated essentials, or browse the full list by letter and topic. For
-        frequency-ranked lemmas, open Most common.
+        Search or browse every lemma by letter and topic. Featured is a short curated
+        starter set; for frequency-ranked lists, open Most common.
       </Lead>
       <p class="mt-4 text-sm text-slate-500">
         Also browse the
@@ -161,7 +227,7 @@
           class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.95rem] outline-none"
           id="wiki-search"
           bind:value={query}
-          oninput={() => (visibleLimit = PAGE_SIZE)}
+          oninput={resetPage}
           placeholder="Search in English or Slovak"
           type="search"
         />
@@ -172,7 +238,7 @@
             aria-label="Clear search"
             onclick={() => {
               query = "";
-              visibleLimit = PAGE_SIZE;
+              resetPage();
             }}
           >
             Clear
@@ -222,11 +288,10 @@
       class="mt-8 flex min-h-10 flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-slate-200 pb-3"
     >
       <p class="m-0 text-sm text-slate-500">
-        <strong class="tabular-nums text-slate-900">{filteredEntries.length}</strong>
-        {filteredEntries.length === 1 ? "result" : "results"}
-        {#if hasMore}
+        <strong class="tabular-nums text-slate-900">{rangeLabel}</strong>
+        {#if totalPages > 1}
           <span class="text-slate-400">
-            · showing {visibleEntries.length}
+            · page {safePage} of {totalPages}
           </span>
         {/if}
       </p>
@@ -264,12 +329,63 @@
           {/each}
         </ul>
 
-        {#if hasMore}
-          <div class="mt-6 flex justify-center">
-            <Button type="button" onclick={() => (visibleLimit += PAGE_SIZE)}>
-              Show more
-            </Button>
-          </div>
+        {#if totalPages > 1}
+          <nav
+            class="mt-8 flex flex-col items-center gap-3"
+            aria-label="Dictionary pages"
+          >
+            <div class="flex flex-wrap items-center justify-center gap-1.5">
+              <button
+                class="{pagerButtonClass} {chipClass(false)}"
+                type="button"
+                disabled={safePage <= 1}
+                onclick={() => setPage(safePage - 1)}
+              >
+                Previous
+              </button>
+
+              {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
+                {#if item === "gap"}
+                  <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
+                {:else}
+                  <button
+                    class="{pagerButtonClass} {chipClass(item === safePage)}"
+                    type="button"
+                    aria-current={item === safePage ? "page" : undefined}
+                    aria-label="Page {item}"
+                    onclick={() => setPage(item)}
+                  >
+                    {item}
+                  </button>
+                {/if}
+              {/each}
+
+              <button
+                class="{pagerButtonClass} {chipClass(false)}"
+                type="button"
+                disabled={safePage >= totalPages}
+                onclick={() => setPage(safePage + 1)}
+              >
+                Next
+              </button>
+            </div>
+
+            <label class="flex items-center gap-2 text-xs text-slate-500">
+              <span>Go to page</span>
+              <input
+                class={pageInputClass}
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                autocomplete="off"
+                aria-label="Page number"
+                bind:value={pageInput}
+                onkeydown={onPageInputKeydown}
+                onblur={commitPageInput}
+              />
+              <span class="tabular-nums">of {totalPages}</span>
+            </label>
+          </nav>
         {/if}
       {:else}
         <div class="py-16 text-center">
@@ -278,7 +394,7 @@
             Try a shorter search or reset the filters.
           </p>
           <Button class="mt-4" type="button" onclick={clearFilters}>
-            Show featured entries
+            Show all entries
           </Button>
         </div>
       {/if}
