@@ -198,17 +198,29 @@ describe("Slovak content", () => {
     ).toBe(true);
   });
 
-  it("gives every word at least one example and matching usage copy", () => {
-    const withExamples = words.filter((word) => word.examples.length > 0);
-    const withoutExamples = words.filter((word) => word.examples.length === 0);
+  it("gives every word at least one example", () => {
+    expect(words.every((word) => word.examples.length > 0)).toBe(true);
+  });
 
-    expect(withoutExamples).toEqual([]);
-    expect(withExamples.length).toBe(words.length);
+  it("keeps dictionary usage body only for real pattern notes", () => {
     expect(
-      withExamples.every((word) =>
-        word.body.some((paragraph) => paragraph.includes("Read the example")),
+      words.every(
+        (word) =>
+          !word.body.some(
+            (paragraph) =>
+              paragraph.includes("everyday Slovak") ||
+              paragraph.includes("Read the example") ||
+              paragraph.includes("Say it aloud"),
+          ),
       ),
     ).toBe(true);
+
+    const rad = words.find((word) => word.slug === "rad");
+    expect(rad?.body.length).toBeGreaterThan(0);
+    expect(rad?.body[0]).toMatch(/mať rád/i);
+
+    const plain = words.find((word) => word.slug === "stanica");
+    expect(plain?.body).toEqual([]);
   });
 
   it("does not paste noun lemmas into accusative Potrebujem stubs", () => {

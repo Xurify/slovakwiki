@@ -453,21 +453,8 @@ const wordSeed: WordSeed[] = [...curatedWordSeed, ...(dictionaryWords as WordSee
 const curatedSlugs = new Set(curatedWordSeed.map((word) => word.slug));
 
 function wordBody(word: WordSeed): string[] {
-  const usage = `Use “${word.slovak}” in everyday Slovak. Listen for its natural stress on the first syllable.`;
   const patternNote = PATTERN_USAGE_NOTES[word.slug];
-
-  if (word.examples.length > 0) {
-    return [
-      usage,
-      ...(patternNote ? [patternNote] : []),
-      "Read the example aloud, then replace one part of the sentence with a word you already know.",
-    ];
-  }
-
-  return [
-    usage,
-    "Say it aloud, then try it in a short sentence of your own. Sentence examples are not available for this word yet.",
-  ];
+  return patternNote ? [patternNote] : [];
 }
 
 /** Extra Usage copy for high-confusion pattern lemmas. */

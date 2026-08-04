@@ -216,7 +216,9 @@
             class="flex flex-wrap gap-x-5 gap-y-1 py-2.5 text-sm text-panel-inverse-ink/50"
             aria-label="On this page"
           >
-            <a class="hover:text-panel-inverse-ink" href="#usage">Usage</a>
+            {#if entry.body.length > 0}
+              <a class="hover:text-panel-inverse-ink" href="#usage">Usage</a>
+            {/if}
             {#if entry.examples.length > 0}
               <a class="hover:text-panel-inverse-ink" href="#examples">Examples</a>
             {/if}
@@ -231,18 +233,30 @@
     <article class="min-w-0">
       {#each senseViews as sense, senseIndex (sense.entry.slug)}
         {@const senseEntry = sense.entry}
-        {@const sectionId = multiSense ? senseSectionId(senseEntry.category) : "usage"}
+        {@const hasUsage = senseEntry.body.length > 0}
+        {@const sectionId = multiSense
+          ? senseSectionId(senseEntry.category)
+          : hasUsage
+            ? "usage"
+            : undefined}
         {@const examplesId = multiSense
           ? `${senseSectionId(senseEntry.category)}-examples`
           : "examples"}
         {@const practiceOnly = onlyPracticeFrames(senseEntry.examples)}
+        {@const sectionLabelId = multiSense
+          ? `${sectionId}-heading`
+          : hasUsage
+            ? "usage-heading"
+            : senseEntry.examples.length > 0
+              ? `${examplesId}-heading`
+              : undefined}
 
         <section
           id={sectionId}
           class={`scroll-mt-[88px] ${
             multiSense && senseIndex > 0 ? "mt-12 border-t border-slate-200 pt-12" : ""
           }`}
-          aria-labelledby={`${sectionId}-heading`}
+          aria-labelledby={sectionLabelId}
         >
           {#if multiSense}
             <h2 id={`${sectionId}-heading`} class="mb-2">{senseEntry.category}</h2>
@@ -267,15 +281,17 @@
               </p>
             {/if}
 
-            <div class="mt-8">
-              <Eyebrow>Usage</Eyebrow>
-              <h3 class="mb-4 text-xl">How to use it</h3>
-              {#each senseEntry.body as paragraph, index (index)}
-                <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
-                  {paragraph}
-                </p>
-              {/each}
-            </div>
+            {#if hasUsage}
+              <div class="mt-8">
+                <Eyebrow>Usage</Eyebrow>
+                <h3 class="mb-4 text-xl">How to use it</h3>
+                {#each senseEntry.body as paragraph, index (index)}
+                  <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
+                    {paragraph}
+                  </p>
+                {/each}
+              </div>
+            {/if}
           {:else}
             {#if entry.summary && entry.summary !== `${entry.slovak} means “${entry.english}.”`}
               <p
@@ -285,20 +301,22 @@
               </p>
             {/if}
 
-            <Eyebrow>Usage</Eyebrow>
-            <h2 id={`${sectionId}-heading`} class="mb-4">How to use it</h2>
+            {#if hasUsage}
+              <Eyebrow>Usage</Eyebrow>
+              <h2 id="usage-heading" class="mb-4">How to use it</h2>
 
-            {#each senseEntry.body as paragraph, index (index)}
-              <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
-                {paragraph}
-              </p>
-            {/each}
+              {#each senseEntry.body as paragraph, index (index)}
+                <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
+                  {paragraph}
+                </p>
+              {/each}
+            {/if}
           {/if}
 
           {#if senseEntry.examples.length > 0}
             <div
               id={examplesId}
-              class="scroll-mt-[88px] mt-10"
+              class={`scroll-mt-[88px] ${hasUsage ? "mt-10" : multiSense ? "mt-8" : ""}`}
               aria-labelledby={`${examplesId}-heading`}
             >
               <Eyebrow>{practiceOnly ? "Practice frame" : "Examples"}</Eyebrow>
