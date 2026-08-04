@@ -70,6 +70,7 @@ const CURATED_RELATED: Record<string, string[]> = {
   zjest: ["jest"],
   pit: ["vypit"],
   vypit: ["pit"],
+  pripustit: ["priznat", "priznavat"],
 };
 
 /** Gloss overrides applied with curated examples (search / detail headword). */

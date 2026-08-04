@@ -35,6 +35,7 @@ type VerbFrame =
   | "person_object"
   | "perception_si"
   | "perception"
+  | "acknowledge"
   | "motion"
   | "activity"
   | "change"
@@ -109,6 +110,10 @@ function classifyVerbFrame(slovak: string, bareGloss: string): VerbFrame {
     /invite|meet|visit|help|thank|love|hate|kiss|hug|marry|know\b|recognize/i.test(gloss)
   ) {
     return "person_object";
+  }
+
+  if (/admit|acknowledge|confess|concede|allow|permit|tolerate|suppose/i.test(gloss)) {
+    return "acknowledge";
   }
 
   if (/notice|look|feel|smell|taste|watch|observe|listen|see\b/i.test(gloss)) {
@@ -197,6 +202,12 @@ function verbExample(slovak: string, english: string): Example {
         english: `I'm trying to ${bare}.`,
         note: "Curated",
       };
+    case "acknowledge":
+      return {
+        slovak: `Musím ${slovak}, že som sa mýlil.`,
+        english: `I have to ${bare} that I was wrong.`,
+        note: "Curated",
+      };
     case "change":
       return {
         slovak: `Chcem ${slovak} kvalitu.`,
@@ -205,8 +216,8 @@ function verbExample(slovak: string, english: string): Example {
       };
     case "transitive":
       return {
-        slovak: `Začínam ${slovak}.`,
-        english: `I'm starting to ${bare}.`,
+        slovak: `Chcem ${slovak}.`,
+        english: `I want to ${bare}.`,
         note: "Curated",
       };
     case "motion":
@@ -496,11 +507,20 @@ function alternateExampleFor(word: {
   switch (word.category) {
     case "Verbs": {
       const bare = englishVerbGloss(word.english);
-      example = {
-        slovak: `Snažím sa ${slovak}.`,
-        english: `I'm trying to ${bare}.`,
-        note: "Curated",
-      };
+      const frame = classifyVerbFrame(slovak, bare);
+      if (frame === "acknowledge") {
+        example = {
+          slovak: `Nechcem to ${slovak}.`,
+          english: `I don't want to ${bare} it.`,
+          note: "Curated",
+        };
+      } else {
+        example = {
+          slovak: `Snažím sa ${slovak}.`,
+          english: `I'm trying to ${bare}.`,
+          note: "Curated",
+        };
+      }
       break;
     }
     case "Adjectives":
@@ -538,8 +558,8 @@ function alternateExampleFor(word: {
         };
       } else {
         example = {
-          slovak: `Kde je ${slovak}?`,
-          english: `Where is ${article(gloss)}${gloss}?`,
+          slovak: `Hľadám ${slovak}.`,
+          english: `I'm looking for ${article(gloss)}${gloss}.`,
           note: "Curated",
         };
       }
