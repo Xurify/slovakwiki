@@ -3,12 +3,16 @@
 
   let {
     label = "Listen to Slovak",
+    size = "md",
     src,
     text,
+    variant = "default",
   }: {
     label?: string;
+    size?: "md" | "lg";
     src?: string;
     text: string;
+    variant?: "default" | "inverse";
   } = $props();
 
   let playing = $state(false);
@@ -70,8 +74,19 @@
     else play();
   }
 
-  const buttonClass =
-    "audio-button relative inline-grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-(--line-strong) bg-(--surface) text-[0.62rem] text-(--accent-strong) shadow-(--shadow-border) hover:border-(--accent) hover:bg-(--accent-soft) hover:shadow-(--shadow-border-hover) disabled:cursor-not-allowed disabled:opacity-50 [&.playing]:border-(--accent) [&.playing]:bg-(--accent-soft)";
+  const sizeClass = $derived(
+    size === "lg" ? "h-14 w-14 text-[0.78rem]" : "h-10 w-10 text-[0.62rem]",
+  );
+
+  const variantClass = $derived(
+    variant === "inverse"
+      ? "border-panel-inverse-ink/25 bg-panel-inverse-ink/10 text-panel-inverse-ink hover:border-panel-inverse-ink/50 hover:bg-panel-inverse-ink/18 [&.playing]:border-panel-inverse-ink/60 [&.playing]:bg-panel-inverse-ink/22"
+      : "border-(--line-strong) bg-(--surface) text-(--accent-strong) shadow-(--shadow-border) hover:border-(--accent) hover:bg-(--accent-soft) hover:shadow-(--shadow-border-hover) [&.playing]:border-(--accent) [&.playing]:bg-(--accent-soft)",
+  );
+
+  const buttonClass = $derived(
+    `audio-button relative inline-grid shrink-0 cursor-pointer place-items-center rounded-full border disabled:cursor-not-allowed disabled:opacity-50 ${sizeClass} ${variantClass}`,
+  );
 
   onDestroy(stop);
 </script>
@@ -108,5 +123,17 @@
     opacity: 1;
     scale: 1;
     filter: blur(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .audio-icon {
+      transition: none;
+      filter: none;
+      scale: 1;
+    }
+
+    .audio-icon:not(.audio-icon-visible) {
+      opacity: 0;
+    }
   }
 </style>
