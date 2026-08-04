@@ -39,11 +39,6 @@
     pronunciation: "pronunciation",
     word: "dictionary",
   };
-  const kindLabel = {
-    grammar: "Grammar",
-    pronunciation: "Pronunciation",
-    word: "Dictionary",
-  };
 
   const senseViews = $derived(
     senses && senses.length > 0 ? senses : [{ entry, exampleAudioSrcs }],
@@ -86,7 +81,7 @@
     return groups;
   }
 
-  /** Split SK example so lemma stem can be emphasized when it appears. */
+  /** Emphasize lemma when it appears as a whole substring (first match). */
   function highlightLemma(
     slovakLine: string,
     lemma: string,
@@ -111,111 +106,83 @@
 </script>
 
 <main class="pb-16">
-  <!-- Lemma Stage hero -->
-  <section
-    class="relative isolate overflow-hidden bg-panel-inverse"
-    aria-labelledby="lemma-heading"
-  >
-    <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,color-mix(in_srgb,var(--accent)_28%,transparent),transparent_55%),radial-gradient(ellipse_at_90%_80%,color-mix(in_srgb,var(--panel-inverse-ink)_8%,transparent),transparent_50%)]"
-      aria-hidden="true"
-    ></div>
-
-    <span
-      class="pointer-events-none absolute -bottom-10 -right-4 -z-10 select-none font-serif text-[min(42vw,18rem)] leading-none text-panel-inverse-ink/4"
-      aria-hidden="true"
-      lang="sk"
-    >
-      {entry.slovak.slice(0, 1)}
-    </span>
-
-    <PageShell
-      class="relative max-w-[880px] pt-8 pb-10 max-[760px]:pt-6 max-[760px]:pb-8"
-    >
+  <section class="bg-panel-inverse" aria-labelledby="lemma-heading">
+    <PageShell class="max-w-[880px] pt-8 pb-9 max-[760px]:pt-6 max-[760px]:pb-7">
       <nav
-        class="mb-8 flex gap-2 text-xs text-panel-inverse-ink/55"
+        class="mb-7 flex gap-2 text-xs text-panel-inverse-ink/55"
         aria-label="Breadcrumb"
       >
         <TextLink
-          class="text-panel-inverse-ink/70 decoration-panel-inverse-ink/30 hover:text-panel-inverse-ink"
+          class="text-panel-inverse-ink/70 decoration-panel-inverse-ink/25 hover:text-panel-inverse-ink"
           href="/dictionary"
         >
           Dictionary
         </TextLink>
         <span aria-hidden="true">/</span>
-        <span>{kindLabel[entry.kind]}</span>
+        <span lang="sk">{entry.slovak}</span>
       </nav>
 
-      <div class="flex flex-wrap items-end gap-x-5 gap-y-4">
+      <div class="flex flex-wrap items-center gap-x-3.5 gap-y-3">
         <h1
           id="lemma-heading"
-          class="m-0 max-w-[16ch] font-serif text-[clamp(2.75rem,8vw,4.75rem)] leading-[0.95] tracking-[-0.02em] text-panel-inverse-ink"
+          class="m-0 font-serif text-[clamp(2.5rem,7vw,4.25rem)] leading-[0.95] text-panel-inverse-ink"
           lang="sk"
         >
           {entry.slovak}
         </h1>
 
         {#if lemmaAudioSrc}
-          <div class="mb-1.5 shrink-0">
-            <AudioButton
-              label={`Listen to ${entry.slovak}`}
-              size="lg"
-              src={lemmaAudioSrc}
-              text={entry.slovak}
-              variant="inverse"
-            />
-          </div>
+          <AudioButton
+            class="translate-y-[0.12em]"
+            label={`Listen to ${entry.slovak}`}
+            size="lg"
+            src={lemmaAudioSrc}
+            text={entry.slovak}
+            variant="inverse"
+          />
         {/if}
       </div>
 
       <p
-        class="mt-5 max-w-[40ch] font-serif text-[clamp(1.15rem,2.5vw,1.45rem)] leading-snug text-panel-inverse-ink/85"
+        class="mt-4 max-w-[42ch] font-serif text-[1.25rem] leading-snug text-panel-inverse-ink/80"
       >
         {heroGloss}
       </p>
 
-      <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
+      <p
+        class="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-panel-inverse-ink/55"
+      >
         {#if multiSense}
-          <span class="text-sm text-panel-inverse-ink/55">
-            {senseViews.map((sense) => sense.entry.category).join(" · ")}
-          </span>
+          <span>{senseViews.map((sense) => sense.entry.category).join(" · ")}</span>
         {:else}
-          <span
-            class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-panel-inverse-ink/80"
-          >
-            {entry.category}
-          </span>
+          <span>{entry.category}</span>
 
           {#if entry.frequency}
+            <span aria-hidden="true">·</span>
             <a
-              class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tabular-nums text-panel-inverse-ink/80 transition-colors hover:border-panel-inverse-ink/45 hover:bg-panel-inverse-ink/10"
+              class="tabular-nums text-panel-inverse-ink/70 underline decoration-panel-inverse-ink/25 underline-offset-2 hover:text-panel-inverse-ink hover:decoration-panel-inverse-ink/50"
               href={`/dictionary/common/${entry.frequency.pos}`}
             >
               #{entry.frequency.rank}
-              {FREQUENCY_POS_LABEL[entry.frequency.pos]}
+              {FREQUENCY_POS_LABEL[entry.frequency.pos].toLowerCase()}
             </a>
           {/if}
         {/if}
-      </div>
-
-      {#if !multiSense}
-        <p
-          class="mt-6 max-w-[66ch] font-serif text-base leading-relaxed text-panel-inverse-ink/65"
-        >
-          {entry.summary}
-        </p>
-      {/if}
+      </p>
     </PageShell>
 
     {#if multiSense}
       <div
-        class="sticky top-(--header-height) z-10 border-t border-panel-inverse-ink/15 bg-panel-inverse/95 backdrop-blur-sm"
+        class="sticky top-(--header-height) z-10 border-t border-panel-inverse-ink/12 bg-panel-inverse"
       >
         <PageShell class="max-w-[880px]">
-          <nav class="flex gap-1 overflow-x-auto py-2 scrollbar-none" aria-label="Senses">
+          <nav
+            class="flex gap-5 overflow-x-auto py-2.5 scrollbar-none"
+            aria-label="Senses"
+          >
             {#each senseViews as sense (sense.entry.slug)}
               <a
-                class="shrink-0 rounded-(--control-radius) px-3.5 py-2 font-sans text-sm font-semibold text-panel-inverse-ink/70 transition-colors hover:bg-panel-inverse-ink/10 hover:text-panel-inverse-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-panel-inverse-ink"
+                class="shrink-0 border-b-2 border-transparent py-1.5 font-sans text-sm font-semibold text-panel-inverse-ink/60 hover:text-panel-inverse-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-panel-inverse-ink"
                 href="#{senseSectionId(sense.entry.category)}"
               >
                 {sense.entry.category}
@@ -225,32 +192,17 @@
         </PageShell>
       </div>
     {:else}
-      <div class="border-t border-panel-inverse-ink/15">
+      <div class="border-t border-panel-inverse-ink/12">
         <PageShell class="max-w-[880px]">
           <nav
-            class="flex flex-wrap gap-x-5 gap-y-2 py-3 text-sm text-panel-inverse-ink/55"
+            class="flex flex-wrap gap-x-5 gap-y-1 py-2.5 text-sm text-panel-inverse-ink/50"
             aria-label="On this page"
           >
-            <a
-              class="font-medium text-panel-inverse-ink/70 transition-colors hover:text-panel-inverse-ink"
-              href="#usage"
-            >
-              Usage
-            </a>
+            <a class="hover:text-panel-inverse-ink" href="#usage">Usage</a>
             {#if entry.examples.length > 0}
-              <a
-                class="font-medium text-panel-inverse-ink/70 transition-colors hover:text-panel-inverse-ink"
-                href="#examples"
-              >
-                Examples
-              </a>
+              <a class="hover:text-panel-inverse-ink" href="#examples">Examples</a>
             {/if}
-            <a
-              class="font-medium text-panel-inverse-ink/70 transition-colors hover:text-panel-inverse-ink"
-              href="#source"
-            >
-              Source
-            </a>
+            <a class="hover:text-panel-inverse-ink" href="#source">Source</a>
           </nav>
         </PageShell>
       </div>
@@ -275,7 +227,6 @@
           aria-labelledby={`${sectionId}-heading`}
         >
           {#if multiSense}
-            <Eyebrow>{senseEntry.category}</Eyebrow>
             <h2 id={`${sectionId}-heading`} class="mb-2">{senseEntry.category}</h2>
             <p class="font-serif text-lg text-blue-800">{senseEntry.english}</p>
 
@@ -290,11 +241,13 @@
               </p>
             {/if}
 
-            <p
-              class="mt-4 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700"
-            >
-              {senseEntry.summary}
-            </p>
+            {#if senseEntry.summary && senseEntry.summary !== `${senseEntry.slovak} means “${senseEntry.english}.”`}
+              <p
+                class="mt-4 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700"
+              >
+                {senseEntry.summary}
+              </p>
+            {/if}
 
             <div class="mt-8">
               <Eyebrow>Usage</Eyebrow>
@@ -306,6 +259,14 @@
               {/each}
             </div>
           {:else}
+            {#if entry.summary && entry.summary !== `${entry.slovak} means “${entry.english}.”`}
+              <p
+                class="mb-8 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700"
+              >
+                {entry.summary}
+              </p>
+            {/if}
+
             <Eyebrow>Usage</Eyebrow>
             <h2 id={`${sectionId}-heading`} class="mb-4">How to use it</h2>
 
@@ -329,63 +290,53 @@
 
               {#if practiceOnly}
                 <p class="mb-5 max-w-[60ch] text-sm text-slate-500">
-                  A simple practice frame, generated for this entry while a corpus example
-                  is unavailable.
+                  A simple practice frame while a corpus example is unavailable.
                 </p>
               {/if}
 
               {#if senseEntry.examples.some((example) => example.demonstrates)}
-                <div class="grid gap-10">
+                <div class="grid gap-8">
                   {#each groupExamplesByPattern(senseEntry.examples) as group (group.label)}
                     <div>
-                      <p
-                        class="mb-4 font-sans text-xs font-semibold tracking-wide text-slate-500"
-                      >
+                      <p class="mb-3 text-xs font-semibold tracking-wide text-slate-500">
                         {group.label}
                       </p>
-                      <ul class="m-0 grid list-none gap-4 p-0">
+                      <ul class="m-0 grid list-none gap-5 p-0">
                         {#each group.items as item (`${item.example.slovak}-${item.index}`)}
-                          <li
-                            class="border-l-[3px] border-blue-600/70 pl-4 transition-[border-color] motion-safe:duration-200 hover:border-blue-800"
-                          >
-                            <div class="flex items-start gap-3">
-                              <p
-                                class="m-0 min-w-0 flex-1 font-serif text-[1.15rem] font-semibold leading-snug text-slate-900"
-                                lang="sk"
-                              >
-                                {#each highlightLemma(item.example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
-                                  {#if part.hit}
-                                    <mark
-                                      class="rounded-sm bg-blue-50 px-0.5 text-blue-900"
-                                      >{part.text}</mark
-                                    >
-                                  {:else}
-                                    {part.text}
-                                  {/if}
-                                {/each}
-                              </p>
+                          <li class="border-l-2 border-blue-600/60 pl-4">
+                            <p
+                              class="m-0 font-serif text-[1.1rem] leading-snug text-slate-900"
+                              lang="sk"
+                            >
+                              {#each highlightLemma(item.example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
+                                {#if part.hit}
+                                  <span class="font-semibold text-blue-900"
+                                    >{part.text}</span
+                                  >
+                                {:else}
+                                  {part.text}
+                                {/if}
+                              {/each}
 
                               {#if sense.exampleAudioSrcs[item.index]}
-                                <div class="shrink-0">
-                                  <AudioButton
-                                    label={`Listen to example: ${item.example.slovak}`}
-                                    src={sense.exampleAudioSrcs[item.index]}
-                                    text={item.example.slovak}
-                                  />
-                                </div>
+                                <AudioButton
+                                  class="relative top-[0.15em] ml-2.5 inline-grid align-baseline"
+                                  label={`Listen to example: ${item.example.slovak}`}
+                                  size="sm"
+                                  src={sense.exampleAudioSrcs[item.index]}
+                                  text={item.example.slovak}
+                                />
                               {/if}
-                            </div>
-                            <p
-                              class="mt-1.5 m-0 text-[0.95rem] leading-relaxed text-slate-500"
-                            >
+                            </p>
+                            <p class="mt-1 m-0 text-sm leading-relaxed text-slate-500">
                               {item.example.english}
                             </p>
                             {#if item.example.isPracticeFrame}
-                              <p class="mt-1.5 m-0 text-xs font-medium text-slate-400">
+                              <p class="mt-1 m-0 text-xs text-slate-400">
                                 Practice frame
                               </p>
                             {:else if item.example.note === "Tatoeba" && item.example.tatoebaId}
-                              <p class="mt-1.5 m-0 text-xs text-slate-400">
+                              <p class="mt-1 m-0 text-xs text-slate-400">
                                 <a
                                   class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
                                   href={`https://tatoeba.org/sentences/show/${item.example.tatoebaId}`}
@@ -395,10 +346,6 @@
                                   Tatoeba #{item.example.tatoebaId}
                                 </a>
                               </p>
-                            {:else if item.example.note === "Curated" || item.example.demonstrates}
-                              <p class="mt-1.5 m-0 text-xs font-medium text-slate-400">
-                                Reviewed
-                              </p>
                             {/if}
                           </li>
                         {/each}
@@ -407,46 +354,38 @@
                   {/each}
                 </div>
               {:else}
-                <ul class="m-0 grid list-none gap-4 p-0">
+                <ul class="m-0 grid list-none gap-5 p-0">
                   {#each senseEntry.examples as example, index (`${example.slovak}-${index}`)}
-                    <li
-                      class="border-l-[3px] border-blue-600/70 pl-4 transition-[border-color] motion-safe:duration-200 hover:border-blue-800"
-                    >
-                      <div class="flex items-start gap-3">
-                        <p
-                          class="m-0 min-w-0 flex-1 font-serif text-[1.15rem] font-semibold leading-snug text-slate-900"
-                          lang="sk"
-                        >
-                          {#each highlightLemma(example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
-                            {#if part.hit}
-                              <mark class="rounded-sm bg-blue-50 px-0.5 text-blue-900"
-                                >{part.text}</mark
-                              >
-                            {:else}
-                              {part.text}
-                            {/if}
-                          {/each}
-                        </p>
+                    <li class="border-l-2 border-blue-600/60 pl-4">
+                      <p
+                        class="m-0 font-serif text-[1.1rem] leading-snug text-slate-900"
+                        lang="sk"
+                      >
+                        {#each highlightLemma(example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
+                          {#if part.hit}
+                            <span class="font-semibold text-blue-900">{part.text}</span>
+                          {:else}
+                            {part.text}
+                          {/if}
+                        {/each}
 
                         {#if sense.exampleAudioSrcs[index]}
-                          <div class="shrink-0">
-                            <AudioButton
-                              label={`Listen to example: ${example.slovak}`}
-                              src={sense.exampleAudioSrcs[index]}
-                              text={example.slovak}
-                            />
-                          </div>
+                          <AudioButton
+                            class="relative top-[0.15em] ml-2.5 inline-grid align-baseline"
+                            label={`Listen to example: ${example.slovak}`}
+                            size="sm"
+                            src={sense.exampleAudioSrcs[index]}
+                            text={example.slovak}
+                          />
                         {/if}
-                      </div>
-                      <p class="mt-1.5 m-0 text-[0.95rem] leading-relaxed text-slate-500">
+                      </p>
+                      <p class="mt-1 m-0 text-sm leading-relaxed text-slate-500">
                         {example.english}
                       </p>
                       {#if example.isPracticeFrame}
-                        <p class="mt-1.5 m-0 text-xs font-medium text-slate-400">
-                          Practice frame
-                        </p>
+                        <p class="mt-1 m-0 text-xs text-slate-400">Practice frame</p>
                       {:else if example.note === "Tatoeba" && example.tatoebaId}
-                        <p class="mt-1.5 m-0 text-xs text-slate-400">
+                        <p class="mt-1 m-0 text-xs text-slate-400">
                           <a
                             class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
                             href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}
@@ -456,10 +395,6 @@
                             Tatoeba #{example.tatoebaId}
                           </a>
                         </p>
-                      {:else if example.note === "Curated" || example.demonstrates}
-                        <p class="mt-1.5 m-0 text-xs font-medium text-slate-400">
-                          Reviewed
-                        </p>
                       {/if}
                     </li>
                   {/each}
@@ -468,7 +403,7 @@
 
               {#if senseEntry.examples.some((example) => example.note === "Tatoeba")}
                 <p class="mt-5 text-xs text-slate-500">
-                  Example sentences from
+                  Examples from
                   <a
                     class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
                     href="https://tatoeba.org/"
@@ -488,21 +423,21 @@
           class="scroll-mt-[88px] mt-14 border-t border-slate-200 pt-10"
           aria-labelledby="related-heading"
         >
-          <Eyebrow>Related</Eyebrow>
-          <h2 id="related-heading" class="mb-5">Keep browsing</h2>
-          <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+          <h2 id="related-heading" class="mb-5">Related</h2>
+          <ul class="m-0 flex list-none flex-wrap gap-x-6 gap-y-3 p-0">
             {#each relatedEntries as relatedEntry (relatedEntry.slug)}
               <li>
                 <a
-                  class="inline-flex max-w-full flex-col gap-0.5 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-3.5 py-2.5 transition-colors hover:border-blue-800 hover:bg-blue-50"
+                  class="group inline-flex flex-col gap-0.5"
                   href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}"
                 >
-                  <strong class="font-serif text-sm text-slate-900" lang="sk">
+                  <strong
+                    class="font-serif text-base font-semibold text-slate-900 group-hover:text-blue-800"
+                    lang="sk"
+                  >
                     {relatedEntry.slovak}
                   </strong>
-                  <span class="truncate text-xs text-slate-500">
-                    {relatedEntry.english}
-                  </span>
+                  <span class="text-sm text-slate-500">{relatedEntry.english}</span>
                 </a>
               </li>
             {/each}
@@ -515,19 +450,15 @@
         class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-8"
         aria-labelledby="source-heading"
       >
-        <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-          <div>
-            <h2 id="source-heading" class="mb-1 text-base font-semibold">Source</h2>
-            <TextLink href={entry.source}>{sourceLabel} ↗</TextLink>
-            {#if entry.sourceNote}
-              <p class="mt-1 max-w-[60ch] text-sm text-slate-500">{entry.sourceNote}</p>
-            {/if}
-          </div>
-          <p class="m-0 text-sm text-slate-500">
-            Full attribution on
-            <TextLink href="/references">References</TextLink>.
-          </p>
-        </div>
+        <h2 id="source-heading" class="mb-1 text-base font-semibold">Source</h2>
+        <TextLink href={entry.source}>{sourceLabel} ↗</TextLink>
+        {#if entry.sourceNote}
+          <p class="mt-1 max-w-[60ch] text-sm text-slate-500">{entry.sourceNote}</p>
+        {/if}
+        <p class="mt-2 text-sm text-slate-500">
+          Full attribution on
+          <TextLink href="/references">References</TextLink>.
+        </p>
       </section>
     </article>
   </PageShell>
