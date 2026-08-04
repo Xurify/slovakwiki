@@ -449,15 +449,6 @@ function article(gloss: string): string {
   return "a ";
 }
 
-function nameExample(slovak: string): Example {
-  const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
-  return {
-    slovak: `Volá sa ${capital}.`,
-    english: `His/her name is ${capital}.`,
-    note: "Curated",
-  };
-}
-
 function placeExample(slovak: string): Example {
   const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
   return {
@@ -480,9 +471,6 @@ function exampleFor(word: {
       break;
     case "Adjectives":
       example = adjectiveExample(word.slovak, word.english);
-      break;
-    case "Names":
-      example = nameExample(word.slovak);
       break;
     case "Places":
       example = placeExample(word.slovak);
@@ -530,15 +518,6 @@ function alternateExampleFor(word: {
         note: "Curated",
       };
       break;
-    case "Names": {
-      const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
-      example = {
-        slovak: `Poznám ${capital}.`,
-        english: `I know ${capital}.`,
-        note: "Curated",
-      };
-      break;
-    }
     case "Places": {
       const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
       example = {

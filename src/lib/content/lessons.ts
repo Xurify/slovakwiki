@@ -416,7 +416,7 @@ export const lessons: Lesson[] = [
         prompt: "Anna asks when you can meet at 3:00. What do you say?",
         choices: [
           { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
-          { id: "tuesday", label: "V utorok." },
+          { id: "four", label: "O štvrtej.", clock: { hour: 4, minute: 0 } },
           {
             id: "half-past",
             label: "O pol tretej.",

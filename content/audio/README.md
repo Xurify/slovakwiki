@@ -68,6 +68,7 @@ Mint dedicated Voice Design takes later, then point `voiceId` here and regen.
 bun run audio:generate                    # dictionary + lessons (skips existing)
 bun run audio:generate -- --lessons-only  # lesson targets only
 bun run audio:generate -- --lessons-only --force  # rewrite lesson clips after voice change
+bun run audio:generate -- --examples-only --missing-only  # fill gaps only
 bun run audio:voice-design                # design previews → tmp/voice-design/
 bun run audio:voice-design -- --create --pick 0   # save preview + patch config characters
 bun run audio:upload                      # → R2 (needs R2_* + PUBLIC_AUDIO_BASE_URL for prod play)

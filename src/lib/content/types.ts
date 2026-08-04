@@ -4,11 +4,17 @@ export type EntryKind = "word" | "grammar" | "pronunciation";
 
 export type WordOrigin = "curated" | "frequency";
 
+/**
+ * One learner sentence under a lemma.
+ * Hand-authoring rules (counts, notes, quality): `content/dictionary/README.md`.
+ */
 export interface Example {
+  /** Short cue for pattern lemmas (e.g. "byť + location — where"). */
   demonstrates?: string;
   english: string;
   /** A safe, generated frame used when no corpus or hand-written sentence exists. */
   isPracticeFrame?: boolean;
+  /** `"Curated"` | `"Tatoeba"` | other short attribution. */
   note?: string;
   practiceItemId?: string;
   slovak: string;
@@ -21,6 +27,12 @@ export interface WordFrequency {
   rank: number;
 }
 
+/**
+ * Runtime dictionary / grammar / pronunciation entry.
+ * Hand-authored lemmas use only the `WordSeed` fields (slug, slovak, english,
+ * category, examples, related) — see `content/dictionary/README.md`.
+ * `origin`, `frequency`, `body`, `summary`, `tags`, and source* are filled in `data.ts`.
+ */
 export interface ContentEntry {
   aliases?: string[];
   body: string[];
@@ -32,8 +44,11 @@ export interface ContentEntry {
   kind: EntryKind;
   /** How this word entered the live dictionary. */
   origin?: WordOrigin;
+  /** Existing lemma slugs only — never free-text labels. */
   related: string[];
+  /** URL id from `lemmaToSlug(slovak)`; unique across curated seed + words.json. */
   slug: string;
+  /** Lemma with correct Slovak diacritics. */
   slovak: string;
   source: string;
   /** Visible attribution label for the Source section. Falls back in UI when omitted. */

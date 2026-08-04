@@ -460,10 +460,6 @@
   "koniec": {
     "english": "end"
   },
-  "Ján": {
-    "english": "Ján (John)",
-    "category": "Names"
-  },
   "zmena": {
     "english": "change"
   },
@@ -481,10 +477,6 @@
   },
   "hlava": {
     "english": "head"
-  },
-  "Peter": {
-    "english": "Peter",
-    "category": "Names"
   },
   "obec": {
     "english": "municipality; village"
@@ -539,10 +531,6 @@
   },
   "záujem": {
     "english": "interest"
-  },
-  "Martin": {
-    "english": "Martin",
-    "category": "Names"
   },
   "otec": {
     "english": "father"
@@ -3642,10 +3630,6 @@
   "súd": {
     "english": "court"
   },
-  "Jozef": {
-    "english": "Joseph (given name)",
-    "category": "Names"
-  },
   "Boh": {
     "english": "God"
   },
@@ -3814,10 +3798,6 @@
   },
   "kultúra": {
     "english": "culture"
-  },
-  "Pavol": {
-    "english": "Paul (given name)",
-    "category": "Names"
   },
   "telo": {
     "english": "body"
@@ -4083,10 +4063,6 @@
   "obraz": {
     "english": "picture; image"
   },
-  "Mária": {
-    "english": "Mary (given name)",
-    "category": "Names"
-  },
   "výroba": {
     "english": "production; manufacture"
   },
@@ -4104,10 +4080,6 @@
   },
   "pracovník": {
     "english": "worker; employee"
-  },
-  "Michal": {
-    "english": "Michael (given name)",
-    "category": "Names"
   },
   "futbal": {
     "english": "football; soccer"
@@ -4186,14 +4158,6 @@
   },
   "rokovanie": {
     "english": "negotiation; session"
-  },
-  "Ivan": {
-    "english": "Ivan (given name)",
-    "category": "Names"
-  },
-  "Milan": {
-    "english": "Milan (given name)",
-    "category": "Names"
   },
   "trieda": {
     "english": "class"
@@ -4312,10 +4276,6 @@
   "štúdium": {
     "english": "study; studies"
   },
-  "Ježiš": {
-    "english": "Jesus",
-    "category": "Names"
-  },
   "udalosť": {
     "english": "event"
   },
@@ -4342,10 +4302,6 @@
   },
   "okolie": {
     "english": "surroundings; vicinity"
-  },
-  "Vladimír": {
-    "english": "Vladimír (given name)",
-    "category": "Names"
   },
   "povinnosť": {
     "english": "duty; obligation"
@@ -4411,10 +4367,6 @@
   "okres": {
     "english": "district"
   },
-  "Juraj": {
-    "english": "George (given name)",
-    "category": "Names"
-  },
   "opatrenie": {
     "english": "measure"
   },
@@ -4438,10 +4390,6 @@
   },
   "štvrtok": {
     "english": "Thursday"
-  },
-  "Mikuláš": {
-    "english": "Nicholas (given name); St. Nicholas",
-    "category": "Names"
   },
   "dcéra": {
     "english": "daughter"
@@ -4475,10 +4423,6 @@
   },
   "podiel": {
     "english": "share; portion"
-  },
-  "Tomáš": {
-    "english": "Thomas (given name)",
-    "category": "Names"
   },
   "leto": {
     "english": "summer"
@@ -4523,10 +4467,6 @@
   "starosta": {
     "english": "mayor (of a town)"
   },
-  "Miroslav": {
-    "english": "Miroslav (given name)",
-    "category": "Names"
-  },
   "fotografia": {
     "english": "photograph; photography"
   },
@@ -4547,10 +4487,6 @@
   },
   "literatúra": {
     "english": "literature"
-  },
-  "Štefan": {
-    "english": "Stephen (given name)",
-    "category": "Names"
   },
   "majstrovstvá": {
     "english": "championship"
@@ -4629,10 +4565,6 @@
   },
   "koncert": {
     "english": "concert"
-  },
-  "František": {
-    "english": "Francis (given name)",
-    "category": "Names"
   },
   "predmet": {
     "english": "subject; object"
@@ -4724,10 +4656,6 @@
   "trest": {
     "english": "punishment; penalty"
   },
-  "Marek": {
-    "english": "Mark (given name)",
-    "category": "Names"
-  },
   "podstata": {
     "english": "essence; substance"
   },
@@ -4790,14 +4718,6 @@
   },
   "kontakt": {
     "english": "contact"
-  },
-  "Marián": {
-    "english": "Marián (given name)",
-    "category": "Names"
-  },
-  "Kristus": {
-    "english": "Christ",
-    "category": "Names"
   },
   "duel": {
     "english": "duel"
@@ -4923,10 +4843,6 @@
   },
   "zvýšenie": {
     "english": "increase; raise"
-  },
-  "Fico": {
-    "english": "Fico (surname)",
-    "category": "Names"
   },
   "návrat": {
     "english": "return"
@@ -5178,10 +5094,6 @@
   "kariéra": {
     "english": "career"
   },
-  "Anna": {
-    "english": "Anna (given name)",
-    "category": "Names"
-  },
   "postavenie": {
     "english": "position; standing"
   },
@@ -5219,10 +5131,6 @@
   "loď": {
     "english": "ship; boat"
   },
-  "Robert": {
-    "english": "Robert (given name)",
-    "category": "Names"
-  },
   "reprezentácia": {
     "english": "representation; national team"
   },
@@ -5243,10 +5151,6 @@
   },
   "telefón": {
     "english": "telephone"
-  },
-  "Andrej": {
-    "english": "Andrew (given name)",
-    "category": "Names"
   },
   "seriál": {
     "english": "series (TV); serial"
@@ -5338,10 +5242,6 @@
   "vystúpenie": {
     "english": "performance; appearance; withdrawal"
   },
-  "Ladislav": {
-    "english": "Ladislav (given name)",
-    "category": "Names"
-  },
   "rieka": {
     "english": "river"
   },
@@ -5406,10 +5306,6 @@
   "fakulta": {
     "english": "faculty (university)"
   },
-  "Dušan": {
-    "english": "Dušan (given name)",
-    "category": "Names"
-  },
   "dovolenka": {
     "english": "vacation; holiday; leave"
   },
@@ -5434,16 +5330,8 @@
   "dôchodok": {
     "english": "pension; retirement"
   },
-  "Zuzana": {
-    "english": "Susan (given name)",
-    "category": "Names"
-  },
   "jeseň": {
     "english": "autumn; fall"
-  },
-  "Jaroslav": {
-    "english": "Jaroslav (given name)",
-    "category": "Names"
   },
   "knižnica": {
     "english": "library"
@@ -5653,10 +5541,6 @@
   "most": {
     "english": "bridge"
   },
-  "Jana": {
-    "english": "Jana (given name)",
-    "category": "Names"
-  },
   "plece": {
     "english": "shoulder"
   },
@@ -5671,10 +5555,6 @@
   },
   "sídlo": {
     "english": "seat; headquarters; residence"
-  },
-  "Richard": {
-    "english": "Richard (given name)",
-    "category": "Names"
   },
   "celok": {
     "english": "whole; entirety"
@@ -5702,10 +5582,6 @@
   },
   "potravina": {
     "english": "foodstuff; food item"
-  },
-  "Karol": {
-    "english": "Charles (given name)",
-    "category": "Names"
   },
   "konflikt": {
     "english": "conflict"
@@ -5753,10 +5629,6 @@
     "english": "Tatra Mountains",
     "category": "Places"
   },
-  "Ľubomír": {
-    "english": "Ľubomír (given name)",
-    "category": "Names"
-  },
   "produkcia": {
     "english": "production"
   },
@@ -5771,10 +5643,6 @@
   },
   "fáza": {
     "english": "phase"
-  },
-  "Daniel": {
-    "english": "Daniel (given name)",
-    "category": "Names"
   },
   "umelec": {
     "english": "artist"
@@ -5834,10 +5702,6 @@
   "Róm": {
     "english": "Roma person"
   },
-  "Eva": {
-    "english": "Eve; Eva (given name)",
-    "category": "Names"
-  },
   "kuchyňa": {
     "english": "kitchen; cuisine"
   },
@@ -5896,10 +5760,6 @@
   "Grécko": {
     "english": "Greece",
     "category": "Places"
-  },
-  "Roman": {
-    "english": "Roman (given name)",
-    "category": "Names"
   },
   "York": {
     "english": "York",
@@ -5981,10 +5841,6 @@
   "očakávanie": {
     "english": "expectation"
   },
-  "Róbert": {
-    "english": "Róbert (given name)",
-    "category": "Names"
-  },
   "disciplína": {
     "english": "discipline"
   },
@@ -6036,10 +5892,6 @@
   "faktor": {
     "english": "factor"
   },
-  "Stanislav": {
-    "english": "Stanislav (given name)",
-    "category": "Names"
-  },
   "ráno": {
     "english": "morning"
   },
@@ -6059,19 +5911,11 @@
   "kapitola": {
     "english": "chapter"
   },
-  "Mečiar": {
-    "english": "Mečiar (surname)",
-    "category": "Names"
-  },
   "pôvod": {
     "english": "origin"
   },
   "ucho": {
     "english": "ear"
-  },
-  "Katarína": {
-    "english": "Catherine (given name)",
-    "category": "Names"
   },
   "gymnázium": {
     "english": "grammar school; gymnasium (secondary)"
@@ -6227,10 +6071,6 @@
   "Rus": {
     "english": "Russian (person)"
   },
-  "Igor": {
-    "english": "Igor (given name)",
-    "category": "Names"
-  },
   "vrchol": {
     "english": "peak; summit"
   },
@@ -6278,10 +6118,6 @@
   },
   "páchateľ": {
     "english": "perpetrator; offender"
-  },
-  "Kováč": {
-    "english": "Kováč (surname)",
-    "category": "Names"
   },
   "spotreba": {
     "english": "consumption"
@@ -9064,5 +8900,4736 @@
   },
   "racionálny": {
     "english": "rational"
+  },
+  "večera": {
+    "english": "dinner; evening meal",
+    "category": "Food"
+  },
+  "obed": {
+    "english": "lunch",
+    "category": "Food"
+  },
+  "raňajky": {
+    "english": "breakfast",
+    "category": "Food"
+  },
+  "mlieko": {
+    "english": "milk",
+    "category": "Food"
+  },
+  "polievka": {
+    "english": "soup",
+    "category": "Food"
+  },
+  "čaj": {
+    "english": "tea",
+    "category": "Food"
+  },
+  "syr": {
+    "english": "cheese",
+    "category": "Food"
+  },
+  "maslo": {
+    "english": "butter",
+    "category": "Food"
+  },
+  "cukor": {
+    "english": "sugar",
+    "category": "Food"
+  },
+  "rastlina": {
+    "english": "plant"
+  },
+  "tempo": {
+    "english": "pace; tempo"
+  },
+  "vrstva": {
+    "english": "layer"
+  },
+  "ryba": {
+    "english": "fish"
+  },
+  "motor": {
+    "english": "engine; motor"
+  },
+  "kvalifikácia": {
+    "english": "qualification"
+  },
+  "dážď": {
+    "english": "rain"
+  },
+  "účinok": {
+    "english": "effect"
+  },
+  "súhlas": {
+    "english": "agreement; consent"
+  },
+  "hrob": {
+    "english": "grave; tomb"
+  },
+  "kresťan": {
+    "english": "Christian"
+  },
+  "napätie": {
+    "english": "tension; voltage"
+  },
+  "použitie": {
+    "english": "use; usage"
+  },
+  "západ": {
+    "english": "west; sunset"
+  },
+  "väzba": {
+    "english": "bond; binding"
+  },
+  "extraliga": {
+    "english": "premier league"
+  },
+  "blízkosť": {
+    "english": "proximity; closeness"
+  },
+  "správca": {
+    "english": "administrator; manager"
+  },
+  "tlač": {
+    "english": "press; printing"
+  },
+  "využitie": {
+    "english": "use; utilization"
+  },
+  "výpoveď": {
+    "english": "notice; testimony"
+  },
+  "stratégia": {
+    "english": "strategy"
+  },
+  "povolenie": {
+    "english": "permission; permit"
+  },
+  "kolektív": {
+    "english": "team; collective"
+  },
+  "tanec": {
+    "english": "dance"
+  },
+  "narodenie": {
+    "english": "birth"
+  },
+  "panna": {
+    "english": "virgin; maiden"
+  },
+  "podpis": {
+    "english": "signature"
+  },
+  "trasa": {
+    "english": "route; track"
+  },
+  "komunita": {
+    "english": "community"
+  },
+  "symbol": {
+    "english": "symbol"
+  },
+  "podnet": {
+    "english": "stimulus; initiative"
+  },
+  "talent": {
+    "english": "talent"
+  },
+  "dodávka": {
+    "english": "delivery; van"
+  },
+  "Viedeň": {
+    "english": "Vienna"
+  },
+  "breh": {
+    "english": "bank; shore"
+  },
+  "tajomník": {
+    "english": "secretary"
+  },
+  "zhromaždenie": {
+    "english": "assembly; gathering"
+  },
+  "smiech": {
+    "english": "laughter"
+  },
+  "set": {
+    "english": "set"
+  },
+  "obnova": {
+    "english": "renewal; restoration"
+  },
+  "semifinále": {
+    "english": "semifinal"
+  },
+  "preklad": {
+    "english": "translation"
+  },
+  "referendum": {
+    "english": "referendum"
+  },
+  "rozum": {
+    "english": "reason; intelligence"
+  },
+  "chrám": {
+    "english": "temple"
+  },
+  "nos": {
+    "english": "nose"
+  },
+  "skladba": {
+    "english": "composition; song"
+  },
+  "otvorenie": {
+    "english": "opening"
+  },
+  "knižka": {
+    "english": "booklet; little book"
+  },
+  "vysielanie": {
+    "english": "broadcast; broadcasting"
+  },
+  "elektráreň": {
+    "english": "power plant"
+  },
+  "tma": {
+    "english": "darkness"
+  },
+  "veľkosť": {
+    "english": "size; greatness"
+  },
+  "výnos": {
+    "english": "yield; revenue"
+  },
+  "olej": {
+    "english": "oil"
+  },
+  "hladina": {
+    "english": "level; surface"
+  },
+  "ruch": {
+    "english": "bustle; activity"
+  },
+  "markíza": {
+    "english": "awning"
+  },
+  "krk": {
+    "english": "neck; throat"
+  },
+  "dolina": {
+    "english": "valley"
+  },
+  "mier": {
+    "english": "peace"
+  },
+  "nepriateľ": {
+    "english": "enemy"
+  },
+  "motív": {
+    "english": "motive; motif"
+  },
+  "kombinácia": {
+    "english": "combination"
+  },
+  "zložka": {
+    "english": "component; folder"
+  },
+  "bývanie": {
+    "english": "housing; living"
+  },
+  "ukončenie": {
+    "english": "termination; completion"
+  },
+  "norma": {
+    "english": "standard; norm"
+  },
+  "favorit": {
+    "english": "favorite; favorite contestant"
+  },
+  "komora": {
+    "english": "chamber; pantry"
+  },
+  "ovocie": {
+    "english": "fruit"
+  },
+  "hľadanie": {
+    "english": "search; seeking"
+  },
+  "rebríček": {
+    "english": "ranking; ladder"
+  },
+  "diaľnica": {
+    "english": "motorway; highway"
+  },
+  "prezentácia": {
+    "english": "presentation"
+  },
+  "okruh": {
+    "english": "circuit; circle"
+  },
+  "odkaz": {
+    "english": "message; reference"
+  },
+  "pretekár": {
+    "english": "racer; competitor"
+  },
+  "zločin": {
+    "english": "crime"
+  },
+  "poézia": {
+    "english": "poetry"
+  },
+  "vydavateľstvo": {
+    "english": "publishing house"
+  },
+  "poznanie": {
+    "english": "knowledge; realization"
+  },
+  "relácia": {
+    "english": "program; relation"
+  },
+  "športovec": {
+    "english": "athlete; sportsperson"
+  },
+  "lekáreň": {
+    "english": "pharmacy; drugstore"
+  },
+  "blok": {
+    "english": "block; pad"
+  },
+  "umiestnenie": {
+    "english": "placement; location"
+  },
+  "rozmer": {
+    "english": "dimension; size"
+  },
+  "sláva": {
+    "english": "fame; glory"
+  },
+  "básnik": {
+    "english": "poet"
+  },
+  "menšina": {
+    "english": "minority"
+  },
+  "hrozba": {
+    "english": "threat"
+  },
+  "rana": {
+    "english": "wound; blow"
+  },
+  "prednáška": {
+    "english": "lecture"
+  },
+  "zrušenie": {
+    "english": "cancellation; abolition"
+  },
+  "prechod": {
+    "english": "passage; crossing"
+  },
+  "asociácia": {
+    "english": "association"
+  },
+  "dostatok": {
+    "english": "enough; sufficiency"
+  },
+  "záchrana": {
+    "english": "rescue; salvation"
+  },
+  "redaktor": {
+    "english": "editor"
+  },
+  "pera": {
+    "english": "feather; pen"
+  },
+  "privatizácia": {
+    "english": "privatization"
+  },
+  "index": {
+    "english": "index"
+  },
+  "droga": {
+    "english": "drug"
+  },
+  "odvolanie": {
+    "english": "appeal; dismissal"
+  },
+  "cintorín": {
+    "english": "cemetery"
+  },
+  "zavedenie": {
+    "english": "introduction; implementation"
+  },
+  "stolička": {
+    "english": "chair"
+  },
+  "riadenie": {
+    "english": "management; control"
+  },
+  "zlepšenie": {
+    "english": "improvement"
+  },
+  "obmedzenie": {
+    "english": "restriction; limitation"
+  },
+  "priorita": {
+    "english": "priority"
+  },
+  "dodávateľ": {
+    "english": "supplier"
+  },
+  "beh": {
+    "english": "run; running"
+  },
+  "protest": {
+    "english": "protest"
+  },
+  "krídlo": {
+    "english": "wing"
+  },
+  "socha": {
+    "english": "statue; sculpture"
+  },
+  "konto": {
+    "english": "account"
+  },
+  "vrch": {
+    "english": "hill; mountain"
+  },
+  "revolúcia": {
+    "english": "revolution"
+  },
+  "lehota": {
+    "english": "deadline; period"
+  },
+  "obchodník": {
+    "english": "merchant; trader"
+  },
+  "vzor": {
+    "english": "pattern; model"
+  },
+  "preukaz": {
+    "english": "ID card; pass"
+  },
+  "rodák": {
+    "english": "native; fellow countryman"
+  },
+  "sľub": {
+    "english": "promise; vow"
+  },
+  "vlastníctvo": {
+    "english": "ownership; property"
+  },
+  "koncepcia": {
+    "english": "concept; conception"
+  },
+  "poznámka": {
+    "english": "note; remark"
+  },
+  "darček": {
+    "english": "gift; present"
+  },
+  "kreslo": {
+    "english": "armchair; seat"
+  },
+  "tona": {
+    "english": "ton"
+  },
+  "ťažkosť": {
+    "english": "difficulty; weight"
+  },
+  "automobil": {
+    "english": "automobile; car"
+  },
+  "rezerva": {
+    "english": "reserve"
+  },
+  "slávnosť": {
+    "english": "celebration; ceremony"
+  },
+  "seminár": {
+    "english": "seminar"
+  },
+  "osada": {
+    "english": "settlement"
+  },
+  "dielňa": {
+    "english": "workshop"
+  },
+  "dobro": {
+    "english": "good; goodness"
+  },
+  "hasič": {
+    "english": "firefighter"
+  },
+  "dopyt": {
+    "english": "demand"
+  },
+  "tráva": {
+    "english": "grass"
+  },
+  "obvinenie": {
+    "english": "accusation; charge"
+  },
+  "prekážka": {
+    "english": "obstacle; hindrance"
+  },
+  "prokurátor": {
+    "english": "prosecutor"
+  },
+  "arcibiskup": {
+    "english": "archbishop"
+  },
+  "svedomie": {
+    "english": "conscience"
+  },
+  "náboženstvo": {
+    "english": "religion"
+  },
+  "pokračovanie": {
+    "english": "continuation; sequel"
+  },
+  "obrázok": {
+    "english": "picture; image"
+  },
+  "funkcionár": {
+    "english": "official; functionary"
+  },
+  "záznam": {
+    "english": "record; entry"
+  },
+  "pozor": {
+    "english": "attention; care"
+  },
+  "kúpa": {
+    "english": "purchase; buying"
+  },
+  "scenár": {
+    "english": "script; scenario"
+  },
+  "nástup": {
+    "english": "start; accession"
+  },
+  "olympiáda": {
+    "english": "Olympics; Olympiad"
+  },
+  "signál": {
+    "english": "signal"
+  },
+  "múr": {
+    "english": "wall"
+  },
+  "dlhopis": {
+    "english": "bond; debenture"
+  },
+  "vrecko": {
+    "english": "pocket; bag"
+  },
+  "oznámenie": {
+    "english": "announcement; notice"
+  },
+  "kamera": {
+    "english": "camera"
+  },
+  "detstvo": {
+    "english": "childhood"
+  },
+  "rozhlas": {
+    "english": "radio broadcasting; radio"
+  },
+  "povolanie": {
+    "english": "occupation; calling"
+  },
+  "zvyk": {
+    "english": "habit; custom"
+  },
+  "predajňa": {
+    "english": "shop; store"
+  },
+  "mozog": {
+    "english": "brain"
+  },
+  "palác": {
+    "english": "palace"
+  },
+  "poloha": {
+    "english": "position; location"
+  },
+  "pohoda": {
+    "english": "well-being; comfort"
+  },
+  "desaťročie": {
+    "english": "decade"
+  },
+  "odvaha": {
+    "english": "courage"
+  },
+  "filozofia": {
+    "english": "philosophy"
+  },
+  "hráčka": {
+    "english": "female player"
+  },
+  "senior": {
+    "english": "senior; older person"
+  },
+  "balík": {
+    "english": "package; bundle"
+  },
+  "misia": {
+    "english": "mission"
+  },
+  "sála": {
+    "english": "hall; auditorium"
+  },
+  "deficit": {
+    "english": "deficit; shortfall"
+  },
+  "prameň": {
+    "english": "spring; source"
+  },
+  "dráma": {
+    "english": "drama"
+  },
+  "asistent": {
+    "english": "assistant"
+  },
+  "kľúč": {
+    "english": "key"
+  },
+  "spevák": {
+    "english": "singer"
+  },
+  "tvrdenie": {
+    "english": "claim; assertion"
+  },
+  "podozrenie": {
+    "english": "suspicion"
+  },
+  "nebezpečenstvo": {
+    "english": "danger"
+  },
+  "milosť": {
+    "english": "grace; mercy"
+  },
+  "spravodajstvo": {
+    "english": "news; news reporting"
+  },
+  "spracovanie": {
+    "english": "processing; treatment"
+  },
+  "dáma": {
+    "english": "lady; dame"
+  },
+  "robota": {
+    "english": "work; job"
+  },
+  "tieň": {
+    "english": "shadow; shade"
+  },
+  "tvorca": {
+    "english": "creator; maker"
+  },
+  "vodca": {
+    "english": "leader; guide"
+  },
+  "zverenec": {
+    "english": "ward; protégé"
+  },
+  "závislosť": {
+    "english": "dependence; addiction"
+  },
+  "používanie": {
+    "english": "use; usage"
+  },
+  "pár": {
+    "english": "pair; couple"
+  },
+  "porucha": {
+    "english": "fault; disorder"
+  },
+  "prehľad": {
+    "english": "overview; survey"
+  },
+  "kardinál": {
+    "english": "cardinal"
+  },
+  "pásmo": {
+    "english": "band; zone"
+  },
+  "odhad": {
+    "english": "estimate; guess"
+  },
+  "zázrak": {
+    "english": "miracle"
+  },
+  "dych": {
+    "english": "breath"
+  },
+  "fľaša": {
+    "english": "bottle"
+  },
+  "anjel": {
+    "english": "angel"
+  },
+  "úradník": {
+    "english": "official; clerk"
+  },
+  "platba": {
+    "english": "payment"
+  },
+  "veriaci": {
+    "english": "believer; worshipper"
+  },
+  "prokuratúra": {
+    "english": "prosecutor's office"
+  },
+  "liter": {
+    "english": "liter; litre"
+  },
+  "myslenie": {
+    "english": "thinking; thought"
+  },
+  "absolvent": {
+    "english": "graduate"
+  },
+  "presilovka": {
+    "english": "power play"
+  },
+  "komédia": {
+    "english": "comedy"
+  },
+  "vyšetrovateľ": {
+    "english": "investigator"
+  },
+  "sídlisko": {
+    "english": "housing estate"
+  },
+  "dorast": {
+    "english": "youth; junior team"
+  },
+  "zloženie": {
+    "english": "composition; composition of parts"
+  },
+  "chodba": {
+    "english": "corridor; hallway"
+  },
+  "zásoba": {
+    "english": "supply; stock"
+  },
+  "odpor": {
+    "english": "resistance; opposition"
+  },
+  "znamenie": {
+    "english": "sign; mark"
+  },
+  "pedagóg": {
+    "english": "teacher; educator"
+  },
+  "štatistika": {
+    "english": "statistics"
+  },
+  "aplikácia": {
+    "english": "application; app"
+  },
+  "okraj": {
+    "english": "edge; margin"
+  },
+  "rozšírenie": {
+    "english": "extension; expansion"
+  },
+  "jednota": {
+    "english": "unity; union"
+  },
+  "úrok": {
+    "english": "interest"
+  },
+  "elektrina": {
+    "english": "electricity"
+  },
+  "slečna": {
+    "english": "miss; young woman"
+  },
+  "lavička": {
+    "english": "bench"
+  },
+  "slovenčina": {
+    "english": "Slovak language"
+  },
+  "pobočka": {
+    "english": "branch; subsidiary"
+  },
+  "remíza": {
+    "english": "draw; tie"
+  },
+  "federácia": {
+    "english": "federation"
+  },
+  "odvod": {
+    "english": "tax; levy"
+  },
+  "ambícia": {
+    "english": "ambition"
+  },
+  "mladík": {
+    "english": "young man; youth"
+  },
+  "ticho": {
+    "english": "silence; quiet"
+  },
+  "kosť": {
+    "english": "bone"
+  },
+  "juh": {
+    "english": "south"
+  },
+  "pôžička": {
+    "english": "loan"
+  },
+  "inštitút": {
+    "english": "institute"
+  },
+  "cit": {
+    "english": "feeling; sense"
+  },
+  "dialóg": {
+    "english": "dialogue"
+  },
+  "prístroj": {
+    "english": "device; instrument"
+  },
+  "bilancia": {
+    "english": "balance; account"
+  },
+  "korupcia": {
+    "english": "corruption"
+  },
+  "terén": {
+    "english": "terrain; field"
+  },
+  "zlo": {
+    "english": "evil"
+  },
+  "bok": {
+    "english": "side; flank"
+  },
+  "expozícia": {
+    "english": "exhibition; exposure"
+  },
+  "narodeniny": {
+    "english": "birthday"
+  },
+  "argument": {
+    "english": "argument; reason"
+  },
+  "jav": {
+    "english": "phenomenon; occurrence"
+  },
+  "spev": {
+    "english": "singing; song"
+  },
+  "kompetencia": {
+    "english": "competence; authority"
+  },
+  "poznatok": {
+    "english": "finding; piece of knowledge"
+  },
+  "efekt": {
+    "english": "effect"
+  },
+  "krádež": {
+    "english": "theft"
+  },
+  "skutok": {
+    "english": "act; deed"
+  },
+  "portál": {
+    "english": "portal; gateway"
+  },
+  "čiara": {
+    "english": "line"
+  },
+  "cvičenie": {
+    "english": "exercise; training"
+  },
+  "sklo": {
+    "english": "glass"
+  },
+  "video": {
+    "english": "video"
+  },
+  "mobil": {
+    "english": "mobile phone; cell phone"
+  },
+  "cigareta": {
+    "english": "cigarette"
+  },
+  "priznanie": {
+    "english": "admission; confession"
+  },
+  "rozpor": {
+    "english": "contradiction; discrepancy"
+  },
+  "ubytovanie": {
+    "english": "accommodation; lodging"
+  },
+  "veža": {
+    "english": "tower"
+  },
+  "zľava": {
+    "english": "discount; left side"
+  },
+  "koreň": {
+    "english": "root"
+  },
+  "alternatíva": {
+    "english": "alternative"
+  },
+  "legenda": {
+    "english": "legend; key"
+  },
+  "let": {
+    "english": "flight; year"
+  },
+  "bicykel": {
+    "english": "bicycle; bike"
+  },
+  "detail": {
+    "english": "detail"
+  },
+  "platnosť": {
+    "english": "validity; validity period"
+  },
+  "veliteľ": {
+    "english": "commander"
+  },
+  "vklad": {
+    "english": "deposit; contribution"
+  },
+  "úmysel": {
+    "english": "intention; intent"
+  },
+  "dráha": {
+    "english": "track; path"
+  },
+  "dno": {
+    "english": "bottom"
+  },
+  "uznesenie": {
+    "english": "resolution; decision"
+  },
+  "pilier": {
+    "english": "pillar"
+  },
+  "sever": {
+    "english": "north"
+  },
+  "svadba": {
+    "english": "wedding"
+  },
+  "právnik": {
+    "english": "lawyer"
+  },
+  "plnenie": {
+    "english": "fulfillment; performance"
+  },
+  "učiteľka": {
+    "english": "female teacher"
+  },
+  "váha": {
+    "english": "weight; scale"
+  },
+  "prenos": {
+    "english": "transfer; transmission"
+  },
+  "burza": {
+    "english": "stock exchange; exchange"
+  },
+  "archív": {
+    "english": "archive"
+  },
+  "organizmus": {
+    "english": "organism"
+  },
+  "porušenie": {
+    "english": "violation; breach"
+  },
+  "tržba": {
+    "english": "sales; takings"
+  },
+  "vedúci": {
+    "english": "manager; leader"
+  },
+  "poschodie": {
+    "english": "floor; story"
+  },
+  "dátum": {
+    "english": "date"
+  },
+  "predĺženie": {
+    "english": "extension; prolongation"
+  },
+  "kopec": {
+    "english": "hill"
+  },
+  "nominácia": {
+    "english": "nomination"
+  },
+  "prázdniny": {
+    "english": "holidays; vacation"
+  },
+  "inflácia": {
+    "english": "inflation"
+  },
+  "nariadenie": {
+    "english": "regulation; order"
+  },
+  "náhrada": {
+    "english": "replacement; compensation"
+  },
+  "trávnik": {
+    "english": "lawn; turf"
+  },
+  "výrok": {
+    "english": "statement; verdict"
+  },
+  "zvyšovanie": {
+    "english": "raising; increase"
+  },
+  "spánok": {
+    "english": "sleep"
+  },
+  "mamička": {
+    "english": "mommy; mother"
+  },
+  "legislatíva": {
+    "english": "legislation"
+  },
+  "uchádzač": {
+    "english": "applicant; candidate"
+  },
+  "center": {
+    "english": "center"
+  },
+  "planéta": {
+    "english": "planet"
+  },
+  "vták": {
+    "english": "bird"
+  },
+  "expert": {
+    "english": "expert"
+  },
+  "schod": {
+    "english": "step"
+  },
+  "prenájom": {
+    "english": "rental; lease"
+  },
+  "publikácia": {
+    "english": "publication"
+  },
+  "listina": {
+    "english": "document; charter"
+  },
+  "porota": {
+    "english": "jury"
+  },
+  "mapa": {
+    "english": "map"
+  },
+  "dlaň": {
+    "english": "palm"
+  },
+  "voľno": {
+    "english": "time off; leave"
+  },
+  "štvrtina": {
+    "english": "quarter; fourth"
+  },
+  "nápoj": {
+    "english": "drink; beverage"
+  },
+  "smútok": {
+    "english": "sadness; grief"
+  },
+  "zelenina": {
+    "english": "vegetables"
+  },
+  "vôňa": {
+    "english": "smell; fragrance"
+  },
+  "potenciál": {
+    "english": "potential"
+  },
+  "automobilka": {
+    "english": "car manufacturer; automaker"
+  },
+  "prvenstvo": {
+    "english": "first place; championship"
+  },
+  "známka": {
+    "english": "mark; grade; stamp"
+  },
+  "kráľovstvo": {
+    "english": "kingdom"
+  },
+  "jazero": {
+    "english": "lake"
+  },
+  "tón": {
+    "english": "tone"
+  },
+  "prihrávka": {
+    "english": "pass; assist"
+  },
+  "zrak": {
+    "english": "sight; vision"
+  },
+  "manažment": {
+    "english": "management"
+  },
+  "vyšetrenie": {
+    "english": "examination; investigation"
+  },
+  "kapitál": {
+    "english": "capital"
+  },
+  "spotrebiteľ": {
+    "english": "consumer"
+  },
+  "publikum": {
+    "english": "audience; public"
+  },
+  "soľ": {
+    "english": "salt"
+  },
+  "utrpenie": {
+    "english": "suffering"
+  },
+  "mechanizmus": {
+    "english": "mechanism"
+  },
+  "základňa": {
+    "english": "base"
+  },
+  "získanie": {
+    "english": "acquisition; obtaining"
+  },
+  "úspora": {
+    "english": "saving; savings"
+  },
+  "šestnástka": {
+    "english": "sixteen; round of sixteen"
+  },
+  "štvrťrok": {
+    "english": "quarter"
+  },
+  "presvedčenie": {
+    "english": "belief; conviction"
+  },
+  "spoluhráč": {
+    "english": "teammate; fellow player"
+  },
+  "povaha": {
+    "english": "nature; character"
+  },
+  "triumf": {
+    "english": "triumph"
+  },
+  "obloha": {
+    "english": "sky"
+  },
+  "prednosť": {
+    "english": "priority; advantage"
+  },
+  "prínos": {
+    "english": "benefit; contribution"
+  },
+  "oblečenie": {
+    "english": "clothing; clothes"
+  },
+  "tragédia": {
+    "english": "tragedy"
+  },
+  "junior": {
+    "english": "junior; young person"
+  },
+  "partia": {
+    "english": "group; gang"
+  },
+  "vedomosť": {
+    "english": "knowledge"
+  },
+  "réžia": {
+    "english": "direction; directing"
+  },
+  "centimeter": {
+    "english": "centimeter; centimetre"
+  },
+  "výstup": {
+    "english": "output; exit"
+  },
+  "obchodovanie": {
+    "english": "trading"
+  },
+  "prevaha": {
+    "english": "superiority; advantage"
+  },
+  "konštrukcia": {
+    "english": "construction; structure"
+  },
+  "demokrat": {
+    "english": "democrat"
+  },
+  "styk": {
+    "english": "contact; intercourse"
+  },
+  "vzdialenosť": {
+    "english": "distance"
+  },
+  "fórum": {
+    "english": "forum"
+  },
+  "dáta": {
+    "english": "data"
+  },
+  "poslanie": {
+    "english": "mission; purpose"
+  },
+  "zlodej": {
+    "english": "thief"
+  },
+  "výprava": {
+    "english": "expedition; trip"
+  },
+  "pesnička": {
+    "english": "song"
+  },
+  "tisícka": {
+    "english": "thousand"
+  },
+  "zemiak": {
+    "english": "potato"
+  },
+  "poradca": {
+    "english": "advisor; counselor"
+  },
+  "predstavenstvo": {
+    "english": "board of directors"
+  },
+  "poskytovanie": {
+    "english": "provision; providing"
+  },
+  "kontrakt": {
+    "english": "contract"
+  },
+  "príkaz": {
+    "english": "order; command"
+  },
+  "diaľka": {
+    "english": "distance; remoteness"
+  },
+  "nadácia": {
+    "english": "foundation"
+  },
+  "kanál": {
+    "english": "channel; canal"
+  },
+  "zrkadlo": {
+    "english": "mirror"
+  },
+  "robotník": {
+    "english": "worker; laborer"
+  },
+  "radnica": {
+    "english": "town hall; city hall"
+  },
+  "budovanie": {
+    "english": "building; construction"
+  },
+  "evanjelium": {
+    "english": "gospel"
+  },
+  "servis": {
+    "english": "service; maintenance"
+  },
+  "kontext": {
+    "english": "context"
+  },
+  "pás": {
+    "english": "belt; strip; band"
+  },
+  "cyklus": {
+    "english": "cycle"
+  },
+  "chata": {
+    "english": "cottage; cabin"
+  },
+  "kláštor": {
+    "english": "monastery"
+  },
+  "rod": {
+    "english": "family; genus; gender"
+  },
+  "znalosť": {
+    "english": "knowledge; familiarity"
+  },
+  "zápis": {
+    "english": "entry; record; registration"
+  },
+  "vybavenie": {
+    "english": "equipment; facilities"
+  },
+  "rovina": {
+    "english": "plain; plane"
+  },
+  "vojsko": {
+    "english": "army; troops"
+  },
+  "magazín": {
+    "english": "magazine"
+  },
+  "priaznivec": {
+    "english": "supporter; fan"
+  },
+  "kút": {
+    "english": "corner; nook"
+  },
+  "tabuľa": {
+    "english": "board; table; sign"
+  },
+  "farnosť": {
+    "english": "parish"
+  },
+  "výhľad": {
+    "english": "view; outlook; prospect"
+  },
+  "nováčik": {
+    "english": "newcomer; rookie"
+  },
+  "úder": {
+    "english": "blow; strike; hit"
+  },
+  "sféra": {
+    "english": "sphere; realm"
+  },
+  "záber": {
+    "english": "shot; grip; scope"
+  },
+  "akcionár": {
+    "english": "shareholder"
+  },
+  "oslabenie": {
+    "english": "weakening; impairment"
+  },
+  "výlet": {
+    "english": "trip; excursion"
+  },
+  "farár": {
+    "english": "parish priest"
+  },
+  "odvetvie": {
+    "english": "sector; branch; industry"
+  },
+  "maximum": {
+    "english": "maximum"
+  },
+  "záruka": {
+    "english": "guarantee; warranty"
+  },
+  "dej": {
+    "english": "plot; action; course of events"
+  },
+  "jazdec": {
+    "english": "rider; driver"
+  },
+  "metropola": {
+    "english": "metropolis; capital city"
+  },
+  "heslo": {
+    "english": "password; motto; entry"
+  },
+  "priateľka": {
+    "english": "girlfriend; female friend"
+  },
+  "strava": {
+    "english": "food; diet; meals"
+  },
+  "línia": {
+    "english": "line; route"
+  },
+  "trojica": {
+    "english": "trio; group of three"
+  },
+  "ustanovenie": {
+    "english": "provision; appointment; establishment"
+  },
+  "agent": {
+    "english": "agent"
+  },
+  "bazén": {
+    "english": "pool; swimming pool"
+  },
+  "tenis": {
+    "english": "tennis"
+  },
+  "limit": {
+    "english": "limit"
+  },
+  "púť": {
+    "english": "pilgrimage; journey"
+  },
+  "obrat": {
+    "english": "turnover; reversal; turn"
+  },
+  "štvrťfinále": {
+    "english": "quarter-final"
+  },
+  "rozhodovanie": {
+    "english": "decision-making; judging"
+  },
+  "úmrtie": {
+    "english": "death; passing"
+  },
+  "potok": {
+    "english": "stream; brook"
+  },
+  "využívanie": {
+    "english": "use; utilization"
+  },
+  "fungovanie": {
+    "english": "functioning; operation"
+  },
+  "cudzinec": {
+    "english": "foreigner; stranger"
+  },
+  "bitka": {
+    "english": "fight; battle"
+  },
+  "operátor": {
+    "english": "operator"
+  },
+  "sponzor": {
+    "english": "sponsor"
+  },
+  "obrazovka": {
+    "english": "screen; display"
+  },
+  "týždenník": {
+    "english": "weekly; weekly magazine"
+  },
+  "ľudstvo": {
+    "english": "humanity; mankind"
+  },
+  "búrka": {
+    "english": "storm; thunderstorm"
+  },
+  "kupón": {
+    "english": "coupon; voucher"
+  },
+  "žrď": {
+    "english": "pole; post"
+  },
+  "skala": {
+    "english": "rock; cliff"
+  },
+  "učenie": {
+    "english": "learning; teaching; doctrine"
+  },
+  "zastávka": {
+    "english": "stop; station"
+  },
+  "hĺbka": {
+    "english": "depth"
+  },
+  "próza": {
+    "english": "prose"
+  },
+  "sprievod": {
+    "english": "escort; procession; accompaniment"
+  },
+  "dedičstvo": {
+    "english": "heritage; inheritance"
+  },
+  "vysvetlenie": {
+    "english": "explanation"
+  },
+  "používateľ": {
+    "english": "user"
+  },
+  "anketa": {
+    "english": "survey; poll"
+  },
+  "dosah": {
+    "english": "reach; impact; range"
+  },
+  "prach": {
+    "english": "dust; powder"
+  },
+  "zákrok": {
+    "english": "intervention; procedure"
+  },
+  "sťažnosť": {
+    "english": "complaint"
+  },
+  "spolok": {
+    "english": "association; society"
+  },
+  "bunka": {
+    "english": "cell"
+  },
+  "posolstvo": {
+    "english": "message; mission"
+  },
+  "svedectvo": {
+    "english": "testimony; evidence"
+  },
+  "mladosť": {
+    "english": "youth"
+  },
+  "humor": {
+    "english": "humor"
+  },
+  "polrok": {
+    "english": "semester; half-year"
+  },
+  "recept": {
+    "english": "recipe; prescription"
+  },
+  "kritik": {
+    "english": "critic"
+  },
+  "licencia": {
+    "english": "license"
+  },
+  "pochybnosť": {
+    "english": "doubt"
+  },
+  "hmotnosť": {
+    "english": "weight; mass"
+  },
+  "sekcia": {
+    "english": "section; department"
+  },
+  "založenie": {
+    "english": "founding; establishment"
+  },
+  "znenie": {
+    "english": "wording; text"
+  },
+  "štandard": {
+    "english": "standard"
+  },
+  "topánka": {
+    "english": "shoe"
+  },
+  "doska": {
+    "english": "board; plank; plate"
+  },
+  "kráľovná": {
+    "english": "queen"
+  },
+  "historik": {
+    "english": "historian"
+  },
+  "dianie": {
+    "english": "events; goings-on"
+  },
+  "kov": {
+    "english": "metal"
+  },
+  "identita": {
+    "english": "identity"
+  },
+  "spokojnosť": {
+    "english": "satisfaction; contentment"
+  },
+  "ekonóm": {
+    "english": "economist"
+  },
+  "výbuch": {
+    "english": "explosion; eruption"
+  },
+  "sklamanie": {
+    "english": "disappointment"
+  },
+  "špička": {
+    "english": "tip; peak; expert"
+  },
+  "rozsudok": {
+    "english": "judgment; verdict"
+  },
+  "jaskyňa": {
+    "english": "cave"
+  },
+  "angličtina": {
+    "english": "English"
+  },
+  "minimum": {
+    "english": "minimum"
+  },
+  "poviedka": {
+    "english": "short story"
+  },
+  "rameno": {
+    "english": "arm; shoulder; branch"
+  },
+  "česť": {
+    "english": "honor; honorific"
+  },
+  "stánok": {
+    "english": "stall; booth; stand"
+  },
+  "údržba": {
+    "english": "maintenance"
+  },
+  "motivácia": {
+    "english": "motivation"
+  },
+  "aspekt": {
+    "english": "aspect"
+  },
+  "dôraz": {
+    "english": "emphasis; stress"
+  },
+  "pozadie": {
+    "english": "background"
+  },
+  "mienka": {
+    "english": "opinion; view"
+  },
+  "rola": {
+    "english": "role"
+  },
+  "bytosť": {
+    "english": "being; creature"
+  },
+  "generál": {
+    "english": "general"
+  },
+  "nešťastie": {
+    "english": "misfortune; disaster"
+  },
+  "železnica": {
+    "english": "railway; railroad"
+  },
+  "kôš": {
+    "english": "basket; bin"
+  },
+  "pohľadávka": {
+    "english": "claim; receivable"
+  },
+  "parkovisko": {
+    "english": "parking lot"
+  },
+  "písanie": {
+    "english": "writing"
+  },
+  "koleso": {
+    "english": "wheel"
+  },
+  "objednávka": {
+    "english": "order; booking"
+  },
+  "vyučovanie": {
+    "english": "teaching; class"
+  },
+  "schôdza": {
+    "english": "meeting; session"
+  },
+  "koncern": {
+    "english": "corporate group; concern"
+  },
+  "posádka": {
+    "english": "crew; occupants"
+  },
+  "rozprávanie": {
+    "english": "narration; storytelling"
+  },
+  "komunista": {
+    "english": "communist"
+  },
+  "stabilita": {
+    "english": "stability"
+  },
+  "únik": {
+    "english": "escape; leak"
+  },
+  "mestečko": {
+    "english": "small town; town"
+  },
+  "hlavička": {
+    "english": "header; little head"
+  },
+  "nôž": {
+    "english": "knife"
+  },
+  "právomoc": {
+    "english": "authority; jurisdiction"
+  },
+  "obvod": {
+    "english": "district; circuit; perimeter"
+  },
+  "označenie": {
+    "english": "designation; marking; label"
+  },
+  "vesmír": {
+    "english": "universe; space"
+  },
+  "web": {
+    "english": "web; website"
+  },
+  "diel": {
+    "english": "part; work; share"
+  },
+  "písmo": {
+    "english": "writing; script; typeface"
+  },
+  "prihláška": {
+    "english": "application; registration form"
+  },
+  "streľba": {
+    "english": "shooting; gunfire"
+  },
+  "dav": {
+    "english": "crowd"
+  },
+  "prevencia": {
+    "english": "prevention"
+  },
+  "hnev": {
+    "english": "anger"
+  },
+  "vylúčenie": {
+    "english": "exclusion; expulsion"
+  },
+  "architektúra": {
+    "english": "architecture"
+  },
+  "debata": {
+    "english": "debate; discussion"
+  },
+  "zväzok": {
+    "english": "volume; bundle; union"
+  },
+  "ohrozenie": {
+    "english": "threat; endangerment"
+  },
+  "tender": {
+    "english": "tender; public contract bid"
+  },
+  "ríša": {
+    "english": "empire; realm"
+  },
+  "verš": {
+    "english": "verse; line of poetry"
+  },
+  "rozdelenie": {
+    "english": "division; distribution"
+  },
+  "medveď": {
+    "english": "bear"
+  },
+  "bomba": {
+    "english": "bomb"
+  },
+  "splátka": {
+    "english": "installment; payment"
+  },
+  "diera": {
+    "english": "hole; gap"
+  },
+  "chalan": {
+    "english": "boy; guy"
+  },
+  "orientácia": {
+    "english": "orientation; direction"
+  },
+  "komplex": {
+    "english": "complex; compound"
+  },
+  "zastúpenie": {
+    "english": "representation; substitution"
+  },
+  "infraštruktúra": {
+    "english": "infrastructure"
+  },
+  "kabinet": {
+    "english": "cabinet; office"
+  },
+  "zistenie": {
+    "english": "finding; discovery"
+  },
+  "zakladateľ": {
+    "english": "founder"
+  },
+  "križovatka": {
+    "english": "intersection; crossroads"
+  },
+  "uznanie": {
+    "english": "recognition; acknowledgment"
+  },
+  "bohatstvo": {
+    "english": "wealth; richness"
+  },
+  "štádium": {
+    "english": "stage; phase"
+  },
+  "plod": {
+    "english": "fruit; offspring; product"
+  },
+  "spolupracovník": {
+    "english": "colleague; collaborator"
+  },
+  "zrážka": {
+    "english": "collision; precipitation; deduction"
+  },
+  "lúka": {
+    "english": "meadow"
+  },
+  "riadok": {
+    "english": "line; row"
+  },
+  "núdza": {
+    "english": "need; poverty; emergency"
+  },
+  "prsia": {
+    "english": "breasts; chest"
+  },
+  "vzorka": {
+    "english": "sample; specimen"
+  },
+  "dejstvo": {
+    "english": "act; scene"
+  },
+  "opera": {
+    "english": "opera"
+  },
+  "respondent": {
+    "english": "respondent"
+  },
+  "potvrdenie": {
+    "english": "confirmation; certificate"
+  },
+  "príloha": {
+    "english": "attachment; side dish; appendix"
+  },
+  "chrípka": {
+    "english": "flu; influenza"
+  },
+  "riaditeľstvo": {
+    "english": "directorate; headquarters"
+  },
+  "meranie": {
+    "english": "measurement"
+  },
+  "derby": {
+    "english": "derby"
+  },
+  "vchod": {
+    "english": "entrance"
+  },
+  "tendencia": {
+    "english": "tendency; trend"
+  },
+  "opora": {
+    "english": "support; mainstay"
+  },
+  "činiteľ": {
+    "english": "factor; agent"
+  },
+  "ukážka": {
+    "english": "sample; demonstration; excerpt"
+  },
+  "sporiteľňa": {
+    "english": "savings bank"
+  },
+  "rakovina": {
+    "english": "cancer"
+  },
+  "zameranie": {
+    "english": "focus; orientation; aim"
+  },
+  "hliadka": {
+    "english": "patrol; guard"
+  },
+  "pravdepodobnosť": {
+    "english": "probability; likelihood"
+  },
+  "útvar": {
+    "english": "formation; unit; structure"
+  },
+  "podvod": {
+    "english": "fraud; scam; deception"
+  },
+  "vďaka": {
+    "english": "thanks; gratitude"
+  },
+  "herečka": {
+    "english": "actress"
+  },
+  "pódium": {
+    "english": "stage; podium"
+  },
+  "povesť": {
+    "english": "reputation; legend"
+  },
+  "podklad": {
+    "english": "basis; background; substrate"
+  },
+  "pomôcka": {
+    "english": "aid; tool; teaching aid"
+  },
+  "summit": {
+    "english": "summit; peak-level meeting"
+  },
+  "katastrofa": {
+    "english": "disaster; catastrophe"
+  },
+  "komentár": {
+    "english": "comment; commentary"
+  },
+  "zamestnanosť": {
+    "english": "employment"
+  },
+  "minca": {
+    "english": "coin"
+  },
+  "štrajk": {
+    "english": "strike"
+  },
+  "asistencia": {
+    "english": "assistance; attendance"
+  },
+  "kalendár": {
+    "english": "calendar"
+  },
+  "maliar": {
+    "english": "painter"
+  },
+  "populácia": {
+    "english": "population"
+  },
+  "hospodárenie": {
+    "english": "management; economy"
+  },
+  "nápis": {
+    "english": "inscription; caption"
+  },
+  "utečenec": {
+    "english": "refugee; fugitive"
+  },
+  "spis": {
+    "english": "file; case file; work"
+  },
+  "kmeň": {
+    "english": "tribe; trunk; stem"
+  },
+  "sex": {
+    "english": "sex"
+  },
+  "prednosta": {
+    "english": "head; chief; stationmaster"
+  },
+  "výskyt": {
+    "english": "occurrence; incidence"
+  },
+  "senát": {
+    "english": "senate"
+  },
+  "gólman": {
+    "english": "goalkeeper"
+  },
+  "tok": {
+    "english": "flow; current"
+  },
+  "puk": {
+    "english": "puck"
+  },
+  "nábytok": {
+    "english": "furniture"
+  },
+  "hudobník": {
+    "english": "musician"
+  },
+  "výklad": {
+    "english": "explanation; display window; interpretation"
+  },
+  "surovina": {
+    "english": "raw material; ingredient"
+  },
+  "pobrežie": {
+    "english": "coast; shore"
+  },
+  "cyklista": {
+    "english": "cyclist"
+  },
+  "náhoda": {
+    "english": "chance; coincidence"
+  },
+  "kúpele": {
+    "english": "spa; baths"
+  },
+  "sklad": {
+    "english": "warehouse; store; composition"
+  },
+  "sankcia": {
+    "english": "sanction; penalty"
+  },
+  "beseda": {
+    "english": "discussion; talk"
+  },
+  "priateľstvo": {
+    "english": "friendship"
+  },
+  "biznis": {
+    "english": "business"
+  },
+  "emócia": {
+    "english": "emotion"
+  },
+  "kaštieľ": {
+    "english": "manor house; chateau"
+  },
+  "štvrť": {
+    "english": "quarter; district"
+  },
+  "členstvo": {
+    "english": "membership"
+  },
+  "hračka": {
+    "english": "toy"
+  },
+  "kongres": {
+    "english": "congress; convention"
+  },
+  "zriadenie": {
+    "english": "establishment; arrangement; facility"
+  },
+  "znižovanie": {
+    "english": "reduction; lowering"
+  },
+  "jadro": {
+    "english": "core; nucleus; kernel"
+  },
+  "aliancia": {
+    "english": "alliance"
+  },
+  "vlasť": {
+    "english": "homeland; native country"
+  },
+  "dohľad": {
+    "english": "supervision; oversight"
+  },
+  "divízia": {
+    "english": "division"
+  },
+  "vízia": {
+    "english": "vision"
+  },
+  "väzeň": {
+    "english": "prisoner; inmate"
+  },
+  "zásluha": {
+    "english": "merit; credit"
+  },
+  "register": {
+    "english": "register; registry"
+  },
+  "želanie": {
+    "english": "wish; desire"
+  },
+  "zručnosť": {
+    "english": "skill"
+  },
+  "zmes": {
+    "english": "mixture; blend"
+  },
+  "oddiel": {
+    "english": "section; unit; squad"
+  },
+  "architekt": {
+    "english": "architect"
+  },
+  "pozvanie": {
+    "english": "invitation"
+  },
+  "kontinent": {
+    "english": "continent"
+  },
+  "výhrada": {
+    "english": "reservation; objection; caveat"
+  },
+  "perspektíva": {
+    "english": "perspective; outlook"
+  },
+  "žáner": {
+    "english": "genre"
+  },
+  "schválenie": {
+    "english": "approval; authorization"
+  },
+  "účinnosť": {
+    "english": "effectiveness; validity"
+  },
+  "integrácia": {
+    "english": "integration"
+  },
+  "stres": {
+    "english": "stress"
+  },
+  "kaplnka": {
+    "english": "chapel"
+  },
+  "vyrovnanie": {
+    "english": "settlement; balancing; equalization"
+  },
+  "konkurz": {
+    "english": "bankruptcy; audition; competition"
+  },
+  "dievčatko": {
+    "english": "little girl"
+  },
+  "piesok": {
+    "english": "sand"
+  },
+  "chudoba": {
+    "english": "poverty"
+  },
+  "položka": {
+    "english": "item; entry; charge"
+  },
+  "producent": {
+    "english": "producer"
+  },
+  "škandál": {
+    "english": "scandal"
+  },
+  "speváčka": {
+    "english": "female singer"
+  },
+  "vrah": {
+    "english": "murderer"
+  },
+  "mačka": {
+    "english": "cat"
+  },
+  "marketing": {
+    "english": "marketing"
+  },
+  "pokrok": {
+    "english": "progress"
+  },
+  "sieň": {
+    "english": "hall; chamber"
+  },
+  "formát": {
+    "english": "format"
+  },
+  "rozlúčka": {
+    "english": "farewell; goodbye"
+  },
+  "teta": {
+    "english": "aunt"
+  },
+  "obálka": {
+    "english": "envelope; cover"
+  },
+  "polnoc": {
+    "english": "midnight"
+  },
+  "obstarávanie": {
+    "english": "procurement; acquisition"
+  },
+  "chodec": {
+    "english": "pedestrian; walker"
+  },
+  "škôlka": {
+    "english": "kindergarten; nursery"
+  },
+  "televízor": {
+    "english": "television; TV set"
+  },
+  "kaviareň": {
+    "english": "café; coffee shop"
+  },
+  "nezávislosť": {
+    "english": "independence"
+  },
+  "interiér": {
+    "english": "interior"
+  },
+  "variant": {
+    "english": "variant; version"
+  },
+  "idea": {
+    "english": "idea"
+  },
+  "sústava": {
+    "english": "system; set; constellation"
+  },
+  "plot": {
+    "english": "fence; plot"
+  },
+  "bojovník": {
+    "english": "fighter; warrior"
+  },
+  "príhovor": {
+    "english": "speech; address"
+  },
+  "hrôza": {
+    "english": "horror; terror"
+  },
+  "žaloba": {
+    "english": "lawsuit; accusation; indictment"
+  },
+  "košeľa": {
+    "english": "shirt"
+  },
+  "nájazd": {
+    "english": "raid; attack; drive-in"
+  },
+  "poslucháč": {
+    "english": "listener; student"
+  },
+  "stíhanie": {
+    "english": "prosecution; pursuit"
+  },
+  "pokyn": {
+    "english": "instruction; direction"
+  },
+  "vidiek": {
+    "english": "countryside; rural areas"
+  },
+  "veľvyslanec": {
+    "english": "ambassador"
+  },
+  "nenávisť": {
+    "english": "hatred"
+  },
+  "obžalovaný": {
+    "english": "defendant; accused person"
+  },
+  "server": {
+    "english": "server"
+  },
+  "vajce": {
+    "english": "egg"
+  },
+  "likvidácia": {
+    "english": "liquidation; disposal; elimination"
+  },
+  "ministerka": {
+    "english": "female minister"
+  },
+  "dobrovoľník": {
+    "english": "volunteer"
+  },
+  "prechádzka": {
+    "english": "walk; stroll"
+  },
+  "chvíľka": {
+    "english": "little while; moment"
+  },
+  "petícia": {
+    "english": "petition"
+  },
+  "akt": {
+    "english": "act; deed; nude figure"
+  },
+  "maska": {
+    "english": "mask"
+  },
+  "raj": {
+    "english": "paradise; heaven"
+  },
+  "kouč": {
+    "english": "coach"
+  },
+  "kabína": {
+    "english": "cabin; booth; compartment"
+  },
+  "nadšenie": {
+    "english": "enthusiasm; excitement"
+  },
+  "múdrosť": {
+    "english": "wisdom"
+  },
+  "apoštol": {
+    "english": "apostle"
+  },
+  "východisko": {
+    "english": "starting point; way out; basis"
+  },
+  "svah": {
+    "english": "slope; hillside"
+  },
+  "dôstojník": {
+    "english": "officer"
+  },
+  "skok": {
+    "english": "jump; leap"
+  },
+  "striebro": {
+    "english": "silver"
+  },
+  "hotovosť": {
+    "english": "cash; ready money"
+  },
+  "nasadenie": {
+    "english": "deployment; commitment; effort"
+  },
+  "vírus": {
+    "english": "virus"
+  },
+  "vstupenka": {
+    "english": "ticket; admission ticket"
+  },
+  "líce": {
+    "english": "cheek; face"
+  },
+  "poľnohospodárstvo": {
+    "english": "agriculture"
+  },
+  "autorita": {
+    "english": "authority; respected person"
+  },
+  "vybudovanie": {
+    "english": "construction; building"
+  },
+  "poklad": {
+    "english": "treasure; darling"
+  },
+  "rozvod": {
+    "english": "divorce; distribution system"
+  },
+  "peklo": {
+    "english": "hell"
+  },
+  "dopad": {
+    "english": "impact; effect; fallout"
+  },
+  "balíček": {
+    "english": "package; packet; bundle"
+  },
+  "inscenácia": {
+    "english": "staging; production"
+  },
+  "palivo": {
+    "english": "fuel"
+  },
+  "nález": {
+    "english": "find; discovery; judgment"
+  },
+  "blog": {
+    "english": "blog"
+  },
+  "pripomienka": {
+    "english": "reminder; comment; objection"
+  },
+  "vášeň": {
+    "english": "passion"
+  },
+  "regulácia": {
+    "english": "regulation; control"
+  },
+  "osvetlenie": {
+    "english": "lighting; illumination"
+  },
+  "útek": {
+    "english": "escape; flight"
+  },
+  "zachovanie": {
+    "english": "preservation; retention"
+  },
+  "emisia": {
+    "english": "emission; issue"
+  },
+  "um": {
+    "english": "art; skill; intellect"
+  },
+  "inzercia": {
+    "english": "advertising; classified ads"
+  },
+  "fantázia": {
+    "english": "fantasy; imagination"
+  },
+  "sedadlo": {
+    "english": "seat"
+  },
+  "zhoda": {
+    "english": "agreement; match; coincidence"
+  },
+  "baňa": {
+    "english": "mine"
+  },
+  "premávka": {
+    "english": "traffic; operation"
+  },
+  "zaujímavosť": {
+    "english": "interesting fact; attraction"
+  },
+  "dvojhra": {
+    "english": "singles match; singles"
+  },
+  "advokát": {
+    "english": "lawyer; attorney"
+  },
+  "fotka": {
+    "english": "photo; picture"
+  },
+  "benzín": {
+    "english": "gasoline; petrol"
+  },
+  "huba": {
+    "english": "mushroom; mouth"
+  },
+  "predok": {
+    "english": "ancestor; forebear; front part"
+  },
+  "námaha": {
+    "english": "effort; exertion"
+  },
+  "stan": {
+    "english": "tent"
+  },
+  "babka": {
+    "english": "grandmother; old woman"
+  },
+  "predajca": {
+    "english": "seller; salesperson"
+  },
+  "priechod": {
+    "english": "passage; crossing"
+  },
+  "dovoz": {
+    "english": "import; delivery"
+  },
+  "mandát": {
+    "english": "mandate; term of office"
+  },
+  "zastavenie": {
+    "english": "stopping; halt"
+  },
+  "kúpalisko": {
+    "english": "outdoor swimming pool; bathing area"
+  },
+  "sústredenie": {
+    "english": "concentration; gathering"
+  },
+  "sval": {
+    "english": "muscle"
+  },
+  "hmota": {
+    "english": "matter; mass"
+  },
+  "obhajca": {
+    "english": "defender; defense lawyer"
+  },
+  "obrad": {
+    "english": "ceremony; rite"
+  },
+  "dizajn": {
+    "english": "design"
+  },
+  "odev": {
+    "english": "garment; clothing"
+  },
+  "cent": {
+    "english": "cent"
+  },
+  "žiadateľ": {
+    "english": "applicant"
+  },
+  "obal": {
+    "english": "packaging; cover"
+  },
+  "dokumentácia": {
+    "english": "documentation"
+  },
+  "držiteľ": {
+    "english": "holder; owner"
+  },
+  "faul": {
+    "english": "foul"
+  },
+  "stromček": {
+    "english": "small tree; Christmas tree"
+  },
+  "pohreb": {
+    "english": "funeral; burial"
+  },
+  "trojka": {
+    "english": "three; three-pointer"
+  },
+  "doplnok": {
+    "english": "supplement; accessory"
+  },
+  "interpretácia": {
+    "english": "interpretation"
+  },
+  "pilot": {
+    "english": "pilot"
+  },
+  "cisár": {
+    "english": "emperor"
+  },
+  "veriteľ": {
+    "english": "creditor; lender"
+  },
+  "profil": {
+    "english": "profile"
+  },
+  "éra": {
+    "english": "era"
+  },
+  "pochopenie": {
+    "english": "understanding"
+  },
+  "lavica": {
+    "english": "bench; school desk"
+  },
+  "ťah": {
+    "english": "pull; move; stroke"
+  },
+  "brucho": {
+    "english": "belly; abdomen"
+  },
+  "žalúdok": {
+    "english": "stomach"
+  },
+  "uplatnenie": {
+    "english": "application; use"
+  },
+  "odstup": {
+    "english": "distance; withdrawal"
+  },
+  "poškodenie": {
+    "english": "damage; injury"
+  },
+  "kód": {
+    "english": "code"
+  },
+  "klobúk": {
+    "english": "hat"
+  },
+  "zber": {
+    "english": "collection; gathering"
+  },
+  "hrdlo": {
+    "english": "throat"
+  },
+  "elita": {
+    "english": "elite"
+  },
+  "predchodca": {
+    "english": "predecessor; precursor"
+  },
+  "omyl": {
+    "english": "mistake; error"
+  },
+  "zápal": {
+    "english": "inflammation"
+  },
+  "gesto": {
+    "english": "gesture"
+  },
+  "diecéza": {
+    "english": "diocese"
+  },
+  "baník": {
+    "english": "miner"
+  },
+  "libra": {
+    "english": "pound; pound sterling"
+  },
+  "župan": {
+    "english": "regional governor; bathrobe"
+  },
+  "pochod": {
+    "english": "march; procession"
+  },
+  "písmeno": {
+    "english": "letter"
+  },
+  "remeslo": {
+    "english": "craft; trade"
+  },
+  "eurofond": {
+    "english": "EU fund"
+  },
+  "krčma": {
+    "english": "tavern; pub"
+  },
+  "taška": {
+    "english": "bag"
+  },
+  "odstránenie": {
+    "english": "removal"
+  },
+  "kresťanstvo": {
+    "english": "Christianity"
+  },
+  "kvapka": {
+    "english": "drop"
+  },
+  "fotograf": {
+    "english": "photographer"
+  },
+  "žiačka": {
+    "english": "schoolgirl; female pupil"
+  },
+  "nohavice": {
+    "english": "trousers; pants"
+  },
+  "premena": {
+    "english": "change; transformation"
+  },
+  "prevod": {
+    "english": "transfer; conversion"
+  },
+  "vlk": {
+    "english": "wolf"
+  },
+  "prognóza": {
+    "english": "prognosis; forecast"
+  },
+  "ukazovateľ": {
+    "english": "indicator"
+  },
+  "nádoba": {
+    "english": "container; vessel"
+  },
+  "dosiahnutie": {
+    "english": "achievement; attainment"
+  },
+  "maľba": {
+    "english": "painting"
+  },
+  "výpočet": {
+    "english": "calculation"
+  },
+  "incident": {
+    "english": "incident"
+  },
+  "vytváranie": {
+    "english": "creation; formation"
+  },
+  "záchranár": {
+    "english": "rescuer; paramedic"
+  },
+  "palec": {
+    "english": "thumb; inch"
+  },
+  "pohlavie": {
+    "english": "sex; gender"
+  },
+  "katedra": {
+    "english": "department; cathedral"
+  },
+  "bar": {
+    "english": "bar"
+  },
+  "komisár": {
+    "english": "commissioner"
+  },
+  "mýtus": {
+    "english": "myth"
+  },
+  "šok": {
+    "english": "shock"
+  },
+  "oddych": {
+    "english": "rest; relaxation"
+  },
+  "tunel": {
+    "english": "tunnel"
+  },
+  "socializmus": {
+    "english": "socialism"
+  },
+  "dorastenec": {
+    "english": "adolescent; teenager"
+  },
+  "odveta": {
+    "english": "revenge; retaliation"
+  },
+  "spektrum": {
+    "english": "spectrum; range"
+  },
+  "zjazd": {
+    "english": "congress; descent"
+  },
+  "parameter": {
+    "english": "parameter"
+  },
+  "ovca": {
+    "english": "sheep"
+  },
+  "trofej": {
+    "english": "trophy"
+  },
+  "pojednávanie": {
+    "english": "hearing; trial"
+  },
+  "náčelník": {
+    "english": "chief; commander"
+  },
+  "fenomén": {
+    "english": "phenomenon"
+  },
+  "novina": {
+    "english": "piece of news; novelty"
+  },
+  "barel": {
+    "english": "barrel"
+  },
+  "šofér": {
+    "english": "driver"
+  },
+  "prístav": {
+    "english": "port; harbor"
+  },
+  "nerv": {
+    "english": "nerve"
+  },
+  "črta": {
+    "english": "feature; trait"
+  },
+  "hit": {
+    "english": "hit; popular song"
+  },
+  "voz": {
+    "english": "cart; wagon"
+  },
+  "odporúčanie": {
+    "english": "recommendation"
+  },
+  "prijímanie": {
+    "english": "acceptance; reception"
+  },
+  "vitamín": {
+    "english": "vitamin"
+  },
+  "preprava": {
+    "english": "transport; carriage"
+  },
+  "prepojenie": {
+    "english": "connection; link"
+  },
+  "raketa": {
+    "english": "rocket; racket"
+  },
+  "úroda": {
+    "english": "harvest; crop"
+  },
+  "neúspech": {
+    "english": "failure; unsuccessful result"
+  },
+  "magistrát": {
+    "english": "city hall; municipal authority"
+  },
+  "moderátor": {
+    "english": "host; moderator"
+  },
+  "bronz": {
+    "english": "bronze"
+  },
+  "zákonník": {
+    "english": "code of law; law book"
+  },
+  "priestupok": {
+    "english": "offense; misdemeanor"
+  },
+  "formácia": {
+    "english": "formation; lineup"
+  },
+  "okuliare": {
+    "english": "glasses; spectacles"
+  },
+  "garáž": {
+    "english": "garage"
+  },
+  "opis": {
+    "english": "description; copy"
+  },
+  "zákazka": {
+    "english": "order; contract"
+  },
+  "dym": {
+    "english": "smoke"
+  },
+  "úhrada": {
+    "english": "payment; reimbursement"
+  },
+  "posilnenie": {
+    "english": "strengthening; reinforcement"
+  },
+  "aktivista": {
+    "english": "activist"
+  },
+  "zverejnenie": {
+    "english": "publication; disclosure"
+  },
+  "rytmus": {
+    "english": "rhythm"
+  },
+  "rating": {
+    "english": "rating; audience share"
+  },
+  "hanba": {
+    "english": "shame; disgrace"
+  },
+  "slovník": {
+    "english": "dictionary; vocabulary"
+  },
+  "trpezlivosť": {
+    "english": "patience"
+  },
+  "súkromie": {
+    "english": "privacy"
+  },
+  "prepad": {
+    "english": "drop; robbery; ambush"
+  },
+  "spoločník": {
+    "english": "companion; business partner"
+  },
+  "užívanie": {
+    "english": "use; enjoyment; taking"
+  },
+  "požehnanie": {
+    "english": "blessing"
+  },
+  "horizont": {
+    "english": "horizon"
+  },
+  "ruža": {
+    "english": "rose"
+  },
+  "povodeň": {
+    "english": "flood"
+  },
+  "zmienka": {
+    "english": "mention; reference"
+  },
+  "povstanie": {
+    "english": "uprising; revolt"
+  },
+  "paluba": {
+    "english": "deck; aboard"
+  },
+  "neistota": {
+    "english": "uncertainty; insecurity"
+  },
+  "spojenec": {
+    "english": "ally"
+  },
+  "výkonnosť": {
+    "english": "performance; efficiency"
+  },
+  "živnostník": {
+    "english": "sole trader; self-employed person"
+  },
+  "múka": {
+    "english": "flour"
+  },
+  "pamätník": {
+    "english": "memorial; monument"
+  },
+  "kopa": {
+    "english": "pile; heap"
+  },
+  "župa": {
+    "english": "county; region"
+  },
+  "šírenie": {
+    "english": "spread; dissemination"
+  },
+  "plameň": {
+    "english": "flame"
+  },
+  "učebnica": {
+    "english": "textbook"
+  },
+  "princ": {
+    "english": "prince"
+  },
+  "pivnica": {
+    "english": "cellar; basement"
+  },
+  "šou": {
+    "english": "show"
+  },
+  "dodržiavanie": {
+    "english": "observance; compliance"
+  },
+  "šťava": {
+    "english": "juice; sap"
+  },
+  "predsedníčka": {
+    "english": "female chairperson; chairwoman"
+  },
+  "predsedníctvo": {
+    "english": "chairmanship; presidium"
+  },
+  "vydavateľ": {
+    "english": "publisher"
+  },
+  "orchester": {
+    "english": "orchestra"
+  },
+  "úraz": {
+    "english": "injury; accident"
+  },
+  "kola": {
+    "english": "round"
+  },
+  "hlad": {
+    "english": "hunger"
+  },
+  "sporenie": {
+    "english": "saving; savings"
+  },
+  "objav": {
+    "english": "discovery"
+  },
+  "dobrodružstvo": {
+    "english": "adventure"
+  },
+  "aktívum": {
+    "english": "asset"
+  },
+  "plášť": {
+    "english": "coat; cloak; casing"
+  },
+  "komunizmus": {
+    "english": "communism"
+  },
+  "národnosť": {
+    "english": "nationality; ethnicity"
+  },
+  "provincia": {
+    "english": "province"
+  },
+  "zájazd": {
+    "english": "package tour; trip"
+  },
+  "starec": {
+    "english": "old man"
+  },
+  "skládka": {
+    "english": "landfill; dump"
+  },
+  "mráz": {
+    "english": "frost; freezing cold"
+  },
+  "únava": {
+    "english": "fatigue; tiredness"
+  },
+  "dotyk": {
+    "english": "touch; contact"
+  },
+  "charakteristika": {
+    "english": "characteristic; description"
+  },
+  "tip": {
+    "english": "tip; hint"
+  },
+  "mládenec": {
+    "english": "young man; bachelor"
+  },
+  "personál": {
+    "english": "staff"
+  },
+  "civilizácia": {
+    "english": "civilization"
+  },
+  "profesia": {
+    "english": "profession; occupation"
+  },
+  "šampión": {
+    "english": "champion"
+  },
+  "oslobodenie": {
+    "english": "liberation; exemption"
+  },
+  "príznak": {
+    "english": "symptom; sign"
+  },
+  "medicína": {
+    "english": "medicine"
+  },
+  "lampa": {
+    "english": "lamp"
+  },
+  "fax": {
+    "english": "fax"
+  },
+  "pravica": {
+    "english": "right hand; political right"
+  },
+  "rubrika": {
+    "english": "column; section"
+  },
+  "tričko": {
+    "english": "T-shirt"
+  },
+  "pas": {
+    "english": "belt; passport; waist"
+  },
+  "evidencia": {
+    "english": "record; evidence"
+  },
+  "cestovanie": {
+    "english": "travel; travelling"
+  },
+  "podrobnosť": {
+    "english": "detail"
+  },
+  "míting": {
+    "english": "meeting; rally"
+  },
+  "výtvarník": {
+    "english": "visual artist"
+  },
+  "kópia": {
+    "english": "copy"
+  },
+  "nahrávka": {
+    "english": "recording"
+  },
+  "registrácia": {
+    "english": "registration"
+  },
+  "rektor": {
+    "english": "rector; university president"
+  },
+  "krúžok": {
+    "english": "circle; club"
+  },
+  "spása": {
+    "english": "salvation"
+  },
+  "plátno": {
+    "english": "canvas; cloth"
+  },
+  "štít": {
+    "english": "shield; mountain ridge"
+  },
+  "pokožka": {
+    "english": "skin"
+  },
+  "štvorhra": {
+    "english": "doubles"
+  },
+  "brvno": {
+    "english": "beam; log"
+  },
+  "korenie": {
+    "english": "spice; pepper"
+  },
+  "čln": {
+    "english": "boat"
+  },
+  "koncentrácia": {
+    "english": "concentration"
+  },
+  "pláž": {
+    "english": "beach"
+  },
+  "nepokoj": {
+    "english": "restlessness; unrest"
+  },
+  "spolužiak": {
+    "english": "classmate"
+  },
+  "stredopoliar": {
+    "english": "midfielder"
+  },
+  "prestup": {
+    "english": "transfer; change"
+  },
+  "usporiadanie": {
+    "english": "arrangement; organization"
+  },
+  "sviečka": {
+    "english": "candle"
+  },
+  "delegácia": {
+    "english": "delegation"
+  },
+  "posila": {
+    "english": "reinforcement; new recruit"
+  },
+  "delegát": {
+    "english": "delegate"
+  },
+  "kilogram": {
+    "english": "kilogram"
+  },
+  "hruď": {
+    "english": "chest; breast"
+  },
+  "rovnováha": {
+    "english": "balance; equilibrium"
+  },
+  "modernizácia": {
+    "english": "modernization"
+  },
+  "prelom": {
+    "english": "breakthrough; turning point"
+  },
+  "náznak": {
+    "english": "hint; indication"
+  },
+  "úľava": {
+    "english": "relief; alleviation"
+  },
+  "poskytnutie": {
+    "english": "provision; granting"
+  },
+  "farma": {
+    "english": "farm"
+  },
+  "sprievodca": {
+    "english": "guide; guidebook"
+  },
+  "milosrdenstvo": {
+    "english": "mercy"
+  },
+  "brada": {
+    "english": "chin; beard"
+  },
+  "jablko": {
+    "english": "apple"
+  },
+  "posun": {
+    "english": "shift; move"
+  },
+  "jedinec": {
+    "english": "individual"
+  },
+  "kabát": {
+    "english": "coat"
+  },
+  "splnenie": {
+    "english": "fulfillment; completion"
+  },
+  "štáb": {
+    "english": "staff; headquarters"
+  },
+  "rešpekt": {
+    "english": "respect"
+  },
+  "dcérka": {
+    "english": "little daughter; daughter"
+  },
+  "export": {
+    "english": "export"
+  },
+  "terorista": {
+    "english": "terrorist"
+  },
+  "transformácia": {
+    "english": "transformation"
+  },
+  "margo": {
+    "english": "margin; edge"
+  },
+  "darca": {
+    "english": "donor; giver"
+  },
+  "cibuľa": {
+    "english": "onion"
+  },
+  "sluha": {
+    "english": "servant"
+  },
+  "pôrod": {
+    "english": "childbirth; delivery"
+  },
+  "spoj": {
+    "english": "connection; route"
+  },
+  "havária": {
+    "english": "accident; crash"
+  },
+  "nástupca": {
+    "english": "successor"
+  },
+  "pútnik": {
+    "english": "pilgrim; traveller"
+  },
+  "náručie": {
+    "english": "arms; embrace"
+  },
+  "front": {
+    "english": "front; line"
+  },
+  "basketbal": {
+    "english": "basketball"
+  },
+  "uzávierka": {
+    "english": "deadline; closure"
+  },
+  "ťažba": {
+    "english": "mining; extraction"
+  },
+  "bytie": {
+    "english": "being; existence"
+  },
+  "strýko": {
+    "english": "uncle"
+  },
+  "inšpirácia": {
+    "english": "inspiration"
+  },
+  "tuk": {
+    "english": "fat; grease"
+  },
+  "ochota": {
+    "english": "willingness"
+  },
+  "poistné": {
+    "english": "insurance premium"
+  },
+  "snem": {
+    "english": "assembly; diet"
+  },
+  "koberec": {
+    "english": "carpet; rug"
+  },
+  "móda": {
+    "english": "fashion; vogue"
+  },
+  "tribúna": {
+    "english": "stands; grandstand"
+  },
+  "báza": {
+    "english": "base; database"
+  },
+  "chod": {
+    "english": "operation; course; walk"
+  },
+  "prevádzkovateľ": {
+    "english": "operator"
+  },
+  "portrét": {
+    "english": "portrait"
+  },
+  "lôžko": {
+    "english": "bed; berth"
+  },
+  "podlaha": {
+    "english": "floor"
+  },
+  "uhol": {
+    "english": "angle; corner"
+  },
+  "pneumatika": {
+    "english": "tire; tyre"
+  },
+  "oltár": {
+    "english": "altar"
+  },
+  "cestujúci": {
+    "english": "passenger; traveller"
+  },
+  "šatňa": {
+    "english": "dressing room; cloakroom"
+  },
+  "lúč": {
+    "english": "ray; beam"
+  },
+  "vývin": {
+    "english": "development"
+  },
+  "matematika": {
+    "english": "mathematics"
+  },
+  "dokončenie": {
+    "english": "completion; finishing"
+  },
+  "palubovka": {
+    "english": "court; dashboard"
+  },
+  "opak": {
+    "english": "opposite; reverse"
+  },
+  "transakcia": {
+    "english": "transaction"
+  },
+  "pôsobnosť": {
+    "english": "jurisdiction; scope"
+  },
+  "údolie": {
+    "english": "valley"
+  },
+  "poistenec": {
+    "english": "insured person; policyholder"
+  },
+  "ulička": {
+    "english": "alley; aisle"
+  },
+  "sviatosť": {
+    "english": "sacrament"
+  },
+  "bonus": {
+    "english": "bonus"
+  },
+  "princezná": {
+    "english": "princess"
+  },
+  "pozdrav": {
+    "english": "greeting; regards"
+  },
+  "prémia": {
+    "english": "premium; bonus; prize"
+  },
+  "sledovanie": {
+    "english": "tracking; monitoring; watching"
+  },
+  "faktúra": {
+    "english": "invoice; bill"
+  },
+  "popoludnie": {
+    "english": "afternoon"
+  },
+  "prepočet": {
+    "english": "recalculation; conversion"
+  },
+  "oživenie": {
+    "english": "revival; revitalization"
+  },
+  "odňatie": {
+    "english": "removal; withdrawal"
+  },
+  "recesia": {
+    "english": "recession"
+  },
+  "koncovka": {
+    "english": "ending; suffix"
+  },
+  "stráž": {
+    "english": "guard; watch"
+  },
+  "pozvánka": {
+    "english": "invitation"
+  },
+  "lyžica": {
+    "english": "spoon"
+  },
+  "šalát": {
+    "english": "salad"
+  },
+  "vrece": {
+    "english": "sack; bag"
+  },
+  "zeleň": {
+    "english": "greenery; vegetation"
+  },
+  "inšpektor": {
+    "english": "inspector"
+  },
+  "občianstvo": {
+    "english": "citizenship"
+  },
+  "bezdomovec": {
+    "english": "homeless person"
+  },
+  "katolík": {
+    "english": "Catholic"
+  },
+  "milovník": {
+    "english": "lover; enthusiast"
+  },
+  "reťazec": {
+    "english": "chain; string"
+  },
+  "úkon": {
+    "english": "act; procedure"
+  },
+  "redaktorka": {
+    "english": "female editor"
+  },
+  "charita": {
+    "english": "charity"
+  },
+  "solidarita": {
+    "english": "solidarity"
+  },
+  "taktika": {
+    "english": "tactics"
+  },
+  "terorizmus": {
+    "english": "terrorism"
+  },
+  "salón": {
+    "english": "salon; lounge"
+  },
+  "slalom": {
+    "english": "slalom"
+  },
+  "skupinka": {
+    "english": "small group"
+  },
+  "stolica": {
+    "english": "capital; chair; stool"
+  },
+  "vajíčko": {
+    "english": "small egg; egg"
+  },
+  "užívateľ": {
+    "english": "user"
+  },
+  "energetika": {
+    "english": "energy sector; energy industry"
+  },
+  "sekretár": {
+    "english": "secretary"
+  },
+  "ples": {
+    "english": "ball; dance"
+  },
+  "kamión": {
+    "english": "truck; lorry"
+  },
+  "pohotovosť": {
+    "english": "emergency service; readiness"
+  },
+  "box": {
+    "english": "box; boxing"
+  },
+  "bariéra": {
+    "english": "barrier; obstacle"
+  },
+  "vnímanie": {
+    "english": "perception"
+  },
+  "špecialista": {
+    "english": "specialist"
+  },
+  "skratka": {
+    "english": "abbreviation; shortcut"
+  },
+  "zemetrasenie": {
+    "english": "earthquake"
+  },
+  "kompromis": {
+    "english": "compromise"
+  },
+  "turistika": {
+    "english": "hiking; tourism"
+  },
+  "neschopnosť": {
+    "english": "inability; incapacity"
+  },
+  "poliklinika": {
+    "english": "polyclinic; outpatient clinic"
+  },
+  "krava": {
+    "english": "cow"
+  },
+  "tenista": {
+    "english": "tennis player"
+  },
+  "rozkaz": {
+    "english": "order; command"
+  },
+  "jedáleň": {
+    "english": "canteen; dining room"
+  },
+  "presun": {
+    "english": "move; transfer"
+  },
+  "vývoz": {
+    "english": "export; removal"
+  },
+  "oceán": {
+    "english": "ocean"
+  },
+  "hodinky": {
+    "english": "watch; wristwatch"
+  },
+  "kresba": {
+    "english": "drawing"
+  },
+  "krst": {
+    "english": "baptism; christening"
+  },
+  "životopis": {
+    "english": "biography; résumé"
+  },
+  "viceprezident": {
+    "english": "vice president"
+  },
+  "filozof": {
+    "english": "philosopher"
+  },
+  "konkurent": {
+    "english": "competitor; rival"
+  },
+  "morálka": {
+    "english": "morality; morale"
+  },
+  "nevesta": {
+    "english": "bride; daughter-in-law"
+  },
+  "meč": {
+    "english": "sword"
+  },
+  "nafta": {
+    "english": "diesel; crude oil"
+  },
+  "kandidátka": {
+    "english": "female candidate; candidate list"
+  },
+  "pero": {
+    "english": "pen; feather"
+  },
+  "obsadenie": {
+    "english": "cast; occupation"
+  },
+  "javisko": {
+    "english": "stage"
+  },
+  "určenie": {
+    "english": "determination; purpose"
+  },
+  "posudok": {
+    "english": "assessment; report"
+  },
+  "členka": {
+    "english": "female member"
+  },
+  "pokladnica": {
+    "english": "cash desk; treasury"
+  },
+  "skladateľ": {
+    "english": "composer"
+  },
+  "liturgia": {
+    "english": "liturgy"
+  },
+  "zoskupenie": {
+    "english": "grouping; cluster"
+  },
+  "lyža": {
+    "english": "ski"
+  },
+  "znalec": {
+    "english": "expert; connoisseur"
+  },
+  "porozumenie": {
+    "english": "understanding; comprehension"
+  },
+  "med": {
+    "english": "honey"
+  },
+  "zánik": {
+    "english": "extinction; demise"
+  },
+  "maratón": {
+    "english": "marathon"
+  },
+  "vtip": {
+    "english": "joke; wit"
+  },
+  "nádrž": {
+    "english": "tank; reservoir"
+  },
+  "veterán": {
+    "english": "veteran"
+  },
+  "pult": {
+    "english": "counter; bar"
+  },
+  "ohlas": {
+    "english": "response; reaction; publicity"
+  },
+  "potomok": {
+    "english": "descendant; offspring"
+  },
+  "terasa": {
+    "english": "terrace; patio"
+  },
+  "diabol": {
+    "english": "devil"
+  },
+  "koncept": {
+    "english": "concept; draft"
+  },
+  "hlúposť": {
+    "english": "stupidity; foolishness"
+  },
+  "rukopis": {
+    "english": "handwriting; manuscript"
+  },
+  "konateľ": {
+    "english": "executive; company director"
+  },
+  "výživa": {
+    "english": "nutrition; nourishment"
+  },
+  "čistota": {
+    "english": "cleanliness; purity"
+  },
+  "spálňa": {
+    "english": "bedroom"
+  },
+  "pripojenie": {
+    "english": "connection; attachment"
+  },
+  "poradenstvo": {
+    "english": "advice; consultancy"
+  },
+  "disk": {
+    "english": "disk; disc"
+  },
+  "miliarda": {
+    "english": "billion"
+  },
+  "záťaž": {
+    "english": "load; burden; strain"
+  },
+  "prorok": {
+    "english": "prophet"
+  },
+  "súrodenec": {
+    "english": "sibling"
+  },
+  "samovražda": {
+    "english": "suicide"
+  },
+  "odborár": {
+    "english": "trade unionist"
+  },
+  "pracovníčka": {
+    "english": "female worker; female employee"
+  },
+  "hosťovanie": {
+    "english": "guest appearance; hosting"
+  },
+  "don": {
+    "english": "Don; Spanish honorific"
+  },
+  "čiastka": {
+    "english": "sum; amount"
+  },
+  "blázon": {
+    "english": "fool; madman"
+  },
+  "pozorovateľ": {
+    "english": "observer"
+  },
+  "klinika": {
+    "english": "clinic"
+  },
+  "dedko": {
+    "english": "grandpa"
+  },
+  "uvedenie": {
+    "english": "introduction; launch; presentation"
+  },
+  "fabrika": {
+    "english": "factory"
+  },
+  "tanier": {
+    "english": "plate"
+  },
+  "nositeľ": {
+    "english": "bearer; carrier; holder"
+  },
+  "diplomacia": {
+    "english": "diplomacy"
+  },
+  "ideál": {
+    "english": "ideal"
+  },
+  "mlyn": {
+    "english": "mill"
+  },
+  "pastier": {
+    "english": "shepherd"
+  },
+  "frekvencia": {
+    "english": "frequency"
+  },
+  "distribúcia": {
+    "english": "distribution"
+  },
+  "výherca": {
+    "english": "winner; prize winner"
+  },
+  "päsť": {
+    "english": "fist"
+  },
+  "výpadok": {
+    "english": "outage; interruption; shortfall"
+  },
+  "cela": {
+    "english": "cell; prison cell"
+  },
+  "hypotéka": {
+    "english": "mortgage"
+  },
+  "kandidatúra": {
+    "english": "candidacy"
+  },
+  "všeobecnosť": {
+    "english": "generality; universality"
+  },
+  "impulz": {
+    "english": "impulse; stimulus"
+  },
+  "inteligencia": {
+    "english": "intelligence"
+  },
+  "odchovanec": {
+    "english": "foster child; protégé; trainee"
+  },
+  "strop": {
+    "english": "ceiling; upper limit"
+  },
+  "potrava": {
+    "english": "food; nourishment"
+  },
+  "prosba": {
+    "english": "request; plea"
+  },
+  "laboratórium": {
+    "english": "laboratory"
+  },
+  "úkor": {
+    "english": "expense; detriment"
+  },
+  "splatnosť": {
+    "english": "due date; maturity"
+  },
+  "výučba": {
+    "english": "teaching; instruction"
+  },
+  "smola": {
+    "english": "bad luck; pitch"
+  },
+  "námietka": {
+    "english": "objection"
+  },
+  "hmla": {
+    "english": "fog; mist"
+  },
+  "verdikt": {
+    "english": "verdict"
+  },
+  "pľúca": {
+    "english": "lungs"
+  },
+  "školenie": {
+    "english": "training"
+  },
+  "ambulancia": {
+    "english": "outpatient clinic; ambulance"
+  },
+  "turné": {
+    "english": "tour"
+  },
+  "popularita": {
+    "english": "popularity"
+  },
+  "horúčava": {
+    "english": "heat; hot weather"
+  },
+  "stĺp": {
+    "english": "pillar; pole; column"
+  },
+  "zneužívanie": {
+    "english": "abuse; misuse"
+  },
+  "originál": {
+    "english": "original"
+  },
+  "chápanie": {
+    "english": "understanding; comprehension"
+  },
+  "gróf": {
+    "english": "count; earl"
+  },
+  "protiútok": {
+    "english": "counterattack"
+  },
+  "zlyhanie": {
+    "english": "failure; malfunction"
+  },
+  "bankovka": {
+    "english": "banknote; bill"
+  },
+  "úspešnosť": {
+    "english": "success rate; effectiveness"
+  },
+  "chaos": {
+    "english": "chaos"
+  },
+  "komplikácia": {
+    "english": "complication"
+  },
+  "poskytovateľ": {
+    "english": "provider"
+  },
+  "jubileum": {
+    "english": "anniversary; jubilee"
+  },
+  "obeta": {
+    "english": "sacrifice; victim"
+  },
+  "zasadanie": {
+    "english": "meeting; session"
+  },
+  "absencia": {
+    "english": "absence"
+  },
+  "softvér": {
+    "english": "software"
+  },
+  "nula": {
+    "english": "zero; nil"
+  },
+  "plač": {
+    "english": "crying; weeping"
+  },
+  "sebavedomie": {
+    "english": "self-confidence"
+  },
+  "experiment": {
+    "english": "experiment"
+  },
+  "starostka": {
+    "english": "female mayor"
+  },
+  "poslankyňa": {
+    "english": "female member of parliament; female deputy"
+  },
+  "strážca": {
+    "english": "guard; keeper; guardian"
+  },
+  "záplava": {
+    "english": "flood; deluge"
+  },
+  "dekan": {
+    "english": "dean"
+  },
+  "začatie": {
+    "english": "start; initiation; commencement"
+  },
+  "penalta": {
+    "english": "penalty; penalty kick"
+  },
+  "trvanie": {
+    "english": "duration; continuance"
+  },
+  "intenzita": {
+    "english": "intensity"
+  },
+  "kanalizácia": {
+    "english": "sewerage; sewage system"
+  },
+  "veľtrh": {
+    "english": "trade fair; expo"
+  },
+  "býk": {
+    "english": "bull"
+  },
+  "ilustrácia": {
+    "english": "illustration"
+  },
+  "dejisko": {
+    "english": "venue; scene of an event"
+  },
+  "hádzaná": {
+    "english": "handball"
+  },
+  "dôležitosť": {
+    "english": "importance"
+  },
+  "skúmanie": {
+    "english": "examination; investigation"
+  },
+  "kotol": {
+    "english": "boiler; cauldron"
+  },
+  "zaradenie": {
+    "english": "inclusion; classification; placement"
+  },
+  "smernica": {
+    "english": "directive; guideline"
+  },
+  "logika": {
+    "english": "logic"
+  },
+  "parkovanie": {
+    "english": "parking"
+  },
+  "víťazka": {
+    "english": "female winner"
+  },
+  "plagát": {
+    "english": "poster"
+  },
+  "inžinier": {
+    "english": "engineer"
+  },
+  "šírka": {
+    "english": "width; breadth"
+  },
+  "diplomat": {
+    "english": "diplomat"
+  },
+  "stvorenie": {
+    "english": "creation; creature"
+  },
+  "partnerstvo": {
+    "english": "partnership"
+  },
+  "námet": {
+    "english": "theme; idea; subject"
+  },
+  "pištoľ": {
+    "english": "pistol; handgun"
+  },
+  "hektár": {
+    "english": "hectare"
+  },
+  "volejbal": {
+    "english": "volleyball"
+  },
+  "kormidelník": {
+    "english": "helmsman; coxswain"
+  },
+  "kufor": {
+    "english": "suitcase; trunk"
+  },
+  "zver": {
+    "english": "game; wild animals"
+  },
+  "telocvičňa": {
+    "english": "gym; gymnasium"
+  },
+  "prah": {
+    "english": "threshold; doorstep"
+  },
+  "sklon": {
+    "english": "slope; inclination; tendency"
+  },
+  "skriňa": {
+    "english": "wardrobe; cabinet"
+  },
+  "gitara": {
+    "english": "guitar"
+  },
+  "púšť": {
+    "english": "desert"
+  },
+  "kvartál": {
+    "english": "quarter; three-month period"
+  },
+  "výcvik": {
+    "english": "training; drill"
+  },
+  "cesto": {
+    "english": "dough"
+  },
+  "ilúzia": {
+    "english": "illusion"
+  },
+  "gram": {
+    "english": "gram"
+  },
+  "psychológ": {
+    "english": "psychologist"
+  },
+  "šálka": {
+    "english": "cup"
+  },
+  "bozk": {
+    "english": "kiss"
+  },
+  "dôstojnosť": {
+    "english": "dignity"
+  },
+  "oblak": {
+    "english": "cloud"
+  },
+  "defenzíva": {
+    "english": "defense; defensive play"
+  },
+  "trón": {
+    "english": "throne"
+  },
+  "katedrála": {
+    "english": "cathedral"
+  },
+  "dvojka": {
+    "english": "two; number two; grade B"
+  },
+  "odberateľ": {
+    "english": "customer; subscriber; buyer"
+  },
+  "dobrota": {
+    "english": "kindness; goodness; treat"
+  },
+  "výkrik": {
+    "english": "cry; shout; exclamation"
+  },
+  "sestrička": {
+    "english": "little sister; nurse"
+  },
+  "obžaloba": {
+    "english": "indictment; prosecution"
+  },
+  "mních": {
+    "english": "monk"
+  },
+  "platňa": {
+    "english": "record; plate; slab"
+  },
+  "poďakovanie": {
+    "english": "thanks; thank-you"
+  },
+  "aréna": {
+    "english": "arena"
+  },
+  "udržanie": {
+    "english": "retention; maintenance"
+  },
+  "teológia": {
+    "english": "theology"
+  },
+  "chlapík": {
+    "english": "guy; fellow"
+  },
+  "prečin": {
+    "english": "misdemeanor; offense"
+  },
+  "liečenie": {
+    "english": "treatment; healing"
+  },
+  "automat": {
+    "english": "machine; vending machine; automatic weapon"
+  },
+  "zázemie": {
+    "english": "background; support; facilities"
+  },
+  "palica": {
+    "english": "stick; cane; club"
+  },
+  "kataster": {
+    "english": "land registry; cadastre"
+  },
+  "kamarátka": {
+    "english": "female friend"
+  },
+  "domček": {
+    "english": "little house; cottage"
+  },
+  "fyzika": {
+    "english": "physics"
+  },
+  "peňaženka": {
+    "english": "wallet; purse"
+  },
+  "vernisáž": {
+    "english": "opening; vernissage"
+  },
+  "samota": {
+    "english": "solitude; loneliness"
+  },
+  "stolík": {
+    "english": "small table; side table"
+  },
+  "volant": {
+    "english": "steering wheel"
+  },
+  "bodka": {
+    "english": "dot; full stop; small spot"
+  },
+  "uniforma": {
+    "english": "uniform"
+  },
+  "baba": {
+    "english": "old woman; woman; hag"
+  },
+  "vrtuľník": {
+    "english": "helicopter"
+  },
+  "propagácia": {
+    "english": "promotion; propaganda"
+  },
+  "počiatok": {
+    "english": "beginning; origin"
+  },
+  "šéfredaktor": {
+    "english": "editor-in-chief"
+  },
+  "šéfka": {
+    "english": "female boss; female manager"
+  },
+  "moslim": {
+    "english": "Muslim"
+  },
+  "schôdzka": {
+    "english": "appointment; meeting; date"
+  },
+  "kanonier": {
+    "english": "top scorer; gunner"
+  },
+  "krajan": {
+    "english": "compatriot; fellow countryman"
+  },
+  "kronika": {
+    "english": "chronicle; newsreel"
+  },
+  "blesk": {
+    "english": "lightning; flash"
+  },
+  "potešenie": {
+    "english": "pleasure; delight"
+  },
+  "postihnutie": {
+    "english": "disability; impairment; affliction"
+  },
+  "masa": {
+    "english": "mass; crowd; dough"
+  },
+  "bydlisko": {
+    "english": "residence; place of residence"
+  },
+  "profesionál": {
+    "english": "professional"
+  },
+  "show": {
+    "english": "show; performance"
+  },
+  "kocka": {
+    "english": "cube; die; block"
+  },
+  "rovnosť": {
+    "english": "equality; evenness"
+  },
+  "povedomie": {
+    "english": "awareness; consciousness"
+  },
+  "segment": {
+    "english": "segment; section"
+  },
+  "inzerát": {
+    "english": "advertisement; classified ad"
+  },
+  "výplata": {
+    "english": "pay; paycheck; payout"
+  },
+  "sedlo": {
+    "english": "saddle; mountain pass"
+  },
+  "platforma": {
+    "english": "platform"
+  },
+  "šnúra": {
+    "english": "cord; string; tour"
+  },
+  "kúpeľňa": {
+    "english": "bathroom"
+  },
+  "studňa": {
+    "english": "well"
+  },
+  "konfrontácia": {
+    "english": "confrontation; comparison"
+  },
+  "aktér": {
+    "english": "actor; participant; player"
+  },
+  "prísľub": {
+    "english": "promise; pledge"
+  },
+  "dedinka": {
+    "english": "small village"
+  },
+  "guľa": {
+    "english": "ball; sphere"
+  },
+  "miláčik": {
+    "english": "darling; favorite; pet"
+  },
+  "slabosť": {
+    "english": "weakness; fainting spell"
+  },
+  "žila": {
+    "english": "vein"
+  },
+  "demonštrácia": {
+    "english": "demonstration; protest; display"
+  },
+  "brigáda": {
+    "english": "part-time job; brigade"
+  },
+  "dievčina": {
+    "english": "girl; young woman"
+  },
+  "komodita": {
+    "english": "commodity"
+  },
+  "cup": {
+    "english": "cup; competition"
+  },
+  "guvernér": {
+    "english": "governor"
+  },
+  "sekretariát": {
+    "english": "secretariat; secretary's office"
+  },
+  "páter": {
+    "english": "priest; friar"
+  },
+  "brejk": {
+    "english": "break; break shot; breakdance"
+  },
+  "porážka": {
+    "english": "defeat; slaughter"
+  },
+  "ľavica": {
+    "english": "left; left wing"
+  },
+  "rozširovanie": {
+    "english": "expansion; spreading; distribution"
+  },
+  "čerpanie": {
+    "english": "drawing; consumption; extraction"
+  },
+  "lyžovanie": {
+    "english": "skiing"
+  },
+  "návštevnosť": {
+    "english": "attendance; visitor numbers"
+  },
+  "vstupné": {
+    "english": "admission fee; entrance fee"
+  },
+  "titulok": {
+    "english": "headline; caption; subtitle"
+  },
+  "študentka": {
+    "english": "female student"
+  },
+  "hluk": {
+    "english": "noise"
+  },
+  "depresia": {
+    "english": "depression; low pressure area"
+  },
+  "maturita": {
+    "english": "school-leaving exam; graduation exam"
+  },
+  "fotoaparát": {
+    "english": "camera"
+  },
+  "ideológia": {
+    "english": "ideology"
+  },
+  "definícia": {
+    "english": "definition"
+  },
+  "plánovanie": {
+    "english": "planning"
+  },
+  "plus": {
+    "english": "plus; advantage"
+  },
+  "dlžník": {
+    "english": "debtor"
+  },
+  "atrakcia": {
+    "english": "attraction; feature"
+  },
+  "lev": {
+    "english": "lion"
+  },
+  "vyhodnotenie": {
+    "english": "evaluation; assessment"
+  },
+  "bezpečie": {
+    "english": "safety; security"
+  },
+  "hrebeň": {
+    "english": "comb; ridge; crest"
+  },
+  "štatút": {
+    "english": "status; statute; regulations"
+  },
+  "balkón": {
+    "english": "balcony"
+  },
+  "prepustenie": {
+    "english": "release; dismissal; discharge"
+  },
+  "porušovanie": {
+    "english": "violation; infringement"
+  },
+  "výbava": {
+    "english": "equipment; gear; furnishings"
+  },
+  "pôdohospodárstvo": {
+    "english": "agriculture"
+  },
+  "pevnosť": {
+    "english": "fortress; strength; firmness"
+  },
+  "imunita": {
+    "english": "immunity"
+  },
+  "účinkovanie": {
+    "english": "performance; appearance; acting"
+  },
+  "pomenovanie": {
+    "english": "name; designation; naming"
+  },
+  "odpustenie": {
+    "english": "forgiveness; remission"
+  },
+  "tekutina": {
+    "english": "liquid; fluid"
+  },
+  "väznica": {
+    "english": "prison; penitentiary"
+  },
+  "dlážka": {
+    "english": "floor"
+  },
+  "obnovenie": {
+    "english": "renewal; restoration; reopening"
+  },
+  "kyselina": {
+    "english": "acid"
+  },
+  "náprava": {
+    "english": "correction; remedy; repair"
+  },
+  "špekulácia": {
+    "english": "speculation"
+  },
+  "agenda": {
+    "english": "agenda; administrative matters"
+  },
+  "málo": {
+    "english": "little; small amount"
+  },
+  "päta": {
+    "english": "heel; footnote"
+  },
+  "inovácia": {
+    "english": "innovation"
+  },
+  "súperka": {
+    "english": "female opponent; rival"
+  },
+  "námestník": {
+    "english": "deputy; vice-; substitute"
+  },
+  "volanie": {
+    "english": "calling; call; shouting"
+  },
+  "predpoveď": {
+    "english": "forecast; prediction"
+  },
+  "výčitka": {
+    "english": "reproach; criticism"
+  },
+  "vernosť": {
+    "english": "loyalty; fidelity"
+  },
+  "zárobok": {
+    "english": "earnings; income"
+  },
+  "porada": {
+    "english": "meeting; consultation"
+  },
+  "továreň": {
+    "english": "factory"
+  },
+  "praktika": {
+    "english": "practice; custom; tactic"
+  },
+  "vozík": {
+    "english": "cart; trolley; wheelchair"
+  },
+  "učeník": {
+    "english": "disciple; apprentice"
+  },
+  "inšpekcia": {
+    "english": "inspection; inspectorate"
+  },
+  "upozornenie": {
+    "english": "warning; notice; reminder"
+  },
+  "prsteň": {
+    "english": "ring"
+  },
+  "pleso": {
+    "english": "mountain lake; tarn"
+  },
+  "páska": {
+    "english": "tape; strip; ribbon"
+  },
+  "rozpad": {
+    "english": "collapse; disintegration; breakup"
+  },
+  "diagnóza": {
+    "english": "diagnosis"
+  },
+  "konár": {
+    "english": "branch; bough"
+  },
+  "ryža": {
+    "english": "rice"
+  },
+  "administratíva": {
+    "english": "administration; administrative staff"
+  },
+  "náplň": {
+    "english": "filling; content; job description"
+  },
+  "terč": {
+    "english": "target; bull's-eye"
+  },
+  "infekcia": {
+    "english": "infection"
+  },
+  "otvor": {
+    "english": "opening; hole"
+  },
+  "optimizmus": {
+    "english": "optimism"
+  },
+  "odporca": {
+    "english": "opponent; adversary"
+  },
+  "obdiv": {
+    "english": "admiration"
+  },
+  "rytier": {
+    "english": "knight"
+  },
+  "aukcia": {
+    "english": "auction"
+  },
+  "obhajoba": {
+    "english": "defense; defense counsel"
+  },
+  "nezmysel": {
+    "english": "nonsense; absurdity"
+  },
+  "puška": {
+    "english": "rifle; gun"
+  },
+  "nespokojnosť": {
+    "english": "dissatisfaction; discontent"
+  },
+  "jedenástka": {
+    "english": "eleven; team of eleven; number eleven"
+  },
+  "žiaľ": {
+    "english": "sorrow; grief; unfortunately"
+  },
+  "mreža": {
+    "english": "grille; bars; lattice"
+  },
+  "knieža": {
+    "english": "prince; duke"
+  },
+  "zvon": {
+    "english": "bell"
+  },
+  "pozorovanie": {
+    "english": "observation; monitoring"
+  },
+  "ocko": {
+    "english": "daddy"
+  },
+  "štúdio": {
+    "english": "studio"
+  },
+  "odber": {
+    "english": "collection; sampling; subscription"
+  },
+  "dobytok": {
+    "english": "cattle; livestock"
+  },
+  "bežec": {
+    "english": "runner; running track lane"
+  },
+  "videnie": {
+    "english": "vision; seeing"
+  },
+  "rúra": {
+    "english": "oven; pipe; tube"
+  },
+  "schránka": {
+    "english": "box; mailbox; compartment"
+  },
+  "vnuk": {
+    "english": "grandson"
+  },
+  "spustenie": {
+    "english": "launch; start-up; lowering"
+  },
+  "prepúšťanie": {
+    "english": "layoffs; release; letting through"
+  },
+  "bieda": {
+    "english": "poverty; misery"
+  },
+  "šperk": {
+    "english": "jewelry; jewel"
+  },
+  "úzkosť": {
+    "english": "anxiety; distress"
+  },
+  "repríza": {
+    "english": "rerun; repeat performance"
+  },
+  "obzor": {
+    "english": "horizon; outlook"
+  },
+  "jama": {
+    "english": "pit; hole; den"
+  },
+  "teleso": {
+    "english": "body; solid; celestial body"
+  },
+  "rozloha": {
+    "english": "area; extent"
+  },
+  "oblok": {
+    "english": "window"
+  },
+  "kostým": {
+    "english": "costume; suit"
+  },
+  "tehotenstvo": {
+    "english": "pregnancy"
+  },
+  "nevýhoda": {
+    "english": "disadvantage; drawback"
+  },
+  "rival": {
+    "english": "rival"
+  },
+  "zákruta": {
+    "english": "bend; curve; turn"
+  },
+  "certifikát": {
+    "english": "certificate"
+  },
+  "sobáš": {
+    "english": "marriage; wedding"
+  },
+  "inštalácia": {
+    "english": "installation"
+  },
+  "preferencia": {
+    "english": "preference"
+  },
+  "smerovanie": {
+    "english": "direction; orientation; routing"
+  },
+  "kontajner": {
+    "english": "container; dumpster"
+  },
+  "pec": {
+    "english": "furnace; kiln; stove"
+  },
+  "ovzdušie": {
+    "english": "air; atmosphere"
+  },
+  "manipulácia": {
+    "english": "manipulation; handling"
+  },
+  "hniezdo": {
+    "english": "nest"
+  },
+  "muzikál": {
+    "english": "musical"
+  },
+  "očkovanie": {
+    "english": "vaccination; immunization"
+  },
+  "klavír": {
+    "english": "piano"
+  },
+  "záľuba": {
+    "english": "hobby; liking; interest"
+  },
+  "kuchár": {
+    "english": "cook; chef"
+  },
+  "bytovka": {
+    "english": "apartment building"
+  },
+  "had": {
+    "english": "snake"
+  },
+  "obývačka": {
+    "english": "living room"
+  },
+  "organizovanie": {
+    "english": "organizing; organization"
+  },
+  "občerstvenie": {
+    "english": "refreshments; snack"
+  },
+  "dopravca": {
+    "english": "carrier; transport operator"
+  },
+  "nedôvera": {
+    "english": "distrust; lack of confidence"
+  },
+  "kriminalita": {
+    "english": "crime; criminality"
+  },
+  "čert": {
+    "english": "devil; demon"
+  },
+  "schéma": {
+    "english": "scheme; diagram; pattern"
+  },
+  "mŕtvola": {
+    "english": "corpse; dead body"
+  },
+  "účtovníctvo": {
+    "english": "accounting; bookkeeping"
+  },
+  "príhoda": {
+    "english": "incident; anecdote; adventure"
+  },
+  "pokušenie": {
+    "english": "temptation"
+  },
+  "hovor": {
+    "english": "call; conversation; speech"
+  },
+  "bohoslužba": {
+    "english": "religious service; worship"
+  },
+  "pátranie": {
+    "english": "search; investigation"
+  },
+  "uhlie": {
+    "english": "coal"
+  },
+  "výťah": {
+    "english": "elevator; lift; extract"
+  },
+  "varenie": {
+    "english": "cooking; boiling"
+  },
+  "atletika": {
+    "english": "athletics; track and field"
+  },
+  "etika": {
+    "english": "ethics"
+  },
+  "izolácia": {
+    "english": "isolation; insulation"
+  },
+  "sad": {
+    "english": "orchard; garden"
+  },
+  "čakanie": {
+    "english": "waiting"
+  },
+  "príslušnosť": {
+    "english": "belonging; affiliation; membership"
+  },
+  "protivník": {
+    "english": "opponent; adversary"
+  },
+  "tisícročie": {
+    "english": "millennium"
+  },
+  "portfólio": {
+    "english": "portfolio"
+  },
+  "daňovník": {
+    "english": "taxpayer"
+  },
+  "prežitie": {
+    "english": "survival; experience"
+  },
+  "električka": {
+    "english": "tram; streetcar"
+  },
+  "baran": {
+    "english": "ram; Aries"
+  },
+  "čašník": {
+    "english": "waiter"
+  },
+  "čistenie": {
+    "english": "cleaning; purification"
+  },
+  "platenie": {
+    "english": "payment; paying"
+  },
+  "kapusta": {
+    "english": "cabbage"
+  },
+  "pomocník": {
+    "english": "helper; assistant"
+  },
+  "omáčka": {
+    "english": "sauce; gravy"
+  },
+  "graf": {
+    "english": "graph; chart"
+  },
+  "porast": {
+    "english": "vegetation; stand; growth"
+  },
+  "diskriminácia": {
+    "english": "discrimination"
+  },
+  "notebook": {
+    "english": "laptop; notebook"
+  },
+  "zaťaženie": {
+    "english": "load; burden; stress"
+  },
+  "nájom": {
+    "english": "rent; lease"
+  },
+  "chladnička": {
+    "english": "refrigerator; fridge"
+  },
+  "lož": {
+    "english": "lie; falsehood"
+  },
+  "zadok": {
+    "english": "backside; buttocks; rear"
+  },
+  "hádka": {
+    "english": "argument; quarrel"
+  },
+  "pauza": {
+    "english": "break; pause"
+  },
+  "záhada": {
+    "english": "mystery; riddle"
+  },
+  "uvoľnenie": {
+    "english": "release; relaxation; loosening"
+  },
+  "chvála": {
+    "english": "praise; acclaim"
   }
 }

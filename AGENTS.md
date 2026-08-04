@@ -26,14 +26,16 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 
 Script layout: see `scripts/README.md` (`dictionary/`, `audio/`, `search/`, `docs/`).
 
-Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated seed in `src/lib/content/data.ts`). Hand/pattern example overlay: `content/dictionary/curated-examples.json` → `bun run examples:curate` (temporary; delete when phrase churn stops).
+Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated seed in `src/lib/content/data.ts`). Hand/pattern example overlay: `content/dictionary/curated-examples.json` → `bun run examples:curate` (temporary; delete when phrase churn stops). **Hand-add a lemma:** follow `content/dictionary/README.md` (fields, where to put, slug/category, example counts).
 
 - Sources (SNK, Tatoeba, JÚĽŠ): `docs/data-sources.md` and `/references` (from `src/lib/content/references.ts`).
-- Refresh frequency JSON: `bun run frequency:import` → `content/frequency/{verbs,nouns,adjectives}.json` + `lemma-index.json`
+- Refresh frequency JSON: `bun run frequency:import` → noun top-2500 from the SNK full count dump; verb/adjective top-1000 from HTML; writes `content/frequency/{verbs,nouns,adjectives}.json` + `lemma-index.json`
 - **Yearly checklist:** revisit SNK corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all`, not live. Last import: `generatedAt` in `content/frequency/{verbs,nouns,adjectives}.json` (set by `frequency:import`). No auto-refresh. Bump importer + re-import only when a newer `prim-*-public-all` top-1000 ships; spot-check rank drift before commit.
 - English glosses for common lemmas: `content/frequency/glosses.json`
 - Publish glossed frequency lemmas into `content/dictionary/words.json` (no approval gate): `bun run frequency:publish` (`--limit 100`)
 - Attach Tatoeba examples to dictionary words: `bun run examples:enrich` (needs dumps in `tmp/tatoeba/`)
+  - Default store pool: 8 examples/lemma (`EXAMPLE_STORE_PER_WORD` in `src/lib/content/example-limits.ts`; override with `--per-word N`)
+  - Dictionary pages show the first 4 (`EXAMPLE_DISPLAY_LIMIT`); extras stay in `words.json` for later picking
   - Skips crude/sexual/vulgar lines via `src/lib/content/example-quality.ts`
   - Download + decompress:
     - https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2
@@ -46,7 +48,7 @@ Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated se
 - After publish/enrich/curate/related content changes: `bun run index:search` so local Pagefind matches the live dictionary
 - Dictionary listen audio: `bun run audio:generate` (ElevenLabs `eleven_multilingual_v2` → `static/audio/{lemma|example|lesson}/`, gitignored) then `bun run audio:upload` (R2, same keys). Local plays `/audio/{kind}/…`; production needs `PUBLIC_AUDIO_BASE_URL`. QA: `bun run audio:verify` (default dual Scribe+Whisper judge; `--verify` on generate + optional `rescueModelId`). **Voice roster:** `content/audio/README.md` (IDs in `config.json`). Scripts: `scripts/README.md` `audio/`.
 - Lesson dialogue audio: per-character voices in config → `bun run audio:generate -- --lessons-only`. Key phrases use `guide`; speakers map via `speakers` (e.g. `You` → Alex). Mint/replace cast: `bun run audio:voice-design`.
-- Dictionary lemma images: `bun run images:fetch` (Wikimedia free pageimages → `static/images/dictionary/`, gitignored; manifest in `content/images/`). Local only for now — no R2. Overrides: `content/images/overrides.json`. Coverage: `bun run images:status`. See `scripts/README.md` `images/`.
+- Dictionary lemma images: `bun run images:fetch` (SK/EN Wikipedia free pageimages, then Commons gloss search for Food / Places / People / … → `static/images/dictionary/`, gitignored; manifest in `content/images/`). Nouns / adjectives / verbs: stage → promote only. Person names are not dictionary entries (no lemmas / audio / images). Local only for now — no R2. Overrides: `content/images/overrides.json`. Coverage: `bun run images:status`. See `scripts/README.md` `images/`.
 - Regenerate docs from the references module: `bun run docs:data-sources`
 - Public lists UI: `/dictionary/common`
 - Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency

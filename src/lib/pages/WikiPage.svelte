@@ -18,7 +18,7 @@
 
   let { entries }: { entries: DictionaryIndexEntry[] } = $props();
 
-  const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives", "Names", "Places"]);
+  const MASS_CATEGORIES = new Set(["Verbs", "Nouns", "Adjectives", "Places"]);
   const PAGE_SIZE = 60;
 
   const categoryCounts = new Map<string, number>();

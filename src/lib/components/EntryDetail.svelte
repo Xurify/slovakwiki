@@ -8,6 +8,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/content/frequency-types";
+  import { EXAMPLE_DISPLAY_LIMIT } from "$lib/content/example-limits";
   import { highlightLemmaInText } from "$lib/content/highlight-lemma";
   import type { DictionaryImageView } from "$lib/content/images";
   import { senseSectionId } from "$lib/content/lemma-senses";
@@ -77,8 +78,20 @@
     return examples.length > 0 && examples.every((example) => example.isPracticeFrame);
   }
 
-  function groupExamplesByPattern(
+  /** First N examples for the page; extras stay in data for later picking. */
+  function visibleExampleItems(
     examples: Example[],
+  ): { example: Example; index: number }[] {
+    const limit = Math.min(EXAMPLE_DISPLAY_LIMIT, examples.length);
+    const items: { example: Example; index: number }[] = [];
+    for (let index = 0; index < limit; index += 1) {
+      items.push({ example: examples[index]!, index });
+    }
+    return items;
+  }
+
+  function groupExamplesByPattern(
+    items: { example: Example; index: number }[],
   ): { label: string; items: { example: Example; index: number }[] }[] {
     const groups: {
       label: string;
@@ -86,15 +99,14 @@
     }[] = [];
     const indexByLabel = new Map<string, number>();
 
-    for (let index = 0; index < examples.length; index += 1) {
-      const example = examples[index]!;
-      const label = example.demonstrates?.trim() || "Other";
+    for (const item of items) {
+      const label = item.example.demonstrates?.trim() || "Other";
       const existing = indexByLabel.get(label);
       if (existing === undefined) {
         indexByLabel.set(label, groups.length);
-        groups.push({ label, items: [{ example, index }] });
+        groups.push({ label, items: [item] });
       } else {
-        groups[existing]!.items.push({ example, index });
+        groups[existing]!.items.push(item);
       }
     }
 
@@ -402,6 +414,7 @@
           {/if}
 
           {#if senseEntry.examples.length > 0}
+            {@const visibleItems = visibleExampleItems(senseEntry.examples)}
             <div
               id={examplesId}
               class={`scroll-mt-[88px] ${hasUsage ? "mt-10" : multiSense ? "mt-8" : ""}`}
@@ -418,9 +431,9 @@
                 </p>
               {/if}
 
-              {#if senseEntry.examples.some((example) => example.demonstrates)}
+              {#if visibleItems.some((item) => item.example.demonstrates)}
                 <div class="grid gap-8">
-                  {#each groupExamplesByPattern(senseEntry.examples) as group (group.label)}
+                  {#each groupExamplesByPattern(visibleItems) as group (group.label)}
                     <div>
                       <p class="mb-3 text-xs font-semibold tracking-wide text-slate-500">
                         {group.label}
@@ -474,39 +487,39 @@
                 </div>
               {:else}
                 <ul class="m-0 grid list-none gap-5 p-0">
-                  {#each senseEntry.examples as example, index (`${example.slovak}-${index}`)}
+                  {#each visibleItems as item (`${item.example.slovak}-${item.index}`)}
                     <li class="border-l-2 border-blue-600/60 pl-4">
                       <p
                         class="m-0 font-serif text-[1.1rem] leading-snug text-slate-900"
                         lang="sk"
                       >
-                        {#each highlightLemma(example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
+                        {#each highlightLemma(item.example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
                           {#if part.hit}
                             <span class="font-semibold text-blue-900">{part.text}</span>
                           {:else}
                             {part.text}
                           {/if}
-                        {/each}{#if sense.exampleAudioSrcs[index]}
+                        {/each}{#if sense.exampleAudioSrcs[item.index]}
                           <span
                             class="ml-3 inline-grid size-7 shrink-0 align-middle"
-                            data-audio-mount={`s${senseIndex}-e${index}`}
+                            data-audio-mount={`s${senseIndex}-e${item.index}`}
                           ></span>
                         {/if}
                       </p>
                       <p class="mt-1 m-0 text-sm leading-relaxed text-slate-500">
-                        {example.english}
+                        {item.example.english}
                       </p>
-                      {#if example.isPracticeFrame}
+                      {#if item.example.isPracticeFrame}
                         <p class="mt-1 m-0 text-xs text-slate-400">Practice frame</p>
-                      {:else if example.note === "Tatoeba" && example.tatoebaId}
+                      {:else if item.example.note === "Tatoeba" && item.example.tatoebaId}
                         <p class="mt-1 m-0 text-xs text-slate-400">
                           <a
                             class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
-                            href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}
+                            href={`https://tatoeba.org/sentences/show/${item.example.tatoebaId}`}
                             rel="noopener noreferrer"
                             target="_blank"
                           >
-                            Tatoeba #{example.tatoebaId}
+                            Tatoeba #{item.example.tatoebaId}
                           </a>
                         </p>
                       {/if}
@@ -515,7 +528,7 @@
                 </ul>
               {/if}
 
-              {#if senseEntry.examples.some((example) => example.note === "Tatoeba")}
+              {#if visibleItems.some((item) => item.example.note === "Tatoeba")}
                 <p class="mt-5 text-xs text-slate-500">
                   Examples from
                   <a

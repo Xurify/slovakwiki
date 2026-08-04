@@ -244,7 +244,7 @@ export const practiceItems: PracticeItem[] = [
           label: "O pol tretej.",
           clock: { hour: 2, minute: 30 },
         },
-        { id: "day", label: "V utorok." },
+        { id: "four", label: "O štvrtej.", clock: { hour: 4, minute: 0 } },
       ],
       answerId: "three",
       feedback: {

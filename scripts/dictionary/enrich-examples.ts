@@ -6,11 +6,11 @@
  *
  * Usage:
  *   bun run examples:enrich
- *   bun run examples:enrich -- --per-word 3 --report tmp/missing-examples.txt
+ *   bun run examples:enrich -- --per-word 8 --report tmp/missing-examples.txt
  *   bun run examples:enrich -- --replace-practice
  *
  * Underfilled curated/Tatoeba rows (count < per-word) get extra Tatoeba appended.
- * Pattern examples (`demonstrates`) stay locked.
+ * Pattern pedagogy rows (`demonstrates`) stay first; Tatoeba may pad the store pool.
  */
 
 import { createReadStream } from "node:fs";
@@ -19,6 +19,7 @@ import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
 
+import { EXAMPLE_STORE_PER_WORD } from "../../src/lib/content/example-limits";
 import type { ContentEntry, Example } from "../../src/lib/content/types";
 import {
   isAcceptableCorpusExample,
@@ -55,7 +56,7 @@ function parseArgs(argv: string[]): {
   replacePractice: boolean;
   report: string;
 } {
-  let perWord = 3;
+  let perWord = EXAMPLE_STORE_PER_WORD;
   let report = path.join(ROOT, "tmp", "missing-examples.txt");
   let rejectReport = path.join(ROOT, "tmp", "enrich-rejects.tsv");
   let force = false;
@@ -441,8 +442,8 @@ async function main(): Promise<void> {
     } else if (!force && !refreshTatoeba && word.examples.length >= perWord) {
       skippedProtected += 1;
       continue;
-    } else if (!force && patternLocked) {
-      // Pedagogy pairs/triples stay hand-authored.
+    } else if (!force && patternLocked && !underfilled) {
+      // Pedagogy pairs stay; underfilled pattern lemmas still pad the store pool.
       skippedProtected += 1;
       continue;
     } else if (

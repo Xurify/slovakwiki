@@ -8,6 +8,7 @@ import AudioMountHost from "$lib/components/AudioMountHost.svelte";
 import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
 import { normalizeAudioText, resolveAudioSrc } from "$lib/content/audio";
 import { entryBySlug, words } from "$lib/content/data";
+import { EXAMPLE_DISPLAY_LIMIT } from "$lib/content/example-limits";
 import { getImageManifestEntry, resolveImageSrc } from "$lib/content/images";
 import {
   canonicalWordSlug,
@@ -113,7 +114,9 @@ if (lemmaAudioSrc) {
 }
 
 for (const [senseIndex, sense] of senses.entries()) {
-  for (const [exampleIndex, example] of sense.entry.examples.entries()) {
+  for (const [exampleIndex, example] of sense.entry.examples
+    .slice(0, EXAMPLE_DISPLAY_LIMIT)
+    .entries()) {
     const src = sense.exampleAudioSrcs[exampleIndex];
     if (!src) continue;
 

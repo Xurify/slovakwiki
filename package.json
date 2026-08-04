@@ -12,6 +12,7 @@
     "test": "vitest run",
     "index:search": "bun scripts/search/build-search-index.ts",
     "frequency:import": "bun scripts/dictionary/import-frequency.ts",
+    "frequency:missing-glosses": "bun scripts/dictionary/report-missing-glosses.ts",
     "frequency:publish": "bun scripts/dictionary/publish-frequency.ts",
     "examples:enrich": "bun scripts/dictionary/enrich-examples.ts",
     "examples:fill": "bun scripts/dictionary/fill-empty-examples.ts",

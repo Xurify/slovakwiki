@@ -7,8 +7,6 @@ Keep this file aligned with `src/lib/content/references.ts`.
 
 Lexical reference used for curated dictionary entries.
 
-Live bulk lemmas: `content/dictionary/words.json` (plus hand seed in `src/lib/content/data.ts`). Example overlay: `content/dictionary/curated-examples.json`.
-
 ### JÚĽŠ Slovak dictionary (slovník)
 
 Primary source link on curated dictionary entries.
@@ -22,9 +20,10 @@ Trusted frequency lists for the most common lemmas by part of speech.
 
 ### Slovak National Corpus (SNK) frequency lists
 
-Top-1000 lemma lists for verbs, nouns, and adjectives on /dictionary/common and frequency publish.
+Top-2500 noun lemmas from the full SNK count dump, plus top-1000 verb and adjective lemmas from the SNK HTML lists, used on /dictionary/common and frequency publish.
 
 - [Frequency lists overview (EN)](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/)
+- [Full noun lemma frequency dump (BZ2)](https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2)
 - [prim-8.0-public-all top 1000 index](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/)
 - [Top 1000 verb lemmas (example)](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-verbums-top-1000-lemmas/)
 - [Top 1000 noun lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-substantives-top-1000-lemmas/)

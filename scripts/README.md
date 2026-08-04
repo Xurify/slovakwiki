@@ -5,8 +5,10 @@ Grouped by job. Run via `bun run <name>` from `package.json` (preferred).
 ## Happy path
 
 ```
-bun run frequency:import    # SNK top-1000 → content/frequency/*.json + lemma-index.json
+bun run frequency:import    # SNK noun top-2500 dump + verb/adjective top-1000 HTML → frequency JSON
+bun run frequency:missing-glosses # report frequency lemmas needing English glosses
 bun run frequency:publish   # glosses → content/dictionary/words.json
+bun run frequency:publish -- --dry-run # preview additions without writing words.json
 bun run examples:reclaim    # drop weak fill stubs so Tatoeba can reclaim
 bun run examples:enrich -- --replace-practice
                             # Tatoeba dumps → replace practice frames only
@@ -25,6 +27,7 @@ bun run index:search        # Pagefind for local/dev search
 
 | File                                          | Role                                                             |
 | --------------------------------------------- | ---------------------------------------------------------------- |
+| `content/dictionary/README.md`                | Hand-add lemma template (fields, homes, slug/category, examples) |
 | `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)    |
 | `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`       |
 | `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                       |
@@ -41,23 +44,24 @@ bun run index:search        # Pagefind for local/dev search
 
 Frequency lists, live dictionary publish, Tatoeba examples.
 
-| File                        | npm script          | Notes                                                                                                                     |
-| --------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `import-frequency.ts`       | `frequency:import`  | Skips single-letter junk lemmas                                                                                           |
-| `publish-frequency.ts`      | `frequency:publish` | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                  |
-| `enrich-examples.ts`        | `examples:enrich`   | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< per-word); `--replace-practice` / `--refresh-tatoeba` |
-| `reclaim-weak-examples.ts`  | `examples:reclaim`  | Drops exact weak fill stubs from curated JSON                                                                             |
-| `fill-empty-examples.ts`    | `examples:fill`     | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                  |
-| `apply-curated-examples.ts` | `examples:curate`   | Reviewed curated wins; union-merge keeps Tatoeba; practice may top up underfilled                                         |
-| `apply-related.ts`          | `related:apply`     | Fills empty related from `related-clusters.json`                                                                          |
+| File                          | npm script                  | Notes                                                                                                                                                                        |
+| ----------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `import-frequency.ts`         | `frequency:import`          | Nouns use the full SNK count dump (default top 2500); verbs/adjectives keep the HTML top 1000; `--noun-limit N` / `--force`                                                  |
+| `report-missing-glosses.ts`   | `frequency:missing-glosses` | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
+| `publish-frequency.ts`        | `frequency:publish`         | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
+| `enrich-examples.ts`          | `examples:enrich`           | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
+| `reclaim-weak-examples.ts`    | `examples:reclaim`          | Drops exact weak fill stubs from curated JSON                                                                                                                                |
+| `fill-empty-examples.ts`      | `examples:fill`             | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                                                                     |
+| `apply-curated-examples.ts`   | `examples:curate`           | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                              |
+| `apply-related.ts`            | `related:apply`             | Fills empty related from `related-clusters.json`                                                                                                                             |
 
-Primary dictionary growth is frequency publish + example enrich. Example quality gates live in `src/lib/content/example-quality.ts` + tests (not separate audit scripts).
+Example limits: `src/lib/content/example-limits.ts` — store pool 8 / display 4. Primary dictionary growth is frequency publish + example enrich. Example quality gates live in `src/lib/content/example-quality.ts` + tests (not separate audit scripts).
 
 ## `audio/`
 
 ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
-| `generate.ts` | `audio:generate` | Writes MP3s; `--verify` uses dual judge (Scribe+Whisper) by default; `--stt dual\|elevenlabs\|whisper`; rescue model on fail |
+| `generate.ts` | `audio:generate` | Writes MP3s; `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` dual judge; rescue model on fail |
 | `voice-design.ts` | `audio:voice-design` | ElevenLabs Voice Design → `tmp/voice-design/`; `--create` saves preview to library + patches `characters` in config |
 | `upload.ts` | `audio:upload` | Sync to R2; `--force` / `--only`; needs `R2_*` |
 | `status.ts` | `audio:status` | Targets vs disk vs manifest |
@@ -80,17 +84,17 @@ Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/aud
 
 Wikimedia free page images for dictionary lemmas (local QA only; no R2 yet).
 
-| `fetch.ts` | `images:fetch` | SK Wikipedia `pageimages` (+ EN for non-verbs) → local thumbs + manifest. **No auto Commons for verbs.** |
+| `fetch.ts` | `images:fetch` | SK/EN Wikipedia `pageimages`, then **Commons gloss search** for Food / Places / People / Travel / Everyday / Essentials (e.g. `obed` → “lunch meal”). **No auto Commons for Nouns / adjectives / verbs.** Person names are not dictionary entries. |
 | `stage-candidates.ts` | `images:stage` | Stage Commons candidates under `tmp/image-candidates/{slug}/` for visual audit |
 | `promote.ts` | `images:promote` | Promote audited candidate (`--slug` + `--pick N`) into live set |
 | `status.ts` | `images:status` | Targets vs ok/missing/rejected, by category |
-| `shared.ts` | (lib) | Targets, overrides, paths, verb gloss helpers |
+| `shared.ts` | (lib) | Targets, overrides, paths, verb scenes + noun Commons query helpers |
 
 Flags (`fetch`/`stage`): `--limit N`, `--pos noun|verb|adjective`, `--only {slug}`, `--force`.
 
 Overrides in `content/images/overrides.json`: `{ "slug": { "reject": true } }` or `{ "commonsFile": "Foo.jpg" }`.
 
-**Verb policy:** Prefer empty over false friends. Commons staging uses ranked **scene queries** (`person reading book`, `person swimming pool`, …) via `verbActionQueries()`, not bare verbs. NSFW title filter applied. Workflow: `images:stage` → visual audit → `images:promote`.
+**Image policy:** Prefer Wikipedia pageimages. If missing, auto-search Commons for learner categories with concrete referents (Food / Places / People / Travel / Everyday life / Essentials). Require free license; prefer filenames that *start* with the gloss. General Nouns, adjectives, and verbs stay empty unless `images:stage` → visual audit → `images:promote` (polysemy / false-friend risk).
 
 Local: `/images/dictionary/{file}` when file exists under `static/images/`. Prod omits images until a later R2 upload step.
 

@@ -5,6 +5,7 @@
  * - Reviewed curated / pattern (`demonstrates`) examples always win.
  * - Practice frames only fill empty or underfilled (<2) slots.
  * - Never replace Tatoeba/hand rows wholesale with practice frames.
+ * - Pattern lemmas: curated pedagogy rows lead; existing Tatoeba extras kept (store pool).
  * - Non-pattern applies union-merge so enrich appends survive.
  *
  * Usage: bun run examples:curate
@@ -144,7 +145,17 @@ async function main(): Promise<void> {
     }
 
     if (patternLocked) {
-      word.examples = incoming;
+      // Curated pedagogy leads; keep non-pattern extras (usually Tatoeba store pool).
+      const curatedKeys = new Set(
+        incoming.map((example) => example.slovak.toLocaleLowerCase("sk")),
+      );
+      const extras = word.examples.filter((example) => {
+        const key = example.slovak.toLocaleLowerCase("sk");
+        if (curatedKeys.has(key)) return false;
+        if (example.demonstrates) return false;
+        return true;
+      });
+      word.examples = [...incoming, ...extras];
     } else {
       // Union by Slovak text: keep live rows first, then curated/fill extras.
       const merged: Example[] = [];

@@ -83,7 +83,7 @@ export function normalizePartOfSpeechFilter(
   if (key === "noun" || key === "nouns") return "Nouns";
   if (key === "verb" || key === "verbs") return "Verbs";
   if (key === "adjective" || key === "adjectives" || key === "adj") return "Adjectives";
-  // Allow exact category match (Places, Names, …)
+  // Allow exact category match (Places, Food, …)
   return partOfSpeech.trim();
 }
 
@@ -258,6 +258,138 @@ export function verbActionQuery(english: string): string | undefined {
 
 export function isVerbLikeCategory(category: string): boolean {
   return category === "Verbs" || category === "Conversation";
+}
+
+/** Categories safe for automatic Commons gloss search (concrete referents). */
+const COMMONS_SAFE_CATEGORIES = new Set([
+  "Food",
+  "Places",
+  "People",
+  "Everyday life",
+  "Travel",
+  "Essentials",
+]);
+
+const ABSTRACT_GLOSS_HEAD =
+  /^(state|act|process|quality|condition|feeling|sense|amount|number|way|manner|kind|type|form|part|fact|idea|concept|system|level|rate|role|case|point|time|end|use|result|effect|change|order|group|set|list|area|side|line|thing|absolute|relative|general|special|particular|various|certain|possible|necessary|important|basic|main|real|true|false|same|other|own|such|whole|total|public|private|social|political|economic|cultural|national|international|official|personal|natural|normal|usual|common|simple|complex|modern|ancient|former|future|present|past|final|initial|primary|secondary|positive|negative|active|passive|direct|indirect|internal|external|local|global|original|typical|specific|available|responsible|successful|professional|traditional|potential|actual|current|previous|next|following|related|similar|different|additional|extra|further)$/i;
+
+const ABSTRACT_GLOSS_SUFFIX =
+  /(tion|sion|ness|ity|ment|ance|ence|ancy|ency|ism|ogy|ics|hood|ship|itude|ability|ibility)$/i;
+
+/** True when an English gloss head looks imageable (not abstract junk). */
+export function glossLooksConcrete(english: string): boolean {
+  const head = glossSearchTitle(english).toLowerCase().trim();
+  if (head.length < 3) return false;
+  const parts = head.split(/\s+/).filter(Boolean);
+  if (parts.length > 4) return false;
+  if (/^(and|or|of|to|be|have|do|not|a|an|the)$/i.test(head)) return false;
+
+  // Multi-word: trust a concrete first token ("train station", "apple pie").
+  if (parts.length > 1) {
+    const first = parts[0] ?? "";
+    if (ABSTRACT_GLOSS_HEAD.test(first)) return false;
+    if (ABSTRACT_GLOSS_SUFFIX.test(first)) return false;
+    return first.length >= 3;
+  }
+
+  if (ABSTRACT_GLOSS_HEAD.test(head)) return false;
+  if (ABSTRACT_GLOSS_SUFFIX.test(head)) return false;
+  return true;
+}
+
+/**
+ * Auto-promote Commons only for concrete learner categories (Food, Places, …)
+ * when Wikipedia pageimages miss (e.g. obed → “lunch meal”).
+ * General Nouns / adjectives / verbs: stage → promote (polysemy risk).
+ */
+export function allowsCommonsAutoPromote(target: ImageTarget): boolean {
+  if (!COMMONS_SAFE_CATEGORIES.has(target.category)) return false;
+  const head = glossSearchTitle(target.gloss);
+  if (!head || head.length < 4) return false;
+  // Tiny discourse glosses → concert/brand false friends (“yes”, “okay”).
+  if (/^(yes|yeah|no|nope|ok|okay|hi|hey|bye|please|thanks)$/i.test(head)) {
+    return false;
+  }
+  return true;
+}
+
+/** Ranked Commons search queries from gloss + category (obed → lunch / lunch meal). */
+export function nounCommonsQueries(target: ImageTarget): string[] {
+  const head = glossSearchTitle(target.gloss);
+  if (!head) return [];
+
+  const queries: string[] = [];
+  const seen = new Set<string>();
+  const push = (query: string): void => {
+    const cleaned = query.trim().replace(/\s+/g, " ");
+    if (!cleaned) return;
+    const key = cleaned.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    queries.push(cleaned);
+  };
+
+  push(head);
+
+  switch (target.category) {
+    case "Food":
+      push(`${head} food`);
+      push(`${head} meal`);
+      push(`${head} dish`);
+      break;
+    case "Places":
+      push(`${head} building`);
+      push(`${head} place`);
+      push(`${head} city`);
+      break;
+    case "People":
+      push(`${head} person`);
+      push(`${head} people`);
+      break;
+    case "Travel":
+      push(`${head} transport`);
+      push(`${head} station`);
+      break;
+    default:
+      push(`${head} object`);
+      break;
+  }
+
+  return queries;
+}
+
+const REJECTED_COMMONS_TITLE =
+  /\b(icon|logo|symbol|flag_of|coat_of_arms|map_of|diagram|svg|nude|naked|nudes|porn|nsfw|sexual|disambiguation|signature|qr[_ -]?code|poster|album|cover|screenshot|trailer|movie|film|titlepage|title)\b/i;
+
+export function isRejectedCommonsTitle(title: string): boolean {
+  return REJECTED_COMMONS_TITLE.test(title);
+}
+
+/**
+ * Prefer Commons files whose title *starts* with the gloss headword
+ * (avoids mid-title brand hits like “Foo Absolute Bar…”).
+ * `allowArticle`: also accept “A/The {head} …” (Food/Places); Nouns stay strict.
+ */
+export function commonsTitleMatchesGloss(
+  fileTitle: string,
+  glossHead: string,
+  options?: { allowArticle?: boolean },
+): boolean {
+  const head = glossHead.trim().toLowerCase();
+  if (head.length < 3) return false;
+  const norm = fileTitle
+    .replace(/^File:/i, "")
+    .toLowerCase()
+    .replace(/[_-]+/g, " ")
+    .replace(/\.[a-z0-9]+$/i, "")
+    .trim();
+  if (norm === head || norm.startsWith(`${head} `)) return true;
+  if (!options?.allowArticle) return false;
+  // Allow leading article: "A lunch …" / "The lunch …"
+  const article = norm.match(/^(a|an|the)\s+(.+)$/i);
+  if (!article?.[2]) return false;
+  const rest = article[2];
+  return rest === head || rest.startsWith(`${head} `);
 }
 
 export function stripHtml(value: string): string {

@@ -5,6 +5,7 @@
  * Usage:
  *   bun run frequency:publish
  *   bun run frequency:publish -- --limit 100
+ *   bun run frequency:publish -- --dry-run --limit 100
  *
  * Add/edit glosses in content/frequency/glosses.json
  * See docs/data-sources.md
@@ -20,6 +21,7 @@ import type {
   FrequencyPartOfSpeech,
 } from "../../src/lib/content/frequency-types";
 import { findLiveWordForLemma, lemmaToSlug } from "../../src/lib/content/frequency";
+import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/content/frequency-blocklist";
 import type { ContentEntry } from "../../src/lib/content/types";
 import { ROOT } from "../lib/paths";
 
@@ -55,8 +57,9 @@ const PART_OF_SPEECH_SLUG_SUFFIX: Record<FrequencyPartOfSpeech, string> = {
   adjective: "a",
 };
 
-function parseArgs(argv: string[]): { limit: number } {
+function parseArgs(argv: string[]): { dryRun: boolean; limit: number } {
   let limit = Number.POSITIVE_INFINITY;
+  const dryRun = argv.includes("--dry-run");
 
   for (let index = 0; index < argv.length; index += 1) {
     if (argv[index] === "--limit" && argv[index + 1]) {
@@ -65,7 +68,7 @@ function parseArgs(argv: string[]): { limit: number } {
     }
   }
 
-  return { limit };
+  return { dryRun, limit };
 }
 
 /** Prefer bare slug; on collision append -v / -n / -a (štát → stat-n). */
@@ -95,7 +98,7 @@ async function loadWords(): Promise<WordSeed[]> {
 }
 
 async function main(): Promise<void> {
-  const { limit } = parseArgs(process.argv.slice(2));
+  const { dryRun, limit } = parseArgs(process.argv.slice(2));
   await mkdir(path.dirname(WORDS_PATH), { recursive: true });
 
   const glosses = JSON.parse(await readFile(GLOSSES_PATH, "utf8")) as Record<
@@ -115,6 +118,7 @@ async function main(): Promise<void> {
   let skippedLive = 0;
   let missingGloss = 0;
   let disambiguated = 0;
+  const addedLemmas: string[] = [];
 
   for (const partOfSpeech of Object.keys(
     PART_OF_SPEECH_FILES,
@@ -135,9 +139,26 @@ async function main(): Promise<void> {
         continue;
       }
 
+      if (FREQUENCY_PUBLISH_BLOCKLIST.has(entry.lemma.toLocaleLowerCase("sk"))) {
+        skippedLive += 1;
+        continue;
+      }
+
       const gloss = glosses[entry.lemma];
       if (!gloss?.english?.trim()) {
         missingGloss += 1;
+        continue;
+      }
+
+      // Person names / surnames are not dictionary headwords.
+      const glossCategory = gloss.category?.trim();
+      if (
+        glossCategory === "Names" ||
+        /\b(given name|surname|family name|first name|last name)\b/i.test(
+          gloss.english,
+        )
+      ) {
+        skippedLive += 1;
         continue;
       }
 
@@ -167,15 +188,23 @@ async function main(): Promise<void> {
       dictionaryWords.push(seed);
       liveSlugs.add(slug);
       liveLemmas.add(entry.lemma.toLocaleLowerCase("sk"));
+      addedLemmas.push(entry.lemma);
       added += 1;
     }
   }
 
-  await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
+  if (!dryRun) {
+    await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
+  }
   console.log(
-    `Published ${added} lemmas (${disambiguated} with part-of-speech slug suffix); already live ${skippedLive}; missing gloss ${missingGloss}`,
+    `${dryRun ? "Would add" : "Published"} ${added} lemmas (${disambiguated} with part-of-speech slug suffix); already live ${skippedLive}; missing gloss ${missingGloss}`,
   );
-  console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);
+  if (dryRun) {
+    const sample = addedLemmas.slice(0, 20);
+    console.log(`Sample (${sample.length}): ${sample.join(", ")}`);
+  } else {
+    console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);
+  }
 }
 
 const isDirectRun =

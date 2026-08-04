@@ -7,6 +7,7 @@
  *   bun run audio:generate -- --limit 20
  *   bun run audio:generate -- --lemmas-only --dry-run
  *   bun run audio:generate -- --lessons-only
+ *   bun run audio:generate -- --examples-only --missing-only --offset 0 --limit 1000
  *   bun run audio:generate -- --force
  *   bun run audio:generate -- --force --verify --only "príliš hrdý"
  *   bun run audio:generate -- --verify --stt dual
@@ -51,10 +52,13 @@ async function main(): Promise<void> {
 
   const {
     dryRun,
+    examplesOnly,
     force,
     lemmasOnly,
     lessonsOnly,
     limit,
+    missingOnly,
+    offset,
     only,
     retries,
     sttModel,
@@ -67,6 +71,9 @@ async function main(): Promise<void> {
   await ensureAudioDir();
 
   let targets = collectAudioTargets({ lemmasOnly, lessonsOnly }, config);
+  if (examplesOnly) {
+    targets = targets.filter((target) => target.kind === "example");
+  }
   if (only) {
     const needle = only.toLocaleLowerCase("sk");
     targets = targets.filter((t) => t.text.toLocaleLowerCase("sk").includes(needle));
@@ -74,6 +81,18 @@ async function main(): Promise<void> {
       throw new Error(`--only ${JSON.stringify(only)} matched 0 targets`);
     }
   }
+  if (missingOnly && !force) {
+    const pending = [];
+    for (const target of targets) {
+      const voiceConfig = target.voiceConfig ?? config;
+      const relative = audioRelativePath(target.text, target.kind, voiceConfig);
+      if (!(await fileExists(path.join(AUDIO_DIR, relative)))) {
+        pending.push(target);
+      }
+    }
+    targets = pending;
+  }
+  if (offset > 0) targets = targets.slice(offset);
   if (limit !== undefined) targets = targets.slice(0, limit);
 
   let generated = 0;
@@ -90,14 +109,26 @@ async function main(): Promise<void> {
     whisper?: string;
   }> = [];
 
+  async function persistManifest(): Promise<void> {
+    await saveManifest(manifest);
+  }
+
   const judgeMode = judgeModeFromSttProvider(sttProvider);
-  const scope = lessonsOnly ? "lessons" : lemmasOnly ? "lemmas" : "dictionary+lessons";
+  const scope = lessonsOnly
+    ? "lessons"
+    : lemmasOnly
+      ? "lemmas"
+      : examplesOnly
+        ? "examples"
+        : "dictionary+lessons";
 
   console.log(
     `Audio generate: ${targets.length} targets (${scope})` +
+      ` offset=${offset}` +
       ` (default voice=${config.voiceName}, model=${config.modelId}` +
       `${verify ? `, judge=${judgeMode} scribe=${sttModel} whisper=${whisperModel}, retries=${retries}` : ""}` +
-      `${dryRun ? ", dry-run" : ""}${force ? ", force" : ""})`,
+      `${dryRun ? ", dry-run" : ""}${force ? ", force" : ""}` +
+      `${missingOnly ? ", missing-only" : ""})`,
   );
 
   for (const target of targets) {
@@ -233,7 +264,7 @@ async function main(): Promise<void> {
       );
 
       if (sinceSave >= MANIFEST_SAVE_EVERY) {
-        await saveManifest(manifest);
+        await persistManifest();
         sinceSave = 0;
       }
 
@@ -251,7 +282,7 @@ async function main(): Promise<void> {
   }
 
   if (!dryRun) {
-    await saveManifest(manifest);
+    await persistManifest();
   }
 
   if (verifyFailures.length > 0) {

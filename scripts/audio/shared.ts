@@ -7,6 +7,7 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/content/data";
+import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/content/example-limits";
 import {
   type AudioConfig,
   type AudioKind,
@@ -126,7 +127,8 @@ export function collectDictionaryAudioTargets(options?: {
 
     if (options?.lemmasOnly) continue;
 
-    for (const example of entry.examples) {
+    // Only mint audio for examples the detail page shows (store pool may be larger).
+    for (const example of entry.examples.slice(0, EXAMPLE_DISPLAY_LIMIT)) {
       const slovak = normalizeAudioText(example.slovak);
       if (!slovak || byText.has(slovak)) continue;
       byText.set(slovak, { kind: "example", text: slovak });
@@ -212,10 +214,13 @@ export function collectLemmaTextSet(): Set<string> {
 
 export function parseArgs(argv: string[]): {
   dryRun: boolean;
+  examplesOnly: boolean;
   force: boolean;
   lemmasOnly: boolean;
   lessonsOnly: boolean;
   limit: number | undefined;
+  missingOnly: boolean;
+  offset: number;
   only: string | undefined;
   retries: number;
   sttModel: string;
@@ -227,7 +232,10 @@ export function parseArgs(argv: string[]): {
   let force = false;
   let lemmasOnly = false;
   let lessonsOnly = false;
+  let examplesOnly = false;
+  let missingOnly = false;
   let limit: number | undefined;
+  let offset = 0;
   let only: string | undefined;
   let retries = 2;
   let sttProvider: "elevenlabs" | "whisper" | "dual" = "dual";
@@ -241,6 +249,8 @@ export function parseArgs(argv: string[]): {
     else if (arg === "--force") force = true;
     else if (arg === "--lemmas-only") lemmasOnly = true;
     else if (arg === "--lessons-only") lessonsOnly = true;
+    else if (arg === "--examples-only") examplesOnly = true;
+    else if (arg === "--missing-only") missingOnly = true;
     else if (arg === "--verify") verify = true;
     else if (arg === "--limit") {
       const value = Number(argv[i + 1]);
@@ -248,6 +258,13 @@ export function parseArgs(argv: string[]): {
         throw new Error("--limit requires a positive number");
       }
       limit = Math.floor(value);
+      i += 1;
+    } else if (arg === "--offset") {
+      const value = Number(argv[i + 1]);
+      if (!Number.isFinite(value) || value < 0) {
+        throw new Error("--offset requires a non-negative number");
+      }
+      offset = Math.floor(value);
       i += 1;
     } else if (arg === "--retries") {
       const value = Number(argv[i + 1]);
@@ -290,13 +307,19 @@ export function parseArgs(argv: string[]): {
   if (lemmasOnly && lessonsOnly) {
     throw new Error("Use either --lemmas-only or --lessons-only, not both");
   }
+  if (examplesOnly && (lemmasOnly || lessonsOnly)) {
+    throw new Error("--examples-only cannot combine with --lemmas-only/--lessons-only");
+  }
 
   return {
     dryRun,
+    examplesOnly,
     force,
     lemmasOnly,
     lessonsOnly,
     limit,
+    missingOnly,
+    offset,
     only,
     retries,
     sttModel,

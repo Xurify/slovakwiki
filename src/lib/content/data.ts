@@ -18,6 +18,10 @@ const julsSourceLabel = "Jazykovedný ústav Ľudovíta Štúra SAV";
 const snkSourceUrl =
   "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/";
 
+/**
+ * Hand-authored lemma row (curated seed + `words.json`).
+ * Template, homes, slug/category rules: `content/dictionary/README.md`.
+ */
 type WordSeed = Pick<
   ContentEntry,
   "slug" | "slovak" | "english" | "category" | "examples" | "related"
@@ -372,7 +376,21 @@ const curatedWordSeed: WordSeed[] = [
       { slovak: "Toto jedlo je výborné.", english: "This food is excellent." },
       { slovak: "Kde je dobré jedlo?", english: "Where is good food?" },
     ],
-    related: ["voda", "kava", "kolac"],
+    related: [
+      "voda",
+      "kava",
+      "kolac",
+      "vecera",
+      "obed",
+      "ranajky",
+      "mlieko",
+      "polievka",
+      "caj",
+      "chlieb",
+      "syr",
+      "maslo",
+      "cukor",
+    ],
   },
   {
     slug: "voda",
@@ -383,7 +401,7 @@ const curatedWordSeed: WordSeed[] = [
       { slovak: "Prosím si pohár vody.", english: "I’d like a glass of water." },
       { slovak: "Pijem veľa vody.", english: "I drink a lot of water." },
     ],
-    related: ["jedlo", "kava"],
+    related: ["jedlo", "kava", "vecera", "obed", "ranajky", "polievka", "caj"],
   },
   {
     slug: "kava",
@@ -395,7 +413,7 @@ const curatedWordSeed: WordSeed[] = [
       { slovak: "Ráno pijem kávu.", english: "I drink coffee in the morning." },
       { slovak: "Poprosím čiernu kávu.", english: "Black coffee, please." },
     ],
-    related: ["voda", "jedlo", "kolac"],
+    related: ["voda", "jedlo", "kolac", "caj", "mlieko", "cukor"],
   },
   {
     slug: "kolac",
@@ -406,7 +424,113 @@ const curatedWordSeed: WordSeed[] = [
       { slovak: "Moja mama pečie koláč.", english: "My mom is baking a cake." },
       { slovak: "Ten koláč je výborný.", english: "That cake is excellent." },
     ],
-    related: ["jedlo", "chlieb", "kava", "voda"],
+    related: ["jedlo", "chlieb", "kava", "voda", "syr", "maslo", "cukor"],
+  },
+  {
+    slug: "vecera",
+    slovak: "večera",
+    english: "dinner; evening meal",
+    category: "Food",
+    examples: [
+      { slovak: "Večera je o šiestej.", english: "Dinner is at six." },
+      { slovak: "Na večeru mám polievku.", english: "I have soup for dinner." },
+    ],
+    related: ["jedlo", "obed", "ranajky", "polievka", "chlieb"],
+  },
+  {
+    slug: "obed",
+    slovak: "obed",
+    english: "lunch",
+    category: "Food",
+    examples: [
+      { slovak: "Obed je pripravený.", english: "Lunch is ready." },
+      {
+        slovak: "Na obed jem chlieb a syr.",
+        english: "I eat bread and cheese for lunch.",
+      },
+    ],
+    related: ["jedlo", "vecera", "ranajky", "polievka", "chlieb", "syr"],
+  },
+  {
+    slug: "ranajky",
+    slovak: "raňajky",
+    english: "breakfast",
+    category: "Food",
+    examples: [
+      { slovak: "Raňajky mám o siedmej.", english: "I have breakfast at seven." },
+      {
+        slovak: "Na raňajky jem chlieb s maslom.",
+        english: "I eat bread with butter for breakfast.",
+      },
+    ],
+    related: ["jedlo", "vecera", "obed", "chlieb", "maslo", "caj"],
+  },
+  {
+    slug: "mlieko",
+    slovak: "mlieko",
+    english: "milk",
+    category: "Food",
+    examples: [
+      { slovak: "Pijem ráno mlieko.", english: "I drink milk in the morning." },
+      { slovak: "Mlieko je v chladničke.", english: "The milk is in the fridge." },
+    ],
+    related: ["kava", "caj", "maslo", "cukor"],
+  },
+  {
+    slug: "polievka",
+    slovak: "polievka",
+    english: "soup",
+    category: "Food",
+    examples: [
+      { slovak: "Polievka je horúca.", english: "The soup is hot." },
+      { slovak: "Dám si zeleninovú polievku.", english: "I’ll have vegetable soup." },
+    ],
+    related: ["jedlo", "vecera", "obed", "voda", "chlieb"],
+  },
+  {
+    slug: "caj",
+    slovak: "čaj",
+    english: "tea",
+    category: "Food",
+    examples: [
+      { slovak: "Večer pijem čaj.", english: "I drink tea in the evening." },
+      { slovak: "Prosím si teplý čaj.", english: "I’d like hot tea." },
+    ],
+    related: ["kava", "voda", "mlieko", "cukor", "vecera"],
+  },
+  // chlieb lives in words.json (frequency + Tatoeba); keep related links only
+  {
+    slug: "syr",
+    slovak: "syr",
+    english: "cheese",
+    category: "Food",
+    examples: [
+      { slovak: "Mám rád slovenský syr.", english: "I like Slovak cheese." },
+      { slovak: "Syr je na stole.", english: "The cheese is on the table." },
+    ],
+    related: ["chlieb", "maslo", "obed", "jedlo"],
+  },
+  {
+    slug: "maslo",
+    slovak: "maslo",
+    english: "butter",
+    category: "Food",
+    examples: [
+      { slovak: "Maslo je v chladničke.", english: "The butter is in the fridge." },
+      { slovak: "Na chlieb dávam maslo.", english: "I put butter on bread." },
+    ],
+    related: ["chlieb", "syr", "mlieko", "ranajky"],
+  },
+  {
+    slug: "cukor",
+    slovak: "cukor",
+    english: "sugar",
+    category: "Food",
+    examples: [
+      { slovak: "Dáš si cukor do čaju?", english: "Do you want sugar in your tea?" },
+      { slovak: "Káva je bez cukru.", english: "The coffee is without sugar." },
+    ],
+    related: ["caj", "kava", "kolac", "mlieko"],
   },
   {
     slug: "mesto",
@@ -449,8 +573,11 @@ const curatedWordSeed: WordSeed[] = [
   },
 ];
 
-const wordSeed: WordSeed[] = [...curatedWordSeed, ...(dictionaryWords as WordSeed[])];
 const curatedSlugs = new Set(curatedWordSeed.map((word) => word.slug));
+const wordSeed: WordSeed[] = [
+  ...curatedWordSeed,
+  ...(dictionaryWords as WordSeed[]).filter((word) => !curatedSlugs.has(word.slug)),
+];
 
 function wordBody(word: WordSeed): string[] {
   const patternNote = PATTERN_USAGE_NOTES[word.slug];

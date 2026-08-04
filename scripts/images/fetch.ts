@@ -1,11 +1,15 @@
 /**
- * Fetch free-licensed Wikipedia page images for dictionary lemmas.
+ * Fetch free-licensed Wikipedia / Commons images for dictionary lemmas.
  *
  * Usage:
  *   bun run images:fetch
  *   bun run images:fetch -- --limit 100
  *   bun run images:fetch -- --pos noun
  *   bun run images:fetch -- --only kolac --force
+ *
+ * Order: override → SK pageimages → EN pageimages (non-verbs) →
+ * Commons gloss search for concrete non-verbs (e.g. obed → “lunch meal”).
+ * Verbs stay empty unless staged + promoted (false-friend risk).
  */
 
 import { writeFile } from "node:fs/promises";
@@ -17,23 +21,27 @@ import {
   type ImageTarget,
   THUMB_WIDTH,
   USER_AGENT,
+  allowsCommonsAutoPromote,
+  commonsTitleMatchesGloss,
+  collectImageTargets,
   ensureImagesDir,
   extensionFromMimeOrUrl,
   glossSearchTitle,
   isBitmapMime,
+  isRejectedCommonsTitle,
+  isVerbLikeCategory,
   loadManifest,
   loadOverrides,
   localImagePath,
   missingEntry,
+  MIN_THUMB_PX,
   normalizeCommonsFile,
+  nounCommonsQueries,
   parseArgs,
   rejectedEntry,
   saveManifest,
   shouldSkipWithDisk,
   stripHtml,
-  collectImageTargets,
-  MIN_THUMB_PX,
-  isVerbLikeCategory,
 } from "./shared";
 
 type WikiLang = "en" | "sk";
@@ -363,6 +371,124 @@ function resolveHitForTarget(
   return enHits.get(enTitle);
 }
 
+interface CommonsSearchHit {
+  commonsFile: string;
+  thumbUrl: string;
+}
+
+async function searchCommonsByQuery(
+  query: string,
+  limit = 6,
+): Promise<CommonsSearchHit[]> {
+  const url = new URL("https://commons.wikimedia.org/w/api.php");
+  url.searchParams.set("action", "query");
+  url.searchParams.set("format", "json");
+  url.searchParams.set("formatversion", "2");
+  url.searchParams.set("generator", "search");
+  url.searchParams.set("gsrsearch", query);
+  url.searchParams.set("gsrnamespace", "6");
+  url.searchParams.set("gsrlimit", String(limit * 2));
+  url.searchParams.set("prop", "imageinfo");
+  url.searchParams.set("iiprop", "url|size|mime|extmetadata");
+  url.searchParams.set("iiurlwidth", String(THUMB_WIDTH));
+
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    const response = await fetch(url, {
+      headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
+    });
+    if (response.status === 429 || response.status === 503) {
+      await sleep(1000 * 2 ** attempt);
+      continue;
+    }
+    if (!response.ok) throw new Error(`Commons HTTP ${response.status}`);
+
+    const data = (await response.json()) as {
+      query?: {
+        pages?: Array<{
+          missing?: boolean;
+          title?: string;
+          imageinfo?: Array<{
+            extmetadata?: Record<string, { value?: string }>;
+            mime?: string;
+            thumburl?: string;
+            url?: string;
+          }>;
+        }>;
+      };
+    };
+
+    const out: CommonsSearchHit[] = [];
+    for (const page of data.query?.pages ?? []) {
+      if (!page.title || page.missing) continue;
+      if (isRejectedCommonsTitle(page.title)) continue;
+      const info = page.imageinfo?.[0];
+      if (!info || !isBitmapMime(info.mime)) continue;
+      const thumbUrl = info.thumburl || info.url;
+      if (!thumbUrl) continue;
+      const meta = info.extmetadata ?? {};
+      const licenseRaw = meta.LicenseShortName?.value ?? meta.License?.value;
+      const license = licenseRaw ? stripHtml(licenseRaw) : undefined;
+      if (license && !licenseLooksFree(license)) continue;
+      out.push({
+        commonsFile: normalizeCommonsFile(page.title).replace(/^File:/i, ""),
+        thumbUrl,
+      });
+      if (out.length >= limit) break;
+    }
+    await sleep(IMAGEINFO_PAUSE_MS);
+    return out;
+  }
+  return [];
+}
+
+/** Commons gloss fallback when Wikipedia pageimages miss (non-verbs only). */
+async function findCommonsHitForTarget(
+  target: ImageTarget,
+): Promise<PageImageHit | undefined> {
+  if (!allowsCommonsAutoPromote(target)) return undefined;
+
+  const head = glossSearchTitle(target.gloss);
+  if (!head) return undefined;
+
+  const queries = nounCommonsQueries(target);
+  let fallback: CommonsSearchHit | undefined;
+
+  for (const query of queries.slice(0, 3)) {
+    const hits = await searchCommonsByQuery(query, 6);
+    const allowArticle = target.category !== "Nouns";
+    const titled = hits.find((hit) =>
+      commonsTitleMatchesGloss(hit.commonsFile, head, { allowArticle }),
+    );
+    if (titled) {
+      return {
+        fileTitle: titled.commonsFile,
+        lang: "sk",
+        thumbUrl: titled.thumbUrl,
+        wikiTitle: target.slovak,
+      };
+    }
+    // Safe visual categories: accept top free hit even without title match.
+    // Skip Essentials here — short glosses need a title match.
+    if (
+      !fallback &&
+      hits[0] &&
+      ["Food", "Places", "People", "Travel", "Everyday life"].includes(
+        target.category,
+      )
+    ) {
+      fallback = hits[0];
+    }
+  }
+
+  if (!fallback) return undefined;
+  return {
+    fileTitle: fallback.commonsFile,
+    lang: "sk",
+    thumbUrl: fallback.thumbUrl,
+    wikiTitle: target.slovak,
+  };
+}
+
 async function applyOk(
   target: ImageTarget,
   hit: PageImageHit,
@@ -414,6 +540,7 @@ async function main(): Promise<void> {
   let skipped = 0;
   let rejected = 0;
   let ok = 0;
+  let okCommons = 0;
   let missing = 0;
   let errors = 0;
 
@@ -501,9 +628,14 @@ async function main(): Promise<void> {
   for (const target of needsWiki) {
     try {
       let hit = resolveHitForTarget(target, skHits, enHits);
+      let fromCommons = false;
 
-      // Verbs: do NOT auto-promote Commons search hits — too many false friends
-      // (anime "Work in Progress", Go board, Miss Universe, …). Stage + audit instead.
+      if (!hit) {
+        hit = await findCommonsHitForTarget(target);
+        fromCommons = Boolean(hit);
+      }
+
+      // Verbs (and other non-auto lemmas): leave missing — stage + promote instead.
       if (!hit) {
         manifest[target.slug] = missingEntry(now);
         missing += 1;
@@ -513,6 +645,10 @@ async function main(): Promise<void> {
       const result = await applyOk(target, hit, now, manifest);
       if (result === "ok") {
         ok += 1;
+        if (fromCommons) {
+          okCommons += 1;
+          console.log(`ok (commons) ${target.slug} ← ${hit.fileTitle}`);
+        }
         if (ok % 25 === 0) {
           console.log(`… ${ok} saved`);
           await saveManifest(manifest);
@@ -535,7 +671,7 @@ async function main(): Promise<void> {
   await saveManifest(manifest);
 
   console.log(
-    `Done. ok=${ok} missing=${missing} rejected=${rejected} skipped=${skipped} errors=${errors}`,
+    `Done. ok=${ok} (commons=${okCommons}) missing=${missing} rejected=${rejected} skipped=${skipped} errors=${errors}`,
   );
   console.log(
     `Manifest: ${path.relative(process.cwd(), path.join("content", "images", "manifest.json"))}`,

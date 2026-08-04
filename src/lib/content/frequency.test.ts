@@ -15,7 +15,12 @@ import {
   resourceGroups,
   resourcesByGroup,
 } from "./resources";
-import { parseSnkLemmaTable } from "./snk-frequency";
+import {
+  isLikelyProperNoun,
+  parseSnkCountLemmaDump,
+  parseSnkLemmaTable,
+  selectFrequencyHead,
+} from "./snk-frequency";
 
 describe("frequency helpers", () => {
   it("normalizes lemmas and builds slugs", () => {
@@ -115,6 +120,38 @@ describe("SNK frequency import", () => {
 
     const entries = parseSnkLemmaTable(html, "noun", "https://example.com/nouns");
     expect(entries.map((entry) => entry.lemma)).toEqual(["byť"]);
+  });
+
+  it("parses and re-ranks count + lemma dumps", () => {
+    const entries = parseSnkCountLemmaDump(
+      "10 večera\n30 človek\n1 x\n20 dom\n",
+      "noun",
+      "https://example.com/nouns.bz2",
+    );
+
+    expect(entries.map((entry) => [entry.rank, entry.lemma, entry.count])).toEqual([
+      [1, "človek", 30],
+      [2, "dom", 20],
+      [3, "večera", 10],
+    ]);
+  });
+
+  it("filters likely proper nouns while keeping the allowlist", () => {
+    expect(isLikelyProperNoun("Bratislava")).toBe(true);
+    expect(isLikelyProperNoun("USA")).toBe(false);
+    expect(isLikelyProperNoun("večera")).toBe(false);
+
+    const entries = parseSnkCountLemmaDump(
+      "30 Bratislava\n20 človek\n10 Peter\n",
+      "noun",
+      "https://example.com/nouns.bz2",
+    );
+    const head = selectFrequencyHead(entries, 2, { skipProperNouns: true });
+
+    expect(head.map((entry) => [entry.rank, entry.lemma])).toEqual([
+      [1, "Bratislava"],
+      [2, "človek"],
+    ]);
   });
 });
 
