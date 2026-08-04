@@ -238,8 +238,12 @@ export const practiceItems: PracticeItem[] = [
       practiceItemId: "everyday/meeting-time",
       prompt: "When is the meeting? It is at three o’clock.",
       choices: [
-        { id: "three", label: "O tretej." },
-        { id: "half-three", label: "O pol tretej." },
+        { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
+        {
+          id: "half-three",
+          label: "O pol tretej.",
+          clock: { hour: 2, minute: 30 },
+        },
         { id: "day", label: "V utorok." },
       ],
       answerId: "three",
@@ -268,9 +272,17 @@ export const practiceItems: PracticeItem[] = [
       practiceItemId: "everyday/half-past-time",
       prompt: "Your train leaves at 2:30. Which time should you say?",
       choices: [
-        { id: "half-past-two", label: "O pol tretej." },
-        { id: "three", label: "O tretej." },
-        { id: "half-past-three", label: "O pol štvrtej." },
+        {
+          id: "half-past-two",
+          label: "O pol tretej.",
+          clock: { hour: 2, minute: 30 },
+        },
+        { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
+        {
+          id: "half-past-three",
+          label: "O pol štvrtej.",
+          clock: { hour: 3, minute: 30 },
+        },
       ],
       answerId: "half-past-two",
       feedback: {
@@ -283,6 +295,48 @@ export const practiceItems: PracticeItem[] = [
       correction: "O pol tretej.",
       english: "At half past two.",
       why: "Slovak counts the half-hour toward the next hour: pol tretej is 2:30.",
+    },
+  },
+  {
+    id: "everyday/quarter-time",
+    source: {
+      kind: "lesson",
+      label: "Days, dates, and time",
+      href: "/lessons/everyday/days-dates-and-time",
+    },
+    task: {
+      id: "review-quarter-time",
+      type: "choice",
+      practiceItemId: "everyday/quarter-time",
+      prompt: "The film starts at 2:45. Which time should you say?",
+      choices: [
+        {
+          id: "three-quarters",
+          label: "O trištvrte na tri.",
+          clock: { hour: 2, minute: 45 },
+        },
+        {
+          id: "quarter",
+          label: "O štvrť na tri.",
+          clock: { hour: 2, minute: 15 },
+        },
+        {
+          id: "half-past",
+          label: "O pol tretej.",
+          clock: { hour: 2, minute: 30 },
+        },
+      ],
+      answerId: "three-quarters",
+      feedback: {
+        correction: "O trištvrte na tri.",
+        english: "At quarter to three.",
+        why: "Trištvrte na tri is three-quarters toward three, so it means 2:45.",
+      },
+    },
+    feedback: {
+      correction: "O trištvrte na tri.",
+      english: "At quarter to three.",
+      why: "Trištvrte na tri is three-quarters toward three, so it means 2:45.",
     },
   },
   {
@@ -1410,9 +1464,14 @@ export const practiceSets: PracticeSet[] = [
     id: "days-dates-and-time",
     lessonId: "everyday/days-dates-and-time",
     title: "Days, dates, and time",
-    summary: "Arrange a meeting day and say whole-hour and half-hour times.",
+    summary: "Arrange a meeting day and say whole-hour, half-hour, and quarter times.",
     track: "everyday",
-    itemIds: ["everyday/day-meeting", "everyday/meeting-time", "everyday/half-past-time"],
+    itemIds: [
+      "everyday/day-meeting",
+      "everyday/meeting-time",
+      "everyday/half-past-time",
+      "everyday/quarter-time",
+    ],
   },
   {
     id: "negation-in-conversation",

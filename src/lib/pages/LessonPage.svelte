@@ -1,62 +1,34 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Button from "$lib/components/ui/Button.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { onMount } from "svelte";
-  import {
-    emptyPracticeState,
-    markLessonComplete,
-    readPracticeState,
-    writePracticeState,
-  } from "$lib/client/practice-state";
+  import type { Lesson } from "$lib/content/learning-types";
   import { lessonTracks } from "$lib/content/lessons";
   import KeyPhraseList from "$lib/components/lessons/KeyPhraseList.svelte";
-  import LessonInteraction from "$lib/components/lessons/LessonInteraction.svelte";
-  import LessonPracticeSkeleton from "$lib/components/lessons/LessonPracticeSkeleton.svelte";
   import LessonScene from "$lib/components/lessons/LessonScene.svelte";
   import PatternNote from "$lib/components/lessons/PatternNote.svelte";
-  import { practiceSetForLesson } from "$lib/content/practice";
+  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
 
-  let { data } = $props();
-
-  let activeIndex = $state(0);
-  let finished = $state(false);
-  let practiceState = $state(emptyPracticeState());
-  let hydrated = $state(false);
+  let {
+    data,
+    practice,
+  }: {
+    data: { lesson: Lesson };
+    practice: Snippet;
+  } = $props();
 
   const trackTitle = $derived(
     lessonTracks.find((track) => track.id === data.lesson.track)?.title ??
       data.lesson.track,
   );
-  const currentExercise = $derived(data.lesson.exercises[activeIndex]);
-  const practiceSet = $derived(practiceSetForLesson(data.lesson.id));
 
   const referenceLinkClass =
     "group flex min-h-14 items-center justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-4 font-serif text-base text-blue-800 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_50%,transparent)]";
-
-  onMount(() => {
-    practiceState = readPracticeState(localStorage);
-    hydrated = true;
-  });
-
-  function persist(nextState: typeof practiceState): void {
-    practiceState = nextState;
-    if (hydrated) writePracticeState(localStorage, nextState);
-  }
-
-  function resolveExercise(): void {
-    if (activeIndex === data.lesson.exercises.length - 1) {
-      persist(markLessonComplete(practiceState, data.lesson.id));
-      finished = true;
-      return;
-    }
-
-    activeIndex += 1;
-  }
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -94,39 +66,47 @@
       </section>
     {/if}
 
+    {#if data.lesson.visual?.type === "clock-grid"}
+      <section
+        class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
+        aria-labelledby="visual-heading"
+      >
+        <Eyebrow>See the clock</Eyebrow>
+        <h2 id="visual-heading" class="mb-5">{data.lesson.visual.title}</h2>
+        <ul
+          class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-4 p-0"
+        >
+          {#each data.lesson.visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
+            <li
+              class="grid justify-items-center gap-2 border border-slate-200 bg-slate-50 px-3 py-4"
+            >
+              <ClockIllustration
+                hour={item.time.hour}
+                minute={item.time.minute}
+                size={96}
+              />
+              <strong
+                class="text-center font-serif text-sm leading-snug text-blue-800"
+                lang="sk"
+              >
+                {item.slovak}
+              </strong>
+              <span class="text-center text-xs leading-snug text-slate-500">
+                {item.english}
+              </span>
+            </li>
+          {/each}
+        </ul>
+      </section>
+    {/if}
+
     <section
       class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
       aria-labelledby="practice-heading"
     >
       <Eyebrow>Try it here</Eyebrow>
       <h2 id="practice-heading" class="mb-5">Use the scene</h2>
-
-      {#if !hydrated}
-        <LessonPracticeSkeleton />
-      {:else if finished}
-        <div class="border-l-2 border-emerald-600 py-2 pl-6">
-          <Eyebrow tone="muted">Lesson complete</Eyebrow>
-          <h3 class="mb-1 mt-2 font-serif text-2xl text-slate-900">
-            Keep the scene, not a score.
-          </h3>
-          <p class="m-0 font-serif text-slate-600">
-            You can practise this topic again whenever you want another pass.
-          </p>
-          <div class="mt-6 flex flex-wrap items-center gap-4">
-            {#if practiceSet}
-              <Button href={`/practice/${practiceSet.id}`}>Open practice</Button>
-            {/if}
-            <TextLink href="/lessons">Browse lessons</TextLink>
-          </div>
-        </div>
-      {:else}
-        <p class="m-0 mb-3 text-xs text-slate-500">
-          Step {activeIndex + 1} of {data.lesson.exercises.length}
-        </p>
-        {#key currentExercise.id}
-          <LessonInteraction exercise={currentExercise} onresolve={resolveExercise} />
-        {/key}
-      {/if}
+      {@render practice()}
     </section>
 
     <footer class="mt-14 border-t border-slate-200 pt-10">

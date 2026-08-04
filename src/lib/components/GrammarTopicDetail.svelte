@@ -1,8 +1,11 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
 
   import FocusedPracticeAction from "$lib/components/FocusedPracticeAction.svelte";
+  import TellingTimeClockGrid from "$lib/components/TellingTimeClockGrid.svelte";
   import { sentenceCase } from "$lib/content/search-ui";
   import type { EntryKind, GrammarTopic } from "$lib/content/types";
 
@@ -16,9 +19,12 @@
   let {
     topic,
     relatedEntries = [],
+    clockDrill,
   }: {
     topic: GrammarTopic;
     relatedEntries?: RelatedEntry[];
+    /** Client island slot from Astro (`client:only` / `client:load`). */
+    clockDrill?: Snippet;
   } = $props();
 
   const relatedWords = $derived(relatedEntries.filter((entry) => entry.kind === "word"));
@@ -79,6 +85,26 @@
         </p>
       {/each}
     </section>
+
+    {#if topic.slug === "telling-time"}
+      <section
+        class="scroll-mt-[72px] border-t border-slate-200 pt-8"
+        aria-labelledby="clock-grid-heading"
+      >
+        <Eyebrow>Clock faces</Eyebrow>
+        <h2 id="clock-grid-heading" class="mb-3 text-2xl">See the time</h2>
+        <p class="mb-5 max-w-[66ch] font-serif leading-7 text-slate-700">
+          Match each face to the Slovak phrase. Quarters and halves name the hour ahead.
+        </p>
+        <TellingTimeClockGrid />
+      </section>
+
+      {#if clockDrill}
+        <div class="mt-10">
+          {@render clockDrill()}
+        </div>
+      {/if}
+    {/if}
 
     {#if topic.termSections && topic.termSections.length > 0}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
@@ -233,6 +259,20 @@
       >
         Core rule
       </a>
+      {#if topic.slug === "telling-time"}
+        <a
+          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
+          href="#clock-grid-heading"
+        >
+          Clock faces
+        </a>
+        <a
+          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
+          href="#clock-drill"
+        >
+          Clock practice
+        </a>
+      {/if}
       {#if topic.termSections && topic.termSections.length > 0}
         <a
           class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"

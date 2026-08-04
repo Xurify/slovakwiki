@@ -87,7 +87,7 @@ export interface GrammarTopic extends ContentEntry {
   };
   nextSlug?: string;
   order: number;
-  pathGroup: "Nouns" | "Verbs" | "Sentences";
+  pathGroup: "Nouns" | "Verbs" | "Sentence building" | "Numbers";
   pattern: GrammarPattern;
   rule: string[];
   /** Optional deep-link sections for dictionary gloss term tips. */

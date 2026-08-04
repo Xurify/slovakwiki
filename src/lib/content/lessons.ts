@@ -366,7 +366,33 @@ export const lessons: Lesson[] = [
     ],
     pattern: {
       title: "Days and appointment times",
-      body: "Use v + a day for when something happens: Stretneme sa v utorok. Use o + a clock time for an appointment: O tretej. O pol tretej means 2:30, halfway to three.",
+      body: "Use v + a day for when something happens: Stretneme sa v utorok. Use o + a clock time for an appointment: O tretej. O pol tretej means 2:30, halfway to three. Quarters also look ahead: O štvrť na tri is 2:15, and O trištvrte na tri is 2:45.",
+    },
+    visual: {
+      type: "clock-grid",
+      title: "Match the face to the phrase",
+      items: [
+        {
+          time: { hour: 3, minute: 0 },
+          slovak: "O tretej.",
+          english: "At three o’clock.",
+        },
+        {
+          time: { hour: 2, minute: 30 },
+          slovak: "O pol tretej.",
+          english: "At half past two.",
+        },
+        {
+          time: { hour: 2, minute: 15 },
+          slovak: "O štvrť na tri.",
+          english: "At quarter past two.",
+        },
+        {
+          time: { hour: 2, minute: 45 },
+          slovak: "O trištvrte na tri.",
+          english: "At quarter to three.",
+        },
+      ],
     },
     exercises: [
       {
@@ -389,9 +415,13 @@ export const lessons: Lesson[] = [
         practiceItemId: "everyday/meeting-time",
         prompt: "Anna asks when you can meet at 3:00. What do you say?",
         choices: [
-          { id: "three", label: "O tretej." },
+          { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
           { id: "tuesday", label: "V utorok." },
-          { id: "half-past", label: "O pol tretej." },
+          {
+            id: "half-past",
+            label: "O pol tretej.",
+            clock: { hour: 2, minute: 30 },
+          },
         ],
         answerId: "three",
         feedback: {
@@ -414,6 +444,35 @@ export const lessons: Lesson[] = [
         },
       },
       {
+        id: "days-quarter-time",
+        type: "choice",
+        practiceItemId: "everyday/quarter-time",
+        prompt: "The film starts at 2:45. Which time do you say?",
+        choices: [
+          {
+            id: "three-quarters",
+            label: "O trištvrte na tri.",
+            clock: { hour: 2, minute: 45 },
+          },
+          {
+            id: "quarter",
+            label: "O štvrť na tri.",
+            clock: { hour: 2, minute: 15 },
+          },
+          {
+            id: "half-past",
+            label: "O pol tretej.",
+            clock: { hour: 2, minute: 30 },
+          },
+        ],
+        answerId: "three-quarters",
+        feedback: {
+          correction: "O trištvrte na tri.",
+          english: "At quarter to three.",
+          why: "Trištvrte na tri is three-quarters toward three, so it means 2:45.",
+        },
+      },
+      {
         id: "days-personal",
         type: "personal",
         prompt: "Arrange a real or imagined meeting: choose a day and a time.",
@@ -421,8 +480,9 @@ export const lessons: Lesson[] = [
       },
     ],
     referenceLinks: [
+      { href: "/grammar/telling-time", label: "Telling time" },
+      { href: "/grammar/numbers-and-numerals", label: "Numbers and numerals" },
       { href: "/grammar/questions", label: "Questions" },
-      { href: "/grammar/word-order", label: "Word order" },
     ],
   },
   {

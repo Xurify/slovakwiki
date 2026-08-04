@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import ClockDrill from "$lib/components/ClockDrill.svelte";
 import GrammarDetailPage from "$lib/pages/GrammarDetailPage.svelte";
 import { entryBySlug, grammarEntries } from "$lib/content/data";
 import { sentenceCase } from "$lib/content/search-ui";
@@ -30,5 +31,11 @@ const { entry, relatedEntries } = Astro.props;
   title={`${sentenceCase(entry.english)} | Slovak Wiki Grammar`}
   description={entry.summary}
 >
-  <GrammarDetailPage data={{ entry, relatedEntries }} />
+  <GrammarDetailPage data={{ entry, relatedEntries }}>
+    {
+      entry.slug === "telling-time" && (
+        <ClockDrill slot="clockDrill" client:only="svelte" />
+      )
+    }
+  </GrammarDetailPage>
 </SiteLayout>

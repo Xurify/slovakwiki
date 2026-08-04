@@ -10,6 +10,7 @@
     type AnswerGrade,
   } from "$lib/client/practice-state";
   import AudioButton from "$lib/components/AudioButton.svelte";
+  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
   import type { PracticeItem, PracticeTask } from "$lib/content/learning-types";
 
@@ -253,16 +254,30 @@
     {/if}
 
     {#if task.type === "choice"}
-      <div class="mt-7 grid gap-2">
+      {@const hasClocks = task.choices.some((choice) => choice.clock)}
+      <div
+        class={hasClocks
+          ? "mt-7 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
+          : "mt-7 grid gap-2"}
+      >
         {#each task.choices as choice (choice.id)}
           <button
-            class={`min-h-14 w-full cursor-pointer rounded border px-4 py-3 text-left font-serif text-base font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-300 bg-surface text-slate-900"}`}
+            class={hasClocks
+              ? `grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded border px-3 py-4 text-center font-serif text-sm font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-300 bg-surface text-slate-900"}`
+              : `min-h-14 w-full cursor-pointer rounded border px-4 py-3 text-left font-serif text-base font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-300 bg-surface text-slate-900"}`}
             disabled={submitted}
             type="button"
             aria-pressed={selectedId === choice.id}
             onclick={() => (selectedId = choice.id)}
           >
-            {choice.label}
+            {#if choice.clock}
+              <ClockIllustration
+                hour={choice.clock.hour}
+                minute={choice.clock.minute}
+                size={88}
+              />
+            {/if}
+            <span lang="sk">{choice.label}</span>
           </button>
         {/each}
       </div>

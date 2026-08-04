@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import GrammarTopicDetail from "$lib/components/GrammarTopicDetail.svelte";
   import type { EntryKind, GrammarTopic } from "$lib/content/types";
 
@@ -11,9 +13,18 @@
 
   let {
     data,
+    clockDrill,
   }: {
-    data: { entry: GrammarTopic; relatedEntries: RelatedEntry[] };
+    data: {
+      entry: GrammarTopic;
+      relatedEntries: RelatedEntry[];
+    };
+    clockDrill?: Snippet;
   } = $props();
 </script>
 
-<GrammarTopicDetail topic={data.entry} relatedEntries={data.relatedEntries} />
+<GrammarTopicDetail
+  topic={data.entry}
+  relatedEntries={data.relatedEntries}
+  {clockDrill}
+/>

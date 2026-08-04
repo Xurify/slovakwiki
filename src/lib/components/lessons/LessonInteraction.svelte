@@ -1,6 +1,7 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
 
   import { tick } from "svelte";
   import { answersMatch } from "$lib/client/practice-state";
@@ -110,16 +111,31 @@
     {/if}
 
     {#if exercise.type === "choice"}
-      <div class="mt-6 grid gap-2 border-t border-slate-200" aria-label="Answer choices">
+      {@const hasClocks = exercise.choices.some((choice) => choice.clock)}
+      <div
+        class={hasClocks
+          ? "mt-6 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
+          : "mt-6 grid gap-2 border-t border-slate-200"}
+        aria-label="Answer choices"
+      >
         {#each exercise.choices as choice (choice.id)}
           <button
-            class={`w-full cursor-pointer border-0 border-b border-slate-200 px-3 py-4 text-left font-serif text-base font-semibold transition-[background-color,color,padding-left] hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "bg-blue-50 pl-4 text-blue-800" : "bg-transparent text-slate-900"}`}
+            class={hasClocks
+              ? `grid w-full cursor-pointer justify-items-center gap-2 border px-3 py-4 text-center font-serif text-sm font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-200 bg-transparent text-slate-900"}`
+              : `w-full cursor-pointer border-0 border-b border-slate-200 px-3 py-4 text-left font-serif text-base font-semibold transition-[background-color,color,padding-left] hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "bg-blue-50 pl-4 text-blue-800" : "bg-transparent text-slate-900"}`}
             disabled={submitted}
             type="button"
             aria-pressed={selectedId === choice.id}
             onclick={() => (selectedId = choice.id)}
           >
-            {choice.label}
+            {#if choice.clock}
+              <ClockIllustration
+                hour={choice.clock.hour}
+                minute={choice.clock.minute}
+                size={88}
+              />
+            {/if}
+            <span lang="sk">{choice.label}</span>
           </button>
         {/each}
       </div>

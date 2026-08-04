@@ -716,13 +716,13 @@ export const grammarEntries: GrammarTopic[] = [
     },
     watchOut:
       "A final letter can suggest gender, but it does not guarantee it. Learn the noun and its pattern together.",
-    nextSlug: "numbers-and-numerals",
+    nextSlug: "cases-overview",
   },
   {
     slug: "numbers-and-numerals",
     slovak: "číslovky",
     english: "numbers and numerals",
-    category: "Nouns",
+    category: "Numbers",
     kind: "grammar",
     summary: "Numbers change the form that follows them, especially from five upward.",
     body: [
@@ -741,13 +741,13 @@ export const grammarEntries: GrammarTopic[] = [
         practiceItemId: "everyday/simple-price",
       },
     ],
-    related: ["grammatical-gender", "questions", "kolko", "mat-present"],
+    related: ["grammatical-gender", "questions", "kolko", "mat-present", "telling-time"],
     source: languageSource,
     tags: ["nouns", "numbers", "beginner"],
     lookFor:
       "Notice whether the number is jeden, dva/dve, tri/štyri, or päť and higher. The noun form changes with the group.",
-    pathGroup: "Nouns",
-    order: 5,
+    pathGroup: "Numbers",
+    order: 1,
     rule: [
       "Jeden goes with a singular noun; dva/dve, tri, and štyri use plural-like noun forms.",
       "Päť and higher numbers usually take a genitive plural noun form.",
@@ -762,7 +762,7 @@ export const grammarEntries: GrammarTopic[] = [
     },
     watchOut:
       "Do not assume every number uses the same noun form. Start with fixed phrases such as dvadsať rokov and päť eur.",
-    nextSlug: "cases-overview",
+    nextSlug: "telling-time",
   },
   {
     slug: "present-tense",
@@ -1088,7 +1088,7 @@ export const grammarEntries: GrammarTopic[] = [
     slug: "word-order",
     slovak: "slovosled",
     english: "word order",
-    category: "Sentences",
+    category: "Sentence building",
     kind: "grammar",
     summary:
       "Slovak word order is flexible, but neutral sentences often follow subject–verb–object.",
@@ -1104,7 +1104,7 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["sentences", "word order", "intermediate"],
     lookFor: "Compare what moves to the front. That position receives emphasis.",
-    pathGroup: "Sentences",
+    pathGroup: "Sentence building",
     order: 4,
     rule: [
       "Slovak word order is flexible because case endings preserve grammatical roles.",
@@ -1122,7 +1122,7 @@ export const grammarEntries: GrammarTopic[] = [
     slug: "ty-vs-vy",
     slovak: "tykanie a vykanie",
     english: "informal and formal you",
-    category: "Sentences",
+    category: "Sentence building",
     kind: "grammar",
     summary:
       "Use ty with one person informally and vy for formal address or more than one person.",
@@ -1149,7 +1149,7 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["sentences", "formality", "beginner"],
     lookFor: "Check whether the situation calls for ty or vy, then match the verb form.",
-    pathGroup: "Sentences",
+    pathGroup: "Sentence building",
     order: 5,
     rule: [
       "Use ty with one person informally and vy for formal address or more than one person.",
@@ -1175,7 +1175,7 @@ export const grammarEntries: GrammarTopic[] = [
     slug: "negation",
     slovak: "zápor",
     english: "negation",
-    category: "Sentences",
+    category: "Sentence building",
     kind: "grammar",
     summary: "Slovak usually makes a finite verb negative with ne-.",
     body: [
@@ -1203,7 +1203,7 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["sentences", "negation", "beginner"],
     lookFor: "Find ne- attached to the finite verb: nemám, nerozumiem, neviem.",
-    pathGroup: "Sentences",
+    pathGroup: "Sentence building",
     order: 6,
     rule: [
       "Form most finite verb negatives with ne- attached to the verb.",
@@ -1224,7 +1224,7 @@ export const grammarEntries: GrammarTopic[] = [
     slug: "questions",
     slovak: "otázky",
     english: "questions",
-    category: "Sentences",
+    category: "Sentence building",
     kind: "grammar",
     summary:
       "Use question words for information, or statement order with rising intonation for yes/no questions.",
@@ -1263,7 +1263,7 @@ export const grammarEntries: GrammarTopic[] = [
     tags: ["sentences", "questions", "beginner"],
     lookFor:
       "Identify the question word first, then notice that the rest keeps ordinary Slovak sentence order.",
-    pathGroup: "Sentences",
+    pathGroup: "Sentence building",
     order: 7,
     rule: [
       "Put a question word first when you ask for information.",
@@ -1282,6 +1282,93 @@ export const grammarEntries: GrammarTopic[] = [
     lessonLink: {
       href: "/lessons/everyday/meet-someone",
       label: "Greetings and introductions",
+    },
+  },
+  {
+    slug: "telling-time",
+    slovak: "koľko je hodín",
+    english: "telling time",
+    category: "Numbers",
+    kind: "grammar",
+    summary:
+      "Slovak clock time looks ahead to the next hour, and the verb agrees with the number.",
+    body: [
+      "Ask Koľko je hodín? Answer with Je for one, Sú for two to four, and Je again for five and higher with a genitive plural noun form.",
+      "Half and quarter phrases name the coming hour: pol tretej is 2:30, štvrť na tri is 2:15, and trištvrte na tri is 2:45.",
+    ],
+    examples: [
+      {
+        slovak: "Koľko je hodín?",
+        english: "What time is it?",
+      },
+      {
+        slovak: "Sú tri hodiny.",
+        english: "It is three o’clock.",
+      },
+      {
+        slovak: "Je pol tretej.",
+        english: "It is half past two.",
+        practiceItemId: "everyday/half-past-time",
+      },
+      {
+        slovak: "Stretneme sa o tretej.",
+        english: "We will meet at three.",
+        practiceItemId: "everyday/meeting-time",
+      },
+      {
+        slovak: "Je trištvrte na tri.",
+        english: "It is quarter to three.",
+        practiceItemId: "everyday/quarter-time",
+      },
+    ],
+    related: ["numbers-and-numerals", "questions", "kolko"],
+    source: languageSource,
+    tags: ["numbers", "time", "beginner"],
+    lookFor:
+      "Is the number 1, 2–4, or 5+? That decides je/sú and hodina/hodiny/hodín. For halves and quarters, name the hour you are heading toward.",
+    pathGroup: "Numbers",
+    order: 2,
+    rule: [
+      "Je jedna hodina, Sú dve/tri/štyri hodiny, and Je päť hodín. The same 1 / 2–4 / 5+ pattern applies to minúta; sekunda follows the numbers hub.",
+      "Half and quarter look forward: Je pol tretej (2:30), Je štvrť na tri (2:15), Je trištvrte na tri (2:45). With pol, always use Je — never Sú.",
+      "Minutes past use X hodín a Y minút (Desať hodín a päť minút). Minutes to use o Y minút X (O päť minút desať).",
+      "For appointments, use o + a locative feminine form: O tretej. For approximate time, use okolo piatej.",
+      "Everyday speech often uses a 12-hour clock plus ráno, doobeda, popoludní, or večer. Timetables prefer 24-hour forms such as Je pätnásť hodín. Midday is poludnie; midnight is polnoc.",
+    ],
+    pattern: {
+      label: "Hour agreement and looking ahead",
+      lines: [
+        "1 → Je jedna hodina.",
+        "2–4 → Sú dve / tri / štyri hodiny.",
+        "5+ → Je päť hodín.",
+        "2:30 → Je pol tretej.",
+        "2:15 → Je štvrť na tri.",
+        "2:45 → Je trištvrte na tri.",
+        "at / around → o tretej · okolo piatej",
+      ],
+    },
+    termSections: [
+      {
+        id: "pol",
+        title: "pol",
+        body: "Pol names the coming hour in the genitive: pol tretej is halfway to three (2:30). Always Je pol…, never Sú pol…",
+      },
+      {
+        id: "stvrt",
+        title: "štvrť na",
+        body: "Štvrť na + the next hour means quarter past the previous hour: štvrť na tri is 2:15. After twelve, prefer štvrť na jednu.",
+      },
+      {
+        id: "tristvrte",
+        title: "trištvrte na",
+        body: "Trištvrte na + the next hour means three-quarters toward that hour: trištvrte na tri is 2:45.",
+      },
+    ],
+    watchOut:
+      "Pol tretej is 2:30, not 3:30 — Slovak names the hour it is heading toward. At 12:15, prefer Je štvrť na jednu, not *jeden*.",
+    lessonLink: {
+      href: "/lessons/everyday/days-dates-and-time",
+      label: "Days, dates, and time",
     },
   },
 ];

@@ -50,13 +50,31 @@ interface ExerciseBase {
   prompt: string;
 }
 
+export interface ClockTime {
+  /** 1–12 as shown on the analog face. */
+  hour: number;
+  minute: number;
+}
+
 export interface ChoiceExercise extends ExerciseBase {
   answerId: string;
   choices: Array<{
+    /** Optional face shown above the label (telling-time lessons). */
+    clock?: ClockTime;
     id: string;
     label: string;
   }>;
   type: "choice";
+}
+
+export interface LessonVisual {
+  items: Array<{
+    english: string;
+    slovak: string;
+    time: ClockTime;
+  }>;
+  title: string;
+  type: "clock-grid";
 }
 
 export interface BuildExercise extends ExerciseBase {
@@ -116,6 +134,7 @@ export interface Lesson {
   slug: string;
   title: string;
   track: LessonTrackId;
+  visual?: LessonVisual;
 }
 
 export type PracticeTask = ChoiceExercise | BuildExercise | TypedExercise | ClozeExercise;

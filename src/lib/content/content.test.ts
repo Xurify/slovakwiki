@@ -18,7 +18,14 @@ import {
   SEARCH_HISTORY_LIMIT,
   SEARCH_HISTORY_STORAGE_KEY,
 } from "../client/search-history";
-import { allEntries, caseTopics, entryBySlug, validateContent, words } from "./data";
+import {
+  allEntries,
+  caseTopics,
+  entryBySlug,
+  grammarEntries,
+  validateContent,
+  words,
+} from "./data";
 import { isDamagedExampleTemplate } from "./example-quality";
 import { lessonById, lessons, validateLessons } from "./lessons";
 import {
@@ -156,11 +163,44 @@ describe("Slovak content", () => {
     expect(entryBySlug.has("numbers-and-numerals")).toBe(true);
     expect(entryBySlug.has("negation")).toBe(true);
     expect(entryBySlug.has("questions")).toBe(true);
+    expect(entryBySlug.has("telling-time")).toBe(true);
     expect(entryBySlug.has("byt-present")).toBe(true);
     expect(entryBySlug.has("mat-present")).toBe(true);
     expect(entryBySlug.has("aspect")).toBe(true);
     expect(entryBySlug.has("ty-vs-vy")).toBe(true);
     expect(entryBySlug.has("rhythmic-law")).toBe(true);
+
+    expect(entryBySlug.has("telling-time")).toBe(true);
+    expect(entryBySlug.get("numbers-and-numerals")?.related).toContain("telling-time");
+    expect(grammarEntries.find((topic) => topic.slug === "questions")?.nextSlug).toBe(
+      undefined,
+    );
+    expect(
+      grammarEntries.find((topic) => topic.slug === "numbers-and-numerals")?.pathGroup,
+    ).toBe("Numbers");
+    expect(grammarEntries.find((topic) => topic.slug === "telling-time")?.pathGroup).toBe(
+      "Numbers",
+    );
+    expect(grammarEntries.find((topic) => topic.slug === "word-order")?.pathGroup).toBe(
+      "Sentence building",
+    );
+
+    const timeLesson = lessonById.get("everyday/days-dates-and-time");
+    expect(timeLesson?.visual?.type).toBe("clock-grid");
+    expect(timeLesson?.visual?.items.length).toBeGreaterThanOrEqual(4);
+
+    for (const lesson of lessons) {
+      for (const exercise of lesson.exercises) {
+        if (exercise.type !== "choice") continue;
+        for (const choice of exercise.choices) {
+          if (!choice.clock) continue;
+          expect(choice.clock.hour).toBeGreaterThanOrEqual(1);
+          expect(choice.clock.hour).toBeLessThanOrEqual(12);
+          expect(choice.clock.minute).toBeGreaterThanOrEqual(0);
+          expect(choice.clock.minute).toBeLessThan(60);
+        }
+      }
+    }
 
     expect(lessonById.has("everyday/numbers-and-personal-details")).toBe(true);
     expect(lessonById.has("everyday/days-dates-and-time")).toBe(true);
