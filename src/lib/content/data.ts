@@ -1466,7 +1466,7 @@ export const grammarEntries: GrammarTopic[] = [
       "Slovak clock time looks ahead to the next hour, and the verb agrees with the number.",
     body: [
       "Ask Koľko je hodín? Answer with Je for one, Sú for two to four, and Je again for five and higher with a genitive plural noun form.",
-      "Half and quarter phrases name the coming hour: pol tretej is 2:30, štvrť na tri is 2:15, and trištvrte na tri is 2:45.",
+      "Half and quarter phrases name the coming hour: pol tretej is 02:30, štvrť na tri is 02:15, and trištvrte na tri is 02:45.",
     ],
     examples: [
       {
@@ -1501,43 +1501,46 @@ export const grammarEntries: GrammarTopic[] = [
     pathGroup: "Numbers",
     order: 2,
     rule: [
-      "Je jedna hodina, Sú dve/tri/štyri hodiny, and Je päť hodín. The same 1 / 2–4 / 5+ pattern applies to minúta; sekunda follows the numbers hub.",
-      "Half and quarter look forward: Je pol tretej (2:30), Je štvrť na tri (2:15), Je trištvrte na tri (2:45). With pol, always use Je — never Sú.",
-      "Minutes past use X hodín a Y minút (Desať hodín a päť minút). Minutes to use o Y minút X (O päť minút desať).",
-      "For appointments, use o + a locative feminine form: O tretej. For approximate time, use okolo piatej.",
-      "Everyday speech often uses a 12-hour clock plus ráno, doobeda, popoludní, or večer. Timetables prefer 24-hour forms such as Je pätnásť hodín. Midday is poludnie; midnight is polnoc.",
+      "Hours follow 1 / 2–4 / 5+: Je jedna hodina, Sú tri hodiny, Je päť hodín. Minúta does the same; sekunda follows the numbers hub.",
+      "Half and quarter name the coming hour — pol tretej is 02:30, not 03:30. Always Je pol…, never Sú.",
+      "Appointments use o + locative (O tretej); approximate time uses okolo (okolo piatej).",
     ],
     pattern: {
       label: "Hour agreement and looking ahead",
       lines: [
-        "1 → Je jedna hodina.",
-        "2–4 → Sú dve / tri / štyri hodiny.",
-        "5+ → Je päť hodín.",
-        "2:30 → Je pol tretej.",
-        "2:15 → Je štvrť na tri.",
-        "2:45 → Je trištvrte na tri.",
+        "01:00 → Je jedna hodina.",
+        "02:00 → Sú dve hodiny.",
+        "02:15 → Je štvrť na tri.",
+        "02:30 → Je pol tretej.",
+        "02:45 → Je trištvrte na tri.",
+        "03:00 → Sú tri hodiny.",
+        "04:00 → Sú štyri hodiny.",
+        "05:00 → Je päť hodín.",
+        "past / to → desať hodín a päť minút · o päť minút desať",
         "at / around → o tretej · okolo piatej",
+        "12h / 24h → ráno · popoludní · večer · Je pätnásť hodín",
+        "midday / midnight → poludnie · polnoc",
       ],
     },
     termSections: [
       {
         id: "pol",
         title: "pol",
-        body: "Pol names the coming hour in the genitive: pol tretej is halfway to three (2:30). Always Je pol…, never Sú pol…",
+        body: "Pol names the coming hour in the genitive: pol tretej is halfway to three (02:30). Always Je pol…, never Sú pol…",
       },
       {
         id: "stvrt",
         title: "štvrť na",
-        body: "Štvrť na + the next hour means quarter past the previous hour: štvrť na tri is 2:15. After twelve, prefer štvrť na jednu.",
+        body: "Štvrť na + the next hour means quarter past the previous hour: štvrť na tri is 02:15. After twelve, prefer štvrť na jednu.",
       },
       {
         id: "tristvrte",
         title: "trištvrte na",
-        body: "Trištvrte na + the next hour means three-quarters toward that hour: trištvrte na tri is 2:45.",
+        body: "Trištvrte na + the next hour means three-quarters toward that hour: trištvrte na tri is 02:45.",
       },
     ],
     watchOut:
-      "Pol tretej is 2:30, not 3:30 — Slovak names the hour it is heading toward. At 12:15, prefer Je štvrť na jednu, not *jeden*.",
+      "Pol tretej is 02:30, not 03:30 — Slovak names the hour it is heading toward. At 12:15, prefer Je štvrť na jednu, not *jeden*.",
     lessonLink: {
       href: "/lessons/everyday/days-dates-and-time",
       label: "Days, dates, and time",

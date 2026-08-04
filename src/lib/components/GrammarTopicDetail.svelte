@@ -79,11 +79,15 @@
       <Eyebrow>Core rule</Eyebrow>
       <h2 id="rule-heading" class="mb-3 text-2xl">What changes</h2>
 
-      {#each topic.rule as paragraph (paragraph)}
-        <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
-          {paragraph}
-        </p>
-      {/each}
+      <ol class="m-0 grid list-none gap-2 p-0">
+        {#each topic.rule as paragraph (paragraph)}
+          <li class="border-l-4 border-blue-600 bg-slate-50 px-4 py-3">
+            <p class="mb-0 max-w-[66ch] font-serif leading-6 text-slate-700">
+              {paragraph}
+            </p>
+          </li>
+        {/each}
+      </ol>
     </section>
 
     {#if topic.slug === "telling-time"}

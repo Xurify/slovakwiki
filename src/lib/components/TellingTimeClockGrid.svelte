@@ -1,5 +1,6 @@
 <script lang="ts">
   import ClockIllustration from "$lib/components/ClockIllustration.svelte";
+  import { formatDigital } from "$lib/content/slovak-time";
 
   type GridItem = {
     english: string;
@@ -60,7 +61,7 @@
       minute: 0,
       slovak: "Je polnoc.",
       english: "It is midnight.",
-      note: "0:00 — same clock face as twelve, different word.",
+      note: "00:00 — same clock face as twelve, different word.",
     },
   ];
 </script>
@@ -76,9 +77,9 @@
       <ClockIllustration
         hour={item.hour}
         minute={item.minute}
-        label={item.note?.startsWith("0:00")
-          ? "0:00 midnight"
-          : `${item.hour}:${String(item.minute).padStart(2, "0")}`}
+        label={item.note?.startsWith("00:00")
+          ? "00:00 midnight"
+          : formatDigital({ hour: item.hour, minute: item.minute })}
         size={128}
       />
       <strong class="text-center font-serif text-sm leading-snug text-blue-800" lang="sk">
