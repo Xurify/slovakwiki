@@ -36,6 +36,14 @@ describe("frequency helpers", () => {
     expect(findLiveWordForLemma("dospelý", words, "adjective")?.slug).toBe("dospely-a");
   });
 
+  it("links frequency nouns/verbs to curated topical categories", () => {
+    expect(findLiveWordForLemma("človek", words, "noun")?.slug).toBe("clovek");
+    expect(findLiveWordForLemma("človek", words, "noun")?.category).toBe("People");
+    expect(findLiveWordForLemma("mesto", words, "noun")?.category).toBe("Places");
+    expect(findLiveWordForLemma("hovoriť", words, "verb")?.slug).toBe("hovorit");
+    expect(findLiveWordForLemma("hovoriť", words, "verb")?.category).toBe("Conversation");
+  });
+
   it("does not link diacritic near-misses to the wrong word", () => {
     expect(findLiveWordForLemma("štát", words)?.slovak).not.toBe("stať");
     expect(findLiveWordForLemma("brat", words)?.slovak).not.toBe("brať");

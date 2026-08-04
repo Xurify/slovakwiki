@@ -23,6 +23,27 @@ const POS_TO_CATEGORY: Record<FrequencyPos, string> = {
   adjective: "Adjectives",
 };
 
+/** Frequency POS buckets — curated topical categories are not these. */
+const FREQUENCY_POS_CATEGORIES = new Set<string>(["Verbs", "Nouns", "Adjectives"]);
+
+/**
+ * Prefer the frequency POS category, then fall back to a curated topical entry
+ * for the same lemma (People / Places / Conversation / …) so common lists do
+ * not show “Not in dictionary yet” when the page already exists.
+ */
+function pickForPreferredPos(
+  matches: readonly ContentEntry[],
+  preferredCategory: string,
+): ContentEntry | undefined {
+  const byPos = matches.find((word) => word.category === preferredCategory);
+  if (byPos) return byPos;
+
+  const rivalCategories = new Set(FREQUENCY_POS_CATEGORIES);
+  rivalCategories.delete(preferredCategory);
+
+  return matches.find((word) => !rivalCategories.has(word.category));
+}
+
 export function findLiveWordForLemma(
   lemma: string,
   words: readonly ContentEntry[],
@@ -32,8 +53,8 @@ export function findLiveWordForLemma(
 
   const exact = words.filter((word) => word.slovak === lemma);
   if (preferredCategory) {
-    const byPos = exact.find((word) => word.category === preferredCategory);
-    if (byPos) return byPos;
+    const picked = pickForPreferredPos(exact, preferredCategory);
+    if (picked) return picked;
   } else if (exact.length > 0) {
     return exact[0];
   }
@@ -44,7 +65,7 @@ export function findLiveWordForLemma(
     (word) => word.slovak.toLocaleLowerCase("sk") === lower,
   );
   if (preferredCategory) {
-    return caseMatches.find((word) => word.category === preferredCategory);
+    return pickForPreferredPos(caseMatches, preferredCategory);
   }
   return caseMatches.length === 1 ? caseMatches[0] : undefined;
 }
