@@ -468,12 +468,10 @@
           <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
             Search index not built yet. Run a production build once, then refresh.
           </p>
-        {:else if loading && results.length === 0}
+        {:else if (loading || pending) && results.length === 0}
           <div class="flex items-center px-3.5 py-2.5">
             <DotLoader label="Searching…" />
           </div>
-        {:else if pending && results.length === 0}
-          <div class="h-11" aria-hidden="true"></div>
         {:else if results.length === 0}
           <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
             No matches for “{trimmedQuery}”. Try a shorter word or an English meaning.
