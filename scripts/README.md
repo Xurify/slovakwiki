@@ -51,12 +51,12 @@ Primary dictionary growth is frequency publish + example enrich. Example quality
 
 ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
-| File          | npm script       | Notes                                                                                                                                                  |
-| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `generate.ts` | `audio:generate` | Writes `static/audio/{lemma\|example}/{hash}.mp3`; text in manifest; `--limit` / `--lemmas-only` / `--dry-run` / `--force`; needs `ELEVENLABS_API_KEY` |
-| `upload.ts`   | `audio:upload`   | Sync same key layout to R2; needs `R2_*` (+ `R2_JURISDICTION=eu` for EU buckets)                                                                       |
-| `status.ts`   | `audio:status`   | Targets vs disk vs manifest uploaded                                                                                                                   |
-| `shared.ts`   | (lib)            | Hash / collect / synthesize helpers                                                                                                                    |
+| File          | npm script       | Notes                                                                                                                                                                                     |
+| ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `generate.ts` | `audio:generate` | Writes `static/audio/{lemma\|example}/{hash}.mp3`; text in manifest; `--limit` / `--lemmas-only` / `--dry-run` / `--force`; needs `ELEVENLABS_API_KEY`                                    |
+| `upload.ts`   | `audio:upload`   | Sync same key layout to R2; sets `Cache-Control` + custom metadata (`kind`/`hash`/`voice-id`/`text`…); needs `R2_*` (+ `R2_JURISDICTION=eu` for EU); `--force` re-PUTs to refresh headers |
+| `status.ts`   | `audio:status`   | Targets vs disk vs manifest uploaded                                                                                                                                                      |
+| `shared.ts`   | (lib)            | Hash / collect / synthesize helpers                                                                                                                                                       |
 
 Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` (future: `lesson/`, `practice/`). Hash = content address; folder = how clip is used.
 

@@ -2,6 +2,9 @@
  * Upload static/audio/{kind}/*.mp3 to Cloudflare R2 (S3-compatible).
  * Object keys mirror local layout: lemma/{hash}.mp3, example/{hash}.mp3
  *
+ * Sets Cache-Control (immutable, 1y) + custom metadata (kind/hash/voice/text…).
+ * Bun.S3Client lacks Cache-Control / x-amz-meta on this Bun version → aws4fetch PUT.
+ *
  * Env:
  *   R2_ACCOUNT_ID
  *   R2_ACCESS_KEY_ID
@@ -14,25 +17,34 @@
  *   bun run audio:upload
  *   bun run audio:upload -- --dry-run
  *   bun run audio:upload -- --limit 50
+ *   bun run audio:upload -- --force   # re-PUT (refresh headers/metadata)
  */
 
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 
-import { S3Client } from "bun";
+import { AwsClient } from "aws4fetch";
 
 import {
+  AUDIO_CACHE_CONTROL,
   AUDIO_DIR,
+  buildAudioObjectMetadata,
   listAudioObjectKeys,
+  loadConfig,
   loadManifest,
   parseArgs,
   saveManifest,
+  type AudioKind,
 } from "./shared";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value) throw new Error(`${name} missing (set in .env)`);
   return value;
+}
+
+function kindFromObjectKey(objectKey: string): AudioKind {
+  return objectKey.startsWith("example/") ? "example" : "lemma";
 }
 
 async function main(): Promise<void> {
@@ -51,15 +63,14 @@ async function main(): Promise<void> {
     ? `${accountId}.${jurisdiction}.r2.cloudflarestorage.com`
     : `${accountId}.r2.cloudflarestorage.com`;
 
-  const client = new S3Client({
+  const aws = new AwsClient({
     accessKeyId,
     secretAccessKey,
-    bucket,
-    endpoint: `https://${endpointHost}`,
-    // R2 is regionless; Bun/AWS SigV4 need an explicit region string.
+    service: "s3",
     region: "auto",
   });
 
+  const config = await loadConfig();
   const manifest = await loadManifest();
   let keys = await listAudioObjectKeys();
   if (limit !== undefined) keys = keys.slice(0, limit);
@@ -71,13 +82,17 @@ async function main(): Promise<void> {
   console.log(
     `Audio upload: ${keys.length} files → r2://${bucket}` +
       `${jurisdiction ? ` [${jurisdiction}]` : ""}` +
-      `${publicBase ? ` (${publicBase})` : ""}${dryRun ? " [dry-run]" : ""}`,
+      `${publicBase ? ` (${publicBase})` : ""}` +
+      ` cache=${AUDIO_CACHE_CONTROL}` +
+      `${dryRun ? " [dry-run]" : ""}` +
+      `${force ? " [force]" : ""}`,
   );
 
   for (const objectKey of keys) {
     const hash = path.basename(objectKey, ".mp3");
     const filePath = path.join(AUDIO_DIR, objectKey);
     const entry = manifest[hash];
+    const kind = entry?.kind ?? kindFromObjectKey(objectKey);
 
     if (entry?.uploadedAt && !force) {
       skipped += 1;
@@ -93,20 +108,46 @@ async function main(): Promise<void> {
     try {
       const body = await readFile(filePath);
       const info = await stat(filePath);
-      await client.write(objectKey, body, {
-        type: "audio/mpeg",
+      const generatedAt = entry?.generatedAt ?? new Date().toISOString();
+      const metadata = buildAudioObjectMetadata({
+        config,
+        generatedAt,
+        hash,
+        kind,
+        text: entry?.text ?? "",
       });
+
+      const headers: Record<string, string> = {
+        "Content-Type": "audio/mpeg",
+        "Cache-Control": AUDIO_CACHE_CONTROL,
+        "Content-Disposition": "inline",
+      };
+
+      for (const [key, value] of Object.entries(metadata)) {
+        headers[`x-amz-meta-${key}`] = value;
+      }
+
+      const url = `https://${endpointHost}/${bucket}/${objectKey}`;
+      const response = await aws.fetch(url, {
+        method: "PUT",
+        headers,
+        body,
+      });
+
+      if (!response.ok) {
+        const detail = (await response.text()).slice(0, 500);
+        throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
+      }
 
       if (entry) {
         entry.bytes = info.size;
         entry.uploadedAt = new Date().toISOString();
       } else {
-        const kind = objectKey.startsWith("example/") ? "example" : "lemma";
         manifest[hash] = {
           text: "",
           kind,
           bytes: info.size,
-          generatedAt: new Date().toISOString(),
+          generatedAt,
           uploadedAt: new Date().toISOString(),
         };
       }

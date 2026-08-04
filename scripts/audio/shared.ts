@@ -194,6 +194,56 @@ export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/** Hash keys are content-addressed → safe to cache forever at the edge. */
+export const AUDIO_CACHE_CONTROL = "public, max-age=31536000, immutable";
+
+/** S3/R2 user-metadata budget (~2 KiB). Leave headroom for AWS overhead. */
+const AUDIO_METADATA_BUDGET_BYTES = 1800;
+
+function metadataPayloadBytes(meta: Record<string, string>): number {
+  let total = 0;
+  for (const [key, value] of Object.entries(meta)) {
+    total += key.length + value.length;
+  }
+  return total;
+}
+
+/**
+ * Custom object metadata for R2 console / orphan cleanup.
+ * `text` is URL-encoded (x-amz-meta values should stay US-ASCII; Slovak needs encoding).
+ * Omits `text` when the payload would exceed the metadata budget.
+ */
+export function buildAudioObjectMetadata(options: {
+  config: AudioConfig;
+  generatedAt: string;
+  hash: string;
+  kind: AudioKind;
+  text: string;
+}): Record<string, string> {
+  const base: Record<string, string> = {
+    kind: options.kind,
+    hash: options.hash,
+    provider: options.config.provider,
+    "voice-id": options.config.voiceId,
+    "model-id": options.config.modelId,
+    "output-format": options.config.outputFormat,
+    "generated-at": options.generatedAt,
+  };
+
+  if (!options.text) return base;
+
+  const withText = {
+    ...base,
+    text: encodeURIComponent(options.text),
+  };
+
+  if (metadataPayloadBytes(withText) <= AUDIO_METADATA_BUDGET_BYTES) {
+    return withText;
+  }
+
+  return base;
+}
+
 /** List `{kind}/{hash}.mp3` keys under static/audio (skips voice-design etc.). */
 export async function listAudioObjectKeys(): Promise<string[]> {
   const keys: string[] = [];
