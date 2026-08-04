@@ -108,6 +108,277 @@ export const practiceItems: PracticeItem[] = [
     newUse: "Now answer once with your own country.",
   },
   {
+    id: "everyday/age-with-rokov",
+    source: {
+      kind: "lesson",
+      label: "Numbers and personal details",
+      href: "/lessons/everyday/numbers-and-personal-details",
+    },
+    task: {
+      id: "review-age-with-rokov",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "everyday/age-with-rokov",
+      context: [
+        {
+          id: "review-age-question",
+          speaker: "Marta",
+          slovak: "Koľko máte rokov?",
+          english: "How old are you?",
+        },
+      ],
+      prompt: "Write: “I am twenty years old.”",
+      inputLabel: "Your Slovak answer",
+      answer: "Mám dvadsať rokov.",
+      feedback: {
+        correction: "Mám dvadsať rokov.",
+        english: "I am twenty years old.",
+        why: "Slovak says I have twenty years: mám + number + rokov.",
+      },
+    },
+    feedback: {
+      correction: "Mám dvadsať rokov.",
+      english: "I am twenty years old.",
+      why: "Slovak says I have twenty years: mám + number + rokov.",
+    },
+    newUse: "Say your own age with Mám … rokov.",
+  },
+  {
+    id: "everyday/phone-number-digits",
+    source: {
+      kind: "lesson",
+      label: "Numbers and personal details",
+      href: "/lessons/everyday/numbers-and-personal-details",
+    },
+    task: {
+      id: "review-phone-number-digits",
+      type: "build",
+      practiceItemId: "everyday/phone-number-digits",
+      prompt: "Build the digits for the short number 0905.",
+      tiles: ["päť.", "deväť", "nula", "nula", "deväť", "nula"],
+      answer: ["nula", "deväť", "nula", "päť."],
+      feedback: {
+        correction: "Nula deväť nula päť.",
+        english: "Zero nine zero five.",
+        why: "Phone numbers are normally read digit by digit, not as one whole number.",
+      },
+    },
+    feedback: {
+      correction: "Nula deväť nula päť.",
+      english: "Zero nine zero five.",
+      why: "Phone numbers are normally read digit by digit, not as one whole number.",
+    },
+  },
+  {
+    id: "everyday/simple-price",
+    source: {
+      kind: "lesson",
+      label: "Numbers and personal details",
+      href: "/lessons/everyday/numbers-and-personal-details",
+    },
+    task: {
+      id: "review-simple-price",
+      type: "choice",
+      practiceItemId: "everyday/simple-price",
+      prompt: "A coffee costs five euros. Which reply answers Koľko to stojí?",
+      choices: [
+        { id: "price", label: "Stojí to päť eur." },
+        { id: "age", label: "Mám päť rokov." },
+        { id: "time", label: "O piatej." },
+      ],
+      answerId: "price",
+      feedback: {
+        correction: "Stojí to päť eur.",
+        english: "It costs five euros.",
+        why: "Koľko to stojí? asks the price. Use Stojí to + number + eur.",
+      },
+    },
+    feedback: {
+      correction: "Stojí to päť eur.",
+      english: "It costs five euros.",
+      why: "Koľko to stojí? asks the price. Use Stojí to + number + eur.",
+    },
+  },
+  {
+    id: "everyday/day-meeting",
+    source: {
+      kind: "lesson",
+      label: "Days, dates, and time",
+      href: "/lessons/everyday/days-dates-and-time",
+    },
+    task: {
+      id: "review-day-meeting",
+      type: "build",
+      practiceItemId: "everyday/day-meeting",
+      prompt: "Build: “We are meeting on Tuesday.”",
+      tiles: ["v", "Stretneme", "utorok.", "sa", "utorok."],
+      answer: ["Stretneme", "sa", "v", "utorok."],
+      feedback: {
+        correction: "Stretneme sa v utorok.",
+        english: "We are meeting on Tuesday.",
+        why: "Use v + the day of the week for an appointment day: v utorok.",
+      },
+    },
+    feedback: {
+      correction: "Stretneme sa v utorok.",
+      english: "We are meeting on Tuesday.",
+      why: "Use v + the day of the week for an appointment day: v utorok.",
+    },
+  },
+  {
+    id: "everyday/meeting-time",
+    source: {
+      kind: "lesson",
+      label: "Days, dates, and time",
+      href: "/lessons/everyday/days-dates-and-time",
+    },
+    task: {
+      id: "review-meeting-time",
+      type: "choice",
+      practiceItemId: "everyday/meeting-time",
+      prompt: "When is the meeting? It is at three o’clock.",
+      choices: [
+        { id: "three", label: "O tretej." },
+        { id: "half-three", label: "O pol tretej." },
+        { id: "day", label: "V utorok." },
+      ],
+      answerId: "three",
+      feedback: {
+        correction: "O tretej.",
+        english: "At three o’clock.",
+        why: "Use o + the ordinal time form to say when: o tretej.",
+      },
+    },
+    feedback: {
+      correction: "O tretej.",
+      english: "At three o’clock.",
+      why: "Use o + the ordinal time form to say when: o tretej.",
+    },
+  },
+  {
+    id: "everyday/half-past-time",
+    source: {
+      kind: "lesson",
+      label: "Days, dates, and time",
+      href: "/lessons/everyday/days-dates-and-time",
+    },
+    task: {
+      id: "review-half-past-time",
+      type: "choice",
+      practiceItemId: "everyday/half-past-time",
+      prompt: "Your train leaves at 2:30. Which time should you say?",
+      choices: [
+        { id: "half-past-two", label: "O pol tretej." },
+        { id: "three", label: "O tretej." },
+        { id: "half-past-three", label: "O pol štvrtej." },
+      ],
+      answerId: "half-past-two",
+      feedback: {
+        correction: "O pol tretej.",
+        english: "At half past two.",
+        why: "Slovak counts the half-hour toward the next hour: pol tretej is 2:30.",
+      },
+    },
+    feedback: {
+      correction: "O pol tretej.",
+      english: "At half past two.",
+      why: "Slovak counts the half-hour toward the next hour: pol tretej is 2:30.",
+    },
+  },
+  {
+    id: "everyday/negative-answer",
+    source: {
+      kind: "lesson",
+      label: "Negation in conversation",
+      href: "/lessons/everyday/negation-in-conversation",
+    },
+    task: {
+      id: "review-negative-answer",
+      type: "choice",
+      practiceItemId: "everyday/negative-answer",
+      prompt:
+        "A shop assistant offers a bag, but you do not need one. Which polite answer fits?",
+      choices: [
+        { id: "no-thanks", label: "Nie, ďakujem." },
+        { id: "yes-thanks", label: "Áno, ďakujem." },
+        { id: "understand", label: "Rozumiem." },
+      ],
+      answerId: "no-thanks",
+      feedback: {
+        correction: "Nie, ďakujem.",
+        english: "No, thank you.",
+        why: "Nie gives a polite no. Add ďakujem to decline courteously.",
+      },
+    },
+    feedback: {
+      correction: "Nie, ďakujem.",
+      english: "No, thank you.",
+      why: "Nie gives a polite no. Add ďakujem to decline courteously.",
+    },
+  },
+  {
+    id: "everyday/not-understand",
+    source: {
+      kind: "lesson",
+      label: "Negation in conversation",
+      href: "/lessons/everyday/negation-in-conversation",
+    },
+    task: {
+      id: "review-not-understand",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "everyday/not-understand",
+      context: [
+        {
+          id: "review-not-understand-question",
+          speaker: "Clerk",
+          slovak: "Vyplňte tento formulár.",
+          english: "Fill in this form.",
+        },
+      ],
+      prompt: "You do not understand. Write: “I do not understand.”",
+      inputLabel: "Your Slovak answer",
+      answer: "Nerozumiem.",
+      feedback: {
+        correction: "Nerozumiem.",
+        english: "I do not understand.",
+        why: "Negation attaches to the verb: rozumiem becomes nerozumiem.",
+      },
+    },
+    feedback: {
+      correction: "Nerozumiem.",
+      english: "I do not understand.",
+      why: "Negation attaches to the verb: rozumiem becomes nerozumiem.",
+    },
+    newUse: "Follow with Prosím, pomalšie. — “Please, more slowly.”",
+  },
+  {
+    id: "everyday/negative-verb-placement",
+    source: {
+      kind: "lesson",
+      label: "Negation in conversation",
+      href: "/lessons/everyday/negation-in-conversation",
+    },
+    task: {
+      id: "review-negative-verb-placement",
+      type: "build",
+      practiceItemId: "everyday/negative-verb-placement",
+      prompt: "Build: “I do not have time.”",
+      tiles: ["čas.", "Nie", "Nemám", "čas."],
+      answer: ["Nemám", "čas."],
+      feedback: {
+        correction: "Nemám čas.",
+        english: "I do not have time.",
+        why: "Nie attaches to the verb as a negative form: mám becomes nemám, not nie mám.",
+      },
+    },
+    feedback: {
+      correction: "Nemám čas.",
+      english: "I do not have time.",
+      why: "Nie attaches to the verb as a negative form: mám becomes nemám, not nie mám.",
+    },
+  },
+  {
     id: "grammar/first-person-reading",
     source: {
       kind: "lesson",
@@ -631,6 +902,219 @@ export const practiceItems: PracticeItem[] = [
     },
   },
   {
+    id: "grammar/byt-som",
+    source: {
+      kind: "lesson",
+      label: "Present forms of byť",
+      href: "/lessons/grammar/byt-present",
+    },
+    task: {
+      id: "review-byt-som",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "grammar/byt-som",
+      context: [
+        {
+          id: "review-byt-som-introduction",
+          speaker: "Marta",
+          slovak: "Ahoj! Ako sa voláš?",
+          english: "Hi! What is your name?",
+        },
+      ],
+      prompt: "Introduce yourself. Write: “I am Alex.”",
+      inputLabel: "Your Slovak answer",
+      answer: "Som Alex.",
+      feedback: {
+        correction: "Som Alex.",
+        english: "I am Alex.",
+        why: "Som is the first-person singular present form of byť, “to be.”",
+      },
+    },
+    feedback: {
+      correction: "Som Alex.",
+      english: "I am Alex.",
+      why: "Som is the first-person singular present form of byť, “to be.”",
+    },
+    newUse: "Now say: Som študent / Som študentka.",
+  },
+  {
+    id: "grammar/byt-ste",
+    source: {
+      kind: "lesson",
+      label: "Present forms of byť",
+      href: "/lessons/grammar/byt-present",
+    },
+    task: {
+      id: "review-byt-ste",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "grammar/byt-ste",
+      context: [
+        {
+          id: "review-byt-ste-call",
+          speaker: "Colleague",
+          slovak: "Som pri vchode.",
+          english: "I am by the entrance.",
+        },
+      ],
+      prompt: "Ask a colleague politely: “Where are you?”",
+      inputLabel: "Your Slovak question",
+      answer: "Kde ste?",
+      feedback: {
+        correction: "Kde ste?",
+        english: "Where are you?",
+        why: "Ste is the present form of byť for formal singular you or plural you.",
+      },
+    },
+    feedback: {
+      correction: "Kde ste?",
+      english: "Where are you?",
+      why: "Ste is the present form of byť for formal singular you or plural you.",
+    },
+  },
+  {
+    id: "grammar/byt-je-location",
+    source: {
+      kind: "lesson",
+      label: "Present forms of byť",
+      href: "/lessons/grammar/byt-present",
+    },
+    task: {
+      id: "review-byt-je-location",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "grammar/byt-je-location",
+      context: [
+        {
+          id: "review-byt-je-location-question",
+          speaker: "Marta",
+          slovak: "Kde je Peter?",
+          english: "Where is Peter?",
+        },
+      ],
+      prompt: "Answer: “He is in Bratislava.”",
+      inputLabel: "Your Slovak answer",
+      answer: "Je v Bratislave.",
+      feedback: {
+        correction: "Je v Bratislave.",
+        english: "He/She is in Bratislava.",
+        why: "Je is he/she/it is. After v for location, Bratislava changes to v Bratislave.",
+      },
+    },
+    feedback: {
+      correction: "Je v Bratislave.",
+      english: "He/She is in Bratislava.",
+      why: "Je is he/she/it is. After v for location, Bratislava changes to v Bratislave.",
+    },
+    newUse: "Ask: Kde je Peter?",
+  },
+  {
+    id: "grammar/mat-mam",
+    source: {
+      kind: "lesson",
+      label: "Present forms of mať",
+      href: "/lessons/grammar/mat-present",
+    },
+    task: {
+      id: "review-mat-mam",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "grammar/mat-mam",
+      context: [
+        {
+          id: "review-mat-mam-question",
+          speaker: "Marta",
+          slovak: "Máš teraz chvíľu?",
+          english: "Do you have a moment now?",
+        },
+      ],
+      prompt: "Say: “I have time.”",
+      inputLabel: "Your Slovak answer",
+      answer: "Mám čas.",
+      feedback: {
+        correction: "Mám čas.",
+        english: "I have time.",
+        why: "Mám is the first-person singular present form of mať, “to have.”",
+      },
+    },
+    feedback: {
+      correction: "Mám čas.",
+      english: "I have time.",
+      why: "Mám is the first-person singular present form of mať, “to have.”",
+    },
+  },
+  {
+    id: "grammar/mat-mas",
+    source: {
+      kind: "lesson",
+      label: "Present forms of mať",
+      href: "/lessons/grammar/mat-present",
+    },
+    task: {
+      id: "review-mat-mas",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "grammar/mat-mas",
+      context: [
+        {
+          id: "review-mat-mas-train",
+          speaker: "Conductor",
+          slovak: "Prosím, lístok.",
+          english: "Ticket, please.",
+        },
+      ],
+      prompt: "Ask a friend informally: “Do you have a ticket?”",
+      inputLabel: "Your Slovak question",
+      answer: "Máš lístok?",
+      feedback: {
+        correction: "Máš lístok?",
+        english: "Do you have a ticket?",
+        why: "Máš is the present form of mať for one person you address informally.",
+      },
+    },
+    feedback: {
+      correction: "Máš lístok?",
+      english: "Do you have a ticket?",
+      why: "Máš is the present form of mať for one person you address informally.",
+    },
+  },
+  {
+    id: "grammar/mat-nemam",
+    source: {
+      kind: "lesson",
+      label: "Present forms of mať",
+      href: "/lessons/grammar/mat-present",
+    },
+    task: {
+      id: "review-mat-nemam",
+      type: "typed",
+      task: "complete",
+      practiceItemId: "grammar/mat-nemam",
+      context: [
+        {
+          id: "review-mat-nemam-invitation",
+          speaker: "Marta",
+          slovak: "Poďme na kávu.",
+          english: "Let’s go for coffee.",
+        },
+      ],
+      prompt: "You cannot go now. Say: “I don’t have time.”",
+      inputLabel: "Your Slovak answer",
+      answer: "Nemám čas.",
+      feedback: {
+        correction: "Nemám čas.",
+        english: "I don’t have time.",
+        why: "Negation attaches to the verb: mám becomes nemám, not nie mám.",
+      },
+    },
+    feedback: {
+      correction: "Nemám čas.",
+      english: "I don’t have time.",
+      why: "Negation attaches to the verb: mám becomes nemám, not nie mám.",
+    },
+    newUse: "Add: Prepáč, nemám čas.",
+  },
+  {
     id: "pronunciation/dakujem-stress",
     source: {
       kind: "lesson",
@@ -909,6 +1393,55 @@ export const practiceSets: PracticeSet[] = [
     summary: "Keep the first beat steady when thanking someone or offering help.",
     track: "pronunciation",
     itemIds: ["pronunciation/thanks-phrase", "pronunciation/pomozem-stress"],
+  },
+  {
+    id: "numbers-and-personal-details",
+    lessonId: "everyday/numbers-and-personal-details",
+    title: "Numbers and personal details",
+    summary: "Say your age, read phone digits, and ask or answer a simple price.",
+    track: "everyday",
+    itemIds: [
+      "everyday/age-with-rokov",
+      "everyday/phone-number-digits",
+      "everyday/simple-price",
+    ],
+  },
+  {
+    id: "days-dates-and-time",
+    lessonId: "everyday/days-dates-and-time",
+    title: "Days, dates, and time",
+    summary: "Arrange a meeting day and say whole-hour and half-hour times.",
+    track: "everyday",
+    itemIds: ["everyday/day-meeting", "everyday/meeting-time", "everyday/half-past-time"],
+  },
+  {
+    id: "negation-in-conversation",
+    lessonId: "everyday/negation-in-conversation",
+    title: "Negation in conversation",
+    summary: "Decline politely and use negative verb forms in everyday replies.",
+    track: "everyday",
+    itemIds: [
+      "everyday/negative-answer",
+      "everyday/not-understand",
+      "everyday/negative-verb-placement",
+    ],
+  },
+  {
+    id: "byt-present",
+    lessonId: "grammar/byt-present",
+    title: "Present forms of byť",
+    summary:
+      "Introduce yourself, address someone formally, and place a person in Bratislava.",
+    track: "grammar",
+    itemIds: ["grammar/byt-som", "grammar/byt-ste", "grammar/byt-je-location"],
+  },
+  {
+    id: "mat-present",
+    lessonId: "grammar/mat-present",
+    title: "Present forms of mať",
+    summary: "Say what you have, ask a friend about a ticket, and negate mať naturally.",
+    track: "grammar",
+    itemIds: ["grammar/mat-mam", "grammar/mat-mas", "grammar/mat-nemam"],
   },
 ];
 

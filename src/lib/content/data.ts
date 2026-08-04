@@ -729,6 +729,52 @@ export const grammarEntries: GrammarTopic[] = [
     },
     watchOut:
       "A final letter can suggest gender, but it does not guarantee it. Learn the noun and its pattern together.",
+    nextSlug: "numbers-and-numerals",
+  },
+  {
+    slug: "numbers-and-numerals",
+    slovak: "číslovky",
+    english: "numbers and numerals",
+    category: "Nouns",
+    kind: "grammar",
+    summary: "Numbers change the form that follows them, especially from five upward.",
+    body: [
+      "Use jeden with a singular noun. Dva or dve, tri, and štyri use different quantity patterns; dva is masculine and neuter, while dve is feminine and neuter.",
+      "With päť and higher numbers, the following noun usually uses a genitive plural form. Learn useful whole phrases for ages, prices, and quantities before tackling full declension tables.",
+    ],
+    examples: [
+      {
+        slovak: "Mám dvadsať rokov.",
+        english: "I am twenty years old.",
+        practiceItemId: "everyday/age-with-rokov",
+      },
+      {
+        slovak: "Stojí to päť eur.",
+        english: "It costs five euros.",
+        practiceItemId: "everyday/simple-price",
+      },
+    ],
+    related: ["grammatical-gender", "questions", "kolko", "mat-present"],
+    source: languageSource,
+    tags: ["nouns", "numbers", "beginner"],
+    lookFor:
+      "Notice whether the number is jeden, dva/dve, tri/štyri, or päť and higher. The noun form changes with the group.",
+    pathGroup: "Nouns",
+    order: 5,
+    rule: [
+      "Jeden goes with a singular noun; dva/dve, tri, and štyri use plural-like noun forms.",
+      "Päť and higher numbers usually take a genitive plural noun form.",
+    ],
+    pattern: {
+      label: "Quantity patterns",
+      lines: [
+        "jeden lístok · one ticket",
+        "dva / dve, tri, štyri + quantity form",
+        "päť+ + genitive plural",
+      ],
+    },
+    watchOut:
+      "Do not assume every number uses the same noun form. Start with fixed phrases such as dvadsať rokov and päť eur.",
     nextSlug: "cases-overview",
   },
   {
@@ -752,7 +798,7 @@ export const grammarEntries: GrammarTopic[] = [
         practiceItemId: "grammar/first-person-reading",
       },
     ],
-    related: ["rozumiem", "hovorit", "ucit-sa"],
+    related: ["rozumiem", "hovorit", "ucit-sa", "byt-present", "mat-present"],
     source: languageSource,
     tags: ["verbs", "present tense", "beginner"],
     lookFor: "Find the final letters on the verb. They tell you who is doing the action.",
@@ -775,10 +821,119 @@ export const grammarEntries: GrammarTopic[] = [
     },
     watchOut:
       "The infinitive is not a shortcut to the present tense. Learn each verb's stem and endings together.",
-    nextSlug: "word-order",
+    nextSlug: "byt-present",
     lessonLink: {
       href: "/lessons/grammar/present-tense-i",
       label: "Present-tense endings",
+    },
+  },
+  {
+    slug: "byt-present",
+    slovak: "byť",
+    english: "to be (present)",
+    category: "Verbs",
+    kind: "grammar",
+    summary: "Use byť to say who or what someone is, and where someone or something is.",
+    body: [
+      "Byť is irregular in the present tense: som, si, je, sme, ste, sú. Slovak often leaves out the subject pronoun because the verb form already identifies it.",
+      "Use byť for identity and location: Som študent. and Kaviareň je tu. Do not use byť for age; Slovak says Mám dvadsať rokov.",
+    ],
+    examples: [
+      {
+        slovak: "Som študent.",
+        english: "I am a student.",
+        practiceItemId: "grammar/byt-som",
+      },
+      {
+        slovak: "Ste z Kanady?",
+        english: "Are you from Canada?",
+        practiceItemId: "grammar/byt-ste",
+      },
+      {
+        slovak: "Kaviareň je tu.",
+        english: "The café is here.",
+        practiceItemId: "grammar/byt-je-location",
+      },
+    ],
+    related: ["mat-present", "present-tense", "ty-vs-vy", "negation"],
+    source: languageSource,
+    tags: ["verbs", "present tense", "beginner"],
+    lookFor:
+      "Find the form of byť, then identify whether it gives an identity or a location.",
+    pathGroup: "Verbs",
+    order: 4,
+    rule: [
+      "The present forms of byť are som, si, je, sme, ste, and sú.",
+      "Use byť for identity and location; use mať with rokov to state age.",
+    ],
+    pattern: {
+      label: "Byť — to be",
+      lines: ["ja som", "ty si", "on / ona / ono je", "my sme", "vy ste", "oni / ony sú"],
+    },
+    watchOut:
+      "Do not translate English age with byť. Say Mám dvadsať rokov, literally “I have twenty years.”",
+    nextSlug: "mat-present",
+    lessonLink: {
+      href: "/lessons/grammar/byt-present",
+      label: "Present forms of byť",
+    },
+  },
+  {
+    slug: "mat-present",
+    slovak: "mať",
+    english: "to have (present)",
+    category: "Verbs",
+    kind: "grammar",
+    summary: "Use mať to say what you have and how old you are.",
+    body: [
+      "Mať is irregular in the present tense: mám, máš, má, máme, máte, majú. Use it for possession, availability, and age.",
+      "Slovak states age with mať: Mám dvadsať rokov. Máš is informal singular “you have”; máte is formal singular or plural “you have.”",
+    ],
+    examples: [
+      {
+        slovak: "Mám čas.",
+        english: "I have time.",
+        practiceItemId: "grammar/mat-mam",
+      },
+      {
+        slovak: "Máš kartu?",
+        english: "Do you have a card?",
+        practiceItemId: "grammar/mat-mas",
+      },
+      {
+        slovak: "Nemám hotovosť.",
+        english: "I do not have cash.",
+        practiceItemId: "grammar/mat-nemam",
+      },
+    ],
+    related: ["byt-present", "numbers-and-numerals", "negation", "ty-vs-vy"],
+    source: languageSource,
+    tags: ["verbs", "present tense", "beginner"],
+    lookFor:
+      "Match the mať ending to the person, then notice ne- attached in negative forms.",
+    pathGroup: "Verbs",
+    order: 5,
+    rule: [
+      "The present forms of mať are mám, máš, má, máme, máte, and majú.",
+      "Use mať with rokov for age, and use máte for formal singular or plural you.",
+    ],
+    pattern: {
+      label: "Mať — to have",
+      lines: [
+        "ja mám",
+        "ty máš",
+        "on / ona / ono má",
+        "my máme",
+        "vy máte",
+        "oni / ony majú",
+      ],
+    },
+    watchOut:
+      "Do not say Som dvadsať rokov for age. Use Mám dvadsať rokov; attach ne- to make nemám.",
+    nextSlug: "word-order",
+    lessonLink: {
+      href: "/lessons/grammar/mat-present",
+      label: "Present forms of mať",
     },
   },
   {
@@ -878,7 +1033,7 @@ export const grammarEntries: GrammarTopic[] = [
       { slovak: "Peter číta knihu.", english: "Peter is reading a book." },
       { slovak: "Knihu číta Peter.", english: "It is Peter who is reading the book." },
     ],
-    related: ["present-tense", "cases-overview"],
+    related: ["present-tense", "cases-overview", "ty-vs-vy"],
     source: languageSource,
     tags: ["sentences", "word order", "intermediate"],
     lookFor: "Compare what moves to the front. That position receives emphasis.",
@@ -894,6 +1049,173 @@ export const grammarEntries: GrammarTopic[] = [
     },
     watchOut:
       "Flexible does not mean random. Put familiar information earlier and the new or emphasized part later.",
+    nextSlug: "ty-vs-vy",
+  },
+  {
+    slug: "ty-vs-vy",
+    slovak: "tykanie a vykanie",
+    english: "informal and formal you",
+    category: "Sentences",
+    kind: "grammar",
+    summary:
+      "Use ty with one person informally and vy for formal address or more than one person.",
+    body: [
+      "Use ty with friends, family, children, and people who invite you to be informal. Use vy with strangers, customers, older people, or professional contacts until they suggest ty.",
+      "Vy takes plural verb forms even for one person: Máte čas? Informal ty uses singular forms: Máš čas? Use Prepáč informally and Prepáčte formally. In letters to one formal addressee, capitalize Vy, Vám, and Váš.",
+    ],
+    examples: [
+      {
+        slovak: "Ako sa máte?",
+        english: "How are you? (formal)",
+        practiceItemId: "everyday/formal-greeting",
+      },
+      {
+        slovak: "Prepáč, nerozumiem.",
+        english: "Sorry, I do not understand. (informal)",
+      },
+      {
+        slovak: "Prepáčte, nerozumiem.",
+        english: "Sorry, I do not understand. (formal)",
+      },
+    ],
+    related: ["questions", "word-order", "byt-present", "mat-present"],
+    source: languageSource,
+    tags: ["sentences", "formality", "beginner"],
+    lookFor: "Check whether the situation calls for ty or vy, then match the verb form.",
+    pathGroup: "Sentences",
+    order: 5,
+    rule: [
+      "Use ty with one person informally and vy for formal address or more than one person.",
+      "Formal vy uses plural verb forms; capitalize Vy, Vám, and Váš in letters to one formal addressee.",
+    ],
+    pattern: {
+      label: "Informal and formal address",
+      lines: [
+        "ty máš · informal singular",
+        "vy máte · formal singular or plural",
+        "Prepáč · informal / Prepáčte · formal",
+      ],
+    },
+    watchOut:
+      "Do not mix ty forms with vy forms in one conversation. Formal Vy is capitalized in letters to one person, not in ordinary plural vy.",
+    nextSlug: "negation",
+    lessonLink: {
+      href: "/lessons/everyday/meet-someone",
+      label: "Greetings and introductions",
+    },
+  },
+  {
+    slug: "negation",
+    slovak: "zápor",
+    english: "negation",
+    category: "Sentences",
+    kind: "grammar",
+    summary: "Slovak usually makes a finite verb negative with ne-.",
+    body: [
+      "Attach ne- to a finite verb: mám becomes nemám and rozumiem becomes nerozumiem. Nie can stand alone as “no,” but it does not normally sit separately before a finite verb.",
+      "Learn common negative verb forms as whole words. Slovak also regularly uses verbal negation with negative words such as nikto and nič.",
+    ],
+    examples: [
+      {
+        slovak: "Nie, ďakujem.",
+        english: "No, thank you.",
+        practiceItemId: "everyday/negative-answer",
+      },
+      {
+        slovak: "Nerozumiem.",
+        english: "I do not understand.",
+        practiceItemId: "everyday/not-understand",
+      },
+      {
+        slovak: "Nemám čas.",
+        english: "I do not have time.",
+        practiceItemId: "everyday/negative-verb-placement",
+      },
+    ],
+    related: ["word-order", "questions", "nie", "rozumiem", "byt-present", "mat-present"],
+    source: languageSource,
+    tags: ["sentences", "negation", "beginner"],
+    lookFor: "Find ne- attached to the finite verb: nemám, nerozumiem, neviem.",
+    pathGroup: "Sentences",
+    order: 6,
+    rule: [
+      "Form most finite verb negatives with ne- attached to the verb.",
+      "Use nie alone for a negative answer; do not usually say nie mám or nie rozumiem.",
+    ],
+    pattern: {
+      label: "Negation attaches to the verb",
+      lines: ["mám → nemám", "rozumiem → nerozumiem", "Nie, ďakujem. → No, thank you."],
+    },
+    watchOut: "Double negation is normal in Slovak: Nikto nevolal means “Nobody called.”",
+    nextSlug: "questions",
+    lessonLink: {
+      href: "/lessons/everyday/negation-in-conversation",
+      label: "Negation in conversation",
+    },
+  },
+  {
+    slug: "questions",
+    slovak: "otázky",
+    english: "questions",
+    category: "Sentences",
+    kind: "grammar",
+    summary:
+      "Use question words for information, or statement order with rising intonation for yes/no questions.",
+    body: [
+      "Question words such as kto, čo, kde, odkiaľ, and koľko usually come first. The rest of the question keeps normal Slovak word order.",
+      "Yes/no questions often keep statement order and use rising intonation in speech: Hovoríte po slovensky? There is no English-style do-support.",
+    ],
+    examples: [
+      {
+        slovak: "Odkiaľ ste?",
+        english: "Where are you from?",
+        practiceItemId: "everyday/ask-origin",
+      },
+      {
+        slovak: "Koľko to stojí?",
+        english: "How much does it cost?",
+        practiceItemId: "everyday/simple-price",
+      },
+      {
+        slovak: "O koľkej?",
+        english: "At what time?",
+        practiceItemId: "everyday/meeting-time",
+      },
+    ],
+    related: [
+      "word-order",
+      "negation",
+      "numbers-and-numerals",
+      "ty-vs-vy",
+      "kto",
+      "co",
+      "kde",
+      "kolko",
+    ],
+    source: languageSource,
+    tags: ["sentences", "questions", "beginner"],
+    lookFor:
+      "Identify the question word first, then notice that the rest keeps ordinary Slovak sentence order.",
+    pathGroup: "Sentences",
+    order: 7,
+    rule: [
+      "Put a question word first when you ask for information.",
+      "For many yes/no questions, keep statement order and signal the question with intonation.",
+    ],
+    pattern: {
+      label: "Question word or intonation",
+      lines: [
+        "Odkiaľ ste? · Where are you from?",
+        "Koľko to stojí? · How much does it cost?",
+        "Hovoríte po slovensky? · Do you speak Slovak?",
+      ],
+    },
+    watchOut:
+      "Do not add an English-style auxiliary. Hovoríte po slovensky? is already a complete yes/no question.",
+    lessonLink: {
+      href: "/lessons/everyday/meet-someone",
+      label: "Greetings and introductions",
+    },
   },
 ];
 
@@ -1078,6 +1400,42 @@ export const caseTopicBySlug = new Map(caseTopics.map((topic) => [topic.slug, to
 
 export const pronunciationEntries: PronunciationTopic[] = [
   {
+    slug: "slovak-alphabet",
+    slovak: "slovenská abeceda",
+    english: "Slovak alphabet",
+    category: "Spelling",
+    kind: "pronunciation",
+    summary: "Learn the letters, diacritics, and ch as one Slovak digraph.",
+    body: [
+      "The Slovak alphabet has 46 letters, including letters with diacritics and the digraphs dz, dž, and ch. Acute marks show long vowels, while the caron marks several changed consonants and vowels.",
+      "Treat ch as one letter in the alphabet and as one sound in a word. It comes after h in alphabetical order, so chlieb begins with the single digraph ch, not a separate c followed by h.",
+    ],
+    examples: [
+      { slovak: "čo", english: "what" },
+      { slovak: "žena", english: "woman" },
+      { slovak: "chlieb", english: "bread" },
+    ],
+    related: ["soft-consonants", "vowel-length", "co", "zena", "dakujem"],
+    source: languageSource,
+    tags: ["alphabet", "spelling", "beginner"],
+    pathGroup: "Spelling",
+    order: 1,
+    goal: "Recognize Slovak letters and the digraph ch.",
+    contrasts: [
+      { left: "c", right: "č", note: "plain c / caron" },
+      { left: "s", right: "š", note: "plain s / caron" },
+      { left: "ch", right: "c + h", note: "one digraph / two letters" },
+    ],
+    mouthCue:
+      "Read each marked letter clearly, then make ch as one breathy sound instead of pausing between c and h.",
+    practiceWords: ["čo", "žena", "chlieb"],
+    practicePhrase: {
+      slovak: "Čo je chlieb?",
+      english: "What is bread?",
+    },
+    nextSlug: "first-syllable-stress",
+  },
+  {
     slug: "first-syllable-stress",
     slovak: "prízvuk na prvej slabike",
     english: "first-syllable stress",
@@ -1092,11 +1450,11 @@ export const pronunciationEntries: PronunciationTopic[] = [
       { slovak: "BRAtislava", english: "Bratislava" },
       { slovak: "ĎAkujem", english: "thank you" },
     ],
-    related: ["dakujem", "vowel-length"],
+    related: ["dakujem", "vowel-length", "rhythmic-law"],
     source: languageSource,
     tags: ["stress", "rhythm", "beginner"],
     pathGroup: "Rhythm",
-    order: 1,
+    order: 2,
     goal: "Hear and place the steady first-syllable beat.",
     contrasts: [
       { left: "BRAtislava", right: "bra-ti-SLA-va", note: "Stress first syllable" },
@@ -1106,6 +1464,47 @@ export const pronunciationEntries: PronunciationTopic[] = [
       "Give the first syllable a small lift. Keep the rest even; do not stretch it for stress.",
     practiceWords: ["Bratislava", "ďakujem", "prosím"],
     practicePhrase: { slovak: "Ďakujem za pomoc.", english: "Thank you for the help." },
+    nextSlug: "rhythmic-law",
+  },
+  {
+    slug: "rhythmic-law",
+    slovak: "rytmický zákon",
+    english: "rhythmic law",
+    category: "Rhythm",
+    kind: "pronunciation",
+    summary: "Native Slovak generally avoids two successive long syllables.",
+    body: [
+      "In native Slovak words, two long syllables usually do not follow one another. A long vowel or diphthong counts as a long syllable nucleus, so the next syllable is often shortened.",
+      "This is why speakers say krásny rather than *krásný, bývam rather than *bývám, and múdry rather than *múdrý.",
+      "Loans, some morphological environments, and compounds can be exceptions. Treat the rhythmic law as a strong native-word tendency, not a rule for generating every form.",
+    ],
+    examples: [
+      { slovak: "krásny", english: "beautiful" },
+      { slovak: "bývam", english: "I live" },
+      { slovak: "múdry", english: "clever; wise" },
+    ],
+    related: ["vowel-length", "first-syllable-stress"],
+    source: languageSource,
+    tags: ["rhythm", "vowels", "intermediate"],
+    pathGroup: "Rhythm",
+    order: 3,
+    goal: "Hear and produce the shortening that prevents two successive long syllables.",
+    contrasts: [
+      {
+        left: "krásny",
+        right: "krásný",
+        note: "standard Slovak / two long syllables avoided",
+      },
+      { left: "bývam", right: "bývám", note: "standard Slovak / second vowel shortened" },
+      { left: "múdry", right: "múdrý", note: "standard Slovak / second vowel shortened" },
+    ],
+    mouthCue:
+      "Hold the first long vowel or diphthong, then keep the following syllable short and light instead of stretching both.",
+    practiceWords: ["krásny", "bývam", "múdry", "mlieko"],
+    practicePhrase: {
+      slovak: "Bývam v krásnom dome.",
+      english: "I live in a beautiful house.",
+    },
     nextSlug: "vowel-length",
   },
   {
@@ -1123,11 +1522,11 @@ export const pronunciationEntries: PronunciationTopic[] = [
       { slovak: "káva", english: "coffee" },
       { slovak: "lístok", english: "ticket" },
     ],
-    related: ["kava", "listok", "first-syllable-stress"],
+    related: ["kava", "listok", "first-syllable-stress", "rhythmic-law"],
     source: languageSource,
     tags: ["vowels", "length", "beginner"],
     pathGroup: "Vowels",
-    order: 2,
+    order: 4,
     goal: "Hold marked vowels longer without moving the stress.",
     contrasts: [
       { left: "a", right: "á", note: "short / long" },
@@ -1158,7 +1557,7 @@ export const pronunciationEntries: PronunciationTopic[] = [
     source: languageSource,
     tags: ["consonants", "diacritics", "beginner"],
     pathGroup: "Consonants",
-    order: 3,
+    order: 5,
     goal: "Treat marked consonants as distinct sounds, not decorated letters.",
     contrasts: [
       { left: "c", right: "č", note: "plain / caron" },

@@ -1,6 +1,7 @@
 <script lang="ts">
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
+  import SlovakAlphabetIllustration from "$lib/components/SlovakAlphabetIllustration.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { sentenceCase } from "$lib/content/search-ui";
@@ -65,6 +66,17 @@
             </p>
           {/each}
         </section>
+
+        {#if topic.slug === "slovak-alphabet"}
+          <section
+            class="scroll-mt-[72px] border-t border-slate-200 pt-8"
+            aria-labelledby="alphabet-heading"
+          >
+            <Eyebrow>Alphabet</Eyebrow>
+            <h2 id="alphabet-heading" class="mb-3 text-2xl">Letters</h2>
+            <SlovakAlphabetIllustration class="mt-6" />
+          </section>
+        {/if}
 
         <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
           <Eyebrow>Listen for</Eyebrow>

@@ -131,12 +131,53 @@ describe("Slovak content", () => {
       expect(lessonById.has(set.lessonId)).toBe(true);
     }
 
-    expect(practiceSets).toHaveLength(5);
+    expect(practiceSets).toHaveLength(10);
     const present = practiceSetForLesson("grammar/present-tense-i");
     expect(present?.id).toBe("present-tense-i");
     expect(present?.sessionSize).toBe(7);
     expect(present?.itemIds.length).toBeGreaterThan(7);
     expect(practiceSessionCount(present!)).toBe(7);
+
+    expect(practiceSetForLesson("everyday/numbers-and-personal-details")?.id).toBe(
+      "numbers-and-personal-details",
+    );
+    expect(practiceSetForLesson("everyday/days-dates-and-time")?.id).toBe(
+      "days-dates-and-time",
+    );
+    expect(practiceSetForLesson("everyday/negation-in-conversation")?.id).toBe(
+      "negation-in-conversation",
+    );
+    expect(practiceSetForLesson("grammar/byt-present")?.id).toBe("byt-present");
+    expect(practiceSetForLesson("grammar/mat-present")?.id).toBe("mat-present");
+  });
+
+  it("publishes expanded alphabet, everyday, and grammar reference content", () => {
+    expect(entryBySlug.has("slovak-alphabet")).toBe(true);
+    expect(entryBySlug.has("numbers-and-numerals")).toBe(true);
+    expect(entryBySlug.has("negation")).toBe(true);
+    expect(entryBySlug.has("questions")).toBe(true);
+    expect(entryBySlug.has("byt-present")).toBe(true);
+    expect(entryBySlug.has("mat-present")).toBe(true);
+    expect(entryBySlug.has("ty-vs-vy")).toBe(true);
+    expect(entryBySlug.has("rhythmic-law")).toBe(true);
+
+    expect(lessonById.has("everyday/numbers-and-personal-details")).toBe(true);
+    expect(lessonById.has("everyday/days-dates-and-time")).toBe(true);
+    expect(lessonById.has("everyday/negation-in-conversation")).toBe(true);
+    expect(lessonById.has("grammar/byt-present")).toBe(true);
+    expect(lessonById.has("grammar/mat-present")).toBe(true);
+
+    for (const lessonId of [
+      "everyday/numbers-and-personal-details",
+      "everyday/days-dates-and-time",
+      "everyday/negation-in-conversation",
+      "grammar/byt-present",
+      "grammar/mat-present",
+    ] as const) {
+      const lesson = lessonById.get(lessonId)!;
+      const graded = lesson.exercises.filter((exercise) => exercise.type !== "personal");
+      expect(graded.length).toBeGreaterThanOrEqual(2);
+    }
   });
 
   it("samples a shuffled practice session from the pool", () => {
