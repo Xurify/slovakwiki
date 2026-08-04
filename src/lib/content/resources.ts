@@ -328,6 +328,39 @@ export const learningResources: LearningResource[] = [
     featured: true,
   },
   {
+    id: "omniglot-slovak",
+    group: "grammar",
+    name: "Omniglot — Slovak",
+    href: "https://www.omniglot.com/writing/slovak.htm",
+    summary:
+      "Alphabet chart with letter audio, sample text recording, plus Omniglot’s Slovak phrase, number, kinship, and idiom tables. Good quick orthography / survival-vocab reference.",
+    note: "Many of Omniglot’s older outbound “online lessons” links are dead or parked — use the Omniglot pages themselves, or our other Resources entries (e.g. slovake.eu).",
+    cost: "free",
+    level: "A1",
+    links: [
+      {
+        href: "https://www.omniglot.com/language/phrases/slovak.php",
+        label: "Useful phrases (+ audio zip)",
+      },
+      {
+        href: "https://www.omniglot.com/language/numbers/slovak.htm",
+        label: "Numbers (cardinal + ordinal)",
+      },
+      {
+        href: "https://www.omniglot.com/language/kinship/slovak.htm",
+        label: "Family / kinship words",
+      },
+      {
+        href: "https://www.omniglot.com/language/idioms/slovak.php",
+        label: "Idioms",
+      },
+      {
+        href: "https://www.omniglot.com/language/tonguetwisters/",
+        label: "Tongue twisters (incl. Slovak)",
+      },
+    ],
+  },
+  {
     id: "hlbavo",
     group: "grammar",
     name: "Hĺbavo",
