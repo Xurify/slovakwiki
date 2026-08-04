@@ -15,7 +15,13 @@
   import LessonInteraction from "$lib/components/lessons/LessonInteraction.svelte";
   import LessonPracticeSkeleton from "$lib/components/lessons/LessonPracticeSkeleton.svelte";
 
-  let { lesson }: { lesson: Lesson } = $props();
+  let {
+    lesson,
+    sceneAudioSrcs = {},
+  }: {
+    lesson: Lesson;
+    sceneAudioSrcs?: Record<string, string>;
+  } = $props();
 
   let activeIndex = $state(0);
   let finished = $state(false);
@@ -69,6 +75,10 @@
     Step {activeIndex + 1} of {lesson.exercises.length}
   </p>
   {#key currentExercise.id}
-    <LessonInteraction exercise={currentExercise} onresolve={resolveExercise} />
+    <LessonInteraction
+      exercise={currentExercise}
+      {sceneAudioSrcs}
+      onresolve={resolveExercise}
+    />
   {/key}
 {/if}

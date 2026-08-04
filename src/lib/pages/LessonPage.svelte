@@ -48,7 +48,7 @@
     <section class="scroll-mt-[88px] pt-10" aria-labelledby="scene-heading">
       <Eyebrow>Start with the scene</Eyebrow>
       <h2 id="scene-heading" class="mb-5">Read it once</h2>
-      <LessonScene scene={data.lesson.scene} />
+      <LessonScene scene={data.lesson.scene} mountPrefix="scene" />
     </section>
 
     <section
@@ -57,7 +57,7 @@
     >
       <Eyebrow>Keep these close</Eyebrow>
       <h2 id="phrases-heading" class="mb-5">Key phrases</h2>
-      <KeyPhraseList phrases={data.lesson.keyPhrases} />
+      <KeyPhraseList phrases={data.lesson.keyPhrases} mountPrefix="phrase" />
     </section>
 
     {#if data.lesson.pattern}

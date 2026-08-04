@@ -1,6 +1,6 @@
 /**
  * Upload static/audio/{kind}/*.mp3 to Cloudflare R2 (S3-compatible).
- * Object keys mirror local layout: lemma/{hash}.mp3, example/{hash}.mp3
+ * Object keys mirror local layout: lemma/{hash}.mp3, example/{hash}.mp3, lesson/{hash}.mp3
  *
  * Sets Cache-Control (immutable, 1y) + custom metadata (kind/hash/voice/text…).
  * Bun.S3Client lacks Cache-Control / x-amz-meta on this Bun version → aws4fetch PUT.
@@ -45,7 +45,9 @@ function requireEnv(name: string): string {
 }
 
 function kindFromObjectKey(objectKey: string): AudioKind {
-  return objectKey.startsWith("example/") ? "example" : "lemma";
+  if (objectKey.startsWith("lesson/")) return "lesson";
+  if (objectKey.startsWith("example/")) return "example";
+  return "lemma";
 }
 
 async function main(): Promise<void> {

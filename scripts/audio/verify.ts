@@ -34,9 +34,8 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 async function main(): Promise<void> {
-  const { lemmasOnly, limit, only, sttModel, sttProvider, whisperModel } = parseArgs(
-    process.argv.slice(2),
-  );
+  const { lemmasOnly, lessonsOnly, limit, only, sttModel, sttProvider, whisperModel } =
+    parseArgs(process.argv.slice(2));
   const config = await loadConfig();
   const manifest = await loadManifest();
   const apiKey = process.env.ELEVENLABS_API_KEY;
@@ -46,7 +45,7 @@ async function main(): Promise<void> {
     throw new Error("ELEVENLABS_API_KEY missing (needed for Scribe STT)");
   }
 
-  let targets = collectAudioTargets({ lemmasOnly });
+  let targets = collectAudioTargets({ lemmasOnly, lessonsOnly }, config);
   if (only) {
     const needle = only.toLocaleLowerCase("sk");
     targets = targets.filter((t) => t.text.toLocaleLowerCase("sk").includes(needle));
@@ -74,8 +73,9 @@ async function main(): Promise<void> {
 
   for (let i = 0; i < targets.length; i += 1) {
     const target = targets[i]!;
-    const hash = hashAudioText(target.text, config);
-    const relative = audioRelativePath(target.text, target.kind, config);
+    const voiceConfig = target.voiceConfig ?? config;
+    const hash = hashAudioText(target.text, voiceConfig);
+    const relative = audioRelativePath(target.text, target.kind, voiceConfig);
     const filePath = path.join(AUDIO_DIR, relative);
 
     if (!(await fileExists(filePath))) {

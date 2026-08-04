@@ -28,7 +28,7 @@ bun run index:search        # Pagefind for local/dev search
 | `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)   |
 | `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`      |
 | `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                      |
-| `content/audio/config.json`                   | ElevenLabs voice / model / settings (committed)                 |
+| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast |
 | `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)            |
 | `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status)   |
 | `content/images/overrides.json`               | Manual reject / force Commons file per slug                     |
@@ -57,6 +57,7 @@ Primary dictionary growth is frequency publish + example enrich. Example quality
 ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
 | `generate.ts` | `audio:generate` | Writes MP3s; `--verify` uses dual judge (Scribe+Whisper) by default; `--stt dual\|elevenlabs\|whisper`; rescue model on fail |
+| `voice-design.ts` | `audio:voice-design` | ElevenLabs Voice Design → `tmp/voice-design/`; `--create` saves preview to library + patches `characters` in config |
 | `upload.ts` | `audio:upload` | Sync to R2; `--force` / `--only`; needs `R2_*` |
 | `status.ts` | `audio:status` | Targets vs disk vs manifest |
 | `verify.ts` | `audio:verify` | Dual STT audit → `tmp/audio-verify-report.json` |
@@ -64,7 +65,11 @@ ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 | `stt.ts` | (lib) | Scribe + Whisper adapters |
 | `shared.ts` | (lib) | Hash / collect / synthesize |
 
-Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` (future: `lesson/`, `practice/`). Hash = content address; folder = how clip is used.
+Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` · `lesson/{hash}.mp3`. Hash = content address (includes voice); folder = how clip is used.
+
+Voices: top-level = dictionary Neutral; `characters` in `config.json` = lesson cast (speakers, key phrases → `guide`, narrator = dictionary). Design: `bun run audio:voice-design` (prompts in `voice-design.ts`).
+
+Generate lesson clips: `bun run audio:generate -- --lessons-only`. After voice swaps: add `--force`. Lesson content may churn — treat those MP3s as disposable.
 
 Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
 

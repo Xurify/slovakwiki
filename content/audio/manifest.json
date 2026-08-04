@@ -2451,10 +2451,12 @@
   },
   "0d52bf03e5a6fe2ab3f2": {
     "text": "Bratislava",
-    "kind": "lemma",
-    "bytes": 22613,
-    "generatedAt": "2026-08-04T05:21:16.887Z",
-    "uploadedAt": "2026-08-04T08:01:44.575Z"
+    "kind": "lesson",
+    "bytes": 20942,
+    "generatedAt": "2026-08-04T16:26:12.916Z",
+    "uploadedAt": "2026-08-04T08:01:44.575Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "aa1cfea35c58d25a266d": {
     "text": "Bratislava je európske mesto.",
@@ -4376,10 +4378,12 @@
   },
   "cdebf178eca1a693b887": {
     "text": "ďakujem",
-    "kind": "lemma",
-    "bytes": 18852,
-    "generatedAt": "2026-08-04T05:24:55.598Z",
-    "uploadedAt": "2026-08-04T08:13:48.687Z"
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:17:46.604Z",
+    "uploadedAt": "2026-08-04T08:13:48.687Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "2e31aaa76a7b4ead6f4c": {
     "text": "Ďakujem pekne.",
@@ -5433,10 +5437,12 @@
   },
   "ed31e078994273900b5a": {
     "text": "Dnes je pondelok.",
-    "kind": "example",
-    "bytes": 25539,
-    "generatedAt": "2026-08-04T05:26:56.365Z",
-    "uploadedAt": "2026-08-04T07:58:20.383Z"
+    "kind": "lesson",
+    "bytes": 24285,
+    "generatedAt": "2026-08-04T16:26:18.271Z",
+    "uploadedAt": "2026-08-04T07:58:20.383Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "356768dddf8df6543a2c": {
     "text": "Dnes je prvý jarný deň.",
@@ -16920,10 +16926,12 @@
   },
   "43d80a24d83365c304cc": {
     "text": "Koľko to stojí?",
-    "kind": "example",
+    "kind": "lesson",
     "bytes": 23449,
-    "generatedAt": "2026-08-04T05:48:50.299Z",
-    "uploadedAt": "2026-08-04T07:34:33.256Z"
+    "generatedAt": "2026-08-04T16:26:21.291Z",
+    "uploadedAt": "2026-08-04T07:34:33.256Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "d26ff0d834c90f22a0e7": {
     "text": "Koľko trvá chvíľa?",
@@ -28890,10 +28898,12 @@
   },
   "e2511bffb4f45a87e6be": {
     "text": "Nie, ďakujem.",
-    "kind": "example",
-    "bytes": 23449,
-    "generatedAt": "2026-08-04T06:12:06.544Z",
-    "uploadedAt": "2026-08-04T07:56:43.563Z"
+    "kind": "lesson",
+    "bytes": 20942,
+    "generatedAt": "2026-08-04T16:26:27.595Z",
+    "uploadedAt": "2026-08-04T07:56:43.563Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "da0004368f4de2d932ab": {
     "text": "Niečo jej priniesol.",
@@ -66813,5 +66823,1221 @@
     "bytes": 18016,
     "generatedAt": "2026-08-04T07:25:13.035Z",
     "uploadedAt": "2026-08-04T08:11:53.684Z"
+  },
+  "ab46fff1530966dbfe06": {
+    "text": "A vaše telefónne číslo?",
+    "kind": "lesson",
+    "bytes": 31391,
+    "generatedAt": "2026-08-04T16:07:03.051Z",
+    "characterId": "maria",
+    "voiceId": "dl4FkEvdYqvECrmvMbnF"
+  },
+  "dea6ddc0d50b3379abd3": {
+    "text": "Áno, čítam.",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:03.921Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "861f473a91b4b1e9923e": {
+    "text": "Áno, mám čas.",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:04.658Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "7c14cde0bb5d1f7dc894": {
+    "text": "Áno, som Alex.",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:05.476Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "5fbb03ccc21a2f5b0fe6": {
+    "text": "Áno, som.",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:07:06.207Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "bc3b38a1ae848fd6b166": {
+    "text": "Áno. O tretej?",
+    "kind": "lesson",
+    "bytes": 24703,
+    "generatedAt": "2026-08-04T16:07:06.959Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "69b08e6bb1a885e4477e": {
+    "text": "Áno. Sme tu s priateľmi.",
+    "kind": "lesson",
+    "bytes": 28465,
+    "generatedAt": "2026-08-04T16:07:07.840Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "c521d06f16311e534c59": {
+    "text": "Bratislava",
+    "kind": "lesson",
+    "bytes": 20942,
+    "generatedAt": "2026-08-04T16:07:08.798Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "c20d38332105399cde12": {
+    "text": "číta",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:07:09.580Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "bc8cfcfa2fc70eae7c1c": {
+    "text": "čítajú",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:07:10.284Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "3bfaa754b734ed0d1821": {
+    "text": "čítam",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:07:11.058Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "ab1e7960ae2507401b30": {
+    "text": "čítame",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:07:11.853Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "f607b1e61cdd630d5379": {
+    "text": "čítaš",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:07:12.621Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "b3f0d60923eca6c5a127": {
+    "text": "Čítaš knihu?",
+    "kind": "lesson",
+    "bytes": 21777,
+    "generatedAt": "2026-08-04T16:07:13.506Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "05f0cab93c8e2764f411": {
+    "text": "čítate",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:07:14.264Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "01ae382ce7e155148615": {
+    "text": "ďakujem",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:07:15.787Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "efc355c1cd03c505947a": {
+    "text": "Ďakujem za pomoc.",
+    "kind": "lesson",
+    "bytes": 26375,
+    "generatedAt": "2026-08-04T16:07:16.541Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "52916edd840cfb007a42": {
+    "text": "Dáte si kávu?",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:17.524Z",
+    "characterId": "waiter",
+    "voiceId": "d6IbhdqAKkXCCVuJjbie"
+  },
+  "7da11eb71de946790962": {
+    "text": "Dnes je pondelok.",
+    "kind": "lesson",
+    "bytes": 24285,
+    "generatedAt": "2026-08-04T16:07:18.290Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "40e7665dfa9df2a58935": {
+    "text": "Dnes je pondelok.",
+    "kind": "lesson",
+    "bytes": 25539,
+    "generatedAt": "2026-08-04T16:07:19.091Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "48eeb2433ab0d91971a4": {
+    "text": "Dobrý deň.",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:07:19.870Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "c1de5658c8a635986fc8": {
+    "text": "Dobrý deň. Ste Alex?",
+    "kind": "lesson",
+    "bytes": 31391,
+    "generatedAt": "2026-08-04T16:07:20.908Z",
+    "characterId": "receptionist",
+    "voiceId": "3K1lqsxxXFiTAXCO09Zv"
+  },
+  "a6bb1b1c68b012e78ecd": {
+    "text": "Dobrý deň. Ste tu na registráciu?",
+    "kind": "lesson",
+    "bytes": 42675,
+    "generatedAt": "2026-08-04T16:07:21.758Z",
+    "characterId": "maria",
+    "voiceId": "dl4FkEvdYqvECrmvMbnF"
+  },
+  "a64bc992e3ae259df6c3": {
+    "text": "Dobrý deň. Volám sa Alex.",
+    "kind": "lesson",
+    "bytes": 31391,
+    "generatedAt": "2026-08-04T16:07:22.579Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "45c59cd0e8bfe4ba9b1a": {
+    "text": "Dobrý deň. Volám sa Anna.",
+    "kind": "lesson",
+    "bytes": 37660,
+    "generatedAt": "2026-08-04T16:07:23.371Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "97374823d40c63fe4e36": {
+    "text": "Ešte sa učím.",
+    "kind": "lesson",
+    "bytes": 21777,
+    "generatedAt": "2026-08-04T16:07:24.138Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "271005fcae8f392edca0": {
+    "text": "Hovoríte po slovensky?",
+    "kind": "lesson",
+    "bytes": 24703,
+    "generatedAt": "2026-08-04T16:07:24.955Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "0633ca1174f76f5c3f51": {
+    "text": "Ja číta knihu.",
+    "kind": "lesson",
+    "bytes": 23449,
+    "generatedAt": "2026-08-04T16:17:56.897Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "57ad5f9966a877c004c9": {
+    "text": "Je to tu prvýkrát?",
+    "kind": "lesson",
+    "bytes": 26375,
+    "generatedAt": "2026-08-04T16:07:26.759Z",
+    "characterId": "receptionist",
+    "voiceId": "3K1lqsxxXFiTAXCO09Zv"
+  },
+  "cd153112b1cc36335ed3": {
+    "text": "Je to.",
+    "kind": "lesson",
+    "bytes": 17598,
+    "generatedAt": "2026-08-04T16:07:27.496Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "e13eb14432a7d74f895d": {
+    "text": "Koľko máš rokov?",
+    "kind": "lesson",
+    "bytes": 24285,
+    "generatedAt": "2026-08-04T16:07:28.238Z",
+    "characterId": "maria",
+    "voiceId": "dl4FkEvdYqvECrmvMbnF"
+  },
+  "2538481dc1745beee771": {
+    "text": "Koľko máte rokov?",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:29.005Z",
+    "characterId": "maria",
+    "voiceId": "dl4FkEvdYqvECrmvMbnF"
+  },
+  "48fc82e381cec3b4035b": {
+    "text": "Koľko to stojí?",
+    "kind": "lesson",
+    "bytes": 23449,
+    "generatedAt": "2026-08-04T16:07:29.780Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "89cb5d77263379621e50": {
+    "text": "Lepšie o pol tretej.",
+    "kind": "lesson",
+    "bytes": 26375,
+    "generatedAt": "2026-08-04T16:07:30.543Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "58856685ec673b00b42c": {
+    "text": "Mám dvadsaťosem rokov.",
+    "kind": "lesson",
+    "bytes": 30137,
+    "generatedAt": "2026-08-04T16:07:31.410Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "d84592c2aed85e0dd551": {
+    "text": "Mám rokov.",
+    "kind": "lesson",
+    "bytes": 21777,
+    "generatedAt": "2026-08-04T16:07:33.064Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "074e45b61b27b4e87794": {
+    "text": "Mám.",
+    "kind": "lesson",
+    "bytes": 15090,
+    "generatedAt": "2026-08-04T16:07:33.813Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "5fa1a95dab6789168858": {
+    "text": "Máš čas na kávu?",
+    "kind": "lesson",
+    "bytes": 24285,
+    "generatedAt": "2026-08-04T16:07:34.535Z",
+    "characterId": "maria",
+    "voiceId": "dl4FkEvdYqvECrmvMbnF"
+  },
+  "481d63152164592d72d5": {
+    "text": "Máš?",
+    "kind": "lesson",
+    "bytes": 15926,
+    "generatedAt": "2026-08-04T16:07:35.250Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "c03c7e4b0a69a36a49ce": {
+    "text": "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+    "kind": "lesson",
+    "bytes": 66499,
+    "generatedAt": "2026-08-04T16:07:36.293Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "940071b6550d1b738cd6": {
+    "text": "Moje číslo je.",
+    "kind": "lesson",
+    "bytes": 24703,
+    "generatedAt": "2026-08-04T16:07:37.026Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "0916c69dc712f519add5": {
+    "text": "Nemám hotovosť, ale mám kartu.",
+    "kind": "lesson",
+    "bytes": 34316,
+    "generatedAt": "2026-08-04T16:07:37.851Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "e8be5dbfc710499d6a6d": {
+    "text": "Nemám.",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:07:38.564Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "b84c3781092ca40e5381": {
+    "text": "Nerozumiem.",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:07:39.303Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "50c317a21362e9ae9f00": {
+    "text": "Nerozumiem. Nie je to pre mňa.",
+    "kind": "lesson",
+    "bytes": 35988,
+    "generatedAt": "2026-08-04T16:07:40.093Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "3abaa3db1e9370f0230a": {
+    "text": "Nie je to.",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:07:40.820Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "4d72948d6eac55985beb": {
+    "text": "Nie, ďakujem.",
+    "kind": "lesson",
+    "bytes": 21777,
+    "generatedAt": "2026-08-04T16:07:41.581Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "d3c2b358d48984962e1d": {
+    "text": "Nie, ďakujem. Nemám teraz čas.",
+    "kind": "lesson",
+    "bytes": 35152,
+    "generatedAt": "2026-08-04T16:07:42.418Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "56080d22f8f9e9e2e3a7": {
+    "text": "O pol tretej.",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:43.165Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "277cdc3fc84646f19cf8": {
+    "text": "O tretej.",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:07:43.888Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "d54c0cb04452f27bb032": {
+    "text": "Odkiaľ ste?",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:07:44.634Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "a744dec3d07b229f40be": {
+    "text": "Peter číta knihu.",
+    "kind": "lesson",
+    "bytes": 26375,
+    "generatedAt": "2026-08-04T16:07:45.413Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "9e3f6c248c55100cb90a": {
+    "text": "Rozumiete menu?",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:46.394Z",
+    "characterId": "waiter",
+    "voiceId": "d6IbhdqAKkXCCVuJjbie"
+  },
+  "3ce5cade093261aacd7a": {
+    "text": "Sme.",
+    "kind": "lesson",
+    "bytes": 15926,
+    "generatedAt": "2026-08-04T16:07:47.107Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "a81c96546afb24701110": {
+    "text": "Som z Kanady.",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:07:47.857Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "375fa59d119e85d97bce": {
+    "text": "Som z.",
+    "kind": "lesson",
+    "bytes": 16762,
+    "generatedAt": "2026-08-04T16:07:48.590Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "d292d7d72d1938c9213c": {
+    "text": "Som.",
+    "kind": "lesson",
+    "bytes": 15926,
+    "generatedAt": "2026-08-04T16:07:49.332Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "b84c5d4dc201ee57b1cb": {
+    "text": "Ste?",
+    "kind": "lesson",
+    "bytes": 11328,
+    "generatedAt": "2026-08-04T16:07:50.079Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "c43b5b1523354614ceda": {
+    "text": "Stojí to päť eur.",
+    "kind": "lesson",
+    "bytes": 26375,
+    "generatedAt": "2026-08-04T16:07:50.865Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "c64b855423f41896bbb4": {
+    "text": "Stretneme sa v utorok?",
+    "kind": "lesson",
+    "bytes": 27629,
+    "generatedAt": "2026-08-04T16:07:51.684Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "7bf19906adf877669ca1": {
+    "text": "Stretneme sa v utorok.",
+    "kind": "lesson",
+    "bytes": 27211,
+    "generatedAt": "2026-08-04T16:07:52.494Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "cca1ab8eb6d48458ec43": {
+    "text": "Teší ma. Odkiaľ ste?",
+    "kind": "lesson",
+    "bytes": 33062,
+    "generatedAt": "2026-08-04T16:07:53.242Z",
+    "characterId": "anna",
+    "voiceId": "AZKbYmQbJEONExTR4mbE"
+  },
+  "2b2b9117424813407906": {
+    "text": "Trochu. Ešte sa učím.",
+    "kind": "lesson",
+    "bytes": 27629,
+    "generatedAt": "2026-08-04T16:07:53.985Z",
+    "characterId": "alex",
+    "voiceId": "gs3k6LpQrYIz2zSIf0r2"
+  },
+  "2febe354a04fde97236b": {
+    "text": "Volám sa.",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:07:54.944Z",
+    "characterId": "guide",
+    "voiceId": "H3f82Q89FWRfdJ3isCO8"
+  },
+  "ea06a48d9ec5bd122c3e": {
+    "text": "A vaše telefónne číslo?",
+    "kind": "lesson",
+    "bytes": 29301,
+    "generatedAt": "2026-08-04T16:17:34.627Z",
+    "characterId": "maria",
+    "voiceId": "7bkfvPHZlJY9LfqOtBKb"
+  },
+  "2e0d70957f55c84fda89": {
+    "text": "Áno, čítam.",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:17:35.410Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "e5d7c7a40a009b46b86c": {
+    "text": "Áno, mám čas.",
+    "kind": "lesson",
+    "bytes": 25539,
+    "generatedAt": "2026-08-04T16:17:36.212Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "c6d3f1d58bae5aa515cf": {
+    "text": "Áno, som Alex.",
+    "kind": "lesson",
+    "bytes": 21777,
+    "generatedAt": "2026-08-04T16:17:36.932Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "338cdb6d2a132d5bac98": {
+    "text": "Áno, som.",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:17:37.686Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "be5426672ddebfd9f8c0": {
+    "text": "Áno. O tretej?",
+    "kind": "lesson",
+    "bytes": 24285,
+    "generatedAt": "2026-08-04T16:17:38.452Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "b8c26b04ea051e8af4ca": {
+    "text": "Áno. Sme tu s priateľmi.",
+    "kind": "lesson",
+    "bytes": 30137,
+    "generatedAt": "2026-08-04T16:17:39.489Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "6632a589ac55f9beefcc": {
+    "text": "Bratislava",
+    "kind": "lesson",
+    "bytes": 20942,
+    "generatedAt": "2026-08-04T16:17:40.324Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "240870735eaf31f1f46f": {
+    "text": "číta",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:17:41.085Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "6b7099f9f306e7db93d3": {
+    "text": "čítajú",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:17:41.837Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "be804e79c3bb7f7a5238": {
+    "text": "čítam",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:17:42.556Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "ee2f19ee294a3ffb479c": {
+    "text": "čítame",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:17:43.490Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "ef1a56325d5b1c731806": {
+    "text": "čítaš",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:17:44.193Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "801783c1691582f1c592": {
+    "text": "Čítaš knihu?",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:17:45.043Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "36d3f8926ffcf760e070": {
+    "text": "čítate",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:17:45.754Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "c45a53997e59530ee532": {
+    "text": "ďakujem",
+    "kind": "lesson",
+    "bytes": 20942,
+    "generatedAt": "2026-08-04T16:17:47.419Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "e2f4507e2d503279d30b": {
+    "text": "Ďakujem za pomoc.",
+    "kind": "lesson",
+    "bytes": 26375,
+    "generatedAt": "2026-08-04T16:17:48.207Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "587a15f8cfa3e3d7829e": {
+    "text": "Dáte si kávu?",
+    "kind": "lesson",
+    "bytes": 24703,
+    "generatedAt": "2026-08-04T16:17:49.039Z",
+    "characterId": "waiter",
+    "voiceId": "vTjn72hcQp2zpBEqZUEs"
+  },
+  "0372da17950c60327052": {
+    "text": "Dnes je pondelok.",
+    "kind": "lesson",
+    "bytes": 24703,
+    "generatedAt": "2026-08-04T16:17:49.821Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "6bd49501f9ee8fdc9ed7": {
+    "text": "Dnes je pondelok.",
+    "kind": "lesson",
+    "bytes": 27211,
+    "generatedAt": "2026-08-04T16:17:50.605Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "8ecd9027e80e9526855a": {
+    "text": "Dobrý deň.",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:17:51.322Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "36cf954b562b1668a23d": {
+    "text": "Dobrý deň. Ste Alex?",
+    "kind": "lesson",
+    "bytes": 29301,
+    "generatedAt": "2026-08-04T16:17:52.209Z",
+    "characterId": "receptionist",
+    "voiceId": "TJm7whRcvNsGnL3DPy67"
+  },
+  "caaf2496c7373d0c56de": {
+    "text": "Dobrý deň. Ste tu na registráciu?",
+    "kind": "lesson",
+    "bytes": 38914,
+    "generatedAt": "2026-08-04T16:17:53.026Z",
+    "characterId": "maria",
+    "voiceId": "7bkfvPHZlJY9LfqOtBKb"
+  },
+  "262319fc77f34056257a": {
+    "text": "Dobrý deň. Volám sa Alex.",
+    "kind": "lesson",
+    "bytes": 33898,
+    "generatedAt": "2026-08-04T16:17:53.856Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "3f2b403549ac78a1a77b": {
+    "text": "Dobrý deň. Volám sa Anna.",
+    "kind": "lesson",
+    "bytes": 33062,
+    "generatedAt": "2026-08-04T16:17:54.660Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "e7de160962d407694374": {
+    "text": "Ešte sa učím.",
+    "kind": "lesson",
+    "bytes": 23449,
+    "generatedAt": "2026-08-04T16:17:55.392Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "398d6928f3037e155d52": {
+    "text": "Hovoríte po slovensky?",
+    "kind": "lesson",
+    "bytes": 29301,
+    "generatedAt": "2026-08-04T16:17:56.164Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "8b7a24763c07075805b6": {
+    "text": "Je to tu prvýkrát?",
+    "kind": "lesson",
+    "bytes": 28465,
+    "generatedAt": "2026-08-04T16:17:57.666Z",
+    "characterId": "receptionist",
+    "voiceId": "TJm7whRcvNsGnL3DPy67"
+  },
+  "294331833975416b465b": {
+    "text": "Je to.",
+    "kind": "lesson",
+    "bytes": 17598,
+    "generatedAt": "2026-08-04T16:17:58.431Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "ee4e1cd97693d2703077": {
+    "text": "Koľko máš rokov?",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:17:59.190Z",
+    "characterId": "maria",
+    "voiceId": "7bkfvPHZlJY9LfqOtBKb"
+  },
+  "dc05c36442b0b277f1a3": {
+    "text": "Koľko máte rokov?",
+    "kind": "lesson",
+    "bytes": 24703,
+    "generatedAt": "2026-08-04T16:17:59.933Z",
+    "characterId": "maria",
+    "voiceId": "7bkfvPHZlJY9LfqOtBKb"
+  },
+  "097247c09bf26cb5458d": {
+    "text": "Koľko to stojí?",
+    "kind": "lesson",
+    "bytes": 24285,
+    "generatedAt": "2026-08-04T16:18:00.677Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "a59a77345ff544893cb2": {
+    "text": "Lepšie o pol tretej.",
+    "kind": "lesson",
+    "bytes": 28465,
+    "generatedAt": "2026-08-04T16:18:01.473Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "d9e1023c321cc40a085d": {
+    "text": "Mám dvadsaťosem rokov.",
+    "kind": "lesson",
+    "bytes": 30973,
+    "generatedAt": "2026-08-04T16:18:02.277Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "a2c2745e13b42618a0ea": {
+    "text": "Mám rokov.",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:18:03.007Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "b48c1315825b07ed8e0c": {
+    "text": "Mám.",
+    "kind": "lesson",
+    "bytes": 16762,
+    "generatedAt": "2026-08-04T16:18:03.773Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "8ec7ca5db4c2162210ea": {
+    "text": "Máš čas na kávu?",
+    "kind": "lesson",
+    "bytes": 26375,
+    "generatedAt": "2026-08-04T16:18:04.570Z",
+    "characterId": "maria",
+    "voiceId": "7bkfvPHZlJY9LfqOtBKb"
+  },
+  "518177a4b9ba059f3f12": {
+    "text": "Máš?",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:18:05.340Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "6112c7bef71b07ee1528": {
+    "text": "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+    "kind": "lesson",
+    "bytes": 62737,
+    "generatedAt": "2026-08-04T16:18:06.302Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "c800733448f7e1726dde": {
+    "text": "Moje číslo je.",
+    "kind": "lesson",
+    "bytes": 27629,
+    "generatedAt": "2026-08-04T16:18:07.099Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "e5df9fb8600f61046cd1": {
+    "text": "Nemám hotovosť, ale mám kartu.",
+    "kind": "lesson",
+    "bytes": 35152,
+    "generatedAt": "2026-08-04T16:18:07.976Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "65c9fe98be014ad823d8": {
+    "text": "Nemám.",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:18:08.695Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "4e76040821021005935b": {
+    "text": "Nerozumiem.",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:18:09.414Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "3c6dfdca38abb6aead74": {
+    "text": "Nerozumiem. Nie je to pre mňa.",
+    "kind": "lesson",
+    "bytes": 33898,
+    "generatedAt": "2026-08-04T16:18:10.199Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "63fd986f8afe5a4df741": {
+    "text": "Nie je to.",
+    "kind": "lesson",
+    "bytes": 20942,
+    "generatedAt": "2026-08-04T16:18:10.927Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "ce88209c464ada16e9d4": {
+    "text": "Nie, ďakujem.",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:18:11.648Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "1f664c2fa53b4dce17e5": {
+    "text": "Nie, ďakujem. Nemám teraz čas.",
+    "kind": "lesson",
+    "bytes": 30973,
+    "generatedAt": "2026-08-04T16:18:12.675Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "58cff6bd36c877d29784": {
+    "text": "O pol tretej.",
+    "kind": "lesson",
+    "bytes": 24285,
+    "generatedAt": "2026-08-04T16:18:13.482Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "0feeed905fbf214a4dc2": {
+    "text": "O tretej.",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:18:14.223Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "37414c92a82088bd749b": {
+    "text": "Odkiaľ ste?",
+    "kind": "lesson",
+    "bytes": 21777,
+    "generatedAt": "2026-08-04T16:18:14.952Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "bf55380725df493fab2f": {
+    "text": "Peter číta knihu.",
+    "kind": "lesson",
+    "bytes": 28465,
+    "generatedAt": "2026-08-04T16:18:15.726Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "326e9b1605f6103099b7": {
+    "text": "Rozumiete menu?",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:18:16.489Z",
+    "characterId": "waiter",
+    "voiceId": "vTjn72hcQp2zpBEqZUEs"
+  },
+  "8cb80b793d380e3d58ae": {
+    "text": "Sme.",
+    "kind": "lesson",
+    "bytes": 16762,
+    "generatedAt": "2026-08-04T16:18:17.205Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "68fa6a8ba2c6f79512b0": {
+    "text": "Som z Kanady.",
+    "kind": "lesson",
+    "bytes": 23449,
+    "generatedAt": "2026-08-04T16:18:17.932Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "fef06c607a307a80edbe": {
+    "text": "Som z.",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:18:18.692Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "55c5405dcfea5fba9340": {
+    "text": "Som.",
+    "kind": "lesson",
+    "bytes": 16762,
+    "generatedAt": "2026-08-04T16:18:19.451Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "90b0d305bc1f21f4c0d0": {
+    "text": "Ste?",
+    "kind": "lesson",
+    "bytes": 14254,
+    "generatedAt": "2026-08-04T16:18:20.179Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "c625d34b21c81436d5ec": {
+    "text": "Stojí to päť eur.",
+    "kind": "lesson",
+    "bytes": 27211,
+    "generatedAt": "2026-08-04T16:18:20.967Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "ee8fabc6a0c08e02265a": {
+    "text": "Stretneme sa v utorok?",
+    "kind": "lesson",
+    "bytes": 29301,
+    "generatedAt": "2026-08-04T16:18:21.731Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "8c0ae9f948dba2cdd2d1": {
+    "text": "Stretneme sa v utorok.",
+    "kind": "lesson",
+    "bytes": 25539,
+    "generatedAt": "2026-08-04T16:18:22.518Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "ded37c6701c2969ea559": {
+    "text": "Teší ma. Odkiaľ ste?",
+    "kind": "lesson",
+    "bytes": 28465,
+    "generatedAt": "2026-08-04T16:18:23.299Z",
+    "characterId": "anna",
+    "voiceId": "NU9W5gI11aREqGgopfm8"
+  },
+  "03581af54aa88c8c126a": {
+    "text": "Trochu. Ešte sa učím.",
+    "kind": "lesson",
+    "bytes": 30973,
+    "generatedAt": "2026-08-04T16:18:24.116Z",
+    "characterId": "alex",
+    "voiceId": "eK3Hn8qiedGm31Jrozgn"
+  },
+  "8b2522ed3221962f05bc": {
+    "text": "Volám sa.",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:18:25.040Z",
+    "characterId": "guide",
+    "voiceId": "62cIpdfOMgi6hhoTD3r6"
+  },
+  "458da015a619be1296e6": {
+    "text": "číta",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:26:13.679Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ffc601b4d36a49019348": {
+    "text": "čítajú",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:26:14.482Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f206a491744fca9f01cc": {
+    "text": "čítam",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:26:15.193Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c449b6043fcf6bd87e82": {
+    "text": "čítame",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:26:15.934Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "95159a09a08fc0a43b27": {
+    "text": "čítaš",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:26:16.713Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "34cd9f1c57556372dce8": {
+    "text": "čítate",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:26:17.467Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "5aaaf209691f54695dfc": {
+    "text": "Dobrý deň.",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:26:19.009Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7627b33a41512c435fba": {
+    "text": "Ešte sa učím.",
+    "kind": "lesson",
+    "bytes": 24703,
+    "generatedAt": "2026-08-04T16:26:19.791Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "b5e96764df0088f667c2": {
+    "text": "Je to.",
+    "kind": "lesson",
+    "bytes": 18016,
+    "generatedAt": "2026-08-04T16:26:20.544Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3f72d307888fe4a32861": {
+    "text": "Mám rokov.",
+    "kind": "lesson",
+    "bytes": 20524,
+    "generatedAt": "2026-08-04T16:26:22.355Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "e7a56bb2e5f0e2f3fcb8": {
+    "text": "Mám.",
+    "kind": "lesson",
+    "bytes": 17598,
+    "generatedAt": "2026-08-04T16:26:23.057Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6be3fec9a31f7d4295ce": {
+    "text": "Máš?",
+    "kind": "lesson",
+    "bytes": 16762,
+    "generatedAt": "2026-08-04T16:26:23.771Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "2372effbf9c7007a1932": {
+    "text": "Moje číslo je.",
+    "kind": "lesson",
+    "bytes": 23449,
+    "generatedAt": "2026-08-04T16:26:24.539Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "cf2c55b4e8f33ec3c08f": {
+    "text": "Nemám.",
+    "kind": "lesson",
+    "bytes": 17598,
+    "generatedAt": "2026-08-04T16:26:25.329Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7186f8ff1f962a0ba143": {
+    "text": "Nerozumiem.",
+    "kind": "lesson",
+    "bytes": 19688,
+    "generatedAt": "2026-08-04T16:26:26.113Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c5d723229556e4460603": {
+    "text": "Nie je to.",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:26:26.864Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6d4b8ac5a0ad64c59eff": {
+    "text": "O pol tretej.",
+    "kind": "lesson",
+    "bytes": 22613,
+    "generatedAt": "2026-08-04T16:26:28.344Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "edd53417d4e2097606af": {
+    "text": "O tretej.",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:26:29.070Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "e9fe6510071f14d44c94": {
+    "text": "Sme.",
+    "kind": "lesson",
+    "bytes": 15926,
+    "generatedAt": "2026-08-04T16:26:29.847Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "dda625bb7171dc011239": {
+    "text": "Som z.",
+    "kind": "lesson",
+    "bytes": 17598,
+    "generatedAt": "2026-08-04T16:26:30.548Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "15b1a80a9177c902e706": {
+    "text": "Som.",
+    "kind": "lesson",
+    "bytes": 15926,
+    "generatedAt": "2026-08-04T16:26:31.303Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "302c79bfb0653f898604": {
+    "text": "Ste?",
+    "kind": "lesson",
+    "bytes": 14254,
+    "generatedAt": "2026-08-04T16:26:32.044Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f2aecd854655e463cee2": {
+    "text": "Stojí to päť eur.",
+    "kind": "lesson",
+    "bytes": 27629,
+    "generatedAt": "2026-08-04T16:26:32.852Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "5fc9a7d6aba5f7e46ff8": {
+    "text": "Stretneme sa v utorok.",
+    "kind": "lesson",
+    "bytes": 27629,
+    "generatedAt": "2026-08-04T16:26:33.625Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "904d9c98e5de6a4883ec": {
+    "text": "Volám sa.",
+    "kind": "lesson",
+    "bytes": 18852,
+    "generatedAt": "2026-08-04T16:26:34.319Z",
+    "characterId": "narrator",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   }
 }

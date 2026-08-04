@@ -19,6 +19,7 @@
     "examples:reclaim": "bun scripts/dictionary/reclaim-weak-examples.ts",
     "related:apply": "bun scripts/dictionary/apply-related.ts",
     "audio:generate": "bun scripts/audio/generate.ts",
+    "audio:voice-design": "bun scripts/audio/voice-design.ts",
     "audio:upload": "bun scripts/audio/upload.ts",
     "audio:status": "bun scripts/audio/status.ts",
     "audio:verify": "bun scripts/audio/verify.ts",

@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import audioConfig from "../../../content/audio/config.json";
 import audioManifest from "../../../content/audio/manifest.json";
 
-export type AudioKind = "example" | "lemma";
+export type AudioKind = "example" | "lemma" | "lesson";
 
 export interface AudioVoiceSettings {
   similarityBoost: number;
@@ -13,7 +13,19 @@ export interface AudioVoiceSettings {
   useSpeakerBoost: boolean;
 }
 
+export interface AudioCharacter {
+  displayName: string;
+  gender: "female" | "male" | "neutral";
+  note?: string;
+  /** Dialogue speaker labels that map to this character (e.g. "You" → alex). */
+  speakers?: string[];
+  voiceId: string;
+  voiceName: string;
+}
+
 export interface AudioConfig {
+  /** Lesson / story cast — each character has its own ElevenLabs voice. */
+  characters?: Record<string, AudioCharacter>;
   /** ISO 639-1 hint for models that support it (e.g. eleven_v3). Ignored by multilingual_v2. */
   languageCode?: string;
   modelId: string;
@@ -21,6 +33,7 @@ export interface AudioConfig {
   provider: string;
   /** Fallback TTS model when STT verify fails on the primary model. */
   rescueModelId?: string;
+  /** @deprecated Prefer `characters`. Kept for older configs. */
   reservedVoices?: Record<string, { note?: string; voiceId: string; voiceName: string }>;
   voiceId: string;
   voiceName: string;

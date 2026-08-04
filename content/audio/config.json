@@ -12,11 +12,78 @@
     "speed": 0.88,
     "useSpeakerBoost": true
   },
-  "reservedVoices": {
-    "appCrisp": {
-      "voiceId": "H3f82Q89FWRfdJ3isCO8",
-      "voiceName": "Slovak Wiki App Crisp",
-      "note": "Saved for lessons/dialogue later — not used for dictionary yet."
+  "characters": {
+    "anna": {
+      "displayName": "Anna",
+      "gender": "female",
+      "voiceId": "NU9W5gI11aREqGgopfm8",
+      "voiceName": "Slovak Wiki Anna",
+      "speakers": ["Anna"],
+      "note": "Voice Design. Friendly peer in everyday dialogues."
+    },
+    "maria": {
+      "displayName": "Mária",
+      "gender": "female",
+      "voiceId": "7bkfvPHZlJY9LfqOtBKb",
+      "voiceName": "Slovak Wiki Mária",
+      "speakers": ["Mária"],
+      "note": "Voice Design. Older / admin counterpart (registration, forms)."
+    },
+    "lucia": {
+      "displayName": "Lucia",
+      "gender": "female",
+      "voiceId": "NU9W5gI11aREqGgopfm8",
+      "voiceName": "Slovak Wiki Anna (spare→anna)",
+      "speakers": [],
+      "note": "Spare female — shares Anna until dedicated Voice Design."
+    },
+    "receptionist": {
+      "displayName": "Receptionist",
+      "gender": "female",
+      "voiceId": "TJm7whRcvNsGnL3DPy67",
+      "voiceName": "Slovak Wiki Receptionist",
+      "speakers": ["Receptionist"],
+      "note": "Voice Design. Front-desk / service role."
+    },
+    "alex": {
+      "displayName": "Alex",
+      "gender": "male",
+      "voiceId": "eK3Hn8qiedGm31Jrozgn",
+      "voiceName": "Slovak Wiki Alex",
+      "speakers": ["You"],
+      "note": "Voice Design. Learner voice for dialogue turns labeled You."
+    },
+    "marek": {
+      "displayName": "Marek",
+      "gender": "male",
+      "voiceId": "eK3Hn8qiedGm31Jrozgn",
+      "voiceName": "Slovak Wiki Alex (spare→alex)",
+      "speakers": [],
+      "note": "Spare male — shares Alex until dedicated Voice Design."
+    },
+    "waiter": {
+      "displayName": "Waiter",
+      "gender": "male",
+      "voiceId": "vTjn72hcQp2zpBEqZUEs",
+      "voiceName": "Slovak Wiki Waiter",
+      "speakers": ["Waiter"],
+      "note": "Voice Design. Café / restaurant service."
+    },
+    "guide": {
+      "displayName": "Guide",
+      "gender": "neutral",
+      "voiceId": "62cIpdfOMgi6hhoTD3r6",
+      "voiceName": "Slovak Wiki Guide",
+      "speakers": [],
+      "note": "Voice Design. Key phrases (keyPhraseCharacterId) + instructional lines — not dictionary Neutral."
+    },
+    "narrator": {
+      "displayName": "Narrator",
+      "gender": "neutral",
+      "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
+      "voiceName": "Slovak Wiki Dictionary Neutral",
+      "speakers": ["Notice", "Sentence"],
+      "note": "Same as dictionary Neutral. Signs, notices, unknown-speaker fallback."
     }
   }
 }

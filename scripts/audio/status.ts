@@ -1,7 +1,10 @@
 /**
- * Coverage report for dictionary audio.
+ * Coverage report for dictionary + lesson audio.
  *
- * Usage: bun run audio:status
+ * Usage:
+ *   bun run audio:status
+ *   bun run audio:status -- --lessons-only
+ *   bun run audio:status -- --lemmas-only
  */
 
 import { access } from "node:fs/promises";
@@ -28,10 +31,10 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 async function main(): Promise<void> {
-  const { lemmasOnly } = parseArgs(process.argv.slice(2));
+  const { lemmasOnly, lessonsOnly } = parseArgs(process.argv.slice(2));
   const config = await loadConfig();
   const manifest = await loadManifest();
-  const targets = collectAudioTargets({ lemmasOnly });
+  const targets = collectAudioTargets({ lemmasOnly, lessonsOnly }, config);
 
   let onDisk = 0;
   let inManifest = 0;
@@ -39,18 +42,21 @@ async function main(): Promise<void> {
   let missing = 0;
   let lemmaOnDisk = 0;
   let exampleOnDisk = 0;
+  let lessonOnDisk = 0;
 
   const missingSamples: string[] = [];
 
   for (const target of targets) {
-    const hash = hashAudioText(target.text, config);
-    const relative = audioRelativePath(target.text, target.kind, config);
+    const voiceConfig = target.voiceConfig ?? config;
+    const hash = hashAudioText(target.text, voiceConfig);
+    const relative = audioRelativePath(target.text, target.kind, voiceConfig);
     const disk = await fileExists(path.join(AUDIO_DIR, relative));
     const entry = manifest[hash];
 
     if (disk) {
       onDisk += 1;
       if (target.kind === "lemma") lemmaOnDisk += 1;
+      else if (target.kind === "lesson") lessonOnDisk += 1;
       else exampleOnDisk += 1;
     }
     if (entry) inManifest += 1;
@@ -58,26 +64,28 @@ async function main(): Promise<void> {
     if (!disk) {
       missing += 1;
       if (missingSamples.length < 8) {
-        missingSamples.push(`${target.kind}: ${target.text} → ${relative}`);
+        const who = target.characterId ? `/${target.characterId}` : "";
+        missingSamples.push(`${target.kind}${who}: ${target.text} → ${relative}`);
       }
     }
   }
 
   const fileCount = (await listAudioObjectKeys()).length;
+  const scope = lessonsOnly ? " (lessons only)" : lemmasOnly ? " (lemmas only)" : "";
 
-  console.log(`Voice: ${config.voiceName} (${config.voiceId})`);
+  console.log(`Default voice: ${config.voiceName} (${config.voiceId})`);
   console.log(`Model: ${config.modelId}`);
-  console.log(`Layout: static/audio/{lemma|example}/{hash}.mp3`);
-  console.log(`Targets: ${targets.length}${lemmasOnly ? " (lemmas only)" : ""}`);
+  console.log(`Layout: static/audio/{lemma|example|lesson}/{hash}.mp3`);
+  console.log(`Targets: ${targets.length}${scope}`);
   console.log(
-    `On disk (matched): ${onDisk} (lemma=${lemmaOnDisk}, example=${exampleOnDisk})`,
+    `On disk (matched): ${onDisk} (lemma=${lemmaOnDisk}, example=${exampleOnDisk}, lesson=${lessonOnDisk})`,
   );
   console.log(`Missing: ${missing}`);
   console.log(
     `Manifest entries: ${Object.keys(manifest).length} (matched ${inManifest})`,
   );
   console.log(`Uploaded (manifest): ${uploaded}`);
-  console.log(`Files in static/audio/{lemma,example}: ${fileCount}`);
+  console.log(`Files in static/audio/{lemma,example,lesson}: ${fileCount}`);
 
   if (missingSamples.length > 0) {
     console.log("Missing samples:");

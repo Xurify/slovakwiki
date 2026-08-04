@@ -19,9 +19,11 @@
   let {
     exercise,
     onresolve,
+    sceneAudioSrcs = {},
   }: {
     exercise: LessonExercise;
     onresolve: () => void;
+    sceneAudioSrcs?: Record<string, string>;
   } = $props();
 
   let selectedId = $state<string | null>(null);
@@ -137,7 +139,7 @@
 
     {#if exercise.context?.length}
       <div class="mt-6">
-        <LessonScene scene={exercise.context} />
+        <LessonScene scene={exercise.context} audioSrcs={sceneAudioSrcs} />
       </div>
     {/if}
 

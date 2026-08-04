@@ -1,11 +1,12 @@
 /**
  * Generate ElevenLabs MP3s into static/audio/{kind}/{hash}.mp3 (gitignored).
- * Kind = lemma | example (how the clip is used). Text lives in manifest.
+ * Kind = lemma | example | lesson (how the clip is used). Text lives in manifest.
  *
  * Usage:
  *   bun run audio:generate
  *   bun run audio:generate -- --limit 20
  *   bun run audio:generate -- --lemmas-only --dry-run
+ *   bun run audio:generate -- --lessons-only
  *   bun run audio:generate -- --force
  *   bun run audio:generate -- --force --verify --only "príliš hrdý"
  *   bun run audio:generate -- --verify --stt dual
@@ -52,6 +53,7 @@ async function main(): Promise<void> {
     dryRun,
     force,
     lemmasOnly,
+    lessonsOnly,
     limit,
     only,
     retries,
@@ -64,7 +66,7 @@ async function main(): Promise<void> {
   const manifest = await loadManifest();
   await ensureAudioDir();
 
-  let targets = collectAudioTargets({ lemmasOnly });
+  let targets = collectAudioTargets({ lemmasOnly, lessonsOnly }, config);
   if (only) {
     const needle = only.toLocaleLowerCase("sk");
     targets = targets.filter((t) => t.text.toLocaleLowerCase("sk").includes(needle));
@@ -89,17 +91,19 @@ async function main(): Promise<void> {
   }> = [];
 
   const judgeMode = judgeModeFromSttProvider(sttProvider);
+  const scope = lessonsOnly ? "lessons" : lemmasOnly ? "lemmas" : "dictionary+lessons";
 
   console.log(
-    `Audio generate: ${targets.length} targets` +
-      ` (voice=${config.voiceName}, model=${config.modelId}` +
+    `Audio generate: ${targets.length} targets (${scope})` +
+      ` (default voice=${config.voiceName}, model=${config.modelId}` +
       `${verify ? `, judge=${judgeMode} scribe=${sttModel} whisper=${whisperModel}, retries=${retries}` : ""}` +
       `${dryRun ? ", dry-run" : ""}${force ? ", force" : ""})`,
   );
 
   for (const target of targets) {
-    const hash = hashAudioText(target.text, config);
-    const relative = audioRelativePath(target.text, target.kind, config);
+    const voiceConfig = target.voiceConfig ?? config;
+    const hash = hashAudioText(target.text, voiceConfig);
+    const relative = audioRelativePath(target.text, target.kind, voiceConfig);
     const filePath = path.join(AUDIO_DIR, relative);
     const exists = await fileExists(filePath);
 
@@ -111,13 +115,18 @@ async function main(): Promise<void> {
           kind: target.kind,
           bytes: 0,
           generatedAt: new Date().toISOString(),
+          characterId: target.characterId,
+          voiceId: voiceConfig.voiceId,
         };
       }
       continue;
     }
 
     if (dryRun) {
-      console.log(`[dry-run] ${target.kind}: ${target.text.slice(0, 60)} → ${relative}`);
+      const who = target.characterId ? ` ${target.characterId}` : "";
+      console.log(
+        `[dry-run] ${target.kind}${who}: ${target.text.slice(0, 60)} → ${relative}`,
+      );
       generated += 1;
       continue;
     }
@@ -153,10 +162,10 @@ async function main(): Promise<void> {
       }
 
       for (const attempt of attempts) {
-        audio = await synthesizeElevenLabs(target.text, config, apiKey, {
+        audio = await synthesizeElevenLabs(target.text, voiceConfig, apiKey, {
           modelId: attempt.modelId,
           seed: attempt.seed,
-          languageCode: config.languageCode,
+          languageCode: voiceConfig.languageCode,
         });
         await writeFile(filePath, audio);
 
@@ -211,12 +220,15 @@ async function main(): Promise<void> {
         bytes: audio.byteLength,
         generatedAt: new Date().toISOString(),
         uploadedAt: manifest[hash]?.uploadedAt,
+        characterId: target.characterId,
+        voiceId: voiceConfig.voiceId,
       };
       manifest[hash] = entry;
       generated += 1;
       sinceSave += 1;
+      const who = target.characterId ? `/${target.characterId}` : "";
       console.log(
-        `ok ${generated}/${targets.length} [${target.kind}] ${target.text.slice(0, 40)} → ${relative} (${audio.byteLength} B)` +
+        `ok ${generated}/${targets.length} [${target.kind}${who}] ${target.text.slice(0, 40)} → ${relative} (${audio.byteLength} B)` +
           (usedRescue ? " [rescue]" : ""),
       );
 

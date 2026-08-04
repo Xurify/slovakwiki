@@ -13,6 +13,13 @@ import {
   audioObjectKey,
   normalizeAudioText,
 } from "../../src/lib/content/audio";
+import {
+  audioConfigForCharacter,
+  characterIdForSpeaker,
+  keyPhraseCharacterId,
+  type LessonCharacterId,
+} from "../../src/lib/content/characters";
+import { lessons } from "../../src/lib/content/lessons";
 import { ROOT } from "../lib/paths";
 
 export type { AudioKind };
@@ -23,17 +30,22 @@ export const MANIFEST_PATH = path.join(ROOT, "content", "audio", "manifest.json"
 
 export interface ManifestEntry {
   bytes: number;
+  characterId?: string;
   generatedAt: string;
   kind: AudioKind;
   text: string;
   uploadedAt?: string;
+  voiceId?: string;
 }
 
 export type AudioManifest = Record<string, ManifestEntry>;
 
 export interface AudioTarget {
+  characterId?: LessonCharacterId;
   kind: AudioKind;
   text: string;
+  /** Per-target voice override (lesson characters). */
+  voiceConfig?: AudioConfig;
 }
 
 /** Same material as src/lib/content/audio.ts audioHash (keep in sync). */
@@ -87,10 +99,18 @@ export async function ensureAudioDir(kind?: AudioKind): Promise<void> {
   }
   await mkdir(path.join(AUDIO_DIR, "lemma"), { recursive: true });
   await mkdir(path.join(AUDIO_DIR, "example"), { recursive: true });
+  await mkdir(path.join(AUDIO_DIR, "lesson"), { recursive: true });
+}
+
+function targetKey(target: AudioTarget, baseConfig: AudioConfig): string {
+  const config = target.voiceConfig ?? baseConfig;
+  return `${target.kind}|${config.voiceId}|${normalizeAudioText(target.text)}`;
 }
 
 /** Unique lemma + example Slovak strings from the live dictionary merge. */
-export function collectAudioTargets(options?: { lemmasOnly?: boolean }): AudioTarget[] {
+export function collectDictionaryAudioTargets(options?: {
+  lemmasOnly?: boolean;
+}): AudioTarget[] {
   const byText = new Map<string, AudioTarget>();
 
   for (const entry of words) {
@@ -116,6 +136,69 @@ export function collectAudioTargets(options?: { lemmasOnly?: boolean }): AudioTa
   return [...byText.values()].sort((a, b) => a.text.localeCompare(b.text, "sk"));
 }
 
+/**
+ * Lesson scene + key-phrase lines with per-character voices.
+ * Note: lesson content may churn — clips are disposable regenerations.
+ */
+export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[] {
+  const byKey = new Map<string, AudioTarget>();
+
+  function addLine(text: string, characterId: LessonCharacterId): void {
+    const normalized = normalizeAudioText(text);
+    if (!normalized) return;
+
+    const voiceConfig = audioConfigForCharacter(characterId, baseConfig);
+    const target: AudioTarget = {
+      kind: "lesson",
+      text: normalized,
+      characterId,
+      voiceConfig,
+    };
+    byKey.set(targetKey(target, baseConfig), target);
+  }
+
+  for (const lesson of lessons) {
+    for (const line of lesson.scene) {
+      addLine(line.audio?.transcript ?? line.slovak, characterIdForSpeaker(line.speaker));
+    }
+
+    for (const phrase of lesson.keyPhrases) {
+      addLine(phrase.audio?.transcript ?? phrase.slovak, keyPhraseCharacterId());
+    }
+
+    for (const exercise of lesson.exercises) {
+      if (!("context" in exercise) || !exercise.context) continue;
+      for (const line of exercise.context) {
+        addLine(
+          line.audio?.transcript ?? line.slovak,
+          characterIdForSpeaker(line.speaker),
+        );
+      }
+    }
+  }
+
+  return [...byKey.values()].sort((a, b) => a.text.localeCompare(b.text, "sk"));
+}
+
+/** Dictionary and/or lesson targets (default: both). */
+export function collectAudioTargets(
+  options?: {
+    lemmasOnly?: boolean;
+    lessonsOnly?: boolean;
+  },
+  baseConfig?: AudioConfig,
+): AudioTarget[] {
+  if (options?.lessonsOnly) {
+    if (!baseConfig) throw new Error("collectAudioTargets(lessonsOnly) needs baseConfig");
+    return collectLessonAudioTargets(baseConfig);
+  }
+
+  const dictionary = collectDictionaryAudioTargets({ lemmasOnly: options?.lemmasOnly });
+  if (options?.lemmasOnly || !baseConfig) return dictionary;
+
+  return [...dictionary, ...collectLessonAudioTargets(baseConfig)];
+}
+
 /** Lemma texts — examples that match a lemma resolve to `lemma/` path. */
 export function collectLemmaTextSet(): Set<string> {
   const lemmas = new Set<string>();
@@ -131,6 +214,7 @@ export function parseArgs(argv: string[]): {
   dryRun: boolean;
   force: boolean;
   lemmasOnly: boolean;
+  lessonsOnly: boolean;
   limit: number | undefined;
   only: string | undefined;
   retries: number;
@@ -142,6 +226,7 @@ export function parseArgs(argv: string[]): {
   let dryRun = false;
   let force = false;
   let lemmasOnly = false;
+  let lessonsOnly = false;
   let limit: number | undefined;
   let only: string | undefined;
   let retries = 2;
@@ -155,6 +240,7 @@ export function parseArgs(argv: string[]): {
     if (arg === "--dry-run") dryRun = true;
     else if (arg === "--force") force = true;
     else if (arg === "--lemmas-only") lemmasOnly = true;
+    else if (arg === "--lessons-only") lessonsOnly = true;
     else if (arg === "--verify") verify = true;
     else if (arg === "--limit") {
       const value = Number(argv[i + 1]);
@@ -201,10 +287,15 @@ export function parseArgs(argv: string[]): {
     }
   }
 
+  if (lemmasOnly && lessonsOnly) {
+    throw new Error("Use either --lemmas-only or --lessons-only, not both");
+  }
+
   return {
     dryRun,
     force,
     lemmasOnly,
+    lessonsOnly,
     limit,
     only,
     retries,
@@ -329,7 +420,7 @@ export function buildAudioObjectMetadata(options: {
 /** List `{kind}/{hash}.mp3` keys under static/audio (skips voice-design etc.). */
 export async function listAudioObjectKeys(): Promise<string[]> {
   const keys: string[] = [];
-  const kinds: AudioKind[] = ["lemma", "example"];
+  const kinds: AudioKind[] = ["lemma", "example", "lesson"];
 
   for (const kind of kinds) {
     const dir = path.join(AUDIO_DIR, kind);
