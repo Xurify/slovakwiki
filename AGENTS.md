@@ -44,7 +44,7 @@ Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated se
 - Fill lemmas Tatoeba cannot match: `bun run examples:fill` → then `bun run examples:curate`
 - Semantic related peers (empty related only): `bun run related:apply` (after curate; clusters in `content/dictionary/related-clusters.json`)
 - After publish/enrich/curate/related content changes: `bun run index:search` so local Pagefind matches the live dictionary
-- Dictionary listen audio: `bun run audio:generate` (ElevenLabs → `static/audio/{lemma|example}/`, gitignored) then `bun run audio:upload` (R2, same keys). Local plays `/audio/{kind}/…`; production needs `PUBLIC_AUDIO_BASE_URL`. See `scripts/README.md` `audio/`.
+- Dictionary listen audio: `bun run audio:generate` (ElevenLabs → `static/audio/{lemma|example}/`, gitignored) then `bun run audio:upload` (R2, same keys). Local plays `/audio/{kind}/…`; production needs `PUBLIC_AUDIO_BASE_URL`. QA: `bun run audio:verify` (default dual Scribe+Whisper judge; `--verify` on generate + rescue model). See `scripts/README.md` `audio/`.
 - Regenerate docs from the references module: `bun run docs:data-sources`
 - Public lists UI: `/dictionary/common`
 - Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency

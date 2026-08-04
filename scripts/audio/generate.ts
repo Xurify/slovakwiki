@@ -7,11 +7,15 @@
  *   bun run audio:generate -- --limit 20
  *   bun run audio:generate -- --lemmas-only --dry-run
  *   bun run audio:generate -- --force
+ *   bun run audio:generate -- --force --verify --only "príliš hrdý"
+ *   bun run audio:generate -- --verify --stt dual
  */
 
-import { access, writeFile } from "node:fs/promises";
+import { access, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import { ROOT } from "../lib/paths";
+import { judgeClip, judgeModeFromSttProvider } from "./judge";
 import {
   AUDIO_DIR,
   audioRelativePath,
@@ -44,22 +48,52 @@ async function main(): Promise<void> {
     throw new Error("ELEVENLABS_API_KEY missing (set in .env)");
   }
 
-  const { dryRun, force, lemmasOnly, limit } = parseArgs(process.argv.slice(2));
+  const {
+    dryRun,
+    force,
+    lemmasOnly,
+    limit,
+    only,
+    retries,
+    sttModel,
+    sttProvider,
+    verify,
+    whisperModel,
+  } = parseArgs(process.argv.slice(2));
   const config = await loadConfig();
   const manifest = await loadManifest();
   await ensureAudioDir();
 
   let targets = collectAudioTargets({ lemmasOnly });
+  if (only) {
+    const needle = only.toLocaleLowerCase("sk");
+    targets = targets.filter((t) => t.text.toLocaleLowerCase("sk").includes(needle));
+    if (targets.length === 0) {
+      throw new Error(`--only ${JSON.stringify(only)} matched 0 targets`);
+    }
+  }
   if (limit !== undefined) targets = targets.slice(0, limit);
 
   let generated = 0;
   let skipped = 0;
   let failed = 0;
+  let verified = 0;
+  let rescued = 0;
   let sinceSave = 0;
+  const verifyFailures: Array<{
+    reasons: string[];
+    score: number;
+    text: string;
+    scribe?: string;
+    whisper?: string;
+  }> = [];
+
+  const judgeMode = judgeModeFromSttProvider(sttProvider);
 
   console.log(
     `Audio generate: ${targets.length} targets` +
       ` (voice=${config.voiceName}, model=${config.modelId}` +
+      `${verify ? `, judge=${judgeMode} scribe=${sttModel} whisper=${whisperModel}, retries=${retries}` : ""}` +
       `${dryRun ? ", dry-run" : ""}${force ? ", force" : ""})`,
   );
 
@@ -90,8 +124,86 @@ async function main(): Promise<void> {
 
     try {
       await ensureAudioDir(target.kind);
-      const audio = await synthesizeElevenLabs(target.text, config, apiKey);
-      await writeFile(filePath, audio);
+
+      let audio: Uint8Array | undefined;
+      let usedRescue = false;
+      let lastJudge: Awaited<ReturnType<typeof judgeClip>> | undefined;
+
+      const attempts: Array<{ modelId?: string; seed?: number; label: string }> = [];
+      attempts.push({ label: "primary" });
+      if (verify && config.rescueModelId && config.rescueModelId !== config.modelId) {
+        attempts.push({
+          modelId: config.rescueModelId,
+          seed: 1,
+          label: `rescue:${config.rescueModelId}`,
+        });
+      }
+      for (let r = 1; r <= retries; r += 1) {
+        attempts.push({
+          seed: 1000 + r,
+          label: `retry-${r}`,
+        });
+        if (verify && config.rescueModelId && config.rescueModelId !== config.modelId) {
+          attempts.push({
+            modelId: config.rescueModelId,
+            seed: 40 + r,
+            label: `rescue-retry-${r}`,
+          });
+        }
+      }
+
+      for (const attempt of attempts) {
+        audio = await synthesizeElevenLabs(target.text, config, apiKey, {
+          modelId: attempt.modelId,
+          seed: attempt.seed,
+          languageCode: config.languageCode,
+        });
+        await writeFile(filePath, audio);
+
+        if (!verify) break;
+
+        const judged = await judgeClip(target.text, filePath, {
+          apiKey,
+          mode: judgeMode,
+          scribeModel: sttModel,
+          whisperModel,
+        });
+        lastJudge = judged;
+
+        if (judged.ok) {
+          if (attempt.modelId && attempt.modelId !== config.modelId) {
+            usedRescue = true;
+            rescued += 1;
+          }
+          verified += 1;
+          console.log(
+            `verify ok [${attempt.label}] score=${judged.score.toFixed(3)}` +
+              ` scribe=«${judged.scribe?.text.slice(0, 40) ?? "—"}»` +
+              ` whisper=«${judged.whisper?.text.slice(0, 40) ?? "—"}»`,
+          );
+          break;
+        }
+
+        console.warn(
+          `verify fail [${attempt.label}] score=${judged.score.toFixed(3)} reasons=${judged.reasons.join(",")}` +
+            ` scribe=«${judged.scribe?.text.slice(0, 50) ?? "—"}»` +
+            ` whisper=«${judged.whisper?.text.slice(0, 50) ?? "—"}»`,
+        );
+        audio = undefined;
+      }
+
+      if (!audio) {
+        failed += 1;
+        verifyFailures.push({
+          text: target.text,
+          score: lastJudge?.score ?? 0,
+          reasons: lastJudge?.reasons ?? ["no-passing-take"],
+          scribe: lastJudge?.scribe?.text,
+          whisper: lastJudge?.whisper?.text,
+        });
+        console.error(`fail [verify] ${target.text.slice(0, 50)}`);
+        continue;
+      }
 
       const entry: ManifestEntry = {
         text: target.text,
@@ -104,7 +216,8 @@ async function main(): Promise<void> {
       generated += 1;
       sinceSave += 1;
       console.log(
-        `ok ${generated}/${targets.length} [${target.kind}] ${target.text.slice(0, 40)} → ${relative} (${audio.byteLength} B)`,
+        `ok ${generated}/${targets.length} [${target.kind}] ${target.text.slice(0, 40)} → ${relative} (${audio.byteLength} B)` +
+          (usedRescue ? " [rescue]" : ""),
       );
 
       if (sinceSave >= MANIFEST_SAVE_EVERY) {
@@ -129,8 +242,18 @@ async function main(): Promise<void> {
     await saveManifest(manifest);
   }
 
+  if (verifyFailures.length > 0) {
+    const reportDir = path.join(ROOT, "tmp");
+    await mkdir(reportDir, { recursive: true });
+    const reportPath = path.join(reportDir, "audio-verify-failures.json");
+    await writeFile(reportPath, `${JSON.stringify(verifyFailures, null, 2)}\n`, "utf8");
+    console.error(`Verify failures written: ${reportPath}`);
+  }
+
   console.log(
-    `Done. generated=${generated} skipped=${skipped} failed=${failed} dir=${AUDIO_DIR}`,
+    `Done. generated=${generated} skipped=${skipped} failed=${failed}` +
+      (verify ? ` verified=${verified} rescued=${rescued}` : "") +
+      ` dir=${AUDIO_DIR}`,
   );
 
   if (failed > 0) process.exitCode = 1;

@@ -51,16 +51,19 @@ Primary dictionary growth is frequency publish + example enrich. Example quality
 
 ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
-| File          | npm script       | Notes                                                                                                                                                                                     |
-| ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `generate.ts` | `audio:generate` | Writes `static/audio/{lemma\|example}/{hash}.mp3`; text in manifest; `--limit` / `--lemmas-only` / `--dry-run` / `--force`; needs `ELEVENLABS_API_KEY`                                    |
-| `upload.ts`   | `audio:upload`   | Sync same key layout to R2; sets `Cache-Control` + custom metadata (`kind`/`hash`/`voice-id`/`text`…); needs `R2_*` (+ `R2_JURISDICTION=eu` for EU); `--force` re-PUTs to refresh headers |
-| `status.ts`   | `audio:status`   | Targets vs disk vs manifest uploaded                                                                                                                                                      |
-| `shared.ts`   | (lib)            | Hash / collect / synthesize helpers                                                                                                                                                       |
+| `generate.ts` | `audio:generate` | Writes MP3s; `--verify` uses dual judge (Scribe+Whisper) by default; `--stt dual\|elevenlabs\|whisper`; rescue model on fail |
+| `upload.ts`   | `audio:upload`   | Sync to R2; `--force` / `--only`; needs `R2_*` |
+| `status.ts`   | `audio:status`   | Targets vs disk vs manifest |
+| `verify.ts`   | `audio:verify`   | Dual STT audit → `tmp/audio-verify-report.json` |
+| `judge.ts`    | (lib)            | Dual STT + near-miss ending + logprob gap |
+| `stt.ts`      | (lib)            | Scribe + Whisper adapters |
+| `shared.ts`   | (lib)            | Hash / collect / synthesize |
 
 Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` (future: `lesson/`, `practice/`). Hash = content address; folder = how clip is used.
 
 Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
+
+**QA / accuracy:** `bun run audio:verify` / `audio:generate -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry → `rescueModelId` (`eleven_multilingual_v2`). Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
 
 ## `search/`
 

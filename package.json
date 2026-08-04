@@ -21,6 +21,7 @@
     "audio:generate": "bun scripts/audio/generate.ts",
     "audio:upload": "bun scripts/audio/upload.ts",
     "audio:status": "bun scripts/audio/status.ts",
+    "audio:verify": "bun scripts/audio/verify.ts",
     "docs:data-sources": "bun scripts/docs/write-data-sources.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

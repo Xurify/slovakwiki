@@ -18,6 +18,7 @@
  *   bun run audio:upload -- --dry-run
  *   bun run audio:upload -- --limit 50
  *   bun run audio:upload -- --force   # re-PUT (refresh headers/metadata)
+ *   bun run audio:upload -- --only "príliš hrdý" --force
  */
 
 import { readFile, stat } from "node:fs/promises";
@@ -48,7 +49,7 @@ function kindFromObjectKey(objectKey: string): AudioKind {
 }
 
 async function main(): Promise<void> {
-  const { dryRun, force, limit } = parseArgs(process.argv.slice(2));
+  const { dryRun, force, limit, only } = parseArgs(process.argv.slice(2));
 
   const accountId = requireEnv("R2_ACCOUNT_ID");
   const accessKeyId = requireEnv("R2_ACCESS_KEY_ID");
@@ -73,6 +74,20 @@ async function main(): Promise<void> {
   const config = await loadConfig();
   const manifest = await loadManifest();
   let keys = await listAudioObjectKeys();
+
+  if (only) {
+    const needle = only.toLocaleLowerCase("sk");
+    keys = keys.filter((objectKey) => {
+      const hash = path.basename(objectKey, ".mp3");
+      if (hash.toLowerCase().includes(needle)) return true;
+      const text = manifest[hash]?.text ?? "";
+      return text.toLocaleLowerCase("sk").includes(needle);
+    });
+    if (keys.length === 0) {
+      throw new Error(`--only ${JSON.stringify(only)} matched 0 on-disk audio keys`);
+    }
+  }
+
   if (limit !== undefined) keys = keys.slice(0, limit);
 
   let uploaded = 0;

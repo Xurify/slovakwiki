@@ -130,17 +130,30 @@ export function parseArgs(argv: string[]): {
   force: boolean;
   lemmasOnly: boolean;
   limit: number | undefined;
+  only: string | undefined;
+  retries: number;
+  sttModel: string;
+  sttProvider: "elevenlabs" | "whisper" | "dual";
+  verify: boolean;
+  whisperModel: string;
 } {
   let dryRun = false;
   let force = false;
   let lemmasOnly = false;
   let limit: number | undefined;
+  let only: string | undefined;
+  let retries = 2;
+  let sttProvider: "elevenlabs" | "whisper" | "dual" = "dual";
+  let sttModel = "scribe_v2";
+  let whisperModel = "small";
+  let verify = false;
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "--dry-run") dryRun = true;
     else if (arg === "--force") force = true;
     else if (arg === "--lemmas-only") lemmasOnly = true;
+    else if (arg === "--verify") verify = true;
     else if (arg === "--limit") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 1) {
@@ -148,19 +161,96 @@ export function parseArgs(argv: string[]): {
       }
       limit = Math.floor(value);
       i += 1;
+    } else if (arg === "--retries") {
+      const value = Number(argv[i + 1]);
+      if (!Number.isFinite(value) || value < 0) {
+        throw new Error("--retries requires a non-negative number");
+      }
+      retries = Math.floor(value);
+      i += 1;
+    } else if (arg === "--only") {
+      only = argv[i + 1];
+      if (!only) throw new Error("--only requires a substring of the Slovak text");
+      i += 1;
+    } else if (arg === "--stt") {
+      const value = argv[i + 1];
+      if (value !== "elevenlabs" && value !== "whisper" && value !== "dual") {
+        throw new Error('--stt must be "dual", "elevenlabs", or "whisper"');
+      }
+      sttProvider = value;
+      if (sttProvider === "whisper" && sttModel.startsWith("scribe_")) {
+        sttModel = "small";
+      }
+      if (
+        (sttProvider === "elevenlabs" || sttProvider === "dual") &&
+        !sttModel.startsWith("scribe_")
+      ) {
+        sttModel = "scribe_v2";
+      }
+      i += 1;
+    } else if (arg === "--stt-model") {
+      sttModel = argv[i + 1] ?? "";
+      if (!sttModel) throw new Error("--stt-model requires a model id");
+      i += 1;
+    } else if (arg === "--whisper-model") {
+      whisperModel = argv[i + 1] ?? "";
+      if (!whisperModel) throw new Error("--whisper-model requires a name (e.g. small)");
+      i += 1;
     }
   }
 
-  return { dryRun, force, lemmasOnly, limit };
+  return {
+    dryRun,
+    force,
+    lemmasOnly,
+    limit,
+    only,
+    retries,
+    sttModel,
+    sttProvider,
+    verify,
+    whisperModel,
+  };
+}
+
+export interface SynthesizeOptions {
+  languageCode?: string;
+  modelId?: string;
+  seed?: number;
 }
 
 export async function synthesizeElevenLabs(
   text: string,
   config: AudioConfig,
   apiKey: string,
+  options: SynthesizeOptions = {},
 ): Promise<Uint8Array> {
   const url = new URL(`https://api.elevenlabs.io/v1/text-to-speech/${config.voiceId}`);
   url.searchParams.set("output_format", config.outputFormat);
+
+  const modelId = options.modelId ?? config.modelId;
+  const languageCode = options.languageCode ?? config.languageCode;
+
+  const body: Record<string, unknown> = {
+    text: normalizeAudioText(text),
+    model_id: modelId,
+    voice_settings: {
+      stability: config.voiceSettings.stability,
+      similarity_boost: config.voiceSettings.similarityBoost,
+      style: config.voiceSettings.style,
+      speed: config.voiceSettings.speed,
+      use_speaker_boost: config.voiceSettings.useSpeakerBoost,
+    },
+  };
+
+  // language_code is ignored by multilingual_v2; useful for eleven_v3 / flash.
+  if (languageCode && modelId !== "eleven_multilingual_v2") {
+    body.language_code = languageCode;
+  }
+
+  if (options.seed !== undefined) {
+    body.seed = options.seed;
+  }
 
   const response = await fetch(url, {
     method: "POST",
@@ -169,22 +259,12 @@ export async function synthesizeElevenLabs(
       Accept: "audio/mpeg",
       "xi-api-key": apiKey,
     },
-    body: JSON.stringify({
-      text: normalizeAudioText(text),
-      model_id: config.modelId,
-      voice_settings: {
-        stability: config.voiceSettings.stability,
-        similarity_boost: config.voiceSettings.similarityBoost,
-        style: config.voiceSettings.style,
-        speed: config.voiceSettings.speed,
-        use_speaker_boost: config.voiceSettings.useSpeakerBoost,
-      },
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`ElevenLabs ${response.status}: ${body.slice(0, 500)}`);
+    const bodyText = await response.text();
+    throw new Error(`ElevenLabs ${response.status}: ${bodyText.slice(0, 500)}`);
   }
 
   return new Uint8Array(await response.arrayBuffer());
