@@ -171,6 +171,60 @@ export const learningResources: LearningResource[] = [
     ],
   },
   {
+    id: "slovak-cooking-language",
+    group: "courses",
+    name: "Slovak Cooking — language lessons",
+    href: "https://www.slovakcooking.com/language/",
+    summary:
+      "Short travel-dialog course (greetings, restaurant, numbers, song lyrics) with grammar notes and audio. Linked from Omniglot; still online as a free beginner side path.",
+    cost: "free",
+    level: "A1",
+    note: "Blog-era UI (≈2009–2010). Start from the language hub, not old calendar URLs.",
+    links: [
+      {
+        href: "https://www.slovakcooking.com/2009/language/ja-som-american/",
+        label: "Lesson 1 — Ja som …",
+      },
+      {
+        href: "https://www.slovakcooking.com/2009/language/hungry/",
+        label: "Lesson 2 — restaurant dialog",
+      },
+      {
+        href: "https://www.slovakcooking.com/2009/language/numbers/",
+        label: "Numbers vocab",
+      },
+    ],
+  },
+  {
+    id: "simply-put-slovak",
+    group: "courses",
+    name: "Simply Put — Slovak for beginners",
+    href: "http://simplyput.atspace.com/slovak/",
+    summary:
+      "Free plain-English beginner course (Gary Lord, 2005): alphabet → cases, verbs, past tense across 9 pages. Written by a TEFL teacher who lived in Slovakia — explanations stay light on jargon.",
+    cost: "free",
+    level: "A1",
+    note: "Hosted on free AtSpace; no HTTPS. Linked from Omniglot (often misread as Slovak Cooking). Chatroom link is dead.",
+    links: [
+      {
+        href: "http://simplyput.atspace.com/slovak/Slovak1.htm",
+        label: "Page 1 — alphabet, numbers, greetings",
+      },
+      {
+        href: "http://simplyput.atspace.com/slovak/Slovak2.htm",
+        label: "Page 2 — to be, present verbs",
+      },
+      {
+        href: "http://simplyput.atspace.com/slovak/Slovak3.htm",
+        label: "Page 3 — nouns, accusative, food",
+      },
+      {
+        href: "http://simplyput.atspace.com/index.htm",
+        label: "Simply Put hub (also PT, ES)",
+      },
+    ],
+  },
+  {
     id: "comprehensible-slovak",
     group: "courses",
     name: "Comprehensible Slovak",
@@ -333,8 +387,8 @@ export const learningResources: LearningResource[] = [
     name: "Omniglot — Slovak",
     href: "https://www.omniglot.com/writing/slovak.htm",
     summary:
-      "Alphabet chart with letter audio, sample text recording, plus Omniglot’s Slovak phrase, number, kinship, and idiom tables. Good quick orthography / survival-vocab reference.",
-    note: "Many of Omniglot’s older outbound “online lessons” links are dead or parked — use the Omniglot pages themselves, or our other Resources entries (e.g. slovake.eu).",
+      "Alphabet chart with letter audio, UDHR sample recording, plus Omniglot’s own Slovak phrase, number, kinship, idiom, time, and tongue-twister tables. Hub page also lists many third-party links — most of those are dead; keep the Omniglot pages.",
+    note: "Outbound audit: slovake.eu, dict.cc, Webslovník, Slovak Cooking, and Simply Put still work (listed separately). Dead/rot: polymath.org/slovak, learnslovak.com, Spectacular Slovakia language guide, Bratislava Guide (safebrowse), BBC Slovak (2014 archive), slobodka.org→RFE/RL. Affiliate chrome on Omniglot ignored.",
     cost: "free",
     level: "A1",
     links: [
@@ -355,8 +409,16 @@ export const learningResources: LearningResource[] = [
         label: "Idioms",
       },
       {
-        href: "https://www.omniglot.com/language/tonguetwisters/",
-        label: "Tongue twisters (incl. Slovak)",
+        href: "https://www.omniglot.com/language/time/slovak.htm",
+        label: "Telling the time",
+      },
+      {
+        href: "https://www.omniglot.com/language/tonguetwisters/index.htm#slovak",
+        label: "Tongue twisters",
+      },
+      {
+        href: "https://www.omniglot.com/babel/slovak.htm",
+        label: "Tower of Babel (reading sample)",
       },
     ],
   },
@@ -381,6 +443,26 @@ export const learningResources: LearningResource[] = [
     href: "https://slovnik.aktuality.sk/preklad/slovensko-anglicky",
     summary: "Fast bilingual lookup for everyday words and phrases.",
     cost: "free",
+    note: "Omniglot’s old Azet slovnik URL redirects here.",
+  },
+  {
+    id: "webslovnik-zoznam",
+    group: "dictionaries",
+    name: "Webslovník (Zoznam) — EN↔SK",
+    href: "https://webslovnik.zoznam.sk/anglicko-slovensky/",
+    summary:
+      "Slovak portal bilingual dictionary with alphabetical browse and recent-search tips. Linked from Omniglot’s older Zoznam URL (path still works).",
+    cost: "free",
+  },
+  {
+    id: "dict-cc-ensk",
+    group: "dictionaries",
+    name: "dict.cc — English–Slovak",
+    href: "https://ensk.dict.cc/",
+    summary:
+      "Community EN↔SK dictionary (~117k translations), vocab trainer, and free downloadable vocabulary DB. Strong second lookup beside Aktuality / JÚĽŠ.",
+    cost: "free",
+    note: "Crowd-verified — check the [i] button when a gloss looks off.",
   },
   {
     id: "juls-slovnik",
