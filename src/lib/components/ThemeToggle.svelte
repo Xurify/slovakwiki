@@ -52,7 +52,7 @@
 </script>
 
 <button
-  class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-transparent text-(--muted-strong) transition-colors hover:text-(--ink) {className}"
+  class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-transparent text-(--muted-strong) transition-[color,transform,scale] duration-150 ease-out hover:text-(--ink) active:scale-[0.98] {className}"
   type="button"
   aria-label={label}
   title={label}

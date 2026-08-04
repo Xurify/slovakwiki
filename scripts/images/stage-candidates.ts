@@ -34,8 +34,7 @@ const PAUSE_MS = 400;
 // Reuse fetch helpers by inlining a minimal Commons search here to avoid promoting live.
 
 const CANDIDATES_DIR = path.join(ROOT, "tmp", "image-candidates");
-const FREE_LICENSE_HINT =
-  /^(cc0|cc[-\s]?by|public domain|pd|pdm|gfdl|creativecommons)/i;
+const FREE_LICENSE_HINT = /^(cc0|cc[-\s]?by|public domain|pd|pdm|gfdl|creativecommons)/i;
 
 interface Candidate {
   artist?: string;
@@ -157,9 +156,7 @@ async function searchCommonsCandidates(
           info.descriptionurl ??
           `https://commons.wikimedia.org/wiki/${encodeURIComponent(page.title)}`,
         license,
-        licenseUrl: meta.LicenseUrl?.value
-          ? stripHtml(meta.LicenseUrl.value)
-          : undefined,
+        licenseUrl: meta.LicenseUrl?.value ? stripHtml(meta.LicenseUrl.value) : undefined,
         mime: info.mime,
         thumbUrl,
       });
@@ -226,7 +223,9 @@ async function main(): Promise<void> {
     }
 
     if (found.length === 0) {
-      console.log(`skip ${target.slug}: no Commons hits for ${queries.slice(0, 2).join(" | ")}`);
+      console.log(
+        `skip ${target.slug}: no Commons hits for ${queries.slice(0, 2).join(" | ")}`,
+      );
       continue;
     }
 

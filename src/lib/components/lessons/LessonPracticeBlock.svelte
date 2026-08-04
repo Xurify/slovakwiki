@@ -65,7 +65,7 @@
     </div>
   </div>
 {:else}
-  <p class="m-0 mb-3 text-xs text-slate-500">
+  <p class="m-0 mb-4 text-xs text-slate-500">
     Step {activeIndex + 1} of {lesson.exercises.length}
   </p>
   {#key currentExercise.id}

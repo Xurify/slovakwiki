@@ -4,8 +4,16 @@
   import ClockIllustration from "$lib/components/ClockIllustration.svelte";
 
   import { tick } from "svelte";
+  import {
+    canCheckBuild,
+    gradeBuild,
+    isBankTileUsed,
+    resolveBuiltTiles,
+  } from "$lib/client/build-tiles";
   import { answersMatch } from "$lib/client/practice-state";
+  import { playAnswerSfx } from "$lib/client/sfx";
   import type { LessonExercise } from "$lib/content/learning-types";
+  import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
   import LessonScene from "./LessonScene.svelte";
 
   let {
@@ -17,27 +25,27 @@
   } = $props();
 
   let selectedId = $state<string | null>(null);
-  let builtTiles = $state<string[]>([]);
+  let builtBankIndexes = $state<number[]>([]);
   let input = $state("");
   let submitted = $state(false);
   let revealed = $state(false);
   let feedbackPanel = $state<HTMLElement | null>(null);
 
   const graded = $derived(exercise.type !== "personal" ? exercise : null);
+  const builtTiles = $derived(
+    graded?.type === "build" ? resolveBuiltTiles(graded.tiles, builtBankIndexes) : [],
+  );
   const correct = $derived.by(() => {
     if (!graded || !submitted || revealed) return false;
     if (graded.type === "choice") return selectedId === graded.answerId;
-    if (graded.type === "build")
-      return (
-        builtTiles.length === graded.answer.length &&
-        builtTiles.every((tile, index) => tile === graded.answer[index])
-      );
+    if (graded.type === "build") return gradeBuild(builtTiles, graded.answer);
     return answersMatch(input, graded.answer, graded.acceptedAnswers);
   });
   const canCheck = $derived.by(() => {
     if (!graded || submitted) return false;
     if (graded.type === "choice") return selectedId !== null;
-    if (graded.type === "build") return builtTiles.length === graded.tiles.length;
+    if (graded.type === "build")
+      return canCheckBuild(builtTiles.length, graded.answer.length);
     return input.trim().length > 0;
   });
 
@@ -48,7 +56,21 @@
 
   async function check(): Promise<void> {
     if (!canCheck || !graded) return;
+
+    let kind: "correct" | "incorrect" = "incorrect";
+
+    if (graded.type === "choice") {
+      kind = selectedId === graded.answerId ? "correct" : "incorrect";
+    } else if (graded.type === "build") {
+      kind = gradeBuild(builtTiles, graded.answer) ? "correct" : "incorrect";
+    } else {
+      kind = answersMatch(input, graded.answer, graded.acceptedAnswers)
+        ? "correct"
+        : "incorrect";
+    }
+
     submitted = true;
+    playAnswerSfx(kind);
     await focusFeedback();
   }
 
@@ -56,6 +78,7 @@
     if (!graded || submitted) return;
     revealed = true;
     submitted = true;
+    playAnswerSfx("incorrect");
     await focusFeedback();
   }
 
@@ -63,49 +86,57 @@
     onresolve();
   }
 
-  function addTile(tile: string): void {
-    if (!submitted) builtTiles = [...builtTiles, tile];
+  function addTile(bankIndex: number): void {
+    if (submitted || graded?.type !== "build") return;
+    if (isBankTileUsed(builtBankIndexes, bankIndex)) return;
+    if (builtBankIndexes.length >= graded.answer.length) return;
+    builtBankIndexes = [...builtBankIndexes, bankIndex];
   }
 
-  function removeTile(index: number): void {
-    if (!submitted) builtTiles = builtTiles.filter((_, tileIndex) => tileIndex !== index);
+  function removeTile(builtIndex: number): void {
+    if (!submitted)
+      builtBankIndexes = builtBankIndexes.filter((_, index) => index !== builtIndex);
   }
 </script>
 
 <section
-  class="border border-slate-200 bg-surface/90 p-7 max-[560px]:px-4 max-[560px]:py-5"
+  class="border border-slate-200 bg-surface/90 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6"
   aria-labelledby="interaction-heading"
 >
   {#if exercise.type === "personal"}
     <Eyebrow>Say it yourself</Eyebrow>
     <h2
       id="interaction-heading"
-      class="font-serif text-xl font-semibold leading-snug text-slate-900"
+      class="font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
     >
       {exercise.prompt}
     </h2>
 
     {#if exercise.example}
       <p
-        class="mt-4 border-l-4 border-blue-600 bg-slate-50 px-3.5 py-3 font-serif text-lg text-blue-800"
+        class="mt-5 border-l-4 border-blue-600 bg-slate-50 px-4 py-3.5 font-serif text-lg text-blue-800"
         lang="sk"
       >
         {exercise.example}
       </p>
     {/if}
 
-    <Button class="mt-6" type="button" onclick={() => onresolve()}>I said it</Button>
+    <Button class="mt-7" type="button" onclick={() => onresolve()}>I said it</Button>
   {:else}
-    <Eyebrow>Your turn</Eyebrow>
+    <div class="flex items-start justify-between gap-3">
+      <Eyebrow>Your turn</Eyebrow>
+      <SfxMuteToggle />
+    </div>
+
     <h2
       id="interaction-heading"
-      class="font-serif text-xl font-semibold leading-snug text-slate-900"
+      class="font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
     >
       {exercise.prompt}
     </h2>
 
     {#if exercise.context?.length}
-      <div class="mt-5">
+      <div class="mt-6">
         <LessonScene scene={exercise.context} />
       </div>
     {/if}
@@ -114,15 +145,15 @@
       {@const hasClocks = exercise.choices.some((choice) => choice.clock)}
       <div
         class={hasClocks
-          ? "mt-6 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
-          : "mt-6 grid gap-2 border-t border-slate-200"}
+          ? "mt-7 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
+          : "mt-7 grid gap-2.5"}
         aria-label="Answer choices"
       >
         {#each exercise.choices as choice (choice.id)}
           <button
             class={hasClocks
-              ? `grid w-full cursor-pointer justify-items-center gap-2 border px-3 py-4 text-center font-serif text-sm font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-200 bg-transparent text-slate-900"}`
-              : `w-full cursor-pointer border-0 border-b border-slate-200 px-3 py-4 text-left font-serif text-base font-semibold transition-[background-color,color,padding-left] hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "bg-blue-50 pl-4 text-blue-800" : "bg-transparent text-slate-900"}`}
+              ? "press-key grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded-(--control-radius) px-3 py-4 text-center font-serif text-sm font-semibold"
+              : "press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3.5 text-left font-serif text-base font-semibold"}
             disabled={submitted}
             type="button"
             aria-pressed={selectedId === choice.id}
@@ -140,15 +171,15 @@
         {/each}
       </div>
     {:else if exercise.type === "build"}
-      <div class="mt-6 grid gap-3" aria-label="Build the sentence">
+      <div class="mt-7 grid gap-3" aria-label="Build the sentence">
         <div
-          class="flex min-h-[60px] flex-wrap content-center gap-2 border border-slate-300 bg-slate-50 p-3"
+          class="flex min-h-[calc(4.25rem+4px)] flex-wrap content-center gap-2 border border-slate-300 bg-slate-50 p-3.5"
           aria-live="polite"
         >
           {#if builtTiles.length}
             {#each builtTiles as tile, index (`${tile}-${index}`)}
               <button
-                class="cursor-pointer border border-slate-300 bg-surface px-2.5 py-1.5 font-serif font-semibold text-blue-800 disabled:cursor-default"
+                class="cursor-pointer border border-slate-300 bg-surface px-2.5 py-2 font-serif font-semibold leading-6 text-blue-800 disabled:cursor-default"
                 type="button"
                 disabled={submitted}
                 onclick={() => removeTile(index)}
@@ -157,7 +188,11 @@
               </button>
             {/each}
           {:else}
-            <span class="text-sm text-slate-500">Choose the words in order.</span>
+            <span
+              class="border border-transparent px-2.5 py-2 font-serif text-sm font-semibold leading-6 text-slate-500"
+            >
+              Choose the words in order.
+            </span>
           {/if}
         </div>
 
@@ -166,8 +201,8 @@
             <button
               class="cursor-pointer border border-slate-300 bg-surface px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-40"
               type="button"
-              disabled={submitted || builtTiles.includes(tile)}
-              onclick={() => addTile(tile)}
+              disabled={submitted || isBankTileUsed(builtBankIndexes, index)}
+              onclick={() => addTile(index)}
             >
               {tile}
             </button>
@@ -175,7 +210,7 @@
         </div>
       </div>
     {:else}
-      <label class="mt-6 grid gap-2 text-xs font-bold text-slate-600">
+      <label class="mt-7 grid gap-2 text-xs font-bold text-slate-600">
         <span>{exercise.inputLabel}</span>
         <input
           class="min-h-[50px] w-full border border-slate-300 bg-surface px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
@@ -191,11 +226,11 @@
     {#if submitted}
       <div
         bind:this={feedbackPanel}
-        class={`mt-6 grid gap-1 border-l-4 p-4 ${correct ? "border-emerald-600 bg-emerald-50" : "border-rose-600 bg-rose-50"}`}
+        class={`mt-7 grid gap-1.5 border-l-4 px-5 py-4 ${correct ? "border-emerald-600 bg-emerald-50" : "border-rose-600 bg-rose-50"}`}
         aria-live="polite"
         tabindex="-1"
       >
-        <p class="m-0 text-xs font-bold uppercase text-slate-600">
+        <p class="m-0 text-xs font-bold uppercase tracking-wide text-slate-600">
           {correct ? "That works." : "Try this."}
         </p>
 
@@ -207,15 +242,15 @@
         {#if exercise.feedback.english}
           <small class="text-slate-500">{exercise.feedback.english}</small>
         {/if}
-        <span class="mt-1 max-w-[67ch] font-serif leading-6 text-slate-700">
+        <span class="mt-1.5 max-w-[67ch] font-serif leading-relaxed text-slate-700">
           {exercise.feedback.why}
         </span>
       </div>
 
-      <Button class="mt-6" type="button" onclick={continueLesson}>Continue</Button>
+      <Button class="mt-7" type="button" onclick={continueLesson}>Continue</Button>
     {:else}
       <div
-        class="mt-6 flex items-center gap-4 max-[560px]:flex-col max-[560px]:items-stretch"
+        class="mt-7 flex items-center gap-4 max-[560px]:flex-col max-[560px]:items-stretch"
       >
         <Button
           class="mt-0 max-[560px]:w-full"

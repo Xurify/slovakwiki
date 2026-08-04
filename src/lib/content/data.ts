@@ -38,8 +38,7 @@ function wordFrequency(word: WordSeed): WordFrequency | undefined {
   const exactLower = word.slovak.toLocaleLowerCase("sk");
 
   if (preferredPartOfSpeech) {
-    const preferredExact =
-      frequencyIndex[`exact:${exactLower}|${preferredPartOfSpeech}`];
+    const preferredExact = frequencyIndex[`exact:${exactLower}|${preferredPartOfSpeech}`];
     if (preferredExact) return preferredExact;
   }
 

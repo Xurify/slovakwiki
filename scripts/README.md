@@ -46,7 +46,7 @@ Frequency lists, live dictionary publish, Tatoeba examples.
 | `publish-frequency.ts`      | `frequency:publish` | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                  |
 | `enrich-examples.ts`        | `examples:enrich`   | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< per-word); `--replace-practice` / `--refresh-tatoeba` |
 | `reclaim-weak-examples.ts`  | `examples:reclaim`  | Drops exact weak fill stubs from curated JSON                                                                             |
-| `fill-empty-examples.ts`    | `examples:fill`     | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                             |
+| `fill-empty-examples.ts`    | `examples:fill`     | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                  |
 | `apply-curated-examples.ts` | `examples:curate`   | Reviewed curated wins; union-merge keeps Tatoeba; practice may top up underfilled                                         |
 | `apply-related.ts`          | `related:apply`     | Fills empty related from `related-clusters.json`                                                                          |
 

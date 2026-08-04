@@ -184,7 +184,7 @@
       <ThemeToggle />
 
       <button
-        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-(--ink-soft) transition-transform duration-150 ease-out active:scale-[0.96]"
+        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-(--ink-soft) transition-transform duration-150 ease-out active:scale-[0.98]"
         type="button"
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}

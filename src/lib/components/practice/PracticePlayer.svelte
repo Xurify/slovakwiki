@@ -5,13 +5,21 @@
 
   import { tick } from "svelte";
   import {
+    canCheckBuild,
+    gradeBuild,
+    isBankTileUsed,
+    resolveBuiltTiles,
+  } from "$lib/client/build-tiles";
+  import {
     answersMatch,
     gradeAnswer,
     type AnswerGrade,
   } from "$lib/client/practice-state";
+  import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/client/sfx";
   import AudioButton from "$lib/components/AudioButton.svelte";
   import ClockIllustration from "$lib/components/ClockIllustration.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
+  import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
   import type { PracticeItem, PracticeTask } from "$lib/content/learning-types";
 
   const SK_CHARS = [
@@ -56,7 +64,7 @@
   } = $props();
 
   let activeIndex = $state(0);
-  let builtTiles = $state<string[]>([]);
+  let builtBankIndexes = $state<number[]>([]);
   let input = $state("");
   let selectedId = $state<string | null>(null);
   let submitted = $state(false);
@@ -68,6 +76,9 @@
 
   const current = $derived(items[activeIndex]);
   const task = $derived(current.task);
+  const builtTiles = $derived(
+    task.type === "build" ? resolveBuiltTiles(task.tiles, builtBankIndexes) : [],
+  );
   const isRepair = $derived(task.type === "typed" && task.task === "repair");
   const dialogueContext = $derived(isRepair ? [] : (task.context ?? []));
   const repairLine = $derived(isRepair ? task.context?.[0] : undefined);
@@ -87,12 +98,8 @@
     if (!submitted || revealed) return null;
     if (task.type === "choice")
       return selectedId === task.answerId ? "correct" : "incorrect";
-    if (task.type === "build") {
-      const match =
-        builtTiles.length === task.answer.length &&
-        task.answer.every((tile, index) => tile === builtTiles[index]);
-      return match ? "correct" : "incorrect";
-    }
+    if (task.type === "build")
+      return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
     if (task.type === "cloze")
       return gradeAnswer(input, task.answer, task.acceptedAnswers);
     return answersMatch(input, task.answer, task.acceptedAnswers)
@@ -105,13 +112,34 @@
   const canCheck = $derived.by(() => {
     if (submitted) return false;
     if (task.type === "choice") return selectedId !== null;
-    if (task.type === "build") return builtTiles.length === task.tiles.length;
+    if (task.type === "build")
+      return canCheckBuild(builtTiles.length, task.answer.length);
     return input.trim().length > 0;
   });
 
+  function sfxKindForGrade(value: AnswerGrade | null): AnswerSfxKind {
+    if (value === "correct") return "correct";
+    if (value === "accents") return "almost";
+    return "incorrect";
+  }
+
+  function resolveCheckGrade(): AnswerGrade {
+    if (task.type === "choice")
+      return selectedId === task.answerId ? "correct" : "incorrect";
+    if (task.type === "build")
+      return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
+    if (task.type === "cloze")
+      return gradeAnswer(input, task.answer, task.acceptedAnswers);
+    return answersMatch(input, task.answer, task.acceptedAnswers)
+      ? "correct"
+      : "incorrect";
+  }
+
   async function check(): Promise<void> {
     if (!canCheck) return;
+    const kind = sfxKindForGrade(resolveCheckGrade());
     submitted = true;
+    playAnswerSfx(kind);
     await tick();
     feedbackPanel?.focus();
   }
@@ -121,16 +149,21 @@
     if (task.type !== "typed" && task.type !== "cloze") return;
     revealed = true;
     submitted = true;
+    playAnswerSfx("incorrect");
     await tick();
     feedbackPanel?.focus();
   }
 
-  function selectTile(tile: string): void {
-    if (!submitted) builtTiles = [...builtTiles, tile];
+  function selectTile(bankIndex: number): void {
+    if (submitted || task.type !== "build") return;
+    if (isBankTileUsed(builtBankIndexes, bankIndex)) return;
+    if (builtBankIndexes.length >= task.answer.length) return;
+    builtBankIndexes = [...builtBankIndexes, bankIndex];
   }
 
-  function removeTile(index: number): void {
-    if (!submitted) builtTiles = builtTiles.filter((_, tileIndex) => tileIndex !== index);
+  function removeTile(builtIndex: number): void {
+    if (!submitted)
+      builtBankIndexes = builtBankIndexes.filter((_, index) => index !== builtIndex);
   }
 
   function insertChar(char: string): void {
@@ -145,10 +178,11 @@
   function next(): void {
     if (activeIndex === items.length - 1) {
       finished = true;
+      playFinishSfx();
       return;
     }
     activeIndex += 1;
-    builtTiles = [];
+    builtBankIndexes = [];
     input = "";
     selectedId = null;
     submitted = false;
@@ -198,9 +232,10 @@
 {:else}
   <section class="max-w-[720px]" aria-labelledby="practice-question">
     <div
-      class="flex justify-end text-xs font-bold uppercase tracking-wide text-slate-500"
+      class="flex items-center justify-end gap-2 text-xs font-bold uppercase tracking-wide text-slate-500"
       aria-label={`Question ${activeIndex + 1} of ${items.length}, ${activeIndex} completed`}
     >
+      <SfxMuteToggle />
       <span>{activeIndex + 1} of {items.length}</span>
     </div>
 
@@ -263,8 +298,8 @@
         {#each task.choices as choice (choice.id)}
           <button
             class={hasClocks
-              ? `grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded border px-3 py-4 text-center font-serif text-sm font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-300 bg-surface text-slate-900"}`
-              : `min-h-14 w-full cursor-pointer rounded border px-4 py-3 text-left font-serif text-base font-semibold hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-100 ${selectedId === choice.id ? "border-blue-600 bg-blue-50 text-blue-800" : "border-slate-300 bg-surface text-slate-900"}`}
+              ? "press-key grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded-(--control-radius) px-3 py-4 text-center font-serif text-sm font-semibold"
+              : "press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3 text-left font-serif text-base font-semibold"}
             disabled={submitted}
             type="button"
             aria-pressed={selectedId === choice.id}
@@ -284,13 +319,13 @@
     {:else if task.type === "build"}
       <div class="mt-7 grid gap-3">
         <div
-          class="flex min-h-[62px] flex-wrap content-center gap-2 border border-slate-300 bg-slate-50 p-3"
+          class="flex min-h-[calc(4rem+4px)] flex-wrap content-center gap-2 border border-slate-300 bg-slate-50 p-3"
           aria-live="polite"
         >
           {#if builtTiles.length}
             {#each builtTiles as tile, index (`${tile}-${index}`)}
               <button
-                class="border border-slate-300 bg-surface px-2.5 py-2 font-serif font-semibold text-blue-800"
+                class="border border-slate-300 bg-surface px-2.5 py-2 font-serif font-semibold leading-6 text-blue-800"
                 type="button"
                 disabled={submitted}
                 onclick={() => removeTile(index)}
@@ -299,7 +334,11 @@
               </button>
             {/each}
           {:else}
-            <span class="text-sm text-slate-500">Choose the words in order.</span>
+            <span
+              class="border border-transparent px-2.5 py-2 font-serif text-sm font-semibold leading-6 text-slate-500"
+            >
+              Choose the words in order.
+            </span>
           {/if}
         </div>
 
@@ -308,8 +347,8 @@
             <button
               class="border border-slate-300 bg-surface px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40"
               type="button"
-              disabled={submitted || builtTiles.includes(tile)}
-              onclick={() => selectTile(tile)}
+              disabled={submitted || isBankTileUsed(builtBankIndexes, index)}
+              onclick={() => selectTile(index)}
             >
               {tile}
             </button>

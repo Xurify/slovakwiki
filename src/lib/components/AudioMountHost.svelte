@@ -10,7 +10,9 @@
 
   onMount(() => {
     for (const target of targets) {
-      const element = document.querySelector(`[data-audio-mount="${CSS.escape(target.key)}"]`);
+      const element = document.querySelector(
+        `[data-audio-mount="${CSS.escape(target.key)}"]`,
+      );
       if (!(element instanceof HTMLElement)) continue;
 
       element.replaceChildren();

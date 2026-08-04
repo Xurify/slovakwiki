@@ -82,8 +82,7 @@ async function fetchSnkFrequency(
 function buildLemmaIndex(
   lists: Record<FrequencyPartOfSpeech, FrequencyListFile>,
 ): Record<string, { partOfSpeech: FrequencyPartOfSpeech; rank: number }> {
-  const index: Record<string, { partOfSpeech: FrequencyPartOfSpeech; rank: number }> =
-    {};
+  const index: Record<string, { partOfSpeech: FrequencyPartOfSpeech; rank: number }> = {};
 
   for (const partOfSpeech of Object.keys(lists) as FrequencyPartOfSpeech[]) {
     for (const entry of lists[partOfSpeech].entries) {
@@ -110,10 +109,7 @@ function buildLemmaIndex(
 
       const exactPartOfSpeechKey = `exact:${exactLower}|${entry.partOfSpeech}`;
       const existingExactPartOfSpeech = index[exactPartOfSpeechKey];
-      if (
-        !existingExactPartOfSpeech ||
-        entry.rank < existingExactPartOfSpeech.rank
-      ) {
+      if (!existingExactPartOfSpeech || entry.rank < existingExactPartOfSpeech.rank) {
         index[exactPartOfSpeechKey] = hit;
       }
     }

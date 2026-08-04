@@ -5,7 +5,10 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { FREQUENCY_PART_OF_SPEECH_LABEL, type FrequencyPartOfSpeech } from "$lib/content/frequency-types";
+  import {
+    FREQUENCY_PART_OF_SPEECH_LABEL,
+    type FrequencyPartOfSpeech,
+  } from "$lib/content/frequency-types";
 
   interface CompactFrequencyEntry {
     count?: number;
