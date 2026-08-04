@@ -35,7 +35,12 @@ export interface PagefindApi {
   ) => Promise<PagefindSearchResponse>;
 }
 
+/** Typing pause before Pagefind runs — kept short; idle warm covers cold load. */
+export const SEARCH_DEBOUNCE_MS = 100;
+
 let pagefindPromise: Promise<PagefindApi> | null = null;
+let pagefindWarm = false;
+let idleWarmScheduled = false;
 
 export function isSearchDocKind(value: string | undefined): value is SearchDocKind {
   return (
@@ -46,6 +51,36 @@ export function isSearchDocKind(value: string | undefined): value is SearchDocKi
     value === "lesson" ||
     value === "practice"
   );
+}
+
+export function isPagefindWarm(): boolean {
+  return pagefindWarm;
+}
+
+/**
+ * Warm Pagefind after paint / idle so first `/` or focus search skips the cold import.
+ * Safe to call from multiple SearchBox mounts — schedules once.
+ */
+export function schedulePagefindIdleWarm(): void {
+  if (typeof window === "undefined" || idleWarmScheduled || pagefindWarm) {
+    return;
+  }
+
+  idleWarmScheduled = true;
+
+  const run = (): void => {
+    void getPagefind();
+  };
+
+  const win = window as Window & {
+    requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+  };
+
+  if (typeof win.requestIdleCallback === "function") {
+    win.requestIdleCallback(run, { timeout: 2000 });
+  } else {
+    window.setTimeout(run, 200);
+  }
 }
 
 export async function getPagefind(): Promise<PagefindApi | null> {
@@ -64,9 +99,11 @@ export async function getPagefind(): Promise<PagefindApi | null> {
         "default" in module && module.default ? module.default : (module as PagefindApi);
       await api.options({ bundlePath: "/pagefind/" });
       await api.init();
+      pagefindWarm = true;
       return api;
     })().catch((error: unknown) => {
       pagefindPromise = null;
+      pagefindWarm = false;
       throw error;
     });
   }

@@ -17,7 +17,10 @@
   } from "$lib/content/search-ui";
   import {
     getPagefind,
+    isPagefindWarm,
     isSearchDocKind,
+    schedulePagefindIdleWarm,
+    SEARCH_DEBOUNCE_MS,
     type PagefindResultData,
   } from "$lib/search/pagefind-client";
   import { cx } from "$lib/ui/classes";
@@ -40,6 +43,7 @@
   let query = $state(untrack(() => initialQuery));
   let open = $state(false);
   let loading = $state(false);
+  let pending = $state(false);
   let unavailable = $state(false);
   let activeIndex = $state(0);
   let results = $state<PagefindResultData[]>([]);
@@ -134,17 +138,23 @@
     if (!normalized) {
       results = [];
       loading = false;
+      pending = false;
       return;
     }
 
     const generation = ++searchGeneration;
-    loading = true;
+    pending = true;
+
+    if (results.length === 0 && !isPagefindWarm()) {
+      loading = true;
+    }
 
     const api = await getPagefind();
     if (!api) {
       if (generation === searchGeneration) {
         unavailable = true;
         loading = false;
+        pending = false;
         results = [];
       }
       return;
@@ -153,9 +163,13 @@
     unavailable = false;
     void api.preload(normalized);
 
-    const response = await api.debouncedSearch(normalized, undefined, 180);
+    const response = await api.debouncedSearch(normalized, undefined, SEARCH_DEBOUNCE_MS);
     if (response === null || generation !== searchGeneration) {
       return;
+    }
+
+    if (results.length === 0) {
+      loading = true;
     }
 
     const page = await Promise.all(
@@ -169,6 +183,7 @@
     results = page;
     activeIndex = 0;
     loading = false;
+    pending = false;
   }
 
   function onInput(event: Event): void {
@@ -245,6 +260,7 @@
 
   onMount(() => {
     refreshRecent();
+    schedulePagefindIdleWarm();
 
     if (query.trim()) {
       open = true;
@@ -456,6 +472,8 @@
           <div class="flex items-center px-3.5 py-2.5">
             <DotLoader label="Searching…" />
           </div>
+        {:else if pending && results.length === 0}
+          <div class="h-11" aria-hidden="true"></div>
         {:else if results.length === 0}
           <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
             No matches for “{trimmedQuery}”. Try a shorter word or an English meaning.
