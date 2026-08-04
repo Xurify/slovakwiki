@@ -6,7 +6,12 @@
  * or weak Scribe logprob on the final content word.
  */
 
-import { scoreTranscript, softFoldSlovak, tokenizeFolded, editDistance } from "./verify-score";
+import {
+  scoreTranscript,
+  softFoldSlovak,
+  tokenizeFolded,
+  editDistance,
+} from "./verify-score";
 import { transcribeAudio, type SttProvider, type SttResult } from "./stt";
 
 export type JudgeMode = "dual" | "elevenlabs" | "whisper";
@@ -203,9 +208,7 @@ export async function judgeClip(
   };
 }
 
-export function judgeModeFromSttProvider(
-  provider: SttProvider | "dual",
-): JudgeMode {
+export function judgeModeFromSttProvider(provider: SttProvider | "dual"): JudgeMode {
   if (provider === "dual") return "dual";
   return provider;
 }

@@ -33,9 +33,7 @@ function formKeysForLemma(lemma: string, category: string): Set<string> {
 }
 
 function tokenMatches(token: string, keys: Set<string>): boolean {
-  return (
-    keys.has(token.toLocaleLowerCase("sk")) || keys.has(normalizeLemma(token))
-  );
+  return keys.has(token.toLocaleLowerCase("sk")) || keys.has(normalizeLemma(token));
 }
 
 /**

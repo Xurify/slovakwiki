@@ -1,5 +1,6 @@
 <script lang="ts">
   import AudioButton from "$lib/components/AudioButton.svelte";
+  import ExternalLookups from "$lib/components/ExternalLookups.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import GlossWithTerms from "$lib/components/GlossWithTerms.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -226,6 +227,7 @@
             class="flex flex-wrap gap-x-5 gap-y-1 py-2.5 text-sm text-panel-inverse-ink/50"
             aria-label="On this page"
           >
+            <a class="hover:text-panel-inverse-ink" href="#lookups">Elsewhere</a>
             {#if entry.body.length > 0}
               <a class="hover:text-panel-inverse-ink" href="#usage">Usage</a>
             {/if}
@@ -246,6 +248,8 @@
     class={`max-w-[880px] ${showHeroUsageGap ? "pt-10 max-[760px]:pt-8" : "pt-8 max-[760px]:pt-6"}`}
   >
     <article class="min-w-0">
+      <ExternalLookups class="mb-10" lemma={entry.slovak} />
+
       {#each senseViews as sense, senseIndex (sense.entry.slug)}
         {@const senseEntry = sense.entry}
         {@const hasUsage = senseEntry.body.length > 0}
@@ -470,7 +474,7 @@
       {#if relatedEntries.length}
         <section
           id="related"
-          class="scroll-mt-[88px] mt-14 border-t border-slate-200 pt-10"
+          class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
           aria-labelledby="related-heading"
         >
           <h2 id="related-heading" class="mb-5">Related</h2>

@@ -29,9 +29,9 @@ describe("highlightLemmaInText", () => {
   });
 
   it("bolds feminine past", () => {
-    expect(
-      hitText(highlightLemmaInText("Mária to priznala.", "priznať", "Verbs")),
-    ).toBe("priznala");
+    expect(hitText(highlightLemmaInText("Mária to priznala.", "priznať", "Verbs"))).toBe(
+      "priznala",
+    );
   });
 
   it("does not bold unrelated short words from other verbs", () => {
@@ -52,9 +52,7 @@ describe("highlightLemmaInText", () => {
 
   it("still bolds safe irregular forms", () => {
     expect(hitText(highlightLemmaInText("Tom bol doma.", "byť", "Verbs"))).toBe("bol");
-    expect(hitText(highlightLemmaInText("Oni boli doma.", "byť", "Verbs"))).toBe(
-      "boli",
-    );
+    expect(hitText(highlightLemmaInText("Oni boli doma.", "byť", "Verbs"))).toBe("boli");
   });
 
   it("requires whole-word match", () => {
@@ -73,8 +71,6 @@ describe("highlightLemmaInText", () => {
   });
 
   it("bolds noun case forms", () => {
-    expect(hitText(highlightLemmaInText("Vidím školu.", "škola", "Nouns"))).toBe(
-      "školu",
-    );
+    expect(hitText(highlightLemmaInText("Vidím školu.", "škola", "Nouns"))).toBe("školu");
   });
 });

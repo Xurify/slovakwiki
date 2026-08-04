@@ -152,9 +152,7 @@ export function scoreTranscript(
     ok: score >= minScore && unmatched.length === 0 && !endingMismatch,
     expectedTokens,
     transcriptTokens,
-    unmatched: endingMismatch
-      ? [...unmatched, `(ending:${endingMismatch})`]
-      : unmatched,
+    unmatched: endingMismatch ? [...unmatched, `(ending:${endingMismatch})`] : unmatched,
     charErrorRate: cer,
   };
 }

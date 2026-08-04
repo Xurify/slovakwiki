@@ -35,9 +35,9 @@ describe("scoreTranscript", () => {
     const got = "Tom bol príliš hrdý priznať, že Mária mala pravdu. A on sa myliu.";
     const score = scoreTranscript(expected, got);
     expect(score.ok).toBe(false);
-    expect(score.unmatched.some((u) => u.includes("milil") || u.includes("ending:"))).toBe(
-      true,
-    );
+    expect(
+      score.unmatched.some((u) => u.includes("milil") || u.includes("ending:")),
+    ).toBe(true);
   });
 
   it("fails even when score is otherwise high but last consonant drifts", () => {
@@ -61,7 +61,10 @@ describe("scoreTranscript", () => {
   });
 
   it("tolerates Whisper-split negation (nebol ↔ nie bol)", () => {
-    const score = scoreTranscript("A preto nebol na stretnutí.", "a preto nie bol na stretnutí.");
+    const score = scoreTranscript(
+      "A preto nebol na stretnutí.",
+      "a preto nie bol na stretnutí.",
+    );
     expect(score.unmatched).not.toContain("nebol");
   });
 

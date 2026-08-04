@@ -52,12 +52,12 @@ Primary dictionary growth is frequency publish + example enrich. Example quality
 ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
 | `generate.ts` | `audio:generate` | Writes MP3s; `--verify` uses dual judge (Scribe+Whisper) by default; `--stt dual\|elevenlabs\|whisper`; rescue model on fail |
-| `upload.ts`   | `audio:upload`   | Sync to R2; `--force` / `--only`; needs `R2_*` |
-| `status.ts`   | `audio:status`   | Targets vs disk vs manifest |
-| `verify.ts`   | `audio:verify`   | Dual STT audit → `tmp/audio-verify-report.json` |
-| `judge.ts`    | (lib)            | Dual STT + near-miss ending + logprob gap |
-| `stt.ts`      | (lib)            | Scribe + Whisper adapters |
-| `shared.ts`   | (lib)            | Hash / collect / synthesize |
+| `upload.ts` | `audio:upload` | Sync to R2; `--force` / `--only`; needs `R2_*` |
+| `status.ts` | `audio:status` | Targets vs disk vs manifest |
+| `verify.ts` | `audio:verify` | Dual STT audit → `tmp/audio-verify-report.json` |
+| `judge.ts` | (lib) | Dual STT + near-miss ending + logprob gap |
+| `stt.ts` | (lib) | Scribe + Whisper adapters |
+| `shared.ts` | (lib) | Hash / collect / synthesize |
 
 Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` (future: `lesson/`, `practice/`). Hash = content address; folder = how clip is used.
 
