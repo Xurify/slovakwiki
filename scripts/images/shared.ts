@@ -1,0 +1,409 @@
+/**
+ * Shared helpers for Wikimedia dictionary image fetch / status.
+ */
+
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+
+import { words } from "../../src/lib/content/data";
+import {
+  type ImageManifestEntry,
+  type ImageOverride,
+  type ImageStatus,
+} from "../../src/lib/content/images";
+import { canonicalWordSlug, lemmaSenseGroup } from "../../src/lib/content/lemma-senses";
+import { ROOT } from "../lib/paths";
+
+export const IMAGES_DIR = path.join(ROOT, "static", "images", "dictionary");
+export const MANIFEST_PATH = path.join(ROOT, "content", "images", "manifest.json");
+export const OVERRIDES_PATH = path.join(ROOT, "content", "images", "overrides.json");
+
+export const USER_AGENT =
+  "slovak.wiki-dictionary-images/0.1 (https://slovak.wiki; educational dictionary)";
+
+export const THUMB_WIDTH = 640;
+export const MIN_THUMB_PX = 80;
+
+export type ImageManifest = Record<string, ImageManifestEntry>;
+export type ImageOverrides = Record<string, ImageOverride>;
+
+export interface ImageTarget {
+  category: string;
+  english: string;
+  /** Preferred English gloss for EN Wikipedia fallback (noun sense when present). */
+  gloss: string;
+  slovak: string;
+  slug: string;
+}
+
+export function parseArgs(argv: string[]): {
+  force: boolean;
+  limit: number | undefined;
+  only: string | undefined;
+  partOfSpeech: string | undefined;
+} {
+  let force = false;
+  let limit: number | undefined;
+  let only: string | undefined;
+  let partOfSpeech: string | undefined;
+
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (arg === "--force") force = true;
+    else if (arg === "--limit") {
+      const value = Number(argv[i + 1]);
+      if (!Number.isFinite(value) || value < 1) {
+        throw new Error("--limit requires a positive number");
+      }
+      limit = Math.floor(value);
+      i += 1;
+    } else if (arg === "--only") {
+      only = argv[i + 1];
+      if (!only) throw new Error("--only requires a slug");
+      i += 1;
+    } else if (arg === "--part-of-speech") {
+      partOfSpeech = argv[i + 1];
+      if (!partOfSpeech) {
+        throw new Error("--part-of-speech requires a value (noun|verb|adjective)");
+      }
+      i += 1;
+    } else if (arg?.startsWith("-")) {
+      throw new Error(`Unknown flag: ${arg}`);
+    }
+  }
+
+  return { force, limit, only, partOfSpeech };
+}
+
+export function normalizePartOfSpeechFilter(
+  partOfSpeech: string | undefined,
+): string | undefined {
+  if (!partOfSpeech) return undefined;
+  const key = partOfSpeech.trim().toLowerCase();
+  if (key === "noun" || key === "nouns") return "Nouns";
+  if (key === "verb" || key === "verbs") return "Verbs";
+  if (key === "adjective" || key === "adjectives" || key === "adj") return "Adjectives";
+  // Allow exact category match (Places, Names, …)
+  return partOfSpeech.trim();
+}
+
+/** First usable English search title from a gloss string. */
+export function glossSearchTitle(english: string): string {
+  let part = english.split(";")[0]?.trim() ?? "";
+  part = part.split(",")[0]?.trim() ?? "";
+  part = part.replace(/\([^)]*\)/g, "").trim();
+  return part;
+}
+
+/** Strip infinitive markers from an English gloss fragment. */
+export function stripInfinitiveMarker(value: string): string {
+  return value
+    .replace(/^not to\s+/i, "")
+    .replace(/^to\s+/i, "")
+    .trim();
+}
+
+/**
+ * Irregular / preferred Commons search phrases keyed by English verb head.
+ * Prefer “person + action + object” over bare verbs (bare “read” → Lancashire town).
+ */
+const VERB_SCENE_QUERIES: Record<string, string[]> = {
+  go: ["person walking street", "people walking outdoors"],
+  walk: ["person walking street", "people walking outdoors"],
+  run: ["person running outdoors", "runner athletic race"],
+  swim: ["person swimming pool", "swimmer in water"],
+  float: ["person floating water"],
+  eat: ["person eating food", "people eating meal"],
+  drink: ["person drinking water glass", "person drinking from cup"],
+  write: ["person writing with pen", "hand writing on paper"],
+  read: ["person reading book", "someone reading a book"],
+  sleep: ["person sleeping in bed", "child sleeping"],
+  sit: ["person sitting on chair", "people sitting"],
+  stand: ["person standing upright", "people standing"],
+  cook: ["person cooking kitchen", "chef cooking food"],
+  boil: ["pot boiling water stove"],
+  listen: ["person listening headphones", "people listening"],
+  look: ["person looking at something", "people watching"],
+  watch: ["person watching television", "audience watching"],
+  open: ["person opening door", "hand opening door"],
+  close: ["person closing door", "hand closing door"],
+  shut: ["person closing door"],
+  buy: ["person shopping buying", "customer buying store"],
+  sell: ["person selling market", "vendor selling goods"],
+  ride: ["person riding bicycle", "people riding bike"],
+  drive: ["person driving car", "driver behind wheel"],
+  teach: ["teacher teaching classroom", "person teaching"],
+  learn: ["student learning classroom", "person studying"],
+  play: ["children playing outdoors", "person playing ball"],
+  wait: ["person waiting sitting", "people waiting"],
+  speak: ["person speaking microphone", "people talking"],
+  talk: ["people talking conversation"],
+  give: ["person giving gift", "handing over gift"],
+  take: ["person taking photo", "hand taking object"],
+  come: ["person arriving walking", "people coming"],
+  see: ["person looking eyes", "people watching"],
+  find: ["person finding searching"],
+  send: ["person sending mail letter", "posting letter"],
+  die: ["wilted flower", "candle extinguished"],
+  live: ["people living everyday life"],
+  work: ["person working office", "people working"],
+  do: ["person working hands", "people doing work"],
+  make: ["person making something hands", "craftsperson making"],
+  get: ["person receiving package"],
+  put: ["person putting object shelf"],
+  keep: ["person holding carefully"],
+  think: ["person thinking thoughtful"],
+  know: ["student learning book"],
+  want: ["person choosing wishing"],
+  say: ["person speaking talking"],
+  tell: ["person speaking story"],
+  must: [],
+  can: [],
+  be: [],
+  have: [],
+};
+
+function irregularPresentParticiple(head: string): string | undefined {
+  const irregular: Record<string, string> = {
+    run: "running",
+    swim: "swimming",
+    sit: "sitting",
+    get: "getting",
+    put: "putting",
+    begin: "beginning",
+    stop: "stopping",
+    lie: "lying",
+    die: "dying",
+    write: "writing",
+    ride: "riding",
+    drive: "driving",
+    make: "making",
+    take: "taking",
+    come: "coming",
+    give: "giving",
+    have: "having",
+  };
+  if (irregular[head]) return irregular[head];
+  if (head.endsWith("ie")) return `${head.slice(0, -2)}ying`;
+  if (head.endsWith("e") && !head.endsWith("ee") && !head.endsWith("ye")) {
+    return `${head.slice(0, -1)}ing`;
+  }
+  return `${head}ing`;
+}
+
+/**
+ * Ranked Commons search queries for a verb gloss.
+ * Prefer concrete “person …” scenes; bare verbs are last-resort only.
+ */
+export function verbActionQueries(english: string): string[] {
+  const ABSTRACT = new Set([
+    "be",
+    "have",
+    "can",
+    "must",
+    "will",
+    "shall",
+    "may",
+    "might",
+    "would",
+    "could",
+    "should",
+    "ought",
+  ]);
+
+  const senses = english
+    .split(";")
+    .map((part) => stripInfinitiveMarker(glossSearchTitle(part)))
+    .filter(Boolean);
+
+  const queries: string[] = [];
+  const seen = new Set<string>();
+
+  function push(query: string | undefined): void {
+    const cleaned = query?.trim().replace(/\s+/g, " ");
+    if (!cleaned) return;
+    const key = cleaned.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    queries.push(cleaned);
+  }
+
+  for (const sense of senses) {
+    const head = sense.split(/\s+/)[0]?.toLowerCase() ?? "";
+    if (!head || ABSTRACT.has(head)) continue;
+
+    for (const scene of VERB_SCENE_QUERIES[head] ?? []) {
+      push(scene);
+    }
+
+    const participle = irregularPresentParticiple(head);
+    if (participle) {
+      push(`person ${participle}`);
+      push(`people ${participle}`);
+    }
+
+    // Multi-word gloss already somewhat concrete (“look for”).
+    if (sense.includes(" ")) {
+      push(`person ${sense}`);
+    }
+  }
+
+  return queries;
+}
+
+/** Best single Commons query for a verb gloss (first ranked scene). */
+export function verbActionQuery(english: string): string | undefined {
+  return verbActionQueries(english)[0];
+}
+
+export function isVerbLikeCategory(category: string): boolean {
+  return category === "Verbs" || category === "Conversation";
+}
+
+export function stripHtml(value: string): string {
+  return value
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function normalizeCommonsFile(name: string): string {
+  const trimmed = name.trim();
+  if (/^File:/i.test(trimmed)) return trimmed.replace(/^File:/i, "File:");
+  return `File:${trimmed}`;
+}
+
+export function extensionFromMimeOrUrl(mime: string | undefined, url: string): string {
+  if (mime === "image/webp") return "webp";
+  if (mime === "image/png") return "png";
+  if (mime === "image/gif") return "gif";
+  if (mime === "image/jpeg" || mime === "image/jpg") return "jpg";
+  const match = url.match(/\.([a-z0-9]+)(?:\?|$)/i);
+  const ext = match?.[1]?.toLowerCase();
+  if (ext === "jpeg") return "jpg";
+  if (ext && ["jpg", "png", "webp", "gif"].includes(ext)) return ext;
+  return "jpg";
+}
+
+export function isBitmapMime(mime: string | undefined): boolean {
+  if (!mime) return true;
+  return mime.startsWith("image/") && !mime.includes("svg");
+}
+
+/** Canonical lemma pages — one target per dictionary route. */
+export function collectImageTargets(options?: {
+  only?: string;
+  partOfSpeech?: string;
+}): ImageTarget[] {
+  const partOfSpeechFilter = normalizePartOfSpeechFilter(options?.partOfSpeech);
+  const seen = new Set<string>();
+  const targets: ImageTarget[] = [];
+
+  for (const entry of words) {
+    if (entry.kind !== "word") continue;
+
+    const slug = canonicalWordSlug(entry, words);
+    if (seen.has(slug)) continue;
+    if (options?.only && slug !== options.only) continue;
+
+    seen.add(slug);
+
+    const senses = lemmaSenseGroup(entry, words);
+    const canonical = senses.find((sense) => sense.slug === slug) ?? entry;
+    const nounSense = senses.find((sense) => sense.category === "Nouns");
+    const glossSource = nounSense ?? canonical;
+
+    if (partOfSpeechFilter && canonical.category !== partOfSpeechFilter) {
+      // Include if any sense matches the part-of-speech filter (multi-sense lemmas).
+      if (!senses.some((sense) => sense.category === partOfSpeechFilter)) continue;
+    }
+
+    targets.push({
+      category: canonical.category,
+      english: canonical.english,
+      gloss: glossSource.english,
+      slovak: canonical.slovak,
+      slug,
+    });
+  }
+
+  return targets.sort((a, b) => a.slug.localeCompare(b.slug, "en"));
+}
+
+export async function loadManifest(): Promise<ImageManifest> {
+  try {
+    return JSON.parse(await readFile(MANIFEST_PATH, "utf8")) as ImageManifest;
+  } catch {
+    return {};
+  }
+}
+
+export async function saveManifest(manifest: ImageManifest): Promise<void> {
+  const sorted = Object.fromEntries(
+    Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b, "en")),
+  );
+  await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
+}
+
+export async function loadOverrides(): Promise<ImageOverrides> {
+  try {
+    return JSON.parse(await readFile(OVERRIDES_PATH, "utf8")) as ImageOverrides;
+  } catch {
+    return {};
+  }
+}
+
+export async function ensureImagesDir(): Promise<void> {
+  await mkdir(IMAGES_DIR, { recursive: true });
+}
+
+export async function fileExists(filePath: string): Promise<boolean> {
+  try {
+    await access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function localImagePath(file: string): string {
+  return path.join(IMAGES_DIR, file);
+}
+
+export function missingEntry(now: string): ImageManifestEntry {
+  return { fetchedAt: now, status: "missing" };
+}
+
+export function rejectedEntry(now: string): ImageManifestEntry {
+  return { fetchedAt: now, status: "rejected" };
+}
+
+export function shouldSkipTarget(
+  slug: string,
+  manifest: ImageManifest,
+  force: boolean,
+): boolean {
+  if (force) return false;
+  const entry = manifest[slug];
+  if (!entry || entry.status !== "ok" || !entry.file) return false;
+  return true;
+}
+
+export async function shouldSkipWithDisk(
+  slug: string,
+  manifest: ImageManifest,
+  force: boolean,
+): Promise<boolean> {
+  if (!shouldSkipTarget(slug, manifest, force)) return false;
+  const file = manifest[slug]?.file;
+  if (!file) return false;
+  return fileExists(localImagePath(file));
+}
+
+export { type ImageManifestEntry, type ImageStatus };

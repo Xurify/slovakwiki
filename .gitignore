@@ -9,6 +9,7 @@ dist/
 coverage/
 static/pagefind/
 static/audio/
+static/images/
 tmp/
 dev/*.log
 .env*
