@@ -1,7 +1,7 @@
 import lemmaFrequencyIndex from "../../../content/frequency/lemma-index.json";
 import dictionaryWords from "../../../content/dictionary/words.json";
 import { normalizeLemma } from "./frequency";
-import { type FrequencyPos } from "./frequency-types";
+import { type FrequencyPartOfSpeech } from "./frequency-types";
 import type {
   CaseTopic,
   ContentEntry,
@@ -23,34 +23,35 @@ type WordSeed = Pick<
   "slug" | "slovak" | "english" | "category" | "examples" | "related"
 >;
 
-type LemmaFrequencyHit = { pos: FrequencyPos; rank: number };
+type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
 
 const frequencyIndex = lemmaFrequencyIndex as Record<string, LemmaFrequencyHit>;
 
-const CATEGORY_TO_POS: Record<string, FrequencyPos> = {
+const CATEGORY_TO_PART_OF_SPEECH: Record<string, FrequencyPartOfSpeech> = {
   Verbs: "verb",
   Nouns: "noun",
   Adjectives: "adjective",
 };
 
 function wordFrequency(word: WordSeed): WordFrequency | undefined {
-  const preferredPos = CATEGORY_TO_POS[word.category];
+  const preferredPartOfSpeech = CATEGORY_TO_PART_OF_SPEECH[word.category];
   const exactLower = word.slovak.toLocaleLowerCase("sk");
 
-  if (preferredPos) {
-    const preferredExact = frequencyIndex[`exact:${exactLower}|${preferredPos}`];
+  if (preferredPartOfSpeech) {
+    const preferredExact =
+      frequencyIndex[`exact:${exactLower}|${preferredPartOfSpeech}`];
     if (preferredExact) return preferredExact;
   }
 
   const exact = frequencyIndex[`exact:${exactLower}`];
   if (exact) return exact;
 
-  // Diacritic-fold only for mass POS publishes — never attach a folded rank to
-  // curated topic words (slovensky ≠ slovenský).
-  if (!preferredPos) return undefined;
+  // Diacritic-fold only for mass part-of-speech publishes — never attach a
+  // folded rank to curated topic words (slovensky ≠ slovenský).
+  if (!preferredPartOfSpeech) return undefined;
 
   const key = normalizeLemma(word.slovak);
-  const preferred = frequencyIndex[`${key}|${preferredPos}`];
+  const preferred = frequencyIndex[`${key}|${preferredPartOfSpeech}`];
   if (preferred) return preferred;
 
   return frequencyIndex[key];
@@ -568,7 +569,7 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   };
 });
 
-/** Same-POS related links for frequency words with empty `related`. */
+/** Same-part-of-speech related links for frequency words with empty `related`. */
 function glossToken(english: string): string | null {
   const first = english.split(";")[0]!.trim().toLowerCase();
   const stripped = first
@@ -611,7 +612,7 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
     if (!entry.frequency || entry.related.length > 0) continue;
     const token = glossToken(entry.english);
     if (!token) continue;
-    const key = `${entry.frequency.pos}::${token}`;
+    const key = `${entry.frequency.partOfSpeech}::${token}`;
     const list = glossBuckets.get(key) ?? [];
     list.push(entry);
     glossBuckets.set(key, list);
@@ -634,7 +635,7 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
     }
   }
 
-  const byPos: Record<FrequencyPos, ContentEntry[]> = {
+  const byPartOfSpeech: Record<FrequencyPartOfSpeech, ContentEntry[]> = {
     verb: [],
     noun: [],
     adjective: [],
@@ -643,19 +644,19 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
   for (const entry of entries) {
     if (!entry.frequency || entry.related.length > 0) continue;
     if (glossRelated.has(entry.slug)) continue;
-    byPos[entry.frequency.pos].push(entry);
+    byPartOfSpeech[entry.frequency.partOfSpeech].push(entry);
   }
 
-  for (const pos of Object.keys(byPos) as FrequencyPos[]) {
-    byPos[pos].sort(
+  for (const partOfSpeech of Object.keys(byPartOfSpeech) as FrequencyPartOfSpeech[]) {
+    byPartOfSpeech[partOfSpeech].sort(
       (first, second) => (first.frequency?.rank ?? 0) - (second.frequency?.rank ?? 0),
     );
   }
 
   const rankNeighbors = new Map<string, string[]>();
 
-  for (const pos of Object.keys(byPos) as FrequencyPos[]) {
-    const list = byPos[pos];
+  for (const partOfSpeech of Object.keys(byPartOfSpeech) as FrequencyPartOfSpeech[]) {
+    const list = byPartOfSpeech[partOfSpeech];
 
     for (let index = 0; index < list.length; index += 1) {
       const entry = list[index]!;

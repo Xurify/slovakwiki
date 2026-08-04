@@ -1,5 +1,5 @@
 import type { ContentEntry } from "./types";
-import type { FrequencyEntry, FrequencyPos } from "./frequency-types";
+import type { FrequencyEntry, FrequencyPartOfSpeech } from "./frequency-types";
 
 /** Strip diacritics for loose lemma matching. */
 export function normalizeLemma(value: string): string {
@@ -17,28 +17,32 @@ export function lemmaToSlug(lemma: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-const POS_TO_CATEGORY: Record<FrequencyPos, string> = {
+const PART_OF_SPEECH_TO_CATEGORY: Record<FrequencyPartOfSpeech, string> = {
   verb: "Verbs",
   noun: "Nouns",
   adjective: "Adjectives",
 };
 
-/** Frequency POS buckets — curated topical categories are not these. */
-const FREQUENCY_POS_CATEGORIES = new Set<string>(["Verbs", "Nouns", "Adjectives"]);
+/** Frequency part-of-speech buckets — curated topical categories are not these. */
+const FREQUENCY_PART_OF_SPEECH_CATEGORIES = new Set<string>([
+  "Verbs",
+  "Nouns",
+  "Adjectives",
+]);
 
 /**
- * Prefer the frequency POS category, then fall back to a curated topical entry
- * for the same lemma (People / Places / Conversation / …) so common lists do
- * not show “Not in dictionary yet” when the page already exists.
+ * Prefer the frequency part-of-speech category, then fall back to a curated
+ * topical entry for the same lemma (People / Places / Conversation / …) so
+ * common lists do not show “Not in dictionary yet” when the page already exists.
  */
-function pickForPreferredPos(
+function pickForPreferredPartOfSpeech(
   matches: readonly ContentEntry[],
   preferredCategory: string,
 ): ContentEntry | undefined {
-  const byPos = matches.find((word) => word.category === preferredCategory);
-  if (byPos) return byPos;
+  const byPartOfSpeech = matches.find((word) => word.category === preferredCategory);
+  if (byPartOfSpeech) return byPartOfSpeech;
 
-  const rivalCategories = new Set(FREQUENCY_POS_CATEGORIES);
+  const rivalCategories = new Set(FREQUENCY_PART_OF_SPEECH_CATEGORIES);
   rivalCategories.delete(preferredCategory);
 
   return matches.find((word) => !rivalCategories.has(word.category));
@@ -47,13 +51,15 @@ function pickForPreferredPos(
 export function findLiveWordForLemma(
   lemma: string,
   words: readonly ContentEntry[],
-  preferredPos?: FrequencyPos,
+  preferredPartOfSpeech?: FrequencyPartOfSpeech,
 ): ContentEntry | undefined {
-  const preferredCategory = preferredPos ? POS_TO_CATEGORY[preferredPos] : undefined;
+  const preferredCategory = preferredPartOfSpeech
+    ? PART_OF_SPEECH_TO_CATEGORY[preferredPartOfSpeech]
+    : undefined;
 
   const exact = words.filter((word) => word.slovak === lemma);
   if (preferredCategory) {
-    const picked = pickForPreferredPos(exact, preferredCategory);
+    const picked = pickForPreferredPartOfSpeech(exact, preferredCategory);
     if (picked) return picked;
   } else if (exact.length > 0) {
     return exact[0];
@@ -65,7 +71,7 @@ export function findLiveWordForLemma(
     (word) => word.slovak.toLocaleLowerCase("sk") === lower,
   );
   if (preferredCategory) {
-    return pickForPreferredPos(caseMatches, preferredCategory);
+    return pickForPreferredPartOfSpeech(caseMatches, preferredCategory);
   }
   return caseMatches.length === 1 ? caseMatches[0] : undefined;
 }
@@ -74,12 +80,14 @@ export function frequencyEntriesMissingFromDictionary(
   entries: readonly FrequencyEntry[],
   words: readonly ContentEntry[],
 ): FrequencyEntry[] {
-  return entries.filter((entry) => !findLiveWordForLemma(entry.lemma, words, entry.pos));
+  return entries.filter(
+    (entry) => !findLiveWordForLemma(entry.lemma, words, entry.partOfSpeech),
+  );
 }
 
-export function filterFrequencyByPos(
+export function filterFrequencyByPartOfSpeech(
   entries: readonly FrequencyEntry[],
-  pos: FrequencyPos,
+  partOfSpeech: FrequencyPartOfSpeech,
 ): FrequencyEntry[] {
-  return entries.filter((entry) => entry.pos === pos);
+  return entries.filter((entry) => entry.partOfSpeech === partOfSpeech);
 }

@@ -1,4 +1,4 @@
-import type { FrequencyPos } from "./frequency-types";
+import type { FrequencyPartOfSpeech } from "./frequency-types";
 
 export type EntryKind = "word" | "grammar" | "pronunciation";
 
@@ -17,7 +17,7 @@ export interface Example {
 }
 
 export interface WordFrequency {
-  pos: FrequencyPos;
+  partOfSpeech: FrequencyPartOfSpeech;
   rank: number;
 }
 

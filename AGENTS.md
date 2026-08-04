@@ -134,7 +134,7 @@ let { heroSearch }: { heroSearch: Snippet } = $props();
 Page **is** the interactive app (filters, player, kabinet), not static chrome with a widget:
 
 - `/dictionary` (`WikiPage`) — browse/filter/paginate
-- `/dictionary/common/[pos]` — filter + show-more list
+- `/dictionary/common/[partOfSpeech]` — filter + show-more list
 - `/lessons` (`LessonsKabinetLayout`) — keyboard rail + localStorage progress
 - `/practice/[set]`, `/practice/reference/…` — `PracticePlayer`
 - `SiteLayout` `Header` — nav/search/theme

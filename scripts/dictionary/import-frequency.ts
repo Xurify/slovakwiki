@@ -14,7 +14,7 @@ import { fileURLToPath } from "node:url";
 import { normalizeLemma } from "../../src/lib/content/frequency";
 import type {
   FrequencyListFile,
-  FrequencyPos,
+  FrequencyPartOfSpeech,
 } from "../../src/lib/content/frequency-types";
 import { referenceSources } from "../../src/lib/content/references";
 import { parseSnkLemmaTable } from "../../src/lib/content/snk-frequency";
@@ -28,7 +28,10 @@ const SNK_INDEX =
 const SNK_CORPUS = "prim-8.0-public-all";
 const SNK_SOURCE_NAME = "Slovak National Corpus (SNK)";
 
-const POS_PATHS: Record<FrequencyPos, { file: string; path: string }> = {
+const PART_OF_SPEECH_PATHS: Record<
+  FrequencyPartOfSpeech,
+  { file: string; path: string }
+> = {
   verb: {
     file: "verbs.json",
     path: "prim-8-0-public-all-verbums-top-1000-lemmas/",
@@ -43,8 +46,10 @@ const POS_PATHS: Record<FrequencyPos, { file: string; path: string }> = {
   },
 };
 
-async function fetchSnkFrequency(pos: FrequencyPos): Promise<FrequencyListFile> {
-  const config = POS_PATHS[pos];
+async function fetchSnkFrequency(
+  partOfSpeech: FrequencyPartOfSpeech,
+): Promise<FrequencyListFile> {
+  const config = PART_OF_SPEECH_PATHS[partOfSpeech];
   const sourceUrl = `${SNK_INDEX}${config.path}`;
   const response = await fetch(sourceUrl);
 
@@ -55,19 +60,19 @@ async function fetchSnkFrequency(pos: FrequencyPos): Promise<FrequencyListFile> 
   }
 
   const html = await response.text();
-  const parsed = parseSnkLemmaTable(html, pos, sourceUrl);
+  const parsed = parseSnkLemmaTable(html, partOfSpeech, sourceUrl);
   const entries = parsed.filter((entry) => entry.lemma.trim().length > 1);
 
   if (entries.length < 100) {
     throw new Error(
-      `Expected ~1000 lemmas for ${pos}, got ${entries.length} from ${sourceUrl}`,
+      `Expected ~1000 lemmas for ${partOfSpeech}, got ${entries.length} from ${sourceUrl}`,
     );
   }
 
   return {
     corpus: SNK_CORPUS,
     generatedAt: new Date().toISOString(),
-    pos,
+    partOfSpeech,
     source: SNK_SOURCE_NAME,
     sourceUrl,
     entries,
@@ -75,25 +80,26 @@ async function fetchSnkFrequency(pos: FrequencyPos): Promise<FrequencyListFile> 
 }
 
 function buildLemmaIndex(
-  lists: Record<FrequencyPos, FrequencyListFile>,
-): Record<string, { pos: FrequencyPos; rank: number }> {
-  const index: Record<string, { pos: FrequencyPos; rank: number }> = {};
+  lists: Record<FrequencyPartOfSpeech, FrequencyListFile>,
+): Record<string, { partOfSpeech: FrequencyPartOfSpeech; rank: number }> {
+  const index: Record<string, { partOfSpeech: FrequencyPartOfSpeech; rank: number }> =
+    {};
 
-  for (const pos of Object.keys(lists) as FrequencyPos[]) {
-    for (const entry of lists[pos].entries) {
+  for (const partOfSpeech of Object.keys(lists) as FrequencyPartOfSpeech[]) {
+    for (const entry of lists[partOfSpeech].entries) {
       const key = normalizeLemma(entry.lemma);
       const exactLower = entry.lemma.toLocaleLowerCase("sk");
-      const hit = { rank: entry.rank, pos: entry.pos };
+      const hit = { rank: entry.rank, partOfSpeech: entry.partOfSpeech };
 
       const existing = index[key];
       if (!existing || entry.rank < existing.rank) {
         index[key] = hit;
       }
 
-      const posKey = `${key}|${entry.pos}`;
-      const existingPos = index[posKey];
-      if (!existingPos || entry.rank < existingPos.rank) {
-        index[posKey] = hit;
+      const partOfSpeechKey = `${key}|${entry.partOfSpeech}`;
+      const existingPartOfSpeech = index[partOfSpeechKey];
+      if (!existingPartOfSpeech || entry.rank < existingPartOfSpeech.rank) {
+        index[partOfSpeechKey] = hit;
       }
 
       const exactKey = `exact:${exactLower}`;
@@ -102,10 +108,13 @@ function buildLemmaIndex(
         index[exactKey] = hit;
       }
 
-      const exactPosKey = `exact:${exactLower}|${entry.pos}`;
-      const existingExactPos = index[exactPosKey];
-      if (!existingExactPos || entry.rank < existingExactPos.rank) {
-        index[exactPosKey] = hit;
+      const exactPartOfSpeechKey = `exact:${exactLower}|${entry.partOfSpeech}`;
+      const existingExactPartOfSpeech = index[exactPartOfSpeechKey];
+      if (
+        !existingExactPartOfSpeech ||
+        entry.rank < existingExactPartOfSpeech.rank
+      ) {
+        index[exactPartOfSpeechKey] = hit;
       }
     }
   }
@@ -116,15 +125,17 @@ function buildLemmaIndex(
 async function main(): Promise<void> {
   await mkdir(OUT_DIR, { recursive: true });
 
-  const lists = {} as Record<FrequencyPos, FrequencyListFile>;
+  const lists = {} as Record<FrequencyPartOfSpeech, FrequencyListFile>;
 
-  for (const pos of Object.keys(POS_PATHS) as FrequencyPos[]) {
-    const list = await fetchSnkFrequency(pos);
-    lists[pos] = list;
-    const outPath = path.join(OUT_DIR, POS_PATHS[pos].file);
+  for (const partOfSpeech of Object.keys(
+    PART_OF_SPEECH_PATHS,
+  ) as FrequencyPartOfSpeech[]) {
+    const list = await fetchSnkFrequency(partOfSpeech);
+    lists[partOfSpeech] = list;
+    const outPath = path.join(OUT_DIR, PART_OF_SPEECH_PATHS[partOfSpeech].file);
     await writeFile(outPath, `${JSON.stringify(list, null, 2)}\n`, "utf8");
     console.log(
-      `Wrote ${list.entries.length} ${pos} lemmas → ${path.relative(ROOT, outPath)}`,
+      `Wrote ${list.entries.length} ${partOfSpeech} lemmas → ${path.relative(ROOT, outPath)}`,
     );
   }
 

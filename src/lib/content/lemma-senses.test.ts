@@ -16,7 +16,7 @@ describe("lemma senses", () => {
     expect(senseSectionId("Verbs")).toBe("verb");
   });
 
-  it("groups POS siblings for domáci and dospelý", () => {
+  it("groups part-of-speech siblings for domáci and dospelý", () => {
     const adj = words.find((word) => word.slug === "domaci");
     const noun = words.find((word) => word.slug === "dospely");
     expect(adj).toBeDefined();
@@ -52,7 +52,7 @@ describe("lemma senses", () => {
     });
   });
 
-  it("drops POS siblings from related rail", () => {
+  it("drops part-of-speech siblings from related rail", () => {
     const senses = lemmaSenseGroup(
       words.find((word) => word.slug === "domaci")!,
       words,

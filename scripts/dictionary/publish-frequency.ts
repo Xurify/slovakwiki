@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 import { words } from "../../src/lib/content/data";
 import type {
   FrequencyListFile,
-  FrequencyPos,
+  FrequencyPartOfSpeech,
 } from "../../src/lib/content/frequency-types";
 import { findLiveWordForLemma, lemmaToSlug } from "../../src/lib/content/frequency";
 import type { ContentEntry } from "../../src/lib/content/types";
@@ -37,19 +37,19 @@ const FREQUENCY_DIR = path.join(ROOT, "content", "frequency");
 const GLOSSES_PATH = path.join(FREQUENCY_DIR, "glosses.json");
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 
-const POS_FILES: Record<FrequencyPos, string> = {
+const PART_OF_SPEECH_FILES: Record<FrequencyPartOfSpeech, string> = {
   verb: "verbs.json",
   noun: "nouns.json",
   adjective: "adjectives.json",
 };
 
-const CATEGORY_BY_POS: Record<FrequencyPos, string> = {
+const CATEGORY_BY_PART_OF_SPEECH: Record<FrequencyPartOfSpeech, string> = {
   verb: "Verbs",
   noun: "Nouns",
   adjective: "Adjectives",
 };
 
-const POS_SLUG_SUFFIX: Record<FrequencyPos, string> = {
+const PART_OF_SPEECH_SLUG_SUFFIX: Record<FrequencyPartOfSpeech, string> = {
   verb: "v",
   noun: "n",
   adjective: "a",
@@ -71,19 +71,19 @@ function parseArgs(argv: string[]): { limit: number } {
 /** Prefer bare slug; on collision append -v / -n / -a (štát → stat-n). */
 function allocateSlug(
   lemma: string,
-  pos: FrequencyPos,
+  partOfSpeech: FrequencyPartOfSpeech,
   liveSlugs: Set<string>,
 ): string | undefined {
   const base = lemmaToSlug(lemma);
   if (!base) return undefined;
   if (!liveSlugs.has(base)) return base;
 
-  const withPos = `${base}-${POS_SLUG_SUFFIX[pos]}`;
-  if (!liveSlugs.has(withPos)) return withPos;
+  const withPartOfSpeech = `${base}-${PART_OF_SPEECH_SLUG_SUFFIX[partOfSpeech]}`;
+  if (!liveSlugs.has(withPartOfSpeech)) return withPartOfSpeech;
 
   let suffix = 2;
-  while (liveSlugs.has(`${withPos}-${suffix}`)) suffix += 1;
-  return `${withPos}-${suffix}`;
+  while (liveSlugs.has(`${withPartOfSpeech}-${suffix}`)) suffix += 1;
+  return `${withPartOfSpeech}-${suffix}`;
 }
 
 async function loadWords(): Promise<WordSeed[]> {
@@ -116,9 +116,14 @@ async function main(): Promise<void> {
   let missingGloss = 0;
   let disambiguated = 0;
 
-  for (const pos of Object.keys(POS_FILES) as FrequencyPos[]) {
+  for (const partOfSpeech of Object.keys(
+    PART_OF_SPEECH_FILES,
+  ) as FrequencyPartOfSpeech[]) {
     const list = JSON.parse(
-      await readFile(path.join(FREQUENCY_DIR, POS_FILES[pos]), "utf8"),
+      await readFile(
+        path.join(FREQUENCY_DIR, PART_OF_SPEECH_FILES[partOfSpeech]),
+        "utf8",
+      ),
     ) as FrequencyListFile;
 
     for (const entry of list.entries.slice(0, limit)) {
@@ -142,7 +147,7 @@ async function main(): Promise<void> {
       }
 
       const baseSlug = lemmaToSlug(entry.lemma);
-      const slug = allocateSlug(entry.lemma, pos, liveSlugs);
+      const slug = allocateSlug(entry.lemma, partOfSpeech, liveSlugs);
       if (!slug) {
         skippedLive += 1;
         continue;
@@ -154,7 +159,7 @@ async function main(): Promise<void> {
         slug,
         slovak: entry.lemma,
         english: gloss.english.trim(),
-        category: gloss.category?.trim() || CATEGORY_BY_POS[pos],
+        category: gloss.category?.trim() || CATEGORY_BY_PART_OF_SPEECH[partOfSpeech],
         examples: [],
         related: [],
       };
@@ -168,7 +173,7 @@ async function main(): Promise<void> {
 
   await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
   console.log(
-    `Published ${added} lemmas (${disambiguated} with POS slug suffix); already live ${skippedLive}; missing gloss ${missingGloss}`,
+    `Published ${added} lemmas (${disambiguated} with part-of-speech slug suffix); already live ${skippedLive}; missing gloss ${missingGloss}`,
   );
   console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);
 }

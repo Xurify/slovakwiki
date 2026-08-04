@@ -58,7 +58,7 @@ export function getStaticPaths() {
     const senses = lemmaSenseGroup(entry, words);
     const canonicalSlug = canonicalWordSlug(entry, words);
 
-    // POS siblings share one lemma page — no /domaci-n style routes.
+    // Part-of-speech siblings share one lemma page — no /domaci-n style routes.
     if (entry.slug !== canonicalSlug) return [];
 
     const relatedEntries = relatedSlugsForLemmaPage(senses)

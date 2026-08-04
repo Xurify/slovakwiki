@@ -5,17 +5,20 @@ import { words } from "$lib/content/data";
 import { findLiveWordForLemma } from "$lib/content/frequency";
 import { dictionaryHrefForSense } from "$lib/content/lemma-senses";
 import { loadAllFrequencyLists } from "$lib/content/load-frequency";
-import { FREQUENCY_POS_LABEL, type FrequencyPos } from "$lib/content/frequency-types";
+import {
+  FREQUENCY_PART_OF_SPEECH_LABEL,
+  type FrequencyPartOfSpeech,
+} from "$lib/content/frequency-types";
 
 export function getStaticPaths() {
-  return (["verb", "noun", "adjective"] as const).map((pos) => ({
-    params: { pos },
+  return (["verb", "noun", "adjective"] as const).map((partOfSpeech) => ({
+    params: { partOfSpeech },
   }));
 }
 
-const pos = Astro.params.pos as FrequencyPos;
+const partOfSpeech = Astro.params.partOfSpeech as FrequencyPartOfSpeech;
 const allLists = await loadAllFrequencyLists();
-const sourceList = allLists[pos];
+const sourceList = allLists[partOfSpeech];
 
 const entries = sourceList.entries
   .filter((entry) => entry.lemma.trim().length > 1)
@@ -28,7 +31,7 @@ const entries = sourceList.entries
 const liveByLemma: Record<string, { english: string; slug: string; hash?: string }> = {};
 
 for (const entry of entries) {
-  const live = findLiveWordForLemma(entry.lemma, words, pos);
+  const live = findLiveWordForLemma(entry.lemma, words, partOfSpeech);
   if (!live) continue;
   const href = dictionaryHrefForSense(live, words);
   liveByLemma[entry.lemma] = {
@@ -40,20 +43,20 @@ for (const entry of entries) {
 
 const tabs = (["verb", "noun", "adjective"] as const).map((value) => ({
   value,
-  label: FREQUENCY_POS_LABEL[value],
+  label: FREQUENCY_PART_OF_SPEECH_LABEL[value],
   href: `/dictionary/common/${value}`,
 }));
 ---
 
 <SiteLayout
-  title={`Most common ${FREQUENCY_POS_LABEL[pos].toLowerCase()} — Slovak Wiki`}
-  description={`The most common Slovak ${FREQUENCY_POS_LABEL[pos].toLowerCase()} from the Slovak National Corpus.`}
+  title={`Most common ${FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()} — Slovak Wiki`}
+  description={`The most common Slovak ${FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()} from the Slovak National Corpus.`}
 >
   <DictionaryCommonPage
     client:load
     {entries}
     {liveByLemma}
-    {pos}
+    {partOfSpeech}
     {tabs}
     sourceUrl={sourceList.sourceUrl}
   />

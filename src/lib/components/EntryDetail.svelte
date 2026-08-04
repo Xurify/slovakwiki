@@ -7,7 +7,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { FREQUENCY_POS_LABEL } from "$lib/content/frequency-types";
+  import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/content/frequency-types";
   import { highlightLemmaInText } from "$lib/content/highlight-lemma";
   import type { DictionaryImageView } from "$lib/content/images";
   import { senseSectionId } from "$lib/content/lemma-senses";
@@ -191,10 +191,10 @@
           {#if entry.frequency}
             <a
               class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tabular-nums text-panel-inverse-ink/80 transition-colors hover:border-panel-inverse-ink/45 hover:bg-panel-inverse-ink/10"
-              href={`/dictionary/common/${entry.frequency.pos}`}
+              href={`/dictionary/common/${entry.frequency.partOfSpeech}`}
             >
               #{entry.frequency.rank}
-              {FREQUENCY_POS_LABEL[entry.frequency.pos]}
+              {FREQUENCY_PART_OF_SPEECH_LABEL[entry.frequency.partOfSpeech]}
             </a>
           {/if}
         {/if}
@@ -352,10 +352,10 @@
 
             {#if senseEntry.frequency}
               <p class="mt-3 text-sm text-slate-500">
-                Among the most common Slovak {FREQUENCY_POS_LABEL[
-                  senseEntry.frequency.pos
+                Among the most common Slovak {FREQUENCY_PART_OF_SPEECH_LABEL[
+                  senseEntry.frequency.partOfSpeech
                 ].toLowerCase()} (#{senseEntry.frequency.rank}).
-                <TextLink href={`/dictionary/common/${senseEntry.frequency.pos}`}
+                <TextLink href={`/dictionary/common/${senseEntry.frequency.partOfSpeech}`}
                   >Browse the list</TextLink
                 >
               </p>

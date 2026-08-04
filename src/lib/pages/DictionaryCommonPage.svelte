@@ -5,7 +5,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { FREQUENCY_POS_LABEL, type FrequencyPos } from "$lib/content/frequency-types";
+  import { FREQUENCY_PART_OF_SPEECH_LABEL, type FrequencyPartOfSpeech } from "$lib/content/frequency-types";
 
   interface CompactFrequencyEntry {
     count?: number;
@@ -22,18 +22,18 @@
   interface Tab {
     href: string;
     label: string;
-    value: FrequencyPos;
+    value: FrequencyPartOfSpeech;
   }
 
   interface Props {
     entries: CompactFrequencyEntry[];
     liveByLemma: Record<string, LiveLink>;
-    pos: FrequencyPos;
+    partOfSpeech: FrequencyPartOfSpeech;
     sourceUrl: string;
     tabs: Tab[];
   }
 
-  let { entries, liveByLemma, pos, sourceUrl, tabs }: Props = $props();
+  let { entries, liveByLemma, partOfSpeech, sourceUrl, tabs }: Props = $props();
 
   const PAGE_SIZE = 100;
 
@@ -71,10 +71,10 @@
   const rowClass =
     "grid grid-cols-[3rem_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-slate-200 py-3 text-sm max-[560px]:grid-cols-[2.5rem_minmax(0,1fr)]";
 
-  const tabClass = (value: FrequencyPos) =>
+  const tabClass = (value: FrequencyPartOfSpeech) =>
     [
       "border-b-2 px-1 pb-2 text-sm transition-colors",
-      pos === value
+      partOfSpeech === value
         ? "border-blue-800 font-medium text-blue-800"
         : "border-transparent text-slate-500 hover:text-slate-800",
     ].join(" ");
@@ -139,7 +139,7 @@
             class={tabClass(tab.value)}
             href={tab.href}
             role="tab"
-            aria-selected={pos === tab.value}
+            aria-selected={partOfSpeech === tab.value}
           >
             {tab.label}
           </a>
@@ -150,7 +150,7 @@
         Showing {visibleEntries.length.toLocaleString("en")} of {filteredEntries.length.toLocaleString(
           "en",
         )}
-        {FREQUENCY_POS_LABEL[pos].toLowerCase()}
+        {FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()}
         {#if filteredEntries.length !== entries.length}
           <span class="text-slate-400">
             · {entries.length.toLocaleString("en")} total

@@ -1,4 +1,4 @@
-import type { FrequencyEntry, FrequencyPos } from "./frequency-types";
+import type { FrequencyEntry, FrequencyPartOfSpeech } from "./frequency-types";
 
 const SNK_SOURCE_NAME = "Slovak National Corpus (SNK)";
 
@@ -12,7 +12,7 @@ function stripTags(value: string): string {
 /** Parse an SNK top-1000 lemmas HTML table into frequency entries. */
 export function parseSnkLemmaTable(
   html: string,
-  pos: FrequencyPos,
+  partOfSpeech: FrequencyPartOfSpeech,
   sourceUrl: string,
 ): FrequencyEntry[] {
   const rows = [...html.matchAll(/<tr[^>]*>[\s\S]*?<\/tr>/gi)];
@@ -36,7 +36,7 @@ export function parseSnkLemmaTable(
     entries.push({
       rank,
       lemma,
-      pos,
+      partOfSpeech,
       count: Number.isFinite(count) ? count : undefined,
       source: SNK_SOURCE_NAME,
       sourceUrl,

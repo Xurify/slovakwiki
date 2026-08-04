@@ -29,7 +29,7 @@ describe("frequency helpers", () => {
     expect(findLiveWordForLemma("ďakujem", words)?.slug).toBe("dakujem");
   });
 
-  it("prefers matching POS when a lemma has multiple live entries", () => {
+  it("prefers matching part of speech when a lemma has multiple live entries", () => {
     expect(findLiveWordForLemma("domáci", words, "adjective")?.slug).toBe("domaci");
     expect(findLiveWordForLemma("domáci", words, "noun")?.slug).toBe("domaci-n");
     expect(findLiveWordForLemma("dospelý", words, "noun")?.slug).toBe("dospely");
@@ -55,14 +55,14 @@ describe("frequency helpers", () => {
       {
         rank: 1,
         lemma: "byť",
-        pos: "verb",
+        partOfSpeech: "verb",
         source: "test",
         sourceUrl: "https://example.com",
       },
       {
         rank: 2,
         lemma: "neexistujuceslovo",
-        pos: "verb",
+        partOfSpeech: "verb",
         source: "test",
         sourceUrl: "https://example.com",
       },
@@ -88,7 +88,7 @@ describe("SNK frequency import", () => {
       {
         rank: 1,
         lemma: "byť",
-        pos: "verb",
+        partOfSpeech: "verb",
         count: 100,
         source: "Slovak National Corpus (SNK)",
         sourceUrl: "https://example.com/verbs",
@@ -96,7 +96,7 @@ describe("SNK frequency import", () => {
       {
         rank: 2,
         lemma: "mať",
-        pos: "verb",
+        partOfSpeech: "verb",
         count: 50,
         source: "Slovak National Corpus (SNK)",
         sourceUrl: "https://example.com/verbs",

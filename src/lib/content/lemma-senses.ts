@@ -9,14 +9,14 @@ const CATEGORY_SECTION_ID: Record<string, string> = {
   Adjectives: "adjective",
 };
 
-/** Anchor id for a POS section on a multi-sense lemma page. */
+/** Anchor id for a part-of-speech section on a multi-sense lemma page. */
 export function senseSectionId(category: string): string {
   return (
     CATEGORY_SECTION_ID[category] ?? category.toLocaleLowerCase("en").replace(/\s+/g, "-")
   );
 }
 
-/** All live word rows that share the same lemma string (POS siblings). */
+/** All live word rows that share the same lemma string (part-of-speech siblings). */
 export function lemmaSenseGroup(
   entry: ContentEntry,
   words: readonly ContentEntry[],
@@ -42,8 +42,8 @@ export function lemmaSenseGroup(
 }
 
 /**
- * Prefer bare lemma slug among POS siblings (`domaci` over `domaci-n`).
- * Falls back to an unsuffixed slug, then first in POS order.
+ * Prefer bare lemma slug among part-of-speech siblings (`domaci` over `domaci-n`).
+ * Falls back to an unsuffixed slug, then first in part-of-speech order.
  */
 export function canonicalWordSlug(
   entry: ContentEntry,
@@ -60,7 +60,7 @@ export function canonicalWordSlug(
   return unsuffixed?.slug ?? group[0]!.slug;
 }
 
-/** Dictionary href for a sense — canonical slug, with `#pos` when lemma has siblings. */
+/** Dictionary href for a sense — canonical slug, with `#verb`/`#noun`/… when lemma has siblings. */
 export function dictionaryHrefForSense(
   entry: ContentEntry,
   words: readonly ContentEntry[],
@@ -71,7 +71,7 @@ export function dictionaryHrefForSense(
   return { slug: canonical, hash: senseSectionId(entry.category) };
 }
 
-/** Related slugs across senses, excluding POS-sibling entries. */
+/** Related slugs across senses, excluding part-of-speech sibling entries. */
 export function relatedSlugsForLemmaPage(senses: readonly ContentEntry[]): string[] {
   const siblingSlugs = new Set(senses.map((sense) => sense.slug));
   const seen = new Set<string>();

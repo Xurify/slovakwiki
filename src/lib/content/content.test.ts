@@ -493,7 +493,7 @@ describe("Slovak content", () => {
 
   it("attaches frequency rank for SNK lemmas", () => {
     const byt = words.find((word) => word.slug === "byt");
-    expect(byt?.frequency?.pos).toBe("verb");
+    expect(byt?.frequency?.partOfSpeech).toBe("verb");
     expect(byt?.frequency?.rank).toBe(1);
 
     const velky = words.find((word) => word.slovak === "veľký");
