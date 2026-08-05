@@ -36,6 +36,9 @@
       <a class="hover:text-(--accent-strong) hover:underline" href="/references"
         >References</a
       >
+      <a class="hover:text-(--accent-strong) hover:underline" href="/downloads"
+        >Downloads</a
+      >
     </nav>
   </div>
 </footer>

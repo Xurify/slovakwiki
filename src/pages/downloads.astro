@@ -1,0 +1,14 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import DownloadsBuilder from "$lib/components/DownloadsBuilder.svelte";
+import DownloadsPage from "$lib/pages/DownloadsPage.svelte";
+---
+
+<SiteLayout
+  title="Downloads — Slovak Wiki"
+  description="Download Slovak Wiki dictionary lemmas and example sentences as JSON, CSV, or TSV."
+>
+  <DownloadsPage>
+    <DownloadsBuilder client:load slot="builder" />
+  </DownloadsPage>
+</SiteLayout>

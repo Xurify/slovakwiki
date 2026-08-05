@@ -420,6 +420,7 @@
       <TextLink href="/pronunciation">Pronunciation</TextLink>
       <TextLink href="/glossary">Glossary</TextLink>
       <TextLink href="/references">References</TextLink>
+      <TextLink href="/downloads">Downloads</TextLink>
       <TextLink href="/lessons">Lessons</TextLink>
     </nav>
   </PageShell>

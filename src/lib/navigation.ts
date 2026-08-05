@@ -16,6 +16,7 @@ export const referenceNavigation: NavigationItem[] = [
   { href: "/glossary", label: "Glossary" },
   { href: "/resources", label: "Resources" },
   { href: "/references", label: "References" },
+  { href: "/downloads", label: "Downloads" },
 ];
 
 export function isReferenceSection(pathname: string): boolean {
@@ -29,7 +30,9 @@ export function isReferenceSection(pathname: string): boolean {
     pathname === "/resources" ||
     pathname.startsWith("/resources/") ||
     pathname === "/references" ||
-    pathname.startsWith("/references/")
+    pathname.startsWith("/references/") ||
+    pathname === "/downloads" ||
+    pathname.startsWith("/downloads/")
   );
 }
 

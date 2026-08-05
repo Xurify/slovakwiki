@@ -21,25 +21,27 @@ bun run audio:status        # coverage: targets vs disk vs uploaded
 bun run images:fetch        # Wikimedia pageimages → static/images/ (gitignored)
 bun run images:upload       # static/images/dictionary/ → R2 (`images/dictionary/…`)
 bun run images:status       # coverage: ok vs missing vs rejected, by part of speech
+bun run downloads:export    # dictionary JSON for /downloads builder (also on astro build)
 bun run index:search        # Pagefind for local/dev search
 ```
 
 ### Content files
 
-| File                                          | Role                                                             |
-| --------------------------------------------- | ---------------------------------------------------------------- |
-| `content/dictionary/README.md`                | Hand-add lemma template (fields, homes, slug/category, examples) |
-| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)    |
-| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`       |
-| `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                       |
-| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast   |
-| `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands) |
-| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)             |
+| File                                          | Role                                                                     |
+| --------------------------------------------- | ------------------------------------------------------------------------ |
+| `content/dictionary/README.md`                | Hand-add lemma template (fields, homes, slug/category, examples)         |
+| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)            |
+| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `examples:curate`               |
+| `content/dictionary/related-clusters.json`    | Semantic related peers for `related:apply`                               |
+| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast           |
+| `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands)         |
+| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)                     |
 | `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status/uploadedAt) |
-| `content/images/overrides.json`               | Manual reject / force Commons file per slug                      |
-| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime  |
-| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                   |
-| `static/images/`                              | Local dictionary thumbs (gitignored; upload to R2 for prod)      |
+| `content/images/overrides.json`               | Manual reject / force Commons file per slug                              |
+| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime          |
+| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                           |
+| `static/images/`                              | Local dictionary thumbs (gitignored; upload to R2 for prod)              |
+| `static/downloads/`                           | Local dictionary export JSON for `/downloads` (gitignored)               |
 
 ## `dictionary/`
 
@@ -113,6 +115,18 @@ Prod env: `PUBLIC_IMAGE_BASE_URL` (R2 public base, e.g. `https://cdn.slovak.wiki
 | File                    | npm script          |
 | ----------------------- | ------------------- |
 | `write-data-sources.ts` | `docs:data-sources` |
+
+## `downloads/`
+
+| File        | npm script         | Notes                                                                                             |
+| ----------- | ------------------ | ------------------------------------------------------------------------------------------------- |
+| `export.ts` | `downloads:export` | Slim merged dictionary → `static/downloads/dictionary-export.json`; also Astro `astro:build:done` |
+
+Used by `/downloads` client builder (JSON/CSV/TSV). Regenerated on content change via build; run locally when the file is missing.
+
+**Export shape:** per word — `slug`, spelled `slovak`, `english`, `category`, spelled `related` lemmas, `examples[{ slovak, english }]`. Tabular examples file columns: `slug`, `lemma`, `slovak`, `english`. Omits internal `note` / `tatoebaId` / `demonstrates`.
+
+**Anki phrases pack:** headerless TSV (`slovak-wiki-anki-phrases.tsv`) — one row per sentence, `slovak\tenglish` (Front / Back). No `#` comment.
 
 ## `lib/`
 

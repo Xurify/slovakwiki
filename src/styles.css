@@ -9,6 +9,8 @@
   --color-surface: var(--surface);
   --color-subtle: var(--surface-subtle);
   --color-selected: var(--surface-selected);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
@@ -62,6 +64,9 @@
     --surface: #fafcfd;
     --surface-subtle: #e6eff3;
     --surface-selected: #cfe0e9;
+    /* Secondary controls: sit above paper/panels without looking hollow. */
+    --control: #fafcfd;
+    --control-hover: #cfe0e9;
     --ink: #142a38;
     --ink-soft: #345566;
     --muted: #5f7a88;
@@ -117,6 +122,9 @@
     --surface: #1a2d3a;
     --surface-subtle: #122028;
     --surface-selected: #243a4a;
+    /* Lift off surface panels (clock drill, modals) so secondary CTAs read. */
+    --control: #2a4254;
+    --control-hover: #35566c;
     --ink: #e8f0f4;
     --ink-soft: #c5d6de;
     --muted: #8fadb9;

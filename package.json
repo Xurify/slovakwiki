@@ -30,6 +30,7 @@
     "images:stage": "bun scripts/images/stage-candidates.ts",
     "images:promote": "bun scripts/images/promote.ts",
     "docs:data-sources": "bun scripts/docs/write-data-sources.ts",
+    "downloads:export": "bun scripts/downloads/export.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

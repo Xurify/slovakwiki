@@ -25,7 +25,9 @@
       <Lead>
         Trusted sources behind dictionary entries, frequency lists, and optional example
         sentences. For courses, apps, and media, see
-        <TextLink href="/resources">Resources</TextLink>.
+        <TextLink href="/resources">Resources</TextLink>. To take our dictionary data with
+        you, see
+        <TextLink href="/downloads">Downloads</TextLink>.
       </Lead>
     </header>
 
