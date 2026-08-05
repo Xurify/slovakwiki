@@ -370,7 +370,7 @@
     "english": "pool; swimming pool"
   },
   "beda": {
-    "english": "alas"
+    "english": "woe; alas"
   },
   "beh": {
     "english": "run; running"
@@ -394,7 +394,7 @@
     "english": "homeless person"
   },
   "bezdôvodne": {
-    "english": "for no reason"
+    "english": "without reason; groundlessly"
   },
   "bezhlavo": {
     "english": "recklessly; blindly"
@@ -409,7 +409,7 @@
     "english": "hopelessly"
   },
   "bezodkladne": {
-    "english": "without delay"
+    "english": "without delay; immediately"
   },
   "bezpečie": {
     "english": "safety; security"
@@ -448,7 +448,7 @@
     "english": "carefree"
   },
   "bezvýhradne": {
-    "english": "unconditionally"
+    "english": "unreservedly; without exception"
   },
   "bežať": {
     "english": "to run"
@@ -547,7 +547,7 @@
     "english": "dot; full stop; small spot"
   },
   "bodovo": {
-    "english": "pointwise"
+    "english": "in points; by points"
   },
   "bodový": {
     "english": "point; spot"
@@ -583,7 +583,7 @@
     "english": "side; flank"
   },
   "bokom": {
-    "english": "aside; off to one side"
+    "english": "aside; off to the side"
   },
   "bolesť": {
     "english": "pain"
@@ -769,7 +769,7 @@
     "english": "whole; entirety"
   },
   "celoročne": {
-    "english": "year round"
+    "english": "all year round"
   },
   "celoslovenský": {
     "english": "nationwide (Slovakia)"
@@ -796,7 +796,7 @@
     "english": "valuable"
   },
   "cenovo": {
-    "english": "in terms of price; price-wise"
+    "english": "in price terms; price-wise"
   },
   "cenový": {
     "english": "price"
@@ -1014,7 +1014,7 @@
     "english": "Czechoslovak"
   },
   "česky": {
-    "english": "czech"
+    "english": "in Czech"
   },
   "český": {
     "english": "Czech"
@@ -1069,7 +1069,7 @@
     "english": "cleaning; purification"
   },
   "čisto": {
-    "english": "purely"
+    "english": "purely; cleanly"
   },
   "čistota": {
     "english": "cleanliness; purity"
@@ -1294,7 +1294,7 @@
     "english": "daily newspaper; diary"
   },
   "dennodenne": {
-    "english": "daily"
+    "english": "daily; day after day"
   },
   "denný": {
     "english": "daily; day"
@@ -1579,10 +1579,10 @@
     "english": "to agree; to arrange"
   },
   "dohora": {
-    "english": "up"
+    "english": "upward"
   },
   "dohromady": {
-    "english": "together"
+    "english": "together; in total"
   },
   "dochádzať": {
     "english": "to arrive; to come about; to attend"
@@ -1615,7 +1615,7 @@
     "english": "to finish; to complete"
   },
   "dokopy": {
-    "english": "together; altogether"
+    "english": "together; in total"
   },
   "dokorán": {
     "english": "wide open"
@@ -1639,7 +1639,7 @@
     "english": "to the left"
   },
   "dole": {
-    "english": "down"
+    "english": "down below"
   },
   "dolina": {
     "english": "valley"
@@ -1651,7 +1651,7 @@
     "english": "lower"
   },
   "dolu": {
-    "english": "down"
+    "english": "downward"
   },
   "dom": {
     "english": "house; home"
@@ -1696,7 +1696,7 @@
     "english": "morning"
   },
   "dookola": {
-    "english": "around"
+    "english": "round and round; repeatedly"
   },
   "dopad": {
     "english": "impact; effect; fallout"
@@ -1726,7 +1726,7 @@
     "english": "so far"
   },
   "doprava": {
-    "english": "to the right; rightwards"
+    "english": "to the right"
   },
   "dopravca": {
     "english": "carrier; transport operator"
@@ -1735,7 +1735,7 @@
     "english": "transport; traffic"
   },
   "dopredu": {
-    "english": "forward"
+    "english": "forward; in advance"
   },
   "dopustiť": {
     "english": "to allow; to commit"
@@ -1828,7 +1828,7 @@
     "english": "to bring; to lead to"
   },
   "dovnútra": {
-    "english": "inside"
+    "english": "inward; inside"
   },
   "dovolenka": {
     "english": "vacation; holiday; leave"
@@ -1840,7 +1840,7 @@
     "english": "import; delivery"
   },
   "dozadu": {
-    "english": "backwards"
+    "english": "backward"
   },
   "dozorný": {
     "english": "supervisory; oversight"
@@ -1879,7 +1879,7 @@
     "english": "emphatically"
   },
   "dôsledne": {
-    "english": "consistently"
+    "english": "consistently; thoroughly"
   },
   "dôsledok": {
     "english": "consequence"
@@ -1900,7 +1900,7 @@
     "english": "trust; confidence"
   },
   "dôverne": {
-    "english": "confidentially"
+    "english": "confidentially; intimately"
   },
   "dôverovať": {
     "english": "to trust"
@@ -2030,7 +2030,7 @@
     "english": "effect"
   },
   "efektívne": {
-    "english": "effectively"
+    "english": "efficiently"
   },
   "efektívny": {
     "english": "efficient; effective"
@@ -2256,7 +2256,7 @@
     "english": "color; colour"
   },
   "farebne": {
-    "english": "colorfully"
+    "english": "in color"
   },
   "farebný": {
     "english": "colored; color"
@@ -2753,7 +2753,7 @@
     "english": "mountain"
   },
   "hore": {
-    "english": "up"
+    "english": "up above"
   },
   "horieť": {
     "english": "to burn"
@@ -2762,7 +2762,7 @@
     "english": "horizon"
   },
   "horko": {
-    "english": "hot"
+    "english": "it is hot"
   },
   "horlivo": {
     "english": "eagerly"
@@ -3075,7 +3075,7 @@
     "english": "moment; while"
   },
   "chvíľami": {
-    "english": "at times"
+    "english": "at times; occasionally"
   },
   "chvíľka": {
     "english": "little while; moment"
@@ -3361,7 +3361,7 @@
     "english": "clearly"
   },
   "jasno": {
-    "english": "clear; it is clear"
+    "english": "it is clear; the weather is clear"
   },
   "jasný": {
     "english": "clear; bright"
@@ -3427,7 +3427,7 @@
     "english": "one time"
   },
   "jednostaj": {
-    "english": "it makes no difference; no matter"
+    "english": "all the same; it makes no difference"
   },
   "jednostranne": {
     "english": "unilaterally"
@@ -3505,7 +3505,7 @@
     "english": "June"
   },
   "južne": {
-    "english": "south"
+    "english": "southward; in the south"
   },
   "južný": {
     "english": "southern"
@@ -3655,7 +3655,7 @@
     "english": "anyway"
   },
   "každoročne": {
-    "english": "annually"
+    "english": "every year; annually"
   },
   "kilogram": {
     "english": "kilogram"
@@ -3739,7 +3739,7 @@
     "english": "booklet; little book"
   },
   "knižne": {
-    "english": "bookishly; in formal or literary language"
+    "english": "in a literary style"
   },
   "knižnica": {
     "english": "library"
@@ -4190,7 +4190,7 @@
     "english": "cross"
   },
   "krížom": {
-    "english": "crosswise"
+    "english": "crosswise; across"
   },
   "križovatka": {
     "english": "intersection; crossroads"
@@ -4436,7 +4436,7 @@
     "english": "flight; year"
   },
   "letecky": {
-    "english": "by air"
+    "english": "by air; by plane"
   },
   "letecký": {
     "english": "air; aviation"
@@ -4602,7 +4602,7 @@
     "english": "folk; popular"
   },
   "ľudsky": {
-    "english": "humanly"
+    "english": "humanely; humanly"
   },
   "ľudský": {
     "english": "human"
@@ -4675,7 +4675,7 @@
     "english": "master; champion"
   },
   "majstrovsky": {
-    "english": "masterful"
+    "english": "masterfully"
   },
   "majstrovský": {
     "english": "championship; masterly"
@@ -4771,7 +4771,7 @@
     "english": "butter"
   },
   "masovo": {
-    "english": "en masse"
+    "english": "on a mass scale"
   },
   "masový": {
     "english": "mass"
@@ -4786,7 +4786,7 @@
     "english": "material"
   },
   "materiálne": {
-    "english": "materially"
+    "english": "materially; financially"
   },
   "materiálny": {
     "english": "material"
@@ -5297,7 +5297,7 @@
     "english": "wage"
   },
   "nablízku": {
-    "english": "nearby"
+    "english": "nearby; close at hand"
   },
   "nabok": {
     "english": "to the side"
@@ -5321,16 +5321,16 @@
     "english": "furniture"
   },
   "načas": {
-    "english": "on time"
+    "english": "temporarily; for the time being"
   },
   "načase": {
-    "english": "on time"
+    "english": "it is time"
   },
   "náčelník": {
     "english": "chief; commander"
   },
   "načierno": {
-    "english": "in black"
+    "english": "illegally; off the books"
   },
   "načisto": {
     "english": "cleanly"
@@ -5375,7 +5375,7 @@
     "english": "to acquire; to obtain"
   },
   "nadol": {
-    "english": "down"
+    "english": "downward"
   },
   "nadovšetko": {
     "english": "above all"
@@ -5432,7 +5432,7 @@
     "english": "by accident"
   },
   "nahor": {
-    "english": "up"
+    "english": "upward"
   },
   "náhrada": {
     "english": "replacement; compensation"
@@ -5510,7 +5510,7 @@
     "english": "mood"
   },
   "naľavo": {
-    "english": "on the left"
+    "english": "to the left"
   },
   "nález": {
     "english": "find; discovery; judgment"
@@ -5537,7 +5537,7 @@
     "english": "theme; idea; subject"
   },
   "namieste": {
-    "english": "in place"
+    "english": "appropriate; called for"
   },
   "námietka": {
     "english": "objection"
@@ -5546,7 +5546,7 @@
     "english": "at most"
   },
   "nanič": {
-    "english": "uselessly; no good"
+    "english": "no good; useless"
   },
   "nanovo": {
     "english": "again"
@@ -5615,7 +5615,7 @@
     "english": "to repair; to put right"
   },
   "napravo": {
-    "english": "on the right"
+    "english": "to the right"
   },
   "naprázdno": {
     "english": "empty-handed; in vain"
@@ -5729,10 +5729,10 @@
     "english": "following; subsequent"
   },
   "násobne": {
-    "english": "many times; multiple times"
+    "english": "many times over; by a multiple"
   },
   "naspamäť": {
-    "english": "by heart"
+    "english": "by heart; from memory"
   },
   "naspäť": {
     "english": "back"
@@ -5864,10 +5864,10 @@
     "english": "alive"
   },
   "naživo": {
-    "english": "live"
+    "english": "live; in person"
   },
   "nebadane": {
-    "english": "unnoticed"
+    "english": "imperceptibly; unnoticed"
   },
   "nebáť": {
     "english": "not to be afraid"
@@ -6011,7 +6011,7 @@
     "english": "not to go; not to walk"
   },
   "nechtiac": {
-    "english": "unintentionally"
+    "english": "unintentionally; by accident"
   },
   "nechýbať": {
     "english": "not to be missing; not to be absent"
@@ -6029,7 +6029,7 @@
     "english": "uncertain; unsure"
   },
   "nejasne": {
-    "english": "unclear"
+    "english": "unclearly; vaguely"
   },
   "nejasný": {
     "english": "unclear; vague"
@@ -6066,7 +6066,7 @@
     "category": "Places"
   },
   "nemecky": {
-    "english": "german"
+    "english": "in German"
   },
   "nemecký": {
     "english": "German"
@@ -6192,7 +6192,7 @@
     "english": "not to know; not to recognize"
   },
   "neprávom": {
-    "english": "wrongly"
+    "english": "wrongly; unjustly"
   },
   "neprejsť": {
     "english": "not to go through; not to pass"
@@ -6366,7 +6366,7 @@
     "english": "indefinitely"
   },
   "neúrekom": {
-    "english": "abundantly; in great numbers"
+    "english": "countless; in great numbers"
   },
   "neurobiť": {
     "english": "not to do; not to make"
@@ -6396,19 +6396,19 @@
     "english": "unbelievable"
   },
   "nevdojak": {
-    "english": "involuntarily; unwittingly"
+    "english": "inadvertently; unconsciously"
   },
   "nevedieť": {
     "english": "not to know"
   },
   "nevedno": {
-    "english": "it is unknown; one does not know"
+    "english": "it is not known; no one knows"
   },
   "nevedomky": {
     "english": "unknowingly"
   },
   "neveľmi": {
-    "english": "not much"
+    "english": "not very"
   },
   "neveriacky": {
     "english": "unbelievably"
@@ -6432,7 +6432,7 @@
     "english": "invisible"
   },
   "nevidno": {
-    "english": "not visible"
+    "english": "it cannot be seen"
   },
   "nevinne": {
     "english": "innocently"
@@ -6766,7 +6766,7 @@
     "english": "volume"
   },
   "oblačno": {
-    "english": "cloudy"
+    "english": "it is cloudy"
   },
   "oblak": {
     "english": "cloud"
@@ -6808,7 +6808,7 @@
     "english": "to renew; to restore"
   },
   "obojstranne": {
-    "english": "bilaterally"
+    "english": "mutually; on both sides"
   },
   "oboznámiť": {
     "english": "to acquaint; to inform"
@@ -6958,7 +6958,7 @@
     "english": "trade unionist"
   },
   "odborne": {
-    "english": "professionally"
+    "english": "professionally; expertly"
   },
   "odborník": {
     "english": "expert; specialist"
@@ -7168,7 +7168,7 @@
     "english": "to avert; to turn away"
   },
   "odzadu": {
-    "english": "from behind"
+    "english": "from the back; from behind"
   },
   "odznova": {
     "english": "again"
@@ -7261,7 +7261,7 @@
     "english": "edge; margin"
   },
   "okrajovo": {
-    "english": "peripherally"
+    "english": "marginally; peripherally"
   },
   "okres": {
     "english": "district"
@@ -7477,7 +7477,7 @@
     "english": "lonely; solitary"
   },
   "osamote": {
-    "english": "alone"
+    "english": "alone; by oneself"
   },
   "osebe": {
     "english": "separately; in itself"
@@ -7504,7 +7504,7 @@
     "english": "person"
   },
   "osobitne": {
-    "english": "especially"
+    "english": "especially; separately"
   },
   "osobitný": {
     "english": "special; particular"
@@ -7875,7 +7875,7 @@
     "english": "staff"
   },
   "personálne": {
-    "english": "personally"
+    "english": "personally; in staffing terms"
   },
   "personálny": {
     "english": "personnel; personal"
@@ -8304,7 +8304,7 @@
     "english": "event"
   },
   "podvečer": {
-    "english": "early evening"
+    "english": "in the early evening"
   },
   "podvedome": {
     "english": "subconsciously"
@@ -8361,7 +8361,7 @@
     "english": "funeral; burial"
   },
   "pohromade": {
-    "english": "together"
+    "english": "together; all in one place"
   },
   "pohyb": {
     "english": "movement; motion"
@@ -8870,7 +8870,7 @@
     "english": "postal"
   },
   "potajomky": {
-    "english": "secretly"
+    "english": "secretly; furtively"
   },
   "potenciál": {
     "english": "potential"
@@ -9174,7 +9174,7 @@
     "english": "dust; powder"
   },
   "prakticky": {
-    "english": "practically"
+    "english": "practically; virtually"
   },
   "praktický": {
     "english": "practical"
@@ -9219,7 +9219,7 @@
     "english": "rule"
   },
   "právne": {
-    "english": "legally"
+    "english": "legally; in legal terms"
   },
   "právnický": {
     "english": "legal; lawyer's"
@@ -9234,7 +9234,7 @@
     "english": "law; right"
   },
   "právom": {
-    "english": "by right"
+    "english": "rightly; with good reason"
   },
   "právomoc": {
     "english": "authority; jurisdiction"
@@ -9276,7 +9276,7 @@
     "english": "precisely"
   },
   "preč": {
-    "english": "away"
+    "english": "away; gone"
   },
   "prečin": {
     "english": "misdemeanor; offense"
@@ -9309,7 +9309,7 @@
     "english": "preliminary"
   },
   "predčasne": {
-    "english": "prematurely"
+    "english": "prematurely; too early"
   },
   "predčasný": {
     "english": "premature; early"
@@ -9652,7 +9652,7 @@
     "english": "to prove; to demonstrate"
   },
   "preukázateľne": {
-    "english": "demonstrably"
+    "english": "demonstrably; provably"
   },
   "prevádzka": {
     "english": "operation; premises; service"
@@ -9793,7 +9793,7 @@
     "english": "course; progress (of events)"
   },
   "priebežne": {
-    "english": "continuously"
+    "english": "continuously; as things progress"
   },
   "priebežný": {
     "english": "ongoing; continuous"
@@ -10160,7 +10160,7 @@
     "english": "program"
   },
   "programovo": {
-    "english": "programmatically"
+    "english": "in programmatic terms"
   },
   "programový": {
     "english": "program; programmatic"
@@ -10241,7 +10241,7 @@
     "english": "flexibly"
   },
   "prv": {
-    "english": "first"
+    "english": "earlier; before"
   },
   "prvenstvo": {
     "english": "first place; championship"
@@ -10256,7 +10256,7 @@
     "english": "primary; original"
   },
   "psychicky": {
-    "english": "mentally"
+    "english": "psychologically; mentally"
   },
   "psychický": {
     "english": "mental; psychological"
@@ -10292,7 +10292,7 @@
     "english": "pilgrimage; journey"
   },
   "pútavo": {
-    "english": "engaging"
+    "english": "engagingly; compellingly"
   },
   "pútnik": {
     "english": "pilgrim; traveller"
@@ -10349,7 +10349,7 @@
     "english": "to rejoice; to be glad"
   },
   "rádovo": {
-    "english": "by orders of magnitude; roughly"
+    "english": "by an order of magnitude"
   },
   "raj": {
     "english": "paradise; heaven"
@@ -10437,7 +10437,7 @@
     "english": "to realize; to carry out"
   },
   "reálne": {
-    "english": "realistically"
+    "english": "really; in reality"
   },
   "reálny": {
     "english": "real; realistic"
@@ -10900,7 +10900,7 @@
     "english": "column; section"
   },
   "ručne": {
-    "english": "by hand"
+    "english": "by hand; manually"
   },
   "ruch": {
     "english": "bustle; activity"
@@ -10925,13 +10925,13 @@
     "category": "Places"
   },
   "rusky": {
-    "english": "russian"
+    "english": "in Russian"
   },
   "ruský": {
     "english": "Russian"
   },
   "rušno": {
-    "english": "lively; busy"
+    "english": "it is busy; bustling"
   },
   "ruža": {
     "english": "rose"
@@ -11110,7 +11110,7 @@
     "english": "north"
   },
   "severne": {
-    "english": "north"
+    "english": "northward; in the north"
   },
   "severný": {
     "english": "northern"
@@ -11155,7 +11155,7 @@
     "english": "box; mailbox; compartment"
   },
   "schuti": {
-    "english": "with appetite; heartily"
+    "english": "with gusto; heartily"
   },
   "schválenie": {
     "english": "approval; authorization"
@@ -11327,7 +11327,7 @@
     "english": "exam; test; trial"
   },
   "skutočne": {
-    "english": "indeed"
+    "english": "really; genuinely"
   },
   "skutočnosť": {
     "english": "reality; fact"
@@ -11616,7 +11616,7 @@
     "english": "back"
   },
   "spätne": {
-    "english": "backwards"
+    "english": "retrospectively; afterward"
   },
   "spätný": {
     "english": "return; reverse; feedback"
@@ -11709,7 +11709,7 @@
     "english": "federal (German); association"
   },
   "spoločensky": {
-    "english": "socially"
+    "english": "socially; societally"
   },
   "spoločenský": {
     "english": "social; society"
@@ -12033,7 +12033,7 @@
     "english": "track; trace; footprint"
   },
   "stopercentne": {
-    "english": "one hundred percent"
+    "english": "one hundred percent; completely"
   },
   "storočie": {
     "english": "century"
@@ -12255,7 +12255,7 @@
     "english": "judge"
   },
   "súdne": {
-    "english": "judicially"
+    "english": "judicially; through the courts"
   },
   "súdny": {
     "english": "court; judicial"
@@ -12420,7 +12420,7 @@
     "english": "briskly"
   },
   "svojpomocne": {
-    "english": "self-help"
+    "english": "by oneself; self-help"
   },
   "svojvoľne": {
     "english": "arbitrarily"
@@ -12861,7 +12861,7 @@
     "english": "telecommunications"
   },
   "telesne": {
-    "english": "physically"
+    "english": "physically; bodily"
   },
   "telesný": {
     "english": "bodily; physical"
@@ -12939,7 +12939,7 @@
     "english": "thermal; heat"
   },
   "teplo": {
-    "english": "heat; warmth"
+    "english": "it is warm"
   },
   "teplota": {
     "english": "temperature"
@@ -13245,7 +13245,7 @@
     "english": "permanently"
   },
   "trvalo": {
-    "english": "permanently; lastingly"
+    "english": "permanently; for good"
   },
   "trvalý": {
     "english": "permanent; lasting"
@@ -13825,7 +13825,7 @@
     "english": "constitutional"
   },
   "ústne": {
-    "english": "orally"
+    "english": "orally; verbally"
   },
   "ústredný": {
     "english": "central"
@@ -14059,7 +14059,7 @@
     "english": "prison; penitentiary"
   },
   "vcelku": {
-    "english": "in general"
+    "english": "on the whole; overall"
   },
   "včas": {
     "english": "on time"
@@ -14128,7 +14128,7 @@
     "english": "side; secondary"
   },
   "vedno": {
-    "english": "well-known; known"
+    "english": "together; jointly"
   },
   "vedome": {
     "english": "consciously"
@@ -14404,7 +14404,7 @@
     "english": "to own"
   },
   "vlastnoručne": {
-    "english": "by hand"
+    "english": "by hand; personally"
   },
   "vlastnosť": {
     "english": "property; quality; trait"
@@ -14509,10 +14509,10 @@
     "english": "to choose; to vote"
   },
   "voľne": {
-    "english": "freely"
+    "english": "freely; loosely"
   },
   "voľno": {
-    "english": "off; free; no work"
+    "english": "free; off work"
   },
   "voľný": {
     "english": "free; vacant"
@@ -14560,7 +14560,7 @@
     "english": "forward"
   },
   "vpredu": {
-    "english": "in front"
+    "english": "at the front"
   },
   "vracať": {
     "english": "to return; to give back (imperfective)"
@@ -14815,7 +14815,7 @@
     "english": "starting point; way out; basis"
   },
   "východne": {
-    "english": "eastern"
+    "english": "eastward; in the east"
   },
   "východný": {
     "english": "eastern"
@@ -14899,7 +14899,7 @@
     "english": "exception"
   },
   "výnimočne": {
-    "english": "exceptionally"
+    "english": "exceptionally; only exceptionally"
   },
   "výnimočný": {
     "english": "exceptional"
@@ -15043,7 +15043,7 @@
     "english": "high"
   },
   "vysokoškolsky": {
-    "english": "at university; university-level"
+    "english": "at university level"
   },
   "vysokoškolský": {
     "english": "university; higher-education"
@@ -15052,7 +15052,7 @@
     "english": "high; tall"
   },
   "výsostne": {
-    "english": "supremely; exclusively"
+    "english": "supremely; purely"
   },
   "vyspelý": {
     "english": "advanced; developed"
@@ -15232,7 +15232,7 @@
     "english": "rare; precious"
   },
   "vzadu": {
-    "english": "in the back"
+    "english": "at the back"
   },
   "vzájomne": {
     "english": "mutually"
@@ -15479,7 +15479,7 @@
     "english": "to conclude; to end"
   },
   "zákonite": {
-    "english": "inevitably; necessarily"
+    "english": "inevitably"
   },
   "zákonník": {
     "english": "code of law; law book"
@@ -15629,7 +15629,7 @@
     "english": "to earn"
   },
   "zárobkovo": {
-    "english": "profitably"
+    "english": "for pay; gainfully"
   },
   "zárobok": {
     "english": "earnings; income"
@@ -15638,7 +15638,7 @@
     "english": "at the same time"
   },
   "zaručene": {
-    "english": "guaranteed"
+    "english": "certainly; guaranteed"
   },
   "záruka": {
     "english": "guarantee; warranty"
@@ -15863,7 +15863,7 @@
     "english": "collection"
   },
   "zblízka": {
-    "english": "close up"
+    "english": "close up; from nearby"
   },
   "zboku": {
     "english": "from the side"
@@ -15881,7 +15881,7 @@
     "english": "unnecessary; useless"
   },
   "zďaleka": {
-    "english": "far; by far"
+    "english": "from afar; by far"
   },
   "zdanlivo": {
     "english": "apparently"
@@ -15911,7 +15911,7 @@
     "english": "healthily; hello"
   },
   "zdravotne": {
-    "english": "medically"
+    "english": "medically; health-wise"
   },
   "zdravotnícky": {
     "english": "healthcare; medical"
@@ -15962,7 +15962,7 @@
     "english": "earth; ground"
   },
   "zhlboka": {
-    "english": "deeply"
+    "english": "deeply; taking a deep breath"
   },
   "zhoda": {
     "english": "agreement; match; coincidence"
@@ -15989,7 +15989,7 @@
     "english": "roughly"
   },
   "zima": {
-    "english": "cold; in winter"
+    "english": "it is cold"
   },
   "zimný": {
     "english": "winter"
@@ -16022,7 +16022,7 @@
     "english": "to appear; to reveal"
   },
   "zjavne": {
-    "english": "apparently"
+    "english": "obviously; apparently"
   },
   "zjazd": {
     "english": "congress; descent"
@@ -16043,7 +16043,7 @@
     "english": "golden"
   },
   "zľava": {
-    "english": "from the left; on sale"
+    "english": "from the left"
   },
   "zle": {
     "english": "badly"
@@ -16394,7 +16394,7 @@
     "english": "especially; particularly; separately"
   },
   "zvláštne": {
-    "english": "strangely; especially"
+    "english": "strangely; oddly"
   },
   "zvláštny": {
     "english": "strange; special"
@@ -16419,10 +16419,10 @@
     "english": "bell"
   },
   "zvonka": {
-    "english": "from outside"
+    "english": "from the outside"
   },
   "zvonku": {
-    "english": "from outside"
+    "english": "outside; from outdoors"
   },
   "zvuk": {
     "english": "sound"

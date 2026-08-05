@@ -63,4 +63,19 @@ describe("lemma senses", () => {
     expect(related).not.toContain("domaci-n");
     expect(related).toEqual(expect.arrayContaining(["dom", "tim"]));
   });
+
+  it("groups Phrases + Adverbs siblings for slovensky", () => {
+    const phrases = words.find((word) => word.slug === "slovensky");
+    const adverb = words.find((word) => word.slug === "slovensky-adv");
+    expect(phrases?.category).toBe("Phrases");
+    expect(adverb?.category).toBe("Adverbs");
+
+    const group = lemmaSenseGroup(adverb!, words).map((word) => word.slug);
+    expect(group).toEqual(expect.arrayContaining(["slovensky", "slovensky-adv"]));
+
+    expect(dictionaryHrefForSense(adverb!, words)).toEqual({
+      slug: "slovensky",
+      hash: "adverb",
+    });
+  });
 });

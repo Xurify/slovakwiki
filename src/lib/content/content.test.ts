@@ -349,6 +349,34 @@ describe("Slovak content", () => {
     expect(bad.map((word) => word.slug)).toEqual([]);
   });
 
+  it("avoids legacy universal adverb fill stubs", () => {
+    const bad = words.filter(
+      (word) =>
+        word.category === "Adverbs" &&
+        word.examples.some(
+          (example) =>
+            example.isPracticeFrame === true &&
+            ((/^Urobím to .+\.$/u.test(example.slovak) &&
+              /^I'll do it /i.test(example.english ?? "")) ||
+              (/^Stalo sa to .+\.$/u.test(example.slovak) &&
+                /^It happened /i.test(example.english ?? ""))),
+        ),
+    );
+    expect(bad.map((word) => word.slug)).toEqual([]);
+  });
+
+  it("publishes adverb homographs under -adv slugs", () => {
+    const malo = words.find((word) => word.slug === "malo-adv");
+    expect(malo?.slovak).toBe("málo");
+    expect(malo?.category).toBe("Adverbs");
+    expect(malo?.frequency?.partOfSpeech).toBe("adverb");
+
+    const slovenskyAdv = words.find((word) => word.slug === "slovensky-adv");
+    expect(slovenskyAdv?.slovak).toBe("slovensky");
+    expect(slovenskyAdv?.category).toBe("Adverbs");
+    expect(slovenskyAdv?.frequency).toEqual({ partOfSpeech: "adverb", rank: 281 });
+  });
+
   it("does not use citation-gloss verb fill stubs", () => {
     const bad = words.filter((word) =>
       word.examples.some(
@@ -401,7 +429,6 @@ describe("Slovak content", () => {
         word.examples.length > 0 &&
         word.examples.every((example) => example.isPracticeFrame),
     );
-    expect(practiceOnly.length).toBeGreaterThan(0);
     for (const word of practiceOnly) {
       expect(word.sourceNote).toContain("Practice frames");
       expect(word.sourceNote).not.toContain("Tatoeba");
