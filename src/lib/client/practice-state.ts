@@ -149,3 +149,79 @@ export function gradeAnswer(
   );
   return nearMiss ? "accents" : "incorrect";
 }
+
+/** Classic Levenshtein over Unicode code points. */
+export function levenshtein(a: string, b: string): number {
+  if (a === b) return 0;
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+
+  const aChars = [...a];
+  const bChars = [...b];
+  const rows = aChars.length + 1;
+  const cols = bChars.length + 1;
+  const prev = new Array<number>(cols);
+  const curr = new Array<number>(cols);
+
+  for (let j = 0; j < cols; j++) prev[j] = j;
+
+  for (let i = 1; i < rows; i++) {
+    curr[0] = i;
+    const aChar = aChars[i - 1]!;
+    for (let j = 1; j < cols; j++) {
+      const cost = aChar === bChars[j - 1] ? 0 : 1;
+      curr[j] = Math.min(
+        (prev[j] ?? 0) + 1,
+        (curr[j - 1] ?? 0) + 1,
+        (prev[j - 1] ?? 0) + cost,
+      );
+    }
+    for (let j = 0; j < cols; j++) prev[j] = curr[j] ?? 0;
+  }
+
+  return prev[bChars.length] ?? 0;
+}
+
+function closeAnswerThreshold(length: number): number {
+  return Math.max(1, Math.floor(length / 5));
+}
+
+/**
+ * Closest accepted form within a length-scaled edit distance.
+ * Compares accent-folded strings so pure diacritic misses stay on the accents grade path.
+ * Returns the original (display) candidate spelling, or null if nothing is close enough.
+ */
+export function suggestCloseAnswer(
+  value: string,
+  answer: string,
+  alternatives: string[] = [],
+): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  const foldedValue = foldAccents(value);
+  if (!foldedValue) return null;
+
+  let best: string | null = null;
+  let bestDistance = Number.POSITIVE_INFINITY;
+
+  for (const candidate of [answer, ...alternatives]) {
+    const foldedCandidate = foldAccents(candidate);
+    if (!foldedCandidate) continue;
+
+    const longer = Math.max(foldedValue.length, foldedCandidate.length);
+    if (longer === 0) continue;
+
+    const distance = levenshtein(foldedValue, foldedCandidate);
+    if (distance === 0) continue;
+    if (distance >= longer) continue;
+    if (distance > closeAnswerThreshold(longer)) continue;
+
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = candidate.trim();
+    }
+  }
+
+  return best;
+}

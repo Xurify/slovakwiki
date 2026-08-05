@@ -3,7 +3,7 @@
   import ClockIllustration from "$lib/components/ClockIllustration.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
 
-  import { gradeAnswer } from "$lib/client/practice-state";
+  import { gradeAnswer, suggestCloseAnswer } from "$lib/client/practice-state";
   import {
     analogFace,
     answersForTime,
@@ -28,6 +28,12 @@
   const grade = $derived(
     submitted && !revealed ? gradeAnswer(input, preferred, accepted) : null,
   );
+  const closeSuggestion = $derived.by(() => {
+    if (!submitted || revealed || grade !== "incorrect") return null;
+    const suggestion = suggestCloseAnswer(input, preferred, accepted);
+    if (!suggestion || suggestion === preferred) return null;
+    return suggestion;
+  });
 
   function nextTime(): void {
     time = randomDrillTime();
@@ -99,6 +105,13 @@
       }`}
       aria-live="polite"
     >
+      {#if closeSuggestion}
+        <p class="m-0 text-xs font-bold uppercase text-slate-600">Did you mean?</p>
+        <strong class="mb-2 font-serif text-lg text-slate-900" lang="sk"
+          >{closeSuggestion}</strong
+        >
+      {/if}
+
       <p class="m-0 text-xs font-bold uppercase text-slate-600">
         {#if revealed}
           One way to say it
@@ -110,6 +123,7 @@
           Try this.
         {/if}
       </p>
+
       <strong class="font-serif text-lg text-slate-900" lang="sk">{preferred}</strong>
 
       {#if otherForms.length > 0 && (revealed || grade !== "correct")}

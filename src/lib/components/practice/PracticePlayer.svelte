@@ -11,8 +11,8 @@
     resolveBuiltTiles,
   } from "$lib/client/build-tiles";
   import {
-    answersMatch,
     gradeAnswer,
+    suggestCloseAnswer,
     type AnswerGrade,
   } from "$lib/client/practice-state";
   import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/client/sfx";
@@ -100,11 +100,18 @@
       return selectedId === task.answerId ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
-    if (task.type === "cloze")
+    if (task.type === "cloze" || task.type === "typed")
       return gradeAnswer(input, task.answer, task.acceptedAnswers);
-    return answersMatch(input, task.answer, task.acceptedAnswers)
-      ? "correct"
-      : "incorrect";
+    return "incorrect";
+  });
+
+  const closeSuggestion = $derived.by(() => {
+    if (!submitted || revealed || grade !== "incorrect") return null;
+    if (task.type !== "cloze" && task.type !== "typed") return null;
+    const suggestion = suggestCloseAnswer(input, task.answer, task.acceptedAnswers);
+    const correction = current.feedback.correction;
+    if (!suggestion || suggestion === correction) return null;
+    return suggestion;
   });
 
   const correct = $derived(grade === "correct");
@@ -128,11 +135,9 @@
       return selectedId === task.answerId ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
-    if (task.type === "cloze")
+    if (task.type === "cloze" || task.type === "typed")
       return gradeAnswer(input, task.answer, task.acceptedAnswers);
-    return answersMatch(input, task.answer, task.acceptedAnswers)
-      ? "correct"
-      : "incorrect";
+    return "incorrect";
   }
 
   async function check(): Promise<void> {
@@ -452,6 +457,12 @@
         aria-live="polite"
         tabindex="-1"
       >
+        {#if closeSuggestion}
+          <p class="m-0 text-xs font-bold uppercase tracking-wide text-slate-600">
+            Did you mean?
+          </p>
+          <strong class="mb-2 font-serif text-lg" lang="sk">{closeSuggestion}</strong>
+        {/if}
         <p class="m-0 text-xs font-bold uppercase tracking-wide text-slate-600">
           {feedbackLabel()}
         </p>

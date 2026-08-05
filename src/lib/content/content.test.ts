@@ -7,6 +7,7 @@ import {
   markLessonComplete,
   readPracticeState,
   saveReferenceItem,
+  suggestCloseAnswer,
   writePracticeState,
   type StorageLike,
 } from "../client/practice-state";
@@ -40,6 +41,7 @@ import {
 import { normalizeSearchText, searchEntries } from "./search";
 import { buildSearchDocuments } from "./search-documents";
 import { conjugateVerbForTest, searchFormsForLemma } from "./search-forms";
+import { answersForTime } from "./slovak-time";
 
 class MemoryStorage implements StorageLike {
   private values = new Map<string, string>();
@@ -638,6 +640,26 @@ describe("Slovak content", () => {
     expect(gradeAnswer("čítam", "Čítam")).toBe("correct");
     expect(gradeAnswer("Citam", "Čítam")).toBe("accents");
     expect(gradeAnswer("píšem", "Čítam")).toBe("incorrect");
+  });
+
+  it("suggests close typed answers via Levenshtein without marking correct", () => {
+    const accepted = answersForTime({ hour: 11, minute: 15 });
+    const preferred = accepted[0] ?? "";
+
+    expect(gradeAnswer("jedanásť pätnásť", preferred, accepted)).toBe("incorrect");
+    expect(suggestCloseAnswer("jedanásť pätnásť", preferred, accepted)).toBe(
+      "jedenásť pätnásť",
+    );
+
+    expect(gradeAnswer("čítam", "Čítam")).toBe("correct");
+    expect(suggestCloseAnswer("čítam", "Čítam")).toBeNull();
+
+    expect(gradeAnswer("Citam", "Čítam")).toBe("accents");
+    expect(suggestCloseAnswer("Citam", "Čítam")).toBeNull();
+
+    expect(suggestCloseAnswer("píšem", "Čítam")).toBeNull();
+    expect(suggestCloseAnswer("   ", preferred, accepted)).toBeNull();
+    expect(suggestCloseAnswer("", preferred, accepted)).toBeNull();
   });
 
   it("resolves cloze lemma and grammar topic ids", () => {
