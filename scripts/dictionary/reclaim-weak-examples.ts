@@ -96,6 +96,23 @@ function isWeakTemplate(example: Example): boolean {
   if (/^Tu je .+\.$/u.test(slovak) && /^Here is /i.test(english)) return true;
   if (/^.+ je pekné mesto\.$/u.test(slovak) && / is a nice city\.$/i.test(english))
     return true;
+  // Weak adverb fill frames (pre-classed “Urobím to X” / “Stalo sa to X” / manner stubs).
+  if (/^Urobím to .+\.$/u.test(slovak) && /^I'll do it /i.test(english)) return true;
+  if (/^Stalo sa to .+\.$/u.test(slovak) && /^It happened /i.test(english)) return true;
+  if (/^Ide to .+\.$/u.test(slovak) && /^It's going /i.test(english)) return true;
+  if (/^Hovorí .+\.$/u.test(slovak) && /^He\/she speaks /i.test(english)) return true;
+  if (
+    /^Robíme to .+ opatrne\.$/u.test(slovak) &&
+    /^We're doing it .+ carefully\.$/i.test(english)
+  )
+    return true;
+  if (
+    /^.+ pracujeme na tom\.$/u.test(slovak) &&
+    / we are working on it\.$/i.test(english)
+  )
+    return true;
+  if (/^.+ som odišiel skôr\.$/u.test(slovak) && / I left earlier\.$/i.test(english))
+    return true;
 
   return false;
 }

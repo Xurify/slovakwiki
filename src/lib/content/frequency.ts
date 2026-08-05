@@ -24,18 +24,10 @@ const PART_OF_SPEECH_TO_CATEGORY: Record<FrequencyPartOfSpeech, string> = {
   adverb: "Adverbs",
 };
 
-/** Frequency part-of-speech buckets — curated topical categories are not these. */
-const FREQUENCY_PART_OF_SPEECH_CATEGORIES = new Set<string>([
-  "Verbs",
-  "Nouns",
-  "Adjectives",
-  "Adverbs",
-]);
-
 /**
- * Prefer the frequency part-of-speech category, then fall back to a curated
- * entry for the same lemma (Places / Phrases / …) so common lists do not show
- * “Not in dictionary yet” when the page already exists.
+ * Prefer the frequency part-of-speech category.
+ * Nouns may fall back to curated Places (mesto, Bratislava).
+ * Do not fall back to Phrases — that mis-links adverbs like slovensky.
  */
 function pickForPreferredPartOfSpeech(
   matches: readonly ContentEntry[],
@@ -44,10 +36,11 @@ function pickForPreferredPartOfSpeech(
   const byPartOfSpeech = matches.find((word) => word.category === preferredCategory);
   if (byPartOfSpeech) return byPartOfSpeech;
 
-  const rivalCategories = new Set(FREQUENCY_PART_OF_SPEECH_CATEGORIES);
-  rivalCategories.delete(preferredCategory);
+  if (preferredCategory === "Nouns") {
+    return matches.find((word) => word.category === "Places");
+  }
 
-  return matches.find((word) => !rivalCategories.has(word.category));
+  return undefined;
 }
 
 export function findLiveWordForLemma(

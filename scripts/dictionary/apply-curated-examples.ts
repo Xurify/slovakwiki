@@ -156,6 +156,17 @@ async function main(): Promise<void> {
         return true;
       });
       word.examples = [...incoming, ...extras];
+    } else if (reviewed && !practiceOnly) {
+      // Hand-curated / reviewed rows lead; drop leftover practice frames from live.
+      const curatedKeys = new Set(
+        incoming.map((example) => example.slovak.toLocaleLowerCase("sk")),
+      );
+      const extras = word.examples.filter((example) => {
+        if (example.isPracticeFrame) return false;
+        const key = example.slovak.toLocaleLowerCase("sk");
+        return !curatedKeys.has(key);
+      });
+      word.examples = [...incoming, ...extras];
     } else {
       // Union by Slovak text: keep live rows first, then curated/fill extras.
       const merged: Example[] = [];

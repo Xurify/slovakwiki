@@ -97,7 +97,7 @@ export function parseArgs(argv: string[]): {
     } else if (arg === "--pos") {
       partOfSpeech = argv[i + 1];
       if (!partOfSpeech) {
-        throw new Error("--pos requires a value (noun|verb|adjective)");
+        throw new Error("--pos requires a value (noun|verb|adjective|adverb)");
       }
       i += 1;
     } else if (arg?.startsWith("-")) {
@@ -116,6 +116,7 @@ export function normalizePartOfSpeechFilter(
   if (key === "noun" || key === "nouns") return "Nouns";
   if (key === "verb" || key === "verbs") return "Verbs";
   if (key === "adjective" || key === "adjectives" || key === "adj") return "Adjectives";
+  if (key === "adverb" || key === "adverbs") return "Adverbs";
   // Allow exact category match (Places, Food, …)
   return partOfSpeech.trim();
 }

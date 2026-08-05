@@ -42,23 +42,18 @@ function wordFrequency(word: WordSeed): WordFrequency | undefined {
   const preferredPartOfSpeech = CATEGORY_TO_PART_OF_SPEECH[word.category];
   const exactLower = word.slovak.toLocaleLowerCase("sk");
 
-  if (preferredPartOfSpeech) {
-    const preferredExact = frequencyIndex[`exact:${exactLower}|${preferredPartOfSpeech}`];
-    if (preferredExact) return preferredExact;
-  }
-
-  const exact = frequencyIndex[`exact:${exactLower}`];
-  if (exact) return exact;
-
-  // Diacritic-fold only for mass part-of-speech publishes — never attach a
-  // folded rank to curated topic words (slovensky ≠ slovenský).
+  // Curated topical buckets (Phrases / Places / …) never inherit a POS rank
+  // from a same-spelling adverb/verb/noun (slovensky Phrases ≠ adverb rank).
   if (!preferredPartOfSpeech) return undefined;
+
+  const preferredExact = frequencyIndex[`exact:${exactLower}|${preferredPartOfSpeech}`];
+  if (preferredExact) return preferredExact;
 
   const key = normalizeLemma(word.slovak);
   const preferred = frequencyIndex[`${key}|${preferredPartOfSpeech}`];
   if (preferred) return preferred;
 
-  return frequencyIndex[key];
+  return undefined;
 }
 
 const curatedWordSeed: WordSeed[] = [

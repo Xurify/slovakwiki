@@ -458,13 +458,174 @@ function placeExample(slovak: string): Example {
   };
 }
 
+/** Predicative / modal particles that cannot sit in “Urobím to X.” */
+const ADVERB_PREDICATIVE = new Set([
+  "treba",
+  "možno",
+  "isto",
+  "určite",
+  "pravdepodobne",
+  "zrejme",
+  "asi",
+  "snáď",
+  "samozrejme",
+]);
+
+const ADVERB_QUANTITY = new Set([
+  "veľa",
+  "málo",
+  "dosť",
+  "trochu",
+  "príliš",
+  "priveľmi",
+  "mnoho",
+  "viac",
+  "menej",
+  "najviac",
+  "najmenej",
+]);
+
+const ADVERB_TIME_SENTENCE_INITIAL = new Set([
+  "dnes",
+  "včera",
+  "zajtra",
+  "teraz",
+  "potom",
+  "neskôr",
+  "predtým",
+  "nakoniec",
+  "napokon",
+  "doteraz",
+  "vlani",
+  "zajtra",
+  "hneď",
+  "už",
+  "ešte",
+  "stále",
+  "často",
+  "občas",
+  "nikdy",
+  "vždy",
+  "znova",
+  "znovu",
+  "opäť",
+  "najprv",
+  "dodnes",
+  "tentoraz",
+]);
+
+/** Discourse / connective adverbs — need clausal hosts, not manner slots. */
+const ADVERB_DISCOURSE = new Set([
+  "zároveň",
+  "pritom",
+  "naďalej",
+  "čoraz",
+  "preto",
+  "teda",
+  "však",
+  "napríklad",
+  "konkrétne",
+  "predovšetkým",
+  "napokon",
+  "ostatne",
+  "mimochodom",
+  "naproti",
+  "naopak",
+  "teda",
+  "čiže",
+  "takže",
+  "proste",
+  "jednoducho",
+  "vlastne",
+  "skutočne",
+  "naozaj",
+  "skôr",
+  "radšej",
+  "hlavne",
+  "najmä",
+  "iba",
+  "len",
+  "tiež",
+  "taktiež",
+  "takisto",
+  "rovnako",
+  "podobne",
+  "inak",
+  "súčasne",
+  "súčasne",
+  "vzápätí",
+  "následne",
+]);
+
+type AdverbFrame = "predicative" | "quantity" | "time" | "discourse" | "manner";
+
+function classifyAdverbFrame(slovak: string): AdverbFrame {
+  const lemma = slovak.toLocaleLowerCase("sk");
+  if (ADVERB_PREDICATIVE.has(lemma)) return "predicative";
+  if (ADVERB_QUANTITY.has(lemma)) return "quantity";
+  if (ADVERB_DISCOURSE.has(lemma)) return "discourse";
+  if (ADVERB_TIME_SENTENCE_INITIAL.has(lemma)) return "time";
+  return "manner";
+}
+
 function adverbExample(slovak: string, english: string): Example {
   const gloss = firstGloss(english);
-  return {
-    slovak: `Urobím to ${slovak}.`,
-    english: `I'll do it ${gloss}.`,
-    note: "Curated",
-  };
+  const frame = classifyAdverbFrame(slovak);
+  const lemma = slovak.toLocaleLowerCase("sk");
+
+  switch (frame) {
+    case "predicative":
+      if (lemma === "treba") {
+        return {
+          slovak: "Treba to urobiť hneď.",
+          english: "It needs to be done right away.",
+          note: "Curated",
+        };
+      }
+      if (lemma === "možno") {
+        return {
+          slovak: "Možno príde neskôr.",
+          english: "Maybe he/she will come later.",
+          note: "Curated",
+        };
+      }
+      return {
+        slovak: `${slovak.charAt(0).toLocaleUpperCase("sk")}${slovak.slice(1)} príde zajtra.`,
+        english: `${gloss.charAt(0).toUpperCase()}${gloss.slice(1)} he/she will come tomorrow.`,
+        note: "Curated",
+      };
+    case "quantity":
+      return {
+        slovak: `Mám ${slovak} práce.`,
+        english: `I have ${gloss} of work.`,
+        note: "Curated",
+      };
+    case "time":
+      return {
+        slovak: `${slovak.charAt(0).toLocaleUpperCase("sk")}${slovak.slice(1)} to urobím.`,
+        english: `${gloss.charAt(0).toUpperCase()}${gloss.slice(1)} I'll do it.`,
+        note: "Curated",
+      };
+    case "discourse":
+      if (lemma === "čoraz") {
+        return {
+          slovak: "Je to čoraz ťažšie.",
+          english: "It's getting harder and harder.",
+          note: "Curated",
+        };
+      }
+      return {
+        slovak: `${slovak.charAt(0).toLocaleUpperCase("sk")}${slovak.slice(1)} pracujeme na tom.`,
+        english: `${gloss.charAt(0).toUpperCase()}${gloss.slice(1)} we are working on it.`,
+        note: "Curated",
+      };
+    case "manner":
+      return {
+        slovak: `Ide to ${slovak}.`,
+        english: `It's going ${gloss}.`,
+        note: "Curated",
+      };
+  }
 }
 
 function exampleFor(word: {
@@ -530,13 +691,55 @@ function alternateExampleFor(word: {
         note: "Curated",
       };
       break;
-    case "Adverbs":
-      example = {
-        slovak: `Stalo sa to ${slovak}.`,
-        english: `It happened ${gloss}.`,
-        note: "Curated",
-      };
+    case "Adverbs": {
+      const frame = classifyAdverbFrame(slovak);
+      if (frame === "predicative") {
+        if (slovak.toLocaleLowerCase("sk") === "treba") {
+          example = {
+            slovak: "Treba počkať.",
+            english: "One must wait.",
+            note: "Curated",
+          };
+        } else if (slovak.toLocaleLowerCase("sk") === "možno") {
+          example = {
+            slovak: "Možno zajtra.",
+            english: "Maybe tomorrow.",
+            note: "Curated",
+          };
+        } else {
+          example = {
+            slovak: `${slovak.charAt(0).toLocaleUpperCase("sk")}${slovak.slice(1)} to stihne.`,
+            english: `${gloss.charAt(0).toUpperCase()}${gloss.slice(1)} he/she will make it.`,
+            note: "Curated",
+          };
+        }
+      } else if (frame === "quantity") {
+        example = {
+          slovak: `Je toho ${slovak}.`,
+          english: `There is ${gloss} of it.`,
+          note: "Curated",
+        };
+      } else if (frame === "time") {
+        example = {
+          slovak: `Urobíme to ${slovak}.`,
+          english: `We'll do it ${gloss}.`,
+          note: "Curated",
+        };
+      } else if (frame === "discourse") {
+        example = {
+          slovak: `${slovak.charAt(0).toLocaleUpperCase("sk")}${slovak.slice(1)} som odišiel skôr.`,
+          english: `${gloss.charAt(0).toUpperCase()}${gloss.slice(1)} I left earlier.`,
+          note: "Curated",
+        };
+      } else {
+        example = {
+          slovak: `Hovorí ${slovak}.`,
+          english: `He/she speaks ${gloss}.`,
+          note: "Curated",
+        };
+      }
       break;
+    }
     case "Places": {
       const capital = slovak.charAt(0).toLocaleUpperCase("sk") + slovak.slice(1);
       example = {

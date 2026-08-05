@@ -87,18 +87,18 @@ Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/aud
 
 Wikimedia free page images for dictionary lemmas → local `static/images/` → Cloudflare R2 for production.
 
-| `fetch.ts` | `images:fetch` | SK/EN Wikipedia `pageimages`, then **Commons gloss search** for Food / Places / People / Travel / Everyday / Essentials (e.g. `obed` → “lunch meal”). **No auto Commons for Nouns / adjectives / verbs.** Person names are not dictionary entries. |
+| `fetch.ts` | `images:fetch` | SK/EN Wikipedia `pageimages`, then **Commons gloss search** for Food / Places / People / Travel / Everyday / Essentials (e.g. `obed` → “lunch meal”). **No auto Commons for Nouns / adjectives / verbs / adverbs.** Person names are not dictionary entries. |
 | `upload.ts` | `images:upload` | Sync to R2; `--force` / `--only` / `--limit` / `--dry-run`; needs `R2_*` |
 | `stage-candidates.ts` | `images:stage` | Stage Commons candidates under `tmp/image-candidates/{slug}/` for visual audit |
 | `promote.ts` | `images:promote` | Promote audited candidate (`--slug` + `--pick N`) into live set |
 | `status.ts` | `images:status` | Targets vs ok/missing/rejected, by category |
 | `shared.ts` | (lib) | Targets, overrides, paths, verb scenes + noun Commons query helpers |
 
-Flags (`fetch`/`stage`): `--limit N`, `--pos noun|verb|adjective`, `--only {slug}`, `--force`.
+Flags (`fetch`/`stage`): `--limit N`, `--pos noun|verb|adjective|adverb`, `--only {slug}`, `--force`. Adverbs accept `--pos` for filtering but have no auto Commons promote.
 
 Overrides in `content/images/overrides.json`: `{ "slug": { "reject": true } }` or `{ "commonsFile": "Foo.jpg" }`.
 
-**Image policy:** Prefer Wikipedia pageimages. If missing, auto-search Commons for learner categories with concrete referents (Food / Places / People / Travel / Everyday life / Essentials). Require free license; prefer filenames that _start_ with the gloss. General Nouns, adjectives, and verbs stay empty unless `images:stage` → visual audit → `images:promote` (polysemy / false-friend risk).
+**Image policy:** Prefer Wikipedia pageimages. If missing, auto-search Commons for learner categories with concrete referents (Food / Places / People / Travel / Everyday life / Essentials). Require free license; prefer filenames that _start_ with the gloss. General Nouns, adjectives, verbs, and adverbs stay empty unless `images:stage` → visual audit → `images:promote` (polysemy / false-friend risk).
 
 Layout (local + R2): `images/dictionary/{file}`. Local disk: `static/images/dictionary/{file}`.
 

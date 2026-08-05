@@ -504,11 +504,22 @@ describe("Slovak content", () => {
 
     const slovensky = words.find((word) => word.slug === "slovensky");
     expect(slovensky?.origin).toBe("curated");
-    expect(slovensky?.frequency).toEqual({ partOfSpeech: "adverb", rank: 281 });
+    expect(slovensky?.category).toBe("Phrases");
+    expect(slovensky?.frequency).toBeUndefined();
+
+    const slovenskyAdv = words.find((word) => word.slug === "slovensky-adv");
+    expect(slovenskyAdv?.category).toBe("Adverbs");
+    expect(slovenskyAdv?.frequency).toEqual({ partOfSpeech: "adverb", rank: 281 });
 
     const hned = words.find((word) => word.slovak === "hneď");
     expect(hned?.category).toBe("Adverbs");
     expect(hned?.frequency).toEqual({ partOfSpeech: "adverb", rank: 17 });
+
+    const maloAdv = words.find(
+      (word) => word.slovak === "málo" && word.category === "Adverbs",
+    );
+    expect(maloAdv?.frequency?.partOfSpeech).toBe("adverb");
+    expect(maloAdv?.slug).toBe("malo-adv");
   });
 
   it("publishes diacritic near-homographs under disambiguated slugs", () => {

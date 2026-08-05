@@ -154,9 +154,19 @@ async function main(): Promise<void> {
     ) as FrequencyListFile;
 
     for (const entry of list.entries.slice(0, limit)) {
+      const preferredCategory = CATEGORY_BY_PART_OF_SPEECH[partOfSpeech];
+      const liveSamePartOfSpeech = findLiveWordForLemma(entry.lemma, words, partOfSpeech);
+      if (liveSamePartOfSpeech?.category === preferredCategory) {
+        skippedLive += 1;
+        continue;
+      }
+
+      // Adverbs may share spelling with nouns/adjectives/phrases (málo, slovensky).
+      // Other POS keep the original one-lemma-per-spelling gate.
       if (
-        findLiveWordForLemma(entry.lemma, words) ||
-        liveLemmas.has(entry.lemma.toLocaleLowerCase("sk"))
+        partOfSpeech !== "adverb" &&
+        (findLiveWordForLemma(entry.lemma, words) ||
+          liveLemmas.has(entry.lemma.toLocaleLowerCase("sk")))
       ) {
         skippedLive += 1;
         continue;
