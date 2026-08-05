@@ -35,6 +35,7 @@ const CATEGORY_TO_PART_OF_SPEECH: Record<string, FrequencyPartOfSpeech> = {
   Verbs: "verb",
   Nouns: "noun",
   Adjectives: "adjective",
+  Adverbs: "adverb",
 };
 
 function wordFrequency(word: WordSeed): WordFrequency | undefined {
@@ -810,6 +811,7 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
     verb: [],
     noun: [],
     adjective: [],
+    adverb: [],
   };
 
   for (const entry of entries) {

@@ -44,12 +44,14 @@ const PART_OF_SPEECH_FILES: Record<FrequencyPartOfSpeech, string> = {
   verb: "verbs.json",
   noun: "nouns.json",
   adjective: "adjectives.json",
+  adverb: "adverbs.json",
 };
 
 const CATEGORY_BY_PART_OF_SPEECH: Record<FrequencyPartOfSpeech, string> = {
   verb: "Verbs",
   noun: "Nouns",
   adjective: "Adjectives",
+  adverb: "Adverbs",
 };
 
 /** Gloss `category` overrides allowed on publish (themes belong in curated `topics`). */
@@ -57,6 +59,7 @@ const BROWSE_CATEGORY_OVERRIDES = new Set([
   "Verbs",
   "Nouns",
   "Adjectives",
+  "Adverbs",
   "Places",
   "Phrases",
 ]);
@@ -74,6 +77,7 @@ const PART_OF_SPEECH_SLUG_SUFFIX: Record<FrequencyPartOfSpeech, string> = {
   verb: "v",
   noun: "n",
   adjective: "a",
+  adverb: "adv",
 };
 
 function parseArgs(argv: string[]): { dryRun: boolean; limit: number } {
@@ -90,7 +94,7 @@ function parseArgs(argv: string[]): { dryRun: boolean; limit: number } {
   return { dryRun, limit };
 }
 
-/** Prefer bare slug; on collision append -v / -n / -a (štát → stat-n). */
+/** Prefer bare slug; on collision append -v / -n / -a / -adv (štát → stat-n). */
 function allocateSlug(
   lemma: string,
   partOfSpeech: FrequencyPartOfSpeech,

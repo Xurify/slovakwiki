@@ -37,7 +37,7 @@ export interface ContentEntry {
   aliases?: string[];
   body: string[];
   /**
-   * Dictionary browse bucket: `Verbs` | `Nouns` | `Adjectives` | `Places` | `Phrases`.
+   * Dictionary browse bucket: `Verbs` | `Nouns` | `Adjectives` | `Adverbs` | `Places` | `Phrases`.
    * Learner themes (Food, Greetings, …) live in `topics`, not here.
    */
   category: string;

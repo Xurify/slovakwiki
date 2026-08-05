@@ -11,7 +11,7 @@ import {
 } from "$lib/content/frequency-types";
 
 export function getStaticPaths() {
-  return (["verb", "noun", "adjective"] as const).map((partOfSpeech) => ({
+  return (["verb", "noun", "adjective", "adverb"] as const).map((partOfSpeech) => ({
     params: { partOfSpeech },
   }));
 }
@@ -41,7 +41,7 @@ for (const entry of entries) {
   };
 }
 
-const tabs = (["verb", "noun", "adjective"] as const).map((value) => ({
+const tabs = (["verb", "noun", "adjective", "adverb"] as const).map((value) => ({
   value,
   label: FREQUENCY_PART_OF_SPEECH_LABEL[value],
   href: `/dictionary/common/${value}`,

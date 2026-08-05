@@ -10,6 +10,7 @@ const PART_OF_SPEECH_FILES: Record<FrequencyPartOfSpeech, string> = {
   verb: "verbs.json",
   noun: "nouns.json",
   adjective: "adjectives.json",
+  adverb: "adverbs.json",
 };
 
 export async function loadFrequencyList(
@@ -28,11 +29,12 @@ export async function loadFrequencyList(
 export async function loadAllFrequencyLists(): Promise<
   Record<FrequencyPartOfSpeech, FrequencyListFile>
 > {
-  const [verb, noun, adjective] = await Promise.all([
+  const [verb, noun, adjective, adverb] = await Promise.all([
     loadFrequencyList("verb"),
     loadFrequencyList("noun"),
     loadFrequencyList("adjective"),
+    loadFrequencyList("adverb"),
   ]);
 
-  return { verb, noun, adjective };
+  return { verb, noun, adjective, adverb };
 }

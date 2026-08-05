@@ -1,6 +1,6 @@
 /**
  * Import SNK frequency lists: noun top-2500 from the full count dump,
- * verb/adjective top-1000 from the existing HTML lists.
+ * verb/adjective/adverb top-1000 from the existing HTML lists.
  *
  * Pivot: swap `fetchSnkFrequency` for a Tatoeba-rank importer later; keep
  * FrequencyListFile / FrequencyEntry shapes stable for UI + drafts.
@@ -64,6 +64,10 @@ const PART_OF_SPEECH_PATHS: Record<
   adjective: {
     file: "adjectives.json",
     path: "prim-8-0-public-all-adjectives-top-1000-lemmas/",
+  },
+  adverb: {
+    file: "adverbs.json",
+    path: "prim-8-0-public-all-adverbs-top-1000-lemmas/",
   },
 };
 

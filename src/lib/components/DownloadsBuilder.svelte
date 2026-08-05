@@ -317,7 +317,9 @@
             <p class="mt-2 flex-1 text-pretty text-sm leading-relaxed text-slate-600">
               {pack.description}
             </p>
-            <div class="mt-5 flex items-center justify-between gap-3 border-t border-slate-200 pt-4">
+            <div
+              class="mt-5 flex items-center justify-between gap-3 border-t border-slate-200 pt-4"
+            >
               <span class="text-xs font-semibold tracking-wide text-slate-400 uppercase">
                 {pack.formatNote}
               </span>

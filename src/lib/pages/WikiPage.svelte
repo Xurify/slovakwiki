@@ -29,6 +29,7 @@
     "Nouns",
     "Verbs",
     "Adjectives",
+    "Adverbs",
     "Places",
     "Phrases",
   ] as const;
@@ -217,7 +218,7 @@
       <p class="mt-4 text-sm text-slate-500">
         Also browse the
         <TextLink href="/dictionary/common/verb"
-          >most common verbs, nouns, and adjectives</TextLink
+          >most common verbs, nouns, adjectives, and adverbs</TextLink
         >.
       </p>
     </header>

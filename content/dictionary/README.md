@@ -4,12 +4,12 @@ How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../.
 
 ## Where to put it
 
-| Intent                                               | File                                                                              | Notes                                                                                                                                   |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts)   | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                       |
-| Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                      | Usual home for Verbs / Nouns / Adjectives / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
-| Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun run examples:curate` | Overlay keyed by existing slug — not a new entry.                                                                                       |
-| Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun run related:apply`   | Fills empty related arrays only.                                                                                                        |
+| Intent                                               | File                                                                              | Notes                                                                                                                                             |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts)   | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
+| Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                      | Usual home for Verbs / Nouns / Adjectives / Adverbs / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
+| Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun run examples:curate` | Overlay keyed by existing slug — not a new entry.                                                                                                 |
+| Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun run related:apply`   | Fills empty related arrays only.                                                                                                                  |
 
 Prefer curated seed for learner-facing essentials; prefer `words.json` (or `frequency:publish`) for mass POS coverage.
 
@@ -42,15 +42,15 @@ Hand-authored shape (`WordSeed`). Runtime fills `kind`, `summary`, `body`, `tags
 
 ### Fields
 
-| Field      | Required | Rules                                                                                                                                                                                                                                                    |
-| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `slug`     | yes      | From `lemmaToSlug(slovak)` in `src/lib/content/frequency.ts`: lowercase, strip diacritics, non-alphanumeric → `-`, trim hyphens. Unique across curated seed + `words.json`. On POS collision, frequency publish uses `-v` / `-n` / `-a` (e.g. `stat-n`). |
-| `slovak`   | yes      | Lemma with correct diacritics (`ďakujem`, not `dakujem`).                                                                                                                                                                                                |
-| `english`  | yes      | Short gloss; multiple senses with `; ` (`can; to be able to`).                                                                                                                                                                                           |
-| `category` | yes      | Browse bucket: `Verbs` / `Nouns` / `Adjectives` / `Places` / `Phrases`. Themes go in `topics`.                                                                                                                                                           |
-| `topics`   | no       | Optional learner themes (`Food`, `Greetings`, …) for Essentials / home previews — not dictionary chips.                                                                                                                                                  |
-| `examples` | yes      | See example rules.                                                                                                                                                                                                                                       |
-| `related`  | yes      | Array of **existing** slugs (may be `[]`). No free-text labels.                                                                                                                                                                                          |
+| Field      | Required | Rules                                                                                                                                                                                                                                                             |
+| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `slug`     | yes      | From `lemmaToSlug(slovak)` in `src/lib/content/frequency.ts`: lowercase, strip diacritics, non-alphanumeric → `-`, trim hyphens. Unique across curated seed + `words.json`. On POS collision, frequency publish uses `-v` / `-n` / `-a` / `-adv` (e.g. `stat-n`). |
+| `slovak`   | yes      | Lemma with correct diacritics (`ďakujem`, not `dakujem`).                                                                                                                                                                                                         |
+| `english`  | yes      | Short gloss; multiple senses with `; ` (`can; to be able to`).                                                                                                                                                                                                    |
+| `category` | yes      | Browse bucket: `Verbs` / `Nouns` / `Adjectives` / `Adverbs` / `Places` / `Phrases`. Themes go in `topics`.                                                                                                                                                        |
+| `topics`   | no       | Optional learner themes (`Food`, `Greetings`, …) for Essentials / home previews — not dictionary chips.                                                                                                                                                           |
+| `examples` | yes      | See example rules.                                                                                                                                                                                                                                                |
+| `related`  | yes      | Array of **existing** slugs (may be `[]`). No free-text labels.                                                                                                                                                                                                   |
 
 Do not hand-write `origin`, `frequency`, `body`, `summary`, `tags`, or source fields into `words.json`.
 
@@ -66,7 +66,7 @@ Do not hand-write `origin`, `frequency`, `body`, `summary`, `tags`, or source fi
 
 ## Categories
 
-**Browse buckets** (`category` — dictionary chips + POS): `Verbs`, `Nouns`, `Adjectives`, `Places`, `Phrases`.
+**Browse buckets** (`category` — dictionary chips + POS): `Verbs`, `Nouns`, `Adjectives`, `Adverbs`, `Places`, `Phrases`.
 
 **Learner themes** (`topics` — curated seed only; future Essentials page): `Greetings`, `Essentials`, `Questions`, `Conversation`, `Learning`, `Everyday life`, `People`, `Food`, `Travel`, …
 

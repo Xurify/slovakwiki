@@ -14,6 +14,7 @@ describe("lemma senses", () => {
     expect(senseSectionId("Nouns")).toBe("noun");
     expect(senseSectionId("Adjectives")).toBe("adjective");
     expect(senseSectionId("Verbs")).toBe("verb");
+    expect(senseSectionId("Adverbs")).toBe("adverb");
   });
 
   it("groups part-of-speech siblings for domáci and dospelý", () => {

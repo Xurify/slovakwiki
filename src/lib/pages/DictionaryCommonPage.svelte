@@ -95,8 +95,8 @@
       <Eyebrow>Frequency</Eyebrow>
       <h1>Most common words</h1>
       <Lead>
-        Top 1000 verbs, nouns, and adjectives from the Slovak National Corpus. Open a word
-        for its English meaning and examples.
+        Top 1000 verbs, nouns, adjectives, and adverbs from the Slovak National Corpus.
+        Open a word for its English meaning and examples.
       </Lead>
     </header>
 

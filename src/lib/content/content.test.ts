@@ -395,14 +395,17 @@ describe("Slovak content", () => {
   });
 
   it("does not claim Tatoeba in sourceNote when only practice frames exist", () => {
-    // Practice-frame fills are fully replaced by reviewed/Tatoeba examples.
-    const practiceOnly = words.find(
+    const practiceOnly = words.filter(
       (word) =>
         word.origin === "frequency" &&
         word.examples.length > 0 &&
         word.examples.every((example) => example.isPracticeFrame),
     );
-    expect(practiceOnly).toBeUndefined();
+    expect(practiceOnly.length).toBeGreaterThan(0);
+    for (const word of practiceOnly) {
+      expect(word.sourceNote).toContain("Practice frames");
+      expect(word.sourceNote).not.toContain("Tatoeba");
+    }
 
     const reviewedOnly = words.find(
       (word) =>
@@ -501,7 +504,11 @@ describe("Slovak content", () => {
 
     const slovensky = words.find((word) => word.slug === "slovensky");
     expect(slovensky?.origin).toBe("curated");
-    expect(slovensky?.frequency).toBeUndefined();
+    expect(slovensky?.frequency).toEqual({ partOfSpeech: "adverb", rank: 281 });
+
+    const hned = words.find((word) => word.slovak === "hneď");
+    expect(hned?.category).toBe("Adverbs");
+    expect(hned?.frequency).toEqual({ partOfSpeech: "adverb", rank: 17 });
   });
 
   it("publishes diacritic near-homographs under disambiguated slugs", () => {

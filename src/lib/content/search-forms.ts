@@ -288,8 +288,9 @@ export function searchFormsForLemma(slovak: string, category: string): string[] 
     case "Places":
       forms = nounForms(slovak);
       break;
+    case "Adverbs":
     case "Phrases":
-      // Fixed phrases / function words — no productive inflection index.
+      // Fixed phrases / function words / adverbs — no productive inflection index.
       forms = [];
       break;
     default:

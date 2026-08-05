@@ -1,5 +1,5 @@
-/** Part of speech for SNK frequency lists (verb / noun / adjective). */
-export type FrequencyPartOfSpeech = "verb" | "noun" | "adjective";
+/** Part of speech for SNK frequency lists (verb / noun / adjective / adverb). */
+export type FrequencyPartOfSpeech = "verb" | "noun" | "adjective" | "adverb";
 
 export interface FrequencyEntry {
   count?: number;
@@ -23,4 +23,5 @@ export const FREQUENCY_PART_OF_SPEECH_LABEL: Record<FrequencyPartOfSpeech, strin
   verb: "Verbs",
   noun: "Nouns",
   adjective: "Adjectives",
+  adverb: "Adverbs",
 };

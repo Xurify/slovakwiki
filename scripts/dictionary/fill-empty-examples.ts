@@ -458,6 +458,15 @@ function placeExample(slovak: string): Example {
   };
 }
 
+function adverbExample(slovak: string, english: string): Example {
+  const gloss = firstGloss(english);
+  return {
+    slovak: `Urobím to ${slovak}.`,
+    english: `I'll do it ${gloss}.`,
+    note: "Curated",
+  };
+}
+
 function exampleFor(word: {
   category: string;
   english: string;
@@ -474,6 +483,9 @@ function exampleFor(word: {
       break;
     case "Places":
       example = placeExample(word.slovak);
+      break;
+    case "Adverbs":
+      example = adverbExample(word.slovak, word.english);
       break;
     default:
       example = nounExample(word.slovak, word.english);
@@ -515,6 +527,13 @@ function alternateExampleFor(word: {
       example = {
         slovak: `To je ${slovak} príklad.`,
         english: `That is ${article(gloss)}${gloss} example.`,
+        note: "Curated",
+      };
+      break;
+    case "Adverbs":
+      example = {
+        slovak: `Stalo sa to ${slovak}.`,
+        english: `It happened ${gloss}.`,
         note: "Curated",
       };
       break;

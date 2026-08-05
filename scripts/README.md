@@ -5,7 +5,7 @@ Grouped by job. Run via `bun run <name>` from `package.json` (preferred).
 ## Happy path
 
 ```
-bun run frequency:import    # SNK noun top-2500 dump + verb/adjective top-1000 HTML → frequency JSON
+bun run frequency:import    # SNK noun top-2500 dump + verb/adjective/adverb top-1000 HTML → frequency JSON
 bun run frequency:missing-glosses # report frequency lemmas needing English glosses
 bun run frequency:publish   # glosses → content/dictionary/words.json
 bun run frequency:publish -- --dry-run # preview additions without writing words.json
@@ -49,7 +49,7 @@ Frequency lists, live dictionary publish, Tatoeba examples.
 
 | File                        | npm script                  | Notes                                                                                                                                                                        |
 | --------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `import-frequency.ts`       | `frequency:import`          | Nouns use the full SNK count dump (default top 2500); verbs/adjectives keep the HTML top 1000; `--noun-limit N` / `--force`                                                  |
+| `import-frequency.ts`       | `frequency:import`          | Nouns use the full SNK count dump (default top 2500); verbs/adjectives/adverbs keep the HTML top 1000; `--noun-limit N` / `--force`                                          |
 | `report-missing-glosses.ts` | `frequency:missing-glosses` | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
 | `publish-frequency.ts`      | `frequency:publish`         | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
 | `enrich-examples.ts`        | `examples:enrich`           | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |

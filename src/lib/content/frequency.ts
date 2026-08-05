@@ -21,6 +21,7 @@ const PART_OF_SPEECH_TO_CATEGORY: Record<FrequencyPartOfSpeech, string> = {
   verb: "Verbs",
   noun: "Nouns",
   adjective: "Adjectives",
+  adverb: "Adverbs",
 };
 
 /** Frequency part-of-speech buckets — curated topical categories are not these. */
@@ -28,6 +29,7 @@ const FREQUENCY_PART_OF_SPEECH_CATEGORIES = new Set<string>([
   "Verbs",
   "Nouns",
   "Adjectives",
+  "Adverbs",
 ]);
 
 /**

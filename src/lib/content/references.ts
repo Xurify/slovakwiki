@@ -63,7 +63,7 @@ export const referenceSources: ReferenceSource[] = [
     group: "corpus",
     name: "Slovak National Corpus (SNK) frequency lists",
     usedFor:
-      "Top-2500 noun lemmas from the full SNK count dump, plus top-1000 verb and adjective lemmas from the SNK HTML lists, used on /dictionary/common and frequency publish.",
+      "Top-2500 noun lemmas from the full SNK count dump, plus top-1000 verb, adjective, and adverb lemmas from the SNK HTML lists, used on /dictionary/common and frequency publish.",
     links: [
       {
         href: "https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/",
@@ -88,6 +88,10 @@ export const referenceSources: ReferenceSource[] = [
       {
         href: "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adjectives-top-1000-lemmas/",
         label: "Top 1000 adjective lemmas",
+      },
+      {
+        href: "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adverbs-top-1000-lemmas/",
+        label: "Top 1000 adverb lemmas",
       },
     ],
   },
