@@ -5,6 +5,7 @@
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
 
   import FocusedPracticeAction from "$lib/components/FocusedPracticeAction.svelte";
+  import GrammarPatternList from "$lib/components/GrammarPatternList.svelte";
   import TellingTimeClockGrid from "$lib/components/TellingTimeClockGrid.svelte";
   import { sentenceCase } from "$lib/content/search-ui";
   import type { EntryKind, GrammarTopic } from "$lib/content/types";
@@ -136,17 +137,22 @@
     {#if !topic.caseOverview}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
         <Eyebrow>Pattern</Eyebrow>
-        <h2 id="pattern-heading" class="mb-3 text-2xl">{topic.pattern.label}</h2>
+        <h2 id="pattern-heading" class="mb-3 text-balance text-2xl">
+          {topic.pattern.label}
+        </h2>
 
-        <ul class="mt-5 m-0 list-none rounded border border-slate-200 p-0">
-          {#each topic.pattern.lines as line (line)}
-            <li
-              class="border-b border-slate-200 px-4 py-3 font-serif font-semibold text-blue-800 last:border-b-0"
-            >
-              {line}
-            </li>
-          {/each}
-        </ul>
+        {#if topic.slug === "telling-time"}
+          <p class="mb-5 max-w-[66ch] font-serif leading-7 text-slate-700">
+            Tinted rows look ahead to the coming hour (štvrť / pol / trištvrte).
+          </p>
+        {/if}
+
+        <div class="mt-5">
+          <GrammarPatternList
+            lines={topic.pattern.lines}
+            withClocks={topic.slug === "telling-time"}
+          />
+        </div>
       </section>
     {/if}
 
