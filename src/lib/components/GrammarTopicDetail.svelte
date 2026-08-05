@@ -143,7 +143,7 @@
 
         {#if topic.slug === "telling-time"}
           <p class="mb-5 max-w-[66ch] font-serif leading-7 text-slate-700">
-            Tinted rows look ahead to the coming hour (štvrť / pol / trištvrte).
+            Green edge marks times that name the hour ahead.
           </p>
         {/if}
 
