@@ -58,7 +58,7 @@
 
 <section
   id="clock-drill"
-  class="scroll-mt-[88px] border border-slate-200 bg-surface/90 p-7 max-[560px]:px-4 max-[560px]:py-5"
+  class="scroll-mt-[88px] bg-surface/90 p-7 max-[560px]:px-4 max-[560px]:py-5"
   aria-labelledby="clock-drill-heading"
 >
   <Eyebrow>Practice</Eyebrow>
@@ -70,16 +70,16 @@
     readings both count.
   </p>
 
-  <div class="mt-6 grid justify-items-center gap-3 border-y border-slate-200 py-6">
+  <div class="mt-6 grid justify-items-center gap-3 py-6">
     <ClockIllustration hour={face.hour} minute={face.minute} size={160} label={digital} />
-    <p class="m-0 font-serif text-lg font-semibold text-slate-800">{digital}</p>
+    <p class="m-0 font-serif text-lg font-semibold text-slate-900">{digital}</p>
     <p class="m-0 font-serif text-base text-blue-800" lang="sk">Koľko je hodín?</p>
   </div>
 
   <label class="mt-6 grid gap-2 text-xs font-bold text-slate-600">
     <span>Your Slovak answer</span>
     <input
-      class="min-h-[50px] w-full border border-slate-300 bg-surface px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+      class="min-h-[50px] w-full border border-slate-300 bg-control px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
       bind:value={input}
       disabled={submitted}
       autocomplete="off"

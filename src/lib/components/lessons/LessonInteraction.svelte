@@ -215,7 +215,7 @@
       <label class="mt-7 grid gap-2 text-xs font-bold text-slate-600">
         <span>{exercise.inputLabel}</span>
         <input
-          class="min-h-[50px] w-full border border-slate-300 bg-surface px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+          class="min-h-[50px] w-full border border-slate-300 bg-control px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
           bind:value={input}
           disabled={submitted}
           autocomplete="off"

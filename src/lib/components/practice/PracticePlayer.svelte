@@ -440,7 +440,7 @@
       <label class="mt-7 grid gap-2 text-xs font-bold text-slate-600">
         <span>{task.inputLabel}</span>
         <input
-          class="min-h-[52px] w-full border border-slate-300 bg-surface px-3 py-2 font-serif text-lg outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+          class="min-h-[52px] w-full border border-slate-300 bg-control px-3 py-2 font-serif text-lg outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
           bind:value={input}
           disabled={submitted}
           autocomplete="off"

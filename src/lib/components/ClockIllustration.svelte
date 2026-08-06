@@ -42,7 +42,7 @@
 </script>
 
 <svg
-  class="block shrink-0 text-slate-800 {className}"
+  class="block shrink-0 text-slate-900 {className}"
   width={size}
   height={size}
   viewBox="0 0 100 100"
@@ -89,7 +89,7 @@
     </text>
   {/each}
 
-  <!-- Hour: short + thick. Minute: longer + accent (Mobbin dial convention). -->
+  <!-- Hour: short + thick ink. Minute: longer + accent. -->
   <line
     x1="50"
     y1="50"
@@ -112,5 +112,5 @@
   />
 
   <circle cx="50" cy="50" r="3.4" fill="var(--surface, #fafcfd)" />
-  <circle cx="50" cy="50" r="2.4" fill="currentColor" />
+  <circle cx="50" cy="50" r="2.4" fill="var(--accent, #1f6b8f)" />
 </svg>
