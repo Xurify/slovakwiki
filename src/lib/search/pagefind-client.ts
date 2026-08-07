@@ -3,6 +3,7 @@ import type { SearchDocKind } from "$lib/content/search-ui";
 export interface PagefindResultData {
   excerpt: string;
   meta: {
+    category?: string;
     kind?: string;
     summary?: string;
     title?: string;

@@ -18,6 +18,28 @@ export const searchKindLabels: Record<SearchDocKind, string> = {
   practice: "Practice",
 };
 
+/** Compact right-rail labels for dictionary categories (avoid “Nouns” next to a lemma). */
+const WORD_CATEGORY_META_LABELS: Record<string, string> = {
+  Nouns: "Noun",
+  Verbs: "Verb",
+  Adjectives: "Adjective",
+  Adverbs: "Adverb",
+  Places: "Place",
+  Phrases: "Phrase",
+  Numbers: "Number",
+};
+
+/**
+ * Right-rail label for a search hit / recent item.
+ * Words prefer category (“Noun”) over the generic “Word” kind chip.
+ */
+export function searchMetaLabel(kind: SearchDocKind, category?: string | null): string {
+  if (kind === "word" && category) {
+    return WORD_CATEGORY_META_LABELS[category] ?? category;
+  }
+  return searchKindLabels[kind];
+}
+
 export const searchKindChips: SearchDocKind[] = [
   "word",
   "grammar",
@@ -35,6 +57,7 @@ export function sentenceCase(value: string): string {
 }
 
 export const searchIdleHints: Array<{
+  category?: string;
   href: string;
   kind: SearchDocKind;
   label: string;
@@ -43,12 +66,14 @@ export const searchIdleHints: Array<{
   {
     label: "ahoj",
     kind: "word",
+    category: "Phrases",
     href: "/dictionary/ahoj",
     lang: "sk",
   },
   {
     label: "ďakujem",
     kind: "word",
+    category: "Phrases",
     href: "/dictionary/dakujem",
     lang: "sk",
   },

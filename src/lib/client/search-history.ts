@@ -7,6 +7,7 @@ const LEGACY_SEARCH_HISTORY_STORAGE_KEY = "slovak-wiki.search-history.v1";
 export const SEARCH_HISTORY_LIMIT = 8;
 
 export interface SearchHistoryItem {
+  category?: string;
   href: string;
   kind: SearchDocKind;
   label: string;
@@ -53,11 +54,18 @@ function parseHistoryItem(value: unknown): SearchHistoryItem | null {
   if (typeof item.href !== "string" || item.href.trim().length === 0) return null;
   if (typeof item.label !== "string" || item.label.trim().length === 0) return null;
   if (!isSearchDocKind(item.kind)) return null;
+
+  const category =
+    typeof item.category === "string" && item.category.trim().length > 0
+      ? item.category.trim()
+      : undefined;
+
   return {
     visitedAt,
     href: item.href,
     kind: item.kind,
     label: item.label,
+    ...(category ? { category } : {}),
   };
 }
 
@@ -134,6 +142,7 @@ export function writeSearchHistory(
         href: normalizeHistoryHref(item.href),
         kind: item.kind,
         label: item.label.trim(),
+        ...(item.category?.trim() ? { category: item.category.trim() } : {}),
       })),
     }),
   );
@@ -155,6 +164,7 @@ export function pushSearchHistory(
     href,
     kind: item.kind,
     label,
+    ...(item.category?.trim() ? { category: item.category.trim() } : {}),
   };
 
   const next = [

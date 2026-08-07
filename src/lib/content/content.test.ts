@@ -41,6 +41,7 @@ import {
 import { normalizeSearchText, searchEntries } from "./search";
 import { buildSearchDocuments } from "./search-documents";
 import { conjugateVerbForTest, searchFormsForLemma } from "./search-forms";
+import { searchMetaLabel } from "./search-ui";
 import { answersForTime } from "./slovak-time";
 
 class MemoryStorage implements StorageLike {
@@ -83,7 +84,16 @@ describe("Slovak content", () => {
       (document) => document.url === "/dictionary/navstivit",
     );
     expect(navstivit).toBeDefined();
+    expect(navstivit!.category).toBe("Verbs");
     expect(normalizeSearchText(navstivit!.content)).toContain("navstivim");
+  });
+
+  it("labels word search meta with category instead of Word", () => {
+    expect(searchMetaLabel("word", "Nouns")).toBe("Noun");
+    expect(searchMetaLabel("word", "Verbs")).toBe("Verb");
+    expect(searchMetaLabel("word", "Phrases")).toBe("Phrase");
+    expect(searchMetaLabel("word")).toBe("Word");
+    expect(searchMetaLabel("grammar")).toBe("Grammar");
   });
 
   it("does not keep Navštívim place fill stubs that steal verb form search", () => {
@@ -704,6 +714,7 @@ describe("Slovak content", () => {
       href: "/dictionary/ahoj",
       kind: "word",
       label: "ahoj",
+      category: "Phrases",
     });
     pushSearchHistory(storage, {
       visitedAt: 2,
@@ -716,12 +727,14 @@ describe("Slovak content", () => {
       href: "https://example.com/dictionary/ahoj",
       kind: "word",
       label: "ahoj",
+      category: "Phrases",
     });
 
     expect(readSearchHistory(storage).map((item) => item.href)).toEqual([
       "/dictionary/ahoj",
       "/grammar/cases/nominative",
     ]);
+    expect(readSearchHistory(storage)[0]?.category).toBe("Phrases");
 
     for (let index = 0; index < SEARCH_HISTORY_LIMIT + 2; index += 1) {
       pushSearchHistory(storage, {

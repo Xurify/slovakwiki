@@ -13,6 +13,7 @@
     searchIdleHints,
     searchKindChips,
     searchKindLabels,
+    searchMetaLabel,
     type SearchDocKind,
   } from "$lib/content/search-ui";
   import {
@@ -82,9 +83,9 @@
       : "min-h-[38px] min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.8rem] text-(--ink) outline-none",
   );
 
-  function kindLabel(kind: string | undefined): string {
+  function kindLabel(kind: string | undefined, category?: string): string {
     if (isSearchDocKind(kind)) {
-      return searchKindLabels[kind];
+      return searchMetaLabel(kind, category);
     }
     return "Result";
   }
@@ -93,12 +94,18 @@
     recent = readSearchHistory(localStorage);
   }
 
-  function rememberLookup(input: { href: string; kind?: string; label: string }): void {
+  function rememberLookup(input: {
+    category?: string;
+    href: string;
+    kind?: string;
+    label: string;
+  }): void {
     const kind: SearchDocKind = isSearchDocKind(input.kind) ? input.kind : "word";
     recent = pushSearchHistory(localStorage, {
       href: input.href,
       kind,
       label: input.label,
+      ...(input.category?.trim() ? { category: input.category.trim() } : {}),
     });
   }
 
@@ -107,6 +114,7 @@
       href: result.url,
       kind: result.meta.kind,
       label: result.meta.title ?? result.url,
+      category: result.meta.category,
     });
   }
 
@@ -429,7 +437,7 @@
               <span
                 class="text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-(--muted)"
               >
-                {searchKindLabels[item.kind]}
+                {searchMetaLabel(item.kind, item.category)}
               </span>
             </a>
           {/each}
@@ -459,7 +467,7 @@
             <span
               class="text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-(--muted)"
             >
-              {searchKindLabels[hint.kind]}
+              {searchMetaLabel(hint.kind, hint.category)}
             </span>
           </a>
         {/each}
@@ -506,7 +514,7 @@
               <span
                 class="shrink-0 rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
               >
-                {kindLabel(result.meta.kind)}
+                {kindLabel(result.meta.kind, result.meta.category)}
               </span>
             </a>
           {/each}

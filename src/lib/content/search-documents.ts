@@ -9,10 +9,12 @@ export {
   searchIdleHints,
   searchKindChips,
   searchKindLabels,
+  searchMetaLabel,
   sentenceCase,
 } from "./search-ui";
 
 export interface SearchDocument {
+  category?: string;
   content: string;
   kind: SearchDocKind;
   summary: string;
@@ -37,6 +39,7 @@ export function buildSearchDocuments(): SearchDocument[] {
       kind: "word",
       title: entry.slovak,
       summary: entry.english,
+      category: entry.category,
       content: withNormalized([
         entry.slovak,
         entry.english,
