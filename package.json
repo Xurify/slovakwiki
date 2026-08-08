@@ -11,6 +11,9 @@
     "preview": "astro preview --host 0.0.0.0",
     "test": "vitest run",
     "index:search": "bun scripts/search/build-search-index.ts",
+    "dictionary:index": "bun scripts/dictionary/export-index.ts",
+    "frequency:static": "bun scripts/frequency/publish-static.ts",
+    "cwv:check": "bun scripts/cwv/check-dictionary-size.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

@@ -133,6 +133,15 @@ let { heroSearch }: { heroSearch: Snippet } = $props();
 | Pass islands through Astro `slot="…"` → Svelte `Snippet`                                      | Import interactive widgets only inside an SSR Svelte parent and expect them to work |
 | Prefer `client:only="svelte"` when SSR would mismatch (random state, `localStorage`-first UI) | Hydrate large prose/reference trees “just in case”                                  |
 
+### Browse / list pages (CWV)
+
+Dictionary browse and common frequency lists are **link-navigated static HTML** with small islands:
+
+- **Do:** SSR shell + first page of rows; hydrate `WikiBrowseClient` for instant filter/pagination via `/dictionary/index.json`; use query params on `/dictionary` for shareable state.
+- **Don't:** pass full `words` into HTML; pre-generate hundreds of browse subroutes; `client:load` the page shell.
+- **Sidecars:** `static/dictionary/index.json` and `static/frequency/*.json` — fetched by islands when needed, not inlined in HTML.
+- **CI:** `bun run cwv:check` after build — fails if `/dictionary` HTML exceeds 100 KB brotli.
+
 ### When a full-page island is OK
 
 Page **is** the interactive app (filters, player, kabinet), not static chrome with a widget:
@@ -151,6 +160,8 @@ Page **is** the interactive app (filters, player, kabinet), not static chrome wi
 - Lesson: SSR `LessonPage` + `LessonPracticeBlock` slot (`client:load`)
 - Dictionary lemma: SSR `DictionaryDetailPage` + `AudioMountHost` slot (mounts `AudioButton` into `[data-audio-mount]` placeholders)
 - Practice hub: SSR `PracticeIndexPage` + `PracticeHubClient` slot (mounts CTA / featured / recents; fills `[data-sheet-done]`)
+- Dictionary browse: SSR `WikiPage` shell + `WikiBrowseClient` island (`client:load`); first 50 rows in HTML; filters/pagination client-side from `/dictionary/index.json` with `?topic=&letter=&page=` URLs — never embed all lemmas in HTML or `client:load` the page shell
+- Lessons index: SSR `LessonsIndexPage` + `LessonsProgressClient` slot (`data-lesson-done` / `data-lessons-done-summary`)
 
 ### Checklist before adding `client:*`
 

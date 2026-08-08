@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
   import Button from "$lib/components/ui/Button.svelte";
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -17,7 +15,7 @@
     type DownloadWordField,
   } from "$lib/content/downloads/types";
 
-  type LoadState = "loading" | "ready" | "error";
+  type LoadState = "idle" | "loading" | "ready" | "error";
   type PackId = "full" | "anki";
 
   interface Pack {
@@ -64,7 +62,7 @@
     Pack
   >;
 
-  let loadState = $state<LoadState>("loading");
+  let loadState = $state<LoadState>("idle");
   let loadError = $state("");
   let exportFile = $state.raw<DictionaryExportFile | null>(null);
 
@@ -108,9 +106,18 @@
     return { lemmas, examples };
   });
 
-  onMount(() => {
-    void loadExport();
-  });
+  async function ensureExportLoaded(): Promise<boolean> {
+    if (exportFile) {
+      return true;
+    }
+
+    if (loadState === "loading") {
+      return false;
+    }
+
+    await loadExport();
+    return exportFile !== null;
+  }
 
   async function loadExport(): Promise<void> {
     loadState = "loading";
@@ -177,7 +184,11 @@
 
   function openCustomize(): void {
     statusMessage = "";
-    dialogEl?.showModal();
+    void ensureExportLoaded().then((ready) => {
+      if (ready) {
+        dialogEl?.showModal();
+      }
+    });
   }
 
   function closeCustomize(): void {
@@ -254,13 +265,19 @@
   }
 
   function downloadPack(pack: Pack): void {
-    void runDownload({
-      fields: pack.fields,
-      exampleFields: pack.exampleFields,
-      format: pack.format,
-      categories,
-      includeHeader: pack.includeHeader,
-      includeAttributionComment: pack.includeAttributionComment,
+    void ensureExportLoaded().then((ready) => {
+      if (!ready) {
+        return;
+      }
+
+      runDownload({
+        fields: pack.fields,
+        exampleFields: pack.exampleFields,
+        format: pack.format,
+        categories,
+        includeHeader: pack.includeHeader,
+        includeAttributionComment: pack.includeAttributionComment,
+      });
     });
   }
 
@@ -289,11 +306,7 @@
     "flex h-full flex-col rounded-(--control-radius) border border-slate-200 bg-surface p-5 text-left shadow-(--shadow-border) transition-[border-color,box-shadow] duration-150 ease-out hover:border-slate-300 hover:shadow-(--shadow-border-hover)";
 </script>
 
-{#if loadState === "loading"}
-  <div class="flex min-h-24 items-center">
-    <DotLoader label="Loading dictionary export…" />
-  </div>
-{:else if loadState === "error"}
+{#if loadState === "error"}
   <div
     class="rounded-(--control-radius) border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900"
     role="alert"
@@ -309,11 +322,19 @@
       </button>
     </p>
   </div>
-{:else if exportFile}
-  <p class="text-sm tabular-nums text-slate-500">
-    {lemmaCount.toLocaleString()} lemmas · {exampleCount.toLocaleString()} sentences · updated
-    {formatUpdatedAt(exportFile.generatedAt)}
-  </p>
+{:else}
+  {#if loadState === "loading"}
+    <div class="mb-6 flex min-h-16 items-center">
+      <DotLoader label="Loading dictionary export…" />
+    </div>
+  {/if}
+
+  {#if exportFile}
+    <p class="text-sm tabular-nums text-slate-500">
+      {lemmaCount.toLocaleString()} lemmas · {exampleCount.toLocaleString()} sentences · updated
+      {formatUpdatedAt(exportFile.generatedAt)}
+    </p>
+  {/if}
 
   <section class="mt-8" aria-labelledby="downloads-packs">
     <h2 id="downloads-packs" class="text-balance font-serif text-2xl text-blue-800">
@@ -342,7 +363,7 @@
               <Button
                 type="button"
                 class="min-h-10 px-3 text-sm"
-                disabled={busy}
+                disabled={busy || loadState === "loading"}
                 onclick={() => downloadPack(pack)}
               >
                 Download
@@ -355,7 +376,12 @@
   </section>
 
   <div class="mt-8">
-    <Button type="button" variant="secondary" disabled={busy} onclick={openCustomize}>
+    <Button
+      type="button"
+      variant="secondary"
+      disabled={busy || loadState === "loading"}
+      onclick={openCustomize}
+    >
       Customize export…
     </Button>
   </div>

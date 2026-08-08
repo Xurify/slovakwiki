@@ -4,12 +4,12 @@ How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../.
 
 ## Where to put it
 
-| Intent                                               | File                                                                              | Notes                                                                                                                                             |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts)   | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
-| Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                      | Usual home for Verbs / Nouns / Adjectives / Adverbs / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
+| Intent                                               | File                                                                                                       | Notes                                                                                                                                             |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts)                            | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
+| Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                                               | Usual home for Verbs / Nouns / Adjectives / Adverbs / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
 | Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun scripts/dictionary/apply-curated-examples.ts` | Overlay keyed by existing slug — not a new entry.                                                                                                 |
-| Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun scripts/dictionary/apply-related.ts`   | Fills empty related arrays only.                                                                                                                  |
+| Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun scripts/dictionary/apply-related.ts`          | Fills empty related arrays only.                                                                                                                  |
 
 Prefer curated seed for learner-facing essentials; prefer `words.json` (or `publish-frequency.ts`) for mass POS coverage.
 
@@ -92,7 +92,7 @@ Example curated seed:
 | ----------------------------------- | ----------- | ------------------------ |
 | Shown on lemma page + example audio | first **4** | `EXAMPLE_DISPLAY_LIMIT`  |
 | Soft store pool (enrich default)    | up to **8** | `EXAMPLE_STORE_PER_WORD` |
-| Fill tops up if below               | **2**       | `fill-empty-examples.ts`          |
+| Fill tops up if below               | **2**       | `fill-empty-examples.ts` |
 
 Hand-add checklist:
 

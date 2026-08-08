@@ -12,6 +12,7 @@ static/pagefind/
 static/audio/
 static/images/
 static/downloads/
+static/dictionary/
 tmp/
 dev/*.log
 .env*

@@ -27,36 +27,36 @@ bun run index:search                             # Pagefind for local/dev search
 
 ### Content files
 
-| File                                          | Role                                                                                        |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `content/dictionary/README.md`                | Hand-add lemma template (fields, homes, slug/category, examples)                            |
-| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)                                |
-| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `apply-curated-examples.ts`                        |
-| `content/dictionary/related-clusters.json`    | Semantic related peers for `apply-related.ts`                                               |
-| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast                                |
-| `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                             |
-| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)                                        |
-| `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status/uploadedAt)                      |
-| `content/images/overrides.json`               | Manual reject / force Commons file per slug                                                 |
-| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime                               |
-| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                                              |
-| `static/images/`                              | Local dictionary thumbs (gitignored; upload to R2 for prod)                                 |
-| `static/downloads/`                           | Local dictionary export JSON for `/downloads` (gitignored)                                  |
+| File                                          | Role                                                                     |
+| --------------------------------------------- | ------------------------------------------------------------------------ |
+| `content/dictionary/README.md`                | Hand-add lemma template (fields, homes, slug/category, examples)         |
+| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)            |
+| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `apply-curated-examples.ts`     |
+| `content/dictionary/related-clusters.json`    | Semantic related peers for `apply-related.ts`                            |
+| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast           |
+| `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands)         |
+| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)                     |
+| `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status/uploadedAt) |
+| `content/images/overrides.json`               | Manual reject / force Commons file per slug                              |
+| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime          |
+| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                           |
+| `static/images/`                              | Local dictionary thumbs (gitignored; upload to R2 for prod)              |
+| `static/downloads/`                           | Local dictionary export JSON for `/downloads` (gitignored)               |
 
 ## `dictionary/`
 
 Frequency lists, live dictionary publish, Tatoeba examples.
 
-| File                        | Run                                              | Notes                                                                                                                                                                        |
-| --------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `import-frequency.ts`       | `bun scripts/dictionary/import-frequency.ts`     | Nouns use the full SNK count dump (default top 2500); verbs/adjectives/adverbs keep the HTML top 1000; `--noun-limit N` / `--force`                                          |
+| File                        | Run                                                | Notes                                                                                                                                                                        |
+| --------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `import-frequency.ts`       | `bun scripts/dictionary/import-frequency.ts`       | Nouns use the full SNK count dump (default top 2500); verbs/adjectives/adverbs keep the HTML top 1000; `--noun-limit N` / `--force`                                          |
 | `report-missing-glosses.ts` | `bun scripts/dictionary/report-missing-glosses.ts` | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
-| `publish-frequency.ts`      | `bun scripts/dictionary/publish-frequency.ts`    | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
-| `enrich-examples.ts`        | `bun scripts/dictionary/enrich-examples.ts`      | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
-| `reclaim-weak-examples.ts`  | `bun scripts/dictionary/reclaim-weak-examples.ts` | Drops exact weak fill stubs from curated JSON                                                                                                                                |
-| `fill-empty-examples.ts`    | `bun scripts/dictionary/fill-empty-examples.ts`  | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                                                                     |
+| `publish-frequency.ts`      | `bun scripts/dictionary/publish-frequency.ts`      | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
+| `enrich-examples.ts`        | `bun scripts/dictionary/enrich-examples.ts`        | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
+| `reclaim-weak-examples.ts`  | `bun scripts/dictionary/reclaim-weak-examples.ts`  | Drops exact weak fill stubs from curated JSON                                                                                                                                |
+| `fill-empty-examples.ts`    | `bun scripts/dictionary/fill-empty-examples.ts`    | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                                                                     |
 | `apply-curated-examples.ts` | `bun scripts/dictionary/apply-curated-examples.ts` | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                              |
-| `apply-related.ts`          | `bun scripts/dictionary/apply-related.ts`        | Fills empty related from `related-clusters.json`                                                                                                                             |
+| `apply-related.ts`          | `bun scripts/dictionary/apply-related.ts`          | Fills empty related from `related-clusters.json`                                                                                                                             |
 
 Example limits: `src/lib/content/example-limits.ts` — store pool 8 / display 4. Primary dictionary growth is frequency publish + example enrich. Example quality gates live in `src/lib/content/example-quality.ts` + tests (not separate audit scripts).
 
@@ -106,8 +106,8 @@ Prod env: `PUBLIC_IMAGE_BASE_URL` (R2 public base, e.g. `https://cdn.slovak.wiki
 
 ## `search/`
 
-| File                    | Run                                                                 |
-| ----------------------- | ------------------------------------------------------------------- |
+| File                    | Run                                                               |
+| ----------------------- | ----------------------------------------------------------------- |
 | `build-search-index.ts` | `bun run index:search` (also used by the Astro build integration) |
 
 ## `docs/`

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Button from "$lib/components/ui/Button.svelte";
+  import type { Snippet } from "svelte";
+
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -29,47 +30,24 @@
   }
 
   interface Props {
-    entries: CompactFrequencyEntry[];
+    initialEntries: CompactFrequencyEntry[];
     liveByLemma: Record<string, LiveLink>;
     partOfSpeech: FrequencyPartOfSpeech;
+    search?: Snippet;
     sourceUrl: string;
     tabs: Tab[];
+    totalCount: number;
   }
 
-  let { entries, liveByLemma, partOfSpeech, sourceUrl, tabs }: Props = $props();
-
-  const PAGE_SIZE = 100;
-
-  let query = $state("");
-  let visibleLimit = $state(PAGE_SIZE);
-
-  const filteredEntries = $derived.by(() => {
-    const needle = query
-      .normalize("NFD")
-      .replace(/\p{Diacritic}/gu, "")
-      .toLocaleLowerCase("sk")
-      .trim();
-    return entries.filter((entry) => {
-      if (!needle) return true;
-      const lemma = entry.lemma
-        .normalize("NFD")
-        .replace(/\p{Diacritic}/gu, "")
-        .toLocaleLowerCase("sk");
-      const english = liveByLemma[entry.lemma]?.english
-        ?.normalize("NFD")
-        .replace(/\p{Diacritic}/gu, "")
-        .toLocaleLowerCase("sk");
-      return lemma.includes(needle) || Boolean(english?.includes(needle));
-    });
-  });
-
-  const visibleEntries = $derived(filteredEntries.slice(0, visibleLimit));
-  const hasMore = $derived(filteredEntries.length > visibleLimit);
-
-  function setQuery(value: string): void {
-    query = value;
-    visibleLimit = PAGE_SIZE;
-  }
+  let {
+    initialEntries,
+    liveByLemma,
+    partOfSpeech,
+    search,
+    sourceUrl,
+    tabs,
+    totalCount,
+  }: Props = $props();
 
   const rowClass =
     "grid grid-cols-[3rem_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-slate-200 py-3 text-sm max-[560px]:grid-cols-[2.5rem_minmax(0,1fr)]";
@@ -100,37 +78,10 @@
       </Lead>
     </header>
 
-    <div class="mt-10" id="common-filter-section">
-      <label class="sr-only" for="common-filter">Filter lemmas</label>
-      <div
-        class="flex min-h-[50px] items-stretch overflow-hidden rounded-(--control-radius) border border-slate-300 bg-surface/90 shadow-(--shadow-border) transition-[box-shadow,border-color] focus-within:border-blue-600 focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
-      >
-        <svg
-          class="ml-4 w-4 shrink-0 fill-none stroke-slate-400 stroke-[1.8]"
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-        >
-          <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
-        </svg>
-        <input
-          class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.95rem] outline-none"
-          id="common-filter"
-          value={query}
-          oninput={(event) => setQuery((event.currentTarget as HTMLInputElement).value)}
-          placeholder="Filter lemmas"
-          type="search"
-        />
-        {#if query}
-          <button
-            class="mr-3 cursor-pointer border-0 bg-transparent text-xs font-semibold text-blue-800"
-            type="button"
-            aria-label="Clear filter"
-            onclick={() => setQuery("")}
-          >
-            Clear
-          </button>
-        {/if}
-      </div>
+    <div class="mt-10">
+      {#if search}
+        {@render search()}
+      {/if}
     </div>
 
     <div
@@ -150,75 +101,48 @@
       </div>
 
       <p class="mb-2 w-full text-xs text-slate-500 sm:w-auto sm:text-right">
-        Showing {visibleEntries.length.toLocaleString("en")} of {filteredEntries.length.toLocaleString(
+        Showing {initialEntries.length.toLocaleString("en")} of {totalCount.toLocaleString(
           "en",
         )}
         {FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()}
-        {#if filteredEntries.length !== entries.length}
-          <span class="text-slate-400">
-            · {entries.length.toLocaleString("en")} total
-          </span>
-        {/if}
       </p>
     </div>
 
-    {#if filteredEntries.length === 0}
-      <div class="py-16 text-center">
-        <h2 class="text-xl">No matches</h2>
-        <p class="mt-2 text-sm text-slate-500">Try a shorter filter or clear it.</p>
-        <button
-          class="mt-4 cursor-pointer border-0 bg-transparent text-sm font-semibold text-blue-800 underline underline-offset-2"
-          type="button"
-          onclick={() => setQuery("")}
-        >
-          Clear filter
-        </button>
-      </div>
-    {:else}
-      <ol class="mt-2" start="1">
-        {#each visibleEntries as entry (entry.rank + entry.lemma)}
-          {@const live = liveByLemma[entry.lemma]}
-          <li class={rowClass}>
-            <span class="tabular-nums text-slate-400">{entry.rank}</span>
-            <div class="min-w-0">
-              {#if live}
-                <a
-                  class="font-serif text-base text-blue-800 underline decoration-slate-200 underline-offset-2 hover:decoration-blue-800"
-                  href={`/dictionary/${live.slug}${live.hash ? `#${live.hash}` : ""}`}
-                  lang="sk"
-                >
-                  {entry.lemma}
-                </a>
-                <span class="mt-0.5 block text-sm text-slate-500">{live.english}</span>
-              {:else}
-                <span class="font-serif text-base text-slate-800" lang="sk"
-                  >{entry.lemma}</span
-                >
-                <span class="mt-0.5 block text-xs text-slate-400"
-                  >Not in dictionary yet</span
-                >
-              {/if}
-            </div>
-            {#if entry.count !== undefined}
-              <span
-                class="cursor-help tabular-nums text-xs text-slate-400 underline decoration-dotted decoration-slate-300 underline-offset-2 max-[560px]:hidden"
-                title="How often this lemma appears in the Slovak National Corpus (prim-8.0-public-all)"
+    <ol class="mt-2" id="common-results">
+      {#each initialEntries as entry (entry.rank + entry.lemma)}
+        {@const live = liveByLemma[entry.lemma]}
+        <li class={rowClass}>
+          <span class="tabular-nums text-slate-400">{entry.rank}</span>
+          <div class="min-w-0">
+            {#if live}
+              <a
+                class="font-serif text-base text-blue-800 underline decoration-slate-200 underline-offset-2 hover:decoration-blue-800"
+                href={`/dictionary/${live.slug}${live.hash ? `#${live.hash}` : ""}`}
+                lang="sk"
               >
-                {entry.count.toLocaleString("en")}
-              </span>
+                {entry.lemma}
+              </a>
+              <span class="mt-0.5 block text-sm text-slate-500">{live.english}</span>
+            {:else}
+              <span class="font-serif text-base text-slate-800" lang="sk"
+                >{entry.lemma}</span
+              >
+              <span class="mt-0.5 block text-xs text-slate-400"
+                >Not in dictionary yet</span
+              >
             {/if}
-          </li>
-        {/each}
-      </ol>
-
-      {#if hasMore}
-        <div class="mt-6 flex justify-center">
-          <Button type="button" onclick={() => (visibleLimit += PAGE_SIZE)}>
-            Show more
-          </Button>
-        </div>
-      {/if}
-    {/if}
+          </div>
+          {#if entry.count !== undefined}
+            <span
+              class="cursor-help tabular-nums text-xs text-slate-400 underline decoration-dotted decoration-slate-300 underline-offset-2 max-[560px]:hidden"
+              title="How often this lemma appears in the Slovak National Corpus (prim-8.0-public-all)"
+            >
+              {entry.count.toLocaleString("en")}
+            </span>
+          {/if}
+        </li>
+      {/each}
+    </ol>
 
     <footer class="mt-14 border-t border-slate-200 pt-8 text-sm text-slate-500">
       <p>

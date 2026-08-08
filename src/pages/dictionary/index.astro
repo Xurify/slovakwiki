@@ -1,21 +1,19 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import WikiBrowseClient from "$lib/components/WikiBrowseClient.svelte";
 import WikiPage from "$lib/pages/WikiPage.svelte";
-import { words } from "$lib/content/data";
+import { buildWikiPageView } from "$lib/content/dictionary-browse";
 
-const entries = words.map((word) => ({
-  category: word.category,
-  english: word.english,
-  frequencyRank: word.frequency?.rank,
-  origin: word.origin,
-  slug: word.slug,
-  slovak: word.slovak,
-}));
+const initialData = buildWikiPageView("all", "all", 1);
 ---
+
+<link rel="preload" href="/dictionary/index.json" as="fetch" crossorigin />
 
 <SiteLayout
   title="Dictionary — Slovak Wiki"
   description="Look up Slovak words by letter, part of speech, or English meaning."
 >
-  <WikiPage client:load {entries} />
+  <WikiPage>
+    <WikiBrowseClient client:load slot="browse" {initialData} />
+  </WikiPage>
 </SiteLayout>

@@ -122,8 +122,12 @@
   {/if}
 
   {#if hydrated && doneTotal > 0}
-    <p class="m-0 mt-6 text-xs text-slate-500">
-      {doneTotal} of {lessons.length} done
+    <p class="m-0 mt-6 text-xs text-slate-500" data-lessons-done-summary>
+      <span data-lessons-done-count>{doneTotal}</span> of {lessons.length} done
+    </p>
+  {:else}
+    <p class="m-0 mt-6 hidden text-xs text-slate-500" data-lessons-done-summary>
+      <span data-lessons-done-count>0</span> of {lessons.length} done
     </p>
   {/if}
 
@@ -146,15 +150,17 @@
                 href={lessonPath(lesson)}
               >
                 <span
-                  class="min-w-0 font-serif text-base {completed
-                    ? 'text-slate-500'
-                    : 'text-blue-800'}"
+                  class="min-w-0 font-serif text-base text-blue-800"
+                  data-lesson-title-completed={lesson.id}
                 >
                   {lesson.title}
                 </span>
-                {#if completed}
-                  <span class="shrink-0 text-xs text-slate-400">Done</span>
-                {/if}
+                <span
+                  class="hidden shrink-0 text-xs text-slate-400"
+                  data-lesson-done={lesson.id}
+                >
+                  Done
+                </span>
               </a>
             </li>
           {/each}
@@ -188,6 +194,10 @@
         {#if hydrated}
           <p class="m-0 text-xs text-slate-500">
             {doneTotal} of {lessons.length}
+          </p>
+        {:else}
+          <p class="m-0 hidden text-xs text-slate-500" data-lessons-done-summary>
+            <span data-lessons-done-count>0</span> of {lessons.length}
           </p>
         {/if}
       </div>

@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import LessonsProgressClient from "$lib/components/lessons/LessonsProgressClient.svelte";
 import LessonsIndexPage from "$lib/pages/LessonsIndexPage.svelte";
 ---
 
@@ -7,5 +8,6 @@ import LessonsIndexPage from "$lib/pages/LessonsIndexPage.svelte";
   title="Lessons | Slovak Wiki"
   description="Independent Slovak lessons for everyday language, grammar, and pronunciation."
 >
-  <LessonsIndexPage client:load />
+  <LessonsIndexPage />
+  <LessonsProgressClient client:load />
 </SiteLayout>

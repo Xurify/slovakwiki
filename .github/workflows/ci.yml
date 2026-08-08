@@ -19,4 +19,8 @@ jobs:
 
       - run: bun run test
 
+      - run: bun run build
+
+      - run: bun run cwv:check
+
       - run: bun run format:check

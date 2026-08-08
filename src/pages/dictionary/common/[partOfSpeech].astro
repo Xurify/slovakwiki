@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import DictionaryCommonSearch from "$lib/components/DictionaryCommonSearch.svelte";
 import DictionaryCommonPage from "$lib/pages/DictionaryCommonPage.svelte";
 import { words } from "$lib/content/data";
 import { findLiveWordForLemma } from "$lib/content/frequency";
@@ -9,6 +10,8 @@ import {
   FREQUENCY_PART_OF_SPEECH_LABEL,
   type FrequencyPartOfSpeech,
 } from "$lib/content/frequency-types";
+
+const INITIAL_LIMIT = 100;
 
 export function getStaticPaths() {
   return (["verb", "noun", "adjective", "adverb"] as const).map((partOfSpeech) => ({
@@ -28,9 +31,11 @@ const entries = sourceList.entries
     ...(entry.count !== undefined ? { count: entry.count } : {}),
   }));
 
+const initialEntries = entries.slice(0, INITIAL_LIMIT);
+
 const liveByLemma: Record<string, { english: string; slug: string; hash?: string }> = {};
 
-for (const entry of entries) {
+for (const entry of initialEntries) {
   const live = findLiveWordForLemma(entry.lemma, words, partOfSpeech);
   if (!live) continue;
   const href = dictionaryHrefForSense(live, words);
@@ -53,11 +58,18 @@ const tabs = (["verb", "noun", "adjective", "adverb"] as const).map((value) => (
   description={`The most common Slovak ${FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()} from the Slovak National Corpus.`}
 >
   <DictionaryCommonPage
-    client:load
-    {entries}
+    {initialEntries}
     {liveByLemma}
     {partOfSpeech}
     {tabs}
     sourceUrl={sourceList.sourceUrl}
-  />
+    totalCount={entries.length}
+  >
+    <DictionaryCommonSearch
+      client:load
+      slot="search"
+      {partOfSpeech}
+      totalCount={entries.length}
+    />
+  </DictionaryCommonPage>
 </SiteLayout>
