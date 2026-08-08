@@ -362,30 +362,25 @@
       {/if}
 
       {#if task.type === "choice"}
-        {@const hasClocks = task.choices.some((choice) => choice.clock)}
-        <div
-          class={hasClocks
-            ? "mt-6 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
-            : "mt-6 grid gap-2"}
-        >
+        {#if task.clock}
+          <div class="mt-6 flex justify-center">
+            <ClockIllustration
+              hour={task.clock.hour}
+              minute={task.clock.minute}
+              size={120}
+            />
+          </div>
+        {/if}
+
+        <div class="mt-6 grid gap-2">
           {#each task.choices as choice (choice.id)}
             <button
-              class={hasClocks
-                ? "press-key grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded-(--control-radius) px-3 py-4 text-center font-serif text-sm font-semibold"
-                : "press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3 text-left font-serif text-base font-semibold"}
+              class="press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3 text-left font-serif text-base font-semibold"
               disabled={submitted}
               type="button"
               aria-pressed={selectedId === choice.id}
               onclick={() => (selectedId = choice.id)}
             >
-              {#if choice.clock}
-                <ClockIllustration
-                  hour={choice.clock.hour}
-                  minute={choice.clock.minute}
-                  size={88}
-                />
-              {/if}
-
               <span lang="sk">{choice.label}</span>
             </button>
           {/each}

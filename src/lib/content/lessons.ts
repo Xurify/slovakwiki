@@ -414,14 +414,11 @@ export const lessons: Lesson[] = [
         type: "choice",
         practiceItemId: "everyday/meeting-time",
         prompt: "At three o'clock.",
+        clock: { hour: 3, minute: 0 },
         choices: [
-          { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
-          { id: "four", label: "O štvrtej.", clock: { hour: 4, minute: 0 } },
-          {
-            id: "half-past",
-            label: "O pol tretej.",
-            clock: { hour: 2, minute: 30 },
-          },
+          { id: "three", label: "O tretej." },
+          { id: "four", label: "O štvrtej." },
+          { id: "half-past", label: "O pol tretej." },
         ],
         answerId: "three",
         feedback: {
@@ -448,22 +445,11 @@ export const lessons: Lesson[] = [
         type: "choice",
         practiceItemId: "everyday/quarter-time",
         prompt: "At quarter to three.",
+        clock: { hour: 2, minute: 45 },
         choices: [
-          {
-            id: "three-quarters",
-            label: "O trištvrte na tri.",
-            clock: { hour: 2, minute: 45 },
-          },
-          {
-            id: "quarter",
-            label: "O štvrť na tri.",
-            clock: { hour: 2, minute: 15 },
-          },
-          {
-            id: "half-past",
-            label: "O pol tretej.",
-            clock: { hour: 2, minute: 30 },
-          },
+          { id: "three-quarters", label: "O trištvrte na tri." },
+          { id: "quarter", label: "O štvrť na tri." },
+          { id: "half-past", label: "O pol tretej." },
         ],
         answerId: "three-quarters",
         feedback: {

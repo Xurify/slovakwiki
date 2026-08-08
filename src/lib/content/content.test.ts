@@ -239,14 +239,11 @@ describe("Slovak content", () => {
 
     for (const lesson of lessons) {
       for (const exercise of lesson.exercises) {
-        if (exercise.type !== "choice") continue;
-        for (const choice of exercise.choices) {
-          if (!choice.clock) continue;
-          expect(choice.clock.hour).toBeGreaterThanOrEqual(1);
-          expect(choice.clock.hour).toBeLessThanOrEqual(12);
-          expect(choice.clock.minute).toBeGreaterThanOrEqual(0);
-          expect(choice.clock.minute).toBeLessThan(60);
-        }
+        if (exercise.type !== "choice" || !exercise.clock) continue;
+        expect(exercise.clock.hour).toBeGreaterThanOrEqual(1);
+        expect(exercise.clock.hour).toBeLessThanOrEqual(12);
+        expect(exercise.clock.minute).toBeGreaterThanOrEqual(0);
+        expect(exercise.clock.minute).toBeLessThan(60);
       }
     }
 

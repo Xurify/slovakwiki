@@ -237,14 +237,11 @@ export const practiceItems: PracticeItem[] = [
       type: "choice",
       practiceItemId: "everyday/meeting-time",
       prompt: "When is the meeting? It is at three o’clock.",
+      clock: { hour: 3, minute: 0 },
       choices: [
-        { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
-        {
-          id: "half-three",
-          label: "O pol tretej.",
-          clock: { hour: 2, minute: 30 },
-        },
-        { id: "four", label: "O štvrtej.", clock: { hour: 4, minute: 0 } },
+        { id: "three", label: "O tretej." },
+        { id: "half-three", label: "O pol tretej." },
+        { id: "four", label: "O štvrtej." },
       ],
       answerId: "three",
       feedback: {
@@ -271,18 +268,11 @@ export const practiceItems: PracticeItem[] = [
       type: "choice",
       practiceItemId: "everyday/half-past-time",
       prompt: "Your train leaves at 2:30. Which time should you say?",
+      clock: { hour: 2, minute: 30 },
       choices: [
-        {
-          id: "half-past-two",
-          label: "O pol tretej.",
-          clock: { hour: 2, minute: 30 },
-        },
-        { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
-        {
-          id: "half-past-three",
-          label: "O pol štvrtej.",
-          clock: { hour: 3, minute: 30 },
-        },
+        { id: "half-past-two", label: "O pol tretej." },
+        { id: "three", label: "O tretej." },
+        { id: "half-past-three", label: "O pol štvrtej." },
       ],
       answerId: "half-past-two",
       feedback: {
@@ -309,22 +299,11 @@ export const practiceItems: PracticeItem[] = [
       type: "choice",
       practiceItemId: "everyday/quarter-time",
       prompt: "The film starts at 2:45. Which time should you say?",
+      clock: { hour: 2, minute: 45 },
       choices: [
-        {
-          id: "three-quarters",
-          label: "O trištvrte na tri.",
-          clock: { hour: 2, minute: 45 },
-        },
-        {
-          id: "quarter",
-          label: "O štvrť na tri.",
-          clock: { hour: 2, minute: 15 },
-        },
-        {
-          id: "half-past",
-          label: "O pol tretej.",
-          clock: { hour: 2, minute: 30 },
-        },
+        { id: "three-quarters", label: "O trištvrte na tri." },
+        { id: "quarter", label: "O štvrť na tri." },
+        { id: "half-past", label: "O pol tretej." },
       ],
       answerId: "three-quarters",
       feedback: {

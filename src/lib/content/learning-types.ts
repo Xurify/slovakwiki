@@ -58,9 +58,9 @@ export interface ClockTime {
 
 export interface ChoiceExercise extends ExerciseBase {
   answerId: string;
+  /** Analog face for the time named in the prompt (choices stay text-only). */
+  clock?: ClockTime;
   choices: Array<{
-    /** Optional face shown above the label (telling-time lessons). */
-    clock?: ClockTime;
     id: string;
     label: string;
   }>;
