@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -40,6 +40,7 @@ export async function writeSearchIndex(outputPaths: string[]): Promise<number> {
   }
 
   for (const outputPath of outputPaths) {
+    await rm(outputPath, { force: true, recursive: true });
     await mkdir(outputPath, { recursive: true });
     const { errors } = await index.writeFiles({ outputPath });
     if (errors.length > 0) {

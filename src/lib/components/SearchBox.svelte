@@ -157,41 +157,57 @@
       loading = true;
     }
 
-    const api = await getPagefind();
-    if (!api) {
+    try {
+      const api = await getPagefind();
+      if (!api) {
+        if (generation === searchGeneration) {
+          unavailable = true;
+          results = [];
+        }
+        return;
+      }
+
+      unavailable = false;
+      void api.preload(normalized);
+
+      const response = await api.debouncedSearch(
+        normalized,
+        undefined,
+        SEARCH_DEBOUNCE_MS,
+      );
+      if (generation !== searchGeneration) {
+        return;
+      }
+
+      if (response === null) {
+        return;
+      }
+
+      if (results.length === 0) {
+        loading = true;
+      }
+
+      const page = await Promise.all(
+        response.results.slice(0, 8).map((result) => result.data()),
+      );
+
+      if (generation !== searchGeneration) {
+        return;
+      }
+
+      results = page;
+      activeIndex = 0;
+    } catch {
       if (generation === searchGeneration) {
         unavailable = true;
-        loading = false;
-        pending = false;
         results = [];
       }
-      return;
+    } finally {
+      if (generation === searchGeneration) {
+        loading = false;
+        pending = false;
+      }
     }
-
-    unavailable = false;
-    void api.preload(normalized);
-
-    const response = await api.debouncedSearch(normalized, undefined, SEARCH_DEBOUNCE_MS);
-    if (response === null || generation !== searchGeneration) {
-      return;
-    }
-
-    if (results.length === 0) {
-      loading = true;
-    }
-
-    const page = await Promise.all(
-      response.results.slice(0, 8).map((result) => result.data()),
-    );
-
-    if (generation !== searchGeneration) {
-      return;
-    }
-
-    results = page;
-    activeIndex = 0;
-    loading = false;
-    pending = false;
   }
 
   function onInput(event: Event): void {
@@ -323,7 +339,7 @@
 </script>
 
 <div class={shellClass} bind:this={rootEl}>
-  <div class={fieldClass} role="search">
+  <form action="/search" method="get" class={fieldClass} role="search">
     <label class="sr-only" for={id}>Search Slovak Wiki</label>
 
     <svg
@@ -343,6 +359,7 @@
       class={inputClass}
       bind:this={inputEl}
       {id}
+      name="q"
       value={query}
       type="search"
       {placeholder}
@@ -367,7 +384,7 @@
         /
       </kbd>
     {/if}
-  </div>
+  </form>
 
   {#if showPanel}
     <div
