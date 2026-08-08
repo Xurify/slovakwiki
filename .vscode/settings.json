@@ -1,0 +1,26 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true,
+    "**/.vercel/**": true,
+    "**/dist/**": true,
+    "**/static/audio/**": true,
+    "**/static/images/**": true,
+    "**/static/pagefind/**": true,
+    "**/static/downloads/**": true,
+    "**/tmp/**": true,
+    "**/.astro/**": true,
+    "**/.svelte-kit/**": true,
+    "**/.turbo/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.vercel": true,
+    "**/dist": true,
+    "**/static/audio": true,
+    "**/static/images": true,
+    "**/static/pagefind": true,
+    "**/static/downloads": true,
+    "**/tmp": true
+  }
+}

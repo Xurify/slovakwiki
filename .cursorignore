@@ -1,0 +1,11 @@
+﻿dist/
+.vercel/
+node_modules/
+static/audio/
+static/images/
+static/pagefind/
+static/downloads/
+tmp/
+.astro/
+.svelte-kit/
+.turbo/

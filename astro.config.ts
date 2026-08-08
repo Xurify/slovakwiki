@@ -20,5 +20,18 @@ export default defineConfig({
   publicDir: "./static",
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      watch: {
+        ignored: [
+          "**/.vercel/**",
+          "**/dist/**",
+          "**/static/audio/**",
+          "**/static/images/**",
+          "**/static/pagefind/**",
+          "**/static/downloads/**",
+          "**/tmp/**",
+        ],
+      },
+    },
   },
 });
