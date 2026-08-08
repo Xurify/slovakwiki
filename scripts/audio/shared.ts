@@ -7,7 +7,7 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/content/data";
-import { dictionaryLemmaSynthOptions } from "../../src/lib/content/audio-lemma-synthesis";
+import { dictionaryLemmaSynthText } from "../../src/lib/content/audio-lemma-synthesis";
 import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/content/example-limits";
 import {
   type AudioConfig,
@@ -49,9 +49,6 @@ export interface AudioTarget {
   text: string;
   /** TTS line when it should differ from displayed `text`. */
   synthText?: string;
-  synthModelId?: string;
-  synthLanguageCode?: string;
-  omitVoiceSettings?: boolean;
   /** Per-target voice override (lesson characters). */
   voiceConfig?: AudioConfig;
 }
@@ -130,18 +127,11 @@ export function collectDictionaryAudioTargets(options?: {
     if (lemma) {
       const existing = byText.get(lemma);
       if (!existing || existing.kind === "example") {
-        const synth = dictionaryLemmaSynthOptions(entry.slovak, entry.topics);
+        const synthText = dictionaryLemmaSynthText(entry.slovak);
         byText.set(lemma, {
           kind: "lemma",
           text: lemma,
-          ...(synth
-            ? {
-                synthText: synth.synthText,
-                synthModelId: synth.modelId,
-                synthLanguageCode: synth.languageCode,
-                omitVoiceSettings: synth.omitVoiceSettings,
-              }
-            : {}),
+          ...(synthText ? { synthText } : {}),
         });
       }
     }

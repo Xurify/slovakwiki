@@ -2,14 +2,14 @@
   "provider": "elevenlabs",
   "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
   "voiceName": "Slovak Wiki Dictionary Neutral",
-  "modelId": "eleven_multilingual_v2",
+  "modelId": "eleven_flash_v2_5",
   "languageCode": "sk",
   "outputFormat": "mp3_44100_128",
   "voiceSettings": {
-    "stability": 0.6,
+    "stability": 0.5,
     "similarityBoost": 0.75,
     "style": 0,
-    "speed": 0.88,
+    "speed": 1,
     "useSpeakerBoost": true
   },
   "characters": {

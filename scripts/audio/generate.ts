@@ -195,10 +195,9 @@ async function main(): Promise<void> {
 
       for (const attempt of attempts) {
         audio = await synthesizeElevenLabs(target.synthText ?? target.text, voiceConfig, apiKey, {
-          modelId: attempt.modelId ?? target.synthModelId,
+          modelId: attempt.modelId,
           seed: attempt.seed,
-          languageCode: target.synthLanguageCode ?? voiceConfig.languageCode,
-          omitVoiceSettings: target.omitVoiceSettings,
+          languageCode: voiceConfig.languageCode,
         });
         await writeFile(filePath, audio);
 

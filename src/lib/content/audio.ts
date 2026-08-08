@@ -26,7 +26,7 @@ export interface AudioCharacter {
 export interface AudioConfig {
   /** Lesson / story cast — each character has its own ElevenLabs voice. */
   characters?: Record<string, AudioCharacter>;
-  /** ISO 639-1 hint for models that support it (e.g. eleven_v3). Ignored by multilingual_v2. */
+  /** ISO 639-1 hint — used by Flash/Turbo/v3; ignored by multilingual_v2. */
   languageCode?: string;
   modelId: string;
   outputFormat: string;

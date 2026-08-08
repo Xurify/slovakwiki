@@ -201769,5 +201769,369 @@
     "bytes": 14254,
     "generatedAt": "2026-08-08T18:35:13.360Z",
     "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d93a2575d982f50f6ead": {
+    "text": "a",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:43:39.349Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "fd45feec57cd6e05274f": {
+    "text": "aký",
+    "kind": "lemma",
+    "bytes": 11328,
+    "generatedAt": "2026-08-08T19:41:52.832Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "15ce6b454c37f62ffea1": {
+    "text": "ale",
+    "kind": "lemma",
+    "bytes": 10911,
+    "generatedAt": "2026-08-08T19:41:53.466Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ada0f13172f5d12cd151": {
+    "text": "alebo",
+    "kind": "lemma",
+    "bytes": 11328,
+    "generatedAt": "2026-08-08T19:41:54.086Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ac69565357fa7bc69edb": {
+    "text": "či",
+    "kind": "lemma",
+    "bytes": 7567,
+    "generatedAt": "2026-08-08T19:41:54.716Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6e65ff2cd9e49751694d": {
+    "text": "do",
+    "kind": "lemma",
+    "bytes": 10075,
+    "generatedAt": "2026-08-08T19:43:39.961Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3599c79f7985e2240ac1": {
+    "text": "dobrú noc",
+    "kind": "lemma",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T19:41:59.508Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "bcff1eb12783ef5a1771": {
+    "text": "dobrý večer",
+    "kind": "lemma",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T19:42:01.301Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7079de3832f5270f690b": {
+    "text": "ja",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:42:01.967Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4a344eda620e586b2bb3": {
+    "text": "kam",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:42:04.493Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3583a0508db45b7794c0": {
+    "text": "každý",
+    "kind": "lemma",
+    "bytes": 13000,
+    "generatedAt": "2026-08-08T19:42:05.164Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d45e1f43bc7224cf1a86": {
+    "text": "keď",
+    "kind": "lemma",
+    "bytes": 10075,
+    "generatedAt": "2026-08-08T19:42:07.369Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3d63bfe402e5fa2345a2": {
+    "text": "kedy",
+    "kind": "lemma",
+    "bytes": 10911,
+    "generatedAt": "2026-08-08T19:42:08.024Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "8f0ea1b5b55fa77065d0": {
+    "text": "ktorý",
+    "kind": "lemma",
+    "bytes": 13000,
+    "generatedAt": "2026-08-08T19:42:08.758Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "70a1d5e887f6865da787": {
+    "text": "lebo",
+    "kind": "lemma",
+    "bytes": 10911,
+    "generatedAt": "2026-08-08T19:42:09.401Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6e4740e6e61d9591fc83": {
+    "text": "len",
+    "kind": "lemma",
+    "bytes": 7567,
+    "generatedAt": "2026-08-08T19:42:10.037Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f1088f1ecd6a1ee76240": {
+    "text": "môj",
+    "kind": "lemma",
+    "bytes": 10075,
+    "generatedAt": "2026-08-08T19:42:10.695Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "2ce2f1873d63af983648": {
+    "text": "my",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:42:11.373Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f0f7d9361723a6a8bf46": {
+    "text": "na",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:42:12.303Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ce7c519b81c157acdbb5": {
+    "text": "náš",
+    "kind": "lemma",
+    "bytes": 13000,
+    "generatedAt": "2026-08-08T19:43:40.630Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "326c9d71b09c541805a5": {
+    "text": "nič",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:42:13.567Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d7144438d7056c948887": {
+    "text": "niečo",
+    "kind": "lemma",
+    "bytes": 12164,
+    "generatedAt": "2026-08-08T19:42:14.525Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "cd62d64da1af691f0739": {
+    "text": "niekto",
+    "kind": "lemma",
+    "bytes": 12164,
+    "generatedAt": "2026-08-08T19:42:15.160Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f1afd80c372a03669a77": {
+    "text": "nikto",
+    "kind": "lemma",
+    "bytes": 11328,
+    "generatedAt": "2026-08-08T19:42:15.786Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "286b6b71319142896eb4": {
+    "text": "o",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:43:41.281Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3721d972a40213cb6b12": {
+    "text": "od",
+    "kind": "lemma",
+    "bytes": 10075,
+    "generatedAt": "2026-08-08T19:43:41.887Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "79793c0a04817ad0a32b": {
+    "text": "odkiaľ",
+    "kind": "lemma",
+    "bytes": 12164,
+    "generatedAt": "2026-08-08T19:42:20.270Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6695335cbe8741fafed0": {
+    "text": "on",
+    "kind": "lemma",
+    "bytes": 7567,
+    "generatedAt": "2026-08-08T19:42:21.159Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "983270d343ef3d2645d2": {
+    "text": "ona",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:42:21.805Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "64cf67fe526e92baf73e": {
+    "text": "oni",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:42:22.430Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f36c7e8588c931e6655e": {
+    "text": "po",
+    "kind": "lemma",
+    "bytes": 7567,
+    "generatedAt": "2026-08-08T19:42:23.399Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "79fea1ee6d9a855b761b": {
+    "text": "pre",
+    "kind": "lemma",
+    "bytes": 10075,
+    "generatedAt": "2026-08-08T19:42:24.019Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4608999aefab2ebd68f7": {
+    "text": "prečo",
+    "kind": "lemma",
+    "bytes": 11328,
+    "generatedAt": "2026-08-08T19:42:24.643Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "67a2a6ce7921de8d71c1": {
+    "text": "pretože",
+    "kind": "lemma",
+    "bytes": 12164,
+    "generatedAt": "2026-08-08T19:42:25.264Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9dbe907b07b1eb26a6ee": {
+    "text": "s",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:43:42.488Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "154e877697a4b7ba7ab5": {
+    "text": "so",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:43:43.372Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7040a57af636096d8e6f": {
+    "text": "svoj",
+    "kind": "lemma",
+    "bytes": 10911,
+    "generatedAt": "2026-08-08T19:42:29.172Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "b3dd5a5ae167674df9f7": {
+    "text": "tam",
+    "kind": "lemma",
+    "bytes": 10911,
+    "generatedAt": "2026-08-08T19:42:29.826Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1bb272003020324f1a12": {
+    "text": "ten",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:42:30.460Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "0d0985f8a7917fda2db9": {
+    "text": "tento",
+    "kind": "lemma",
+    "bytes": 11328,
+    "generatedAt": "2026-08-08T19:42:31.065Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c169c9a7d0190dca95f8": {
+    "text": "tiež",
+    "kind": "lemma",
+    "bytes": 10911,
+    "generatedAt": "2026-08-08T19:42:31.704Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1268d49b75de2c2dd34e": {
+    "text": "to",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:42:32.461Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "23edfe61890d9cb0d876": {
+    "text": "tu",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:42:33.233Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "df375053ec835275d53a": {
+    "text": "tvoj",
+    "kind": "lemma",
+    "bytes": 10075,
+    "generatedAt": "2026-08-08T19:42:33.809Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6723540e55288b9f0a52": {
+    "text": "ty",
+    "kind": "lemma",
+    "bytes": 8403,
+    "generatedAt": "2026-08-08T19:42:34.440Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "97836c1349491575629e": {
+    "text": "váš",
+    "kind": "lemma",
+    "bytes": 13836,
+    "generatedAt": "2026-08-08T19:43:43.985Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "17c19c2916913b52c553": {
+    "text": "z",
+    "kind": "lemma",
+    "bytes": 11328,
+    "generatedAt": "2026-08-08T19:42:45.713Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "b9d59af11fdf0b0d6fa6": {
+    "text": "za",
+    "kind": "lemma",
+    "bytes": 13000,
+    "generatedAt": "2026-08-08T19:42:47.324Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4885372ea5e1be42a26d": {
+    "text": "že",
+    "kind": "lemma",
+    "bytes": 10075,
+    "generatedAt": "2026-08-08T19:43:52.414Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d26788feeb449731e1f4": {
+    "text": "v",
+    "kind": "lemma",
+    "bytes": 6313,
+    "generatedAt": "2026-08-08T19:43:05.606Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "715ee5272a85417d414c": {
+    "text": "zo",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:43:10.853Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "17119cbb39e6a984eaba": {
+    "text": "vy",
+    "kind": "lemma",
+    "bytes": 9239,
+    "generatedAt": "2026-08-08T19:43:17.608Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   }
 }

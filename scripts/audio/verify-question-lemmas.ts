@@ -9,7 +9,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
 import { words } from "../../src/lib/content/data";
-import { dictionaryLemmaSynthOptions } from "../../src/lib/content/audio-lemma-synthesis";
+import { dictionaryLemmaSynthText } from "../../src/lib/content/audio-lemma-synthesis";
 import { audioHash, audioObjectKey } from "../../src/lib/content/audio";
 import { scoreTranscript } from "./verify-score";
 import { transcribeAudio } from "./stt";
@@ -65,11 +65,7 @@ async function main(): Promise<void> {
       continue;
     }
 
-    const synth = dictionaryLemmaSynthOptions(entry.slovak, entry.topics);
-    if (!synth) {
-      failures.push(`${slug}: expected question synth profile`);
-      continue;
-    }
+    const synthText = dictionaryLemmaSynthText(entry.slovak);
 
     const hash = audioHash(entry.slovak);
     const filePath = path.join(ROOT, "static", "audio", audioObjectKey("lemma", hash));
@@ -90,7 +86,8 @@ async function main(): Promise<void> {
 
     if (scored.score < MIN_SCORE || durationSec > MAX_DURATION_SEC || englishCome) {
       failures.push(
-        `${slug}: score=${scored.score.toFixed(3)} dur=${durationSec.toFixed(2)}s stt=«${stt.text}» synth=${synth.synthText}`,
+        `${slug}: score=${scored.score.toFixed(3)} dur=${durationSec.toFixed(2)}s stt=«${stt.text}»` +
+          (synthText ? ` synth=${synthText}` : ""),
       );
     } else {
       console.log(

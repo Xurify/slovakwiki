@@ -11,10 +11,10 @@ All dictionary + lesson synthesis uses the top-level block in `config.json`:
 | Field          | Value                                                                             |
 | -------------- | --------------------------------------------------------------------------------- |
 | Provider       | ElevenLabs                                                                        |
-| Model          | `eleven_multilingual_v2`                                                          |
+| Model          | `eleven_flash_v2_5`                                                             |
 | Language hint  | `sk`                                                                              |
 | Format         | `mp3_44100_128`                                                                   |
-| Voice settings | stability `0.6`, similarityBoost `0.75`, style `0`, speed `0.88`, useSpeakerBoost |
+| Voice settings | stability `0.5`, similarityBoost `0.75`, style `0`, speed `1`, useSpeakerBoost |
 
 Hash material includes provider + voiceId + model + settings + normalized text. Change voice or settings → new hash → regen.
 

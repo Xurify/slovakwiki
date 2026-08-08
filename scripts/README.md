@@ -81,7 +81,7 @@ Generate lesson clips: `bun scripts/audio/generate.ts -- --lessons-only`. After 
 
 Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
 
-**QA / accuracy:** Default TTS is `eleven_multilingual_v2` (cleaner SK endings than `eleven_v3`). Optional: `rescueModelId` in config for `--verify` fallback. `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry → rescue model if set. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
+**QA / accuracy:** Default TTS is `eleven_flash_v2_5` + `language_code: sk`. Ultra-short homographs may use a synth-text override (`dictionaryLemmaSynthText`). `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
 
 ## `images/`
 
