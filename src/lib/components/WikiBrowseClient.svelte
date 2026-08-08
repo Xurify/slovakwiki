@@ -115,23 +115,23 @@
   );
 
   const chipClass = (active: boolean): string =>
-    `cursor-pointer rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color] duration-150 ${
+    `cursor-pointer rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
       active
-        ? "border-blue-800 bg-blue-800 text-white"
-        : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"
+        ? "border-blue-800 bg-blue-800 text-white shadow-none"
+        : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
     }`;
 
   const letterChipClass = (active: boolean): string =>
-    `flex h-8 min-w-8 cursor-pointer items-center justify-center rounded-full border px-2 text-xs font-semibold transition-[color,background-color,border-color] duration-150 ${
+    `flex h-8 min-w-8 cursor-pointer items-center justify-center rounded-full border px-2 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
       active
-        ? "border-blue-800 bg-blue-800 text-white"
-        : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"
+        ? "border-blue-800 bg-blue-800 text-white shadow-none"
+        : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
     }`;
 
   const pagerChipClass = (active: boolean): string =>
     active
-      ? "border-blue-800 bg-blue-800 text-white"
-      : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900";
+      ? "border-blue-800 bg-blue-800 text-white shadow-none"
+      : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900";
 
   const pagerLinkClass =
     "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
