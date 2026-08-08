@@ -64,14 +64,14 @@ Source: `src/lib/content/lessons.ts`, `src/lib/content/practice.ts`. Types: `src
 
 Write the **target English line** or a **direct question**. Do not wrap it in instructions.
 
-| Avoid | Prefer |
-| ----- | ------ |
-| `Write: “I am from Canada.”` | `I am from Canada.` |
-| `Build: “We are meeting on Tuesday.”` | `We are meeting on Tuesday.` |
-| `The passer-by has helped you. Write: …` | `Thank you for the help.` |
-| `Anna asks when you can meet at 3:00. What do you say?` | `At three o'clock.` |
-| `You are twenty-eight. What do you say?` | `I am twenty-eight years old.` |
-| `Someone says Teší ma. Which reply means …` | `Which reply means “Nice to meet you too”?` |
+| Avoid                                                   | Prefer                                      |
+| ------------------------------------------------------- | ------------------------------------------- |
+| `Write: “I am from Canada.”`                            | `I am from Canada.`                         |
+| `Build: “We are meeting on Tuesday.”`                   | `We are meeting on Tuesday.`                |
+| `The passer-by has helped you. Write: …`                | `Thank you for the help.`                   |
+| `Anna asks when you can meet at 3:00. What do you say?` | `At three o'clock.`                         |
+| `You are twenty-eight. What do you say?`                | `I am twenty-eight years old.`              |
+| `Someone says Teší ma. Which reply means …`             | `Which reply means “Nice to meet you too”?` |
 
 - **Choice / clock:** question or English target; choices stay Slovak.
 - **Build:** English sentence to assemble (not `Build the polite question:`).
