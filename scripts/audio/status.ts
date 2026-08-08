@@ -2,9 +2,9 @@
  * Coverage report for dictionary + lesson audio.
  *
  * Usage:
- *   bun run audio:status
- *   bun run audio:status -- --lessons-only
- *   bun run audio:status -- --lemmas-only
+ *   bun scripts/audio/status.ts
+ *   bun scripts/audio/status.ts -- --lessons-only
+ *   bun scripts/audio/status.ts -- --lemmas-only
  */
 
 import { access } from "node:fs/promises";

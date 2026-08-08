@@ -2,10 +2,10 @@
  * Fetch free-licensed Wikipedia / Commons images for dictionary lemmas.
  *
  * Usage:
- *   bun run images:fetch
- *   bun run images:fetch -- --limit 100
- *   bun run images:fetch -- --pos noun
- *   bun run images:fetch -- --only kolac --force
+ *   bun scripts/images/fetch.ts
+ *   bun scripts/images/fetch.ts -- --limit 100
+ *   bun scripts/images/fetch.ts -- --pos noun
+ *   bun scripts/images/fetch.ts -- --only kolac --force
  *
  * Order: override → SK pageimages → EN pageimages (non-verbs) →
  * Commons gloss search for concrete non-verbs (e.g. obed → “lunch meal”).

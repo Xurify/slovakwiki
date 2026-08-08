@@ -15,7 +15,7 @@ describe("docs/data-sources.md", () => {
 
     expect(
       onDisk,
-      "docs/data-sources.md is out of sync with src/lib/content/references.ts — run: bun run docs:data-sources",
+      "docs/data-sources.md is out of sync with src/lib/content/references.ts — run: bun scripts/docs/write-data-sources.ts",
     ).toBe(expected);
   });
 });

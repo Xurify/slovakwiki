@@ -14,11 +14,11 @@
  *   PUBLIC_IMAGE_BASE_URL (optional, logged for sanity)
  *
  * Usage:
- *   bun run images:upload
- *   bun run images:upload -- --dry-run
- *   bun run images:upload -- --limit 50
- *   bun run images:upload -- --force
- *   bun run images:upload -- --only kolac --force
+ *   bun scripts/images/upload.ts
+ *   bun scripts/images/upload.ts -- --dry-run
+ *   bun scripts/images/upload.ts -- --limit 50
+ *   bun scripts/images/upload.ts -- --force
+ *   bun scripts/images/upload.ts -- --only kolac --force
  */
 
 import { readFile, stat } from "node:fs/promises";

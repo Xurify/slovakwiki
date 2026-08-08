@@ -120,17 +120,25 @@
       const response = await fetch(EXPORT_URL);
 
       if (!response.ok) {
-        throw new Error(
-          response.status === 404
-            ? "Export file missing. Run bun run downloads:export (also runs on bun run build)."
-            : `Failed to load export (${response.status}).`,
-        );
+        if (import.meta.env.DEV) {
+          console.error(
+            response.status === 404
+              ? "Export file missing. Run bun scripts/downloads/export.ts (also runs on bun run build)."
+              : `Failed to load export (${response.status}).`,
+          );
+        }
+
+        throw new Error("Downloads aren't available right now. Try again later.");
       }
 
       const data = (await response.json()) as DictionaryExportFile;
 
       if (!data?.words || !Array.isArray(data.words)) {
-        throw new Error("Export file is malformed.");
+        if (import.meta.env.DEV) {
+          console.error("Export file is malformed.");
+        }
+
+        throw new Error("Downloads aren't available right now. Try again later.");
       }
 
       exportFile = data;
@@ -139,7 +147,15 @@
       loadState = "ready";
     } catch (error) {
       loadState = "error";
-      loadError = error instanceof Error ? error.message : "Failed to load export.";
+
+      if (import.meta.env.DEV) {
+        console.error(error);
+      }
+
+      loadError =
+        error instanceof Error
+          ? error.message
+          : "Downloads aren't available right now. Try again later.";
     }
   }
 

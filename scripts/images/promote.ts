@@ -2,8 +2,8 @@
  * Promote a staged Commons candidate into the live dictionary image set.
  *
  * Usage:
- *   bun run images:promote -- --slug robit --pick 0
- *   bun run images:promote -- --slug hrat --pick 2
+ *   bun scripts/images/promote.ts -- --slug robit --pick 0
+ *   bun scripts/images/promote.ts -- --slug hrat --pick 2
  *
  * Only run after visual audit of tmp/image-candidates/{slug}/candidate-*.*
  */

@@ -3,7 +3,7 @@
  * and add imperfective/perfective pattern pairs.
  *
  * Usage: bun scripts/dictionary/fill-empty-examples.ts
- * Then: bun run examples:curate
+ * Then: bun scripts/dictionary/apply-curated-examples.ts
  */
 
 import { readFileSync, writeFileSync } from "node:fs";

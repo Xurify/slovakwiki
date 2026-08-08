@@ -2,7 +2,7 @@
  * Build slim dictionary export JSON for /downloads (client builder source).
  *
  * Usage:
- *   bun run downloads:export
+ *   bun scripts/downloads/export.ts
  *
  * Writes `static/downloads/dictionary-export.json` (gitignored).
  * Also invoked from the Astro build hook for production.

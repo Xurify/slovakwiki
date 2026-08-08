@@ -5,9 +5,9 @@
  *   slk_sentences.tsv, eng_sentences.tsv, slk-eng_links.tsv
  *
  * Usage:
- *   bun run examples:enrich
- *   bun run examples:enrich -- --per-word 8 --report tmp/missing-examples.txt
- *   bun run examples:enrich -- --replace-practice
+ *   bun scripts/dictionary/enrich-examples.ts
+ *   bun scripts/dictionary/enrich-examples.ts -- --per-word 8 --report tmp/missing-examples.txt
+ *   bun scripts/dictionary/enrich-examples.ts -- --replace-practice
  *
  * Underfilled curated/Tatoeba rows (count < per-word) get extra Tatoeba appended.
  * Pattern pedagogy rows (`demonstrates`) stay first; Tatoeba may pad the store pool.

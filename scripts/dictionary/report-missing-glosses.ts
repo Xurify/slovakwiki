@@ -1,7 +1,7 @@
 /**
  * Report frequency lemmas that are neither glossed nor already live.
  *
- * Usage: bun run frequency:missing-glosses
+ * Usage: bun scripts/dictionary/report-missing-glosses.ts
  */
 
 import { readFile, writeFile } from "node:fs/promises";

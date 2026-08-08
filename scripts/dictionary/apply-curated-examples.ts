@@ -8,7 +8,7 @@
  * - Pattern lemmas: curated pedagogy rows lead; existing Tatoeba extras kept (store pool).
  * - Non-pattern applies union-merge so enrich appends survive.
  *
- * Usage: bun run examples:curate
+ * Usage: bun scripts/dictionary/apply-curated-examples.ts
  */
 
 import { readFile, writeFile } from "node:fs/promises";

@@ -33,7 +33,7 @@ Also reused as the **narrator** lesson character (notices / non-person lines).
 Dialogue speakers map via `speakers[]` → `src/lib/content/characters.ts` (`characterIdForSpeaker`).  
 Key phrases always use **guide** (`keyPhraseCharacterId()`), not a dialogue speaker.
 
-Custom voices were created with `bun run audio:voice-design` (ElevenLabs Voice Design). Design prompts live in `scripts/audio/voice-design.ts` (`CAST`). Preview takes: `tmp/voice-design/{character}/preview-N.mp3`.
+Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs Voice Design). Design prompts live in `scripts/audio/voice-design.ts` (`CAST`). Preview takes: `tmp/voice-design/{character}/preview-N.mp3`.
 
 ### Active
 
@@ -65,14 +65,14 @@ Mint dedicated Voice Design takes later, then point `voiceId` here and regen.
 | `lesson`  | `static/audio/lesson/{hash}.mp3`  | Scene lines + key phrases (per-character voice in hash) |
 
 ```bash
-bun run audio:generate                    # dictionary + lessons (skips existing)
-bun run audio:generate -- --lessons-only  # lesson targets only
-bun run audio:generate -- --lessons-only --force  # rewrite lesson clips after voice change
-bun run audio:generate -- --examples-only --missing-only  # fill gaps only
-bun run audio:voice-design                # design previews → tmp/voice-design/
-bun run audio:voice-design -- --create --pick 0   # save preview + patch config characters
-bun run audio:upload                      # → R2 (needs R2_* + PUBLIC_AUDIO_BASE_URL for prod play)
-bun run audio:status -- --lessons-only
+bun scripts/audio/generate.ts                    # dictionary + lessons (skips existing)
+bun scripts/audio/generate.ts -- --lessons-only  # lesson targets only
+bun scripts/audio/generate.ts -- --lessons-only --force  # rewrite lesson clips after voice change
+bun scripts/audio/generate.ts -- --examples-only --missing-only  # fill gaps only
+bun scripts/audio/voice-design.ts                # design previews → tmp/voice-design/
+bun scripts/audio/voice-design.ts -- --create --pick 0   # save preview + patch config characters
+bun scripts/audio/upload.ts                      # → R2 (needs R2_* + PUBLIC_AUDIO_BASE_URL for prod play)
+bun scripts/audio/status.ts -- --lessons-only
 ```
 
 Lesson dialogue/content may churn — treat `lesson/` MP3s as disposable regenerations.

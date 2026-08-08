@@ -3,9 +3,9 @@
  * No approval gate — simple high-frequency words ship with glosses ready.
  *
  * Usage:
- *   bun run frequency:publish
- *   bun run frequency:publish -- --limit 100
- *   bun run frequency:publish -- --dry-run --limit 100
+ *   bun scripts/dictionary/publish-frequency.ts
+ *   bun scripts/dictionary/publish-frequency.ts -- --limit 100
+ *   bun scripts/dictionary/publish-frequency.ts -- --dry-run --limit 100
  *
  * Add/edit glosses in content/frequency/glosses.json
  * See docs/data-sources.md

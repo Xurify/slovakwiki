@@ -8,10 +8,10 @@ How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../.
 | ---------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts)   | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
 | Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                      | Usual home for Verbs / Nouns / Adjectives / Adverbs / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
-| Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun run examples:curate` | Overlay keyed by existing slug — not a new entry.                                                                                                 |
-| Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun run related:apply`   | Fills empty related arrays only.                                                                                                                  |
+| Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun scripts/dictionary/apply-curated-examples.ts` | Overlay keyed by existing slug — not a new entry.                                                                                                 |
+| Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun scripts/dictionary/apply-related.ts`   | Fills empty related arrays only.                                                                                                                  |
 
-Prefer curated seed for learner-facing essentials; prefer `words.json` (or `frequency:publish`) for mass POS coverage.
+Prefer curated seed for learner-facing essentials; prefer `words.json` (or `publish-frequency.ts`) for mass POS coverage.
 
 ## Entry skeleton
 
@@ -92,7 +92,7 @@ Example curated seed:
 | ----------------------------------- | ----------- | ------------------------ |
 | Shown on lemma page + example audio | first **4** | `EXAMPLE_DISPLAY_LIMIT`  |
 | Soft store pool (enrich default)    | up to **8** | `EXAMPLE_STORE_PER_WORD` |
-| Fill tops up if below               | **2**       | `examples:fill`          |
+| Fill tops up if below               | **2**       | `fill-empty-examples.ts`          |
 
 Hand-add checklist:
 
@@ -106,7 +106,7 @@ Hand-add checklist:
 1. Confirm slug unique (`curatedWordSeed` + `words.json`).
 2. Confirm every `related` slug exists.
 3. `bun run index:search` so local Pagefind matches.
-4. Optional: `bun run audio:generate` (and upload) for new lemma/example text; `bun run images:fetch` for lemma thumbs.
+4. Optional: `bun scripts/audio/generate.ts` (and `upload.ts`) for new lemma/example text; `bun scripts/images/fetch.ts` for lemma thumbs.
 
 ## Anti-patterns
 

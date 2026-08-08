@@ -16,7 +16,7 @@ Rebuilds Pagefind into `static/pagefind/` for local/dev search.
 
 Run when: first clone, missing index, or searchable content changed (dictionary/grammar/cases/pronunciation/lessons/practice).
 
-For `/downloads` local builder: also run `bun run downloads:export` when `static/downloads/` is missing (regenerated on `astro build` too). Export is learner-facing: spelled lemmas + SK/EN examples (no internal `note` / `tatoebaId` / `demonstrates`).
+For `/downloads` local builder: also run `bun scripts/downloads/export.ts` when `static/downloads/` is missing (regenerated on `astro build` too). Export is learner-facing: spelled lemmas + SK/EN examples (no internal `note` / `tatoebaId` / `demonstrates`).
 
 Skip for pure UI/layout work. `bun run build` already regenerates the index for production.
 

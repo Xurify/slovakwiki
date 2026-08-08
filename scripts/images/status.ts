@@ -1,8 +1,8 @@
 /**
  * Coverage report for dictionary lemma images.
  *
- * Usage: bun run images:status
- *        bun run images:status -- --pos noun
+ * Usage: bun scripts/images/status.ts
+ *        bun scripts/images/status.ts -- --pos noun
  */
 
 import path from "node:path";

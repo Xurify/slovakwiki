@@ -14,11 +14,11 @@
  *   PUBLIC_AUDIO_BASE_URL (optional, logged for sanity)
  *
  * Usage:
- *   bun run audio:upload
- *   bun run audio:upload -- --dry-run
- *   bun run audio:upload -- --limit 50
- *   bun run audio:upload -- --force   # re-PUT (refresh headers/metadata)
- *   bun run audio:upload -- --only "príliš hrdý" --force
+ *   bun scripts/audio/upload.ts
+ *   bun scripts/audio/upload.ts -- --dry-run
+ *   bun scripts/audio/upload.ts -- --limit 50
+ *   bun scripts/audio/upload.ts -- --force   # re-PUT (refresh headers/metadata)
+ *   bun scripts/audio/upload.ts -- --only "príliš hrdý" --force
  */
 
 import { readFile, stat } from "node:fs/promises";

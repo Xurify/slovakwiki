@@ -3,14 +3,14 @@
  * Kind = lemma | example | lesson (how the clip is used). Text lives in manifest.
  *
  * Usage:
- *   bun run audio:generate
- *   bun run audio:generate -- --limit 20
- *   bun run audio:generate -- --lemmas-only --dry-run
- *   bun run audio:generate -- --lessons-only
- *   bun run audio:generate -- --examples-only --missing-only --offset 0 --limit 1000
- *   bun run audio:generate -- --force
- *   bun run audio:generate -- --force --verify --only "príliš hrdý"
- *   bun run audio:generate -- --verify --stt dual
+ *   bun scripts/audio/generate.ts
+ *   bun scripts/audio/generate.ts -- --limit 20
+ *   bun scripts/audio/generate.ts -- --lemmas-only --dry-run
+ *   bun scripts/audio/generate.ts -- --lessons-only
+ *   bun scripts/audio/generate.ts -- --examples-only --missing-only --offset 0 --limit 1000
+ *   bun scripts/audio/generate.ts -- --force
+ *   bun scripts/audio/generate.ts -- --force --verify --only "príliš hrdý"
+ *   bun scripts/audio/generate.ts -- --verify --stt dual
  */
 
 import { access, mkdir, writeFile } from "node:fs/promises";

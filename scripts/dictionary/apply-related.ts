@@ -2,8 +2,8 @@
  * Apply semantic related-cluster peers onto dictionary words.
  * Only fills empty `related` arrays — never overwrites curated / pattern related.
  *
- * Usage: bun run related:apply
- * Run after examples:curate so CURATED_RELATED already owns pattern lemmas.
+ * Usage: bun scripts/dictionary/apply-related.ts
+ * Run after apply-curated-examples.ts so CURATED_RELATED already owns pattern lemmas.
  */
 
 import { readFile, writeFile } from "node:fs/promises";

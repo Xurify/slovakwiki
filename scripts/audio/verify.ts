@@ -2,11 +2,11 @@
  * STT audit of on-disk dictionary audio vs expected text.
  *
  * Usage:
- *   bun run audio:verify -- --limit 50
- *   bun run audio:verify -- --only "príliš hrdý"
- *   bun run audio:verify -- --stt dual
- *   bun run audio:verify -- --stt elevenlabs
- *   bun run audio:verify -- --stt whisper --whisper-model small
+ *   bun scripts/audio/verify.ts -- --limit 50
+ *   bun scripts/audio/verify.ts -- --only "príliš hrdý"
+ *   bun scripts/audio/verify.ts -- --stt dual
+ *   bun scripts/audio/verify.ts -- --stt elevenlabs
+ *   bun scripts/audio/verify.ts -- --stt whisper --whisper-model small
  */
 
 import { access, mkdir, writeFile } from "node:fs/promises";

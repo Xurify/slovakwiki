@@ -3,8 +3,8 @@
  * Keeps hand-curated and pattern (`demonstrates`) entries.
  * Also clears matching weak examples from words.json.
  *
- * Usage: bun run examples:reclaim
- * Then: bun run examples:enrich → examples:fill → examples:curate → related:apply
+ * Usage: bun scripts/dictionary/reclaim-weak-examples.ts
+ * Then: enrich-examples.ts → fill-empty-examples.ts → apply-curated-examples.ts → apply-related.ts
  */
 
 import { readFileSync, writeFileSync } from "node:fs";

@@ -10,11 +10,11 @@
  *   3. Patch content/audio/config.json character voiceIds
  *
  * Usage:
- *   bun run audio:voice-design -- --dry-run
- *   bun run audio:voice-design                 # design only (previews)
- *   bun run audio:voice-design -- --create     # design + save preview 0 + update config
- *   bun run audio:voice-design -- --create --pick 1
- *   bun run audio:voice-design -- --only anna,alex --create
+ *   bun scripts/audio/voice-design.ts -- --dry-run
+ *   bun scripts/audio/voice-design.ts                 # design only (previews)
+ *   bun scripts/audio/voice-design.ts -- --create     # design + save preview 0 + update config
+ *   bun scripts/audio/voice-design.ts -- --create --pick 1
+ *   bun scripts/audio/voice-design.ts -- --only anna,alex --create
  *
  * Needs Voice Design access on ELEVENLABS_API_KEY.
  */
@@ -358,10 +358,10 @@ async function main(): Promise<void> {
   if (create && !dryRun && created.length > 0) {
     await patchConfig(created);
     console.log(`\nUpdated ${CONFIG_PATH} (${created.length} characters)`);
-    console.log("Next: bun run audio:generate -- --lessons-only --force");
+    console.log("Next: bun scripts/audio/generate.ts -- --lessons-only --force");
   } else if (!create) {
     console.log("\nAudition MP3s in tmp/voice-design/{character}/preview-N.mp3");
-    console.log("Then: bun run audio:voice-design -- --create --pick 0");
+    console.log("Then: bun scripts/audio/voice-design.ts -- --create --pick 0");
   }
 }
 
