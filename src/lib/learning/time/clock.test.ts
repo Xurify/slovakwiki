@@ -5,10 +5,10 @@ import {
   faceHour12,
   preferredAnswerForTime,
   randomDrillTime,
-} from "./slovak-time";
-import { answersMatch } from "../client/practice-state";
+} from "./clock";
+import { answersMatch } from "$lib/client/practice-state";
 
-describe("slovak-time", () => {
+describe("learning/time/clock", () => {
   it("maps 24h hours onto a 12-face clock", () => {
     expect(faceHour12(0)).toBe(12);
     expect(faceHour12(12)).toBe(12);

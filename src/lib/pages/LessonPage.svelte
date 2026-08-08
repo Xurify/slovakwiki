@@ -12,7 +12,7 @@
   import KeyPhraseList from "$lib/components/lessons/KeyPhraseList.svelte";
   import LessonScene from "$lib/components/lessons/LessonScene.svelte";
   import PatternNote from "$lib/components/lessons/PatternNote.svelte";
-  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
+  import { ClockIllustration } from "$lib/learning/time";
 
   let {
     data,

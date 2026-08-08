@@ -1,6 +1,5 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
-  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
 
   import { tick } from "svelte";
   import {
@@ -11,10 +10,11 @@
   } from "$lib/client/build-tiles";
   import { answersMatch } from "$lib/client/practice-state";
   import { playAnswerSfx } from "$lib/client/sfx";
-  import type { LessonExercise } from "$lib/content/learning-types";
-  import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
+  import { ChoiceOptions } from "$lib/learning/exercises";
+  import type { LessonExercise } from "$lib/learning/types";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
+  import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
 
   let {
     exercise,
@@ -143,34 +143,21 @@
       class="{hasContext
         ? 'mt-5'
         : 'mt-4'} m-0 font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
+      lang={exercise.type !== "personal" && exercise.promptLang === "sk"
+        ? "sk"
+        : undefined}
     >
       {exercise.prompt}
     </h2>
 
     {#if exercise.type === "choice"}
-      {#if exercise.clock}
-        <div class="mt-6 flex justify-center">
-          <ClockIllustration
-            hour={exercise.clock.hour}
-            minute={exercise.clock.minute}
-            size={120}
-          />
-        </div>
-      {/if}
-
-      <div class="mt-6 grid gap-2.5" aria-label="Answer choices">
-        {#each exercise.choices as choice (choice.id)}
-          <button
-            class="press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3.5 text-left font-serif text-base font-semibold"
-            disabled={submitted}
-            type="button"
-            aria-pressed={selectedId === choice.id}
-            onclick={() => (selectedId = choice.id)}
-          >
-            <span lang="sk">{choice.label}</span>
-          </button>
-        {/each}
-      </div>
+      <ChoiceOptions
+        choices={exercise.choices}
+        choiceStyle={exercise.choiceStyle}
+        promptClock={exercise.clock}
+        bind:selectedId
+        {submitted}
+      />
     {:else if exercise.type === "build"}
       <div class="mt-6 grid gap-3" aria-label="Build the sentence">
         <div

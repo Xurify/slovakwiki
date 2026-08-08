@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
+  import { ClockIllustration } from "$lib/learning/time";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
 
   let {

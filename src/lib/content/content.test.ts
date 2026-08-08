@@ -44,7 +44,7 @@ import { normalizeSearchText, searchEntries } from "./search";
 import { buildSearchDocuments } from "./search-documents";
 import { conjugateVerbForTest, searchFormsForLemma } from "./search-forms";
 import { searchMetaLabel } from "./search-ui";
-import { answersForTime } from "./slovak-time";
+import { answersForTime } from "$lib/learning/time/clock";
 
 class MemoryStorage implements StorageLike {
   private values = new Map<string, string>();
@@ -239,11 +239,27 @@ describe("Slovak content", () => {
 
     for (const lesson of lessons) {
       for (const exercise of lesson.exercises) {
-        if (exercise.type !== "choice" || !exercise.clock) continue;
-        expect(exercise.clock.hour).toBeGreaterThanOrEqual(1);
-        expect(exercise.clock.hour).toBeLessThanOrEqual(12);
-        expect(exercise.clock.minute).toBeGreaterThanOrEqual(0);
-        expect(exercise.clock.minute).toBeLessThan(60);
+        if (exercise.type !== "choice") continue;
+
+        if (exercise.clock) {
+          expect(exercise.clock.hour).toBeGreaterThanOrEqual(1);
+          expect(exercise.clock.hour).toBeLessThanOrEqual(12);
+          expect(exercise.clock.minute).toBeGreaterThanOrEqual(0);
+          expect(exercise.clock.minute).toBeLessThan(60);
+          expect(exercise.choiceStyle).not.toBe("clock");
+        }
+
+        if (exercise.choiceStyle === "clock") {
+          expect(exercise.clock).toBeUndefined();
+          expect(exercise.promptLang).toBe("sk");
+          for (const choice of exercise.choices) {
+            expect(choice.clock).toBeDefined();
+            expect(choice.clock!.hour).toBeGreaterThanOrEqual(1);
+            expect(choice.clock!.hour).toBeLessThanOrEqual(12);
+            expect(choice.clock!.minute).toBeGreaterThanOrEqual(0);
+            expect(choice.clock!.minute).toBeLessThan(60);
+          }
+        }
       }
     }
 

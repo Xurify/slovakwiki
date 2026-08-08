@@ -1,5 +1,5 @@
 import type { PracticeState } from "$lib/client/practice-state";
-import type { PracticeItem } from "$lib/content/learning-types";
+import type { PracticeItem } from "$lib/learning/types";
 import { lessonById, lessonTracks } from "$lib/content/lessons";
 import {
   practiceItemById,

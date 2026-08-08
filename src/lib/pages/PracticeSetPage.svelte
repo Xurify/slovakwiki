@@ -82,6 +82,7 @@
         audioSrcs={data.clozeAudioSrcs ?? {}}
         backHref="/practice"
         backLabel="Practice"
+        sessionTitle={data.set.title}
         bind:sectionTitle
       />
     {:else}

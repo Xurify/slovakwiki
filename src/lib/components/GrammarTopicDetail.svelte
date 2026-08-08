@@ -6,7 +6,7 @@
 
   import FocusedPracticeAction from "$lib/components/FocusedPracticeAction.svelte";
   import GrammarPatternList from "$lib/components/GrammarPatternList.svelte";
-  import TellingTimeClockGrid from "$lib/components/TellingTimeClockGrid.svelte";
+  import { ClockGrid } from "$lib/learning/time";
   import { sentenceCase } from "$lib/content/search-ui";
   import type { EntryKind, GrammarTopic } from "$lib/content/types";
 
@@ -96,7 +96,7 @@
         <p class="mb-5 max-w-[66ch] font-serif leading-7 text-slate-700">
           Match each face to the Slovak phrase. Quarters and halves name the hour ahead.
         </p>
-        <TellingTimeClockGrid />
+        <ClockGrid />
       </section>
 
       {#if clockDrill}

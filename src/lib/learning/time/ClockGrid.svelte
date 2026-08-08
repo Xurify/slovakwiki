@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
-  import { formatDigital } from "$lib/content/slovak-time";
+  import ClockIllustration from "./ClockIllustration.svelte";
+  import { formatDigital } from "./clock";
 
   type GridItem = {
     english: string;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
-  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
+  import ClockIllustration from "./ClockIllustration.svelte";
 
   import { gradeAnswer, suggestCloseAnswer } from "$lib/client/practice-state";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
@@ -11,7 +11,7 @@
     preferredAnswerForTime,
     randomDrillTime,
     type ClockFaceTime,
-  } from "$lib/content/slovak-time";
+  } from "./clock";
 
   /** client:only island — randomize freely; never SSR'd. */
   let time = $state<ClockFaceTime>(randomDrillTime());

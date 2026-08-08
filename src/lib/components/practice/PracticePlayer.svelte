@@ -17,15 +17,18 @@
   } from "$lib/client/practice-state";
   import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/client/sfx";
   import AudioButton from "$lib/components/AudioButton.svelte";
-  import ClockIllustration from "$lib/components/ClockIllustration.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
+  import { ChoiceOptions } from "$lib/learning/exercises";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import PracticeSessionComplete, {
+    type SessionPhraseResult,
+  } from "$lib/components/practice/PracticeSessionComplete.svelte";
   import { entryBySlug, words } from "$lib/content/data";
   import { dictionaryPathForSense } from "$lib/content/lemma-senses";
-  import type { PracticeItem, PracticeTask } from "$lib/content/learning-types";
+  import type { PracticeItem, PracticeTask } from "$lib/learning/types";
 
   const SK_CHARS = [
     "á",
@@ -70,6 +73,7 @@
     hintMode = "inline",
     audioSrcs = {},
     sectionTitle = $bindable(""),
+    sessionTitle = "Practice",
     backHref,
     backLabel = "Practice",
   }: {
@@ -77,6 +81,7 @@
     hintMode?: "inline" | "rail";
     audioSrcs?: Record<string, string>;
     sectionTitle?: string;
+    sessionTitle?: string;
     backHref?: string;
     backLabel?: string;
   } = $props();
@@ -91,8 +96,11 @@
   let hintOpen = $state(false);
   let feedbackPanel = $state<HTMLElement | null>(null);
   let inputEl = $state<HTMLInputElement | null>(null);
+  let itemOverride = $state<PracticeItem[] | null>(null);
+  let sessionResults = $state<SessionPhraseResult[]>([]);
 
-  const current = $derived(items[activeIndex]);
+  const activeItems = $derived(itemOverride ?? items);
+  const current = $derived(activeItems[activeIndex]);
   const task = $derived(current.task);
   const builtTiles = $derived(
     task.type === "build" ? resolveBuiltTiles(task.tiles, builtBankIndexes) : [],
@@ -204,19 +212,70 @@
     queueMicrotask(() => inputEl?.setSelectionRange(start + 1, start + 1));
   }
 
-  function next(): void {
-    if (activeIndex === items.length - 1) {
-      finished = true;
-      playFinishSfx();
-      return;
-    }
-    activeIndex += 1;
+  function gradeForResult(): SessionPhraseResult["grade"] {
+    if (revealed) return "revealed";
+    return resolveCheckGrade();
+  }
+
+  function recordResult(): void {
+    sessionResults = [
+      ...sessionResults,
+      {
+        itemId: current.id,
+        slovak: current.feedback.correction,
+        english: current.feedback.english,
+        grade: gradeForResult(),
+      },
+    ];
+  }
+
+  function resetExerciseState(): void {
     builtBankIndexes = [];
     input = "";
     selectedId = null;
     submitted = false;
     revealed = false;
     hintOpen = false;
+  }
+
+  function next(): void {
+    recordResult();
+
+    if (activeIndex === activeItems.length - 1) {
+      finished = true;
+      playFinishSfx();
+      return;
+    }
+
+    activeIndex += 1;
+    resetExerciseState();
+  }
+
+  function retry(): void {
+    itemOverride = null;
+    sessionResults = [];
+    activeIndex = 0;
+    finished = false;
+    resetExerciseState();
+    if (activeItems[0]) sectionTitle = sectionTitleFor(activeItems[0].task);
+  }
+
+  function retryMissed(): void {
+    const missedIds = new Set(
+      sessionResults
+        .filter((row) => row.grade !== "correct" && row.grade !== "accents")
+        .map((row) => row.itemId),
+    );
+    const missed = items.filter((item) => missedIds.has(item.id));
+
+    itemOverride = missed.length > 0 ? missed : null;
+    sessionResults = [];
+    activeIndex = 0;
+    finished = false;
+    resetExerciseState();
+
+    const first = (itemOverride ?? items)[0];
+    if (first) sectionTitle = sectionTitleFor(first.task);
   }
 
   const showCorrection = $derived(
@@ -261,7 +320,7 @@
         type="button"
         onclick={next}
       >
-        {activeIndex === items.length - 1 ? "Finish" : "Continue"}
+        {activeIndex === activeItems.length - 1 ? "Finish" : "Continue"}
       </Button>
     </div>
   {:else}
@@ -293,30 +352,22 @@
 {/snippet}
 
 {#if finished}
-  <section
-    class="max-w-[640px] border-l-4 border-emerald-600 bg-emerald-50 px-5 py-5"
-    aria-labelledby="practice-finished-heading"
-  >
-    <p class="m-0 text-sm font-semibold text-emerald-800">Finished</p>
-
-    <h2
-      id="practice-finished-heading"
-      class="mb-0 mt-3 font-serif text-3xl text-slate-900"
-    >
-      Keep the useful ones close.
-    </h2>
-
-    <p class="mt-2 mb-0 text-base text-slate-700">
-      Come back to this set whenever you want another pass.
-    </p>
-
-    <div class="mt-6">
-      <Button href="/practice">Back to Practice</Button>
-    </div>
-  </section>
+  <PracticeSessionComplete
+    {backHref}
+    {backLabel}
+    onRetry={retry}
+    onRetryMissed={retryMissed}
+    results={sessionResults}
+    {sessionTitle}
+  />
 {:else}
   <div class="mx-auto w-full max-w-[640px]" aria-labelledby="practice-question">
-    <PracticeSessionChrome {activeIndex} {backHref} {backLabel} total={items.length} />
+    <PracticeSessionChrome
+      {activeIndex}
+      {backHref}
+      {backLabel}
+      total={activeItems.length}
+    />
 
     <PracticeExerciseCard
       footer={exerciseFooter}
@@ -344,6 +395,7 @@
           class="{hasScene
             ? 'mt-5'
             : ''} m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
+          lang={task.promptLang === "sk" ? "sk" : undefined}
         >
           {task.prompt}
         </h1>
@@ -362,29 +414,13 @@
       {/if}
 
       {#if task.type === "choice"}
-        {#if task.clock}
-          <div class="mt-6 flex justify-center">
-            <ClockIllustration
-              hour={task.clock.hour}
-              minute={task.clock.minute}
-              size={120}
-            />
-          </div>
-        {/if}
-
-        <div class="mt-6 grid gap-2">
-          {#each task.choices as choice (choice.id)}
-            <button
-              class="press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3 text-left font-serif text-base font-semibold"
-              disabled={submitted}
-              type="button"
-              aria-pressed={selectedId === choice.id}
-              onclick={() => (selectedId = choice.id)}
-            >
-              <span lang="sk">{choice.label}</span>
-            </button>
-          {/each}
-        </div>
+        <ChoiceOptions
+          choices={task.choices}
+          choiceStyle={task.choiceStyle}
+          promptClock={task.clock}
+          bind:selectedId
+          {submitted}
+        />
       {:else if task.type === "build"}
         <div class="mt-6 grid gap-3">
           <div
