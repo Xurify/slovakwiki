@@ -60,6 +60,7 @@ async function main(): Promise<void> {
     missingOnly,
     offset,
     only,
+    slugs,
     retries,
     sttModel,
     sttProvider,
@@ -70,7 +71,7 @@ async function main(): Promise<void> {
   const manifest = await loadManifest();
   await ensureAudioDir();
 
-  let targets = collectAudioTargets({ lemmasOnly, lessonsOnly }, config);
+  let targets = collectAudioTargets({ lemmasOnly, lessonsOnly, slugs }, config);
   if (examplesOnly) {
     targets = targets.filter((target) => target.kind === "example");
   }

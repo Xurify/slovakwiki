@@ -200733,5 +200733,1034 @@
     "bytes": 30973,
     "generatedAt": "2026-08-05T19:17:04.533Z",
     "uploadedAt": "2026-08-05T19:17:04.883Z"
+  },
+  "3dbd6c9cde1f366957c5": {
+    "text": "a",
+    "kind": "lemma",
+    "bytes": 13836,
+    "generatedAt": "2026-08-08T18:33:22.642Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d0f4fe5f72ff51dcd296": {
+    "text": "Aj ja tiež.",
+    "kind": "example",
+    "bytes": 21777,
+    "generatedAt": "2026-08-08T18:33:23.416Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "45daa5881a0bfaa6e5fc": {
+    "text": "Ako sa máš ty?",
+    "kind": "example",
+    "bytes": 23449,
+    "generatedAt": "2026-08-08T18:33:24.141Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4bae2ba8c8fbc92487aa": {
+    "text": "Akú farbu máš rád?",
+    "kind": "example",
+    "bytes": 28465,
+    "generatedAt": "2026-08-08T18:33:24.943Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "92a2fa9f2e2d774ea058": {
+    "text": "aký",
+    "kind": "lemma",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:33:25.736Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9c84b53380f649b7e771": {
+    "text": "Aký je to deň?",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:33:26.519Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "74a7ea1f21ddf407848b": {
+    "text": "ale",
+    "kind": "lemma",
+    "bytes": 17598,
+    "generatedAt": "2026-08-08T18:33:27.272Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "45d9f4c07bcd477c9dd2": {
+    "text": "alebo",
+    "kind": "lemma",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:33:28.019Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "a9208eb84720ba637a6e": {
+    "text": "Čaj alebo káva?",
+    "kind": "example",
+    "bytes": 26375,
+    "generatedAt": "2026-08-08T18:33:28.763Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "a3bdb491c5c66fd501de": {
+    "text": "či",
+    "kind": "lemma",
+    "bytes": 14254,
+    "generatedAt": "2026-08-08T18:33:29.500Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "aa2b1d82f229e4ae2bf0": {
+    "text": "Či už si doma?",
+    "kind": "example",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:33:30.436Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f0983a5c4cfaaea61aa8": {
+    "text": "Čo chcete vy?",
+    "kind": "example",
+    "bytes": 21777,
+    "generatedAt": "2026-08-08T18:33:31.178Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6c54b89f3601a5c2258c": {
+    "text": "Čo je to?",
+    "kind": "example",
+    "bytes": 21777,
+    "generatedAt": "2026-08-08T18:33:31.934Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6b807fd41dfc3864c725": {
+    "text": "Dnes alebo zajtra.",
+    "kind": "example",
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T18:33:32.729Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "87fd96026f8fcd4474e2": {
+    "text": "do",
+    "kind": "lemma",
+    "bytes": 15090,
+    "generatedAt": "2026-08-08T18:33:33.419Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "75da37c0b9cfe36cccee": {
+    "text": "dobrú noc",
+    "kind": "lemma",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:33:34.177Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "50414c98581b5be1dcae": {
+    "text": "Dobrú noc, mama.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:33:34.961Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "dd1b7549f0627d31d105": {
+    "text": "dobrý večer",
+    "kind": "lemma",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:33:35.701Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "a7365fd0278a439f7fc2": {
+    "text": "Dobrý večer všetkým.",
+    "kind": "example",
+    "bytes": 26375,
+    "generatedAt": "2026-08-08T18:33:36.426Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "e946791cd4d763fe30ca": {
+    "text": "Dobrý večer, pán Kováč.",
+    "kind": "example",
+    "bytes": 30973,
+    "generatedAt": "2026-08-08T18:33:37.232Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "19df2d90f3fea4d618cc": {
+    "text": "Dostal som list od mamy.",
+    "kind": "example",
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T18:33:37.978Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9a7f96f2a4b169fc960b": {
+    "text": "Hovorí, že príde.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:33:38.784Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3a58731b6a77766ee0a0": {
+    "text": "Hovoríme o práci.",
+    "kind": "example",
+    "bytes": 27211,
+    "generatedAt": "2026-08-08T18:33:39.742Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1e5fdadbfc2977c27aa4": {
+    "text": "Chcem ísť, ale prší.",
+    "kind": "example",
+    "bytes": 27629,
+    "generatedAt": "2026-08-08T18:33:40.479Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "27b759d56509336ed79d": {
+    "text": "Chcem niečo jesť.",
+    "kind": "example",
+    "bytes": 24703,
+    "generatedAt": "2026-08-08T18:33:41.205Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ecd373e03e02acdeedb5": {
+    "text": "Chlieb a maslo.",
+    "kind": "example",
+    "bytes": 21777,
+    "generatedAt": "2026-08-08T18:33:41.952Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9ec0dc808f4b2b2786d1": {
+    "text": "Chlieb so syrom.",
+    "kind": "example",
+    "bytes": 23449,
+    "generatedAt": "2026-08-08T18:33:42.703Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6e06b0125639400c004f": {
+    "text": "ja",
+    "kind": "lemma",
+    "bytes": 14254,
+    "generatedAt": "2026-08-08T18:33:43.385Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ace06bc5d8f00c2cdbf0": {
+    "text": "Ja a ty.",
+    "kind": "example",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:33:44.081Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "87dab1348c1acec15930": {
+    "text": "Ja rozumiem.",
+    "kind": "example",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:33:44.797Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "0a10640554ce7aa8403e": {
+    "text": "Ja som študent.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:33:45.547Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3f108c46c46e2b7e6fa7": {
+    "text": "Je to malé, ale pekné.",
+    "kind": "example",
+    "bytes": 27629,
+    "generatedAt": "2026-08-08T18:33:46.283Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f469cc85edb0b32741ca": {
+    "text": "Je to tam.",
+    "kind": "example",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:33:47.048Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ea96fa531f94c855f5ab": {
+    "text": "Je to v taške.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:33:47.825Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "8a533e3450df37e665c6": {
+    "text": "Je tu niekto?",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:33:48.585Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4eb3cf5363ea11924f6f": {
+    "text": "Je zo školy.",
+    "kind": "example",
+    "bytes": 23449,
+    "generatedAt": "2026-08-08T18:33:49.329Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1215d8cec198cac73e5e": {
+    "text": "kam",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:33:50.069Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ed610483be15cc3d822c": {
+    "text": "Kam ideš?",
+    "kind": "example",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:33:50.811Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "70170848295f0d41868a": {
+    "text": "Kam to patrí?",
+    "kind": "example",
+    "bytes": 20942,
+    "generatedAt": "2026-08-08T18:33:51.587Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "5fe7d1afe114681be313": {
+    "text": "Káva s mliekom.",
+    "kind": "example",
+    "bytes": 24703,
+    "generatedAt": "2026-08-08T18:33:52.316Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "692b8efbc67187042c3d": {
+    "text": "každý",
+    "kind": "lemma",
+    "bytes": 19688,
+    "generatedAt": "2026-08-08T18:33:53.061Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3eb38e4385fbac763b45": {
+    "text": "Každý deň cvičím.",
+    "kind": "example",
+    "bytes": 26375,
+    "generatedAt": "2026-08-08T18:33:53.850Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "52ddf32e685508d4f61c": {
+    "text": "Každý to vie.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:33:54.582Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "46f80a59ab72efbc2f19": {
+    "text": "Kde je tvoj telefón?",
+    "kind": "example",
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T18:33:55.387Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "e0bd9df96aeef73e7ba9": {
+    "text": "keď",
+    "kind": "lemma",
+    "bytes": 17598,
+    "generatedAt": "2026-08-08T18:33:56.124Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "8b1f324bf63cb6a56504": {
+    "text": "Keď bolo pekne, išli sme von.",
+    "kind": "example",
+    "bytes": 35988,
+    "generatedAt": "2026-08-08T18:33:56.898Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d67bd5ef822182d1ee33": {
+    "text": "Keď prídeš, zavolaj.",
+    "kind": "example",
+    "bytes": 27629,
+    "generatedAt": "2026-08-08T18:33:57.707Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "12bc7193fa8f2473c23e": {
+    "text": "kedy",
+    "kind": "lemma",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:33:58.417Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "82c299d60a0a82adb7e8": {
+    "text": "Kedy prídeš?",
+    "kind": "example",
+    "bytes": 21777,
+    "generatedAt": "2026-08-08T18:33:59.173Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "15bbf1a6100717240959": {
+    "text": "Kedy to bolo?",
+    "kind": "example",
+    "bytes": 19688,
+    "generatedAt": "2026-08-08T18:33:59.935Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "a1945ff25142e7574572": {
+    "text": "Kniha je na stole.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:00.728Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4d9deb4fc3e149fd3ce6": {
+    "text": "Ktorá kniha sa ti páči?",
+    "kind": "example",
+    "bytes": 28465,
+    "generatedAt": "2026-08-08T18:34:01.505Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9de14037ada9055ad69e": {
+    "text": "ktorý",
+    "kind": "lemma",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:34:02.248Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "306f293afd82f8324c04": {
+    "text": "lebo",
+    "kind": "lemma",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:34:02.989Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "5360463ee7582a7d4f8c": {
+    "text": "Lebo som unavený.",
+    "kind": "example",
+    "bytes": 26375,
+    "generatedAt": "2026-08-08T18:34:03.759Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "55e3ba988aa21f415777": {
+    "text": "len",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:34:04.534Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "900933ce236f46a85f6c": {
+    "text": "Len jednu kávu, prosím.",
+    "kind": "example",
+    "bytes": 30137,
+    "generatedAt": "2026-08-08T18:34:05.394Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "52c590cd389f6e3b901c": {
+    "text": "Len trochu.",
+    "kind": "example",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:34:06.162Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "b7aa168c7ecaa67c6449": {
+    "text": "Mám svoju knihu.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:06.909Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "047fc70d2b1b792eebc8": {
+    "text": "Moja mama je tu.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:34:07.691Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "29fdfc959f829af35f01": {
+    "text": "môj",
+    "kind": "lemma",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:34:08.415Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ad77a0d8c1dcafd0e014": {
+    "text": "Muž, ktorý tam stojí, je môj brat.",
+    "kind": "example",
+    "bytes": 39750,
+    "generatedAt": "2026-08-08T18:34:09.241Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1cd98af8fe8523a735e7": {
+    "text": "my",
+    "kind": "lemma",
+    "bytes": 13836,
+    "generatedAt": "2026-08-08T18:34:09.975Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1dd7e2ff6bebe56e97ce": {
+    "text": "My ideme domov.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:34:10.688Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "ec6f44c0b00d75622a36": {
+    "text": "My sme priatelia.",
+    "kind": "example",
+    "bytes": 24285,
+    "generatedAt": "2026-08-08T18:34:11.474Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "e84dff2d1aeb29993a15": {
+    "text": "Myslím, že áno.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:34:12.236Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "0200bb628ed07a124150": {
+    "text": "na",
+    "kind": "lemma",
+    "bytes": 14254,
+    "generatedAt": "2026-08-08T18:34:13.325Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "368a90896bb3f6ced7eb": {
+    "text": "náš",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:34:14.069Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3b33eabb302f2cf146d5": {
+    "text": "Naša rodina je veľká.",
+    "kind": "example",
+    "bytes": 27629,
+    "generatedAt": "2026-08-08T18:34:14.800Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3b712ddaaf83a9a4a7d8": {
+    "text": "Nemám nič.",
+    "kind": "example",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:34:15.545Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9906004eace339db2059": {
+    "text": "Nemôžem, lebo nemám čas.",
+    "kind": "example",
+    "bytes": 30137,
+    "generatedAt": "2026-08-08T18:34:16.311Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "0f32fe97ffa6c830ccd4": {
+    "text": "Nešiel som, pretože som bol chorý.",
+    "kind": "example",
+    "bytes": 40586,
+    "generatedAt": "2026-08-08T18:34:17.477Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "635fa5bce551d0e7ad70": {
+    "text": "Neviem, či príde.",
+    "kind": "example",
+    "bytes": 24703,
+    "generatedAt": "2026-08-08T18:34:18.209Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3fe8c4c125d9fbdc0cab": {
+    "text": "nič",
+    "kind": "lemma",
+    "bytes": 15926,
+    "generatedAt": "2026-08-08T18:34:18.902Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "130c10474e207dfd2875": {
+    "text": "niečo",
+    "kind": "lemma",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:34:19.620Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "89b742b7180c447e1165": {
+    "text": "Niečo sa stalo.",
+    "kind": "example",
+    "bytes": 24285,
+    "generatedAt": "2026-08-08T18:34:20.362Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "da73ec0b41a9617c74bc": {
+    "text": "niekto",
+    "kind": "lemma",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:34:21.078Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6dedea87186351de640e": {
+    "text": "Niekto volá.",
+    "kind": "example",
+    "bytes": 19688,
+    "generatedAt": "2026-08-08T18:34:21.823Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "dd530ea9cd8abce1a102": {
+    "text": "nikto",
+    "kind": "lemma",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:34:22.575Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4958eb1dbf9c138e66ae": {
+    "text": "Nikto neprišiel.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:23.348Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c9a5a8e44158c66610c6": {
+    "text": "Nikto to nevie.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:24.133Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f0608a661718869b53b6": {
+    "text": "o",
+    "kind": "lemma",
+    "bytes": 12164,
+    "generatedAt": "2026-08-08T18:34:24.810Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d3e29cead9757bc317f4": {
+    "text": "O siedmej.",
+    "kind": "example",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:34:25.506Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "417a67f189398936d54a": {
+    "text": "od",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:34:26.194Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d220667da044d784fede": {
+    "text": "Od rána pracujem.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:26.982Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "14670ab16c89647f235e": {
+    "text": "odkiaľ",
+    "kind": "lemma",
+    "bytes": 20524,
+    "generatedAt": "2026-08-08T18:34:27.727Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "09cccd3f090470335de5": {
+    "text": "Odkiaľ ide tento vlak?",
+    "kind": "example",
+    "bytes": 28465,
+    "generatedAt": "2026-08-08T18:34:28.515Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1fdd9002b0e643e9a8cd": {
+    "text": "Odkiaľ si?",
+    "kind": "example",
+    "bytes": 20942,
+    "generatedAt": "2026-08-08T18:34:29.234Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "64bdf0c82e302b96d1b9": {
+    "text": "on",
+    "kind": "lemma",
+    "bytes": 15926,
+    "generatedAt": "2026-08-08T18:34:29.956Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6bc88ccab2574c21471b": {
+    "text": "On hovorí po anglicky.",
+    "kind": "example",
+    "bytes": 27211,
+    "generatedAt": "2026-08-08T18:34:30.706Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "72b4f40e7b02667f3022": {
+    "text": "ona",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:34:31.439Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "baaa38078ef0fcbc91de": {
+    "text": "Ona býva v Bratislave.",
+    "kind": "example",
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T18:34:32.228Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "88e638278c96dea69249": {
+    "text": "Ona je lekárka.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:32.992Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "181ed2adce73f07e2dd3": {
+    "text": "Ona tiež rozumie.",
+    "kind": "example",
+    "bytes": 27211,
+    "generatedAt": "2026-08-08T18:34:33.772Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "38a0a5f63d1ec8353964": {
+    "text": "oni",
+    "kind": "lemma",
+    "bytes": 17598,
+    "generatedAt": "2026-08-08T18:34:34.513Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c6c927025f5c34d3ff89": {
+    "text": "Oni prídu zajtra.",
+    "kind": "example",
+    "bytes": 27211,
+    "generatedAt": "2026-08-08T18:34:35.278Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4d0cad04e646cc4e7088": {
+    "text": "Oni sú študenti.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:35.995Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7db87f6a74785f7c0ecc": {
+    "text": "po",
+    "kind": "lemma",
+    "bytes": 15090,
+    "generatedAt": "2026-08-08T18:34:36.727Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "47070f8799f0d6fc6b53": {
+    "text": "Po obede idem spať.",
+    "kind": "example",
+    "bytes": 30137,
+    "generatedAt": "2026-08-08T18:34:37.527Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "79e40c2bc8da59e1e01c": {
+    "text": "Po slovensky.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:34:38.291Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "8348d6dbc8fe8b026747": {
+    "text": "pre",
+    "kind": "lemma",
+    "bytes": 15926,
+    "generatedAt": "2026-08-08T18:34:39.030Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "61199e4818e34ae536d3": {
+    "text": "prečo",
+    "kind": "lemma",
+    "bytes": 19688,
+    "generatedAt": "2026-08-08T18:34:39.733Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7bfb89b432d163942ebb": {
+    "text": "Prečo nie?",
+    "kind": "example",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:34:40.456Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "2afea8f1df4584a3a1c8": {
+    "text": "Prečo sa učíš slovenčinu?",
+    "kind": "example",
+    "bytes": 30973,
+    "generatedAt": "2026-08-08T18:34:41.259Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9cc1fe2e60dc9421743f": {
+    "text": "Prečo to robíš?",
+    "kind": "example",
+    "bytes": 23449,
+    "generatedAt": "2026-08-08T18:34:42.034Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "cccb49a6c1438a992cff": {
+    "text": "pretože",
+    "kind": "lemma",
+    "bytes": 19688,
+    "generatedAt": "2026-08-08T18:34:42.739Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "abae6040e009f9a71c95": {
+    "text": "Pretože prší, zostávam doma.",
+    "kind": "example",
+    "bytes": 38914,
+    "generatedAt": "2026-08-08T18:34:43.580Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "4fc3a3cd0944dba19c87": {
+    "text": "Rob si svoju prácu.",
+    "kind": "example",
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T18:34:44.386Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "124e800dce50434550f8": {
+    "text": "s",
+    "kind": "lemma",
+    "bytes": 12164,
+    "generatedAt": "2026-08-08T18:34:45.097Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "dddd579098a1eeb4ce10": {
+    "text": "so",
+    "kind": "lemma",
+    "bytes": 13836,
+    "generatedAt": "2026-08-08T18:34:45.804Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c3fe237bfd4c46c030fd": {
+    "text": "Som so sestrou.",
+    "kind": "example",
+    "bytes": 24703,
+    "generatedAt": "2026-08-08T18:34:46.579Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7fc555c62ccfb0f88650": {
+    "text": "Som tu.",
+    "kind": "example",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:34:47.315Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7cd3470ccf4f83d43381": {
+    "text": "Som v meste.",
+    "kind": "example",
+    "bytes": 21777,
+    "generatedAt": "2026-08-08T18:34:48.077Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "141630af871377170926": {
+    "text": "Som zo Slovenska.",
+    "kind": "example",
+    "bytes": 27211,
+    "generatedAt": "2026-08-08T18:34:48.845Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "125c4418816f0a0e4ab1": {
+    "text": "svoj",
+    "kind": "lemma",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:34:49.578Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "41d1d3a5c6eaff6f53a8": {
+    "text": "tam",
+    "kind": "lemma",
+    "bytes": 15926,
+    "generatedAt": "2026-08-08T18:34:50.295Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "0416fb2a22e82551bf51": {
+    "text": "Tam bývam.",
+    "kind": "example",
+    "bytes": 19688,
+    "generatedAt": "2026-08-08T18:34:51.044Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "0b3cf284c7ba3be577ee": {
+    "text": "ten",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:34:51.782Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c79c2d64e9fcaa77b907": {
+    "text": "Ten deň bol krásny.",
+    "kind": "example",
+    "bytes": 27211,
+    "generatedAt": "2026-08-08T18:34:52.506Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "71ea75bb503714c49eb0": {
+    "text": "Ten muž je učiteľ.",
+    "kind": "example",
+    "bytes": 28465,
+    "generatedAt": "2026-08-08T18:34:53.299Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "0cc2e1822991368ef9c0": {
+    "text": "tento",
+    "kind": "lemma",
+    "bytes": 19688,
+    "generatedAt": "2026-08-08T18:34:54.050Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "e647b118188c9d45104a": {
+    "text": "Tento človek je môj priateľ.",
+    "kind": "example",
+    "bytes": 36824,
+    "generatedAt": "2026-08-08T18:34:54.931Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f14faec57ecd7555a9cf": {
+    "text": "Tento dom je starý.",
+    "kind": "example",
+    "bytes": 23449,
+    "generatedAt": "2026-08-08T18:34:55.695Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "2756f708cb4512a911bb": {
+    "text": "tiež",
+    "kind": "lemma",
+    "bytes": 18852,
+    "generatedAt": "2026-08-08T18:34:56.422Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1baf74d4f13a63302bdd": {
+    "text": "to",
+    "kind": "lemma",
+    "bytes": 15090,
+    "generatedAt": "2026-08-08T18:34:57.103Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "c03e09c85fdd065d9cb9": {
+    "text": "To je pravda.",
+    "kind": "example",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:34:57.825Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d7d10618607021ec9667": {
+    "text": "Toto je môj dom.",
+    "kind": "example",
+    "bytes": 23449,
+    "generatedAt": "2026-08-08T18:34:58.536Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "d07d448d6f3920653702": {
+    "text": "Toto je pre teba.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:34:59.269Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "bf5eb443f24d1a8ac3c4": {
+    "text": "tu",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:35:00.009Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "619608f656951b743d04": {
+    "text": "Tu je toaleta.",
+    "kind": "example",
+    "bytes": 22613,
+    "generatedAt": "2026-08-08T18:35:00.771Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "95e168b4009c9960d42c": {
+    "text": "tvoj",
+    "kind": "lemma",
+    "bytes": 18016,
+    "generatedAt": "2026-08-08T18:35:01.511Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "24be5b3e3a9b772452d6": {
+    "text": "Tvoja sestra je milá.",
+    "kind": "example",
+    "bytes": 26375,
+    "generatedAt": "2026-08-08T18:35:02.234Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "123b8b436f96493a1cf6": {
+    "text": "ty",
+    "kind": "lemma",
+    "bytes": 14254,
+    "generatedAt": "2026-08-08T18:35:02.916Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "48e5f860849d732503bc": {
+    "text": "Ty si môj priateľ.",
+    "kind": "example",
+    "bytes": 25539,
+    "generatedAt": "2026-08-08T18:35:03.644Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6305c6d7a4f52ff5c829": {
+    "text": "v",
+    "kind": "lemma",
+    "bytes": 14254,
+    "generatedAt": "2026-08-08T18:35:04.341Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "1a314610172c0c633046": {
+    "text": "váš",
+    "kind": "lemma",
+    "bytes": 16762,
+    "generatedAt": "2026-08-08T18:35:05.060Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "48ebd9bcbe6bf4af0f20": {
+    "text": "Váš návrh je dobrý.",
+    "kind": "example",
+    "bytes": 27629,
+    "generatedAt": "2026-08-08T18:35:05.795Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "9cb82e412cccc4ce8bac": {
+    "text": "Vaša kancelária je tu.",
+    "kind": "example",
+    "bytes": 30137,
+    "generatedAt": "2026-08-08T18:35:06.587Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "e84bcb535de90b624ae2": {
+    "text": "Vlož to do tašky.",
+    "kind": "example",
+    "bytes": 26375,
+    "generatedAt": "2026-08-08T18:35:07.414Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "7c6ae39296ffae5ee726": {
+    "text": "vy",
+    "kind": "lemma",
+    "bytes": 15090,
+    "generatedAt": "2026-08-08T18:35:08.168Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "3bab04422d8a22581540": {
+    "text": "Vy ste z Kanady?",
+    "kind": "example",
+    "bytes": 24285,
+    "generatedAt": "2026-08-08T18:35:08.893Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "6e8070bae2b623156a82": {
+    "text": "Vyjdi z domu.",
+    "kind": "example",
+    "bytes": 20942,
+    "generatedAt": "2026-08-08T18:35:09.685Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "f13942985511b5b2d7e1": {
+    "text": "z",
+    "kind": "lemma",
+    "bytes": 13836,
+    "generatedAt": "2026-08-08T18:35:10.396Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "264464e68e24f37fda47": {
+    "text": "za",
+    "kind": "lemma",
+    "bytes": 15090,
+    "generatedAt": "2026-08-08T18:35:11.143Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "8d0a5af9df8cd4172ed7": {
+    "text": "Za týždeň prídem.",
+    "kind": "example",
+    "bytes": 27629,
+    "generatedAt": "2026-08-08T18:35:11.931Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "53161b466de186cb69d6": {
+    "text": "zo",
+    "kind": "lemma",
+    "bytes": 15090,
+    "generatedAt": "2026-08-08T18:35:12.611Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
+  },
+  "bc576c98ddb1f623d1a4": {
+    "text": "že",
+    "kind": "lemma",
+    "bytes": 14254,
+    "generatedAt": "2026-08-08T18:35:13.360Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   }
 }

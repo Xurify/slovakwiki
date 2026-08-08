@@ -2,12 +2,16 @@ import { normalizeSearchText } from "$lib/content/search-ui";
 
 import type { PagefindResultData } from "./pagefind-client";
 
-interface DictionaryIndexEntry {
+export interface DictionaryIndexEntry {
   category: string;
   english: string;
+  forms?: string[];
   slug: string;
   slovak: string;
 }
+
+/** Only promote dictionary hits at or above this score (exact lemma/form/prefix/gloss). */
+export const MIN_DICTIONARY_LOOKUP_SCORE = 3;
 
 let indexPromise: Promise<DictionaryIndexEntry[]> | null = null;
 
@@ -22,32 +26,37 @@ function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
 }
 
 function englishGlosses(english: string): string[] {
-  return english.split(";").map((gloss) => normalizeSearchText(gloss.trim()));
+  return english
+    .split(";")
+    .flatMap((segment) => segment.split(/\s+/))
+    .map((token) => normalizeSearchText(token.trim()))
+    .filter(Boolean);
 }
 
-function scoreEntry(entry: DictionaryIndexEntry, query: string): number {
-  const slovak = normalizeSearchText(entry.slovak);
-  const glosses = englishGlosses(entry.english);
-  const english = normalizeSearchText(entry.english);
+function normalizedForms(entry: DictionaryIndexEntry): string[] {
+  return (entry.forms ?? []).map((form) => normalizeSearchText(form));
+}
 
-  if (slovak === query) {
+/** @internal exported for unit tests */
+export function scoreDictionaryEntry(entry: DictionaryIndexEntry, query: string): number {
+  const slovak = normalizeSearchText(entry.slovak);
+  const forms = normalizedForms(entry);
+  const glosses = englishGlosses(entry.english);
+
+  if (slovak === query || forms.includes(query)) {
     return 5;
   }
 
-  if (slovak.startsWith(query)) {
+  if (slovak.startsWith(query) || forms.some((form) => form.startsWith(query))) {
     return 4;
   }
 
-  if (glosses.some((gloss) => gloss === query || gloss.startsWith(query))) {
+  if (glosses.some((gloss) => gloss === query)) {
     return 3;
   }
 
-  if (slovak.includes(query)) {
+  if (query.length > 3 && slovak.includes(query)) {
     return 2;
-  }
-
-  if (english.includes(query)) {
-    return 1;
   }
 
   return 0;
@@ -65,8 +74,8 @@ export async function lookupDictionary(
   const index = await loadDictionaryIndex();
 
   return index
-    .map((entry) => ({ entry, score: scoreEntry(entry, normalized) }))
-    .filter((result) => result.score > 0)
+    .map((entry) => ({ entry, score: scoreDictionaryEntry(entry, normalized) }))
+    .filter((result) => result.score >= MIN_DICTIONARY_LOOKUP_SCORE)
     .toSorted((first, second) => {
       if (second.score !== first.score) {
         return second.score - first.score;

@@ -8,7 +8,7 @@ import {
   filterBrowseEntries,
   parseBrowseSearchParams,
 } from "./dictionary-browse-utils";
-import { getDictionaryIndexEntries } from "./dictionary-browse";
+import { getDictionaryIndexEntries, buildDictionaryIndexSidecar } from "./dictionary-browse";
 
 describe("dictionary browse helpers", () => {
   it("builds query-string browse hrefs", () => {
@@ -91,5 +91,10 @@ describe("dictionary browse helpers", () => {
     expect(browseStateNeedsIndex({ topic: "verbs", letter: "all", page: 1 })).toBe(true);
     expect(browseStateNeedsIndex({ topic: "all", letter: "B", page: 1 })).toBe(true);
     expect(browseStateNeedsIndex({ topic: "all", letter: "all", page: 2 })).toBe(true);
+  });
+
+  it("includes conjugated forms on dictionary index sidecar entries", () => {
+    const byt = buildDictionaryIndexSidecar().find((entry) => entry.slug === "byt");
+    expect(byt?.forms).toContain("som");
   });
 });

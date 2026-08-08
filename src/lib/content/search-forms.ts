@@ -140,84 +140,81 @@ function personFromBase(
 }
 
 function conjugateVerb(lemma: string): string[] {
-  const lower = lemma.toLocaleLowerCase("sk");
+  const reflexive = lemma.toLocaleLowerCase("sk").endsWith(" sa");
+  const lower = reflexive
+    ? lemma.toLocaleLowerCase("sk").slice(0, -3)
+    : lemma.toLocaleLowerCase("sk");
   const irregular = IRREGULAR[lower];
-  if (irregular) return [...irregular];
+  if (irregular) {
+    return reflexive ? irregular.map((form) => `${form} sa`) : [...irregular];
+  }
 
-  if (!lower.endsWith("ť") || lower.length < 4) return [];
+  if (!lower.endsWith("ť") || lower.length < 3) return [];
+
+  let forms: string[] = [];
 
   if (lower.endsWith("ovať")) {
     const stem = lower.slice(0, -4);
-    return [
+    forms = [
       ...personFromBase(stem, ["ujem", "uješ", "uje", "ujeme", "ujete", "ujú"]),
       `${stem}oval`,
       `${stem}ovala`,
       `${stem}ovalo`,
       `${stem}ovali`,
     ];
-  }
-
-  if (lower.endsWith("ávať")) {
+  } else if (lower.endsWith("ávať")) {
     const stem = lower.slice(0, -4);
-    return [
+    forms = [
       ...personFromBase(stem, ["ávam", "ávaš", "áva", "ávame", "ávate", "ávajú"]),
       `${stem}ával`,
       `${stem}ávala`,
       `${stem}ávalo`,
       `${stem}ávali`,
     ];
-  }
-
-  if (lower.endsWith("núť")) {
+  } else if (lower.endsWith("núť")) {
     const stem = lower.slice(0, -3);
-    return [
+    forms = [
       ...personFromBase(stem, ["nem", "neš", "ne", "neme", "nete", "nú"]),
       `${stem}nul`,
       `${stem}nula`,
       `${stem}nulo`,
       `${stem}nuli`,
     ];
-  }
-
-  if (lower.endsWith("ieť")) {
+  } else if (lower.endsWith("ieť")) {
     const base = lower.slice(0, -1);
     const pastStem = lower.slice(0, -3);
-    return [
+    forms = [
       ...personFromBase(base, ["m", "š", "", "me", "te", "jú"]),
       `${pastStem}el`,
       `${pastStem}ela`,
       `${pastStem}elo`,
       `${pastStem}eli`,
     ];
-  }
-
-  if (lower.endsWith("iť")) {
+  } else if (lower.endsWith("iť")) {
     const stem = lower.slice(0, -2);
     const short = LONG_VOWEL.test(stem);
     const person = short
       ? personFromBase(stem, ["im", "iš", "i", "ime", "ite", "ia"])
       : personFromBase(stem, ["ím", "íš", "í", "íme", "íte", "ia"]);
-    return [...person, `${stem}il`, `${stem}ila`, `${stem}ilo`, `${stem}ili`];
-  }
-
-  if (lower.endsWith("ať")) {
+    forms = [...person, `${stem}il`, `${stem}ila`, `${stem}ilo`, `${stem}ili`];
+  } else if (lower.endsWith("ať")) {
     const stem = lower.slice(0, -2);
-    return [
+    forms = [
       ...personFromBase(stem, ["ám", "áš", "á", "áme", "áte", "ajú"]),
       `${stem}al`,
       `${stem}ala`,
       `${stem}alo`,
       `${stem}ali`,
     ];
-  }
-
-  if (lower.endsWith("eť") || lower.endsWith("yť") || lower.endsWith("uť")) {
+  } else if (lower.endsWith("eť") || lower.endsWith("yť") || lower.endsWith("uť")) {
     const base = lower.slice(0, -1);
-    return personFromBase(base, ["m", "š", "", "me", "te", "jú"]);
+    forms = personFromBase(base, ["m", "š", "", "me", "te", "jú"]);
+  } else {
+    const base = lower.slice(0, -1);
+    forms = personFromBase(base, ["m", "š", "", "me", "te", "jú"]);
   }
 
-  const base = lower.slice(0, -1);
-  return personFromBase(base, ["m", "š", "", "me", "te", "jú"]);
+  return reflexive ? forms.map((form) => `${form} sa`) : forms;
 }
 
 function adjectiveForms(lemma: string): string[] {

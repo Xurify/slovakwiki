@@ -111,11 +111,13 @@ function targetKey(target: AudioTarget, baseConfig: AudioConfig): string {
 /** Unique lemma + example Slovak strings from the live dictionary merge. */
 export function collectDictionaryAudioTargets(options?: {
   lemmasOnly?: boolean;
+  slugs?: Set<string>;
 }): AudioTarget[] {
   const byText = new Map<string, AudioTarget>();
 
   for (const entry of words) {
     if (entry.kind !== "word") continue;
+    if (options?.slugs && !options.slugs.has(entry.slug)) continue;
 
     const lemma = normalizeAudioText(entry.slovak);
     if (lemma) {
@@ -187,6 +189,7 @@ export function collectAudioTargets(
   options?: {
     lemmasOnly?: boolean;
     lessonsOnly?: boolean;
+    slugs?: Set<string>;
   },
   baseConfig?: AudioConfig,
 ): AudioTarget[] {
@@ -195,7 +198,10 @@ export function collectAudioTargets(
     return collectLessonAudioTargets(baseConfig);
   }
 
-  const dictionary = collectDictionaryAudioTargets({ lemmasOnly: options?.lemmasOnly });
+  const dictionary = collectDictionaryAudioTargets({
+    lemmasOnly: options?.lemmasOnly,
+    slugs: options?.slugs,
+  });
   if (options?.lemmasOnly || !baseConfig) return dictionary;
 
   return [...dictionary, ...collectLessonAudioTargets(baseConfig)];
@@ -222,6 +228,7 @@ export function parseArgs(argv: string[]): {
   missingOnly: boolean;
   offset: number;
   only: string | undefined;
+  slugs: Set<string> | undefined;
   retries: number;
   sttModel: string;
   sttProvider: "elevenlabs" | "whisper" | "dual";
@@ -237,6 +244,7 @@ export function parseArgs(argv: string[]): {
   let limit: number | undefined;
   let offset = 0;
   let only: string | undefined;
+  let slugs: Set<string> | undefined;
   let retries = 2;
   let sttProvider: "elevenlabs" | "whisper" | "dual" = "dual";
   let sttModel = "scribe_v2";
@@ -276,6 +284,17 @@ export function parseArgs(argv: string[]): {
     } else if (arg === "--only") {
       only = argv[i + 1];
       if (!only) throw new Error("--only requires a substring of the Slovak text");
+      i += 1;
+    } else if (arg === "--slugs") {
+      const raw = argv[i + 1];
+      if (!raw) throw new Error("--slugs requires comma-separated dictionary slugs");
+      slugs = new Set(
+        raw
+          .split(",")
+          .map((slug) => slug.trim())
+          .filter(Boolean),
+      );
+      if (slugs.size === 0) throw new Error("--slugs matched no slugs");
       i += 1;
     } else if (arg === "--stt") {
       const value = argv[i + 1];
@@ -321,6 +340,7 @@ export function parseArgs(argv: string[]): {
     missingOnly,
     offset,
     only,
+    slugs,
     retries,
     sttModel,
     sttProvider,

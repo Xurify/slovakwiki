@@ -48,6 +48,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         ...entry.tags,
         ...(entry.aliases ?? []),
         ...searchFormsForLemma(entry.slovak, entry.category),
+        ...entry.examples.flatMap((example) => [example.slovak, example.english]),
       ]),
     });
   }
@@ -69,6 +70,8 @@ export function buildSearchDocuments(): SearchDocument[] {
         ...(entry.aliases ?? []),
         ...entry.rule,
         ...entry.pattern.lines,
+        ...entry.body,
+        ...entry.examples.flatMap((example) => [example.slovak, example.english]),
       ]),
     });
   }
@@ -106,6 +109,8 @@ export function buildSearchDocuments(): SearchDocument[] {
         topic.question,
         topic.summary,
         ...topic.researchPrompts,
+        ...topic.body,
+        ...topic.examples.flatMap((example) => [example.slovak, example.english]),
       ]),
     });
   }

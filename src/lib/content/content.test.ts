@@ -78,6 +78,28 @@ describe("Slovak content", () => {
     expect(searchEntries("kupujem")[0]?.slug).toBe("kupovat");
   });
 
+  it("finds question words such as prečo and ktorý without diacritics", () => {
+    expect(searchEntries("preco")[0]?.slug).toBe("preco");
+    expect(searchEntries("ktory")[0]?.slug).toBe("ktory");
+    expect(searchEntries("ktorý")[0]?.slug).toBe("ktory");
+  });
+
+  it("indexes question words for Pagefind word documents", () => {
+    const documents = buildSearchDocuments();
+    const preco = documents.find((document) => document.url === "/dictionary/preco");
+    expect(preco).toBeDefined();
+    expect(normalizeSearchText(preco!.content)).toContain("preco");
+  });
+
+  it("indexes grammar and case examples for Pagefind", () => {
+    const documents = buildSearchDocuments();
+    const nominative = documents.find(
+      (document) => document.url === "/grammar/cases/nominative",
+    );
+    expect(nominative).toBeDefined();
+    expect(normalizeSearchText(nominative!.content)).toContain("peter cita knihu");
+  });
+
   it("indexes conjugated forms for Pagefind word documents", () => {
     const documents = buildSearchDocuments();
     const navstivit = documents.find(

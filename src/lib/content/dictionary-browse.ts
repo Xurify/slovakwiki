@@ -1,4 +1,5 @@
 import { words } from "$lib/content/data";
+import { searchFormsForLemma } from "$lib/content/search-forms";
 
 import {
   buildWikiViewFromEntries,
@@ -57,6 +58,7 @@ export function buildWikiPageView(
 export interface DictionaryIndexSidecarEntry {
   category: string;
   english: string;
+  forms?: string[];
   frequencyRank?: number;
   origin?: DictionaryIndexEntry["origin"];
   slug: string;
@@ -64,14 +66,18 @@ export interface DictionaryIndexSidecarEntry {
 }
 
 export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
-  return getDictionaryIndexEntries().map(
-    ({ slug, slovak, english, category, frequencyRank, origin }) => ({
-      slug,
-      slovak,
-      english,
-      category,
-      ...(frequencyRank !== undefined ? { frequencyRank } : {}),
-      ...(origin !== undefined ? { origin } : {}),
-    }),
-  );
+  return words.map((word) => {
+    const forms = searchFormsForLemma(word.slovak, word.category);
+    return {
+      slug: word.slug,
+      slovak: word.slovak,
+      english: word.english,
+      category: word.category,
+      ...(word.frequency?.rank !== undefined
+        ? { frequencyRank: word.frequency.rank }
+        : {}),
+      ...(word.origin !== undefined ? { origin: word.origin } : {}),
+      ...(forms.length > 0 ? { forms } : {}),
+    };
+  });
 }

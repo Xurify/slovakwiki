@@ -1,3 +1,4 @@
+import { curatedEssentialsSeed } from "./curated-essentials-seed";
 import lemmaFrequencyIndex from "../../../content/frequency/lemma-index.json";
 import dictionaryWords from "../../../content/dictionary/words.json";
 import { normalizeLemma } from "./frequency";
@@ -608,6 +609,7 @@ const curatedWordSeed: WordSeed[] = [
     ],
     related: ["stanica", "kolko"],
   },
+  ...curatedEssentialsSeed,
 ];
 
 const curatedSlugs = new Set(curatedWordSeed.map((word) => word.slug));

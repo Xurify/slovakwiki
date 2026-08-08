@@ -8,7 +8,7 @@ import { buildSearchDocuments } from "../../src/lib/content/search-documents";
 
 export async function writeSearchIndex(outputPaths: string[]): Promise<number> {
   const { index, errors: createErrors } = await pagefind.createIndex({
-    forceLanguage: "en",
+    forceLanguage: "sk",
     verbose: false,
   });
 
@@ -22,7 +22,7 @@ export async function writeSearchIndex(outputPaths: string[]): Promise<number> {
     const { errors } = await index.addCustomRecord({
       url: document.url,
       content: document.content,
-      language: "en",
+      language: "sk",
       meta: {
         title: document.title,
         kind: document.kind,
