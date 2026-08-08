@@ -46,8 +46,9 @@
     </header>
 
     <section class="scroll-mt-[88px] pt-10" aria-labelledby="scene-heading">
-      <Eyebrow>Start with the scene</Eyebrow>
-      <h2 id="scene-heading" class="mb-5">Read it once</h2>
+      <h2 id="scene-heading" class="mb-5 font-serif text-2xl text-slate-900">
+        Read it once
+      </h2>
       <LessonScene scene={data.lesson.scene} mountPrefix="scene" />
     </section>
 
@@ -55,8 +56,9 @@
       class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
       aria-labelledby="phrases-heading"
     >
-      <Eyebrow>Keep these in mind</Eyebrow>
-      <h2 id="phrases-heading" class="mb-5">Key phrases</h2>
+      <h2 id="phrases-heading" class="mb-5 font-serif text-2xl text-slate-900">
+        Key phrases
+      </h2>
       <KeyPhraseList phrases={data.lesson.keyPhrases} mountPrefix="phrase" />
     </section>
 
@@ -72,7 +74,9 @@
         aria-labelledby="visual-heading"
       >
         <Eyebrow>See the clock</Eyebrow>
-        <h2 id="visual-heading" class="mb-5">{data.lesson.visual.title}</h2>
+        <h2 id="visual-heading" class="mb-5 font-serif text-2xl text-slate-900">
+          {data.lesson.visual.title}
+        </h2>
         <ul
           class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-4 p-0"
         >
@@ -104,14 +108,14 @@
       class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
       aria-labelledby="practice-heading"
     >
-      <Eyebrow>Try it here</Eyebrow>
-      <h2 id="practice-heading" class="mb-5">Use the scene</h2>
+      <h2 id="practice-heading" class="mb-5 font-serif text-2xl text-slate-900">
+        Use the scene
+      </h2>
       {@render practice()}
     </section>
 
     <footer class="mt-14 border-t border-slate-200 pt-10">
-      <Eyebrow>Go deeper</Eyebrow>
-      <h2 class="mb-2">Reference</h2>
+      <h2 class="mb-2 font-serif text-2xl text-slate-900">Reference</h2>
       <nav class="mt-4" aria-label="Lesson reference links">
         {#each data.lesson.referenceLinks as link (link.href)}
           <a class={referenceLinkClass} href={link.href}>

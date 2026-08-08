@@ -21,6 +21,7 @@
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
+  import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
   import type { PracticeItem, PracticeTask } from "$lib/content/learning-types";
 
@@ -233,50 +234,19 @@
 {#snippet exerciseFooter()}
   {#if submitted}
     <div class="grid gap-4" bind:this={feedbackPanel} aria-live="polite" tabindex="-1">
-      <div class="grid gap-2">
-        {#if grade === "accents"}
-          <p class="m-0 text-sm font-semibold text-blue-900">
-            Almost — check the accents.
-          </p>
-        {:else if revealed || grade === "incorrect"}
-          <p class="m-0 text-sm font-semibold text-rose-900">Correct answer</p>
-        {/if}
-
-        {#if closeSuggestion}
-          <p class="m-0 text-sm text-slate-700">
-            Did you mean
-            <strong class="font-serif text-base text-slate-900" lang="sk">
-              {closeSuggestion}
-            </strong>?
-          </p>
-        {/if}
-
-        {#if showCorrection}
-          <p class="m-0 font-serif text-xl font-semibold text-slate-900" lang="sk">
-            {current.feedback.correction}
-          </p>
-        {/if}
-
-        {#if current.feedback.english}
-          <p class="m-0 text-sm text-slate-600">{current.feedback.english}</p>
-        {/if}
-
-        {#if current.feedback.why}
-          <p class="m-0 max-w-[65ch] text-sm leading-relaxed text-slate-700">
-            {current.feedback.why}
-          </p>
-        {/if}
-
-        {#if current.newUse}
-          <p class="m-0 text-sm text-blue-900">{current.newUse}</p>
-        {/if}
-
-        {#if task.type === "cloze" && task.lemmaId}
-          <TextLink class="text-sm" href={`/dictionary/${task.lemmaId}`}>
-            Open in dictionary
-          </TextLink>
-        {/if}
-      </div>
+      <PracticeExerciseFeedback
+        {closeSuggestion}
+        correction={current.feedback.correction}
+        english={current.feedback.english}
+        why={current.feedback.why}
+        newUse={current.newUse}
+        {grade}
+        {revealed}
+        {showCorrection}
+        dictionaryHref={task.type === "cloze" && task.lemmaId
+          ? `/dictionary/${task.lemmaId}`
+          : undefined}
+      />
 
       <Button
         class="{feedbackContinueClass()} w-full !text-white"
@@ -319,9 +289,7 @@
     class="max-w-[640px] border-l-4 border-emerald-600 bg-emerald-50 px-5 py-5"
     aria-labelledby="practice-finished-heading"
   >
-    <p class="m-0 text-xs font-semibold uppercase tracking-widest text-emerald-700">
-      Finished
-    </p>
+    <p class="m-0 text-sm font-semibold text-emerald-800">Finished</p>
 
     <h2
       id="practice-finished-heading"

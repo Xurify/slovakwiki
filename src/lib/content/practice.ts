@@ -210,7 +210,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-day-meeting",
       type: "build",
       practiceItemId: "everyday/day-meeting",
-      prompt: "Build: “We are meeting on Tuesday.”",
+      prompt: "We are meeting on Tuesday.",
       tiles: ["v", "Stretneme", "utorok.", "sa", "utorok."],
       answer: ["Stretneme", "sa", "v", "utorok."],
       feedback: {
@@ -417,7 +417,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-negative-verb-placement",
       type: "build",
       practiceItemId: "everyday/negative-verb-placement",
-      prompt: "Build: “I do not have time.”",
+      prompt: "I do not have time.",
       tiles: ["čas.", "Nie", "Nemám", "čas."],
       answer: ["Nemám", "čas."],
       feedback: {
@@ -443,7 +443,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-first-person-reading",
       type: "choice",
       practiceItemId: "grammar/first-person-reading",
-      prompt: "You are describing yourself. Which sentence means “I am reading a book”?",
+      prompt: "Which sentence means “I am reading a book”?",
       choices: [
         { id: "first-person", label: "Čítam knihu." },
         { id: "third-person", label: "Číta knihu." },
@@ -874,7 +874,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-choice-formal-speaking",
       type: "choice",
       practiceItemId: "grammar/choice-formal-speaking",
-      prompt: "You are speaking politely to one adult. Which question fits?",
+      prompt: "Which question fits?",
       choices: [
         { id: "formal", label: "Hovoríte po slovensky?" },
         { id: "informal", label: "Hovoríš po slovensky?" },
@@ -940,7 +940,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-build-we-reading",
       type: "build",
       practiceItemId: "grammar/build-we-reading",
-      prompt: "Build: “Today we are reading a book.”",
+      prompt: "Today we are reading a book.",
       tiles: ["knihu.", "Dnes", "čítame", "čítam"],
       answer: ["Dnes", "čítame", "knihu."],
       feedback: {
@@ -1242,7 +1242,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-nice-to-meet-you",
       type: "choice",
       practiceItemId: "everyday/nice-to-meet-you",
-      prompt: "Someone says Teší ma. Which reply means “Nice to meet you too”?",
+      prompt: "Which reply means “Nice to meet you too”?",
       choices: [
         { id: "too", label: "Aj mňa teší." },
         { id: "thanks", label: "Ďakujem za pomoc." },
@@ -1272,7 +1272,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-ask-origin",
       type: "build",
       practiceItemId: "everyday/ask-origin",
-      prompt: "Build the polite question: “Where are you from?”",
+      prompt: "Where are you from?",
       tiles: ["ste?", "Odkiaľ", "Som", "z"],
       answer: ["Odkiaľ", "ste?"],
       feedback: {

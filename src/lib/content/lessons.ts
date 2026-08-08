@@ -120,7 +120,7 @@ export const lessons: Lesson[] = [
         id: "meet-someone-name",
         type: "build",
         practiceItemId: "everyday/introduction",
-        prompt: "Anna has introduced herself. Build your reply.",
+        prompt: "Build your reply.",
         tiles: ["Alex.", "sa", "Dobrý deň.", "Volám"],
         answer: ["Dobrý deň.", "Volám", "sa", "Alex."],
         feedback: {
@@ -142,7 +142,7 @@ export const lessons: Lesson[] = [
             english: "Where are you from?",
           },
         ],
-        prompt: "Write: “I am from Canada.”",
+        prompt: "I am from Canada.",
         inputLabel: "Your Slovak answer",
         answer: "Som z Kanady.",
         feedback: {
@@ -252,7 +252,7 @@ export const lessons: Lesson[] = [
         id: "numbers-age",
         type: "choice",
         practiceItemId: "everyday/age-with-rokov",
-        prompt: "You are twenty-eight. What do you say?",
+        prompt: "I am twenty-eight years old.",
         choices: [
           { id: "age", label: "Mám dvadsaťosem rokov." },
           { id: "number", label: "Moje číslo je dvadsaťosem." },
@@ -269,7 +269,7 @@ export const lessons: Lesson[] = [
         id: "numbers-phone",
         type: "build",
         practiceItemId: "everyday/phone-number-digits",
-        prompt: "Build the phone-number answer.",
+        prompt: "My number is zero nine zero one.",
         tiles: ["jeden", "Moje", "číslo", "je", "nula", "deväť", "nula."],
         answer: ["Moje", "číslo", "je", "nula", "deväť", "nula.", "jeden"],
         feedback: {
@@ -283,7 +283,7 @@ export const lessons: Lesson[] = [
         type: "typed",
         task: "complete",
         practiceItemId: "everyday/simple-price",
-        prompt: "Write: “It costs five euros.”",
+        prompt: "It costs five euros.",
         inputLabel: "Your Slovak answer",
         answer: "Stojí to päť eur.",
         feedback: {
@@ -400,7 +400,7 @@ export const lessons: Lesson[] = [
         type: "typed",
         task: "complete",
         practiceItemId: "everyday/day-meeting",
-        prompt: "Write: “We will meet on Tuesday.”",
+        prompt: "We will meet on Tuesday.",
         inputLabel: "Your Slovak answer",
         answer: "Stretneme sa v utorok.",
         feedback: {
@@ -413,7 +413,7 @@ export const lessons: Lesson[] = [
         id: "days-meeting-time",
         type: "choice",
         practiceItemId: "everyday/meeting-time",
-        prompt: "Anna asks when you can meet at 3:00. What do you say?",
+        prompt: "At three o'clock.",
         choices: [
           { id: "three", label: "O tretej.", clock: { hour: 3, minute: 0 } },
           { id: "four", label: "O štvrtej.", clock: { hour: 4, minute: 0 } },
@@ -434,7 +434,7 @@ export const lessons: Lesson[] = [
         id: "days-half-past",
         type: "build",
         practiceItemId: "everyday/half-past-time",
-        prompt: "Build the answer for 2:30.",
+        prompt: "At two thirty.",
         tiles: ["tretej.", "O", "pol"],
         answer: ["O", "pol", "tretej."],
         feedback: {
@@ -447,7 +447,7 @@ export const lessons: Lesson[] = [
         id: "days-quarter-time",
         type: "choice",
         practiceItemId: "everyday/quarter-time",
-        prompt: "The film starts at 2:45. Which time do you say?",
+        prompt: "At quarter to three.",
         choices: [
           {
             id: "three-quarters",
@@ -553,7 +553,7 @@ export const lessons: Lesson[] = [
         id: "negation-refusal",
         type: "choice",
         practiceItemId: "everyday/negative-answer",
-        prompt: "You do not want coffee. What is a polite reply?",
+        prompt: "No, thank you.",
         choices: [
           { id: "no", label: "Nie, ďakujem." },
           { id: "yes", label: "Áno, ďakujem." },
@@ -571,7 +571,7 @@ export const lessons: Lesson[] = [
         type: "typed",
         task: "complete",
         practiceItemId: "everyday/not-understand",
-        prompt: "Write: “I do not understand.”",
+        prompt: "I do not understand.",
         inputLabel: "Your Slovak answer",
         answer: "Nerozumiem.",
         feedback: {
@@ -584,7 +584,7 @@ export const lessons: Lesson[] = [
         id: "negation-verb-placement",
         type: "build",
         practiceItemId: "everyday/negative-verb-placement",
-        prompt: "Build: “I do not have time.”",
+        prompt: "I do not have time.",
         tiles: ["čas.", "Nemám"],
         answer: ["Nemám", "čas."],
         feedback: {
@@ -830,7 +830,7 @@ export const lessons: Lesson[] = [
         id: "byt-ste",
         type: "build",
         practiceItemId: "grammar/byt-ste",
-        prompt: "Build the polite question: “Are you Alex?”",
+        prompt: "Are you Alex?",
         tiles: ["Alex?", "Ste"],
         answer: ["Ste", "Alex?"],
         feedback: {
@@ -844,7 +844,7 @@ export const lessons: Lesson[] = [
         type: "typed",
         task: "complete",
         practiceItemId: "grammar/byt-je-location",
-        prompt: "Write: “The café is here.”",
+        prompt: "The café is here.",
         inputLabel: "Your Slovak answer",
         answer: "Kaviareň je tu.",
         feedback: {
@@ -957,7 +957,7 @@ export const lessons: Lesson[] = [
         id: "mat-mas",
         type: "build",
         practiceItemId: "grammar/mat-mas",
-        prompt: "Build the informal question: “Do you have a card?”",
+        prompt: "Do you have a card?",
         tiles: ["kartu?", "Máš"],
         answer: ["Máš", "kartu?"],
         feedback: {
@@ -971,7 +971,7 @@ export const lessons: Lesson[] = [
         type: "typed",
         task: "complete",
         practiceItemId: "grammar/mat-nemam",
-        prompt: "Write: “I do not have cash.”",
+        prompt: "I do not have cash.",
         inputLabel: "Your Slovak answer",
         answer: "Nemám hotovosť.",
         feedback: {

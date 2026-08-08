@@ -1,6 +1,5 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import ClockIllustration from "$lib/components/ClockIllustration.svelte";
 
   import { tick } from "svelte";
@@ -14,7 +13,8 @@
   import { playAnswerSfx } from "$lib/client/sfx";
   import type { LessonExercise } from "$lib/content/learning-types";
   import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
-  import LessonScene from "./LessonScene.svelte";
+  import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
+  import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
 
   let {
     exercise,
@@ -34,6 +34,7 @@
   let feedbackPanel = $state<HTMLElement | null>(null);
 
   const graded = $derived(exercise.type !== "personal" ? exercise : null);
+  const hasContext = $derived(Boolean(exercise.context?.length));
   const builtTiles = $derived(
     graded?.type === "build" ? resolveBuiltTiles(graded.tiles, builtBankIndexes) : [],
   );
@@ -43,6 +44,7 @@
     if (graded.type === "build") return gradeBuild(builtTiles, graded.answer);
     return answersMatch(input, graded.answer, graded.acceptedAnswers);
   });
+  const showCorrection = $derived(submitted && (revealed || !correct));
   const canCheck = $derived.by(() => {
     if (!graded || submitted) return false;
     if (graded.type === "choice") return selectedId !== null;
@@ -106,7 +108,6 @@
   aria-labelledby="interaction-heading"
 >
   {#if exercise.type === "personal"}
-    <Eyebrow>Say it yourself</Eyebrow>
     <h2
       id="interaction-heading"
       class="font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
@@ -116,7 +117,7 @@
 
     {#if exercise.example}
       <p
-        class="mt-5 border-l-4 border-blue-600 bg-slate-50 px-4 py-3.5 font-serif text-lg text-blue-800"
+        class="mt-5 rounded-(--control-radius) border border-slate-200 bg-slate-50/80 px-4 py-3.5 font-serif text-lg text-slate-900"
         lang="sk"
       >
         {exercise.example}
@@ -125,30 +126,33 @@
 
     <Button class="mt-7" type="button" onclick={() => onresolve()}>I said it</Button>
   {:else}
-    <div class="flex items-start justify-between gap-3">
-      <Eyebrow>Your turn</Eyebrow>
+    <div class="flex items-start justify-end">
       <SfxMuteToggle />
     </div>
 
+    {#if hasContext}
+      <div class="mt-4 grid gap-4">
+        {#each exercise.context ?? [] as line (line.id)}
+          <PracticeDialogueBubble {line} audioSrcs={sceneAudioSrcs} />
+        {/each}
+      </div>
+    {/if}
+
     <h2
       id="interaction-heading"
-      class="font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
+      class="{hasContext
+        ? 'mt-5'
+        : 'mt-4'} m-0 font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
     >
       {exercise.prompt}
     </h2>
-
-    {#if exercise.context?.length}
-      <div class="mt-6">
-        <LessonScene scene={exercise.context} audioSrcs={sceneAudioSrcs} />
-      </div>
-    {/if}
 
     {#if exercise.type === "choice"}
       {@const hasClocks = exercise.choices.some((choice) => choice.clock)}
       <div
         class={hasClocks
-          ? "mt-7 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
-          : "mt-7 grid gap-2.5"}
+          ? "mt-6 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
+          : "mt-6 grid gap-2.5"}
         aria-label="Answer choices"
       >
         {#each exercise.choices as choice (choice.id)}
@@ -173,7 +177,7 @@
         {/each}
       </div>
     {:else if exercise.type === "build"}
-      <div class="mt-7 grid gap-3" aria-label="Build the sentence">
+      <div class="mt-6 grid gap-3" aria-label="Build the sentence">
         <div
           class="flex min-h-[calc(4.25rem+4px)] flex-wrap content-center gap-2 border border-slate-300 bg-slate-50 p-3.5"
           aria-live="polite"
@@ -212,10 +216,10 @@
         </div>
       </div>
     {:else}
-      <label class="mt-7 grid gap-2 text-xs font-bold text-slate-600">
+      <label class="mt-6 grid gap-2 text-sm font-medium text-slate-600">
         <span>{exercise.inputLabel}</span>
         <input
-          class="min-h-[50px] w-full border border-slate-300 bg-control px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+          class="min-h-[50px] w-full rounded-(--control-radius) border border-slate-300 bg-control px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
           bind:value={input}
           disabled={submitted}
           autocomplete="off"
@@ -228,50 +232,45 @@
     {#if submitted}
       <div
         bind:this={feedbackPanel}
-        class={`mt-7 grid gap-1.5 border-l-4 px-5 py-4 ${correct ? "border-emerald-600 bg-emerald-50" : "border-rose-600 bg-rose-50"}`}
+        class={`mt-6 grid gap-2 rounded-(--control-radius) border px-4 py-3.5 ${correct ? "border-emerald-200 bg-emerald-50" : "border-rose-200 bg-rose-50"}`}
         aria-live="polite"
         tabindex="-1"
       >
-        <p class="m-0 text-xs font-bold uppercase tracking-wide text-slate-600">
-          {correct ? "That works." : "Try this."}
-        </p>
-
-        {#if exercise.feedback.correction}
-          <strong class="font-serif text-lg text-slate-900" lang="sk">
-            {exercise.feedback.correction}
-          </strong>
-        {/if}
-        {#if exercise.feedback.english}
-          <small class="text-slate-500">{exercise.feedback.english}</small>
-        {/if}
-        <span class="mt-1.5 max-w-[67ch] font-serif leading-relaxed text-slate-700">
-          {exercise.feedback.why}
-        </span>
+        <PracticeExerciseFeedback
+          correction={exercise.feedback.correction}
+          english={exercise.feedback.english}
+          why={exercise.feedback.why}
+          grade={correct ? "correct" : revealed ? "incorrect" : "incorrect"}
+          revealed={revealed || !correct}
+          {showCorrection}
+        />
       </div>
 
-      <Button class="mt-7" type="button" onclick={continueLesson}>Continue</Button>
+      <Button class="mt-6" type="button" onclick={continueLesson}>Continue</Button>
     {:else}
       <div
-        class="mt-7 flex items-center gap-4 max-[560px]:flex-col max-[560px]:items-stretch"
+        class="mt-6 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between"
       >
+        {#if exercise.type === "typed"}
+          <button
+            class="border-0 bg-transparent py-1 text-sm font-semibold text-blue-800 underline underline-offset-2"
+            type="button"
+            onclick={reveal}
+          >
+            Reveal answer
+          </button>
+        {:else}
+          <span aria-hidden="true"></span>
+        {/if}
+
         <Button
-          class="mt-0 max-[560px]:w-full"
+          class="w-full sm:min-w-36 sm:w-auto"
           type="button"
           disabled={!canCheck}
           onclick={check}
         >
           Check
         </Button>
-
-        {#if exercise.type === "typed"}
-          <button
-            class="cursor-pointer border-0 bg-transparent text-xs font-bold text-blue-800 underline underline-offset-2"
-            type="button"
-            onclick={reveal}
-          >
-            Reveal answer
-          </button>
-        {/if}
       </div>
     {/if}
   {/if}

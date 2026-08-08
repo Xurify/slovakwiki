@@ -22,9 +22,7 @@
     <article
       class="grid grid-cols-[5.5rem_2rem_minmax(0,1fr)_minmax(10rem,0.65fr)] items-center gap-x-3 gap-y-1 border-b border-slate-200 px-3 py-3.5 odd:bg-slate-50 max-[640px]:grid-cols-[5.5rem_2rem_minmax(0,1fr)] max-[640px]:gap-y-1"
     >
-      <span class="text-xs font-semibold uppercase tracking-wide text-blue-700">
-        {line.speaker}
-      </span>
+      <span class="text-xs font-medium text-slate-500">{line.speaker}</span>
 
       {#if mountPrefix}
         <span
