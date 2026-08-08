@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import DictionaryCommonSearch from "$lib/components/DictionaryCommonSearch.svelte";
+import DictionaryCommonClient from "$lib/components/DictionaryCommonClient.svelte";
 import DictionaryCommonPage from "$lib/pages/DictionaryCommonPage.svelte";
 import { words } from "$lib/content/data";
 import { findLiveWordForLemma } from "$lib/content/frequency";
@@ -65,9 +65,9 @@ const tabs = (["verb", "noun", "adjective", "adverb"] as const).map((value) => (
     sourceUrl={sourceList.sourceUrl}
     totalCount={entries.length}
   >
-    <DictionaryCommonSearch
+    <DictionaryCommonClient
       client:load
-      slot="search"
+      slot="client"
       {partOfSpeech}
       totalCount={entries.length}
     />

@@ -30,20 +30,20 @@
   }
 
   interface Props {
+    client?: Snippet;
     initialEntries: CompactFrequencyEntry[];
     liveByLemma: Record<string, LiveLink>;
     partOfSpeech: FrequencyPartOfSpeech;
-    search?: Snippet;
     sourceUrl: string;
     tabs: Tab[];
     totalCount: number;
   }
 
   let {
+    client,
     initialEntries,
     liveByLemma,
     partOfSpeech,
-    search,
     sourceUrl,
     tabs,
     totalCount,
@@ -78,11 +78,7 @@
       </Lead>
     </header>
 
-    <div class="mt-10">
-      {#if search}
-        {@render search()}
-      {/if}
-    </div>
+    <div class="mt-10" data-common-filter></div>
 
     <div
       class="mt-8 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 border-b border-slate-200"
@@ -143,6 +139,12 @@
         </li>
       {/each}
     </ol>
+
+    <div data-common-list-controls></div>
+
+    {#if client}
+      {@render client()}
+    {/if}
 
     <footer class="mt-14 border-t border-slate-200 pt-8 text-sm text-slate-500">
       <p>
