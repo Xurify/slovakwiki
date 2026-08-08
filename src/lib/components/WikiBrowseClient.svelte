@@ -7,6 +7,7 @@
     buildBrowseQueryHref,
     buildPageItems,
     buildWikiViewFromEntries,
+    browseStateNeedsIndex,
     DICTIONARY_PAGE_SIZE,
     hasActiveBrowseFilters,
     parseBrowseSearchParams,
@@ -34,6 +35,10 @@
     entries ? buildWikiViewFromEntries(entries, topic, letter, page) : initialData,
   );
 
+  const showDefaultSsrList = $derived(
+    !entries && !loadError && !browseStateNeedsIndex({ topic, letter, page }),
+  );
+
   const pageItems = $derived(buildPageItems(view.page, view.totalPages));
   const hasActiveFilters = $derived(hasActiveBrowseFilters(topic, letter));
 
@@ -46,9 +51,11 @@
   );
 
   const chipClass = (active: boolean): string =>
-    `cursor-pointer ${active
-      ? "border-blue-800 bg-blue-800 text-white"
-      : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"}`;
+    `cursor-pointer ${
+      active
+        ? "border-blue-800 bg-blue-800 text-white"
+        : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"
+    }`;
 
   const pagerLinkClass =
     "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
@@ -126,8 +133,10 @@
 
       entries = data;
       syncFromUrl(new URL(window.location.href));
+      document.documentElement.classList.remove("dictionary-browse-pending");
     } catch {
       loadError = "Browse filters need the dictionary index. Reload or try again.";
+      document.documentElement.classList.remove("dictionary-browse-pending");
     }
   }
 
@@ -291,12 +300,20 @@
 {/if}
 
 <div id="wiki-results" class="mt-0">
-  {#if !entries && !loadError}
-    <div class="sr-only" aria-live="polite">Loading browse index…</div>
-  {/if}
+  <div
+    id="wiki-results-pending"
+    class="flex min-h-48 items-center justify-center py-8"
+    aria-hidden={showDefaultSsrList || Boolean(entries) || Boolean(loadError)}
+  >
+    <DotLoader label="Loading dictionary browse…" />
+  </div>
 
-  {#if view.visibleEntries.length}
-    <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
+  {#if showDefaultSsrList && view.visibleEntries.length}
+    <ul
+      id="wiki-default-results"
+      class="m-0 list-none p-0"
+      aria-label="Dictionary entries"
+    >
       {#each view.visibleEntries as entry (entry.slug)}
         <li>
           <a class={rowLinkClass} href="/dictionary/{entry.slug}">
@@ -318,7 +335,11 @@
     </ul>
 
     {#if view.totalPages > 1}
-      <nav class="mt-8 flex flex-col items-center gap-3" aria-label="Dictionary pages">
+      <nav
+        id="wiki-default-pager"
+        class="mt-8 flex flex-col items-center gap-3"
+        aria-label="Dictionary pages"
+      >
         <div class="flex flex-wrap items-center justify-center gap-1.5">
           {#if view.page > 1}
             {#if entries}
@@ -398,19 +419,97 @@
       </nav>
     {/if}
   {:else if entries}
-    <div class="py-16 text-center">
-      <h2 class="text-xl">No matches</h2>
-      <p class="mt-2 text-sm text-slate-500">
-        Try a shorter search or reset the filters.
-      </p>
-      <button
-        class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
-        type="button"
-        onclick={resetFilters}
-      >
-        Show all entries
-      </button>
-    </div>
+    {#if view.visibleEntries.length}
+      <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
+        {#each view.visibleEntries as entry (entry.slug)}
+          <li>
+            <a class={rowLinkClass} href="/dictionary/{entry.slug}">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                  <strong class="font-serif text-lg text-blue-800" lang="sk">
+                    {entry.slovak}
+                  </strong>
+                  <span class="text-xs text-slate-400">{entry.category}</span>
+                </div>
+                <span class="mt-0.5 block text-[0.95rem] leading-snug text-slate-600">
+                  {entry.english}
+                </span>
+              </div>
+              <ArrowRight class="mt-1.5 shrink-0 text-blue-800" />
+            </a>
+          </li>
+        {/each}
+      </ul>
+
+      {#if view.totalPages > 1}
+        <nav class="mt-8 flex flex-col items-center gap-3" aria-label="Dictionary pages">
+          <div class="flex flex-wrap items-center justify-center gap-1.5">
+            {#if view.page > 1}
+              <button
+                class="{pagerLinkClass} {chipClass(false)}"
+                type="button"
+                onclick={() => selectPage(view.page - 1)}
+              >
+                Previous
+              </button>
+            {:else}
+              <span
+                class="{pagerLinkClass} {chipClass(false)} pointer-events-none opacity-40"
+                aria-hidden="true"
+              >
+                Previous
+              </span>
+            {/if}
+
+            {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
+              {#if item === "gap"}
+                <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
+              {:else}
+                <button
+                  class="{pagerLinkClass} {chipClass(item === view.page)}"
+                  type="button"
+                  aria-current={item === view.page ? "page" : undefined}
+                  onclick={() => selectPage(item)}
+                >
+                  {item}
+                </button>
+              {/if}
+            {/each}
+
+            {#if view.page < view.totalPages}
+              <button
+                class="{pagerLinkClass} {chipClass(false)}"
+                type="button"
+                onclick={() => selectPage(view.page + 1)}
+              >
+                Next
+              </button>
+            {:else}
+              <span
+                class="{pagerLinkClass} {chipClass(false)} pointer-events-none opacity-40"
+                aria-hidden="true"
+              >
+                Next
+              </span>
+            {/if}
+          </div>
+        </nav>
+      {/if}
+    {:else}
+      <div class="py-16 text-center">
+        <h2 class="text-xl">No matches</h2>
+        <p class="mt-2 text-sm text-slate-500">
+          Try a shorter search or reset the filters.
+        </p>
+        <button
+          class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
+          type="button"
+          onclick={resetFilters}
+        >
+          Show all entries
+        </button>
+      </div>
+    {/if}
   {:else if loadError}
     <div class="flex min-h-24 items-center justify-center py-8">
       <DotLoader label="Browse index unavailable" />

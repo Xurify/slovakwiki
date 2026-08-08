@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildBrowseQueryHref,
+  browseStateNeedsIndex,
   buildPageItems,
   buildWikiViewFromEntries,
   filterBrowseEntries,
@@ -17,21 +18,28 @@ describe("dictionary browse helpers", () => {
     expect(buildBrowseQueryHref("nouns", "all", 3)).toBe(
       "/dictionary?topic=nouns&page=3",
     );
-    expect(buildBrowseQueryHref("all", "B", 1)).toBe("/dictionary?letter=B");
+    expect(buildBrowseQueryHref("all", "B", 1)).toBe("/dictionary?letter=b");
     expect(buildBrowseQueryHref("nouns", "B", 2)).toBe(
-      "/dictionary?topic=nouns&letter=B&page=2",
+      "/dictionary?topic=nouns&letter=b&page=2",
     );
     expect(
       new URL(
         buildBrowseQueryHref("verbs", "Č", 1),
         "https://slovak.wiki",
       ).searchParams.get("letter"),
-    ).toBe("Č");
+    ).toBe("č");
   });
 
   it("parses browse query params", () => {
     expect(
       parseBrowseSearchParams(new URLSearchParams("topic=nouns&letter=B&page=2")),
+    ).toEqual({
+      topic: "nouns",
+      letter: "B",
+      page: 2,
+    });
+    expect(
+      parseBrowseSearchParams(new URLSearchParams("topic=nouns&letter=b&page=2")),
     ).toEqual({
       topic: "nouns",
       letter: "B",
@@ -76,5 +84,12 @@ describe("dictionary browse helpers", () => {
   it("builds compact pager windows", () => {
     expect(buildPageItems(1, 3)).toEqual([1, 2, 3]);
     expect(buildPageItems(5, 10)).toEqual([1, "gap", 4, 5, 6, "gap", 10]);
+  });
+
+  it("detects when browse state needs the index sidecar", () => {
+    expect(browseStateNeedsIndex({ topic: "all", letter: "all", page: 1 })).toBe(false);
+    expect(browseStateNeedsIndex({ topic: "verbs", letter: "all", page: 1 })).toBe(true);
+    expect(browseStateNeedsIndex({ topic: "all", letter: "B", page: 1 })).toBe(true);
+    expect(browseStateNeedsIndex({ topic: "all", letter: "all", page: 2 })).toBe(true);
   });
 });

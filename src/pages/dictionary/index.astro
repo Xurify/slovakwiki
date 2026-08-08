@@ -9,6 +9,36 @@ const initialData = buildWikiPageView("all", "all", 1);
 
 <link rel="preload" href="/dictionary/index.json" as="fetch" crossorigin />
 
+<style is:inline>
+  #wiki-results-pending {
+    display: none;
+  }
+
+  html.js.dictionary-browse-pending #wiki-default-results,
+  html.js.dictionary-browse-pending #wiki-default-pager {
+    display: none;
+  }
+
+  html.js.dictionary-browse-pending #wiki-results-pending {
+    display: flex;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    document.documentElement.classList.add("js");
+    var params = new URLSearchParams(window.location.search);
+
+    if (
+      params.get("topic") ||
+      params.get("letter") ||
+      (params.get("page") && params.get("page") !== "1")
+    ) {
+      document.documentElement.classList.add("dictionary-browse-pending");
+    }
+  })();
+</script>
+
 <SiteLayout
   title="Dictionary — Slovak Wiki"
   description="Look up Slovak words by letter, part of speech, or English meaning."

@@ -12,6 +12,8 @@
   let { pathname, query = "" }: { pathname: string; query?: string } = $props();
 
   let menuOpen = $state(false);
+  let referenceMenuOpen = $state(false);
+  let referenceDetailsEl = $state<HTMLDetailsElement | null>(null);
   let headerEl = $state<HTMLElement | null>(null);
   let headerOffset = $state(72);
 
@@ -69,6 +71,35 @@
     window.addEventListener("resize", onResize);
 
     return () => window.removeEventListener("resize", onResize);
+  });
+
+  $effect(() => {
+    if (!referenceMenuOpen) {
+      return;
+    }
+
+    function onPointerDown(event: PointerEvent): void {
+      const target = event.target;
+      if (!(target instanceof Node) || referenceDetailsEl?.contains(target)) {
+        return;
+      }
+
+      referenceMenuOpen = false;
+    }
+
+    function onKeydown(event: KeyboardEvent): void {
+      if (event.key === "Escape") {
+        referenceMenuOpen = false;
+      }
+    }
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeydown);
+
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeydown);
+    };
   });
 
   $effect(() => {
@@ -136,7 +167,11 @@
         </a>
       {/each}
 
-      <details class="group relative">
+      <details
+        bind:this={referenceDetailsEl}
+        bind:open={referenceMenuOpen}
+        class="group relative"
+      >
         <summary
           class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-strong) marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
             ? 'text-(--accent-strong)'

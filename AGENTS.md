@@ -135,7 +135,7 @@ let { heroSearch }: { heroSearch: Snippet } = $props();
 
 ### Browse / list pages (CWV)
 
-Dictionary browse and common frequency lists are **link-navigated static HTML** with small islands:
+Dictionary browse and common frequency lists use **SSR shells with small islands**:
 
 - **Do:** SSR shell + first page of rows; hydrate `WikiBrowseClient` for instant filter/pagination via `/dictionary/index.json`; use query params on `/dictionary` for shareable state.
 - **Don't:** pass full `words` into HTML; pre-generate hundreds of browse subroutes; `client:load` the page shell.
@@ -146,7 +146,6 @@ Dictionary browse and common frequency lists are **link-navigated static HTML** 
 
 Page **is** the interactive app (filters, player, kabinet), not static chrome with a widget:
 
-- `/dictionary` (`WikiPage`) — browse/filter/paginate
 - `/dictionary/common/[partOfSpeech]` — filter + show-more list
 - `/lessons` (`LessonsKabinetLayout`) — keyboard rail + localStorage progress
 - `/practice/[set]`, `/practice/reference/…` — `PracticePlayer`

@@ -85,7 +85,7 @@ export function parseBrowseSearchParams(params: URLSearchParams): BrowseQuerySta
   const topicParam = params.get("topic") ?? "all";
   const topic = isBrowseTopicSlug(topicParam) ? topicParam : "all";
   const letterParam = params.get("letter");
-  const letter = letterParam?.trim() ? letterParam : "all";
+  const letter = letterParam?.trim() ? letterParam.toLocaleUpperCase("sk") : "all";
   const page = Math.max(1, Number.parseInt(params.get("page") ?? "1", 10) || 1);
 
   return { topic, letter, page };
@@ -103,7 +103,7 @@ export function buildBrowseQueryHref(
   }
 
   if (letter !== "all") {
-    params.set("letter", letter);
+    params.set("letter", letter.toLocaleLowerCase("sk"));
   }
 
   if (page > 1) {
@@ -228,4 +228,8 @@ export function hasActiveBrowseFilters(topic: BrowseTopicSlug, letter: string): 
 
 export function resetBrowseHref(): string {
   return "/dictionary";
+}
+
+export function browseStateNeedsIndex(state: BrowseQueryState): boolean {
+  return state.topic !== "all" || state.letter !== "all" || state.page > 1;
 }

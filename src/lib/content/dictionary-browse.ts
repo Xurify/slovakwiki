@@ -15,6 +15,7 @@ export {
   buildTopicOptions,
   buildWikiViewFromEntries,
   browseLetters,
+  browseStateNeedsIndex,
   DICTIONARY_PAGE_SIZE,
   filterBrowseEntries,
   hasActiveBrowseFilters,
