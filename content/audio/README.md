@@ -8,12 +8,12 @@ MP3s live under `static/audio/` (gitignored) or R2 in production.
 
 All dictionary + lesson synthesis uses the top-level block in `config.json`:
 
-| Field          | Value                                                                             |
-| -------------- | --------------------------------------------------------------------------------- |
-| Provider       | ElevenLabs                                                                        |
-| Model          | `eleven_flash_v2_5`                                                             |
-| Language hint  | `sk`                                                                              |
-| Format         | `mp3_44100_128`                                                                   |
+| Field          | Value                                                                          |
+| -------------- | ------------------------------------------------------------------------------ |
+| Provider       | ElevenLabs                                                                     |
+| Model          | `eleven_flash_v2_5`                                                            |
+| Language hint  | `sk`                                                                           |
+| Format         | `mp3_44100_128`                                                                |
 | Voice settings | stability `0.5`, similarityBoost `0.75`, style `0`, speed `1`, useSpeakerBoost |
 
 Hash material includes provider + voiceId + model + settings + normalized text. Change voice or settings → new hash → regen.
@@ -22,15 +22,15 @@ Hash material includes provider + voiceId + model + settings + normalized text. 
 
 Limits are **concurrent in-flight TTS requests**, not requests-per-minute. Over the cap → queue (~50ms) then HTTP **429**. Flash/Turbo get **2×** the slots of Multilingual v2 / other models.
 
-| Plan | Flash / Turbo concurrency | Other models (e.g. Multilingual v2) | Monthly credits (API pricing page) |
-| ---- | ------------------------: | ----------------------------------: | ---------------------------------: |
-| Free | 4 | 2 | (free tier) |
-| Starter | 6 | 3 | (see pricing) |
-| Creator | 10 | 5 | 121k |
-| **Pro** (this project) | **20** | **10** | **500k** |
-| Scale | 30 | 15 | 1.8M |
-| Business | 30 | 15 | 6M |
-| Enterprise | Elevated | Elevated | Custom |
+| Plan                   | Flash / Turbo concurrency | Other models (e.g. Multilingual v2) | Monthly credits (API pricing page) |
+| ---------------------- | ------------------------: | ----------------------------------: | ---------------------------------: |
+| Free                   |                         4 |                                   2 |                        (free tier) |
+| Starter                |                         6 |                                   3 |                      (see pricing) |
+| Creator                |                        10 |                                   5 |                               121k |
+| **Pro** (this project) |                    **20** |                              **10** |                           **500k** |
+| Scale                  |                        30 |                                  15 |                               1.8M |
+| Business               |                        30 |                                  15 |                                 6M |
+| Enterprise             |                  Elevated |                            Elevated |                             Custom |
 
 **Generate defaults:** `--concurrency 16` (Pro Flash headroom under 20). With `--verify`, script caps at **4** so Scribe STT does not starve TTS.
 
@@ -48,13 +48,13 @@ Credits ≈ characters billed per model (Flash is cheaper/char than Multilingual
 
 ### Official docs (source of truth — numbers drift)
 
-| Topic | Link |
-| ----- | ---- |
-| TTS concurrency by plan | [How many TTS requests…?](https://help.elevenlabs.io/hc/en-us/articles/14312733311761-How-many-Text-to-Speech-requests-can-I-make-and-can-I-increase-it) |
-| Models + concurrency table | [Models overview](https://elevenlabs.io/docs/overview/models) |
-| Why concurrency ≠ RPM | [AI rate limiting for voice](https://elevenlabs.io/blog/ai-rate-limiting-for-voice) |
-| Plans / credits / pricing | [elevenlabs.io/pricing](https://elevenlabs.io/pricing) |
-| Flash v2.5 model | [Models overview](https://elevenlabs.io/docs/overview/models) |
+| Topic                      | Link                                                                                                                                                     |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TTS concurrency by plan    | [How many TTS requests…?](https://help.elevenlabs.io/hc/en-us/articles/14312733311761-How-many-Text-to-Speech-requests-can-I-make-and-can-I-increase-it) |
+| Models + concurrency table | [Models overview](https://elevenlabs.io/docs/overview/models)                                                                                            |
+| Why concurrency ≠ RPM      | [AI rate limiting for voice](https://elevenlabs.io/blog/ai-rate-limiting-for-voice)                                                                      |
+| Plans / credits / pricing  | [elevenlabs.io/pricing](https://elevenlabs.io/pricing)                                                                                                   |
+| Flash v2.5 model           | [Models overview](https://elevenlabs.io/docs/overview/models)                                                                                            |
 
 Re-check the help article before changing `--concurrency` after a plan upgrade/downgrade.
 

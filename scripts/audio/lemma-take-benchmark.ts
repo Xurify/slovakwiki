@@ -90,7 +90,12 @@ async function main(): Promise<void> {
 
       if (variant.id === "production") {
         const hash = audioHash(entry.slovak);
-        const prodPath = path.join(ROOT, "static", "audio", audioObjectKey("lemma", hash));
+        const prodPath = path.join(
+          ROOT,
+          "static",
+          "audio",
+          audioObjectKey("lemma", hash),
+        );
         const { copyFile } = await import("node:fs/promises");
         await copyFile(prodPath, filePath).catch(() => {
           throw new Error(`missing production file for ${slug}`);

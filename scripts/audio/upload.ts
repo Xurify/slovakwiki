@@ -140,84 +140,88 @@ async function main(): Promise<void> {
       `${lemmasOnly ? " [lemmas]" : ""}${examplesOnly ? " [examples]" : ""}${lessonsOnly ? " [lessons]" : ""}`,
   );
 
-  await mapPool(keys, dryRun ? Math.min(uploadConcurrency, 64) : uploadConcurrency, async (objectKey) => {
-    const hash = path.basename(objectKey, ".mp3");
-    const filePath = path.join(AUDIO_DIR, objectKey);
-    const entry = manifest[hash];
-    const kind: AudioKind = entry?.kind ?? kindFromObjectKey(objectKey);
+  await mapPool(
+    keys,
+    dryRun ? Math.min(uploadConcurrency, 64) : uploadConcurrency,
+    async (objectKey) => {
+      const hash = path.basename(objectKey, ".mp3");
+      const filePath = path.join(AUDIO_DIR, objectKey);
+      const entry = manifest[hash];
+      const kind: AudioKind = entry?.kind ?? kindFromObjectKey(objectKey);
 
-    if (entry?.uploadedAt && !force) {
-      skipped += 1;
-      return;
-    }
-
-    if (dryRun) {
-      console.log(`[dry-run] ${objectKey}`);
-      uploaded += 1;
-      return;
-    }
-
-    try {
-      const body = await readFile(filePath);
-      const info = await stat(filePath);
-      const generatedAt = entry?.generatedAt ?? new Date().toISOString();
-      const metadata = buildAudioObjectMetadata({
-        config,
-        generatedAt,
-        hash,
-        kind,
-        text: entry?.text ?? "",
-      });
-
-      const headers: Record<string, string> = {
-        "Content-Type": "audio/mpeg",
-        "Cache-Control": AUDIO_CACHE_CONTROL,
-        "Content-Disposition": "inline",
-      };
-
-      for (const [key, value] of Object.entries(metadata)) {
-        headers[`x-amz-meta-${key}`] = value;
+      if (entry?.uploadedAt && !force) {
+        skipped += 1;
+        return;
       }
 
-      const url = `https://${endpointHost}/${bucket}/${objectKey}`;
-      const response = await aws.fetch(url, {
-        method: "PUT",
-        headers,
-        body,
-      });
-
-      if (!response.ok) {
-        const detail = (await response.text()).slice(0, 500);
-        throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
-      }
-
-      await withManifestLock(async () => {
-        if (entry) {
-          entry.bytes = info.size;
-          entry.uploadedAt = new Date().toISOString();
-        } else {
-          manifest[hash] = {
-            text: "",
-            kind,
-            bytes: info.size,
-            generatedAt,
-            uploadedAt: new Date().toISOString(),
-          };
-        }
+      if (dryRun) {
+        console.log(`[dry-run] ${objectKey}`);
         uploaded += 1;
-        sinceSave += 1;
-        console.log(`ok ${uploaded} ${objectKey} (${info.size} B)`);
-        if (sinceSave >= 100) {
-          await saveManifest(manifest);
-          sinceSave = 0;
+        return;
+      }
+
+      try {
+        const body = await readFile(filePath);
+        const info = await stat(filePath);
+        const generatedAt = entry?.generatedAt ?? new Date().toISOString();
+        const metadata = buildAudioObjectMetadata({
+          config,
+          generatedAt,
+          hash,
+          kind,
+          text: entry?.text ?? "",
+        });
+
+        const headers: Record<string, string> = {
+          "Content-Type": "audio/mpeg",
+          "Cache-Control": AUDIO_CACHE_CONTROL,
+          "Content-Disposition": "inline",
+        };
+
+        for (const [key, value] of Object.entries(metadata)) {
+          headers[`x-amz-meta-${key}`] = value;
         }
-      });
-    } catch (error) {
-      failed += 1;
-      const message = error instanceof Error ? error.message : String(error);
-      console.error(`fail ${objectKey}: ${message}`);
-    }
-  });
+
+        const url = `https://${endpointHost}/${bucket}/${objectKey}`;
+        const response = await aws.fetch(url, {
+          method: "PUT",
+          headers,
+          body,
+        });
+
+        if (!response.ok) {
+          const detail = (await response.text()).slice(0, 500);
+          throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
+        }
+
+        await withManifestLock(async () => {
+          if (entry) {
+            entry.bytes = info.size;
+            entry.uploadedAt = new Date().toISOString();
+          } else {
+            manifest[hash] = {
+              text: "",
+              kind,
+              bytes: info.size,
+              generatedAt,
+              uploadedAt: new Date().toISOString(),
+            };
+          }
+          uploaded += 1;
+          sinceSave += 1;
+          console.log(`ok ${uploaded} ${objectKey} (${info.size} B)`);
+          if (sinceSave >= 100) {
+            await saveManifest(manifest);
+            sinceSave = 0;
+          }
+        });
+      } catch (error) {
+        failed += 1;
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`fail ${objectKey}: ${message}`);
+      }
+    },
+  );
 
   if (!dryRun) {
     await saveManifest(manifest);

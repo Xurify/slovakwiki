@@ -70,7 +70,9 @@ function parsePruneArgs(argv: string[]): {
       limit = Math.floor(value);
       i += 1;
     } else if (arg === "--help" || arg === "-h") {
-      console.log(`Usage: bun scripts/audio/prune-orphans.ts [--delete] [--r2] [--local-only] [--limit N]`);
+      console.log(
+        `Usage: bun scripts/audio/prune-orphans.ts [--delete] [--r2] [--local-only] [--limit N]`,
+      );
       process.exit(0);
     }
   }
@@ -133,7 +135,9 @@ async function main(): Promise<void> {
   if (dryRun || orphans.length === 0) {
     if (dryRun && orphans.length > 0) {
       console.log("\nNext: bun scripts/audio/prune-orphans.ts -- --delete");
-      console.log("      bun scripts/audio/prune-orphans.ts -- --delete --r2   # also DELETE on R2");
+      console.log(
+        "      bun scripts/audio/prune-orphans.ts -- --delete --r2   # also DELETE on R2",
+      );
       console.log("      bun scripts/audio/prune-orphans.ts -- --delete --local-only");
     }
     return;

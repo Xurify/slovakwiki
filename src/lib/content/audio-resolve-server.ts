@@ -1,11 +1,6 @@
 import audioManifest from "../../../content/audio/manifest.json";
 
-import {
-  audioHash,
-  audioObjectKey,
-  resolveAudioSrc,
-  type AudioKind,
-} from "./audio";
+import { audioHash, audioObjectKey, resolveAudioSrc, type AudioKind } from "./audio";
 
 type ManifestEntry = { generatedAt?: string };
 

@@ -222,11 +222,16 @@ async function main(): Promise<void> {
       }
 
       for (const attempt of attempts) {
-        audio = await synthesizeElevenLabs(target.synthText ?? target.text, voiceConfig, apiKey, {
-          modelId: attempt.modelId,
-          seed: attempt.seed,
-          languageCode: voiceConfig.languageCode,
-        });
+        audio = await synthesizeElevenLabs(
+          target.synthText ?? target.text,
+          voiceConfig,
+          apiKey,
+          {
+            modelId: attempt.modelId,
+            seed: attempt.seed,
+            languageCode: voiceConfig.languageCode,
+          },
+        );
         await writeFile(filePath, audio);
 
         if (!verify) break;
@@ -312,7 +317,11 @@ async function main(): Promise<void> {
     }
   }
 
-  await mapPool(targets, dryRun ? Math.min(effectiveConcurrency, 32) : effectiveConcurrency, processTarget);
+  await mapPool(
+    targets,
+    dryRun ? Math.min(effectiveConcurrency, 32) : effectiveConcurrency,
+    processTarget,
+  );
 
   if (!dryRun) {
     await persistManifest();
