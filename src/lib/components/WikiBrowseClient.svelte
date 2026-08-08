@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
 
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import {
     buildBrowseQueryHref,
     buildPageItems,
@@ -11,57 +11,149 @@
     DICTIONARY_PAGE_SIZE,
     hasActiveBrowseFilters,
     parseBrowseSearchParams,
-    resetBrowseHref,
+    type BrowseQueryState,
     type BrowseTopicSlug,
     type DictionaryIndexEntry,
     type WikiPageView,
   } from "$lib/content/dictionary-browse-utils";
 
   const INDEX_URL = "/dictionary/index.json";
+  const SKELETON_ROWS = 8;
 
-  let { initialData }: { initialData: WikiPageView } = $props();
+  let {
+    initialData,
+    initialBrowse,
+  }: { initialData: WikiPageView; initialBrowse: BrowseQueryState } = $props();
 
-  const initialTopic = initialData.topic;
-  const initialLetter = initialData.letter;
-  const initialPage = initialData.page;
+  function readBootState(): BrowseQueryState {
+    if (typeof window === "undefined") {
+      return initialBrowse;
+    }
+
+    return parseBrowseSearchParams(new URL(window.location.href).searchParams);
+  }
+
+  const bootState = readBootState();
 
   let entries = $state<DictionaryIndexEntry[] | null>(null);
   let loadError = $state("");
-  let topic = $state(initialTopic);
-  let letter = $state(initialLetter);
-  let page = $state(initialPage);
+  let canAnimateList = $state(false);
+  let hasUsedClientBrowse = $state(false);
+  let topic = $state(bootState.topic);
+  let letter = $state(bootState.letter);
+  let page = $state(bootState.page);
+
+  function matchesInitialView(
+    nextTopic: BrowseTopicSlug,
+    nextLetter: string,
+    nextPage: number,
+  ): boolean {
+    return (
+      nextTopic === initialBrowse.topic &&
+      nextLetter === initialBrowse.letter &&
+      nextPage === initialBrowse.page
+    );
+  }
+
+  const needsFilteredIndex = $derived(browseStateNeedsIndex({ topic, letter, page }));
 
   const view = $derived(
-    entries ? buildWikiViewFromEntries(entries, topic, letter, page) : initialData,
+    entries && (hasUsedClientBrowse || !matchesInitialView(topic, letter, page))
+      ? buildWikiViewFromEntries(entries, topic, letter, page)
+      : matchesInitialView(topic, letter, page)
+        ? initialData
+        : {
+            ...initialData,
+            topic,
+            letter,
+            page,
+            totalCount: 0,
+            totalPages: 1,
+            visibleEntries: [],
+          },
   );
 
-  const showDefaultSsrList = $derived(
-    !entries && !loadError && !browseStateNeedsIndex({ topic, letter, page }),
+  const waitingForFilteredView = $derived(
+    !entries &&
+      !loadError &&
+      !matchesInitialView(topic, letter, page) &&
+      needsFilteredIndex,
+  );
+
+  const topicOptions = $derived(
+    !hasUsedClientBrowse && matchesInitialView(topic, letter, page)
+      ? initialData.topicOptions
+      : view.topicOptions,
+  );
+
+  const alphabetLetters = $derived(
+    !hasUsedClientBrowse && matchesInitialView(topic, letter, page)
+      ? initialData.letters
+      : view.letters,
+  );
+
+  const listKey = $derived(
+    `${topic}-${letter}-${page}-${waitingForFilteredView ? "loading" : "ready"}`,
   );
 
   const pageItems = $derived(buildPageItems(view.page, view.totalPages));
-  const hasActiveFilters = $derived(hasActiveBrowseFilters(topic, letter));
+  const displayTopic = $derived(view.topic);
+  const displayLetter = $derived(view.letter);
+  const hasActiveFilters = $derived(hasActiveBrowseFilters(displayTopic, displayLetter));
 
   const rangeFrom = $derived((view.page - 1) * DICTIONARY_PAGE_SIZE + 1);
   const rangeTo = $derived(
     (view.page - 1) * DICTIONARY_PAGE_SIZE + view.visibleEntries.length,
   );
   const rangeLabel = $derived(
-    view.totalCount === 0 ? "0 results" : `${rangeFrom}–${rangeTo} of ${view.totalCount}`,
+    waitingForFilteredView
+      ? "Loading…"
+      : view.totalCount === 0
+        ? "0 results"
+        : `${rangeFrom}–${rangeTo} of ${view.totalCount}`,
   );
 
   const chipClass = (active: boolean): string =>
-    `cursor-pointer ${
+    `cursor-pointer rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color] duration-150 ${
       active
         ? "border-blue-800 bg-blue-800 text-white"
         : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"
     }`;
+
+  const letterChipClass = (active: boolean): string =>
+    `flex h-8 min-w-8 cursor-pointer items-center justify-center rounded-full border px-2 text-xs font-semibold transition-[color,background-color,border-color] duration-150 ${
+      active
+        ? "border-blue-800 bg-blue-800 text-white"
+        : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"
+    }`;
+
+  const pagerChipClass = (active: boolean): string =>
+    active
+      ? "border-blue-800 bg-blue-800 text-white"
+      : "border-slate-300 bg-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900";
 
   const pagerLinkClass =
     "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
 
   const rowLinkClass =
     "group flex items-start justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-3.5 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_55%,transparent)]";
+
+  const indexPromise: Promise<DictionaryIndexEntry[]> | null =
+    typeof window !== "undefined"
+      ? fetch(INDEX_URL).then(async (response) => {
+          if (!response.ok) {
+            throw new Error("Index unavailable");
+          }
+
+          const data = (await response.json()) as DictionaryIndexEntry[];
+
+          if (!Array.isArray(data)) {
+            throw new Error("Index malformed");
+          }
+
+          return data;
+        })
+      : null;
 
   function syncFromUrl(url: URL): void {
     const next = parseBrowseSearchParams(url.searchParams);
@@ -75,6 +167,7 @@
     nextLetter: string,
     nextPage: number,
   ): void {
+    hasUsedClientBrowse = true;
     topic = nextTopic;
     letter = nextLetter;
     page = nextPage;
@@ -84,68 +177,49 @@
   }
 
   function selectTopic(nextTopic: BrowseTopicSlug): void {
-    if (!entries) {
-      return;
-    }
-
     pushBrowseState(nextTopic, letter, 1);
   }
 
   function selectLetter(nextLetter: string): void {
-    if (!entries) {
-      return;
-    }
-
     pushBrowseState(topic, nextLetter, 1);
   }
 
   function selectPage(nextPage: number): void {
-    if (!entries) {
-      return;
-    }
-
     pushBrowseState(topic, letter, nextPage);
   }
 
   function resetFilters(): void {
-    if (!entries) {
-      return;
-    }
-
     pushBrowseState("all", "all", 1);
   }
 
   async function loadIndex(): Promise<void> {
+    if (!indexPromise) {
+      return;
+    }
+
     loadError = "";
 
     try {
-      const response = await fetch(INDEX_URL);
-
-      if (!response.ok) {
-        throw new Error("Index unavailable");
-      }
-
-      const data = (await response.json()) as DictionaryIndexEntry[];
-
-      if (!Array.isArray(data)) {
-        throw new Error("Index malformed");
-      }
-
-      entries = data;
-      syncFromUrl(new URL(window.location.href));
-      document.documentElement.classList.remove("dictionary-browse-pending");
+      entries = await indexPromise;
     } catch {
       loadError = "Browse filters need the dictionary index. Reload or try again.";
-      document.documentElement.classList.remove("dictionary-browse-pending");
     }
   }
 
   onMount(() => {
-    syncFromUrl(new URL(window.location.href));
     void loadIndex();
+
+    const enableListAnimation = (): void => {
+      canAnimateList = true;
+    };
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(enableListAnimation);
+    });
 
     const onPopState = (): void => {
       syncFromUrl(new URL(window.location.href));
+      hasUsedClientBrowse = !matchesInitialView(topic, letter, page);
     };
 
     window.addEventListener("popstate", onPopState);
@@ -181,31 +255,16 @@
 </div>
 
 <nav class="mt-6 flex flex-wrap gap-1.5" aria-label="Filter dictionary by category">
-  {#each view.topicOptions as option (option.slug)}
-    {#if entries}
-      <button
-        class="rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors {chipClass(
-          topic === option.slug,
-        )}"
-        type="button"
-        aria-current={topic === option.slug ? "true" : undefined}
-        onclick={() => selectTopic(option.slug)}
-      >
-        {option.label}
-        <span class="ml-1 opacity-70">{option.count}</span>
-      </button>
-    {:else}
-      <a
-        class="rounded-full border px-3 py-1.5 text-xs font-semibold no-underline transition-colors {chipClass(
-          topic === option.slug,
-        )}"
-        href={buildBrowseQueryHref(option.slug, letter, 1)}
-        aria-current={topic === option.slug ? "true" : undefined}
-      >
-        {option.label}
-        <span class="ml-1 opacity-70">{option.count}</span>
-      </a>
-    {/if}
+  {#each topicOptions as option (option.slug)}
+    <button
+      class={chipClass(displayTopic === option.slug)}
+      type="button"
+      aria-current={displayTopic === option.slug ? "true" : undefined}
+      onclick={() => selectTopic(option.slug)}
+    >
+      {option.label}
+      <span class="ml-1 opacity-70">{option.count}</span>
+    </button>
   {/each}
 </nav>
 
@@ -214,53 +273,25 @@
   class="mt-4 flex flex-wrap gap-1"
   aria-label="Filter dictionary by first letter"
 >
-  {#if entries}
+  <button
+    class={letterChipClass(displayLetter === "all")}
+    type="button"
+    aria-current={displayLetter === "all" ? "true" : undefined}
+    onclick={() => selectLetter("all")}
+  >
+    All
+  </button>
+
+  {#each alphabetLetters as letterOption (letterOption)}
     <button
-      class="flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-semibold transition-colors {chipClass(
-        letter === 'all',
-      )}"
+      class={letterChipClass(displayLetter === letterOption)}
       type="button"
-      aria-current={letter === "all" ? "true" : undefined}
-      onclick={() => selectLetter("all")}
+      aria-current={displayLetter === letterOption ? "true" : undefined}
+      onclick={() => selectLetter(letterOption)}
     >
-      All
+      {letterOption}
     </button>
-
-    {#each view.letters as letterOption (letterOption)}
-      <button
-        class="flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-semibold transition-colors {chipClass(
-          letter === letterOption,
-        )}"
-        type="button"
-        aria-current={letter === letterOption ? "true" : undefined}
-        onclick={() => selectLetter(letterOption)}
-      >
-        {letterOption}
-      </button>
-    {/each}
-  {:else}
-    <a
-      class="flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-semibold no-underline transition-colors {chipClass(
-        letter === 'all',
-      )}"
-      href={buildBrowseQueryHref(topic, "all", 1)}
-      aria-current={letter === "all" ? "true" : undefined}
-    >
-      All
-    </a>
-
-    {#each view.letters as letterOption (letterOption)}
-      <a
-        class="flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-xs font-semibold no-underline transition-colors {chipClass(
-          letter === letterOption,
-        )}"
-        href={buildBrowseQueryHref(topic, letterOption, 1)}
-        aria-current={letter === letterOption ? "true" : undefined}
-      >
-        {letterOption}
-      </a>
-    {/each}
-  {/if}
+  {/each}
 </nav>
 
 <div
@@ -276,22 +307,13 @@
   </p>
 
   {#if hasActiveFilters}
-    {#if entries}
-      <button
-        class="cursor-pointer text-xs font-semibold text-blue-800 underline underline-offset-2"
-        type="button"
-        onclick={resetFilters}
-      >
-        Reset filters
-      </button>
-    {:else}
-      <a
-        class="text-xs font-semibold text-blue-800 underline underline-offset-2"
-        href={resetBrowseHref()}
-      >
-        Reset filters
-      </a>
-    {/if}
+    <button
+      class="cursor-pointer text-xs font-semibold text-blue-800 underline underline-offset-2"
+      type="button"
+      onclick={resetFilters}
+    >
+      Reset filters
+    </button>
   {/if}
 </div>
 
@@ -299,220 +321,127 @@
   <p class="mt-4 text-sm text-rose-800" role="alert">{loadError}</p>
 {/if}
 
-<div id="wiki-results" class="mt-0">
-  <div
-    id="wiki-results-pending"
-    class="flex min-h-48 items-center justify-center py-8"
-    aria-hidden={showDefaultSsrList || Boolean(entries) || Boolean(loadError)}
-  >
-    <DotLoader label="Loading dictionary browse…" />
-  </div>
-
-  {#if showDefaultSsrList && view.visibleEntries.length}
-    <ul
-      id="wiki-default-results"
-      class="m-0 list-none p-0"
-      aria-label="Dictionary entries"
+<div id="wiki-results" class="mt-0 min-h-[24rem]">
+  {#key listKey}
+    <div
+      in:fade={canAnimateList ? { duration: 140 } : undefined}
+      out:fade={canAnimateList ? { duration: 100 } : undefined}
     >
-      {#each view.visibleEntries as entry (entry.slug)}
-        <li>
-          <a class={rowLinkClass} href="/dictionary/{entry.slug}">
-            <div class="min-w-0">
-              <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
-                <strong class="font-serif text-lg text-blue-800" lang="sk">
-                  {entry.slovak}
-                </strong>
-                <span class="text-xs text-slate-400">{entry.category}</span>
-              </div>
-              <span class="mt-0.5 block text-[0.95rem] leading-snug text-slate-600">
-                {entry.english}
-              </span>
-            </div>
-            <ArrowRight class="mt-1.5 shrink-0 text-blue-800" />
-          </a>
-        </li>
-      {/each}
-    </ul>
-
-    {#if view.totalPages > 1}
-      <nav
-        id="wiki-default-pager"
-        class="mt-8 flex flex-col items-center gap-3"
-        aria-label="Dictionary pages"
-      >
-        <div class="flex flex-wrap items-center justify-center gap-1.5">
-          {#if view.page > 1}
-            {#if entries}
-              <button
-                class="{pagerLinkClass} {chipClass(false)}"
-                type="button"
-                onclick={() => selectPage(view.page - 1)}
-              >
-                Previous
-              </button>
-            {:else}
-              <a
-                class="{pagerLinkClass} {chipClass(false)} no-underline"
-                href={buildBrowseQueryHref(topic, letter, view.page - 1)}
-              >
-                Previous
-              </a>
-            {/if}
-          {:else}
-            <span
-              class="{pagerLinkClass} {chipClass(false)} pointer-events-none opacity-40"
-              aria-hidden="true"
-            >
-              Previous
-            </span>
-          {/if}
-
-          {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
-            {#if item === "gap"}
-              <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
-            {:else if entries}
-              <button
-                class="{pagerLinkClass} {chipClass(item === view.page)}"
-                type="button"
-                aria-current={item === view.page ? "page" : undefined}
-                onclick={() => selectPage(item)}
-              >
-                {item}
-              </button>
-            {:else}
-              <a
-                class="{pagerLinkClass} {chipClass(item === view.page)} no-underline"
-                href={buildBrowseQueryHref(topic, letter, item)}
-                aria-current={item === view.page ? "page" : undefined}
-              >
-                {item}
-              </a>
-            {/if}
-          {/each}
-
-          {#if view.page < view.totalPages}
-            {#if entries}
-              <button
-                class="{pagerLinkClass} {chipClass(false)}"
-                type="button"
-                onclick={() => selectPage(view.page + 1)}
-              >
-                Next
-              </button>
-            {:else}
-              <a
-                class="{pagerLinkClass} {chipClass(false)} no-underline"
-                href={buildBrowseQueryHref(topic, letter, view.page + 1)}
-              >
-                Next
-              </a>
-            {/if}
-          {:else}
-            <span
-              class="{pagerLinkClass} {chipClass(false)} pointer-events-none opacity-40"
-              aria-hidden="true"
-            >
-              Next
-            </span>
-          {/if}
-        </div>
-      </nav>
-    {/if}
-  {:else if entries}
-    {#if view.visibleEntries.length}
-      <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
-        {#each view.visibleEntries as entry (entry.slug)}
-          <li>
-            <a class={rowLinkClass} href="/dictionary/{entry.slug}">
-              <div class="min-w-0">
-                <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
-                  <strong class="font-serif text-lg text-blue-800" lang="sk">
-                    {entry.slovak}
-                  </strong>
-                  <span class="text-xs text-slate-400">{entry.category}</span>
-                </div>
-                <span class="mt-0.5 block text-[0.95rem] leading-snug text-slate-600">
-                  {entry.english}
-                </span>
-              </div>
-              <ArrowRight class="mt-1.5 shrink-0 text-blue-800" />
-            </a>
-          </li>
-        {/each}
-      </ul>
-
-      {#if view.totalPages > 1}
-        <nav class="mt-8 flex flex-col items-center gap-3" aria-label="Dictionary pages">
-          <div class="flex flex-wrap items-center justify-center gap-1.5">
-            {#if view.page > 1}
-              <button
-                class="{pagerLinkClass} {chipClass(false)}"
-                type="button"
-                onclick={() => selectPage(view.page - 1)}
-              >
-                Previous
-              </button>
-            {:else}
-              <span
-                class="{pagerLinkClass} {chipClass(false)} pointer-events-none opacity-40"
-                aria-hidden="true"
-              >
-                Previous
-              </span>
-            {/if}
-
-            {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
-              {#if item === "gap"}
-                <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
-              {:else}
-                <button
-                  class="{pagerLinkClass} {chipClass(item === view.page)}"
-                  type="button"
-                  aria-current={item === view.page ? "page" : undefined}
-                  onclick={() => selectPage(item)}
-                >
-                  {item}
-                </button>
-              {/if}
-            {/each}
-
-            {#if view.page < view.totalPages}
-              <button
-                class="{pagerLinkClass} {chipClass(false)}"
-                type="button"
-                onclick={() => selectPage(view.page + 1)}
-              >
-                Next
-              </button>
-            {:else}
-              <span
-                class="{pagerLinkClass} {chipClass(false)} pointer-events-none opacity-40"
-                aria-hidden="true"
-              >
-                Next
-              </span>
-            {/if}
-          </div>
-        </nav>
-      {/if}
-    {:else}
-      <div class="py-16 text-center">
-        <h2 class="text-xl">No matches</h2>
-        <p class="mt-2 text-sm text-slate-500">
-          Try a shorter search or reset the filters.
-        </p>
-        <button
-          class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
-          type="button"
-          onclick={resetFilters}
+      {#if waitingForFilteredView}
+        <ul
+          class="m-0 list-none p-0"
+          aria-busy="true"
+          aria-label="Loading dictionary entries"
         >
-          Show all entries
-        </button>
-      </div>
-    {/if}
-  {:else if loadError}
-    <div class="flex min-h-24 items-center justify-center py-8">
-      <DotLoader label="Browse index unavailable" />
+          {#each Array.from({ length: SKELETON_ROWS }, (_, index) => index) as row (row)}
+            <li class="border-b border-slate-200 -mx-4 px-4 py-3.5">
+              <div
+                class="h-5 w-[38%] max-w-48 animate-pulse rounded bg-slate-200/70"
+              ></div>
+              <div
+                class="mt-2.5 h-4 w-[62%] max-w-md animate-pulse rounded bg-slate-100"
+              ></div>
+            </li>
+          {/each}
+        </ul>
+      {:else if view.visibleEntries.length}
+        <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
+          {#each view.visibleEntries as entry (entry.slug)}
+            <li>
+              <a class={rowLinkClass} href="/dictionary/{entry.slug}">
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                    <strong class="font-serif text-lg text-blue-800" lang="sk">
+                      {entry.slovak}
+                    </strong>
+                    <span class="text-xs text-slate-400">{entry.category}</span>
+                  </div>
+                  <span class="mt-0.5 block text-[0.95rem] leading-snug text-slate-600">
+                    {entry.english}
+                  </span>
+                </div>
+                <ArrowRight class="mt-1.5 shrink-0 text-blue-800" />
+              </a>
+            </li>
+          {/each}
+        </ul>
+
+        {#if view.totalPages > 1}
+          <nav
+            class="mt-8 flex flex-col items-center gap-3"
+            aria-label="Dictionary pages"
+          >
+            <div class="flex flex-wrap items-center justify-center gap-1.5">
+              {#if view.page > 1}
+                <button
+                  class="{pagerLinkClass} {pagerChipClass(false)}"
+                  type="button"
+                  onclick={() => selectPage(view.page - 1)}
+                >
+                  Previous
+                </button>
+              {:else}
+                <span
+                  class="{pagerLinkClass} {pagerChipClass(
+                    false,
+                  )} pointer-events-none opacity-40"
+                  aria-hidden="true"
+                >
+                  Previous
+                </span>
+              {/if}
+
+              {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
+                {#if item === "gap"}
+                  <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
+                {:else}
+                  <button
+                    class="{pagerLinkClass} {pagerChipClass(item === view.page)}"
+                    type="button"
+                    aria-current={item === view.page ? "page" : undefined}
+                    onclick={() => selectPage(item)}
+                  >
+                    {item}
+                  </button>
+                {/if}
+              {/each}
+
+              {#if view.page < view.totalPages}
+                <button
+                  class="{pagerLinkClass} {pagerChipClass(false)}"
+                  type="button"
+                  onclick={() => selectPage(view.page + 1)}
+                >
+                  Next
+                </button>
+              {:else}
+                <span
+                  class="{pagerLinkClass} {pagerChipClass(
+                    false,
+                  )} pointer-events-none opacity-40"
+                  aria-hidden="true"
+                >
+                  Next
+                </span>
+              {/if}
+            </div>
+          </nav>
+        {/if}
+      {:else if entries}
+        <div class="py-16 text-center">
+          <h2 class="text-xl">No matches</h2>
+          <p class="mt-2 text-sm text-slate-500">
+            Try a shorter search or reset the filters.
+          </p>
+          <button
+            class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
+            type="button"
+            onclick={resetFilters}
+          >
+            Show all entries
+          </button>
+        </div>
+      {/if}
     </div>
-  {/if}
+  {/key}
 </div>
