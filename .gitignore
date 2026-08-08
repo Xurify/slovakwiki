@@ -13,6 +13,7 @@ static/audio/
 static/images/
 static/downloads/
 static/dictionary/
+static/dictionary-browse.json
 tmp/
 dev/*.log
 .env*

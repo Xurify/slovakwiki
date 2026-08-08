@@ -25,7 +25,7 @@ import type { ContentEntry } from "$lib/content/types";
 
 type DictionaryPageProps = {
   entry: ContentEntry;
-  exampleAudioSrcs: Array<string | undefined>;
+  exampleAudioSrcs: string[];
   image:
     | {
         artist?: string;
@@ -36,7 +36,7 @@ type DictionaryPageProps = {
         src: string;
       }
     | undefined;
-  lemmaAudioSrc: string | undefined;
+  lemmaAudioSrc: string;
   relatedEntries: Array<{
     english: string;
     href: string;
@@ -46,7 +46,7 @@ type DictionaryPageProps = {
   }>;
   senses: Array<{
     entry: ContentEntry;
-    exampleAudioSrcs: Array<string | undefined>;
+    exampleAudioSrcs: string[];
   }>;
 };
 

@@ -2,6 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { buildDictionaryIndexSidecar } from "../../src/lib/content/dictionary-browse";
+import { DICTIONARY_BROWSE_INDEX_REL } from "../../src/lib/content/dictionary-browse-utils";
 
 export async function writeDictionaryIndex(outputs: string[]): Promise<{
   bytes: number;
@@ -22,7 +23,7 @@ export async function writeDictionaryIndex(outputs: string[]): Promise<{
 const isMain = import.meta.main ?? process.argv[1]?.endsWith("export-index.ts");
 
 if (isMain) {
-  const outputs = [path.join(process.cwd(), "static", "dictionary", "index.json")];
+  const outputs = [path.join(process.cwd(), "static", DICTIONARY_BROWSE_INDEX_REL)];
   const { entryCount } = await writeDictionaryIndex(outputs);
   console.log(`Wrote ${entryCount} entries to ${outputs.join(", ")}`);
 }

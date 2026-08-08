@@ -8,6 +8,7 @@
     buildPageItems,
     buildWikiViewFromEntries,
     browseStateNeedsIndex,
+    DICTIONARY_BROWSE_INDEX_URL,
     DICTIONARY_PAGE_SIZE,
     hasActiveBrowseFilters,
     parseBrowseSearchParams,
@@ -18,7 +19,7 @@
   } from "$lib/content/dictionary-browse-utils";
   import { dictionaryPathFromIndexFields } from "$lib/content/lemma-senses";
 
-  const INDEX_URL = "/dictionary/index.json";
+  const INDEX_URL = DICTIONARY_BROWSE_INDEX_URL;
   const SKELETON_ROWS = 8;
 
   let {

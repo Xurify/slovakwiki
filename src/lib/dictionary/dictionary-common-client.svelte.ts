@@ -1,4 +1,5 @@
 import type { FrequencyPartOfSpeech } from "$lib/content/frequency-types";
+import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/content/dictionary-browse-utils";
 
 export interface CompactFrequencyEntry {
   count?: number;
@@ -70,7 +71,7 @@ export async function ensureDictionaryCommonLoaded(): Promise<void> {
   try {
     const [frequencyResponse, indexResponse] = await Promise.all([
       fetch(frequencyUrl(dictionaryCommonState.partOfSpeech)),
-      fetch("/dictionary/index.json"),
+      fetch(DICTIONARY_BROWSE_INDEX_URL),
     ]);
 
     if (!frequencyResponse.ok) {

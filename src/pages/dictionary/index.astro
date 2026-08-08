@@ -6,6 +6,7 @@ import {
   buildWikiPageView,
   parseBrowseSearchParams,
 } from "$lib/content/dictionary-browse";
+import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/content/dictionary-browse-utils";
 
 export const prerender = false;
 
@@ -17,7 +18,7 @@ const initialData = buildWikiPageView(
 );
 ---
 
-<link rel="preload" href="/dictionary/index.json" as="fetch" crossorigin />
+<link rel="preload" href={DICTIONARY_BROWSE_INDEX_URL} as="fetch" crossorigin />
 
 <SiteLayout
   title="Dictionary — Slovak Wiki"

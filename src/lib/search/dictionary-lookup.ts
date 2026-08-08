@@ -1,4 +1,5 @@
 import { dictionaryPathFromIndexFields } from "$lib/content/lemma-senses";
+import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/content/dictionary-browse-utils";
 import { normalizeSearchText } from "$lib/content/search-ui";
 
 import type { PagefindResultData } from "./pagefind-client";
@@ -20,7 +21,7 @@ let indexPromise: Promise<DictionaryIndexEntry[]> | null = null;
 
 function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
   if (!indexPromise) {
-    indexPromise = fetch("/dictionary/index.json")
+    indexPromise = fetch(DICTIONARY_BROWSE_INDEX_URL)
       .then((response) => (response.ok ? response.json() : []))
       .catch(() => [] as DictionaryIndexEntry[]);
   }

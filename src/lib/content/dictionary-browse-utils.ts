@@ -3,6 +3,9 @@ import type { WordOrigin } from "$lib/content/types";
 export const DICTIONARY_PAGE_SIZE = 50;
 export const COMMON_RANK_MAX = 500;
 
+export const DICTIONARY_BROWSE_INDEX_REL = "dictionary-browse.json";
+export const DICTIONARY_BROWSE_INDEX_URL = `/${DICTIONARY_BROWSE_INDEX_REL}`;
+
 export const BROWSE_CATEGORY_LABELS = [
   "Nouns",
   "Verbs",
