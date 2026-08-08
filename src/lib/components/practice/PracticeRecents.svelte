@@ -33,8 +33,8 @@
         <Eyebrow>Recently practiced</Eyebrow>
         <h2 id="recents-heading" class="m-0">Practice again</h2>
         <p class="mt-3 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-          Solo drills you opened from a lesson or topic. Jump back in when you want
-          another pass.
+          Solo drills from a lesson or topic page. Opens the matching exercise in its
+          sheet.
         </p>
       </div>
 

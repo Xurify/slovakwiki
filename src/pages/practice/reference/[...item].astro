@@ -1,7 +1,5 @@
 ---
-import SiteLayout from "@/layouts/SiteLayout.astro";
-import PracticeReferencePage from "$lib/pages/PracticeReferencePage.svelte";
-import { practiceItems } from "$lib/content/practice";
+import { practiceItemHref, practiceItems } from "$lib/content/practice";
 
 export function getStaticPaths() {
   return practiceItems.map((item) => ({
@@ -11,11 +9,7 @@ export function getStaticPaths() {
 }
 
 const { item } = Astro.props;
----
+const target = practiceItemHref(item.id) ?? "/practice";
 
-<SiteLayout
-  title="Practice reference | Slovak Wiki"
-  description="Work one Slovak form saved from the reference."
->
-  <PracticeReferencePage data={{ item }} client:load />
-</SiteLayout>
+return Astro.redirect(target);
+---

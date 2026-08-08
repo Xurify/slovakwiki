@@ -1,8 +1,12 @@
 <script lang="ts">
   import PageShell from "$lib/components/ui/PageShell.svelte";
-  import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { onMount } from "svelte";
+  import {
+    readPracticeState,
+    saveReferenceItem,
+    writePracticeState,
+  } from "$lib/client/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
   import PracticePlayerSkeleton from "$lib/components/practice/PracticePlayerSkeleton.svelte";
   import {
@@ -24,6 +28,7 @@
   let hydrated = $state(false);
   let hintMode = $state<"inline" | "rail">("inline");
   let sessionItems = $state<PracticeItem[]>([]);
+  let focusedItem = $state(false);
 
   function sectionTitleFor(item: PracticeItem | undefined): string {
     const task = item?.task;
@@ -38,31 +43,45 @@
 
   let sectionTitle = $state(data.set.title);
 
-  onMount(() => {
+  function resolveSessionItems(atItemId: string | null): PracticeItem[] {
+    if (atItemId && data.set.itemIds.includes(atItemId)) {
+      const item = practiceItemById.get(atItemId);
+      if (item) return [item];
+    }
+
     const sampledIds = samplePracticeItemIds(data.set.itemIds, data.set.sessionSize);
-    sessionItems = sampledIds
+    return sampledIds
       .map((itemId) => practiceItemById.get(itemId))
       .filter((item): item is PracticeItem => item !== undefined);
-    sectionTitle = sectionTitleFor(sessionItems[0]);
-    hintMode =
-      new URLSearchParams(location.search).get("hint") === "rail" ? "rail" : "inline";
+  }
+
+  onMount(() => {
+    const params = new URLSearchParams(location.search);
+    const atItemId = params.get("at");
+    focusedItem = Boolean(atItemId && data.set.itemIds.includes(atItemId));
+
+    sessionItems = resolveSessionItems(atItemId);
+    sectionTitle = focusedItem ? sectionTitleFor(sessionItems[0]) : data.set.title;
+
+    if (focusedItem && atItemId) {
+      const current = readPracticeState(localStorage);
+      writePracticeState(localStorage, saveReferenceItem(current, atItemId));
+    }
+
+    hintMode = params.get("hint") === "rail" ? "rail" : "inline";
     hydrated = true;
   });
 </script>
 
-<main class="py-12 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[720px]">
-    <nav class="mb-8 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <TextLink href="/practice">Practice</TextLink>
-      <span aria-hidden="true">/</span>
-      <span>{sectionTitle}</span>
-    </nav>
-
+<main class="py-8 pb-16 max-[600px]:py-5">
+  <PageShell class="max-w-[640px]">
     {#if hydrated}
       <PracticePlayer
         items={sessionItems}
         {hintMode}
         audioSrcs={data.clozeAudioSrcs ?? {}}
+        backHref="/practice"
+        backLabel="Practice"
         bind:sectionTitle
       />
     {:else}

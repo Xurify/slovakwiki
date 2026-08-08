@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { mount, onDestroy, unmount } from "svelte";
+
   import Button from "$lib/components/ui/Button.svelte";
+  import DictionaryCommonRow from "$lib/components/DictionaryCommonRow.svelte";
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import {
     dictionaryCommonState,
@@ -10,6 +13,10 @@
 
   let { totalCount }: { totalCount: number } = $props();
 
+  const rowClass =
+    "grid grid-cols-[3rem_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-slate-200 py-3 text-sm max-[560px]:grid-cols-[2.5rem_minmax(0,1fr)]";
+
+  const isFiltering = $derived(dictionaryCommonState.query.trim().length > 0);
   const expanded = $derived(dictionaryCommonState.entries !== null);
 
   const filteredEntries = $derived(
@@ -26,10 +33,18 @@
     filteredEntries.slice(0, dictionaryCommonState.visibleLimit),
   );
 
+  const appendedEntries = $derived(isFiltering ? [] : visibleEntries.slice(PAGE_SIZE));
+
   const hasMore = $derived(filteredEntries.length > dictionaryCommonState.visibleLimit);
 
-  const rowClass =
-    "grid grid-cols-[3rem_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-slate-200 py-3 text-sm max-[560px]:grid-cols-[2.5rem_minmax(0,1fr)]";
+  const appendInstances: Array<ReturnType<typeof mount>> = [];
+
+  function clearAppendedRows(): void {
+    for (const instance of appendInstances) {
+      unmount(instance);
+    }
+    appendInstances.length = 0;
+  }
 
   $effect(() => {
     const ssrList = document.getElementById("common-results");
@@ -37,7 +52,44 @@
       return;
     }
 
-    ssrList.hidden = expanded;
+    ssrList.hidden = isFiltering && expanded;
+  });
+
+  $effect(() => {
+    if (isFiltering || appendedEntries.length === 0) {
+      clearAppendedRows();
+      return;
+    }
+
+    const list = document.getElementById("common-results");
+    const anchor = document.getElementById("common-results-append-anchor");
+    if (!list || !anchor) {
+      return;
+    }
+
+    clearAppendedRows();
+
+    for (const entry of appendedEntries) {
+      appendInstances.push(
+        mount(DictionaryCommonRow, {
+          target: list,
+          anchor,
+          props: {
+            entry,
+            live: dictionaryCommonState.liveByLemma[entry.lemma],
+            rowClass,
+          },
+        }),
+      );
+    }
+
+    return () => {
+      clearAppendedRows();
+    };
+  });
+
+  onDestroy(() => {
+    clearAppendedRows();
   });
 </script>
 
@@ -51,7 +103,7 @@
   </div>
 {/if}
 
-{#if expanded && !dictionaryCommonState.loading}
+{#if isFiltering && expanded && !dictionaryCommonState.loading}
   <p class="mb-2 mt-6 w-full text-xs text-slate-500 sm:text-right">
     Showing {visibleEntries.length.toLocaleString("en")} of {filteredEntries.length.toLocaleString(
       "en",
@@ -69,37 +121,11 @@
   {:else}
     <ol class="mt-2" start="1" id="common-results-expanded">
       {#each visibleEntries as entry (entry.rank + entry.lemma)}
-        {@const live = dictionaryCommonState.liveByLemma[entry.lemma]}
-        <li class={rowClass}>
-          <span class="tabular-nums text-slate-400">{entry.rank}</span>
-          <div class="min-w-0">
-            {#if live}
-              <a
-                class="font-serif text-base text-blue-800 underline decoration-slate-200 underline-offset-2 hover:decoration-blue-800"
-                href={`/dictionary/${live.slug}${live.hash ? `#${live.hash}` : ""}`}
-                lang="sk"
-              >
-                {entry.lemma}
-              </a>
-              <span class="mt-0.5 block text-sm text-slate-500">{live.english}</span>
-            {:else}
-              <span class="font-serif text-base text-slate-800" lang="sk"
-                >{entry.lemma}</span
-              >
-              <span class="mt-0.5 block text-xs text-slate-400"
-                >Not in dictionary yet</span
-              >
-            {/if}
-          </div>
-          {#if entry.count !== undefined}
-            <span
-              class="cursor-help tabular-nums text-xs text-slate-400 underline decoration-dotted decoration-slate-300 underline-offset-2 max-[560px]:hidden"
-              title="How often this lemma appears in the Slovak National Corpus (prim-8.0-public-all)"
-            >
-              {entry.count.toLocaleString("en")}
-            </span>
-          {/if}
-        </li>
+        <DictionaryCommonRow
+          {entry}
+          live={dictionaryCommonState.liveByLemma[entry.lemma]}
+          {rowClass}
+        />
       {/each}
     </ol>
   {/if}

@@ -31,8 +31,10 @@ import { isDamagedExampleTemplate } from "./example-quality";
 import { lessonById, lessons, validateLessons } from "./lessons";
 import {
   practiceItemById,
+  practiceItemHref,
   practiceItems,
   practiceSets,
+  practiceSetForItem,
   practiceSetForLesson,
   practiceSessionCount,
   samplePracticeItemIds,
@@ -190,6 +192,18 @@ describe("Slovak content", () => {
     );
     expect(practiceSetForLesson("grammar/byt-present")?.id).toBe("byt-present");
     expect(practiceSetForLesson("grammar/mat-present")?.id).toBe("mat-present");
+  });
+
+  it("routes every practice item through its topic set", () => {
+    for (const item of practiceItems) {
+      const set = practiceSetForItem(item.id);
+      expect(set).toBeDefined();
+      expect(set!.itemIds).toContain(item.id);
+    }
+
+    expect(practiceItemHref("pronunciation/thanks-phrase")).toBe(
+      "/practice/stress-in-phrases?at=pronunciation%2Fthanks-phrase",
+    );
   });
 
   it("publishes expanded alphabet, everyday, and grammar reference content", () => {

@@ -91,7 +91,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Where are you from?",
         },
       ],
-      prompt: "Write: “I am from Canada.”",
+      prompt: "I am from Canada.",
       inputLabel: "Your Slovak answer",
       answer: "Som z Kanady.",
       feedback: {
@@ -127,7 +127,7 @@ export const practiceItems: PracticeItem[] = [
           english: "How old are you?",
         },
       ],
-      prompt: "Write: “I am twenty years old.”",
+      prompt: "I am twenty years old.",
       inputLabel: "Your Slovak answer",
       answer: "Mám dvadsať rokov.",
       feedback: {
@@ -390,7 +390,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Fill in this form.",
         },
       ],
-      prompt: "You do not understand. Write: “I do not understand.”",
+      prompt: "I do not understand.",
       inputLabel: "Your Slovak answer",
       answer: "Nerozumiem.",
       feedback: {
@@ -975,7 +975,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Hi! What is your name?",
         },
       ],
-      prompt: "Introduce yourself. Write: “I am Alex.”",
+      prompt: "I am Alex.",
       inputLabel: "Your Slovak answer",
       answer: "Som Alex.",
       feedback: {
@@ -1011,7 +1011,7 @@ export const practiceItems: PracticeItem[] = [
           english: "I am by the entrance.",
         },
       ],
-      prompt: "Ask a colleague politely: “Where are you?”",
+      prompt: "Where are you?",
       inputLabel: "Your Slovak question",
       answer: "Kde ste?",
       feedback: {
@@ -1046,7 +1046,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Where is Peter?",
         },
       ],
-      prompt: "Answer: “He is in Bratislava.”",
+      prompt: "He is in Bratislava.",
       inputLabel: "Your Slovak answer",
       answer: "Je v Bratislave.",
       feedback: {
@@ -1082,7 +1082,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Do you have a moment now?",
         },
       ],
-      prompt: "Say: “I have time.”",
+      prompt: "I have time.",
       inputLabel: "Your Slovak answer",
       answer: "Mám čas.",
       feedback: {
@@ -1117,7 +1117,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Ticket, please.",
         },
       ],
-      prompt: "Ask a friend informally: “Do you have a ticket?”",
+      prompt: "Do you have a ticket?",
       inputLabel: "Your Slovak question",
       answer: "Máš lístok?",
       feedback: {
@@ -1152,7 +1152,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Let’s go for coffee.",
         },
       ],
-      prompt: "You cannot go now. Say: “I don’t have time.”",
+      prompt: "I don’t have time.",
       inputLabel: "Your Slovak answer",
       answer: "Nemám čas.",
       feedback: {
@@ -1211,12 +1211,12 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-thanks-help",
-          speaker: "A passer-by",
+          speaker: "Someone",
           slovak: "Pomôžem vám.",
           english: "I will help you.",
         },
       ],
-      prompt: "The passer-by has helped you. Write: “Thank you for the help.”",
+      prompt: "Thank you for the help.",
       inputLabel: "Your Slovak answer",
       answer: "Ďakujem za pomoc.",
       feedback: {
@@ -1307,7 +1307,7 @@ export const practiceItems: PracticeItem[] = [
           english: "Do you speak Slovak?",
         },
       ],
-      prompt: "Write: “I speak a little Slovak.”",
+      prompt: "I speak a little Slovak.",
       inputLabel: "Your Slovak answer",
       answer: "Hovorím trochu po slovensky.",
       acceptedAnswers: ["Trochu hovorím po slovensky."],
@@ -1517,6 +1517,17 @@ export function practiceSetForLesson(lessonId: string): PracticeSet | undefined 
   return practiceSetByLessonId.get(lessonId);
 }
 
+export function practiceSetForItem(itemId: string): PracticeSet | undefined {
+  return practiceSets.find((set) => set.itemIds.includes(itemId));
+}
+
+/** Drill one exercise inside its topic set — not a separate reference route. */
+export function practiceItemHref(itemId: string): string | undefined {
+  const set = practiceSetForItem(itemId);
+  if (!set) return undefined;
+  return `/practice/${set.id}?at=${encodeURIComponent(itemId)}`;
+}
+
 export function samplePracticeItemIds(
   itemIds: readonly string[],
   sessionSize?: number,
@@ -1553,6 +1564,10 @@ export function validatePracticeItems(): string[] {
 
     if (item.task.practiceItemId !== item.id) {
       issues.push(`Mismatched practice task: ${item.id}`);
+    }
+
+    if (!practiceSetForItem(item.id)) {
+      issues.push(`Practice item not in any set: ${item.id}`);
     }
 
     if (item.task.type === "cloze") {

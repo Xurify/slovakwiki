@@ -3,6 +3,7 @@ import type { PracticeItem } from "$lib/content/learning-types";
 import { lessonById, lessonTracks } from "$lib/content/lessons";
 import {
   practiceItemById,
+  practiceItemHref,
   practiceSessionCount,
   practiceSets,
   type PracticeSet,
@@ -110,11 +111,12 @@ export function buildRecentDrills(practiceState: PracticeState): PracticeHubRece
 
   for (const itemId of [...practiceState.savedReferenceItemIds].reverse()) {
     const item = practiceItemById.get(itemId);
-    if (!item) continue;
+    const href = practiceItemHref(itemId);
+    if (!item || !href) continue;
 
     drills.push({
       id: item.id,
-      href: `/practice/reference/${item.id}`,
+      href,
       sourceLabel: item.source.label,
       drill: drillLine(item),
     });
