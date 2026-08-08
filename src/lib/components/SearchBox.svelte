@@ -16,6 +16,7 @@
     searchMetaLabel,
     type SearchDocKind,
   } from "$lib/content/search-ui";
+  import { lookupDictionary, mergeSearchResults } from "$lib/search/dictionary-lookup";
   import {
     getPagefind,
     isPagefindWarm,
@@ -187,15 +188,16 @@
         loading = true;
       }
 
-      const page = await Promise.all(
-        response.results.slice(0, 8).map((result) => result.data()),
-      );
+      const [page, dictionaryHits] = await Promise.all([
+        Promise.all(response.results.slice(0, 8).map((result) => result.data())),
+        lookupDictionary(normalized),
+      ]);
 
       if (generation !== searchGeneration) {
         return;
       }
 
-      results = page;
+      results = mergeSearchResults(dictionaryHits, page);
       activeIndex = 0;
     } catch {
       if (generation === searchGeneration) {
