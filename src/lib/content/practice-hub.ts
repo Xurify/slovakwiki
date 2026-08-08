@@ -109,7 +109,7 @@ export function pickFeaturedSheet(
 export function buildRecentDrills(practiceState: PracticeState): PracticeHubRecent[] {
   const drills: PracticeHubRecent[] = [];
 
-  for (const itemId of [...practiceState.savedReferenceItemIds].reverse()) {
+  for (const itemId of [...practiceState.recentItemIds].reverse()) {
     const item = practiceItemById.get(itemId);
     const href = practiceItemHref(itemId);
     if (!item || !href) continue;

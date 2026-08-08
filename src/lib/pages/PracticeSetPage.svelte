@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import {
     readPracticeState,
-    saveReferenceItem,
+    saveRecentItem,
     writePracticeState,
   } from "$lib/client/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
@@ -65,7 +65,7 @@
 
     if (focusedItem && atItemId) {
       const current = readPracticeState(localStorage);
-      writePracticeState(localStorage, saveReferenceItem(current, atItemId));
+      writePracticeState(localStorage, saveRecentItem(current, atItemId));
     }
 
     hintMode = params.get("hint") === "rail" ? "rail" : "inline";

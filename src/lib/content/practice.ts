@@ -1521,7 +1521,7 @@ export function practiceSetForItem(itemId: string): PracticeSet | undefined {
   return practiceSets.find((set) => set.itemIds.includes(itemId));
 }
 
-/** Drill one exercise inside its topic set — not a separate reference route. */
+/** Drill one exercise inside its topic set. */
 export function practiceItemHref(itemId: string): string | undefined {
   const set = practiceSetForItem(itemId);
   if (!set) return undefined;

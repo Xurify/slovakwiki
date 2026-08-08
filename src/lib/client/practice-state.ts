@@ -4,7 +4,7 @@ const LEGACY_PRACTICE_STATE_STORAGE_KEY = "slovak-wiki.practice.v1";
 
 export interface PracticeState {
   completedLessonIds: string[];
-  savedReferenceItemIds: string[];
+  recentItemIds: string[];
   version: 1;
 }
 
@@ -18,7 +18,7 @@ export function emptyPracticeState(): PracticeState {
   return {
     version: 1,
     completedLessonIds: [],
-    savedReferenceItemIds: [],
+    recentItemIds: [],
   };
 }
 
@@ -67,7 +67,7 @@ export function readPracticeState(storage: StorageLike): PracticeState {
     return {
       version: 1,
       completedLessonIds: asStringIds(state.completedLessonIds),
-      savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
+      recentItemIds: asStringIds(state.recentItemIds ?? state.savedReferenceItemIds),
     };
   } catch {
     clearPracticeKeys(storage);
@@ -81,7 +81,7 @@ export function writePracticeState(storage: StorageLike, state: PracticeState): 
     JSON.stringify({
       version: 1,
       completedLessonIds: asStringIds(state.completedLessonIds),
-      savedReferenceItemIds: asStringIds(state.savedReferenceItemIds),
+      recentItemIds: asStringIds(state.recentItemIds),
     }),
   );
   storage.removeItem(LEGACY_PRACTICE_STATE_STORAGE_KEY);
@@ -97,10 +97,10 @@ export function markLessonComplete(
   };
 }
 
-export function saveReferenceItem(state: PracticeState, itemId: string): PracticeState {
+export function saveRecentItem(state: PracticeState, itemId: string): PracticeState {
   return {
     ...state,
-    savedReferenceItemIds: unique([...state.savedReferenceItemIds, itemId]),
+    recentItemIds: unique([...state.recentItemIds, itemId]),
   };
 }
 

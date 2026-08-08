@@ -6,7 +6,7 @@ import {
   gradeAnswer,
   markLessonComplete,
   readPracticeState,
-  saveReferenceItem,
+  saveRecentItem,
   suggestCloseAnswer,
   writePracticeState,
   type StorageLike,
@@ -731,9 +731,9 @@ describe("Slovak content", () => {
     }
   });
 
-  it("stores only completion and saved-reference state", () => {
+  it("stores only completion and recent drill state", () => {
     const storage = new MemoryStorage();
-    const state = saveReferenceItem(
+    const state = saveRecentItem(
       markLessonComplete(emptyPracticeState(), "everyday/meet-someone"),
       "grammar/first-person-reading",
     );
@@ -742,7 +742,7 @@ describe("Slovak content", () => {
     expect(readPracticeState(storage)).toEqual({
       version: 1,
       completedLessonIds: ["everyday/meet-someone"],
-      savedReferenceItemIds: ["grammar/first-person-reading"],
+      recentItemIds: ["grammar/first-person-reading"],
     });
   });
 
