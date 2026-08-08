@@ -140,7 +140,7 @@ Dictionary browse and common frequency lists use **SSR shells with small islands
 - **Do:** SSR shell + first page of rows; hydrate `WikiBrowseClient` for instant filter/pagination via `/dictionary/index.json`; use query params on `/dictionary` for shareable state.
 - **Don't:** pass full `words` into HTML; pre-generate hundreds of browse subroutes; `client:load` the page shell.
 - **Sidecars:** `static/dictionary/index.json` and `static/frequency/*.json` — fetched by islands when needed, not inlined in HTML.
-- **CI:** `bun run cwv:check` after build — fails if `/dictionary` HTML exceeds 100 KB brotli.
+- **CI:** `bun run cwv:check` after build — reads `.vercel/output/static` (falls back to `dist/client`); SSR `/dictionary` via the Vercel render function. Fails if `/dictionary` HTML exceeds 100 KB brotli.
 
 ### When a full-page island is OK
 

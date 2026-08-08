@@ -7,10 +7,12 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/content/data";
+import { dictionaryLemmaSynthOptions } from "../../src/lib/content/audio-lemma-synthesis";
 import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/content/example-limits";
 import {
   type AudioConfig,
   type AudioKind,
+  type AudioVoiceSettings,
   audioObjectKey,
   normalizeAudioText,
 } from "../../src/lib/content/audio";
@@ -45,6 +47,11 @@ export interface AudioTarget {
   characterId?: LessonCharacterId;
   kind: AudioKind;
   text: string;
+  /** TTS line when it should differ from displayed `text`. */
+  synthText?: string;
+  synthModelId?: string;
+  synthLanguageCode?: string;
+  omitVoiceSettings?: boolean;
   /** Per-target voice override (lesson characters). */
   voiceConfig?: AudioConfig;
 }
@@ -123,7 +130,19 @@ export function collectDictionaryAudioTargets(options?: {
     if (lemma) {
       const existing = byText.get(lemma);
       if (!existing || existing.kind === "example") {
-        byText.set(lemma, { kind: "lemma", text: lemma });
+        const synth = dictionaryLemmaSynthOptions(entry.slovak, entry.topics);
+        byText.set(lemma, {
+          kind: "lemma",
+          text: lemma,
+          ...(synth
+            ? {
+                synthText: synth.synthText,
+                synthModelId: synth.modelId,
+                synthLanguageCode: synth.languageCode,
+                omitVoiceSettings: synth.omitVoiceSettings,
+              }
+            : {}),
+        });
       }
     }
 
@@ -352,7 +371,10 @@ export function parseArgs(argv: string[]): {
 export interface SynthesizeOptions {
   languageCode?: string;
   modelId?: string;
+  omitVoiceSettings?: boolean;
   seed?: number;
+  speed?: number;
+  voiceSettings?: AudioVoiceSettings;
 }
 
 export async function synthesizeElevenLabs(
@@ -370,16 +392,20 @@ export async function synthesizeElevenLabs(
   const body: Record<string, unknown> = {
     text: normalizeAudioText(text),
     model_id: modelId,
-    voice_settings: {
-      stability: config.voiceSettings.stability,
-      similarity_boost: config.voiceSettings.similarityBoost,
-      style: config.voiceSettings.style,
-      speed: config.voiceSettings.speed,
-      use_speaker_boost: config.voiceSettings.useSpeakerBoost,
-    },
   };
 
-  // language_code is ignored by multilingual_v2; useful for eleven_v3 / flash.
+  if (!options.omitVoiceSettings) {
+    const settings = options.voiceSettings ?? config.voiceSettings;
+    body.voice_settings = {
+      stability: settings.stability,
+      similarity_boost: settings.similarityBoost,
+      style: settings.style,
+      speed: options.speed ?? settings.speed,
+      use_speaker_boost: settings.useSpeakerBoost,
+    };
+  }
+
+  // language_code is ignored by multilingual_v2; required for flash/turbo/v3 SK.
   if (languageCode && modelId !== "eleven_multilingual_v2") {
     body.language_code = languageCode;
   }

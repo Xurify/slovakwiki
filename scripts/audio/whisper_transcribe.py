@@ -9,6 +9,8 @@ import sys
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser()
     parser.add_argument("audio_path")
     parser.add_argument("--language", default="sk")

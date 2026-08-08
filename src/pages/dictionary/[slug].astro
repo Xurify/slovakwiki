@@ -6,7 +6,8 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
 import type { AudioMountTarget } from "$lib/components/audio-mount";
 import AudioMountHost from "$lib/components/AudioMountHost.svelte";
 import DictionaryDetailPage from "$lib/pages/DictionaryDetailPage.svelte";
-import { normalizeAudioText, resolveAudioSrc } from "$lib/content/audio";
+import { normalizeAudioText } from "$lib/content/audio";
+import { resolveDictionaryAudioSrc } from "$lib/content/audio-resolve-server";
 import { entryBySlug, words } from "$lib/content/data";
 import { EXAMPLE_DISPLAY_LIMIT } from "$lib/content/example-limits";
 import {
@@ -32,7 +33,7 @@ export function getStaticPaths() {
     return entry.examples.map((example) => {
       const text = normalizeAudioText(example.slovak);
       const kind = lemmaTexts.has(text) ? "lemma" : "example";
-      return resolveAudioSrc(example.slovak, kind);
+      return resolveDictionaryAudioSrc(example.slovak, kind);
     });
   }
 
@@ -91,7 +92,7 @@ export function getStaticPaths() {
             exampleAudioSrcs: exampleAudioSrcsFor(sense),
           })),
           relatedEntries,
-          lemmaAudioSrc: resolveAudioSrc(entry.slovak, "lemma"),
+          lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
           exampleAudioSrcs: exampleAudioSrcsFor(entry),
           image: resolveLemmaImage(entry.slug, titleEnglish),
         },

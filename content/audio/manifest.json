@@ -569,9 +569,10 @@
   "9bba4b0dbf448229610b": {
     "text": "ako",
     "kind": "lemma",
-    "bytes": 18016,
-    "generatedAt": "2026-08-04T05:17:43.227Z",
-    "uploadedAt": "2026-08-04T08:10:30.322Z"
+    "bytes": 17598,
+    "generatedAt": "2026-08-08T19:04:33.199Z",
+    "uploadedAt": "2026-08-04T08:10:30.322Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "91a80fec13728f7e1b10": {
     "text": "Ako ďaleko je letisko?",
@@ -611,9 +612,10 @@
   "144cb55b48de0bd4cb80": {
     "text": "Ako na to reagovala?",
     "kind": "example",
-    "bytes": 27211,
-    "generatedAt": "2026-08-04T05:17:47.914Z",
-    "uploadedAt": "2026-08-04T07:28:17.008Z"
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T19:07:40.739Z",
+    "uploadedAt": "2026-08-04T07:28:17.008Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "a17b27120d29ae3a749b": {
     "text": "Ako odstrániť z koberca škvrny z červeného vína?",
@@ -646,9 +648,10 @@
   "42ae4c1f925106149699": {
     "text": "Ako sa ti darí v novom byte?",
     "kind": "example",
-    "bytes": 33062,
-    "generatedAt": "2026-08-04T05:17:52.096Z",
-    "uploadedAt": "2026-08-04T07:34:22.064Z"
+    "bytes": 32226,
+    "generatedAt": "2026-08-08T19:11:12.562Z",
+    "uploadedAt": "2026-08-04T07:34:22.064Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "01e7ea66dc28bf035e9c": {
     "text": "Ako sa to povie po chorvátsky?",
@@ -709,9 +712,10 @@
   "b6d381648060bc0e9973": {
     "text": "Ako zabránime tomu, aby sa to nezopakovalo?",
     "kind": "example",
-    "bytes": 50199,
-    "generatedAt": "2026-08-04T05:17:59.249Z",
-    "uploadedAt": "2026-08-04T07:50:25.621Z"
+    "bytes": 49363,
+    "generatedAt": "2026-08-08T19:14:36.352Z",
+    "uploadedAt": "2026-08-04T07:50:25.621Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "2eefb5164b3745a9636d": {
     "text": "aktivita",
@@ -11166,9 +11170,10 @@
   "aa673f1e0c651d08de8b": {
     "text": "Hovoríš ako politik.",
     "kind": "example",
-    "bytes": 25539,
-    "generatedAt": "2026-08-04T05:37:57.159Z",
-    "uploadedAt": "2026-08-04T07:48:43.925Z"
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T19:24:47.137Z",
+    "uploadedAt": "2026-08-04T07:48:43.925Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "e788faa347ec28a54748": {
     "text": "Hovoríš dobre po francúzsky!",
@@ -13770,9 +13775,10 @@
   "194606d4c778a3cf16ad": {
     "text": "Je to biele ako sneh.",
     "kind": "example",
-    "bytes": 26375,
-    "generatedAt": "2026-08-04T05:43:04.344Z",
-    "uploadedAt": "2026-08-04T07:28:52.467Z"
+    "bytes": 27629,
+    "generatedAt": "2026-08-08T19:27:09.817Z",
+    "uploadedAt": "2026-08-04T07:28:52.467Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "b94e43e8aba2532f9332": {
     "text": "Je to bývalý učiteľ.",
@@ -22438,9 +22444,10 @@
   "589870076279d22b45d5": {
     "text": "Môžete to zopakovať?",
     "kind": "example",
-    "bytes": 28465,
-    "generatedAt": "2026-08-04T06:00:11.897Z",
-    "uploadedAt": "2026-08-04T07:37:19.426Z"
+    "bytes": 29301,
+    "generatedAt": "2026-08-08T19:34:55.802Z",
+    "uploadedAt": "2026-08-04T07:37:19.426Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "c2b60f8983199449ee6d": {
     "text": "Môžete vstúpiť.",
@@ -67646,10 +67653,10 @@
   "248df6e18b48fda0de9e": {
     "text": "Ako dlho to potrvá?",
     "kind": "example",
-    "bytes": 25539,
-    "generatedAt": "2026-08-04T18:39:38.795Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T19:13:37.544Z"
+    "bytes": 26375,
+    "generatedAt": "2026-08-08T19:05:56.075Z",
+    "uploadedAt": "2026-08-04T19:13:37.544Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "76f94ac881c51b19e513": {
     "text": "Ako dlho trvá dostať sa na stanicu?",
@@ -67671,9 +67678,9 @@
     "text": "Ako krásne znie to slovo!",
     "kind": "example",
     "bytes": 32226,
-    "generatedAt": "2026-08-04T18:39:41.230Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T19:41:11.078Z"
+    "generatedAt": "2026-08-08T19:07:33.131Z",
+    "uploadedAt": "2026-08-04T19:41:11.078Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "19148edd98b1401d06e8": {
     "text": "Ako predjedlo by som si dal jarné závitky.",
@@ -67694,10 +67701,10 @@
   "95ceb51f8bea4f10320b": {
     "text": "Ako sa to povie po srbsky?",
     "kind": "example",
-    "bytes": 31391,
-    "generatedAt": "2026-08-04T18:39:43.780Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T19:28:05.554Z"
+    "bytes": 30973,
+    "generatedAt": "2026-08-08T19:12:36.555Z",
+    "uploadedAt": "2026-08-04T19:28:05.554Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "96da996dc92d38c8bee2": {
     "text": "Aktivisti vybojovali ochranu miestneho parku.",
@@ -70750,10 +70757,10 @@
   "6b0d116e98324dd397bb": {
     "text": "Dlhá cesta vlakom sa nám vyplatila.",
     "kind": "example",
-    "bytes": 43511,
-    "generatedAt": "2026-08-04T18:45:17.907Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T19:22:18.874Z"
+    "bytes": 40586,
+    "generatedAt": "2026-08-08T19:20:58.115Z",
+    "uploadedAt": "2026-08-04T19:22:18.874Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "43cba8df69871f9f9a93": {
     "text": "Dlho jej trvalo, kým mu prepáčila.",
@@ -74766,10 +74773,10 @@
   "52001296c1ac6a9db95a": {
     "text": "Je cesta dôležitejšia ako cieľ?",
     "kind": "example",
-    "bytes": 41839,
-    "generatedAt": "2026-08-04T18:52:41.728Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T19:19:25.713Z"
+    "bytes": 44347,
+    "generatedAt": "2026-08-08T19:26:40.119Z",
+    "uploadedAt": "2026-08-04T19:19:25.713Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "701c0d23f9a8ea4ee666": {
     "text": "Je čas na akciu.",
@@ -79222,10 +79229,10 @@
   "238dec0b9a536e242535": {
     "text": "Miliónový grant podporí výskum rakoviny.",
     "kind": "example",
-    "bytes": 49363,
-    "generatedAt": "2026-08-04T18:44:19.669Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T19:13:31.851Z"
+    "bytes": 46437,
+    "generatedAt": "2026-08-08T19:33:20.277Z",
+    "uploadedAt": "2026-08-04T19:13:31.851Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "a4746d35f3da86001c1b": {
     "text": "Milujem sneh.",
@@ -80982,10 +80989,10 @@
   "82a2fbcca5f953afdc7c": {
     "text": "Na prvý pohľad sa to javí ako drobná chyba.",
     "kind": "example",
-    "bytes": 46437,
-    "generatedAt": "2026-08-04T18:47:32.849Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T19:25:40.484Z"
+    "bytes": 48527,
+    "generatedAt": "2026-08-08T19:36:12.650Z",
+    "uploadedAt": "2026-08-04T19:25:40.484Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "6f6fb99d7581b895688f": {
     "text": "Na radare sme videli pohyb lietadla.",
@@ -124622,18 +124629,18 @@
   "07175cb2838116e84656": {
     "text": "Ako dlho bude ešte búrka?",
     "kind": "example",
-    "bytes": 31391,
-    "generatedAt": "2026-08-04T19:45:43.061Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T20:06:38.918Z"
+    "bytes": 32226,
+    "generatedAt": "2026-08-08T19:05:47.283Z",
+    "uploadedAt": "2026-08-04T20:06:38.918Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "f6b9a4b93748186b7795": {
     "text": "Ako dlho trvá let z Austrálie do Kanady?",
     "kind": "example",
-    "bytes": 48527,
-    "generatedAt": "2026-08-04T19:45:43.926Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T20:35:29.090Z"
+    "bytes": 43511,
+    "generatedAt": "2026-08-08T19:06:34.603Z",
+    "uploadedAt": "2026-08-04T20:35:29.090Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "200ef4435dfe07bd4fd7": {
     "text": "Ako ozdobu daj na vrch vetvičku mäty.",
@@ -124646,10 +124653,10 @@
   "0e1d917813aa19318571": {
     "text": "Ako sa dojí krava?",
     "kind": "example",
-    "bytes": 25539,
-    "generatedAt": "2026-08-04T19:45:45.618Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T20:07:28.606Z"
+    "bytes": 24703,
+    "generatedAt": "2026-08-08T19:08:32.105Z",
+    "uploadedAt": "2026-08-04T20:07:28.606Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "f5be4f3ce6b62a75d95e": {
     "text": "Ako sa máte? Mali ste dobrý výlet?",
@@ -124662,10 +124669,10 @@
   "a7ddbb4442790baa4b21": {
     "text": "Ako sa volá ten vták?",
     "kind": "example",
-    "bytes": 27629,
-    "generatedAt": "2026-08-04T19:45:47.441Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T20:26:20.128Z"
+    "bytes": 28465,
+    "generatedAt": "2026-08-08T19:13:31.195Z",
+    "uploadedAt": "2026-08-04T20:26:20.128Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "9b30fbb750719dbd1df9": {
     "text": "Aký bol výlet?",
@@ -133918,10 +133925,10 @@
   "845c5e213e6df9075fa7": {
     "text": "Hovorí sa, že v tejto oblasti je zakopaný poklad.",
     "kind": "example",
-    "bytes": 57722,
-    "generatedAt": "2026-08-04T20:00:57.400Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T20:22:03.429Z"
+    "bytes": 56886,
+    "generatedAt": "2026-08-08T19:24:34.024Z",
+    "uploadedAt": "2026-08-04T20:22:03.429Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "ed154c6caa71c6a579e1": {
     "text": "Hovorí, že už tento hluk nevydrží.",
@@ -135422,10 +135429,10 @@
   "b001dd6798e7387c9400": {
     "text": "Lepšie vajce dnes ako sliepka zajtra.",
     "kind": "example",
-    "bytes": 42675,
-    "generatedAt": "2026-08-04T19:46:07.735Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T20:27:14.364Z"
+    "bytes": 39750,
+    "generatedAt": "2026-08-08T19:30:53.595Z",
+    "uploadedAt": "2026-08-04T20:27:14.364Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "131d35b263ee17d38cd8": {
     "text": "Lesy sú pľúca Zeme.",
@@ -135726,10 +135733,10 @@
   "e3fea293c86096a0b7b0": {
     "text": "Mám rád zemiakový šalát.",
     "kind": "example",
-    "bytes": 29301,
-    "generatedAt": "2026-08-04T19:46:38.211Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-04T20:33:11.705Z"
+    "bytes": 31391,
+    "generatedAt": "2026-08-08T19:32:36.836Z",
+    "uploadedAt": "2026-08-04T20:33:11.705Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "63428517f57fcc2a965e": {
     "text": "Mám rada zemiakový šalát.",
@@ -174607,9 +174614,9 @@
     "text": "Ako sa máš dneska?",
     "kind": "example",
     "bytes": 26375,
-    "generatedAt": "2026-08-05T18:04:14.492Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-05T19:10:37.276Z"
+    "generatedAt": "2026-08-08T19:08:38.762Z",
+    "uploadedAt": "2026-08-05T19:10:37.276Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "19809e7f34243b4fb874": {
     "text": "Ako sa môžem naučiť po slovensky?",
@@ -179622,10 +179629,10 @@
   "fce1804746bf30daf841": {
     "text": "Chyba sa opakovane vracia.",
     "kind": "example",
-    "bytes": 32226,
-    "generatedAt": "2026-08-05T18:19:39.415Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-05T19:17:38.423Z"
+    "bytes": 33898,
+    "generatedAt": "2026-08-08T19:26:14.608Z",
+    "uploadedAt": "2026-08-05T19:17:38.423Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "1396225cf491fa78254b": {
     "text": "Ide to absolútne.",
@@ -182598,10 +182605,10 @@
   "86ac0bd95515fcd06f52": {
     "text": "Lepšie neskôr ako nikdy.",
     "kind": "example",
-    "bytes": 30137,
-    "generatedAt": "2026-08-05T18:24:51.883Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-05T19:08:34.904Z"
+    "bytes": 31391,
+    "generatedAt": "2026-08-08T19:30:46.607Z",
+    "uploadedAt": "2026-08-05T19:08:34.904Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "80d8419e0b795e608101": {
     "text": "Letecky sa tam dostaneš za hodinu.",
@@ -183494,10 +183501,10 @@
   "4d25b0de6eda2a2ca6da": {
     "text": "Muži sú štatisticky vyšší ako ženy.",
     "kind": "example",
-    "bytes": 44347,
-    "generatedAt": "2026-08-05T18:26:29.933Z",
-    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
-    "uploadedAt": "2026-08-05T19:03:42.807Z"
+    "bytes": 42675,
+    "generatedAt": "2026-08-08T19:35:15.435Z",
+    "uploadedAt": "2026-08-05T19:03:42.807Z",
+    "voiceId": "YJsJ2Mt3VRr0gCiTY6DA"
   },
   "63c678ff4c8b89bc2c31": {
     "text": "My sme vnútri.",

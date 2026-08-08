@@ -194,10 +194,11 @@ async function main(): Promise<void> {
       }
 
       for (const attempt of attempts) {
-        audio = await synthesizeElevenLabs(target.text, voiceConfig, apiKey, {
-          modelId: attempt.modelId,
+        audio = await synthesizeElevenLabs(target.synthText ?? target.text, voiceConfig, apiKey, {
+          modelId: attempt.modelId ?? target.synthModelId,
           seed: attempt.seed,
-          languageCode: voiceConfig.languageCode,
+          languageCode: target.synthLanguageCode ?? voiceConfig.languageCode,
+          omitVoiceSettings: target.omitVoiceSettings,
         });
         await writeFile(filePath, audio);
 
@@ -299,6 +300,12 @@ async function main(): Promise<void> {
       (verify ? ` verified=${verified} rescued=${rescued}` : "") +
       ` dir=${AUDIO_DIR}`,
   );
+
+  if (!dryRun && generated > 0) {
+    console.log(
+      "Prod play needs R2 upload: bun scripts/audio/upload.ts (or upload new keys before deploy).",
+    );
+  }
 
   if (failed > 0) process.exitCode = 1;
 }
