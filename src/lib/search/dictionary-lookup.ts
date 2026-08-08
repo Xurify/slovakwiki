@@ -1,3 +1,4 @@
+import { dictionaryPathFromIndexFields } from "$lib/content/lemma-senses";
 import { normalizeSearchText } from "$lib/content/search-ui";
 
 import type { PagefindResultData } from "./pagefind-client";
@@ -6,6 +7,8 @@ export interface DictionaryIndexEntry {
   category: string;
   english: string;
   forms?: string[];
+  hash?: string;
+  hrefSlug?: string;
   slug: string;
   slovak: string;
 }
@@ -85,7 +88,7 @@ export async function lookupDictionary(
     })
     .slice(0, limit)
     .map(({ entry }) => ({
-      url: `/dictionary/${entry.slug}`,
+      url: dictionaryPathFromIndexFields(entry),
       excerpt: "",
       meta: {
         title: entry.slovak,

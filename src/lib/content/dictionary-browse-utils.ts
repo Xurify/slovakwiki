@@ -30,6 +30,10 @@ export interface DictionaryIndexEntry {
   category: string;
   english: string;
   frequencyRank?: number;
+  /** Sense section on multi-POS lemma pages (`noun`, `adverb`, …). */
+  hash?: string;
+  /** Canonical lemma slug when `slug` is a POS sibling (`malo-adv` → `malo`). */
+  hrefSlug?: string;
   origin?: WordOrigin;
   slug: string;
   slovak: string;

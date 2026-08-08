@@ -8,7 +8,10 @@ import {
   filterBrowseEntries,
   parseBrowseSearchParams,
 } from "./dictionary-browse-utils";
-import { getDictionaryIndexEntries, buildDictionaryIndexSidecar } from "./dictionary-browse";
+import {
+  getDictionaryIndexEntries,
+  buildDictionaryIndexSidecar,
+} from "./dictionary-browse";
 
 describe("dictionary browse helpers", () => {
   it("builds query-string browse hrefs", () => {

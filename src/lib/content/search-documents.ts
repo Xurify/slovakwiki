@@ -1,4 +1,5 @@
 import { caseTopics, grammarEntries, pronunciationEntries, words } from "./data";
+import { dictionaryPathForSense } from "./lemma-senses";
 import { lessons } from "./lessons";
 import { practiceSets } from "./practice";
 import { searchFormsForLemma } from "./search-forms";
@@ -35,7 +36,7 @@ export function buildSearchDocuments(): SearchDocument[] {
 
   for (const entry of words) {
     documents.push({
-      url: `/dictionary/${entry.slug}`,
+      url: dictionaryPathForSense(entry, words),
       kind: "word",
       title: entry.slovak,
       summary: entry.english,

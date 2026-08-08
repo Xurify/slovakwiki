@@ -1,4 +1,5 @@
 import { words } from "$lib/content/data";
+import { dictionaryHrefForSense } from "$lib/content/lemma-senses";
 import { searchFormsForLemma } from "$lib/content/search-forms";
 
 import {
@@ -34,14 +35,19 @@ let cachedEntries: DictionaryIndexEntry[] | null = null;
 
 export function getDictionaryIndexEntries(): DictionaryIndexEntry[] {
   if (!cachedEntries) {
-    cachedEntries = words.map((word) => ({
-      category: word.category,
-      english: word.english,
-      frequencyRank: word.frequency?.rank,
-      origin: word.origin,
-      slug: word.slug,
-      slovak: word.slovak,
-    }));
+    cachedEntries = words.map((word) => {
+      const href = dictionaryHrefForSense(word, words);
+      return {
+        category: word.category,
+        english: word.english,
+        frequencyRank: word.frequency?.rank,
+        origin: word.origin,
+        slug: word.slug,
+        slovak: word.slovak,
+        ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
+        ...(href.hash ? { hash: href.hash } : {}),
+      };
+    });
   }
 
   return cachedEntries;
@@ -60,6 +66,8 @@ export interface DictionaryIndexSidecarEntry {
   english: string;
   forms?: string[];
   frequencyRank?: number;
+  hash?: string;
+  hrefSlug?: string;
   origin?: DictionaryIndexEntry["origin"];
   slug: string;
   slovak: string;
@@ -68,6 +76,7 @@ export interface DictionaryIndexSidecarEntry {
 export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
   return words.map((word) => {
     const forms = searchFormsForLemma(word.slovak, word.category);
+    const href = dictionaryHrefForSense(word, words);
     return {
       slug: word.slug,
       slovak: word.slovak,
@@ -78,6 +87,8 @@ export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
         : {}),
       ...(word.origin !== undefined ? { origin: word.origin } : {}),
       ...(forms.length > 0 ? { forms } : {}),
+      ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
+      ...(href.hash ? { hash: href.hash } : {}),
     };
   });
 }

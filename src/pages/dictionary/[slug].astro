@@ -17,9 +17,39 @@ import {
 } from "$lib/content/images";
 import {
   canonicalWordSlug,
+  dictionaryPathForSense,
   lemmaSenseGroup,
   relatedSlugsForLemmaPage,
 } from "$lib/content/lemma-senses";
+import type { ContentEntry } from "$lib/content/types";
+
+type DictionaryPageProps =
+  | { redirectTo: string }
+  | {
+      entry: ContentEntry;
+      exampleAudioSrcs: Array<string | undefined>;
+      image:
+        | {
+            artist?: string;
+            caption: string;
+            license?: string;
+            licenseUrl?: string;
+            sourcePageUrl?: string;
+            src: string;
+          }
+        | undefined;
+      lemmaAudioSrc: string | undefined;
+      relatedEntries: Array<{
+        english: string;
+        kind: ContentEntry["kind"];
+        slug: string;
+        slovak: string;
+      }>;
+      senses: Array<{
+        entry: ContentEntry;
+        exampleAudioSrcs: Array<string | undefined>;
+      }>;
+    };
 
 export function getStaticPaths() {
   const lemmaTexts = new Set(
@@ -67,8 +97,17 @@ export function getStaticPaths() {
     const senses = lemmaSenseGroup(entry, words);
     const canonicalSlug = canonicalWordSlug(entry, words);
 
-    // Part-of-speech siblings share one lemma page — no /domaci-n style routes.
-    if (entry.slug !== canonicalSlug) return [];
+    // Part-of-speech siblings share one lemma page — redirect /malo-adv → /malo#adverb.
+    if (entry.slug !== canonicalSlug) {
+      return [
+        {
+          params: { slug: entry.slug },
+          props: {
+            redirectTo: dictionaryPathForSense(entry, words),
+          } satisfies DictionaryPageProps,
+        },
+      ];
+    }
 
     const relatedEntries = relatedSlugsForLemmaPage(senses)
       .map((slug) => entryBySlug.get(slug))
@@ -95,14 +134,19 @@ export function getStaticPaths() {
           lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
           exampleAudioSrcs: exampleAudioSrcsFor(entry),
           image: resolveLemmaImage(entry.slug, titleEnglish),
-        },
+        } satisfies DictionaryPageProps,
       },
     ];
   });
 }
 
-const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image } =
-  Astro.props;
+const props = Astro.props as DictionaryPageProps;
+
+if ("redirectTo" in props) {
+  return Astro.redirect(props.redirectTo, 301);
+}
+
+const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image } = props;
 
 const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 

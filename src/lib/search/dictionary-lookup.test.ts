@@ -78,4 +78,10 @@ describe("dictionary lookup merge", () => {
     const hit = result("/dictionary/ahoj", "ahoj");
     expect(mergeSearchResults([hit], [hit])).toEqual([hit]);
   });
+
+  it("keeps noun and adverb sense hashes as distinct urls", () => {
+    const noun = result("/dictionary/malo#noun", "málo");
+    const adverb = result("/dictionary/malo#adverb", "málo");
+    expect(mergeSearchResults([noun], [adverb])).toEqual([noun, adverb]);
+  });
 });

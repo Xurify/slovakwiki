@@ -16,6 +16,7 @@
     type DictionaryIndexEntry,
     type WikiPageView,
   } from "$lib/content/dictionary-browse-utils";
+  import { dictionaryPathFromIndexFields } from "$lib/content/lemma-senses";
 
   const INDEX_URL = "/dictionary/index.json";
   const SKELETON_ROWS = 8;
@@ -348,7 +349,7 @@
         <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
           {#each view.visibleEntries as entry (entry.slug)}
             <li>
-              <a class={rowLinkClass} href="/dictionary/{entry.slug}">
+              <a class={rowLinkClass} href={dictionaryPathFromIndexFields(entry)}>
                 <div class="min-w-0">
                   <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
                     <strong class="font-serif text-lg text-blue-800" lang="sk">

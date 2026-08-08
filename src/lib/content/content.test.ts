@@ -411,6 +411,14 @@ describe("Slovak content", () => {
     expect(slovenskyAdv?.frequency).toEqual({ partOfSpeech: "adverb", rank: 281 });
   });
 
+  it("indexes POS sibling senses to the shared lemma path", () => {
+    const documents = buildSearchDocuments();
+    const maloAdv = documents.find(
+      (document) => document.title === "málo" && document.category === "Adverbs",
+    );
+    expect(maloAdv?.url).toBe("/dictionary/malo#adverb");
+  });
+
   it("does not use citation-gloss verb fill stubs", () => {
     const bad = words.filter((word) =>
       word.examples.some(

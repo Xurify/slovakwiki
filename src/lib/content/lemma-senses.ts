@@ -72,6 +72,25 @@ export function dictionaryHrefForSense(
   return { slug: canonical, hash: senseSectionId(entry.category) };
 }
 
+/** Path for links/search — `/dictionary/malo#adverb` when POS siblings share a page. */
+export function dictionaryPathForSense(
+  entry: ContentEntry,
+  words: readonly ContentEntry[],
+): string {
+  const href = dictionaryHrefForSense(entry, words);
+  return href.hash ? `/dictionary/${href.slug}#${href.hash}` : `/dictionary/${href.slug}`;
+}
+
+/** Build path from sidecar/index fields (slug may be non-canonical; prefer hrefSlug). */
+export function dictionaryPathFromIndexFields(fields: {
+  hash?: string;
+  hrefSlug?: string;
+  slug: string;
+}): string {
+  const slug = fields.hrefSlug ?? fields.slug;
+  return fields.hash ? `/dictionary/${slug}#${fields.hash}` : `/dictionary/${slug}`;
+}
+
 /** Related slugs across senses, excluding part-of-speech sibling entries. */
 export function relatedSlugsForLemmaPage(senses: readonly ContentEntry[]): string[] {
   const siblingSlugs = new Set(senses.map((sense) => sense.slug));

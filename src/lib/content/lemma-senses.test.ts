@@ -4,6 +4,8 @@ import { words } from "./data";
 import {
   canonicalWordSlug,
   dictionaryHrefForSense,
+  dictionaryPathForSense,
+  dictionaryPathFromIndexFields,
   lemmaSenseGroup,
   relatedSlugsForLemmaPage,
   senseSectionId,
@@ -77,5 +79,17 @@ describe("lemma senses", () => {
       slug: "slovensky",
       hash: "adverb",
     });
+  });
+
+  it("builds canonical paths for POS sibling senses", () => {
+    const maloAdv = words.find((word) => word.slug === "malo-adv")!;
+    expect(dictionaryPathForSense(maloAdv, words)).toBe("/dictionary/malo#adverb");
+    expect(
+      dictionaryPathFromIndexFields({
+        slug: "malo-adv",
+        hrefSlug: "malo",
+        hash: "adverb",
+      }),
+    ).toBe("/dictionary/malo#adverb");
   });
 });
