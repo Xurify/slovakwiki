@@ -12,6 +12,7 @@
 
   interface RelatedEntry {
     english: string;
+    href: string;
     kind: EntryKind;
     slug: string;
     slovak: string;
@@ -30,12 +31,6 @@
 
   const relatedWords = $derived(relatedEntries.filter((entry) => entry.kind === "word"));
   const relatedTopics = $derived(relatedEntries.filter((entry) => entry.kind !== "word"));
-
-  const routeBase: Record<EntryKind, string> = {
-    grammar: "grammar",
-    pronunciation: "pronunciation",
-    word: "dictionary",
-  };
 </script>
 
 <main
@@ -326,7 +321,7 @@
         {#each relatedWords as word (word.slug)}
           <a
             class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-            href="/dictionary/{word.slug}"
+            href={word.href}
             lang="sk"
           >
             {word.slovak}
@@ -342,7 +337,7 @@
         {#each relatedTopics as entry (entry.slug)}
           <a
             class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-            href="/{routeBase[entry.kind]}/{entry.slug}"
+            href={entry.href}
           >
             {entry.english}
             <small class="text-xs text-slate-500">{entry.slovak}</small>

@@ -16,6 +16,7 @@
 
   interface RelatedEntry {
     english: string;
+    href: string;
     kind: EntryKind;
     slug: string;
     slovak: string;
@@ -44,11 +45,6 @@
     relatedEntries?: RelatedEntry[];
     senses?: SenseView[];
   } = $props();
-  const routeBase = {
-    grammar: "grammar",
-    pronunciation: "pronunciation",
-    word: "dictionary",
-  };
 
   const senseViews = $derived(
     senses && senses.length > 0 ? senses : [{ entry, exampleAudioSrcs }],
@@ -557,7 +553,7 @@
               <li>
                 <a
                   class="inline-flex max-w-full flex-col gap-0.5 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-3.5 py-2.5 transition-colors hover:border-blue-800 hover:bg-blue-50"
-                  href="/{routeBase[relatedEntry.kind]}/{relatedEntry.slug}"
+                  href={relatedEntry.href}
                 >
                   <strong class="font-serif text-sm text-slate-900" lang="sk">
                     {relatedEntry.slovak}

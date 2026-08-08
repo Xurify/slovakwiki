@@ -1,7 +1,8 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PronunciationDetailPage from "$lib/pages/PronunciationDetailPage.svelte";
-import { entryBySlug, pronunciationEntries } from "$lib/content/data";
+import { entryBySlug, pronunciationEntries, words } from "$lib/content/data";
+import { entryHref } from "$lib/content/lemma-senses";
 import { sentenceCase } from "$lib/content/search-ui";
 
 export function getStaticPaths() {
@@ -11,6 +12,7 @@ export function getStaticPaths() {
       .filter((related): related is NonNullable<typeof related> => related !== undefined)
       .map((related) => ({
         english: related.english,
+        href: entryHref(related, words),
         kind: related.kind,
         slug: related.slug,
         slovak: related.slovak,

@@ -15,6 +15,7 @@
     words,
   } from "$lib/content/data";
   import { lessonTracks, lessonsForTrack } from "$lib/content/lessons";
+  import { dictionaryPathForSense } from "$lib/content/lemma-senses";
 
   let { heroSearch }: { heroSearch: Snippet } = $props();
 
@@ -303,7 +304,7 @@
         <div
           class="mt-9 grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-end gap-x-10 gap-y-6 border-b border-slate-200 pb-9 max-[700px]:grid-cols-1"
         >
-          <a class="group block" href="/dictionary/{featuredWord.slug}">
+          <a class="group block" href={dictionaryPathForSense(featuredWord, words)}>
             <Eyebrow tone="muted">Word to know</Eyebrow>
             <p
               class="m-0 font-serif text-[clamp(2.4rem,5vw,3.1rem)] font-semibold leading-none tracking-[-0.045em] text-slate-900 group-hover:text-blue-800"
@@ -335,7 +336,7 @@
               {#each group.entries as word (word.slug)}
                 <a
                   class="group flex items-baseline gap-2 py-1.5"
-                  href="/dictionary/{word.slug}"
+                  href={dictionaryPathForSense(word, words)}
                 >
                   <span
                     class="font-serif text-[1rem] text-slate-900 group-hover:text-blue-800"

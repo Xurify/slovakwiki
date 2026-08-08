@@ -23,6 +23,8 @@
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import { entryBySlug, words } from "$lib/content/data";
+  import { dictionaryPathForSense } from "$lib/content/lemma-senses";
   import type { PracticeItem, PracticeTask } from "$lib/content/learning-types";
 
   const SK_CHARS = [
@@ -55,6 +57,12 @@
     if (task.type === "build") return "Build the sentence";
     if (task.type === "typed") return "Write the sentence";
     return "Practice";
+  }
+
+  function dictionaryHrefForLemma(lemmaId: string): string {
+    const entry = entryBySlug.get(lemmaId);
+    if (!entry) return `/dictionary/${lemmaId}`;
+    return dictionaryPathForSense(entry, words);
   }
 
   let {
@@ -244,7 +252,7 @@
         {revealed}
         {showCorrection}
         dictionaryHref={task.type === "cloze" && task.lemmaId
-          ? `/dictionary/${task.lemmaId}`
+          ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}
       />
 

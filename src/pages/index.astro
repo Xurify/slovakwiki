@@ -3,9 +3,10 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
 import HomeHeroSearch from "$lib/components/HomeHeroSearch.svelte";
 import HomePage from "$lib/pages/HomePage.svelte";
 import { words } from "$lib/content/data";
+import { dictionaryPathForSense } from "$lib/content/lemma-senses";
 
 const popularWords = words.slice(0, 5).map((word) => ({
-  slug: word.slug,
+  href: dictionaryPathForSense(word, words),
   slovak: word.slovak,
 }));
 ---

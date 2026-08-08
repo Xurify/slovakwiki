@@ -4,6 +4,7 @@
 
   interface RelatedEntry {
     english: string;
+    href: string;
     kind: EntryKind;
     slug: string;
     slovak: string;

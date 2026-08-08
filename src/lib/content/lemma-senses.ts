@@ -81,6 +81,20 @@ export function dictionaryPathForSense(
   return href.hash ? `/dictionary/${href.slug}#${href.hash}` : `/dictionary/${href.slug}`;
 }
 
+const ENTRY_ROUTE_BASE: Record<ContentEntry["kind"], string> = {
+  word: "dictionary",
+  grammar: "grammar",
+  pronunciation: "pronunciation",
+};
+
+/** Canonical site path for any content entry (words use lemma sense path). */
+export function entryHref(entry: ContentEntry, words: readonly ContentEntry[]): string {
+  if (entry.kind === "word") {
+    return dictionaryPathForSense(entry, words);
+  }
+  return `/${ENTRY_ROUTE_BASE[entry.kind]}/${entry.slug}`;
+}
+
 /** Build path from sidecar/index fields (slug may be non-canonical; prefer hrefSlug). */
 export function dictionaryPathFromIndexFields(fields: {
   hash?: string;
