@@ -15,6 +15,8 @@
  *
  * Usage:
  *   bun scripts/audio/upload.ts
+ *   bun scripts/audio/upload.ts -- --concurrency 32
+ *   bun scripts/audio/upload.ts -- --lemmas-only
  *   bun scripts/audio/upload.ts -- --dry-run
  *   bun scripts/audio/upload.ts -- --limit 50
  *   bun scripts/audio/upload.ts -- --force   # re-PUT (refresh headers/metadata)
@@ -29,12 +31,16 @@ import { AwsClient } from "aws4fetch";
 import {
   AUDIO_CACHE_CONTROL,
   AUDIO_DIR,
+  DEFAULT_UPLOAD_CONCURRENCY,
   buildAudioObjectMetadata,
+  kindFromObjectKey,
   listAudioObjectKeys,
   loadConfig,
   loadManifest,
+  mapPool,
   parseArgs,
   saveManifest,
+  sortObjectKeysByKind,
   type AudioKind,
 } from "./shared";
 
@@ -44,14 +50,17 @@ function requireEnv(name: string): string {
   return value;
 }
 
-function kindFromObjectKey(objectKey: string): AudioKind {
-  if (objectKey.startsWith("lesson/")) return "lesson";
-  if (objectKey.startsWith("example/")) return "example";
-  return "lemma";
-}
-
 async function main(): Promise<void> {
-  const { dryRun, force, limit, only } = parseArgs(process.argv.slice(2));
+  const {
+    concurrency,
+    dryRun,
+    examplesOnly,
+    force,
+    lemmasOnly,
+    lessonsOnly,
+    limit,
+    only,
+  } = parseArgs(process.argv.slice(2), { concurrency: DEFAULT_UPLOAD_CONCURRENCY });
 
   const accountId = requireEnv("R2_ACCOUNT_ID");
   const accessKeyId = requireEnv("R2_ACCESS_KEY_ID");
@@ -75,7 +84,11 @@ async function main(): Promise<void> {
 
   const config = await loadConfig();
   const manifest = await loadManifest();
-  let keys = await listAudioObjectKeys();
+  let keys = sortObjectKeysByKind(await listAudioObjectKeys());
+
+  if (lemmasOnly) keys = keys.filter((k) => kindFromObjectKey(k) === "lemma");
+  if (examplesOnly) keys = keys.filter((k) => kindFromObjectKey(k) === "example");
+  if (lessonsOnly) keys = keys.filter((k) => kindFromObjectKey(k) === "lesson");
 
   if (only) {
     const needle = only.toLocaleLowerCase("sk");
@@ -92,34 +105,56 @@ async function main(): Promise<void> {
 
   if (limit !== undefined) keys = keys.slice(0, limit);
 
+  const uploadConcurrency = concurrency;
+
   let uploaded = 0;
   let skipped = 0;
   let failed = 0;
+  let sinceSave = 0;
+  const startedAt = Date.now();
+
+  let manifestLock: Promise<void> = Promise.resolve();
+
+  async function withManifestLock<T>(fn: () => Promise<T>): Promise<T> {
+    const previous = manifestLock;
+    let release!: () => void;
+    manifestLock = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    await previous;
+    try {
+      return await fn();
+    } finally {
+      release();
+    }
+  }
 
   console.log(
     `Audio upload: ${keys.length} files → r2://${bucket}` +
       `${jurisdiction ? ` [${jurisdiction}]` : ""}` +
       `${publicBase ? ` (${publicBase})` : ""}` +
+      ` concurrency=${uploadConcurrency}` +
       ` cache=${AUDIO_CACHE_CONTROL}` +
       `${dryRun ? " [dry-run]" : ""}` +
-      `${force ? " [force]" : ""}`,
+      `${force ? " [force]" : ""}` +
+      `${lemmasOnly ? " [lemmas]" : ""}${examplesOnly ? " [examples]" : ""}${lessonsOnly ? " [lessons]" : ""}`,
   );
 
-  for (const objectKey of keys) {
+  await mapPool(keys, dryRun ? Math.min(uploadConcurrency, 64) : uploadConcurrency, async (objectKey) => {
     const hash = path.basename(objectKey, ".mp3");
     const filePath = path.join(AUDIO_DIR, objectKey);
     const entry = manifest[hash];
-    const kind = entry?.kind ?? kindFromObjectKey(objectKey);
+    const kind: AudioKind = entry?.kind ?? kindFromObjectKey(objectKey);
 
     if (entry?.uploadedAt && !force) {
       skipped += 1;
-      continue;
+      return;
     }
 
     if (dryRun) {
       console.log(`[dry-run] ${objectKey}`);
       uploaded += 1;
-      continue;
+      return;
     }
 
     try {
@@ -156,33 +191,46 @@ async function main(): Promise<void> {
         throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
       }
 
-      if (entry) {
-        entry.bytes = info.size;
-        entry.uploadedAt = new Date().toISOString();
-      } else {
-        manifest[hash] = {
-          text: "",
-          kind,
-          bytes: info.size,
-          generatedAt,
-          uploadedAt: new Date().toISOString(),
-        };
-      }
-
-      uploaded += 1;
-      console.log(`ok ${uploaded} ${objectKey} (${info.size} B)`);
+      await withManifestLock(async () => {
+        if (entry) {
+          entry.bytes = info.size;
+          entry.uploadedAt = new Date().toISOString();
+        } else {
+          manifest[hash] = {
+            text: "",
+            kind,
+            bytes: info.size,
+            generatedAt,
+            uploadedAt: new Date().toISOString(),
+          };
+        }
+        uploaded += 1;
+        sinceSave += 1;
+        console.log(`ok ${uploaded} ${objectKey} (${info.size} B)`);
+        if (sinceSave >= 100) {
+          await saveManifest(manifest);
+          sinceSave = 0;
+        }
+      });
     } catch (error) {
       failed += 1;
       const message = error instanceof Error ? error.message : String(error);
       console.error(`fail ${objectKey}: ${message}`);
     }
-  }
+  });
 
   if (!dryRun) {
     await saveManifest(manifest);
   }
 
-  console.log(`Done. uploaded=${uploaded} skipped=${skipped} failed=${failed}`);
+  const elapsedSec = ((Date.now() - startedAt) / 1000).toFixed(1);
+  const rate =
+    uploaded > 0 ? (uploaded / ((Date.now() - startedAt) / 1000)).toFixed(1) : "0";
+
+  console.log(
+    `Done. uploaded=${uploaded} skipped=${skipped} failed=${failed}` +
+      ` rate=${rate}/s elapsed=${elapsedSec}s`,
+  );
   if (failed > 0) process.exitCode = 1;
 }
 

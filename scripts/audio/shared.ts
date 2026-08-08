@@ -31,6 +31,42 @@ export const AUDIO_DIR = path.join(ROOT, "static", "audio");
 export const CONFIG_PATH = path.join(ROOT, "content", "audio", "config.json");
 export const MANIFEST_PATH = path.join(ROOT, "content", "audio", "manifest.json");
 
+/** Ship order: headwords first, then example lines, then lesson dialogue. */
+export const AUDIO_KIND_ORDER: Record<AudioKind, number> = {
+  lemma: 0,
+  example: 1,
+  lesson: 2,
+};
+
+export function compareAudioKind(a: AudioKind, b: AudioKind): number {
+  return AUDIO_KIND_ORDER[a] - AUDIO_KIND_ORDER[b];
+}
+
+export function sortAudioTargetsByKind(targets: AudioTarget[]): AudioTarget[] {
+  return [...targets].sort((a, b) => {
+    const byKind = compareAudioKind(a.kind, b.kind);
+    if (byKind !== 0) return byKind;
+    return a.text.localeCompare(b.text, "sk");
+  });
+}
+
+/** Prefer lemma/ → example/ → lesson/ for bulk upload/gen progress. */
+export function sortObjectKeysByKind(keys: string[]): string[] {
+  return [...keys].sort((a, b) => {
+    const kindA = kindFromObjectKey(a);
+    const kindB = kindFromObjectKey(b);
+    const byKind = compareAudioKind(kindA, kindB);
+    if (byKind !== 0) return byKind;
+    return a.localeCompare(b);
+  });
+}
+
+export function kindFromObjectKey(objectKey: string): AudioKind {
+  if (objectKey.startsWith("lesson/")) return "lesson";
+  if (objectKey.startsWith("example/")) return "example";
+  return "lemma";
+}
+
 export interface ManifestEntry {
   bytes: number;
   characterId?: string;
@@ -146,7 +182,7 @@ export function collectDictionaryAudioTargets(options?: {
     }
   }
 
-  return [...byText.values()].sort((a, b) => a.text.localeCompare(b.text, "sk"));
+  return sortAudioTargetsByKind([...byText.values()]);
 }
 
 /**
@@ -190,7 +226,7 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
     }
   }
 
-  return [...byKey.values()].sort((a, b) => a.text.localeCompare(b.text, "sk"));
+  return sortAudioTargetsByKind([...byKey.values()]);
 }
 
 /** Dictionary and/or lesson targets (default: both). */
@@ -213,7 +249,23 @@ export function collectAudioTargets(
   });
   if (options?.lemmasOnly || !baseConfig) return dictionary;
 
-  return [...dictionary, ...collectLessonAudioTargets(baseConfig)];
+  return sortAudioTargetsByKind([
+    ...dictionary,
+    ...collectLessonAudioTargets(baseConfig),
+  ]);
+}
+
+/**
+ * Live object keys for current config + content.
+ * Anything else under static/audio/{kind}/ is an orphan (old model/settings hash).
+ */
+export function collectExpectedAudioObjectKeys(baseConfig: AudioConfig): Set<string> {
+  const keys = new Set<string>();
+  for (const target of collectAudioTargets({}, baseConfig)) {
+    const voiceConfig = target.voiceConfig ?? baseConfig;
+    keys.add(audioRelativePath(target.text, target.kind, voiceConfig));
+  }
+  return keys;
 }
 
 /** Lemma texts — examples that match a lemma resolve to `lemma/` path. */
@@ -227,7 +279,16 @@ export function collectLemmaTextSet(): Set<string> {
   return lemmas;
 }
 
-export function parseArgs(argv: string[]): {
+/** Pro Flash concurrency is 20 — leave headroom unless overridden. */
+export const DEFAULT_AUDIO_CONCURRENCY = 16;
+/** R2 PUTs are lighter than TTS — higher default. */
+export const DEFAULT_UPLOAD_CONCURRENCY = 32;
+
+export function parseArgs(
+  argv: string[],
+  defaults?: { concurrency?: number },
+): {
+  concurrency: number;
   dryRun: boolean;
   examplesOnly: boolean;
   force: boolean;
@@ -244,6 +305,7 @@ export function parseArgs(argv: string[]): {
   verify: boolean;
   whisperModel: string;
 } {
+  let concurrency = defaults?.concurrency ?? DEFAULT_AUDIO_CONCURRENCY;
   let dryRun = false;
   let force = false;
   let lemmasOnly = false;
@@ -269,7 +331,14 @@ export function parseArgs(argv: string[]): {
     else if (arg === "--examples-only") examplesOnly = true;
     else if (arg === "--missing-only") missingOnly = true;
     else if (arg === "--verify") verify = true;
-    else if (arg === "--limit") {
+    else if (arg === "--concurrency") {
+      const value = Number(argv[i + 1]);
+      if (!Number.isFinite(value) || value < 1) {
+        throw new Error("--concurrency requires a positive number (Pro Flash max ≈20)");
+      }
+      concurrency = Math.min(32, Math.floor(value));
+      i += 1;
+    } else if (arg === "--limit") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 1) {
         throw new Error("--limit requires a positive number");
@@ -340,6 +409,7 @@ export function parseArgs(argv: string[]): {
   }
 
   return {
+    concurrency,
     dryRun,
     examplesOnly,
     force,
@@ -356,6 +426,27 @@ export function parseArgs(argv: string[]): {
     verify,
     whisperModel,
   };
+}
+
+/** Run `worker` over items with at most `concurrency` in flight. */
+export async function mapPool<T>(
+  items: T[],
+  concurrency: number,
+  worker: (item: T, index: number) => Promise<void>,
+): Promise<void> {
+  const limit = Math.max(1, Math.min(concurrency, items.length || 1));
+  let next = 0;
+
+  async function runWorker(): Promise<void> {
+    while (true) {
+      const index = next;
+      next += 1;
+      if (index >= items.length) return;
+      await worker(items[index]!, index);
+    }
+  }
+
+  await Promise.all(Array.from({ length: limit }, () => runWorker()));
 }
 
 export interface SynthesizeOptions {

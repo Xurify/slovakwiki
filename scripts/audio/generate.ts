@@ -4,13 +4,10 @@
  *
  * Usage:
  *   bun scripts/audio/generate.ts
- *   bun scripts/audio/generate.ts -- --limit 20
- *   bun scripts/audio/generate.ts -- --lemmas-only --dry-run
- *   bun scripts/audio/generate.ts -- --lessons-only
+ *   bun scripts/audio/generate.ts -- --lemmas-only --force
+ *   bun scripts/audio/generate.ts -- --concurrency 16 --lemmas-only --force
  *   bun scripts/audio/generate.ts -- --examples-only --missing-only --offset 0 --limit 1000
- *   bun scripts/audio/generate.ts -- --force
- *   bun scripts/audio/generate.ts -- --force --verify --only "príliš hrdý"
- *   bun scripts/audio/generate.ts -- --verify --stt dual
+ *   bun scripts/audio/generate.ts -- --force --verify --stt elevenlabs --concurrency 4
  */
 
 import { access, mkdir, writeFile } from "node:fs/promises";
@@ -26,14 +23,16 @@ import {
   hashAudioText,
   loadConfig,
   loadManifest,
+  mapPool,
   parseArgs,
   saveManifest,
   sleep,
   synthesizeElevenLabs,
+  type AudioTarget,
   type ManifestEntry,
 } from "./shared";
 
-const MANIFEST_SAVE_EVERY = 25;
+const MANIFEST_SAVE_EVERY = 50;
 
 async function fileExists(filePath: string): Promise<boolean> {
   try {
@@ -45,12 +44,13 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 async function main(): Promise<void> {
-  const apiKey = process.env.ELEVENLABS_API_KEY;
+  const apiKey = process.env.ELEVENLABS_API_KEY as string;
   if (!apiKey) {
     throw new Error("ELEVENLABS_API_KEY missing (set in .env)");
   }
 
   const {
+    concurrency,
     dryRun,
     examplesOnly,
     force,
@@ -102,6 +102,8 @@ async function main(): Promise<void> {
   let verified = 0;
   let rescued = 0;
   let sinceSave = 0;
+  let rateLimitHits = 0;
+  const startedAt = Date.now();
   const verifyFailures: Array<{
     reasons: string[];
     score: number;
@@ -110,8 +112,27 @@ async function main(): Promise<void> {
     whisper?: string;
   }> = [];
 
+  let manifestLock: Promise<void> = Promise.resolve();
+
+  async function withManifestLock<T>(fn: () => Promise<T>): Promise<T> {
+    const previous = manifestLock;
+    let release!: () => void;
+    manifestLock = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    await previous;
+    try {
+      return await fn();
+    } finally {
+      release();
+    }
+  }
+
   async function persistManifest(): Promise<void> {
-    await saveManifest(manifest);
+    await withManifestLock(async () => {
+      await saveManifest(manifest);
+      sinceSave = 0;
+    });
   }
 
   const judgeMode = judgeModeFromSttProvider(sttProvider);
@@ -123,8 +144,13 @@ async function main(): Promise<void> {
         ? "examples"
         : "dictionary+lessons";
 
+  // Verify adds STT per take — cap concurrency so we don't burn Scribe quota.
+  const effectiveConcurrency = verify ? Math.min(concurrency, 4) : concurrency;
+
   console.log(
     `Audio generate: ${targets.length} targets (${scope})` +
+      ` order=lemma→example→lesson` +
+      ` concurrency=${effectiveConcurrency}` +
       ` offset=${offset}` +
       ` (default voice=${config.voiceName}, model=${config.modelId}` +
       `${verify ? `, judge=${judgeMode} scribe=${sttModel} whisper=${whisperModel}, retries=${retries}` : ""}` +
@@ -132,7 +158,7 @@ async function main(): Promise<void> {
       `${missingOnly ? ", missing-only" : ""})`,
   );
 
-  for (const target of targets) {
+  async function processTarget(target: AudioTarget): Promise<void> {
     const voiceConfig = target.voiceConfig ?? config;
     const hash = hashAudioText(target.text, voiceConfig);
     const relative = audioRelativePath(target.text, target.kind, voiceConfig);
@@ -141,17 +167,19 @@ async function main(): Promise<void> {
 
     if (exists && !force) {
       skipped += 1;
-      if (!manifest[hash]) {
-        manifest[hash] = {
-          text: target.text,
-          kind: target.kind,
-          bytes: 0,
-          generatedAt: new Date().toISOString(),
-          characterId: target.characterId,
-          voiceId: voiceConfig.voiceId,
-        };
-      }
-      continue;
+      await withManifestLock(async () => {
+        if (!manifest[hash]) {
+          manifest[hash] = {
+            text: target.text,
+            kind: target.kind,
+            bytes: 0,
+            generatedAt: new Date().toISOString(),
+            characterId: target.characterId,
+            voiceId: voiceConfig.voiceId,
+          };
+        }
+      });
+      return;
     }
 
     if (dryRun) {
@@ -160,7 +188,7 @@ async function main(): Promise<void> {
         `[dry-run] ${target.kind}${who}: ${target.text.slice(0, 60)} → ${relative}`,
       );
       generated += 1;
-      continue;
+      return;
     }
 
     try {
@@ -243,7 +271,7 @@ async function main(): Promise<void> {
           whisper: lastJudge?.whisper?.text,
         });
         console.error(`fail [verify] ${target.text.slice(0, 50)}`);
-        continue;
+        return;
       }
 
       const entry: ManifestEntry = {
@@ -255,32 +283,36 @@ async function main(): Promise<void> {
         characterId: target.characterId,
         voiceId: voiceConfig.voiceId,
       };
-      manifest[hash] = entry;
-      generated += 1;
-      sinceSave += 1;
-      const who = target.characterId ? `/${target.characterId}` : "";
-      console.log(
-        `ok ${generated}/${targets.length} [${target.kind}${who}] ${target.text.slice(0, 40)} → ${relative} (${audio.byteLength} B)` +
-          (usedRescue ? " [rescue]" : ""),
-      );
 
-      if (sinceSave >= MANIFEST_SAVE_EVERY) {
-        await persistManifest();
-        sinceSave = 0;
-      }
-
-      await sleep(120);
+      await withManifestLock(async () => {
+        manifest[hash] = entry;
+        generated += 1;
+        sinceSave += 1;
+        const who = target.characterId ? `/${target.characterId}` : "";
+        console.log(
+          `ok ${generated}/${targets.length} [${target.kind}${who}] ${target.text.slice(0, 40)} → ${relative} (${audio.byteLength} B)` +
+            (usedRescue ? " [rescue]" : ""),
+        );
+        if (sinceSave >= MANIFEST_SAVE_EVERY) {
+          await saveManifest(manifest);
+          sinceSave = 0;
+        }
+      });
     } catch (error) {
       failed += 1;
       const message = error instanceof Error ? error.message : String(error);
       console.error(`fail [${target.kind}] ${target.text.slice(0, 50)}: ${message}`);
 
-      if (/429|rate/i.test(message)) {
-        console.error("Rate limited — waiting 10s…");
-        await sleep(10_000);
+      if (/429|rate|too_many_concurrent/i.test(message)) {
+        rateLimitHits += 1;
+        const waitMs = Math.min(15_000, 2_000 * rateLimitHits);
+        console.error(`Rate limited — waiting ${waitMs}ms…`);
+        await sleep(waitMs);
       }
     }
   }
+
+  await mapPool(targets, dryRun ? Math.min(effectiveConcurrency, 32) : effectiveConcurrency, processTarget);
 
   if (!dryRun) {
     await persistManifest();
@@ -294,9 +326,15 @@ async function main(): Promise<void> {
     console.error(`Verify failures written: ${reportPath}`);
   }
 
+  const elapsedSec = ((Date.now() - startedAt) / 1000).toFixed(1);
+  const rate =
+    generated > 0 ? (generated / ((Date.now() - startedAt) / 1000)).toFixed(1) : "0";
+
   console.log(
     `Done. generated=${generated} skipped=${skipped} failed=${failed}` +
       (verify ? ` verified=${verified} rescued=${rescued}` : "") +
+      ` rate=${rate}/s elapsed=${elapsedSec}s` +
+      (rateLimitHits > 0 ? ` rateLimitHits=${rateLimitHits}` : "") +
       ` dir=${AUDIO_DIR}`,
   );
 

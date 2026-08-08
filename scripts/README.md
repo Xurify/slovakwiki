@@ -64,14 +64,15 @@ Example limits: `src/lib/content/example-limits.ts` — store pool 8 / display 4
 
 ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
-| `generate.ts` | `bun scripts/audio/generate.ts` | Writes MP3s; `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` dual judge; rescue model on fail |
+| `generate.ts` | `bun scripts/audio/generate.ts` | Writes MP3s in **lemma → example → lesson** order; default `--concurrency 16` (Pro Flash ≈20 — see [`content/audio/README.md`](../content/audio/README.md#elevenlabs-plans--concurrency)); `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` caps concurrency at 4 |
 | `voice-design.ts` | `bun scripts/audio/voice-design.ts` | ElevenLabs Voice Design → `tmp/voice-design/`; `--create` saves preview to library + patches `characters` in config |
-| `upload.ts` | `bun scripts/audio/upload.ts` | Sync to R2; `--force` / `--only`; needs `R2_*` |
+| `upload.ts` | `bun scripts/audio/upload.ts` | Parallel R2 sync (default concurrency 32); `--lemmas-only` / `--examples-only` / `--lessons-only` / `--force` / `--only`; needs `R2_*` |
+| `prune-orphans.ts` | `bun scripts/audio/prune-orphans.ts` | Dry-run orphan report (old hashes); `--delete` local+manifest; `--delete --r2` also DELETE on R2 |
 | `status.ts` | `bun scripts/audio/status.ts` | Targets vs disk vs manifest |
 | `verify.ts` | `bun scripts/audio/verify.ts` | Dual STT audit → `tmp/audio-verify-report.json` |
 | `judge.ts` | (lib) | Dual STT + near-miss ending + logprob gap |
 | `stt.ts` | (lib) | Scribe + Whisper adapters |
-| `shared.ts` | (lib) | Hash / collect / synthesize |
+| `shared.ts` | (lib) | Hash / collect / synthesize / mapPool |
 
 Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` · `lesson/{hash}.mp3`. Hash = content address (includes voice); folder = how clip is used.
 
