@@ -112,6 +112,17 @@
     if (!submitted)
       builtBankIndexes = builtBankIndexes.filter((_, index) => index !== builtIndex);
   }
+
+  function attemptForDisplay(): string | undefined {
+    if (!graded || correct || revealed) return undefined;
+    if (graded.type === "choice") {
+      const choice = graded.choices.find((entry) => entry.id === selectedId);
+      return choice?.text;
+    }
+    if (graded.type === "build") return builtTiles.join(" ");
+    const trimmed = input.trim();
+    return trimmed.length > 0 ? trimmed : undefined;
+  }
 </script>
 
 <section
@@ -225,18 +236,22 @@
     {#if submitted}
       <div
         bind:this={feedbackPanel}
-        class={`mt-6 ${feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))}`}
+        class={`mt-6 ${correct
+          ? feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))
+          : "overflow-hidden rounded-(--control-radius) border border-slate-200"}`}
         aria-live="polite"
         tabindex="-1"
       >
         <PracticeExerciseFeedback
+          attempt={attemptForDisplay()}
           correction={exercise.feedback.correction}
           english={exercise.feedback.english}
           why={exercise.feedback.why}
           grade={correct ? "correct" : "incorrect"}
           revealed={revealed || !correct}
           {showCorrection}
-          correctionLabelTone={correct ? "emerald" : "rose"}
+          reviewBands={!correct}
+          correctionLabelTone="emerald"
         />
       </div>
 

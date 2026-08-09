@@ -26,6 +26,7 @@
   import {
     feedbackFooterClass,
     feedbackToneFromGrade,
+    isMissFeedback,
     shouldShowCorrection,
   } from "$lib/components/practice/practice-feedback-ui";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
@@ -303,8 +304,15 @@
 
   const showCorrection = $derived(shouldShowCorrection(submitted, grade, revealed));
 
+  const isMiss = $derived(submitted && isMissFeedback(grade, revealed));
+
+  const feedbackAttempt = $derived(
+    isMiss && !revealed ? attemptForResult() : undefined,
+  );
+
   function exerciseFooterClass(): string {
     if (!submitted) return "border-t border-slate-200 bg-paper/70";
+    if (isMiss) return feedbackFooterClass("incorrect");
     return feedbackFooterClass(feedbackToneFromGrade(grade, revealed));
   }
 
@@ -319,8 +327,9 @@
 
 {#snippet exerciseFooter()}
   {#if submitted}
-    <div class="grid gap-4" bind:this={feedbackPanel} aria-live="polite" tabindex="-1">
+    <div class="grid gap-3" bind:this={feedbackPanel} aria-live="polite" tabindex="-1">
       <PracticeExerciseFeedback
+        attempt={feedbackAttempt}
         {closeSuggestion}
         correction={current.feedback.correction}
         english={current.feedback.english}
@@ -329,6 +338,8 @@
         {grade}
         {revealed}
         {showCorrection}
+        reviewBands={isMiss}
+        correctionLabelTone={isMiss || grade === "correct" ? "emerald" : "rose"}
         dictionaryHref={task.type === "cloze" && task.lemmaId
           ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}

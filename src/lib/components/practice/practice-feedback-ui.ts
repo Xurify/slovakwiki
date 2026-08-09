@@ -44,16 +44,18 @@ export function feedbackPanelClass(tone: FeedbackTone): string {
 }
 
 export function feedbackFooterClass(tone: FeedbackTone): string {
-  if (tone === "incorrect") return "border-t border-rose-200 bg-rose-50";
+  if (tone === "incorrect") return "border-t border-slate-200 bg-paper/70";
   if (tone === "accents") return "border-t border-blue-200 bg-blue-50";
   return "border-t border-emerald-200 bg-emerald-50";
 }
 
-export const attemptBoxClass =
-  "mt-1 rounded-lg bg-rose-50 px-3 py-2 ring-1 ring-inset ring-rose-900/8";
+export const attemptBandClass = "border-t border-rose-200 bg-rose-50 pt-2";
 
-export const correctionBoxClass =
-  "mt-1 grid gap-1.5 rounded-lg bg-emerald-50/80 px-3 py-2.5 ring-1 ring-inset ring-emerald-700/10";
+export const correctionBandClass =
+  "grid gap-1.5 border-t border-emerald-200 bg-emerald-50 pt-2.5";
+
+export const recapAttemptBandClass = `mt-1 ${attemptBandClass}`;
+export const recapCorrectionBandClass = `mt-1 ${correctionBandClass}`;
 
 export const progressCorrectClass = "bg-emerald-600";
 export const progressMissedClass = "bg-rose-600";
@@ -65,4 +67,8 @@ export function shouldShowCorrection(
 ): boolean {
   if (!submitted) return false;
   return revealed || grade !== null;
+}
+
+export function isMissFeedback(grade: AnswerGrade | null, revealed: boolean): boolean {
+  return revealed || grade === "incorrect" || grade === "accents";
 }

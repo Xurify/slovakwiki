@@ -94,6 +94,7 @@ When someone else spoke first:
 - **Correct:** skip repeating the answer when choices already show it; always include `why`.
 - **Wrong:** UI shows “Correct answer” + correction — do not add `That works.` / `Try this.` in content.
 - `english` on feedback = gloss of the correction; `why` = one short teaching line.
+- In `why`, wrap Slovak patterns or key terms in `**double asterisks**` so the UI can emphasize them (e.g. `Use **o** + the ordinal time form: **o tretej**.`).
 
 Reuse `PracticeExerciseFeedback.svelte` for any new exercise UI — do not invent new status labels.
 

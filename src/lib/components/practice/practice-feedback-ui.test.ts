@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { splitEmphasis } from "./practice-feedback-ui";
+import {
+  feedbackFooterClass,
+  isMissFeedback,
+  splitEmphasis,
+} from "./practice-feedback-ui";
 
 describe("splitEmphasis", () => {
   it("returns plain text when there are no markers", () => {
@@ -25,5 +29,14 @@ describe("splitEmphasis", () => {
       { type: "em", value: "2:30" },
       { type: "text", value: "." },
     ]);
+  });
+
+  it("uses neutral footer on miss so bands carry color", () => {
+    expect(feedbackFooterClass("incorrect")).toBe(
+      "border-t border-slate-200 bg-paper/70",
+    );
+    expect(isMissFeedback("incorrect", false)).toBe(true);
+    expect(isMissFeedback("accents", false)).toBe(true);
+    expect(isMissFeedback("correct", false)).toBe(false);
   });
 });

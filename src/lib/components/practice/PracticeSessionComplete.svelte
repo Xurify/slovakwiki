@@ -5,8 +5,6 @@
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
-    attemptBoxClass,
-    correctionBoxClass,
     progressCorrectClass,
     progressMissedClass,
   } from "$lib/components/practice/practice-feedback-ui";
@@ -116,31 +114,18 @@
       </p>
 
       {#if missed}
-        <div class="mt-2 grid gap-2">
-          {#if row.attempt && !revealed}
-            <div class={attemptBoxClass}>
-              <p class="m-0 text-xs font-semibold text-rose-900">Your answer</p>
-
-              <p
-                class="m-0 mt-0.5 font-serif text-sm leading-snug text-rose-950"
-                lang="sk"
-              >
-                {row.attempt}
-              </p>
-            </div>
-          {/if}
-
-          <div class={correctionBoxClass}>
-            <PracticeExerciseFeedback
-              correction={row.slovak}
-              english={row.english}
-              why={row.why}
-              grade={row.grade === "accents" ? "accents" : "incorrect"}
-              {revealed}
-              showCorrection={true}
-              correctionLabelTone="emerald"
-            />
-          </div>
+        <div class="mt-2">
+          <PracticeExerciseFeedback
+            attempt={row.attempt && !revealed ? row.attempt : undefined}
+            correction={row.slovak}
+            english={row.english}
+            why={row.why}
+            grade={row.grade === "accents" ? "accents" : "incorrect"}
+            {revealed}
+            showCorrection={true}
+            reviewBands={true}
+            correctionLabelTone="emerald"
+          />
         </div>
       {:else}
         <p

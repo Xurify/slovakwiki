@@ -744,6 +744,27 @@ describe("Slovak content", () => {
     }
   });
 
+  it("marks key terms in every practice and lesson why line", () => {
+    const missing: string[] = [];
+
+    for (const item of practiceItems) {
+      if (!item.feedback.why.includes("**")) {
+        missing.push(`practice:${item.id}`);
+      }
+    }
+
+    for (const lesson of lessons) {
+      for (const exercise of lesson.exercises) {
+        if (exercise.type === "personal") continue;
+        if (!exercise.feedback.why.includes("**")) {
+          missing.push(`lesson:${lesson.id}:${exercise.practiceItemId}`);
+        }
+      }
+    }
+
+    expect(missing).toEqual([]);
+  });
+
   it("stores only completion and recent drill state", () => {
     const storage = new MemoryStorage();
     const state = saveRecentItem(
