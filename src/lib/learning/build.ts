@@ -34,10 +34,7 @@ function materializeDayMeetingItem(
   ).slice(0, 2);
 
   const answer = ["Stretneme", "sa", "v", day.tile];
-  const tiles = shuffleArray(
-    ["v", "Stretneme", "sa", day.tile, ...distractorTiles],
-    rng,
-  );
+  const tiles = shuffleArray(["v", "Stretneme", "sa", day.tile, ...distractorTiles], rng);
   const correction = `Stretneme sa v ${day.inPhrase}.`;
   const feedback = {
     correction,
