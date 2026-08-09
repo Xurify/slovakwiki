@@ -1,7 +1,9 @@
 # Audio voices
 
 Source of truth for IDs / settings: [`config.json`](./config.json).  
-Clip metadata: [`manifest.json`](./manifest.json) (hash → text, kind, voice, character).  
+Clip metadata (scripts): [`manifest.json`](./manifest.json) (hash → text, kind, bytes, uploadedAt).  
+Runtime index (app build): [`runtime-index.json`](./runtime-index.json) (hash → kind + `generatedAt` only).  
+`saveManifest` in `scripts/audio/shared.ts` writes both (compact, sorted keys).  
 MP3s live under `static/audio/` (gitignored) or R2 in production.
 
 ## Shared TTS settings

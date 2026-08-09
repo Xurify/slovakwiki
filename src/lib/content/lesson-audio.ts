@@ -1,4 +1,4 @@
-import audioManifest from "../../../content/audio/manifest.json";
+import { hasAudioClip } from "./audio-manifest";
 import { audioHash, resolveAudioSrc } from "./audio";
 import {
   audioConfigForCharacter,
@@ -8,19 +8,13 @@ import {
 } from "./characters";
 import type { DialogueTurn, KeyPhrase, Lesson } from "./learning-types";
 
-type ManifestEntry = {
-  kind?: string;
-};
-
-const manifest = audioManifest as Record<string, ManifestEntry>;
-
 function resolveCharacterAudioSrc(
   text: string,
   characterId: LessonCharacterId,
 ): string | undefined {
   const config = audioConfigForCharacter(characterId);
   const hash = audioHash(text, config);
-  if (!manifest[hash]) return undefined;
+  if (!hasAudioClip(hash)) return undefined;
   return resolveAudioSrc(text, "lesson", config);
 }
 

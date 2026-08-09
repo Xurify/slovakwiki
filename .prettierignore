@@ -9,3 +9,5 @@ dist
 coverage
 package-lock.json
 *.tsbuildinfo
+content/audio/manifest.json
+content/audio/runtime-index.json

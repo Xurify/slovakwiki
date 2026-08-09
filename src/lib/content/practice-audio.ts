@@ -1,13 +1,6 @@
-import audioManifest from "../../../content/audio/manifest.json";
+import { audioClipKind, hasAudioClip } from "./audio-manifest";
 import { audioHash, resolveAudioSrc, type AudioKind } from "./audio";
 import type { PracticeItem } from "./learning-types";
-
-type ManifestEntry = {
-  kind?: string;
-  text?: string;
-};
-
-const manifest = audioManifest as Record<string, ManifestEntry>;
 
 /**
  * Server-only: map cloze task ids → public audio URLs when the spoken
@@ -22,10 +15,10 @@ export function clozeAudioSrcs(items: PracticeItem[]): Record<string, string> {
 
     const spoken = item.task.frame.replace("{}", item.task.answer);
     const hash = audioHash(spoken);
-    const entry = manifest[hash];
-    if (!entry) continue;
+    if (!hasAudioClip(hash)) continue;
 
-    const kind: AudioKind = entry.kind === "lemma" ? "lemma" : "example";
+    const storedKind = audioClipKind(hash);
+    const kind: AudioKind = storedKind === "lemma" ? "lemma" : "example";
     srcs[item.task.id] = resolveAudioSrc(spoken, kind);
   }
 

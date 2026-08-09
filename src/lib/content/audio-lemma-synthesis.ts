@@ -1,4 +1,4 @@
-import { normalizeAudioText } from "./audio";
+import { normalizeAudioText } from "./audio-core";
 
 /** ElevenLabs voice defaults for Dictionary Neutral (GET /v1/voices/{id}/settings). */
 export const ELEVENLABS_VOICE_DEFAULT_SETTINGS = {

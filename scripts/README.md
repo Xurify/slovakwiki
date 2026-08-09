@@ -35,7 +35,8 @@ bun run index:search                             # Pagefind for local/dev search
 | `content/dictionary/related-clusters.json`    | Semantic related peers for `apply-related.ts`                            |
 | `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast           |
 | `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands)         |
-| `content/audio/manifest.json`                 | Generated clip metadata (hash → text/bytes/uploaded)                     |
+| `content/audio/manifest.json`                 | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only           |
+| `content/audio/runtime-index.json`            | Slim build index (hash → kind + generatedAt); app via `readFile`         |
 | `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status/uploadedAt) |
 | `content/images/overrides.json`               | Manual reject / force Commons file per slug                              |
 | `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime          |

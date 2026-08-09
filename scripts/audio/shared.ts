@@ -15,7 +15,7 @@ import {
   type AudioVoiceSettings,
   audioObjectKey,
   normalizeAudioText,
-} from "../../src/lib/content/audio";
+} from "../../src/lib/content/audio-core";
 import {
   audioConfigForCharacter,
   characterIdForSpeaker,
@@ -30,6 +30,12 @@ export type { AudioKind };
 export const AUDIO_DIR = path.join(ROOT, "static", "audio");
 export const CONFIG_PATH = path.join(ROOT, "content", "audio", "config.json");
 export const MANIFEST_PATH = path.join(ROOT, "content", "audio", "manifest.json");
+export const RUNTIME_INDEX_PATH = path.join(
+  ROOT,
+  "content",
+  "audio",
+  "runtime-index.json",
+);
 
 /** Ship order: headwords first, then example lines, then lesson dialogue. */
 export const AUDIO_KIND_ORDER: Record<AudioKind, number> = {
@@ -78,6 +84,27 @@ export interface ManifestEntry {
 }
 
 export type AudioManifest = Record<string, ManifestEntry>;
+
+export interface RuntimeIndexEntry {
+  k: AudioKind;
+  g: string;
+}
+
+export type AudioRuntimeIndex = Record<string, RuntimeIndexEntry>;
+
+export function sortManifestKeys<T extends Record<string, unknown>>(record: T): T {
+  return Object.fromEntries(
+    Object.entries(record).sort(([a], [b]) => a.localeCompare(b, "en")),
+  ) as T;
+}
+
+export function buildRuntimeIndex(manifest: AudioManifest): AudioRuntimeIndex {
+  const index: AudioRuntimeIndex = {};
+  for (const [hash, entry] of Object.entries(manifest)) {
+    index[hash] = { k: entry.kind, g: entry.generatedAt };
+  }
+  return index;
+}
 
 export interface AudioTarget {
   characterId?: LessonCharacterId;
@@ -130,7 +157,10 @@ export async function loadManifest(): Promise<AudioManifest> {
 }
 
 export async function saveManifest(manifest: AudioManifest): Promise<void> {
-  await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  const sorted = sortManifestKeys(manifest);
+  await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`, "utf8");
+  const runtimeIndex = sortManifestKeys(buildRuntimeIndex(sorted));
+  await writeFile(RUNTIME_INDEX_PATH, `${JSON.stringify(runtimeIndex)}\n`, "utf8");
 }
 
 export async function ensureAudioDir(kind?: AudioKind): Promise<void> {

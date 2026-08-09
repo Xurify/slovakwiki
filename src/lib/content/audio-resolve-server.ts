@@ -1,15 +1,8 @@
-import audioManifest from "../../../content/audio/manifest.json";
-
+import { audioClipCacheBust } from "./audio-manifest";
 import { audioHash, audioObjectKey, resolveAudioSrc, type AudioKind } from "./audio";
 
-type ManifestEntry = { generatedAt?: string };
-
-const manifest = audioManifest as Record<string, ManifestEntry>;
-
 function cacheBustUrl(url: string, hash: string): string {
-  const generatedAt = manifest[hash]?.generatedAt;
-  if (!generatedAt) return url;
-  const bust = generatedAt.replaceAll(/\D/g, "").slice(-10);
+  const bust = audioClipCacheBust(hash);
   return bust ? `${url}?v=${bust}` : url;
 }
 

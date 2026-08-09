@@ -1,4 +1,8 @@
 {
+  "files.exclude": {
+    "**/content/audio/manifest.json": true,
+    "**/content/audio/runtime-index.json": true
+  },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/node_modules/**": true,
@@ -11,7 +15,9 @@
     "**/tmp/**": true,
     "**/.astro/**": true,
     "**/.svelte-kit/**": true,
-    "**/.turbo/**": true
+    "**/.turbo/**": true,
+    "**/content/audio/manifest.json": true,
+    "**/content/audio/runtime-index.json": true
   },
   "search.exclude": {
     "**/node_modules": true,
@@ -21,6 +27,8 @@
     "**/static/images": true,
     "**/static/pagefind": true,
     "**/static/downloads": true,
-    "**/tmp": true
+    "**/tmp": true,
+    "**/content/audio/manifest.json": true,
+    "**/content/audio/runtime-index.json": true
   }
 }

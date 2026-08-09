@@ -16,5 +16,11 @@
     "strict": true
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "static/pagefind", "tmp"]
+  "exclude": [
+    "dist",
+    "static/pagefind",
+    "tmp",
+    "content/audio/manifest.json",
+    "content/audio/runtime-index.json"
+  ]
 }

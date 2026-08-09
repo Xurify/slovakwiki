@@ -1,4 +1,4 @@
-import { audioConfigData, type AudioConfig, type AudioCharacter } from "./audio";
+import { audioConfigData, type AudioConfig, type AudioCharacter } from "./audio-core";
 
 export type CharacterGender = "female" | "male" | "neutral";
 
