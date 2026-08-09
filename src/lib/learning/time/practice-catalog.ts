@@ -42,13 +42,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
   stubClockMatch("everyday/clock-half-past-match", "review-clock-half-past-match"),
   stubClockMatch("everyday/clock-quarter-past-match", "review-clock-quarter-past-match"),
   stubClockMatch("everyday/clock-quarter-to-match", "review-clock-quarter-to-match"),
-  stubOddOneOut("everyday/clock-quarter-past-ask", "review-clock-quarter-past-ask"),
+  stubChoice("everyday/clock-quarter-past-ask", "review-clock-quarter-past-ask"),
   stubOddOneOut("everyday/time-variants", "review-time-variants"),
-  stubOddOneOut("everyday/day-part-time", "review-day-part-time"),
+  stubChoice("everyday/day-part-time", "review-day-part-time"),
   stubOddOneOut("everyday/noon-midnight", "review-noon-midnight"),
-  stubOddOneOut("everyday/okolo-vs-exact", "review-okolo-vs-exact"),
+  stubChoice("everyday/okolo-vs-exact", "review-okolo-vs-exact"),
   stubChoice("everyday/timetable-24h", "review-timetable-24h"),
-  stubOddOneOut("everyday/exact-minute", "review-exact-minute"),
+  stubChoice("everyday/exact-minute", "review-exact-minute"),
   stubOddOneOut("everyday/za-countdown", "review-za-countdown"),
 ];
 

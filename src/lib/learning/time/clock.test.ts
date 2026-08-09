@@ -2,10 +2,13 @@ import { describe, expect, it } from "vitest";
 
 import {
   appointmentChoiceDistractors,
+  appointmentChoiceWhy,
+  appointmentDistractorWhy,
   appointmentFrom24h,
   appointmentPhrase,
   aroundPhrase,
   answersForTime,
+  clockFaceDistractorWhy,
   exactMinuteTellingLabel,
   faceHour12,
   nearMissTimes,
@@ -15,6 +18,8 @@ import {
   preferredAnswerForTime,
   randomDrillTime,
   selectAllChoicesForTime,
+  selectAllTrapWhy,
+  tellingDistractorWhy,
   zaCountdownPhrase,
 } from "./clock";
 import { answersMatch } from "$lib/client/practice-state";
@@ -133,6 +138,7 @@ describe("learning/time/clock", () => {
     const { answerId, choices } = oddOneOutChoicesFromDrafts(drafts, "noon");
 
     expect(answerId).toBe("wrong-lexical");
+    expect(choices.find((c) => c.id === "bare-twelve")).toBeUndefined();
     expect(choices.find((c) => c.id === "wrong-lexical")?.whyWrong).toMatch(/midnight/);
     expect(choices.find((c) => c.id === "lexical")?.whyWrong).toMatch(/means noon/);
   });
@@ -142,6 +148,39 @@ describe("learning/time/clock", () => {
     expect(choices.find((c) => c.id === "digital")?.label).toBe("Tri tridsať");
     expect(choices.find((c) => c.id === "telling-primary")?.label).toBe("Je pol štvrtej");
     expect(choices.every((c) => !c.label.endsWith("."))).toBe(true);
+  });
+
+  it("builds rule-first appointment feedback", () => {
+    expect(appointmentChoiceWhy({ hour: 6, minute: 45 })).toMatch(
+      /means quarter to 7.*three quarters.*\*\*7\*\*.*\*\*6:45\*\*/,
+    );
+    expect(appointmentChoiceWhy({ hour: 2, minute: 15 })).toMatch(
+      /means quarter past 2.*one quarter.*\*\*3\*\*/,
+    );
+    expect(appointmentChoiceWhy({ hour: 2, minute: 30 })).toMatch(
+      /means half past 2.*halfway toward \*\*3\*\*/,
+    );
+  });
+
+  it("explains appointment distractors with the toward-hour rule", () => {
+    const correct = { hour: 6, minute: 45 as const };
+    const wrong = { hour: 5, minute: 45 as const };
+    expect(appointmentDistractorWhy(correct, wrong)).toBe(
+      "**O trištvrte na šesť** means quarter to 6 (**5:45**). For quarter to 7, name **sedem** after **na** — the hand is near **6**, but Slovak looks ahead.",
+    );
+    expect(tellingDistractorWhy(correct, wrong)).toMatch(/means quarter to 6/);
+    expect(clockFaceDistractorWhy(correct, wrong)).toMatch(
+      /You need quarter to 7.*name \*\*sedem\*\* after \*\*na\*\*/,
+    );
+  });
+
+  it("builds select-all trap why with toward-hour wording", () => {
+    const trap = selectAllTrapWhy(
+      { hour: 2, minute: 45 },
+      "Je trištvrte na dve",
+    );
+    expect(trap).toMatch(/three quarters toward/);
+    expect(trap).toMatch(/not \*\*2:45\*\*/);
   });
 
   it("uses O prvej as appointment choice distractor when it is not the answer", () => {

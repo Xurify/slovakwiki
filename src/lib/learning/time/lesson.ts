@@ -1,5 +1,21 @@
 import type { Lesson, LessonExercise } from "$lib/learning/types";
+import {
+  appointmentChoiceWhy,
+  appointmentDistractorWhy,
+  clockFaceDistractorWhy,
+  englishTimeMeaningPhrase,
+  oddOneOutFitWhy,
+  tellingChoiceWhy,
+  tellingDistractorWhy,
+  okoloChoiceWhy,
+  okoloExactTrapWhy,
+} from "./clock";
 import { hodinaAgreementHint, okoloHint, registersHint } from "./hints";
+import { enAroundPrompt } from "./prompts";
+
+type QuarterTime = { hour: number; minute: 0 | 15 | 30 | 45 };
+
+const t = (hour: number, minute: 0 | 15 | 30 | 45): QuarterTime => ({ hour, minute });
 
 export const daysDatesTimeLessonId = "everyday/days-dates-and-time";
 
@@ -57,19 +73,19 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       {
         id: "four",
         label: "O štvrtej.",
-        whyWrong: "**O štvrtej** is **4:00** — not **3:00**.",
+        whyWrong: appointmentDistractorWhy(t(3, 0), t(4, 0)),
       },
       {
         id: "half-past",
         label: "O pol tretej.",
-        whyWrong: "**O pol tretej** is **2:30** — not **3:00**.",
+        whyWrong: appointmentDistractorWhy(t(3, 0), t(2, 30)),
       },
     ],
     answerId: "three",
     feedback: {
       correction: "O tretej.",
       english: "At three o’clock.",
-      why: "Use **o** + the time for an appointment: **o tretej**.",
+      why: appointmentChoiceWhy(t(3, 0)),
     },
   },
   {
@@ -82,7 +98,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "O pol tretej.",
       english: "At half past two.",
-      why: "**Pol tretej** is halfway to three, so it means **2:30**.",
+      why: appointmentChoiceWhy(t(2, 30)),
     },
   },
   {
@@ -96,20 +112,19 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       {
         id: "quarter",
         label: "O štvrť na tri.",
-        whyWrong:
-          "**O štvrť na tri** is **2:15** — quarter *past* two, not quarter *to* three.",
+        whyWrong: appointmentDistractorWhy(t(2, 45), t(2, 15)),
       },
       {
         id: "half-past",
         label: "O pol tretej.",
-        whyWrong: "**O pol tretej** is **2:30** — not **2:45**.",
+        whyWrong: appointmentDistractorWhy(t(2, 45), t(2, 30)),
       },
     ],
     answerId: "three-quarters",
     feedback: {
       correction: "O trištvrte na tri.",
       english: "At quarter to three.",
-      why: "**Trištvrte na tri** is three-quarters toward three, so it means **2:45**.",
+      why: appointmentChoiceWhy(t(2, 45)),
     },
   },
   {
@@ -124,19 +139,19 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       {
         id: "half-past-three",
         clock: { hour: 3, minute: 30 },
-        whyWrong: "This face shows **3:30** — you need **2:30**.",
+        whyWrong: clockFaceDistractorWhy(t(2, 30), t(3, 30)),
       },
       {
         id: "quarter-to-three",
         clock: { hour: 2, minute: 45 },
-        whyWrong: "This face shows **2:45** — you need **2:30**.",
+        whyWrong: clockFaceDistractorWhy(t(2, 30), t(2, 45)),
       },
     ],
     answerId: "half-past-two",
     feedback: {
       correction: "O pol tretej.",
       english: "At half past two.",
-      why: "**Pol tretej** counts toward three, so the face shows **2:30**.",
+      why: appointmentChoiceWhy(t(2, 30)),
     },
   },
   {
@@ -151,19 +166,19 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       {
         id: "quarter-to-three",
         clock: { hour: 2, minute: 45 },
-        whyWrong: "This face shows **2:45** — you need **2:15**.",
+        whyWrong: clockFaceDistractorWhy(t(2, 15), t(2, 45)),
       },
       {
         id: "half-past-two",
         clock: { hour: 2, minute: 30 },
-        whyWrong: "This face shows **2:30** — you need **2:15**.",
+        whyWrong: clockFaceDistractorWhy(t(2, 15), t(2, 30)),
       },
     ],
     answerId: "quarter-past-two",
     feedback: {
       correction: "O štvrť na tri.",
       english: "At quarter past two.",
-      why: "**Štvrť na tri** is one quarter toward three, so the face shows **2:15**.",
+      why: appointmentChoiceWhy(t(2, 15)),
     },
   },
   {
@@ -178,48 +193,47 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       {
         id: "quarter-past-two",
         clock: { hour: 2, minute: 15 },
-        whyWrong: "This face shows **2:15** — you need **2:45**.",
+        whyWrong: clockFaceDistractorWhy(t(2, 45), t(2, 15)),
       },
       {
         id: "three-oclock",
         clock: { hour: 3, minute: 0 },
-        whyWrong: "This face shows **3:00** — you need **2:45**.",
+        whyWrong: clockFaceDistractorWhy(t(2, 45), t(3, 0)),
       },
     ],
     answerId: "quarter-to-three",
     feedback: {
       correction: "O trištvrte na tri.",
       english: "At quarter to three.",
-      why: "**Trištvrte na tri** is three-quarters toward three, so the face shows **2:45**.",
+      why: appointmentChoiceWhy(t(2, 45)),
     },
   },
   {
     id: "days-clock-quarter-past-ask",
     type: "choice",
     practiceItemId: "everyday/clock-quarter-past-ask",
-    prompt: "Which phrase does not mean quarter past two?",
+    prompt: "Koľko je hodín?",
+    promptLang: "sk",
     clock: { hour: 2, minute: 15 },
-    choiceMode: "pickTrap",
-    hint: registersHint,
     choices: [
+      { id: "correct", label: "Je štvrť na tri." },
       {
-        id: "quarter-past-two",
-        label: "Je štvrť na tri.",
-        fits: true,
-        whyWrong: "**Štvrť na tri** means quarter past two.",
+        id: "quarter-to-three",
+        label: "Je trištvrte na tri.",
+        whyWrong: tellingDistractorWhy(t(2, 15), t(2, 45)),
       },
-      { id: "quarter-to-three", label: "Je trištvrte na tri." },
       {
         id: "half-past-two",
         label: "Je pol tretej.",
-        whyWrong: "**Pol tretej** means half past two — not quarter past two.",
+        whyWrong: tellingDistractorWhy(t(2, 15), t(2, 30)),
       },
     ],
-    answerId: "quarter-to-three",
+    answerId: "correct",
+    hint: registersHint,
     feedback: {
-      correction: "Je trištvrte na tri.",
+      correction: "Je štvrť na tri.",
       english: "It's quarter past two.",
-      why: "**Trištvrte na tri** matches **2:45**, not **2:15**.",
+      why: tellingChoiceWhy(t(2, 15)),
     },
   },
   {
@@ -234,20 +248,26 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
         id: "pol-tretej",
         label: "Je pol tretej.",
         fits: true,
-        whyWrong: "**Pol tretej** means half past two.",
+        whyWrong: oddOneOutFitWhy(
+          "Je pol tretej.",
+          englishTimeMeaningPhrase(t(2, 30)),
+        ),
       },
       { id: "pol-druhej", label: "Je pol druhej." },
       {
         id: "hodiny-minuty",
         label: "Sú dve hodiny a tridsať minút.",
         fits: true,
-        whyWrong: "**Dve hodiny a tridsať minút** means half past two.",
+        whyWrong: oddOneOutFitWhy(
+          "Sú dve hodiny a tridsať minút.",
+          englishTimeMeaningPhrase(t(2, 30)),
+        ),
       },
       {
         id: "digital",
         label: "Dve tridsať.",
         fits: true,
-        whyWrong: "**Dve tridsať** means half past two.",
+        whyWrong: oddOneOutFitWhy("Dve tridsať.", englishTimeMeaningPhrase(t(2, 30))),
       },
     ],
     answerId: "pol-druhej",
@@ -255,36 +275,34 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "Je pol druhej.",
       english: "At half past two.",
-      why: "**Pol druhej** counts toward two — that's **1:30**, not **2:30**.",
+      why: tellingDistractorWhy(t(2, 30), t(1, 30)),
     },
   },
   {
     id: "days-okolo-vs-exact",
     type: "choice",
     practiceItemId: "everyday/okolo-vs-exact",
-    prompt: "Which phrase does not mean around three o'clock?",
+    prompt: enAroundPrompt(t(3, 0)),
     clock: { hour: 3, minute: 0 },
-    choiceMode: "pickTrap",
     choices: [
+      { id: "around", label: "Okolo tretej." },
       {
-        id: "around",
-        label: "Okolo tretej.",
-        fits: true,
-        whyWrong: "**Okolo tretej** means around three o'clock.",
+        id: "exact",
+        label: "O tretej.",
+        whyWrong: okoloExactTrapWhy("exact", "O tretej.", t(3, 0)),
       },
-      { id: "exact", label: "O tretej." },
       {
         id: "quarter",
         label: "O štvrť na štyri.",
-        whyWrong: "**O štvrť na štyri** is **3:15** — not around **3:00**.",
+        whyWrong: appointmentDistractorWhy(t(3, 0), t(3, 15)),
       },
     ],
-    answerId: "exact",
+    answerId: "around",
     hint: okoloHint,
     feedback: {
-      correction: "O tretej.",
+      correction: "Okolo tretej.",
       english: "Around three o'clock.",
-      why: "**O tretej** is exact — the prompt asks for approximate **okolo**.",
+      why: okoloChoiceWhy(t(3, 0), "around"),
     },
   },
 ];

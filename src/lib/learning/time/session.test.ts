@@ -42,11 +42,15 @@ describe("learning/time/session", () => {
         continue;
       }
       if (item.task.prompt === "Koľko je hodín?") {
-        expect(item.task.choiceMode).toBe("pickTrap");
+        expect(item.task.choiceMode).toBeUndefined();
+        expect(item.task.answerId).toBe("correct");
         continue;
       }
       expect(item.task.choices.length).toBe(3);
-      expect(item.task.answerId).toBe("correct");
+      if (item.task.choiceMode === "pickTrap") continue;
+      expect(item.task.choices.some((choice) => choice.id === item.task.answerId)).toBe(
+        true,
+      );
     }
   });
 
@@ -100,13 +104,14 @@ describe("learning/time/session", () => {
     }
   });
 
-  it("materializes exact minute as odd-one-out", () => {
+  it("materializes exact minute as pick-the-correct phrase", () => {
     const item = materializeDaysDatesTimeItem("everyday/exact-minute", () => 0.2);
     expect(item.task.type).toBe("choice");
     if (item.task.type === "choice") {
-      expect(item.task.prompt).toMatch(/Which phrase does not mean/);
+      expect(item.task.prompt).not.toMatch(/Which phrase does not mean/);
       expect(item.task.clock).toBeDefined();
-      expect(item.task.answerId).toMatch(/wrong-minute|wrong-hour/);
+      expect(item.task.answerId).toBe("correct");
+      expect(item.task.choices.find((c) => c.id === "wrong-minute")?.whyWrong).toBeTruthy();
     }
   });
 
@@ -133,6 +138,22 @@ describe("learning/time/session", () => {
     }
   });
 
+  it("materializes day-part as pick-the-correct phrase, not odd-one-out", () => {
+    const item = materializeDaysDatesTimeItem("everyday/day-part-time", () => 0.1);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      expect(item.task.prompt).toMatch(/in the (morning|evening)\.$/);
+      expect(item.task.choiceMode).toBeUndefined();
+      expect(item.task.answerId).toBe("correct");
+      expect(item.task.choices.find((c) => c.id === "correct")?.label).toMatch(
+        /ráno|večer/,
+      );
+      expect(item.task.choices.find((c) => c.id === "wrong-part")?.whyWrong).toMatch(
+        /marks (evening|morning)/,
+      );
+    }
+  });
+
   it("keeps whyWrong on appointment choice distractors for miss feedback", () => {
     const item = materializeDaysDatesTimeItem("everyday/quarter-time", () => 0.2);
     expect(item.task.type).toBe("choice");
@@ -140,11 +161,10 @@ describe("learning/time/session", () => {
       const wrong = item.task.choices.find(
         (choice) => choice.id !== item.task.answerId && choice.id.startsWith("miss-"),
       );
-      expect(wrong?.whyWrong).toMatch(
-        /(— not \*\*\d+:\d+\*\*|— this prompt is \*\*\d+:\d+\*\*)/,
-      );
+      expect(wrong?.whyWrong).toMatch(/means quarter/);
 
       const baseWhy = item.task.feedback?.why ?? "";
+      expect(baseWhy).toMatch(/means quarter|means half past|halfway toward/);
       expect(
         choiceFeedbackWhy(
           baseWhy,
@@ -165,7 +185,9 @@ describe("learning/time/session", () => {
     const okolo = materializeDaysDatesTimeItem("everyday/okolo-vs-exact", rng);
     expect(okolo.task.type).toBe("choice");
     if (okolo.task.type === "choice") {
-      expect(okolo.task.feedback?.why).toMatch(/\*\*O /);
+      expect(okolo.task.prompt).not.toMatch(/Which phrase does not mean/);
+      expect(okolo.task.answerId).toMatch(/around|exact/);
+      expect(okolo.task.feedback?.why).toMatch(/\*\*okolo\*\*|\*\*O /);
     }
 
     const timetable = materializeDaysDatesTimeItem("everyday/timetable-24h", () => 0.2);
