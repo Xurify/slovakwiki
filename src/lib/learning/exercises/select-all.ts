@@ -2,7 +2,11 @@ import type { SelectAllExercise } from "$lib/learning/types";
 
 import { augmentFeedbackWhy } from "./feedback-why";
 
-export { augmentFeedbackWhy, choiceFeedbackWhy } from "./feedback-why";
+export {
+  augmentFeedbackWhy,
+  choiceFeedbackWhy,
+  pickTrapFeedbackWhy,
+} from "./feedback-why";
 
 export function gradeSelectAll(
   selectedIds: ReadonlySet<string>,

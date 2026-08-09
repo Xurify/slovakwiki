@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { gradeSelectAll } from "$lib/learning/exercises/select-all";
+import { gradeSelectAll, choiceFeedbackWhy } from "$lib/learning/exercises/select-all";
 import {
   appointmentPhrase,
   formatFaceDigital12,
@@ -19,11 +19,11 @@ describe("learning/time/session", () => {
     expect(appointmentPhrase({ hour: 12, minute: 15 })).toBe("O štvrť na jednu.");
   });
 
-  it("builds a full session with select-all and phase 2/3 items", () => {
+  it("builds a full session with odd-one-out and phase 2/3 items", () => {
     const session = buildDaysDatesTimeSession(() => 0.42);
     expect(session.length).toBeGreaterThanOrEqual(10);
     expect(session.length).toBeLessThanOrEqual(12);
-    expect(session.some((item) => item.task.type === "selectAll")).toBe(true);
+    expect(session.some((item) => item.task.type === "selectAll")).toBe(false);
     const phase2Ids = [
       "everyday/day-part-time",
       "everyday/noon-midnight",
@@ -34,6 +34,17 @@ describe("learning/time/session", () => {
     const choiceItems = session.filter((item) => item.task.type === "choice");
     for (const item of choiceItems) {
       if (item.task.type !== "choice") continue;
+      if (item.task.prompt.startsWith("Which phrase does not mean")) {
+        expect(item.task.choiceMode).toBe("pickTrap");
+        expect(item.task.choices.length).toBeGreaterThanOrEqual(3);
+        expect(item.task.choices.some((choice) => choice.fits === true)).toBe(true);
+        expect(item.task.choices.some((choice) => choice.fits !== true)).toBe(true);
+        continue;
+      }
+      if (item.task.prompt === "Koľko je hodín?") {
+        expect(item.task.choiceMode).toBe("pickTrap");
+        continue;
+      }
       expect(item.task.choices.length).toBe(3);
       expect(item.task.answerId).toBe("correct");
     }
@@ -89,14 +100,59 @@ describe("learning/time/session", () => {
     }
   });
 
-  it("materializes noon/midnight as select-all with bare twelve as trap", () => {
+  it("materializes exact minute as odd-one-out", () => {
+    const item = materializeDaysDatesTimeItem("everyday/exact-minute", () => 0.2);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      expect(item.task.prompt).toMatch(/Which phrase does not mean/);
+      expect(item.task.clock).toBeDefined();
+      expect(item.task.answerId).toMatch(/wrong-minute|wrong-hour/);
+    }
+  });
+
+  it("materializes noon/midnight as odd-one-out with wrong lexical as trap", () => {
     const noon = materializeDaysDatesTimeItem("everyday/noon-midnight", () => 0);
-    expect(noon.task.type).toBe("selectAll");
-    if (noon.task.type === "selectAll") {
-      expect(noon.task.prompt).toBe("Mark every correct way to say this time.");
-      const bare = noon.task.choices.find((c) => c.label === "O dvanástej");
-      expect(bare?.correct).toBe(false);
-      expect(noon.task.choices.filter((c) => c.correct).length).toBe(2);
+    expect(noon.task.type).toBe("choice");
+    if (noon.task.type === "choice") {
+      expect(noon.task.prompt).toBe("Which phrase does not mean noon?");
+      expect(noon.task.answerId).toBe("wrong-lexical");
+      expect(noon.task.choices.find((c) => c.id === "wrong-lexical")?.label).toBe(
+        "O polnoci",
+      );
+    }
+  });
+
+  it("materializes time variants as odd-one-out", () => {
+    const item = materializeDaysDatesTimeItem("everyday/time-variants", () => 0.5);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      expect(item.task.prompt).toMatch(/Which phrase does not mean half past/);
+      expect(item.task.answerId).toMatch(
+        /pol-wrong-hour|quarter-wrong|triquarter-wrong|half-wrong/,
+      );
+    }
+  });
+
+  it("keeps whyWrong on appointment choice distractors for miss feedback", () => {
+    const item = materializeDaysDatesTimeItem("everyday/quarter-time", () => 0.2);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      const wrong = item.task.choices.find(
+        (choice) => choice.id !== item.task.answerId && choice.id.startsWith("miss-"),
+      );
+      expect(wrong?.whyWrong).toMatch(
+        /(— not \*\*\d+:\d+\*\*|— this prompt is \*\*\d+:\d+\*\*)/,
+      );
+
+      const baseWhy = item.task.feedback?.why ?? "";
+      expect(
+        choiceFeedbackWhy(
+          baseWhy,
+          wrong?.id ?? null,
+          item.task.choices,
+          item.task.answerId,
+        ),
+      ).toMatch(wrong?.whyWrong ?? "");
     }
   });
 

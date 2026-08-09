@@ -12,7 +12,25 @@ export function enAppointmentPrompt(time: ClockFaceTime): string {
   return englishTimeGloss(time);
 }
 
-export const SELECT_ALL_PROMPT = "Mark every correct way to say this time.";
+export function enOddOneOutPrompt(meaningPhrase: string): string {
+  return `Which phrase does not mean ${meaningPhrase}?`;
+}
+
+/** Strip leading At/Around from a gloss prompt for odd-one-out headers. */
+export function enPromptMeaningPhrase(prompt: string): string {
+  return prompt
+    .replace(/^At /, "")
+    .replace(/^Around /, "")
+    .replace(/\.$/, "");
+}
+
+export function enExactMinuteMeaningPhrase(time: ClockTimeOfDay): string {
+  return enPromptMeaningPhrase(enExactMinutePrompt(time));
+}
+
+export function enZaCountdownMeaningPhrase(targetHour12: number): string {
+  return enPromptMeaningPhrase(enZaCountdownPrompt(targetHour12));
+}
 
 export function enAroundPrompt(time: ClockFaceTime): string {
   const face = analogFace(time);

@@ -19,7 +19,9 @@
     ChoiceOptions,
     SelectAllOptions,
     choiceFeedbackWhy,
+    gradeChoice,
     gradeSelectAll,
+    pickTrapFeedbackWhy,
     selectAllFeedbackWhy,
   } from "$lib/learning/exercises";
   import { formatClockFaceLabel } from "$lib/learning/time/clock";
@@ -135,7 +137,7 @@
   const grade = $derived.by<AnswerGrade | null>(() => {
     if (!submitted || revealed) return null;
     if (task.type === "choice")
-      return selectedId === task.answerId ? "correct" : "incorrect";
+      return gradeChoice(selectedId, task) ? "correct" : "incorrect";
     if (task.type === "selectAll")
       return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
@@ -171,7 +173,7 @@
 
   function resolveCheckGrade(): AnswerGrade {
     if (task.type === "choice")
-      return selectedId === task.answerId ? "correct" : "incorrect";
+      return gradeChoice(selectedId, task) ? "correct" : "incorrect";
     if (task.type === "selectAll")
       return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
@@ -200,22 +202,20 @@
     feedbackPanel?.focus();
   }
 
-  function onAnswerKeydown(event: KeyboardEvent): void {
-    if (event.key !== "Enter" || event.shiftKey || submitted || !canCheck) return;
-    event.preventDefault();
-    void check();
-  }
+  function onWindowKeydown(event: KeyboardEvent): void {
+    if (event.shiftKey || finished) return;
 
-  function onContinueKeydown(event: KeyboardEvent): void {
-    if (
-      (event.key !== "Enter" && event.key !== " ") ||
-      event.shiftKey ||
-      !submitted ||
-      finished
-    )
+    if (submitted) {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      next();
       return;
-    event.preventDefault();
-    next();
+    }
+
+    if (event.key === "Enter" && canCheck) {
+      event.preventDefault();
+      void check();
+    }
   }
 
   function insertChar(char: string): void {
@@ -339,10 +339,31 @@
       return selectAllFeedbackWhy(baseWhy, selectedIds, task.choices);
     }
     if (task.type === "choice") {
+      if (task.choiceMode === "pickTrap") {
+        return pickTrapFeedbackWhy(baseWhy, selectedId, task.choices);
+      }
       return choiceFeedbackWhy(baseWhy, selectedId, task.choices, task.answerId);
     }
     return baseWhy;
   });
+
+  const feedbackCorrection = $derived.by(() => {
+    if (
+      task.type === "choice" &&
+      task.choiceMode === "pickTrap" &&
+      submitted &&
+      grade === "correct" &&
+      selectedId
+    ) {
+      return (
+        task.choices.find((choice) => choice.id === selectedId)?.label ??
+        current.feedback.correction
+      );
+    }
+    return current.feedback.correction;
+  });
+
+  const isPickTrap = $derived(task.type === "choice" && task.choiceMode === "pickTrap");
 
   function exerciseFooterClass(): string {
     if (!submitted) return "border-t border-slate-200 bg-paper/70";
@@ -350,15 +371,20 @@
   }
 </script>
 
-<svelte:window onkeydown={onContinueKeydown} />
+<svelte:window onkeydown={onWindowKeydown} />
 
 {#snippet exerciseFooter()}
   {#if submitted}
-    <div class="grid gap-2" bind:this={feedbackPanel} aria-live="polite" tabindex="-1">
+    <div
+      class="grid gap-2 focus-visible:outline-none"
+      bind:this={feedbackPanel}
+      aria-live="polite"
+      tabindex="-1"
+    >
       <PracticeExerciseFeedback
         attempt={feedbackAttempt}
         {closeSuggestion}
-        correction={current.feedback.correction}
+        correction={feedbackCorrection}
         english={current.feedback.english}
         why={feedbackWhy}
         newUse={current.newUse}
@@ -367,6 +393,8 @@
         {showCorrection}
         density={isMiss ? "compact" : "default"}
         correctionLabelTone={isMiss || grade === "correct" ? "emerald" : "rose"}
+        correctHeadline={isPickTrap ? "That one doesn't fit." : "Correct"}
+        missHeadline={isPickTrap ? "The odd one out" : "Correct answer"}
         dictionaryHref={task.type === "cloze" && task.lemmaId
           ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}
@@ -513,7 +541,6 @@
                 autocomplete="off"
                 autocapitalize="none"
                 lang="sk"
-                onkeydown={onAnswerKeydown}
               />
 
               {#if frameSuffix}
@@ -578,7 +605,6 @@
             autocomplete="off"
             autocapitalize="none"
             lang="sk"
-            onkeydown={onAnswerKeydown}
           />
 
           <div class="flex flex-wrap gap-1.5" aria-label="Slovak characters">

@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 
+import { gradeChoice } from "$lib/learning/exercises/choice";
 import {
   augmentFeedbackWhy,
   choiceFeedbackWhy,
+  pickTrapFeedbackWhy,
 } from "$lib/learning/exercises/feedback-why";
 
 describe("feedback-why", () => {
@@ -54,5 +56,42 @@ describe("feedback-why", () => {
     expect(augmentFeedbackWhy("Base.", new Set(["b"]), choices)).toBe(
       "Base. **O poludní** means noon, not midnight.",
     );
+  });
+
+  it("returns trap whyWrong on pickTrap success", () => {
+    const choices = [
+      {
+        id: "fit",
+        label: "Je pol tretej.",
+        fits: true,
+        whyWrong: "**Pol tretej** means half past two.",
+      },
+      {
+        id: "trap",
+        label: "Je pol druhej.",
+        whyWrong: "**Pol druhej** is **1:30**.",
+      },
+    ];
+
+    expect(pickTrapFeedbackWhy("Base.", "trap", choices)).toBe(
+      "**Pol druhej** is **1:30**.",
+    );
+    expect(pickTrapFeedbackWhy("Base.", "fit", choices)).toMatch(/means half past two/);
+  });
+
+  it("grades any trap as correct in pickTrap mode", () => {
+    const exercise = {
+      answerId: "trap-a",
+      choiceMode: "pickTrap" as const,
+      choices: [
+        { id: "fit", label: "Fit.", fits: true },
+        { id: "trap-a", label: "Trap A." },
+        { id: "trap-b", label: "Trap B." },
+      ],
+    };
+
+    expect(gradeChoice("trap-a", exercise)).toBe(true);
+    expect(gradeChoice("trap-b", exercise)).toBe(true);
+    expect(gradeChoice("fit", exercise)).toBe(false);
   });
 });

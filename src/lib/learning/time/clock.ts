@@ -251,6 +251,11 @@ export function englishTimeGloss(time: ClockFaceTime): string {
   return `At quarter to ${h === 12 ? 1 : h + 1}.`;
 }
 
+/** Spoken English time without “At …” — for odd-one-out prompts. */
+export function englishTimeMeaningPhrase(time: ClockFaceTime): string {
+  return englishTimeGloss(time).replace(/^At /, "").replace(/\.$/, "");
+}
+
 /** 12-face digital label for prompts (2:45). */
 export function formatFaceDigital12(time: ClockFaceTime): string {
   const face = analogFace(time);
@@ -348,6 +353,75 @@ export function formatSelectAllLabel(label: string): string {
   const trimmed = label.trim().replace(/\.$/, "");
   if (!trimmed) return trimmed;
   return trimmed.charAt(0).toLocaleUpperCase("sk-SK") + trimmed.slice(1);
+}
+
+export interface OddOneOutChoice {
+  id: string;
+  label: string;
+  fits?: boolean;
+  whyWrong?: string;
+}
+
+function oddOneOutPhraseEmphasis(label: string): string {
+  if (label.startsWith("O "))
+    return appointmentPhraseEmphasis(label.endsWith(".") ? label : `${label}.`);
+  return tellingPhraseEmphasis(label.endsWith(".") ? label : `${label}.`);
+}
+
+/** Why a fitting line is the wrong pick on an odd-one-out item. */
+export function oddOneOutFitWhy(label: string, meaningPhrase: string): string {
+  return `**${oddOneOutPhraseEmphasis(label)}** means ${meaningPhrase}.`;
+}
+
+function preferredOddOneOutTrap(drafts: SelectAllChoiceDraft[]): SelectAllChoiceDraft {
+  const wrongLexical = drafts.find(
+    (draft) => draft.id === "wrong-lexical" && !draft.correct,
+  );
+  if (wrongLexical) return wrongLexical;
+  const trap = drafts.find((draft) => !draft.correct);
+  if (!trap) throw new Error("odd-one-out exercise needs a trap choice");
+  return trap;
+}
+
+export function oddOneOutFromOptions(
+  options: Array<{ id: string; label: string; fits?: boolean; whyWrong?: string }>,
+  primaryTrapId: string,
+  meaningPhrase: string,
+): { choices: OddOneOutChoice[]; trapWhy: string } {
+  const primaryTrap = options.find((option) => option.id === primaryTrapId);
+  if (!primaryTrap) throw new Error("odd-one-out exercise needs a trap choice");
+
+  const choices = options.map((option) => {
+    const isFit = option.fits === true;
+    return {
+      id: option.id,
+      label: option.label,
+      fits: isFit,
+      whyWrong: isFit ? oddOneOutFitWhy(option.label, meaningPhrase) : option.whyWrong,
+    };
+  });
+
+  return { choices, trapWhy: primaryTrap.whyWrong ?? "" };
+}
+
+/** Turn select-all drafts into a single-trap odd-one-out choice list. */
+export function oddOneOutChoicesFromDrafts(
+  drafts: SelectAllChoiceDraft[],
+  meaningPhrase: string,
+): { choices: OddOneOutChoice[]; answerId: string; trapWhy: string } {
+  const trap = preferredOddOneOutTrap(drafts);
+  const { choices, trapWhy } = oddOneOutFromOptions(
+    drafts.map((draft) => ({
+      id: draft.id,
+      label: draft.label,
+      fits: draft.correct,
+      whyWrong: draft.correct ? undefined : draft.whyWrong,
+    })),
+    trap.id,
+    meaningPhrase,
+  );
+
+  return { choices, answerId: trap.id, trapWhy: trapWhy || trap.whyWrong || "" };
 }
 
 /** Build select-all options for Koľko je hodín? style telling-time. */
@@ -731,6 +805,16 @@ export function zaCountdownPhrase(minutesBefore: number, targetHour12: number): 
   const minutePhrase = minuteCountPhrase(minutesBefore);
   const hourWord = TOWARD_HOUR[targetHour12] ?? String(targetHour12);
   return `Za ${minutePhrase} ${hourWord}.`;
+}
+
+/** Clock face for a za … countdown (e.g. 9:55 for five minutes to ten). */
+export function zaCountdownClockFace(
+  minutesBefore: number,
+  targetHour12: number,
+): { hour: number; minute: number } {
+  const totalMinutes = targetHour12 * 60 - minutesBefore;
+  const hour24 = ((totalMinutes % (24 * 60)) + 24 * 60) % (24 * 60);
+  return { hour: faceHour12(Math.floor(hour24 / 60)), minute: hour24 % 60 };
 }
 
 export function random24hQuarterTime(rng: () => number = Math.random): ClockFaceTime {

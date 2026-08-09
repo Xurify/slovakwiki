@@ -1,6 +1,7 @@
 type FeedbackChoice = {
   id: string;
   correct?: boolean;
+  fits?: boolean;
   whyWrong?: string;
 };
 
@@ -51,4 +52,21 @@ export function choiceFeedbackWhy(
 ): string {
   if (!selectedId || selectedId === answerId) return baseWhy;
   return augmentFeedbackWhy(baseWhy, new Set([selectedId]), choices, answerId);
+}
+
+/** Feedback for pickTrap choice exercises. */
+export function pickTrapFeedbackWhy(
+  baseWhy: string,
+  selectedId: string | null,
+  choices: ReadonlyArray<FeedbackChoice>,
+): string {
+  if (!selectedId) return baseWhy;
+  const selected = choices.find((choice) => choice.id === selectedId);
+  if (!selected) return baseWhy;
+  if (selected.fits === true) {
+    if (!selected.whyWrong || isRedundantWhyWrong(baseWhy, selected.whyWrong))
+      return baseWhy;
+    return `${baseWhy} ${selected.whyWrong}`;
+  }
+  return selected.whyWrong ?? baseWhy;
 }

@@ -10,7 +10,9 @@
     ChoiceOptions,
     SelectAllOptions,
     choiceFeedbackWhy,
+    gradeChoice,
     gradeSelectAll,
+    pickTrapFeedbackWhy,
     selectAllFeedbackWhy,
   } from "$lib/learning/exercises";
   import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
@@ -50,7 +52,7 @@
   );
   const correct = $derived.by(() => {
     if (!graded || !submitted || revealed) return false;
-    if (graded.type === "choice") return selectedId === graded.answerId;
+    if (graded.type === "choice") return gradeChoice(selectedId, graded);
     if (graded.type === "selectAll") return gradeSelectAll(selectedIds, graded.choices);
     if (graded.type === "build") return gradeBuild(builtTiles, graded.answer);
     return answersMatch(input, graded.answer, graded.acceptedAnswers);
@@ -71,10 +73,31 @@
       return selectAllFeedbackWhy(baseWhy, selectedIds, graded.choices);
     }
     if (graded?.type === "choice" && selectedId) {
+      if (graded.choiceMode === "pickTrap") {
+        return pickTrapFeedbackWhy(baseWhy, selectedId, graded.choices);
+      }
       return choiceFeedbackWhy(baseWhy, selectedId, graded.choices, graded.answerId);
     }
     return baseWhy;
   });
+  const feedbackCorrection = $derived.by(() => {
+    if (
+      graded?.type === "choice" &&
+      graded.choiceMode === "pickTrap" &&
+      submitted &&
+      correct &&
+      selectedId
+    ) {
+      return (
+        graded.choices.find((choice) => choice.id === selectedId)?.label ??
+        exercise.feedback.correction
+      );
+    }
+    return exercise.feedback.correction;
+  });
+  const isPickTrap = $derived(
+    graded?.type === "choice" && graded.choiceMode === "pickTrap",
+  );
   const canCheck = $derived.by(() => {
     if (!graded || submitted) return false;
     if (graded.type === "choice") return selectedId !== null;
@@ -95,7 +118,7 @@
     let kind: "correct" | "incorrect" = "incorrect";
 
     if (graded.type === "choice") {
-      kind = selectedId === graded.answerId ? "correct" : "incorrect";
+      kind = gradeChoice(selectedId, graded) ? "correct" : "incorrect";
     } else if (graded.type === "selectAll") {
       kind = gradeSelectAll(selectedIds, graded.choices) ? "correct" : "incorrect";
     } else if (graded.type === "build") {
@@ -257,7 +280,7 @@
       >
         <PracticeExerciseFeedback
           attempt={attemptForDisplay()}
-          correction={exercise.feedback.correction}
+          correction={feedbackCorrection}
           english={exercise.feedback.english}
           why={feedbackWhy}
           grade={correct ? "correct" : "incorrect"}
@@ -265,6 +288,8 @@
           {showCorrection}
           density={correct ? "default" : "compact"}
           correctionLabelTone="emerald"
+          correctHeadline={isPickTrap ? "That one doesn't fit." : "Correct"}
+          missHeadline={isPickTrap ? "The odd one out" : "Correct answer"}
         />
       </div>
 

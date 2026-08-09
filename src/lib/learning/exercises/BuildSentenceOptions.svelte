@@ -4,6 +4,7 @@
     canInsertBankIndex,
     computeTrayInsertIndex,
     insertBankIndexAt,
+    reorderBuiltIndexes,
   } from "$lib/learning/exercises/build-dnd";
 
   const DRAG_THRESHOLD_PX = 8;
@@ -46,8 +47,12 @@
   const chipClass =
     "press-key min-h-11 cursor-pointer rounded-(--control-radius) px-3.5 py-2 font-serif text-base font-semibold text-blue-800 touch-none select-none";
 
-  const ghostSlotClass =
-    "min-h-11 min-w-[3.25rem] rounded-(--control-radius) border border-dashed border-slate-200 bg-slate-50/70";
+  const chipMetricsClass = "px-3.5 py-2 font-serif text-base font-semibold";
+
+  const bankGhostShellClass =
+    "inline-flex shrink-0 min-h-11 items-center rounded-(--control-radius) border border-dashed border-slate-200 bg-slate-50/70 pointer-events-none select-none";
+
+  const bankGhostSizingClass = `${chipMetricsClass} invisible`;
 
   const isDragging = $derived(activeDrag !== null);
   const floatLabel = $derived(activeDrag?.label ?? "");
@@ -78,13 +83,6 @@
   }
 
   function cancelDrag(): void {
-    if (activeDrag?.kind === "tray") {
-      builtBankIndexes = insertBankIndexAt(
-        builtBankIndexes,
-        activeDrag.bankIndex,
-        activeDrag.fromBuiltIndex,
-      );
-    }
     activeDrag = null;
     insertAt = null;
     pendingPointer = null;
@@ -103,10 +101,8 @@
 
     if (!overTray) {
       if (drag.kind === "tray") {
-        builtBankIndexes = insertBankIndexAt(
-          builtBankIndexes,
-          drag.bankIndex,
-          drag.fromBuiltIndex,
+        builtBankIndexes = builtBankIndexes.filter(
+          (_, index) => index !== drag.fromBuiltIndex,
         );
       }
       return;
@@ -120,7 +116,11 @@
       return;
     }
 
-    builtBankIndexes = insertBankIndexAt(builtBankIndexes, drag.bankIndex, position);
+    builtBankIndexes = reorderBuiltIndexes(
+      builtBankIndexes,
+      drag.fromBuiltIndex,
+      position,
+    );
   }
 
   function startDragFromPending(event: PointerEvent): void {
@@ -150,7 +150,6 @@
       fromBuiltIndex,
       pointerId: event.pointerId,
     };
-    builtBankIndexes = builtBankIndexes.filter((_, index) => index !== fromBuiltIndex);
     floatX = event.clientX;
     floatY = event.clientY;
     updateInsertAt(event.clientX);
@@ -232,21 +231,29 @@
     aria-live="polite"
   >
     {#if builtBankIndexes.length === 0 && !isDragging}
-      <p class="m-0 px-1 py-3 font-serif text-sm font-semibold text-slate-500">
+      <p
+        class="pointer-events-none absolute inset-x-0 top-0 m-0 px-1 py-3 font-serif text-sm font-semibold text-slate-500"
+      >
         Tap words below to build the sentence.
       </p>
-    {:else}
-      <div class="flex min-h-11 flex-wrap items-center gap-2">
-        {#each builtBankIndexes as bankIndex, builtIndex (builtIndex)}
-          {#if isDragging && insertAt === builtIndex}
-            <div
-              class="h-11 w-14 shrink-0 rounded-(--control-radius) border-2 border-dashed border-blue-500 bg-blue-50/80"
-              aria-hidden="true"
-            ></div>
-          {/if}
+    {/if}
 
+    <div class="flex min-h-11 flex-wrap items-center gap-2">
+      {#each builtBankIndexes as bankIndex, builtIndex (builtIndex)}
+        {#if isDragging && insertAt === builtIndex}
+          <div
+            class="h-11 w-14 shrink-0 rounded-(--control-radius) border-2 border-dashed border-blue-500 bg-blue-50/80"
+            aria-hidden="true"
+          ></div>
+        {/if}
+
+        {#if activeDrag?.kind === "tray" && activeDrag.fromBuiltIndex === builtIndex}
+          <div class={bankGhostShellClass} data-tray-chip aria-hidden="true">
+            <span class={bankGhostSizingClass} lang="sk">{tiles[bankIndex]}</span>
+          </div>
+        {:else}
           <button
-            class={chipClass}
+            class="{chipClass} shrink-0"
             type="button"
             data-tray-chip
             disabled={submitted}
@@ -254,16 +261,16 @@
           >
             <span lang="sk">{tiles[bankIndex]}</span>
           </button>
-        {/each}
-
-        {#if isDragging && insertAt === builtBankIndexes.length}
-          <div
-            class="h-11 w-14 shrink-0 rounded-(--control-radius) border-2 border-dashed border-blue-500 bg-blue-50/80"
-            aria-hidden="true"
-          ></div>
         {/if}
-      </div>
-    {/if}
+      {/each}
+
+      {#if isDragging && insertAt === builtBankIndexes.length}
+        <div
+          class="h-11 w-14 shrink-0 rounded-(--control-radius) border-2 border-dashed border-blue-500 bg-blue-50/80"
+          aria-hidden="true"
+        ></div>
+      {/if}
+    </div>
   </div>
 
   <div
@@ -274,10 +281,12 @@
   >
     {#each tiles as tile, index (`${tile}-${index}`)}
       {#if isBankTileUsed(builtBankIndexes, index)}
-        <div class={ghostSlotClass} aria-hidden="true"></div>
+        <div class={bankGhostShellClass} aria-hidden="true">
+          <span class={bankGhostSizingClass} lang="sk">{tile}</span>
+        </div>
       {:else}
         <button
-          class="{chipClass} hover:border-blue-600"
+          class="{chipClass} shrink-0 hover:border-blue-600"
           type="button"
           disabled={submitted}
           onpointerdown={(event) => onBankPointerDown(event, index)}

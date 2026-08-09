@@ -11,6 +11,7 @@ import {
   nearMissTimes,
   noonMidnightAppointmentPhrases,
   noonMidnightSelectAllChoices,
+  oddOneOutChoicesFromDrafts,
   preferredAnswerForTime,
   randomDrillTime,
   selectAllChoicesForTime,
@@ -125,6 +126,15 @@ describe("learning/time/clock", () => {
       "O poludní",
       "O dvanástej napoludnie",
     ]);
+  });
+
+  it("builds odd-one-out choices with wrong lexical as the trap", () => {
+    const drafts = noonMidnightSelectAllChoices({ hour: 12, minute: 0 });
+    const { answerId, choices } = oddOneOutChoicesFromDrafts(drafts, "noon");
+
+    expect(answerId).toBe("wrong-lexical");
+    expect(choices.find((c) => c.id === "wrong-lexical")?.whyWrong).toMatch(/midnight/);
+    expect(choices.find((c) => c.id === "lexical")?.whyWrong).toMatch(/means noon/);
   });
 
   it("formats select-all choice labels without periods and with sentence capitals", () => {

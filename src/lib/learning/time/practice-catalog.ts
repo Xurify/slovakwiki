@@ -42,14 +42,14 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
   stubClockMatch("everyday/clock-half-past-match", "review-clock-half-past-match"),
   stubClockMatch("everyday/clock-quarter-past-match", "review-clock-quarter-past-match"),
   stubClockMatch("everyday/clock-quarter-to-match", "review-clock-quarter-to-match"),
-  stubChoice("everyday/clock-quarter-past-ask", "review-clock-quarter-past-ask"),
-  stubSelectAll("everyday/time-variants", "review-time-variants"),
-  stubChoice("everyday/day-part-time", "review-day-part-time"),
-  stubSelectAll("everyday/noon-midnight", "review-noon-midnight"),
-  stubChoice("everyday/okolo-vs-exact", "review-okolo-vs-exact"),
+  stubOddOneOut("everyday/clock-quarter-past-ask", "review-clock-quarter-past-ask"),
+  stubOddOneOut("everyday/time-variants", "review-time-variants"),
+  stubOddOneOut("everyday/day-part-time", "review-day-part-time"),
+  stubOddOneOut("everyday/noon-midnight", "review-noon-midnight"),
+  stubOddOneOut("everyday/okolo-vs-exact", "review-okolo-vs-exact"),
   stubChoice("everyday/timetable-24h", "review-timetable-24h"),
-  stubChoice("everyday/exact-minute", "review-exact-minute"),
-  stubChoice("everyday/za-countdown", "review-za-countdown"),
+  stubOddOneOut("everyday/exact-minute", "review-exact-minute"),
+  stubOddOneOut("everyday/za-countdown", "review-za-countdown"),
 ];
 
 export const daysDatesTimePracticeItemIds = daysDatesTimePracticeItems.map(
@@ -99,20 +99,27 @@ function stubClockMatch(id: string, taskId: string): PracticeItem {
   };
 }
 
-function stubSelectAll(id: string, taskId: string): PracticeItem {
+function stubOddOneOut(id: string, taskId: string): PracticeItem {
   return {
     id,
     source: daysDatesTimeSource,
     task: {
       id: taskId,
-      type: "selectAll",
+      type: "choice",
+      choiceMode: "pickTrap",
       practiceItemId: id,
-      prompt: "Mark every correct way to say this time.",
+      prompt: "Which phrase does not mean half past two?",
       clock: { hour: 2, minute: 30 },
       choices: [
-        { id: "a", label: "Je pol tretej.", correct: true },
-        { id: "b", label: "Je pol druhej.", correct: false },
+        {
+          id: "a",
+          label: "Je pol tretej.",
+          fits: true,
+          whyWrong: "**Pol tretej** means half past two.",
+        },
+        { id: "b", label: "Je pol druhej." },
       ],
+      answerId: "b",
       feedback: stubFeedback,
     },
     feedback: stubFeedback,

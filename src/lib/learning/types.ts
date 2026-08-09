@@ -60,6 +60,8 @@ export interface ClockTime {
 
 export interface ChoiceExercise extends ExerciseBase {
   answerId: string;
+  /** pickCorrect: choose answerId. pickTrap: choose any line that does not fit the prompt. */
+  choiceMode?: "pickCorrect" | "pickTrap";
   /** Analog face for the time named in the prompt (text choices only). */
   clock?: ClockTime;
   /** Text labels (default) or analog faces on each choice. */
@@ -68,6 +70,8 @@ export interface ChoiceExercise extends ExerciseBase {
     clock?: ClockTime;
     id: string;
     label?: string;
+    /** Odd-one-out: true when the line matches the prompt meaning. */
+    fits?: boolean;
     /** Shown in feedback when the learner picks this wrong option. */
     whyWrong?: string;
   }>;

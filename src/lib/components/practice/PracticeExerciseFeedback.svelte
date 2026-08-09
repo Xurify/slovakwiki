@@ -22,6 +22,8 @@
     correctionLabelTone = "rose",
     density = "default",
     dictionaryHref,
+    correctHeadline = "Correct",
+    missHeadline = "Correct answer",
   }: {
     attempt?: string;
     closeSuggestion?: string | null;
@@ -35,6 +37,8 @@
     correctionLabelTone?: "emerald" | "rose";
     density?: "compact" | "default";
     dictionaryHref?: string;
+    correctHeadline?: string;
+    missHeadline?: string;
   } = $props();
 
   const isCompact = $derived(density === "compact");
@@ -96,7 +100,7 @@
 
         {#if showCorrection && correction}
           <div class={missCompareCorrectionRowClass}>
-            <p class="{feedbackSectionLabelClass} text-emerald-800">Correct answer</p>
+            <p class="{feedbackSectionLabelClass} text-emerald-800">{missHeadline}</p>
 
             <p class={correctionClass} lang="sk">{correction}</p>
           </div>
@@ -138,9 +142,9 @@
     {#if grade === "accents"}
       <p class="m-0 text-sm font-semibold text-blue-900">Almost — check the accents.</p>
     {:else if grade === "correct"}
-      <p class="m-0 text-sm font-semibold text-emerald-800">Correct</p>
+      <p class="m-0 text-sm font-semibold text-emerald-800">{correctHeadline}</p>
     {:else if showMissLabel}
-      <p class="m-0 text-sm font-semibold {correctionLabelClass}">Correct answer</p>
+      <p class="m-0 text-sm font-semibold {correctionLabelClass}">{missHeadline}</p>
     {/if}
 
     {#if closeSuggestion}

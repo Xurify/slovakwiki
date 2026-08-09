@@ -10,13 +10,15 @@ import {
   aroundPhrase,
   dayPartDisambiguationPair,
   englishTimeGloss,
+  englishTimeMeaningPhrase,
   exactMinuteTellingLabel,
   formatDigital,
   formatFaceDigital12,
   isNoonTime,
   nearMissTimes,
-  noonMidnightAppointmentPhrases,
   noonMidnightSelectAllChoices,
+  oddOneOutChoicesFromDrafts,
+  oddOneOutFromOptions,
   random24hQuarterTime,
   randomExactMinuteTime,
   randomFaceHour12,
@@ -28,6 +30,7 @@ import {
   tellingDistractorWhy,
   tellingTimeLabel,
   zaCountdownPhrase,
+  zaCountdownClockFace,
   type ClockFaceTime,
 } from "./clock";
 import { dayPartHint, hodinaAgreementHint, okoloHint } from "./hints";
@@ -37,10 +40,11 @@ import {
   enDayPartEveningPrompt,
   enDayPartMorningPrompt,
   enExactAroundPrompt,
-  enExactMinutePrompt,
+  enExactMinuteMeaningPhrase,
+  enOddOneOutPrompt,
+  enPromptMeaningPhrase,
   enTimetablePrompt,
-  enZaCountdownPrompt,
-  SELECT_ALL_PROMPT,
+  enZaCountdownMeaningPhrase,
 } from "./prompts";
 import { daysDatesTimePracticeItems } from "./practice-catalog";
 
@@ -128,6 +132,12 @@ function phraseForWhy(phrase: string): string {
   return phrase.replace(/\.$/, "");
 }
 
+function pickTrapChoiceTask(
+  task: Omit<Extract<PracticeItem["task"], { type: "choice" }>, "type" | "choiceMode">,
+): Extract<PracticeItem["task"], { type: "choice" }> {
+  return { type: "choice", choiceMode: "pickTrap", ...task };
+}
+
 function buildChoiceExercise(
   kind: DaysDatesTimeKind,
   time: ClockFaceTime,
@@ -141,7 +151,11 @@ function buildChoiceExercise(
   const choices = shuffleArray(
     [
       { id: "correct", label: correctPhrase },
-      ...distractors.map((d) => ({ id: d.id, label: d.label })),
+      ...distractors.map((d) => ({
+        id: d.id,
+        label: d.label,
+        ...(d.whyWrong ? { whyWrong: d.whyWrong } : {}),
+      })),
     ],
     rng,
   );
@@ -219,64 +233,73 @@ function buildTellingAskExercise(
   const face = analogFace(time);
   const correctLabel = tellingTimeLabel(time);
   const misses = nearMissTimes(time, rng);
+  const meaningPhrase = englishTimeMeaningPhrase(time);
+  const primaryTrapId = choiceIdForTime(misses[0]!);
 
-  const choices = shuffleArray(
+  const { choices, trapWhy } = oddOneOutFromOptions(
     [
-      { id: "correct", label: correctLabel },
-      ...misses.map((miss) => ({
-        id: choiceIdForTime(miss),
-        label: tellingTimeLabel(miss),
-        whyWrong: tellingDistractorWhy(time, miss),
-      })),
+      { id: "correct", label: correctLabel, fits: true },
+      {
+        id: choiceIdForTime(misses[0]!),
+        label: tellingTimeLabel(misses[0]!),
+        whyWrong: tellingDistractorWhy(time, misses[0]!),
+      },
+      {
+        id: choiceIdForTime(misses[1]!),
+        label: tellingTimeLabel(misses[1]!),
+        whyWrong: tellingDistractorWhy(time, misses[1]!),
+      },
     ],
-    rng,
+    primaryTrapId,
+    meaningPhrase,
   );
+  const primaryTrap = choices.find((choice) => choice.id === primaryTrapId);
 
-  const toward = face.hour === 12 ? 1 : face.hour + 1;
-
-  return {
+  return pickTrapChoiceTask({
     id: `generated-${kind}`,
-    type: "choice",
     practiceItemId: kind,
     prompt: "Koľko je hodín?",
     promptLang: "sk",
     clock: face,
-    choices,
-    answerId: "correct",
+    choices: shuffleArray(choices, rng),
+    answerId: primaryTrapId,
     feedback: {
-      correction: correctLabel,
+      correction: primaryTrap?.label ?? "",
       english: englishTimeGloss(time),
-      why: `One quarter toward **${toward}**: **${correctLabel.replace(/\.$/, "")}** matches **${formatFaceDigital12(time)}**.`,
+      why: trapWhy,
     },
-  };
+  });
 }
 
-function buildSelectAllExercise(
+function buildTimeVariantsOddOneOutExercise(
   kind: DaysDatesTimeKind,
   rng: () => number,
 ): PracticeItem["task"] {
   const hour = randomFaceHour12(rng);
   const time: ClockFaceTime = { hour, minute: 30 };
   const face = analogFace(time);
-  const choiceDrafts = shuffleArray(selectAllChoicesForTime(time), rng);
-  const correctLabels = choiceDrafts
-    .filter((choice) => choice.correct)
-    .map((choice) => choice.label);
+  const drafts = selectAllChoicesForTime(time);
+  const meaningPhrase = englishTimeMeaningPhrase(time);
+  const { choices, answerId, trapWhy } = oddOneOutChoicesFromDrafts(
+    drafts,
+    meaningPhrase,
+  );
+  const trap = drafts.find((draft) => draft.id === answerId);
 
-  return {
+  return pickTrapChoiceTask({
     id: `generated-${kind}`,
-    type: "selectAll",
     practiceItemId: kind,
-    prompt: SELECT_ALL_PROMPT,
+    prompt: enOddOneOutPrompt(meaningPhrase),
     clock: face,
-    choices: choiceDrafts,
+    choices: shuffleArray(choices, rng),
+    answerId,
     hint: hodinaAgreementHint,
     feedback: {
-      correction: correctLabels.join(" / "),
+      correction: trap?.label ?? "",
       english: englishTimeGloss(time),
-      why: `Several forms name **${formatFaceDigital12(time)}** — e.g. **${correctLabels[0]?.replace(/\.$/, "") ?? "pol tretej"}** plus hour+minute and digital readings.`,
+      why: trapWhy,
     },
-  };
+  });
 }
 
 function buildDayPartExercise(
@@ -297,9 +320,13 @@ function buildDayPartExercise(
     dayPart,
   );
 
-  const choices = shuffleArray(
+  const prompt = useMorning ? enDayPartMorningPrompt(time) : enDayPartEveningPrompt(time);
+  const meaningPhrase = enPromptMeaningPhrase(prompt);
+  const primaryTrapId = rng() < 0.5 ? "wrong-part" : "wrong-half";
+
+  const { choices, trapWhy } = oddOneOutFromOptions(
     [
-      { id: "correct", label: correctPhrase },
+      { id: "correct", label: correctPhrase, fits: true },
       {
         id: "wrong-part",
         label: wrongPhrase,
@@ -311,26 +338,25 @@ function buildDayPartExercise(
         whyWrong: `**${phraseForWhy(wrongHalf)}** is **${formatFaceDigital12({ hour: time.hour, minute: 30 })}** — not **${formatFaceDigital12(time)}**.`,
       },
     ],
-    rng,
+    primaryTrapId,
+    meaningPhrase,
   );
+  const primaryTrap = choices.find((choice) => choice.id === primaryTrapId);
 
-  const prompt = useMorning ? enDayPartMorningPrompt(time) : enDayPartEveningPrompt(time);
-
-  return {
+  return pickTrapChoiceTask({
     id: `generated-${kind}`,
-    type: "choice",
     practiceItemId: kind,
-    prompt,
+    prompt: enOddOneOutPrompt(meaningPhrase),
     clock: face,
-    choices,
-    answerId: "correct",
+    choices: shuffleArray(choices, rng),
+    answerId: primaryTrapId,
     hint: dayPartHint,
     feedback: {
-      correction: correctPhrase,
+      correction: primaryTrap?.label ?? "",
       english: englishTimeGloss(time),
-      why: `Add **${dayPart}** when the face alone is ambiguous — **${phraseForWhy(correctPhrase)}**.`,
+      why: trapWhy,
     },
-  };
+  });
 }
 
 function buildNoonMidnightExercise(
@@ -340,24 +366,27 @@ function buildNoonMidnightExercise(
   const time = randomNoonOrMidnight(rng);
   const face = analogFace(time);
   const isNoon = isNoonTime(time);
-  const phrases = noonMidnightAppointmentPhrases(time);
-  const choiceDrafts = shuffleArray(noonMidnightSelectAllChoices(time), rng);
+  const meaningPhrase = isNoon ? "noon" : "midnight";
+  const drafts = noonMidnightSelectAllChoices(time);
+  const { choices, answerId, trapWhy } = oddOneOutChoicesFromDrafts(
+    drafts,
+    meaningPhrase,
+  );
+  const trap = drafts.find((draft) => draft.id === answerId);
 
-  return {
+  return pickTrapChoiceTask({
     id: `generated-${kind}`,
-    type: "selectAll",
     practiceItemId: kind,
-    prompt: SELECT_ALL_PROMPT,
+    prompt: enOddOneOutPrompt(meaningPhrase),
     clock: face,
-    choices: choiceDrafts,
+    choices: shuffleArray(choices, rng),
+    answerId,
     feedback: {
-      correction: phrases.join(" / "),
+      correction: trap?.label ?? "",
       english: isNoon ? "At noon." : "At midnight.",
-      why: isNoon
-        ? "**O poludní** is the usual form. **O dvanástej napoludnie** also works."
-        : "**O polnoci** is the usual form. **O dvanástej v noci** also works.",
+      why: trapWhy,
     },
-  };
+  });
 }
 
 function buildOkoloVsExactExercise(
@@ -371,48 +400,58 @@ function buildOkoloVsExactExercise(
 
   const exactPhrase = appointmentPhrase(time);
   const aroundLabel = aroundPhrase(time);
-
-  const choices = shuffleArray(
-    [
-      {
-        id: "correct",
-        label: askAround ? aroundLabel : exactPhrase,
-      },
-      {
-        id: "wrong",
-        label: askAround ? exactPhrase : aroundLabel,
-        whyWrong: askAround
-          ? `**${phraseForWhy(exactPhrase)}** is exact — the prompt asks for approximate **okolo**.`
-          : `**${phraseForWhy(aroundLabel)}** is approximate — the prompt asks for an exact **O …** time.`,
-      },
-      {
-        id: "quarter",
-        label: appointmentPhrase({ hour, minute: 15 }),
-        whyWrong: `**${phraseForWhy(appointmentPhrase({ hour, minute: 15 }))}** is **${formatFaceDigital12({ hour, minute: 15 })}** — not **${formatFaceDigital12(time)}**.`,
-      },
-    ],
-    rng,
-  );
-
+  const quarterPhrase = appointmentPhrase({ hour, minute: 15 });
   const prompt = askAround ? enAroundPrompt(time) : enExactAroundPrompt(time);
+  const meaningPhrase = enPromptMeaningPhrase(prompt);
+  const primaryTrapId = askAround ? "exact" : "around";
 
-  return {
+  const { choices, trapWhy } = oddOneOutFromOptions(
+    askAround
+      ? [
+          { id: "around", label: aroundLabel, fits: true },
+          {
+            id: "exact",
+            label: exactPhrase,
+            whyWrong: `**${phraseForWhy(exactPhrase)}** is exact — it does not mean around **${formatFaceDigital12(time)}**.`,
+          },
+          {
+            id: "quarter",
+            label: quarterPhrase,
+            whyWrong: `**${phraseForWhy(quarterPhrase)}** is **${formatFaceDigital12({ hour, minute: 15 })}** — not **${formatFaceDigital12(time)}**.`,
+          },
+        ]
+      : [
+          { id: "exact", label: exactPhrase, fits: true },
+          {
+            id: "around",
+            label: aroundLabel,
+            whyWrong: `**${phraseForWhy(aroundLabel)}** is approximate — it does not mean exactly **${formatFaceDigital12(time)}**.`,
+          },
+          {
+            id: "quarter",
+            label: quarterPhrase,
+            whyWrong: `**${phraseForWhy(quarterPhrase)}** is **${formatFaceDigital12({ hour, minute: 15 })}** — not **${formatFaceDigital12(time)}**.`,
+          },
+        ],
+    primaryTrapId,
+    meaningPhrase,
+  );
+  const primaryTrap = choices.find((choice) => choice.id === primaryTrapId);
+
+  return pickTrapChoiceTask({
     id: `generated-${kind}`,
-    type: "choice",
     practiceItemId: kind,
-    prompt,
+    prompt: enOddOneOutPrompt(meaningPhrase),
     clock: face,
-    choices,
-    answerId: "correct",
+    choices: shuffleArray(choices, rng),
+    answerId: primaryTrapId,
     hint: okoloHint,
     feedback: {
-      correction: askAround ? aroundLabel : exactPhrase,
+      correction: primaryTrap?.label ?? "",
       english: englishTimeGloss(time),
-      why: askAround
-        ? `**${phraseForWhy(aroundLabel)}** is approximate for **${formatFaceDigital12(time)}** — not exact **${phraseForWhy(exactPhrase)}**.`
-        : `**${phraseForWhy(exactPhrase)}** is the exact appointment form for **${formatFaceDigital12(time)}**.`,
+      why: trapWhy,
     },
-  };
+  });
 }
 
 function buildTimetableExercise(
@@ -457,7 +496,7 @@ function buildExactMinuteExercise(
   rng: () => number,
 ): PracticeItem["task"] {
   const time = randomExactMinuteTime(rng);
-  const face = analogFace({ hour: time.hour, minute: 0 });
+  const face = analogFace({ hour: time.hour, minute: time.minute });
   const correctLabel = exactMinuteTellingLabel(time);
   const wrongMinute = exactMinuteTellingLabel({
     hour: time.hour,
@@ -467,10 +506,12 @@ function buildExactMinuteExercise(
     hour: time.hour === 12 ? 11 : time.hour + 1,
     minute: time.minute,
   });
+  const meaningPhrase = enExactMinuteMeaningPhrase(time);
+  const primaryTrapId = rng() < 0.5 ? "wrong-minute" : "wrong-hour";
 
-  const choices = shuffleArray(
+  const { choices, trapWhy } = oddOneOutFromOptions(
     [
-      { id: "correct", label: correctLabel },
+      { id: "correct", label: correctLabel, fits: true },
       {
         id: "wrong-minute",
         label: wrongMinute,
@@ -482,23 +523,25 @@ function buildExactMinuteExercise(
         whyWrong: `**${wrongHour.replace(/^Sú |^Je |\.$/g, "")}** names the wrong hour for this face.`,
       },
     ],
-    rng,
+    primaryTrapId,
+    meaningPhrase,
   );
+  const primaryTrap = choices.find((choice) => choice.id === primaryTrapId);
 
-  return {
+  return pickTrapChoiceTask({
     id: `generated-${kind}`,
-    type: "choice",
     practiceItemId: kind,
-    prompt: enExactMinutePrompt(time),
-    choices,
-    answerId: "correct",
+    prompt: enOddOneOutPrompt(meaningPhrase),
+    clock: face,
+    choices: shuffleArray(choices, rng),
+    answerId: primaryTrapId,
     hint: hodinaAgreementHint,
     feedback: {
-      correction: correctLabel,
+      correction: primaryTrap?.label ?? "",
       english: `At ${face.hour}:${String(time.minute).padStart(2, "0")}.`,
-      why: `Use hour agreement + **a** + minutes: **${correctLabel.replace(/\.$/, "")}**.`,
+      why: trapWhy,
     },
-  };
+  });
 }
 
 function buildZaCountdownExercise(
@@ -508,37 +551,44 @@ function buildZaCountdownExercise(
   const targetHour12 = rng() < 0.5 ? 10 : 12;
   const minutesBefore = 5;
   const correctPhrase = zaCountdownPhrase(minutesBefore, targetHour12);
+  const meaningPhrase = enZaCountdownMeaningPhrase(targetHour12);
+  const halfPhrase = appointmentPhrase({ hour: targetHour12 - 1, minute: 30 });
+  const quarterPhrase = appointmentPhrase({ hour: targetHour12 - 1, minute: 45 });
+  const primaryTrapId = rng() < 0.5 ? "half" : "quarter";
+  const face = zaCountdownClockFace(minutesBefore, targetHour12);
 
-  const choices = shuffleArray(
+  const { choices, trapWhy } = oddOneOutFromOptions(
     [
-      { id: "correct", label: correctPhrase },
+      { id: "correct", label: correctPhrase, fits: true },
       {
         id: "half",
-        label: appointmentPhrase({ hour: targetHour12 - 1, minute: 30 }),
-        whyWrong: `**${phraseForWhy(appointmentPhrase({ hour: targetHour12 - 1, minute: 30 }))}** is an **O …** appointment time — not a **za …** countdown.`,
+        label: halfPhrase,
+        whyWrong: `**${phraseForWhy(halfPhrase)}** is an **O …** appointment time — not a **za …** countdown.`,
       },
       {
         id: "quarter",
-        label: appointmentPhrase({ hour: targetHour12 - 1, minute: 45 }),
-        whyWrong: `**${phraseForWhy(appointmentPhrase({ hour: targetHour12 - 1, minute: 45 }))}** is an **O …** appointment time — not a **za …** countdown.`,
+        label: quarterPhrase,
+        whyWrong: `**${phraseForWhy(quarterPhrase)}** is an **O …** appointment time — not a **za …** countdown.`,
       },
     ],
-    rng,
+    primaryTrapId,
+    meaningPhrase,
   );
+  const primaryTrap = choices.find((choice) => choice.id === primaryTrapId);
 
-  return {
+  return pickTrapChoiceTask({
     id: `generated-${kind}`,
-    type: "choice",
     practiceItemId: kind,
-    prompt: enZaCountdownPrompt(targetHour12),
-    choices,
-    answerId: "correct",
+    prompt: enOddOneOutPrompt(meaningPhrase),
+    clock: face,
+    choices: shuffleArray(choices, rng),
+    answerId: primaryTrapId,
     feedback: {
-      correction: correctPhrase,
+      correction: primaryTrap?.label ?? "",
       english: targetHour12 === 10 ? "Five minutes to ten." : "Five minutes to twelve.",
-      why: `**${correctPhrase.replace(/\.$/, "")}** counts down to the hour — different from an **O …** appointment time.`,
+      why: trapWhy,
     },
-  };
+  });
 }
 
 function wrapTask(kind: DaysDatesTimeKind, task: PracticeItem["task"]): PracticeItem {
@@ -581,7 +631,7 @@ export function materializeDaysDatesTimeItem(
     return wrapTask(kind, buildTellingAskExercise(kind, rng));
   }
   if (kind === "everyday/time-variants") {
-    return wrapTask(kind, buildSelectAllExercise(kind, rng));
+    return wrapTask(kind, buildTimeVariantsOddOneOutExercise(kind, rng));
   }
   if (kind === "everyday/day-part-time") {
     return wrapTask(kind, buildDayPartExercise(kind, rng));
