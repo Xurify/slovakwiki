@@ -43,7 +43,6 @@
         </nav>
 
         <header class="border-b border-slate-200 pb-7">
-          <Eyebrow>Pronunciation reference</Eyebrow>
           <h1>{sentenceCase(topic.english)}</h1>
           <p class="mt-2 font-serif text-lg text-blue-800" lang="sk">{topic.slovak}</p>
           <p class="mt-4 max-w-[66ch] font-serif text-lg text-slate-700">
@@ -52,7 +51,6 @@
         </header>
 
         <section class="scroll-mt-[72px] pt-8">
-          <Eyebrow>Overview</Eyebrow>
           <h2 id="goal-heading" class="mb-3 text-2xl">{topic.goal}</h2>
 
           {#each topic.body as paragraph (paragraph)}
@@ -67,14 +65,12 @@
             class="scroll-mt-[72px] border-t border-slate-200 pt-8"
             aria-labelledby="alphabet-heading"
           >
-            <Eyebrow>Alphabet</Eyebrow>
             <h2 id="alphabet-heading" class="mb-3 text-2xl">Letters</h2>
             <SlovakAlphabetIllustration class="mt-6" />
           </section>
         {/if}
 
         <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-          <Eyebrow>Listen for</Eyebrow>
           <h2 id="contrast-heading" class="mb-3 text-2xl">Sound contrasts</h2>
 
           <div
@@ -93,7 +89,6 @@
 
         <section class="scroll-mt-[72px] pt-8">
           <div class="rounded border border-slate-300 bg-blue-50 p-5">
-            <Eyebrow>Articulation</Eyebrow>
             <h2 id="cue-heading" class="mb-3 text-2xl">How it is formed</h2>
             <p class="mb-0 max-w-[66ch] font-serif leading-7 text-slate-700">
               {topic.mouthCue}
@@ -102,7 +97,6 @@
         </section>
 
         <section class="scroll-mt-[72px] pt-8">
-          <Eyebrow>Examples</Eyebrow>
           <h2 id="practice-heading" class="mb-3 text-2xl">Words and phrase</h2>
 
           <div class="mt-4 flex flex-wrap gap-2">
@@ -129,7 +123,6 @@
           class="scroll-mt-[72px] mt-10 border-t border-slate-200 pt-8"
           aria-labelledby="source-heading"
         >
-          <Eyebrow>Source</Eyebrow>
           <h2 id="source-heading" class="mb-3 text-2xl">Reference</h2>
           <TextLink href={topic.source}>Jazykovedný ústav Ľudovíta Štúra SAV ↗</TextLink>
           <p class="mt-3 text-sm text-slate-500">

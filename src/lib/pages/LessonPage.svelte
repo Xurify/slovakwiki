@@ -73,7 +73,6 @@
         class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
         aria-labelledby="visual-heading"
       >
-        <Eyebrow>See the clock</Eyebrow>
         <h2 id="visual-heading" class="mb-5 font-serif text-2xl text-slate-900">
           {data.lesson.visual.title}
         </h2>

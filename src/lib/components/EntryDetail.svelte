@@ -2,7 +2,6 @@
   import type { Snippet } from "svelte";
 
   import ExternalLookups from "$lib/components/ExternalLookups.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import GlossWithTerms from "$lib/components/GlossWithTerms.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -268,7 +267,6 @@
           class="mb-10 scroll-mt-[88px]"
           aria-labelledby="image-heading"
         >
-          <Eyebrow>Image</Eyebrow>
           <h2 id="image-heading" class="mb-3 text-xl">{image.caption}</h2>
 
           <figure class="m-0 max-w-[22rem]">
@@ -379,7 +377,6 @@
 
             {#if hasUsage}
               <div class="mt-8">
-                <Eyebrow>Usage</Eyebrow>
                 <h3 class="mb-4 text-xl">How to use it</h3>
                 {#each senseEntry.body as paragraph, index (index)}
                   <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
@@ -398,7 +395,6 @@
             {/if}
 
             {#if hasUsage}
-              <Eyebrow>Usage</Eyebrow>
               <h2 id="usage-heading" class="mb-4">How to use it</h2>
 
               {#each senseEntry.body as paragraph, index (index)}
@@ -416,7 +412,6 @@
               class={`scroll-mt-[88px] ${hasUsage ? "mt-10" : multiSense ? "mt-8" : ""}`}
               aria-labelledby={`${examplesId}-heading`}
             >
-              <Eyebrow>{practiceOnly ? "Practice frame" : "Examples"}</Eyebrow>
               <h3 id={`${examplesId}-heading`} class="mb-4 text-xl">
                 {practiceOnly ? "Try this pattern" : "In a sentence"}
               </h3>

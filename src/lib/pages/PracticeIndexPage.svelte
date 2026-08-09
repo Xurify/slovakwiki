@@ -153,7 +153,6 @@
   <section aria-labelledby="topics-heading">
     <PageShell class="py-14 pb-20 max-[600px]:py-10 max-[600px]:pb-14">
       <div class="mb-10 max-w-160">
-        <Eyebrow>Practice sheets</Eyebrow>
         <h2 id="topics-heading" class="m-0">Pick a form to drill</h2>
         <p class="mt-3 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
           Each sheet is a short set. Lessons teach; these ask you to use it.

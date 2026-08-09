@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -20,7 +19,6 @@
     </nav>
 
     <header class="max-w-[640px]">
-      <Eyebrow>Attribution</Eyebrow>
       <h1>References</h1>
       <Lead>
         Trusted sources behind dictionary entries, frequency lists, and optional example

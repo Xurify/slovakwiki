@@ -44,7 +44,6 @@
     </nav>
 
     <header class="border-b border-slate-200 pb-7">
-      <Eyebrow>Grammar reference</Eyebrow>
       <h1>{sentenceCase(topic.english)}</h1>
       <p class="mt-2 font-serif text-lg text-blue-800" lang="sk">{topic.slovak}</p>
       <p class="mt-4 max-w-[66ch] font-serif text-lg text-slate-700">{topic.summary}</p>
@@ -72,7 +71,6 @@
     {/if}
 
     <section class="scroll-mt-[72px] pt-8">
-      <Eyebrow>Core rule</Eyebrow>
       <h2 id="rule-heading" class="mb-3 text-2xl">What changes</h2>
 
       <ol class="m-0 grid list-none gap-2 p-0">
@@ -91,7 +89,6 @@
         class="scroll-mt-[72px] border-t border-slate-200 pt-8"
         aria-labelledby="clock-grid-heading"
       >
-        <Eyebrow>Clock faces</Eyebrow>
         <h2 id="clock-grid-heading" class="mb-3 text-2xl">See the time</h2>
         <p class="mb-5 max-w-[66ch] font-serif leading-7 text-slate-700">
           Match each face to the Slovak phrase. Quarters and halves name the hour ahead.
@@ -108,7 +105,6 @@
 
     {#if topic.termSections && topic.termSections.length > 0}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <Eyebrow>Terms</Eyebrow>
         <h2 id="terms-heading" class="mb-3 text-2xl">Key labels</h2>
 
         <dl class="m-0 grid gap-4">
@@ -131,7 +127,6 @@
 
     {#if !topic.caseOverview}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <Eyebrow>Pattern</Eyebrow>
         <h2 id="pattern-heading" class="mb-3 text-balance text-2xl">
           {topic.pattern.label}
         </h2>
@@ -153,7 +148,6 @@
 
     {#if topic.caseOverview}
       <section id="case-map" class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <Eyebrow>Case map</Eyebrow>
         <h2 id="case-map-heading" class="mb-3 text-2xl">The six cases</h2>
         <p class="mb-4 font-serif text-slate-500">
           Learn the nominative first. Use the remaining rows as a map of common roles,
@@ -200,7 +194,6 @@
 
     {#if !topic.caseOverview}
       <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <Eyebrow>See it in use</Eyebrow>
         <h2 id="examples-heading" class="mb-3 text-2xl">Examples</h2>
 
         <ol class="mt-5 grid list-none gap-2 p-0">
@@ -234,7 +227,6 @@
       class="scroll-mt-[72px] mt-10 border-t border-slate-200 pt-8"
       aria-labelledby="source-heading"
     >
-      <Eyebrow>Source</Eyebrow>
       <h2 id="source-heading" class="mb-3 text-2xl">Reference</h2>
       <a
         class="text-blue-800 underline underline-offset-2"

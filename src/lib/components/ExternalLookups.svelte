@@ -1,6 +1,4 @@
 <script lang="ts">
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
-
   import {
     externalLookupsForLemma,
     type ExternalLookupLink,
@@ -23,7 +21,6 @@
     class="scroll-mt-[88px] {className}"
     aria-labelledby="lookups-heading"
   >
-    <Eyebrow>Elsewhere</Eyebrow>
     <h2 id="lookups-heading" class="mb-3 text-xl">Look up this word</h2>
 
     <ul class="m-0 flex list-none flex-wrap gap-2 p-0">

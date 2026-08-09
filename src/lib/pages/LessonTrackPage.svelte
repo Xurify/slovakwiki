@@ -1,6 +1,5 @@
 <script lang="ts">
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -18,7 +17,6 @@
     </nav>
 
     <header class="max-w-[640px] border-b border-slate-200 pb-8">
-      <Eyebrow>Lesson track</Eyebrow>
       <h1>{data.track.title}</h1>
       <Lead>{data.track.description}</Lead>
     </header>

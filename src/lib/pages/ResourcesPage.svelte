@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -33,7 +32,6 @@
     </nav>
 
     <header class="max-w-[640px]">
-      <Eyebrow>Outside this site</Eyebrow>
       <h1>Resources</h1>
       <Lead>
         Curated courses, apps, textbooks, and media for learning Slovak. Data sources
