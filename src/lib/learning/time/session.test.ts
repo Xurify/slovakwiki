@@ -34,23 +34,22 @@ describe("learning/time/session", () => {
     const choiceItems = session.filter((item) => item.task.type === "choice");
     for (const item of choiceItems) {
       if (item.task.type !== "choice") continue;
-      if (item.task.prompt.startsWith("Which phrase does not mean")) {
-        expect(item.task.choiceMode).toBe("pickTrap");
-        expect(item.task.choices.length).toBeGreaterThanOrEqual(3);
-        expect(item.task.choices.some((choice) => choice.fits === true)).toBe(true);
-        expect(item.task.choices.some((choice) => choice.fits !== true)).toBe(true);
+      const task = item.task;
+      if (task.prompt.startsWith("Which phrase does not mean")) {
+        expect(task.choiceMode).toBe("pickTrap");
+        expect(task.choices.length).toBeGreaterThanOrEqual(3);
+        expect(task.choices.some((choice) => choice.fits === true)).toBe(true);
+        expect(task.choices.some((choice) => choice.fits !== true)).toBe(true);
         continue;
       }
-      if (item.task.prompt === "Koľko je hodín?") {
-        expect(item.task.choiceMode).toBeUndefined();
-        expect(item.task.answerId).toBe("correct");
+      if (task.prompt === "Koľko je hodín?") {
+        expect(task.choiceMode).toBeUndefined();
+        expect(task.answerId).toBe("correct");
         continue;
       }
-      expect(item.task.choices.length).toBe(3);
-      if (item.task.choiceMode === "pickTrap") continue;
-      expect(item.task.choices.some((choice) => choice.id === item.task.answerId)).toBe(
-        true,
-      );
+      expect(task.choices.length).toBe(3);
+      if (task.choiceMode === "pickTrap") continue;
+      expect(task.choices.some((choice) => choice.id === task.answerId)).toBe(true);
     }
   });
 
@@ -157,22 +156,27 @@ describe("learning/time/session", () => {
   it("keeps whyWrong on appointment choice distractors for miss feedback", () => {
     const item = materializeDaysDatesTimeItem("everyday/quarter-time", () => 0.2);
     expect(item.task.type).toBe("choice");
-    if (item.task.type === "choice") {
-      const wrong = item.task.choices.find(
-        (choice) => choice.id !== item.task.answerId && choice.id.startsWith("miss-"),
-      );
-      expect(wrong?.whyWrong).toMatch(/means quarter/);
+    if (item.task.type !== "choice") return;
 
-      const baseWhy = item.task.feedback?.why ?? "";
-      expect(baseWhy).toMatch(/means quarter|means half past|halfway toward/);
-      expect(
-        choiceFeedbackWhy(
-          baseWhy,
-          wrong?.id ?? null,
-          item.task.choices,
-          item.task.answerId,
-        ),
-      ).toMatch(wrong?.whyWrong ?? "");
+    const task = item.task;
+    const wrong = task.choices.find(
+      (choice) => choice.id !== task.answerId && choice.id.startsWith("miss-"),
+    );
+    expect(wrong?.whyWrong).toMatch(/means quarter/);
+
+    const baseWhy = task.feedback?.why ?? "";
+    expect(baseWhy).toMatch(/means quarter|means half past|halfway toward/);
+    expect(
+      choiceFeedbackWhy(baseWhy, wrong?.id ?? null, task.choices, task.answerId),
+    ).toMatch(wrong?.whyWrong ?? "");
+  });
+
+  it("uses appointment why on clock-match items", () => {
+    const item = materializeDaysDatesTimeItem("everyday/clock-half-past-match", () => 0.2);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      expect(item.task.feedback?.why).toMatch(/\*\*O pol /);
+      expect(item.task.feedback?.why).not.toMatch(/^Je /);
     }
   });
 

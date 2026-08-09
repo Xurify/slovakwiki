@@ -167,7 +167,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-phone-number-digits",
       type: "build",
       practiceItemId: "everyday/phone-number-digits",
-      prompt: "Build the digits for the short number 0905.",
+      prompt: "Zero nine zero five.",
       tiles: ["päť.", "deväť", "nula", "nula", "deväť", "nula"],
       answer: ["nula", "deväť", "nula", "päť."],
       feedback: {
@@ -274,7 +274,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-not-understand-question",
-          speaker: "Clerk",
+          speaker: "Receptionist",
           slovak: "Vyplňte tento formulár.",
           english: "Fill in this form.",
         },
@@ -1141,7 +1141,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-thanks-help",
-          speaker: "Someone",
+          speaker: "Anna",
           slovak: "Pomôžem vám.",
           english: "I will help you.",
         },

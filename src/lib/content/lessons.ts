@@ -129,7 +129,7 @@ export const lessons: Lesson[] = [
         id: "meet-someone-name",
         type: "build",
         practiceItemId: "everyday/introduction",
-        prompt: "Build your reply.",
+        prompt: "Hello. My name is Alex.",
         tiles: ["Alex.", "sa", "Dobrý deň.", "Volám"],
         answer: ["Dobrý deň.", "Volám", "sa", "Alex."],
         feedback: {
@@ -940,7 +940,7 @@ export const lessons: Lesson[] = [
         id: "stress-build",
         type: "build",
         practiceItemId: "pronunciation/thanks-phrase",
-        prompt: "Build the phrase Anna said.",
+        prompt: "Thank you for the help.",
         tiles: ["pomoc.", "Ďakujem", "za"],
         answer: ["Ďakujem", "za", "pomoc."],
         feedback: {

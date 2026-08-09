@@ -223,7 +223,7 @@ function buildClockMatchExercise(
     feedback: {
       correction: correctPhrase,
       english: englishTimeGloss(time),
-      why: tellingChoiceWhy(time),
+      why: appointmentChoiceWhy(time),
     },
   };
 }
