@@ -114,7 +114,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Dobrý deň. Volám sa Alex.",
           english: "Hello. My name is Alex.",
-          why: "Dobrý deň is the safe polite opening. Ahoj is for an informal interaction; Dovidenia is for leaving.",
+          why: "**Dobrý deň** is the safe polite opening. **Ahoj** is for an informal interaction; **Dovidenia** is for leaving.",
         },
       },
       {
@@ -127,7 +127,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Dobrý deň. Volám sa Alex.",
           english: "Hello. My name is Alex.",
-          why: "Volám sa is the everyday way to introduce yourself. The little word sa belongs with volám.",
+          why: "**Volám sa** is the everyday way to introduce yourself. The little word **sa** belongs with **volám**.",
         },
       },
       {
@@ -149,7 +149,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Som z Kanady.",
           english: "I am from Canada.",
-          why: "Use Som z … for where you are from. The country follows z in its Slovak form: Kanada → Kanady.",
+          why: "Use **Som z …** for where you are from. The country follows **z** in its Slovak form: **Kanada** → **Kanady**.",
         },
       },
       {
@@ -263,7 +263,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Mám dvadsaťosem rokov.",
           english: "I am twenty-eight years old.",
-          why: "Use Mám + number + rokov for your age.",
+          why: "Use **Mám** + number + **rokov** for your age.",
         },
       },
       {
@@ -276,7 +276,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Moje číslo je nula deväť nula jeden.",
           english: "My number is zero nine zero one.",
-          why: "Phone numbers are normally spoken digit by digit.",
+          why: "Phone numbers are normally spoken **digit by digit**.",
         },
       },
       {
@@ -290,7 +290,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Stojí to päť eur.",
           english: "It costs five euros.",
-          why: "Use stojí to for a simple price. After päť, use eur.",
+          why: "Use **stojí to** for a simple price. After **päť**, use **eur**.",
         },
       },
       {
@@ -384,7 +384,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Nie, ďakujem.",
           english: "No, thank you.",
-          why: "Nie, ďakujem is a brief, polite refusal.",
+          why: "**Nie, ďakujem** is a brief, polite refusal.",
         },
       },
       {
@@ -398,7 +398,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Nerozumiem.",
           english: "I do not understand.",
-          why: "Nie joins the front of rozumiem: nerozumiem.",
+          why: "**Nie** joins the front of **rozumiem**: **nerozumiem**.",
         },
       },
       {
@@ -411,7 +411,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Nemám čas.",
           english: "I do not have time.",
-          why: "The negative stays with the verb: nemám, not mám nie.",
+          why: "The negative stays with the verb: **nemám**, not **mám nie**.",
         },
       },
       {
@@ -514,7 +514,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Čítam knihu.",
           english: "I am reading a book.",
-          why: "The ending -m marks I. Číta is he/she; čítaš is informal you.",
+          why: "The ending **-m** marks I. **Číta** is he/she; **čítaš** is informal you.",
         },
       },
       {
@@ -537,7 +537,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Čítam knihu.",
           english: "I am reading a book.",
-          why: "Číta is he/she reads. Change it to čítam for I. Ja is possible for emphasis, but the verb ending already says who is acting.",
+          why: "**Číta** is he/she reads. Change it to **čítam** for I. **Ja** is possible for emphasis, but the verb ending already says who is acting.",
         },
       },
       {
@@ -554,7 +554,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Dnes čítame knihu.",
           english: "Today we are reading a book.",
-          why: "Čítame ends in -me for we. Čítam is I; čítajú is they.",
+          why: "**Čítame** ends in **-me** for we. **Čítam** is I; **čítajú** is they.",
         },
       },
       {
@@ -644,7 +644,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Som Alex.",
           english: "I am Alex.",
-          why: "Som is the first-person singular form of byť: I am.",
+          why: "**Som** is the first-person singular form of **byť**: I am.",
         },
       },
       {
@@ -657,7 +657,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Ste Alex?",
           english: "Are you Alex?",
-          why: "Ste is used for formal singular you and plural you.",
+          why: "**Ste** is used for formal singular you and plural you.",
         },
       },
       {
@@ -671,7 +671,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Kaviareň je tu.",
           english: "The café is here.",
-          why: "Je is the he/she/it form of byť. Use it to say where one thing is.",
+          why: "**Je** is the he/she/it form of **byť**. Use it to say where one thing is.",
         },
       },
       {
@@ -771,7 +771,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Mám čas.",
           english: "I have time.",
-          why: "Mám is the first-person singular form of mať: I have.",
+          why: "**Mám** is the first-person singular form of **mať**: I have.",
         },
       },
       {
@@ -784,7 +784,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Máš kartu?",
           english: "Do you have a card?",
-          why: "Máš is used when speaking informally to one person.",
+          why: "**Máš** is used when speaking informally to one person.",
         },
       },
       {
@@ -798,7 +798,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Nemám hotovosť.",
           english: "I do not have cash.",
-          why: "Put ne- onto mám to make the negative form nemám.",
+          why: "Put **ne-** onto **mám** to make the negative form **nemám**.",
         },
       },
       {
@@ -870,7 +870,7 @@ export const lessons: Lesson[] = [
         answerId: "first",
         feedback: {
           correction: "ĎA-ku-jem",
-          why: "Slovak normally puts the main stress on the first syllable of a word.",
+          why: "Slovak normally puts the main stress on the **first syllable** of a word.",
         },
       },
       {
@@ -883,7 +883,7 @@ export const lessons: Lesson[] = [
         feedback: {
           correction: "Ďakujem za pomoc.",
           english: "Thank you for the help.",
-          why: "Keep the first beat on ĎA- in ďakujem, then say the rest of the phrase evenly.",
+          why: "Keep the first beat on **ĎA-** in **ďakujem**, then say the rest of the phrase evenly.",
         },
       },
       {

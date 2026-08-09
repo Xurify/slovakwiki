@@ -19,9 +19,15 @@
   import AudioButton from "$lib/components/AudioButton.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
   import { ChoiceOptions } from "$lib/learning/exercises";
+  import { formatClockFaceLabel } from "$lib/learning/time/clock";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
+  import {
+    feedbackFooterClass,
+    feedbackToneFromGrade,
+    shouldShowCorrection,
+  } from "$lib/components/practice/practice-feedback-ui";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
   import PracticeSessionComplete, {
     type SessionPhraseResult,
@@ -49,9 +55,6 @@
     "ý",
     "ž",
   ] as const;
-
-  const checkButtonClass =
-    "!bg-blue-600 !text-white hover:!bg-blue-700 disabled:!bg-slate-200 disabled:!text-slate-500 disabled:hover:!bg-slate-200";
 
   function sectionTitleFor(task: PracticeTask): string {
     if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
@@ -217,13 +220,33 @@
     return resolveCheckGrade();
   }
 
+  function attemptForResult(): string | undefined {
+    if (task.type === "choice" && selectedId) {
+      const choice = task.choices.find((entry) => entry.id === selectedId);
+      if (!choice) return undefined;
+      if (choice.label) return choice.label;
+      if (choice.clock) return formatClockFaceLabel(choice.clock);
+      return undefined;
+    }
+    if (task.type === "build" && builtTiles.length > 0) return builtTiles.join(" ");
+    if (task.type === "cloze" || task.type === "typed") {
+      const trimmed = input.trim();
+      return trimmed || undefined;
+    }
+    return undefined;
+  }
+
   function recordResult(): void {
     sessionResults = [
       ...sessionResults,
       {
         itemId: current.id,
+        prompt: current.task.prompt,
+        promptLang: current.task.promptLang,
         slovak: current.feedback.correction,
         english: current.feedback.english,
+        why: current.feedback.why,
+        attempt: attemptForResult(),
         grade: gradeForResult(),
       },
     ];
@@ -278,15 +301,11 @@
     if (first) sectionTitle = sectionTitleFor(first.task);
   }
 
-  const showCorrection = $derived(
-    submitted && (revealed || grade === "incorrect" || grade === "accents"),
-  );
+  const showCorrection = $derived(shouldShowCorrection(submitted, grade, revealed));
 
-  function feedbackToneClass(): string {
-    if (revealed || grade === "incorrect" || grade === null)
-      return "border-t border-rose-200 bg-rose-50";
-    if (grade === "accents") return "border-t border-blue-200 bg-blue-50";
-    return "border-t border-emerald-200 bg-emerald-50";
+  function exerciseFooterClass(): string {
+    if (!submitted) return "border-t border-slate-200 bg-paper/70";
+    return feedbackFooterClass(feedbackToneFromGrade(grade, revealed));
   }
 
   function feedbackContinueClass(): string {
@@ -340,8 +359,9 @@
       {/if}
 
       <Button
-        class="{checkButtonClass} w-full sm:min-w-[9rem] sm:w-auto"
+        class="w-full sm:min-w-[9rem] sm:w-auto"
         type="button"
+        variant="accent"
         disabled={!canCheck}
         onclick={check}
       >
@@ -369,12 +389,7 @@
       total={activeItems.length}
     />
 
-    <PracticeExerciseCard
-      footer={exerciseFooter}
-      footerClass={submitted
-        ? feedbackToneClass()
-        : "border-t border-slate-200 bg-paper/70"}
-    >
+    <PracticeExerciseCard footer={exerciseFooter} footerClass={exerciseFooterClass()}>
       {#if sectionTitle && !hasScene}
         <p class="m-0 mb-4 text-sm font-medium text-slate-500">{sectionTitle}</p>
       {/if}

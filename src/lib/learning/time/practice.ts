@@ -20,13 +20,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "Stretneme sa v utorok.",
         english: "We are meeting on Tuesday.",
-        why: "Use v + the day of the week for an appointment day: v utorok.",
+        why: "Use **v** + the day of the week for an appointment day: **v utorok**.",
       },
     },
     feedback: {
       correction: "Stretneme sa v utorok.",
       english: "We are meeting on Tuesday.",
-      why: "Use v + the day of the week for an appointment day: v utorok.",
+      why: "Use **v** + the day of the week for an appointment day: **v utorok**.",
     },
   },
   {
@@ -47,13 +47,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "O tretej.",
         english: "At three o’clock.",
-        why: "Use o + the ordinal time form to say when: o tretej.",
+        why: "Use **o** + the ordinal time form to say when: **o tretej**.",
       },
     },
     feedback: {
       correction: "O tretej.",
       english: "At three o’clock.",
-      why: "Use o + the ordinal time form to say when: o tretej.",
+      why: "Use **o** + the ordinal time form to say when: **o tretej**.",
     },
   },
   {
@@ -74,13 +74,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "O pol tretej.",
         english: "At half past two.",
-        why: "Slovak counts the half-hour toward the next hour: pol tretej is 2:30.",
+        why: "Slovak counts the half-hour toward the next hour: **pol tretej** is **2:30**.",
       },
     },
     feedback: {
       correction: "O pol tretej.",
       english: "At half past two.",
-      why: "Slovak counts the half-hour toward the next hour: pol tretej is 2:30.",
+      why: "Slovak counts the half-hour toward the next hour: **pol tretej** is **2:30**.",
     },
   },
   {
@@ -101,13 +101,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "O trištvrte na tri.",
         english: "At quarter to three.",
-        why: "Trištvrte na tri is three-quarters toward three, so it means 2:45.",
+        why: "**Trištvrte na tri** is three-quarters toward three, so it means **2:45**.",
       },
     },
     feedback: {
       correction: "O trištvrte na tri.",
       english: "At quarter to three.",
-      why: "Trištvrte na tri is three-quarters toward three, so it means 2:45.",
+      why: "**Trištvrte na tri** is three-quarters toward three, so it means **2:45**.",
     },
   },
   {
@@ -117,7 +117,7 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       id: "review-clock-half-past-match",
       type: "choice",
       practiceItemId: "everyday/clock-half-past-match",
-      prompt: "Ktorý čas je o pol tretej?",
+      prompt: "Ktoré hodiny ukazujú „pol tretej“?",
       promptLang: "sk",
       choiceStyle: "clock",
       choices: [
@@ -129,13 +129,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "O pol tretej.",
         english: "At half past two.",
-        why: "Pol tretej counts toward three, so the face shows 2:30.",
+        why: "**Pol tretej** counts toward three, so the face shows **2:30**.",
       },
     },
     feedback: {
       correction: "O pol tretej.",
       english: "At half past two.",
-      why: "Pol tretej counts toward three, so the face shows 2:30.",
+      why: "**Pol tretej** counts toward three, so the face shows **2:30**.",
     },
   },
   {
@@ -145,7 +145,7 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       id: "review-clock-quarter-past-match",
       type: "choice",
       practiceItemId: "everyday/clock-quarter-past-match",
-      prompt: "Ktorý čas je o štvrť na tri?",
+      prompt: "Ktoré hodiny ukazujú „štvrť na tri“?",
       promptLang: "sk",
       choiceStyle: "clock",
       choices: [
@@ -157,13 +157,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "O štvrť na tri.",
         english: "At quarter past two.",
-        why: "Štvrť na tri is one quarter toward three, so the face shows 2:15.",
+        why: "**Štvrť na tri** is one quarter toward three, so the face shows **2:15**.",
       },
     },
     feedback: {
       correction: "O štvrť na tri.",
       english: "At quarter past two.",
-      why: "Štvrť na tri is one quarter toward three, so the face shows 2:15.",
+      why: "**Štvrť na tri** is one quarter toward three, so the face shows **2:15**.",
     },
   },
   {
@@ -173,7 +173,7 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       id: "review-clock-quarter-to-match",
       type: "choice",
       practiceItemId: "everyday/clock-quarter-to-match",
-      prompt: "Ktorý čas je o trištvrte na tri?",
+      prompt: "Ktoré hodiny ukazujú „trištvrte na tri“?",
       promptLang: "sk",
       choiceStyle: "clock",
       choices: [
@@ -185,13 +185,41 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "O trištvrte na tri.",
         english: "At quarter to three.",
-        why: "Trištvrte na tri is three-quarters toward three, so the face shows 2:45.",
+        why: "**Trištvrte na tri** is three-quarters toward three, so the face shows **2:45**.",
       },
     },
     feedback: {
       correction: "O trištvrte na tri.",
       english: "At quarter to three.",
-      why: "Trištvrte na tri is three-quarters toward three, so the face shows 2:45.",
+      why: "**Trištvrte na tri** is three-quarters toward three, so the face shows **2:45**.",
+    },
+  },
+  {
+    id: "everyday/clock-quarter-past-ask",
+    source: daysDatesTimeSource,
+    task: {
+      id: "review-clock-quarter-past-ask",
+      type: "choice",
+      practiceItemId: "everyday/clock-quarter-past-ask",
+      prompt: "Koľko je hodín?",
+      promptLang: "sk",
+      clock: { hour: 2, minute: 15 },
+      choices: [
+        { id: "quarter-past-two", label: "Je štvrť na tri." },
+        { id: "quarter-to-three", label: "Je trištvrte na tri." },
+        { id: "half-past-two", label: "Je pol tretej." },
+      ],
+      answerId: "quarter-past-two",
+      feedback: {
+        correction: "Je štvrť na tri.",
+        english: "It's quarter past two.",
+        why: "**Štvrť na tri** is one quarter toward three, so the face shows **2:15**.",
+      },
+    },
+    feedback: {
+      correction: "Je štvrť na tri.",
+      english: "It's quarter past two.",
+      why: "**Štvrť na tri** is one quarter toward three, so the face shows **2:15**.",
     },
   },
 ];

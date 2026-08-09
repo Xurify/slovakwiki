@@ -39,13 +39,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Dobrý deň.",
         english: "Hello; good day.",
-        why: "This is a new, polite interaction. Use Dobrý deň; Ahoj is informal.",
+        why: "This is a new, polite interaction. Use **Dobrý deň**; **Ahoj** is informal.",
       },
     },
     feedback: {
       correction: "Dobrý deň.",
       english: "Hello; good day.",
-      why: "This is a new, polite interaction. Use Dobrý deň; Ahoj is informal.",
+      why: "This is a new, polite interaction. Use **Dobrý deň**; **Ahoj** is informal.",
     },
   },
   {
@@ -66,13 +66,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Dobrý deň. Volám sa Alex.",
         english: "Hello. My name is Alex.",
-        why: "Volám sa is the natural everyday introduction. Sa belongs with volám.",
+        why: "**Volám sa** is the natural everyday introduction. **Sa** belongs with **volám**.",
       },
     },
     feedback: {
       correction: "Dobrý deň. Volám sa Alex.",
       english: "Hello. My name is Alex.",
-      why: "Volám sa is the natural everyday introduction. Sa belongs with volám.",
+      why: "**Volám sa** is the natural everyday introduction. **Sa** belongs with **volám**.",
     },
   },
   {
@@ -101,13 +101,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Som z Kanady.",
         english: "I am from Canada.",
-        why: "Use Som z … for your origin. The country takes its Slovak form after z.",
+        why: "Use **Som z …** for your origin. The country takes its Slovak form after **z**.",
       },
     },
     feedback: {
       correction: "Som z Kanady.",
       english: "I am from Canada.",
-      why: "Use Som z … for your origin. The country takes its Slovak form after z.",
+      why: "Use **Som z …** for your origin. The country takes its Slovak form after **z**.",
     },
     newUse: "Now answer once with your own country.",
   },
@@ -137,13 +137,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Mám dvadsať rokov.",
         english: "I am twenty years old.",
-        why: "Slovak says I have twenty years: mám + number + rokov.",
+        why: "Slovak says I have twenty years: **mám** + number + **rokov**.",
       },
     },
     feedback: {
       correction: "Mám dvadsať rokov.",
       english: "I am twenty years old.",
-      why: "Slovak says I have twenty years: mám + number + rokov.",
+      why: "Slovak says I have twenty years: **mám** + number + **rokov**.",
     },
     newUse: "Say your own age with Mám … rokov.",
   },
@@ -164,13 +164,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Nula deväť nula päť.",
         english: "Zero nine zero five.",
-        why: "Phone numbers are normally read digit by digit, not as one whole number.",
+        why: "Phone numbers are normally read **digit by digit**, not as one whole number.",
       },
     },
     feedback: {
       correction: "Nula deväť nula päť.",
       english: "Zero nine zero five.",
-      why: "Phone numbers are normally read digit by digit, not as one whole number.",
+      why: "Phone numbers are normally read **digit by digit**, not as one whole number.",
     },
   },
   {
@@ -194,13 +194,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Stojí to päť eur.",
         english: "It costs five euros.",
-        why: "Koľko to stojí? asks the price. Use Stojí to + number + eur.",
+        why: "**Koľko to stojí?** asks the price. Use **Stojí to** + number + **eur**.",
       },
     },
     feedback: {
       correction: "Stojí to päť eur.",
       english: "It costs five euros.",
-      why: "Koľko to stojí? asks the price. Use Stojí to + number + eur.",
+      why: "**Koľko to stojí?** asks the price. Use **Stojí to** + number + **eur**.",
     },
   },
   ...daysDatesTimePracticeItems,
@@ -226,13 +226,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Nie, ďakujem.",
         english: "No, thank you.",
-        why: "Nie gives a polite no. Add ďakujem to decline courteously.",
+        why: "**Nie** gives a polite no. Add **ďakujem** to decline courteously.",
       },
     },
     feedback: {
       correction: "Nie, ďakujem.",
       english: "No, thank you.",
-      why: "Nie gives a polite no. Add ďakujem to decline courteously.",
+      why: "**Nie** gives a polite no. Add **ďakujem** to decline courteously.",
     },
   },
   {
@@ -261,13 +261,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Nerozumiem.",
         english: "I do not understand.",
-        why: "Negation attaches to the verb: rozumiem becomes nerozumiem.",
+        why: "Negation attaches to the verb: **rozumiem** becomes **nerozumiem**.",
       },
     },
     feedback: {
       correction: "Nerozumiem.",
       english: "I do not understand.",
-      why: "Negation attaches to the verb: rozumiem becomes nerozumiem.",
+      why: "Negation attaches to the verb: **rozumiem** becomes **nerozumiem**.",
     },
     newUse: "Follow with Prosím, pomalšie. — “Please, more slowly.”",
   },
@@ -288,13 +288,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Nemám čas.",
         english: "I do not have time.",
-        why: "Nie attaches to the verb as a negative form: mám becomes nemám, not nie mám.",
+        why: "**Nie** attaches to the verb as a negative form: **mám** becomes **nemám**, not **nie mám**.",
       },
     },
     feedback: {
       correction: "Nemám čas.",
       english: "I do not have time.",
-      why: "Nie attaches to the verb as a negative form: mám becomes nemám, not nie mám.",
+      why: "**Nie** attaches to the verb as a negative form: **mám** becomes **nemám**, not **nie mám**.",
     },
   },
   {
@@ -318,13 +318,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Čítam knihu.",
         english: "I am reading a book.",
-        why: "The ending -m marks I. Číta is he/she; čítaš is informal you.",
+        why: "The ending **-m** marks I. **Číta** is he/she; **čítaš** is informal you.",
       },
     },
     feedback: {
       correction: "Čítam knihu.",
       english: "I am reading a book.",
-      why: "The ending -m marks I. Číta is he/she; čítaš is informal you.",
+      why: "The ending **-m** marks I. **Číta** is he/she; **čítaš** is informal you.",
     },
     newUse: "Try a new first-person sentence: Dnes pracujem.",
   },
@@ -355,13 +355,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Čítam noviny.",
         english: "I am reading a newspaper.",
-        why: "Číta describes one other person. Change the ending to -m when you are the reader.",
+        why: "**Číta** describes one other person. Change the ending to **-m** when you are the reader.",
       },
     },
     feedback: {
       correction: "Čítam noviny.",
       english: "I am reading a newspaper.",
-      why: "Číta describes one other person. Change the ending to -m when you are the reader.",
+      why: "**Číta** describes one other person. Change the ending to **-m** when you are the reader.",
     },
   },
   {
@@ -385,13 +385,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Dnes čítame knihu.",
         english: "Today we are reading a book.",
-        why: "Čítame ends in -me for we. Čítam is I; čítajú is they.",
+        why: "**Čítame** ends in **-me** for we. **Čítam** is I; **čítajú** is they.",
       },
     },
     feedback: {
       correction: "Dnes čítame knihu.",
       english: "Today we are reading a book.",
-      why: "Čítame ends in -me for we. Čítam is I; čítajú is they.",
+      why: "**Čítame** ends in **-me** for we. **Čítam** is I; **čítajú** is they.",
     },
   },
   {
@@ -421,13 +421,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Dnes čítam knihu.",
         english: "Today I am reading a book.",
-        why: "Čítam ends in -m for I. The blank needs the first-person form, not číta.",
+        why: "**Čítam** ends in **-m** for I. The blank needs the first-person form, not **číta**.",
       },
     },
     feedback: {
       correction: "Dnes čítam knihu.",
       english: "Today I am reading a book.",
-      why: "Čítam ends in -m for I. The blank needs the first-person form, not číta.",
+      why: "**Čítam** ends in **-m** for I. The blank needs the first-person form, not **číta**.",
     },
   },
   {
@@ -461,13 +461,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Hovoríš po slovensky?",
         english: "Do you speak Slovak?",
-        why: "Hovoríš ends in -š for informal you. Hovorím would mean I speak.",
+        why: "**Hovoríš** ends in **-š** for informal you. **Hovorím** would mean I speak.",
       },
     },
     feedback: {
       correction: "Hovoríš po slovensky?",
       english: "Do you speak Slovak?",
-      why: "Hovoríš ends in -š for informal you. Hovorím would mean I speak.",
+      why: "**Hovoríš** ends in **-š** for informal you. **Hovorím** would mean I speak.",
     },
   },
   {
@@ -497,13 +497,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Peter číta knihu.",
         english: "Peter is reading a book.",
-        why: "Číta is he/she reads. Čítam would mean I am reading.",
+        why: "**Číta** is he/she reads. **Čítam** would mean I am reading.",
       },
     },
     feedback: {
       correction: "Peter číta knihu.",
       english: "Peter is reading a book.",
-      why: "Číta is he/she reads. Čítam would mean I am reading.",
+      why: "**Číta** is he/she reads. **Čítam** would mean I am reading.",
     },
   },
   {
@@ -533,13 +533,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Dnes čítame knihu.",
         english: "Today we are reading a book.",
-        why: "Čítame ends in -me for we. Čítam is I; čítajú is they.",
+        why: "**Čítame** ends in **-me** for we. **Čítam** is I; **čítajú** is they.",
       },
     },
     feedback: {
       correction: "Dnes čítame knihu.",
       english: "Today we are reading a book.",
-      why: "Čítame ends in -me for we. Čítam is I; čítajú is they.",
+      why: "**Čítame** ends in **-me** for we. **Čítam** is I; **čítajú** is they.",
     },
   },
   {
@@ -573,13 +573,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Hovoríte po slovensky?",
         english: "Do you speak Slovak?",
-        why: "Hovoríte ends in -te for polite or plural you. Hovoríš is informal singular.",
+        why: "**Hovoríte** ends in **-te** for polite or plural you. **Hovoríš** is informal singular.",
       },
     },
     feedback: {
       correction: "Hovoríte po slovensky?",
       english: "Do you speak Slovak?",
-      why: "Hovoríte ends in -te for polite or plural you. Hovoríš is informal singular.",
+      why: "**Hovoríte** ends in **-te** for polite or plural you. **Hovoríš** is informal singular.",
     },
   },
   {
@@ -609,13 +609,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Oni čítajú knihu.",
         english: "They are reading a book.",
-        why: "Čítajú ends in -jú for they. Číta is one other person reading.",
+        why: "**Čítajú** ends in **-jú** for they. **Číta** is one other person reading.",
       },
     },
     feedback: {
       correction: "Oni čítajú knihu.",
       english: "They are reading a book.",
-      why: "Čítajú ends in -jú for they. Číta is one other person reading.",
+      why: "**Čítajú** ends in **-jú** for they. **Číta** is one other person reading.",
     },
   },
   {
@@ -649,13 +649,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Zajtra pracujem v Bratislave.",
         english: "Tomorrow I am working in Bratislava.",
-        why: "Pracujem is I work. Keep -m when you are the one working.",
+        why: "**Pracujem** is I work. Keep **-m** when you are the one working.",
       },
     },
     feedback: {
       correction: "Zajtra pracujem v Bratislave.",
       english: "Tomorrow I am working in Bratislava.",
-      why: "Pracujem is I work. Keep -m when you are the one working.",
+      why: "**Pracujem** is I work. Keep **-m** when you are the one working.",
     },
   },
   {
@@ -689,13 +689,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Dnes pracuješ v Bratislave.",
         english: "Today you are working in Bratislava.",
-        why: "Pracuješ ends in -š for informal you. Pracujem would mean I work.",
+        why: "**Pracuješ** ends in **-š** for informal you. **Pracujem** would mean I work.",
       },
     },
     feedback: {
       correction: "Dnes pracuješ v Bratislave.",
       english: "Today you are working in Bratislava.",
-      why: "Pracuješ ends in -š for informal you. Pracujem would mean I work.",
+      why: "**Pracuješ** ends in **-š** for informal you. **Pracujem** would mean I work.",
     },
   },
   {
@@ -719,13 +719,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Čítajú knihu.",
         english: "They are reading a book.",
-        why: "Čítajú ends in -jú for they. Čítame is we; číta is he/she.",
+        why: "**Čítajú** ends in **-jú** for they. **Čítame** is we; **číta** is he/she.",
       },
     },
     feedback: {
       correction: "Čítajú knihu.",
       english: "They are reading a book.",
-      why: "Čítajú ends in -jú for they. Čítame is we; číta is he/she.",
+      why: "**Čítajú** ends in **-jú** for they. **Čítame** is we; **číta** is he/she.",
     },
   },
   {
@@ -749,13 +749,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Hovoríte po slovensky?",
         english: "Do you speak Slovak?",
-        why: "Hovoríte (-te) is polite or plural. Hovoríš is informal singular.",
+        why: "**Hovoríte** (**-te**) is polite or plural. **Hovoríš** is informal singular.",
       },
     },
     feedback: {
       correction: "Hovoríte po slovensky?",
       english: "Do you speak Slovak?",
-      why: "Hovoríte (-te) is polite or plural. Hovoríš is informal singular.",
+      why: "**Hovoríte** (**-te**) is polite or plural. **Hovoríš** is informal singular.",
     },
   },
   {
@@ -785,13 +785,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Hovoríš po slovensky.",
         english: "You speak Slovak.",
-        why: "Hovorím means I speak. Use hovoríš when speaking to one person informally.",
+        why: "**Hovorím** means I speak. Use **hovoríš** when speaking to one person informally.",
       },
     },
     feedback: {
       correction: "Hovoríš po slovensky.",
       english: "You speak Slovak.",
-      why: "Hovorím means I speak. Use hovoríš when speaking to one person informally.",
+      why: "**Hovorím** means I speak. Use **hovoríš** when speaking to one person informally.",
     },
   },
   {
@@ -811,13 +811,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Dnes čítame knihu.",
         english: "Today we are reading a book.",
-        why: "Čítame ends in -me for we. Čítam would mean I am reading.",
+        why: "**Čítame** ends in **-me** for we. **Čítam** would mean I am reading.",
       },
     },
     feedback: {
       correction: "Dnes čítame knihu.",
       english: "Today we are reading a book.",
-      why: "Čítame ends in -me for we. Čítam would mean I am reading.",
+      why: "**Čítame** ends in **-me** for we. **Čítam** would mean I am reading.",
     },
   },
   {
@@ -846,13 +846,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Som Alex.",
         english: "I am Alex.",
-        why: "Som is the first-person singular present form of byť, “to be.”",
+        why: "**Som** is the first-person singular present form of **byť**, “to be.”",
       },
     },
     feedback: {
       correction: "Som Alex.",
       english: "I am Alex.",
-      why: "Som is the first-person singular present form of byť, “to be.”",
+      why: "**Som** is the first-person singular present form of **byť**, “to be.”",
     },
     newUse: "Now say: Som študent / Som študentka.",
   },
@@ -882,13 +882,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Kde ste?",
         english: "Where are you?",
-        why: "Ste is the present form of byť for formal singular you or plural you.",
+        why: "**Ste** is the present form of **byť** for formal singular you or plural you.",
       },
     },
     feedback: {
       correction: "Kde ste?",
       english: "Where are you?",
-      why: "Ste is the present form of byť for formal singular you or plural you.",
+      why: "**Ste** is the present form of **byť** for formal singular you or plural you.",
     },
   },
   {
@@ -917,13 +917,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Je v Bratislave.",
         english: "He/She is in Bratislava.",
-        why: "Je is he/she/it is. After v for location, Bratislava changes to v Bratislave.",
+        why: "**Je** is he/she/it is. After **v** for location, Bratislava changes to **v Bratislave**.",
       },
     },
     feedback: {
       correction: "Je v Bratislave.",
       english: "He/She is in Bratislava.",
-      why: "Je is he/she/it is. After v for location, Bratislava changes to v Bratislave.",
+      why: "**Je** is he/she/it is. After **v** for location, Bratislava changes to **v Bratislave**.",
     },
     newUse: "Ask: Kde je Peter?",
   },
@@ -953,13 +953,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Mám čas.",
         english: "I have time.",
-        why: "Mám is the first-person singular present form of mať, “to have.”",
+        why: "**Mám** is the first-person singular present form of **mať**, “to have.”",
       },
     },
     feedback: {
       correction: "Mám čas.",
       english: "I have time.",
-      why: "Mám is the first-person singular present form of mať, “to have.”",
+      why: "**Mám** is the first-person singular present form of **mať**, “to have.”",
     },
   },
   {
@@ -988,13 +988,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Máš lístok?",
         english: "Do you have a ticket?",
-        why: "Máš is the present form of mať for one person you address informally.",
+        why: "**Máš** is the present form of **mať** for one person you address informally.",
       },
     },
     feedback: {
       correction: "Máš lístok?",
       english: "Do you have a ticket?",
-      why: "Máš is the present form of mať for one person you address informally.",
+      why: "**Máš** is the present form of **mať** for one person you address informally.",
     },
   },
   {
@@ -1023,13 +1023,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Nemám čas.",
         english: "I don’t have time.",
-        why: "Negation attaches to the verb: mám becomes nemám, not nie mám.",
+        why: "Negation attaches to the verb: **mám** becomes **nemám**, not **nie mám**.",
       },
     },
     feedback: {
       correction: "Nemám čas.",
       english: "I don’t have time.",
-      why: "Negation attaches to the verb: mám becomes nemám, not nie mám.",
+      why: "Negation attaches to the verb: **mám** becomes **nemám**, not **nie mám**.",
     },
     newUse: "Add: Prepáč, nemám čas.",
   },
@@ -1053,12 +1053,12 @@ export const practiceItems: PracticeItem[] = [
       answerId: "first",
       feedback: {
         correction: "ĎA-ku-jem",
-        why: "Slovak normally stresses the first syllable. Say it once aloud after checking.",
+        why: "Slovak normally stresses the **first syllable**. Say it once aloud after checking.",
       },
     },
     feedback: {
       correction: "ĎA-ku-jem",
-      why: "Slovak normally stresses the first syllable. Say it once aloud after checking.",
+      why: "Slovak normally stresses the **first syllable**. Say it once aloud after checking.",
     },
   },
   {
@@ -1087,13 +1087,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Ďakujem za pomoc.",
         english: "Thank you for the help.",
-        why: "Ďakujem is stressed on its first syllable. Say ĎA-ku-jem, then keep the rest of the phrase even.",
+        why: "**Ďakujem** is stressed on its first syllable. Say **ĎA-ku-jem**, then keep the rest of the phrase even.",
       },
     },
     feedback: {
       correction: "Ďakujem za pomoc.",
       english: "Thank you for the help.",
-      why: "Ďakujem is stressed on its first syllable. Say ĎA-ku-jem, then keep the rest of the phrase even.",
+      why: "**Ďakujem** is stressed on its first syllable. Say **ĎA-ku-jem**, then keep the rest of the phrase even.",
     },
   },
   {
@@ -1117,13 +1117,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Aj mňa teší.",
         english: "Nice to meet you too.",
-        why: "Aj means too or also. Aj mňa teší returns the same polite sentiment.",
+        why: "**Aj** means too or also. **Aj mňa teší** returns the same polite sentiment.",
       },
     },
     feedback: {
       correction: "Aj mňa teší.",
       english: "Nice to meet you too.",
-      why: "Aj means too or also. Aj mňa teší returns the same polite sentiment.",
+      why: "**Aj** means too or also. **Aj mňa teší** returns the same polite sentiment.",
     },
   },
   {
@@ -1143,13 +1143,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Odkiaľ ste?",
         english: "Where are you from?",
-        why: "Odkiaľ asks from where. Ste keeps the question polite or addresses more than one person.",
+        why: "**Odkiaľ** asks from where. **Ste** keeps the question polite or addresses more than one person.",
       },
     },
     feedback: {
       correction: "Odkiaľ ste?",
       english: "Where are you from?",
-      why: "Odkiaľ asks from where. Ste keeps the question polite or addresses more than one person.",
+      why: "**Odkiaľ** asks from where. **Ste** keeps the question polite or addresses more than one person.",
     },
   },
   {
@@ -1179,13 +1179,13 @@ export const practiceItems: PracticeItem[] = [
       feedback: {
         correction: "Hovorím trochu po slovensky.",
         english: "I speak a little Slovak.",
-        why: "Hovorím is I speak. Po slovensky names the language used.",
+        why: "**Hovorím** is I speak. **Po slovensky** names the language used.",
       },
     },
     feedback: {
       correction: "Hovorím trochu po slovensky.",
       english: "I speak a little Slovak.",
-      why: "Hovorím is I speak. Po slovensky names the language used.",
+      why: "**Hovorím** is I speak. **Po slovensky** names the language used.",
     },
   },
   {
@@ -1208,12 +1208,12 @@ export const practiceItems: PracticeItem[] = [
       answerId: "first",
       feedback: {
         correction: "BRA-ti-sla-va",
-        why: "Standard Slovak normally places the main stress on the first syllable.",
+        why: "Standard Slovak normally places the main stress on the **first syllable**.",
       },
     },
     feedback: {
       correction: "BRA-ti-sla-va",
-      why: "Standard Slovak normally places the main stress on the first syllable.",
+      why: "Standard Slovak normally places the main stress on the **first syllable**.",
     },
   },
   {
@@ -1236,12 +1236,12 @@ export const practiceItems: PracticeItem[] = [
       answerId: "first",
       feedback: {
         correction: "PO-mô-žem",
-        why: "Stress the first syllable. The long ô remains long, but vowel length does not move the stress.",
+        why: "Stress the **first syllable**. The long **ô** remains long, but vowel length does not move the stress.",
       },
     },
     feedback: {
       correction: "PO-mô-žem",
-      why: "Stress the first syllable. The long ô remains long, but vowel length does not move the stress.",
+      why: "Stress the **first syllable**. The long **ô** remains long, but vowel length does not move the stress.",
     },
   },
 ];

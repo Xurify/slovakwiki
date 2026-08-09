@@ -5,6 +5,11 @@
   import { gradeAnswer, suggestCloseAnswer } from "$lib/client/practice-state";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
+    feedbackPanelClass,
+    feedbackToneFromGrade,
+    shouldShowCorrection,
+  } from "$lib/components/practice/practice-feedback-ui";
+  import {
     analogFace,
     answersForTime,
     formatDigital,
@@ -34,9 +39,7 @@
     if (!suggestion || suggestion === preferred) return null;
     return suggestion;
   });
-  const showCorrection = $derived(
-    submitted && (revealed || grade === "incorrect" || grade === "accents"),
-  );
+  const showCorrection = $derived(shouldShowCorrection(submitted, grade, revealed));
 
   function nextTime(): void {
     time = randomDrillTime();
@@ -99,21 +102,20 @@
 
   {#if submitted && (revealed || grade)}
     <div
-      class={`mt-5 grid gap-2 rounded-(--control-radius) border px-4 py-3.5 ${
-        revealed || grade === "incorrect"
-          ? "border-rose-200 bg-rose-50"
-          : grade === "accents"
-            ? "border-blue-200 bg-blue-50"
-            : "border-emerald-200 bg-emerald-50"
-      }`}
+      class={`mt-5 ${feedbackPanelClass(feedbackToneFromGrade(grade, revealed))}`}
       aria-live="polite"
     >
       <PracticeExerciseFeedback
         {closeSuggestion}
         correction={preferred}
-        {grade}
+        grade={grade === "correct"
+          ? "correct"
+          : grade === "accents"
+            ? "accents"
+            : "incorrect"}
         revealed={revealed || grade === "incorrect"}
         {showCorrection}
+        correctionLabelTone={grade === "correct" ? "emerald" : "rose"}
       />
 
       {#if otherForms.length > 0 && (revealed || grade !== "correct")}
@@ -142,7 +144,9 @@
 
   <div class="mt-6 flex flex-wrap gap-3">
     {#if !submitted}
-      <Button type="button" onclick={check} disabled={!input.trim()}>Check</Button>
+      <Button type="button" variant="accent" onclick={check} disabled={!input.trim()}
+        >Check</Button
+      >
       <Button type="button" variant="secondary" onclick={reveal}>Reveal</Button>
       <Button type="button" variant="secondary" onclick={nextTime}>Skip</Button>
     {:else}

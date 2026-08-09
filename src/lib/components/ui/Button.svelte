@@ -11,7 +11,7 @@
     ...rest
   }: {
     href?: string;
-    variant?: "primary" | "secondary";
+    variant?: "primary" | "accent" | "secondary";
     class?: string;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
@@ -23,8 +23,13 @@
 {#if href}
   <a
     class:bg-rose-600={variant === "primary"}
-    class:text-white={variant === "primary"}
+    class:text-white={variant === "primary" || variant === "accent"}
     class:hover:bg-rose-700={variant === "primary"}
+    class:bg-blue-600={variant === "accent"}
+    class:hover:bg-blue-700={variant === "accent"}
+    class:disabled:bg-slate-200={variant === "accent"}
+    class:disabled:text-slate-500={variant === "accent"}
+    class:disabled:hover:bg-slate-200={variant === "accent"}
     class:bg-control={variant === "secondary"}
     class:text-blue-800={variant === "secondary"}
     class:shadow-(--shadow-border)={variant === "secondary"}
@@ -39,8 +44,13 @@
 {:else}
   <button
     class:bg-rose-600={variant === "primary"}
-    class:text-white={variant === "primary"}
+    class:text-white={variant === "primary" || variant === "accent"}
     class:hover:bg-rose-700={variant === "primary"}
+    class:bg-blue-600={variant === "accent"}
+    class:hover:bg-blue-700={variant === "accent"}
+    class:disabled:bg-slate-200={variant === "accent"}
+    class:disabled:text-slate-500={variant === "accent"}
+    class:disabled:hover:bg-slate-200={variant === "accent"}
     class:bg-control={variant === "secondary"}
     class:text-blue-800={variant === "secondary"}
     class:shadow-(--shadow-border)={variant === "secondary"}

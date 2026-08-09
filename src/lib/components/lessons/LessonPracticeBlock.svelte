@@ -55,7 +55,7 @@
 {#if !hydrated}
   <LessonPracticeSkeleton />
 {:else if finished}
-  <div class="border-l-2 border-emerald-600 py-2 pl-6">
+  <div class="py-2">
     <Eyebrow tone="muted">Lesson complete</Eyebrow>
     <h3 class="mb-1 mt-2 font-serif text-2xl text-slate-900">
       Keep the scene, not a score.

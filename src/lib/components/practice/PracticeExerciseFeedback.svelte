@@ -1,6 +1,7 @@
 <script lang="ts">
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import type { AnswerGrade } from "$lib/client/practice-state";
+  import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
 
   let {
     closeSuggestion = null,
@@ -11,6 +12,7 @@
     grade = null,
     revealed = false,
     showCorrection = true,
+    correctionLabelTone = "rose",
     dictionaryHref,
   }: {
     closeSuggestion?: string | null;
@@ -21,14 +23,23 @@
     grade?: AnswerGrade | null;
     revealed?: boolean;
     showCorrection?: boolean;
+    correctionLabelTone?: "emerald" | "rose";
     dictionaryHref?: string;
   } = $props();
+
+  const correctionLabelClass = $derived(
+    correctionLabelTone === "emerald" ? "text-emerald-800" : "text-rose-900",
+  );
+
+  const whyParts = $derived(why ? splitEmphasis(why) : []);
 </script>
 
 {#if grade === "accents"}
   <p class="m-0 text-sm font-semibold text-blue-900">Almost — check the accents.</p>
+{:else if grade === "correct"}
+  <p class="m-0 text-sm font-semibold text-emerald-800">Correct</p>
 {:else if revealed || grade === "incorrect"}
-  <p class="m-0 text-sm font-semibold text-rose-900">Correct answer</p>
+  <p class="m-0 text-sm font-semibold {correctionLabelClass}">Correct answer</p>
 {/if}
 
 {#if closeSuggestion}
@@ -51,7 +62,15 @@
 {/if}
 
 {#if why}
-  <p class="m-0 max-w-[65ch] text-sm leading-relaxed text-slate-700">{why}</p>
+  <p class="m-0 max-w-[65ch] text-sm leading-relaxed text-slate-700">
+    {#each whyParts as part, index (`${part.type}-${index}`)}
+      {#if part.type === "em"}
+        <strong class="font-semibold text-slate-900">{part.value}</strong>
+      {:else}
+        {part.value}
+      {/if}
+    {/each}
+  </p>
 {/if}
 
 {#if newUse}

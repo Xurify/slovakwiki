@@ -14,6 +14,11 @@
   import type { LessonExercise } from "$lib/learning/types";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
+  import {
+    feedbackPanelClass,
+    feedbackToneFromGrade,
+    shouldShowCorrection,
+  } from "$lib/components/practice/practice-feedback-ui";
   import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
 
   let {
@@ -44,7 +49,13 @@
     if (graded.type === "build") return gradeBuild(builtTiles, graded.answer);
     return answersMatch(input, graded.answer, graded.acceptedAnswers);
   });
-  const showCorrection = $derived(submitted && (revealed || !correct));
+  const feedbackGrade = $derived.by(() => {
+    if (!submitted || revealed) return null;
+    return correct ? "correct" : "incorrect";
+  });
+  const showCorrection = $derived(
+    shouldShowCorrection(submitted, feedbackGrade, revealed),
+  );
   const canCheck = $derived.by(() => {
     if (!graded || submitted) return false;
     if (graded.type === "choice") return selectedId !== null;
@@ -214,7 +225,7 @@
     {#if submitted}
       <div
         bind:this={feedbackPanel}
-        class={`mt-6 grid gap-2 rounded-(--control-radius) border px-4 py-3.5 ${correct ? "border-emerald-200 bg-emerald-50" : "border-rose-200 bg-rose-50"}`}
+        class={`mt-6 ${feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))}`}
         aria-live="polite"
         tabindex="-1"
       >
@@ -222,9 +233,10 @@
           correction={exercise.feedback.correction}
           english={exercise.feedback.english}
           why={exercise.feedback.why}
-          grade={correct ? "correct" : revealed ? "incorrect" : "incorrect"}
+          grade={correct ? "correct" : "incorrect"}
           revealed={revealed || !correct}
           {showCorrection}
+          correctionLabelTone={correct ? "emerald" : "rose"}
         />
       </div>
 
@@ -248,6 +260,7 @@
         <Button
           class="w-full sm:min-w-36 sm:w-auto"
           type="button"
+          variant="accent"
           disabled={!canCheck}
           onclick={check}
         >
