@@ -71,7 +71,8 @@ function stubChoice(id: string, taskId: string): PracticeItem {
         {
           id: "b",
           label: "O pol tretej.",
-          whyWrong: "Check the clock face — **pol** names the hour ahead, not the hand you see.",
+          whyWrong:
+            "Check the clock face — **pol** names the hour ahead, not the hand you see.",
         },
       ],
       answerId: "a",
@@ -125,7 +126,11 @@ function stubOddOneOut(id: string, taskId: string): PracticeItem {
           fits: true,
           whyWrong: "**Pol tretej** means half past two.",
         },
-        { id: "b", label: "Je pol druhej.", whyWrong: "**Pol druhej** means half past one — not half past two." },
+        {
+          id: "b",
+          label: "Je pol druhej.",
+          whyWrong: "**Pol druhej** means half past one — not half past two.",
+        },
       ],
       answerId: "b",
       feedback: stubFeedback,

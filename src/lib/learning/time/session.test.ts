@@ -110,7 +110,9 @@ describe("learning/time/session", () => {
       expect(item.task.prompt).not.toMatch(/Which phrase does not mean/);
       expect(item.task.clock).toBeDefined();
       expect(item.task.answerId).toBe("correct");
-      expect(item.task.choices.find((c) => c.id === "wrong-minute")?.whyWrong).toBeTruthy();
+      expect(
+        item.task.choices.find((c) => c.id === "wrong-minute")?.whyWrong,
+      ).toBeTruthy();
     }
   });
 
@@ -172,7 +174,10 @@ describe("learning/time/session", () => {
   });
 
   it("uses appointment why on clock-match items", () => {
-    const item = materializeDaysDatesTimeItem("everyday/clock-half-past-match", () => 0.2);
+    const item = materializeDaysDatesTimeItem(
+      "everyday/clock-half-past-match",
+      () => 0.2,
+    );
     expect(item.task.type).toBe("choice");
     if (item.task.type === "choice") {
       expect(item.task.feedback?.why).toMatch(/\*\*O pol /);

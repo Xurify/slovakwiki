@@ -175,10 +175,7 @@ describe("learning/time/clock", () => {
   });
 
   it("builds select-all trap why with toward-hour wording", () => {
-    const trap = selectAllTrapWhy(
-      { hour: 2, minute: 45 },
-      "Je trištvrte na dve",
-    );
+    const trap = selectAllTrapWhy({ hour: 2, minute: 45 }, "Je trištvrte na dve");
     expect(trap).toMatch(/three quarters toward/);
     expect(trap).toMatch(/not \*\*2:45\*\*/);
   });

@@ -36,7 +36,8 @@ export const practiceItems: PracticeItem[] = [
         {
           id: "informal",
           label: "Ahoj!",
-          whyWrong: "**Ahoj** is informal — use **Dobrý deň** with someone you meet for the first time.",
+          whyWrong:
+            "**Ahoj** is informal — use **Dobrý deň** with someone you meet for the first time.",
         },
         {
           id: "leaving",
@@ -1107,12 +1108,14 @@ export const practiceItems: PracticeItem[] = [
         {
           id: "middle",
           label: "ďa-KU-jem",
-          whyWrong: "Slovak stress normally stays on the **first syllable**, not the middle.",
+          whyWrong:
+            "Slovak stress normally stays on the **first syllable**, not the middle.",
         },
         {
           id: "last",
           label: "ďa-ku-JEM",
-          whyWrong: "Slovak stress normally stays on the **first syllable**, not the last.",
+          whyWrong:
+            "Slovak stress normally stays on the **first syllable**, not the last.",
         },
       ],
       answerId: "first",
@@ -1279,12 +1282,14 @@ export const practiceItems: PracticeItem[] = [
         {
           id: "middle",
           label: "bra-TI-sla-va",
-          whyWrong: "Standard Slovak stress normally stays on the **first syllable**, not the middle.",
+          whyWrong:
+            "Standard Slovak stress normally stays on the **first syllable**, not the middle.",
         },
         {
           id: "later",
           label: "bra-ti-SLA-va",
-          whyWrong: "Standard Slovak stress normally stays on the **first syllable**, not a later syllable.",
+          whyWrong:
+            "Standard Slovak stress normally stays on the **first syllable**, not a later syllable.",
         },
       ],
       answerId: "first",
@@ -1315,12 +1320,14 @@ export const practiceItems: PracticeItem[] = [
         {
           id: "middle",
           label: "po-MÔ-žem",
-          whyWrong: "Slovak stress normally stays on the **first syllable**, not the middle.",
+          whyWrong:
+            "Slovak stress normally stays on the **first syllable**, not the middle.",
         },
         {
           id: "last",
           label: "po-mô-ŽEM",
-          whyWrong: "Slovak stress normally stays on the **first syllable**, not the last.",
+          whyWrong:
+            "Slovak stress normally stays on the **first syllable**, not the last.",
         },
       ],
       answerId: "first",

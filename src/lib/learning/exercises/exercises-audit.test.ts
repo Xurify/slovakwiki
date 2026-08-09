@@ -27,8 +27,8 @@ function choiceTasksFromPractice(): ChoiceExercise[] {
 
 function allChoiceTasks(): ChoiceExercise[] {
   const materialized = daysDatesTimePracticeItemIds.flatMap((kind) =>
-    [0, 0.1, 0.42, 0.5, 0.9].map((seed) =>
-      materializeDaysDatesTimeItem(kind, () => seed).task,
+    [0, 0.1, 0.42, 0.5, 0.9].map(
+      (seed) => materializeDaysDatesTimeItem(kind, () => seed).task,
     ),
   );
 
@@ -38,9 +38,9 @@ function allChoiceTasks(): ChoiceExercise[] {
     ...daysDatesTimeGradedExercises.filter(
       (exercise): exercise is ChoiceExercise => exercise.type === "choice",
     ),
-    ...daysDatesTimePracticeItems.map((item) => item.task).filter(
-      (task): task is ChoiceExercise => task.type === "choice",
-    ),
+    ...daysDatesTimePracticeItems
+      .map((item) => item.task)
+      .filter((task): task is ChoiceExercise => task.type === "choice"),
     ...materialized.filter((task): task is ChoiceExercise => task.type === "choice"),
   ];
 }
@@ -55,17 +55,24 @@ function distractors(task: ChoiceExercise) {
 
 describe("exercise audit invariants", () => {
   it("pickTrap items expose exactly one trap choice", () => {
-    const pickTrapTasks = allChoiceTasks().filter((task) => task.choiceMode === "pickTrap");
+    const pickTrapTasks = allChoiceTasks().filter(
+      (task) => task.choiceMode === "pickTrap",
+    );
 
     for (const task of pickTrapTasks) {
-      expect(trapChoices(task), `${task.id ?? task.practiceItemId} trap count`).toHaveLength(1);
+      expect(
+        trapChoices(task),
+        `${task.id ?? task.practiceItemId} trap count`,
+      ).toHaveLength(1);
       expect(task.choices.some((choice) => choice.fits === true)).toBe(true);
       expect(task.prompt).toMatch(/does not mean/i);
     }
   });
 
   it("pickCorrect prompts do not use odd-one-out wording", () => {
-    const pickCorrectTasks = allChoiceTasks().filter((task) => task.choiceMode !== "pickTrap");
+    const pickCorrectTasks = allChoiceTasks().filter(
+      (task) => task.choiceMode !== "pickTrap",
+    );
 
     for (const task of pickCorrectTasks) {
       expect(task.prompt, `${task.id ?? task.practiceItemId} prompt`).not.toMatch(
@@ -94,6 +101,8 @@ describe("exercise audit invariants", () => {
 
     expect(gradeChoice(trap.id, noon.task)).toBe(true);
     expect(gradeChoice(fit.id, noon.task)).toBe(false);
-    expect(trapChoices(noon.task).map((choice) => choice.id)).toEqual([noon.task.answerId]);
+    expect(trapChoices(noon.task).map((choice) => choice.id)).toEqual([
+      noon.task.answerId,
+    ]);
   });
 });

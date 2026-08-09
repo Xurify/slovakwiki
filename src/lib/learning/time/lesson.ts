@@ -248,12 +248,13 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
         id: "pol-tretej",
         label: "Je pol tretej.",
         fits: true,
-        whyWrong: oddOneOutFitWhy(
-          "Je pol tretej.",
-          englishTimeMeaningPhrase(t(2, 30)),
-        ),
+        whyWrong: oddOneOutFitWhy("Je pol tretej.", englishTimeMeaningPhrase(t(2, 30))),
       },
-      { id: "pol-druhej", label: "Je pol druhej.", whyWrong: tellingDistractorWhy(t(2, 30), t(1, 30)) },
+      {
+        id: "pol-druhej",
+        label: "Je pol druhej.",
+        whyWrong: tellingDistractorWhy(t(2, 30), t(1, 30)),
+      },
       {
         id: "hodiny-minuty",
         label: "Sú dve hodiny a tridsať minút.",

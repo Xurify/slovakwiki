@@ -819,7 +819,8 @@ export const lessons: Lesson[] = [
           {
             id: "i-am",
             label: "Som čas.",
-            whyWrong: "**Som** is from **byť** (to be) — possession uses **mať**: **mám**.",
+            whyWrong:
+              "**Som** is from **byť** (to be) — possession uses **mať**: **mám**.",
           },
         ],
         answerId: "i-have",
@@ -922,12 +923,14 @@ export const lessons: Lesson[] = [
           {
             id: "middle",
             label: "ku — the middle syllable",
-            whyWrong: "Slovak stress normally stays on the **first syllable**, not the middle.",
+            whyWrong:
+              "Slovak stress normally stays on the **first syllable**, not the middle.",
           },
           {
             id: "last",
             label: "jem — the last syllable",
-            whyWrong: "Slovak stress normally stays on the **first syllable**, not the last.",
+            whyWrong:
+              "Slovak stress normally stays on the **first syllable**, not the last.",
           },
         ],
         answerId: "first",
