@@ -2,12 +2,12 @@
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
-  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import {
     buildBrowseQueryHref,
     buildPageItems,
     buildWikiViewFromEntries,
     browseStateNeedsIndex,
+    categoryForTopic,
     DICTIONARY_BROWSE_INDEX_URL,
     DICTIONARY_PAGE_SIZE,
     hasActiveBrowseFilters,
@@ -102,6 +102,7 @@
   const displayTopic = $derived(view.topic);
   const displayLetter = $derived(view.letter);
   const hasActiveFilters = $derived(hasActiveBrowseFilters(displayTopic, displayLetter));
+  const showEntryCategory = $derived(categoryForTopic(displayTopic) === null);
 
   const rangeFrom = $derived((view.page - 1) * DICTIONARY_PAGE_SIZE + 1);
   const rangeTo = $derived(
@@ -138,7 +139,13 @@
     "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
 
   const rowLinkClass =
-    "group flex items-start justify-between gap-4 border-b border-slate-200 -mx-4 px-4 py-3.5 transition-colors hover:bg-[color-mix(in_srgb,var(--surface-subtle)_55%,transparent)]";
+    "grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-4 border-b border-slate-200 px-4 py-3 text-sm transition-colors last:border-b-0 hover:bg-blue-50/50 max-[520px]:grid-cols-1";
+
+  const resultsPanelClass =
+    "overflow-hidden rounded-(--frame-radius) bg-surface ring-1 ring-inset ring-slate-200";
+
+  const resultsHeaderClass =
+    "flex min-h-10 flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-slate-200 bg-slate-50/70 px-4 py-2.5";
 
   const indexPromise: Promise<DictionaryIndexEntry[]> | null =
     typeof window !== "undefined"
@@ -296,154 +303,146 @@
   {/each}
 </nav>
 
-<div
-  class="mt-8 flex min-h-10 flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-slate-200 pb-3"
->
-  <p class="m-0 text-sm text-slate-500">
-    <strong class="tabular-nums text-slate-900">{rangeLabel}</strong>
-    {#if view.totalPages > 1}
-      <span class="text-slate-400">
-        · page {view.page} of {view.totalPages}
-      </span>
-    {/if}
-  </p>
+<div class="{resultsPanelClass} mt-8" id="wiki-results">
+  <div class={resultsHeaderClass}>
+    <p class="m-0 text-sm text-slate-500">
+      <strong class="tabular-nums text-slate-900">{rangeLabel}</strong>
+      {#if view.totalPages > 1}
+        <span class="text-slate-400">
+          · page {view.page} of {view.totalPages}
+        </span>
+      {/if}
+    </p>
 
-  {#if hasActiveFilters}
-    <button
-      class="cursor-pointer text-xs font-semibold text-blue-800 underline underline-offset-2"
-      type="button"
-      onclick={resetFilters}
-    >
-      Reset filters
-    </button>
+    {#if hasActiveFilters}
+      <button
+        class="cursor-pointer text-xs font-semibold text-blue-800 underline underline-offset-2"
+        type="button"
+        onclick={resetFilters}
+      >
+        Reset filters
+      </button>
+    {/if}
+  </div>
+
+  {#if loadError}
+    <p class="m-0 px-4 py-3 text-sm text-rose-800" role="alert">{loadError}</p>
   {/if}
+
+  <div class="min-h-[24rem]">
+    {#key listKey}
+      <div
+        in:fade={canAnimateList ? { duration: 140 } : undefined}
+        out:fade={canAnimateList ? { duration: 100 } : undefined}
+      >
+        {#if waitingForFilteredView}
+          <ul
+            class="m-0 list-none p-0"
+            aria-busy="true"
+            aria-label="Loading dictionary entries"
+          >
+            {#each Array.from({ length: SKELETON_ROWS }, (_, index) => index) as row (row)}
+              <li class="border-b border-slate-200 px-4 py-3 last:border-b-0">
+                <div
+                  class="h-5 w-[38%] max-w-48 animate-pulse rounded bg-slate-200/70"
+                ></div>
+                <div
+                  class="mt-2.5 h-4 w-[62%] max-w-md animate-pulse rounded bg-slate-100"
+                ></div>
+              </li>
+            {/each}
+          </ul>
+        {:else if view.visibleEntries.length}
+          <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
+            {#each view.visibleEntries as entry (entry.slug)}
+              <li>
+                <a class={rowLinkClass} href={dictionaryPathFromIndexFields(entry)}>
+                  <div class="min-w-0">
+                    <span class="font-serif text-base text-blue-800" lang="sk">
+                      {entry.slovak}
+                    </span>
+                    <span class="mt-0.5 block text-slate-500">{entry.english}</span>
+                  </div>
+                  {#if showEntryCategory}
+                    <span class="text-xs text-slate-400 max-[520px]:hidden">
+                      {entry.category}
+                    </span>
+                  {/if}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        {:else if entries}
+          <div class="px-4 py-16 text-center">
+            <h2 class="text-xl">No matches</h2>
+            <p class="mt-2 text-sm text-slate-500">
+              Try a shorter search or reset the filters.
+            </p>
+            <button
+              class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
+              type="button"
+              onclick={resetFilters}
+            >
+              Show all entries
+            </button>
+          </div>
+        {/if}
+      </div>
+    {/key}
+  </div>
 </div>
 
-{#if loadError}
-  <p class="mt-4 text-sm text-rose-800" role="alert">{loadError}</p>
-{/if}
-
-<div id="wiki-results" class="mt-0 min-h-[24rem]">
-  {#key listKey}
-    <div
-      in:fade={canAnimateList ? { duration: 140 } : undefined}
-      out:fade={canAnimateList ? { duration: 100 } : undefined}
-    >
-      {#if waitingForFilteredView}
-        <ul
-          class="m-0 list-none p-0"
-          aria-busy="true"
-          aria-label="Loading dictionary entries"
+{#if view.totalPages > 1 && !waitingForFilteredView && view.visibleEntries.length}
+  <nav class="mt-6 flex flex-col items-center gap-3" aria-label="Dictionary pages">
+    <div class="flex flex-wrap items-center justify-center gap-1.5">
+      {#if view.page > 1}
+        <button
+          class="{pagerLinkClass} {pagerChipClass(false)}"
+          type="button"
+          onclick={() => selectPage(view.page - 1)}
         >
-          {#each Array.from({ length: SKELETON_ROWS }, (_, index) => index) as row (row)}
-            <li class="border-b border-slate-200 -mx-4 px-4 py-3.5">
-              <div
-                class="h-5 w-[38%] max-w-48 animate-pulse rounded bg-slate-200/70"
-              ></div>
-              <div
-                class="mt-2.5 h-4 w-[62%] max-w-md animate-pulse rounded bg-slate-100"
-              ></div>
-            </li>
-          {/each}
-        </ul>
-      {:else if view.visibleEntries.length}
-        <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
-          {#each view.visibleEntries as entry (entry.slug)}
-            <li>
-              <a class={rowLinkClass} href={dictionaryPathFromIndexFields(entry)}>
-                <div class="min-w-0">
-                  <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
-                    <strong class="font-serif text-lg text-blue-800" lang="sk">
-                      {entry.slovak}
-                    </strong>
-                    <span class="text-xs text-slate-400">{entry.category}</span>
-                  </div>
-                  <span class="mt-0.5 block text-[0.95rem] leading-snug text-slate-600">
-                    {entry.english}
-                  </span>
-                </div>
-                <ArrowRight class="mt-1.5 shrink-0 text-blue-800" />
-              </a>
-            </li>
-          {/each}
-        </ul>
+          Previous
+        </button>
+      {:else}
+        <span
+          class="{pagerLinkClass} {pagerChipClass(false)} pointer-events-none opacity-40"
+          aria-hidden="true"
+        >
+          Previous
+        </span>
+      {/if}
 
-        {#if view.totalPages > 1}
-          <nav
-            class="mt-8 flex flex-col items-center gap-3"
-            aria-label="Dictionary pages"
-          >
-            <div class="flex flex-wrap items-center justify-center gap-1.5">
-              {#if view.page > 1}
-                <button
-                  class="{pagerLinkClass} {pagerChipClass(false)}"
-                  type="button"
-                  onclick={() => selectPage(view.page - 1)}
-                >
-                  Previous
-                </button>
-              {:else}
-                <span
-                  class="{pagerLinkClass} {pagerChipClass(
-                    false,
-                  )} pointer-events-none opacity-40"
-                  aria-hidden="true"
-                >
-                  Previous
-                </span>
-              {/if}
-
-              {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
-                {#if item === "gap"}
-                  <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
-                {:else}
-                  <button
-                    class="{pagerLinkClass} {pagerChipClass(item === view.page)}"
-                    type="button"
-                    aria-current={item === view.page ? "page" : undefined}
-                    onclick={() => selectPage(item)}
-                  >
-                    {item}
-                  </button>
-                {/if}
-              {/each}
-
-              {#if view.page < view.totalPages}
-                <button
-                  class="{pagerLinkClass} {pagerChipClass(false)}"
-                  type="button"
-                  onclick={() => selectPage(view.page + 1)}
-                >
-                  Next
-                </button>
-              {:else}
-                <span
-                  class="{pagerLinkClass} {pagerChipClass(
-                    false,
-                  )} pointer-events-none opacity-40"
-                  aria-hidden="true"
-                >
-                  Next
-                </span>
-              {/if}
-            </div>
-          </nav>
-        {/if}
-      {:else if entries}
-        <div class="py-16 text-center">
-          <h2 class="text-xl">No matches</h2>
-          <p class="mt-2 text-sm text-slate-500">
-            Try a shorter search or reset the filters.
-          </p>
+      {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
+        {#if item === "gap"}
+          <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
+        {:else}
           <button
-            class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
+            class="{pagerLinkClass} {pagerChipClass(item === view.page)}"
             type="button"
-            onclick={resetFilters}
+            aria-current={item === view.page ? "page" : undefined}
+            onclick={() => selectPage(item)}
           >
-            Show all entries
+            {item}
           </button>
-        </div>
+        {/if}
+      {/each}
+
+      {#if view.page < view.totalPages}
+        <button
+          class="{pagerLinkClass} {pagerChipClass(false)}"
+          type="button"
+          onclick={() => selectPage(view.page + 1)}
+        >
+          Next
+        </button>
+      {:else}
+        <span
+          class="{pagerLinkClass} {pagerChipClass(false)} pointer-events-none opacity-40"
+          aria-hidden="true"
+        >
+          Next
+        </span>
       {/if}
     </div>
-  {/key}
-</div>
+  </nav>
+{/if}

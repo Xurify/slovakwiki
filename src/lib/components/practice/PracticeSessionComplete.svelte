@@ -7,6 +7,8 @@
   import {
     progressCorrectClass,
     progressMissedClass,
+    progressRowClass,
+    progressSegmentClass,
   } from "$lib/components/practice/practice-feedback-ui";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
 
@@ -199,13 +201,13 @@
 
       {#if results.length > 0}
         <div
-          class="mt-3 flex h-1.5 gap-1"
+          class={progressRowClass}
           role="img"
           aria-label="{correctCount} of {exerciseCount} correct"
         >
           {#each results as row, index (`${row.itemId}-${index}`)}
             <div
-              class="min-w-0 flex-1 rounded-full {isCorrect(row.grade)
+              class="{progressSegmentClass} {isCorrect(row.grade)
                 ? progressCorrectClass
                 : progressMissedClass}"
             ></div>

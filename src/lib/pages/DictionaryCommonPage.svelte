@@ -2,7 +2,6 @@
   import type { Snippet } from "svelte";
 
   import DictionaryCommonRow from "$lib/components/DictionaryCommonRow.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -71,7 +70,6 @@
     </nav>
 
     <header class="max-w-[640px]">
-      <Eyebrow>Frequency</Eyebrow>
       <h1>Most common words</h1>
       <Lead>
         Top 1000 verbs, adjectives, and adverbs (nouns: top 2500) from the Slovak National

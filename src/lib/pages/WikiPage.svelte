@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -12,7 +11,6 @@
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[880px]">
     <header class="max-w-[640px]">
-      <Eyebrow>Reference</Eyebrow>
       <h1>Dictionary</h1>
       <Lead>
         Search or browse every lemma by letter and part of speech. Featured is a short

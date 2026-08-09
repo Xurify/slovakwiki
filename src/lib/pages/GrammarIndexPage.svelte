@@ -60,7 +60,6 @@
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[960px]">
     <header class="max-w-[640px]">
-      <Eyebrow>Reference</Eyebrow>
       <h1>Grammar</h1>
       <Lead>
         Pick an area, then open the pattern you need.

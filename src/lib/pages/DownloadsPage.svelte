@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -18,7 +17,6 @@
     </nav>
 
     <header class="max-w-[640px]">
-      <Eyebrow>Open data</Eyebrow>
       <h1 class="text-balance">Download the dictionary</h1>
       <Lead class="text-pretty">
         Ready-made packs, or a custom export by format and category. Sources and licenses:

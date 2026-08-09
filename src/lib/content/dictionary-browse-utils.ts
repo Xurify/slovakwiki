@@ -65,7 +65,7 @@ export interface BrowseQueryState {
   topic: BrowseTopicSlug;
 }
 
-function categoryForTopic(topic: BrowseTopicSlug): string | null {
+export function categoryForTopic(topic: BrowseTopicSlug): string | null {
   switch (topic) {
     case "nouns":
       return "Nouns";

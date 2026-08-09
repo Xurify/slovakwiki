@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -18,7 +17,6 @@
     </nav>
 
     <header class="max-w-[520px]">
-      <Eyebrow>Search</Eyebrow>
       <h1>Find a word, topic, or lesson</h1>
       <Lead class="mt-3">
         Type to search the dictionary, grammar, cases, pronunciation, lessons, and

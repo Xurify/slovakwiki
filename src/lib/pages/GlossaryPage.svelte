@@ -1,6 +1,5 @@
 <script lang="ts">
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -12,7 +11,6 @@
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[880px]">
     <header class="max-w-[640px]">
-      <Eyebrow>Reference</Eyebrow>
       <h1>Glossary</h1>
       <Lead>Short definitions for the terms used across this site.</Lead>
     </header>
