@@ -71,12 +71,6 @@ export const missCompareAttemptRowClass =
 
 export const missCompareCorrectionRowClass = "grid gap-0.5 bg-emerald-50 px-3 py-2";
 
-export const progressCorrectClass = "bg-emerald-400";
-export const progressMissedClass = "bg-rose-400";
-
-export const progressRowClass = "mt-3 flex gap-1.5 overflow-x-auto";
-export const progressSegmentClass = "h-3 w-5 shrink-0 rounded-sm";
-
 export function shouldShowCorrection(
   submitted: boolean,
   grade: AnswerGrade | null,

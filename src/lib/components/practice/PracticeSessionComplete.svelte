@@ -4,12 +4,6 @@
 
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
-  import {
-    progressCorrectClass,
-    progressMissedClass,
-    progressRowClass,
-    progressSegmentClass,
-  } from "$lib/components/practice/practice-feedback-ui";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
 
   export type SessionPhraseResult = {
@@ -206,27 +200,17 @@
       </h1>
 
       <p class="m-0 mt-2 text-sm text-slate-600">
-        <span class="font-bold tabular-nums text-slate-900"
-          >{correctCount} of {exerciseCount}</span
-        >
-        correct
+        {#if missedCount > 0}
+          <span class="font-semibold tabular-nums text-emerald-700">{correctCount}</span>
+          correct
+          <span class="text-slate-400" aria-hidden="true">·</span>
+          <span class="font-semibold tabular-nums text-rose-700">{missedCount}</span>
+          missed
+        {:else}
+          <span class="font-semibold tabular-nums text-emerald-700">{correctCount}</span>
+          of {exerciseCount} correct
+        {/if}
       </p>
-
-      {#if results.length > 0}
-        <div
-          class={progressRowClass}
-          role="img"
-          aria-label="{correctCount} of {exerciseCount} correct"
-        >
-          {#each results as row, index (`${row.itemId}-${index}`)}
-            <div
-              class="{progressSegmentClass} {isCorrect(row.grade)
-                ? progressCorrectClass
-                : progressMissedClass}"
-            ></div>
-          {/each}
-        </div>
-      {/if}
     </header>
 
     {#if results.length > 0}

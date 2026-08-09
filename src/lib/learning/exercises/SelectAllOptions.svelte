@@ -48,10 +48,10 @@
       return "border-emerald-600 bg-emerald-600 text-white";
     }
     if (state === "correct-missed") {
-      return "border-emerald-600 text-emerald-800";
+      return "border-emerald-600 bg-emerald-600 text-white";
     }
     if (state === "wrong-selected") {
-      return "border-rose-600 text-rose-800";
+      return "border-rose-600 bg-rose-600 text-white";
     }
     if (!state && selected) {
       return "border-blue-600 bg-blue-600 text-white";
