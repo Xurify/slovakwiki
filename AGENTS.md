@@ -274,10 +274,11 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - TypeScript strict; no `any`.
 - Keep changes focused: don't drive-by refactor unrelated files.
 - Don't invent docs the user didn't ask for.
-- After UI edits: `bun run format`, then re-check control blocks weren't re-crushed.
+- **Format before done.** After any TS / Svelte / Astro / content / script edit: run `bun run format` (or at least `bun run format:check`). Not UI-only — lessons, practice, learning helpers, and tests count. Pre-commit `lint-staged` also runs Prettier on staged files, but agents often skip hooks; CI `format:check` still fails the PR. After Prettier, re-check Svelte `{#if}` / `{#each}` blocks weren't re-crushed.
 
 ## Checklist before finishing UI work
 
+- [ ] Ran `bun run format` (or `format:check` clean)
 - [ ] No new selectors added to `styles.css` for one-off layout/look
 - [ ] Styling done with Tailwind utilities and/or an existing/shared component
 - [ ] Used theme tokens (`slate` / `blue` / `rose` / `emerald`, `font-serif`, …) not one-off hex in components
