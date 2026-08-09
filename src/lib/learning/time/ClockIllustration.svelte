@@ -90,26 +90,36 @@
   {/each}
 
   <!-- Hour: short + thick ink. Minute: longer + accent. -->
-  <line
-    x1="50"
-    y1="50"
-    x2="50"
-    y2="34"
-    stroke="currentColor"
-    stroke-width="3.6"
-    stroke-linecap="round"
-    transform="rotate({hourAngle} 50 50)"
-  />
-  <line
-    x1="50"
-    y1="50"
-    x2="50"
-    y2="24"
-    stroke="var(--accent, #1f6b8f)"
-    stroke-width="2.15"
-    stroke-linecap="round"
-    transform="rotate({minuteAngle} 50 50)"
-  />
+  <g transform="translate(50 50)">
+    <g
+      class="transition-transform duration-350 ease-out"
+      style:transform="rotate({hourAngle}deg)"
+    >
+      <line
+        x1="0"
+        y1="0"
+        x2="0"
+        y2="-16"
+        stroke="currentColor"
+        stroke-width="3.6"
+        stroke-linecap="round"
+      />
+    </g>
+    <g
+      class="transition-transform duration-350 ease-out"
+      style:transform="rotate({minuteAngle}deg)"
+    >
+      <line
+        x1="0"
+        y1="0"
+        x2="0"
+        y2="-26"
+        stroke="var(--accent, #1f6b8f)"
+        stroke-width="2.15"
+        stroke-linecap="round"
+      />
+    </g>
+  </g>
 
   <circle cx="50" cy="50" r="3.4" fill="var(--surface, #fafcfd)" />
   <circle cx="50" cy="50" r="2.4" fill="var(--accent, #1f6b8f)" />

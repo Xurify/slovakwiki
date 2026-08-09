@@ -29,6 +29,7 @@
   let submitted = $state(false);
   let revealed = $state(false);
   let showMore = $state(false);
+  let answerInput = $state<HTMLInputElement | null>(null);
 
   const face = $derived(analogFace(time));
   const digital = $derived(formatDigital(time));
@@ -68,6 +69,10 @@
       : "That form answers **Koľko je hodín?** — this question needs **O …**.";
   });
 
+  function focusAnswerInput(): void {
+    answerInput?.focus();
+  }
+
   function clearAttempt(): void {
     input = "";
     submitted = false;
@@ -85,6 +90,7 @@
     time = randomDrillTime();
     register = register === "telling" ? "appointment" : "telling";
     clearAttempt();
+    focusAnswerInput();
   }
 
   function check(): void {
@@ -110,9 +116,7 @@
   </h2>
 
   <p class="m-0 max-w-[66ch] text-sm text-slate-600">
-    Read the face, then answer the Slovak question. <span lang="sk">Koľko je hodín?</span>
-    wants
-    <span lang="sk">Je/Sú …</span>; <span lang="sk">O koľkej?</span> wants
+    Answer the question under the clock. <span lang="sk">Je/Sú …</span> vs
     <span lang="sk">O …</span>.
   </p>
 
@@ -150,25 +154,31 @@
   </div>
 
   <div class="mt-6 grid justify-items-center gap-3 py-6">
-    <ClockIllustration hour={face.hour} minute={face.minute} size={160} label={digital} />
-    <p class="m-0 font-serif text-lg font-semibold text-slate-900">{digital}</p>
-    <p class="m-0 font-serif text-base text-blue-800" lang="sk">{promptSk}</p>
+    <ClockIllustration hour={face.hour} minute={face.minute} size={192} label={digital} />
+    <p class="m-0 font-serif text-lg font-semibold text-blue-800" lang="sk">{promptSk}</p>
+    {#if submitted}
+      <p class="m-0 font-serif text-lg font-semibold text-slate-900">{digital}</p>
+    {/if}
   </div>
 
   <label class="mt-6 grid gap-2 text-sm font-medium text-slate-600">
     <span>Your Slovak answer</span>
     <input
       class="min-h-[50px] w-full rounded-(--control-radius) border border-slate-300 bg-control px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+      bind:this={answerInput}
       bind:value={input}
       disabled={submitted}
       autocomplete="off"
       autocapitalize="none"
       lang="sk"
       onkeydown={(event) => {
-        if (event.key === "Enter") {
-          event.preventDefault();
-          check();
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        if (submitted) {
+          nextTime();
+          return;
         }
+        check();
       }}
     />
   </label>
@@ -224,7 +234,7 @@
       <Button type="button" variant="secondary" onclick={reveal}>Reveal</Button>
       <Button type="button" variant="secondary" onclick={nextTime}>Skip</Button>
     {:else}
-      <Button type="button" onclick={nextTime}>Next time</Button>
+      <Button type="button" onclick={nextTime}>Next</Button>
     {/if}
   </div>
 </section>
