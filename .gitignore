@@ -5,7 +5,7 @@ node_modules/
 .turbo/
 .vercel/
 .vercel-source-remnant/
-build/
+/build/
 dist/
 coverage/
 static/pagefind/
