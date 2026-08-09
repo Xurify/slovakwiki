@@ -121,6 +121,12 @@
     onresolve();
   }
 
+  function onContinueKeydown(event: KeyboardEvent): void {
+    if (event.key !== "Enter" || event.shiftKey || !submitted) return;
+    event.preventDefault();
+    continueLesson();
+  }
+
   function attemptForDisplay(): string | undefined {
     if (!graded || correct || revealed) return undefined;
     if (graded.type === "choice") {
@@ -138,6 +144,8 @@
     return trimmed.length > 0 ? trimmed : undefined;
   }
 </script>
+
+<svelte:window onkeydown={onContinueKeydown} />
 
 <section
   class="border border-slate-200 bg-surface/90 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6"

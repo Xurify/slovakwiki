@@ -206,6 +206,12 @@
     void check();
   }
 
+  function onContinueKeydown(event: KeyboardEvent): void {
+    if (event.key !== "Enter" || event.shiftKey || !submitted || finished) return;
+    event.preventDefault();
+    next();
+  }
+
   function insertChar(char: string): void {
     if (submitted || !inputEl) return;
     const start = inputEl.selectionStart ?? input.length;
@@ -331,6 +337,8 @@
     return feedbackFooterClass(feedbackToneFromGrade(grade, revealed));
   }
 </script>
+
+<svelte:window onkeydown={onContinueKeydown} />
 
 {#snippet exerciseFooter()}
   {#if submitted}
