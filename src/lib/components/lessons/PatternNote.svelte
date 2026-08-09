@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RichTeachingText from "$lib/components/practice/RichTeachingText.svelte";
   import type { LessonPattern } from "$lib/content/learning-types";
 
   let { pattern }: { pattern: LessonPattern } = $props();
@@ -9,7 +10,8 @@
     One pattern
   </p>
   <h2 class="m-0 font-serif text-xl font-semibold text-slate-900">{pattern.title}</h2>
-  <span class="mt-2 block max-w-[65ch] font-serif leading-6 text-slate-700"
-    >{pattern.body}</span
-  >
+  <RichTeachingText
+    text={pattern.body}
+    class="mt-2 max-w-[65ch] leading-6 text-slate-700"
+  />
 </aside>
