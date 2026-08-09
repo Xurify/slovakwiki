@@ -93,6 +93,7 @@ describe("learning/time/session", () => {
     const noon = materializeDaysDatesTimeItem("everyday/noon-midnight", () => 0);
     expect(noon.task.type).toBe("selectAll");
     if (noon.task.type === "selectAll") {
+      expect(noon.task.prompt).toBe("Mark every correct way to say this time.");
       const bare = noon.task.choices.find((c) => c.label === "O dvanástej");
       expect(bare?.correct).toBe(false);
       expect(noon.task.choices.filter((c) => c.correct).length).toBe(2);

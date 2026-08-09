@@ -43,14 +43,6 @@ export function enDayPartEveningPrompt(time: ClockFaceTime): string {
   return `${gloss} in the evening.`;
 }
 
-export function enNoonPrompt(): string {
-  return "At noon.";
-}
-
-export function enMidnightPrompt(): string {
-  return "At midnight.";
-}
-
 export function enTimetablePrompt(time: ClockTimeOfDay): string {
   return formatDigital(time);
 }

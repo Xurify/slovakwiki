@@ -24,20 +24,30 @@
     selectedIds = next;
   }
 
-  function rowButtonClass(state: ReturnType<typeof selectAllRowState>): string {
-    if (!state) {
-      return "border-slate-300";
+  const idleRowShell =
+    "press-key min-h-14 w-full rounded-(--control-radius) border px-4 py-3.5 text-left font-serif text-base font-semibold";
+
+  const gradedRowShell =
+    "min-h-14 w-full rounded-(--control-radius) border-2 px-4 py-3.5 text-left font-serif text-base font-semibold";
+
+  function rowButtonClass(
+    state: ReturnType<typeof selectAllRowState>,
+    submitted: boolean,
+  ): string {
+    if (!submitted) {
+      return `${idleRowShell} cursor-pointer border-slate-300`;
     }
+
     if (state === "correct-selected") {
-      return "border-emerald-600 bg-emerald-50";
+      return `${gradedRowShell} cursor-default border-emerald-600 bg-emerald-50 shadow-[0_2px_0_0_var(--green)]`;
     }
     if (state === "correct-missed") {
-      return "border-dashed border-emerald-600 bg-surface";
+      return `${gradedRowShell} cursor-default border-dashed border-slate-400 bg-paper shadow-none`;
     }
     if (state === "wrong-selected") {
-      return "border-rose-600 bg-rose-50";
+      return `${gradedRowShell} cursor-default border-rose-600 bg-rose-50 shadow-[0_2px_0_0_var(--action)]`;
     }
-    return "border-slate-300 bg-surface";
+    return `${gradedRowShell} cursor-default border-slate-300 bg-surface shadow-[0_2px_0_0_var(--line-strong)]`;
   }
 
   function rowCheckboxClass(
@@ -48,7 +58,7 @@
       return "border-emerald-600 bg-emerald-600 text-white";
     }
     if (state === "correct-missed") {
-      return "border-emerald-600 bg-emerald-600 text-white";
+      return "border-dashed border-slate-400 bg-paper text-slate-600";
     }
     if (state === "wrong-selected") {
       return "border-rose-600 bg-rose-600 text-white";
@@ -82,14 +92,13 @@
     {@const statusLabel = rowStatusLabel(rowState)}
 
     <button
-      class="press-key min-h-14 w-full rounded-(--control-radius) border px-4 py-3.5 text-left font-serif text-base font-semibold {submitted
-        ? 'cursor-default'
-        : 'cursor-pointer'} {rowButtonClass(rowState)}"
-      class:border-blue-600={!rowState && selected}
-      class:bg-blue-50={!rowState && selected}
+      class={rowButtonClass(rowState, submitted)}
+      class:border-blue-600={!rowState && selected && !submitted}
+      class:bg-blue-50={!rowState && selected && !submitted}
+      class:shadow-[0_2px_0_0_var(--accent)]={!rowState && selected && !submitted}
       disabled={submitted}
       type="button"
-      aria-pressed={selected}
+      aria-pressed={submitted ? false : selected}
       aria-label={statusLabel ? `${choice.label} — ${statusLabel}` : choice.label}
       onclick={() => toggle(choice.id)}
     >

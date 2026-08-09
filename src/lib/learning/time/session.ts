@@ -38,8 +38,6 @@ import {
   enDayPartMorningPrompt,
   enExactAroundPrompt,
   enExactMinutePrompt,
-  enMidnightPrompt,
-  enNoonPrompt,
   enTimetablePrompt,
   enZaCountdownPrompt,
   SELECT_ALL_PROMPT,
@@ -344,13 +342,12 @@ function buildNoonMidnightExercise(
   const isNoon = isNoonTime(time);
   const phrases = noonMidnightAppointmentPhrases(time);
   const choiceDrafts = shuffleArray(noonMidnightSelectAllChoices(time), rng);
-  const prompt = isNoon ? enNoonPrompt() : enMidnightPrompt();
 
   return {
     id: `generated-${kind}`,
     type: "selectAll",
     practiceItemId: kind,
-    prompt,
+    prompt: SELECT_ALL_PROMPT,
     clock: face,
     choices: choiceDrafts,
     feedback: {
