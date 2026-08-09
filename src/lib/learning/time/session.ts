@@ -17,7 +17,6 @@ import {
   exactMinuteChoiceWhy,
   exactMinuteTellingLabel,
   exactMinuteWrongWhy,
-  formatDigital,
   formatFaceDigital12,
   isNoonTime,
   nearMissTimes,
@@ -474,7 +473,7 @@ function buildTimetableExercise(
     feedback: {
       correction: correctPhrase,
       english: englishTimeGloss(time),
-      why: `On timetables read **${formatDigital(time)}** as **${phraseForWhy(correctPhrase)}**.`,
+      why: appointmentChoiceWhy(time),
     },
   };
 }

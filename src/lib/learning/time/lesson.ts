@@ -253,7 +253,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
           englishTimeMeaningPhrase(t(2, 30)),
         ),
       },
-      { id: "pol-druhej", label: "Je pol druhej." },
+      { id: "pol-druhej", label: "Je pol druhej.", whyWrong: tellingDistractorWhy(t(2, 30), t(1, 30)) },
       {
         id: "hodiny-minuty",
         label: "Sú dve hodiny a tridsať minút.",

@@ -30,12 +30,19 @@ export const practiceItems: PracticeItem[] = [
       id: "review-formal-greeting",
       type: "choice",
       practiceItemId: "everyday/formal-greeting",
-      prompt:
-        "You arrive at a clinic and meet the receptionist for the first time. Which greeting fits?",
+      prompt: "Hello; good day.",
       choices: [
         { id: "formal", label: "Dobrý deň." },
-        { id: "informal", label: "Ahoj!" },
-        { id: "leaving", label: "Dovidenia." },
+        {
+          id: "informal",
+          label: "Ahoj!",
+          whyWrong: "**Ahoj** is informal — use **Dobrý deň** with someone you meet for the first time.",
+        },
+        {
+          id: "leaving",
+          label: "Dovidenia.",
+          whyWrong: "**Dovidenia** means goodbye — not a greeting.",
+        },
       ],
       answerId: "formal",
       feedback: {
@@ -186,7 +193,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-simple-price",
       type: "choice",
       practiceItemId: "everyday/simple-price",
-      prompt: "A coffee costs five euros. Which reply answers Koľko to stojí?",
+      prompt: "It costs five euros.",
       choices: [
         { id: "price", label: "Stojí to päť eur." },
         {
@@ -225,8 +232,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-negative-answer",
       type: "choice",
       practiceItemId: "everyday/negative-answer",
-      prompt:
-        "A shop assistant offers a bag, but you do not need one. Which polite answer fits?",
+      prompt: "No, thank you.",
       choices: [
         { id: "no-thanks", label: "Nie, ďakujem." },
         {
@@ -326,11 +332,19 @@ export const practiceItems: PracticeItem[] = [
       id: "review-first-person-reading",
       type: "choice",
       practiceItemId: "grammar/first-person-reading",
-      prompt: "Which sentence means “I am reading a book”?",
+      prompt: "I am reading a book.",
       choices: [
         { id: "first-person", label: "Čítam knihu." },
-        { id: "third-person", label: "Číta knihu." },
-        { id: "second-person", label: "Čítaš knihu." },
+        {
+          id: "third-person",
+          label: "Číta knihu.",
+          whyWrong: "**Číta** ends in **-a** for he/she — not I.",
+        },
+        {
+          id: "second-person",
+          label: "Čítaš knihu.",
+          whyWrong: "**Čítaš** ends in **-š** for informal you — not I.",
+        },
       ],
       answerId: "first-person",
       feedback: {
@@ -393,11 +407,19 @@ export const practiceItems: PracticeItem[] = [
       id: "review-today-reading",
       type: "choice",
       practiceItemId: "grammar/today-reading",
-      prompt: "Which sentence means “Today we are reading a book”?",
+      prompt: "Today we are reading a book.",
       choices: [
         { id: "we", label: "Dnes čítame knihu." },
-        { id: "i", label: "Dnes čítam knihu." },
-        { id: "they", label: "Dnes čítajú knihu." },
+        {
+          id: "i",
+          label: "Dnes čítam knihu.",
+          whyWrong: "**Čítam** ends in **-m** for I — not we.",
+        },
+        {
+          id: "they",
+          label: "Dnes čítajú knihu.",
+          whyWrong: "**Čítajú** ends in **-jú** for they — not we.",
+        },
       ],
       answerId: "we",
       feedback: {
@@ -727,11 +749,19 @@ export const practiceItems: PracticeItem[] = [
       id: "review-choice-they-reading",
       type: "choice",
       practiceItemId: "grammar/choice-they-reading",
-      prompt: "Which sentence means “They are reading a book”?",
+      prompt: "They are reading a book.",
       choices: [
         { id: "they", label: "Čítajú knihu." },
-        { id: "we", label: "Čítame knihu." },
-        { id: "he", label: "Číta knihu." },
+        {
+          id: "we",
+          label: "Čítame knihu.",
+          whyWrong: "**Čítame** ends in **-me** for we — not they.",
+        },
+        {
+          id: "he",
+          label: "Číta knihu.",
+          whyWrong: "**Číta** ends in **-a** for he/she — not they.",
+        },
       ],
       answerId: "they",
       feedback: {
@@ -757,7 +787,7 @@ export const practiceItems: PracticeItem[] = [
       id: "review-choice-formal-speaking",
       type: "choice",
       practiceItemId: "grammar/choice-formal-speaking",
-      prompt: "Which question fits?",
+      prompt: "Do you speak Slovak?",
       choices: [
         { id: "formal", label: "Hovoríte po slovensky?" },
         {
@@ -1074,8 +1104,16 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Where is the main beat in ďakujem?",
       choices: [
         { id: "first", label: "ĎA-ku-jem" },
-        { id: "middle", label: "ďa-KU-jem" },
-        { id: "last", label: "ďa-ku-JEM" },
+        {
+          id: "middle",
+          label: "ďa-KU-jem",
+          whyWrong: "Slovak stress normally stays on the **first syllable**, not the middle.",
+        },
+        {
+          id: "last",
+          label: "ďa-ku-JEM",
+          whyWrong: "Slovak stress normally stays on the **first syllable**, not the last.",
+        },
       ],
       answerId: "first",
       feedback: {
@@ -1238,8 +1276,16 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Where is the main stress in Bratislava?",
       choices: [
         { id: "first", label: "BRA-ti-sla-va" },
-        { id: "middle", label: "bra-TI-sla-va" },
-        { id: "later", label: "bra-ti-SLA-va" },
+        {
+          id: "middle",
+          label: "bra-TI-sla-va",
+          whyWrong: "Standard Slovak stress normally stays on the **first syllable**, not the middle.",
+        },
+        {
+          id: "later",
+          label: "bra-ti-SLA-va",
+          whyWrong: "Standard Slovak stress normally stays on the **first syllable**, not a later syllable.",
+        },
       ],
       answerId: "first",
       feedback: {
@@ -1263,11 +1309,19 @@ export const practiceItems: PracticeItem[] = [
       id: "review-pomozem-stress",
       type: "choice",
       practiceItemId: "pronunciation/pomozem-stress",
-      prompt: "Which version keeps the regular Slovak stress in pomôžem?",
+      prompt: "Where is the main stress in pomôžem?",
       choices: [
         { id: "first", label: "PO-mô-žem" },
-        { id: "middle", label: "po-MÔ-žem" },
-        { id: "last", label: "po-mô-ŽEM" },
+        {
+          id: "middle",
+          label: "po-MÔ-žem",
+          whyWrong: "Slovak stress normally stays on the **first syllable**, not the middle.",
+        },
+        {
+          id: "last",
+          label: "po-mô-ŽEM",
+          whyWrong: "Slovak stress normally stays on the **first syllable**, not the last.",
+        },
       ],
       answerId: "first",
       feedback: {

@@ -103,12 +103,20 @@ export const lessons: Lesson[] = [
         id: "meet-someone-greeting",
         type: "choice",
         practiceItemId: "everyday/formal-greeting",
-        prompt:
-          "You are meeting Anna, the organiser, for the first time. What do you say?",
+        prompt: "Hello. My name is Alex.",
         choices: [
           { id: "formal", label: "Dobrý deň. Volám sa Alex." },
-          { id: "informal", label: "Ahoj!" },
-          { id: "leaving", label: "Dovidenia." },
+          {
+            id: "informal",
+            label: "Ahoj!",
+            whyWrong:
+              "**Ahoj** is informal — use **Dobrý deň** when you meet someone for the first time.",
+          },
+          {
+            id: "leaving",
+            label: "Dovidenia.",
+            whyWrong: "**Dovidenia** means goodbye — not an opening greeting.",
+          },
         ],
         answerId: "formal",
         feedback: {
@@ -519,12 +527,19 @@ export const lessons: Lesson[] = [
         id: "present-tense-choose",
         type: "choice",
         practiceItemId: "grammar/first-person-reading",
-        prompt:
-          "You are describing yourself. Which sentence means “I am reading a book”?",
+        prompt: "I am reading a book.",
         choices: [
           { id: "first-person", label: "Čítam knihu." },
-          { id: "third-person", label: "Číta knihu." },
-          { id: "second-person", label: "Čítaš knihu." },
+          {
+            id: "third-person",
+            label: "Číta knihu.",
+            whyWrong: "**Číta** ends in **-a** for he/she — not I.",
+          },
+          {
+            id: "second-person",
+            label: "Čítaš knihu.",
+            whyWrong: "**Čítaš** ends in **-š** for informal you — not I.",
+          },
         ],
         answerId: "first-person",
         feedback: {
@@ -560,11 +575,19 @@ export const lessons: Lesson[] = [
         id: "present-tense-we-choose",
         type: "choice",
         practiceItemId: "grammar/today-reading",
-        prompt: "Which sentence means “Today we are reading a book”?",
+        prompt: "Today we are reading a book.",
         choices: [
           { id: "we", label: "Dnes čítame knihu." },
-          { id: "i", label: "Dnes čítam knihu." },
-          { id: "they", label: "Dnes čítajú knihu." },
+          {
+            id: "i",
+            label: "Dnes čítam knihu.",
+            whyWrong: "**Čítam** ends in **-m** for I — not we.",
+          },
+          {
+            id: "they",
+            label: "Dnes čítajú knihu.",
+            whyWrong: "**Čítajú** ends in **-jú** for they — not we.",
+          },
         ],
         answerId: "we",
         feedback: {
@@ -650,11 +673,19 @@ export const lessons: Lesson[] = [
         id: "byt-som",
         type: "choice",
         practiceItemId: "grammar/byt-som",
-        prompt: "Which answer means “I am Alex”?",
+        prompt: "I am Alex.",
         choices: [
           { id: "i-am", label: "Som Alex." },
-          { id: "you-are", label: "Ste Alex." },
-          { id: "we-are", label: "Sme Alex." },
+          {
+            id: "you-are",
+            label: "Ste Alex.",
+            whyWrong: "**Ste** means you are — not I.",
+          },
+          {
+            id: "we-are",
+            label: "Sme Alex.",
+            whyWrong: "**Sme** means we are — not I.",
+          },
         ],
         answerId: "i-am",
         feedback: {
@@ -777,11 +808,19 @@ export const lessons: Lesson[] = [
         id: "mat-mam",
         type: "choice",
         practiceItemId: "grammar/mat-mam",
-        prompt: "Which sentence means “I have time”?",
+        prompt: "I have time.",
         choices: [
           { id: "i-have", label: "Mám čas." },
-          { id: "you-have", label: "Máš čas." },
-          { id: "i-am", label: "Som čas." },
+          {
+            id: "you-have",
+            label: "Máš čas.",
+            whyWrong: "**Máš** means you have — not I.",
+          },
+          {
+            id: "i-am",
+            label: "Som čas.",
+            whyWrong: "**Som** is from **byť** (to be) — possession uses **mať**: **mám**.",
+          },
         ],
         answerId: "i-have",
         feedback: {
@@ -877,11 +916,19 @@ export const lessons: Lesson[] = [
         id: "stress-choose",
         type: "choice",
         practiceItemId: "pronunciation/dakujem-stress",
-        prompt: "Which syllable is normally stressed in ďakujem?",
+        prompt: "Where is the main beat in ďakujem?",
         choices: [
           { id: "first", label: "ďa — the first syllable" },
-          { id: "middle", label: "ku — the middle syllable" },
-          { id: "last", label: "jem — the last syllable" },
+          {
+            id: "middle",
+            label: "ku — the middle syllable",
+            whyWrong: "Slovak stress normally stays on the **first syllable**, not the middle.",
+          },
+          {
+            id: "last",
+            label: "jem — the last syllable",
+            whyWrong: "Slovak stress normally stays on the **first syllable**, not the last.",
+          },
         ],
         answerId: "first",
         feedback: {

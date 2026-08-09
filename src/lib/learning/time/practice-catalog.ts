@@ -68,7 +68,11 @@ function stubChoice(id: string, taskId: string): PracticeItem {
       clock: { hour: 3, minute: 0 },
       choices: [
         { id: "a", label: "O tretej." },
-        { id: "b", label: "O pol tretej." },
+        {
+          id: "b",
+          label: "O pol tretej.",
+          whyWrong: "Check the clock face — **pol** names the hour ahead, not the hand you see.",
+        },
       ],
       answerId: "a",
       feedback: stubFeedback,
@@ -90,7 +94,11 @@ function stubClockMatch(id: string, taskId: string): PracticeItem {
       choiceStyle: "clock",
       choices: [
         { id: "a", clock: { hour: 2, minute: 30 } },
-        { id: "b", clock: { hour: 3, minute: 30 } },
+        {
+          id: "b",
+          clock: { hour: 3, minute: 30 },
+          whyWrong: "This face shows half past three — not half past two.",
+        },
       ],
       answerId: "a",
       feedback: stubFeedback,
@@ -117,7 +125,7 @@ function stubOddOneOut(id: string, taskId: string): PracticeItem {
           fits: true,
           whyWrong: "**Pol tretej** means half past two.",
         },
-        { id: "b", label: "Je pol druhej." },
+        { id: "b", label: "Je pol druhej.", whyWrong: "**Pol druhej** means half past one — not half past two." },
       ],
       answerId: "b",
       feedback: stubFeedback,
