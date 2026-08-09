@@ -52,7 +52,7 @@
   );
 
   const whyParts = $derived(why ? splitEmphasis(why) : []);
-  const showEnglish = $derived(Boolean(english && !useCompare));
+  const showEnglish = $derived(Boolean(english));
   const showMissLabel = $derived(!useCompare && (revealed || grade === "incorrect"));
   const correctionClass = $derived(
     useCompare
@@ -60,9 +60,10 @@
       : "m-0 font-serif text-xl font-semibold text-slate-900",
   );
   const attemptClass = $derived(
-    grade === "accents"
-      ? "m-0 font-serif text-[0.9375rem] leading-snug text-ink"
-      : "m-0 font-serif text-[0.9375rem] leading-snug text-ink/90 line-through decoration-slate-300/80",
+    "m-0 font-serif text-[1.0625rem] font-semibold leading-snug text-slate-900",
+  );
+  const englishClass = $derived(
+    useCompare ? "m-0 text-sm leading-snug text-slate-600" : "m-0 text-sm text-slate-600",
   );
 </script>
 
@@ -92,7 +93,7 @@
       <div class={missCompareClass}>
         {#if attempt}
           <div class={missCompareAttemptRowClass}>
-            <p class="{feedbackSectionLabelClass} text-rose-700/90">You wrote</p>
+            <p class="{feedbackSectionLabelClass} text-rose-800">You wrote</p>
 
             <p class={attemptClass} lang="sk">{attempt}</p>
           </div>
@@ -103,6 +104,10 @@
             <p class="{feedbackSectionLabelClass} text-emerald-800">{missHeadline}</p>
 
             <p class={correctionClass} lang="sk">{correction}</p>
+
+            {#if showEnglish}
+              <p class={englishClass}>{english}</p>
+            {/if}
           </div>
         {/if}
       </div>
@@ -161,7 +166,7 @@
     {/if}
 
     {#if showEnglish}
-      <p class="m-0 text-sm text-slate-600">{english}</p>
+      <p class={englishClass}>{english}</p>
     {/if}
 
     {@render whyLine()}

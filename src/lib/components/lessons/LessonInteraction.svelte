@@ -289,7 +289,7 @@
           density={correct ? "default" : "compact"}
           correctionLabelTone="emerald"
           correctHeadline={isPickTrap ? "That one doesn't fit." : "Correct"}
-          missHeadline={isPickTrap ? "The odd one out" : "Correct answer"}
+          missHeadline={isPickTrap ? "Correct" : "Correct answer"}
         />
       </div>
 

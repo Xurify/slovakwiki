@@ -97,6 +97,7 @@ describe("learning/time/session", () => {
       expect(item.task.choiceStyle).toBe("clock");
       expect(item.task.prompt).toMatch(/^Ktoré hodiny ukazujú „pol /);
       expect(item.task.feedback?.why).toMatch(/1:30|pol /);
+      expect(item.task.feedback?.english).toMatch(/^\d{1,2}:\d{2} — /);
     }
   });
 
@@ -107,6 +108,7 @@ describe("learning/time/session", () => {
       expect(item.task.prompt).toMatch(/^Ktoré hodiny ukazujú/);
       expect(item.task.choiceStyle).toBe("clock");
       expect(item.task.answerId).toBe("correct");
+      expect(item.task.feedback?.english).toMatch(/^\d{1,2}:\d{2}\.?$/);
       expect(
         item.task.choices.find((c) => c.id === "wrong-minute")?.whyWrong,
       ).toBeTruthy();

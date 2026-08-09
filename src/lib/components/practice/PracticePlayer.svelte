@@ -394,7 +394,7 @@
         density={isMiss ? "compact" : "default"}
         correctionLabelTone={isMiss || grade === "correct" ? "emerald" : "rose"}
         correctHeadline={isPickTrap ? "That one doesn't fit." : "Correct"}
-        missHeadline={isPickTrap ? "The odd one out" : "Correct answer"}
+        missHeadline={isPickTrap ? "Correct" : "Correct answer"}
         dictionaryHref={task.type === "cloze" && task.lemmaId
           ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}

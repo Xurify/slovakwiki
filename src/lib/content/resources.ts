@@ -450,6 +450,30 @@ export const learningResources: LearningResource[] = [
         label: "Koľko je hodín? (telling the time)",
       },
       {
+        href: "https://ucimesaslovencinu.sk/clanok/minuly-cas/",
+        label: "Minulý čas (past tense)",
+      },
+      {
+        href: "https://ucimesaslovencinu.sk/clanok/podmienovaci-sposob/",
+        label: "Kondicionál (conditional mood)",
+      },
+      {
+        href: "https://ucimesaslovencinu.sk/clanok/podmienkove-vety/",
+        label: "Podmienkové vety (if-clauses)",
+      },
+      {
+        href: "https://ucimesaslovencinu.sk/clanok/blahozelania-po-slovensky/",
+        label: "Blahoželania a priania (wishes)",
+      },
+      {
+        href: "https://ucimesaslovencinu.sk/clanok/ako-hovorit-o-praci-po-slovensky/",
+        label: "Hovoriť o práci (work talk)",
+      },
+      {
+        href: "https://ucimesaslovencinu.sk/clanok/slovenske-prislovia/",
+        label: "Slovenské príslovia (proverbs)",
+      },
+      {
         href: "https://ucimesaslovencinu.sk/ucim-sa-slovencinu/",
         label: "Free exercises",
       },

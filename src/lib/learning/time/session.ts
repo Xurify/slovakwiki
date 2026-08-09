@@ -12,6 +12,7 @@ import {
   dayPartDisambiguationPair,
   englishTimeGloss,
   englishTimeMeaningPhrase,
+  formatFaceDigital12,
   exactMinuteChoiceWhy,
   exactMinuteTellingLabel,
   exactMinuteWrongWhy,
@@ -156,7 +157,7 @@ function buildClockMatchForTime(
     answerId: "correct",
     feedback: {
       correction: correctPhrase,
-      english: englishTimeGloss(time),
+      english: `${formatFaceDigital12(time)} — ${englishTimeMeaningPhrase(time)}.`,
       why: appointmentChoiceWhy(time),
     },
   };
@@ -513,7 +514,7 @@ function buildExactMinuteExercise(
     hint: hodinaAgreementHint,
     feedback: {
       correction: correctLabel,
-      english: `At ${face.hour}:${String(time.minute).padStart(2, "0")}.`,
+      english: `${face.hour}:${String(time.minute).padStart(2, "0")}.`,
       why: exactMinuteChoiceWhy(time),
     },
   };

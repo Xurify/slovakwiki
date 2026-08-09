@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   feedbackFooterClass,
   isMissFeedback,
+  missCompareClass,
   splitEmphasis,
 } from "./practice-feedback-ui";
 
@@ -51,5 +52,14 @@ describe("feedbackFooterClass", () => {
     expect(isMissFeedback("incorrect", false)).toBe(true);
     expect(isMissFeedback("accents", false)).toBe(true);
     expect(isMissFeedback("correct", false)).toBe(false);
+  });
+});
+
+describe("missCompareClass", () => {
+  it("frames the compare panel with inset tint rows", () => {
+    expect(missCompareClass).toContain("border border-slate-200");
+    expect(missCompareClass).toContain("shadow-(--shadow-border)");
+    expect(missCompareClass).toContain("p-1");
+    expect(missCompareClass).not.toContain("ring-inset");
   });
 });

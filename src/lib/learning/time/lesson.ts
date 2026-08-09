@@ -85,7 +85,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     answerId: "three",
     feedback: {
       correction: "O tretej.",
-      english: "At three o’clock.",
+      english: "3:00 — three o’clock.",
       why: appointmentChoiceWhy(t(3, 0)),
     },
   },
@@ -98,7 +98,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     answer: ["O", "pol", "tretej."],
     feedback: {
       correction: "O pol tretej.",
-      english: "At half past two.",
+      english: "2:30 — half past two.",
       why: appointmentChoiceWhy(t(2, 30)),
     },
   },
@@ -125,7 +125,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     answerId: "three-quarters",
     feedback: {
       correction: "O trištvrte na tri.",
-      english: "At quarter to three.",
+      english: "2:45 — quarter to three.",
       why: appointmentChoiceWhy(t(2, 45)),
     },
   },
@@ -152,7 +152,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     answerId: "half-past-two",
     feedback: {
       correction: "O pol tretej.",
-      english: "At half past two.",
+      english: "2:30 — half past two.",
       why: appointmentChoiceWhy(t(2, 30)),
     },
   },
@@ -179,7 +179,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     answerId: "quarter-past-two",
     feedback: {
       correction: "O štvrť na tri.",
-      english: "At quarter past two.",
+      english: "2:15 — quarter past two.",
       why: appointmentChoiceWhy(t(2, 15)),
     },
   },
@@ -206,7 +206,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     answerId: "quarter-to-three",
     feedback: {
       correction: "O trištvrte na tri.",
-      english: "At quarter to three.",
+      english: "2:45 — quarter to three.",
       why: appointmentChoiceWhy(t(2, 45)),
     },
   },
@@ -263,7 +263,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     hint: registersHint,
     feedback: {
       correction: "O pol tretej.",
-      english: "At half past two.",
+      english: "2:30 — half past two.",
       why: "**O koľkej?** asks when something happens → answer with **O …**: **O pol tretej**.",
     },
   },
@@ -306,7 +306,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     hint: hodinaAgreementHint,
     feedback: {
       correction: "Je pol druhej.",
-      english: "At half past two.",
+      english: "2:30 — half past two.",
       why: tellingDistractorWhy(t(2, 30), t(1, 30)),
     },
   },
@@ -397,12 +397,12 @@ export const daysDatesTimeLesson: Lesson = {
     },
     {
       slovak: "O tretej.",
-      english: "At three o’clock.",
+      english: "3:00 — three o’clock.",
       audio: { transcript: "O tretej." },
     },
     {
       slovak: "O pol tretej.",
-      english: "At half past two.",
+      english: "2:30 — half past two.",
       note: "Literally, halfway to three.",
       audio: { transcript: "O pol tretej." },
     },

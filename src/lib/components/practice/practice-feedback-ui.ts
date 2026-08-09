@@ -64,12 +64,13 @@ export const feedbackSectionLabelClass =
   "m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.08em]";
 
 export const missCompareClass =
-  "overflow-hidden rounded-(--control-radius) bg-surface ring-1 ring-inset ring-slate-200/90";
+  "grid gap-1 overflow-hidden rounded-(--control-radius) border border-slate-200 bg-surface p-1 shadow-(--shadow-border)";
 
 export const missCompareAttemptRowClass =
-  "grid gap-0.5 border-b border-slate-200/70 bg-rose-50 px-3 py-2";
+  "grid gap-1 rounded-[calc(var(--control-radius)-2px)] bg-rose-50 px-3.5 py-2.5";
 
-export const missCompareCorrectionRowClass = "grid gap-0.5 bg-emerald-50 px-3 py-2";
+export const missCompareCorrectionRowClass =
+  "grid gap-1 rounded-[calc(var(--control-radius)-2px)] bg-emerald-50 px-3.5 py-2.5";
 
 export function shouldShowCorrection(
   submitted: boolean,
