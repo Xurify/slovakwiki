@@ -30,11 +30,24 @@ describe("splitEmphasis", () => {
       { type: "text", value: "." },
     ]);
   });
+
+  it("splits *italic* markers for Slovak examples", () => {
+    expect(splitEmphasis("Use **Sú** + **hodiny**: *Sú dve hodiny.*")).toEqual([
+      { type: "text", value: "Use " },
+      { type: "em", value: "Sú" },
+      { type: "text", value: " + " },
+      { type: "em", value: "hodiny" },
+      { type: "text", value: ": " },
+      { type: "i", value: "Sú dve hodiny." },
+    ]);
+  });
 });
 
 describe("feedbackFooterClass", () => {
-  it("uses rose footer on miss", () => {
-    expect(feedbackFooterClass("incorrect")).toBe("border-t border-rose-200 bg-rose-50");
+  it("uses neutral footer on miss so cards carry tone", () => {
+    expect(feedbackFooterClass("incorrect")).toBe(
+      "border-t border-slate-200 bg-paper/70",
+    );
     expect(isMissFeedback("incorrect", false)).toBe(true);
     expect(isMissFeedback("accents", false)).toBe(true);
     expect(isMissFeedback("correct", false)).toBe(false);

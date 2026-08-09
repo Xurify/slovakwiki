@@ -343,6 +343,13 @@ export interface SelectAllChoiceDraft {
   whyWrong?: string;
 }
 
+/** Choice list label: no trailing period; capitalize for parallel options. */
+export function formatSelectAllLabel(label: string): string {
+  const trimmed = label.trim().replace(/\.$/, "");
+  if (!trimmed) return trimmed;
+  return trimmed.charAt(0).toLocaleUpperCase("sk-SK") + trimmed.slice(1);
+}
+
 /** Build select-all options for Koľko je hodín? style telling-time. */
 export function selectAllChoicesForTime(time: ClockFaceTime): SelectAllChoiceDraft[] {
   const face = analogFace(time);
@@ -350,23 +357,23 @@ export function selectAllChoicesForTime(time: ClockFaceTime): SelectAllChoiceDra
   const choices: SelectAllChoiceDraft[] = [];
 
   const add = (id: string, label: string, correct: boolean, whyWrong?: string): void => {
-    choices.push({ id, label, correct, whyWrong });
+    choices.push({ id, label: formatSelectAllLabel(label), correct, whyWrong });
   };
 
-  add("telling-primary", tellingTimeLabel(time), true);
+  add("telling-primary", preferredAnswerForTime(time), true);
 
   if (time.minute === 30) {
-    const trap = `Je pol ${locativeOrdinal12(face.hour)}.`;
+    const trap = `Je pol ${locativeOrdinal12(face.hour)}`;
     add("pol-wrong-hour", trap, false, selectAllTrapWhy(time, trap));
   } else if (time.minute === 15) {
-    const trap = `Je štvrť na ${TOWARD_HOUR[face.hour] ?? String(face.hour)}.`;
+    const trap = `Je štvrť na ${TOWARD_HOUR[face.hour] ?? String(face.hour)}`;
     add("quarter-wrong", trap, false, selectAllTrapWhy(time, trap));
   } else if (time.minute === 45) {
-    const trap = `Je trištvrte na ${TOWARD_HOUR[face.hour] ?? String(face.hour)}.`;
+    const trap = `Je trištvrte na ${TOWARD_HOUR[face.hour] ?? String(face.hour)}`;
     add("triquarter-wrong", trap, false, selectAllTrapWhy(time, trap));
   } else {
     const nextOrdinal = face.hour === 12 ? 1 : face.hour + 1;
-    const trap = `Je pol ${locativeOrdinal12(nextOrdinal)}.`;
+    const trap = `Je pol ${locativeOrdinal12(nextOrdinal)}`;
     add("half-wrong", trap, false, selectAllTrapWhy(time, trap));
   }
 
@@ -375,9 +382,9 @@ export function selectAllChoicesForTime(time: ClockFaceTime): SelectAllChoiceDra
       face.hour,
       time.minute as Exclude<QuarterMinute, 0>,
     )[0];
-    if (hourMinute) add("hour-minute", `${hourMinute}.`, true);
+    if (hourMinute) add("hour-minute", hourMinute, true);
     const digital = digitalAnswers(face.hour, time.minute)[0];
-    if (digital) add("digital", `${digital}.`, true);
+    if (digital) add("digital", digital, true);
   }
 
   return choices;
@@ -609,23 +616,27 @@ export function noonMidnightAppointmentPhrases(time: ClockFaceTime): string[] {
   return [];
 }
 
-/** Select-all drafts: lexical + tagged clock form correct; bare O dvanástej. is the trap. */
+/** Select-all drafts: lexical + tagged clock form correct; bare O dvanástej is the trap. */
 export function noonMidnightSelectAllChoices(
   time: ClockFaceTime,
 ): SelectAllChoiceDraft[] {
   if (isNoonTime(time)) {
     return [
-      { id: "lexical", label: "O poludní.", correct: true },
-      { id: "tagged", label: "O dvanástej napoludnie.", correct: true },
+      { id: "lexical", label: formatSelectAllLabel("O poludní."), correct: true },
+      {
+        id: "tagged",
+        label: formatSelectAllLabel("O dvanástej napoludnie."),
+        correct: true,
+      },
       {
         id: "bare-twelve",
-        label: "O dvanástej.",
+        label: formatSelectAllLabel("O dvanástej."),
         correct: false,
         whyWrong: "Bare **O dvanástej** is ambiguous — noon or midnight.",
       },
       {
         id: "wrong-lexical",
-        label: "O polnoci.",
+        label: formatSelectAllLabel("O polnoci."),
         correct: false,
         whyWrong: "**O polnoci** means midnight, not noon.",
       },
@@ -633,17 +644,17 @@ export function noonMidnightSelectAllChoices(
   }
   if (isMidnightTime(time)) {
     return [
-      { id: "lexical", label: "O polnoci.", correct: true },
-      { id: "tagged", label: "O dvanástej v noci.", correct: true },
+      { id: "lexical", label: formatSelectAllLabel("O polnoci."), correct: true },
+      { id: "tagged", label: formatSelectAllLabel("O dvanástej v noci."), correct: true },
       {
         id: "bare-twelve",
-        label: "O dvanástej.",
+        label: formatSelectAllLabel("O dvanástej."),
         correct: false,
         whyWrong: "Bare **O dvanástej** is ambiguous — noon or midnight.",
       },
       {
         id: "wrong-lexical",
-        label: "O poludní.",
+        label: formatSelectAllLabel("O poludní."),
         correct: false,
         whyWrong: "**O poludní** means noon, not midnight.",
       },

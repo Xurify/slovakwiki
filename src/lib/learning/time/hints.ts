@@ -2,7 +2,7 @@ import type { ClozeHint } from "$lib/learning/types";
 
 /** Grammar chip for hour agreement in telling-time phrases (Je/Sú + hodina/hodiny/hodín). */
 export const hodinaAgreementHint: ClozeHint = {
-  chip: "Je vs Sú with hours",
+  chip: "Je / Sú + hour forms",
   grammarTopicId: "telling-time",
   note: "With **2–4** hours use **Sú** + **hodiny**: *Sú dve/tri/štyri hodiny.* With **1** use **Je** + **hodina**; with **5+** use **Je** + **hodín**: *Je jedna hodina.* / *Je päť hodín.* The same agreement applies to minutes: *jedna minúta*, *dve minúty*, *päť minút.*",
 };

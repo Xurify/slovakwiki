@@ -13,6 +13,7 @@ import {
   noonMidnightSelectAllChoices,
   preferredAnswerForTime,
   randomDrillTime,
+  selectAllChoicesForTime,
   zaCountdownPhrase,
 } from "./clock";
 import { answersMatch } from "$lib/client/practice-state";
@@ -121,9 +122,16 @@ describe("learning/time/clock", () => {
     const noonChoices = noonMidnightSelectAllChoices({ hour: 12, minute: 0 });
     expect(noonChoices.find((c) => c.id === "bare-twelve")?.correct).toBe(false);
     expect(noonChoices.filter((c) => c.correct).map((c) => c.label)).toEqual([
-      "O poludní.",
-      "O dvanástej napoludnie.",
+      "O poludní",
+      "O dvanástej napoludnie",
     ]);
+  });
+
+  it("formats select-all choice labels without periods and with sentence capitals", () => {
+    const choices = selectAllChoicesForTime({ hour: 3, minute: 30 });
+    expect(choices.find((c) => c.id === "digital")?.label).toBe("Tri tridsať");
+    expect(choices.find((c) => c.id === "telling-primary")?.label).toBe("Je pol štvrtej");
+    expect(choices.every((c) => !c.label.endsWith("."))).toBe(true);
   });
 
   it("uses O prvej as appointment choice distractor when it is not the answer", () => {

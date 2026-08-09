@@ -123,6 +123,7 @@
             grade={row.grade === "accents" ? "accents" : "incorrect"}
             {revealed}
             showCorrection={true}
+            density="compact"
             correctionLabelTone="emerald"
           />
         </div>

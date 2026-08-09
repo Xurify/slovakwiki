@@ -95,6 +95,7 @@ When someone else spoke first:
 - **Wrong:** UI shows “Correct answer” + correction — do not add `That works.` / `Try this.` in content.
 - `english` on feedback = gloss of the correction; `why` = one short teaching line.
 - In `why`, wrap Slovak patterns or key terms in `**double asterisks**` so the UI can emphasize them (e.g. `Use **o** + the ordinal time form: **o tretej**.`).
+- On a miss, `why` teaches the correct pattern; optional `whyWrong` on a choice explains the learner’s specific wrong pick when base `why` does not (common for select-all traps). Do not repeat the same point in both.
 
 Reuse `PracticeExerciseFeedback.svelte` for any new exercise UI — do not invent new status labels.
 
@@ -163,6 +164,19 @@ Palette and spacing are mapped into Tailwind via `@theme` in `src/styles.css`:
 - Colors: `bg-slate-*`, `text-blue-*`, `border-slate-200`, `bg-rose-*`, `bg-emerald-*`, etc. (aliased to the Slovak Wiki palette)
 - Fonts: `font-sans` (UI), `font-serif` (reading)
 - Prefer theme utilities over raw `var(--…)` in components
+
+### UI composition
+
+General rules for status blocks, compare views, summaries, and any “nested card” moment:
+
+- **Shell stays neutral; content carries tone.** Page chrome (footer, rail, shell) uses `bg-paper` / `bg-surface` and slate borders. Semantic color (success, error, hint) belongs on the **inner** block — not shell + full-bleed band + nested card (“stripe sandwich”).
+- **One container, internal dividers.** For compare/contrast or multi-part summaries: one inset panel (`ring-1 ring-inset` on `bg-surface`), rows with a light tint and `border-b` between them. Not multiple sibling boxes each with their own border and radius.
+- **Secondary copy outside the highlight.** Primary line + status tint stay in the colored row; teaching notes, metadata, and “why” sit below or beside — not inside the success/error block.
+- **Do not repeat on-screen context.** Drop redundant glosses, labels, or answers the learner already saw one step above.
+- **Variant / density on the component.** Same widget, tighter when inline (`compact`) vs roomier in recap or detail (`default`) — not duplicate components or page-specific markup.
+- **Colocated `*-ui.ts` for repeated patterns.** Shared class bundles live next to the widget (e.g. `practice-feedback-ui.ts`); page shells handle layout only.
+
+Reference: miss feedback — `PracticeExerciseFeedback.svelte` + `practice-feedback-ui.ts`.
 
 ## Astro islands (hydration)
 

@@ -12,7 +12,7 @@ const stubFeedback = {
   why: "Session time varies — use **o** + the ordinal form (e.g. **o tretej**).",
 };
 
-/** Catalog stubs for hub links, validation, and lesson practiceItemId — sessions materialize fresh tasks. */
+/** Catalog stub for hub links, validation, and lesson practiceItemId — sessions materialize fresh tasks. */
 export const daysDatesTimePracticeItems: PracticeItem[] = [
   {
     id: "everyday/day-meeting",
@@ -22,7 +22,7 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       type: "build",
       practiceItemId: "everyday/day-meeting",
       prompt: "We are meeting on Tuesday.",
-      tiles: ["v", "Stretneme", "utorok.", "sa", "utorok."],
+      tiles: ["v", "Stretneme", "utorok.", "sa"],
       answer: ["Stretneme", "sa", "v", "utorok."],
       feedback: {
         correction: "Stretneme sa v utorok.",

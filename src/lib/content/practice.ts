@@ -34,16 +34,8 @@ export const practiceItems: PracticeItem[] = [
         "You arrive at a clinic and meet the receptionist for the first time. Which greeting fits?",
       choices: [
         { id: "formal", label: "Dobrý deň." },
-        {
-          id: "informal",
-          label: "Ahoj!",
-          whyWrong: "**Ahoj** is informal — use **Dobrý deň** with someone new.",
-        },
-        {
-          id: "leaving",
-          label: "Dovidenia.",
-          whyWrong: "**Dovidenia** means goodbye — not a greeting.",
-        },
+        { id: "informal", label: "Ahoj!" },
+        { id: "leaving", label: "Dovidenia." },
       ],
       answerId: "formal",
       feedback: {
@@ -337,16 +329,8 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which sentence means “I am reading a book”?",
       choices: [
         { id: "first-person", label: "Čítam knihu." },
-        {
-          id: "third-person",
-          label: "Číta knihu.",
-          whyWrong: "**Číta** is he/she — the prompt asks for **I** (**čítam**).",
-        },
-        {
-          id: "second-person",
-          label: "Čítaš knihu.",
-          whyWrong: "**Čítaš** is informal you — the prompt asks for **I** (**čítam**).",
-        },
+        { id: "third-person", label: "Číta knihu." },
+        { id: "second-person", label: "Čítaš knihu." },
       ],
       answerId: "first-person",
       feedback: {
@@ -412,16 +396,8 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which sentence means “Today we are reading a book”?",
       choices: [
         { id: "we", label: "Dnes čítame knihu." },
-        {
-          id: "i",
-          label: "Dnes čítam knihu.",
-          whyWrong: "**Čítam** is I — the prompt asks for **we** (**čítame**).",
-        },
-        {
-          id: "they",
-          label: "Dnes čítajú knihu.",
-          whyWrong: "**Čítajú** is they — the prompt asks for **we** (**čítame**).",
-        },
+        { id: "i", label: "Dnes čítam knihu." },
+        { id: "they", label: "Dnes čítajú knihu." },
       ],
       answerId: "we",
       feedback: {
@@ -754,16 +730,8 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which sentence means “They are reading a book”?",
       choices: [
         { id: "they", label: "Čítajú knihu." },
-        {
-          id: "we",
-          label: "Čítame knihu.",
-          whyWrong: "**Čítame** is we — the prompt asks for **they** (**čítajú**).",
-        },
-        {
-          id: "he",
-          label: "Číta knihu.",
-          whyWrong: "**Číta** is he/she — the prompt asks for **they** (**čítajú**).",
-        },
+        { id: "we", label: "Čítame knihu." },
+        { id: "he", label: "Číta knihu." },
       ],
       answerId: "they",
       feedback: {
@@ -1106,16 +1074,8 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Where is the main beat in ďakujem?",
       choices: [
         { id: "first", label: "ĎA-ku-jem" },
-        {
-          id: "middle",
-          label: "ďa-KU-jem",
-          whyWrong: "Slovak stress stays on the **first syllable** — not the middle.",
-        },
-        {
-          id: "last",
-          label: "ďa-ku-JEM",
-          whyWrong: "Slovak stress stays on the **first syllable** — not the last.",
-        },
+        { id: "middle", label: "ďa-KU-jem" },
+        { id: "last", label: "ďa-ku-JEM" },
       ],
       answerId: "first",
       feedback: {
@@ -1278,18 +1238,8 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Where is the main stress in Bratislava?",
       choices: [
         { id: "first", label: "BRA-ti-sla-va" },
-        {
-          id: "middle",
-          label: "bra-TI-sla-va",
-          whyWrong:
-            "Standard Slovak stress is on the **first syllable** — not the second.",
-        },
-        {
-          id: "later",
-          label: "bra-ti-SLA-va",
-          whyWrong:
-            "Standard Slovak stress is on the **first syllable** — not the third.",
-        },
+        { id: "middle", label: "bra-TI-sla-va" },
+        { id: "later", label: "bra-ti-SLA-va" },
       ],
       answerId: "first",
       feedback: {
@@ -1316,17 +1266,8 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which version keeps the regular Slovak stress in pomôžem?",
       choices: [
         { id: "first", label: "PO-mô-žem" },
-        {
-          id: "middle",
-          label: "po-MÔ-žem",
-          whyWrong:
-            "Keep stress on the **first syllable** — vowel length does not move it.",
-        },
-        {
-          id: "last",
-          label: "po-mô-ŽEM",
-          whyWrong: "Keep stress on the **first syllable** — not the last.",
-        },
+        { id: "middle", label: "po-MÔ-žem" },
+        { id: "last", label: "po-mô-ŽEM" },
       ],
       answerId: "first",
       feedback: {

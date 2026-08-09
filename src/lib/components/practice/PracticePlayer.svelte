@@ -4,12 +4,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { tick } from "svelte";
-  import {
-    canCheckBuild,
-    gradeBuild,
-    isBankTileUsed,
-    resolveBuiltTiles,
-  } from "$lib/client/build-tiles";
+  import { canCheckBuild, gradeBuild, resolveBuiltTiles } from "$lib/client/build-tiles";
   import {
     gradeAnswer,
     suggestCloseAnswer,
@@ -18,8 +13,9 @@
   import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/client/sfx";
   import AudioButton from "$lib/components/AudioButton.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
-  import GrammarHintToggle from "$lib/components/practice/GrammarHintToggle.svelte";
+  import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
   import {
+    BuildSentenceOptions,
     ChoiceOptions,
     SelectAllOptions,
     choiceFeedbackWhy,
@@ -70,7 +66,7 @@
     if (task.type === "selectAll") return "";
     if (task.type === "choice" && task.clock) return "";
     if (task.type === "choice") return "Choose the answer";
-    if (task.type === "build") return "Build the sentence";
+    if (task.type === "build") return "";
     if (task.type === "typed") return "Write the sentence";
     return "Practice";
   }
@@ -208,18 +204,6 @@
     if (event.key !== "Enter" || event.shiftKey || submitted || !canCheck) return;
     event.preventDefault();
     void check();
-  }
-
-  function selectTile(bankIndex: number): void {
-    if (submitted || task.type !== "build") return;
-    if (isBankTileUsed(builtBankIndexes, bankIndex)) return;
-    if (builtBankIndexes.length >= task.answer.length) return;
-    builtBankIndexes = [...builtBankIndexes, bankIndex];
-  }
-
-  function removeTile(builtIndex: number): void {
-    if (!submitted)
-      builtBankIndexes = builtBankIndexes.filter((_, index) => index !== builtIndex);
   }
 
   function insertChar(char: string): void {
@@ -471,111 +455,31 @@
       {/if}
 
       {#if task.type === "choice"}
-        <div
-          class={task.hint && hintMode === "rail"
-            ? "mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem]"
-            : "mt-6 grid gap-4"}
-        >
-          <div class="grid gap-3">
-            {#if task.hint}
-              <div class="grid gap-2">
-                <GrammarHintToggle hint={task.hint} bind:open={hintOpen} />
-
-                {#if hintOpen && hintMode === "inline"}
-                  <ClozeHintPanel hint={task.hint} variant="inline" />
-                {/if}
-              </div>
-            {/if}
-
-            <ChoiceOptions
-              choices={task.choices}
-              choiceStyle={task.choiceStyle}
-              promptClock={task.clock}
-              bind:selectedId
-              {submitted}
-            />
-          </div>
-
-          {#if hintMode === "rail" && task.hint}
-            <ContextRail>
-              {#if hintOpen}
-                <ClozeHintPanel hint={task.hint} variant="rail" />
-              {/if}
-            </ContextRail>
-          {/if}
+        <div class="mt-6">
+          <ChoiceOptions
+            choices={task.choices}
+            choiceStyle={task.choiceStyle}
+            promptClock={task.clock}
+            bind:selectedId
+            {submitted}
+          />
         </div>
       {:else if task.type === "selectAll"}
-        <div
-          class={task.hint && hintMode === "rail"
-            ? "mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem]"
-            : "mt-6 grid gap-4"}
-        >
-          <div class="grid gap-3">
-            {#if task.hint}
-              <div class="grid gap-2">
-                <GrammarHintToggle hint={task.hint} bind:open={hintOpen} />
-
-                {#if hintOpen && hintMode === "inline"}
-                  <ClozeHintPanel hint={task.hint} variant="inline" />
-                {/if}
-              </div>
-            {/if}
-
-            <SelectAllOptions
-              choices={task.choices}
-              promptClock={task.clock}
-              bind:selectedIds
-              {submitted}
-            />
-          </div>
-
-          {#if hintMode === "rail" && task.hint}
-            <ContextRail>
-              {#if hintOpen}
-                <ClozeHintPanel hint={task.hint} variant="rail" />
-              {/if}
-            </ContextRail>
-          {/if}
+        <div class="mt-6">
+          <SelectAllOptions
+            choices={task.choices}
+            promptClock={task.clock}
+            bind:selectedIds
+            {submitted}
+          />
         </div>
       {:else if task.type === "build"}
-        <div class="mt-6 grid gap-3">
-          <div
-            class="flex min-h-[calc(4rem+4px)] flex-wrap content-center gap-2 border border-slate-300 bg-slate-50 p-3"
-            aria-live="polite"
-          >
-            {#if builtTiles.length}
-              {#each builtTiles as tile, index (`${tile}-${index}`)}
-                <button
-                  class="border border-slate-300 bg-surface px-2.5 py-2 font-serif font-semibold leading-6 text-blue-800"
-                  type="button"
-                  disabled={submitted}
-                  onclick={() => removeTile(index)}
-                >
-                  {tile}
-                </button>
-              {/each}
-            {:else}
-              <span
-                class="border border-transparent px-2.5 py-2 font-serif text-sm font-semibold leading-6 text-slate-500"
-              >
-                Choose the words in order.
-              </span>
-            {/if}
-          </div>
-
-          <div class="flex flex-wrap gap-2">
-            {#each task.tiles as tile, index (`${tile}-${index}`)}
-              <button
-                class="border border-slate-300 bg-surface px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40"
-                type="button"
-                disabled={submitted || isBankTileUsed(builtBankIndexes, index)}
-                onclick={() => selectTile(index)}
-              >
-                {tile}
-              </button>
-            {/each}
-          </div>
-        </div>
+        <BuildSentenceOptions
+          tiles={task.tiles}
+          answerLength={task.answer.length}
+          bind:builtBankIndexes
+          {submitted}
+        />
       {:else if task.type === "cloze"}
         <div
           class={hintMode === "rail"
@@ -616,7 +520,12 @@
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-sm text-slate-500">{task.gapEn}</span>
 
-              <GrammarHintToggle hint={task.hint} bind:open={hintOpen} variant="chip" />
+              <GrammarHintAccordion
+                hint={task.hint}
+                bind:open={hintOpen}
+                variant="chip"
+                panelPlacement={hintMode === "inline" ? "inline" : "none"}
+              />
             </div>
 
             <div class="flex flex-wrap gap-1" aria-label="Slovak characters">
@@ -632,10 +541,6 @@
                 </button>
               {/each}
             </div>
-
-            {#if hintOpen && hintMode === "inline"}
-              <ClozeHintPanel hint={task.hint} variant="inline" />
-            {/if}
           </div>
 
           {#if hintMode === "rail"}
@@ -681,6 +586,12 @@
               </button>
             {/each}
           </div>
+        </div>
+      {/if}
+
+      {#if task.hint && (task.type === "choice" || task.type === "selectAll")}
+        <div class="mt-6 border-t border-slate-200 pt-4">
+          <GrammarHintAccordion hint={task.hint} bind:open={hintOpen} />
         </div>
       {/if}
 

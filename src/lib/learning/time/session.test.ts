@@ -49,6 +49,18 @@ describe("learning/time/session", () => {
     }
   });
 
+  it("materializes dynamic day-meeting build tasks", () => {
+    const first = materializeDaysDatesTimeItem("everyday/day-meeting", () => 0);
+    const second = materializeDaysDatesTimeItem("everyday/day-meeting", () => 0.85);
+
+    expect(first.task.type).toBe("build");
+    if (first.task.type === "build" && second.task.type === "build") {
+      expect(first.task.answer[0]).toBe("Stretneme");
+      expect(first.task.tiles.length).toBeGreaterThan(first.task.answer.length);
+      expect(first.task.id).toMatch(/^generated-/);
+    }
+  });
+
   it("recognizes procedural kinds", () => {
     expect(isDaysDatesTimeKind("everyday/time-variants")).toBe(true);
     expect(isDaysDatesTimeKind("everyday/formal-greeting")).toBe(false);
@@ -81,7 +93,7 @@ describe("learning/time/session", () => {
     const noon = materializeDaysDatesTimeItem("everyday/noon-midnight", () => 0);
     expect(noon.task.type).toBe("selectAll");
     if (noon.task.type === "selectAll") {
-      const bare = noon.task.choices.find((c) => c.label === "O dvanástej.");
+      const bare = noon.task.choices.find((c) => c.label === "O dvanástej");
       expect(bare?.correct).toBe(false);
       expect(noon.task.choices.filter((c) => c.correct).length).toBe(2);
     }

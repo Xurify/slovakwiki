@@ -2,23 +2,18 @@
   import Button from "$lib/components/ui/Button.svelte";
 
   import { tick } from "svelte";
-  import {
-    canCheckBuild,
-    gradeBuild,
-    isBankTileUsed,
-    resolveBuiltTiles,
-  } from "$lib/client/build-tiles";
+  import { canCheckBuild, gradeBuild, resolveBuiltTiles } from "$lib/client/build-tiles";
   import { answersMatch } from "$lib/client/practice-state";
   import { playAnswerSfx } from "$lib/client/sfx";
   import {
+    BuildSentenceOptions,
     ChoiceOptions,
     SelectAllOptions,
     choiceFeedbackWhy,
     gradeSelectAll,
     selectAllFeedbackWhy,
   } from "$lib/learning/exercises";
-  import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
-  import GrammarHintToggle from "$lib/components/practice/GrammarHintToggle.svelte";
+  import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
   import type { LessonExercise } from "$lib/learning/types";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
@@ -126,18 +121,6 @@
     onresolve();
   }
 
-  function addTile(bankIndex: number): void {
-    if (submitted || graded?.type !== "build") return;
-    if (isBankTileUsed(builtBankIndexes, bankIndex)) return;
-    if (builtBankIndexes.length >= graded.answer.length) return;
-    builtBankIndexes = [...builtBankIndexes, bankIndex];
-  }
-
-  function removeTile(builtIndex: number): void {
-    if (!submitted)
-      builtBankIndexes = builtBankIndexes.filter((_, index) => index !== builtIndex);
-  }
-
   function attemptForDisplay(): string | undefined {
     if (!graded || correct || revealed) return undefined;
     if (graded.type === "choice") {
@@ -204,16 +187,6 @@
     </h2>
 
     {#if exercise.type === "choice"}
-      {#if exercise.hint}
-        <div class="mt-4 grid gap-2">
-          <GrammarHintToggle hint={exercise.hint} bind:open={hintOpen} />
-
-          {#if hintOpen}
-            <ClozeHintPanel hint={exercise.hint} variant="inline" />
-          {/if}
-        </div>
-      {/if}
-
       <ChoiceOptions
         choices={exercise.choices}
         choiceStyle={exercise.choiceStyle}
@@ -221,62 +194,36 @@
         bind:selectedId
         {submitted}
       />
-    {:else if exercise.type === "selectAll"}
+
       {#if exercise.hint}
-        <div class="mt-4 grid gap-2">
-          <GrammarHintToggle hint={exercise.hint} bind:open={hintOpen} />
-
-          {#if hintOpen}
-            <ClozeHintPanel hint={exercise.hint} variant="inline" />
-          {/if}
-        </div>
+        <GrammarHintAccordion
+          class="mt-6 border-t border-slate-200 pt-4"
+          hint={exercise.hint}
+          bind:open={hintOpen}
+        />
       {/if}
-
+    {:else if exercise.type === "selectAll"}
       <SelectAllOptions
         choices={exercise.choices}
         promptClock={exercise.clock}
         bind:selectedIds
         {submitted}
       />
-    {:else if exercise.type === "build"}
-      <div class="mt-6 grid gap-3" aria-label="Build the sentence">
-        <div
-          class="flex min-h-[calc(4.25rem+4px)] flex-wrap content-center gap-2 border border-slate-300 bg-slate-50 p-3.5"
-          aria-live="polite"
-        >
-          {#if builtTiles.length}
-            {#each builtTiles as tile, index (`${tile}-${index}`)}
-              <button
-                class="cursor-pointer border border-slate-300 bg-surface px-2.5 py-2 font-serif font-semibold leading-6 text-blue-800 disabled:cursor-default"
-                type="button"
-                disabled={submitted}
-                onclick={() => removeTile(index)}
-              >
-                {tile}
-              </button>
-            {/each}
-          {:else}
-            <span
-              class="border border-transparent px-2.5 py-2 font-serif text-sm font-semibold leading-6 text-slate-500"
-            >
-              Choose the words in order.
-            </span>
-          {/if}
-        </div>
 
-        <div class="flex flex-wrap gap-2">
-          {#each exercise.tiles as tile, index (`${tile}-${index}`)}
-            <button
-              class="cursor-pointer border border-slate-300 bg-surface px-3 py-2 font-serif font-semibold text-blue-800 hover:border-blue-600 hover:bg-blue-50 disabled:cursor-default disabled:opacity-40"
-              type="button"
-              disabled={submitted || isBankTileUsed(builtBankIndexes, index)}
-              onclick={() => addTile(index)}
-            >
-              {tile}
-            </button>
-          {/each}
-        </div>
-      </div>
+      {#if exercise.hint}
+        <GrammarHintAccordion
+          class="mt-6 border-t border-slate-200 pt-4"
+          hint={exercise.hint}
+          bind:open={hintOpen}
+        />
+      {/if}
+    {:else if exercise.type === "build"}
+      <BuildSentenceOptions
+        tiles={exercise.tiles}
+        answerLength={exercise.answer.length}
+        bind:builtBankIndexes
+        {submitted}
+      />
     {:else}
       <label class="mt-6 grid gap-2 text-sm font-medium text-slate-600">
         <span>{exercise.inputLabel}</span>
@@ -294,7 +241,11 @@
     {#if submitted}
       <div
         bind:this={feedbackPanel}
-        class={`mt-6 ${feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))}`}
+        class={`mt-6 ${
+          correct
+            ? feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))
+            : ""
+        }`}
         aria-live="polite"
         tabindex="-1"
       >

@@ -22,15 +22,37 @@ describe("feedback-why", () => {
     );
   });
 
-  it("filters select-all wrong picks by correct flag", () => {
+  it("skips redundant whyWrong when base already teaches the same point", () => {
     const choices = [
-      { id: "a", correct: true, whyWrong: "Should not show." },
-      { id: "b", correct: false, whyWrong: "**B** is wrong." },
+      {
+        id: "informal",
+        label: "Ahoj!",
+        whyWrong: "**Ahoj** is informal — use **Dobrý deň** with someone new.",
+      },
     ];
 
-    expect(augmentFeedbackWhy("Base.", new Set(["a"]), choices)).toBe("Base.");
+    expect(
+      choiceFeedbackWhy(
+        "Use **Dobrý deň**; **Ahoj** is informal.",
+        "informal",
+        choices,
+        "formal",
+      ),
+    ).toBe("Use **Dobrý deň**; **Ahoj** is informal.");
+  });
+
+  it("always appends select-all wrong notes", () => {
+    const choices = [
+      { id: "a", correct: true },
+      {
+        id: "b",
+        correct: false,
+        whyWrong: "**O poludní** means noon, not midnight.",
+      },
+    ];
+
     expect(augmentFeedbackWhy("Base.", new Set(["b"]), choices)).toBe(
-      "Base. **B** is wrong.",
+      "Base. **O poludní** means noon, not midnight.",
     );
   });
 });

@@ -1,7 +1,13 @@
 <script lang="ts">
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import type { AnswerGrade } from "$lib/client/practice-state";
-  import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
+  import {
+    feedbackSectionLabelClass,
+    missCompareAttemptRowClass,
+    missCompareClass,
+    missCompareCorrectionRowClass,
+    splitEmphasis,
+  } from "$lib/components/practice/practice-feedback-ui";
 
   let {
     attempt = undefined,
@@ -35,29 +41,91 @@
   const isMiss = $derived(
     grade === "incorrect" || grade === "accents" || revealed === true,
   );
+  const useCompare = $derived(isCompact && isMiss);
 
   const correctionLabelClass = $derived(
     correctionLabelTone === "emerald" ? "text-emerald-800" : "text-rose-900",
   );
 
   const whyParts = $derived(why ? splitEmphasis(why) : []);
-  const showEnglish = $derived(Boolean(english && !(isCompact && isMiss)));
-  const showMissLabel = $derived(!isCompact && (revealed || grade === "incorrect"));
+  const showEnglish = $derived(Boolean(english && !useCompare));
+  const showMissLabel = $derived(!useCompare && (revealed || grade === "incorrect"));
   const correctionClass = $derived(
-    isCompact && isMiss
-      ? "m-0 font-serif text-lg font-semibold text-emerald-900"
+    useCompare
+      ? "m-0 font-serif text-[1.0625rem] font-semibold leading-snug text-slate-900"
       : "m-0 font-serif text-xl font-semibold text-slate-900",
+  );
+  const attemptClass = $derived(
+    grade === "accents"
+      ? "m-0 font-serif text-[0.9375rem] leading-snug text-rose-950"
+      : "m-0 font-serif text-[0.9375rem] leading-snug text-rose-900/85 line-through decoration-rose-300/80",
   );
 </script>
 
-<div class={isCompact && isMiss ? "grid gap-1.5" : "grid gap-2"}>
-  {#if attempt}
-    {#if isCompact}
-      <p class="m-0 text-sm text-rose-900">
-        You wrote
-        <span class="font-serif text-rose-950" lang="sk">{attempt}</span>
+{#snippet whyLine()}
+  {#if why}
+    <p class="m-0 max-w-[65ch] text-sm leading-snug text-slate-600">
+      {#each whyParts as part, index (`${part.type}-${index}`)}
+        {#if part.type === "em"}
+          <strong class="font-semibold text-slate-800">{part.value}</strong>
+        {:else if part.type === "i"}
+          <em class="font-semibold not-italic text-slate-800">{part.value}</em>
+        {:else}
+          {part.value}
+        {/if}
+      {/each}
+    </p>
+  {/if}
+{/snippet}
+
+{#if useCompare}
+  <div class="grid gap-2">
+    {#if grade === "accents"}
+      <p class="m-0 text-sm font-semibold text-blue-900">Almost — check the accents.</p>
+    {/if}
+
+    {#if attempt || (showCorrection && correction)}
+      <div class={missCompareClass}>
+        {#if attempt}
+          <div class={missCompareAttemptRowClass}>
+            <p class="{feedbackSectionLabelClass} text-rose-700/90">You wrote</p>
+
+            <p class={attemptClass} lang="sk">{attempt}</p>
+          </div>
+        {/if}
+
+        {#if showCorrection && correction}
+          <div class={missCompareCorrectionRowClass}>
+            <p class="{feedbackSectionLabelClass} text-emerald-800">Correct answer</p>
+
+            <p class={correctionClass} lang="sk">{correction}</p>
+          </div>
+        {/if}
+      </div>
+    {/if}
+
+    {@render whyLine()}
+
+    {#if closeSuggestion}
+      <p class="m-0 text-sm text-slate-700">
+        Did you mean
+        <strong class="font-serif text-base text-slate-900" lang="sk"
+          >{closeSuggestion}</strong
+        >?
       </p>
-    {:else}
+    {/if}
+
+    {#if newUse}
+      <p class="m-0 text-sm text-blue-900">{newUse}</p>
+    {/if}
+
+    {#if dictionaryHref}
+      <TextLink class="text-sm" href={dictionaryHref}>Open in dictionary</TextLink>
+    {/if}
+  </div>
+{:else}
+  <div class="grid gap-2">
+    {#if attempt}
       <div>
         <p class="m-0 text-xs font-semibold text-rose-900">Your answer</p>
 
@@ -66,60 +134,40 @@
         </p>
       </div>
     {/if}
-  {/if}
 
-  {#if grade === "accents"}
-    <p class="m-0 text-sm font-semibold text-blue-900">Almost — check the accents.</p>
-  {:else if grade === "correct"}
-    <p class="m-0 text-sm font-semibold text-emerald-800">Correct</p>
-  {:else if showMissLabel}
-    <p class="m-0 text-sm font-semibold {correctionLabelClass}">Correct answer</p>
-  {:else if isCompact && isMiss && showCorrection && correction}
-    <span class="sr-only">Correct answer</span>
-  {/if}
+    {#if grade === "accents"}
+      <p class="m-0 text-sm font-semibold text-blue-900">Almost — check the accents.</p>
+    {:else if grade === "correct"}
+      <p class="m-0 text-sm font-semibold text-emerald-800">Correct</p>
+    {:else if showMissLabel}
+      <p class="m-0 text-sm font-semibold {correctionLabelClass}">Correct answer</p>
+    {/if}
 
-  {#if closeSuggestion}
-    <p class="m-0 text-sm text-slate-700">
-      Did you mean
-      <strong class="font-serif text-base text-slate-900" lang="sk"
-        >{closeSuggestion}</strong
-      >?
-    </p>
-  {/if}
+    {#if closeSuggestion}
+      <p class="m-0 text-sm text-slate-700">
+        Did you mean
+        <strong class="font-serif text-base text-slate-900" lang="sk"
+          >{closeSuggestion}</strong
+        >?
+      </p>
+    {/if}
 
-  {#if showCorrection && correction}
-    <p class={correctionClass} lang="sk">
-      {#if isCompact && attempt}
-        <span
-          class="mr-1.5 font-sans text-sm font-normal text-slate-400"
-          aria-hidden="true">→</span
-        >
-      {/if}
-      {correction}
-    </p>
-  {/if}
+    {#if showCorrection && correction}
+      <p class={correctionClass} lang="sk">{correction}</p>
+    {/if}
 
-  {#if showEnglish}
-    <p class="m-0 text-sm text-slate-600">{english}</p>
-  {/if}
+    {#if showEnglish}
+      <p class="m-0 text-sm text-slate-600">{english}</p>
+    {/if}
 
-  {#if why}
-    <p class="m-0 max-w-[65ch] text-sm leading-snug text-slate-700">
-      {#each whyParts as part, index (`${part.type}-${index}`)}
-        {#if part.type === "em"}
-          <strong class="font-semibold text-slate-900">{part.value}</strong>
-        {:else}
-          {part.value}
-        {/if}
-      {/each}
-    </p>
-  {/if}
+    {@render whyLine()}
 
-  {#if newUse}
-    <p class="m-0 text-sm text-blue-900">{newUse}</p>
-  {/if}
+    {#if newUse}
+      <p class="m-0 text-sm text-blue-900">{newUse}</p>
+    {/if}
 
-  {#if dictionaryHref}
-    <TextLink class="text-sm" href={dictionaryHref}>Open in dictionary</TextLink>
-  {/if}
-</div>
+    {#if dictionaryHref}
+      <TextLink class="text-sm" href={dictionaryHref}>Open in dictionary</TextLink>
+    {/if}
+  </div>
+{/if}

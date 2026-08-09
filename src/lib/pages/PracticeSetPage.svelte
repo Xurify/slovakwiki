@@ -20,6 +20,7 @@
     isDaysDatesTimeKind,
     materializeDaysDatesTimeItem,
   } from "$lib/learning/time/session";
+  import { maybeMaterializeBuildItem } from "$lib/learning/build";
 
   let {
     data,
@@ -42,7 +43,7 @@
     if (task.type === "cloze") return "Fill the gap";
     if (task.type === "selectAll") return "Mark every correct way";
     if (task.type === "choice") return "Choose the answer";
-    if (task.type === "build") return "Build the sentence";
+    if (task.type === "build") return "";
     if (task.type === "typed") return "Write the sentence";
     return data.set.title;
   }
@@ -59,13 +60,14 @@
 
     if (atItemId && data.set.itemIds.includes(atItemId)) {
       const item = practiceItemById.get(atItemId);
-      if (item) return [item];
+      if (item) return [maybeMaterializeBuildItem(item)];
     }
 
     const sampledIds = samplePracticeItemIds(data.set.itemIds, data.set.sessionSize);
     return sampledIds
       .map((itemId) => practiceItemById.get(itemId))
-      .filter((item): item is PracticeItem => item !== undefined);
+      .filter((item): item is PracticeItem => item !== undefined)
+      .map((item) => maybeMaterializeBuildItem(item));
   }
 
   onMount(() => {

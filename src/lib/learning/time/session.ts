@@ -1,4 +1,5 @@
 import type { PracticeItem } from "$lib/learning/types";
+import { materializeBuildItem } from "$lib/learning/build";
 import {
   analogFace,
   appointmentFrom24h,
@@ -90,10 +91,10 @@ function catalogItem(kind: DaysDatesTimeKind): PracticeItem | undefined {
   return daysDatesTimePracticeItems.find((item) => item.id === kind);
 }
 
-function staticDayMeeting(): PracticeItem {
-  const item = catalogItem("everyday/day-meeting");
-  if (!item) throw new Error("Missing everyday/day-meeting catalog item");
-  return item;
+function dayMeetingItem(rng: () => number): PracticeItem {
+  const catalog = catalogItem("everyday/day-meeting");
+  if (!catalog) throw new Error("Missing everyday/day-meeting catalog item");
+  return materializeBuildItem(catalog, rng);
 }
 
 function pickTime(
@@ -559,7 +560,7 @@ export function materializeDaysDatesTimeItem(
   kind: DaysDatesTimeKind,
   rng: () => number = Math.random,
 ): PracticeItem {
-  if (kind === "everyday/day-meeting") return staticDayMeeting();
+  if (kind === "everyday/day-meeting") return dayMeetingItem(rng);
 
   if (kind === "everyday/meeting-time") {
     return wrapTask(kind, buildChoiceExercise(kind, pickTime(":00", rng), rng));
