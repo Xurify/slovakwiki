@@ -25,5 +25,5 @@ export const okoloHint: ClozeHint = {
 export const dayPartHint: ClozeHint = {
   chip: "ráno / večer",
   grammarTopicId: "telling-time",
-  note: "Add a day-part when the face alone is ambiguous: **ráno** (morning), **dopoludnia**, **napoludnie**, **popoludní**, **večer**, **v noci**. *O štvrť na sedem ráno* vs *O štvrť na sedem večer.*",
+  note: "Add a day-part when the face alone is ambiguous: **ráno**, **doobeda** / **dopoludnia**, **naobed** / **napoludnie**, **poobede** / **popoludní**, **večer**, **v noci**. *O štvrť na sedem ráno* vs *O štvrť na sedem večer.*",
 };

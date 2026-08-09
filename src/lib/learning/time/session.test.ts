@@ -17,8 +17,8 @@ describe("learning/time/session", () => {
 
   it("builds a full session with odd-one-out and phase 2/3 items", () => {
     const session = buildDaysDatesTimeSession(() => 0.42);
-    expect(session.length).toBeGreaterThanOrEqual(8);
-    expect(session.length).toBeLessThanOrEqual(10);
+    expect(session.length).toBeGreaterThanOrEqual(9);
+    expect(session.length).toBeLessThanOrEqual(11);
     expect(session.some((item) => item.task.type === "selectAll")).toBe(false);
     const phase2Ids = [
       "everyday/day-part-time",
@@ -110,6 +110,18 @@ describe("learning/time/session", () => {
       expect(
         item.task.choices.find((c) => c.id === "wrong-minute")?.whyWrong,
       ).toBeTruthy();
+    }
+  });
+
+  it("materializes register contrast for Koľko vs O koľkej", () => {
+    const item = materializeDaysDatesTimeItem("everyday/time-register", () => 0.2);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      expect(item.task.promptLang).toBe("sk");
+      expect(item.task.prompt).toMatch(/Ktorá odpoveď patrí k otázke/);
+      expect(item.task.clock).toBeDefined();
+      expect(item.task.choices.some((c) => c.id === "wrong-register")).toBe(true);
+      expect(item.task.hint?.chip).toMatch(/Koľko/);
     }
   });
 

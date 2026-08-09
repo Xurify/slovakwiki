@@ -434,6 +434,27 @@ export const learningResources: LearningResource[] = [
     level: "A2+",
     links: [{ href: "https://www.youtube.com/@hlbavo", label: "YouTube" }],
   },
+  {
+    id: "ucimesaslovencinu",
+    group: "grammar",
+    name: "Učíme (sa) slovenčinu",
+    href: "https://ucimesaslovencinu.sk/",
+    summary:
+      "Lenka Ježó Garančovská’s site for Slovak as a foreign language — free grammar/conversation blog posts, drills, and a paid online club. Clear native-teacher explainers (in Slovak) for real situations.",
+    note: "Blog and free exercises are open; club and 1:1 lessons are paid. Articles assume some Slovak — pair with EN notes when needed.",
+    cost: "freemium",
+    level: "A1–B2",
+    links: [
+      {
+        href: "https://ucimesaslovencinu.sk/clanok/kolko-je-hodin-po-slovensky/",
+        label: "Koľko je hodín? (telling the time)",
+      },
+      {
+        href: "https://ucimesaslovencinu.sk/ucim-sa-slovencinu/",
+        label: "Free exercises",
+      },
+    ],
+  },
 
   // —— Dictionaries ——
   {

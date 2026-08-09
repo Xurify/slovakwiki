@@ -239,6 +239,16 @@ export function appointmentPhrase(time: ClockFaceTime): string {
   return `O trištvrte na ${towardWord}.`;
 }
 
+/** Preferred appointment answer for O koľkej? drills (no trailing period). */
+export function preferredAppointmentAnswerForTime(time: ClockFaceTime): string {
+  return appointmentPhrase(time).replace(/\.$/, "");
+}
+
+/** Accepted appointment forms for O koľkej? / Kedy? (includes O prvej, noon/midnight alts). */
+export function appointmentAnswersForTime(time: ClockFaceTime): string[] {
+  return appointmentAlternates(time).map((phrase) => phrase.replace(/\.$/, ""));
+}
+
 /** English gloss for feedback (At half past two.). */
 export function englishTimeGloss(time: ClockFaceTime): string {
   const face = analogFace(time);

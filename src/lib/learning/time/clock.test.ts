@@ -6,6 +6,7 @@ import {
   appointmentDistractorWhy,
   appointmentFrom24h,
   appointmentPhrase,
+  appointmentAnswersForTime,
   aroundPhrase,
   answersForTime,
   clockFaceDistractorWhy,
@@ -16,6 +17,7 @@ import {
   noonMidnightSelectAllChoices,
   oddOneOutChoicesFromDrafts,
   preferredAnswerForTime,
+  preferredAppointmentAnswerForTime,
   randomDrillTime,
   selectAllChoicesForTime,
   selectAllTrapWhy,
@@ -97,6 +99,15 @@ describe("learning/time/clock", () => {
     expect(appointmentPhrase({ hour: 1, minute: 0 })).toBe("O jednej.");
     expect(appointmentPhrase({ hour: 12, minute: 15 })).toBe("O štvrť na jednu.");
     expect(appointmentPhrase({ hour: 2, minute: 30 })).toBe("O pol tretej.");
+  });
+
+  it("lists appointment answers for O koľkej drills", () => {
+    expect(preferredAppointmentAnswerForTime({ hour: 2, minute: 30 })).toBe(
+      "O pol tretej",
+    );
+    expect(appointmentAnswersForTime({ hour: 1, minute: 0 })).toEqual(
+      expect.arrayContaining(["O jednej", "O prvej"]),
+    );
   });
 
   it("builds around phrases and za countdown", () => {

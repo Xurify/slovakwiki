@@ -12,14 +12,19 @@
   import {
     analogFace,
     answersForTime,
+    appointmentAnswersForTime,
     formatDigital,
     preferredAnswerForTime,
+    preferredAppointmentAnswerForTime,
     randomDrillTime,
     type ClockFaceTime,
   } from "./clock";
 
+  type ClockRegister = "telling" | "appointment";
+
   /** client:only island — randomize freely; never SSR'd. */
   let time = $state<ClockFaceTime>(randomDrillTime());
+  let register = $state<ClockRegister>("telling");
   let input = $state("");
   let submitted = $state(false);
   let revealed = $state(false);
@@ -27,8 +32,15 @@
 
   const face = $derived(analogFace(time));
   const digital = $derived(formatDigital(time));
-  const accepted = $derived(answersForTime(time));
-  const preferred = $derived(preferredAnswerForTime(time));
+  const promptSk = $derived(register === "telling" ? "Koľko je hodín?" : "O koľkej?");
+  const accepted = $derived(
+    register === "telling" ? answersForTime(time) : appointmentAnswersForTime(time),
+  );
+  const preferred = $derived(
+    register === "telling"
+      ? preferredAnswerForTime(time)
+      : preferredAppointmentAnswerForTime(time),
+  );
   const otherForms = $derived(accepted.filter((form) => form !== preferred));
   const grade = $derived(
     submitted && !revealed ? gradeAnswer(input, preferred, accepted) : null,
@@ -40,13 +52,39 @@
     return suggestion;
   });
   const showCorrection = $derived(shouldShowCorrection(submitted, grade, revealed));
+  const wrongRegisterHint = $derived.by(() => {
+    if (!submitted || revealed || grade === "correct" || grade === "accents") {
+      return null;
+    }
+    const otherAccepted =
+      register === "telling" ? appointmentAnswersForTime(time) : answersForTime(time);
+    if (
+      !otherAccepted.some((form) => gradeAnswer(input, form, otherAccepted) === "correct")
+    ) {
+      return null;
+    }
+    return register === "telling"
+      ? "That form answers **O koľkej?** — this question needs **Je/Sú …**."
+      : "That form answers **Koľko je hodín?** — this question needs **O …**.";
+  });
 
-  function nextTime(): void {
-    time = randomDrillTime();
+  function clearAttempt(): void {
     input = "";
     submitted = false;
     revealed = false;
     showMore = false;
+  }
+
+  function setRegister(next: ClockRegister): void {
+    if (next === register) return;
+    register = next;
+    clearAttempt();
+  }
+
+  function nextTime(): void {
+    time = randomDrillTime();
+    register = register === "telling" ? "appointment" : "telling";
+    clearAttempt();
   }
 
   function check(): void {
@@ -72,14 +110,49 @@
   </h2>
 
   <p class="m-0 max-w-[66ch] text-sm text-slate-600">
-    Read the face, then type how you would say the time. Short answers and formal minute
-    readings both count.
+    Read the face, then answer the Slovak question. <span lang="sk">Koľko je hodín?</span>
+    wants
+    <span lang="sk">Je/Sú …</span>; <span lang="sk">O koľkej?</span> wants
+    <span lang="sk">O …</span>.
   </p>
+
+  <div
+    class="mt-5 inline-flex rounded-(--control-radius) bg-slate-100 p-1"
+    role="group"
+    aria-label="Question register"
+  >
+    <button
+      class="min-h-10 rounded-[calc(var(--control-radius)-2px)] px-3 text-sm font-semibold transition-colors {register ===
+      'telling'
+        ? 'bg-surface text-slate-900 shadow-(--shadow-border)'
+        : 'text-slate-600 hover:text-slate-900'}"
+      type="button"
+      aria-pressed={register === "telling"}
+      disabled={submitted}
+      lang="sk"
+      onclick={() => setRegister("telling")}
+    >
+      Koľko je hodín?
+    </button>
+    <button
+      class="min-h-10 rounded-[calc(var(--control-radius)-2px)] px-3 text-sm font-semibold transition-colors {register ===
+      'appointment'
+        ? 'bg-surface text-slate-900 shadow-(--shadow-border)'
+        : 'text-slate-600 hover:text-slate-900'}"
+      type="button"
+      aria-pressed={register === "appointment"}
+      disabled={submitted}
+      lang="sk"
+      onclick={() => setRegister("appointment")}
+    >
+      O koľkej?
+    </button>
+  </div>
 
   <div class="mt-6 grid justify-items-center gap-3 py-6">
     <ClockIllustration hour={face.hour} minute={face.minute} size={160} label={digital} />
     <p class="m-0 font-serif text-lg font-semibold text-slate-900">{digital}</p>
-    <p class="m-0 font-serif text-base text-blue-800" lang="sk">Koľko je hodín?</p>
+    <p class="m-0 font-serif text-base text-blue-800" lang="sk">{promptSk}</p>
   </div>
 
   <label class="mt-6 grid gap-2 text-sm font-medium text-slate-600">
@@ -116,6 +189,7 @@
         revealed={revealed || grade === "incorrect"}
         {showCorrection}
         correctionLabelTone={grade === "correct" ? "emerald" : "rose"}
+        why={wrongRegisterHint}
       />
 
       {#if otherForms.length > 0 && (revealed || grade !== "correct")}

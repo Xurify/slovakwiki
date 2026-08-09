@@ -189,6 +189,9 @@ describe("resources", () => {
     expect(resourcesByGroup("grammar").some((r) => r.id === "omniglot-slovak")).toBe(
       true,
     );
+    expect(resourcesByGroup("grammar").some((r) => r.id === "ucimesaslovencinu")).toBe(
+      true,
+    );
     expect(resourcesByGroup("adjacent").some((r) => r.id === "duolingo-czech")).toBe(
       true,
     );

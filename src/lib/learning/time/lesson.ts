@@ -21,27 +21,27 @@ export const daysDatesTimeLessonId = "everyday/days-dates-and-time";
 
 export const daysDatesTimeVisual: NonNullable<Lesson["visual"]> = {
   type: "clock-grid",
-  title: "Match the face to the phrase",
+  title: "Same face, two questions",
   items: [
     {
       time: { hour: 3, minute: 0 },
-      slovak: "O tretej.",
-      english: "At three o’clock.",
+      slovak: "Sú tri hodiny.",
+      english: "O koľkej? → O tretej.",
     },
     {
       time: { hour: 2, minute: 30 },
-      slovak: "O pol tretej.",
-      english: "At half past two.",
+      slovak: "Je pol tretej.",
+      english: "O koľkej? → O pol tretej.",
     },
     {
       time: { hour: 2, minute: 15 },
-      slovak: "O štvrť na tri.",
-      english: "At quarter past two.",
+      slovak: "Je štvrť na tri.",
+      english: "O koľkej? → O štvrť na tri.",
     },
     {
       time: { hour: 2, minute: 45 },
-      slovak: "O trištvrte na tri.",
-      english: "At quarter to three.",
+      slovak: "Je trištvrte na tri.",
+      english: "O koľkej? → O trištvrte na tri.",
     },
   ],
 };
@@ -66,7 +66,7 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     id: "days-meeting-time",
     type: "choice",
     practiceItemId: "everyday/meeting-time",
-    prompt: "Ktoré hodiny ukazujú „tretej“?",
+    prompt: "Ktoré hodiny ukazujú „o tretej“?",
     promptLang: "sk",
     choiceStyle: "clock",
     choices: [
@@ -236,6 +236,35 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       correction: "Je štvrť na tri.",
       english: "It's quarter past two.",
       why: tellingChoiceWhy(t(2, 15)),
+    },
+  },
+  {
+    id: "days-time-register",
+    type: "choice",
+    practiceItemId: "everyday/time-register",
+    prompt: "Ktorá odpoveď patrí k otázke „O koľkej?“?",
+    promptLang: "sk",
+    clock: { hour: 2, minute: 30 },
+    choices: [
+      { id: "appointment", label: "O pol tretej." },
+      {
+        id: "telling",
+        label: "Je pol tretej.",
+        whyWrong:
+          "**Je pol tretej** answers **Koľko je hodín?** — **O koľkej?** needs **O …**.",
+      },
+      {
+        id: "wrong-time",
+        label: "O pol štvrtej.",
+        whyWrong: appointmentDistractorWhy(t(2, 30), t(3, 30)),
+      },
+    ],
+    answerId: "appointment",
+    hint: registersHint,
+    feedback: {
+      correction: "O pol tretej.",
+      english: "At half past two.",
+      why: "**O koľkej?** asks when something happens → answer with **O …**: **O pol tretej**.",
     },
   },
   {

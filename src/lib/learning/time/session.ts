@@ -26,6 +26,7 @@ import {
   randomExactMinuteTime,
   randomFaceHour12,
   randomNoonOrMidnight,
+  randomQuarterMinute,
   selectAllChoicesForTime,
   shuffleArray,
   clockFaceDistractorWhy,
@@ -36,7 +37,7 @@ import {
   zaCountdownClockFace,
   type ClockFaceTime,
 } from "./clock";
-import { dayPartHint, hodinaAgreementHint, okoloHint } from "./hints";
+import { dayPartHint, hodinaAgreementHint, okoloHint, registersHint } from "./hints";
 import {
   enAroundPrompt,
   enDayPartEveningPrompt,
@@ -57,6 +58,7 @@ export type DaysDatesTimeKind =
   | "everyday/clock-quarter-past-match"
   | "everyday/clock-quarter-to-match"
   | "everyday/clock-quarter-past-ask"
+  | "everyday/time-register"
   | "everyday/time-variants"
   | "everyday/day-part-time"
   | "everyday/noon-midnight"
@@ -105,7 +107,10 @@ function choiceIdForTime(time: ClockFaceTime): string {
 }
 
 function appointmentBarePhrase(time: ClockFaceTime): string {
-  return appointmentPhrase(time).replace(/^O /, "").replace(/\.$/, "");
+  const phrase = appointmentPhrase(time).replace(/\.$/, "");
+  // Quarters quote without leading O („pol tretej“); on the hour keep o („o tretej“).
+  if (time.minute === 0) return phrase.replace(/^O /, "o ");
+  return phrase.replace(/^O /, "");
 }
 
 function phraseForWhy(phrase: string): string {
@@ -202,10 +207,75 @@ function buildTellingAskExercise(
     clock: face,
     choices,
     answerId: "correct",
+    hint: registersHint,
     feedback: {
       correction: correctLabel,
       english: englishTimeGloss(time),
       why: tellingChoiceWhy(time),
+    },
+  };
+}
+
+function buildRegisterContrastExercise(
+  kind: DaysDatesTimeKind,
+  rng: () => number,
+): PracticeItem["task"] {
+  const hour = randomFaceHour12(rng);
+  const minute = randomQuarterMinute(rng);
+  const time: ClockFaceTime = { hour, minute };
+  const face = analogFace(time);
+  const askAppointment = rng() < 0.5;
+  const tellingLabel = tellingTimeLabel(time);
+  const appointmentLabel = appointmentPhrase(time);
+  const miss = nearMissTimes(time, rng)[0]!;
+  const wrongRegisterLabel = askAppointment ? tellingLabel : appointmentLabel;
+  const wrongTimeLabel = askAppointment
+    ? appointmentPhrase(miss)
+    : tellingTimeLabel(miss);
+
+  const prompt = askAppointment
+    ? "Ktorá odpoveď patrí k otázke „O koľkej?“?"
+    : "Ktorá odpoveď patrí k otázke „Koľko je hodín?“?";
+  const answerId = "correct";
+  const correction = askAppointment ? appointmentLabel : tellingLabel;
+
+  const choices = shuffleArray(
+    [
+      { id: "correct", label: correction },
+      {
+        id: "wrong-register",
+        label: wrongRegisterLabel,
+        whyWrong: askAppointment
+          ? `**${phraseForWhy(tellingLabel)}** answers **Koľko je hodín?** — **O koľkej?** needs **O …**.`
+          : `**${phraseForWhy(appointmentLabel)}** answers **O koľkej?** — **Koľko je hodín?** needs **Je/Sú …**.`,
+      },
+      {
+        id: "wrong-time",
+        label: wrongTimeLabel,
+        whyWrong: askAppointment
+          ? appointmentDistractorWhy(time, miss)
+          : tellingDistractorWhy(time, miss),
+      },
+    ],
+    rng,
+  );
+
+  return {
+    id: `generated-${kind}`,
+    type: "choice",
+    practiceItemId: kind,
+    prompt,
+    promptLang: "sk",
+    clock: face,
+    choices,
+    answerId,
+    hint: registersHint,
+    feedback: {
+      correction,
+      english: englishTimeGloss(time),
+      why: askAppointment
+        ? `**O koľkej?** asks when something happens → answer with **O …**: **${phraseForWhy(appointmentLabel)}**.`
+        : `**Koľko je hodín?** asks what time it is → answer with **Je/Sú …**: **${phraseForWhy(tellingLabel)}**.`,
     },
   };
 }
@@ -531,6 +601,9 @@ export function materializeDaysDatesTimeItem(
   if (kind === "everyday/clock-quarter-past-ask") {
     return wrapTask(kind, buildTellingAskExercise(kind, rng));
   }
+  if (kind === "everyday/time-register") {
+    return wrapTask(kind, buildRegisterContrastExercise(kind, rng));
+  }
   if (kind === "everyday/time-variants") {
     return wrapTask(kind, buildTimeVariantsOddOneOutExercise(kind, rng));
   }
@@ -568,6 +641,7 @@ export function buildDaysDatesTimeSession(
   }
 
   items.push(materializeDaysDatesTimeItem("everyday/clock-quarter-past-ask", rng));
+  items.push(materializeDaysDatesTimeItem("everyday/time-register", rng));
   items.push(materializeDaysDatesTimeItem("everyday/time-variants", rng));
 
   const phase2 = shuffleArray(PHASE2_KINDS, rng);
@@ -594,6 +668,7 @@ const ALL_KINDS: DaysDatesTimeKind[] = [
   ...CORE_QUARTER_KINDS,
   ...CLOCK_MATCH_KINDS,
   "everyday/clock-quarter-past-ask",
+  "everyday/time-register",
   "everyday/time-variants",
   ...PHASE2_KINDS,
   ...PHASE3_KINDS,

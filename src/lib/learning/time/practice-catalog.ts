@@ -43,6 +43,7 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
   stubClockMatch("everyday/clock-quarter-past-match", "review-clock-quarter-past-match"),
   stubClockMatch("everyday/clock-quarter-to-match", "review-clock-quarter-to-match"),
   stubTellingAsk("everyday/clock-quarter-past-ask", "review-clock-quarter-past-ask"),
+  stubRegisterContrast("everyday/time-register", "review-time-register"),
   stubOddOneOut("everyday/time-variants", "review-time-variants"),
   stubPhraseChoice("everyday/day-part-time", "review-day-part-time"),
   stubOddOneOut("everyday/noon-midnight", "review-noon-midnight"),
@@ -125,6 +126,33 @@ function stubPhraseChoice(id: string, taskId: string): PracticeItem {
           id: "b",
           label: "O tretej večer.",
           whyWrong: "**Večer** marks evening — this prompt asks for morning.",
+        },
+      ],
+      answerId: "a",
+      feedback: stubFeedback,
+    },
+    feedback: stubFeedback,
+  };
+}
+
+function stubRegisterContrast(id: string, taskId: string): PracticeItem {
+  return {
+    id,
+    source: daysDatesTimeSource,
+    task: {
+      id: taskId,
+      type: "choice",
+      practiceItemId: id,
+      prompt: "Ktorá odpoveď patrí k otázke „O koľkej?“?",
+      promptLang: "sk",
+      clock: { hour: 2, minute: 30 },
+      choices: [
+        { id: "a", label: "O pol tretej." },
+        {
+          id: "b",
+          label: "Je pol tretej.",
+          whyWrong:
+            "**Je pol tretej** answers **Koľko je hodín?** — **O koľkej?** needs **O …**.",
         },
       ],
       answerId: "a",
