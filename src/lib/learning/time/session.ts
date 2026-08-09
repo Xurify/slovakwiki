@@ -2,10 +2,8 @@ import type { PracticeItem } from "$lib/learning/types";
 import { materializeBuildItem } from "$lib/learning/build";
 import {
   analogFace,
-  appointmentFrom24h,
   appointmentPhrase,
   appointmentPhraseWithDayPart,
-  appointmentChoiceDistractors,
   appointmentChoiceWhy,
   appointmentDayPartChoiceWhy,
   appointmentDayPartWrongWhy,
@@ -17,7 +15,6 @@ import {
   exactMinuteChoiceWhy,
   exactMinuteTellingLabel,
   exactMinuteWrongWhy,
-  formatFaceDigital12,
   isNoonTime,
   nearMissTimes,
   noonMidnightSelectAllChoices,
@@ -29,7 +26,6 @@ import {
   randomExactMinuteTime,
   randomFaceHour12,
   randomNoonOrMidnight,
-  randomQuarterMinute,
   selectAllChoicesForTime,
   shuffleArray,
   clockFaceDistractorWhy,
@@ -42,15 +38,13 @@ import {
 } from "./clock";
 import { dayPartHint, hodinaAgreementHint, okoloHint } from "./hints";
 import {
-  enAppointmentPrompt,
   enAroundPrompt,
   enDayPartEveningPrompt,
   enDayPartMorningPrompt,
   enExactAroundPrompt,
-  enExactMinutePrompt,
   enOddOneOutPrompt,
-  enTimetablePrompt,
   enZaCountdownMeaningPhrase,
+  skWhichClockShows,
 } from "./prompts";
 import { daysDatesTimePracticeItems } from "./practice-catalog";
 
@@ -105,26 +99,6 @@ function dayMeetingItem(rng: () => number): PracticeItem {
   return materializeBuildItem(catalog, rng);
 }
 
-function pickTime(
-  minuteConstraint: QuarterMinuteConstraint,
-  rng: () => number,
-): ClockFaceTime {
-  const hour = randomFaceHour12(rng);
-  let minute = randomQuarterMinute(rng);
-
-  if (minuteConstraint === ":00") minute = 0;
-  else if (minuteConstraint === ":30") minute = 30;
-  else if (minuteConstraint === ":15") minute = 15;
-  else if (minuteConstraint === ":45") minute = 45;
-  else if (minuteConstraint === ":15-or-45") {
-    minute = rng() < 0.5 ? 15 : 45;
-  }
-
-  return { hour, minute };
-}
-
-type QuarterMinuteConstraint = ":00" | ":15" | ":30" | ":45" | ":15-or-45";
-
 function choiceIdForTime(time: ClockFaceTime): string {
   const face = analogFace(time);
   return `face-${face.hour}-${face.minute}`;
@@ -144,59 +118,14 @@ function pickTrapChoiceTask(
   return { type: "choice", choiceMode: "pickTrap", ...task };
 }
 
-function buildChoiceExercise(
+function buildClockMatchForTime(
   kind: DaysDatesTimeKind,
   time: ClockFaceTime,
   rng: () => number,
-  promptOverride?: string,
+  barePhrase = appointmentBarePhrase(time),
 ): PracticeItem["task"] {
   const face = analogFace(time);
   const correctPhrase = appointmentPhrase(time);
-  const misses = nearMissTimes(time, rng);
-  const distractors = appointmentChoiceDistractors(time, misses);
-  const choices = shuffleArray(
-    [
-      { id: "correct", label: correctPhrase },
-      ...distractors.map((d) => ({
-        id: d.id,
-        label: d.label,
-        ...(d.whyWrong ? { whyWrong: d.whyWrong } : {}),
-      })),
-    ],
-    rng,
-  );
-
-  const english = englishTimeGloss(time);
-  const isOneOnTheHour = face.hour === 1 && time.minute === 0;
-
-  return {
-    id: `generated-${kind}`,
-    type: "choice",
-    practiceItemId: kind,
-    prompt: promptOverride ?? enAppointmentPrompt(time),
-    clock: face,
-    choices,
-    answerId: "correct",
-    feedback: {
-      correction: correctPhrase,
-      english,
-      why: isOneOnTheHour
-        ? `**O jednej** is the usual appointment form for **1:00** — **O prvej** is also heard.`
-        : appointmentChoiceWhy(time),
-    },
-  };
-}
-
-function buildClockMatchExercise(
-  kind: DaysDatesTimeKind,
-  minute: 15 | 30 | 45,
-  rng: () => number,
-): PracticeItem["task"] {
-  const hour = randomFaceHour12(rng);
-  const time: ClockFaceTime = { hour, minute };
-  const face = analogFace(time);
-  const correctPhrase = appointmentPhrase(time);
-  const bare = appointmentBarePhrase(time);
   const misses = nearMissTimes(time, rng);
 
   const choices = shuffleArray(
@@ -215,7 +144,7 @@ function buildClockMatchExercise(
     id: `generated-${kind}`,
     type: "choice",
     practiceItemId: kind,
-    prompt: `Ktoré hodiny ukazujú „${bare}“?`,
+    prompt: skWhichClockShows(barePhrase),
     promptLang: "sk",
     choiceStyle: "clock",
     choices,
@@ -226,6 +155,15 @@ function buildClockMatchExercise(
       why: appointmentChoiceWhy(time),
     },
   };
+}
+
+function buildClockMatchExercise(
+  kind: DaysDatesTimeKind,
+  minute: 0 | 15 | 30 | 45,
+  rng: () => number,
+): PracticeItem["task"] {
+  const hour = randomFaceHour12(rng);
+  return buildClockMatchForTime(kind, { hour, minute }, rng);
 }
 
 function buildTellingAskExercise(
@@ -341,6 +279,7 @@ function buildDayPartExercise(
     type: "choice",
     practiceItemId: kind,
     prompt,
+    promptLang: "sk",
     clock: face,
     choices,
     answerId: "correct",
@@ -429,6 +368,7 @@ function buildOkoloVsExactExercise(
     type: "choice",
     practiceItemId: kind,
     prompt,
+    promptLang: "sk",
     clock: face,
     choices,
     answerId,
@@ -446,36 +386,7 @@ function buildTimetableExercise(
   rng: () => number,
 ): PracticeItem["task"] {
   const time = random24hQuarterTime(rng);
-  const face = analogFace(time);
-  const correctPhrase = appointmentFrom24h(time) ?? appointmentPhrase(time);
-  const misses = nearMissTimes(time, rng);
-
-  const choices = shuffleArray(
-    [
-      { id: "correct", label: correctPhrase },
-      ...misses.map((miss) => ({
-        id: choiceIdForTime(miss),
-        label: appointmentPhrase(miss),
-        whyWrong: appointmentDistractorWhy(time, miss),
-      })),
-    ],
-    rng,
-  );
-
-  return {
-    id: `generated-${kind}`,
-    type: "choice",
-    practiceItemId: kind,
-    prompt: enTimetablePrompt(time),
-    clock: face,
-    choices,
-    answerId: "correct",
-    feedback: {
-      correction: correctPhrase,
-      english: englishTimeGloss(time),
-      why: appointmentChoiceWhy(time),
-    },
-  };
+  return buildClockMatchForTime(kind, time, rng);
 }
 
 function buildExactMinuteExercise(
@@ -485,27 +396,36 @@ function buildExactMinuteExercise(
   const time = randomExactMinuteTime(rng);
   const face = analogFace({ hour: time.hour, minute: time.minute });
   const correctLabel = exactMinuteTellingLabel(time);
-  const wrongMinute = exactMinuteTellingLabel({
+  const bare = correctLabel.replace(/^Sú |^Je /, "").replace(/\.$/, "");
+  const wrongMinuteTime = {
     hour: time.hour,
     minute: time.minute === 10 ? 5 : 10,
-  });
-  const wrongHour = exactMinuteTellingLabel({
+  };
+  const wrongHourTime = {
     hour: time.hour === 12 ? 11 : time.hour + 1,
     minute: time.minute,
-  });
+  };
 
   const choices = shuffleArray(
     [
-      { id: "correct", label: correctLabel },
+      { id: "correct", clock: face },
       {
         id: "wrong-minute",
-        label: wrongMinute,
-        whyWrong: exactMinuteWrongWhy("minute", wrongMinute, time),
+        clock: analogFace(wrongMinuteTime),
+        whyWrong: exactMinuteWrongWhy(
+          "minute",
+          exactMinuteTellingLabel(wrongMinuteTime),
+          time,
+        ),
       },
       {
         id: "wrong-hour",
-        label: wrongHour,
-        whyWrong: exactMinuteWrongWhy("hour", wrongHour, time),
+        clock: analogFace(wrongHourTime),
+        whyWrong: exactMinuteWrongWhy(
+          "hour",
+          exactMinuteTellingLabel(wrongHourTime),
+          time,
+        ),
       },
     ],
     rng,
@@ -515,8 +435,9 @@ function buildExactMinuteExercise(
     id: `generated-${kind}`,
     type: "choice",
     practiceItemId: kind,
-    prompt: enExactMinutePrompt(time),
-    clock: face,
+    prompt: skWhichClockShows(bare),
+    promptLang: "sk",
+    choiceStyle: "clock",
     choices,
     answerId: "correct",
     hint: hodinaAgreementHint,
@@ -589,13 +510,14 @@ export function materializeDaysDatesTimeItem(
   if (kind === "everyday/day-meeting") return dayMeetingItem(rng);
 
   if (kind === "everyday/meeting-time") {
-    return wrapTask(kind, buildChoiceExercise(kind, pickTime(":00", rng), rng));
+    return wrapTask(kind, buildClockMatchExercise(kind, 0, rng));
   }
   if (kind === "everyday/half-past-time") {
-    return wrapTask(kind, buildChoiceExercise(kind, pickTime(":30", rng), rng));
+    return wrapTask(kind, buildClockMatchExercise(kind, 30, rng));
   }
   if (kind === "everyday/quarter-time") {
-    return wrapTask(kind, buildChoiceExercise(kind, pickTime(":15-or-45", rng), rng));
+    const minute = rng() < 0.5 ? 15 : 45;
+    return wrapTask(kind, buildClockMatchExercise(kind, minute, rng));
   }
   if (kind === "everyday/clock-half-past-match") {
     return wrapTask(kind, buildClockMatchExercise(kind, 30, rng));
@@ -644,9 +566,6 @@ export function buildDaysDatesTimeSession(
   for (const kind of CORE_QUARTER_KINDS) {
     items.push(materializeDaysDatesTimeItem(kind, rng));
   }
-
-  const matchPick = shuffleArray(CLOCK_MATCH_KINDS, rng)[0]!;
-  items.push(materializeDaysDatesTimeItem(matchPick, rng));
 
   items.push(materializeDaysDatesTimeItem("everyday/clock-quarter-past-ask", rng));
   items.push(materializeDaysDatesTimeItem("everyday/time-variants", rng));

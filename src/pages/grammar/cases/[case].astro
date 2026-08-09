@@ -15,6 +15,10 @@ export function getStaticPaths() {
 const { topic } = Astro.props;
 ---
 
-<SiteLayout title={`${topic.name} case | Slovak Wiki`} description={topic.summary}>
+<SiteLayout
+  title={`${topic.name} case | Slovak Wiki`}
+  description={topic.summary}
+  canonicalPath={`/grammar/cases/${topic.slug}`}
+>
   <GrammarCasePage data={{ topic }} />
 </SiteLayout>

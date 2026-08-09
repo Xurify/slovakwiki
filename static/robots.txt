@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://slovak.wiki/sitemap-index.xml

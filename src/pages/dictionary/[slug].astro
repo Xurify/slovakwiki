@@ -177,6 +177,7 @@ for (const [senseIndex, sense] of senses.entries()) {
 <SiteLayout
   title={`${entry.slovak} — ${titleEnglish} | Slovak Wiki`}
   description={entry.summary}
+  canonicalPath={`/dictionary/${entry.slug}`}
 >
   <DictionaryDetailPage
     data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image }}

@@ -1,3 +1,9 @@
+import {
+  buildLiveLinksFromIndex,
+  type DictionaryLiveLink,
+  resolveLiveLinkFromIndex,
+} from "$lib/content/dictionary-common-links";
+import type { DictionaryIndexSidecarEntry } from "$lib/content/dictionary-browse";
 import type { FrequencyPartOfSpeech } from "$lib/content/frequency-types";
 import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/content/dictionary-browse-utils";
 
@@ -7,17 +13,7 @@ export interface CompactFrequencyEntry {
   rank: number;
 }
 
-export interface LiveLink {
-  english: string;
-  hash?: string;
-  slug: string;
-}
-
-interface IndexEntry {
-  english: string;
-  slug: string;
-  slovak: string;
-}
+export type LiveLink = DictionaryLiveLink;
 
 export const PAGE_SIZE = 100;
 
@@ -41,6 +37,24 @@ function normalize(value: string): string {
     .replace(/\p{Diacritic}/gu, "")
     .toLocaleLowerCase("sk")
     .trim();
+}
+
+function buildLemmaLiveMap(
+  entries: CompactFrequencyEntry[],
+  partOfSpeech: FrequencyPartOfSpeech,
+  index: readonly DictionaryIndexSidecarEntry[],
+): Record<string, LiveLink> {
+  const byLemmaCategory = buildLiveLinksFromIndex(index);
+  const nextLive: Record<string, LiveLink> = {};
+
+  for (const entry of entries) {
+    const link = resolveLiveLinkFromIndex(entry.lemma, partOfSpeech, byLemmaCategory);
+    if (link) {
+      nextLive[entry.lemma] = link;
+    }
+  }
+
+  return nextLive;
 }
 
 export function filterDictionaryCommonEntries(
@@ -82,19 +96,18 @@ export async function ensureDictionaryCommonLoaded(): Promise<void> {
       entries: CompactFrequencyEntry[];
     };
 
-    dictionaryCommonState.entries = frequencyData.entries.filter(
+    const entries = frequencyData.entries.filter(
       (entry) => entry.lemma.trim().length > 1,
     );
+    dictionaryCommonState.entries = entries;
 
     if (indexResponse.ok) {
-      const indexData = (await indexResponse.json()) as IndexEntry[];
-      const nextLive: Record<string, LiveLink> = {};
-
-      for (const item of indexData) {
-        nextLive[item.slovak] = { slug: item.slug, english: item.english };
-      }
-
-      dictionaryCommonState.liveByLemma = nextLive;
+      const indexData = (await indexResponse.json()) as DictionaryIndexSidecarEntry[];
+      dictionaryCommonState.liveByLemma = buildLemmaLiveMap(
+        entries,
+        dictionaryCommonState.partOfSpeech,
+        indexData,
+      );
     }
   } catch (error) {
     dictionaryCommonState.loadError =

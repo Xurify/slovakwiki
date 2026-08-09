@@ -52,7 +52,11 @@ for (const [index, phrase] of lesson.keyPhrases.entries()) {
 }
 ---
 
-<SiteLayout title={`${lesson.title} | Slovak Wiki Lessons`} description={lesson.promise}>
+<SiteLayout
+  title={`${lesson.title} | Slovak Wiki Lessons`}
+  description={lesson.promise}
+  canonicalPath={`/lessons/${lesson.track}/${lesson.slug}`}
+>
   <LessonPage data={{ lesson }}>
     <LessonPracticeBlock
       slot="practice"

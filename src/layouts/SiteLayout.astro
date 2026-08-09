@@ -2,6 +2,7 @@
 import Footer from "$lib/components/Footer.svelte";
 import Header from "$lib/components/Header.svelte";
 import HeaderSearch from "$lib/components/HeaderSearch.svelte";
+import { absoluteSiteUrl, SITE_NAME } from "$lib/seo/site";
 import plexLatin from "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2?url";
 import plexLatinExt from "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-ext-wght-normal.woff2?url";
 import serifLatin from "@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url";
@@ -9,12 +10,20 @@ import serifLatinExt from "@fontsource-variable/source-serif-4/files/source-seri
 import "../styles.css";
 
 interface Props {
+  /** Path-only canonical (no query, no hash). Defaults to current pathname. */
+  canonicalPath?: string;
   description?: string;
+  /** When true, adds `noindex, follow` (filter/search/session URLs). */
+  noindex?: boolean;
   title: string;
 }
-const { description, title } = Astro.props;
+
+const { canonicalPath, description, noindex = false, title } = Astro.props;
 const pathname = Astro.url.pathname;
 const query = Astro.url.searchParams.get("q") ?? "";
+const resolvedCanonicalPath = canonicalPath ?? pathname;
+const canonicalUrl = absoluteSiteUrl(resolvedCanonicalPath);
+const ogImage = absoluteSiteUrl("/favicon.svg");
 ---
 
 <!doctype html>
@@ -27,6 +36,18 @@ const query = Astro.url.searchParams.get("q") ?? "";
     <meta name="theme-color" content="#d4e2e8" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
     <link rel="preload" href={plexLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={plexLatinExt} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={serifLatin} as="font" type="font/woff2" crossorigin />

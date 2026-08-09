@@ -36,6 +36,7 @@ const { entry, relatedEntries } = Astro.props;
 <SiteLayout
   title={`${sentenceCase(entry.english)} | Slovak Wiki Grammar`}
   description={entry.summary}
+  canonicalPath={`/grammar/${entry.slug}`}
 >
   <GrammarDetailPage data={{ entry, relatedEntries }}>
     {

@@ -16,6 +16,7 @@ const initialData = buildWikiPageView(
   initialBrowse.letter,
   initialBrowse.page,
 );
+const hasBrowseParams = [...Astro.url.searchParams.keys()].length > 0;
 ---
 
 <link rel="preload" href={DICTIONARY_BROWSE_INDEX_URL} as="fetch" crossorigin />
@@ -23,6 +24,8 @@ const initialData = buildWikiPageView(
 <SiteLayout
   title="Dictionary — Slovak Wiki"
   description="Look up Slovak words by letter, part of speech, or English meaning."
+  canonicalPath="/dictionary"
+  noindex={hasBrowseParams}
 >
   <WikiPage>
     <WikiBrowseClient client:load slot="browse" {initialData} {initialBrowse} />

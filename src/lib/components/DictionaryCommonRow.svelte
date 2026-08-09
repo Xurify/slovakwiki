@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { dictionaryPathForLiveLink } from "$lib/content/dictionary-common-links";
   import type {
     CompactFrequencyEntry,
     LiveLink,
@@ -14,9 +15,7 @@
     rowClass?: string;
   } = $props();
 
-  const href = $derived(
-    live ? `/dictionary/${live.slug}${live.hash ? `#${live.hash}` : ""}` : null,
-  );
+  const href = $derived(live ? dictionaryPathForLiveLink(live) : null);
 </script>
 
 <li>

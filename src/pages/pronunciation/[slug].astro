@@ -36,6 +36,7 @@ const pageTitle = sentenceCase(entry.english);
 <SiteLayout
   title={`${pageTitle} | Slovak Wiki Pronunciation`}
   description={entry.summary}
+  canonicalPath={`/pronunciation/${entry.slug}`}
 >
   <PronunciationDetailPage data={{ entry, relatedEntries }} />
 </SiteLayout>

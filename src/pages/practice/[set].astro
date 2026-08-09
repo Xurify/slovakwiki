@@ -25,11 +25,14 @@ export function getStaticPaths() {
 }
 
 const { set, clozeAudioSrcs: audioSrcs } = Astro.props;
+const hasSessionParam = Astro.url.searchParams.has("at");
 ---
 
 <SiteLayout
   title={`${set.title} practice | Slovak Wiki`}
   description={`Slovak practice for ${set.title}.`}
+  canonicalPath={`/practice/${set.id}`}
+  noindex={hasSessionParam}
 >
   <PracticeSetPage data={{ set, clozeAudioSrcs: audioSrcs }} client:load />
 </SiteLayout>

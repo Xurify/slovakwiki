@@ -26,6 +26,7 @@ const tabs = FREQUENCY_PARTS.map((value) => ({
 <SiteLayout
   title={`Most common ${FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()} — Slovak Wiki`}
   description={`The most common Slovak ${FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()} from the Slovak National Corpus.`}
+  canonicalPath={`/dictionary/common/${partOfSpeech}`}
 >
   <DictionaryCommonPage
     {initialEntries}

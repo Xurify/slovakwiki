@@ -36,51 +36,25 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       why: "Use **v** + the day of the week for an appointment day: **v utorok**.",
     },
   },
-  stubChoice("everyday/meeting-time", "review-meeting-time"),
-  stubChoice("everyday/half-past-time", "review-half-past-time"),
-  stubChoice("everyday/quarter-time", "review-quarter-time"),
+  stubClockMatch("everyday/meeting-time", "review-meeting-time"),
+  stubClockMatch("everyday/half-past-time", "review-half-past-time"),
+  stubClockMatch("everyday/quarter-time", "review-quarter-time"),
   stubClockMatch("everyday/clock-half-past-match", "review-clock-half-past-match"),
   stubClockMatch("everyday/clock-quarter-past-match", "review-clock-quarter-past-match"),
   stubClockMatch("everyday/clock-quarter-to-match", "review-clock-quarter-to-match"),
-  stubChoice("everyday/clock-quarter-past-ask", "review-clock-quarter-past-ask"),
+  stubTellingAsk("everyday/clock-quarter-past-ask", "review-clock-quarter-past-ask"),
   stubOddOneOut("everyday/time-variants", "review-time-variants"),
-  stubChoice("everyday/day-part-time", "review-day-part-time"),
+  stubPhraseChoice("everyday/day-part-time", "review-day-part-time"),
   stubOddOneOut("everyday/noon-midnight", "review-noon-midnight"),
-  stubChoice("everyday/okolo-vs-exact", "review-okolo-vs-exact"),
-  stubChoice("everyday/timetable-24h", "review-timetable-24h"),
-  stubChoice("everyday/exact-minute", "review-exact-minute"),
+  stubPhraseChoice("everyday/okolo-vs-exact", "review-okolo-vs-exact"),
+  stubClockMatch("everyday/timetable-24h", "review-timetable-24h"),
+  stubClockMatch("everyday/exact-minute", "review-exact-minute"),
   stubOddOneOut("everyday/za-countdown", "review-za-countdown"),
 ];
 
 export const daysDatesTimePracticeItemIds = daysDatesTimePracticeItems.map(
   (item) => item.id,
 );
-
-function stubChoice(id: string, taskId: string): PracticeItem {
-  return {
-    id,
-    source: daysDatesTimeSource,
-    task: {
-      id: taskId,
-      type: "choice",
-      practiceItemId: id,
-      prompt: "When is the meeting?",
-      clock: { hour: 3, minute: 0 },
-      choices: [
-        { id: "a", label: "O tretej." },
-        {
-          id: "b",
-          label: "O pol tretej.",
-          whyWrong:
-            "Check the clock face — **pol** names the hour ahead, not the hand you see.",
-        },
-      ],
-      answerId: "a",
-      feedback: stubFeedback,
-    },
-    feedback: stubFeedback,
-  };
-}
 
 function stubClockMatch(id: string, taskId: string): PracticeItem {
   return {
@@ -99,6 +73,58 @@ function stubClockMatch(id: string, taskId: string): PracticeItem {
           id: "b",
           clock: { hour: 3, minute: 30 },
           whyWrong: "This face shows half past three — not half past two.",
+        },
+      ],
+      answerId: "a",
+      feedback: stubFeedback,
+    },
+    feedback: stubFeedback,
+  };
+}
+
+function stubTellingAsk(id: string, taskId: string): PracticeItem {
+  return {
+    id,
+    source: daysDatesTimeSource,
+    task: {
+      id: taskId,
+      type: "choice",
+      practiceItemId: id,
+      prompt: "Koľko je hodín?",
+      promptLang: "sk",
+      clock: { hour: 2, minute: 15 },
+      choices: [
+        { id: "a", label: "Je štvrť na tri." },
+        {
+          id: "b",
+          label: "Je pol tretej.",
+          whyWrong: "**Pol tretej** means half past two — not quarter past.",
+        },
+      ],
+      answerId: "a",
+      feedback: stubFeedback,
+    },
+    feedback: stubFeedback,
+  };
+}
+
+function stubPhraseChoice(id: string, taskId: string): PracticeItem {
+  return {
+    id,
+    source: daysDatesTimeSource,
+    task: {
+      id: taskId,
+      type: "choice",
+      practiceItemId: id,
+      prompt: "Ktorý výraz znamená „3 o'clock in the morning“?",
+      promptLang: "sk",
+      clock: { hour: 3, minute: 0 },
+      choices: [
+        { id: "a", label: "O tretej ráno." },
+        {
+          id: "b",
+          label: "O tretej večer.",
+          whyWrong: "**Večer** marks evening — this prompt asks for morning.",
         },
       ],
       answerId: "a",

@@ -1,7 +1,6 @@
 import { contentCacheKey } from "$lib/build/cache-key";
+import { liveLinkForLemma } from "$lib/content/dictionary-common-links";
 import { words } from "$lib/content/data";
-import { findLiveWordForLemma } from "$lib/content/frequency";
-import { dictionaryHrefForSense } from "$lib/content/lemma-senses";
 import { loadAllFrequencyLists } from "$lib/content/load-frequency";
 import { FREQUENCY_PARTS } from "$lib/content/frequency-types";
 
@@ -27,14 +26,9 @@ export async function frequencyCommonStaticPaths() {
       {};
 
     for (const entry of initialEntries) {
-      const live = findLiveWordForLemma(entry.lemma, words, partOfSpeech);
-      if (!live) continue;
-      const href = dictionaryHrefForSense(live, words);
-      liveByLemma[entry.lemma] = {
-        english: live.english,
-        slug: href.slug,
-        ...(href.hash ? { hash: href.hash } : {}),
-      };
+      const link = liveLinkForLemma(entry.lemma, words, partOfSpeech);
+      if (!link) continue;
+      liveByLemma[entry.lemma] = link;
     }
 
     return {

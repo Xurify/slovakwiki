@@ -1,11 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { gradeSelectAll, choiceFeedbackWhy } from "$lib/learning/exercises/select-all";
-import {
-  appointmentPhrase,
-  formatFaceDigital12,
-  selectAllChoicesForTime,
-} from "$lib/learning/time/clock";
+import { appointmentPhrase, selectAllChoicesForTime } from "$lib/learning/time/clock";
 import {
   buildDaysDatesTimeSession,
   isDaysDatesTimeKind,
@@ -21,8 +17,8 @@ describe("learning/time/session", () => {
 
   it("builds a full session with odd-one-out and phase 2/3 items", () => {
     const session = buildDaysDatesTimeSession(() => 0.42);
-    expect(session.length).toBeGreaterThanOrEqual(10);
-    expect(session.length).toBeLessThanOrEqual(12);
+    expect(session.length).toBeGreaterThanOrEqual(8);
+    expect(session.length).toBeLessThanOrEqual(10);
     expect(session.some((item) => item.task.type === "selectAll")).toBe(false);
     const phase2Ids = [
       "everyday/day-part-time",
@@ -58,8 +54,10 @@ describe("learning/time/session", () => {
     const second = materializeDaysDatesTimeItem("everyday/half-past-time", () => 0.9);
     expect(first.task.type).toBe("choice");
     if (first.task.type === "choice" && second.task.type === "choice") {
-      expect(first.task.clock).toBeDefined();
-      expect(second.task.clock).toBeDefined();
+      expect(first.task.choiceStyle).toBe("clock");
+      expect(second.task.choiceStyle).toBe("clock");
+      expect(first.task.prompt).toMatch(/^Ktoré hodiny ukazujú/);
+      expect(first.task.choices.some((c) => c.clock)).toBe(true);
     }
   });
 
@@ -87,10 +85,7 @@ describe("learning/time/session", () => {
     expect(gradeSelectAll(new Set([choices[0]!.id]), choices)).toBe(false);
   });
 
-  it("uses spoken English in appointment prompts and digital labels in feedback", () => {
-    const time = { hour: 2, minute: 30 as const };
-    expect(formatFaceDigital12(time)).toBe("2:30");
-
+  it("quotes Slovak time in clock-match prompts", () => {
     let call = 0;
     const rng = () => {
       const values = [0, 0];
@@ -98,17 +93,19 @@ describe("learning/time/session", () => {
     };
     const item = materializeDaysDatesTimeItem("everyday/half-past-time", rng);
     if (item.task.type === "choice") {
-      expect(item.task.prompt).toBe("At half past 1.");
-      expect(item.task.feedback?.why).toMatch(/1:30/);
+      expect(item.task.promptLang).toBe("sk");
+      expect(item.task.choiceStyle).toBe("clock");
+      expect(item.task.prompt).toMatch(/^Ktoré hodiny ukazujú „pol /);
+      expect(item.task.feedback?.why).toMatch(/1:30|pol /);
     }
   });
 
-  it("materializes exact minute as pick-the-correct phrase", () => {
+  it("materializes exact minute as clock-match", () => {
     const item = materializeDaysDatesTimeItem("everyday/exact-minute", () => 0.2);
     expect(item.task.type).toBe("choice");
     if (item.task.type === "choice") {
-      expect(item.task.prompt).not.toMatch(/Which phrase does not mean/);
-      expect(item.task.clock).toBeDefined();
+      expect(item.task.prompt).toMatch(/^Ktoré hodiny ukazujú/);
+      expect(item.task.choiceStyle).toBe("clock");
       expect(item.task.answerId).toBe("correct");
       expect(
         item.task.choices.find((c) => c.id === "wrong-minute")?.whyWrong,
@@ -143,7 +140,10 @@ describe("learning/time/session", () => {
     const item = materializeDaysDatesTimeItem("everyday/day-part-time", () => 0.1);
     expect(item.task.type).toBe("choice");
     if (item.task.type === "choice") {
-      expect(item.task.prompt).toMatch(/in the (morning|evening)\.$/);
+      expect(item.task.promptLang).toBe("sk");
+      expect(item.task.prompt).toMatch(
+        /Ktorý výraz znamená „.+ in the (morning|evening)“\?$/,
+      );
       expect(item.task.choiceMode).toBeUndefined();
       expect(item.task.answerId).toBe("correct");
       expect(item.task.choices.find((c) => c.id === "correct")?.label).toMatch(
@@ -155,16 +155,15 @@ describe("learning/time/session", () => {
     }
   });
 
-  it("keeps whyWrong on appointment choice distractors for miss feedback", () => {
+  it("keeps whyWrong on clock-match distractors for miss feedback", () => {
     const item = materializeDaysDatesTimeItem("everyday/quarter-time", () => 0.2);
     expect(item.task.type).toBe("choice");
     if (item.task.type !== "choice") return;
 
     const task = item.task;
-    const wrong = task.choices.find(
-      (choice) => choice.id !== task.answerId && choice.id.startsWith("miss-"),
-    );
-    expect(wrong?.whyWrong).toMatch(/means quarter/);
+    expect(task.choiceStyle).toBe("clock");
+    const wrong = task.choices.find((choice) => choice.id !== task.answerId);
+    expect(wrong?.whyWrong).toBeTruthy();
 
     const baseWhy = task.feedback?.why ?? "";
     expect(baseWhy).toMatch(/means quarter|means half past|halfway toward/);
@@ -202,6 +201,8 @@ describe("learning/time/session", () => {
     const timetable = materializeDaysDatesTimeItem("everyday/timetable-24h", () => 0.2);
     expect(timetable.task.type).toBe("choice");
     if (timetable.task.type === "choice") {
+      expect(timetable.task.prompt).toMatch(/^Ktoré hodiny ukazujú „/);
+      expect(timetable.task.choiceStyle).toBe("clock");
       expect(timetable.task.feedback?.why).toMatch(/\*\*O /);
     }
   });
