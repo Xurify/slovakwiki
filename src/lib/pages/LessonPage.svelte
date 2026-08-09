@@ -2,7 +2,6 @@
   import type { Snippet } from "svelte";
 
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -40,7 +39,6 @@
     </nav>
 
     <header class="max-w-[640px] border-b border-slate-200 pb-8">
-      <Eyebrow>{trackTitle}</Eyebrow>
       <h1>{data.lesson.title}</h1>
       <Lead>{data.lesson.promise}</Lead>
     </header>
