@@ -7,7 +7,7 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 **Bun** is the package manager and script runner for this repo (`bun.lock`).
 
 - Install: `bun install`
-- Scripts: `bun run <script>` (e.g. `bun run dev`, `bun run test`, `bun run format`)
+- Scripts: `bun run <script>` (e.g. `bun run dev`, `bun run test`, `bun run format`, `bun run lint`, `bun run typecheck`)
 - Prefer Bun over npm/pnpm/yarn for installs and script runs
 - Do not refresh or commit `package-lock.json`; use `bun.lock`
 
@@ -293,10 +293,15 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - Keep changes focused: don't drive-by refactor unrelated files.
 - Don't invent docs the user didn't ask for.
 - **Format before done.** After any TS / Svelte / Astro / content / script edit: run `bun run format` (or at least `bun run format:check`). Not UI-only — lessons, practice, learning helpers, and tests count. Pre-commit `lint-staged` also runs Prettier on staged files, but agents often skip hooks; CI `format:check` still fails the PR. After Prettier, re-check Svelte `{#if}` / `{#each}` blocks weren't re-crushed.
+- **Lint + typecheck when risk is high.** Run `bun run lint` and `bun run typecheck` (alias: `bun run check`) before calling done when:
+  - many files changed in one pass, or
+  - types, exports, shared helpers, content loaders, learning/session logic, Astro pages/islands, or package scripts/config likely shifted
+  - Skip for tiny copy-only or pure Tailwind class tweaks if `format` already ran. Fix failures before finishing — CI will catch them otherwise.
 
 ## Checklist before finishing UI work
 
 - [ ] Ran `bun run format` (or `format:check` clean)
+- [ ] If multi-file / type-touching / shared-logic change: `bun run lint` + `bun run typecheck` clean
 - [ ] No new selectors added to `styles.css` for one-off layout/look
 - [ ] Styling done with Tailwind utilities and/or an existing/shared component
 - [ ] Used theme tokens (`slate` / `blue` / `rose` / `emerald`, `font-serif`, …) not one-off hex in components
