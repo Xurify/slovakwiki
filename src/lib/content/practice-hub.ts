@@ -64,6 +64,18 @@ export function drillLine(item: PracticeItem | undefined): PracticeHubDrill {
     };
   }
 
+  if (task.type === "selectAll") {
+    const correction = item.feedback.correction?.trim() ?? "";
+    const correctLabels = task.choices
+      .filter((choice) => choice.correct)
+      .map((choice) => choice.label)
+      .join(" / ");
+    return {
+      slovak: clean(correction || correctLabels),
+      english: item.feedback.english ?? "",
+    };
+  }
+
   return {
     slovak: task.answer,
     english: item.feedback.english ?? "",

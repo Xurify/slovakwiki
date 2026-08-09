@@ -2,7 +2,7 @@ import type { LessonTrackId, PracticeItem } from "$lib/learning/types";
 import {
   daysDatesTimePracticeItemIds,
   daysDatesTimePracticeItems,
-} from "$lib/learning/time/practice";
+} from "$lib/learning/time/practice-catalog";
 
 export interface PracticeSet {
   id: string;
@@ -10,6 +10,8 @@ export interface PracticeSet {
   lessonId: string;
   previewItemId?: string;
   sessionSize?: number;
+  /** Procedural session builder in learning/time/session.ts */
+  sessionKind?: "days-dates-time";
   /** Short set-specific blurb; falls back to the linked lesson promise. */
   summary?: string;
   title: string;
@@ -32,8 +34,16 @@ export const practiceItems: PracticeItem[] = [
         "You arrive at a clinic and meet the receptionist for the first time. Which greeting fits?",
       choices: [
         { id: "formal", label: "Dobrý deň." },
-        { id: "informal", label: "Ahoj!" },
-        { id: "leaving", label: "Dovidenia." },
+        {
+          id: "informal",
+          label: "Ahoj!",
+          whyWrong: "**Ahoj** is informal — use **Dobrý deň** with someone new.",
+        },
+        {
+          id: "leaving",
+          label: "Dovidenia.",
+          whyWrong: "**Dovidenia** means goodbye — not a greeting.",
+        },
       ],
       answerId: "formal",
       feedback: {
@@ -187,8 +197,16 @@ export const practiceItems: PracticeItem[] = [
       prompt: "A coffee costs five euros. Which reply answers Koľko to stojí?",
       choices: [
         { id: "price", label: "Stojí to päť eur." },
-        { id: "age", label: "Mám päť rokov." },
-        { id: "time", label: "O piatej." },
+        {
+          id: "age",
+          label: "Mám päť rokov.",
+          whyWrong: "**Mám … rokov** states your age — not a price.",
+        },
+        {
+          id: "time",
+          label: "O piatej.",
+          whyWrong: "**O piatej** gives a time — not an answer to **Koľko to stojí?**",
+        },
       ],
       answerId: "price",
       feedback: {
@@ -219,8 +237,16 @@ export const practiceItems: PracticeItem[] = [
         "A shop assistant offers a bag, but you do not need one. Which polite answer fits?",
       choices: [
         { id: "no-thanks", label: "Nie, ďakujem." },
-        { id: "yes-thanks", label: "Áno, ďakujem." },
-        { id: "understand", label: "Rozumiem." },
+        {
+          id: "yes-thanks",
+          label: "Áno, ďakujem.",
+          whyWrong: "**Áno, ďakujem** accepts the offer — you want to decline.",
+        },
+        {
+          id: "understand",
+          label: "Rozumiem.",
+          whyWrong: "**Rozumiem** means I understand — it does not decline the bag.",
+        },
       ],
       answerId: "no-thanks",
       feedback: {
@@ -311,8 +337,16 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which sentence means “I am reading a book”?",
       choices: [
         { id: "first-person", label: "Čítam knihu." },
-        { id: "third-person", label: "Číta knihu." },
-        { id: "second-person", label: "Čítaš knihu." },
+        {
+          id: "third-person",
+          label: "Číta knihu.",
+          whyWrong: "**Číta** is he/she — the prompt asks for **I** (**čítam**).",
+        },
+        {
+          id: "second-person",
+          label: "Čítaš knihu.",
+          whyWrong: "**Čítaš** is informal you — the prompt asks for **I** (**čítam**).",
+        },
       ],
       answerId: "first-person",
       feedback: {
@@ -378,8 +412,16 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which sentence means “Today we are reading a book”?",
       choices: [
         { id: "we", label: "Dnes čítame knihu." },
-        { id: "i", label: "Dnes čítam knihu." },
-        { id: "they", label: "Dnes čítajú knihu." },
+        {
+          id: "i",
+          label: "Dnes čítam knihu.",
+          whyWrong: "**Čítam** is I — the prompt asks for **we** (**čítame**).",
+        },
+        {
+          id: "they",
+          label: "Dnes čítajú knihu.",
+          whyWrong: "**Čítajú** is they — the prompt asks for **we** (**čítame**).",
+        },
       ],
       answerId: "we",
       feedback: {
@@ -712,8 +754,16 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which sentence means “They are reading a book”?",
       choices: [
         { id: "they", label: "Čítajú knihu." },
-        { id: "we", label: "Čítame knihu." },
-        { id: "he", label: "Číta knihu." },
+        {
+          id: "we",
+          label: "Čítame knihu.",
+          whyWrong: "**Čítame** is we — the prompt asks for **they** (**čítajú**).",
+        },
+        {
+          id: "he",
+          label: "Číta knihu.",
+          whyWrong: "**Číta** is he/she — the prompt asks for **they** (**čítajú**).",
+        },
       ],
       answerId: "they",
       feedback: {
@@ -742,8 +792,17 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which question fits?",
       choices: [
         { id: "formal", label: "Hovoríte po slovensky?" },
-        { id: "informal", label: "Hovoríš po slovensky?" },
-        { id: "i", label: "Hovorím po slovensky?" },
+        {
+          id: "informal",
+          label: "Hovoríš po slovensky?",
+          whyWrong:
+            "**Hovoríš** is informal singular — this question needs polite **hovoríte**.",
+        },
+        {
+          id: "i",
+          label: "Hovorím po slovensky?",
+          whyWrong: "**Hovorím** is I speak — the prompt asks for a question to **you**.",
+        },
       ],
       answerId: "formal",
       feedback: {
@@ -1047,8 +1106,16 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Where is the main beat in ďakujem?",
       choices: [
         { id: "first", label: "ĎA-ku-jem" },
-        { id: "middle", label: "ďa-KU-jem" },
-        { id: "last", label: "ďa-ku-JEM" },
+        {
+          id: "middle",
+          label: "ďa-KU-jem",
+          whyWrong: "Slovak stress stays on the **first syllable** — not the middle.",
+        },
+        {
+          id: "last",
+          label: "ďa-ku-JEM",
+          whyWrong: "Slovak stress stays on the **first syllable** — not the last.",
+        },
       ],
       answerId: "first",
       feedback: {
@@ -1110,8 +1177,17 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which reply means “Nice to meet you too”?",
       choices: [
         { id: "too", label: "Aj mňa teší." },
-        { id: "thanks", label: "Ďakujem za pomoc." },
-        { id: "goodbye", label: "Dovidenia." },
+        {
+          id: "thanks",
+          label: "Ďakujem za pomoc.",
+          whyWrong:
+            "**Ďakujem za pomoc** thanks someone for help — not a reply to **Teší ma**.",
+        },
+        {
+          id: "goodbye",
+          label: "Dovidenia.",
+          whyWrong: "**Dovidenia** means goodbye — not **nice to meet you too**.",
+        },
       ],
       answerId: "too",
       feedback: {
@@ -1202,8 +1278,18 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Where is the main stress in Bratislava?",
       choices: [
         { id: "first", label: "BRA-ti-sla-va" },
-        { id: "middle", label: "bra-TI-sla-va" },
-        { id: "later", label: "bra-ti-SLA-va" },
+        {
+          id: "middle",
+          label: "bra-TI-sla-va",
+          whyWrong:
+            "Standard Slovak stress is on the **first syllable** — not the second.",
+        },
+        {
+          id: "later",
+          label: "bra-ti-SLA-va",
+          whyWrong:
+            "Standard Slovak stress is on the **first syllable** — not the third.",
+        },
       ],
       answerId: "first",
       feedback: {
@@ -1230,8 +1316,17 @@ export const practiceItems: PracticeItem[] = [
       prompt: "Which version keeps the regular Slovak stress in pomôžem?",
       choices: [
         { id: "first", label: "PO-mô-žem" },
-        { id: "middle", label: "po-MÔ-žem" },
-        { id: "last", label: "po-mô-ŽEM" },
+        {
+          id: "middle",
+          label: "po-MÔ-žem",
+          whyWrong:
+            "Keep stress on the **first syllable** — vowel length does not move it.",
+        },
+        {
+          id: "last",
+          label: "po-mô-ŽEM",
+          whyWrong: "Keep stress on the **first syllable** — not the last.",
+        },
       ],
       answerId: "first",
       feedback: {
@@ -1329,8 +1424,10 @@ export const practiceSets: PracticeSet[] = [
     id: "days-dates-and-time",
     lessonId: "everyday/days-dates-and-time",
     title: "Days, dates, and time",
-    summary: "Arrange a meeting day and say whole-hour, half-hour, and quarter times.",
+    summary:
+      "Arrange a meeting day and practice clock times — day-parts, noon, 24h, and fresh faces each session.",
     track: "everyday",
+    sessionKind: "days-dates-time",
     itemIds: [...daysDatesTimePracticeItemIds],
   },
   {

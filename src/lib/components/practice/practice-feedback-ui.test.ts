@@ -30,11 +30,11 @@ describe("splitEmphasis", () => {
       { type: "text", value: "." },
     ]);
   });
+});
 
-  it("uses neutral footer on miss so bands carry color", () => {
-    expect(feedbackFooterClass("incorrect")).toBe(
-      "border-t border-slate-200 bg-paper/70",
-    );
+describe("feedbackFooterClass", () => {
+  it("uses rose footer on miss", () => {
+    expect(feedbackFooterClass("incorrect")).toBe("border-t border-rose-200 bg-rose-50");
     expect(isMissFeedback("incorrect", false)).toBe(true);
     expect(isMissFeedback("accents", false)).toBe(true);
     expect(isMissFeedback("correct", false)).toBe(false);

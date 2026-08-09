@@ -10,7 +10,15 @@
   } from "$lib/client/build-tiles";
   import { answersMatch } from "$lib/client/practice-state";
   import { playAnswerSfx } from "$lib/client/sfx";
-  import { ChoiceOptions } from "$lib/learning/exercises";
+  import {
+    ChoiceOptions,
+    SelectAllOptions,
+    choiceFeedbackWhy,
+    gradeSelectAll,
+    selectAllFeedbackWhy,
+  } from "$lib/learning/exercises";
+  import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
+  import GrammarHintToggle from "$lib/components/practice/GrammarHintToggle.svelte";
   import type { LessonExercise } from "$lib/learning/types";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
@@ -32,6 +40,8 @@
   } = $props();
 
   let selectedId = $state<string | null>(null);
+  let selectedIds = $state<Set<string>>(new Set());
+  let hintOpen = $state(false);
   let builtBankIndexes = $state<number[]>([]);
   let input = $state("");
   let submitted = $state(false);
@@ -46,6 +56,7 @@
   const correct = $derived.by(() => {
     if (!graded || !submitted || revealed) return false;
     if (graded.type === "choice") return selectedId === graded.answerId;
+    if (graded.type === "selectAll") return gradeSelectAll(selectedIds, graded.choices);
     if (graded.type === "build") return gradeBuild(builtTiles, graded.answer);
     return answersMatch(input, graded.answer, graded.acceptedAnswers);
   });
@@ -56,9 +67,21 @@
   const showCorrection = $derived(
     shouldShowCorrection(submitted, feedbackGrade, revealed),
   );
+  const feedbackWhy = $derived.by(() => {
+    const baseWhy = exercise.feedback.why;
+    if (!submitted || correct || revealed) return baseWhy;
+    if (graded?.type === "selectAll") {
+      return selectAllFeedbackWhy(baseWhy, selectedIds, graded.choices);
+    }
+    if (graded?.type === "choice" && selectedId) {
+      return choiceFeedbackWhy(baseWhy, selectedId, graded.choices, graded.answerId);
+    }
+    return baseWhy;
+  });
   const canCheck = $derived.by(() => {
     if (!graded || submitted) return false;
     if (graded.type === "choice") return selectedId !== null;
+    if (graded.type === "selectAll") return selectedIds.size > 0;
     if (graded.type === "build")
       return canCheckBuild(builtTiles.length, graded.answer.length);
     return input.trim().length > 0;
@@ -76,6 +99,8 @@
 
     if (graded.type === "choice") {
       kind = selectedId === graded.answerId ? "correct" : "incorrect";
+    } else if (graded.type === "selectAll") {
+      kind = gradeSelectAll(selectedIds, graded.choices) ? "correct" : "incorrect";
     } else if (graded.type === "build") {
       kind = gradeBuild(builtTiles, graded.answer) ? "correct" : "incorrect";
     } else {
@@ -117,7 +142,13 @@
     if (!graded || correct || revealed) return undefined;
     if (graded.type === "choice") {
       const choice = graded.choices.find((entry) => entry.id === selectedId);
-      return choice?.text;
+      return choice?.label;
+    }
+    if (graded.type === "selectAll") {
+      return graded.choices
+        .filter((entry) => selectedIds.has(entry.id))
+        .map((entry) => entry.label)
+        .join("; ");
     }
     if (graded.type === "build") return builtTiles.join(" ");
     const trimmed = input.trim();
@@ -173,11 +204,38 @@
     </h2>
 
     {#if exercise.type === "choice"}
+      {#if exercise.hint}
+        <div class="mt-4 grid gap-2">
+          <GrammarHintToggle hint={exercise.hint} bind:open={hintOpen} />
+
+          {#if hintOpen}
+            <ClozeHintPanel hint={exercise.hint} variant="inline" />
+          {/if}
+        </div>
+      {/if}
+
       <ChoiceOptions
         choices={exercise.choices}
         choiceStyle={exercise.choiceStyle}
         promptClock={exercise.clock}
         bind:selectedId
+        {submitted}
+      />
+    {:else if exercise.type === "selectAll"}
+      {#if exercise.hint}
+        <div class="mt-4 grid gap-2">
+          <GrammarHintToggle hint={exercise.hint} bind:open={hintOpen} />
+
+          {#if hintOpen}
+            <ClozeHintPanel hint={exercise.hint} variant="inline" />
+          {/if}
+        </div>
+      {/if}
+
+      <SelectAllOptions
+        choices={exercise.choices}
+        promptClock={exercise.clock}
+        bind:selectedIds
         {submitted}
       />
     {:else if exercise.type === "build"}
@@ -236,9 +294,7 @@
     {#if submitted}
       <div
         bind:this={feedbackPanel}
-        class={`mt-6 ${correct
-          ? feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))
-          : "overflow-hidden rounded-(--control-radius) border border-slate-200"}`}
+        class={`mt-6 ${feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))}`}
         aria-live="polite"
         tabindex="-1"
       >
@@ -246,11 +302,11 @@
           attempt={attemptForDisplay()}
           correction={exercise.feedback.correction}
           english={exercise.feedback.english}
-          why={exercise.feedback.why}
+          why={feedbackWhy}
           grade={correct ? "correct" : "incorrect"}
           revealed={revealed || !correct}
           {showCorrection}
-          reviewBands={!correct}
+          density={correct ? "default" : "compact"}
           correctionLabelTone="emerald"
         />
       </div>

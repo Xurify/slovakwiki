@@ -107,8 +107,17 @@ export const lessons: Lesson[] = [
           "You are meeting Anna, the organiser, for the first time. What do you say?",
         choices: [
           { id: "formal", label: "Dobrý deň. Volám sa Alex." },
-          { id: "informal", label: "Ahoj!" },
-          { id: "leaving", label: "Dovidenia." },
+          {
+            id: "informal",
+            label: "Ahoj!",
+            whyWrong:
+              "**Ahoj** is informal — use **Dobrý deň** when meeting someone for the first time.",
+          },
+          {
+            id: "leaving",
+            label: "Dovidenia.",
+            whyWrong: "**Dovidenia** means goodbye — not a first greeting.",
+          },
         ],
         answerId: "formal",
         feedback: {
@@ -256,8 +265,16 @@ export const lessons: Lesson[] = [
         prompt: "I am twenty-eight years old.",
         choices: [
           { id: "age", label: "Mám dvadsaťosem rokov." },
-          { id: "number", label: "Moje číslo je dvadsaťosem." },
-          { id: "price", label: "Stojí to dvadsaťosem eur." },
+          {
+            id: "number",
+            label: "Moje číslo je dvadsaťosem.",
+            whyWrong: "**Moje číslo je …** gives a phone number — not your age.",
+          },
+          {
+            id: "price",
+            label: "Stojí to dvadsaťosem eur.",
+            whyWrong: "**Stojí to … eur** states a price — not your age.",
+          },
         ],
         answerId: "age",
         feedback: {
@@ -377,8 +394,16 @@ export const lessons: Lesson[] = [
         prompt: "No, thank you.",
         choices: [
           { id: "no", label: "Nie, ďakujem." },
-          { id: "yes", label: "Áno, ďakujem." },
-          { id: "leaving", label: "Dovidenia." },
+          {
+            id: "yes",
+            label: "Áno, ďakujem.",
+            whyWrong: "**Áno, ďakujem** accepts — you need **nie** to refuse.",
+          },
+          {
+            id: "leaving",
+            label: "Dovidenia.",
+            whyWrong: "**Dovidenia** means goodbye — not a polite no.",
+          },
         ],
         answerId: "no",
         feedback: {
@@ -507,8 +532,17 @@ export const lessons: Lesson[] = [
           "You are describing yourself. Which sentence means “I am reading a book”?",
         choices: [
           { id: "first-person", label: "Čítam knihu." },
-          { id: "third-person", label: "Číta knihu." },
-          { id: "second-person", label: "Čítaš knihu." },
+          {
+            id: "third-person",
+            label: "Číta knihu.",
+            whyWrong: "**Číta** is he/she — the prompt asks for **I** (**čítam**).",
+          },
+          {
+            id: "second-person",
+            label: "Čítaš knihu.",
+            whyWrong:
+              "**Čítaš** is informal you — the prompt asks for **I** (**čítam**).",
+          },
         ],
         answerId: "first-person",
         feedback: {
@@ -547,8 +581,16 @@ export const lessons: Lesson[] = [
         prompt: "Which sentence means “Today we are reading a book”?",
         choices: [
           { id: "we", label: "Dnes čítame knihu." },
-          { id: "i", label: "Dnes čítam knihu." },
-          { id: "they", label: "Dnes čítajú knihu." },
+          {
+            id: "i",
+            label: "Dnes čítam knihu.",
+            whyWrong: "**Čítam** is I — the prompt asks for **we** (**čítame**).",
+          },
+          {
+            id: "they",
+            label: "Dnes čítajú knihu.",
+            whyWrong: "**Čítajú** is they — the prompt asks for **we** (**čítame**).",
+          },
         ],
         answerId: "we",
         feedback: {
@@ -637,8 +679,16 @@ export const lessons: Lesson[] = [
         prompt: "Which answer means “I am Alex”?",
         choices: [
           { id: "i-am", label: "Som Alex." },
-          { id: "you-are", label: "Ste Alex." },
-          { id: "we-are", label: "Sme Alex." },
+          {
+            id: "you-are",
+            label: "Ste Alex.",
+            whyWrong: "**Ste** is you are — the prompt asks for **I am** (**som**).",
+          },
+          {
+            id: "we-are",
+            label: "Sme Alex.",
+            whyWrong: "**Sme** is we are — the prompt asks for **I am** (**som**).",
+          },
         ],
         answerId: "i-am",
         feedback: {
@@ -764,8 +814,17 @@ export const lessons: Lesson[] = [
         prompt: "Which sentence means “I have time”?",
         choices: [
           { id: "i-have", label: "Mám čas." },
-          { id: "you-have", label: "Máš čas." },
-          { id: "i-am", label: "Som čas." },
+          {
+            id: "you-have",
+            label: "Máš čas.",
+            whyWrong:
+              "**Máš** is informal you have — the prompt asks for **I have** (**mám**).",
+          },
+          {
+            id: "i-am",
+            label: "Som čas.",
+            whyWrong: "**Som** means I am — possession uses **mať** (**mám**).",
+          },
         ],
         answerId: "i-have",
         feedback: {
@@ -864,8 +923,16 @@ export const lessons: Lesson[] = [
         prompt: "Which syllable is normally stressed in ďakujem?",
         choices: [
           { id: "first", label: "ďa — the first syllable" },
-          { id: "middle", label: "ku — the middle syllable" },
-          { id: "last", label: "jem — the last syllable" },
+          {
+            id: "middle",
+            label: "ku — the middle syllable",
+            whyWrong: "Slovak stress stays on the **first syllable** — not the middle.",
+          },
+          {
+            id: "last",
+            label: "jem — the last syllable",
+            whyWrong: "Slovak stress stays on the **first syllable** — not the last.",
+          },
         ],
         answerId: "first",
         feedback: {

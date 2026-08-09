@@ -15,6 +15,11 @@
     type PracticeSet,
   } from "$lib/content/practice";
   import type { PracticeItem } from "$lib/content/learning-types";
+  import {
+    buildDaysDatesTimeSession,
+    isDaysDatesTimeKind,
+    materializeDaysDatesTimeItem,
+  } from "$lib/learning/time/session";
 
   let {
     data,
@@ -35,6 +40,7 @@
     if (!task) return data.set.title;
     if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
     if (task.type === "cloze") return "Fill the gap";
+    if (task.type === "selectAll") return "Mark every correct way";
     if (task.type === "choice") return "Choose the answer";
     if (task.type === "build") return "Build the sentence";
     if (task.type === "typed") return "Write the sentence";
@@ -44,6 +50,13 @@
   let sectionTitle = $state(data.set.title);
 
   function resolveSessionItems(atItemId: string | null): PracticeItem[] {
+    if (data.set.sessionKind === "days-dates-time") {
+      if (atItemId && isDaysDatesTimeKind(atItemId)) {
+        return [materializeDaysDatesTimeItem(atItemId)];
+      }
+      return buildDaysDatesTimeSession();
+    }
+
     if (atItemId && data.set.itemIds.includes(atItemId)) {
       const item = practiceItemById.get(atItemId);
       if (item) return [item];

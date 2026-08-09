@@ -18,7 +18,14 @@
   import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/client/sfx";
   import AudioButton from "$lib/components/AudioButton.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
-  import { ChoiceOptions } from "$lib/learning/exercises";
+  import GrammarHintToggle from "$lib/components/practice/GrammarHintToggle.svelte";
+  import {
+    ChoiceOptions,
+    SelectAllOptions,
+    choiceFeedbackWhy,
+    gradeSelectAll,
+    selectAllFeedbackWhy,
+  } from "$lib/learning/exercises";
   import { formatClockFaceLabel } from "$lib/learning/time/clock";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
@@ -60,6 +67,8 @@
   function sectionTitleFor(task: PracticeTask): string {
     if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
     if (task.type === "cloze") return "Fill the gap";
+    if (task.type === "selectAll") return "";
+    if (task.type === "choice" && task.clock) return "";
     if (task.type === "choice") return "Choose the answer";
     if (task.type === "build") return "Build the sentence";
     if (task.type === "typed") return "Write the sentence";
@@ -94,6 +103,7 @@
   let builtBankIndexes = $state<number[]>([]);
   let input = $state("");
   let selectedId = $state<string | null>(null);
+  let selectedIds = $state<Set<string>>(new Set());
   let submitted = $state(false);
   let revealed = $state(false);
   let finished = $state(false);
@@ -130,6 +140,8 @@
     if (!submitted || revealed) return null;
     if (task.type === "choice")
       return selectedId === task.answerId ? "correct" : "incorrect";
+    if (task.type === "selectAll")
+      return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
     if (task.type === "cloze" || task.type === "typed")
@@ -149,6 +161,7 @@
   const canCheck = $derived.by(() => {
     if (submitted) return false;
     if (task.type === "choice") return selectedId !== null;
+    if (task.type === "selectAll") return selectedIds.size > 0;
     if (task.type === "build")
       return canCheckBuild(builtTiles.length, task.answer.length);
     return input.trim().length > 0;
@@ -163,6 +176,8 @@
   function resolveCheckGrade(): AnswerGrade {
     if (task.type === "choice")
       return selectedId === task.answerId ? "correct" : "incorrect";
+    if (task.type === "selectAll")
+      return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
     if (task.type === "cloze" || task.type === "typed")
@@ -229,6 +244,12 @@
       if (choice.clock) return formatClockFaceLabel(choice.clock);
       return undefined;
     }
+    if (task.type === "selectAll" && selectedIds.size > 0) {
+      return task.choices
+        .filter((entry) => selectedIds.has(entry.id))
+        .map((entry) => entry.label)
+        .join("; ");
+    }
     if (task.type === "build" && builtTiles.length > 0) return builtTiles.join(" ");
     if (task.type === "cloze" || task.type === "typed") {
       const trimmed = input.trim();
@@ -246,7 +267,7 @@
         promptLang: current.task.promptLang,
         slovak: current.feedback.correction,
         english: current.feedback.english,
-        why: current.feedback.why,
+        why: feedbackWhy,
         attempt: attemptForResult(),
         grade: gradeForResult(),
       },
@@ -257,6 +278,7 @@
     builtBankIndexes = [];
     input = "";
     selectedId = null;
+    selectedIds = new Set();
     submitted = false;
     revealed = false;
     hintOpen = false;
@@ -306,13 +328,22 @@
 
   const isMiss = $derived(submitted && isMissFeedback(grade, revealed));
 
-  const feedbackAttempt = $derived(
-    isMiss && !revealed ? attemptForResult() : undefined,
-  );
+  const feedbackAttempt = $derived(isMiss && !revealed ? attemptForResult() : undefined);
+
+  const feedbackWhy = $derived.by(() => {
+    const baseWhy = current.feedback.why;
+    if (!isMiss || revealed) return baseWhy;
+    if (task.type === "selectAll") {
+      return selectAllFeedbackWhy(baseWhy, selectedIds, task.choices);
+    }
+    if (task.type === "choice") {
+      return choiceFeedbackWhy(baseWhy, selectedId, task.choices, task.answerId);
+    }
+    return baseWhy;
+  });
 
   function exerciseFooterClass(): string {
     if (!submitted) return "border-t border-slate-200 bg-paper/70";
-    if (isMiss) return feedbackFooterClass("incorrect");
     return feedbackFooterClass(feedbackToneFromGrade(grade, revealed));
   }
 
@@ -327,18 +358,18 @@
 
 {#snippet exerciseFooter()}
   {#if submitted}
-    <div class="grid gap-3" bind:this={feedbackPanel} aria-live="polite" tabindex="-1">
+    <div class="grid gap-2" bind:this={feedbackPanel} aria-live="polite" tabindex="-1">
       <PracticeExerciseFeedback
         attempt={feedbackAttempt}
         {closeSuggestion}
         correction={current.feedback.correction}
         english={current.feedback.english}
-        why={current.feedback.why}
+        why={feedbackWhy}
         newUse={current.newUse}
         {grade}
         {revealed}
         {showCorrection}
-        reviewBands={isMiss}
+        density={isMiss ? "compact" : "default"}
         correctionLabelTone={isMiss || grade === "correct" ? "emerald" : "rose"}
         dictionaryHref={task.type === "cloze" && task.lemmaId
           ? dictionaryHrefForLemma(task.lemmaId)
@@ -440,13 +471,72 @@
       {/if}
 
       {#if task.type === "choice"}
-        <ChoiceOptions
-          choices={task.choices}
-          choiceStyle={task.choiceStyle}
-          promptClock={task.clock}
-          bind:selectedId
-          {submitted}
-        />
+        <div
+          class={task.hint && hintMode === "rail"
+            ? "mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem]"
+            : "mt-6 grid gap-4"}
+        >
+          <div class="grid gap-3">
+            {#if task.hint}
+              <div class="grid gap-2">
+                <GrammarHintToggle hint={task.hint} bind:open={hintOpen} />
+
+                {#if hintOpen && hintMode === "inline"}
+                  <ClozeHintPanel hint={task.hint} variant="inline" />
+                {/if}
+              </div>
+            {/if}
+
+            <ChoiceOptions
+              choices={task.choices}
+              choiceStyle={task.choiceStyle}
+              promptClock={task.clock}
+              bind:selectedId
+              {submitted}
+            />
+          </div>
+
+          {#if hintMode === "rail" && task.hint}
+            <ContextRail>
+              {#if hintOpen}
+                <ClozeHintPanel hint={task.hint} variant="rail" />
+              {/if}
+            </ContextRail>
+          {/if}
+        </div>
+      {:else if task.type === "selectAll"}
+        <div
+          class={task.hint && hintMode === "rail"
+            ? "mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem]"
+            : "mt-6 grid gap-4"}
+        >
+          <div class="grid gap-3">
+            {#if task.hint}
+              <div class="grid gap-2">
+                <GrammarHintToggle hint={task.hint} bind:open={hintOpen} />
+
+                {#if hintOpen && hintMode === "inline"}
+                  <ClozeHintPanel hint={task.hint} variant="inline" />
+                {/if}
+              </div>
+            {/if}
+
+            <SelectAllOptions
+              choices={task.choices}
+              promptClock={task.clock}
+              bind:selectedIds
+              {submitted}
+            />
+          </div>
+
+          {#if hintMode === "rail" && task.hint}
+            <ContextRail>
+              {#if hintOpen}
+                <ClozeHintPanel hint={task.hint} variant="rail" />
+              {/if}
+            </ContextRail>
+          {/if}
+        </div>
       {:else if task.type === "build"}
         <div class="mt-6 grid gap-3">
           <div
@@ -526,14 +616,7 @@
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-sm text-slate-500">{task.gapEn}</span>
 
-              <button
-                class="inline-flex items-center rounded-full border border-slate-300 px-2.5 py-0.5 text-xs font-bold text-blue-800 hover:border-blue-600 hover:bg-blue-50"
-                type="button"
-                aria-expanded={hintOpen}
-                onclick={() => (hintOpen = !hintOpen)}
-              >
-                {task.hint.chip}
-              </button>
+              <GrammarHintToggle hint={task.hint} bind:open={hintOpen} variant="chip" />
             </div>
 
             <div class="flex flex-wrap gap-1" aria-label="Slovak characters">

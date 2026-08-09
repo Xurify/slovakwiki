@@ -123,7 +123,6 @@
             grade={row.grade === "accents" ? "accents" : "incorrect"}
             {revealed}
             showCorrection={true}
-            reviewBands={true}
             correctionLabelTone="emerald"
           />
         </div>

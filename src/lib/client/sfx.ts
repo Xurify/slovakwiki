@@ -73,10 +73,10 @@ function getAudioContext(): AudioContext | null {
 }
 
 async function ensureRunning(ctx: AudioContext): Promise<boolean> {
-  if (ctx.state === "running") return true;
-
   try {
-    await ctx.resume();
+    if (ctx.state !== "running") {
+      await ctx.resume();
+    }
     return ctx.state === "running";
   } catch {
     return false;

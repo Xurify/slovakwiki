@@ -68,8 +68,24 @@ export interface ChoiceExercise extends ExerciseBase {
     clock?: ClockTime;
     id: string;
     label?: string;
+    /** Shown in feedback when the learner picks this wrong option. */
+    whyWrong?: string;
   }>;
+  hint?: ClozeHint;
   type: "choice";
+}
+
+export interface SelectAllExercise extends ExerciseBase {
+  clock?: ClockTime;
+  choices: Array<{
+    correct: boolean;
+    id: string;
+    label: string;
+    /** Shown in feedback when the learner selects this wrong option. */
+    whyWrong?: string;
+  }>;
+  hint?: ClozeHint;
+  type: "selectAll";
 }
 
 export interface LessonVisual {
@@ -124,7 +140,8 @@ export interface PersonalExercise {
   type: "personal";
 }
 
-export type GradedLessonExercise = ChoiceExercise | BuildExercise | TypedExercise;
+export type GradedLessonExercise =
+  ChoiceExercise | BuildExercise | TypedExercise | SelectAllExercise;
 export type LessonExercise = GradedLessonExercise | PersonalExercise;
 
 export interface Lesson {
@@ -142,7 +159,8 @@ export interface Lesson {
   visual?: LessonVisual;
 }
 
-export type PracticeTask = ChoiceExercise | BuildExercise | TypedExercise | ClozeExercise;
+export type PracticeTask =
+  ChoiceExercise | BuildExercise | TypedExercise | ClozeExercise | SelectAllExercise;
 
 export interface PracticeItem {
   feedback: ExerciseFeedback;

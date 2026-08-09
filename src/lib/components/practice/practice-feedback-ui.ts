@@ -44,18 +44,10 @@ export function feedbackPanelClass(tone: FeedbackTone): string {
 }
 
 export function feedbackFooterClass(tone: FeedbackTone): string {
-  if (tone === "incorrect") return "border-t border-slate-200 bg-paper/70";
+  if (tone === "incorrect") return "border-t border-rose-200 bg-rose-50";
   if (tone === "accents") return "border-t border-blue-200 bg-blue-50";
   return "border-t border-emerald-200 bg-emerald-50";
 }
-
-export const attemptBandClass = "border-t border-rose-200 bg-rose-50 pt-2";
-
-export const correctionBandClass =
-  "grid gap-1.5 border-t border-emerald-200 bg-emerald-50 pt-2.5";
-
-export const recapAttemptBandClass = `mt-1 ${attemptBandClass}`;
-export const recapCorrectionBandClass = `mt-1 ${correctionBandClass}`;
 
 export const progressCorrectClass = "bg-emerald-600";
 export const progressMissedClass = "bg-rose-600";

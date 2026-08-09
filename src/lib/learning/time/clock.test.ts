@@ -1,10 +1,19 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  appointmentChoiceDistractors,
+  appointmentFrom24h,
+  appointmentPhrase,
+  aroundPhrase,
   answersForTime,
+  exactMinuteTellingLabel,
   faceHour12,
+  nearMissTimes,
+  noonMidnightAppointmentPhrases,
+  noonMidnightSelectAllChoices,
   preferredAnswerForTime,
   randomDrillTime,
+  zaCountdownPhrase,
 } from "./clock";
 import { answersMatch } from "$lib/client/practice-state";
 
@@ -74,5 +83,63 @@ describe("learning/time/clock", () => {
     expect(time.hour).toBeGreaterThanOrEqual(1);
     expect(time.hour).toBeLessThanOrEqual(23);
     expect([0, 15, 30, 45]).toContain(time.minute);
+  });
+
+  it("builds appointment phrases with 12↔1 wrap", () => {
+    expect(appointmentPhrase({ hour: 12, minute: 30 })).toBe("O pol jednej.");
+    expect(appointmentPhrase({ hour: 1, minute: 0 })).toBe("O jednej.");
+    expect(appointmentPhrase({ hour: 12, minute: 15 })).toBe("O štvrť na jednu.");
+    expect(appointmentPhrase({ hour: 2, minute: 30 })).toBe("O pol tretej.");
+  });
+
+  it("builds around phrases and za countdown", () => {
+    expect(aroundPhrase({ hour: 3, minute: 0 })).toBe("Okolo tretej.");
+    expect(zaCountdownPhrase(5, 10)).toBe("Za päť minút desať.");
+  });
+
+  it("maps 24h timetable times to appointment phrases", () => {
+    expect(appointmentFrom24h({ hour: 14, minute: 30 })).toBe("O pol tretej.");
+    expect(appointmentFrom24h({ hour: 9, minute: 10 })).toBeNull();
+  });
+
+  it("builds exact minute telling labels", () => {
+    expect(exactMinuteTellingLabel({ hour: 3, minute: 10 })).toBe(
+      "Sú tri hodiny a desať minút.",
+    );
+  });
+
+  it("treats bare O dvanástej as ambiguous for noon/midnight", () => {
+    expect(noonMidnightAppointmentPhrases({ hour: 12, minute: 0 })).toEqual([
+      "O poludní.",
+      "O dvanástej napoludnie.",
+    ]);
+    expect(noonMidnightAppointmentPhrases({ hour: 0, minute: 0 })).toEqual([
+      "O polnoci.",
+      "O dvanástej v noci.",
+    ]);
+
+    const noonChoices = noonMidnightSelectAllChoices({ hour: 12, minute: 0 });
+    expect(noonChoices.find((c) => c.id === "bare-twelve")?.correct).toBe(false);
+    expect(noonChoices.filter((c) => c.correct).map((c) => c.label)).toEqual([
+      "O poludní.",
+      "O dvanástej napoludnie.",
+    ]);
+  });
+
+  it("uses O prvej as appointment choice distractor when it is not the answer", () => {
+    const threeOClock = { hour: 3, minute: 0 as const };
+    const distractors = appointmentChoiceDistractors(
+      threeOClock,
+      nearMissTimes(threeOClock, () => 0),
+    );
+    expect(distractors.some((d) => d.label === "O prvej.")).toBe(true);
+
+    const oneOClock = { hour: 1, minute: 0 as const };
+    const oneDistractors = appointmentChoiceDistractors(
+      oneOClock,
+      nearMissTimes(oneOClock, () => 0),
+    );
+    expect(oneDistractors.some((d) => d.label === "O prvej.")).toBe(true);
+    expect(appointmentPhrase(oneOClock)).toBe("O jednej.");
   });
 });
