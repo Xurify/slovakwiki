@@ -652,6 +652,10 @@ function exampleFor(word: {
       example = nounExample(word.slovak, word.english);
   }
 
+  if (word.category === "Verbs") {
+    return example;
+  }
+
   return { ...example, isPracticeFrame: true };
 }
 
@@ -765,6 +769,10 @@ function alternateExampleFor(word: {
         };
       }
     }
+  }
+
+  if (word.category === "Verbs") {
+    return example;
   }
 
   return { ...example, isPracticeFrame: true };

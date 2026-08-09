@@ -5,7 +5,7 @@ Grouped by job. Run content tooling with `bun scripts/<path>` from the repo root
 ## Happy path
 
 ```
-bun scripts/dictionary/import-frequency.ts       # SNK noun top-2500 dump + verb/adjective/adverb top-1000 HTML → frequency JSON
+bun scripts/dictionary/import-frequency.ts       # SNK noun top-2500 + verb top-2000 dumps + adjective/adverb top-1000 HTML → frequency JSON
 bun scripts/dictionary/report-missing-glosses.ts # report frequency lemmas needing English glosses
 bun scripts/dictionary/publish-frequency.ts      # glosses → content/dictionary/words.json
 bun scripts/dictionary/publish-frequency.ts -- --dry-run # preview additions without writing words.json
@@ -49,7 +49,7 @@ Frequency lists, live dictionary publish, Tatoeba examples.
 
 | File                        | Run                                                | Notes                                                                                                                                                                        |
 | --------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `import-frequency.ts`       | `bun scripts/dictionary/import-frequency.ts`       | Nouns use the full SNK count dump (default top 2500); verbs/adjectives/adverbs keep the HTML top 1000; `--noun-limit N` / `--force`                                          |
+| `import-frequency.ts`       | `bun scripts/dictionary/import-frequency.ts`       | Nouns and verbs use full SNK count dumps (default top 2500 / 2000); adjectives/adverbs keep HTML top 1000; `--noun-limit N` / `--verb-limit N` / `--force`                   |
 | `report-missing-glosses.ts` | `bun scripts/dictionary/report-missing-glosses.ts` | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
 | `publish-frequency.ts`      | `bun scripts/dictionary/publish-frequency.ts`      | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
 | `enrich-examples.ts`        | `bun scripts/dictionary/enrich-examples.ts`        | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
