@@ -41,12 +41,21 @@
   --color-blue-900: var(--ink);
   --color-rose-50: var(--red-light);
   --color-rose-100: var(--red-light);
+  --color-rose-200: var(--line);
+  --color-rose-300: var(--line-strong);
+  --color-rose-500: var(--action);
   --color-rose-600: var(--action);
   --color-rose-700: var(--action-strong);
+  --color-rose-800: var(--action-strong);
+  --color-rose-900: var(--action-strong);
+  --color-rose-950: var(--ink);
   --color-emerald-50: var(--green-light);
   --color-emerald-100: var(--green-light);
+  --color-emerald-200: var(--line);
+  --color-emerald-500: var(--green);
   --color-emerald-600: var(--green);
   --color-emerald-700: var(--green);
+  --color-emerald-800: var(--green);
 }
 
 @layer base {
@@ -139,9 +148,9 @@
     --blue: #5aa8c8;
     --blue-light: #1e3a4a;
     --red: #e07068;
-    --red-light: #3a2528;
+    --red-light: color-mix(in srgb, #3a2528 80%, var(--red) 20%);
     --green: #4a9a88;
-    --green-light: #1a332c;
+    --green-light: color-mix(in srgb, #1a332c 80%, var(--green) 20%);
     --mist-1: #1a3a4a;
     --mist-2: #122028;
     --mist-3: #0e1a22;

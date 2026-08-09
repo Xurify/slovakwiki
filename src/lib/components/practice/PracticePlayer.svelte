@@ -330,14 +330,6 @@
     if (!submitted) return "border-t border-slate-200 bg-paper/70";
     return feedbackFooterClass(feedbackToneFromGrade(grade, revealed));
   }
-
-  function feedbackContinueClass(): string {
-    if (revealed || grade === "incorrect" || grade === null)
-      return "!bg-rose-700 hover:!bg-rose-800 disabled:!bg-rose-200 disabled:!text-rose-500";
-    if (grade === "accents")
-      return "!bg-blue-700 hover:!bg-blue-800 disabled:!bg-blue-200 disabled:!text-blue-500";
-    return "!bg-emerald-700 hover:!bg-emerald-800 disabled:!bg-emerald-200 disabled:!text-emerald-500";
-  }
 </script>
 
 {#snippet exerciseFooter()}
@@ -360,11 +352,7 @@
           : undefined}
       />
 
-      <Button
-        class="{feedbackContinueClass()} w-full !text-white"
-        type="button"
-        onclick={next}
-      >
+      <Button class="w-full" type="button" variant="accent" onclick={next}>
         {activeIndex === activeItems.length - 1 ? "Finish" : "Continue"}
       </Button>
     </div>

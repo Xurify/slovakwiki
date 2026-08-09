@@ -49,9 +49,9 @@ export function feedbackToneFromGrade(
 }
 
 export function feedbackPanelClass(tone: FeedbackTone): string {
-  if (tone === "incorrect") return `${panelBase} bg-rose-50 ring-rose-900/8`;
-  if (tone === "accents") return `${panelBase} bg-blue-50 ring-blue-900/10`;
-  return `${panelBase} bg-emerald-50 ring-emerald-700/10`;
+  if (tone === "incorrect") return `${panelBase} bg-rose-50 ring-rose-600/15`;
+  if (tone === "accents") return `${panelBase} bg-blue-50 ring-blue-600/15`;
+  return `${panelBase} bg-emerald-50 ring-emerald-600/15`;
 }
 
 export function feedbackFooterClass(tone: FeedbackTone): string {
@@ -67,9 +67,9 @@ export const missCompareClass =
   "overflow-hidden rounded-(--control-radius) bg-surface ring-1 ring-inset ring-slate-200/90";
 
 export const missCompareAttemptRowClass =
-  "grid gap-0.5 border-b border-slate-200/70 bg-rose-50/45 px-3 py-2";
+  "grid gap-0.5 border-b border-slate-200/70 bg-rose-50 px-3 py-2";
 
-export const missCompareCorrectionRowClass = "grid gap-0.5 bg-emerald-50/55 px-3 py-2";
+export const missCompareCorrectionRowClass = "grid gap-0.5 bg-emerald-50 px-3 py-2";
 
 export const progressCorrectClass = "bg-emerald-600";
 export const progressMissedClass = "bg-rose-600";

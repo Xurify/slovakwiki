@@ -57,8 +57,8 @@
   );
   const attemptClass = $derived(
     grade === "accents"
-      ? "m-0 font-serif text-[0.9375rem] leading-snug text-rose-950"
-      : "m-0 font-serif text-[0.9375rem] leading-snug text-rose-900/85 line-through decoration-rose-300/80",
+      ? "m-0 font-serif text-[0.9375rem] leading-snug text-ink"
+      : "m-0 font-serif text-[0.9375rem] leading-snug text-ink/90 line-through decoration-slate-300/80",
   );
 </script>
 
@@ -129,7 +129,7 @@
       <div>
         <p class="m-0 text-xs font-semibold text-rose-900">Your answer</p>
 
-        <p class="m-0 mt-0.5 font-serif text-sm leading-snug text-rose-950" lang="sk">
+        <p class="m-0 mt-0.5 font-serif text-sm leading-snug text-ink" lang="sk">
           {attempt}
         </p>
       </div>
