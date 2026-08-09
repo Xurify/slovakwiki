@@ -298,9 +298,14 @@
     background-color: var(--surface);
     color: var(--ink);
     box-shadow: 0 2px 0 0 var(--line-strong);
-    transition-property: transform, box-shadow;
+    transition-property: transform, box-shadow, border-color, background-color, color;
     transition-duration: 100ms;
     transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .press-key:focus-visible {
+    outline: none;
+    border-color: var(--accent);
   }
 
   .press-key:hover:not(:disabled) {
