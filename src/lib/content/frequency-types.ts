@@ -25,3 +25,5 @@ export const FREQUENCY_PART_OF_SPEECH_LABEL: Record<FrequencyPartOfSpeech, strin
   adjective: "Adjectives",
   adverb: "Adverbs",
 };
+
+export const FREQUENCY_PARTS = ["verb", "noun", "adjective", "adverb"] as const;

@@ -1,12 +1,14 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import GrammarCasePage from "$lib/pages/GrammarCasePage.svelte";
+import { contentCacheKey } from "$lib/build/cache-key";
 import { caseTopics } from "$lib/content/data";
 
 export function getStaticPaths() {
   return caseTopics.map((topic) => ({
     params: { case: topic.slug },
     props: { topic },
+    cacheKey: contentCacheKey(topic),
   }));
 }
 

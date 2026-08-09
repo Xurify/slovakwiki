@@ -10,6 +10,9 @@ import { pagefindSearch } from "./src/integrations/pagefind-search";
 
 export default defineConfig({
   adapter: vercel(),
+  experimental: {
+    incrementalBuild: true,
+  },
   integrations: [
     svelte(),
     pagefindSearch(),

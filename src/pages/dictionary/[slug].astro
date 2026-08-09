@@ -21,6 +21,7 @@ import {
   lemmaSenseGroup,
   relatedSlugsForLemmaPage,
 } from "$lib/content/lemma-senses";
+import { contentCacheKey } from "$lib/build/cache-key";
 import type { ContentEntry } from "$lib/content/types";
 
 type DictionaryPageProps = {
@@ -111,20 +112,23 @@ export function getStaticPaths() {
 
     const titleEnglish = senses.map((sense) => sense.english).join(" · ");
 
+    const props = {
+      entry,
+      senses: senses.map((sense) => ({
+        entry: sense,
+        exampleAudioSrcs: exampleAudioSrcsFor(sense),
+      })),
+      relatedEntries,
+      lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
+      exampleAudioSrcs: exampleAudioSrcsFor(entry),
+      image: resolveLemmaImage(entry.slug, titleEnglish),
+    } satisfies DictionaryPageProps;
+
     return [
       {
         params: { slug: entry.slug },
-        props: {
-          entry,
-          senses: senses.map((sense) => ({
-            entry: sense,
-            exampleAudioSrcs: exampleAudioSrcsFor(sense),
-          })),
-          relatedEntries,
-          lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
-          exampleAudioSrcs: exampleAudioSrcsFor(entry),
-          image: resolveLemmaImage(entry.slug, titleEnglish),
-        } satisfies DictionaryPageProps,
+        props,
+        cacheKey: contentCacheKey(props),
       },
     ];
   });

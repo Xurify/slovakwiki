@@ -2,6 +2,7 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PracticeSetPage from "$lib/pages/PracticeSetPage.svelte";
 import { clozeAudioSrcs } from "$lib/content/practice-audio";
+import { contentCacheKey } from "$lib/build/cache-key";
 import { practiceItemById, practiceSets } from "$lib/content/practice";
 
 export function getStaticPaths() {
@@ -10,12 +11,15 @@ export function getStaticPaths() {
       .map((itemId) => practiceItemById.get(itemId))
       .filter((item): item is NonNullable<typeof item> => item !== undefined);
 
+    const props = {
+      set,
+      clozeAudioSrcs: clozeAudioSrcs(items),
+    };
+
     return {
       params: { set: set.id },
-      props: {
-        set,
-        clozeAudioSrcs: clozeAudioSrcs(items),
-      },
+      props,
+      cacheKey: contentCacheKey(props),
     };
   });
 }

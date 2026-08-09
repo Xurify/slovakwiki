@@ -19,6 +19,13 @@ jobs:
 
       - run: bun run test
 
+      - uses: actions/cache@v4
+        with:
+          path: node_modules/.astro
+          key: astro-incremental-${{ runner.os }}-${{ hashFiles('bun.lock', 'astro.config.ts', 'src/pages/**') }}
+          restore-keys: |
+            astro-incremental-${{ runner.os }}-
+
       - run: bun run build
 
       - run: bun run cwv:check

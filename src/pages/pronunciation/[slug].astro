@@ -1,6 +1,7 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PronunciationDetailPage from "$lib/pages/PronunciationDetailPage.svelte";
+import { contentCacheKey } from "$lib/build/cache-key";
 import { entryBySlug, pronunciationEntries, words } from "$lib/content/data";
 import { entryHref } from "$lib/content/lemma-senses";
 import { sentenceCase } from "$lib/content/search-ui";
@@ -18,9 +19,12 @@ export function getStaticPaths() {
         slovak: related.slovak,
       }));
 
+    const props = { entry, relatedEntries };
+
     return {
       params: { slug: entry.slug },
-      props: { entry, relatedEntries },
+      props,
+      cacheKey: contentCacheKey(props),
     };
   });
 }

@@ -11,6 +11,24 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 - Prefer Bun over npm/pnpm/yarn for installs and script runs
 - Do not refresh or commit `package-lock.json`; use `bun.lock`
 
+### Dev & preview servers (Astro 7.2+)
+
+**Agents:** start long-running servers in **background mode** so the shell stays free. `astro dev` and `astro preview` share the same machinery ([Astro 7.2](https://astro.build/blog/astro-720)).
+
+| Task                     | Command                                                               |
+| ------------------------ | --------------------------------------------------------------------- |
+| Dev (HMR)                | `bunx astro dev --host 0.0.0.0 --background`                          |
+| Production build preview | `bun run build` then `bunx astro preview --host 0.0.0.0 --background` |
+| Check if running         | `bunx astro dev status` or `bunx astro preview status`                |
+| Tail logs                | `bunx astro dev logs` or `bunx astro preview logs`                    |
+| Stop                     | `bunx astro dev stop` or `bunx astro preview stop`                    |
+
+- `bun run dev` / `bun run preview` omit `--background` — fine for humans in a dedicated terminal; agents should pass `--background` instead.
+- Preview serves the last `bun run build` output — rebuild after code/content changes.
+- Background servers write to their own log files; use `logs` / `status` rather than blocking the shell.
+
+**Build cache:** `experimental.incrementalBuild: true` in `astro.config.ts` skips re-rendering unchanged prerendered pages when `cacheKey` is set on `getStaticPaths()` entries.
+
 ## Search index (Pagefind)
 
 Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).

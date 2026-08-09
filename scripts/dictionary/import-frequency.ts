@@ -1,6 +1,6 @@
 /**
- * Import SNK frequency lists: noun top-2500 from the full count dump,
- * verb/adjective/adverb top-1000 from the existing HTML lists.
+ * Import SNK frequency lists: noun top-2500 and verb top-2000 from full count dumps,
+ * adjective/adverb top-1000 from the existing HTML lists.
  *
  * Pivot: swap `fetchSnkFrequency` for a Tatoeba-rank importer later; keep
  * FrequencyListFile / FrequencyEntry shapes stable for UI + drafts.
@@ -36,6 +36,10 @@ const SNK_NOUN_CACHE = path.join(
   SNK_CACHE_DIR,
   "prim-8.0-public-all-S-lemma-frequency.bz2",
 );
+const SNK_VERB_CACHE = path.join(
+  SNK_CACHE_DIR,
+  "prim-8.0-public-all-V-lemma-frequency.bz2",
+);
 const execFileAsync = promisify(execFile);
 const require = createRequire(import.meta.url);
 const Bunzip = require("seek-bzip") as { decode(input: Buffer): Buffer };
@@ -47,7 +51,10 @@ const SNK_CORPUS = "prim-8.0-public-all";
 const SNK_SOURCE_NAME = "Slovak National Corpus (SNK)";
 const SNK_NOUN_DUMP =
   "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2";
+const SNK_VERB_DUMP =
+  "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-V-lemma-frequency.bz2";
 const DEFAULT_NOUN_LIMIT = 2500;
+const DEFAULT_VERB_LIMIT = 2000;
 
 const PART_OF_SPEECH_PATHS: Record<
   FrequencyPartOfSpeech,
@@ -73,10 +80,15 @@ const PART_OF_SPEECH_PATHS: Record<
 
 async function fetchSnkFrequency(
   partOfSpeech: FrequencyPartOfSpeech,
-  options: { nounLimit: number; force: boolean },
+  options: { nounLimit: number; verbLimit: number; force: boolean },
 ): Promise<FrequencyListFile> {
   if (partOfSpeech === "noun") {
-    const compressed = await getNounDump(options.force);
+    const compressed = await getLemmaDump(
+      SNK_NOUN_CACHE,
+      SNK_NOUN_DUMP,
+      options.force,
+      "noun",
+    );
     const dump = Bunzip.decode(compressed).toString("utf8");
     const parsed = parseSnkCountLemmaDump(dump, partOfSpeech, SNK_NOUN_DUMP);
     const skippedProperNouns = parsed.filter(
@@ -97,6 +109,35 @@ async function fetchSnkFrequency(
       partOfSpeech,
       source: SNK_SOURCE_NAME,
       sourceUrl: SNK_NOUN_DUMP,
+      entries,
+    };
+  }
+
+  if (partOfSpeech === "verb") {
+    const compressed = await getLemmaDump(
+      SNK_VERB_CACHE,
+      SNK_VERB_DUMP,
+      options.force,
+      "verb",
+    );
+    const dump = Bunzip.decode(compressed).toString("utf8");
+    const parsed = parseSnkCountLemmaDump(dump, partOfSpeech, SNK_VERB_DUMP);
+    const entries = selectFrequencyHead(parsed, options.verbLimit).filter(
+      (entry) => entry.lemma.trim().length > 1,
+    );
+
+    if (entries.length < 100) {
+      throw new Error(
+        `Expected ~${options.verbLimit} verb lemmas, got ${entries.length} from ${SNK_VERB_DUMP}`,
+      );
+    }
+
+    return {
+      corpus: SNK_CORPUS,
+      generatedAt: new Date().toISOString(),
+      partOfSpeech,
+      source: SNK_SOURCE_NAME,
+      sourceUrl: SNK_VERB_DUMP,
       entries,
     };
   }
@@ -131,21 +172,26 @@ async function fetchSnkFrequency(
   };
 }
 
-async function getNounDump(force: boolean): Promise<Buffer> {
+async function getLemmaDump(
+  cachePath: string,
+  dumpUrl: string,
+  force: boolean,
+  label: string,
+): Promise<Buffer> {
   await mkdir(SNK_CACHE_DIR, { recursive: true });
 
   if (!force) {
     try {
-      await access(SNK_NOUN_CACHE);
-      console.log(`Using cached SNK noun dump → ${path.relative(ROOT, SNK_NOUN_CACHE)}`);
-      return await readFile(SNK_NOUN_CACHE);
+      await access(cachePath);
+      console.log(`Using cached SNK ${label} dump → ${path.relative(ROOT, cachePath)}`);
+      return await readFile(cachePath);
     } catch {
       // Cache miss: download below.
     }
   }
 
   console.log(
-    `Downloading SNK noun dump with curl.exe → ${path.relative(ROOT, SNK_NOUN_CACHE)}`,
+    `Downloading SNK ${label} dump with curl.exe → ${path.relative(ROOT, cachePath)}`,
   );
   await execFileAsync("curl.exe", [
     "-k",
@@ -154,10 +200,10 @@ async function getNounDump(force: boolean): Promise<Buffer> {
     "--silent",
     "--show-error",
     "-o",
-    SNK_NOUN_CACHE,
-    SNK_NOUN_DUMP,
+    cachePath,
+    dumpUrl,
   ]);
-  return await readFile(SNK_NOUN_CACHE);
+  return await readFile(cachePath);
 }
 
 function buildLemmaIndex(
@@ -206,10 +252,18 @@ async function main(): Promise<void> {
     nounLimitIndex >= 0 && args[nounLimitIndex + 1]
       ? Number(args[nounLimitIndex + 1])
       : DEFAULT_NOUN_LIMIT;
+  const verbLimitIndex = args.indexOf("--verb-limit");
+  const verbLimit =
+    verbLimitIndex >= 0 && args[verbLimitIndex + 1]
+      ? Number(args[verbLimitIndex + 1])
+      : DEFAULT_VERB_LIMIT;
   const force = args.includes("--force");
 
   if (!Number.isInteger(nounLimit) || nounLimit < 1) {
     throw new Error(`--noun-limit must be a positive integer; got ${nounLimit}`);
+  }
+  if (!Number.isInteger(verbLimit) || verbLimit < 1) {
+    throw new Error(`--verb-limit must be a positive integer; got ${verbLimit}`);
   }
 
   await mkdir(OUT_DIR, { recursive: true });
@@ -219,7 +273,7 @@ async function main(): Promise<void> {
   for (const partOfSpeech of Object.keys(
     PART_OF_SPEECH_PATHS,
   ) as FrequencyPartOfSpeech[]) {
-    const list = await fetchSnkFrequency(partOfSpeech, { nounLimit, force });
+    const list = await fetchSnkFrequency(partOfSpeech, { nounLimit, verbLimit, force });
     lists[partOfSpeech] = list;
     const outPath = path.join(OUT_DIR, PART_OF_SPEECH_PATHS[partOfSpeech].file);
     await writeFile(outPath, `${JSON.stringify(list, null, 2)}\n`, "utf8");

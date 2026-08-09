@@ -3,51 +3,20 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
 import DictionaryCommonList from "$lib/components/DictionaryCommonList.svelte";
 import DictionaryCommonSearch from "$lib/components/DictionaryCommonSearch.svelte";
 import DictionaryCommonPage from "$lib/pages/DictionaryCommonPage.astro";
-import { words } from "$lib/content/data";
-import { findLiveWordForLemma } from "$lib/content/frequency";
-import { dictionaryHrefForSense } from "$lib/content/lemma-senses";
-import { loadAllFrequencyLists } from "$lib/content/load-frequency";
+import { frequencyCommonStaticPaths } from "$lib/build/frequency-common-paths";
 import {
   FREQUENCY_PART_OF_SPEECH_LABEL,
+  FREQUENCY_PARTS,
   type FrequencyPartOfSpeech,
 } from "$lib/content/frequency-types";
 
-const INITIAL_LIMIT = 100;
-
-export function getStaticPaths() {
-  return (["verb", "noun", "adjective", "adverb"] as const).map((partOfSpeech) => ({
-    params: { partOfSpeech },
-  }));
+export async function getStaticPaths() {
+  return frequencyCommonStaticPaths();
 }
 
-const partOfSpeech = Astro.params.partOfSpeech as FrequencyPartOfSpeech;
-const allLists = await loadAllFrequencyLists();
-const sourceList = allLists[partOfSpeech];
+const { entries, initialEntries, liveByLemma, partOfSpeech, sourceUrl } = Astro.props;
 
-const entries = sourceList.entries
-  .filter((entry) => entry.lemma.trim().length > 1)
-  .map((entry) => ({
-    rank: entry.rank,
-    lemma: entry.lemma,
-    ...(entry.count !== undefined ? { count: entry.count } : {}),
-  }));
-
-const initialEntries = entries.slice(0, INITIAL_LIMIT);
-
-const liveByLemma: Record<string, { english: string; slug: string; hash?: string }> = {};
-
-for (const entry of initialEntries) {
-  const live = findLiveWordForLemma(entry.lemma, words, partOfSpeech);
-  if (!live) continue;
-  const href = dictionaryHrefForSense(live, words);
-  liveByLemma[entry.lemma] = {
-    english: live.english,
-    slug: href.slug,
-    ...(href.hash ? { hash: href.hash } : {}),
-  };
-}
-
-const tabs = (["verb", "noun", "adjective", "adverb"] as const).map((value) => ({
+const tabs = FREQUENCY_PARTS.map((value) => ({
   value,
   label: FREQUENCY_PART_OF_SPEECH_LABEL[value],
   href: `/dictionary/common/${value}`,
@@ -63,7 +32,7 @@ const tabs = (["verb", "noun", "adjective", "adverb"] as const).map((value) => (
     {liveByLemma}
     {partOfSpeech}
     {tabs}
-    sourceUrl={sourceList.sourceUrl}
+    sourceUrl={sourceUrl}
     totalCount={entries.length}
   >
     <DictionaryCommonSearch client:load slot="filter" {partOfSpeech} />

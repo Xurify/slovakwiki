@@ -1,0 +1,27 @@
+---
+description: Astro dev/preview servers — use background mode when agents start them
+alwaysApply: true
+---
+
+# Astro dev & preview (background mode)
+
+Astro 7.2+ background mode for `astro dev` and `astro preview` ([release notes](https://astro.build/blog/astro-720)).
+
+**When an agent starts a dev or preview server**, use `--background` so the shell is not blocked:
+
+```bash
+bunx astro dev --host 0.0.0.0 --background
+bun run build && bunx astro preview --host 0.0.0.0 --background
+```
+
+Manage with subcommands (same for dev and preview):
+
+```bash
+bunx astro preview status
+bunx astro preview logs
+bunx astro preview stop
+```
+
+- Preview needs `bun run build` first; rebuild after changes you want to verify.
+- `bun run dev` / `bun run preview` in `package.json` are foreground — OK for humans, not for agent long-runs.
+- Full context: root `AGENTS.md` → **Dev & preview servers**.

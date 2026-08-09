@@ -5,12 +5,14 @@ import AudioMountHost from "$lib/components/AudioMountHost.svelte";
 import LessonPracticeBlock from "$lib/components/lessons/LessonPracticeBlock.svelte";
 import LessonPage from "$lib/pages/LessonPage.svelte";
 import { lessonAudioSrcs } from "$lib/content/lesson-audio";
+import { contentCacheKey } from "$lib/build/cache-key";
 import { lessons } from "$lib/content/lessons";
 
 export function getStaticPaths() {
   return lessons.map((lesson) => ({
     params: { lesson: lesson.slug, track: lesson.track },
     props: { lesson },
+    cacheKey: contentCacheKey(lesson),
   }));
 }
 

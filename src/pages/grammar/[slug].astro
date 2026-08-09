@@ -2,6 +2,7 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import ClockDrill from "$lib/learning/time/ClockDrill.svelte";
 import GrammarDetailPage from "$lib/pages/GrammarDetailPage.svelte";
+import { contentCacheKey } from "$lib/build/cache-key";
 import { entryBySlug, grammarEntries, words } from "$lib/content/data";
 import { entryHref } from "$lib/content/lemma-senses";
 import { sentenceCase } from "$lib/content/search-ui";
@@ -19,9 +20,12 @@ export function getStaticPaths() {
         slovak: related.slovak,
       }));
 
+    const props = { entry, relatedEntries };
+
     return {
       params: { slug: entry.slug },
-      props: { entry, relatedEntries },
+      props,
+      cacheKey: contentCacheKey(props),
     };
   });
 }
