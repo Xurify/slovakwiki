@@ -50,6 +50,17 @@
     return "Missed";
   }
 
+  function normalizeGloss(text: string): string {
+    return text.trim().toLowerCase().replace(/\s+/g, " ").replace(/\.$/, "");
+  }
+
+  function showEnglishGloss(row: SessionPhraseResult): boolean {
+    if (!row.english) return false;
+    if (row.promptLang === "sk") return true;
+    if (!row.prompt) return true;
+    return normalizeGloss(row.english) !== normalizeGloss(row.prompt);
+  }
+
   const exerciseCount = $derived(results.length);
   const correctCount = $derived(results.filter((row) => isCorrect(row.grade)).length);
   const missedCount = $derived(exerciseCount - correctCount);
@@ -59,7 +70,7 @@
   {@const missed = !isCorrect(row.grade)}
   {@const accents = row.grade === "accents"}
   <span
-    class="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full {accents
+    class="inline-flex size-9 shrink-0 items-center justify-center rounded-full {accents
       ? 'bg-blue-100 text-blue-700'
       : missed
         ? 'bg-rose-100 text-rose-700'
@@ -68,9 +79,9 @@
   >
     {#if accents || isCorrect(row.grade)}
       <svg
-        class="size-3 fill-none stroke-current"
+        class="size-5 fill-none stroke-current"
         viewBox="0 0 24 24"
-        stroke-width="2.5"
+        stroke-width="2.75"
         stroke-linecap="round"
         stroke-linejoin="round"
       >
@@ -78,9 +89,9 @@
       </svg>
     {:else}
       <svg
-        class="size-3 fill-none stroke-current"
+        class="size-5 fill-none stroke-current"
         viewBox="0 0 24 24"
-        stroke-width="2.5"
+        stroke-width="2.75"
         stroke-linecap="round"
         stroke-linejoin="round"
       >
@@ -95,25 +106,27 @@
   {@const revealed = row.grade === "revealed"}
 
   <li
-    class="grid grid-cols-[auto_1fr] gap-3 border-t border-slate-200 py-4 first:border-t-0"
+    class="grid grid-cols-[auto_1fr] gap-4 border-t border-slate-200 py-4 first:border-t-0"
   >
-    <div class="flex items-start gap-2">
+    <div class="pt-0.5">
       {@render resultIcon(row)}
-
-      <span class="mt-0.5 w-4 text-right text-xs font-medium tabular-nums text-slate-400">
-        {index + 1}
-      </span>
     </div>
 
     <div class="grid min-w-0 gap-1.5">
       <span class="sr-only">{statusLabel(row)}</span>
 
-      <p
-        class="m-0 text-sm font-medium leading-snug text-slate-700"
-        lang={row.promptLang === "sk" ? "sk" : "en"}
-      >
-        {row.prompt}
-      </p>
+      <div class="flex items-baseline gap-2">
+        <span class="shrink-0 text-xs font-medium tabular-nums text-slate-400"
+          >{index + 1}</span
+        >
+
+        <p
+          class="m-0 min-w-0 text-sm font-medium leading-snug text-slate-700"
+          lang={row.promptLang === "sk" ? "sk" : "en"}
+        >
+          {row.prompt}
+        </p>
+      </div>
 
       {#if missed}
         <div class="mt-2">
@@ -137,7 +150,7 @@
           {row.slovak}
         </p>
 
-        {#if row.english}
+        {#if showEnglishGloss(row)}
           <p class="m-0 text-sm text-slate-500">{row.english}</p>
         {/if}
       {/if}

@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { gradeSelectAll, selectAllFeedbackWhy } from "$lib/learning/exercises/select-all";
+import {
+  gradeSelectAll,
+  selectAllFeedbackWhy,
+  selectAllRowMarker,
+  selectAllRowState,
+} from "$lib/learning/exercises/select-all";
 import {
   noonMidnightSelectAllChoices,
   selectAllChoicesForTime,
@@ -56,5 +61,22 @@ describe("select-all", () => {
 
     expect(why).toContain(baseWhy);
     expect(why).toContain("**1:30**");
+  });
+
+  it("grades each row after submit", () => {
+    const choices = [
+      { id: "a", label: "A.", correct: true },
+      { id: "b", label: "B.", correct: true },
+      { id: "c", label: "C.", correct: false },
+    ];
+    const selected = new Set(["a", "c"]);
+
+    expect(selectAllRowState(choices[0]!, selected, false)).toBeNull();
+    expect(selectAllRowState(choices[0]!, selected, true)).toBe("correct-selected");
+    expect(selectAllRowState(choices[1]!, selected, true)).toBe("correct-missed");
+    expect(selectAllRowState(choices[2]!, selected, true)).toBe("wrong-selected");
+    expect(selectAllRowMarker("correct-selected", true)).toBe("✓");
+    expect(selectAllRowMarker("correct-missed", false)).toBe("+");
+    expect(selectAllRowMarker("wrong-selected", true)).toBe("✗");
   });
 });

@@ -1,0 +1,140 @@
+---
+import DictionaryCommonRow from "$lib/components/DictionaryCommonRow.svelte";
+import Lead from "$lib/components/ui/Lead.svelte";
+import PageShell from "$lib/components/ui/PageShell.svelte";
+import TextLink from "$lib/components/ui/TextLink.svelte";
+import {
+  FREQUENCY_PART_OF_SPEECH_LABEL,
+  type FrequencyPartOfSpeech,
+} from "$lib/content/frequency-types";
+
+interface CompactFrequencyEntry {
+  count?: number;
+  lemma: string;
+  rank: number;
+}
+
+interface LiveLink {
+  english: string;
+  hash?: string;
+  slug: string;
+}
+
+interface Tab {
+  href: string;
+  label: string;
+  value: FrequencyPartOfSpeech;
+}
+
+interface Props {
+  initialEntries: CompactFrequencyEntry[];
+  liveByLemma: Record<string, LiveLink>;
+  partOfSpeech: FrequencyPartOfSpeech;
+  sourceUrl: string;
+  tabs: Tab[];
+  totalCount: number;
+}
+
+const { initialEntries, liveByLemma, partOfSpeech, sourceUrl, tabs, totalCount } =
+  Astro.props as Props;
+
+const rowClass =
+  "grid grid-cols-[2.25rem_minmax(0,1fr)_4.75rem] items-center gap-3 border-b border-slate-200 px-4 py-3 text-sm transition-colors last:border-b-0 hover:bg-blue-50/50 max-[560px]:grid-cols-[2rem_minmax(0,1fr)]";
+
+const panelClass =
+  "overflow-hidden rounded-(--frame-radius) bg-surface ring-1 ring-inset ring-slate-200";
+
+const panelHeaderClass = "border-b border-slate-200 bg-slate-50/70 px-4 py-2.5";
+
+function tabChipClass(active: boolean): string {
+  return `inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
+    active
+      ? "border-blue-800 bg-blue-800 text-white shadow-none"
+      : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
+  }`;
+}
+
+const rangeLabel =
+  initialEntries.length === 0
+    ? "0 results"
+    : `1–${initialEntries.length.toLocaleString("en")} of ${totalCount.toLocaleString("en")}`;
+---
+
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[880px]">
+    <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+      <TextLink href="/dictionary">Dictionary</TextLink>
+      <span aria-hidden="true">/</span>
+      <span>Most common</span>
+    </nav>
+
+    <header class="max-w-[640px]">
+      <h1>Most common words</h1>
+      <Lead>
+        Top 1000 verbs, adjectives, and adverbs (nouns: top 2500) from the Slovak National
+        Corpus. Open a word for its English meaning and examples.
+      </Lead>
+    </header>
+
+    <div class="mt-10">
+      <slot name="filter" />
+    </div>
+
+    <nav class="mt-6 flex flex-wrap gap-1.5" aria-label="Part of speech">
+      {
+        tabs.map((tab) => (
+          <a
+            class={tabChipClass(partOfSpeech === tab.value)}
+            href={tab.href}
+            aria-current={partOfSpeech === tab.value ? "page" : undefined}
+          >
+            {tab.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <section class={`${panelClass} mt-4`} aria-label="Frequency list">
+      <div class={panelHeaderClass}>
+        <p class="m-0 text-sm text-slate-500">
+          <strong class="tabular-nums text-slate-900">{rangeLabel}</strong>{" "}
+          <span class="text-slate-400">
+            {FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()}
+          </span>
+        </p>
+      </div>
+
+      <ol class="m-0 list-none p-0" id="common-results">
+        {
+          initialEntries.map((entry) => (
+            <DictionaryCommonRow
+              entry={entry}
+              live={liveByLemma[entry.lemma]}
+              rowClass={rowClass}
+            />
+          ))
+        }
+        <li id="common-results-append-anchor" class="sr-only" aria-hidden="true"></li>
+      </ol>
+
+      <slot name="listControls" />
+    </section>
+
+    <footer class="mt-14 border-t border-slate-200 pt-8 text-sm text-slate-500">
+      <p>
+        Frequency data from the
+        <a
+          class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
+          href={sourceUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Slovak National Corpus
+        </a>
+        (prim-8.0-public-all). See
+        <TextLink href="/references">References</TextLink>
+        for full attribution.
+      </p>
+    </footer>
+  </PageShell>
+</main>

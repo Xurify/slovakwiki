@@ -59,9 +59,11 @@
     if (!submitted || revealed) return null;
     return correct ? "correct" : "incorrect";
   });
-  const showCorrection = $derived(
-    shouldShowCorrection(submitted, feedbackGrade, revealed),
-  );
+  const showCorrection = $derived.by(() => {
+    if (!shouldShowCorrection(submitted, feedbackGrade, revealed)) return false;
+    if (graded?.type === "selectAll" && submitted && !correct && !revealed) return false;
+    return true;
+  });
   const feedbackWhy = $derived.by(() => {
     const baseWhy = exercise.feedback.why;
     if (!submitted || correct || revealed) return baseWhy;
@@ -122,22 +124,18 @@
   }
 
   function onContinueKeydown(event: KeyboardEvent): void {
-    if (event.key !== "Enter" || event.shiftKey || !submitted) return;
+    if ((event.key !== "Enter" && event.key !== " ") || event.shiftKey || !submitted)
+      return;
     event.preventDefault();
     continueLesson();
   }
 
   function attemptForDisplay(): string | undefined {
     if (!graded || correct || revealed) return undefined;
+    if (graded.type === "selectAll") return undefined;
     if (graded.type === "choice") {
       const choice = graded.choices.find((entry) => entry.id === selectedId);
       return choice?.label;
-    }
-    if (graded.type === "selectAll") {
-      return graded.choices
-        .filter((entry) => selectedIds.has(entry.id))
-        .map((entry) => entry.label)
-        .join("; ");
     }
     if (graded.type === "build") return builtTiles.join(" ");
     const trimmed = input.trim();

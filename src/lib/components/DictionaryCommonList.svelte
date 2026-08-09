@@ -14,7 +14,10 @@
   let { totalCount }: { totalCount: number } = $props();
 
   const rowClass =
-    "grid grid-cols-[3rem_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-slate-200 py-3 text-sm max-[560px]:grid-cols-[2.5rem_minmax(0,1fr)]";
+    "grid grid-cols-[2.25rem_minmax(0,1fr)_4.75rem] items-center gap-3 border-b border-slate-200 px-4 py-3 text-sm transition-colors last:border-b-0 hover:bg-blue-50/50 max-[560px]:grid-cols-[2rem_minmax(0,1fr)]";
+
+  const filterMetaClass =
+    "m-0 border-b border-slate-200 bg-slate-50/70 px-4 py-2 text-xs text-slate-500";
 
   const isFiltering = $derived(dictionaryCommonState.query.trim().length > 0);
   const expanded = $derived(dictionaryCommonState.entries !== null);
@@ -94,32 +97,36 @@
 </script>
 
 {#if dictionaryCommonState.loadError}
-  <p class="mt-4 text-sm text-rose-700" role="alert">{dictionaryCommonState.loadError}</p>
+  <p class="m-0 px-4 py-3 text-sm text-rose-700" role="alert">
+    {dictionaryCommonState.loadError}
+  </p>
 {/if}
 
 {#if dictionaryCommonState.loading}
-  <div class="mt-6 flex min-h-16 items-center">
+  <div class="flex min-h-16 items-center px-4 py-6">
     <DotLoader label="Loading frequency list…" />
   </div>
 {/if}
 
 {#if isFiltering && expanded && !dictionaryCommonState.loading}
-  <p class="mb-2 mt-6 w-full text-xs text-slate-500 sm:text-right">
-    Showing {visibleEntries.length.toLocaleString("en")} of {filteredEntries.length.toLocaleString(
-      "en",
-    )}
+  <p class={filterMetaClass}>
+    <strong class="tabular-nums text-slate-900">
+      {visibleEntries.length === 0
+        ? "0 results"
+        : `1–${visibleEntries.length.toLocaleString("en")} of ${filteredEntries.length.toLocaleString("en")}`}
+    </strong>
     {#if filteredEntries.length !== totalCount}
       <span class="text-slate-400">· {totalCount.toLocaleString("en")} total</span>
     {/if}
   </p>
 
   {#if filteredEntries.length === 0}
-    <div class="py-16 text-center">
+    <div class="px-4 py-16 text-center">
       <h2 class="text-xl">No matches</h2>
       <p class="mt-2 text-sm text-slate-500">Try a shorter filter or clear it.</p>
     </div>
   {:else}
-    <ol class="mt-2" start="1" id="common-results-expanded">
+    <ol class="m-0 list-none p-0" start="1" id="common-results-expanded">
       {#each visibleEntries as entry (entry.rank + entry.lemma)}
         <DictionaryCommonRow
           {entry}
@@ -132,7 +139,7 @@
 {/if}
 
 {#if hasMore || (!expanded && totalCount > PAGE_SIZE)}
-  <div class="mt-6 flex justify-center">
+  <div class="flex justify-center border-t border-slate-200 px-4 py-5">
     <Button type="button" onclick={() => void showMoreDictionaryCommonEntries()}
       >Show more</Button
     >

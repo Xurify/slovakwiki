@@ -207,7 +207,13 @@
   }
 
   function onContinueKeydown(event: KeyboardEvent): void {
-    if (event.key !== "Enter" || event.shiftKey || !submitted || finished) return;
+    if (
+      (event.key !== "Enter" && event.key !== " ") ||
+      event.shiftKey ||
+      !submitted ||
+      finished
+    )
+      return;
     event.preventDefault();
     next();
   }
@@ -314,11 +320,17 @@
     if (first) sectionTitle = sectionTitleFor(first.task);
   }
 
-  const showCorrection = $derived(shouldShowCorrection(submitted, grade, revealed));
-
   const isMiss = $derived(submitted && isMissFeedback(grade, revealed));
 
-  const feedbackAttempt = $derived(isMiss && !revealed ? attemptForResult() : undefined);
+  const showCorrection = $derived.by(() => {
+    if (!shouldShowCorrection(submitted, grade, revealed)) return false;
+    if (task.type === "selectAll" && isMiss) return false;
+    return true;
+  });
+
+  const feedbackAttempt = $derived(
+    isMiss && !revealed && task.type !== "selectAll" ? attemptForResult() : undefined,
+  );
 
   const feedbackWhy = $derived.by(() => {
     const baseWhy = current.feedback.why;
