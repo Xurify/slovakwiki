@@ -1,7 +1,16 @@
 <script lang="ts">
   import { resourceIconUrl } from "$lib/content/resources";
 
-  let { resourceId }: { resourceId: string } = $props();
+  let {
+    resourceId,
+    size = "sm",
+  }: {
+    resourceId: string;
+    size?: "sm" | "md";
+  } = $props();
+
+  const boxClass = size === "md" ? "size-8 rounded-md" : "size-5 rounded-sm";
+  const dimension = size === "md" ? 32 : 20;
 
   function hideBrokenIcon(event: Event) {
     const img = event.currentTarget;
@@ -13,14 +22,14 @@
 
 <span
   data-resource-icon
-  class="inline-flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-white ring-1 ring-inset ring-slate-200"
+  class="inline-flex shrink-0 items-center justify-center overflow-hidden bg-white ring-1 ring-inset ring-slate-200 {boxClass}"
 >
   <img
     class="size-full object-contain"
     src={resourceIconUrl(resourceId)}
     alt=""
-    width="20"
-    height="20"
+    width={dimension}
+    height={dimension}
     loading="lazy"
     decoding="async"
     onerror={hideBrokenIcon}
