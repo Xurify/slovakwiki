@@ -21,6 +21,9 @@
     choiceFeedbackWhy,
     gradeChoice,
     gradeSelectAll,
+    pickTrapFeedbackEnglish,
+    PICK_TRAP_CORRECT_HEADLINE,
+    PICK_TRAP_MISS_HEADLINE,
     pickTrapFeedbackWhy,
     selectAllFeedbackWhy,
   } from "$lib/learning/exercises";
@@ -67,7 +70,9 @@
     if (task.type === "cloze") return "Fill the gap";
     if (task.type === "selectAll") return "";
     if (task.type === "choice" && task.clock) return "";
+    if (task.type === "choice" && task.promptSk) return "";
     if (task.type === "choice") return "Choose the answer";
+    if (task.type === "build" && task.promptSk) return "";
     if (task.type === "build") return "";
     if (task.type === "typed") return "Write the sentence";
     return "Practice";
@@ -365,6 +370,12 @@
 
   const isPickTrap = $derived(task.type === "choice" && task.choiceMode === "pickTrap");
 
+  const feedbackEnglish = $derived(
+    isPickTrap
+      ? pickTrapFeedbackEnglish(current.feedback.english)
+      : current.feedback.english,
+  );
+
   function exerciseFooterClass(): string {
     if (!submitted) return "border-t border-slate-200 bg-paper/70";
     return feedbackFooterClass(feedbackToneFromGrade(grade, revealed));
@@ -385,7 +396,7 @@
         attempt={feedbackAttempt}
         {closeSuggestion}
         correction={feedbackCorrection}
-        english={current.feedback.english}
+        english={feedbackEnglish}
         why={feedbackWhy}
         newUse={current.newUse}
         {grade}
@@ -393,8 +404,8 @@
         {showCorrection}
         density={isMiss ? "compact" : "default"}
         correctionLabelTone={isMiss || grade === "correct" ? "emerald" : "rose"}
-        correctHeadline={isPickTrap ? "That one doesn't fit." : "Correct"}
-        missHeadline={isPickTrap ? "Correct" : "Correct answer"}
+        correctHeadline={isPickTrap ? PICK_TRAP_CORRECT_HEADLINE : "Correct"}
+        missHeadline={isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer"}
         dictionaryHref={task.type === "cloze" && task.lemmaId
           ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}
@@ -467,11 +478,22 @@
       {#if isRepair}
         <h1 id="practice-question" class="sr-only">{task.prompt}</h1>
       {:else}
+        {#if task.promptSk}
+          <p
+            lang="sk"
+            class="m-0 font-serif text-sm font-medium leading-snug text-slate-500"
+          >
+            {task.promptSk}
+          </p>
+        {/if}
+
         <h1
           id="practice-question"
-          class="{hasScene
-            ? 'mt-5'
-            : ''} m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
+          class="{task.promptSk
+            ? 'mt-1.5'
+            : hasScene
+              ? 'mt-5'
+              : ''} m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
           lang={task.promptLang === "sk" ? "sk" : undefined}
         >
           {task.prompt}

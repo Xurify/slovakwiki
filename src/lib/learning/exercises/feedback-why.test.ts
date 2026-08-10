@@ -4,6 +4,7 @@ import { gradeChoice } from "$lib/learning/exercises/choice";
 import {
   augmentFeedbackWhy,
   choiceFeedbackWhy,
+  pickTrapFeedbackEnglish,
   pickTrapFeedbackWhy,
 } from "$lib/learning/exercises/feedback-why";
 
@@ -56,6 +57,10 @@ describe("feedback-why", () => {
     expect(augmentFeedbackWhy("Base.", new Set(["b"]), choices)).toBe(
       "Base. **O poludní** means noon, not midnight.",
     );
+  });
+
+  it("omits english gloss for pickTrap feedback", () => {
+    expect(pickTrapFeedbackEnglish("At half past 11.")).toBeUndefined();
   });
 
   it("returns trap whyWrong on pickTrap success", () => {

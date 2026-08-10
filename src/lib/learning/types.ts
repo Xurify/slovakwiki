@@ -47,6 +47,8 @@ interface ExerciseBase {
   feedback: ExerciseFeedback;
   id: string;
   practiceItemId: string;
+  /** Muted Slovak line above the English prompt (framed schedule items). */
+  promptSk?: string;
   /** English by default; use "sk" for Slovak clock-matching prompts. */
   promptLang?: "en" | "sk";
   prompt: string;

@@ -4,6 +4,7 @@ import {
   analogFace,
   appointmentPhrase,
   appointmentPhraseWithDayPart,
+  appointmentChoiceDistractors,
   appointmentChoiceWhy,
   appointmentDayPartChoiceWhy,
   appointmentDayPartWrongWhy,
@@ -60,6 +61,28 @@ import {
   enZaCountdownMeaningPhrase,
   skWhichClockShows,
 } from "./prompts";
+import {
+  buildTilesForFrame,
+  englishAppointmentPrompt,
+  englishNegotiatePrompt,
+  appointmentTimeTiles,
+  frameWhy,
+  negotiateAnswer,
+  negotiateContextTurn,
+  negotiateProposalTurn,
+  negotiateWhy,
+  NEGOTIATE_DAYS,
+  pickNegotiateTimes,
+  pickRandomScheduleFrame,
+  pickScheduleTime,
+  pickScheduleTimeWithoutDayPart,
+  preferredAppointmentAnswer,
+  questionContextTurn,
+  scheduleExercisePrompt,
+  SCHEDULE_FRAMES,
+  fullScheduleLine,
+  typedAcceptedAnswers,
+} from "./frames";
 import { daysDatesTimePracticeItems } from "./practice-catalog";
 
 export type DaysDatesTimeKind =
@@ -79,7 +102,18 @@ export type DaysDatesTimeKind =
   | "everyday/o-duration"
   | "everyday/timetable-24h"
   | "everyday/exact-minute"
-  | "everyday/za-countdown";
+  | "everyday/za-countdown"
+  | "everyday/frame-time-choice"
+  | "everyday/frame-time-build"
+  | "everyday/frame-time-typed"
+  | "everyday/frame-negotiate";
+
+const FRAMED_KINDS: DaysDatesTimeKind[] = [
+  "everyday/frame-time-choice",
+  "everyday/frame-time-build",
+  "everyday/frame-time-typed",
+  "everyday/frame-negotiate",
+];
 
 const CORE_QUARTER_KINDS: DaysDatesTimeKind[] = [
   "everyday/meeting-time",
@@ -618,6 +652,143 @@ function buildODurationExercise(
   };
 }
 
+function buildFrameTimeChoiceExercise(
+  kind: DaysDatesTimeKind,
+  rng: () => number,
+): PracticeItem["task"] {
+  const frame = pickRandomScheduleFrame(rng);
+  const { time, dayPart } = pickScheduleTime(rng);
+  const { promptSk, prompt } = scheduleExercisePrompt(frame, time, dayPart);
+  const correctPhrase = preferredAppointmentAnswer(time, dayPart);
+  const misses = nearMissTimes(time, rng);
+  const distractors = appointmentChoiceDistractors(time, misses);
+
+  const choices = shuffleArray(
+    [
+      { id: "correct", label: correctPhrase },
+      ...distractors.map((distractor) => ({
+        id: distractor.id,
+        label: distractor.label,
+        whyWrong: distractor.whyWrong,
+      })),
+    ],
+    rng,
+  );
+
+  return {
+    id: `generated-${kind}`,
+    type: "choice",
+    practiceItemId: kind,
+    promptSk,
+    prompt,
+    promptLang: "en",
+    choices,
+    answerId: "correct",
+    feedback: {
+      correction: correctPhrase,
+      english: prompt,
+      why: frameWhy(frame, time, dayPart),
+    },
+  };
+}
+
+function buildFrameTimeBuildExercise(
+  kind: DaysDatesTimeKind,
+  rng: () => number,
+): PracticeItem["task"] {
+  const frame = pickRandomScheduleFrame(rng);
+  const time = pickScheduleTimeWithoutDayPart(rng);
+  const { promptSk, prompt } = scheduleExercisePrompt(frame, time);
+  const wrongFrame =
+    SCHEDULE_FRAMES.find((candidate) => candidate.id !== frame.id) ?? SCHEDULE_FRAMES[0]!;
+  const wrongVerb =
+    wrongFrame.skPrefixTokens[wrongFrame.skPrefixTokens.length - 1] ?? "začína";
+  const misses = nearMissTimes(time, rng);
+  const wrongTimeTile = appointmentTimeTiles(misses[0]!).slice(-1)[0]!;
+  const timeTiles = appointmentTimeTiles(time);
+  const distractors = [wrongVerb, wrongTimeTile].filter(
+    (tile) => !frame.skPrefixTokens.includes(tile) && !timeTiles.includes(tile),
+  );
+  const { tiles, answer } = buildTilesForFrame(frame, time, rng, distractors);
+  const correction = fullScheduleLine(frame, time);
+
+  return {
+    id: `generated-${kind}`,
+    type: "build",
+    practiceItemId: kind,
+    promptSk,
+    prompt,
+    promptLang: "en",
+    tiles,
+    answer,
+    feedback: {
+      correction,
+      english: prompt,
+      why: frameWhy(frame, time),
+    },
+  };
+}
+
+function buildFrameTimeTypedExercise(
+  kind: DaysDatesTimeKind,
+  rng: () => number,
+): PracticeItem["task"] {
+  const frame = pickRandomScheduleFrame(rng);
+  const { time, dayPart } = pickScheduleTime(rng);
+  const answer = preferredAppointmentAnswer(time, dayPart);
+  const accepted = typedAcceptedAnswers(frame, time, dayPart).filter(
+    (candidate) => candidate !== answer,
+  );
+
+  return {
+    id: `generated-${kind}`,
+    type: "typed",
+    task: "complete",
+    practiceItemId: kind,
+    context: [questionContextTurn(frame)],
+    prompt: englishAppointmentPrompt(time, dayPart),
+    promptLang: "en",
+    inputLabel: "Your Slovak answer",
+    answer,
+    acceptedAnswers: accepted,
+    feedback: {
+      correction: answer,
+      english: englishAppointmentPrompt(time, dayPart),
+      why: frameWhy(frame, time, dayPart),
+    },
+  };
+}
+
+function buildFrameNegotiateExercise(
+  kind: DaysDatesTimeKind,
+  rng: () => number,
+): PracticeItem["task"] {
+  const dayIndex = Math.floor(rng() * NEGOTIATE_DAYS.length);
+  const day = NEGOTIATE_DAYS[dayIndex] ?? NEGOTIATE_DAYS[0]!;
+  const { proposed, better } = pickNegotiateTimes(rng);
+  const answer = negotiateAnswer(better);
+  const bareTime = appointmentPhrase(better);
+  const prompt = englishNegotiatePrompt(better);
+
+  return {
+    id: `generated-${kind}`,
+    type: "typed",
+    task: "complete",
+    practiceItemId: kind,
+    context: [negotiateContextTurn(day), negotiateProposalTurn(proposed)],
+    prompt,
+    promptLang: "en",
+    inputLabel: "Your Slovak answer",
+    answer,
+    acceptedAnswers: bareTime !== answer ? [bareTime] : [],
+    feedback: {
+      correction: answer,
+      english: prompt,
+      why: negotiateWhy(better),
+    },
+  };
+}
+
 function buildZaCountdownExercise(
   kind: DaysDatesTimeKind,
   rng: () => number,
@@ -727,6 +898,18 @@ export function materializeDaysDatesTimeItem(
   if (kind === "everyday/za-countdown") {
     return wrapTask(kind, buildZaCountdownExercise(kind, rng));
   }
+  if (kind === "everyday/frame-time-choice") {
+    return wrapTask(kind, buildFrameTimeChoiceExercise(kind, rng));
+  }
+  if (kind === "everyday/frame-time-build") {
+    return wrapTask(kind, buildFrameTimeBuildExercise(kind, rng));
+  }
+  if (kind === "everyday/frame-time-typed") {
+    return wrapTask(kind, buildFrameTimeTypedExercise(kind, rng));
+  }
+  if (kind === "everyday/frame-negotiate") {
+    return wrapTask(kind, buildFrameNegotiateExercise(kind, rng));
+  }
 
   throw new Error(`Unknown days-dates-time kind: ${kind}`);
 }
@@ -737,6 +920,12 @@ export function buildDaysDatesTimeSession(
   const items: PracticeItem[] = [
     materializeDaysDatesTimeItem("everyday/day-meeting", rng),
   ];
+
+  const framedCount = rng() < 0.5 ? 2 : 3;
+  const framedPicks = shuffleArray(FRAMED_KINDS, rng).slice(0, framedCount);
+  for (const kind of framedPicks) {
+    items.push(materializeDaysDatesTimeItem(kind, rng));
+  }
 
   for (const kind of CORE_QUARTER_KINDS) {
     items.push(materializeDaysDatesTimeItem(kind, rng));
@@ -767,6 +956,7 @@ export function buildDaysDatesTimeSession(
 
 const ALL_KINDS: DaysDatesTimeKind[] = [
   "everyday/day-meeting",
+  ...FRAMED_KINDS,
   ...CORE_QUARTER_KINDS,
   ...CLOCK_MATCH_KINDS,
   "everyday/clock-quarter-past-ask",

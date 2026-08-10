@@ -48,7 +48,7 @@
     return data.set.title;
   }
 
-  let sectionTitle = $state(data.set.title);
+  let sectionTitle = $state("");
 
   function resolveSessionItems(atItemId: string | null): PracticeItem[] {
     if (data.set.sessionKind === "days-dates-time") {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { gradeAnswer } from "$lib/client/practice-state";
 import { gradeSelectAll, choiceFeedbackWhy } from "$lib/learning/exercises/select-all";
 import { appointmentPhrase, selectAllChoicesForTime } from "$lib/learning/time/clock";
 import {
@@ -17,8 +18,9 @@ describe("learning/time/session", () => {
 
   it("builds a full session with odd-one-out and phase 2/3 items", () => {
     const session = buildDaysDatesTimeSession(() => 0.42);
-    expect(session.length).toBeGreaterThanOrEqual(9);
-    expect(session.length).toBeLessThanOrEqual(11);
+    expect(session.length).toBeGreaterThanOrEqual(11);
+    expect(session.length).toBeLessThanOrEqual(14);
+    expect(session.some((item) => item.id.startsWith("everyday/frame-"))).toBe(true);
     expect(session.some((item) => item.task.type === "selectAll")).toBe(false);
     const phase2Ids = [
       "everyday/day-part-time",
@@ -211,6 +213,72 @@ describe("learning/time/session", () => {
       expect(item.task.feedback?.why).toMatch(/\*\*O pol /);
       expect(item.task.feedback?.why).not.toMatch(/^Je /);
     }
+  });
+
+  it("materializes framed choice with merged schedule prompt", () => {
+    const item = materializeDaysDatesTimeItem("everyday/frame-time-choice", () => 0.1);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type !== "choice") return;
+
+    expect(item.task.promptLang).toBe("en");
+    expect(item.task.promptSk).toMatch(/…$/);
+    expect(item.task.prompt).toMatch(/^The |^We have |^The train |^The meeting /);
+    expect(item.task.context).toBeUndefined();
+    expect(item.task.prompt).not.toMatch(/Which word means/i);
+    expect(item.task.choices.some((choice) => choice.id === "correct")).toBe(true);
+    expect(item.task.feedback?.why).toMatch(
+      /\*\*O |\*\*Film|\*\*Obed|\*\*Vlak|\*\*Stretnutie/,
+    );
+  });
+
+  it("materializes framed build with merged schedule prompt", () => {
+    const item = materializeDaysDatesTimeItem("everyday/frame-time-build", () => 0.2);
+    expect(item.task.type).toBe("build");
+    if (item.task.type !== "build") return;
+
+    expect(item.task.promptSk).toMatch(/…$/);
+    expect(item.task.promptLang).toBe("en");
+    expect(item.task.prompt).toMatch(/ at /);
+    expect(item.task.context).toBeUndefined();
+    expect(item.task.tiles.length).toBeGreaterThan(item.task.answer.length);
+    expect(item.task.feedback?.correction).toMatch(/^(Film|Obedujeme|Vlak|Stretnutie)/);
+  });
+
+  it("materializes framed typed with accepted bare and full schedule answers", () => {
+    const item = materializeDaysDatesTimeItem("everyday/frame-time-typed", () => 0.3);
+    expect(item.task.type).toBe("typed");
+    if (item.task.type !== "typed") return;
+
+    expect(item.task.context?.[0]?.slovak).toMatch(/\?$/);
+    expect(item.task.promptLang).toBe("en");
+    expect(item.task.prompt).toMatch(/^At /);
+    const answer = item.task.answer;
+    const alts = item.task.acceptedAnswers ?? [];
+    expect(gradeAnswer(item.task.feedback?.correction ?? answer, answer, alts)).toBe(
+      "correct",
+    );
+    if (alts[0]) {
+      expect(gradeAnswer(alts[0], answer, alts)).toBe("correct");
+    }
+  });
+
+  it("materializes framed negotiate with day + proposed time then Lepšie counter", () => {
+    const item = materializeDaysDatesTimeItem("everyday/frame-negotiate", () => 0.4);
+    expect(item.task.type).toBe("typed");
+    if (item.task.type !== "typed") return;
+
+    expect(item.task.context).toHaveLength(2);
+    expect(item.task.context?.[0]?.slovak).toMatch(/Stretneme sa v/);
+    expect(item.task.context?.[1]?.slovak).toMatch(/^Áno\. O /);
+    expect(item.task.context?.[1]?.english).toMatch(/^Yes\. At /);
+    expect(item.task.prompt).toMatch(/^Better at half past /);
+    expect(item.task.answer).toMatch(/^Lepšie o pol /);
+    expect(item.task.feedback?.why).toMatch(/\*\*Lepšie\*\*/);
+  });
+
+  it("recognizes framed procedural kinds", () => {
+    expect(isDaysDatesTimeKind("everyday/frame-time-choice")).toBe(true);
+    expect(isDaysDatesTimeKind("everyday/frame-negotiate")).toBe(true);
   });
 
   it("keeps full O phrases in okolo and timetable feedback why", () => {

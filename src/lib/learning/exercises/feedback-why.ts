@@ -54,6 +54,17 @@ export function choiceFeedbackWhy(
   return augmentFeedbackWhy(baseWhy, new Set([selectedId]), choices, answerId);
 }
 
+export const PICK_TRAP_CORRECT_HEADLINE = "That one doesn't fit.";
+export const PICK_TRAP_MISS_HEADLINE = "Doesn't fit";
+
+/**
+ * pickTrap feedback: `english` is the prompt target meaning (e.g. half past 11),
+ * not what the trap line means — never show it beside the trap correction.
+ */
+export function pickTrapFeedbackEnglish(_english?: string): undefined {
+  return undefined;
+}
+
 /** Feedback for pickTrap choice exercises. */
 export function pickTrapFeedbackWhy(
   baseWhy: string,

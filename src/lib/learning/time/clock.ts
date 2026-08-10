@@ -334,17 +334,14 @@ export function tellingChoiceWhy(time: ClockFaceTime): string {
     return `**${phrase}** means ${meaning} — **${digital}** on the clock.`;
   }
   if (time.minute === 15) {
-    const towardWord = towardWordForTime(time);
     const toward = comingHour12(time.hour);
     return `**${phrase}** means ${meaning}: one quarter toward **${toward}** (**${digital}**). After **na**, name the hour ahead.`;
   }
   if (time.minute === 30) {
     const toward = comingHour12(time.hour);
-    const polWord = polWordForTime(time);
     return `**${phrase}** means ${meaning}: halfway toward **${toward}** (**${digital}**). **Pol** names the hour ahead.`;
   }
 
-  const towardWord = towardWordForTime(time);
   const toward = comingHour12(time.hour);
   return `**${phrase}** means ${meaning}: three quarters toward **${toward}** (**${digital}**). After **na**, name the hour ahead.`;
 }
@@ -396,7 +393,6 @@ function timeDistractorWhy(
   wrong: ClockFaceTime,
 ): string {
   const wrongDigital = formatFaceDigital12(wrong);
-  const correctDigital = formatFaceDigital12(correct);
   const wrongMeaning = englishTimeMeaningPhrase(wrong).toLowerCase();
   const correctMeaning = englishTimeMeaningPhrase(correct).toLowerCase();
   const wrongFace = analogFace(wrong);
@@ -623,7 +619,6 @@ export function oddOneOutChoicesFromDrafts(
 /** Build select-all options for Koľko je hodín? style telling-time. */
 export function selectAllChoicesForTime(time: ClockFaceTime): SelectAllChoiceDraft[] {
   const face = analogFace(time);
-  const hour = ((Math.trunc(time.hour) % 24) + 24) % 24;
   const choices: SelectAllChoiceDraft[] = [];
 
   const add = (id: string, label: string, correct: boolean, whyWrong?: string): void => {
@@ -878,7 +873,6 @@ export function aroundPhrase(time: ClockFaceTime): string {
 
 /** Appointment alternates where both forms are attested (o prvej for 1:00 is a trap, not accepted). */
 export function appointmentAlternates(time: ClockFaceTime): string[] {
-  const hour = normalizeHour24(time.hour);
   const primary = appointmentPhrase(time);
   const alts: string[] = [primary];
 

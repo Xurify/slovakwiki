@@ -464,6 +464,21 @@ export const daysDatesTimeLesson: Lesson = {
       audio: { transcript: "O štvrť na tri." },
     },
     {
+      slovak: "Film začína o ôsmej.",
+      english: "The film starts at eight o'clock.",
+      audio: { transcript: "Film začína o ôsmej." },
+    },
+    {
+      slovak: "Obedujeme o dvanástej.",
+      english: "We have lunch at twelve o'clock.",
+      audio: { transcript: "Obedujeme o dvanástej." },
+    },
+    {
+      slovak: "Vlak odchádza o tretej.",
+      english: "The train leaves at three o'clock.",
+      audio: { transcript: "Vlak odchádza o tretej." },
+    },
+    {
       slovak: "O jednej.",
       english: "1:00 — one o'clock.",
       note: "1:00 is O jednej — not ordinal O prvej.",

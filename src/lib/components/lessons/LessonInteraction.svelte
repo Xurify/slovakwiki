@@ -12,6 +12,9 @@
     choiceFeedbackWhy,
     gradeChoice,
     gradeSelectAll,
+    pickTrapFeedbackEnglish,
+    PICK_TRAP_CORRECT_HEADLINE,
+    PICK_TRAP_MISS_HEADLINE,
     pickTrapFeedbackWhy,
     selectAllFeedbackWhy,
   } from "$lib/learning/exercises";
@@ -97,6 +100,11 @@
   });
   const isPickTrap = $derived(
     graded?.type === "choice" && graded.choiceMode === "pickTrap",
+  );
+  const feedbackEnglish = $derived(
+    isPickTrap
+      ? pickTrapFeedbackEnglish(exercise.feedback.english)
+      : exercise.feedback.english,
   );
   const canCheck = $derived.by(() => {
     if (!graded || submitted) return false;
@@ -281,15 +289,15 @@
         <PracticeExerciseFeedback
           attempt={attemptForDisplay()}
           correction={feedbackCorrection}
-          english={exercise.feedback.english}
+          english={feedbackEnglish}
           why={feedbackWhy}
           grade={correct ? "correct" : "incorrect"}
           revealed={revealed || !correct}
           {showCorrection}
           density={correct ? "default" : "compact"}
           correctionLabelTone="emerald"
-          correctHeadline={isPickTrap ? "That one doesn't fit." : "Correct"}
-          missHeadline={isPickTrap ? "Correct" : "Correct answer"}
+          correctHeadline={isPickTrap ? PICK_TRAP_CORRECT_HEADLINE : "Correct"}
+          missHeadline={isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer"}
         />
       </div>
 

@@ -19,7 +19,7 @@
     </div>
 
     <div class="h-1.5 overflow-hidden rounded-full bg-slate-200">
-      <span class="block h-full w-1/3 rounded-full bg-slate-300"></span>
+      <span class="block h-full w-0 rounded-full bg-slate-300"></span>
     </div>
   </header>
 

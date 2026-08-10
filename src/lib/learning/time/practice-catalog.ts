@@ -52,6 +52,10 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
   stubClockMatch("everyday/timetable-24h", "review-timetable-24h"),
   stubClockMatch("everyday/exact-minute", "review-exact-minute"),
   stubOddOneOut("everyday/za-countdown", "review-za-countdown"),
+  stubFrameChoice("everyday/frame-time-choice", "review-frame-time-choice"),
+  stubFrameBuild("everyday/frame-time-build", "review-frame-time-build"),
+  stubFrameTyped("everyday/frame-time-typed", "review-frame-time-typed"),
+  stubFrameTyped("everyday/frame-negotiate", "review-frame-negotiate"),
 ];
 
 export const daysDatesTimePracticeItemIds = daysDatesTimePracticeItems.map(
@@ -224,5 +228,123 @@ function stubOddOneOut(id: string, taskId: string): PracticeItem {
       feedback: stubFeedback,
     },
     feedback: stubFeedback,
+  };
+}
+
+function stubFrameChoice(id: string, taskId: string): PracticeItem {
+  return {
+    id,
+    source: daysDatesTimeSource,
+    task: {
+      id: taskId,
+      type: "choice",
+      practiceItemId: id,
+      promptSk: "Film začína…",
+      prompt: "The film starts at eight o'clock.",
+      promptLang: "en",
+      choices: [
+        { id: "a", label: "O ôsmej." },
+        {
+          id: "b",
+          label: "O ôsmej ráno.",
+          whyWrong:
+            "The prompt does not ask for morning — bare **O ôsmej** is enough here.",
+        },
+      ],
+      answerId: "a",
+      feedback: {
+        correction: "O ôsmej.",
+        english: "The film starts at eight o'clock.",
+        why: "**O ôsmej** means eight o'clock. **Film** means film. **Začína** means starts.",
+      },
+    },
+    feedback: {
+      correction: "O ôsmej.",
+      english: "The film starts at eight o'clock.",
+      why: "**O ôsmej** means eight o'clock. **Film** means film. **Začína** means starts.",
+    },
+  };
+}
+
+function stubFrameBuild(id: string, taskId: string): PracticeItem {
+  return {
+    id,
+    source: daysDatesTimeSource,
+    task: {
+      id: taskId,
+      type: "build",
+      practiceItemId: id,
+      promptSk: "Obedujeme…",
+      prompt: "We have lunch at twelve o'clock.",
+      promptLang: "en",
+      tiles: ["Obedujeme", "o", "dvanástej.", "začína"],
+      answer: ["Obedujeme", "o", "dvanástej."],
+      feedback: {
+        correction: "Obedujeme o dvanástej.",
+        english: "We have lunch at twelve o'clock.",
+        why: "**O dvanástej** means twelve o'clock. **Obedujeme** means we have lunch.",
+      },
+    },
+    feedback: {
+      correction: "Obedujeme o dvanástej.",
+      english: "We have lunch at twelve o'clock.",
+      why: "**O dvanástej** means twelve o'clock. **Obedujeme** means we have lunch.",
+    },
+  };
+}
+
+function stubFrameTyped(id: string, taskId: string): PracticeItem {
+  const isNegotiate = id.endsWith("negotiate");
+  return {
+    id,
+    source: daysDatesTimeSource,
+    task: {
+      id: taskId,
+      type: "typed",
+      task: "complete",
+      practiceItemId: id,
+      context: isNegotiate
+        ? [
+            {
+              id: "negotiate-utorok",
+              speaker: "Anna",
+              slovak: "Stretneme sa v utorok?",
+              english: "Shall we meet on Tuesday?",
+            },
+            {
+              id: "negotiate-proposal",
+              speaker: "You",
+              slovak: "Áno. O tretej?",
+              english: "Yes. At three o'clock?",
+            },
+          ]
+        : [
+            {
+              id: "frame-film-question",
+              speaker: "Scene",
+              slovak: "O koľkej začína film?",
+              english: "When does the film start?",
+            },
+          ],
+      prompt: isNegotiate ? "Better at half past two." : "At eight o'clock.",
+      promptLang: "en",
+      inputLabel: "Your Slovak answer",
+      answer: isNegotiate ? "Lepšie o pol tretej." : "O ôsmej.",
+      acceptedAnswers: isNegotiate ? ["O pol tretej."] : ["Film začína o ôsmej."],
+      feedback: {
+        correction: isNegotiate ? "Lepšie o pol tretej." : "O ôsmej.",
+        english: isNegotiate ? "Better at half past two." : "At eight o'clock.",
+        why: isNegotiate
+          ? "**Lepšie** counters with a better time — **Lepšie o pol tretej** means *Better at half past two*."
+          : "**O ôsmej** means eight o'clock. **Film** means film. **Začína** means starts.",
+      },
+    },
+    feedback: {
+      correction: isNegotiate ? "Lepšie o pol tretej." : "O ôsmej.",
+      english: isNegotiate ? "Better at half past two." : "At eight o'clock.",
+      why: isNegotiate
+        ? "**Lepšie** counters with a better time — **Lepšie o pol tretej** means *Better at half past two*."
+        : "**O ôsmej** means eight o'clock. **Film** means film. **Začína** means starts.",
+    },
   };
 }
