@@ -1,4 +1,3 @@
-import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
@@ -7,6 +6,7 @@ import { defineConfig } from "astro/config";
 import { dictionaryDownloads } from "./src/integrations/dictionary-downloads";
 import { dictionaryIndex } from "./src/integrations/dictionary-index";
 import { frequencyStatic } from "./src/integrations/frequency-static";
+import { groupedSitemap } from "./src/integrations/grouped-sitemap";
 import { pagefindSearch } from "./src/integrations/pagefind-search";
 import { SITE_ORIGIN } from "./src/lib/seo/site";
 
@@ -18,10 +18,7 @@ export default defineConfig({
   },
   integrations: [
     svelte(),
-    sitemap({
-      customPages: [`${SITE_ORIGIN}/dictionary`],
-      filter: (page) => !page.includes("/search"),
-    }),
+    groupedSitemap(),
     pagefindSearch(),
     dictionaryDownloads(),
     dictionaryIndex(),
