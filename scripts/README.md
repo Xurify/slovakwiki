@@ -2,6 +2,8 @@
 
 Grouped by job. Run content tooling with `bun scripts/<path>` from the repo root. Everyday app scripts live in `package.json` (`dev`, `build`, `test`, `index:search`, …).
 
+**Typecheck:** `scripts/**` is included in `bun run typecheck` (`astro check`). Prefer Node stdlib + patterns from `scripts/lib/paths.ts` and sibling scripts — see `AGENTS.md` → **Scripts**.
+
 ## Happy path
 
 ```
