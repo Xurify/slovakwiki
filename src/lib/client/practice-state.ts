@@ -1,3 +1,5 @@
+import { levenshtein } from "$lib/string/levenshtein";
+
 export const PRACTICE_STATE_STORAGE_KEY = "slovak.wiki.practice.v1";
 
 const LEGACY_PRACTICE_STATE_STORAGE_KEY = "slovak-wiki.practice.v1";
@@ -150,40 +152,41 @@ export function gradeAnswer(
   return nearMiss ? "accents" : "incorrect";
 }
 
-/** Classic Levenshtein over Unicode code points. */
-export function levenshtein(a: string, b: string): number {
-  if (a === b) return 0;
-  if (a.length === 0) return b.length;
-  if (b.length === 0) return a.length;
-
-  const aChars = [...a];
-  const bChars = [...b];
-  const rows = aChars.length + 1;
-  const cols = bChars.length + 1;
-  const prev = new Array<number>(cols);
-  const curr = new Array<number>(cols);
-
-  for (let j = 0; j < cols; j++) prev[j] = j;
-
-  for (let i = 1; i < rows; i++) {
-    curr[0] = i;
-    const aChar = aChars[i - 1]!;
-    for (let j = 1; j < cols; j++) {
-      const cost = aChar === bChars[j - 1] ? 0 : 1;
-      curr[j] = Math.min(
-        (prev[j] ?? 0) + 1,
-        (curr[j - 1] ?? 0) + 1,
-        (prev[j - 1] ?? 0) + cost,
-      );
-    }
-    for (let j = 0; j < cols; j++) prev[j] = curr[j] ?? 0;
-  }
-
-  return prev[bChars.length] ?? 0;
-}
-
 function closeAnswerThreshold(length: number): number {
   return Math.max(1, Math.floor(length / 5));
+}
+
+/**
+ * Accepted form with the smallest accent-folded edit distance to the attempt.
+ * Empty attempt → preferred `answer`. Ties keep the earlier candidate (preferred first).
+ */
+export function closestAcceptedAnswer(
+  value: string,
+  answer: string,
+  alternatives: string[] = [],
+): string {
+  const preferred = answer.trim();
+  const trimmed = value.trim();
+  if (!trimmed) return preferred;
+
+  const foldedValue = foldAccents(value);
+  if (!foldedValue) return preferred;
+
+  let best = preferred;
+  let bestDistance = Number.POSITIVE_INFINITY;
+
+  for (const candidate of [answer, ...alternatives]) {
+    const foldedCandidate = foldAccents(candidate);
+    if (!foldedCandidate) continue;
+
+    const distance = levenshtein(foldedValue, foldedCandidate);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = candidate.trim();
+    }
+  }
+
+  return best || preferred;
 }
 
 /**

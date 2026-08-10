@@ -2,7 +2,7 @@
   import Button from "$lib/components/ui/Button.svelte";
   import ClockIllustration from "./ClockIllustration.svelte";
 
-  import { gradeAnswer, suggestCloseAnswer } from "$lib/client/practice-state";
+  import { closestAcceptedAnswer, gradeAnswer } from "$lib/client/practice-state";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     feedbackPanelClass,
@@ -42,16 +42,12 @@
       ? preferredAnswerForTime(time)
       : preferredAppointmentAnswerForTime(time),
   );
-  const otherForms = $derived(accepted.filter((form) => form !== preferred));
+
+  const correction = $derived(closestAcceptedAnswer(input, preferred, accepted));
+  const otherForms = $derived(accepted.filter((form) => form !== correction));
   const grade = $derived(
     submitted && !revealed ? gradeAnswer(input, preferred, accepted) : null,
   );
-  const closeSuggestion = $derived.by(() => {
-    if (!submitted || revealed || grade !== "incorrect") return null;
-    const suggestion = suggestCloseAnswer(input, preferred, accepted);
-    if (!suggestion || suggestion === preferred) return null;
-    return suggestion;
-  });
   const showCorrection = $derived(shouldShowCorrection(submitted, grade, revealed));
   const wrongRegisterHint = $derived.by(() => {
     if (!submitted || revealed || grade === "correct" || grade === "accents") {
@@ -189,8 +185,7 @@
       aria-live="polite"
     >
       <PracticeExerciseFeedback
-        {closeSuggestion}
-        correction={preferred}
+        {correction}
         grade={grade === "correct"
           ? "correct"
           : grade === "accents"

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   answersMatch,
+  closestAcceptedAnswer,
   emptyPracticeState,
   gradeAnswer,
   markLessonComplete,
@@ -727,6 +728,20 @@ describe("Slovak content", () => {
     expect(suggestCloseAnswer("píšem", "Čítam")).toBeNull();
     expect(suggestCloseAnswer("   ", preferred, accepted)).toBeNull();
     expect(suggestCloseAnswer("", preferred, accepted)).toBeNull();
+  });
+
+  it("picks the closest accepted clock form as the primary correction", () => {
+    const accepted = answersForTime({ hour: 5, minute: 45 });
+    const preferred = accepted[0] ?? "";
+
+    expect(preferred).toBe("Je trištvrte na šesť");
+    expect(closestAcceptedAnswer("trištvrte na deväť", preferred, accepted)).toBe(
+      "trištvrte na šesť",
+    );
+    expect(closestAcceptedAnswer("Je trištvrte na deväť", preferred, accepted)).toBe(
+      "Je trištvrte na šesť",
+    );
+    expect(closestAcceptedAnswer("", preferred, accepted)).toBe(preferred);
   });
 
   it("resolves cloze lemma and grammar topic ids", () => {
