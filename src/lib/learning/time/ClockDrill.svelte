@@ -2,7 +2,11 @@
   import Button from "$lib/components/ui/Button.svelte";
   import ClockIllustration from "./ClockIllustration.svelte";
 
-  import { closestAcceptedAnswer, gradeAnswer } from "$lib/client/practice-state";
+  import {
+    closestAcceptedAnswer,
+    displayPracticeAnswer,
+    gradeAnswer,
+  } from "$lib/client/practice-state";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     feedbackPanelClass,
@@ -13,10 +17,12 @@
     analogFace,
     answersForTime,
     appointmentAnswersForTime,
+    appointmentChoiceWhy,
     formatDigital,
     preferredAnswerForTime,
     preferredAppointmentAnswerForTime,
     randomDrillTime,
+    tellingChoiceWhy,
     type ClockFaceTime,
   } from "./clock";
 
@@ -63,6 +69,15 @@
     return register === "telling"
       ? "That form answers **O koľkej?** — this question needs **Je/Sú …**."
       : "That form answers **Koľko je hodín?** — this question needs **O …**.";
+  });
+  const registerWhy = $derived(
+    register === "appointment" ? appointmentChoiceWhy(time) : tellingChoiceWhy(time),
+  );
+  const feedbackWhy = $derived.by(() => {
+    if (!submitted || revealed || grade === "correct") return null;
+    if (wrongRegisterHint) return `${wrongRegisterHint} ${registerWhy}`;
+    if (grade === "incorrect" || grade === "accents") return registerWhy;
+    return null;
   });
 
   function focusAnswerInput(): void {
@@ -194,7 +209,7 @@
         revealed={revealed || grade === "incorrect"}
         {showCorrection}
         correctionLabelTone={grade === "correct" ? "emerald" : "rose"}
-        why={wrongRegisterHint}
+        why={feedbackWhy}
       />
 
       {#if otherForms.length > 0 && (revealed || grade !== "correct")}
@@ -213,7 +228,9 @@
         {#if showMore || revealed}
           <ul class="m-0 grid list-none gap-1 p-0" lang="sk">
             {#each otherForms as form (form)}
-              <li class="font-serif text-sm text-slate-700">{form}</li>
+              <li class="font-serif text-sm text-slate-700">
+                {displayPracticeAnswer(form)}
+              </li>
             {/each}
           </ul>
         {/if}

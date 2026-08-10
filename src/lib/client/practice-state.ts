@@ -115,6 +115,13 @@ export function normalizePracticeAnswer(value: string): string {
     .replace(/\s+/gu, " ");
 }
 
+/** Sentence-style Slovak for feedback display; does not affect grading. */
+export function displayPracticeAnswer(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return trimmed;
+  return trimmed.charAt(0).toLocaleUpperCase("sk-SK") + trimmed.slice(1);
+}
+
 export function answersMatch(
   value: string,
   answer: string,

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   answersMatch,
   closestAcceptedAnswer,
+  displayPracticeAnswer,
   emptyPracticeState,
   gradeAnswer,
   markLessonComplete,
@@ -742,6 +743,12 @@ describe("Slovak content", () => {
       "Je trištvrte na šesť",
     );
     expect(closestAcceptedAnswer("", preferred, accepted)).toBe(preferred);
+  });
+
+  it("capitalizes Slovak answers for feedback display only", () => {
+    expect(displayPracticeAnswer("trištvrte na šesť")).toBe("Trištvrte na šesť");
+    expect(displayPracticeAnswer("Je trištvrte na šesť")).toBe("Je trištvrte na šesť");
+    expect(displayPracticeAnswer("")).toBe("");
   });
 
   it("resolves cloze lemma and grammar topic ids", () => {

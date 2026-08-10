@@ -1,6 +1,7 @@
 <script lang="ts">
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import type { AnswerGrade } from "$lib/client/practice-state";
+  import { displayPracticeAnswer } from "$lib/client/practice-state";
   import {
     feedbackSectionLabelClass,
     missCompareAttemptRowClass,
@@ -65,6 +66,12 @@
   const englishClass = $derived(
     useCompare ? "m-0 text-sm leading-snug text-slate-600" : "m-0 text-sm text-slate-600",
   );
+  const displayedCorrection = $derived(
+    correction ? displayPracticeAnswer(correction) : undefined,
+  );
+  const displayedCloseSuggestion = $derived(
+    closeSuggestion ? displayPracticeAnswer(closeSuggestion) : null,
+  );
 </script>
 
 {#snippet whyLine()}
@@ -103,7 +110,7 @@
           <div class={missCompareCorrectionRowClass}>
             <p class="{feedbackSectionLabelClass} text-emerald-800">{missHeadline}</p>
 
-            <p class={correctionClass} lang="sk">{correction}</p>
+            <p class={correctionClass} lang="sk">{displayedCorrection}</p>
 
             {#if showEnglish}
               <p class={englishClass}>{english}</p>
@@ -119,7 +126,7 @@
       <p class="m-0 text-sm text-slate-700">
         Did you mean
         <strong class="font-serif text-base text-slate-900" lang="sk"
-          >{closeSuggestion}</strong
+          >{displayedCloseSuggestion}</strong
         >?
       </p>
     {/if}
@@ -156,13 +163,13 @@
       <p class="m-0 text-sm text-slate-700">
         Did you mean
         <strong class="font-serif text-base text-slate-900" lang="sk"
-          >{closeSuggestion}</strong
+          >{displayedCloseSuggestion}</strong
         >?
       </p>
     {/if}
 
     {#if showCorrection && correction}
-      <p class={correctionClass} lang="sk">{correction}</p>
+      <p class={correctionClass} lang="sk">{displayedCorrection}</p>
     {/if}
 
     {#if showEnglish}
