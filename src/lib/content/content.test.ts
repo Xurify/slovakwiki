@@ -82,6 +82,32 @@ describe("Slovak content", () => {
     expect(searchEntries("kupujem")[0]?.slug).toBe("kupovat");
   });
 
+  it("indexes irregular verb forms and prefixed stem alternations", () => {
+    expect(conjugateVerbForTest("brať")).toEqual(
+      expect.arrayContaining(["beriem", "berieš", "berú", "ber", "berte", "bral"]),
+    );
+    expect(conjugateVerbForTest("vybrať")).toContain("vyberiem");
+    expect(conjugateVerbForTest("zobrať")).toContain("zoberiem");
+    expect(conjugateVerbForTest("písať")).toContain("píšem");
+    expect(conjugateVerbForTest("napísať")).toContain("napíšem");
+    expect(conjugateVerbForTest("viesť")).toContain("vediem");
+    expect(conjugateVerbForTest("uviesť")).toContain("uvediem");
+    expect(conjugateVerbForTest("žiť")).toContain("žijem");
+    expect(conjugateVerbForTest("spať")).toContain("spím");
+    expect(conjugateVerbForTest("stáť")).toContain("stojím");
+    expect(conjugateVerbForTest("dostať")).toContain("dostanem");
+    expect(conjugateVerbForTest("pomôcť")).toContain("pomôžem");
+    expect(conjugateVerbForTest("neprísť")).toContain("neprídem");
+    expect(conjugateVerbForTest("myslieť")).toContain("myslím");
+    expect(conjugateVerbForTest("hnať")).toContain("ženem");
+    // Regular -ám; must not inherit povedať → poviem.
+    expect(conjugateVerbForTest("odpovedať")).toContain("odpovedám");
+    expect(conjugateVerbForTest("odpovedať")).not.toContain("odpoviem");
+    expect(searchFormsForLemma("brať", "Verbs")).toContain("berte");
+    expect(searchEntries("beriem")[0]?.slug).toBe("brat");
+    expect(searchEntries("berte")[0]?.slug).toBe("brat");
+  });
+
   it("finds question words such as prečo and ktorý without diacritics", () => {
     expect(searchEntries("preco")[0]?.slug).toBe("preco");
     expect(searchEntries("ktory")[0]?.slug).toBe("ktory");
