@@ -11,6 +11,24 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 - Prefer Bun over npm/pnpm/yarn for installs and script runs
 - Do not refresh or commit `package-lock.json`; use `bun.lock`
 
+### Scripts (`scripts/`)
+
+`bun run typecheck` (`astro check`) typechecks **`scripts/**` as well as `src/`**. Husky pre-commit runs it after Prettier — new or edited scripts must pass before commit.
+
+**Copy existing patterns; don't invent Bun-only APIs.**
+
+| Need                         | Use (already in repo)                                                                | Avoid in `scripts/` |
+| ---------------------------- | ------------------------------------------------------------------------------------ | ------------------- |
+| Script directory / repo root | `fileURLToPath(new URL(".", import.meta.url))` or `ROOT` from `scripts/lib/paths.ts` | `import.meta.dir`   |
+| Spawn a process              | `node:child_process` (`spawn`, `execFile`)                                           | `Bun.spawn`         |
+| File I/O                     | `node:fs` / `node:fs/promises`                                                       | —                   |
+
+`@types/bun` is installed for running scripts with Bun, but the shared `tsconfig.json` does **not** load Bun globals — so `import.meta.dir` and `Bun.*` fail `astro check` even when `bun scripts/…` runs fine.
+
+**Before finishing script work:** `bun run typecheck` (mandatory, not “when risk is high”). Remove unused `const` / imports left from refactors — they show up as diagnostics and slow review.
+
+Reference implementations: `scripts/recaps/build-index.ts`, `scripts/lib/paths.ts`, `scripts/downloads/export.ts`.
+
 ### Dev & preview servers (Astro 7.2+)
 
 **Agents:** start long-running servers in **background mode** so the shell stays free. `astro dev` and `astro preview` share the same machinery ([Astro 7.2](https://astro.build/blog/astro-720)).
@@ -317,7 +335,8 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - **Lint + typecheck when risk is high.** Run `bun run lint` and `bun run typecheck` (alias: `bun run check`) before calling done when:
   - many files changed in one pass, or
   - types, exports, shared helpers, content loaders, learning/session logic, Astro pages/islands, or package scripts/config likely shifted
-  - Skip for tiny copy-only or pure Tailwind class tweaks if `format` already ran. Fix failures before finishing — CI will catch them otherwise.
+  - **any** new or edited file under `scripts/` (see **Scripts** above — mandatory)
+  - Skip for tiny copy-only or pure Tailwind class tweaks if `format` already ran. Fix failures before finishing — pre-commit runs `bun run check`; CI does not (only `format:check`).
 
 ## Checklist before finishing UI work
 
