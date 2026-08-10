@@ -773,3 +773,28 @@ export function resourceCostLabel(cost: ResourceCost): string {
       return "Mixed";
   }
 }
+
+/** Local favicon path for a curated resource (see scripts/resources/fetch-icons.ts). */
+const youtubeResourceIds = new Set([
+  "learn-slovak-stories-podcast",
+  "yt-slovakforu",
+  "yt-learn-slovak-stories",
+  "yt-slovak-girl-tami",
+  "yt-linguarte",
+  "yt-learn-slovak",
+  "yt-memories-adrift",
+]);
+
+const resourceIconFiles: Partial<Record<string, string>> = {
+  "ling-slovak": "ling-slovak.svg",
+  "slovake-grammar": "slovake-eu.png",
+};
+
+export function resourceIconUrl(resourceId: string): string {
+  if (youtubeResourceIds.has(resourceId)) {
+    return "/icons/resources/youtube.png";
+  }
+
+  const file = resourceIconFiles[resourceId] ?? `${resourceId}.png`;
+  return `/icons/resources/${file}`;
+}

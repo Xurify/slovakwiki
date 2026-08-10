@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ResourceSiteIcon from "$lib/components/ResourceSiteIcon.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -21,6 +22,8 @@
   const linkListClass = "mt-3 space-y-2 text-sm";
   const externalLinkClass =
     "text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800";
+  const resourceTitleLinkClass =
+    "inline-flex items-center gap-2 font-serif text-lg font-semibold text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800";
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -61,12 +64,13 @@
           {#each featured as resource (resource.id)}
             <li class="border-b border-slate-200 pb-4 last:border-0">
               <a
-                class="font-serif text-lg font-semibold text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
+                class={resourceTitleLinkClass}
                 href={resource.href}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                {resource.name}
+                <ResourceSiteIcon resourceId={resource.id} />
+                <span>{resource.name}</span>
               </a>
               <p class="mt-1 text-sm leading-relaxed text-slate-600">
                 {resource.summary}
@@ -101,12 +105,13 @@
           <article class={resourceBlockClass}>
             <h3 class="font-serif text-lg font-semibold text-slate-900">
               <a
-                class={externalLinkClass}
+                class="{externalLinkClass} inline-flex items-center gap-2"
                 href={resource.href}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                {resource.name}
+                <ResourceSiteIcon resourceId={resource.id} />
+                <span>{resource.name}</span>
               </a>
             </h3>
 
