@@ -133,16 +133,24 @@ function digitalAnswers(hourCount: number, minute: QuarterMinute): string[] {
 
 function fullHourAnswers(hour24: number): string[] {
   const answers: string[] = [];
+
+  if (hour24 === 0) {
+    withOptionalJe(answers, "polnoc", "Je");
+    const midnightTwelve = hodinaPhrase(12);
+    withOptionalJe(answers, midnightTwelve.nounPhrase, midnightTwelve.verb);
+    return answers;
+  }
+  if (hour24 === 12) {
+    withOptionalJe(answers, "poludnie", "Je");
+    const noonTwelve = hodinaPhrase(12);
+    withOptionalJe(answers, noonTwelve.nounPhrase, noonTwelve.verb);
+    return answers;
+  }
+
   const twelve = faceHour12(hour24);
   const twelveShape = hodinaPhrase(twelve);
   withOptionalJe(answers, twelveShape.nounPhrase, twelveShape.verb);
 
-  if (hour24 === 0) {
-    withOptionalJe(answers, "polnoc", "Je");
-  }
-  if (hour24 === 12) {
-    withOptionalJe(answers, "poludnie", "Je");
-  }
   if (hour24 >= 13 && hour24 <= 23) {
     const formal = hodinaPhrase(hour24);
     withOptionalJe(answers, formal.nounPhrase, formal.verb);
@@ -226,6 +234,8 @@ export function appointmentPhrase(time: ClockFaceTime): string {
   const minute = time.minute;
 
   if (minute === 0) {
+    if (hour === 12) return "O poludní.";
+    if (hour === 0) return "O polnoci.";
     const twelve = faceHour12(hour);
     return `O ${locativeOrdinal12(twelve)}.`;
   }
@@ -447,14 +457,14 @@ export function selectAllTrapWhy(time: ClockFaceTime, trapLabel: string): string
   if (time.minute === 15) {
     const wrongHour = face.hour === 1 ? 12 : face.hour - 1;
     const wrongTime = formatFaceDigital12({ hour: wrongHour, minute: 15 });
-    const towardWord = towardWordForTime(time);
-    return `**${phrase}** is one quarter toward **${towardWord}** — **${wrongTime}**, not **${target}**.`;
+    const trapTowardWord = TOWARD_HOUR[face.hour] ?? String(face.hour);
+    return `**${phrase}** is one quarter toward **${trapTowardWord}** — **${wrongTime}**, not **${target}**.`;
   }
   if (time.minute === 45) {
     const wrongHour = face.hour === 1 ? 12 : face.hour - 1;
     const wrongTime = formatFaceDigital12({ hour: wrongHour, minute: 45 });
-    const towardWord = towardWordForTime(time);
-    return `**${phrase}** is three quarters toward **${towardWord}** — **${wrongTime}**, not **${target}**.`;
+    const trapTowardWord = TOWARD_HOUR[face.hour] ?? String(face.hour);
+    return `**${phrase}** is three quarters toward **${trapTowardWord}** — **${wrongTime}**, not **${target}**.`;
   }
 
   const wrongTime = formatFaceDigital12({ hour: face.hour, minute: 30 });
@@ -475,7 +485,7 @@ export function appointmentPrvejTrapWhy(correct: ClockFaceTime): string {
   if (correct.minute === 0 && faceHour12(correct.hour) === 1) {
     return `**O jednej** is **1:00** — **O prvej** does not name this time.`;
   }
-  return `**O prvej** is for **1:00** — not **${digital}**.`;
+  return `**1:00** is **O jednej** — not **O prvej** (**${digital}**).`;
 }
 
 export function tellingDistractorWhy(
@@ -719,15 +729,39 @@ export interface ClockTimeOfDay {
 }
 
 export type DayPart =
-  "ráno" | "dopoludnia" | "napoludnie" | "popoludní" | "večer" | "v noci";
+  | "ráno"
+  | "dopoludnia"
+  | "doobeda"
+  | "napoludnie"
+  | "naobed"
+  | "popoludní"
+  | "poobede"
+  | "večer"
+  | "v noci";
 
 const DAY_PART_ENGLISH: Record<DayPart, string> = {
   ráno: "morning",
   dopoludnia: "late morning",
+  doobeda: "late morning",
   napoludnie: "noon",
+  naobed: "noon",
   popoludní: "afternoon",
+  poobede: "afternoon",
   večer: "evening",
   "v noci": "night",
+};
+
+/** Colloquial day-part tags paired with formal forms in teaching (ucimesaslovencinu.sk). */
+export const DAY_PART_ALIASES: Record<DayPart, DayPart> = {
+  ráno: "ráno",
+  dopoludnia: "dopoludnia",
+  doobeda: "dopoludnia",
+  napoludnie: "napoludnie",
+  naobed: "napoludnie",
+  popoludní: "popoludní",
+  poobede: "popoludní",
+  večer: "večer",
+  "v noci": "v noci",
 };
 
 /** Feedback when the correct line includes a day-part tag. */
@@ -736,7 +770,7 @@ export function appointmentDayPartChoiceWhy(
   dayPart: DayPart,
 ): string {
   const timeWhy = appointmentChoiceWhy(time);
-  if (dayPart === "napoludnie") return timeWhy;
+  if (DAY_PART_ALIASES[dayPart] === "napoludnie") return timeWhy;
   const part = DAY_PART_ENGLISH[dayPart];
   return `${timeWhy} Add **${dayPart}** so it is clearly ${part}.`;
 }
@@ -818,7 +852,8 @@ export function appointmentPhraseWithDayPart(
   dayPart: DayPart,
 ): string {
   const base = appointmentPhrase(time);
-  if (dayPart === "napoludnie") return base;
+  const canonical = DAY_PART_ALIASES[dayPart];
+  if (canonical === "napoludnie" && isNoonTime(time)) return base;
   return `${base.replace(/\.$/, "")} ${dayPart}.`;
 }
 

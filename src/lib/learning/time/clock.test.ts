@@ -117,7 +117,7 @@ describe("learning/time/clock", () => {
       "**O jednej** is **1:00** — **O prvej** does not name this time.",
     );
     expect(appointmentPrvejTrapWhy({ hour: 3, minute: 0 })).toBe(
-      "**O prvej** is for **1:00** — not **3:00**.",
+      "**1:00** is **O jednej** — not **O prvej** (**3:00**).",
     );
   });
 
@@ -146,7 +146,17 @@ describe("learning/time/clock", () => {
     );
   });
 
-  it("treats bare O dvanástej as ambiguous for noon/midnight", () => {
+  it("uses noon/midnight lexical appointments, not bare O dvanástej", () => {
+    expect(appointmentPhrase({ hour: 12, minute: 0 })).toBe("O poludní.");
+    expect(appointmentPhrase({ hour: 0, minute: 0 })).toBe("O polnoci.");
+    expect(appointmentAnswersForTime({ hour: 12, minute: 0 })).toEqual([
+      "O poludní",
+      "O dvanástej napoludnie",
+    ]);
+    expect(appointmentAnswersForTime({ hour: 0, minute: 0 })).toEqual([
+      "O polnoci",
+      "O dvanástej v noci",
+    ]);
     expect(noonMidnightAppointmentPhrases({ hour: 12, minute: 0 })).toEqual([
       "O poludní.",
       "O dvanástej napoludnie.",
@@ -162,6 +172,11 @@ describe("learning/time/clock", () => {
       "O poludní",
       "O dvanástej napoludnie",
     ]);
+  });
+
+  it("prefers Je poludnie / Je polnoc for telling on the hour", () => {
+    expect(answersForTime({ hour: 12, minute: 0 })[0]).toBe("Je poludnie");
+    expect(answersForTime({ hour: 0, minute: 0 })[0]).toBe("Je polnoc");
   });
 
   it("builds odd-one-out choices with wrong lexical as the trap", () => {
@@ -206,9 +221,14 @@ describe("learning/time/clock", () => {
   });
 
   it("builds select-all trap why with toward-hour wording", () => {
-    const trap = selectAllTrapWhy({ hour: 2, minute: 45 }, "Je trištvrte na dve");
-    expect(trap).toMatch(/three quarters toward/);
-    expect(trap).toMatch(/not \*\*2:45\*\*/);
+    const trap45 = selectAllTrapWhy({ hour: 2, minute: 45 }, "Je trištvrte na dve");
+    expect(trap45).toMatch(/three quarters toward/);
+    expect(trap45).toMatch(/toward \*\*dve\*\*/);
+    expect(trap45).toMatch(/not \*\*2:45\*\*/);
+
+    const trap15 = selectAllTrapWhy({ hour: 2, minute: 15 }, "Je štvrť na dve");
+    expect(trap15).toMatch(/one quarter toward \*\*dve\*\*/);
+    expect(trap15).toMatch(/not \*\*2:15\*\*/);
   });
 
   it("uses O prvej as appointment choice distractor trap", () => {
