@@ -6,7 +6,7 @@ import {
   daysDatesTimePracticeItemIds,
 } from "$lib/learning/time/practice-catalog";
 import { daysDatesTimeGradedExercises } from "$lib/learning/time/lesson";
-import { materializeDaysDatesTimeItem } from "$lib/learning/time/session";
+import { materializeDaysDatesTimeItem, type DaysDatesTimeKind } from "$lib/learning/time/session";
 import { practiceItems } from "$lib/content/practice";
 import { lessons } from "$lib/content/lessons";
 import type { ChoiceExercise } from "$lib/learning/types";
@@ -27,8 +27,8 @@ function choiceTasksFromPractice(): ChoiceExercise[] {
 
 function allChoiceTasks(): ChoiceExercise[] {
   const materialized = daysDatesTimePracticeItemIds.flatMap((kind) =>
-    [0, 0.1, 0.42, 0.5, 0.9].map(
-      (seed) => materializeDaysDatesTimeItem(kind, () => seed).task,
+    [0, 0.1, 0.42, 0.5, 0.9].map((seed) =>
+      materializeDaysDatesTimeItem(kind as DaysDatesTimeKind, () => seed).task,
     ),
   );
 

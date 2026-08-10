@@ -1487,6 +1487,11 @@ export const grammarEntries: GrammarTopic[] = [
         practiceItemId: "everyday/meeting-time",
       },
       {
+        slovak: "Zavolám ti o dve hodiny.",
+        english: "I will call you in two hours.",
+        practiceItemId: "everyday/o-duration",
+      },
+      {
         slovak: "Je trištvrte na tri.",
         english: "It is quarter to three.",
         practiceItemId: "everyday/quarter-time",
@@ -1503,6 +1508,7 @@ export const grammarEntries: GrammarTopic[] = [
       "Hours follow 1 / 2–4 / 5+: Je jedna hodina, Sú tri hodiny, Je päť hodín. Minúta does the same; sekunda follows the numbers hub.",
       "Half and quarter name the coming hour — pol tretej is 02:30, not 03:30. Always Je pol…, never Sú.",
       "Appointments use o + locative (O tretej); approximate time uses okolo (okolo piatej).",
+      "Duration from now uses o + accusative (O dve hodiny, O päť minút) — not a clock position.",
     ],
     pattern: {
       label: "Hour agreement and looking ahead",
@@ -1517,6 +1523,7 @@ export const grammarEntries: GrammarTopic[] = [
         "05:00 → Je päť hodín.",
         "Past / to → desať hodín a päť minút · o päť minút desať",
         "At / around → o tretej · okolo piatej",
+        "Duration → o dve hodiny · o päť minút",
         "Day parts → ráno · popoludní · večer",
         "24-hour → Je pätnásť hodín",
         "Midday / midnight → poludnie · polnoc",
@@ -1537,6 +1544,11 @@ export const grammarEntries: GrammarTopic[] = [
         id: "tristvrte",
         title: "trištvrte na",
         body: "Trištvrte na + the next hour means three-quarters toward that hour: trištvrte na tri is 02:45.",
+      },
+      {
+        id: "o-duration",
+        title: "o + accusative (duration)",
+        body: "To say in X hours or in X minutes from now, use o + accusative: o dve hodiny, o päť minút. Compare o tretej (at three, locative) — a clock point, not a span of time.",
       },
     ],
     watchOut:
@@ -1685,6 +1697,11 @@ export const caseTopics: CaseTopic[] = [
         slovak: "Hovorím o škole.",
         english: "I am talking about school.",
         note: "o škole marks the topic.",
+      },
+      {
+        slovak: "Stretneme sa o tretej.",
+        english: "We will meet at three.",
+        note: "o + locative for a clock time. For a duration (in two hours), o takes accusative: o dve hodiny.",
       },
     ],
     researchPrompts: [

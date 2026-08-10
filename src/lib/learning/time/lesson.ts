@@ -5,12 +5,20 @@ import {
   clockFaceDistractorWhy,
   englishTimeMeaningPhrase,
   oddOneOutFitWhy,
+  oDurationAppointmentTrapWhy,
+  oDurationHoursWhy,
+  oDurationMinutesWhy,
   tellingChoiceWhy,
   tellingDistractorWhy,
   okoloChoiceWhy,
   okoloExactTrapWhy,
 } from "./clock";
-import { hodinaAgreementHint, okoloHint, registersHint } from "./hints";
+import {
+  hodinaAgreementHint,
+  okoloHint,
+  oLocativeVsAccusativeHint,
+  registersHint,
+} from "./hints";
 import { enAroundPrompt } from "./prompts";
 
 type QuarterTime = { hour: number; minute: 0 | 15 | 30 | 45 };
@@ -271,6 +279,46 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     },
   },
   {
+    id: "days-o-duration-hours",
+    type: "build",
+    practiceItemId: "everyday/o-duration",
+    prompt: "In two hours.",
+    tiles: ["hodiny.", "O", "dve"],
+    answer: ["O", "dve", "hodiny."],
+    feedback: {
+      correction: "O dve hodiny.",
+      english: "In two hours.",
+      why: oDurationHoursWhy(2),
+    },
+  },
+  {
+    id: "days-o-duration-contrast",
+    type: "choice",
+    practiceItemId: "everyday/o-duration",
+    prompt: "In five minutes.",
+    choices: [
+      { id: "duration", label: "O päť minút." },
+      {
+        id: "appointment",
+        label: "O piatej.",
+        whyWrong: oDurationAppointmentTrapWhy("O päť minút.", "O piatej."),
+      },
+      {
+        id: "wrong-count",
+        label: "O dve minúty.",
+        whyWrong:
+          "**O dve minúty** means *in two minutes* — the prompt asks for *in five minutes*.",
+      },
+    ],
+    answerId: "duration",
+    hint: oLocativeVsAccusativeHint,
+    feedback: {
+      correction: "O päť minút.",
+      english: "In five minutes.",
+      why: oDurationMinutesWhy(5),
+    },
+  },
+  {
     id: "days-time-variants",
     type: "choice",
     practiceItemId: "everyday/time-variants",
@@ -450,10 +498,22 @@ export const daysDatesTimeLesson: Lesson = {
       note: "Approximate. O tretej is exact.",
       audio: { transcript: "Okolo tretej." },
     },
+    {
+      slovak: "O dve hodiny.",
+      english: "In two hours.",
+      note: "Duration from now — o + accusative. Compare O tretej (at three, locative).",
+      audio: { transcript: "O dve hodiny." },
+    },
+    {
+      slovak: "O päť minút.",
+      english: "In five minutes.",
+      note: "Same pattern for minutes: o + accusative counts forward.",
+      audio: { transcript: "O päť minút." },
+    },
   ],
   pattern: {
     title: "Days, telling time, and appointments",
-    body: "**Koľko je hodín?** → **Je/Sú …**. **O koľkej?** or **Kedy?** → **O tretej**. Use **v** + day: *v utorok*.",
+    body: "**Koľko je hodín?** → **Je/Sú …**. **O koľkej?** or **Kedy?** → **O tretej** (locative). **In X hours/minutes** → **O dve hodiny** / **O päť minút** (accusative). Use **v** + day: *v utorok*.",
   },
   visual: daysDatesTimeVisual,
   exercises: [...daysDatesTimeGradedExercises, daysDatesTimePersonalExercise],

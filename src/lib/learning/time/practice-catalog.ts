@@ -48,6 +48,7 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
   stubPhraseChoice("everyday/day-part-time", "review-day-part-time"),
   stubOddOneOut("everyday/noon-midnight", "review-noon-midnight"),
   stubPhraseChoice("everyday/okolo-vs-exact", "review-okolo-vs-exact"),
+  stubDurationContrast("everyday/o-duration", "review-o-duration"),
   stubClockMatch("everyday/timetable-24h", "review-timetable-24h"),
   stubClockMatch("everyday/exact-minute", "review-exact-minute"),
   stubOddOneOut("everyday/za-countdown", "review-za-countdown"),
@@ -159,6 +160,39 @@ function stubRegisterContrast(id: string, taskId: string): PracticeItem {
       feedback: stubFeedback,
     },
     feedback: stubFeedback,
+  };
+}
+
+function stubDurationContrast(id: string, taskId: string): PracticeItem {
+  return {
+    id,
+    source: daysDatesTimeSource,
+    task: {
+      id: taskId,
+      type: "choice",
+      practiceItemId: id,
+      prompt: "In two hours.",
+      choices: [
+        { id: "a", label: "O dve hodiny." },
+        {
+          id: "b",
+          label: "O druhej.",
+          whyWrong:
+            "**O druhej** is **o** + locative — a clock appointment time, not a duration like **O dve hodiny**.",
+        },
+      ],
+      answerId: "a",
+      feedback: {
+        correction: "O dve hodiny.",
+        english: "In two hours.",
+        why: "**O dve hodiny** means *in two hours* — **o** + accusative counts a **duration** forward from now, not a clock position.",
+      },
+    },
+    feedback: {
+      correction: "O dve hodiny.",
+      english: "In two hours.",
+      why: "**O dve hodiny** means *in two hours* — **o** + accusative counts a **duration** forward from now, not a clock position.",
+    },
   };
 }
 

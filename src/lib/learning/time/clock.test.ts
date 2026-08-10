@@ -8,6 +8,9 @@ import {
   appointmentFrom24h,
   appointmentPhrase,
   appointmentAnswersForTime,
+  oDurationAppointmentTrapWhy,
+  oDurationHoursPhrase,
+  oDurationMinutesPhrase,
   aroundPhrase,
   answersForTime,
   clockFaceDistractorWhy,
@@ -121,6 +124,15 @@ describe("learning/time/clock", () => {
   it("builds around phrases and za countdown", () => {
     expect(aroundPhrase({ hour: 3, minute: 0 })).toBe("Okolo tretej.");
     expect(zaCountdownPhrase(5, 10)).toBe("Za päť minút desať.");
+  });
+
+  it("builds o + accusative duration phrases", () => {
+    expect(oDurationHoursPhrase(1)).toBe("O hodinu.");
+    expect(oDurationHoursPhrase(2)).toBe("O dve hodiny.");
+    expect(oDurationHoursPhrase(5)).toBe("O päť hodín.");
+    expect(oDurationMinutesPhrase(2)).toBe("O dve minúty.");
+    expect(oDurationMinutesPhrase(5)).toBe("O päť minút.");
+    expect(oDurationAppointmentTrapWhy("O dve hodiny.", "O druhej.")).toMatch(/locative/);
   });
 
   it("maps 24h timetable times to appointment phrases", () => {

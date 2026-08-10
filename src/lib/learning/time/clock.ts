@@ -959,6 +959,70 @@ function minuteCountPhrase(minute: number): string {
   return `${card} minút`;
 }
 
+/** Accusative hour count after o (duration): hodinu / dve hodiny / päť hodín. */
+export function durationHourPhrase(count: number): string {
+  if (count === 1) return "hodinu";
+  if (count >= 2 && count <= 4) {
+    const card = count === 2 ? "dve" : (CARDINAL[count] ?? String(count));
+    return `${card} hodiny`;
+  }
+  const card = CARDINAL[count] ?? String(count);
+  return `${card} hodín`;
+}
+
+/** Accusative minute count after o (duration). */
+export function durationMinutePhrase(count: number): string {
+  if (count === 1) return "jednu minútu";
+  if (count >= 2 && count <= 4) {
+    const card = count === 2 ? "dve" : (CARDINAL[count] ?? String(count));
+    return `${card} minúty`;
+  }
+  const card = EXACT_MINUTE_DIGITS[count] ?? CARDINAL[count] ?? String(count);
+  return `${card} minút`;
+}
+
+/** O dve hodiny. — in two hours (duration from now). */
+export function oDurationHoursPhrase(hourCount: number): string {
+  return `O ${durationHourPhrase(hourCount)}.`;
+}
+
+/** O päť minút. — in five minutes (duration from now). */
+export function oDurationMinutesPhrase(minuteCount: number): string {
+  return `O ${durationMinutePhrase(minuteCount)}.`;
+}
+
+/** Rule-first feedback for a correct o + accusative duration choice. */
+export function oDurationHoursWhy(hourCount: number): string {
+  const bare = oDurationHoursPhrase(hourCount).replace(/\.$/, "");
+  const english =
+    hourCount === 1
+      ? "in one hour"
+      : hourCount === 2
+        ? "in two hours"
+        : `in ${hourCount} hours`;
+  return `**${bare}** means *${english}* — **o** + accusative counts a **duration** forward from now, not a clock position.`;
+}
+
+export function oDurationMinutesWhy(minuteCount: number): string {
+  const bare = oDurationMinutesPhrase(minuteCount).replace(/\.$/, "");
+  const english =
+    minuteCount === 1
+      ? "in one minute"
+      : minuteCount === 2
+        ? "in two minutes"
+        : `in ${minuteCount} minutes`;
+  return `**${bare}** means *${english}* — **o** + accusative counts a **duration** forward from now, not a clock position.`;
+}
+
+export function oDurationAppointmentTrapWhy(
+  durationPhrase: string,
+  trapPhrase: string,
+): string {
+  const duration = durationPhrase.replace(/\.$/, "");
+  const trap = trapPhrase.replace(/\.$/, "");
+  return `**${trap}** is **o** + locative — a clock appointment time, not a duration like **${duration}**.`;
+}
+
 /** Je tri hodiny a desať minút. */
 export function exactMinuteTellingLabel(time: ClockTimeOfDay): string {
   const hour = normalizeHour24(time.hour);

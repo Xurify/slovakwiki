@@ -34,11 +34,23 @@ import {
   tellingChoiceWhy,
   tellingDistractorWhy,
   tellingTimeLabel,
+  oDurationAppointmentTrapWhy,
+  oDurationHoursPhrase,
+  oDurationHoursWhy,
+  oDurationMinutesPhrase,
+  oDurationMinutesWhy,
   zaCountdownPhrase,
   zaCountdownClockFace,
   type ClockFaceTime,
+  type QuarterMinute,
 } from "./clock";
-import { dayPartHint, hodinaAgreementHint, okoloHint, registersHint } from "./hints";
+import {
+  dayPartHint,
+  hodinaAgreementHint,
+  okoloHint,
+  oLocativeVsAccusativeHint,
+  registersHint,
+} from "./hints";
 import {
   enAroundPrompt,
   enDayPartEveningPrompt,
@@ -64,6 +76,7 @@ export type DaysDatesTimeKind =
   | "everyday/day-part-time"
   | "everyday/noon-midnight"
   | "everyday/okolo-vs-exact"
+  | "everyday/o-duration"
   | "everyday/timetable-24h"
   | "everyday/exact-minute"
   | "everyday/za-countdown";
@@ -84,6 +97,7 @@ const PHASE2_KINDS: DaysDatesTimeKind[] = [
   "everyday/day-part-time",
   "everyday/noon-midnight",
   "everyday/okolo-vs-exact",
+  "everyday/o-duration",
 ];
 
 const PHASE3_KINDS: DaysDatesTimeKind[] = [
@@ -465,16 +479,16 @@ function buildExactMinuteExercise(
   rng: () => number,
 ): PracticeItem["task"] {
   const time = randomExactMinuteTime(rng);
-  const face = analogFace({ hour: time.hour, minute: time.minute });
+  const face = analogFace({ hour: time.hour, minute: time.minute as QuarterMinute });
   const correctLabel = exactMinuteTellingLabel(time);
   const bare = correctLabel.replace(/^Sú |^Je /, "").replace(/\.$/, "");
   const wrongMinuteTime = {
     hour: time.hour,
-    minute: time.minute === 10 ? 5 : 10,
+    minute: (time.minute === 10 ? 5 : 10) as QuarterMinute,
   };
   const wrongHourTime = {
     hour: time.hour === 12 ? 11 : time.hour + 1,
-    minute: time.minute,
+    minute: time.minute as QuarterMinute,
   };
 
   const choices = shuffleArray(
@@ -516,6 +530,90 @@ function buildExactMinuteExercise(
       correction: correctLabel,
       english: `${face.hour}:${String(time.minute).padStart(2, "0")}.`,
       why: exactMinuteChoiceWhy(time),
+    },
+  };
+}
+
+function buildODurationExercise(
+  kind: DaysDatesTimeKind,
+  rng: () => number,
+): PracticeItem["task"] {
+  const useHours = rng() < 0.55;
+
+  if (useHours) {
+    const hourCount = rng() < 0.5 ? 2 : 4;
+    const correctPhrase = oDurationHoursPhrase(hourCount);
+    const trapPhrase = appointmentPhrase({ hour: hourCount, minute: 0 });
+    const wrongCount = hourCount === 2 ? 3 : 2;
+    const wrongPhrase = oDurationHoursPhrase(wrongCount);
+    const english = hourCount === 2 ? "In two hours." : "In four hours.";
+
+    return {
+      id: `generated-${kind}`,
+      type: "choice",
+      practiceItemId: kind,
+      prompt: english,
+      choices: shuffleArray(
+        [
+          { id: "correct", label: correctPhrase },
+          {
+            id: "trap-locative",
+            label: trapPhrase,
+            whyWrong: oDurationAppointmentTrapWhy(correctPhrase, trapPhrase),
+          },
+          {
+            id: "wrong-count",
+            label: wrongPhrase,
+            whyWrong: `**${wrongPhrase.replace(/\.$/, "")}** is the wrong duration — the prompt asks for *${english.replace(/\.$/, "").toLowerCase()}*.`,
+          },
+        ],
+        rng,
+      ),
+      answerId: "correct",
+      hint: oLocativeVsAccusativeHint,
+      feedback: {
+        correction: correctPhrase,
+        english: english.replace(/\.$/, ""),
+        why: oDurationHoursWhy(hourCount),
+      },
+    };
+  }
+
+  const minuteCount = rng() < 0.5 ? 2 : 5;
+  const correctPhrase = oDurationMinutesPhrase(minuteCount);
+  const trapHour12 = minuteCount === 2 ? 2 : 5;
+  const trapPhrase = appointmentPhrase({ hour: trapHour12, minute: 0 });
+  const wrongCount = minuteCount === 2 ? 5 : 2;
+  const wrongPhrase = oDurationMinutesPhrase(wrongCount);
+  const english = minuteCount === 2 ? "In two minutes." : "In five minutes.";
+
+  return {
+    id: `generated-${kind}`,
+    type: "choice",
+    practiceItemId: kind,
+    prompt: english,
+    choices: shuffleArray(
+      [
+        { id: "correct", label: correctPhrase },
+        {
+          id: "trap-locative",
+          label: trapPhrase,
+          whyWrong: oDurationAppointmentTrapWhy(correctPhrase, trapPhrase),
+        },
+        {
+          id: "wrong-count",
+          label: wrongPhrase,
+          whyWrong: `**${wrongPhrase.replace(/\.$/, "")}** is the wrong duration — the prompt asks for *${english.replace(/\.$/, "").toLowerCase()}*.`,
+        },
+      ],
+      rng,
+    ),
+    answerId: "correct",
+    hint: oLocativeVsAccusativeHint,
+    feedback: {
+      correction: correctPhrase,
+      english: english.replace(/\.$/, ""),
+      why: oDurationMinutesWhy(minuteCount),
     },
   };
 }
@@ -616,6 +714,9 @@ export function materializeDaysDatesTimeItem(
   }
   if (kind === "everyday/okolo-vs-exact") {
     return wrapTask(kind, buildOkoloVsExactExercise(kind, rng));
+  }
+  if (kind === "everyday/o-duration") {
+    return wrapTask(kind, buildODurationExercise(kind, rng));
   }
   if (kind === "everyday/timetable-24h") {
     return wrapTask(kind, buildTimetableExercise(kind, rng));

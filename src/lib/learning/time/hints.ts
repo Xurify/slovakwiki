@@ -21,6 +21,13 @@ export const okoloHint: ClozeHint = {
   note: "**Okolo tretej** means *around three* — approximate. **O tretej** means *at three* — exact appointment time.",
 };
 
+/** O + locative (clock) vs o + accusative (duration). */
+export const oLocativeVsAccusativeHint: ClozeHint = {
+  chip: "O at / O in",
+  grammarTopicId: "telling-time",
+  note: "**O tretej** = *at three* — **o** + locative names a point on the clock. **O dve hodiny** / **O päť minút** = *in two hours* / *in five minutes* — **o** + accusative counts a duration forward from now.",
+};
+
 /** Day-part tags disambiguate morning vs evening on the same face. */
 export const dayPartHint: ClozeHint = {
   chip: "ráno / večer",

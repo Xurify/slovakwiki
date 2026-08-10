@@ -24,6 +24,7 @@ describe("learning/time/session", () => {
       "everyday/day-part-time",
       "everyday/noon-midnight",
       "everyday/okolo-vs-exact",
+      "everyday/o-duration",
     ];
     expect(session.some((item) => phase2Ids.includes(item.id))).toBe(true);
 
@@ -73,8 +74,22 @@ describe("learning/time/session", () => {
     }
   });
 
+  it("materializes o-duration contrast", () => {
+    const item = materializeDaysDatesTimeItem("everyday/o-duration", () => 0.2);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      expect(item.task.prompt).toMatch(/^In (two|four|five) (hours|minutes)\.$/);
+      expect(item.task.answerId).toBe("correct");
+      expect(item.task.hint?.chip).toMatch(/O at/);
+      expect(item.task.feedback?.why).toMatch(/accusative|duration/i);
+      expect(
+        item.task.choices.find((choice) => choice.id === "trap-locative")?.whyWrong,
+      ).toMatch(/locative/);
+    }
+  });
+
   it("recognizes procedural kinds", () => {
-    expect(isDaysDatesTimeKind("everyday/time-variants")).toBe(true);
+    expect(isDaysDatesTimeKind("everyday/o-duration")).toBe(true);
     expect(isDaysDatesTimeKind("everyday/formal-greeting")).toBe(false);
   });
 
