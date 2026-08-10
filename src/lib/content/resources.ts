@@ -810,6 +810,13 @@ export const learningResources: LearningResource[] = [
       "Bratislava school channel — themed Slovak vocab and grammar clips mixed with Spanish lessons; search titles for “Slovak”.",
     cost: "free",
     level: "A1+",
+    links: [
+      {
+        href: "https://www.youtube.com/watch?v=zA4BM4APDwA",
+        label: "Dialects in Slovak",
+        note: "Regional accents and main dialect differences (~5 min).",
+      },
+    ],
   },
   {
     id: "yt-learn-slovak",
