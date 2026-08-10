@@ -44,6 +44,8 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 
 Script layout: see `scripts/README.md` (`dictionary/`, `audio/`, `search/`, `docs/`).
 
+**Slovak accuracy:** hand-written lemmas, glosses, and examples → **Slovak language skill** (see below) before commit.
+
 Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated seed in `src/lib/content/data.ts`). Hand/pattern example overlay: `content/dictionary/curated-examples.json` → `bun scripts/dictionary/apply-curated-examples.ts` (temporary; delete when phrase churn stops). **Hand-add a lemma:** follow `content/dictionary/README.md` (fields, where to put, slug/category, example counts).
 
 - Sources (SNK, Tatoeba, JÚĽŠ): `docs/data-sources.md` and `/references` (from `src/lib/content/references.ts`).
@@ -72,9 +74,28 @@ Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated se
 - Public lists UI: `/dictionary/common`
 - Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency
 
+## Slovak language skill
+
+**Skill:** `slovak-language` — `~/.codex/skills/slovak-language/SKILL.md` (also listed in Cursor agent skills).
+
+**When to use:** Read and follow that skill **before** producing or editing meaningful Slovak (diacritics, agreement, case, aspect, register). Trigger for:
+
+- New or changed lesson / practice / dictionary Slovak (lemmas, examples, dialogue, answers, feedback `why` lines with Slovak patterns)
+- Translate, write, rewrite, or correct Slovak
+- Grammar / pronunciation / CEFR study explanations tied to site content
+- Formal vs informal (`ty`/`vy`), gender-sensitive forms, or cultural/register choices
+
+**How:** Open the skill file first; pick the task mode (translate / write / correct / teach / plan study / explain grammar); run the mandatory production pass; load only the reference file(s) the skill routes to under `references/`. Do not invent Slovak from English word-for-word.
+
+**Skip when:** Pure UI/CSS/layout, infra, tests with no learner-facing Slovak strings, or copy-pasting existing verified Slovak unchanged.
+
+Repo content tone and exercise UX still follow **Lessons + practice content** below — the skill owns linguistic accuracy; this file owns product/content conventions.
+
 ## Lessons + practice content
 
 Source: `src/lib/content/lessons.ts`, `src/lib/content/practice.ts`. Types: `src/lib/content/learning-types.ts`. UI: `PracticePlayer`, `LessonInteraction`, `PracticeDialogueBubble`, `PracticeExerciseFeedback`.
+
+**Slovak accuracy:** for any new/edited Slovak strings, use the **Slovak language skill** above first.
 
 **Tone:** like Babbel/Lingvist — show the line, say what to produce, explain on miss. Not tutorial voice, not gamified labels.
 
