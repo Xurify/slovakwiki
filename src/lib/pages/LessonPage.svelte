@@ -95,6 +95,11 @@
               <span class="text-center text-xs leading-snug text-slate-500">
                 {item.english}
               </span>
+              {#if item.note}
+                <span class="text-center text-xs leading-snug text-slate-600">
+                  {item.note}
+                </span>
+              {/if}
             </li>
           {/each}
         </ul>

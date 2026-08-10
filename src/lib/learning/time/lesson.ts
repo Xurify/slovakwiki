@@ -32,16 +32,19 @@ export const daysDatesTimeVisual: NonNullable<Lesson["visual"]> = {
       time: { hour: 2, minute: 30 },
       slovak: "Je pol tretej.",
       english: "O koľkej? → O pol tretej.",
+      note: "Halfway toward three.",
     },
     {
       time: { hour: 2, minute: 15 },
       slovak: "Je štvrť na tri.",
       english: "O koľkej? → O štvrť na tri.",
+      note: "Toward three — 2:15.",
     },
     {
       time: { hour: 2, minute: 45 },
       slovak: "Je trištvrte na tri.",
       english: "O koľkej? → O trištvrte na tri.",
+      note: "Three-quarters toward three — 2:45.",
     },
   ],
 };
@@ -407,6 +410,18 @@ export const daysDatesTimeLesson: Lesson = {
       audio: { transcript: "O pol tretej." },
     },
     {
+      slovak: "O štvrť na tri.",
+      english: "2:15 — quarter past two.",
+      note: "Quarters name the hour ahead, like pol tretej.",
+      audio: { transcript: "O štvrť na tri." },
+    },
+    {
+      slovak: "O jednej.",
+      english: "1:00 — one o'clock.",
+      note: "O prvej is also heard for 1:00.",
+      audio: { transcript: "O jednej." },
+    },
+    {
       slovak: "Koľko je hodín?",
       english: "What time is it?",
       audio: { transcript: "Koľko je hodín?" },
@@ -414,22 +429,31 @@ export const daysDatesTimeLesson: Lesson = {
     {
       slovak: "O koľkej?",
       english: "At what time?",
+      note: "Kedy? works the same way — answer with O …",
       audio: { transcript: "O koľkej?" },
     },
     {
       slovak: "Je poludnie.",
       english: "It is noon.",
+      note: "Midnight: Je polnoc. Appointments: O poludní or O polnoci.",
       audio: { transcript: "Je poludnie." },
+    },
+    {
+      slovak: "O štvrť na sedem večer.",
+      english: "At quarter past six in the evening.",
+      note: "Add ráno, večer, or v noci when AM/PM matters.",
+      audio: { transcript: "O štvrť na sedem večer." },
     },
     {
       slovak: "Okolo tretej.",
       english: "Around three o'clock.",
+      note: "Approximate. O tretej is exact.",
       audio: { transcript: "Okolo tretej." },
     },
   ],
   pattern: {
     title: "Days, telling time, and appointments",
-    body: "Use **v** + a day for when something happens: *Stretneme sa v utorok.* **Koľko je hodín?** asks what time it is → answer with **Je/Sú …**. **O koľkej?** or **Kedy?** ask when something happens → answer with **O …** for an appointment: *O tretej.* **O pol tretej** means 2:30, halfway to three. Quarters look ahead: *O štvrť na tri* is 2:15, *O trištvrte na tri* is 2:45. Add a day-part when the face is ambiguous: *O štvrť na sedem ráno* vs *večer*. **Okolo tretej** is approximate; **O tretej** is exact. At noon: **Je poludnie** / **O poludní** (or **O dvanástej napoludnie**). At midnight: **Je polnoc** / **O polnoci** (or **O dvanástej v noci**). Bare **O dvanástej** alone is ambiguous. For 1:00, **O jednej** is usual; **O prvej** is also heard.",
+    body: "**Koľko je hodín?** → **Je/Sú …**. **O koľkej?** or **Kedy?** → **O tretej**. Use **v** + day: *v utorok*.",
   },
   visual: daysDatesTimeVisual,
   exercises: [...daysDatesTimeGradedExercises, daysDatesTimePersonalExercise],

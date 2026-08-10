@@ -85,7 +85,6 @@ export interface SelectAllExercise extends ExerciseBase {
     correct: boolean;
     id: string;
     label: string;
-    /** Shown in feedback when the learner selects this wrong option. */
     whyWrong?: string;
   }>;
   hint?: ClozeHint;
@@ -95,6 +94,7 @@ export interface SelectAllExercise extends ExerciseBase {
 export interface LessonVisual {
   items: Array<{
     english: string;
+    note?: string;
     slovak: string;
     time: ClockTime;
   }>;
