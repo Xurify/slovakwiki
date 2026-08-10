@@ -244,7 +244,7 @@ export function preferredAppointmentAnswerForTime(time: ClockFaceTime): string {
   return appointmentPhrase(time).replace(/\.$/, "");
 }
 
-/** Accepted appointment forms for O koľkej? / Kedy? (includes O prvej, noon/midnight alts). */
+/** Accepted appointment forms for O koľkej? / Kedy? (noon/midnight alts; 1:00 is O jednej only). */
 export function appointmentAnswersForTime(time: ClockFaceTime): string[] {
   return appointmentAlternates(time).map((phrase) => phrase.replace(/\.$/, ""));
 }
@@ -471,7 +471,11 @@ export function appointmentDistractorWhy(
 }
 
 export function appointmentPrvejTrapWhy(correct: ClockFaceTime): string {
-  return `**O prvej** is also heard for **1:00** — not **${formatFaceDigital12(correct)}**.`;
+  const digital = formatFaceDigital12(correct);
+  if (correct.minute === 0 && faceHour12(correct.hour) === 1) {
+    return `**O jednej** is **1:00** — **O prvej** does not name this time.`;
+  }
+  return `**O prvej** is for **1:00** — not **${digital}**.`;
 }
 
 export function tellingDistractorWhy(
@@ -837,15 +841,12 @@ export function aroundPhrase(time: ClockFaceTime): string {
   return `Okolo trištvrte na ${towardWord}.`;
 }
 
-/** Appointment alternates where both forms are attested (o prvej for 1:00). */
+/** Appointment alternates where both forms are attested (o prvej for 1:00 is a trap, not accepted). */
 export function appointmentAlternates(time: ClockFaceTime): string[] {
   const hour = normalizeHour24(time.hour);
   const primary = appointmentPhrase(time);
   const alts: string[] = [primary];
 
-  if (time.minute === 0 && faceHour12(hour) === 1) {
-    pushUnique(alts, "O prvej.");
-  }
   if (isNoonTime(time)) {
     pushUnique(alts, "O poludní.");
     pushUnique(alts, "O dvanástej napoludnie.");

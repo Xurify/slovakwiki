@@ -418,7 +418,7 @@ export const daysDatesTimeLesson: Lesson = {
     {
       slovak: "O jednej.",
       english: "1:00 — one o'clock.",
-      note: "O prvej is also heard for 1:00.",
+      note: "1:00 is O jednej — not ordinal O prvej.",
       audio: { transcript: "O jednej." },
     },
     {

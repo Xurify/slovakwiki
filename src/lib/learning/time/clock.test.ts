@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   appointmentChoiceDistractors,
+  appointmentPrvejTrapWhy,
   appointmentChoiceWhy,
   appointmentDistractorWhy,
   appointmentFrom24h,
@@ -105,8 +106,15 @@ describe("learning/time/clock", () => {
     expect(preferredAppointmentAnswerForTime({ hour: 2, minute: 30 })).toBe(
       "O pol tretej",
     );
-    expect(appointmentAnswersForTime({ hour: 1, minute: 0 })).toEqual(
-      expect.arrayContaining(["O jednej", "O prvej"]),
+    expect(appointmentAnswersForTime({ hour: 1, minute: 0 })).toEqual(["O jednej"]);
+  });
+
+  it("uses O prvej as appointment trap why", () => {
+    expect(appointmentPrvejTrapWhy({ hour: 1, minute: 0 })).toBe(
+      "**O jednej** is **1:00** — **O prvej** does not name this time.",
+    );
+    expect(appointmentPrvejTrapWhy({ hour: 3, minute: 0 })).toBe(
+      "**O prvej** is for **1:00** — not **3:00**.",
     );
   });
 
@@ -191,7 +199,7 @@ describe("learning/time/clock", () => {
     expect(trap).toMatch(/not \*\*2:45\*\*/);
   });
 
-  it("uses O prvej as appointment choice distractor when it is not the answer", () => {
+  it("uses O prvej as appointment choice distractor trap", () => {
     const threeOClock = { hour: 3, minute: 0 as const };
     const distractors = appointmentChoiceDistractors(
       threeOClock,
