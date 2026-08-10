@@ -15,6 +15,7 @@ const iconSourceOverrides: Partial<Record<string, string>> = {
   "mondly-slovak": "https://app.mondly.com/favicon.ico",
   "memrise-slovak": "https://www.memrise.com/favicon.ico",
   "simply-put-slovak": "https://www.google.com/s2/favicons?domain=atspace.com&sz=128",
+  "learn101-slovak": "https://learn101.org/images/logo2.png",
 };
 
 const youtubeResourceIds = new Set([

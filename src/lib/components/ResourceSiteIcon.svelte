@@ -4,13 +4,15 @@
   let {
     resourceId,
     size = "sm",
+    class: className = "",
   }: {
     resourceId: string;
     size?: "sm" | "md";
+    class?: string;
   } = $props();
 
-  const boxClass = size === "md" ? "size-8 rounded-md" : "size-5 rounded-sm";
-  const dimension = size === "md" ? 32 : 20;
+  const boxClass = $derived(size === "md" ? "size-8 rounded-md" : "size-5 rounded-sm");
+  const dimension = $derived(size === "md" ? 32 : 20);
 
   function hideBrokenIcon(event: Event) {
     const img = event.currentTarget;
@@ -22,7 +24,7 @@
 
 <span
   data-resource-icon
-  class="inline-flex shrink-0 items-center justify-center overflow-hidden bg-white ring-1 ring-inset ring-slate-200 {boxClass}"
+  class="inline-flex shrink-0 items-center justify-center overflow-hidden bg-white ring-1 ring-inset ring-slate-200 {boxClass} {className}"
 >
   <img
     class="size-full object-contain"
