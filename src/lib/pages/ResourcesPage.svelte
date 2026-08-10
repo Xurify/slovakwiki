@@ -1,5 +1,6 @@
 <script lang="ts">
   import ResourceEntry from "$lib/components/ResourceEntry.svelte";
+  import ResourceFeaturedEntry from "$lib/components/ResourceFeaturedEntry.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -11,6 +12,7 @@
     resourcesByGroup,
   } from "$lib/content/resources";
   import {
+    resourcesFeaturedGridClass,
     resourcesMobileChipClass,
     resourcesPanelClass,
     resourcesSidebarLinkClass,
@@ -20,14 +22,14 @@
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[960px]">
+  <PageShell class="max-w-[1080px]">
     <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/dictionary">Dictionary</TextLink>
       <span aria-hidden="true">/</span>
       <span>Resources</span>
     </nav>
 
-    <header class="max-w-[640px]">
+    <header class="max-w-[720px]">
       <h1>Resources</h1>
       <Lead>
         Curated courses, apps, textbooks, and media for learning Slovak. Data sources
@@ -53,7 +55,7 @@
     </nav>
 
     <div
-      class="mt-12 grid grid-cols-1 gap-10 min-[901px]:grid-cols-[200px_minmax(0,1fr)] min-[901px]:gap-12"
+      class="mt-12 grid grid-cols-1 gap-10 min-[901px]:grid-cols-[220px_minmax(0,1fr)] min-[901px]:gap-14"
     >
       <aside
         class="sticky top-(--header-height) h-fit max-[900px]:hidden"
@@ -92,15 +94,23 @@
             class="scroll-mt-[88px]"
             aria-labelledby="resources-featured-heading"
           >
-            <h2 id="resources-featured-heading" class="m-0 text-xl">Start here</h2>
+            <div
+              class="flex items-baseline justify-between gap-4 border-b border-slate-200 pb-3"
+            >
+              <h2 id="resources-featured-heading" class="m-0 text-xl">Start here</h2>
 
-            <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
+              <span class="shrink-0 text-xs tabular-nums text-slate-500">
+                {featured.length} picks
+              </span>
+            </div>
+
+            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
               Strong free (or library-friendly) picks if you want a short list.
             </p>
 
-            <div class="{resourcesPanelClass} mt-4">
+            <div class="{resourcesFeaturedGridClass} mt-5">
               {#each featured as resource (resource.id)}
-                <ResourceEntry {resource} />
+                <ResourceFeaturedEntry {resource} />
               {/each}
             </div>
           </section>
@@ -114,11 +124,20 @@
             class="scroll-mt-[88px]"
             aria-labelledby="resources-heading-{group.id}"
           >
-            <h2 id="resources-heading-{group.id}" class="m-0 text-xl">
-              {group.title}
-            </h2>
+            <div
+              class="flex items-baseline justify-between gap-4 border-b border-slate-200 pb-3"
+            >
+              <h2 id="resources-heading-{group.id}" class="m-0 text-xl">
+                {group.title}
+              </h2>
 
-            <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
+              <span class="shrink-0 text-xs tabular-nums text-slate-500">
+                {resources.length}
+                {resources.length === 1 ? "entry" : "entries"}
+              </span>
+            </div>
+
+            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
               {group.summary}
             </p>
 

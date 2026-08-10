@@ -101,7 +101,12 @@ export const learningResources: LearningResource[] = [
     featured: true,
     links: [
       { href: "https://slovake.eu/courses", label: "Courses" },
+      { href: "https://slovake.eu/courses/a1", label: "A1 course" },
+      { href: "https://slovake.eu/courses/a2", label: "A2 course" },
+      { href: "https://slovake.eu/courses/b1", label: "B1 course" },
+      { href: "https://slovake.eu/courses/b2", label: "B2 course" },
       { href: "https://slovake.eu/grammar", label: "Grammar index" },
+      { href: "https://slovake.eu/dictionary", label: "Dictionary" },
     ],
   },
   {
@@ -111,7 +116,7 @@ export const learningResources: LearningResource[] = [
     href: "https://www.e-slovak.sk/",
     summary:
       "Free Moodle courses from Comenius University. Self-study A1/A2 run year-round; tutor-supported cohorts open on a schedule. Built around the Krížom-krážom textbook series.",
-    note: "Register free. Prefer course landing pages over deep quiz URLs — those are session-specific.",
+    note: "Free account required. Bookmark the A1/A2 course pages — deep quiz links die with the Moodle session.",
     cost: "free",
     level: "A1–A2",
     featured: true,
@@ -165,8 +170,28 @@ export const learningResources: LearningResource[] = [
         label: "Phrases",
       },
       {
+        href: "https://learn101.org/slovak_numbers.php",
+        label: "Numbers",
+      },
+      {
+        href: "https://learn101.org/slovak_grammar.php",
+        label: "Grammar basics",
+      },
+      {
         href: "https://learn101.org/slovak_verbs.php",
         label: "Verbs",
+      },
+      {
+        href: "https://learn101.org/slovak_vocabulary.php",
+        label: "Vocabulary lists",
+      },
+      {
+        href: "https://learn101.org/slovak_nouns.php",
+        label: "Nouns",
+      },
+      {
+        href: "https://learn101.org/slovak_adjectives.php",
+        label: "Adjectives",
       },
     ],
   },
@@ -179,7 +204,7 @@ export const learningResources: LearningResource[] = [
       "Short travel-dialog course (greetings, restaurant, numbers, song lyrics) with grammar notes and audio. Linked from Omniglot; still online as a free beginner side path.",
     cost: "free",
     level: "A1",
-    note: "Blog-era UI (≈2009–2010). Start from the language hub, not old calendar URLs.",
+    note: "2009-era blog layout. Start from the language hub; lesson pages still work.",
     links: [
       {
         href: "https://www.slovakcooking.com/2009/language/ja-som-american/",
@@ -204,7 +229,7 @@ export const learningResources: LearningResource[] = [
       "Free plain-English beginner course (Gary Lord, 2005): alphabet → cases, verbs, past tense across 9 pages. Written by a TEFL teacher who lived in Slovakia — explanations stay light on jargon.",
     cost: "free",
     level: "A1",
-    note: "Hosted on free AtSpace; no HTTPS. Linked from Omniglot (often misread as Slovak Cooking). Chatroom link is dead.",
+    note: "Free AtSpace host — HTTP only (browser may warn).",
     links: [
       {
         href: "http://simplyput.atspace.com/slovak/Slovak1.htm",
@@ -254,7 +279,7 @@ export const learningResources: LearningResource[] = [
       "Conversation-led lessons with color-coded grammar notes and culture tips. Often free through public libraries.",
     cost: "paid",
     level: "Beginner+",
-    note: "Check your local library before paying retail.",
+    note: "Often free via public libraries — check yours before buying a retail plan.",
   },
   {
     id: "lingq-slovak",
@@ -265,7 +290,7 @@ export const learningResources: LearningResource[] = [
       "Read and listen with clickable vocabulary tracking. Import your own texts; community libraries include SlovakforU and Learn Slovak with Stories courses.",
     cost: "freemium",
     level: "A2+",
-    note: "Best once you can follow simple stories. Import content you already like.",
+    note: "Best after A1: import stories or podcasts you already follow, then mine vocab from them.",
   },
 
   // —— Apps ——
@@ -323,17 +348,17 @@ export const learningResources: LearningResource[] = [
       {
         href: "https://community-courses.memrise.com/community/course/50432/basic-slovak/",
         label: "Basic Slovak",
-        note: "Pronunciation and numbers first, then themed vocab that steps up in difficulty (by loeiten).",
+        note: "Sounds and numbers first, then themed word lists that ramp up.",
       },
       {
         href: "https://community-courses.memrise.com/community/course/248886/hacking-slovak/",
         label: "Hacking Slovak",
-        note: "Expanded Memrise-style “Hacking” course with material based on Krížom-krážom A1.",
+        note: "Broader deck built around Krížom-krážom A1 material.",
       },
       {
         href: "https://community-courses.memrise.com/community/course/416264/slovak-phrases-with-audio/",
         label: "Slovak Phrases with audio",
-        note: "Phrase- and sentence-first course with audio; learner-built with help from a Slovak speaker.",
+        note: "Phrases and sentences with audio; community-made with a native helper.",
       },
     ],
   },
@@ -356,7 +381,7 @@ export const learningResources: LearningResource[] = [
       "Spaced-repetition flashcards. Browse shared Slovak decks on AnkiWeb, then import into the free Anki desktop/mobile apps.",
     cost: "free",
     level: "All",
-    note: "No single official deck — skim ratings and sample cards before downloading.",
+    note: "No official Slovak deck — open a few, read ratings and sample cards, then import.",
   },
   {
     id: "quia-slovak",
@@ -380,6 +405,36 @@ export const learningResources: LearningResource[] = [
     cost: "free",
     level: "All",
     featured: true,
+    links: [
+      {
+        href: "https://slovake.eu/grammar/pronunciation",
+        label: "Alphabet & pronunciation",
+      },
+      {
+        href: "https://slovake.eu/grammar/classes/cases",
+        label: "Cases",
+      },
+      {
+        href: "https://slovake.eu/grammar/classes/verbs",
+        label: "Verbs",
+      },
+      {
+        href: "https://slovake.eu/grammar/classes/prepositions",
+        label: "Prepositions",
+      },
+      {
+        href: "https://slovake.eu/grammar/classes/numbers",
+        label: "Numbers",
+      },
+      {
+        href: "https://slovake.eu/grammar/sentences",
+        label: "Word order",
+      },
+      {
+        href: "https://slovake.eu/grammar/sentences/questions",
+        label: "Questions",
+      },
+    ],
   },
   {
     id: "omniglot-slovak",
@@ -388,7 +443,7 @@ export const learningResources: LearningResource[] = [
     href: "https://www.omniglot.com/writing/slovak.htm",
     summary:
       "Alphabet chart with letter audio, UDHR sample recording, plus Omniglot’s own Slovak phrase, number, kinship, idiom, time, and tongue-twister tables. Hub page also lists many third-party links — most of those are dead; keep the Omniglot pages.",
-    note: "Outbound audit: slovake.eu, dict.cc, Webslovník, Slovak Cooking, and Simply Put still work (listed separately). Dead/rot: polymath.org/slovak, learnslovak.com, Spectacular Slovakia language guide, Bratislava Guide (safebrowse), BBC Slovak (2014 archive), slobodka.org→RFE/RL. Affiliate chrome on Omniglot ignored.",
+    note: "Use Omniglot’s own alphabet and phrase pages. Many outbound “learn Slovak” links on that hub are dead.",
     cost: "free",
     level: "A1",
     links: [
@@ -429,10 +484,36 @@ export const learningResources: LearningResource[] = [
     href: "https://www.hlbavo.sk/",
     summary:
       "Illustrated grammar explainers aimed at Slovak school learners (L1). Handy for adults who want clear native-language explanations of connectors, prepositions, and morphology.",
-    note: "Interface and videos are in Slovak.",
+    note: "UI and videos are in Slovak — useful once you can follow basic grammar terms.",
     cost: "free",
     level: "A2+",
-    links: [{ href: "https://www.youtube.com/@hlbavo", label: "YouTube" }],
+    links: [
+      {
+        href: "https://www.hlbavo.sk/vzdelavacie-videa",
+        label: "Video library",
+      },
+      {
+        href: "https://www.hlbavo.sk/vzdelavacie-videa/predlozky-47",
+        label: "Predložky (prepositions)",
+      },
+      {
+        href: "https://www.hlbavo.sk/vzdelavacie-videa/predlozky-vokalizacia-49",
+        label: "Preposition vocalization (vo/ku/so…)",
+      },
+      {
+        href: "https://www.hlbavo.sk/vzdelavacie-videa/spojky-48",
+        label: "Spojky (conjunctions)",
+      },
+      {
+        href: "https://www.hlbavo.sk/vzdelavacie-videa/slovesa-slovesny-vid-36",
+        label: "Slovesný vid (aspect)",
+      },
+      {
+        href: "https://www.hlbavo.sk/vzdelavacie-videa/slovne-druhy-ohybne-a-neohybne-7",
+        label: "Parts of speech",
+      },
+      { href: "https://www.youtube.com/@hlbavo", label: "YouTube" },
+    ],
   },
   {
     id: "ucimesaslovencinu",
@@ -441,7 +522,7 @@ export const learningResources: LearningResource[] = [
     href: "https://ucimesaslovencinu.sk/",
     summary:
       "Lenka Ježó Garančovská’s site for Slovak as a foreign language — free grammar/conversation blog posts, drills, and a paid online club. Clear native-teacher explainers (in Slovak) for real situations.",
-    note: "Blog and free exercises are open; club and 1:1 lessons are paid. Articles assume some Slovak — pair with EN notes when needed.",
+    note: "Free blog + drills; club and 1:1 are paid. Posts are in Slovak — keep an EN grammar note nearby if you’re still A1.",
     cost: "freemium",
     level: "A1–B2",
     links: [
@@ -488,7 +569,16 @@ export const learningResources: LearningResource[] = [
     href: "https://slovnik.aktuality.sk/preklad/slovensko-anglicky",
     summary: "Fast bilingual lookup for everyday words and phrases.",
     cost: "free",
-    note: "Omniglot’s old Azet slovnik URL redirects here.",
+    links: [
+      {
+        href: "https://slovnik.aktuality.sk/preklad/slovensko-anglicky",
+        label: "Slovak → English",
+      },
+      {
+        href: "https://slovnik.aktuality.sk/preklad/anglicko-slovensky",
+        label: "English → Slovak",
+      },
+    ],
   },
   {
     id: "webslovnik-zoznam",
@@ -496,7 +586,7 @@ export const learningResources: LearningResource[] = [
     name: "Webslovník (Zoznam) — EN↔SK",
     href: "https://webslovnik.zoznam.sk/anglicko-slovensky/",
     summary:
-      "Slovak portal bilingual dictionary with alphabetical browse and recent-search tips. Linked from Omniglot’s older Zoznam URL (path still works).",
+      "Slovak portal bilingual dictionary with alphabetical browse and recent-search tips.",
     cost: "free",
   },
   {
@@ -507,7 +597,17 @@ export const learningResources: LearningResource[] = [
     summary:
       "Community EN↔SK dictionary (~117k translations), vocab trainer, and free downloadable vocabulary DB. Strong second lookup beside Aktuality / JÚĽŠ.",
     cost: "free",
-    note: "Crowd-verified — check the [i] button when a gloss looks off.",
+    note: "Community translations (~99% verified). Hit the [i] button beside a line if a gloss looks wrong.",
+    links: [
+      {
+        href: "https://users.dict.cc/vocabulary-trainer/",
+        label: "Vocabulary trainer",
+      },
+      {
+        href: "https://www1.dict.cc/translation_file_request.php?l=ensk",
+        label: "Download vocabulary DB",
+      },
+    ],
   },
   {
     id: "juls-slovnik",
@@ -517,7 +617,6 @@ export const learningResources: LearningResource[] = [
     summary:
       "Authoritative monolingual Slovak dictionary from the Ľudovít Štúr Institute of Linguistics. Best for forms and precise Slovak definitions.",
     cost: "free",
-    note: "Also listed on our data References page as a site source.",
   },
   {
     id: "tatoeba-sk",
@@ -527,8 +626,16 @@ export const learningResources: LearningResource[] = [
     summary:
       "Search tool for SK→EN example sentences. Type a Slovak word or phrase, skim parallel translations, and hear audio when contributors recorded it.",
     cost: "free",
-    note: "Crowd-sourced — quality varies. We also pull Tatoeba dumps into this site’s dictionary examples (see References).",
+    note: "Crowd-sourced sentences — quality varies; skim a few parallels before trusting one gloss.",
     links: [
+      {
+        href: "https://tatoeba.org/en/sentences/search?from=slk&query=&to=eng",
+        label: "Search SK → EN",
+      },
+      {
+        href: "https://tatoeba.org/en/sentences/search?from=eng&to=slk&query=",
+        label: "Search EN → SK",
+      },
       {
         href: "https://tatoeba.org/en/downloads",
         label: "Downloads / corpus exports",
@@ -591,6 +698,28 @@ export const learningResources: LearningResource[] = [
     cost: "free",
     level: "A1–A2",
     featured: true,
+    links: [
+      {
+        href: "https://enrsi.stvr.sk/articles/so-slovak/402210/slovak-sound-check-episode-1-greet-like-a-pro",
+        label: "Ep. 1 — greetings",
+      },
+      {
+        href: "https://enrsi.stvr.sk/articles/so-slovak/403206/slovak-sound-check-episode-2-own-your-intro",
+        label: "Ep. 2 — introduce yourself",
+      },
+      {
+        href: "https://enrsi.stvr.sk/articles/so-slovak/410324/slovak-sound-check-episode-12-order-like-a-local-cafe-edition",
+        label: "Ep. 12 — café orders",
+      },
+      {
+        href: "https://enrsi.stvr.sk/articles/so-slovak/412193/slovak-sound-check-episode-14-chat-about-weather",
+        label: "Ep. 14 — weather",
+      },
+      {
+        href: "https://enrsi.stvr.sk/articles/so-slovak/431293/slovak-sound-check-episode-34-mark-the-date",
+        label: "Ep. 34 — dates",
+      },
+    ],
   },
   {
     id: "pocuvam-po-slovensky",
@@ -622,6 +751,7 @@ export const learningResources: LearningResource[] = [
     cost: "free",
     level: "A1–A2",
     links: [
+      { href: "https://www.rozpravkozem.sk/rozpravky/", label: "Fairy tales" },
       { href: "https://www.rozpravkozem.sk/hadanky/", label: "Riddles" },
       {
         href: "https://www.rozpravkozem.sk/slovenske-jazykolamy/",
@@ -706,7 +836,6 @@ export const learningResources: LearningResource[] = [
       "Marketplace filtered to Slovak tutors. Book 1:1 online lessons; try a trial class before committing.",
     cost: "paid",
     level: "All",
-    note: "Link opens the Slovak tutors listing, not Preply’s generic homepage.",
   },
   {
     id: "italki-slovak",
@@ -717,7 +846,6 @@ export const learningResources: LearningResource[] = [
       "Another 1:1 tutor marketplace with a dedicated Slovak teacher list (professional + community tutors).",
     cost: "paid",
     level: "All",
-    note: "Link opens the Slovak teachers filter on italki.",
   },
   {
     id: "linguarte-school",
@@ -738,6 +866,21 @@ export const learningResources: LearningResource[] = [
       "Comenius University centre for Slovak as a foreign language — summer school, publications, and the e-slovak programme.",
     cost: "mixed",
     level: "All",
+    links: [
+      {
+        href: "https://fphil.uniba.sk/katedry-a-odborne-pracoviska/sas/studium-courses/",
+        label: "Courses & summer schools",
+      },
+      {
+        href: "https://fphil.uniba.sk/katedry-a-odborne-pracoviska/sas/edicna-cinnost-publications/",
+        label: "Publications",
+      },
+      {
+        href: "https://fphil.uniba.sk/katedry-a-odborne-pracoviska/sas/edicna-cinnost-publications/krizom-krazom-a1-b2/",
+        label: "Krížom-krážom series",
+      },
+      { href: "https://www.e-slovak.sk/", label: "e-slovak online courses" },
+    ],
   },
 
   // —— Adjacent ——
@@ -748,7 +891,7 @@ export const learningResources: LearningResource[] = [
     href: "https://www.duolingo.com/course/cs/en/Learn-Czech",
     summary:
       "Duolingo has no Slovak course. Czech is a close West Slavic neighbour — useful for transfer awareness, not a substitute for Slovak study.",
-    note: "Expect false friends and different endings. Use only as a side path.",
+    note: "Close but not the same — false friends and different endings. Side path only, not a Slovak course.",
     cost: "freemium",
   },
 ];

@@ -7,12 +7,18 @@
     class: className = "",
   }: {
     resourceId: string;
-    size?: "sm" | "md";
+    size?: "sm" | "md" | "lg";
     class?: string;
   } = $props();
 
-  const boxClass = $derived(size === "md" ? "size-8 rounded-md" : "size-5 rounded-sm");
-  const dimension = $derived(size === "md" ? 32 : 20);
+  const boxClass = $derived(
+    size === "lg"
+      ? "size-11 rounded-lg"
+      : size === "md"
+        ? "size-8 rounded-md"
+        : "size-5 rounded-sm",
+  );
+  const dimension = $derived(size === "lg" ? 44 : size === "md" ? 32 : 20);
 
   function hideBrokenIcon(event: Event) {
     const img = event.currentTarget;
