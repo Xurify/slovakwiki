@@ -9,6 +9,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                       |
 | Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md) |
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)           |
+| FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)             |
 | Slovak linguistic accuracy                  | `slovak-language` skill                                        |
 | Visual before/after recaps                  | `.cursor/skills/visual-recap`                                  |
 
@@ -185,7 +186,7 @@ let { heroSearch }: { heroSearch: Snippet } = $props();
 | Pass islands through Astro `slot="…"` → Svelte `Snippet`                                      | Import interactive widgets only inside an SSR Svelte parent and expect them to work |
 | Prefer `client:only="svelte"` when SSR would mismatch (random state, `localStorage`-first UI) | Hydrate large prose/reference trees “just in case”                                  |
 
-**Lessons progress (FOUC):** `/lessons` and `/lessons/[track]` embed a blocking `LessonsProgressBoot` IIFE (theme-boot style) plus `data-lessons-hydrate` regions. `html.js` is set in the theme head script; hydrate surfaces stay `visibility: hidden` until `data-lessons-ready`. Keep those hooks and the boot payload in sync when changing continue/track progress markup.
+**FOUC boots:** Shared kit in [`src/lib/fouc/`](src/lib/fouc/) (see [`README`](src/lib/fouc/README.md)). Lessons use it via `LessonsProgressBoot` + `data-lessons-hydrate` / `data-lessons-ready`. Paint SSOT: `progress-view.ts` → `apply-progress.ts`; client island and generated IIFE share that path. After changing a boot entry or its imports, run `bun run fouc:boot` (or `bun run fouc:boot -- lessons`) and commit the `*.generated.ts` file.
 
 Full-page hydrate only when the page **is** the interactive app (filters, player, localStorage-first UI), not static chrome with a widget. Prefer SSR shell + small slotted island for browse/list pages; do not embed huge datasets in HTML.
 

@@ -34,12 +34,14 @@
       class="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-stretch max-[720px]:grid-cols-1"
     >
       <div
-        class="flex min-h-[11rem] flex-col justify-center gap-4 bg-subtle px-7 py-8 max-[600px]:min-h-[9rem] max-[600px]:px-5 max-[600px]:py-6"
+        class="flex min-h-[14rem] flex-col justify-center gap-5 bg-subtle px-7 py-8 max-[600px]:min-h-[11rem] max-[600px]:px-5 max-[600px]:py-6"
       >
-        <div class="relative min-h-20">
+        <div class="relative min-h-28 w-full max-w-[14rem]">
           {#each lessons as lesson (lesson.id)}
             <span
-              class="absolute top-0 left-0 {lesson.id === focusLesson.id ? '' : 'hidden'}"
+              class="absolute inset-x-0 top-0 {lesson.id === focusLesson.id
+                ? ''
+                : 'hidden'}"
               data-continue-motif={lesson.id}
             >
               <LessonMotif motif={lessonMotifId(lesson.id)} size="lg" />

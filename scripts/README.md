@@ -25,7 +25,12 @@ bun scripts/images/upload.ts                     # static/images/dictionary/ →
 bun scripts/images/status.ts                     # coverage: ok vs missing vs rejected, by part of speech
 bun scripts/downloads/export.ts                  # dictionary JSON for /downloads builder (also on astro build)
 bun run index:search                             # Pagefind for local/dev search
+bun run fouc:boot                                # Rebuild blocking FOUC IIFEs (see src/lib/fouc/README.md)
 ```
+
+### FOUC boots
+
+Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.md`](../src/lib/fouc/README.md). Registry: `scripts/fouc/registry.ts`. Generator: `bun run fouc:boot` (optional filter: `bun run fouc:boot -- lessons`).
 
 ### Content files
 

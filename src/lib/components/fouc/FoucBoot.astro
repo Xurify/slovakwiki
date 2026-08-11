@@ -1,0 +1,23 @@
+---
+import { foucHideUntilReadyStyle, type FoucSurface } from "$lib/fouc/gate";
+import { escapeJsonForInlineScript } from "$lib/fouc/boot";
+
+interface Props {
+  /** Ready / hydrate / data-id surface (from `defineFoucSurface`). */
+  surface: FoucSurface;
+  /** Serializable boot payload (read by the blocking IIFE). */
+  payload: unknown;
+  /** Generated IIFE string (`bun run fouc:boot`). */
+  script: string;
+}
+
+const { surface, payload, script } = Astro.props;
+const json = escapeJsonForInlineScript(payload);
+const gateStyle = foucHideUntilReadyStyle(surface);
+---
+
+{/* Hide hydrate surfaces until boot paints — only when JS ran (html.js). */}
+<style is:inline set:html={gateStyle}></style>
+
+<script is:inline type="application/json" id={surface.dataId} set:html={json} />
+<script is:inline set:html={script} />
