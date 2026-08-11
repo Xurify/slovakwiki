@@ -30,34 +30,39 @@
     aria-labelledby="continue-heading"
     data-lessons-hydrate
   >
-    <div class="flex flex-col bg-subtle px-5 pt-5 pb-4">
-      <div class="relative mx-auto min-h-28 w-full max-w-[14rem]">
-        {#each lessons as lesson (lesson.id)}
-          <span
-            class="absolute inset-x-0 top-0 {lesson.id === focusLesson.id
-              ? ''
-              : 'hidden'}"
-            data-continue-motif={lesson.id}
+    <div class="border-b border-slate-200/70 px-5 pt-5 pb-4">
+      <div class="flex flex-col items-center gap-3">
+        <div class="relative size-14 shrink-0">
+          {#each lessons as lesson (lesson.id)}
+            <span
+              class="absolute inset-0 flex items-center justify-center {lesson.id ===
+              focusLesson.id
+                ? ''
+                : 'hidden'}"
+              data-continue-motif={lesson.id}
+            >
+              <LessonMotif motif={lessonMotifId(lesson.id)} size="lg" />
+            </span>
+          {/each}
+        </div>
+
+        <div class="min-w-0 text-center">
+          <p
+            class="m-0 min-h-[1.4rem] font-serif text-lg leading-snug font-semibold tracking-tight text-balance text-slate-900"
+            lang="sk"
+            data-continue-phrase-sk
           >
-            <LessonMotif motif={lessonMotifId(lesson.id)} size="lg" />
-          </span>
-        {/each}
+            {phrase?.slovak ?? ""}
+          </p>
+
+          <p
+            class="m-0 mt-1 min-h-[1.2rem] text-sm leading-snug text-pretty text-slate-600"
+            data-continue-phrase-en
+          >
+            {phrase?.english ?? ""}
+          </p>
+        </div>
       </div>
-
-      <p
-        class="m-0 mt-4 min-h-[1.35rem] text-center font-serif text-base leading-snug font-semibold tracking-tight text-balance text-slate-900"
-        lang="sk"
-        data-continue-phrase-sk
-      >
-        {phrase?.slovak ?? ""}
-      </p>
-
-      <p
-        class="m-0 mt-1 min-h-[1.25rem] text-center text-sm text-pretty text-slate-600"
-        data-continue-phrase-en
-      >
-        {phrase?.english ?? ""}
-      </p>
     </div>
 
     <div class="flex flex-col px-5 pt-5 pb-5">
