@@ -395,7 +395,7 @@
         "max-h-[min(22rem,calc(100dvh-8rem))]",
         size === "hero"
           ? "left-0 right-0 rounded-(--frame-radius)"
-          : "right-0 w-[min(22rem,calc(100vw-1.5rem))] rounded-(--control-radius) max-[800px]:left-0 max-[800px]:right-0 max-[800px]:w-auto",
+          : "left-0 right-0 rounded-(--control-radius)",
       )}
       id={`${id}-listbox`}
       role="listbox"
