@@ -48,7 +48,15 @@ bun run index:search                             # Pagefind for local/dev search
 
 ## `dictionary/`
 
-Frequency lists, live dictionary publish, Tatoeba examples.
+Frequency lists, live dictionary publish, Tatoeba examples. Hand-add fields: [`content/dictionary/README.md`](../content/dictionary/README.md). Sources: [`docs/data-sources.md`](../docs/data-sources.md).
+
+**Yearly SNK checklist:** revisit corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all` (`generatedAt` in `content/frequency/{verbs,nouns,adjectives,adverbs}.json`). No auto-refresh — bump importer + re-import only when a newer `prim-*-public-all` dump ships; spot-check rank drift before commit.
+
+**Tatoeba dumps** (optional, examples only): put decompressed TSVs in `tmp/tatoeba/` —
+
+- https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2
+- https://downloads.tatoeba.org/exports/per_language/slk/slk-eng_links.tsv.bz2
+- https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2
 
 | File                        | Run                                                | Notes                                                                                                                                                                        |
 | --------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -131,6 +139,19 @@ Used by `/downloads` client builder (JSON/CSV/TSV). Regenerated on content chang
 **Export shape:** per word — `slug`, spelled `slovak`, `english`, `category`, spelled `related` lemmas, `examples[{ slovak, english }]`. Tabular examples file columns: `slug`, `lemma`, `slovak`, `english`. Omits internal `note` / `tatoebaId` / `demonstrates`.
 
 **Anki phrases pack:** headerless TSV (`slovak-wiki-anki-phrases.tsv`) — one row per sentence, `slovak\tenglish` (Front / Back). No `#` comment.
+
+## `recaps/`
+
+Local before/after HTML for UI review (not shipped to the site). See `.cursor/skills/visual-recap`.
+
+| File     | Run                                       | Notes                                                 |
+| -------- | ----------------------------------------- | ----------------------------------------------------- |
+| `cli.ts` | `bun run recap:index`                     | Rebuilds `recaps/index.html` from `*.html`            |
+|          | `bun run recap:open <slug>`               | Opens `recaps/<slug>.html` in the browser             |
+|          | `bun run recap:shot <slug> <name> <file>` | Files a browser capture as `recaps/<slug>/<name>.png` |
+
+Screenshots come from chrome-devtools, which can only write to the OS temp directory unless
+it runs with `--allowUnrestrictedPaths` — `recap:shot` moves the capture into place.
 
 ## `lib/`
 

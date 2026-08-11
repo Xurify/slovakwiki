@@ -16,6 +16,9 @@
     "dictionary:index": "bun scripts/dictionary/export-index.ts",
     "frequency:static": "bun scripts/frequency/publish-static.ts",
     "cwv:check": "bun scripts/cwv/check-dictionary-size.ts",
+    "recap:index": "bun scripts/recaps/cli.ts index",
+    "recap:open": "bun scripts/recaps/cli.ts open",
+    "recap:shot": "bun scripts/recaps/cli.ts shot",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky"

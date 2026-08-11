@@ -30,13 +30,29 @@
   import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
 
   let {
+    canSubmit = $bindable(false),
+    chrome = "card",
     exercise,
+    ongraded,
     onresolve,
     sceneAudioSrcs = {},
+    /** Parent bumps this to trigger Check / personal continue (player chrome). */
+    submitNonce = 0,
   }: {
+    canSubmit?: boolean;
+    /** `plain` / `player` drop the outer border panel. `player` also defers footer actions. */
+    chrome?: "card" | "plain" | "player";
     exercise: LessonExercise;
+    /** Fired after Check with grade + why (player chrome). */
+    ongraded?: (result: {
+      correct: boolean;
+      why: string;
+      correction?: string;
+      english?: string;
+    }) => void;
     onresolve: () => void;
     sceneAudioSrcs?: Record<string, string>;
+    submitNonce?: number;
   } = $props();
 
   let selectedId = $state<string | null>(null);
@@ -48,6 +64,7 @@
   let revealed = $state(false);
   let feedbackPanel = $state<HTMLElement | null>(null);
 
+  const player = $derived(chrome === "player");
   const graded = $derived(exercise.type !== "personal" ? exercise : null);
   const hasContext = $derived(Boolean(exercise.context?.length));
   const builtTiles = $derived(
@@ -115,6 +132,23 @@
     return input.trim().length > 0;
   });
 
+  $effect(() => {
+    if (!player) return;
+    canSubmit = exercise.type === "personal" ? !submitted : canCheck;
+  });
+
+  let lastSubmitNonce = submitNonce;
+
+  $effect(() => {
+    if (!player || submitNonce === lastSubmitNonce) return;
+    lastSubmitNonce = submitNonce;
+    if (exercise.type === "personal") {
+      onresolve();
+      return;
+    }
+    void check();
+  });
+
   async function focusFeedback(): Promise<void> {
     await tick();
     feedbackPanel?.focus();
@@ -139,6 +173,30 @@
 
     submitted = true;
     playAnswerSfx(kind);
+
+    if (player && ongraded) {
+      const isCorrect = kind === "correct";
+      let why = exercise.feedback.why;
+      if (!isCorrect) {
+        if (graded.type === "selectAll") {
+          why = selectAllFeedbackWhy(why, selectedIds, graded.choices);
+        } else if (graded.type === "choice" && selectedId) {
+          why =
+            graded.choiceMode === "pickTrap"
+              ? pickTrapFeedbackWhy(why, selectedId, graded.choices)
+              : choiceFeedbackWhy(why, selectedId, graded.choices, graded.answerId);
+        }
+      }
+
+      ongraded({
+        correct: isCorrect,
+        why,
+        correction: exercise.feedback.correction,
+        english: feedbackEnglish,
+      });
+      return;
+    }
+
     await focusFeedback();
   }
 
@@ -147,6 +205,17 @@
     revealed = true;
     submitted = true;
     playAnswerSfx("incorrect");
+
+    if (player && ongraded) {
+      ongraded({
+        correct: false,
+        why: exercise.feedback.why,
+        correction: exercise.feedback.correction,
+        english: feedbackEnglish,
+      });
+      return;
+    }
+
     await focusFeedback();
   }
 
@@ -157,6 +226,7 @@
   function onContinueKeydown(event: KeyboardEvent): void {
     if ((event.key !== "Enter" && event.key !== " ") || event.shiftKey || !submitted)
       return;
+    if (player) return;
     event.preventDefault();
     continueLesson();
   }
@@ -177,34 +247,42 @@
 <svelte:window onkeydown={onContinueKeydown} />
 
 <section
-  class="border border-slate-200 bg-surface/90 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6"
+  class={chrome === "card"
+    ? "border border-slate-200 bg-surface/90 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6"
+    : "bg-transparent"}
   aria-labelledby="interaction-heading"
 >
   {#if exercise.type === "personal"}
     <h2
       id="interaction-heading"
-      class="font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
+      class="text-center font-serif text-xl font-semibold leading-snug text-pretty text-slate-900 sm:text-2xl"
     >
       {exercise.prompt}
     </h2>
 
     {#if exercise.example}
       <p
-        class="mt-5 rounded-(--control-radius) border border-slate-200 bg-slate-50/80 px-4 py-3.5 font-serif text-lg text-slate-900"
+        class="mx-auto mt-5 max-w-xl rounded-(--frame-radius) bg-subtle px-4 py-3.5 text-center font-serif text-lg text-slate-900 shadow-(--shadow-border)"
         lang="sk"
       >
         {exercise.example}
       </p>
     {/if}
 
-    <Button class="mt-7" type="button" onclick={() => onresolve()}>I said it</Button>
+    {#if !player}
+      <div class="mt-7 flex justify-center">
+        <Button type="button" onclick={() => onresolve()}>I said it</Button>
+      </div>
+    {/if}
   {:else}
-    <div class="flex items-start justify-end">
-      <SfxMuteToggle />
-    </div>
+    {#if chrome === "card"}
+      <div class="flex items-start justify-end">
+        <SfxMuteToggle />
+      </div>
+    {/if}
 
     {#if hasContext}
-      <div class="mt-4 grid gap-4">
+      <div class={chrome === "card" ? "mt-4 grid gap-4" : "grid gap-4"}>
         {#each exercise.context ?? [] as line (line.id)}
           <PracticeDialogueBubble {line} audioSrcs={sceneAudioSrcs} />
         {/each}
@@ -213,9 +291,12 @@
 
     <h2
       id="interaction-heading"
-      class="{hasContext
-        ? 'mt-5'
-        : 'mt-4'} m-0 font-serif text-xl font-semibold leading-snug text-pretty text-slate-900"
+      class={[
+        hasContext ? "mt-5" : chrome === "card" ? "mt-4" : "",
+        player
+          ? "m-0 text-center font-serif text-[clamp(1.3rem,2.9vw,1.75rem)] leading-snug tracking-tight text-pretty text-slate-900"
+          : "m-0 font-serif text-xl font-semibold leading-snug text-pretty text-slate-900",
+      ].join(" ")}
       lang={exercise.type !== "personal" && exercise.promptLang === "sk"
         ? "sk"
         : undefined}
@@ -230,6 +311,7 @@
         promptClock={exercise.clock}
         bind:selectedId
         {submitted}
+        variant={player ? "cards" : "default"}
       />
 
       {#if exercise.hint}
@@ -262,10 +344,10 @@
         {submitted}
       />
     {:else}
-      <label class="mt-6 grid gap-2 text-sm font-medium text-slate-600">
+      <label class="mx-auto mt-6 grid max-w-md gap-2 text-sm font-medium text-slate-600">
         <span>{exercise.inputLabel}</span>
         <input
-          class="min-h-[50px] w-full rounded-(--control-radius) border border-slate-300 bg-control px-3 py-2 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+          class="min-h-[50px] w-full rounded-(--control-radius) border border-slate-300 bg-control px-4 py-3 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
           bind:value={input}
           disabled={submitted}
           autocomplete="off"
@@ -275,10 +357,10 @@
       </label>
     {/if}
 
-    {#if submitted}
+    {#if !player && submitted}
       <div
         bind:this={feedbackPanel}
-        class={`mt-6 ${
+        class={`mt-6 max-w-2xl ${
           correct
             ? feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))
             : ""
@@ -302,9 +384,9 @@
       </div>
 
       <Button class="mt-6" type="button" onclick={continueLesson}>Continue</Button>
-    {:else}
+    {:else if !player}
       <div
-        class="mt-6 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between"
+        class="mt-6 flex max-w-2xl flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between"
       >
         {#if exercise.type === "typed"}
           <button
@@ -327,6 +409,16 @@
         >
           Check
         </Button>
+      </div>
+    {:else if exercise.type === "typed" && !submitted}
+      <div class="mt-4 flex justify-center">
+        <button
+          class="border-0 bg-transparent py-1 text-sm font-semibold text-blue-800 underline underline-offset-2"
+          type="button"
+          onclick={reveal}
+        >
+          Reveal answer
+        </button>
       </div>
     {/if}
   {/if}

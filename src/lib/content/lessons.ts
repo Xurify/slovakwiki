@@ -1,5 +1,15 @@
 import type { Lesson, LessonTrack, LessonTrackId } from "$lib/learning/types";
 import { daysDatesTimeLesson } from "$lib/learning/time/lesson";
+import { lessonExercises } from "$lib/learning/lesson-beats";
+import {
+  withBytExercises,
+  withMatExercises,
+  withMeetSomeoneExercises,
+  withNegationExercises,
+  withNumbersExercises,
+  withPresentTenseExercises,
+  withStressExercises,
+} from "$lib/content/lesson-beats-data";
 
 export const lessonTracks: LessonTrack[] = [
   {
@@ -81,16 +91,19 @@ export const lessons: Lesson[] = [
       {
         slovak: "Volám sa …",
         english: "My name is …",
+        note: "Use volám sa + your name. Avoid an English-shaped “My name is …” calque.",
         audio: { transcript: "Volám sa." },
       },
       {
         slovak: "Som z …",
         english: "I am from …",
+        note: "z takes genitive: Kanada → Kanady. Odkiaľ ste? is the polite ask.",
         audio: { transcript: "Som z." },
       },
       {
         slovak: "Ešte sa učím.",
         english: "I am still learning.",
+        note: "A soft way to say your Slovak is still early — pairs well after Trochu.",
         audio: { transcript: "Ešte sa učím." },
       },
     ],
@@ -98,7 +111,7 @@ export const lessons: Lesson[] = [
       title: "Polite first contact",
       body: "Start with Dobrý deň when you do not know the person. Ahoj is for friends, peers, and people already using informal Slovak with you.",
     },
-    exercises: [
+    beats: withMeetSomeoneExercises(
       {
         id: "meet-someone-greeting",
         type: "choice",
@@ -167,7 +180,7 @@ export const lessons: Lesson[] = [
           "Say the same answer with your own country. Then say it once without looking.",
         example: "Som z Kanady.",
       },
-    ],
+    ),
     referenceLinks: [
       { href: "/dictionary/dobry-den", label: "Dobrý deň" },
       { href: "/dictionary/ahoj", label: "Ahoj" },
@@ -181,7 +194,7 @@ export const lessons: Lesson[] = [
     slug: "numbers-and-personal-details",
     group: "Core tools",
     title: "Numbers and personal details",
-    promise: "Say your age, give phone digits, and understand a simple price.",
+    promise: "Say your age, give phone digits, and ask how much it costs.",
     scene: [
       {
         id: "registration-welcome",
@@ -256,7 +269,7 @@ export const lessons: Lesson[] = [
       title: "Age, digits, and prices",
       body: "For age, use Mám + number + rokov: Mám dvadsaťosem rokov. For a phone number, say the digits one by one. Ask Koľko to stojí? and answer Stojí to + price.",
     },
-    exercises: [
+    beats: withNumbersExercises(
       {
         id: "numbers-age",
         type: "choice",
@@ -299,14 +312,14 @@ export const lessons: Lesson[] = [
         id: "numbers-price",
         type: "typed",
         task: "complete",
-        practiceItemId: "everyday/simple-price",
+        practiceItemId: "everyday/how-much-does-it-cost",
         prompt: "It costs five euros.",
         inputLabel: "Your Slovak answer",
         answer: "Stojí to päť eur.",
         feedback: {
           correction: "Stojí to päť eur.",
           english: "It costs five euros.",
-          why: "Use **stojí to** for a simple price. After **päť**, use **eur**.",
+          why: "**Koľko to stojí?** asks the price. Use **Stojí to** + number + **eur**.",
         },
       },
       {
@@ -315,7 +328,7 @@ export const lessons: Lesson[] = [
         prompt: "Say your age and then say four digits of your phone number aloud.",
         example: "Mám dvadsaťosem rokov. Moje číslo je nula deväť nula jeden.",
       },
-    ],
+    ),
     referenceLinks: [
       { href: "/grammar/numbers-and-numerals", label: "Numbers and numerals" },
       { href: "/grammar/questions", label: "Questions" },
@@ -385,7 +398,7 @@ export const lessons: Lesson[] = [
       title: "Put nie with the verb",
       body: "In Slovak, nie attaches to the verb: rozumiem → nerozumiem, mám → nemám, je → nie je. Learn frequent negative forms as complete chunks, then use them in a short answer.",
     },
-    exercises: [
+    beats: withNegationExercises(
       {
         id: "negation-refusal",
         type: "choice",
@@ -445,7 +458,7 @@ export const lessons: Lesson[] = [
           "Refuse one offer politely, then say one thing you do not understand or do not have.",
         example: "Nie, ďakujem. Nerozumiem. / Nemám čas.",
       },
-    ],
+    ),
     referenceLinks: [
       { href: "/grammar/negation", label: "Negation" },
       { href: "/grammar/word-order", label: "Word order" },
@@ -522,7 +535,7 @@ export const lessons: Lesson[] = [
       title: "Six endings, one present tense",
       body: "Čítať shows the pattern: čítam, čítaš, číta, čítame, čítate, čítajú. Slovak often drops ja, ty, and my because the ending already says who acts. Vy covers both plural you and formal singular you.",
     },
-    exercises: [
+    beats: withPresentTenseExercises(
       {
         id: "present-tense-choose",
         type: "choice",
@@ -603,7 +616,7 @@ export const lessons: Lesson[] = [
           "Say one true present-tense sentence about yourself or about someone else.",
         example: "Dnes pracujem. / Peter číta noviny.",
       },
-    ],
+    ),
     referenceLinks: [{ href: "/grammar/present-tense", label: "Present tense" }],
   },
   {
@@ -668,7 +681,7 @@ export const lessons: Lesson[] = [
       title: "Present forms of byť",
       body: "Byť (to be) is irregular: som, si, je, sme, ste, sú. Use it for identity and location: Som Alex. Sme tu. Do not use byť for age: Slovak uses mať, as in Mám dvadsať rokov.",
     },
-    exercises: [
+    beats: withBytExercises(
       {
         id: "byt-som",
         type: "choice",
@@ -727,7 +740,7 @@ export const lessons: Lesson[] = [
         prompt: "Say who you are and where you are. Then make one sentence with sme.",
         example: "Som Alex. Som v kaviarni. Sme tu s priateľmi.",
       },
-    ],
+    ),
     referenceLinks: [
       { href: "/grammar/byt-present", label: "Byť" },
       { href: "/grammar/ty-vs-vy", label: "ty and vy" },
@@ -803,7 +816,7 @@ export const lessons: Lesson[] = [
       title: "Present forms of mať",
       body: "Mať (to have) is mám, máš, má, máme, máte, majú. Máš is informal singular you; máte is formal singular or plural you. Slovak says Mám dvadsať rokov for age, not Som dvadsať rokov. Add ne- to make a negative: mám → nemám.",
     },
-    exercises: [
+    beats: withMatExercises(
       {
         id: "mat-mam",
         type: "choice",
@@ -864,7 +877,7 @@ export const lessons: Lesson[] = [
           "Say your age, then name one thing you have and one thing you do not have.",
         example: "Mám dvadsaťosem rokov. Mám kartu. Nemám hotovosť.",
       },
-    ],
+    ),
     referenceLinks: [
       { href: "/grammar/mat-present", label: "Mať" },
       { href: "/grammar/byt-present", label: "Byť" },
@@ -912,7 +925,7 @@ export const lessons: Lesson[] = [
       title: "Stress is usually first",
       body: "In ordinary Slovak words, the first syllable carries the main beat. This is separate from vowel length: a long vowel is held longer, not automatically stressed.",
     },
-    exercises: [
+    beats: withStressExercises(
       {
         id: "stress-choose",
         type: "choice",
@@ -957,7 +970,7 @@ export const lessons: Lesson[] = [
         type: "personal",
         prompt: "Listen, then say these aloud: ďakujem, Bratislava, prosím.",
       },
-    ],
+    ),
     referenceLinks: [
       { href: "/pronunciation/first-syllable-stress", label: "First-syllable stress" },
       { href: "/dictionary/dakujem", label: "ďakujem" },
@@ -984,9 +997,18 @@ export function validateLessons(): string[] {
     ids.add(lesson.id);
 
     if (!lesson.scene.length) issues.push(`Missing scene: ${lesson.id}`);
-    if (!lesson.exercises.length) issues.push(`Missing exercises: ${lesson.id}`);
-    if (lesson.exercises.filter((exercise) => exercise.type !== "personal").length < 2) {
+    if (!lesson.beats.length) issues.push(`Missing beats: ${lesson.id}`);
+
+    const exercises = lessonExercises(lesson);
+    if (!exercises.length) issues.push(`Missing exercises: ${lesson.id}`);
+    if (exercises.filter((exercise) => exercise.type !== "personal").length < 2) {
       issues.push(`Too few graded exercises: ${lesson.id}`);
+    }
+
+    for (const beat of lesson.beats) {
+      if (!beat.exercises.length) {
+        issues.push(`Empty beat ${beat.id} in ${lesson.id}`);
+      }
     }
   }
 

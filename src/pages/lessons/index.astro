@@ -1,7 +1,11 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import LessonsProgressBoot from "$lib/components/lessons/LessonsProgressBoot.astro";
 import LessonsProgressClient from "$lib/components/lessons/LessonsProgressClient.svelte";
 import LessonsIndexPage from "$lib/pages/LessonsIndexPage.svelte";
+import { buildLessonsBootPayload } from "$lib/lessons/boot-payload";
+
+const payload = buildLessonsBootPayload(null);
 ---
 
 <SiteLayout
@@ -9,5 +13,6 @@ import LessonsIndexPage from "$lib/pages/LessonsIndexPage.svelte";
   description="Independent Slovak lessons for everyday language, grammar, and pronunciation."
 >
   <LessonsIndexPage />
-  <LessonsProgressClient client:load />
+  <LessonsProgressBoot {payload} />
+  <LessonsProgressClient client:load payload={payload} />
 </SiteLayout>

@@ -232,6 +232,32 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  @keyframes lesson-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes lesson-rise {
+      from {
+        opacity: 1;
+        transform: none;
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
   :focus-visible {
     outline: 3px solid color-mix(in srgb, var(--accent) 78%, var(--surface));
     outline-offset: 3px;

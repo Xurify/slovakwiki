@@ -70,6 +70,7 @@ const ogImage = absoluteSiteUrl("/favicon.svg");
         var root = document.documentElement;
         root.dataset.theme = theme;
         root.dataset.themePreference = preference;
+        root.classList.add("js");
         root.style.colorScheme = theme;
         var meta = document.querySelector('meta[name="theme-color"]');
         if (meta) {

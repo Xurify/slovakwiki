@@ -23,6 +23,7 @@ import {
   type LessonCharacterId,
 } from "../../src/lib/content/characters";
 import { lessons } from "../../src/lib/content/lessons";
+import { lessonExercises } from "../../src/lib/learning/lesson-beats";
 import { ROOT } from "../lib/paths";
 
 export type { AudioKind };
@@ -245,7 +246,7 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
       addLine(phrase.audio?.transcript ?? phrase.slovak, keyPhraseCharacterId());
     }
 
-    for (const exercise of lesson.exercises) {
+    for (const exercise of lessonExercises(lesson)) {
       if (!("context" in exercise) || !exercise.context) continue;
       for (const line of exercise.context) {
         addLine(

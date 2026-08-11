@@ -11,12 +11,13 @@ import {
   type DaysDatesTimeKind,
 } from "$lib/learning/time/session";
 import { practiceItems } from "$lib/content/practice";
+import { lessonExercises } from "$lib/learning/lesson-beats";
 import { lessons } from "$lib/content/lessons";
 import type { ChoiceExercise } from "$lib/learning/types";
 
 function choiceExercisesFromLessons(): ChoiceExercise[] {
   return lessons.flatMap((lesson) =>
-    lesson.exercises.filter(
+    lessonExercises(lesson).filter(
       (exercise): exercise is ChoiceExercise => exercise.type === "choice",
     ),
   );

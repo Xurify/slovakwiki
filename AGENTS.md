@@ -2,6 +2,16 @@
 
 Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 
+Domain-specific authoring and pipelines live next to the work — not here:
+
+| Need                                        | Where                                                          |
+| ------------------------------------------- | -------------------------------------------------------------- |
+| Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                       |
+| Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md) |
+| Voice roster                                | [`content/audio/README.md`](content/audio/README.md)           |
+| Slovak linguistic accuracy                  | `slovak-language` skill                                        |
+| Visual before/after recaps                  | `.cursor/skills/visual-recap`                                  |
+
 ## Tooling
 
 **Bun** is the package manager and script runner for this repo (`bun.lock`).
@@ -27,7 +37,7 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 
 **Before finishing script work:** `bun run typecheck` (mandatory, not “when risk is high”). Remove unused `const` / imports left from refactors — they show up as diagnostics and slow review.
 
-Reference implementations: `scripts/recaps/build-index.ts`, `scripts/lib/paths.ts`, `scripts/downloads/export.ts`.
+Reference implementations: `scripts/recaps/cli.ts`, `scripts/lib/paths.ts`, `scripts/downloads/export.ts`.
 
 ### Dev & preview servers (Astro 7.2+)
 
@@ -52,45 +62,19 @@ Reference implementations: `scripts/recaps/build-index.ts`, `scripts/lib/paths.t
 Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 
 - **Production build** already rebuilds the index (`astro:build:done` → writes `dist/pagefind` + `static/pagefind`).
-- **Local / `bun run dev`:** run `bun run index:search` when:
-  - first clone / missing `static/pagefind/`
-  - searchable content changed (words, grammar, cases, pronunciation, lessons, practice)
-  - header search says the index is not built yet
+- **Local / `bun run dev`:** run `bun run index:search` when first clone / missing `static/pagefind/`, searchable content changed, or header search says the index is not built yet.
 - Skip re-index for pure UI/CSS/layout edits with no content changes.
 
-## Frequency lists + dictionary
+## Content pipelines
 
-Script layout: see `scripts/README.md` (`dictionary/`, `audio/`, `search/`, `docs/`).
+Do not paste script cookbooks here. Follow:
 
-**Slovak accuracy:** hand-written lemmas, glosses, and examples → **Slovak language skill** (see below) before commit.
+- **Dictionary / frequency / Tatoeba / downloads / audio / images:** [`scripts/README.md`](scripts/README.md)
+- **Hand lemma fields:** [`content/dictionary/README.md`](content/dictionary/README.md)
+- **Sources (SNK, Tatoeba, JÚĽŠ):** [`docs/data-sources.md`](docs/data-sources.md) and `/references`
+- **Slovak in any of the above:** `slovak-language` skill before commit
 
-Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated seed in `src/lib/content/data.ts`). Hand/pattern example overlay: `content/dictionary/curated-examples.json` → `bun scripts/dictionary/apply-curated-examples.ts` (temporary; delete when phrase churn stops). **Hand-add a lemma:** follow `content/dictionary/README.md` (fields, where to put, slug/category, example counts).
-
-- Sources (SNK, Tatoeba, JÚĽŠ): `docs/data-sources.md` and `/references` (from `src/lib/content/references.ts`).
-- Refresh frequency JSON: `bun scripts/dictionary/import-frequency.ts` → noun top-2500 and verb top-2000 from the SNK full count dumps; adjective/adverb top-1000 from HTML; writes `content/frequency/{verbs,nouns,adjectives,adverbs}.json` + `lemma-index.json`
-- **Yearly checklist:** revisit SNK corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all`, not live. Last import: `generatedAt` in `content/frequency/{verbs,nouns,adjectives,adverbs}.json` (set by `import-frequency.ts`). No auto-refresh. Bump importer + re-import only when a newer `prim-*-public-all` dump ships; spot-check rank drift before commit.
-- English glosses for common lemmas: `content/frequency/glosses.json`
-- Publish glossed frequency lemmas into `content/dictionary/words.json` (no approval gate): `bun scripts/dictionary/publish-frequency.ts` (`--limit 100`)
-- Attach Tatoeba examples to dictionary words: `bun scripts/dictionary/enrich-examples.ts` (needs dumps in `tmp/tatoeba/`)
-  - Default store pool: 8 examples/lemma (`EXAMPLE_STORE_PER_WORD` in `src/lib/content/example-limits.ts`; override with `--per-word N`)
-  - Dictionary pages show the first 4 (`EXAMPLE_DISPLAY_LIMIT`); extras stay in `words.json` for later picking
-  - Skips crude/sexual/vulgar lines via `src/lib/content/example-quality.ts`
-  - Download + decompress:
-    - https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2
-    - https://downloads.tatoeba.org/exports/per_language/slk/slk-eng_links.tsv.bz2
-    - https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2
-  - Missing-example report: `tmp/missing-examples.txt`
-- Drop weak fill stubs so Tatoeba can reclaim: `bun scripts/dictionary/reclaim-weak-examples.ts` → then enrich → fill → curate
-- Fill lemmas Tatoeba cannot match: `bun scripts/dictionary/fill-empty-examples.ts` → then `bun scripts/dictionary/apply-curated-examples.ts`
-- Semantic related peers (empty related only): `bun scripts/dictionary/apply-related.ts` (after curate; clusters in `content/dictionary/related-clusters.json`)
-- After publish/enrich/curate/related content changes: `bun run index:search` so local Pagefind matches the live dictionary
-- Dictionary downloads (`/downloads`): `bun scripts/downloads/export.ts` writes `static/downloads/dictionary-export.json` (gitignored; also regenerated on `astro build`). Needed for local/dev builder if the file is missing. Export fields: `slug`, spelled `slovak` lemma, `english`, `category`, spelled `related`, examples `{ slovak, english }`. Tabular examples file also has `lemma`. No `note` / `tatoebaId` / `demonstrates`. Packs include **Anki phrases** — headerless TSV `slovak\tenglish` (`slovak-wiki-anki-phrases.tsv`).
-- Dictionary listen audio: `bun scripts/audio/generate.ts` (ElevenLabs `eleven_flash_v2_5` → `static/audio/{lemma|example|lesson}/`, gitignored) then `bun scripts/audio/upload.ts` (R2, same keys). Local plays `/audio/{kind}/…`; production needs `PUBLIC_AUDIO_BASE_URL`. QA: `bun scripts/audio/verify.ts` (default dual Scribe+Whisper judge; `--verify` on generate + optional `rescueModelId`). **Voice roster + plan concurrency:** `content/audio/README.md` (IDs in `config.json`). Scripts: `scripts/README.md` `audio/`.
-- Lesson dialogue audio: per-character voices in config → `bun scripts/audio/generate.ts -- --lessons-only`. Key phrases use `guide`; speakers map via `speakers` (e.g. `You` → Alex). Mint/replace cast: `bun scripts/audio/voice-design.ts`.
-- Dictionary lemma images: `bun scripts/images/fetch.ts` (SK/EN Wikipedia free pageimages, then Commons gloss search for Food / Places / People / … → `static/images/dictionary/`, gitignored; manifest in `content/images/`) then `bun scripts/images/upload.ts` (R2, keys `images/dictionary/…`). Nouns / adjectives / verbs / adverbs: stage → promote only (no auto Commons). Person names are not dictionary entries (no lemmas / audio / images). Local plays `/images/dictionary/…`; production needs `PUBLIC_IMAGE_BASE_URL`. Overrides: `content/images/overrides.json`. Coverage: `bun scripts/images/status.ts`. See `scripts/README.md` `images/`.
-- Regenerate docs from the references module: `bun scripts/docs/write-data-sources.ts` (CI runs `bun run test`, which fails if `docs/data-sources.md` drifts)
-- Public lists UI: `/dictionary/common`
-- Tatoeba dumps (optional): download to `tmp/tatoeba/` from https://tatoeba.org/en/downloads — examples only, not frequency
+After publish/enrich/curate/related or lesson/practice text changes: `bun run index:search` so local Pagefind matches.
 
 ## Slovak language skill
 
@@ -107,69 +91,7 @@ Live bulk lemmas live in `content/dictionary/words.json` (loaded with curated se
 
 **Skip when:** Pure UI/CSS/layout, infra, tests with no learner-facing Slovak strings, or copy-pasting existing verified Slovak unchanged.
 
-Repo content tone and exercise UX still follow **Lessons + practice content** below — the skill owns linguistic accuracy; this file owns product/content conventions.
-
-## Lessons + practice content
-
-Source: `src/lib/content/lessons.ts`, `src/lib/content/practice.ts`. Types: `src/lib/content/learning-types.ts`. UI: `PracticePlayer`, `LessonInteraction`, `PracticeDialogueBubble`, `PracticeExerciseFeedback`.
-
-**Slovak accuracy:** for any new/edited Slovak strings, use the **Slovak language skill** above first.
-
-**Tone:** like Babbel/Lingvist — show the line, say what to produce, explain on miss. Not tutorial voice, not gamified labels.
-
-### Prompts (what the learner sees as the main task)
-
-Write the **target English line** or a **direct question**. Do not wrap it in instructions.
-
-| Avoid                                                   | Prefer                                      |
-| ------------------------------------------------------- | ------------------------------------------- |
-| `Write: “I am from Canada.”`                            | `I am from Canada.`                         |
-| `Build: “We are meeting on Tuesday.”`                   | `We are meeting on Tuesday.`                |
-| `The passer-by has helped you. Write: …`                | `Thank you for the help.`                   |
-| `Anna asks when you can meet at 3:00. What do you say?` | `At three o'clock.`                         |
-| `You are twenty-eight. What do you say?`                | `I am twenty-eight years old.`              |
-| `Someone says Teší ma. Which reply means …`             | `Which reply means “Nice to meet you too”?` |
-
-- **Choice / clock:** question or English target; choices stay Slovak.
-- **Build:** English sentence to assemble (not `Build the polite question:`).
-- **Cloze / gap:** short mechanical hint (`Fill the gap for Peter.`) — not roleplay.
-- **Repair:** `Repair this sentence.` — broken line lives in `context`, not the prompt.
-- **Personal (`type: "personal"`):** one clear speak-aloud task; optional `example` in Slovak.
-
-### Dialogue context (`context` on an exercise)
-
-When someone else spoke first:
-
-1. Put their line in `context` — Slovak + `english` in the bubble UI.
-2. Put **your** task in `prompt` (English line to produce).
-3. Order in UI: **context bubble → prompt → input/choices** (no “Your turn” divider).
-
-`speaker` is for audio roster / `characterIdForSpeaker` (e.g. `Anna`, `You`, `Marta`). Do not use role labels learners will see (`A passer-by`, `Clerk`, `Sentence`). Practice bubbles **do not show** speaker names; lesson **scene** table uses muted speaker column for multi-line scripts only.
-
-### Feedback (`feedback` on exercise + practice item)
-
-- **Correct:** skip repeating the answer when choices already show it; always include `why`.
-- **Wrong:** UI shows “Correct answer” + correction — do not add `That works.` / `Try this.` in content.
-- `english` on feedback = gloss of the correction; `why` = one short teaching line.
-- In `why`, wrap Slovak patterns or key terms in `**double asterisks**` so the UI can emphasize them (e.g. `Use **o** + the ordinal time form: **o tretej**.`).
-- On a miss, `why` teaches the correct pattern; optional `whyWrong` on a choice explains the learner’s specific wrong pick when base `why` does not (common for select-all traps). Do not repeat the same point in both.
-
-Reuse `PracticeExerciseFeedback.svelte` for any new exercise UI — do not invent new status labels.
-
-### Lesson page sections
-
-Section **headings** carry the structure (`Read it once`, `Key phrases`, `Use the scene`, `Reference`). Do not add a second uppercase eyebrow above them (“Start with the scene”, “Try it here”, …).
-
-### Practice player chrome
-
-- Back: round chevron in `PracticeSessionChrome` — not `← Practice` text link.
-- Progress bar: `activeIndex / total` (0% on first question, not “on question 1 = 25%”).
-- With dialogue context: hide task-type subtitle (`Write the sentence`); prompt is enough.
-
-### After content changes
-
-- New/changed lesson or practice text: `bun run index:search` (Pagefind includes these routes).
-- New lesson dialogue: `bun scripts/audio/generate.ts -- --lessons-only` when audio should ship.
+Repo content tone and exercise UX → [`docs/lessons-practice-content.md`](docs/lessons-practice-content.md). The skill owns linguistic accuracy; that doc owns product/content conventions.
 
 ## Styling: Tailwind first (non-negotiable)
 
@@ -237,7 +159,7 @@ Reference: miss feedback — `PracticeExerciseFeedback.svelte` + `practice-feedb
 
 ## Astro islands (hydration)
 
-**Default: SSR static.** Hydrate only widgets that need browser JS. Nested Svelte inside an SSR parent does **not** hydrate — islands must be imported in `.astro` and passed via slots/snippets (see home + search).
+**Default: SSR static.** Hydrate only widgets that need browser JS. Nested Svelte inside an SSR parent does **not** hydrate — islands must be imported in `.astro` and passed via slots/snippets.
 
 ### Gold pattern
 
@@ -263,34 +185,9 @@ let { heroSearch }: { heroSearch: Snippet } = $props();
 | Pass islands through Astro `slot="…"` → Svelte `Snippet`                                      | Import interactive widgets only inside an SSR Svelte parent and expect them to work |
 | Prefer `client:only="svelte"` when SSR would mismatch (random state, `localStorage`-first UI) | Hydrate large prose/reference trees “just in case”                                  |
 
-### Browse / list pages (CWV)
+**Lessons progress (FOUC):** `/lessons` and `/lessons/[track]` embed a blocking `LessonsProgressBoot` IIFE (theme-boot style) plus `data-lessons-hydrate` regions. `html.js` is set in the theme head script; hydrate surfaces stay `visibility: hidden` until `data-lessons-ready`. Keep those hooks and the boot payload in sync when changing continue/track progress markup.
 
-Dictionary browse and common frequency lists use **SSR shells with small islands**:
-
-- **Do:** SSR shell + first page of rows; hydrate `WikiBrowseClient` for instant filter/pagination via `/dictionary/index.json`; use query params on `/dictionary` for shareable state.
-- **Don't:** pass full `words` into HTML; pre-generate hundreds of browse subroutes; `client:load` the page shell.
-- **Sidecars:** `static/dictionary/index.json` and `static/frequency/*.json` — fetched by islands when needed, not inlined in HTML.
-- **CI:** `bun run cwv:check` after build — reads `.vercel/output/static` (falls back to `dist/client`); SSR `/dictionary` via the Vercel render function. Fails if `/dictionary` HTML exceeds 100 KB brotli.
-
-### When a full-page island is OK
-
-Page **is** the interactive app (filters, player, kabinet), not static chrome with a widget:
-
-- `/dictionary/common/[partOfSpeech]` — filter + show-more list
-- `/lessons` (`LessonsKabinetLayout`) — keyboard rail + localStorage progress
-- `/practice/[set]` — `PracticePlayer`
-- `SiteLayout` `Header` — nav/search/theme
-
-### Reference implementations
-
-- Home: `src/pages/index.astro` + `HomePage` + `HomeHeroSearch`
-- Search: `src/pages/search.astro` + `SearchPage` + `SearchBox`
-- Grammar: SSR `GrammarDetailPage` + `ClockDrill` slot (`client:only`)
-- Lesson: SSR `LessonPage` + `LessonPracticeBlock` slot (`client:load`)
-- Dictionary lemma: SSR `DictionaryDetailPage` + `AudioMountHost` slot (mounts `AudioButton` into `[data-audio-mount]` placeholders)
-- Practice hub: SSR `PracticeIndexPage` + `PracticeHubClient` slot (mounts CTA / featured / recents; fills `[data-sheet-done]`)
-- Dictionary browse: SSR `WikiPage` shell + `WikiBrowseClient` island (`client:load`); first 50 rows in HTML; filters/pagination client-side from `/dictionary/index.json` with `?topic=&letter=&page=` URLs — never embed all lemmas in HTML or `client:load` the page shell
-- Lessons index: SSR `LessonsIndexPage` + `LessonsProgressClient` slot (`data-lesson-done` / `data-lessons-done-summary`)
+Full-page hydrate only when the page **is** the interactive app (filters, player, localStorage-first UI), not static chrome with a widget. Prefer SSR shell + small slotted island for browse/list pages; do not embed huge datasets in HTML.
 
 ### Checklist before adding `client:*`
 
@@ -311,7 +208,6 @@ Pick the loading pattern by wait type:
 
 - **Real async waits** (e.g. Pagefind search): use `src/lib/components/ui/DotLoader.svelte`.
 - **Client hydration gates** / known layout placeholders: use **layout skeletons**, not the dot loader.
-  - Current examples: `PracticePlayerSkeleton.svelte` (practice set), `LessonPracticeSkeleton.svelte` (lesson practice block).
 
 **Keep skeletons honest.** Any skeleton must stay a recognizable stand-in for the real UI it replaces. If that target layout changes drastically, update the matching skeleton in the same change. Do not leave a stale skeleton that no longer resembles the loaded page.
 

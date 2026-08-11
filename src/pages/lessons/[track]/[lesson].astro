@@ -2,7 +2,7 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import type { AudioMountTarget } from "$lib/components/audio-mount";
 import AudioMountHost from "$lib/components/AudioMountHost.svelte";
-import LessonPracticeBlock from "$lib/components/lessons/LessonPracticeBlock.svelte";
+import LessonRailPlayer from "$lib/components/lessons/LessonRailPlayer.svelte";
 import LessonPage from "$lib/pages/LessonPage.svelte";
 import { lessonAudioSrcs } from "$lib/content/lesson-audio";
 import { contentCacheKey } from "$lib/build/cache-key";
@@ -20,20 +20,6 @@ const { lesson } = Astro.props;
 const audio = lessonAudioSrcs(lesson);
 
 const audioTargets: AudioMountTarget[] = [];
-
-for (const line of lesson.scene) {
-  const src = audio.scene[line.id];
-  if (!src) continue;
-  audioTargets.push({
-    key: `scene-${line.id}`,
-    props: {
-      label: `Listen: ${line.speaker}`,
-      size: "sm",
-      src,
-      text: line.audio?.transcript ?? line.slovak,
-    },
-  });
-}
 
 for (const [index, phrase] of lesson.keyPhrases.entries()) {
   const src = audio.keyPhrases[phrase.slovak];
@@ -58,10 +44,11 @@ for (const [index, phrase] of lesson.keyPhrases.entries()) {
   canonicalPath={`/lessons/${lesson.track}/${lesson.slug}`}
 >
   <LessonPage data={{ lesson }}>
-    <LessonPracticeBlock
-      slot="practice"
+    <LessonRailPlayer
+      slot="player"
       client:load
       {lesson}
+      keyPhraseAudioSrcs={audio.keyPhrases}
       sceneAudioSrcs={audio.scene}
     />
   </LessonPage>

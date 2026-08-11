@@ -1,0 +1,21 @@
+---
+import { LESSONS_BOOT_SCRIPT } from "$lib/lessons/boot-script";
+import type { LessonsBootPayload } from "$lib/lessons/boot-payload";
+
+interface Props {
+  payload: LessonsBootPayload;
+}
+
+const { payload } = Astro.props;
+const json = JSON.stringify(payload).replace(/</g, "\\u003c");
+---
+
+{/* Hide hydrate surfaces until boot paints — only when JS ran (html.js). */}
+<style is:inline>
+  html.js:not([data-lessons-ready]) [data-lessons-hydrate] {
+    visibility: hidden;
+  }
+</style>
+
+<script is:inline type="application/json" id="lessons-boot-data" set:html={json} />
+<script is:inline set:html={LESSONS_BOOT_SCRIPT} />

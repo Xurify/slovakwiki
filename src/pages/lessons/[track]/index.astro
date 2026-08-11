@@ -1,8 +1,11 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import LessonsProgressBoot from "$lib/components/lessons/LessonsProgressBoot.astro";
+import LessonsProgressClient from "$lib/components/lessons/LessonsProgressClient.svelte";
 import LessonTrackPage from "$lib/pages/LessonTrackPage.svelte";
 import { contentCacheKey } from "$lib/build/cache-key";
 import { lessonTracks, lessonsForTrack } from "$lib/content/lessons";
+import { buildLessonsBootPayload } from "$lib/lessons/boot-payload";
 
 export function getStaticPaths() {
   return lessonTracks.map((track) => {
@@ -17,6 +20,7 @@ export function getStaticPaths() {
 }
 
 const { track, lessons } = Astro.props;
+const payload = buildLessonsBootPayload(track.id);
 ---
 
 <SiteLayout
@@ -24,4 +28,6 @@ const { track, lessons } = Astro.props;
   description={track.description}
 >
   <LessonTrackPage data={{ track, lessons }} />
+  <LessonsProgressBoot {payload} />
+  <LessonsProgressClient client:load payload={payload} />
 </SiteLayout>

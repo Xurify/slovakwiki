@@ -1,5 +1,9 @@
 import type { Lesson, LessonExercise } from "$lib/learning/types";
 import {
+  daysDatesTimeBeatShells,
+  withDaysDatesTimeExercises,
+} from "$lib/content/lesson-beats-data";
+import {
   appointmentChoiceWhy,
   appointmentDistractorWhy,
   clockFaceDistractorWhy,
@@ -531,7 +535,11 @@ export const daysDatesTimeLesson: Lesson = {
     body: "**Koľko je hodín?** → **Je/Sú …**. **O koľkej?** or **Kedy?** → **O tretej** (locative). **In X hours/minutes** → **O dve hodiny** / **O päť minút** (accusative). Use **v** + day: *v utorok*.",
   },
   visual: daysDatesTimeVisual,
-  exercises: [...daysDatesTimeGradedExercises, daysDatesTimePersonalExercise],
+  beats: withDaysDatesTimeExercises(
+    daysDatesTimeBeatShells,
+    [...daysDatesTimeGradedExercises, daysDatesTimePersonalExercise],
+    daysDatesTimeVisual,
+  ),
   referenceLinks: [
     { href: "/grammar/telling-time", label: "Telling time" },
     { href: "/grammar/numbers-and-numerals", label: "Numbers and numerals" },

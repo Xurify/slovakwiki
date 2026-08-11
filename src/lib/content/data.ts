@@ -909,7 +909,7 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "Stojí to päť eur.",
         english: "It costs five euros.",
-        practiceItemId: "everyday/simple-price",
+        practiceItemId: "everyday/how-much-does-it-cost",
       },
     ],
     related: ["grammatical-gender", "questions", "kolko", "mat-present", "telling-time"],
@@ -1412,7 +1412,7 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "Koľko to stojí?",
         english: "How much does it cost?",
-        practiceItemId: "everyday/simple-price",
+        practiceItemId: "everyday/how-much-does-it-cost",
       },
       {
         slovak: "O koľkej?",

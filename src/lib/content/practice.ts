@@ -184,16 +184,16 @@ export const practiceItems: PracticeItem[] = [
     },
   },
   {
-    id: "everyday/simple-price",
+    id: "everyday/how-much-does-it-cost",
     source: {
       kind: "lesson",
       label: "Numbers and personal details",
       href: "/lessons/everyday/numbers-and-personal-details",
     },
     task: {
-      id: "review-simple-price",
+      id: "review-how-much-does-it-cost",
       type: "choice",
-      practiceItemId: "everyday/simple-price",
+      practiceItemId: "everyday/how-much-does-it-cost",
       prompt: "It costs five euros.",
       choices: [
         { id: "price", label: "Stojí to päť eur." },
@@ -1414,12 +1414,12 @@ export const practiceSets: PracticeSet[] = [
     id: "numbers-and-personal-details",
     lessonId: "everyday/numbers-and-personal-details",
     title: "Numbers and personal details",
-    summary: "Say your age, read phone digits, and ask or answer a simple price.",
+    summary: "Say your age, read phone digits, and ask how much is it.",
     track: "everyday",
     itemIds: [
       "everyday/age-with-rokov",
       "everyday/phone-number-digits",
-      "everyday/simple-price",
+      "everyday/how-much-does-it-cost",
     ],
   },
   {

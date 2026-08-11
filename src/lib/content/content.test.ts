@@ -30,6 +30,7 @@ import {
   words,
 } from "./data";
 import { isDamagedExampleTemplate } from "./example-quality";
+import { lessonExercises } from "$lib/learning/lesson-beats";
 import { lessonById, lessons, validateLessons } from "./lessons";
 import {
   practiceItemById,
@@ -185,7 +186,7 @@ describe("Slovak content", () => {
     expect(validatePracticeItems()).toEqual([]);
 
     for (const lesson of lessons) {
-      for (const exercise of lesson.exercises) {
+      for (const exercise of lessonExercises(lesson)) {
         if (exercise.type !== "personal") {
           expect(practiceItemById.has(exercise.practiceItemId)).toBe(true);
         }
@@ -266,7 +267,7 @@ describe("Slovak content", () => {
     expect(timeLesson?.visual?.items.length).toBeGreaterThanOrEqual(4);
 
     for (const lesson of lessons) {
-      for (const exercise of lesson.exercises) {
+      for (const exercise of lessonExercises(lesson)) {
         if (exercise.type !== "choice") continue;
 
         if (exercise.clock) {
@@ -305,7 +306,9 @@ describe("Slovak content", () => {
       "grammar/mat-present",
     ] as const) {
       const lesson = lessonById.get(lessonId)!;
-      const graded = lesson.exercises.filter((exercise) => exercise.type !== "personal");
+      const graded = lessonExercises(lesson).filter(
+        (exercise) => exercise.type !== "personal",
+      );
       expect(graded.length).toBeGreaterThanOrEqual(2);
     }
   });
@@ -802,7 +805,7 @@ describe("Slovak content", () => {
     }
 
     for (const lesson of lessons) {
-      for (const exercise of lesson.exercises) {
+      for (const exercise of lessonExercises(lesson)) {
         if (exercise.type === "personal") continue;
         if (!exercise.feedback.why.includes("**")) {
           missing.push(`lesson:${lesson.id}:${exercise.practiceItemId}`);

@@ -150,8 +150,22 @@ export type GradedLessonExercise =
   ChoiceExercise | BuildExercise | TypedExercise | SelectAllExercise;
 export type LessonExercise = GradedLessonExercise | PersonalExercise;
 
-export interface Lesson {
+export interface LessonBeatTeach {
+  note?: string;
+  phrases?: KeyPhrase[];
+  sceneLineIds?: string[];
+  visual?: LessonVisual;
+}
+
+export interface LessonBeat {
   exercises: LessonExercise[];
+  id: string;
+  teach: LessonBeatTeach;
+  title: string;
+}
+
+export interface Lesson {
+  beats: LessonBeat[];
   group?: string;
   id: string;
   keyPhrases: KeyPhrase[];

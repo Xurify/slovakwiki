@@ -6,6 +6,7 @@ import {
   keyPhraseCharacterId,
   type LessonCharacterId,
 } from "./characters";
+import { lessonExercises } from "$lib/learning/lesson-beats";
 import type { DialogueTurn, KeyPhrase, Lesson } from "./learning-types";
 
 function resolveCharacterAudioSrc(
@@ -52,7 +53,7 @@ export function lessonAudioSrcs(lesson: Lesson): {
 } {
   const scene = { ...sceneAudioSrcs(lesson.scene) };
 
-  for (const exercise of lesson.exercises) {
+  for (const exercise of lessonExercises(lesson)) {
     if (!("context" in exercise) || !exercise.context) continue;
     Object.assign(scene, sceneAudioSrcs(exercise.context));
   }
