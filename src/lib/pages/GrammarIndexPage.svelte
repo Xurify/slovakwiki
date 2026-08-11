@@ -122,7 +122,7 @@
                 </div>
 
                 <p
-                  class="m-0 max-w-[36rem] font-serif text-sm leading-snug text-slate-600"
+                  class="m-0 max-w-xl font-serif text-sm leading-snug text-slate-600"
                 >
                   {groupPurpose[group]}
                 </p>

@@ -37,8 +37,13 @@
     </span>
   </div>
 
-  <p class="m-0 mt-2 max-w-[36rem] text-sm leading-relaxed text-pretty text-slate-600">
+  <p class="m-0 mt-2 max-w-xl text-sm leading-relaxed text-pretty text-slate-600">
     {track.description}
+  </p>
+
+  <p class="m-0 mt-2 text-xs tabular-nums text-slate-500">
+    {lessons.length}
+    {lessons.length === 1 ? "lesson" : "lessons"}
   </p>
 
   <span class="mt-4 mb-4 block h-1 overflow-hidden rounded-full bg-slate-200">

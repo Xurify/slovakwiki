@@ -1,7 +1,8 @@
 ---
 import { LESSONS_BOOT_SCRIPT } from "$lib/lessons/boot-script";
 import type { LessonsBootPayload } from "$lib/lessons/boot-payload";
-import { LESSONS_FOUC, foucHideUntilReadyStyle } from "$lib/fouc/gate";
+import { LESSONS_FOUC } from "$lib/lessons/fouc";
+import { foucHideUntilReadyStyle } from "$lib/fouc/gate";
 
 interface Props {
   payload: LessonsBootPayload;

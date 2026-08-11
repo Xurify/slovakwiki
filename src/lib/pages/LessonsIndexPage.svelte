@@ -26,32 +26,40 @@
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[720px]">
-    <header class="max-w-[560px]">
-      <h1 class="text-balance">Lessons</h1>
-      <Lead class="text-pretty">
-        Short interactive lessons. Your progress is saved in this browser.
-      </Lead>
-    </header>
-
-    <div class="mt-9">
-      <LessonsContinueCard
-        {focusLesson}
-        {lessonNumber}
-        {lessons}
-        track={focusGroup?.track ?? null}
-        trackLessonCount={focusGroup?.lessons.length ?? 0}
-      />
-    </div>
-
-    <div class="mt-14 space-y-12">
-      {#each trackGroups as group (group.track.id)}
-        <LessonTrackSection
-          track={group.track}
-          lessons={group.lessons}
-          statusFor={(lesson) => (focusLesson?.id === lesson.id ? "active" : "upcoming")}
+  <PageShell class="max-w-[1080px]">
+    <div
+      class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:items-start lg:gap-12"
+    >
+      <aside class="order-1 lg:order-2 lg:sticky lg:top-24 lg:self-start">
+        <LessonsContinueCard
+          {focusLesson}
+          {lessonNumber}
+          {lessons}
+          track={focusGroup?.track ?? null}
+          trackLessonCount={focusGroup?.lessons.length ?? 0}
         />
-      {/each}
+      </aside>
+
+      <div class="order-2 min-w-0 lg:order-1">
+        <header class="max-w-xl">
+          <h1 class="text-balance">Lessons</h1>
+          <Lead class="text-pretty">
+            Short interactive lessons you can finish in one sitting. Progress stays in
+            this browser — pick any track and continue where you left off.
+          </Lead>
+        </header>
+
+        <div class="mt-12 space-y-12">
+          {#each trackGroups as group (group.track.id)}
+            <LessonTrackSection
+              track={group.track}
+              lessons={group.lessons}
+              statusFor={(lesson) =>
+                focusLesson?.id === lesson.id ? "active" : "upcoming"}
+            />
+          {/each}
+        </div>
+      </div>
     </div>
   </PageShell>
 </main>
