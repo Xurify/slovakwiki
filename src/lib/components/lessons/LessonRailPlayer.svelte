@@ -16,6 +16,7 @@
   import type { Lesson } from "$lib/content/learning-types";
   import { lessonTracks, lessonsForTrack } from "$lib/content/lessons";
   import { practiceSetForLesson } from "$lib/content/practice";
+  import { hasPendingStoryAudio, unlockStoryAudio } from "$lib/lessons/story-audio";
 
   let {
     lesson,
@@ -38,6 +39,10 @@
   let whyOpen = $state(false);
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
+  /** Teach story: false until every dialogue line has been revealed. */
+  let teachStoryComplete = $state(false);
+  /** Incremented by footer to advance the next story line. */
+  let teachAdvanceSignal = $state(0);
 
   const steps = $derived(lessonSteps(lesson));
   const step = $derived(steps[stepIndex]);
@@ -97,7 +102,23 @@
     canSubmit = false;
     gradeResult = null;
     whyOpen = false;
+    teachAdvanceSignal = 0;
   }
+
+  $effect(() => {
+    const stepId = step?.id;
+    const kind = step?.kind;
+    const sceneLen = step?.kind === "teach" ? step.scene.length : 0;
+    void stepId;
+
+    if (kind === "teach") {
+      teachStoryComplete = sceneLen === 0;
+      teachAdvanceSignal = 0;
+      return;
+    }
+
+    teachStoryComplete = true;
+  });
 
   function advance(): void {
     if (stepIndex >= steps.length - 1) {
@@ -114,6 +135,18 @@
     if (!step) return;
 
     if (step.kind === "teach") {
+      if (!teachStoryComplete) {
+        // Autoplay-blocked clip: replay under this gesture; do not skip ahead.
+        if (hasPendingStoryAudio()) {
+          unlockStoryAudio();
+          return;
+        }
+
+        unlockStoryAudio();
+        teachAdvanceSignal += 1;
+        return;
+      }
+
       advance();
       return;
     }
@@ -134,7 +167,9 @@
 
   const footerLabel = $derived.by(() => {
     if (!step) return "Continue";
-    if (step.kind === "teach") return "Continue";
+    if (step.kind === "teach") {
+      return teachStoryComplete ? "Continue" : "Next";
+    }
     if (step.exercise.type === "personal") return "I said it";
     if (gradeResult) return "Continue";
     return "Check";
@@ -175,6 +210,9 @@
               teach={step.beat.teach}
               scene={step.scene}
               audioSrcs={teachAudioSrcs}
+              lessonId={lesson.id}
+              advanceSignal={teachAdvanceSignal}
+              bind:storyComplete={teachStoryComplete}
             />
           {:else}
             <div class="mx-auto w-full max-w-2xl px-4 py-10 sm:px-8 sm:py-12">

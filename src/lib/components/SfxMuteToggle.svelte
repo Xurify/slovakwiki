@@ -37,7 +37,7 @@
 
   const enabled = $derived(preference === "on");
   const label = $derived(
-    enabled ? "Sound effects on. Click to mute." : "Sound effects off. Click to unmute.",
+    enabled ? "Sound on. Click to mute." : "Sound muted. Click to unmute.",
   );
 </script>
 

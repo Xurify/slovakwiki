@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import type { AudioKind } from "./audio-core";
 
@@ -12,26 +13,28 @@ export interface RuntimeIndexEntry {
 
 export type AudioRuntimeIndex = Record<string, RuntimeIndexEntry>;
 
+/** Repo-relative from this file — avoids `process.cwd()` races under Vite SSR. */
 const RUNTIME_INDEX_PATH = path.join(
-  process.cwd(),
-  "content",
-  "audio",
-  "runtime-index.json",
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../../content/audio/runtime-index.json",
 );
 
 let cache: AudioRuntimeIndex | undefined;
 
 /** Server-only: load the slim runtime index (hash → kind + generatedAt). */
 export function loadRuntimeIndex(): AudioRuntimeIndex {
-  if (!cache) {
-    try {
-      const raw = readFileSync(RUNTIME_INDEX_PATH, "utf8");
-      cache = JSON.parse(raw) as AudioRuntimeIndex;
-    } catch {
-      cache = {};
-    }
+  if (cache) return cache;
+
+  try {
+    const raw = readFileSync(RUNTIME_INDEX_PATH, "utf8");
+    cache = JSON.parse(raw) as AudioRuntimeIndex;
+    return cache;
+  } catch {
+    // Do not cache failures — a transient Vite SSR / HMR race would otherwise
+    // pin an empty index for the whole dev server lifetime (no lesson MP3s →
+    // silent autoplay + browser TTS on Listen).
+    return {};
   }
-  return cache;
 }
 
 export function hasAudioClip(hash: string): boolean {

@@ -430,6 +430,24 @@ export const daysDatesTimeLesson: Lesson = {
       slovak: "Áno. O tretej?",
       english: "Yes. At three?",
       audio: { transcript: "Áno. O tretej?" },
+      sayChoices: {
+        answerId: "at-three",
+        choices: [
+          { id: "at-three", label: "Áno. O tretej?" },
+          {
+            id: "at-two",
+            label: "Áno. O druhej?",
+            whyWrong:
+              "**O druhej** is at two — the reply here is **o tretej** (at three).",
+          },
+          {
+            id: "duration",
+            label: "Áno. O tri hodiny.",
+            whyWrong:
+              "**O tri hodiny** means in three hours — for clock time use locative **o tretej**.",
+          },
+        ],
+      },
     },
     {
       id: "meeting-half-past",

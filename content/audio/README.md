@@ -6,19 +6,30 @@ Runtime index (app build): [`runtime-index.json`](./runtime-index.json) (hash �
 `saveManifest` in `scripts/audio/shared.ts` writes both (compact, sorted keys).  
 MP3s live under `static/audio/` (gitignored) or R2 in production.
 
+## Client playback (lessons)
+
+Lesson story / cast clips must play the ElevenLabs MP3 only.
+
+**Do not** fall back to browser `speechSynthesis` (`sk-SK`) when a clip is missing, 404s, or autoplay is blocked — system voices mispronounce Slovak and recreate the old “bad lesson audio” bug. Prefer silence / dwell, then unlock real audio on a user gesture (`Listen` / `Next`).
+
+Dictionary `AudioButton` may still TTS when there is **no** `src` (lemma not generated yet). If `src` is set, TTS fallback stays off unless `allowTtsFallback` is passed explicitly.
+
 ## Shared TTS settings
 
 All dictionary + lesson synthesis uses the top-level block in `config.json`:
 
-| Field          | Value                                                                          |
-| -------------- | ------------------------------------------------------------------------------ |
-| Provider       | ElevenLabs                                                                     |
-| Model          | `eleven_flash_v2_5`                                                            |
-| Language hint  | `sk`                                                                           |
-| Format         | `mp3_44100_128`                                                                |
-| Voice settings | stability `0.5`, similarityBoost `0.75`, style `0`, speed `1`, useSpeakerBoost |
+| Field          | Value                                                                                    |
+| -------------- | ---------------------------------------------------------------------------------------- |
+| Provider       | ElevenLabs                                                                               |
+| Model          | `eleven_flash_v2_5`                                                                      |
+| Language hint  | `sk`                                                                                     |
+| Format         | `mp3_44100_128`                                                                          |
+| Voice settings | stability `0.65`, similarityBoost `0.75`, style `0.15`, speed `0.88`, useSpeakerBoost    |
+|                | Narration-leaning (clearer, slower) — not max-expressiveness. Change → new hash → regen. |
 
 Hash material includes provider + voiceId + model + settings + normalized text. Change voice or settings → new hash → regen.
+
+**Current voice_settings intent (lesson dialogue / learner audio):** slightly higher stability + slower speed than API defaults, so lines stay clear and paced for study. Closer to ElevenLabs narration/storytelling guidance (stable delivery) than to low-stability “expressive ad” presets.
 
 ## ElevenLabs plans + concurrency
 

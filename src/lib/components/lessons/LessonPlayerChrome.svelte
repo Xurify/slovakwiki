@@ -1,5 +1,6 @@
 <script lang="ts">
   import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
+  import LessonStorySettings from "$lib/components/lessons/LessonStorySettings.svelte";
 
   let {
     backHref,
@@ -14,7 +15,7 @@
   } = $props();
 </script>
 
-<header class="shrink-0 border-b border-slate-200 bg-paper">
+<header class="relative z-30 shrink-0 border-b border-slate-200 bg-paper">
   <div class="flex items-center gap-3 px-4 py-3 sm:px-8">
     <a
       class="inline-grid size-9 shrink-0 place-items-center rounded-full text-slate-500 transition-[background-color,color,transform] duration-150 hover:bg-subtle hover:text-slate-800 active:scale-[0.96]"
@@ -51,7 +52,8 @@
       {Math.min(stepIndex + 1, stepCount)} / {stepCount}
     </p>
 
-    <div class="shrink-0">
+    <div class="flex shrink-0 items-center gap-1.5">
+      <LessonStorySettings />
       <SfxMuteToggle />
     </div>
   </div>

@@ -51,6 +51,23 @@ export const lessons: Lesson[] = [
         slovak: "Dobrý deň. Volám sa Alex.",
         english: "Hello. My name is Alex.",
         audio: { transcript: "Dobrý deň. Volám sa Alex." },
+        sayChoices: {
+          answerId: "formal",
+          choices: [
+            { id: "formal", label: "Dobrý deň. Volám sa Alex." },
+            {
+              id: "informal",
+              label: "Ahoj!",
+              whyWrong:
+                "**Ahoj** is informal — use **Dobrý deň** when you meet someone for the first time.",
+            },
+            {
+              id: "leaving",
+              label: "Dovidenia.",
+              whyWrong: "**Dovidenia** means goodbye — not an opening greeting.",
+            },
+          ],
+        },
       },
       {
         id: "anna-origin",
@@ -65,6 +82,23 @@ export const lessons: Lesson[] = [
         slovak: "Som z Kanady.",
         english: "I am from Canada.",
         audio: { transcript: "Som z Kanady." },
+        sayChoices: {
+          answerId: "from-canada",
+          choices: [
+            { id: "from-canada", label: "Som z Kanady." },
+            {
+              id: "live-canada",
+              label: "Bývam v Kanade.",
+              whyWrong:
+                "**Bývam v …** says where you live — Anna asked where you are **from** (**odkiaľ**).",
+            },
+            {
+              id: "name",
+              label: "Volám sa Kanada.",
+              whyWrong: "**Volám sa** introduces your name — not your country.",
+            },
+          ],
+        },
       },
       {
         id: "anna-slovak",
@@ -79,6 +113,24 @@ export const lessons: Lesson[] = [
         slovak: "Trochu. Ešte sa učím.",
         english: "A little. I am still learning.",
         audio: { transcript: "Trochu. Ešte sa učím." },
+        sayChoices: {
+          answerId: "learning",
+          choices: [
+            { id: "learning", label: "Trochu. Ešte sa učím." },
+            {
+              id: "fluent",
+              label: "Áno, výborne.",
+              whyWrong:
+                "**Výborne** claims strong Slovak — soft honesty is **Trochu. Ešte sa učím.**",
+            },
+            {
+              id: "no",
+              label: "Nie, nerozumiem.",
+              whyWrong:
+                "**Nerozumiem** is total shutdown — here a soft **Trochu** answer fits better.",
+            },
+          ],
+        },
       },
     ],
     keyPhrases: [
@@ -209,6 +261,20 @@ export const lessons: Lesson[] = [
         slovak: "Áno, som.",
         english: "Yes, I am.",
         audio: { transcript: "Áno, som." },
+        sayChoices: {
+          answerId: "yes-am",
+          answerIds: ["yes-am", "yes-short"],
+          choices: [
+            { id: "yes-am", label: "Áno, som." },
+            { id: "yes-short", label: "Áno." },
+            {
+              id: "no",
+              label: "Nie, nie som.",
+              whyWrong:
+                "You are here for registration — answer with **Áno** / **Áno, som.**",
+            },
+          ],
+        },
       },
       {
         id: "registration-age",
@@ -223,6 +289,22 @@ export const lessons: Lesson[] = [
         slovak: "Mám dvadsaťosem rokov.",
         english: "I am twenty-eight years old.",
         audio: { transcript: "Mám dvadsaťosem rokov." },
+        sayChoices: {
+          answerId: "age",
+          choices: [
+            { id: "age", label: "Mám dvadsaťosem rokov." },
+            {
+              id: "number",
+              label: "Moje číslo je dvadsaťosem.",
+              whyWrong: "**Moje číslo je …** gives a phone number — not your age.",
+            },
+            {
+              id: "price",
+              label: "Stojí to dvadsaťosem eur.",
+              whyWrong: "**Stojí to … eur** states a price — not your age.",
+            },
+          ],
+        },
       },
       {
         id: "registration-phone",
@@ -238,6 +320,26 @@ export const lessons: Lesson[] = [
         english: "My number is zero nine zero, one two three, four five six.",
         audio: {
           transcript: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+        },
+        sayChoices: {
+          answerId: "phone",
+          choices: [
+            {
+              id: "phone",
+              label: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+            },
+            {
+              id: "age",
+              label: "Mám dvadsaťosem rokov.",
+              whyWrong: "She asked for your **phone number**, not your age.",
+            },
+            {
+              id: "bundled",
+              label: "Moje číslo je deväťdesiat.",
+              whyWrong:
+                "Phone numbers are spoken **digit by digit**, not as one big number.",
+            },
+          ],
         },
       },
     ],
@@ -356,6 +458,19 @@ export const lessons: Lesson[] = [
         slovak: "Nie, ďakujem. Nemám teraz čas.",
         english: "No, thank you. I do not have time now.",
         audio: { transcript: "Nie, ďakujem. Nemám teraz čas." },
+        sayChoices: {
+          answerId: "refuse",
+          answerIds: ["refuse", "refuse-short"],
+          choices: [
+            { id: "refuse", label: "Nie, ďakujem. Nemám teraz čas." },
+            { id: "refuse-short", label: "Nie, ďakujem." },
+            {
+              id: "yes",
+              label: "Áno, ďakujem.",
+              whyWrong: "**Áno, ďakujem** accepts — you need **nie** to refuse.",
+            },
+          ],
+        },
       },
       {
         id: "cafe-menu",
@@ -370,6 +485,22 @@ export const lessons: Lesson[] = [
         slovak: "Nerozumiem. Nie je to pre mňa.",
         english: "I do not understand. It is not for me.",
         audio: { transcript: "Nerozumiem. Nie je to pre mňa." },
+        sayChoices: {
+          answerId: "not-understand",
+          choices: [
+            { id: "not-understand", label: "Nerozumiem. Nie je to pre mňa." },
+            {
+              id: "yes-menu",
+              label: "Áno, rozumiem.",
+              whyWrong: "You need the negative: **nerozumiem**, not **rozumiem**.",
+            },
+            {
+              id: "coffee",
+              label: "Dám si kávu.",
+              whyWrong: "He asked if you understand the menu — not what you will order.",
+            },
+          ],
+        },
       },
     ],
     keyPhrases: [
@@ -491,6 +622,22 @@ export const lessons: Lesson[] = [
         slovak: "Áno, čítam.",
         english: "Yes, I am reading.",
         audio: { transcript: "Áno, čítam." },
+        sayChoices: {
+          answerId: "i-read",
+          choices: [
+            { id: "i-read", label: "Áno, čítam." },
+            {
+              id: "he-reads",
+              label: "Áno, číta.",
+              whyWrong: "**Číta** ends in **-a** for he/she — not I.",
+            },
+            {
+              id: "you-read",
+              label: "Áno, čítaš.",
+              whyWrong: "**Čítaš** ends in **-š** for informal you — not I.",
+            },
+          ],
+        },
       },
     ],
     keyPhrases: [
@@ -639,6 +786,19 @@ export const lessons: Lesson[] = [
         slovak: "Áno, som Alex.",
         english: "Yes, I am Alex.",
         audio: { transcript: "Áno, som Alex." },
+        sayChoices: {
+          answerId: "i-am",
+          answerIds: ["i-am", "i-am-short"],
+          choices: [
+            { id: "i-am", label: "Áno, som Alex." },
+            { id: "i-am-short", label: "Som Alex." },
+            {
+              id: "you-are",
+              label: "Áno, ste Alex.",
+              whyWrong: "**Ste** means you are — not I.",
+            },
+          ],
+        },
       },
       {
         id: "byt-check-in-location",
@@ -653,6 +813,22 @@ export const lessons: Lesson[] = [
         slovak: "Áno. Sme tu s priateľmi.",
         english: "Yes. We are here with friends.",
         audio: { transcript: "Áno. Sme tu s priateľmi." },
+        sayChoices: {
+          answerId: "we-here",
+          choices: [
+            { id: "we-here", label: "Áno. Sme tu s priateľmi." },
+            {
+              id: "i-here",
+              label: "Áno. Som tu sám.",
+              whyWrong: "She asked about **we** — use **sme**, not a solo **som**.",
+            },
+            {
+              id: "first-time",
+              label: "Nie, nie je.",
+              whyWrong: "Answer that you are here with friends: **Sme tu s priateľmi.**",
+            },
+          ],
+        },
       },
     ],
     keyPhrases: [
@@ -767,6 +943,19 @@ export const lessons: Lesson[] = [
         slovak: "Áno, mám čas.",
         english: "Yes, I have time.",
         audio: { transcript: "Áno, mám čas." },
+        sayChoices: {
+          answerId: "i-have",
+          answerIds: ["i-have", "i-have-short"],
+          choices: [
+            { id: "i-have", label: "Áno, mám čas." },
+            { id: "i-have-short", label: "Mám čas." },
+            {
+              id: "you-have",
+              label: "Áno, máš čas.",
+              whyWrong: "**Máš** means you have — not I.",
+            },
+          ],
+        },
       },
       {
         id: "mat-cafe-age",
@@ -781,6 +970,22 @@ export const lessons: Lesson[] = [
         slovak: "Mám dvadsaťosem rokov.",
         english: "I am twenty-eight years old.",
         audio: { transcript: "Mám dvadsaťosem rokov." },
+        sayChoices: {
+          answerId: "age",
+          choices: [
+            { id: "age", label: "Mám dvadsaťosem rokov." },
+            {
+              id: "be-age",
+              label: "Som dvadsaťosem.",
+              whyWrong: "Age uses **mať**, not **byť**: **Mám … rokov.**",
+            },
+            {
+              id: "you-age",
+              label: "Máš dvadsaťosem rokov.",
+              whyWrong: "**Máš** is you have — for yourself use **mám**.",
+            },
+          ],
+        },
       },
       {
         id: "mat-cafe-possession",
@@ -788,6 +993,22 @@ export const lessons: Lesson[] = [
         slovak: "Nemám hotovosť, ale mám kartu.",
         english: "I do not have cash, but I have a card.",
         audio: { transcript: "Nemám hotovosť, ale mám kartu." },
+        sayChoices: {
+          answerId: "card",
+          choices: [
+            { id: "card", label: "Nemám hotovosť, ale mám kartu." },
+            {
+              id: "cash-only",
+              label: "Mám hotovosť.",
+              whyWrong: "You need the contrast: **nemám** cash, but **mám** a card.",
+            },
+            {
+              id: "no-card",
+              label: "Nemám kartu.",
+              whyWrong: "Say you have a card: **mám kartu**, with **nemám hotovosť**.",
+            },
+          ],
+        },
       },
     ],
     keyPhrases: [

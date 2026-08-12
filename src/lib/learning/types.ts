@@ -5,10 +5,27 @@ export interface AudioCue {
   transcript: string;
 }
 
+export interface DialogueSayChoice {
+  id: string;
+  label: string;
+  /** Shown under the options when the learner picks this wrong option. */
+  whyWrong?: string;
+}
+
+export interface DialogueSayChoices {
+  /** Single correct choice id (legacy / simple gates). */
+  answerId?: string;
+  /** Soft multi-correct: any of these ids continue the same path. */
+  answerIds?: string[];
+  choices: DialogueSayChoice[];
+}
+
 export interface DialogueTurn {
   audio?: AudioCue;
   english: string;
   id: string;
+  /** Mid-story gate: pick what to say before this learner line reveals. */
+  sayChoices?: DialogueSayChoices;
   slovak: string;
   speaker: string;
 }

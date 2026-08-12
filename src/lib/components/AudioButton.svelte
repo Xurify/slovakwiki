@@ -1,7 +1,10 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from "svelte";
+  import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/client/sfx";
 
   let {
+    allowTtsFallback = false,
+    beforePlay,
     class: className = "",
     label = "Listen to Slovak",
     size = "md",
@@ -9,6 +12,14 @@
     text,
     variant = "default",
   }: {
+    /**
+     * When false (default), never fall back to browser speechSynthesis if `src`
+     * is set — system voices mispronounce Slovak. Only use TTS when there is no
+     * clip URL (e.g. dictionary lemma not generated yet).
+     */
+    allowTtsFallback?: boolean;
+    /** Runs inside the click/play gesture (e.g. unlock story autoplay). */
+    beforePlay?: () => void;
     class?: string;
     label?: string;
     size?: "sm" | "md" | "lg";
@@ -30,7 +41,16 @@
 
   onMount(() => {
     supported = src ? true : Boolean(window.speechSynthesis);
+
+    function onMuteChange(): void {
+      if (getStoredSfxPreference() === "off") stop();
+    }
+
+    window.addEventListener(SFX_CHANGE_EVENT, onMuteChange);
+    return () => window.removeEventListener(SFX_CHANGE_EVENT, onMuteChange);
   });
+
+  const canUseTts = $derived(allowTtsFallback || !src);
 
   function clearProgressLoop(): void {
     if (raf) cancelAnimationFrame(raf);
@@ -60,6 +80,11 @@
   }
 
   function speakFallback(): void {
+    if (!canUseTts) {
+      stop();
+      return;
+    }
+
     if (typeof window === "undefined" || !window.speechSynthesis) {
       stop();
       return;
@@ -91,6 +116,9 @@
 
   function play(): void {
     if (supported === false) return;
+    if (getStoredSfxPreference() === "off") return;
+
+    beforePlay?.();
     stop();
     playing = true;
 
@@ -99,18 +127,27 @@
       audio = new Audio(src);
       audio.preload = "auto";
       audio.onended = () => stop();
-      audio.onerror = () => speakFallback();
+      audio.onerror = () => {
+        if (canUseTts) speakFallback();
+        else stop();
+      };
       void audio
         .play()
         .then(async () => {
           await tick();
           trackAudioProgress();
         })
-        .catch(() => speakFallback());
+        .catch(() => {
+          if (canUseTts) speakFallback();
+          else stop();
+        });
       return;
     }
 
-    speakFallback();
+    if (canUseTts) speakFallback();
+    else {
+      playing = false;
+    }
   }
 
   function toggle(): void {
