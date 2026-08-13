@@ -1,5 +1,10 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from "svelte";
+  import {
+    AUDIO_VOLUME_CHANGE_EVENT,
+    applyAudioVolume,
+    getAudioVolume,
+  } from "$lib/client/audio-volume";
   import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/client/sfx";
 
   let {
@@ -46,8 +51,17 @@
       if (getStoredSfxPreference() === "off") stop();
     }
 
+    function onVolumeChange(): void {
+      if (audio) applyAudioVolume(audio);
+      if (utterance) utterance.volume = getAudioVolume();
+    }
+
     window.addEventListener(SFX_CHANGE_EVENT, onMuteChange);
-    return () => window.removeEventListener(SFX_CHANGE_EVENT, onMuteChange);
+    window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+    return () => {
+      window.removeEventListener(SFX_CHANGE_EVENT, onMuteChange);
+      window.removeEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+    };
   });
 
   const canUseTts = $derived(allowTtsFallback || !src);
@@ -95,6 +109,7 @@
     utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "sk-SK";
     utterance.rate = 0.82;
+    utterance.volume = getAudioVolume();
     utterance.onend = () => stop();
     utterance.onerror = () => stop();
     window.speechSynthesis.speak(utterance);
@@ -126,6 +141,7 @@
       ringMode = "progress";
       audio = new Audio(src);
       audio.preload = "auto";
+      applyAudioVolume(audio);
       audio.onended = () => stop();
       audio.onerror = () => {
         if (canUseTts) speakFallback();

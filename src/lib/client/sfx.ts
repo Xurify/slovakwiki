@@ -1,3 +1,5 @@
+import { getAudioVolume } from "$lib/client/audio-volume";
+
 export type SfxPreference = "on" | "off";
 
 export type AnswerSfxKind = "correct" | "almost" | "incorrect";
@@ -105,8 +107,10 @@ function tone(
   osc.type = type;
   osc.frequency.setValueAtTime(frequency, start);
 
+  const scaled = Math.max(0.0001, gain * getAudioVolume());
+
   amp.gain.setValueAtTime(0.0001, start);
-  amp.gain.exponentialRampToValueAtTime(gain, start + 0.012);
+  amp.gain.exponentialRampToValueAtTime(scaled, start + 0.012);
   amp.gain.exponentialRampToValueAtTime(0.0001, start + duration);
 
   osc.connect(amp);

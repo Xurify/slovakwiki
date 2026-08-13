@@ -12,6 +12,7 @@
  * Respects the lesson chrome mute toggle (`slovak.wiki.sfx-preference`).
  */
 
+import { AUDIO_VOLUME_CHANGE_EVENT, applyAudioVolume } from "$lib/client/audio-volume";
 import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/client/sfx";
 
 let currentAudio: HTMLAudioElement | undefined;
@@ -39,6 +40,9 @@ function ensureMuteListener(): void {
   muteListenerAttached = true;
   window.addEventListener(SFX_CHANGE_EVENT, () => {
     if (audioMuted()) stopAll();
+  });
+  window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, () => {
+    if (currentAudio) applyAudioVolume(currentAudio);
   });
 }
 
@@ -102,6 +106,7 @@ function tryPlay(
 
   const audio = new Audio(src);
   audio.preload = "auto";
+  applyAudioVolume(audio);
   currentAudio = audio;
   attachPlayback(audio, generation, startedAt, onEnded);
 

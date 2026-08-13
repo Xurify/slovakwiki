@@ -1,6 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import {
+    AUDIO_VOLUME_CHANGE_EVENT,
+    getAudioVolume,
+    setAudioVolume,
+  } from "$lib/client/audio-volume";
+  import {
     STORY_PREFS_CHANGE_EVENT,
     getStoryAutoAdvance,
     getStoryShowEnglish,
@@ -19,15 +24,21 @@
   let open = $state(false);
   let autoAdvance = $state<StoryBoolPreference>(getStoryAutoAdvance());
   let showEnglish = $state<StoryBoolPreference>(getStoryShowEnglish());
+  let volume = $state(getAudioVolume());
   let rootEl: HTMLDivElement | undefined = $state();
 
   onMount(() => {
     autoAdvance = getStoryAutoAdvance();
     showEnglish = getStoryShowEnglish();
+    volume = getAudioVolume();
 
     function onPrefsChange(): void {
       autoAdvance = getStoryAutoAdvance();
       showEnglish = getStoryShowEnglish();
+    }
+
+    function onVolumeChange(): void {
+      volume = getAudioVolume();
     }
 
     function onPointerDown(event: PointerEvent): void {
@@ -41,11 +52,13 @@
     }
 
     window.addEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);
+    window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
     window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
       window.removeEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);
+      window.removeEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
       window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("keydown", onKeyDown);
     };
@@ -64,6 +77,14 @@
     showEnglish = toggleStoryBool(showEnglish);
     setStoryShowEnglish(showEnglish);
   }
+
+  function onVolumeInput(event: Event): void {
+    const target = event.currentTarget;
+    if (!(target instanceof HTMLInputElement)) return;
+    volume = setAudioVolume(Number(target.value) / 100);
+  }
+
+  const volumePercent = $derived(Math.round(volume * 100));
 
   const triggerClass = $derived(
     [
@@ -149,6 +170,37 @@
               ></span>
             </span>
           </button>
+        </li>
+
+        <li class="border-b border-slate-200/70 last:border-b-0">
+          <div class="px-3.5 py-3">
+            <label
+              class="flex items-baseline justify-between gap-3"
+              for="lesson-story-volume"
+            >
+              <span class="text-sm font-semibold text-slate-900">Volume</span>
+              <span class="text-xs tabular-nums text-slate-500">{volumePercent}%</span>
+            </label>
+
+            <input
+              id="lesson-story-volume"
+              class="mt-2.5 block w-full cursor-pointer accent-blue-700"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value={volumePercent}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={volumePercent}
+              aria-valuetext="{volumePercent} percent"
+              oninput={onVolumeInput}
+            />
+
+            <p class="m-0 mt-1.5 text-xs leading-snug text-pretty text-slate-500">
+              How loud story and listen audio plays
+            </p>
+          </div>
         </li>
 
         <li class="border-b border-slate-200/70 last:border-b-0">
