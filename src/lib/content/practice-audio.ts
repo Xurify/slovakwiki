@@ -1,5 +1,6 @@
 import { audioClipKind, hasAudioClip } from "./audio-manifest";
-import { audioHash, resolveAudioSrc, type AudioKind } from "./audio";
+import { audioHash, type AudioKind } from "./audio-core";
+import { resolveAudioSrc } from "./audio";
 import type { PracticeItem } from "./learning-types";
 
 /**

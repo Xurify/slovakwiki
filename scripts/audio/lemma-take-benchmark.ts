@@ -10,7 +10,7 @@ import { promisify } from "node:util";
 
 import { words } from "../../src/lib/content/data";
 import { dictionaryLemmaSynthText } from "../../src/lib/content/audio-lemma-synthesis";
-import { audioHash, audioObjectKey } from "../../src/lib/content/audio";
+import { audioHash, audioObjectKey } from "../../src/lib/content/audio-core";
 import { scoreTranscript } from "./verify-score";
 import { transcribeAudio } from "./stt";
 import { loadConfig, synthesizeElevenLabs } from "./shared";

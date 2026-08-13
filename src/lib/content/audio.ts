@@ -1,17 +1,3 @@
-export {
-  type AudioCharacter,
-  type AudioConfig,
-  type AudioKind,
-  type AudioVoiceSettings,
-  audioConfigData,
-  audioFileNameFromHash,
-  audioHash,
-  audioObjectKey,
-  audioRelativePath,
-  normalizeAudioText,
-  resolveAudioSrcFromKey,
-} from "./audio-core";
-
 import {
   audioConfigData,
   audioHash,

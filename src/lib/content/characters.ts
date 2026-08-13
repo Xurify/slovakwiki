@@ -1,27 +1,9 @@
-import { audioConfigData, type AudioConfig, type AudioCharacter } from "./audio-core";
+import { audioConfigData, type AudioCharacter, type AudioConfig } from "./audio-core";
+import type { LessonCharacterId } from "./character-ids";
 
 export type CharacterGender = "female" | "male" | "neutral";
 
-export type LessonCharacterId =
-  | "alex"
-  | "anna"
-  | "guide"
-  | "lucia"
-  | "marek"
-  | "maria"
-  | "narrator"
-  | "receptionist"
-  | "waiter";
-
 const characters = audioConfigData.characters ?? {};
-
-const speakerToCharacterId = new Map<string, LessonCharacterId>();
-
-for (const [id, character] of Object.entries(characters)) {
-  for (const speaker of character.speakers ?? []) {
-    speakerToCharacterId.set(speaker, id as LessonCharacterId);
-  }
-}
 
 /** Character roster from `content/audio/config.json`. */
 export function listCharacters(): Array<AudioCharacter & { id: LessonCharacterId }> {
@@ -33,14 +15,6 @@ export function listCharacters(): Array<AudioCharacter & { id: LessonCharacterId
 
 export function getCharacter(id: LessonCharacterId): AudioCharacter | undefined {
   return characters[id];
-}
-
-/**
- * Map a dialogue speaker label (Anna, You, …) to a roster character.
- * Unknown speakers fall back to narrator so generate never drops a line.
- */
-export function characterIdForSpeaker(speaker: string): LessonCharacterId {
-  return speakerToCharacterId.get(speaker) ?? "narrator";
 }
 
 /** Key phrases — instructional guide voice (not dictionary). */

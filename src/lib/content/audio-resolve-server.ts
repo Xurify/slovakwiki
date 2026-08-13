@@ -1,5 +1,6 @@
 import { audioClipCacheBust } from "./audio-manifest";
-import { audioHash, audioObjectKey, resolveAudioSrc, type AudioKind } from "./audio";
+import { audioHash, audioObjectKey, type AudioKind } from "./audio-core";
+import { resolveAudioSrc } from "./audio";
 
 function cacheBustUrl(url: string, hash: string): string {
   const bust = audioClipCacheBust(hash);
