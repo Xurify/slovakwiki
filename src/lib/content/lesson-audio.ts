@@ -1,11 +1,8 @@
 import { hasAudioClip } from "./audio-manifest";
-import { audioHash, resolveAudioSrc } from "./audio";
-import {
-  audioConfigForCharacter,
-  characterIdForSpeaker,
-  keyPhraseCharacterId,
-  type LessonCharacterId,
-} from "./characters";
+import { audioHash } from "./audio-core";
+import { resolveAudioSrc } from "./audio";
+import { characterIdForSpeaker, type LessonCharacterId } from "./character-ids";
+import { audioConfigForCharacter, keyPhraseCharacterId } from "./characters";
 import { lessonExercises } from "$lib/learning/lesson-beats";
 import type { DialogueTurn, KeyPhrase, Lesson } from "./learning-types";
 

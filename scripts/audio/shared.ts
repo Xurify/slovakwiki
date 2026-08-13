@@ -17,10 +17,12 @@ import {
   normalizeAudioText,
 } from "../../src/lib/content/audio-core";
 import {
-  audioConfigForCharacter,
   characterIdForSpeaker,
-  keyPhraseCharacterId,
   type LessonCharacterId,
+} from "../../src/lib/content/character-ids";
+import {
+  audioConfigForCharacter,
+  keyPhraseCharacterId,
 } from "../../src/lib/content/characters";
 import { lessons } from "../../src/lib/content/lessons";
 import { lessonExercises } from "../../src/lib/learning/lesson-beats";

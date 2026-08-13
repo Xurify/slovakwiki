@@ -1,28 +1,24 @@
-/** Client-safe cast styling for the lesson story stage (no node:crypto). */
+/** Client-safe story-stage helpers (no node:crypto). */
 
-export type StoryCastId =
-  | "alex"
-  | "anna"
-  | "guide"
-  | "lucia"
-  | "marek"
-  | "maria"
-  | "narrator"
-  | "receptionist"
-  | "waiter";
+import {
+  characterIdForSpeaker,
+  isLearnerSpeaker,
+  type LessonCharacterId,
+} from "$lib/content/character-ids";
+
+export type StoryCastId = LessonCharacterId;
 
 export type StoryCastSide = "other" | "you" | "narrator";
 
 export interface StoryCastStyle {
-  /** Soft fill behind the avatar. */
-  fillClass: string;
-  /** Accent stroke / hair / clothing. */
-  inkClass: string;
-  /** Secondary accent. */
   accentClass: string;
+  fillClass: string;
   id: StoryCastId;
+  inkClass: string;
   side: StoryCastSide;
 }
+
+export { isLearnerSpeaker };
 
 const styles: Record<StoryCastId, Omit<StoryCastStyle, "id" | "side">> = {
   alex: {
@@ -72,22 +68,9 @@ const styles: Record<StoryCastId, Omit<StoryCastStyle, "id" | "side">> = {
   },
 };
 
-/** Keep in sync with `content/audio/config.json` speaker labels. */
-const speakerToId: Record<string, StoryCastId> = {
-  Anna: "anna",
-  You: "alex",
-  Mária: "maria",
-  Receptionist: "receptionist",
-  Waiter: "waiter",
-  Notice: "narrator",
-  Sentence: "narrator",
-  Narrator: "narrator",
-};
-
-export function storyCastForSpeaker(speaker: string): StoryCastStyle {
-  const id = speakerToId[speaker] ?? "narrator";
+export function storyCastForId(id: LessonCharacterId): StoryCastStyle {
   const side: StoryCastSide =
-    speaker === "You" ? "you" : id === "narrator" ? "narrator" : "other";
+    id === "alex" ? "you" : id === "narrator" || id === "guide" ? "narrator" : "other";
 
   return {
     id,
@@ -96,6 +79,17 @@ export function storyCastForSpeaker(speaker: string): StoryCastStyle {
   };
 }
 
-export function isLearnerSpeaker(speaker: string): boolean {
-  return speaker === "You";
+export function storyCastForSpeaker(speaker: string): StoryCastStyle {
+  const id = characterIdForSpeaker(speaker);
+  const side: StoryCastSide = isLearnerSpeaker(speaker)
+    ? "you"
+    : id === "narrator"
+      ? "narrator"
+      : "other";
+
+  return {
+    id,
+    side,
+    ...styles[id],
+  };
 }

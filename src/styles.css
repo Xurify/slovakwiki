@@ -58,6 +58,15 @@
   --color-emerald-600: var(--green);
   --color-emerald-700: var(--green);
   --color-emerald-800: var(--green);
+
+  /* Lesson portraits: fixed illustration paints (not UI 50/100 aliases). */
+  --color-portrait-skin: #efcbb8;
+  --color-portrait-ink: #142a38;
+  --color-portrait-hair: #243848;
+  --color-portrait-hair-grey: #7d8d98;
+  --color-portrait-ground: #a9c4d2;
+  --color-portrait-ground-sage: #a9c9be;
+  --color-portrait-bib: #f4f8fa;
 }
 
 @layer base {
