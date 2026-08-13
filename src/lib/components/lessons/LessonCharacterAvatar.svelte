@@ -204,14 +204,23 @@
         stroke-width="1.15"
       />
       <path
-        d="M23 23.8q3.8-2.4 7.2 0.4M33.8 23.8q3.8-2.4 7.2 0.4"
+        d="M23.4 23.4q3.2-2.6 6.4 0.2M34.4 23.4q3.2-2.6 6.4 0.2"
         class="stroke-portrait-hair"
-        stroke-width="1.25"
+        stroke-width="1.2"
       />
-      <circle cx="26.2" cy="28.2" r="1.85" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.2" r="1.85" class="fill-portrait-ink" />
-      <path d="M32 31v2.8" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M26.8 36q5.2 3.6 10.4 0" class="stroke-portrait-ink" stroke-width="1.5" />
+      <ellipse cx="24.4" cy="33.2" rx="2.2" ry="1.45" class="fill-rose-400/70" />
+      <ellipse cx="39.6" cy="33.2" rx="2.2" ry="1.45" class="fill-rose-400/70" />
+      <circle cx="26.2" cy="28.4" r="2.5" class="fill-portrait-ink" />
+      <circle cx="37.8" cy="28.4" r="2.5" class="fill-portrait-ink" />
+      <circle cx="25.35" cy="27.45" r="0.95" class="fill-portrait-bib" />
+      <circle cx="36.95" cy="27.45" r="0.95" class="fill-portrait-bib" />
+      <path
+        d="M23.9 26.7q-1.3-1.7-2.1-.2M40.1 26.7q1.3-1.7 2.1-.2"
+        class="stroke-portrait-ink"
+        stroke-width="1.15"
+      />
+      <path d="M32 31.4v2.4" class="stroke-portrait-ink" stroke-width="1.2" />
+      <path d="M28.6 36.2q3.4 3.2 6.8 0" class="stroke-portrait-ink" stroke-width="1.4" />
     {:else if cast.id === "lucia"}
       <path
         d="M19.2 21.5c.8-11 7.2-16.2 12.8-16.2s12 5.2 12.8 16.2c2 5.4 2.2 14.8-1.4 22.2-1.8 3.6-5.8 6.4-11.4 6.4s-9.6-2.8-11.4-6.4c-3.6-7.4-3.4-16.8-1.4-22.2Z"
