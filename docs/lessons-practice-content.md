@@ -33,7 +33,7 @@ When someone else spoke first:
 2. Put **your** task in `prompt` (English line to produce).
 3. Order in UI: **context bubble → prompt → input/choices** (no “Your turn” divider).
 
-`speaker` is for audio roster / `characterIdForSpeaker` (e.g. `Anna`, `You`, `Marta`). Do not use role labels learners will see (`A passer-by`, `Clerk`, `Sentence`). Practice bubbles **do not show** speaker names; lesson **scene** table uses muted speaker column for multi-line scripts only.
+`speaker` is for audio roster / `characterIdForSpeaker`. Use a label that already exists on a character’s `speakers[]` in `content/audio/config.json` (named people like `Anna` / `Mária` / `You`, approved one-offs like `Receptionist` / `Waiter`, or system `Notice` / `Sentence` / `Scene`). Do not invent extra names (`Marta`) — they fall back to the narrator voice. Practice bubbles **do not show** speaker names; lesson **scene** table uses a muted speaker column for multi-line scripts only.
 
 ## Feedback (`feedback` on exercise + practice item)
 

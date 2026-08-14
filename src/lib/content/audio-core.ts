@@ -12,9 +12,14 @@ export interface AudioVoiceSettings {
   useSpeakerBoost: boolean;
 }
 
+export type CharacterKind = "oneOff" | "recurring" | "system";
+
 export interface AudioCharacter {
+  /** One learner-facing sentence (gallery / future UI). */
+  blurb: string;
   displayName: string;
   gender: "female" | "male" | "neutral";
+  kind: CharacterKind;
   note?: string;
   /** Dialogue speaker labels that map to this character (e.g. "You" → alex). */
   speakers?: string[];
@@ -25,6 +30,8 @@ export interface AudioCharacter {
 export interface AudioConfig {
   /** Lesson / story cast — each character has its own ElevenLabs voice. */
   characters?: Record<string, AudioCharacter>;
+  /** Roster id whose voiceId/voiceName must match top-level dictionary defaults. */
+  defaultCharacterId?: string;
   /** ISO 639-1 hint — used by Flash/Turbo/v3; ignored by multilingual_v2. */
   languageCode?: string;
   modelId: string;

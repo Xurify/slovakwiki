@@ -932,7 +932,7 @@ export const lessons: Lesson[] = [
     scene: [
       {
         id: "mat-cafe-time",
-        speaker: "Mária",
+        speaker: "Anna",
         slovak: "Máš čas na kávu?",
         english: "Do you have time for coffee?",
         audio: { transcript: "Máš čas na kávu?" },
@@ -959,7 +959,7 @@ export const lessons: Lesson[] = [
       },
       {
         id: "mat-cafe-age",
-        speaker: "Mária",
+        speaker: "Anna",
         slovak: "Koľko máš rokov?",
         english: "How old are you?",
         audio: { transcript: "Koľko máš rokov?" },

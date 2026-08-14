@@ -2,13 +2,15 @@
  * Remove orphan audio files (old model/settings hashes) from disk and optionally R2.
  *
  * Live keys = current config.json + dictionary/lesson targets.
- * Orphans = files under static/audio/{lemma|example|lesson}/ not in that set
+ * Orphans = `lemma/` · `example/` · `lesson/` objects not in that set
  * (typical after switching multilingual_v2 → flash_v2_5 or voice settings).
+ * Does not touch `images/` in the shared bucket.
  *
  * Default is dry-run. Pass --delete to remove.
  *
  * Usage:
  *   bun scripts/audio/prune-orphans.ts
+ *   bun scripts/audio/prune-orphans.ts -- --r2
  *   bun scripts/audio/prune-orphans.ts -- --delete
  *   bun scripts/audio/prune-orphans.ts -- --delete --r2
  *   bun scripts/audio/prune-orphans.ts -- --delete --local-only
@@ -31,8 +33,11 @@ import {
   mapPool,
   saveManifest,
   sortObjectKeysByKind,
+  type AudioKind,
   type AudioManifest,
 } from "./shared";
+
+const AUDIO_PREFIXES: AudioKind[] = ["lemma", "example", "lesson"];
 
 function parsePruneArgs(argv: string[]): {
   concurrency: number;
@@ -81,14 +86,13 @@ function parsePruneArgs(argv: string[]): {
     throw new Error("Use either --local-only or --r2, not both");
   }
 
-  // --delete alone = local disk + manifest. Pass --r2 to also DELETE objects in R2.
   return {
     concurrency,
     deleteFiles,
     dryRun: !deleteFiles,
     limit,
-    localOnly: localOnly || (deleteFiles && !r2),
-    r2: deleteFiles && r2 && !localOnly,
+    localOnly,
+    r2,
   };
 }
 
@@ -98,28 +102,121 @@ function requireEnv(name: string): string {
   return value;
 }
 
+function decodeXml(value: string): string {
+  return value
+    .replaceAll("&amp;", "&")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&apos;", "'");
+}
+
+function r2Client(): { aws: AwsClient; bucket: string; endpointHost: string } {
+  const accountId = requireEnv("R2_ACCOUNT_ID");
+  const jurisdiction = (process.env.R2_JURISDICTION ?? "").trim().toLowerCase();
+  const endpointHost = jurisdiction
+    ? `${accountId}.${jurisdiction}.r2.cloudflarestorage.com`
+    : `${accountId}.r2.cloudflarestorage.com`;
+
+  return {
+    aws: new AwsClient({
+      accessKeyId: requireEnv("R2_ACCESS_KEY_ID"),
+      secretAccessKey: requireEnv("R2_SECRET_ACCESS_KEY"),
+      service: "s3",
+      region: "auto",
+    }),
+    bucket: requireEnv("R2_BUCKET"),
+    endpointHost,
+  };
+}
+
+async function listR2AudioObjectKeys(
+  aws: AwsClient,
+  endpointHost: string,
+  bucket: string,
+): Promise<string[]> {
+  const keys: string[] = [];
+
+  for (const kind of AUDIO_PREFIXES) {
+    let token = "";
+    do {
+      const url = new URL(`https://${endpointHost}/${bucket}`);
+      url.searchParams.set("list-type", "2");
+      url.searchParams.set("max-keys", "1000");
+      url.searchParams.set("prefix", `${kind}/`);
+      if (token) url.searchParams.set("continuation-token", token);
+
+      const res = await aws.fetch(url, { method: "GET" });
+      const xml = await res.text();
+      if (!res.ok) {
+        throw new Error(`R2 list ${kind}/ failed ${res.status}: ${xml.slice(0, 400)}`);
+      }
+
+      for (const match of xml.matchAll(/<Key>([^<]+)<\/Key>/g)) {
+        const key = decodeXml(match[1] ?? "");
+        if (key.endsWith(".mp3")) keys.push(key);
+      }
+
+      const truncated = xml.includes("<IsTruncated>true</IsTruncated>");
+      const next = xml.match(/<NextContinuationToken>([^<]+)<\/NextContinuationToken>/);
+      token = truncated && next?.[1] ? decodeXml(next[1]) : "";
+    } while (token);
+  }
+
+  return keys;
+}
+
 async function main(): Promise<void> {
-  const { concurrency, deleteFiles, dryRun, limit, r2 } = parsePruneArgs(
+  const { concurrency, dryRun, limit, localOnly, r2 } = parsePruneArgs(
     process.argv.slice(2),
   );
 
   const config = await loadConfig();
   const expected = collectExpectedAudioObjectKeys(config);
   const onDisk = await listAudioObjectKeys();
-  let orphans = sortObjectKeysByKind(onDisk.filter((key) => !expected.has(key)));
+  const onDiskSet = new Set(onDisk);
 
+  let aws: AwsClient | undefined;
+  let endpointHost = "";
+  let bucket = "";
+  let onR2: string[] = [];
+
+  if (r2) {
+    const client = r2Client();
+    aws = client.aws;
+    endpointHost = client.endpointHost;
+    bucket = client.bucket;
+    onR2 = await listR2AudioObjectKeys(aws, endpointHost, bucket);
+  }
+
+  const orphanSet = new Set<string>();
+  for (const key of onDisk) {
+    if (!expected.has(key)) orphanSet.add(key);
+  }
+  for (const key of onR2) {
+    if (!expected.has(key)) orphanSet.add(key);
+  }
+
+  let orphans = sortObjectKeysByKind([...orphanSet]);
   if (limit !== undefined) orphans = orphans.slice(0, limit);
 
+  const onR2Set = new Set(onR2);
   const byKind = { lemma: 0, example: 0, lesson: 0 };
+  let diskOrphans = 0;
+  let r2Orphans = 0;
   for (const key of orphans) {
     byKind[kindFromObjectKey(key)] += 1;
+    if (onDiskSet.has(key)) diskOrphans += 1;
+    if (onR2Set.has(key)) r2Orphans += 1;
   }
 
   console.log(`Model: ${config.modelId}`);
   console.log(`Expected live keys: ${expected.size}`);
   console.log(`On disk: ${onDisk.length}`);
+  if (r2) console.log(`On R2 (audio prefixes): ${onR2.length}`);
   console.log(
-    `Orphans: ${orphans.length} (lemma=${byKind.lemma}, example=${byKind.example}, lesson=${byKind.lesson})`,
+    `Orphans: ${orphans.length} (lemma=${byKind.lemma}, example=${byKind.example}, lesson=${byKind.lesson}` +
+      `; disk=${diskOrphans}${r2 ? `, r2=${r2Orphans}` : ""})`,
   );
   console.log(
     dryRun
@@ -132,8 +229,8 @@ async function main(): Promise<void> {
   }
   if (orphans.length > 12) console.log(`  … +${orphans.length - 12} more`);
 
-  if (dryRun || orphans.length === 0) {
-    if (dryRun && orphans.length > 0) {
+  if (dryRun) {
+    if (orphans.length > 0) {
       console.log("\nNext: bun scripts/audio/prune-orphans.ts -- --delete");
       console.log(
         "      bun scripts/audio/prune-orphans.ts -- --delete --r2   # also DELETE on R2",
@@ -141,27 +238,6 @@ async function main(): Promise<void> {
       console.log("      bun scripts/audio/prune-orphans.ts -- --delete --local-only");
     }
     return;
-  }
-
-  let aws: AwsClient | undefined;
-  let endpointHost = "";
-  let bucket = "";
-
-  if (r2) {
-    const accountId = requireEnv("R2_ACCOUNT_ID");
-    const accessKeyId = requireEnv("R2_ACCESS_KEY_ID");
-    const secretAccessKey = requireEnv("R2_SECRET_ACCESS_KEY");
-    bucket = requireEnv("R2_BUCKET");
-    const jurisdiction = (process.env.R2_JURISDICTION ?? "").trim().toLowerCase();
-    endpointHost = jurisdiction
-      ? `${accountId}.${jurisdiction}.r2.cloudflarestorage.com`
-      : `${accountId}.r2.cloudflarestorage.com`;
-    aws = new AwsClient({
-      accessKeyId,
-      secretAccessKey,
-      service: "s3",
-      region: "auto",
-    });
   }
 
   const manifest = await loadManifest();
@@ -174,21 +250,26 @@ async function main(): Promise<void> {
     const hash = path.basename(objectKey, ".mp3");
     const filePath = path.join(AUDIO_DIR, objectKey);
 
-    try {
-      await unlink(filePath);
-      removedLocal += 1;
-    } catch (error) {
-      failed += 1;
-      const message = error instanceof Error ? error.message : String(error);
-      console.error(`fail local ${objectKey}: ${message}`);
-      return;
+    if (onDiskSet.has(objectKey) || !r2) {
+      try {
+        await unlink(filePath);
+        removedLocal += 1;
+      } catch (error) {
+        const code =
+          error && typeof error === "object" && "code" in error ? String(error.code) : "";
+        if (code !== "ENOENT") {
+          failed += 1;
+          const message = error instanceof Error ? error.message : String(error);
+          console.error(`fail local ${objectKey}: ${message}`);
+          return;
+        }
+      }
     }
 
-    if (aws) {
+    if (aws && !localOnly) {
       try {
         const url = `https://${endpointHost}/${bucket}/${objectKey}`;
         const response = await aws.fetch(url, { method: "DELETE" });
-        // 404 = already gone — treat as success
         if (!response.ok && response.status !== 404) {
           const detail = (await response.text()).slice(0, 300);
           throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
@@ -213,16 +294,12 @@ async function main(): Promise<void> {
 
   await saveManifest(manifest as AudioManifest);
 
-  // Also drop manifest entries that point at expected-missing hashes with no file
-  // (already handled above for orphans). Prune stale manifest rows for hashes not expected
-  // and not on disk:
   let staleManifest = 0;
   for (const hash of Object.keys(manifest)) {
     const entry = manifest[hash];
     if (!entry) continue;
     const key = `${entry.kind}/${hash}.mp3`;
     if (expected.has(key)) continue;
-    // still on disk? then it would be in orphans — already deleted
     delete manifest[hash];
     staleManifest += 1;
   }

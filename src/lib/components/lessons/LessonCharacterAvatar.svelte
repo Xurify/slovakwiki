@@ -32,9 +32,7 @@
       : "fill-portrait-ground",
   );
   const hair = $derived(
-    cast.id === "maria" || cast.id === "narrator"
-      ? "fill-portrait-hair-grey"
-      : "fill-portrait-hair",
+    cast.id === "maria" ? "fill-portrait-hair-grey" : "fill-portrait-hair",
   );
 </script>
 
@@ -402,6 +400,12 @@
       <path d="M32 31.2v3" class="stroke-portrait-ink" stroke-width="1.3" />
       <path d="M28.2 36.8q3.8 2.4 7.6 0" class="stroke-portrait-ink" stroke-width="1.4" />
     {:else if cast.id === "narrator"}
+      <!-- low ponytail, site host -->
+      <path
+        d="M28.4 42.5 26.8 52 28.2 62 35.8 62 37.2 52 35.6 42.5Q32 45.2 28.4 42.5Z"
+        class="{hair} stroke-portrait-ink"
+        stroke-width="1.7"
+      />
       <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-slate-600" />
       <path
         d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
@@ -417,20 +421,30 @@
         stroke-width="1.7"
       />
       <path
-        d="M21.4 19.8C22.6 13.2 26.8 10.2 32 10.2s9.4 3 10.6 9.6c-2.6-1.4-6.2-2.2-10.6-2.2s-8 .8-10.6 2.2Z"
+        d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
+        class="fill-portrait-skin stroke-portrait-ink"
+        stroke-width="1.5"
+      />
+      <path
+        d="M45.4 25.8c2.2.6 3 4.6 1.1 7.4-1 1.3-2.3.7-2.1-.9.4-2.2.6-4.6 1-6.5Z"
+        class="fill-portrait-skin stroke-portrait-ink"
+        stroke-width="1.5"
+      />
+      <path
+        d="M19.8 21.4C19.2 16 22.8 10.4 28.6 8.2L32 9.4 35.6 8C41.2 10.6 44.8 16.2 44.4 21.6Q40 17.4 35.4 16.8L32 18.8 28.6 16.8Q24 17.6 19.8 21.4Z"
         class="{hair} stroke-portrait-ink"
         stroke-width="1.7"
       />
       <path
-        d="M23.6 25.4q2.4-.8 5.2.2M35.2 25.4q2.4-.8 5.2.2"
-        class="stroke-portrait-hair-grey"
-        stroke-width="1.15"
+        d="M23.4 24.8q2.8-1.2 5.8 0M35 24.8q2.8-1.2 5.8 0"
+        class="stroke-portrait-hair"
+        stroke-width="1.2"
       />
-      <circle cx="26.2" cy="28.8" r="1.45" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.8" r="1.45" class="fill-portrait-ink" />
-      <path d="M32 31.4v2.6" class="stroke-portrait-ink" stroke-width="1.25" />
+      <circle cx="26.2" cy="28.6" r="1.55" class="fill-portrait-ink" />
+      <circle cx="37.8" cy="28.6" r="1.55" class="fill-portrait-ink" />
+      <path d="M32 31.2v2.8" class="stroke-portrait-ink" stroke-width="1.25" />
       <path
-        d="M28.6 36.6q3.4 1.6 6.8 0"
+        d="M28.4 36.6q3.6 2.2 7.2 0"
         class="stroke-portrait-ink"
         stroke-width="1.35"
       />

@@ -73,41 +73,48 @@ Re-check the help article before changing `--concurrency` after a plan upgrade/d
 
 ## Dictionary voice
 
-Top-level `voiceId` / `voiceName` — **not** under `characters`.
+Top-level `voiceId` / `voiceName` are the dictionary defaults and **must equal** `characters[defaultCharacterId]` (`narrator`). Same ElevenLabs id — hashes stay stable.
 
 | Library name                   | Voice ID               | Used for                                            |
 | ------------------------------ | ---------------------- | --------------------------------------------------- |
 | Slovak Wiki Dictionary Neutral | `YJsJ2Mt3VRr0gCiTY6DA` | Dictionary lemmas + examples (`lemma/`, `example/`) |
 
-Also reused as the **narrator** lesson character (notices / non-person lines).
+That woman is also the **narrator** lesson character (notices, sentences, scene captions).
 
 ## Lesson cast (`characters`)
 
-Dialogue speakers map via `speakers[]` → `src/lib/content/characters.ts` (`characterIdForSpeaker`).  
+Each roster entry owns `gender`, `kind`, `blurb`, `voiceId`, `voiceName`, and `speakers[]` in [`config.json`](./config.json).
+
+Dialogue speakers map via `speakers[]` → `src/lib/content/character-ids.ts` (`characterIdForSpeaker`).  
 Key phrases always use **guide** (`keyPhraseCharacterId()`), not a dialogue speaker.
 
 Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs Voice Design). Design prompts live in `scripts/audio/voice-design.ts` (`CAST`). Preview takes: `tmp/voice-design/{character}/preview-N.mp3`.
 
-### Active
+### Recurring
 
-| Character id   | Display      | Gender  | Library name                   | Voice ID               | Dialogue speakers    | Used for                                            |
-| -------------- | ------------ | ------- | ------------------------------ | ---------------------- | -------------------- | --------------------------------------------------- |
-| `anna`         | Anna         | female  | Slovak Wiki Anna               | `NU9W5gI11aREqGgopfm8` | `Anna`               | Friendly peer in everyday scenes                    |
-| `maria`        | Mária        | female  | Slovak Wiki Mária              | `7bkfvPHZlJY9LfqOtBKb` | `Mária`              | Older / admin (registration, forms)                 |
-| `receptionist` | Receptionist | female  | Slovak Wiki Receptionist       | `TJm7whRcvNsGnL3DPy67` | `Receptionist`       | Front desk / check-in                               |
-| `alex`         | Alex         | male    | Slovak Wiki Alex               | `eK3Hn8qiedGm31Jrozgn` | `You`                | Learner turns labeled You                           |
-| `waiter`       | Waiter       | male    | Slovak Wiki Waiter             | `vTjn72hcQp2zpBEqZUEs` | `Waiter`             | Café / restaurant                                   |
-| `guide`        | Guide        | neutral | Slovak Wiki Guide              | `62cIpdfOMgi6hhoTD3r6` | _(none)_             | **Key phrases** + instructional lines               |
-| `narrator`     | Narrator     | neutral | Slovak Wiki Dictionary Neutral | `YJsJ2Mt3VRr0gCiTY6DA` | `Notice`, `Sentence` | Signs / non-person lines; unknown speakers fallback |
+| Character id | Display | Gender | Voice             | Speakers | Blurb                               |
+| ------------ | ------- | ------ | ----------------- | -------- | ----------------------------------- |
+| `alex`       | Alex    | male   | Slovak Wiki Alex  | `You`    | You. Learner turns in dialogue.     |
+| `anna`       | Anna    | female | Slovak Wiki Anna  | `Anna`   | Your Slovak friend. Informal ty.    |
+| `lucia`      | Lucia   | female | Slovak Wiki Lucia | _(none)_ | Works in a shop.                    |
+| `marek`      | Marek   | male   | Slovak Wiki Marek | `Marek`  | Classmate and coworker.             |
+| `maria`      | Mária   | female | Slovak Wiki Mária | `Mária`  | Course/office registrar. Formal vy. |
 
-### Spares (no speakers yet)
+### One-off
 
-| Character id | Display | Gender | Shares       | Notes                    |
-| ------------ | ------- | ------ | ------------ | ------------------------ |
-| `lucia`      | Lucia   | female | Anna’s voice | Future female story cast |
-| `marek`      | Marek   | male   | Alex’s voice | Future male story cast   |
+| Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                            |
+| -------------- | ------------ | ------ | ------------------------ | --------------------- | -------------------------------- |
+| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.   |
+| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). |
 
-Mint dedicated Voice Design takes later, then point `voiceId` here and regen.
+### System
+
+| Character id | Display  | Gender  | Voice                          | Speakers                      | Blurb                          |
+| ------------ | -------- | ------- | ------------------------------ | ----------------------------- | ------------------------------ |
+| `narrator`   | Narrator | female  | Slovak Wiki Dictionary Neutral | `Notice`, `Sentence`, `Scene` | Site host. Dictionary + signs. |
+| `guide`      | Guide    | neutral | Slovak Wiki Guide              | _(none)_                      | Key phrases — not a city NPC.  |
+
+Mint a new Voice Design take, then point `voiceId` here and regen lesson clips for that character.
 
 ## Layout + commands
 

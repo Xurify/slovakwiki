@@ -100,7 +100,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-origin-question",
-          speaker: "Marta",
+          speaker: "Anna",
           slovak: "Odkiaľ ste?",
           english: "Where are you from?",
         },
@@ -136,7 +136,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-age-question",
-          speaker: "Marta",
+          speaker: "Mária",
           slovak: "Koľko máte rokov?",
           english: "How old are you?",
         },
@@ -893,7 +893,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-byt-som-introduction",
-          speaker: "Marta",
+          speaker: "Anna",
           slovak: "Ahoj! Ako sa voláš?",
           english: "Hi! What is your name?",
         },
@@ -929,7 +929,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-byt-ste-call",
-          speaker: "Colleague",
+          speaker: "Marek",
           slovak: "Som pri vchode.",
           english: "I am by the entrance.",
         },
@@ -964,7 +964,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-byt-je-location-question",
-          speaker: "Marta",
+          speaker: "Anna",
           slovak: "Kde je Peter?",
           english: "Where is Peter?",
         },
@@ -1000,7 +1000,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-mat-mam-question",
-          speaker: "Marta",
+          speaker: "Anna",
           slovak: "Máš teraz chvíľu?",
           english: "Do you have a moment now?",
         },
@@ -1035,7 +1035,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-mat-mas-train",
-          speaker: "Conductor",
+          speaker: "Waiter",
           slovak: "Prosím, lístok.",
           english: "Ticket, please.",
         },
@@ -1070,7 +1070,7 @@ export const practiceItems: PracticeItem[] = [
       context: [
         {
           id: "review-mat-nemam-invitation",
-          speaker: "Marta",
+          speaker: "Anna",
           slovak: "Poďme na kávu.",
           english: "Let’s go for coffee.",
         },

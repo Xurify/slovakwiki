@@ -71,6 +71,22 @@ const CAST: CastBrief[] = [
       "Young adult Slovak man, about 28, friendly learner/partner voice. Clear medium pitch, natural and approachable, not deep or gravelly. Central European accent suitable for dialogue labeled as the learner (You). Conversational, confident but humble.",
   },
   {
+    characterId: "lucia",
+    displayName: "Lucia",
+    gender: "female",
+    voiceName: "Slovak Wiki Lucia",
+    voiceDescription:
+      "Young adult Slovak woman, about 26, shop assistant. Friendly, a bit brighter and more brisk than a close friend. Clear Central European accent, medium-high pitch, helpful retail energy. Distinct from Anna — not a casual peer, a shop worker.",
+  },
+  {
+    characterId: "marek",
+    displayName: "Marek",
+    gender: "male",
+    voiceName: "Slovak Wiki Marek",
+    voiceDescription:
+      "Young adult Slovak man, about 27, classmate and coworker. Clear medium pitch, slightly more reserved than a close friend, natural conversational tone. Central European accent. Distinct from Alex the learner — a local peer at work or class.",
+  },
+  {
     characterId: "waiter",
     displayName: "Waiter",
     gender: "male",
@@ -230,24 +246,6 @@ async function patchConfig(
       voiceId: update.voiceId,
       voiceName: update.voiceName,
       note: `${existing.note ?? ""} Custom Voice Design.`.trim(),
-    };
-  }
-
-  // Spares inherit closest designed voices until we mint dedicated ones.
-  if (config.characters.lucia && config.characters.anna) {
-    config.characters.lucia = {
-      ...config.characters.lucia,
-      voiceId: config.characters.anna.voiceId,
-      voiceName: `${config.characters.anna.voiceName} (spare→anna)`,
-      note: "Spare female — temporarily shares Anna until dedicated design.",
-    };
-  }
-  if (config.characters.marek && config.characters.alex) {
-    config.characters.marek = {
-      ...config.characters.marek,
-      voiceId: config.characters.alex.voiceId,
-      voiceName: `${config.characters.alex.voiceName} (spare→alex)`,
-      note: "Spare male — temporarily shares Alex until dedicated design.",
     };
   }
 

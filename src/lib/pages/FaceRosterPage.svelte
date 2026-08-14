@@ -11,7 +11,7 @@
   <PageShell class="max-w-[880px]">
     <header class="max-w-[640px]">
       <h1>Lesson faces</h1>
-      <Lead>Every roster portrait. Unused voices have no dialogue speaker yet.</Lead>
+      <Lead>Every roster portrait, with the story each person plays.</Lead>
     </header>
 
     <ul
@@ -31,9 +31,7 @@
               {character.id}
             </p>
             <p class="m-0 mt-1.5 font-sans text-sm text-slate-600">
-              {character.speakers.length > 0
-                ? character.speakers.join(", ")
-                : "no speaker yet"}
+              {character.blurb}
             </p>
           </div>
         </li>

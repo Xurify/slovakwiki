@@ -42,10 +42,18 @@ export function isLearnerSpeaker(speaker: string): boolean {
   return speaker === "You";
 }
 
+export type CharacterKind = "oneOff" | "recurring" | "system";
+
 export interface ListedCharacter {
+  blurb: string;
   displayName: string;
   id: LessonCharacterId;
+  kind: CharacterKind;
   speakers: string[];
+}
+
+function isCharacterKind(value: unknown): value is CharacterKind {
+  return value === "oneOff" || value === "recurring" || value === "system";
 }
 
 /** Full roster with display names (gallery / audits). */
@@ -58,6 +66,8 @@ export function listedCharacters(): ListedCharacter[] {
     return {
       id,
       displayName: character?.displayName ?? id,
+      kind: isCharacterKind(character?.kind) ? character.kind : "recurring",
+      blurb: character?.blurb ?? "",
       speakers: character?.speakers ?? [],
     };
   });
