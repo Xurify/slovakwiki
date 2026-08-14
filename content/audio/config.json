@@ -2,6 +2,7 @@
   "provider": "elevenlabs",
   "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
   "voiceName": "Slovak Wiki Dictionary Neutral",
+  "defaultCharacterId": "narrator",
   "modelId": "eleven_flash_v2_5",
   "languageCode": "sk",
   "outputFormat": "mp3_44100_128",
@@ -16,6 +17,8 @@
     "anna": {
       "displayName": "Anna",
       "gender": "female",
+      "kind": "recurring",
+      "blurb": "Your Slovak friend. Informal ty — greetings, coffee, everyday chat.",
       "voiceId": "NU9W5gI11aREqGgopfm8",
       "voiceName": "Slovak Wiki Anna",
       "speakers": ["Anna"],
@@ -24,6 +27,8 @@
     "maria": {
       "displayName": "Mária",
       "gender": "female",
+      "kind": "recurring",
+      "blurb": "Course and office registrar. Formal vy — forms, age, registration.",
       "voiceId": "7bkfvPHZlJY9LfqOtBKb",
       "voiceName": "Slovak Wiki Mária",
       "speakers": ["Mária"],
@@ -32,14 +37,18 @@
     "lucia": {
       "displayName": "Lucia",
       "gender": "female",
-      "voiceId": "NU9W5gI11aREqGgopfm8",
-      "voiceName": "Slovak Wiki Anna (spare→anna)",
+      "kind": "recurring",
+      "blurb": "Works in a shop. Recurring — shop scenes come later.",
+      "voiceId": "QW7RcNLFTKhyMDZ9Jt3E",
+      "voiceName": "Slovak Wiki Lucia",
       "speakers": [],
-      "note": "Spare female — shares Anna until dedicated Voice Design."
+      "note": "Voice Design. Shop assistant."
     },
     "receptionist": {
       "displayName": "Receptionist",
       "gender": "female",
+      "kind": "oneOff",
+      "blurb": "Hotel or clinic front desk. Formal vy — not Mária.",
       "voiceId": "TJm7whRcvNsGnL3DPy67",
       "voiceName": "Slovak Wiki Receptionist",
       "speakers": ["Receptionist"],
@@ -48,6 +57,8 @@
     "alex": {
       "displayName": "Alex",
       "gender": "male",
+      "kind": "recurring",
+      "blurb": "You. Learner turns in dialogue.",
       "voiceId": "eK3Hn8qiedGm31Jrozgn",
       "voiceName": "Slovak Wiki Alex",
       "speakers": ["You"],
@@ -56,34 +67,42 @@
     "marek": {
       "displayName": "Marek",
       "gender": "male",
-      "voiceId": "eK3Hn8qiedGm31Jrozgn",
-      "voiceName": "Slovak Wiki Alex (spare→alex)",
-      "speakers": [],
-      "note": "Spare male — shares Alex until dedicated Voice Design."
+      "kind": "recurring",
+      "blurb": "Classmate and coworker.",
+      "voiceId": "uUnmszGfUW9O6qdstQHs",
+      "voiceName": "Slovak Wiki Marek",
+      "speakers": ["Marek"],
+      "note": "Voice Design. Classmate and coworker."
     },
     "waiter": {
       "displayName": "Waiter",
       "gender": "male",
+      "kind": "oneOff",
+      "blurb": "Café waiter. Also covers a one-line conductor extra.",
       "voiceId": "vTjn72hcQp2zpBEqZUEs",
       "voiceName": "Slovak Wiki Waiter",
-      "speakers": ["Waiter"],
+      "speakers": ["Waiter", "Conductor"],
       "note": "Voice Design. Café / restaurant service."
     },
     "guide": {
       "displayName": "Guide",
       "gender": "neutral",
+      "kind": "system",
+      "blurb": "App teacher. Reads lesson key phrases — not a city NPC.",
       "voiceId": "62cIpdfOMgi6hhoTD3r6",
       "voiceName": "Slovak Wiki Guide",
       "speakers": [],
-      "note": "Voice Design. Key phrases (keyPhraseCharacterId) + instructional lines — not dictionary Neutral."
+      "note": "Voice Design. Key phrases (keyPhraseCharacterId) — not dictionary Neutral."
     },
     "narrator": {
       "displayName": "Narrator",
-      "gender": "neutral",
+      "gender": "female",
+      "kind": "system",
+      "blurb": "Site host. Dictionary audio, signs, notices, and scene captions.",
       "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
       "voiceName": "Slovak Wiki Dictionary Neutral",
-      "speakers": ["Notice", "Sentence"],
-      "note": "Same as dictionary Neutral. Signs, notices, unknown-speaker fallback."
+      "speakers": ["Notice", "Sentence", "Scene"],
+      "note": "Same voice as dictionary Neutral. Unknown-speaker fallback."
     }
   }
 }
