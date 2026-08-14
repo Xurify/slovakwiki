@@ -82,9 +82,21 @@ export function audioHash(text: string, config: AudioConfig = audioConfigData): 
     .slice(0, 20);
 }
 
-/** R2 / static key: `{kind}/{hash}.mp3` (kind = how the clip is used). */
+/** R2 folder in the shared bucket (`images/` is the sibling). Local disk stays `static/audio/{kind}/`. */
+export const AUDIO_R2_PREFIX = "audio";
+
+/** Disk / logical key: `{kind}/{hash}.mp3` (kind = how the clip is used). */
 export function audioObjectKey(kind: AudioKind, hash: string): string {
   return `${kind}/${hash}.mp3`;
+}
+
+/** R2 object key: `audio/{kind}/{hash}.mp3`. Idempotent if already prefixed. */
+export function toR2AudioKey(objectKey: string): string {
+  const trimmed = objectKey.replace(/^\//, "");
+  if (trimmed === AUDIO_R2_PREFIX || trimmed.startsWith(`${AUDIO_R2_PREFIX}/`)) {
+    return trimmed;
+  }
+  return `${AUDIO_R2_PREFIX}/${trimmed}`;
 }
 
 export function audioRelativePath(
@@ -105,6 +117,6 @@ function audioBaseUrl(): string | undefined {
 
 export function resolveAudioSrcFromKey(objectKey: string): string {
   const base = audioBaseUrl();
-  if (base) return `${base}/${objectKey}`;
+  if (base) return `${base}/${toR2AudioKey(objectKey)}`;
   return `/audio/${objectKey}`;
 }

@@ -82,7 +82,8 @@ ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
 | `generate.ts` | `bun scripts/audio/generate.ts` | Writes MP3s in **lemma → example → lesson** order; default `--concurrency 16` (Pro Flash ≈20 — see [`content/audio/README.md`](../content/audio/README.md#elevenlabs-plans--concurrency)); `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` caps concurrency at 4 |
 | `voice-design.ts` | `bun scripts/audio/voice-design.ts` | ElevenLabs Voice Design → `tmp/voice-design/`; `--create` saves preview to library + patches `characters` in config |
-| `upload.ts` | `bun scripts/audio/upload.ts` | Parallel R2 sync (default concurrency 32); `--lemmas-only` / `--examples-only` / `--lessons-only` / `--force` / `--only`; needs `R2_*` |
+| `upload.ts` | `bun scripts/audio/upload.ts` | Parallel R2 sync to `audio/{kind}/`; `--lemmas-only` / `--examples-only` / `--lessons-only` / `--force` / `--only`; needs `R2_*` |
+| `migrate-r2-prefix.ts` | `bun scripts/audio/migrate-r2-prefix.ts` | Copy bucket-root `{kind}/` → `audio/{kind}/`; `--delete-source` after prod is on new URLs |
 | `prune-orphans.ts` | `bun scripts/audio/prune-orphans.ts` | Dry-run orphan report (old hashes); `--delete` local+manifest; `--delete --r2` also DELETE on R2 |
 | `status.ts` | `bun scripts/audio/status.ts` | Targets vs disk vs manifest |
 | `verify.ts` | `bun scripts/audio/verify.ts` | Dual STT audit → `tmp/audio-verify-report.json` |
@@ -90,7 +91,7 @@ ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 | `stt.ts` | (lib) | Scribe + Whisper adapters |
 | `shared.ts` | (lib) | Hash / collect / synthesize / mapPool |
 
-Layout (local + R2): `lemma/{hash}.mp3` · `example/{hash}.mp3` · `lesson/{hash}.mp3`. Hash = content address (includes voice); folder = how clip is used.
+Layout: local `static/audio/{kind}/{hash}.mp3`. R2 `audio/{kind}/{hash}.mp3` (same bucket as `images/`). Hash = content address (includes voice); folder = how clip is used.
 
 **Voices:** full roster → [`content/audio/README.md`](../content/audio/README.md). IDs in `config.json`. Design prompts: `voice-design.ts`.
 

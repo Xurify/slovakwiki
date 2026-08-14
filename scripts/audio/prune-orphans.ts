@@ -138,29 +138,31 @@ async function listR2AudioObjectKeys(
   const keys: string[] = [];
 
   for (const kind of AUDIO_PREFIXES) {
-    let token = "";
-    do {
-      const url = new URL(`https://${endpointHost}/${bucket}`);
-      url.searchParams.set("list-type", "2");
-      url.searchParams.set("max-keys", "1000");
-      url.searchParams.set("prefix", `${kind}/`);
-      if (token) url.searchParams.set("continuation-token", token);
+    for (const prefix of [`${kind}/`, `audio/${kind}/`]) {
+      let token = "";
+      do {
+        const url = new URL(`https://${endpointHost}/${bucket}`);
+        url.searchParams.set("list-type", "2");
+        url.searchParams.set("max-keys", "1000");
+        url.searchParams.set("prefix", prefix);
+        if (token) url.searchParams.set("continuation-token", token);
 
-      const res = await aws.fetch(url, { method: "GET" });
-      const xml = await res.text();
-      if (!res.ok) {
-        throw new Error(`R2 list ${kind}/ failed ${res.status}: ${xml.slice(0, 400)}`);
-      }
+        const res = await aws.fetch(url, { method: "GET" });
+        const xml = await res.text();
+        if (!res.ok) {
+          throw new Error(`R2 list ${prefix} failed ${res.status}: ${xml.slice(0, 400)}`);
+        }
 
-      for (const match of xml.matchAll(/<Key>([^<]+)<\/Key>/g)) {
-        const key = decodeXml(match[1] ?? "");
-        if (key.endsWith(".mp3")) keys.push(key);
-      }
+        for (const match of xml.matchAll(/<Key>([^<]+)<\/Key>/g)) {
+          const key = decodeXml(match[1] ?? "");
+          if (key.endsWith(".mp3")) keys.push(key);
+        }
 
-      const truncated = xml.includes("<IsTruncated>true</IsTruncated>");
-      const next = xml.match(/<NextContinuationToken>([^<]+)<\/NextContinuationToken>/);
-      token = truncated && next?.[1] ? decodeXml(next[1]) : "";
-    } while (token);
+        const truncated = xml.includes("<IsTruncated>true</IsTruncated>");
+        const next = xml.match(/<NextContinuationToken>([^<]+)<\/NextContinuationToken>/);
+        token = truncated && next?.[1] ? decodeXml(next[1]) : "";
+      } while (token);
+    }
   }
 
   return keys;
@@ -194,7 +196,8 @@ async function main(): Promise<void> {
     if (!expected.has(key)) orphanSet.add(key);
   }
   for (const key of onR2) {
-    if (!expected.has(key)) orphanSet.add(key);
+    const diskKey = key.replace(/^audio\//, "");
+    if (!expected.has(diskKey)) orphanSet.add(key);
   }
 
   let orphans = sortObjectKeysByKind([...orphanSet]);

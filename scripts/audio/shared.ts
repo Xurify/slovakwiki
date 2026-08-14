@@ -15,6 +15,7 @@ import {
   type AudioVoiceSettings,
   audioObjectKey,
   normalizeAudioText,
+  toR2AudioKey,
 } from "../../src/lib/content/audio-core";
 import {
   characterIdForSpeaker,
@@ -71,8 +72,9 @@ export function sortObjectKeysByKind(keys: string[]): string[] {
 }
 
 export function kindFromObjectKey(objectKey: string): AudioKind {
-  if (objectKey.startsWith("lesson/")) return "lesson";
-  if (objectKey.startsWith("example/")) return "example";
+  const key = objectKey.replace(/^audio\//, "");
+  if (key.startsWith("lesson/")) return "lesson";
+  if (key.startsWith("example/")) return "example";
   return "lemma";
 }
 
@@ -623,4 +625,4 @@ export async function listAudioObjectKeys(): Promise<string[]> {
   return keys;
 }
 
-export { audioObjectKey };
+export { audioObjectKey, toR2AudioKey };

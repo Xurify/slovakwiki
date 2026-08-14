@@ -118,11 +118,11 @@ Mint a new Voice Design take, then point `voiceId` here and regen lesson clips f
 
 ## Layout + commands
 
-| Kind      | Path                              | Content                                                 |
-| --------- | --------------------------------- | ------------------------------------------------------- |
-| `lemma`   | `static/audio/lemma/{hash}.mp3`   | Dictionary headwords                                    |
-| `example` | `static/audio/example/{hash}.mp3` | Dictionary examples                                     |
-| `lesson`  | `static/audio/lesson/{hash}.mp3`  | Scene lines + key phrases (per-character voice in hash) |
+| Kind      | Local                             | R2                         | Content              |
+| --------- | --------------------------------- | -------------------------- | -------------------- |
+| `lemma`   | `static/audio/lemma/{hash}.mp3`   | `audio/lemma/{hash}.mp3`   | Dictionary headwords |
+| `example` | `static/audio/example/{hash}.mp3` | `audio/example/{hash}.mp3` | Dictionary examples  |
+| `lesson`  | `static/audio/lesson/{hash}.mp3`  | `audio/lesson/{hash}.mp3`  | Scene + key phrases  |
 
 ```bash
 bun scripts/audio/generate.ts                    # dictionary + lessons (lemma→example→lesson; concurrency 16)

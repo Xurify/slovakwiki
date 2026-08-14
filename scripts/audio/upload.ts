@@ -1,6 +1,6 @@
 /**
  * Upload static/audio/{kind}/*.mp3 to Cloudflare R2 (S3-compatible).
- * Object keys mirror local layout: lemma/{hash}.mp3, example/{hash}.mp3, lesson/{hash}.mp3
+ * Object keys: audio/{kind}/{hash}.mp3 on R2. Local disk: static/audio/{kind}/{hash}.mp3.
  *
  * Sets Cache-Control (immutable, 1y) + custom metadata (kind/hash/voice/text…).
  * Bun.S3Client lacks Cache-Control / x-amz-meta on this Bun version → aws4fetch PUT.
@@ -41,6 +41,7 @@ import {
   parseArgs,
   saveManifest,
   sortObjectKeysByKind,
+  toR2AudioKey,
   type AudioKind,
 } from "./shared";
 
@@ -182,7 +183,8 @@ async function main(): Promise<void> {
           headers[`x-amz-meta-${key}`] = value;
         }
 
-        const url = `https://${endpointHost}/${bucket}/${objectKey}`;
+        const r2Key = toR2AudioKey(objectKey);
+        const url = `https://${endpointHost}/${bucket}/${r2Key}`;
         const response = await aws.fetch(url, {
           method: "PUT",
           headers,
@@ -209,7 +211,7 @@ async function main(): Promise<void> {
           }
           uploaded += 1;
           sinceSave += 1;
-          console.log(`ok ${uploaded} ${objectKey} (${info.size} B)`);
+          console.log(`ok ${uploaded} ${r2Key} (${info.size} B)`);
           if (sinceSave >= 100) {
             await saveManifest(manifest);
             sinceSave = 0;

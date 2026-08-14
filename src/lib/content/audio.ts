@@ -10,7 +10,7 @@ import { audioClipCacheBust } from "./audio-manifest";
 
 /**
  * Public URL for a clip.
- * - With `PUBLIC_AUDIO_BASE_URL` → R2 / CDN (`…/lemma/{hash}.mp3`)
+ * - With `PUBLIC_AUDIO_BASE_URL` → R2 / CDN (`…/audio/{kind}/{hash}.mp3`)
  * - Without → local Astro static `/audio/{kind}/{hash}.mp3`
  *
  * Appends `?v=` from runtime index `generatedAt` so overwrite-in-place regenerations
