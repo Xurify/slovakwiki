@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
 
-  import { tick } from "svelte";
+  import { tick, untrack } from "svelte";
   import {
     canCheckBuild,
     gradeBuild,
@@ -141,7 +141,7 @@
     canSubmit = exercise.type === "personal" ? !submitted : canCheck;
   });
 
-  let lastSubmitNonce = submitNonce;
+  let lastSubmitNonce = untrack(() => submitNonce);
 
   $effect(() => {
     if (!player || submitNonce === lastSubmitNonce) return;
