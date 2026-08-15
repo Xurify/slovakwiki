@@ -199,7 +199,8 @@ Full-page hydrate only when the page **is** the interactive app (filters, player
 ## Components
 
 - Put reusable UI in `src/lib/components/`, grouped by domain (`dictionary/`, `lessons/`, `practice/`, …).
-- Put page shells next to that domain (e.g. `DictionaryBrowsePage` in `components/dictionary/`). Home is `src/lib/home/`.
+- Put page shells next to that domain (e.g. `DictionaryBrowsePage` in `components/dictionary/`). Home is `src/lib/home/`. Search page chrome is `src/lib/search/SearchPage.svelte`.
+- Keep `src/pages/` to `.astro` routes (and endpoints). Do not colocate `.svelte` there.
 - Use standard HTML/Svelte elements only — no invented component names, no Framer Motion / motion libraries unless already imported in that file.
 - Colocate markup + Tailwind. Avoid a second stylesheet for a component.
 
