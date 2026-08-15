@@ -1,4 +1,4 @@
-import type { AnswerGrade } from "$lib/client/practice-state";
+import type { AnswerGrade } from "$lib/components/practice/practice-state";
 
 export type FeedbackTone = "accents" | "correct" | "incorrect";
 

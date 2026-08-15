@@ -1,4 +1,4 @@
-import { readPracticeState } from "$lib/client/practice-state";
+import { readPracticeState } from "$lib/components/practice/practice-state";
 import { readFoucBootPayload, runFoucBoot } from "$lib/fouc/boot";
 import { applyLessonsProgressView } from "$lib/lesson-progress/apply-progress";
 import type { LessonsBootPayload } from "$lib/lesson-progress/boot-payload";

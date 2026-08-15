@@ -6,7 +6,7 @@
     closestAcceptedAnswer,
     displayPracticeAnswer,
     gradeAnswer,
-  } from "$lib/client/practice-state";
+  } from "$lib/components/practice/practice-state";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     feedbackPanelClass,

@@ -1,11 +1,11 @@
 /**
- * Regenerate docs/data-sources.md from src/lib/catalog/references/catalog.ts
+ * Regenerate docs/data-sources.md from src/lib/catalog/data-sources/catalog.ts
  */
 
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { formatReferencesMarkdown } from "../../src/lib/catalog/references/catalog";
+import { formatReferencesMarkdown } from "../../src/lib/catalog/data-sources/catalog";
 import { ROOT } from "../lib/paths";
 
 const OUT = path.join(ROOT, "docs", "data-sources.md");

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { mount, onDestroy, onMount, unmount } from "svelte";
 
-  import { readPracticeState } from "$lib/client/practice-state";
+  import { readPracticeState } from "$lib/components/practice/practice-state";
   import PracticeFeatured from "$lib/components/practice/PracticeFeatured.svelte";
   import PracticeRecents from "$lib/components/practice/PracticeRecents.svelte";
   import PracticeStartCta from "$lib/components/practice/PracticeStartCta.svelte";

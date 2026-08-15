@@ -4,13 +4,21 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import { tick } from "svelte";
-  import { canCheckBuild, gradeBuild, resolveBuiltTiles } from "$lib/client/build-tiles";
+  import {
+    canCheckBuild,
+    gradeBuild,
+    resolveBuiltTiles,
+  } from "$lib/learning/exercises/build-tiles";
   import {
     gradeAnswer,
     suggestCloseAnswer,
     type AnswerGrade,
-  } from "$lib/client/practice-state";
-  import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/client/sfx";
+  } from "$lib/components/practice/practice-state";
+  import {
+    playAnswerSfx,
+    playFinishSfx,
+    type AnswerSfxKind,
+  } from "$lib/components/audio/sfx";
   import AudioButton from "$lib/components/audio/AudioButton.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
   import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";

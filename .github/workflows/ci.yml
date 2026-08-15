@@ -19,6 +19,8 @@ jobs:
 
       - run: bun run test
 
+      - run: bunx eslint src/lib scripts
+
       - uses: actions/cache@v4
         with:
           path: node_modules/.astro

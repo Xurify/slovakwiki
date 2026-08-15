@@ -28,7 +28,7 @@ import {
   tellingDistractorWhy,
   zaCountdownPhrase,
 } from "./clock";
-import { answersMatch } from "$lib/client/practice-state";
+import { answersMatch } from "$lib/components/practice/practice-state";
 
 describe("learning/time/clock", () => {
   it("maps 24h hours onto a 12-face clock", () => {

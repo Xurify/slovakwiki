@@ -133,7 +133,7 @@ export function formatReferencesMarkdown(): string {
     "# Data sources",
     "",
     "Canonical links for Slovak Wiki content tooling and public attribution.",
-    "Keep this file aligned with `src/lib/catalog/references/catalog.ts`.",
+    "Keep this file aligned with `src/lib/catalog/data-sources/catalog.ts`.",
     "",
   ];
 

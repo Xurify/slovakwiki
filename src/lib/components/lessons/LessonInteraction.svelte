@@ -2,9 +2,13 @@
   import Button from "$lib/components/ui/Button.svelte";
 
   import { tick } from "svelte";
-  import { canCheckBuild, gradeBuild, resolveBuiltTiles } from "$lib/client/build-tiles";
-  import { answersMatch } from "$lib/client/practice-state";
-  import { playAnswerSfx } from "$lib/client/sfx";
+  import {
+    canCheckBuild,
+    gradeBuild,
+    resolveBuiltTiles,
+  } from "$lib/learning/exercises/build-tiles";
+  import { answersMatch } from "$lib/components/practice/practice-state";
+  import { playAnswerSfx } from "$lib/components/audio/sfx";
   import {
     BuildSentenceOptions,
     ChoiceOptions,

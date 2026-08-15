@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { gradeAnswer } from "$lib/client/practice-state";
+import { gradeAnswer } from "$lib/components/practice/practice-state";
 import { gradeSelectAll, choiceFeedbackWhy } from "$lib/learning/exercises/select-all";
 import { appointmentPhrase, selectAllChoicesForTime } from "$lib/learning/time/clock";
 import {

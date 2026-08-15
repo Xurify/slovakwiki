@@ -1,4 +1,4 @@
-import type { PracticeState } from "$lib/client/practice-state";
+import type { PracticeState } from "$lib/components/practice/practice-state";
 import type { PracticeItem } from "$lib/learning/types";
 import { lessonById, lessonTracks } from "$lib/catalog/lessons";
 import {

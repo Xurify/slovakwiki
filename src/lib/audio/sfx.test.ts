@@ -6,7 +6,7 @@ import {
   setSfxPreference,
   toggleSfxPreference,
   type StorageLike,
-} from "$lib/client/sfx";
+} from "$lib/components/audio/sfx";
 
 function memoryStorage(seed: Record<string, string> = {}): StorageLike {
   const map = new Map(Object.entries(seed));

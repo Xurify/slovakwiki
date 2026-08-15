@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isBankTileUsed } from "$lib/client/build-tiles";
+  import { isBankTileUsed } from "$lib/learning/exercises/build-tiles";
   import {
     canInsertBankIndex,
     computeTrayInsertIndex,

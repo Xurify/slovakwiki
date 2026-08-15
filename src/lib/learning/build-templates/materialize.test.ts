@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { gradeBuild } from "$lib/client/build-tiles";
+import { gradeBuild } from "$lib/learning/exercises/build-tiles";
 import { daysDatesTimePracticeItems } from "$lib/learning/time/practice-catalog";
 import { practiceItemById } from "$lib/catalog/practice";
 import { materializeBuildItem } from "./materialize";

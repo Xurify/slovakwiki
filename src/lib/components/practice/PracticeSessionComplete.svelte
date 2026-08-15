@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { AnswerGrade } from "$lib/client/practice-state";
+  import type { AnswerGrade } from "$lib/components/practice/practice-state";
   import Button from "$lib/components/ui/Button.svelte";
 
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";

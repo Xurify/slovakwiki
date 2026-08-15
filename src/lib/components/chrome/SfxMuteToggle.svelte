@@ -6,7 +6,7 @@
     setSfxPreference,
     toggleSfxPreference,
     type SfxPreference,
-  } from "$lib/client/sfx";
+  } from "$lib/components/audio/sfx";
 
   let {
     class: className = "",

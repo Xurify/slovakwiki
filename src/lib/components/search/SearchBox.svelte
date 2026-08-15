@@ -7,7 +7,7 @@
     pushSearchHistory,
     readSearchHistory,
     type SearchHistoryItem,
-  } from "$lib/client/search-history";
+  } from "$lib/components/search/search-history";
   import {
     normalizeSearchText,
     searchIdleHints,
@@ -16,7 +16,10 @@
     searchMetaLabel,
     type SearchDocKind,
   } from "$lib/catalog/search/ui";
-  import { lookupDictionary, mergeSearchResults } from "$lib/search/dictionary-lookup";
+  import {
+    lookupDictionary,
+    mergeSearchResults,
+  } from "$lib/components/search/dictionary-lookup";
   import {
     getPagefind,
     isPagefindWarm,
@@ -24,7 +27,7 @@
     schedulePagefindIdleWarm,
     SEARCH_DEBOUNCE_MS,
     type PagefindResultData,
-  } from "$lib/search/pagefind-client";
+  } from "$lib/components/search/pagefind-client";
   import { cx } from "$lib/ui/classes";
 
   let {

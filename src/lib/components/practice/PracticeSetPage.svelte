@@ -6,7 +6,7 @@
     readPracticeState,
     saveRecentItem,
     writePracticeState,
-  } from "$lib/client/practice-state";
+  } from "$lib/components/practice/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
   import PracticePlayerSkeleton from "$lib/components/practice/PracticePlayerSkeleton.svelte";
   import {

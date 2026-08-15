@@ -12,7 +12,7 @@ import {
   suggestCloseAnswer,
   writePracticeState,
   type StorageLike,
-} from "../client/practice-state";
+} from "$lib/components/practice/practice-state";
 import {
   clearSearchHistory,
   normalizeHistoryHref,
@@ -20,7 +20,7 @@ import {
   readSearchHistory,
   SEARCH_HISTORY_LIMIT,
   SEARCH_HISTORY_STORAGE_KEY,
-} from "../client/search-history";
+} from "$lib/components/search/search-history";
 import {
   allEntries,
   caseTopics,

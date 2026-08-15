@@ -16,7 +16,7 @@
     resourcesMobileChipClass,
     resourcesPanelClass,
     resourcesSidebarLinkClass,
-  } from "$lib/pages/resources-page-ui";
+  } from "$lib/components/resources/resources-page-ui";
 
   const featured = featuredResources();
 </script>

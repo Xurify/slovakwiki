@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import { readPracticeState } from "$lib/client/practice-state";
+  import { readPracticeState } from "$lib/components/practice/practice-state";
   import type { LessonsBootPayload } from "$lib/lesson-progress/boot-payload";
   import {
     markLessonsProgressReady,

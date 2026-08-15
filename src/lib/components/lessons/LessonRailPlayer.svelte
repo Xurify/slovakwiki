@@ -12,7 +12,7 @@
     markLessonComplete,
     readPracticeState,
     writePracticeState,
-  } from "$lib/client/practice-state";
+  } from "$lib/components/practice/practice-state";
   import type { Lesson } from "$lib/learning/types";
   import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
   import { practiceSetForLesson } from "$lib/catalog/practice";

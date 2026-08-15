@@ -11,7 +11,7 @@
     resourcesFeaturedCardClass,
     resourcesFeaturedLinkChipClass,
     resourcesFeaturedMetaPillClass,
-  } from "$lib/pages/resources-page-ui";
+  } from "$lib/components/resources/resources-page-ui";
 
   let { resource }: { resource: LearningResource } = $props();
 

@@ -7,7 +7,7 @@ import {
   setStoryAutoAdvance,
   setStoryShowEnglish,
   toggleStoryBool,
-} from "./lesson-story-prefs";
+} from "./prefs";
 
 function memoryStorage(seed: Record<string, string> = {}) {
   const map = new Map(Object.entries(seed));

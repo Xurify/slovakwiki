@@ -6,7 +6,7 @@ import {
   getAudioVolume,
   setAudioVolume,
   type StorageLike,
-} from "./audio-volume";
+} from "./volume";
 
 function memoryStorage(seed: Record<string, string> = {}): StorageLike {
   const map = new Map(Object.entries(seed));

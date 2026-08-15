@@ -7,7 +7,7 @@
     emptyPracticeState,
     readPracticeState,
     type PracticeState,
-  } from "$lib/client/practice-state";
+  } from "$lib/components/practice/practice-state";
   import { buildPracticeSheets, pickFeaturedSheet } from "$lib/catalog/practice/hub";
   import { practiceSets } from "$lib/catalog/practice";
 

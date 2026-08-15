@@ -1,4 +1,4 @@
-import { getAudioVolume } from "$lib/client/audio-volume";
+import { getAudioVolume } from "./volume";
 
 export type SfxPreference = "on" | "off";
 

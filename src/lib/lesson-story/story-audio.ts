@@ -12,8 +12,11 @@
  * Respects the lesson chrome mute toggle (`slovak.wiki.sfx-preference`).
  */
 
-import { AUDIO_VOLUME_CHANGE_EVENT, applyAudioVolume } from "$lib/client/audio-volume";
-import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/client/sfx";
+import {
+  AUDIO_VOLUME_CHANGE_EVENT,
+  applyAudioVolume,
+} from "$lib/components/audio/volume";
+import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/components/audio/sfx";
 
 let currentAudio: HTMLAudioElement | undefined;
 let playGeneration = 0;

@@ -7,7 +7,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { emptyPracticeState } from "$lib/client/practice-state";
+  import { emptyPracticeState } from "$lib/components/practice/practice-state";
   import {
     buildPracticeSheets,
     groupSheetsByTrack,

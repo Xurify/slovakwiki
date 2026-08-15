@@ -1,7 +1,7 @@
 <script lang="ts">
   import TextLink from "$lib/components/ui/TextLink.svelte";
-  import type { AnswerGrade } from "$lib/client/practice-state";
-  import { displayPracticeAnswer } from "$lib/client/practice-state";
+  import type { AnswerGrade } from "$lib/components/practice/practice-state";
+  import { displayPracticeAnswer } from "$lib/components/practice/practice-state";
   import {
     feedbackSectionLabelClass,
     missCompareAttemptRowClass,

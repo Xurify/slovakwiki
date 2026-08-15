@@ -4,7 +4,7 @@
     AUDIO_VOLUME_CHANGE_EVENT,
     getAudioVolume,
     setAudioVolume,
-  } from "$lib/client/audio-volume";
+  } from "$lib/components/audio/volume";
   import {
     STORY_PREFS_CHANGE_EVENT,
     getStoryAutoAdvance,
@@ -13,7 +13,7 @@
     setStoryShowEnglish,
     toggleStoryBool,
     type StoryBoolPreference,
-  } from "$lib/client/lesson-story-prefs";
+  } from "$lib/lesson-story/prefs";
 
   let {
     class: className = "",

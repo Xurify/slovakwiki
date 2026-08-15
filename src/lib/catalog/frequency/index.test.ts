@@ -8,7 +8,7 @@ import {
   normalizeLemma,
 } from "./index";
 import type { FrequencyEntry } from "./types";
-import { formatReferencesMarkdown, referenceSources } from "../references/catalog";
+import { formatReferencesMarkdown, referenceSources } from "../data-sources/catalog";
 import {
   featuredResources,
   learningResources,

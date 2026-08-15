@@ -4,14 +4,14 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { referenceGroups, referencesByGroup } from "$lib/catalog/references/catalog";
+  import { referenceGroups, referencesByGroup } from "$lib/catalog/data-sources/catalog";
   import {
     resourcesMobileChipClass,
     resourcesPanelClass,
     resourcesSidebarLinkClass,
     resourcesSubLinkClass,
     resourcesTextRowClass,
-  } from "$lib/pages/resources-page-ui";
+  } from "$lib/components/resources/resources-page-ui";
 
   const referenceShortLabel: Record<string, string> = {
     dictionary: "Dictionary",

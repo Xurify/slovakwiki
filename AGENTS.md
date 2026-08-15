@@ -198,8 +198,8 @@ Full-page hydrate only when the page **is** the interactive app (filters, player
 
 ## Components
 
-- Put reusable UI in `src/lib/components/`.
-- Put page shells in `src/lib/pages/`.
+- Put reusable UI in `src/lib/components/`, grouped by domain (`dictionary/`, `lessons/`, `practice/`, …).
+- Put page shells next to that domain (e.g. `DictionaryBrowsePage` in `components/dictionary/`). Home is `src/lib/home/`.
 - Use standard HTML/Svelte elements only — no invented component names, no Framer Motion / motion libraries unless already imported in that file.
 - Colocate markup + Tailwind. Avoid a second stylesheet for a component.
 

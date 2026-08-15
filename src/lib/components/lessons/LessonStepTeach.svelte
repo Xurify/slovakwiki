@@ -7,8 +7,8 @@
     STORY_PREFS_CHANGE_EVENT,
     getStoryAutoAdvance,
     getStoryShowEnglish,
-  } from "$lib/client/lesson-story-prefs";
-  import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/client/sfx";
+  } from "$lib/lesson-story/prefs";
+  import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/components/audio/sfx";
   import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
   import {
     ChoiceOptions,
