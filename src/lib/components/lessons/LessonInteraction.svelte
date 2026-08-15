@@ -8,7 +8,7 @@
     resolveBuiltTiles,
   } from "$lib/learning/exercises/build-tiles";
   import { answersMatch } from "$lib/components/practice/practice-state";
-  import { playAnswerSfx } from "$lib/components/audio/sfx";
+  import { playAnswerSfx } from "$lib/audio/sfx";
   import {
     BuildSentenceOptions,
     ChoiceOptions,

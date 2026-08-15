@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from "svelte";
-  import AudioButton from "$lib/components/audio/AudioButton.svelte";
+  import AudioButton from "$lib/audio/AudioButton.svelte";
   import LessonSceneBackdrop from "$lib/components/lessons/LessonSceneBackdrop.svelte";
   import LessonStoryLine from "$lib/components/lessons/LessonStoryLine.svelte";
   import {
@@ -8,7 +8,7 @@
     getStoryAutoAdvance,
     getStoryShowEnglish,
   } from "$lib/lesson-story/prefs";
-  import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/components/audio/sfx";
+  import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/audio/sfx";
   import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
   import {
     ChoiceOptions,

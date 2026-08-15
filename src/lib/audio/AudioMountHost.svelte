@@ -1,8 +1,8 @@
 <script lang="ts">
   import { mount, onDestroy, onMount, unmount } from "svelte";
 
-  import AudioButton from "$lib/components/audio/AudioButton.svelte";
-  import type { AudioMountTarget } from "$lib/components/audio/mount";
+  import AudioButton from "$lib/audio/AudioButton.svelte";
+  import type { AudioMountTarget } from "$lib/audio/mount";
 
   let { targets }: { targets: AudioMountTarget[] } = $props();
 

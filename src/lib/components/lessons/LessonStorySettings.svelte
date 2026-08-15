@@ -4,7 +4,7 @@
     AUDIO_VOLUME_CHANGE_EVENT,
     getAudioVolume,
     setAudioVolume,
-  } from "$lib/components/audio/volume";
+  } from "$lib/audio/volume";
   import {
     STORY_PREFS_CHANGE_EVENT,
     getStoryAutoAdvance,

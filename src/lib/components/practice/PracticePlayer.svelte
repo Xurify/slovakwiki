@@ -14,12 +14,8 @@
     suggestCloseAnswer,
     type AnswerGrade,
   } from "$lib/components/practice/practice-state";
-  import {
-    playAnswerSfx,
-    playFinishSfx,
-    type AnswerSfxKind,
-  } from "$lib/components/audio/sfx";
-  import AudioButton from "$lib/components/audio/AudioButton.svelte";
+  import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/audio/sfx";
+  import AudioButton from "$lib/audio/AudioButton.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
   import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
   import {

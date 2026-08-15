@@ -3,8 +3,8 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import type { AudioMountTarget } from "$lib/components/audio/mount";
-import AudioMountHost from "$lib/components/audio/AudioMountHost.svelte";
+import type { AudioMountTarget } from "$lib/audio/mount";
+import AudioMountHost from "$lib/audio/AudioMountHost.svelte";
 import DictionaryDetailPage from "$lib/components/dictionary/DictionaryDetailPage.svelte";
 import { normalizeAudioText } from "$lib/catalog/audio/core";
 import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";

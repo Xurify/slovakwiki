@@ -4,8 +4,8 @@
     AUDIO_VOLUME_CHANGE_EVENT,
     applyAudioVolume,
     getAudioVolume,
-  } from "$lib/components/audio/volume";
-  import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/components/audio/sfx";
+  } from "$lib/audio/volume";
+  import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/audio/sfx";
 
   let {
     allowTtsFallback = false,
