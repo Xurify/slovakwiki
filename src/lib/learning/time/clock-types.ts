@@ -37,3 +37,5 @@ export const DAY_PART_ALIASES: Record<DayPart, DayPart> = {
 };
 
 export const EXACT_MINUTE_POOL = [5, 10, 20, 26] as const;
+
+export const QUARTERS: QuarterMinute[] = [0, 15, 30, 45];
