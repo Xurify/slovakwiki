@@ -13,14 +13,14 @@
     practiceItemById,
     samplePracticeItemIds,
     type PracticeSet,
-  } from "$lib/content/practice";
-  import type { PracticeItem } from "$lib/content/learning-types";
+  } from "$lib/catalog/practice";
+  import type { PracticeItem } from "$lib/learning/types";
   import {
     buildDaysDatesTimeSession,
     isDaysDatesTimeKind,
     materializeDaysDatesTimeItem,
   } from "$lib/learning/time/session";
-  import { maybeMaterializeBuildItem } from "$lib/learning/build";
+  import { maybeMaterializeBuildItem } from "$lib/learning/exercises/materialize-build";
 
   let {
     data,

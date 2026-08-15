@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LessonMotifId } from "$lib/lessons/lesson-motifs";
+  import type { LessonMotifId } from "$lib/lesson-story/lesson-motifs";
 
   let {
     motif,

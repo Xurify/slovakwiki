@@ -2,8 +2,8 @@
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
-  import { pronunciationEntries } from "$lib/content/data";
-  import { sentenceCase } from "$lib/content/search-ui";
+  import { pronunciationEntries } from "$lib/catalog/entries";
+  import { sentenceCase } from "$lib/catalog/search/ui";
 
   const groups = ["Rhythm", "Vowels", "Consonants", "Spelling"] as const;
 

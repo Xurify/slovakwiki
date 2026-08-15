@@ -5,8 +5,8 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import LessonLevelBlock from "$lib/components/lessons/LessonLevelBlock.svelte";
-  import { lessonPath } from "$lib/content/lessons";
-  import { displayLevels, nextLessonInList } from "$lib/lessons/progress";
+  import { lessonPath } from "$lib/catalog/lessons";
+  import { displayLevels, nextLessonInList } from "$lib/lesson-progress/progress";
 
   let { data } = $props();
 

@@ -4,7 +4,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { referenceGroups, referencesByGroup } from "$lib/content/references";
+  import { referenceGroups, referencesByGroup } from "$lib/catalog/references/catalog";
   import {
     resourcesMobileChipClass,
     resourcesPanelClass,

@@ -15,14 +15,14 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { words } from "../../src/lib/content/data";
+import { words } from "../../src/lib/catalog/entries";
 import type {
   FrequencyListFile,
   FrequencyPartOfSpeech,
-} from "../../src/lib/content/frequency-types";
-import { findLiveWordForLemma, lemmaToSlug } from "../../src/lib/content/frequency";
-import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/content/frequency-blocklist";
-import type { ContentEntry } from "../../src/lib/content/types";
+} from "../../src/lib/catalog/frequency/types";
+import { findLiveWordForLemma, lemmaToSlug } from "../../src/lib/catalog/frequency";
+import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/catalog/frequency/blocklist";
+import type { ContentEntry } from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<

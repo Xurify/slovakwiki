@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LessonStatus } from "$lib/lessons/progress";
+  import type { LessonStatus } from "$lib/lesson-progress/progress";
 
   let {
     lessonId,

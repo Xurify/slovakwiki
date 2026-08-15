@@ -2,7 +2,7 @@ import type { Lesson, LessonExercise } from "$lib/learning/types";
 import {
   daysDatesTimeBeatShells,
   withDaysDatesTimeExercises,
-} from "$lib/content/lesson-beats-data";
+} from "$lib/catalog/lessons/beats";
 import {
   appointmentChoiceWhy,
   appointmentDistractorWhy,

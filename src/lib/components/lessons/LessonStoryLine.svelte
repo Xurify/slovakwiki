@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import AudioButton from "$lib/components/AudioButton.svelte";
+  import AudioButton from "$lib/components/audio/AudioButton.svelte";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
-  import { isLearnerSpeaker } from "$lib/lessons/story-cast";
-  import { unlockStoryAudio } from "$lib/lessons/story-audio";
+  import { isLearnerSpeaker } from "$lib/lesson-story/story-cast";
+  import { unlockStoryAudio } from "$lib/lesson-story/story-audio";
   import type { DialogueTurn } from "$lib/learning/types";
 
   let {

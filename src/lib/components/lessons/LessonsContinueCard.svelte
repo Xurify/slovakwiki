@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Lesson, LessonTrack } from "$lib/content/learning-types";
+  import type { Lesson, LessonTrack } from "$lib/learning/types";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import LessonMotif from "$lib/components/lessons/LessonMotif.svelte";
-  import { lessonPath } from "$lib/content/lessons";
-  import { lessonMotifId } from "$lib/lessons/lesson-motifs";
+  import { lessonPath } from "$lib/catalog/lessons";
+  import { lessonMotifId } from "$lib/lesson-story/lesson-motifs";
 
   let {
     focusLesson,

@@ -9,9 +9,9 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { words } from "../../src/lib/content/data";
-import { isDamagedExampleTemplate } from "../../src/lib/content/example-quality";
-import type { Example } from "../../src/lib/content/types";
+import { words } from "../../src/lib/catalog/entries";
+import { isDamagedExampleTemplate } from "../../src/lib/catalog/dictionary/example-quality";
+import type { Example } from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
 
 const CURATED_PATH = path.join(ROOT, "content", "dictionary", "curated-examples.json");

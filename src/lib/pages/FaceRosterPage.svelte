@@ -2,7 +2,7 @@
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
-  import { listedCharacters } from "$lib/content/character-ids";
+  import { listedCharacters } from "$lib/catalog/lessons/character-ids";
 
   const roster = listedCharacters();
 </script>

@@ -34,22 +34,22 @@ Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.
 
 ### Content files
 
-| File                                          | Role                                                                     |
-| --------------------------------------------- | ------------------------------------------------------------------------ |
-| `content/dictionary/README.md`                | Hand-add lemma template (fields, homes, slug/category, examples)         |
-| `content/dictionary/words.json`               | Live bulk dictionary (frequency publish + enrich/fill/curate)            |
-| `content/dictionary/curated-examples.json`    | Hand/pattern example overlay; apply with `apply-curated-examples.ts`     |
-| `content/dictionary/related-clusters.json`    | Semantic related peers for `apply-related.ts`                            |
-| `content/audio/config.json`                   | ElevenLabs voice / model / settings + lesson `characters` cast           |
-| `content/audio/README.md`                     | Voice roster (dictionary + lesson cast, IDs, speakers, commands)         |
-| `content/audio/manifest.json`                 | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only           |
-| `content/audio/runtime-index.json`            | Slim build index (hash → kind + generatedAt); app via `readFile`         |
-| `content/images/manifest.json`                | Lemma image metadata (slug → file/license/attribution/status/uploadedAt) |
-| `content/images/overrides.json`               | Manual reject / force Commons file per slug                              |
-| `src/lib/content/data.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime          |
-| `static/audio/`                               | Local MP3 cache (gitignored; `.vercelignore`d)                           |
-| `static/images/`                              | Local dictionary thumbs (gitignored; upload to R2 for prod)              |
-| `static/downloads/`                           | Local dictionary export JSON for `/downloads` (gitignored)               |
+| File                                             | Role                                                                     |
+| ------------------------------------------------ | ------------------------------------------------------------------------ |
+| `content/dictionary/README.md`                   | Hand-add lemma template (fields, homes, slug/category, examples)         |
+| `content/dictionary/words.json`                  | Live bulk dictionary (frequency publish + enrich/fill/curate)            |
+| `content/dictionary/curated-examples.json`       | Hand/pattern example overlay; apply with `apply-curated-examples.ts`     |
+| `content/dictionary/related-clusters.json`       | Semantic related peers for `apply-related.ts`                            |
+| `content/audio/config.json`                      | ElevenLabs voice / model / settings + lesson `characters` cast           |
+| `content/audio/README.md`                        | Voice roster (dictionary + lesson cast, IDs, speakers, commands)         |
+| `content/audio/manifest.json`                    | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only           |
+| `content/audio/runtime-index.json`               | Slim build index (hash → kind + generatedAt); app via `readFile`         |
+| `content/images/manifest.json`                   | Lemma image metadata (slug → file/license/attribution/status/uploadedAt) |
+| `content/images/overrides.json`                  | Manual reject / force Commons file per slug                              |
+| `src/lib/catalog/entries.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime          |
+| `static/audio/`                                  | Local MP3 cache (gitignored; `.vercelignore`d)                           |
+| `static/images/`                                 | Local dictionary thumbs (gitignored; upload to R2 for prod)              |
+| `static/downloads/`                              | Local dictionary export JSON for `/downloads` (gitignored)               |
 
 ## `dictionary/`
 
@@ -74,7 +74,7 @@ Frequency lists, live dictionary publish, Tatoeba examples. Hand-add fields: [`c
 | `apply-curated-examples.ts` | `bun scripts/dictionary/apply-curated-examples.ts` | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                              |
 | `apply-related.ts`          | `bun scripts/dictionary/apply-related.ts`          | Fills empty related from `related-clusters.json`                                                                                                                             |
 
-Example limits: `src/lib/content/example-limits.ts` — store pool 8 / display 4. Primary dictionary growth is frequency publish + example enrich. Example quality gates live in `src/lib/content/example-quality.ts` + tests (not separate audit scripts).
+Example limits: `src/lib/catalog/dictionary/example-limits.ts` — store pool 8 / display 4. Primary dictionary growth is frequency publish + example enrich. Example quality gates live in `src/lib/catalog/dictionary/example-quality.ts` + tests (not separate audit scripts).
 
 ## `audio/`
 

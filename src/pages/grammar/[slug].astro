@@ -3,9 +3,9 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
 import ClockDrill from "$lib/learning/time/ClockDrill.svelte";
 import GrammarDetailPage from "$lib/pages/GrammarDetailPage.svelte";
 import { contentCacheKey } from "$lib/build/cache-key";
-import { entryBySlug, grammarEntries, words } from "$lib/content/data";
-import { entryHref } from "$lib/content/lemma-senses";
-import { sentenceCase } from "$lib/content/search-ui";
+import { entryBySlug, grammarEntries, words } from "$lib/catalog/entries";
+import { entryHref } from "$lib/catalog/dictionary/lemma-senses";
+import { sentenceCase } from "$lib/catalog/search/ui";
 
 export function getStaticPaths() {
   return grammarEntries.map((entry) => {

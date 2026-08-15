@@ -1,12 +1,19 @@
 /** Slovak clock-time answer variants for learner drills (:00 / :15 / :30 / :45). */
 
-export type QuarterMinute = 0 | 15 | 30 | 45;
-
-export interface ClockFaceTime {
-  /** 0–23 hour of day */
-  hour: number;
-  minute: QuarterMinute;
-}
+export type {
+  ClockFaceTime,
+  ClockTimeOfDay,
+  DayPart,
+  QuarterMinute,
+} from "./clock-types";
+export { DAY_PART_ALIASES, EXACT_MINUTE_POOL } from "./clock-types";
+import type {
+  ClockFaceTime,
+  ClockTimeOfDay,
+  DayPart,
+  QuarterMinute,
+} from "./clock-types";
+import { DAY_PART_ALIASES, EXACT_MINUTE_POOL } from "./clock-types";
 
 const CARDINAL: Record<number, string> = {
   1: "jeden",
@@ -717,23 +724,6 @@ export function randomDrillTime(random: () => number = Math.random): ClockFaceTi
   return { hour, minute };
 }
 
-/** Any minute on the clock (0–23h, 0–59m). */
-export interface ClockTimeOfDay {
-  hour: number;
-  minute: number;
-}
-
-export type DayPart =
-  | "ráno"
-  | "dopoludnia"
-  | "doobeda"
-  | "napoludnie"
-  | "naobed"
-  | "popoludní"
-  | "poobede"
-  | "večer"
-  | "v noci";
-
 const DAY_PART_ENGLISH: Record<DayPart, string> = {
   ráno: "morning",
   dopoludnia: "late morning",
@@ -744,19 +734,6 @@ const DAY_PART_ENGLISH: Record<DayPart, string> = {
   poobede: "afternoon",
   večer: "evening",
   "v noci": "night",
-};
-
-/** Colloquial day-part tags paired with formal forms in teaching (ucimesaslovencinu.sk). */
-export const DAY_PART_ALIASES: Record<DayPart, DayPart> = {
-  ráno: "ráno",
-  dopoludnia: "dopoludnia",
-  doobeda: "dopoludnia",
-  napoludnie: "napoludnie",
-  naobed: "napoludnie",
-  popoludní: "popoludní",
-  poobede: "popoludní",
-  večer: "večer",
-  "v noci": "v noci",
 };
 
 /** Feedback when the correct line includes a day-part tag. */
@@ -813,8 +790,6 @@ const EXACT_MINUTE_DIGITS: Record<number, string> = {
   40: "štyridsať",
   50: "päťdesiat",
 };
-
-export const EXACT_MINUTE_POOL = [5, 10, 20, 26] as const;
 
 function normalizeHour24(hour: number): number {
   return ((Math.trunc(hour) % 24) + 24) % 24;

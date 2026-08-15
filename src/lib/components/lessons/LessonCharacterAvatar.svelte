@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { LessonCharacterId } from "$lib/content/character-ids";
-  import { storyCastForId, storyCastForSpeaker } from "$lib/lessons/story-cast";
+  import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+  import { storyCastForId, storyCastForSpeaker } from "$lib/lesson-story/story-cast";
 
   let {
     characterId,

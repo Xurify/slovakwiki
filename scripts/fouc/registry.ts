@@ -17,8 +17,8 @@ export interface FoucBootTarget {
 export const FOUC_BOOTS: FoucBootTarget[] = [
   {
     id: "lessons",
-    entry: path.join(ROOT, "src/lib/lessons/boot-entry.ts"),
-    out: path.join(ROOT, "src/lib/lessons/boot-script.generated.ts"),
+    entry: path.join(ROOT, "src/lib/lesson-progress/boot-entry.ts"),
+    out: path.join(ROOT, "src/lib/lesson-progress/boot-script.generated.ts"),
     exportName: "LESSONS_BOOT_SCRIPT",
   },
 ];

@@ -1,4 +1,4 @@
-import type { SearchDocKind } from "$lib/content/search-ui";
+import type { SearchDocKind } from "$lib/catalog/search/ui";
 
 export const SEARCH_HISTORY_STORAGE_KEY = "slovak.wiki.search-history.v1";
 

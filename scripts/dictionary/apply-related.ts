@@ -10,8 +10,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { ContentEntry } from "../../src/lib/content/types";
-import { words } from "../../src/lib/content/data";
+import type { ContentEntry } from "../../src/lib/catalog/types";
+import { words } from "../../src/lib/catalog/entries";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<

@@ -1,17 +1,17 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import WikiBrowseClient from "$lib/components/WikiBrowseClient.svelte";
-import WikiPage from "$lib/pages/WikiPage.svelte";
+import DictionaryBrowseClient from "$lib/components/dictionary/DictionaryBrowseClient.svelte";
+import DictionaryBrowsePage from "$lib/pages/DictionaryBrowsePage.svelte";
 import {
-  buildWikiPageView,
+  buildDictionaryBrowseView,
   parseBrowseSearchParams,
-} from "$lib/content/dictionary-browse";
-import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/content/dictionary-browse-utils";
+} from "$lib/catalog/dictionary/browse";
+import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/catalog/dictionary/browse-query";
 
 export const prerender = false;
 
 const initialBrowse = parseBrowseSearchParams(Astro.url.searchParams);
-const initialData = buildWikiPageView(
+const initialData = buildDictionaryBrowseView(
   initialBrowse.topic,
   initialBrowse.letter,
   initialBrowse.page,
@@ -27,7 +27,7 @@ const hasBrowseParams = [...Astro.url.searchParams.keys()].length > 0;
   canonicalPath="/dictionary"
   noindex={hasBrowseParams}
 >
-  <WikiPage>
-    <WikiBrowseClient client:load slot="browse" {initialData} {initialBrowse} />
-  </WikiPage>
+  <DictionaryBrowsePage>
+    <DictionaryBrowseClient client:load slot="browse" {initialData} {initialBrowse} />
+  </DictionaryBrowsePage>
 </SiteLayout>

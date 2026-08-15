@@ -3,8 +3,8 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import LessonsContinueCard from "$lib/components/lessons/LessonsContinueCard.svelte";
   import LessonTrackSection from "$lib/components/lessons/LessonTrackSection.svelte";
-  import { lessonTracks, lessons, lessonsForTrack } from "$lib/content/lessons";
-  import { nextLessonInList } from "$lib/lessons/progress";
+  import { lessonTracks, lessons, lessonsForTrack } from "$lib/catalog/lessons";
+  import { nextLessonInList } from "$lib/lesson-progress/progress";
 
   const trackGroups = lessonTracks.map((track) => ({
     track,

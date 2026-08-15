@@ -13,9 +13,9 @@
     grammarEntries,
     pronunciationEntries,
     words,
-  } from "$lib/content/data";
-  import { lessonTracks, lessonsForTrack } from "$lib/content/lessons";
-  import { dictionaryPathForSense } from "$lib/content/lemma-senses";
+  } from "$lib/catalog/entries";
+  import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
+  import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
 
   let { heroSearch }: { heroSearch: Snippet } = $props();
 

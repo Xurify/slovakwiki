@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AudioButton from "$lib/components/AudioButton.svelte";
+  import AudioButton from "$lib/components/audio/AudioButton.svelte";
 
   let {
     audioSrc,

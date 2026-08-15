@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Lesson } from "$lib/learning/types";
-  import type { LessonLevel, LessonStatus } from "$lib/lessons/progress";
+  import type { LessonLevel, LessonStatus } from "$lib/lesson-progress/progress";
   import LessonPathCard from "$lib/components/lessons/LessonPathCard.svelte";
 
   let {

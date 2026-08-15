@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import SearchBox from "$lib/components/SearchBox.svelte";
+import SearchBox from "$lib/components/search/SearchBox.svelte";
 import SearchPage from "$lib/pages/SearchPage.svelte";
 
 const query = Astro.url.searchParams.get("q")?.trim() ?? "";

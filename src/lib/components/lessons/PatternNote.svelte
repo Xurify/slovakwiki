@@ -1,6 +1,6 @@
 <script lang="ts">
   import RichTeachingText from "$lib/components/practice/RichTeachingText.svelte";
-  import type { LessonPattern } from "$lib/content/learning-types";
+  import type { LessonPattern } from "$lib/learning/types";
 
   let { pattern }: { pattern: LessonPattern } = $props();
 </script>

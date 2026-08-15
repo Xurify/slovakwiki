@@ -10,7 +10,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import type { ContentEntry, Example } from "../../src/lib/content/types";
+import type { ContentEntry, Example } from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<

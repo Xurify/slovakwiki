@@ -1,9 +1,9 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PracticeSetPage from "$lib/pages/PracticeSetPage.svelte";
-import { clozeAudioSrcs } from "$lib/content/practice-audio";
+import { clozeAudioSrcs } from "$lib/catalog/practice/audio";
 import { contentCacheKey } from "$lib/build/cache-key";
-import { practiceItemById, practiceSets } from "$lib/content/practice";
+import { practiceItemById, practiceSets } from "$lib/catalog/practice";
 
 export function getStaticPaths() {
   return practiceSets.map((set) => {

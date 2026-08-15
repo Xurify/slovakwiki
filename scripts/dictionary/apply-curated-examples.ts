@@ -15,8 +15,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { ContentEntry, Example } from "../../src/lib/content/types";
-import { isCleanExample } from "../../src/lib/content/example-quality";
+import type { ContentEntry, Example } from "../../src/lib/catalog/types";
+import { isCleanExample } from "../../src/lib/catalog/dictionary/example-quality";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<

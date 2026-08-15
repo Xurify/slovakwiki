@@ -1,4 +1,4 @@
-import { beatSceneLines } from "$lib/learning/lesson-beats";
+import { beatSceneLines } from "$lib/learning/beats";
 import type {
   DialogueTurn,
   Lesson,

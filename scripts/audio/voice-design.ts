@@ -22,7 +22,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import type { AudioConfig } from "../../src/lib/content/audio-core";
+import type { AudioConfig } from "../../src/lib/catalog/audio/core";
 import { ROOT } from "../lib/paths";
 import { CONFIG_PATH, loadConfig, sleep } from "./shared";
 

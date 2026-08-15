@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import EntryDetail from "$lib/components/EntryDetail.svelte";
-  import type { DictionaryImageView } from "$lib/content/images";
-  import type { ContentEntry, EntryKind } from "$lib/content/types";
+  import EntryDetail from "$lib/components/dictionary/EntryDetail.svelte";
+  import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
+  import type { ContentEntry, EntryKind } from "$lib/catalog/types";
 
   interface RelatedEntry {
     english: string;

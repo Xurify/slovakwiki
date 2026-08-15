@@ -2,9 +2,9 @@
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
-  import type { Lesson } from "$lib/content/learning-types";
-  import { lessonPath } from "$lib/content/lessons";
-  import { practiceSessionCount, type PracticeSet } from "$lib/content/practice";
+  import type { Lesson } from "$lib/learning/types";
+  import { lessonPath } from "$lib/catalog/lessons";
+  import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
 
   let {
     backHref,

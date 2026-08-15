@@ -108,8 +108,8 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 
 ## Lessons consumer
 
-- Surface: `$lib/lessons/fouc`
-- Entry: `$lib/lessons/boot-entry.ts`
+- Surface: `$lib/lesson-progress/fouc`
+- Entry: `$lib/lesson-progress/boot-entry.ts`
 - Paint SSOT: `progress-view.ts` → `apply-progress.ts`
 - Shell: `LessonsProgressBoot.astro` → wraps `FoucBoot`
 - Island: `LessonsProgressClient.svelte` re-paints + marks ready after hydrate

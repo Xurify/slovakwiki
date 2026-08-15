@@ -1,4 +1,4 @@
-import type { SearchDocKind } from "$lib/content/search-ui";
+import type { SearchDocKind } from "$lib/catalog/search/ui";
 
 export interface PagefindResultData {
   excerpt: string;

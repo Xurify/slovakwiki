@@ -11,7 +11,7 @@
 import { copyFile, readFile, unlink } from "node:fs/promises";
 import path from "node:path";
 
-import type { ImageManifestEntry } from "../../src/lib/content/images";
+import type { ImageManifestEntry } from "../../src/lib/catalog/dictionary/images";
 import { ROOT } from "../lib/paths";
 import {
   extensionFromMimeOrUrl,

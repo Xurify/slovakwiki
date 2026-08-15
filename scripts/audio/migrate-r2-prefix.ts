@@ -16,7 +16,7 @@ import {
   mapPool,
   type AudioKind,
 } from "./shared";
-import { toR2AudioKey } from "../../src/lib/content/audio-core";
+import { toR2AudioKey } from "../../src/lib/catalog/audio/core";
 
 const AUDIO_PREFIXES: AudioKind[] = ["lemma", "example", "lesson"];
 

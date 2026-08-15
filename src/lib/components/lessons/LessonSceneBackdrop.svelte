@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LessonSceneArtId } from "$lib/lessons/story-settings";
+  import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
 
   let {
     art,

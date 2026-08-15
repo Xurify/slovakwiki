@@ -13,8 +13,8 @@
     groupSheetsByTrack,
     pickFeaturedSheet,
     totalPracticeExercises,
-  } from "$lib/content/practice-hub";
-  import { practiceSets } from "$lib/content/practice";
+  } from "$lib/catalog/practice/hub";
+  import { practiceSets } from "$lib/catalog/practice";
 
   let { hub }: { hub?: Snippet } = $props();
 

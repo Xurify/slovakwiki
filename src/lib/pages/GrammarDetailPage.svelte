@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import GrammarTopicDetail from "$lib/components/GrammarTopicDetail.svelte";
-  import type { EntryKind, GrammarTopic } from "$lib/content/types";
+  import GrammarTopicDetail from "$lib/components/reference/GrammarTopicDetail.svelte";
+  import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
 
   interface RelatedEntry {
     english: string;

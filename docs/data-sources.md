@@ -1,7 +1,7 @@
 # Data sources
 
 Canonical links for Slovak Wiki content tooling and public attribution.
-Keep this file aligned with `src/lib/content/references.ts`.
+Keep this file aligned with `src/lib/catalog/references/catalog.ts`.
 
 ## Dictionary
 

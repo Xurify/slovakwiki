@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ResourceEntry from "$lib/components/ResourceEntry.svelte";
-  import ResourceFeaturedEntry from "$lib/components/ResourceFeaturedEntry.svelte";
+  import ResourceEntry from "$lib/components/resources/ResourceEntry.svelte";
+  import ResourceFeaturedEntry from "$lib/components/resources/ResourceFeaturedEntry.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -10,7 +10,7 @@
     featuredResources,
     resourceGroups,
     resourcesByGroup,
-  } from "$lib/content/resources";
+  } from "$lib/catalog/resources/catalog";
   import {
     resourcesFeaturedGridClass,
     resourcesMobileChipClass,

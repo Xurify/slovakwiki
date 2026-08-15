@@ -1,6 +1,6 @@
 <script lang="ts">
-  import PronunciationTopicDetail from "$lib/components/PronunciationTopicDetail.svelte";
-  import type { EntryKind, PronunciationTopic } from "$lib/content/types";
+  import PronunciationTopicDetail from "$lib/components/reference/PronunciationTopicDetail.svelte";
+  import type { EntryKind, PronunciationTopic } from "$lib/catalog/types";
 
   interface RelatedEntry {
     english: string;

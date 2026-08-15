@@ -10,9 +10,9 @@ import {
   materializeDaysDatesTimeItem,
   type DaysDatesTimeKind,
 } from "$lib/learning/time/session";
-import { practiceItems } from "$lib/content/practice";
-import { lessonExercises } from "$lib/learning/lesson-beats";
-import { lessons } from "$lib/content/lessons";
+import { practiceItems } from "$lib/catalog/practice";
+import { lessonExercises } from "$lib/learning/beats";
+import { lessons } from "$lib/catalog/lessons";
 import type { ChoiceExercise } from "$lib/learning/types";
 
 function choiceExercisesFromLessons(): ChoiceExercise[] {

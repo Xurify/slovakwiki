@@ -1,9 +1,9 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import HomeHeroSearch from "$lib/components/HomeHeroSearch.svelte";
+import HomeHeroSearch from "$lib/components/search/HomeHeroSearch.svelte";
 import HomePage from "$lib/pages/HomePage.svelte";
-import { words } from "$lib/content/data";
-import { dictionaryPathForSense } from "$lib/content/lemma-senses";
+import { words } from "$lib/catalog/entries";
+import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
 
 const popularWords = words.slice(0, 5).map((word) => ({
   href: dictionaryPathForSense(word, words),

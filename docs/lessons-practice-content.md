@@ -2,7 +2,7 @@
 
 Authoring rules for learner-facing lesson and practice copy. Linguistic accuracy → **Slovak language skill** (`slovak-language`) first. UI layout and chrome live in the components — not here.
 
-**Source:** `src/lib/content/lessons.ts`, `src/lib/content/practice.ts`. **Types:** `src/lib/content/learning-types.ts`. **UI:** `PracticePlayer`, `LessonInteraction`, `PracticeDialogueBubble`, `PracticeExerciseFeedback`.
+**Source:** `src/lib/catalog/lessons/`, `src/lib/catalog/practice/`. **Types:** `$lib/learning/types`. **UI:** `PracticePlayer`, `LessonInteraction`, `PracticeDialogueBubble`, `PracticeExerciseFeedback`.
 
 **Tone:** like Babbel/Lingvist — show the line, say what to produce, explain on miss. Not tutorial voice, not gamified labels.
 

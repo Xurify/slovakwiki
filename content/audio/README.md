@@ -85,7 +85,7 @@ That woman is also the **narrator** lesson character (notices, sentences, scene 
 
 Each roster entry owns `gender`, `kind`, `blurb`, `voiceId`, `voiceName`, and `speakers[]` in [`config.json`](./config.json).
 
-Dialogue speakers map via `speakers[]` → `src/lib/content/character-ids.ts` (`characterIdForSpeaker`).  
+Dialogue speakers map via `speakers[]` → `src/lib/catalog/lessons/character-ids.ts` (`characterIdForSpeaker`).  
 Key phrases always use **guide** (`keyPhraseCharacterId()`), not a dialogue speaker.
 
 Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs Voice Design). Design prompts live in `scripts/audio/voice-design.ts` (`CAST`). Preview takes: `tmp/voice-design/{character}/preview-N.mp3`.

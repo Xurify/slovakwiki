@@ -3,7 +3,7 @@
 
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
-  import type { Lesson } from "$lib/content/learning-types";
+  import type { Lesson } from "$lib/learning/types";
 
   let {
     data: _data,

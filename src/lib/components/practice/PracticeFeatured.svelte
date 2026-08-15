@@ -9,7 +9,7 @@
     readPracticeState,
     type PracticeState,
   } from "$lib/client/practice-state";
-  import { buildPracticeSheets, pickFeaturedSheet } from "$lib/content/practice-hub";
+  import { buildPracticeSheets, pickFeaturedSheet } from "$lib/catalog/practice/hub";
 
   let { initialState }: { initialState?: PracticeState } = $props();
 

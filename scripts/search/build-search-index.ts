@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import * as pagefind from "pagefind";
 
-import { buildSearchDocuments } from "../../src/lib/content/search-documents";
+import { buildSearchDocuments } from "../../src/lib/catalog/search/documents";
 
 export async function writeSearchIndex(outputPaths: string[]): Promise<number> {
   const { index, errors: createErrors } = await pagefind.createIndex({

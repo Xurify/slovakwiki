@@ -8,9 +8,9 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
-import { words } from "../../src/lib/content/data";
-import { dictionaryLemmaSynthText } from "../../src/lib/content/audio-lemma-synthesis";
-import { audioHash, audioObjectKey } from "../../src/lib/content/audio-core";
+import { words } from "../../src/lib/catalog/entries";
+import { dictionaryLemmaSynthText } from "../../src/lib/catalog/audio/lemma-synthesis";
+import { audioHash, audioObjectKey } from "../../src/lib/catalog/audio/core";
 import { scoreTranscript } from "./verify-score";
 import { transcribeAudio } from "./stt";
 import { ROOT } from "../lib/paths";

@@ -1,8 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { buildDictionaryIndexSidecar } from "../../src/lib/content/dictionary-browse";
-import { DICTIONARY_BROWSE_INDEX_REL } from "../../src/lib/content/dictionary-browse-utils";
+import { buildDictionaryIndexSidecar } from "../../src/lib/catalog/dictionary/browse";
+import { DICTIONARY_BROWSE_INDEX_REL } from "../../src/lib/catalog/dictionary/browse-query";
 
 export async function writeDictionaryIndex(outputs: string[]): Promise<{
   bytes: number;

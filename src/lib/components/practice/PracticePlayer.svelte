@@ -11,7 +11,7 @@
     type AnswerGrade,
   } from "$lib/client/practice-state";
   import { playAnswerSfx, playFinishSfx, type AnswerSfxKind } from "$lib/client/sfx";
-  import AudioButton from "$lib/components/AudioButton.svelte";
+  import AudioButton from "$lib/components/audio/AudioButton.svelte";
   import ClozeHintPanel from "$lib/components/practice/ClozeHintPanel.svelte";
   import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
   import {
@@ -41,8 +41,8 @@
   import PracticeSessionComplete, {
     type SessionPhraseResult,
   } from "$lib/components/practice/PracticeSessionComplete.svelte";
-  import { entryBySlug, words } from "$lib/content/data";
-  import { dictionaryPathForSense } from "$lib/content/lemma-senses";
+  import { entryBySlug, words } from "$lib/catalog/entries";
+  import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
   import type { PracticeItem, PracticeTask } from "$lib/learning/types";
 
   const SK_CHARS = [

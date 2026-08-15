@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Lesson, LessonTrack } from "$lib/learning/types";
-  import type { LessonStatus } from "$lib/lessons/progress";
+  import type { LessonStatus } from "$lib/lesson-progress/progress";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import LessonPathCard from "$lib/components/lessons/LessonPathCard.svelte";
 

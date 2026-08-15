@@ -2,7 +2,7 @@
   import RichTeachingText from "$lib/components/practice/RichTeachingText.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
-  import type { ClozeHint } from "$lib/content/learning-types";
+  import type { ClozeHint } from "$lib/learning/types";
 
   let {
     hint,

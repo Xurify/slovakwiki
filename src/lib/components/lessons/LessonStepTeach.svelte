@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from "svelte";
-  import AudioButton from "$lib/components/AudioButton.svelte";
+  import AudioButton from "$lib/components/audio/AudioButton.svelte";
   import LessonSceneBackdrop from "$lib/components/lessons/LessonSceneBackdrop.svelte";
   import LessonStoryLine from "$lib/components/lessons/LessonStoryLine.svelte";
   import {
@@ -16,13 +16,13 @@
     isSayChoiceCorrect,
   } from "$lib/learning/exercises";
   import { ClockIllustration } from "$lib/learning/time";
-  import { isLearnerSpeaker } from "$lib/lessons/story-cast";
-  import { storySettingForLesson } from "$lib/lessons/story-settings";
+  import { isLearnerSpeaker } from "$lib/lesson-story/story-cast";
+  import { storySettingForLesson } from "$lib/lesson-story/story-settings";
   import {
     playStoryLineAudio,
     stopStoryLineAudio,
     unlockStoryAudio,
-  } from "$lib/lessons/story-audio";
+  } from "$lib/lesson-story/story-audio";
   import type { DialogueTurn, KeyPhrase, LessonBeatTeach } from "$lib/learning/types";
 
   let {

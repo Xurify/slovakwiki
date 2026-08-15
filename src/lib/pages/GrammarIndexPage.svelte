@@ -5,9 +5,9 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { grammarEntries } from "$lib/content/data";
-  import { sentenceCase } from "$lib/content/search-ui";
-  import type { GrammarTopic } from "$lib/content/types";
+  import { grammarEntries } from "$lib/catalog/entries";
+  import { sentenceCase } from "$lib/catalog/search/ui";
+  import type { GrammarTopic } from "$lib/catalog/types";
 
   type GrammarGroup = (typeof groups)[number];
 

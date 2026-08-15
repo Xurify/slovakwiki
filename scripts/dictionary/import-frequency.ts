@@ -5,7 +5,7 @@
  * Pivot: swap `fetchSnkFrequency` for a Tatoeba-rank importer later; keep
  * FrequencyListFile / FrequencyEntry shapes stable for UI + drafts.
  *
- * Sources: see docs/data-sources.md and src/lib/content/references.ts
+ * Sources: see docs/data-sources.md and src/lib/catalog/references/catalog.ts
  */
 
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
@@ -15,19 +15,19 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 
-import { normalizeLemma } from "../../src/lib/content/frequency";
+import { normalizeLemma } from "../../src/lib/catalog/frequency";
 import type {
   FrequencyListFile,
   FrequencyPartOfSpeech,
-} from "../../src/lib/content/frequency-types";
-import { referenceSources } from "../../src/lib/content/references";
+} from "../../src/lib/catalog/frequency/types";
+import { referenceSources } from "../../src/lib/catalog/references/catalog";
 import {
   isLikelyProperNoun,
   parseSnkCountLemmaDump,
   parseSnkLemmaTable,
   PROPER_NOUN_ALLOWLIST,
   selectFrequencyHead,
-} from "../../src/lib/content/snk-frequency";
+} from "../../src/lib/catalog/frequency/snk";
 import { ROOT } from "../lib/paths";
 
 const OUT_DIR = path.join(ROOT, "content", "frequency");

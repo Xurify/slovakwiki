@@ -19,14 +19,14 @@ import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
 
-import { EXAMPLE_STORE_PER_WORD } from "../../src/lib/content/example-limits";
-import type { ContentEntry, Example } from "../../src/lib/content/types";
+import { EXAMPLE_STORE_PER_WORD } from "../../src/lib/catalog/dictionary/example-limits";
+import type { ContentEntry, Example } from "../../src/lib/catalog/types";
 import {
   isAcceptableCorpusExample,
   isCleanExample,
-} from "../../src/lib/content/example-quality";
-import { normalizeLemma } from "../../src/lib/content/frequency";
-import { searchFormsForLemma } from "../../src/lib/content/search-forms";
+} from "../../src/lib/catalog/dictionary/example-quality";
+import { normalizeLemma } from "../../src/lib/catalog/frequency";
+import { searchFormsForLemma } from "../../src/lib/catalog/search/forms";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<

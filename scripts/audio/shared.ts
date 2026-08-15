@@ -6,9 +6,9 @@ import { createHash } from "node:crypto";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { words } from "../../src/lib/content/data";
-import { dictionaryLemmaSynthText } from "../../src/lib/content/audio-lemma-synthesis";
-import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/content/example-limits";
+import { words } from "../../src/lib/catalog/entries";
+import { dictionaryLemmaSynthText } from "../../src/lib/catalog/audio/lemma-synthesis";
+import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-limits";
 import {
   type AudioConfig,
   type AudioKind,
@@ -16,17 +16,17 @@ import {
   audioObjectKey,
   normalizeAudioText,
   toR2AudioKey,
-} from "../../src/lib/content/audio-core";
+} from "../../src/lib/catalog/audio/core";
 import {
   characterIdForSpeaker,
   type LessonCharacterId,
-} from "../../src/lib/content/character-ids";
+} from "../../src/lib/catalog/lessons/character-ids";
 import {
   audioConfigForCharacter,
   keyPhraseCharacterId,
-} from "../../src/lib/content/characters";
-import { lessons } from "../../src/lib/content/lessons";
-import { lessonExercises } from "../../src/lib/learning/lesson-beats";
+} from "../../src/lib/catalog/audio/characters";
+import { lessons } from "../../src/lib/catalog/lessons";
+import { lessonExercises } from "../../src/lib/learning/beats";
 import { ROOT } from "../lib/paths";
 
 export type { AudioKind };
@@ -121,7 +121,7 @@ export interface AudioTarget {
   voiceConfig?: AudioConfig;
 }
 
-/** Same material as src/lib/content/audio.ts audioHash (keep in sync). */
+/** Same material as src/lib/catalog/audio.ts audioHash (keep in sync). */
 export function hashAudioText(text: string, config: AudioConfig): string {
   const normalized = normalizeAudioText(text);
   const settings = config.voiceSettings;

@@ -5,13 +5,16 @@
 import { access, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { words } from "../../src/lib/content/data";
+import { words } from "../../src/lib/catalog/entries";
 import {
   type ImageManifestEntry,
   type ImageOverride,
   type ImageStatus,
-} from "../../src/lib/content/images";
-import { canonicalWordSlug, lemmaSenseGroup } from "../../src/lib/content/lemma-senses";
+} from "../../src/lib/catalog/dictionary/images";
+import {
+  canonicalWordSlug,
+  lemmaSenseGroup,
+} from "../../src/lib/catalog/dictionary/lemma-senses";
 import { ROOT } from "../lib/paths";
 
 export const IMAGES_DIR = path.join(ROOT, "static", "images", "dictionary");

@@ -1,8 +1,8 @@
 import { contentCacheKey } from "$lib/build/cache-key";
-import { liveLinkForLemma } from "$lib/content/dictionary-common-links";
-import { words } from "$lib/content/data";
-import { loadAllFrequencyLists } from "$lib/content/load-frequency";
-import { FREQUENCY_PARTS } from "$lib/content/frequency-types";
+import { liveLinkForLemma } from "$lib/catalog/dictionary/live-links";
+import { words } from "$lib/catalog/entries";
+import { loadAllFrequencyLists } from "$lib/catalog/frequency/load";
+import { FREQUENCY_PARTS } from "$lib/catalog/frequency/types";
 
 const INITIAL_LIMIT = 100;
 

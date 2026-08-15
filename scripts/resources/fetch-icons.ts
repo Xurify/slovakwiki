@@ -5,7 +5,7 @@
 
 import { copyFile, mkdir, writeFile } from "node:fs/promises";
 
-import { learningResources } from "../../src/lib/content/resources";
+import { learningResources } from "../../src/lib/catalog/resources/catalog";
 
 const outDir = "static/icons/resources";
 

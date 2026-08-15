@@ -7,11 +7,11 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { words } from "../../src/lib/content/data";
+import { words } from "../../src/lib/catalog/entries";
 import type {
   FrequencyListFile,
   FrequencyPartOfSpeech,
-} from "../../src/lib/content/frequency-types";
+} from "../../src/lib/catalog/frequency/types";
 import { ROOT } from "../lib/paths";
 
 interface MissingGloss {

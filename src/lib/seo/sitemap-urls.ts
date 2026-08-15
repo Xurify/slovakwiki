@@ -3,11 +3,11 @@ import {
   grammarEntries,
   pronunciationEntries,
   words,
-} from "$lib/content/data";
-import { FREQUENCY_PARTS } from "$lib/content/frequency-types";
-import { canonicalWordSlug } from "$lib/content/lemma-senses";
-import { lessonPath, lessonTracks, lessons } from "$lib/content/lessons";
-import { practiceSets } from "$lib/content/practice";
+} from "$lib/catalog/entries";
+import { FREQUENCY_PARTS } from "$lib/catalog/frequency/types";
+import { canonicalWordSlug } from "$lib/catalog/dictionary/lemma-senses";
+import { lessonPath, lessonTracks, lessons } from "$lib/catalog/lessons";
+import { practiceSets } from "$lib/catalog/practice";
 import { SITE_ORIGIN } from "$lib/seo/site";
 
 export interface SitemapGroup {

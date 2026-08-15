@@ -1,6 +1,6 @@
 <script lang="ts">
-  import AudioButton from "$lib/components/AudioButton.svelte";
-  import type { KeyPhrase } from "$lib/content/learning-types";
+  import AudioButton from "$lib/components/audio/AudioButton.svelte";
+  import type { KeyPhrase } from "$lib/learning/types";
 
   let {
     audioSrcs = {},

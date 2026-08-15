@@ -13,10 +13,10 @@
     readPracticeState,
     writePracticeState,
   } from "$lib/client/practice-state";
-  import type { Lesson } from "$lib/content/learning-types";
-  import { lessonTracks, lessonsForTrack } from "$lib/content/lessons";
-  import { practiceSetForLesson } from "$lib/content/practice";
-  import { hasPendingStoryAudio, unlockStoryAudio } from "$lib/lessons/story-audio";
+  import type { Lesson } from "$lib/learning/types";
+  import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
+  import { practiceSetForLesson } from "$lib/catalog/practice";
+  import { hasPendingStoryAudio, unlockStoryAudio } from "$lib/lesson-story/story-audio";
 
   let {
     lesson,

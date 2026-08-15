@@ -1,12 +1,12 @@
 # Dictionary entries
 
-How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../../scripts/README.md). Example pool sizes: [`src/lib/content/example-limits.ts`](../../src/lib/content/example-limits.ts).
+How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../../scripts/README.md). Example pool sizes: [`src/lib/catalog/dictionary/example-limits.ts`](../../src/lib/catalog/dictionary/example-limits.ts).
 
 ## Where to put it
 
 | Intent                                               | File                                                                                                       | Notes                                                                                                                                             |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/content/data.ts`](../../src/lib/content/data.ts)                            | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
+| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/catalog/entries.ts`](../../src/lib/catalog/entries.ts)                      | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
 | Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                                               | Usual home for Verbs / Nouns / Adjectives / Adverbs / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
 | Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun scripts/dictionary/apply-curated-examples.ts` | Overlay keyed by existing slug — not a new entry.                                                                                                 |
 | Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun scripts/dictionary/apply-related.ts`          | Fills empty related arrays only.                                                                                                                  |
@@ -44,7 +44,7 @@ Hand-authored shape (`WordSeed`). Runtime fills `kind`, `summary`, `body`, `tags
 
 | Field      | Required | Rules                                                                                                                                                                                                                                                             |
 | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `slug`     | yes      | From `lemmaToSlug(slovak)` in `src/lib/content/frequency.ts`: lowercase, strip diacritics, non-alphanumeric → `-`, trim hyphens. Unique across curated seed + `words.json`. On POS collision, frequency publish uses `-v` / `-n` / `-a` / `-adv` (e.g. `stat-n`). |
+| `slug`     | yes      | From `lemmaToSlug(slovak)` in `src/lib/catalog/frequency.ts`: lowercase, strip diacritics, non-alphanumeric → `-`, trim hyphens. Unique across curated seed + `words.json`. On POS collision, frequency publish uses `-v` / `-n` / `-a` / `-adv` (e.g. `stat-n`). |
 | `slovak`   | yes      | Lemma with correct diacritics (`ďakujem`, not `dakujem`).                                                                                                                                                                                                         |
 | `english`  | yes      | Short gloss; multiple senses with `; ` (`can; to be able to`).                                                                                                                                                                                                    |
 | `category` | yes      | Browse bucket: `Verbs` / `Nouns` / `Adjectives` / `Adverbs` / `Places` / `Phrases`. Themes go in `topics`.                                                                                                                                                        |
@@ -99,7 +99,7 @@ Hand-add checklist:
 1. Ship **≥4 strong** learner sentences (display floor). Best rows **first** — UI and audio use the first 4.
 2. Prefer **≤8** total so the pool matches enrich.
 3. Curated / `demonstrates` rows before Tatoeba / practice frames.
-4. Keep examples clean (`src/lib/content/example-quality.ts`): no vulgar/sexual content; prefer real sentences over glossary fragments.
+4. Keep examples clean (`src/lib/catalog/dictionary/example-quality.ts`): no vulgar/sexual content; prefer real sentences over glossary fragments.
 
 ## After you edit
 

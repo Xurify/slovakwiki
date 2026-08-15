@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import type { AstroIntegration } from "astro";
 
-import { DICTIONARY_BROWSE_INDEX_REL } from "../lib/content/dictionary-browse-utils";
+import { DICTIONARY_BROWSE_INDEX_REL } from "../lib/catalog/dictionary/browse-query";
 import { writeDictionaryIndex } from "../../scripts/dictionary/export-index";
 
 /** Write dictionary-browse.json after build for cross-filter fallback. */

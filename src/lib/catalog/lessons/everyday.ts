@@ -1,0 +1,575 @@
+import type { Lesson } from "$lib/learning/types";
+import { daysDatesTimeLesson } from "$lib/learning/time/lesson";
+import {
+  withMeetSomeoneExercises,
+  withNegationExercises,
+  withNumbersExercises,
+} from "./beats";
+
+export const everydayLessons: Lesson[] = [
+  {
+    id: "everyday/meet-someone",
+    track: "everyday",
+    slug: "meet-someone",
+    group: "Core tools",
+    title: "Greetings and introductions",
+    promise: "Greet someone politely, introduce yourself, and say where you are from.",
+    scene: [
+      {
+        id: "anna-greeting",
+        speaker: "Anna",
+        slovak: "Dobrý deň. Volám sa Anna.",
+        english: "Hello. My name is Anna.",
+        audio: { transcript: "Dobrý deň. Volám sa Anna." },
+      },
+      {
+        id: "you-introduction",
+        speaker: "You",
+        slovak: "Dobrý deň. Volám sa Alex.",
+        english: "Hello. My name is Alex.",
+        audio: { transcript: "Dobrý deň. Volám sa Alex." },
+        sayChoices: {
+          answerId: "formal",
+          choices: [
+            { id: "formal", label: "Dobrý deň. Volám sa Alex." },
+            {
+              id: "informal",
+              label: "Ahoj!",
+              whyWrong:
+                "**Ahoj** is informal — use **Dobrý deň** when you meet someone for the first time.",
+            },
+            {
+              id: "leaving",
+              label: "Dovidenia.",
+              whyWrong: "**Dovidenia** means goodbye — not an opening greeting.",
+            },
+          ],
+        },
+      },
+      {
+        id: "anna-origin",
+        speaker: "Anna",
+        slovak: "Teší ma. Odkiaľ ste?",
+        english: "Nice to meet you. Where are you from?",
+        audio: { transcript: "Teší ma. Odkiaľ ste?" },
+      },
+      {
+        id: "you-origin",
+        speaker: "You",
+        slovak: "Som z Kanady.",
+        english: "I am from Canada.",
+        audio: { transcript: "Som z Kanady." },
+        sayChoices: {
+          answerId: "from-canada",
+          choices: [
+            { id: "from-canada", label: "Som z Kanady." },
+            {
+              id: "live-canada",
+              label: "Bývam v Kanade.",
+              whyWrong:
+                "**Bývam v …** says where you live — Anna asked where you are **from** (**odkiaľ**).",
+            },
+            {
+              id: "name",
+              label: "Volám sa Kanada.",
+              whyWrong: "**Volám sa** introduces your name — not your country.",
+            },
+          ],
+        },
+      },
+      {
+        id: "anna-slovak",
+        speaker: "Anna",
+        slovak: "Hovoríte po slovensky?",
+        english: "Do you speak Slovak?",
+        audio: { transcript: "Hovoríte po slovensky?" },
+      },
+      {
+        id: "you-learning",
+        speaker: "You",
+        slovak: "Trochu. Ešte sa učím.",
+        english: "A little. I am still learning.",
+        audio: { transcript: "Trochu. Ešte sa učím." },
+        sayChoices: {
+          answerId: "learning",
+          choices: [
+            { id: "learning", label: "Trochu. Ešte sa učím." },
+            {
+              id: "fluent",
+              label: "Áno, výborne.",
+              whyWrong:
+                "**Výborne** claims strong Slovak — soft honesty is **Trochu. Ešte sa učím.**",
+            },
+            {
+              id: "no",
+              label: "Nie, nerozumiem.",
+              whyWrong:
+                "**Nerozumiem** is total shutdown — here a soft **Trochu** answer fits better.",
+            },
+          ],
+        },
+      },
+    ],
+    keyPhrases: [
+      {
+        slovak: "Dobrý deň.",
+        english: "Hello; good day.",
+        note: "A safe polite greeting for a new or public interaction.",
+        audio: { transcript: "Dobrý deň." },
+      },
+      {
+        slovak: "Volám sa …",
+        english: "My name is …",
+        note: "Use volám sa + your name. Avoid an English-shaped “My name is …” calque.",
+        audio: { transcript: "Volám sa." },
+      },
+      {
+        slovak: "Som z …",
+        english: "I am from …",
+        note: "z takes genitive: Kanada → Kanady. Odkiaľ ste? is the polite ask.",
+        audio: { transcript: "Som z." },
+      },
+      {
+        slovak: "Ešte sa učím.",
+        english: "I am still learning.",
+        note: "A soft way to say your Slovak is still early — pairs well after Trochu.",
+        audio: { transcript: "Ešte sa učím." },
+      },
+    ],
+    pattern: {
+      title: "Polite first contact",
+      body: "Start with Dobrý deň when you do not know the person. Ahoj is for friends, peers, and people already using informal Slovak with you.",
+    },
+    beats: withMeetSomeoneExercises(
+      {
+        id: "meet-someone-greeting",
+        type: "choice",
+        practiceItemId: "everyday/formal-greeting",
+        prompt: "Hello. My name is Alex.",
+        choices: [
+          { id: "formal", label: "Dobrý deň. Volám sa Alex." },
+          {
+            id: "informal",
+            label: "Ahoj!",
+            whyWrong:
+              "**Ahoj** is informal — use **Dobrý deň** when you meet someone for the first time.",
+          },
+          {
+            id: "leaving",
+            label: "Dovidenia.",
+            whyWrong: "**Dovidenia** means goodbye — not an opening greeting.",
+          },
+        ],
+        answerId: "formal",
+        feedback: {
+          correction: "Dobrý deň. Volám sa Alex.",
+          english: "Hello. My name is Alex.",
+          why: "**Dobrý deň** is the safe polite opening. **Ahoj** is for an informal interaction; **Dovidenia** is for leaving.",
+        },
+      },
+      {
+        id: "meet-someone-name",
+        type: "build",
+        practiceItemId: "everyday/introduction",
+        prompt: "Hello. My name is Alex.",
+        tiles: ["Alex.", "sa", "Dobrý deň.", "Volám"],
+        answer: ["Dobrý deň.", "Volám", "sa", "Alex."],
+        feedback: {
+          correction: "Dobrý deň. Volám sa Alex.",
+          english: "Hello. My name is Alex.",
+          why: "**Volám sa** is the everyday way to introduce yourself. The little word **sa** belongs with **volám**.",
+        },
+      },
+      {
+        id: "meet-someone-origin",
+        type: "typed",
+        task: "complete",
+        practiceItemId: "everyday/origin",
+        context: [
+          {
+            id: "origin-question",
+            speaker: "Anna",
+            slovak: "Odkiaľ ste?",
+            english: "Where are you from?",
+          },
+        ],
+        prompt: "I am from Canada.",
+        inputLabel: "Your Slovak answer",
+        answer: "Som z Kanady.",
+        feedback: {
+          correction: "Som z Kanady.",
+          english: "I am from Canada.",
+          why: "Use **Som z …** for where you are from. The country follows **z** in its Slovak form: **Kanada** → **Kanady**.",
+        },
+      },
+      {
+        id: "meet-someone-personal",
+        type: "personal",
+        prompt:
+          "Say the same answer with your own country. Then say it once without looking.",
+        example: "Som z Kanady.",
+      },
+    ),
+    referenceLinks: [
+      { href: "/dictionary/dobry-den", label: "Dobrý deň" },
+      { href: "/dictionary/ahoj", label: "Ahoj" },
+      { href: "/dictionary/ucit-sa", label: "učiť sa" },
+      { href: "/grammar/ty-vs-vy", label: "ty and vy" },
+    ],
+  },
+  {
+    id: "everyday/numbers-and-personal-details",
+    track: "everyday",
+    slug: "numbers-and-personal-details",
+    group: "Core tools",
+    title: "Numbers and personal details",
+    promise: "Say your age, give phone digits, and ask how much it costs.",
+    scene: [
+      {
+        id: "registration-welcome",
+        speaker: "Mária",
+        slovak: "Dobrý deň. Ste tu na registráciu?",
+        english: "Hello. Are you here for registration?",
+        audio: { transcript: "Dobrý deň. Ste tu na registráciu?" },
+      },
+      {
+        id: "registration-yes",
+        speaker: "You",
+        slovak: "Áno, som.",
+        english: "Yes, I am.",
+        audio: { transcript: "Áno, som." },
+        sayChoices: {
+          answerId: "yes-am",
+          answerIds: ["yes-am", "yes-short"],
+          choices: [
+            { id: "yes-am", label: "Áno, som." },
+            { id: "yes-short", label: "Áno." },
+            {
+              id: "no",
+              label: "Nie, nie som.",
+              whyWrong:
+                "You are here for registration — answer with **Áno** / **Áno, som.**",
+            },
+          ],
+        },
+      },
+      {
+        id: "registration-age",
+        speaker: "Mária",
+        slovak: "Koľko máte rokov?",
+        english: "How old are you?",
+        audio: { transcript: "Koľko máte rokov?" },
+      },
+      {
+        id: "registration-age-answer",
+        speaker: "You",
+        slovak: "Mám dvadsaťosem rokov.",
+        english: "I am twenty-eight years old.",
+        audio: { transcript: "Mám dvadsaťosem rokov." },
+        sayChoices: {
+          answerId: "age",
+          choices: [
+            { id: "age", label: "Mám dvadsaťosem rokov." },
+            {
+              id: "number",
+              label: "Moje číslo je dvadsaťosem.",
+              whyWrong: "**Moje číslo je …** gives a phone number — not your age.",
+            },
+            {
+              id: "price",
+              label: "Stojí to dvadsaťosem eur.",
+              whyWrong: "**Stojí to … eur** states a price — not your age.",
+            },
+          ],
+        },
+      },
+      {
+        id: "registration-phone",
+        speaker: "Mária",
+        slovak: "A vaše telefónne číslo?",
+        english: "And your phone number?",
+        audio: { transcript: "A vaše telefónne číslo?" },
+      },
+      {
+        id: "registration-phone-answer",
+        speaker: "You",
+        slovak: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+        english: "My number is zero nine zero, one two three, four five six.",
+        audio: {
+          transcript: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+        },
+        sayChoices: {
+          answerId: "phone",
+          choices: [
+            {
+              id: "phone",
+              label: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+            },
+            {
+              id: "age",
+              label: "Mám dvadsaťosem rokov.",
+              whyWrong: "She asked for your **phone number**, not your age.",
+            },
+            {
+              id: "bundled",
+              label: "Moje číslo je deväťdesiat.",
+              whyWrong:
+                "Phone numbers are spoken **digit by digit**, not as one big number.",
+            },
+          ],
+        },
+      },
+    ],
+    keyPhrases: [
+      {
+        slovak: "Mám … rokov.",
+        english: "I am … years old.",
+        note: "Use rokov after the number when you say your age.",
+        audio: { transcript: "Mám rokov." },
+      },
+      {
+        slovak: "Moje číslo je …",
+        english: "My number is …",
+        note: "Say each phone digit separately.",
+        audio: { transcript: "Moje číslo je." },
+      },
+      {
+        slovak: "Koľko to stojí?",
+        english: "How much does it cost?",
+        audio: { transcript: "Koľko to stojí?" },
+      },
+      {
+        slovak: "Stojí to päť eur.",
+        english: "It costs five euros.",
+        audio: { transcript: "Stojí to päť eur." },
+      },
+    ],
+    pattern: {
+      title: "Age, digits, and prices",
+      body: "For age, use Mám + number + rokov: Mám dvadsaťosem rokov. For a phone number, say the digits one by one. Ask Koľko to stojí? and answer Stojí to + price.",
+    },
+    beats: withNumbersExercises(
+      {
+        id: "numbers-age",
+        type: "choice",
+        practiceItemId: "everyday/age-with-rokov",
+        prompt: "I am twenty-eight years old.",
+        choices: [
+          { id: "age", label: "Mám dvadsaťosem rokov." },
+          {
+            id: "number",
+            label: "Moje číslo je dvadsaťosem.",
+            whyWrong: "**Moje číslo je …** gives a phone number — not your age.",
+          },
+          {
+            id: "price",
+            label: "Stojí to dvadsaťosem eur.",
+            whyWrong: "**Stojí to … eur** states a price — not your age.",
+          },
+        ],
+        answerId: "age",
+        feedback: {
+          correction: "Mám dvadsaťosem rokov.",
+          english: "I am twenty-eight years old.",
+          why: "Use **Mám** + number + **rokov** for your age.",
+        },
+      },
+      {
+        id: "numbers-phone",
+        type: "build",
+        practiceItemId: "everyday/phone-number-digits",
+        prompt: "My number is zero nine zero one.",
+        tiles: ["jeden", "Moje", "číslo", "je", "nula", "deväť", "nula."],
+        answer: ["Moje", "číslo", "je", "nula", "deväť", "nula.", "jeden"],
+        feedback: {
+          correction: "Moje číslo je nula deväť nula jeden.",
+          english: "My number is zero nine zero one.",
+          why: "Phone numbers are normally spoken **digit by digit**.",
+        },
+      },
+      {
+        id: "numbers-price",
+        type: "typed",
+        task: "complete",
+        practiceItemId: "everyday/how-much-does-it-cost",
+        prompt: "It costs five euros.",
+        inputLabel: "Your Slovak answer",
+        answer: "Stojí to päť eur.",
+        feedback: {
+          correction: "Stojí to päť eur.",
+          english: "It costs five euros.",
+          why: "**Koľko to stojí?** asks the price. Use **Stojí to** + number + **eur**.",
+        },
+      },
+      {
+        id: "numbers-personal",
+        type: "personal",
+        prompt: "Say your age and then say four digits of your phone number aloud.",
+        example: "Mám dvadsaťosem rokov. Moje číslo je nula deväť nula jeden.",
+      },
+    ),
+    referenceLinks: [
+      { href: "/grammar/numbers-and-numerals", label: "Numbers and numerals" },
+      { href: "/grammar/questions", label: "Questions" },
+    ],
+  },
+  daysDatesTimeLesson,
+  {
+    id: "everyday/negation-in-conversation",
+    track: "everyday",
+    slug: "negation-in-conversation",
+    group: "Core tools",
+    title: "Negation in conversation",
+    promise: "Refuse politely, say you do not understand, and use common negative verbs.",
+    scene: [
+      {
+        id: "cafe-offer",
+        speaker: "Waiter",
+        slovak: "Dáte si kávu?",
+        english: "Would you like coffee?",
+        audio: { transcript: "Dáte si kávu?" },
+      },
+      {
+        id: "cafe-refusal",
+        speaker: "You",
+        slovak: "Nie, ďakujem. Nemám teraz čas.",
+        english: "No, thank you. I do not have time now.",
+        audio: { transcript: "Nie, ďakujem. Nemám teraz čas." },
+        sayChoices: {
+          answerId: "refuse",
+          answerIds: ["refuse", "refuse-short"],
+          choices: [
+            { id: "refuse", label: "Nie, ďakujem. Nemám teraz čas." },
+            { id: "refuse-short", label: "Nie, ďakujem." },
+            {
+              id: "yes",
+              label: "Áno, ďakujem.",
+              whyWrong: "**Áno, ďakujem** accepts — you need **nie** to refuse.",
+            },
+          ],
+        },
+      },
+      {
+        id: "cafe-menu",
+        speaker: "Waiter",
+        slovak: "Rozumiete menu?",
+        english: "Do you understand the menu?",
+        audio: { transcript: "Rozumiete menu?" },
+      },
+      {
+        id: "cafe-clarification",
+        speaker: "You",
+        slovak: "Nerozumiem. Nie je to pre mňa.",
+        english: "I do not understand. It is not for me.",
+        audio: { transcript: "Nerozumiem. Nie je to pre mňa." },
+        sayChoices: {
+          answerId: "not-understand",
+          choices: [
+            { id: "not-understand", label: "Nerozumiem. Nie je to pre mňa." },
+            {
+              id: "yes-menu",
+              label: "Áno, rozumiem.",
+              whyWrong: "You need the negative: **nerozumiem**, not **rozumiem**.",
+            },
+            {
+              id: "coffee",
+              label: "Dám si kávu.",
+              whyWrong: "He asked if you understand the menu — not what you will order.",
+            },
+          ],
+        },
+      },
+    ],
+    keyPhrases: [
+      {
+        slovak: "Nie, ďakujem.",
+        english: "No, thank you.",
+        audio: { transcript: "Nie, ďakujem." },
+      },
+      {
+        slovak: "Nerozumiem.",
+        english: "I do not understand.",
+        audio: { transcript: "Nerozumiem." },
+      },
+      {
+        slovak: "Nemám …",
+        english: "I do not have …",
+        audio: { transcript: "Nemám." },
+      },
+      {
+        slovak: "Nie je to …",
+        english: "It is not …",
+        audio: { transcript: "Nie je to." },
+      },
+    ],
+    pattern: {
+      title: "Put nie with the verb",
+      body: "In Slovak, nie attaches to the verb: rozumiem → nerozumiem, mám → nemám, je → nie je. Learn frequent negative forms as complete chunks, then use them in a short answer.",
+    },
+    beats: withNegationExercises(
+      {
+        id: "negation-refusal",
+        type: "choice",
+        practiceItemId: "everyday/negative-answer",
+        prompt: "No, thank you.",
+        choices: [
+          { id: "no", label: "Nie, ďakujem." },
+          {
+            id: "yes",
+            label: "Áno, ďakujem.",
+            whyWrong: "**Áno, ďakujem** accepts — you need **nie** to refuse.",
+          },
+          {
+            id: "leaving",
+            label: "Dovidenia.",
+            whyWrong: "**Dovidenia** means goodbye — not a polite no.",
+          },
+        ],
+        answerId: "no",
+        feedback: {
+          correction: "Nie, ďakujem.",
+          english: "No, thank you.",
+          why: "**Nie, ďakujem** is a brief, polite refusal.",
+        },
+      },
+      {
+        id: "negation-understanding",
+        type: "typed",
+        task: "complete",
+        practiceItemId: "everyday/not-understand",
+        prompt: "I do not understand.",
+        inputLabel: "Your Slovak answer",
+        answer: "Nerozumiem.",
+        feedback: {
+          correction: "Nerozumiem.",
+          english: "I do not understand.",
+          why: "**Nie** joins the front of **rozumiem**: **nerozumiem**.",
+        },
+      },
+      {
+        id: "negation-verb-placement",
+        type: "build",
+        practiceItemId: "everyday/negative-verb-placement",
+        prompt: "I do not have time.",
+        tiles: ["čas.", "Nemám"],
+        answer: ["Nemám", "čas."],
+        feedback: {
+          correction: "Nemám čas.",
+          english: "I do not have time.",
+          why: "The negative stays with the verb: **nemám**, not **mám nie**.",
+        },
+      },
+      {
+        id: "negation-personal",
+        type: "personal",
+        prompt:
+          "Refuse one offer politely, then say one thing you do not understand or do not have.",
+        example: "Nie, ďakujem. Nerozumiem. / Nemám čas.",
+      },
+    ),
+    referenceLinks: [
+      { href: "/grammar/negation", label: "Negation" },
+      { href: "/grammar/word-order", label: "Word order" },
+    ],
+  },
+];

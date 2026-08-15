@@ -2,11 +2,11 @@
   import { onMount } from "svelte";
 
   import { readPracticeState } from "$lib/client/practice-state";
-  import type { LessonsBootPayload } from "$lib/lessons/boot-payload";
+  import type { LessonsBootPayload } from "$lib/lesson-progress/boot-payload";
   import {
     markLessonsProgressReady,
     paintLessonsProgress,
-  } from "$lib/lessons/paint-progress";
+  } from "$lib/lesson-progress/paint-progress";
 
   let { payload }: { payload: LessonsBootPayload } = $props();
 

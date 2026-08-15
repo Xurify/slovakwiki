@@ -9,7 +9,7 @@
     readPracticeState,
     type PracticeState,
   } from "$lib/client/practice-state";
-  import { buildRecentDrills } from "$lib/content/practice-hub";
+  import { buildRecentDrills } from "$lib/catalog/practice/hub";
 
   let { initialState }: { initialState?: PracticeState } = $props();
 

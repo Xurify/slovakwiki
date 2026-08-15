@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SfxMuteToggle from "$lib/components/SfxMuteToggle.svelte";
+  import SfxMuteToggle from "$lib/components/chrome/SfxMuteToggle.svelte";
   import LessonStorySettings from "$lib/components/lessons/LessonStorySettings.svelte";
 
   let {

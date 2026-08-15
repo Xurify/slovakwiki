@@ -1,5 +1,5 @@
-import type { LearningResource } from "$lib/content/resources";
-import { resourceCostLabel } from "$lib/content/resources";
+import type { LearningResource } from "$lib/catalog/resources/catalog";
+import { resourceCostLabel } from "$lib/catalog/resources/catalog";
 
 export { resourceCostLabel };
 

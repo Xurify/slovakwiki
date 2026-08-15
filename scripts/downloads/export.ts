@@ -16,13 +16,13 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { words } from "../../src/lib/content/data";
+import { words } from "../../src/lib/catalog/entries";
 import {
   DEFAULT_ATTRIBUTION,
   type DictionaryExportFile,
   type ExportExample,
   type ExportWord,
-} from "../../src/lib/content/downloads/types";
+} from "../../src/lib/catalog/downloads/types";
 import { ROOT } from "../lib/paths";
 
 export function buildDictionaryExport(

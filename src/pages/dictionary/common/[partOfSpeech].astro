@@ -1,13 +1,13 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import DictionaryCommonList from "$lib/components/DictionaryCommonList.svelte";
-import DictionaryCommonSearch from "$lib/components/DictionaryCommonSearch.svelte";
+import DictionaryCommonList from "$lib/components/dictionary/DictionaryCommonList.svelte";
+import DictionaryCommonSearch from "$lib/components/dictionary/DictionaryCommonSearch.svelte";
 import DictionaryCommonPage from "$lib/pages/DictionaryCommonPage.astro";
 import { frequencyCommonStaticPaths } from "$lib/build/frequency-common-paths";
 import {
   FREQUENCY_PART_OF_SPEECH_LABEL,
   FREQUENCY_PARTS,
-} from "$lib/content/frequency-types";
+} from "$lib/catalog/frequency/types";
 
 export async function getStaticPaths() {
   return frequencyCommonStaticPaths();

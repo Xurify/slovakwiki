@@ -1,6 +1,6 @@
-import { dictionaryPathFromIndexFields } from "$lib/content/lemma-senses";
-import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/content/dictionary-browse-utils";
-import { normalizeSearchText } from "$lib/content/search-ui";
+import { dictionaryPathFromIndexFields } from "$lib/catalog/dictionary/lemma-senses";
+import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/catalog/dictionary/browse-query";
+import { normalizeSearchText } from "$lib/catalog/search/ui";
 
 import type { PagefindResultData } from "./pagefind-client";
 

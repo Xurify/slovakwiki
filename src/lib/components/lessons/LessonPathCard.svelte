@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Lesson } from "$lib/learning/types";
-  import type { LessonStatus } from "$lib/lessons/progress";
+  import type { LessonStatus } from "$lib/lesson-progress/progress";
   import LessonMotif from "$lib/components/lessons/LessonMotif.svelte";
   import LessonRowStatus from "$lib/components/lessons/LessonRowStatus.svelte";
-  import { lessonPath } from "$lib/content/lessons";
-  import { lessonMotifId } from "$lib/lessons/lesson-motifs";
+  import { lessonPath } from "$lib/catalog/lessons";
+  import { lessonMotifId } from "$lib/lesson-story/lesson-motifs";
 
   let {
     index,
