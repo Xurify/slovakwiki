@@ -15,8 +15,12 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import {
+  isCleanExample,
+  isWeakFillTemplate,
+} from "../../src/lib/catalog/dictionary/example-quality";
+import { arrangeVerbExamples } from "../../src/lib/catalog/dictionary/verb-examples";
 import type { ContentEntry, Example } from "../../src/lib/catalog/types";
-import { isCleanExample } from "../../src/lib/catalog/dictionary/example-quality";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
@@ -71,12 +75,18 @@ const CURATED_RELATED: Record<string, string[]> = {
   zjest: ["jest"],
   pit: ["vypit"],
   vypit: ["pit"],
+  ospravedlnovat: ["ospravedlnit"],
+  ospravedlnit: ["ospravedlnovat"],
+  odpustat: ["odpustit"],
+  odpustit: ["odpustat"],
   pripustit: ["priznat", "priznavat"],
 };
 
 /** Gloss overrides applied with curated examples (search / detail headword). */
 const CURATED_ENGLISH: Record<string, string> = {
   rad: "glad; (mať rád) to like",
+  ospravedlnovat: "to apologize (sa); to excuse / justify (someone)",
+  ospravedlnit: "to apologize (sa); to excuse / justify (someone)",
 };
 
 function normalizeExamples(examples: Example[]): Example[] {
@@ -100,9 +110,11 @@ function hasTatoeba(examples: Example[]): boolean {
   return examples.some((example) => example.note === "Tatoeba");
 }
 
-function isReviewedCurated(examples: Example[]): boolean {
+function isReviewedCurated(examples: Example[], lemma?: string): boolean {
   return examples.some(
-    (example) => example.demonstrates || example.isPracticeFrame !== true,
+    (example) =>
+      (example.demonstrates || example.isPracticeFrame !== true) &&
+      !isWeakFillTemplate(example, lemma),
   );
 }
 
@@ -130,8 +142,11 @@ async function main(): Promise<void> {
     );
     if (clean.length === 0) continue;
 
-    const incoming = normalizeExamples(clean);
-    const reviewed = isReviewedCurated(incoming);
+    const incoming = normalizeExamples(clean).filter(
+      (example) => !isWeakFillTemplate(example, word.slovak),
+    );
+    if (incoming.length === 0) continue;
+    const reviewed = isReviewedCurated(incoming, word.slovak);
     const practiceOnly = isPracticeOnly(incoming);
     const underfilled = word.examples.length < 2;
     const patternLocked = incoming.some((example) => Boolean(example.demonstrates));
@@ -193,10 +208,26 @@ async function main(): Promise<void> {
     filled += 1;
   }
 
+  let conjugatedFirst = 0;
+  for (const word of dictionaryWords) {
+    if (word.category !== "Verbs") continue;
+    const before = word.examples.map((example) => example.slovak).join("\n");
+    word.examples = arrangeVerbExamples(
+      word.examples,
+      word.slovak,
+      word.english,
+      word.slug,
+    );
+    if (word.examples.map((example) => example.slovak).join("\n") !== before) {
+      conjugatedFirst += 1;
+    }
+  }
+
   await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
   console.log(`Applied curated examples to ${filled} words`);
   console.log(`Skipped practice frames over Tatoeba: ${skippedCorpus}`);
   console.log(`Missing slugs: ${missingSlug}`);
+  console.log(`Reordered verbs toward conjugated forms: ${conjugatedFirst}`);
   console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);
 }
 

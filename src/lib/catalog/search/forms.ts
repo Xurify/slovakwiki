@@ -268,6 +268,8 @@ function conjugateVerb(lemma: string): string[] {
     const stem = lower.slice(0, -2);
     forms = [
       ...personFromBase(stem, ["ám", "áš", "á", "áme", "áte", "ajú"]),
+      // Soft-stem presents (vracať → vraciam), in addition to regular -ám.
+      ...["iam", "iaš", "ia", "iame", "iate"].map((ending) => `${stem}${ending}`),
       `${stem}al`,
       `${stem}ala`,
       `${stem}alo`,

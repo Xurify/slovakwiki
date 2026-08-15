@@ -29,7 +29,11 @@ import {
   validateContent,
   words,
 } from "./entries";
-import { isDamagedExampleTemplate } from "./dictionary/example-quality";
+import {
+  isDamagedExampleTemplate,
+  isWeakFillTemplate,
+} from "./dictionary/example-quality";
+import { exampleShowsConjugatedLemma } from "./dictionary/verb-examples";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessonById, lessons, validateLessons } from "./lessons";
 import {
@@ -583,12 +587,58 @@ describe("Slovak content", () => {
     expect(vracat?.examples[0]?.isPracticeFrame).toBeUndefined();
 
     const oznacit = words.find((word) => word.slug === "oznacit");
-    expect(oznacit?.examples[0]?.slovak).toBe("Chcem označiť správnu odpoveď.");
+    expect(
+      oznacit?.examples.some(
+        (example) => example.slovak === "Chcem označiť správnu odpoveď.",
+      ),
+    ).toBe(true);
     expect(oznacit?.examples[0]?.isPracticeFrame).toBeUndefined();
 
     const nemoct = words.find((word) => word.slug === "nemoct");
     expect(nemoct?.examples[0]?.slovak).toBe("Nemôžem prísť zajtra.");
     expect(nemoct?.examples[0]?.isPracticeFrame).toBeUndefined();
+
+    const weakReviewed = words.flatMap((word) =>
+      word.examples
+        .filter(
+          (example) =>
+            example.note === "Curated" &&
+            !example.isPracticeFrame &&
+            isWeakFillTemplate(example, word.slovak),
+        )
+        .map((example) => `${word.slug}: ${example.slovak}`),
+    );
+    expect(weakReviewed).toEqual([]);
+
+    const ospravedlnovat = words.find((word) => word.slug === "ospravedlnovat");
+    expect(ospravedlnovat?.examples.length).toBeGreaterThanOrEqual(4);
+    expect(ospravedlnovat?.examples[0]?.slovak.toLocaleLowerCase("sk")).toContain("sa");
+    expect(ospravedlnovat?.related).toContain("ospravedlnit");
+    expect(ospravedlnovat?.english).toContain("sa");
+    const ospravedlnovatDisplay = ospravedlnovat?.examples.slice(0, 4) ?? [];
+    expect(ospravedlnovatDisplay.map((example) => example.slovak)).toEqual([
+      "Ospravedlňujem sa za neskorú odpoveď.",
+      "Ospravedlňuješ sa mi za každú maličkosť.",
+      "Kolega sa ospravedlňuje za včerajšiu scénu.",
+      "Celý večer sa ospravedlňovali za ten omyl.",
+    ]);
+    expect(
+      ospravedlnovatDisplay.some(
+        (example) => example.slovak === "Prečo sa ospravedlňuješ?",
+      ),
+    ).toBe(false);
+
+    const verbsMissingConjugatedDisplay = words.filter((word) => {
+      if (word.category !== "Verbs") return false;
+      const hasConjugated = word.examples.some((example) =>
+        exampleShowsConjugatedLemma(example.slovak, word.slovak),
+      );
+      if (!hasConjugated) return false;
+      return !word.examples
+        .slice(0, 4)
+        .some((example) => exampleShowsConjugatedLemma(example.slovak, word.slovak));
+    });
+    expect(verbsMissingConjugatedDisplay.map((word) => word.slug)).toEqual([]);
   });
 
   it("rejects damaged fill-template residue on reviewed examples", () => {

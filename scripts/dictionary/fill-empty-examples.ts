@@ -2,6 +2,8 @@
  * Fill remaining empty dictionary examples with safe curated templates,
  * and add imperfective/perfective pattern pairs.
  *
+ * Verbs are skipped — use author-verb-examples.ts after Tatoeba enrich.
+ *
  * Usage: bun scripts/dictionary/fill-empty-examples.ts
  * Then: bun scripts/dictionary/apply-curated-examples.ts
  */
@@ -652,10 +654,6 @@ function exampleFor(word: {
       example = nounExample(word.slovak, word.english);
   }
 
-  if (word.category === "Verbs") {
-    return example;
-  }
-
   return { ...example, isPracticeFrame: true };
 }
 
@@ -769,10 +767,6 @@ function alternateExampleFor(word: {
         };
       }
     }
-  }
-
-  if (word.category === "Verbs") {
-    return example;
   }
 
   return { ...example, isPracticeFrame: true };
@@ -1009,6 +1003,7 @@ const empty = words.filter((word) => word.kind === "word" && word.examples.lengt
 let filled = 0;
 
 for (const word of empty) {
+  if (word.category === "Verbs") continue;
   if (curated[word.slug]) continue;
   curated[word.slug] = [exampleFor(word)];
   filled += 1;

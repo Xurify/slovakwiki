@@ -24,6 +24,7 @@ import type { ContentEntry, Example } from "../../src/lib/catalog/types";
 import {
   isAcceptableCorpusExample,
   isCleanExample,
+  isWeakFillTemplate,
 } from "../../src/lib/catalog/dictionary/example-quality";
 import { normalizeLemma } from "../../src/lib/catalog/frequency";
 import { searchFormsForLemma } from "../../src/lib/catalog/search/forms";
@@ -150,10 +151,12 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
   if (length >= 12 && length <= 90) score += 3;
   else if (length <= 120) score += 1;
 
-  if (lemmaAppearsAsToken(pair.slovak, lemma)) score += 8;
-  else if (morphAppearsAsToken(pair.slovak, lemma, category)) score += 7;
-  else if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma))
-    score += 4;
+  if (lemmaAppearsAsToken(pair.slovak, lemma)) {
+    score += isVerbCategory(category) ? 4 : 8;
+  } else if (morphAppearsAsToken(pair.slovak, lemma, category)) {
+    score += isVerbCategory(category) ? 12 : 7;
+  } else if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma))
+    score += 8;
   else if (pair.slovak.toLocaleLowerCase("sk").includes(lemma.toLocaleLowerCase("sk")))
     score += 1;
 
@@ -175,9 +178,16 @@ function isPracticeOnly(examples: Example[]): boolean {
   );
 }
 
-function isProtectedExample(example: Example): boolean {
+function isWeakTemplateOnly(examples: Example[], lemma: string): boolean {
+  return (
+    examples.length > 0 && examples.every((example) => isWeakFillTemplate(example, lemma))
+  );
+}
+
+function isProtectedExample(example: Example, lemma?: string): boolean {
   if (example.demonstrates) return true;
   if (example.isPracticeFrame) return false;
+  if (isWeakFillTemplate(example, lemma)) return false;
   if (example.note === "Tatoeba") return true;
   if (example.note === "Curated") return true;
   return true;
@@ -413,12 +423,16 @@ async function main(): Promise<void> {
     word.examples = nextExamples;
 
     const practiceOnly = isPracticeOnly(word.examples);
-    const hasProtected = word.examples.some(isProtectedExample);
+    const weakOnly = isWeakTemplateOnly(word.examples, word.slovak);
+    const replaceableStubs = practiceOnly || weakOnly;
+    const hasProtected = word.examples.some((example) =>
+      isProtectedExample(example, word.slovak),
+    );
     const patternLocked = hasPatternExamples(word.examples);
     const underfilled = word.examples.length > 0 && word.examples.length < perWord;
 
     if (replacePractice) {
-      if (!practiceOnly) {
+      if (!replaceableStubs) {
         if (hasProtected) {
           skippedProtected += 1;
           rejects.push({
@@ -465,10 +479,10 @@ async function main(): Promise<void> {
 
     const need = Math.max(
       perWord - word.examples.length,
-      practiceOnly || force ? perWord : 0,
+      replaceableStubs || force ? perWord : 0,
     );
     const fetchLimit =
-      practiceOnly || force || word.examples.length === 0 ? perWord : need;
+      replaceableStubs || force || word.examples.length === 0 ? perWord : need;
 
     const { accepted, rejectedQuality, rejectedWeak } = collectCandidates(
       word.slovak,
@@ -479,7 +493,7 @@ async function main(): Promise<void> {
     const examples = toExamples(accepted, Math.max(fetchLimit, perWord));
 
     if (examples.length === 0) {
-      if (practiceOnly) {
+      if (replaceableStubs) {
         practiceRetained += 1;
         rejects.push({
           slug: word.slug,
@@ -502,8 +516,8 @@ async function main(): Promise<void> {
       continue;
     }
 
-    if (practiceOnly || force || word.examples.length === 0) {
-      if (practiceOnly) practiceReplaced += 1;
+    if (replaceableStubs || force || word.examples.length === 0) {
+      if (replaceableStubs) practiceReplaced += 1;
       word.examples = examples.slice(0, perWord);
       enriched += 1;
     } else if (underfilled) {

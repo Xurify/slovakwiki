@@ -13,8 +13,9 @@ bun scripts/dictionary/publish-frequency.ts      # glosses → content/dictionar
 bun scripts/dictionary/publish-frequency.ts -- --dry-run # preview additions without writing words.json
 bun scripts/dictionary/reclaim-weak-examples.ts  # drop weak fill stubs so Tatoeba can reclaim
 bun scripts/dictionary/enrich-examples.ts -- --replace-practice
-                                                 # Tatoeba dumps → replace practice frames only
-bun scripts/dictionary/fill-empty-examples.ts    # template stubs for lemmas Tatoeba missed
+                                                 # Tatoeba dumps → replace practice / weak-template frames
+bun scripts/dictionary/fill-empty-examples.ts    # noun/adj/adverb templates for lemmas Tatoeba missed (not verbs)
+bun scripts/dictionary/author-verb-examples.ts   # hand/agent overlays + aspect clusters (no stamp frames)
 bun scripts/dictionary/apply-curated-examples.ts # hand examples from curated-examples.json → words.json
 bun scripts/dictionary/apply-related.ts          # semantic cluster peers into empty related
 bun scripts/audio/generate.ts                    # ElevenLabs → static/audio/ (gitignored)
@@ -69,8 +70,9 @@ Frequency lists, live dictionary publish, Tatoeba examples. Hand-add fields: [`c
 | `report-missing-glosses.ts` | `bun scripts/dictionary/report-missing-glosses.ts` | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
 | `publish-frequency.ts`      | `bun scripts/dictionary/publish-frequency.ts`      | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
 | `enrich-examples.ts`        | `bun scripts/dictionary/enrich-examples.ts`        | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
-| `reclaim-weak-examples.ts`  | `bun scripts/dictionary/reclaim-weak-examples.ts`  | Drops exact weak fill stubs from curated JSON                                                                                                                                |
-| `fill-empty-examples.ts`    | `bun scripts/dictionary/fill-empty-examples.ts`    | Part-of-speech templates + aspect pairs; tops up lemmas with <2 examples                                                                                                     |
+| `reclaim-weak-examples.ts`  | `bun scripts/dictionary/reclaim-weak-examples.ts`  | Drops weak fill stubs (including fake-Curated verb infinitive frames) from curated JSON + words.json                                                                         |
+| `fill-empty-examples.ts`    | `bun scripts/dictionary/fill-empty-examples.ts`    | Noun/adj/adverb templates + aspect pairs; tops up non-verbs with <2 examples. Does not fill verbs                                                                            |
+| `author-verb-examples.ts`   | `bun scripts/dictionary/author-verb-examples.ts`   | Writes hand/agent verb overlays from `HAND_OVERRIDES` + aspect clusters. Does **not** mint `Prečo sa ${sg2}?` stamps — unique sentences live in `curated-examples.json`      |
 | `apply-curated-examples.ts` | `bun scripts/dictionary/apply-curated-examples.ts` | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                              |
 | `apply-related.ts`          | `bun scripts/dictionary/apply-related.ts`          | Fills empty related from `related-clusters.json`                                                                                                                             |
 

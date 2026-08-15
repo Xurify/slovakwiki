@@ -92,14 +92,15 @@ Example curated seed:
 | ----------------------------------- | ----------- | ------------------------ |
 | Shown on lemma page + example audio | first **4** | `EXAMPLE_DISPLAY_LIMIT`  |
 | Soft store pool (enrich default)    | up to **8** | `EXAMPLE_STORE_PER_WORD` |
-| Fill tops up if below               | **2**       | `fill-empty-examples.ts` |
+| Fill tops up if below (non-verbs)   | **2**       | `fill-empty-examples.ts` |
 
 Hand-add checklist:
 
 1. Ship **≥4 strong** learner sentences (display floor). Best rows **first** — UI and audio use the first 4.
-2. Prefer **≤8** total so the pool matches enrich.
-3. Curated / `demonstrates` rows before Tatoeba / practice frames.
-4. Keep examples clean (`src/lib/catalog/dictionary/example-quality.ts`): no vulgar/sexual content; prefer real sentences over glossary fragments.
+2. For verbs, mix forms in those first 4 when the pool has them (1sg + 2sg/3sg/past, or conjugated + modal+infinitive). Do not stamp `Prečo sa ${form}?` frames.
+3. Prefer **≤8** total so the pool matches enrich.
+4. Curated / `demonstrates` rows before Tatoeba / practice frames.
+5. Keep examples clean (`src/lib/catalog/dictionary/example-quality.ts`): no vulgar/sexual content; prefer real sentences over glossary fragments.
 
 ## After you edit
 

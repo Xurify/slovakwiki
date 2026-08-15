@@ -4,6 +4,7 @@ import {
   isAcceptableCorpusExample,
   isCleanExample,
   isDamagedExampleTemplate,
+  isWeakFillTemplate,
   isWellFormedExample,
 } from "./example-quality";
 
@@ -79,5 +80,48 @@ describe("example quality", () => {
     ).toBe(false);
     expect(isDamagedExampleTemplate("Vyhral zlatú medailu.", "medaila")).toBe(false);
     expect(isDamagedExampleTemplate("Toto je bežný problém.", "bežný")).toBe(false);
+    expect(isDamagedExampleTemplate("Chcem ospravedlňovať.", "ospravedlňovať")).toBe(
+      true,
+    );
+    expect(isDamagedExampleTemplate("Je ťažké neuvedomovať.", "neuvedomovať")).toBe(true);
+    expect(isDamagedExampleTemplate("Chcem označiť správnu odpoveď.", "označiť")).toBe(
+      false,
+    );
+  });
+
+  it("flags fake-curated verb infinitive fills without a practice-frame gate", () => {
+    expect(
+      isWeakFillTemplate(
+        {
+          slovak: "Chcem ospravedlňovať.",
+          english: "I want to apologize.",
+        },
+        "ospravedlňovať",
+      ),
+    ).toBe(true);
+    expect(
+      isWeakFillTemplate({
+        slovak: "Chcem označiť správnu odpoveď.",
+        english: "I want to mark the correct answer.",
+      }),
+    ).toBe(false);
+    expect(
+      isWeakFillTemplate({
+        slovak: "Ospravedlňujem sa za meškanie.",
+        english: "I apologize for being late.",
+      }),
+    ).toBe(false);
+    expect(
+      isWeakFillTemplate({
+        slovak: "Prečo sa ospravedlňuješ?",
+        english: "Why do you apologize?",
+      }),
+    ).toBe(true);
+    expect(
+      isWeakFillTemplate({
+        slovak: "Ospravedlňuješ sa mi za každú maličkosť.",
+        english: "You apologize to me for every little thing.",
+      }),
+    ).toBe(false);
   });
 });
