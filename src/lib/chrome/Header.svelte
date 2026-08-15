@@ -1,14 +1,14 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import ThemeToggle from "$lib/components/chrome/ThemeToggle.svelte";
+  import ThemeToggle from "./ThemeToggle.svelte";
   import BrandLockup from "$lib/components/ui/BrandLockup.svelte";
   import {
     isReferenceSection,
     navigationIsActive,
     primaryNavigation,
     referenceNavigation,
-  } from "$lib/navigation";
+  } from "./navigation";
 
   let {
     pathname,

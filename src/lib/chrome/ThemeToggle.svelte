@@ -10,7 +10,7 @@
     subscribeSystemTheme,
     themePreferenceLabel,
     type ThemePreference,
-  } from "$lib/theme";
+  } from "./theme";
 
   let {
     class: className = "",

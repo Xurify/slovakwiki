@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SearchBox from "$lib/components/search/SearchBox.svelte";
+  import SearchBox from "./SearchBox.svelte";
 
   let {
     pathname,

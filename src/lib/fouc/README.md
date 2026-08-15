@@ -17,13 +17,13 @@ Client island (optional) → same paint again later (storage updates)
 
 Pieces:
 
-| Piece                                 | Role                                                       |
-| ------------------------------------- | ---------------------------------------------------------- |
-| `$lib/fouc/gate`                      | `defineFoucSurface`, hide-until-ready CSS, `markFoucReady` |
-| `$lib/fouc/boot`                      | JSON escape, read payload from DOM, `runFoucBoot`          |
-| `$lib/components/fouc/FoucBoot.astro` | Inline style + JSON + script shell                         |
-| Domain entry (`boot-entry.ts`)        | What to paint (storage → view → apply)                     |
-| `bun run fouc:boot`                   | Bundle entry → committed IIFE module                       |
+| Piece                          | Role                                                       |
+| ------------------------------ | ---------------------------------------------------------- |
+| `$lib/fouc/gate`               | `defineFoucSurface`, hide-until-ready CSS, `markFoucReady` |
+| `$lib/fouc/boot`               | JSON escape, read payload from DOM, `runFoucBoot`          |
+| `$lib/fouc/FoucBoot.astro`     | Inline style + JSON + script shell                         |
+| Domain entry (`boot-entry.ts`) | What to paint (storage → view → apply)                     |
+| `bun run fouc:boot`            | Bundle entry → committed IIFE module                       |
 
 ## Why generate an IIFE?
 
@@ -94,7 +94,7 @@ runFoucBoot(PRACTICE_FOUC.readyAttr, () => {
 
 ```astro
 ---
-import FoucBoot from "$lib/components/fouc/FoucBoot.astro";
+import FoucBoot from "$lib/fouc/FoucBoot.astro";
 import { PRACTICE_BOOT_SCRIPT } from "$lib/practice/boot-script";
 import { PRACTICE_FOUC } from "$lib/practice/fouc";
 ---

@@ -20,7 +20,7 @@ import {
   readSearchHistory,
   SEARCH_HISTORY_LIMIT,
   SEARCH_HISTORY_STORAGE_KEY,
-} from "$lib/components/search/search-history";
+} from "$lib/search/search-history";
 import {
   allEntries,
   caseTopics,

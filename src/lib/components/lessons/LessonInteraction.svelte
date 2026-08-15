@@ -31,7 +31,7 @@
     feedbackToneFromGrade,
     shouldShowCorrection,
   } from "$lib/components/practice/practice-feedback-ui";
-  import SfxMuteToggle from "$lib/components/chrome/SfxMuteToggle.svelte";
+  import SfxMuteToggle from "$lib/audio/SfxMuteToggle.svelte";
 
   let {
     canSubmit = $bindable(false),
