@@ -35,22 +35,22 @@ Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.
 
 ### Content files
 
-| File                                             | Role                                                                     |
-| ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `content/dictionary/README.md`                   | Hand-add lemma template (fields, homes, slug/category, examples)         |
-| `content/dictionary/words.json`                  | Live bulk dictionary (frequency publish + enrich/fill/curate)            |
-| `content/dictionary/curated-examples.json`       | Hand/pattern example overlay; apply with `apply-curated-examples.ts`     |
-| `content/dictionary/related-clusters.json`       | Semantic related peers for `apply-related.ts`                            |
-| `content/audio/config.json`                      | ElevenLabs voice / model / settings + lesson `characters` cast           |
-| `content/audio/README.md`                        | Voice roster (dictionary + lesson cast, IDs, speakers, commands)         |
-| `content/audio/manifest.json`                    | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only           |
-| `content/audio/runtime-index.json`               | Slim build index (hash → kind + generatedAt); app via `readFile`         |
-| `content/images/manifest.json`                   | Lemma image metadata (slug → file/license/attribution/status/uploadedAt) |
-| `content/images/overrides.json`                  | Manual reject / force Commons file per slug                              |
-| `src/lib/catalog/entries.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime          |
-| `static/audio/`                                  | Local MP3 cache (gitignored; `.vercelignore`d)                           |
-| `static/images/`                                 | Local dictionary thumbs (gitignored; upload to R2 for prod)              |
-| `static/downloads/`                              | Local dictionary export JSON for `/downloads` (gitignored)               |
+| File                                             | Role                                                                             |
+| ------------------------------------------------ | -------------------------------------------------------------------------------- |
+| `content/dictionary/README.md`                   | Hand-add lemma template (fields, homes, slug/category, examples)                 |
+| `content/dictionary/words.json`                  | Live bulk dictionary (frequency publish + enrich/fill/curate). Prettier-ignored. |
+| `content/dictionary/curated-examples.json`       | Hand/pattern example overlay; apply with `apply-curated-examples.ts`             |
+| `content/dictionary/related-clusters.json`       | Semantic related peers for `apply-related.ts`                                    |
+| `content/audio/config.json`                      | ElevenLabs voice / model / settings + lesson `characters` cast                   |
+| `content/audio/README.md`                        | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                 |
+| `content/audio/manifest.json`                    | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only                   |
+| `content/audio/runtime-index.json`               | Slim build index (hash → kind + generatedAt); app via `readFile`                 |
+| `content/images/manifest.json`                   | Lemma image metadata (slug → file/license/attribution/status/uploadedAt)         |
+| `content/images/overrides.json`                  | Manual reject / force Commons file per slug                                      |
+| `src/lib/catalog/entries.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime                  |
+| `static/audio/`                                  | Local MP3 cache (gitignored; `.vercelignore`d)                                   |
+| `static/images/`                                 | Local dictionary thumbs (gitignored; upload to R2 for prod)                      |
+| `static/downloads/`                              | Local dictionary export JSON for `/downloads` (gitignored)                       |
 
 ## `dictionary/`
 
