@@ -220,8 +220,9 @@
       <path d="M32 31.4v2.4" class="stroke-portrait-ink" stroke-width="1.2" />
       <path d="M28.6 36.2q3.4 3.2 6.8 0" class="stroke-portrait-ink" stroke-width="1.4" />
     {:else if cast.id === "lucia"}
+      <!-- chin bob, deep side part -->
       <path
-        d="M19.2 21.5c.8-11 7.2-16.2 12.8-16.2s12 5.2 12.8 16.2c2 5.4 2.2 14.8-1.4 22.2-1.8 3.6-5.8 6.4-11.4 6.4s-9.6-2.8-11.4-6.4c-3.6-7.4-3.4-16.8-1.4-22.2Z"
+        d="M17.2 22.2 16.2 16.2 19.8 10 25.6 5.8 32.2 4.8 39 6.2 45 11.2 47.8 18 48.2 26.2 48.6 33.8 47.2 41.2 42.4 39.2 32.2 38 21.6 39.4 16.8 40.8 15.8 33.4 16.4 26.8Z"
         class="{hair} stroke-portrait-ink"
         stroke-width="1.7"
       />
@@ -240,19 +241,28 @@
         stroke-width="1.7"
       />
       <path
-        d="M20 19.2c3.6-5.2 7.8-7.4 12-7.4s8.4 2.2 12 7.4c-2.8-2.2-7-3.8-12-3.8s-9.2 1.6-12 3.8Z"
+        d="M19.6 20.4C22.8 14 25.6 12.2 28.2 13.6C34.2 16 39.4 18.8 44.6 23C40.4 17.8 34.8 15.2 29.4 15C25.6 15 22.2 17 19.6 20.4Z"
         class="{hair} stroke-portrait-ink"
-        stroke-width="1.5"
+        stroke-width="1.55"
       />
       <path
-        d="M23.2 24.8q2.8-1.2 5.8 0M35 24.8q2.8-1.2 5.8 0"
-        class="stroke-portrait-hair"
-        stroke-width="1.25"
+        d="M26.2 12.6 28 17.6M18.4 28.6q-.6 7.4 1.8 13.2M45.8 27.8q.8 7.2-2 12.8"
+        class="stroke-portrait-ink"
+        stroke-width="1.15"
       />
-      <circle cx="26.2" cy="28.6" r="1.7" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="1.7" class="fill-portrait-ink" />
-      <path d="M32 30.8q1.5 2.2 0 4" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M28.2 36.8q3.8 2.4 7.6 0" class="stroke-portrait-ink" stroke-width="1.4" />
+      <path
+        d="M23 26.6q3.2-1.4 6.4.3M34.6 26.6q3.2-1.4 6.4.3"
+        class="stroke-portrait-ink"
+        stroke-width="1.2"
+      />
+      <ellipse cx="23.8" cy="33.4" rx="2" ry="1.25" class="fill-rose-400/50" />
+      <ellipse cx="40.2" cy="33.4" rx="2" ry="1.25" class="fill-rose-400/50" />
+      <circle cx="26.2" cy="28.6" r="2.05" class="fill-portrait-ink" />
+      <circle cx="37.8" cy="28.6" r="2.05" class="fill-portrait-ink" />
+      <circle cx="25.5" cy="27.85" r="0.7" class="fill-portrait-bib" />
+      <circle cx="37.1" cy="27.85" r="0.7" class="fill-portrait-bib" />
+      <path d="M32 31.4v2.3" class="stroke-portrait-ink" stroke-width="1.2" />
+      <path d="M28.4 36.4q3.6 2.6 7.2 0" class="stroke-portrait-ink" stroke-width="1.4" />
     {:else if cast.id === "receptionist"}
       <path
         d="M18 22c-1.5-12 5-16 14-16s15.5 4 14 16c2 8 0 18-6 23-4 3-6-3-8-3.5-2 .5-4 6.5-8 3.5-6-5-8-15-6-23Z"
@@ -302,7 +312,28 @@
         stroke-width="1.7"
       />
       <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
-      <rect x="22.4" y="51" width="19.2" height="2.1" rx="1" class="fill-portrait-bib" />
+      <!-- blouse V under cardigan -->
+      <path d="M26.4 45.4 32 55.2 37.6 45.4Z" class="fill-portrait-bib" />
+      <path
+        d="M26.4 45.4 32 55.2 37.6 45.4"
+        class="stroke-portrait-ink"
+        stroke-width="1.25"
+      />
+      <path d="M32 55.2v8.6" class="stroke-portrait-ink" stroke-width="1.15" />
+      <circle
+        cx="32"
+        cy="55.2"
+        r="1.05"
+        class="fill-portrait-bib stroke-portrait-ink"
+        stroke-width="1"
+      />
+      <circle
+        cx="32"
+        cy="59.6"
+        r="1.05"
+        class="fill-portrait-bib stroke-portrait-ink"
+        stroke-width="1"
+      />
       <path
         d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
         class="fill-portrait-skin stroke-portrait-ink"
