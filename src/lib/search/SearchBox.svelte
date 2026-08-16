@@ -16,10 +16,13 @@
     searchMetaLabel,
     type SearchDocKind,
   } from "$lib/catalog/search/ui";
-  import { lookupDictionary, mergeSearchResults } from "./dictionary-lookup";
+  import {
+    lookupDictionary,
+    mergeSearchResults,
+    warmDictionaryLookup,
+  } from "./dictionary-lookup";
   import {
     getPagefind,
-    isPagefindWarm,
     isSearchDocKind,
     schedulePagefindIdleWarm,
     SEARCH_DEBOUNCE_MS,
@@ -132,6 +135,14 @@
     activeIndex = 0;
   }
 
+  function resultsMatchQuery(hits: PagefindResultData[], normalized: string): boolean {
+    return hits.some((result) => {
+      const title = normalizeSearchText(result.meta.title ?? "");
+      const summary = normalizeSearchText(result.meta.summary ?? "");
+      return title.includes(normalized) || summary.includes(normalized);
+    });
+  }
+
   function openPanel(): void {
     open = true;
     refreshRecent();
@@ -144,6 +155,8 @@
 
   async function runSearch(value: string): Promise<void> {
     const normalized = normalizeSearchText(value);
+    const generation = ++searchGeneration;
+
     if (!normalized) {
       results = [];
       loading = false;
@@ -151,41 +164,41 @@
       return;
     }
 
-    const generation = ++searchGeneration;
     pending = true;
 
-    if (results.length === 0 && !isPagefindWarm()) {
+    if (results.length === 0 || !resultsMatchQuery(results, normalized)) {
+      results = [];
       loading = true;
     }
 
+    const apiPromise = getPagefind();
+
     try {
-      const api = await getPagefind();
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, SEARCH_DEBOUNCE_MS);
+      });
+
+      if (generation !== searchGeneration) {
+        return;
+      }
+
+      const api = await apiPromise;
+      if (generation !== searchGeneration) {
+        return;
+      }
+
       if (!api) {
-        if (generation === searchGeneration) {
-          unavailable = true;
-          results = [];
-        }
+        unavailable = true;
+        results = [];
         return;
       }
 
       unavailable = false;
       void api.preload(normalized);
 
-      const response = await api.debouncedSearch(
-        normalized,
-        undefined,
-        SEARCH_DEBOUNCE_MS,
-      );
+      const response = await api.search(normalized);
       if (generation !== searchGeneration) {
         return;
-      }
-
-      if (response === null) {
-        return;
-      }
-
-      if (results.length === 0) {
-        loading = true;
       }
 
       const [page, dictionaryHits] = await Promise.all([
@@ -287,6 +300,7 @@
   onMount(() => {
     refreshRecent();
     schedulePagefindIdleWarm();
+    warmDictionaryLookup();
 
     if (query.trim()) {
       open = true;

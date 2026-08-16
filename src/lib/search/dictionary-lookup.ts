@@ -19,7 +19,15 @@ export interface DictionaryIndexEntry {
 /** Only promote dictionary hits at or above this score (exact lemma/form/prefix/gloss). */
 export const MIN_DICTIONARY_LOOKUP_SCORE = 3;
 
+type PreparedEntry = {
+  entry: DictionaryIndexEntry;
+  forms: string[];
+  glosses: string[];
+  slovak: string;
+};
+
 let indexPromise: Promise<DictionaryIndexEntry[]> | null = null;
+let preparedPromise: Promise<PreparedEntry[]> | null = null;
 
 function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
   if (!indexPromise) {
@@ -43,29 +51,57 @@ function normalizedForms(entry: DictionaryIndexEntry): string[] {
   return (entry.forms ?? []).map((form) => normalizeSearchText(form));
 }
 
-/** @internal exported for unit tests */
-export function scoreDictionaryEntry(entry: DictionaryIndexEntry, query: string): number {
-  const slovak = normalizeSearchText(entry.slovak);
-  const forms = normalizedForms(entry);
-  const glosses = englishGlosses(entry.english);
+function prepareEntry(entry: DictionaryIndexEntry): PreparedEntry {
+  return {
+    entry,
+    slovak: normalizeSearchText(entry.slovak),
+    forms: normalizedForms(entry),
+    glosses: englishGlosses(entry.english),
+  };
+}
 
-  if (slovak === query || forms.includes(query)) {
+function loadPreparedIndex(): Promise<PreparedEntry[]> {
+  if (!preparedPromise) {
+    preparedPromise = loadDictionaryIndex().then((index) => index.map(prepareEntry));
+  }
+
+  return preparedPromise;
+}
+
+/** Prefetch + normalize the browse index so the first typed query is not a main-thread stall. */
+export function warmDictionaryLookup(): void {
+  void loadPreparedIndex();
+}
+
+function scorePrepared(
+  prepared: Pick<PreparedEntry, "forms" | "glosses" | "slovak">,
+  query: string,
+): number {
+  if (prepared.slovak === query || prepared.forms.includes(query)) {
     return 5;
   }
 
-  if (slovak.startsWith(query) || forms.some((form) => form.startsWith(query))) {
+  if (
+    prepared.slovak.startsWith(query) ||
+    prepared.forms.some((form) => form.startsWith(query))
+  ) {
     return 4;
   }
 
-  if (glosses.some((gloss) => gloss === query)) {
+  if (prepared.glosses.some((gloss) => gloss === query)) {
     return 3;
   }
 
-  if (query.length > 3 && slovak.includes(query)) {
+  if (query.length > 3 && prepared.slovak.includes(query)) {
     return 2;
   }
 
   return 0;
+}
+
+/** @internal exported for unit tests */
+export function scoreDictionaryEntry(entry: DictionaryIndexEntry, query: string): number {
+  return scorePrepared(prepareEntry(entry), query);
 }
 
 export async function lookupDictionary(
@@ -77,10 +113,13 @@ export async function lookupDictionary(
     return [];
   }
 
-  const index = await loadDictionaryIndex();
+  const index = await loadPreparedIndex();
 
   return index
-    .map((entry) => ({ entry, score: scoreDictionaryEntry(entry, normalized) }))
+    .map((prepared) => ({
+      entry: prepared.entry,
+      score: scorePrepared(prepared, normalized),
+    }))
     .filter((result) => result.score >= MIN_DICTIONARY_LOOKUP_SCORE)
     .toSorted((first, second) => {
       if (second.score !== first.score) {
