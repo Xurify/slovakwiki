@@ -20,6 +20,7 @@ type WordSeed = Pick<
   | "related"
   | "topics"
   | "register"
+  | "dialect"
 >;
 
 type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
@@ -619,6 +620,7 @@ function wordBody(word: WordSeed): string[] {
 
 /** Extra Usage copy for high-confusion pattern lemmas. */
 const PATTERN_USAGE_NOTES: Record<string, string> = {
+  daco: "Dačo is eastern Slovak for niečo — something. Standard Slovak uses niečo.",
   rad: "English “to like” is not one Slovak verb. Use mať rád for a thing or person, and rád + a verb for an activity. Páčiť sa and ľúbiť cover nearby meanings.",
   pacit:
     "Páčiť sa frames liking from the thing’s side: it appeals to me. Compare mať rád on rád for the more direct “I like …”.",
@@ -728,6 +730,7 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
       word.category.toLowerCase(),
       ...(word.topics ?? []).map((topic) => topic.toLowerCase()),
       ...(word.register ? [word.register] : []),
+      ...(word.dialect ? ["dialect"] : []),
       "beginner",
     ],
   };

@@ -10,11 +10,19 @@ export interface ExternalLookupLink {
   label: string;
 }
 
+export interface ExternalLookupOptions {
+  dialect?: boolean;
+}
+
 /**
  * Build stable search/lookup links for a dictionary lemma.
  * Pass the citation form (e.g. `priznávať`), not a conjugated surface form.
+ * Dialect chips are opt-in via `options` — not shown on every lemma.
  */
-export function externalLookupsForLemma(lemma: string): ExternalLookupLink[] {
+export function externalLookupsForLemma(
+  lemma: string,
+  options: ExternalLookupOptions = {},
+): ExternalLookupLink[] {
   const trimmed = lemma.trim();
   if (!trimmed) {
     return [];
@@ -86,6 +94,24 @@ export function externalLookupsForLemma(lemma: string): ExternalLookupLink[] {
       icon: "/icons/lookups/synonyma.png",
       href: `https://slovnik.aktuality.sk/synonyma/?q=${q}`,
     },
+    {
+      id: "zoznam",
+      label: "WebSlovník",
+      group: "dictionary",
+      icon: "/icons/lookups/zoznam.png",
+      href: `https://webslovnik.zoznam.sk/slovensko-anglicky/?s=${q}`,
+    },
+    ...(options.dialect
+      ? [
+          {
+            id: "narecie",
+            label: "Nárečie.sk",
+            group: "dictionary" as const,
+            icon: "/icons/lookups/narecie.png",
+            href: `https://narecie.sk/${q}+`,
+          },
+        ]
+      : []),
     {
       id: "google-images",
       label: "Google Images",

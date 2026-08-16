@@ -13,6 +13,7 @@
   import { senseSectionId } from "$lib/catalog/dictionary/lemma-senses";
   import {
     REGISTER_CHIP_LABEL,
+    DIALECT_CHIP_LABEL,
     type ContentEntry,
     type EntryKind,
     type Example,
@@ -217,6 +218,14 @@
               {REGISTER_CHIP_LABEL[entry.register]}
             </span>
           {/if}
+
+          {#if entry.dialect}
+            <span
+              class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-panel-inverse-ink/80"
+            >
+              {DIALECT_CHIP_LABEL}
+            </span>
+          {/if}
         {/if}
       </div>
     </PageShell>
@@ -272,7 +281,11 @@
     class={`max-w-[880px] ${showHeroUsageGap ? "pt-10 max-[760px]:pt-8" : "pt-8 max-[760px]:pt-6"}`}
   >
     <article class="min-w-0">
-      <ExternalLookups class="mb-10" lemma={entry.slovak} />
+      <ExternalLookups
+        class="mb-10"
+        lemma={entry.slovak}
+        dialect={senseViews.some((sense) => sense.entry.dialect === true)}
+      />
 
       {#if image}
         <section

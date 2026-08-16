@@ -10,6 +10,7 @@ type WordSeed = Pick<
   | "related"
   | "topics"
   | "register"
+  | "dialect"
 >;
 
 /** Learner essentials not covered by SNK frequency POS lists. */
@@ -191,7 +192,38 @@ export const curatedEssentialsSeed: WordSeed[] = [
       { slovak: "Chcem niečo jesť.", english: "I want something to eat." },
       { slovak: "Niečo sa stalo.", english: "Something happened." },
     ],
-    related: ["nic", "co", "niekto"],
+    related: ["nic", "co", "niekto", "daco"],
+  },
+  {
+    slug: "daco",
+    slovak: "dačo",
+    english: "something (eastern dialect)",
+    category: "Phrases",
+    topics: ["Essentials"],
+    dialect: true,
+    examples: [
+      {
+        slovak: "Máš dačo na jedenie?",
+        english: "Do you have something to eat?",
+        note: "Curated",
+      },
+      {
+        slovak: "Dačo sa stalo.",
+        english: "Something happened.",
+        note: "Curated",
+      },
+      {
+        slovak: "Daj mi dačo.",
+        english: "Give me something.",
+        note: "Curated",
+      },
+      {
+        slovak: "Chcem dačo piť.",
+        english: "I want something to drink.",
+        note: "Curated",
+      },
+    ],
+    related: ["nieco", "co", "nic"],
   },
   {
     slug: "nikto",

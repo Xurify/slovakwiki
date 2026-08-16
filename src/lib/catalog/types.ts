@@ -15,6 +15,12 @@ export function isWordRegister(value: string | undefined | null): value is WordR
   return value === "colloquial" || value === "slang";
 }
 
+export const DIALECT_CHIP_LABEL = "Dialect";
+
+export function dialectLookupFlag(value: { dialect?: unknown }): { dialect?: true } {
+  return value.dialect === true ? { dialect: true as const } : {};
+}
+
 /**
  * One learner sentence under a lemma.
  * Hand-authoring rules (counts, notes, quality): `content/dictionary/README.md`.
@@ -41,7 +47,8 @@ export interface WordFrequency {
 /**
  * Runtime dictionary / grammar / pronunciation entry.
  * Hand-authored lemmas use only the `WordSeed` fields (slug, slovak, english,
- * category, examples, related, topics?) — see `content/dictionary/README.md`.
+ * category, examples, related, topics?, register?, dialect?) —
+ * see `content/dictionary/README.md`.
  * `origin`, `frequency`, `body`, `summary`, `tags`, and source* are filled in `data.ts`.
  */
 export interface ContentEntry {
@@ -79,6 +86,8 @@ export interface ContentEntry {
   topics?: string[];
   /** Spoken/informal register — Colloquial or Slang chip. */
   register?: WordRegister;
+  /** Regional / non-standard variety — Dialect chip + Nárečie.sk lookup. */
+  dialect?: true;
 }
 
 export interface GrammarPattern {

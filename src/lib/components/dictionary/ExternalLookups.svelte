@@ -6,13 +6,17 @@
 
   let {
     lemma,
+    dialect = false,
     class: className = "",
   }: {
     lemma: string;
+    dialect?: boolean;
     class?: string;
   } = $props();
 
-  const links: ExternalLookupLink[] = $derived(externalLookupsForLemma(lemma));
+  const links: ExternalLookupLink[] = $derived(
+    externalLookupsForLemma(lemma, { dialect }),
+  );
 </script>
 
 {#if links.length > 0}

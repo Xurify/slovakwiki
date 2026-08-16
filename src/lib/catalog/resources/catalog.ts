@@ -581,11 +581,57 @@ export const learningResources: LearningResource[] = [
     ],
   },
   {
-    id: "webslovnik-zoznam",
+    id: "zoznam",
     group: "dictionaries",
-    name: "Webslovník (Zoznam) — EN↔SK",
-    href: "https://webslovnik.zoznam.sk/anglicko-slovensky/",
-    summary: "EN↔SK bilingual dictionary on the Zoznam portal — search plus A–Z browse.",
+    name: "WebSlovník (Zoznam)",
+    href: "https://webslovnik.zoznam.sk/",
+    summary:
+      "Zoznam’s dictionary portal: SK↔EN (and other bilingual pairs), plus Slovak monolingual tools — short dictionary, spelling, loanwords, synonyms, dialect, and specialist lists.",
+    note: "Commercial copies of older academy dictionaries. Prefer JÚĽŠ when a gloss disagrees.",
+    cost: "free",
+    links: [
+      {
+        href: "https://webslovnik.zoznam.sk/slovensko-anglicky/",
+        label: "Slovak → English",
+      },
+      {
+        href: "https://webslovnik.zoznam.sk/anglicko-slovensky/",
+        label: "English → Slovak",
+      },
+      {
+        href: "https://webslovnik.zoznam.sk/slovnik-slovenskeho-jazyka/",
+        label: "Krátky slovník (KSSJ)",
+      },
+      {
+        href: "https://webslovnik.zoznam.sk/pravidla-slovenskeho-pravopisu/",
+        label: "Pravidlá pravopisu",
+      },
+      {
+        href: "https://webslovnik.zoznam.sk/slovnik-cudzich-slov/",
+        label: "Cudzie slová",
+      },
+      {
+        href: "https://webslovnik.zoznam.sk/synonymicky-slovnik/",
+        label: "Synonymá",
+      },
+      {
+        href: "https://webslovnik.zoznam.sk/narecovy-slovnik/",
+        label: "Nárečový slovník",
+      },
+      {
+        href: "https://webslovnik.zoznam.sk/slovnik-skratiek/",
+        label: "Skratky",
+      },
+    ],
+  },
+  {
+    id: "narecie",
+    group: "dictionaries",
+    name: "Nárečie.sk",
+    href: "https://narecie.sk/",
+    summary:
+      "Searchable dictionary of Slovak dialects (west, central, east). Type a regional word to see what it maps to in standard Slovak.",
+    note: "Not standard Slovak. Use it when you hear dačo, šicke, and the like — then learn the standard pair (niečo, všetko).",
     cost: "free",
   },
   {
@@ -946,9 +992,16 @@ const resourceIconFiles: Partial<Record<string, string>> = {
   "slovake-grammar": "slovake-eu.png",
 };
 
+/** Same brand as a lemma lookup chip — reuse `/icons/lookups/${id}.png`. */
+export const lookupSharedResourceIds = new Set(["narecie", "zoznam"]);
+
 export function resourceIconUrl(resourceId: string): string {
   if (youtubeResourceIds.has(resourceId)) {
     return "/icons/resources/youtube.png";
+  }
+
+  if (lookupSharedResourceIds.has(resourceId)) {
+    return `/icons/lookups/${resourceId}.png`;
   }
 
   const file = resourceIconFiles[resourceId] ?? `${resourceId}.png`;

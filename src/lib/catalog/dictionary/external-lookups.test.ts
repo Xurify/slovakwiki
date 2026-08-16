@@ -22,6 +22,7 @@ describe("externalLookupsForLemma", () => {
       "juls",
       "sme-slovnik",
       "synonyma",
+      "zoznam",
       "google-images",
     ]);
 
@@ -46,6 +47,10 @@ describe("externalLookupsForLemma", () => {
     expect(byId.juls?.href).toBe(`https://slovnik.juls.savba.sk/?w=${q}`);
     expect(byId["sme-slovnik"]?.href).toBe(`https://slovnik.sme.sk/slovo/${q}`);
     expect(byId.synonyma?.href).toBe(`https://slovnik.aktuality.sk/synonyma/?q=${q}`);
+    expect(byId.zoznam?.href).toBe(
+      `https://webslovnik.zoznam.sk/slovensko-anglicky/?s=${q}`,
+    );
+    expect(byId.zoznam?.icon).toBe("/icons/lookups/zoznam.png");
     expect(byId["google-images"]?.href).toBe(
       `https://www.google.com/search?tbm=isch&q=${q}`,
     );
@@ -53,5 +58,19 @@ describe("externalLookupsForLemma", () => {
     for (const link of links) {
       expect(link.icon.startsWith("/icons/lookups/")).toBe(true);
     }
+  });
+
+  it("adds Nárečie.sk only when the lemma is tagged dialect", () => {
+    const plain = externalLookupsForLemma("dačo");
+    expect(plain.map((link) => link.id)).not.toContain("narecie");
+
+    const links = externalLookupsForLemma("dačo", { dialect: true });
+    const narecie = links.find((link) => link.id === "narecie");
+    const q = encodeURIComponent("dačo");
+
+    expect(links.map((link) => link.id)).toContain("narecie");
+    expect(narecie?.href).toBe(`https://narecie.sk/${q}+`);
+    expect(narecie?.icon).toBe("/icons/lookups/narecie.png");
+    expect(links.at(-1)?.id).toBe("google-images");
   });
 });

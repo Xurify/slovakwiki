@@ -184,12 +184,14 @@ describe("resources", () => {
       expect(resource.href.startsWith("http")).toBe(true);
       expect(resource.name.trim().length).toBeGreaterThan(0);
       expect(resource.summary.trim().length).toBeGreaterThan(0);
-      expect(resourceIconUrl(resource.id).startsWith("/icons/resources/")).toBe(true);
+      expect(resourceIconUrl(resource.id).startsWith("/icons/")).toBe(true);
     }
 
     expect(resourceIconUrl("ling-slovak")).toBe("/icons/resources/ling-slovak.svg");
     expect(resourceIconUrl("yt-learn-slovak")).toBe("/icons/resources/youtube.png");
     expect(resourceIconUrl("slovake-grammar")).toBe("/icons/resources/slovake-eu.png");
+    expect(resourceIconUrl("narecie")).toBe("/icons/lookups/narecie.png");
+    expect(resourceIconUrl("zoznam")).toBe("/icons/lookups/zoznam.png");
 
     expect(resourcesByGroup("courses").some((r) => r.id === "slovake-eu")).toBe(true);
     expect(resourcesByGroup("grammar").some((r) => r.id === "omniglot-slovak")).toBe(
@@ -201,5 +203,7 @@ describe("resources", () => {
     expect(resourcesByGroup("adjacent").some((r) => r.id === "duolingo-czech")).toBe(
       true,
     );
+    expect(resourcesByGroup("dictionaries").some((r) => r.id === "zoznam")).toBe(true);
+    expect(resourcesByGroup("dictionaries").some((r) => r.id === "narecie")).toBe(true);
   });
 });

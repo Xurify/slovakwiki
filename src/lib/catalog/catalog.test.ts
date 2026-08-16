@@ -661,6 +661,16 @@ describe("Slovak content", () => {
     );
   });
 
+  it("tags Nárečie.sk lookups on dialect lemmas, not on ordinary SNK lemmas", () => {
+    const daco = words.find((word) => word.slug === "daco");
+    expect(daco?.slovak).toBe("dačo");
+    expect(daco?.dialect).toBe(true);
+    expect(daco?.origin).toBe("curated");
+
+    const byt = words.find((word) => word.slug === "byt");
+    expect(byt?.dialect).toBeUndefined();
+  });
+
   it("attributes frequency dictionary words to SNK, not JÚĽŠ", () => {
     const frequencyWord = words.find((word) => word.origin === "frequency");
     const curated = words.find((word) => word.origin === "curated");

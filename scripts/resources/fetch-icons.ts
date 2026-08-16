@@ -1,13 +1,18 @@
 /**
  * Fetch favicons for /resources entries into static/icons/resources/.
+ * Lookup-shared brands (zoznam, narecie) write to static/icons/lookups/ instead.
  * Run after adding or changing learningResources hrefs: bun scripts/resources/fetch-icons.ts
  */
 
 import { copyFile, mkdir, writeFile } from "node:fs/promises";
 
-import { learningResources } from "../../src/lib/catalog/resources/catalog";
+import {
+  learningResources,
+  lookupSharedResourceIds,
+} from "../../src/lib/catalog/resources/catalog";
 
 const outDir = "static/icons/resources";
+const lookupsDir = "static/icons/lookups";
 
 /** Direct favicon URLs when Google's proxy returns junk or 404. */
 const iconSourceOverrides: Partial<Record<string, string>> = {
@@ -16,6 +21,8 @@ const iconSourceOverrides: Partial<Record<string, string>> = {
   "memrise-slovak": "https://www.memrise.com/favicon.ico",
   "simply-put-slovak": "https://www.google.com/s2/favicons?domain=atspace.com&sz=128",
   "learn101-slovak": "https://learn101.org/images/logo2.png",
+  zoznam: "https://cdn.magazines.zoznam.sk/zoznam/img/favicon/apple-touch-icon.png",
+  narecie: "https://narecie.sk/images/favicon.png",
 };
 
 const youtubeResourceIds = new Set([
@@ -29,6 +36,7 @@ const youtubeResourceIds = new Set([
 ]);
 
 await mkdir(outDir, { recursive: true });
+await mkdir(lookupsDir, { recursive: true });
 
 let ok = 0;
 let failed = 0;
@@ -38,7 +46,10 @@ for (const resource of learningResources) {
     continue;
   }
 
-  const outPath = `${outDir}/${resource.id}.png`;
+  const sharedLookup = lookupSharedResourceIds.has(resource.id);
+  const outPath = sharedLookup
+    ? `${lookupsDir}/${resource.id}.png`
+    : `${outDir}/${resource.id}.png`;
   const overrideUrl = iconSourceOverrides[resource.id];
 
   try {
@@ -75,7 +86,7 @@ for (const resource of learningResources) {
     }
 
     await writeFile(outPath, bytes);
-    console.log(`ok ${resource.id}`);
+    console.log(`ok ${resource.id}${sharedLookup ? " (lookups)" : ""}`);
     ok += 1;
   } catch (error) {
     console.warn(

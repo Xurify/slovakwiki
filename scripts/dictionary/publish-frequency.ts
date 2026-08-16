@@ -23,6 +23,7 @@ import type {
 import { findLiveWordForLemma, lemmaToSlug } from "../../src/lib/catalog/frequency";
 import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/catalog/frequency/blocklist";
 import {
+  dialectLookupFlag,
   isWordRegister,
   type ContentEntry,
   type WordRegister,
@@ -39,6 +40,7 @@ type WordSeed = Pick<
   | "related"
   | "topics"
   | "register"
+  | "dialect"
 >;
 
 interface Gloss {
@@ -46,6 +48,7 @@ interface Gloss {
   /** Browse override — only `Places` (or other browse buckets) are honored. */
   category?: string;
   register?: WordRegister;
+  dialect?: true;
 }
 
 const FREQUENCY_DIR = path.join(ROOT, "content", "frequency");
@@ -227,6 +230,7 @@ async function main(): Promise<void> {
         examples: [],
         related: [],
         ...(isWordRegister(gloss.register) ? { register: gloss.register } : {}),
+        ...dialectLookupFlag(gloss),
       };
 
       dictionaryWords.push(seed);
