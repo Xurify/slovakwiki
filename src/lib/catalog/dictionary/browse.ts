@@ -44,6 +44,7 @@ export function getDictionaryIndexEntries(): DictionaryIndexEntry[] {
         origin: word.origin,
         slug: word.slug,
         slovak: word.slovak,
+        ...(word.register ? { register: word.register } : {}),
         ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
         ...(href.hash ? { hash: href.hash } : {}),
       };
@@ -69,6 +70,7 @@ export interface DictionaryIndexSidecarEntry {
   hash?: string;
   hrefSlug?: string;
   origin?: DictionaryIndexEntry["origin"];
+  register?: DictionaryIndexEntry["register"];
   slug: string;
   slovak: string;
 }
@@ -86,6 +88,7 @@ export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
         ? { frequencyRank: word.frequency.rank }
         : {}),
       ...(word.origin !== undefined ? { origin: word.origin } : {}),
+      ...(word.register ? { register: word.register } : {}),
       ...(forms.length > 0 ? { forms } : {}),
       ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
       ...(href.hash ? { hash: href.hash } : {}),

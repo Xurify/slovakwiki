@@ -28,6 +28,7 @@ export async function writeSearchIndex(outputPaths: string[]): Promise<number> {
         kind: document.kind,
         summary: document.summary,
         ...(document.category ? { category: document.category } : {}),
+        ...(document.register ? { register: document.register } : {}),
       },
       filters: {
         kind: [document.kind],

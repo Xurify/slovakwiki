@@ -4,6 +4,17 @@ export type EntryKind = "word" | "grammar" | "pronunciation";
 
 export type WordOrigin = "curated" | "frequency";
 
+export type WordRegister = "colloquial" | "slang";
+
+export const REGISTER_CHIP_LABEL: Record<WordRegister, string> = {
+  colloquial: "Colloquial",
+  slang: "Slang",
+};
+
+export function isWordRegister(value: string | undefined | null): value is WordRegister {
+  return value === "colloquial" || value === "slang";
+}
+
 /**
  * One learner sentence under a lemma.
  * Hand-authoring rules (counts, notes, quality): `content/dictionary/README.md`.
@@ -66,6 +77,8 @@ export interface ContentEntry {
    * Not used as dictionary browse chips.
    */
   topics?: string[];
+  /** Spoken/informal register — Colloquial or Slang chip. */
+  register?: WordRegister;
 }
 
 export interface GrammarPattern {

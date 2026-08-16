@@ -1,6 +1,7 @@
 import { dictionaryPathFromIndexFields } from "$lib/catalog/dictionary/lemma-senses";
 import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/catalog/dictionary/browse-query";
 import { normalizeSearchText } from "$lib/catalog/search/ui";
+import type { WordRegister } from "$lib/catalog/types";
 
 import type { PagefindResultData } from "./pagefind-client";
 
@@ -10,6 +11,7 @@ export interface DictionaryIndexEntry {
   forms?: string[];
   hash?: string;
   hrefSlug?: string;
+  register?: WordRegister;
   slug: string;
   slovak: string;
 }
@@ -96,6 +98,7 @@ export async function lookupDictionary(
         summary: entry.english,
         kind: "word",
         category: entry.category,
+        ...(entry.register ? { register: entry.register } : {}),
       },
     }));
 }

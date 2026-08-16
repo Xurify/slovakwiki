@@ -56736,5 +56736,6977 @@
       "english": "We taught at the same school for years.",
       "note": "Curated"
     }
+  ],
+  "panel": [
+    {
+      "slovak": "Toto je panel.",
+      "english": "This is a panel.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám panel.",
+      "english": "I'm looking for a panel.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "chlad": [
+    {
+      "slovak": "Toto je chlad.",
+      "english": "This is a cold.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám chlad.",
+      "english": "I'm looking for a cold.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "plavanie": [
+    {
+      "slovak": "Toto je plávanie.",
+      "english": "This is a swimming.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám plávanie.",
+      "english": "I'm looking for a swimming.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "retaz": [
+    {
+      "slovak": "Toto je reťaz.",
+      "english": "This is a chain.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám reťaz.",
+      "english": "I'm looking for a chain.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "oblek": [
+    {
+      "slovak": "Toto je oblek.",
+      "english": "This is a suit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám oblek.",
+      "english": "I'm looking for a suit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nervozita": [
+    {
+      "slovak": "Toto je nervozita.",
+      "english": "This is a nervousness.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nervozita.",
+      "english": "I'm looking for a nervousness.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ziskavanie": [
+    {
+      "slovak": "Toto je získavanie.",
+      "english": "This is an obtaining.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám získavanie.",
+      "english": "I'm looking for an obtaining.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "napor": [
+    {
+      "slovak": "Toto je nápor.",
+      "english": "This is an onslaught.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nápor.",
+      "english": "I'm looking for an onslaught.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "chvost": [
+    {
+      "slovak": "Toto je chvost.",
+      "english": "This is a tail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám chvost.",
+      "english": "I'm looking for a tail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kolegyna": [
+    {
+      "slovak": "To je kolegyňa.",
+      "english": "That is a female colleague.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kolegyňa.",
+      "english": "I'm looking for a female colleague.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vecnost": [
+    {
+      "slovak": "Toto je večnosť.",
+      "english": "This is an eternity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám večnosť.",
+      "english": "I'm looking for an eternity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "melodia": [
+    {
+      "slovak": "Toto je melódia.",
+      "english": "This is a melody.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám melódia.",
+      "english": "I'm looking for a melody.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ovladanie": [
+    {
+      "slovak": "Toto je ovládanie.",
+      "english": "This is a control.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ovládanie.",
+      "english": "I'm looking for a control.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zreb": [
+    {
+      "slovak": "Toto je žreb.",
+      "english": "This is a lot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám žreb.",
+      "english": "I'm looking for a lot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "telefonat": [
+    {
+      "slovak": "Toto je telefonát.",
+      "english": "This is a phone call.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám telefonát.",
+      "english": "I'm looking for a phone call.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dozor": [
+    {
+      "slovak": "Toto je dozor.",
+      "english": "This is a supervision.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dozor.",
+      "english": "I'm looking for a supervision.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stravovanie": [
+    {
+      "slovak": "Toto je stravovanie.",
+      "english": "This is a catering.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám stravovanie.",
+      "english": "I'm looking for a catering.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "chodza": [
+    {
+      "slovak": "Toto je chôdza.",
+      "english": "This is a walking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám chôdza.",
+      "english": "I'm looking for a walking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vyhlaska": [
+    {
+      "slovak": "Toto je vyhláška.",
+      "english": "This is a decree.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vyhláška.",
+      "english": "I'm looking for a decree.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pokora": [
+    {
+      "slovak": "Toto je pokora.",
+      "english": "This is a humility.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pokora.",
+      "english": "I'm looking for a humility.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "reportaz": [
+    {
+      "slovak": "Toto je reportáž.",
+      "english": "This is a report.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám reportáž.",
+      "english": "I'm looking for a report.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zastup": [
+    {
+      "slovak": "Toto je zástup.",
+      "english": "This is a crowd.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zástup.",
+      "english": "I'm looking for a crowd.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rybar": [
+    {
+      "slovak": "Toto je rybár.",
+      "english": "This is a fisherman.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rybár.",
+      "english": "I'm looking for a fisherman.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tanecnik": [
+    {
+      "slovak": "Toto je tanečník.",
+      "english": "This is a dancer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tanečník.",
+      "english": "I'm looking for a dancer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "imidz": [
+    {
+      "slovak": "Toto je imidž.",
+      "english": "This is an image.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám imidž.",
+      "english": "I'm looking for an image.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kutik": [
+    {
+      "slovak": "Toto je kútik.",
+      "english": "This is a corner.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kútik.",
+      "english": "I'm looking for a corner.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "grant": [
+    {
+      "slovak": "Toto je grant.",
+      "english": "This is a grant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám grant.",
+      "english": "I'm looking for a grant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "velvyslanectvo": [
+    {
+      "slovak": "Kde je veľvyslanectvo?",
+      "english": "Where is an embassy?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám veľvyslanectvo.",
+      "english": "I'm looking for an embassy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "plet": [
+    {
+      "slovak": "Toto je pleť.",
+      "english": "This is a complexion.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pleť.",
+      "english": "I'm looking for a complexion.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "samozrejmost": [
+    {
+      "slovak": "Toto je samozrejmosť.",
+      "english": "This is a matter of course.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám samozrejmosť.",
+      "english": "I'm looking for a matter of course.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "mys": [
+    {
+      "slovak": "Toto je myš.",
+      "english": "This is a mouse.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám myš.",
+      "english": "I'm looking for a mouse.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nadvorie": [
+    {
+      "slovak": "Kde je nádvorie?",
+      "english": "Where is a court, courtyard?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nádvorie.",
+      "english": "I'm looking for a court, courtyard.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "protokol": [
+    {
+      "slovak": "Toto je protokol.",
+      "english": "This is a protocol.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám protokol.",
+      "english": "I'm looking for a protocol.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "premierka": [
+    {
+      "slovak": "To je premiérka.",
+      "english": "That is a female prime minister.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám premiérka.",
+      "english": "I'm looking for a female prime minister.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vila": [
+    {
+      "slovak": "Toto je vila.",
+      "english": "This is a villa.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vila.",
+      "english": "I'm looking for a villa.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "priestranstvo": [
+    {
+      "slovak": "Toto je priestranstvo.",
+      "english": "This is an open space.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám priestranstvo.",
+      "english": "I'm looking for an open space.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "atelier": [
+    {
+      "slovak": "Toto je ateliér.",
+      "english": "This is a studio.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ateliér.",
+      "english": "I'm looking for a studio.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "cesnak": [
+    {
+      "slovak": "Toto je cesnak.",
+      "english": "This is a garlic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám cesnak.",
+      "english": "I'm looking for a garlic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lokomotiva": [
+    {
+      "slovak": "Toto je lokomotíva.",
+      "english": "This is an engine, locomotive.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lokomotíva.",
+      "english": "I'm looking for an engine, locomotive.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "databaza": [
+    {
+      "slovak": "Toto je databáza.",
+      "english": "This is a database.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám databáza.",
+      "english": "I'm looking for a database.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "najomne": [
+    {
+      "slovak": "Toto je nájomné.",
+      "english": "This is a rent.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nájomné.",
+      "english": "I'm looking for a rent.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "chov": [
+    {
+      "slovak": "Toto je chov.",
+      "english": "This is a breeding.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám chov.",
+      "english": "I'm looking for a breeding.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "restrukturalizacia": [
+    {
+      "slovak": "Toto je reštrukturalizácia.",
+      "english": "This is a restructuring.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám reštrukturalizácia.",
+      "english": "I'm looking for a restructuring.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pruh": [
+    {
+      "slovak": "Toto je pruh.",
+      "english": "This is a stripe.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pruh.",
+      "english": "I'm looking for a stripe.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "cokolada": [
+    {
+      "slovak": "Toto je čokoláda.",
+      "english": "This is a chocolate.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám čokoláda.",
+      "english": "I'm looking for a chocolate.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nosic": [
+    {
+      "slovak": "Toto je nosič.",
+      "english": "This is a carrier.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nosič.",
+      "english": "I'm looking for a carrier.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "atentat": [
+    {
+      "slovak": "Toto je atentát.",
+      "english": "This is an assassination.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám atentát.",
+      "english": "I'm looking for an assassination.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "skrinka": [
+    {
+      "slovak": "Toto je skrinka.",
+      "english": "This is a cabinet.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám skrinka.",
+      "english": "I'm looking for a cabinet.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prevzatie": [
+    {
+      "slovak": "Toto je prevzatie.",
+      "english": "This is a takeover.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prevzatie.",
+      "english": "I'm looking for a takeover.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "navod": [
+    {
+      "slovak": "Toto je návod.",
+      "english": "This is an instructions.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám návod.",
+      "english": "I'm looking for an instructions.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "udelenie": [
+    {
+      "slovak": "Toto je udelenie.",
+      "english": "This is an award.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám udelenie.",
+      "english": "I'm looking for an award.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vdova": [
+    {
+      "slovak": "Toto je vdova.",
+      "english": "This is a widow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vdova.",
+      "english": "I'm looking for a widow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "patka": [
+    {
+      "slovak": "Toto je päťka.",
+      "english": "This is a five.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám päťka.",
+      "english": "I'm looking for a five.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "miska": [
+    {
+      "slovak": "Toto je miska.",
+      "english": "This is a bowl.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám miska.",
+      "english": "I'm looking for a bowl.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "displej": [
+    {
+      "slovak": "Toto je displej.",
+      "english": "This is a display.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám displej.",
+      "english": "I'm looking for a display.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "terapia": [
+    {
+      "slovak": "Toto je terapia.",
+      "english": "This is a therapy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám terapia.",
+      "english": "I'm looking for a therapy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "logo": [
+    {
+      "slovak": "Toto je logo.",
+      "english": "This is a logo.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám logo.",
+      "english": "I'm looking for a logo.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "psychologia": [
+    {
+      "slovak": "Toto je psychológia.",
+      "english": "This is a psychology.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám psychológia.",
+      "english": "I'm looking for a psychology.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kopacka": [
+    {
+      "slovak": "Toto je kopačka.",
+      "english": "This is a football boot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kopačka.",
+      "english": "I'm looking for a football boot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "potlesk": [
+    {
+      "slovak": "Toto je potlesk.",
+      "english": "This is an applause.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám potlesk.",
+      "english": "I'm looking for an applause.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "debut": [
+    {
+      "slovak": "Toto je debut.",
+      "english": "This is a debut.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám debut.",
+      "english": "I'm looking for a debut.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "bielizen": [
+    {
+      "slovak": "Toto je bielizeň.",
+      "english": "This is a laundry.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám bielizeň.",
+      "english": "I'm looking for a laundry.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pozostatok": [
+    {
+      "slovak": "Toto je pozostatok.",
+      "english": "This is a remains.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pozostatok.",
+      "english": "I'm looking for a remains.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "panika": [
+    {
+      "slovak": "Toto je panika.",
+      "english": "This is a panic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám panika.",
+      "english": "I'm looking for a panic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pomsta": [
+    {
+      "slovak": "Toto je pomsta.",
+      "english": "This is a revenge.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pomsta.",
+      "english": "I'm looking for a revenge.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "podhradie": [
+    {
+      "slovak": "Kde je podhradie?",
+      "english": "Where is an area below a castle?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám podhradie.",
+      "english": "I'm looking for an area below a castle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "technik": [
+    {
+      "slovak": "Toto je technik.",
+      "english": "This is a technician.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám technik.",
+      "english": "I'm looking for a technician.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "obratka": [
+    {
+      "slovak": "Toto je obrátka.",
+      "english": "This is a turn.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám obrátka.",
+      "english": "I'm looking for a turn.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "afera": [
+    {
+      "slovak": "Toto je aféra.",
+      "english": "This is an affair.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám aféra.",
+      "english": "I'm looking for an affair.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pestovanie": [
+    {
+      "slovak": "Toto je pestovanie.",
+      "english": "This is a growing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pestovanie.",
+      "english": "I'm looking for a growing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "iskra": [
+    {
+      "slovak": "Toto je iskra.",
+      "english": "This is a spark.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám iskra.",
+      "english": "I'm looking for a spark.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stredovek": [
+    {
+      "slovak": "Toto je stredovek.",
+      "english": "This is a Middle Ages.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám stredovek.",
+      "english": "I'm looking for a Middle Ages.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "klb": [
+    {
+      "slovak": "Toto je kĺb.",
+      "english": "This is a joint.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kĺb.",
+      "english": "I'm looking for a joint.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zid": [
+    {
+      "slovak": "Toto je žid.",
+      "english": "This is a Jew.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám žid.",
+      "english": "I'm looking for a Jew.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "clenok": [
+    {
+      "slovak": "Toto je členok.",
+      "english": "This is an ankle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám členok.",
+      "english": "I'm looking for an ankle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "jarmok": [
+    {
+      "slovak": "Toto je jarmok.",
+      "english": "This is a fair, bazaar.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám jarmok.",
+      "english": "I'm looking for a fair, bazaar.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "juniorka": [
+    {
+      "slovak": "Toto je juniorka.",
+      "english": "This is a junior.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám juniorka.",
+      "english": "I'm looking for a junior.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "elektronika": [
+    {
+      "slovak": "Toto je elektronika.",
+      "english": "This is an electronics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám elektronika.",
+      "english": "I'm looking for an electronics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tvor": [
+    {
+      "slovak": "Toto je tvor.",
+      "english": "This is a creature.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tvor.",
+      "english": "I'm looking for a creature.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "meditacia": [
+    {
+      "slovak": "Toto je meditácia.",
+      "english": "This is a meditation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám meditácia.",
+      "english": "I'm looking for a meditation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hod": [
+    {
+      "slovak": "Toto je hod.",
+      "english": "This is a throw.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hod.",
+      "english": "I'm looking for a throw.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zmatok": [
+    {
+      "slovak": "Toto je zmätok.",
+      "english": "This is a chaos.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zmätok.",
+      "english": "I'm looking for a chaos.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "telekomunikacia": [
+    {
+      "slovak": "Toto je telekomunikácia.",
+      "english": "This is a telecommunications.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám telekomunikácia.",
+      "english": "I'm looking for a telecommunications.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nevyhnutnost": [
+    {
+      "slovak": "Toto je nevyhnutnosť.",
+      "english": "This is a necessity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nevyhnutnosť.",
+      "english": "I'm looking for a necessity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "horucka": [
+    {
+      "slovak": "Toto je horúčka.",
+      "english": "This is a fever.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám horúčka.",
+      "english": "I'm looking for a fever.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zelezo": [
+    {
+      "slovak": "Toto je železo.",
+      "english": "This is an iron.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám železo.",
+      "english": "I'm looking for an iron.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "trapenie": [
+    {
+      "slovak": "Toto je trápenie.",
+      "english": "This is a distress.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám trápenie.",
+      "english": "I'm looking for a distress.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zaplatenie": [
+    {
+      "slovak": "Toto je zaplatenie.",
+      "english": "This is a payment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zaplatenie.",
+      "english": "I'm looking for a payment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sukna": [
+    {
+      "slovak": "Toto je sukňa.",
+      "english": "This is a skirt.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sukňa.",
+      "english": "I'm looking for a skirt.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "osetrenie": [
+    {
+      "slovak": "Toto je ošetrenie.",
+      "english": "This is a treatment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ošetrenie.",
+      "english": "I'm looking for a treatment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lekarka": [
+    {
+      "slovak": "To je lekárka.",
+      "english": "That is a female doctor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lekárka.",
+      "english": "I'm looking for a female doctor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "recenzia": [
+    {
+      "slovak": "Toto je recenzia.",
+      "english": "This is a review.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám recenzia.",
+      "english": "I'm looking for a review.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pripravok": [
+    {
+      "slovak": "Toto je prípravok.",
+      "english": "This is a preparation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prípravok.",
+      "english": "I'm looking for a preparation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "diplom": [
+    {
+      "slovak": "Toto je diplom.",
+      "english": "This is a diploma.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám diplom.",
+      "english": "I'm looking for a diploma.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tolerancia": [
+    {
+      "slovak": "Toto je tolerancia.",
+      "english": "This is a tolerance.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tolerancia.",
+      "english": "I'm looking for a tolerance.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kontrolor": [
+    {
+      "slovak": "Toto je kontrolór.",
+      "english": "This is an inspector.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kontrolór.",
+      "english": "I'm looking for an inspector.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "krik": [
+    {
+      "slovak": "Toto je krik.",
+      "english": "This is a shout.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám krik.",
+      "english": "I'm looking for a shout.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "folklor": [
+    {
+      "slovak": "Toto je folklór.",
+      "english": "This is a folklore.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám folklór.",
+      "english": "I'm looking for a folklore.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odhalenie": [
+    {
+      "slovak": "Toto je odhalenie.",
+      "english": "This is a revelation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odhalenie.",
+      "english": "I'm looking for a revelation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kondicia": [
+    {
+      "slovak": "Toto je kondícia.",
+      "english": "This is a fitness.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kondícia.",
+      "english": "I'm looking for a fitness.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pocta": [
+    {
+      "slovak": "Toto je pocta.",
+      "english": "This is a honor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pocta.",
+      "english": "I'm looking for a honor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kilo": [
+    {
+      "slovak": "Toto je kilo.",
+      "english": "This is a kilo.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kilo.",
+      "english": "I'm looking for a kilo.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "herna": [
+    {
+      "slovak": "Kde je herňa?",
+      "english": "Where is a games room?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám herňa.",
+      "english": "I'm looking for a games room.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "komin": [
+    {
+      "slovak": "Toto je komín.",
+      "english": "This is a chimney.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám komín.",
+      "english": "I'm looking for a chimney.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "internat": [
+    {
+      "slovak": "Toto je internát.",
+      "english": "This is a dormitory.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám internát.",
+      "english": "I'm looking for a dormitory.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vyznanie": [
+    {
+      "slovak": "Toto je vyznanie.",
+      "english": "This is a confession.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vyznanie.",
+      "english": "I'm looking for a confession.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "poukazka": [
+    {
+      "slovak": "Toto je poukážka.",
+      "english": "This is a voucher.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám poukážka.",
+      "english": "I'm looking for a voucher.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rukav": [
+    {
+      "slovak": "Toto je rukáv.",
+      "english": "This is a sleeve.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rukáv.",
+      "english": "I'm looking for a sleeve.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "partizan": [
+    {
+      "slovak": "Toto je partizán.",
+      "english": "This is a partisan.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám partizán.",
+      "english": "I'm looking for a partisan.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "naplnenie": [
+    {
+      "slovak": "Toto je naplnenie.",
+      "english": "This is a fulfillment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám naplnenie.",
+      "english": "I'm looking for a fulfillment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zlocinec": [
+    {
+      "slovak": "Toto je zločinec.",
+      "english": "This is a criminal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zločinec.",
+      "english": "I'm looking for a criminal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pasaz": [
+    {
+      "slovak": "Toto je pasáž.",
+      "english": "This is a passage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pasáž.",
+      "english": "I'm looking for a passage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ospravedlnenie": [
+    {
+      "slovak": "Toto je ospravedlnenie.",
+      "english": "This is an apology.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ospravedlnenie.",
+      "english": "I'm looking for an apology.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "semeno": [
+    {
+      "slovak": "Toto je semeno.",
+      "english": "This is a seed.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám semeno.",
+      "english": "I'm looking for a seed.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "chrbtica": [
+    {
+      "slovak": "Toto je chrbtica.",
+      "english": "This is a spine, backbone.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám chrbtica.",
+      "english": "I'm looking for a spine, backbone.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "legionar": [
+    {
+      "slovak": "Toto je legionár.",
+      "english": "This is a legionnaire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám legionár.",
+      "english": "I'm looking for a legionnaire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vozovka": [
+    {
+      "slovak": "Toto je vozovka.",
+      "english": "This is a roadway.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vozovka.",
+      "english": "I'm looking for a roadway.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "bateria": [
+    {
+      "slovak": "Toto je batéria.",
+      "english": "This is a battery.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám batéria.",
+      "english": "I'm looking for a battery.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vcela": [
+    {
+      "slovak": "Toto je včela.",
+      "english": "This is a bee.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám včela.",
+      "english": "I'm looking for a bee.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sudruh": [
+    {
+      "slovak": "Toto je súdruh.",
+      "english": "This is a comrade.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám súdruh.",
+      "english": "I'm looking for a comrade.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "uplatok": [
+    {
+      "slovak": "Toto je úplatok.",
+      "english": "This is a bribe.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám úplatok.",
+      "english": "I'm looking for a bribe.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "montaz": [
+    {
+      "slovak": "Toto je montáž.",
+      "english": "This is an assembly.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám montáž.",
+      "english": "I'm looking for an assembly.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "para": [
+    {
+      "slovak": "Toto je para.",
+      "english": "This is a steam.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám para.",
+      "english": "I'm looking for a steam.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "psik": [
+    {
+      "slovak": "Toto je psík.",
+      "english": "This is a doggie.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám psík.",
+      "english": "I'm looking for a doggie.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prerusenie": [
+    {
+      "slovak": "Toto je prerušenie.",
+      "english": "This is an interruption.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prerušenie.",
+      "english": "I'm looking for an interruption.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odhodlanie": [
+    {
+      "slovak": "Toto je odhodlanie.",
+      "english": "This is a determination.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odhodlanie.",
+      "english": "I'm looking for a determination.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "mlcanie": [
+    {
+      "slovak": "Toto je mlčanie.",
+      "english": "This is a silence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám mlčanie.",
+      "english": "I'm looking for a silence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "os": [
+    {
+      "slovak": "Toto je os.",
+      "english": "This is an axis.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám os.",
+      "english": "I'm looking for an axis.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "socialista": [
+    {
+      "slovak": "Toto je socialista.",
+      "english": "This is a socialist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám socialista.",
+      "english": "I'm looking for a socialist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "poistka": [
+    {
+      "slovak": "Toto je poistka.",
+      "english": "This is a fuse.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám poistka.",
+      "english": "I'm looking for a fuse.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zmierenie": [
+    {
+      "slovak": "Toto je zmierenie.",
+      "english": "This is a reconciliation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zmierenie.",
+      "english": "I'm looking for a reconciliation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "akademik": [
+    {
+      "slovak": "Toto je akademik.",
+      "english": "This is an academic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám akademik.",
+      "english": "I'm looking for an academic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "naboj": [
+    {
+      "slovak": "Toto je náboj.",
+      "english": "This is a cartridge, round, shell.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám náboj.",
+      "english": "I'm looking for a cartridge, round, shell.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "fajcenie": [
+    {
+      "slovak": "Toto je fajčenie.",
+      "english": "This is a smoking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám fajčenie.",
+      "english": "I'm looking for a smoking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "bakteria": [
+    {
+      "slovak": "Toto je baktéria.",
+      "english": "This is a bacterium.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám baktéria.",
+      "english": "I'm looking for a bacterium.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "plachta": [
+    {
+      "slovak": "Toto je plachta.",
+      "english": "This is a sail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám plachta.",
+      "english": "I'm looking for a sail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ziarenie": [
+    {
+      "slovak": "Toto je žiarenie.",
+      "english": "This is a radiation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám žiarenie.",
+      "english": "I'm looking for a radiation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "mix": [
+    {
+      "slovak": "Toto je mix.",
+      "english": "This is a mix.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám mix.",
+      "english": "I'm looking for a mix.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vydavanie": [
+    {
+      "slovak": "Toto je vydávanie.",
+      "english": "This is a publishing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vydávanie.",
+      "english": "I'm looking for a publishing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stafeta": [
+    {
+      "slovak": "Toto je štafeta.",
+      "english": "This is a relay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám štafeta.",
+      "english": "I'm looking for a relay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zhodnotenie": [
+    {
+      "slovak": "Toto je zhodnotenie.",
+      "english": "This is an assessment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zhodnotenie.",
+      "english": "I'm looking for an assessment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "varovanie": [
+    {
+      "slovak": "Toto je varovanie.",
+      "english": "This is a warning.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám varovanie.",
+      "english": "I'm looking for a warning.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zjavenie": [
+    {
+      "slovak": "Toto je zjavenie.",
+      "english": "This is an apparition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zjavenie.",
+      "english": "I'm looking for an apparition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kolekcia": [
+    {
+      "slovak": "Toto je kolekcia.",
+      "english": "This is a collection.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kolekcia.",
+      "english": "I'm looking for a collection.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "narocnost": [
+    {
+      "slovak": "Toto je náročnosť.",
+      "english": "This is a difficulty.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám náročnosť.",
+      "english": "I'm looking for a difficulty.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lord": [
+    {
+      "slovak": "Toto je lord.",
+      "english": "This is a lord.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lord.",
+      "english": "I'm looking for a lord.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "uzavretie": [
+    {
+      "slovak": "Toto je uzavretie.",
+      "english": "This is a closing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám uzavretie.",
+      "english": "I'm looking for a closing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "imanie": [
+    {
+      "slovak": "Toto je imanie.",
+      "english": "This is an assets.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám imanie.",
+      "english": "I'm looking for an assets.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vlajka": [
+    {
+      "slovak": "Toto je vlajka.",
+      "english": "This is a flag.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vlajka.",
+      "english": "I'm looking for a flag.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kolotoc": [
+    {
+      "slovak": "Toto je kolotoč.",
+      "english": "This is a carousel.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kolotoč.",
+      "english": "I'm looking for a carousel.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prestavba": [
+    {
+      "slovak": "Toto je prestavba.",
+      "english": "This is a reconstruction, rebuilding, remodeling.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prestavba.",
+      "english": "I'm looking for a reconstruction, rebuilding, remodeling.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pasazier": [
+    {
+      "slovak": "Toto je pasažier.",
+      "english": "This is a passenger.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pasažier.",
+      "english": "I'm looking for a passenger.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nemcina": [
+    {
+      "slovak": "Toto je nemčina.",
+      "english": "This is a German.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nemčina.",
+      "english": "I'm looking for a German.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "grafika": [
+    {
+      "slovak": "Toto je grafika.",
+      "english": "This is a graphics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám grafika.",
+      "english": "I'm looking for a graphics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stehno": [
+    {
+      "slovak": "Toto je stehno.",
+      "english": "This is a thigh.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám stehno.",
+      "english": "I'm looking for a thigh.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "doplnenie": [
+    {
+      "slovak": "Toto je doplnenie.",
+      "english": "This is an addition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám doplnenie.",
+      "english": "I'm looking for an addition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sekera": [
+    {
+      "slovak": "Toto je sekera.",
+      "english": "This is an axe.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sekera.",
+      "english": "I'm looking for an axe.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "panorama": [
+    {
+      "slovak": "Toto je panoráma.",
+      "english": "This is a panorama.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám panoráma.",
+      "english": "I'm looking for a panorama.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "mam": [
+    {
+      "slovak": "Toto je mam.",
+      "english": "This is a mom.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám mam.",
+      "english": "I'm looking for a mom.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odroda": [
+    {
+      "slovak": "Toto je odroda.",
+      "english": "This is a variety.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odroda.",
+      "english": "I'm looking for a variety.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "unos": [
+    {
+      "slovak": "Toto je únos.",
+      "english": "This is a kidnapping.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám únos.",
+      "english": "I'm looking for a kidnapping.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zvrat": [
+    {
+      "slovak": "Toto je zvrat.",
+      "english": "This is a turnaround.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zvrat.",
+      "english": "I'm looking for a turnaround.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "trio": [
+    {
+      "slovak": "Toto je trio.",
+      "english": "This is a trio.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám trio.",
+      "english": "I'm looking for a trio.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "muzika": [
+    {
+      "slovak": "Toto je muzika.",
+      "english": "This is a music.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám muzika.",
+      "english": "I'm looking for a music.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "investovanie": [
+    {
+      "slovak": "Toto je investovanie.",
+      "english": "This is an investing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám investovanie.",
+      "english": "I'm looking for an investing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "polnohospodar": [
+    {
+      "slovak": "To je poľnohospodár.",
+      "english": "That is a farmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám poľnohospodár.",
+      "english": "I'm looking for a farmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "produktivita": [
+    {
+      "slovak": "Toto je produktivita.",
+      "english": "This is a productivity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám produktivita.",
+      "english": "I'm looking for a productivity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "opytany": [
+    {
+      "slovak": "Toto je opýtaný.",
+      "english": "This is a respondent.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám opýtaný.",
+      "english": "I'm looking for a respondent.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "plavba": [
+    {
+      "slovak": "Toto je plavba.",
+      "english": "This is a voyage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám plavba.",
+      "english": "I'm looking for a voyage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "babicka": [
+    {
+      "slovak": "Toto je babička.",
+      "english": "This is a grandmother.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám babička.",
+      "english": "I'm looking for a grandmother.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "bankrot": [
+    {
+      "slovak": "Toto je bankrot.",
+      "english": "This is a bankruptcy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám bankrot.",
+      "english": "I'm looking for a bankruptcy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odpocinok": [
+    {
+      "slovak": "Toto je odpočinok.",
+      "english": "This is a rest.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odpočinok.",
+      "english": "I'm looking for a rest.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hlina": [
+    {
+      "slovak": "Toto je hlina.",
+      "english": "This is a clay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hlina.",
+      "english": "I'm looking for a clay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vlanajsok": [
+    {
+      "slovak": "Jeden vlaňajšok stačí.",
+      "english": "One last year is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vlaňajšok.",
+      "english": "I'm looking for a last year.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zastava": [
+    {
+      "slovak": "Toto je zástava.",
+      "english": "This is a flag, banner, ensign.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zástava.",
+      "english": "I'm looking for a flag, banner, ensign.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zufalstvo": [
+    {
+      "slovak": "Toto je zúfalstvo.",
+      "english": "This is a despair.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zúfalstvo.",
+      "english": "I'm looking for a despair.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rezervacia": [
+    {
+      "slovak": "Toto je rezervácia.",
+      "english": "This is a reservation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rezervácia.",
+      "english": "I'm looking for a reservation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "obuv": [
+    {
+      "slovak": "Toto je obuv.",
+      "english": "This is a footwear, shoes.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám obuv.",
+      "english": "I'm looking for a footwear, shoes.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zlost": [
+    {
+      "slovak": "Toto je zlosť.",
+      "english": "This is an anger.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zlosť.",
+      "english": "I'm looking for an anger.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pycha": [
+    {
+      "slovak": "Toto je pýcha.",
+      "english": "This is a pride.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pýcha.",
+      "english": "I'm looking for a pride.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "diskoteka": [
+    {
+      "slovak": "Toto je diskotéka.",
+      "english": "This is a disco.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám diskotéka.",
+      "english": "I'm looking for a disco.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "skvrna": [
+    {
+      "slovak": "Toto je škvrna.",
+      "english": "This is a spot, stain.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám škvrna.",
+      "english": "I'm looking for a spot, stain.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "veniec": [
+    {
+      "slovak": "Toto je veniec.",
+      "english": "This is a wreath.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám veniec.",
+      "english": "I'm looking for a wreath.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "koc": [
+    {
+      "slovak": "Toto je koč.",
+      "english": "This is a coach driven by horses.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám koč.",
+      "english": "I'm looking for a coach driven by horses.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vykonanie": [
+    {
+      "slovak": "Toto je vykonanie.",
+      "english": "This is an execution.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vykonanie.",
+      "english": "I'm looking for an execution.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dlazba": [
+    {
+      "slovak": "Toto je dlažba.",
+      "english": "This is a paving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dlažba.",
+      "english": "I'm looking for a paving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vystrel": [
+    {
+      "slovak": "Toto je výstrel.",
+      "english": "This is a shot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám výstrel.",
+      "english": "I'm looking for a shot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "bremeno": [
+    {
+      "slovak": "Toto je bremeno.",
+      "english": "This is a burden.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám bremeno.",
+      "english": "I'm looking for a burden.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "specialita": [
+    {
+      "slovak": "Toto je špecialita.",
+      "english": "This is a specialty.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám špecialita.",
+      "english": "I'm looking for a specialty.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hrniec": [
+    {
+      "slovak": "Toto je hrniec.",
+      "english": "This is a pot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hrniec.",
+      "english": "I'm looking for a pot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "audit": [
+    {
+      "slovak": "Toto je audit.",
+      "english": "This is an audit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám audit.",
+      "english": "I'm looking for an audit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vkus": [
+    {
+      "slovak": "Toto je vkus.",
+      "english": "This is a taste.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vkus.",
+      "english": "I'm looking for a taste.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hradba": [
+    {
+      "slovak": "Kde je hradba?",
+      "english": "Where is a rampart, wall, battlement?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hradba.",
+      "english": "I'm looking for a rampart, wall, battlement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "blizny": [
+    {
+      "slovak": "To je blížny.",
+      "english": "That is a neighbor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám blížny.",
+      "english": "I'm looking for a neighbor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dedo": [
+    {
+      "slovak": "To je dedo.",
+      "english": "That is an old man.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dedo.",
+      "english": "I'm looking for an old man.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "otrok": [
+    {
+      "slovak": "Toto je otrok.",
+      "english": "This is a slave.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám otrok.",
+      "english": "I'm looking for a slave.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "cyklistika": [
+    {
+      "slovak": "Toto je cyklistika.",
+      "english": "This is a cycling.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám cyklistika.",
+      "english": "I'm looking for a cycling.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "interval": [
+    {
+      "slovak": "Toto je interval.",
+      "english": "This is an interval.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám interval.",
+      "english": "I'm looking for an interval.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "skolak": [
+    {
+      "slovak": "Toto je školák.",
+      "english": "This is a schoolchild.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám školák.",
+      "english": "I'm looking for a schoolchild.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ozdoba": [
+    {
+      "slovak": "Toto je ozdoba.",
+      "english": "This is a decoration.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ozdoba.",
+      "english": "I'm looking for a decoration.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "fara": [
+    {
+      "slovak": "Toto je fara.",
+      "english": "This is a rectory.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám fara.",
+      "english": "I'm looking for a rectory.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lano": [
+    {
+      "slovak": "Toto je lano.",
+      "english": "This is a rope.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lano.",
+      "english": "I'm looking for a rope.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ochranca": [
+    {
+      "slovak": "Toto je ochranca.",
+      "english": "This is a protector.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ochranca.",
+      "english": "I'm looking for a protector.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "laik": [
+    {
+      "slovak": "Toto je laik.",
+      "english": "This is a layperson.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám laik.",
+      "english": "I'm looking for a layperson.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "fasada": [
+    {
+      "slovak": "Toto je fasáda.",
+      "english": "This is a facade.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám fasáda.",
+      "english": "I'm looking for a facade.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "myto": [
+    {
+      "slovak": "Toto je mýto.",
+      "english": "This is a toll.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám mýto.",
+      "english": "I'm looking for a toll.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "muzikant": [
+    {
+      "slovak": "Toto je muzikant.",
+      "english": "This is a musician.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám muzikant.",
+      "english": "I'm looking for a musician.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zastupkyna": [
+    {
+      "slovak": "Toto je zástupkyňa.",
+      "english": "This is a female deputy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zástupkyňa.",
+      "english": "I'm looking for a female deputy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zvolenie": [
+    {
+      "slovak": "Toto je zvolenie.",
+      "english": "This is an election.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zvolenie.",
+      "english": "I'm looking for an election.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pivovar": [
+    {
+      "slovak": "Toto je pivovar.",
+      "english": "This is a brewery.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pivovar.",
+      "english": "I'm looking for a brewery.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zaloha": [
+    {
+      "slovak": "Toto je záloha.",
+      "english": "This is a deposit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám záloha.",
+      "english": "I'm looking for a deposit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "poharik": [
+    {
+      "slovak": "Toto je pohárik.",
+      "english": "This is a small glass.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pohárik.",
+      "english": "I'm looking for a small glass.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "synagoga": [
+    {
+      "slovak": "Toto je synagóga.",
+      "english": "This is a synagogue.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám synagóga.",
+      "english": "I'm looking for a synagogue.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "orech": [
+    {
+      "slovak": "Toto je orech.",
+      "english": "This is a walnut.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám orech.",
+      "english": "I'm looking for a walnut.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "bazilika": [
+    {
+      "slovak": "Toto je bazilika.",
+      "english": "This is a basilica.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám bazilika.",
+      "english": "I'm looking for a basilica.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kvota": [
+    {
+      "slovak": "Toto je kvóta.",
+      "english": "This is a quota.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kvóta.",
+      "english": "I'm looking for a quota.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "priepast": [
+    {
+      "slovak": "Toto je priepasť.",
+      "english": "This is an abyss.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám priepasť.",
+      "english": "I'm looking for an abyss.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "robot": [
+    {
+      "slovak": "Toto je robot.",
+      "english": "This is a robot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám robot.",
+      "english": "I'm looking for a robot.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pitie": [
+    {
+      "slovak": "Toto je pitie.",
+      "english": "This is a drinking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pitie.",
+      "english": "I'm looking for a drinking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dotaznik": [
+    {
+      "slovak": "Toto je dotazník.",
+      "english": "This is a questionnaire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dotazník.",
+      "english": "I'm looking for a questionnaire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "babatko": [
+    {
+      "slovak": "To je bábätko.",
+      "english": "That is a baby.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám bábätko.",
+      "english": "I'm looking for a baby.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "klamstvo": [
+    {
+      "slovak": "Toto je klamstvo.",
+      "english": "This is a lie.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám klamstvo.",
+      "english": "I'm looking for a lie.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "polhodina": [
+    {
+      "slovak": "Jedna polhodina stačí.",
+      "english": "One half hour is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám polhodina.",
+      "english": "I'm looking for a half hour.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dostupnost": [
+    {
+      "slovak": "Toto je dostupnosť.",
+      "english": "This is an availability.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dostupnosť.",
+      "english": "I'm looking for an availability.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vyhliadka": [
+    {
+      "slovak": "Toto je vyhliadka.",
+      "english": "This is a lookout.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vyhliadka.",
+      "english": "I'm looking for a lookout.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tlaciaren": [
+    {
+      "slovak": "Toto je tlačiareň.",
+      "english": "This is a printer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tlačiareň.",
+      "english": "I'm looking for a printer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zakoncenie": [
+    {
+      "slovak": "Toto je zakončenie.",
+      "english": "This is a finish.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zakončenie.",
+      "english": "I'm looking for a finish.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "milenec": [
+    {
+      "slovak": "Toto je milenec.",
+      "english": "This is a lover.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám milenec.",
+      "english": "I'm looking for a lover.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lutost": [
+    {
+      "slovak": "Toto je ľútosť.",
+      "english": "This is a regret.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ľútosť.",
+      "english": "I'm looking for a regret.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tyc": [
+    {
+      "slovak": "Toto je tyč.",
+      "english": "This is a rod.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tyč.",
+      "english": "I'm looking for a rod.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vykurovanie": [
+    {
+      "slovak": "Toto je vykurovanie.",
+      "english": "This is a heating.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vykurovanie.",
+      "english": "I'm looking for a heating.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "navyk": [
+    {
+      "slovak": "Toto je návyk.",
+      "english": "This is a habit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám návyk.",
+      "english": "I'm looking for a habit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "popol": [
+    {
+      "slovak": "Toto je popol.",
+      "english": "This is an ash.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám popol.",
+      "english": "I'm looking for an ash.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sprcha": [
+    {
+      "slovak": "Toto je sprcha.",
+      "english": "This is a shower.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sprcha.",
+      "english": "I'm looking for a shower.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stvorka": [
+    {
+      "slovak": "Toto je štvorka.",
+      "english": "This is a four.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám štvorka.",
+      "english": "I'm looking for a four.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lupez": [
+    {
+      "slovak": "Toto je lúpež.",
+      "english": "This is a robbery.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lúpež.",
+      "english": "I'm looking for a robbery.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "plavec": [
+    {
+      "slovak": "Toto je plavec.",
+      "english": "This is a swimmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám plavec.",
+      "english": "I'm looking for a swimmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zivocich": [
+    {
+      "slovak": "Toto je živočích.",
+      "english": "This is an animal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám živočích.",
+      "english": "I'm looking for an animal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nastavenie": [
+    {
+      "slovak": "Toto je nastavenie.",
+      "english": "This is a setting.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nastavenie.",
+      "english": "I'm looking for a setting.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "laket": [
+    {
+      "slovak": "Toto je lakeť.",
+      "english": "This is an elbow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lakeť.",
+      "english": "I'm looking for an elbow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "malickost": [
+    {
+      "slovak": "Toto je maličkosť.",
+      "english": "This is a trifle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám maličkosť.",
+      "english": "I'm looking for a trifle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nutnost": [
+    {
+      "slovak": "Toto je nutnosť.",
+      "english": "This is a necessity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nutnosť.",
+      "english": "I'm looking for a necessity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "klinec": [
+    {
+      "slovak": "Toto je klinec.",
+      "english": "This is a nail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám klinec.",
+      "english": "I'm looking for a nail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "paradox": [
+    {
+      "slovak": "Toto je paradox.",
+      "english": "This is a paradox.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám paradox.",
+      "english": "I'm looking for a paradox.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vzrusenie": [
+    {
+      "slovak": "Toto je vzrušenie.",
+      "english": "This is an excitement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vzrušenie.",
+      "english": "I'm looking for an excitement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hrdost": [
+    {
+      "slovak": "Toto je hrdosť.",
+      "english": "This is a pride.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hrdosť.",
+      "english": "I'm looking for a pride.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vyvrcholenie": [
+    {
+      "slovak": "Toto je vyvrcholenie.",
+      "english": "This is a climax.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vyvrcholenie.",
+      "english": "I'm looking for a climax.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dodatok": [
+    {
+      "slovak": "Toto je dodatok.",
+      "english": "This is an appendix.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dodatok.",
+      "english": "I'm looking for an appendix.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "popredie": [
+    {
+      "slovak": "Toto je popredie.",
+      "english": "This is a foreground.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám popredie.",
+      "english": "I'm looking for a foreground.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "menu": [
+    {
+      "slovak": "Toto je menu.",
+      "english": "This is a menu.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám menu.",
+      "english": "I'm looking for a menu.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pot": [
+    {
+      "slovak": "Toto je pot.",
+      "english": "This is a sweat.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pot.",
+      "english": "I'm looking for a sweat.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pasca": [
+    {
+      "slovak": "Toto je pasca.",
+      "english": "This is a trap.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pasca.",
+      "english": "I'm looking for a trap.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "drazba": [
+    {
+      "slovak": "Toto je dražba.",
+      "english": "This is an auction.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dražba.",
+      "english": "I'm looking for an auction.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vypis": [
+    {
+      "slovak": "Toto je výpis.",
+      "english": "This is a statement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám výpis.",
+      "english": "I'm looking for a statement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "povstalec": [
+    {
+      "slovak": "Toto je povstalec.",
+      "english": "This is an insurgent.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám povstalec.",
+      "english": "I'm looking for an insurgent.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tank": [
+    {
+      "slovak": "Toto je tank.",
+      "english": "This is a tank.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tank.",
+      "english": "I'm looking for a tank.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zvedavost": [
+    {
+      "slovak": "Toto je zvedavosť.",
+      "english": "This is a curiosity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zvedavosť.",
+      "english": "I'm looking for a curiosity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ujo": [
+    {
+      "slovak": "Toto je ujo.",
+      "english": "This is a maternal uncle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ujo.",
+      "english": "I'm looking for a maternal uncle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "natlak": [
+    {
+      "slovak": "Toto je nátlak.",
+      "english": "This is a pressure.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nátlak.",
+      "english": "I'm looking for a pressure.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hmyz": [
+    {
+      "slovak": "Toto je hmyz.",
+      "english": "This is an insect.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hmyz.",
+      "english": "I'm looking for an insect.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "decko": [
+    {
+      "slovak": "Toto je decko.",
+      "english": "This is a kid.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám decko.",
+      "english": "I'm looking for a kid.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hetrik": [
+    {
+      "slovak": "Toto je hetrik.",
+      "english": "This is a hat-trick.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hetrik.",
+      "english": "I'm looking for a hat-trick.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dynamika": [
+    {
+      "slovak": "Toto je dynamika.",
+      "english": "This is a dynamics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dynamika.",
+      "english": "I'm looking for a dynamics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tematika": [
+    {
+      "slovak": "Toto je tematika.",
+      "english": "This is a subject matter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tematika.",
+      "english": "I'm looking for a subject matter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "posedenie": [
+    {
+      "slovak": "Toto je posedenie.",
+      "english": "This is a get-together.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám posedenie.",
+      "english": "I'm looking for a get-together.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "puto": [
+    {
+      "slovak": "Toto je puto.",
+      "english": "This is a bond.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám puto.",
+      "english": "I'm looking for a bond.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vinnik": [
+    {
+      "slovak": "Toto je vinník.",
+      "english": "This is a culprit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vinník.",
+      "english": "I'm looking for a culprit.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "islam": [
+    {
+      "slovak": "Toto je islam.",
+      "english": "This is an Islam.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám islam.",
+      "english": "I'm looking for an Islam.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "cudzina": [
+    {
+      "slovak": "Kde je cudzina?",
+      "english": "Where is a foreign land or country?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám cudzina.",
+      "english": "I'm looking for a foreign land or country.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "finalista": [
+    {
+      "slovak": "Toto je finalista.",
+      "english": "This is a finalist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám finalista.",
+      "english": "I'm looking for a finalist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nadsenec": [
+    {
+      "slovak": "Toto je nadšenec.",
+      "english": "This is an enthusiast.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nadšenec.",
+      "english": "I'm looking for an enthusiast.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "obocie": [
+    {
+      "slovak": "Toto je obočie.",
+      "english": "This is an eyebrow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám obočie.",
+      "english": "I'm looking for an eyebrow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "crevo": [
+    {
+      "slovak": "Toto je črevo.",
+      "english": "This is an intestine.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám črevo.",
+      "english": "I'm looking for an intestine.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "caro": [
+    {
+      "slovak": "Toto je čaro.",
+      "english": "This is a charm.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám čaro.",
+      "english": "I'm looking for a charm.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rezolucia": [
+    {
+      "slovak": "Toto je rezolúcia.",
+      "english": "This is a resolution.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rezolúcia.",
+      "english": "I'm looking for a resolution.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odmietnutie": [
+    {
+      "slovak": "Toto je odmietnutie.",
+      "english": "This is a refusal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odmietnutie.",
+      "english": "I'm looking for a refusal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "akvizicia": [
+    {
+      "slovak": "Toto je akvizícia.",
+      "english": "This is an acquisition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám akvizícia.",
+      "english": "I'm looking for an acquisition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tenistka": [
+    {
+      "slovak": "To je tenistka.",
+      "english": "That is a female tennis player.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tenistka.",
+      "english": "I'm looking for a female tennis player.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pohovor": [
+    {
+      "slovak": "Toto je pohovor.",
+      "english": "This is an interview.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pohovor.",
+      "english": "I'm looking for an interview.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "basketbalista": [
+    {
+      "slovak": "To je basketbalista.",
+      "english": "That is a basketball player.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám basketbalista.",
+      "english": "I'm looking for a basketball player.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "skala-n": [
+    {
+      "slovak": "Toto je škála.",
+      "english": "This is a scale.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám škála.",
+      "english": "I'm looking for a scale.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pracovna": [
+    {
+      "slovak": "Toto je pracovňa.",
+      "english": "This is a study.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pracovňa.",
+      "english": "I'm looking for a study.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "relax": [
+    {
+      "slovak": "Toto je relax.",
+      "english": "This is a relaxation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám relax.",
+      "english": "I'm looking for a relaxation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "komponent": [
+    {
+      "slovak": "Toto je komponent.",
+      "english": "This is a component.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám komponent.",
+      "english": "I'm looking for a component.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rozpatie": [
+    {
+      "slovak": "Toto je rozpätie.",
+      "english": "This is a span.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rozpätie.",
+      "english": "I'm looking for a span.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "aparat": [
+    {
+      "slovak": "Toto je aparát.",
+      "english": "This is an apparatus.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám aparát.",
+      "english": "I'm looking for an apparatus.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zalm": [
+    {
+      "slovak": "Toto je žalm.",
+      "english": "This is a psalm.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám žalm.",
+      "english": "I'm looking for a psalm.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "posudzovanie": [
+    {
+      "slovak": "Toto je posudzovanie.",
+      "english": "This is an assessment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám posudzovanie.",
+      "english": "I'm looking for an assessment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "detektiv": [
+    {
+      "slovak": "Toto je detektív.",
+      "english": "This is a detective.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám detektív.",
+      "english": "I'm looking for a detective.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "majsterka": [
+    {
+      "slovak": "Toto je majsterka.",
+      "english": "This is a female champion.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám majsterka.",
+      "english": "I'm looking for a female champion.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "necht": [
+    {
+      "slovak": "Toto je necht.",
+      "english": "This is a nail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám necht.",
+      "english": "I'm looking for a nail.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dohovor": [
+    {
+      "slovak": "Toto je dohovor.",
+      "english": "This is an agreement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dohovor.",
+      "english": "I'm looking for an agreement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sluchadlo": [
+    {
+      "slovak": "Toto je slúchadlo.",
+      "english": "This is an earpiece.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám slúchadlo.",
+      "english": "I'm looking for an earpiece.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "konzultacia": [
+    {
+      "slovak": "Toto je konzultácia.",
+      "english": "This is a consultation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám konzultácia.",
+      "english": "I'm looking for a consultation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stimul": [
+    {
+      "slovak": "Toto je stimul.",
+      "english": "This is a stimulus.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám stimul.",
+      "english": "I'm looking for a stimulus.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "farmar": [
+    {
+      "slovak": "To je farmár.",
+      "english": "That is a farmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám farmár.",
+      "english": "I'm looking for a farmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "utulok": [
+    {
+      "slovak": "Toto je útulok.",
+      "english": "This is a shelter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám útulok.",
+      "english": "I'm looking for a shelter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rolnik": [
+    {
+      "slovak": "Toto je roľník.",
+      "english": "This is a peasant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám roľník.",
+      "english": "I'm looking for a peasant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hygiena": [
+    {
+      "slovak": "Toto je hygiena.",
+      "english": "This is a hygiene.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hygiena.",
+      "english": "I'm looking for a hygiene.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lyziar": [
+    {
+      "slovak": "Toto je lyžiar.",
+      "english": "This is a skier.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lyžiar.",
+      "english": "I'm looking for a skier.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stahovanie": [
+    {
+      "slovak": "Toto je sťahovanie.",
+      "english": "This is a moving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sťahovanie.",
+      "english": "I'm looking for a moving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "utecha": [
+    {
+      "slovak": "Toto je útecha.",
+      "english": "This is a comfort.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám útecha.",
+      "english": "I'm looking for a comfort.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vypracovanie": [
+    {
+      "slovak": "Toto je vypracovanie.",
+      "english": "This is a drafting.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vypracovanie.",
+      "english": "I'm looking for a drafting.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "chemia": [
+    {
+      "slovak": "Toto je chémia.",
+      "english": "This is a chemistry.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám chémia.",
+      "english": "I'm looking for a chemistry.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "politolog": [
+    {
+      "slovak": "Toto je politológ.",
+      "english": "This is a political scientist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám politológ.",
+      "english": "I'm looking for a political scientist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hostitel": [
+    {
+      "slovak": "Toto je hostiteľ.",
+      "english": "This is a host.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hostiteľ.",
+      "english": "I'm looking for a host.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "suprava": [
+    {
+      "slovak": "Jedna súprava stačí.",
+      "english": "One set is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám súprava.",
+      "english": "I'm looking for a set.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "formula": [
+    {
+      "slovak": "Toto je formula.",
+      "english": "This is a formula.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám formula.",
+      "english": "I'm looking for a formula.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ofenziva": [
+    {
+      "slovak": "Toto je ofenzíva.",
+      "english": "This is an offensive.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ofenzíva.",
+      "english": "I'm looking for an offensive.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ikona": [
+    {
+      "slovak": "Toto je ikona.",
+      "english": "This is an icon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám ikona.",
+      "english": "I'm looking for an icon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "priazen": [
+    {
+      "slovak": "Toto je priazeň.",
+      "english": "This is a favor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám priazeň.",
+      "english": "I'm looking for a favor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zaliv": [
+    {
+      "slovak": "Toto je záliv.",
+      "english": "This is a bay, gulf.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám záliv.",
+      "english": "I'm looking for a bay, gulf.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vladca": [
+    {
+      "slovak": "Toto je vládca.",
+      "english": "This is a ruler.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vládca.",
+      "english": "I'm looking for a ruler.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nabrezie": [
+    {
+      "slovak": "Toto je nábrežie.",
+      "english": "This is an embankment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nábrežie.",
+      "english": "I'm looking for an embankment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "husle": [
+    {
+      "slovak": "Toto je husle.",
+      "english": "This is a violin.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám husle.",
+      "english": "I'm looking for a violin.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "klasika": [
+    {
+      "slovak": "Toto je klasika.",
+      "english": "This is a classics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám klasika.",
+      "english": "I'm looking for a classics.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sledovanost": [
+    {
+      "slovak": "Toto je sledovanosť.",
+      "english": "This is a viewership.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sledovanosť.",
+      "english": "I'm looking for a viewership.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "testovanie": [
+    {
+      "slovak": "Toto je testovanie.",
+      "english": "This is a testing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám testovanie.",
+      "english": "I'm looking for a testing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odovzdanie": [
+    {
+      "slovak": "Toto je odovzdanie.",
+      "english": "This is a handover.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odovzdanie.",
+      "english": "I'm looking for a handover.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pohladnica": [
+    {
+      "slovak": "Toto je pohľadnica.",
+      "english": "This is a postcard.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pohľadnica.",
+      "english": "I'm looking for a postcard.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vnuca": [
+    {
+      "slovak": "Toto je vnúča.",
+      "english": "This is a grandchild.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vnúča.",
+      "english": "I'm looking for a grandchild.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "panovnik": [
+    {
+      "slovak": "Toto je panovník.",
+      "english": "This is a ruler.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám panovník.",
+      "english": "I'm looking for a ruler.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "orol": [
+    {
+      "slovak": "Toto je orol.",
+      "english": "This is an eagle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám orol.",
+      "english": "I'm looking for an eagle.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "naraz-n": [
+    {
+      "slovak": "Toto je náraz.",
+      "english": "This is an impact.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám náraz.",
+      "english": "I'm looking for an impact.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "drevina": [
+    {
+      "slovak": "Toto je drevina.",
+      "english": "This is a woody plant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám drevina.",
+      "english": "I'm looking for a woody plant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "snemovna": [
+    {
+      "slovak": "Toto je snemovňa.",
+      "english": "This is a chamber.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám snemovňa.",
+      "english": "I'm looking for a chamber.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rozpaky": [
+    {
+      "slovak": "Toto je rozpaky.",
+      "english": "This is an embarrassment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rozpaky.",
+      "english": "I'm looking for an embarrassment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "obluk": [
+    {
+      "slovak": "Toto je oblúk.",
+      "english": "This is an arch.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám oblúk.",
+      "english": "I'm looking for an arch.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prizemie": [
+    {
+      "slovak": "Toto je prízemie.",
+      "english": "This is a groundfloor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prízemie.",
+      "english": "I'm looking for a groundfloor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "efektivnost": [
+    {
+      "slovak": "Toto je efektívnosť.",
+      "english": "This is an effectiveness.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám efektívnosť.",
+      "english": "I'm looking for an effectiveness.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "drak": [
+    {
+      "slovak": "Toto je drak.",
+      "english": "This is a dragon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám drak.",
+      "english": "I'm looking for a dragon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "senator": [
+    {
+      "slovak": "Toto je senátor.",
+      "english": "This is a senator.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám senátor.",
+      "english": "I'm looking for a senator.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "setrenie": [
+    {
+      "slovak": "Toto je šetrenie.",
+      "english": "This is a saving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám šetrenie.",
+      "english": "I'm looking for a saving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sympatia": [
+    {
+      "slovak": "Toto je sympatia.",
+      "english": "This is a sympathy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sympatia.",
+      "english": "I'm looking for a sympathy.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "obeh": [
+    {
+      "slovak": "Toto je obeh.",
+      "english": "This is a circulation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám obeh.",
+      "english": "I'm looking for a circulation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "podavanie": [
+    {
+      "slovak": "Toto je podávanie.",
+      "english": "This is a serving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám podávanie.",
+      "english": "I'm looking for a serving.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "monitor": [
+    {
+      "slovak": "Toto je monitor.",
+      "english": "This is a monitor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám monitor.",
+      "english": "I'm looking for a monitor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "skatula": [
+    {
+      "slovak": "Jedna škatuľa stačí.",
+      "english": "One casket, case, jewel case is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám škatuľa.",
+      "english": "I'm looking for a casket, case, jewel case.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "klima": [
+    {
+      "slovak": "Toto je klíma.",
+      "english": "This is a climate.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám klíma.",
+      "english": "I'm looking for a climate.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prirastok": [
+    {
+      "slovak": "Toto je prírastok.",
+      "english": "This is an increase.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prírastok.",
+      "english": "I'm looking for an increase.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "svatyna": [
+    {
+      "slovak": "Toto je svätyňa.",
+      "english": "This is a sanctuary.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám svätyňa.",
+      "english": "I'm looking for a sanctuary.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "krik-n": [
+    {
+      "slovak": "Toto je krík.",
+      "english": "This is a bush, shrub.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám krík.",
+      "english": "I'm looking for a bush, shrub.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nominant": [
+    {
+      "slovak": "Toto je nominant.",
+      "english": "This is a nominee.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nominant.",
+      "english": "I'm looking for a nominee.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "reporter": [
+    {
+      "slovak": "Toto je reportér.",
+      "english": "This is a reporter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám reportér.",
+      "english": "I'm looking for a reporter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "misionar": [
+    {
+      "slovak": "Toto je misionár.",
+      "english": "This is a missionary.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám misionár.",
+      "english": "I'm looking for a missionary.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "troska": [
+    {
+      "slovak": "Toto je troska.",
+      "english": "This is a wreck.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám troska.",
+      "english": "I'm looking for a wreck.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rukavica": [
+    {
+      "slovak": "Toto je rukavica.",
+      "english": "This is a glove.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rukavica.",
+      "english": "I'm looking for a glove.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "demonstrant": [
+    {
+      "slovak": "Toto je demonštrant.",
+      "english": "This is a demonstrator.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám demonštrant.",
+      "english": "I'm looking for a demonstrator.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "motorka": [
+    {
+      "slovak": "Toto je motorka.",
+      "english": "This is a motorbike.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám motorka.",
+      "english": "I'm looking for a motorbike.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "centrala": [
+    {
+      "slovak": "Toto je centrála.",
+      "english": "This is a headquarters.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám centrála.",
+      "english": "I'm looking for a headquarters.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zdravotnik": [
+    {
+      "slovak": "Toto je zdravotník.",
+      "english": "This is a paramedic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zdravotník.",
+      "english": "I'm looking for a paramedic.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vykonavanie": [
+    {
+      "slovak": "Toto je vykonávanie.",
+      "english": "This is a performance.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vykonávanie.",
+      "english": "I'm looking for a performance.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "osemfinale": [
+    {
+      "slovak": "Toto je osemfinále.",
+      "english": "This is a round of 16.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám osemfinále.",
+      "english": "I'm looking for a round of 16.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "predsudok": [
+    {
+      "slovak": "Toto je predsudok.",
+      "english": "This is a prejudice.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám predsudok.",
+      "english": "I'm looking for a prejudice.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "beton": [
+    {
+      "slovak": "Toto je betón.",
+      "english": "This is a concrete.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám betón.",
+      "english": "I'm looking for a concrete.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "edicia": [
+    {
+      "slovak": "Toto je edícia.",
+      "english": "This is an edition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám edícia.",
+      "english": "I'm looking for an edition.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zart": [
+    {
+      "slovak": "Toto je žart.",
+      "english": "This is a joke.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám žart.",
+      "english": "I'm looking for a joke.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "penzion": [
+    {
+      "slovak": "Toto je penzión.",
+      "english": "This is a guesthouse.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám penzión.",
+      "english": "I'm looking for a guesthouse.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ciapka": [
+    {
+      "slovak": "Toto je čiapka.",
+      "english": "This is a cap.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám čiapka.",
+      "english": "I'm looking for a cap.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "euroval": [
+    {
+      "slovak": "Toto je euroval.",
+      "english": "This is a eurozone bailout fund.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám euroval.",
+      "english": "I'm looking for a eurozone bailout fund.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ram": [
+    {
+      "slovak": "Toto je rám.",
+      "english": "This is a frame.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rám.",
+      "english": "I'm looking for a frame.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "plech": [
+    {
+      "slovak": "Toto je plech.",
+      "english": "This is a sheet metal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám plech.",
+      "english": "I'm looking for a sheet metal.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odovzdavanie": [
+    {
+      "slovak": "Toto je odovzdávanie.",
+      "english": "This is a handing over.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odovzdávanie.",
+      "english": "I'm looking for a handing over.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sanitka": [
+    {
+      "slovak": "Toto je sanitka.",
+      "english": "This is an ambulance.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sanitka.",
+      "english": "I'm looking for an ambulance.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odraz": [
+    {
+      "slovak": "Toto je odraz.",
+      "english": "This is a reflection.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odraz.",
+      "english": "I'm looking for a reflection.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zavahanie": [
+    {
+      "slovak": "Toto je zaváhanie.",
+      "english": "This is a hesitation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zaváhanie.",
+      "english": "I'm looking for a hesitation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "krach": [
+    {
+      "slovak": "Toto je krach.",
+      "english": "This is a crash.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám krach.",
+      "english": "I'm looking for a crash.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "usporiadatel": [
+    {
+      "slovak": "Toto je usporiadateľ.",
+      "english": "This is an organizer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám usporiadateľ.",
+      "english": "I'm looking for an organizer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vyzdoba": [
+    {
+      "slovak": "Toto je výzdoba.",
+      "english": "This is a decoration.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám výzdoba.",
+      "english": "I'm looking for a decoration.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "holokaust": [
+    {
+      "slovak": "Toto je holokaust.",
+      "english": "This is a Holocaust.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám holokaust.",
+      "english": "I'm looking for a Holocaust.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prekladatel": [
+    {
+      "slovak": "Toto je prekladateľ.",
+      "english": "This is a translator.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prekladateľ.",
+      "english": "I'm looking for a translator.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "otras": [
+    {
+      "slovak": "Toto je otras.",
+      "english": "This is a shock.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám otras.",
+      "english": "I'm looking for a shock.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "jen": [
+    {
+      "slovak": "Jeden jen stačí.",
+      "english": "One yen, Japanese monetary unit and coin is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám jen.",
+      "english": "I'm looking for a yen, Japanese monetary unit and coin.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "posudenie": [
+    {
+      "slovak": "Toto je posúdenie.",
+      "english": "This is an assessment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám posúdenie.",
+      "english": "I'm looking for an assessment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lyzicka": [
+    {
+      "slovak": "Toto je lyžička.",
+      "english": "This is a teaspoon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lyžička.",
+      "english": "I'm looking for a teaspoon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "samostatnost": [
+    {
+      "slovak": "Toto je samostatnosť.",
+      "english": "This is an independence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám samostatnosť.",
+      "english": "I'm looking for an independence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vzostup": [
+    {
+      "slovak": "Toto je vzostup.",
+      "english": "This is a rise.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vzostup.",
+      "english": "I'm looking for a rise.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vankus": [
+    {
+      "slovak": "Toto je vankúš.",
+      "english": "This is a pillow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vankúš.",
+      "english": "I'm looking for a pillow.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "slniecko": [
+    {
+      "slovak": "Toto je slniečko.",
+      "english": "This is a little sun.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám slniečko.",
+      "english": "I'm looking for a little sun.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kult": [
+    {
+      "slovak": "Toto je kult.",
+      "english": "This is a cult.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kult.",
+      "english": "I'm looking for a cult.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prebytok": [
+    {
+      "slovak": "Toto je prebytok.",
+      "english": "This is a surplus.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prebytok.",
+      "english": "I'm looking for a surplus.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lono": [
+    {
+      "slovak": "Toto je lono.",
+      "english": "This is a lap.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lono.",
+      "english": "I'm looking for a lap.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dnesok": [
+    {
+      "slovak": "Toto je dnešok.",
+      "english": "This is a today.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dnešok.",
+      "english": "I'm looking for a today.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "poludnie": [
+    {
+      "slovak": "Toto je poludnie.",
+      "english": "This is a noon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám poludnie.",
+      "english": "I'm looking for a noon.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kridelnik": [
+    {
+      "slovak": "Toto je krídelník.",
+      "english": "This is a winger.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám krídelník.",
+      "english": "I'm looking for a winger.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "bojovnost": [
+    {
+      "slovak": "Toto je bojovnosť.",
+      "english": "This is a fight.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám bojovnosť.",
+      "english": "I'm looking for a fight.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "garancia": [
+    {
+      "slovak": "Toto je garancia.",
+      "english": "This is a guarantee.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám garancia.",
+      "english": "I'm looking for a guarantee.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "paprika": [
+    {
+      "slovak": "Toto je paprika.",
+      "english": "This is a pepper.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám paprika.",
+      "english": "I'm looking for a pepper.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tura": [
+    {
+      "slovak": "Toto je túra.",
+      "english": "This is a hike.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám túra.",
+      "english": "I'm looking for a hike.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kancelar": [
+    {
+      "slovak": "Toto je kancelár.",
+      "english": "This is a chancellor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kancelár.",
+      "english": "I'm looking for a chancellor.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "uplatnovanie": [
+    {
+      "slovak": "Toto je uplatňovanie.",
+      "english": "This is an enforcement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám uplatňovanie.",
+      "english": "I'm looking for an enforcement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zasielka": [
+    {
+      "slovak": "Toto je zásielka.",
+      "english": "This is a shipment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zásielka.",
+      "english": "I'm looking for a shipment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "schodok": [
+    {
+      "slovak": "Jeden schodok stačí.",
+      "english": "One step is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám schodok.",
+      "english": "I'm looking for a step.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "privrzenec": [
+    {
+      "slovak": "Toto je prívrženec.",
+      "english": "This is a supporter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prívrženec.",
+      "english": "I'm looking for a supporter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "interpret": [
+    {
+      "slovak": "Toto je interpret.",
+      "english": "This is a performer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám interpret.",
+      "english": "I'm looking for a performer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "paragraf": [
+    {
+      "slovak": "Toto je paragraf.",
+      "english": "This is a paragraph.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám paragraf.",
+      "english": "I'm looking for a paragraph.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pecen": [
+    {
+      "slovak": "Toto je pečeň.",
+      "english": "This is a liver.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pečeň.",
+      "english": "I'm looking for a liver.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "fontana": [
+    {
+      "slovak": "Toto je fontána.",
+      "english": "This is a fountain.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám fontána.",
+      "english": "I'm looking for a fountain.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "gulas": [
+    {
+      "slovak": "Toto je guláš.",
+      "english": "This is a goulash.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám guláš.",
+      "english": "I'm looking for a goulash.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "plukovnik": [
+    {
+      "slovak": "Toto je plukovník.",
+      "english": "This is a colonel.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám plukovník.",
+      "english": "I'm looking for a colonel.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "striedanie": [
+    {
+      "slovak": "Toto je striedanie.",
+      "english": "This is an alternation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám striedanie.",
+      "english": "I'm looking for an alternation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tlacivo": [
+    {
+      "slovak": "Jedno tlačivo stačí.",
+      "english": "One form is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tlačivo.",
+      "english": "I'm looking for a form.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "previerka": [
+    {
+      "slovak": "Toto je previerka.",
+      "english": "This is a check.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám previerka.",
+      "english": "I'm looking for a check.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zastita": [
+    {
+      "slovak": "Toto je záštita.",
+      "english": "This is a patronage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám záštita.",
+      "english": "I'm looking for a patronage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "jed": [
+    {
+      "slovak": "Toto je jed.",
+      "english": "This is a poison.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám jed.",
+      "english": "I'm looking for a poison.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nahradnik": [
+    {
+      "slovak": "Toto je náhradník.",
+      "english": "This is a substitute.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám náhradník.",
+      "english": "I'm looking for a substitute.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "rovesnik": [
+    {
+      "slovak": "Toto je rovesník.",
+      "english": "This is a peer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rovesník.",
+      "english": "I'm looking for a peer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "gazda": [
+    {
+      "slovak": "To je gazda.",
+      "english": "That is a farmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám gazda.",
+      "english": "I'm looking for a farmer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "reprezentantka": [
+    {
+      "slovak": "Toto je reprezentantka.",
+      "english": "This is a female representative.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám reprezentantka.",
+      "english": "I'm looking for a female representative.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "amfiteater": [
+    {
+      "slovak": "Toto je amfiteáter.",
+      "english": "This is an amphitheater.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám amfiteáter.",
+      "english": "I'm looking for an amphitheater.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "toaleta": [
+    {
+      "slovak": "Toto je toaleta.",
+      "english": "This is a toilet.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám toaleta.",
+      "english": "I'm looking for a toilet.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "najomca": [
+    {
+      "slovak": "Toto je nájomca.",
+      "english": "This is a tenant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nájomca.",
+      "english": "I'm looking for a tenant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "publicista": [
+    {
+      "slovak": "Toto je publicista.",
+      "english": "This is a publicist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám publicista.",
+      "english": "I'm looking for a publicist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zabradlie": [
+    {
+      "slovak": "Toto je zábradlie.",
+      "english": "This is a railing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zábradlie.",
+      "english": "I'm looking for a railing.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dohravka": [
+    {
+      "slovak": "Toto je dohrávka.",
+      "english": "This is a replay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dohrávka.",
+      "english": "I'm looking for a replay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "zdanenie": [
+    {
+      "slovak": "Toto je zdanenie.",
+      "english": "This is a taxation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám zdanenie.",
+      "english": "I'm looking for a taxation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "chalupa": [
+    {
+      "slovak": "Toto je chalupa.",
+      "english": "This is a cottage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám chalupa.",
+      "english": "I'm looking for a cottage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sortiment": [
+    {
+      "slovak": "Toto je sortiment.",
+      "english": "This is a range of goods.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sortiment.",
+      "english": "I'm looking for a range of goods.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "protiklad": [
+    {
+      "slovak": "Toto je protiklad.",
+      "english": "This is an opposite.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám protiklad.",
+      "english": "I'm looking for an opposite.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lady": [
+    {
+      "slovak": "Toto je lady.",
+      "english": "This is a lady.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lady.",
+      "english": "I'm looking for a lady.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nedorozumenie": [
+    {
+      "slovak": "Toto je nedorozumenie.",
+      "english": "This is a misunderstanding.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nedorozumenie.",
+      "english": "I'm looking for a misunderstanding.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hadzanar": [
+    {
+      "slovak": "To je hádzanár.",
+      "english": "That is a handball player, handballer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hádzanár.",
+      "english": "I'm looking for a handball player, handballer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "manazerka": [
+    {
+      "slovak": "To je manažérka.",
+      "english": "That is a female manager.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám manažérka.",
+      "english": "I'm looking for a female manager.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kabelka": [
+    {
+      "slovak": "Toto je kabelka.",
+      "english": "This is a handbag.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kabelka.",
+      "english": "I'm looking for a handbag.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vecierok": [
+    {
+      "slovak": "Toto je večierok.",
+      "english": "This is a party.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám večierok.",
+      "english": "I'm looking for a party.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "totoznost": [
+    {
+      "slovak": "Toto je totožnosť.",
+      "english": "This is an identity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám totožnosť.",
+      "english": "I'm looking for an identity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hradza": [
+    {
+      "slovak": "Toto je hrádza.",
+      "english": "This is a dam.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hrádza.",
+      "english": "I'm looking for a dam.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sposobilost": [
+    {
+      "slovak": "Toto je spôsobilosť.",
+      "english": "This is a competence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám spôsobilosť.",
+      "english": "I'm looking for a competence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "taxik": [
+    {
+      "slovak": "Toto je taxík.",
+      "english": "This is a taxi.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám taxík.",
+      "english": "I'm looking for a taxi.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "partnerka": [
+    {
+      "slovak": "To je partnerka.",
+      "english": "That is a female partner.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám partnerka.",
+      "english": "I'm looking for a female partner.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "katalog": [
+    {
+      "slovak": "Toto je katalóg.",
+      "english": "This is a catalog.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám katalóg.",
+      "english": "I'm looking for a catalog.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "hodiny": [
+    {
+      "slovak": "Toto je hodiny.",
+      "english": "This is a clock.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám hodiny.",
+      "english": "I'm looking for a clock.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odklad": [
+    {
+      "slovak": "Toto je odklad.",
+      "english": "This is a postponement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odklad.",
+      "english": "I'm looking for a postponement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "postreh": [
+    {
+      "slovak": "Toto je postreh.",
+      "english": "This is an observation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám postreh.",
+      "english": "I'm looking for an observation.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vizum": [
+    {
+      "slovak": "Toto je vízum.",
+      "english": "This is a visa.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vízum.",
+      "english": "I'm looking for a visa.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "batozina": [
+    {
+      "slovak": "Toto je batožina.",
+      "english": "This is luggage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám batožina.",
+      "english": "I'm looking for luggage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vlhkost": [
+    {
+      "slovak": "Toto je vlhkosť.",
+      "english": "This is a humidity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vlhkosť.",
+      "english": "I'm looking for a humidity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "mila": [
+    {
+      "slovak": "Toto je míľa.",
+      "english": "This is a mile.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám míľa.",
+      "english": "I'm looking for a mile.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pripravka": [
+    {
+      "slovak": "Toto je prípravka.",
+      "english": "This is a preparatory class.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prípravka.",
+      "english": "I'm looking for a preparatory class.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kapitalizmus": [
+    {
+      "slovak": "Toto je kapitalizmus.",
+      "english": "This is a capitalism.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kapitalizmus.",
+      "english": "I'm looking for a capitalism.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "teza": [
+    {
+      "slovak": "Toto je téza.",
+      "english": "This is a thesis.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám téza.",
+      "english": "I'm looking for a thesis.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sporitel": [
+    {
+      "slovak": "Toto je sporiteľ.",
+      "english": "This is a saver.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám sporiteľ.",
+      "english": "I'm looking for a saver.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kulisa": [
+    {
+      "slovak": "Jedna kulisa stačí.",
+      "english": "One stage set is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kulisa.",
+      "english": "I'm looking for a stage set.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "oznam": [
+    {
+      "slovak": "Toto je oznam.",
+      "english": "This is a notice.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám oznam.",
+      "english": "I'm looking for a notice.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stvorica": [
+    {
+      "slovak": "Toto je štvorica.",
+      "english": "This is a foursome.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám štvorica.",
+      "english": "I'm looking for a foursome.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stupenec": [
+    {
+      "slovak": "Toto je stúpenec.",
+      "english": "This is a follower.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám stúpenec.",
+      "english": "I'm looking for a follower.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kinematografia": [
+    {
+      "slovak": "Toto je kinematografia.",
+      "english": "This is a cinematography, filmmaking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kinematografia.",
+      "english": "I'm looking for a cinematography, filmmaking.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nepritomnost": [
+    {
+      "slovak": "Toto je neprítomnosť.",
+      "english": "This is an absence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám neprítomnosť.",
+      "english": "I'm looking for an absence.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "kolaj": [
+    {
+      "slovak": "Toto je koľaj.",
+      "english": "This is a rut, track, groove.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám koľaj.",
+      "english": "I'm looking for a rut, track, groove.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "holding": [
+    {
+      "slovak": "Toto je holding.",
+      "english": "This is a holding company.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám holding.",
+      "english": "I'm looking for a holding company.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "esej": [
+    {
+      "slovak": "Toto je esej.",
+      "english": "This is an essay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám esej.",
+      "english": "I'm looking for an essay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dekret": [
+    {
+      "slovak": "Toto je dekrét.",
+      "english": "This is a decree.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dekrét.",
+      "english": "I'm looking for a decree.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dimenzia": [
+    {
+      "slovak": "Toto je dimenzia.",
+      "english": "This is a dimension.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dimenzia.",
+      "english": "I'm looking for a dimension.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "formovanie": [
+    {
+      "slovak": "Toto je formovanie.",
+      "english": "This is a forming.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám formovanie.",
+      "english": "I'm looking for a forming.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "haj": [
+    {
+      "slovak": "Toto je háj.",
+      "english": "This is a grove.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám háj.",
+      "english": "I'm looking for a grove.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "post-n": [
+    {
+      "slovak": "Toto je pôst.",
+      "english": "This is a fasting.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pôst.",
+      "english": "I'm looking for a fasting.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "knihkupectvo": [
+    {
+      "slovak": "Toto je kníhkupectvo.",
+      "english": "This is a bookstore, bookshop.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám kníhkupectvo.",
+      "english": "I'm looking for a bookstore, bookshop.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "letak": [
+    {
+      "slovak": "Toto je leták.",
+      "english": "This is a leaflet, flyer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám leták.",
+      "english": "I'm looking for a leaflet, flyer.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pyramida": [
+    {
+      "slovak": "Toto je pyramída.",
+      "english": "This is a pyramid.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pyramída.",
+      "english": "I'm looking for a pyramid.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lavina": [
+    {
+      "slovak": "Toto je lavína.",
+      "english": "This is an avalanche.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lavína.",
+      "english": "I'm looking for an avalanche.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "konzumacia": [
+    {
+      "slovak": "Toto je konzumácia.",
+      "english": "This is a consumption.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám konzumácia.",
+      "english": "I'm looking for a consumption.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "gigant": [
+    {
+      "slovak": "Toto je gigant.",
+      "english": "This is a giant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám gigant.",
+      "english": "I'm looking for a giant.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "balenie": [
+    {
+      "slovak": "Toto je balenie.",
+      "english": "This is a packaging.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám balenie.",
+      "english": "I'm looking for a packaging.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "pomnik": [
+    {
+      "slovak": "Toto je pomník.",
+      "english": "This is a monument.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám pomník.",
+      "english": "I'm looking for a monument.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "majitelka": [
+    {
+      "slovak": "To je majiteľka.",
+      "english": "That is a female owner.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám majiteľka.",
+      "english": "I'm looking for a female owner.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vratenie": [
+    {
+      "slovak": "Toto je vrátenie.",
+      "english": "This is a return.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vrátenie.",
+      "english": "I'm looking for a return.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "preddavok": [
+    {
+      "slovak": "Toto je preddavok.",
+      "english": "This is an advance payment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám preddavok.",
+      "english": "I'm looking for an advance payment.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nesuhlas": [
+    {
+      "slovak": "Toto je nesúhlas.",
+      "english": "This is a disagreement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nesúhlas.",
+      "english": "I'm looking for a disagreement.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "nalepka": [
+    {
+      "slovak": "Toto je nálepka.",
+      "english": "This is a sticker.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám nálepka.",
+      "english": "I'm looking for a sticker.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "listie": [
+    {
+      "slovak": "Toto je lístie.",
+      "english": "This is a foliage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lístie.",
+      "english": "I'm looking for a foliage.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "formular": [
+    {
+      "slovak": "Jeden formulár stačí.",
+      "english": "One form is enough.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám formulár.",
+      "english": "I'm looking for a form.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "workshop": [
+    {
+      "slovak": "Toto je workshop.",
+      "english": "This is a workshop.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám workshop.",
+      "english": "I'm looking for a workshop.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "moderatorka": [
+    {
+      "slovak": "Toto je moderátorka.",
+      "english": "This is a female presenter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám moderátorka.",
+      "english": "I'm looking for a female presenter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dieta-n": [
+    {
+      "slovak": "Toto je diéta.",
+      "english": "This is a diet.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám diéta.",
+      "english": "I'm looking for a diet.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "repertoar": [
+    {
+      "slovak": "Toto je repertoár.",
+      "english": "This is a repertoire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám repertoár.",
+      "english": "I'm looking for a repertoire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "gen": [
+    {
+      "slovak": "Toto je gén.",
+      "english": "This is a gene.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám gén.",
+      "english": "I'm looking for a gene.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "upadok": [
+    {
+      "slovak": "Toto je úpadok.",
+      "english": "This is a decline.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám úpadok.",
+      "english": "I'm looking for a decline.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stavebnictvo": [
+    {
+      "slovak": "Toto je stavebníctvo.",
+      "english": "This is a construction industry.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám stavebníctvo.",
+      "english": "I'm looking for a construction industry.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stajna": [
+    {
+      "slovak": "Toto je stajňa.",
+      "english": "This is a sty, stable.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám stajňa.",
+      "english": "I'm looking for a sty, stable.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "okienko": [
+    {
+      "slovak": "Kde je okienko?",
+      "english": "Where is a small window?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám okienko.",
+      "english": "I'm looking for a small window.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "potrubie": [
+    {
+      "slovak": "Toto je potrubie.",
+      "english": "This is a pipeline.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám potrubie.",
+      "english": "I'm looking for a pipeline.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "ritual": [
+    {
+      "slovak": "Toto je rituál.",
+      "english": "This is a ritual, rite.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám rituál.",
+      "english": "I'm looking for a ritual, rite.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "letenka": [
+    {
+      "slovak": "Toto je letenka.",
+      "english": "This is a plane ticket.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám letenka.",
+      "english": "I'm looking for a plane ticket.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sprint": [
+    {
+      "slovak": "Toto je šprint.",
+      "english": "This is a sprint.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám šprint.",
+      "english": "I'm looking for a sprint.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "prasok": [
+    {
+      "slovak": "Toto je prášok.",
+      "english": "This is a powder.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám prášok.",
+      "english": "I'm looking for a powder.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "panelak": [
+    {
+      "slovak": "Kde je panelák?",
+      "english": "Where is a prefabricated apartment block?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám panelák.",
+      "english": "I'm looking for a prefabricated apartment block.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "sluzka": [
+    {
+      "slovak": "Toto je slúžka.",
+      "english": "This is a maid.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám slúžka.",
+      "english": "I'm looking for a maid.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "mostik": [
+    {
+      "slovak": "Kde je mostík?",
+      "english": "Where is a bridge?",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám mostík.",
+      "english": "I'm looking for a bridge.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "twist": [
+    {
+      "slovak": "Toto je twist.",
+      "english": "This is a twist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám twist.",
+      "english": "I'm looking for a twist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vodovod": [
+    {
+      "slovak": "Toto je vodovod.",
+      "english": "This is a water supply.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám vodovod.",
+      "english": "I'm looking for a water supply.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "odstupne": [
+    {
+      "slovak": "Toto je odstupné.",
+      "english": "This is a severance pay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám odstupné.",
+      "english": "I'm looking for a severance pay.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "lekarnik": [
+    {
+      "slovak": "Toto je lekárnik.",
+      "english": "This is a pharmacist, druggist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám lekárnik.",
+      "english": "I'm looking for a pharmacist, druggist.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "drot": [
+    {
+      "slovak": "Toto je drôt.",
+      "english": "This is a wire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám drôt.",
+      "english": "I'm looking for a wire.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "dedic": [
+    {
+      "slovak": "Toto je dedič.",
+      "english": "This is a heir.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám dedič.",
+      "english": "I'm looking for a heir.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "misa": [
+    {
+      "slovak": "Toto je misa.",
+      "english": "This is a platter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám misa.",
+      "english": "I'm looking for a platter.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "vyjazd": [
+    {
+      "slovak": "Toto je výjazd.",
+      "english": "This is a trip.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám výjazd.",
+      "english": "I'm looking for a trip.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "tvorivost": [
+    {
+      "slovak": "Toto je tvorivosť.",
+      "english": "This is a creativity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám tvorivosť.",
+      "english": "I'm looking for a creativity.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
+  ],
+  "stipendium": [
+    {
+      "slovak": "Toto je štipendium.",
+      "english": "This is a scholarship.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    },
+    {
+      "slovak": "Hľadám štipendium.",
+      "english": "I'm looking for a scholarship.",
+      "note": "Curated",
+      "isPracticeFrame": true
+    }
   ]
 }

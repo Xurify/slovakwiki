@@ -1,0 +1,385 @@
+{
+  "chvost": {
+    "english": "tail"
+  },
+  "kolegyňa": {
+    "english": "female colleague"
+  },
+  "melódia": {
+    "english": "melody"
+  },
+  "žreb": {
+    "english": "lot; lottery ticket"
+  },
+  "chôdza": {
+    "english": "walking"
+  },
+  "rybár": {
+    "english": "fisher"
+  },
+  "imidž": {
+    "english": "image"
+  },
+  "veľvyslanectvo": {
+    "english": "embassy"
+  },
+  "myš": {
+    "english": "mouse; A mouse ."
+  },
+  "nádvorie": {
+    "english": "court, courtyard"
+  },
+  "cesnak": {
+    "english": "garlic"
+  },
+  "lokomotíva": {
+    "english": "engine, locomotive"
+  },
+  "databáza": {
+    "english": "database"
+  },
+  "čokoláda": {
+    "english": "chocolate"
+  },
+  "vdova": {
+    "english": "widow"
+  },
+  "psychológia": {
+    "english": "psychology"
+  },
+  "bielizeň": {
+    "english": "laundry; linen"
+  },
+  "pozostatok": {
+    "english": "corpse"
+  },
+  "pomsta": {
+    "english": "revenge"
+  },
+  "iskra": {
+    "english": "spark"
+  },
+  "stredovek": {
+    "english": "Middle Ages"
+  },
+  "kĺb": {
+    "english": "joint"
+  },
+  "členok": {
+    "english": "ankle"
+  },
+  "jarmok": {
+    "english": "fair, bazaar"
+  },
+  "hod": {
+    "english": "throw"
+  },
+  "zmätok": {
+    "english": "chaos"
+  },
+  "železo": {
+    "english": "iron"
+  },
+  "sukňa": {
+    "english": "skirt"
+  },
+  "kilo": {
+    "english": ", short for kilogram"
+  },
+  "partizán": {
+    "english": "partisan"
+  },
+  "zločinec": {
+    "english": "criminal"
+  },
+  "semeno": {
+    "english": "seed"
+  },
+  "chrbtica": {
+    "english": "spine, backbone"
+  },
+  "batéria": {
+    "english": "battery"
+  },
+  "včela": {
+    "english": "bee"
+  },
+  "súdruh": {
+    "english": "comrade"
+  },
+  "os": {
+    "english": "axis; axle"
+  },
+  "náboj": {
+    "english": "cartridge, round, shell; staples"
+  },
+  "fajčenie": {
+    "english": "smoking"
+  },
+  "baktéria": {
+    "english": "bacterium"
+  },
+  "prestavba": {
+    "english": "reconstruction, rebuilding, remodeling; restructuring, reorganization, transformation"
+  },
+  "nemčina": {
+    "english": "German"
+  },
+  "sekera": {
+    "english": "axe"
+  },
+  "panoráma": {
+    "english": "panorama"
+  },
+  "poľnohospodár": {
+    "english": "farmer; peasant"
+  },
+  "babička": {
+    "english": "grandmother; old woman"
+  },
+  "hlina": {
+    "english": "clay"
+  },
+  "zástava": {
+    "english": "flag, banner, ensign"
+  },
+  "rezervácia": {
+    "english": "reservation"
+  },
+  "obuv": {
+    "english": "footwear, shoes"
+  },
+  "pýcha": {
+    "english": "pride"
+  },
+  "škvrna": {
+    "english": "spot, stain"
+  },
+  "koč": {
+    "english": "a coach driven by horses"
+  },
+  "bremeno": {
+    "english": "burden"
+  },
+  "vkus": {
+    "english": "taste"
+  },
+  "hradba": {
+    "english": "rampart, wall, battlement"
+  },
+  "dedo": {
+    "english": "old man; grandfather"
+  },
+  "otrok": {
+    "english": "slave"
+  },
+  "synagóga": {
+    "english": "synagogue"
+  },
+  "orech": {
+    "english": "walnut (any member of the genus ); ( )"
+  },
+  "bazilika": {
+    "english": "basilica"
+  },
+  "bábätko": {
+    "english": "baby"
+  },
+  "klamstvo": {
+    "english": "lie"
+  },
+  "dostupnosť": {
+    "english": "availability"
+  },
+  "milenec": {
+    "english": "lover"
+  },
+  "popol": {
+    "english": "ash"
+  },
+  "sprcha": {
+    "english": "shower"
+  },
+  "lúpež": {
+    "english": "robbery"
+  },
+  "živočích": {
+    "english": "animal"
+  },
+  "lakeť": {
+    "english": "elbow; a unit of measurement: 0.779 m"
+  },
+  "klinec": {
+    "english": "nail"
+  },
+  "hrdosť": {
+    "english": "pride"
+  },
+  "pasca": {
+    "english": "trap"
+  },
+  "ujo": {
+    "english": "maternal uncle; An affectionate term for a man of an older generation than oneself, especially a friend of one's parents, by means of fictive kin."
+  },
+  "puto": {
+    "english": "bond (emotional)"
+  },
+  "islam": {
+    "english": "Islam"
+  },
+  "cudzina": {
+    "english": "foreign land or country"
+  },
+  "obočie": {
+    "english": "eyebrow"
+  },
+  "črevo": {
+    "english": "intestine"
+  },
+  "čaro": {
+    "english": "charm"
+  },
+  "basketbalista": {
+    "english": "basketball player"
+  },
+  "škála": {
+    "english": "scale"
+  },
+  "necht": {
+    "english": "nail"
+  },
+  "lyžiar": {
+    "english": "skier"
+  },
+  "chémia": {
+    "english": "chemistry"
+  },
+  "politológ": {
+    "english": "political scientist"
+  },
+  "hostiteľ": {
+    "english": "host"
+  },
+  "priazeň": {
+    "english": "favor"
+  },
+  "záliv": {
+    "english": "bay, gulf"
+  },
+  "vládca": {
+    "english": "ruler"
+  },
+  "husle": {
+    "english": "violin"
+  },
+  "orol": {
+    "english": "eagle"
+  },
+  "prízemie": {
+    "english": "groundfloor"
+  },
+  "drak": {
+    "english": "dragon"
+  },
+  "škatuľa": {
+    "english": "casket, case, jewel case"
+  },
+  "svätyňa": {
+    "english": "sanctuary"
+  },
+  "krík": {
+    "english": "bush, shrub"
+  },
+  "motorka": {
+    "english": "bike, motorbike; motor train",
+    "register": "colloquial"
+  },
+  "predsudok": {
+    "english": "prejudice"
+  },
+  "betón": {
+    "english": "concrete"
+  },
+  "čiapka": {
+    "english": "cap"
+  },
+  "jen": {
+    "english": "yen, Japanese monetary unit and coin"
+  },
+  "vankúš": {
+    "english": "pillow; cushion"
+  },
+  "lono": {
+    "english": "lap; woman's reproductive organs:"
+  },
+  "paprika": {
+    "english": "pepper"
+  },
+  "pečeň": {
+    "english": "liver"
+  },
+  "plukovník": {
+    "english": "colonel"
+  },
+  "jed": {
+    "english": "poison; venom"
+  },
+  "zdanenie": {
+    "english": "taxation"
+  },
+  "chalupa": {
+    "english": "cottage; rural house"
+  },
+  "hádzanár": {
+    "english": "handball player, handballer"
+  },
+  "hrádza": {
+    "english": "dam; perineum"
+  },
+  "vlhkosť": {
+    "english": "humidity"
+  },
+  "kapitalizmus": {
+    "english": "capitalism"
+  },
+  "kinematografia": {
+    "english": "cinematography, filmmaking"
+  },
+  "koľaj": {
+    "english": "rut, track, groove; railway track"
+  },
+  "esej": {
+    "english": "essay"
+  },
+  "pôst": {
+    "english": "fasting; Lent"
+  },
+  "kníhkupectvo": {
+    "english": "bookstore, bookshop"
+  },
+  "leták": {
+    "english": "leaflet, flyer"
+  },
+  "lavína": {
+    "english": "avalanche"
+  },
+  "diéta": {
+    "english": "diet; limitation, restriction of certain actions, procedures etc.; deficiency",
+    "register": "colloquial"
+  },
+  "stajňa": {
+    "english": "sty, stable"
+  },
+  "rituál": {
+    "english": "ritual, rite"
+  },
+  "mostík": {
+    "english": "a bridge"
+  },
+  "lekárnik": {
+    "english": "pharmacist, druggist"
+  },
+  "drôt": {
+    "english": "wire"
+  }
+}

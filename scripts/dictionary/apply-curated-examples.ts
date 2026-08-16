@@ -145,11 +145,17 @@ async function main(): Promise<void> {
     const incoming = normalizeExamples(clean).filter(
       (example) => !isWeakFillTemplate(example, word.slovak),
     );
-    if (incoming.length === 0) continue;
-    const reviewed = isReviewedCurated(incoming, word.slovak);
-    const practiceOnly = isPracticeOnly(incoming);
+    const usable =
+      incoming.length > 0
+        ? incoming
+        : word.examples.length === 0
+          ? normalizeExamples(clean)
+          : incoming;
+    if (usable.length === 0) continue;
+    const reviewed = isReviewedCurated(usable, word.slovak);
+    const practiceOnly = isPracticeOnly(usable);
     const underfilled = word.examples.length < 2;
-    const patternLocked = incoming.some((example) => Boolean(example.demonstrates));
+    const patternLocked = usable.some((example) => Boolean(example.demonstrates));
 
     // Practice frames must not replace corpus/hand rows — but may top up underfilled.
     if (practiceOnly && !underfilled && (hasTatoeba(word.examples) || !reviewed)) {
@@ -162,7 +168,7 @@ async function main(): Promise<void> {
     if (patternLocked) {
       // Curated pedagogy leads; keep non-pattern extras (usually Tatoeba store pool).
       const curatedKeys = new Set(
-        incoming.map((example) => example.slovak.toLocaleLowerCase("sk")),
+        usable.map((example) => example.slovak.toLocaleLowerCase("sk")),
       );
       const extras = word.examples.filter((example) => {
         const key = example.slovak.toLocaleLowerCase("sk");
@@ -170,23 +176,23 @@ async function main(): Promise<void> {
         if (example.demonstrates) return false;
         return true;
       });
-      word.examples = [...incoming, ...extras];
+      word.examples = [...usable, ...extras];
     } else if (reviewed && !practiceOnly) {
       // Hand-curated / reviewed rows lead; drop leftover practice frames from live.
       const curatedKeys = new Set(
-        incoming.map((example) => example.slovak.toLocaleLowerCase("sk")),
+        usable.map((example) => example.slovak.toLocaleLowerCase("sk")),
       );
       const extras = word.examples.filter((example) => {
         if (example.isPracticeFrame) return false;
         const key = example.slovak.toLocaleLowerCase("sk");
         return !curatedKeys.has(key);
       });
-      word.examples = [...incoming, ...extras];
+      word.examples = [...usable, ...extras];
     } else {
       // Union by Slovak text: keep live rows first, then curated/fill extras.
       const merged: Example[] = [];
       const seen = new Set<string>();
-      for (const example of [...word.examples, ...incoming]) {
+      for (const example of [...word.examples, ...usable]) {
         const key = example.slovak.toLocaleLowerCase("sk");
         if (seen.has(key)) continue;
         seen.add(key);

@@ -63,7 +63,7 @@ export const referenceSources: ReferenceSource[] = [
     group: "corpus",
     name: "Slovak National Corpus (SNK) frequency lists",
     usedFor:
-      "Top-2500 noun and top-2000 verb lemmas from the full SNK count dumps, plus top-1000 adjective and adverb lemmas from the SNK HTML lists, used on /dictionary/common and frequency publish.",
+      "Top-3000 noun and top-2000 verb lemmas from the full SNK count dumps, plus top-1000 adjective and adverb lemmas from the SNK HTML lists, used on /dictionary/common and frequency publish.",
     links: [
       {
         href: "https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/",

@@ -12,7 +12,14 @@ import type { ContentEntry, Example, WordFrequency, WordOrigin } from "../types"
  */
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related" | "topics"
+  | "slug"
+  | "slovak"
+  | "english"
+  | "category"
+  | "examples"
+  | "related"
+  | "topics"
+  | "register"
 >;
 
 type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
@@ -720,6 +727,7 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
     tags: [
       word.category.toLowerCase(),
       ...(word.topics ?? []).map((topic) => topic.toLowerCase()),
+      ...(word.register ? [word.register] : []),
       "beginner",
     ],
   };

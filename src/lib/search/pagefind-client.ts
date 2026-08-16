@@ -5,6 +5,7 @@ export interface PagefindResultData {
   meta: {
     category?: string;
     kind?: string;
+    register?: string;
     summary?: string;
     title?: string;
   };

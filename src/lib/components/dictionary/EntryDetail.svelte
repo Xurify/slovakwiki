@@ -11,7 +11,12 @@
   import { highlightLemmaInText } from "$lib/catalog/dictionary/highlight-lemma";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
   import { senseSectionId } from "$lib/catalog/dictionary/lemma-senses";
-  import type { ContentEntry, EntryKind, Example } from "$lib/catalog/types";
+  import {
+    REGISTER_CHIP_LABEL,
+    type ContentEntry,
+    type EntryKind,
+    type Example,
+  } from "$lib/catalog/types";
 
   interface RelatedEntry {
     english: string;
@@ -203,6 +208,14 @@
               #{entry.frequency.rank}
               {FREQUENCY_PART_OF_SPEECH_LABEL[entry.frequency.partOfSpeech]}
             </a>
+          {/if}
+
+          {#if entry.register}
+            <span
+              class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-panel-inverse-ink/80"
+            >
+              {REGISTER_CHIP_LABEL[entry.register]}
+            </span>
           {/if}
         {/if}
       </div>

@@ -1,5 +1,5 @@
 /**
- * Import SNK frequency lists: noun top-2500 and verb top-2000 from full count dumps,
+ * Import SNK frequency lists: noun top-3000 and verb top-2000 from full count dumps,
  * adjective/adverb top-1000 from the existing HTML lists.
  *
  * Pivot: swap `fetchSnkFrequency` for a Tatoeba-rank importer later; keep
@@ -53,7 +53,7 @@ const SNK_NOUN_DUMP =
   "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2";
 const SNK_VERB_DUMP =
   "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-V-lemma-frequency.bz2";
-const DEFAULT_NOUN_LIMIT = 2500;
+const DEFAULT_NOUN_LIMIT = 3000;
 const DEFAULT_VERB_LIMIT = 2000;
 
 const PART_OF_SPEECH_PATHS: Record<

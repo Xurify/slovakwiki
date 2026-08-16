@@ -1,6 +1,6 @@
 {
   "corpus": "prim-8.0-public-all",
-  "generatedAt": "2026-08-09T13:07:02.820Z",
+  "generatedAt": "2026-08-16T04:55:55.536Z",
   "partOfSpeech": "noun",
   "source": "Slovak National Corpus (SNK)",
   "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2",
@@ -20002,6 +20002,4006 @@
       "lemma": "chvála",
       "partOfSpeech": "noun",
       "count": 18818,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2501,
+      "lemma": "panel",
+      "partOfSpeech": "noun",
+      "count": 18817,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2502,
+      "lemma": "chlad",
+      "partOfSpeech": "noun",
+      "count": 18809,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2503,
+      "lemma": "plávanie",
+      "partOfSpeech": "noun",
+      "count": 18801,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2504,
+      "lemma": "reťaz",
+      "partOfSpeech": "noun",
+      "count": 18796,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2505,
+      "lemma": "oblek",
+      "partOfSpeech": "noun",
+      "count": 18794,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2506,
+      "lemma": "nervozita",
+      "partOfSpeech": "noun",
+      "count": 18731,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2507,
+      "lemma": "získavanie",
+      "partOfSpeech": "noun",
+      "count": 18722,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2508,
+      "lemma": "nápor",
+      "partOfSpeech": "noun",
+      "count": 18715,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2509,
+      "lemma": "chvost",
+      "partOfSpeech": "noun",
+      "count": 18706,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2510,
+      "lemma": "kolegyňa",
+      "partOfSpeech": "noun",
+      "count": 18704,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2511,
+      "lemma": "večnosť",
+      "partOfSpeech": "noun",
+      "count": 18699,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2512,
+      "lemma": "melódia",
+      "partOfSpeech": "noun",
+      "count": 18695,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2513,
+      "lemma": "ovládanie",
+      "partOfSpeech": "noun",
+      "count": 18690,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2514,
+      "lemma": "žreb",
+      "partOfSpeech": "noun",
+      "count": 18686,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2515,
+      "lemma": "telefonát",
+      "partOfSpeech": "noun",
+      "count": 18681,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2516,
+      "lemma": "dozor",
+      "partOfSpeech": "noun",
+      "count": 18647,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2517,
+      "lemma": "stravovanie",
+      "partOfSpeech": "noun",
+      "count": 18624,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2518,
+      "lemma": "chôdza",
+      "partOfSpeech": "noun",
+      "count": 18623,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2519,
+      "lemma": "vyhláška",
+      "partOfSpeech": "noun",
+      "count": 18604,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2520,
+      "lemma": "pokora",
+      "partOfSpeech": "noun",
+      "count": 18586,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2521,
+      "lemma": "reportáž",
+      "partOfSpeech": "noun",
+      "count": 18582,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2522,
+      "lemma": "zástup",
+      "partOfSpeech": "noun",
+      "count": 18579,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2523,
+      "lemma": "rybár",
+      "partOfSpeech": "noun",
+      "count": 18579,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2524,
+      "lemma": "tanečník",
+      "partOfSpeech": "noun",
+      "count": 18562,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2525,
+      "lemma": "imidž",
+      "partOfSpeech": "noun",
+      "count": 18553,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2526,
+      "lemma": "kútik",
+      "partOfSpeech": "noun",
+      "count": 18547,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2527,
+      "lemma": "grant",
+      "partOfSpeech": "noun",
+      "count": 18546,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2528,
+      "lemma": "veľvyslanectvo",
+      "partOfSpeech": "noun",
+      "count": 18543,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2529,
+      "lemma": "pleť",
+      "partOfSpeech": "noun",
+      "count": 18529,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2530,
+      "lemma": "samozrejmosť",
+      "partOfSpeech": "noun",
+      "count": 18505,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2531,
+      "lemma": "myš",
+      "partOfSpeech": "noun",
+      "count": 18490,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2532,
+      "lemma": "nádvorie",
+      "partOfSpeech": "noun",
+      "count": 18481,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2533,
+      "lemma": "protokol",
+      "partOfSpeech": "noun",
+      "count": 18455,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2534,
+      "lemma": "premiérka",
+      "partOfSpeech": "noun",
+      "count": 18454,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2535,
+      "lemma": "vila",
+      "partOfSpeech": "noun",
+      "count": 18432,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2536,
+      "lemma": "priestranstvo",
+      "partOfSpeech": "noun",
+      "count": 18426,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2537,
+      "lemma": "ateliér",
+      "partOfSpeech": "noun",
+      "count": 18418,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2538,
+      "lemma": "cesnak",
+      "partOfSpeech": "noun",
+      "count": 18413,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2539,
+      "lemma": "lokomotíva",
+      "partOfSpeech": "noun",
+      "count": 18393,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2540,
+      "lemma": "databáza",
+      "partOfSpeech": "noun",
+      "count": 18392,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2541,
+      "lemma": "nájomné",
+      "partOfSpeech": "noun",
+      "count": 18357,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2542,
+      "lemma": "chov",
+      "partOfSpeech": "noun",
+      "count": 18354,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2543,
+      "lemma": "reštrukturalizácia",
+      "partOfSpeech": "noun",
+      "count": 18336,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2544,
+      "lemma": "pruh",
+      "partOfSpeech": "noun",
+      "count": 18318,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2545,
+      "lemma": "čokoláda",
+      "partOfSpeech": "noun",
+      "count": 18276,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2546,
+      "lemma": "nosič",
+      "partOfSpeech": "noun",
+      "count": 18229,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2547,
+      "lemma": "atentát",
+      "partOfSpeech": "noun",
+      "count": 18225,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2548,
+      "lemma": "skrinka",
+      "partOfSpeech": "noun",
+      "count": 18190,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2549,
+      "lemma": "prevzatie",
+      "partOfSpeech": "noun",
+      "count": 18182,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2550,
+      "lemma": "návod",
+      "partOfSpeech": "noun",
+      "count": 18176,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2551,
+      "lemma": "udelenie",
+      "partOfSpeech": "noun",
+      "count": 18165,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2552,
+      "lemma": "vdova",
+      "partOfSpeech": "noun",
+      "count": 18152,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2553,
+      "lemma": "päťka",
+      "partOfSpeech": "noun",
+      "count": 18124,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2554,
+      "lemma": "miska",
+      "partOfSpeech": "noun",
+      "count": 18119,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2555,
+      "lemma": "displej",
+      "partOfSpeech": "noun",
+      "count": 18088,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2556,
+      "lemma": "terapia",
+      "partOfSpeech": "noun",
+      "count": 18087,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2557,
+      "lemma": "logo",
+      "partOfSpeech": "noun",
+      "count": 18082,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2558,
+      "lemma": "psychológia",
+      "partOfSpeech": "noun",
+      "count": 18081,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2559,
+      "lemma": "kopačka",
+      "partOfSpeech": "noun",
+      "count": 18074,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2560,
+      "lemma": "potlesk",
+      "partOfSpeech": "noun",
+      "count": 18052,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2561,
+      "lemma": "debut",
+      "partOfSpeech": "noun",
+      "count": 18043,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2562,
+      "lemma": "bielizeň",
+      "partOfSpeech": "noun",
+      "count": 18034,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2563,
+      "lemma": "pozostatok",
+      "partOfSpeech": "noun",
+      "count": 18001,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2564,
+      "lemma": "panika",
+      "partOfSpeech": "noun",
+      "count": 17995,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2565,
+      "lemma": "pomsta",
+      "partOfSpeech": "noun",
+      "count": 17993,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2566,
+      "lemma": "podhradie",
+      "partOfSpeech": "noun",
+      "count": 17967,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2567,
+      "lemma": "technik",
+      "partOfSpeech": "noun",
+      "count": 17946,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2568,
+      "lemma": "obrátka",
+      "partOfSpeech": "noun",
+      "count": 17919,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2569,
+      "lemma": "aféra",
+      "partOfSpeech": "noun",
+      "count": 17913,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2570,
+      "lemma": "pestovanie",
+      "partOfSpeech": "noun",
+      "count": 17905,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2571,
+      "lemma": "iskra",
+      "partOfSpeech": "noun",
+      "count": 17882,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2572,
+      "lemma": "stredovek",
+      "partOfSpeech": "noun",
+      "count": 17873,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2573,
+      "lemma": "kĺb",
+      "partOfSpeech": "noun",
+      "count": 17865,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2574,
+      "lemma": "žid",
+      "partOfSpeech": "noun",
+      "count": 17857,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2575,
+      "lemma": "členok",
+      "partOfSpeech": "noun",
+      "count": 17850,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2576,
+      "lemma": "jarmok",
+      "partOfSpeech": "noun",
+      "count": 17824,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2577,
+      "lemma": "juniorka",
+      "partOfSpeech": "noun",
+      "count": 17820,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2578,
+      "lemma": "elektronika",
+      "partOfSpeech": "noun",
+      "count": 17819,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2579,
+      "lemma": "tvor",
+      "partOfSpeech": "noun",
+      "count": 17801,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2580,
+      "lemma": "meditácia",
+      "partOfSpeech": "noun",
+      "count": 17782,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2581,
+      "lemma": "hod",
+      "partOfSpeech": "noun",
+      "count": 17763,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2582,
+      "lemma": "zmätok",
+      "partOfSpeech": "noun",
+      "count": 17738,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2583,
+      "lemma": "telekomunikácia",
+      "partOfSpeech": "noun",
+      "count": 17735,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2584,
+      "lemma": "nevyhnutnosť",
+      "partOfSpeech": "noun",
+      "count": 17701,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2585,
+      "lemma": "horúčka",
+      "partOfSpeech": "noun",
+      "count": 17691,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2586,
+      "lemma": "železo",
+      "partOfSpeech": "noun",
+      "count": 17682,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2587,
+      "lemma": "trápenie",
+      "partOfSpeech": "noun",
+      "count": 17661,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2588,
+      "lemma": "zaplatenie",
+      "partOfSpeech": "noun",
+      "count": 17648,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2589,
+      "lemma": "sukňa",
+      "partOfSpeech": "noun",
+      "count": 17647,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2590,
+      "lemma": "ošetrenie",
+      "partOfSpeech": "noun",
+      "count": 17629,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2591,
+      "lemma": "lekárka",
+      "partOfSpeech": "noun",
+      "count": 17624,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2592,
+      "lemma": "recenzia",
+      "partOfSpeech": "noun",
+      "count": 17604,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2593,
+      "lemma": "prípravok",
+      "partOfSpeech": "noun",
+      "count": 17592,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2594,
+      "lemma": "diplom",
+      "partOfSpeech": "noun",
+      "count": 17566,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2595,
+      "lemma": "tolerancia",
+      "partOfSpeech": "noun",
+      "count": 17543,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2596,
+      "lemma": "kontrolór",
+      "partOfSpeech": "noun",
+      "count": 17543,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2597,
+      "lemma": "krik",
+      "partOfSpeech": "noun",
+      "count": 17526,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2598,
+      "lemma": "folklór",
+      "partOfSpeech": "noun",
+      "count": 17526,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2599,
+      "lemma": "odhalenie",
+      "partOfSpeech": "noun",
+      "count": 17523,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2600,
+      "lemma": "kondícia",
+      "partOfSpeech": "noun",
+      "count": 17508,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2601,
+      "lemma": "pocta",
+      "partOfSpeech": "noun",
+      "count": 17485,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2602,
+      "lemma": "kilo",
+      "partOfSpeech": "noun",
+      "count": 17485,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2603,
+      "lemma": "herňa",
+      "partOfSpeech": "noun",
+      "count": 17463,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2604,
+      "lemma": "komín",
+      "partOfSpeech": "noun",
+      "count": 17457,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2605,
+      "lemma": "internát",
+      "partOfSpeech": "noun",
+      "count": 17419,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2606,
+      "lemma": "vyznanie",
+      "partOfSpeech": "noun",
+      "count": 17403,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2607,
+      "lemma": "poukážka",
+      "partOfSpeech": "noun",
+      "count": 17385,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2608,
+      "lemma": "rukáv",
+      "partOfSpeech": "noun",
+      "count": 17382,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2609,
+      "lemma": "partizán",
+      "partOfSpeech": "noun",
+      "count": 17380,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2610,
+      "lemma": "naplnenie",
+      "partOfSpeech": "noun",
+      "count": 17369,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2611,
+      "lemma": "zločinec",
+      "partOfSpeech": "noun",
+      "count": 17363,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2612,
+      "lemma": "pasáž",
+      "partOfSpeech": "noun",
+      "count": 17360,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2613,
+      "lemma": "ospravedlnenie",
+      "partOfSpeech": "noun",
+      "count": 17353,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2614,
+      "lemma": "semeno",
+      "partOfSpeech": "noun",
+      "count": 17345,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2615,
+      "lemma": "chrbtica",
+      "partOfSpeech": "noun",
+      "count": 17334,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2616,
+      "lemma": "legionár",
+      "partOfSpeech": "noun",
+      "count": 17332,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2617,
+      "lemma": "vozovka",
+      "partOfSpeech": "noun",
+      "count": 17326,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2618,
+      "lemma": "batéria",
+      "partOfSpeech": "noun",
+      "count": 17324,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2619,
+      "lemma": "včela",
+      "partOfSpeech": "noun",
+      "count": 17308,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2620,
+      "lemma": "súdruh",
+      "partOfSpeech": "noun",
+      "count": 17302,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2621,
+      "lemma": "úplatok",
+      "partOfSpeech": "noun",
+      "count": 17287,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2622,
+      "lemma": "montáž",
+      "partOfSpeech": "noun",
+      "count": 17259,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2623,
+      "lemma": "para",
+      "partOfSpeech": "noun",
+      "count": 17244,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2624,
+      "lemma": "psík",
+      "partOfSpeech": "noun",
+      "count": 17232,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2625,
+      "lemma": "prerušenie",
+      "partOfSpeech": "noun",
+      "count": 17220,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2626,
+      "lemma": "odhodlanie",
+      "partOfSpeech": "noun",
+      "count": 17214,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2627,
+      "lemma": "mlčanie",
+      "partOfSpeech": "noun",
+      "count": 17211,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2628,
+      "lemma": "os",
+      "partOfSpeech": "noun",
+      "count": 17203,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2629,
+      "lemma": "socialista",
+      "partOfSpeech": "noun",
+      "count": 17200,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2630,
+      "lemma": "poistka",
+      "partOfSpeech": "noun",
+      "count": 17198,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2631,
+      "lemma": "zmierenie",
+      "partOfSpeech": "noun",
+      "count": 17159,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2632,
+      "lemma": "akademik",
+      "partOfSpeech": "noun",
+      "count": 17143,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2633,
+      "lemma": "náboj",
+      "partOfSpeech": "noun",
+      "count": 17135,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2634,
+      "lemma": "fajčenie",
+      "partOfSpeech": "noun",
+      "count": 17123,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2635,
+      "lemma": "baktéria",
+      "partOfSpeech": "noun",
+      "count": 17123,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2636,
+      "lemma": "plachta",
+      "partOfSpeech": "noun",
+      "count": 17122,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2637,
+      "lemma": "žiarenie",
+      "partOfSpeech": "noun",
+      "count": 17121,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2638,
+      "lemma": "mix",
+      "partOfSpeech": "noun",
+      "count": 17107,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2639,
+      "lemma": "vydávanie",
+      "partOfSpeech": "noun",
+      "count": 17096,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2640,
+      "lemma": "štafeta",
+      "partOfSpeech": "noun",
+      "count": 17062,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2641,
+      "lemma": "zhodnotenie",
+      "partOfSpeech": "noun",
+      "count": 17050,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2642,
+      "lemma": "varovanie",
+      "partOfSpeech": "noun",
+      "count": 17047,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2643,
+      "lemma": "zjavenie",
+      "partOfSpeech": "noun",
+      "count": 17033,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2644,
+      "lemma": "kolekcia",
+      "partOfSpeech": "noun",
+      "count": 17032,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2645,
+      "lemma": "náročnosť",
+      "partOfSpeech": "noun",
+      "count": 17003,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2646,
+      "lemma": "lord",
+      "partOfSpeech": "noun",
+      "count": 17002,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2647,
+      "lemma": "uzavretie",
+      "partOfSpeech": "noun",
+      "count": 16978,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2648,
+      "lemma": "imanie",
+      "partOfSpeech": "noun",
+      "count": 16958,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2649,
+      "lemma": "vlajka",
+      "partOfSpeech": "noun",
+      "count": 16950,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2650,
+      "lemma": "kolotoč",
+      "partOfSpeech": "noun",
+      "count": 16931,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2651,
+      "lemma": "prestavba",
+      "partOfSpeech": "noun",
+      "count": 16919,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2652,
+      "lemma": "pasažier",
+      "partOfSpeech": "noun",
+      "count": 16919,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2653,
+      "lemma": "nemčina",
+      "partOfSpeech": "noun",
+      "count": 16917,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2654,
+      "lemma": "grafika",
+      "partOfSpeech": "noun",
+      "count": 16892,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2655,
+      "lemma": "stehno",
+      "partOfSpeech": "noun",
+      "count": 16891,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2656,
+      "lemma": "doplnenie",
+      "partOfSpeech": "noun",
+      "count": 16850,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2657,
+      "lemma": "sekera",
+      "partOfSpeech": "noun",
+      "count": 16810,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2658,
+      "lemma": "panoráma",
+      "partOfSpeech": "noun",
+      "count": 16807,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2659,
+      "lemma": "mam",
+      "partOfSpeech": "noun",
+      "count": 16798,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2660,
+      "lemma": "odroda",
+      "partOfSpeech": "noun",
+      "count": 16748,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2661,
+      "lemma": "únos",
+      "partOfSpeech": "noun",
+      "count": 16730,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2662,
+      "lemma": "zvrat",
+      "partOfSpeech": "noun",
+      "count": 16724,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2663,
+      "lemma": "trio",
+      "partOfSpeech": "noun",
+      "count": 16722,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2664,
+      "lemma": "muzika",
+      "partOfSpeech": "noun",
+      "count": 16712,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2665,
+      "lemma": "investovanie",
+      "partOfSpeech": "noun",
+      "count": 16708,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2666,
+      "lemma": "poľnohospodár",
+      "partOfSpeech": "noun",
+      "count": 16706,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2667,
+      "lemma": "produktivita",
+      "partOfSpeech": "noun",
+      "count": 16679,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2668,
+      "lemma": "opýtaný",
+      "partOfSpeech": "noun",
+      "count": 16673,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2669,
+      "lemma": "plavba",
+      "partOfSpeech": "noun",
+      "count": 16672,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2670,
+      "lemma": "babička",
+      "partOfSpeech": "noun",
+      "count": 16672,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2671,
+      "lemma": "bankrot",
+      "partOfSpeech": "noun",
+      "count": 16666,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2672,
+      "lemma": "odpočinok",
+      "partOfSpeech": "noun",
+      "count": 16652,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2673,
+      "lemma": "hlina",
+      "partOfSpeech": "noun",
+      "count": 16649,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2674,
+      "lemma": "vlaňajšok",
+      "partOfSpeech": "noun",
+      "count": 16634,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2675,
+      "lemma": "zástava",
+      "partOfSpeech": "noun",
+      "count": 16608,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2676,
+      "lemma": "zúfalstvo",
+      "partOfSpeech": "noun",
+      "count": 16597,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2677,
+      "lemma": "rezervácia",
+      "partOfSpeech": "noun",
+      "count": 16596,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2678,
+      "lemma": "obuv",
+      "partOfSpeech": "noun",
+      "count": 16592,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2679,
+      "lemma": "zlosť",
+      "partOfSpeech": "noun",
+      "count": 16582,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2680,
+      "lemma": "pýcha",
+      "partOfSpeech": "noun",
+      "count": 16579,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2681,
+      "lemma": "diskotéka",
+      "partOfSpeech": "noun",
+      "count": 16578,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2682,
+      "lemma": "škvrna",
+      "partOfSpeech": "noun",
+      "count": 16559,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2683,
+      "lemma": "veniec",
+      "partOfSpeech": "noun",
+      "count": 16550,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2684,
+      "lemma": "koč",
+      "partOfSpeech": "noun",
+      "count": 16546,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2685,
+      "lemma": "vykonanie",
+      "partOfSpeech": "noun",
+      "count": 16543,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2686,
+      "lemma": "dlažba",
+      "partOfSpeech": "noun",
+      "count": 16539,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2687,
+      "lemma": "výstrel",
+      "partOfSpeech": "noun",
+      "count": 16532,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2688,
+      "lemma": "bremeno",
+      "partOfSpeech": "noun",
+      "count": 16491,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2689,
+      "lemma": "špecialita",
+      "partOfSpeech": "noun",
+      "count": 16488,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2690,
+      "lemma": "hrniec",
+      "partOfSpeech": "noun",
+      "count": 16480,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2691,
+      "lemma": "audit",
+      "partOfSpeech": "noun",
+      "count": 16474,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2692,
+      "lemma": "vkus",
+      "partOfSpeech": "noun",
+      "count": 16471,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2693,
+      "lemma": "hradba",
+      "partOfSpeech": "noun",
+      "count": 16465,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2694,
+      "lemma": "blížny",
+      "partOfSpeech": "noun",
+      "count": 16461,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2695,
+      "lemma": "dedo",
+      "partOfSpeech": "noun",
+      "count": 16442,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2696,
+      "lemma": "otrok",
+      "partOfSpeech": "noun",
+      "count": 16435,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2697,
+      "lemma": "cyklistika",
+      "partOfSpeech": "noun",
+      "count": 16428,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2698,
+      "lemma": "interval",
+      "partOfSpeech": "noun",
+      "count": 16424,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2699,
+      "lemma": "školák",
+      "partOfSpeech": "noun",
+      "count": 16386,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2700,
+      "lemma": "ozdoba",
+      "partOfSpeech": "noun",
+      "count": 16379,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2701,
+      "lemma": "fara",
+      "partOfSpeech": "noun",
+      "count": 16368,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2702,
+      "lemma": "lano",
+      "partOfSpeech": "noun",
+      "count": 16363,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2703,
+      "lemma": "ochranca",
+      "partOfSpeech": "noun",
+      "count": 16361,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2704,
+      "lemma": "laik",
+      "partOfSpeech": "noun",
+      "count": 16345,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2705,
+      "lemma": "fasáda",
+      "partOfSpeech": "noun",
+      "count": 16335,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2706,
+      "lemma": "mýto",
+      "partOfSpeech": "noun",
+      "count": 16326,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2707,
+      "lemma": "muzikant",
+      "partOfSpeech": "noun",
+      "count": 16308,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2708,
+      "lemma": "zástupkyňa",
+      "partOfSpeech": "noun",
+      "count": 16303,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2709,
+      "lemma": "zvolenie",
+      "partOfSpeech": "noun",
+      "count": 16290,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2710,
+      "lemma": "pivovar",
+      "partOfSpeech": "noun",
+      "count": 16287,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2711,
+      "lemma": "záloha",
+      "partOfSpeech": "noun",
+      "count": 16280,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2712,
+      "lemma": "pohárik",
+      "partOfSpeech": "noun",
+      "count": 16272,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2713,
+      "lemma": "synagóga",
+      "partOfSpeech": "noun",
+      "count": 16267,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2714,
+      "lemma": "orech",
+      "partOfSpeech": "noun",
+      "count": 16252,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2715,
+      "lemma": "bazilika",
+      "partOfSpeech": "noun",
+      "count": 16250,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2716,
+      "lemma": "kvóta",
+      "partOfSpeech": "noun",
+      "count": 16243,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2717,
+      "lemma": "priepasť",
+      "partOfSpeech": "noun",
+      "count": 16232,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2718,
+      "lemma": "robot",
+      "partOfSpeech": "noun",
+      "count": 16231,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2719,
+      "lemma": "pitie",
+      "partOfSpeech": "noun",
+      "count": 16223,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2720,
+      "lemma": "dotazník",
+      "partOfSpeech": "noun",
+      "count": 16211,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2721,
+      "lemma": "bábätko",
+      "partOfSpeech": "noun",
+      "count": 16210,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2722,
+      "lemma": "klamstvo",
+      "partOfSpeech": "noun",
+      "count": 16206,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2723,
+      "lemma": "polhodina",
+      "partOfSpeech": "noun",
+      "count": 16201,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2724,
+      "lemma": "dostupnosť",
+      "partOfSpeech": "noun",
+      "count": 16196,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2725,
+      "lemma": "vyhliadka",
+      "partOfSpeech": "noun",
+      "count": 16167,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2726,
+      "lemma": "tlačiareň",
+      "partOfSpeech": "noun",
+      "count": 16157,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2727,
+      "lemma": "zakončenie",
+      "partOfSpeech": "noun",
+      "count": 16137,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2728,
+      "lemma": "milenec",
+      "partOfSpeech": "noun",
+      "count": 16132,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2729,
+      "lemma": "ľútosť",
+      "partOfSpeech": "noun",
+      "count": 16119,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2730,
+      "lemma": "tyč",
+      "partOfSpeech": "noun",
+      "count": 16117,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2731,
+      "lemma": "vykurovanie",
+      "partOfSpeech": "noun",
+      "count": 16113,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2732,
+      "lemma": "návyk",
+      "partOfSpeech": "noun",
+      "count": 16112,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2733,
+      "lemma": "popol",
+      "partOfSpeech": "noun",
+      "count": 16109,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2734,
+      "lemma": "sprcha",
+      "partOfSpeech": "noun",
+      "count": 16108,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2735,
+      "lemma": "štvorka",
+      "partOfSpeech": "noun",
+      "count": 16106,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2736,
+      "lemma": "lúpež",
+      "partOfSpeech": "noun",
+      "count": 16105,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2737,
+      "lemma": "plavec",
+      "partOfSpeech": "noun",
+      "count": 16100,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2738,
+      "lemma": "živočích",
+      "partOfSpeech": "noun",
+      "count": 16090,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2739,
+      "lemma": "nastavenie",
+      "partOfSpeech": "noun",
+      "count": 16082,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2740,
+      "lemma": "lakeť",
+      "partOfSpeech": "noun",
+      "count": 16075,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2741,
+      "lemma": "sucho",
+      "partOfSpeech": "noun",
+      "count": 16065,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2742,
+      "lemma": "maličkosť",
+      "partOfSpeech": "noun",
+      "count": 16064,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2743,
+      "lemma": "nutnosť",
+      "partOfSpeech": "noun",
+      "count": 16061,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2744,
+      "lemma": "klinec",
+      "partOfSpeech": "noun",
+      "count": 16060,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2745,
+      "lemma": "paradox",
+      "partOfSpeech": "noun",
+      "count": 16055,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2746,
+      "lemma": "vzrušenie",
+      "partOfSpeech": "noun",
+      "count": 16037,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2747,
+      "lemma": "hrdosť",
+      "partOfSpeech": "noun",
+      "count": 16008,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2748,
+      "lemma": "vyvrcholenie",
+      "partOfSpeech": "noun",
+      "count": 16005,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2749,
+      "lemma": "dodatok",
+      "partOfSpeech": "noun",
+      "count": 16004,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2750,
+      "lemma": "popredie",
+      "partOfSpeech": "noun",
+      "count": 16000,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2751,
+      "lemma": "menu",
+      "partOfSpeech": "noun",
+      "count": 15995,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2752,
+      "lemma": "pot",
+      "partOfSpeech": "noun",
+      "count": 15985,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2753,
+      "lemma": "pasca",
+      "partOfSpeech": "noun",
+      "count": 15985,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2754,
+      "lemma": "dražba",
+      "partOfSpeech": "noun",
+      "count": 15985,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2755,
+      "lemma": "výpis",
+      "partOfSpeech": "noun",
+      "count": 15967,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2756,
+      "lemma": "povstalec",
+      "partOfSpeech": "noun",
+      "count": 15952,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2757,
+      "lemma": "tank",
+      "partOfSpeech": "noun",
+      "count": 15941,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2758,
+      "lemma": "zvedavosť",
+      "partOfSpeech": "noun",
+      "count": 15931,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2759,
+      "lemma": "ujo",
+      "partOfSpeech": "noun",
+      "count": 15925,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2760,
+      "lemma": "nátlak",
+      "partOfSpeech": "noun",
+      "count": 15924,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2761,
+      "lemma": "hmyz",
+      "partOfSpeech": "noun",
+      "count": 15924,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2762,
+      "lemma": "decko",
+      "partOfSpeech": "noun",
+      "count": 15914,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2763,
+      "lemma": "hetrik",
+      "partOfSpeech": "noun",
+      "count": 15902,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2764,
+      "lemma": "dynamika",
+      "partOfSpeech": "noun",
+      "count": 15873,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2765,
+      "lemma": "tematika",
+      "partOfSpeech": "noun",
+      "count": 15867,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2766,
+      "lemma": "posedenie",
+      "partOfSpeech": "noun",
+      "count": 15866,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2767,
+      "lemma": "puto",
+      "partOfSpeech": "noun",
+      "count": 15864,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2768,
+      "lemma": "vinník",
+      "partOfSpeech": "noun",
+      "count": 15857,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2769,
+      "lemma": "islam",
+      "partOfSpeech": "noun",
+      "count": 15831,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2770,
+      "lemma": "cudzina",
+      "partOfSpeech": "noun",
+      "count": 15831,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2771,
+      "lemma": "finalista",
+      "partOfSpeech": "noun",
+      "count": 15829,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2772,
+      "lemma": "nadšenec",
+      "partOfSpeech": "noun",
+      "count": 15816,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2773,
+      "lemma": "obočie",
+      "partOfSpeech": "noun",
+      "count": 15805,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2774,
+      "lemma": "črevo",
+      "partOfSpeech": "noun",
+      "count": 15799,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2775,
+      "lemma": "čaro",
+      "partOfSpeech": "noun",
+      "count": 15792,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2776,
+      "lemma": "rezolúcia",
+      "partOfSpeech": "noun",
+      "count": 15767,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2777,
+      "lemma": "odmietnutie",
+      "partOfSpeech": "noun",
+      "count": 15765,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2778,
+      "lemma": "akvizícia",
+      "partOfSpeech": "noun",
+      "count": 15762,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2779,
+      "lemma": "tenistka",
+      "partOfSpeech": "noun",
+      "count": 15755,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2780,
+      "lemma": "pohovor",
+      "partOfSpeech": "noun",
+      "count": 15750,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2781,
+      "lemma": "basketbalista",
+      "partOfSpeech": "noun",
+      "count": 15747,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2782,
+      "lemma": "škála",
+      "partOfSpeech": "noun",
+      "count": 15742,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2783,
+      "lemma": "pracovňa",
+      "partOfSpeech": "noun",
+      "count": 15736,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2784,
+      "lemma": "relax",
+      "partOfSpeech": "noun",
+      "count": 15724,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2785,
+      "lemma": "komponent",
+      "partOfSpeech": "noun",
+      "count": 15724,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2786,
+      "lemma": "rozpätie",
+      "partOfSpeech": "noun",
+      "count": 15700,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2787,
+      "lemma": "aparát",
+      "partOfSpeech": "noun",
+      "count": 15685,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2788,
+      "lemma": "žalm",
+      "partOfSpeech": "noun",
+      "count": 15681,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2789,
+      "lemma": "posudzovanie",
+      "partOfSpeech": "noun",
+      "count": 15678,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2790,
+      "lemma": "detektív",
+      "partOfSpeech": "noun",
+      "count": 15672,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2791,
+      "lemma": "majsterka",
+      "partOfSpeech": "noun",
+      "count": 15659,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2792,
+      "lemma": "necht",
+      "partOfSpeech": "noun",
+      "count": 15638,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2793,
+      "lemma": "dohovor",
+      "partOfSpeech": "noun",
+      "count": 15631,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2794,
+      "lemma": "slúchadlo",
+      "partOfSpeech": "noun",
+      "count": 15628,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2795,
+      "lemma": "konzultácia",
+      "partOfSpeech": "noun",
+      "count": 15623,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2796,
+      "lemma": "stimul",
+      "partOfSpeech": "noun",
+      "count": 15621,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2797,
+      "lemma": "farmár",
+      "partOfSpeech": "noun",
+      "count": 15603,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2798,
+      "lemma": "útulok",
+      "partOfSpeech": "noun",
+      "count": 15602,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2799,
+      "lemma": "roľník",
+      "partOfSpeech": "noun",
+      "count": 15597,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2800,
+      "lemma": "hygiena",
+      "partOfSpeech": "noun",
+      "count": 15596,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2801,
+      "lemma": "lyžiar",
+      "partOfSpeech": "noun",
+      "count": 15590,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2802,
+      "lemma": "sťahovanie",
+      "partOfSpeech": "noun",
+      "count": 15575,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2803,
+      "lemma": "útecha",
+      "partOfSpeech": "noun",
+      "count": 15571,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2804,
+      "lemma": "vypracovanie",
+      "partOfSpeech": "noun",
+      "count": 15560,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2805,
+      "lemma": "chémia",
+      "partOfSpeech": "noun",
+      "count": 15558,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2806,
+      "lemma": "politológ",
+      "partOfSpeech": "noun",
+      "count": 15548,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2807,
+      "lemma": "hostiteľ",
+      "partOfSpeech": "noun",
+      "count": 15531,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2808,
+      "lemma": "súprava",
+      "partOfSpeech": "noun",
+      "count": 15508,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2809,
+      "lemma": "formula",
+      "partOfSpeech": "noun",
+      "count": 15503,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2810,
+      "lemma": "ofenzíva",
+      "partOfSpeech": "noun",
+      "count": 15501,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2811,
+      "lemma": "ikona",
+      "partOfSpeech": "noun",
+      "count": 15497,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2812,
+      "lemma": "priazeň",
+      "partOfSpeech": "noun",
+      "count": 15484,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2813,
+      "lemma": "záliv",
+      "partOfSpeech": "noun",
+      "count": 15483,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2814,
+      "lemma": "vládca",
+      "partOfSpeech": "noun",
+      "count": 15470,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2815,
+      "lemma": "nábrežie",
+      "partOfSpeech": "noun",
+      "count": 15455,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2816,
+      "lemma": "husle",
+      "partOfSpeech": "noun",
+      "count": 15455,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2817,
+      "lemma": "klasika",
+      "partOfSpeech": "noun",
+      "count": 15428,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2818,
+      "lemma": "sledovanosť",
+      "partOfSpeech": "noun",
+      "count": 15413,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2819,
+      "lemma": "testovanie",
+      "partOfSpeech": "noun",
+      "count": 15405,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2820,
+      "lemma": "odovzdanie",
+      "partOfSpeech": "noun",
+      "count": 15399,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2821,
+      "lemma": "pohľadnica",
+      "partOfSpeech": "noun",
+      "count": 15395,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2822,
+      "lemma": "vnúča",
+      "partOfSpeech": "noun",
+      "count": 15383,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2823,
+      "lemma": "panovník",
+      "partOfSpeech": "noun",
+      "count": 15377,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2824,
+      "lemma": "orol",
+      "partOfSpeech": "noun",
+      "count": 15373,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2825,
+      "lemma": "náraz",
+      "partOfSpeech": "noun",
+      "count": 15350,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2826,
+      "lemma": "drevina",
+      "partOfSpeech": "noun",
+      "count": 15332,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2827,
+      "lemma": "snemovňa",
+      "partOfSpeech": "noun",
+      "count": 15322,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2828,
+      "lemma": "rozpaky",
+      "partOfSpeech": "noun",
+      "count": 15309,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2829,
+      "lemma": "oblúk",
+      "partOfSpeech": "noun",
+      "count": 15306,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2830,
+      "lemma": "prízemie",
+      "partOfSpeech": "noun",
+      "count": 15299,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2831,
+      "lemma": "efektívnosť",
+      "partOfSpeech": "noun",
+      "count": 15298,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2832,
+      "lemma": "drak",
+      "partOfSpeech": "noun",
+      "count": 15297,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2833,
+      "lemma": "senátor",
+      "partOfSpeech": "noun",
+      "count": 15294,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2834,
+      "lemma": "šetrenie",
+      "partOfSpeech": "noun",
+      "count": 15286,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2835,
+      "lemma": "sympatia",
+      "partOfSpeech": "noun",
+      "count": 15278,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2836,
+      "lemma": "obeh",
+      "partOfSpeech": "noun",
+      "count": 15276,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2837,
+      "lemma": "podávanie",
+      "partOfSpeech": "noun",
+      "count": 15273,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2838,
+      "lemma": "monitor",
+      "partOfSpeech": "noun",
+      "count": 15268,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2839,
+      "lemma": "škatuľa",
+      "partOfSpeech": "noun",
+      "count": 15258,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2840,
+      "lemma": "klíma",
+      "partOfSpeech": "noun",
+      "count": 15241,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2841,
+      "lemma": "prírastok",
+      "partOfSpeech": "noun",
+      "count": 15235,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2842,
+      "lemma": "svätyňa",
+      "partOfSpeech": "noun",
+      "count": 15227,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2843,
+      "lemma": "krík",
+      "partOfSpeech": "noun",
+      "count": 15219,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2844,
+      "lemma": "nominant",
+      "partOfSpeech": "noun",
+      "count": 15216,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2845,
+      "lemma": "reportér",
+      "partOfSpeech": "noun",
+      "count": 15213,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2846,
+      "lemma": "misionár",
+      "partOfSpeech": "noun",
+      "count": 15190,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2847,
+      "lemma": "troska",
+      "partOfSpeech": "noun",
+      "count": 15186,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2848,
+      "lemma": "rukavica",
+      "partOfSpeech": "noun",
+      "count": 15184,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2849,
+      "lemma": "demonštrant",
+      "partOfSpeech": "noun",
+      "count": 15183,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2850,
+      "lemma": "motorka",
+      "partOfSpeech": "noun",
+      "count": 15172,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2851,
+      "lemma": "centrála",
+      "partOfSpeech": "noun",
+      "count": 15154,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2852,
+      "lemma": "zdravotník",
+      "partOfSpeech": "noun",
+      "count": 15151,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2853,
+      "lemma": "vykonávanie",
+      "partOfSpeech": "noun",
+      "count": 15150,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2854,
+      "lemma": "osemfinále",
+      "partOfSpeech": "noun",
+      "count": 15146,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2855,
+      "lemma": "predsudok",
+      "partOfSpeech": "noun",
+      "count": 15142,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2856,
+      "lemma": "betón",
+      "partOfSpeech": "noun",
+      "count": 15137,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2857,
+      "lemma": "edícia",
+      "partOfSpeech": "noun",
+      "count": 15136,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2858,
+      "lemma": "žart",
+      "partOfSpeech": "noun",
+      "count": 15135,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2859,
+      "lemma": "penzión",
+      "partOfSpeech": "noun",
+      "count": 15130,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2860,
+      "lemma": "čiapka",
+      "partOfSpeech": "noun",
+      "count": 15114,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2861,
+      "lemma": "euroval",
+      "partOfSpeech": "noun",
+      "count": 15107,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2862,
+      "lemma": "rám",
+      "partOfSpeech": "noun",
+      "count": 15069,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2863,
+      "lemma": "plech",
+      "partOfSpeech": "noun",
+      "count": 15067,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2864,
+      "lemma": "odovzdávanie",
+      "partOfSpeech": "noun",
+      "count": 15066,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2865,
+      "lemma": "sanitka",
+      "partOfSpeech": "noun",
+      "count": 15057,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2866,
+      "lemma": "odraz",
+      "partOfSpeech": "noun",
+      "count": 15045,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2867,
+      "lemma": "zaváhanie",
+      "partOfSpeech": "noun",
+      "count": 15042,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2868,
+      "lemma": "krach",
+      "partOfSpeech": "noun",
+      "count": 15030,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2869,
+      "lemma": "usporiadateľ",
+      "partOfSpeech": "noun",
+      "count": 15019,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2870,
+      "lemma": "výzdoba",
+      "partOfSpeech": "noun",
+      "count": 15013,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2871,
+      "lemma": "holokaust",
+      "partOfSpeech": "noun",
+      "count": 15006,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2872,
+      "lemma": "prekladateľ",
+      "partOfSpeech": "noun",
+      "count": 15005,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2873,
+      "lemma": "otras",
+      "partOfSpeech": "noun",
+      "count": 15005,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2874,
+      "lemma": "jen",
+      "partOfSpeech": "noun",
+      "count": 14978,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2875,
+      "lemma": "posúdenie",
+      "partOfSpeech": "noun",
+      "count": 14975,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2876,
+      "lemma": "lyžička",
+      "partOfSpeech": "noun",
+      "count": 14946,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2877,
+      "lemma": "samostatnosť",
+      "partOfSpeech": "noun",
+      "count": 14929,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2878,
+      "lemma": "vzostup",
+      "partOfSpeech": "noun",
+      "count": 14898,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2879,
+      "lemma": "vankúš",
+      "partOfSpeech": "noun",
+      "count": 14876,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2880,
+      "lemma": "slniečko",
+      "partOfSpeech": "noun",
+      "count": 14874,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2881,
+      "lemma": "kult",
+      "partOfSpeech": "noun",
+      "count": 14867,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2882,
+      "lemma": "prebytok",
+      "partOfSpeech": "noun",
+      "count": 14862,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2883,
+      "lemma": "lono",
+      "partOfSpeech": "noun",
+      "count": 14857,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2884,
+      "lemma": "dnešok",
+      "partOfSpeech": "noun",
+      "count": 14856,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2885,
+      "lemma": "poludnie",
+      "partOfSpeech": "noun",
+      "count": 14849,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2886,
+      "lemma": "krídelník",
+      "partOfSpeech": "noun",
+      "count": 14834,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2887,
+      "lemma": "bojovnosť",
+      "partOfSpeech": "noun",
+      "count": 14831,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2888,
+      "lemma": "garancia",
+      "partOfSpeech": "noun",
+      "count": 14827,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2889,
+      "lemma": "paprika",
+      "partOfSpeech": "noun",
+      "count": 14826,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2890,
+      "lemma": "túra",
+      "partOfSpeech": "noun",
+      "count": 14825,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2891,
+      "lemma": "kancelár",
+      "partOfSpeech": "noun",
+      "count": 14819,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2892,
+      "lemma": "uplatňovanie",
+      "partOfSpeech": "noun",
+      "count": 14801,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2893,
+      "lemma": "zásielka",
+      "partOfSpeech": "noun",
+      "count": 14796,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2894,
+      "lemma": "schodok",
+      "partOfSpeech": "noun",
+      "count": 14780,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2895,
+      "lemma": "prívrženec",
+      "partOfSpeech": "noun",
+      "count": 14773,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2896,
+      "lemma": "interpret",
+      "partOfSpeech": "noun",
+      "count": 14766,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2897,
+      "lemma": "duchovný",
+      "partOfSpeech": "noun",
+      "count": 14758,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2898,
+      "lemma": "paragraf",
+      "partOfSpeech": "noun",
+      "count": 14755,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2899,
+      "lemma": "pečeň",
+      "partOfSpeech": "noun",
+      "count": 14748,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2900,
+      "lemma": "fontána",
+      "partOfSpeech": "noun",
+      "count": 14742,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2901,
+      "lemma": "guláš",
+      "partOfSpeech": "noun",
+      "count": 14733,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2902,
+      "lemma": "plukovník",
+      "partOfSpeech": "noun",
+      "count": 14725,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2903,
+      "lemma": "striedanie",
+      "partOfSpeech": "noun",
+      "count": 14719,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2904,
+      "lemma": "tlačivo",
+      "partOfSpeech": "noun",
+      "count": 14715,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2905,
+      "lemma": "previerka",
+      "partOfSpeech": "noun",
+      "count": 14707,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2906,
+      "lemma": "záštita",
+      "partOfSpeech": "noun",
+      "count": 14695,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2907,
+      "lemma": "jed",
+      "partOfSpeech": "noun",
+      "count": 14693,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2908,
+      "lemma": "náhradník",
+      "partOfSpeech": "noun",
+      "count": 14690,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2909,
+      "lemma": "rovesník",
+      "partOfSpeech": "noun",
+      "count": 14685,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2910,
+      "lemma": "gazda",
+      "partOfSpeech": "noun",
+      "count": 14677,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2911,
+      "lemma": "reprezentantka",
+      "partOfSpeech": "noun",
+      "count": 14674,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2912,
+      "lemma": "amfiteáter",
+      "partOfSpeech": "noun",
+      "count": 14673,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2913,
+      "lemma": "toaleta",
+      "partOfSpeech": "noun",
+      "count": 14652,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2914,
+      "lemma": "nájomca",
+      "partOfSpeech": "noun",
+      "count": 14648,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2915,
+      "lemma": "publicista",
+      "partOfSpeech": "noun",
+      "count": 14636,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2916,
+      "lemma": "zábradlie",
+      "partOfSpeech": "noun",
+      "count": 14621,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2917,
+      "lemma": "dohrávka",
+      "partOfSpeech": "noun",
+      "count": 14602,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2918,
+      "lemma": "zdanenie",
+      "partOfSpeech": "noun",
+      "count": 14597,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2919,
+      "lemma": "chalupa",
+      "partOfSpeech": "noun",
+      "count": 14595,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2920,
+      "lemma": "sortiment",
+      "partOfSpeech": "noun",
+      "count": 14585,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2921,
+      "lemma": "protiklad",
+      "partOfSpeech": "noun",
+      "count": 14582,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2922,
+      "lemma": "lady",
+      "partOfSpeech": "noun",
+      "count": 14576,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2923,
+      "lemma": "nedorozumenie",
+      "partOfSpeech": "noun",
+      "count": 14557,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2924,
+      "lemma": "hádzanár",
+      "partOfSpeech": "noun",
+      "count": 14550,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2925,
+      "lemma": "manažérka",
+      "partOfSpeech": "noun",
+      "count": 14547,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2926,
+      "lemma": "kabelka",
+      "partOfSpeech": "noun",
+      "count": 14536,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2927,
+      "lemma": "večierok",
+      "partOfSpeech": "noun",
+      "count": 14531,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2928,
+      "lemma": "totožnosť",
+      "partOfSpeech": "noun",
+      "count": 14514,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2929,
+      "lemma": "hrádza",
+      "partOfSpeech": "noun",
+      "count": 14505,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2930,
+      "lemma": "spôsobilosť",
+      "partOfSpeech": "noun",
+      "count": 14503,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2931,
+      "lemma": "taxík",
+      "partOfSpeech": "noun",
+      "count": 14488,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2932,
+      "lemma": "partnerka",
+      "partOfSpeech": "noun",
+      "count": 14488,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2933,
+      "lemma": "katalóg",
+      "partOfSpeech": "noun",
+      "count": 14483,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2934,
+      "lemma": "hodiny",
+      "partOfSpeech": "noun",
+      "count": 14475,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2935,
+      "lemma": "odklad",
+      "partOfSpeech": "noun",
+      "count": 14469,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2936,
+      "lemma": "postreh",
+      "partOfSpeech": "noun",
+      "count": 14466,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2937,
+      "lemma": "vízum",
+      "partOfSpeech": "noun",
+      "count": 14460,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2938,
+      "lemma": "batožina",
+      "partOfSpeech": "noun",
+      "count": 14459,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2939,
+      "lemma": "vlhkosť",
+      "partOfSpeech": "noun",
+      "count": 14450,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2940,
+      "lemma": "míľa",
+      "partOfSpeech": "noun",
+      "count": 14438,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2941,
+      "lemma": "prípravka",
+      "partOfSpeech": "noun",
+      "count": 14432,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2942,
+      "lemma": "kapitalizmus",
+      "partOfSpeech": "noun",
+      "count": 14420,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2943,
+      "lemma": "téza",
+      "partOfSpeech": "noun",
+      "count": 14396,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2944,
+      "lemma": "sporiteľ",
+      "partOfSpeech": "noun",
+      "count": 14389,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2945,
+      "lemma": "kulisa",
+      "partOfSpeech": "noun",
+      "count": 14372,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2946,
+      "lemma": "oznam",
+      "partOfSpeech": "noun",
+      "count": 14368,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2947,
+      "lemma": "štvorica",
+      "partOfSpeech": "noun",
+      "count": 14359,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2948,
+      "lemma": "stúpenec",
+      "partOfSpeech": "noun",
+      "count": 14346,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2949,
+      "lemma": "kinematografia",
+      "partOfSpeech": "noun",
+      "count": 14345,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2950,
+      "lemma": "neprítomnosť",
+      "partOfSpeech": "noun",
+      "count": 14339,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2951,
+      "lemma": "koľaj",
+      "partOfSpeech": "noun",
+      "count": 14313,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2952,
+      "lemma": "holding",
+      "partOfSpeech": "noun",
+      "count": 14309,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2953,
+      "lemma": "esej",
+      "partOfSpeech": "noun",
+      "count": 14302,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2954,
+      "lemma": "dekrét",
+      "partOfSpeech": "noun",
+      "count": 14298,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2955,
+      "lemma": "dimenzia",
+      "partOfSpeech": "noun",
+      "count": 14295,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2956,
+      "lemma": "formovanie",
+      "partOfSpeech": "noun",
+      "count": 14290,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2957,
+      "lemma": "háj",
+      "partOfSpeech": "noun",
+      "count": 14281,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2958,
+      "lemma": "pôst",
+      "partOfSpeech": "noun",
+      "count": 14276,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2959,
+      "lemma": "kníhkupectvo",
+      "partOfSpeech": "noun",
+      "count": 14275,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2960,
+      "lemma": "leták",
+      "partOfSpeech": "noun",
+      "count": 14269,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2961,
+      "lemma": "pyramída",
+      "partOfSpeech": "noun",
+      "count": 14268,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2962,
+      "lemma": "lavína",
+      "partOfSpeech": "noun",
+      "count": 14267,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2963,
+      "lemma": "konzumácia",
+      "partOfSpeech": "noun",
+      "count": 14248,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2964,
+      "lemma": "gigant",
+      "partOfSpeech": "noun",
+      "count": 14241,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2965,
+      "lemma": "balenie",
+      "partOfSpeech": "noun",
+      "count": 14241,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2966,
+      "lemma": "pomník",
+      "partOfSpeech": "noun",
+      "count": 14240,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2967,
+      "lemma": "majiteľka",
+      "partOfSpeech": "noun",
+      "count": 14235,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2968,
+      "lemma": "vrátenie",
+      "partOfSpeech": "noun",
+      "count": 14219,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2969,
+      "lemma": "preddavok",
+      "partOfSpeech": "noun",
+      "count": 14216,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2970,
+      "lemma": "nesúhlas",
+      "partOfSpeech": "noun",
+      "count": 14215,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2971,
+      "lemma": "nálepka",
+      "partOfSpeech": "noun",
+      "count": 14204,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2972,
+      "lemma": "lístie",
+      "partOfSpeech": "noun",
+      "count": 14204,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2973,
+      "lemma": "formulár",
+      "partOfSpeech": "noun",
+      "count": 14192,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2974,
+      "lemma": "workshop",
+      "partOfSpeech": "noun",
+      "count": 14187,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2975,
+      "lemma": "moderátorka",
+      "partOfSpeech": "noun",
+      "count": 14174,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2976,
+      "lemma": "diéta",
+      "partOfSpeech": "noun",
+      "count": 14171,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2977,
+      "lemma": "repertoár",
+      "partOfSpeech": "noun",
+      "count": 14168,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2978,
+      "lemma": "gén",
+      "partOfSpeech": "noun",
+      "count": 14167,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2979,
+      "lemma": "úpadok",
+      "partOfSpeech": "noun",
+      "count": 14157,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2980,
+      "lemma": "stavebníctvo",
+      "partOfSpeech": "noun",
+      "count": 14157,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2981,
+      "lemma": "stajňa",
+      "partOfSpeech": "noun",
+      "count": 14154,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2982,
+      "lemma": "okienko",
+      "partOfSpeech": "noun",
+      "count": 14136,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2983,
+      "lemma": "potrubie",
+      "partOfSpeech": "noun",
+      "count": 14125,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2984,
+      "lemma": "rituál",
+      "partOfSpeech": "noun",
+      "count": 14123,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2985,
+      "lemma": "letenka",
+      "partOfSpeech": "noun",
+      "count": 14123,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2986,
+      "lemma": "šprint",
+      "partOfSpeech": "noun",
+      "count": 14118,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2987,
+      "lemma": "prášok",
+      "partOfSpeech": "noun",
+      "count": 14099,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2988,
+      "lemma": "panelák",
+      "partOfSpeech": "noun",
+      "count": 14092,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2989,
+      "lemma": "slúžka",
+      "partOfSpeech": "noun",
+      "count": 14080,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2990,
+      "lemma": "mostík",
+      "partOfSpeech": "noun",
+      "count": 14073,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2991,
+      "lemma": "twist",
+      "partOfSpeech": "noun",
+      "count": 14072,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2992,
+      "lemma": "vodovod",
+      "partOfSpeech": "noun",
+      "count": 14058,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2993,
+      "lemma": "odstupné",
+      "partOfSpeech": "noun",
+      "count": 14057,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2994,
+      "lemma": "lekárnik",
+      "partOfSpeech": "noun",
+      "count": 14053,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2995,
+      "lemma": "drôt",
+      "partOfSpeech": "noun",
+      "count": 14031,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2996,
+      "lemma": "dedič",
+      "partOfSpeech": "noun",
+      "count": 14030,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2997,
+      "lemma": "misa",
+      "partOfSpeech": "noun",
+      "count": 14025,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2998,
+      "lemma": "výjazd",
+      "partOfSpeech": "noun",
+      "count": 14024,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2999,
+      "lemma": "tvorivosť",
+      "partOfSpeech": "noun",
+      "count": 14015,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
+    },
+    {
+      "rank": 3000,
+      "lemma": "štipendium",
+      "partOfSpeech": "noun",
+      "count": 14010,
       "source": "Slovak National Corpus (SNK)",
       "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2"
     }

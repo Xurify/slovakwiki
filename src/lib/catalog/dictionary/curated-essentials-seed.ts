@@ -2,7 +2,14 @@ import type { ContentEntry } from "../types";
 
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related" | "topics"
+  | "slug"
+  | "slovak"
+  | "english"
+  | "category"
+  | "examples"
+  | "related"
+  | "topics"
+  | "register"
 >;
 
 /** Learner essentials not covered by SNK frequency POS lists. */
@@ -657,5 +664,96 @@ export const curatedEssentialsSeed: WordSeed[] = [
       { slovak: "Dobrú noc a sladké sny.", english: "Good night and sweet dreams." },
     ],
     related: ["dobry-vecer", "dovidenia", "ahoj"],
+  },
+  {
+    slug: "objatie",
+    slovak: "objatie",
+    english: "hug; embrace",
+    category: "Nouns",
+    topics: ["People"],
+    examples: [
+      {
+        slovak: "Ďakujem za objatie.",
+        english: "Thank you for the hug.",
+        note: "Curated",
+      },
+      {
+        slovak: "Dala mu dlhé objatie.",
+        english: "She gave him a long hug.",
+        note: "Curated",
+      },
+      {
+        slovak: "Chýba mi tvoje objatie.",
+        english: "I miss your hug.",
+        note: "Curated",
+      },
+      {
+        slovak: "Po víťazstve nasledovalo objatie.",
+        english: "A hug followed the victory.",
+        note: "Curated",
+      },
+    ],
+    related: ["objat"],
+  },
+  {
+    slug: "vynikajuci",
+    slovak: "vynikajúci",
+    english: "excellent; outstanding",
+    category: "Adjectives",
+    topics: ["Essentials"],
+    examples: [
+      {
+        slovak: "Bol to vynikajúci výkon.",
+        english: "It was an outstanding performance.",
+        note: "Curated",
+      },
+      {
+        slovak: "Je vynikajúca kuchárka.",
+        english: "She is an outstanding cook.",
+        note: "Curated",
+      },
+      {
+        slovak: "Máme vynikajúce jedlo.",
+        english: "We have excellent food.",
+        note: "Curated",
+      },
+      {
+        slovak: "Film bol vynikajúci.",
+        english: "The film was excellent.",
+        note: "Curated",
+      },
+    ],
+    related: ["vynikajuco", "vynikat", "vyborny", "skvely"],
+  },
+  {
+    slug: "kseft",
+    slovak: "kšeft",
+    english: "deal; hustle; bit of business",
+    category: "Nouns",
+    topics: ["Everyday life"],
+    register: "slang",
+    examples: [
+      {
+        slovak: "Mám dobrý kšeft.",
+        english: "I've got a good deal.",
+        note: "Curated",
+      },
+      {
+        slovak: "Hľadám nejaký kšeft na leto.",
+        english: "I'm looking for a gig for the summer.",
+        note: "Curated",
+      },
+      {
+        slovak: "Na tom kšefte sme veľa zarobili.",
+        english: "We made a lot on that deal.",
+        note: "Curated",
+      },
+      {
+        slovak: "Toto nie je čistý kšeft.",
+        english: "This isn't a clean deal.",
+        note: "Curated",
+      },
+    ],
+    related: ["obchod", "zakazka", "praca"],
   },
 ];

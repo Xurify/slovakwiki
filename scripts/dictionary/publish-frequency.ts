@@ -22,18 +22,30 @@ import type {
 } from "../../src/lib/catalog/frequency/types";
 import { findLiveWordForLemma, lemmaToSlug } from "../../src/lib/catalog/frequency";
 import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/catalog/frequency/blocklist";
-import type { ContentEntry } from "../../src/lib/catalog/types";
+import {
+  isWordRegister,
+  type ContentEntry,
+  type WordRegister,
+} from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related" | "topics"
+  | "slug"
+  | "slovak"
+  | "english"
+  | "category"
+  | "examples"
+  | "related"
+  | "topics"
+  | "register"
 >;
 
 interface Gloss {
   english: string;
   /** Browse override — only `Places` (or other browse buckets) are honored. */
   category?: string;
+  register?: WordRegister;
 }
 
 const FREQUENCY_DIR = path.join(ROOT, "content", "frequency");
@@ -214,6 +226,7 @@ async function main(): Promise<void> {
         category: resolvePublishCategory(gloss, partOfSpeech),
         examples: [],
         related: [],
+        ...(isWordRegister(gloss.register) ? { register: gloss.register } : {}),
       };
 
       dictionaryWords.push(seed);

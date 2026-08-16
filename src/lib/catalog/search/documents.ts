@@ -4,6 +4,7 @@ import { lessons } from "../lessons";
 import { practiceSets } from "../practice";
 import { searchFormsForLemma } from "./forms";
 import { normalizeSearchText, type SearchDocKind } from "./ui";
+import type { WordRegister } from "../types";
 
 export type { SearchDocKind } from "./ui";
 export {
@@ -18,6 +19,7 @@ export interface SearchDocument {
   category?: string;
   content: string;
   kind: SearchDocKind;
+  register?: WordRegister;
   summary: string;
   title: string;
   url: string;
@@ -41,6 +43,7 @@ export function buildSearchDocuments(): SearchDocument[] {
       title: entry.slovak,
       summary: entry.english,
       category: entry.category,
+      ...(entry.register ? { register: entry.register } : {}),
       content: withNormalized([
         entry.slovak,
         entry.english,

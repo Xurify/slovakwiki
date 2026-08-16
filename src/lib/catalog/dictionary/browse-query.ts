@@ -1,4 +1,4 @@
-import type { WordOrigin } from "$lib/catalog/types";
+import type { WordOrigin, WordRegister } from "$lib/catalog/types";
 
 export const DICTIONARY_PAGE_SIZE = 50;
 export const COMMON_RANK_MAX = 500;
@@ -38,6 +38,7 @@ export interface DictionaryIndexEntry {
   /** Canonical lemma slug when `slug` is a POS sibling (`malo-adv` → `malo`). */
   hrefSlug?: string;
   origin?: WordOrigin;
+  register?: WordRegister;
   slug: string;
   slovak: string;
 }
