@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { SITE_ORIGIN } from "./site";
 import { buildSitemapGroups } from "./sitemap-urls";
 import { renderSitemapIndex, renderUrlset } from "./sitemap-xml";
 
@@ -17,7 +18,7 @@ describe("sitemap", () => {
       "sitemap-pronunciation.xml",
     ]);
 
-    expect(byName.pages).toContain("https://slovak.wiki/dictionary");
+    expect(byName.pages).toContain(`${SITE_ORIGIN}/dictionary`);
     expect(byName.dictionary?.length).toBeGreaterThan(6500);
     expect(byName.grammar?.length).toBe(18);
     expect(byName.lessons?.length).toBe(11);
@@ -25,7 +26,7 @@ describe("sitemap", () => {
     expect(byName.pronunciation?.length).toBe(5);
 
     const all = groups.flatMap((group) => group.urls);
-    const nonRoot = all.filter((url) => url !== "https://slovak.wiki/");
+    const nonRoot = all.filter((url) => url !== `${SITE_ORIGIN}/`);
     expect(nonRoot.some((url) => url.endsWith("/"))).toBe(false);
     expect(all.some((url) => url.includes("/search"))).toBe(false);
     expect(all.some((url) => url.includes("/dictionary/a/"))).toBe(false);

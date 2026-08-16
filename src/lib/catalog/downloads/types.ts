@@ -77,7 +77,7 @@ export interface ProjectedExport {
 }
 
 export const DEFAULT_ATTRIBUTION =
-  "Includes Tatoeba sentences (CC BY 2.0 FR). See https://slovak.wiki/references";
+  "Includes Tatoeba sentences (CC BY 2.0 FR). See https://www.slovak.wiki/references";
 
 export const DEFAULT_WORD_FIELDS: readonly DownloadWordField[] = [
   "slug",

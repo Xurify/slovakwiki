@@ -5,10 +5,10 @@ import { absoluteSiteUrl, canonicalPathFromUrl } from "./site";
 describe("seo site helpers", () => {
   it("builds absolute URLs without double slashes", () => {
     expect(absoluteSiteUrl("/dictionary/ahoj")).toBe(
-      "https://slovak.wiki/dictionary/ahoj",
+      "https://www.slovak.wiki/dictionary/ahoj",
     );
     expect(absoluteSiteUrl("/dictionary/malo#adverb")).toBe(
-      "https://slovak.wiki/dictionary/malo#adverb",
+      "https://www.slovak.wiki/dictionary/malo#adverb",
     );
   });
 

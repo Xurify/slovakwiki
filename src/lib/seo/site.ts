@@ -1,5 +1,5 @@
-/** Production origin — keep in sync with `site` in `astro.config.ts`. */
-export const SITE_ORIGIN = "https://slovak.wiki";
+/** Production origin — live host is www (apex 308s here). Keep in sync with `site` in `astro.config.ts`. */
+export const SITE_ORIGIN = "https://www.slovak.wiki";
 
 export const SITE_NAME = "Slovak Wiki";
 
