@@ -45,8 +45,6 @@
   import PracticeSessionComplete, {
     type SessionPhraseResult,
   } from "$lib/components/practice/PracticeSessionComplete.svelte";
-  import { entryBySlug, words } from "$lib/catalog/entries";
-  import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
   import type { PracticeItem, PracticeTask } from "$lib/learning/types";
 
   const SK_CHARS = [
@@ -82,16 +80,11 @@
     return "Practice";
   }
 
-  function dictionaryHrefForLemma(lemmaId: string): string {
-    const entry = entryBySlug.get(lemmaId);
-    if (!entry) return `/dictionary/${lemmaId}`;
-    return dictionaryPathForSense(entry, words);
-  }
-
   let {
     items,
     hintMode = "inline",
     audioSrcs = {},
+    dictionaryHrefs = {},
     sectionTitle = $bindable(""),
     sessionTitle = "Practice",
     backHref,
@@ -100,6 +93,7 @@
     items: PracticeItem[];
     hintMode?: "inline" | "rail";
     audioSrcs?: Record<string, string>;
+    dictionaryHrefs?: Record<string, string>;
     sectionTitle?: string;
     sessionTitle?: string;
     backHref?: string;
@@ -173,6 +167,10 @@
       return canCheckBuild(builtTiles.length, task.answer.length);
     return input.trim().length > 0;
   });
+
+  function dictionaryHrefForLemma(lemmaId: string): string {
+    return dictionaryHrefs[lemmaId] ?? `/dictionary/${lemmaId}`;
+  }
 
   function sfxKindForGrade(value: AnswerGrade | null): AnswerSfxKind {
     if (value === "correct") return "correct";

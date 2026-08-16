@@ -28,6 +28,7 @@
     data: {
       set: PracticeSet;
       clozeAudioSrcs?: Record<string, string>;
+      dictionaryHrefs?: Record<string, string>;
     };
   } = $props();
 
@@ -95,6 +96,7 @@
         items={sessionItems}
         {hintMode}
         audioSrcs={data.clozeAudioSrcs ?? {}}
+        dictionaryHrefs={data.dictionaryHrefs ?? {}}
         backHref="/practice"
         backLabel="Practice"
         sessionTitle={data.set.title}

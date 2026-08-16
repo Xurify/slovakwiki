@@ -530,7 +530,7 @@ export async function saveManifest(manifest: ImageManifest): Promise<void> {
   const sorted = Object.fromEntries(
     Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b, "en")),
   );
-  await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
+  await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`, "utf8");
 }
 
 export async function loadOverrides(): Promise<ImageOverrides> {

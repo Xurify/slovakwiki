@@ -1,6 +1,7 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PracticeSetPage from "$lib/components/practice/PracticeSetPage.svelte";
+import { dictionaryHrefsForItems } from "$lib/catalog/dictionary/lemma-href";
 import { clozeAudioSrcs } from "$lib/catalog/practice/audio";
 import { contentCacheKey } from "$lib/build/cache-key";
 import { practiceItemById, practiceSets } from "$lib/catalog/practice";
@@ -14,6 +15,7 @@ export function getStaticPaths() {
     const props = {
       set,
       clozeAudioSrcs: clozeAudioSrcs(items),
+      dictionaryHrefs: dictionaryHrefsForItems(items),
     };
 
     return {
@@ -24,7 +26,7 @@ export function getStaticPaths() {
   });
 }
 
-const { set, clozeAudioSrcs: audioSrcs } = Astro.props;
+const { set, clozeAudioSrcs: audioSrcs, dictionaryHrefs } = Astro.props;
 const hasSessionParam = Astro.url.searchParams.has("at");
 ---
 
@@ -34,5 +36,8 @@ const hasSessionParam = Astro.url.searchParams.has("at");
   canonicalPath={`/practice/${set.id}`}
   noindex={hasSessionParam}
 >
-  <PracticeSetPage data={{ set, clozeAudioSrcs: audioSrcs }} client:load />
+  <PracticeSetPage
+    data={{ set, clozeAudioSrcs: audioSrcs, dictionaryHrefs }}
+    client:load
+  />
 </SiteLayout>

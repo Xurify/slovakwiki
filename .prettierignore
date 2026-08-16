@@ -9,8 +9,8 @@ dist
 coverage
 package-lock.json
 *.tsbuildinfo
-# Pipeline dumps: scripts write JSON.stringify (null, 2). Prettier wraps
-# short arrays to printWidth — CI format:check fails if hooks skipped.
+# Pipeline dumps: scripts write JSON.stringify (compact or null, 2).
+# Prettier wraps short arrays to printWidth — CI format:check fails if hooks skipped.
 content/audio/manifest.json
 content/audio/runtime-index.json
 content/dictionary/words.json
