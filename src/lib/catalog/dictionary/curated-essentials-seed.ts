@@ -197,7 +197,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "daco",
     slovak: "dačo",
-    english: "something (eastern dialect)",
+    english: "something (východné nárečie)",
     category: "Phrases",
     topics: ["Essentials"],
     dialect: true,
