@@ -786,6 +786,38 @@ export const curatedEssentialsSeed: WordSeed[] = [
         note: "Curated",
       },
     ],
-    related: ["obchod", "zakazka", "praca"],
+    related: ["kseftovat", "obchod", "zakazka", "praca"],
+  },
+  {
+    slug: "kseftovat",
+    slovak: "kšeftovať",
+    english: "to deal; to hustle; to do business",
+    category: "Verbs",
+    topics: ["Everyday life"],
+    register: "slang",
+    examples: [
+      {
+        slovak: "Kšeftujem s použitými autami.",
+        english: "I deal in used cars.",
+        note: "Curated",
+        demonstrates: "kšeftovať s + instr. — deal in",
+      },
+      {
+        slovak: "S čím kšeftuješ?",
+        english: "What are you dealing in?",
+        note: "Curated",
+      },
+      {
+        slovak: "Kšeftuje s bytmi v centre.",
+        english: "He deals in apartments in the center.",
+        note: "Curated",
+      },
+      {
+        slovak: "Celé leto kšeftoval.",
+        english: "He hustled all summer.",
+        note: "Curated",
+      },
+    ],
+    related: ["kseft", "obchodovat", "predavat", "zarabat"],
   },
 ];
