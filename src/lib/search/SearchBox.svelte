@@ -17,7 +17,6 @@
     type SearchDocKind,
   } from "$lib/catalog/search/ui";
   import { lookupDictionary, mergeSearchResults } from "./dictionary-lookup";
-  import { isWordRegister, REGISTER_CHIP_LABEL } from "$lib/catalog/types";
   import {
     getPagefind,
     isPagefindWarm,
@@ -531,19 +530,10 @@
                 {/if}
               </span>
 
-              <span class="flex shrink-0 flex-col items-end gap-1">
-                <span
-                  class="rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
-                >
-                  {kindLabel(result.meta.kind, result.meta.category)}
-                </span>
-                {#if isWordRegister(result.meta.register)}
-                  <span
-                    class="rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
-                  >
-                    {REGISTER_CHIP_LABEL[result.meta.register]}
-                  </span>
-                {/if}
+              <span
+                class="shrink-0 rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
+              >
+                {kindLabel(result.meta.kind, result.meta.category)}
               </span>
             </a>
           {/each}
