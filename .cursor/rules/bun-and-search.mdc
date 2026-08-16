@@ -1,9 +1,9 @@
 ---
-description: Bun package manager/scripts; when to rebuild Pagefind search index
+description: Bun package manager/scripts; Pagefind index; always generate dictionary/lesson audio
 alwaysApply: true
 ---
 
-# Bun + search index
+# Bun + search index + audio
 
 **Bun** is the package manager and script runner (`bun.lock`, `packageManager` in `package.json`).
 
@@ -20,4 +20,16 @@ For `/downloads` local builder: also run `bun scripts/downloads/export.ts` when 
 
 Skip for pure UI/layout work. `bun run build` already regenerates the index for production.
 
-Full detail: root `AGENTS.md`.
+## Audio — always generate
+
+After **any** new or changed spoken Slovak (lemmas, examples, lesson/practice lines): run
+
+`bun scripts/audio/generate.ts -- --missing-only`
+
+Scope with `--slugs a,b` when you know the slugs. Needs `ELEVENLABS_API_KEY`. Search index rebuild does **not** create MP3s. Do not call dictionary/lesson text work done without this.
+
+Prod also needs `bun scripts/audio/upload.ts` (R2). Generate locally even if upload waits.
+
+Skip only for pure UI/layout with no spoken-text change.
+
+Full detail: root `AGENTS.md` + `scripts/README.md` → **audio/**.

@@ -66,6 +66,15 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 - **Local / `bun run dev`:** run `bun run index:search` when first clone / missing `static/pagefind/`, searchable content changed, or header search says the index is not built yet.
 - Skip re-index for pure UI/CSS/layout edits with no content changes.
 
+## Audio (always generate)
+
+Dictionary / lesson / practice **spoken Slovak** needs ElevenLabs MP3s. Do **not** finish lemma or example work without generating clips. Search index is not a substitute.
+
+- After new or changed lemmas, examples, or lesson lines: `bun scripts/audio/generate.ts -- --missing-only` (scope with `--slugs a,b` when you know the slugs).
+- Needs `ELEVENLABS_API_KEY` in `.env`. Commands: [`scripts/README.md`](scripts/README.md) → **audio/**.
+- Prod play also needs `bun scripts/audio/upload.ts` (R2). Generate still required locally even if upload waits.
+- Skip only for pure UI/CSS/layout with **no** spoken-text change.
+
 ## Content pipelines
 
 Do not paste script cookbooks here. Follow:
@@ -75,7 +84,7 @@ Do not paste script cookbooks here. Follow:
 - **Sources (SNK, Tatoeba, JÚĽŠ):** [`docs/data-sources.md`](docs/data-sources.md) and `/references`
 - **Slovak in any of the above:** `slovak-language` skill before commit
 
-After publish/enrich/curate/related or lesson/practice text changes: `bun run index:search` so local Pagefind matches.
+After publish/enrich/curate/related or lesson/practice text changes: `bun run index:search` **and** generate missing audio (see **Audio** above).
 
 ## Slovak language skill
 

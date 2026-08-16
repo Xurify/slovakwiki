@@ -108,7 +108,8 @@ Hand-add checklist:
 1. Confirm slug unique (`curatedWordSeed` + `words.json`).
 2. Confirm every `related` slug exists.
 3. `bun run index:search` so local Pagefind matches.
-4. Optional: `bun scripts/audio/generate.ts` (and `upload.ts`) for new lemma/example text; `bun scripts/images/fetch.ts` for lemma thumbs.
+4. **Required:** `bun scripts/audio/generate.ts -- --slugs <slug> --missing-only` (lemma + example clips). `bun scripts/audio/upload.ts` before prod. See [`scripts/README.md`](../../scripts/README.md) → **audio/**.
+5. Optional: `bun scripts/images/fetch.ts` for lemma thumbs (reject bad Commons matches).
 
 ## Anti-patterns
 

@@ -6,6 +6,8 @@ Runtime index (app build): [`runtime-index.json`](./runtime-index.json) (hash �
 `saveManifest` in `scripts/audio/shared.ts` writes both (compact, sorted keys).  
 MP3s live under `static/audio/` (gitignored) or R2 in production.
 
+**Agents / after content edits:** always run generate for new or changed spoken text (`bun scripts/audio/generate.ts -- --missing-only`, or `--slugs …`). Do not treat search-index rebuild as done. Details: [`scripts/README.md`](../../scripts/README.md) → **audio/**.
+
 ## Client playback (lessons)
 
 Lesson story / cast clips must play the ElevenLabs MP3 only.

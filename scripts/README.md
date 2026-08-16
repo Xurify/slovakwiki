@@ -83,6 +83,16 @@ Example limits: `src/lib/catalog/dictionary/example-limits.ts` — store pool 8 
 
 ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
+**Always generate after spoken text changes.** Do not leave new lemmas, examples, or lesson lines without MP3s. `bun run index:search` does not create audio.
+
+| Change                              | Command                                                                 |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| Known slugs (hand lemma, small set) | `bun scripts/audio/generate.ts -- --slugs kseft,objatie --missing-only` |
+| Bulk publish / many new examples    | `bun scripts/audio/generate.ts -- --missing-only`                       |
+| Lesson / practice spoken lines      | `bun scripts/audio/generate.ts -- --lessons-only --missing-only`        |
+
+Needs `ELEVENLABS_API_KEY` in `.env`. Then `bun scripts/audio/upload.ts` before prod (R2). Generate locally even if upload is later.
+
 | `generate.ts` | `bun scripts/audio/generate.ts` | Writes MP3s in **lemma → example → lesson** order; default `--concurrency 16` (Pro Flash ≈20 — see [`content/audio/README.md`](../content/audio/README.md#elevenlabs-plans--concurrency)); `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` caps concurrency at 4 |
 | `voice-design.ts` | `bun scripts/audio/voice-design.ts` | ElevenLabs Voice Design → `tmp/voice-design/`; `--create` saves preview to library + patches `characters` in config |
 | `upload.ts` | `bun scripts/audio/upload.ts` | Parallel R2 sync to `audio/{kind}/`; `--lemmas-only` / `--examples-only` / `--lessons-only` / `--force` / `--only`; needs `R2_*` |
