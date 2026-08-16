@@ -58,9 +58,15 @@
   let searchGeneration = 0;
 
   const trimmedQuery = $derived(query.trim());
+  const searching = $derived(loading || pending);
   const showPanel = $derived(open);
   const showIdle = $derived(showPanel && !trimmedQuery);
   const showResults = $derived(showPanel && Boolean(trimmedQuery));
+  const fieldSpinnerClass = $derived(
+    size === "hero"
+      ? "mr-4 size-4 shrink-0 animate-spin rounded-full border-2 border-slate-200 border-t-slate-500"
+      : "mr-2 size-3.5 shrink-0 animate-spin rounded-full border-2 border-slate-200 border-t-slate-500",
+  );
   const idleOptions = $derived([
     ...recent.map((item) => ({ href: item.href, source: "recent" as const })),
     ...searchIdleHints.map((hint) => ({
@@ -393,7 +399,9 @@
       onkeydown={onKeydown}
     />
 
-    {#if size === "header"}
+    {#if searching}
+      <span class={fieldSpinnerClass} aria-hidden="true"></span>
+    {:else if size === "header"}
       <kbd
         class="mr-2 hidden rounded border border-(--line) px-1.5 py-0.5 text-[0.65rem] font-semibold text-(--muted) min-[900px]:inline"
       >
@@ -413,6 +421,7 @@
       )}
       id={`${id}-listbox`}
       role="listbox"
+      aria-busy={searching}
       aria-label="Search suggestions"
     >
       {#if showIdle}
@@ -509,7 +518,7 @@
           <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
             Search index not built yet. Run a production build once, then refresh.
           </p>
-        {:else if (loading || pending) && results.length === 0}
+        {:else if searching && results.length === 0}
           <div class="flex items-center px-3.5 py-2.5">
             <DotLoader label="Searching…" />
           </div>
@@ -518,39 +527,41 @@
             No matches for “{trimmedQuery}”. Try a shorter word or an English meaning.
           </p>
         {:else}
-          {#each results as result, index (result.url)}
-            <a
-              class={cx(
-                "flex items-start justify-between gap-3 px-3.5 py-2.5 transition-colors",
-                activeIndex === index
-                  ? "bg-(--surface-selected) text-(--accent-strong)"
-                  : "text-(--ink-soft) hover:bg-(--surface-subtle)",
-              )}
-              id={`${id}-option-${index}`}
-              href={result.url}
-              role="option"
-              aria-selected={activeIndex === index}
-              onmouseenter={() => (activeIndex = index)}
-              onclick={() => rememberResult(result)}
-            >
-              <span class="min-w-0">
-                <span class="block font-serif text-[0.95rem] text-(--ink)" lang="sk">
-                  {result.meta.title ?? result.url}
-                </span>
-                {#if result.meta.summary}
-                  <span class="mt-0.5 block truncate text-[0.75rem] text-(--muted)">
-                    {result.meta.summary}
-                  </span>
-                {/if}
-              </span>
-
-              <span
-                class="shrink-0 rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
+          <div class={cx("transition-opacity duration-150", searching && "opacity-50")}>
+            {#each results as result, index (result.url)}
+              <a
+                class={cx(
+                  "flex items-start justify-between gap-3 px-3.5 py-2.5 transition-colors",
+                  activeIndex === index
+                    ? "bg-(--surface-selected) text-(--accent-strong)"
+                    : "text-(--ink-soft) hover:bg-(--surface-subtle)",
+                )}
+                id={`${id}-option-${index}`}
+                href={result.url}
+                role="option"
+                aria-selected={activeIndex === index}
+                onmouseenter={() => (activeIndex = index)}
+                onclick={() => rememberResult(result)}
               >
-                {kindLabel(result.meta.kind, result.meta.category)}
-              </span>
-            </a>
-          {/each}
+                <span class="min-w-0">
+                  <span class="block font-serif text-[0.95rem] text-(--ink)" lang="sk">
+                    {result.meta.title ?? result.url}
+                  </span>
+                  {#if result.meta.summary}
+                    <span class="mt-0.5 block truncate text-[0.75rem] text-(--muted)">
+                      {result.meta.summary}
+                    </span>
+                  {/if}
+                </span>
+
+                <span
+                  class="shrink-0 rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
+                >
+                  {kindLabel(result.meta.kind, result.meta.category)}
+                </span>
+              </a>
+            {/each}
+          </div>
         {/if}
       {/if}
     </div>
