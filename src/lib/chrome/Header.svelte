@@ -269,7 +269,7 @@
 ></div>
 
 <nav
-  class="fixed bottom-0 right-0 z-[70] flex w-[min(20rem,calc(100vw-2.5rem))] flex-col overflow-y-auto border-l border-(--line) bg-(--paper) px-5 pb-8 pt-4 shadow-(--shadow-border) transition-transform will-change-transform select-none min-[801px]:hidden {drawerMotion} {menuOpen
+  class="fixed bottom-0 right-0 z-[70] flex w-[min(20rem,calc(100vw-2.5rem))] flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent border-l border-(--line) bg-(--paper) px-5 pb-8 pt-4 shadow-(--shadow-border) transition-transform will-change-transform select-none min-[801px]:hidden {drawerMotion} {menuOpen
     ? 'translate-x-0'
     : 'pointer-events-none translate-x-full'}"
   style:top="{headerOffset}px"

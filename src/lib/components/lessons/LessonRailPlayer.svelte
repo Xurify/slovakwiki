@@ -201,7 +201,9 @@
       {stepIndex}
     />
 
-    <div class="min-h-0 flex-1 overflow-y-auto">
+    <div
+      class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
+    >
       {#if step}
         {#key step.id}
           {#if step.kind === "teach"}

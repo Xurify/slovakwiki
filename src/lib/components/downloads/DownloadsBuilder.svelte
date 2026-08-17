@@ -297,9 +297,9 @@
 
   const labelClass = "text-sm font-semibold text-slate-900";
   const optionRowClass =
-    "relative flex min-h-10 cursor-pointer items-center gap-3 px-1 py-2.5 text-sm text-slate-800 transition-colors hover:text-slate-950";
+    "relative flex min-h-10 cursor-pointer items-center gap-3 px-1 py-2.5 text-sm text-slate-700 transition-colors hover:text-slate-900";
   const choiceIdleClass =
-    "bg-surface text-slate-800 shadow-(--shadow-border) transition-[box-shadow,background-color] duration-150 ease-out hover:shadow-(--shadow-border-hover)";
+    "bg-control text-slate-900 shadow-(--shadow-border) transition-[box-shadow,background-color] duration-150 ease-out hover:bg-control-hover hover:shadow-(--shadow-border-hover)";
   const choiceActiveClass =
     "bg-blue-50 text-slate-900 shadow-[0_0_0_1px_var(--color-blue-600)]";
   const packCardClass =
@@ -439,7 +439,9 @@
         </button>
       </header>
 
-      <div class="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+      <div
+        class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent px-5 py-4"
+      >
         <div>
           <p class={labelClass} id="downloads-pack-label">Pack</p>
           <div
@@ -471,7 +473,7 @@
                 <span>
                   <span class="font-semibold">{pack.title}</span>
                   <span
-                    class="mt-0.5 block text-pretty text-xs leading-relaxed text-slate-500"
+                    class="mt-0.5 block text-pretty text-xs leading-relaxed text-slate-600"
                   >
                     {pack.description}
                   </span>
@@ -539,7 +541,7 @@
           </div>
 
           <div
-            class="mt-1 divide-y divide-slate-100"
+            class="mt-1 divide-y divide-slate-200"
             role="group"
             aria-labelledby="downloads-categories-label"
           >

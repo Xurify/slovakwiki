@@ -414,6 +414,7 @@
     <div
       class={cx(
         "absolute z-[60] mt-2 overflow-y-auto border border-(--line) bg-(--surface) shadow-(--shadow-border)",
+        "scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent",
         "max-h-[min(22rem,calc(100dvh-8rem))]",
         size === "hero"
           ? "left-0 right-0 rounded-(--frame-radius)"
