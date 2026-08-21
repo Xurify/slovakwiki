@@ -34,9 +34,13 @@ let removedKeys = 0;
 let trimmedKeys = 0;
 let keptKeys = 0;
 
+function isRemovableWeakExample(example: Example, lemma?: string): boolean {
+  return example.note === "Curated" && isWeakFillTemplate(example, lemma);
+}
+
 for (const [slug, examples] of Object.entries(curated)) {
   const lemma = lemmaBySlug.get(slug);
-  const kept = examples.filter((example) => !isWeakFillTemplate(example, lemma));
+  const kept = examples.filter((example) => !isRemovableWeakExample(example, lemma));
   if (kept.length === 0) {
     delete curated[slug];
     removedKeys += 1;
@@ -55,7 +59,7 @@ let clearedWords = 0;
 for (const word of dictionaryWords) {
   const before = word.examples.length;
   word.examples = word.examples.filter(
-    (example) => !isWeakFillTemplate(example, word.slovak),
+    (example) => !isRemovableWeakExample(example, word.slovak),
   );
   if (word.examples.length < before) clearedWords += 1;
 }

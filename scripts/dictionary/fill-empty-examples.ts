@@ -1026,6 +1026,7 @@ for (const word of words) {
   if (word.category === "Verbs") continue;
   if (HAND_CURATED_SLUGS.has(word.slug)) continue;
   if (word.examples.some((example) => Boolean(example.demonstrates))) continue;
+  if (word.examples.some((example) => !example.isPracticeFrame)) continue;
 
   const existing = curated[word.slug] ?? [];
   const existingKeys = new Set(
