@@ -62,6 +62,12 @@
   const showPanel = $derived(open);
   const showIdle = $derived(showPanel && !trimmedQuery);
   const showResults = $derived(showPanel && Boolean(trimmedQuery));
+  const activeOptionCount = $derived(trimmedQuery ? results.length : idleOptions.length);
+  const activeDescendant = $derived(
+    showPanel && activeOptionCount > 0
+      ? `${id}-option-${Math.min(activeIndex, activeOptionCount - 1)}`
+      : undefined,
+  );
   const fieldSpinnerClass = $derived(
     size === "hero"
       ? "mr-4 size-4 shrink-0 animate-spin rounded-full border-2 border-slate-200 border-t-slate-500"
@@ -235,6 +241,7 @@
     const target = event.currentTarget as HTMLInputElement;
     query = target.value;
     open = true;
+    activeIndex = 0;
     void runSearch(query);
   }
 
@@ -392,7 +399,7 @@
       aria-autocomplete="list"
       aria-controls={`${id}-listbox`}
       aria-expanded={showPanel}
-      aria-activedescendant={showPanel ? `${id}-option-${activeIndex}` : undefined}
+      aria-activedescendant={activeDescendant}
       role="combobox"
       oninput={onInput}
       onfocus={onFocus}

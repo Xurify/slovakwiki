@@ -17,5 +17,6 @@ content/dictionary/words.json
 content/dictionary/related-clusters.json
 content/dictionary/curated-examples.json
 content/frequency/
+static/frequency/
 content/images/manifest.json
 **/*.generated.ts
