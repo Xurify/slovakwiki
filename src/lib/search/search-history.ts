@@ -76,13 +76,16 @@ export function normalizeHistoryHref(href: string): string {
   }
 
   try {
-    if (/^https?:\/\//i.test(trimmed)) {
-      return new URL(trimmed).pathname;
-    }
-  } catch {}
-
-  const path = trimmed.split(/[?#]/u)[0] ?? trimmed;
-  return path.startsWith("/") ? path : `/${path}`;
+    const url = new URL(trimmed, "https://slovak.wiki");
+    return `${url.pathname}${url.hash}`;
+  } catch {
+    const path = trimmed.split(/[?#]/u)[0] ?? trimmed;
+    const hash = trimmed.includes("#")
+      ? `#${(trimmed.split("#")[1] ?? "").split("?")[0]}`
+      : "";
+    const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+    return `${normalizedPath}${hash}`;
+  }
 }
 
 function readHistoryRaw(storage: StorageLike): string | null {

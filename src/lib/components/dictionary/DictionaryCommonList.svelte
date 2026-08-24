@@ -55,7 +55,7 @@
       return;
     }
 
-    ssrList.hidden = isFiltering && expanded;
+    ssrList.hidden = isFiltering;
   });
 
   $effect(() => {

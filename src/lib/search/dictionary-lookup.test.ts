@@ -57,6 +57,16 @@ describe("dictionary lookup scoring", () => {
     expect(scoreDictionaryEntry(hello, "hell")).toBe(0);
     expect(scoreDictionaryEntry(hello, "hi")).toBe(3);
   });
+
+  it("matches multi-word english gloss phrases", () => {
+    const dakujem = entry("dakujem", "ďakujem", "thank you; thanks");
+    expect(scoreDictionaryEntry(dakujem, "thank you")).toBe(3);
+    expect(scoreDictionaryEntry(dakujem, "thanks")).toBe(3);
+    expect(scoreDictionaryEntry(dakujem, "thank")).toBe(3);
+
+    const hovorit = entry("hovorit", "hovoriť", "to speak; to talk");
+    expect(scoreDictionaryEntry(hovorit, "to speak")).toBe(3);
+  });
 });
 
 describe("dictionary lookup merge", () => {

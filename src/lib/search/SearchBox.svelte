@@ -158,11 +158,20 @@
   function openPanel(): void {
     open = true;
     refreshRecent();
-    void getPagefind().then((api) => {
-      if (!api) {
-        unavailable = true;
-      }
-    });
+  }
+
+  async function applyDictionaryFallback(
+    normalized: string,
+    generation: number,
+  ): Promise<void> {
+    const dictionaryHits = await lookupDictionary(normalized);
+    if (generation !== searchGeneration) {
+      return;
+    }
+
+    results = dictionaryHits;
+    unavailable = dictionaryHits.length === 0;
+    activeIndex = 0;
   }
 
   async function runSearch(value: string): Promise<void> {
@@ -200,8 +209,7 @@
       }
 
       if (!api) {
-        unavailable = true;
-        results = [];
+        await applyDictionaryFallback(normalized, generation);
         return;
       }
 
@@ -226,8 +234,7 @@
       activeIndex = 0;
     } catch {
       if (generation === searchGeneration) {
-        unavailable = true;
-        results = [];
+        await applyDictionaryFallback(normalized, generation);
       }
     } finally {
       if (generation === searchGeneration) {

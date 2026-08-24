@@ -40,11 +40,27 @@ function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
 }
 
 function englishGlosses(english: string): string[] {
-  return english
-    .split(";")
-    .flatMap((segment) => segment.split(/\s+/))
-    .map((token) => normalizeSearchText(token.trim()))
-    .filter(Boolean);
+  const glosses: string[] = [];
+  const seen = new Set<string>();
+
+  const add = (value: string): void => {
+    const normalized = normalizeSearchText(value.trim());
+    if (!normalized || seen.has(normalized)) {
+      return;
+    }
+
+    seen.add(normalized);
+    glosses.push(normalized);
+  };
+
+  for (const segment of english.split(";")) {
+    add(segment);
+    for (const token of segment.split(/\s+/)) {
+      add(token);
+    }
+  }
+
+  return glosses;
 }
 
 function normalizedForms(entry: DictionaryIndexEntry): string[] {

@@ -12,6 +12,7 @@
     markLessonComplete,
     readPracticeState,
     writePracticeState,
+    type AnswerGrade,
   } from "$lib/components/practice/practice-state";
   import type { Lesson } from "$lib/learning/types";
   import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
@@ -33,7 +34,7 @@
   let canSubmit = $state(false);
   let submitNonce = $state(0);
   let gradeResult = $state<{
-    correct: boolean;
+    grade: AnswerGrade;
     why: string;
   } | null>(null);
   let whyOpen = $state(false);
@@ -98,6 +99,11 @@
     if (hydrated) writePracticeState(localStorage, nextState);
   }
 
+  function persistLessonComplete(): void {
+    if (!hydrated) return;
+    persist(markLessonComplete(readPracticeState(localStorage), lesson.id));
+  }
+
   function resetStepUi(): void {
     canSubmit = false;
     gradeResult = null;
@@ -122,7 +128,7 @@
 
   function advance(): void {
     if (stepIndex >= steps.length - 1) {
-      persist(markLessonComplete(practiceState, lesson.id));
+      persistLessonComplete();
       phase = "done";
       return;
     }
@@ -159,8 +165,8 @@
     submitNonce += 1;
   }
 
-  function onGraded(result: { correct: boolean; why: string }): void {
-    gradeResult = result;
+  function onGraded(result: { grade: AnswerGrade; why: string }): void {
+    gradeResult = { grade: result.grade, why: result.why };
     whyOpen = false;
     canSubmit = false;
   }
@@ -235,7 +241,7 @@
 
     {#if gradeResult}
       <LessonFeedbackBar
-        grade={gradeResult.correct ? "correct" : "incorrect"}
+        grade={gradeResult.grade}
         why={gradeResult.why}
         {whyOpen}
         onwhy={() => {

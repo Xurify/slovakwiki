@@ -7,8 +7,8 @@
     gradeBuild,
     resolveBuiltTiles,
   } from "$lib/learning/exercises/build-tiles";
-  import { answersMatch } from "$lib/components/practice/practice-state";
-  import { playAnswerSfx } from "$lib/audio/sfx";
+  import { gradeAnswer, type AnswerGrade } from "$lib/components/practice/practice-state";
+  import { playAnswerSfx, type AnswerSfxKind } from "$lib/audio/sfx";
   import {
     BuildSentenceOptions,
     ChoiceOptions,
@@ -50,6 +50,7 @@
     /** Fired after Check with grade + why (player chrome). */
     ongraded?: (result: {
       correct: boolean;
+      grade: AnswerGrade;
       why: string;
       correction?: string;
       english?: string;
@@ -74,19 +75,19 @@
   const builtTiles = $derived(
     graded?.type === "build" ? resolveBuiltTiles(graded.tiles, builtBankIndexes) : [],
   );
-  const correct = $derived.by(() => {
-    if (!graded || !submitted || revealed) return false;
-    if (graded.type === "choice") return gradeChoice(selectedId, graded);
-    if (graded.type === "selectAll") return gradeSelectAll(selectedIds, graded.choices);
-    if (graded.type === "build") return gradeBuild(builtTiles, graded.answer);
-    return answersMatch(input, graded.answer, graded.acceptedAnswers);
+  const answerGrade = $derived.by((): AnswerGrade | null => {
+    if (!graded || !submitted || revealed) return null;
+    if (graded.type === "choice")
+      return gradeChoice(selectedId, graded) ? "correct" : "incorrect";
+    if (graded.type === "selectAll")
+      return gradeSelectAll(selectedIds, graded.choices) ? "correct" : "incorrect";
+    if (graded.type === "build")
+      return gradeBuild(builtTiles, graded.answer) ? "correct" : "incorrect";
+    return gradeAnswer(input, graded.answer, graded.acceptedAnswers);
   });
-  const feedbackGrade = $derived.by(() => {
-    if (!submitted || revealed) return null;
-    return correct ? "correct" : "incorrect";
-  });
+  const correct = $derived(answerGrade === "correct");
   const showCorrection = $derived.by(() => {
-    if (!shouldShowCorrection(submitted, feedbackGrade, revealed)) return false;
+    if (!shouldShowCorrection(submitted, answerGrade, revealed)) return false;
     if (graded?.type === "selectAll" && submitted && !correct && !revealed) return false;
     return true;
   });
@@ -158,25 +159,30 @@
     feedbackPanel?.focus();
   }
 
+  function resolveCheckGrade(): AnswerGrade {
+    if (!graded) return "incorrect";
+    if (graded.type === "choice")
+      return gradeChoice(selectedId, graded) ? "correct" : "incorrect";
+    if (graded.type === "selectAll")
+      return gradeSelectAll(selectedIds, graded.choices) ? "correct" : "incorrect";
+    if (graded.type === "build")
+      return gradeBuild(builtTiles, graded.answer) ? "correct" : "incorrect";
+    return gradeAnswer(input, graded.answer, graded.acceptedAnswers);
+  }
+
+  function sfxKindForGrade(value: AnswerGrade): AnswerSfxKind {
+    if (value === "correct") return "correct";
+    if (value === "accents") return "almost";
+    return "incorrect";
+  }
+
   async function check(): Promise<void> {
     if (!canCheck || !graded) return;
 
-    let kind: "correct" | "incorrect" = "incorrect";
-
-    if (graded.type === "choice") {
-      kind = gradeChoice(selectedId, graded) ? "correct" : "incorrect";
-    } else if (graded.type === "selectAll") {
-      kind = gradeSelectAll(selectedIds, graded.choices) ? "correct" : "incorrect";
-    } else if (graded.type === "build") {
-      kind = gradeBuild(builtTiles, graded.answer) ? "correct" : "incorrect";
-    } else {
-      kind = answersMatch(input, graded.answer, graded.acceptedAnswers)
-        ? "correct"
-        : "incorrect";
-    }
+    const kind = resolveCheckGrade();
 
     submitted = true;
-    playAnswerSfx(kind);
+    playAnswerSfx(sfxKindForGrade(kind));
 
     if (player && ongraded) {
       const isCorrect = kind === "correct";
@@ -194,6 +200,7 @@
 
       ongraded({
         correct: isCorrect,
+        grade: kind,
         why,
         correction: exercise.feedback.correction,
         english: feedbackEnglish,
@@ -213,6 +220,7 @@
     if (player && ongraded) {
       ongraded({
         correct: false,
+        grade: "incorrect",
         why: exercise.feedback.why,
         correction: exercise.feedback.correction,
         english: feedbackEnglish,
@@ -365,8 +373,8 @@
       <div
         bind:this={feedbackPanel}
         class={`mt-6 max-w-2xl ${
-          correct
-            ? feedbackPanelClass(feedbackToneFromGrade(feedbackGrade, revealed))
+          correct || answerGrade === "accents"
+            ? feedbackPanelClass(feedbackToneFromGrade(answerGrade, revealed))
             : ""
         }`}
         aria-live="polite"
@@ -377,8 +385,8 @@
           correction={feedbackCorrection}
           english={feedbackEnglish}
           why={feedbackWhy}
-          grade={correct ? "correct" : "incorrect"}
-          revealed={revealed || !correct}
+          grade={answerGrade ?? "incorrect"}
+          {revealed}
           {showCorrection}
           density={correct ? "default" : "compact"}
           correctionLabelTone="emerald"

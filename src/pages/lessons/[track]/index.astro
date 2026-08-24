@@ -27,7 +27,7 @@ const payload = buildLessonsBootPayload(track.id);
   title={`${track.title} lessons | Slovak Wiki`}
   description={track.description}
 >
-  <LessonTrackPage data={{ track, lessons }} />
   <LessonsProgressBoot {payload} />
+  <LessonTrackPage data={{ track, lessons }} />
   <LessonsProgressClient client:load payload={payload} />
 </SiteLayout>

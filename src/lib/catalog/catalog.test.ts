@@ -897,6 +897,12 @@ describe("Slovak content", () => {
     expect(normalizeHistoryHref("https://slovak.wiki/dictionary/ahoj?x=1")).toBe(
       "/dictionary/ahoj",
     );
+    expect(normalizeHistoryHref("/dictionary/malo#adverb")).toBe(
+      "/dictionary/malo#adverb",
+    );
+    expect(normalizeHistoryHref("https://slovak.wiki/dictionary/malo?x=1#adverb")).toBe(
+      "/dictionary/malo#adverb",
+    );
 
     pushSearchHistory(storage, {
       visitedAt: 1,
@@ -924,6 +930,26 @@ describe("Slovak content", () => {
       "/grammar/cases/nominative",
     ]);
     expect(readSearchHistory(storage)[0]?.category).toBe("Phrases");
+
+    pushSearchHistory(storage, {
+      visitedAt: 4,
+      href: "/dictionary/malo#noun",
+      kind: "word",
+      label: "málo",
+      category: "Nouns",
+    });
+    pushSearchHistory(storage, {
+      visitedAt: 5,
+      href: "/dictionary/malo#adverb",
+      kind: "word",
+      label: "málo",
+      category: "Adverbs",
+    });
+    expect(
+      readSearchHistory(storage)
+        .map((item) => item.href)
+        .slice(0, 2),
+    ).toEqual(["/dictionary/malo#adverb", "/dictionary/malo#noun"]);
 
     for (let index = 0; index < SEARCH_HISTORY_LIMIT + 2; index += 1) {
       pushSearchHistory(storage, {
