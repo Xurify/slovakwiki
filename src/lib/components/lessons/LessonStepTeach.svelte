@@ -344,10 +344,16 @@
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Open the curtain, then land the first line — or a say-choice gate.
+    // Skip auto-start if footer Next already advanced (curtain vs click race).
     const curtain = window.setTimeout(
       () => {
         stageReady = true;
-        if (scene.length > 0) {
+        if (
+          scene.length > 0 &&
+          revealedCount === 0 &&
+          pendingChoiceLine === null &&
+          !openChoiceWhenAudioEnds
+        ) {
           tryAdvance();
         }
       },

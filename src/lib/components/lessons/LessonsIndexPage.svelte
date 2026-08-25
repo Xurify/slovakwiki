@@ -49,7 +49,7 @@
           </Lead>
         </header>
 
-        <div class="mt-12 space-y-12">
+        <div class="mt-12 space-y-12" data-lessons-hydrate>
           {#each trackGroups as group (group.track.id)}
             <LessonTrackSection
               track={group.track}

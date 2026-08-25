@@ -12,7 +12,8 @@ const payload = buildLessonsBootPayload(null);
   title="Lessons | Slovak Wiki"
   description="Independent Slovak lessons for everyday language, grammar, and pronunciation."
 >
-  <LessonsProgressBoot {payload} />
+  <LessonsProgressBoot {payload} stage="gate" />
   <LessonsIndexPage />
+  <LessonsProgressBoot {payload} stage="script" />
   <LessonsProgressClient client:load payload={payload} />
 </SiteLayout>

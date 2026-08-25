@@ -195,7 +195,7 @@ let { heroSearch }: { heroSearch: Snippet } = $props();
 | Pass islands through Astro `slot="…"` → Svelte `Snippet`                                      | Import interactive widgets only inside an SSR Svelte parent and expect them to work |
 | Prefer `client:only="svelte"` when SSR would mismatch (random state, `localStorage`-first UI) | Hydrate large prose/reference trees “just in case”                                  |
 
-**FOUC boots:** Shared kit in [`src/lib/fouc/`](src/lib/fouc/) (see [`README`](src/lib/fouc/README.md)). Lessons use it via `LessonsProgressBoot` + `data-lessons-hydrate` / `data-lessons-ready`. Paint SSOT: `progress-view.ts` → `apply-progress.ts`; client island and generated IIFE share that path. After changing a boot entry or its imports, run `bun run fouc:boot` (or `bun run fouc:boot -- lessons`) and commit the `*.generated.ts` file.
+**FOUC boots:** Shared kit in [`src/lib/fouc/`](src/lib/fouc/) (see [`README`](src/lib/fouc/README.md)). Lessons use it via `LessonsProgressBoot` (`stage="gate"` before page, `stage="script"` after) + `data-lessons-hydrate` / `data-lessons-ready`. Paint SSOT: `progress-view.ts` → `apply-progress.ts`; client island and generated IIFE share that path. After changing a boot entry or its imports, run `bun run fouc:boot` (or `bun run fouc:boot -- lessons`) and commit the `*.generated.ts` file.
 
 Full-page hydrate only when the page **is** the interactive app (filters, player, localStorage-first UI), not static chrome with a widget. Prefer SSR shell + small slotted island for browse/list pages; do not embed huge datasets in HTML.
 

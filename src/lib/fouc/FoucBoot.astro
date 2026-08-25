@@ -9,15 +9,22 @@ interface Props {
   payload: unknown;
   /** Generated IIFE string (`bun run fouc:boot`). */
   script: string;
+  /**
+   * Inline scripts cannot `defer`. CSS+JSON must precede hydrate markup;
+   * the IIFE must follow it so `querySelector` sees the nodes.
+   */
+  stage: "gate" | "script";
 }
 
-const { surface, payload, script } = Astro.props;
+const { surface, payload, script, stage } = Astro.props;
 const json = escapeJsonForInlineScript(payload);
 const gateStyle = foucHideUntilReadyStyle(surface);
 ---
 
-{/* Hide hydrate surfaces until boot paints — only when JS ran (html.js). */}
-<style is:inline set:html={gateStyle}></style>
-
-<script is:inline type="application/json" id={surface.dataId} set:html={json} />
-<script is:inline set:html={script} />
+{stage === "gate" && <style is:inline set:html={gateStyle} />}
+{
+  stage === "gate" && (
+    <script is:inline type="application/json" id={surface.dataId} set:html={json} />
+  )
+}
+{stage === "script" && <script is:inline set:html={script} />}

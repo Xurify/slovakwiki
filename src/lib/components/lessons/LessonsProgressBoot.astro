@@ -1,20 +1,15 @@
 ---
+import FoucBoot from "$lib/fouc/FoucBoot.astro";
 import { LESSONS_BOOT_SCRIPT } from "$lib/lesson-progress/boot-script";
 import type { LessonsBootPayload } from "$lib/lesson-progress/boot-payload";
 import { LESSONS_FOUC } from "$lib/lesson-progress/fouc";
-import { foucHideUntilReadyStyle } from "$lib/fouc/gate";
 
 interface Props {
   payload: LessonsBootPayload;
+  stage: "gate" | "script";
 }
 
-const { payload } = Astro.props;
-const json = JSON.stringify(payload).replace(/</g, "\\u003c");
-const gateStyle = foucHideUntilReadyStyle(LESSONS_FOUC);
+const { payload, stage } = Astro.props;
 ---
 
-{/* Hide hydrate surfaces until boot paints — only when JS ran (html.js). */}
-<style is:inline set:html={gateStyle}></style>
-
-<script is:inline type="application/json" id="lessons-boot-data" set:html={json} />
-<script is:inline set:html={LESSONS_BOOT_SCRIPT} />
+<FoucBoot surface={LESSONS_FOUC} {payload} script={LESSONS_BOOT_SCRIPT} {stage} />

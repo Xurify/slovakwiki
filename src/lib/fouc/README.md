@@ -10,6 +10,7 @@ Theme preference still lives as a tiny head IIFE in `SiteLayout.astro` — diffe
 SSR HTML (empty / default progress)
   + inline CSS: hide [data-*-hydrate] while JS ran and ready not set
   + inline JSON payload (#*-boot-data)
+  + hydrate markup (hidden)
   + blocking IIFE (generated) → read storage → paint DOM → set data-*-ready
   → region becomes visible with correct state
 Client island (optional) → same paint again later (storage updates)
@@ -17,13 +18,13 @@ Client island (optional) → same paint again later (storage updates)
 
 Pieces:
 
-| Piece                          | Role                                                       |
-| ------------------------------ | ---------------------------------------------------------- |
-| `$lib/fouc/gate`               | `defineFoucSurface`, hide-until-ready CSS, `markFoucReady` |
-| `$lib/fouc/boot`               | JSON escape, read payload from DOM, `runFoucBoot`          |
-| `$lib/fouc/FoucBoot.astro`     | Inline style + JSON + script shell                         |
-| Domain entry (`boot-entry.ts`) | What to paint (storage → view → apply)                     |
-| `bun run fouc:boot`            | Bundle entry → committed IIFE module                       |
+| Piece                          | Role                                                        |
+| ------------------------------ | ----------------------------------------------------------- |
+| `$lib/fouc/gate`               | `defineFoucSurface`, hide-until-ready CSS, `markFoucReady`  |
+| `$lib/fouc/boot`               | JSON escape, read payload from DOM, `runFoucBoot`           |
+| `$lib/fouc/FoucBoot.astro`     | Gate (CSS+JSON) + script shell; split `stage` around markup |
+| Domain entry (`boot-entry.ts`) | What to paint (storage → view → apply)                      |
+| `bun run fouc:boot`            | Bundle entry → committed IIFE module                        |
 
 ## Why generate an IIFE?
 
@@ -90,7 +91,7 @@ runFoucBoot(PRACTICE_FOUC.readyAttr, () => {
 
 5. **Generate** — `bun run fouc:boot -- practice` (or all).
 
-6. **Astro page** — put `FoucBoot` early in the document (before hydrate regions):
+6. **Astro page** — split `FoucBoot`: **gate** (CSS + JSON) before hydrate markup, **script** (IIFE) after it. Inline scripts cannot `defer`, so a boot placed before the nodes paints nothing and still marks ready.
 
 ```astro
 ---
@@ -99,7 +100,19 @@ import { PRACTICE_BOOT_SCRIPT } from "$lib/practice/boot-script";
 import { PRACTICE_FOUC } from "$lib/practice/fouc";
 ---
 
-<FoucBoot surface={PRACTICE_FOUC} payload={payload} script={PRACTICE_BOOT_SCRIPT} />
+<FoucBoot
+  surface={PRACTICE_FOUC}
+  payload={payload}
+  script={PRACTICE_BOOT_SCRIPT}
+  stage="gate"
+/>
+<!-- hydrate regions -->
+<FoucBoot
+  surface={PRACTICE_FOUC}
+  payload={payload}
+  script={PRACTICE_BOOT_SCRIPT}
+  stage="script"
+/>
 ```
 
 7. Wrap progress UI: `data-practice-hydrate` (or whatever `hydrateAttr` is).
@@ -111,7 +124,7 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 - Surface: `$lib/lesson-progress/fouc`
 - Entry: `$lib/lesson-progress/boot-entry.ts`
 - Paint SSOT: `progress-view.ts` → `apply-progress.ts`
-- Shell: `LessonsProgressBoot.astro` → wraps `FoucBoot`
+- Shell: `LessonsProgressBoot.astro` → wraps `FoucBoot` (`stage="gate"` before page, `stage="script"` after)
 - Island: `LessonsProgressClient.svelte` re-paints + marks ready after hydrate
 
 ## Do / don't
