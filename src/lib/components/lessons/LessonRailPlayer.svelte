@@ -34,15 +34,19 @@
   let canSubmit = $state(false);
   let submitNonce = $state(0);
   let gradeResult = $state<{
+    attempt?: string;
+    correction?: string;
+    english?: string;
     grade: AnswerGrade;
+    missHeadline?: string;
+    revealed?: boolean;
     why: string;
   } | null>(null);
-  let whyOpen = $state(false);
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
-  /** Teach story: false until every dialogue line has been revealed. */
+  let playerRoot: HTMLDivElement | undefined = $state();
   let teachStoryComplete = $state(false);
-  /** Incremented by footer to advance the next story line. */
+  let teachChoiceOpen = $state(false);
   let teachAdvanceSignal = $state(0);
 
   const steps = $derived(lessonSteps(lesson));
@@ -86,11 +90,24 @@
   $effect(() => {
     if (phase !== "play") return;
 
+    playerRoot?.focus({ preventScroll: true });
+
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    const pageHeaderAndFooter = [
+      document.querySelector("header"),
+      document.querySelector("footer"),
+    ];
+    for (const element of pageHeaderAndFooter) {
+      element?.setAttribute("inert", "");
+    }
+
     return () => {
       document.body.style.overflow = previousOverflow;
+      for (const element of pageHeaderAndFooter) {
+        element?.removeAttribute("inert");
+      }
     };
   });
 
@@ -107,7 +124,7 @@
   function resetStepUi(): void {
     canSubmit = false;
     gradeResult = null;
-    whyOpen = false;
+    teachChoiceOpen = false;
     teachAdvanceSignal = 0;
   }
 
@@ -124,6 +141,7 @@
     }
 
     teachStoryComplete = true;
+    teachChoiceOpen = false;
   });
 
   function advance(): void {
@@ -142,13 +160,10 @@
 
     if (step.kind === "teach") {
       if (!teachStoryComplete) {
-        // Autoplay-blocked clip: replay under this gesture; do not skip ahead.
-        if (hasPendingStoryAudio()) {
-          unlockStoryAudio();
-          return;
-        }
-
+        const replayBlockedClip = hasPendingStoryAudio();
         unlockStoryAudio();
+        if (replayBlockedClip) return;
+
         teachAdvanceSignal += 1;
         return;
       }
@@ -165,9 +180,16 @@
     submitNonce += 1;
   }
 
-  function onGraded(result: { grade: AnswerGrade; why: string }): void {
-    gradeResult = { grade: result.grade, why: result.why };
-    whyOpen = false;
+  function onGraded(result: {
+    attempt?: string;
+    correction?: string;
+    english?: string;
+    grade: AnswerGrade;
+    missHeadline?: string;
+    revealed?: boolean;
+    why: string;
+  }): void {
+    gradeResult = result;
     canSubmit = false;
   }
 
@@ -183,7 +205,7 @@
 
   const footerEnabled = $derived.by(() => {
     if (!step) return false;
-    if (step.kind === "teach") return true;
+    if (step.kind === "teach") return !teachChoiceOpen;
     if (gradeResult) return true;
     if (step.exercise.type === "personal") return true;
     return canSubmit;
@@ -199,7 +221,14 @@
     {trackTitle}
   />
 {:else}
-  <div class="fixed inset-0 z-[90] flex flex-col bg-paper">
+  <div
+    bind:this={playerRoot}
+    class="fixed inset-0 z-[90] flex flex-col bg-paper"
+    role="dialog"
+    aria-modal="true"
+    aria-label={lesson.title}
+    tabindex="-1"
+  >
     <LessonPlayerChrome
       {backHref}
       {progressPercent}
@@ -221,6 +250,7 @@
               lessonId={lesson.id}
               advanceSignal={teachAdvanceSignal}
               bind:storyComplete={teachStoryComplete}
+              bind:choiceOpen={teachChoiceOpen}
             />
           {:else}
             <div class="mx-auto w-full max-w-2xl px-4 py-10 sm:px-8 sm:py-12">
@@ -243,10 +273,11 @@
       <LessonFeedbackBar
         grade={gradeResult.grade}
         why={gradeResult.why}
-        {whyOpen}
-        onwhy={() => {
-          whyOpen = !whyOpen;
-        }}
+        attempt={gradeResult.attempt}
+        correction={gradeResult.correction}
+        english={gradeResult.english}
+        revealed={gradeResult.revealed}
+        missHeadline={gradeResult.missHeadline}
         oncontinue={advance}
       />
     {:else}

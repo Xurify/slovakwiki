@@ -31,15 +31,16 @@
     lessonId = "",
     scene = [],
     storyComplete = $bindable(false),
+    choiceOpen = $bindable(false),
     teach,
     title,
   }: {
-    /** Increment from the player footer to reveal the next story line. */
     advanceSignal?: number;
     audioSrcs?: Record<string, string>;
     lessonId?: string;
     scene?: DialogueTurn[];
     storyComplete?: boolean;
+    choiceOpen?: boolean;
     teach: LessonBeatTeach;
     title: string;
   } = $props();
@@ -57,21 +58,11 @@
   let pendingChoiceLine = $state<DialogueTurn | null>(null);
   let choiceSelectedId = $state<string | null>(null);
   let choiceMissWhy = $state<string | null>(null);
-  let lastGradedChoiceId = $state<string | null>(null);
-  /** True while the newest revealed line’s story clip is in flight (or dwell). */
   let lineAudioPlaying = $state(false);
-  /**
-   * Next/advance asked for a say-choice gate while the prior line still plays —
-   * open the gate only after that clip ends (do not stop audio / show options early).
-   */
-  let openChoiceWhenAudioEnds = $state(false);
+  let waitingForChoiceAfterAudio = $state(false);
 
   const setting = $derived(storySettingForLesson(lessonId));
 
-  /**
-   * Keep phrase cards only when they teach something the scene did not already
-   * show — prefer a note (grammar / usage). Bare stem repeats get dropped.
-   */
   const takeaways = $derived.by((): KeyPhrase[] => {
     const all = teach.phrases ?? [];
     if (!all.length) return [];
@@ -102,14 +93,15 @@
   const allLinesRevealed = $derived(!storyActive || revealedCount >= scene.length);
   const showAftercare = $derived(!storyActive || allLinesRevealed);
   const awaitingChoice = $derived(pendingChoiceLine !== null);
-  const waitingForChoiceAfterAudio = $derived(openChoiceWhenAudioEnds);
+  const wrongChoiceId = $derived(choiceMissWhy ? choiceSelectedId : null);
   const choiceMissParts = $derived(choiceMissWhy ? splitEmphasis(choiceMissWhy) : []);
 
   function syncComplete(): void {
     storyComplete =
       (!storyActive || revealedCount >= scene.length) &&
       pendingChoiceLine === null &&
-      !openChoiceWhenAudioEnds;
+      !waitingForChoiceAfterAudio;
+    choiceOpen = pendingChoiceLine !== null;
   }
 
   function clearAutoAdvance(): void {
@@ -123,11 +115,10 @@
     pendingChoiceLine = null;
     choiceSelectedId = null;
     choiceMissWhy = null;
-    lastGradedChoiceId = null;
-    openChoiceWhenAudioEnds = false;
+    waitingForChoiceAfterAudio = false;
   }
 
-  function isGatedYouLine(line: DialogueTurn | undefined): line is DialogueTurn {
+  function isSayChoiceTurn(line: DialogueTurn | undefined): line is DialogueTurn {
     return Boolean(
       line &&
       isLearnerSpeaker(line.speaker) &&
@@ -138,13 +129,12 @@
 
   function openChoiceGate(line: DialogueTurn): void {
     clearAutoAdvance();
-    openChoiceWhenAudioEnds = false;
+    waitingForChoiceAfterAudio = false;
     lineAudioPlaying = false;
     stopStoryLineAudio();
     pendingChoiceLine = line;
     choiceSelectedId = null;
     choiceMissWhy = null;
-    lastGradedChoiceId = null;
     syncComplete();
     void scrollToChoice();
   }
@@ -154,11 +144,10 @@
 
     lineAudioPlaying = false;
 
-    // Early Next queued the say-choice gate — open only now that audio finished.
-    if (openChoiceWhenAudioEnds) {
-      openChoiceWhenAudioEnds = false;
+    if (waitingForChoiceAfterAudio) {
+      waitingForChoiceAfterAudio = false;
       const next = scene[revealedCount];
-      if (isGatedYouLine(next)) {
+      if (isSayChoiceTurn(next)) {
         openChoiceGate(next);
         return;
       }
@@ -182,11 +171,10 @@
     });
   }
 
-  /** Reveal the next scene line and play it (no gate check). */
   function revealLine(): void {
     clearAutoAdvance();
     lineEpoch += 1;
-    openChoiceWhenAudioEnds = false;
+    waitingForChoiceAfterAudio = false;
     lineAudioPlaying = false;
     stopStoryLineAudio();
 
@@ -198,22 +186,15 @@
     }
   }
 
-  /**
-   * Advance one beat: either open a say-choices gate for the next You line,
-   * or reveal the next line.
-   *
-   * Say-choice options never appear while the prior line’s audio is still
-   * playing — Next during playback queues the gate until `onEnded`.
-   */
-  function tryAdvance(): void {
+  function advanceStory(): void {
     if (pendingChoiceLine) return;
-    if (openChoiceWhenAudioEnds) return;
+    if (waitingForChoiceAfterAudio) return;
     if (revealedCount >= scene.length) return;
 
     const next = scene[revealedCount];
-    if (isGatedYouLine(next)) {
+    if (isSayChoiceTurn(next)) {
       if (lineAudioPlaying) {
-        openChoiceWhenAudioEnds = true;
+        waitingForChoiceAfterAudio = true;
         syncComplete();
         return;
       }
@@ -227,16 +208,14 @@
 
   function onLineAudioEnded(forCount: number, epoch: number): void {
     if (pendingChoiceLine) return;
-    if (openChoiceWhenAudioEnds) return;
+    if (waitingForChoiceAfterAudio) return;
     if (epoch !== lineEpoch) return;
     if (forCount !== revealedCount) return;
     if (revealedCount >= scene.length) return;
 
     const next = scene[revealedCount];
-    // Say-choice gates always open after the prior line finishes — they are the
-    // interaction, not a passive auto-advance preference.
-    const shouldAdvance = isGatedYouLine(next) || (autoAdvanceOn && soundOn);
-    if (!shouldAdvance) return;
+    const openChoiceOrAutoplay = isSayChoiceTurn(next) || (autoAdvanceOn && soundOn);
+    if (!openChoiceOrAutoplay) return;
 
     clearAutoAdvance();
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -244,18 +223,18 @@
       () => {
         autoAdvanceTimer = 0;
         if (pendingChoiceLine) return;
-        if (openChoiceWhenAudioEnds) return;
+        if (waitingForChoiceAfterAudio) return;
         if (epoch !== lineEpoch) return;
         if (forCount !== revealedCount) return;
 
         const upcoming = scene[revealedCount];
-        if (isGatedYouLine(upcoming)) {
+        if (isSayChoiceTurn(upcoming)) {
           openChoiceGate(upcoming);
           return;
         }
 
         if (!autoAdvanceOn || !soundOn) return;
-        tryAdvance();
+        advanceStory();
       },
       reduced ? 120 : 420,
     );
@@ -265,9 +244,6 @@
     const line = pendingChoiceLine;
     const choices = line?.sayChoices;
     if (!line || !choices) return;
-    if (selectedId === lastGradedChoiceId) return;
-
-    lastGradedChoiceId = selectedId;
 
     if (isSayChoiceCorrect(selectedId, choices)) {
       clearChoiceGate();
@@ -282,6 +258,11 @@
       "Not that line — pick the reply that matches what you mean.";
   }
 
+  function setChoiceSelectedId(id: string | null): void {
+    choiceSelectedId = id;
+    if (id) resolveChoice(id);
+  }
+
   function onChoiceKeydown(event: KeyboardEvent): void {
     if (!pendingChoiceLine?.sayChoices) return;
 
@@ -292,7 +273,7 @@
     if (!choice) return;
 
     event.preventDefault();
-    choiceSelectedId = choice.id;
+    setChoiceSelectedId(choice.id);
   }
 
   async function scrollToLatest(): Promise<void> {
@@ -321,12 +302,22 @@
     });
   }
 
+  function startStoryAfterCurtain(): void {
+    stageReady = true;
+    const waitingToStart =
+      scene.length > 0 &&
+      revealedCount === 0 &&
+      pendingChoiceLine === null &&
+      !waitingForChoiceAfterAudio;
+    if (waitingToStart) advanceStory();
+  }
+
   onMount(() => {
-    storyComplete = scene.length === 0;
     lastAdvance = advanceSignal;
     autoAdvanceOn = getStoryAutoAdvance() === "on";
     showEnglishOn = getStoryShowEnglish() === "on";
     soundOn = getStoredSfxPreference() === "on";
+    syncComplete();
 
     function onPrefsChange(): void {
       autoAdvanceOn = getStoryAutoAdvance() === "on";
@@ -342,23 +333,8 @@
     window.addEventListener(SFX_CHANGE_EVENT, onSfxChange);
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // Open the curtain, then land the first line — or a say-choice gate.
-    // Skip auto-start if footer Next already advanced (curtain vs click race).
-    const curtain = window.setTimeout(
-      () => {
-        stageReady = true;
-        if (
-          scene.length > 0 &&
-          revealedCount === 0 &&
-          pendingChoiceLine === null &&
-          !openChoiceWhenAudioEnds
-        ) {
-          tryAdvance();
-        }
-      },
-      reduced ? 0 : 220,
-    );
+    const curtainDelay = reduced ? 0 : 220;
+    const curtain = window.setTimeout(startStoryAfterCurtain, curtainDelay);
 
     return () => {
       window.clearTimeout(curtain);
@@ -374,19 +350,11 @@
     stopStoryLineAudio();
   });
 
-  // Footer Continue while mid-story → next line (blocked while choosing).
   $effect(() => {
     const signal = advanceSignal;
     if (signal === 0 || signal === lastAdvance) return;
     lastAdvance = signal;
-    tryAdvance();
-  });
-
-  // Grade as soon as a say-choice is tapped or keyed.
-  $effect(() => {
-    const selectedId = choiceSelectedId;
-    if (!pendingChoiceLine || !selectedId) return;
-    resolveChoice(selectedId);
+    advanceStory();
   });
 </script>
 
@@ -477,8 +445,9 @@
 
           <ChoiceOptions
             choices={pendingChoiceLine.sayChoices.choices}
-            bind:selectedId={choiceSelectedId}
+            bind:selectedId={() => choiceSelectedId, setChoiceSelectedId}
             submitted={false}
+            {wrongChoiceId}
             variant="cards"
           />
 

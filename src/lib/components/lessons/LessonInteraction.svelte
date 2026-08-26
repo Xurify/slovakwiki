@@ -40,20 +40,20 @@
     ongraded,
     onresolve,
     sceneAudioSrcs = {},
-    /** Parent bumps this to trigger Check / personal continue (player chrome). */
     submitNonce = 0,
   }: {
     canSubmit?: boolean;
-    /** `plain` / `player` drop the outer border panel. `player` also defers footer actions. */
     chrome?: "card" | "plain" | "player";
     exercise: LessonExercise;
-    /** Fired after Check with grade + why (player chrome). */
     ongraded?: (result: {
+      attempt?: string;
       correct: boolean;
-      grade: AnswerGrade;
-      why: string;
       correction?: string;
       english?: string;
+      grade: AnswerGrade;
+      missHeadline?: string;
+      revealed?: boolean;
+      why: string;
     }) => void;
     onresolve: () => void;
     sceneAudioSrcs?: Record<string, string>;
@@ -71,7 +71,7 @@
 
   const player = $derived(chrome === "player");
   const graded = $derived(exercise.type !== "personal" ? exercise : null);
-  const hasContext = $derived(Boolean(exercise.context?.length));
+  const hasContext = $derived(Boolean(graded?.context?.length));
   const builtTiles = $derived(
     graded?.type === "build" ? resolveBuiltTiles(graded.tiles, builtBankIndexes) : [],
   );
@@ -92,7 +92,7 @@
     return true;
   });
   const feedbackWhy = $derived.by(() => {
-    const baseWhy = exercise.feedback.why;
+    const baseWhy = graded?.feedback.why ?? "";
     if (!submitted || correct || revealed) return baseWhy;
     if (graded?.type === "selectAll") {
       return selectAllFeedbackWhy(baseWhy, selectedIds, graded.choices);
@@ -115,18 +115,18 @@
     ) {
       return (
         graded.choices.find((choice) => choice.id === selectedId)?.label ??
-        exercise.feedback.correction
+        graded.feedback.correction
       );
     }
-    return exercise.feedback.correction;
+    return graded?.feedback.correction;
   });
   const isPickTrap = $derived(
     graded?.type === "choice" && graded.choiceMode === "pickTrap",
   );
   const feedbackEnglish = $derived(
     isPickTrap
-      ? pickTrapFeedbackEnglish(exercise.feedback.english)
-      : exercise.feedback.english,
+      ? pickTrapFeedbackEnglish(graded?.feedback.english)
+      : graded?.feedback.english,
   );
   const canCheck = $derived.by(() => {
     if (!graded || submitted) return false;
@@ -186,7 +186,7 @@
 
     if (player && ongraded) {
       const isCorrect = kind === "correct";
-      let why = exercise.feedback.why;
+      let why = graded.feedback.why;
       if (!isCorrect) {
         if (graded.type === "selectAll") {
           why = selectAllFeedbackWhy(why, selectedIds, graded.choices);
@@ -199,11 +199,13 @@
       }
 
       ongraded({
+        attempt: attemptForDisplay(),
         correct: isCorrect,
-        grade: kind,
-        why,
-        correction: exercise.feedback.correction,
+        correction: feedbackCorrection,
         english: feedbackEnglish,
+        grade: kind,
+        missHeadline: isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer",
+        why,
       });
       return;
     }
@@ -220,10 +222,12 @@
     if (player && ongraded) {
       ongraded({
         correct: false,
-        grade: "incorrect",
-        why: exercise.feedback.why,
-        correction: exercise.feedback.correction,
+        correction: graded.feedback.correction,
         english: feedbackEnglish,
+        grade: "incorrect",
+        missHeadline: isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer",
+        revealed: true,
+        why: graded.feedback.why,
       });
       return;
     }
@@ -309,9 +313,7 @@
           ? "m-0 text-center font-serif text-[clamp(1.3rem,2.9vw,1.75rem)] leading-snug tracking-tight text-pretty text-slate-900"
           : "m-0 font-serif text-xl font-semibold leading-snug text-pretty text-slate-900",
       ].join(" ")}
-      lang={exercise.type !== "personal" && exercise.promptLang === "sk"
-        ? "sk"
-        : undefined}
+      lang={exercise.promptLang === "sk" ? "sk" : undefined}
     >
       {exercise.prompt}
     </h2>

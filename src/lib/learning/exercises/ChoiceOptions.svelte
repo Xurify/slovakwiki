@@ -9,6 +9,7 @@
     promptClock,
     selectedId = $bindable(null),
     submitted,
+    wrongChoiceId = null,
     variant = "default",
   }: {
     choices: ChoiceExercise["choices"];
@@ -16,7 +17,7 @@
     promptClock?: ChoiceExercise["clock"];
     selectedId?: string | null;
     submitted: boolean;
-    /** `cards` = roomy numbered option rows for the lesson player. */
+    wrongChoiceId?: string | null;
     variant?: "default" | "cards";
   } = $props();
 
@@ -40,6 +41,7 @@
 >
   {#each choices as choice, index (choice.id)}
     {@const selected = selectedId === choice.id}
+    {@const wrongPick = choice.id === wrongChoiceId}
 
     <button
       class={showClockChoices
@@ -47,15 +49,18 @@
         : cards
           ? [
               "flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-(--frame-radius) border px-4 py-3.5 text-left transition-[border-color,background-color,box-shadow,transform] duration-150 active:scale-[0.99]",
-              selected
-                ? "border-blue-600 bg-blue-50 shadow-[0_0_0_1px_var(--color-blue-600)]"
-                : "border-transparent bg-surface/80 shadow-(--shadow-border) hover:bg-surface hover:shadow-(--shadow-border-hover)",
+              wrongPick
+                ? "border-rose-600 bg-rose-50 shadow-[0_0_0_1px_var(--color-rose-600)]"
+                : selected
+                  ? "border-blue-600 bg-blue-50 shadow-[0_0_0_1px_var(--color-blue-600)]"
+                  : "border-transparent bg-surface/80 shadow-(--shadow-border) hover:bg-surface hover:shadow-(--shadow-border-hover)",
               submitted ? "cursor-default" : "",
             ].join(" ")
           : "press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3.5 text-left font-serif text-base font-semibold"}
       disabled={submitted}
       type="button"
       aria-pressed={selected}
+      aria-invalid={wrongPick || undefined}
       aria-label={choice.clock ? formatClockFaceLabel(choice.clock) : choice.label}
       onclick={() => (selectedId = choice.id)}
     >
