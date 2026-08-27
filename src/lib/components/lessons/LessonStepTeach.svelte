@@ -48,7 +48,7 @@
   let revealedCount = $state(0);
   let stageReady = $state(false);
   let scrollEl: HTMLElement | undefined = $state();
-  let lastAdvance = $state(0);
+  let lastAdvance = 0;
   let autoAdvanceOn = $state(getStoryAutoAdvance() === "on");
   let showEnglishOn = $state(getStoryShowEnglish() === "on");
   let soundOn = $state(getStoredSfxPreference() === "on");
@@ -326,7 +326,22 @@
 
     function onSfxChange(): void {
       soundOn = getStoredSfxPreference() === "on";
-      if (!soundOn) clearAutoAdvance();
+      if (soundOn) return;
+
+      // Mute calls stopAll() without onEnded — unstick say-choice wait.
+      clearAutoAdvance();
+      lineAudioPlaying = false;
+
+      if (!waitingForChoiceAfterAudio) return;
+
+      waitingForChoiceAfterAudio = false;
+      const next = scene[revealedCount];
+      if (isSayChoiceTurn(next)) {
+        openChoiceGate(next);
+        return;
+      }
+
+      syncComplete();
     }
 
     window.addEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);

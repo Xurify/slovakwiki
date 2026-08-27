@@ -40,8 +40,10 @@
     grade: AnswerGrade;
     missHeadline?: string;
     revealed?: boolean;
+    showCorrection?: boolean;
     why: string;
   } | null>(null);
+  let lastStepId = "";
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
   let playerRoot: HTMLDivElement | undefined = $state();
@@ -129,17 +131,17 @@
   }
 
   $effect(() => {
-    const stepId = step?.id;
-    const kind = step?.kind;
-    const sceneLen = step?.kind === "teach" ? step.scene.length : 0;
-    void stepId;
+    const stepId = step?.id ?? "";
 
-    if (kind === "teach") {
-      teachStoryComplete = sceneLen === 0;
+    if (step?.kind === "teach") {
+      if (lastStepId === stepId) return;
+      lastStepId = stepId;
+      teachStoryComplete = step.scene.length === 0;
       teachAdvanceSignal = 0;
       return;
     }
 
+    lastStepId = stepId;
     teachStoryComplete = true;
     teachChoiceOpen = false;
   });
@@ -187,6 +189,7 @@
     grade: AnswerGrade;
     missHeadline?: string;
     revealed?: boolean;
+    showCorrection?: boolean;
     why: string;
   }): void {
     gradeResult = result;
@@ -278,6 +281,7 @@
         english={gradeResult.english}
         revealed={gradeResult.revealed}
         missHeadline={gradeResult.missHeadline}
+        showCorrection={gradeResult.showCorrection}
         oncontinue={advance}
       />
     {:else}

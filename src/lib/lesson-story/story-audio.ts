@@ -31,6 +31,18 @@ let pending:
 /** Floor so a missing/broken clip cannot blaze through the whole scene. */
 const MIN_STORY_DWELL_MS = 1600;
 
+/** Autoplay block vs replace-in-flight vs a real load/decode failure. */
+export function classifyPlayFailure(reason: unknown): "abort" | "autoplay" | "error" {
+  const name =
+    reason && typeof reason === "object" && "name" in reason
+      ? String((reason as { name: unknown }).name)
+      : "";
+
+  if (name === "NotAllowedError") return "autoplay";
+  if (name === "AbortError") return "abort";
+  return "error";
+}
+
 function audioMuted(): boolean {
   return getStoredSfxPreference() === "off";
 }
@@ -114,9 +126,18 @@ function tryPlay(
     () => {
       pending = undefined;
     },
-    () => {
-      // Autoplay blocked — wait for a gesture. Do not fire onEnded (no silent skip).
-      pending = { generation, onEnded, src, startedAt };
+    (reason: unknown) => {
+      if (generation !== playGeneration) return;
+
+      const kind = classifyPlayFailure(reason);
+      if (kind === "autoplay") {
+        pending = { generation, onEnded, src, startedAt };
+        return;
+      }
+
+      if (kind === "abort") return;
+
+      scheduleEnded(generation, startedAt, onEnded);
     },
   );
 }

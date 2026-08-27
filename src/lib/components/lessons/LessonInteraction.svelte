@@ -53,6 +53,7 @@
       grade: AnswerGrade;
       missHeadline?: string;
       revealed?: boolean;
+      showCorrection?: boolean;
       why: string;
     }) => void;
     onresolve: () => void;
@@ -205,6 +206,7 @@
         english: feedbackEnglish,
         grade: kind,
         missHeadline: isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer",
+        showCorrection: !(graded.type === "selectAll" && !isCorrect),
         why,
       });
       return;
@@ -227,6 +229,7 @@
         grade: "incorrect",
         missHeadline: isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer",
         revealed: true,
+        showCorrection: true,
         why: graded.feedback.why,
       });
       return;

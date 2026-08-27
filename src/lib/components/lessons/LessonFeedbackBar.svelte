@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount, tick } from "svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import { shouldShowCorrection } from "$lib/components/practice/practice-feedback-ui";
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
@@ -11,6 +12,7 @@
     missHeadline = "Correct answer",
     oncontinue,
     revealed = false,
+    showCorrection: showCorrectionProp,
     why,
   }: {
     attempt?: string;
@@ -20,15 +22,23 @@
     missHeadline?: string;
     oncontinue: () => void;
     revealed?: boolean;
+    showCorrection?: boolean;
     why?: string;
   } = $props();
+
+  let continueButton: HTMLButtonElement | undefined = $state();
 
   const incorrect = $derived(grade === "incorrect");
   const accents = $derived(grade === "accents");
   const isMiss = $derived(incorrect || accents || revealed);
   const showCorrection = $derived(
-    isMiss && shouldShowCorrection(isMiss, grade, revealed),
+    showCorrectionProp ?? (isMiss && shouldShowCorrection(true, grade, revealed)),
   );
+
+  onMount(async () => {
+    await tick();
+    continueButton?.focus({ preventScroll: true });
+  });
 </script>
 
 <div
@@ -71,6 +81,7 @@
     </div>
 
     <button
+      bind:this={continueButton}
       type="button"
       class={[
         "inline-flex min-h-11 min-w-36 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) px-6 font-sans text-sm font-bold text-white transition-[background-color,transform] duration-150 active:scale-[0.96]",
