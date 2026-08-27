@@ -60,8 +60,8 @@
       disabled={submitted}
       type="button"
       aria-pressed={selected}
-      aria-invalid={wrongPick || undefined}
-      aria-label={choice.clock ? formatClockFaceLabel(choice.clock) : choice.label}
+      aria-label={(choice.clock ? formatClockFaceLabel(choice.clock) : choice.label) +
+        (wrongPick ? ", incorrect" : "")}
       onclick={() => (selectedId = choice.id)}
     >
       {#if choice.clock}
