@@ -220,9 +220,9 @@
       <path d="M32 31.4v2.4" class="stroke-portrait-ink" stroke-width="1.2" />
       <path d="M28.6 36.2q3.4 3.2 6.8 0" class="stroke-portrait-ink" stroke-width="1.4" />
     {:else if cast.id === "lucia"}
-      <!-- chin bob, deep side part -->
+      <!-- over-shoulder braid, curtain bangs, hoop -->
       <path
-        d="M17.2 22.2 16.2 16.2 19.8 10 25.6 5.8 32.2 4.8 39 6.2 45 11.2 47.8 18 48.2 26.2 48.6 33.8 47.2 41.2 42.4 39.2 32.2 38 21.6 39.4 16.8 40.8 15.8 33.4 16.4 26.8Z"
+        d="M39.4 34.2 43.2 32.4 47.8 36.2 46 42.4 50 47.2 46.6 52.6 49.4 58.2 45.6 62.4 39.8 61.2 37.4 55.2 40.2 49.6 36.8 43.8 38.2 38.2Z"
         class="{hair} stroke-portrait-ink"
         stroke-width="1.7"
       />
@@ -241,28 +241,61 @@
         stroke-width="1.7"
       />
       <path
-        d="M19.6 20.4C22.8 14 25.6 12.2 28.2 13.6C34.2 16 39.4 18.8 44.6 23C40.4 17.8 34.8 15.2 29.4 15C25.6 15 22.2 17 19.6 20.4Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.55"
+        d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
+        class="fill-portrait-skin stroke-portrait-ink"
+        stroke-width="1.5"
       />
       <path
-        d="M26.2 12.6 28 17.6M18.4 28.6q-.6 7.4 1.8 13.2M45.8 27.8q.8 7.2-2 12.8"
+        d="M18.8 22.2 18 16.4 21.8 10.6 27.6 6.6 33.8 5.8 40.4 8 45.6 13.6 47.6 20.6 46.4 27.2 43.6 33.4Q40.2 18.4 33.6 17Q31.6 16.6 30.2 19Q26.4 15.8 22.2 17.4Q20 18.8 18.8 22.2Z"
+        class="{hair} stroke-portrait-ink"
+        stroke-width="1.7"
+      />
+      <path
+        d="M19.2 22.6c-.3 3.2.2 6.2 1 7.8.3-2 .3-4.8.1-7.6Z"
+        class="{hair} stroke-portrait-ink"
+        stroke-width="1.4"
+      />
+      <ellipse
+        cx="41.2"
+        cy="33.6"
+        rx="2.35"
+        ry="1.45"
+        class="fill-rose-500 stroke-portrait-ink"
+        stroke-width="1.15"
+      />
+      <path
+        d="M42.8 37.4 46.2 41.2M41.6 44.6 46.8 48.2M40.6 52.4 46.2 55.8"
+        class="stroke-portrait-ink"
+        stroke-width="1.15"
+      />
+      <path d="M32.2 7.2 31.4 16.6" class="stroke-portrait-ink" stroke-width="1.15" />
+      <circle
+        cx="16.6"
+        cy="33.6"
+        r="1.45"
+        class="stroke-portrait-ink"
+        stroke-width="1.25"
+      />
+      <ellipse cx="24.6" cy="33.4" rx="1.9" ry="1.2" class="fill-rose-400/55" />
+      <ellipse cx="39.4" cy="33.4" rx="1.9" ry="1.2" class="fill-rose-400/55" />
+      <circle cx="26.2" cy="28.5" r="2.05" class="fill-portrait-ink" />
+      <circle cx="37.8" cy="28.5" r="2.05" class="fill-portrait-ink" />
+      <path
+        d="M23.6 26.2q1.4-1.6 3.2-.4M37.2 26q1.6-1.6 3.2-.2"
         class="stroke-portrait-ink"
         stroke-width="1.15"
       />
       <path
-        d="M23 26.6q3.2-1.4 6.4.3M34.6 26.6q3.2-1.4 6.4.3"
+        d="M23.4 27.4 22.2 26.2M24.8 26.6 24.2 25.2M40.6 27.4 41.8 26.2M39.2 26.6 39.8 25.2"
         class="stroke-portrait-ink"
-        stroke-width="1.2"
+        stroke-width="1.05"
       />
-      <ellipse cx="23.8" cy="33.4" rx="2" ry="1.25" class="fill-rose-400/50" />
-      <ellipse cx="40.2" cy="33.4" rx="2" ry="1.25" class="fill-rose-400/50" />
-      <circle cx="26.2" cy="28.6" r="2.05" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="2.05" class="fill-portrait-ink" />
-      <circle cx="25.5" cy="27.85" r="0.7" class="fill-portrait-bib" />
-      <circle cx="37.1" cy="27.85" r="0.7" class="fill-portrait-bib" />
-      <path d="M32 31.4v2.3" class="stroke-portrait-ink" stroke-width="1.2" />
-      <path d="M28.4 36.4q3.6 2.6 7.2 0" class="stroke-portrait-ink" stroke-width="1.4" />
+      <path d="M32 31.4v2.2" class="stroke-portrait-ink" stroke-width="1.15" />
+      <path
+        d="M29.2 36.4q2.8 1.8 5.6 0"
+        class="stroke-portrait-ink"
+        stroke-width="1.35"
+      />
     {:else if cast.id === "receptionist"}
       <path
         d="M18 22c-1.5-12 5-16 14-16s15.5 4 14 16c2 8 0 18-6 23-4 3-6-3-8-3.5-2 .5-4 6.5-8 3.5-6-5-8-15-6-23Z"
