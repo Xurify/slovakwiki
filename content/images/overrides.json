@@ -1,3 +1,428 @@
 {
-  "kseft": { "reject": true }
+  "agent": {
+    "reject": true
+  },
+  "akciovy": {
+    "reject": true
+  },
+  "ako": {
+    "reject": true
+  },
+  "aktivny": {
+    "reject": true
+  },
+  "aktivum": {
+    "reject": true
+  },
+  "aktualny": {
+    "reject": true
+  },
+  "akutny": {
+    "reject": true
+  },
+  "alternativa": {
+    "reject": true
+  },
+  "alternativny": {
+    "reject": true
+  },
+  "ambicia": {
+    "reject": true
+  },
+  "american": {
+    "reject": true
+  },
+  "americky": {
+    "reject": true
+  },
+  "anglicky": {
+    "reject": true
+  },
+  "anketa": {
+    "reject": true
+  },
+  "ano": {
+    "reject": true
+  },
+  "atleticky": {
+    "reject": true
+  },
+  "autenticky": {
+    "reject": true
+  },
+  "balicek": {
+    "reject": true
+  },
+  "balik": {
+    "reject": true
+  },
+  "bana": {
+    "reject": true
+  },
+  "bariera": {
+    "reject": true
+  },
+  "basnicky": {
+    "reject": true
+  },
+  "baza": {
+    "reject": true
+  },
+  "bazen": {
+    "reject": true
+  },
+  "bezpecny": {
+    "reject": true
+  },
+  "byvaly": {
+    "reject": true
+  },
+  "celosvetovy": {
+    "reject": true
+  },
+  "celozivotny": {
+    "reject": true
+  },
+  "citatel": {
+    "reject": true
+  },
+  "co": {
+    "reject": true
+  },
+  "cudny": {
+    "reject": true
+  },
+  "datum": {
+    "reject": true
+  },
+  "dej": {
+    "reject": true
+  },
+  "doba": {
+    "reject": true
+  },
+  "dobovy": {
+    "reject": true
+  },
+  "dobry-den": {
+    "reject": true
+  },
+  "dosah": {
+    "reject": true
+  },
+  "doska": {
+    "reject": true
+  },
+  "dovera": {
+    "reject": true
+  },
+  "dovidenia": {
+    "reject": true
+  },
+  "dovod": {
+    "reject": true
+  },
+  "draha": {
+    "reject": true
+  },
+  "etapa": {
+    "reject": true
+  },
+  "evidencia": {
+    "reject": true
+  },
+  "farebny": {
+    "reject": true
+  },
+  "hladny": {
+    "reject": true
+  },
+  "hodnota": {
+    "reject": true
+  },
+  "hruby": {
+    "reject": true
+  },
+  "ideal": {
+    "reject": true
+  },
+  "idealny": {
+    "reject": true
+  },
+  "kde": {
+    "reject": true
+  },
+  "kolko": {
+    "reject": true
+  },
+  "kontrola": {
+    "reject": true
+  },
+  "kratky": {
+    "reject": true
+  },
+  "kseft": {
+    "reject": true
+  },
+  "kto": {
+    "reject": true
+  },
+  "lahky": {
+    "reject": true
+  },
+  "libra": {
+    "reject": true
+  },
+  "malo": {
+    "reject": true
+  },
+  "masa": {
+    "reject": true
+  },
+  "masovy": {
+    "reject": true
+  },
+  "mesacny": {
+    "reject": true
+  },
+  "mily": {
+    "reject": true
+  },
+  "nadrz": {
+    "reject": true
+  },
+  "narucie": {
+    "reject": true
+  },
+  "nie": {
+    "reject": true
+  },
+  "obdobie": {
+    "reject": true
+  },
+  "obsadenie": {
+    "reject": true
+  },
+  "omsa": {
+    "reject": true
+  },
+  "pacient": {
+    "reject": true
+  },
+  "palubovka": {
+    "reject": true
+  },
+  "pan": {
+    "reject": true
+  },
+  "pasmo": {
+    "reject": true
+  },
+  "pevny": {
+    "reject": true
+  },
+  "pobyt": {
+    "reject": true
+  },
+  "podiel": {
+    "reject": true
+  },
+  "podielovy": {
+    "reject": true
+  },
+  "pomoc": {
+    "reject": true
+  },
+  "porada": {
+    "reject": true
+  },
+  "porucha": {
+    "reject": true
+  },
+  "poznamka": {
+    "reject": true
+  },
+  "predaj": {
+    "reject": true
+  },
+  "predpoved": {
+    "reject": true
+  },
+  "prenos": {
+    "reject": true
+  },
+  "prepacte": {
+    "reject": true
+  },
+  "presilovka": {
+    "reject": true
+  },
+  "prestup": {
+    "reject": true
+  },
+  "prevod": {
+    "reject": true
+  },
+  "priecka": {
+    "reject": true
+  },
+  "prieskum": {
+    "reject": true
+  },
+  "prihravka": {
+    "reject": true
+  },
+  "primerany": {
+    "reject": true
+  },
+  "pritomny": {
+    "reject": true
+  },
+  "problematika": {
+    "reject": true
+  },
+  "prognoza": {
+    "reject": true
+  },
+  "prosim": {
+    "reject": true
+  },
+  "puk": {
+    "reject": true
+  },
+  "pult": {
+    "reject": true
+  },
+  "rekord": {
+    "reject": true
+  },
+  "rekordny": {
+    "reject": true
+  },
+  "repriza": {
+    "reject": true
+  },
+  "republika": {
+    "reject": true
+  },
+  "riadny": {
+    "reject": true
+  },
+  "rozum": {
+    "reject": true
+  },
+  "schodza": {
+    "reject": true
+  },
+  "seria": {
+    "reject": true
+  },
+  "serial": {
+    "reject": true
+  },
+  "skuseny": {
+    "reject": true
+  },
+  "slecna": {
+    "reject": true
+  },
+  "slnecny": {
+    "reject": true
+  },
+  "spicka": {
+    "reject": true
+  },
+  "spickovy": {
+    "reject": true
+  },
+  "spis": {
+    "reject": true
+  },
+  "stabilny": {
+    "reject": true
+  },
+  "stolny": {
+    "reject": true
+  },
+  "stopa": {
+    "reject": true
+  },
+  "strajk": {
+    "reject": true
+  },
+  "stranicky": {
+    "reject": true
+  },
+  "stranka": {
+    "reject": true
+  },
+  "stretnutie": {
+    "reject": true
+  },
+  "subjekt": {
+    "reject": true
+  },
+  "subor": {
+    "reject": true
+  },
+  "sucasnost": {
+    "reject": true
+  },
+  "sucasny": {
+    "reject": true
+  },
+  "tabula": {
+    "reject": true
+  },
+  "tabulka": {
+    "reject": true
+  },
+  "terajsi": {
+    "reject": true
+  },
+  "tip": {
+    "reject": true
+  },
+  "titulok": {
+    "reject": true
+  },
+  "tlac": {
+    "reject": true
+  },
+  "tlacovy": {
+    "reject": true
+  },
+  "ton": {
+    "reject": true
+  },
+  "trat": {
+    "reject": true
+  },
+  "utok": {
+    "reject": true
+  },
+  "vola": {
+    "reject": true
+  },
+  "vstup": {
+    "reject": true
+  },
+  "zakladna": {
+    "reject": true
+  },
+  "zapas": {
+    "reject": true
+  },
+  "zasadanie": {
+    "reject": true
+  },
+  "zasadnutie": {
+    "reject": true
+  },
+  "zaujem": {
+    "reject": true
+  },
+  "zit": {
+    "reject": true
+  }
 }
