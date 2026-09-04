@@ -72516,7 +72516,10 @@
         "tatoebaId": 9845083
       }
     ],
-    "related": []
+    "related": [
+      "omyl",
+      "vina"
+    ]
   },
   {
     "slug": "historia",
@@ -101116,7 +101119,10 @@
         "tatoebaId": 904815
       }
     ],
-    "related": []
+    "related": [
+      "chyba",
+      "omyl"
+    ]
   },
   {
     "slug": "vlastnik",
@@ -165571,7 +165577,10 @@
         "tatoebaId": 8951729
       }
     ],
-    "related": []
+    "related": [
+      "chyba",
+      "vina"
+    ]
   },
   {
     "slug": "zapal",

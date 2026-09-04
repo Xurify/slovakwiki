@@ -207,6 +207,7 @@
   ],
   "settlement": ["obec", "dedina"],
   "problem-solution": ["problem", "riesenie"],
+  "mistake-fault": ["chyba", "omyl", "vina"],
   "money-currency": ["peniaze", "euro"],
   "price-money": ["cena", "peniaze"],
   "bank-money": ["banka", "peniaze"],

@@ -401,6 +401,9 @@
   "utok": {
     "reject": true
   },
+  "vina": {
+    "reject": true
+  },
   "vola": {
     "reject": true
   },

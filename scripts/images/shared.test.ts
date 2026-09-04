@@ -93,5 +93,7 @@ describe("commons title filters", () => {
     expect(isRejectedCommonsTitle("File:Flag_of_Slovakia.svg")).toBe(true);
     expect(isRejectedCommonsTitle("File:The Graduate Title.png")).toBe(true);
     expect(isRejectedCommonsTitle("File:Lunch meal.jpg")).toBe(false);
+    expect(isRejectedCommonsTitle("File:Sans Guilt LB sample.png")).toBe(true);
+    expect(isRejectedCommonsTitle("File:Read the fucking manual.png")).toBe(true);
   });
 });

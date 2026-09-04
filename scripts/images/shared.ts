@@ -408,7 +408,7 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
 }
 
 const REJECTED_COMMONS_TITLE =
-  /\b(icon|logo|symbol|flag_of|coat_of_arms|map_of|diagram|svg|nude|naked|nudes|porn|nsfw|sexual|disambiguation|signature|qr[_ -]?code|poster|album|cover|screenshot|trailer|movie|film|titlepage|title)\b/i;
+  /\b(icon|logo|symbol|flag_of|coat_of_arms|map_of|diagram|svg|nude|naked|nudes|porn|nsfw|sexual|disambiguation|signature|qr[_ -]?code|poster|album|cover|screenshot|trailer|movie|film|titlepage|title|typeface|font[_ -]?specimen|sans[_ -]guilt|fuck|fucking|shit|cunt|bitch|asshole)\b/i;
 
 export function isRejectedCommonsTitle(title: string): boolean {
   return REJECTED_COMMONS_TITLE.test(title);

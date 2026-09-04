@@ -2,7 +2,7 @@
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
 
-  import { onMount } from "svelte";
+  import { onMount, untrack } from "svelte";
   import {
     emptyPracticeState,
     readPracticeState,
@@ -13,8 +13,9 @@
 
   let { initialState }: { initialState?: PracticeState } = $props();
 
-  let practiceState = $state(initialState ?? emptyPracticeState());
-  let hydrated = $state(initialState !== undefined);
+  // Seed once from hub mount; localStorage owns state after that.
+  let practiceState = $state(untrack(() => initialState ?? emptyPracticeState()));
+  let hydrated = $state(untrack(() => initialState !== undefined));
 
   const featured = $derived(pickFeaturedSheet(buildPracticeSheets(practiceState)));
   const primaryHref = $derived(

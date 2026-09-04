@@ -218,6 +218,7 @@ async function fetchPageImages(
 
     for (const page of pagesList(data)) {
       if (!page.title || page.missing || !page.pageimage) continue;
+      if (isRejectedCommonsTitle(page.pageimage)) continue;
       const thumb = page.thumbnail;
       if (thumb?.width && thumb.width < MIN_THUMB_PX) continue;
       if (thumb?.height && thumb.height < MIN_THUMB_PX) continue;
@@ -490,6 +491,8 @@ async function applyOk(
   now: string,
   manifest: ImageManifest,
 ): Promise<"ok" | "missing"> {
+  if (isRejectedCommonsTitle(hit.fileTitle)) return "missing";
+
   const meta = await fetchFileMeta(hit.fileTitle, hit.thumbUrl, hit.lang);
   if (!meta) return "missing";
 
