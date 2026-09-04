@@ -1,0 +1,8 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import CharacterRosterPage from "$lib/components/lessons/CharacterRosterPage.svelte";
+---
+
+<SiteLayout title="Characters & voices | Slovak Wiki" noindex>
+  <CharacterRosterPage client:load />
+</SiteLayout>

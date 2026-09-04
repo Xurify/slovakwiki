@@ -54,7 +54,7 @@ const styles: Record<StoryCastId, Omit<StoryCastStyle, "id" | "side">> = {
   narrator: {
     fillClass: "fill-slate-100",
     inkClass: "fill-slate-600",
-    accentClass: "fill-slate-500",
+    accentClass: "fill-rose-500",
   },
   receptionist: {
     fillClass: "fill-blue-50",

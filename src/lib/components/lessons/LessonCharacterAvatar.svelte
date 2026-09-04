@@ -47,6 +47,7 @@
   - Outer hair path: line segments / tufts (L), irregular. Inner hairline: soft (Q).
   - 1–2 ink strokes inside the fill for direction. Asymmetry > mirrored beziers.
   - Draw for size="md". Check /dev/faces at xl after.
+  - Guide and Narrator are companion robots (system teacher and host): rounded screen visor, audio ear modules, antenna beacon. Skip shared skull.
 -->
 
 <span
@@ -464,96 +465,159 @@
       <path d="M32 31.2v3" class="stroke-portrait-ink" stroke-width="1.3" />
       <path d="M28.2 36.8q3.8 2.4 7.6 0" class="stroke-portrait-ink" stroke-width="1.4" />
     {:else if cast.id === "narrator"}
-      <!-- low ponytail, site host -->
-      <path
-        d="M28.4 42.5 26.8 52 28.2 62 35.8 62 37.2 52 35.6 42.5Q32 45.2 28.4 42.5Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-slate-600" />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M45.4 25.8c2.2.6 3 4.6 1.1 7.4-1 1.3-2.3.7-2.1-.9.4-2.2.6-4.6 1-6.5Z"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M19.8 21.4C19.2 16 22.8 10.4 28.6 8.2L32 9.4 35.6 8C41.2 10.6 44.8 16.2 44.4 21.6Q40 17.4 35.4 16.8L32 18.8 28.6 16.8Q24 17.6 19.8 21.4Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M23.4 24.8q2.8-1.2 5.8 0M35 24.8q2.8-1.2 5.8 0"
-        class="stroke-portrait-hair"
+      <!-- narrator: system host robot (feminine companion, big bold expressive face) -->
+      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
+      <path d="M25 47q7 3 14 0" class="stroke-rose-300/80" stroke-width="1.2" />
+      <!-- Slender neck -->
+      <rect
+        x="29"
+        y="42"
+        width="6"
+        height="4"
+        rx="1.2"
+        class="fill-slate-700 stroke-portrait-ink"
         stroke-width="1.2"
       />
-      <circle cx="26.2" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <path d="M32 31.2v2.8" class="stroke-portrait-ink" stroke-width="1.25" />
+      <!-- Sleek ear accents -->
+      <rect
+        x="13.2"
+        y="24"
+        width="2.5"
+        height="9.5"
+        rx="1.25"
+        class="fill-slate-700 stroke-portrait-ink"
+        stroke-width="1.2"
+      />
+      <rect
+        x="48.3"
+        y="24"
+        width="2.5"
+        height="9.5"
+        rx="1.25"
+        class="fill-slate-700 stroke-portrait-ink"
+        stroke-width="1.2"
+      />
+      <circle cx="14.45" cy="28.75" r="0.9" class="fill-rose-400" />
+      <circle cx="49.55" cy="28.75" r="0.9" class="fill-rose-400" />
+      <!-- Head casing: bold, generous squircle -->
+      <rect
+        x="15.5"
+        y="14.5"
+        width="33"
+        height="28.5"
+        rx="12"
+        class="fill-portrait-bib stroke-portrait-ink"
+        stroke-width="1.6"
+      />
+      <!-- Soft blush -->
+      <ellipse cx="17.8" cy="36.5" rx="1.6" ry="1" class="fill-rose-300/60" />
+      <ellipse cx="46.2" cy="36.5" rx="1.6" ry="1" class="fill-rose-300/60" />
+      <!-- Antenna: graceful, airy curve with comfortable headroom -->
+      <path d="M32 14.5q2.2-3.5 0-6" class="stroke-portrait-ink" stroke-width="1.3" />
+      <circle
+        cx="32"
+        cy="8.5"
+        r="2.2"
+        class="fill-rose-400 stroke-portrait-ink"
+        stroke-width="1.2"
+      />
+      <circle cx="31.3" cy="7.8" r="0.6" class="fill-white" />
+      <!-- Big, immersive visor screen -->
+      <rect
+        x="18"
+        y="17"
+        width="28"
+        height="23.5"
+        rx="9.5"
+        class="fill-slate-800 stroke-portrait-ink"
+        stroke-width="1.3"
+      />
+      <!-- Friendly, glowing eyes and smile -->
+      <rect x="21.5" y="23" width="4.8" height="6.8" rx="2.4" class="fill-rose-300" />
+      <circle cx="23" cy="24.5" r="0.9" class="fill-white" />
+      <rect x="37.7" y="23" width="4.8" height="6.8" rx="2.4" class="fill-rose-300" />
+      <circle cx="39.2" cy="24.5" r="0.9" class="fill-white" />
       <path
-        d="M28.4 36.6q3.6 2.2 7.2 0"
-        class="stroke-portrait-ink"
+        d="M28.5 34q3.5 2.5 7 0"
+        class="stroke-rose-300"
         stroke-width="1.35"
+        stroke-linecap="round"
       />
     {:else}
-      <!-- guide -->
+      <!-- guide: system teacher robot (big bold expressive face, clean & warm) -->
       <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-blue-600" />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M18.4 24.8C19 12.2 24.8 6 32 6c8 0 13.8 6.8 14.2 19.2-3.2-5.6-8-8.8-14.2-8.6-6.4.2-11 3.6-13.6 8.2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M23.2 24.6q3-1.4 6.2.1M34.6 24.6q3-1.4 6.2.1"
-        class="stroke-portrait-hair"
+      <path d="M25 47q7 3 14 0" class="stroke-sky-300/80" stroke-width="1.2" />
+      <!-- Slender neck -->
+      <rect
+        x="29"
+        y="42"
+        width="6"
+        height="4"
+        rx="1.2"
+        class="fill-slate-700 stroke-portrait-ink"
         stroke-width="1.2"
       />
-      <circle cx="26.2" cy="28.6" r="1.6" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="1.6" class="fill-portrait-ink" />
-      <path d="M32 31.2v3" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M28.2 36.8q3.8 2.4 7.6 0" class="stroke-portrait-ink" stroke-width="1.4" />
-      <path
-        d="M19.5 44.5Q32 51 44.5 44.5Q42.5 55 32 57Q21.5 55 19.5 44.5Z"
-        class="fill-rose-500 stroke-portrait-ink"
-        stroke-width="1.45"
+      <!-- Sleek ear accents -->
+      <rect
+        x="13.2"
+        y="24"
+        width="2.5"
+        height="9.5"
+        rx="1.25"
+        class="fill-slate-700 stroke-portrait-ink"
+        stroke-width="1.2"
       />
-      <ellipse
+      <rect
+        x="48.3"
+        y="24"
+        width="2.5"
+        height="9.5"
+        rx="1.25"
+        class="fill-slate-700 stroke-portrait-ink"
+        stroke-width="1.2"
+      />
+      <circle cx="14.45" cy="28.75" r="0.9" class="fill-sky-400" />
+      <circle cx="49.55" cy="28.75" r="0.9" class="fill-sky-400" />
+      <!-- Head casing: bold, generous squircle -->
+      <rect
+        x="15.5"
+        y="14.5"
+        width="33"
+        height="28.5"
+        rx="12"
+        class="fill-portrait-bib stroke-portrait-ink"
+        stroke-width="1.6"
+      />
+      <!-- Antenna: clean vertical stem with comfortable headroom -->
+      <path d="M32 14.5V9" class="stroke-portrait-ink" stroke-width="1.4" />
+      <circle
         cx="32"
-        cy="50.2"
-        rx="3.4"
-        ry="2.5"
+        cy="8.5"
+        r="2.2"
         class="fill-rose-500 stroke-portrait-ink"
+        stroke-width="1.2"
+      />
+      <circle cx="31.3" cy="7.8" r="0.6" class="fill-white" />
+      <!-- Big, immersive visor screen -->
+      <rect
+        x="18"
+        y="17"
+        width="28"
+        height="23.5"
+        rx="9.5"
+        class="fill-slate-800 stroke-portrait-ink"
         stroke-width="1.3"
+      />
+      <!-- Friendly, glowing eyes and smile -->
+      <rect x="21.5" y="23" width="4.8" height="6.8" rx="2.4" class="fill-sky-400" />
+      <circle cx="23" cy="24.5" r="0.9" class="fill-white" />
+      <rect x="37.7" y="23" width="4.8" height="6.8" rx="2.4" class="fill-sky-400" />
+      <circle cx="39.2" cy="24.5" r="0.9" class="fill-white" />
+      <path
+        d="M28.5 34q3.5 2.5 7 0"
+        class="stroke-sky-400"
+        stroke-width="1.35"
+        stroke-linecap="round"
       />
     {/if}
   </svg>
