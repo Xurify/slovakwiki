@@ -1,4 +1,3 @@
-import { normalizeLemma } from "../frequency";
 import { searchFormsForLemma } from "../search/forms";
 
 export type HighlightPart = { hit: boolean; text: string };
@@ -21,7 +20,6 @@ function formKeysForLemma(lemma: string, category: string): Set<string> {
     if (!isLemma && lower.length < MIN_FORM_LENGTH) return;
 
     keys.add(lower);
-    keys.add(normalizeLemma(trimmed));
   };
 
   add(lemma);
@@ -33,7 +31,7 @@ function formKeysForLemma(lemma: string, category: string): Set<string> {
 }
 
 function tokenMatches(token: string, keys: Set<string>): boolean {
-  return keys.has(token.toLocaleLowerCase("sk")) || keys.has(normalizeLemma(token));
+  return keys.has(token.toLocaleLowerCase("sk"));
 }
 
 /**

@@ -73,4 +73,15 @@ describe("highlightLemmaInText", () => {
   it("bolds noun case forms", () => {
     expect(hitText(highlightLemmaInText("Vidím školu.", "škola", "Nouns"))).toBe("školu");
   });
+
+  it("does not bold diacritic near-misses", () => {
+    expect(
+      hitText(
+        highlightLemmaInText("Jedlo bez vína je ako deň bez slnka.", "vina", "Nouns"),
+      ),
+    ).toBeUndefined();
+    expect(
+      hitText(highlightLemmaInText("Tomovi chýba Boston.", "chyba", "Nouns")),
+    ).toBeUndefined();
+  });
 });

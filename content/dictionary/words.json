@@ -4385,12 +4385,6 @@
         "tatoebaId": 8957875
       },
       {
-        "slovak": "Vo vete je chyba.",
-        "english": "There is a mistake in the sentence.",
-        "note": "Tatoeba",
-        "tatoebaId": 2624029
-      },
-      {
         "slovak": "Budeš mi chýbať.",
         "english": "I'll miss you.",
         "note": "Tatoeba",
@@ -4413,12 +4407,6 @@
         "english": "Remember that I love you and miss you.",
         "note": "Tatoeba",
         "tatoebaId": 9042527
-      },
-      {
-        "slovak": "Musím pripustiť, že bola to moja chyba.",
-        "english": "I must admit that it was my fault.",
-        "note": "Tatoeba",
-        "tatoebaId": 2961681
       },
       {
         "slovak": "Tomovi chýba Boston.",
@@ -72480,24 +72468,6 @@
         "tatoebaId": 2961681
       },
       {
-        "slovak": "Tomovi chýba Boston.",
-        "english": "Tom misses Boston.",
-        "note": "Tatoeba",
-        "tatoebaId": 4403654
-      },
-      {
-        "slovak": "Chýba nám jedna lyžica.",
-        "english": "We lack one spoon.",
-        "note": "Tatoeba",
-        "tatoebaId": 8923724
-      },
-      {
-        "slovak": "Chýba dnes niekto?",
-        "english": "Is anyone absent today?",
-        "note": "Tatoeba",
-        "tatoebaId": 8954794
-      },
-      {
         "slovak": "Prísť sem bola chyba.",
         "english": "Coming here was a mistake.",
         "note": "Tatoeba",
@@ -72508,12 +72478,6 @@
         "english": "It was his fault.",
         "note": "Tatoeba",
         "tatoebaId": 9549228
-      },
-      {
-        "slovak": "Mám pocit, že niečo chýba.",
-        "english": "I have a feeling that something is missing.",
-        "note": "Tatoeba",
-        "tatoebaId": 9845083
       }
     ],
     "related": [

@@ -22,12 +22,21 @@ import { fileURLToPath } from "node:url";
 import { EXAMPLE_STORE_PER_WORD } from "../../src/lib/catalog/dictionary/example-limits";
 import type { ContentEntry, Example } from "../../src/lib/catalog/types";
 import {
+  exampleContainsLemma,
+  lemmaAppearsAsToken,
+  morphAppearsAsToken,
+  morphFormKeys,
+  tokenizeSlovak,
+  tokenMatchesVerbStem,
+  verbInflectionEvidence,
+  verbStemForMatch,
+} from "../../src/lib/catalog/dictionary/example-lemma-match";
+import {
   isAcceptableCorpusExample,
   isCleanExample,
   isWeakFillTemplate,
 } from "../../src/lib/catalog/dictionary/example-quality";
 import { normalizeLemma } from "../../src/lib/catalog/frequency";
-import { searchFormsForLemma } from "../../src/lib/catalog/search/forms";
 import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
@@ -46,8 +55,6 @@ type RejectReason =
 
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
-
-const TOKEN_RE = /[\p{L}\p{M}]+/gu;
 
 function parseArgs(argv: string[]): {
   force: boolean;
@@ -86,63 +93,8 @@ function parseArgs(argv: string[]): {
   return { perWord, report, rejectReport, force, replacePractice, refreshTatoeba };
 }
 
-function tokenize(text: string): string[] {
-  return (text.match(TOKEN_RE) ?? []).map((token) => token.toLocaleLowerCase("sk"));
-}
-
-function verbStem(lemma: string): string | undefined {
-  const lower = lemma.toLocaleLowerCase("sk");
-  if (!lower.endsWith("ť") || lower.length < 5) return undefined;
-  const stem = lower.slice(0, -1);
-  return stem.length >= 4 ? stem : undefined;
-}
-
-/** Inflectional leftovers after a verb stem — keeps nemocnici from matching nemôcť. */
-const VERB_REST =
-  /^(ť|t|l|la|lo|li|ly|ím|íš|í|íme|íte|ia|am|áš|á|áme|áte|ajú|em|eš|e|ieme|iete|ú|iem|ol|ola|olo|oli|m|š|s|me|te|u|a|ou|ej)?$/iu;
-
 function isVerbCategory(category: string): boolean {
   return category === "Verbs";
-}
-
-function lemmaAppearsAsToken(text: string, lemma: string): boolean {
-  const targets = new Set([lemma.toLocaleLowerCase("sk"), normalizeLemma(lemma)]);
-  return tokenize(text).some(
-    (token) => targets.has(token) || targets.has(normalizeLemma(token)),
-  );
-}
-
-function morphFormKeys(lemma: string, category: string): string[] {
-  const keys = new Set<string>();
-  for (const form of searchFormsForLemma(lemma, category)) {
-    const lower = form.toLocaleLowerCase("sk");
-    keys.add(lower);
-    keys.add(normalizeLemma(form));
-  }
-  return [...keys].filter(Boolean);
-}
-
-function morphAppearsAsToken(text: string, lemma: string, category: string): boolean {
-  const keys = new Set(morphFormKeys(lemma, category));
-  if (keys.size === 0) return false;
-  return tokenize(text).some(
-    (token) => keys.has(token) || keys.has(normalizeLemma(token)),
-  );
-}
-
-function verbInflectionEvidence(text: string, lemma: string): boolean {
-  const stem = verbStem(lemma);
-  if (!stem || stem.length < 5) return false;
-  const stemNorm = normalizeLemma(stem);
-  if (stemNorm.length < 5) return false;
-
-  return tokenize(text).some((token) => {
-    const norm = normalizeLemma(token);
-    if (!norm.startsWith(stemNorm)) return false;
-    if (norm.length < stemNorm.length || norm.length > stemNorm.length + 5) return false;
-    const rest = norm.slice(stemNorm.length);
-    return VERB_REST.test(rest);
-  });
 }
 
 function scorePair(pair: SentencePair, lemma: string, category: string): number {
@@ -166,10 +118,7 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
 }
 
 function hasStrongMatch(pair: SentencePair, lemma: string, category: string): boolean {
-  if (lemmaAppearsAsToken(pair.slovak, lemma)) return true;
-  if (morphAppearsAsToken(pair.slovak, lemma, category)) return true;
-  if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma)) return true;
-  return false;
+  return exampleContainsLemma(pair.slovak, lemma, category);
 }
 
 function isPracticeOnly(examples: Example[]): boolean {
@@ -243,8 +192,8 @@ function buildIndex(pairs: SentencePair[]): Map<string, number[]> {
     const pair = pairs[pairIndex]!;
     const seen = new Set<string>();
 
-    for (const token of tokenize(pair.slovak)) {
-      const keys = [token, normalizeLemma(token)];
+    for (const token of tokenizeSlovak(pair.slovak)) {
+      const keys = [token];
       for (const key of keys) {
         if (!key || seen.has(key)) continue;
         seen.add(key);
@@ -266,11 +215,9 @@ function collectCandidates(
 ): { accepted: SentencePair[]; rejectedQuality: number; rejectedWeak: number } {
   const exactKeys = new Set<string>([
     lemma.toLocaleLowerCase("sk"),
-    normalizeLemma(lemma),
     ...morphFormKeys(lemma, category),
   ]);
-  const stem = isVerbCategory(category) ? verbStem(lemma) : undefined;
-  const stemNorm = stem ? normalizeLemma(stem) : undefined;
+  const stem = isVerbCategory(category) ? verbStemForMatch(lemma) : undefined;
 
   const hitIndexes = new Set<number>();
 
@@ -279,12 +226,9 @@ function collectCandidates(
   }
 
   // Safer stem fallback for verbs only: long stem + inflectional remainder.
-  if (stem && stemNorm && stemNorm.length >= 5) {
+  if (stem) {
     for (const [token, pairIndexes] of index) {
-      if (!token.startsWith(stemNorm)) continue;
-      if (token.length < stemNorm.length || token.length > stemNorm.length + 5) continue;
-      const rest = token.slice(stemNorm.length);
-      if (!VERB_REST.test(rest)) continue;
+      if (!tokenMatchesVerbStem(token, stem)) continue;
       for (const pairIndex of pairIndexes) hitIndexes.add(pairIndex);
     }
   }
