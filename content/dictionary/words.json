@@ -101067,20 +101067,19 @@
   {
     "slug": "vina",
     "slovak": "vina",
-    "english": "guilt; fault",
+    "english": "fault; guilt",
     "category": "Nouns",
     "examples": [
+      {
+        "slovak": "Bola to moja vina.",
+        "english": "It was my fault.",
+        "note": "Curated"
+      },
       {
         "slovak": "Nebola to moja vina.",
         "english": "It wasn't my fault.",
         "note": "Tatoeba",
         "tatoebaId": 4735034
-      },
-      {
-        "slovak": "Jedlo bez vína je ako deň bez slnka.",
-        "english": "A meal without wine is like a day without sunshine.",
-        "note": "Tatoeba",
-        "tatoebaId": 4749001
       },
       {
         "slovak": "To nie je ich vina.",
@@ -101101,22 +101100,10 @@
         "tatoebaId": 9027269
       },
       {
-        "slovak": "Na stole je veľa jedla a fliaš vína.",
-        "english": "There is a lot of food and bottles of wine on the table.",
-        "note": "Tatoeba",
-        "tatoebaId": 9098527
-      },
-      {
         "slovak": "Nie je to moja vina.",
         "english": "It's not my fault.",
         "note": "Tatoeba",
         "tatoebaId": 9959228
-      },
-      {
-        "slovak": "To nie moja vina.",
-        "english": "That isn't my fault.",
-        "note": "Tatoeba",
-        "tatoebaId": 904815
       }
     ],
     "related": [

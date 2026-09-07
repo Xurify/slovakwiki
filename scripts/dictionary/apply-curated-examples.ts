@@ -87,6 +87,7 @@ const CURATED_ENGLISH: Record<string, string> = {
   rad: "glad; (mať rád) to like",
   ospravedlnovat: "to apologize (sa); to excuse / justify (someone)",
   ospravedlnit: "to apologize (sa); to excuse / justify (someone)",
+  vina: "fault; guilt",
 };
 
 function normalizeExamples(examples: Example[]): Example[] {

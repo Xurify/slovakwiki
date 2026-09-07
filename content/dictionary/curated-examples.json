@@ -55825,5 +55825,12 @@
       "note": "Curated",
       "isPracticeFrame": true
     }
+  ],
+  "vina": [
+    {
+      "slovak": "Bola to moja vina.",
+      "english": "It was my fault.",
+      "note": "Curated"
+    }
   ]
 }
