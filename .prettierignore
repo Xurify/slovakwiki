@@ -19,4 +19,5 @@ content/dictionary/curated-examples.json
 content/frequency/
 static/frequency/
 content/images/manifest.json
+scripts/images/judge-thumbs/
 **/*.generated.ts

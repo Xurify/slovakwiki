@@ -22,12 +22,12 @@
  */
 
 import { readFile, stat } from "node:fs/promises";
-import path from "node:path";
 
 import { AwsClient } from "aws4fetch";
 
 import {
   contentTypeForImageFile,
+  fileMatchesOnly,
   IMAGE_CACHE_CONTROL,
   imageObjectKey,
   listLocalImageFiles,
@@ -68,16 +68,9 @@ async function main(): Promise<void> {
   let files = await listLocalImageFiles();
 
   if (only) {
-    const needle = only.toLocaleLowerCase("sk");
     files = files.filter((file) => {
-      const stem = path.parse(file).name.toLocaleLowerCase("sk");
-      if (stem.includes(needle) || file.toLocaleLowerCase("sk").includes(needle)) {
-        return true;
-      }
-      return Object.entries(manifest).some(([slug, entry]) => {
-        if (entry.file !== file) return false;
-        return slug.toLocaleLowerCase("sk").includes(needle);
-      });
+      const slug = Object.entries(manifest).find(([, entry]) => entry.file === file)?.[0];
+      return fileMatchesOnly(file, slug, only);
     });
     if (files.length === 0) {
       throw new Error(`--only ${JSON.stringify(only)} matched 0 on-disk image files`);

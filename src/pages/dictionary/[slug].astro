@@ -89,7 +89,10 @@ export function getStaticPaths() {
       license: imageEntry.license,
       licenseUrl: imageEntry.licenseUrl,
       sourcePageUrl: imageEntry.sourcePageUrl,
-      src: resolveImageSrc(imageEntry.file),
+      src: resolveImageSrc(
+        imageEntry.file,
+        imageEntry.uploadedAt ?? imageEntry.fetchedAt,
+      ),
     };
   }
 

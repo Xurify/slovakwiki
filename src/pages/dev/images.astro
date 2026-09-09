@@ -1,0 +1,20 @@
+---
+import { existsSync } from "node:fs";
+import path from "node:path";
+
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import ImageAuditPage from "$lib/components/dictionary/ImageAuditPage.svelte";
+import { listOkDictionaryImages } from "$lib/catalog/dictionary/image-audit";
+import { imagesUseCdn } from "$lib/catalog/dictionary/images";
+
+const cdn = imagesUseCdn();
+const rows = listOkDictionaryImages().filter((row) => {
+  if (cdn) return true;
+  const diskPath = path.join(process.cwd(), "static", "images", "dictionary", row.file);
+  return existsSync(diskPath);
+});
+---
+
+<SiteLayout title="Dictionary image audit | Slovak Wiki" noindex>
+  <ImageAuditPage client:only="svelte" {rows} />
+</SiteLayout>

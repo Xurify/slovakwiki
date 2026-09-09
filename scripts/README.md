@@ -24,6 +24,7 @@ bun scripts/audio/status.ts                      # coverage: targets vs disk vs 
 bun scripts/images/fetch.ts                      # Wikimedia pageimages → static/images/ (gitignored)
 bun scripts/images/upload.ts                     # static/images/dictionary/ → R2 (`images/dictionary/…`)
 bun scripts/images/status.ts                     # coverage: ok vs missing vs rejected, by part of speech
+bun scripts/images/reject.ts -- --slugs chyba    # hide a live image (override + manifest)
 bun scripts/downloads/export.ts                  # dictionary JSON for /downloads builder (also on astro build)
 bun run index:search                             # Pagefind for local/dev search
 bun run fouc:boot                                # Rebuild blocking FOUC IIFEs (see src/lib/fouc/README.md)
@@ -119,18 +120,23 @@ Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/aud
 
 Wikimedia free page images for dictionary lemmas → local `static/images/` → Cloudflare R2 for production.
 
-| `fetch.ts` | `bun scripts/images/fetch.ts` | SK/EN Wikipedia `pageimages`, then **Commons gloss search** for Food / Places / People / Travel / Everyday / Essentials (e.g. `obed` → “lunch meal”). **No auto Commons for Nouns / adjectives / verbs / adverbs.** Person names are not dictionary entries. |
+| `fetch.ts` | `bun scripts/images/fetch.ts` | SK pageimage only if the filename is a simple subject; else EN; else titled Commons. People: prefer clipart. Food/places/everyday: prefer photos (cartoon query last). Reject editorial/political cartoons, GIF, historical maps (`Europe in 1923`). Busy scenes stay empty. `--upgrade` / `--force` / `--only slug` (exact or comma list, never substring). |
 | `upload.ts` | `bun scripts/images/upload.ts` | Sync to R2; `--force` / `--only` / `--limit` / `--dry-run`; needs `R2_*` |
+| `reject.ts` | `bun scripts/images/reject.ts -- --slugs chyba` | Mark override `reject` + manifest `rejected`. No Wikimedia call. Copy the command from `/dev/images`. |
+| `preview-sources.ts` | `bun scripts/images/preview-sources.ts -- --limit 24` | Fetch SK / EN / Commons / Openverse thumbs into `tmp/image-source-preview.json`. View `/dev/images/compare`. Does **not** write the live manifest. `--only obed,vlak` / `--abstracts` / `--pos noun`. |
+| `judge.ts` | `bun scripts/images/judge.ts -- --agent` | Cursor-only: stage thumbs under `scripts/images/judge-thumbs/`, fill `picks.json`, re-run. With `OPENAI_API_KEY`, omit `--agent`. Writes `tmp/image-source-judge.json`. Green ring on `/dev/images/compare`. Never writes the live manifest. `--only kolac,kava` / `--force` / `--dry-run`. |
 | `stage-candidates.ts` | `bun scripts/images/stage-candidates.ts` | Stage Commons candidates under `tmp/image-candidates/{slug}/` for visual audit |
 | `promote.ts` | `bun scripts/images/promote.ts` | Promote audited candidate (`--slug` + `--pick N`) into live set |
 | `status.ts` | `bun scripts/images/status.ts` | Targets vs ok/missing/rejected, by category |
 | `shared.ts` | (lib) | Targets, overrides, paths, verb scenes + noun Commons query helpers |
 
-Flags (`fetch`/`stage`): `--limit N`, `--pos noun|verb|adjective|adverb`, `--only {slug}`, `--force`. Adverbs accept `--pos` for filtering but have no auto Commons promote.
+Flags (`fetch`/`stage`/`upload`): `--limit N`, `--pos noun|verb|adjective|adverb`, `--only {slug}` or `--only a,b` (exact slugs; `auto` ≠ `autobus`, `rim` ≠ `diskriminacia`), `--force`, fetch `--upgrade`. Adverbs accept `--pos` for filtering but have no auto Commons promote.
 
 Overrides in `content/images/overrides.json`: `{ "slug": { "reject": true } }` or `{ "commonsFile": "Foo.jpg" }`.
 
-**Image policy:** Prefer Wikipedia pageimages. If missing, auto-search Commons for learner categories with concrete referents (Food / Places / People / Travel / Everyday life / Essentials). Require free license; prefer filenames that _start_ with the gloss. General Nouns, adjectives, verbs, and adverbs stay empty unless `stage-candidates.ts` → visual audit → `promote.ts` (polysemy / false-friend risk).
+**Image policy:** Auto-fetch only for concrete learner themes (Food / Places / People / Travel / Everyday life). SK/EN pageimage only if the filename is a simple subject — traffic jams, picnics, collages, political cartoons, maps miss. Commons still needs a gloss-leading title. People may auto-prefer clipart; food stays photos unless a titled cartoon is the only hit. SVG originals OK via Commons PNG thumbs. Places stay photos. Free license required. General Nouns / adjectives / verbs / adverbs stay empty unless `stage-candidates.ts` → visual audit → `promote.ts`, or `overrides.commonsFile`. Existing `ok` images stay until rejected or `fetch --upgrade`. Do not mass-promote crude clipart by hand (`Cake-cartoon.jpg`).
+
+**Audit:** open `/dev/images` (noindex). Mark junk → copy `reject.ts --slugs …` → run locally. Replacement: `stage-candidates` → `promote`, or `overrides.commonsFile`. Compare sources at `/dev/images/compare` (chain chips + optional vision judge). Next source (not wired): Openverse search in `stage-candidates` only — never auto-ok.
 
 Layout (local + R2): `images/dictionary/{file}`. Local disk: `static/images/dictionary/{file}`.
 

@@ -1,0 +1,47 @@
+---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import ImageSourceComparePage from "$lib/components/dictionary/ImageSourceComparePage.svelte";
+import {
+  attachAiPicks,
+  type ImageSourceJudgeFile,
+} from "$lib/catalog/dictionary/image-judge";
+import type { ImageSourcePreviewFile } from "$lib/catalog/dictionary/image-source-preview";
+
+const previewPath = path.join(process.cwd(), "tmp", "image-source-preview.json");
+const judgePath = path.join(process.cwd(), "tmp", "image-source-judge.json");
+
+let generatedAt: string | undefined;
+let judgedAt: string | undefined;
+let judgeModel: string | undefined;
+let rows: ImageSourcePreviewFile["rows"] = [];
+
+try {
+  const raw = JSON.parse(await readFile(previewPath, "utf8")) as ImageSourcePreviewFile;
+  generatedAt = raw.generatedAt;
+  rows = raw.rows ?? [];
+} catch {
+  rows = [];
+}
+
+try {
+  const judge = JSON.parse(await readFile(judgePath, "utf8")) as ImageSourceJudgeFile;
+  judgedAt = judge.judgedAt;
+  judgeModel = judge.model;
+  rows = attachAiPicks(rows, judge);
+} catch {
+  /* preview-only until judge.ts runs */
+}
+---
+
+<SiteLayout title="Image source preview | Slovak Wiki" noindex>
+  <ImageSourceComparePage
+    client:only="svelte"
+    {generatedAt}
+    {judgedAt}
+    {judgeModel}
+    {rows}
+  />
+</SiteLayout>

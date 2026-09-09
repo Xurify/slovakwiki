@@ -35,6 +35,9 @@
   "americky": {
     "reject": true
   },
+  "analytik": {
+    "commonsFile": "Confident Cartoon Businessman Presenting A Graph.svg"
+  },
   "anglicky": {
     "reject": true
   },
@@ -49,6 +52,9 @@
   },
   "autenticky": {
     "reject": true
+  },
+  "auto": {
+    "commonsFile": "2005_Toyota_Corolla_1.4_T3.jpg"
   },
   "balicek": {
     "reject": true
@@ -81,6 +87,9 @@
     "reject": true
   },
   "celozivotny": {
+    "reject": true
+  },
+  "chyba": {
     "reject": true
   },
   "citatel": {

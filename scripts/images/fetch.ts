@@ -7,12 +7,13 @@
  *   bun scripts/images/fetch.ts -- --pos noun
  *   bun scripts/images/fetch.ts -- --only kolac --force
  *
- * Order: override → SK pageimages → EN pageimages (non-verbs) →
- * Commons gloss search for concrete non-verbs (e.g. obed → “lunch meal”).
- * Verbs stay empty unless staged + promoted (false-friend risk).
+ * Order: override → SK pageimage if the filename is a simple subject → EN
+ * pageimage → titled Commons. Busy scenes (traffic jam, picnic, collage) miss.
+ * `--upgrade` refetches existing ok rows whose stored filename fails that gate.
+ * Theme gate: Food / Places / People / Travel / Everyday only.
  */
 
-import { writeFile } from "node:fs/promises";
+import { unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import type { ImageManifestEntry } from "../../src/lib/catalog/dictionary/images";
@@ -22,13 +23,14 @@ import {
   THUMB_WIDTH,
   USER_AGENT,
   allowsCommonsAutoPromote,
-  commonsTitleMatchesGloss,
+  allowsWikiPageimage,
+  commonsThumbUsable,
+  pickTitledCommonsHit,
   collectImageTargets,
+  existingImageNeedsUpgrade,
   ensureImagesDir,
   extensionFromMimeOrUrl,
   glossSearchTitle,
-  hasCommonsSafeTheme,
-  isBitmapMime,
   isRejectedCommonsTitle,
   isVerbLikeCategory,
   loadManifest,
@@ -38,10 +40,13 @@ import {
   MIN_THUMB_PX,
   normalizeCommonsFile,
   nounCommonsQueries,
+  pageimageAcceptable,
+  prefersCartoonCommons,
   parseArgs,
   rejectedEntry,
   saveManifest,
   shouldSkipWithDisk,
+  storedThumbMime,
   stripHtml,
 } from "./shared";
 
@@ -277,11 +282,9 @@ async function fetchFileMeta(
       const info = page.imageinfo?.[0];
       if (!info) continue;
 
-      const mime = info.mime;
-      if (!isBitmapMime(mime)) continue;
-
       const thumbUrl = preferredThumbUrl || info.thumburl || info.url;
-      if (!thumbUrl) continue;
+      if (!thumbUrl || !commonsThumbUsable(info.mime, thumbUrl)) continue;
+      const mime = storedThumbMime(info.mime);
 
       const width = info.width;
       const height = info.height;
@@ -359,18 +362,21 @@ function resolveHitForTarget(
   skHits: Map<string, PageImageHit>,
   enHits: Map<string, PageImageHit>,
 ): PageImageHit | undefined {
+  if (!allowsWikiPageimage(target)) return undefined;
+
+  const glossHead = glossSearchTitle(target.gloss);
   const sk = skHits.get(target.slovak);
-  if (sk) return sk;
+  if (sk && pageimageAcceptable(sk.fileTitle, glossHead)) return sk;
 
   // Verbs: skip EN pageimages (false friends like "Time management" for robiť).
-  // Commons search is staged + visually audited via images:stage / images:promote.
   if (isVerbLikeCategory(target.category)) {
     return undefined;
   }
 
-  const enTitle = glossSearchTitle(target.gloss);
-  if (!enTitle) return undefined;
-  return enHits.get(enTitle);
+  if (!glossHead) return undefined;
+  const en = enHits.get(glossHead);
+  if (en && pageimageAcceptable(en.fileTitle, glossHead)) return en;
+  return undefined;
 }
 
 interface CommonsSearchHit {
@@ -424,9 +430,9 @@ async function searchCommonsByQuery(
       if (!page.title || page.missing) continue;
       if (isRejectedCommonsTitle(page.title)) continue;
       const info = page.imageinfo?.[0];
-      if (!info || !isBitmapMime(info.mime)) continue;
+      if (!info) continue;
       const thumbUrl = info.thumburl || info.url;
-      if (!thumbUrl) continue;
+      if (!thumbUrl || !commonsThumbUsable(info.mime, thumbUrl)) continue;
       const meta = info.extmetadata ?? {};
       const licenseRaw = meta.LicenseShortName?.value ?? meta.License?.value;
       const license = licenseRaw ? stripHtml(licenseRaw) : undefined;
@@ -453,36 +459,26 @@ async function findCommonsHitForTarget(
   if (!head) return undefined;
 
   const queries = nounCommonsQueries(target);
-  let fallback: CommonsSearchHit | undefined;
 
-  for (const query of queries.slice(0, 3)) {
+  for (const query of queries.slice(0, 5)) {
     const hits = await searchCommonsByQuery(query, 6);
     const allowArticle = target.category !== "Nouns";
-    const titled = hits.find((hit) =>
-      commonsTitleMatchesGloss(hit.commonsFile, head, { allowArticle }),
+    const titled = pickTitledCommonsHit(
+      hits.map((hit) => ({ fileTitle: hit.commonsFile, thumbUrl: hit.thumbUrl })),
+      head,
+      { allowArticle, preferCartoon: prefersCartoonCommons(target) },
     );
     if (titled) {
       return {
-        fileTitle: titled.commonsFile,
+        fileTitle: titled.fileTitle,
         lang: "sk",
         thumbUrl: titled.thumbUrl,
         wikiTitle: target.slovak,
       };
     }
-    // Safe visual themes: accept top free hit even without title match.
-    // Skip Phrases / Essentials — short glosses need a title match.
-    if (!fallback && hits[0] && hasCommonsSafeTheme(target)) {
-      fallback = hits[0];
-    }
   }
 
-  if (!fallback) return undefined;
-  return {
-    fileTitle: fallback.commonsFile,
-    lang: "sk",
-    thumbUrl: fallback.thumbUrl,
-    wikiTitle: target.slovak,
-  };
+  return undefined;
 }
 
 async function applyOk(
@@ -499,6 +495,14 @@ async function applyOk(
   const ext = extensionFromMimeOrUrl(meta.mime, meta.thumbUrl);
   const file = `${target.slug}.${ext}`;
   const dest = localImagePath(file);
+  const previous = manifest[target.slug];
+  if (previous?.file && previous.file !== file) {
+    try {
+      await unlink(localImagePath(previous.file));
+    } catch {
+      // ignore missing leftover
+    }
+  }
 
   await downloadThumb(meta.thumbUrl, dest);
 
@@ -520,7 +524,7 @@ async function applyOk(
 }
 
 async function main(): Promise<void> {
-  const { force, limit, only, partOfSpeech } = parseArgs(process.argv.slice(2));
+  const { force, limit, only, partOfSpeech, upgrade } = parseArgs(process.argv.slice(2));
   const overrides = await loadOverrides();
   const manifest = await loadManifest();
   await ensureImagesDir();
@@ -533,6 +537,7 @@ async function main(): Promise<void> {
   );
   if (only) console.log(`Only: ${only}`);
   if (force) console.log("Force: regenerating existing ok entries");
+  if (upgrade) console.log("Upgrade: refetch ok files whose titles look like scenes");
 
   const now = new Date().toISOString();
   let skipped = 0;
@@ -554,7 +559,15 @@ async function main(): Promise<void> {
       continue;
     }
 
-    if (await shouldSkipWithDisk(target.slug, manifest, force)) {
+    const current = manifest[target.slug];
+    const upgradeThis =
+      upgrade &&
+      current?.status === "ok" &&
+      existingImageNeedsUpgrade(
+        current.commonsFile ?? current.file,
+        glossSearchTitle(target.gloss),
+      );
+    if (!upgradeThis && (await shouldSkipWithDisk(target.slug, manifest, force))) {
       skipped += 1;
       continue;
     }
@@ -567,7 +580,13 @@ async function main(): Promise<void> {
       continue;
     }
 
-    needsWiki.push(target);
+    if (allowsWikiPageimage(target) || allowsCommonsAutoPromote(target)) {
+      needsWiki.push(target);
+      continue;
+    }
+
+    manifest[target.slug] = missingEntry(now);
+    missing += 1;
   }
 
   // Override commons files
@@ -607,9 +626,10 @@ async function main(): Promise<void> {
 
   const stillNeedEn: ImageTarget[] = [];
   for (const target of needsWiki) {
-    if (skHits.has(target.slovak)) continue;
-    // Verbs use Commons search instead of EN pageimages.
     if (isVerbLikeCategory(target.category)) continue;
+    const glossHead = glossSearchTitle(target.gloss);
+    const sk = skHits.get(target.slovak);
+    if (sk && pageimageAcceptable(sk.fileTitle, glossHead)) continue;
     stillNeedEn.push(target);
   }
 

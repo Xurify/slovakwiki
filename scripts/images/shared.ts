@@ -75,17 +75,20 @@ export function parseArgs(argv: string[]): {
   limit: number | undefined;
   only: string | undefined;
   partOfSpeech: string | undefined;
+  upgrade: boolean;
 } {
   let dryRun = false;
   let force = false;
   let limit: number | undefined;
   let only: string | undefined;
   let partOfSpeech: string | undefined;
+  let upgrade = false;
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "--dry-run") dryRun = true;
     else if (arg === "--force") force = true;
+    else if (arg === "--upgrade") upgrade = true;
     else if (arg === "--limit") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 1) {
@@ -108,7 +111,36 @@ export function parseArgs(argv: string[]): {
     }
   }
 
-  return { dryRun, force, limit, only, partOfSpeech };
+  return { dryRun, force, limit, only, partOfSpeech, upgrade };
+}
+
+/** `--only auto` is exact slugs (`auto`), never substring (`autobus`). Comma lists OK. */
+export function parseOnlySlugs(only: string | undefined): string[] {
+  if (!only?.trim()) return [];
+  return only
+    .split(",")
+    .map((slug) => slug.trim())
+    .filter((slug) => slug.length > 0);
+}
+
+export function slugMatchesOnly(slug: string, only: string | undefined): boolean {
+  const slugs = parseOnlySlugs(only);
+  if (slugs.length === 0) return true;
+  const want = new Set(slugs.map((item) => item.toLocaleLowerCase("sk")));
+  return want.has(slug.toLocaleLowerCase("sk"));
+}
+
+export function fileMatchesOnly(
+  file: string,
+  slug: string | undefined,
+  only: string | undefined,
+): boolean {
+  const slugs = parseOnlySlugs(only);
+  if (slugs.length === 0) return true;
+  const want = new Set(slugs.map((item) => item.toLocaleLowerCase("sk")));
+  const stem = file.replace(/\.[^.]+$/, "").toLocaleLowerCase("sk");
+  if (want.has(stem)) return true;
+  return Boolean(slug && want.has(slug.toLocaleLowerCase("sk")));
 }
 
 export function normalizePartOfSpeechFilter(
@@ -359,6 +391,11 @@ export function allowsCommonsAutoPromote(target: ImageTarget): boolean {
   return true;
 }
 
+/** SK/EN pageimages use the same theme gate as Commons auto-promote. */
+export function allowsWikiPageimage(target: ImageTarget): boolean {
+  return allowsCommonsAutoPromote(target);
+}
+
 /** Ranked Commons search queries from gloss + topic (obed → lunch / lunch meal). */
 export function nounCommonsQueries(target: ImageTarget): string[] {
   const head = glossSearchTitle(target.gloss);
@@ -382,6 +419,7 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
       push(`${head} food`);
       push(`${head} meal`);
       push(`${head} dish`);
+      push(`${head} cartoon`);
       break;
     case "Places":
       push(`${head} building`);
@@ -389,6 +427,7 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
       push(`${head} city`);
       break;
     case "People":
+      push(`${head} cartoon`);
       push(`${head} person`);
       push(`${head} people`);
       break;
@@ -399,6 +438,7 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
     case "Everyday life":
       push(`${head} house`);
       push(`${head} home`);
+      push(`${head} cartoon`);
       break;
     default:
       break;
@@ -408,16 +448,89 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
 }
 
 const REJECTED_COMMONS_TITLE =
-  /\b(icon|logo|symbol|flag_of|coat_of_arms|map_of|diagram|svg|nude|naked|nudes|porn|nsfw|sexual|disambiguation|signature|qr[_ -]?code|poster|album|cover|screenshot|trailer|movie|film|titlepage|title|typeface|font[_ -]?specimen|sans[_ -]guilt|fuck|fucking|shit|cunt|bitch|asshole)\b/i;
+  /\b(icon|logo|symbol|coat_of_arms|map_of|diagram|nude|naked|nudes|porn|nsfw|sexual|disambiguation|signature|qr[_ -]?code|poster|album|cover|screenshot|trailer|movie|film|titlepage|title|typeface|font[_ -]?specimen|sans[_ -]guilt|fuck|fucking|shit|cunt|bitch|asshole)\b|flag[_ -]?of/i;
+
+const EDITORIAL_CARTOON_TITLE =
+  /\b(political[\s_-]?cartoon|editorial[\s_-]?cartoon|newspaper[\s_-]?cartoon|satirical[\s_-]?cartoon|satire)\b|\blccn\b|\b(hitler|nazi|suffragette|confederate|winsor[\s_-]?mccay)\b|\b(zumwalt|bushnell)[\s_-]?cartoon\b|\bleonardo\b|\bst\.?\s*anne[\s_-]?cartoon\b/i;
+
+const EDITORIAL_CARTOON_YEAR = /\bcartoon\b/i;
+
+const HISTORICAL_PLATE_YEAR = /\bin[\s_-]+1[6-9]\d{2}\b/i;
+
+const HISTORICAL_MAP_TITLE = /\b(atlas|political[\s_-]?map|historical[\s_-]?map)\b/i;
+
+/** Newspaper / political satire, not learner clipart. */
+export function isEditorialCartoonTitle(title: string): boolean {
+  const norm = normalizeFileTitle(title);
+  if (EDITORIAL_CARTOON_TITLE.test(norm)) return true;
+  return EDITORIAL_CARTOON_YEAR.test(norm) && /\b(1[6-9]\d{2}|20[0-2]\d)\b/.test(norm);
+}
+
+export function isHistoricalDocumentTitle(title: string): boolean {
+  const norm = normalizeFileTitle(title);
+  return HISTORICAL_MAP_TITLE.test(norm) || HISTORICAL_PLATE_YEAR.test(norm);
+}
 
 export function isRejectedCommonsTitle(title: string): boolean {
-  return REJECTED_COMMONS_TITLE.test(title);
+  if (REJECTED_COMMONS_TITLE.test(title)) return true;
+  if (/\.gif$/i.test(title)) return true;
+  if (isEditorialCartoonTitle(title) || isHistoricalDocumentTitle(title)) return true;
+  return false;
+}
+
+/** Filenames that are a scene, not one simple subject. */
+const BUSY_SCENE_TITLE =
+  /\b(stau|traffic|gridlock|congestion|autobahn|rush[\s_-]?hour|crowd|concert|festival|demonstration|protest|rally|picnic|barbecue|bbq|feast|banquet|collage|assortment|buffet|wreck|crash|accident|derail|cemetery|funeral|battle|stadium|audience|parade)\b/i;
+
+const BUSY_SCENE_PHRASE = /\b(traffic[\s_-]?jam|food[\s_-]?display|nci[\s_-]?visuals)\b/i;
+
+const HOUSE_FALSE_FRIEND =
+  /\b(villa|palace|castle|temple|shrine|imperial|katsura|niwaki)\b/i;
+
+function normalizeFileTitle(title: string): string {
+  return title
+    .replace(/^File:/i, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\.[a-z0-9]+$/i, "")
+    .trim();
+}
+
+export function isBusySceneTitle(title: string): boolean {
+  const norm = normalizeFileTitle(title);
+  if (BUSY_SCENE_TITLE.test(norm) || BUSY_SCENE_PHRASE.test(norm)) return true;
+  // Commons often glues a date to Stau (German “traffic jam”): 20150516Stau_…
+  return /\dstau/i.test(norm.replace(/\s+/g, ""));
 }
 
 /**
- * Prefer Commons files whose title *starts* with the gloss headword
- * (avoids mid-title brand hits like “Foo Absolute Bar…”).
- * `allowArticle`: also accept “A/The {head} …” (Food/Places); Nouns stay strict.
+ * Wikipedia pageimages are acceptable only when the filename is not a crowd/scene
+ * (and not a house/home false friend). Empty is better than a traffic jam.
+ */
+export function pageimageAcceptable(fileTitle: string, glossHead?: string): boolean {
+  if (isRejectedCommonsTitle(fileTitle) || isBusySceneTitle(fileTitle)) return false;
+  const head = glossHead?.trim().toLowerCase();
+  if (
+    head &&
+    /^(house|home)$/.test(head) &&
+    HOUSE_FALSE_FRIEND.test(normalizeFileTitle(fileTitle))
+  ) {
+    return false;
+  }
+  return true;
+}
+
+export function existingImageNeedsUpgrade(
+  fileTitle: string | undefined,
+  glossHead?: string,
+): boolean {
+  if (!fileTitle) return true;
+  return !pageimageAcceptable(fileTitle, glossHead);
+}
+
+/**
+ * Prefer Commons files whose title *starts* with the gloss as its own word.
+ * Extra tokens must look like photo/food descriptors or ids — not “Cake Cleveland”.
+ * `allowArticle`: also accept “A/The {head} …” (Food/Places).
  */
 export function commonsTitleMatchesGloss(
   fileTitle: string,
@@ -432,13 +545,39 @@ export function commonsTitleMatchesGloss(
     .replace(/[_-]+/g, " ")
     .replace(/\.[a-z0-9]+$/i, "")
     .trim();
-  if (norm === head || norm.startsWith(`${head} `)) return true;
-  if (!options?.allowArticle) return false;
-  // Allow leading article: "A lunch …" / "The lunch …"
-  const article = norm.match(/^(a|an|the)\s+(.+)$/i);
-  if (!article?.[2]) return false;
-  const rest = article[2];
-  return rest === head || rest.startsWith(`${head} `);
+  return glossTitleStartsWithHead(norm, head, options?.allowArticle === true);
+}
+
+const COMMONS_TAIL_OK =
+  /^(a|an|the|and|of|with|on|in|at|or|from|for|to|photo|img|image|pic|pics|cropped|crop|detail|closeup|close-up|homemade|food|meal|dish|plate|slice|slices|pastry|pastries|bread|cake|cakes|soup|tea|coffee|bean|beans|cup|cups|glass|bowl|table|street|station|train|house|home|building|city|town|view|front|side|top|left|right|old|new|small|big|fresh|hot|cold|cartoon|clipart|illustration|drawing|drawn|\d+[a-z]?)$/i;
+
+function commonsTailTokenOk(token: string): boolean {
+  if (!token) return true;
+  if (/^\([^)]*\d[^)]*\)$/.test(token)) return true;
+  if (/^\d+$/.test(token)) return true;
+  return COMMONS_TAIL_OK.test(token);
+}
+
+function glossTitleStartsWithHead(
+  norm: string,
+  head: string,
+  allowArticle: boolean,
+): boolean {
+  let rest = norm;
+  if (allowArticle) {
+    const article = rest.match(/^(a|an|the)\s+(.+)$/);
+    if (article?.[2]) rest = article[2];
+  }
+
+  if (rest === head) return true;
+  if (!rest.startsWith(`${head} `)) {
+    // CakeCleveland.jpg — head glued to another word.
+    if (rest.startsWith(head) && /[a-z]/.test(rest.charAt(head.length))) return false;
+    return false;
+  }
+
+  const extra = rest.slice(head.length).trim().split(/\s+/).filter(Boolean);
+  return extra.every((token) => commonsTailTokenOk(token));
 }
 
 export function stripHtml(value: string): string {
@@ -477,6 +616,50 @@ export function isBitmapMime(mime: string | undefined): boolean {
   return mime.startsWith("image/") && !mime.includes("svg");
 }
 
+/** Commons SVG originals are OK when the API already rendered a bitmap thumb. */
+export function commonsThumbUsable(
+  mime: string | undefined,
+  thumbUrl: string | undefined,
+): boolean {
+  if (isBitmapMime(mime)) return true;
+  return mime === "image/svg+xml" && Boolean(thumbUrl);
+}
+
+export function storedThumbMime(mime: string | undefined): string | undefined {
+  if (mime === "image/svg+xml") return "image/png";
+  return mime;
+}
+
+export function commonsFileLooksCartoon(fileTitle: string): boolean {
+  if (isEditorialCartoonTitle(fileTitle)) return false;
+  return /\b(cartoon|clipart|clip[\s_-]?art)\b/i.test(fileTitle.replace(/^File:/i, ""));
+}
+
+/** Jobs/people: clipart first. Food/places/everyday: photo first. */
+export function prefersCartoonCommons(target: ImageTarget): boolean {
+  return commonsTheme(target) === "People";
+}
+
+export function pickTitledCommonsHit<T extends { fileTitle: string }>(
+  hits: readonly T[],
+  head: string,
+  options: { allowArticle: boolean; preferCartoon: boolean },
+): T | undefined {
+  const titled = hits.filter((hit) =>
+    commonsTitleMatchesGloss(hit.fileTitle, head, {
+      allowArticle: options.allowArticle,
+    }),
+  );
+  titled.sort((left, right) => {
+    const leftCartoon = Number(commonsFileLooksCartoon(left.fileTitle));
+    const rightCartoon = Number(commonsFileLooksCartoon(right.fileTitle));
+    return options.preferCartoon
+      ? rightCartoon - leftCartoon
+      : leftCartoon - rightCartoon;
+  });
+  return titled[0];
+}
+
 /** Canonical lemma pages — one target per dictionary route. */
 export function collectImageTargets(options?: {
   only?: string;
@@ -491,7 +674,7 @@ export function collectImageTargets(options?: {
 
     const slug = canonicalWordSlug(entry, words);
     if (seen.has(slug)) continue;
-    if (options?.only && slug !== options.only) continue;
+    if (options?.only && !slugMatchesOnly(slug, options.only)) continue;
 
     seen.add(slug);
 
@@ -539,6 +722,13 @@ export async function loadOverrides(): Promise<ImageOverrides> {
   } catch {
     return {};
   }
+}
+
+export async function saveOverrides(overrides: ImageOverrides): Promise<void> {
+  const sorted = Object.fromEntries(
+    Object.entries(overrides).sort(([a], [b]) => a.localeCompare(b, "en")),
+  );
+  await writeFile(OVERRIDES_PATH, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
 }
 
 export async function ensureImagesDir(): Promise<void> {

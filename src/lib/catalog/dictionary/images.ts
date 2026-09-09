@@ -69,11 +69,12 @@ export function imagesUseCdn(): boolean {
  * - With `PUBLIC_IMAGE_BASE_URL` → R2 / CDN (`…/images/dictionary/{file}`)
  * - Without → local Astro static `/images/dictionary/{file}`
  */
-export function resolveImageSrc(file: string): string {
+export function resolveImageSrc(file: string, version?: string): string {
   const key = imageObjectKey(file);
   const base = imageBaseUrl();
-  if (base) return `${base}/${key}`;
-  return `/${key}`;
+  const src = base ? `${base}/${key}` : `/${key}`;
+  if (!version) return src;
+  return `${src}?v=${encodeURIComponent(version)}`;
 }
 
 /**
@@ -93,6 +94,6 @@ export function dictionaryImageView(
     license: entry.license,
     licenseUrl: entry.licenseUrl,
     sourcePageUrl: entry.sourcePageUrl,
-    src: resolveImageSrc(entry.file),
+    src: resolveImageSrc(entry.file, entry.uploadedAt ?? entry.fetchedAt),
   };
 }

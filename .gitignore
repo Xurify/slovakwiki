@@ -15,6 +15,7 @@ static/downloads/
 static/dictionary/
 static/dictionary-browse.json
 tmp/
+scripts/images/judge-thumbs/
 dev/*.log
 .env*
 *.tsbuildinfo
