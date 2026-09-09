@@ -92,6 +92,9 @@
   "chyba": {
     "reject": true
   },
+  "cina": {
+    "reject": true
+  },
   "citatel": {
     "reject": true
   },
@@ -137,6 +140,9 @@
   "etapa": {
     "reject": true
   },
+  "europa": {
+    "reject": true
+  },
   "evidencia": {
     "reject": true
   },
@@ -180,6 +186,9 @@
     "reject": true
   },
   "libra": {
+    "reject": true
+  },
+  "madarsko": {
     "reject": true
   },
   "malo": {

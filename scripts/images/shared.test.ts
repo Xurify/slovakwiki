@@ -7,6 +7,7 @@ import {
   commonsTitleMatchesGloss,
   fileMatchesOnly,
   glossLooksConcrete,
+  existingImageNeedsUpgrade,
   isBusySceneTitle,
   isEditorialCartoonTitle,
   isRejectedCommonsTitle,
@@ -155,6 +156,11 @@ describe("commons title filters", () => {
     expect(isRejectedCommonsTitle("File:Read the fucking manual.png")).toBe(true);
     expect(isRejectedCommonsTitle("File:Cartoon Cat Running.gif")).toBe(true);
     expect(isRejectedCommonsTitle("File:Europe in 1923.jpg")).toBe(true);
+    expect(
+      isRejectedCommonsTitle(
+        "File:Europe_orthographic_Caucasus_Urals_boundary_(with_borders).svg",
+      ),
+    ).toBe(true);
   });
 
   it("rejects editorial / political cartoons, keeps learner clipart", () => {
@@ -193,6 +199,31 @@ describe("commons title filters", () => {
       pickTitledCommonsHit(hits, "cake", { allowArticle: false, preferCartoon: true })
         ?.fileTitle,
     ).toBe("Cake-cartoon.jpg");
+  });
+
+  it("upgrades adjectives / verbs / bad filenames; keeps themed noun photos", () => {
+    expect(
+      existingImageNeedsUpgrade(
+        "Red flag.jpg",
+        "red",
+        target({ category: "Adjectives", gloss: "red" }),
+      ),
+    ).toBe(true);
+    expect(
+      existingImageNeedsUpgrade(
+        "To run.jpg",
+        "run",
+        target({ category: "Verbs", gloss: "to run", english: "to run" }),
+      ),
+    ).toBe(true);
+    expect(
+      existingImageNeedsUpgrade(
+        "Roasted_coffee_beans.jpg",
+        "coffee",
+        target({ category: "Nouns", topics: ["Food"], gloss: "coffee" }),
+      ),
+    ).toBe(false);
+    expect(existingImageNeedsUpgrade("Europe in 1923.jpg", "europe")).toBe(true);
   });
 
   it("matches --only by exact slug, not substring", () => {

@@ -457,7 +457,8 @@ const EDITORIAL_CARTOON_YEAR = /\bcartoon\b/i;
 
 const HISTORICAL_PLATE_YEAR = /\bin[\s_-]+1[6-9]\d{2}\b/i;
 
-const HISTORICAL_MAP_TITLE = /\b(atlas|political[\s_-]?map|historical[\s_-]?map)\b/i;
+const HISTORICAL_MAP_TITLE =
+  /\b(atlas|political[\s_-]?map|historical[\s_-]?map|orthographic|with[\s_-]?borders)\b/i;
 
 /** Newspaper / political satire, not learner clipart. */
 export function isEditorialCartoonTitle(title: string): boolean {
@@ -522,9 +523,18 @@ export function pageimageAcceptable(fileTitle: string, glossHead?: string): bool
 export function existingImageNeedsUpgrade(
   fileTitle: string | undefined,
   glossHead?: string,
+  target?: ImageTarget,
 ): boolean {
   if (!fileTitle) return true;
-  return !pageimageAcceptable(fileTitle, glossHead);
+  if (!pageimageAcceptable(fileTitle, glossHead)) return true;
+  if (!target) return false;
+  // Adjectives / verbs / greetings: empty > stock portrait / flag / scene.
+  return (
+    target.category === "Adjectives" ||
+    target.category === "Verbs" ||
+    target.category === "Adverbs" ||
+    target.category === "Phrases"
+  );
 }
 
 /**

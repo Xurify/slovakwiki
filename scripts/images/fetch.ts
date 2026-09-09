@@ -537,7 +537,11 @@ async function main(): Promise<void> {
   );
   if (only) console.log(`Only: ${only}`);
   if (force) console.log("Force: regenerating existing ok entries");
-  if (upgrade) console.log("Upgrade: refetch ok files whose titles look like scenes");
+  if (upgrade) {
+    console.log(
+      "Upgrade: drop adj/verb/phrase oks; refetch theme-safe oks whose titles fail the gate",
+    );
+  }
 
   const now = new Date().toISOString();
   let skipped = 0;
@@ -566,7 +570,12 @@ async function main(): Promise<void> {
       existingImageNeedsUpgrade(
         current.commonsFile ?? current.file,
         glossSearchTitle(target.gloss),
+        target,
       );
+    if (upgrade && !upgradeThis) {
+      skipped += 1;
+      continue;
+    }
     if (!upgradeThis && (await shouldSkipWithDisk(target.slug, manifest, force))) {
       skipped += 1;
       continue;
@@ -585,6 +594,13 @@ async function main(): Promise<void> {
       continue;
     }
 
+    if (current?.file) {
+      try {
+        await unlink(localImagePath(current.file));
+      } catch {
+        // leftover may already be gone
+      }
+    }
     manifest[target.slug] = missingEntry(now);
     missing += 1;
   }
