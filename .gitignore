@@ -16,6 +16,8 @@ static/dictionary/
 static/dictionary-browse.json
 tmp/
 scripts/images/judge-thumbs/
+scripts/images/_audit-batch/
+scripts/images/_audit-check/
 dev/*.log
 .env*
 *.tsbuildinfo

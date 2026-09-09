@@ -1,11 +1,32 @@
 {
+  "adresa": {
+    "commonsFile": "House number 16, 2 Halmac.jpg"
+  },
+  "advokat": {
+    "reject": true
+  },
+  "agenda": {
+    "reject": true
+  },
   "agent": {
+    "reject": true
+  },
+  "akademia": {
+    "reject": true
+  },
+  "akcionar": {
     "reject": true
   },
   "akciovy": {
     "reject": true
   },
   "ako": {
+    "reject": true
+  },
+  "akter": {
+    "reject": true
+  },
+  "aktivista": {
     "reject": true
   },
   "aktivny": {
@@ -20,6 +41,15 @@
   "akutny": {
     "reject": true
   },
+  "album": {
+    "commonsFile": "Photo album, Rostov-on-Don, Russia.jpg"
+  },
+  "aliancia": {
+    "reject": true
+  },
+  "alkohol": {
+    "commonsFile": "Red Wine Glass.jpg"
+  },
   "alternativa": {
     "reject": true
   },
@@ -28,6 +58,9 @@
   },
   "ambicia": {
     "reject": true
+  },
+  "ambulancia": {
+    "commonsFile": "London Ambulance Service Ambulance.jpg"
   },
   "american": {
     "reject": true
@@ -38,8 +71,14 @@
   "analytik": {
     "commonsFile": "Confident Cartoon Businessman Presenting A Graph.svg"
   },
+  "analyza": {
+    "reject": true
+  },
   "anglicky": {
     "reject": true
+  },
+  "anjel": {
+    "commonsFile": "Angel on bridge of angels in Rome.JPG"
   },
   "anketa": {
     "reject": true
@@ -47,7 +86,31 @@
   "ano": {
     "reject": true
   },
+  "april": {
+    "commonsFile": "April 28 - calendar sheet.svg"
+  },
+  "architektura": {
+    "reject": true
+  },
+  "areal": {
+    "reject": true
+  },
+  "arena": {
+    "reject": true
+  },
+  "argument": {
+    "reject": true
+  },
+  "aspekt": {
+    "reject": true
+  },
   "atleticky": {
+    "reject": true
+  },
+  "atletika": {
+    "reject": true
+  },
+  "august": {
     "reject": true
   },
   "autenticky": {
@@ -55,6 +118,27 @@
   },
   "auto": {
     "commonsFile": "2005_Toyota_Corolla_1.4_T3.jpg"
+  },
+  "automat": {
+    "reject": true
+  },
+  "automobilka": {
+    "reject": true
+  },
+  "autor": {
+    "reject": true
+  },
+  "autorita": {
+    "reject": true
+  },
+  "autorka": {
+    "reject": true
+  },
+  "baba": {
+    "reject": true
+  },
+  "babka": {
+    "commonsFile": "Portrait of a Slovene Peasant Woman.jpg"
   },
   "balicek": {
     "reject": true
@@ -65,7 +149,13 @@
   "bana": {
     "reject": true
   },
+  "bankovka": {
+    "reject": true
+  },
   "bariera": {
+    "reject": true
+  },
+  "basen": {
     "reject": true
   },
   "basnicky": {
@@ -77,10 +167,85 @@
   "bazen": {
     "reject": true
   },
+  "benzin": {
+    "commonsFile": "Gas pump in Lannion.jpg"
+  },
+  "beseda": {
+    "reject": true
+  },
+  "bezpecie": {
+    "reject": true
+  },
+  "bezpecnost": {
+    "reject": true
+  },
   "bezpecny": {
     "reject": true
   },
+  "bieda": {
+    "reject": true
+  },
+  "biznis": {
+    "reject": true
+  },
+  "blazon": {
+    "reject": true
+  },
+  "blog": {
+    "reject": true
+  },
+  "blok": {
+    "reject": true
+  },
+  "bohatstvo": {
+    "reject": true
+  },
+  "bojovnik": {
+    "reject": true
+  },
+  "bozk": {
+    "reject": true
+  },
+  "brada": {
+    "commonsFile": "Bearded man with long hair-3052641.jpg"
+  },
+  "brankar": {
+    "reject": true
+  },
+  "brat-n": {
+    "reject": true
+  },
+  "breh": {
+    "commonsFile": "Grassy riverbank, Campsie - geograph.org.uk - 5581558.jpg"
+  },
+  "brucho": {
+    "commonsFile": "Male chest abdomen anatomy.jpg"
+  },
+  "brvno": {
+    "commonsFile": "Pine log cross-sections, Teutendorf, 2016-09-17.jpg"
+  },
+  "budova": {
+    "reject": true
+  },
+  "budovanie": {
+    "reject": true
+  },
+  "buducnost": {
+    "reject": true
+  },
+  "byt-n": {
+    "reject": true
+  },
   "byvaly": {
+    "reject": true
+  },
+  "byvanie": {
+    "reject": true
+  },
+  "casopis": {
+    "commonsFile": "Ms. magazine Cover - Summer 2014.jpg"
+  },
+  "celok": {
     "reject": true
   },
   "celosvetovy": {
@@ -89,25 +254,268 @@
   "celozivotny": {
     "reject": true
   },
+  "cena": {
+    "reject": true
+  },
+  "cent": {
+    "commonsFile": "2025 Lincoln cent obverse, uncirculated, Philadelphia mint.jpg"
+  },
+  "cerpanie": {
+    "reject": true
+  },
+  "cest": {
+    "reject": true
+  },
+  "cesta": {
+    "commonsFile": "An empty country road - geograph.org.uk - 2053072.jpg"
+  },
+  "cestujuci": {
+    "reject": true
+  },
+  "charakter": {
+    "reject": true
+  },
+  "charakteristika": {
+    "reject": true
+  },
+  "chladnicka": {
+    "reject": true
+  },
+  "chlieb": {
+    "commonsFile": "Tin Loaf - one slash in the crust.jpg"
+  },
+  "chodec": {
+    "reject": true
+  },
+  "choroba": {
+    "reject": true
+  },
+  "chram": {
+    "reject": true
+  },
+  "chrbat": {
+    "reject": true
+  },
+  "chripka": {
+    "reject": true
+  },
+  "chudoba": {
+    "reject": true
+  },
+  "chvilka": {
+    "reject": true
+  },
   "chyba": {
     "reject": true
   },
+  "cibula": {
+    "commonsFile": "Red Onion on White.JPG"
+  },
   "cina": {
+    "reject": true
+  },
+  "cinitel": {
+    "reject": true
+  },
+  "cirkev": {
+    "reject": true
+  },
+  "cistenie": {
+    "reject": true
+  },
+  "citanie": {
     "reject": true
   },
   "citatel": {
     "reject": true
   },
+  "civilizacia": {
+    "reject": true
+  },
+  "clen": {
+    "reject": true
+  },
+  "clenka": {
+    "reject": true
+  },
+  "cln": {
+    "reject": true
+  },
   "co": {
+    "reject": true
+  },
+  "crta": {
     "reject": true
   },
   "cudny": {
     "reject": true
   },
+  "cudzinec": {
+    "reject": true
+  },
+  "cvicenie": {
+    "reject": true
+  },
+  "cyklista": {
+    "reject": true
+  },
+  "cyklus": {
+    "reject": true
+  },
+  "dama": {
+    "reject": true
+  },
+  "dan": {
+    "reject": true
+  },
+  "danovnik": {
+    "reject": true
+  },
+  "darca": {
+    "reject": true
+  },
   "datum": {
     "reject": true
   },
+  "dav": {
+    "reject": true
+  },
+  "davka": {
+    "reject": true
+  },
+  "dcera": {
+    "reject": true
+  },
+  "dcerka": {
+    "reject": true
+  },
+  "debata": {
+    "reject": true
+  },
+  "december": {
+    "reject": true
+  },
+  "dedicstvo": {
+    "reject": true
+  },
+  "dedina": {
+    "reject": true
+  },
+  "dedko": {
+    "reject": true
+  },
+  "defenziva": {
+    "reject": true
+  },
+  "deficit": {
+    "reject": true
+  },
+  "definicia": {
+    "reject": true
+  },
   "dej": {
+    "reject": true
+  },
+  "dejiny": {
+    "reject": true
+  },
+  "dejisko": {
+    "reject": true
+  },
+  "dekan": {
+    "reject": true
+  },
+  "delegat": {
+    "reject": true
+  },
+  "demokrat": {
+    "reject": true
+  },
+  "den": {
+    "reject": true
+  },
+  "derby": {
+    "reject": true
+  },
+  "desatrocie": {
+    "reject": true
+  },
+  "desiatka": {
+    "reject": true
+  },
+  "detail": {
+    "reject": true
+  },
+  "detstvo": {
+    "reject": true
+  },
+  "diabol": {
+    "reject": true
+  },
+  "diagnoza": {
+    "reject": true
+  },
+  "dialka": {
+    "reject": true
+  },
+  "dianie": {
+    "reject": true
+  },
+  "dieceza": {
+    "reject": true
+  },
+  "dielna": {
+    "reject": true
+  },
+  "dielo": {
+    "reject": true
+  },
+  "dieta": {
+    "reject": true
+  },
+  "dievcatko": {
+    "commonsFile": "Lao little girl laughing with teeth.jpg"
+  },
+  "diplomacia": {
+    "reject": true
+  },
+  "diplomat": {
+    "reject": true
+  },
+  "disciplina": {
+    "reject": true
+  },
+  "disk": {
+    "commonsFile": "Compact Disc.png"
+  },
+  "diskriminacia": {
+    "reject": true
+  },
+  "diskusia": {
+    "reject": true
+  },
+  "divadlo": {
+    "commonsFile": "Byrd Theatre Exterior RVA August 2023.jpg"
+  },
+  "divak": {
+    "reject": true
+  },
+  "dizajn": {
+    "reject": true
+  },
+  "dlh": {
+    "reject": true
+  },
+  "dlhopis": {
+    "reject": true
+  },
+  "dlzka": {
+    "reject": true
+  },
+  "dlznik": {
+    "reject": true
+  },
+  "dno": {
     "reject": true
   },
   "doba": {
@@ -116,13 +524,97 @@
   "dobovy": {
     "reject": true
   },
+  "dobro": {
+    "reject": true
+  },
+  "dobrodruzstvo": {
+    "reject": true
+  },
+  "dobrota": {
+    "reject": true
+  },
+  "dobrovolnik": {
+    "reject": true
+  },
   "dobry-den": {
+    "reject": true
+  },
+  "dochodca": {
+    "reject": true
+  },
+  "dodavatel": {
+    "reject": true
+  },
+  "dodavka": {
+    "commonsFile": "Rivian EDV-700 front.jpg"
+  },
+  "dokaz": {
+    "reject": true
+  },
+  "doklad": {
+    "reject": true
+  },
+  "doktor": {
+    "reject": true
+  },
+  "dokument": {
+    "reject": true
+  },
+  "dolar": {
+    "commonsFile": "US one dollar bill, obverse, series 2009.jpg"
+  },
+  "domacnost": {
+    "reject": true
+  },
+  "domcek": {
+    "reject": true
+  },
+  "domov": {
+    "reject": true
+  },
+  "don": {
+    "reject": true
+  },
+  "dopad": {
+    "reject": true
+  },
+  "doprava": {
+    "reject": true
+  },
+  "dopravca": {
+    "reject": true
+  },
+  "dopyt": {
+    "reject": true
+  },
+  "dorast": {
+    "reject": true
+  },
+  "dorastenec": {
+    "reject": true
+  },
+  "doraz": {
     "reject": true
   },
   "dosah": {
     "reject": true
   },
   "doska": {
+    "reject": true
+  },
+  "dospely": {
+    "reject": true
+  },
+  "dostatok": {
+    "reject": true
+  },
+  "dostojnik": {
+    "reject": true
+  },
+  "dotacia": {
+    "reject": true
+  },
+  "dotyk": {
     "reject": true
   },
   "dovera": {
@@ -134,7 +626,52 @@
   "dovod": {
     "reject": true
   },
+  "dovolenka": {
+    "reject": true
+  },
   "draha": {
+    "reject": true
+  },
+  "droga": {
+    "reject": true
+  },
+  "druzstvo": {
+    "reject": true
+  },
+  "drzitel": {
+    "reject": true
+  },
+  "dubnica": {
+    "reject": true
+  },
+  "duch": {
+    "reject": true
+  },
+  "duel": {
+    "reject": true
+  },
+  "dusa": {
+    "reject": true
+  },
+  "dvojica": {
+    "reject": true
+  },
+  "dvojka": {
+    "reject": true
+  },
+  "dvor": {
+    "reject": true
+  },
+  "dym": {
+    "commonsFile": "Smoke plume from chimney of power plant.jpg"
+  },
+  "emocia": {
+    "reject": true
+  },
+  "energetika": {
+    "reject": true
+  },
+  "era": {
     "reject": true
   },
   "etapa": {
@@ -143,19 +680,265 @@
   "europa": {
     "reject": true
   },
+  "evanjelium": {
+    "commonsFile": "Open bible isaiah.jpg"
+  },
   "evidencia": {
+    "reject": true
+  },
+  "expert": {
+    "reject": true
+  },
+  "expozicia": {
+    "reject": true
+  },
+  "extraliga": {
+    "reject": true
+  },
+  "fabrika": {
+    "reject": true
+  },
+  "faktor": {
+    "reject": true
+  },
+  "faktura": {
+    "reject": true
+  },
+  "fantazia": {
+    "reject": true
+  },
+  "fanusik": {
+    "reject": true
+  },
+  "farar": {
     "reject": true
   },
   "farebny": {
     "reject": true
   },
+  "farnost": {
+    "reject": true
+  },
+  "faul": {
+    "reject": true
+  },
+  "favorit": {
+    "reject": true
+  },
+  "faza": {
+    "reject": true
+  },
+  "februar": {
+    "reject": true
+  },
+  "fenomen": {
+    "reject": true
+  },
+  "festival": {
+    "reject": true
+  },
+  "filozofia": {
+    "reject": true
+  },
+  "finale": {
+    "reject": true
+  },
+  "financovanie": {
+    "reject": true
+  },
+  "firma": {
+    "reject": true
+  },
+  "fond": {
+    "reject": true
+  },
+  "format": {
+    "reject": true
+  },
+  "forum": {
+    "reject": true
+  },
+  "fotka": {
+    "reject": true
+  },
+  "foto": {
+    "reject": true
+  },
+  "fotografia": {
+    "reject": true
+  },
+  "front": {
+    "reject": true
+  },
+  "funkcionar": {
+    "reject": true
+  },
+  "futbal": {
+    "reject": true
+  },
+  "futbalista": {
+    "reject": true
+  },
+  "garaz": {
+    "reject": true
+  },
+  "generacia": {
+    "reject": true
+  },
+  "general": {
+    "reject": true
+  },
+  "gesto": {
+    "reject": true
+  },
+  "gitara": {
+    "commonsFile": "Gitara klasyczna C30M firmy Yamaha.jpg"
+  },
+  "gol": {
+    "reject": true
+  },
+  "golman": {
+    "reject": true
+  },
+  "gula": {
+    "commonsFile": "Glass sphere with bubbles.jpg"
+  },
+  "guverner": {
+    "reject": true
+  },
+  "gymnazium": {
+    "reject": true
+  },
+  "hadka": {
+    "reject": true
+  },
+  "hadzana": {
+    "reject": true
+  },
+  "hanba": {
+    "reject": true
+  },
+  "hasic": {
+    "reject": true
+  },
+  "havaria": {
+    "reject": true
+  },
+  "herec": {
+    "reject": true
+  },
+  "herecka": {
+    "reject": true
+  },
+  "historia": {
+    "reject": true
+  },
+  "hit": {
+    "reject": true
+  },
+  "hlad": {
+    "reject": true
+  },
+  "hladanie": {
+    "reject": true
+  },
+  "hladisko": {
+    "reject": true
+  },
   "hladny": {
+    "reject": true
+  },
+  "hlas": {
+    "reject": true
+  },
+  "hlasovanie": {
+    "reject": true
+  },
+  "hlavicka": {
+    "reject": true
+  },
+  "hlbka": {
+    "reject": true
+  },
+  "hliadka": {
+    "reject": true
+  },
+  "hluk": {
+    "reject": true
+  },
+  "hlupost": {
+    "reject": true
+  },
+  "hnev": {
     "reject": true
   },
   "hodnota": {
     "reject": true
   },
+  "hokej": {
+    "reject": true
+  },
+  "horucava": {
+    "reject": true
+  },
+  "host": {
+    "reject": true
+  },
+  "hostovanie": {
+    "reject": true
+  },
+  "hotovost": {
+    "reject": true
+  },
+  "hovor": {
+    "reject": true
+  },
+  "hovorca": {
+    "reject": true
+  },
+  "hovorkyna": {
+    "reject": true
+  },
+  "hrac": {
+    "reject": true
+  },
+  "hranica": {
+    "reject": true
+  },
+  "hrdina": {
+    "reject": true
+  },
+  "hrdlo": {
+    "reject": true
+  },
+  "hriech": {
+    "reject": true
+  },
+  "hrob": {
+    "commonsFile": "Mary Bridge headstone (36091).jpg"
+  },
+  "hrozba": {
+    "reject": true
+  },
   "hruby": {
+    "reject": true
+  },
+  "hrud": {
+    "reject": true
+  },
+  "hudba": {
+    "reject": true
+  },
+  "hudobnik": {
+    "reject": true
+  },
+  "humor": {
+    "reject": true
+  },
+  "hypoteka": {
+    "reject": true
+  },
+  "idea": {
     "reject": true
   },
   "ideal": {
@@ -164,16 +947,409 @@
   "idealny": {
     "reject": true
   },
+  "ihrisko": {
+    "reject": true
+  },
+  "impulz": {
+    "reject": true
+  },
+  "incident": {
+    "reject": true
+  },
+  "index": {
+    "reject": true
+  },
+  "infekcia": {
+    "reject": true
+  },
+  "inflacia": {
+    "reject": true
+  },
+  "infrastruktura": {
+    "reject": true
+  },
+  "iniciativa": {
+    "reject": true
+  },
+  "inovacia": {
+    "reject": true
+  },
+  "inscenacia": {
+    "reject": true
+  },
+  "inspekcia": {
+    "reject": true
+  },
+  "inteligencia": {
+    "reject": true
+  },
+  "inter": {
+    "reject": true
+  },
+  "interier": {
+    "reject": true
+  },
+  "internet": {
+    "reject": true
+  },
+  "investor": {
+    "reject": true
+  },
+  "inzinier": {
+    "reject": true
+  },
+  "istota": {
+    "reject": true
+  },
+  "izba": {
+    "commonsFile": "Handmade wooden bed in a hotel. (51527464492).jpg"
+  },
+  "jadro": {
+    "reject": true
+  },
+  "jama": {
+    "reject": true
+  },
+  "januar": {
+    "reject": true
+  },
+  "jav": {
+    "reject": true
+  },
+  "javisko": {
+    "reject": true
+  },
+  "jazda": {
+    "reject": true
+  },
+  "jazdec": {
+    "reject": true
+  },
+  "jazero": {
+    "reject": true
+  },
+  "jazyk": {
+    "reject": true
+  },
+  "jedalen": {
+    "reject": true
+  },
+  "jedenastka": {
+    "reject": true
+  },
+  "jedinec": {
+    "reject": true
+  },
+  "jednotlivec": {
+    "reject": true
+  },
+  "jubileum": {
+    "reject": true
+  },
+  "jul": {
+    "reject": true
+  },
+  "jun": {
+    "reject": true
+  },
+  "junior": {
+    "reject": true
+  },
+  "kabat": {
+    "commonsFile": "Overcoat.jpg"
+  },
+  "kabinet": {
+    "reject": true
+  },
+  "kader": {
+    "reject": true
+  },
+  "kalendar": {
+    "reject": true
+  },
+  "kamarat": {
+    "reject": true
+  },
+  "kamen": {
+    "reject": true
+  },
+  "kampan": {
+    "reject": true
+  },
+  "kanal": {
+    "reject": true
+  },
+  "kancelaria": {
+    "reject": true
+  },
+  "kandidat": {
+    "reject": true
+  },
+  "kandidatura": {
+    "reject": true
+  },
+  "kanonier": {
+    "reject": true
+  },
+  "kapela": {
+    "reject": true
+  },
+  "kapital": {
+    "reject": true
+  },
+  "kapitan": {
+    "reject": true
+  },
+  "kapitola": {
+    "reject": true
+  },
+  "kardinal": {
+    "reject": true
+  },
+  "kariera": {
+    "reject": true
+  },
+  "karta": {
+    "reject": true
+  },
+  "katastrofa": {
+    "reject": true
+  },
+  "kategoria": {
+    "reject": true
+  },
+  "katolik": {
+    "reject": true
+  },
+  "kaviaren": {
+    "reject": true
+  },
   "kde": {
     "reject": true
   },
+  "kilometer": {
+    "reject": true
+  },
+  "kino": {
+    "reject": true
+  },
+  "klavir": {
+    "commonsFile": "Steinway & Sons upright piano, model K-52 (mahogany finish), manufactured at Steinway's factory in New York City.jpg"
+  },
+  "klient": {
+    "reject": true
+  },
+  "klobuk": {
+    "commonsFile": "A fedora hat, made by Borsalino.jpg"
+  },
+  "klub": {
+    "reject": true
+  },
+  "kmen": {
+    "reject": true
+  },
+  "knaz": {
+    "reject": true
+  },
+  "knizka": {
+    "reject": true
+  },
+  "kniznica": {
+    "reject": true
+  },
+  "kod": {
+    "reject": true
+  },
+  "kola": {
+    "reject": true
+  },
+  "kolega": {
+    "reject": true
+  },
+  "kolektiv": {
+    "reject": true
+  },
+  "koleso": {
+    "commonsFile": "Wheel of car.jpg"
+  },
   "kolko": {
+    "reject": true
+  },
+  "kolo": {
+    "reject": true
+  },
+  "komedia": {
+    "reject": true
+  },
+  "komisar": {
+    "reject": true
+  },
+  "komodita": {
+    "reject": true
+  },
+  "komora": {
+    "reject": true
+  },
+  "komplex": {
+    "reject": true
+  },
+  "komunikacia": {
+    "reject": true
+  },
+  "komunista": {
+    "reject": true
+  },
+  "komunita": {
+    "reject": true
+  },
+  "kon": {
+    "commonsFile": "Friesian Horse Side View 3.jpg"
+  },
+  "konanie": {
+    "reject": true
+  },
+  "konar": {
+    "reject": true
+  },
+  "konatel": {
+    "reject": true
+  },
+  "koncern": {
+    "reject": true
+  },
+  "koncert": {
+    "reject": true
+  },
+  "koncovka": {
+    "reject": true
+  },
+  "konferencia": {
+    "reject": true
+  },
+  "konflikt": {
+    "reject": true
+  },
+  "kongres": {
+    "reject": true
+  },
+  "konkurencia": {
+    "reject": true
+  },
+  "konkurent": {
+    "reject": true
+  },
+  "konkurz": {
+    "reject": true
+  },
+  "konstrukcia": {
+    "reject": true
+  },
+  "kontajner": {
+    "reject": true
+  },
+  "kontakt": {
+    "reject": true
+  },
+  "kontext": {
+    "reject": true
+  },
+  "kontrakt": {
     "reject": true
   },
   "kontrola": {
     "reject": true
   },
+  "kop": {
+    "reject": true
+  },
+  "kopa": {
+    "reject": true
+  },
+  "kopia": {
+    "reject": true
+  },
+  "korenie": {
+    "commonsFile": "Tellicherry Black Peppercorns.jpg"
+  },
+  "kormidelnik": {
+    "reject": true
+  },
+  "korupcia": {
+    "reject": true
+  },
+  "kos": {
+    "reject": true
+  },
+  "kosice": {
+    "commonsFile": "St Elisabeth Cathedral Kosice.jpeg"
+  },
+  "kostym": {
+    "reject": true
+  },
+  "kotol": {
+    "commonsFile": "Copper kettle flickr.jpg"
+  },
+  "kouc": {
+    "reject": true
+  },
+  "koza": {
+    "reject": true
+  },
+  "kradez": {
+    "reject": true
+  },
+  "kraj": {
+    "reject": true
+  },
+  "krajan": {
+    "reject": true
+  },
+  "kralovna": {
+    "reject": true
+  },
+  "kralovstvo": {
+    "reject": true
+  },
+  "krasa": {
+    "reject": true
+  },
   "kratky": {
+    "reject": true
+  },
+  "krcma": {
+    "reject": true
+  },
+  "kresba": {
+    "commonsFile": "Pencil drawing.jpg"
+  },
+  "krestan": {
+    "reject": true
+  },
+  "krestanstvo": {
+    "reject": true
+  },
+  "kridlo": {
+    "reject": true
+  },
+  "kriminalita": {
+    "reject": true
+  },
+  "kriterium": {
+    "reject": true
+  },
+  "kritik": {
+    "reject": true
+  },
+  "kritika": {
+    "reject": true
+  },
+  "kriza": {
+    "reject": true
+  },
+  "krizovatka": {
+    "reject": true
+  },
+  "kronika": {
     "reject": true
   },
   "kseft": {
@@ -182,64 +1358,1087 @@
   "kto": {
     "reject": true
   },
+  "kuchyna": {
+    "commonsFile": "White modern kitchen.jpg"
+  },
+  "kultura": {
+    "reject": true
+  },
+  "kupa": {
+    "reject": true
+  },
+  "kupalisko": {
+    "commonsFile": "Tenom Sabah Outdoor-Swimming-Pool-01.jpg"
+  },
+  "kupele": {
+    "reject": true
+  },
+  "kupelna": {
+    "commonsFile": "Modern bathroom with wooden and glass parts.jpg"
+  },
+  "kupon": {
+    "reject": true
+  },
+  "kurz": {
+    "reject": true
+  },
+  "kus": {
+    "reject": true
+  },
+  "kusok": {
+    "reject": true
+  },
+  "kut": {
+    "reject": true
+  },
+  "kvapka": {
+    "commonsFile": "Water drop 001.jpg"
+  },
+  "kvartal": {
+    "reject": true
+  },
+  "kyselina": {
+    "reject": true
+  },
+  "laboratorium": {
+    "reject": true
+  },
+  "lad": {
+    "commonsFile": "Ice cubes openphoto.jpg"
+  },
   "lahky": {
+    "reject": true
+  },
+  "lampa": {
+    "commonsFile": "Lamp with a lampshade illuminated by sunlight.jpg"
+  },
+  "lavica": {
+    "reject": true
+  },
+  "lavica-n": {
+    "reject": true
+  },
+  "lavicka": {
+    "reject": true
+  },
+  "legenda": {
+    "reject": true
+  },
+  "legislativa": {
+    "reject": true
+  },
+  "lehota": {
+    "reject": true
+  },
+  "lekar": {
+    "commonsFile": "Saeed-Ghezelbaash-physician-portrait.jpg"
+  },
+  "lekaren": {
+    "reject": true
+  },
+  "let": {
+    "reject": true
+  },
+  "letisko": {
+    "commonsFile": "Berlin Brandenburg Airport Terminal 1.jpg"
+  },
+  "leto": {
     "reject": true
   },
   "libra": {
     "reject": true
   },
+  "lice": {
+    "reject": true
+  },
+  "lider": {
+    "reject": true
+  },
+  "liek": {
+    "reject": true
+  },
+  "liga": {
+    "reject": true
+  },
+  "limit": {
+    "reject": true
+  },
+  "list": {
+    "commonsFile": "Autumn Norway Maple Leaf.jpg"
+  },
+  "listina": {
+    "reject": true
+  },
+  "literatura": {
+    "reject": true
+  },
+  "liturgia": {
+    "reject": true
+  },
+  "lod": {
+    "commonsFile": "Container ship Reecon Whale on Black Sea near Constanța Romania.jpg"
+  },
+  "logika": {
+    "reject": true
+  },
+  "londyn": {
+    "commonsFile": "Big Ben Elizabeth Tower London 2023 01.jpg"
+  },
+  "loz": {
+    "reject": true
+  },
+  "lozko": {
+    "commonsFile": "Steel double bed.svg"
+  },
+  "luc": {
+    "reject": true
+  },
+  "lud": {
+    "reject": true
+  },
+  "lyza": {
+    "reject": true
+  },
+  "lyzovanie": {
+    "reject": true
+  },
   "madarsko": {
+    "reject": true
+  },
+  "magazin": {
+    "reject": true
+  },
+  "magistrat": {
+    "reject": true
+  },
+  "mail": {
+    "reject": true
+  },
+  "maj": {
+    "reject": true
+  },
+  "majetok": {
+    "reject": true
+  },
+  "majitel": {
+    "reject": true
+  },
+  "majster": {
     "reject": true
   },
   "malo": {
     "reject": true
   },
+  "mama": {
+    "reject": true
+  },
+  "mamicka": {
+    "reject": true
+  },
+  "manazer": {
+    "reject": true
+  },
+  "mandat": {
+    "reject": true
+  },
+  "manzel": {
+    "reject": true
+  },
+  "manzelka": {
+    "reject": true
+  },
+  "mapa": {
+    "reject": true
+  },
+  "maraton": {
+    "reject": true
+  },
+  "marec": {
+    "reject": true
+  },
+  "margo": {
+    "reject": true
+  },
+  "marketing": {
+    "reject": true
+  },
+  "markiza": {
+    "reject": true
+  },
   "masa": {
     "reject": true
   },
+  "maso": {
+    "commonsFile": "Raw beef steak, 2011.jpg"
+  },
   "masovy": {
+    "reject": true
+  },
+  "matematika": {
+    "reject": true
+  },
+  "material": {
+    "reject": true
+  },
+  "matka": {
+    "reject": true
+  },
+  "med": {
+    "commonsFile": "Honey (Italian-miele) in a jar.jpg"
+  },
+  "medium": {
+    "reject": true
+  },
+  "meno": {
+    "reject": true
+  },
+  "meranie": {
     "reject": true
   },
   "mesacny": {
     "reject": true
   },
+  "mestecko": {
+    "reject": true
+  },
+  "mesto": {
+    "commonsFile": "Chicago skyline (215488049).jpg"
+  },
+  "meter": {
+    "commonsFile": "Linkshandzollstock.jpg"
+  },
+  "metoda": {
+    "reject": true
+  },
+  "metropola": {
+    "reject": true
+  },
+  "mienka": {
+    "reject": true
+  },
+  "mier": {
+    "reject": true
+  },
+  "miestnost": {
+    "commonsFile": "Habitació buida. empty room.jpg"
+  },
+  "miesto": {
+    "reject": true
+  },
+  "milacik": {
+    "reject": true
+  },
+  "miliarda": {
+    "reject": true
+  },
+  "milosrdenstvo": {
+    "reject": true
+  },
+  "milost": {
+    "reject": true
+  },
+  "milovnik": {
+    "reject": true
+  },
   "mily": {
     "reject": true
   },
+  "minca": {
+    "commonsFile": "Finnish one euro coin.jpg"
+  },
+  "minister": {
+    "reject": true
+  },
+  "ministerstvo": {
+    "reject": true
+  },
+  "minulost": {
+    "reject": true
+  },
+  "miting": {
+    "reject": true
+  },
+  "mladenec": {
+    "reject": true
+  },
+  "mladez": {
+    "reject": true
+  },
+  "mladi": {
+    "reject": true
+  },
+  "mladik": {
+    "reject": true
+  },
+  "mladost": {
+    "reject": true
+  },
+  "mnich": {
+    "reject": true
+  },
+  "mobil": {
+    "commonsFile": "Apple iPhone X - front (8121).jpg"
+  },
+  "moc": {
+    "reject": true
+  },
+  "moda": {
+    "reject": true
+  },
+  "moderator": {
+    "reject": true
+  },
+  "modlitba": {
+    "reject": true
+  },
+  "moralka": {
+    "reject": true
+  },
+  "moskva": {
+    "commonsFile": "Moscow - St. Basil's Cathedral close-up.jpg"
+  },
+  "moslim": {
+    "reject": true
+  },
+  "motiv": {
+    "reject": true
+  },
+  "motivacia": {
+    "reject": true
+  },
+  "mreza": {
+    "reject": true
+  },
+  "mrtvola": {
+    "reject": true
+  },
+  "mudrost": {
+    "reject": true
+  },
+  "mur": {
+    "commonsFile": "Brick wall close-up view.jpg"
+  },
+  "muz": {
+    "reject": true
+  },
+  "muzeum": {
+    "commonsFile": "Naturhistorisches Museum Wien.Main facade,.jpg"
+  },
+  "muzstvo": {
+    "reject": true
+  },
+  "myslenie": {
+    "reject": true
+  },
+  "myslienka": {
+    "reject": true
+  },
+  "mytus": {
+    "reject": true
+  },
+  "nabytok": {
+    "commonsFile": "Library Chair dakota jackson.jpg"
+  },
+  "nacelnik": {
+    "reject": true
+  },
+  "nadej": {
+    "reject": true
+  },
+  "nadoba": {
+    "commonsFile": "Terracotta Pot.jpg"
+  },
   "nadrz": {
+    "reject": true
+  },
+  "nadsenie": {
+    "reject": true
+  },
+  "nafta": {
+    "commonsFile": "Oil Barrel graphic.svg"
+  },
+  "nahravka": {
+    "reject": true
+  },
+  "najazd": {
+    "reject": true
+  },
+  "najom": {
+    "reject": true
+  },
+  "naklad": {
+    "reject": true
+  },
+  "nakup": {
+    "reject": true
+  },
+  "nalada": {
+    "reject": true
+  },
+  "nalez": {
+    "reject": true
+  },
+  "namaha": {
+    "reject": true
+  },
+  "namestie": {
+    "reject": true
+  },
+  "namestnik": {
+    "reject": true
+  },
+  "namet": {
+    "reject": true
+  },
+  "napad": {
+    "reject": true
+  },
+  "napln": {
+    "reject": true
+  },
+  "napoj": {
+    "commonsFile": "Orange juice 1 edit1.jpg"
+  },
+  "narast-n": {
+    "reject": true
+  },
+  "narodenie": {
+    "reject": true
+  },
+  "narodeniny": {
+    "commonsFile": "Italy - birthday cake with candles 5.jpg"
+  },
+  "narok": {
     "reject": true
   },
   "narucie": {
     "reject": true
   },
+  "nasilie": {
+    "reject": true
+  },
+  "nastroj": {
+    "commonsFile": "Claw-hammer.jpg"
+  },
+  "nastup": {
+    "reject": true
+  },
+  "nastupca": {
+    "reject": true
+  },
+  "navrat": {
+    "reject": true
+  },
+  "navsteva": {
+    "reject": true
+  },
+  "navstevnik": {
+    "reject": true
+  },
+  "nazor": {
+    "reject": true
+  },
+  "nazov": {
+    "reject": true
+  },
+  "nebezpecenstvo": {
+    "commonsFile": "Singapore road sign - Warning - Other danger.svg"
+  },
+  "nedela": {
+    "reject": true
+  },
+  "nedovera": {
+    "reject": true
+  },
+  "nehnutelnost": {
+    "commonsFile": "Newly developed single-family home in northern Germany.jpg"
+  },
+  "nehoda": {
+    "reject": true
+  },
+  "neistota": {
+    "reject": true
+  },
+  "nemec": {
+    "reject": true
+  },
+  "nemocnica": {
+    "reject": true
+  },
+  "nenavist": {
+    "reject": true
+  },
+  "nepriatel": {
+    "reject": true
+  },
+  "nerv": {
+    "reject": true
+  },
+  "nestastie": {
+    "reject": true
+  },
+  "neuspech": {
+    "reject": true
+  },
+  "nevesta": {
+    "commonsFile": "White-wedding-dress.jpg"
+  },
+  "nevyhoda": {
+    "reject": true
+  },
+  "nezamestnanost": {
+    "reject": true
+  },
+  "nezavislost": {
+    "reject": true
+  },
+  "nezmysel": {
+    "reject": true
+  },
   "nie": {
+    "reject": true
+  },
+  "nohavice": {
+    "commonsFile": "Trousers (drawing).jpg"
+  },
+  "norma": {
+    "reject": true
+  },
+  "nositel": {
+    "reject": true
+  },
+  "novacik": {
+    "reject": true
+  },
+  "novela": {
+    "reject": true
+  },
+  "november": {
+    "reject": true
+  },
+  "novina": {
+    "reject": true
+  },
+  "novinar": {
+    "reject": true
+  },
+  "novinka": {
+    "reject": true
+  },
+  "noviny": {
+    "commonsFile": "The Polk County Democrat newspaper front page.jpg"
+  },
+  "nudza": {
+    "reject": true
+  },
+  "nula": {
+    "reject": true
+  },
+  "obal": {
+    "commonsFile": "Box.agr.jpg"
+  },
+  "obalka": {
+    "commonsFile": "Briefumschlag (fcm).jpg"
+  },
+  "obava": {
+    "reject": true
+  },
+  "obcan": {
+    "reject": true
+  },
+  "obcerstvenie": {
+    "commonsFile": "Peanut-Butter-Jelly-Sandwich.jpg"
+  },
+  "obchodnik": {
+    "reject": true
+  },
+  "obchodovanie": {
+    "reject": true
+  },
+  "obdiv": {
     "reject": true
   },
   "obdobie": {
     "reject": true
   },
+  "obet": {
+    "reject": true
+  },
+  "obeta": {
+    "reject": true
+  },
+  "obhajca": {
+    "commonsFile": "Lawyer.svg"
+  },
+  "obhajoba": {
+    "reject": true
+  },
+  "objav": {
+    "reject": true
+  },
+  "objekt": {
+    "reject": true
+  },
+  "objem": {
+    "reject": true
+  },
+  "oblecenie": {
+    "reject": true
+  },
+  "oblok": {
+    "commonsFile": "Imani-bahati-glass-window-with-white-steel-frame.jpg"
+  },
+  "obnova": {
+    "reject": true
+  },
+  "obnovenie": {
+    "reject": true
+  },
+  "obrad": {
+    "reject": true
+  },
+  "obrana": {
+    "reject": true
+  },
+  "obranca": {
+    "reject": true
+  },
+  "obrat": {
+    "reject": true
+  },
+  "obraz": {
+    "commonsFile": "Arthur W Moore (AWM) 8 X10 Oil Painting in original frame.jpg"
+  },
+  "obrazok": {
+    "commonsFile": "Arthur W Moore (AWM) 8 X10 Oil Painting in original frame.jpg"
+  },
+  "obrazovka": {
+    "commonsFile": "Dell Computer Monitor.png"
+  },
   "obsadenie": {
+    "reject": true
+  },
+  "obsah": {
+    "reject": true
+  },
+  "obstaravanie": {
+    "reject": true
+  },
+  "obvod": {
+    "reject": true
+  },
+  "obyvacka": {
+    "commonsFile": "Cozy living room with a gray sofa.jpg"
+  },
+  "obzalovany": {
+    "reject": true
+  },
+  "ocakavanie": {
+    "reject": true
+  },
+  "ocean": {
+    "commonsFile": "Waves July 2009-1.jpg"
+  },
+  "ocenenie": {
+    "reject": true
+  },
+  "ochorenie": {
+    "reject": true
+  },
+  "ochrana": {
+    "reject": true
+  },
+  "ocko": {
+    "reject": true
+  },
+  "ockovanie": {
+    "reject": true
+  },
+  "odberatel": {
+    "reject": true
+  },
+  "odborar": {
+    "reject": true
+  },
+  "odbornik": {
+    "reject": true
+  },
+  "odchod": {
+    "reject": true
+  },
+  "oddych": {
+    "reject": true
+  },
+  "odev": {
+    "reject": true
+  },
+  "odhad": {
+    "reject": true
+  },
+  "odkaz": {
+    "reject": true
+  },
+  "odmena": {
+    "reject": true
+  },
+  "odnatie": {
+    "reject": true
+  },
+  "odporca": {
+    "reject": true
+  },
+  "odpoved": {
+    "reject": true
+  },
+  "odpustenie": {
+    "reject": true
+  },
+  "odstranenie": {
+    "reject": true
+  },
+  "odstup": {
+    "reject": true
+  },
+  "odvaha": {
+    "reject": true
+  },
+  "odveta": {
+    "reject": true
+  },
+  "odvetvie": {
+    "reject": true
+  },
+  "odvod": {
+    "reject": true
+  },
+  "odvolanie": {
+    "reject": true
+  },
+  "ohlad": {
+    "reject": true
+  },
+  "ohrozenie": {
+    "reject": true
+  },
+  "okolie": {
+    "reject": true
+  },
+  "okraj": {
+    "reject": true
+  },
+  "okres": {
+    "reject": true
+  },
+  "okruh": {
+    "reject": true
+  },
+  "oktober": {
+    "reject": true
+  },
+  "okuliare": {
+    "commonsFile": "Black Titanium Frame Eyeglasses, JINS MTF-16S-151B, 1.jpg"
+  },
+  "olej": {
+    "commonsFile": "Bottle of olive oil.jpg"
+  },
+  "oltar": {
     "reject": true
   },
   "omsa": {
     "reject": true
   },
+  "omyl": {
+    "reject": true
+  },
+  "opak": {
+    "reject": true
+  },
+  "opatrenie": {
+    "reject": true
+  },
+  "operator": {
+    "reject": true
+  },
+  "opora": {
+    "reject": true
+  },
+  "oprava": {
+    "reject": true
+  },
+  "optimizmus": {
+    "reject": true
+  },
+  "orchester": {
+    "reject": true
+  },
+  "organ": {
+    "reject": true
+  },
+  "organizator": {
+    "reject": true
+  },
+  "organizovanie": {
+    "reject": true
+  },
+  "original": {
+    "reject": true
+  },
+  "osada": {
+    "reject": true
+  },
+  "oslabenie": {
+    "reject": true
+  },
+  "ostrov": {
+    "reject": true
+  },
+  "osud": {
+    "reject": true
+  },
+  "osvetlenie": {
+    "reject": true
+  },
+  "otvor": {
+    "reject": true
+  },
+  "otvorenie": {
+    "reject": true
+  },
+  "ovca": {
+    "commonsFile": "Swaledale Sheep, Lake District, England - June 2009.jpg"
+  },
+  "ovocie": {
+    "commonsFile": "Fruit-49740 bananas apples tangerines - Hans Braxmeier.jpg"
+  },
+  "ovzdusie": {
+    "reject": true
+  },
+  "ozivenie": {
+    "reject": true
+  },
+  "pachatel": {
+    "reject": true
+  },
   "pacient": {
+    "reject": true
+  },
+  "pad": {
+    "reject": true
+  },
+  "palac": {
+    "reject": true
+  },
+  "paluba": {
     "reject": true
   },
   "palubovka": {
     "reject": true
   },
+  "pamatnik": {
+    "reject": true
+  },
+  "pamiatka": {
+    "reject": true
+  },
   "pan": {
+    "reject": true
+  },
+  "pani": {
+    "reject": true
+  },
+  "panna": {
+    "reject": true
+  },
+  "papez": {
+    "reject": true
+  },
+  "papier": {
+    "commonsFile": "Paper 450x450.jpg"
+  },
+  "par": {
+    "reject": true
+  },
+  "parameter": {
+    "reject": true
+  },
+  "pariz": {
+    "commonsFile": "Tour Eiffel Wikimedia Commons.jpg"
+  },
+  "park": {
+    "reject": true
+  },
+  "parkovanie": {
+    "reject": true
+  },
+  "parlament": {
+    "reject": true
+  },
+  "partizanske": {
+    "reject": true
+  },
+  "partner": {
     "reject": true
   },
   "pasmo": {
     "reject": true
   },
+  "pastier": {
+    "reject": true
+  },
+  "patranie": {
+    "reject": true
+  },
+  "pauza": {
+    "reject": true
+  },
+  "pec": {
+    "commonsFile": "Gas stove in Italy.jpg"
+  },
+  "pedagog": {
+    "reject": true
+  },
+  "peklo": {
+    "reject": true
+  },
+  "penalta": {
+    "reject": true
+  },
+  "penazenka": {
+    "commonsFile": "Python skin wallet, closed, 2015-03-18.jpg"
+  },
+  "peniaz": {
+    "commonsFile": "Finnish one euro coin.jpg"
+  },
+  "peniaze": {
+    "reject": true
+  },
+  "pera": {
+    "commonsFile": "Peacock feather close-up.jpg"
+  },
+  "personal": {
+    "reject": true
+  },
+  "perspektiva": {
+    "reject": true
+  },
+  "pes": {
+    "commonsFile": "Lab-yellow2.jpg"
+  },
+  "pesnicka": {
+    "reject": true
+  },
+  "pevnost": {
+    "reject": true
+  },
   "pevny": {
     "reject": true
   },
+  "piatok": {
+    "reject": true
+  },
+  "piesen": {
+    "reject": true
+  },
+  "pilier": {
+    "reject": true
+  },
+  "pisanie": {
+    "reject": true
+  },
+  "pismeno": {
+    "reject": true
+  },
+  "pismo": {
+    "reject": true
+  },
+  "pivo": {
+    "commonsFile": "Beer wuerzburger hofbraue v.jpg"
+  },
+  "plagat": {
+    "reject": true
+  },
+  "plan": {
+    "reject": true
+  },
+  "planeta": {
+    "commonsFile": "Portrait of Jupiter from Cassini.jpg"
+  },
+  "plast": {
+    "reject": true
+  },
+  "plat": {
+    "reject": true
+  },
+  "platba": {
+    "reject": true
+  },
+  "platenie": {
+    "reject": true
+  },
+  "platforma": {
+    "reject": true
+  },
+  "platno": {
+    "reject": true
+  },
+  "plaz": {
+    "reject": true
+  },
+  "plece": {
+    "reject": true
+  },
+  "ples": {
+    "reject": true
+  },
+  "pleso": {
+    "reject": true
+  },
+  "plod": {
+    "reject": true
+  },
+  "plot": {
+    "reject": true
+  },
+  "pluca": {
+    "reject": true
+  },
+  "plus": {
+    "reject": true
+  },
+  "plyn": {
+    "reject": true
+  },
+  "pneumatika": {
+    "commonsFile": "Traktorreifen.jpg"
+  },
+  "pobocka": {
+    "reject": true
+  },
+  "pobrezie": {
+    "reject": true
+  },
   "pobyt": {
+    "reject": true
+  },
+  "pocasie": {
+    "reject": true
+  },
+  "pochod": {
+    "reject": true
+  },
+  "pochybnost": {
+    "reject": true
+  },
+  "pociatok": {
+    "reject": true
+  },
+  "pocitac": {
+    "commonsFile": "IBM Thinkpad R51.jpg"
+  },
+  "poda": {
+    "reject": true
+  },
+  "podakovanie": {
     "reject": true
   },
   "podiel": {
@@ -248,23 +2447,401 @@
   "podielovy": {
     "reject": true
   },
+  "podium": {
+    "reject": true
+  },
+  "podklad": {
+    "reject": true
+  },
+  "podlaha": {
+    "reject": true
+  },
+  "podnet": {
+    "reject": true
+  },
+  "podnik": {
+    "reject": true
+  },
+  "podnikanie": {
+    "reject": true
+  },
+  "podnikatel": {
+    "reject": true
+  },
+  "podohospodarstvo": {
+    "reject": true
+  },
+  "podozrenie": {
+    "reject": true
+  },
+  "podpis": {
+    "reject": true
+  },
+  "podpora": {
+    "reject": true
+  },
+  "podrobnost": {
+    "reject": true
+  },
+  "podujatie": {
+    "reject": true
+  },
+  "podvod": {
+    "reject": true
+  },
+  "poezia": {
+    "reject": true
+  },
+  "pohlad": {
+    "reject": true
+  },
+  "pohladavka": {
+    "reject": true
+  },
+  "pohoda": {
+    "reject": true
+  },
+  "pohreb": {
+    "reject": true
+  },
+  "poklad": {
+    "reject": true
+  },
+  "pokladnica": {
+    "reject": true
+  },
+  "pokles": {
+    "reject": true
+  },
+  "pokoj": {
+    "reject": true
+  },
+  "pokrok": {
+    "reject": true
+  },
+  "pokus": {
+    "reject": true
+  },
+  "pokusenie": {
+    "reject": true
+  },
+  "pokuta": {
+    "reject": true
+  },
+  "pole": {
+    "commonsFile": "Close up shot of wheat fields taken before dawn.jpg"
+  },
+  "policajt": {
+    "commonsFile": "Policeman by mimooh.svg"
+  },
+  "policia": {
+    "commonsFile": "Police Car.svg"
+  },
+  "poliklinika": {
+    "reject": true
+  },
+  "politik": {
+    "reject": true
+  },
+  "politika": {
+    "reject": true
+  },
+  "polnohospodarstvo": {
+    "reject": true
+  },
+  "polovica": {
+    "reject": true
+  },
+  "polozka": {
+    "reject": true
+  },
+  "polrok": {
+    "reject": true
+  },
+  "pomenovanie": {
+    "reject": true
+  },
   "pomoc": {
+    "reject": true
+  },
+  "pomocnik": {
+    "reject": true
+  },
+  "pondelok": {
+    "reject": true
+  },
+  "ponuka": {
+    "reject": true
+  },
+  "popoludnie": {
+    "reject": true
+  },
+  "poprad": {
     "reject": true
   },
   "porada": {
     "reject": true
   },
+  "poradca": {
+    "reject": true
+  },
+  "poradenstvo": {
+    "reject": true
+  },
+  "porazka": {
+    "reject": true
+  },
+  "porota": {
+    "reject": true
+  },
+  "porovnanie": {
+    "reject": true
+  },
+  "portal": {
+    "commonsFile": "Portal of St. Andrew's Church.jpg"
+  },
+  "portfolio": {
+    "reject": true
+  },
   "porucha": {
+    "reject": true
+  },
+  "posadka": {
+    "reject": true
+  },
+  "poschodie": {
+    "commonsFile": "5 floors - Residential Apartment - Nishapur Simorgh st 2.jpg"
+  },
+  "posilnenie": {
+    "reject": true
+  },
+  "poskodenie": {
+    "reject": true
+  },
+  "poskytovatel": {
+    "reject": true
+  },
+  "poslanec": {
+    "reject": true
+  },
+  "posluchac": {
+    "reject": true
+  },
+  "posolstvo": {
+    "reject": true
+  },
+  "post": {
+    "reject": true
+  },
+  "postava": {
+    "reject": true
+  },
+  "postel": {
+    "commonsFile": "Steel double bed.svg"
+  },
+  "postup": {
+    "reject": true
+  },
+  "posun": {
+    "reject": true
+  },
+  "potencial": {
+    "reject": true
+  },
+  "potesenie": {
+    "reject": true
+  },
+  "potok": {
+    "reject": true
+  },
+  "potomok": {
+    "reject": true
+  },
+  "potreba": {
+    "reject": true
+  },
+  "potvrdenie": {
+    "reject": true
+  },
+  "pouzivatel": {
+    "reject": true
+  },
+  "povaha": {
+    "reject": true
+  },
+  "poviedka": {
+    "reject": true
+  },
+  "povinnost": {
+    "reject": true
+  },
+  "povod": {
+    "reject": true
+  },
+  "povoden": {
+    "reject": true
+  },
+  "povrch": {
+    "reject": true
+  },
+  "povstanie": {
+    "reject": true
+  },
+  "pozadie": {
+    "reject": true
+  },
+  "pozehnanie": {
+    "reject": true
+  },
+  "pozemok": {
+    "reject": true
+  },
+  "poziar": {
+    "commonsFile": "FIRE 01.JPG"
+  },
+  "pozicka": {
     "reject": true
   },
   "poznamka": {
     "reject": true
   },
+  "poznanie": {
+    "reject": true
+  },
+  "poznatok": {
+    "reject": true
+  },
+  "pozor": {
+    "reject": true
+  },
+  "pozornost": {
+    "reject": true
+  },
+  "pozorovatel": {
+    "reject": true
+  },
+  "praca": {
+    "reject": true
+  },
+  "prach": {
+    "commonsFile": "AgCO3-powder-C-white-background.jpg"
+  },
+  "pracovisko": {
+    "reject": true
+  },
+  "pracovnicka": {
+    "reject": true
+  },
+  "pracovnik": {
+    "reject": true
+  },
+  "prah": {
+    "reject": true
+  },
+  "praha": {
+    "commonsFile": "Prague Castle from Clocktower.jpg"
+  },
+  "praktika": {
+    "reject": true
+  },
+  "pramen": {
+    "reject": true
+  },
+  "pravda": {
+    "reject": true
+  },
+  "pravica": {
+    "reject": true
+  },
+  "pravidlo": {
+    "reject": true
+  },
+  "pravomoc": {
+    "reject": true
+  },
+  "prax": {
+    "reject": true
+  },
+  "prazdniny": {
+    "reject": true
+  },
+  "prechadzka": {
+    "reject": true
+  },
   "predaj": {
+    "reject": true
+  },
+  "predajca": {
+    "reject": true
+  },
+  "predchodca": {
+    "reject": true
+  },
+  "predmet": {
+    "reject": true
+  },
+  "prednaska": {
+    "reject": true
+  },
+  "prednosta": {
+    "reject": true
+  },
+  "predok": {
     "reject": true
   },
   "predpoved": {
     "reject": true
+  },
+  "predseda": {
+    "reject": true
+  },
+  "predsednictvo": {
+    "reject": true
+  },
+  "predstava": {
+    "reject": true
+  },
+  "predstavenie": {
+    "reject": true
+  },
+  "predstavenstvo": {
+    "reject": true
+  },
+  "predstavitel": {
+    "reject": true
+  },
+  "prehlad": {
+    "reject": true
+  },
+  "prehra": {
+    "reject": true
+  },
+  "prekazka": {
+    "commonsFile": "Hurdle on athletic track.jpg"
+  },
+  "preklad": {
+    "reject": true
+  },
+  "prekvapenie": {
+    "reject": true
+  },
+  "prelom": {
+    "reject": true
+  },
+  "premavka": {
+    "reject": true
+  },
+  "premia": {
+    "reject": true
+  },
+  "premier": {
+    "reject": true
+  },
+  "premiera": {
+    "reject": true
+  },
+  "prenajom": {
+    "commonsFile": "For-rent-sign.jpg"
   },
   "prenos": {
     "reject": true
@@ -272,25 +2849,136 @@
   "prepacte": {
     "reject": true
   },
+  "prepad": {
+    "reject": true
+  },
+  "preprava": {
+    "commonsFile": "Container ship Reecon Whale on Black Sea near Constanța Romania.jpg"
+  },
+  "prepustanie": {
+    "reject": true
+  },
   "presilovka": {
+    "reject": true
+  },
+  "presov": {
+    "commonsFile": "Prešov dóm.jpg"
+  },
+  "prestavka": {
     "reject": true
   },
   "prestup": {
     "reject": true
   },
+  "presun": {
+    "reject": true
+  },
+  "presvedcenie": {
+    "reject": true
+  },
+  "pretekar": {
+    "reject": true
+  },
+  "prevadzkovatel": {
+    "reject": true
+  },
   "prevod": {
+    "reject": true
+  },
+  "prezentacia": {
+    "reject": true
+  },
+  "prezident": {
+    "reject": true
+  },
+  "prezitie": {
+    "reject": true
+  },
+  "priatel": {
+    "reject": true
+  },
+  "priatelka": {
+    "reject": true
+  },
+  "priatelstvo": {
+    "reject": true
+  },
+  "priaznivec": {
+    "reject": true
+  },
+  "pribeh": {
+    "reject": true
+  },
+  "prichod": {
+    "reject": true
+  },
+  "pricina": {
+    "reject": true
+  },
+  "priebeh": {
     "reject": true
   },
   "priecka": {
     "reject": true
   },
+  "priemer": {
+    "reject": true
+  },
+  "priemysel": {
+    "reject": true
+  },
   "prieskum": {
+    "reject": true
+  },
+  "priestupok": {
+    "reject": true
+  },
+  "prievidza": {
+    "reject": true
+  },
+  "priezvisko": {
+    "reject": true
+  },
+  "prihoda": {
     "reject": true
   },
   "prihravka": {
     "reject": true
   },
+  "prijem": {
+    "reject": true
+  },
+  "priklad": {
+    "reject": true
+  },
+  "primator": {
+    "reject": true
+  },
   "primerany": {
+    "reject": true
+  },
+  "princezna": {
+    "reject": true
+  },
+  "princip": {
+    "reject": true
+  },
+  "prinos": {
+    "reject": true
+  },
+  "pripomienka": {
+    "reject": true
+  },
+  "priroda": {
+    "commonsFile": "Spring forest Yyteri 3.jpg"
+  },
+  "prislub": {
+    "reject": true
+  },
+  "pristav": {
+    "reject": true
+  },
+  "pristup": {
     "reject": true
   },
   "pritomny": {
@@ -299,10 +2987,67 @@
   "problematika": {
     "reject": true
   },
+  "producent": {
+    "reject": true
+  },
+  "produkt": {
+    "commonsFile": "Cardboard box.jpg"
+  },
+  "profesia": {
+    "reject": true
+  },
+  "profesional": {
+    "reject": true
+  },
   "prognoza": {
     "reject": true
   },
+  "program": {
+    "reject": true
+  },
+  "projekt": {
+    "reject": true
+  },
+  "prokurator": {
+    "reject": true
+  },
+  "prokuratura": {
+    "reject": true
+  },
+  "prorok": {
+    "reject": true
+  },
+  "prosba": {
+    "reject": true
+  },
   "prosim": {
+    "reject": true
+  },
+  "prospech": {
+    "reject": true
+  },
+  "prostriedok": {
+    "reject": true
+  },
+  "protiutok": {
+    "reject": true
+  },
+  "protivnik": {
+    "reject": true
+  },
+  "proza": {
+    "reject": true
+  },
+  "prud": {
+    "reject": true
+  },
+  "prvenstvo": {
+    "reject": true
+  },
+  "psycholog": {
+    "reject": true
+  },
+  "publikacia": {
     "reject": true
   },
   "puk": {
@@ -311,10 +3056,88 @@
   "pult": {
     "reject": true
   },
+  "puska": {
+    "commonsFile": "VZ 52 Rifle.JPG"
+  },
+  "put": {
+    "reject": true
+  },
+  "rad-n": {
+    "reject": true
+  },
+  "rada": {
+    "reject": true
+  },
+  "radio": {
+    "commonsFile": "Zenith 8 transistor radio.agr.jpg"
+  },
+  "radnica": {
+    "commonsFile": "Bratislava Old Town Hall.jpg"
+  },
+  "raj": {
+    "reject": true
+  },
+  "rakovina": {
+    "reject": true
+  },
+  "rano": {
+    "reject": true
+  },
+  "rastlina": {
+    "commonsFile": "Ponytail Palm Houseplant.jpg"
+  },
+  "rating": {
+    "reject": true
+  },
+  "rebricek": {
+    "commonsFile": "Ladder aluminum.jpg"
+  },
+  "rec": {
+    "reject": true
+  },
+  "recept": {
+    "reject": true
+  },
+  "redakcia": {
+    "reject": true
+  },
+  "redaktor": {
+    "reject": true
+  },
+  "redaktorka": {
+    "reject": true
+  },
+  "referendum": {
+    "reject": true
+  },
+  "reforma": {
+    "reject": true
+  },
+  "region": {
+    "reject": true
+  },
+  "register": {
+    "reject": true
+  },
+  "reklama": {
+    "reject": true
+  },
   "rekord": {
     "reject": true
   },
   "rekordny": {
+    "reject": true
+  },
+  "rektor": {
+    "reject": true
+  },
+  "relacia": {
+    "reject": true
+  },
+  "remiza": {
+    "reject": true
+  },
+  "reprezentant": {
     "reject": true
   },
   "repriza": {
@@ -323,13 +3146,187 @@
   "republika": {
     "reject": true
   },
+  "respekt": {
+    "reject": true
+  },
+  "respondent": {
+    "reject": true
+  },
+  "revolucia": {
+    "reject": true
+  },
+  "rezerva": {
+    "reject": true
+  },
+  "reziser": {
+    "reject": true
+  },
+  "rezort": {
+    "reject": true
+  },
+  "riaditel": {
+    "reject": true
+  },
+  "riaditelka": {
+    "reject": true
+  },
+  "riaditelstvo": {
+    "reject": true
+  },
   "riadny": {
+    "reject": true
+  },
+  "rim": {
+    "commonsFile": "Colosseum in Rome-April 2007-1- copie 2B.jpg"
+  },
+  "rival": {
+    "reject": true
+  },
+  "riziko": {
+    "reject": true
+  },
+  "robota": {
+    "reject": true
+  },
+  "robotnik": {
+    "reject": true
+  },
+  "roh": {
+    "reject": true
+  },
+  "rokovanie": {
+    "reject": true
+  },
+  "roman": {
+    "reject": true
+  },
+  "ropa": {
+    "reject": true
+  },
+  "rovina": {
+    "reject": true
+  },
+  "rozhodca": {
+    "reject": true
+  },
+  "rozhovor": {
+    "reject": true
+  },
+  "rozlucka": {
+    "reject": true
+  },
+  "rozmer": {
+    "reject": true
+  },
+  "rozpad": {
+    "reject": true
+  },
+  "rozpocet": {
+    "reject": true
+  },
+  "rozpravka": {
+    "reject": true
+  },
+  "rozsah": {
     "reject": true
   },
   "rozum": {
     "reject": true
   },
+  "rozvod": {
+    "reject": true
+  },
+  "rubrika": {
+    "reject": true
+  },
+  "ruch": {
+    "reject": true
+  },
+  "rura": {
+    "commonsFile": "1 inch PVC Valve and pipe-IMG 1061.jpg"
+  },
+  "rus": {
+    "reject": true
+  },
+  "ruzomberok": {
+    "reject": true
+  },
+  "rychlost": {
+    "reject": true
+  },
+  "rytier": {
+    "reject": true
+  },
+  "rytmus": {
+    "reject": true
+  },
+  "sala": {
+    "commonsFile": "EmptyWebbAuditorium.jpg"
+  },
+  "salon": {
+    "commonsFile": "Hair Salon Stations.jpg"
+  },
+  "samosprava": {
+    "reject": true
+  },
+  "samota": {
+    "reject": true
+  },
+  "samovrazda": {
+    "reject": true
+  },
+  "sampion": {
+    "commonsFile": "Blue Darter Trophy.jpg"
+  },
+  "saty": {
+    "commonsFile": "Tent dress.jpg"
+  },
+  "scena": {
+    "reject": true
+  },
+  "scenar": {
+    "commonsFile": "Screenplay example.svg"
+  },
+  "schema": {
+    "reject": true
+  },
   "schodza": {
+    "reject": true
+  },
+  "schvalenie": {
+    "reject": true
+  },
+  "sedadlo": {
+    "commonsFile": "Library Chair dakota jackson.jpg"
+  },
+  "sef": {
+    "reject": true
+  },
+  "sekretar": {
+    "reject": true
+  },
+  "sekretariat": {
+    "reject": true
+  },
+  "sektor": {
+    "reject": true
+  },
+  "semifinale": {
+    "reject": true
+  },
+  "seminar": {
+    "reject": true
+  },
+  "sen": {
+    "reject": true
+  },
+  "senat": {
+    "reject": true
+  },
+  "senior": {
+    "commonsFile": "Elderly Gambian woman face portrait.jpg"
+  },
+  "september": {
     "reject": true
   },
   "seria": {
@@ -338,14 +3335,176 @@
   "serial": {
     "reject": true
   },
+  "servis": {
+    "reject": true
+  },
+  "sestnastka": {
+    "reject": true
+  },
+  "sestricka": {
+    "reject": true
+  },
+  "sezona": {
+    "reject": true
+  },
+  "show": {
+    "reject": true
+  },
+  "sidlo": {
+    "reject": true
+  },
+  "sien": {
+    "commonsFile": "EmptyWebbAuditorium.jpg"
+  },
+  "siet": {
+    "commonsFile": "Orange texture made of a fishing net on a wooden board at golden hour.jpg"
+  },
+  "signal": {
+    "reject": true
+  },
+  "sila": {
+    "reject": true
+  },
+  "sirenie": {
+    "reject": true
+  },
+  "skala": {
+    "reject": true
+  },
+  "skalica": {
+    "reject": true
+  },
+  "skandal": {
+    "reject": true
+  },
+  "sklad": {
+    "reject": true
+  },
+  "skladatel": {
+    "commonsFile": "Johann Sebastian Bach.jpg"
+  },
+  "sklamanie": {
+    "reject": true
+  },
+  "skoda": {
+    "reject": true
+  },
+  "skok": {
+    "reject": true
+  },
+  "skola": {
+    "commonsFile": "School №41 of Gyumri exterior 3.jpg"
+  },
+  "skolenie": {
+    "reject": true
+  },
+  "skolka": {
+    "reject": true
+  },
+  "skoncenie": {
+    "reject": true
+  },
+  "skupinka": {
+    "reject": true
+  },
   "skuseny": {
+    "reject": true
+  },
+  "skuska": {
+    "reject": true
+  },
+  "slalom": {
+    "reject": true
+  },
+  "slava": {
     "reject": true
   },
   "slecna": {
     "reject": true
   },
+  "sledovanie": {
+    "reject": true
+  },
   "slnecny": {
     "reject": true
+  },
+  "sloboda": {
+    "reject": true
+  },
+  "slovak": {
+    "reject": true
+  },
+  "slovencina": {
+    "reject": true
+  },
+  "slovo": {
+    "reject": true
+  },
+  "slub": {
+    "reject": true
+  },
+  "sluha": {
+    "reject": true
+  },
+  "sluzba": {
+    "reject": true
+  },
+  "slza": {
+    "reject": true
+  },
+  "smernica": {
+    "reject": true
+  },
+  "smola": {
+    "reject": true
+  },
+  "snaha": {
+    "reject": true
+  },
+  "sneh": {
+    "commonsFile": "Textures of snow at Selawik National Wildlife Refuge (52828336230).jpg"
+  },
+  "snem": {
+    "reject": true
+  },
+  "snimka": {
+    "reject": true
+  },
+  "snura": {
+    "commonsFile": "Coiled rope 03235.jpg"
+  },
+  "sobas": {
+    "commonsFile": "Wedding rings 2017 (Unsplash).jpg"
+  },
+  "sobota": {
+    "reject": true
+  },
+  "socializmus": {
+    "reject": true
+  },
+  "softver": {
+    "reject": true
+  },
+  "sok": {
+    "reject": true
+  },
+  "solidarita": {
+    "reject": true
+  },
+  "sou": {
+    "reject": true
+  },
+  "specialista": {
+    "reject": true
+  },
+  "spekulacia": {
+    "reject": true
+  },
+  "spev": {
+    "reject": true
+  },
+  "spevacka": {
+    "commonsFile": "Marievolta.jpg"
   },
   "spicka": {
     "reject": true
@@ -356,13 +3515,136 @@
   "spis": {
     "reject": true
   },
+  "spisovatel": {
+    "commonsFile": "Étienne Carjat, Portrait of Charles Baudelaire, circa 1862.jpg"
+  },
+  "spojenec": {
+    "reject": true
+  },
+  "spolocenstvo": {
+    "reject": true
+  },
+  "spolocnik": {
+    "reject": true
+  },
+  "spolocnost": {
+    "reject": true
+  },
+  "spoluhrac": {
+    "reject": true
+  },
+  "spolupraca": {
+    "reject": true
+  },
+  "spolupracovnik": {
+    "reject": true
+  },
+  "spoluziak": {
+    "reject": true
+  },
+  "sponzor": {
+    "reject": true
+  },
+  "spor": {
+    "reject": true
+  },
+  "sporenie": {
+    "reject": true
+  },
+  "sport": {
+    "reject": true
+  },
+  "sportovec": {
+    "reject": true
+  },
+  "spracovanie": {
+    "reject": true
+  },
+  "sprava": {
+    "reject": true
+  },
+  "spravanie": {
+    "reject": true
+  },
+  "spravca": {
+    "reject": true
+  },
+  "spravodajstvo": {
+    "reject": true
+  },
+  "spravodlivost": {
+    "reject": true
+  },
+  "sprievod": {
+    "reject": true
+  },
+  "sprievodca": {
+    "reject": true
+  },
+  "spustenie": {
+    "reject": true
+  },
+  "stab": {
+    "reject": true
+  },
   "stabilny": {
     "reject": true
+  },
+  "stadium": {
+    "reject": true
+  },
+  "standard": {
+    "reject": true
+  },
+  "stanica": {
+    "commonsFile": "Venyov (Tula Oblast) 03-2014 img14 train station.jpg"
+  },
+  "stanok": {
+    "commonsFile": "Kiosk, Astana (P1190769).jpg"
+  },
+  "starost": {
+    "reject": true
+  },
+  "starostlivost": {
+    "reject": true
+  },
+  "start": {
+    "reject": true
+  },
+  "statut": {
+    "reject": true
+  },
+  "staznost": {
+    "reject": true
+  },
+  "stena": {
+    "commonsFile": "Brick wall close-up view.jpg"
+  },
+  "stihanie": {
+    "reject": true
+  },
+  "stol": {
+    "commonsFile": "Parsons Table.jpg"
+  },
+  "stolica": {
+    "reject": true
+  },
+  "stolik": {
+    "commonsFile": "Back side table pine top with mango wood legs side.png"
   },
   "stolny": {
     "reject": true
   },
   "stopa": {
+    "reject": true
+  },
+  "storocie": {
+    "reject": true
+  },
+  "stovka": {
+    "reject": true
+  },
+  "strach": {
     "reject": true
   },
   "strajk": {
@@ -374,10 +3656,94 @@
   "stranka": {
     "reject": true
   },
+  "strata": {
+    "reject": true
+  },
+  "strategia": {
+    "reject": true
+  },
+  "straz": {
+    "reject": true
+  },
+  "strazca": {
+    "reject": true
+  },
+  "strecha": {
+    "commonsFile": "Wet Roof Tiles.jpg"
+  },
+  "stred": {
+    "reject": true
+  },
+  "streda": {
+    "reject": true
+  },
+  "stredisko": {
+    "reject": true
+  },
+  "strela": {
+    "commonsFile": "M855A1 cartridge and bullet.jpg"
+  },
+  "strelba": {
+    "reject": true
+  },
+  "strelec": {
+    "reject": true
+  },
+  "stres": {
+    "reject": true
+  },
   "stretnutie": {
     "reject": true
   },
+  "stroj": {
+    "reject": true
+  },
+  "strop": {
+    "reject": true
+  },
+  "stryko": {
+    "reject": true
+  },
+  "studentka": {
+    "reject": true
+  },
+  "studia": {
+    "reject": true
+  },
+  "studio": {
+    "reject": true
+  },
+  "studium": {
+    "reject": true
+  },
+  "stupen": {
+    "reject": true
+  },
+  "stvorhra": {
+    "reject": true
+  },
+  "stvrt": {
+    "reject": true
+  },
+  "stvrtina": {
+    "reject": true
+  },
+  "stvrtok": {
+    "reject": true
+  },
+  "stvrtrok": {
+    "reject": true
+  },
+  "styk": {
+    "reject": true
+  },
+  "styl": {
+    "reject": true
+  },
   "subjekt": {
+    "reject": true
+  },
+  "suboj": {
     "reject": true
   },
   "subor": {
@@ -389,16 +3755,169 @@
   "sucasny": {
     "reject": true
   },
+  "sud": {
+    "reject": true
+  },
+  "sudca": {
+    "commonsFile": "Wilbur-Miller-Portrait.png"
+  },
+  "sukromie": {
+    "reject": true
+  },
+  "suma": {
+    "reject": true
+  },
+  "summit": {
+    "reject": true
+  },
+  "super": {
+    "reject": true
+  },
+  "sused": {
+    "reject": true
+  },
+  "sutaz": {
+    "reject": true
+  },
+  "svadba": {
+    "reject": true
+  },
+  "sval": {
+    "reject": true
+  },
+  "svedectvo": {
+    "reject": true
+  },
+  "svedomie": {
+    "reject": true
+  },
+  "svet": {
+    "commonsFile": "The Earth seen from Apollo 17.jpg"
+  },
+  "sviatok": {
+    "reject": true
+  },
+  "sviatost": {
+    "reject": true
+  },
+  "syn": {
+    "reject": true
+  },
+  "syr": {
+    "commonsFile": "WikiCheese - Gouda jeune 04.jpg"
+  },
+  "tabor": {
+    "reject": true
+  },
   "tabula": {
     "reject": true
   },
   "tabulka": {
     "reject": true
   },
+  "tah": {
+    "reject": true
+  },
+  "tajomnik": {
+    "reject": true
+  },
+  "tajomstvo": {
+    "reject": true
+  },
+  "talent": {
+    "reject": true
+  },
+  "tanec": {
+    "reject": true
+  },
+  "taska": {
+    "commonsFile": "White paper bag.svg"
+  },
+  "tazba": {
+    "reject": true
+  },
+  "tazkost": {
+    "reject": true
+  },
+  "technika": {
+    "reject": true
+  },
+  "technologia": {
+    "reject": true
+  },
+  "teleso": {
+    "reject": true
+  },
+  "televizia": {
+    "reject": true
+  },
+  "telo": {
+    "reject": true
+  },
+  "telocvicna": {
+    "reject": true
+  },
+  "tema": {
+    "reject": true
+  },
+  "tempo": {
+    "reject": true
+  },
+  "tender": {
+    "reject": true
+  },
+  "tenis": {
+    "reject": true
+  },
+  "tenista": {
+    "reject": true
+  },
+  "teologia": {
+    "reject": true
+  },
+  "teoria": {
+    "reject": true
+  },
   "terajsi": {
     "reject": true
   },
+  "terasa": {
+    "reject": true
+  },
+  "terc": {
+    "commonsFile": "WA 80 cm archery target.svg"
+  },
+  "teren": {
+    "reject": true
+  },
+  "termin": {
+    "reject": true
+  },
+  "terorista": {
+    "reject": true
+  },
+  "terorizmus": {
+    "reject": true
+  },
+  "test": {
+    "reject": true
+  },
+  "teta": {
+    "reject": true
+  },
+  "ticho": {
+    "reject": true
+  },
+  "tim": {
+    "reject": true
+  },
   "tip": {
+    "reject": true
+  },
+  "tisicka": {
+    "reject": true
+  },
+  "tisicrocie": {
     "reject": true
   },
   "titulok": {
@@ -410,28 +3929,640 @@
   "tlacovy": {
     "reject": true
   },
+  "tma": {
+    "reject": true
+  },
   "ton": {
+    "reject": true
+  },
+  "tovar": {
+    "reject": true
+  },
+  "tovaren": {
+    "reject": true
+  },
+  "tradicia": {
+    "reject": true
+  },
+  "tragedia": {
     "reject": true
   },
   "trat": {
     "reject": true
   },
+  "travnik": {
+    "reject": true
+  },
+  "trend": {
+    "reject": true
+  },
+  "trener": {
+    "reject": true
+  },
+  "trening": {
+    "reject": true
+  },
+  "trest": {
+    "reject": true
+  },
+  "tretina": {
+    "reject": true
+  },
+  "trh": {
+    "reject": true
+  },
+  "tricko": {
+    "commonsFile": "T-shirt (HotPink).svg"
+  },
+  "trieda": {
+    "reject": true
+  },
+  "triumf": {
+    "reject": true
+  },
+  "trofej": {
+    "commonsFile": "Blue Darter Trophy.jpg"
+  },
+  "trojica": {
+    "reject": true
+  },
+  "trojka": {
+    "reject": true
+  },
+  "trpezlivost": {
+    "reject": true
+  },
+  "trzba": {
+    "reject": true
+  },
+  "tuk": {
+    "commonsFile": "Stick-of-butter-salted.jpg"
+  },
+  "tunel": {
+    "commonsFile": "Pregasina tunnel east entrance, Pregasina, Trient, Italy.jpg"
+  },
+  "turista": {
+    "reject": true
+  },
+  "turistika": {
+    "reject": true
+  },
+  "turne": {
+    "reject": true
+  },
+  "tuzba": {
+    "reject": true
+  },
+  "tvar": {
+    "commonsFile": "Tajikistangirlportrait.jpg"
+  },
+  "tvar-n": {
+    "reject": true
+  },
+  "tvorca": {
+    "reject": true
+  },
+  "tvrdenie": {
+    "reject": true
+  },
+  "tyzdennik": {
+    "reject": true
+  },
+  "ucastnik": {
+    "reject": true
+  },
+  "ucel": {
+    "reject": true
+  },
+  "ucenie": {
+    "reject": true
+  },
+  "ucenik": {
+    "reject": true
+  },
+  "uchadzac": {
+    "reject": true
+  },
+  "ucinkovanie": {
+    "reject": true
+  },
+  "ucitel": {
+    "reject": true
+  },
+  "ucitelka": {
+    "reject": true
+  },
+  "ucta": {
+    "reject": true
+  },
+  "uctovnictvo": {
+    "reject": true
+  },
+  "udalost": {
+    "reject": true
+  },
+  "uder": {
+    "reject": true
+  },
+  "udrzba": {
+    "reject": true
+  },
+  "uhrada": {
+    "reject": true
+  },
+  "ukazka": {
+    "reject": true
+  },
+  "ukazovatel": {
+    "reject": true
+  },
+  "ukor": {
+    "reject": true
+  },
+  "ulava": {
+    "reject": true
+  },
+  "ulica": {
+    "reject": true
+  },
+  "ulicka": {
+    "reject": true
+  },
+  "uloha": {
+    "reject": true
+  },
+  "umelec": {
+    "reject": true
+  },
+  "umenie": {
+    "reject": true
+  },
+  "umrtie": {
+    "reject": true
+  },
+  "unava": {
+    "reject": true
+  },
+  "unia": {
+    "reject": true
+  },
+  "uniforma": {
+    "reject": true
+  },
+  "unik": {
+    "reject": true
+  },
+  "univerzita": {
+    "reject": true
+  },
+  "upozornenie": {
+    "reject": true
+  },
+  "urad": {
+    "reject": true
+  },
+  "uraz": {
+    "reject": true
+  },
+  "urcenie": {
+    "reject": true
+  },
+  "urok": {
+    "reject": true
+  },
+  "usilie": {
+    "reject": true
+  },
+  "uspech": {
+    "reject": true
+  },
+  "uspesnost": {
+    "reject": true
+  },
+  "uspora": {
+    "reject": true
+  },
+  "usporiadanie": {
+    "reject": true
+  },
+  "usta": {
+    "commonsFile": "Adult human mouth (modified).jpg"
+  },
+  "utek": {
+    "reject": true
+  },
+  "utocnik": {
+    "reject": true
+  },
   "utok": {
+    "reject": true
+  },
+  "utorok": {
+    "reject": true
+  },
+  "utrpenie": {
+    "reject": true
+  },
+  "uver": {
+    "reject": true
+  },
+  "uzavierka": {
+    "reject": true
+  },
+  "uzemie": {
+    "reject": true
+  },
+  "uzivatel": {
+    "reject": true
+  },
+  "uzkost": {
+    "reject": true
+  },
+  "varenie": {
+    "reject": true
+  },
+  "variant": {
+    "reject": true
+  },
+  "vazba": {
+    "reject": true
+  },
+  "vazen": {
+    "reject": true
+  },
+  "vazenie": {
+    "reject": true
+  },
+  "vaznica": {
+    "reject": true
+  },
+  "vdaka": {
+    "reject": true
+  },
+  "vecer": {
+    "commonsFile": "Sunset over the ice of Brofjorden 1.jpg"
+  },
+  "veda": {
+    "reject": true
+  },
+  "vedec": {
+    "reject": true
+  },
+  "vedenie": {
+    "reject": true
+  },
+  "vedomie": {
+    "reject": true
+  },
+  "vedomost": {
+    "reject": true
+  },
+  "veduci": {
+    "reject": true
+  },
+  "vek": {
+    "reject": true
+  },
+  "velitel": {
+    "reject": true
+  },
+  "veltrh": {
+    "reject": true
+  },
+  "velvyslanec": {
+    "reject": true
+  },
+  "verdikt": {
+    "reject": true
+  },
+  "verejnost": {
+    "reject": true
+  },
+  "veriaci": {
+    "reject": true
+  },
+  "veritel": {
+    "reject": true
+  },
+  "vernisaz": {
+    "reject": true
+  },
+  "vernost": {
+    "reject": true
+  },
+  "vers": {
+    "reject": true
+  },
+  "ves": {
+    "reject": true
+  },
+  "veteran": {
+    "reject": true
+  },
+  "vianoce": {
+    "commonsFile": "Christmas tree sxc hu.jpg"
+  },
+  "viceprezident": {
+    "reject": true
+  },
+  "vidiek": {
+    "commonsFile": "Tuscan Landscape 7.JPG"
+  },
+  "vieden": {
+    "commonsFile": "Wien, Stephansdom -- 2018 -- 3292.jpg"
+  },
+  "viera": {
+    "reject": true
+  },
+  "vikend": {
     "reject": true
   },
   "vina": {
     "reject": true
   },
+  "vino": {
+    "commonsFile": "Red Wine Glass.jpg"
+  },
+  "vitamin": {
+    "commonsFile": "Vitamin tablets (27522813860).jpg"
+  },
+  "vitaz": {
+    "reject": true
+  },
+  "vitazka": {
+    "reject": true
+  },
+  "vitazstvo": {
+    "reject": true
+  },
+  "vklad": {
+    "reject": true
+  },
+  "vlas": {
+    "commonsFile": "Blonde hair detailed.jpg"
+  },
+  "vlast": {
+    "reject": true
+  },
+  "vlastnik": {
+    "reject": true
+  },
+  "vlastnost": {
+    "reject": true
+  },
+  "vnuk": {
+    "reject": true
+  },
+  "vnutro": {
+    "commonsFile": "Empty room in apartment.jpg"
+  },
+  "vodca": {
+    "reject": true
+  },
+  "vojak": {
+    "commonsFile": "Slovakian Soldier Vz. 58.jpg"
+  },
+  "vojna": {
+    "reject": true
+  },
   "vola": {
+    "reject": true
+  },
+  "volanie": {
+    "reject": true
+  },
+  "volba": {
+    "reject": true
+  },
+  "volejbal": {
+    "commonsFile": "Volleyball ball.jpg"
+  },
+  "volic": {
+    "reject": true
+  },
+  "vona": {
+    "reject": true
+  },
+  "vozidlo": {
+    "commonsFile": "2013 Porsche 911 Carrera 4S (991) (9626546987).jpg"
+  },
+  "vozik": {
+    "commonsFile": "Shopping cart of Prisma shop.JPG"
+  },
+  "vrah": {
+    "reject": true
+  },
+  "vrazda": {
+    "reject": true
+  },
+  "vrch": {
+    "commonsFile": "GrassyHill1.jpg"
+  },
+  "vrchol": {
+    "commonsFile": "Laila Peak.jpg"
+  },
+  "vrece": {
+    "commonsFile": "Dirty gunny sacks with isolated white background.png"
+  },
+  "vrstva": {
     "reject": true
   },
   "vstup": {
     "reject": true
   },
+  "vtip": {
+    "reject": true
+  },
+  "vybor": {
+    "reject": true
+  },
+  "vybudovanie": {
+    "reject": true
+  },
+  "vychova": {
+    "reject": true
+  },
+  "vycitka": {
+    "reject": true
+  },
+  "vycvik": {
+    "reject": true
+  },
+  "vydavatel": {
+    "reject": true
+  },
+  "vydavatelstvo": {
+    "reject": true
+  },
+  "vydavok": {
+    "reject": true
+  },
+  "vyherca": {
+    "reject": true
+  },
+  "vyhoda": {
+    "reject": true
+  },
+  "vyhra": {
+    "reject": true
+  },
+  "vykon": {
+    "reject": true
+  },
+  "vykonnost": {
+    "reject": true
+  },
+  "vykrik": {
+    "reject": true
+  },
+  "vylet": {
+    "reject": true
+  },
+  "vymena": {
+    "reject": true
+  },
+  "vynos": {
+    "reject": true
+  },
+  "vypadok": {
+    "reject": true
+  },
+  "vyplata": {
+    "reject": true
+  },
+  "vypoved": {
+    "reject": true
+  },
+  "vyrobca": {
+    "reject": true
+  },
+  "vyrobok": {
+    "reject": true
+  },
+  "vyrocie": {
+    "reject": true
+  },
+  "vysetrovatel": {
+    "reject": true
+  },
+  "vystava": {
+    "reject": true
+  },
+  "vystavba": {
+    "reject": true
+  },
+  "vystup": {
+    "reject": true
+  },
+  "vystupenie": {
+    "reject": true
+  },
+  "vytah": {
+    "reject": true
+  },
+  "vytvarnik": {
+    "commonsFile": "Artist - Flickr - christian.senger.jpg"
+  },
+  "vyucba": {
+    "reject": true
+  },
+  "vyucovanie": {
+    "reject": true
+  },
+  "vyziva": {
+    "reject": true
+  },
+  "vyznam": {
+    "reject": true
+  },
+  "vyzva": {
+    "reject": true
+  },
+  "vzdelanie": {
+    "reject": true
+  },
+  "vzdialenost": {
+    "reject": true
+  },
+  "vznik": {
+    "reject": true
+  },
+  "web": {
+    "reject": true
+  },
+  "zabava": {
+    "reject": true
+  },
+  "zaber": {
+    "reject": true
+  },
+  "zabezpecenie": {
+    "commonsFile": "Rusty Padlock Close Up.jpg"
+  },
+  "zacatie": {
+    "reject": true
+  },
+  "zachrana": {
+    "reject": true
+  },
+  "zachranar": {
+    "commonsFile": "Paramedic at Work.JPG"
+  },
+  "zaciatok": {
+    "reject": true
+  },
+  "zadok": {
+    "reject": true
+  },
+  "zahada": {
+    "reject": true
+  },
+  "zahranicie": {
+    "reject": true
+  },
+  "zajazd": {
+    "reject": true
+  },
+  "zakaz": {
+    "commonsFile": "Zeichen 267 - Verbot der Einfahrt, StVO 1970.svg"
+  },
+  "zakaznik": {
+    "reject": true
+  },
+  "zaklad": {
+    "reject": true
+  },
+  "zakladatel": {
+    "reject": true
+  },
   "zakladna": {
     "reject": true
   },
+  "zakonnik": {
+    "reject": true
+  },
+  "zaloba": {
+    "reject": true
+  },
+  "zalozenie": {
+    "reject": true
+  },
+  "zaluba": {
+    "reject": true
+  },
+  "zaludok": {
+    "reject": true
+  },
+  "zanik": {
+    "reject": true
+  },
   "zapas": {
+    "reject": true
+  },
+  "zaplava": {
+    "commonsFile": "Flooded houses, Chertsey (geograph 3812479).jpg"
+  },
+  "zasada": {
     "reject": true
   },
   "zasadanie": {
@@ -443,7 +4574,91 @@
   "zaujem": {
     "reject": true
   },
+  "zbor": {
+    "reject": true
+  },
+  "zbran": {
+    "commonsFile": "Cawood sword - diagonal - YORYM 2007 3086.JPG"
+  },
+  "zdravotnictvo": {
+    "reject": true
+  },
+  "zelanie": {
+    "reject": true
+  },
+  "zemetrasenie": {
+    "reject": true
+  },
+  "zemiak": {
+    "commonsFile": "Solanum tuberosum 15-p.bot-solana.tuber-01.jpg"
+  },
+  "zena": {
+    "commonsFile": "Elderly Gambian woman face portrait.jpg"
+  },
+  "ziak": {
+    "reject": true
+  },
+  "zial": {
+    "reject": true
+  },
+  "zilina": {
+    "commonsFile": "Žilina skyline.jpg"
+  },
   "zit": {
+    "reject": true
+  },
+  "zivot": {
+    "reject": true
+  },
+  "zivotopis": {
+    "reject": true
+  },
+  "zlo": {
+    "reject": true
+  },
+  "zlocin": {
+    "reject": true
+  },
+  "zlodej": {
+    "reject": true
+  },
+  "zlyhanie": {
+    "reject": true
+  },
+  "znacka": {
+    "reject": true
+  },
+  "znalec": {
+    "reject": true
+  },
+  "znalost": {
+    "reject": true
+  },
+  "zoznam": {
+    "reject": true
+  },
+  "zrkadlo": {
+    "commonsFile": "Hand mirror.jpg"
+  },
+  "zub": {
+    "commonsFile": "Wisdom tooth with uneven roots.JPG"
+  },
+  "zvazok": {
+    "reject": true
+  },
+  "zverejnenie": {
+    "reject": true
+  },
+  "zviera": {
+    "commonsFile": "Hereford Calf Portrait, SC, Vic, 13.10.2007 edit.jpg"
+  },
+  "zvon": {
+    "reject": true
+  },
+  "zvuk": {
+    "reject": true
+  },
+  "zvyk": {
     "reject": true
   }
 }

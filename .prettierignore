@@ -19,5 +19,8 @@ content/dictionary/curated-examples.json
 content/frequency/
 static/frequency/
 content/images/manifest.json
+content/images/visual-audit.json
 scripts/images/judge-thumbs/
+scripts/images/_audit-batch/
+scripts/images/_audit-check/
 **/*.generated.ts
