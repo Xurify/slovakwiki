@@ -1,13 +1,20 @@
-import audioConfig from "../../../../content/audio/config.json";
+import { hasAudioClip } from "../audio/manifest";
+import { audioHash } from "../audio/core";
+import { resolveKeyedAudioSrc } from "../audio/resolve-server";
+import { audioConfigForCharacter } from "../audio/characters";
 import {
   LESSON_CHARACTER_IDS,
   type CharacterKind,
   type LessonCharacterId,
 } from "./character-ids";
+import { VOICE_PREVIEW_LINES } from "./voice-preview-lines";
+import audioConfig from "../../../../content/audio/config.json";
+
+export { VOICE_PREVIEW_LINES } from "./voice-preview-lines";
 
 export interface VoiceRosterEntry {
   audioHash: string;
-  audioSrc: string;
+  audioSrc?: string;
   blurb: string;
   displayName: string;
   gender: "female" | "male" | "neutral";
@@ -19,67 +26,14 @@ export interface VoiceRosterEntry {
   voiceName: string;
 }
 
-const VOICE_PREVIEWS: Record<
-  LessonCharacterId,
-  {
-    audioHash: string;
-    sampleEnglish: string;
-    sampleSlovak: string;
-  }
-> = {
-  alex: {
-    sampleSlovak: "Dobrý deň. Volám sa Alex.",
-    sampleEnglish: "Good day. My name is Alex.",
-    audioHash: "dea92b23df95d04a6216",
-  },
-  anna: {
-    sampleSlovak: "Dobrý deň. Volám sa Anna.",
-    sampleEnglish: "Good day. My name is Anna.",
-    audioHash: "6315a8bb7110493101bb",
-  },
-  guide: {
-    sampleSlovak: "Dobrý deň.",
-    sampleEnglish: "Good day.",
-    audioHash: "c8cf2497f78316fd1ef9",
-  },
-  lucia: {
-    sampleSlovak: "Dobrý deň. Ako vám môžem pomôcť?",
-    sampleEnglish: "Good day. How can I help you?",
-    audioHash: "fb9fb0733e7ef7bdf93b",
-  },
-  marek: {
-    sampleSlovak: "Ahoj, ja som Marek. Teší ma.",
-    sampleEnglish: "Hi, I am Marek. Nice to meet you.",
-    audioHash: "a64d3101f3c5ccdcc17f",
-  },
-  maria: {
-    sampleSlovak: "Dobrý deň. Ste tu na registráciu?",
-    sampleEnglish: "Good day. Are you here for registration?",
-    audioHash: "7e7f80e25bbe93bcc32d",
-  },
-  narrator: {
-    sampleSlovak: "Dobrý deň. Vitajte na slovak.wiki.",
-    sampleEnglish: "Good day. Welcome to slovak.wiki.",
-    audioHash: "d33fc7c846029b846180",
-  },
-  receptionist: {
-    sampleSlovak: "Dobrý deň. Ste Alex?",
-    sampleEnglish: "Good day. Are you Alex?",
-    audioHash: "d856a5eaf157c0b94684",
-  },
-  waiter: {
-    sampleSlovak: "Dáte si kávu?",
-    sampleEnglish: "Would you like coffee?",
-    audioHash: "36ab9e85aa10f7644a59",
-  },
-};
-
 export function getVoiceRoster(): VoiceRosterEntry[] {
   const characters = audioConfig.characters ?? {};
 
   return LESSON_CHARACTER_IDS.map((characterId) => {
     const rawCharacter = characters[characterId];
-    const preview = VOICE_PREVIEWS[characterId];
+    const preview = VOICE_PREVIEW_LINES[characterId];
+    const config = audioConfigForCharacter(characterId);
+    const hash = audioHash(preview.sampleSlovak, config);
 
     const gender: "female" | "male" | "neutral" =
       rawCharacter?.gender === "female" ||
@@ -105,8 +59,10 @@ export function getVoiceRoster(): VoiceRosterEntry[] {
       voiceName: rawCharacter?.voiceName ?? "",
       sampleSlovak: preview.sampleSlovak,
       sampleEnglish: preview.sampleEnglish,
-      audioHash: preview.audioHash,
-      audioSrc: `/audio/lesson/${preview.audioHash}.mp3`,
+      audioHash: hash,
+      audioSrc: hasAudioClip(hash)
+        ? resolveKeyedAudioSrc(preview.sampleSlovak, "lesson", config)
+        : undefined,
     };
   });
 }

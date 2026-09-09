@@ -1,5 +1,5 @@
 import { audioClipCacheBust } from "./manifest";
-import { audioHash, audioObjectKey, type AudioKind } from "./core";
+import { audioHash, audioObjectKey, type AudioConfig, type AudioKind } from "./core";
 import { resolveAudioSrc } from "./index";
 
 function cacheBustUrl(url: string, hash: string): string {
@@ -16,11 +16,22 @@ function cacheBustUrl(url: string, hash: string): string {
  *   After regen: `bun scripts/audio/upload.ts`.
  */
 export function resolveDictionaryAudioSrc(text: string, kind: AudioKind): string {
+  return resolveKeyedAudioSrc(text, kind);
+}
+
+/**
+ * Same split as dictionary: local `/audio/…` in `astro dev`, CDN in prod.
+ * Pass a character `AudioConfig` so the hash uses that voice, not narrator.
+ */
+export function resolveKeyedAudioSrc(
+  text: string,
+  kind: AudioKind,
+  config?: AudioConfig,
+): string {
   if (!import.meta.env.DEV) {
-    return resolveAudioSrc(text, kind);
+    return resolveAudioSrc(text, kind, config);
   }
 
-  const hash = audioHash(text);
-  const objectKey = audioObjectKey(kind, hash);
-  return cacheBustUrl(`/audio/${objectKey}`, hash);
+  const hash = audioHash(text, config);
+  return cacheBustUrl(`/audio/${audioObjectKey(kind, hash)}`, hash);
 }

@@ -25,6 +25,7 @@ import {
   audioConfigForCharacter,
   keyPhraseCharacterId,
 } from "../../src/lib/catalog/audio/characters";
+import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
 import { lessonExercises } from "../../src/lib/learning/beats";
 import { ROOT } from "../lib/paths";
@@ -259,6 +260,10 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
         );
       }
     }
+  }
+
+  for (const [characterId, preview] of Object.entries(VOICE_PREVIEW_LINES)) {
+    addLine(preview.sampleSlovak, characterId as LessonCharacterId);
   }
 
   return sortAudioTargetsByKind([...byKey.values()]);

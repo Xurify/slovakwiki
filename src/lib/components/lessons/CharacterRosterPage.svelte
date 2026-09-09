@@ -3,12 +3,9 @@
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
-  import {
-    getVoiceRoster,
-    type VoiceRosterEntry,
-  } from "$lib/catalog/lessons/voice-roster";
+  import type { VoiceRosterEntry } from "$lib/catalog/lessons/voice-roster";
 
-  const roster = getVoiceRoster();
+  let { roster }: { roster: VoiceRosterEntry[] } = $props();
 
   function kindLabel(kind: VoiceRosterEntry["kind"]): string {
     if (kind === "system") return "System";
@@ -83,12 +80,14 @@
                 </p>
               </div>
 
-              <AudioButton
-                label="Hear {character.displayName}"
-                size="md"
-                src={character.audioSrc}
-                text={character.sampleSlovak}
-              />
+              {#if character.audioSrc}
+                <AudioButton
+                  label="Hear {character.displayName}"
+                  size="md"
+                  src={character.audioSrc}
+                  text={character.sampleSlovak}
+                />
+              {/if}
             </div>
 
             <div class="mt-2.5 border-t border-slate-200/60 pt-2">

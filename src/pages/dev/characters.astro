@@ -1,8 +1,11 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import CharacterRosterPage from "$lib/components/lessons/CharacterRosterPage.svelte";
+import { getVoiceRoster } from "$lib/catalog/lessons/voice-roster";
+
+const roster = getVoiceRoster();
 ---
 
 <SiteLayout title="Characters & voices | Slovak Wiki" noindex>
-  <CharacterRosterPage client:load />
+  <CharacterRosterPage client:load {roster} />
 </SiteLayout>
