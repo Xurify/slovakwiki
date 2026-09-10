@@ -448,7 +448,7 @@ export function nounCommonsQueries(target: ImageTarget): string[] {
 }
 
 const REJECTED_COMMONS_TITLE =
-  /\b(icon|logo|symbol|coat_of_arms|map_of|diagram|nude|naked|nudes|porn|nsfw|sexual|disambiguation|signature|qr[_ -]?code|poster|album|cover|screenshot|trailer|movie|film|titlepage|title|typeface|font[_ -]?specimen|sans[_ -]guilt|fuck|fucking|shit|cunt|bitch|asshole)\b|flag[_ -]?of/i;
+  /\b(icon|logo|symbol|coat_of_arms|map_of|diagram|nude|naked|nudes|porn|nsfw|sexual|disambiguation|signature|qr[_ -]?code|poster|album[_ -]?cover|screenshot|trailer|movie|film|titlepage|title|typeface|font[_ -]?specimen|sans[_ -]guilt|fuck|fucking|shit|cunt|bitch|asshole)\b|flag[_ -]?of/i;
 
 const EDITORIAL_CARTOON_TITLE =
   /\b(political[\s_-]?cartoon|editorial[\s_-]?cartoon|newspaper[\s_-]?cartoon|satirical[\s_-]?cartoon|satire)\b|\blccn\b|\b(hitler|nazi|suffragette|confederate|winsor[\s_-]?mccay)\b|\b(zumwalt|bushnell)[\s_-]?cartoon\b|\bleonardo\b|\bst\.?\s*anne[\s_-]?cartoon\b/i;

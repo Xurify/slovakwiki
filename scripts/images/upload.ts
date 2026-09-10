@@ -70,7 +70,9 @@ async function main(): Promise<void> {
   if (only) {
     files = files.filter((file) => {
       const slug = Object.entries(manifest).find(([, entry]) => entry.file === file)?.[0];
-      return fileMatchesOnly(file, slug, only);
+      if (!fileMatchesOnly(file, slug, only)) return false;
+      if (slug && manifest[slug]?.file) return file === manifest[slug]?.file;
+      return true;
     });
     if (files.length === 0) {
       throw new Error(`--only ${JSON.stringify(only)} matched 0 on-disk image files`);
