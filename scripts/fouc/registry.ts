@@ -21,6 +21,12 @@ export const FOUC_BOOTS: FoucBootTarget[] = [
     out: path.join(ROOT, "src/lib/lesson-progress/boot-script.generated.ts"),
     exportName: "LESSONS_BOOT_SCRIPT",
   },
+  {
+    id: "practice",
+    entry: path.join(ROOT, "src/lib/practice/boot-entry.ts"),
+    out: path.join(ROOT, "src/lib/practice/boot-script.generated.ts"),
+    exportName: "PRACTICE_BOOT_SCRIPT",
+  },
 ];
 
 export function resolveFoucBoots(filter?: string): FoucBootTarget[] {

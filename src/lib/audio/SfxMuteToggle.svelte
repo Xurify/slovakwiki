@@ -47,6 +47,7 @@
   aria-label={label}
   aria-pressed={enabled}
   title={label}
+  data-sfx-toggle
   data-muted={!enabled ? "" : undefined}
   onclick={onToggle}
 >
@@ -55,6 +56,7 @@
       class="absolute inset-0 size-full fill-none stroke-current transition-[opacity,transform,filter] duration-200 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none {enabled
         ? 'scale-100 opacity-100 blur-none'
         : 'scale-[0.25] opacity-0 blur-[4px] motion-reduce:scale-100'}"
+      data-sfx-on-icon
       viewBox="0 0 24 24"
       stroke-width="1.75"
       stroke-linecap="round"
@@ -69,6 +71,7 @@
       class="absolute inset-0 size-full fill-none stroke-current transition-[opacity,transform,filter] duration-200 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none {!enabled
         ? 'scale-100 opacity-100 blur-none'
         : 'scale-[0.25] opacity-0 blur-[4px] motion-reduce:scale-100'}"
+      data-sfx-off-icon
       viewBox="0 0 24 24"
       stroke-width="1.75"
       stroke-linecap="round"

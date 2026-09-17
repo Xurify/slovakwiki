@@ -54,6 +54,10 @@ function writePreference(
     // Ignore quota / private-mode failures.
   }
 
+  if (typeof document !== "undefined" && key === STORY_SHOW_ENGLISH_KEY) {
+    document.documentElement.dataset.storyShowEnglish = value;
+  }
+
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event(STORY_PREFS_CHANGE_EVENT));
   }
@@ -71,6 +75,11 @@ export function setStoryAutoAdvance(
 }
 
 export function getStoryShowEnglish(storage?: StorageLike): StoryBoolPreference {
+  if (!storage && typeof document !== "undefined") {
+    const fromDom = document.documentElement.dataset.storyShowEnglish;
+    if (isStoryBoolPreference(fromDom)) return fromDom;
+  }
+
   return readPreference(STORY_SHOW_ENGLISH_KEY, STORY_SHOW_ENGLISH_DEFAULT, storage);
 }
 

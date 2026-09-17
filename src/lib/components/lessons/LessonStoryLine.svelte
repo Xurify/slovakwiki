@@ -59,6 +59,7 @@
     class="max-w-[min(100%,22rem)] rounded-(--frame-radius) px-4 py-3.5 shadow-(--shadow-border) sm:max-w-md sm:px-5 sm:py-4 {learner
       ? 'bg-emerald-50/90 ring-1 ring-emerald-600/15 ring-inset'
       : 'bg-surface/90 ring-1 ring-slate-200/80 ring-inset'}"
+    data-story-en-open={englishOpen || showEnglish ? "" : undefined}
     aria-label={englishVisible
       ? `${line.speaker}: ${line.slovak}. ${line.english}`
       : `${line.speaker}: ${line.slovak}`}
@@ -90,11 +91,12 @@
       {line.slovak}
     </p>
 
-    {#if englishVisible}
-      <p class="m-0 mt-1.5 text-sm leading-relaxed text-slate-600">{line.english}</p>
-    {:else if line.english}
+    {#if line.english}
+      <p class="story-en-gloss m-0 mt-1.5 text-sm leading-relaxed text-slate-600">
+        {line.english}
+      </p>
       <button
-        class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-left text-xs font-semibold tracking-wide text-blue-700 underline decoration-blue-700/30 underline-offset-2 transition-colors hover:text-blue-900 hover:decoration-blue-900/50"
+        class="story-en-toggle mt-2 cursor-pointer border-0 bg-transparent p-0 text-left text-xs font-semibold tracking-wide text-blue-700 underline decoration-blue-700/30 underline-offset-2 transition-colors hover:text-blue-900 hover:decoration-blue-900/50"
         type="button"
         onclick={revealEnglish}
       >

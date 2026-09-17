@@ -1,51 +1,36 @@
 <script lang="ts">
   import type { PracticeHubSheet } from "$lib/catalog/practice/hub";
-  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import PracticeDrillLine from "$lib/components/practice/PracticeDrillLine.svelte";
-  import PracticeMotifField from "$lib/components/practice/PracticeMotifField.svelte";
+  import PracticeSetPoster from "$lib/components/practice/PracticeSetPoster.svelte";
 
   let { sheet }: { sheet: PracticeHubSheet } = $props();
 </script>
 
 <li>
   <a
-    class="group flex h-full items-stretch gap-4 rounded-(--frame-radius) bg-surface/80 p-5 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-1 hover:bg-surface hover:shadow-(--shadow-border-hover) active:scale-[0.98] max-[600px]:gap-3 max-[600px]:p-4"
+    class="group grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 px-4 py-4 no-underline transition-[background-color,transform,scale] duration-150 ease-out hover:bg-slate-50 active:scale-[0.96] min-[700px]:grid-cols-[7rem_minmax(0,1fr)_auto]"
     href="/practice/{sheet.set.id}"
   >
-    <div class="flex min-w-0 flex-1 flex-col">
-      <PracticeDrillLine slovak={sheet.drill.slovak} />
+    <PracticeSetPoster {sheet} size="thumb" />
 
-      {#if sheet.drill.english}
-        <p class="m-0 mt-2 text-sm text-pretty text-slate-500">
-          {sheet.drill.english}
-        </p>
-      {/if}
-
-      <div class="mt-5 border-t border-slate-200 pt-4">
-        <strong class="font-serif text-base tracking-tight text-blue-800">
-          {sheet.set.title}
-        </strong>
-        <p class="m-0 mt-1 text-sm leading-relaxed text-pretty text-slate-600">
-          {sheet.purpose}
-        </p>
-      </div>
-
-      <div class="mt-auto flex items-center justify-between gap-3 pt-5 text-sm">
-        <span class="tabular-nums text-slate-500">
-          {sheet.exerciseCount}
-          {sheet.exerciseCount === 1 ? "exercise" : "exercises"}
-          <span data-sheet-done={sheet.set.lessonId}></span>
-        </span>
-
-        <span
-          class="inline-flex items-center gap-1.5 font-bold text-blue-800 transition-transform duration-200 ease-out group-hover:translate-x-1"
-        >
-          Drill
-          <ArrowRight />
-        </span>
-      </div>
+    <div class="min-w-0">
+      <strong class="font-serif text-base tracking-tight text-slate-900 sm:text-lg">
+        {sheet.set.title}
+      </strong>
+      <p class="m-0 mt-1 text-sm leading-relaxed text-pretty text-slate-600">
+        {sheet.purpose}
+      </p>
+      <p class="m-0 mt-2 text-xs tabular-nums text-slate-500">
+        {sheet.exerciseCount}
+        {sheet.exerciseCount === 1 ? "exercise" : "exercises"}
+        <span data-sheet-done={sheet.set.lessonId}></span>
+      </p>
     </div>
 
-    <PracticeMotifField setId={sheet.set.id} lessonId={sheet.set.lessonId} />
+    <span
+      class="inline-flex min-h-11 w-fit items-center justify-center rounded-full bg-slate-900 px-5 text-sm font-bold text-white max-[699px]:col-start-2"
+      data-sheet-cta={sheet.set.lessonId}
+    >
+      Start now
+    </span>
   </a>
 </li>

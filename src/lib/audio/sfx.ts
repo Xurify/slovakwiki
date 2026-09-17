@@ -34,6 +34,11 @@ export function getStoredSfxPreference(storage?: StorageLike): SfxPreference {
 }
 
 export function getInitialSfxPreference(): SfxPreference {
+  if (typeof document !== "undefined") {
+    const fromDom = document.documentElement.dataset.sfxPreference;
+    if (isSfxPreference(fromDom)) return fromDom;
+  }
+
   return getStoredSfxPreference();
 }
 
@@ -46,6 +51,10 @@ export function setSfxPreference(preference: SfxPreference, storage?: StorageLik
     store.setItem(SFX_STORAGE_KEY, preference);
   } catch {
     // Ignore quota / private-mode failures.
+  }
+
+  if (typeof document !== "undefined") {
+    document.documentElement.dataset.sfxPreference = preference;
   }
 
   if (typeof window !== "undefined") {

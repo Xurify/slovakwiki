@@ -2,13 +2,18 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import PracticeHubClient from "$lib/components/practice/PracticeHubClient.svelte";
 import PracticeIndexPage from "$lib/components/practice/PracticeIndexPage.svelte";
+import PracticeProgressBoot from "$lib/components/practice/PracticeProgressBoot.astro";
+import { buildPracticeBootPayload } from "$lib/practice/boot-payload";
+
+const payload = buildPracticeBootPayload();
 ---
 
 <SiteLayout
   title="Practice | Slovak Wiki"
   description="Work through short Slovak practice sheets by topic."
 >
-  <PracticeIndexPage>
-    <PracticeHubClient slot="hub" client:load />
-  </PracticeIndexPage>
+  <PracticeProgressBoot {payload} stage="gate" />
+  <PracticeIndexPage />
+  <PracticeProgressBoot {payload} stage="script" />
+  <PracticeHubClient client:load {payload} />
 </SiteLayout>

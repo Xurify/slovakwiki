@@ -186,6 +186,50 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Prefs FOUC: head IIFE sets html data attrs before first paint. */
+  html[data-sfx-preference="off"] [data-sfx-on-icon] {
+    opacity: 0 !important;
+    transform: scale(0.25) !important;
+    filter: blur(4px) !important;
+  }
+
+  html[data-sfx-preference="off"] [data-sfx-off-icon] {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    filter: none !important;
+  }
+
+  html[data-sfx-preference="on"] [data-sfx-on-icon] {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    filter: none !important;
+  }
+
+  html[data-sfx-preference="on"] [data-sfx-off-icon] {
+    opacity: 0 !important;
+    transform: scale(0.25) !important;
+    filter: blur(4px) !important;
+  }
+
+  html[data-sfx-preference="off"] [data-sfx-toggle] {
+    background-color: var(--surface-subtle);
+    color: var(--muted);
+  }
+
+  .story-en-gloss {
+    display: none;
+  }
+
+  html[data-story-show-english="on"] .story-en-gloss,
+  [data-story-en-open] .story-en-gloss {
+    display: block;
+  }
+
+  html[data-story-show-english="on"] .story-en-toggle,
+  [data-story-en-open] .story-en-toggle {
+    display: none;
+  }
+
   body {
     margin: 0;
     min-width: 0;

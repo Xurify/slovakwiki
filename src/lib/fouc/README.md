@@ -127,6 +127,16 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 - Shell: `LessonsProgressBoot.astro` → wraps `FoucBoot` (`stage="gate"` before page, `stage="script"` after)
 - Island: `LessonsProgressClient.svelte` re-paints + marks ready after hydrate
 
+## Practice consumer
+
+- Surface: `$lib/practice/fouc`
+- Entry: `$lib/practice/boot-entry.ts`
+- Paint SSOT: `hub-view.ts` → `apply-hub.ts`
+- Shell: `PracticeProgressBoot.astro` → wraps `FoucBoot` (`stage="gate"` before page, `stage="script"` after)
+- Island: `PracticeHubClient.svelte` re-paints + marks ready after hydrate
+
+Theme / sfx / story-English prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`).
+
 ## Do / don't
 
 - **Do** keep boot entries tiny; avoid importing lesson catalogs / dictionary blobs into the entry.

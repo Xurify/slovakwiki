@@ -118,6 +118,22 @@ export function pickFeaturedSheet(
   return sheets.find((sheet) => !sheet.completed) ?? sheets[0];
 }
 
+export function practiceToday(sheets: PracticeHubSheet[]) {
+  const featured = pickFeaturedSheet(sheets);
+
+  if (!featured) return undefined;
+
+  return {
+    featured,
+    siblings: sheets.filter(
+      (sheet) =>
+        sheet.set.track === featured.set.track && sheet.set.id !== featured.set.id,
+    ),
+    doneCount: sheets.filter((sheet) => sheet.completed).length,
+    totalCount: sheets.length,
+  };
+}
+
 export function buildRecentDrills(practiceState: PracticeState): PracticeHubRecent[] {
   const drills: PracticeHubRecent[] = [];
 

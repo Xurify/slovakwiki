@@ -1,0 +1,15 @@
+---
+import FoucBoot from "$lib/fouc/FoucBoot.astro";
+import { PRACTICE_BOOT_SCRIPT } from "$lib/practice/boot-script";
+import type { PracticeBootPayload } from "$lib/practice/boot-payload";
+import { PRACTICE_FOUC } from "$lib/practice/fouc";
+
+interface Props {
+  payload: PracticeBootPayload;
+  stage: "gate" | "script";
+}
+
+const { payload, stage } = Astro.props;
+---
+
+<FoucBoot surface={PRACTICE_FOUC} {payload} script={PRACTICE_BOOT_SCRIPT} {stage} />
