@@ -11,7 +11,6 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)           |
 | FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)             |
 | Slovak linguistic accuracy                  | `slovak-language` skill                                        |
-| Visual before/after recaps                  | `.cursor/skills/visual-recap`                                  |
 
 ## Tooling
 
@@ -38,7 +37,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 
 **Before finishing script work:** `bun run typecheck` (mandatory, not “when risk is high”). Remove unused `const` / imports left from refactors — they show up as diagnostics and slow review.
 
-Reference implementations: `scripts/recaps/cli.ts`, `scripts/lib/paths.ts`, `scripts/downloads/export.ts`.
+Reference implementations: `scripts/lib/paths.ts`, `scripts/downloads/export.ts`.
 
 ### Dev & preview servers (Astro 7.2+)
 

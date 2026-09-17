@@ -166,19 +166,6 @@ Used by `/downloads` client builder (JSON/CSV/TSV). Regenerated on content chang
 
 **Anki phrases pack:** headerless TSV (`slovak-wiki-anki-phrases.tsv`) — one row per sentence, `slovak\tenglish` (Front / Back). No `#` comment.
 
-## `recaps/`
-
-Local before/after HTML for UI review (not shipped to the site). See `.cursor/skills/visual-recap`.
-
-| File     | Run                                       | Notes                                                 |
-| -------- | ----------------------------------------- | ----------------------------------------------------- |
-| `cli.ts` | `bun run recap:index`                     | Rebuilds `recaps/index.html` from `*.html`            |
-|          | `bun run recap:open <slug>`               | Opens `recaps/<slug>.html` in the browser             |
-|          | `bun run recap:shot <slug> <name> <file>` | Files a browser capture as `recaps/<slug>/<name>.png` |
-
-Screenshots come from chrome-devtools, which can only write to the OS temp directory unless
-it runs with `--allowUnrestrictedPaths` — `recap:shot` moves the capture into place.
-
 ## `lib/`
 
 Shared helpers (`paths.ts` → repo `ROOT`).
