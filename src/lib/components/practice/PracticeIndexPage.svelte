@@ -3,10 +3,11 @@
 
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import PracticeFeaturedFrame from "$lib/components/practice/PracticeFeaturedFrame.svelte";
+  import PracticeSheetCard from "$lib/components/practice/PracticeSheetCard.svelte";
   import { emptyPracticeState } from "$lib/components/practice/practice-state";
   import {
     buildPracticeSheets,
@@ -88,65 +89,7 @@
 
   <div data-practice-featured>
     {#if featured}
-      <section class="border-b border-slate-200/80" aria-labelledby="continue-heading">
-        <PageShell class="py-12 max-[600px]:py-10">
-          <div
-            class="overflow-hidden rounded-(--frame-radius) bg-paper shadow-(--shadow-border)"
-          >
-            <div
-              class="grid grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] max-[760px]:grid-cols-1"
-            >
-              <a
-                class="group relative block px-8 py-9 transition-colors hover:bg-slate-50 max-[600px]:px-5 max-[600px]:py-7"
-                href="/practice/{featured.set.id}"
-                aria-labelledby="continue-heading"
-              >
-                <Eyebrow>Up next</Eyebrow>
-                <p
-                  class="m-0 mt-4 font-serif text-[clamp(1.8rem,4vw,2.75rem)] font-semibold leading-[1.1] tracking-tight text-slate-900"
-                  lang="sk"
-                >
-                  {featured.drill.slovak}
-                </p>
-                {#if featured.drill.english}
-                  <p class="m-0 mt-3 font-serif text-base italic text-slate-600">
-                    {featured.drill.english}
-                  </p>
-                {/if}
-                <span
-                  class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-rose-600"
-                >
-                  Open set
-                  <ArrowRight />
-                </span>
-              </a>
-
-              <div
-                class="border-l border-slate-200 bg-slate-50 px-8 py-9 max-[760px]:border-l-0 max-[760px]:border-t max-[760px]:px-5 max-[760px]:py-6"
-              >
-                <p
-                  class="m-0 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-slate-500"
-                >
-                  {featured.trackTitle}
-                </p>
-                <h2
-                  id="continue-heading"
-                  class="m-0 mt-2 font-serif text-2xl text-slate-900"
-                >
-                  {featured.set.title}
-                </h2>
-                <p class="m-0 mt-3 text-sm leading-relaxed text-slate-600">
-                  {featured.purpose}
-                </p>
-                <p class="m-0 mt-5 text-xs text-slate-500">
-                  {featured.exerciseCount}
-                  {featured.exerciseCount === 1 ? "exercise" : "exercises"}
-                </p>
-              </div>
-            </div>
-          </div>
-        </PageShell>
-      </section>
+      <PracticeFeaturedFrame sheet={featured} />
     {/if}
   </div>
 
@@ -180,50 +123,7 @@
 
             <ul class="m-0 grid list-none grid-cols-2 gap-4 p-0 max-[700px]:grid-cols-1">
               {#each group.sheets as sheet (sheet.set.id)}
-                <li>
-                  <a
-                    class="group flex h-full flex-col rounded-(--frame-radius) bg-surface/80 p-6 shadow-(--shadow-border) transition-[transform,box-shadow,background-color] hover:-translate-y-0.5 hover:bg-surface hover:shadow-(--shadow-border-hover)"
-                    href="/practice/{sheet.set.id}"
-                  >
-                    <p
-                      class="m-0 font-serif text-[clamp(1.35rem,2.6vw,1.7rem)] font-semibold leading-snug tracking-tight text-slate-900"
-                      lang="sk"
-                    >
-                      {sheet.drill.slovak}
-                    </p>
-
-                    {#if sheet.drill.english}
-                      <p class="m-0 mt-2 text-sm text-slate-500">
-                        {sheet.drill.english}
-                      </p>
-                    {/if}
-
-                    <div class="mt-6 border-t border-slate-200 pt-4">
-                      <strong class="font-serif text-base tracking-tight text-blue-800">
-                        {sheet.set.title}
-                      </strong>
-                      <p class="m-0 mt-1 text-sm leading-relaxed text-slate-600">
-                        {sheet.purpose}
-                      </p>
-                    </div>
-
-                    <div
-                      class="mt-auto flex items-center justify-between gap-3 pt-5 text-sm"
-                    >
-                      <span class="text-slate-500">
-                        {sheet.exerciseCount}
-                        {sheet.exerciseCount === 1 ? "exercise" : "exercises"}
-                        <span data-sheet-done={sheet.set.lessonId}></span>
-                      </span>
-                      <span
-                        class="inline-flex items-center gap-1.5 font-bold text-blue-800"
-                      >
-                        Drill
-                        <ArrowRight />
-                      </span>
-                    </div>
-                  </a>
-                </li>
+                <PracticeSheetCard {sheet} />
               {/each}
             </ul>
           </section>

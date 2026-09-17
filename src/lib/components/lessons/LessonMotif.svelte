@@ -4,15 +4,18 @@
   let {
     motif,
     size = "sm",
+    bare = false,
     class: className = "",
   }: {
     motif: LessonMotifId;
-    size?: "sm" | "lg";
+    size?: "sm" | "lg" | "xl";
+    bare?: boolean;
     class?: string;
   } = $props();
 
   const tintClass: Record<LessonMotifId, string> = {
     greetings: "bg-blue-50",
+    questions: "bg-blue-50",
     numbers: "bg-blue-50",
     time: "bg-blue-50",
     negation: "bg-rose-50",
@@ -23,19 +26,21 @@
     default: "bg-blue-50",
   };
 
-  const isLg = $derived(size === "lg");
-
-  const shellClass = $derived(
-    isLg
-      ? "inline-flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-(--control-radius) ring-1 ring-slate-200/70 ring-inset"
-      : "inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-(--control-radius) ring-1 ring-slate-200/70 ring-inset",
+  const svgClass = $derived(
+    size === "xl" ? "size-16" : size === "lg" ? "size-9" : "size-8",
   );
 
-  const svgClass = $derived(isLg ? "size-9" : "size-8");
+  const shellClass = $derived(
+    size === "xl"
+      ? "inline-flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-(--control-radius) ring-1 ring-slate-200/70 ring-inset"
+      : size === "lg"
+        ? "inline-flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-(--control-radius) ring-1 ring-slate-200/70 ring-inset"
+        : "inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-(--control-radius) ring-1 ring-slate-200/70 ring-inset",
+  );
 </script>
 
-<span class="{shellClass} {tintClass[motif]} {className}" aria-hidden="true">
-  <svg class={svgClass} viewBox="0 0 32 32" fill="none">
+{#snippet mark()}
+  <svg class="{svgClass} {bare ? className : ''}" viewBox="0 0 32 32" fill="none">
     {#if motif === "greetings"}
       <!-- Overlapping speech bubbles -->
       <rect x="3" y="6" width="14" height="11" rx="3" class="fill-blue-200" />
@@ -46,6 +51,21 @@
       <circle cx="12" cy="11.5" r="1.15" class="fill-blue-700" />
       <circle cx="18" cy="17.5" r="1.15" class="fill-white" />
       <circle cx="22" cy="17.5" r="1.15" class="fill-white" />
+    {:else if motif === "questions"}
+      <rect x="4" y="5" width="18" height="13" rx="3" class="fill-blue-600" />
+      <path d="M8 18v4.5l5-4.5H8Z" class="fill-blue-600" />
+      <text
+        x="13"
+        y="15"
+        text-anchor="middle"
+        class="fill-white"
+        font-family="var(--font-reading), Georgia, serif"
+        font-size="11"
+        font-weight="700">?</text
+      >
+      <rect x="14" y="14" width="14" height="11" rx="3" class="fill-blue-200" />
+      <path d="M24 25v4l-4-4h4Z" class="fill-blue-200" />
+      <circle cx="21" cy="19.5" r="1.2" class="fill-blue-800" />
     {:else if motif === "numbers"}
       <!-- Solid badge + even 123 (Monzo/Cleo-style numeric tile) -->
       <rect x="4" y="7" width="24" height="18" rx="4" class="fill-blue-700" />
@@ -152,4 +172,14 @@
       <path d="M8 4h16v11l-8-4-8 4V4Z" class="fill-blue-600" />
     {/if}
   </svg>
-</span>
+{/snippet}
+
+{#if bare}
+  <span aria-hidden="true">
+    {@render mark()}
+  </span>
+{:else}
+  <span class="{shellClass} {tintClass[motif]} {className}" aria-hidden="true">
+    {@render mark()}
+  </span>
+{/if}

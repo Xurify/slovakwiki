@@ -1,6 +1,7 @@
 /** Topic motif keys for geometric lesson tiles on `/lessons`. */
 export type LessonMotifId =
   | "greetings"
+  | "questions"
   | "numbers"
   | "time"
   | "negation"
