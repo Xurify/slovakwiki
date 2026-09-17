@@ -109,15 +109,21 @@
       <rect x="4" y="21" width="11" height="6" rx="1.25" class="fill-slate-300" />
       <rect x="17" y="21" width="11" height="6" rx="1.25" class="fill-blue-800" />
     {:else if motif === "byt"}
-      <!-- Person + equals -->
-      <circle cx="11" cy="11" r="4.25" class="fill-blue-600" />
-      <path d="M4 26c0-4 3.2-7 7-7s7 3 7 7" class="fill-blue-200" />
-      <path
-        d="M21 12h8M21 18h8"
-        class="stroke-blue-800"
-        stroke-width="2"
-        stroke-linecap="round"
-      />
+      <!-- Name badge: portrait + som -->
+      <rect x="5" y="4" width="22" height="24" rx="5" class="fill-white" />
+      <circle cx="16" cy="12" r="4.5" class="fill-blue-700" />
+      <path d="M7 22c.8-4 4.2-6 9-6s8.2 2 9 6" class="fill-blue-200" />
+      <rect x="5" y="19" width="22" height="9" rx="5" class="fill-blue-800" />
+      <rect x="5" y="19" width="22" height="5" class="fill-blue-800" />
+      <text
+        x="16"
+        y="25.5"
+        text-anchor="middle"
+        class="fill-white"
+        font-family="var(--font-reading), Georgia, serif"
+        font-size="5.5"
+        font-weight="700">som</text
+      >
     {:else if motif === "mat"}
       <!-- Possession card -->
       <rect x="5" y="8" width="22" height="14" rx="2.5" class="fill-emerald-100" />

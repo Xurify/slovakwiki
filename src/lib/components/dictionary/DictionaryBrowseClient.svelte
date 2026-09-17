@@ -113,7 +113,11 @@
       ? "Loading…"
       : view.totalCount === 0
         ? "0 results"
-        : `${rangeFrom}–${rangeTo} of ${view.totalCount}`,
+        : `${rangeFrom.toLocaleString("en")}–${rangeTo.toLocaleString("en")} of ${view.totalCount.toLocaleString("en")}`,
+  );
+
+  const showPager = $derived(
+    view.totalPages > 1 && !waitingForFilteredView && view.visibleEntries.length > 0,
   );
 
   const chipClass = (active: boolean): string =>
@@ -139,13 +143,10 @@
     "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
 
   const rowLinkClass =
-    "grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-4 border-b border-slate-200 px-4 py-3 text-sm transition-colors last:border-b-0 hover:bg-blue-50/50 max-[520px]:grid-cols-1";
+    "flex items-start justify-between gap-4 px-4 py-3 transition-colors hover:bg-blue-50/50";
 
   const resultsPanelClass =
     "overflow-hidden rounded-(--frame-radius) bg-surface ring-1 ring-inset ring-slate-200";
-
-  const resultsHeaderClass =
-    "flex min-h-10 flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-slate-200 bg-slate-50/70 px-4 py-2.5";
 
   const indexPromise: Promise<DictionaryIndexEntry[]> | null =
     typeof window !== "undefined"
@@ -304,11 +305,13 @@
 </nav>
 
 <div class="{resultsPanelClass} mt-8" id="wiki-results">
-  <div class={resultsHeaderClass}>
+  <div
+    class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-b border-slate-200 px-4 py-2.5"
+  >
     <p class="m-0 text-sm text-slate-500">
-      <strong class="tabular-nums text-slate-900">{rangeLabel}</strong>
-      {#if view.totalPages > 1}
-        <span class="text-slate-400">
+      <strong class="font-semibold tabular-nums text-slate-900">{rangeLabel}</strong>
+      {#if view.totalPages > 1 && !waitingForFilteredView && view.totalCount > 0}
+        <span class="tabular-nums text-slate-400">
           · page {view.page} of {view.totalPages}
         </span>
       {/if}
@@ -326,75 +329,89 @@
   </div>
 
   {#if loadError}
-    <p class="m-0 px-4 py-3 text-sm text-rose-800" role="alert">{loadError}</p>
+    <p class="m-0 border-t border-slate-200 px-4 py-3 text-sm text-rose-800" role="alert">
+      {loadError}
+    </p>
   {/if}
 
-  <div class="min-h-[24rem]">
-    {#key listKey}
-      <div
-        in:fade={canAnimateList ? { duration: 140 } : undefined}
-        out:fade={canAnimateList ? { duration: 100 } : undefined}
-      >
-        {#if waitingForFilteredView}
-          <ul
-            class="m-0 list-none p-0"
-            aria-busy="true"
-            aria-label="Loading dictionary entries"
-          >
-            {#each Array.from({ length: SKELETON_ROWS }, (_, index) => index) as row (row)}
-              <li class="border-b border-slate-200 px-4 py-3 last:border-b-0">
+  {#key listKey}
+    <div
+      in:fade={canAnimateList ? { duration: 140 } : undefined}
+      out:fade={canAnimateList ? { duration: 100 } : undefined}
+    >
+      {#if waitingForFilteredView}
+        <ul
+          class="m-0 list-none divide-y divide-slate-200 p-0"
+          aria-busy="true"
+          aria-label="Loading dictionary entries"
+        >
+          {#each Array.from({ length: SKELETON_ROWS }, (_, index) => index) as row (row)}
+            <li class="flex items-start justify-between gap-4 px-4 py-3">
+              <div class="min-w-0 flex-1">
                 <div
                   class="h-5 w-[38%] max-w-48 animate-pulse rounded bg-slate-200/70"
                 ></div>
                 <div
                   class="mt-2.5 h-4 w-[62%] max-w-md animate-pulse rounded bg-slate-100"
                 ></div>
-              </li>
-            {/each}
-          </ul>
-        {:else if view.visibleEntries.length}
-          <ul class="m-0 list-none p-0" aria-label="Dictionary entries">
-            {#each view.visibleEntries as entry (entry.slug)}
-              <li>
-                <a class={rowLinkClass} href={dictionaryPathFromIndexFields(entry)}>
-                  <div class="min-w-0">
-                    <span class="font-serif text-base text-blue-800" lang="sk">
-                      {entry.slovak}
-                    </span>
-                    <span class="mt-0.5 block text-slate-500">{entry.english}</span>
-                  </div>
-                  {#if showEntryCategory}
-                    <span class="text-xs text-slate-400 max-[520px]:hidden">
-                      {entry.category}
-                    </span>
-                  {/if}
-                </a>
-              </li>
-            {/each}
-          </ul>
-        {:else if entries}
-          <div class="px-4 py-16 text-center">
-            <h2 class="text-xl">No matches</h2>
-            <p class="mt-2 text-sm text-slate-500">
-              Try a shorter search or reset the filters.
-            </p>
-            <button
-              class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
-              type="button"
-              onclick={resetFilters}
-            >
-              Show all entries
-            </button>
-          </div>
-        {/if}
-      </div>
-    {/key}
-  </div>
-</div>
+              </div>
+              {#if showEntryCategory}
+                <div
+                  class="mt-1 h-3 w-12 shrink-0 animate-pulse rounded bg-slate-100"
+                ></div>
+              {/if}
+            </li>
+          {/each}
+        </ul>
+      {:else if view.visibleEntries.length}
+        <ul
+          class="m-0 list-none divide-y divide-slate-200 p-0"
+          aria-label="Dictionary entries"
+        >
+          {#each view.visibleEntries as entry (entry.slug)}
+            <li>
+              <a class={rowLinkClass} href={dictionaryPathFromIndexFields(entry)}>
+                <div class="min-w-0">
+                  <span class="font-serif text-base text-blue-800" lang="sk">
+                    {entry.slovak}
+                  </span>
+                  <span class="mt-0.5 block text-sm text-slate-500">
+                    {entry.english}
+                  </span>
+                </div>
 
-{#if view.totalPages > 1 && !waitingForFilteredView && view.visibleEntries.length}
-  <nav class="mt-6 flex flex-col items-center gap-3" aria-label="Dictionary pages">
-    <div class="flex flex-wrap items-center justify-center gap-1.5">
+                {#if showEntryCategory}
+                  <span class="shrink-0 pt-1 text-xs text-slate-400 max-[520px]:hidden">
+                    {entry.category}
+                  </span>
+                {/if}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      {:else if entries}
+        <div class="px-4 py-16 text-center">
+          <h2 class="text-xl">No matches</h2>
+          <p class="mt-2 text-sm text-slate-500">
+            Try a shorter search or reset the filters.
+          </p>
+          <button
+            class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
+            type="button"
+            onclick={resetFilters}
+          >
+            Show all entries
+          </button>
+        </div>
+      {/if}
+    </div>
+  {/key}
+
+  {#if showPager}
+    <nav
+      class="flex flex-wrap items-center justify-center gap-1.5 border-t border-slate-200 px-4 py-3"
+      aria-label="Dictionary pages"
+    >
       {#if view.page > 1}
         <button
           class="{pagerLinkClass} {pagerChipClass(false)}"
@@ -443,6 +460,6 @@
           Next
         </span>
       {/if}
-    </div>
-  </nav>
-{/if}
+    </nav>
+  {/if}
+</div>

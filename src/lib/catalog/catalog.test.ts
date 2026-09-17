@@ -36,7 +36,11 @@ import {
 import { exampleShowsConjugatedLemma } from "./dictionary/verb-examples";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessonById, lessons, validateLessons } from "./lessons";
-import { practiceChips } from "./practice/motifs";
+import {
+  practiceFeaturedFieldClass,
+  practiceFeaturedOnDark,
+  practiceGraphicId,
+} from "./practice/motifs";
 import {
   practiceItemById,
   practiceItemHref,
@@ -232,12 +236,17 @@ describe("Slovak content", () => {
     expect(practiceSetForLesson("grammar/mat-present")?.id).toBe("mat-present");
   });
 
-  it("gives every practice set a three-chip motif", () => {
-    for (const set of practiceSets) {
-      const chips = practiceChips(set.id, "default");
-      expect(chips).toHaveLength(3);
-      expect(chips.every((chip) => chip.text.length > 0 && chip.text !== "•")).toBe(true);
+  it("gives every practice set a unique skim graphic", () => {
+    const kinds = practiceSets.map((set) => practiceGraphicId(set.id, set.lessonId));
+
+    expect(new Set(kinds).size).toBe(practiceSets.length);
+
+    for (const kind of kinds) {
+      expect(practiceFeaturedFieldClass[kind]).toMatch(/^bg-/);
     }
+
+    expect(practiceFeaturedOnDark("numbers")).toBe(true);
+    expect(practiceFeaturedOnDark("greetings")).toBe(false);
   });
 
   it("routes every practice item through its topic set", () => {

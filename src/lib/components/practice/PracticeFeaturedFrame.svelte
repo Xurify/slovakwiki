@@ -1,11 +1,14 @@
 <script lang="ts">
   import type { PracticeHubSheet } from "$lib/catalog/practice/hub";
+  import {
+    practiceFeaturedFieldClass,
+    practiceFeaturedOnDark,
+    practiceGraphicId,
+  } from "$lib/catalog/practice/motifs";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import PracticeDrillLine from "$lib/components/practice/PracticeDrillLine.svelte";
   import PracticeMotifField from "$lib/components/practice/PracticeMotifField.svelte";
-  import { practiceMotifId } from "$lib/catalog/practice/motifs";
 
   let {
     sheet,
@@ -15,58 +18,85 @@
     completed?: boolean;
   } = $props();
 
-  const motif = $derived(practiceMotifId(sheet.set.id, sheet.set.lessonId));
+  const graphic = $derived(practiceGraphicId(sheet.set.id, sheet.set.lessonId));
+  const onDark = $derived(practiceFeaturedOnDark(graphic));
 </script>
 
 <section class="border-b border-slate-200/80" aria-labelledby="continue-heading">
   <PageShell class="py-12 max-[600px]:py-10">
-    <div
-      class="overflow-hidden rounded-(--frame-radius) bg-paper shadow-(--shadow-border)"
+    <a
+      class={[
+        "group flex max-w-3xl overflow-hidden rounded-(--frame-radius) shadow-(--shadow-border)",
+        "transition-[box-shadow,transform,scale] duration-200 ease-out",
+        "hover:shadow-(--shadow-border-hover) active:scale-[0.98]",
+        practiceFeaturedFieldClass[graphic],
+      ]}
+      href="/practice/{sheet.set.id}"
+      aria-labelledby="continue-heading"
     >
-      <a
-        class="group flex transition-colors hover:bg-slate-50 max-[760px]:flex-col"
-        href="/practice/{sheet.set.id}"
-        aria-labelledby="continue-heading"
+      <div
+        class="flex min-w-0 flex-1 flex-col px-8 py-8 max-[600px]:px-5 max-[600px]:py-6"
       >
-        <PracticeMotifField {motif} slovak={sheet.drill.slovak} size="featured" />
+        <h2
+          id="continue-heading"
+          class={[
+            "m-0 font-serif text-2xl tracking-tight text-balance",
+            onDark ? "text-white" : "text-slate-900",
+          ]}
+        >
+          {sheet.set.title}
+        </h2>
 
-        <div class="relative min-w-0 flex-1 px-8 py-9 max-[600px]:px-5 max-[600px]:py-7">
-          <Eyebrow>Up next</Eyebrow>
-
-          <PracticeDrillLine slovak={sheet.drill.slovak} size="featured" />
-
-          {#if sheet.drill.english}
-            <p class="m-0 mt-3 font-serif text-base text-pretty italic text-slate-600">
-              {sheet.drill.english}
-            </p>
-          {/if}
-
-          <span
-            class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-rose-600"
-          >
-            Open set
-            <ArrowRight />
-          </span>
-        </div>
+        <p
+          class={[
+            "m-0 mt-2 max-w-prose text-sm leading-relaxed text-pretty",
+            onDark ? "text-blue-100" : "text-slate-700",
+          ]}
+        >
+          {sheet.purpose}
+        </p>
 
         <div
-          class="w-full border-l border-slate-200 bg-slate-50 px-8 py-9 min-[760px]:max-w-72 max-[760px]:border-l-0 max-[760px]:border-t max-[760px]:px-5 max-[760px]:py-6"
+          class="mt-8 flex items-end gap-5 max-[600px]:flex-col max-[600px]:items-start"
         >
+          <div class="relative min-w-0 flex-1">
+            <div class="rounded-2xl bg-white px-5 py-4 shadow-(--shadow-border)">
+              <PracticeDrillLine slovak={sheet.drill.slovak} />
+
+              {#if sheet.drill.english}
+                <p class="m-0 mt-1 text-sm text-pretty text-slate-500">
+                  {sheet.drill.english}
+                </p>
+              {/if}
+            </div>
+
+            <span
+              class="pointer-events-none absolute top-8 right-0 hidden translate-x-full border-y-8 border-l-8 border-y-transparent border-l-white min-[600px]:block"
+              aria-hidden="true"
+            ></span>
+          </div>
+
+          <PracticeMotifField
+            setId={sheet.set.id}
+            lessonId={sheet.set.lessonId}
+            variant="stage"
+          />
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <span
+            class="inline-flex min-h-11 items-center justify-center gap-2 rounded-(--control-radius) bg-rose-600 px-5 font-bold text-white transition-[background-color] duration-150 ease-out group-hover:bg-rose-700"
+          >
+            Continue
+            <ArrowRight />
+          </span>
+
           <p
-            class="m-0 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-slate-500"
+            class={[
+              "m-0 text-sm tabular-nums",
+              onDark ? "text-blue-200" : "text-slate-600",
+            ]}
           >
-            {sheet.trackTitle}
-          </p>
-          <h2
-            id="continue-heading"
-            class="m-0 mt-2 font-serif text-2xl text-balance text-slate-900"
-          >
-            {sheet.set.title}
-          </h2>
-          <p class="m-0 mt-3 text-sm leading-relaxed text-pretty text-slate-600">
-            {sheet.purpose}
-          </p>
-          <p class="m-0 mt-5 text-xs tabular-nums text-slate-500">
             {sheet.exerciseCount}
             {sheet.exerciseCount === 1 ? "exercise" : "exercises"}
             {#if completed}
@@ -74,7 +104,7 @@
             {/if}
           </p>
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
   </PageShell>
 </section>

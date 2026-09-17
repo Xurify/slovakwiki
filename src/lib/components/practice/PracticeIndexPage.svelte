@@ -28,21 +28,8 @@
 </script>
 
 <main>
-  <section
-    class="relative overflow-hidden border-b border-slate-200/80"
-    aria-label="Practice"
-  >
-    <div
-      class="pointer-events-none absolute inset-0 overflow-hidden select-none font-serif text-[clamp(5rem,18vw,11rem)] font-semibold leading-none tracking-[-0.06em] text-slate-900/5"
-      aria-hidden="true"
-    >
-      <span class="absolute left-[4%] top-[12%] -rotate-[9deg]" lang="sk">ľ</span>
-      <span class="absolute right-[6%] top-[22%] rotate-[7deg]" lang="sk">č</span>
-      <span class="absolute bottom-[8%] left-[18%] rotate-[5deg]" lang="sk">š</span>
-      <span class="absolute bottom-[14%] right-[10%] -rotate-6" lang="sk">ť</span>
-    </div>
-
-    <PageShell class="relative py-16 max-[600px]:py-12">
+  <section class="border-b border-slate-200/80" aria-label="Practice">
+    <PageShell class="py-16 max-[600px]:py-12">
       <p
         class="m-0 font-serif text-[clamp(3rem,9vw,5.75rem)] font-semibold leading-[0.9] tracking-tighter text-slate-900"
       >
@@ -64,7 +51,7 @@
         </span>
 
         <TextLink href="/lessons" class="inline-flex items-center gap-1.5">
-          Prefer a lesson first
+          Try a lesson first
         </TextLink>
       </div>
 
