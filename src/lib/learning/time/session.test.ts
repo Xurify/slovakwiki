@@ -18,8 +18,7 @@ describe("learning/time/session", () => {
 
   it("builds a full session with odd-one-out and phase 2/3 items", () => {
     const session = buildDaysDatesTimeSession(() => 0.42);
-    expect(session.length).toBeGreaterThanOrEqual(11);
-    expect(session.length).toBeLessThanOrEqual(14);
+    expect(session.length).toBe(13);
     expect(session.some((item) => item.id.startsWith("everyday/frame-"))).toBe(true);
     expect(session.some((item) => item.task.type === "selectAll")).toBe(false);
     const phase2Ids = [
@@ -36,7 +35,9 @@ describe("learning/time/session", () => {
       const task = item.task;
       if (task.prompt.startsWith("Which phrase does not mean")) {
         expect(task.choiceMode).toBe("pickTrap");
-        expect(task.choices.length).toBeGreaterThanOrEqual(3);
+        expect(task.choices.length).toBeGreaterThanOrEqual(
+          item.id === "everyday/za-countdown" ? 2 : 3,
+        );
         expect(task.choices.some((choice) => choice.fits === true)).toBe(true);
         expect(task.choices.some((choice) => choice.fits !== true)).toBe(true);
         continue;

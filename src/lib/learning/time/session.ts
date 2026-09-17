@@ -105,43 +105,25 @@ export function materializeDaysDatesTimeItem(
   throw new Error(`Unknown days-dates-time kind: ${kind}`);
 }
 
+function selectDaysDatesTimeKinds(rng: () => number): DaysDatesTimeKind[] {
+  return [
+    "everyday/day-meeting",
+    ...shuffleArray(FRAMED_KINDS, rng).slice(0, 3),
+    ...CORE_QUARTER_KINDS,
+    "everyday/clock-quarter-past-ask",
+    "everyday/time-register",
+    "everyday/time-variants",
+    ...shuffleArray(PHASE2_KINDS, rng).slice(0, 2),
+    shuffleArray(PHASE3_KINDS, rng)[0]!,
+  ];
+}
+
 export function buildDaysDatesTimeSession(
   rng: () => number = Math.random,
 ): PracticeItem[] {
-  const items: PracticeItem[] = [
-    materializeDaysDatesTimeItem("everyday/day-meeting", rng),
-  ];
-
-  const framedCount = rng() < 0.5 ? 2 : 3;
-  const framedPicks = shuffleArray(FRAMED_KINDS, rng).slice(0, framedCount);
-  for (const kind of framedPicks) {
-    items.push(materializeDaysDatesTimeItem(kind, rng));
-  }
-
-  for (const kind of CORE_QUARTER_KINDS) {
-    items.push(materializeDaysDatesTimeItem(kind, rng));
-  }
-
-  items.push(materializeDaysDatesTimeItem("everyday/clock-quarter-past-ask", rng));
-  items.push(materializeDaysDatesTimeItem("everyday/time-register", rng));
-  items.push(materializeDaysDatesTimeItem("everyday/time-variants", rng));
-
-  const phase2 = shuffleArray(PHASE2_KINDS, rng);
-  items.push(materializeDaysDatesTimeItem(phase2[0]!, rng));
-  if (rng() < 0.55) {
-    items.push(materializeDaysDatesTimeItem(phase2[1]!, rng));
-  }
-
-  const phase3Pick = shuffleArray(
-    ["everyday/timetable-24h", "everyday/exact-minute"] as DaysDatesTimeKind[],
-    rng,
-  )[0]!;
-  items.push(materializeDaysDatesTimeItem(phase3Pick, rng));
-
-  if (rng() < 0.4) {
-    items.push(materializeDaysDatesTimeItem("everyday/za-countdown", rng));
-  }
-
+  const items = selectDaysDatesTimeKinds(rng).map((kind) =>
+    materializeDaysDatesTimeItem(kind, rng),
+  );
   return shuffleArray(items, rng);
 }
 

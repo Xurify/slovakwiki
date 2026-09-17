@@ -36,6 +36,7 @@ import {
 import { exampleShowsConjugatedLemma } from "./dictionary/verb-examples";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessonById, lessons, validateLessons } from "./lessons";
+import { practiceChips } from "./practice/motifs";
 import {
   practiceItemById,
   practiceItemHref,
@@ -220,11 +221,23 @@ describe("Slovak content", () => {
     expect(practiceSetForLesson("everyday/days-dates-and-time")?.id).toBe(
       "days-dates-and-time",
     );
+    const daysDates = practiceSetForLesson("everyday/days-dates-and-time")!;
+    expect(daysDates.sessionSize).toBe(13);
+    expect(daysDates.itemIds.length).toBeGreaterThan(13);
+    expect(practiceSessionCount(daysDates)).toBe(13);
     expect(practiceSetForLesson("everyday/negation-in-conversation")?.id).toBe(
       "negation-in-conversation",
     );
     expect(practiceSetForLesson("grammar/byt-present")?.id).toBe("byt-present");
     expect(practiceSetForLesson("grammar/mat-present")?.id).toBe("mat-present");
+  });
+
+  it("gives every practice set a three-chip motif", () => {
+    for (const set of practiceSets) {
+      const chips = practiceChips(set.id, "default");
+      expect(chips).toHaveLength(3);
+      expect(chips.every((chip) => chip.text.length > 0 && chip.text !== "•")).toBe(true);
+    }
   });
 
   it("routes every practice item through its topic set", () => {

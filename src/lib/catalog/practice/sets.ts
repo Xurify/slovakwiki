@@ -98,6 +98,7 @@ export const practiceSets: PracticeSet[] = [
       "Arrange a meeting day and practice clock times — day-parts, noon, 24h, and fresh faces each session.",
     track: "everyday",
     sessionKind: "days-dates-time",
+    sessionSize: 13,
     itemIds: [...daysDatesTimePracticeItemIds],
   },
   {
