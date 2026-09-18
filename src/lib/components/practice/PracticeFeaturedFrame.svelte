@@ -18,6 +18,9 @@
   const donePercent = $derived(
     totalCount === 0 ? 0 : Math.round((doneCount / totalCount) * 100),
   );
+
+  const posterLinkClass =
+    "group block h-full overflow-clip rounded-2xl shadow-(--shadow-border) transition-[box-shadow] duration-200 ease-out hover:shadow-(--shadow-border-hover)";
 </script>
 
 <section aria-label="Today">
@@ -66,18 +69,12 @@
           </h2>
 
           <div class={["mt-5 grid gap-4", peek && "min-[860px]:grid-cols-2"]}>
-            <a
-              class="block h-full rounded-2xl transition-[transform,scale] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.96]"
-              href="/practice/{candidate.set.id}"
-            >
+            <a class={posterLinkClass} href="/practice/{candidate.set.id}">
               <PracticeSetPoster sheet={candidate} size="hero" cta="Start set" />
             </a>
 
             {#if peek}
-              <a
-                class="block h-full rounded-2xl transition-[transform,scale] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.96]"
-                href="/practice/{peek.set.id}"
-              >
+              <a class={posterLinkClass} href="/practice/{peek.set.id}">
                 <PracticeSetPoster sheet={peek} size="peek" />
               </a>
             {/if}
@@ -89,10 +86,7 @@
             >
               {#each chips as chip (chip.set.id)}
                 <li>
-                  <a
-                    class="block h-full rounded-2xl transition-[transform,scale] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.96]"
-                    href="/practice/{chip.set.id}"
-                  >
+                  <a class={posterLinkClass} href="/practice/{chip.set.id}">
                     <PracticeSetPoster sheet={chip} size="chip" />
                   </a>
                 </li>

@@ -26,7 +26,7 @@
   const tipClass = $derived(
     variant === "inverse"
       ? "pointer-events-none absolute bottom-[calc(100%+0.4rem)] left-1/2 z-20 w-max max-w-[min(18rem,70vw)] -translate-x-1/2 rounded border border-slate-200 bg-paper px-2.5 py-1.5 font-sans text-xs font-normal leading-snug text-slate-900 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
-      : "pointer-events-none absolute bottom-[calc(100%+0.4rem)] left-1/2 z-20 w-max max-w-[min(18rem,70vw)] -translate-x-1/2 rounded border border-slate-200 bg-white px-2.5 py-1.5 font-sans text-xs font-normal leading-snug text-slate-700 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100",
+      : "pointer-events-none absolute bottom-[calc(100%+0.4rem)] left-1/2 z-20 w-max max-w-[min(18rem,70vw)] -translate-x-1/2 rounded border border-slate-200 bg-surface px-2.5 py-1.5 font-sans text-xs font-normal leading-snug text-slate-700 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100",
   );
 </script>
 

@@ -55,16 +55,16 @@
     selected: boolean,
   ): string {
     if (state === "correct-selected") {
-      return "border-emerald-600 bg-emerald-600 text-white";
+      return "border-emerald-600 bg-emerald-600 text-paper";
     }
     if (state === "correct-missed") {
       return "border-dashed border-slate-400 bg-paper text-slate-600";
     }
     if (state === "wrong-selected") {
-      return "border-rose-600 bg-rose-600 text-white";
+      return "border-rose-600 bg-rose-600 text-paper";
     }
     if (!state && selected) {
-      return "border-blue-600 bg-blue-600 text-white";
+      return "border-blue-600 bg-blue-600 text-paper";
     }
     return "border-slate-400";
   }

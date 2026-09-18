@@ -43,7 +43,7 @@ function statusMarkup(
   }
 
   if (status === "active") {
-    return `<span class="inline-flex min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-white">Start</span>`;
+    return `<span class="inline-flex min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-paper">Start</span>`;
   }
 
   return `<span class="sr-only">Not started</span>`;

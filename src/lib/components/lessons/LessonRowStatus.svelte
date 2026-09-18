@@ -35,7 +35,7 @@
   {/if}
 {:else if status === "active"}
   <span
-    class="inline-flex min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-white"
+    class="inline-flex min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-paper"
   >
     Start
   </span>

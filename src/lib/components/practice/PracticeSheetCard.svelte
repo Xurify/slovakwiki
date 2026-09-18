@@ -7,13 +7,15 @@
 
 <li>
   <a
-    class="group grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 px-4 py-4 no-underline transition-[background-color,transform,scale] duration-150 ease-out hover:bg-slate-50 active:scale-[0.96] min-[700px]:grid-cols-[7rem_minmax(0,1fr)_auto]"
+    class="group grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 px-4 py-4 no-underline min-[700px]:grid-cols-[7rem_minmax(0,1fr)_auto]"
     href="/practice/{sheet.set.id}"
   >
     <PracticeSetPoster {sheet} size="thumb" />
 
     <div class="min-w-0">
-      <strong class="font-serif text-base tracking-tight text-slate-900 sm:text-lg">
+      <strong
+        class="font-serif text-base tracking-tight text-slate-900 underline-offset-2 group-hover:underline sm:text-lg"
+      >
         {sheet.set.title}
       </strong>
       <p class="m-0 mt-1 text-sm leading-relaxed text-pretty text-slate-600">
@@ -27,7 +29,7 @@
     </div>
 
     <span
-      class="inline-flex min-h-11 w-fit items-center justify-center rounded-full bg-slate-900 px-5 text-sm font-bold text-white max-[699px]:col-start-2"
+      class="inline-flex min-h-11 w-fit items-center justify-center rounded-(--control-radius) bg-blue-600 px-4 font-sans font-bold text-paper transition-[background-color] duration-150 ease-out group-hover:bg-blue-700 max-[699px]:col-start-2"
       data-sheet-cta={sheet.set.lessonId}
     >
       Start now

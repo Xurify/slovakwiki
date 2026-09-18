@@ -123,30 +123,26 @@
   const chipClass = (active: boolean): string =>
     `cursor-pointer rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
       active
-        ? "border-blue-800 bg-blue-800 text-white shadow-none"
+        ? "border-blue-600 bg-blue-600 text-paper shadow-none"
         : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
     }`;
 
   const letterChipClass = (active: boolean): string =>
     `flex h-8 min-w-8 cursor-pointer items-center justify-center rounded-full border px-2 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
       active
-        ? "border-blue-800 bg-blue-800 text-white shadow-none"
+        ? "border-blue-600 bg-blue-600 text-paper shadow-none"
         : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
     }`;
 
   const pagerChipClass = (active: boolean): string =>
     active
-      ? "border-blue-800 bg-blue-800 text-white shadow-none"
+      ? "border-blue-600 bg-blue-600 text-paper shadow-none"
       : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900";
 
   const pagerLinkClass =
     "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
 
-  const rowLinkClass =
-    "flex items-start justify-between gap-4 px-4 py-3 transition-colors hover:bg-blue-50/50";
-
-  const resultsPanelClass =
-    "overflow-hidden rounded-(--frame-radius) bg-surface ring-1 ring-inset ring-slate-200";
+  const rowLinkClass = "block py-3.5 transition-colors hover:bg-blue-50/40";
 
   const indexPromise: Promise<DictionaryIndexEntry[]> | null =
     typeof window !== "undefined"
@@ -304,10 +300,8 @@
   {/each}
 </nav>
 
-<div class="{resultsPanelClass} mt-8" id="wiki-results">
-  <div
-    class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-b border-slate-200 px-4 py-2.5"
-  >
+<div class="mt-10" id="wiki-results">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
     <p class="m-0 text-sm text-slate-500">
       <strong class="font-semibold tabular-nums text-slate-900">{rangeLabel}</strong>
       {#if view.totalPages > 1 && !waitingForFilteredView && view.totalCount > 0}
@@ -329,9 +323,7 @@
   </div>
 
   {#if loadError}
-    <p class="m-0 border-t border-slate-200 px-4 py-3 text-sm text-rose-800" role="alert">
-      {loadError}
-    </p>
+    <p class="m-0 mt-4 text-sm text-rose-800" role="alert">{loadError}</p>
   {/if}
 
   {#key listKey}
@@ -341,62 +333,48 @@
     >
       {#if waitingForFilteredView}
         <ul
-          class="m-0 list-none divide-y divide-slate-200 p-0"
+          class="m-0 mt-4 list-none divide-y divide-slate-200 border-y border-slate-200 p-0"
           aria-busy="true"
           aria-label="Loading dictionary entries"
         >
           {#each Array.from({ length: SKELETON_ROWS }, (_, index) => index) as row (row)}
-            <li class="flex items-start justify-between gap-4 px-4 py-3">
-              <div class="min-w-0 flex-1">
-                <div
-                  class="h-5 w-[38%] max-w-48 animate-pulse rounded bg-slate-200/70"
-                ></div>
-                <div
-                  class="mt-2.5 h-4 w-[62%] max-w-md animate-pulse rounded bg-slate-100"
-                ></div>
-              </div>
-              {#if showEntryCategory}
-                <div
-                  class="mt-1 h-3 w-12 shrink-0 animate-pulse rounded bg-slate-100"
-                ></div>
-              {/if}
+            <li class="py-3.5">
+              <div
+                class="h-5 w-[38%] max-w-48 animate-pulse rounded bg-slate-200/70"
+              ></div>
+              <div
+                class="mt-2 h-4 w-[62%] max-w-md animate-pulse rounded bg-slate-100"
+              ></div>
             </li>
           {/each}
         </ul>
       {:else if view.visibleEntries.length}
         <ul
-          class="m-0 list-none divide-y divide-slate-200 p-0"
+          class="m-0 mt-4 list-none divide-y divide-slate-200 border-y border-slate-200 p-0"
           aria-label="Dictionary entries"
         >
           {#each view.visibleEntries as entry (entry.slug)}
             <li>
               <a class={rowLinkClass} href={dictionaryPathFromIndexFields(entry)}>
-                <div class="min-w-0">
-                  <span class="font-serif text-base text-blue-800" lang="sk">
-                    {entry.slovak}
-                  </span>
-                  <span class="mt-0.5 block text-sm text-slate-500">
-                    {entry.english}
-                  </span>
-                </div>
-
+                <span class="font-serif text-base text-blue-800" lang="sk">
+                  {entry.slovak}
+                </span>
                 {#if showEntryCategory}
-                  <span class="shrink-0 pt-1 text-xs text-slate-400 max-[520px]:hidden">
-                    {entry.category}
-                  </span>
+                  <span class="text-xs text-slate-400"> · {entry.category}</span>
                 {/if}
+                <span class="mt-0.5 block text-sm text-slate-500">{entry.english}</span>
               </a>
             </li>
           {/each}
         </ul>
       {:else if entries}
-        <div class="px-4 py-16 text-center">
+        <div class="py-16 text-center">
           <h2 class="text-xl">No matches</h2>
           <p class="mt-2 text-sm text-slate-500">
             Try a shorter search or reset the filters.
           </p>
           <button
-            class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-800 px-4 font-sans font-bold text-white"
+            class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-600 px-4 font-sans font-bold text-paper"
             type="button"
             onclick={resetFilters}
           >
@@ -409,7 +387,7 @@
 
   {#if showPager}
     <nav
-      class="flex flex-wrap items-center justify-center gap-1.5 border-t border-slate-200 px-4 py-3"
+      class="mt-6 flex flex-wrap items-center justify-center gap-1.5"
       aria-label="Dictionary pages"
     >
       {#if view.page > 1}

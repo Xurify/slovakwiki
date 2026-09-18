@@ -84,7 +84,7 @@
       bind:this={continueButton}
       type="button"
       class={[
-        "inline-flex min-h-11 min-w-36 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) px-6 font-sans text-sm font-bold text-white transition-[background-color,transform] duration-150 active:scale-[0.96]",
+        "inline-flex min-h-11 min-w-36 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) px-6 font-sans text-sm font-bold text-paper transition-[background-color,transform] duration-150 active:scale-[0.96]",
         incorrect
           ? "bg-rose-700 hover:bg-rose-800"
           : accents

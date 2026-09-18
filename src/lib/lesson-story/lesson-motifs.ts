@@ -1,4 +1,4 @@
-/** Topic motif keys for geometric lesson tiles on `/lessons`. */
+/** Topic motif keys for lesson / practice art tiles. */
 export type LessonMotifId =
   | "greetings"
   | "questions"

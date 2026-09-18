@@ -19,13 +19,13 @@
     leading?: "index" | "motif";
   } = $props();
 
-  const numberLabel = String(index + 1).padStart(2, "0");
+  const numberLabel = $derived(String(index + 1).padStart(2, "0"));
   const motif = $derived(lessonMotifId(lesson.id));
   const useMotif = $derived(leading === "motif");
 
   const rowClass = $derived(
     useMotif
-      ? "group grid grid-cols-[3rem_minmax(0,1fr)_auto] items-center gap-3.5 rounded-(--frame-radius) border-2 bg-surface/80 px-3.5 py-3 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow,border-color] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)"
+      ? "group grid grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3.5 rounded-(--frame-radius) border-2 bg-surface/80 px-3 py-3 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow,border-color] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)"
       : "group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 rounded-(--frame-radius) border-2 bg-surface/80 px-3.5 py-3.5 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow,border-color] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)",
   );
 </script>

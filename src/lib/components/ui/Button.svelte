@@ -23,7 +23,7 @@
 {#if href}
   <a
     class:bg-rose-600={variant === "primary"}
-    class:text-white={variant === "primary" || variant === "accent"}
+    class:text-paper={variant === "primary" || variant === "accent"}
     class:hover:bg-rose-700={variant === "primary"}
     class:bg-blue-600={variant === "accent"}
     class:hover:bg-blue-700={variant === "accent"}
@@ -44,7 +44,7 @@
 {:else}
   <button
     class:bg-rose-600={variant === "primary"}
-    class:text-white={variant === "primary" || variant === "accent"}
+    class:text-paper={variant === "primary" || variant === "accent"}
     class:hover:bg-rose-700={variant === "primary"}
     class:bg-blue-600={variant === "accent"}
     class:hover:bg-blue-700={variant === "accent"}

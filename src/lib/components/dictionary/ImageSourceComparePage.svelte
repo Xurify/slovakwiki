@@ -85,7 +85,7 @@
           <button
             class="min-h-10 rounded-(--control-radius) px-3 text-sm font-semibold
               {orderId === preset.id
-              ? 'bg-blue-600 text-white'
+              ? 'bg-blue-600 text-paper'
               : 'bg-control text-blue-800 shadow-(--shadow-border)'}"
             type="button"
             onclick={() => {

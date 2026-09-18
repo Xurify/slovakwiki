@@ -36,11 +36,8 @@ import {
 import { exampleShowsConjugatedLemma } from "./dictionary/verb-examples";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessonById, lessons, validateLessons } from "./lessons";
-import {
-  practiceFeaturedFieldClass,
-  practiceFeaturedOnDark,
-  practiceGraphicId,
-} from "./practice/motifs";
+import { motifArtSrc } from "./motifs/art";
+import { practiceGraphicId } from "./practice/motifs";
 import {
   practiceItemById,
   practiceItemHref,
@@ -242,11 +239,8 @@ describe("Slovak content", () => {
     expect(new Set(kinds).size).toBe(practiceSets.length);
 
     for (const kind of kinds) {
-      expect(practiceFeaturedFieldClass[kind]).toMatch(/^bg-/);
+      expect(motifArtSrc(kind)).toBe(`/lessons/motifs/${kind}.png`);
     }
-
-    expect(practiceFeaturedOnDark("numbers")).toBe(true);
-    expect(practiceFeaturedOnDark("greetings")).toBe(false);
   });
 
   it("routes every practice item through its topic set", () => {

@@ -216,7 +216,7 @@
             <button
               class="mt-auto min-h-10 rounded-(--control-radius) px-3 text-sm font-semibold
                 {rejectSlugs[row.slug]
-                ? 'bg-rose-600 text-white'
+                ? 'bg-rose-600 text-paper'
                 : 'bg-control text-blue-800 shadow-(--shadow-border)'}"
               type="button"
               onclick={() => toggleReject(row.slug)}
