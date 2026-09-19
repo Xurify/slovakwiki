@@ -11,38 +11,30 @@
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
   import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
   import type { PracticeItem } from "$lib/learning/types";
+  import { hideClockQ1Boot, readClockSession } from "$lib/practice/clock-session-stash";
   import { markPracticeSetReady, PRACTICE_SET_FOUC } from "$lib/practice/fouc";
   import {
     clientPracticeSession,
     mergePracticeSession,
     ssrPracticeSession,
   } from "$lib/practice/session";
+  import { practiceTaskKicker } from "$lib/practice/task-kicker";
 
   let {
     data,
+    layout = "page",
   }: {
     data: {
       set: PracticeSet;
       clozeAudioSrcs?: Record<string, string>;
       dictionaryHrefs?: Record<string, string>;
     };
+    layout?: "page" | "embed";
   } = $props();
 
   let hintMode = $state<"inline" | "rail">("inline");
   let sessionItems = $state<PracticeItem[]>(ssrPracticeSession(data.set));
-  let sectionTitle = $state(data.set.title);
-
-  function sectionTitleFor(item: PracticeItem | undefined): string {
-    const task = item?.task;
-    if (!task) return data.set.title;
-    if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
-    if (task.type === "cloze") return "Fill the gap";
-    if (task.type === "selectAll") return "Mark every correct way";
-    if (task.type === "choice") return "Choose the answer";
-    if (task.type === "build") return "";
-    if (task.type === "typed") return "Write the sentence";
-    return data.set.title;
-  }
+  let sectionTitle = $state(practiceTaskKicker(sessionItems[0]?.task));
 
   onMount(() => {
     void (async () => {
@@ -50,10 +42,16 @@
         const params = new URLSearchParams(location.search);
         const atItemId = params.get("at");
         const focusedItem = Boolean(atItemId && data.set.itemIds.includes(atItemId));
-        const nextSession = clientPracticeSession(data.set, atItemId);
+        const stashed = readClockSession();
+        const nextSession = stashed ?? clientPracticeSession(data.set, atItemId);
 
-        sessionItems = mergePracticeSession(sessionItems, nextSession);
-        sectionTitle = focusedItem ? sectionTitleFor(sessionItems[0]) : data.set.title;
+        if (stashed) {
+          sessionItems = stashed;
+        } else if (focusedItem) {
+          sessionItems = nextSession;
+        } else {
+          sessionItems = mergePracticeSession(sessionItems, nextSession);
+        }
 
         if (focusedItem && atItemId) {
           const current = readPracticeState(localStorage);
@@ -66,44 +64,67 @@
           `data-${PRACTICE_SET_FOUC.readyAttr}`,
         );
 
-        if (!alreadyVisible) await tick();
+        if (!alreadyVisible || layout === "embed") {
+          await tick();
+          if (layout === "embed") {
+            await new Promise<void>((resolve) => {
+              requestAnimationFrame(() => resolve());
+            });
+          }
+        }
+        hideClockQ1Boot();
         markPracticeSetReady();
       }
     })();
   });
 </script>
 
-<main class="py-8 pb-16 max-[600px]:py-5">
-  <PageShell class="max-w-[640px]">
-    <div data-practice-set-hydrate>
-      {#if sessionItems.length > 0}
-        <PracticePlayer
-          items={sessionItems}
-          {hintMode}
-          audioSrcs={data.clozeAudioSrcs ?? {}}
-          dictionaryHrefs={data.dictionaryHrefs ?? {}}
-          backHref="/practice"
-          backLabel="Practice"
-          sessionTitle={data.set.title}
-          bind:sectionTitle
-        />
-      {:else}
-        <div
-          class="mx-auto w-full max-w-[640px]"
-          aria-busy="true"
-          aria-label="Loading practice"
-        >
-          <PracticeSessionChrome
+{#if layout === "embed"}
+  {#if sessionItems.length > 0}
+    <PracticePlayer
+      items={sessionItems}
+      {hintMode}
+      audioSrcs={data.clozeAudioSrcs ?? {}}
+      dictionaryHrefs={data.dictionaryHrefs ?? {}}
+      backHref="/practice"
+      backLabel="Practice"
+      sessionTitle={data.set.title}
+      bind:sectionTitle
+    />
+  {/if}
+{:else}
+  <main class="py-8 pb-16 max-[600px]:py-5">
+    <PageShell class="max-w-[640px]">
+      <div data-practice-set-hydrate>
+        {#if sessionItems.length > 0}
+          <PracticePlayer
+            items={sessionItems}
+            {hintMode}
+            audioSrcs={data.clozeAudioSrcs ?? {}}
+            dictionaryHrefs={data.dictionaryHrefs ?? {}}
             backHref="/practice"
             backLabel="Practice"
-            total={practiceSessionCount(data.set)}
+            sessionTitle={data.set.title}
+            bind:sectionTitle
           />
+        {:else}
+          <div
+            class="mx-auto w-full max-w-[640px]"
+            aria-busy="true"
+            aria-label="Loading practice"
+          >
+            <PracticeSessionChrome
+              backHref="/practice"
+              backLabel="Practice"
+              total={practiceSessionCount(data.set)}
+            />
 
-          <section
-            class="min-h-80 overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
-          ></section>
-        </div>
-      {/if}
-    </div>
-  </PageShell>
-</main>
+            <section
+              class="min-h-80 overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
+            ></section>
+          </div>
+        {/if}
+      </div>
+    </PageShell>
+  </main>
+{/if}

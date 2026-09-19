@@ -17,7 +17,10 @@ function itemsFromIds(itemIds: readonly string[]): PracticeItem[] {
     .filter((item): item is PracticeItem => item !== undefined);
 }
 
-/** Catalog order, no shuffle / RNG — SSR must match the first client render. */
+/**
+ * Catalog order for prerender. Clock drills need RNG, so SSR leaves them empty
+ * and the island fills a fresh session after mount.
+ */
 export function ssrPracticeSession(set: PracticeSet): PracticeItem[] {
   if (set.sessionKind === "days-dates-time") return [];
 

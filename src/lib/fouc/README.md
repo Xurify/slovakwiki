@@ -139,9 +139,18 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 
 - Surface: `PRACTICE_SET_FOUC` in `$lib/practice/fouc` (`data-practice-set-hydrate`)
 - Gate: `FoucGate.astro` + tiny blocking `practiceSetEarlyReadyScript` **before** the island
-- Default sets: script marks ready immediately so SSR `PracticePlayer` is first paint
-- Stay hidden: `days-dates-time`, `?at`, `hint=rail` — island applies session then `markPracticeSetReady`
-- Q1 stays catalog-first; remaining items shuffle after hydrate
+- Default catalog sets: script marks ready immediately so SSR `PracticePlayer` is first paint
+- Stay hidden: `?at`, `hint=rail` — island applies session then `markPracticeSetReady`
+- Q1 stays catalog-first on prerendered sets; remaining items shuffle after hydrate
+- `days-dates-time`: `practice-clock` FOUC boot (`clock-boot-entry.ts`) rolls a random session **before first paint**, paints Q1 into `ClockQ1Boot`, stashes items on `globalThis`. Island (`client:only`) reuses the stash and hides the boot card.
+
+## Practice clock boot
+
+- Surface: same `PRACTICE_SET_FOUC` (`data-practice-set-hydrate` / `data-practice-set-ready`)
+- Entry: `$lib/practice/clock-boot-entry.ts`
+- Paint SSOT: `clock-q1-view.ts` → `apply-clock-q1.ts`
+- Shell: `PracticeClockBoot.astro` (`stage="gate"` before markup, `stage="script"` after)
+- Generate: `bun run fouc:boot -- practice-clock`
 
 Theme / sfx / story-English prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`).
 

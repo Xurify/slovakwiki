@@ -12,10 +12,9 @@ export function markPracticeSetReady(): void {
 
 /**
  * Blocking snippet: unhide default SSR player before the island.
- * Stay hidden for RNG sets, `?at`, and `hint=rail` (prerender HTML cannot know those).
+ * Stay hidden for `?at` and `hint=rail` (prerender HTML cannot know those).
  */
-export function practiceSetEarlyReadyScript(deferReveal: boolean): string {
+export function practiceSetEarlyReadyScript(): string {
   const readyAttr = PRACTICE_SET_FOUC.readyAttr;
-  const skipSet = deferReveal ? "true" : "false";
-  return `(function(){if(${skipSet})return;var p=new URLSearchParams(location.search);if(p.has("at")||p.get("hint")==="rail")return;document.documentElement.setAttribute("data-${readyAttr}","1");})();`;
+  return `(function(){var p=new URLSearchParams(location.search);if(p.has("at")||p.get("hint")==="rail")return;document.documentElement.setAttribute("data-${readyAttr}","1");})();`;
 }

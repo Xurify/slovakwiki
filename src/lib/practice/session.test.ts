@@ -33,8 +33,15 @@ describe("practice session", () => {
     expect(items.map((item) => item.id)).toEqual(set.itemIds.slice(0, 7));
   });
 
-  it("SSR session is empty for days-dates-time", () => {
+  it("SSR days-dates-time waits for a client-random session", () => {
     expect(ssrPracticeSession(requireSet("days-dates-and-time"))).toEqual([]);
+  });
+
+  it("client days-dates-time builds a full session", () => {
+    const session = clientPracticeSession(requireSet("days-dates-and-time"), null);
+
+    expect(session).toHaveLength(13);
+    expect(new Set(session.map((item) => item.id)).size).toBe(13);
   });
 
   it("client default keeps catalog first item and sessionSize", () => {
@@ -65,13 +72,11 @@ describe("practice session", () => {
     expect(merged).toHaveLength(painted.length);
   });
 
-  it("early ready script skips deferred sets and query paint", () => {
-    const ready = practiceSetEarlyReadyScript(false);
-    const deferred = practiceSetEarlyReadyScript(true);
+  it("early ready script hides query paint only", () => {
+    const ready = practiceSetEarlyReadyScript();
 
     expect(ready).toContain('p.has("at")');
     expect(ready).toContain("data-practice-set-ready");
-    expect(ready).toContain("if(false)return");
-    expect(deferred).toContain("if(true)return");
+    expect(ready).not.toContain("if(true)return");
   });
 });

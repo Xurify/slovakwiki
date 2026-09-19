@@ -45,7 +45,8 @@
   import PracticeSessionComplete, {
     type SessionPhraseResult,
   } from "$lib/components/practice/PracticeSessionComplete.svelte";
-  import type { PracticeItem, PracticeTask } from "$lib/learning/types";
+  import { practiceTaskKicker } from "$lib/practice/task-kicker";
+  import type { PracticeItem } from "$lib/learning/types";
 
   const SK_CHARS = [
     "á",
@@ -66,19 +67,6 @@
     "ý",
     "ž",
   ] as const;
-
-  function sectionTitleFor(task: PracticeTask): string {
-    if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
-    if (task.type === "cloze") return "Fill the gap";
-    if (task.type === "selectAll") return "";
-    if (task.type === "choice" && task.clock) return "";
-    if (task.type === "choice" && task.promptSk) return "";
-    if (task.type === "choice") return "Choose the answer";
-    if (task.type === "build" && task.promptSk) return "";
-    if (task.type === "build") return "";
-    if (task.type === "typed") return "Write the sentence";
-    return "Practice";
-  }
 
   let {
     items,
@@ -127,7 +115,7 @@
   const typedWithScene = $derived(task.type === "typed" && hasScene);
 
   $effect(() => {
-    if (!finished) sectionTitle = sectionTitleFor(task);
+    if (!finished) sectionTitle = practiceTaskKicker(task);
   });
 
   const frameParts = $derived(task.type === "cloze" ? task.frame.split("{}") : []);
@@ -306,7 +294,7 @@
     activeIndex = 0;
     finished = false;
     resetExerciseState();
-    if (activeItems[0]) sectionTitle = sectionTitleFor(activeItems[0].task);
+    if (activeItems[0]) sectionTitle = practiceTaskKicker(activeItems[0].task);
   }
 
   function retryMissed(): void {
@@ -324,7 +312,7 @@
     resetExerciseState();
 
     const first = (itemOverride ?? items)[0];
-    if (first) sectionTitle = sectionTitleFor(first.task);
+    if (first) sectionTitle = practiceTaskKicker(first.task);
   }
 
   const isMiss = $derived(submitted && isMissFeedback(grade, revealed));

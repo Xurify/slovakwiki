@@ -1,0 +1,13 @@
+---
+import FoucBoot from "$lib/fouc/FoucBoot.astro";
+import { CLOCK_BOOT_SCRIPT } from "$lib/practice/clock-boot-script";
+import { PRACTICE_SET_FOUC } from "$lib/practice/fouc";
+
+interface Props {
+  stage: "gate" | "script";
+}
+
+const { stage } = Astro.props;
+---
+
+<FoucBoot surface={PRACTICE_SET_FOUC} payload={{}} script={CLOCK_BOOT_SCRIPT} {stage} />

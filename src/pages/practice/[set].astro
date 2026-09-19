@@ -1,6 +1,9 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import ClockQ1Boot from "$lib/components/practice/ClockQ1Boot.svelte";
+import PracticeClockBoot from "$lib/components/practice/PracticeClockBoot.astro";
 import PracticeSetPage from "$lib/components/practice/PracticeSetPage.svelte";
+import PageShell from "$lib/components/ui/PageShell.svelte";
 import { dictionaryHrefsForItems } from "$lib/catalog/dictionary/lemma-href";
 import { clozeAudioSrcs } from "$lib/catalog/practice/audio";
 import { contentCacheKey } from "$lib/build/cache-key";
@@ -30,6 +33,7 @@ export function getStaticPaths() {
 
 const { set, clozeAudioSrcs: audioSrcs, dictionaryHrefs } = Astro.props;
 const hasSessionParam = Astro.url.searchParams.has("at");
+const isClockSet = set.sessionKind === "days-dates-time";
 ---
 
 <SiteLayout
@@ -38,13 +42,37 @@ const hasSessionParam = Astro.url.searchParams.has("at");
   canonicalPath={`/practice/${set.id}`}
   noindex={hasSessionParam}
 >
-  <FoucGate surface={PRACTICE_SET_FOUC} />
-  <script
-    is:inline
-    set:html={practiceSetEarlyReadyScript(set.sessionKind === "days-dates-time")}
-  />
-  <PracticeSetPage
-    data={{ set, clozeAudioSrcs: audioSrcs, dictionaryHrefs }}
-    client:load
-  />
+  {
+    isClockSet ? (
+      <>
+        <PracticeClockBoot stage="gate" />
+        <main class="py-8 pb-16 max-[600px]:py-5">
+          <PageShell class="max-w-[640px]">
+            <div class="grid" data-practice-set-hydrate>
+              <div class="relative z-10 col-start-1 row-start-1" data-clock-q1-layer>
+                <ClockQ1Boot {set} />
+              </div>
+              <div class="relative z-0 col-start-1 row-start-1 min-w-0">
+                <PracticeSetPage
+                  client:only="svelte"
+                  data={{ set, clozeAudioSrcs: audioSrcs, dictionaryHrefs }}
+                  layout="embed"
+                />
+              </div>
+            </div>
+          </PageShell>
+        </main>
+        <PracticeClockBoot stage="script" />
+      </>
+    ) : (
+      <>
+        <FoucGate surface={PRACTICE_SET_FOUC} />
+        <script is:inline set:html={practiceSetEarlyReadyScript()} />
+        <PracticeSetPage
+          client:load
+          data={{ set, clozeAudioSrcs: audioSrcs, dictionaryHrefs }}
+        />
+      </>
+    )
+  }
 </SiteLayout>
