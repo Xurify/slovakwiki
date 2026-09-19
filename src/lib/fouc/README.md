@@ -138,10 +138,10 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 ## Practice set consumer
 
 - Surface: `PRACTICE_SET_FOUC` in `$lib/practice/fouc` (`data-practice-set-hydrate`)
-- Gate: `FoucGate.astro` on `/practice/[set]` (CSS only — no boot IIFE)
-- SSR: real `PracticePlayer` from `ssrPracticeSession` (catalog order; empty for days-dates-time)
-- Island: `PracticeSetPage` applies `clientPracticeSession` in `onMount`, then `markPracticeSetReady`
-- Shuffle / `?at` / clock RNG stay client-side; hide-until-ready so the skeleton never paints
+- Gate: `FoucGate.astro` + tiny blocking `practiceSetEarlyReadyScript` **before** the island
+- Default sets: script marks ready immediately so SSR `PracticePlayer` is first paint
+- Stay hidden: `days-dates-time`, `?at`, `hint=rail` — island applies session then `markPracticeSetReady`
+- Q1 stays catalog-first; remaining items shuffle after hydrate
 
 Theme / sfx / story-English prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`).
 

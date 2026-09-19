@@ -47,6 +47,28 @@ export function clientPracticeSession(
     if (item) return [maybeMaterializeBuildItem(item)];
   }
 
-  const sampledIds = samplePracticeItemIds(set.itemIds, set.sessionSize);
-  return itemsFromIds(sampledIds).map((item) => maybeMaterializeBuildItem(item));
+  const [firstId, ...restIds] = set.itemIds;
+  if (!firstId) return [];
+
+  const restSize =
+    set.sessionSize === undefined ? undefined : Math.max(0, set.sessionSize - 1);
+  const restIdsSampled = samplePracticeItemIds(restIds, restSize);
+  const [first, ...rest] = itemsFromIds([firstId, ...restIdsSampled]);
+  if (!first) return [];
+
+  return [first, ...rest.map((item) => maybeMaterializeBuildItem(item))];
+}
+
+/** Keep the painted first item object when the client session starts with the same id. */
+export function mergePracticeSession(
+  painted: PracticeItem[],
+  next: PracticeItem[],
+): PracticeItem[] {
+  const paintedFirst = painted[0];
+  const nextFirst = next[0];
+  if (paintedFirst && nextFirst && paintedFirst.id === nextFirst.id) {
+    return [paintedFirst, ...next.slice(1)];
+  }
+
+  return next;
 }

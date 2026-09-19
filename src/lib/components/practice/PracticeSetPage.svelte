@@ -11,8 +11,12 @@
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
   import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
   import type { PracticeItem } from "$lib/learning/types";
-  import { markPracticeSetReady } from "$lib/practice/fouc";
-  import { clientPracticeSession, ssrPracticeSession } from "$lib/practice/session";
+  import { markPracticeSetReady, PRACTICE_SET_FOUC } from "$lib/practice/fouc";
+  import {
+    clientPracticeSession,
+    mergePracticeSession,
+    ssrPracticeSession,
+  } from "$lib/practice/session";
 
   let {
     data,
@@ -46,8 +50,9 @@
         const params = new URLSearchParams(location.search);
         const atItemId = params.get("at");
         const focusedItem = Boolean(atItemId && data.set.itemIds.includes(atItemId));
+        const nextSession = clientPracticeSession(data.set, atItemId);
 
-        sessionItems = clientPracticeSession(data.set, atItemId);
+        sessionItems = mergePracticeSession(sessionItems, nextSession);
         sectionTitle = focusedItem ? sectionTitleFor(sessionItems[0]) : data.set.title;
 
         if (focusedItem && atItemId) {
@@ -57,7 +62,11 @@
 
         hintMode = params.get("hint") === "rail" ? "rail" : "inline";
       } finally {
-        await tick();
+        const alreadyVisible = document.documentElement.hasAttribute(
+          `data-${PRACTICE_SET_FOUC.readyAttr}`,
+        );
+
+        if (!alreadyVisible) await tick();
         markPracticeSetReady();
       }
     })();
@@ -66,7 +75,7 @@
 
 <main class="py-8 pb-16 max-[600px]:py-5">
   <PageShell class="max-w-[640px]">
-    <div class="min-h-[32rem]" data-practice-set-hydrate>
+    <div data-practice-set-hydrate>
       {#if sessionItems.length > 0}
         <PracticePlayer
           items={sessionItems}
