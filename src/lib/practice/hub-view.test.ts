@@ -27,13 +27,10 @@ const payload: PracticeBootPayload = {
 };
 
 describe("buildPracticeHubView", () => {
-  it("empty storage features first sheet with Start set", () => {
+  it("empty storage features first sheet", () => {
     const view = buildPracticeHubView(payload, [], []);
 
     expect(view.featuredSetId).toBe("greet");
-    expect(view.featuredCta).toBe("Start set");
-    expect(view.doneCount).toBe(0);
-    expect(view.totalCount).toBe(2);
     expect(view.recents).toEqual([]);
   });
 
@@ -41,16 +38,12 @@ describe("buildPracticeHubView", () => {
     const view = buildPracticeHubView(payload, ["everyday/a"], []);
 
     expect(view.featuredSetId).toBe("ask");
-    expect(view.featuredCta).toBe("Start set");
-    expect(view.doneCount).toBe(1);
   });
 
-  it("all-done uses Try again on the first sheet", () => {
+  it("all-done keeps the first sheet featured", () => {
     const view = buildPracticeHubView(payload, ["everyday/a", "everyday/b"], []);
 
     expect(view.featuredSetId).toBe("greet");
-    expect(view.featuredCta).toBe("Try again");
-    expect(view.doneCount).toBe(2);
   });
 
   it("recents reverse order, cap, and skip unknown ids", () => {

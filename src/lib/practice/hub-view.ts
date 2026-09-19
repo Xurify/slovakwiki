@@ -8,11 +8,8 @@ export const PRACTICE_RECENTS_CAP = 8;
 
 export interface PracticeHubView {
   completedLessonIds: readonly string[];
-  doneCount: number;
-  featuredCta: string;
   featuredSetId: string | null;
   recents: PracticeBootItem[];
-  totalCount: number;
 }
 
 function pickFeaturedSheet(
@@ -48,14 +45,10 @@ export function buildPracticeHubView(
 ): PracticeHubView {
   const completed = new Set(completedLessonIds);
   const featured = pickFeaturedSheet(payload.sheets, completed);
-  const featuredCompleted = featured ? completed.has(featured.lessonId) : false;
 
   return {
     completedLessonIds: [...completed],
-    doneCount: payload.sheets.filter((sheet) => completed.has(sheet.lessonId)).length,
-    featuredCta: featuredCompleted ? "Try again" : "Start set",
     featuredSetId: featured?.id ?? null,
     recents: buildRecents(payload.items, recentItemIds),
-    totalCount: payload.sheets.length,
   };
 }

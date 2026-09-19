@@ -1,56 +1,34 @@
 import type { PracticeBootItem } from "./boot-payload";
 import type { PracticeHubView } from "./hub-view";
 
-function setText(selector: string, text: string): void {
-  for (const element of document.querySelectorAll<HTMLElement>(selector)) {
-    element.textContent = text;
-  }
-}
-
-function setWidth(selector: string, percent: number): void {
-  for (const element of document.querySelectorAll<HTMLElement>(selector)) {
-    element.style.width = `${percent}%`;
-  }
-}
-
-function donePercent(done: number, total: number): number {
-  if (total === 0) return 0;
-  return Math.round((done / total) * 100);
-}
-
-function paintFeatured(view: PracticeHubView, completed: Set<string>): void {
+function paintFeatured(view: PracticeHubView): void {
   for (const sheet of document.querySelectorAll<HTMLElement>("[data-featured-sheet]")) {
     const setId = sheet.dataset.featuredSheet;
-    const lessonId = sheet.dataset.featuredLesson;
-    const isFeatured = Boolean(setId && setId === view.featuredSetId);
-
-    sheet.hidden = !isFeatured;
-
-    const cta = sheet.querySelector<HTMLElement>("[data-hero-cta]");
-    if (cta) {
-      cta.textContent = lessonId && completed.has(lessonId) ? "Try again" : "Start set";
-    }
-
-    const done = sheet.querySelector<HTMLElement>("[data-featured-done]");
-    if (done) {
-      done.hidden = !lessonId || !completed.has(lessonId);
-    }
+    sheet.hidden = !setId || setId !== view.featuredSetId;
   }
 
-  setText("[data-hub-done-count]", String(view.doneCount));
-  setText("[data-hub-total-count]", String(view.totalCount));
-  setWidth("[data-hub-done-bar]", donePercent(view.doneCount, view.totalCount));
-}
-
-function paintSheetDone(completed: Set<string>): void {
-  for (const el of document.querySelectorAll<HTMLElement>("[data-sheet-done]")) {
-    const lessonId = el.dataset.sheetDone;
-    el.textContent = lessonId && completed.has(lessonId) ? " · Done" : "";
+  for (const row of document.querySelectorAll<HTMLElement>("[data-browse-sheet]")) {
+    const setId = row.dataset.browseSheet;
+    row.hidden = Boolean(setId && setId === view.featuredSetId);
   }
 
-  for (const el of document.querySelectorAll<HTMLElement>("[data-sheet-cta]")) {
-    const lessonId = el.dataset.sheetCta;
-    el.textContent = lessonId && completed.has(lessonId) ? "Repeat" : "Start now";
+  for (const track of document.querySelectorAll<HTMLElement>("[data-browse-track]")) {
+    const rows = [...track.querySelectorAll<HTMLElement>("[data-browse-sheet]")];
+    const visible = rows.filter((row) => !row.hidden);
+    track.hidden = visible.length === 0;
+
+    const meta = track.querySelector<HTMLElement>("[data-browse-track-meta]");
+    if (!meta) continue;
+
+    const exerciseCount = visible.reduce((sum, row) => {
+      const raw = row.dataset.exerciseCount;
+      const count = raw ? Number(raw) : 0;
+      return sum + (Number.isFinite(count) ? count : 0);
+    }, 0);
+
+    const setLabel = visible.length === 1 ? "set" : "sets";
+    const exerciseLabel = exerciseCount === 1 ? "exercise" : "exercises";
+    meta.textContent = `${visible.length} ${setLabel} · ${exerciseCount} ${exerciseLabel}`;
   }
 }
 
@@ -95,9 +73,6 @@ function paintRecents(recents: PracticeBootItem[]): void {
 
 /** Apply a pure hub view to the practice index DOM. Idempotent. */
 export function applyPracticeHubView(view: PracticeHubView): void {
-  const completed = new Set(view.completedLessonIds);
-
-  paintFeatured(view, completed);
-  paintSheetDone(completed);
+  paintFeatured(view);
   paintRecents(view.recents);
 }

@@ -1,99 +1,94 @@
 <script lang="ts">
   import type { PracticeHubSheet } from "$lib/catalog/practice/hub";
+  import { practiceGraphicId } from "$lib/catalog/practice/motifs";
+  import { motifArtSrc } from "$lib/catalog/motifs/art";
+  import Button from "$lib/components/ui/Button.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
-  import PracticeSetPoster from "$lib/components/practice/PracticeSetPoster.svelte";
+  import PracticeDrillLine from "$lib/components/practice/PracticeDrillLine.svelte";
 
   let {
     sheets,
     featuredId,
-    doneCount = 0,
-    totalCount = 0,
   }: {
     sheets: PracticeHubSheet[];
     featuredId: string;
-    doneCount?: number;
-    totalCount?: number;
   } = $props();
-
-  const donePercent = $derived(
-    totalCount === 0 ? 0 : Math.round((doneCount / totalCount) * 100),
-  );
-
-  const posterLinkClass =
-    "group block h-full overflow-clip rounded-2xl shadow-(--shadow-border) transition-[box-shadow] duration-200 ease-out hover:shadow-(--shadow-border-hover)";
 </script>
 
-<section aria-label="Today">
-  <PageShell class="py-10 max-[600px]:py-8">
+<section aria-label="Start here">
+  <PageShell class="py-8 max-[600px]:py-6">
     <div data-practice-hydrate>
-      {#if totalCount > 0}
-        <div
-          class="mb-8 flex max-w-xl items-center gap-3 rounded-2xl bg-surface px-4 py-3 ring-1 ring-slate-200/80 ring-inset"
-        >
-          <p class="m-0 shrink-0 text-sm text-slate-600">Sets done</p>
-          <div class="h-1.5 min-w-0 flex-1 rounded-full bg-slate-200">
-            <span
-              class="block h-full rounded-full bg-rose-600"
-              data-hub-done-bar
-              style:width="{donePercent}%"
-            ></span>
-          </div>
-          <p class="m-0 text-sm tabular-nums text-slate-700">
-            <span data-hub-done-count>{doneCount}</span>/<span data-hub-total-count
-              >{totalCount}</span
-            >
-          </p>
-        </div>
-      {/if}
-
       {#each sheets as candidate (candidate.set.id)}
-        {@const siblings = sheets.filter(
-          (entry) =>
-            entry.set.track === candidate.set.track && entry.set.id !== candidate.set.id,
-        )}
-        {@const peek = siblings.length === 1 ? siblings[0] : undefined}
-        {@const chips = siblings.length === 1 ? [] : siblings}
+        {@const graphic = practiceGraphicId(candidate.set.id, candidate.set.lessonId)}
+        {@const src = motifArtSrc(graphic)}
 
-        <div
+        <article
+          class="grid overflow-clip rounded-2xl bg-surface ring-1 ring-slate-200/80 ring-inset max-[699px]:grid-rows-[9rem_auto] min-[700px]:grid-cols-[minmax(0,1fr)_13rem]"
           data-featured-sheet={candidate.set.id}
           data-featured-lesson={candidate.set.lessonId}
           hidden={candidate.set.id !== featuredId}
         >
-          <p class="m-0 text-sm text-slate-500">
-            {candidate.trackTitle}
-          </p>
-          <h2
-            class="m-0 mt-1 font-serif text-[clamp(1.6rem,2.4vw,2rem)] tracking-tight text-balance text-slate-900"
-          >
-            {candidate.set.title}
-          </h2>
+          <div class="flex min-h-0 flex-col gap-4 p-6 max-[600px]:p-5">
+            <Eyebrow tone="muted" compact class="mb-0">Start here</Eyebrow>
 
-          <div class={["mt-5 grid gap-4", peek && "min-[860px]:grid-cols-2"]}>
-            <a class={posterLinkClass} href="/practice/{candidate.set.id}">
-              <PracticeSetPoster sheet={candidate} size="hero" cta="Start set" />
-            </a>
+            <div class="min-w-0">
+              <h2
+                class="m-0 font-serif text-[clamp(1.45rem,2.2vw,1.85rem)] tracking-tight text-balance text-slate-900"
+              >
+                {candidate.set.title}
+              </h2>
 
-            {#if peek}
-              <a class={posterLinkClass} href="/practice/{peek.set.id}">
-                <PracticeSetPoster sheet={peek} size="peek" />
-              </a>
+              <p
+                class="m-0 mt-2 max-w-xl text-[0.95rem] leading-relaxed text-pretty text-slate-600"
+              >
+                {candidate.purpose}
+              </p>
+
+              <p class="m-0 mt-3 text-xs tabular-nums text-slate-500">
+                {candidate.exerciseCount}
+                {candidate.exerciseCount === 1 ? "exercise" : "exercises"}
+              </p>
+            </div>
+
+            {#if candidate.drill.slovak}
+              <div class="min-w-0">
+                <PracticeDrillLine
+                  slovak={candidate.drill.slovak}
+                  class="text-lg text-slate-700"
+                />
+
+                {#if candidate.drill.english}
+                  <p class="m-0 mt-1 text-sm text-pretty text-slate-500">
+                    {candidate.drill.english}
+                  </p>
+                {/if}
+              </div>
             {/if}
+
+            <Button
+              class="mt-auto w-fit"
+              href="/practice/{candidate.set.id}"
+              variant="accent"
+              data-hero-cta=""
+            >
+              Start set
+            </Button>
           </div>
 
-          {#if chips.length}
-            <ul
-              class="m-0 mt-4 grid list-none grid-cols-2 gap-3 p-0 min-[860px]:grid-cols-4"
-            >
-              {#each chips as chip (chip.set.id)}
-                <li>
-                  <a class={posterLinkClass} href="/practice/{chip.set.id}">
-                    <PracticeSetPoster sheet={chip} size="chip" />
-                  </a>
-                </li>
-              {/each}
-            </ul>
-          {/if}
-        </div>
+          <div
+            class="relative min-h-36 overflow-clip max-[699px]:order-first max-[699px]:h-36"
+          >
+            <img
+              {src}
+              alt=""
+              width="512"
+              height="512"
+              decoding="async"
+              class="absolute inset-0 size-full object-cover"
+            />
+          </div>
+        </article>
       {/each}
     </div>
   </PageShell>

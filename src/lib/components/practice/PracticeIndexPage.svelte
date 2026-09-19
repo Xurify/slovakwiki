@@ -9,12 +9,13 @@
   import {
     buildPracticeSheets,
     groupSheetsByTrack,
-    practiceToday,
+    pickFeaturedSheet,
   } from "$lib/catalog/practice/hub";
 
   const sheets = buildPracticeSheets(emptyPracticeState());
   const sheetsByTrack = groupSheetsByTrack(sheets);
-  const today = practiceToday(sheets);
+  const featured = pickFeaturedSheet(sheets);
+  const featuredId = featured?.set.id ?? "";
 </script>
 
 <main>
@@ -27,64 +28,14 @@
       </h1>
 
       <p class="mt-3 m-0 max-w-xl text-[1.05rem] leading-snug text-slate-600">
-        Drill the forms until they come back without looking.
-      </p>
-
-      <p class="mt-5 m-0">
-        <TextLink href="/lessons">Try a lesson first</TextLink>
+        Choose a topic and drill the forms in a short set.
       </p>
     </PageShell>
   </section>
 
-  {#if today}
-    <PracticeFeaturedFrame
-      {sheets}
-      featuredId={today.featured.set.id}
-      doneCount={today.doneCount}
-      totalCount={today.totalCount}
-    />
+  {#if featured}
+    <PracticeFeaturedFrame {sheets} {featuredId} />
   {/if}
-
-  <section aria-labelledby="topics-heading">
-    <PageShell class="pt-4 pb-20 max-[600px]:pb-14">
-      <div class="mb-8 max-w-160">
-        <h2 id="topics-heading" class="m-0">All sets</h2>
-        <p class="mt-2 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-          Lessons teach. These ask you to use it.
-        </p>
-      </div>
-
-      <div class="grid gap-12" data-practice-hydrate>
-        {#each sheetsByTrack as group (group.track.id)}
-          <section aria-labelledby={`track-${group.track.id}`}>
-            <div class="mb-3 flex flex-wrap items-baseline justify-between gap-3">
-              <h3
-                id={`track-${group.track.id}`}
-                class="m-0 font-serif text-xl text-slate-900"
-              >
-                {group.track.title}
-              </h3>
-              <p class="m-0 text-xs tabular-nums text-slate-500">
-                {group.sheets.length}
-                {group.sheets.length === 1 ? "set" : "sets"}
-                ·
-                {group.exerciseCount}
-                {group.exerciseCount === 1 ? "exercise" : "exercises"}
-              </p>
-            </div>
-
-            <ul
-              class="m-0 list-none divide-y divide-slate-200/80 overflow-hidden rounded-2xl bg-surface p-0 ring-1 ring-slate-200/80 ring-inset"
-            >
-              {#each group.sheets as sheet (sheet.set.id)}
-                <PracticeSheetCard {sheet} />
-              {/each}
-            </ul>
-          </section>
-        {/each}
-      </div>
-    </PageShell>
-  </section>
 
   <section
     class="border-t border-slate-200/80"
@@ -93,12 +44,11 @@
     data-practice-hydrate
     hidden
   >
-    <PageShell class="py-12 max-[600px]:py-10">
-      <div class="mb-8 max-w-160">
+    <PageShell class="py-10 max-[600px]:py-8">
+      <div class="mb-6 max-w-160">
         <h2 id="recents-heading" class="m-0">Practice again</h2>
-        <p class="mt-3 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-          Solo drills from a lesson or topic page. Opens the matching exercise in its
-          sheet.
+        <p class="mt-2 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
+          Recent drills. Opens the matching exercise in its set.
         </p>
       </div>
 
@@ -132,6 +82,67 @@
           </a>
         </li>
       </template>
+    </PageShell>
+  </section>
+
+  <section aria-labelledby="topics-heading">
+    <PageShell class="pt-4 pb-20 max-[600px]:pb-14">
+      <div class="mb-8 max-w-160">
+        <h2 id="topics-heading" class="m-0">Browse sets</h2>
+        <p class="mt-2 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
+          Each set is a short drill.
+        </p>
+      </div>
+
+      <div class="grid gap-12" data-practice-hydrate>
+        {#each sheetsByTrack as group (group.track.id)}
+          {@const hidesFeatured = group.sheets.some(
+            (sheet) => sheet.set.id === featuredId,
+          )}
+          {@const visibleCount = hidesFeatured
+            ? group.sheets.length - 1
+            : group.sheets.length}
+          {@const visibleExercises = group.sheets.reduce(
+            (sum, sheet) =>
+              sheet.set.id === featuredId ? sum : sum + sheet.exerciseCount,
+            0,
+          )}
+
+          <section
+            aria-labelledby={`track-${group.track.id}`}
+            data-browse-track={group.track.id}
+            hidden={visibleCount === 0}
+          >
+            <div class="mb-3 flex flex-wrap items-baseline justify-between gap-3">
+              <h3
+                id={`track-${group.track.id}`}
+                class="m-0 font-serif text-xl text-slate-900"
+              >
+                {group.track.title}
+              </h3>
+              <p class="m-0 text-xs tabular-nums text-slate-500" data-browse-track-meta>
+                {visibleCount}
+                {visibleCount === 1 ? "set" : "sets"}
+                ·
+                {visibleExercises}
+                {visibleExercises === 1 ? "exercise" : "exercises"}
+              </p>
+            </div>
+
+            <ul
+              class="m-0 list-none divide-y divide-slate-200/80 overflow-hidden rounded-2xl bg-surface p-0 ring-1 ring-slate-200/80 ring-inset"
+            >
+              {#each group.sheets as sheet (sheet.set.id)}
+                <PracticeSheetCard {sheet} hidden={sheet.set.id === featuredId} />
+              {/each}
+            </ul>
+          </section>
+        {/each}
+      </div>
+
+      <p class="mt-12 m-0">
+        <TextLink href="/lessons">Go to lessons</TextLink>
+      </p>
     </PageShell>
   </section>
 </main>
