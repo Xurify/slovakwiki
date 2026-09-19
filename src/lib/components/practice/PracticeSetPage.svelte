@@ -1,26 +1,18 @@
 <script lang="ts">
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import {
     readPracticeState,
     saveRecentItem,
     writePracticeState,
   } from "$lib/components/practice/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
-  import PracticePlayerSkeleton from "$lib/components/practice/PracticePlayerSkeleton.svelte";
-  import {
-    practiceItemById,
-    samplePracticeItemIds,
-    type PracticeSet,
-  } from "$lib/catalog/practice";
+  import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
   import type { PracticeItem } from "$lib/learning/types";
-  import {
-    buildDaysDatesTimeSession,
-    isDaysDatesTimeKind,
-    materializeDaysDatesTimeItem,
-  } from "$lib/learning/time/session";
-  import { maybeMaterializeBuildItem } from "$lib/learning/exercises/materialize-build";
+  import { markPracticeSetReady } from "$lib/practice/fouc";
+  import { clientPracticeSession, ssrPracticeSession } from "$lib/practice/session";
 
   let {
     data,
@@ -32,10 +24,9 @@
     };
   } = $props();
 
-  let hydrated = $state(false);
   let hintMode = $state<"inline" | "rail">("inline");
-  let sessionItems = $state<PracticeItem[]>([]);
-  let focusedItem = $state(false);
+  let sessionItems = $state<PracticeItem[]>(ssrPracticeSession(data.set));
+  let sectionTitle = $state(data.set.title);
 
   function sectionTitleFor(item: PracticeItem | undefined): string {
     const task = item?.task;
@@ -49,61 +40,61 @@
     return data.set.title;
   }
 
-  let sectionTitle = $state("");
-
-  function resolveSessionItems(atItemId: string | null): PracticeItem[] {
-    if (data.set.sessionKind === "days-dates-time") {
-      if (atItemId && isDaysDatesTimeKind(atItemId)) {
-        return [materializeDaysDatesTimeItem(atItemId)];
-      }
-      return buildDaysDatesTimeSession();
-    }
-
-    if (atItemId && data.set.itemIds.includes(atItemId)) {
-      const item = practiceItemById.get(atItemId);
-      if (item) return [maybeMaterializeBuildItem(item)];
-    }
-
-    const sampledIds = samplePracticeItemIds(data.set.itemIds, data.set.sessionSize);
-    return sampledIds
-      .map((itemId) => practiceItemById.get(itemId))
-      .filter((item): item is PracticeItem => item !== undefined)
-      .map((item) => maybeMaterializeBuildItem(item));
-  }
-
   onMount(() => {
-    const params = new URLSearchParams(location.search);
-    const atItemId = params.get("at");
-    focusedItem = Boolean(atItemId && data.set.itemIds.includes(atItemId));
+    void (async () => {
+      try {
+        const params = new URLSearchParams(location.search);
+        const atItemId = params.get("at");
+        const focusedItem = Boolean(atItemId && data.set.itemIds.includes(atItemId));
 
-    sessionItems = resolveSessionItems(atItemId);
-    sectionTitle = focusedItem ? sectionTitleFor(sessionItems[0]) : data.set.title;
+        sessionItems = clientPracticeSession(data.set, atItemId);
+        sectionTitle = focusedItem ? sectionTitleFor(sessionItems[0]) : data.set.title;
 
-    if (focusedItem && atItemId) {
-      const current = readPracticeState(localStorage);
-      writePracticeState(localStorage, saveRecentItem(current, atItemId));
-    }
+        if (focusedItem && atItemId) {
+          const current = readPracticeState(localStorage);
+          writePracticeState(localStorage, saveRecentItem(current, atItemId));
+        }
 
-    hintMode = params.get("hint") === "rail" ? "rail" : "inline";
-    hydrated = true;
+        hintMode = params.get("hint") === "rail" ? "rail" : "inline";
+      } finally {
+        await tick();
+        markPracticeSetReady();
+      }
+    })();
   });
 </script>
 
 <main class="py-8 pb-16 max-[600px]:py-5">
   <PageShell class="max-w-[640px]">
-    {#if hydrated}
-      <PracticePlayer
-        items={sessionItems}
-        {hintMode}
-        audioSrcs={data.clozeAudioSrcs ?? {}}
-        dictionaryHrefs={data.dictionaryHrefs ?? {}}
-        backHref="/practice"
-        backLabel="Practice"
-        sessionTitle={data.set.title}
-        bind:sectionTitle
-      />
-    {:else}
-      <PracticePlayerSkeleton />
-    {/if}
+    <div class="min-h-[32rem]" data-practice-set-hydrate>
+      {#if sessionItems.length > 0}
+        <PracticePlayer
+          items={sessionItems}
+          {hintMode}
+          audioSrcs={data.clozeAudioSrcs ?? {}}
+          dictionaryHrefs={data.dictionaryHrefs ?? {}}
+          backHref="/practice"
+          backLabel="Practice"
+          sessionTitle={data.set.title}
+          bind:sectionTitle
+        />
+      {:else}
+        <div
+          class="mx-auto w-full max-w-[640px]"
+          aria-busy="true"
+          aria-label="Loading practice"
+        >
+          <PracticeSessionChrome
+            backHref="/practice"
+            backLabel="Practice"
+            total={practiceSessionCount(data.set)}
+          />
+
+          <section
+            class="min-h-80 overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
+          ></section>
+        </div>
+      {/if}
+    </div>
   </PageShell>
 </main>

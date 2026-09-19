@@ -135,6 +135,14 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 - Shell: `PracticeProgressBoot.astro` → wraps `FoucBoot` (`stage="gate"` before page, `stage="script"` after)
 - Island: `PracticeHubClient.svelte` re-paints + marks ready after hydrate
 
+## Practice set consumer
+
+- Surface: `PRACTICE_SET_FOUC` in `$lib/practice/fouc` (`data-practice-set-hydrate`)
+- Gate: `FoucGate.astro` on `/practice/[set]` (CSS only — no boot IIFE)
+- SSR: real `PracticePlayer` from `ssrPracticeSession` (catalog order; empty for days-dates-time)
+- Island: `PracticeSetPage` applies `clientPracticeSession` in `onMount`, then `markPracticeSetReady`
+- Shuffle / `?at` / clock RNG stay client-side; hide-until-ready so the skeleton never paints
+
 Theme / sfx / story-English prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`).
 
 ## Do / don't
