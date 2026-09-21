@@ -102,27 +102,18 @@ export function questionContextTurn(frame: ScheduleFrame): DialogueTurn {
   };
 }
 
-export function negotiateContextTurn(day: MeetingDay): DialogueTurn {
+/** One offer: day + clock time. Learner counters with Lepšie o pol … */
+export function negotiateOfferTurn(
+  day: MeetingDay,
+  proposed: ClockFaceTime,
+): DialogueTurn {
+  const skTime = appointmentPhrase(proposed).replace(/\.$/, "").replace(/^O /, "o ");
+  const enTime = englishTimeMeaningPhrase(proposed);
   return {
-    id: `negotiate-${day.inPhrase}`,
+    id: `negotiate-${day.inPhrase}-${proposed.hour}-${proposed.minute}`,
     speaker: "Anna",
-    slovak: `Stretneme sa v ${day.inPhrase}?`,
-    english: `Shall we meet on ${day.en}?`,
-  };
-}
-
-/**
- * Anna's time offer. Practice flips the lesson beat so the learner
- * produces the Lepšie counter (Anna proposes, you push back).
- */
-export function negotiateProposalTurn(proposed: ClockFaceTime): DialogueTurn {
-  const skTime = appointmentPhrase(proposed).replace(/\.$/, "");
-  const enTime = englishTimeGloss(proposed).replace(/\.$/, "");
-  return {
-    id: `negotiate-proposal-${proposed.hour}-${proposed.minute}`,
-    speaker: "Anna",
-    slovak: `${skTime}?`,
-    english: `${enTime}?`,
+    slovak: `Stretneme sa v ${day.inPhrase} ${skTime}?`,
+    english: `Shall we meet on ${day.en} at ${enTime}?`,
   };
 }
 

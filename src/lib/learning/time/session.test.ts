@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { gradeAnswer } from "$lib/components/practice/practice-state";
 import { gradeSelectAll, choiceFeedbackWhy } from "$lib/learning/exercises/select-all";
 import { appointmentPhrase, selectAllChoicesForTime } from "$lib/learning/time/clock";
+import { negotiateOfferTurn } from "$lib/learning/time/frames";
 import {
   buildDaysDatesTimeSession,
   isDaysDatesTimeKind,
@@ -263,22 +264,29 @@ describe("learning/time/session", () => {
     }
   });
 
-  it("materializes framed negotiate with Anna proposing then Lepšie counter", () => {
+  it("materializes framed negotiate as one Anna offer then Lepšie counter", () => {
     const item = materializeDaysDatesTimeItem("everyday/frame-negotiate", () => 0.4);
     expect(item.task.type).toBe("typed");
     if (item.task.type !== "typed") return;
 
-    expect(item.task.context).toHaveLength(2);
+    expect(item.task.context).toHaveLength(1);
     expect(item.task.context?.[0]?.speaker).toBe("Anna");
-    expect(item.task.context?.[1]?.speaker).toBe("Anna");
-    expect(item.task.context?.[0]?.slovak).toMatch(/Stretneme sa v/);
-    expect(item.task.context?.[1]?.slovak).toMatch(/^O /);
-    expect(item.task.context?.[1]?.slovak).not.toMatch(/^Áno/);
-    expect(item.task.context?.[1]?.english).toMatch(/^At /);
-    expect(item.task.context?.[1]?.english).not.toMatch(/\d/);
+    expect(item.task.context?.[0]?.slovak).toMatch(/^Stretneme sa v \S+ o /);
+    expect(item.task.context?.[0]?.english).toMatch(/^Shall we meet on \S+ at /);
+    expect(item.task.context?.[0]?.english).not.toMatch(/\d/);
     expect(item.task.prompt).toMatch(/^Better at half past /);
     expect(item.task.answer).toMatch(/^Lepšie o pol /);
     expect(item.task.feedback?.why).toMatch(/\*\*Lepšie\*\*/);
+  });
+
+  it("combines day and clock time into one Anna meeting offer", () => {
+    const turn = negotiateOfferTurn(
+      { en: "Wednesday", inPhrase: "stredu" },
+      { hour: 9, minute: 0 },
+    );
+
+    expect(turn.slovak).toBe("Stretneme sa v stredu o deviatej?");
+    expect(turn.english).toBe("Shall we meet on Wednesday at nine o’clock?");
   });
 
   it("recognizes framed procedural kinds", () => {

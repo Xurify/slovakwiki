@@ -308,14 +308,8 @@ function stubFrameTyped(id: string, taskId: string): PracticeItem {
             {
               id: "negotiate-utorok",
               speaker: "Anna",
-              slovak: "Stretneme sa v utorok?",
-              english: "Shall we meet on Tuesday?",
-            },
-            {
-              id: "negotiate-proposal",
-              speaker: "Anna",
-              slovak: "O tretej?",
-              english: "At three o'clock?",
+              slovak: "Stretneme sa v utorok o tretej?",
+              english: "Shall we meet on Tuesday at three o'clock?",
             },
           ]
         : [
