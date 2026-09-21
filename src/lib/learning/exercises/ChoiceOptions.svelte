@@ -1,5 +1,6 @@
 <script lang="ts">
   import ClockIllustration from "$lib/learning/time/ClockIllustration.svelte";
+  import PromptClock from "$lib/learning/time/PromptClock.svelte";
   import type { ChoiceExercise } from "$lib/learning/types";
   import { formatClockFaceLabel } from "$lib/learning/time/clock";
 
@@ -26,9 +27,7 @@
 </script>
 
 {#if promptClock}
-  <div class="mt-6 flex justify-center">
-    <ClockIllustration hour={promptClock.hour} minute={promptClock.minute} size={120} />
-  </div>
+  <PromptClock hour={promptClock.hour} minute={promptClock.minute} {submitted} />
 {/if}
 
 <div

@@ -2,6 +2,7 @@ export * from "./clock";
 export { default as ClockDrill } from "./ClockDrill.svelte";
 export { default as ClockGrid } from "./ClockGrid.svelte";
 export { default as ClockIllustration } from "./ClockIllustration.svelte";
+export { default as PromptClock } from "./PromptClock.svelte";
 export * from "./hints";
 export * from "./lesson";
 export * from "./practice-catalog";

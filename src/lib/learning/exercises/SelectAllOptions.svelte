@@ -1,5 +1,6 @@
 <script lang="ts">
   import ClockIllustration from "$lib/learning/time/ClockIllustration.svelte";
+  import PromptClock from "$lib/learning/time/PromptClock.svelte";
   import type { SelectAllExercise } from "$lib/learning/types";
 
   import { selectAllRowMarker, selectAllRowState } from "./select-all";
@@ -79,9 +80,7 @@
 </script>
 
 {#if promptClock}
-  <div class="mt-6 flex justify-center">
-    <ClockIllustration hour={promptClock.hour} minute={promptClock.minute} size={120} />
-  </div>
+  <PromptClock hour={promptClock.hour} minute={promptClock.minute} {submitted} />
 {/if}
 
 <div class="mt-6 grid gap-2.5" aria-label="Answer choices">
