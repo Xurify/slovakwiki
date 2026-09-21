@@ -4,7 +4,6 @@ import {
   appointmentDayPartChoiceWhy,
   appointmentPhrase,
   appointmentPhraseWithDayPart,
-  analogFace,
   dayPartForHour24,
   englishTimeGloss,
   englishTimeMeaningPhrase,
@@ -14,21 +13,6 @@ import {
   type ClockFaceTime,
   type DayPart,
 } from "./clock";
-
-const HOUR_ENGLISH_WORD: Record<number, string> = {
-  1: "one",
-  2: "two",
-  3: "three",
-  4: "four",
-  5: "five",
-  6: "six",
-  7: "seven",
-  8: "eight",
-  9: "nine",
-  10: "ten",
-  11: "eleven",
-  12: "twelve",
-};
 
 export interface ScheduleFrame {
   id: string;
@@ -127,15 +111,18 @@ export function negotiateContextTurn(day: MeetingDay): DialogueTurn {
   };
 }
 
-/** Prior offer to counter — lesson beat: Áno. O tretej? → Lepšie o pol tretej. */
+/**
+ * Anna's time offer. Practice flips the lesson beat so the learner
+ * produces the Lepšie counter (Anna proposes, you push back).
+ */
 export function negotiateProposalTurn(proposed: ClockFaceTime): DialogueTurn {
   const skTime = appointmentPhrase(proposed).replace(/\.$/, "");
   const enTime = englishTimeGloss(proposed).replace(/\.$/, "");
   return {
     id: `negotiate-proposal-${proposed.hour}-${proposed.minute}`,
-    speaker: "You",
-    slovak: `Áno. ${skTime}?`,
-    english: `Yes. ${enTime}?`,
+    speaker: "Anna",
+    slovak: `${skTime}?`,
+    english: `${enTime}?`,
   };
 }
 
@@ -293,11 +280,6 @@ export function negotiateAnswer(time: ClockFaceTime): string {
 }
 
 export function englishNegotiatePrompt(time: ClockFaceTime): string {
-  const face = analogFace(time);
-  if (time.minute === 30) {
-    const hourWord = HOUR_ENGLISH_WORD[face.hour] ?? String(face.hour);
-    return `Better at half past ${hourWord}.`;
-  }
   return `Better at ${englishTimeMeaningPhrase(time)}.`;
 }
 

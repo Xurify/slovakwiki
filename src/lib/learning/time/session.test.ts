@@ -263,15 +263,19 @@ describe("learning/time/session", () => {
     }
   });
 
-  it("materializes framed negotiate with day + proposed time then Lepšie counter", () => {
+  it("materializes framed negotiate with Anna proposing then Lepšie counter", () => {
     const item = materializeDaysDatesTimeItem("everyday/frame-negotiate", () => 0.4);
     expect(item.task.type).toBe("typed");
     if (item.task.type !== "typed") return;
 
     expect(item.task.context).toHaveLength(2);
+    expect(item.task.context?.[0]?.speaker).toBe("Anna");
+    expect(item.task.context?.[1]?.speaker).toBe("Anna");
     expect(item.task.context?.[0]?.slovak).toMatch(/Stretneme sa v/);
-    expect(item.task.context?.[1]?.slovak).toMatch(/^Áno\. O /);
-    expect(item.task.context?.[1]?.english).toMatch(/^Yes\. At /);
+    expect(item.task.context?.[1]?.slovak).toMatch(/^O /);
+    expect(item.task.context?.[1]?.slovak).not.toMatch(/^Áno/);
+    expect(item.task.context?.[1]?.english).toMatch(/^At /);
+    expect(item.task.context?.[1]?.english).not.toMatch(/\d/);
     expect(item.task.prompt).toMatch(/^Better at half past /);
     expect(item.task.answer).toMatch(/^Lepšie o pol /);
     expect(item.task.feedback?.why).toMatch(/\*\*Lepšie\*\*/);

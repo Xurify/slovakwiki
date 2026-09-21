@@ -255,16 +255,35 @@ export function appointmentAnswersForTime(time: ClockFaceTime): string[] {
   return appointmentAlternates(time).map((phrase) => phrase.replace(/\.$/, ""));
 }
 
+const HOUR_ENGLISH_WORD: Record<number, string> = {
+  1: "one",
+  2: "two",
+  3: "three",
+  4: "four",
+  5: "five",
+  6: "six",
+  7: "seven",
+  8: "eight",
+  9: "nine",
+  10: "ten",
+  11: "eleven",
+  12: "twelve",
+};
+
+function englishHourWord(hour: number): string {
+  return HOUR_ENGLISH_WORD[hour] ?? String(hour);
+}
+
 /** English gloss for feedback (At half past two.). */
 export function englishTimeGloss(time: ClockFaceTime): string {
   const face = analogFace(time);
   const h = face.hour;
   const m = face.minute;
 
-  if (m === 0) return `At ${h} o’clock.`;
-  if (m === 15) return `At quarter past ${h === 12 ? 12 : h}.`;
-  if (m === 30) return `At half past ${h}.`;
-  return `At quarter to ${h === 12 ? 1 : h + 1}.`;
+  if (m === 0) return `At ${englishHourWord(h)} o’clock.`;
+  if (m === 15) return `At quarter past ${englishHourWord(h === 12 ? 12 : h)}.`;
+  if (m === 30) return `At half past ${englishHourWord(h)}.`;
+  return `At quarter to ${englishHourWord(h === 12 ? 1 : h + 1)}.`;
 }
 
 /** Spoken English time without “At …” — for odd-one-out prompts. */

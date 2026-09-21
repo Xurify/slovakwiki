@@ -51,11 +51,19 @@
           class="rounded-(--control-radius) border border-slate-200 bg-slate-50/80 px-4 py-3.5"
         >
           <div class="flex items-start justify-between gap-3">
-            <p
-              class="m-0 font-serif text-[clamp(1.15rem,2.8vw,1.4rem)] font-semibold leading-snug text-slate-900"
-            >
-              <span lang="sk" data-clock-q1-scene-sk></span>
-            </p>
+            <div class="min-w-0 flex-1">
+              <p
+                class="m-0 mb-2 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
+                data-clock-q1-scene-speaker
+                hidden
+              ></p>
+
+              <p
+                class="m-0 font-serif text-[clamp(1.15rem,2.8vw,1.4rem)] font-semibold leading-snug text-slate-900"
+              >
+                <span lang="sk" data-clock-q1-scene-sk></span>
+              </p>
+            </div>
 
             <span class="size-7 shrink-0" aria-hidden="true"></span>
           </div>
@@ -66,6 +74,14 @@
           ></p>
         </article>
       </template>
+
+      <p
+        class="mt-5 mb-2 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
+        data-clock-q1-you
+        hidden
+      >
+        You
+      </p>
 
       <p
         class="m-0 font-serif text-sm font-medium leading-snug text-slate-500"

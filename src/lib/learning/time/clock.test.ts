@@ -14,6 +14,7 @@ import {
   aroundPhrase,
   answersForTime,
   clockFaceDistractorWhy,
+  englishTimeGloss,
   exactMinuteTellingLabel,
   faceHour12,
   nearMissTimes,
@@ -36,6 +37,13 @@ describe("learning/time/clock", () => {
     expect(faceHour12(12)).toBe(12);
     expect(faceHour12(14)).toBe(2);
     expect(faceHour12(23)).toBe(11);
+  });
+
+  it("glosses English clock times with hour words", () => {
+    expect(englishTimeGloss({ hour: 10, minute: 0 })).toBe("At ten o’clock.");
+    expect(englishTimeGloss({ hour: 9, minute: 30 })).toBe("At half past nine.");
+    expect(englishTimeGloss({ hour: 2, minute: 15 })).toBe("At quarter past two.");
+    expect(englishTimeGloss({ hour: 12, minute: 45 })).toBe("At quarter to one.");
   });
 
   it("accepts full-hour agreement patterns", () => {
@@ -198,13 +206,13 @@ describe("learning/time/clock", () => {
 
   it("builds rule-first appointment feedback", () => {
     expect(appointmentChoiceWhy({ hour: 6, minute: 45 })).toMatch(
-      /means quarter to 7.*three quarters.*\*\*7\*\*.*\*\*6:45\*\*/,
+      /means quarter to seven.*three quarters.*\*\*7\*\*.*\*\*6:45\*\*/,
     );
     expect(appointmentChoiceWhy({ hour: 2, minute: 15 })).toMatch(
-      /means quarter past 2.*one quarter.*\*\*3\*\*/,
+      /means quarter past two.*one quarter.*\*\*3\*\*/,
     );
     expect(appointmentChoiceWhy({ hour: 2, minute: 30 })).toMatch(
-      /means half past 2.*halfway toward \*\*3\*\*/,
+      /means half past two.*halfway toward \*\*3\*\*/,
     );
   });
 
@@ -212,11 +220,11 @@ describe("learning/time/clock", () => {
     const correct = { hour: 6, minute: 45 as const };
     const wrong = { hour: 5, minute: 45 as const };
     expect(appointmentDistractorWhy(correct, wrong)).toBe(
-      "**O trištvrte na šesť** means quarter to 6 (**5:45**). For quarter to 7, name **sedem** after **na** — the hand is near **6**, but Slovak looks ahead.",
+      "**O trištvrte na šesť** means quarter to six (**5:45**). For quarter to seven, name **sedem** after **na** — the hand is near **6**, but Slovak looks ahead.",
     );
-    expect(tellingDistractorWhy(correct, wrong)).toMatch(/means quarter to 6/);
+    expect(tellingDistractorWhy(correct, wrong)).toMatch(/means quarter to six/);
     expect(clockFaceDistractorWhy(correct, wrong)).toMatch(
-      /You need quarter to 7.*name \*\*sedem\*\* after \*\*na\*\*/,
+      /You need quarter to seven.*name \*\*sedem\*\* after \*\*na\*\*/,
     );
   });
 

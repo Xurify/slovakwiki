@@ -31,9 +31,9 @@ When someone else spoke first:
 
 1. Put their line in `context` — Slovak + `english` in the bubble UI.
 2. Put **your** task in `prompt` (English line to produce).
-3. Order in UI: **context bubble → prompt → input/choices** (no “Your turn” divider).
+3. Order in UI: **context bubble(s) → You label → prompt → input/choices**. Named speakers (`Anna`, `You`, …) show as a muted eyebrow on the bubble. System labels (`Scene`, `Sentence`, `Notice`) stay hidden. Typed-with-scene adds a matching **You** eyebrow on the prompt — next turn, not an instructional “Your turn” divider.
 
-`speaker` is for audio roster / `characterIdForSpeaker`. Use a label that already exists on a character’s `speakers[]` in `content/audio/config.json` (named people like `Anna` / `Mária` / `You`, approved one-offs like `Receptionist` / `Waiter`, or system `Notice` / `Sentence` / `Scene`). Do not invent extra names (`Marta`) — they fall back to the narrator voice. Practice bubbles **do not show** speaker names; lesson **scene** table uses a muted speaker column for multi-line scripts only.
+`speaker` is for audio roster / `characterIdForSpeaker` and that visible eyebrow. Use a label that already exists on a character’s `speakers[]` in `content/audio/config.json` (named people like `Anna` / `Mária` / `You`, approved one-offs like `Receptionist` / `Waiter`, or system `Notice` / `Sentence` / `Scene`). Do not invent extra names (`Marta`) — they fall back to the narrator voice. Lesson **scene** table still uses a muted speaker column for multi-line scripts.
 
 ## Feedback (`feedback` on exercise + practice item)
 

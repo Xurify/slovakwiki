@@ -313,9 +313,9 @@ function stubFrameTyped(id: string, taskId: string): PracticeItem {
             },
             {
               id: "negotiate-proposal",
-              speaker: "You",
-              slovak: "Áno. O tretej?",
-              english: "Yes. At three o'clock?",
+              speaker: "Anna",
+              slovak: "O tretej?",
+              english: "At three o'clock?",
             },
           ]
         : [

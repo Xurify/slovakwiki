@@ -14,6 +14,7 @@ export type ClockQ1SceneLine = {
   english: string;
   id: string;
   slovak: string;
+  speaker: string;
 };
 
 export interface ClockQ1View {
@@ -42,6 +43,7 @@ export function buildClockQ1View(item: PracticeItem): ClockQ1View {
           english: line.english,
           id: line.id,
           slovak: line.slovak,
+          speaker: line.speaker,
         }));
 
   const choices =

@@ -1,4 +1,5 @@
 import { formatClockFaceLabel } from "$lib/learning/time/clock";
+import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
 
 import type { ClockQ1Choice, ClockQ1Clock, ClockQ1View } from "./clock-q1-view";
 
@@ -49,8 +50,14 @@ function paintScene(root: ParentNode, view: ClockQ1View): void {
 
   for (const line of view.scene) {
     const clone = template.content.cloneNode(true) as DocumentFragment;
+    const speaker = clone.querySelector("[data-clock-q1-scene-speaker]");
     const sk = clone.querySelector("[data-clock-q1-scene-sk]");
     const en = clone.querySelector("[data-clock-q1-scene-en]");
+    const speakerLabel = dialogueSpeakerLabel(line.speaker);
+    if (speaker) {
+      speaker.textContent = speakerLabel ?? "";
+      (speaker as HTMLElement).hidden = !speakerLabel;
+    }
     if (sk) sk.textContent = line.slovak;
     if (en) {
       en.textContent = line.english;
@@ -152,6 +159,7 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
   const prompt = qs(boot, "[data-clock-q1-prompt]");
   const promptClock = qs(boot, "[data-clock-q1-prompt-clock]");
   const typed = qs(boot, "[data-clock-q1-typed]");
+  const you = qs(boot, "[data-clock-q1-you]");
   const source = qs(boot, "[data-clock-q1-source-label]");
   const sourceWrap = qs(boot, "[data-clock-q1-source]");
   const sourceLink = boot.querySelector<HTMLAnchorElement>("[data-clock-q1-source-href]");
@@ -163,6 +171,10 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
 
   paintScene(boot, view);
 
+  const showYou = view.typed && view.scene.length > 0;
+
+  if (you) you.hidden = !showYou;
+
   if (promptSk) {
     promptSk.textContent = view.promptSk ?? "";
     promptSk.hidden = !view.promptSk;
@@ -170,7 +182,12 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
 
   if (prompt) {
     prompt.textContent = view.prompt;
-    const extra = view.promptSk ? "mt-1.5 " : view.scene.length > 0 ? "mt-5 " : "";
+    const extra =
+      view.promptSk && !showYou
+        ? "mt-1.5 "
+        : view.scene.length > 0 && !showYou
+          ? "mt-5 "
+          : "";
     prompt.className = `${extra}m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900`;
     if (view.promptLang === "sk") prompt.lang = "sk";
     else prompt.removeAttribute("lang");
