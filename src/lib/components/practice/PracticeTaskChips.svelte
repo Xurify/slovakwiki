@@ -16,8 +16,8 @@
 
   const chipClass = $derived(
     size === "md"
-      ? "inline-flex items-center rounded-full bg-slate-50 px-2.5 py-1 text-xs font-bold text-slate-700 ring-1 ring-slate-200/90 ring-inset"
-      : "inline-flex items-center rounded-full bg-slate-50 px-2 py-0.5 text-[0.68rem] font-bold text-slate-600 ring-1 ring-slate-200/90 ring-inset",
+      ? "inline-flex items-center rounded-full bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-800"
+      : "inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[0.68rem] font-bold text-blue-800",
   );
 </script>
 

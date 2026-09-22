@@ -46,9 +46,6 @@
           <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
           {exerciseTotal}
           {exerciseTotal === 1 ? "exercise" : "exercises"}
-          <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
-          {sheetsByTrack.length}
-          {sheetsByTrack.length === 1 ? "track" : "tracks"}
         </p>
       </header>
 

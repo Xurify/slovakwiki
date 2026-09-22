@@ -4,7 +4,6 @@
   import { motifArtSrc } from "$lib/catalog/motifs/art";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import PracticeDrillLine from "$lib/components/practice/PracticeDrillLine.svelte";
   import PracticeTaskChips from "$lib/components/practice/PracticeTaskChips.svelte";
@@ -23,8 +22,8 @@
   const artClass =
     "relative overflow-hidden border-slate-200/70 max-[759px]:h-44 max-[759px]:border-b min-[760px]:order-last min-[760px]:min-h-full min-[760px]:border-l";
 
-  const drillPanelClass =
-    "rounded-(--control-radius) bg-slate-50 px-4 py-3.5 ring-1 ring-slate-200/80 ring-inset";
+  const labelClass =
+    "m-0 text-[0.64rem] font-bold tracking-[0.14em] text-blue-800 uppercase";
 </script>
 
 <section aria-label="Start here">
@@ -52,15 +51,11 @@
           </div>
 
           <div class="flex min-w-0 flex-col gap-5 p-6 sm:p-8">
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <Eyebrow compact class="mb-0">Start here</Eyebrow>
-
-              <span
-                class="text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-              >
-                {candidate.trackTitle}
-              </span>
-            </div>
+            <p class={labelClass}>
+              Start here
+              <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
+              <span class="text-slate-500">{candidate.trackTitle}</span>
+            </p>
 
             <div class="min-w-0">
               <h2
@@ -77,16 +72,10 @@
             </div>
 
             {#if candidate.drill.slovak}
-              <div class={drillPanelClass}>
-                <p
-                  class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-                >
-                  Sample drill
-                </p>
-
+              <div class="border-l-2 border-blue-600 py-0.5 pl-4">
                 <PracticeDrillLine
                   slovak={candidate.drill.slovak}
-                  class="mt-1.5 text-[clamp(1.15rem,2vw,1.4rem)] text-slate-900"
+                  class="text-[clamp(1.15rem,2vw,1.4rem)] text-slate-900"
                 />
 
                 {#if candidate.drill.english}
@@ -99,11 +88,10 @@
 
             <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
               <p class="m-0 text-sm tabular-nums text-slate-600">
-                <span class="font-bold text-slate-900">{candidate.exerciseCount}</span>
+                {candidate.exerciseCount}
                 {candidate.exerciseCount === 1 ? "exercise" : "exercises"}
                 <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
-                about {candidate.minutes}
-                {candidate.minutes === 1 ? "minute" : "minutes"}
+                ~{candidate.minutes} min
               </p>
 
               <PracticeTaskChips kinds={candidate.taskKinds} size="md" />
