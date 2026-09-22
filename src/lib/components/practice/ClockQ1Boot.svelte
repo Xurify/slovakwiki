@@ -74,6 +74,8 @@
         lang="sk"
       ></p>
 
+      <!-- Pre-paint boot fills this via applyClockQ1View. -->
+      <!-- svelte-ignore a11y_missing_content -->
       <h1
         class="m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
         data-clock-q1-prompt
