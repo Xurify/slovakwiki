@@ -6,29 +6,22 @@ function paintFeatured(view: PracticeHubView): void {
     const setId = sheet.dataset.featuredSheet;
     sheet.hidden = !setId || setId !== view.featuredSetId;
   }
+}
+
+function paintBrowse(view: PracticeHubView): void {
+  const completed = new Set(view.completedLessonIds);
 
   for (const row of document.querySelectorAll<HTMLElement>("[data-browse-sheet]")) {
     const setId = row.dataset.browseSheet;
-    row.hidden = Boolean(setId && setId === view.featuredSetId);
-  }
+    const lessonId = row.dataset.browseLesson;
+    const isNext = Boolean(setId && setId === view.featuredSetId);
+    const isDone = Boolean(lessonId && completed.has(lessonId));
 
-  for (const track of document.querySelectorAll<HTMLElement>("[data-browse-track]")) {
-    const rows = [...track.querySelectorAll<HTMLElement>("[data-browse-sheet]")];
-    const visible = rows.filter((row) => !row.hidden);
-    track.hidden = visible.length === 0;
+    const next = row.querySelector<HTMLElement>("[data-browse-next]");
+    const done = row.querySelector<HTMLElement>("[data-browse-done]");
 
-    const meta = track.querySelector<HTMLElement>("[data-browse-track-meta]");
-    if (!meta) continue;
-
-    const exerciseCount = visible.reduce((sum, row) => {
-      const raw = row.dataset.exerciseCount;
-      const count = raw ? Number(raw) : 0;
-      return sum + (Number.isFinite(count) ? count : 0);
-    }, 0);
-
-    const setLabel = visible.length === 1 ? "set" : "sets";
-    const exerciseLabel = exerciseCount === 1 ? "exercise" : "exercises";
-    meta.textContent = `${visible.length} ${setLabel} · ${exerciseCount} ${exerciseLabel}`;
+    if (next) next.hidden = !isNext;
+    if (done) done.hidden = !isDone;
   }
 }
 
@@ -74,5 +67,6 @@ function paintRecents(recents: PracticeBootItem[]): void {
 /** Apply a pure hub view to the practice index DOM. Idempotent. */
 export function applyPracticeHubView(view: PracticeHubView): void {
   paintFeatured(view);
+  paintBrowse(view);
   paintRecents(view.recents);
 }

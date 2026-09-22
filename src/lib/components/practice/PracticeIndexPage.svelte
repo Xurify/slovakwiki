@@ -1,5 +1,6 @@
 <script lang="ts">
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
@@ -10,26 +11,57 @@
     buildPracticeSheets,
     groupSheetsByTrack,
     pickFeaturedSheet,
+    totalPracticeExercises,
   } from "$lib/catalog/practice/hub";
 
+  // SSR assumes no progress; PracticeProgressBoot repaints before first paint.
   const sheets = buildPracticeSheets(emptyPracticeState());
   const sheetsByTrack = groupSheetsByTrack(sheets);
   const featured = pickFeaturedSheet(sheets);
   const featuredId = featured?.set.id ?? "";
+
+  const exerciseTotal = totalPracticeExercises();
+
+  const trackChipClass =
+    "inline-flex min-h-9 items-center gap-2 rounded-full bg-surface/80 px-3.5 text-sm font-bold text-blue-800 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)";
+
+  const recentCardClass =
+    "group flex h-full flex-col gap-1.5 rounded-(--frame-radius) bg-surface/80 p-4 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)";
 </script>
 
-<main>
+<main class="py-12 pb-20 max-[600px]:py-8">
   <section aria-label="Practice">
-    <PageShell class="pt-14 pb-2 max-[600px]:pt-10">
-      <h1
-        class="m-0 font-serif text-[clamp(2.25rem,5vw,3.25rem)] font-semibold tracking-tight text-slate-900"
-      >
-        Practice
-      </h1>
+    <PageShell>
+      <header class="max-w-2xl">
+        <h1 class="text-balance">Practice</h1>
 
-      <p class="mt-3 m-0 max-w-xl text-[1.05rem] leading-snug text-slate-600">
-        Choose a topic and drill the forms in a short set.
-      </p>
+        <Lead class="text-pretty">
+          Short drills by topic. Pick a set, work through a handful of exercises, and come
+          back to the ones that tripped you up.
+        </Lead>
+
+        <p class="m-0 mt-4 text-sm tabular-nums text-slate-500">
+          {sheets.length}
+          {sheets.length === 1 ? "set" : "sets"}
+          <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
+          {exerciseTotal}
+          {exerciseTotal === 1 ? "exercise" : "exercises"}
+          <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
+          {sheetsByTrack.length}
+          {sheetsByTrack.length === 1 ? "track" : "tracks"}
+        </p>
+      </header>
+
+      <nav class="mt-6 flex flex-wrap gap-2" aria-label="Jump to a track">
+        {#each sheetsByTrack as group (group.track.id)}
+          <a class={trackChipClass} href="#browse-{group.track.id}">
+            {group.track.title}
+            <span class="text-xs font-semibold tabular-nums text-slate-500">
+              {group.sheets.length}
+            </span>
+          </a>
+        {/each}
+      </nav>
     </PageShell>
   </section>
 
@@ -38,43 +70,50 @@
   {/if}
 
   <section
-    class="border-t border-slate-200/80"
     aria-labelledby="recents-heading"
     data-practice-recents
     data-practice-hydrate
     hidden
   >
-    <PageShell class="py-10 max-[600px]:py-8">
-      <div class="mb-6 max-w-160">
-        <h2 id="recents-heading" class="m-0">Practice again</h2>
-        <p class="mt-2 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-          Recent drills. Opens the matching exercise in its set.
-        </p>
+    <PageShell class="pt-12 max-[600px]:pt-10">
+      <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+        <div class="max-w-xl">
+          <h2 id="recents-heading" class="m-0 text-[clamp(1.35rem,2.2vw,1.75rem)]">
+            Practice again
+          </h2>
+
+          <p class="m-0 mt-1.5 text-sm leading-relaxed text-pretty text-slate-600">
+            Exercises you drilled recently. Each one reopens inside its set.
+          </p>
+        </div>
       </div>
 
-      <ul class="m-0 list-none p-0" data-practice-recents-list></ul>
+      <ul
+        class="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-3 p-0"
+        data-practice-recents-list
+      ></ul>
 
       <template data-practice-recent-template>
-        <li>
-          <a
-            class="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 py-5 no-underline"
-            data-recent-href
-            href="/practice"
-          >
-            <div class="min-w-0">
-              <p
-                class="m-0 font-serif text-[clamp(1.15rem,2.2vw,1.45rem)] font-semibold leading-snug tracking-tight text-slate-900 group-hover:text-blue-800"
-                lang="sk"
-                data-recent-sk
-              ></p>
-              <p class="m-0 mt-1.5 text-sm text-slate-500" data-recent-en></p>
-              <p class="m-0 mt-3 text-xs text-slate-500">
-                From
-                <span class="text-slate-700" data-recent-source></span>
-              </p>
-            </div>
+        <li class="min-w-0">
+          <a class={recentCardClass} data-recent-href href="/practice">
+            <p
+              class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
+              data-recent-source
+            ></p>
+
+            <p
+              class="m-0 font-serif text-lg leading-snug font-semibold tracking-tight text-balance text-slate-900"
+              lang="sk"
+              data-recent-sk
+            ></p>
+
+            <p
+              class="m-0 text-sm leading-snug text-pretty text-slate-600"
+              data-recent-en
+            ></p>
+
             <span
-              class="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-blue-800"
+              class="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-bold text-blue-800"
             >
               Again
               <ArrowRight />
@@ -86,61 +125,67 @@
   </section>
 
   <section aria-labelledby="topics-heading">
-    <PageShell class="pt-4 pb-20 max-[600px]:pb-14">
-      <div class="mb-8 max-w-160">
-        <h2 id="topics-heading" class="m-0">Browse sets</h2>
-        <p class="mt-2 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-          Each set is a short drill.
+    <PageShell class="pt-14 max-[600px]:pt-12">
+      <div class="mb-8 max-w-xl">
+        <h2 id="topics-heading" class="m-0 text-[clamp(1.35rem,2.2vw,1.75rem)]">
+          Browse sets
+        </h2>
+
+        <p class="m-0 mt-1.5 text-sm leading-relaxed text-pretty text-slate-600">
+          Every set is a short drill built from one lesson. Sets whose lesson you have
+          finished are marked with a check.
         </p>
       </div>
 
-      <div class="grid gap-12" data-practice-hydrate>
+      <div class="grid gap-14" data-practice-hydrate>
         {#each sheetsByTrack as group (group.track.id)}
-          {@const hidesFeatured = group.sheets.some(
-            (sheet) => sheet.set.id === featuredId,
-          )}
-          {@const visibleCount = hidesFeatured
-            ? group.sheets.length - 1
-            : group.sheets.length}
-          {@const visibleExercises = group.sheets.reduce(
-            (sum, sheet) =>
-              sheet.set.id === featuredId ? sum : sum + sheet.exerciseCount,
-            0,
-          )}
-
           <section
-            aria-labelledby={`track-${group.track.id}`}
+            id="browse-{group.track.id}"
+            class="scroll-mt-24"
+            aria-labelledby="track-{group.track.id}-heading"
             data-browse-track={group.track.id}
-            hidden={visibleCount === 0}
           >
-            <div class="mb-3 flex flex-wrap items-baseline justify-between gap-3">
-              <h3
-                id={`track-${group.track.id}`}
-                class="m-0 font-serif text-xl text-slate-900"
-              >
-                {group.track.title}
-              </h3>
-              <p class="m-0 text-xs tabular-nums text-slate-500" data-browse-track-meta>
-                {visibleCount}
-                {visibleCount === 1 ? "set" : "sets"}
-                ·
-                {visibleExercises}
-                {visibleExercises === 1 ? "exercise" : "exercises"}
+            <div
+              class="mb-4 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-slate-200/80 pb-4"
+            >
+              <div class="min-w-0 max-w-xl">
+                <p
+                  class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
+                >
+                  Track
+                </p>
+
+                <h3
+                  id="track-{group.track.id}-heading"
+                  class="m-0 mt-1 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl"
+                >
+                  {group.track.title}
+                </h3>
+
+                <p class="m-0 mt-1.5 text-sm leading-relaxed text-pretty text-slate-600">
+                  {group.track.description}
+                </p>
+              </div>
+
+              <p class="m-0 shrink-0 text-xs tabular-nums text-slate-500">
+                {group.sheets.length}
+                {group.sheets.length === 1 ? "set" : "sets"}
+                <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+                {group.exerciseCount}
+                {group.exerciseCount === 1 ? "exercise" : "exercises"}
               </p>
             </div>
 
-            <ul
-              class="m-0 list-none divide-y divide-slate-200/80 overflow-hidden rounded-2xl bg-surface p-0 ring-1 ring-slate-200/80 ring-inset"
-            >
+            <ul class="m-0 grid list-none gap-3 p-0 min-[720px]:grid-cols-2">
               {#each group.sheets as sheet (sheet.set.id)}
-                <PracticeSheetCard {sheet} hidden={sheet.set.id === featuredId} />
+                <PracticeSheetCard {sheet} next={sheet.set.id === featuredId} />
               {/each}
             </ul>
           </section>
         {/each}
       </div>
 
-      <p class="mt-12 m-0">
+      <p class="mt-14 m-0">
         <TextLink href="/lessons">Go to lessons</TextLink>
       </p>
     </PageShell>

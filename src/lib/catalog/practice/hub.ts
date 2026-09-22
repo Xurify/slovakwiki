@@ -1,6 +1,6 @@
 import type { PracticeState } from "$lib/components/practice/practice-state";
-import type { PracticeItem } from "$lib/learning/types";
-import { lessonById, lessonTracks } from "$lib/catalog/lessons";
+import type { PracticeItem, PracticeTask } from "$lib/learning/types";
+import { lessonById, lessonPath, lessonTracks } from "$lib/catalog/lessons";
 import {
   practiceItemById,
   practiceItemHref,
@@ -14,12 +14,66 @@ export type PracticeHubDrill = {
   slovak: string;
 };
 
+/** Learner-facing exercise formats, in display order. */
+export type PracticeTaskKind = "choose" | "fill" | "build" | "type" | "repair" | "select";
+
+const TASK_KIND_ORDER: PracticeTaskKind[] = [
+  "choose",
+  "fill",
+  "build",
+  "type",
+  "repair",
+  "select",
+];
+
+export const practiceTaskKindLabel: Record<PracticeTaskKind, string> = {
+  build: "Build",
+  choose: "Choose",
+  fill: "Fill the gap",
+  repair: "Repair",
+  select: "Select all",
+  type: "Type",
+};
+
+export function practiceTaskKind(task: PracticeTask): PracticeTaskKind {
+  switch (task.type) {
+    case "choice":
+      return "choose";
+    case "cloze":
+      return "fill";
+    case "build":
+      return "build";
+    case "selectAll":
+      return "select";
+    case "typed":
+      return task.task === "repair" ? "repair" : "type";
+  }
+}
+
+/** Unique exercise formats in a set's pool, in display order. */
+export function practiceSetTaskKinds(set: PracticeSet): PracticeTaskKind[] {
+  const kinds = new Set<PracticeTaskKind>();
+  for (const itemId of set.itemIds) {
+    const item = practiceItemById.get(itemId);
+    if (item) kinds.add(practiceTaskKind(item.task));
+  }
+  return TASK_KIND_ORDER.filter((kind) => kinds.has(kind));
+}
+
+/** Rough sitting time — ~35 s per exercise, never under a minute. */
+export function estimatePracticeMinutes(exerciseCount: number): number {
+  return Math.max(1, Math.round((exerciseCount * 35) / 60));
+}
+
 export type PracticeHubSheet = {
   completed: boolean;
   drill: PracticeHubDrill;
   exerciseCount: number;
+  lessonHref: string | null;
+  minutes: number;
   purpose: string;
   set: PracticeSet;
+  taskKinds: PracticeTaskKind[];
   trackTitle: string;
 };
 
@@ -86,11 +140,15 @@ export function buildPracticeSheets(practiceState: PracticeState): PracticeHubSh
   return practiceSets.map((set) => {
     const lesson = lessonById.get(set.lessonId);
     const previewItem = practiceItemById.get(set.previewItemId ?? set.itemIds[0] ?? "");
+    const exerciseCount = practiceSessionCount(set);
 
     return {
       set,
       purpose: set.summary ?? lesson?.promise ?? "Work through this topic again.",
-      exerciseCount: practiceSessionCount(set),
+      exerciseCount,
+      minutes: estimatePracticeMinutes(exerciseCount),
+      taskKinds: practiceSetTaskKinds(set),
+      lessonHref: lesson ? lessonPath(lesson) : null,
       completed: practiceState.completedLessonIds.includes(set.lessonId),
       drill: drillLine(previewItem),
       trackTitle:
