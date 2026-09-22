@@ -86,6 +86,6 @@ describe("segmentsFromMarks", () => {
 describe("markRoleClass", () => {
   it("maps day and time onto shared theme classes", () => {
     expect(markRoleClass("day")).toBe("text-mark-day");
-    expect(markRoleClass("time")).toBe("text-accent");
+    expect(markRoleClass("time")).toBe("text-mark-time");
   });
 });

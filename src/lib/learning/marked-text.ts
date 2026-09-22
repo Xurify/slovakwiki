@@ -10,7 +10,7 @@ export const TEXT_ROLE_CLASS = {
   /** Calendar day inside a phrase (`v sobotu`). */
   day: "text-mark-day",
   /** Clock phrase (`o druhej`, `o pol druhej`). */
-  time: "text-accent",
+  time: "text-mark-time",
 } as const;
 
 export type TextRole = keyof typeof TEXT_ROLE_CLASS;
