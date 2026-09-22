@@ -123,22 +123,7 @@ export function negotiateOfferTurn(
     slovak: line.text,
     marks: line.marks,
     english: `Shall we meet on ${day.en} at ${enTime}?`,
-  };
-}
-
-/**
- * Proposed on-the-hour time + earlier half-past counter
- * (O tretej → O pol tretej).
- */
-export function pickNegotiateTimes(rng: () => number): {
-  proposed: ClockFaceTime;
-  better: ClockFaceTime;
-} {
-  const proposedHour = randomFaceHour12(rng);
-  const betterHour = proposedHour === 1 ? 12 : proposedHour - 1;
-  return {
-    proposed: { hour: proposedHour, minute: 0 },
-    better: { hour: betterHour, minute: 30 },
+    englishToggle: true,
   };
 }
 
@@ -283,8 +268,145 @@ export function englishNegotiatePrompt(time: ClockFaceTime): string {
   return `Better at ${englishTimeMeaningPhrase(time)}.`;
 }
 
-export function negotiateWhy(time: ClockFaceTime): string {
-  const answer = negotiateAnswer(time).replace(/\.$/, "");
-  const english = englishNegotiatePrompt(time).replace(/\.$/, "");
-  return `**Lepšie** counters with a better time — **${answer}** means *${english}*.`;
+export type NegotiateKind =
+  "add-pol" | "drop-pol" | "agree-time" | "move-day" | "confirm-day";
+
+export interface NegotiateRound {
+  acceptedAnswers: string[];
+  answer: string;
+  context: DialogueTurn;
+  kind: NegotiateKind;
+  prompt: string;
+  why: string;
+}
+
+/** Feminine days: the form after v is not the dictionary form. */
+const DAY_MOVES: Array<{
+  from: MeetingDay & { lemma: string };
+  to: MeetingDay;
+}> = [
+  {
+    from: { en: "Saturday", inPhrase: "sobotu", lemma: "sobota" },
+    to: { en: "Sunday", inPhrase: "nedeľu" },
+  },
+  {
+    from: { en: "Wednesday", inPhrase: "stredu", lemma: "streda" },
+    to: { en: "Sunday", inPhrase: "nedeľu" },
+  },
+  {
+    from: { en: "Sunday", inPhrase: "nedeľu", lemma: "nedeľa" },
+    to: { en: "Saturday", inPhrase: "sobotu" },
+  },
+];
+
+/** 1–11. 12:00 is O poludní, which is a different drill. */
+function ordinalHour(rng: () => number): number {
+  return 1 + Math.floor(rng() * 11);
+}
+
+function bareTime(time: ClockFaceTime): string {
+  return appointmentPhrase(time).replace(/\.$/, "");
+}
+
+function citedTime(time: ClockFaceTime): string {
+  return bareTime(time).replace(/^O /, "o ");
+}
+
+function pickFrom<T>(rng: () => number, items: readonly T[]): T {
+  const index = Math.floor(rng() * items.length);
+  return items[index] ?? items[0]!;
+}
+
+function addPolRound(rng: () => number): NegotiateRound {
+  const day = pickFrom(rng, NEGOTIATE_DAYS);
+  const proposedHour = ordinalHour(rng);
+  const proposed: ClockFaceTime = { hour: proposedHour, minute: 0 };
+  const better: ClockFaceTime = {
+    hour: proposedHour === 1 ? 12 : proposedHour - 1,
+    minute: 30,
+  };
+  const answer = negotiateAnswer(better);
+  const bare = appointmentPhrase(better);
+  const prompt = englishNegotiatePrompt(better);
+  return {
+    kind: "add-pol",
+    context: negotiateOfferTurn(day, proposed),
+    prompt,
+    answer,
+    acceptedAnswers: bare !== answer ? [bare] : [],
+    why: `**Lepšie** moves the time. She said **${citedTime(proposed)}**. **${citedTime(better)}** is *${prompt.replace(/\.$/, "")}* — **pol** names the hour ahead, so keep her word.`,
+  };
+}
+
+function dropPolRound(rng: () => number): NegotiateRound {
+  const day = pickFrom(rng, NEGOTIATE_DAYS);
+  // Half past 1–10. The hour she names is 2–11, never noon.
+  const halfPastHour = 1 + Math.floor(rng() * 10);
+  const proposed: ClockFaceTime = { hour: halfPastHour, minute: 30 };
+  const better: ClockFaceTime = { hour: halfPastHour + 1, minute: 0 };
+  const answer = negotiateAnswer(better);
+  const prompt = englishNegotiatePrompt(better);
+  return {
+    kind: "drop-pol",
+    context: negotiateOfferTurn(day, proposed),
+    prompt,
+    answer,
+    acceptedAnswers: [appointmentPhrase(better)],
+    why: `**Lepšie** drops **pol**. She said **${citedTime(proposed)}**. **${citedTime(better)}** is *${prompt.replace(/\.$/, "")}*.`,
+  };
+}
+
+function agreeTimeRound(rng: () => number): NegotiateRound {
+  const day = pickFrom(rng, NEGOTIATE_DAYS);
+  const time: ClockFaceTime = { hour: ordinalHour(rng), minute: 0 };
+  const phrase = bareTime(time);
+  const prompt = `Yes. At ${englishTimeMeaningPhrase(time)}.`;
+  return {
+    kind: "agree-time",
+    context: negotiateOfferTurn(day, time),
+    prompt,
+    answer: `Áno. ${phrase}.`,
+    acceptedAnswers: [phrase, `${phrase}.`],
+    why: `**Áno** agrees. **${citedTime(time)}** is her time, echoed back. It stays locative after **o**.`,
+  };
+}
+
+function moveDayRound(rng: () => number): NegotiateRound {
+  const move = pickFrom(rng, DAY_MOVES);
+  const time: ClockFaceTime = { hour: ordinalHour(rng), minute: 0 };
+  const answer = `V ${move.from.inPhrase} nemôžem. V ${move.to.inPhrase}?`;
+  return {
+    kind: "move-day",
+    context: negotiateOfferTurn(move.from, time),
+    prompt: `I can't on ${move.from.en}. ${move.to.en}?`,
+    answer,
+    acceptedAnswers: [],
+    why: `**Nemôžem** means I can't. **${move.from.lemma}** after **v** is **v ${move.from.inPhrase}**.`,
+  };
+}
+
+function confirmDayRound(rng: () => number): NegotiateRound {
+  const move = pickFrom(rng, DAY_MOVES);
+  const time: ClockFaceTime = { hour: ordinalHour(rng), minute: 0 };
+  return {
+    kind: "confirm-day",
+    context: negotiateOfferTurn(move.from, time),
+    prompt: `On ${move.from.en}? Yes.`,
+    answer: `V ${move.from.inPhrase}? Áno.`,
+    acceptedAnswers: [],
+    why: `**v ${move.from.inPhrase}** is ${move.from.en} after **v** (**${move.from.lemma}**). **Áno** confirms that day.`,
+  };
+}
+
+/**
+ * One axis per card. Time is most rounds, a day change is common, a confirm is rare.
+ * The first rng() call picks the kind so callers can pin it.
+ */
+export function pickNegotiateRound(rng: () => number): NegotiateRound {
+  const roll = rng();
+  if (roll < 0.5) return addPolRound(rng);
+  if (roll < 0.68) return dropPolRound(rng);
+  if (roll < 0.8) return agreeTimeRound(rng);
+  if (roll < 0.94) return moveDayRound(rng);
+  return confirmDayRound(rng);
 }

@@ -13,6 +13,7 @@ export type ClockQ1Choice = {
 
 export type ClockQ1SceneLine = {
   english: string;
+  englishToggle?: boolean;
   id: string;
   marks?: TextMark[];
   slovak: string;
@@ -43,6 +44,7 @@ export function buildClockQ1View(item: PracticeItem): ClockQ1View {
       ? []
       : (task.context ?? []).map((line) => ({
           english: line.english,
+          englishToggle: line.englishToggle,
           id: line.id,
           marks: line.marks,
           slovak: line.slovak,

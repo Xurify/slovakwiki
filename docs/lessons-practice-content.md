@@ -35,6 +35,8 @@ When someone else spoke first:
 
 Optional `marks` on a turn color a span of `slovak` by role (`day` gold, `time` blue). The plain string stays what is spoken and graded. Build marks with `markedText` in `src/lib/learning/marked-text.ts` — add a role there when another exercise needs a new color. Do not search the finished sentence for the words.
 
+`englishToggle: true` hides that bubble’s English behind Show English. The You prompt stays visible. Lesson scene lines already have their own English control, so leave `englishToggle` off there.
+
 `speaker` is for audio roster / `characterIdForSpeaker` and that visible eyebrow. Use a label that already exists on a character’s `speakers[]` in `content/audio/config.json` (named people like `Anna` / `Mária` / `You`, approved one-offs like `Receptionist` / `Waiter`, or system `Notice` / `Sentence` / `Scene`). Do not invent extra names (`Marta`) — they fall back to the narrator voice. Lesson **scene** table still uses a muted speaker column for multi-line scripts.
 
 ## Feedback (`feedback` on exercise + practice item)

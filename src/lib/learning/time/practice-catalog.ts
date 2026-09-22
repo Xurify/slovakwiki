@@ -320,6 +320,7 @@ function stubFrameTyped(id: string, taskId: string): PracticeItem {
               slovak: negotiateStubOffer.text,
               marks: negotiateStubOffer.marks,
               english: "Shall we meet on Tuesday at three o'clock?",
+              englishToggle: true,
             },
           ]
         : [

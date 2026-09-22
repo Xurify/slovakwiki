@@ -74,7 +74,9 @@ function paintScene(root: ParentNode, view: ClockQ1View): void {
     const speaker = clone.querySelector("[data-clock-q1-scene-speaker]");
     const sk = clone.querySelector("[data-clock-q1-scene-sk]");
     const en = clone.querySelector("[data-clock-q1-scene-en]");
+    const toggle = clone.querySelector("[data-clock-q1-scene-en-toggle]");
     const speakerLabel = dialogueSpeakerLabel(line.speaker);
+    const hideEnglish = Boolean(line.englishToggle && line.english);
     if (speaker) {
       speaker.textContent = speakerLabel ?? "";
       (speaker as HTMLElement).hidden = !speakerLabel;
@@ -82,8 +84,9 @@ function paintScene(root: ParentNode, view: ClockQ1View): void {
     if (sk) paintMarked(sk, line.slovak, line.marks);
     if (en) {
       en.textContent = line.english;
-      (en as HTMLElement).hidden = !line.english;
+      (en as HTMLElement).hidden = !line.english || hideEnglish;
     }
+    if (toggle) (toggle as HTMLElement).hidden = !hideEnglish;
     host.append(clone);
   }
 }

@@ -25,6 +25,8 @@ export interface DialogueSayChoices {
 export interface DialogueTurn {
   audio?: AudioCue;
   english: string;
+  /** Practice bubble starts with this gloss behind “Show English”. The task prompt stays visible. */
+  englishToggle?: boolean;
   id: string;
   /**
    * Role spans into `slovak` (day, time, …). Plain `slovak` stays the spoken line.

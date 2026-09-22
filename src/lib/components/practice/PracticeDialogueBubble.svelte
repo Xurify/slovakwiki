@@ -18,6 +18,11 @@
   const text = $derived(line.audio?.transcript ?? line.slovak);
   const src = $derived(audioSrcs[line.id] ?? line.audio?.src);
   const speakerLabel = $derived(dialogueSpeakerLabel(line.speaker));
+  let englishOpen = $state(false);
+
+  const englishVisible = $derived(
+    Boolean(line.english) && (!line.englishToggle || englishOpen),
+  );
 </script>
 
 <article
@@ -40,7 +45,17 @@
     <AudioButton size="sm" {src} {text} label={`Listen: ${line.slovak}`} />
   </div>
 
-  {#if line.english}
+  {#if englishVisible}
     <p class="m-0 mt-1.5 text-sm leading-snug text-slate-500">{line.english}</p>
+  {:else if line.english && line.englishToggle}
+    <button
+      class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-left text-xs font-semibold tracking-wide text-blue-700 underline decoration-blue-700/30 underline-offset-2"
+      type="button"
+      onclick={() => {
+        englishOpen = true;
+      }}
+    >
+      Show English
+    </button>
   {/if}
 </article>

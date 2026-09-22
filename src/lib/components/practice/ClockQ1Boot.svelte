@@ -89,6 +89,13 @@
             class="m-0 mt-1.5 text-sm leading-snug text-slate-500"
             data-clock-q1-scene-en
           ></p>
+          <p
+            class="m-0 mt-2 text-xs font-semibold tracking-wide text-blue-700 underline decoration-blue-700/30 underline-offset-2"
+            data-clock-q1-scene-en-toggle
+            hidden
+          >
+            Show English
+          </p>
         </article>
       </template>
 

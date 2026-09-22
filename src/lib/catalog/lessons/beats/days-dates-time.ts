@@ -5,7 +5,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "meeting-day",
     title: "Pick a day",
     teach: {
-      sceneLineIds: ["meeting-today", "meeting-suggestion"],
+      sceneLineIds: ["meeting-offer"],
       phrases: [
         {
           slovak: "Dnes je pondelok.",
@@ -25,7 +25,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "clock-basics",
     title: "Clock times",
     teach: {
-      sceneLineIds: ["meeting-time", "meeting-half-past"],
+      sceneLineIds: ["meeting-offer", "meeting-counter"],
       phrases: [
         {
           slovak: "O tretej.",

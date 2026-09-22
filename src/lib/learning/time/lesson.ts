@@ -1,3 +1,4 @@
+import { markedText } from "$lib/learning/marked-text";
 import type { Lesson, LessonExercise } from "$lib/learning/types";
 import {
   daysDatesTimeBeatShells,
@@ -402,6 +403,14 @@ export const daysDatesTimePersonalExercise: LessonExercise = {
   example: "Stretneme sa v piatok o tretej.",
 };
 
+const meetingOffer = markedText([
+  "Stretneme sa ",
+  { role: "day", text: "v utorok" },
+  " ",
+  { role: "time", text: "o tretej" },
+  "?",
+]);
+
 export const daysDatesTimeLesson: Lesson = {
   id: daysDatesTimeLessonId,
   track: "everyday",
@@ -411,50 +420,37 @@ export const daysDatesTimeLesson: Lesson = {
   promise: "Arrange a meeting with a day and a clock time.",
   scene: [
     {
-      id: "meeting-today",
+      id: "meeting-offer",
       speaker: "Anna",
-      slovak: "Dnes je pondelok.",
-      english: "Today is Monday.",
-      audio: { transcript: "Dnes je pondelok." },
+      slovak: meetingOffer.text,
+      marks: meetingOffer.marks,
+      english: "Shall we meet on Tuesday at three o’clock?",
+      audio: { transcript: "Stretneme sa v utorok o tretej?" },
     },
     {
-      id: "meeting-suggestion",
-      speaker: "Anna",
-      slovak: "Stretneme sa v utorok?",
-      english: "Shall we meet on Tuesday?",
-      audio: { transcript: "Stretneme sa v utorok?" },
-    },
-    {
-      id: "meeting-time",
+      id: "meeting-counter",
       speaker: "You",
-      slovak: "Áno. O tretej?",
-      english: "Yes. At three?",
-      audio: { transcript: "Áno. O tretej?" },
-      sayChoices: {
-        answerId: "at-three",
-        choices: [
-          { id: "at-three", label: "Áno. O tretej?" },
-          {
-            id: "at-two",
-            label: "Áno. O druhej?",
-            whyWrong:
-              "**O druhej** is at two — the reply here is **o tretej** (at three).",
-          },
-          {
-            id: "duration",
-            label: "Áno. O tri hodiny.",
-            whyWrong:
-              "**O tri hodiny** means in three hours — for clock time use locative **o tretej**.",
-          },
-        ],
-      },
-    },
-    {
-      id: "meeting-half-past",
-      speaker: "Anna",
       slovak: "Lepšie o pol tretej.",
       english: "Better at half past two.",
       audio: { transcript: "Lepšie o pol tretej." },
+      sayChoices: {
+        answerId: "half-past",
+        choices: [
+          { id: "half-past", label: "Lepšie o pol tretej." },
+          {
+            id: "half-one",
+            label: "Lepšie o pol druhej.",
+            whyWrong:
+              "**O pol druhej** is half past one. She said **o tretej** (3:00), so half past two is **o pol tretej**.",
+          },
+          {
+            id: "agree",
+            label: "Áno. O tretej.",
+            whyWrong:
+              "**Áno. O tretej** repeats her time. This reply moves it earlier: **Lepšie o pol tretej**.",
+          },
+        ],
+      },
     },
   ],
   keyPhrases: [
