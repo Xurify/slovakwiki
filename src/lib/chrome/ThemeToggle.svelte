@@ -6,7 +6,6 @@
     cycleThemePreference,
     getInitialThemePreference,
     getStoredThemePreference,
-    resolveTheme,
     subscribeSystemTheme,
     themePreferenceLabel,
     type ThemePreference,
@@ -18,10 +17,13 @@
     class?: string;
   } = $props();
 
-  // Match FOUC boot (`data-theme-preference`) on first client render.
-  let preference = $state<ThemePreference>(getInitialThemePreference());
+  // Stay on "system" until mount so SSR and hydration render the same button.
+  // The icon itself follows `html[data-theme]`, which the head script sets before paint.
+  let preference = $state<ThemePreference>("system");
+  let mounted = $state(false);
 
   onMount(() => {
+    mounted = true;
     preference = getInitialThemePreference();
 
     function onThemeChange(): void {
@@ -47,8 +49,11 @@
     applyTheme(preference);
   }
 
-  const resolved = $derived(resolveTheme(preference));
-  const label = $derived(`Theme: ${themePreferenceLabel(preference)}. Click to switch.`);
+  const label = $derived(
+    mounted
+      ? `Theme: ${themePreferenceLabel(preference)}. Click to switch.`
+      : "Switch color theme",
+  );
 </script>
 
 <button
@@ -58,24 +63,22 @@
   title={label}
   onclick={onToggle}
 >
-  {#if resolved === "light"}
-    <svg
-      class="h-5 w-5 fill-none stroke-current stroke-2"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="4" />
-      <path
-        d="M12 3v2M12 19v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M3 12h2M19 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
-      />
-    </svg>
-  {:else}
-    <svg
-      class="h-5 w-5 fill-none stroke-current stroke-2"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-      <path d="M20 13.5A8.5 8.5 0 1 1 10.5 4 7 7 0 0 0 20 13.5Z" />
-    </svg>
-  {/if}
+  <svg
+    class="h-5 w-5 fill-none stroke-current stroke-2 in-data-[theme=dark]:hidden"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4" />
+    <path
+      d="M12 3v2M12 19v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M3 12h2M19 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+    />
+  </svg>
+
+  <svg
+    class="hidden h-5 w-5 fill-none stroke-current stroke-2 in-data-[theme=dark]:block"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M20 13.5A8.5 8.5 0 1 1 10.5 4 7 7 0 0 0 20 13.5Z" />
+  </svg>
 </button>

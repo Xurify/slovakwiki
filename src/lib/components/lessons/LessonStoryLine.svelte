@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
+  import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import { isLearnerSpeaker } from "$lib/lesson-story/story-cast";
   import { unlockStoryAudio } from "$lib/lesson-story/story-audio";
@@ -86,9 +87,8 @@
 
     <p
       class="m-0 mt-2 font-serif text-[clamp(1.15rem,2.8vw,1.45rem)] font-semibold leading-snug tracking-tight text-slate-900"
-      lang="sk"
     >
-      {line.slovak}
+      <MarkedText text={line.slovak} marks={line.marks} />
     </p>
 
     {#if line.english}

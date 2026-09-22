@@ -1,3 +1,9 @@
+import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
+import {
+  markRoleClass,
+  segmentsFromMarks,
+  type TextMark,
+} from "$lib/learning/marked-text";
 import { formatClockFaceLabel } from "$lib/learning/time/clock";
 
 import type { ClockQ1Choice, ClockQ1Clock, ClockQ1View } from "./clock-q1-view";
@@ -36,6 +42,22 @@ function clockFaceSvg(clock: ClockQ1Clock, size: number): string {
   return `<svg class="block shrink-0 text-slate-900" width="${size}" height="${size}" viewBox="0 0 100 100" role="img" aria-label="${label}"><circle cx="50" cy="50" r="47" fill="var(--surface, #fafcfd)" stroke="currentColor" stroke-width="1.6"/>${ticks}${numerals}<g transform="translate(50 50)"><g style="transform:rotate(${hourAngle}deg)"><line x1="0" y1="0" x2="0" y2="-16" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></g><g style="transform:rotate(${minuteAngle}deg)"><line x1="0" y1="0" x2="0" y2="-26" stroke="var(--accent, #1f6b8f)" stroke-width="2.15" stroke-linecap="round"/></g></g><circle cx="50" cy="50" r="3.4" fill="var(--surface, #fafcfd)"/><circle cx="50" cy="50" r="2.4" fill="var(--accent, #1f6b8f)"/></svg>`;
 }
 
+function paintMarked(el: Element, text: string, marks?: TextMark[]): void {
+  el.replaceChildren();
+
+  for (const segment of segmentsFromMarks(text, marks)) {
+    if (!segment.role) {
+      el.append(segment.text);
+      continue;
+    }
+
+    const span = document.createElement("span");
+    span.className = markRoleClass(segment.role);
+    span.textContent = segment.text;
+    el.append(span);
+  }
+}
+
 function paintScene(root: ParentNode, view: ClockQ1View): void {
   const host = qs(root, "[data-clock-q1-scene]");
   const template = root.querySelector<HTMLTemplateElement>(
@@ -49,13 +71,22 @@ function paintScene(root: ParentNode, view: ClockQ1View): void {
 
   for (const line of view.scene) {
     const clone = template.content.cloneNode(true) as DocumentFragment;
+    const speaker = clone.querySelector("[data-clock-q1-scene-speaker]");
     const sk = clone.querySelector("[data-clock-q1-scene-sk]");
     const en = clone.querySelector("[data-clock-q1-scene-en]");
-    if (sk) sk.textContent = line.slovak;
+    const toggle = clone.querySelector("[data-clock-q1-scene-en-toggle]");
+    const speakerLabel = dialogueSpeakerLabel(line.speaker);
+    const hideEnglish = Boolean(line.englishToggle && line.english);
+    if (speaker) {
+      speaker.textContent = speakerLabel ?? "";
+      (speaker as HTMLElement).hidden = !speakerLabel;
+    }
+    if (sk) paintMarked(sk, line.slovak, line.marks);
     if (en) {
       en.textContent = line.english;
-      (en as HTMLElement).hidden = !line.english;
+      (en as HTMLElement).hidden = !line.english || hideEnglish;
     }
+    if (toggle) (toggle as HTMLElement).hidden = !hideEnglish;
     host.append(clone);
   }
 }
@@ -152,6 +183,7 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
   const prompt = qs(boot, "[data-clock-q1-prompt]");
   const promptClock = qs(boot, "[data-clock-q1-prompt-clock]");
   const typed = qs(boot, "[data-clock-q1-typed]");
+  const you = qs(boot, "[data-clock-q1-you]");
   const source = qs(boot, "[data-clock-q1-source-label]");
   const sourceWrap = qs(boot, "[data-clock-q1-source]");
   const sourceLink = boot.querySelector<HTMLAnchorElement>("[data-clock-q1-source-href]");
@@ -163,6 +195,10 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
 
   paintScene(boot, view);
 
+  const showYou = view.typed && view.scene.length > 0;
+
+  if (you) you.hidden = !showYou;
+
   if (promptSk) {
     promptSk.textContent = view.promptSk ?? "";
     promptSk.hidden = !view.promptSk;
@@ -170,7 +206,12 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
 
   if (prompt) {
     prompt.textContent = view.prompt;
-    const extra = view.promptSk ? "mt-1.5 " : view.scene.length > 0 ? "mt-5 " : "";
+    const extra =
+      view.promptSk && !showYou
+        ? "mt-1.5 "
+        : view.scene.length > 0 && !showYou
+          ? "mt-5 "
+          : "";
     prompt.className = `${extra}m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900`;
     if (view.promptLang === "sk") prompt.lang = "sk";
     else prompt.removeAttribute("lang");
@@ -193,4 +234,9 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
   if (sourceWrap) sourceWrap.hidden = !view.sourceHref;
   if (source) source.textContent = view.sourceLabel;
   if (sourceLink && view.sourceHref) sourceLink.href = view.sourceHref;
+
+  const reveal = qs(boot, "[data-clock-q1-reveal]");
+  const revealSpacer = qs(boot, "[data-clock-q1-reveal-spacer]");
+  if (reveal) reveal.hidden = !view.typed;
+  if (revealSpacer) revealSpacer.hidden = view.typed;
 }

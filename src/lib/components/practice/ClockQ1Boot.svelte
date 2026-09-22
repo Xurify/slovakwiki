@@ -51,21 +51,61 @@
           class="rounded-(--control-radius) border border-slate-200 bg-slate-50/80 px-4 py-3.5"
         >
           <div class="flex items-start justify-between gap-3">
-            <p
-              class="m-0 font-serif text-[clamp(1.15rem,2.8vw,1.4rem)] font-semibold leading-snug text-slate-900"
-            >
-              <span lang="sk" data-clock-q1-scene-sk></span>
-            </p>
+            <div class="min-w-0 flex-1">
+              <p
+                class="m-0 mb-2 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
+                data-clock-q1-scene-speaker
+                hidden
+              ></p>
 
-            <span class="size-7 shrink-0" aria-hidden="true"></span>
+              <p
+                class="m-0 font-serif text-[clamp(1.15rem,2.8vw,1.4rem)] font-semibold leading-snug text-slate-900"
+              >
+                <span lang="sk" data-clock-q1-scene-sk></span>
+              </p>
+            </div>
+
+            <button
+              class="audio-button relative inline-grid size-7 shrink-0 place-items-center rounded-full border border-slate-300 bg-(--surface) text-blue-900 shadow-(--shadow-border)"
+              type="button"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <svg
+                class="relative size-4 fill-none stroke-current"
+                viewBox="0 0 24 24"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M11 6 7 9.5H4v5h3L11 18V6Z" fill="currentColor" stroke="none" />
+                <path d="M15.2 9.2a4.2 4.2 0 0 1 0 5.6M18.2 7a7 7 0 0 1 0 10" />
+              </svg>
+            </button>
           </div>
 
           <p
             class="m-0 mt-1.5 text-sm leading-snug text-slate-500"
             data-clock-q1-scene-en
           ></p>
+          <p
+            class="m-0 mt-2 text-xs font-semibold tracking-wide text-blue-700 underline decoration-blue-700/30 underline-offset-2"
+            data-clock-q1-scene-en-toggle
+            hidden
+          >
+            Show English
+          </p>
         </article>
       </template>
+
+      <p
+        class="mt-5 mb-2 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
+        data-clock-q1-you
+        hidden
+      >
+        You
+      </p>
 
       <p
         class="m-0 font-serif text-sm font-medium leading-snug text-slate-500"
@@ -150,7 +190,16 @@
     <footer
       class="flex flex-col-reverse items-stretch gap-3 border-t border-slate-200 bg-paper/70 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4 sm:flex-row sm:items-center sm:justify-between"
     >
-      <span aria-hidden="true"></span>
+      <button
+        class="border-0 bg-transparent py-1 text-left text-sm font-bold text-blue-800 underline underline-offset-2"
+        type="button"
+        tabindex="-1"
+        data-clock-q1-reveal
+        hidden
+      >
+        Reveal answer
+      </button>
+      <span data-clock-q1-reveal-spacer aria-hidden="true"></span>
       <Button
         class="w-full sm:min-w-[9rem] sm:w-auto"
         disabled

@@ -1,23 +1,12 @@
 import type { PracticeItem } from "$lib/learning/types";
-import {
-  appointmentChoiceDistractors,
-  appointmentPhrase,
-  nearMissTimes,
-  shuffleArray,
-} from "./clock";
+import { appointmentChoiceDistractors, nearMissTimes, shuffleArray } from "./clock";
 import {
   appointmentTimeTiles,
   buildTilesForFrame,
   englishAppointmentPrompt,
-  englishNegotiatePrompt,
   frameWhy,
   fullScheduleLine,
-  negotiateAnswer,
-  negotiateContextTurn,
-  negotiateProposalTurn,
-  negotiateWhy,
-  NEGOTIATE_DAYS,
-  pickNegotiateTimes,
+  pickNegotiateRound,
   pickRandomScheduleFrame,
   pickScheduleTime,
   pickScheduleTimeWithoutDayPart,
@@ -140,28 +129,23 @@ export function buildFrameNegotiateExercise(
   kind: DaysDatesTimeKind,
   rng: () => number,
 ): PracticeItem["task"] {
-  const dayIndex = Math.floor(rng() * NEGOTIATE_DAYS.length);
-  const day = NEGOTIATE_DAYS[dayIndex] ?? NEGOTIATE_DAYS[0]!;
-  const { proposed, better } = pickNegotiateTimes(rng);
-  const answer = negotiateAnswer(better);
-  const bareTime = appointmentPhrase(better);
-  const prompt = englishNegotiatePrompt(better);
+  const round = pickNegotiateRound(rng);
 
   return {
     id: `generated-${kind}`,
     type: "typed",
     task: "complete",
     practiceItemId: kind,
-    context: [negotiateContextTurn(day), negotiateProposalTurn(proposed)],
-    prompt,
+    context: [round.context],
+    prompt: round.prompt,
     promptLang: "en",
     inputLabel: "Your Slovak answer",
-    answer,
-    acceptedAnswers: bareTime !== answer ? [bareTime] : [],
+    answer: round.answer,
+    acceptedAnswers: round.acceptedAnswers,
     feedback: {
-      correction: answer,
-      english: prompt,
-      why: negotiateWhy(better),
+      correction: round.answer,
+      english: round.prompt,
+      why: round.why,
     },
   };
 }

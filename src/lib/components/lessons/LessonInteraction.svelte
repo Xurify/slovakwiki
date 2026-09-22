@@ -25,6 +25,7 @@
   import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
   import type { LessonExercise } from "$lib/learning/types";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
+  import { DIALOGUE_SPEAKER_CLASS } from "$lib/components/practice/dialogue-speaker";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     feedbackPanelClass,
@@ -73,6 +74,11 @@
   const player = $derived(chrome === "player");
   const graded = $derived(exercise.type !== "personal" ? exercise : null);
   const hasContext = $derived(Boolean(graded?.context?.length));
+  const typedWithScene = $derived(
+    Boolean(
+      hasContext && graded?.type === "typed" && graded.task !== "repair" && !player,
+    ),
+  );
   const builtTiles = $derived(
     graded?.type === "build" ? resolveBuiltTiles(graded.tiles, builtBankIndexes) : [],
   );
@@ -308,10 +314,14 @@
       </div>
     {/if}
 
+    {#if typedWithScene}
+      <p class="mt-5 mb-2 {DIALOGUE_SPEAKER_CLASS}">You</p>
+    {/if}
+
     <h2
       id="interaction-heading"
       class={[
-        hasContext ? "mt-5" : chrome === "card" ? "mt-4" : "",
+        typedWithScene ? "" : hasContext ? "mt-5" : chrome === "card" ? "mt-4" : "",
         player
           ? "m-0 text-center font-serif text-[clamp(1.3rem,2.9vw,1.75rem)] leading-snug tracking-tight text-pretty text-slate-900"
           : "m-0 font-serif text-xl font-semibold leading-snug text-pretty text-slate-900",

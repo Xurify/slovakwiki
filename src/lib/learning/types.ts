@@ -1,3 +1,5 @@
+import type { TextMark } from "$lib/learning/marked-text";
+
 export type LessonTrackId = "everyday" | "grammar" | "pronunciation";
 
 export interface AudioCue {
@@ -23,7 +25,14 @@ export interface DialogueSayChoices {
 export interface DialogueTurn {
   audio?: AudioCue;
   english: string;
+  /** Practice bubble starts with this gloss behind “Show English”. The task prompt stays visible. */
+  englishToggle?: boolean;
   id: string;
+  /**
+   * Role spans into `slovak` (day, time, …). Plain `slovak` stays the spoken line.
+   * Built with `markedText` so indexes cannot drift from a search.
+   */
+  marks?: TextMark[];
   /** Mid-story gate: pick what to say before this learner line reveals. */
   sayChoices?: DialogueSayChoices;
   slovak: string;

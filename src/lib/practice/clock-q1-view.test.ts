@@ -25,4 +25,17 @@ describe("buildClockQ1View", () => {
     expect(view.kicker).toBe("Choose the answer");
     expect(view.prompt.length).toBeGreaterThan(0);
   });
+
+  it("keeps one Anna offer on the negotiate scene for the Lepšie counter", () => {
+    const item = materializeDaysDatesTimeItem("everyday/frame-negotiate", () => 0.4);
+    const view = buildClockQ1View(item);
+
+    expect(view.typed).toBe(true);
+    expect(view.scene).toHaveLength(1);
+    expect(view.scene[0]?.speaker).toBe("Anna");
+    expect(view.scene[0]?.slovak).toMatch(/^Stretneme sa v \S+ o /);
+    expect(view.scene[0]?.marks?.map((mark) => mark.role)).toEqual(["day", "time"]);
+    expect(view.scene[0]?.englishToggle).toBe(true);
+    expect(view.prompt).toMatch(/^Better at half past /);
+  });
 });

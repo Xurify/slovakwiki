@@ -33,6 +33,7 @@
   } from "$lib/learning/exercises";
   import { formatClockFaceLabel } from "$lib/learning/time/clock";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
+  import { DIALOGUE_SPEAKER_CLASS } from "$lib/components/practice/dialogue-speaker";
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
@@ -468,6 +469,10 @@
       {#if isRepair}
         <h1 id="practice-question" class="sr-only">{task.prompt}</h1>
       {:else}
+        {#if typedWithScene}
+          <p class="mt-5 mb-2 {DIALOGUE_SPEAKER_CLASS}">You</p>
+        {/if}
+
         {#if task.promptSk}
           <p
             lang="sk"
@@ -481,9 +486,11 @@
           id="practice-question"
           class="{task.promptSk
             ? 'mt-1.5'
-            : hasScene
-              ? 'mt-5'
-              : ''} m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
+            : typedWithScene
+              ? ''
+              : hasScene
+                ? 'mt-5'
+                : ''} m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
           lang={task.promptLang === "sk" ? "sk" : undefined}
         >
           {task.prompt}
