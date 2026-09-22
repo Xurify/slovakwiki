@@ -1,3 +1,4 @@
+import { markedText } from "$lib/learning/marked-text";
 import type { PracticeItem } from "$lib/learning/types";
 
 const daysDatesTimeSource = {
@@ -11,6 +12,14 @@ const stubFeedback = {
   english: "At three o’clock.",
   why: "Session time varies — use **o** + the ordinal form (e.g. **o tretej**).",
 };
+
+const negotiateStubOffer = markedText([
+  "Stretneme sa ",
+  { role: "day", text: "v utorok" },
+  " ",
+  { role: "time", text: "o tretej" },
+  "?",
+]);
 
 /** Catalog stub for hub links, validation, and lesson practiceItemId — sessions materialize fresh tasks. */
 export const daysDatesTimePracticeItems: PracticeItem[] = [
@@ -308,7 +317,8 @@ function stubFrameTyped(id: string, taskId: string): PracticeItem {
             {
               id: "negotiate-utorok",
               speaker: "Anna",
-              slovak: "Stretneme sa v utorok o tretej?",
+              slovak: negotiateStubOffer.text,
+              marks: negotiateStubOffer.marks,
               english: "Shall we meet on Tuesday at three o'clock?",
             },
           ]

@@ -33,6 +33,8 @@ When someone else spoke first:
 2. Put **your** task in `prompt` (English line to produce).
 3. Order in UI: **context bubble(s) → You label → prompt → input/choices**. Named speakers (`Anna`, `You`, …) show as a muted eyebrow on the bubble. System labels (`Scene`, `Sentence`, `Notice`) stay hidden. Typed-with-scene adds a matching **You** eyebrow on the prompt — next turn, not an instructional “Your turn” divider.
 
+Optional `marks` on a turn color a span of `slovak` by role (`day` gold, `time` accent). The plain string stays what is spoken and graded. Build marks with `markedText` in `src/lib/learning/marked-text.ts` — add a role there when another exercise needs a new color. Do not search the finished sentence for the words.
+
 `speaker` is for audio roster / `characterIdForSpeaker` and that visible eyebrow. Use a label that already exists on a character’s `speakers[]` in `content/audio/config.json` (named people like `Anna` / `Mária` / `You`, approved one-offs like `Receptionist` / `Waiter`, or system `Notice` / `Sentence` / `Scene`). Do not invent extra names (`Marta`) — they fall back to the narrator voice. Lesson **scene** table still uses a muted speaker column for multi-line scripts.
 
 ## Feedback (`feedback` on exercise + practice item)

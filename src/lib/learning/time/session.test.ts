@@ -286,6 +286,14 @@ describe("learning/time/session", () => {
     );
 
     expect(turn.slovak).toBe("Stretneme sa v stredu o deviatej?");
+    expect(turn.slovak.slice(turn.marks?.[0]?.start, turn.marks?.[0]?.end)).toBe(
+      "v stredu",
+    );
+    expect(turn.marks?.[0]?.role).toBe("day");
+    expect(turn.slovak.slice(turn.marks?.[1]?.start, turn.marks?.[1]?.end)).toBe(
+      "o deviatej",
+    );
+    expect(turn.marks?.[1]?.role).toBe("time");
     expect(turn.english).toBe("Shall we meet on Wednesday at nine o’clock?");
   });
 

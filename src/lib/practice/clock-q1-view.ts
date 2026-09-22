@@ -1,3 +1,4 @@
+import type { TextMark } from "$lib/learning/marked-text";
 import type { PracticeItem } from "$lib/learning/types";
 
 import { practiceTaskKicker } from "./task-kicker";
@@ -13,6 +14,7 @@ export type ClockQ1Choice = {
 export type ClockQ1SceneLine = {
   english: string;
   id: string;
+  marks?: TextMark[];
   slovak: string;
   speaker: string;
 };
@@ -42,6 +44,7 @@ export function buildClockQ1View(item: PracticeItem): ClockQ1View {
       : (task.context ?? []).map((line) => ({
           english: line.english,
           id: line.id,
+          marks: line.marks,
           slovak: line.slovak,
           speaker: line.speaker,
         }));

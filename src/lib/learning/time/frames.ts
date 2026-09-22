@@ -1,3 +1,4 @@
+import { markedText } from "$lib/learning/marked-text";
 import type { DialogueTurn } from "$lib/learning/types";
 import {
   appointmentChoiceWhy,
@@ -109,10 +110,18 @@ export function negotiateOfferTurn(
 ): DialogueTurn {
   const skTime = appointmentPhrase(proposed).replace(/\.$/, "").replace(/^O /, "o ");
   const enTime = englishTimeMeaningPhrase(proposed);
+  const line = markedText([
+    "Stretneme sa ",
+    { role: "day", text: `v ${day.inPhrase}` },
+    " ",
+    { role: "time", text: skTime },
+    "?",
+  ]);
   return {
     id: `negotiate-${day.inPhrase}-${proposed.hour}-${proposed.minute}`,
     speaker: "Anna",
-    slovak: `Stretneme sa v ${day.inPhrase} ${skTime}?`,
+    slovak: line.text,
+    marks: line.marks,
     english: `Shall we meet on ${day.en} at ${enTime}?`,
   };
 }

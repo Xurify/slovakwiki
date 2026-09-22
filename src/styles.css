@@ -14,6 +14,7 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-mark-day: var(--mark-day);
   --color-action: var(--action);
   --color-panel-inverse: var(--panel-inverse);
   --color-panel-inverse-ink: var(--panel-inverse-ink);
@@ -95,6 +96,7 @@
     --line: #dbddde;
     --line-strong: #c2c4cc;
     --accent: #377299;
+    --mark-day: #8a5a12;
     --accent-strong: #3e658c;
     --accent-soft: #daece5;
     --action: #c23b35;
@@ -155,6 +157,7 @@
     --line: #2a4050;
     --line-strong: #3d5668;
     --accent: #4a9fc4;
+    --mark-day: #f0c674;
     --accent-strong: #7ab8d4;
     --accent-soft: #1a3545;
     --action: #e07068;

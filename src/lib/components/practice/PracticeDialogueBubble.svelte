@@ -1,5 +1,6 @@
 <script lang="ts">
   import AudioButton from "$lib/audio/AudioButton.svelte";
+  import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import {
     DIALOGUE_SPEAKER_CLASS,
     dialogueSpeakerLabel,
@@ -32,7 +33,7 @@
       <p
         class="m-0 font-serif text-[clamp(1.15rem,2.8vw,1.4rem)] font-semibold leading-snug text-slate-900"
       >
-        <span lang="sk">{line.slovak}</span>
+        <MarkedText text={line.slovak} marks={line.marks} />
       </p>
     </div>
 

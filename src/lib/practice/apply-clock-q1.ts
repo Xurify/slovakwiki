@@ -1,5 +1,10 @@
-import { formatClockFaceLabel } from "$lib/learning/time/clock";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
+import {
+  markRoleClass,
+  segmentsFromMarks,
+  type TextMark,
+} from "$lib/learning/marked-text";
+import { formatClockFaceLabel } from "$lib/learning/time/clock";
 
 import type { ClockQ1Choice, ClockQ1Clock, ClockQ1View } from "./clock-q1-view";
 
@@ -37,6 +42,22 @@ function clockFaceSvg(clock: ClockQ1Clock, size: number): string {
   return `<svg class="block shrink-0 text-slate-900" width="${size}" height="${size}" viewBox="0 0 100 100" role="img" aria-label="${label}"><circle cx="50" cy="50" r="47" fill="var(--surface, #fafcfd)" stroke="currentColor" stroke-width="1.6"/>${ticks}${numerals}<g transform="translate(50 50)"><g style="transform:rotate(${hourAngle}deg)"><line x1="0" y1="0" x2="0" y2="-16" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></g><g style="transform:rotate(${minuteAngle}deg)"><line x1="0" y1="0" x2="0" y2="-26" stroke="var(--accent, #1f6b8f)" stroke-width="2.15" stroke-linecap="round"/></g></g><circle cx="50" cy="50" r="3.4" fill="var(--surface, #fafcfd)"/><circle cx="50" cy="50" r="2.4" fill="var(--accent, #1f6b8f)"/></svg>`;
 }
 
+function paintMarked(el: Element, text: string, marks?: TextMark[]): void {
+  el.replaceChildren();
+
+  for (const segment of segmentsFromMarks(text, marks)) {
+    if (!segment.role) {
+      el.append(segment.text);
+      continue;
+    }
+
+    const span = document.createElement("span");
+    span.className = markRoleClass(segment.role);
+    span.textContent = segment.text;
+    el.append(span);
+  }
+}
+
 function paintScene(root: ParentNode, view: ClockQ1View): void {
   const host = qs(root, "[data-clock-q1-scene]");
   const template = root.querySelector<HTMLTemplateElement>(
@@ -58,7 +79,7 @@ function paintScene(root: ParentNode, view: ClockQ1View): void {
       speaker.textContent = speakerLabel ?? "";
       (speaker as HTMLElement).hidden = !speakerLabel;
     }
-    if (sk) sk.textContent = line.slovak;
+    if (sk) paintMarked(sk, line.slovak, line.marks);
     if (en) {
       en.textContent = line.english;
       (en as HTMLElement).hidden = !line.english;

@@ -34,6 +34,7 @@ describe("buildClockQ1View", () => {
     expect(view.scene).toHaveLength(1);
     expect(view.scene[0]?.speaker).toBe("Anna");
     expect(view.scene[0]?.slovak).toMatch(/^Stretneme sa v \S+ o /);
+    expect(view.scene[0]?.marks?.map((mark) => mark.role)).toEqual(["day", "time"]);
     expect(view.prompt).toMatch(/^Better at half past /);
   });
 });

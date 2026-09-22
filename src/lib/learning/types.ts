@@ -1,3 +1,5 @@
+import type { TextMark } from "$lib/learning/marked-text";
+
 export type LessonTrackId = "everyday" | "grammar" | "pronunciation";
 
 export interface AudioCue {
@@ -24,6 +26,11 @@ export interface DialogueTurn {
   audio?: AudioCue;
   english: string;
   id: string;
+  /**
+   * Role spans into `slovak` (day, time, …). Plain `slovak` stays the spoken line.
+   * Built with `markedText` so indexes cannot drift from a search.
+   */
+  marks?: TextMark[];
   /** Mid-story gate: pick what to say before this learner line reveals. */
   sayChoices?: DialogueSayChoices;
   slovak: string;
