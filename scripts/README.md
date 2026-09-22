@@ -32,7 +32,7 @@ bun run fouc:boot                                # Rebuild blocking FOUC IIFEs (
 
 ### FOUC boots
 
-Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.md`](../src/lib/fouc/README.md). Registry: `scripts/fouc/registry.ts`. Generator: `bun run fouc:boot` (optional filter: `bun run fouc:boot -- lessons`).
+Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.md`](../src/lib/fouc/README.md). Registry: `scripts/fouc/registry.ts`. Generator: `bun run fouc:boot` (optional filter: `bun run fouc:boot -- lessons`). Must run on the `packageManager` Bun version — the generator refuses anything else, because a different minify changes the committed IIFE hash.
 
 ### Content files
 

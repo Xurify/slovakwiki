@@ -8,7 +8,48 @@ import { fileURLToPath } from "node:url";
 import { ROOT } from "../lib/paths";
 import { resolveFoucBoots, type FoucBootTarget } from "./registry";
 
+const BUN_PACKAGE_MANAGER = /^bun@(\d+\.\d+\.\d+)/;
+
+/** `package.json` `packageManager`, e.g. `bun@1.2.19` → `1.2.19`. */
+export function requiredFoucBunVersion(packageManager: string | undefined): string {
+  const version = packageManager?.match(BUN_PACKAGE_MANAGER)?.[1];
+  if (!version) {
+    throw new Error(
+      'package.json "packageManager" must be "bun@x.y.z" so FOUC boots stay reproducible.',
+    );
+  }
+  return version;
+}
+
+/**
+ * Bun's minifier is not stable across versions. CI pins `packageManager`;
+ * generating with anything else changes the committed IIFE hash.
+ * Returns null when the running bun matches.
+ */
+export function foucBunMismatchMessage(actual: string, required: string): string | null {
+  if (actual.trim() === required) return null;
+
+  return [
+    `FOUC boots must be built with bun ${required} (package.json packageManager).`,
+    `This process is bun ${actual.trim()}.`,
+    "A different Bun minify changes the committed IIFE and fails scripts/fouc/generate.test.ts on CI.",
+    `Install the pinned version: curl -fsSL https://bun.sh/install | bash -s "bun-v${required}"`,
+  ].join(" ");
+}
+
+function assertFoucBunVersion(): void {
+  const pkg = JSON.parse(readFileSync(path.join(ROOT, "package.json"), "utf8")) as {
+    packageManager?: string;
+  };
+  const required = requiredFoucBunVersion(pkg.packageManager);
+  const actual = execFileSync("bun", ["--version"], { encoding: "utf8" });
+  const message = foucBunMismatchMessage(actual, required);
+  if (message) throw new Error(message);
+}
+
 export function buildFoucBootIife(entry: string): string {
+  assertFoucBunVersion();
+
   const dir = mkdtempSync(path.join(tmpdir(), "fouc-boot-"));
   const outfile = path.join(dir, "boot.js");
 
