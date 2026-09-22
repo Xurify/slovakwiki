@@ -231,4 +231,9 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
   if (sourceWrap) sourceWrap.hidden = !view.sourceHref;
   if (source) source.textContent = view.sourceLabel;
   if (sourceLink && view.sourceHref) sourceLink.href = view.sourceHref;
+
+  const reveal = qs(boot, "[data-clock-q1-reveal]");
+  const revealSpacer = qs(boot, "[data-clock-q1-reveal-spacer]");
+  if (reveal) reveal.hidden = !view.typed;
+  if (revealSpacer) revealSpacer.hidden = view.typed;
 }

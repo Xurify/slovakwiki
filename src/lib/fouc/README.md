@@ -151,6 +151,7 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 - Paint SSOT: `clock-q1-view.ts` → `apply-clock-q1.ts`
 - Shell: `PracticeClockBoot.astro` (`stage="gate"` before markup, `stage="script"` after)
 - Generate: `bun run fouc:boot -- practice-clock`
+- Q1 boot includes the listen control on each scene line, and **Reveal answer** when the task is typed, so those controls don’t pop in after hydrate.
 
 Theme / sfx / story-English prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`).
 
