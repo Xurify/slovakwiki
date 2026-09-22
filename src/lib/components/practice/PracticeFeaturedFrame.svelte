@@ -1,6 +1,9 @@
 <script lang="ts">
   import type { PracticeHubSheet } from "$lib/catalog/practice/hub";
-  import { practiceGraphicId } from "$lib/catalog/practice/motifs";
+  import {
+    practiceFeaturedFieldClass,
+    practiceGraphicId,
+  } from "$lib/catalog/practice/motifs";
   import { motifArtSrc } from "$lib/catalog/motifs/art";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
@@ -17,13 +20,19 @@
   } = $props();
 
   const frameClass =
-    "grid overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border) min-[760px]:grid-cols-[minmax(0,1fr)_18rem]";
+    "grid overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border) min-[760px]:grid-cols-[minmax(0,1fr)_17rem]";
+
+  const fieldClass =
+    "flex items-center justify-center p-6 max-[759px]:order-first max-[759px]:border-b max-[759px]:border-slate-900/5 min-[760px]:order-last min-[760px]:border-l min-[760px]:border-slate-900/5";
 
   const artClass =
-    "relative overflow-hidden border-slate-200/70 max-[759px]:h-44 max-[759px]:border-b min-[760px]:order-last min-[760px]:min-h-full min-[760px]:border-l";
+    "aspect-square w-full max-w-[9rem] rounded-(--frame-radius) object-cover shadow-(--shadow-border-hover) outline-0 min-[760px]:max-w-[12rem]";
 
   const labelClass =
     "m-0 text-[0.64rem] font-bold tracking-[0.14em] text-blue-800 uppercase";
+
+  const footerClass =
+    "flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-slate-200/80 pt-5";
 </script>
 
 <section aria-label="Start here">
@@ -39,40 +48,41 @@
           data-featured-lesson={candidate.set.lessonId}
           hidden={candidate.set.id !== featuredId}
         >
-          <div class={artClass} aria-hidden="true">
+          <div
+            class="{fieldClass} {practiceFeaturedFieldClass[graphic]}"
+            aria-hidden="true"
+          >
             <img
               {src}
               alt=""
               width="512"
               height="512"
               decoding="async"
-              class="absolute inset-0 size-full object-cover outline-0"
+              class={artClass}
             />
           </div>
 
-          <div class="flex min-w-0 flex-col gap-5 p-6 sm:p-8">
+          <div class="flex min-w-0 flex-col p-6 sm:p-8">
             <p class={labelClass}>
               Start here
               <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
               <span class="text-slate-500">{candidate.trackTitle}</span>
             </p>
 
-            <div class="min-w-0">
-              <h2
-                class="m-0 font-serif text-[clamp(1.6rem,2.6vw,2.1rem)] leading-tight tracking-tight text-balance text-slate-900"
-              >
-                {candidate.set.title}
-              </h2>
+            <h2
+              class="m-0 mt-3 font-serif text-[clamp(1.6rem,2.6vw,2.1rem)] leading-tight tracking-tight text-balance text-slate-900"
+            >
+              {candidate.set.title}
+            </h2>
 
-              <p
-                class="m-0 mt-2.5 max-w-xl text-[0.98rem] leading-relaxed text-pretty text-slate-600"
-              >
-                {candidate.purpose}
-              </p>
-            </div>
+            <p
+              class="m-0 mt-2.5 max-w-xl text-[0.98rem] leading-relaxed text-pretty text-slate-600"
+            >
+              {candidate.purpose}
+            </p>
 
             {#if candidate.drill.slovak}
-              <div class="border-l-2 border-blue-600 py-0.5 pl-4">
+              <div class="mt-6 border-l-2 border-blue-600 py-0.5 pl-4">
                 <PracticeDrillLine
                   slovak={candidate.drill.slovak}
                   class="text-[clamp(1.15rem,2vw,1.4rem)] text-slate-900"
@@ -86,37 +96,41 @@
               </div>
             {/if}
 
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <p class="m-0 text-sm tabular-nums text-slate-600">
-                {candidate.exerciseCount}
-                {candidate.exerciseCount === 1 ? "exercise" : "exercises"}
-                <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
-                ~{candidate.minutes} min
-              </p>
+            <div class="mt-auto pt-8">
+              <div class={footerClass}>
+                <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+                  <Button
+                    class="group px-5"
+                    href="/practice/{candidate.set.id}"
+                    variant="accent"
+                    data-hero-cta=""
+                  >
+                    Start set
+                    <ArrowRight />
+                  </Button>
 
-              <PracticeTaskChips kinds={candidate.taskKinds} size="md" />
-            </div>
+                  {#if candidate.lessonHref}
+                    <a
+                      class="group inline-flex items-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline"
+                      href={candidate.lessonHref}
+                    >
+                      Review the lesson
+                      <ArrowRight />
+                    </a>
+                  {/if}
+                </div>
 
-            <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-1">
-              <Button
-                class="group px-5"
-                href="/practice/{candidate.set.id}"
-                variant="accent"
-                data-hero-cta=""
-              >
-                Start set
-                <ArrowRight />
-              </Button>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                  <p class="m-0 text-sm tabular-nums text-slate-600">
+                    {candidate.exerciseCount}
+                    {candidate.exerciseCount === 1 ? "exercise" : "exercises"}
+                    <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
+                    ~{candidate.minutes} min
+                  </p>
 
-              {#if candidate.lessonHref}
-                <a
-                  class="group inline-flex items-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline"
-                  href={candidate.lessonHref}
-                >
-                  Review the lesson
-                  <ArrowRight />
-                </a>
-              {/if}
+                  <PracticeTaskChips kinds={candidate.taskKinds} size="md" />
+                </div>
+              </div>
             </div>
           </div>
         </article>
