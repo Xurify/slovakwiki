@@ -1,5 +1,4 @@
 <script lang="ts">
-  import ClockIllustration from "$lib/learning/time/ClockIllustration.svelte";
   import PromptClock from "$lib/learning/time/PromptClock.svelte";
   import type { SelectAllExercise } from "$lib/learning/types";
 

@@ -50,6 +50,16 @@ describe("dictionary browse helpers", () => {
       letter: "all",
       page: 1,
     });
+    expect(parseBrowseSearchParams(new URLSearchParams("letter=all"))).toEqual({
+      topic: "all",
+      letter: "all",
+      page: 1,
+    });
+    expect(parseBrowseSearchParams(new URLSearchParams("letter=ALL"))).toEqual({
+      topic: "all",
+      letter: "all",
+      page: 1,
+    });
     expect(parseBrowseSearchParams(new URLSearchParams("topic=invalid"))).toEqual({
       topic: "all",
       letter: "all",

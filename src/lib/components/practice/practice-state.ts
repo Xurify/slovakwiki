@@ -38,15 +38,23 @@ function asStringIds(value: unknown): string[] {
 }
 
 function readPracticeRaw(storage: StorageLike): string | null {
-  return (
-    storage.getItem(PRACTICE_STATE_STORAGE_KEY) ??
-    storage.getItem(LEGACY_PRACTICE_STATE_STORAGE_KEY)
-  );
+  try {
+    return (
+      storage.getItem(PRACTICE_STATE_STORAGE_KEY) ??
+      storage.getItem(LEGACY_PRACTICE_STATE_STORAGE_KEY)
+    );
+  } catch {
+    return null;
+  }
 }
 
 function clearPracticeKeys(storage: StorageLike): void {
-  storage.removeItem(PRACTICE_STATE_STORAGE_KEY);
-  storage.removeItem(LEGACY_PRACTICE_STATE_STORAGE_KEY);
+  try {
+    storage.removeItem(PRACTICE_STATE_STORAGE_KEY);
+    storage.removeItem(LEGACY_PRACTICE_STATE_STORAGE_KEY);
+  } catch {
+    // Ignore private-mode / sandbox failures.
+  }
 }
 
 export function readPracticeState(storage: StorageLike): PracticeState {
@@ -78,15 +86,19 @@ export function readPracticeState(storage: StorageLike): PracticeState {
 }
 
 export function writePracticeState(storage: StorageLike, state: PracticeState): void {
-  storage.setItem(
-    PRACTICE_STATE_STORAGE_KEY,
-    JSON.stringify({
-      version: 1,
-      completedLessonIds: asStringIds(state.completedLessonIds),
-      recentItemIds: asStringIds(state.recentItemIds),
-    }),
-  );
-  storage.removeItem(LEGACY_PRACTICE_STATE_STORAGE_KEY);
+  try {
+    storage.setItem(
+      PRACTICE_STATE_STORAGE_KEY,
+      JSON.stringify({
+        version: 1,
+        completedLessonIds: asStringIds(state.completedLessonIds),
+        recentItemIds: asStringIds(state.recentItemIds),
+      }),
+    );
+    storage.removeItem(LEGACY_PRACTICE_STATE_STORAGE_KEY);
+  } catch {
+    // Ignore quota / private-mode failures.
+  }
 }
 
 export function markLessonComplete(

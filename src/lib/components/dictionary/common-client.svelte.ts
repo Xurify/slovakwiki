@@ -137,5 +137,12 @@ export function clearDictionaryCommonFilter(): void {
 }
 
 export function initDictionaryCommon(partOfSpeech: FrequencyPartOfSpeech): void {
-  dictionaryCommonState.partOfSpeech = partOfSpeech;
+  if (dictionaryCommonState.partOfSpeech !== partOfSpeech) {
+    dictionaryCommonState.partOfSpeech = partOfSpeech;
+    dictionaryCommonState.entries = null;
+    dictionaryCommonState.liveByLemma = {};
+    dictionaryCommonState.query = "";
+    dictionaryCommonState.visibleLimit = PAGE_SIZE;
+    dictionaryCommonState.loadError = "";
+  }
 }

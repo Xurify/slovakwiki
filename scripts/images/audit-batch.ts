@@ -8,7 +8,7 @@
  * State: content/images/visual-audit.json
  */
 
-import { copyFile, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { ROOT } from "../lib/paths";

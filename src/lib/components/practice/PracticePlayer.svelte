@@ -274,7 +274,14 @@
       }
     }
 
-    if (event.key === "Enter" && canCheck) {
+    if (
+      event.key === "Enter" &&
+      canCheck &&
+      !(
+        event.target instanceof HTMLElement &&
+        (event.target.tagName === "BUTTON" || event.target.tagName === "A")
+      )
+    ) {
       event.preventDefault();
       void check();
     }
@@ -323,7 +330,7 @@
         itemId: current.id,
         prompt: current.task.prompt,
         promptLang: current.task.promptLang,
-        slovak: current.feedback.correction,
+        slovak: current.feedback.correction ?? "",
         english: current.feedback.english,
         why: feedbackWhy,
         attempt: attemptForResult(),
@@ -727,7 +734,7 @@
         </div>
       {/if}
 
-      {#if task.hint && (task.type === "choice" || task.type === "selectAll")}
+      {#if (task.type === "choice" || task.type === "selectAll") && task.hint}
         <div class="mt-6 border-t border-slate-200 pt-4">
           <GrammarHintAccordion hint={task.hint} bind:open={hintOpen} />
         </div>

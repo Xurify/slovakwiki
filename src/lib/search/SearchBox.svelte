@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, untrack } from "svelte";
+  import { onDestroy, onMount, untrack } from "svelte";
 
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import {
@@ -62,6 +62,13 @@
   const showPanel = $derived(open);
   const showIdle = $derived(showPanel && !trimmedQuery);
   const showResults = $derived(showPanel && Boolean(trimmedQuery));
+  const idleOptions = $derived([
+    ...recent.map((item) => ({ href: item.href, source: "recent" as const })),
+    ...searchIdleHints.map((hint) => ({
+      href: hint.href,
+      source: "hint" as const,
+    })),
+  ]);
   const activeOptionCount = $derived(trimmedQuery ? results.length : idleOptions.length);
   const activeDescendant = $derived(
     showPanel && activeOptionCount > 0
@@ -73,13 +80,6 @@
       ? "mr-4 size-4 shrink-0 animate-spin rounded-full border-2 border-slate-200 border-t-slate-500"
       : "mr-2 size-3.5 shrink-0 animate-spin rounded-full border-2 border-slate-200 border-t-slate-500",
   );
-  const idleOptions = $derived([
-    ...recent.map((item) => ({ href: item.href, source: "recent" as const })),
-    ...searchIdleHints.map((hint) => ({
-      href: hint.href,
-      source: "hint" as const,
-    })),
-  ]);
   const idleHintsOffset = $derived(recent.length);
   const shellClass = $derived(
     size === "hero"
@@ -182,10 +182,12 @@
       results = [];
       loading = false;
       pending = false;
+      unavailable = false;
       return;
     }
 
     pending = true;
+    unavailable = false;
 
     if (results.length === 0 || !resultsMatchQuery(results, normalized)) {
       results = [];
@@ -326,6 +328,10 @@
       open = true;
       void runSearch(query);
     }
+  });
+
+  onDestroy(() => {
+    searchGeneration += 1;
   });
 
   $effect(() => {
@@ -529,14 +535,14 @@
           </a>
         {/each}
       {:else if showResults}
-        {#if unavailable}
-          <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
-            Search index not built yet. Run a production build once, then refresh.
-          </p>
-        {:else if searching && results.length === 0}
+        {#if searching && results.length === 0}
           <div class="flex items-center px-3.5 py-2.5">
             <DotLoader label="Searching…" />
           </div>
+        {:else if unavailable}
+          <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
+            Search index not built yet. Run a production build once, then refresh.
+          </p>
         {:else if results.length === 0}
           <p class="m-0 px-3.5 py-4 font-serif text-sm text-(--muted-strong)">
             No matches for “{trimmedQuery}”. Try a shorter word or an English meaning.

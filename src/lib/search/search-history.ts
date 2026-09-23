@@ -88,11 +88,23 @@ export function normalizeHistoryHref(href: string): string {
   }
 }
 
+function safeRemoveItem(storage: StorageLike, key: string): void {
+  try {
+    storage.removeItem(key);
+  } catch {
+    // Ignore private-mode / sandbox failures.
+  }
+}
+
 function readHistoryRaw(storage: StorageLike): string | null {
-  return (
-    storage.getItem(SEARCH_HISTORY_STORAGE_KEY) ??
-    storage.getItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY)
-  );
+  try {
+    return (
+      storage.getItem(SEARCH_HISTORY_STORAGE_KEY) ??
+      storage.getItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY)
+    );
+  } catch {
+    return null;
+  }
 }
 
 export function readSearchHistory(storage: StorageLike): SearchHistoryItem[] {
@@ -104,15 +116,15 @@ export function readSearchHistory(storage: StorageLike): SearchHistoryItem[] {
   try {
     const parsed: unknown = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object") {
-      storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
-      storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
+      safeRemoveItem(storage, SEARCH_HISTORY_STORAGE_KEY);
+      safeRemoveItem(storage, LEGACY_SEARCH_HISTORY_STORAGE_KEY);
       return [];
     }
 
     const state = parsed as Record<string, unknown>;
     if (state.version !== 1 || !Array.isArray(state.items)) {
-      storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
-      storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
+      safeRemoveItem(storage, SEARCH_HISTORY_STORAGE_KEY);
+      safeRemoveItem(storage, LEGACY_SEARCH_HISTORY_STORAGE_KEY);
       return [];
     }
 
@@ -126,8 +138,8 @@ export function readSearchHistory(storage: StorageLike): SearchHistoryItem[] {
       .filter((item) => item.href.length > 0)
       .slice(0, SEARCH_HISTORY_LIMIT);
   } catch {
-    storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
-    storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
+    safeRemoveItem(storage, SEARCH_HISTORY_STORAGE_KEY);
+    safeRemoveItem(storage, LEGACY_SEARCH_HISTORY_STORAGE_KEY);
     return [];
   }
 }
@@ -136,20 +148,24 @@ export function writeSearchHistory(
   storage: StorageLike,
   items: SearchHistoryItem[],
 ): void {
-  storage.setItem(
-    SEARCH_HISTORY_STORAGE_KEY,
-    JSON.stringify({
-      version: 1,
-      items: items.slice(0, SEARCH_HISTORY_LIMIT).map((item) => ({
-        visitedAt: item.visitedAt,
-        href: normalizeHistoryHref(item.href),
-        kind: item.kind,
-        label: item.label.trim(),
-        ...(item.category?.trim() ? { category: item.category.trim() } : {}),
-      })),
-    }),
-  );
-  storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
+  try {
+    storage.setItem(
+      SEARCH_HISTORY_STORAGE_KEY,
+      JSON.stringify({
+        version: 1,
+        items: items.slice(0, SEARCH_HISTORY_LIMIT).map((item) => ({
+          visitedAt: item.visitedAt,
+          href: normalizeHistoryHref(item.href),
+          kind: item.kind,
+          label: item.label.trim(),
+          ...(item.category?.trim() ? { category: item.category.trim() } : {}),
+        })),
+      }),
+    );
+  } catch {
+    // Ignore quota / private-mode failures.
+  }
+  safeRemoveItem(storage, LEGACY_SEARCH_HISTORY_STORAGE_KEY);
 }
 
 export function pushSearchHistory(
@@ -180,6 +196,6 @@ export function pushSearchHistory(
 }
 
 export function clearSearchHistory(storage: StorageLike): void {
-  storage.removeItem(SEARCH_HISTORY_STORAGE_KEY);
-  storage.removeItem(LEGACY_SEARCH_HISTORY_STORAGE_KEY);
+  safeRemoveItem(storage, SEARCH_HISTORY_STORAGE_KEY);
+  safeRemoveItem(storage, LEGACY_SEARCH_HISTORY_STORAGE_KEY);
 }

@@ -32,8 +32,16 @@ let preparedPromise: Promise<PreparedEntry[]> | null = null;
 function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
   if (!indexPromise) {
     indexPromise = fetch(DICTIONARY_BROWSE_INDEX_URL)
-      .then((response) => (response.ok ? response.json() : []))
-      .catch(() => [] as DictionaryIndexEntry[]);
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error("Failed to load browse index");
+        }
+        return (await response.json()) as DictionaryIndexEntry[];
+      })
+      .catch((error: unknown) => {
+        indexPromise = null;
+        throw error;
+      });
   }
 
   return indexPromise;
@@ -78,7 +86,12 @@ function prepareEntry(entry: DictionaryIndexEntry): PreparedEntry {
 
 function loadPreparedIndex(): Promise<PreparedEntry[]> {
   if (!preparedPromise) {
-    preparedPromise = loadDictionaryIndex().then((index) => index.map(prepareEntry));
+    preparedPromise = loadDictionaryIndex()
+      .then((index) => index.map(prepareEntry))
+      .catch((error: unknown) => {
+        preparedPromise = null;
+        throw error;
+      });
   }
 
   return preparedPromise;
@@ -86,7 +99,9 @@ function loadPreparedIndex(): Promise<PreparedEntry[]> {
 
 /** Prefetch + normalize the browse index so the first typed query is not a main-thread stall. */
 export function warmDictionaryLookup(): void {
-  void loadPreparedIndex();
+  void loadPreparedIndex().catch(() => {
+    // Ignore warm-up failure so future lookups can retry.
+  });
 }
 
 function scorePrepared(
@@ -129,7 +144,12 @@ export async function lookupDictionary(
     return [];
   }
 
-  const index = await loadPreparedIndex();
+  let index: PreparedEntry[];
+  try {
+    index = await loadPreparedIndex();
+  } catch {
+    return [];
+  }
 
   return index
     .map((prepared) => ({

@@ -92,8 +92,11 @@ export function isBrowseTopicSlug(value: string): value is BrowseTopicSlug {
 export function parseBrowseSearchParams(params: URLSearchParams): BrowseQueryState {
   const topicParam = params.get("topic") ?? "all";
   const topic = isBrowseTopicSlug(topicParam) ? topicParam : "all";
-  const letterParam = params.get("letter");
-  const letter = letterParam?.trim() ? letterParam.toLocaleUpperCase("sk") : "all";
+  const letterParam = params.get("letter")?.trim();
+  const letter =
+    !letterParam || letterParam.toLocaleLowerCase("sk") === "all"
+      ? "all"
+      : letterParam.toLocaleUpperCase("sk");
   const page = Math.max(1, Number.parseInt(params.get("page") ?? "1", 10) || 1);
 
   return { topic, letter, page };
