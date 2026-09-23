@@ -1,165 +1,139 @@
 <script lang="ts">
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import GrammarAreaSection from "$lib/components/reference/GrammarAreaSection.svelte";
+  import ReferenceRailCard from "$lib/components/reference/ReferenceRailCard.svelte";
+  import ReferenceRailList from "$lib/components/reference/ReferenceRailList.svelte";
+  import {
+    referenceCardClass,
+    referencePageGridClass,
+  } from "$lib/components/reference/reference-ui";
   import { grammarEntries } from "$lib/catalog/entries";
+  import {
+    grammarGroups,
+    grammarTopicsInGroup,
+  } from "$lib/catalog/reference/grammar-path";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { GrammarTopic } from "$lib/catalog/types";
 
-  type GrammarGroup = (typeof groups)[number];
+  const areas = grammarGroups
+    .map((group) => ({ group, topics: grammarTopicsInGroup(group) }))
+    .filter((area) => area.topics.length > 0);
 
-  const groups = ["Nouns", "Verbs", "Numbers", "Sentence building"] as const;
-
-  const groupPurpose: Record<GrammarGroup, string> = {
-    Nouns: "Gender and cases — how nouns change in a sentence",
-    Verbs: "Present forms, byť / mať, and aspect pairs",
-    Numbers: "Counting, quantity agreement, and clock time",
-    "Sentence building": "Word order, formality, negation, and questions",
-  };
-
-  const groupAnchor: Record<GrammarGroup, string> = {
-    Nouns: "group-nouns",
-    Verbs: "group-verbs",
-    Numbers: "group-numbers",
-    "Sentence building": "group-sentence-building",
-  };
+  const start = areas[0]?.topics[0];
 
   const popularSlugs = [
     "cases-overview",
-    "numbers-and-numerals",
     "telling-time",
+    "numbers-and-numerals",
     "questions",
     "negation",
-    "present-tense",
+    "aspect",
   ] as const;
 
-  const popularTopics = popularSlugs
+  const popular = popularSlugs
     .map((slug) => grammarEntries.find((topic) => topic.slug === slug))
-    .filter((topic): topic is GrammarTopic => Boolean(topic));
-
-  function topicsFor(group: GrammarGroup): GrammarTopic[] {
-    return grammarEntries.filter((topic) => topic.pathGroup === group);
-  }
-
-  function blurb(topic: GrammarTopic): string {
-    const line = topic.summary.trim() || topic.lookFor.trim();
-    if (line.length <= 96) return line;
-    return `${line.slice(0, 93).trimEnd()}…`;
-  }
-
-  const topicCardClass =
-    "group flex h-full flex-col gap-1.5 rounded-(--frame-radius) border border-slate-200 bg-surface p-5 transition-colors hover:border-blue-400 hover:bg-blue-50/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600";
-
-  const popularChipClass =
-    "inline-flex items-center rounded-(--control-radius) border border-slate-300 bg-surface px-3 py-1.5 font-serif text-sm text-blue-800 transition-colors hover:border-blue-600 hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600";
+    .filter((topic): topic is GrammarTopic => Boolean(topic))
+    .map((topic) => ({
+      href: `/grammar/${topic.slug}`,
+      primary: sentenceCase(topic.english),
+      secondary: topic.slovak,
+      secondaryLang: "sk" as const,
+    }));
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[960px]">
-    <header class="max-w-[640px]">
-      <h1>Grammar</h1>
-      <Lead>
-        Pick an area, then open the pattern you need.
-        <TextLink class="ml-1 inline-flex items-center gap-1" href="/glossary">
-          Glossary <ArrowRight />
-        </TextLink>
-      </Lead>
-    </header>
+  <PageShell class="max-w-[1080px]">
+    <div class={referencePageGridClass}>
+      <header class="max-w-xl lg:col-start-1">
+        <h1 class="text-balance">Grammar</h1>
 
-    {#if popularTopics.length}
-      <nav class="mt-9" aria-label="Popular grammar topics">
-        <Eyebrow>Popular</Eyebrow>
-        <div class="mt-3 flex flex-wrap gap-2">
-          {#each popularTopics as topic (topic.slug)}
-            <a class={popularChipClass} href="/grammar/{topic.slug}">
-              {sentenceCase(topic.english)}
-            </a>
-          {/each}
-        </div>
-      </nav>
-    {/if}
+        <Lead class="text-pretty">
+          Short, practical explanations of the patterns you meet in the lessons. Read them
+          in order, or jump straight to the one that's tripping you up.
+        </Lead>
+      </header>
 
-    <nav
-      class="mt-7 flex flex-wrap items-center gap-x-1 gap-y-2 border-t border-slate-200/80 pt-5"
-      aria-label="Jump to area"
-    >
-      <span class="mr-2 text-xs font-semibold tracking-[0.08em] text-slate-500 uppercase">
-        Areas
-      </span>
+      <aside
+        class="flex min-w-0 flex-col gap-4 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
+        aria-label="Where to begin"
+      >
+        {#if start}
+          <article
+            class="{referenceCardClass} max-lg:hidden"
+            aria-labelledby="grammar-start-heading"
+          >
+            <div class="border-b border-slate-200/70 px-5 pt-4 pb-4">
+              <p
+                class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
+              >
+                Start here
+                <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+                {start.pathGroup}
+              </p>
 
-      {#each groups as group, index (group)}
-        {#if index > 0}
-          <span class="text-slate-300" aria-hidden="true">·</span>
-        {/if}
+              <h2
+                id="grammar-start-heading"
+                class="m-0 mt-2 font-serif text-xl leading-snug tracking-tight text-balance text-slate-900"
+              >
+                {sentenceCase(start.english)}
+              </h2>
 
-        <a
-          class="rounded-(--control-radius) px-1.5 py-0.5 font-serif text-sm text-blue-800 underline-offset-2 transition-colors hover:bg-blue-50 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-          href="#{groupAnchor[group]}"
-        >
-          {group}
-        </a>
-      {/each}
-    </nav>
-
-    <div class="mt-12 space-y-14" aria-label="Grammar topics">
-      {#each groups as group (group)}
-        {@const topics = topicsFor(group)}
-        {#if topics.length}
-          <section id={groupAnchor[group]} class="scroll-mt-[88px]">
-            <div
-              class="mb-5 flex flex-wrap items-end justify-between gap-3 border-b border-slate-200/80 pb-3.5"
-            >
-              <div class="grid gap-1">
-                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <h2 class="m-0 text-xl">{group}</h2>
-                  <p class="m-0 text-xs tabular-nums text-slate-500">
-                    {topics.length}
-                    {topics.length === 1 ? "topic" : "topics"}
-                  </p>
-                </div>
-
-                <p class="m-0 max-w-xl font-serif text-sm leading-snug text-slate-600">
-                  {groupPurpose[group]}
-                </p>
-              </div>
-
-              {#if group === "Numbers"}
-                <TextLink class="text-sm" href="/grammar/telling-time#clock-drill">
-                  Practice the clock <ArrowRight />
-                </TextLink>
-              {/if}
+              <p class="m-0 mt-2 text-sm leading-relaxed text-pretty text-slate-600">
+                {start.summary}
+              </p>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1">
-              {#each topics as topic (topic.slug)}
-                <a class={topicCardClass} href="/grammar/{topic.slug}">
-                  <div class="flex items-start justify-between gap-3">
-                    <strong
-                      class="font-serif text-lg leading-snug tracking-tight text-blue-800"
-                    >
-                      {sentenceCase(topic.english)}
-                    </strong>
-                    <ArrowRight
-                      class="mt-1 shrink-0 text-blue-800 opacity-55 transition-opacity group-hover:opacity-100"
-                    />
-                  </div>
-
-                  <span class="font-serif text-sm text-slate-500" lang="sk">
-                    {topic.slovak}
+            <ul class="m-0 list-none divide-y divide-slate-200/70 bg-slate-50/60 p-0">
+              {#each start.examples.slice(0, 3) as example (example.slovak)}
+                <li class="flex items-baseline justify-between gap-3 px-5 py-2">
+                  <span class="font-serif font-semibold text-slate-900" lang="sk">
+                    {example.slovak}
                   </span>
-
-                  <p class="m-0 mt-1 font-serif text-sm leading-relaxed text-slate-600">
-                    {blurb(topic)}
-                  </p>
-                </a>
+                  <span class="text-right text-xs text-slate-500">{example.english}</span>
+                </li>
               {/each}
+            </ul>
+
+            <div class="px-5 pt-4 pb-5">
+              <Button href="/grammar/{start.slug}" variant="accent" class="w-full px-4">
+                Read the topic
+                <ArrowRight />
+              </Button>
             </div>
-          </section>
+          </article>
         {/if}
-      {/each}
+
+        <ReferenceRailCard
+          title="Quick reference"
+          headingId="grammar-popular-heading"
+          description="Jump straight to a common sticking point."
+          class="max-lg:hidden"
+        >
+          <ReferenceRailList items={popular} />
+        </ReferenceRailCard>
+
+        <p class="m-0 px-1 text-sm text-slate-600">
+          New to the terms?
+          <TextLink class="inline-flex items-center gap-1" href="/glossary">
+            Open the glossary <ArrowRight />
+          </TextLink>
+        </p>
+      </aside>
+
+      <div class="min-w-0 space-y-14 lg:col-start-1">
+        {#each areas as area (area.group)}
+          <GrammarAreaSection
+            group={area.group}
+            topics={area.topics}
+            startSlug={start?.slug ?? ""}
+          />
+        {/each}
+      </div>
     </div>
   </PageShell>
 </main>

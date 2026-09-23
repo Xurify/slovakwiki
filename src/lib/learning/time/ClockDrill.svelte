@@ -119,10 +119,13 @@
 
 <section
   id="clock-drill"
-  class="scroll-mt-[88px] bg-surface/90 p-7 max-[560px]:px-4 max-[560px]:py-5"
+  class="scroll-mt-24 rounded-(--frame-radius) bg-surface p-7 shadow-(--shadow-border) max-[560px]:px-4 max-[560px]:py-5"
   aria-labelledby="clock-drill-heading"
 >
-  <h2 id="clock-drill-heading" class="mb-2 font-serif text-2xl text-slate-900">
+  <h2
+    id="clock-drill-heading"
+    class="m-0 mb-2 font-serif text-xl tracking-tight text-slate-900 sm:text-2xl"
+  >
     Clock drill
   </h2>
 
