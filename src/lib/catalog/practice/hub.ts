@@ -188,6 +188,38 @@ export function groupSheetsByTrack(sheets: PracticeHubSheet[]) {
     .filter((group) => group.sheets.length > 0);
 }
 
+/** Set-level context for the session screens (header, summary next step). */
+export type PracticeSessionContext = {
+  lessonHref: string | null;
+  nextSet: { href: string; title: string } | null;
+  step: number;
+  stepCount: number;
+  trackTitle: string;
+};
+
+/** Hub order: tracks in lesson-track order, sets in catalog order within each. */
+function hubOrderedSets(): PracticeSet[] {
+  return lessonTracks.flatMap((track) =>
+    practiceSets.filter((set) => set.track === track.id),
+  );
+}
+
+export function practiceSessionContext(set: PracticeSet): PracticeSessionContext {
+  const ordered = hubOrderedSets();
+  const inTrack = ordered.filter((entry) => entry.track === set.track);
+  const lesson = lessonById.get(set.lessonId);
+  const index = ordered.findIndex((entry) => entry.id === set.id);
+  const next = index >= 0 ? ordered[index + 1] : undefined;
+
+  return {
+    lessonHref: lesson ? lessonPath(lesson) : null,
+    nextSet: next ? { href: `/practice/${next.id}`, title: next.title } : null,
+    step: inTrack.findIndex((entry) => entry.id === set.id) + 1,
+    stepCount: inTrack.length,
+    trackTitle: lessonTracks.find((entry) => entry.id === set.track)?.title ?? set.track,
+  };
+}
+
 export function pickFeaturedSheet(
   sheets: PracticeHubSheet[],
 ): PracticeHubSheet | undefined {

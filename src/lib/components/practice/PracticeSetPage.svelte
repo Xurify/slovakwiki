@@ -9,7 +9,9 @@
   } from "$lib/components/practice/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import { sessionSubtitle } from "$lib/components/practice/practice-session-ui";
   import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
+  import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
   import type { PracticeItem } from "$lib/learning/types";
   import { hideClockQ1Boot, readClockSession } from "$lib/practice/clock-session-stash";
   import { markPracticeSetReady, PRACTICE_SET_FOUC } from "$lib/practice/fouc";
@@ -28,6 +30,7 @@
       set: PracticeSet;
       clozeAudioSrcs?: Record<string, string>;
       dictionaryHrefs?: Record<string, string>;
+      sessionContext?: PracticeSessionContext;
     };
     layout?: "page" | "embed";
   } = $props();
@@ -90,6 +93,7 @@
       backHref="/practice"
       backLabel="Practice"
       sessionTitle={data.set.title}
+      sessionContext={data.sessionContext}
       bind:sectionTitle
     />
   {/if}
@@ -106,6 +110,7 @@
             backHref="/practice"
             backLabel="Practice"
             sessionTitle={data.set.title}
+            sessionContext={data.sessionContext}
             bind:sectionTitle
           />
         {:else}
@@ -117,12 +122,28 @@
             <PracticeSessionChrome
               backHref="/practice"
               backLabel="Practice"
+              subtitle={sessionSubtitle(data.sessionContext)}
+              title={data.set.title}
               total={practiceSessionCount(data.set)}
             />
 
             <section
-              class="min-h-80 overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
-            ></section>
+              class="overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
+            >
+              <div class="grid gap-3 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6">
+                <span class="h-2.5 w-28 rounded-full bg-slate-200"></span>
+                <span class="h-6 w-3/4 rounded-full bg-slate-200"></span>
+                <span class="mt-3 h-14 rounded-(--control-radius) bg-slate-50"></span>
+                <span class="h-14 rounded-(--control-radius) bg-slate-50"></span>
+              </div>
+
+              <div
+                class="flex justify-end border-t border-slate-200 bg-paper/70 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4"
+              >
+                <span class="h-11 w-full rounded-(--control-radius) bg-slate-200 sm:w-36"
+                ></span>
+              </div>
+            </section>
           </div>
         {/if}
       </div>

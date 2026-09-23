@@ -15,7 +15,7 @@ describe("buildClockQ1View", () => {
     expect(view.typed).toBe(false);
     expect(view.kicker).toBeNull();
     expect(view.hintChip).toBeNull();
-    expect(view.sourceLabel.length).toBeGreaterThan(0);
+    expect(view.choiceKeys).toBe(0);
   });
 
   it("matches PracticePlayer kicker and hint for a clock-face choice", () => {
@@ -23,6 +23,7 @@ describe("buildClockQ1View", () => {
     const view = buildClockQ1View(item);
 
     expect(view.choiceStyle).toBe("clock");
+    expect(view.choiceKeys).toBe(view.choices?.length);
     expect(view.kicker).toBe("Choose the answer");
     expect(view.prompt.length).toBeGreaterThan(0);
   });

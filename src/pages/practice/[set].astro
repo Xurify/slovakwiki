@@ -8,6 +8,7 @@ import { dictionaryHrefsForItems } from "$lib/catalog/dictionary/lemma-href";
 import { clozeAudioSrcs } from "$lib/catalog/practice/audio";
 import { contentCacheKey } from "$lib/build/cache-key";
 import { practiceItemById, practiceSets } from "$lib/catalog/practice";
+import { practiceSessionContext } from "$lib/catalog/practice/hub";
 import FoucGate from "$lib/fouc/FoucGate.astro";
 import { PRACTICE_SET_FOUC, practiceSetEarlyReadyScript } from "$lib/practice/fouc";
 
@@ -21,6 +22,7 @@ export function getStaticPaths() {
       set,
       clozeAudioSrcs: clozeAudioSrcs(items),
       dictionaryHrefs: dictionaryHrefsForItems(items),
+      sessionContext: practiceSessionContext(set),
     };
 
     return {
@@ -31,7 +33,7 @@ export function getStaticPaths() {
   });
 }
 
-const { set, clozeAudioSrcs: audioSrcs, dictionaryHrefs } = Astro.props;
+const { set, clozeAudioSrcs: audioSrcs, dictionaryHrefs, sessionContext } = Astro.props;
 const hasSessionParam = Astro.url.searchParams.has("at");
 const isClockSet = set.sessionKind === "days-dates-time";
 ---
@@ -50,12 +52,17 @@ const isClockSet = set.sessionKind === "days-dates-time";
           <PageShell class="max-w-[640px]">
             <div class="grid" data-practice-set-hydrate>
               <div class="relative z-10 col-start-1 row-start-1" data-clock-q1-layer>
-                <ClockQ1Boot {set} />
+                <ClockQ1Boot {set} {sessionContext} />
               </div>
               <div class="relative z-0 col-start-1 row-start-1 min-w-0">
                 <PracticeSetPage
                   client:only="svelte"
-                  data={{ set, clozeAudioSrcs: audioSrcs, dictionaryHrefs }}
+                  data={{
+                    set,
+                    clozeAudioSrcs: audioSrcs,
+                    dictionaryHrefs,
+                    sessionContext,
+                  }}
                   layout="embed"
                 />
               </div>
@@ -70,7 +77,7 @@ const isClockSet = set.sessionKind === "days-dates-time";
         <script is:inline set:html={practiceSetEarlyReadyScript()} />
         <PracticeSetPage
           client:load
-          data={{ set, clozeAudioSrcs: audioSrcs, dictionaryHrefs }}
+          data={{ set, clozeAudioSrcs: audioSrcs, dictionaryHrefs, sessionContext }}
         />
       </>
     )

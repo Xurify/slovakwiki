@@ -43,11 +43,27 @@
     isMissFeedback,
     shouldShowCorrection,
   } from "$lib/components/practice/practice-feedback-ui";
+  import PracticeKeyHints from "$lib/components/practice/PracticeKeyHints.svelte";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
   import PracticeSessionComplete, {
     type SessionPhraseResult,
   } from "$lib/components/practice/PracticeSessionComplete.svelte";
+  import {
+    answerGloss,
+    answeredInputClass,
+    answeredInputTone,
+    sessionCharKeyClass,
+    sessionClozeInputClass,
+    sessionClozeInputIdleClass,
+    sessionKickerClass,
+    sessionPromptClass,
+    sessionRevealClass,
+    sessionSubtitle,
+    sessionTypedInputClass,
+    sessionTypedInputIdleClass,
+  } from "$lib/components/practice/practice-session-ui";
   import { practiceTaskKicker } from "$lib/practice/task-kicker";
+  import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
   import type { PracticeItem } from "$lib/learning/types";
 
   const SK_CHARS = [
@@ -77,6 +93,7 @@
     dictionaryHrefs = {},
     sectionTitle = $bindable(""),
     sessionTitle = "Practice",
+    sessionContext,
     backHref,
     backLabel = "Practice",
   }: {
@@ -86,6 +103,7 @@
     dictionaryHrefs?: Record<string, string>;
     sectionTitle?: string;
     sessionTitle?: string;
+    sessionContext?: PracticeSessionContext;
     backHref?: string;
     backLabel?: string;
   } = $props();
@@ -157,6 +175,27 @@
       return canCheckBuild(builtTiles.length, task.answer.length);
     return input.trim().length > 0;
   });
+
+  const correctChoiceIds = $derived.by<string[] | null>(() => {
+    if (task.type !== "choice") return null;
+    if (task.choiceMode === "pickTrap") {
+      return task.choices
+        .filter((choice) => choice.fits !== true)
+        .map((choice) => choice.id);
+    }
+    return [task.answerId];
+  });
+
+  const inputTone = $derived(answeredInputTone(submitted, grade, revealed));
+
+  const chromeResults = $derived.by<SessionPhraseResult["grade"][]>(() => {
+    const answered = sessionResults.map((row) => row.grade);
+    if (!submitted) return answered;
+    return [...answered, revealed ? "revealed" : (grade ?? "incorrect")];
+  });
+
+  const subtitle = $derived(sessionSubtitle(sessionContext));
+  const lessonHref = $derived(sessionContext?.lessonHref ?? current.source.href ?? null);
 
   function dictionaryHrefForLemma(lemmaId: string): string {
     return dictionaryHrefs[lemmaId] ?? `/dictionary/${lemmaId}`;
@@ -389,9 +428,13 @@
   const isPickTrap = $derived(task.type === "choice" && task.choiceMode === "pickTrap");
 
   const feedbackEnglish = $derived(
-    isPickTrap
-      ? pickTrapFeedbackEnglish(current.feedback.english)
-      : current.feedback.english,
+    answerGloss(
+      isPickTrap
+        ? pickTrapFeedbackEnglish(current.feedback.english)
+        : current.feedback.english,
+      task.prompt,
+      task.promptLang,
+    ),
   );
 
   function exerciseFooterClass(): string {
@@ -405,12 +448,15 @@
 {#snippet exerciseFooter()}
   {#if submitted}
     <div
-      class="grid gap-2 focus-visible:outline-none"
+      class="grid gap-4 focus-visible:outline-none {isMiss
+        ? ''
+        : 'sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-6'}"
       bind:this={feedbackPanel}
       aria-live="polite"
       tabindex="-1"
     >
       <PracticeExerciseFeedback
+        status
         attempt={feedbackAttempt}
         {closeSuggestion}
         correction={feedbackCorrection}
@@ -429,8 +475,13 @@
           : undefined}
       />
 
-      <Button class="w-full" type="button" variant="accent" onclick={next}>
-        {activeIndex === activeItems.length - 1 ? "Finish" : "Continue"}
+      <Button
+        class="w-full sm:w-auto sm:min-w-[9rem] sm:justify-self-end"
+        type="button"
+        variant="accent"
+        onclick={next}
+      >
+        {activeIndex === activeItems.length - 1 ? "See results" : "Continue"}
       </Button>
     </div>
   {:else}
@@ -438,11 +489,7 @@
       class="flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between"
     >
       {#if task.type === "typed" || task.type === "cloze"}
-        <button
-          class="border-0 bg-transparent py-1 text-sm font-bold text-blue-800 underline underline-offset-2"
-          type="button"
-          onclick={reveal}
-        >
+        <button class={sessionRevealClass} type="button" onclick={reveal}>
           Reveal answer
         </button>
       {:else}
@@ -469,6 +516,7 @@
     onRetry={retry}
     onRetryMissed={retryMissed}
     results={sessionResults}
+    {sessionContext}
     {sessionTitle}
   />
 {:else}
@@ -477,12 +525,15 @@
       {activeIndex}
       {backHref}
       {backLabel}
+      results={chromeResults}
+      {subtitle}
+      title={sessionTitle}
       total={activeItems.length}
     />
 
     <PracticeExerciseCard footer={exerciseFooter} footerClass={exerciseFooterClass()}>
       {#if sectionTitle && !hasScene}
-        <p class="m-0 mb-4 text-sm font-medium text-slate-500">{sectionTitle}</p>
+        <p class={sessionKickerClass}>{sectionTitle}</p>
       {/if}
 
       {#if hasScene}
@@ -517,7 +568,7 @@
               ? ''
               : hasScene
                 ? 'mt-5'
-                : ''} m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
+                : ''} {sessionPromptClass}"
           lang={task.promptLang === "sk" ? "sk" : undefined}
         >
           {task.prompt}
@@ -544,6 +595,7 @@
             promptClock={task.clock}
             bind:selectedId
             {submitted}
+            correctIds={revealed ? null : correctChoiceIds}
           />
         </div>
       {:else if task.type === "selectAll"}
@@ -578,7 +630,10 @@
               {/if}
 
               <input
-                class="min-w-[7ch] border-0 border-b-2 border-blue-600 bg-blue-50 px-2 py-1 text-center font-serif text-xl outline-none focus:ring-2 focus:ring-blue-100"
+                class="{sessionClozeInputClass} {answeredInputClass(
+                  inputTone,
+                  sessionClozeInputIdleClass,
+                )}"
                 style:width={`${Math.max(task.answer.length + 2, 8)}ch`}
                 bind:this={inputEl}
                 bind:value={input}
@@ -609,10 +664,10 @@
               />
             </div>
 
-            <div class="flex flex-wrap gap-1" aria-label="Slovak characters">
+            <div class="flex flex-wrap gap-1.5" aria-label="Slovak characters">
               {#each SK_CHARS as char (char)}
                 <button
-                  class="min-w-9 border border-slate-200 bg-slate-50 px-1.5 py-1 font-serif text-sm text-slate-600 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40"
+                  class={sessionCharKeyClass}
                   type="button"
                   disabled={submitted}
                   onclick={() => insertChar(char)}
@@ -642,7 +697,10 @@
 
           <input
             id="practice-typed-input"
-            class="min-h-[3.25rem] w-full rounded-(--control-radius) border border-slate-300 bg-control px-4 py-3 font-serif text-xl text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 disabled:opacity-60"
+            class="{sessionTypedInputClass} {answeredInputClass(
+              inputTone,
+              sessionTypedInputIdleClass,
+            )}"
             bind:this={inputEl}
             bind:value={input}
             disabled={submitted}
@@ -656,7 +714,7 @@
           <div class="flex flex-wrap gap-1.5" aria-label="Slovak characters">
             {#each SK_CHARS as char (char)}
               <button
-                class="min-w-9 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-2 py-1.5 font-serif text-sm text-slate-600 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40"
+                class={sessionCharKeyClass}
                 type="button"
                 disabled={submitted}
                 onclick={() => insertChar(char)}
@@ -674,15 +732,19 @@
           <GrammarHintAccordion hint={task.hint} bind:open={hintOpen} />
         </div>
       {/if}
-
-      {#if current.source.href}
-        <p class="mt-6 border-t border-slate-200 pt-4 text-xs text-slate-500">
-          From lesson:
-          <TextLink class="text-xs" href={current.source.href}>
-            {current.source.label}
-          </TextLink>
-        </p>
-      {/if}
     </PracticeExerciseCard>
+
+    <div class="mt-4 flex min-h-6 items-center justify-between gap-4 px-1">
+      {#if lessonHref}
+        <TextLink class="text-xs" href={lessonHref}>Review the lesson</TextLink>
+      {:else}
+        <span></span>
+      {/if}
+
+      <PracticeKeyHints
+        choiceCount={task.type === "choice" ? task.choices.length : 0}
+        mode={submitted ? "continue" : "check"}
+      />
+    </div>
   </div>
 {/if}
