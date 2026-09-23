@@ -4,7 +4,7 @@ import type {
   PracticeBootSheet,
 } from "./boot-payload";
 
-export const PRACTICE_RECENTS_CAP = 8;
+export const PRACTICE_RECENTS_CAP = 5;
 
 export interface PracticeHubView {
   completedLessonIds: readonly string[];

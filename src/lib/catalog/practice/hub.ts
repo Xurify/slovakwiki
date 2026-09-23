@@ -84,6 +84,17 @@ export type PracticeHubSheet = {
   trackTitle: string;
 };
 
+/** Path step status on `/practice`; mirrored by `data-state` in the hub boot. */
+export type PracticeStepState = "done" | "next" | "todo";
+
+export function practiceStepState(
+  sheet: PracticeHubSheet,
+  featuredId: string,
+): PracticeStepState {
+  if (sheet.set.id === featuredId) return "next";
+  return sheet.completed ? "done" : "todo";
+}
+
 export type PracticeHubRecent = {
   drill: PracticeHubDrill;
   href: string;

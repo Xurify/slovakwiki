@@ -14,14 +14,26 @@ function paintBrowse(view: PracticeHubView): void {
   for (const row of document.querySelectorAll<HTMLElement>("[data-browse-sheet]")) {
     const setId = row.dataset.browseSheet;
     const lessonId = row.dataset.browseLesson;
-    const isNext = Boolean(setId && setId === view.featuredSetId);
-    const isDone = Boolean(lessonId && completed.has(lessonId));
 
-    const next = row.querySelector<HTMLElement>("[data-browse-next]");
-    const done = row.querySelector<HTMLElement>("[data-browse-done]");
+    if (setId && setId === view.featuredSetId) row.dataset.state = "next";
+    else row.dataset.state = lessonId && completed.has(lessonId) ? "done" : "todo";
+  }
 
-    if (next) next.hidden = !isNext;
-    if (done) done.hidden = !isDone;
+  for (const track of document.querySelectorAll<HTMLElement>("[data-practice-track]")) {
+    const lessonIds = new Set<string>();
+
+    for (const row of track.querySelectorAll<HTMLElement>("[data-browse-lesson]")) {
+      if (row.dataset.browseLesson) lessonIds.add(row.dataset.browseLesson);
+    }
+
+    const doneCount = [...lessonIds].filter((id) => completed.has(id)).length;
+    const pct = lessonIds.size ? Math.round((doneCount / lessonIds.size) * 100) : 0;
+
+    const done = track.querySelector<HTMLElement>("[data-track-done]");
+    const bar = track.querySelector<HTMLElement>("[data-track-bar]");
+
+    if (done) done.textContent = String(doneCount);
+    if (bar) bar.style.width = `${pct}%`;
   }
 }
 

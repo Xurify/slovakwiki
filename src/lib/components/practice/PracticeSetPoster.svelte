@@ -10,7 +10,7 @@
 </script>
 
 <span
-  class="relative isolate block size-[4.5rem] shrink-0 overflow-hidden rounded-(--control-radius) ring-1 ring-slate-900/10 ring-inset"
+  class="relative isolate block size-14 shrink-0 overflow-hidden rounded-(--control-radius) ring-1 ring-slate-900/10 ring-inset"
   aria-hidden="true"
 >
   <img
