@@ -32,6 +32,21 @@ export const sessionClozeInputIdleClass = "border-blue-600 bg-blue-50";
 export const sessionCharKeyClass =
   "min-w-9 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-2 py-1.5 font-serif text-sm text-slate-600 hover:border-blue-600 hover:bg-blue-50 disabled:opacity-40";
 
+function normalizeGloss(text: string): string {
+  return text.trim().toLowerCase().replace(/\s+/g, " ").replace(/\.$/, "");
+}
+
+/** English gloss worth showing under the answer — drops it when it just repeats an English prompt. */
+export function answerGloss(
+  english: string | undefined,
+  prompt: string | undefined,
+  promptLang: "en" | "sk" | undefined,
+): string | undefined {
+  if (!english) return undefined;
+  if (promptLang === "sk" || !prompt) return english;
+  return normalizeGloss(english) === normalizeGloss(prompt) ? undefined : english;
+}
+
 export type AnsweredInputTone = "accents" | "correct" | "incorrect" | null;
 
 export function answeredInputTone(

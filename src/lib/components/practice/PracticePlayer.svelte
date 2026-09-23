@@ -49,6 +49,7 @@
     type SessionPhraseResult,
   } from "$lib/components/practice/PracticeSessionComplete.svelte";
   import {
+    answerGloss,
     answeredInputClass,
     answeredInputTone,
     sessionCharKeyClass,
@@ -427,9 +428,13 @@
   const isPickTrap = $derived(task.type === "choice" && task.choiceMode === "pickTrap");
 
   const feedbackEnglish = $derived(
-    isPickTrap
-      ? pickTrapFeedbackEnglish(current.feedback.english)
-      : current.feedback.english,
+    answerGloss(
+      isPickTrap
+        ? pickTrapFeedbackEnglish(current.feedback.english)
+        : current.feedback.english,
+      task.prompt,
+      task.promptLang,
+    ),
   );
 
   function exerciseFooterClass(): string {

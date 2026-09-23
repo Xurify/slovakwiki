@@ -9,6 +9,7 @@
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
   import {
+    answerGloss,
     sessionKickerClass,
     sessionSubtitle,
   } from "$lib/components/practice/practice-session-ui";
@@ -46,17 +47,6 @@
 
   function isCorrect(grade: SessionPhraseResult["grade"]): boolean {
     return grade === "correct" || grade === "accents";
-  }
-
-  function normalizeGloss(text: string): string {
-    return text.trim().toLowerCase().replace(/\s+/g, " ").replace(/\.$/, "");
-  }
-
-  function showEnglishGloss(row: SessionPhraseResult): boolean {
-    if (!row.english) return false;
-    if (row.promptLang === "sk") return true;
-    if (!row.prompt) return true;
-    return normalizeGloss(row.english) !== normalizeGloss(row.prompt);
   }
 
   const numbered = $derived<NumberedResult[]>(
@@ -125,7 +115,7 @@
       <PracticeExerciseFeedback
         attempt={row.attempt && !revealed ? row.attempt : undefined}
         correction={row.slovak}
-        english={row.english}
+        english={answerGloss(row.english, row.prompt, row.promptLang)}
         why={row.why}
         grade="incorrect"
         {revealed}
@@ -153,7 +143,7 @@
         {row.slovak}
       </p>
 
-      {#if showEnglishGloss(row)}
+      {#if row.english}
         <p class="m-0 text-sm leading-snug text-slate-500">{row.english}</p>
       {/if}
 
