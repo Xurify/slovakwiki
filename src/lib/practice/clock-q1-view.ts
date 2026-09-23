@@ -21,6 +21,8 @@ export type ClockQ1SceneLine = {
 };
 
 export interface ClockQ1View {
+  /** Number-key shortcuts shown in the key hints (single-choice tasks only). */
+  choiceKeys: number;
   choiceStyle: "text" | "clock";
   choices: ClockQ1Choice[] | null;
   hintChip: string | null;
@@ -31,8 +33,6 @@ export interface ClockQ1View {
   promptLang: "sk" | null;
   promptSk: string | null;
   scene: ClockQ1SceneLine[];
-  sourceHref: string | null;
-  sourceLabel: string;
   tiles: string[] | null;
   typed: boolean;
 }
@@ -61,6 +61,7 @@ export function buildClockQ1View(item: PracticeItem): ClockQ1View {
       : null;
 
   return {
+    choiceKeys: task.type === "choice" ? task.choices.length : 0,
     choiceStyle:
       task.type === "choice" && task.choiceStyle === "clock" ? "clock" : "text",
     choices,
@@ -76,8 +77,6 @@ export function buildClockQ1View(item: PracticeItem): ClockQ1View {
     promptLang: task.promptLang === "sk" ? "sk" : null,
     promptSk: task.promptSk ?? null,
     scene,
-    sourceHref: item.source.href ?? null,
-    sourceLabel: item.source.label,
     tiles: task.type === "build" ? [...task.tiles] : null,
     typed: task.type === "typed",
   };

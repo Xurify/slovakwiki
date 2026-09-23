@@ -1,29 +1,55 @@
 <script lang="ts">
+  import SfxMuteToggle from "$lib/audio/SfxMuteToggle.svelte";
+  import type { AnswerGrade } from "$lib/components/practice/practice-state";
+
   let {
     activeIndex = 0,
     backHref,
     backLabel = "Practice",
     complete = false,
+    results = [],
+    subtitle,
+    title,
     total,
   }: {
     activeIndex?: number;
     backHref?: string;
     backLabel?: string;
     complete?: boolean;
+    results?: readonly (AnswerGrade | "revealed")[];
+    subtitle?: string;
+    title?: string;
     total: number;
   } = $props();
 
-  const displayIndex = $derived(complete ? total : activeIndex + 1);
-  const progressPercent = $derived(
-    complete || total <= 0 ? 100 : (activeIndex / total) * 100,
+  const segments = $derived(
+    Array.from({ length: Math.max(total, 0) }, (_, index) => index),
   );
+  const displayIndex = $derived(complete ? total : Math.min(activeIndex + 1, total));
+  const correctCount = $derived(
+    results.filter((grade) => grade === "correct" || grade === "accents").length,
+  );
+  const progressText = $derived(
+    complete
+      ? `${correctCount} of ${total} correct`
+      : `Question ${displayIndex} of ${total}`,
+  );
+
+  function segmentClass(index: number): string {
+    const grade = results[index];
+    if (grade === "correct") return "bg-emerald-600";
+    if (grade === "accents") return "bg-emerald-400";
+    if (grade === "incorrect" || grade === "revealed") return "bg-rose-400";
+    if (!complete && index === activeIndex) return "bg-blue-600";
+    return "bg-slate-200";
+  }
 </script>
 
-<header class="mb-6 grid gap-3">
-  <div class="flex items-center justify-between gap-4">
+<header class="mb-5 grid gap-3.5">
+  <div class="flex items-center gap-3">
     {#if backHref}
       <a
-        class="inline-grid size-9 shrink-0 place-items-center rounded-full border border-slate-300 bg-surface text-slate-700 shadow-(--shadow-border) transition-[background-color,border-color,box-shadow,transform] duration-200 hover:border-slate-400 hover:bg-slate-50 hover:shadow-(--shadow-border-hover) active:scale-[0.98]"
+        class="-ml-1.5 inline-grid size-9 shrink-0 place-items-center rounded-full text-slate-500 transition-[background-color,color,transform] duration-150 hover:bg-subtle hover:text-slate-800 active:scale-[0.96]"
         href={backHref}
         aria-label={`Back to ${backLabel}`}
       >
@@ -35,29 +61,50 @@
           stroke-linejoin="round"
           aria-hidden="true"
         >
-          <path d="M15 6l-6 6 6 6" />
+          <path d="M6 6l12 12M18 6L6 18" />
         </svg>
       </a>
-    {:else}
-      <span></span>
     {/if}
 
-    <span
-      class="text-xs font-semibold tabular-nums text-slate-500"
-      aria-label={complete
-        ? `${total} exercises`
-        : `Question ${displayIndex} of ${total}`}
+    <div class="min-w-0 flex-1">
+      {#if title}
+        <p
+          class="m-0 truncate font-serif text-base font-semibold leading-snug text-slate-900"
+        >
+          {title}
+        </p>
+      {/if}
+
+      {#if subtitle}
+        <p class="m-0 truncate text-xs leading-snug text-slate-500">{subtitle}</p>
+      {/if}
+    </div>
+
+    <p
+      class="m-0 shrink-0 text-xs font-semibold tabular-nums text-slate-500"
+      aria-hidden="true"
     >
       {displayIndex} / {total}
-    </span>
+    </p>
+
+    <SfxMuteToggle />
   </div>
 
-  {#if !complete}
-    <div class="h-1.5 overflow-hidden rounded-full bg-slate-200/80" aria-hidden="true">
+  <div
+    class="flex gap-1"
+    role="progressbar"
+    aria-label="Practice progress"
+    aria-valuemin={0}
+    aria-valuemax={total}
+    aria-valuenow={complete ? total : activeIndex}
+    aria-valuetext={progressText}
+  >
+    {#each segments as index (index)}
       <span
-        class="block h-full rounded-full bg-blue-600 transition-[width] duration-300 ease-out"
-        style:width={`${progressPercent}%`}
+        class="h-1.5 min-w-0 flex-1 rounded-full transition-colors duration-300 {segmentClass(
+          index,
+        )}"
       ></span>
-    </div>
-  {/if}
+    {/each}
+  </div>
 </header>

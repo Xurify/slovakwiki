@@ -1,4 +1,5 @@
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
+import { sessionPromptClass } from "$lib/components/practice/practice-session-ui";
 import {
   markRoleClass,
   segmentsFromMarks,
@@ -12,10 +13,10 @@ const TILE_CLASS =
   "press-key min-h-11 shrink-0 cursor-pointer rounded-(--control-radius) px-3.5 py-2 font-serif text-base font-semibold text-blue-800";
 
 const TEXT_CHOICE_CLASS =
-  "press-key min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3.5 text-left font-serif text-base font-semibold";
+  "press-key relative min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3.5 text-left font-serif text-base font-semibold";
 
 const CLOCK_CHOICE_CLASS =
-  "press-key grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded-(--frame-radius) px-3 py-4 text-center font-serif text-sm font-semibold";
+  "press-key relative grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded-(--frame-radius) px-3 py-4 text-center font-serif text-sm font-semibold";
 
 function qs(root: ParentNode, selector: string): HTMLElement | null {
   return root.querySelector(selector);
@@ -184,9 +185,8 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
   const promptClock = qs(boot, "[data-clock-q1-prompt-clock]");
   const typed = qs(boot, "[data-clock-q1-typed]");
   const you = qs(boot, "[data-clock-q1-you]");
-  const source = qs(boot, "[data-clock-q1-source-label]");
-  const sourceWrap = qs(boot, "[data-clock-q1-source]");
-  const sourceLink = boot.querySelector<HTMLAnchorElement>("[data-clock-q1-source-href]");
+  const keysChoose = qs(boot, "[data-key-hints-choose]");
+  const keysCount = qs(boot, "[data-key-hints-count]");
 
   if (kicker) {
     kicker.textContent = view.kicker ?? "";
@@ -212,7 +212,7 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
         : view.scene.length > 0 && !showYou
           ? "mt-5 "
           : "";
-    prompt.className = `${extra}m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900`;
+    prompt.className = `${extra}${sessionPromptClass}`;
     if (view.promptLang === "sk") prompt.lang = "sk";
     else prompt.removeAttribute("lang");
   }
@@ -231,9 +231,8 @@ export function applyClockQ1View(view: ClockQ1View, root: ParentNode = document)
 
   if (typed) typed.hidden = !view.typed;
 
-  if (sourceWrap) sourceWrap.hidden = !view.sourceHref;
-  if (source) source.textContent = view.sourceLabel;
-  if (sourceLink && view.sourceHref) sourceLink.href = view.sourceHref;
+  if (keysChoose) keysChoose.hidden = view.choiceKeys < 2;
+  if (keysCount) keysCount.textContent = String(Math.min(view.choiceKeys, 9));
 
   const reveal = qs(boot, "[data-clock-q1-reveal]");
   const revealSpacer = qs(boot, "[data-clock-q1-reveal-spacer]");

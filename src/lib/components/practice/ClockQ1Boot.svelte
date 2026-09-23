@@ -1,10 +1,27 @@
 <script lang="ts">
   import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
+  import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
+  import PracticeKeyHints from "$lib/components/practice/PracticeKeyHints.svelte";
   import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import {
+    sessionCharKeyClass,
+    sessionKickerClass,
+    sessionPromptClass,
+    sessionRevealClass,
+    sessionSubtitle,
+    sessionTypedInputClass,
+    sessionTypedInputIdleClass,
+  } from "$lib/components/practice/practice-session-ui";
   import Button from "$lib/components/ui/Button.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  let { set }: { set: PracticeSet } = $props();
+  let {
+    set,
+    sessionContext,
+  }: {
+    set: PracticeSet;
+    sessionContext?: PracticeSessionContext;
+  } = $props();
 
   const SK_CHARS = [
     "á",
@@ -31,6 +48,8 @@
   <PracticeSessionChrome
     backHref="/practice"
     backLabel="Practice"
+    subtitle={sessionSubtitle(sessionContext)}
+    title={set.title}
     total={practiceSessionCount(set)}
   />
 
@@ -38,11 +57,7 @@
     class="pointer-events-none overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
   >
     <div class="px-7 py-8 max-[560px]:px-4 max-[560px]:py-6">
-      <p
-        class="m-0 mb-4 text-sm font-medium text-slate-500"
-        data-clock-q1-kicker
-        hidden
-      ></p>
+      <p class={sessionKickerClass} data-clock-q1-kicker hidden></p>
 
       <div class="grid gap-4" data-clock-q1-scene hidden></div>
 
@@ -116,10 +131,7 @@
 
       <!-- Pre-paint boot fills this via applyClockQ1View. -->
       <!-- svelte-ignore a11y_missing_content -->
-      <h1
-        class="m-0 font-serif text-[clamp(1.1rem,2.5vw,1.35rem)] font-semibold leading-snug text-pretty text-slate-900"
-        data-clock-q1-prompt
-      ></h1>
+      <h1 class={sessionPromptClass} data-clock-q1-prompt></h1>
 
       <div class="mt-6 flex justify-center" data-clock-q1-prompt-clock hidden></div>
 
@@ -129,18 +141,14 @@
 
       <div class="mt-6 grid gap-3" data-clock-q1-typed hidden>
         <input
-          class="min-h-[3.25rem] w-full rounded-(--control-radius) border border-slate-300 bg-control px-4 py-3 font-serif text-xl text-slate-900 outline-none placeholder:text-slate-400"
+          class="{sessionTypedInputClass} {sessionTypedInputIdleClass}"
           placeholder="Type in Slovak…"
           readonly
         />
 
         <div class="flex flex-wrap gap-1.5">
           {#each SK_CHARS as char (char)}
-            <button
-              class="min-w-9 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-2 py-1.5 font-serif text-sm text-slate-600"
-              tabindex="-1"
-              type="button"
-            >
+            <button class={sessionCharKeyClass} tabindex="-1" type="button">
               {char}
             </button>
           {/each}
@@ -176,24 +184,13 @@
           </div>
         </div>
       </div>
-
-      <p
-        class="mt-6 border-t border-slate-200 pt-4 text-xs text-slate-500"
-        data-clock-q1-source
-        hidden
-      >
-        From lesson:
-        <TextLink class="text-xs" data-clock-q1-source-href href="/lessons">
-          <span data-clock-q1-source-label></span>
-        </TextLink>
-      </p>
     </div>
 
     <footer
       class="flex flex-col-reverse items-stretch gap-3 border-t border-slate-200 bg-paper/70 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4 sm:flex-row sm:items-center sm:justify-between"
     >
       <button
-        class="border-0 bg-transparent py-1 text-left text-sm font-bold text-blue-800 underline underline-offset-2"
+        class={sessionRevealClass}
         type="button"
         tabindex="-1"
         data-clock-q1-reveal
@@ -212,4 +209,18 @@
       </Button>
     </footer>
   </section>
+
+  <div
+    class="pointer-events-none mt-4 flex min-h-6 items-center justify-between gap-4 px-1"
+  >
+    {#if sessionContext?.lessonHref}
+      <TextLink class="text-xs" href={sessionContext.lessonHref} tabindex="-1">
+        Review the lesson
+      </TextLink>
+    {:else}
+      <span></span>
+    {/if}
+
+    <PracticeKeyHints />
+  </div>
 </div>
