@@ -4,7 +4,7 @@
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import { isLearnerSpeaker } from "$lib/lesson-story/story-cast";
-  import { unlockStoryAudio } from "$lib/lesson-story/story-audio";
+  import { stopStoryLineAudio } from "$lib/lesson-story/story-audio";
   import type { DialogueTurn } from "$lib/learning/types";
 
   let {
@@ -80,7 +80,7 @@
           src={audioSrc}
           text={audioText}
           label={`Listen: ${line.speaker}`}
-          beforePlay={unlockStoryAudio}
+          beforePlay={stopStoryLineAudio}
         />
       {/if}
     </div>

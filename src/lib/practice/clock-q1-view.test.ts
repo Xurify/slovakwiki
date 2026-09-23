@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { materializeDaysDatesTimeItem } from "$lib/learning/time/session";
 
 import { buildClockQ1View } from "./clock-q1-view";
+import { readClockSession, stashClockSession } from "./clock-session-stash";
 
 describe("buildClockQ1View", () => {
   it("maps a build meeting item without a player kicker", () => {
@@ -37,5 +38,14 @@ describe("buildClockQ1View", () => {
     expect(view.scene[0]?.marks?.map((mark) => mark.role)).toEqual(["day", "time"]);
     expect(view.scene[0]?.englishToggle).toBe(true);
     expect(view.prompt).toMatch(/^Better at half past /);
+  });
+});
+
+describe("clock-session-stash", () => {
+  it("stashes and consumes clock session items cleanly without leaking", () => {
+    const item = materializeDaysDatesTimeItem("everyday/day-meeting", () => 0.42);
+    stashClockSession([item]);
+    expect(readClockSession()).toEqual([item]);
+    expect(readClockSession()).toBeNull();
   });
 });

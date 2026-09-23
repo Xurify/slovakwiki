@@ -42,7 +42,8 @@
         const params = new URLSearchParams(location.search);
         const atItemId = params.get("at");
         const focusedItem = Boolean(atItemId && data.set.itemIds.includes(atItemId));
-        const stashed = readClockSession();
+        const isClockSet = data.set.sessionKind === "days-dates-time";
+        const stashed = isClockSet ? readClockSession() : null;
         const nextSession = stashed ?? clientPracticeSession(data.set, atItemId);
 
         if (stashed) {

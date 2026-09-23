@@ -11,16 +11,22 @@ export function stashClockSession(items: PracticeItem[]): void {
 }
 
 export function readClockSession(): PracticeItem[] | null {
-  const items = (globalThis as ClockSessionHost)[CLOCK_SESSION_KEY];
-  return items && items.length > 0 ? items : null;
+  const host = globalThis as ClockSessionHost;
+  const items = host[CLOCK_SESSION_KEY];
+  if (items && items.length > 0) {
+    delete host[CLOCK_SESSION_KEY];
+    return items;
+  }
+  return null;
 }
 
 export function hideClockQ1Boot(): void {
-  const layer = document.querySelector<HTMLElement>("[data-clock-q1-layer]");
-  const boot = document.querySelector<HTMLElement>("[data-clock-q1-boot]");
-  const el = layer ?? boot;
-  if (!el) return;
-  el.hidden = true;
-  el.setAttribute("aria-hidden", "true");
-  el.setAttribute("inert", "");
+  const elements = document.querySelectorAll<HTMLElement>(
+    "[data-clock-q1-layer], [data-clock-q1-boot]",
+  );
+  for (const element of elements) {
+    element.hidden = true;
+    element.setAttribute("aria-hidden", "true");
+    element.setAttribute("inert", "");
+  }
 }

@@ -23,6 +23,7 @@
     ChoiceOptions,
     SelectAllOptions,
     choiceFeedbackWhy,
+    choiceIndexFromKeyboardEvent,
     gradeChoice,
     gradeSelectAll,
     pickTrapFeedbackEnglish,
@@ -203,9 +204,35 @@
 
     if (submitted) {
       if (event.key !== "Enter" && event.key !== " ") return;
+
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.tagName === "BUTTON" ||
+          target.tagName === "A" ||
+          target.isContentEditable ||
+          target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT")
+      ) {
+        return;
+      }
+
       event.preventDefault();
       next();
       return;
+    }
+
+    if (!submitted && task.type === "choice") {
+      const choiceIndex = choiceIndexFromKeyboardEvent(event);
+      if (choiceIndex !== null && choiceIndex < task.choices.length) {
+        const choice = task.choices[choiceIndex];
+        if (choice) {
+          event.preventDefault();
+          selectedId = choice.id;
+          return;
+        }
+      }
     }
 
     if (event.key === "Enter" && canCheck) {

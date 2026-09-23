@@ -48,7 +48,7 @@ export function renderFoucBootModule(exportName: string, iife: string): string {
 }
 
 export function hashFoucBootScript(source: string): string {
-  return createHash("sha256").update(source).digest("hex");
+  return createHash("sha256").update(source.replace(/\r\n/g, "\n")).digest("hex");
 }
 
 export function writeFoucBoot(target: FoucBootTarget): {

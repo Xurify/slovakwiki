@@ -149,10 +149,20 @@
       void audio
         .play()
         .then(async () => {
+          if (!playing) return;
           await tick();
           trackAudioProgress();
         })
-        .catch(() => {
+        .catch((error: unknown) => {
+          if (!playing) return;
+          const isAbortError =
+            error instanceof DOMException
+              ? error.name === "AbortError"
+              : typeof error === "object" && error !== null && "name" in error
+                ? (error as { name: unknown }).name === "AbortError"
+                : false;
+          if (isAbortError) return;
+
           if (canUseTts) speakFallback();
           else stop();
         });

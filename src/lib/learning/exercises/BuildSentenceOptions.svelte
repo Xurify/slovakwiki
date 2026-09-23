@@ -82,10 +82,22 @@
     builtBankIndexes = builtBankIndexes.filter((_, index) => index !== builtIndex);
   }
 
+  let lastPointerActionTimestamp = 0;
+
   function cancelDrag(): void {
     activeDrag = null;
     insertAt = null;
     pendingPointer = null;
+  }
+
+  function onBankClick(bankIndex: number): void {
+    if (Date.now() - lastPointerActionTimestamp < 300) return;
+    addTile(bankIndex);
+  }
+
+  function onTrayClick(builtIndex: number): void {
+    if (Date.now() - lastPointerActionTimestamp < 300) return;
+    removeTile(builtIndex);
   }
 
   function finishDrag(clientX: number, clientY: number): void {
@@ -97,7 +109,17 @@
     if (!drag || submitted) return;
 
     const target = document.elementFromPoint(clientX, clientY);
-    const overTray = Boolean(target && trayEl?.contains(target));
+    let overTray = Boolean(target && trayEl?.contains(target));
+    if (!overTray && trayEl) {
+      const rect = trayEl.getBoundingClientRect();
+      overTray =
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom;
+    }
+
+    lastPointerActionTimestamp = Date.now();
 
     if (!overTray) {
       if (drag.kind === "tray") {
@@ -184,6 +206,7 @@
       removeTile(pendingPointer.index);
     }
 
+    lastPointerActionTimestamp = Date.now();
     pendingPointer = null;
   }
 
@@ -239,7 +262,7 @@
     {/if}
 
     <div class="flex min-h-11 flex-wrap items-center gap-2">
-      {#each builtBankIndexes as bankIndex, builtIndex (builtIndex)}
+      {#each builtBankIndexes as bankIndex, builtIndex (bankIndex)}
         {#if isDragging && insertAt === builtIndex}
           <div
             class="h-11 w-14 shrink-0 rounded-(--control-radius) border-2 border-dashed border-blue-500 bg-blue-50/80"
@@ -258,6 +281,7 @@
             data-tray-chip
             disabled={submitted}
             onpointerdown={(event) => onTrayPointerDown(event, builtIndex)}
+            onclick={() => onTrayClick(builtIndex)}
           >
             <span lang="sk">{tiles[bankIndex]}</span>
           </button>
@@ -290,6 +314,7 @@
           type="button"
           disabled={submitted}
           onpointerdown={(event) => onBankPointerDown(event, index)}
+          onclick={() => onBankClick(index)}
         >
           <span lang="sk">{tile}</span>
         </button>
