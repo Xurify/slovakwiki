@@ -72,6 +72,20 @@ export function grammarNeighbors(topic: GrammarTopic): ReferenceNeighbors {
   };
 }
 
+/** Grammar topics that list one of these words, or are named after the lemma (byť, mať). */
+export function grammarTopicsForWord(
+  slugs: readonly string[],
+  lemma: string,
+): GrammarTopicLink[] {
+  return grammarGroups
+    .flatMap((group) => grammarTopicsInGroup(group))
+    .filter(
+      (topic) =>
+        topic.slovak === lemma || topic.related.some((slug) => slugs.includes(slug)),
+    )
+    .map(topicLink);
+}
+
 function caseLink(topic: CaseTopic): GrammarTopicLink {
   return {
     href: `/grammar/cases/${topic.slug}`,

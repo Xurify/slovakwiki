@@ -10,9 +10,11 @@
   }: {
     tone: "look" | "watch";
     label: string;
-    text: string;
+    text: string | readonly string[];
     class?: string;
   } = $props();
+
+  const paragraphs = $derived(typeof text === "string" ? [text] : text);
 
   const iconClass = $derived(
     cx(
@@ -54,10 +56,12 @@
       {label}
     </p>
 
-    <p
-      class="m-0 mt-1 max-w-[62ch] font-serif leading-relaxed text-pretty text-slate-700"
-    >
-      {text}
-    </p>
+    {#each paragraphs as paragraph, index (index)}
+      <p
+        class="m-0 mt-1 max-w-[62ch] font-serif leading-relaxed text-pretty text-slate-700"
+      >
+        {paragraph}
+      </p>
+    {/each}
   </div>
 </aside>

@@ -7,6 +7,7 @@ import {
   grammarGroups,
   grammarNeighbors,
   grammarTopicPosition,
+  grammarTopicsForWord,
   grammarTopicsInGroup,
 } from "./grammar-path";
 
@@ -47,6 +48,26 @@ describe("grammar path", () => {
 
   it("builds stable group anchors", () => {
     expect(grammarGroupAnchor("Sentence building")).toBe("group-sentence-building");
+  });
+});
+
+describe("grammarTopicsForWord", () => {
+  it("finds topics that list the word, in reading order", () => {
+    expect(grammarTopicsForWord(["kolko"], "koľko").map((link) => link.href)).toEqual([
+      "/grammar/questions",
+      "/grammar/numbers-and-numerals",
+      "/grammar/telling-time",
+    ]);
+  });
+
+  it("finds the topic named after the lemma", () => {
+    expect(grammarTopicsForWord(["byt"], "byť")).toEqual([
+      { href: "/grammar/byt-present", slovak: "byť", title: "To be (present)" },
+    ]);
+  });
+
+  it("returns nothing for words no topic mentions", () => {
+    expect(grammarTopicsForWord(["voda"], "voda")).toEqual([]);
   });
 });
 
