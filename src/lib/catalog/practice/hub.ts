@@ -35,6 +35,13 @@ export const practiceTaskKindLabel: Record<PracticeTaskKind, string> = {
   type: "Type",
 };
 
+/** "choose, build, and type" — formats as a lowercase prose list. */
+export function practiceTaskKindsPhrase(kinds: PracticeTaskKind[]): string {
+  const words = kinds.map((kind) => practiceTaskKindLabel[kind].toLowerCase());
+  if (words.length <= 2) return words.join(" and ");
+  return `${words.slice(0, -1).join(", ")}, and ${words.at(-1)}`;
+}
+
 export function practiceTaskKind(task: PracticeTask): PracticeTaskKind {
   switch (task.type) {
     case "choice":

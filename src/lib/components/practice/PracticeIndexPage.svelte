@@ -22,8 +22,14 @@
 
   const exerciseTotal = totalPracticeExercises();
 
-  const trackChipClass =
-    "inline-flex min-h-9 items-center gap-2 rounded-full bg-surface/80 px-3.5 text-sm font-bold text-blue-800 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)";
+  const trackLinkClass =
+    "font-semibold text-blue-800 underline decoration-slate-300 underline-offset-4 hover:decoration-current";
+
+  function trackSeparator(index: number, count: number): string {
+    if (index === count - 1) return ".";
+    if (index === count - 2) return count > 2 ? ", or " : " or ";
+    return ", ";
+  }
 
   const recentCardClass =
     "group flex h-full flex-col gap-1.5 rounded-(--frame-radius) bg-surface/80 p-4 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)";
@@ -40,25 +46,20 @@
           back to the ones that tripped you up.
         </Lead>
 
-        <p class="m-0 mt-4 text-sm tabular-nums text-slate-500">
-          {sheets.length}
-          {sheets.length === 1 ? "set" : "sets"}
-          <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
-          {exerciseTotal}
-          {exerciseTotal === 1 ? "exercise" : "exercises"}
-        </p>
+        <nav aria-label="Jump to a track">
+          <p class="m-0 mt-5 text-sm leading-relaxed text-pretty text-slate-500">
+            {sheets.length}
+            {sheets.length === 1 ? "set" : "sets"},
+            {exerciseTotal}
+            {exerciseTotal === 1 ? "exercise" : "exercises"}. Jump to
+            {#each sheetsByTrack as group, index (group.track.id)}
+              <a class={trackLinkClass} href="#browse-{group.track.id}">
+                {group.track.title}</a
+              >{trackSeparator(index, sheetsByTrack.length)}
+            {/each}
+          </p>
+        </nav>
       </header>
-
-      <nav class="mt-6 flex flex-wrap gap-2" aria-label="Jump to a track">
-        {#each sheetsByTrack as group (group.track.id)}
-          <a class={trackChipClass} href="#browse-{group.track.id}">
-            {group.track.title}
-            <span class="text-xs font-semibold tabular-nums text-slate-500">
-              {group.sheets.length}
-            </span>
-          </a>
-        {/each}
-      </nav>
     </PageShell>
   </section>
 

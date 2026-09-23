@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { PracticeHubSheet } from "$lib/catalog/practice/hub";
   import PracticeSetPoster from "$lib/components/practice/PracticeSetPoster.svelte";
-  import PracticeTaskChips from "$lib/components/practice/PracticeTaskChips.svelte";
-
   let {
     sheet,
     next = false,
@@ -33,20 +31,16 @@
           {sheet.set.title}
         </strong>
 
-        <span class="flex shrink-0 items-center gap-1.5">
+        <span class="flex shrink-0 items-center gap-1.5 pt-0.5">
           <span
-            class="inline-flex min-h-6 items-center rounded-full bg-blue-600 px-2.5 text-[0.66rem] font-bold tracking-[0.06em] text-paper uppercase"
+            class="font-serif text-sm whitespace-nowrap text-slate-500 italic"
             data-browse-next
             hidden={!next}
           >
             Up next
           </span>
 
-          <span
-            class="inline-flex size-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"
-            data-browse-done
-            hidden
-          >
+          <span class="inline-flex items-center text-emerald-700" data-browse-done hidden>
             <svg class="size-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path
                 d="M3.5 8.5 6.5 11.5 12.5 4.5"
@@ -65,16 +59,10 @@
         {sheet.purpose}
       </p>
 
-      <div class="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1.5">
-        <p class="m-0 text-xs tabular-nums text-slate-500">
-          {sheet.exerciseCount}
-          {sheet.exerciseCount === 1 ? "exercise" : "exercises"}
-          <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
-          ~{sheet.minutes} min
-        </p>
-
-        <PracticeTaskChips kinds={sheet.taskKinds} />
-      </div>
+      <p class="m-0 mt-auto pt-1.5 text-xs tabular-nums text-slate-500">
+        {sheet.exerciseCount}
+        {sheet.exerciseCount === 1 ? "exercise" : "exercises"}, about {sheet.minutes} min
+      </p>
     </div>
   </a>
 </li>
