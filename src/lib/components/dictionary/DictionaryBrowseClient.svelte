@@ -120,29 +120,25 @@
     view.totalPages > 1 && !waitingForFilteredView && view.visibleEntries.length > 0,
   );
 
-  const chipClass = (active: boolean): string =>
-    `cursor-pointer rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
+  const segmentClass = (active: boolean): string =>
+    `inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-[calc(var(--control-radius)-2px)] px-3 text-sm font-semibold transition-colors ${
       active
-        ? "border-blue-600 bg-blue-600 text-paper shadow-none"
-        : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
+        ? "bg-surface text-slate-900 shadow-(--shadow-border)"
+        : "text-slate-600 hover:text-slate-900"
     }`;
 
-  const letterChipClass = (active: boolean): string =>
-    `flex h-8 min-w-8 cursor-pointer items-center justify-center rounded-full border px-2 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
+  const squareClass = (active: boolean): string =>
+    `inline-flex h-8 min-w-8 cursor-pointer items-center justify-center rounded-(--control-radius) px-2 text-sm font-semibold tabular-nums transition-colors ${
       active
-        ? "border-blue-600 bg-blue-600 text-paper shadow-none"
-        : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
+        ? "bg-blue-50 text-blue-800 ring-1 ring-blue-600/40 ring-inset"
+        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
     }`;
 
-  const pagerChipClass = (active: boolean): string =>
-    active
-      ? "border-blue-600 bg-blue-600 text-paper shadow-none"
-      : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900";
+  const pagerStepClass =
+    "inline-flex h-9 cursor-pointer items-center rounded-(--control-radius) bg-surface px-3 text-sm font-semibold text-blue-800 shadow-(--shadow-border) transition-shadow hover:shadow-(--shadow-border-hover)";
 
-  const pagerLinkClass =
-    "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
-
-  const rowLinkClass = "block py-3.5 transition-colors hover:bg-blue-50/40";
+  const cardClass =
+    "overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)";
 
   const indexPromise: Promise<DictionaryIndexEntry[]> | null =
     typeof window !== "undefined"
@@ -236,11 +232,11 @@
   });
 </script>
 
-<div class="mt-10" id="wiki-search-section">
+<div id="wiki-search-section">
   <form action="/search" method="get" role="search">
     <label class="sr-only" for="wiki-search">Search dictionary words</label>
     <div
-      class="flex min-h-[50px] items-stretch overflow-hidden rounded-(--control-radius) border border-slate-300 bg-surface/90 shadow-(--shadow-border) transition-[box-shadow,border-color] focus-within:border-blue-600 focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
+      class="flex min-h-[52px] items-stretch overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border) transition-shadow focus-within:shadow-[0_0_0_2px_var(--accent),0_0_0_6px_var(--accent-soft)]"
     >
       <svg
         class="ml-4 w-4 shrink-0 fill-none stroke-slate-400 stroke-[1.8]"
@@ -260,52 +256,72 @@
   </form>
 </div>
 
-<nav class="mt-6 flex flex-wrap gap-1.5" aria-label="Filter dictionary by category">
-  {#each topicOptions as option (option.slug)}
-    <button
-      class={chipClass(displayTopic === option.slug)}
-      type="button"
-      aria-current={displayTopic === option.slug ? "true" : undefined}
-      onclick={() => selectTopic(option.slug)}
-    >
-      {option.label}
-      <span class="ml-1 opacity-70">{option.count}</span>
-    </button>
-  {/each}
-</nav>
-
-<nav
-  id="wiki-alphabet"
-  class="mt-4 flex flex-wrap gap-1"
-  aria-label="Filter dictionary by first letter"
->
-  <button
-    class={letterChipClass(displayLetter === "all")}
-    type="button"
-    aria-current={displayLetter === "all" ? "true" : undefined}
-    onclick={() => selectLetter("all")}
+<div class="{cardClass} mt-4 divide-y divide-slate-200/70">
+  <div
+    class="grid items-center gap-x-4 gap-y-2 px-4 py-3 sm:grid-cols-[5.5rem_minmax(0,1fr)]"
   >
-    All
-  </button>
+    <p class="m-0 text-xs font-semibold text-slate-500">Show</p>
 
-  {#each alphabetLetters as letterOption (letterOption)}
-    <button
-      class={letterChipClass(displayLetter === letterOption)}
-      type="button"
-      aria-current={displayLetter === letterOption ? "true" : undefined}
-      onclick={() => selectLetter(letterOption)}
+    <nav
+      class="flex flex-wrap gap-1 rounded-(--control-radius) bg-slate-100 p-1"
+      aria-label="Filter dictionary by category"
     >
-      {letterOption}
-    </button>
-  {/each}
-</nav>
+      {#each topicOptions as option (option.slug)}
+        <button
+          class={segmentClass(displayTopic === option.slug)}
+          type="button"
+          aria-pressed={displayTopic === option.slug}
+          onclick={() => selectTopic(option.slug)}
+        >
+          {option.label}
+          <span class="text-xs font-medium text-slate-500 tabular-nums">
+            {option.count.toLocaleString("en")}
+          </span>
+        </button>
+      {/each}
+    </nav>
+  </div>
 
-<div class="mt-10" id="wiki-results">
+  <div
+    class="grid items-start gap-x-4 gap-y-2 px-4 py-3 sm:grid-cols-[5.5rem_minmax(0,1fr)]"
+  >
+    <p class="m-0 text-xs font-semibold text-slate-500 sm:pt-2">Starts with</p>
+
+    <nav
+      id="wiki-alphabet"
+      class="flex flex-wrap gap-0.5"
+      aria-label="Filter dictionary by first letter"
+    >
+      <button
+        class={squareClass(displayLetter === "all")}
+        type="button"
+        aria-pressed={displayLetter === "all"}
+        onclick={() => selectLetter("all")}
+      >
+        All
+      </button>
+
+      {#each alphabetLetters as letterOption (letterOption)}
+        <button
+          class={squareClass(displayLetter === letterOption)}
+          type="button"
+          aria-pressed={displayLetter === letterOption}
+          lang="sk"
+          onclick={() => selectLetter(letterOption)}
+        >
+          {letterOption}
+        </button>
+      {/each}
+    </nav>
+  </div>
+</div>
+
+<div class="mt-8" id="wiki-results">
   <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
     <p class="m-0 text-sm text-slate-500">
-      <strong class="font-semibold tabular-nums text-slate-900">{rangeLabel}</strong>
+      <strong class="font-semibold text-slate-900 tabular-nums">{rangeLabel}</strong>
       {#if view.totalPages > 1 && !waitingForFilteredView && view.totalCount > 0}
-        <span class="tabular-nums text-slate-400">
+        <span class="text-slate-400 tabular-nums">
           · page {view.page} of {view.totalPages}
         </span>
       {/if}
@@ -323,7 +339,7 @@
   </div>
 
   {#if loadError}
-    <p class="m-0 mt-4 text-sm text-rose-800" role="alert">{loadError}</p>
+    <p class="m-0 mt-4 text-sm text-rose-700" role="alert">{loadError}</p>
   {/if}
 
   {#key listKey}
@@ -333,12 +349,12 @@
     >
       {#if waitingForFilteredView}
         <ul
-          class="m-0 mt-4 list-none divide-y divide-slate-200 border-y border-slate-200 p-0"
+          class="{cardClass} m-0 mt-3 list-none divide-y divide-slate-200/70 p-0"
           aria-busy="true"
           aria-label="Loading dictionary entries"
         >
           {#each Array.from({ length: SKELETON_ROWS }, (_, index) => index) as row (row)}
-            <li class="py-3.5">
+            <li class="px-5 py-3">
               <div
                 class="h-5 w-[38%] max-w-48 animate-pulse rounded bg-slate-200/70"
               ></div>
@@ -350,31 +366,48 @@
         </ul>
       {:else if view.visibleEntries.length}
         <ul
-          class="m-0 mt-4 list-none divide-y divide-slate-200 border-y border-slate-200 p-0"
+          class="{cardClass} m-0 mt-3 list-none divide-y divide-slate-200/70 p-0"
           aria-label="Dictionary entries"
         >
           {#each view.visibleEntries as entry (entry.slug)}
             <li>
-              <a class={rowLinkClass} href={dictionaryPathFromIndexFields(entry)}>
-                <span class="font-serif text-base text-blue-800" lang="sk">
-                  {entry.slovak}
+              <a
+                class="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 no-underline transition-colors hover:bg-slate-50"
+                href={dictionaryPathFromIndexFields(entry)}
+              >
+                <span class="min-w-0">
+                  <span
+                    class="block font-serif text-[1.05rem] leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
+                    lang="sk"
+                  >
+                    {entry.slovak}
+                  </span>
+                  <span class="mt-0.5 block truncate text-sm text-slate-600">
+                    {entry.english}
+                  </span>
                 </span>
-                {#if showEntryCategory}
-                  <span class="text-xs text-slate-400"> · {entry.category}</span>
-                {/if}
-                <span class="mt-0.5 block text-sm text-slate-500">{entry.english}</span>
+
+                <span class="flex items-center gap-3 text-xs text-slate-500">
+                  {#if showEntryCategory}
+                    <span class="max-sm:hidden">{entry.category}</span>
+                  {/if}
+                  <span
+                    class="text-slate-400 transition-colors group-hover:text-blue-800"
+                    aria-hidden="true">→</span
+                  >
+                </span>
               </a>
             </li>
           {/each}
         </ul>
       {:else if entries}
-        <div class="py-16 text-center">
-          <h2 class="text-xl">No matches</h2>
-          <p class="mt-2 text-sm text-slate-500">
-            Try a shorter search or reset the filters.
+        <div class="{cardClass} mt-3 px-6 py-14 text-center">
+          <h2 class="m-0 font-serif text-xl text-slate-900">No matches</h2>
+          <p class="m-0 mt-2 text-sm text-slate-600">
+            Try another letter, or reset the filters.
           </p>
           <button
-            class="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-600 px-4 font-sans font-bold text-paper"
+            class="mt-5 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--control-radius) bg-blue-600 px-4 font-sans font-bold text-paper hover:bg-blue-700"
             type="button"
             onclick={resetFilters}
           >
@@ -387,55 +420,51 @@
 
   {#if showPager}
     <nav
-      class="mt-6 flex flex-wrap items-center justify-center gap-1.5"
+      class="mt-6 flex flex-wrap items-center justify-between gap-3"
       aria-label="Dictionary pages"
     >
       {#if view.page > 1}
         <button
-          class="{pagerLinkClass} {pagerChipClass(false)}"
+          class={pagerStepClass}
           type="button"
           onclick={() => selectPage(view.page - 1)}
         >
-          Previous
+          ← Previous
         </button>
       {:else}
-        <span
-          class="{pagerLinkClass} {pagerChipClass(false)} pointer-events-none opacity-40"
-          aria-hidden="true"
-        >
-          Previous
+        <span class="{pagerStepClass} pointer-events-none opacity-40" aria-hidden="true">
+          ← Previous
         </span>
       {/if}
 
-      {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
-        {#if item === "gap"}
-          <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
-        {:else}
-          <button
-            class="{pagerLinkClass} {pagerChipClass(item === view.page)}"
-            type="button"
-            aria-current={item === view.page ? "page" : undefined}
-            onclick={() => selectPage(item)}
-          >
-            {item}
-          </button>
-        {/if}
-      {/each}
+      <div class="flex flex-wrap items-center justify-center gap-0.5 max-sm:hidden">
+        {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
+          {#if item === "gap"}
+            <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
+          {:else}
+            <button
+              class={squareClass(item === view.page)}
+              type="button"
+              aria-current={item === view.page ? "page" : undefined}
+              onclick={() => selectPage(item)}
+            >
+              {item}
+            </button>
+          {/if}
+        {/each}
+      </div>
 
       {#if view.page < view.totalPages}
         <button
-          class="{pagerLinkClass} {pagerChipClass(false)}"
+          class={pagerStepClass}
           type="button"
           onclick={() => selectPage(view.page + 1)}
         >
-          Next
+          Next →
         </button>
       {:else}
-        <span
-          class="{pagerLinkClass} {pagerChipClass(false)} pointer-events-none opacity-40"
-          aria-hidden="true"
-        >
-          Next
+        <span class="{pagerStepClass} pointer-events-none opacity-40" aria-hidden="true">
+          Next →
         </span>
       {/if}
     </nav>

@@ -177,8 +177,8 @@ export function buildTopicOptions(entries: DictionaryIndexEntry[]): TopicOption[
 
   return [
     { slug: "all", label: "All words", count: entries.length },
-    { slug: "featured", label: "Featured", count: featuredCount },
-    { slug: "common", label: "Common", count: commonCount },
+    { slug: "featured", label: "Starter set", count: featuredCount },
+    { slug: "common", label: `Top ${COMMON_RANK_MAX}`, count: commonCount },
     ...BROWSE_CATEGORY_LABELS.map((category) => ({
       slug: category.toLowerCase() as BrowseTopicSlug,
       label: category,

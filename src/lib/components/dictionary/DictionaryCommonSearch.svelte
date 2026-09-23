@@ -17,7 +17,7 @@
 <div id="common-filter-section">
   <label class="sr-only" for="common-filter">Filter lemmas</label>
   <div
-    class="flex min-h-[50px] items-stretch overflow-hidden rounded-(--control-radius) border border-slate-300 bg-surface/90 shadow-(--shadow-border) transition-[box-shadow,border-color] focus-within:border-blue-600 focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
+    class="flex min-h-[52px] items-stretch overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border) transition-shadow focus-within:shadow-[0_0_0_2px_var(--accent),0_0_0_6px_var(--accent-soft)]"
   >
     <svg
       class="ml-4 w-4 shrink-0 fill-none stroke-slate-400 stroke-[1.8]"
