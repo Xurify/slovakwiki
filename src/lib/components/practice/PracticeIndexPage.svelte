@@ -1,10 +1,11 @@
 <script lang="ts">
-  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import PracticeFeaturedFrame from "$lib/components/practice/PracticeFeaturedFrame.svelte";
-  import PracticeSheetCard from "$lib/components/practice/PracticeSheetCard.svelte";
+  import PracticeRecentsCard from "$lib/components/practice/PracticeRecentsCard.svelte";
+  import PracticeTrackSection from "$lib/components/practice/PracticeTrackSection.svelte";
+  import PracticeUpNextCard from "$lib/components/practice/PracticeUpNextCard.svelte";
   import { emptyPracticeState } from "$lib/components/practice/practice-state";
   import {
     buildPracticeSheets,
@@ -12,137 +13,51 @@
     pickFeaturedSheet,
   } from "$lib/catalog/practice/hub";
 
+  // SSR assumes no progress; PracticeProgressBoot repaints before first paint.
   const sheets = buildPracticeSheets(emptyPracticeState());
   const sheetsByTrack = groupSheetsByTrack(sheets);
-  const featured = pickFeaturedSheet(sheets);
-  const featuredId = featured?.set.id ?? "";
+  const featuredId = pickFeaturedSheet(sheets)?.set.id ?? "";
 </script>
 
-<main>
-  <section aria-label="Practice">
-    <PageShell class="pt-14 pb-2 max-[600px]:pt-10">
-      <h1
-        class="m-0 font-serif text-[clamp(2.25rem,5vw,3.25rem)] font-semibold tracking-tight text-slate-900"
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[1080px]">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-x-12 lg:gap-y-12">
+      <header class="max-w-xl lg:col-start-1">
+        <h1 class="text-balance">Practice</h1>
+
+        <Lead class="text-pretty">
+          Short drills built from the lessons, a few minutes each. Do the set that's up
+          next, or pick any topic and come back to the lines that tripped you up.
+        </Lead>
+      </header>
+
+      <aside
+        class="flex flex-col gap-4 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
+        aria-label="Your practice"
       >
-        Practice
-      </h1>
+        {#if featuredId}
+          <PracticeUpNextCard {sheets} {featuredId} />
+        {/if}
 
-      <p class="mt-3 m-0 max-w-xl text-[1.05rem] leading-snug text-slate-600">
-        Choose a topic and drill the forms in a short set.
-      </p>
-    </PageShell>
-  </section>
+        <PracticeRecentsCard />
+      </aside>
 
-  {#if featured}
-    <PracticeFeaturedFrame {sheets} {featuredId} />
-  {/if}
+      <div class="min-w-0 lg:col-start-1">
+        <div class="space-y-14" data-practice-hydrate>
+          {#each sheetsByTrack as group (group.track.id)}
+            <PracticeTrackSection
+              track={group.track}
+              sheets={group.sheets}
+              exerciseCount={group.exerciseCount}
+              {featuredId}
+            />
+          {/each}
+        </div>
 
-  <section
-    class="border-t border-slate-200/80"
-    aria-labelledby="recents-heading"
-    data-practice-recents
-    data-practice-hydrate
-    hidden
-  >
-    <PageShell class="py-10 max-[600px]:py-8">
-      <div class="mb-6 max-w-160">
-        <h2 id="recents-heading" class="m-0">Practice again</h2>
-        <p class="mt-2 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-          Recent drills. Opens the matching exercise in its set.
+        <p class="m-0 mt-14">
+          <TextLink href="/lessons">Go to lessons</TextLink>
         </p>
       </div>
-
-      <ul class="m-0 list-none p-0" data-practice-recents-list></ul>
-
-      <template data-practice-recent-template>
-        <li>
-          <a
-            class="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-slate-200 py-5 no-underline"
-            data-recent-href
-            href="/practice"
-          >
-            <div class="min-w-0">
-              <p
-                class="m-0 font-serif text-[clamp(1.15rem,2.2vw,1.45rem)] font-semibold leading-snug tracking-tight text-slate-900 group-hover:text-blue-800"
-                lang="sk"
-                data-recent-sk
-              ></p>
-              <p class="m-0 mt-1.5 text-sm text-slate-500" data-recent-en></p>
-              <p class="m-0 mt-3 text-xs text-slate-500">
-                From
-                <span class="text-slate-700" data-recent-source></span>
-              </p>
-            </div>
-            <span
-              class="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-blue-800"
-            >
-              Again
-              <ArrowRight />
-            </span>
-          </a>
-        </li>
-      </template>
-    </PageShell>
-  </section>
-
-  <section aria-labelledby="topics-heading">
-    <PageShell class="pt-4 pb-20 max-[600px]:pb-14">
-      <div class="mb-8 max-w-160">
-        <h2 id="topics-heading" class="m-0">Browse sets</h2>
-        <p class="mt-2 m-0 text-[0.95rem] leading-[1.65] text-slate-600">
-          Each set is a short drill.
-        </p>
-      </div>
-
-      <div class="grid gap-12" data-practice-hydrate>
-        {#each sheetsByTrack as group (group.track.id)}
-          {@const hidesFeatured = group.sheets.some(
-            (sheet) => sheet.set.id === featuredId,
-          )}
-          {@const visibleCount = hidesFeatured
-            ? group.sheets.length - 1
-            : group.sheets.length}
-          {@const visibleExercises = group.sheets.reduce(
-            (sum, sheet) =>
-              sheet.set.id === featuredId ? sum : sum + sheet.exerciseCount,
-            0,
-          )}
-
-          <section
-            aria-labelledby={`track-${group.track.id}`}
-            data-browse-track={group.track.id}
-            hidden={visibleCount === 0}
-          >
-            <div class="mb-3 flex flex-wrap items-baseline justify-between gap-3">
-              <h3
-                id={`track-${group.track.id}`}
-                class="m-0 font-serif text-xl text-slate-900"
-              >
-                {group.track.title}
-              </h3>
-              <p class="m-0 text-xs tabular-nums text-slate-500" data-browse-track-meta>
-                {visibleCount}
-                {visibleCount === 1 ? "set" : "sets"}
-                ·
-                {visibleExercises}
-                {visibleExercises === 1 ? "exercise" : "exercises"}
-              </p>
-            </div>
-
-            <ul
-              class="m-0 list-none divide-y divide-slate-200/80 overflow-hidden rounded-2xl bg-surface p-0 ring-1 ring-slate-200/80 ring-inset"
-            >
-              {#each group.sheets as sheet (sheet.set.id)}
-                <PracticeSheetCard {sheet} hidden={sheet.set.id === featuredId} />
-              {/each}
-            </ul>
-          </section>
-        {/each}
-      </div>
-
-      <p class="mt-12 m-0">
-        <TextLink href="/lessons">Go to lessons</TextLink>
-      </p>
-    </PageShell>
-  </section>
+    </div>
+  </PageShell>
 </main>

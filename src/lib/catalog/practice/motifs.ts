@@ -30,20 +30,6 @@ export const practiceMotifWellClass: Record<PracticeGraphicId, string> = {
   time: "bg-blue-50",
 };
 
-export const practiceFeaturedFieldClass: Record<PracticeGraphicId, string> = {
-  byt: "bg-blue-100",
-  default: "bg-blue-100",
-  greetings: "bg-blue-100",
-  mat: "bg-emerald-100",
-  negation: "bg-rose-100",
-  numbers: "bg-blue-800",
-  "phrase-stress": "bg-blue-100",
-  "present-tense": "bg-blue-100",
-  questions: "bg-blue-100",
-  stress: "bg-blue-800",
-  time: "bg-blue-100",
-};
-
 export function practiceFeaturedOnDark(graphic: PracticeGraphicId): boolean {
   return graphic === "numbers" || graphic === "stress";
 }

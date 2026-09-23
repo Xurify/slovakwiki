@@ -51,6 +51,8 @@ bun run fouc:boot -- lessons
 
 Stale check: `scripts/fouc/generate.test.ts` fails CI/local test if a committed `*.generated.ts` does not match a fresh build. After editing an entry / anything it imports, regenerate and commit.
 
+**Bun version:** `bun build --minify` is not stable across Bun releases. Generate with the `packageManager` version in `package.json` (CI uses that pin). `bun run fouc:boot` exits before writing if `bun --version` differs, and tells you how to install the pinned release.
+
 ## Add a new FOUC surface
 
 1. **Surface id** — pick a short namespace (`practice`, `wiki`, …).

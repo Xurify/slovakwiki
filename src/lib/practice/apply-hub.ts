@@ -6,29 +6,34 @@ function paintFeatured(view: PracticeHubView): void {
     const setId = sheet.dataset.featuredSheet;
     sheet.hidden = !setId || setId !== view.featuredSetId;
   }
+}
+
+function paintBrowse(view: PracticeHubView): void {
+  const completed = new Set(view.completedLessonIds);
 
   for (const row of document.querySelectorAll<HTMLElement>("[data-browse-sheet]")) {
     const setId = row.dataset.browseSheet;
-    row.hidden = Boolean(setId && setId === view.featuredSetId);
+    const lessonId = row.dataset.browseLesson;
+
+    if (setId && setId === view.featuredSetId) row.dataset.state = "next";
+    else row.dataset.state = lessonId && completed.has(lessonId) ? "done" : "todo";
   }
 
-  for (const track of document.querySelectorAll<HTMLElement>("[data-browse-track]")) {
-    const rows = [...track.querySelectorAll<HTMLElement>("[data-browse-sheet]")];
-    const visible = rows.filter((row) => !row.hidden);
-    track.hidden = visible.length === 0;
+  for (const track of document.querySelectorAll<HTMLElement>("[data-practice-track]")) {
+    const lessonIds = new Set<string>();
 
-    const meta = track.querySelector<HTMLElement>("[data-browse-track-meta]");
-    if (!meta) continue;
+    for (const row of track.querySelectorAll<HTMLElement>("[data-browse-lesson]")) {
+      if (row.dataset.browseLesson) lessonIds.add(row.dataset.browseLesson);
+    }
 
-    const exerciseCount = visible.reduce((sum, row) => {
-      const raw = row.dataset.exerciseCount;
-      const count = raw ? Number(raw) : 0;
-      return sum + (Number.isFinite(count) ? count : 0);
-    }, 0);
+    const doneCount = [...lessonIds].filter((id) => completed.has(id)).length;
+    const pct = lessonIds.size ? Math.round((doneCount / lessonIds.size) * 100) : 0;
 
-    const setLabel = visible.length === 1 ? "set" : "sets";
-    const exerciseLabel = exerciseCount === 1 ? "exercise" : "exercises";
-    meta.textContent = `${visible.length} ${setLabel} · ${exerciseCount} ${exerciseLabel}`;
+    const done = track.querySelector<HTMLElement>("[data-track-done]");
+    const bar = track.querySelector<HTMLElement>("[data-track-bar]");
+
+    if (done) done.textContent = String(doneCount);
+    if (bar) bar.style.width = `${pct}%`;
   }
 }
 
@@ -74,5 +79,6 @@ function paintRecents(recents: PracticeBootItem[]): void {
 /** Apply a pure hub view to the practice index DOM. Idempotent. */
 export function applyPracticeHubView(view: PracticeHubView): void {
   paintFeatured(view);
+  paintBrowse(view);
   paintRecents(view.recents);
 }

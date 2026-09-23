@@ -9,8 +9,9 @@
   const src = $derived(motifArtSrc(graphic));
 </script>
 
-<div
-  class="relative isolate size-28 shrink-0 overflow-clip rounded-2xl ring-1 ring-slate-900/10 ring-inset"
+<span
+  class="relative isolate block size-14 shrink-0 overflow-hidden rounded-(--control-radius) ring-1 ring-slate-900/10 ring-inset"
+  aria-hidden="true"
 >
   <img
     {src}
@@ -18,7 +19,6 @@
     width="512"
     height="512"
     decoding="async"
-    class="size-full rounded-[inherit] object-cover"
+    class="size-full rounded-[inherit] object-cover outline-0 transition-transform duration-300 ease-out group-hover:scale-105"
   />
-  <span class="sr-only">{sheet.set.title}</span>
-</div>
+</span>
