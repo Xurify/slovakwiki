@@ -82,8 +82,15 @@
   );
 
   const subline = $derived.by(() => {
+    if (perfect && accentsCount > 0) {
+      return accentsCount === 1
+        ? "One answer slipped on accents — it's marked below."
+        : `${accentsCount} answers slipped on accents — they're marked below.`;
+    }
     if (perfect) {
-      return nextSet ? "Nothing to review. On to the next set." : "Nothing to review.";
+      return nextSet
+        ? `Nothing to review. Next up: ${nextSet.title}.`
+        : "Nothing to review.";
     }
     return missedCount === 1
       ? "Go over the one you missed below, then try it again."
@@ -92,10 +99,6 @@
 
   const eyebrowClass = "m-0 text-[0.64rem] font-bold tracking-[0.14em] uppercase";
 </script>
-
-{#snippet legendDot(tone: string)}
-  <span class="size-2 shrink-0 rounded-full {tone}" aria-hidden="true"></span>
-{/snippet}
 
 {#snippet reviewRow(row: NumberedResult)}
   {@const revealed = row.grade === "revealed"}
@@ -232,34 +235,6 @@
       <p class="m-0 mt-2 max-w-[48ch] text-sm leading-relaxed text-pretty text-slate-600">
         {subline}
       </p>
-
-      <ul
-        class="m-0 mt-4 flex list-none flex-wrap gap-x-4 gap-y-1 p-0 text-xs text-slate-600"
-      >
-        <li class="inline-flex items-center gap-1.5">
-          {@render legendDot("bg-emerald-600")}
-          <span class="font-semibold tabular-nums text-slate-900">
-            {correctCount - accentsCount}
-          </span>
-          correct
-        </li>
-
-        {#if accentsCount > 0}
-          <li class="inline-flex items-center gap-1.5">
-            {@render legendDot("bg-emerald-400")}
-            <span class="font-semibold tabular-nums text-slate-900">{accentsCount}</span>
-            {accentsCount === 1 ? "accent slip" : "accent slips"}
-          </li>
-        {/if}
-
-        {#if missedCount > 0}
-          <li class="inline-flex items-center gap-1.5">
-            {@render legendDot("bg-rose-400")}
-            <span class="font-semibold tabular-nums text-slate-900">{missedCount}</span>
-            to review
-          </li>
-        {/if}
-      </ul>
     </header>
 
     <div class="mt-6 flex flex-col gap-3 sm:flex-row">
