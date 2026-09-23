@@ -152,7 +152,6 @@ if (lemmaAudioSrc) {
       size: "lg",
       src: lemmaAudioSrc,
       text: entry.slovak,
-      variant: "inverse",
     },
   });
 }
@@ -168,7 +167,7 @@ for (const [senseIndex, sense] of senses.entries()) {
       key: `s${senseIndex}-e${exampleIndex}`,
       props: {
         label: `Listen to example: ${example.slovak}`,
-        size: "sm",
+        size: "md",
         src,
         text: example.slovak,
       },

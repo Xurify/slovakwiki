@@ -1,5 +1,12 @@
 <script lang="ts">
   import {
+    referenceCardClass,
+    referenceH2Class,
+    referenceSectionClass,
+    referenceSectionLeadClass,
+  } from "$lib/components/reference/reference-ui";
+
+  import {
     externalLookupsForLemma,
     type ExternalLookupLink,
   } from "$lib/catalog/dictionary/external-lookups";
@@ -22,16 +29,20 @@
 {#if links.length > 0}
   <section
     id="lookups"
-    class="scroll-mt-[88px] {className}"
+    class="{referenceSectionClass} {className}"
     aria-labelledby="lookups-heading"
   >
-    <h2 id="lookups-heading" class="mb-3 text-xl">Look up this word</h2>
+    <h2 id="lookups-heading" class={referenceH2Class}>Look it up elsewhere</h2>
 
-    <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+    <p class={referenceSectionLeadClass}>
+      Other dictionaries, translators, and corpora. Each opens in a new tab.
+    </p>
+
+    <ul class="{referenceCardClass} m-0 mt-5 flex list-none flex-wrap gap-2 p-4">
       {#each links as link (link.id)}
         <li>
           <a
-            class="inline-flex items-center gap-2 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-sm font-semibold text-slate-800 transition-colors hover:border-blue-800 hover:bg-blue-50 hover:text-blue-900"
+            class="inline-flex items-center gap-2 rounded-(--control-radius) bg-slate-50 px-2.5 py-1.5 text-sm font-semibold text-slate-800 no-underline ring-1 ring-slate-200/80 transition-colors ring-inset hover:bg-blue-50 hover:text-blue-800"
             href={link.href}
             rel="noopener noreferrer"
             target="_blank"
