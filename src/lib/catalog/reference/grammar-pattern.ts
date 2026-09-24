@@ -1,5 +1,7 @@
 /** Turns `GrammarPattern.lines` strings into shapes the topic page can lay out. */
 
+import type { Example } from "../types";
+
 export interface ParadigmCell {
   pronoun: string;
   form: string;
@@ -18,8 +20,22 @@ export interface PatternRow {
   gloss?: string;
 }
 
+/** A phrase split around the part the pattern is about. */
+export interface MarkedPhrase {
+  before: string;
+  mark: string;
+  after: string;
+}
+
+export interface PatternTile {
+  label: string;
+  ending: string;
+  example?: { english: string; slovak: MarkedPhrase };
+}
+
 export type PatternView =
   | { kind: "paradigm"; singular: ParadigmCell[]; plural: ParadigmCell[] }
+  | { kind: "tiles"; tiles: PatternTile[] }
   | { kind: "rows"; rows: PatternRow[] };
 
 const PERSONS = [
@@ -87,8 +103,57 @@ export function parsePatternRow(line: string): PatternRow {
   return { main: head.trim(), gloss };
 }
 
-export function parsePattern(lines: readonly string[]): PatternView {
-  return parseParadigm(lines) ?? { kind: "rows", rows: lines.map(parsePatternRow) };
+/** Marks the first word that ends in `suffix` (dobrý muž → dobr[ý] muž). */
+export function markSuffix(phrase: string, suffix: string): MarkedPhrase | undefined {
+  const match = new RegExp(`(\\p{L}*?)(${suffix})(?=\\P{L}|$)`, "u").exec(phrase);
+  if (!match || match[1] === "") return undefined;
+
+  const start = match.index + match[1]!.length;
+  return {
+    before: phrase.slice(0, start),
+    mark: suffix,
+    after: phrase.slice(start + suffix.length),
+  };
+}
+
+/** The prefix a derived form adds (mám → [ne]mám, robiť → [u]robiť). */
+export function addedPrefix(row: PatternRow): MarkedPhrase | undefined {
+  const { main, result } = row;
+  if (!result || result.length <= main.length || !result.endsWith(main)) return undefined;
+
+  return { before: "", mark: result.slice(0, result.length - main.length), after: main };
+}
+
+function parseTiles(rows: readonly PatternRow[], examples: readonly Example[]) {
+  const endings = rows.every((row) => row.label && row.main.startsWith("-"));
+  if (!endings) return undefined;
+
+  const paired = examples.length === rows.length;
+
+  const tiles: PatternTile[] = rows.map((row, index) => {
+    const ending = row.main.slice(1);
+    const example = paired ? examples[index] : undefined;
+    const slovak = example ? markSuffix(example.slovak, ending) : undefined;
+
+    return {
+      label: row.label!,
+      ending: row.main,
+      example: example && slovak ? { english: example.english, slovak } : undefined,
+    };
+  });
+
+  return { kind: "tiles", tiles } as const;
+}
+
+export function parsePattern(
+  lines: readonly string[],
+  examples: readonly Example[] = [],
+): PatternView {
+  const paradigm = parseParadigm(lines);
+  if (paradigm) return paradigm;
+
+  const rows = lines.map(parsePatternRow);
+  return parseTiles(rows, examples) ?? { kind: "rows", rows };
 }
 
 /** Quarters and halves name the coming hour (štvrť na tri, pol tretej, trištvrte na tri). */

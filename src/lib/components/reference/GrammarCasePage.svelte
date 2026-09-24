@@ -133,10 +133,10 @@
       <div class="min-w-0 space-y-12 lg:col-start-1">
         {#if topic.status === "ready"}
           <GrammarTopicSection id="role" title="Role in a sentence">
-            <div class={cx(grammarCardClass, "flex flex-col gap-3 px-5 py-4")}>
+            <div class="flex max-w-[62ch] flex-col gap-3">
               {#each topic.body as paragraph (paragraph)}
                 <p
-                  class="m-0 max-w-[62ch] font-serif text-[1.05rem] leading-relaxed text-pretty text-slate-900"
+                  class="m-0 font-serif text-lg leading-relaxed text-pretty text-slate-900"
                 >
                   {paragraph}
                 </p>
@@ -144,7 +144,7 @@
             </div>
           </GrammarTopicSection>
 
-          <GrammarTopicSection id="examples" title="Examples">
+          <GrammarTopicSection id="examples" title="In real sentences">
             <GrammarExampleList {examples} />
           </GrammarTopicSection>
         {:else}

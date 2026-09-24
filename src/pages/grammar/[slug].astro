@@ -1,8 +1,13 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import type { AudioMountTarget } from "$lib/audio/mount";
+import AudioMountHost from "$lib/audio/AudioMountHost.svelte";
 import ClockDrill from "$lib/learning/time/ClockDrill.svelte";
 import GrammarDetailPage from "$lib/components/reference/GrammarDetailPage.svelte";
 import { contentCacheKey } from "$lib/build/cache-key";
+import { audioHash } from "$lib/catalog/audio/core";
+import { audioClipKind, hasAudioClip } from "$lib/catalog/audio/manifest";
+import { resolveKeyedAudioSrc } from "$lib/catalog/audio/resolve-server";
 import { entryBySlug, grammarEntries, words } from "$lib/catalog/entries";
 import { entryHref } from "$lib/catalog/dictionary/lemma-senses";
 import { sentenceCase } from "$lib/catalog/search/ui";
@@ -20,7 +25,25 @@ export function getStaticPaths() {
         slovak: related.slovak,
       }));
 
-    const props = { entry, relatedEntries };
+    const audioTargets: AudioMountTarget[] = entry.examples.flatMap((example, index) => {
+      const hash = audioHash(example.slovak);
+      if (!hasAudioClip(hash)) return [];
+
+      const kind = audioClipKind(hash) === "lemma" ? "lemma" : "example";
+      return [
+        {
+          key: `ex-${index}`,
+          props: {
+            label: `Listen: ${example.slovak}`,
+            size: "sm" as const,
+            src: resolveKeyedAudioSrc(example.slovak, kind),
+            text: example.slovak,
+          },
+        },
+      ];
+    });
+
+    const props = { entry, relatedEntries, audioTargets };
 
     return {
       params: { slug: entry.slug },
@@ -30,7 +53,7 @@ export function getStaticPaths() {
   });
 }
 
-const { entry, relatedEntries } = Astro.props;
+const { entry, relatedEntries, audioTargets } = Astro.props;
 ---
 
 <SiteLayout
@@ -38,7 +61,14 @@ const { entry, relatedEntries } = Astro.props;
   description={entry.summary}
   canonicalPath={`/grammar/${entry.slug}`}
 >
-  <GrammarDetailPage data={{ entry, relatedEntries }}>
+  <GrammarDetailPage
+    data={{ entry, relatedEntries, audioKeys: audioTargets.map((target) => target.key) }}
+  >
+    {
+      audioTargets.length > 0 && (
+        <AudioMountHost slot="audioMount" client:load targets={audioTargets} />
+      )
+    }
     {
       entry.slug === "telling-time" && (
         <ClockDrill slot="clockDrill" client:only="svelte" />

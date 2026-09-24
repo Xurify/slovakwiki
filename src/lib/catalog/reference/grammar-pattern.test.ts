@@ -1,12 +1,18 @@
 import { describe, expect, it } from "vitest";
 
 import { grammarEntries } from "./grammar";
-import { namesHourAhead, parsePattern, parsePatternRow } from "./grammar-pattern";
+import {
+  addedPrefix,
+  markSuffix,
+  namesHourAhead,
+  parsePattern,
+  parsePatternRow,
+} from "./grammar-pattern";
 
 function patternFor(slug: string) {
   const topic = grammarEntries.find((entry) => entry.slug === slug);
   if (!topic) throw new Error(`missing ${slug}`);
-  return parsePattern(topic.pattern.lines);
+  return parsePattern(topic.pattern.lines, topic.examples);
 }
 
 describe("parsePattern", () => {
@@ -34,9 +40,26 @@ describe("parsePattern", () => {
     }
   });
 
+  it("pairs gender endings with the example that shows them", () => {
+    const view = patternFor("grammatical-gender");
+    expect(view.kind).toBe("tiles");
+    if (view.kind !== "tiles") return;
+
+    expect(view.tiles.map((tile) => [tile.label, tile.ending])).toEqual([
+      ["Masculine", "-ý"],
+      ["Feminine", "-á"],
+      ["Neuter", "-é"],
+    ]);
+    expect(view.tiles[1]?.example?.slovak).toEqual({
+      before: "dobr",
+      mark: "á",
+      after: " žena",
+    });
+  });
+
   it("falls back to rows for everything else", () => {
     expect(patternFor("negation").kind).toBe("rows");
-    expect(patternFor("grammatical-gender").kind).toBe("rows");
+    expect(patternFor("questions").kind).toBe("rows");
   });
 });
 
@@ -50,10 +73,7 @@ describe("parsePatternRow", () => {
   });
 
   it("splits label: value lines", () => {
-    expect(parsePatternRow("feminine adjective ending: -á")).toEqual({
-      label: "feminine adjective ending",
-      main: "-á",
-    });
+    expect(parsePatternRow("Feminine: -á")).toEqual({ label: "Feminine", main: "-á" });
   });
 
   it("keeps a lone phrase as the main text", () => {
@@ -61,6 +81,40 @@ describe("parsePatternRow", () => {
       main: "päť+ + genitive plural",
       gloss: undefined,
     });
+  });
+});
+
+describe("markSuffix", () => {
+  it("marks the first word ending in the suffix", () => {
+    expect(markSuffix("veľmi dobré mesto", "é")).toEqual({
+      before: "veľmi dobr",
+      mark: "é",
+      after: " mesto",
+    });
+  });
+
+  it("ignores a suffix that is the whole word or absent", () => {
+    expect(markSuffix("a b", "a")).toBeUndefined();
+    expect(markSuffix("muž", "á")).toBeUndefined();
+  });
+});
+
+describe("addedPrefix", () => {
+  it("finds the prefix a derived form adds", () => {
+    expect(addedPrefix(parsePatternRow("mám → nemám"))).toEqual({
+      before: "",
+      mark: "ne",
+      after: "mám",
+    });
+    expect(
+      addedPrefix(parsePatternRow("čítať → prečítať · read / read through"))?.mark,
+    ).toBe("pre");
+  });
+
+  it("returns nothing when the result is not the base plus a prefix", () => {
+    expect(
+      addedPrefix(parsePatternRow("subject + verb + object → neutral")),
+    ).toBeUndefined();
   });
 });
 

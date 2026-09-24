@@ -30,11 +30,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Adjective endings follow gender",
-      lines: [
-        "masculine adjective ending: -ý",
-        "feminine adjective ending: -á",
-        "neuter adjective ending: -é",
-      ],
+      lines: ["Masculine: -ý", "Feminine: -á", "Neuter: -é"],
     },
     watchOut:
       "A final letter can suggest gender, but it does not guarantee it. Learn the noun and its pattern together.",

@@ -14,13 +14,13 @@
   import {
     grammarCardClass,
     grammarEyebrowClass,
-    grammarRowsClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
   import {
     grammarGroupAnchor,
     grammarNeighbors,
   } from "$lib/catalog/reference/grammar-path";
+  import { parsePattern } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
@@ -36,29 +36,18 @@
   let {
     topic,
     relatedEntries = [],
+    audioKeys = [],
     clockDrill,
   }: {
     topic: GrammarTopic;
     relatedEntries?: RelatedEntry[];
+    audioKeys?: string[];
     /** Client island slot from Astro (`client:only` / `client:load`). */
     clockDrill?: Snippet;
   } = $props();
 
   const isTime = $derived(topic.slug === "telling-time");
   const terms = $derived(topic.termSections ?? []);
-
-  const sections = $derived(
-    [
-      { id: "rule", label: "The rule", show: true },
-      { id: "cases", label: "The six cases", show: Boolean(topic.caseOverview) },
-      { id: "pattern", label: "Pattern", show: !topic.caseOverview },
-      { id: "terms", label: "Key labels", show: terms.length > 0 },
-      { id: "clock-faces", label: "Clock faces", show: isTime },
-      { id: "clock-drill", label: "Clock practice", show: isTime && Boolean(clockDrill) },
-      { id: "examples", label: "Examples", show: topic.examples.length > 0 },
-      { id: "watch-out", label: "Common mistake", show: true },
-    ].filter((section) => section.show),
-  );
 
   const words = $derived(
     relatedEntries
@@ -83,6 +72,13 @@
   );
 
   const neighbors = $derived(grammarNeighbors(topic.slug));
+
+  /** Ending tiles already show one example each; skip the list so they are not repeated. */
+  const examplesInPattern = $derived.by(() => {
+    if (topic.caseOverview || isTime) return false;
+    const view = parsePattern(topic.pattern.lines, topic.examples);
+    return view.kind === "tiles" && view.tiles.every((tile) => tile.example);
+  });
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -111,31 +107,10 @@
         class="flex flex-col gap-4 max-lg:order-1 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
         aria-label="About this topic"
       >
-        <GrammarTopicRail {topic} {sections} {words} {topics} />
+        <GrammarTopicRail {topic} {words} {topics} />
       </aside>
 
       <div class="min-w-0 space-y-12 lg:col-start-1">
-        <GrammarTopicSection id="rule" title="The rule">
-          <ol class={cx(grammarCardClass, grammarRowsClass)}>
-            {#each topic.rule as paragraph, index (paragraph)}
-              <li class="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-3 px-5 py-4">
-                <span
-                  class="flex size-7 items-center justify-center rounded-full border-2 border-slate-300 font-serif text-xs font-semibold text-slate-500 tabular-nums"
-                  aria-hidden="true"
-                >
-                  {index + 1}
-                </span>
-
-                <p
-                  class="m-0 max-w-[62ch] self-center font-serif text-[1.05rem] leading-relaxed text-pretty text-slate-900"
-                >
-                  {paragraph}
-                </p>
-              </li>
-            {/each}
-          </ol>
-        </GrammarTopicSection>
-
         {#if topic.caseOverview}
           <GrammarTopicSection
             id="cases"
@@ -145,29 +120,69 @@
             <GrammarCaseMap cases={topic.caseOverview} />
           </GrammarTopicSection>
         {:else}
-          <GrammarTopicSection
-            id="pattern"
-            title={topic.pattern.label}
-            intro={isTime
-              ? "Green rows name the hour you are heading toward."
-              : undefined}
-          >
-            <GrammarPatternList lines={topic.pattern.lines} withClocks={isTime} />
-          </GrammarTopicSection>
+          <section id="pattern" class={cx(grammarCardClass, "scroll-mt-24")}>
+            <div class="border-b border-slate-200/70 px-6 pt-5 pb-4 max-[480px]:px-4">
+              <p class={grammarEyebrowClass}>The pattern</p>
+
+              <h2
+                class="m-0 mt-1.5 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl"
+              >
+                {topic.pattern.label}
+              </h2>
+
+              {#if isTime}
+                <p class="m-0 mt-1.5 text-sm text-slate-600">
+                  Green rows name the hour you are heading toward.
+                </p>
+              {/if}
+            </div>
+
+            <GrammarPatternList
+              lines={topic.pattern.lines}
+              examples={topic.examples}
+              withClocks={isTime}
+            />
+          </section>
         {/if}
+
+        <GrammarTopicSection id="rule" title="How it works">
+          <div class="flex max-w-[62ch] flex-col gap-3">
+            {#each topic.rule as paragraph (paragraph)}
+              <p
+                class="m-0 font-serif text-lg leading-relaxed text-pretty text-slate-900"
+              >
+                {paragraph}
+              </p>
+            {/each}
+          </div>
+
+          <div
+            class="mt-5 rounded-(--frame-radius) bg-blue-50/70 px-5 py-4 ring-1 ring-blue-100 ring-inset"
+          >
+            <p class={grammarEyebrowClass}>When you read</p>
+
+            <p class="m-0 mt-1.5 max-w-[62ch] leading-relaxed text-pretty text-slate-700">
+              {topic.lookFor}
+            </p>
+          </div>
+        </GrammarTopicSection>
 
         {#if terms.length > 0}
           <GrammarTopicSection id="terms" title="Key labels">
-            <dl class={cx(grammarCardClass, "m-0 divide-y divide-slate-200/70")}>
+            <dl class="m-0 grid gap-3 sm:grid-cols-2">
               {#each terms as term (term.id)}
-                <div id={term.id} class="scroll-mt-24 px-5 py-4 target:bg-blue-50/70">
+                <div
+                  id={term.id}
+                  class={cx(
+                    grammarCardClass,
+                    "scroll-mt-24 px-5 py-4 target:ring-2 target:ring-blue-600/40",
+                  )}
+                >
                   <dt class="font-serif text-lg font-semibold text-slate-900">
                     {term.title}
                   </dt>
 
-                  <dd
-                    class="m-0 mt-1 max-w-[62ch] text-sm leading-relaxed text-slate-600"
-                  >
+                  <dd class="m-0 mt-1 text-sm leading-relaxed text-pretty text-slate-600">
                     {term.body}
                   </dd>
                 </div>
@@ -190,15 +205,15 @@
           {/if}
         {/if}
 
-        {#if topic.examples.length > 0}
-          <GrammarTopicSection id="examples" title="Examples">
-            <GrammarExampleList examples={topic.examples} lookFor={topic.lookFor} />
+        {#if topic.examples.length > 0 && !examplesInPattern}
+          <GrammarTopicSection id="examples" title="In real sentences">
+            <GrammarExampleList examples={topic.examples} {audioKeys} />
           </GrammarTopicSection>
         {/if}
 
         <section
           id="watch-out"
-          class="scroll-mt-24 rounded-(--frame-radius) bg-rose-50/70 px-5 py-4 ring-1 ring-rose-200/70 ring-inset"
+          class="scroll-mt-24 rounded-(--frame-radius) bg-rose-50 px-5 py-4 shadow-(--shadow-border) sm:px-6"
           aria-labelledby="watch-out-heading"
         >
           <h2
@@ -209,7 +224,7 @@
           </h2>
 
           <p
-            class="m-0 mt-1.5 max-w-[62ch] font-serif text-[1.05rem] leading-relaxed text-pretty text-slate-900"
+            class="m-0 mt-1.5 max-w-[62ch] font-serif text-lg leading-relaxed text-pretty text-rose-900"
           >
             {topic.watchOut}
           </p>
