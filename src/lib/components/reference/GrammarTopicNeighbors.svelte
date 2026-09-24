@@ -3,7 +3,6 @@
   import { grammarMotifId } from "$lib/catalog/reference/grammar-motifs";
   import type { GrammarNeighbors } from "$lib/catalog/reference/grammar-path";
   import { sentenceCase } from "$lib/catalog/search/ui";
-  import { grammarEyebrowClass } from "$lib/components/reference/grammar-topic-ui";
   import { cx } from "$lib/ui/classes";
 
   let { neighbors }: { neighbors: GrammarNeighbors } = $props();
@@ -52,7 +51,11 @@
         </span>
 
         <span class={cx("min-w-0", link.align === "end" && "sm:text-right")}>
-          <span class={cx(grammarEyebrowClass, "block")}>{link.label}</span>
+          <span
+            class="block font-sans text-[0.64rem] font-[750] tracking-[0.1em] text-slate-500 uppercase"
+          >
+            {link.label} topic
+          </span>
 
           <strong
             class="mt-0.5 block font-serif text-base leading-snug text-blue-800 underline-offset-2 group-hover:underline"

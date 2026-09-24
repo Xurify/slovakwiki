@@ -1,30 +1,31 @@
 <script lang="ts">
-  import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
-  import GrammarTopicSection from "$lib/components/reference/GrammarTopicSection.svelte";
+  import GrammarHero from "$lib/components/reference/GrammarHero.svelte";
+  import GrammarLinkStrip, {
+    type StripLink,
+  } from "$lib/components/reference/GrammarLinkStrip.svelte";
+  import GrammarSection from "$lib/components/reference/GrammarSection.svelte";
   import {
-    grammarCardClass,
-    grammarEyebrowClass,
-    grammarRowsClass,
+    grammarNoteClass,
+    grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { caseTopics } from "$lib/catalog/entries";
   import { motifArtSrc } from "$lib/catalog/motifs/art";
   import { grammarMotifId } from "$lib/catalog/reference/grammar-motifs";
   import { grammarEntries } from "$lib/catalog/reference/grammar";
   import type { CaseTopic } from "$lib/catalog/types";
-  import { cx } from "$lib/ui/classes";
 
   let { data }: { data: { topic: CaseTopic } } = $props();
 
   const topic = $derived(data.topic);
 
   const overview = grammarEntries.find((entry) => entry.slug === "cases-overview");
-  const roles = new Map(
-    (overview?.caseOverview ?? []).map((item) => [item.slug, item.role] as const),
-  );
+  const caseMap = overview?.caseOverview ?? [];
+  const roles = new Map(caseMap.map((item) => [item.slug, item.role] as const));
 
   const question = $derived.by(() => {
     const [sk = "", en] = topic.question.split(" · ");
@@ -32,6 +33,7 @@
   });
 
   const position = $derived(caseTopics.findIndex((entry) => entry.slug === topic.slug));
+  const role = $derived(roles.get(topic.slug));
 
   /** Case notes explain the example, so they read as "what this shows". */
   const examples = $derived(
@@ -42,150 +44,139 @@
     })),
   );
 
-  const caseLinkClass =
-    "group grid grid-cols-[1.25rem_minmax(0,1fr)] items-baseline gap-2 px-5 py-2 text-sm no-underline transition-colors hover:bg-slate-50";
+  const stripLinks = $derived.by(() => {
+    const previous = caseTopics[position - 1];
+    const next = caseTopics[position + 1];
+    const links: StripLink[] = [];
+
+    if (previous) {
+      links.push({
+        eyebrow: "Previous case",
+        label: previous.name,
+        href: `/grammar/cases/${previous.slug}`,
+        rel: "prev",
+      });
+    }
+
+    links.push({
+      eyebrow: "All cases",
+      label: "Compare all six",
+      href: "/grammar/cases-overview#cases",
+    });
+
+    if (next) {
+      links.push({
+        eyebrow: "Next case",
+        label: next.name,
+        href: `/grammar/cases/${next.slug}`,
+        rel: "next",
+      });
+    }
+
+    return links;
+  });
+
+  const ready = $derived(topic.status === "ready");
+  const hasPrompts = $derived(topic.researchPrompts.length > 0);
 </script>
 
-<main class="py-12 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[1080px]">
-    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-x-12 lg:gap-y-12">
-      <header class="max-w-2xl lg:col-start-1">
-        <nav
-          class="mb-5 flex flex-wrap gap-2 text-xs text-slate-500"
-          aria-label="Breadcrumb"
+<main class="pb-24 max-[880px]:pb-16">
+  <PageShell>
+    <GrammarHero
+      crumbs={[
+        { href: "/grammar", label: "Grammar" },
+        { href: "/grammar/cases-overview", label: "Cases" },
+      ]}
+      eyebrow="Case {position + 1} of {caseTopics.length}{role ? ` · ${role}` : ''}"
+      slovak={topic.slovakName}
+      english={topic.name}
+      summary={topic.summary}
+      art={motifArtSrc(grammarMotifId("cases-overview"))}
+    >
+      <p class="m-0 mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span class="font-serif text-[1.4rem] text-blue-800" lang="sk">{question.sk}</span
         >
-          <TextLink href="/grammar">Grammar</TextLink>
-          <span aria-hidden="true">/</span>
-          <TextLink href="/grammar/cases-overview">Cases</TextLink>
-        </nav>
 
-        <p class={grammarEyebrowClass}>
-          Case {position + 1} of {caseTopics.length}
-          {#if roles.get(topic.slug)}
-            <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
-            {roles.get(topic.slug)}
-          {/if}
+        {#if question.en}
+          <span class="text-[0.95rem] text-slate-500">{question.en}</span>
+        {/if}
+      </p>
+    </GrammarHero>
+
+    <GrammarLinkStrip links={stripLinks} label="Other cases" />
+
+    <GrammarSection id="role" index="01" label="Role" title="Role in a sentence">
+      {#if ready}
+        <div class="flex flex-col gap-4">
+          {#each topic.body as paragraph (paragraph)}
+            <p class={grammarProseClass}>{paragraph}</p>
+          {/each}
+        </div>
+      {:else}
+        <p class={grammarNoteClass}>
+          This case page is still being written. The cases overview has its role and
+          question words.
         </p>
+      {/if}
+    </GrammarSection>
 
-        <h1 class="mt-2 text-balance">{topic.name}</h1>
-
-        <p class="m-0 mt-2 text-lg text-slate-500">
-          <span class="font-serif text-xl text-blue-800" lang="sk">{question.sk}</span>
-          {#if question.en}
-            <span class="ml-1">{question.en}</span>
-          {/if}
-        </p>
-
-        <Lead class="text-pretty">{topic.summary}</Lead>
-      </header>
-
-      <aside
-        class="flex flex-col gap-4 max-lg:order-1 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
-        aria-label="All cases"
+    {#if ready && examples.length > 0}
+      <GrammarSection
+        id="examples"
+        index="02"
+        label="Sentences"
+        title="In real sentences"
       >
-        <nav class={grammarCardClass} aria-label="The six cases">
-          <div class="relative h-28 overflow-hidden border-b border-slate-200/70">
-            <img
-              src={motifArtSrc(grammarMotifId("cases-overview"))}
-              alt=""
-              width="512"
-              height="512"
-              decoding="async"
-              class="absolute inset-0 size-full object-cover"
-            />
-          </div>
+        <GrammarExampleList {examples} />
+      </GrammarSection>
+    {/if}
 
-          <p class={cx(grammarEyebrowClass, "px-5 pt-4 pb-1.5")}>The six cases</p>
+    {#if hasPrompts}
+      <GrammarSection
+        id="try"
+        index={ready && examples.length > 0 ? "03" : "02"}
+        label="Try"
+        title="Try it yourself"
+        intro="Small tasks to do with your own Slovak reading."
+      >
+        <ol class="m-0 list-none border-t border-slate-200 p-0">
+          {#each topic.researchPrompts as prompt, index (prompt)}
+            <li
+              class="grid grid-cols-[2.25rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200 py-4"
+            >
+              <span
+                class="font-serif text-[1.2rem] leading-none font-semibold tracking-[-0.05em] text-slate-300 tabular-nums"
+              >
+                {index + 1}
+              </span>
 
-          <ol class="m-0 list-none p-0 pb-2">
-            {#each caseTopics as entry, index (entry.slug)}
-              {@const current = entry.slug === topic.slug}
+              <span class="font-serif text-[1.1rem] leading-relaxed text-slate-900">
+                {prompt}
+              </span>
+            </li>
+          {/each}
+        </ol>
+      </GrammarSection>
+    {/if}
 
-              <li>
-                <a
-                  class={cx(caseLinkClass, current && "bg-blue-50/70")}
-                  href="/grammar/cases/{entry.slug}"
-                  aria-current={current ? "page" : undefined}
-                >
-                  <span class="font-serif text-xs text-slate-400 tabular-nums">
-                    {index + 1}
-                  </span>
+    <GrammarSection
+      id="cases"
+      index={String(
+        2 + Number(ready && examples.length > 0) + Number(hasPrompts),
+      ).padStart(2, "0")}
+      label="Cases"
+      title="The six cases"
+    >
+      <GrammarCaseMap cases={caseMap} current={topic.slug} />
 
-                  <span
-                    class={cx(
-                      "min-w-0 group-hover:text-blue-800",
-                      current ? "font-semibold text-slate-900" : "text-slate-700",
-                    )}
-                  >
-                    {entry.name}
-                  </span>
-                </a>
-              </li>
-            {/each}
-          </ol>
-
-          <p class="m-0 border-t border-slate-200/70 px-5 py-3 text-sm">
-            <TextLink href="/grammar/cases-overview#cases">Compare all six</TextLink>
-          </p>
-        </nav>
-      </aside>
-
-      <div class="min-w-0 space-y-12 lg:col-start-1">
-        {#if topic.status === "ready"}
-          <GrammarTopicSection id="role" title="Role in a sentence">
-            <div class="flex max-w-[62ch] flex-col gap-3">
-              {#each topic.body as paragraph (paragraph)}
-                <p
-                  class="m-0 font-serif text-lg leading-relaxed text-pretty text-slate-900"
-                >
-                  {paragraph}
-                </p>
-              {/each}
-            </div>
-          </GrammarTopicSection>
-
-          <GrammarTopicSection id="examples" title="In real sentences">
-            <GrammarExampleList {examples} />
-          </GrammarTopicSection>
-        {:else}
-          <section class={cx(grammarCardClass, "px-5 py-4")}>
-            <h2 class="m-0 font-serif text-xl text-slate-900">Coming soon</h2>
-
-            <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
-              This case page is still being written. The cases overview has its role and
-              question words.
-            </p>
-          </section>
-        {/if}
-
-        {#if topic.researchPrompts.length > 0}
-          <GrammarTopicSection
-            id="try"
-            title="Try it yourself"
-            intro="Small tasks to do with your own Slovak reading."
-          >
-            <ul class={cx(grammarCardClass, grammarRowsClass)}>
-              {#each topic.researchPrompts as prompt (prompt)}
-                <li
-                  class="grid grid-cols-[1rem_minmax(0,1fr)] gap-3 px-5 py-3 text-sm leading-relaxed text-slate-700"
-                >
-                  <span class="text-slate-400" aria-hidden="true">→</span>
-                  {prompt}
-                </li>
-              {/each}
-            </ul>
-          </GrammarTopicSection>
-        {/if}
-
-        <p id="source" class="m-0 text-sm text-slate-500">
-          Source:
-          <TextLink href={topic.source} rel="noopener noreferrer" target="_blank">
-            Jazykovedný ústav Ľudovíta Štúra SAV ↗
-          </TextLink>
-          <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
-          Full attribution on <TextLink href="/references">References</TextLink>.
-        </p>
-      </div>
-    </div>
+      <p class="m-0 mt-12 text-[0.82rem] text-slate-500">
+        Source:
+        <TextLink href={topic.source} rel="noopener noreferrer" target="_blank">
+          Jazykovedný ústav Ľudovíta Štúra SAV ↗
+        </TextLink>
+        <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+        Full attribution on <TextLink href="/references">References</TextLink>.
+      </p>
+    </GrammarSection>
   </PageShell>
 </main>
