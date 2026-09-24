@@ -5,33 +5,16 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import { grammarEntries } from "$lib/catalog/entries";
-  import type { GrammarTopic } from "$lib/catalog/types";
+  import {
+    grammarGroupAnchor as groupAnchor,
+    grammarGroupPurpose as groupPurpose,
+    grammarGroups,
+    grammarTopicsInGroup,
+  } from "$lib/catalog/reference/grammar-path";
 
-  type GrammarGroup = GrammarTopic["pathGroup"];
-
-  /** Reading order follows each topic's `nextSlug` chain. */
-  const groups: GrammarGroup[] = ["Nouns", "Verbs", "Sentence building", "Numbers"];
-
-  const groupPurpose: Record<GrammarGroup, string> = {
-    Nouns: "Gender and cases — how nouns change in a sentence.",
-    Verbs: "Present forms, byť / mať, and aspect pairs.",
-    "Sentence building": "Word order, formality, negation, and questions.",
-    Numbers: "Counting, quantity agreement, and clock time.",
-  };
-
-  const groupAnchor: Record<GrammarGroup, string> = {
-    Nouns: "group-nouns",
-    Verbs: "group-verbs",
-    "Sentence building": "group-sentence-building",
-    Numbers: "group-numbers",
-  };
-
-  const areas = groups.map((group) => ({
+  const areas = grammarGroups.map((group) => ({
     group,
-    topics: grammarEntries
-      .filter((topic) => topic.pathGroup === group)
-      .toSorted((first, second) => first.order - second.order),
+    topics: grammarTopicsInGroup(group),
   }));
 </script>
 
