@@ -10,13 +10,11 @@
     title,
     purpose,
     topics,
-    startSlug,
   }: {
     anchor: string;
     title: string;
     purpose: string;
     topics: GrammarTopic[];
-    startSlug: string;
   } = $props();
 
   const exampleCount = $derived(
@@ -65,7 +63,7 @@
 
   <ol class="m-0 flex list-none flex-col gap-3 p-0">
     {#each topics as topic, index (topic.slug)}
-      <GrammarPathStep {topic} step={index + 1} start={topic.slug === startSlug} />
+      <GrammarPathStep {topic} step={index + 1} />
     {/each}
   </ol>
 </section>

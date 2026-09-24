@@ -1,6 +1,6 @@
 <script lang="ts">
   import GrammarAreaSection from "$lib/components/reference/GrammarAreaSection.svelte";
-  import GrammarStartCard from "$lib/components/reference/GrammarStartCard.svelte";
+  import GrammarQuestionsCard from "$lib/components/reference/GrammarQuestionsCard.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -33,9 +33,6 @@
       .filter((topic) => topic.pathGroup === group)
       .toSorted((first, second) => first.order - second.order),
   }));
-
-  const firstArea = areas[0];
-  const startTopic = firstArea?.topics[0];
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8">
@@ -46,21 +43,15 @@
 
         <Lead class="text-pretty">
           Short explanations of the patterns you meet in the lessons, each with real
-          sentences. Read them in order, or jump to the one that's tripping you up.
+          sentences. Browse by area, or jump straight to what's confusing you.
         </Lead>
       </header>
 
       <aside
-        class="flex flex-col gap-4 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
-        aria-label="Where to begin"
+        class="flex flex-col gap-4 max-lg:order-last lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
+        aria-label="Quick answers"
       >
-        {#if startTopic && firstArea}
-          <GrammarStartCard
-            topic={startTopic}
-            areaAnchor={groupAnchor[firstArea.group]}
-            areaTopicCount={firstArea.topics.length}
-          />
-        {/if}
+        <GrammarQuestionsCard />
       </aside>
 
       <div class="min-w-0 lg:col-start-1">
@@ -71,7 +62,6 @@
               title={area.group}
               purpose={groupPurpose[area.group]}
               topics={area.topics}
-              startSlug={startTopic?.slug ?? ""}
             />
           {/each}
         </div>

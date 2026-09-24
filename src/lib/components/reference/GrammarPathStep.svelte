@@ -8,33 +8,23 @@
   let {
     topic,
     step,
-    start = false,
   }: {
     topic: GrammarTopic;
     step: number;
-    start?: boolean;
   } = $props();
 
   const railClass = "absolute left-[1.125rem] w-0.5 -translate-x-1/2 bg-slate-200";
 
-  const nodeClass = $derived(
-    cx(
-      "relative z-10 flex size-9 items-center justify-center self-center rounded-full border-2",
-      "font-serif text-sm font-semibold tabular-nums",
-      start
-        ? "border-blue-600 bg-blue-600 text-paper"
-        : "border-slate-300 bg-surface text-slate-500",
-    ),
+  const nodeClass = cx(
+    "relative z-10 flex size-9 items-center justify-center self-center rounded-full border-2",
+    "border-slate-300 bg-surface font-serif text-sm font-semibold tabular-nums text-slate-500",
   );
 
-  const cardClass = $derived(
-    cx(
-      "group grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3.5 rounded-(--frame-radius)",
-      "border-2 bg-surface/80 px-3 py-3 no-underline shadow-(--shadow-border)",
-      "transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)",
-      "max-[480px]:grid-cols-[minmax(0,1fr)_auto]",
-      start ? "border-blue-600 bg-surface" : "border-transparent",
-    ),
+  const cardClass = cx(
+    "group grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-3.5 rounded-(--frame-radius)",
+    "bg-surface/80 px-3 py-3 no-underline shadow-(--shadow-border)",
+    "transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)",
+    "max-[480px]:grid-cols-1",
   );
 
   const exampleCount = $derived(topic.examples.length);
@@ -90,13 +80,5 @@
         {/if}
       </span>
     </span>
-
-    {#if start}
-      <span
-        class="inline-flex min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-paper"
-      >
-        Start
-      </span>
-    {/if}
   </a>
 </li>
