@@ -14,10 +14,10 @@
   const groups = ["Nouns", "Verbs", "Numbers", "Sentence building"] as const;
 
   const groupPurpose: Record<GrammarGroup, string> = {
-    Nouns: "Gender and cases — how nouns change in a sentence",
-    Verbs: "Present forms, byť / mať, and aspect pairs",
-    Numbers: "Counting, quantity agreement, and clock time",
-    "Sentence building": "Word order, formality, negation, and questions",
+    Nouns: "Gender and cases — how nouns change in a sentence.",
+    Verbs: "Present forms, byť / mať, and aspect pairs.",
+    Numbers: "Counting, quantity agreement, and clock time.",
+    "Sentence building": "Word order, formality, negation, and questions.",
   };
 
   const groupAnchor: Record<GrammarGroup, string> = {
@@ -27,180 +27,176 @@
     "Sentence building": "group-sentence-building",
   };
 
-  const popularSlugs = [
-    "cases-overview",
-    "numbers-and-numerals",
-    "telling-time",
-    "questions",
-    "negation",
-    "present-tense",
-  ] as const;
-
-  const popularTopics = popularSlugs
-    .map((slug) => grammarEntries.find((topic) => topic.slug === slug))
-    .filter((topic): topic is GrammarTopic => Boolean(topic));
-
-  function topicsFor(group: GrammarGroup): GrammarTopic[] {
-    return grammarEntries.filter((topic) => topic.pathGroup === group);
-  }
+  const chapters = groups.map((group, index) => ({
+    group,
+    number: String(index + 1).padStart(2, "0"),
+    topics: grammarEntries.filter((topic) => topic.pathGroup === group),
+  }));
 
   function blurb(topic: GrammarTopic): string {
     return topic.summary.trim() || topic.lookFor.trim();
   }
 
-  const quickRowClass =
-    "grid items-baseline gap-x-6 gap-y-2.5 sm:grid-cols-[4.5rem_minmax(0,1fr)]";
-
-  const quickLabelClass =
-    "m-0 text-[0.67rem] font-bold tracking-[0.1em] text-slate-500 uppercase";
-
-  const popularLinkClass = cx(
-    "inline-flex min-h-8 items-center rounded-full bg-surface px-3.5",
-    "font-serif text-sm text-blue-800 no-underline shadow-(--shadow-border)",
-    "transition-shadow hover:shadow-(--shadow-border-hover)",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
+  const contentsLinkClass = cx(
+    "group flex h-full flex-col border-t-2 border-slate-300 pt-3 no-underline",
+    "transition-colors hover:border-blue-600",
+    "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600",
   );
 
-  const areaLinkClass = cx(
-    "inline-flex items-baseline gap-1.5 font-serif text-[0.95rem] text-blue-800",
-    "underline decoration-blue-800/25 underline-offset-4 transition-colors hover:decoration-blue-800",
-  );
-
-  const topicCardClass = cx(
-    "group flex h-full flex-col rounded-(--frame-radius) bg-surface px-5 pt-4 pb-5",
-    "no-underline shadow-(--shadow-border) transition-shadow duration-150",
-    "hover:shadow-(--shadow-border-hover)",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
-  );
-
-  const topicArrowClass = cx(
-    "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full",
-    "bg-blue-50 text-blue-800 transition-colors",
-    "group-hover:bg-blue-600 group-hover:text-paper",
+  const topicRowClass = cx(
+    "group grid gap-x-8 gap-y-3 px-6 py-5 no-underline transition-colors",
+    "hover:bg-blue-50/40 md:grid-cols-[minmax(0,1fr)_13.5rem] md:items-center",
+    "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-600",
+    "max-[560px]:px-4",
   );
 </script>
 
-<main class="py-12 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[960px]">
-    <header class="max-w-[640px]">
-      <h1>Grammar</h1>
+<main class="py-14 pb-24 max-[600px]:py-8">
+  <PageShell class="max-w-[1080px]">
+    <header class="grid gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-end">
+      <div>
+        <h1 class="text-balance">Grammar</h1>
 
-      <Lead class="text-pretty">
-        Short explanations of the patterns you meet in the lessons. Pick an area, then
-        open the one you need.
-      </Lead>
+        <Lead class="max-w-[34rem] text-pretty">
+          Short explanations of the patterns you meet in the lessons — what changes, why,
+          and real sentences that show it.
+        </Lead>
+      </div>
+
+      <p class="m-0 text-sm leading-relaxed text-slate-600 lg:pb-1.5 lg:text-right">
+        New to terms like <em>case</em> or <em>aspect</em>?
+        <TextLink class="inline-flex items-center gap-1" href="/glossary">
+          Open the glossary <ArrowRight />
+        </TextLink>
+      </p>
     </header>
 
-    <div class="mt-9 grid gap-4 border-y border-slate-200/80 py-5">
-      {#if popularTopics.length}
-        <nav class={quickRowClass} aria-label="Popular grammar topics">
-          <p class={quickLabelClass}>Popular</p>
+    <nav class="mt-12" aria-label="Grammar contents">
+      <ol
+        class="m-0 grid list-none grid-cols-2 gap-x-6 gap-y-6 p-0 max-[600px]:gap-x-4 max-[600px]:gap-y-4 lg:grid-cols-4"
+      >
+        {#each chapters as chapter (chapter.group)}
+          <li>
+            <a class={contentsLinkClass} href="#{groupAnchor[chapter.group]}">
+              <span
+                class="font-sans text-xs font-bold tracking-[0.12em] text-slate-500 tabular-nums group-hover:text-blue-800"
+              >
+                {chapter.number}
+              </span>
 
-          <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
-            {#each popularTopics as topic (topic.slug)}
-              <li>
-                <a class={popularLinkClass} href="/grammar/{topic.slug}">
-                  {sentenceCase(topic.english)}
-                </a>
-              </li>
-            {/each}
-          </ul>
-        </nav>
-      {/if}
+              <span
+                class="mt-1.5 font-serif text-xl leading-tight tracking-tight text-slate-900 group-hover:text-blue-800"
+              >
+                {chapter.group}
+              </span>
 
-      <nav class={quickRowClass} aria-label="Jump to area">
-        <p class={quickLabelClass}>Areas</p>
-
-        <ul class="m-0 flex list-none flex-wrap items-baseline gap-x-5 gap-y-2 p-0">
-          {#each groups as group (group)}
-            <li>
-              <a class={areaLinkClass} href="#{groupAnchor[group]}">
-                {group}
-                <span class="font-sans text-xs text-slate-500 tabular-nums no-underline">
-                  {topicsFor(group).length}
-                </span>
-              </a>
-            </li>
-          {/each}
-
-          <li class="max-sm:basis-full sm:ml-auto">
-            <TextLink class="inline-flex items-center gap-1 text-sm" href="/glossary">
-              Glossary <ArrowRight />
-            </TextLink>
+              <span
+                class="mt-2 text-sm leading-relaxed text-slate-600 max-[600px]:hidden"
+              >
+                {chapter.topics.map((topic) => sentenceCase(topic.english)).join(" · ")}
+              </span>
+            </a>
           </li>
-        </ul>
-      </nav>
-    </div>
+        {/each}
+      </ol>
+    </nav>
 
-    <div class="mt-12 space-y-14" aria-label="Grammar topics">
-      {#each groups as group (group)}
-        {@const topics = topicsFor(group)}
+    <div class="mt-20 grid gap-20 max-[600px]:mt-14 max-[600px]:gap-14">
+      {#each chapters as chapter (chapter.group)}
+        <section
+          id={groupAnchor[chapter.group]}
+          class="grid scroll-mt-24 gap-x-12 gap-y-6 lg:grid-cols-[15rem_minmax(0,1fr)]"
+          aria-labelledby="{groupAnchor[chapter.group]}-heading"
+        >
+          <div class="lg:sticky lg:top-24 lg:self-start">
+            <p
+              class="m-0 font-serif text-[3.25rem] leading-none text-blue-600/35 tabular-nums max-[600px]:text-[2.5rem]"
+              aria-hidden="true"
+            >
+              {chapter.number}
+            </p>
 
-        {#if topics.length}
-          <section
-            id={groupAnchor[group]}
-            class="scroll-mt-24"
-            aria-labelledby="{groupAnchor[group]}-heading"
+            <h2
+              id="{groupAnchor[chapter.group]}-heading"
+              class="m-0 mt-3 text-[1.75rem] leading-tight tracking-tight text-balance"
+            >
+              {chapter.group}
+            </h2>
+
+            <p
+              class="m-0 mt-2 max-w-[22rem] text-sm leading-relaxed text-pretty text-slate-600"
+            >
+              {groupPurpose[chapter.group]}
+            </p>
+
+            <p class="m-0 mt-3 text-xs text-slate-500 tabular-nums">
+              {chapter.topics.length}
+              {chapter.topics.length === 1 ? "topic" : "topics"}
+            </p>
+
+            {#if chapter.group === "Numbers"}
+              <TextLink
+                class="mt-4 inline-flex items-center gap-1 text-sm"
+                href="/grammar/telling-time#clock-drill"
+              >
+                Practice the clock <ArrowRight />
+              </TextLink>
+            {/if}
+          </div>
+
+          <ul
+            class="m-0 list-none divide-y divide-slate-200/70 overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border)"
           >
-            <div class="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-              <div>
-                <h2 id="{groupAnchor[group]}-heading" class="m-0 text-2xl tracking-tight">
-                  {group}
-                </h2>
+            {#each chapter.topics as topic (topic.slug)}
+              {@const example = topic.examples[0]}
 
-                <p
-                  class="m-0 mt-1 max-w-xl text-sm leading-snug text-pretty text-slate-600"
-                >
-                  {groupPurpose[group]}
-                </p>
-              </div>
-
-              {#if group === "Numbers"}
-                <TextLink
-                  class="inline-flex items-center gap-1 text-sm"
-                  href="/grammar/telling-time#clock-drill"
-                >
-                  Practice the clock <ArrowRight />
-                </TextLink>
-              {/if}
-            </div>
-
-            <ul class="m-0 grid list-none grid-cols-2 gap-4 p-0 max-[700px]:grid-cols-1">
-              {#each topics as topic (topic.slug)}
-                <li>
-                  <a class={topicCardClass} href="/grammar/{topic.slug}">
-                    <span class="flex items-start justify-between gap-4">
-                      <span class="min-w-0">
-                        <span
-                          class="block font-serif text-lg leading-snug font-semibold tracking-tight text-balance text-slate-900 group-hover:text-blue-800"
-                        >
-                          {sentenceCase(topic.english)}
-                        </span>
-
-                        <span
-                          class="mt-0.5 block font-serif text-[0.95rem] text-blue-800"
-                          lang="sk"
-                        >
-                          {topic.slovak}
-                        </span>
+              <li>
+                <a class={topicRowClass} href="/grammar/{topic.slug}">
+                  <span class="min-w-0">
+                    <span class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+                      <span
+                        class="font-serif text-xl leading-snug font-semibold tracking-tight text-slate-900 group-hover:text-blue-800"
+                      >
+                        {sentenceCase(topic.english)}
                       </span>
 
-                      <span class={topicArrowClass} aria-hidden="true">
-                        <ArrowRight />
+                      <span class="inline-flex items-baseline gap-2.5">
+                        <span class="font-serif text-base text-blue-800" lang="sk">
+                          {topic.slovak}
+                        </span>
+
+                        <ArrowRight class="text-slate-400 group-hover:text-blue-800" />
                       </span>
                     </span>
 
                     <span
-                      class="mt-3 line-clamp-2 text-sm leading-relaxed text-pretty text-slate-600"
+                      class="mt-1.5 block max-w-[46ch] text-sm leading-relaxed text-pretty text-slate-600"
                     >
                       {blurb(topic)}
                     </span>
-                  </a>
-                </li>
-              {/each}
-            </ul>
-          </section>
-        {/if}
+                  </span>
+
+                  {#if example}
+                    <span
+                      class="block border-slate-200 max-md:border-t max-md:pt-3 md:border-l md:py-1 md:pl-5"
+                    >
+                      <span
+                        class="block font-serif text-[0.98rem] leading-snug text-slate-900 italic"
+                        lang="sk"
+                      >
+                        {example.slovak}
+                      </span>
+
+                      <span class="mt-0.5 block text-xs leading-snug text-slate-500">
+                        {example.english}
+                      </span>
+                    </span>
+                  {/if}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        </section>
       {/each}
     </div>
   </PageShell>
