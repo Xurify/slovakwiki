@@ -67,12 +67,12 @@
 </script>
 
 <ul
-  class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-4 p-0"
+  class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3 p-0"
   aria-label="Clock examples for telling time"
 >
   {#each items as item, index (`${item.slovak}-${index}`)}
     <li
-      class="grid justify-items-center gap-2 border border-slate-200 bg-slate-50 px-3 py-4"
+      class="grid content-start justify-items-center gap-1.5 rounded-(--frame-radius) bg-surface px-3 py-4 shadow-(--shadow-border)"
     >
       <ClockIllustration
         hour={item.hour}
@@ -82,12 +82,15 @@
           : formatDigital({ hour: item.hour, minute: item.minute })}
         size={128}
       />
-      <strong class="text-center font-serif text-sm leading-snug text-blue-800" lang="sk">
+      <strong
+        class="mt-1 text-center font-serif text-[0.95rem] leading-snug text-slate-900"
+        lang="sk"
+      >
         {item.slovak}
       </strong>
       <span class="text-center text-xs leading-snug text-slate-500">{item.english}</span>
       {#if item.note}
-        <small class="text-center font-serif text-xs leading-snug text-slate-600">
+        <small class="text-center text-xs leading-snug text-emerald-800">
           {item.note}
         </small>
       {/if}

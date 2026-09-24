@@ -482,7 +482,8 @@ export const grammarEntries: GrammarTopic[] = [
       lines: [
         "ty máš · informal singular",
         "vy máte · formal singular or plural",
-        "Prepáč · informal / Prepáčte · formal",
+        "Prepáč · informal sorry",
+        "Prepáčte · formal sorry",
       ],
     },
     watchOut:
@@ -533,7 +534,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Negation attaches to the verb",
-      lines: ["mám → nemám", "rozumiem → nerozumiem", "Nie, ďakujem. → No, thank you."],
+      lines: ["mám → nemám", "rozumiem → nerozumiem", "Nie, ďakujem. · No, thank you."],
     },
     watchOut: "Double negation is normal in Slovak: Nikto nevolal means “Nobody called.”",
     nextSlug: "questions",

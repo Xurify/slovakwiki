@@ -1,14 +1,29 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
+  import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import GrammarPracticeCta from "$lib/components/reference/GrammarPracticeCta.svelte";
+  import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
+  import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
+  import GrammarTopicNeighbors from "$lib/components/reference/GrammarTopicNeighbors.svelte";
+  import GrammarTopicRail from "$lib/components/reference/GrammarTopicRail.svelte";
+  import GrammarTopicSection from "$lib/components/reference/GrammarTopicSection.svelte";
+  import {
+    grammarCardClass,
+    grammarEyebrowClass,
+    grammarRowsClass,
+  } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
+  import {
+    grammarGroupAnchor,
+    grammarNeighbors,
+  } from "$lib/catalog/reference/grammar-path";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
+  import { cx } from "$lib/ui/classes";
 
   interface RelatedEntry {
     english: string;
@@ -29,313 +44,190 @@
     clockDrill?: Snippet;
   } = $props();
 
-  const relatedWords = $derived(relatedEntries.filter((entry) => entry.kind === "word"));
-  const relatedTopics = $derived(relatedEntries.filter((entry) => entry.kind !== "word"));
+  const isTime = $derived(topic.slug === "telling-time");
+  const terms = $derived(topic.termSections ?? []);
+
+  const sections = $derived(
+    [
+      { id: "rule", label: "The rule", show: true },
+      { id: "cases", label: "The six cases", show: Boolean(topic.caseOverview) },
+      { id: "pattern", label: "Pattern", show: !topic.caseOverview },
+      { id: "terms", label: "Key labels", show: terms.length > 0 },
+      { id: "clock-faces", label: "Clock faces", show: isTime },
+      { id: "clock-drill", label: "Clock practice", show: isTime && Boolean(clockDrill) },
+      { id: "examples", label: "Examples", show: topic.examples.length > 0 },
+      { id: "watch-out", label: "Common mistake", show: true },
+    ].filter((section) => section.show),
+  );
+
+  const words = $derived(
+    relatedEntries
+      .filter((entry) => entry.kind === "word")
+      .map((entry) => ({
+        href: entry.href,
+        primary: entry.slovak,
+        secondary: entry.english,
+        slug: entry.slug,
+      })),
+  );
+
+  const topics = $derived(
+    relatedEntries
+      .filter((entry) => entry.kind !== "word")
+      .map((entry) => ({
+        href: entry.href,
+        primary: sentenceCase(entry.english),
+        secondary: entry.slovak,
+        slug: entry.slug,
+      })),
+  );
+
+  const neighbors = $derived(grammarNeighbors(topic.slug));
 </script>
 
-<main
-  class="mx-auto grid max-w-6xl grid-cols-[minmax(0,760px)_210px] justify-center gap-14 px-[30px] py-10 pb-[74px] max-[900px]:block max-[900px]:px-4 max-[900px]:py-8 max-[560px]:px-3 max-[560px]:py-7"
->
-  <article class="min-w-0">
-    <nav class="mb-5 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <a class="text-blue-800 underline underline-offset-2" href="/grammar">Grammar</a>
-      <span>/</span>
-      <span>{topic.pathGroup}</span>
-    </nav>
-
-    <header class="border-b border-slate-200 pb-7">
-      <h1>{sentenceCase(topic.english)}</h1>
-      <p class="mt-2 font-serif text-lg text-blue-800" lang="sk">{topic.slovak}</p>
-      <p class="mt-4 max-w-[66ch] font-serif text-lg text-slate-700">{topic.summary}</p>
-    </header>
-
-    <aside class="mt-6 border-l-4 border-blue-600 bg-blue-50 px-4 py-3">
-      <Eyebrow>Look for</Eyebrow>
-      <p class="mb-0 max-w-[66ch] font-serif leading-6 text-slate-700">{topic.lookFor}</p>
-    </aside>
-
-    {#if topic.lessonLink}
-      <aside class="mt-3 border-l-4 border-emerald-600 bg-emerald-50 px-4 py-3">
-        <Eyebrow>Lesson</Eyebrow>
-        <p class="mb-0 font-serif leading-6 text-slate-700">
-          See this form used in a short scene, then correct it yourself.
-        </p>
-        <a
-          class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-blue-800 underline underline-offset-2"
-          href={topic.lessonLink.href}
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[1080px]">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-x-12 lg:gap-y-12">
+      <header class="max-w-2xl lg:col-start-1">
+        <nav
+          class="mb-5 flex flex-wrap gap-2 text-xs text-slate-500"
+          aria-label="Breadcrumb"
         >
-          {topic.lessonLink.label}
-          <ArrowRight />
-        </a>
-      </aside>
-    {/if}
+          <TextLink href="/grammar">Grammar</TextLink>
+          <span aria-hidden="true">/</span>
+          <TextLink href="/grammar#{grammarGroupAnchor[topic.pathGroup]}">
+            {topic.pathGroup}
+          </TextLink>
+        </nav>
 
-    <section class="scroll-mt-[72px] pt-8">
-      <h2 id="rule-heading" class="mb-3 text-2xl">What changes</h2>
+        <h1 class="text-balance">{sentenceCase(topic.english)}</h1>
 
-      <ol class="m-0 grid list-none gap-2 p-0">
-        {#each topic.rule as paragraph (paragraph)}
-          <li class="border-l-4 border-blue-600 bg-slate-50 px-4 py-3">
-            <p class="mb-0 max-w-[66ch] font-serif leading-6 text-slate-700">
-              {paragraph}
-            </p>
-          </li>
-        {/each}
-      </ol>
-    </section>
+        <p class="m-0 mt-2 font-serif text-xl text-blue-800" lang="sk">{topic.slovak}</p>
 
-    {#if topic.slug === "telling-time"}
-      <section
-        class="scroll-mt-[72px] border-t border-slate-200 pt-8"
-        aria-labelledby="clock-grid-heading"
+        <Lead class="text-pretty">{topic.summary}</Lead>
+      </header>
+
+      <aside
+        class="flex flex-col gap-4 max-lg:order-1 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
+        aria-label="About this topic"
       >
-        <h2 id="clock-grid-heading" class="mb-3 text-2xl">See the time</h2>
-        <p class="mb-5 max-w-[66ch] font-serif leading-7 text-slate-700">
-          Match each face to the Slovak phrase. Quarters and halves name the hour ahead.
-        </p>
-        <ClockGrid />
-      </section>
+        <GrammarTopicRail {topic} {sections} {words} {topics} />
+      </aside>
 
-      {#if clockDrill}
-        <div class="mt-10">
-          {@render clockDrill()}
-        </div>
-      {/if}
-    {/if}
+      <div class="min-w-0 space-y-12 lg:col-start-1">
+        <GrammarTopicSection id="rule" title="The rule">
+          <ol class={cx(grammarCardClass, grammarRowsClass)}>
+            {#each topic.rule as paragraph, index (paragraph)}
+              <li class="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-3 px-5 py-4">
+                <span
+                  class="flex size-7 items-center justify-center rounded-full border-2 border-slate-300 font-serif text-xs font-semibold text-slate-500 tabular-nums"
+                  aria-hidden="true"
+                >
+                  {index + 1}
+                </span>
 
-    {#if topic.termSections && topic.termSections.length > 0}
-      <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <h2 id="terms-heading" class="mb-3 text-2xl">Key labels</h2>
+                <p
+                  class="m-0 max-w-[62ch] self-center font-serif text-[1.05rem] leading-relaxed text-pretty text-slate-900"
+                >
+                  {paragraph}
+                </p>
+              </li>
+            {/each}
+          </ol>
+        </GrammarTopicSection>
 
-        <dl class="m-0 grid gap-4">
-          {#each topic.termSections as section (section.id)}
-            <div
-              id={section.id}
-              class="scroll-mt-[88px] border-l-4 border-blue-600 bg-slate-50 px-4 py-3"
-            >
-              <dt class="font-serif text-lg font-semibold text-blue-800">
-                {section.title}
-              </dt>
-              <dd class="m-0 mt-1 max-w-[66ch] font-serif leading-6 text-slate-700">
-                {section.body}
-              </dd>
-            </div>
-          {/each}
-        </dl>
-      </section>
-    {/if}
-
-    {#if !topic.caseOverview}
-      <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <h2 id="pattern-heading" class="mb-3 text-balance text-2xl">
-          {topic.pattern.label}
-        </h2>
-
-        {#if topic.slug === "telling-time"}
-          <p class="mb-5 max-w-[66ch] font-serif leading-7 text-slate-700">
-            Green edge marks times that name the hour ahead.
-          </p>
+        {#if topic.caseOverview}
+          <GrammarTopicSection
+            id="cases"
+            title="The six cases"
+            intro="Learn the nominative first. Use the rest as a map of common roles, then open a case for its examples."
+          >
+            <GrammarCaseMap cases={topic.caseOverview} />
+          </GrammarTopicSection>
+        {:else}
+          <GrammarTopicSection
+            id="pattern"
+            title={topic.pattern.label}
+            intro={isTime
+              ? "Green rows name the hour you are heading toward."
+              : undefined}
+          >
+            <GrammarPatternList lines={topic.pattern.lines} withClocks={isTime} />
+          </GrammarTopicSection>
         {/if}
 
-        <div class="mt-5">
-          <GrammarPatternList
-            lines={topic.pattern.lines}
-            withClocks={topic.slug === "telling-time"}
-          />
-        </div>
-      </section>
-    {/if}
+        {#if terms.length > 0}
+          <GrammarTopicSection id="terms" title="Key labels">
+            <dl class={cx(grammarCardClass, "m-0 divide-y divide-slate-200/70")}>
+              {#each terms as term (term.id)}
+                <div id={term.id} class="scroll-mt-24 px-5 py-4 target:bg-blue-50/70">
+                  <dt class="font-serif text-lg font-semibold text-slate-900">
+                    {term.title}
+                  </dt>
 
-    {#if topic.caseOverview}
-      <section id="case-map" class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <h2 id="case-map-heading" class="mb-3 text-2xl">The six cases</h2>
-        <p class="mb-4 font-serif text-slate-500">
-          Learn the nominative first. Use the remaining rows as a map of common roles,
-          then open each case for examples.
-        </p>
-
-        <ol class="m-0 grid list-none grid-cols-2 gap-2 p-0 max-[560px]:grid-cols-1">
-          {#each topic.caseOverview as item (item.name)}
-            <li
-              class:col-span-full={Boolean(item.explanation)}
-              class="min-h-[104px] border border-slate-200 bg-slate-50 hover:bg-blue-50"
-            >
-              <a class="grid min-h-[102px] gap-1 p-3" href="/grammar/cases/{item.slug}">
-                <div class="flex justify-between gap-2">
-                  <strong class="font-serif text-blue-800 hover:underline"
-                    >{item.name}</strong
+                  <dd
+                    class="m-0 mt-1 max-w-[62ch] text-sm leading-relaxed text-slate-600"
                   >
-                  {#if item.role}
-                    <span class="text-xs text-slate-500">{item.role}</span>
-                  {/if}
+                    {term.body}
+                  </dd>
                 </div>
+              {/each}
+            </dl>
+          </GrammarTopicSection>
+        {/if}
 
-                {#if item.question}
-                  <p class="m-0 text-xs text-slate-500">
-                    {item.question}
-                  </p>
-                {/if}
-                {#if item.explanation}
-                  <small class="font-serif text-sm leading-5 text-slate-700">
-                    {item.explanation}
-                  </small>
-                {/if}
-                {#if item.researchPrompt}
-                  <small class="text-xs italic text-slate-500">
-                    Research: {item.researchPrompt}
-                  </small>
-                {/if}
-              </a>
-            </li>
-          {/each}
-        </ol>
-      </section>
-    {/if}
-
-    {#if !topic.caseOverview}
-      <section class="scroll-mt-[72px] border-t border-slate-200 pt-8">
-        <h2 id="examples-heading" class="mb-3 text-2xl">Examples</h2>
-
-        <ol class="mt-5 grid list-none gap-2 p-0">
-          {#each topic.examples as example (example.slovak)}
-            <li class="grid gap-1 border-l-4 border-blue-600 bg-slate-50 px-4 py-3">
-              <strong class="font-serif" lang="sk">{example.slovak}</strong>
-              <span class="text-sm text-slate-500">{example.english}</span>
-              {#if example.demonstrates}
-                <small class="max-w-[60ch] font-serif text-sm leading-5 text-slate-700">
-                  What this shows: {example.demonstrates}
-                </small>
-              {/if}
-              {#if example.practiceItemId}
-                <GrammarPracticeCta itemId={example.practiceItemId} />
-              {/if}
-            </li>
-          {/each}
-        </ol>
-      </section>
-    {/if}
-
-    <aside class="mt-7 border border-slate-300 bg-blue-50 p-4">
-      <Eyebrow>Note</Eyebrow>
-      <p class="mb-0 max-w-[66ch] font-serif leading-7 text-slate-700">
-        {topic.watchOut}
-      </p>
-    </aside>
-
-    <section
-      id="source"
-      class="scroll-mt-[72px] mt-10 border-t border-slate-200 pt-8"
-      aria-labelledby="source-heading"
-    >
-      <h2 id="source-heading" class="mb-3 text-2xl">Reference</h2>
-      <a
-        class="text-blue-800 underline underline-offset-2"
-        href={topic.source}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Jazykovedný ústav Ľudovíta Štúra SAV ↗
-      </a>
-      <p class="mt-3 text-sm text-slate-500">
-        Full attribution on
-        <a class="text-blue-800 underline underline-offset-2" href="/references"
-          >References</a
-        >.
-      </p>
-    </section>
-  </article>
-
-  <aside
-    class="sticky top-(--header-height) h-fit border-l border-slate-200 pl-5 max-[900px]:static max-[900px]:mt-9 max-[900px]:grid max-[900px]:grid-cols-2 max-[900px]:gap-8 max-[900px]:border-l-0 max-[900px]:border-t max-[900px]:pl-0 max-[900px]:pt-6 max-[560px]:grid-cols-1"
-  >
-    <section>
-      <Eyebrow compact tone="muted">In this topic</Eyebrow>
-      <a
-        class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-        href="#rule-heading"
-      >
-        Core rule
-      </a>
-      {#if topic.slug === "telling-time"}
-        <a
-          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-          href="#clock-grid-heading"
-        >
-          Clock faces
-        </a>
-        <a
-          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-          href="#clock-drill"
-        >
-          Clock practice
-        </a>
-      {/if}
-      {#if topic.termSections && topic.termSections.length > 0}
-        <a
-          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-          href="#terms-heading"
-        >
-          Key labels
-        </a>
-      {/if}
-      {#if topic.caseOverview}
-        <a
-          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-          href="#case-map"
-        >
-          Case map
-        </a>
-      {:else}
-        <a
-          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-          href="#pattern-heading"
-        >
-          Pattern
-        </a>
-        <a
-          class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-          href="#examples-heading"
-        >
-          Examples
-        </a>
-      {/if}
-      <a
-        class="block py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-        href="#source"
-      >
-        Source
-      </a>
-    </section>
-
-    {#if relatedWords.length}
-      <section>
-        <Eyebrow compact tone="muted">Words to know</Eyebrow>
-        {#each relatedWords as word (word.slug)}
-          <a
-            class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-            href={word.href}
-            lang="sk"
+        {#if isTime}
+          <GrammarTopicSection
+            id="clock-faces"
+            title="See the time"
+            intro="Match each face to the Slovak phrase. Quarters and halves name the hour ahead."
           >
-            {word.slovak}
-            <small class="text-xs text-slate-500">{word.english}</small>
-          </a>
-        {/each}
-      </section>
-    {/if}
+            <ClockGrid />
+          </GrammarTopicSection>
 
-    {#if relatedTopics.length}
-      <section>
-        <Eyebrow compact tone="muted">Related topics</Eyebrow>
-        {#each relatedTopics as entry (entry.slug)}
-          <a
-            class="grid gap-0.5 py-1.5 font-serif text-sm text-slate-700 hover:text-blue-800 hover:underline"
-            href={entry.href}
+          {#if clockDrill}
+            {@render clockDrill()}
+          {/if}
+        {/if}
+
+        {#if topic.examples.length > 0}
+          <GrammarTopicSection id="examples" title="Examples">
+            <GrammarExampleList examples={topic.examples} lookFor={topic.lookFor} />
+          </GrammarTopicSection>
+        {/if}
+
+        <section
+          id="watch-out"
+          class="scroll-mt-24 rounded-(--frame-radius) bg-rose-50/70 px-5 py-4 ring-1 ring-rose-200/70 ring-inset"
+          aria-labelledby="watch-out-heading"
+        >
+          <h2
+            id="watch-out-heading"
+            class="m-0 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-rose-800 uppercase"
           >
-            {entry.english}
-            <small class="text-xs text-slate-500">{entry.slovak}</small>
-          </a>
-        {/each}
-      </section>
-    {/if}
-  </aside>
+            Common mistake
+          </h2>
+
+          <p
+            class="m-0 mt-1.5 max-w-[62ch] font-serif text-[1.05rem] leading-relaxed text-pretty text-slate-900"
+          >
+            {topic.watchOut}
+          </p>
+        </section>
+
+        <p id="source" class="m-0 text-sm text-slate-500">
+          Source:
+          <TextLink href={topic.source} rel="noopener noreferrer" target="_blank">
+            Jazykovedný ústav Ľudovíta Štúra SAV ↗
+          </TextLink>
+          <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+          Full attribution on <TextLink href="/references">References</TextLink>.
+        </p>
+      </div>
+
+      <div class="min-w-0 max-lg:order-last lg:col-start-1">
+        <GrammarTopicNeighbors {neighbors} />
+      </div>
+    </div>
+  </PageShell>
 </main>
