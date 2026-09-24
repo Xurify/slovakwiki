@@ -72,7 +72,7 @@
 >
   {#each items as item, index (`${item.slovak}-${index}`)}
     <li
-      class="grid justify-items-center gap-2 rounded-(--frame-radius) bg-surface px-3 py-4 shadow-(--shadow-border)"
+      class="grid justify-items-center gap-2 border border-slate-200 bg-slate-50 px-3 py-4"
     >
       <ClockIllustration
         hour={item.hour}
