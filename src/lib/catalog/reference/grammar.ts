@@ -116,12 +116,12 @@ export const grammarEntries: GrammarTopic[] = [
     pattern: {
       label: "Čítať — to read",
       lines: [
-        "ja čítam",
-        "ty čítaš",
-        "on / ona číta",
-        "my čítame",
-        "vy čítate",
-        "oni / ony čítajú",
+        "ja čítam · I read",
+        "ty čítaš · you read (informal)",
+        "on / ona číta · he, she reads",
+        "my čítame · we read",
+        "vy čítate · you read (formal or plural)",
+        "oni / ony čítajú · they read",
       ],
     },
     watchOut:
@@ -168,12 +168,19 @@ export const grammarEntries: GrammarTopic[] = [
     pathGroup: "Verbs",
     order: 4,
     rule: [
-      "The present forms of byť are som, si, je, sme, ste, and sú.",
+      "Slovak usually leaves out the pronoun, because each form already says who is meant.",
       "Use byť for identity and location; use mať with rokov to state age.",
     ],
     pattern: {
-      label: "Byť — to be",
-      lines: ["ja som", "ty si", "on / ona / ono je", "my sme", "vy ste", "oni / ony sú"],
+      label: "Irregular — six forms to memorize",
+      lines: [
+        "ja som · I am",
+        "ty si · you are (informal)",
+        "on / ona / ono je · he, she, it is",
+        "my sme · we are",
+        "vy ste · you are (formal or plural)",
+        "oni / ony sú · they are",
+      ],
     },
     watchOut:
       "Do not translate English age with byť. Say Mám dvadsať rokov, literally “I have twenty years.”",
@@ -219,18 +226,18 @@ export const grammarEntries: GrammarTopic[] = [
     pathGroup: "Verbs",
     order: 5,
     rule: [
-      "The present forms of mať are mám, máš, má, máme, máte, and majú.",
+      "Use mať for possession and availability, much like English “have.”",
       "Use mať with rokov for age, and use máte for formal singular or plural you.",
     ],
     pattern: {
-      label: "Mať — to have",
+      label: "Long á in every form except majú",
       lines: [
-        "ja mám",
-        "ty máš",
-        "on / ona / ono má",
-        "my máme",
-        "vy máte",
-        "oni / ony majú",
+        "ja mám · I have",
+        "ty máš · you have (informal)",
+        "on / ona / ono má · he, she, it has",
+        "my máme · we have",
+        "vy máte · you have (formal or plural)",
+        "oni / ony majú · they have",
       ],
     },
     watchOut:

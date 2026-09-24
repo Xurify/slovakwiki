@@ -8,6 +8,8 @@ export interface ParadigmCell {
   /** Shared start of every form; empty when the verb is too irregular to split. */
   stem: string;
   ending: string;
+  /** English after ` · ` (ja som · I am). */
+  gloss?: string;
 }
 
 export interface PatternRow {
@@ -64,19 +66,25 @@ function commonPrefix(forms: readonly string[]): string {
 function parseParadigm(lines: readonly string[]): PatternView | undefined {
   if (lines.length !== PERSONS.length) return undefined;
 
-  const pairs = lines.map((line) => PARADIGM_LINE.exec(line));
-  const matched = pairs.every(
-    (match, index) => match !== null && PERSONS[index]!.test(match[1]!),
+  const split = lines.map((line) => {
+    const [head = "", ...glossParts] = line.split(" · ");
+    return {
+      match: PARADIGM_LINE.exec(head),
+      gloss: glossParts.length > 0 ? glossParts.join(" · ") : undefined,
+    };
+  });
+  const matched = split.every(
+    ({ match }, index) => match !== null && PERSONS[index]!.test(match[1]!),
   );
   if (!matched) return undefined;
 
-  const forms = pairs.map((match) => match![2]!);
+  const forms = split.map(({ match }) => match![2]!);
   const prefix = commonPrefix(forms);
   const stem = prefix.length >= MIN_STEM ? prefix : "";
 
-  const cells = pairs.map((match) => {
+  const cells: ParadigmCell[] = split.map(({ match, gloss }) => {
     const form = match![2]!;
-    return { pronoun: match![1]!, form, stem, ending: form.slice(stem.length) };
+    return { pronoun: match![1]!, form, stem, ending: form.slice(stem.length), gloss };
   });
 
   return { kind: "paradigm", singular: cells.slice(0, 3), plural: cells.slice(3) };

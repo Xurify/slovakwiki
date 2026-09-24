@@ -40,6 +40,17 @@ describe("parsePattern", () => {
     }
   });
 
+  it("reads an English gloss after ` · ` on each person", () => {
+    const view = patternFor("byt-present");
+    if (view.kind !== "paradigm") throw new Error("expected paradigm");
+
+    expect(view.singular.map((cell) => [cell.pronoun, cell.form, cell.gloss])).toEqual([
+      ["ja", "som", "I am"],
+      ["ty", "si", "you are (informal)"],
+      ["on / ona / ono", "je", "he, she, it is"],
+    ]);
+  });
+
   it("pairs gender endings with the example that shows them", () => {
     const view = patternFor("grammatical-gender");
     expect(view.kind).toBe("tiles");

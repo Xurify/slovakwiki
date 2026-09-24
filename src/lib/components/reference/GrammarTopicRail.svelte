@@ -47,7 +47,7 @@
 </script>
 
 <article class={grammarCardClass} aria-label="Topic at a glance">
-  <div class="relative h-36 overflow-hidden border-b border-slate-200/70">
+  <div class="relative h-44 overflow-hidden border-b border-slate-200/70">
     <img
       src={motifArtSrc(grammarMotifId(topic.slug))}
       alt=""

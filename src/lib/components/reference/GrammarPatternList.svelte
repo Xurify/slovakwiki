@@ -157,28 +157,32 @@
     {/each}
   </ul>
 {:else if view?.kind === "paradigm"}
-  <div class="grid grid-cols-2 divide-x divide-slate-200/70">
+  <div class="grid divide-slate-200/70 max-sm:divide-y sm:grid-cols-2 sm:divide-x">
     {#each [{ label: "Singular", cells: view.singular }, { label: "Plural", cells: view.plural }] as column (column.label)}
-      <div class="min-w-0">
-        <p class={cx(grammarEyebrowClass, "px-6 pt-4 pb-1 max-[480px]:px-4")}>
-          {column.label}
-        </p>
+      <div class="min-w-0 px-6 pt-4 pb-4 max-[480px]:px-4">
+        <p class={grammarEyebrowClass}>{column.label}</p>
 
-        <ul class="m-0 list-none p-0 pb-3">
+        <ul class="m-0 mt-2 grid list-none grid-cols-[auto_minmax(0,1fr)] gap-x-5 p-0">
           {#each column.cells as cell (cell.pronoun)}
-            <li
-              class="flex flex-wrap items-baseline gap-x-3 px-6 py-2 max-[480px]:px-4"
-              lang="sk"
-            >
-              <span class="w-14 shrink-0 text-sm text-slate-500 max-[480px]:w-auto">
+            <li class="col-span-2 grid grid-cols-subgrid items-baseline py-2">
+              <span class="text-sm whitespace-nowrap text-slate-500" lang="sk">
                 {cell.pronoun}
               </span>
 
-              <span class="font-serif text-2xl leading-snug text-slate-900">
-                {#if cell.stem && cell.ending}
-                  {cell.stem}<span class={grammarEndingClass}>{cell.ending}</span>
-                {:else}
-                  {cell.form}
+              <span class="min-w-0">
+                <span
+                  class="block font-serif text-[1.75rem] leading-tight font-semibold text-slate-900"
+                  lang="sk"
+                >
+                  {#if cell.stem && cell.ending}
+                    {cell.stem}<span class={grammarEndingClass}>{cell.ending}</span>
+                  {:else}
+                    {cell.form}
+                  {/if}
+                </span>
+
+                {#if cell.gloss}
+                  <span class="mt-0.5 block text-xs text-slate-500">{cell.gloss}</span>
                 {/if}
               </span>
             </li>

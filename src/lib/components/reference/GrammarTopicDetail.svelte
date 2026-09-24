@@ -98,7 +98,9 @@
 
         <h1 class="text-balance">{sentenceCase(topic.english)}</h1>
 
-        <p class="m-0 mt-2 font-serif text-xl text-blue-800" lang="sk">{topic.slovak}</p>
+        <p class="m-0 mt-2 font-serif text-2xl text-blue-800 sm:text-[1.75rem]" lang="sk">
+          {topic.slovak}
+        </p>
 
         <Lead class="text-pretty">{topic.summary}</Lead>
       </header>
