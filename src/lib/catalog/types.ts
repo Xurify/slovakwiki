@@ -115,6 +115,8 @@ export interface CaseTopic {
   body: string[];
   examples: Example[];
   name: string;
+  /** Slovak grammar term for the case (genitív). */
+  slovakName: string;
   question: string;
   researchPrompts: string[];
   slug: string;

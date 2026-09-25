@@ -5,6 +5,7 @@ export const caseTopics: CaseTopic[] = [
   {
     slug: "nominative",
     name: "Nominative",
+    slovakName: "nominatív",
     question: "Kto? Čo? · Who? What?",
     summary:
       "The nominative names the subject: the person, thing, or idea doing the action.",
@@ -34,6 +35,7 @@ export const caseTopics: CaseTopic[] = [
   {
     slug: "genitive",
     name: "Genitive",
+    slovakName: "genitív",
     question: "Koho? Čoho? · Whose? Of what?",
     summary:
       "The genitive marks possession, amounts, absence, and several common prepositional relationships.",
@@ -63,6 +65,7 @@ export const caseTopics: CaseTopic[] = [
   {
     slug: "dative",
     name: "Dative",
+    slovakName: "datív",
     question: "Komu? Čomu? · To whom? To what?",
     summary:
       "The dative marks the person or thing that receives, benefits from, or is affected by an action.",
@@ -92,6 +95,7 @@ export const caseTopics: CaseTopic[] = [
   {
     slug: "accusative",
     name: "Accusative",
+    slovakName: "akuzatív",
     question: "Koho? Čo? · Whom? What?",
     summary:
       "The accusative marks the direct object: the person or thing directly affected by an action.",
@@ -121,6 +125,7 @@ export const caseTopics: CaseTopic[] = [
   {
     slug: "locative",
     name: "Locative",
+    slovakName: "lokál",
     question: "O kom? O čom? · About whom? About what?",
     summary:
       "The locative is used after selected prepositions for location and for talking about a person or topic.",
@@ -155,6 +160,7 @@ export const caseTopics: CaseTopic[] = [
   {
     slug: "instrumental",
     name: "Instrumental",
+    slovakName: "inštrumentál",
     question: "S kým? S čím? · With whom? With what?",
     summary:
       "The instrumental marks company, tools, and other means, especially after s or so.",
