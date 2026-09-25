@@ -71,25 +71,32 @@
           .map((part) => part.trim())
           .filter(Boolean),
   );
-  const showHeroUsageGap = $derived(
-    multiSense || senseViews.some((sense) => sense.entry.body.length > 0),
-  );
+
+  const headingClass = "m-0 font-serif text-xl tracking-tight text-slate-900";
+  const subheadingClass = "m-0 font-serif text-lg tracking-tight text-slate-900";
+  const proseClass =
+    "m-0 max-w-[66ch] text-[1.02rem] leading-relaxed text-pretty text-slate-700";
 
   function onlyPracticeFrames(examples: Example[]): boolean {
     return examples.length > 0 && examples.every((example) => example.isPracticeFrame);
   }
 
   /** First N examples for the page; extras stay in data for later picking. */
-  function visibleExampleItems(
-    examples: Example[],
-  ): { example: Example; index: number }[] {
-    const limit = Math.min(EXAMPLE_DISPLAY_LIMIT, examples.length);
-    const items: { example: Example; index: number }[] = [];
-    for (let index = 0; index < limit; index += 1) {
-      items.push({ example: examples[index]!, index });
-    }
-    return items;
-  }
+  const exampleItemsBySense = $derived.by(() => {
+    const shown = new Set<string>();
+    return senseViews.map((sense) => {
+      const examples = sense.entry.examples;
+      const limit = Math.min(EXAMPLE_DISPLAY_LIMIT, examples.length);
+      const items: { example: Example; index: number }[] = [];
+      for (let index = 0; index < limit; index += 1) {
+        const example = examples[index]!;
+        if (shown.has(example.slovak)) continue;
+        items.push({ example, index });
+      }
+      for (const item of items) shown.add(item.example.slovak);
+      return items;
+    });
+  });
 
   function groupExamplesByPattern(
     items: { example: Example; index: number }[],
@@ -189,45 +196,38 @@
         </ul>
       {/if}
 
-      <div class="mt-5 flex flex-wrap items-center gap-x-2.5 gap-y-2">
+      <p
+        class="mt-5 m-0 flex flex-wrap items-center gap-x-2 gap-y-1 font-sans text-sm text-panel-inverse-ink/60"
+      >
         {#if multiSense}
-          <span class="text-sm text-panel-inverse-ink/55">
-            {senseViews.map((sense) => sense.entry.category).join(" · ")}
-          </span>
+          <span>{senseViews.map((sense) => sense.entry.category).join(" · ")}</span>
         {:else}
-          <span
-            class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-panel-inverse-ink/80"
-          >
-            {entry.category}
-          </span>
+          <span class="font-semibold text-panel-inverse-ink/85">{entry.category}</span>
 
           {#if entry.frequency}
+            <span aria-hidden="true">·</span>
             <a
-              class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tabular-nums text-panel-inverse-ink/80 transition-colors hover:border-panel-inverse-ink/45 hover:bg-panel-inverse-ink/10"
+              class="text-panel-inverse-ink/70 underline decoration-panel-inverse-ink/25 decoration-dotted underline-offset-4 hover:text-panel-inverse-ink hover:decoration-panel-inverse-ink/60"
               href={`/dictionary/common/${entry.frequency.partOfSpeech}`}
             >
-              #{entry.frequency.rank}
-              {FREQUENCY_PART_OF_SPEECH_LABEL[entry.frequency.partOfSpeech]}
+              <span class="tabular-nums">#{entry.frequency.rank}</span>
+              among common {FREQUENCY_PART_OF_SPEECH_LABEL[
+                entry.frequency.partOfSpeech
+              ].toLowerCase()}
             </a>
           {/if}
 
           {#if entry.register}
-            <span
-              class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-panel-inverse-ink/80"
-            >
-              {REGISTER_CHIP_LABEL[entry.register]}
-            </span>
+            <span aria-hidden="true">·</span>
+            <span class="italic">{REGISTER_CHIP_LABEL[entry.register]}</span>
           {/if}
 
           {#if entry.dialect}
-            <span
-              class="rounded-(--control-radius) border border-panel-inverse-ink/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-panel-inverse-ink/80"
-            >
-              {DIALECT_CHIP_LABEL}
-            </span>
+            <span aria-hidden="true">·</span>
+            <span class="italic">{DIALECT_CHIP_LABEL}</span>
           {/if}
         {/if}
-      </div>
+      </p>
     </PageShell>
 
     {#if multiSense}
@@ -250,108 +250,134 @@
           </nav>
         </PageShell>
       </div>
-    {:else}
-      <div class="border-t border-panel-inverse-ink/12">
-        <PageShell class="max-w-[880px]">
-          <nav
-            class="flex flex-wrap gap-x-5 gap-y-1 py-2.5 text-sm text-panel-inverse-ink/50"
-            aria-label="On this page"
-          >
-            <a class="hover:text-panel-inverse-ink" href="#lookups">Elsewhere</a>
-            {#if image}
-              <a class="hover:text-panel-inverse-ink" href="#image">Image</a>
-            {/if}
-            {#if entry.body.length > 0}
-              <a class="hover:text-panel-inverse-ink" href="#usage">Usage</a>
-            {/if}
-            {#if entry.examples.length > 0}
-              <a class="hover:text-panel-inverse-ink" href="#examples">Examples</a>
-            {/if}
-            {#if relatedEntries.length > 0}
-              <a class="hover:text-panel-inverse-ink" href="#related">Related</a>
-            {/if}
-            <a class="hover:text-panel-inverse-ink" href="#source">Source</a>
-          </nav>
-        </PageShell>
-      </div>
     {/if}
   </section>
 
-  <PageShell
-    class={`max-w-[880px] ${showHeroUsageGap ? "pt-10 max-[760px]:pt-8" : "pt-8 max-[760px]:pt-6"}`}
-  >
-    <article class="min-w-0">
-      <ExternalLookups
-        class="mb-10"
-        lemma={entry.slovak}
-        dialect={senseViews.some((sense) => sense.entry.dialect === true)}
-      />
+  {#snippet exampleRow(
+    item: { example: Example; index: number },
+    audioSrcs: string[],
+    senseIndex: number,
+  )}
+    <li
+      class="group/row grid grid-cols-[2rem_1fr_auto] items-start gap-x-3 border-t border-slate-200 py-3.5 first:border-t-0 first:pt-0 max-[560px]:grid-cols-[2rem_1fr]"
+    >
+      <span class="grid h-7 place-items-center">
+        {#if audioSrcs[item.index]}
+          <span
+            class="inline-grid size-7 place-items-center"
+            data-audio-mount={`s${senseIndex}-e${item.index}`}
+          ></span>
+        {:else}
+          <span class="text-xs tabular-nums text-slate-400" aria-hidden="true">
+            {item.index + 1}
+          </span>
+        {/if}
+      </span>
 
-      {#if image}
-        <section
-          id="image"
-          class="mb-10 scroll-mt-[88px]"
-          aria-labelledby="image-heading"
+      <div class="min-w-0">
+        <p
+          class="m-0 font-serif text-[1.15rem] leading-snug text-slate-900 text-pretty"
+          lang="sk"
         >
-          <h2 id="image-heading" class="mb-3 text-xl">{image.caption}</h2>
+          {#each highlightLemma(item.example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
+            {#if part.hit}
+              <span class="font-semibold text-blue-800">{part.text}</span>
+            {:else}
+              {part.text}
+            {/if}
+          {/each}
+        </p>
 
-          <figure class="m-0 max-w-[22rem]">
-            <div
-              class="overflow-hidden rounded-(--control-radius) border border-slate-200 bg-slate-50"
-            >
-              <img
-                alt={image.caption}
-                class="block h-auto w-full object-cover"
-                decoding="async"
-                height="280"
-                loading="lazy"
-                src={image.src}
-                width="352"
-              />
-            </div>
+        <p class="m-0 mt-1 text-[0.95rem] leading-snug text-slate-600">
+          {item.example.english}
+        </p>
+      </div>
 
-            <figcaption class="mt-2 text-xs leading-snug text-slate-500">
-              {#if image.artist}
-                <span>{image.artist}</span>
-                {#if image.license}
-                  <span aria-hidden="true"> · </span>
-                {/if}
-              {/if}
+      {#if item.example.isPracticeFrame}
+        <span
+          class="pt-1 text-xs text-slate-400 max-[560px]:col-start-2 max-[560px]:pt-1.5"
+        >
+          Practice frame
+        </span>
+      {:else if item.example.note === "Tatoeba" && item.example.tatoebaId}
+        <a
+          class="pt-1 text-xs tabular-nums text-slate-400 no-underline opacity-0 transition-opacity group-hover/row:opacity-100 hover:text-blue-800 focus-visible:opacity-100 max-[560px]:col-start-2 max-[560px]:pt-1.5 max-[560px]:opacity-100"
+          href={`https://tatoeba.org/sentences/show/${item.example.tatoebaId}`}
+          rel="noopener noreferrer"
+          target="_blank"
+          title="View on Tatoeba"
+        >
+          Tatoeba #{item.example.tatoebaId}
+        </a>
+      {/if}
+    </li>
+  {/snippet}
 
-              {#if image.license}
-                {#if image.licenseUrl}
-                  <a
-                    class="underline decoration-slate-300 hover:text-slate-800"
-                    href={image.licenseUrl}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {image.license}
-                  </a>
-                {:else}
-                  <span>{image.license}</span>
-                {/if}
-              {/if}
+  <PageShell class="max-w-[880px] pt-10 max-[760px]:pt-8">
+    <article class="min-w-0">
+      {#if image}
+        <figure id="image" class="m-0 mb-10 max-w-[22rem] scroll-mt-[88px]">
+          <div
+            class="overflow-hidden rounded-(--control-radius) border border-slate-200 bg-slate-50"
+          >
+            <img
+              alt={image.caption}
+              class="block h-auto w-full object-cover"
+              decoding="async"
+              height="280"
+              loading="lazy"
+              src={image.src}
+              width="352"
+            />
+          </div>
 
-              {#if image.sourcePageUrl}
-                <span aria-hidden="true"> · </span>
+          <figcaption class="mt-2 text-xs leading-snug text-slate-500">
+            <span class="text-slate-700">{image.caption}</span>
+
+            {#if image.artist}
+              <span aria-hidden="true"> · </span>
+              <span>{image.artist}</span>
+            {/if}
+
+            {#if image.license}
+              <span aria-hidden="true"> · </span>
+              {#if image.licenseUrl}
                 <a
-                  class="underline decoration-slate-300 hover:text-slate-800"
-                  href={image.sourcePageUrl}
+                  class="underline decoration-slate-300 hover:text-blue-800"
+                  href={image.licenseUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Wikimedia
+                  {image.license}
                 </a>
+              {:else}
+                <span>{image.license}</span>
               {/if}
-            </figcaption>
-          </figure>
-        </section>
+            {/if}
+
+            {#if image.sourcePageUrl}
+              <span aria-hidden="true"> · </span>
+              <a
+                class="underline decoration-slate-300 hover:text-blue-800"
+                href={image.sourcePageUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Wikimedia
+              </a>
+            {/if}
+          </figcaption>
+        </figure>
       {/if}
 
       {#each senseViews as sense, senseIndex (sense.entry.slug)}
         {@const senseEntry = sense.entry}
         {@const hasUsage = senseEntry.body.length > 0}
+        {@const summary =
+          senseEntry.summary &&
+          senseEntry.summary !== `${senseEntry.slovak} means “${senseEntry.english}.”`
+            ? senseEntry.summary
+            : undefined}
         {@const sectionId = multiSense
           ? senseSectionId(senseEntry.category)
           : hasUsage
@@ -361,193 +387,120 @@
           ? `${senseSectionId(senseEntry.category)}-examples`
           : "examples"}
         {@const practiceOnly = onlyPracticeFrames(senseEntry.examples)}
+        {@const visibleItems = exampleItemsBySense[senseIndex] ?? []}
+        {@const grouped = visibleItems.some((item) => item.example.demonstrates)}
         {@const sectionLabelId = multiSense
           ? `${sectionId}-heading`
           : hasUsage
             ? "usage-heading"
-            : senseEntry.examples.length > 0
+            : visibleItems.length > 0
               ? `${examplesId}-heading`
               : undefined}
 
         <section
           id={sectionId}
           class={`scroll-mt-[88px] ${
-            multiSense && senseIndex > 0 ? "mt-12 border-t border-slate-200 pt-12" : ""
+            multiSense && senseIndex > 0 ? "mt-14 border-t border-slate-200 pt-10" : ""
           }`}
           aria-labelledby={sectionLabelId}
         >
           {#if multiSense}
-            <h2 id={`${sectionId}-heading`} class="mb-2">{senseEntry.category}</h2>
-            <p class="font-serif text-lg text-blue-800">
-              <GlossWithTerms text={senseEntry.english} />
+            <p
+              class="m-0 mb-1 text-xs font-semibold tracking-wide text-slate-500 uppercase"
+            >
+              Sense {senseIndex + 1}
             </p>
 
+            <h2 id={`${sectionId}-heading`} class={headingClass}>
+              {senseEntry.category}
+              <span class="font-sans text-base font-normal text-slate-600">
+                — <GlossWithTerms text={senseEntry.english} />
+              </span>
+            </h2>
+
             {#if senseEntry.frequency}
-              <p class="mt-3 text-sm text-slate-500">
-                Among the most common Slovak {FREQUENCY_PART_OF_SPEECH_LABEL[
-                  senseEntry.frequency.partOfSpeech
-                ].toLowerCase()} (#{senseEntry.frequency.rank}).
-                <TextLink href={`/dictionary/common/${senseEntry.frequency.partOfSpeech}`}
-                  >Browse the list</TextLink
+              <p class="m-0 mt-2 text-sm text-slate-500">
+                <TextLink
+                  href={`/dictionary/common/${senseEntry.frequency.partOfSpeech}`}
                 >
+                  #{senseEntry.frequency.rank} among common {FREQUENCY_PART_OF_SPEECH_LABEL[
+                    senseEntry.frequency.partOfSpeech
+                  ].toLowerCase()}
+                </TextLink>
               </p>
-            {/if}
-
-            {#if senseEntry.summary && senseEntry.summary !== `${senseEntry.slovak} means “${senseEntry.english}.”`}
-              <p
-                class="mt-4 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700"
-              >
-                {senseEntry.summary}
-              </p>
-            {/if}
-
-            {#if hasUsage}
-              <div class="mt-8">
-                <h3 class="mb-4 text-xl">How to use it</h3>
-                {#each senseEntry.body as paragraph, index (index)}
-                  <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
-                    {paragraph}
-                  </p>
-                {/each}
-              </div>
-            {/if}
-          {:else}
-            {#if entry.summary && entry.summary !== `${entry.slovak} means “${entry.english}.”`}
-              <p
-                class="mb-8 max-w-[66ch] font-serif text-lg leading-relaxed text-slate-700"
-              >
-                {entry.summary}
-              </p>
-            {/if}
-
-            {#if hasUsage}
-              <h2 id="usage-heading" class="mb-4">How to use it</h2>
-
-              {#each senseEntry.body as paragraph, index (index)}
-                <p class="max-w-[66ch] font-serif leading-7 text-slate-700">
-                  {paragraph}
-                </p>
-              {/each}
             {/if}
           {/if}
 
-          {#if senseEntry.examples.length > 0}
-            {@const visibleItems = visibleExampleItems(senseEntry.examples)}
+          {#if summary}
+            <p class={`${proseClass} ${multiSense ? "mt-4" : ""}`}>{summary}</p>
+          {/if}
+
+          {#if hasUsage}
+            <div class={summary || multiSense ? "mt-8" : ""}>
+              {#if multiSense}
+                <h3 class={subheadingClass}>How to use it</h3>
+              {:else}
+                <h2 id="usage-heading" class={headingClass}>How to use it</h2>
+              {/if}
+
+              <div class="mt-3 grid gap-3">
+                {#each senseEntry.body as paragraph, index (index)}
+                  <p class={proseClass}>{paragraph}</p>
+                {/each}
+              </div>
+            </div>
+          {/if}
+
+          {#if visibleItems.length > 0}
             <div
               id={examplesId}
-              class={`scroll-mt-[88px] ${hasUsage ? "mt-10" : multiSense ? "mt-8" : ""}`}
-              aria-labelledby={`${examplesId}-heading`}
+              class={`scroll-mt-[88px] ${summary || hasUsage || multiSense ? "mt-10" : ""}`}
             >
-              <h3 id={`${examplesId}-heading`} class="mb-4 text-xl">
-                {practiceOnly ? "Try this pattern" : "In a sentence"}
-              </h3>
+              {#if multiSense}
+                <h3 id={`${examplesId}-heading`} class={subheadingClass}>
+                  {practiceOnly ? "Try this pattern" : "Examples"}
+                </h3>
+              {:else}
+                <h2 id={`${examplesId}-heading`} class={headingClass}>
+                  {practiceOnly ? "Try this pattern" : "Examples"}
+                </h2>
+              {/if}
 
               {#if practiceOnly}
-                <p class="mb-5 max-w-[60ch] text-sm text-slate-500">
+                <p class="m-0 mt-1 max-w-[60ch] text-sm text-slate-500">
                   A simple practice frame while a corpus example is unavailable.
                 </p>
               {/if}
 
-              {#if visibleItems.some((item) => item.example.demonstrates)}
-                <div class="grid gap-8">
+              {#if grouped}
+                <div class="mt-5 grid gap-7">
                   {#each groupExamplesByPattern(visibleItems) as group (group.label)}
                     <div>
-                      <p class="mb-3 text-xs font-semibold tracking-wide text-slate-500">
+                      <p
+                        class="m-0 mb-3 border-b border-slate-200 pb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase"
+                      >
                         {group.label}
                       </p>
-                      <ul class="m-0 grid list-none gap-5 p-0">
+
+                      <ol class="m-0 list-none p-0">
                         {#each group.items as item (`${item.example.slovak}-${item.index}`)}
-                          <li class="border-l-2 border-blue-600/60 pl-4">
-                            <p
-                              class="m-0 font-serif text-[1.1rem] leading-snug text-slate-900"
-                              lang="sk"
-                            >
-                              {#each highlightLemma(item.example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
-                                {#if part.hit}
-                                  <span class="font-semibold text-blue-900"
-                                    >{part.text}</span
-                                  >
-                                {:else}
-                                  {part.text}
-                                {/if}
-                              {/each}{#if sense.exampleAudioSrcs[item.index]}
-                                <span
-                                  class="ml-3 inline-grid size-7 shrink-0 align-middle"
-                                  data-audio-mount={`s${senseIndex}-e${item.index}`}
-                                ></span>
-                              {/if}
-                            </p>
-                            <p class="mt-1 m-0 text-sm leading-relaxed text-slate-500">
-                              {item.example.english}
-                            </p>
-                            {#if item.example.isPracticeFrame}
-                              <p class="mt-1 m-0 text-xs text-slate-400">
-                                Practice frame
-                              </p>
-                            {:else if item.example.note === "Tatoeba" && item.example.tatoebaId}
-                              <p class="mt-1 m-0 text-xs text-slate-400">
-                                <a
-                                  class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
-                                  href={`https://tatoeba.org/sentences/show/${item.example.tatoebaId}`}
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                >
-                                  Tatoeba #{item.example.tatoebaId}
-                                </a>
-                              </p>
-                            {/if}
-                          </li>
+                          {@render exampleRow(item, sense.exampleAudioSrcs, senseIndex)}
                         {/each}
-                      </ul>
+                      </ol>
                     </div>
                   {/each}
                 </div>
               {:else}
-                <ul class="m-0 grid list-none gap-5 p-0">
+                <ol class="m-0 mt-5 list-none p-0">
                   {#each visibleItems as item (`${item.example.slovak}-${item.index}`)}
-                    <li class="border-l-2 border-blue-600/60 pl-4">
-                      <p
-                        class="m-0 font-serif text-[1.1rem] leading-snug text-slate-900"
-                        lang="sk"
-                      >
-                        {#each highlightLemma(item.example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
-                          {#if part.hit}
-                            <span class="font-semibold text-blue-900">{part.text}</span>
-                          {:else}
-                            {part.text}
-                          {/if}
-                        {/each}{#if sense.exampleAudioSrcs[item.index]}
-                          <span
-                            class="ml-3 inline-grid size-7 shrink-0 align-middle"
-                            data-audio-mount={`s${senseIndex}-e${item.index}`}
-                          ></span>
-                        {/if}
-                      </p>
-                      <p class="mt-1 m-0 text-sm leading-relaxed text-slate-500">
-                        {item.example.english}
-                      </p>
-                      {#if item.example.isPracticeFrame}
-                        <p class="mt-1 m-0 text-xs text-slate-400">Practice frame</p>
-                      {:else if item.example.note === "Tatoeba" && item.example.tatoebaId}
-                        <p class="mt-1 m-0 text-xs text-slate-400">
-                          <a
-                            class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
-                            href={`https://tatoeba.org/sentences/show/${item.example.tatoebaId}`}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                          >
-                            Tatoeba #{item.example.tatoebaId}
-                          </a>
-                        </p>
-                      {/if}
-                    </li>
+                    {@render exampleRow(item, sense.exampleAudioSrcs, senseIndex)}
                   {/each}
-                </ul>
+                </ol>
               {/if}
 
               {#if visibleItems.some((item) => item.example.note === "Tatoeba")}
-                <p class="mt-5 text-xs text-slate-500">
-                  Examples from
+                <p class="m-0 mt-4 text-xs text-slate-500">
+                  Sentences from
                   <a
                     class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
                     href="https://tatoeba.org/"
@@ -565,23 +518,33 @@
       {#if relatedEntries.length}
         <section
           id="related"
-          class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-10"
+          class="mt-14 scroll-mt-[88px]"
           aria-labelledby="related-heading"
         >
-          <h2 id="related-heading" class="mb-5">Related</h2>
-          <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+          <h2 id="related-heading" class={headingClass}>Related words</h2>
+
+          <ul
+            class="m-0 mt-4 grid list-none grid-cols-2 gap-x-8 border-t border-slate-200 p-0 max-[560px]:grid-cols-1"
+          >
             {#each relatedEntries as relatedEntry (relatedEntry.slug)}
-              <li>
+              <li class="border-b border-slate-200">
                 <a
-                  class="inline-flex max-w-full flex-col gap-0.5 rounded-(--control-radius) border border-slate-200 bg-slate-50 px-3.5 py-2.5 transition-colors hover:border-blue-800 hover:bg-blue-50"
+                  class="group flex items-baseline gap-3 py-3 no-underline"
                   href={relatedEntry.href}
                 >
-                  <strong class="font-serif text-sm text-slate-900" lang="sk">
+                  <span
+                    class="shrink-0 font-serif text-[1.1rem] font-semibold text-slate-900 group-hover:text-blue-800"
+                    lang="sk"
+                  >
                     {relatedEntry.slovak}
-                  </strong>
-                  <span class="truncate text-xs text-slate-500">
+                  </span>
+                  <span class="min-w-0 flex-1 truncate text-sm text-slate-600">
                     {relatedEntry.english}
                   </span>
+                  <span
+                    class="shrink-0 text-slate-300 transition-colors group-hover:text-blue-800"
+                    aria-hidden="true">→</span
+                  >
                 </a>
               </li>
             {/each}
@@ -589,21 +552,24 @@
         </section>
       {/if}
 
-      <section
-        id="source"
-        class="scroll-mt-[88px] mt-12 border-t border-slate-200 pt-8"
-        aria-labelledby="source-heading"
-      >
-        <h2 id="source-heading" class="mb-1 text-base font-semibold">Source</h2>
-        <TextLink href={entry.source}>{sourceLabel} ↗</TextLink>
-        {#if entry.sourceNote}
-          <p class="mt-1 max-w-[60ch] text-sm text-slate-500">{entry.sourceNote}</p>
-        {/if}
-        <p class="mt-2 text-sm text-slate-500">
-          Full attribution on
-          <TextLink href="/references">References</TextLink>.
-        </p>
-      </section>
+      <footer class="mt-14 grid gap-10 border-t border-slate-200 pt-10">
+        <ExternalLookups
+          lemma={entry.slovak}
+          dialect={senseViews.some((sense) => sense.entry.dialect === true)}
+        />
+
+        <section id="source" class="scroll-mt-[88px]" aria-labelledby="source-heading">
+          <h2 id="source-heading" class="sr-only">Source</h2>
+          <p class="m-0 max-w-[66ch] text-sm leading-relaxed text-slate-500">
+            Source:
+            <TextLink href={entry.source}>{sourceLabel} ↗</TextLink>.
+            {#if entry.sourceNote}
+              {entry.sourceNote}
+            {/if}
+            Full attribution on <TextLink href="/references">References</TextLink>.
+          </p>
+        </section>
+      </footer>
     </article>
   </PageShell>
 
