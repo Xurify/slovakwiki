@@ -1,6 +1,4 @@
 <script lang="ts">
-  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-
   import type { CaseReference } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
 
@@ -9,7 +7,7 @@
     current,
   }: {
     cases: CaseReference[];
-    /** Slug of the case being read, highlighted in the list. */
+    /** Slug of the case being read, marked in the list. */
     current?: string;
   } = $props();
 
@@ -27,23 +25,19 @@
     <li class="border-b border-slate-200">
       <a
         class={cx(
-          "group grid grid-cols-[2.25rem_minmax(0,1fr)_auto] items-baseline gap-x-4 py-5 no-underline max-[560px]:grid-cols-[1.75rem_minmax(0,1fr)]",
+          "group grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-x-3 py-2.5 no-underline",
           here && "pointer-events-none",
         )}
         href="/grammar/cases/{item.slug}"
         aria-current={here ? "page" : undefined}
       >
-        <span
-          class="font-serif text-[1.35rem] leading-none font-semibold tracking-[-0.05em] text-slate-300 tabular-nums"
-        >
-          {index + 1}
-        </span>
+        <span class="text-sm text-slate-400 tabular-nums">{index + 1}</span>
 
         <span class="min-w-0">
           <span class="flex flex-wrap items-baseline gap-x-3">
             <strong
               class={cx(
-                "font-serif text-[1.3rem] font-semibold tracking-[-0.025em]",
+                "font-serif text-lg font-semibold",
                 here ? "text-blue-800" : "text-slate-900 group-hover:text-blue-800",
               )}
             >
@@ -51,33 +45,24 @@
             </strong>
 
             {#if question.sk}
-              <span class="font-serif text-[1.02rem] text-slate-700" lang="sk">
-                {question.sk}
-              </span>
+              <span class="font-serif text-slate-700" lang="sk">{question.sk}</span>
             {/if}
 
             {#if question.en}
-              <span class="text-[0.85rem] text-slate-500">{question.en}</span>
+              <span class="text-sm text-slate-500">{question.en}</span>
+            {/if}
+
+            {#if here}
+              <span class="text-xs font-semibold text-blue-800">You are here</span>
+            {:else if item.role}
+              <span class="text-sm text-slate-500">{item.role}</span>
             {/if}
           </span>
 
           {#if item.explanation}
-            <span
-              class="mt-1.5 block max-w-[62ch] text-[0.9rem] leading-relaxed text-pretty text-slate-600"
-            >
+            <span class="mt-0.5 block text-sm leading-relaxed text-slate-600">
               {item.explanation}
             </span>
-          {/if}
-        </span>
-
-        <span
-          class="flex items-center gap-2 font-sans text-[0.64rem] font-bold tracking-[0.12em] whitespace-nowrap text-slate-500 uppercase max-[560px]:col-start-2 max-[560px]:mt-2"
-        >
-          {#if here}
-            <span class="text-blue-800">You are here</span>
-          {:else}
-            {item.role}
-            <ArrowRight class="text-slate-400 group-hover:text-blue-800" />
           {/if}
         </span>
       </a>
