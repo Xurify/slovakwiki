@@ -524,27 +524,23 @@
           <h2 id="related-heading" class={headingClass}>Related words</h2>
 
           <ul
-            class="m-0 mt-4 grid list-none grid-cols-2 gap-x-8 border-t border-slate-200 p-0 max-[560px]:grid-cols-1"
+            class="m-0 mt-4 grid list-none grid-cols-[max-content_1fr] gap-x-6 gap-y-1 p-0 max-[560px]:gap-x-4"
           >
             {#each relatedEntries as relatedEntry (relatedEntry.slug)}
-              <li class="border-b border-slate-200">
+              <li class="col-span-2 grid grid-cols-subgrid">
                 <a
-                  class="group flex items-baseline gap-3 py-3 no-underline"
+                  class="group col-span-2 grid grid-cols-subgrid items-baseline rounded-(--control-radius) py-1 no-underline"
                   href={relatedEntry.href}
                 >
                   <span
-                    class="shrink-0 font-serif text-[1.1rem] font-semibold text-slate-900 group-hover:text-blue-800"
+                    class="font-serif text-[1.1rem] font-semibold text-slate-900 underline decoration-transparent underline-offset-4 transition-colors group-hover:text-blue-800 group-hover:decoration-blue-800/40"
                     lang="sk"
                   >
                     {relatedEntry.slovak}
                   </span>
-                  <span class="min-w-0 flex-1 truncate text-sm text-slate-600">
+                  <span class="text-[0.95rem] text-slate-600">
                     {relatedEntry.english}
                   </span>
-                  <span
-                    class="shrink-0 text-slate-300 transition-colors group-hover:text-blue-800"
-                    aria-hidden="true">→</span
-                  >
                 </a>
               </li>
             {/each}
