@@ -523,11 +523,11 @@
         >
           <h2 id="related-heading" class={headingClass}>Related words</h2>
 
-          <ul class="m-0 mt-4 flex list-none flex-wrap gap-2 p-0">
+          <ul class="m-0 mt-4 flex list-none flex-wrap gap-2.5 p-0">
             {#each relatedEntries as relatedEntry (relatedEntry.slug)}
               <li>
                 <a
-                  class="inline-flex items-baseline gap-2 rounded-full border border-slate-300 bg-surface px-3 py-1.5 no-underline shadow-(--shadow-border) transition-colors hover:border-blue-800 hover:bg-blue-50"
+                  class="flex h-full min-w-[8.5rem] flex-col gap-1 rounded-(--control-radius) border border-slate-200 bg-surface px-3.5 py-2.5 no-underline shadow-(--shadow-border) transition-colors hover:border-blue-800 hover:bg-blue-50"
                   href={relatedEntry.href}
                 >
                   <span
@@ -536,7 +536,9 @@
                   >
                     {relatedEntry.slovak}
                   </span>
-                  <span class="text-sm text-slate-600">{relatedEntry.english}</span>
+                  <span class="text-[0.8125rem] leading-snug text-slate-500">
+                    {relatedEntry.english}
+                  </span>
                 </a>
               </li>
             {/each}
