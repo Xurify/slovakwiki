@@ -72,6 +72,20 @@
           .filter(Boolean),
   );
 
+  const relatedColumns = $derived(
+    relatedEntries.length === 4 ? 2 : Math.min(3, Math.max(1, relatedEntries.length)),
+  );
+  const relatedGridClass = $derived(
+    relatedColumns === 1
+      ? "grid-cols-1 max-w-sm"
+      : relatedColumns === 2
+        ? "grid-cols-2"
+        : "grid-cols-3",
+  );
+  const relatedFillerCount = $derived(
+    (relatedColumns - (relatedEntries.length % relatedColumns)) % relatedColumns,
+  );
+
   const headingClass = "m-0 font-serif text-xl tracking-tight text-slate-900";
   const subheadingClass = "m-0 font-serif text-lg tracking-tight text-slate-900";
   const proseClass =
@@ -524,25 +538,33 @@
           <h2 id="related-heading" class={headingClass}>Related words</h2>
 
           <ul
-            class="m-0 mt-4 grid list-none grid-cols-[max-content_1fr] gap-x-6 gap-y-1 p-0 max-[560px]:gap-x-4"
+            class={`m-0 mt-4 grid list-none gap-px overflow-hidden rounded-(--control-radius) bg-slate-200 p-0 ring-1 ring-slate-200 max-[560px]:max-w-none max-[560px]:grid-cols-1 ${relatedGridClass}`}
           >
             {#each relatedEntries as relatedEntry (relatedEntry.slug)}
-              <li class="col-span-2 grid grid-cols-subgrid">
+              <li class="flex bg-surface">
                 <a
-                  class="group col-span-2 grid grid-cols-subgrid items-baseline rounded-(--control-radius) py-1 no-underline"
+                  class="group relative flex w-full flex-col gap-1 px-4 py-3.5 pr-10 no-underline transition-colors hover:bg-subtle focus-visible:z-10"
                   href={relatedEntry.href}
                 >
                   <span
-                    class="font-serif text-[1.1rem] font-semibold text-slate-900 underline decoration-transparent underline-offset-4 transition-colors group-hover:text-blue-800 group-hover:decoration-blue-800/40"
+                    class="font-serif text-[1.2rem] leading-tight font-semibold text-slate-900 transition-colors group-hover:text-blue-800"
                     lang="sk"
                   >
                     {relatedEntry.slovak}
                   </span>
-                  <span class="text-[0.95rem] text-slate-600">
+                  <span class="text-sm leading-snug text-slate-600">
                     {relatedEntry.english}
                   </span>
+                  <span
+                    class="absolute top-3.5 right-4 text-slate-300 transition-all group-hover:translate-x-0.5 group-hover:text-blue-800"
+                    aria-hidden="true">→</span
+                  >
                 </a>
               </li>
+            {/each}
+
+            {#each { length: relatedFillerCount } as _, index (index)}
+              <li class="bg-surface max-[560px]:hidden" aria-hidden="true"></li>
             {/each}
           </ul>
         </section>
