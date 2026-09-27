@@ -148,15 +148,15 @@
       class="relative max-w-[880px] pt-10 pb-11 max-[760px]:pt-7 max-[760px]:pb-8"
     >
       <nav
-        class="mb-8 flex gap-2 text-[0.7rem] tracking-[0.04em] text-panel-inverse-ink/50"
+        class="mb-8 flex items-baseline gap-2 text-[0.8125rem] leading-none text-panel-inverse-ink/55"
         aria-label="Breadcrumb"
       >
-        <TextLink
-          class="text-panel-inverse-ink/70 decoration-panel-inverse-ink/25 hover:text-panel-inverse-ink"
+        <a
+          class="text-panel-inverse-ink/80 underline decoration-panel-inverse-ink/30 underline-offset-[3px] hover:text-panel-inverse-ink"
           href="/dictionary"
         >
           Dictionary
-        </TextLink>
+        </a>
         <span aria-hidden="true">/</span>
         <span lang="sk">{entry.slovak}</span>
       </nav>
