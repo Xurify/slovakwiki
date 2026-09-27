@@ -137,15 +137,11 @@
     ></div>
 
     <span
-      class="pointer-events-none absolute top-1/2 right-0 w-[46%] -translate-y-1/2 overflow-hidden select-none max-[900px]:hidden"
+      class="pointer-events-none absolute -right-4 -bottom-10 -z-10 font-serif text-[min(42vw,18rem)] leading-none text-panel-inverse-ink/4 select-none"
       aria-hidden="true"
+      lang="sk"
     >
-      <span
-        class="block pl-[10%] font-serif text-[clamp(6.5rem,13vw,10.5rem)] leading-none font-medium tracking-[-0.04em] whitespace-nowrap text-panel-inverse-ink/12"
-        lang="sk"
-      >
-        {entry.slovak}
-      </span>
+      {entry.slovak.slice(0, 1)}
     </span>
 
     <PageShell
