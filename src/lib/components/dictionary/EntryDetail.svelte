@@ -132,21 +132,27 @@
     aria-labelledby="lemma-heading"
   >
     <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,color-mix(in_srgb,var(--accent)_28%,transparent),transparent_55%),radial-gradient(ellipse_at_90%_80%,color-mix(in_srgb,var(--panel-inverse-ink)_8%,transparent),transparent_50%)]"
+      class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--panel-inverse-ink)_7%,transparent),transparent_42%),radial-gradient(ellipse_at_100%_130%,color-mix(in_srgb,var(--accent)_26%,transparent),transparent_46%)]"
       aria-hidden="true"
     ></div>
 
     <span
-      class="pointer-events-none absolute -bottom-10 -right-4 -z-10 select-none font-serif text-[min(42vw,18rem)] leading-none text-panel-inverse-ink/4"
+      class="pointer-events-none absolute top-1/2 right-0 w-[46%] -translate-y-1/2 overflow-hidden select-none max-[900px]:hidden"
       aria-hidden="true"
-      lang="sk"
     >
-      {entry.slovak.slice(0, 1)}
+      <span
+        class="block pl-[10%] font-serif text-[clamp(6.5rem,13vw,10.5rem)] leading-none font-medium tracking-[-0.04em] whitespace-nowrap text-panel-inverse-ink/12"
+        lang="sk"
+      >
+        {entry.slovak}
+      </span>
     </span>
 
-    <PageShell class="relative max-w-[880px] pt-8 pb-9 max-[760px]:pt-6 max-[760px]:pb-7">
+    <PageShell
+      class="relative max-w-[880px] pt-10 pb-11 max-[760px]:pt-7 max-[760px]:pb-8"
+    >
       <nav
-        class="mb-7 flex gap-2 text-xs text-panel-inverse-ink/55"
+        class="mb-8 flex gap-2 text-[0.7rem] tracking-[0.04em] text-panel-inverse-ink/50"
         aria-label="Breadcrumb"
       >
         <TextLink
@@ -159,30 +165,32 @@
         <span lang="sk">{entry.slovak}</span>
       </nav>
 
-      <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+      <div class="flex flex-wrap items-end gap-x-4 gap-y-3">
         <h1
           id="lemma-heading"
-          class="m-0 font-serif text-[clamp(2.5rem,7vw,4.25rem)] leading-[0.95] text-panel-inverse-ink"
+          class="m-0 font-serif text-[clamp(3rem,6.2vw,4.5rem)] leading-[0.9] font-medium tracking-[-0.035em] text-panel-inverse-ink"
           lang="sk"
         >
           {entry.slovak}
         </h1>
 
         {#if lemmaAudioSrc}
-          <span class="inline-grid size-12 shrink-0 align-middle" data-audio-mount="lemma"
+          <span
+            class="mb-1.5 inline-grid size-12 shrink-0 align-middle"
+            data-audio-mount="lemma"
           ></span>
         {/if}
       </div>
 
       {#if multiSense || glossSenses.length <= 1}
         <p
-          class="mt-4 max-w-[42ch] font-serif text-[1.25rem] leading-snug text-panel-inverse-ink/80"
+          class="mt-3 max-w-[36ch] font-serif text-[1.35rem] leading-snug text-panel-inverse-ink/75 italic"
         >
           <GlossWithTerms text={heroGloss} variant="inverse" />
         </p>
       {:else}
         <ul
-          class="mt-4 m-0 grid list-none gap-1.5 p-0 font-serif text-[1.2rem] leading-snug text-panel-inverse-ink/80"
+          class="mt-3 m-0 grid list-none gap-1.5 p-0 font-serif text-[1.3rem] leading-snug text-panel-inverse-ink/75 italic"
         >
           {#each glossSenses as sense, index (sense)}
             <li class="flex gap-2.5">
@@ -197,7 +205,7 @@
       {/if}
 
       <p
-        class="mt-5 m-0 flex flex-wrap items-center gap-x-2 gap-y-1 font-sans text-sm text-panel-inverse-ink/60"
+        class="mt-7 m-0 flex max-w-[36rem] flex-wrap items-center gap-x-2 gap-y-1 border-t border-panel-inverse-ink/15 pt-3.5 font-sans text-[0.8125rem] text-panel-inverse-ink/60"
       >
         {#if multiSense}
           <span>{senseViews.map((sense) => sense.entry.category).join(" · ")}</span>
