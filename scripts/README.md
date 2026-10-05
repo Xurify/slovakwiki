@@ -95,7 +95,7 @@ ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 
 Needs `ELEVENLABS_API_KEY` in `.env`. Then `bun scripts/audio/upload.ts` before prod (R2). Generate locally even if upload is later.
 
-| `generate.ts` | `bun scripts/audio/generate.ts` | Writes MP3s in **lemma → example → lesson** order; default `--concurrency 16` (Pro Flash ≈20 — see [`content/audio/README.md`](../content/audio/README.md#elevenlabs-plans--concurrency)); `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` caps concurrency at 4 |
+| `generate.ts` | `bun scripts/audio/generate.ts` | Writes MP3s in **lemma → example → lesson** order; default `--concurrency 8` (v4 group `standard_eleven_v4` — see [`content/audio/README.md`](../content/audio/README.md#elevenlabs-plans--concurrency)); `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` caps concurrency at 4 |
 | `voice-design.ts` | `bun scripts/audio/voice-design.ts` | ElevenLabs Voice Design → `tmp/voice-design/`; `--create` saves preview to library + patches `characters` in config |
 | `upload.ts` | `bun scripts/audio/upload.ts` | Parallel R2 sync to `audio/{kind}/`; `--lemmas-only` / `--examples-only` / `--lessons-only` / `--force` / `--only`; needs `R2_*` |
 | `migrate-r2-prefix.ts` | `bun scripts/audio/migrate-r2-prefix.ts` | Copy bucket-root `{kind}/` → `audio/{kind}/`; `--delete-source` after prod is on new URLs |
@@ -114,7 +114,7 @@ Generate lesson clips: `bun scripts/audio/generate.ts -- --lessons-only`. After 
 
 Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
 
-**QA / accuracy:** Default TTS is `eleven_flash_v2_5` + `language_code: sk`. Ultra-short homographs may use a synth-text override (`dictionaryLemmaSynthText`). `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
+**QA / accuracy:** Default TTS is `eleven_v4` + `language_code: sk`. Ultra-short homographs may use a synth-text override (`dictionaryLemmaSynthText`). `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
 
 ## `images/`
 

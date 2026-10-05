@@ -32,8 +32,8 @@ export const VOICE_PREVIEW_LINES: Record<LessonCharacterId, VoicePreviewLine> = 
     sampleEnglish: "Good day. Are you here for registration?",
   },
   narrator: {
-    sampleSlovak: "Dobrý deň. Vitajte na slovak.wiki.",
-    sampleEnglish: "Good day. Welcome to slovak.wiki.",
+    sampleSlovak: "Dobrý deň. Vitajte na slovak.wiki",
+    sampleEnglish: "Good day. Welcome to slovak.wiki",
   },
   receptionist: {
     sampleSlovak: "Dobrý deň. Ste Alex?",

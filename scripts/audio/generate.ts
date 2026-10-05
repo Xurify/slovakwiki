@@ -5,7 +5,7 @@
  * Usage:
  *   bun scripts/audio/generate.ts
  *   bun scripts/audio/generate.ts -- --lemmas-only --force
- *   bun scripts/audio/generate.ts -- --concurrency 16 --lemmas-only --force
+ *   bun scripts/audio/generate.ts -- --concurrency 8 --lemmas-only --force
  *   bun scripts/audio/generate.ts -- --examples-only --missing-only --offset 0 --limit 1000
  *   bun scripts/audio/generate.ts -- --force --verify --stt elevenlabs --concurrency 4
  */

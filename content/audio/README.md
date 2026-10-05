@@ -23,10 +23,11 @@ All dictionary + lesson synthesis uses the top-level block in `config.json`:
 | Field          | Value                                                                                    |
 | -------------- | ---------------------------------------------------------------------------------------- |
 | Provider       | ElevenLabs                                                                               |
-| Model          | `eleven_flash_v2_5`                                                                      |
+| Model          | `eleven_v4`                                                                              |
 | Language hint  | `sk`                                                                                     |
 | Format         | `mp3_44100_128`                                                                          |
-| Voice settings | stability `0.65`, similarityBoost `0.75`, style `0.15`, speed `0.88`, useSpeakerBoost    |
+| Voice settings | stability `0.65`, similarityBoost `0.75`, speed `0.88`                                   |
+|                | v4 ignores `style` and `useSpeakerBoost` (still stored; they stay in the hash).          |
 |                | Narration-leaning (clearer, slower) — not max-expressiveness. Change → new hash → regen. |
 
 Hash material includes provider + voiceId + model + settings + normalized text. Change voice or settings → new hash → regen.
@@ -47,19 +48,19 @@ Limits are **concurrent in-flight TTS requests**, not requests-per-minute. Over 
 | Business               |                        30 |                                  15 |                                 6M |
 | Enterprise             |                  Elevated |                            Elevated |                             Custom |
 
-**Generate defaults:** `--concurrency 16` (Pro Flash headroom under 20). With `--verify`, script caps at **4** so Scribe STT does not starve TTS.
+**Generate defaults:** `--concurrency 8`. Eleven v4 uses concurrency group `standard_eleven_v4` (not the Flash 2× bucket). With `--verify`, script caps at **4** so Scribe STT does not starve TTS.
 
 **Bulk regen tips (Pro):**
 
 ```bash
-# Lemmas only (~5.5k) — usually <15 min @ concurrency 16
+# Lemmas only (~5.5k)
 bun scripts/audio/generate.ts -- --lemmas-only --force
 
-# Full dictionary+lessons (~23k) — usually <1 h; skip --verify on bulk
-bun scripts/audio/generate.ts -- --force --concurrency 16
+# Full dictionary+lessons (~23k) — skip --verify on bulk
+bun scripts/audio/generate.ts -- --force --concurrency 8
 ```
 
-Credits ≈ characters billed per model (Flash is cheaper/char than Multilingual v2). Spot-check remaining credits in the ElevenLabs dashboard before a full `--force` run.
+Credits ≈ characters billed per model (`eleven_v4` token cost factor is 1). Spot-check remaining credits in the ElevenLabs dashboard before a full `--force` run. Model change invalidates every clip hash — existing Flash files will not match until regen.
 
 ### Official docs (source of truth — numbers drift)
 
@@ -69,7 +70,7 @@ Credits ≈ characters billed per model (Flash is cheaper/char than Multilingual
 | Models + concurrency table | [Models overview](https://elevenlabs.io/docs/overview/models)                                                                                            |
 | Why concurrency ≠ RPM      | [AI rate limiting for voice](https://elevenlabs.io/blog/ai-rate-limiting-for-voice)                                                                      |
 | Plans / credits / pricing  | [elevenlabs.io/pricing](https://elevenlabs.io/pricing)                                                                                                   |
-| Flash v2.5 model           | [Models overview](https://elevenlabs.io/docs/overview/models)                                                                                            |
+| Eleven v4                  | [Models overview](https://elevenlabs.io/docs/overview/models)                                                                                            |
 
 Re-check the help article before changing `--concurrency` after a plan upgrade/downgrade.
 
@@ -127,8 +128,8 @@ Mint a new Voice Design take, then point `voiceId` here and regen lesson clips f
 | `lesson`  | `static/audio/lesson/{hash}.mp3`  | `audio/lesson/{hash}.mp3`  | Scene + key phrases  |
 
 ```bash
-bun scripts/audio/generate.ts                    # dictionary + lessons (lemma→example→lesson; concurrency 16)
-bun scripts/audio/generate.ts -- --concurrency 16 --lemmas-only --force
+bun scripts/audio/generate.ts                    # dictionary + lessons (lemma→example→lesson; concurrency 8)
+bun scripts/audio/generate.ts -- --concurrency 8 --lemmas-only --force
 bun scripts/audio/generate.ts -- --lessons-only  # lesson targets only
 bun scripts/audio/generate.ts -- --lessons-only --force  # rewrite lesson clips after voice change
 bun scripts/audio/generate.ts -- --examples-only --missing-only  # fill gaps only
@@ -140,9 +141,9 @@ bun scripts/audio/voice-design.ts -- --create --pick 0   # save preview + patch 
 bun scripts/audio/status.ts -- --lessons-only
 ```
 
-Pro Flash concurrency max ≈20 — default `--concurrency 16`. Use `--concurrency 4` with `--verify`. Full plan table + official links: [ElevenLabs plans + concurrency](#elevenlabs-plans--concurrency).
+Default `--concurrency 8` (v4 is not the Flash 2× bucket). Use `--concurrency 4` with `--verify`. Full plan table + official links: [ElevenLabs plans + concurrency](#elevenlabs-plans--concurrency).
 
-**Recommended bulk Flash regen (Pro):**
+**Recommended bulk v4 regen (Pro):**
 
 ```bash
 # 1) Headwords first (~5.5k) — site listen buttons

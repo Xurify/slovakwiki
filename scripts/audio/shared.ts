@@ -319,8 +319,11 @@ export function collectLemmaTextSet(): Set<string> {
   return lemmas;
 }
 
-/** Pro Flash concurrency is 20 — leave headroom unless overridden. */
-export const DEFAULT_AUDIO_CONCURRENCY = 16;
+/**
+ * Eleven v4 is concurrency group `standard_eleven_v4`, not the Flash 2× bucket.
+ * Pro Flash was ~20; leave headroom under a standard cap unless overridden.
+ */
+export const DEFAULT_AUDIO_CONCURRENCY = 8;
 /** R2 PUTs are lighter than TTS — higher default. */
 export const DEFAULT_UPLOAD_CONCURRENCY = 32;
 
@@ -374,7 +377,7 @@ export function parseArgs(
     else if (arg === "--concurrency") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 1) {
-        throw new Error("--concurrency requires a positive number (Pro Flash max ≈20)");
+        throw new Error("--concurrency requires a positive number");
       }
       concurrency = Math.min(32, Math.floor(value));
       i += 1;
@@ -489,6 +492,11 @@ export async function mapPool<T>(
   await Promise.all(Array.from({ length: limit }, () => runWorker()));
 }
 
+/** Eleven v4 family ignores style and speaker boost. */
+function isElevenV4(modelId: string): boolean {
+  return modelId === "eleven_v4" || modelId === "eleven_v4_turbo";
+}
+
 export interface SynthesizeOptions {
   languageCode?: string;
   modelId?: string;
@@ -517,16 +525,21 @@ export async function synthesizeElevenLabs(
 
   if (!options.omitVoiceSettings) {
     const settings = options.voiceSettings ?? config.voiceSettings;
-    body.voice_settings = {
+    const voiceSettings: Record<string, unknown> = {
       stability: settings.stability,
       similarity_boost: settings.similarityBoost,
-      style: settings.style,
       speed: options.speed ?? settings.speed,
-      use_speaker_boost: settings.useSpeakerBoost,
     };
+    // GET /v1/models: eleven_v4 and eleven_v4_turbo set can_use_style and
+    // can_use_speaker_boost to false. Speed still goes out (study pace).
+    if (!isElevenV4(modelId)) {
+      voiceSettings.style = settings.style;
+      voiceSettings.use_speaker_boost = settings.useSpeakerBoost;
+    }
+    body.voice_settings = voiceSettings;
   }
 
-  // language_code is ignored by multilingual_v2; required for flash/turbo/v3 SK.
+  // language_code is ignored by multilingual_v2; used by v4 / flash / turbo / v3.
   if (languageCode && modelId !== "eleven_multilingual_v2") {
     body.language_code = languageCode;
   }

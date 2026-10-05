@@ -3,7 +3,7 @@
   "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
   "voiceName": "Slovak Wiki Dictionary Neutral",
   "defaultCharacterId": "narrator",
-  "modelId": "eleven_flash_v2_5",
+  "modelId": "eleven_v4",
   "languageCode": "sk",
   "outputFormat": "mp3_44100_128",
   "voiceSettings": {

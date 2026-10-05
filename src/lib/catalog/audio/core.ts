@@ -32,7 +32,7 @@ export interface AudioConfig {
   characters?: Record<string, AudioCharacter>;
   /** Roster id whose voiceId/voiceName must match top-level dictionary defaults. */
   defaultCharacterId?: string;
-  /** ISO 639-1 hint — used by Flash/Turbo/v3; ignored by multilingual_v2. */
+  /** ISO 639-1 hint — used by v4 / Flash / Turbo / v3; ignored by multilingual_v2. */
   languageCode?: string;
   modelId: string;
   outputFormat: string;

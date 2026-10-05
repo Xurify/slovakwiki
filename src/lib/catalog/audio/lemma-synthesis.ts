@@ -10,7 +10,7 @@ export const ELEVENLABS_VOICE_DEFAULT_SETTINGS = {
 } as const;
 
 /**
- * Bare homographs Flash may misread without a SK cue.
+ * Bare homographs the TTS model may misread without a SK cue.
  * Display lemma unchanged; only TTS input changes.
  */
 const SYNTH_TEXT_OVERRIDES: Record<string, string> = {
