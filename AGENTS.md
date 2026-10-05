@@ -23,7 +23,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 
 ### Scripts (`scripts/`)
 
-`bun run typecheck` (`astro check`) typechecks **`scripts/**` as well as `src/`**. Husky pre-commit runs it after Prettier — new or edited scripts must pass before commit.
+`bun run typecheck` (`astro check`) typechecks **`scripts/**` as well as `src/`**. Husky pre-commit runs it after Prettier when the commit stages `src/` or `scripts/` code (or `package.json`, `tsconfig.json`, `astro.config.ts`, `svelte.config.js`, `eslint.config.js`). Manifest and other content-only commits skip it. New or edited scripts must still pass `bun run typecheck` before commit.
 
 **Copy existing patterns; don't invent Bun-only APIs.**
 
@@ -242,7 +242,7 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
   - many files changed in one pass, or
   - types, exports, shared helpers, content loaders, learning/session logic, Astro pages/islands, or package scripts/config likely shifted
   - **any** new or edited file under `scripts/` (see **Scripts** above — mandatory)
-  - Skip for tiny copy-only or pure Tailwind class tweaks if `format` already ran. Fix failures before finishing — pre-commit runs `bun run check`; CI does not (only `format:check`).
+  - Skip for tiny copy-only or pure Tailwind class tweaks if `format` already ran. Fix failures before finishing — pre-commit runs `bun run check` only when staged files include `src/` or `scripts/` code (or root TS/Astro config); CI does not (only `format:check`).
 
 ## Checklist before finishing UI work
 

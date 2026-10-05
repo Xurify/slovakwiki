@@ -1,3 +1,8 @@
 bunx lint-staged
 bun run format:check
-bun run check
+
+# astro check is ~20s and CI does not run it. Content-only commits skip it.
+# sh -e: a no-match grep must stay inside `if` or the hook aborts.
+if git diff --cached --name-only --diff-filter=ACMRD | grep -Eq '^(src/|scripts/).+\.(astro|cjs|js|json|mjs|svelte|ts|tsx)$|^(astro\.config\.ts|eslint\.config\.js|package\.json|svelte\.config\.js|tsconfig\.json)$'; then
+  bun run check
+fi

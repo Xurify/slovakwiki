@@ -18,6 +18,9 @@ content/dictionary/related-clusters.json
 content/dictionary/curated-examples.json
 content/frequency/
 static/frequency/
+# Gitignored generated trees. Prettier still walks them unless listed here.
+static/audio/
+static/pagefind/
 content/images/manifest.json
 content/images/visual-audit.json
 scripts/images/judge-thumbs/
