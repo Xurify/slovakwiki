@@ -7,6 +7,7 @@
  *   bun scripts/audio/generate.ts -- --lemmas-only --force
  *   bun scripts/audio/generate.ts -- --concurrency 8 --lemmas-only --force
  *   bun scripts/audio/generate.ts -- --examples-only --missing-only --offset 0 --limit 1000
+ *   bun scripts/audio/generate.ts -- --force --model eleven_flash_v2_5 --concurrency 16
  *   bun scripts/audio/generate.ts -- --force --verify --stt elevenlabs --concurrency 4
  */
 
@@ -58,6 +59,7 @@ async function main(): Promise<void> {
     lessonsOnly,
     limit,
     missingOnly,
+    model,
     offset,
     only,
     slugs,
@@ -68,6 +70,7 @@ async function main(): Promise<void> {
     whisperModel,
   } = parseArgs(process.argv.slice(2));
   const config = await loadConfig();
+  if (model) config.modelId = model;
   const manifest = await loadManifest();
   await ensureAudioDir();
 
@@ -158,6 +161,25 @@ async function main(): Promise<void> {
       `${missingOnly ? ", missing-only" : ""})`,
   );
 
+  async function synthesizeWithRateLimitRetry(
+    run: () => Promise<Uint8Array>,
+  ): Promise<Uint8Array> {
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      try {
+        return await run();
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        const rateLimited = /429|rate|too_many_concurrent/i.test(message);
+        if (!rateLimited || attempt === 7) throw error;
+        rateLimitHits += 1;
+        const waitMs = Math.min(20_000, 1000 * 2 ** attempt);
+        console.error(`Rate limited — waiting ${waitMs}ms…`);
+        await sleep(waitMs);
+      }
+    }
+    throw new Error("ElevenLabs rate limit retries exhausted");
+  }
+
   async function processTarget(target: AudioTarget): Promise<void> {
     const voiceConfig = target.voiceConfig ?? config;
     const hash = hashAudioText(target.text, voiceConfig);
@@ -222,15 +244,12 @@ async function main(): Promise<void> {
       }
 
       for (const attempt of attempts) {
-        audio = await synthesizeElevenLabs(
-          target.synthText ?? target.text,
-          voiceConfig,
-          apiKey,
-          {
+        audio = await synthesizeWithRateLimitRetry(() =>
+          synthesizeElevenLabs(target.text, voiceConfig, apiKey, {
             modelId: attempt.modelId,
             seed: attempt.seed,
             languageCode: voiceConfig.languageCode,
-          },
+          }),
         );
         await writeFile(filePath, audio);
 

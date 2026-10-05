@@ -7,7 +7,6 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/catalog/entries";
-import { dictionaryLemmaSynthText } from "../../src/lib/catalog/audio/lemma-synthesis";
 import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-limits";
 import {
   type AudioConfig,
@@ -116,8 +115,6 @@ export interface AudioTarget {
   characterId?: LessonCharacterId;
   kind: AudioKind;
   text: string;
-  /** TTS line when it should differ from displayed `text`. */
-  synthText?: string;
   /** Per-target voice override (lesson characters). */
   voiceConfig?: AudioConfig;
 }
@@ -199,11 +196,9 @@ export function collectDictionaryAudioTargets(options?: {
     if (lemma) {
       const existing = byText.get(lemma);
       if (!existing || existing.kind === "example") {
-        const synthText = dictionaryLemmaSynthText(entry.slovak);
         byText.set(lemma, {
           kind: "lemma",
           text: lemma,
-          ...(synthText ? { synthText } : {}),
         });
       }
     }
@@ -339,6 +334,7 @@ export function parseArgs(
   lessonsOnly: boolean;
   limit: number | undefined;
   missingOnly: boolean;
+  model: string | undefined;
   offset: number;
   only: string | undefined;
   slugs: Set<string> | undefined;
@@ -355,6 +351,7 @@ export function parseArgs(
   let lessonsOnly = false;
   let examplesOnly = false;
   let missingOnly = false;
+  let model: string | undefined;
   let limit: number | undefined;
   let offset = 0;
   let only: string | undefined;
@@ -373,7 +370,11 @@ export function parseArgs(
     else if (arg === "--lessons-only") lessonsOnly = true;
     else if (arg === "--examples-only") examplesOnly = true;
     else if (arg === "--missing-only") missingOnly = true;
-    else if (arg === "--verify") verify = true;
+    else if (arg === "--model") {
+      model = argv[i + 1];
+      if (!model) throw new Error("--model requires an ElevenLabs model id");
+      i += 1;
+    } else if (arg === "--verify") verify = true;
     else if (arg === "--concurrency") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 1) {
@@ -460,6 +461,7 @@ export function parseArgs(
     lessonsOnly,
     limit,
     missingOnly,
+    model,
     offset,
     only,
     slugs,

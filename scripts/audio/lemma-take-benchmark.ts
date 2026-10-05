@@ -9,7 +9,6 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
 import { words } from "../../src/lib/catalog/entries";
-import { dictionaryLemmaSynthText } from "../../src/lib/catalog/audio/lemma-synthesis";
 import { audioHash, audioObjectKey } from "../../src/lib/catalog/audio/core";
 import { scoreTranscript } from "./verify-score";
 import { transcribeAudio } from "./stt";
@@ -101,8 +100,7 @@ async function main(): Promise<void> {
           throw new Error(`missing production file for ${slug}`);
         });
       } else {
-        const synthText = dictionaryLemmaSynthText(entry.slovak) ?? entry.slovak;
-        const audio = await synthesizeElevenLabs(synthText, config, apiKey, {
+        const audio = await synthesizeElevenLabs(entry.slovak, config, apiKey, {
           languageCode: config.languageCode,
         });
         await writeFile(filePath, audio);

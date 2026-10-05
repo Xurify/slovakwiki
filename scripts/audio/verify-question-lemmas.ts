@@ -9,7 +9,6 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
 import { words } from "../../src/lib/catalog/entries";
-import { dictionaryLemmaSynthText } from "../../src/lib/catalog/audio/lemma-synthesis";
 import { audioHash, audioObjectKey } from "../../src/lib/catalog/audio/core";
 import { scoreTranscript } from "./verify-score";
 import { transcribeAudio } from "./stt";
@@ -65,8 +64,6 @@ async function main(): Promise<void> {
       continue;
     }
 
-    const synthText = dictionaryLemmaSynthText(entry.slovak);
-
     const hash = audioHash(entry.slovak);
     const filePath = path.join(ROOT, "static", "audio", audioObjectKey("lemma", hash));
 
@@ -86,8 +83,7 @@ async function main(): Promise<void> {
 
     if (scored.score < MIN_SCORE || durationSec > MAX_DURATION_SEC || englishCome) {
       failures.push(
-        `${slug}: score=${scored.score.toFixed(3)} dur=${durationSec.toFixed(2)}s stt=«${stt.text}»` +
-          (synthText ? ` synth=${synthText}` : ""),
+        `${slug}: score=${scored.score.toFixed(3)} dur=${durationSec.toFixed(2)}s stt=«${stt.text}»`,
       );
     } else {
       console.log(
