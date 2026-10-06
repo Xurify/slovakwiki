@@ -1,12 +1,29 @@
 <script lang="ts">
   import { ClockIllustration } from "$lib/learning/time";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+
+  import {
+    grammarEndingClass,
+    grammarFormClass,
+    grammarGlossClass,
+  } from "$lib/components/reference/grammar-topic-ui";
+  import {
+    addedPrefix,
+    namesHourAhead,
+    parsePattern,
+    type MarkedPhrase,
+    type ParadigmCell,
+  } from "$lib/catalog/reference/grammar-pattern";
+  import type { Example } from "$lib/catalog/types";
+  import { cx } from "$lib/ui/classes";
 
   let {
     lines,
+    examples = [],
     withClocks = false,
   }: {
     lines: string[];
+    /** Paired with ending tiles when there is one example per line. */
+    examples?: Example[];
     /** Show mini clock faces for `HH:MM → …` rows (telling-time). */
     withClocks?: boolean;
   } = $props();
@@ -14,134 +31,211 @@
   type TimeRow = {
     digital: string;
     hour: number;
-    lookingAhead: boolean;
     minute: number;
     slovak: string;
   };
 
-  type PairRow = { label: string; phrases: string[] };
-  type PlainRow = { text: string };
+  type TimeExtra = { label: string; phrases: string };
 
-  function splitPhrases(right: string): string[] {
-    return right
-      .split(/\s*·\s*/)
-      .map((part) => part.trim())
-      .filter(Boolean);
-  }
+  function splitTime(allLines: readonly string[]): {
+    rows: TimeRow[];
+    extras: TimeExtra[];
+  } {
+    const rows: TimeRow[] = [];
+    const extras: TimeExtra[] = [];
 
-  function parseLine(line: string): TimeRow | PairRow | PlainRow {
-    const arrow = line.indexOf("→");
+    for (const line of allLines) {
+      const [left = "", right = ""] = line.split("→").map((part) => part.trim());
+      const time = /^(\d{1,2}):(\d{2})$/.exec(left);
 
-    if (arrow === -1) {
-      return { text: line };
+      if (time) {
+        rows.push({
+          digital: left,
+          hour: Number(time[1]),
+          minute: Number(time[2]),
+          slovak: right,
+        });
+      } else {
+        extras.push({ label: left, phrases: right });
+      }
     }
 
-    const left = line.slice(0, arrow).trim();
-    const right = line.slice(arrow + 1).trim();
-    const timeMatch = /^(\d{1,2}):(\d{2})$/.exec(left);
-
-    if (withClocks && timeMatch) {
-      const hour = Number(timeMatch[1]);
-      const minute = Number(timeMatch[2]);
-
-      return {
-        digital: left,
-        hour,
-        lookingAhead: minute !== 0,
-        minute,
-        slovak: right,
-      };
-    }
-
-    return { label: left, phrases: splitPhrases(right) };
+    return { rows, extras };
   }
 
-  const rows = $derived(lines.map(parseLine));
+  const view = $derived(withClocks ? undefined : parsePattern(lines, examples));
+  const time = $derived(withClocks ? splitTime(lines) : undefined);
 
-  const timeRows = $derived(rows.filter((row): row is TimeRow => "digital" in row));
-  const pairRows = $derived(rows.filter((row): row is PairRow => "label" in row));
-  const plainRows = $derived(rows.filter((row): row is PlainRow => "text" in row));
+  const studyListClass = "m-0 list-none border-t border-slate-200 p-0";
 
-  const hasSections = $derived(timeRows.length > 0 && pairRows.length > 0);
+  /** Fixed tracks so the meaning column lines up no matter how long the form is. */
+  const paradigmTrack = "sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]";
+  const tileTrack = "sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]";
+
+  const studyRowClass =
+    "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200 py-2.5";
+
+  const columnHeadClass =
+    "hidden border-b border-slate-200 py-2 font-sans text-[0.64rem] font-bold tracking-[0.12em] text-slate-500 uppercase sm:grid sm:gap-x-6";
 </script>
 
-<div class="overflow-hidden rounded-lg border border-slate-200 bg-surface">
-  {#if timeRows.length > 0}
-    <ul class="m-0 list-none divide-y divide-slate-200 p-0" aria-label="Time patterns">
-      {#each timeRows as row (row.digital + row.slovak)}
-        <li
-          class="grid grid-cols-[2.5rem_3.5rem_minmax(0,1fr)] items-center gap-x-3 border-l-2 px-4 py-2.5 motion-safe:transition-colors motion-safe:duration-150 hover:bg-slate-50 max-[420px]:grid-cols-[2.5rem_minmax(0,1fr)] max-[420px]:gap-x-2.5 {row.lookingAhead
-            ? 'border-l-emerald-600 bg-emerald-50/30'
-            : 'border-l-transparent'}"
-        >
-          <ClockIllustration
-            hour={row.hour}
-            minute={row.minute}
-            label={row.digital}
-            size={36}
-          />
+{#snippet marked(phrase: MarkedPhrase)}
+  {phrase.before}<span class={grammarEndingClass}>{phrase.mark}</span>{phrase.after}
+{/snippet}
 
-          <span
-            class="font-sans text-[0.8125rem] font-semibold tabular-nums text-slate-500 max-[420px]:col-start-2"
-          >
-            {row.digital}
+{#snippet formCell(cell: ParadigmCell)}
+  <li class={cx(studyRowClass, paradigmTrack)}>
+    <span class="text-sm text-slate-500" lang="sk">{cell.pronoun}</span>
+
+    <span class={grammarFormClass} lang="sk">
+      {#if cell.stem && cell.ending}
+        {cell.stem}<span class={grammarEndingClass}>{cell.ending}</span>
+      {:else}
+        {cell.form}
+      {/if}
+    </span>
+
+    {#if cell.gloss}
+      <span class={grammarGlossClass}>{cell.gloss}</span>
+    {/if}
+  </li>
+{/snippet}
+
+{#if time}
+  <ol class="m-0 list-none border-t border-slate-200 p-0" aria-label="Clock times">
+    {#each time.rows as row (row.digital)}
+      {@const ahead = namesHourAhead(row.minute)}
+
+      <li
+        class="grid grid-cols-[2.5rem_3.25rem_minmax(0,1fr)] items-center gap-x-3 border-b border-slate-200 py-2 max-[480px]:grid-cols-[2.5rem_minmax(0,1fr)]"
+      >
+        <ClockIllustration
+          hour={row.hour}
+          minute={row.minute}
+          label={row.digital}
+          size={36}
+        />
+
+        <span
+          class="text-[0.8125rem] font-semibold text-slate-500 tabular-nums max-[480px]:hidden"
+        >
+          {row.digital}
+        </span>
+
+        <span class="min-w-0">
+          <span class="font-serif text-lg leading-snug text-slate-900" lang="sk">
+            {row.slovak}
           </span>
 
-          <p
-            class="m-0 min-w-0 font-serif text-[0.95rem] leading-snug text-blue-800 max-[420px]:col-span-2 max-[420px]:col-start-2"
-            lang="sk"
-          >
-            {row.slovak}
-          </p>
-        </li>
-      {/each}
-    </ul>
-  {/if}
+          {#if ahead}
+            <span class="ml-2 text-xs text-emerald-800">names the next hour</span>
+          {/if}
+        </span>
+      </li>
+    {/each}
+  </ol>
 
-  {#if pairRows.length > 0}
-    <div class={hasSections ? "border-t border-slate-200" : ""}>
-      {#if hasSections}
-        <div class="border-b border-slate-200 bg-slate-50/70 px-4 pt-3 pb-2">
-          <Eyebrow tone="muted" compact class="!mb-0">Also</Eyebrow>
-        </div>
-      {/if}
-
-      <ul
-        class="m-0 list-none divide-y divide-slate-200 bg-slate-50/40 p-0"
-        aria-label="Related patterns"
-      >
-        {#each pairRows as row (row.label + row.phrases.join())}
-          <li
-            class="grid grid-cols-[9rem_minmax(0,1fr)] items-baseline gap-x-4 border-l-2 border-l-transparent px-4 py-2.5 motion-safe:transition-colors motion-safe:duration-150 hover:bg-slate-50 max-[480px]:grid-cols-1 max-[480px]:gap-y-0.5"
-          >
-            <span class="text-sm text-slate-500">{row.label}</span>
-
-            <p
-              class="m-0 min-w-0 font-serif text-[0.95rem] leading-snug text-blue-800"
-              lang="sk"
-            >
-              {row.phrases.join(" · ")}
-            </p>
-          </li>
-        {/each}
-      </ul>
-    </div>
-  {/if}
-
-  {#if plainRows.length > 0}
-    <ul
-      class="m-0 list-none divide-y divide-slate-200 p-0 {timeRows.length > 0 ||
-      pairRows.length > 0
-        ? 'border-t border-slate-200'
-        : ''}"
-    >
-      {#each plainRows as row (row.text)}
+  {#if time.extras.length > 0}
+    <ul class="m-0 mt-4 list-none border-t border-slate-200 p-0">
+      {#each time.extras as row (row.label)}
         <li
-          class="px-4 py-2.5 font-serif text-[0.95rem] leading-snug text-blue-800 motion-safe:transition-colors motion-safe:duration-150 hover:bg-slate-50"
+          class="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200 py-2 max-[520px]:grid-cols-1"
         >
-          {row.text}
+          <span class="text-sm text-slate-500">{row.label}</span>
+          <span class="font-serif text-lg text-slate-900" lang="sk">{row.phrases}</span>
         </li>
       {/each}
     </ul>
   {/if}
-</div>
+{:else if view?.kind === "tiles"}
+  <ul class={studyListClass}>
+    <li class={cx(columnHeadClass, tileTrack)}>
+      <span>Gender</span>
+      <span>Example</span>
+      <span>Meaning</span>
+    </li>
+
+    {#each view.tiles as tile (tile.label)}
+      <li class={cx(studyRowClass, tileTrack)}>
+        <span class="text-sm text-slate-500">{tile.label}</span>
+
+        <span class={grammarFormClass} lang="sk">
+          {#if tile.example}
+            {@render marked(tile.example.slovak)}
+          {:else}
+            <span class={grammarEndingClass}>{tile.ending}</span>
+          {/if}
+        </span>
+
+        {#if tile.example}
+          <span class={grammarGlossClass}>{tile.example.english}</span>
+        {/if}
+      </li>
+    {/each}
+  </ul>
+{:else if view?.kind === "paradigm"}
+  <ul class={studyListClass}>
+    <li class={cx(columnHeadClass, paradigmTrack)}>
+      <span>Person</span>
+      <span>Form</span>
+      <span>Meaning</span>
+    </li>
+
+    {#each view.singular as cell (cell.pronoun)}
+      {@render formCell(cell)}
+    {/each}
+
+    <li
+      class="border-b border-slate-200 pt-5 pb-2 font-sans text-[0.64rem] font-bold tracking-[0.12em] text-slate-500 uppercase"
+    >
+      Plural
+    </li>
+
+    {#each view.plural as cell (cell.pronoun)}
+      {@render formCell(cell)}
+    {/each}
+  </ul>
+{:else if view?.kind === "rows"}
+  <ul class="m-0 list-none border-t border-slate-200 p-0">
+    {#each view.rows as row, index (index)}
+      {@const prefix = addedPrefix(row)}
+
+      <li
+        class="grid grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200 py-2.5 max-[520px]:grid-cols-1"
+      >
+        <span
+          class={cx(grammarFormClass, "text-lg")}
+          lang={row.gloss || prefix ? "sk" : undefined}
+        >
+          {#if row.label}
+            <span class="mr-3 font-sans text-sm font-normal text-slate-500"
+              >{row.label}</span
+            >
+          {/if}
+
+          <span class={cx(row.result && "font-normal text-slate-500")}>{row.main}</span>
+
+          {#if row.result}
+            <span
+              class="mx-2 font-sans text-base font-normal text-slate-400"
+              aria-hidden="true"
+            >
+              →
+            </span>
+            <span class="font-semibold">
+              {#if prefix}
+                {@render marked(prefix)}
+              {:else}
+                {row.result}
+              {/if}
+            </span>
+          {/if}
+        </span>
+
+        {#if row.gloss}
+          <span class={grammarGlossClass}>{row.gloss}</span>
+        {/if}
+      </li>
+    {/each}
+  </ul>
+{/if}
