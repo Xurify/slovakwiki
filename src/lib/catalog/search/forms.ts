@@ -335,11 +335,17 @@ function nounForms(lemma: string): string[] {
   return [];
 }
 
+const formCache = new Map<string, string[]>();
+
 /**
  * Extra searchable tokens for a dictionary lemma.
  * Excludes the lemma itself (already indexed as title).
  */
 export function searchFormsForLemma(slovak: string, category: string): string[] {
+  const cacheKey = `${category}\0${slovak}`;
+  const cached = formCache.get(cacheKey);
+  if (cached) return cached;
+
   const lower = slovak.toLocaleLowerCase("sk");
 
   let forms: string[] = [];
@@ -363,7 +369,11 @@ export function searchFormsForLemma(slovak: string, category: string): string[] 
       forms = [];
   }
 
-  return uniqueForms(forms).filter((form) => form.toLocaleLowerCase("sk") !== lower);
+  const filtered = uniqueForms(forms).filter(
+    (form) => form.toLocaleLowerCase("sk") !== lower,
+  );
+  formCache.set(cacheKey, filtered);
+  return filtered;
 }
 
 /** @internal exported for unit tests */

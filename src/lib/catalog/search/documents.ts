@@ -33,7 +33,11 @@ function withNormalized(parts: string[]): string {
     : joined;
 }
 
+let cachedDocuments: SearchDocument[] | undefined;
+
 export function buildSearchDocuments(): SearchDocument[] {
+  if (cachedDocuments) return cachedDocuments;
+
   const documents: SearchDocument[] = [];
 
   for (const entry of words) {
@@ -145,5 +149,6 @@ export function buildSearchDocuments(): SearchDocument[] {
     });
   }
 
+  cachedDocuments = documents;
   return documents;
 }

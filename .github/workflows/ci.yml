@@ -21,15 +21,27 @@ jobs:
 
       - run: bunx eslint src/lib scripts
 
+      - run: bun run format:check
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.19
+
+      - run: bun install --frozen-lockfile
+
       - uses: actions/cache@v4
         with:
           path: node_modules/.astro
-          key: astro-incremental-${{ runner.os }}-${{ hashFiles('bun.lock', 'astro.config.ts', 'src/pages/**') }}
-          restore-keys: |
-            astro-incremental-${{ runner.os }}-
+          # Astro drops the incremental manifest when lockfile or config hash changes.
+          # Page edits stay inside that manifest via per-route cacheKey.
+          key: astro-incremental-${{ runner.os }}-${{ hashFiles('bun.lock', 'astro.config.ts') }}
+          save-always: true
 
       - run: bun run build
 
       - run: bun run cwv:check
-
-      - run: bun run format:check

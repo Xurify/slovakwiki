@@ -12,16 +12,7 @@ const STATIC_ROOTS = [
   join(ROOT, "dist"),
 ];
 
-const RENDER_ENTRY = join(
-  ROOT,
-  ".vercel",
-  "output",
-  "functions",
-  "_render.func",
-  "dist",
-  "server",
-  "entry.mjs",
-);
+const FUNCTION_DIR = join(ROOT, ".vercel", "output", "functions", "_render.func");
 
 const DICTIONARY_BROWSE_MAX_BYTES = 100 * 1024;
 const WARN_BYTES = 80 * 1024;
@@ -78,28 +69,51 @@ type RenderApp = {
   fetch: (request: Request) => Promise<Response>;
 };
 
-let renderApp: RenderApp | null | undefined;
+let renderApp: RenderApp | undefined;
+
+function renderEntryCandidates(): string[] {
+  const candidates: string[] = [];
+  const vcConfigPath = join(FUNCTION_DIR, ".vc-config.json");
+
+  if (existsSync(vcConfigPath)) {
+    const parsed = JSON.parse(readFileSync(vcConfigPath, "utf8")) as {
+      handler?: unknown;
+    };
+    if (typeof parsed.handler === "string" && parsed.handler.length > 0) {
+      candidates.push(join(FUNCTION_DIR, parsed.handler));
+    }
+  }
+
+  candidates.push(
+    join(FUNCTION_DIR, "dist", "server", "entry.mjs"),
+    join(ROOT, ".vercel", "output", "server", "entry.mjs"),
+  );
+
+  return candidates;
+}
 
 async function getRenderApp(): Promise<RenderApp> {
-  if (renderApp !== undefined) {
-    if (!renderApp) {
-      throw new Error(`Missing Vercel render entry at ${RENDER_ENTRY}`);
+  if (renderApp) return renderApp;
+
+  const candidates = renderEntryCandidates();
+  const existing = candidates.filter((path) => existsSync(path));
+
+  for (const path of existing) {
+    const mod = (await import(pathToFileURL(path).href)) as {
+      default?: RenderApp;
+    };
+    if (typeof mod.default?.fetch === "function") {
+      renderApp = mod.default;
+      return renderApp;
     }
-    return renderApp;
   }
 
-  if (!existsSync(RENDER_ENTRY)) {
-    renderApp = null;
-    throw new Error(
-      `Missing Vercel render entry at ${RENDER_ENTRY}. Run \`bun run build\` first.`,
-    );
-  }
-
-  const mod = (await import(pathToFileURL(RENDER_ENTRY).href)) as {
-    default: RenderApp;
-  };
-  renderApp = mod.default;
-  return renderApp;
+  const looked = [...new Set(candidates)];
+  throw new Error(
+    "Missing Vercel render entry with fetch(). Looked for:\n" +
+      looked.map((path) => `  - ${path}`).join("\n") +
+      "\nRun `bun run build` first.",
+  );
 }
 
 async function fetchSsrHtml(pathname: string): Promise<Buffer> {
