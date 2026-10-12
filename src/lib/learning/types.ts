@@ -139,6 +139,8 @@ export interface FormTableLabel {
 export interface FormTableColumn extends FormTableLabel {
   /** Noun the column's forms agree with (brat, sestra). */
   example?: string;
+  /** Long label — gets extra width so its header doesn't stretch the whole row. */
+  wide?: boolean;
 }
 
 /** Small paradigm grid: one Slovak form per cell. */

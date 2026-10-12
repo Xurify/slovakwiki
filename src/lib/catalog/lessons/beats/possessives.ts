@@ -19,11 +19,12 @@ const GENDER_COLUMNS: FormTableColumn[] = [
   { english: "Masculine", slovak: "mužský rod", example: "brat" },
   { english: "Feminine", slovak: "ženský rod", example: "sestra" },
   { english: "Neuter", slovak: "stredný rod", example: "auto" },
-  { english: "Masculine personal", slovak: "mužský rod životný", example: "priatelia" },
+  { english: "Masculine personal", slovak: "mužský rod životný", example: "bratia" },
   {
     english: "Masculine inanimate, feminine, neuter",
     slovak: "mužský neživotný, ženský, stredný rod",
     example: "kľúče, sestry, autá",
+    wide: true,
   },
 ];
 
@@ -38,7 +39,7 @@ const agreementTable: FormTableVisual = {
     { label: "our", cells: paradigmRow("our", "nominative") },
     { label: "your (vy)", cells: paradigmRow("your-vy", "nominative") },
   ],
-  note: "Masculine personal means men or mixed groups: moji priatelia. Every other plural takes -e: moje kľúče, moje sestry, moje autá.",
+  note: "Masculine personal means a group of men, or a mixed group: moji bratia, naši rodičia, moji kolegovia. Every other plural takes ‑e: moje kľúče, moje sestry, moje autá.",
 };
 
 const fixedOwnerTable: FormTableVisual = {

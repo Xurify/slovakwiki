@@ -89,7 +89,10 @@
   );
 
   const visualHeadingClass =
-    "m-0 mb-4 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+    "m-0 mb-4 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+
+  /** Row-label column lines up with the card padding (px-5 / sm:px-6). */
+  const tableEdgeCellClass = "pr-3 pl-5 sm:pl-6";
 
   const visibleLines = $derived(scene.slice(0, revealedCount));
   const storyActive = $derived(scene.length > 0);
@@ -380,9 +383,7 @@
 
 <div class="relative mx-auto flex min-h-full w-full max-w-2xl flex-col">
   {#if storyActive}
-    <div
-      class="sticky top-0 z-20 isolate overflow-hidden border-b border-slate-200/70 bg-paper/95 backdrop-blur-md"
-    >
+    <div class="isolate overflow-hidden border-b border-slate-200/70 bg-paper">
       <div class="relative h-[6.5rem] sm:h-[7.75rem]">
         <LessonSceneBackdrop art={setting.art} />
       </div>
@@ -590,25 +591,29 @@
             </ul>
           </div>
         {:else if teach.visual?.type === "form-table"}
-          <div>
-            <h3 class={visualHeadingClass}>
-              {teach.visual.title}
-            </h3>
+          <figure
+            class="m-0 overflow-hidden rounded-(--frame-radius) bg-subtle shadow-(--shadow-border)"
+          >
+            <figcaption class="px-5 pt-4 pb-3 sm:px-6">
+              <h3
+                class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900"
+              >
+                {teach.visual.title}
+              </h3>
+            </figcaption>
 
-            <div
-              class="overflow-x-auto rounded-(--frame-radius) bg-surface/80 shadow-(--shadow-border)"
-            >
-              <table class="w-full border-collapse text-sm">
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse text-left text-sm">
                 <thead>
                   {#if teach.visual.columnGroups}
                     <tr>
-                      <td class="px-3 pt-3 sm:px-4"></td>
+                      <td class={tableEdgeCellClass}></td>
 
                       {#each teach.visual.columnGroups as group (group.english)}
                         <th
                           scope="colgroup"
                           colspan={group.span}
-                          class="border-b border-slate-200 px-3 pt-3 pb-2 text-left text-xs font-semibold whitespace-nowrap text-slate-700 sm:px-4"
+                          class="border-b border-slate-200 px-3 pb-1.5 text-xs font-semibold whitespace-nowrap text-slate-700"
                         >
                           {group.english}
 
@@ -622,48 +627,58 @@
                     </tr>
                   {/if}
 
-                  <tr class="border-b border-slate-200">
-                    <td class="px-3 py-2.5 sm:px-4"></td>
+                  <tr>
+                    <td class={tableEdgeCellClass}></td>
 
                     {#each teach.visual.columns as column (column.english)}
                       <th
                         scope="col"
-                        class="px-3 py-2.5 text-left align-bottom text-xs font-semibold text-slate-600 sm:px-4"
+                        class="{column.wide
+                          ? 'min-w-48'
+                          : 'min-w-24'} px-3 pt-2 pb-1 align-bottom text-xs leading-snug font-semibold text-slate-700"
                       >
-                        <span class="block">{column.english}</span>
+                        {column.english}
 
                         {#if column.slovak}
                           <span class="block font-normal text-slate-500" lang="sk">
                             {column.slovak}
                           </span>
                         {/if}
-
-                        {#if column.example}
-                          <span
-                            class="mt-1 block font-serif text-sm font-normal whitespace-nowrap text-slate-500 italic"
-                            lang="sk"
-                          >
-                            {column.example}
-                          </span>
-                        {/if}
                       </th>
                     {/each}
                   </tr>
+
+                  {#if teach.visual.columns.some((column) => column.example)}
+                    <tr class="border-b border-slate-200">
+                      <td class="{tableEdgeCellClass} pb-2 text-xs text-slate-500"
+                        >e.g.</td
+                      >
+
+                      {#each teach.visual.columns as column (column.english)}
+                        <td
+                          class="px-3 pb-2 font-serif text-sm whitespace-nowrap text-slate-500 italic"
+                          lang="sk"
+                        >
+                          {column.example}
+                        </td>
+                      {/each}
+                    </tr>
+                  {/if}
                 </thead>
 
-                <tbody>
+                <tbody class="bg-surface/70">
                   {#each teach.visual.rows as row (row.label)}
                     <tr class="border-b border-slate-200/70 last:border-b-0">
                       <th
                         scope="row"
-                        class="px-3 py-2.5 text-left text-xs font-normal whitespace-nowrap text-slate-500 sm:px-4"
+                        class="{tableEdgeCellClass} py-2.5 text-xs font-normal whitespace-nowrap text-slate-500"
                       >
                         {row.label}
                       </th>
 
                       {#each row.cells as cell, index (`${row.label}-${index}`)}
                         <td
-                          class="px-3 py-2.5 font-serif whitespace-nowrap text-slate-900 sm:px-4"
+                          class="px-3 py-2.5 font-serif text-base whitespace-nowrap text-slate-900"
                           lang="sk"
                         >
                           {cell}
@@ -676,11 +691,13 @@
             </div>
 
             {#if teach.visual.note}
-              <p class="m-0 mt-3 text-sm leading-relaxed text-pretty text-slate-600">
+              <p
+                class="m-0 border-t border-slate-200 px-5 py-3 text-sm leading-relaxed text-pretty text-slate-600 sm:px-6"
+              >
                 {teach.visual.note}
               </p>
             {/if}
-          </div>
+          </figure>
         {/if}
       </div>
     {/if}
