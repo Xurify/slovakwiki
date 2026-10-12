@@ -6,3 +6,4 @@ export { bytBeats, withBytExercises } from "./byt";
 export { matBeats, withMatExercises } from "./mat";
 export { stressBeats, withStressExercises } from "./stress";
 export { daysDatesTimeBeatShells, withDaysDatesTimeExercises } from "./days-dates-time";
+export { possessivesBeatShells, withPossessivesExercises } from "./possessives";

@@ -5,7 +5,7 @@ export const presentTenseBeats: LessonBeat[] = [
     id: "endings",
     title: "Who is acting",
     teach: {
-      sceneLineIds: ["peter-reads", "ask-you", "you-read"],
+      sceneLineIds: ["anna-asks", "you-read", "anna-reads"],
       phrases: [
         {
           slovak: "čítam",
@@ -34,6 +34,7 @@ export const presentTenseBeats: LessonBeat[] = [
     id: "we-form",
     title: "We and they",
     teach: {
+      sceneLineIds: ["anna-reads", "you-ask-both", "anna-we-read"],
       phrases: [
         {
           slovak: "čítame",

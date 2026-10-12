@@ -1,4 +1,5 @@
 import type { PracticeItem } from "$lib/learning/types";
+import { possessivesPracticeItems } from "$lib/learning/possessives/session";
 import { daysDatesTimePracticeItems } from "$lib/learning/time/practice-catalog";
 import { everydayPracticeItems } from "./items-everyday";
 import { grammarPracticeItems } from "./items-grammar";
@@ -13,6 +14,7 @@ export const practiceItems: PracticeItem[] = [
   ...grammarPracticeItems,
   ...pronunciationPracticeItems,
   ...daysDatesTimePracticeItems,
+  ...possessivesPracticeItems,
 ];
 
 export const practiceItemById = new Map(practiceItems.map((item) => [item.id, item]));

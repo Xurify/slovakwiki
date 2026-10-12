@@ -119,7 +119,7 @@ export interface SelectAllExercise extends ExerciseBase {
   type: "selectAll";
 }
 
-export interface LessonVisual {
+export interface ClockGridVisual {
   items: Array<{
     english: string;
     note?: string;
@@ -129,6 +129,19 @@ export interface LessonVisual {
   title: string;
   type: "clock-grid";
 }
+
+/** Small paradigm grid: one Slovak form per cell. */
+export interface FormTableVisual {
+  columns: string[];
+  /** Set when the column headers are Slovak words (brat, sestra). */
+  columnsLang?: "sk";
+  note?: string;
+  rows: Array<{ cells: string[]; label: string }>;
+  title: string;
+  type: "form-table";
+}
+
+export type LessonVisual = ClockGridVisual | FormTableVisual;
 
 export interface BuildExercise extends ExerciseBase {
   answer: string[];

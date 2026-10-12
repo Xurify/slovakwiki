@@ -85,8 +85,11 @@
   });
 
   const hasAftercare = $derived(
-    takeaways.length > 0 || Boolean(teach.note) || teach.visual?.type === "clock-grid",
+    takeaways.length > 0 || Boolean(teach.note) || Boolean(teach.visual),
   );
+
+  const visualHeadingClass =
+    "m-0 mb-4 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
 
   const visibleLines = $derived(scene.slice(0, revealedCount));
   const storyActive = $derived(scene.length > 0);
@@ -560,9 +563,7 @@
 
         {#if teach.visual?.type === "clock-grid"}
           <div>
-            <h3
-              class="m-0 mb-4 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-            >
+            <h3 class={visualHeadingClass}>
               {teach.visual.title}
             </h3>
 
@@ -587,6 +588,62 @@
                 </li>
               {/each}
             </ul>
+          </div>
+        {:else if teach.visual?.type === "form-table"}
+          <div>
+            <h3 class={visualHeadingClass}>
+              {teach.visual.title}
+            </h3>
+
+            <div
+              class="overflow-x-auto rounded-(--frame-radius) bg-surface/80 shadow-(--shadow-border)"
+            >
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-slate-200">
+                    <td class="px-3 py-2.5 sm:px-4"></td>
+
+                    {#each teach.visual.columns as column (column)}
+                      <th
+                        scope="col"
+                        class="px-3 py-2.5 text-left text-xs font-semibold whitespace-nowrap text-slate-500 sm:px-4"
+                        lang={teach.visual.columnsLang}
+                      >
+                        {column}
+                      </th>
+                    {/each}
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {#each teach.visual.rows as row (row.label)}
+                    <tr class="border-b border-slate-200/70 last:border-b-0">
+                      <th
+                        scope="row"
+                        class="px-3 py-2.5 text-left text-xs font-normal whitespace-nowrap text-slate-500 sm:px-4"
+                      >
+                        {row.label}
+                      </th>
+
+                      {#each row.cells as cell, index (`${row.label}-${index}`)}
+                        <td
+                          class="px-3 py-2.5 font-serif whitespace-nowrap text-slate-900 sm:px-4"
+                          lang="sk"
+                        >
+                          {cell}
+                        </td>
+                      {/each}
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+
+            {#if teach.visual.note}
+              <p class="m-0 mt-3 text-sm leading-relaxed text-pretty text-slate-600">
+                {teach.visual.note}
+              </p>
+            {/if}
           </div>
         {/if}
       </div>
