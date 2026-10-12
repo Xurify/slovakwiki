@@ -94,6 +94,24 @@
   /** Row-label column lines up with the card padding (px-5 / sm:px-6). */
   const tableEdgeCellClass = "pr-3 pl-5 sm:pl-6";
 
+  /** Column indexes where a new header group begins (the first plural column). */
+  const tableGroupStarts = $derived.by((): Set<number> => {
+    const visual = teach.visual;
+    if (visual?.type !== "form-table" || !visual.columnGroups) return new Set();
+
+    const starts = new Set<number>();
+    let index = 0;
+    for (const group of visual.columnGroups) {
+      if (index > 0) starts.add(index);
+      index += group.span;
+    }
+    return starts;
+  });
+
+  function tableDividerClass(index: number): string {
+    return tableGroupStarts.has(index) ? "border-l border-slate-200" : "";
+  }
+
   const visibleLines = $derived(scene.slice(0, revealedCount));
   const storyActive = $derived(scene.length > 0);
   const allLinesRevealed = $derived(!storyActive || revealedCount >= scene.length);
@@ -609,19 +627,24 @@
                     <tr>
                       <td class={tableEdgeCellClass}></td>
 
-                      {#each teach.visual.columnGroups as group (group.english)}
+                      {#each teach.visual.columnGroups as group, index (group.english)}
                         <th
                           scope="colgroup"
                           colspan={group.span}
-                          class="border-b border-slate-200 px-3 pb-1.5 text-xs font-semibold whitespace-nowrap text-slate-700"
+                          class="px-3 text-xs font-semibold whitespace-nowrap text-slate-700 {index >
+                          0
+                            ? 'border-l border-slate-200'
+                            : ''}"
                         >
-                          {group.english}
+                          <span class="block border-b border-slate-300 pb-1.5">
+                            {group.english}
 
-                          {#if group.slovak}
-                            <span class="font-normal text-slate-500" lang="sk">
-                              · {group.slovak}
-                            </span>
-                          {/if}
+                            {#if group.slovak}
+                              <span class="font-normal text-slate-500" lang="sk">
+                                · {group.slovak}
+                              </span>
+                            {/if}
+                          </span>
                         </th>
                       {/each}
                     </tr>
@@ -630,17 +653,22 @@
                   <tr>
                     <td class={tableEdgeCellClass}></td>
 
-                    {#each teach.visual.columns as column (column.english)}
+                    {#each teach.visual.columns as column, index (column.english)}
                       <th
                         scope="col"
-                        class="{column.wide
-                          ? 'min-w-48'
-                          : 'min-w-24'} px-3 pt-2 pb-1 align-bottom text-xs leading-snug font-semibold text-slate-700"
+                        class="{column.wide ? 'min-w-40' : ''} {tableDividerClass(
+                          index,
+                        )} px-3 pt-2 pb-1 align-bottom text-xs leading-snug font-semibold text-slate-700"
                       >
                         {column.english}
 
                         {#if column.slovak}
-                          <span class="block font-normal text-slate-500" lang="sk">
+                          <span
+                            class="block font-normal text-slate-500 {column.wide
+                              ? ''
+                              : 'whitespace-nowrap'}"
+                            lang="sk"
+                          >
                             {column.slovak}
                           </span>
                         {/if}
@@ -654,9 +682,11 @@
                         >e.g.</td
                       >
 
-                      {#each teach.visual.columns as column (column.english)}
+                      {#each teach.visual.columns as column, index (column.english)}
                         <td
-                          class="px-3 pb-2 font-serif text-sm whitespace-nowrap text-slate-500 italic"
+                          class="{tableDividerClass(
+                            index,
+                          )} px-3 pb-2 font-serif text-sm whitespace-nowrap text-slate-500 italic"
                           lang="sk"
                         >
                           {column.example}
@@ -678,7 +708,9 @@
 
                       {#each row.cells as cell, index (`${row.label}-${index}`)}
                         <td
-                          class="px-3 py-2.5 font-serif text-base whitespace-nowrap text-slate-900"
+                          class="{tableDividerClass(
+                            index,
+                          )} px-3 py-2.5 font-serif text-base whitespace-nowrap text-slate-900"
                           lang="sk"
                         >
                           {cell}
