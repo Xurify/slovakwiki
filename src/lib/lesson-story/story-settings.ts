@@ -57,7 +57,7 @@ const byLessonId: Record<string, LessonStorySetting> = {
   "grammar/possessives": {
     art: "home",
     place: "Visiting Anna at home",
-    placeSk: "U Anny",
+    placeSk: "Na návšteve u Anny",
   },
   "pronunciation/first-syllable-stress": {
     art: "classroom",
