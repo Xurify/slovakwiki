@@ -130,11 +130,22 @@ export interface ClockGridVisual {
   type: "clock-grid";
 }
 
+/** A grammar label in English with its Slovak term (Singular · jednotné číslo). */
+export interface FormTableLabel {
+  english: string;
+  slovak?: string;
+}
+
+export interface FormTableColumn extends FormTableLabel {
+  /** Noun the column's forms agree with (brat, sestra). */
+  example?: string;
+}
+
 /** Small paradigm grid: one Slovak form per cell. */
 export interface FormTableVisual {
-  columns: string[];
-  /** Set when the column headers are Slovak words (brat, sestra). */
-  columnsLang?: "sk";
+  /** Header row above `columns` — Singular spanning the three genders, then Plural. */
+  columnGroups?: Array<FormTableLabel & { span: number }>;
+  columns: FormTableColumn[];
   note?: string;
   rows: Array<{ cells: string[]; label: string }>;
   title: string;

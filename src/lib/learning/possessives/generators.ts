@@ -163,8 +163,8 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
           id: "other-plural",
           label: line(otherPlural),
           whyWrong: people
-            ? `**${capitalizeSlovak(otherPlural)}** is for things: **${otherPlural} kľúče**.`
-            : `**${capitalizeSlovak(otherPlural)}** is only for groups of people: **${otherPlural} priatelia**.`,
+            ? `**${capitalizeSlovak(otherPlural)}** is for every other plural: **${otherPlural} sestry**, **${otherPlural} kľúče**.`
+            : `**${capitalizeSlovak(otherPlural)}** is only for men or mixed groups: **${otherPlural} priatelia**.`,
         },
         {
           id: "singular",
@@ -180,8 +180,8 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
       correction: line(correct),
       english,
       why: people
-        ? `People in the plural take **-i**: **${correct} ${entry.forms.nominative}**.`
-        : `Plural things take **-e**: **${correct} ${entry.forms.nominative}**.`,
+        ? `Men or mixed groups take **-i** in the plural: **${correct} ${entry.forms.nominative}**.`
+        : `Every plural except men or mixed groups takes **-e**: **${correct} ${entry.forms.nominative}**.`,
     },
   };
 }

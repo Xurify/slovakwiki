@@ -93,7 +93,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
       {
         id: "things",
         label: "To sú moje priatelia.",
-        whyWrong: "**Moje** is for plural things: **moje kľúče**.",
+        whyWrong: "**Moje** is for every other plural: **moje sestry**, **moje kľúče**.",
       },
       {
         id: "singular",
@@ -105,7 +105,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "To sú moji priatelia.",
       english: "These are my friends.",
-      why: "People in the plural take **-i**: **moji priatelia**.",
+      why: "Men or mixed groups take **-i** in the plural: **moji priatelia**.",
     },
   },
   {
@@ -565,7 +565,7 @@ export const possessivesLesson: Lesson = {
     {
       slovak: "moji priatelia",
       english: "my friends",
-      note: "People in the plural take -i. Things take -e: moje kľúče.",
+      note: "Men or mixed groups take -i. Women and things take -e: moje sestry, moje kľúče.",
       audio: { transcript: "moji priatelia" },
     },
     {

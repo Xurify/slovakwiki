@@ -1,37 +1,55 @@
-import type { FormTableVisual, LessonBeat, LessonExercise } from "$lib/learning/types";
+import type {
+  FormTableColumn,
+  FormTableVisual,
+  LessonBeat,
+  LessonExercise,
+} from "$lib/learning/types";
 import {
-  agreementRow,
-  caseCell,
   CASES,
-  possessiveForm,
+  paradigmRow,
   type GrammaticalCase,
 } from "$lib/learning/possessives/paradigm";
 
-const OWNED_COLUMNS = ["brat", "sestra", "auto", "kľúče"];
+const NUMBER_GROUPS: FormTableVisual["columnGroups"] = [
+  { english: "Singular", slovak: "jednotné číslo", span: 3 },
+  { english: "Plural", slovak: "množné číslo", span: 2 },
+];
+
+const GENDER_COLUMNS: FormTableColumn[] = [
+  { english: "Masculine", slovak: "mužský rod", example: "brat" },
+  { english: "Feminine", slovak: "ženský rod", example: "sestra" },
+  { english: "Neuter", slovak: "stredný rod", example: "auto" },
+  { english: "Masculine personal", slovak: "mužský rod životný", example: "priatelia" },
+  {
+    english: "Masculine inanimate, feminine, neuter",
+    slovak: "mužský neživotný, ženský, stredný rod",
+    example: "kľúče, sestry, autá",
+  },
+];
 
 const agreementTable: FormTableVisual = {
   type: "form-table",
   title: "The ending follows the thing owned",
-  columns: OWNED_COLUMNS,
-  columnsLang: "sk",
+  columnGroups: NUMBER_GROUPS,
+  columns: GENDER_COLUMNS,
   rows: [
-    { label: "my", cells: agreementRow("my") },
-    { label: "your (ty)", cells: agreementRow("your-ty") },
-    { label: "our", cells: agreementRow("our") },
-    { label: "your (vy)", cells: agreementRow("your-vy") },
+    { label: "my", cells: paradigmRow("my", "nominative") },
+    { label: "your (ty)", cells: paradigmRow("your-ty", "nominative") },
+    { label: "our", cells: paradigmRow("our", "nominative") },
+    { label: "your (vy)", cells: paradigmRow("your-vy", "nominative") },
   ],
-  note: "People in the plural take -i instead: moji priatelia, naši rodičia.",
+  note: "Masculine personal means men or mixed groups: moji priatelia. Every other plural takes -e: moje kľúče, moje sestry, moje autá.",
 };
 
 const fixedOwnerTable: FormTableVisual = {
   type: "form-table",
   title: "Jeho, jej, ich never change",
-  columns: OWNED_COLUMNS,
-  columnsLang: "sk",
+  columnGroups: NUMBER_GROUPS,
+  columns: GENDER_COLUMNS,
   rows: [
-    { label: "his", cells: agreementRow("his") },
-    { label: "her", cells: agreementRow("her") },
-    { label: "their", cells: agreementRow("their") },
+    { label: "his", cells: paradigmRow("his", "nominative") },
+    { label: "her", cells: paradigmRow("her", "nominative") },
+    { label: "their", cells: paradigmRow("their", "nominative") },
   ],
 };
 
@@ -47,17 +65,13 @@ const CASE_ROW_LABEL: Record<GrammaticalCase, string> = {
 const caseTable: FormTableVisual = {
   type: "form-table",
   title: "Môj through the cases",
-  columns: ["Masculine", "Feminine", "Neuter", "Plural"],
+  columnGroups: NUMBER_GROUPS,
+  columns: GENDER_COLUMNS,
   rows: CASES.map((grammaticalCase) => ({
     label: CASE_ROW_LABEL[grammaticalCase],
-    cells: [
-      caseCell("my", "masculine", grammaticalCase),
-      possessiveForm("my", "feminine", grammaticalCase),
-      possessiveForm("my", "neuter", grammaticalCase),
-      caseCell("my", "plural", grammaticalCase),
-    ],
+    cells: paradigmRow("my", grammaticalCase),
   })),
-  note: "Where a cell has two forms, people come first: môjho brata, but môj kľúč. Tvoj, svoj, náš, and váš take the same endings.",
+  note: "Two forms in one cell: people first, things second — môjho brata, but môj kľúč. Tvoj, svoj, náš, and váš take the same endings.",
 };
 
 export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [

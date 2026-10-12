@@ -280,6 +280,14 @@ export const NOUNS: readonly NounEntry[] = [
     "priateľoch",
     "priateľmi",
   ]),
+  noun("sestry", "plural", true, "sisters", [
+    "sestry",
+    "sestier",
+    "sestrám",
+    "sestry",
+    "sestrách",
+    "sestrami",
+  ]),
   noun("kluc", "masculine-inanimate", false, "key", [
     "kľúč",
     "kľúča",
@@ -496,31 +504,20 @@ export function capitalizeSlovak(text: string): string {
   return text.charAt(0).toLocaleUpperCase("sk-SK") + text.slice(1);
 }
 
-/** Paradigm row for lesson tables: one owner across masculine / feminine / neuter / plural. */
-export function agreementRow(owner: OwnerId): string[] {
-  return [
-    possessiveForm(owner, "masculine-inanimate", "nominative"),
-    possessiveForm(owner, "feminine", "nominative"),
-    possessiveForm(owner, "neuter", "nominative"),
-    possessiveForm(owner, "plural", "nominative"),
-  ];
-}
+/**
+ * Paradigm row for lesson tables, one owner per row. Column order matches the tables:
+ * masculine, feminine, neuter singular; then men or mixed groups, and every other plural.
+ */
+export function paradigmRow(owner: OwnerId, grammaticalCase: GrammaticalCase): string[] {
+  const animate = possessiveForm(owner, "masculine-animate", grammaticalCase);
+  const inanimate = possessiveForm(owner, "masculine-inanimate", grammaticalCase);
 
-/** Paradigm cell where people and things differ: “môjho / môj”. */
-export function caseCell(
-  owner: DeclinableOwnerId,
-  column: "masculine" | "plural",
-  grammaticalCase: GrammaticalCase,
-): string {
-  const people = possessiveForm(
-    owner,
-    column === "masculine" ? "masculine-animate" : "plural-personal",
-    grammaticalCase,
-  );
-  const things = possessiveForm(
-    owner,
-    column === "masculine" ? "masculine-inanimate" : "plural",
-    grammaticalCase,
-  );
-  return people === things ? people : `${people} / ${things}`;
+  return [
+    // Only the accusative splits people from things: môjho brata, môj kľúč.
+    animate === inanimate ? animate : `${animate} / ${inanimate}`,
+    possessiveForm(owner, "feminine", grammaticalCase),
+    possessiveForm(owner, "neuter", grammaticalCase),
+    possessiveForm(owner, "plural-personal", grammaticalCase),
+    possessiveForm(owner, "plural", grammaticalCase),
+  ];
 }
