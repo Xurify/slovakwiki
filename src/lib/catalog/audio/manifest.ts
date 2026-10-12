@@ -13,11 +13,18 @@ export interface RuntimeIndexEntry {
 
 export type AudioRuntimeIndex = Record<string, RuntimeIndexEntry>;
 
-/** Repo-relative from this file — avoids `process.cwd()` races under Vite SSR. */
-const RUNTIME_INDEX_PATH = path.join(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../../../../content/audio/runtime-index.json",
-);
+/**
+ * Source-relative first — avoids `process.cwd()` races under Vite SSR in dev.
+ * Production builds bundle this module into `…/server/.prerender/chunks/`, where
+ * the relative path points outside the repo, so the project root is the fallback.
+ */
+const RUNTIME_INDEX_PATHS = [
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../../../content/audio/runtime-index.json",
+  ),
+  path.join(process.cwd(), "content/audio/runtime-index.json"),
+];
 
 let cache: AudioRuntimeIndex | undefined;
 
@@ -25,16 +32,26 @@ let cache: AudioRuntimeIndex | undefined;
 export function loadRuntimeIndex(): AudioRuntimeIndex {
   if (cache) return cache;
 
-  try {
-    const raw = readFileSync(RUNTIME_INDEX_PATH, "utf8");
-    cache = JSON.parse(raw) as AudioRuntimeIndex;
-    return cache;
-  } catch {
-    // Do not cache failures — a transient Vite SSR / HMR race would otherwise
-    // pin an empty index for the whole dev server lifetime (no lesson MP3s →
-    // silent autoplay + browser TTS on Listen).
-    return {};
+  for (const candidate of RUNTIME_INDEX_PATHS) {
+    try {
+      cache = JSON.parse(readFileSync(candidate, "utf8")) as AudioRuntimeIndex;
+      return cache;
+    } catch {
+      continue;
+    }
   }
+
+  // An empty index silently strips every lesson, grammar, and cloze clip from a build.
+  if (import.meta.env.PROD) {
+    throw new Error(
+      `Audio runtime index not found at ${RUNTIME_INDEX_PATHS.join(" or ")}`,
+    );
+  }
+
+  // Do not cache failures — a transient Vite SSR / HMR race would otherwise
+  // pin an empty index for the whole dev server lifetime (no lesson MP3s →
+  // silent autoplay + browser TTS on Listen).
+  return {};
 }
 
 export function hasAudioClip(hash: string): boolean {
