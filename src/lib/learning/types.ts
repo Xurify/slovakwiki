@@ -151,8 +151,16 @@ export interface FormTableVisual {
 
 export type LessonVisual = ClockGridVisual | FormTableVisual;
 
+/** A predictable wrong form in a built or typed answer, and why it is wrong. */
+export interface AnswerMistake {
+  /** Word or phrase in the learner's answer; matched as whole words, ignoring case and accents. */
+  wrong: string;
+  whyWrong: string;
+}
+
 export interface BuildExercise extends ExerciseBase {
   answer: string[];
+  mistakes?: AnswerMistake[];
   tiles: string[];
   type: "build";
 }
@@ -161,6 +169,7 @@ export interface TypedExercise extends ExerciseBase {
   acceptedAnswers?: string[];
   answer: string;
   inputLabel: string;
+  mistakes?: AnswerMistake[];
   task: "complete" | "repair";
   type: "typed";
 }

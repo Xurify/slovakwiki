@@ -4,11 +4,15 @@
   import { displayPracticeAnswer } from "$lib/components/practice/practice-state";
   import {
     feedbackSectionLabelClass,
+    markedSegments,
     missCompareAttemptRowClass,
     missCompareClass,
     missCompareCorrectionRowClass,
     splitEmphasis,
+    wordMarkClass,
+    type MarkedSegment,
   } from "$lib/components/practice/practice-feedback-ui";
+  import { diffAnswerWords } from "$lib/learning/exercises/answer-diff";
 
   let {
     attempt = undefined,
@@ -25,6 +29,7 @@
     dictionaryHref,
     correctHeadline = "Correct",
     missHeadline = "Correct answer",
+    markWords = false,
     status = false,
   }: {
     attempt?: string;
@@ -41,6 +46,8 @@
     dictionaryHref?: string;
     correctHeadline?: string;
     missHeadline?: string;
+    /** Underline the words that differ between a missed sentence and its correction. */
+    markWords?: boolean;
     /** Lead with an icon + verdict row (live exercise footer). */
     status?: boolean;
   } = $props();
@@ -100,10 +107,29 @@
   const displayedCorrection = $derived(
     correction ? displayPracticeAnswer(correction) : undefined,
   );
+  const wordDiff = $derived(
+    markWords && useCompare && attempt && showCorrection && displayedCorrection
+      ? diffAnswerWords(attempt, displayedCorrection)
+      : null,
+  );
+  const attemptSegments = $derived(wordDiff ? markedSegments(wordDiff.attempt) : null);
+  const correctionSegments = $derived(
+    wordDiff ? markedSegments(wordDiff.correction) : null,
+  );
   const displayedCloseSuggestion = $derived(
     closeSuggestion ? displayPracticeAnswer(closeSuggestion) : null,
   );
 </script>
+
+{#snippet marked(segments: MarkedSegment[])}
+  {#each segments as segment, index (index)}
+    {#if segment.mark}
+      <mark class={wordMarkClass(segment.mark)}>{segment.text}</mark>
+    {:else}
+      {segment.text}
+    {/if}
+  {/each}
+{/snippet}
 
 {#snippet whyLine()}
   {#if why}
@@ -134,7 +160,13 @@
             <div class={missCompareAttemptRowClass}>
               <p class="{feedbackSectionLabelClass} text-rose-800">You wrote</p>
 
-              <p class={attemptClass} lang="sk">{attempt}</p>
+              <p class={attemptClass} lang="sk">
+                {#if attemptSegments}
+                  {@render marked(attemptSegments)}
+                {:else}
+                  {attempt}
+                {/if}
+              </p>
             </div>
           {/if}
 
@@ -142,7 +174,13 @@
             <div class={missCompareCorrectionRowClass}>
               <p class="{feedbackSectionLabelClass} text-emerald-800">{missHeadline}</p>
 
-              <p class={correctionClass} lang="sk">{displayedCorrection}</p>
+              <p class={correctionClass} lang="sk">
+                {#if correctionSegments}
+                  {@render marked(correctionSegments)}
+                {:else}
+                  {displayedCorrection}
+                {/if}
+              </p>
 
               {#if showEnglish}
                 <p class={englishClass}>{english}</p>

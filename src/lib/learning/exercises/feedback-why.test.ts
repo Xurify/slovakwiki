@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { gradeChoice } from "$lib/learning/exercises/choice";
 import {
+  attemptFeedbackWhy,
   augmentFeedbackWhy,
   choiceFeedbackWhy,
   pickTrapFeedbackEnglish,
@@ -98,5 +99,37 @@ describe("feedback-why", () => {
     expect(gradeChoice("trap-a", exercise)).toBe(true);
     expect(gradeChoice("trap-b", exercise)).toBe(true);
     expect(gradeChoice("fit", exercise)).toBe(false);
+  });
+
+  it("leads with the note for a wrong form the learner typed", () => {
+    const mistakes = [
+      { wrong: "svoj", whyWrong: "**Svoj** is for one masculine thing." },
+      { wrong: "jeho", whyWrong: "**Jeho kľúče** would be a man's keys." },
+    ];
+
+    expect(attemptFeedbackWhy("Use **svoje**.", "Anna hľadá svoj kľuče", mistakes)).toBe(
+      "**Svoj** is for one masculine thing. Use **svoje**.",
+    );
+    expect(attemptFeedbackWhy("Use **svoje**.", "Anna hľadá kľúče", mistakes)).toBe(
+      "Use **svoje**.",
+    );
+    expect(attemptFeedbackWhy("Use **svoje**.", undefined, mistakes)).toBe(
+      "Use **svoje**.",
+    );
+  });
+
+  it("shares one note between triggers and skips notes the base already makes", () => {
+    const note = "**Môj brat** is the dictionary form.";
+    const mistakes = [
+      { wrong: "môj", whyWrong: note },
+      { wrong: "brat", whyWrong: note },
+    ];
+
+    expect(attemptFeedbackWhy("Base.", "To je auto môj brat.", mistakes)).toBe(
+      `${note} Base.`,
+    );
+    expect(attemptFeedbackWhy(`Base. ${note}`, "To je auto môj brat.", mistakes)).toBe(
+      `Base. ${note}`,
+    );
   });
 });

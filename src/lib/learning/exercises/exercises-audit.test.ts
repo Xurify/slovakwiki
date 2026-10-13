@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { containsAnswerWords } from "$lib/learning/exercises/answer-diff";
 import { gradeChoice } from "$lib/learning/exercises/choice";
 import {
   daysDatesTimePracticeItems,
@@ -18,7 +19,12 @@ import {
 import { practiceItems } from "$lib/catalog/practice";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessons } from "$lib/catalog/lessons";
-import type { ChoiceExercise } from "$lib/learning/types";
+import type {
+  BuildExercise,
+  ChoiceExercise,
+  PracticeTask,
+  TypedExercise,
+} from "$lib/learning/types";
 
 function choiceExercisesFromLessons(): ChoiceExercise[] {
   return lessons.flatMap((lesson) =>
@@ -59,6 +65,35 @@ function allChoiceTasks(): ChoiceExercise[] {
     ...materialized.filter((task): task is ChoiceExercise => task.type === "choice"),
     ...possessives.filter((task): task is ChoiceExercise => task.type === "choice"),
   ];
+}
+
+function isAnswerTask(task: PracticeTask): task is BuildExercise | TypedExercise {
+  return task.type === "build" || task.type === "typed";
+}
+
+function allAnswerTasks(): Array<BuildExercise | TypedExercise> {
+  const possessives = POSSESSIVE_KINDS.flatMap((kind) =>
+    Array.from(
+      { length: 40 },
+      (_, seed) => materializePossessiveItem(kind, seededRng(seed + 1)).task,
+    ),
+  );
+
+  return [
+    ...lessons.flatMap((lesson) =>
+      lessonExercises(lesson).filter(
+        (exercise): exercise is BuildExercise | TypedExercise =>
+          exercise.type === "build" || exercise.type === "typed",
+      ),
+    ),
+    ...practiceItems.map((item) => item.task).filter(isAnswerTask),
+    ...possessives.filter(isAnswerTask),
+  ];
+}
+
+function acceptedAnswers(task: BuildExercise | TypedExercise): string[] {
+  if (task.type === "build") return [task.answer.join(" ")];
+  return [task.answer, ...(task.acceptedAnswers ?? [])];
 }
 
 function trapChoices(task: ChoiceExercise) {
@@ -103,6 +138,20 @@ describe("exercise audit invariants", () => {
       expect(
         missingWhyWrong.map((choice) => choice.id),
         `${task.id ?? task.practiceItemId} missing whyWrong`,
+      ).toEqual([]);
+    }
+  });
+
+  it("never flags an accepted answer as a mistake", () => {
+    for (const task of allAnswerTasks()) {
+      const flagged = (task.mistakes ?? []).filter((mistake) =>
+        acceptedAnswers(task).some((answer) =>
+          containsAnswerWords(answer, mistake.wrong),
+        ),
+      );
+      expect(
+        flagged.map((mistake) => mistake.wrong),
+        `${task.id} mistakes matching an accepted answer`,
       ).toEqual([]);
     }
   });

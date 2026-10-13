@@ -13,6 +13,7 @@
     BuildSentenceOptions,
     ChoiceOptions,
     SelectAllOptions,
+    attemptFeedbackWhy,
     choiceFeedbackWhy,
     gradeChoice,
     gradeSelectAll,
@@ -54,6 +55,7 @@
       correction?: string;
       english?: string;
       grade: AnswerGrade;
+      markWords?: boolean;
       missHeadline?: string;
       revealed?: boolean;
       showCorrection?: boolean;
@@ -113,6 +115,9 @@
       }
       return choiceFeedbackWhy(baseWhy, selectedId, graded.choices, graded.answerId);
     }
+    if (graded?.type === "typed" || graded?.type === "build") {
+      return attemptFeedbackWhy(baseWhy, attemptForDisplay(), graded.mistakes);
+    }
     return baseWhy;
   });
   const feedbackCorrection = $derived.by(() => {
@@ -132,6 +137,11 @@
   });
   const isPickTrap = $derived(
     graded?.type === "choice" && graded.choiceMode === "pickTrap",
+  );
+  const markWords = $derived(
+    graded?.type === "typed" ||
+      graded?.type === "build" ||
+      (graded?.type === "choice" && !isPickTrap && graded.choiceStyle !== "clock"),
   );
   const feedbackEnglish = $derived(
     isPickTrap
@@ -245,6 +255,8 @@
             graded.choiceMode === "pickTrap"
               ? pickTrapFeedbackWhy(why, selectedId, graded.choices)
               : choiceFeedbackWhy(why, selectedId, graded.choices, graded.answerId);
+        } else if (graded.type === "typed" || graded.type === "build") {
+          why = attemptFeedbackWhy(why, attemptForDisplay(), graded.mistakes);
         }
       }
 
@@ -254,6 +266,7 @@
         correction: feedbackCorrection,
         english: feedbackEnglish,
         grade: kind,
+        markWords,
         missHeadline: isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer",
         showCorrection: !(graded.type === "selectAll" && !isCorrect),
         why,
@@ -451,6 +464,7 @@
           correctionLabelTone="emerald"
           correctHeadline={isPickTrap ? PICK_TRAP_CORRECT_HEADLINE : "Correct"}
           missHeadline={isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer"}
+          {markWords}
         />
       </div>
 

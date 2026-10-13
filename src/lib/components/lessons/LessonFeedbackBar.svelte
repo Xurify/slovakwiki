@@ -12,6 +12,7 @@
     correction,
     english,
     grade,
+    markWords = false,
     missHeadline = "Correct answer",
     oncontinue,
     revealed = false,
@@ -22,6 +23,7 @@
     correction?: string;
     english?: string;
     grade: AnswerGrade;
+    markWords?: boolean;
     missHeadline?: string;
     oncontinue: () => void;
     revealed?: boolean;
@@ -66,6 +68,7 @@
           {revealed}
           {showCorrection}
           {missHeadline}
+          {markWords}
           density="compact"
           correctionLabelTone="emerald"
         />

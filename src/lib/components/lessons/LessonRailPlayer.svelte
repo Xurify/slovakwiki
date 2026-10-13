@@ -40,6 +40,7 @@
     correction?: string;
     english?: string;
     grade: AnswerGrade;
+    markWords?: boolean;
     missHeadline?: string;
     revealed?: boolean;
     showCorrection?: boolean;
@@ -284,6 +285,7 @@
         english={gradeResult.english}
         revealed={gradeResult.revealed}
         missHeadline={gradeResult.missHeadline}
+        markWords={gradeResult.markWords}
         showCorrection={gradeResult.showCorrection}
         oncontinue={advance}
       />

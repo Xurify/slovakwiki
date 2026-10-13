@@ -22,6 +22,7 @@
     BuildSentenceOptions,
     ChoiceOptions,
     SelectAllOptions,
+    attemptFeedbackWhy,
     choiceFeedbackWhy,
     choiceIndexFromKeyboardEvent,
     gradeChoice,
@@ -413,8 +414,19 @@
       }
       return choiceFeedbackWhy(baseWhy, selectedId, task.choices, task.answerId);
     }
+    if (task.type === "typed" || task.type === "build") {
+      return attemptFeedbackWhy(baseWhy, attemptForResult(), task.mistakes);
+    }
     return baseWhy;
   });
+
+  const markWords = $derived(
+    task.type === "typed" ||
+      task.type === "build" ||
+      (task.type === "choice" &&
+        task.choiceMode !== "pickTrap" &&
+        task.choiceStyle !== "clock"),
+  );
 
   const feedbackCorrection = $derived.by(() => {
     if (
@@ -477,6 +489,7 @@
         correctionLabelTone={isMiss || grade === "correct" ? "emerald" : "rose"}
         correctHeadline={isPickTrap ? PICK_TRAP_CORRECT_HEADLINE : "Correct"}
         missHeadline={isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer"}
+        {markWords}
         dictionaryHref={task.type === "cloze" && task.lemmaId
           ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}

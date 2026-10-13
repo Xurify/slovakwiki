@@ -1,3 +1,6 @@
+import type { AnswerMistake } from "$lib/learning/types";
+import { containsAnswerWords } from "./answer-diff";
+
 type FeedbackChoice = {
   id: string;
   correct?: boolean;
@@ -52,6 +55,28 @@ export function choiceFeedbackWhy(
 ): string {
   if (!selectedId || selectedId === answerId) return baseWhy;
   return augmentFeedbackWhy(baseWhy, new Set([selectedId]), choices, answerId);
+}
+
+/**
+ * Typed and built answers: lead with the notes for wrong forms the learner actually
+ * wrote, then the general rule. The base `why` explains the expected answer, which may
+ * not be the learner's mistake at all.
+ */
+export function attemptFeedbackWhy(
+  baseWhy: string,
+  attempt: string | undefined,
+  mistakes: ReadonlyArray<AnswerMistake> = [],
+): string {
+  if (!attempt?.trim()) return baseWhy;
+
+  const notes = mistakes
+    .filter((mistake) => containsAnswerWords(attempt, mistake.wrong))
+    .map((mistake) => mistake.whyWrong)
+    .filter((note, index, all) => all.indexOf(note) === index)
+    .filter((note) => !isRedundantWhyWrong(baseWhy, note));
+
+  if (notes.length === 0) return baseWhy;
+  return [...notes, baseWhy].join(" ");
 }
 
 export const PICK_TRAP_CORRECT_HEADLINE = "That one doesn't fit.";
