@@ -3,7 +3,7 @@
  */
 
 import { createHash } from "node:crypto";
-import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/catalog/entries";
@@ -27,6 +27,7 @@ import {
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
 import { lessonExercises } from "../../src/lib/learning/beats";
+import { readJsonFile, writeFileAtomic } from "../lib/json-file";
 import { ROOT } from "../lib/paths";
 
 export type { AudioKind };
@@ -152,18 +153,14 @@ export async function loadConfig(): Promise<AudioConfig> {
 }
 
 export async function loadManifest(): Promise<AudioManifest> {
-  try {
-    return JSON.parse(await readFile(MANIFEST_PATH, "utf8")) as AudioManifest;
-  } catch {
-    return {};
-  }
+  return readJsonFile<AudioManifest>(MANIFEST_PATH, {});
 }
 
 export async function saveManifest(manifest: AudioManifest): Promise<void> {
   const sorted = sortManifestKeys(manifest);
-  await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`, "utf8");
+  await writeFileAtomic(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`);
   const runtimeIndex = sortManifestKeys(buildRuntimeIndex(sorted));
-  await writeFile(RUNTIME_INDEX_PATH, `${JSON.stringify(runtimeIndex)}\n`, "utf8");
+  await writeFileAtomic(RUNTIME_INDEX_PATH, `${JSON.stringify(runtimeIndex)}\n`);
 }
 
 /**
@@ -172,11 +169,7 @@ export async function saveManifest(manifest: AudioManifest): Promise<void> {
  * makes rewriting it on Windows fail with EUNKNOWN mid-upload.
  */
 export async function saveManifestFile(manifest: AudioManifest): Promise<void> {
-  await writeFile(
-    MANIFEST_PATH,
-    `${JSON.stringify(sortManifestKeys(manifest))}\n`,
-    "utf8",
-  );
+  await writeFileAtomic(MANIFEST_PATH, `${JSON.stringify(sortManifestKeys(manifest))}\n`);
 }
 
 export async function ensureAudioDir(kind?: AudioKind): Promise<void> {

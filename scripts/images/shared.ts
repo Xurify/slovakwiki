@@ -2,7 +2,7 @@
  * Shared helpers for Wikimedia dictionary image fetch / status.
  */
 
-import { access, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/catalog/entries";
@@ -15,6 +15,7 @@ import {
   canonicalWordSlug,
   lemmaSenseGroup,
 } from "../../src/lib/catalog/dictionary/lemma-senses";
+import { readJsonFile, writeFileAtomic } from "../lib/json-file";
 import { ROOT } from "../lib/paths";
 
 export const IMAGES_DIR = path.join(ROOT, "static", "images", "dictionary");
@@ -712,33 +713,25 @@ export function collectImageTargets(options?: {
 }
 
 export async function loadManifest(): Promise<ImageManifest> {
-  try {
-    return JSON.parse(await readFile(MANIFEST_PATH, "utf8")) as ImageManifest;
-  } catch {
-    return {};
-  }
+  return readJsonFile<ImageManifest>(MANIFEST_PATH, {});
 }
 
 export async function saveManifest(manifest: ImageManifest): Promise<void> {
   const sorted = Object.fromEntries(
     Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b, "en")),
   );
-  await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`, "utf8");
+  await writeFileAtomic(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`);
 }
 
 export async function loadOverrides(): Promise<ImageOverrides> {
-  try {
-    return JSON.parse(await readFile(OVERRIDES_PATH, "utf8")) as ImageOverrides;
-  } catch {
-    return {};
-  }
+  return readJsonFile<ImageOverrides>(OVERRIDES_PATH, {});
 }
 
 export async function saveOverrides(overrides: ImageOverrides): Promise<void> {
   const sorted = Object.fromEntries(
     Object.entries(overrides).sort(([a], [b]) => a.localeCompare(b, "en")),
   );
-  await writeFile(OVERRIDES_PATH, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
+  await writeFileAtomic(OVERRIDES_PATH, `${JSON.stringify(sorted, null, 2)}\n`);
 }
 
 export async function ensureImagesDir(): Promise<void> {
