@@ -22,7 +22,7 @@ export interface KaikkiNounRecord {
 }
 
 export type GenderSource =
-  | "hand-override"
+  | "hand-review"
   | "english-wiktionary"
   | "english-wiktionary-gloss-match"
   | "polish-wiktionary"

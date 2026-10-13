@@ -3,6 +3,7 @@
  * from Wiktionary Slovak extracts (kaikki.org, CC BY-SA). English Wiktionary first,
  * Polish Wiktionary for gaps and ties, confident ending rules last; anything else
  * stays unset and is listed for review. Mapping rules: `noun-gender-mapping.ts`.
+ * The hand review in content/dictionary/noun-gender-review.json wins over all of it.
  *
  * Dumps (gitignored, under tmp/):
  *   tmp/kaikki/kaikki-slovak.jsonl
@@ -26,7 +27,11 @@ import { createInterface } from "node:readline";
 import { fileURLToPath } from "node:url";
 
 import { words } from "../../src/lib/catalog/entries";
-import type { ContentEntry, NounGender } from "../../src/lib/catalog/types";
+import {
+  isNounGender,
+  type ContentEntry,
+  type NounGender,
+} from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
 import {
   resolveNounGender,
@@ -47,27 +52,31 @@ const DEFAULT_POLISH_DUMP_PATH = path.join(
 const REPORT_PATH = path.join(ROOT, "tmp", "noun-gender-report.json");
 
 /**
- * Reviewed corrections that win over both editions and ending rules.
- * Key: `slovak` lemma. `null` keeps gender unset on purpose.
+ * Hand review of every noun (content/dictionary/noun-gender-review.json): fills
+ * lemmas neither Wiktionary edition resolves and corrects the ones they get wrong.
+ * Key: `slovak` lemma. `gender: null` keeps it unset on purpose; `note` says why.
  */
-const HAND_OVERRIDES: Record<string, NounGender | null> = {
-  // Homographs where our English gloss picks the person sense.
-  člen: "masculine-animate",
-  čitateľ: "masculine-animate",
-  duch: "masculine-animate",
-  manažér: "masculine-animate",
-  sekretár: "masculine-animate",
-  // Polish Wiktionary tags these masculine; both are neuter (vysvedčenie, mesto).
-  oddelenie: "neuter",
-  dejisko: "neuter",
-  // Pluralia tantum missing from both editions.
-  financie: "plural-only",
-  kúpele: "plural-only",
-  // Slang, in neither edition (curated seed).
-  kšeft: "masculine-inanimate",
-  // Lemma/gloss mismatch (cola vs "round" — likely a form of kolo); fix the row first.
-  kola: null,
-};
+const REVIEW_PATH = path.join(ROOT, "content", "dictionary", "noun-gender-review.json");
+
+interface ReviewEntry {
+  gender: NounGender | null;
+  note?: string;
+}
+
+async function loadReview(): Promise<Record<string, ReviewEntry>> {
+  const review = JSON.parse(await readFile(REVIEW_PATH, "utf8")) as Record<
+    string,
+    ReviewEntry
+  >;
+  for (const [lemma, entry] of Object.entries(review)) {
+    if (entry.gender !== null && !isNounGender(entry.gender)) {
+      throw new Error(
+        `noun-gender-review.json: unknown gender "${entry.gender}" for ${lemma}`,
+      );
+    }
+  }
+  return review;
+}
 
 function argValue(flag: string): string | undefined {
   const index = process.argv.indexOf(flag);
@@ -106,6 +115,7 @@ async function loadNounRecords(
 interface Editions {
   english: Map<string, KaikkiNounRecord[]>;
   polish: Map<string, KaikkiNounRecord[]>;
+  review: Record<string, ReviewEntry>;
 }
 
 function recordsFor(
@@ -119,10 +129,20 @@ function resolve(
   word: Pick<WordSeed, "slovak" | "english">,
   editions: Editions,
 ): GenderResolution {
-  const override = HAND_OVERRIDES[word.slovak];
-  if (override) return { gender: override, source: "hand-override" };
-  if (override === null) {
-    return { gender: null, reason: "ambiguous", note: "hand override: left unset" };
+  const reviewed = editions.review[word.slovak];
+  if (reviewed?.gender) {
+    return {
+      gender: reviewed.gender,
+      source: "hand-review",
+      ...(reviewed.note ? { note: reviewed.note } : {}),
+    };
+  }
+  if (reviewed) {
+    return {
+      gender: null,
+      reason: "ambiguous",
+      note: `hand review: ${reviewed.note ?? "left unset"}`,
+    };
   }
   return resolveNounGender(word.slovak, word.english, {
     english: recordsFor(word.slovak, editions.english),
@@ -174,6 +194,7 @@ async function main(): Promise<void> {
     polish: existsSync(polishDumpPath)
       ? await loadNounRecords(polishDumpPath)
       : new Map<string, KaikkiNounRecord[]>(),
+    review: await loadReview(),
   };
   if (editions.polish.size === 0) {
     console.warn(

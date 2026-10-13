@@ -65,7 +65,7 @@ Frequency lists, live dictionary publish, Tatoeba examples. Hand-add fields: [`c
 - https://kaikki.org/dictionary/Slovak/kaikki.org-dictionary-Slovak.jsonl → `tmp/kaikki/kaikki-slovak.jsonl` (English Wiktionary, required)
 - https://kaikki.org/plwiktionary/język%20słowacki/kaikki.org-dictionary-języksłowacki.jsonl → `tmp/kaikki-polish/kaikki-polish-wiktionary-slovak.jsonl` (Polish Wiktionary, optional — roughly doubles coverage)
 
-Mapping rules + tests: `scripts/dictionary/noun-gender-mapping.ts`. Reviewed corrections: `HAND_OVERRIDES` in `import-noun-gender.ts`.
+Mapping rules + tests: `scripts/dictionary/noun-gender-mapping.ts`. Hand review of every noun (fills + corrections, wins over the dumps): `content/dictionary/noun-gender-review.json` — add new nouns there when the dumps leave them unset.
 
 **Tatoeba dumps** (optional, examples only): put decompressed TSVs in `tmp/tatoeba/` —
 

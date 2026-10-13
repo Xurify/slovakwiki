@@ -1,0 +1,1687 @@
+{
+  "agenda": {
+    "gender": "feminine"
+  },
+  "akt": {
+    "gender": "masculine-inanimate"
+  },
+  "aktér": {
+    "gender": "masculine-animate"
+  },
+  "aparát": {
+    "gender": "masculine-inanimate"
+  },
+  "areál": {
+    "gender": "masculine-inanimate"
+  },
+  "aréna": {
+    "gender": "feminine"
+  },
+  "ateliér": {
+    "gender": "masculine-inanimate"
+  },
+  "balíček": {
+    "gender": "masculine-inanimate"
+  },
+  "bar": {
+    "gender": "masculine-inanimate"
+  },
+  "barel": {
+    "gender": "masculine-inanimate"
+  },
+  "bariéra": {
+    "gender": "feminine"
+  },
+  "báza": {
+    "gender": "feminine"
+  },
+  "biznis": {
+    "gender": "masculine-inanimate"
+  },
+  "blok": {
+    "gender": "masculine-inanimate"
+  },
+  "bod": {
+    "gender": "masculine-inanimate"
+  },
+  "bonus": {
+    "gender": "masculine-inanimate"
+  },
+  "brejk": {
+    "gender": "masculine-inanimate"
+  },
+  "býk": {
+    "gender": "masculine-animate"
+  },
+  "celok": {
+    "gender": "masculine-inanimate"
+  },
+  "cent": {
+    "gender": "masculine-inanimate"
+  },
+  "center": {
+    "gender": null,
+    "note": "gloss could be the sports position (animate) or a place (inanimate)"
+  },
+  "centrála": {
+    "gender": "feminine"
+  },
+  "certifikát": {
+    "gender": "masculine-inanimate"
+  },
+  "cup": {
+    "gender": null,
+    "note": "English word, not a Slovak noun lemma"
+  },
+  "činiteľ": {
+    "gender": "masculine-inanimate",
+    "note": "both glossed senses (factor, causal agent) are things"
+  },
+  "čitateľ": {
+    "gender": "masculine-animate",
+    "note": "gloss picks the person sense (reader, not reading book)"
+  },
+  "článok": {
+    "gender": "masculine-inanimate"
+  },
+  "člen": {
+    "gender": "masculine-animate",
+    "note": "gloss picks the person sense (member, not article)"
+  },
+  "daňovník": {
+    "gender": "masculine-animate"
+  },
+  "dejisko": {
+    "gender": "neuter",
+    "note": "pattern mesto; Polish Wiktionary says masculine"
+  },
+  "delegát": {
+    "gender": "masculine-animate"
+  },
+  "derby": {
+    "gender": "neuter"
+  },
+  "dievčina": {
+    "gender": "feminine"
+  },
+  "diplom": {
+    "gender": "masculine-inanimate"
+  },
+  "dlhopis": {
+    "gender": "masculine-inanimate"
+  },
+  "dlžník": {
+    "gender": "masculine-animate"
+  },
+  "dnešok": {
+    "gender": "masculine-inanimate"
+  },
+  "dobytok": {
+    "gender": "masculine-inanimate",
+    "note": "collective noun: kŕmiť dobytok (accusative = nominative); Polish Wiktionary says animate"
+  },
+  "dodatok": {
+    "gender": "masculine-inanimate"
+  },
+  "dodávateľ": {
+    "gender": "masculine-animate"
+  },
+  "dohľad": {
+    "gender": "masculine-inanimate"
+  },
+  "dohovor": {
+    "gender": "masculine-inanimate"
+  },
+  "don": {
+    "gender": "masculine-animate"
+  },
+  "dopad": {
+    "gender": "masculine-inanimate"
+  },
+  "doplnok": {
+    "gender": "masculine-inanimate"
+  },
+  "dorast": {
+    "gender": "masculine-inanimate"
+  },
+  "dorastenec": {
+    "gender": "masculine-animate"
+  },
+  "dosah": {
+    "gender": "masculine-inanimate"
+  },
+  "dozor": {
+    "gender": "masculine-inanimate"
+  },
+  "dôkaz": {
+    "gender": "masculine-inanimate"
+  },
+  "dôsledok": {
+    "gender": "masculine-inanimate"
+  },
+  "dres": {
+    "gender": "masculine-inanimate"
+  },
+  "druh": {
+    "gender": "masculine-inanimate"
+  },
+  "držiteľ": {
+    "gender": "masculine-animate"
+  },
+  "duel": {
+    "gender": "masculine-inanimate"
+  },
+  "duch": {
+    "gender": "masculine-animate",
+    "note": "duchovia — person-like being"
+  },
+  "dvojica": {
+    "gender": "feminine"
+  },
+  "efekt": {
+    "gender": "masculine-inanimate"
+  },
+  "éra": {
+    "gender": "feminine"
+  },
+  "etapa": {
+    "gender": "feminine"
+  },
+  "eurofond": {
+    "gender": "masculine-inanimate"
+  },
+  "euroval": {
+    "gender": "masculine-inanimate"
+  },
+  "extraliga": {
+    "gender": "feminine"
+  },
+  "faktor": {
+    "gender": "masculine-inanimate"
+  },
+  "fáza": {
+    "gender": "feminine"
+  },
+  "fenomén": {
+    "gender": "masculine-inanimate"
+  },
+  "financie": {
+    "gender": "plural-only",
+    "note": "pluralia tantum"
+  },
+  "fond": {
+    "gender": "masculine-inanimate"
+  },
+  "formát": {
+    "gender": "masculine-inanimate"
+  },
+  "fórum": {
+    "gender": "neuter"
+  },
+  "front": {
+    "gender": "masculine-inanimate"
+  },
+  "funkcionár": {
+    "gender": "masculine-animate"
+  },
+  "gigant": {
+    "gender": "masculine-animate"
+  },
+  "hetrik": {
+    "gender": "masculine-inanimate"
+  },
+  "hit": {
+    "gender": "masculine-inanimate"
+  },
+  "hmyz": {
+    "gender": "masculine-inanimate"
+  },
+  "hnev": {
+    "gender": "masculine-inanimate"
+  },
+  "holding": {
+    "gender": "masculine-inanimate"
+  },
+  "hrniec": {
+    "gender": "masculine-inanimate"
+  },
+  "chodec": {
+    "gender": "masculine-animate"
+  },
+  "chov": {
+    "gender": "masculine-inanimate"
+  },
+  "incident": {
+    "gender": "masculine-inanimate"
+  },
+  "inšpektor": {
+    "gender": "masculine-animate"
+  },
+  "inštitút": {
+    "gender": "masculine-inanimate"
+  },
+  "Inter": {
+    "gender": null,
+    "note": "club name, not a common noun"
+  },
+  "interpret": {
+    "gender": "masculine-animate"
+  },
+  "interval": {
+    "gender": "masculine-inanimate"
+  },
+  "istota": {
+    "gender": "feminine"
+  },
+  "jedinec": {
+    "gender": "masculine-animate"
+  },
+  "jednotlivec": {
+    "gender": "masculine-animate"
+  },
+  "junior": {
+    "gender": "masculine-animate"
+  },
+  "kabinet": {
+    "gender": "masculine-inanimate"
+  },
+  "káder": {
+    "gender": "masculine-inanimate"
+  },
+  "kancelár": {
+    "gender": "masculine-animate"
+  },
+  "kapela": {
+    "gender": "feminine"
+  },
+  "kataster": {
+    "gender": "masculine-inanimate"
+  },
+  "kauza": {
+    "gender": "feminine"
+  },
+  "klub": {
+    "gender": "masculine-inanimate"
+  },
+  "kola": {
+    "gender": null,
+    "note": "lemma means cola but the gloss is \"round\" (likely a form of kolo) — fix the row first"
+  },
+  "kolektív": {
+    "gender": "masculine-inanimate"
+  },
+  "komisár": {
+    "gender": "masculine-animate"
+  },
+  "komodita": {
+    "gender": "feminine"
+  },
+  "komora": {
+    "gender": "feminine"
+  },
+  "kompromis": {
+    "gender": "masculine-inanimate"
+  },
+  "konateľ": {
+    "gender": "masculine-animate"
+  },
+  "koncept": {
+    "gender": "masculine-inanimate"
+  },
+  "koncern": {
+    "gender": "masculine-inanimate"
+  },
+  "konflikt": {
+    "gender": "masculine-inanimate"
+  },
+  "kontakt": {
+    "gender": "masculine-inanimate"
+  },
+  "kontrakt": {
+    "gender": "masculine-inanimate"
+  },
+  "kontrolór": {
+    "gender": "masculine-animate"
+  },
+  "kop": {
+    "gender": "masculine-inanimate"
+  },
+  "kópia": {
+    "gender": "feminine"
+  },
+  "kostým": {
+    "gender": "masculine-inanimate"
+  },
+  "kouč": {
+    "gender": "masculine-animate"
+  },
+  "krach": {
+    "gender": "masculine-inanimate"
+  },
+  "krídelník": {
+    "gender": "masculine-animate"
+  },
+  "kritik": {
+    "gender": "masculine-animate"
+  },
+  "kšeft": {
+    "gender": "masculine-inanimate",
+    "note": "slang; in neither Wiktionary edition"
+  },
+  "kulisa": {
+    "gender": "feminine"
+  },
+  "kúpele": {
+    "gender": "plural-only",
+    "note": "pluralia tantum"
+  },
+  "kúsok": {
+    "gender": "masculine-inanimate"
+  },
+  "kút": {
+    "gender": "masculine-inanimate"
+  },
+  "kútik": {
+    "gender": "masculine-inanimate"
+  },
+  "kvóta": {
+    "gender": "feminine"
+  },
+  "lady": {
+    "gender": "feminine"
+  },
+  "laik": {
+    "gender": "masculine-animate"
+  },
+  "legenda": {
+    "gender": "feminine"
+  },
+  "legionár": {
+    "gender": "masculine-animate"
+  },
+  "let": {
+    "gender": "masculine-inanimate"
+  },
+  "limit": {
+    "gender": "masculine-inanimate"
+  },
+  "línia": {
+    "gender": "feminine"
+  },
+  "listina": {
+    "gender": "feminine"
+  },
+  "lokalita": {
+    "gender": "feminine"
+  },
+  "magistrát": {
+    "gender": "masculine-inanimate"
+  },
+  "mail": {
+    "gender": "masculine-inanimate"
+  },
+  "málo": {
+    "gender": null,
+    "note": "quantity word, not a noun"
+  },
+  "mam": {
+    "gender": null,
+    "note": "not a standard lemma (mama, mamka)"
+  },
+  "manažér": {
+    "gender": "masculine-animate",
+    "note": "person"
+  },
+  "mandát": {
+    "gender": "masculine-inanimate"
+  },
+  "masa": {
+    "gender": "feminine"
+  },
+  "metóda": {
+    "gender": "feminine"
+  },
+  "míľa": {
+    "gender": "feminine"
+  },
+  "miláčik": {
+    "gender": "masculine-animate"
+  },
+  "minimum": {
+    "gender": "neuter"
+  },
+  "míting": {
+    "gender": "masculine-inanimate"
+  },
+  "mix": {
+    "gender": "masculine-inanimate"
+  },
+  "mladí": {
+    "gender": null,
+    "note": "plural adjective (young people), not a noun lemma"
+  },
+  "mladík": {
+    "gender": "masculine-animate"
+  },
+  "model": {
+    "gender": "masculine-inanimate"
+  },
+  "mreža": {
+    "gender": "feminine"
+  },
+  "muzikant": {
+    "gender": "masculine-animate"
+  },
+  "mýtus": {
+    "gender": "masculine-inanimate"
+  },
+  "nadšenec": {
+    "gender": "masculine-animate"
+  },
+  "náhradník": {
+    "gender": "masculine-animate"
+  },
+  "nájom": {
+    "gender": "masculine-inanimate"
+  },
+  "nájomné": {
+    "gender": "neuter"
+  },
+  "náklad": {
+    "gender": "masculine-inanimate"
+  },
+  "námaha": {
+    "gender": "feminine"
+  },
+  "námestník": {
+    "gender": "masculine-animate"
+  },
+  "námet": {
+    "gender": "masculine-inanimate"
+  },
+  "nápor": {
+    "gender": "masculine-inanimate"
+  },
+  "nárast": {
+    "gender": "masculine-inanimate"
+  },
+  "náraz": {
+    "gender": "masculine-inanimate"
+  },
+  "nárok": {
+    "gender": "masculine-inanimate"
+  },
+  "nástup": {
+    "gender": "masculine-inanimate"
+  },
+  "nátlak": {
+    "gender": "masculine-inanimate"
+  },
+  "návrat": {
+    "gender": "masculine-inanimate"
+  },
+  "návštevník": {
+    "gender": "masculine-animate"
+  },
+  "návyk": {
+    "gender": "masculine-inanimate"
+  },
+  "náznak": {
+    "gender": "masculine-inanimate"
+  },
+  "nedôvera": {
+    "gender": "feminine"
+  },
+  "neistota": {
+    "gender": "feminine"
+  },
+  "nepokoj": {
+    "gender": "masculine-inanimate"
+  },
+  "nervozita": {
+    "gender": "feminine"
+  },
+  "nesúhlas": {
+    "gender": "masculine-inanimate"
+  },
+  "nevýhoda": {
+    "gender": "feminine"
+  },
+  "nominant": {
+    "gender": "masculine-animate"
+  },
+  "norma": {
+    "gender": "feminine"
+  },
+  "nosič": {
+    "gender": null,
+    "note": "gloss mixes carrier (person) and rack (thing)"
+  },
+  "nositeľ": {
+    "gender": "masculine-animate"
+  },
+  "notebook": {
+    "gender": "masculine-inanimate"
+  },
+  "novela": {
+    "gender": "feminine"
+  },
+  "novina": {
+    "gender": "feminine"
+  },
+  "obal": {
+    "gender": "masculine-inanimate"
+  },
+  "obeh": {
+    "gender": "masculine-inanimate"
+  },
+  "obeta": {
+    "gender": "feminine"
+  },
+  "obchodník": {
+    "gender": "masculine-animate"
+  },
+  "oblek": {
+    "gender": "masculine-inanimate"
+  },
+  "oblúk": {
+    "gender": "masculine-inanimate"
+  },
+  "obranca": {
+    "gender": "masculine-animate"
+  },
+  "obrat": {
+    "gender": "masculine-inanimate"
+  },
+  "obrázok": {
+    "gender": "masculine-inanimate"
+  },
+  "obvod": {
+    "gender": "masculine-inanimate"
+  },
+  "ocko": {
+    "gender": "masculine-animate"
+  },
+  "odberateľ": {
+    "gender": "masculine-animate"
+  },
+  "odbor": {
+    "gender": "masculine-inanimate"
+  },
+  "odborár": {
+    "gender": "masculine-animate"
+  },
+  "odborník": {
+    "gender": "masculine-animate"
+  },
+  "oddelenie": {
+    "gender": "neuter",
+    "note": "pattern vysvedčenie; Polish Wiktionary says masculine"
+  },
+  "oddiel": {
+    "gender": "masculine-inanimate"
+  },
+  "oddych": {
+    "gender": "masculine-inanimate"
+  },
+  "odhad": {
+    "gender": "masculine-inanimate"
+  },
+  "odchod": {
+    "gender": "masculine-inanimate"
+  },
+  "odchovanec": {
+    "gender": "masculine-animate"
+  },
+  "odkaz": {
+    "gender": "masculine-inanimate"
+  },
+  "odklad": {
+    "gender": "masculine-inanimate"
+  },
+  "odpad": {
+    "gender": "masculine-inanimate"
+  },
+  "odpočinok": {
+    "gender": "masculine-inanimate"
+  },
+  "odraz": {
+    "gender": "masculine-inanimate"
+  },
+  "odroda": {
+    "gender": "feminine"
+  },
+  "odstup": {
+    "gender": "masculine-inanimate"
+  },
+  "odstupné": {
+    "gender": "neuter"
+  },
+  "odvod": {
+    "gender": "masculine-inanimate"
+  },
+  "ohľad": {
+    "gender": "masculine-inanimate"
+  },
+  "ohlas": {
+    "gender": "masculine-inanimate"
+  },
+  "ochota": {
+    "gender": "feminine"
+  },
+  "ochranca": {
+    "gender": "masculine-animate"
+  },
+  "okamih": {
+    "gender": "masculine-inanimate"
+  },
+  "okruh": {
+    "gender": "masculine-inanimate"
+  },
+  "omyl": {
+    "gender": "masculine-inanimate"
+  },
+  "opak": {
+    "gender": "masculine-inanimate"
+  },
+  "operátor": {
+    "gender": "masculine-animate"
+  },
+  "opora": {
+    "gender": "feminine"
+  },
+  "opýtaný": {
+    "gender": "masculine-animate"
+  },
+  "orgán": {
+    "gender": "masculine-inanimate"
+  },
+  "orchester": {
+    "gender": "masculine-inanimate"
+  },
+  "osada": {
+    "gender": "feminine"
+  },
+  "osemfinále": {
+    "gender": "neuter"
+  },
+  "osud": {
+    "gender": "masculine-inanimate"
+  },
+  "otvor": {
+    "gender": "masculine-inanimate"
+  },
+  "oznam": {
+    "gender": "masculine-inanimate"
+  },
+  "pamätník": {
+    "gender": "masculine-inanimate"
+  },
+  "panel": {
+    "gender": "masculine-inanimate"
+  },
+  "panelák": {
+    "gender": "masculine-inanimate"
+  },
+  "pár": {
+    "gender": "masculine-inanimate"
+  },
+  "paradox": {
+    "gender": "masculine-inanimate"
+  },
+  "parameter": {
+    "gender": "masculine-inanimate"
+  },
+  "park": {
+    "gender": "masculine-inanimate"
+  },
+  "partia": {
+    "gender": "feminine"
+  },
+  "pás": {
+    "gender": "masculine-inanimate"
+  },
+  "pasáž": {
+    "gender": "feminine"
+  },
+  "páter": {
+    "gender": "masculine-animate"
+  },
+  "pauza": {
+    "gender": "feminine"
+  },
+  "peniaz": {
+    "gender": "masculine-inanimate"
+  },
+  "plagát": {
+    "gender": "masculine-inanimate"
+  },
+  "plán": {
+    "gender": "masculine-inanimate"
+  },
+  "platforma": {
+    "gender": "feminine"
+  },
+  "pleť": {
+    "gender": "feminine"
+  },
+  "plod": {
+    "gender": "masculine-inanimate"
+  },
+  "plus": {
+    "gender": null,
+    "note": "masculine or neuter in usage (veľké plus)"
+  },
+  "pobyt": {
+    "gender": "masculine-inanimate"
+  },
+  "pocta": {
+    "gender": "feminine"
+  },
+  "počiatok": {
+    "gender": "masculine-inanimate"
+  },
+  "podiel": {
+    "gender": "masculine-inanimate"
+  },
+  "podklad": {
+    "gender": "masculine-inanimate"
+  },
+  "podnet": {
+    "gender": "masculine-inanimate"
+  },
+  "podpora": {
+    "gender": "feminine"
+  },
+  "podpredseda": {
+    "gender": "masculine-animate"
+  },
+  "podstata": {
+    "gender": "feminine"
+  },
+  "pohárik": {
+    "gender": "masculine-inanimate"
+  },
+  "pohoda": {
+    "gender": "feminine"
+  },
+  "pohovor": {
+    "gender": "masculine-inanimate"
+  },
+  "pohyb": {
+    "gender": "masculine-inanimate"
+  },
+  "poistenec": {
+    "gender": "masculine-animate"
+  },
+  "poistné": {
+    "gender": "neuter"
+  },
+  "pokles": {
+    "gender": "masculine-inanimate"
+  },
+  "pokyn": {
+    "gender": "masculine-inanimate"
+  },
+  "pomer": {
+    "gender": "masculine-inanimate"
+  },
+  "porada": {
+    "gender": "feminine"
+  },
+  "porast": {
+    "gender": "masculine-inanimate"
+  },
+  "porota": {
+    "gender": "feminine"
+  },
+  "posila": {
+    "gender": "feminine"
+  },
+  "poskytovateľ": {
+    "gender": "masculine-animate"
+  },
+  "post": {
+    "gender": "masculine-inanimate"
+  },
+  "postreh": {
+    "gender": "masculine-inanimate"
+  },
+  "postup": {
+    "gender": "masculine-inanimate"
+  },
+  "posudok": {
+    "gender": "masculine-inanimate"
+  },
+  "posun": {
+    "gender": "masculine-inanimate"
+  },
+  "potenciál": {
+    "gender": "masculine-inanimate"
+  },
+  "potlesk": {
+    "gender": "masculine-inanimate"
+  },
+  "povesť": {
+    "gender": "feminine"
+  },
+  "povrch": {
+    "gender": "masculine-inanimate"
+  },
+  "povstalec": {
+    "gender": "masculine-animate"
+  },
+  "pozdrav": {
+    "gender": "masculine-inanimate"
+  },
+  "pozemok": {
+    "gender": "masculine-inanimate"
+  },
+  "poznatok": {
+    "gender": "masculine-inanimate"
+  },
+  "prach": {
+    "gender": "masculine-inanimate"
+  },
+  "prášok": {
+    "gender": "masculine-inanimate"
+  },
+  "právomoc": {
+    "gender": "feminine"
+  },
+  "prečin": {
+    "gender": "masculine-inanimate"
+  },
+  "predaj": {
+    "gender": "masculine-inanimate"
+  },
+  "preddavok": {
+    "gender": "masculine-inanimate"
+  },
+  "prednosta": {
+    "gender": "masculine-animate"
+  },
+  "predok": {
+    "gender": null,
+    "note": "gloss mixes ancestor (animate) and front part (inanimate)"
+  },
+  "predpoklad": {
+    "gender": "masculine-inanimate"
+  },
+  "predstaviteľ": {
+    "gender": "masculine-animate"
+  },
+  "prehľad": {
+    "gender": "masculine-inanimate"
+  },
+  "prechod": {
+    "gender": "masculine-inanimate"
+  },
+  "prejav": {
+    "gender": "masculine-inanimate"
+  },
+  "preklad": {
+    "gender": "masculine-inanimate"
+  },
+  "prelom": {
+    "gender": "masculine-inanimate"
+  },
+  "prenájom": {
+    "gender": "masculine-inanimate"
+  },
+  "prenos": {
+    "gender": "masculine-inanimate"
+  },
+  "prepad": {
+    "gender": "masculine-inanimate"
+  },
+  "prepočet": {
+    "gender": "masculine-inanimate"
+  },
+  "prestup": {
+    "gender": "masculine-inanimate"
+  },
+  "presun": {
+    "gender": "masculine-inanimate"
+  },
+  "prevádzkovateľ": {
+    "gender": "masculine-animate"
+  },
+  "prevod": {
+    "gender": "masculine-inanimate"
+  },
+  "priaznivec": {
+    "gender": "masculine-animate"
+  },
+  "priebeh": {
+    "gender": "masculine-inanimate"
+  },
+  "priechod": {
+    "gender": "masculine-inanimate"
+  },
+  "priemer": {
+    "gender": "masculine-inanimate"
+  },
+  "prieskum": {
+    "gender": "masculine-inanimate"
+  },
+  "priestupok": {
+    "gender": "masculine-inanimate"
+  },
+  "príjem": {
+    "gender": "masculine-inanimate"
+  },
+  "príkaz": {
+    "gender": "masculine-inanimate"
+  },
+  "príloha": {
+    "gender": "feminine"
+  },
+  "primátor": {
+    "gender": "masculine-animate"
+  },
+  "prínos": {
+    "gender": "masculine-inanimate"
+  },
+  "prípravok": {
+    "gender": "masculine-inanimate"
+  },
+  "prírastok": {
+    "gender": "masculine-inanimate"
+  },
+  "prísľub": {
+    "gender": "masculine-inanimate"
+  },
+  "príslušník": {
+    "gender": "masculine-animate"
+  },
+  "príspevok": {
+    "gender": "masculine-inanimate"
+  },
+  "prístroj": {
+    "gender": "masculine-inanimate"
+  },
+  "prístup": {
+    "gender": "masculine-inanimate"
+  },
+  "prívrženec": {
+    "gender": "masculine-animate"
+  },
+  "príznak": {
+    "gender": "masculine-inanimate"
+  },
+  "proces": {
+    "gender": "masculine-inanimate"
+  },
+  "profesor": {
+    "gender": "masculine-animate"
+  },
+  "profil": {
+    "gender": "masculine-inanimate"
+  },
+  "prognóza": {
+    "gender": "feminine"
+  },
+  "projekt": {
+    "gender": "masculine-inanimate"
+  },
+  "prokurátor": {
+    "gender": "masculine-animate"
+  },
+  "prospech": {
+    "gender": "masculine-inanimate"
+  },
+  "prostriedok": {
+    "gender": "masculine-inanimate"
+  },
+  "protiklad": {
+    "gender": "masculine-inanimate"
+  },
+  "protiútok": {
+    "gender": "masculine-inanimate"
+  },
+  "protokol": {
+    "gender": "masculine-inanimate"
+  },
+  "pruh": {
+    "gender": "masculine-inanimate"
+  },
+  "prvok": {
+    "gender": "masculine-inanimate"
+  },
+  "publikum": {
+    "gender": "neuter"
+  },
+  "pult": {
+    "gender": "masculine-inanimate"
+  },
+  "rám": {
+    "gender": "masculine-inanimate"
+  },
+  "rámec": {
+    "gender": "masculine-inanimate"
+  },
+  "rast": {
+    "gender": "masculine-inanimate"
+  },
+  "rating": {
+    "gender": "masculine-inanimate"
+  },
+  "realita": {
+    "gender": "feminine"
+  },
+  "recept": {
+    "gender": "masculine-inanimate"
+  },
+  "región": {
+    "gender": "masculine-inanimate"
+  },
+  "register": {
+    "gender": "masculine-inanimate"
+  },
+  "reklama": {
+    "gender": "feminine"
+  },
+  "rektor": {
+    "gender": "masculine-animate"
+  },
+  "relax": {
+    "gender": "masculine-inanimate"
+  },
+  "reprezentant": {
+    "gender": "masculine-animate"
+  },
+  "repríza": {
+    "gender": "feminine"
+  },
+  "respondent": {
+    "gender": "masculine-animate"
+  },
+  "rešpekt": {
+    "gender": "masculine-inanimate"
+  },
+  "reťazec": {
+    "gender": "masculine-inanimate"
+  },
+  "rezort": {
+    "gender": "masculine-inanimate"
+  },
+  "riadok": {
+    "gender": "masculine-inanimate"
+  },
+  "robot": {
+    "gender": null,
+    "note": "animacy unsettled in usage (roboty / roboti)"
+  },
+  "ročník": {
+    "gender": "masculine-inanimate"
+  },
+  "rola": {
+    "gender": "feminine"
+  },
+  "rozhlas": {
+    "gender": "masculine-inanimate"
+  },
+  "rozhovor": {
+    "gender": "masculine-inanimate"
+  },
+  "rozkaz": {
+    "gender": "masculine-inanimate"
+  },
+  "rozloha": {
+    "gender": "feminine"
+  },
+  "rozmer": {
+    "gender": "masculine-inanimate"
+  },
+  "rozpad": {
+    "gender": "masculine-inanimate"
+  },
+  "rozsah": {
+    "gender": "masculine-inanimate"
+  },
+  "rozsudok": {
+    "gender": "masculine-inanimate"
+  },
+  "rozvoj": {
+    "gender": "masculine-inanimate"
+  },
+  "rukopis": {
+    "gender": "masculine-inanimate"
+  },
+  "rytmus": {
+    "gender": "masculine-inanimate"
+  },
+  "salón": {
+    "gender": "masculine-inanimate"
+  },
+  "sekretár": {
+    "gender": "masculine-animate",
+    "note": "gloss picks the person sense (not the desk)"
+  },
+  "sekretariát": {
+    "gender": "masculine-inanimate"
+  },
+  "sektor": {
+    "gender": "masculine-inanimate"
+  },
+  "seminár": {
+    "gender": "masculine-inanimate"
+  },
+  "senior": {
+    "gender": "masculine-animate"
+  },
+  "servis": {
+    "gender": "masculine-inanimate"
+  },
+  "sféra": {
+    "gender": "feminine"
+  },
+  "show": {
+    "gender": null,
+    "note": "indeclinable loan; feminine or neuter in usage"
+  },
+  "schodok": {
+    "gender": "masculine-inanimate"
+  },
+  "schôdza": {
+    "gender": "feminine"
+  },
+  "signál": {
+    "gender": "masculine-inanimate"
+  },
+  "sklad": {
+    "gender": "masculine-inanimate"
+  },
+  "sklon": {
+    "gender": "masculine-inanimate"
+  },
+  "skok": {
+    "gender": "masculine-inanimate"
+  },
+  "skóre": {
+    "gender": "neuter"
+  },
+  "smernica": {
+    "gender": "feminine"
+  },
+  "sortiment": {
+    "gender": "masculine-inanimate"
+  },
+  "spása": {
+    "gender": "feminine"
+  },
+  "spev": {
+    "gender": "masculine-inanimate"
+  },
+  "spis": {
+    "gender": "masculine-inanimate"
+  },
+  "spojenec": {
+    "gender": "masculine-animate"
+  },
+  "spoločník": {
+    "gender": "masculine-animate"
+  },
+  "spoluhráč": {
+    "gender": "masculine-animate"
+  },
+  "spor": {
+    "gender": "masculine-inanimate"
+  },
+  "sporiteľ": {
+    "gender": "masculine-animate"
+  },
+  "sprievod": {
+    "gender": "masculine-inanimate"
+  },
+  "sprievodca": {
+    "gender": null,
+    "note": "gloss mixes guide (animate) and guidebook (inanimate)"
+  },
+  "stánok": {
+    "gender": "masculine-inanimate"
+  },
+  "starosta": {
+    "gender": "masculine-animate"
+  },
+  "stimul": {
+    "gender": "masculine-inanimate"
+  },
+  "stráž": {
+    "gender": "feminine"
+  },
+  "stred": {
+    "gender": "masculine-inanimate"
+  },
+  "stredopoliar": {
+    "gender": "masculine-animate"
+  },
+  "stres": {
+    "gender": "masculine-inanimate"
+  },
+  "stromček": {
+    "gender": "masculine-inanimate"
+  },
+  "stupeň": {
+    "gender": "masculine-inanimate"
+  },
+  "styk": {
+    "gender": "masculine-inanimate"
+  },
+  "súbor": {
+    "gender": "masculine-inanimate"
+  },
+  "súlad": {
+    "gender": "masculine-inanimate"
+  },
+  "summit": {
+    "gender": "masculine-inanimate"
+  },
+  "svah": {
+    "gender": "masculine-inanimate"
+  },
+  "svedok": {
+    "gender": "masculine-animate"
+  },
+  "symbol": {
+    "gender": "masculine-inanimate"
+  },
+  "šampionát": {
+    "gender": "masculine-inanimate"
+  },
+  "šéf": {
+    "gender": "masculine-animate"
+  },
+  "špecialita": {
+    "gender": "feminine"
+  },
+  "šperk": {
+    "gender": "masculine-inanimate"
+  },
+  "športovec": {
+    "gender": "masculine-animate"
+  },
+  "štadión": {
+    "gender": "masculine-inanimate"
+  },
+  "štandard": {
+    "gender": "masculine-inanimate"
+  },
+  "štatút": {
+    "gender": "masculine-inanimate"
+  },
+  "štúdia": {
+    "gender": "feminine"
+  },
+  "štvorica": {
+    "gender": "feminine"
+  },
+  "štvrtina": {
+    "gender": "feminine"
+  },
+  "štýl": {
+    "gender": "masculine-inanimate"
+  },
+  "ťah": {
+    "gender": "masculine-inanimate"
+  },
+  "technik": {
+    "gender": "masculine-animate"
+  },
+  "tender": {
+    "gender": "masculine-inanimate"
+  },
+  "terasa": {
+    "gender": "feminine"
+  },
+  "terč": {
+    "gender": "masculine-inanimate"
+  },
+  "terén": {
+    "gender": "masculine-inanimate"
+  },
+  "termín": {
+    "gender": "masculine-inanimate"
+  },
+  "test": {
+    "gender": "masculine-inanimate"
+  },
+  "tím": {
+    "gender": "masculine-inanimate"
+  },
+  "tip": {
+    "gender": "masculine-inanimate"
+  },
+  "titul": {
+    "gender": "masculine-inanimate"
+  },
+  "toaleta": {
+    "gender": "feminine"
+  },
+  "tón": {
+    "gender": "masculine-inanimate"
+  },
+  "trasa": {
+    "gender": "feminine"
+  },
+  "trať": {
+    "gender": "feminine"
+  },
+  "tréner": {
+    "gender": "masculine-animate"
+  },
+  "trest": {
+    "gender": "masculine-inanimate"
+  },
+  "tretina": {
+    "gender": "feminine"
+  },
+  "triumf": {
+    "gender": "masculine-inanimate"
+  },
+  "trojica": {
+    "gender": "feminine"
+  },
+  "turné": {
+    "gender": "neuter"
+  },
+  "tvar": {
+    "gender": "masculine-inanimate"
+  },
+  "tvor": {
+    "gender": "masculine-animate"
+  },
+  "twist": {
+    "gender": "masculine-inanimate"
+  },
+  "tyč": {
+    "gender": "feminine"
+  },
+  "typ": {
+    "gender": "masculine-inanimate"
+  },
+  "učeník": {
+    "gender": "masculine-animate"
+  },
+  "údaj": {
+    "gender": "masculine-inanimate"
+  },
+  "ukazovateľ": {
+    "gender": "masculine-inanimate"
+  },
+  "úkon": {
+    "gender": "masculine-inanimate"
+  },
+  "úkor": {
+    "gender": "masculine-inanimate"
+  },
+  "únik": {
+    "gender": "masculine-inanimate"
+  },
+  "únos": {
+    "gender": "masculine-inanimate"
+  },
+  "úpadok": {
+    "gender": "masculine-inanimate"
+  },
+  "úplatok": {
+    "gender": "masculine-inanimate"
+  },
+  "úradník": {
+    "gender": "masculine-animate"
+  },
+  "úraz": {
+    "gender": "masculine-inanimate"
+  },
+  "úrok": {
+    "gender": "masculine-inanimate"
+  },
+  "úsek": {
+    "gender": "masculine-inanimate"
+  },
+  "úspora": {
+    "gender": "feminine"
+  },
+  "útočník": {
+    "gender": "masculine-animate"
+  },
+  "útulok": {
+    "gender": "masculine-inanimate"
+  },
+  "útvar": {
+    "gender": "masculine-inanimate"
+  },
+  "úvaha": {
+    "gender": "feminine"
+  },
+  "úver": {
+    "gender": "masculine-inanimate"
+  },
+  "úvod": {
+    "gender": "masculine-inanimate"
+  },
+  "variant": {
+    "gender": "masculine-inanimate"
+  },
+  "vášeň": {
+    "gender": "feminine"
+  },
+  "večierok": {
+    "gender": "masculine-inanimate"
+  },
+  "vedúci": {
+    "gender": "masculine-animate"
+  },
+  "vek": {
+    "gender": "masculine-inanimate"
+  },
+  "verdikt": {
+    "gender": "masculine-inanimate"
+  },
+  "verš": {
+    "gender": "masculine-inanimate"
+  },
+  "veterán": {
+    "gender": "masculine-animate"
+  },
+  "viceprezident": {
+    "gender": "masculine-animate"
+  },
+  "Viedeň": {
+    "gender": "feminine"
+  },
+  "vila": {
+    "gender": "feminine"
+  },
+  "vinník": {
+    "gender": "masculine-animate"
+  },
+  "vklad": {
+    "gender": "masculine-inanimate"
+  },
+  "vlaňajšok": {
+    "gender": "masculine-inanimate"
+  },
+  "vlastník": {
+    "gender": "masculine-animate"
+  },
+  "volič": {
+    "gender": "masculine-animate"
+  },
+  "vozík": {
+    "gender": "masculine-inanimate"
+  },
+  "výbor": {
+    "gender": "masculine-inanimate"
+  },
+  "výdavok": {
+    "gender": "masculine-inanimate"
+  },
+  "výhoda": {
+    "gender": "feminine"
+  },
+  "výhrada": {
+    "gender": "feminine"
+  },
+  "výjazd": {
+    "gender": "masculine-inanimate"
+  },
+  "výklad": {
+    "gender": "masculine-inanimate"
+  },
+  "výkon": {
+    "gender": "masculine-inanimate"
+  },
+  "výkrik": {
+    "gender": "masculine-inanimate"
+  },
+  "výlet": {
+    "gender": "masculine-inanimate"
+  },
+  "výpadok": {
+    "gender": "masculine-inanimate"
+  },
+  "výpis": {
+    "gender": "masculine-inanimate"
+  },
+  "výpočet": {
+    "gender": "masculine-inanimate"
+  },
+  "výraz": {
+    "gender": "masculine-inanimate"
+  },
+  "výrobok": {
+    "gender": "masculine-inanimate"
+  },
+  "výrok": {
+    "gender": "masculine-inanimate"
+  },
+  "výskyt": {
+    "gender": "masculine-inanimate"
+  },
+  "výstup": {
+    "gender": "masculine-inanimate"
+  },
+  "vyšetrovateľ": {
+    "gender": "masculine-animate"
+  },
+  "výtvarník": {
+    "gender": "masculine-animate"
+  },
+  "vývin": {
+    "gender": "masculine-inanimate"
+  },
+  "vývoj": {
+    "gender": "masculine-inanimate"
+  },
+  "vzhľad": {
+    "gender": "masculine-inanimate"
+  },
+  "vzor": {
+    "gender": "masculine-inanimate"
+  },
+  "vzostup": {
+    "gender": "masculine-inanimate"
+  },
+  "web": {
+    "gender": "masculine-inanimate"
+  },
+  "workshop": {
+    "gender": "masculine-inanimate"
+  },
+  "záber": {
+    "gender": "masculine-inanimate"
+  },
+  "zadok": {
+    "gender": "masculine-inanimate"
+  },
+  "záchrana": {
+    "gender": "feminine"
+  },
+  "zájazd": {
+    "gender": "masculine-inanimate"
+  },
+  "základ": {
+    "gender": "masculine-inanimate"
+  },
+  "zákonník": {
+    "gender": "masculine-inanimate"
+  },
+  "zákrok": {
+    "gender": "masculine-inanimate"
+  },
+  "zánik": {
+    "gender": "masculine-inanimate"
+  },
+  "zásada": {
+    "gender": "feminine"
+  },
+  "zásah": {
+    "gender": "masculine-inanimate"
+  },
+  "zásluha": {
+    "gender": "feminine"
+  },
+  "zástup": {
+    "gender": "masculine-inanimate"
+  },
+  "záštita": {
+    "gender": "feminine"
+  },
+  "záťaž": {
+    "gender": "feminine"
+  },
+  "záver": {
+    "gender": "masculine-inanimate"
+  },
+  "závod": {
+    "gender": "masculine-inanimate"
+  },
+  "záznam": {
+    "gender": "masculine-inanimate"
+  },
+  "zážitok": {
+    "gender": "masculine-inanimate"
+  },
+  "zdravotník": {
+    "gender": "masculine-animate"
+  },
+  "zdroj": {
+    "gender": "masculine-inanimate"
+  },
+  "zeleň": {
+    "gender": "feminine"
+  },
+  "zhoda": {
+    "gender": "feminine"
+  },
+  "zjazd": {
+    "gender": "masculine-inanimate"
+  },
+  "zmysel": {
+    "gender": "masculine-inanimate"
+  },
+  "znak": {
+    "gender": "masculine-inanimate"
+  },
+  "zver": {
+    "gender": "feminine"
+  },
+  "zverenec": {
+    "gender": "masculine-animate"
+  },
+  "zvrat": {
+    "gender": "masculine-inanimate"
+  },
+  "živnostník": {
+    "gender": "masculine-animate"
+  },
+  "župa": {
+    "gender": "feminine"
+  },
+  "župan": {
+    "gender": null,
+    "note": "gloss mixes regional governor (animate) and bathrobe (inanimate)"
+  }
+}

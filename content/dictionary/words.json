@@ -8475,6 +8475,7 @@
     "slovak": "projekt",
     "english": "project",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Pracujeme na projekte.",
@@ -8574,6 +8575,7 @@
     "slovak": "klub",
     "english": "club",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Je členom klubu.",
@@ -8856,6 +8858,7 @@
     "slovak": "bod",
     "english": "point",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je veľmi dôležitý bod.",
@@ -9064,6 +9067,7 @@
     "slovak": "tréner",
     "english": "coach; trainer",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Tréner mi poradil.",
@@ -9209,6 +9213,7 @@
     "slovak": "tím",
     "english": "team",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Náš tím hrá dobre.",
@@ -63342,6 +63347,7 @@
     "slovak": "základ",
     "english": "basis; foundation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Základ domu je pevný.",
@@ -63962,6 +63968,7 @@
     "slovak": "peniaz",
     "english": "coin; piece of money",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nemám ani jeden peniaz.",
@@ -64168,6 +64175,7 @@
     "slovak": "rámec",
     "english": "framework; frame",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Pracujeme v tomto rámci.",
@@ -64376,6 +64384,7 @@
     "slovak": "výkon",
     "english": "performance; output",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Má vysoký výkon.",
@@ -64817,6 +64826,7 @@
     "slovak": "ročník",
     "english": "year (of study/edition); vintage",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Je v treťom ročníku.",
@@ -65759,6 +65769,7 @@
     "slovak": "zdroj",
     "english": "source",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Cícer je výborným zdrojom bielkovín.",
@@ -66240,6 +66251,7 @@
     "slovak": "podpora",
     "english": "support",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Ďakujeme za podporu.",
@@ -67399,6 +67411,7 @@
     "slovak": "záver",
     "english": "conclusion; ending",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Na záver povedal ďakujem.",
@@ -68035,6 +68048,7 @@
     "slovak": "plán",
     "english": "plan",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Vytvor si plán.",
@@ -68240,6 +68254,7 @@
     "slovak": "proces",
     "english": "process; trial",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Proces trvá dlho.",
@@ -68591,6 +68606,7 @@
     "slovak": "fond",
     "english": "fund",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Fond podporuje projekty.",
@@ -68681,6 +68697,7 @@
     "slovak": "prostriedok",
     "english": "means; resource; medium",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nemám na to prostriedky.",
@@ -68941,6 +68958,7 @@
     "slovak": "región",
     "english": "region",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tento región je známy.",
@@ -69187,6 +69205,7 @@
     "slovak": "postup",
     "english": "procedure; progress",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Neboj sa pomalého postup, len ustrnutia.",
@@ -69294,6 +69313,7 @@
     "slovak": "šéf",
     "english": "boss; chief",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Kto je tvoj šéf?",
@@ -69339,6 +69359,7 @@
     "slovak": "vek",
     "english": "age",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Vek ju uspôsobuje na danú prácu.",
@@ -69979,6 +70000,7 @@
     "slovak": "náklad",
     "english": "cost; load; expense",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Náklady na bývanie sú v meste vysoké.",
@@ -70081,6 +70103,7 @@
     "slovak": "zmysel",
     "english": "sense; meaning",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Ak by sa niekto spýtal, že aký je zmysel príbehu, naozaj neviem.",
@@ -70294,6 +70317,7 @@
     "slovak": "príjem",
     "english": "income; receipt",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Jeho výdavky zďaleka prevyšujú jeho príjem.",
@@ -70534,6 +70558,7 @@
     "slovak": "predaj",
     "english": "sale",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nie je na predaj.",
@@ -71102,6 +71127,7 @@
     "slovak": "rozvoj",
     "english": "development",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Rozvoj mesta si vyžaduje dobrý plán.",
@@ -71192,6 +71218,7 @@
     "slovak": "vývoj",
     "english": "development; evolution",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Vývoj dieťaťa sleduje pediater.",
@@ -71340,6 +71367,7 @@
     "slovak": "titul",
     "english": "title",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Táto kniha má zaujímavý titul.",
@@ -71521,6 +71549,7 @@
     "slovak": "druh",
     "english": "kind; type; species",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tom mi povedal, že sa mu páči tento druh hudby.",
@@ -71630,6 +71659,7 @@
     "slovak": "rozhovor",
     "english": "conversation; interview",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nahral som náš rozhovor.",
@@ -72043,6 +72073,7 @@
     "slovak": "priebeh",
     "english": "course; progress (of events)",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Truman dorazil do Bieleho Domu v priebehu niekoľkých minút.",
@@ -73568,6 +73599,7 @@
     "slovak": "predstaviteľ",
     "english": "representative; official",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Predstaviteľ mesta odpovedal na otázky novinárov.",
@@ -73748,6 +73780,7 @@
     "slovak": "typ",
     "english": "type",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tom nie je môj typ.",
@@ -73799,6 +73832,7 @@
     "slovak": "primátor",
     "english": "mayor (of a city)",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Primátor otvoril nové ihrisko.",
@@ -73933,6 +73967,7 @@
     "slovak": "odbor",
     "english": "department; trade union branch; field",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Na univerzite som si vybral odbor histórie.",
@@ -75600,6 +75635,7 @@
     "slovak": "úver",
     "english": "loan; credit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Banka mi schválila úver na bývanie.",
@@ -75903,6 +75939,7 @@
     "slovak": "dôsledok",
     "english": "consequence",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Dôsledkom chyby bolo veľké meškanie.",
@@ -76048,6 +76085,7 @@
     "slovak": "údaj",
     "english": "datum; piece of data",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Do formulára musíš uviesť správny údaj.",
@@ -76621,6 +76659,7 @@
     "slovak": "podiel",
     "english": "share; portion",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Každý dostane svoj podiel koláča.",
@@ -76896,6 +76935,7 @@
     "slovak": "termín",
     "english": "deadline; date; term",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Termín na odovzdanie projektu je v piatok.",
@@ -76940,6 +76980,7 @@
     "slovak": "prístup",
     "english": "access; approach",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "To je správny prístup!",
@@ -77322,6 +77363,7 @@
     "slovak": "starosta",
     "english": "mayor (of a town)",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Starosta otvoril nové ihrisko pre deti.",
@@ -77411,6 +77453,7 @@
     "slovak": "výbor",
     "english": "committee",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výbor sa stretne v pondelok popoludní.",
@@ -78122,6 +78165,7 @@
     "slovak": "stupeň",
     "english": "degree; level; grade",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Teplota v noci klesla na jeden stupeň.",
@@ -78382,6 +78426,7 @@
     "slovak": "príspevok",
     "english": "contribution; article; post",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Na web som pridal krátky príspevok o výlete.",
@@ -78588,6 +78633,7 @@
     "slovak": "odborník",
     "english": "expert; specialist",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Tom povedal, že nie je odborník.",
@@ -79204,6 +79250,7 @@
     "slovak": "vzhľad",
     "english": "appearance; look",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Hovoríš, že zámerne skrývaš svoj dobrý vzhľad?",
@@ -79318,6 +79365,7 @@
     "slovak": "orgán",
     "english": "organ; authority",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Srdce je dôležitý orgán ľudského tela.",
@@ -80526,6 +80574,7 @@
     "slovak": "trest",
     "english": "punishment; penalty",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Páchatelia dostali zaslúžený trest.",
@@ -80577,6 +80626,7 @@
     "slovak": "podstata",
     "english": "essence; substance",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V podstate máš pravdu.",
@@ -80676,6 +80726,7 @@
     "slovak": "pozemok",
     "english": "plot of land; lot",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Na tomto pozemku chcú postaviť rodinný dom.",
@@ -80914,6 +80965,7 @@
     "slovak": "článok",
     "english": "article; clause",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Článok bol napísaný po francúzsky.",
@@ -81213,6 +81265,7 @@
     "slovak": "odchod",
     "english": "departure; leaving",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Odchod je zajtra.",
@@ -81310,6 +81363,7 @@
     "slovak": "pohyb",
     "english": "movement; motion",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Je tento pohyb bolestivý?",
@@ -81400,6 +81454,7 @@
     "slovak": "prejav",
     "english": "expression; speech; manifestation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Žiaľ, nestihol som jeho prejav.",
@@ -81569,6 +81624,7 @@
     "slovak": "kontakt",
     "english": "contact",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Pošlem ti kontakt na dobrého opravára.",
@@ -81613,6 +81669,7 @@
     "slovak": "duel",
     "english": "duel",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Ten napínavý duel sledovali tisíce fanúšikov.",
@@ -81765,6 +81822,7 @@
     "slovak": "model",
     "english": "model",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tento model auta má veľmi nízku spotrebu.",
@@ -81867,6 +81925,7 @@
     "slovak": "návštevník",
     "english": "visitor",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Návštevníkom nie je dovolené kŕmiť zvieratá.",
@@ -82760,6 +82819,7 @@
     "slovak": "park",
     "english": "park",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tento park mi pripomína moje detstvo.",
@@ -83678,6 +83738,7 @@
     "slovak": "návrat",
     "english": "return",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Po návrate domov som si dal horúci čaj.",
@@ -84209,6 +84270,7 @@
     "slovak": "výhoda",
     "english": "advantage",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto môže mať svoje výhody.",
@@ -84454,6 +84516,7 @@
     "slovak": "útočník",
     "english": "attacker; forward",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Útočník sa po prihrávke dostal sám pred brankára.",
@@ -84878,6 +84941,7 @@
     "slovak": "osud",
     "english": "fate; destiny",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Náš osud závisí na našich rozhodnutiach.",
@@ -85123,6 +85187,7 @@
     "slovak": "pomer",
     "english": "ratio; relation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Do cesta pridajte múku a vodu v pomere dva ku jednej.",
@@ -85167,6 +85232,7 @@
     "slovak": "pokles",
     "english": "decline; drop",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Firma zaznamenala pokles predaja počas zimy.",
@@ -85603,6 +85669,7 @@
     "slovak": "výrobok",
     "english": "product",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Maslo je mliečny výrobok.",
@@ -86118,6 +86185,7 @@
     "slovak": "tretina",
     "english": "third",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Povrchová gravitácia na Marse je viac než tretina zemskej.",
@@ -86418,6 +86486,7 @@
     "slovak": "súbor",
     "english": "file; set; ensemble",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Do ktorého priečinku si uložil ten súbor?",
@@ -86817,6 +86886,7 @@
     "slovak": "štadión",
     "english": "stadium",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Kde je štadión?",
@@ -86959,6 +87029,7 @@
     "slovak": "pobyt",
     "english": "stay",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Môžem predĺžiť môj pobyt ešte o jednu noc?",
@@ -87056,6 +87127,7 @@
     "slovak": "prieskum",
     "english": "survey; research; exploration",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Podľa nového prieskumu väčšina ľudí cestuje vlakom.",
@@ -87254,6 +87326,7 @@
     "slovak": "štýl",
     "english": "style",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "To nie je môj štýl.",
@@ -88153,6 +88226,7 @@
     "slovak": "volič",
     "english": "voter",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Každý volič dostal pred voľbami hlasovací lístok.",
@@ -88814,6 +88888,7 @@
     "slovak": "úvod",
     "english": "introduction",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Na úvod stretnutia sa každý krátko predstavil.",
@@ -89111,6 +89186,7 @@
     "slovak": "výdavok",
     "english": "expense; expenditure",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Najväčším výdavkom domácnosti je nájomné.",
@@ -89303,6 +89379,7 @@
     "slovak": "post",
     "english": "post; position",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nedržím pôst.",
@@ -89400,6 +89477,7 @@
     "slovak": "novela",
     "english": "novella; amendment (law)",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Strávil som víkend čítaním dlhej novely.",
@@ -89582,6 +89660,7 @@
     "slovak": "šampionát",
     "english": "championship",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Na budúci mesiac sa začne hokejový šampionát.",
@@ -90322,6 +90401,7 @@
     "slovak": "spor",
     "english": "dispute; quarrel",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Susedia vyriešili spor o hranicu pozemku pokojne.",
@@ -91313,6 +91393,7 @@
     "slovak": "úsek",
     "english": "section; stretch",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Jeden úsek stačí.",
@@ -91669,6 +91750,7 @@
     "slovak": "dôkaz",
     "english": "proof; evidence",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Potrebujem dôkaz.",
@@ -91871,6 +91953,7 @@
     "slovak": "prvok",
     "english": "element",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Vodík je najľahší chemický prvok.",
@@ -91915,6 +91998,7 @@
     "slovak": "zásah",
     "english": "intervention; hit; strike",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Rýchly zásah hasičov zabránil väčším škodám.",
@@ -92056,6 +92140,7 @@
     "slovak": "rezort",
     "english": "ministry; sector; resort",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Rezort školstva pripravuje reformu.",
@@ -92518,6 +92603,7 @@
     "slovak": "metóda",
     "english": "method",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Učiteľ nám ukázal novú metódu učenia slovíčok.",
@@ -92562,6 +92648,7 @@
     "slovak": "priemer",
     "english": "average; diameter",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tento rok mám priemer známok 1,5.",
@@ -92710,6 +92797,7 @@
     "slovak": "úvaha",
     "english": "reflection; consideration",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Musíš brať do úvahy fakt, že bola chorá.",
@@ -92765,6 +92853,7 @@
     "slovak": "obranca",
     "english": "defender",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Obranca zablokoval strelu tesne pred bránkou.",
@@ -93448,6 +93537,7 @@
     "slovak": "nárok",
     "english": "claim; entitlement",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Po dvoch rokoch práce má zamestnanec nárok na dovolenku.",
@@ -93537,6 +93627,7 @@
     "slovak": "dres",
     "english": "jersey; kit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Pred zápasom si hráči obliekli nové dresy.",
@@ -93581,6 +93672,7 @@
     "slovak": "dvojica",
     "english": "pair; couple",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Jedna dvojica stačí.",
@@ -93730,6 +93822,7 @@
     "slovak": "trať",
     "english": "track; route; course",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Vlak zastavil na trati medzi dvoma mestami.",
@@ -93774,6 +93867,7 @@
     "slovak": "realita",
     "english": "reality",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Realita je najzábavnejšia komédia sveta.",
@@ -93829,6 +93923,7 @@
     "slovak": "sektor",
     "english": "sector",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Pracuje v sektore služieb už desať rokov.",
@@ -94381,6 +94476,7 @@
     "slovak": "areál",
     "english": "grounds; complex; area",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Športový areál je otvorený každý deň do večera.",
@@ -95113,6 +95209,7 @@
     "slovak": "celok",
     "english": "whole; entirety",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Každú kapitolu treba vnímať ako súčasť celku.",
@@ -95319,6 +95416,7 @@
     "slovak": "prospech",
     "english": "benefit; interest",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V pochybnostiach v prospech obvineného.",
@@ -95556,6 +95654,7 @@
     "slovak": "konflikt",
     "english": "conflict",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Rozhovor pomohol obom stranám vyriešiť konflikt.",
@@ -95780,6 +95879,7 @@
     "slovak": "zážitok",
     "english": "experience (lived)",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tom mal zážitok blízky smrti.",
@@ -95883,6 +95983,7 @@
     "slovak": "predpoklad",
     "english": "assumption; prerequisite",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Môj pôvodný predpoklad bol správny.",
@@ -95984,6 +96085,7 @@
     "slovak": "odpad",
     "english": "waste; refuse",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Plastový odpad dávame do žltého kontajnera.",
@@ -96072,6 +96174,7 @@
     "slovak": "reprezentant",
     "english": "representative",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Reprezentant firmy nám predstavil nový výrobok.",
@@ -96251,6 +96354,7 @@
     "slovak": "kop",
     "english": "kick",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Kop ďalej.",
@@ -96348,6 +96452,7 @@
     "slovak": "fáza",
     "english": "phase",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Projekt vstúpil do ďalšej fázy.",
@@ -96734,6 +96839,7 @@
     "slovak": "svedok",
     "english": "witness",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Svedok opísal nehodu polícii.",
@@ -96937,6 +97043,7 @@
     "slovak": "profesor",
     "english": "professor",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Profesor vysvetlil látku jasne.",
@@ -97170,6 +97277,7 @@
     "slovak": "reklama",
     "english": "advertisement; advertising",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Táto reklama ma vôbec nezaujala.",
@@ -97358,6 +97466,7 @@
     "slovak": "znak",
     "english": "sign; character; mark",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tento znak znamená, že odpoveď je správna.",
@@ -97843,6 +97952,7 @@
     "slovak": "kauza",
     "english": "case (affair); cause",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Táto politická kauza trvá už mesiace.",
@@ -97982,6 +98092,7 @@
     "slovak": "stred",
     "english": "middle; center",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Týždeň má sedem dní: pondelok, utorok, streda, štvrtok, piatok, sobota a nedeľa.",
@@ -98348,6 +98459,7 @@
     "slovak": "kúsok",
     "english": "piece; bit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Dali Tomovi kúsok torty.",
@@ -98399,6 +98511,7 @@
     "slovak": "príslušník",
     "english": "member; affiliate",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Príslušník polície skontroloval doklady.",
@@ -98706,6 +98819,7 @@
     "slovak": "podpredseda",
     "english": "vice-chair; deputy chair",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Podpredseda viedol schôdzu.",
@@ -98750,6 +98864,7 @@
     "slovak": "výraz",
     "english": "expression; term",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Neznámy výraz som si vyhľadal v slovníku.",
@@ -98847,6 +98962,7 @@
     "slovak": "okamih",
     "english": "moment; instant",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Na okamih buďte ticho.",
@@ -99839,6 +99955,7 @@
     "slovak": "štúdia",
     "english": "study (research); studio",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Nová štúdia potvrdila tento trend.",
@@ -99928,6 +100045,7 @@
     "slovak": "skóre",
     "english": "score",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "Konečné skóre bolo 2:1.",
@@ -100216,6 +100334,7 @@
     "slovak": "faktor",
     "english": "factor",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Terorizmus je najdôležitejší faktor pre rozdelenie krajiny a vytvorenie autonómnych regiónov.",
@@ -101172,6 +101291,7 @@
     "slovak": "mail",
     "english": "email; mail",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Poslal som ti mail s podrobnosťami.",
@@ -101327,6 +101447,7 @@
     "slovak": "istota",
     "english": "certainty; security",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Nemyslím si, že bude pršať, ale pre istotu si zoberiem dáždnik.",
@@ -101379,6 +101500,7 @@
     "slovak": "ohľad",
     "english": "regard; consideration",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Bez ohľadu na to, či zajtra prídeš alebo nie, daj mi vedieť.",
@@ -101537,6 +101659,7 @@
     "slovak": "test",
     "english": "test",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "DNA test ukázal, že bol nevinný.",
@@ -101779,6 +101902,7 @@
     "slovak": "vlastník",
     "english": "owner",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Vedomosti sú poklad, ktorý ide všade so svojím vlastníkom.",
@@ -101960,6 +102084,7 @@
     "slovak": "závod",
     "english": "race; plant; factory",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V nedeľu sme sledovali cyklistický závod.",
@@ -102109,6 +102234,7 @@
     "slovak": "kapela",
     "english": "band",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Táto kapela hrá slovenské piesne.",
@@ -102308,6 +102434,7 @@
     "slovak": "rozsah",
     "english": "scope; range; extent",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Rozsah práce nesmie presiahnuť desať strán.",
@@ -102352,6 +102479,7 @@
     "slovak": "káder",
     "english": "cadre; staff; roster",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tréner oznámil káder na zápas.",
@@ -102682,6 +102810,7 @@
     "slovak": "etapa",
     "english": "stage; leg",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Začína sa posledná etapa pretekov.",
@@ -103010,6 +103139,7 @@
     "slovak": "lokalita",
     "english": "locality; location",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Túto lokalitu sme vybrali pre jej pokoj.",
@@ -103198,6 +103328,7 @@
     "slovak": "súlad",
     "english": "harmony; accordance",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Jeho slová boli v súlade so skutočnosťou.",
@@ -103242,6 +103373,7 @@
     "slovak": "jednotlivec",
     "english": "individual",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Každý jednotlivec má právo na vlastný názor.",
@@ -104430,6 +104562,7 @@
     "slovak": "zásada",
     "english": "principle",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Rozhodli sa pre nové zásady.",
@@ -104628,6 +104761,7 @@
     "slovak": "povrch",
     "english": "surface",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "A privádzal na zem vodu a zavlažoval celý povrch zeme.",
@@ -146397,6 +146531,7 @@
     "slovak": "rast",
     "english": "growth",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Rastliny rastú.",
@@ -146515,6 +146650,7 @@
     "slovak": "nárast",
     "english": "increase; rise",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nárast cien potravín trápi rodiny.",
@@ -146559,6 +146695,7 @@
     "slovak": "tvar",
     "english": "shape; form",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Dvaja muži sa stretli tvárou v tvár.",
@@ -147406,6 +147543,7 @@
     "slovak": "extraliga",
     "english": "premier league",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo extraliga.",
@@ -147619,6 +147757,7 @@
     "slovak": "kolektív",
     "english": "team; collective",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo kolektív.",
@@ -147710,6 +147849,7 @@
     "slovak": "trasa",
     "english": "route; track",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Cítila, ako sa jej trasú kolená.",
@@ -147753,6 +147893,7 @@
     "slovak": "symbol",
     "english": "symbol",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Holubica je symbolom mieru.",
@@ -147768,6 +147909,7 @@
     "slovak": "podnet",
     "english": "stimulus; initiative",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Jediné užitočné odpovede sú tie, ktoré dávajú podnet k novým otázkam.",
@@ -147819,6 +147961,7 @@
     "slovak": "Viedeň",
     "english": "Vienna",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo Viedeň.",
@@ -147991,6 +148134,7 @@
     "slovak": "preklad",
     "english": "translation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tento preklad je nepresný.",
@@ -148718,6 +148862,7 @@
     "slovak": "norma",
     "english": "standard; norm",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo norma.",
@@ -148757,6 +148902,7 @@
     "slovak": "komora",
     "english": "chamber; pantry",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo komora.",
@@ -148910,6 +149056,7 @@
     "slovak": "okruh",
     "english": "circuit; circle",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo okruh.",
@@ -148929,6 +149076,7 @@
     "slovak": "odkaz",
     "english": "message; reference",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Kliknite na odkaz nižšie.",
@@ -149080,6 +149228,7 @@
     "slovak": "športovec",
     "english": "athlete; sportsperson",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo športovec.",
@@ -149121,6 +149270,7 @@
     "slovak": "blok",
     "english": "block; pad",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo blok.",
@@ -149160,6 +149310,7 @@
     "slovak": "rozmer",
     "english": "dimension; size",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo rozmer.",
@@ -149349,6 +149500,7 @@
     "slovak": "prechod",
     "english": "passage; crossing",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo prechod.",
@@ -149428,6 +149580,7 @@
     "slovak": "záchrana",
     "english": "rescue; salvation",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo záchrana.",
@@ -149767,6 +149920,7 @@
     "slovak": "dodávateľ",
     "english": "supplier",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo dodávateľ.",
@@ -149964,6 +150118,7 @@
     "slovak": "obchodník",
     "english": "merchant; trader",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo obchodník.",
@@ -149983,6 +150138,7 @@
     "slovak": "vzor",
     "english": "pattern; model",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo vzor.",
@@ -150352,6 +150508,7 @@
     "slovak": "seminár",
     "english": "seminar",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo seminár.",
@@ -150371,6 +150528,7 @@
     "slovak": "osada",
     "english": "settlement",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo osada.",
@@ -150600,6 +150758,7 @@
     "slovak": "prokurátor",
     "english": "prosecutor",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo prokurátor.",
@@ -150751,6 +150910,7 @@
     "slovak": "obrázok",
     "english": "picture; image",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nakresli obrázok.",
@@ -150808,6 +150968,7 @@
     "slovak": "funkcionár",
     "english": "official; functionary",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo funkcionár.",
@@ -150827,6 +150988,7 @@
     "slovak": "záznam",
     "english": "record; entry",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo záznam.",
@@ -150940,6 +151102,7 @@
     "slovak": "nástup",
     "english": "start; accession",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo nástup.",
@@ -150979,6 +151142,7 @@
     "slovak": "signál",
     "english": "signal",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Žiadny signál.",
@@ -151014,6 +151178,7 @@
     "slovak": "dlhopis",
     "english": "bond; debenture",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo dlhopis.",
@@ -151135,6 +151300,7 @@
     "slovak": "rozhlas",
     "english": "radio broadcasting; radio",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo rozhlas.",
@@ -151286,6 +151452,7 @@
     "slovak": "pohoda",
     "english": "well-being; comfort",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "To je v pohode.",
@@ -151441,6 +151608,7 @@
     "slovak": "senior",
     "english": "senior; older person",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo senior.",
@@ -151976,6 +152144,7 @@
     "slovak": "zverenec",
     "english": "ward; protégé",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo zverenec.",
@@ -152027,6 +152196,7 @@
     "slovak": "pár",
     "english": "pair; couple",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Vybral si pár ponožiek hodiacich sa k jeho obleku.",
@@ -152100,6 +152270,7 @@
     "slovak": "prehľad",
     "english": "overview; survey",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo prehľad.",
@@ -152159,6 +152330,7 @@
     "slovak": "odhad",
     "english": "estimate; guess",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo odhad.",
@@ -152366,6 +152538,7 @@
     "slovak": "úradník",
     "english": "official; clerk",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo úradník.",
@@ -152539,6 +152712,7 @@
     "slovak": "vyšetrovateľ",
     "english": "investigator",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo vyšetrovateľ.",
@@ -152578,6 +152752,7 @@
     "slovak": "dorast",
     "english": "youth; junior team",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo dorast.",
@@ -152837,6 +153012,7 @@
     "slovak": "úrok",
     "english": "interest",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo úrok.",
@@ -153046,6 +153222,7 @@
     "slovak": "odvod",
     "english": "tax; levy",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo odvod.",
@@ -153081,6 +153258,7 @@
     "slovak": "mladík",
     "english": "young man; youth",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Kto je ten mladík?",
@@ -153252,6 +153430,7 @@
     "slovak": "inštitút",
     "english": "institute",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo inštitút.",
@@ -153313,6 +153492,7 @@
     "slovak": "prístroj",
     "english": "device; instrument",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Premietací prístroj nejde.",
@@ -153368,6 +153548,7 @@
     "slovak": "terén",
     "english": "terrain; field",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo terén.",
@@ -153585,6 +153766,7 @@
     "slovak": "spev",
     "english": "singing; song",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Mojou vášňou je spev.",
@@ -153632,6 +153814,7 @@
     "slovak": "poznatok",
     "english": "finding; piece of knowledge",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo poznatok.",
@@ -153651,6 +153834,7 @@
     "slovak": "efekt",
     "english": "effect",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo efekt.",
@@ -154026,6 +154210,7 @@
     "slovak": "legenda",
     "english": "legend; key",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo legenda.",
@@ -154045,6 +154230,7 @@
     "slovak": "let",
     "english": "flight; year",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Možem rezervovať let do Osaky?",
@@ -154186,6 +154372,7 @@
     "slovak": "vklad",
     "english": "deposit; contribution",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo vklad.",
@@ -154601,6 +154788,7 @@
     "slovak": "prenos",
     "english": "transfer; transmission",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo prenos.",
@@ -154720,6 +154908,7 @@
     "slovak": "vedúci",
     "english": "manager; leader",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo vedúci.",
@@ -154971,6 +155160,7 @@
     "slovak": "výrok",
     "english": "statement; verdict",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo výrok.",
@@ -155275,6 +155465,7 @@
     "slovak": "prenájom",
     "english": "rental; lease",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo prenájom.",
@@ -155314,6 +155505,7 @@
     "slovak": "listina",
     "english": "document; charter",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo listina.",
@@ -155333,6 +155525,7 @@
     "slovak": "porota",
     "english": "jury",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo porota.",
@@ -155466,6 +155659,7 @@
     "slovak": "štvrtina",
     "english": "quarter; fourth",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo štvrtina.",
@@ -155601,6 +155795,7 @@
     "slovak": "potenciál",
     "english": "potential",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo potenciál.",
@@ -155786,6 +155981,7 @@
     "slovak": "tón",
     "english": "tone",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo tón.",
@@ -155951,6 +156147,7 @@
     "slovak": "publikum",
     "english": "audience; public",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo publikum.",
@@ -156100,6 +156297,7 @@
     "slovak": "úspora",
     "english": "saving; savings",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo úspora.",
@@ -156179,6 +156377,7 @@
     "slovak": "spoluhráč",
     "english": "teammate; fellow player",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo spoluhráč.",
@@ -156220,6 +156419,7 @@
     "slovak": "triumf",
     "english": "triumph",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo triumf.",
@@ -156317,6 +156517,7 @@
     "slovak": "prínos",
     "english": "benefit; contribution",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo prínos.",
@@ -156408,6 +156609,7 @@
     "slovak": "junior",
     "english": "junior; young person",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo junior.",
@@ -156427,6 +156629,7 @@
     "slovak": "partia",
     "english": "group; gang",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo partia.",
@@ -156506,6 +156709,7 @@
     "slovak": "výstup",
     "english": "output; exit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo výstup.",
@@ -156605,6 +156809,7 @@
     "slovak": "styk",
     "english": "contact; intercourse",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V práci prichádzam do styku s rôznymi druhmi ľudí.",
@@ -156636,6 +156841,7 @@
     "slovak": "fórum",
     "english": "forum",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo fórum.",
@@ -156905,6 +157111,7 @@
     "slovak": "kontrakt",
     "english": "contract",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo kontrakt.",
@@ -156924,6 +157131,7 @@
     "slovak": "príkaz",
     "english": "order; command",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Mladá čarodejníčka dostala príkaz premeniť Toma späť na človeka po tom, ako sa učitelia dozvedeli o jej žarte.",
@@ -157165,6 +157373,7 @@
     "slovak": "servis",
     "english": "service; maintenance",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo servis.",
@@ -157204,6 +157413,7 @@
     "slovak": "pás",
     "english": "belt; strip; band",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Stratil som svoj pas!",
@@ -157447,6 +157657,7 @@
     "slovak": "priaznivec",
     "english": "supporter; fan",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo priaznivec.",
@@ -157466,6 +157677,7 @@
     "slovak": "kút",
     "english": "corner; nook",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo kút.",
@@ -157639,6 +157851,7 @@
     "slovak": "sféra",
     "english": "sphere; realm",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo sféra.",
@@ -157658,6 +157871,7 @@
     "slovak": "záber",
     "english": "shot; grip; scope",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo záber.",
@@ -157717,6 +157931,7 @@
     "slovak": "výlet",
     "english": "trip; excursion",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Ako sa máte? Mali ste dobrý výlet?",
@@ -158032,6 +158247,7 @@
     "slovak": "línia",
     "english": "line; route",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"línia\" sa objavil v článku.",
@@ -158051,6 +158267,7 @@
     "slovak": "trojica",
     "english": "trio; group of three",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"trojica\" sa objavil v článku.",
@@ -158190,6 +158407,7 @@
     "slovak": "limit",
     "english": "limit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"limit\" sa objavil v článku.",
@@ -158229,6 +158447,7 @@
     "slovak": "obrat",
     "english": "turnover; reversal; turn",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"obrat\" sa objavil v článku.",
@@ -158424,6 +158643,7 @@
     "slovak": "operátor",
     "english": "operator",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Telefónny operátor požiadal volajúceho aby čakal, kým nebude spojenie.",
@@ -158765,6 +158985,7 @@
     "slovak": "sprievod",
     "english": "escort; procession; accompaniment",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"sprievod\" sa objavil v článku.",
@@ -158898,6 +159119,7 @@
     "slovak": "dosah",
     "english": "reach; impact; range",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"dosah\" sa objavil v článku.",
@@ -158917,6 +159139,7 @@
     "slovak": "prach",
     "english": "dust; powder",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tom pomohol Márii utrieť prach z nábytku.",
@@ -158944,6 +159167,7 @@
     "slovak": "zákrok",
     "english": "intervention; procedure",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"zákrok\" sa objavil v článku.",
@@ -159129,6 +159353,7 @@
     "slovak": "recept",
     "english": "recipe; prescription",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"recept\" sa objavil v článku.",
@@ -159148,6 +159373,7 @@
     "slovak": "kritik",
     "english": "critic",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Výraz \"kritik\" sa objavil v článku.",
@@ -159287,6 +159513,7 @@
     "slovak": "štandard",
     "english": "standard",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"štandard\" sa objavil v článku.",
@@ -159644,6 +159871,7 @@
     "slovak": "rozsudok",
     "english": "judgment; verdict",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"rozsudok\" sa objavil v článku.",
@@ -159755,6 +159983,7 @@
     "slovak": "minimum",
     "english": "minimum",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "Výraz \"minimum\" sa objavil v článku.",
@@ -159886,6 +160115,7 @@
     "slovak": "stánok",
     "english": "stall; booth; stand",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"stánok\" sa objavil v článku.",
@@ -160025,6 +160255,7 @@
     "slovak": "rola",
     "english": "role",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"rola\" sa objavil v článku.",
@@ -160266,6 +160497,7 @@
     "slovak": "schôdza",
     "english": "meeting; session",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Kedy je schôdza?",
@@ -160293,6 +160525,7 @@
     "slovak": "koncern",
     "english": "corporate group; concern",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"koncern\" sa objavil v článku.",
@@ -160394,6 +160627,7 @@
     "slovak": "únik",
     "english": "escape; leak",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"únik\" sa objavil v článku.",
@@ -160519,6 +160753,7 @@
     "slovak": "právomoc",
     "english": "authority; jurisdiction",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"právomoc\" sa objavil v článku.",
@@ -160538,6 +160773,7 @@
     "slovak": "obvod",
     "english": "district; circuit; perimeter",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"obvod\" sa objavil v článku.",
@@ -160635,6 +160871,7 @@
     "slovak": "web",
     "english": "web; website",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tento web je nedostupný.",
@@ -160788,6 +161025,7 @@
     "slovak": "hnev",
     "english": "anger",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Hnevá ťa to?",
@@ -160915,6 +161153,7 @@
     "slovak": "tender",
     "english": "tender; public contract bid",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"tender\" sa objavil v článku.",
@@ -160950,6 +161189,7 @@
     "slovak": "verš",
     "english": "verse; line of poetry",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Z ktorej kapitoly je tento verš?",
@@ -161211,6 +161451,7 @@
     "slovak": "kabinet",
     "english": "cabinet; office",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"kabinet\" sa objavil v článku.",
@@ -161342,6 +161583,7 @@
     "slovak": "plod",
     "english": "fruit; offspring; product",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"plod\" sa objavil v článku.",
@@ -161435,6 +161677,7 @@
     "slovak": "riadok",
     "english": "line; row",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"riadok\" sa objavil v článku.",
@@ -161552,6 +161795,7 @@
     "slovak": "respondent",
     "english": "respondent",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Výraz \"respondent\" sa objavil v článku.",
@@ -161591,6 +161835,7 @@
     "slovak": "príloha",
     "english": "attachment; side dish; appendix",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"príloha\" sa objavil v článku.",
@@ -161666,6 +161911,7 @@
     "slovak": "derby",
     "english": "derby",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "Výraz \"derby\" sa objavil v článku.",
@@ -161727,6 +161973,7 @@
     "slovak": "opora",
     "english": "support; mainstay",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"opora\" sa objavil v článku.",
@@ -161746,6 +161993,7 @@
     "slovak": "činiteľ",
     "english": "factor; agent",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Dôležitým činiteľom vo vývine dieťaťa sú jeho súrodenci.",
@@ -161915,6 +162163,7 @@
     "slovak": "útvar",
     "english": "formation; unit; structure",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"útvar\" sa objavil v článku.",
@@ -162048,6 +162297,7 @@
     "slovak": "povesť",
     "english": "reputation; legend",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"povesť\" sa objavil v článku.",
@@ -162067,6 +162317,7 @@
     "slovak": "podklad",
     "english": "basis; background; substrate",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"podklad\" sa objavil v článku.",
@@ -162106,6 +162357,7 @@
     "slovak": "summit",
     "english": "summit; peak-level meeting",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"summit\" sa objavil v článku.",
@@ -162391,6 +162643,7 @@
     "slovak": "spis",
     "english": "file; case file; work",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tom, spíš?",
@@ -162426,6 +162679,7 @@
     "slovak": "prednosta",
     "english": "head; chief; stationmaster",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Výraz \"prednosta\" sa objavil v článku.",
@@ -162445,6 +162699,7 @@
     "slovak": "výskyt",
     "english": "occurrence; incidence",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"výskyt\" sa objavil v článku.",
@@ -162588,6 +162843,7 @@
     "slovak": "výklad",
     "english": "explanation; display window; interpretation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"výklad\" sa objavil v článku.",
@@ -162729,6 +162985,7 @@
     "slovak": "sklad",
     "english": "warehouse; store; composition",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Skladá nádherné básne.",
@@ -162848,6 +163105,7 @@
     "slovak": "biznis",
     "english": "business",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Demokracia je ilúzia a politika je biznis.",
@@ -163133,6 +163391,7 @@
     "slovak": "dohľad",
     "english": "supervision; oversight",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"dohľad\" sa objavil v článku.",
@@ -163212,6 +163471,7 @@
     "slovak": "zásluha",
     "english": "merit; credit",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"zásluha\" sa objavil v článku.",
@@ -163231,6 +163491,7 @@
     "slovak": "register",
     "english": "register; registry",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"register\" sa objavil v článku.",
@@ -163312,6 +163573,7 @@
     "slovak": "oddiel",
     "english": "section; unit; squad",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"oddiel\" sa objavil v článku.",
@@ -163413,6 +163675,7 @@
     "slovak": "výhrada",
     "english": "reservation; objection; caveat",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"výhrada\" sa objavil v článku.",
@@ -163540,6 +163803,7 @@
     "slovak": "stres",
     "english": "stress",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"stres\" sa objavil v článku.",
@@ -163943,6 +164207,7 @@
     "slovak": "formát",
     "english": "format",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"formát\" sa objavil v článku.",
@@ -164112,6 +164377,7 @@
     "slovak": "chodec",
     "english": "pedestrian; walker",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Výraz \"chodec\" sa objavil v článku.",
@@ -164269,6 +164535,7 @@
     "slovak": "variant",
     "english": "variant; version",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"variant\" sa objavil v článku.",
@@ -164558,6 +164825,7 @@
     "slovak": "pokyn",
     "english": "instruction; direction",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"pokyn\" sa objavil v článku.",
@@ -164853,6 +165121,7 @@
     "slovak": "akt",
     "english": "act; deed; nude figure",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"akt\" sa objavil v článku.",
@@ -164914,6 +165183,7 @@
     "slovak": "kouč",
     "english": "coach",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Výraz \"kouč\" sa objavil v článku.",
@@ -165031,6 +165301,7 @@
     "slovak": "svah",
     "english": "slope; hillside",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"svah\" sa objavil v článku.",
@@ -165070,6 +165341,7 @@
     "slovak": "skok",
     "english": "jump; leap",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Je to malý krok pre človeka, obrovský skok pre ľudstvo.",
@@ -165383,6 +165655,7 @@
     "slovak": "dopad",
     "english": "impact; effect; fallout",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"dopad\" sa objavil v článku.",
@@ -165402,6 +165675,7 @@
     "slovak": "balíček",
     "english": "package; packet; bundle",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Položte balíček kariet na dubový stôl.",
@@ -165509,6 +165783,7 @@
     "slovak": "vášeň",
     "english": "passion",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Je to moja vášeň.",
@@ -165714,6 +165989,7 @@
     "slovak": "zhoda",
     "english": "agreement; match; coincidence",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Ruské prídavné mená sú v zhode s rodom, číslom a pádom s podstatnými menami alebo zámenami, na ktoré sa vzťahujú.",
@@ -165910,6 +166186,7 @@
     "slovak": "námaha",
     "english": "effort; exertion",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Výraz \"námaha\" sa objavil v článku.",
@@ -166017,6 +166294,7 @@
     "slovak": "priechod",
     "english": "passage; crossing",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"priechod\" sa objavil v článku.",
@@ -166056,6 +166334,7 @@
     "slovak": "mandát",
     "english": "mandate; term of office",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"mandát\" sa objavil v článku.",
@@ -166247,6 +166526,7 @@
     "slovak": "cent",
     "english": "cent",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"cent\" sa objavil v článku.",
@@ -166286,6 +166566,7 @@
     "slovak": "obal",
     "english": "packaging; cover",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"obal\" sa objavil v článku.",
@@ -166325,6 +166606,7 @@
     "slovak": "držiteľ",
     "english": "holder; owner",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Výraz \"držiteľ\" sa objavil v článku.",
@@ -166364,6 +166646,7 @@
     "slovak": "stromček",
     "english": "small tree; Christmas tree",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"stromček\" sa objavil v článku.",
@@ -166425,6 +166708,7 @@
     "slovak": "doplnok",
     "english": "supplement; accessory",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"doplnok\" sa objavil v článku.",
@@ -166516,6 +166800,7 @@
     "slovak": "profil",
     "english": "profile",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"profil\" sa objavil v článku.",
@@ -166535,6 +166820,7 @@
     "slovak": "éra",
     "english": "era",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Dnes sa začína nová éra v histórii Libanonu.",
@@ -166610,6 +166896,7 @@
     "slovak": "ťah",
     "english": "pull; move; stroke",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"ťah\" sa objavil v článku.",
@@ -166753,6 +167040,7 @@
     "slovak": "odstup",
     "english": "distance; withdrawal",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"odstup\" sa objavil v článku.",
@@ -166942,6 +167230,7 @@
     "slovak": "omyl",
     "english": "mistake; error",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Tom sa omylom postrelil do nohy.",
@@ -167173,6 +167462,7 @@
     "slovak": "eurofond",
     "english": "EU fund",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'eurofond'.",
@@ -167414,6 +167704,7 @@
     "slovak": "prevod",
     "english": "transfer; conversion",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'prevod'.",
@@ -167461,6 +167752,7 @@
     "slovak": "prognóza",
     "english": "prognosis; forecast",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'prognóza'.",
@@ -167480,6 +167772,7 @@
     "slovak": "ukazovateľ",
     "english": "indicator",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'ukazovateľ'.",
@@ -167567,6 +167860,7 @@
     "slovak": "výpočet",
     "english": "calculation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'výpočet'.",
@@ -167586,6 +167880,7 @@
     "slovak": "incident",
     "english": "incident",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Ja si pamätám ten incident celkom dobre.",
@@ -167677,6 +167972,7 @@
     "slovak": "bar",
     "english": "bar",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'bar'.",
@@ -167696,6 +167992,7 @@
     "slovak": "komisár",
     "english": "commissioner",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'komisár'.",
@@ -167715,6 +168012,7 @@
     "slovak": "mýtus",
     "english": "myth",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Je to mýtus.",
@@ -167750,6 +168048,7 @@
     "slovak": "oddych",
     "english": "rest; relaxation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Je čas na oddych.",
@@ -167805,6 +168104,7 @@
     "slovak": "dorastenec",
     "english": "adolescent; teenager",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'dorastenec'.",
@@ -167864,6 +168164,7 @@
     "slovak": "zjazd",
     "english": "congress; descent",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'zjazd'.",
@@ -167883,6 +168184,7 @@
     "slovak": "parameter",
     "english": "parameter",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'parameter'.",
@@ -168020,6 +168322,7 @@
     "slovak": "fenomén",
     "english": "phenomenon",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'fenomén'.",
@@ -168039,6 +168342,7 @@
     "slovak": "novina",
     "english": "piece of news; novelty",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Tá novina ju vôbec nerozrušila.",
@@ -168066,6 +168370,7 @@
     "slovak": "barel",
     "english": "barrel",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'barel'.",
@@ -168167,6 +168472,7 @@
     "slovak": "hit",
     "english": "hit; popular song",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'hit'.",
@@ -168362,6 +168668,7 @@
     "slovak": "magistrát",
     "english": "city hall; municipal authority",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'magistrát'.",
@@ -168421,6 +168728,7 @@
     "slovak": "zákonník",
     "english": "code of law; law book",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'zákonník'.",
@@ -168440,6 +168748,7 @@
     "slovak": "priestupok",
     "english": "offense; misdemeanor",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'priestupok'.",
@@ -168691,6 +169000,7 @@
     "slovak": "rytmus",
     "english": "rhythm",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'rytmus'.",
@@ -168710,6 +169020,7 @@
     "slovak": "rating",
     "english": "rating; audience share",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'rating'.",
@@ -168911,6 +169222,7 @@
     "slovak": "prepad",
     "english": "drop; robbery; ambush",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'prepad'.",
@@ -168930,6 +169242,7 @@
     "slovak": "spoločník",
     "english": "companion; business partner",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'spoločník'.",
@@ -169161,6 +169474,7 @@
     "slovak": "neistota",
     "english": "uncertainty; insecurity",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Neistota je pre dušu ako utrpenie pre telo.",
@@ -169176,6 +169490,7 @@
     "slovak": "spojenec",
     "english": "ally",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'spojenec'.",
@@ -169215,6 +169530,7 @@
     "slovak": "živnostník",
     "english": "sole trader; self-employed person",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'živnostník'.",
@@ -169262,6 +169578,7 @@
     "slovak": "pamätník",
     "english": "memorial; monument",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'pamätník'.",
@@ -169339,6 +169656,7 @@
     "slovak": "župa",
     "english": "county; region",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'župa'.",
@@ -169654,6 +169972,7 @@
     "slovak": "orchester",
     "english": "orchestra",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'orchester'.",
@@ -169673,6 +169992,7 @@
     "slovak": "úraz",
     "english": "injury; accident",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Uráža ma to.",
@@ -169923,6 +170243,7 @@
     "slovak": "zájazd",
     "english": "package tour; trip",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'zájazd'.",
@@ -170062,6 +170383,7 @@
     "slovak": "tip",
     "english": "tip; hint",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Dala mi tip.",
@@ -170203,6 +170525,7 @@
     "slovak": "príznak",
     "english": "symptom; sign",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'príznak'.",
@@ -170458,6 +170781,7 @@
     "slovak": "míting",
     "english": "meeting; rally",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'míting'.",
@@ -170477,6 +170801,7 @@
     "slovak": "výtvarník",
     "english": "visual artist",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'výtvarník'.",
@@ -170496,6 +170821,7 @@
     "slovak": "kópia",
     "english": "copy",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "On robí kópiu.",
@@ -170551,6 +170877,7 @@
     "slovak": "rektor",
     "english": "rector; university president",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'rektor'.",
@@ -170590,6 +170917,7 @@
     "slovak": "spása",
     "english": "salvation",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'spása'.",
@@ -170809,6 +171137,7 @@
     "slovak": "nepokoj",
     "english": "restlessness; unrest",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'nepokoj'.",
@@ -170848,6 +171177,7 @@
     "slovak": "stredopoliar",
     "english": "midfielder",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'stredopoliar'.",
@@ -170867,6 +171197,7 @@
     "slovak": "prestup",
     "english": "transfer; change",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'prestup'.",
@@ -170984,6 +171315,7 @@
     "slovak": "posila",
     "english": "reinforcement; new recruit",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'posila'.",
@@ -171003,6 +171335,7 @@
     "slovak": "delegát",
     "english": "delegate",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'delegát'.",
@@ -171102,6 +171435,7 @@
     "slovak": "prelom",
     "english": "breakthrough; turning point",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'prelom'.",
@@ -171121,6 +171455,7 @@
     "slovak": "náznak",
     "english": "hint; indication",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'náznak'.",
@@ -171301,6 +171636,7 @@
     "slovak": "posun",
     "english": "shift; move",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'posun'.",
@@ -171320,6 +171656,7 @@
     "slovak": "jedinec",
     "english": "individual",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'jedinec'.",
@@ -171437,6 +171774,7 @@
     "slovak": "rešpekt",
     "english": "respect",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Veľký rešpekt!",
@@ -171830,6 +172168,7 @@
     "slovak": "front",
     "english": "front; line",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'front'.",
@@ -172017,6 +172356,7 @@
     "slovak": "ochota",
     "english": "willingness",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Nič nie je nepríjemné, čo človek robí s ochotou.",
@@ -172032,6 +172372,7 @@
     "slovak": "poistné",
     "english": "insurance premium",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'poistné'.",
@@ -172165,6 +172506,7 @@
     "slovak": "báza",
     "english": "base; database",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'báza'.",
@@ -172242,6 +172584,7 @@
     "slovak": "prevádzkovateľ",
     "english": "operator",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'prevádzkovateľ'.",
@@ -172463,6 +172806,7 @@
     "slovak": "vývin",
     "english": "development",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'vývin'.",
@@ -172540,6 +172884,7 @@
     "slovak": "opak",
     "english": "opposite; reverse",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Naším problémom je pravý opak.",
@@ -172645,6 +172990,7 @@
     "slovak": "poistenec",
     "english": "insured person; policyholder",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'poistenec'.",
@@ -172704,6 +173050,7 @@
     "slovak": "bonus",
     "english": "bonus",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'bonus'.",
@@ -172745,6 +173092,7 @@
     "slovak": "pozdrav",
     "english": "greeting; regards",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Pozdrav odo mňa Toma.",
@@ -172848,6 +173196,7 @@
     "slovak": "prepočet",
     "english": "recalculation; conversion",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'prepočet'.",
@@ -172943,6 +173292,7 @@
     "slovak": "stráž",
     "english": "guard; watch",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Na stráž!",
@@ -173068,6 +173418,7 @@
     "slovak": "zeleň",
     "english": "greenery; vegetation",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Čo vás primälo myslieť si, že moja obľúbená farba je zelená?",
@@ -173125,6 +173476,7 @@
     "slovak": "inšpektor",
     "english": "inspector",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'inšpektor'.",
@@ -173214,6 +173566,7 @@
     "slovak": "reťazec",
     "english": "chain; string",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'reťazec'.",
@@ -173233,6 +173586,7 @@
     "slovak": "úkon",
     "english": "act; procedure",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'úkon'.",
@@ -173348,6 +173702,7 @@
     "slovak": "salón",
     "english": "salon; lounge",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'salón'.",
@@ -173619,6 +173974,7 @@
     "slovak": "bariéra",
     "english": "barrier; obstacle",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'bariéra'.",
@@ -173724,6 +174080,7 @@
     "slovak": "kompromis",
     "english": "compromise",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Urob kompromis.",
@@ -173883,6 +174240,7 @@
     "slovak": "rozkaz",
     "english": "order; command",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'rozkaz'.",
@@ -173918,6 +174276,7 @@
     "slovak": "presun",
     "english": "move; transfer",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'presun'.",
@@ -174095,6 +174454,7 @@
     "slovak": "viceprezident",
     "english": "vice president",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'viceprezident'.",
@@ -174404,6 +174764,7 @@
     "slovak": "posudok",
     "english": "assessment; report",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'posudok'.",
@@ -174641,6 +175002,7 @@
     "slovak": "zánik",
     "english": "extinction; demise",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Možno budete sklamaní, ak zlyháte, ale ste odsúdení na zánik, ak to ani neskúsite.",
@@ -174736,6 +175098,7 @@
     "slovak": "veterán",
     "english": "veteran",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'veterán'.",
@@ -174755,6 +175118,7 @@
     "slovak": "pult",
     "english": "counter; bar",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'pult'.",
@@ -174774,6 +175138,7 @@
     "slovak": "ohlas",
     "english": "response; reaction; publicity",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'ohlas'.",
@@ -174813,6 +175178,7 @@
     "slovak": "terasa",
     "english": "terrace; patio",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'terasa'.",
@@ -174848,6 +175214,7 @@
     "slovak": "koncept",
     "english": "concept; draft",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'koncept'.",
@@ -174895,6 +175262,7 @@
     "slovak": "rukopis",
     "english": "handwriting; manuscript",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Koho je to rukopis?",
@@ -174952,6 +175320,7 @@
     "slovak": "konateľ",
     "english": "executive; company director",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'konateľ'.",
@@ -175137,6 +175506,7 @@
     "slovak": "záťaž",
     "english": "load; burden; strain",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'záťaž'.",
@@ -175224,6 +175594,7 @@
     "slovak": "odborár",
     "english": "trade unionist",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'odborár'.",
@@ -175283,6 +175654,7 @@
     "slovak": "don",
     "english": "Don; Spanish honorific",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'don'.",
@@ -175510,6 +175882,7 @@
     "slovak": "nositeľ",
     "english": "bearer; carrier; holder",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'nositeľ'.",
@@ -175689,6 +176062,7 @@
     "slovak": "výpadok",
     "english": "outage; interruption; shortfall",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „výpadok“ a prečítali si jeho význam.",
@@ -175880,6 +176254,7 @@
     "slovak": "odchovanec",
     "english": "foster child; protégé; trainee",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „odchovanec“ a prečítali si jeho význam.",
@@ -175987,6 +176362,7 @@
     "slovak": "úkor",
     "english": "expense; detriment",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „úkor“ a prečítali si jeho význam.",
@@ -176102,6 +176478,7 @@
     "slovak": "verdikt",
     "english": "verdict",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „verdikt“ a prečítali si jeho význam.",
@@ -176183,6 +176560,7 @@
     "slovak": "turné",
     "english": "tour",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „turné“ a prečítali si jeho význam.",
@@ -176346,6 +176724,7 @@
     "slovak": "protiútok",
     "english": "counterattack",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „protiútok“ a prečítali si jeho význam.",
@@ -176453,6 +176832,7 @@
     "slovak": "poskytovateľ",
     "english": "provider",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „poskytovateľ“ a prečítali si jeho význam.",
@@ -176492,6 +176872,7 @@
     "slovak": "obeta",
     "english": "sacrifice; victim",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Je obeťou vlastného úspechu.",
@@ -176885,6 +177266,7 @@
     "slovak": "býk",
     "english": "bull",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „býk“ a prečítali si jeho význam.",
@@ -177044,6 +177426,7 @@
     "slovak": "smernica",
     "english": "directive; guideline",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „smernica“ a prečítali si jeho význam.",
@@ -177119,6 +177502,7 @@
     "slovak": "plagát",
     "english": "poster",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „plagát“ a prečítali si jeho význam.",
@@ -177242,6 +177626,7 @@
     "slovak": "námet",
     "english": "theme; idea; subject",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „námet“ a prečítali si jeho význam.",
@@ -177379,6 +177764,7 @@
     "slovak": "zver",
     "english": "game; wild animals",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Všetkým zverom zeme a všetkému vtáctvu neba i všetkému, čo sa hýbe na zemi, v čom je dych života, všetku zelenú trávu.",
@@ -177444,6 +177830,7 @@
     "slovak": "sklon",
     "english": "slope; inclination; tendency",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Čečenci majú sklon k nezávislosti.",
@@ -177923,6 +178310,7 @@
     "slovak": "odberateľ",
     "english": "customer; subscriber; buyer",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „odberateľ“ a prečítali si jeho význam.",
@@ -177962,6 +178350,7 @@
     "slovak": "výkrik",
     "english": "cry; shout; exclamation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „výkrik“ a prečítali si jeho význam.",
@@ -178105,6 +178494,7 @@
     "slovak": "aréna",
     "english": "arena",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „aréna“ a prečítali si jeho význam.",
@@ -178184,6 +178574,7 @@
     "slovak": "prečin",
     "english": "misdemeanor; offense",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „prečin“ a prečítali si jeho význam.",
@@ -178283,6 +178674,7 @@
     "slovak": "kataster",
     "english": "land registry; cadastre",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „kataster“ a prečítali si jeho význam.",
@@ -178622,6 +179014,7 @@
     "slovak": "počiatok",
     "english": "beginning; origin",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „počiatok“ a prečítali si jeho význam.",
@@ -178837,6 +179230,7 @@
     "slovak": "masa",
     "english": "mass; crowd; dough",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Videl som psa. Pes držal v papuli kus mäsa.",
@@ -179083,6 +179477,7 @@
     "slovak": "platforma",
     "english": "platform",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „platforma“ a prečítali si jeho význam.",
@@ -179180,6 +179575,7 @@
     "slovak": "aktér",
     "english": "actor; participant; player",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „aktér“ a prečítali si jeho význam.",
@@ -179199,6 +179595,7 @@
     "slovak": "prísľub",
     "english": "promise; pledge",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „prísľub“ a prečítali si jeho význam.",
@@ -179256,6 +179653,7 @@
     "slovak": "miláčik",
     "english": "darling; favorite; pet",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „miláčik“ a prečítali si jeho význam.",
@@ -179371,6 +179769,7 @@
     "slovak": "dievčina",
     "english": "girl; young woman",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Dievčina stála, pozerajúc do zrkadla.",
@@ -179404,6 +179803,7 @@
     "slovak": "komodita",
     "english": "commodity",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „komodita“ a prečítali si jeho význam.",
@@ -179462,6 +179862,7 @@
     "slovak": "sekretariát",
     "english": "secretariat; secretary's office",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „sekretariát“ a prečítali si jeho význam.",
@@ -179481,6 +179882,7 @@
     "slovak": "páter",
     "english": "priest; friar",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „páter“ a prečítali si jeho význam.",
@@ -179500,6 +179902,7 @@
     "slovak": "brejk",
     "english": "break; break shot; breakdance",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „brejk“ a prečítali si jeho význam.",
@@ -179976,6 +180379,7 @@
     "slovak": "dlžník",
     "english": "debtor",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Som váš dlžník.",
@@ -180113,6 +180517,7 @@
     "slovak": "štatút",
     "english": "status; statute; regulations",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „štatút“ a prečítali si jeho význam.",
@@ -180490,6 +180895,7 @@
     "slovak": "agenda",
     "english": "agenda; administrative matters",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „agenda“ a prečítali si jeho význam.",
@@ -180646,6 +181052,7 @@
     "slovak": "námestník",
     "english": "deputy; vice-; substitute",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „námestník“ a prečítali si jeho význam.",
@@ -180765,6 +181172,7 @@
     "slovak": "porada",
     "english": "meeting; consultation",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „porada“ a prečítali si jeho význam.",
@@ -180820,6 +181228,7 @@
     "slovak": "vozík",
     "english": "cart; trolley; wheelchair",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „vozík“ a prečítali si jeho význam.",
@@ -180839,6 +181248,7 @@
     "slovak": "učeník",
     "english": "disciple; apprentice",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „učeník“ a prečítali si jeho význam.",
@@ -180950,6 +181360,7 @@
     "slovak": "rozpad",
     "english": "collapse; disintegration; breakup",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Rozpad Britského impéria bol pomerne pokojný.",
@@ -181099,6 +181510,7 @@
     "slovak": "terč",
     "english": "target; bull's-eye",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „terč“ a prečítali si jeho význam.",
@@ -181138,6 +181550,7 @@
     "slovak": "otvor",
     "english": "opening; hole",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Otvor fľašu.",
@@ -181423,6 +181836,7 @@
     "slovak": "mreža",
     "english": "grille; bars; lattice",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „mreža“ a prečítali si jeho význam.",
@@ -181502,6 +181916,7 @@
     "slovak": "ocko",
     "english": "daddy",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „ocko“ a prečítali si jeho význam.",
@@ -181561,7 +181976,7 @@
     "slovak": "dobytok",
     "english": "cattle; livestock",
     "category": "Nouns",
-    "gender": "masculine-animate",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „dobytok“ a prečítali si jeho význam.",
@@ -181741,6 +182156,7 @@
     "slovak": "šperk",
     "english": "jewelry; jewel",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „šperk“ a prečítali si jeho význam.",
@@ -181780,6 +182196,7 @@
     "slovak": "repríza",
     "english": "rerun; repeat performance",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „repríza“ a prečítali si jeho význam.",
@@ -181863,6 +182280,7 @@
     "slovak": "rozloha",
     "english": "area; extent",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Island má územie o rozlohe zhruba 103 000 kilometrov štvorcových.",
@@ -181894,6 +182312,7 @@
     "slovak": "kostým",
     "english": "costume; suit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „kostým“ a prečítali si jeho význam.",
@@ -181929,6 +182348,7 @@
     "slovak": "nevýhoda",
     "english": "disadvantage; drawback",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „nevýhoda“ a prečítali si jeho význam.",
@@ -181988,6 +182408,7 @@
     "slovak": "certifikát",
     "english": "certificate",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „certifikát“ a prečítali si jeho význam.",
@@ -182521,6 +182942,7 @@
     "slovak": "nedôvera",
     "english": "distrust; lack of confidence",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „nedôvera“ a prečítali si jeho význam.",
@@ -183036,6 +183458,7 @@
     "slovak": "daňovník",
     "english": "taxpayer",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „daňovník“ a prečítali si jeho význam.",
@@ -183303,6 +183726,7 @@
     "slovak": "porast",
     "english": "vegetation; stand; growth",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „porast“ a prečítali si jeho význam.",
@@ -183342,6 +183766,7 @@
     "slovak": "notebook",
     "english": "laptop; notebook",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „notebook“ a prečítali si jeho význam.",
@@ -183381,6 +183806,7 @@
     "slovak": "nájom",
     "english": "rent; lease",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "To Tom platí nájom.",
@@ -183494,6 +183920,7 @@
     "slovak": "zadok",
     "english": "backside; buttocks; rear",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „zadok“ a prečítali si jeho význam.",
@@ -183533,6 +183960,7 @@
     "slovak": "pauza",
     "english": "break; pause",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "V slovníku sme si vyhľadali slovo „pauza“ a prečítali si jeho význam.",
@@ -240140,6 +240568,7 @@
     "slovak": "panel",
     "english": "panel",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je panel.",
@@ -240245,6 +240674,7 @@
     "slovak": "oblek",
     "english": "suit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Môj oblek je šedý.",
@@ -240290,6 +240720,7 @@
     "slovak": "nervozita",
     "english": "nervousness",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je nervozita.",
@@ -240333,6 +240764,7 @@
     "slovak": "nápor",
     "english": "onslaught; pressure",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je nápor.",
@@ -240514,6 +240946,7 @@
     "slovak": "dozor",
     "english": "supervision; watch",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je dozor.",
@@ -240651,6 +241084,7 @@
     "slovak": "zástup",
     "english": "crowd; throng",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je zástup.",
@@ -240732,6 +241166,7 @@
     "slovak": "kútik",
     "english": "corner; nook",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je kútik.",
@@ -240797,6 +241232,7 @@
     "slovak": "pleť",
     "english": "complexion; skin",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je pleť.",
@@ -240926,6 +241362,7 @@
     "slovak": "protokol",
     "english": "protocol; record",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je protokol.",
@@ -240969,6 +241406,7 @@
     "slovak": "vila",
     "english": "villa",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je vila.",
@@ -241012,6 +241450,7 @@
     "slovak": "ateliér",
     "english": "studio",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je ateliér.",
@@ -241117,6 +241556,7 @@
     "slovak": "nájomné",
     "english": "rent",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "Toto je nájomné.",
@@ -241138,6 +241578,7 @@
     "slovak": "chov",
     "english": "breeding; livestock",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je chov.",
@@ -241181,6 +241622,7 @@
     "slovak": "pruh",
     "english": "stripe; lane",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je pruh.",
@@ -241561,6 +242003,7 @@
     "slovak": "potlesk",
     "english": "applause",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je potlesk.",
@@ -241708,6 +242151,7 @@
     "slovak": "technik",
     "english": "technician",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Vyškrabávacia technika je ako odhaľovanie dúhy z temnoty.",
@@ -241959,6 +242403,7 @@
     "slovak": "tvor",
     "english": "creature",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je tvor.",
@@ -242314,6 +242759,7 @@
     "slovak": "prípravok",
     "english": "preparation; product",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je prípravok.",
@@ -242335,6 +242781,7 @@
     "slovak": "diplom",
     "english": "diploma",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je diplom.",
@@ -242378,6 +242825,7 @@
     "slovak": "kontrolór",
     "english": "inspector; controller",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je kontrolór.",
@@ -242487,6 +242935,7 @@
     "slovak": "pocta",
     "english": "honor; tribute",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Pre Toma to bola veľká pocta.",
@@ -242722,6 +243171,7 @@
     "slovak": "pasáž",
     "english": "passage; arcade",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je pasáž.",
@@ -242809,6 +243259,7 @@
     "slovak": "legionár",
     "english": "legionnaire",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je legionár.",
@@ -242954,6 +243405,7 @@
     "slovak": "úplatok",
     "english": "bribe",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je úplatok.",
@@ -243328,6 +243780,7 @@
     "slovak": "mix",
     "english": "mix",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je mix.",
@@ -243865,6 +244318,7 @@
     "slovak": "odroda",
     "english": "variety; cultivar",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je odroda.",
@@ -243886,6 +244340,7 @@
     "slovak": "únos",
     "english": "kidnapping; hijacking",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je únos.",
@@ -243907,6 +244362,7 @@
     "slovak": "zvrat",
     "english": "turnaround; twist",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je zvrat.",
@@ -244039,6 +244495,7 @@
     "slovak": "opýtaný",
     "english": "respondent",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je opýtaný.",
@@ -244126,6 +244583,7 @@
     "slovak": "odpočinok",
     "english": "rest",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je odpočinok.",
@@ -244181,6 +244639,7 @@
     "slovak": "vlaňajšok",
     "english": "last year",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Jeden vlaňajšok stačí.",
@@ -244528,6 +244987,7 @@
     "slovak": "špecialita",
     "english": "specialty",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je špecialita.",
@@ -244549,6 +245009,7 @@
     "slovak": "hrniec",
     "english": "pot",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je hrniec.",
@@ -244724,6 +245185,7 @@
     "slovak": "interval",
     "english": "interval",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je interval.",
@@ -244821,6 +245283,7 @@
     "slovak": "ochranca",
     "english": "protector; guardian",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je ochranca.",
@@ -244842,6 +245305,7 @@
     "slovak": "laik",
     "english": "layperson",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je laik.",
@@ -244907,6 +245371,7 @@
     "slovak": "muzikant",
     "english": "musician",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je muzikant.",
@@ -245010,6 +245475,7 @@
     "slovak": "pohárik",
     "english": "small glass; shot glass",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je pohárik.",
@@ -245091,6 +245557,7 @@
     "slovak": "kvóta",
     "english": "quota",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je kvóta.",
@@ -245475,6 +245942,7 @@
     "slovak": "tyč",
     "english": "rod; bar",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je tyč.",
@@ -245518,6 +245986,7 @@
     "slovak": "návyk",
     "english": "habit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je návyk.",
@@ -245781,6 +246250,7 @@
     "slovak": "paradox",
     "english": "paradox",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je paradox.",
@@ -245868,6 +246338,7 @@
     "slovak": "dodatok",
     "english": "appendix; addendum",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je dodatok.",
@@ -246011,6 +246482,7 @@
     "slovak": "výpis",
     "english": "statement; extract",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je výpis.",
@@ -246032,6 +246504,7 @@
     "slovak": "povstalec",
     "english": "insurgent; rebel",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je povstalec.",
@@ -246149,6 +246622,7 @@
     "slovak": "nátlak",
     "english": "pressure; coercion",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je nátlak.",
@@ -246170,6 +246644,7 @@
     "slovak": "hmyz",
     "english": "insect",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Máte radi hmyz?",
@@ -246250,6 +246725,7 @@
     "slovak": "hetrik",
     "english": "hat-trick",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je hetrik.",
@@ -246365,6 +246841,7 @@
     "slovak": "vinník",
     "english": "culprit; guilty party",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Chlieb náš každodenný daj nám dnes a odpusť nám naše viny, ako aj my odpúsťame svojim vinníkom.",
@@ -246452,6 +246929,7 @@
     "slovak": "nadšenec",
     "english": "enthusiast",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je nadšenec.",
@@ -246657,6 +247135,7 @@
     "slovak": "pohovor",
     "english": "interview",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je pohovor.",
@@ -246738,6 +247217,7 @@
     "slovak": "relax",
     "english": "relaxation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je relax.",
@@ -246804,6 +247284,7 @@
     "slovak": "aparát",
     "english": "apparatus",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je aparát.",
@@ -246941,6 +247422,7 @@
     "slovak": "dohovor",
     "english": "agreement; convention",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je dohovor.",
@@ -247006,6 +247488,7 @@
     "slovak": "stimul",
     "english": "stimulus",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je stimul.",
@@ -247049,6 +247532,7 @@
     "slovak": "útulok",
     "english": "shelter",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je útulok.",
@@ -247618,6 +248102,7 @@
     "slovak": "náraz",
     "english": "impact; collision",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je náraz.",
@@ -247705,6 +248190,7 @@
     "slovak": "oblúk",
     "english": "arch; arc",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je oblúk.",
@@ -247894,6 +248380,7 @@
     "slovak": "obeh",
     "english": "circulation",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je obeh.",
@@ -247997,6 +248484,7 @@
     "slovak": "prírastok",
     "english": "increase; increment",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je prírastok.",
@@ -248062,6 +248550,7 @@
     "slovak": "nominant",
     "english": "nominee",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je nominant.",
@@ -248228,6 +248717,7 @@
     "slovak": "centrála",
     "english": "headquarters",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je centrála.",
@@ -248249,6 +248739,7 @@
     "slovak": "zdravotník",
     "english": "paramedic; health worker",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je zdravotník.",
@@ -248292,6 +248783,7 @@
     "slovak": "osemfinále",
     "english": "round of 16",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "Toto je osemfinále.",
@@ -248439,6 +248931,7 @@
     "slovak": "euroval",
     "english": "eurozone bailout fund",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je euroval.",
@@ -248460,6 +248953,7 @@
     "slovak": "rám",
     "english": "frame",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Páči sa ti rám tohto obrazu?",
@@ -248547,6 +249041,7 @@
     "slovak": "odraz",
     "english": "reflection; rebound",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Ktorá farba najlepšie odráža svetlo?",
@@ -248596,6 +249091,7 @@
     "slovak": "krach",
     "english": "crash; collapse",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je krach.",
@@ -248839,6 +249335,7 @@
     "slovak": "vzostup",
     "english": "rise",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je vzostup.",
@@ -248976,6 +249473,7 @@
     "slovak": "dnešok",
     "english": "today; the present day",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Ďakujem za dnešok.",
@@ -249019,6 +249517,7 @@
     "slovak": "krídelník",
     "english": "winger",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je krídelník.",
@@ -249128,6 +249627,7 @@
     "slovak": "kancelár",
     "english": "chancellor",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je kancelár.",
@@ -249193,6 +249693,7 @@
     "slovak": "schodok",
     "english": "step; deficit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Jeden schodok stačí.",
@@ -249214,6 +249715,7 @@
     "slovak": "prívrženec",
     "english": "supporter; adherent",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je prívrženec.",
@@ -249235,6 +249737,7 @@
     "slovak": "interpret",
     "english": "performer; interpreter",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je interpret.",
@@ -249432,6 +249935,7 @@
     "slovak": "záštita",
     "english": "patronage; auspices",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je záštita.",
@@ -249475,6 +249979,7 @@
     "slovak": "náhradník",
     "english": "substitute; replacement",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je náhradník.",
@@ -249590,6 +250095,7 @@
     "slovak": "toaleta",
     "english": "toilet; restroom",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Je tu toaleta?",
@@ -249761,6 +250267,7 @@
     "slovak": "sortiment",
     "english": "range of goods; assortment",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je sortiment.",
@@ -249782,6 +250289,7 @@
     "slovak": "protiklad",
     "english": "opposite; contrast",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je protiklad.",
@@ -249803,6 +250311,7 @@
     "slovak": "lady",
     "english": "lady",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Keď všetci členovia skupiny mlčia, niekto musí prelomiť ľady.",
@@ -249906,6 +250415,7 @@
     "slovak": "večierok",
     "english": "party",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Mali by sme ísť spolu na večierok.",
@@ -250178,6 +250688,7 @@
     "slovak": "odklad",
     "english": "postponement",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je odklad.",
@@ -250199,6 +250710,7 @@
     "slovak": "postreh",
     "english": "observation; perceptiveness",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je postreh.",
@@ -250286,6 +250798,7 @@
     "slovak": "míľa",
     "english": "mile",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Bola by si taká milá a zatvorila to okno?",
@@ -250403,6 +250916,7 @@
     "slovak": "sporiteľ",
     "english": "saver",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je sporiteľ.",
@@ -250424,6 +250938,7 @@
     "slovak": "kulisa",
     "english": "stage set; backdrop",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Jedna kulisa stačí.",
@@ -250445,6 +250960,7 @@
     "slovak": "oznam",
     "english": "notice; announcement",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je oznam.",
@@ -250466,6 +250982,7 @@
     "slovak": "štvorica",
     "english": "foursome; quartet",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Toto je štvorica.",
@@ -250575,6 +251092,7 @@
     "slovak": "holding",
     "english": "holding company",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je holding.",
@@ -250850,6 +251368,7 @@
     "slovak": "gigant",
     "english": "giant",
     "category": "Nouns",
+    "gender": "masculine-animate",
     "examples": [
       {
         "slovak": "Toto je gigant.",
@@ -250959,6 +251478,7 @@
     "slovak": "preddavok",
     "english": "advance payment; deposit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je preddavok.",
@@ -250980,6 +251500,7 @@
     "slovak": "nesúhlas",
     "english": "disagreement",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je nesúhlas.",
@@ -251061,6 +251582,7 @@
     "slovak": "workshop",
     "english": "workshop",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je workshop.",
@@ -251206,6 +251728,7 @@
     "slovak": "úpadok",
     "english": "decline",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je úpadok.",
@@ -251375,6 +251898,7 @@
     "slovak": "prášok",
     "english": "powder",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je prášok.",
@@ -251396,6 +251920,7 @@
     "slovak": "panelák",
     "english": "prefabricated apartment block",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Kde je panelák?",
@@ -251461,6 +251986,7 @@
     "slovak": "twist",
     "english": "twist",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je twist.",
@@ -251504,6 +252030,7 @@
     "slovak": "odstupné",
     "english": "severance pay",
     "category": "Nouns",
+    "gender": "neuter",
     "examples": [
       {
         "slovak": "Toto je odstupné.",
@@ -251607,6 +252134,7 @@
     "slovak": "výjazd",
     "english": "trip; outing; exit",
     "category": "Nouns",
+    "gender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je výjazd.",
