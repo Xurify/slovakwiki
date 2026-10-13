@@ -506,7 +506,7 @@ export function capitalizeSlovak(text: string): string {
 
 /**
  * Paradigm row for lesson tables, one owner per row. Column order matches the tables:
- * masculine, feminine, neuter singular; then men or mixed groups, and every other plural.
+ * masculine, feminine, neuter singular; then masculine personal, and every other plural.
  */
 export function paradigmRow(owner: OwnerId, grammaticalCase: GrammaticalCase): string[] {
   const animate = possessiveForm(owner, "masculine-animate", grammaticalCase);

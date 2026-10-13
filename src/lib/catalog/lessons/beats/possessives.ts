@@ -63,7 +63,7 @@ const agreementTable = ownerTable(
     { owner: "our", english: "our" },
     { owner: "your-vy", english: "your (vy)" },
   ],
-  "Masculine personal means a group of men, or a mixed group: moji bratia, naši rodičia, moji kolegovia. Every other plural takes \u2011e: moje kľúče, moje sestry, moje autá.",
+  "Masculine personal means a masculine noun for people. The noun decides, not who is in the group: moji bratia, naši rodičia, naši študenti. Every other plural takes \u2011e, animals included: moje psy, moje sestry, moje kľúče.",
 );
 
 const fixedOwnerTable = ownerTable("Jeho, jej, ich never change", [

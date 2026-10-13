@@ -3,7 +3,7 @@ import type { ClozeHint } from "$lib/learning/types";
 export const agreementHint: ClozeHint = {
   chip: "môj · moja · moje",
   grammarTopicId: "grammatical-gender",
-  note: "**Môj**, **tvoj**, **náš**, **váš** take the gender of the thing owned, not the owner: *môj brat*, *moja sestra*, *moje auto*. In the plural, only men or mixed groups take **-i**: *moji priatelia*. Women and things take **-e**: *moje sestry*, *moje kľúče*.",
+  note: "**Môj**, **tvoj**, **náš**, **váš** take the gender of the thing owned, not the owner: *môj brat*, *moja sestra*, *moje auto*. In the plural, only masculine nouns for people take **-i**: *moji priatelia*, *naši študenti*. Every other plural takes **-e**, including feminine nouns for people and animals: *moje sestry*, *moje psy*, *moje kľúče*.",
 };
 
 export const fixedOwnerHint: ClozeHint = {

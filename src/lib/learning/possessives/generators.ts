@@ -164,7 +164,7 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
           label: line(otherPlural),
           whyWrong: people
             ? `**${capitalizeSlovak(otherPlural)}** is for every other plural: **${otherPlural} sestry**, **${otherPlural} kľúče**.`
-            : `**${capitalizeSlovak(otherPlural)}** is only for men or mixed groups: **${otherPlural} priatelia**.`,
+            : `**${capitalizeSlovak(otherPlural)}** is only for masculine nouns that name people: **${otherPlural} priatelia**.`,
         },
         {
           id: "singular",
@@ -180,8 +180,8 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
       correction: line(correct),
       english,
       why: people
-        ? `Men or mixed groups take **-i** in the plural: **${correct} ${entry.forms.nominative}**.`
-        : `Every plural except men or mixed groups takes **-e**: **${correct} ${entry.forms.nominative}**.`,
+        ? `Masculine nouns for people take **-i** in the plural: **${correct} ${entry.forms.nominative}**.`
+        : `Every plural except masculine nouns for people takes **-e**: **${correct} ${entry.forms.nominative}**.`,
     },
   };
 }
