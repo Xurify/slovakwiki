@@ -4,13 +4,14 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 
 Domain-specific authoring and pipelines live next to the work — not here:
 
-| Need                                        | Where                                                          |
-| ------------------------------------------- | -------------------------------------------------------------- |
-| Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                       |
-| Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md) |
-| Voice roster                                | [`content/audio/README.md`](content/audio/README.md)           |
-| FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)             |
-| Slovak linguistic accuracy                  | `slovak-language` skill                                        |
+| Need                                        | Where                                                                       |
+| ------------------------------------------- | --------------------------------------------------------------------------- |
+| Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                                    |
+| Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md)              |
+| Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
+| Voice roster                                | [`content/audio/README.md`](content/audio/README.md)                        |
+| FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                          |
+| Slovak linguistic accuracy                  | `slovak-language` skill                                                     |
 
 ## Tooling
 
