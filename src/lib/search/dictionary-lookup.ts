@@ -28,6 +28,7 @@ type PreparedEntry = {
 
 let indexPromise: Promise<DictionaryIndexEntry[]> | null = null;
 let preparedPromise: Promise<PreparedEntry[]> | null = null;
+let preparedIndex: PreparedEntry[] | null = null;
 
 function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
   if (!indexPromise) {
@@ -82,7 +83,10 @@ function prepareEntry(entry: DictionaryIndexEntry): PreparedEntry {
 function loadPreparedIndex(): Promise<PreparedEntry[]> {
   if (!preparedPromise) {
     preparedPromise = loadDictionaryIndex()
-      .then((index) => index.map(prepareEntry))
+      .then((index) => {
+        preparedIndex = index.map(prepareEntry);
+        return preparedIndex;
+      })
       .catch((error: unknown) => {
         preparedPromise = null;
         throw error;
@@ -92,11 +96,20 @@ function loadPreparedIndex(): Promise<PreparedEntry[]> {
   return preparedPromise;
 }
 
-/** Prefetch + normalize the browse index so the first typed query is not a main-thread stall. */
+/**
+ * Prefetch + normalize the browse index so the first typed query is not a main-thread
+ * stall. Call on search intent (hover, focus, `/`), not on page load: most visitors
+ * never search, and the index is ~270 KB on the wire.
+ */
 export function warmDictionaryLookup(): void {
   void loadPreparedIndex().catch(() => {
     // Ignore warm-up failure so future lookups can retry.
   });
+}
+
+/** True once the index is loaded, so lookups resolve without a network wait. */
+export function isDictionaryLookupReady(): boolean {
+  return preparedIndex !== null;
 }
 
 function scorePrepared(

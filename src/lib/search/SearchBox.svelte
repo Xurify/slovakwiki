@@ -17,6 +17,7 @@
     type SearchDocKind,
   } from "$lib/catalog/search/ui";
   import {
+    isDictionaryLookupReady,
     lookupDictionary,
     mergeSearchResults,
     warmDictionaryLookup,
@@ -226,11 +227,25 @@
         return;
       }
 
-      const [page, dictionaryHits] = await Promise.all([
-        Promise.all(response.results.slice(0, 8).map((result) => result.data())),
-        lookupDictionary(normalized),
-      ]);
+      const dictionaryPending = lookupDictionary(normalized);
+      const page = await Promise.all(
+        response.results.slice(0, 8).map((result) => result.data()),
+      );
 
+      if (generation !== searchGeneration) {
+        return;
+      }
+
+      // First search before the dictionary index arrives: show Pagefind hits now
+      // instead of waiting on the download, then fold dictionary hits in.
+      if (page.length > 0 && !isDictionaryLookupReady()) {
+        results = page;
+        activeIndex = 0;
+        loading = false;
+        pending = false;
+      }
+
+      const dictionaryHits = await dictionaryPending;
       if (generation !== searchGeneration) {
         return;
       }
@@ -258,6 +273,7 @@
   }
 
   function onFocus(): void {
+    warmDictionaryLookup();
     openPanel();
     if (trimmedQuery) {
       void runSearch(query);
@@ -325,7 +341,6 @@
   onMount(() => {
     refreshRecent();
     schedulePagefindIdleWarm();
-    warmDictionaryLookup();
 
     if (queryFromUrl && !query.trim()) {
       query = new URLSearchParams(window.location.search).get("q")?.trim() ?? "";
@@ -388,7 +403,13 @@
 </script>
 
 <div class={shellClass} bind:this={rootEl}>
-  <form action="/search" method="get" class={fieldClass} role="search">
+  <form
+    action="/search"
+    method="get"
+    class={fieldClass}
+    role="search"
+    onpointerenter={warmDictionaryLookup}
+  >
     <label class="sr-only" for={id}>Search Slovak Wiki</label>
 
     <svg
