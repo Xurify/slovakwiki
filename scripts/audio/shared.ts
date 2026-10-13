@@ -333,8 +333,6 @@ export function collectLemmaTextSet(): Set<string> {
  */
 export const DEFAULT_AUDIO_CONCURRENCY = 8;
 /** R2 PUTs are lighter than TTS — higher default. */
-// The R2 bucket is EU-jurisdiction: ~135 ms per request from the US, ~400 ms with a
-// fresh TLS handshake. Throughput is concurrency ÷ latency, so keep many in flight.
 export const DEFAULT_UPLOAD_CONCURRENCY = 128;
 
 export function parseArgs(
