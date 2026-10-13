@@ -14,17 +14,6 @@ Primary source link on curated dictionary entries.
 - [slovnik.juls.savba.sk](https://slovnik.juls.savba.sk/)
 - [Jazykovedný ústav Ľ. Štúra](https://www.juls.savba.sk/)
 
-### Wiktionary (via kaikki.org)
-
-Grammatical gender on dictionary nouns (masculine animate / inanimate, feminine, neuter, plural only). English Wiktionary first, Polish Wiktionary for lemmas English lacks, confident Slovak ending rules after that; a hand review (content/dictionary/noun-gender-review.json) fills the rest and corrects source errors. Written by scripts/dictionary/import-noun-gender.ts.
-
-License: CC BY-SA (attribute Wiktionary contributors)
-
-- [English Wiktionary Slovak extract](https://kaikki.org/dictionary/Slovak/)
-- [English Wiktionary Slovak dump (JSONL)](https://kaikki.org/dictionary/Slovak/kaikki.org-dictionary-Slovak.jsonl)
-- [Polish Wiktionary Slovak extract](https://kaikki.org/plwiktionary/j%C4%99zyk%20s%C5%82owacki/index.html)
-- [Polish Wiktionary Slovak dump (JSONL)](https://kaikki.org/plwiktionary/j%C4%99zyk%20s%C5%82owacki/kaikki.org-dictionary-j%C4%99zyks%C5%82owacki.jsonl)
-
 ## Corpus and frequency
 
 Trusted frequency lists for the most common lemmas by part of speech.
@@ -40,6 +29,15 @@ Top-3000 noun and top-2000 verb lemmas from the full SNK count dumps, plus top-1
 - [Top 1000 noun lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-substantives-top-1000-lemmas/)
 - [Top 1000 adjective lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adjectives-top-1000-lemmas/)
 - [Top 1000 adverb lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adverbs-top-1000-lemmas/)
+
+### Slovak National Corpus treebank (UD Slovak-SNK)
+
+Checks the grammatical gender of dictionary nouns. Gender comes from the Slovak ending rule plus a reviewed exceptions list (content/dictionary/noun-gender-exceptions.json); scripts/dictionary/assign-noun-gender.ts flags any noun the treebank's hand annotation disagrees with.
+
+License: CC BY-SA 4.0
+
+- [UD_Slovak-SNK (CoNLL-U files)](https://github.com/UniversalDependencies/UD_Slovak-SNK)
+- [Treebank documentation](https://universaldependencies.org/treebanks/sk_snk/index.html)
 
 ## Example sentences
 

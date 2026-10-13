@@ -150,7 +150,7 @@ export interface ContentEntry {
   topics?: string[];
   /** Spoken/informal register — Colloquial or Slang chip. */
   register?: WordRegister;
-  /** Nouns only: grammatical gender (`import-noun-gender.ts`). Unset when unresolved. */
+  /** Nouns only: grammatical gender (`assign-noun-gender.ts`). Unset when unresolved. */
   gender?: NounGender;
   /** With `gender: "plural-only"`: the gender dictionaries give the noun (dvere: feminine). */
   pluralOnlyGender?: PluralOnlyGender;
