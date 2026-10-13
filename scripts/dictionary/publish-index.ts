@@ -2,20 +2,13 @@ import { createHash } from "node:crypto";
 
 import { r2FromEnv } from "../lib/r2";
 
-/** Content-addressed name, so every copy can be cached for a year. */
 export const DICTIONARY_INDEX_CACHE_CONTROL = "public, max-age=31536000, immutable";
 
-/** `dictionary-browse.<sha256 prefix>.json` — a new name whenever the index changes. */
 export function dictionaryIndexFileName(json: string): string {
   const hash = createHash("sha256").update(json).digest("hex").slice(0, 12);
   return `dictionary-browse.${hash}.json`;
 }
 
-/**
- * Why browsers on `siteOrigin` could not use this response, or `undefined` when they can.
- * A cross-origin fetch needs a CORS header, and the raw index is ~1.4 MB, so it must
- * arrive compressed.
- */
 export function servedIndexProblem(
   response: Pick<Response, "headers" | "ok" | "status">,
   siteOrigin: string,
@@ -35,11 +28,7 @@ export function servedIndexProblem(
   return undefined;
 }
 
-/**
- * Upload the index to R2 under `data/` (when missing) and return its public URL, or
- * `undefined` when the site should keep serving its own copy: R2 not configured,
- * upload failed, or the public URL would not work from the browser.
- */
+/** Public R2 URL for the index, or `undefined` to keep serving the site's own copy. */
 export async function publishDictionaryIndex(options: {
   env?: NodeJS.ProcessEnv;
   fileName: string;
@@ -76,8 +65,7 @@ export async function publishDictionaryIndex(options: {
       }
     }
 
-    // Ask the way a browser on the site would. The query string skips any edge-cached
-    // 404 from before the upload; R2 ignores it.
+    // The query string bypasses any edge-cached 404 from before the upload.
     const served = await fetch(`${publicUrl}?verify=${Date.now()}`, {
       headers: { "Accept-Encoding": "br, gzip", Origin: options.siteOrigin },
     });

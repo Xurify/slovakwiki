@@ -236,8 +236,7 @@
         return;
       }
 
-      // First search before the dictionary index arrives: show Pagefind hits now
-      // instead of waiting on the download, then fold dictionary hits in.
+      // Index still loading: show Pagefind hits now, merge dictionary hits when it lands.
       if (page.length > 0 && !isDictionaryLookupReady()) {
         results = page;
         activeIndex = 0;

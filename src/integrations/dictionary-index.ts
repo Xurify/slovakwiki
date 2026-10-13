@@ -13,14 +13,8 @@ import {
 } from "../../scripts/dictionary/publish-index";
 
 /**
- * Browse index for header search, /dictionary filters and the common-word pages.
- *
- * Build: content-hashed `dictionary-browse.<hash>.json`, published to R2 when
- * PUBLIC_DATA_BASE_URL + R2_* are set and the public URL passes CORS/compression
- * checks, and always written under `/_astro/` (immutable on Vercel) as the fallback.
- * Client code reads the URLs from `__DICTIONARY_INDEX_URLS__`.
- *
- * Dev: served from memory at DEV_DICTIONARY_INDEX_PATH (restart to pick up edits).
+ * Build: content-hashed index under `/_astro/`, plus R2 as the primary URL when
+ * configured and usable from the browser. Dev: served from memory (restart for edits).
  */
 export function dictionaryIndex(): AstroIntegration {
   let built: { entryCount: number; fileName: string; json: string } | undefined;

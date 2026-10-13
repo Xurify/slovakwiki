@@ -3,19 +3,13 @@ import type { WordOrigin, WordRegister } from "$lib/catalog/types";
 export const DICTIONARY_PAGE_SIZE = 50;
 export const COMMON_RANK_MAX = 500;
 
-/** Dev server path; src/integrations/dictionary-index.ts serves it from memory. */
 export const DEV_DICTIONARY_INDEX_PATH = "/dictionary-browse.json";
 
-/**
- * Where the browse index lives, primary first. Builds set a content-hashed R2 URL
- * (when published) followed by the same file on Vercel under `/_astro/`.
- */
 export const DICTIONARY_INDEX_URLS: readonly string[] =
   typeof __DICTIONARY_INDEX_URLS__ !== "undefined"
     ? __DICTIONARY_INDEX_URLS__
     : [DEV_DICTIONARY_INDEX_PATH];
 
-/** Fetch the browse index, falling back to the next URL when one fails (e.g. CORS). */
 export async function fetchDictionaryIndex<T>(
   urls: readonly string[] = DICTIONARY_INDEX_URLS,
 ): Promise<T[]> {

@@ -85,7 +85,6 @@ export async function ensureDictionaryCommonLoaded(): Promise<void> {
   try {
     const [frequencyResponse, indexData] = await Promise.all([
       fetch(frequencyUrl(dictionaryCommonState.partOfSpeech)),
-      // Optional: without it rows just lose their dictionary links.
       fetchDictionaryIndex<DictionaryIndexSidecarEntry>().catch(() => null),
     ]);
 

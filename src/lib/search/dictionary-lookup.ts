@@ -96,18 +96,13 @@ function loadPreparedIndex(): Promise<PreparedEntry[]> {
   return preparedPromise;
 }
 
-/**
- * Prefetch + normalize the browse index so the first typed query is not a main-thread
- * stall. Call on search intent (hover, focus, `/`), not on page load: most visitors
- * never search, and the index is ~270 KB on the wire.
- */
+/** Prefetch + normalize the browse index so the first typed query is not a main-thread stall. */
 export function warmDictionaryLookup(): void {
   void loadPreparedIndex().catch(() => {
     // Ignore warm-up failure so future lookups can retry.
   });
 }
 
-/** True once the index is loaded, so lookups resolve without a network wait. */
 export function isDictionaryLookupReady(): boolean {
   return preparedIndex !== null;
 }
