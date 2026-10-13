@@ -6,8 +6,14 @@ import {
 } from "$lib/catalog/lessons/beats";
 import { possessivesLessonId } from "./session";
 
+const flatLine = markedText([
+  "Ahoj! ",
+  { role: "possessive", text: "Tvoj" },
+  " byt je krásny!",
+]);
+
 const brotherLine = markedText([
-  "Toto je ",
+  "Ďakujem! Toto je ",
   { role: "possessive", text: "môj" },
   " brat Tom.",
 ]);
@@ -428,11 +434,44 @@ export const possessivesLesson: Lesson = {
     "Say whose something is — and make môj, jeho, and svoj fit the noun and its case.",
   scene: [
     {
+      id: "anna-welcome",
+      speaker: "Anna",
+      slovak: "Ahoj, poď ďalej!",
+      english: "Hi, come on in!",
+      audio: { transcript: "Ahoj, poď ďalej!" },
+    },
+    {
+      id: "you-flat",
+      speaker: "You",
+      slovak: flatLine.text,
+      marks: flatLine.marks,
+      english: "Hi! Your flat is lovely!",
+      audio: { transcript: flatLine.text },
+      sayChoices: {
+        answerId: "masculine",
+        choices: [
+          { id: "masculine", label: "Ahoj! Tvoj byt je krásny!" },
+          {
+            id: "feminine",
+            label: "Ahoj! Tvoja byt je krásny!",
+            whyWrong:
+              "**Tvoja** goes with feminine nouns like **sestra**. Anna is a woman, but **byt** is masculine: **tvoj byt**.",
+          },
+          {
+            id: "neuter",
+            label: "Ahoj! Tvoje byt je krásny!",
+            whyWrong:
+              "**Tvoje** goes with neuter nouns like **auto**. **Byt** is masculine: **tvoj byt**.",
+          },
+        ],
+      },
+    },
+    {
       id: "anna-brother",
       speaker: "Anna",
       slovak: brotherLine.text,
       marks: brotherLine.marks,
-      english: "This is my brother Tom.",
+      english: "Thanks! This is my brother Tom.",
       audio: { transcript: brotherLine.text },
     },
     {

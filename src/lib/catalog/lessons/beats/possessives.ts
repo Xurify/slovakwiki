@@ -118,7 +118,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "agreement",
     title: "My, your, our",
     teach: {
-      sceneLineIds: ["anna-brother"],
+      sceneLineIds: ["anna-welcome", "you-flat", "anna-brother"],
       phrases: [
         {
           slovak: "môj brat",
@@ -139,7 +139,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "moje auto" },
         },
       ],
-      note: "Môj, tvoj, náš, and váš take the gender of the thing owned, not of the owner. Anna says môj brat because brat is masculine.",
+      note: "Môj, tvoj, náš, and váš take the gender of the thing owned, not of the owner. Anna is a woman, but it is tvoj byt and môj brat — byt and brat are masculine.",
       visual: agreementTable,
     },
   },
@@ -162,7 +162,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Tom volá jeho mame." },
         },
       ],
-      note: "When the owner is the subject, use svoj. It takes the case of its noun: svojmu priateľovi, svojej mame. Svoj never sits in the subject itself — that is why you ask Kde býva jeho priateľ?",
+      note: "When the owner is the subject, use svoj. It ends like môj and takes the case of its noun: svojmu priateľovi, svojej mame. Svoj never sits in the subject itself — that is why you ask Kde býva jeho priateľ?",
     },
   },
   {
