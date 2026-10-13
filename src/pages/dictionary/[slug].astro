@@ -1,144 +1,30 @@
 ---
-import { existsSync } from "node:fs";
-import path from "node:path";
-
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import type { AudioMountTarget } from "$lib/audio/mount";
 import AudioMountHost from "$lib/audio/AudioMountHost.svelte";
 import DictionaryDetailPage from "$lib/components/dictionary/DictionaryDetailPage.svelte";
-import { normalizeAudioText } from "$lib/catalog/audio/core";
-import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
-import { entryBySlug, words } from "$lib/catalog/entries";
+import {
+  dictionaryPagePropsForSlug,
+  dictionaryStaticPaths,
+  type DictionaryPageProps,
+} from "$lib/catalog/dictionary/detail-page";
 import { EXAMPLE_DISPLAY_LIMIT } from "$lib/catalog/dictionary/example-limits";
-import {
-  getImageManifestEntry,
-  imagesUseCdn,
-  resolveImageSrc,
-} from "$lib/catalog/dictionary/images";
-import {
-  canonicalWordSlug,
-  entryHref,
-  lemmaSenseGroup,
-  relatedSlugsForLemmaPage,
-} from "$lib/catalog/dictionary/lemma-senses";
-import { contentCacheKey } from "$lib/build/cache-key";
-import type { ContentEntry } from "$lib/catalog/types";
-
-type DictionaryPageProps = {
-  entry: ContentEntry;
-  exampleAudioSrcs: string[];
-  image:
-    | {
-        artist?: string;
-        caption: string;
-        license?: string;
-        licenseUrl?: string;
-        sourcePageUrl?: string;
-        src: string;
-      }
-    | undefined;
-  lemmaAudioSrc: string;
-  relatedEntries: Array<{
-    english: string;
-    href: string;
-    kind: ContentEntry["kind"];
-    slug: string;
-    slovak: string;
-  }>;
-  senses: Array<{
-    entry: ContentEntry;
-    exampleAudioSrcs: string[];
-  }>;
-};
 
 export function getStaticPaths() {
-  const lemmaTexts = new Set(
-    words
-      .filter((entry) => entry.kind === "word")
-      .map((entry) => normalizeAudioText(entry.slovak))
-      .filter(Boolean),
-  );
+  return dictionaryStaticPaths();
+}
 
-  function exampleAudioSrcsFor(entry: (typeof words)[number]) {
-    return entry.examples.map((example) => {
-      const text = normalizeAudioText(example.slovak);
-      const kind = lemmaTexts.has(text) ? "lemma" : "example";
-      return resolveDictionaryAudioSrc(example.slovak, kind);
-    });
-  }
+// Preview deployments render this route on demand (see astro.config.ts).
+const pageProps = Astro.isPrerendered
+  ? (Astro.props as DictionaryPageProps)
+  : dictionaryPagePropsForSlug(Astro.params.slug ?? "");
 
-  function resolveLemmaImage(slug: string, fallbackCaption: string) {
-    const imageEntry = getImageManifestEntry(slug);
-    if (!imageEntry || imageEntry.status !== "ok" || !imageEntry.file) return undefined;
-
-    // Local/dev: require file on disk. Prod CDN: trust manifest (files on R2).
-    if (!imagesUseCdn()) {
-      const diskPath = path.join(
-        process.cwd(),
-        "static",
-        "images",
-        "dictionary",
-        imageEntry.file,
-      );
-      if (!existsSync(diskPath)) return undefined;
-    }
-
-    return {
-      artist: imageEntry.artist,
-      caption: imageEntry.caption?.trim() || fallbackCaption,
-      license: imageEntry.license,
-      licenseUrl: imageEntry.licenseUrl,
-      sourcePageUrl: imageEntry.sourcePageUrl,
-      src: resolveImageSrc(
-        imageEntry.file,
-        imageEntry.uploadedAt ?? imageEntry.fetchedAt,
-      ),
-    };
-  }
-
-  return words.flatMap((entry) => {
-    const senses = lemmaSenseGroup(entry, words);
-    const canonicalSlug = canonicalWordSlug(entry, words);
-
-    if (entry.slug !== canonicalSlug) return [];
-
-    const relatedEntries = relatedSlugsForLemmaPage(senses)
-      .map((slug) => entryBySlug.get(slug))
-      .filter((related): related is NonNullable<typeof related> => related !== undefined)
-      .map((related) => ({
-        english: related.english,
-        href: entryHref(related, words),
-        kind: related.kind,
-        slug: related.slug,
-        slovak: related.slovak,
-      }));
-
-    const titleEnglish = senses.map((sense) => sense.english).join(" · ");
-
-    const props = {
-      entry,
-      senses: senses.map((sense) => ({
-        entry: sense,
-        exampleAudioSrcs: exampleAudioSrcsFor(sense),
-      })),
-      relatedEntries,
-      lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
-      exampleAudioSrcs: exampleAudioSrcsFor(entry),
-      image: resolveLemmaImage(entry.slug, titleEnglish),
-    } satisfies DictionaryPageProps;
-
-    return [
-      {
-        params: { slug: entry.slug },
-        props,
-        cacheKey: contentCacheKey(props),
-      },
-    ];
-  });
+if (!pageProps) {
+  return new Response(null, { status: 404 });
 }
 
 const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image } =
-  Astro.props as DictionaryPageProps;
+  pageProps;
 
 const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 
