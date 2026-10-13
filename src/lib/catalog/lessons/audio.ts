@@ -4,8 +4,12 @@ import { resolveAudioSrc } from "../audio";
 import { characterIdForSpeaker, type LessonCharacterId } from "./character-ids";
 import { audioConfigForCharacter, keyPhraseCharacterId } from "../audio/characters";
 import { lessonExercises } from "$lib/learning/beats";
-import { exerciseOptionTexts } from "$lib/learning/exercise-audio";
-import type { DialogueTurn, KeyPhrase, Lesson } from "$lib/learning/types";
+import type {
+  DialogueTurn,
+  KeyPhrase,
+  Lesson,
+  LessonExercise,
+} from "$lib/learning/types";
 
 function resolveCharacterAudioSrc(
   text: string,
@@ -42,6 +46,11 @@ export function keyPhraseAudioSrcs(phrases: KeyPhrase[]): Record<string, string>
   }
 
   return srcs;
+}
+
+export function exerciseOptionTexts(exercise: LessonExercise): string[] {
+  if (exercise.type !== "choice" && exercise.type !== "selectAll") return [];
+  return exercise.choices.flatMap((choice) => (choice.label ? [choice.label] : []));
 }
 
 /** Exercise option text → public URL (guide voice), for options the learner presses. */

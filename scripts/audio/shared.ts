@@ -27,7 +27,7 @@ import {
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
 import { lessonExercises } from "../../src/lib/learning/beats";
-import { exerciseOptionTexts } from "../../src/lib/learning/exercise-audio";
+import { exerciseOptionTexts } from "../../src/lib/catalog/lessons/audio";
 import { ROOT } from "../lib/paths";
 
 export type { AudioKind };
