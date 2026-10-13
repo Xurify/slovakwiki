@@ -11,7 +11,7 @@ describe("grammarMotifId", () => {
       const file = path.join(
         process.cwd(),
         "static/lessons/motifs",
-        `${grammarMotifId(topic.slug)}.png`,
+        `${grammarMotifId(topic.slug)}.webp`,
       );
       expect(existsSync(file), `${topic.slug} → ${file}`).toBe(true);
     }

@@ -2,7 +2,7 @@
   import type { PracticeHubSheet } from "$lib/catalog/practice/hub";
   import { practiceTaskKindsPhrase } from "$lib/catalog/practice/hub";
   import { practiceGraphicId } from "$lib/catalog/practice/motifs";
-  import { motifArtSrc } from "$lib/catalog/motifs/art";
+  import MotifBanner from "$lib/components/lessons/MotifBanner.svelte";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import PracticeDrillLine from "$lib/components/practice/PracticeDrillLine.svelte";
@@ -36,14 +36,9 @@
       hidden={candidate.set.id !== featuredId}
     >
       <div class="relative h-36 overflow-hidden border-b border-slate-200/70">
-        <img
-          src={motifArtSrc(practiceGraphicId(candidate.set.id, candidate.set.lessonId))}
-          alt=""
-          width="512"
-          height="512"
+        <MotifBanner
+          motif={practiceGraphicId(candidate.set.id, candidate.set.lessonId)}
           loading="lazy"
-          decoding="async"
-          class="absolute inset-0 size-full object-cover outline-0"
         />
       </div>
 

@@ -1,8 +1,8 @@
 <script lang="ts">
+  import MotifBanner from "$lib/components/lessons/MotifBanner.svelte";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
   import { grammarEntries } from "$lib/catalog/entries";
-  import { motifArtSrc } from "$lib/catalog/motifs/art";
   import { sentenceCase } from "$lib/catalog/search/ui";
 
   type QuestionPart = { text: string; sk?: boolean };
@@ -71,14 +71,7 @@
   aria-labelledby="grammar-questions-heading"
 >
   <div class="relative h-32 overflow-hidden border-b border-slate-200/70">
-    <img
-      src={motifArtSrc("questions")}
-      alt=""
-      width="512"
-      height="512"
-      decoding="async"
-      class="absolute inset-0 size-full object-cover"
-    />
+    <MotifBanner motif="questions" />
   </div>
 
   <div class="px-5 pt-4 pb-3">
