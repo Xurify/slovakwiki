@@ -149,6 +149,10 @@ Prod env: `PUBLIC_IMAGE_BASE_URL` (R2 public base, e.g. `https://cdn.slovak.wiki
 | ----------------------- | ----------------------------------------------------------------- |
 | `build-search-index.ts` | `bun run index:search` (also used by the Astro build integration) |
 
+**Browse index** (`dictionary/publish-index.ts`, run by the `dictionary-index` integration on every build): content-hashed `dictionary-browse.<hash>.json` behind header search, `/dictionary` filters and the common-word pages. Search fetches it on intent (hover, focus, `/`); only `/dictionary` loads it up front. Every build writes it to `/_astro/` (immutable on Vercel). Dev serves it from memory at `/dictionary-browse.json`.
+
+Prod env to serve it from R2 instead: `PUBLIC_DATA_BASE_URL` (R2 public base; key `data/…`) plus `R2_*` in the Vercel build env so the build can upload it. The build only switches to R2 after fetching the public URL the way the site would — the bucket needs a CORS rule allowing `GET` from `https://www.slovak.wiki`, and responses must be compressed (Cloudflare custom domain). Otherwise it logs why and keeps the Vercel copy.
+
 ## `docs/`
 
 | File                    | Run                                      |
@@ -169,4 +173,4 @@ Used by `/downloads` client builder (JSON/CSV/TSV). Regenerated on content chang
 
 ## `lib/`
 
-Shared helpers (`paths.ts` → repo `ROOT`).
+Shared helpers (`paths.ts` → repo `ROOT`, `r2.ts` → R2 client from `R2_*` env).
