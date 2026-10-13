@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
 
-  import { tick, untrack } from "svelte";
+  import { onDestroy, tick, untrack } from "svelte";
   import {
     canCheckBuild,
     gradeBuild,
@@ -188,6 +188,23 @@
     playOption(added?.label);
   }
 
+  // Answer chimes run ~220 ms (sfx.ts); start the sentence once they finish.
+  const ANSWER_AUDIO_DELAY_MS = 250;
+  let answerAudioTimer = 0;
+
+  /** Build and typed checks speak the correct sentence after Check or Reveal. */
+  function speakAnswer(): void {
+    if (graded?.type !== "build" && graded?.type !== "typed") return;
+    const sentence = graded.feedback.correction;
+    window.clearTimeout(answerAudioTimer);
+    answerAudioTimer = window.setTimeout(
+      () => playOption(sentence),
+      ANSWER_AUDIO_DELAY_MS,
+    );
+  }
+
+  onDestroy(() => window.clearTimeout(answerAudioTimer));
+
   async function focusFeedback(): Promise<void> {
     await tick();
     feedbackPanel?.focus();
@@ -217,6 +234,7 @@
 
     submitted = true;
     playAnswerSfx(sfxKindForGrade(kind));
+    speakAnswer();
 
     if (player && ongraded) {
       const isCorrect = kind === "correct";
@@ -253,6 +271,7 @@
     revealed = true;
     submitted = true;
     playAnswerSfx("incorrect");
+    speakAnswer();
 
     if (player && ongraded) {
       ongraded({

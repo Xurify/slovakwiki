@@ -53,12 +53,22 @@ export function exerciseOptionTexts(exercise: LessonExercise): string[] {
   return exercise.choices.flatMap((choice) => (choice.label ? [choice.label] : []));
 }
 
+/** The sentence a build or typed check speaks once answered (the correction). */
+export function exerciseAnswerTexts(exercise: LessonExercise): string[] {
+  if (exercise.type !== "build" && exercise.type !== "typed") return [];
+  return exercise.feedback.correction ? [exercise.feedback.correction] : [];
+}
+
+/** Option labels and build/typed answers → public URL (guide voice), keyed by text. */
 export function exerciseOptionAudioSrcs(lesson: Lesson): Record<string, string> {
   const srcs: Record<string, string> = {};
   const characterId = keyPhraseCharacterId();
 
   for (const exercise of lessonExercises(lesson)) {
-    for (const text of exerciseOptionTexts(exercise)) {
+    for (const text of [
+      ...exerciseOptionTexts(exercise),
+      ...exerciseAnswerTexts(exercise),
+    ]) {
       const src = resolveCharacterAudioSrc(text, characterId);
       if (src) srcs[text] = src;
     }

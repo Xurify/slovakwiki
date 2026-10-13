@@ -27,7 +27,10 @@ import {
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
 import { lessonExercises } from "../../src/lib/learning/beats";
-import { exerciseOptionTexts } from "../../src/lib/catalog/lessons/audio";
+import {
+  exerciseAnswerTexts,
+  exerciseOptionTexts,
+} from "../../src/lib/catalog/lessons/audio";
 import { ROOT } from "../lib/paths";
 
 export type { AudioKind };
@@ -248,7 +251,10 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
     }
 
     for (const exercise of lessonExercises(lesson)) {
-      for (const text of exerciseOptionTexts(exercise)) {
+      for (const text of [
+        ...exerciseOptionTexts(exercise),
+        ...exerciseAnswerTexts(exercise),
+      ]) {
         addLine(text, keyPhraseCharacterId());
       }
 
