@@ -99953,7 +99953,7 @@
   {
     "slug": "studia",
     "slovak": "štúdia",
-    "english": "study (research); studio",
+    "english": "study (research)",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -99968,28 +99968,13 @@
         "note": "Curated"
       },
       {
-        "slovak": "V štúdiu nahrávajú speváci nový album.",
-        "english": "In the studio the singers are recording a new album.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Vedecká štúdia skúma vplyv spánku na pamäť.",
         "english": "A scientific study examines sleep's effect on memory.",
         "note": "Curated"
       },
       {
-        "slovak": "V štúdiu nahrávali album celý týždeň.",
-        "english": "They recorded the album in the studio all week.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Štúdia trhu pomohla upraviť cenu.",
         "english": "The market study helped adjust the price.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Televízne štúdio otvorili pre verejnosť.",
-        "english": "They opened the TV studio to the public.",
         "note": "Curated"
       }
     ],
@@ -146471,57 +146456,24 @@
   {
     "slug": "rad-n",
     "slovak": "rad",
-    "english": "row; series; advice",
+    "english": "row; line (queue); turn",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
       {
-        "slovak": "Rád by som si dal koláč ako dezert.",
-        "english": "I'd like to have cake for dessert.",
-        "note": "Tatoeba",
-        "tatoebaId": 1036111
+        "slovak": "Sedeli sme v prvom rade.",
+        "english": "We sat in the first row.",
+        "note": "Curated"
       },
       {
-        "slovak": "Pedro má motorku a rád na nej jazdí.",
-        "english": "Pedro has a motorcycle and loves to ride it.",
-        "note": "Tatoeba",
-        "tatoebaId": 1036113
+        "slovak": "Pred pokladňou stál dlhý rad.",
+        "english": "There was a long line at the checkout.",
+        "note": "Curated"
       },
       {
-        "slovak": "Nikdy som nemal rád biológiu.",
-        "english": "I never liked biology.",
-        "note": "Tatoeba",
-        "tatoebaId": 1058173
-      },
-      {
-        "slovak": "Mám rád čokoládovú zmrzlinu!",
-        "english": "I like chocolate ice cream!",
-        "note": "Tatoeba",
-        "tatoebaId": 1223457
-      },
-      {
-        "slovak": "Mám rád zajace.",
-        "english": "I like hares.",
-        "note": "Tatoeba",
-        "tatoebaId": 1817985
-      },
-      {
-        "slovak": "Rád by som Tomáša lepšie spoznal.",
-        "english": "I'd like to get to know Tom better.",
-        "note": "Tatoeba",
-        "tatoebaId": 2229067
-      },
-      {
-        "slovak": "Mám rád čaj.",
-        "english": "I like tea.",
-        "note": "Tatoeba",
-        "tatoebaId": 2428893
-      },
-      {
-        "slovak": "Rád to počujem.",
-        "english": "I am glad to hear it.",
-        "note": "Tatoeba",
-        "tatoebaId": 2859003
+        "slovak": "Kto je na rade?",
+        "english": "Whose turn is it?",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -149618,39 +149570,14 @@
   {
     "slug": "pera",
     "slovak": "pera",
-    "english": "feather; pen",
+    "english": "lip",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
       {
-        "slovak": "Čie sú tieto perá?",
-        "english": "Whose are these pens?",
-        "note": "Tatoeba",
-        "tatoebaId": 12721361
-      },
-      {
-        "slovak": "Lima je hlavné mesto Peru.",
-        "english": "Lima is the capital of Peru.",
-        "note": "Tatoeba",
-        "tatoebaId": 12786802
-      },
-      {
-        "slovak": "Lima je hlavným mestom Peru.",
-        "english": "Lima is the capital of Peru.",
-        "note": "Tatoeba",
-        "tatoebaId": 12786804
-      },
-      {
-        "slovak": "Hlavným mestom Peru je Lima.",
-        "english": "The capital of Peru is Lima.",
-        "note": "Tatoeba",
-        "tatoebaId": 12786807
-      },
-      {
-        "slovak": "Hlavné mesto Peru je Lima.",
-        "english": "The capital of Peru is Lima.",
-        "note": "Tatoeba",
-        "tatoebaId": 12786811
+        "slovak": "Má popraskané pery.",
+        "english": "She has chapped lips.",
+        "note": "Curated"
       },
       {
         "slovak": "Tom si zahryzol do spodnej pery.",
@@ -154228,7 +154155,7 @@
   {
     "slug": "let",
     "slovak": "let",
-    "english": "flight; year",
+    "english": "flight",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -167950,7 +167877,7 @@
   {
     "slug": "katedra",
     "slovak": "katedra",
-    "english": "department; cathedral",
+    "english": "department (university); teacher's desk",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -170006,8 +169933,9 @@
   {
     "slug": "kola",
     "slovak": "kola",
-    "english": "round",
+    "english": "cola (drink)",
     "category": "Nouns",
+    "gender": "feminine",
     "examples": [
       {
         "slovak": "Diétna kola stojí na Ukrajine ₴2.",
@@ -170659,7 +170587,7 @@
   {
     "slug": "pas-n",
     "slovak": "pas",
-    "english": "belt; passport; waist",
+    "english": "passport",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -244256,64 +244184,6 @@
     "related": []
   },
   {
-    "slug": "mam",
-    "slovak": "mam",
-    "english": "mom",
-    "category": "Nouns",
-    "examples": [
-      {
-        "slovak": "Mám rada čokoládovú zmrzlinu!",
-        "english": "I like chocolate ice cream!",
-        "note": "Tatoeba",
-        "tatoebaId": 855372
-      },
-      {
-        "slovak": "Mám mačku a psa. Mačka je čierna a pes je biely.",
-        "english": "I have a cat and a dog. The cat is black and the dog is white.",
-        "note": "Tatoeba",
-        "tatoebaId": 1035689
-      },
-      {
-        "slovak": "Mám čierneho a bieleho psa.",
-        "english": "I have a black dog and a white dog.",
-        "note": "Tatoeba",
-        "tatoebaId": 1035691
-      },
-      {
-        "slovak": "Ukázala mi, ktoré šaty si mám obliecť.",
-        "english": "She showed me which dress to wear.",
-        "note": "Tatoeba",
-        "tatoebaId": 1036038
-      },
-      {
-        "slovak": "Mám rád čokoládovú zmrzlinu!",
-        "english": "I like chocolate ice cream!",
-        "note": "Tatoeba",
-        "tatoebaId": 1223457
-      },
-      {
-        "slovak": "Mám rád zajace.",
-        "english": "I like hares.",
-        "note": "Tatoeba",
-        "tatoebaId": 1817985
-      },
-      {
-        "slovak": "Čo si mám dať na sveter?",
-        "english": "What should I put on over my sweater?",
-        "note": "Tatoeba",
-        "tatoebaId": 2229014
-      },
-      {
-        "slovak": "Mám sa dobre!",
-        "english": "I'm good!",
-        "note": "Tatoeba",
-        "tatoebaId": 2428458
-      }
-    ],
-    "related": [],
-    "register": "colloquial"
-  },
-  {
     "slug": "odroda",
     "slovak": "odroda",
     "english": "variety; cultivar",
@@ -245511,7 +245381,7 @@
   {
     "slug": "orech",
     "slovak": "orech",
-    "english": "walnut (any member of the genus ); ( )",
+    "english": "nut; walnut",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -246642,7 +246512,7 @@
   {
     "slug": "hmyz",
     "slovak": "hmyz",
-    "english": "insect",
+    "english": "insects",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [

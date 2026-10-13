@@ -304,8 +304,8 @@
     "gender": "masculine-inanimate"
   },
   "kola": {
-    "gender": null,
-    "note": "lemma means cola but the gloss is \"round\" (likely a form of kolo) — fix the row first"
+    "gender": "feminine",
+    "note": "cola (drink) — earlier glossed as \"round\""
   },
   "kolektív": {
     "gender": "masculine-inanimate"
@@ -423,10 +423,6 @@
   "málo": {
     "gender": null,
     "note": "quantity word, not a noun"
-  },
-  "mam": {
-    "gender": null,
-    "note": "not a standard lemma (mama, mamka)"
   },
   "manažér": {
     "gender": "masculine-animate",

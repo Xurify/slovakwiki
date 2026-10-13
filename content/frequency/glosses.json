@@ -3625,7 +3625,7 @@
     "english": "disaster; catastrophe"
   },
   "katedra": {
-    "english": "department; cathedral"
+    "english": "department (university); teacher's desk"
   },
   "katedrála": {
     "english": "cathedral"
@@ -3763,7 +3763,7 @@
     "english": "code"
   },
   "kola": {
-    "english": "round"
+    "english": "cola (drink)"
   },
   "kolega": {
     "english": "colleague"
@@ -4433,7 +4433,7 @@
     "english": "forest; woodland"
   },
   "let": {
-    "english": "flight; year"
+    "english": "flight"
   },
   "letecky": {
     "english": "by air; by plane"
@@ -7776,7 +7776,7 @@
     "english": "partnership"
   },
   "pas": {
-    "english": "belt; passport; waist"
+    "english": "passport"
   },
   "pás": {
     "english": "belt; strip; band"
@@ -7848,7 +7848,7 @@
     "english": "money"
   },
   "pera": {
-    "english": "feather; pen"
+    "english": "lip"
   },
   "percentný": {
     "english": "percent; percentage"
@@ -10313,7 +10313,7 @@
     "english": "rational"
   },
   "rad": {
-    "english": "row; series; advice"
+    "english": "row; line (queue); turn"
   },
   "rád": {
     "english": "gladly; with pleasure; (mať rád) to like"
@@ -12688,7 +12688,7 @@
     "english": "student"
   },
   "štúdia": {
-    "english": "study (research); studio"
+    "english": "study (research)"
   },
   "študijný": {
     "english": "study; academic"
@@ -19747,7 +19747,7 @@
     "english": "synagogue"
   },
   "orech": {
-    "english": "walnut (any member of the genus ); ( )"
+    "english": "nut; walnut"
   },
   "bazilika": {
     "english": "basilica"
@@ -20294,10 +20294,6 @@
   "doplnenie": {
     "english": "addition; supplement"
   },
-  "mam": {
-    "english": "mom",
-    "register": "colloquial"
-  },
   "odroda": {
     "english": "variety; cultivar"
   },
@@ -20510,7 +20506,7 @@
     "english": "pressure; coercion"
   },
   "hmyz": {
-    "english": "insect"
+    "english": "insects"
   },
   "decko": {
     "english": "kid; child",
