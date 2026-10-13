@@ -21,4 +21,5 @@ scripts/images/_audit-check/
 dev/*.log
 .env*
 *.tsbuildinfo
+*.tmp
 .DS_Store

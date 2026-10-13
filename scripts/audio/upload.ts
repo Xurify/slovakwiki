@@ -45,6 +45,7 @@ import {
   toR2AudioKey,
   type AudioKind,
 } from "./shared";
+import { compareRemoteClip, type RemoteClip } from "./remote-clip";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -112,6 +113,7 @@ async function main(): Promise<void> {
   let uploaded = 0;
   let skipped = 0;
   let alreadyInR2 = 0;
+  let remoteNewer = 0;
   let failed = 0;
   const startedAt = Date.now();
 
@@ -155,9 +157,13 @@ async function main(): Promise<void> {
    * The manifest's `uploadedAt` goes stale across branches, so ask R2 before
    * sending bytes. A HEAD carries no body: it costs one round trip, not bandwidth.
    */
-  async function existsInR2(url: string, size: number): Promise<boolean> {
+  async function headRemoteClip(url: string): Promise<RemoteClip | undefined> {
     const response = await aws.fetch(url, { method: "HEAD" });
-    return response.ok && Number(response.headers.get("content-length")) === size;
+    if (!response.ok) return undefined;
+    return {
+      bytes: Number(response.headers.get("content-length")),
+      generatedAt: response.headers.get("x-amz-meta-generated-at"),
+    };
   }
 
   function stampUploaded(
@@ -209,10 +215,27 @@ async function main(): Promise<void> {
         const r2Key = toR2AudioKey(objectKey);
         const url = `https://${endpointHost}/${bucket}/${r2Key}`;
 
-        if (!force && (await existsInR2(url, info.size))) {
-          stampUploaded(hash, kind, info.size, generatedAt);
-          alreadyInR2 += 1;
-          return;
+        if (!force) {
+          const remoteClip = await headRemoteClip(url);
+          const remote = compareRemoteClip(
+            { bytes: info.size, generatedAt: entry?.generatedAt },
+            remoteClip,
+          );
+
+          if (remote === "same") {
+            stampUploaded(hash, kind, remoteClip?.bytes ?? info.size, generatedAt);
+            alreadyInR2 += 1;
+            return;
+          }
+
+          if (remote === "remote-newer") {
+            remoteNewer += 1;
+            console.warn(
+              `skip ${r2Key}: R2 holds a newer take than this manifest ` +
+                "(pull the manifest that uploaded it, or --force to overwrite)",
+            );
+            return;
+          }
         }
 
         const body = await readFile(filePath);
@@ -270,7 +293,8 @@ async function main(): Promise<void> {
     uploaded > 0 ? (uploaded / ((Date.now() - startedAt) / 1000)).toFixed(1) : "0";
 
   console.log(
-    `Done. uploaded=${uploaded} already-in-r2=${alreadyInR2} skipped=${skipped} failed=${failed}` +
+    `Done. uploaded=${uploaded} already-in-r2=${alreadyInR2} remote-newer=${remoteNewer}` +
+      ` skipped=${skipped} failed=${failed}` +
       ` rate=${rate}/s elapsed=${elapsedSec}s`,
   );
   if (failed > 0) process.exitCode = 1;

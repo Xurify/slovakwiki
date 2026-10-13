@@ -35,12 +35,15 @@
     id = "site-search",
     initialQuery = "",
     placeholder = "Search…",
+    queryFromUrl = false,
     size = "header",
   }: {
     class?: string;
     id?: string;
     initialQuery?: string;
     placeholder?: string;
+    /** Read `?q=` on mount — prerendered pages build with an empty query. */
+    queryFromUrl?: boolean;
     size?: "header" | "hero";
   } = $props();
 
@@ -323,6 +326,10 @@
     refreshRecent();
     schedulePagefindIdleWarm();
     warmDictionaryLookup();
+
+    if (queryFromUrl && !query.trim()) {
+      query = new URLSearchParams(window.location.search).get("q")?.trim() ?? "";
+    }
 
     if (query.trim()) {
       open = true;
