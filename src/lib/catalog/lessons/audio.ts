@@ -53,7 +53,6 @@ export function exerciseOptionTexts(exercise: LessonExercise): string[] {
   return exercise.choices.flatMap((choice) => (choice.label ? [choice.label] : []));
 }
 
-/** The sentence a build or typed check speaks once answered (the correction). */
 export function exerciseAnswerTexts(exercise: LessonExercise): string[] {
   if (exercise.type !== "build" && exercise.type !== "typed") return [];
   return exercise.feedback.correction ? [exercise.feedback.correction] : [];

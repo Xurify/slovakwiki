@@ -60,7 +60,6 @@
       why: string;
     }) => void;
     onresolve: () => void;
-    /** Option label → clip; pressing an option plays it. */
     exerciseOptionAudioSrcs?: Record<string, string>;
     sceneAudioSrcs?: Record<string, string>;
     submitNonce?: number;
@@ -192,7 +191,6 @@
   const ANSWER_AUDIO_DELAY_MS = 250;
   let answerAudioTimer = 0;
 
-  /** Build and typed checks speak the correct sentence after Check or Reveal. */
   function speakAnswer(): void {
     if (graded?.type !== "build" && graded?.type !== "typed") return;
     const sentence = graded.feedback.correction;
