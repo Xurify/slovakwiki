@@ -5,7 +5,7 @@ import {
 } from "$lib/catalog/dictionary/live-links";
 import type { DictionaryIndexSidecarEntry } from "$lib/catalog/dictionary/browse";
 import type { FrequencyPartOfSpeech } from "$lib/catalog/frequency/types";
-import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/catalog/dictionary/browse-query";
+import { fetchDictionaryIndex } from "$lib/catalog/dictionary/browse-query";
 
 export interface CompactFrequencyEntry {
   count?: number;
@@ -83,9 +83,10 @@ export async function ensureDictionaryCommonLoaded(): Promise<void> {
   dictionaryCommonState.loadError = "";
 
   try {
-    const [frequencyResponse, indexResponse] = await Promise.all([
+    const [frequencyResponse, indexData] = await Promise.all([
       fetch(frequencyUrl(dictionaryCommonState.partOfSpeech)),
-      fetch(DICTIONARY_BROWSE_INDEX_URL),
+      // Optional: without it rows just lose their dictionary links.
+      fetchDictionaryIndex<DictionaryIndexSidecarEntry>().catch(() => null),
     ]);
 
     if (!frequencyResponse.ok) {
@@ -101,8 +102,7 @@ export async function ensureDictionaryCommonLoaded(): Promise<void> {
     );
     dictionaryCommonState.entries = entries;
 
-    if (indexResponse.ok) {
-      const indexData = (await indexResponse.json()) as DictionaryIndexSidecarEntry[];
+    if (indexData) {
       dictionaryCommonState.liveByLemma = buildLemmaLiveMap(
         entries,
         dictionaryCommonState.partOfSpeech,

@@ -1,5 +1,5 @@
 import { dictionaryPathFromIndexFields } from "$lib/catalog/dictionary/lemma-senses";
-import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/catalog/dictionary/browse-query";
+import { fetchDictionaryIndex } from "$lib/catalog/dictionary/browse-query";
 import { normalizeSearchText } from "$lib/catalog/search/ui";
 import type { WordRegister } from "$lib/catalog/types";
 
@@ -31,17 +31,12 @@ let preparedPromise: Promise<PreparedEntry[]> | null = null;
 
 function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
   if (!indexPromise) {
-    indexPromise = fetch(DICTIONARY_BROWSE_INDEX_URL)
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error("Failed to load browse index");
-        }
-        return (await response.json()) as DictionaryIndexEntry[];
-      })
-      .catch((error: unknown) => {
+    indexPromise = fetchDictionaryIndex<DictionaryIndexEntry>().catch(
+      (error: unknown) => {
         indexPromise = null;
         throw error;
-      });
+      },
+    );
   }
 
   return indexPromise;

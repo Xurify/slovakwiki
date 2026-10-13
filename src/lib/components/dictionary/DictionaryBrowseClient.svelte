@@ -8,8 +8,8 @@
     buildDictionaryViewFromEntries,
     browseStateNeedsIndex,
     categoryForTopic,
-    DICTIONARY_BROWSE_INDEX_URL,
     DICTIONARY_PAGE_SIZE,
+    fetchDictionaryIndex,
     hasActiveBrowseFilters,
     parseBrowseSearchParams,
     type BrowseQueryState,
@@ -19,7 +19,6 @@
   } from "$lib/catalog/dictionary/browse-query";
   import { dictionaryPathFromIndexFields } from "$lib/catalog/dictionary/lemma-senses";
 
-  const INDEX_URL = DICTIONARY_BROWSE_INDEX_URL;
   const SKELETON_ROWS = 8;
 
   let {
@@ -145,21 +144,7 @@
   const rowLinkClass = "block py-3.5 transition-colors hover:bg-blue-50/40";
 
   const indexPromise: Promise<DictionaryIndexEntry[]> | null =
-    typeof window !== "undefined"
-      ? fetch(INDEX_URL).then(async (response) => {
-          if (!response.ok) {
-            throw new Error("Index unavailable");
-          }
-
-          const data = (await response.json()) as DictionaryIndexEntry[];
-
-          if (!Array.isArray(data)) {
-            throw new Error("Index malformed");
-          }
-
-          return data;
-        })
-      : null;
+    typeof window !== "undefined" ? fetchDictionaryIndex<DictionaryIndexEntry>() : null;
 
   function syncFromUrl(url: URL): void {
     const next = parseBrowseSearchParams(url.searchParams);
