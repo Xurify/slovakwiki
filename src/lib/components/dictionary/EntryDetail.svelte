@@ -11,12 +11,16 @@
   import { highlightLemmaInText } from "$lib/catalog/dictionary/highlight-lemma";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
   import { senseSectionId } from "$lib/catalog/dictionary/lemma-senses";
+  import { cx } from "$lib/ui/classes";
   import {
     REGISTER_CHIP_LABEL,
     DIALECT_CHIP_LABEL,
+    nounGenderLabel,
     type ContentEntry,
     type EntryKind,
     type Example,
+    type NounGender,
+    type PluralOnlyGender,
   } from "$lib/catalog/types";
 
   interface RelatedEntry {
@@ -70,6 +74,23 @@
           .split(";")
           .map((part) => part.trim())
           .filter(Boolean),
+  );
+
+  const metaClass = cx(
+    "mt-7 m-0 max-w-[36rem] border-t border-panel-inverse-ink/15 pt-3.5",
+    "font-sans text-[0.8125rem] text-panel-inverse-ink/60",
+  );
+  const metaRowClass = "flex flex-wrap items-center gap-x-2 gap-y-1";
+
+  const genderLinkInverseClass = cx(
+    "text-panel-inverse-ink/70",
+    "underline decoration-panel-inverse-ink/25 decoration-dotted underline-offset-4",
+    "hover:text-panel-inverse-ink hover:decoration-panel-inverse-ink/60",
+  );
+  const genderLinkDefaultClass = cx(
+    "text-slate-600",
+    "underline decoration-slate-300 decoration-dotted underline-offset-4",
+    "hover:text-slate-900 hover:decoration-slate-500",
   );
 
   const headingClass = "m-0 font-serif text-xl tracking-tight text-slate-900";
@@ -200,38 +221,34 @@
         </ul>
       {/if}
 
-      <p
-        class="mt-7 m-0 flex max-w-[36rem] flex-wrap items-center gap-x-2 gap-y-1 border-t border-panel-inverse-ink/15 pt-3.5 font-sans text-[0.8125rem] text-panel-inverse-ink/60"
-      >
-        {#if multiSense}
-          <span>{senseViews.map((sense) => sense.entry.category).join(" · ")}</span>
-        {:else}
-          <span class="font-semibold text-panel-inverse-ink/85">{entry.category}</span>
+      {#if !multiSense && entry.gender}
+        <div class={metaClass}>
+          <p class="m-0">
+            <span class="font-semibold text-panel-inverse-ink/85">{entry.category}</span
+            ><span class="mx-2" aria-hidden="true">·</span>{@render genderLabel(
+              entry.gender,
+              entry.pluralOnlyGender,
+              "inverse",
+            )}
+          </p>
 
-          {#if entry.frequency}
-            <span aria-hidden="true">·</span>
-            <a
-              class="text-panel-inverse-ink/70 underline decoration-panel-inverse-ink/25 decoration-dotted underline-offset-4 hover:text-panel-inverse-ink hover:decoration-panel-inverse-ink/60"
-              href={`/dictionary/common/${entry.frequency.partOfSpeech}`}
-            >
-              <span class="tabular-nums">#{entry.frequency.rank}</span>
-              among common {FREQUENCY_PART_OF_SPEECH_LABEL[
-                entry.frequency.partOfSpeech
-              ].toLowerCase()}
-            </a>
+          {#if entry.frequency || entry.register || entry.dialect}
+            <p class={cx("m-0 mt-1", metaRowClass)}>
+              {@render metaExtras(false)}
+            </p>
           {/if}
+        </div>
+      {:else}
+        <p class={cx(metaClass, metaRowClass)}>
+          {#if multiSense}
+            <span>{senseViews.map((sense) => sense.entry.category).join(" · ")}</span>
+          {:else}
+            <span class="font-semibold text-panel-inverse-ink/85">{entry.category}</span>
 
-          {#if entry.register}
-            <span aria-hidden="true">·</span>
-            <span class="italic">{REGISTER_CHIP_LABEL[entry.register]}</span>
+            {@render metaExtras(true)}
           {/if}
-
-          {#if entry.dialect}
-            <span aria-hidden="true">·</span>
-            <span class="italic">{DIALECT_CHIP_LABEL}</span>
-          {/if}
-        {/if}
-      </p>
+        </p>
+      {/if}
     </PageShell>
 
     {#if multiSense}
@@ -256,6 +273,62 @@
       </div>
     {/if}
   </section>
+
+  {#snippet metaExtras(leadingSeparator: boolean)}
+    {#if entry.frequency}
+      {#if leadingSeparator}
+        <span aria-hidden="true">·</span>
+      {/if}
+
+      <a
+        class="text-panel-inverse-ink/70 underline decoration-panel-inverse-ink/25 decoration-dotted underline-offset-4 hover:text-panel-inverse-ink hover:decoration-panel-inverse-ink/60"
+        href={`/dictionary/common/${entry.frequency.partOfSpeech}`}
+      >
+        <span class="tabular-nums">#{entry.frequency.rank}</span>
+        among common {FREQUENCY_PART_OF_SPEECH_LABEL[
+          entry.frequency.partOfSpeech
+        ].toLowerCase()}
+      </a>
+    {/if}
+
+    {#if entry.register}
+      {#if leadingSeparator || entry.frequency}
+        <span aria-hidden="true">·</span>
+      {/if}
+
+      <span class="italic">{REGISTER_CHIP_LABEL[entry.register]}</span>
+    {/if}
+
+    {#if entry.dialect}
+      {#if leadingSeparator || entry.frequency || entry.register}
+        <span aria-hidden="true">·</span>
+      {/if}
+
+      <span class="italic">{DIALECT_CHIP_LABEL}</span>
+    {/if}
+  {/snippet}
+
+  {#snippet genderLabel(
+    gender: NounGender,
+    pluralOnlyGender: PluralOnlyGender | undefined,
+    variant: "inverse" | "default",
+  )}
+    {@const label = nounGenderLabel(gender, pluralOnlyGender)}
+
+    <a
+      class={variant === "inverse" ? genderLinkInverseClass : genderLinkDefaultClass}
+      href="/grammar/grammatical-gender"
+      title={`In Slovak: ${label.slovak}`}
+    >
+      {label.english}
+      <span
+        class={variant === "inverse" ? "text-panel-inverse-ink/45" : "text-slate-400"}
+        lang="sk"
+      >
+        {label.slovak}
+      </span>
+    </a>
+  {/snippet}
 
   {#snippet exampleRow(
     item: { example: Example; index: number },
@@ -421,6 +494,16 @@
                 — <GlossWithTerms text={senseEntry.english} />
               </span>
             </h2>
+
+            {#if senseEntry.gender}
+              <p class="m-0 mt-2 text-sm text-slate-500">
+                {@render genderLabel(
+                  senseEntry.gender,
+                  senseEntry.pluralOnlyGender,
+                  "default",
+                )}
+              </p>
+            {/if}
 
             {#if senseEntry.frequency}
               <p class="m-0 mt-2 text-sm text-slate-500">
