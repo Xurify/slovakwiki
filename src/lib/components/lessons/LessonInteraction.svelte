@@ -41,7 +41,7 @@
     exercise,
     ongraded,
     onresolve,
-    optionAudioSrcs = {},
+    exerciseOptionAudioSrcs = {},
     sceneAudioSrcs = {},
     submitNonce = 0,
   }: {
@@ -61,7 +61,7 @@
     }) => void;
     onresolve: () => void;
     /** Option label → clip; pressing an option plays it. */
-    optionAudioSrcs?: Record<string, string>;
+    exerciseOptionAudioSrcs?: Record<string, string>;
     sceneAudioSrcs?: Record<string, string>;
     submitNonce?: number;
   } = $props();
@@ -166,7 +166,7 @@
   });
 
   function playOption(label: string | undefined): void {
-    const src = label ? optionAudioSrcs[label] : undefined;
+    const src = label ? exerciseOptionAudioSrcs[label] : undefined;
     if (src && label) playStoryLineAudio(src, label);
   }
 

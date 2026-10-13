@@ -53,8 +53,7 @@ export function exerciseOptionTexts(exercise: LessonExercise): string[] {
   return exercise.choices.flatMap((choice) => (choice.label ? [choice.label] : []));
 }
 
-/** Exercise option text → public URL (guide voice), for options the learner presses. */
-export function optionAudioSrcs(lesson: Lesson): Record<string, string> {
+export function exerciseOptionAudioSrcs(lesson: Lesson): Record<string, string> {
   const srcs: Record<string, string> = {};
   const characterId = keyPhraseCharacterId();
 
@@ -84,6 +83,6 @@ export function lessonAudioSrcs(lesson: Lesson): {
   return {
     scene,
     keyPhrases: keyPhraseAudioSrcs(lesson.keyPhrases),
-    options: optionAudioSrcs(lesson),
+    options: exerciseOptionAudioSrcs(lesson),
   };
 }
