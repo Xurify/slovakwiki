@@ -22,10 +22,12 @@
   let {
     lesson,
     keyPhraseAudioSrcs = {},
+    exerciseOptionAudioSrcs = {},
     sceneAudioSrcs = {},
   }: {
     lesson: Lesson;
     keyPhraseAudioSrcs?: Record<string, string>;
+    exerciseOptionAudioSrcs?: Record<string, string>;
     sceneAudioSrcs?: Record<string, string>;
   } = $props();
 
@@ -261,6 +263,7 @@
                 chrome="player"
                 exercise={step.exercise}
                 {sceneAudioSrcs}
+                {exerciseOptionAudioSrcs}
                 {submitNonce}
                 bind:canSubmit
                 ongraded={onGraded}
