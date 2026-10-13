@@ -29,8 +29,10 @@ import { fileURLToPath } from "node:url";
 import { words } from "../../src/lib/catalog/entries";
 import {
   isNounGender,
+  isPluralOnlyGender,
   type ContentEntry,
   type NounGender,
+  type PluralOnlyGender,
 } from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
 import {
@@ -39,7 +41,10 @@ import {
   type KaikkiNounRecord,
 } from "./noun-gender-mapping";
 
-type WordSeed = Pick<ContentEntry, "slug" | "slovak" | "english" | "category" | "gender">;
+type WordSeed = Pick<
+  ContentEntry,
+  "slug" | "slovak" | "english" | "category" | "gender" | "pluralOnlyGender"
+>;
 
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 const DEFAULT_ENGLISH_DUMP_PATH = path.join(ROOT, "tmp", "kaikki", "kaikki-slovak.jsonl");
@@ -55,11 +60,14 @@ const REPORT_PATH = path.join(ROOT, "tmp", "noun-gender-report.json");
  * Hand review of every noun (content/dictionary/noun-gender-review.json): fills
  * lemmas neither Wiktionary edition resolves and corrects the ones they get wrong.
  * Key: `slovak` lemma. `gender: null` keeps it unset on purpose; `note` says why.
+ * `pluralOnlyGender` gives plural-only nouns their dictionary gender (dvere: feminine);
+ * an entry without `gender` adds only that and leaves the gender to the sources.
  */
 const REVIEW_PATH = path.join(ROOT, "content", "dictionary", "noun-gender-review.json");
 
 interface ReviewEntry {
-  gender: NounGender | null;
+  gender?: NounGender | null;
+  pluralOnlyGender?: PluralOnlyGender;
   note?: string;
 }
 
@@ -69,9 +77,17 @@ async function loadReview(): Promise<Record<string, ReviewEntry>> {
     ReviewEntry
   >;
   for (const [lemma, entry] of Object.entries(review)) {
-    if (entry.gender !== null && !isNounGender(entry.gender)) {
+    if (entry.gender != null && !isNounGender(entry.gender)) {
       throw new Error(
         `noun-gender-review.json: unknown gender "${entry.gender}" for ${lemma}`,
+      );
+    }
+    if (
+      entry.pluralOnlyGender !== undefined &&
+      !isPluralOnlyGender(entry.pluralOnlyGender)
+    ) {
+      throw new Error(
+        `noun-gender-review.json: unknown pluralOnlyGender "${entry.pluralOnlyGender}" for ${lemma}`,
       );
     }
   }
@@ -130,6 +146,12 @@ function resolve(
   editions: Editions,
 ): GenderResolution {
   const reviewed = editions.review[word.slovak];
+  if (reviewed && !("gender" in reviewed)) {
+    return resolveNounGender(word.slovak, word.english, {
+      english: recordsFor(word.slovak, editions.english),
+      polish: recordsFor(word.slovak, editions.polish),
+    });
+  }
   if (reviewed?.gender) {
     return {
       gender: reviewed.gender,
@@ -150,13 +172,18 @@ function resolve(
   });
 }
 
-/** Keep `gender` right after `category` so diffs and hand edits stay readable. */
-function withGender<T extends WordSeed>(word: T, gender: NounGender | undefined): T {
+/** Keep `gender` (+ `pluralOnlyGender`) right after `category` so diffs and hand edits stay readable. */
+function withGender<T extends WordSeed>(
+  word: T,
+  gender: NounGender | undefined,
+  pluralOnlyGender: PluralOnlyGender | undefined,
+): T {
   const next: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(word)) {
-    if (key === "gender") continue;
+    if (key === "gender" || key === "pluralOnlyGender") continue;
     next[key] = value;
     if (key === "category" && gender) next.gender = gender;
+    if (key === "category" && pluralOnlyGender) next.pluralOnlyGender = pluralOnlyGender;
   }
   return next as T;
 }
@@ -210,6 +237,7 @@ async function main(): Promise<void> {
   const polishOnly: ReportRow[] = [];
   const editionDisagreements: ReportRow[] = [];
   const unresolved: ReportRow[] = [];
+  const pluralOnlyWithoutGender: ReportRow[] = [];
   let nouns = 0;
   let changed = 0;
 
@@ -241,8 +269,14 @@ async function main(): Promise<void> {
     }
 
     const gender = resolution.gender ?? undefined;
-    if (word.gender !== gender) changed += 1;
-    return withGender(word, gender);
+    const pluralOnlyGender =
+      gender === "plural-only"
+        ? editions.review[word.slovak]?.pluralOnlyGender
+        : undefined;
+    if (gender === "plural-only" && !pluralOnlyGender) pluralOnlyWithoutGender.push(row);
+    if (word.gender !== gender || word.pluralOnlyGender !== pluralOnlyGender)
+      changed += 1;
+    return withGender(word, gender, pluralOnlyGender);
   });
 
   // Curated seed nouns live in TS — report drift instead of rewriting source files.
@@ -250,7 +284,14 @@ async function main(): Promise<void> {
   for (const entry of words) {
     if (entry.origin !== "curated" || entry.category !== "Nouns") continue;
     const resolution = resolve(entry, editions);
-    if (resolution.gender !== (entry.gender ?? null)) {
+    const pluralOnlyGender =
+      resolution.gender === "plural-only"
+        ? editions.review[entry.slovak]?.pluralOnlyGender
+        : undefined;
+    if (
+      resolution.gender !== (entry.gender ?? null) ||
+      pluralOnlyGender !== entry.pluralOnlyGender
+    ) {
       curatedDrift.push({
         slug: entry.slug,
         slovak: entry.slovak,
@@ -276,6 +317,7 @@ async function main(): Promise<void> {
         editionDisagreements,
         polishOnly,
         unresolved,
+        pluralOnlyWithoutGender,
         curatedDrift,
       },
       null,
@@ -307,6 +349,10 @@ async function main(): Promise<void> {
     editionDisagreements,
   );
   printRows("Unresolved (gender unset)", unresolved);
+  printRows(
+    "Plural-only without a dictionary gender (add pluralOnlyGender to noun-gender-review.json)",
+    pluralOnlyWithoutGender,
+  );
   printRows("Curated seed drift (hand-edit the TS seed)", curatedDrift);
 
   console.log(

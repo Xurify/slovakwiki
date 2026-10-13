@@ -11,6 +11,7 @@ type WordSeed = Pick<
   | "topics"
   | "register"
   | "gender"
+  | "pluralOnlyGender"
   | "dialect"
 >;
 

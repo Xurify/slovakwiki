@@ -66583,6 +66583,7 @@
     "english": "door",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Zavri dvere keď odídeš.",
@@ -72022,6 +72023,7 @@
     "english": "newspaper",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Kde sú moje noviny?",
@@ -73497,6 +73499,7 @@
     "english": "finance; finances",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Musíme si lepšie plánovať financie.",
@@ -77254,6 +77257,7 @@
     "english": "race; competition",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Prehral som preteky.",
@@ -77752,6 +77756,7 @@
     "english": "championship",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "neuter",
     "examples": [
       {
         "slovak": "Majstrovstvá sveta sa tento rok konajú v lete.",
@@ -78847,6 +78852,7 @@
     "english": "money",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Nenašiel som žiadne peniaze v mojom vrecku.",
@@ -82290,6 +82296,7 @@
     "english": "history",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Ľudia, ktorí nedbajú na dejiny, ich zvyknú opakovať.",
@@ -86025,6 +86032,7 @@
     "english": "mouth",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "neuter",
     "examples": [
       {
         "slovak": "Tom si zakryl ústa.",
@@ -98762,6 +98770,7 @@
     "english": "Christmas",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Veselé Vianoce!",
@@ -105250,6 +105259,7 @@
     "english": "clothes; dress",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Ukázala mi, ktoré šaty si mám obliecť.",
@@ -153596,6 +153606,7 @@
     "english": "birthday",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "TWiiNS oslavovali moje narodeniny prostredníctvom Twitteru 12. júna.",
@@ -154954,6 +154965,7 @@
     "english": "holidays; vacation",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "V novinách som si všimol slovo prázdniny.",
@@ -156789,6 +156801,7 @@
     "english": "data",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "neuter",
     "examples": [
       {
         "slovak": "Dáte si niečo na pitie?",
@@ -161647,6 +161660,7 @@
     "english": "breasts; chest",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "neuter",
     "examples": [
       {
         "slovak": "Výraz \"prsia\" sa objavil v článku.",
@@ -162892,6 +162906,7 @@
     "english": "spa; baths",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Výraz \"kúpele\" sa objavil v článku.",
@@ -167595,6 +167610,7 @@
     "english": "trousers; pants",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Tieto sú moje nohavice.",
@@ -168715,6 +168731,7 @@
     "english": "glasses; spectacles",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Už nepotrebujem okuliare.",
@@ -171799,7 +171816,6 @@
     "slovak": "margo",
     "english": "margin; edge",
     "category": "Nouns",
-    "gender": "neuter",
     "examples": [
       {
         "slovak": "V slovníku si dnes opakujem slovo 'margo'.",
@@ -174268,6 +174284,7 @@
     "english": "watch; wristwatch",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Stratil som moje hodinky.",
@@ -176426,6 +176443,7 @@
     "english": "lungs",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "neuter",
     "examples": [
       {
         "slovak": "Pľúca, srdce, žily, tepny a vlásočnice tvoria srdcovo-cievnu sústavu.",
@@ -247780,6 +247798,7 @@
     "english": "violin",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Tom hral na husle.",
@@ -248038,6 +248057,7 @@
     "english": "embarrassment; hesitation",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "masculine-inanimate",
     "examples": [
       {
         "slovak": "Toto je rozpaky.",
@@ -250500,6 +250520,7 @@
     "english": "clock; hours",
     "category": "Nouns",
     "gender": "plural-only",
+    "pluralOnlyGender": "feminine",
     "examples": [
       {
         "slovak": "Hodiny práve odbili tri hodiny.",

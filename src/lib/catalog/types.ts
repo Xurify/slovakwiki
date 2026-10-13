@@ -47,6 +47,38 @@ export function isNounGender(value: string | undefined | null): value is NounGen
   return NOUN_GENDERS.includes(value as NounGender);
 }
 
+/**
+ * The gender a plural-only noun still has in dictionaries (dvere: feminine,
+ * okuliare: masculine inanimate, ústa: neuter). Shown beside "plural only".
+ */
+export type PluralOnlyGender = Exclude<NounGender, "plural-only">;
+
+export function isPluralOnlyGender(
+  value: string | undefined | null,
+): value is PluralOnlyGender {
+  return isNounGender(value) && value !== "plural-only";
+}
+
+const PLURAL_ONLY_GENDER_ENGLISH: Record<PluralOnlyGender, string> = {
+  "masculine-animate": "masculine animate",
+  "masculine-inanimate": "masculine inanimate",
+  feminine: "feminine",
+  neuter: "neuter",
+};
+
+/** Label for an entry's gender: "plural only (feminine)" when the underlying gender is known. */
+export function nounGenderLabel(
+  gender: NounGender,
+  pluralOnlyGender?: PluralOnlyGender,
+): { english: string; slovak: string } {
+  const label = NOUN_GENDER_LABEL[gender];
+  if (gender !== "plural-only" || !pluralOnlyGender) return label;
+  return {
+    english: `${label.english} (${PLURAL_ONLY_GENDER_ENGLISH[pluralOnlyGender]})`,
+    slovak: `${label.slovak}, ${NOUN_GENDER_LABEL[pluralOnlyGender].slovak}`,
+  };
+}
+
 export const DIALECT_CHIP_LABEL = "Dialect";
 
 export function dialectLookupFlag(value: { dialect?: unknown }): { dialect?: true } {
@@ -79,7 +111,7 @@ export interface WordFrequency {
 /**
  * Runtime dictionary / grammar / pronunciation entry.
  * Hand-authored lemmas use only the `WordSeed` fields (slug, slovak, english,
- * category, examples, related, topics?, register?, gender?, dialect?) —
+ * category, examples, related, topics?, register?, gender?, pluralOnlyGender?, dialect?) —
  * see `content/dictionary/README.md`.
  * `origin`, `frequency`, `body`, `summary`, `tags`, and source* are filled in `data.ts`.
  */
@@ -120,6 +152,8 @@ export interface ContentEntry {
   register?: WordRegister;
   /** Nouns only: grammatical gender (`import-noun-gender.ts`). Unset when unresolved. */
   gender?: NounGender;
+  /** With `gender: "plural-only"`: the gender dictionaries give the noun (dvere: feminine). */
+  pluralOnlyGender?: PluralOnlyGender;
   /** Regional / non-standard variety — Dialect chip + Nárečie.sk lookup. */
   dialect?: true;
 }

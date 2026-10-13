@@ -91,6 +91,14 @@
   "daňovník": {
     "gender": "masculine-animate"
   },
+  "dáta": {
+    "pluralOnlyGender": "neuter",
+    "note": "plural-only gender from Polish Wiktionary, treebank"
+  },
+  "dejiny": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English + Polish Wiktionary, treebank"
+  },
   "dejisko": {
     "gender": "neuter",
     "note": "pattern mesto; Polish Wiktionary says masculine"
@@ -175,6 +183,10 @@
     "gender": "masculine-animate",
     "note": "duchovia — person-like being"
   },
+  "dvere": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English, Polish and Slovak Wiktionary + treebank"
+  },
   "dvojica": {
     "gender": "feminine"
   },
@@ -207,7 +219,8 @@
   },
   "financie": {
     "gender": "plural-only",
-    "note": "pluralia tantum"
+    "note": "pluralia tantum; plural-only gender from treebank",
+    "pluralOnlyGender": "feminine"
   },
   "fond": {
     "gender": "masculine-inanimate"
@@ -239,11 +252,23 @@
   "hnev": {
     "gender": "masculine-inanimate"
   },
+  "hodinky": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from Polish + Slovak Wiktionary, treebank"
+  },
+  "hodiny": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from Polish + Slovak Wiktionary, treebank"
+  },
   "holding": {
     "gender": "masculine-inanimate"
   },
   "hrniec": {
     "gender": "masculine-inanimate"
+  },
+  "husle": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English, Polish and Slovak Wiktionary + treebank"
   },
   "chodec": {
     "gender": "masculine-animate"
@@ -373,7 +398,8 @@
   },
   "kúpele": {
     "gender": "plural-only",
-    "note": "pluralia tantum"
+    "pluralOnlyGender": "masculine-inanimate",
+    "note": "pluralia tantum, in neither Wiktionary edition; masculine inanimate (genitive kúpeľov), no source covers that either"
   },
   "kúsok": {
     "gender": "masculine-inanimate"
@@ -420,6 +446,10 @@
   "mail": {
     "gender": "masculine-inanimate"
   },
+  "majstrovstvá": {
+    "pluralOnlyGender": "neuter",
+    "note": "plural-only gender from Polish Wiktionary"
+  },
   "málo": {
     "gender": null,
     "note": "quantity word, not a noun"
@@ -430,6 +460,10 @@
   },
   "mandát": {
     "gender": "masculine-inanimate"
+  },
+  "margo": {
+    "gender": null,
+    "note": "neuter or masculine inanimate; no available source covers it, and na margo looks the same either way"
   },
   "masa": {
     "gender": "feminine"
@@ -504,6 +538,10 @@
   "náraz": {
     "gender": "masculine-inanimate"
   },
+  "narodeniny": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English, Polish and Slovak Wiktionary + treebank"
+  },
   "nárok": {
     "gender": "masculine-inanimate"
   },
@@ -543,6 +581,10 @@
   "nevýhoda": {
     "gender": "feminine"
   },
+  "nohavice": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English, Polish and Slovak Wiktionary + treebank"
+  },
   "nominant": {
     "gender": "masculine-animate"
   },
@@ -564,6 +606,10 @@
   },
   "novina": {
     "gender": "feminine"
+  },
+  "noviny": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English + Polish Wiktionary, treebank"
   },
   "obal": {
     "gender": "masculine-inanimate"
@@ -674,6 +720,10 @@
   "okruh": {
     "gender": "masculine-inanimate"
   },
+  "okuliare": {
+    "pluralOnlyGender": "masculine-inanimate",
+    "note": "plural-only gender from English + Polish Wiktionary, treebank"
+  },
   "omyl": {
     "gender": "masculine-inanimate"
   },
@@ -749,6 +799,10 @@
   "peniaz": {
     "gender": "masculine-inanimate"
   },
+  "peniaze": {
+    "pluralOnlyGender": "masculine-inanimate",
+    "note": "plural-only gender from English, Polish, German Wiktionary + treebank (Slovak Wiktionary says feminine)"
+  },
   "plagát": {
     "gender": "masculine-inanimate"
   },
@@ -763,6 +817,10 @@
   },
   "plod": {
     "gender": "masculine-inanimate"
+  },
+  "pľúca": {
+    "pluralOnlyGender": "neuter",
+    "note": "plural-only gender from English, Polish and Slovak Wiktionary + treebank"
   },
   "plus": {
     "gender": null,
@@ -885,6 +943,10 @@
   "právomoc": {
     "gender": "feminine"
   },
+  "prázdniny": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English + Polish Wiktionary, treebank"
+  },
   "prečin": {
     "gender": "masculine-inanimate"
   },
@@ -939,6 +1001,10 @@
   },
   "presun": {
     "gender": "masculine-inanimate"
+  },
+  "preteky": {
+    "pluralOnlyGender": "masculine-inanimate",
+    "note": "plural-only gender from English + Polish Wiktionary, treebank"
   },
   "prevádzkovateľ": {
     "gender": "masculine-animate"
@@ -1039,6 +1105,10 @@
   "protokol": {
     "gender": "masculine-inanimate"
   },
+  "prsia": {
+    "pluralOnlyGender": "neuter",
+    "note": "plural-only gender from English, Polish and Slovak Wiktionary + treebank"
+  },
   "pruh": {
     "gender": "masculine-inanimate"
   },
@@ -1056,6 +1126,10 @@
   },
   "rámec": {
     "gender": "masculine-inanimate"
+  },
+  "raňajky": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English + Polish Wiktionary, treebank"
   },
   "rast": {
     "gender": "masculine-inanimate"
@@ -1132,6 +1206,10 @@
   },
   "rozpad": {
     "gender": "masculine-inanimate"
+  },
+  "rozpaky": {
+    "pluralOnlyGender": "masculine-inanimate",
+    "note": "plural-only gender from Polish Wiktionary, treebank"
   },
   "rozsah": {
     "gender": "masculine-inanimate"
@@ -1286,6 +1364,10 @@
   "šampionát": {
     "gender": "masculine-inanimate"
   },
+  "šaty": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from English + Polish Wiktionary, treebank"
+  },
   "šéf": {
     "gender": "masculine-animate"
   },
@@ -1439,6 +1521,10 @@
   "úspora": {
     "gender": "feminine"
   },
+  "ústa": {
+    "pluralOnlyGender": "neuter",
+    "note": "plural-only gender from English, Polish and Slovak Wiktionary + treebank"
+  },
   "útočník": {
     "gender": "masculine-animate"
   },
@@ -1480,6 +1566,10 @@
   },
   "veterán": {
     "gender": "masculine-animate"
+  },
+  "Vianoce": {
+    "pluralOnlyGender": "feminine",
+    "note": "plural-only gender from Polish + Slovak Wiktionary"
   },
   "viceprezident": {
     "gender": "masculine-animate"

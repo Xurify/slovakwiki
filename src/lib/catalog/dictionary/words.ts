@@ -21,6 +21,7 @@ type WordSeed = Pick<
   | "topics"
   | "register"
   | "gender"
+  | "pluralOnlyGender"
   | "dialect"
 >;
 
@@ -495,6 +496,7 @@ const curatedWordSeed: WordSeed[] = [
     english: "breakfast",
     category: "Nouns",
     gender: "plural-only",
+    pluralOnlyGender: "feminine",
     topics: ["Food"],
     examples: [
       { slovak: "Raňajky mám o siedmej.", english: "I have breakfast at seven." },

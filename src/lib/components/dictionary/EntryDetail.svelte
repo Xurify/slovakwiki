@@ -15,11 +15,12 @@
   import {
     REGISTER_CHIP_LABEL,
     DIALECT_CHIP_LABEL,
-    NOUN_GENDER_LABEL,
+    nounGenderLabel,
     type ContentEntry,
     type EntryKind,
     type Example,
     type NounGender,
+    type PluralOnlyGender,
   } from "$lib/catalog/types";
 
   interface RelatedEntry {
@@ -224,7 +225,7 @@
 
           {#if entry.gender}
             <span aria-hidden="true">·</span>
-            {@render genderLabel(entry.gender, "inverse")}
+            {@render genderLabel(entry.gender, entry.pluralOnlyGender, "inverse")}
           {/if}
 
           {#if entry.frequency}
@@ -276,8 +277,12 @@
     {/if}
   </section>
 
-  {#snippet genderLabel(gender: NounGender, variant: "inverse" | "default")}
-    {@const label = NOUN_GENDER_LABEL[gender]}
+  {#snippet genderLabel(
+    gender: NounGender,
+    pluralOnlyGender: PluralOnlyGender | undefined,
+    variant: "inverse" | "default",
+  )}
+    {@const label = nounGenderLabel(gender, pluralOnlyGender)}
 
     <a
       class={variant === "inverse" ? genderLinkInverseClass : genderLinkDefaultClass}
@@ -461,7 +466,11 @@
 
             {#if senseEntry.gender}
               <p class="m-0 mt-2 text-sm text-slate-500">
-                {@render genderLabel(senseEntry.gender, "default")}
+                {@render genderLabel(
+                  senseEntry.gender,
+                  senseEntry.pluralOnlyGender,
+                  "default",
+                )}
               </p>
             {/if}
 
