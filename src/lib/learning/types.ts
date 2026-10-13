@@ -130,26 +130,24 @@ export interface ClockGridVisual {
   type: "clock-grid";
 }
 
-/** A grammar label in English with its Slovak term (Singular · jednotné číslo). */
-export interface FormTableLabel {
+/** A label in English with its Slovak term and an example: Masculine · mužský rod · brat. */
+export interface FormTableHeading {
   english: string;
+  example?: string;
   slovak?: string;
 }
 
-export interface FormTableColumn extends FormTableLabel {
-  /** Noun the column's forms agree with (brat, sestra). */
-  example?: string;
-  /** Long label — gets extra width so its header doesn't stretch the whole row. */
-  wide?: boolean;
+export interface FormTableSection {
+  /** Divider row above the section, e.g. Singular · jednotné číslo. */
+  heading?: FormTableHeading;
+  rows: Array<{ cells: string[]; heading: FormTableHeading }>;
 }
 
-/** Small paradigm grid: one Slovak form per cell. */
+/** Small paradigm grid: one Slovak form per cell, labeled rows grouped into sections. */
 export interface FormTableVisual {
-  /** Header row above `columns` — Singular spanning the three genders, then Plural. */
-  columnGroups?: Array<FormTableLabel & { span: number }>;
-  columns: FormTableColumn[];
+  columns: FormTableHeading[];
   note?: string;
-  rows: Array<{ cells: string[]; label: string }>;
+  sections: FormTableSection[];
   title: string;
   type: "form-table";
 }
@@ -206,7 +204,7 @@ export interface LessonBeatTeach {
   note?: string;
   phrases?: KeyPhrase[];
   sceneLineIds?: string[];
-  visual?: LessonVisual;
+  visual?: LessonVisual | LessonVisual[];
 }
 
 export interface LessonBeat {

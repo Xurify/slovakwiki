@@ -1,5 +1,5 @@
 import type {
-  FormTableColumn,
+  FormTableHeading,
   FormTableVisual,
   LessonBeat,
   LessonExercise,
@@ -8,14 +8,14 @@ import {
   CASES,
   paradigmRow,
   type GrammaticalCase,
+  type OwnerId,
 } from "$lib/learning/possessives/paradigm";
 
-const NUMBER_GROUPS: FormTableVisual["columnGroups"] = [
-  { english: "Singular", slovak: "jednotné číslo", span: 3 },
-  { english: "Plural", slovak: "množné číslo", span: 2 },
-];
+const SINGULAR: FormTableHeading = { english: "Singular", slovak: "jednotné číslo" };
+const PLURAL: FormTableHeading = { english: "Plural", slovak: "množné číslo" };
 
-const GENDER_COLUMNS: FormTableColumn[] = [
+/** Same order as `paradigmRow`: three singular genders, then the two plural groups. */
+const CATEGORIES: FormTableHeading[] = [
   { english: "Masculine", slovak: "mužský rod", example: "brat" },
   { english: "Feminine", slovak: "ženský rod", example: "sestra" },
   { english: "Neuter", slovak: "stredný rod", example: "auto" },
@@ -24,56 +24,96 @@ const GENDER_COLUMNS: FormTableColumn[] = [
     english: "Masculine inanimate, feminine, neuter",
     slovak: "mužský neživotný, ženský, stredný rod",
     example: "kľúče, sestry, autá",
-    wide: true,
   },
 ];
 
-const agreementTable: FormTableVisual = {
-  type: "form-table",
-  title: "The ending follows the thing owned",
-  columnGroups: NUMBER_GROUPS,
-  columns: GENDER_COLUMNS,
-  rows: [
-    { label: "my", cells: paradigmRow("my", "nominative") },
-    { label: "your (ty)", cells: paradigmRow("your-ty", "nominative") },
-    { label: "our", cells: paradigmRow("our", "nominative") },
-    { label: "your (vy)", cells: paradigmRow("your-vy", "nominative") },
+const SINGULAR_CATEGORIES = [0, 1, 2];
+const PLURAL_CATEGORIES = [3, 4];
+
+/** Owners across the top, gender and number down the side. */
+function ownerTable(
+  title: string,
+  owners: Array<{ english: string; owner: OwnerId }>,
+  note?: string,
+): FormTableVisual {
+  const forms = owners.map(({ owner }) => paradigmRow(owner, "nominative"));
+  const rowsFor = (categories: number[]) =>
+    categories.map((category) => ({
+      heading: CATEGORIES[category]!,
+      cells: forms.map((row) => row[category]!),
+    }));
+
+  return {
+    type: "form-table",
+    title,
+    columns: owners.map(({ english }) => ({ english })),
+    sections: [
+      { heading: SINGULAR, rows: rowsFor(SINGULAR_CATEGORIES) },
+      { heading: PLURAL, rows: rowsFor(PLURAL_CATEGORIES) },
+    ],
+    note,
+  };
+}
+
+const agreementTable = ownerTable(
+  "The ending follows the thing owned",
+  [
+    { owner: "my", english: "my" },
+    { owner: "your-ty", english: "your (ty)" },
+    { owner: "our", english: "our" },
+    { owner: "your-vy", english: "your (vy)" },
   ],
-  note: "Masculine personal means a group of men, or a mixed group: moji bratia, naši rodičia, moji kolegovia. Every other plural takes ‑e: moje kľúče, moje sestry, moje autá.",
+  "Masculine personal means a group of men, or a mixed group: moji bratia, naši rodičia, moji kolegovia. Every other plural takes \u2011e: moje kľúče, moje sestry, moje autá.",
+);
+
+const fixedOwnerTable = ownerTable("Jeho, jej, ich never change", [
+  { owner: "his", english: "his" },
+  { owner: "her", english: "her" },
+  { owner: "their", english: "their" },
+]);
+
+const CASE_HEADINGS: Record<GrammaticalCase, FormTableHeading> = {
+  nominative: { english: "Nominative", slovak: "nominatív", example: "To je …" },
+  genitive: { english: "Genitive", slovak: "genitív", example: "u …" },
+  dative: { english: "Dative", slovak: "datív", example: "píšem …" },
+  accusative: { english: "Accusative", slovak: "akuzatív", example: "hľadám …" },
+  locative: { english: "Locative", slovak: "lokál", example: "o …" },
+  instrumental: { english: "Instrumental", slovak: "inštrumentál", example: "s …" },
 };
 
-const fixedOwnerTable: FormTableVisual = {
-  type: "form-table",
-  title: "Jeho, jej, ich never change",
-  columnGroups: NUMBER_GROUPS,
-  columns: GENDER_COLUMNS,
-  rows: [
-    { label: "his", cells: paradigmRow("his", "nominative") },
-    { label: "her", cells: paradigmRow("her", "nominative") },
-    { label: "their", cells: paradigmRow("their", "nominative") },
-  ],
-};
+/** Cases down the side, genders across the top — one table per number. */
+function caseTable(title: string, categories: number[], note?: string): FormTableVisual {
+  return {
+    type: "form-table",
+    title,
+    columns: categories.map((category) => CATEGORIES[category]!),
+    sections: [
+      {
+        rows: CASES.map((grammaticalCase) => {
+          const forms = paradigmRow("my", grammaticalCase);
+          return {
+            heading: CASE_HEADINGS[grammaticalCase],
+            cells: categories.map((category) => forms[category]!),
+          };
+        }),
+      },
+    ],
+    note,
+  };
+}
 
-const CASE_ROW_LABEL: Record<GrammaticalCase, string> = {
-  nominative: "Nominative · To je …",
-  genitive: "Genitive · u …",
-  dative: "Dative · píšem …",
-  accusative: "Accusative · hľadám …",
-  locative: "Locative · o …",
-  instrumental: "Instrumental · s …",
-};
-
-const caseTable: FormTableVisual = {
-  type: "form-table",
-  title: "Môj through the cases",
-  columnGroups: NUMBER_GROUPS,
-  columns: GENDER_COLUMNS,
-  rows: CASES.map((grammaticalCase) => ({
-    label: CASE_ROW_LABEL[grammaticalCase],
-    cells: paradigmRow("my", grammaticalCase),
-  })),
-  note: "Two forms in one cell: people first, things second — môjho brata, but môj kľúč. Tvoj, svoj, náš, and váš take the same endings.",
-};
+const caseTables = [
+  caseTable(
+    "Môj through the cases · singular",
+    SINGULAR_CATEGORIES,
+    "Masculine accusative splits: people take môjho (môjho brata), things keep môj (môj kľúč).",
+  ),
+  caseTable(
+    "Môj through the cases · plural",
+    PLURAL_CATEGORIES,
+    "Tvoj, svoj, náš, and váš take the same endings.",
+  ),
+];
 
 export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
   {
@@ -173,7 +213,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "auto môjho brata" },
         },
       ],
-      visual: caseTable,
+      visual: caseTables,
     },
   },
   {

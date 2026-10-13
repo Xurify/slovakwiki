@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
+  import FormTable from "$lib/components/lessons/FormTable.svelte";
   import LessonSceneBackdrop from "$lib/components/lessons/LessonSceneBackdrop.svelte";
   import LessonStoryLine from "$lib/components/lessons/LessonStoryLine.svelte";
   import {
@@ -91,26 +92,7 @@
   const visualHeadingClass =
     "m-0 mb-4 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
 
-  /** Row-label column lines up with the card padding (px-5 / sm:px-6). */
-  const tableEdgeCellClass = "pr-3 pl-5 sm:pl-6";
-
-  /** Column indexes where a new header group begins (the first plural column). */
-  const tableGroupStarts = $derived.by((): Set<number> => {
-    const visual = teach.visual;
-    if (visual?.type !== "form-table" || !visual.columnGroups) return new Set();
-
-    const starts = new Set<number>();
-    let index = 0;
-    for (const group of visual.columnGroups) {
-      if (index > 0) starts.add(index);
-      index += group.span;
-    }
-    return starts;
-  });
-
-  function tableDividerClass(index: number): string {
-    return tableGroupStarts.has(index) ? "border-l border-slate-200" : "";
-  }
+  const visuals = $derived(teach.visual ? [teach.visual].flat() : []);
 
   const visibleLines = $derived(scene.slice(0, revealedCount));
   const storyActive = $derived(scene.length > 0);
@@ -580,157 +562,42 @@
           </p>
         {/if}
 
-        {#if teach.visual?.type === "clock-grid"}
-          <div>
-            <h3 class={visualHeadingClass}>
-              {teach.visual.title}
-            </h3>
-
-            <ul
-              class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
-            >
-              {#each teach.visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
-                <li
-                  class="grid justify-items-center gap-1.5 rounded-(--frame-radius) bg-surface/80 px-3 py-4 shadow-(--shadow-border)"
-                >
-                  <ClockIllustration
-                    hour={item.time.hour}
-                    minute={item.time.minute}
-                    size={84}
-                  />
-
-                  <strong class="text-center font-serif text-sm text-slate-900" lang="sk">
-                    {item.slovak}
-                  </strong>
-
-                  <span class="text-center text-xs text-slate-500">{item.english}</span>
-                </li>
-              {/each}
-            </ul>
-          </div>
-        {:else if teach.visual?.type === "form-table"}
-          <figure
-            class="m-0 overflow-hidden rounded-(--frame-radius) bg-subtle shadow-(--shadow-border)"
-          >
-            <figcaption class="px-5 pt-4 pb-3 sm:px-6">
-              <h3
-                class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900"
-              >
-                {teach.visual.title}
+        {#each visuals as visual (visual.title)}
+          {#if visual.type === "clock-grid"}
+            <div>
+              <h3 class={visualHeadingClass}>
+                {visual.title}
               </h3>
-            </figcaption>
 
-            <div class="overflow-x-auto">
-              <table class="w-full border-collapse text-left text-sm">
-                <thead>
-                  {#if teach.visual.columnGroups}
-                    <tr>
-                      <td class={tableEdgeCellClass}></td>
-
-                      {#each teach.visual.columnGroups as group, index (group.english)}
-                        <th
-                          scope="colgroup"
-                          colspan={group.span}
-                          class="px-3 text-xs font-semibold whitespace-nowrap text-slate-700 {index >
-                          0
-                            ? 'border-l border-slate-200'
-                            : ''}"
-                        >
-                          <span class="block border-b border-slate-300 pb-1.5">
-                            {group.english}
-
-                            {#if group.slovak}
-                              <span class="font-normal text-slate-500" lang="sk">
-                                · {group.slovak}
-                              </span>
-                            {/if}
-                          </span>
-                        </th>
-                      {/each}
-                    </tr>
-                  {/if}
-
-                  <tr>
-                    <td class={tableEdgeCellClass}></td>
-
-                    {#each teach.visual.columns as column, index (column.english)}
-                      <th
-                        scope="col"
-                        class="{column.wide ? 'min-w-40' : ''} {tableDividerClass(
-                          index,
-                        )} px-3 pt-2 pb-1 align-bottom text-xs leading-snug font-semibold text-slate-700"
-                      >
-                        {column.english}
-
-                        {#if column.slovak}
-                          <span
-                            class="block font-normal text-slate-500 {column.wide
-                              ? ''
-                              : 'whitespace-nowrap'}"
-                            lang="sk"
-                          >
-                            {column.slovak}
-                          </span>
-                        {/if}
-                      </th>
-                    {/each}
-                  </tr>
-
-                  {#if teach.visual.columns.some((column) => column.example)}
-                    <tr class="border-b border-slate-200">
-                      <td class="{tableEdgeCellClass} pb-2 text-xs text-slate-500"
-                        >e.g.</td
-                      >
-
-                      {#each teach.visual.columns as column, index (column.english)}
-                        <td
-                          class="{tableDividerClass(
-                            index,
-                          )} px-3 pb-2 font-serif text-sm whitespace-nowrap text-slate-500 italic"
-                          lang="sk"
-                        >
-                          {column.example}
-                        </td>
-                      {/each}
-                    </tr>
-                  {/if}
-                </thead>
-
-                <tbody class="bg-surface/70">
-                  {#each teach.visual.rows as row (row.label)}
-                    <tr class="border-b border-slate-200/70 last:border-b-0">
-                      <th
-                        scope="row"
-                        class="{tableEdgeCellClass} py-2.5 text-xs font-normal whitespace-nowrap text-slate-500"
-                      >
-                        {row.label}
-                      </th>
-
-                      {#each row.cells as cell, index (`${row.label}-${index}`)}
-                        <td
-                          class="{tableDividerClass(
-                            index,
-                          )} px-3 py-2.5 font-serif text-base whitespace-nowrap text-slate-900"
-                          lang="sk"
-                        >
-                          {cell}
-                        </td>
-                      {/each}
-                    </tr>
-                  {/each}
-                </tbody>
-              </table>
-            </div>
-
-            {#if teach.visual.note}
-              <p
-                class="m-0 border-t border-slate-200 px-5 py-3 text-sm leading-relaxed text-pretty text-slate-600 sm:px-6"
+              <ul
+                class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
               >
-                {teach.visual.note}
-              </p>
-            {/if}
-          </figure>
-        {/if}
+                {#each visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
+                  <li
+                    class="grid justify-items-center gap-1.5 rounded-(--frame-radius) bg-surface/80 px-3 py-4 shadow-(--shadow-border)"
+                  >
+                    <ClockIllustration
+                      hour={item.time.hour}
+                      minute={item.time.minute}
+                      size={84}
+                    />
+
+                    <strong
+                      class="text-center font-serif text-sm text-slate-900"
+                      lang="sk"
+                    >
+                      {item.slovak}
+                    </strong>
+
+                    <span class="text-center text-xs text-slate-500">{item.english}</span>
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          {:else}
+            <FormTable table={visual} />
+          {/if}
+        {/each}
       </div>
     {/if}
   </div>
