@@ -1,10 +1,8 @@
-/** What R2 reports for an object: HEAD `content-length` + `x-amz-meta-generated-at`. */
 export interface RemoteClip {
   bytes: number;
   generatedAt: string | null;
 }
 
-/** The local take: file size on disk + manifest `generatedAt` (absent without an entry). */
 export interface LocalClip {
   bytes: number;
   generatedAt: string | undefined;
@@ -13,12 +11,8 @@ export interface LocalClip {
 export type RemoteClipState = "missing" | "same" | "remote-newer" | "local-newer";
 
 /**
- * Decide whether R2 already holds this take.
- *
- * Every PUT stamps `generated-at` metadata, so compare takes by that. Size alone
- * cannot tell them apart: CBR MP3 sizes snap to whole frames, and a retake of the
- * same text (same hash) often matches the old byte count exactly. Objects or
- * entries without a timestamp fall back to size.
+ * Compare takes by the `generated-at` metadata every PUT stamps, not by size: CBR MP3
+ * sizes snap to whole frames, so a retake often matches the old byte count exactly.
  */
 export function compareRemoteClip(
   local: LocalClip,

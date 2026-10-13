@@ -40,7 +40,6 @@ describe("compareRemoteClip", () => {
   });
 
   it("trusts the manifest take over the file size", () => {
-    // A failed --verify retake rewrites the file but not the manifest entry.
     expect(
       compareRemoteClip(
         { bytes: 16344, generatedAt: earlier },

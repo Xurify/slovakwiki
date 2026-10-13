@@ -1,12 +1,6 @@
 /**
- * Post-build guard: built lesson pages must reference lesson clips.
- *
- * Lesson audio is resolved at build time from content/audio/runtime-index.json.
- * When that index fails to load, or every hash drifts after a voice/model change,
- * the build still passes and silently ships lessons with browser TTS only.
- *
- * Usage (after `bun run build`):
- *   bun scripts/audio/check-build.ts
+ * After `bun run build`: fail when built lesson pages reference no lesson clips
+ * (runtime index failed to load, or every hash drifted after a voice change).
  */
 
 import { existsSync } from "node:fs";
@@ -15,7 +9,6 @@ import path from "node:path";
 
 import { ROOT } from "../lib/paths";
 
-/** Prefer Vercel adapter output, then Astro client copy, then legacy `dist/`. */
 const STATIC_ROOTS = [
   path.join(ROOT, ".vercel", "output", "static"),
   path.join(ROOT, "dist", "client"),

@@ -94,8 +94,7 @@ async function main(): Promise<void> {
     const pending = [];
     for (const target of targets) {
       const voiceConfig = target.voiceConfig ?? config;
-      // static/audio/ is gitignored: a fresh clone has no files, but clips
-      // stamped `uploadedAt` are already on R2 and must not be re-synthesized.
+      // A fresh clone has no static/audio/; clips stamped `uploadedAt` are on R2.
       if (isUploaded(manifest, hashAudioText(target.text, voiceConfig))) continue;
       const relative = audioRelativePath(target.text, target.kind, voiceConfig);
       if (!(await fileExists(path.join(AUDIO_DIR, relative)))) {
