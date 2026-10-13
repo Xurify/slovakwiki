@@ -46,7 +46,11 @@
   role="status"
   aria-live="polite"
 >
-  <div class="mx-auto flex max-w-2xl flex-wrap items-start justify-between gap-4">
+  <div
+    class="mx-auto flex max-w-2xl flex-wrap justify-between gap-4 {isMiss
+      ? 'items-start'
+      : 'items-center'}"
+  >
     <div class="min-w-0 flex-1">
       {#if isMiss}
         <PracticeExerciseFeedback
