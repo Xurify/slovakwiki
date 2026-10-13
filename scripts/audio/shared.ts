@@ -166,6 +166,19 @@ export async function saveManifest(manifest: AudioManifest): Promise<void> {
   await writeFile(RUNTIME_INDEX_PATH, `${JSON.stringify(runtimeIndex)}\n`, "utf8");
 }
 
+/**
+ * Manifest only. The runtime index holds kind + generatedAt, so stamping
+ * `uploadedAt` never changes it — and the dev server keeps it open, which
+ * makes rewriting it on Windows fail with EUNKNOWN mid-upload.
+ */
+export async function saveManifestFile(manifest: AudioManifest): Promise<void> {
+  await writeFile(
+    MANIFEST_PATH,
+    `${JSON.stringify(sortManifestKeys(manifest))}\n`,
+    "utf8",
+  );
+}
+
 export async function ensureAudioDir(kind?: AudioKind): Promise<void> {
   if (kind) {
     await mkdir(path.join(AUDIO_DIR, kind), { recursive: true });
@@ -320,7 +333,7 @@ export function collectLemmaTextSet(): Set<string> {
  */
 export const DEFAULT_AUDIO_CONCURRENCY = 8;
 /** R2 PUTs are lighter than TTS — higher default. */
-export const DEFAULT_UPLOAD_CONCURRENCY = 32;
+export const DEFAULT_UPLOAD_CONCURRENCY = 128;
 
 export function parseArgs(
   argv: string[],
