@@ -5,9 +5,6 @@
  * Sets Cache-Control (immutable, 1y) + custom metadata (kind/hash/voice/text…).
  * Bun.S3Client lacks Cache-Control / x-amz-meta on this Bun version → aws4fetch PUT.
  *
- * Before a PUT, HEADs the object and compares its `generated-at` metadata with the
- * manifest: same take → stamp and skip; older take → upload; newer take → leave it.
- *
  * Env:
  *   R2_ACCOUNT_ID
  *   R2_ACCESS_KEY_ID

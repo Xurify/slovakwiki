@@ -143,7 +143,6 @@ async function main(): Promise<void> {
         if (entry) {
           entry.bytes = after.size;
           entry.generatedAt = generatedAt;
-          // New bytes: upload.ts must send them, not skip on the old stamp.
           delete entry.uploadedAt;
         }
         sinceSave += 1;
