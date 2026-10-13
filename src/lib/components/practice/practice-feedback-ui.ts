@@ -1,4 +1,9 @@
 import type { AnswerGrade } from "$lib/components/practice/practice-state";
+import type {
+  AttemptWordMark,
+  CorrectionWordMark,
+  DiffWord,
+} from "$lib/learning/exercises/answer-diff";
 
 export type FeedbackTone = "accents" | "correct" | "incorrect";
 
@@ -83,4 +88,44 @@ export function shouldShowCorrection(
 
 export function isMissFeedback(grade: AnswerGrade | null, revealed: boolean): boolean {
   return revealed || grade === "incorrect" || grade === "accents";
+}
+
+export type WordMark = AttemptWordMark | CorrectionWordMark;
+
+export interface MarkedSegment {
+  mark: Exclude<WordMark, "same"> | null;
+  text: string;
+}
+
+/** Flatten diff words into text runs; spaces and edge punctuation stay unmarked. */
+export function markedSegments(
+  words: ReadonlyArray<DiffWord<WordMark>>,
+): MarkedSegment[] {
+  const segments: MarkedSegment[] = [];
+
+  const pushText = (text: string) => {
+    if (!text) return;
+    const last = segments.at(-1);
+    if (last && last.mark === null) last.text += text;
+    else segments.push({ mark: null, text });
+  };
+
+  for (const [index, word] of words.entries()) {
+    pushText(`${index > 0 ? " " : ""}${word.lead}`);
+    if (word.mark === "same") pushText(word.word);
+    else segments.push({ mark: word.mark, text: word.word });
+    pushText(word.trail);
+  }
+
+  return segments;
+}
+
+const wordMarkBase = "bg-transparent underline decoration-2 underline-offset-4";
+
+export function wordMarkClass(mark: Exclude<WordMark, "same">): string {
+  if (mark === "wrong")
+    return `${wordMarkBase} text-rose-700 decoration-rose-500 decoration-wavy`;
+  if (mark === "accent")
+    return `${wordMarkBase} text-blue-700 decoration-blue-500 decoration-dotted`;
+  return `${wordMarkBase} text-emerald-700 decoration-emerald-500`;
 }

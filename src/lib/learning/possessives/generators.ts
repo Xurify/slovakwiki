@@ -1,10 +1,12 @@
 import type {
+  AnswerMistake,
   BuildExercise,
   ChoiceExercise,
   ClozeExercise,
   PracticeTask,
   TypedExercise,
 } from "$lib/learning/types";
+import { containsAnswerWords } from "$lib/learning/exercises/answer-diff";
 import { shuffleArray } from "$lib/learning/time/clock";
 import {
   agreementHint,
@@ -503,6 +505,46 @@ function bareLine(frame: SvojFrame, subject: string, entry: NounEntry): string {
   return frame.slovak(subject, entry.forms[frame.grammaticalCase]);
 }
 
+/**
+ * Notes for every other svoj form a learner might type: another case of the right
+ * gender first (the frame says which case it needs), then the right case of another
+ * gender or number. Forms an accepted answer contains — accents ignored — are skipped.
+ */
+function svojMistakes(
+  entry: NounEntry,
+  frame: SvojFrame,
+  acceptedAnswers: string[],
+): AnswerMistake[] {
+  const correct = possessiveForm("own", entry.slot, frame.grammaticalCase);
+  const ownPhrase = ownedSlovak("own", entry, frame.grammaticalCase);
+  const noun = entry.forms[frame.grammaticalCase];
+  const notes = new Map<string, string>();
+
+  for (const grammaticalCase of CASES) {
+    const form = possessiveForm("own", entry.slot, grammaticalCase);
+    if (form === correct || notes.has(form)) continue;
+    notes.set(
+      form,
+      `**${capitalizeSlovak(form)}** is the wrong case. ${frame.reason}: **${ownPhrase}**.`,
+    );
+  }
+
+  for (const slot of Object.keys(SLOT_LABEL) as Slot[]) {
+    const form = possessiveForm("own", slot, frame.grammaticalCase);
+    if (form === correct || notes.has(form)) continue;
+    notes.set(
+      form,
+      `**${capitalizeSlovak(form)}** doesn't match **${noun}**. The possessive follows the noun's gender and number: **${ownPhrase}**.`,
+    );
+  }
+
+  return [...notes]
+    .filter(
+      ([form]) => !acceptedAnswers.some((answer) => containsAnswerWords(answer, form)),
+    )
+    .map(([wrong, whyWrong]) => ({ wrong, whyWrong }));
+}
+
 export function buildSvojRepairExercise(kind: string, rng: Rng): TypedExercise {
   const subject = pick(SVOJ_SUBJECTS, rng);
   const useThings = rng() < 0.4;
@@ -518,6 +560,7 @@ export function buildSvojRepairExercise(kind: string, rng: Rng): TypedExercise {
     ownedSlovak(subject.fixed, entry, frame.grammaticalCase),
   );
   const answer = frame.slovak(subject.name, ownPhrase);
+  const bare = bareLine(frame, subject.name, entry);
   const english = frame.english(subject.name, `${subject.fixed} own ${entry.english}`);
   const fixedForm = possessiveForm(subject.fixed, entry.slot, frame.grammaticalCase);
 
@@ -537,7 +580,8 @@ export function buildSvojRepairExercise(kind: string, rng: Rng): TypedExercise {
     prompt: "Repair this sentence.",
     inputLabel: "Correct Slovak sentence",
     answer,
-    acceptedAnswers: [bareLine(frame, subject.name, entry)],
+    acceptedAnswers: [bare],
+    mistakes: svojMistakes(entry, frame, [answer, bare]),
     feedback: {
       correction: answer,
       english,

@@ -1,3 +1,4 @@
+export * from "./answer-diff";
 export * from "./build-dnd";
 export * from "./choice";
 export * from "./choice-keys";

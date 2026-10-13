@@ -83,6 +83,10 @@ export const possessivesGradedExercises: LessonExercise[] = [
     prompt: "Is this your suitcase? (formal)",
     tiles: ["kufor?", "váš", "to", "tvoj", "Je", "vaša"],
     answer: ["Je", "to", "váš", "kufor?"],
+    mistakes: [
+      { wrong: "tvoj", whyWrong: "**Tvoj** is for someone you call **ty**." },
+      { wrong: "vaša", whyWrong: "**Vaša** goes with feminine nouns like **taška**." },
+    ],
     feedback: {
       correction: "Je to váš kufor?",
       english: "Is this your suitcase?",
@@ -157,6 +161,25 @@ export const possessivesGradedExercises: LessonExercise[] = [
     inputLabel: "Correct Slovak sentence",
     answer: "Anna hľadá svoje kľúče.",
     acceptedAnswers: ["Anna hľadá kľúče."],
+    mistakes: [
+      {
+        wrong: "svoj",
+        whyWrong:
+          "**Svoj** is for one masculine thing. **Kľúče** is plural, so **svoje**.",
+      },
+      {
+        wrong: "svoja",
+        whyWrong:
+          "**Svoja** is for one feminine thing. **Kľúče** is plural, so **svoje**.",
+      },
+      {
+        wrong: "svoji",
+        whyWrong:
+          "**Svoji** is only for masculine nouns for people. **Kľúče** takes **svoje**.",
+      },
+      { wrong: "jeho", whyWrong: "**Jeho kľúče** would be a man's keys." },
+      { wrong: "moje", whyWrong: "**Moje kľúče** would be my keys, not Anna's." },
+    ],
     feedback: {
       correction: "Anna hľadá svoje kľúče.",
       english: "Anna is looking for her own keys.",
@@ -255,6 +278,23 @@ export const possessivesGradedExercises: LessonExercise[] = [
     prompt: "Their car is red.",
     inputLabel: "Your Slovak answer",
     answer: "Ich auto je červené.",
+    mistakes: [
+      { wrong: "jejich", whyWrong: "**Jejich** is Czech. Slovak says **ich**." },
+      { wrong: "jeho", whyWrong: "**Jeho** means his. Their is **ich**." },
+      { wrong: "jej", whyWrong: "**Jej** means her. Their is **ich**." },
+      {
+        wrong: "svoje",
+        whyWrong: "**Svoje** never sits in the subject — it points back to one.",
+      },
+      {
+        wrong: "červený",
+        whyWrong: "**Červený** is the masculine form, and **auto** is neuter.",
+      },
+      {
+        wrong: "červená",
+        whyWrong: "**Červená** is the feminine form, and **auto** is neuter.",
+      },
+    ],
     feedback: {
       correction: "Ich auto je červené.",
       english: "Their car is red.",
@@ -295,6 +335,38 @@ export const possessivesGradedExercises: LessonExercise[] = [
     inputLabel: "Your Slovak answer",
     answer: "Idem do kina so svojou sestrou.",
     acceptedAnswers: ["Idem do kina s mojou sestrou."],
+    mistakes: [
+      {
+        wrong: "svoju",
+        whyWrong:
+          "**Svoju** is the accusative. **S** (with) takes the instrumental: **svojou**.",
+      },
+      {
+        wrong: "moju",
+        whyWrong:
+          "**Moju** is the accusative. **S** (with) takes the instrumental: **mojou**.",
+      },
+      {
+        wrong: "svojej",
+        whyWrong:
+          "**Svojej** is the wrong case. **S** (with) takes the instrumental: **svojou**.",
+      },
+      {
+        wrong: "mojej",
+        whyWrong:
+          "**Mojej** is the wrong case. **S** (with) takes the instrumental: **mojou**.",
+      },
+      {
+        wrong: "sestra",
+        whyWrong:
+          "**Sestra** is the dictionary form. After **s**, the noun takes the instrumental too: **sestrou**.",
+      },
+      {
+        wrong: "so mojou",
+        whyWrong:
+          "**So** comes before words starting with **s**, **z**, **š**, or **ž**, like **svojou**. Before **mojou** it stays **s**.",
+      },
+    ],
     feedback: {
       correction: "Idem do kina so svojou sestrou.",
       english: "I'm going to the cinema with my sister.",
@@ -308,6 +380,18 @@ export const possessivesGradedExercises: LessonExercise[] = [
     prompt: "This is my brother's car.",
     tiles: ["auto", "brata.", "To", "môjho", "je", "môj", "brat."],
     answer: ["To", "je", "auto", "môjho", "brata."],
+    mistakes: [
+      {
+        wrong: "môj",
+        whyWrong:
+          "**Môj brat** is the dictionary form. The owner takes the genitive: **môjho brata**.",
+      },
+      {
+        wrong: "brat",
+        whyWrong:
+          "**Môj brat** is the dictionary form. The owner takes the genitive: **môjho brata**.",
+      },
+    ],
     feedback: {
       correction: "To je auto môjho brata.",
       english: "This is my brother's car.",
