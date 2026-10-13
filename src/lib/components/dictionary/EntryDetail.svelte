@@ -11,12 +11,15 @@
   import { highlightLemmaInText } from "$lib/catalog/dictionary/highlight-lemma";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
   import { senseSectionId } from "$lib/catalog/dictionary/lemma-senses";
+  import { cx } from "$lib/ui/classes";
   import {
     REGISTER_CHIP_LABEL,
     DIALECT_CHIP_LABEL,
+    NOUN_GENDER_LABEL,
     type ContentEntry,
     type EntryKind,
     type Example,
+    type NounGender,
   } from "$lib/catalog/types";
 
   interface RelatedEntry {
@@ -70,6 +73,17 @@
           .split(";")
           .map((part) => part.trim())
           .filter(Boolean),
+  );
+
+  const genderLinkInverseClass = cx(
+    "inline-flex flex-wrap items-baseline gap-x-1.5 text-panel-inverse-ink/70",
+    "underline decoration-panel-inverse-ink/25 decoration-dotted underline-offset-4",
+    "hover:text-panel-inverse-ink hover:decoration-panel-inverse-ink/60",
+  );
+  const genderLinkDefaultClass = cx(
+    "inline-flex flex-wrap items-baseline gap-x-1.5 text-slate-600",
+    "underline decoration-slate-300 decoration-dotted underline-offset-4",
+    "hover:text-slate-900 hover:decoration-slate-500",
   );
 
   const headingClass = "m-0 font-serif text-xl tracking-tight text-slate-900";
@@ -208,6 +222,11 @@
         {:else}
           <span class="font-semibold text-panel-inverse-ink/85">{entry.category}</span>
 
+          {#if entry.gender}
+            <span aria-hidden="true">·</span>
+            {@render genderLabel(entry.gender, "inverse")}
+          {/if}
+
           {#if entry.frequency}
             <span aria-hidden="true">·</span>
             <a
@@ -256,6 +275,24 @@
       </div>
     {/if}
   </section>
+
+  {#snippet genderLabel(gender: NounGender, variant: "inverse" | "default")}
+    {@const label = NOUN_GENDER_LABEL[gender]}
+
+    <a
+      class={variant === "inverse" ? genderLinkInverseClass : genderLinkDefaultClass}
+      href="/grammar/grammatical-gender"
+      title={`Grammatical gender: ${label.slovak}`}
+    >
+      {label.english}
+      <span
+        class={variant === "inverse" ? "text-panel-inverse-ink/45" : "text-slate-400"}
+        lang="sk"
+      >
+        {label.slovak}
+      </span>
+    </a>
+  {/snippet}
 
   {#snippet exampleRow(
     item: { example: Example; index: number },
@@ -421,6 +458,12 @@
                 — <GlossWithTerms text={senseEntry.english} />
               </span>
             </h2>
+
+            {#if senseEntry.gender}
+              <p class="m-0 mt-2 text-sm text-slate-500">
+                {@render genderLabel(senseEntry.gender, "default")}
+              </p>
+            {/if}
 
             {#if senseEntry.frequency}
               <p class="m-0 mt-2 text-sm text-slate-500">

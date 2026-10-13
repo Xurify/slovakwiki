@@ -15,6 +15,38 @@ export function isWordRegister(value: string | undefined | null): value is WordR
   return value === "colloquial" || value === "slang";
 }
 
+/**
+ * Grammatical gender of a noun lemma (a property of the word, not of a person).
+ * Masculine splits by animacy; pluralia tantum (nohavice, dvere) get their own value.
+ */
+export type NounGender =
+  "masculine-animate" | "masculine-inanimate" | "feminine" | "neuter" | "plural-only";
+
+export const NOUN_GENDERS: readonly NounGender[] = [
+  "masculine-animate",
+  "masculine-inanimate",
+  "feminine",
+  "neuter",
+  "plural-only",
+];
+
+/** English label (shown) + Slovak grammar term (shown beside / on hover). */
+export const NOUN_GENDER_LABEL: Record<NounGender, { english: string; slovak: string }> =
+  {
+    "masculine-animate": { english: "masculine (animate)", slovak: "mužský rod životný" },
+    "masculine-inanimate": {
+      english: "masculine (inanimate)",
+      slovak: "mužský rod neživotný",
+    },
+    feminine: { english: "feminine", slovak: "ženský rod" },
+    neuter: { english: "neuter", slovak: "stredný rod" },
+    "plural-only": { english: "plural only", slovak: "pomnožné podstatné meno" },
+  };
+
+export function isNounGender(value: string | undefined | null): value is NounGender {
+  return NOUN_GENDERS.includes(value as NounGender);
+}
+
 export const DIALECT_CHIP_LABEL = "Dialect";
 
 export function dialectLookupFlag(value: { dialect?: unknown }): { dialect?: true } {
@@ -47,7 +79,7 @@ export interface WordFrequency {
 /**
  * Runtime dictionary / grammar / pronunciation entry.
  * Hand-authored lemmas use only the `WordSeed` fields (slug, slovak, english,
- * category, examples, related, topics?, register?, dialect?) —
+ * category, examples, related, topics?, register?, gender?, dialect?) —
  * see `content/dictionary/README.md`.
  * `origin`, `frequency`, `body`, `summary`, `tags`, and source* are filled in `data.ts`.
  */
@@ -86,6 +118,8 @@ export interface ContentEntry {
   topics?: string[];
   /** Spoken/informal register — Colloquial or Slang chip. */
   register?: WordRegister;
+  /** Nouns only: grammatical gender (`import-noun-gender.ts`). Unset when unresolved. */
+  gender?: NounGender;
   /** Regional / non-standard variety — Dialect chip + Nárečie.sk lookup. */
   dialect?: true;
 }

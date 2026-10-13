@@ -11,6 +11,7 @@ bun scripts/dictionary/import-frequency.ts       # SNK noun top-3000 + verb top-
 bun scripts/dictionary/report-missing-glosses.ts # report frequency lemmas needing English glosses
 bun scripts/dictionary/publish-frequency.ts      # glosses → content/dictionary/words.json
 bun scripts/dictionary/publish-frequency.ts -- --dry-run # preview additions without writing words.json
+bun scripts/dictionary/import-noun-gender.ts     # Wiktionary (kaikki.org) dumps → noun `gender` in words.json
 bun scripts/dictionary/reclaim-weak-examples.ts  # drop weak fill stubs so Tatoeba can reclaim
 bun scripts/dictionary/enrich-examples.ts -- --replace-practice
                                                  # Tatoeba dumps → replace practice / weak-template frames
@@ -59,25 +60,33 @@ Frequency lists, live dictionary publish, Tatoeba examples. Hand-add fields: [`c
 
 **Yearly SNK checklist:** revisit corpus version on [korpus.sk frequency lists](https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/). Counts are a committed snapshot of `prim-8.0-public-all` (`generatedAt` in `content/frequency/{verbs,nouns,adjectives,adverbs}.json`). No auto-refresh — bump importer + re-import only when a newer `prim-*-public-all` dump ships; spot-check rank drift before commit.
 
+**Wiktionary dumps** (noun gender only, CC BY-SA via [kaikki.org](https://kaikki.org/)): put JSONL in `tmp/` —
+
+- https://kaikki.org/dictionary/Slovak/kaikki.org-dictionary-Slovak.jsonl → `tmp/kaikki/kaikki-slovak.jsonl` (English Wiktionary, required)
+- https://kaikki.org/plwiktionary/język%20słowacki/kaikki.org-dictionary-języksłowacki.jsonl → `tmp/kaikki-polish/kaikki-polish-wiktionary-slovak.jsonl` (Polish Wiktionary, optional — roughly doubles coverage)
+
+Mapping rules + tests: `scripts/dictionary/noun-gender-mapping.ts`. Reviewed corrections: `HAND_OVERRIDES` in `import-noun-gender.ts`.
+
 **Tatoeba dumps** (optional, examples only): put decompressed TSVs in `tmp/tatoeba/` —
 
 - https://downloads.tatoeba.org/exports/per_language/slk/slk_sentences.tsv.bz2
 - https://downloads.tatoeba.org/exports/per_language/slk/slk-eng_links.tsv.bz2
 - https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences.tsv.bz2
 
-| File                           | Run                                                                          | Notes                                                                                                                                                                        |
-| ------------------------------ | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `generate-noun-gloss-batch.ts` | `bun scripts/dictionary/generate-noun-gloss-batch.ts`                        | Wiktionary glosses for missing nouns; sets `register: colloquial` from labels                                                                                                |
-| `merge-noun-gloss-batch.ts`    | `bun scripts/dictionary/merge-noun-gloss-batch.ts`                           | Merges noun batch into `glosses.json`                                                                                                                                        |
-| `report-missing-glosses.ts`    | `bun scripts/dictionary/report-missing-glosses.ts`                           | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                          |
-| `publish-frequency.ts`         | `bun scripts/dictionary/publish-frequency.ts`                                | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                     |
-| `enrich-examples.ts`           | `bun scripts/dictionary/enrich-examples.ts`                                  | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba` |
-| `reclaim-weak-examples.ts`     | `bun scripts/dictionary/reclaim-weak-examples.ts`                            | Drops weak fill stubs (including fake-Curated verb infinitive frames) from curated JSON + words.json                                                                         |
-| `drop-mismatched-examples.ts`  | `bun scripts/dictionary/drop-mismatched-examples.ts -- --slugs chyba,chybat` | Drops Tatoeba rows that are not the lemma / a diacritic-true form. **Requires `--slugs`** — heuristic forms are too incomplete for a full sweep                              |
-| `fill-empty-examples.ts`       | `bun scripts/dictionary/fill-empty-examples.ts`                              | Noun/adj/adverb templates + aspect pairs; tops up non-verbs with <2 examples. Does not fill verbs                                                                            |
-| `author-verb-examples.ts`      | `bun scripts/dictionary/author-verb-examples.ts`                             | Writes hand/agent verb overlays from `HAND_OVERRIDES` + aspect clusters. Does **not** mint `Prečo sa ${sg2}?` stamps — unique sentences live in `curated-examples.json`      |
-| `apply-curated-examples.ts`    | `bun scripts/dictionary/apply-curated-examples.ts`                           | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                              |
-| `apply-related.ts`             | `bun scripts/dictionary/apply-related.ts`                                    | Fills empty related from `related-clusters.json`                                                                                                                             |
+| File                           | Run                                                                          | Notes                                                                                                                                                                                                   |
+| ------------------------------ | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `generate-noun-gloss-batch.ts` | `bun scripts/dictionary/generate-noun-gloss-batch.ts`                        | Wiktionary glosses for missing nouns; sets `register: colloquial` from labels                                                                                                                           |
+| `merge-noun-gloss-batch.ts`    | `bun scripts/dictionary/merge-noun-gloss-batch.ts`                           | Merges noun batch into `glosses.json`                                                                                                                                                                   |
+| `report-missing-glosses.ts`    | `bun scripts/dictionary/report-missing-glosses.ts`                           | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                                                     |
+| `publish-frequency.ts`         | `bun scripts/dictionary/publish-frequency.ts`                                | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                                                |
+| `enrich-examples.ts`           | `bun scripts/dictionary/enrich-examples.ts`                                  | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--replace-practice` / `--refresh-tatoeba`                            |
+| `import-noun-gender.ts`        | `bun scripts/dictionary/import-noun-gender.ts`                               | Needs `tmp/kaikki/kaikki-slovak.jsonl` (+ optional `tmp/kaikki-polish/…`); writes `gender` on `Nouns` rows. Review list → `tmp/noun-gender-report.json`. Re-run after publishing new nouns. `--dry-run` |
+| `reclaim-weak-examples.ts`     | `bun scripts/dictionary/reclaim-weak-examples.ts`                            | Drops weak fill stubs (including fake-Curated verb infinitive frames) from curated JSON + words.json                                                                                                    |
+| `drop-mismatched-examples.ts`  | `bun scripts/dictionary/drop-mismatched-examples.ts -- --slugs chyba,chybat` | Drops Tatoeba rows that are not the lemma / a diacritic-true form. **Requires `--slugs`** — heuristic forms are too incomplete for a full sweep                                                         |
+| `fill-empty-examples.ts`       | `bun scripts/dictionary/fill-empty-examples.ts`                              | Noun/adj/adverb templates + aspect pairs; tops up non-verbs with <2 examples. Does not fill verbs                                                                                                       |
+| `author-verb-examples.ts`      | `bun scripts/dictionary/author-verb-examples.ts`                             | Writes hand/agent verb overlays from `HAND_OVERRIDES` + aspect clusters. Does **not** mint `Prečo sa ${sg2}?` stamps — unique sentences live in `curated-examples.json`                                 |
+| `apply-curated-examples.ts`    | `bun scripts/dictionary/apply-curated-examples.ts`                           | Reviewed curated wins; pattern keeps Tatoeba extras; union-merge keeps Tatoeba; practice may top up underfilled                                                                                         |
+| `apply-related.ts`             | `bun scripts/dictionary/apply-related.ts`                                    | Fills empty related from `related-clusters.json`                                                                                                                                                        |
 
 Example limits: `src/lib/catalog/dictionary/example-limits.ts` — store pool 8 / display 4. Primary dictionary growth is frequency publish + example enrich. Example quality gates live in `src/lib/catalog/dictionary/example-quality.ts` + tests (not separate audit scripts).
 

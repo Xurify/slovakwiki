@@ -14,6 +14,17 @@ Primary source link on curated dictionary entries.
 - [slovnik.juls.savba.sk](https://slovnik.juls.savba.sk/)
 - [Jazykovedný ústav Ľ. Štúra](https://www.juls.savba.sk/)
 
+### Wiktionary (via kaikki.org)
+
+Grammatical gender on dictionary nouns (masculine animate / inanimate, feminine, neuter, plural only). English Wiktionary first, Polish Wiktionary for lemmas English lacks, confident Slovak ending rules last; written by scripts/dictionary/import-noun-gender.ts.
+
+License: CC BY-SA (attribute Wiktionary contributors)
+
+- [English Wiktionary Slovak extract](https://kaikki.org/dictionary/Slovak/)
+- [English Wiktionary Slovak dump (JSONL)](https://kaikki.org/dictionary/Slovak/kaikki.org-dictionary-Slovak.jsonl)
+- [Polish Wiktionary Slovak extract](https://kaikki.org/plwiktionary/j%C4%99zyk%20s%C5%82owacki/index.html)
+- [Polish Wiktionary Slovak dump (JSONL)](https://kaikki.org/plwiktionary/j%C4%99zyk%20s%C5%82owacki/kaikki.org-dictionary-j%C4%99zyks%C5%82owacki.jsonl)
+
 ## Corpus and frequency
 
 Trusted frequency lists for the most common lemmas by part of speech.

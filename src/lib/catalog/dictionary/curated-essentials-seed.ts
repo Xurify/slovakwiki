@@ -10,6 +10,7 @@ type WordSeed = Pick<
   | "related"
   | "topics"
   | "register"
+  | "gender"
   | "dialect"
 >;
 
@@ -702,6 +703,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slovak: "objatie",
     english: "hug; embrace",
     category: "Nouns",
+    gender: "neuter",
     topics: ["People"],
     examples: [
       {
@@ -762,6 +764,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slovak: "kšeft",
     english: "deal; hustle; bit of business",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Everyday life"],
     register: "slang",
     examples: [

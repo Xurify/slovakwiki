@@ -59,6 +59,32 @@ export const referenceSources: ReferenceSource[] = [
     ],
   },
   {
+    id: "wiktionary-kaikki",
+    group: "dictionary",
+    name: "Wiktionary (via kaikki.org)",
+    usedFor:
+      "Grammatical gender on dictionary nouns (masculine animate / inanimate, feminine, neuter, plural only). English Wiktionary first, Polish Wiktionary for lemmas English lacks, confident Slovak ending rules last; written by scripts/dictionary/import-noun-gender.ts.",
+    license: "CC BY-SA (attribute Wiktionary contributors)",
+    links: [
+      {
+        href: "https://kaikki.org/dictionary/Slovak/",
+        label: "English Wiktionary Slovak extract",
+      },
+      {
+        href: "https://kaikki.org/dictionary/Slovak/kaikki.org-dictionary-Slovak.jsonl",
+        label: "English Wiktionary Slovak dump (JSONL)",
+      },
+      {
+        href: "https://kaikki.org/plwiktionary/j%C4%99zyk%20s%C5%82owacki/index.html",
+        label: "Polish Wiktionary Slovak extract",
+      },
+      {
+        href: "https://kaikki.org/plwiktionary/j%C4%99zyk%20s%C5%82owacki/kaikki.org-dictionary-j%C4%99zyks%C5%82owacki.jsonl",
+        label: "Polish Wiktionary Slovak dump (JSONL)",
+      },
+    ],
+  },
+  {
     id: "snk-frequency",
     group: "corpus",
     name: "Slovak National Corpus (SNK) frequency lists",
