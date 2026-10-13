@@ -29,11 +29,16 @@ import {
   saveManifest,
   sleep,
   synthesizeElevenLabs,
+  type AudioManifest,
   type AudioTarget,
   type ManifestEntry,
 } from "./shared";
 
 const MANIFEST_SAVE_EVERY = 50;
+
+function isUploaded(manifest: AudioManifest, hash: string): boolean {
+  return Boolean(manifest[hash]?.uploadedAt);
+}
 
 async function fileExists(filePath: string): Promise<boolean> {
   try {
@@ -89,6 +94,9 @@ async function main(): Promise<void> {
     const pending = [];
     for (const target of targets) {
       const voiceConfig = target.voiceConfig ?? config;
+      // static/audio/ is gitignored: a fresh clone has no files, but clips
+      // stamped `uploadedAt` are already on R2 and must not be re-synthesized.
+      if (isUploaded(manifest, hashAudioText(target.text, voiceConfig))) continue;
       const relative = audioRelativePath(target.text, target.kind, voiceConfig);
       if (!(await fileExists(path.join(AUDIO_DIR, relative)))) {
         pending.push(target);
@@ -187,7 +195,7 @@ async function main(): Promise<void> {
     const filePath = path.join(AUDIO_DIR, relative);
     const exists = await fileExists(filePath);
 
-    if (exists && !force) {
+    if ((exists || isUploaded(manifest, hash)) && !force) {
       skipped += 1;
       await withManifestLock(async () => {
         if (!manifest[hash]) {
@@ -298,12 +306,12 @@ async function main(): Promise<void> {
         return;
       }
 
+      // No `uploadedAt`: R2 still holds the previous take until upload.ts sends this one.
       const entry: ManifestEntry = {
         text: target.text,
         kind: target.kind,
         bytes: audio.byteLength,
         generatedAt: new Date().toISOString(),
-        uploadedAt: manifest[hash]?.uploadedAt,
         characterId: target.characterId,
         voiceId: voiceConfig.voiceId,
       };
