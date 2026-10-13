@@ -111,6 +111,7 @@ async function main(): Promise<void> {
 
   let uploaded = 0;
   let skipped = 0;
+  let alreadyInR2 = 0;
   let failed = 0;
   const startedAt = Date.now();
 
@@ -150,6 +151,38 @@ async function main(): Promise<void> {
       `${lemmasOnly ? " [lemmas]" : ""}${examplesOnly ? " [examples]" : ""}${lessonsOnly ? " [lessons]" : ""}`,
   );
 
+  /**
+   * The manifest's `uploadedAt` goes stale across branches, so ask R2 before
+   * sending bytes. A HEAD carries no body: it costs one round trip, not bandwidth.
+   */
+  async function existsInR2(url: string, size: number): Promise<boolean> {
+    const response = await aws.fetch(url, { method: "HEAD" });
+    return response.ok && Number(response.headers.get("content-length")) === size;
+  }
+
+  function stampUploaded(
+    hash: string,
+    kind: AudioKind,
+    size: number,
+    generatedAt: string,
+  ): void {
+    const entry = manifest[hash];
+    if (entry) {
+      entry.bytes = size;
+      entry.uploadedAt = new Date().toISOString();
+    } else {
+      manifest[hash] = {
+        text: "",
+        kind,
+        bytes: size,
+        generatedAt,
+        uploadedAt: new Date().toISOString(),
+      };
+      addedEntries = true;
+    }
+    manifestDirty = true;
+  }
+
   await mapPool(
     keys,
     dryRun ? Math.min(uploadConcurrency, 64) : uploadConcurrency,
@@ -171,9 +204,18 @@ async function main(): Promise<void> {
       }
 
       try {
-        const body = await readFile(filePath);
         const info = await stat(filePath);
         const generatedAt = entry?.generatedAt ?? new Date().toISOString();
+        const r2Key = toR2AudioKey(objectKey);
+        const url = `https://${endpointHost}/${bucket}/${r2Key}`;
+
+        if (!force && (await existsInR2(url, info.size))) {
+          stampUploaded(hash, kind, info.size, generatedAt);
+          alreadyInR2 += 1;
+          return;
+        }
+
+        const body = await readFile(filePath);
         const metadata = buildAudioObjectMetadata({
           config,
           generatedAt,
@@ -192,8 +234,6 @@ async function main(): Promise<void> {
           headers[`x-amz-meta-${key}`] = value;
         }
 
-        const r2Key = toR2AudioKey(objectKey);
-        const url = `https://${endpointHost}/${bucket}/${r2Key}`;
         const response = await aws.fetch(url, {
           method: "PUT",
           headers,
@@ -205,20 +245,7 @@ async function main(): Promise<void> {
           throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
         }
 
-        if (entry) {
-          entry.bytes = info.size;
-          entry.uploadedAt = new Date().toISOString();
-        } else {
-          manifest[hash] = {
-            text: "",
-            kind,
-            bytes: info.size,
-            generatedAt,
-            uploadedAt: new Date().toISOString(),
-          };
-          addedEntries = true;
-        }
-        manifestDirty = true;
+        stampUploaded(hash, kind, info.size, generatedAt);
         uploaded += 1;
         console.log(`ok ${uploaded} ${r2Key} (${info.size} B)`);
       } catch (error) {
@@ -243,7 +270,7 @@ async function main(): Promise<void> {
     uploaded > 0 ? (uploaded / ((Date.now() - startedAt) / 1000)).toFixed(1) : "0";
 
   console.log(
-    `Done. uploaded=${uploaded} skipped=${skipped} failed=${failed}` +
+    `Done. uploaded=${uploaded} already-in-r2=${alreadyInR2} skipped=${skipped} failed=${failed}` +
       ` rate=${rate}/s elapsed=${elapsedSec}s`,
   );
   if (failed > 0) process.exitCode = 1;
