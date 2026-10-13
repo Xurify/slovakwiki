@@ -1,4 +1,5 @@
 import type { Lesson } from "$lib/learning/types";
+import { possessivesLesson } from "$lib/learning/possessives/lesson";
 import { withBytExercises, withMatExercises, withPresentTenseExercises } from "./beats";
 
 export const grammarLessons: Lesson[] = [
@@ -10,41 +11,73 @@ export const grammarLessons: Lesson[] = [
     promise: "Use the six present-tense endings to say who is doing the action.",
     scene: [
       {
-        id: "peter-reads",
+        id: "anna-asks",
         speaker: "Anna",
-        slovak: "Peter číta knihu.",
-        english: "Peter is reading a book.",
-        audio: { transcript: "Peter číta knihu." },
-      },
-      {
-        id: "ask-you",
-        speaker: "Anna",
-        slovak: "Čítaš knihu?",
-        english: "Are you reading a book?",
-        audio: { transcript: "Čítaš knihu?" },
+        slovak: "Ahoj! Čo robíš?",
+        english: "Hi! What are you doing?",
+        audio: { transcript: "Ahoj! Čo robíš?" },
       },
       {
         id: "you-read",
         speaker: "You",
-        slovak: "Áno, čítam.",
-        english: "Yes, I am reading.",
-        audio: { transcript: "Áno, čítam." },
+        slovak: "Čítam knihu. A ty?",
+        english: "I'm reading a book. And you?",
+        audio: { transcript: "Čítam knihu. A ty?" },
         sayChoices: {
           answerId: "i-read",
           choices: [
-            { id: "i-read", label: "Áno, čítam." },
+            { id: "i-read", label: "Čítam knihu. A ty?" },
             {
               id: "he-reads",
-              label: "Áno, číta.",
+              label: "Číta knihu. A ty?",
               whyWrong: "**Číta** ends in **-a** for he/she — not I.",
             },
             {
               id: "you-read",
-              label: "Áno, čítaš.",
+              label: "Čítaš knihu. A ty?",
               whyWrong: "**Čítaš** ends in **-š** for informal you — not I.",
             },
           ],
         },
+      },
+      {
+        id: "anna-reads",
+        speaker: "Anna",
+        slovak: "Aj ja čítam. Peter číta noviny.",
+        english: "I'm reading too. Peter is reading the newspaper.",
+        audio: { transcript: "Aj ja čítam. Peter číta noviny." },
+      },
+      {
+        id: "you-ask-both",
+        speaker: "You",
+        slovak: "Čítate tu každé ráno?",
+        english: "Do you two read here every morning?",
+        audio: { transcript: "Čítate tu každé ráno?" },
+        sayChoices: {
+          answerId: "you-both",
+          choices: [
+            { id: "you-both", label: "Čítate tu každé ráno?" },
+            {
+              id: "you-one",
+              label: "Čítaš tu každé ráno?",
+              whyWrong:
+                "**Čítaš** asks only Anna. You are asking her and Peter together: **čítate**.",
+            },
+            {
+              id: "they",
+              label: "Čítajú tu každé ráno?",
+              whyWrong:
+                "**Čítajú** talks about them, not to them. Ask them directly with **čítate**.",
+            },
+          ],
+        },
+      },
+      {
+        id: "anna-we-read",
+        speaker: "Anna",
+        slovak: "Áno, čítame tu každé ráno.",
+        english: "Yes, we read here every morning.",
+        audio: { transcript: "Áno, čítame tu každé ráno." },
       },
     ],
     keyPhrases: [
@@ -513,4 +546,5 @@ export const grammarLessons: Lesson[] = [
       { href: "/grammar/negation", label: "Negation" },
     ],
   },
+  possessivesLesson,
 ];

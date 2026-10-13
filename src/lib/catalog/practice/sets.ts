@@ -1,4 +1,8 @@
 import type { LessonTrackId } from "$lib/learning/types";
+import {
+  POSSESSIVES_SESSION_SIZE,
+  possessivesPracticeItemIds,
+} from "$lib/learning/possessives/session";
 import { daysDatesTimePracticeItemIds } from "$lib/learning/time/practice-catalog";
 
 export interface PracticeSet {
@@ -7,7 +11,7 @@ export interface PracticeSet {
   lessonId: string;
   previewItemId?: string;
   sessionSize?: number;
-  sessionKind?: "days-dates-time";
+  sessionKind?: "days-dates-time" | "possessives";
   summary?: string;
   title: string;
   track: LessonTrackId;
@@ -129,5 +133,16 @@ export const practiceSets: PracticeSet[] = [
     summary: "Say what you have, ask a friend about a ticket, and negate mať naturally.",
     track: "grammar",
     itemIds: ["grammar/mat-mam", "grammar/mat-mas", "grammar/mat-nemam"],
+  },
+  {
+    id: "possessives",
+    lessonId: "grammar/possessives",
+    title: "Possessives: môj, jeho, svoj",
+    summary:
+      "Fresh drills every session — agreement, svoj vs. jeho, all six cases, čí, Petrov / Annina, and the naším / našim trap.",
+    track: "grammar",
+    sessionKind: "possessives",
+    sessionSize: POSSESSIVES_SESSION_SIZE,
+    itemIds: [...possessivesPracticeItemIds],
   },
 ];

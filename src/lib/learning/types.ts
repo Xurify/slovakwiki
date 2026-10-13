@@ -119,7 +119,7 @@ export interface SelectAllExercise extends ExerciseBase {
   type: "selectAll";
 }
 
-export interface LessonVisual {
+export interface ClockGridVisual {
   items: Array<{
     english: string;
     note?: string;
@@ -129,6 +129,30 @@ export interface LessonVisual {
   title: string;
   type: "clock-grid";
 }
+
+/** A label in English with its Slovak term and an example: Masculine · mužský rod · brat. */
+export interface FormTableHeading {
+  english: string;
+  example?: string;
+  slovak?: string;
+}
+
+export interface FormTableSection {
+  /** Divider row above the section, e.g. Singular · jednotné číslo. */
+  heading?: FormTableHeading;
+  rows: Array<{ cells: string[]; heading: FormTableHeading }>;
+}
+
+/** Small paradigm grid: one Slovak form per cell, labeled rows grouped into sections. */
+export interface FormTableVisual {
+  columns: FormTableHeading[];
+  note?: string;
+  sections: FormTableSection[];
+  title: string;
+  type: "form-table";
+}
+
+export type LessonVisual = ClockGridVisual | FormTableVisual;
 
 export interface BuildExercise extends ExerciseBase {
   answer: string[];
@@ -180,7 +204,7 @@ export interface LessonBeatTeach {
   note?: string;
   phrases?: KeyPhrase[];
   sceneLineIds?: string[];
-  visual?: LessonVisual;
+  visual?: LessonVisual | LessonVisual[];
 }
 
 export interface LessonBeat {

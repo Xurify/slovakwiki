@@ -11,6 +11,10 @@ export const TEXT_ROLE_CLASS = {
   day: "text-mark-day",
   /** Clock phrase (`o druhej`, `o pol druhej`). */
   time: "text-mark-time",
+  /** Who owns it (`Tom`) — shares the day color so svoj visibly points back to it. */
+  owner: "text-mark-day",
+  /** Possessive word (`môj`, `svojmu`). */
+  possessive: "text-mark-time",
 } as const;
 
 export type TextRole = keyof typeof TEXT_ROLE_CLASS;

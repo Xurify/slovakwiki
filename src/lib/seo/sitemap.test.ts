@@ -21,8 +21,8 @@ describe("sitemap", () => {
     expect(byName.pages).toContain(`${SITE_ORIGIN}/dictionary`);
     expect(byName.dictionary?.length).toBeGreaterThan(6500);
     expect(byName.grammar?.length).toBe(18);
-    expect(byName.lessons?.length).toBe(11);
-    expect(byName.practice?.length).toBe(10);
+    expect(byName.lessons?.length).toBe(12);
+    expect(byName.practice?.length).toBe(11);
     expect(byName.pronunciation?.length).toBe(5);
 
     const all = groups.flatMap((group) => group.urls);

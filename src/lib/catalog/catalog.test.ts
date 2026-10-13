@@ -209,7 +209,7 @@ describe("Slovak content", () => {
       expect(lessonById.has(set.lessonId)).toBe(true);
     }
 
-    expect(practiceSets).toHaveLength(10);
+    expect(practiceSets).toHaveLength(11);
     const present = practiceSetForLesson("grammar/present-tense-i");
     expect(present?.id).toBe("present-tense-i");
     expect(present?.sessionSize).toBe(7);
@@ -231,6 +231,12 @@ describe("Slovak content", () => {
     );
     expect(practiceSetForLesson("grammar/byt-present")?.id).toBe("byt-present");
     expect(practiceSetForLesson("grammar/mat-present")?.id).toBe("mat-present");
+
+    const possessives = practiceSetForLesson("grammar/possessives")!;
+    expect(possessives.id).toBe("possessives");
+    expect(possessives.sessionKind).toBe("possessives");
+    expect(possessives.sessionSize).toBe(13);
+    expect(possessives.itemIds.length).toBeGreaterThan(13);
   });
 
   it("gives every practice set a unique skim graphic", () => {
@@ -283,8 +289,11 @@ describe("Slovak content", () => {
     );
 
     const timeLesson = lessonById.get("everyday/days-dates-and-time");
-    expect(timeLesson?.visual?.type).toBe("clock-grid");
-    expect(timeLesson?.visual?.items.length).toBeGreaterThanOrEqual(4);
+    const timeVisual = timeLesson?.visual;
+    expect(timeVisual?.type).toBe("clock-grid");
+    if (timeVisual?.type === "clock-grid") {
+      expect(timeVisual.items.length).toBeGreaterThanOrEqual(4);
+    }
 
     for (const lesson of lessons) {
       for (const exercise of lessonExercises(lesson)) {
@@ -317,6 +326,7 @@ describe("Slovak content", () => {
     expect(lessonById.has("everyday/negation-in-conversation")).toBe(true);
     expect(lessonById.has("grammar/byt-present")).toBe(true);
     expect(lessonById.has("grammar/mat-present")).toBe(true);
+    expect(lessonById.has("grammar/possessives")).toBe(true);
 
     for (const lessonId of [
       "everyday/numbers-and-personal-details",

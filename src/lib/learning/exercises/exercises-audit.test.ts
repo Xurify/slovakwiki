@@ -10,6 +10,11 @@ import {
   materializeDaysDatesTimeItem,
   type DaysDatesTimeKind,
 } from "$lib/learning/time/session";
+import {
+  POSSESSIVE_KINDS,
+  materializePossessiveItem,
+  seededRng,
+} from "$lib/learning/possessives/session";
 import { practiceItems } from "$lib/catalog/practice";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessons } from "$lib/catalog/lessons";
@@ -35,6 +40,12 @@ function allChoiceTasks(): ChoiceExercise[] {
       (seed) => materializeDaysDatesTimeItem(kind as DaysDatesTimeKind, () => seed).task,
     ),
   );
+  const possessives = POSSESSIVE_KINDS.flatMap((kind) =>
+    Array.from(
+      { length: 40 },
+      (_, seed) => materializePossessiveItem(kind, seededRng(seed + 1)).task,
+    ),
+  );
 
   return [
     ...choiceExercisesFromLessons(),
@@ -46,6 +57,7 @@ function allChoiceTasks(): ChoiceExercise[] {
       .map((item) => item.task)
       .filter((task): task is ChoiceExercise => task.type === "choice"),
     ...materialized.filter((task): task is ChoiceExercise => task.type === "choice"),
+    ...possessives.filter((task): task is ChoiceExercise => task.type === "choice"),
   ];
 }
 

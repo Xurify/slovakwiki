@@ -40,9 +40,9 @@ const byLessonId: Record<string, LessonStorySetting> = {
     placeSk: "Doma",
   },
   "grammar/present-tense-i": {
-    art: "plaza",
-    place: "Talking about today",
-    placeSk: "Dnes",
+    art: "cafe",
+    place: "A morning at the café",
+    placeSk: "Ráno v kaviarni",
   },
   "grammar/byt-present": {
     art: "home",
@@ -53,6 +53,11 @@ const byLessonId: Record<string, LessonStorySetting> = {
     art: "market",
     place: "What you have",
     placeSk: "Čo máš",
+  },
+  "grammar/possessives": {
+    art: "home",
+    place: "Visiting Anna at home",
+    placeSk: "Na návšteve u Anny",
   },
   "pronunciation/first-syllable-stress": {
     art: "classroom",

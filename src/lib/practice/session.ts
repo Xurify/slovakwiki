@@ -6,6 +6,12 @@ import {
 import { maybeMaterializeBuildItem } from "$lib/learning/exercises/materialize-build";
 import type { PracticeItem } from "$lib/learning/types";
 import {
+  buildPossessivesSession,
+  isPossessiveKind,
+  materializePossessiveItem,
+  seededRng,
+} from "$lib/learning/possessives/session";
+import {
   buildDaysDatesTimeSession,
   isDaysDatesTimeKind,
   materializeDaysDatesTimeItem,
@@ -19,10 +25,12 @@ function itemsFromIds(itemIds: readonly string[]): PracticeItem[] {
 
 /**
  * Catalog order for prerender. Clock drills need RNG, so SSR leaves them empty
- * and the island fills a fresh session after mount.
+ * and the island fills a fresh session after mount. Possessive drills render a
+ * fixed-seed session so hydration matches; the client then draws a fresh one.
  */
 export function ssrPracticeSession(set: PracticeSet): PracticeItem[] {
   if (set.sessionKind === "days-dates-time") return [];
+  if (set.sessionKind === "possessives") return buildPossessivesSession(seededRng(1));
 
   const ids =
     set.sessionSize === undefined || set.sessionSize >= set.itemIds.length
@@ -43,6 +51,14 @@ export function clientPracticeSession(
     }
 
     return buildDaysDatesTimeSession();
+  }
+
+  if (set.sessionKind === "possessives") {
+    if (atItemId && isPossessiveKind(atItemId)) {
+      return [materializePossessiveItem(atItemId)];
+    }
+
+    return buildPossessivesSession();
   }
 
   if (atItemId && set.itemIds.includes(atItemId)) {

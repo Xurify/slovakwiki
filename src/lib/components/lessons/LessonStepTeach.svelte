@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
+  import FormTable from "$lib/components/lessons/FormTable.svelte";
   import LessonSceneBackdrop from "$lib/components/lessons/LessonSceneBackdrop.svelte";
   import LessonStoryLine from "$lib/components/lessons/LessonStoryLine.svelte";
   import {
@@ -85,8 +86,13 @@
   });
 
   const hasAftercare = $derived(
-    takeaways.length > 0 || Boolean(teach.note) || teach.visual?.type === "clock-grid",
+    takeaways.length > 0 || Boolean(teach.note) || Boolean(teach.visual),
   );
+
+  const visualHeadingClass =
+    "m-0 mb-4 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+
+  const visuals = $derived(teach.visual ? [teach.visual].flat() : []);
 
   const visibleLines = $derived(scene.slice(0, revealedCount));
   const storyActive = $derived(scene.length > 0);
@@ -377,9 +383,7 @@
 
 <div class="relative mx-auto flex min-h-full w-full max-w-2xl flex-col">
   {#if storyActive}
-    <div
-      class="sticky top-0 z-20 isolate overflow-hidden border-b border-slate-200/70 bg-paper/95 backdrop-blur-md"
-    >
+    <div class="isolate overflow-hidden border-b border-slate-200/70 bg-paper">
       <div class="relative h-[6.5rem] sm:h-[7.75rem]">
         <LessonSceneBackdrop art={setting.art} />
       </div>
@@ -558,37 +562,42 @@
           </p>
         {/if}
 
-        {#if teach.visual?.type === "clock-grid"}
-          <div>
-            <h3
-              class="m-0 mb-4 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-            >
-              {teach.visual.title}
-            </h3>
+        {#each visuals as visual (visual.title)}
+          {#if visual.type === "clock-grid"}
+            <div>
+              <h3 class={visualHeadingClass}>
+                {visual.title}
+              </h3>
 
-            <ul
-              class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
-            >
-              {#each teach.visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
-                <li
-                  class="grid justify-items-center gap-1.5 rounded-(--frame-radius) bg-surface/80 px-3 py-4 shadow-(--shadow-border)"
-                >
-                  <ClockIllustration
-                    hour={item.time.hour}
-                    minute={item.time.minute}
-                    size={84}
-                  />
+              <ul
+                class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
+              >
+                {#each visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
+                  <li
+                    class="grid justify-items-center gap-1.5 rounded-(--frame-radius) bg-surface/80 px-3 py-4 shadow-(--shadow-border)"
+                  >
+                    <ClockIllustration
+                      hour={item.time.hour}
+                      minute={item.time.minute}
+                      size={84}
+                    />
 
-                  <strong class="text-center font-serif text-sm text-slate-900" lang="sk">
-                    {item.slovak}
-                  </strong>
+                    <strong
+                      class="text-center font-serif text-sm text-slate-900"
+                      lang="sk"
+                    >
+                      {item.slovak}
+                    </strong>
 
-                  <span class="text-center text-xs text-slate-500">{item.english}</span>
-                </li>
-              {/each}
-            </ul>
-          </div>
-        {/if}
+                    <span class="text-center text-xs text-slate-500">{item.english}</span>
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          {:else}
+            <FormTable table={visual} />
+          {/if}
+        {/each}
       </div>
     {/if}
   </div>
