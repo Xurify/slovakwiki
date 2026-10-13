@@ -169,7 +169,13 @@ async function searchCommonsCandidates(
 }
 
 async function main(): Promise<void> {
-  const { force, limit, only, partOfSpeech } = parseArgs(process.argv.slice(2));
+  const { dryRun, force, limit, only, partOfSpeech } = parseArgs(process.argv.slice(2));
+  if (dryRun) {
+    throw new Error(
+      "stage-candidates.ts has no dry run: it downloads candidate thumbnails. " +
+        "Use --only <slug> to try one lemma.",
+    );
+  }
   const manifest = await loadManifest();
   await ensureImagesDir();
   await mkdir(CANDIDATES_DIR, { recursive: true });

@@ -524,7 +524,15 @@ async function applyOk(
 }
 
 async function main(): Promise<void> {
-  const { force, limit, only, partOfSpeech, upgrade } = parseArgs(process.argv.slice(2));
+  const { dryRun, force, limit, only, partOfSpeech, upgrade } = parseArgs(
+    process.argv.slice(2),
+  );
+  if (dryRun) {
+    throw new Error(
+      "fetch.ts has no dry run: it downloads images and writes the manifest. " +
+        "Use --only <slug> to try one lemma.",
+    );
+  }
   const overrides = await loadOverrides();
   const manifest = await loadManifest();
   await ensureImagesDir();
