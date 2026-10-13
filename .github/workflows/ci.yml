@@ -45,3 +45,5 @@ jobs:
       - run: bun run build
 
       - run: bun run cwv:check
+
+      - run: bun run audio:check
