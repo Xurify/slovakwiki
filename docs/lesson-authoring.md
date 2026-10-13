@@ -44,7 +44,7 @@ The scene is a real conversation that the beats replay in pieces.
 - [ ] `referenceLinks` only to pages that exist (`/grammar/<slug>`, `/grammar/cases/<case>`, `/dictionary/<slug>`).
 - [ ] Practice items: hand-written in `src/lib/catalog/practice/items-*.ts`, or generated (possessives pattern: `session.ts` materializes catalog stubs from seeded generators).
 - [ ] Practice set in `src/lib/catalog/practice/sets.ts`. Generated sets add a `sessionKind`, wired through `src/lib/practice/session.ts` (seeded SSR session so hydration matches, fresh client session that keeps the painted first card).
-- [ ] Motif art: `src/lib/lesson-story/lesson-motifs.ts` maps the lesson to a tile in `static/lessons/motifs/<id>.png`. Every practice set needs a unique tile (a test enforces it); an unmapped lesson uses `default.png`, which only one set can hold. New tile: follow [`lesson-motifs.md`](lesson-motifs.md) so it matches the set.
+- [ ] Motif art: `src/lib/lesson-story/lesson-motifs.ts` maps the lesson to a tile in `static/lessons/motifs/<id>.webp`. Every practice set needs a unique tile (a test enforces it); an unmapped lesson uses `default.webp`, which only one set can hold. New tile: follow [`lesson-motifs.md`](lesson-motifs.md) so it matches the set.
 - [ ] Update the fixed counts in tests: `practiceSets` length in `src/lib/catalog/catalog.test.ts`, and `lessons` / `practice` in `src/lib/seo/sitemap.test.ts`.
 - [ ] Changed anything a FOUC boot imports (e.g. `marked-text.ts`)? Run `bun run fouc:boot` and commit the generated file.
 

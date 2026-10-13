@@ -1,24 +1,24 @@
 # Lesson motifs
 
-Topic tiles in `static/lessons/motifs/<id>.png`: one per lesson topic, reused by its practice set and grammar page. This doc describes the house style, measured from the existing 11 tiles, so new ones match.
+Topic tiles in `static/lessons/motifs/<id>.webp`: one per lesson topic, reused by its practice set and grammar page. This doc describes the house style, measured from the existing 11 tiles, so new ones match.
 
 ## The set
 
-| File                | Shows                                                | Idea                         |
-| ------------------- | ---------------------------------------------------- | ---------------------------- |
-| `greetings.png`     | Two overlapping speech bubbles with `…`, leaf sprigs | Conversation                 |
-| `questions.png`     | `?` on a cloud bubble, smaller cloud, sprigs         | Asking                       |
-| `numbers.png`       | Three cards: 1, 2, 3                                 | Counting                     |
-| `time.png`          | Clock: thick rim, dot markers, two hands             | Time                         |
-| `negation.png`      | Red X on a blush tile                                | "No"                         |
-| `present-tense.png` | 3×2 grid of tiles with abstract cut-outs             | Six person forms             |
-| `byt.png`           | ID-style card with a person silhouette               | Who someone is               |
-| `mat.png`           | Card holding a leaf and two text bars                | Something you have           |
-| `stress.png`        | Megaphone with three sound arcs                      | Emphasis                     |
-| `phrase-stress.png` | Three bars, tallest first                            | Weight on the first syllable |
-| `default.png`       | Closed book with a folded corner, sprigs             | General reference            |
+| File                 | Shows                                                | Idea                         |
+| -------------------- | ---------------------------------------------------- | ---------------------------- |
+| `greetings.webp`     | Two overlapping speech bubbles with `…`, leaf sprigs | Conversation                 |
+| `questions.webp`     | `?` on a cloud bubble, smaller cloud, sprigs         | Asking                       |
+| `numbers.webp`       | Three cards: 1, 2, 3                                 | Counting                     |
+| `time.webp`          | Clock: thick rim, dot markers, two hands             | Time                         |
+| `negation.webp`      | Red X on a blush tile                                | "No"                         |
+| `present-tense.webp` | 3×2 grid of tiles with abstract cut-outs             | Six person forms             |
+| `byt.webp`           | ID-style card with a person silhouette               | Who someone is               |
+| `mat.webp`           | Card holding a leaf and two text bars                | Something you have           |
+| `stress.webp`        | Megaphone with three sound arcs                      | Emphasis                     |
+| `phrase-stress.webp` | Three bars, tallest first                            | Weight on the first syllable |
+| `default.webp`       | Closed book with a folded corner, sprigs             | General reference            |
 
-Best style references: `numbers.png`, `stress.png`, `time.png`, `greetings.png`. Don't copy the outliers: `questions.png` bleeds off every edge and fills half the frame; `byt.png` and `mat.png` have rough, torn-looking edges; `negation.png` reads as painted (no felt shadow).
+Best style references: `numbers.webp`, `stress.webp`, `time.webp`, `greetings.webp`. Don't copy the outliers: `questions.webp` bleeds off every edge and fills half the frame; `byt.webp` and `mat.webp` have rough, torn-looking edges; `negation.webp` reads as painted (no felt shadow).
 
 ## Style
 
@@ -48,17 +48,14 @@ Leave blue only when the topic maps to one of the site's semantic colors, and th
 
 ## Framing
 
-The tile is cropped differently wherever it appears:
+| Where                                          | Size                                                        | What shows                                                                  |
+| ---------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Lesson path card, practice path, grammar path  | 52–56px square                                              | Whole tile, tiny                                                            |
+| Lessons "Continue" / Practice "Up next" banner | 144px tall (128px on the grammar questions card), any width | The tile at 4/3 of the banner height on its own paper color (`MotifBanner`) |
 
-| Where                                          | Size                                                                                                    | What shows                                                              |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Lesson path card, practice path, grammar path  | 52–56px square                                                                                          | Whole tile, tiny                                                        |
-| Lessons "Continue" / Practice "Up next" banner | 144px tall (128px on the grammar questions card); 280px wide in the desktop rail, full width below `lg` | Middle ~50% of the height on desktop, ~40% on a phone, ~20% on a tablet |
+The banner shows the middle 75% of the tile's height and fades out the outer 6% of each side, so:
 
-So:
-
-- Put what makes the symbol readable in the **middle band: x 15–85%, y 30–70%**. Prefer subjects wider than tall. `numbers.png`, `stress.png` and `greetings.png` survive the banners; the tall book, clock and ID card lose their top and bottom there.
-- Don't frame the whole composition: `mat.png`'s border gets cut into stray green lines.
+- Keep everything that matters inside **x 7–93%, y 12.5–87.5%**. `questions.webp` breaks this and clips in its banner.
 - Leave cream on every side: the subject spans 55–85% of the width, felt covers 17–41% of the area, and no margin is under ~7% (70px).
 - Check it at 52px: one clear silhouette with two or three tones. The six-tile grid is the most detail the set holds.
 
@@ -75,7 +72,7 @@ Every shape is a separate piece of wool felt with visible fiber texture and clea
 
 Colors: only navy #1E3D6B, royal blue #1A4F8F, slate blue #5F7489, light sky blue #8FB4D4, and cream felt #F0EBE0.
 
-Composition: a single centered subject, wider than tall, about 70% of the width and the middle 40% of the height, with generous empty cream margin on every side. {Optional: "Two small leaf sprigs in slate blue and light sky blue at the lower left and lower right, and two tiny clusters of dots."}
+Composition: a single centered subject, about 60–80% of the width and no more than 70% of the height, with generous empty cream margin on every side. {Optional: "Two small leaf sprigs in slate blue and light sky blue at the lower left and lower right, and two tiny clusters of dots."}
 
 Flat, minimal, geometric, friendly. No text, no letters, no faces, no outlines, no gradients, no gloss, no 3D perspective, nothing besides the subject.
 ```
@@ -86,8 +83,8 @@ Reject and regenerate when there are stray letters or extra objects, the shadow 
 
 ## Export and wire in
 
-1. Save at **1024×1024** as `static/lessons/motifs/<id>.png` (kebab-case topic). The existing files are JPEG data (quality ≈ 90, 330–430 KB) under a `.png` name, because `motifArtSrc` hardcodes `.png`; keep both so the set stays uniform.
+1. Save at **1024×1024** as WebP, quality 75, to `static/lessons/motifs/<id>.webp` (kebab-case topic). The set runs 40–100 KB per tile.
 2. Add `<id>` to `LessonMotifId` and map the lesson in `BY_LESSON_ID` (`src/lib/lesson-story/lesson-motifs.ts`).
-3. Add an entry to `practiceMotifWellClass` in `src/lib/catalog/practice/motifs.ts`. It is keyed by every motif id, so typecheck fails without it. Use `bg-blue-50` unless the tile is rose or emerald.
+3. Add the tile's paper color to `motifPaper` in `src/lib/catalog/motifs/art.ts`: the mean color of the outer 40px on the left and right edges (average a patch; single pixels vary with the grain). The banner fills its sides with it, and typecheck fails without an entry.
 4. Optional: a different tile for the practice set (`BY_SET_ID`, same file), or a grammar page (`BY_GRAMMAR_SLUG` in `src/lib/catalog/reference/grammar-motifs.ts`; a test checks the file exists).
 5. Look at it next to the others on `/lessons` and `/practice`, at desktop and phone width.
