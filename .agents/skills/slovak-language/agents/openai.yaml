@@ -1,0 +1,4 @@
+interface:
+  display_name: "Slovak Language"
+  short_description: "Learn, use, translate, and teach Slovak."
+  default_prompt: "Use $slovak-language to help me learn and use Slovak accurately."

@@ -4,13 +4,13 @@ Astro + Svelte 5 + Tailwind CSS v4. Read this before UI or styling work.
 
 Domain-specific authoring and pipelines live next to the work — not here:
 
-| Need                                        | Where                                                          |
-| ------------------------------------------- | -------------------------------------------------------------- |
-| Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                       |
-| Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md) |
-| Voice roster                                | [`content/audio/README.md`](content/audio/README.md)           |
-| FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)             |
-| Slovak linguistic accuracy                  | `slovak-language` skill                                        |
+| Need                                        | Where                                                              |
+| ------------------------------------------- | ------------------------------------------------------------------ |
+| Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                           |
+| Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md)     |
+| Voice roster                                | [`content/audio/README.md`](content/audio/README.md)               |
+| FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                 |
+| Slovak linguistic accuracy                  | [`slovak-language` skill](.agents/skills/slovak-language/SKILL.md) |
 
 ## Tooling
 
@@ -87,7 +87,7 @@ After publish/enrich/curate/related or lesson/practice text changes: `bun run in
 
 ## Slovak language skill
 
-**Skill:** `slovak-language` — `~/.codex/skills/slovak-language/SKILL.md` (also listed in Cursor agent skills).
+**Skill:** `slovak-language` — [`.agents/skills/slovak-language/SKILL.md`](.agents/skills/slovak-language/SKILL.md).
 
 **When to use:** Read and follow that skill **before** producing or editing meaningful Slovak (diacritics, agreement, case, aspect, register). Trigger for:
 
