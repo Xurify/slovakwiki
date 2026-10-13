@@ -1,7 +1,10 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
-  import { shouldShowCorrection } from "$lib/components/practice/practice-feedback-ui";
+  import {
+    shouldShowCorrection,
+    splitEmphasis,
+  } from "$lib/components/practice/practice-feedback-ui";
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
 
   let {
@@ -31,6 +34,7 @@
   const incorrect = $derived(grade === "incorrect");
   const accents = $derived(grade === "accents");
   const isMiss = $derived(incorrect || accents || revealed);
+  const whyParts = $derived(why ? splitEmphasis(why) : []);
   const showCorrection = $derived(
     showCorrectionProp ?? (isMiss && shouldShowCorrection(true, grade, revealed)),
   );
@@ -81,6 +85,20 @@
           </svg>
           Correct!
         </p>
+
+        {#if whyParts.length}
+          <p
+            class="m-0 mt-1 max-w-[65ch] text-sm leading-snug text-pretty text-slate-600"
+          >
+            {#each whyParts as part, index (`${part.type}-${index}`)}
+              {#if part.type === "em" || part.type === "i"}
+                <strong class="font-semibold text-slate-800">{part.value}</strong>
+              {:else}
+                {part.value}
+              {/if}
+            {/each}
+          </p>
+        {/if}
       {/if}
     </div>
 
