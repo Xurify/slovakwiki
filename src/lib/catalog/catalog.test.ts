@@ -245,7 +245,7 @@ describe("Slovak content", () => {
     expect(new Set(kinds).size).toBe(practiceSets.length);
 
     for (const kind of kinds) {
-      expect(motifArtSrc(kind)).toBe(`/lessons/motifs/${kind}.png`);
+      expect(motifArtSrc(kind)).toBe(`/lessons/motifs/${kind}.webp`);
     }
   });
 

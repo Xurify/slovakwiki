@@ -15,21 +15,3 @@ export function practiceGraphicId(setId: string, lessonId: string): PracticeGrap
   if (setId === "stress-in-phrases") return "phrase-stress";
   return practiceMotifId(setId, lessonId);
 }
-
-export const practiceMotifWellClass: Record<PracticeGraphicId, string> = {
-  byt: "bg-blue-100",
-  default: "bg-blue-50",
-  greetings: "bg-blue-50",
-  mat: "bg-emerald-50",
-  negation: "bg-rose-50",
-  numbers: "bg-blue-800",
-  "phrase-stress": "bg-blue-50",
-  "present-tense": "bg-blue-50",
-  questions: "bg-blue-100",
-  stress: "bg-blue-800",
-  time: "bg-blue-50",
-};
-
-export function practiceFeaturedOnDark(graphic: PracticeGraphicId): boolean {
-  return graphic === "numbers" || graphic === "stress";
-}
