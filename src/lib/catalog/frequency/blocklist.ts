@@ -2,4 +2,9 @@
  * Lemmas to never publish from frequency lists (quality / pedagogy).
  * Checked by lemma (Slovak) case-insensitively.
  */
-export const FREQUENCY_PUBLISH_BLOCKLIST = new Set(["sex", "pohlavie"]);
+export const FREQUENCY_PUBLISH_BLOCKLIST = new Set([
+  "sex",
+  "pohlavie",
+  // SNK lemmatizer artifact: every corpus hit is "mám" (I have), not a noun.
+  "mam",
+]);

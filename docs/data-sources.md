@@ -30,6 +30,15 @@ Top-3000 noun and top-2000 verb lemmas from the full SNK count dumps, plus top-1
 - [Top 1000 adjective lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adjectives-top-1000-lemmas/)
 - [Top 1000 adverb lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adverbs-top-1000-lemmas/)
 
+### Slovak National Corpus treebank (UD Slovak-SNK)
+
+Checks the grammatical gender of dictionary nouns. Gender comes from the Slovak ending rule plus a reviewed exceptions list (content/dictionary/noun-gender-exceptions.json); scripts/dictionary/assign-noun-gender.ts flags any noun the treebank's hand annotation disagrees with.
+
+License: CC BY-SA 4.0
+
+- [UD_Slovak-SNK (CoNLL-U files)](https://github.com/UniversalDependencies/UD_Slovak-SNK)
+- [Treebank documentation](https://universaldependencies.org/treebanks/sk_snk/index.html)
+
 ## Example sentences
 
 SK–EN sentence pairs attached to live dictionary entries when available.

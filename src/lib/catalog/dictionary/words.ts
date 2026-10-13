@@ -20,6 +20,8 @@ type WordSeed = Pick<
   | "related"
   | "topics"
   | "register"
+  | "gender"
+  | "pluralOnlyGender"
   | "dialect"
 >;
 
@@ -281,6 +283,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "slovo",
     english: "word",
     category: "Nouns",
+    gender: "neuter",
     topics: ["Learning"],
     examples: [
       { slovak: "Toto slovo je nové.", english: "This word is new." },
@@ -293,6 +296,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "jazyk",
     english: "language; tongue",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Learning"],
     examples: [
       {
@@ -308,6 +312,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "dom",
     english: "house; home",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Everyday life"],
     examples: [
       { slovak: "Náš dom je malý.", english: "Our house is small." },
@@ -320,6 +325,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "rodina",
     english: "family",
     category: "Nouns",
+    gender: "feminine",
     topics: ["Everyday life"],
     examples: [
       {
@@ -335,6 +341,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "priateľ",
     english: "friend; boyfriend",
     category: "Nouns",
+    gender: "masculine-animate",
     topics: ["People"],
     examples: [
       { slovak: "Peter je môj priateľ.", english: "Peter is my friend." },
@@ -347,6 +354,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "človek",
     english: "person; human",
     category: "Nouns",
+    gender: "masculine-animate",
     topics: ["People"],
     examples: [
       { slovak: "Je to dobrý človek.", english: "He is a good person." },
@@ -362,6 +370,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "muž",
     english: "man; husband",
     category: "Nouns",
+    gender: "masculine-animate",
     topics: ["People"],
     examples: [
       { slovak: "Ten muž čaká.", english: "That man is waiting." },
@@ -377,6 +386,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "žena",
     english: "woman; wife",
     category: "Nouns",
+    gender: "feminine",
     topics: ["People"],
     examples: [
       { slovak: "Tá žena číta.", english: "That woman is reading." },
@@ -389,6 +399,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "jedlo",
     english: "food; meal",
     category: "Nouns",
+    gender: "neuter",
     topics: ["Food"],
     examples: [
       { slovak: "Toto jedlo je výborné.", english: "This food is excellent." },
@@ -415,6 +426,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "voda",
     english: "water",
     category: "Nouns",
+    gender: "feminine",
     topics: ["Food"],
     examples: [
       { slovak: "Prosím si pohár vody.", english: "I’d like a glass of water." },
@@ -427,6 +439,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "káva",
     english: "coffee",
     category: "Nouns",
+    gender: "feminine",
     topics: ["Food"],
     examples: [
       { slovak: "Dáte si kávu?", english: "Would you like coffee?" },
@@ -440,6 +453,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "koláč",
     english: "cake; pastry",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Food"],
     examples: [
       { slovak: "Moja mama pečie koláč.", english: "My mom is baking a cake." },
@@ -452,6 +466,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "večera",
     english: "dinner; evening meal",
     category: "Nouns",
+    gender: "feminine",
     topics: ["Food"],
     examples: [
       { slovak: "Večera je o šiestej.", english: "Dinner is at six." },
@@ -464,6 +479,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "obed",
     english: "lunch",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Food"],
     examples: [
       { slovak: "Obed je pripravený.", english: "Lunch is ready." },
@@ -479,6 +495,8 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "raňajky",
     english: "breakfast",
     category: "Nouns",
+    gender: "plural-only",
+    pluralOnlyGender: "feminine",
     topics: ["Food"],
     examples: [
       { slovak: "Raňajky mám o siedmej.", english: "I have breakfast at seven." },
@@ -494,6 +512,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "mlieko",
     english: "milk",
     category: "Nouns",
+    gender: "neuter",
     topics: ["Food"],
     examples: [
       { slovak: "Pijem ráno mlieko.", english: "I drink milk in the morning." },
@@ -506,6 +525,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "polievka",
     english: "soup",
     category: "Nouns",
+    gender: "feminine",
     topics: ["Food"],
     examples: [
       { slovak: "Polievka je horúca.", english: "The soup is hot." },
@@ -518,6 +538,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "čaj",
     english: "tea",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Food"],
     examples: [
       { slovak: "Večer pijem čaj.", english: "I drink tea in the evening." },
@@ -531,6 +552,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "syr",
     english: "cheese",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Food"],
     examples: [
       { slovak: "Mám rád slovenský syr.", english: "I like Slovak cheese." },
@@ -543,6 +565,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "maslo",
     english: "butter",
     category: "Nouns",
+    gender: "neuter",
     topics: ["Food"],
     examples: [
       { slovak: "Maslo je v chladničke.", english: "The butter is in the fridge." },
@@ -555,6 +578,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "cukor",
     english: "sugar",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Food"],
     examples: [
       { slovak: "Dáš si cukor do čaju?", english: "Do you want sugar in your tea?" },
@@ -582,6 +606,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "stanica",
     english: "station",
     category: "Nouns",
+    gender: "feminine",
     topics: ["Travel"],
     examples: [
       { slovak: "Stanica je blízko.", english: "The station is nearby." },
@@ -594,6 +619,7 @@ const curatedWordSeed: WordSeed[] = [
     slovak: "lístok",
     english: "ticket; small leaf",
     category: "Nouns",
+    gender: "masculine-inanimate",
     topics: ["Travel"],
     examples: [
       {

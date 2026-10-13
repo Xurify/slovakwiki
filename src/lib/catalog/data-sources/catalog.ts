@@ -96,6 +96,24 @@ export const referenceSources: ReferenceSource[] = [
     ],
   },
   {
+    id: "snk-treebank",
+    group: "corpus",
+    name: "Slovak National Corpus treebank (UD Slovak-SNK)",
+    usedFor:
+      "Checks the grammatical gender of dictionary nouns. Gender comes from the Slovak ending rule plus a reviewed exceptions list (content/dictionary/noun-gender-exceptions.json); scripts/dictionary/assign-noun-gender.ts flags any noun the treebank's hand annotation disagrees with.",
+    license: "CC BY-SA 4.0",
+    links: [
+      {
+        href: "https://github.com/UniversalDependencies/UD_Slovak-SNK",
+        label: "UD_Slovak-SNK (CoNLL-U files)",
+      },
+      {
+        href: "https://universaldependencies.org/treebanks/sk_snk/index.html",
+        label: "Treebank documentation",
+      },
+    ],
+  },
+  {
     id: "tatoeba",
     group: "examples",
     name: "Tatoeba",
