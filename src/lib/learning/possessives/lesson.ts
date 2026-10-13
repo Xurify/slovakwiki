@@ -105,7 +105,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "To sú moji priatelia.",
       english: "These are my friends.",
-      why: "Men or mixed groups take **-i** in the plural: **moji priatelia**.",
+      why: "Masculine nouns for people take **-i** in the plural: **moji priatelia**.",
     },
   },
   {
@@ -565,7 +565,7 @@ export const possessivesLesson: Lesson = {
     {
       slovak: "moji priatelia",
       english: "my friends",
-      note: "Men or mixed groups take -i. Women and things take -e: moje sestry, moje kľúče.",
+      note: "Masculine nouns for people take -i. Every other plural takes -e: moje sestry, moje kľúče.",
       audio: { transcript: "moji priatelia" },
     },
     {

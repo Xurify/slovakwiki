@@ -75,7 +75,6 @@ export function isFixedOwner(owner: OwnerId): owner is FixedOwnerId {
   return owner === "his" || owner === "her" || owner === "their";
 }
 
-/** Dictionary form for an owner: môj, tvoj, náš, váš, svoj, jeho, jej, ich. */
 export function ownerLemma(owner: OwnerId): string {
   return isFixedOwner(owner) ? FIXED[owner] : STEMS[owner].long;
 }
@@ -377,12 +376,10 @@ export const SLOT_LABEL: Record<Slot, string> = {
   plural: "plural",
 };
 
-/** “my brother” style English noun phrase. */
 export function ownedEnglish(ownerEnglish: string, entry: NounEntry): string {
   return `${ownerEnglish} ${entry.english}`;
 }
 
-/** Slovak noun phrase in one case: môjho brata, jeho sestrou. */
 export function ownedSlovak(
   owner: OwnerId,
   entry: NounEntry,
@@ -400,7 +397,6 @@ export interface CaseFrame {
   because: string;
   english: (owned: string) => string;
   grammaticalCase: GrammaticalCase;
-  /** People-only frames (u mamy, píše list bratovi). */
   people: boolean;
   slovak: (owned: string, plural: boolean) => string;
 }
@@ -458,12 +454,10 @@ export function caseFrame(grammaticalCase: GrammaticalCase): CaseFrame {
   return frame;
 }
 
-/** “my brother” → “my brother's”; “our parents” → “our parents'”. */
 export function possessiveEnglish(phrase: string): string {
   return phrase.endsWith("s") ? `${phrase}'` : `${phrase}'s`;
 }
 
-/** Fix English “This is” for plural owned nouns. */
 export function pluralizeThisIs(english: string, plural: boolean): string {
   return plural ? english.replace(/^This is /, "These are ") : english;
 }
@@ -499,14 +493,13 @@ export function nameOwnerForm(owner: NameOwner, slot: NameOwnerSlot): string {
   return owner.stem;
 }
 
-/** Capitalize a sentence-initial Slovak word without touching the rest. */
 export function capitalizeSlovak(text: string): string {
   return text.charAt(0).toLocaleUpperCase("sk-SK") + text.slice(1);
 }
 
 /**
  * Paradigm row for lesson tables, one owner per row. Column order matches the tables:
- * masculine, feminine, neuter singular; then men or mixed groups, and every other plural.
+ * masculine, feminine, neuter singular; then masculine personal, and every other plural.
  */
 export function paradigmRow(owner: OwnerId, grammaticalCase: GrammaticalCase): string[] {
   const animate = possessiveForm(owner, "masculine-animate", grammaticalCase);

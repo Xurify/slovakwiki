@@ -66,7 +66,6 @@ function withoutFinalPunctuation(sentence: string): string {
   return sentence.replace(/[.?!]$/, "");
 }
 
-/** A frame sentence with the possessive dropped in; swaps the subject when needed. */
 function frameSentence(
   frame: CaseFrame,
   possessive: string,
@@ -93,8 +92,6 @@ function genderSlot(slot: Slot): GenderSlot {
 function frameNouns(frame: CaseFrame): NounEntry[] {
   return nounsWhere((candidate) => !frame.people || candidate.person);
 }
-
-// Agreement
 
 export function buildAgreementExercise(kind: string, rng: Rng): ChoiceExercise {
   const owner = pick(DECLINABLE_NAMED_OWNERS, rng);
@@ -164,7 +161,7 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
           label: line(otherPlural),
           whyWrong: people
             ? `**${capitalizeSlovak(otherPlural)}** is for every other plural: **${otherPlural} sestry**, **${otherPlural} kľúče**.`
-            : `**${capitalizeSlovak(otherPlural)}** is only for men or mixed groups: **${otherPlural} priatelia**.`,
+            : `**${capitalizeSlovak(otherPlural)}** is only for masculine nouns that name people: **${otherPlural} priatelia**.`,
         },
         {
           id: "singular",
@@ -180,8 +177,8 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
       correction: line(correct),
       english,
       why: people
-        ? `Men or mixed groups take **-i** in the plural: **${correct} ${entry.forms.nominative}**.`
-        : `Every plural except men or mixed groups takes **-e**: **${correct} ${entry.forms.nominative}**.`,
+        ? `Masculine nouns for people take **-i** in the plural: **${correct} ${entry.forms.nominative}**.`
+        : `Every plural except masculine nouns for people takes **-e**: **${correct} ${entry.forms.nominative}**.`,
     },
   };
 }
@@ -238,8 +235,6 @@ export function buildFormalExercise(kind: string, rng: Rng): ChoiceExercise {
     },
   };
 }
-
-// Jeho / jej / ich
 
 /** A subject that can never own the noun, so jeho/jej/ich cannot be confused with svoj. */
 function nonOwnerSubject(owner: FixedOwnerId): string {
@@ -348,8 +343,6 @@ export function buildJehoPrepositionExercise(kind: string, rng: Rng): ChoiceExer
   };
 }
 
-// Svoj
-
 interface SvojSubject {
   fixed: "his" | "her";
   name: string;
@@ -368,7 +361,6 @@ interface SvojFrame {
   english: (subject: string, owned: string) => string;
   grammaticalCase: GrammaticalCase;
   people: boolean;
-  /** Why this case — shown when the learner picks the wrong one. */
   reason: string;
   slovak: (subject: string, owned: string) => string;
 }
@@ -666,9 +658,6 @@ export function buildSvojOddOneOutExercise(kind: string, rng: Rng): ChoiceExerci
   };
 }
 
-// Cases
-
-/** Case names a form belongs to, e.g. “genitive or accusative” for môjho. */
 function caseOfForm(owner: OwnerId, slot: Slot, form: string): string {
   return CASES.filter(
     (grammaticalCase) => possessiveForm(owner, slot, grammaticalCase) === form,
@@ -841,8 +830,6 @@ export function buildTypedExercise(kind: string, rng: Rng): TypedExercise {
   };
 }
 
-// Whose? and named owners
-
 const WHOSE_LABEL: Record<string, string> = {
   čí: "masculine",
   čia: "feminine",
@@ -944,8 +931,6 @@ export function buildNameAdjectiveExercise(kind: string, rng: Rng): ChoiceExerci
     },
   };
 }
-
-// Traps
 
 export function buildInstrumentalDativeExercise(kind: string, rng: Rng): ChoiceExercise {
   const owner = pick(DECLINABLE_NAMED_OWNERS, rng);
