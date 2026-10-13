@@ -15,7 +15,7 @@
  *
  * Usage:
  *   bun scripts/audio/upload.ts
- *   bun scripts/audio/upload.ts -- --concurrency 32
+ *   bun scripts/audio/upload.ts -- --concurrency 256
  *   bun scripts/audio/upload.ts -- --lemmas-only
  *   bun scripts/audio/upload.ts -- --dry-run
  *   bun scripts/audio/upload.ts -- --limit 50
@@ -40,6 +40,7 @@ import {
   mapPool,
   parseArgs,
   saveManifest,
+  saveManifestFile,
   sortObjectKeysByKind,
   toR2AudioKey,
   type AudioKind,
@@ -111,24 +112,32 @@ async function main(): Promise<void> {
   let uploaded = 0;
   let skipped = 0;
   let failed = 0;
-  let sinceSave = 0;
   const startedAt = Date.now();
 
-  let manifestLock: Promise<void> = Promise.resolve();
+  // Workers stamp the manifest in memory; a timer persists it, so no upload ever
+  // waits on a 15 MB JSON write.
+  let manifestDirty = false;
+  let addedEntries = false;
+  let flushing: Promise<void> | undefined;
 
-  async function withManifestLock<T>(fn: () => Promise<T>): Promise<T> {
-    const previous = manifestLock;
-    let release!: () => void;
-    manifestLock = new Promise<void>((resolve) => {
-      release = resolve;
-    });
-    await previous;
-    try {
-      return await fn();
-    } finally {
-      release();
-    }
+  function flushManifest(): Promise<void> {
+    if (flushing) return flushing;
+    if (!manifestDirty) return Promise.resolve();
+
+    manifestDirty = false;
+    flushing = saveManifestFile(manifest)
+      .catch((error: unknown) => {
+        manifestDirty = true;
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(`manifest save deferred (will retry): ${message}`);
+      })
+      .finally(() => {
+        flushing = undefined;
+      });
+    return flushing;
   }
+
+  const flushTimer = dryRun ? undefined : setInterval(() => void flushManifest(), 10_000);
 
   console.log(
     `Audio upload: ${keys.length} files → r2://${bucket}` +
@@ -196,27 +205,22 @@ async function main(): Promise<void> {
           throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
         }
 
-        await withManifestLock(async () => {
-          if (entry) {
-            entry.bytes = info.size;
-            entry.uploadedAt = new Date().toISOString();
-          } else {
-            manifest[hash] = {
-              text: "",
-              kind,
-              bytes: info.size,
-              generatedAt,
-              uploadedAt: new Date().toISOString(),
-            };
-          }
-          uploaded += 1;
-          sinceSave += 1;
-          console.log(`ok ${uploaded} ${r2Key} (${info.size} B)`);
-          if (sinceSave >= 100) {
-            await saveManifest(manifest);
-            sinceSave = 0;
-          }
-        });
+        if (entry) {
+          entry.bytes = info.size;
+          entry.uploadedAt = new Date().toISOString();
+        } else {
+          manifest[hash] = {
+            text: "",
+            kind,
+            bytes: info.size,
+            generatedAt,
+            uploadedAt: new Date().toISOString(),
+          };
+          addedEntries = true;
+        }
+        manifestDirty = true;
+        uploaded += 1;
+        console.log(`ok ${uploaded} ${r2Key} (${info.size} B)`);
       } catch (error) {
         failed += 1;
         const message = error instanceof Error ? error.message : String(error);
@@ -225,8 +229,13 @@ async function main(): Promise<void> {
     },
   );
 
+  if (flushTimer) clearInterval(flushTimer);
+  await flushing;
+
   if (!dryRun) {
-    await saveManifest(manifest);
+    // A clip missing from the manifest is new to the runtime index too.
+    if (addedEntries) await saveManifest(manifest);
+    else await saveManifestFile(manifest);
   }
 
   const elapsedSec = ((Date.now() - startedAt) / 1000).toFixed(1);
