@@ -33,6 +33,7 @@
     shouldShowCorrection,
   } from "$lib/components/practice/practice-feedback-ui";
   import SfxMuteToggle from "$lib/audio/SfxMuteToggle.svelte";
+  import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
 
   let {
     canSubmit = $bindable(false),
@@ -40,6 +41,7 @@
     exercise,
     ongraded,
     onresolve,
+    optionAudioSrcs = {},
     sceneAudioSrcs = {},
     submitNonce = 0,
   }: {
@@ -58,6 +60,8 @@
       why: string;
     }) => void;
     onresolve: () => void;
+    /** Option label → clip; pressing an option plays it. */
+    optionAudioSrcs?: Record<string, string>;
     sceneAudioSrcs?: Record<string, string>;
     submitNonce?: number;
   } = $props();
@@ -160,6 +164,29 @@
     }
     void check();
   });
+
+  function playOption(label: string | undefined): void {
+    const src = label ? optionAudioSrcs[label] : undefined;
+    if (src && label) playStoryLineAudio(src, label);
+  }
+
+  function selectChoice(id: string | null): void {
+    selectedId = id;
+    if (id && graded?.type === "choice") {
+      playOption(graded.choices.find((choice) => choice.id === id)?.label);
+    }
+  }
+
+  function selectChoices(next: Set<string>): void {
+    const added =
+      graded?.type === "selectAll"
+        ? graded.choices.find(
+            (choice) => next.has(choice.id) && !selectedIds.has(choice.id),
+          )
+        : undefined;
+    selectedIds = next;
+    playOption(added?.label);
+  }
 
   async function focusFeedback(): Promise<void> {
     await tick();
@@ -336,7 +363,7 @@
         choices={exercise.choices}
         choiceStyle={exercise.choiceStyle}
         promptClock={exercise.clock}
-        bind:selectedId
+        bind:selectedId={() => selectedId, selectChoice}
         {submitted}
         variant={player ? "cards" : "default"}
       />
@@ -352,7 +379,7 @@
       <SelectAllOptions
         choices={exercise.choices}
         promptClock={exercise.clock}
-        bind:selectedIds
+        bind:selectedIds={() => selectedIds, selectChoices}
         {submitted}
       />
 

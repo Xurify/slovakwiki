@@ -4,6 +4,7 @@ import { resolveAudioSrc } from "../audio";
 import { characterIdForSpeaker, type LessonCharacterId } from "./character-ids";
 import { audioConfigForCharacter, keyPhraseCharacterId } from "../audio/characters";
 import { lessonExercises } from "$lib/learning/beats";
+import { exerciseOptionTexts } from "$lib/learning/exercise-audio";
 import type { DialogueTurn, KeyPhrase, Lesson } from "$lib/learning/types";
 
 function resolveCharacterAudioSrc(
@@ -43,9 +44,25 @@ export function keyPhraseAudioSrcs(phrases: KeyPhrase[]): Record<string, string>
   return srcs;
 }
 
-/** All resolvable audio for a lesson (scene + key phrases + exercise contexts). */
+/** Exercise option text → public URL (guide voice), for options the learner presses. */
+export function optionAudioSrcs(lesson: Lesson): Record<string, string> {
+  const srcs: Record<string, string> = {};
+  const characterId = keyPhraseCharacterId();
+
+  for (const exercise of lessonExercises(lesson)) {
+    for (const text of exerciseOptionTexts(exercise)) {
+      const src = resolveCharacterAudioSrc(text, characterId);
+      if (src) srcs[text] = src;
+    }
+  }
+
+  return srcs;
+}
+
+/** All resolvable audio for a lesson (scene + key phrases + exercise contexts and options). */
 export function lessonAudioSrcs(lesson: Lesson): {
   keyPhrases: Record<string, string>;
+  options: Record<string, string>;
   scene: Record<string, string>;
 } {
   const scene = { ...sceneAudioSrcs(lesson.scene) };
@@ -58,5 +75,6 @@ export function lessonAudioSrcs(lesson: Lesson): {
   return {
     scene,
     keyPhrases: keyPhraseAudioSrcs(lesson.keyPhrases),
+    options: optionAudioSrcs(lesson),
   };
 }
