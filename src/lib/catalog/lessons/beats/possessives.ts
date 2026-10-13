@@ -30,7 +30,6 @@ const CATEGORIES: FormTableHeading[] = [
 const SINGULAR_CATEGORIES = [0, 1, 2];
 const PLURAL_CATEGORIES = [3, 4];
 
-/** Owners across the top, gender and number down the side. */
 function ownerTable(
   title: string,
   owners: Array<{ english: string; owner: OwnerId }>,
@@ -81,7 +80,6 @@ const CASE_HEADINGS: Record<GrammaticalCase, FormTableHeading> = {
   instrumental: { english: "Instrumental", slovak: "inštrumentál", example: "s …" },
 };
 
-/** Cases down the side, genders across the top — one table per number. */
 function caseTable(title: string, categories: number[], note?: string): FormTableVisual {
   return {
     type: "form-table",
@@ -271,7 +269,6 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
   },
 ];
 
-/** Graded exercises fill beats 3-3-3-3-2-2; the personal wrap-up closes the lesson. */
 export function withPossessivesExercises(
   shells: Omit<LessonBeat, "exercises">[],
   graded: LessonExercise[],

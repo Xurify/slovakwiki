@@ -130,7 +130,6 @@ export interface ClockGridVisual {
   type: "clock-grid";
 }
 
-/** A label in English with its Slovak term and an example: Masculine · mužský rod · brat. */
 export interface FormTableHeading {
   english: string;
   example?: string;
@@ -138,12 +137,10 @@ export interface FormTableHeading {
 }
 
 export interface FormTableSection {
-  /** Divider row above the section, e.g. Singular · jednotné číslo. */
   heading?: FormTableHeading;
   rows: Array<{ cells: string[]; heading: FormTableHeading }>;
 }
 
-/** Small paradigm grid: one Slovak form per cell, labeled rows grouped into sections. */
 export interface FormTableVisual {
   columns: FormTableHeading[];
   note?: string;
