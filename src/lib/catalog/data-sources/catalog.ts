@@ -63,7 +63,7 @@ export const referenceSources: ReferenceSource[] = [
     group: "dictionary",
     name: "Wiktionary (via kaikki.org)",
     usedFor:
-      "Grammatical gender on dictionary nouns (masculine animate / inanimate, feminine, neuter, plural only). English Wiktionary first, Polish Wiktionary for lemmas English lacks, confident Slovak ending rules last; written by scripts/dictionary/import-noun-gender.ts.",
+      "Grammatical gender on dictionary nouns (masculine animate / inanimate, feminine, neuter, plural only). English Wiktionary first, Polish Wiktionary for lemmas English lacks, confident Slovak ending rules after that; a hand review (content/dictionary/noun-gender-review.json) fills the rest and corrects source errors. Written by scripts/dictionary/import-noun-gender.ts.",
     license: "CC BY-SA (attribute Wiktionary contributors)",
     links: [
       {

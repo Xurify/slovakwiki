@@ -282,7 +282,7 @@
     <a
       class={variant === "inverse" ? genderLinkInverseClass : genderLinkDefaultClass}
       href="/grammar/grammatical-gender"
-      title={`Grammatical gender: ${label.slovak}`}
+      title={`In Slovak: ${label.slovak}`}
     >
       {label.english}
       <span

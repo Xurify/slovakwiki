@@ -74,8 +74,8 @@
     "note": "English word, not a Slovak noun lemma"
   },
   "činiteľ": {
-    "gender": "masculine-inanimate",
-    "note": "both glossed senses (factor, causal agent) are things"
+    "gender": null,
+    "note": "gloss mixes factor (inanimate, činitele) and official (animate, činitelia); the treebank shows the person sense in use"
   },
   "čitateľ": {
     "gender": "masculine-animate",

@@ -292,7 +292,11 @@ const ENDING_RULES: ReadonlyArray<{ ending: RegExp; gender: NounGender; label: s
       gender: "neuter",
       label: "ending -ie (pattern vysvedčenie)",
     },
-    { ending: /[ie]um$/, gender: "neuter", label: "ending -ium / -eum (pattern múzeum)" },
+    {
+      ending: /[ie]um$/,
+      gender: "neuter",
+      label: "ending -ium / -eum (pattern mesto, -um dropped)",
+    },
     { ending: /o$/, gender: "neuter", label: "ending -o (pattern mesto)" },
     {
       ending: /izmus$/,
