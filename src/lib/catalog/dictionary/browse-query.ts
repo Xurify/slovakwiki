@@ -3,8 +3,32 @@ import type { WordOrigin, WordRegister } from "$lib/catalog/types";
 export const DICTIONARY_PAGE_SIZE = 50;
 export const COMMON_RANK_MAX = 500;
 
-export const DICTIONARY_BROWSE_INDEX_REL = "dictionary-browse.json";
-export const DICTIONARY_BROWSE_INDEX_URL = `/${DICTIONARY_BROWSE_INDEX_REL}`;
+export const DEV_DICTIONARY_INDEX_PATH = "/dictionary-browse.json";
+
+export const DICTIONARY_INDEX_URLS: readonly string[] =
+  typeof __DICTIONARY_INDEX_URLS__ !== "undefined"
+    ? __DICTIONARY_INDEX_URLS__
+    : [DEV_DICTIONARY_INDEX_PATH];
+
+export async function fetchDictionaryIndex<T>(
+  urls: readonly string[] = DICTIONARY_INDEX_URLS,
+): Promise<T[]> {
+  let lastError: unknown = new Error("No dictionary index URL configured");
+
+  for (const url of urls) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Index ${response.status} at ${url}`);
+      const data: unknown = await response.json();
+      if (!Array.isArray(data)) throw new Error(`Index malformed at ${url}`);
+      return data as T[];
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw lastError;
+}
 
 export const BROWSE_CATEGORY_LABELS = [
   "Nouns",

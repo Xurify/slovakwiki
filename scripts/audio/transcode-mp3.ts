@@ -143,6 +143,7 @@ async function main(): Promise<void> {
         if (entry) {
           entry.bytes = after.size;
           entry.generatedAt = generatedAt;
+          delete entry.uploadedAt;
         }
         sinceSave += 1;
         if (sinceSave >= 100) {

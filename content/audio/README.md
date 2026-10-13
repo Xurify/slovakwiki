@@ -133,7 +133,7 @@ bun scripts/audio/generate.ts -- --concurrency 8 --lemmas-only --force
 bun scripts/audio/generate.ts -- --lessons-only  # lesson targets only
 bun scripts/audio/generate.ts -- --lessons-only --force  # rewrite lesson clips after voice change
 bun scripts/audio/generate.ts -- --examples-only --missing-only  # fill gaps only
-bun scripts/audio/upload.ts -- --lemmas-only     # parallel R2 (default concurrency 32)
+bun scripts/audio/upload.ts -- --lemmas-only     # parallel R2 (default concurrency 128)
 bun scripts/audio/prune-orphans.ts               # dry-run: old v2/settings hashes
 bun scripts/audio/prune-orphans.ts -- --delete --r2
 bun scripts/audio/voice-design.ts                # design previews → tmp/voice-design/

@@ -3,7 +3,7 @@
  */
 
 import { createHash } from "node:crypto";
-import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { words } from "../../src/lib/catalog/entries";
@@ -31,6 +31,7 @@ import {
   exerciseAnswerTexts,
   exerciseOptionTexts,
 } from "../../src/lib/catalog/lessons/audio";
+import { readJsonFile, writeFileAtomic } from "../lib/json-file";
 import { ROOT } from "../lib/paths";
 
 export type { AudioKind };
@@ -156,18 +157,23 @@ export async function loadConfig(): Promise<AudioConfig> {
 }
 
 export async function loadManifest(): Promise<AudioManifest> {
-  try {
-    return JSON.parse(await readFile(MANIFEST_PATH, "utf8")) as AudioManifest;
-  } catch {
-    return {};
-  }
+  return readJsonFile<AudioManifest>(MANIFEST_PATH, {});
 }
 
 export async function saveManifest(manifest: AudioManifest): Promise<void> {
   const sorted = sortManifestKeys(manifest);
-  await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`, "utf8");
+  await writeFileAtomic(MANIFEST_PATH, `${JSON.stringify(sorted)}\n`);
   const runtimeIndex = sortManifestKeys(buildRuntimeIndex(sorted));
-  await writeFile(RUNTIME_INDEX_PATH, `${JSON.stringify(runtimeIndex)}\n`, "utf8");
+  await writeFileAtomic(RUNTIME_INDEX_PATH, `${JSON.stringify(runtimeIndex)}\n`);
+}
+
+/**
+ * Manifest only. The runtime index holds kind + generatedAt, so stamping
+ * `uploadedAt` never changes it — and the dev server keeps it open, which
+ * makes rewriting it on Windows fail with EUNKNOWN mid-upload.
+ */
+export async function saveManifestFile(manifest: AudioManifest): Promise<void> {
+  await writeFileAtomic(MANIFEST_PATH, `${JSON.stringify(sortManifestKeys(manifest))}\n`);
 }
 
 export async function ensureAudioDir(kind?: AudioKind): Promise<void> {
@@ -331,7 +337,7 @@ export function collectLemmaTextSet(): Set<string> {
  */
 export const DEFAULT_AUDIO_CONCURRENCY = 8;
 /** R2 PUTs are lighter than TTS — higher default. */
-export const DEFAULT_UPLOAD_CONCURRENCY = 32;
+export const DEFAULT_UPLOAD_CONCURRENCY = 128;
 
 export function parseArgs(
   argv: string[],

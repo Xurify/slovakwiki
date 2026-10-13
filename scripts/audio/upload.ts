@@ -15,7 +15,7 @@
  *
  * Usage:
  *   bun scripts/audio/upload.ts
- *   bun scripts/audio/upload.ts -- --concurrency 32
+ *   bun scripts/audio/upload.ts -- --concurrency 256
  *   bun scripts/audio/upload.ts -- --lemmas-only
  *   bun scripts/audio/upload.ts -- --dry-run
  *   bun scripts/audio/upload.ts -- --limit 50
@@ -40,10 +40,12 @@ import {
   mapPool,
   parseArgs,
   saveManifest,
+  saveManifestFile,
   sortObjectKeysByKind,
   toR2AudioKey,
   type AudioKind,
 } from "./shared";
+import { compareRemoteClip, type RemoteClip } from "./remote-clip";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -110,25 +112,35 @@ async function main(): Promise<void> {
 
   let uploaded = 0;
   let skipped = 0;
+  let alreadyInR2 = 0;
+  let remoteNewer = 0;
   let failed = 0;
-  let sinceSave = 0;
   const startedAt = Date.now();
 
-  let manifestLock: Promise<void> = Promise.resolve();
+  // Workers stamp the manifest in memory; a timer persists it, so no upload ever
+  // waits on a 15 MB JSON write.
+  let manifestDirty = false;
+  let addedEntries = false;
+  let flushing: Promise<void> | undefined;
 
-  async function withManifestLock<T>(fn: () => Promise<T>): Promise<T> {
-    const previous = manifestLock;
-    let release!: () => void;
-    manifestLock = new Promise<void>((resolve) => {
-      release = resolve;
-    });
-    await previous;
-    try {
-      return await fn();
-    } finally {
-      release();
-    }
+  function flushManifest(): Promise<void> {
+    if (flushing) return flushing;
+    if (!manifestDirty) return Promise.resolve();
+
+    manifestDirty = false;
+    flushing = saveManifestFile(manifest)
+      .catch((error: unknown) => {
+        manifestDirty = true;
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(`manifest save deferred (will retry): ${message}`);
+      })
+      .finally(() => {
+        flushing = undefined;
+      });
+    return flushing;
   }
+
+  const flushTimer = dryRun ? undefined : setInterval(() => void flushManifest(), 10_000);
 
   console.log(
     `Audio upload: ${keys.length} files → r2://${bucket}` +
@@ -140,6 +152,42 @@ async function main(): Promise<void> {
       `${force ? " [force]" : ""}` +
       `${lemmasOnly ? " [lemmas]" : ""}${examplesOnly ? " [examples]" : ""}${lessonsOnly ? " [lessons]" : ""}`,
   );
+
+  /**
+   * The manifest's `uploadedAt` goes stale across branches, so ask R2 before
+   * sending bytes. A HEAD carries no body: it costs one round trip, not bandwidth.
+   */
+  async function headRemoteClip(url: string): Promise<RemoteClip | undefined> {
+    const response = await aws.fetch(url, { method: "HEAD" });
+    if (!response.ok) return undefined;
+    return {
+      bytes: Number(response.headers.get("content-length")),
+      generatedAt: response.headers.get("x-amz-meta-generated-at"),
+    };
+  }
+
+  function stampUploaded(
+    hash: string,
+    kind: AudioKind,
+    size: number,
+    generatedAt: string,
+  ): void {
+    const entry = manifest[hash];
+    if (entry) {
+      entry.bytes = size;
+      entry.uploadedAt = new Date().toISOString();
+    } else {
+      manifest[hash] = {
+        text: "",
+        kind,
+        bytes: size,
+        generatedAt,
+        uploadedAt: new Date().toISOString(),
+      };
+      addedEntries = true;
+    }
+    manifestDirty = true;
+  }
 
   await mapPool(
     keys,
@@ -162,9 +210,35 @@ async function main(): Promise<void> {
       }
 
       try {
-        const body = await readFile(filePath);
         const info = await stat(filePath);
         const generatedAt = entry?.generatedAt ?? new Date().toISOString();
+        const r2Key = toR2AudioKey(objectKey);
+        const url = `https://${endpointHost}/${bucket}/${r2Key}`;
+
+        if (!force) {
+          const remoteClip = await headRemoteClip(url);
+          const remote = compareRemoteClip(
+            { bytes: info.size, generatedAt: entry?.generatedAt },
+            remoteClip,
+          );
+
+          if (remote === "same") {
+            stampUploaded(hash, kind, remoteClip?.bytes ?? info.size, generatedAt);
+            alreadyInR2 += 1;
+            return;
+          }
+
+          if (remote === "remote-newer") {
+            remoteNewer += 1;
+            console.warn(
+              `skip ${r2Key}: R2 holds a newer take than this manifest ` +
+                "(pull the manifest that uploaded it, or --force to overwrite)",
+            );
+            return;
+          }
+        }
+
+        const body = await readFile(filePath);
         const metadata = buildAudioObjectMetadata({
           config,
           generatedAt,
@@ -183,8 +257,6 @@ async function main(): Promise<void> {
           headers[`x-amz-meta-${key}`] = value;
         }
 
-        const r2Key = toR2AudioKey(objectKey);
-        const url = `https://${endpointHost}/${bucket}/${r2Key}`;
         const response = await aws.fetch(url, {
           method: "PUT",
           headers,
@@ -196,27 +268,9 @@ async function main(): Promise<void> {
           throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
         }
 
-        await withManifestLock(async () => {
-          if (entry) {
-            entry.bytes = info.size;
-            entry.uploadedAt = new Date().toISOString();
-          } else {
-            manifest[hash] = {
-              text: "",
-              kind,
-              bytes: info.size,
-              generatedAt,
-              uploadedAt: new Date().toISOString(),
-            };
-          }
-          uploaded += 1;
-          sinceSave += 1;
-          console.log(`ok ${uploaded} ${r2Key} (${info.size} B)`);
-          if (sinceSave >= 100) {
-            await saveManifest(manifest);
-            sinceSave = 0;
-          }
-        });
+        stampUploaded(hash, kind, info.size, generatedAt);
+        uploaded += 1;
+        console.log(`ok ${uploaded} ${r2Key} (${info.size} B)`);
       } catch (error) {
         failed += 1;
         const message = error instanceof Error ? error.message : String(error);
@@ -225,8 +279,13 @@ async function main(): Promise<void> {
     },
   );
 
+  if (flushTimer) clearInterval(flushTimer);
+  await flushing;
+
   if (!dryRun) {
-    await saveManifest(manifest);
+    // A clip missing from the manifest is new to the runtime index too.
+    if (addedEntries) await saveManifest(manifest);
+    else await saveManifestFile(manifest);
   }
 
   const elapsedSec = ((Date.now() - startedAt) / 1000).toFixed(1);
@@ -234,7 +293,8 @@ async function main(): Promise<void> {
     uploaded > 0 ? (uploaded / ((Date.now() - startedAt) / 1000)).toFixed(1) : "0";
 
   console.log(
-    `Done. uploaded=${uploaded} skipped=${skipped} failed=${failed}` +
+    `Done. uploaded=${uploaded} already-in-r2=${alreadyInR2} remote-newer=${remoteNewer}` +
+      ` skipped=${skipped} failed=${failed}` +
       ` rate=${rate}/s elapsed=${elapsedSec}s`,
   );
   if (failed > 0) process.exitCode = 1;

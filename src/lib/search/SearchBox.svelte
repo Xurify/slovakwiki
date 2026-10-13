@@ -17,6 +17,7 @@
     type SearchDocKind,
   } from "$lib/catalog/search/ui";
   import {
+    isDictionaryLookupReady,
     lookupDictionary,
     mergeSearchResults,
     warmDictionaryLookup,
@@ -35,12 +36,15 @@
     id = "site-search",
     initialQuery = "",
     placeholder = "Search…",
+    queryFromUrl = false,
     size = "header",
   }: {
     class?: string;
     id?: string;
     initialQuery?: string;
     placeholder?: string;
+    /** Read `?q=` on mount — prerendered pages build with an empty query. */
+    queryFromUrl?: boolean;
     size?: "header" | "hero";
   } = $props();
 
@@ -223,11 +227,24 @@
         return;
       }
 
-      const [page, dictionaryHits] = await Promise.all([
-        Promise.all(response.results.slice(0, 8).map((result) => result.data())),
-        lookupDictionary(normalized),
-      ]);
+      const dictionaryPending = lookupDictionary(normalized);
+      const page = await Promise.all(
+        response.results.slice(0, 8).map((result) => result.data()),
+      );
 
+      if (generation !== searchGeneration) {
+        return;
+      }
+
+      // Index still loading: show Pagefind hits now, merge dictionary hits when it lands.
+      if (page.length > 0 && !isDictionaryLookupReady()) {
+        results = page;
+        activeIndex = 0;
+        loading = false;
+        pending = false;
+      }
+
+      const dictionaryHits = await dictionaryPending;
       if (generation !== searchGeneration) {
         return;
       }
@@ -255,6 +272,7 @@
   }
 
   function onFocus(): void {
+    warmDictionaryLookup();
     openPanel();
     if (trimmedQuery) {
       void runSearch(query);
@@ -322,7 +340,10 @@
   onMount(() => {
     refreshRecent();
     schedulePagefindIdleWarm();
-    warmDictionaryLookup();
+
+    if (queryFromUrl && !query.trim()) {
+      query = new URLSearchParams(window.location.search).get("q")?.trim() ?? "";
+    }
 
     if (query.trim()) {
       open = true;
@@ -381,7 +402,13 @@
 </script>
 
 <div class={shellClass} bind:this={rootEl}>
-  <form action="/search" method="get" class={fieldClass} role="search">
+  <form
+    action="/search"
+    method="get"
+    class={fieldClass}
+    role="search"
+    onpointerenter={warmDictionaryLookup}
+  >
     <label class="sr-only" for={id}>Search Slovak Wiki</label>
 
     <svg

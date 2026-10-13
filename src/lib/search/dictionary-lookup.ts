@@ -1,5 +1,5 @@
 import { dictionaryPathFromIndexFields } from "$lib/catalog/dictionary/lemma-senses";
-import { DICTIONARY_BROWSE_INDEX_URL } from "$lib/catalog/dictionary/browse-query";
+import { fetchDictionaryIndex } from "$lib/catalog/dictionary/browse-query";
 import { normalizeSearchText } from "$lib/catalog/search/ui";
 import type { WordRegister } from "$lib/catalog/types";
 
@@ -28,20 +28,16 @@ type PreparedEntry = {
 
 let indexPromise: Promise<DictionaryIndexEntry[]> | null = null;
 let preparedPromise: Promise<PreparedEntry[]> | null = null;
+let preparedIndex: PreparedEntry[] | null = null;
 
 function loadDictionaryIndex(): Promise<DictionaryIndexEntry[]> {
   if (!indexPromise) {
-    indexPromise = fetch(DICTIONARY_BROWSE_INDEX_URL)
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error("Failed to load browse index");
-        }
-        return (await response.json()) as DictionaryIndexEntry[];
-      })
-      .catch((error: unknown) => {
+    indexPromise = fetchDictionaryIndex<DictionaryIndexEntry>().catch(
+      (error: unknown) => {
         indexPromise = null;
         throw error;
-      });
+      },
+    );
   }
 
   return indexPromise;
@@ -87,7 +83,10 @@ function prepareEntry(entry: DictionaryIndexEntry): PreparedEntry {
 function loadPreparedIndex(): Promise<PreparedEntry[]> {
   if (!preparedPromise) {
     preparedPromise = loadDictionaryIndex()
-      .then((index) => index.map(prepareEntry))
+      .then((index) => {
+        preparedIndex = index.map(prepareEntry);
+        return preparedIndex;
+      })
       .catch((error: unknown) => {
         preparedPromise = null;
         throw error;
@@ -102,6 +101,10 @@ export function warmDictionaryLookup(): void {
   void loadPreparedIndex().catch(() => {
     // Ignore warm-up failure so future lookups can retry.
   });
+}
+
+export function isDictionaryLookupReady(): boolean {
+  return preparedIndex !== null;
 }
 
 function scorePrepared(
