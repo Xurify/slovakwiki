@@ -4,16 +4,14 @@
 
   /**
    * Six cases × singular / plural with the ending highlighted. Styled like the
-   * lessons' FormTable; `flush` drops the card chrome for use inside a card.
+   * lessons' FormTable.
    */
   let {
     lemma,
     rows,
-    flush = false,
   }: {
     lemma: string;
     rows: DeclensionRow[];
-    flush?: boolean;
   } = $props();
 
   /** Row headings line up with the card padding (px-4 / sm:px-6). */
@@ -39,9 +37,7 @@
 {/snippet}
 
 <figure
-  class={flush
-    ? "m-0 bg-subtle"
-    : "m-0 overflow-hidden rounded-(--frame-radius) bg-subtle shadow-(--shadow-border)"}
+  class="m-0 overflow-hidden rounded-(--frame-radius) bg-subtle shadow-(--shadow-border)"
 >
   <figcaption class="px-4 pt-4 pb-3 sm:px-6">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">

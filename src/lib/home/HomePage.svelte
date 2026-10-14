@@ -1,15 +1,9 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import SectionHead from "$lib/components/ui/SectionHead.svelte";
-  import EntryMeta from "$lib/components/dictionary/EntryMeta.svelte";
-  import ExampleRow from "$lib/components/dictionary/ExampleRow.svelte";
-  import FormsTable from "$lib/components/dictionary/FormsTable.svelte";
-  import SenseList from "$lib/components/dictionary/SenseList.svelte";
   import LessonMotif from "$lib/components/lessons/LessonMotif.svelte";
   import LessonsContinueCard from "$lib/components/lessons/LessonsContinueCard.svelte";
   import LessonTrackSection from "$lib/components/lessons/LessonTrackSection.svelte";
@@ -24,31 +18,14 @@
   import { lessonTracks, lessons, lessonsForTrack } from "$lib/catalog/lessons";
   import { practiceSets } from "$lib/catalog/practice/sets";
   import { buildBrowseQueryHref } from "$lib/catalog/dictionary/browse-query";
-  import { declensionRows } from "$lib/catalog/dictionary/declension";
   import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
-  import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/catalog/frequency/types";
+  import {
+    FREQUENCY_PART_OF_SPEECH_LABEL,
+    FREQUENCY_PARTS,
+  } from "$lib/catalog/frequency/types";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import { nextLessonInList } from "$lib/lesson-progress/progress";
   import { lessonMotifId } from "$lib/lesson-story/lesson-motifs";
-
-  let {
-    audioMount,
-  }: {
-    /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
-    audioMount?: Snippet;
-  } = $props();
-
-  // Sample entry: the same pieces the entry page is built from.
-  const featuredWord = words.find((word) => word.slug === "priatel") ?? words[0];
-  const featuredHref = dictionaryPathForSense(featuredWord, words);
-  const featuredSenses = featuredWord.english
-    .split(";")
-    .map((sense) => sense.trim())
-    .filter(Boolean);
-  const featuredExample = featuredWord.examples[0];
-  const featuredForms = featuredWord.declension
-    ? declensionRows(featuredWord.slovak, featuredWord.declension, featuredWord.gender)
-    : [];
 
   // Lessons: SSR assumes no progress; LessonsProgressBoot paints before first paint.
   const trackGroups = lessonTracks.map((track) => ({
@@ -83,12 +60,19 @@
     }))
     .filter((group) => group.entries.length > 0);
 
-  const commonLists = (["noun", "verb", "adjective", "adverb"] as const).map(
-    (partOfSpeech) => ({
-      href: `/dictionary/common/${partOfSpeech}`,
-      label: FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase(),
-    }),
-  );
+  // Top of each Slovak National Corpus list; the /dictionary/common pages have the rest.
+  const commonGroups = FREQUENCY_PARTS.map((partOfSpeech) => {
+    const ranked = words
+      .filter((word) => word.frequency?.partOfSpeech === partOfSpeech)
+      .sort((left, right) => (left.frequency?.rank ?? 0) - (right.frequency?.rank ?? 0));
+
+    return {
+      partOfSpeech,
+      label: FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech],
+      total: ranked.length,
+      entries: ranked.slice(0, 6),
+    };
+  });
 
   const practiceGroups = lessonTracks
     .map((track) => ({
@@ -108,6 +92,12 @@
 
   const moreLinkClass =
     "inline-flex items-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline";
+
+  const wordRowClass =
+    "group grid gap-0.5 border-b border-slate-200/70 py-1.5 no-underline";
+  const wordClass =
+    "font-serif text-base leading-snug text-slate-900 group-hover:text-blue-800 group-hover:underline";
+  const glossClass = "text-xs leading-snug text-slate-500";
 
   const indexRowClass = "border-b border-slate-200/70 py-2.5 last:border-b-0";
   const indexTitleClass = "text-sm font-bold text-blue-800 group-hover:underline";
@@ -150,82 +140,62 @@
 
       <div class="min-w-0 lg:col-start-1 lg:row-start-2 lg:mt-12">
         <div class="space-y-12">
-          <section
-            class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
-            aria-labelledby="word-heading"
-          >
-            <div class="border-b border-slate-200/70 px-5 pt-5 pb-4 sm:px-6">
-              <Eyebrow tone="muted">Word to know</Eyebrow>
-
-              <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-                <h2
-                  id="word-heading"
-                  class="m-0 text-[2.5rem] leading-none tracking-tight text-balance"
-                  lang="sk"
+          <section aria-labelledby="browse-heading">
+            <SectionHead
+              eyebrow="Dictionary"
+              title="Browse {wordCount} words"
+              id="browse-heading"
+              href="/dictionary"
+              description="Every lemma with an English gloss; most with example sentences, audio and a frequency rank from the Slovak National Corpus."
+            >
+              {#snippet aside()}
+                <a
+                  class="font-bold text-blue-800 no-underline hover:underline"
+                  href="/dictionary"
                 >
-                  <a
-                    class="text-inherit no-underline hover:underline"
-                    href={featuredHref}
-                  >
-                    {featuredWord.slovak}
-                  </a>
-                </h2>
+                  All words
+                </a>
+              {/snippet}
+            </SectionHead>
 
-                {#if audioMount}
-                  <span
-                    class="inline-grid size-10 shrink-0 place-items-center"
-                    data-audio-mount="lemma"
-                  ></span>
-                {/if}
-              </div>
-
-              <EntryMeta
-                class="mt-2"
-                entry={featuredWord}
-                plural={featuredWord.declension?.plural[0]}
-              />
-            </div>
+            <nav class="mt-4" aria-label="Browse by first letter">
+              <ul class="m-0 flex list-none flex-wrap gap-1.5 p-0">
+                {#each letters as letter (letter)}
+                  <li>
+                    <a
+                      class={letterChipClass}
+                      href={buildBrowseQueryHref("all", letter, 1)}
+                      lang="sk"
+                    >
+                      {letter}
+                    </a>
+                  </li>
+                {/each}
+              </ul>
+            </nav>
 
             <div
-              class="grid gap-x-8 gap-y-6 px-5 py-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] sm:px-6"
+              class="mt-6 grid grid-cols-5 gap-x-6 gap-y-6 max-[960px]:grid-cols-3 max-[560px]:grid-cols-2"
             >
-              <div>
-                <Eyebrow tone="muted">Meanings</Eyebrow>
-                <SenseList glosses={featuredSenses} />
-              </div>
+              {#each wordGroups as group (group.category)}
+                <section>
+                  <Eyebrow compact tone="muted">{group.category}</Eyebrow>
 
-              {#if featuredExample}
-                <div>
-                  <Eyebrow tone="muted">In a sentence</Eyebrow>
-                  <ol class="m-0 list-none p-0">
-                    <ExampleRow
-                      example={featuredExample}
-                      lemma={featuredWord.slovak}
-                      category={featuredWord.category}
-                      audioKey={audioMount ? "s0-e0" : undefined}
-                    />
-                  </ol>
-                </div>
-              {/if}
-            </div>
-
-            {#if featuredForms.length > 0}
-              <div class="border-t border-slate-200/70">
-                <FormsTable lemma={featuredWord.slovak} rows={featuredForms} flush />
-              </div>
-            {/if}
-
-            <div
-              class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-slate-200/70 px-5 py-4 sm:px-6"
-            >
-              <a class={moreLinkClass} href={featuredHref}>
-                Open the full entry
-                <ArrowRight />
-              </a>
-
-              <span class="text-xs text-slate-500">
-                Frequency rank, related words and sources are on the entry page.
-              </span>
+                  <ul class="m-0 list-none p-0">
+                    {#each group.entries as word (word.slug)}
+                      <li>
+                        <a
+                          class={wordRowClass}
+                          href={dictionaryPathForSense(word, words)}
+                        >
+                          <span class={wordClass} lang="sk">{word.slovak}</span>
+                          <span class={glossClass}>{firstSense(word.english)}</span>
+                        </a>
+                      </li>
+                    {/each}
+                  </ul>
+                </section>
+              {/each}
             </div>
           </section>
 
@@ -288,86 +258,59 @@
             {/if}
           </div>
 
-          <section aria-labelledby="browse-heading">
+          <section aria-labelledby="common-heading">
             <SectionHead
-              eyebrow="Dictionary"
-              title="Browse {wordCount} words"
-              id="browse-heading"
-              href="/dictionary"
-              description="Every lemma with an English gloss; most with example sentences, audio and a frequency rank from the Slovak National Corpus."
+              eyebrow="Most common"
+              title="The words you will meet first"
+              id="common-heading"
+              href="/dictionary/common/verb"
+              description="Ranked by how often they appear in the Slovak National Corpus. Each list runs to the top thousand or more."
             >
               {#snippet aside()}
                 <a
                   class="font-bold text-blue-800 no-underline hover:underline"
-                  href="/dictionary"
+                  href="/dictionary/common/verb"
                 >
-                  All words
+                  All lists
                 </a>
               {/snippet}
             </SectionHead>
 
-            <nav class="mt-4" aria-label="Browse by first letter">
-              <ul class="m-0 flex list-none flex-wrap gap-1.5 p-0">
-                {#each letters as letter (letter)}
-                  <li>
-                    <a
-                      class={letterChipClass}
-                      href={buildBrowseQueryHref("all", letter, 1)}
-                      lang="sk"
-                    >
-                      {letter}
-                    </a>
-                  </li>
-                {/each}
-              </ul>
-            </nav>
-
-            <div
-              class="mt-6 grid grid-cols-5 gap-x-6 gap-y-6 max-[960px]:grid-cols-3 max-[560px]:grid-cols-2"
-            >
-              {#each wordGroups as group (group.category)}
+            <div class="mt-4 grid grid-cols-4 gap-x-6 gap-y-6 max-[800px]:grid-cols-2">
+              {#each commonGroups as group (group.partOfSpeech)}
                 <section>
-                  <Eyebrow compact tone="muted">{group.category}</Eyebrow>
+                  <Eyebrow compact tone="muted">{group.label}</Eyebrow>
 
-                  <ul class="m-0 list-none p-0">
+                  <ol class="m-0 list-none p-0">
                     {#each group.entries as word (word.slug)}
                       <li>
                         <a
-                          class="group grid gap-0.5 border-b border-slate-200/70 py-1.5 no-underline"
+                          class="group grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-x-2 border-b border-slate-200/70 py-1.5 no-underline"
                           href={dictionaryPathForSense(word, words)}
                         >
-                          <span
-                            class="font-serif text-base leading-snug text-slate-900 group-hover:text-blue-800 group-hover:underline"
-                            lang="sk"
-                          >
-                            {word.slovak}
+                          <span class="text-xs tabular-nums text-slate-500">
+                            {word.frequency?.rank}
                           </span>
-
-                          <span class="text-xs leading-snug text-slate-500">
-                            {firstSense(word.english)}
+                          <span class="grid gap-0.5">
+                            <span class={wordClass} lang="sk">{word.slovak}</span>
+                            <span class={glossClass}>{firstSense(word.english)}</span>
                           </span>
                         </a>
                       </li>
                     {/each}
-                  </ul>
+                  </ol>
+
+                  <a
+                    class="{moreLinkClass} mt-2"
+                    href="/dictionary/common/{group.partOfSpeech}"
+                  >
+                    All {group.total.toLocaleString("en")}
+                    {group.label.toLowerCase()}
+                    <ArrowRight />
+                  </a>
                 </section>
               {/each}
             </div>
-
-            <p
-              class="m-0 mt-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm text-slate-700"
-            >
-              <span class="font-semibold">Most common:</span>
-
-              {#each commonLists as list (list.href)}
-                <a
-                  class="font-bold text-blue-800 no-underline hover:underline"
-                  href={list.href}
-                >
-                  {list.label}
-                </a>
-              {/each}
-            </p>
           </section>
 
           <section aria-labelledby="reference-heading">
@@ -508,8 +451,4 @@
       </div>
     </div>
   </PageShell>
-
-  {#if audioMount}
-    {@render audioMount()}
-  {/if}
 </main>

@@ -90,54 +90,54 @@
     --font-ui: "IBM Plex Sans Variable", "IBM Plex Sans Fallback", "Segoe UI", sans-serif;
     --font-reading: "Source Serif 4 Variable", "Source Serif 4 Fallback", Georgia, serif;
     /*
-     * Light: navy and cream (coolors "0d1321 1d2d44 3e5c76 748cab f0ebd8").
-     * Cream carries the chrome (top bar, footer, drawer, panels), the page is
-     * near-white, steel blue is the one link and button colour, and the
-     * highlighter is a deeper cream. Red and green stay for wrong and right.
+     * Light: Tailwind's own slate and blue — the palette these utility names
+     * were designed for. White page and top bar, slate text and borders,
+     * blue-600 buttons, blue-700 links, blue-100 highlighter. Red and green
+     * stay for wrong and right answers.
      */
-    --canvas: #fdfcfa;
-    --paper: #f0ebd8;
+    --canvas: #ffffff;
+    --paper: #f8fafc;
     --surface: #ffffff;
-    --surface-subtle: #f5f1e4;
-    --surface-selected: #e3e8ef;
+    --surface-subtle: #f1f5f9;
+    --surface-selected: #dbeafe;
     /* Secondary controls: sit above paper/panels without looking hollow. */
     --control: #ffffff;
-    --control-hover: #e3e8ef;
-    --ink: #0d1321;
-    --ink-soft: #1d2d44;
-    --muted: #5c6b80;
-    --muted-strong: #46556b;
-    --line: #e4e0d4;
-    --line-strong: #c9c2ad;
-    --accent: #3e5c76;
+    --control-hover: #eff6ff;
+    --ink: #0f172a;
+    --ink-soft: #1e293b;
+    --muted: #64748b;
+    --muted-strong: #475569;
+    --line: #e2e8f0;
+    --line-strong: #cbd5e1;
+    --accent: #2563eb;
     --mark-day: #b86a00;
     --mark-time: #0e7aab;
-    --accent-strong: #3e5c76;
-    --accent-soft: #e3e8ef;
+    --accent-strong: #1d4ed8;
+    --accent-soft: #eff6ff;
     --action: #c23b35;
     --action-strong: #9c302c;
-    --blue: #748cab;
-    --blue-light: #e3e8ef;
+    --blue: #3b82f6;
+    --blue-light: #dbeafe;
     --red: #c23b35;
     --red-light: #efddd6;
     --red-mid: color-mix(in oklab, var(--action) 54%, var(--red-light));
     --green: #1f6b5c;
     --green-light: #d3eae2;
     --green-mid: color-mix(in oklab, var(--green) 54%, var(--green-light));
-    /* Cream top bar and footer with navy ink. */
-    --panel-inverse: #f0ebd8;
-    --panel-inverse-ink: #0d1321;
+    /* White top bar and footer with slate ink. */
+    --panel-inverse: #ffffff;
+    --panel-inverse-ink: #0f172a;
     /* Primary buttons. */
-    --cta: #3e5c76;
-    --cta-strong: #2f4a63;
+    --cta: #2563eb;
+    --cta-strong: #1d4ed8;
     --cta-ink: #ffffff;
-    /* Steel blue for the search button and frequency dots; cream highlighter. */
-    --saffron: #3e5c76;
-    --saffron-ink: #2f4a63;
-    --mark: #ece4cb;
-    --brand: #3e5c76;
+    /* Blue for the search button and frequency dots; blue-100 highlighter. */
+    --saffron: #2563eb;
+    --saffron-ink: #1d4ed8;
+    --mark: #dbeafe;
+    --brand: #2563eb;
     --brand-ink: #ffffff;
-    --shadow-color: #1d2d44;
+    --shadow-color: #0f172a;
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -164,45 +164,45 @@
 
   html[data-theme="dark"] {
     color-scheme: dark;
-    --canvas: #0d1321;
-    --paper: #141c2e;
-    --surface: #1d2d44;
-    --surface-subtle: #111a2b;
-    --surface-selected: #2a3f5c;
+    --canvas: #0f172a;
+    --paper: #1e293b;
+    --surface: #1e293b;
+    --surface-subtle: #172033;
+    --surface-selected: #1e3a8a;
     /* Lift off surface panels (clock drill, modals) so secondary CTAs read. */
-    --control: #2a3f5c;
-    --control-hover: #34506f;
-    --ink: #f0ebd8;
-    --ink-soft: #d6d2c4;
-    --muted: #a0afc4;
-    --muted-strong: #b9c5d6;
-    --line: #243451;
-    --line-strong: #34486a;
-    --accent: #748cab;
+    --control: #334155;
+    --control-hover: #1e3a8a;
+    --ink: #f1f5f9;
+    --ink-soft: #cbd5e1;
+    --muted: #94a3b8;
+    --muted-strong: #cbd5e1;
+    --line: #334155;
+    --line-strong: #475569;
+    --accent: #3b82f6;
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
-    --accent-strong: #a9bdd6;
-    --accent-soft: #243451;
+    --accent-strong: #60a5fa;
+    --accent-soft: #1e3a8a;
     --action: #e07068;
     --action-strong: #f09088;
-    --blue: #748cab;
-    --blue-light: #243451;
+    --blue: #60a5fa;
+    --blue-light: #1e3a8a;
     --red: #e07068;
     --red-light: color-mix(in srgb, #3a2528 80%, var(--red) 20%);
     --red-mid: color-mix(in srgb, var(--action) 68%, var(--red-light));
     --green: #4a9a88;
     --green-light: color-mix(in srgb, #1a332c 80%, var(--green) 20%);
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
-    --panel-inverse: #0d1321;
-    --panel-inverse-ink: #f0ebd8;
-    --cta: #748cab;
-    --cta-strong: #8ea3bf;
-    --cta-ink: #0d1321;
-    --saffron: #9fb4cc;
-    --saffron-ink: #a9bdd6;
-    --mark: #3a4a63;
-    --brand: #748cab;
-    --brand-ink: #0d1321;
+    --panel-inverse: #0f172a;
+    --panel-inverse-ink: #f1f5f9;
+    --cta: #3b82f6;
+    --cta-strong: #2563eb;
+    --cta-ink: #ffffff;
+    --saffron: #60a5fa;
+    --saffron-ink: #93c5fd;
+    --mark: #1e3a8a;
+    --brand: #3b82f6;
+    --brand-ink: #ffffff;
     --shadow-color: #000000;
   }
 
