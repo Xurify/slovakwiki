@@ -741,17 +741,20 @@ describe("Slovak content", () => {
     expect(words.find((word) => word.slovak === "slovenský")?.slug).toBe("slovensky-a");
   });
 
-  it("fills related neighbors for frequency dictionary words", () => {
-    const frequencyWord = words.find(
-      (word) => word.origin === "frequency" && word.frequency?.rank === 2,
+  it("never pads related words with frequency-rank neighbours", () => {
+    const priatelka = words.find((word) => word.slug === "priatelka");
+
+    expect(priatelka?.related).toEqual(
+      expect.arrayContaining(["priatel", "priatelstvo", "kamaratka"]),
     );
-    expect(frequencyWord?.related.length).toBeGreaterThan(0);
-    for (const relatedSlug of frequencyWord?.related ?? []) {
-      expect(entryBySlug.has(relatedSlug)).toBe(true);
-    }
+    expect(priatelka?.related).not.toContain("heslo");
+    expect(priatelka?.related).not.toContain("agent");
+    // No cluster and no gloss peer: stays empty rather than borrowing rank neighbours
+    expect(words.find((word) => word.slug === "heslo")?.related).toEqual([]);
+    expect(words.find((word) => word.slug === "agent")?.related).toEqual([]);
   });
 
-  it("prefers semantic clusters over raw frequency neighbors", () => {
+  it("fills related words from semantic clusters", () => {
     const praca = words.find((word) => word.slug === "praca");
     const velky = words.find((word) => word.slug === "velky");
     const skola = words.find((word) => word.slug === "skola");
@@ -788,7 +791,7 @@ describe("Slovak content", () => {
     }
   });
 
-  it("keeps expanded semantic clusters ahead of rank-neighbor fallback", () => {
+  it("fills related words from expanded semantic clusters", () => {
     expect(words.find((word) => word.slug === "nechciet")?.related).toContain("chciet");
     expect(words.find((word) => word.slug === "cena")?.related).toContain("peniaze");
     expect(words.find((word) => word.slug === "telo")?.related).toEqual(
@@ -796,7 +799,7 @@ describe("Slovak content", () => {
     );
   });
 
-  it("prefers gloss-overlap related over raw frequency neighbors", () => {
+  it("links gloss peers that share a primary sense", () => {
     const hrat = words.find((word) => word.slug === "hrat");
     const dokazat = words.find((word) => word.slug === "dokazat");
     const snazit = words.find((word) => word.slug === "snazit");
@@ -810,8 +813,10 @@ describe("Slovak content", () => {
     expect(
       snazit?.related.some((slug) => ["pokusit", "pokusat", "skusit"].includes(slug)),
     ).toBe(true);
-    // Rank noise should not win when gloss peers exist
-    expect(hrat?.related).not.toEqual(expect.arrayContaining(["nevediet"]));
+    // Whole primary sense, not first word: "female boss" ≠ "female student"
+    const sefka = words.find((word) => word.slug === "sefka");
+    expect(sefka?.related).not.toContain("studentka");
+    expect(sefka?.related).not.toContain("vitazka");
   });
 
   it("matches Slovak answers without making diacritics optional", () => {
