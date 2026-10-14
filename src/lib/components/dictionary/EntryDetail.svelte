@@ -8,6 +8,7 @@
 
   import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/catalog/frequency/types";
   import { declensionRows } from "$lib/catalog/dictionary/declension";
+  import type { NearbyEntry } from "$lib/catalog/dictionary/entries-near";
   import { EXAMPLE_DISPLAY_LIMIT } from "$lib/catalog/dictionary/example-limits";
   import type { FrequencyNeighbor } from "$lib/catalog/dictionary/frequency-neighbors";
   import { highlightLemmaInText } from "$lib/catalog/dictionary/highlight-lemma";
@@ -41,6 +42,7 @@
   let {
     audioMount,
     entry,
+    entriesNear = [],
     exampleAudioSrcs = [],
     frequencyNeighbors = [],
     image,
@@ -51,6 +53,7 @@
     /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
     audioMount?: Snippet;
     entry: ContentEntry;
+    entriesNear?: NearbyEntry[];
     exampleAudioSrcs?: string[];
     frequencyNeighbors?: FrequencyNeighbor[];
     image?: DictionaryImageView;
@@ -105,15 +108,31 @@
   const hasExamples = $derived(exampleItemsBySense.some((items) => items.length > 0));
   const hasUsage = $derived(senseViews.some((sense) => sense.entry.body.length > 0));
 
-  const contents = $derived(
+  type ContentsLink = { href: string; label: string };
+  const isLink = (item: ContentsLink | false | undefined): item is ContentsLink =>
+    Boolean(item);
+
+  // Main-column sections on the left of the strip, data-column ones on the right.
+  const mainContents = $derived(
     [
       hasExamples && { href: "#examples", label: "Examples" },
       forms && { href: "#forms", label: "Forms" },
       !multiSense && hasUsage && { href: "#usage", label: "Usage" },
-      relatedEntries.length > 0 && { href: "#related", label: "Related" },
-      frequencyNeighbors.length > 0 && { href: "#frequency", label: "Frequency" },
       { href: "#lookups", label: "Elsewhere" },
-    ].filter((item): item is { href: string; label: string } => Boolean(item)),
+    ].filter(isLink),
+  );
+  const dataContents = $derived(
+    [
+      frequencyNeighbors.length > 0 && { href: "#frequency", label: "Frequency" },
+      relatedEntries.length > 0 && { href: "#related", label: "Related" },
+      entriesNear.length > 0 && { href: "#nearby", label: "Nearby" },
+      { href: "#source", label: "Sources" },
+    ].filter(isLink),
+  );
+  const hasTatoeba = $derived(
+    senseViews.some((sense) =>
+      sense.entry.examples.some((example) => example.note === "Tatoeba"),
+    ),
   );
 
   const metaSeparator = "text-panel-inverse-ink/35";
@@ -134,6 +153,8 @@
   const proseClass =
     "m-0 max-w-[66ch] text-[1rem] leading-relaxed text-pretty text-slate-700";
   const sectionClass = "scroll-mt-[136px]";
+  const glossRowClass =
+    "group -mx-1.5 grid grid-cols-[7rem_minmax(0,1fr)] items-baseline gap-x-3 px-1.5 py-1";
   const markClass = "font-semibold shadow-[inset_0_-0.32em_0_var(--surface-selected)]";
 
   function onlyPracticeFrames(examples: Example[]): boolean {
@@ -388,7 +409,18 @@
         {/each}
       {/if}
 
-      {#each contents as item (item.href)}
+      {#each mainContents as item (item.href)}
+        <a
+          class="shrink-0 py-3 text-[0.85rem] font-medium text-slate-600 hover:text-slate-900"
+          href={item.href}
+        >
+          {item.label}
+        </a>
+      {/each}
+
+      <span class="ml-auto" aria-hidden="true"></span>
+
+      {#each dataContents as item (item.href)}
         <a
           class="shrink-0 py-3 text-[0.85rem] font-medium text-slate-600 hover:text-slate-900"
           href={item.href}
@@ -400,7 +432,7 @@
   </nav>
 
   <PageShell
-    class="grid grid-cols-[minmax(0,1fr)_18rem] gap-x-14 gap-y-12 pt-10 max-[900px]:grid-cols-1 max-[760px]:pt-8"
+    class="grid grid-cols-[minmax(0,1fr)_21rem] gap-x-14 gap-y-12 pt-10 max-[900px]:grid-cols-1 max-[760px]:pt-8"
   >
     <article class="grid min-w-0 content-start gap-y-12">
       {#each senseViews as sense, senseIndex (sense.entry.slug)}
@@ -627,54 +659,64 @@
         </section>
       {/if}
 
-      {#if relatedEntries.length}
-        <section id="related" class={sectionClass} aria-labelledby="related-heading">
-          <h2 id="related-heading" class={headingClass}>Related words</h2>
-
-          <ul
-            class="m-0 mt-3 grid list-none grid-cols-2 gap-x-10 p-0 max-[560px]:grid-cols-1"
-          >
-            {#each relatedEntries as relatedEntry (relatedEntry.slug)}
-              <li>
-                <a
-                  class="group grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-3 py-1.5"
-                  href={relatedEntry.href}
-                >
-                  <span
-                    class="truncate font-serif text-[1.05rem] text-slate-900 group-hover:text-blue-800"
-                    lang="sk"
-                  >
-                    {relatedEntry.slovak}
-                  </span>
-                  <span class="text-[0.85rem] leading-snug text-slate-600">
-                    {relatedEntry.english}
-                  </span>
-                </a>
-              </li>
-            {/each}
-          </ul>
-        </section>
-      {/if}
-
       <ExternalLookups
         lemma={entry.slovak}
         dialect={senseViews.some((sense) => sense.entry.dialect === true)}
       />
-
-      <section id="source" class={sectionClass} aria-labelledby="source-heading">
-        <h2 id="source-heading" class="sr-only">Source</h2>
-        <p class="m-0 max-w-[66ch] text-sm leading-relaxed text-slate-600">
-          Source:
-          <TextLink href={entry.source}>{sourceLabel} ↗</TextLink>.
-          {#if entry.sourceNote}
-            {entry.sourceNote}
-          {/if}
-          Full attribution on <TextLink href="/references">References</TextLink>.
-        </p>
-      </section>
     </article>
 
     <aside class="grid min-w-0 content-start gap-y-12" aria-label="Word details">
+      {#if image}
+        <figure id="image" class="m-0 {sectionClass}">
+          <img
+            alt={image.caption}
+            class="block aspect-[5/4] h-auto w-full rounded-[2px] object-cover"
+            decoding="async"
+            height="280"
+            loading="lazy"
+            src={image.src}
+            width="352"
+          />
+
+          <figcaption class="mt-2 text-xs leading-snug text-slate-600">
+            <span class="text-slate-800">{image.caption}</span>
+
+            {#if image.artist}
+              <span aria-hidden="true"> · </span>
+              <span>{image.artist}</span>
+            {/if}
+
+            {#if image.license}
+              <span aria-hidden="true"> · </span>
+              {#if image.licenseUrl}
+                <a
+                  class="underline decoration-slate-300 hover:text-blue-800"
+                  href={image.licenseUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {image.license}
+                </a>
+              {:else}
+                <span>{image.license}</span>
+              {/if}
+            {/if}
+
+            {#if image.sourcePageUrl}
+              <span aria-hidden="true"> · </span>
+              <a
+                class="underline decoration-slate-300 hover:text-blue-800"
+                href={image.sourcePageUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Wikimedia
+              </a>
+            {/if}
+          </figcaption>
+        </figure>
+      {/if}
+
       {#if frequencyNeighbors.length > 0 && entry.frequency}
         <section id="frequency" class={sectionClass} aria-labelledby="frequency-heading">
           <h2 id="frequency-heading" class={headingClass}>Frequency</h2>
@@ -747,56 +789,107 @@
         </section>
       {/if}
 
-      {#if image}
-        <figure id="image" class="m-0 {sectionClass}">
-          <img
-            alt={image.caption}
-            class="block aspect-[5/4] h-auto w-full rounded-[2px] object-cover"
-            decoding="async"
-            height="280"
-            loading="lazy"
-            src={image.src}
-            width="352"
-          />
+      {#if relatedEntries.length}
+        <section id="related" class={sectionClass} aria-labelledby="related-heading">
+          <h2 id="related-heading" class={headingClass}>Related words</h2>
 
-          <figcaption class="mt-2 text-xs leading-snug text-slate-600">
-            <span class="text-slate-800">{image.caption}</span>
-
-            {#if image.artist}
-              <span aria-hidden="true"> · </span>
-              <span>{image.artist}</span>
-            {/if}
-
-            {#if image.license}
-              <span aria-hidden="true"> · </span>
-              {#if image.licenseUrl}
-                <a
-                  class="underline decoration-slate-300 hover:text-blue-800"
-                  href={image.licenseUrl}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {image.license}
+          <ul class="m-0 mt-2 list-none p-0">
+            {#each relatedEntries as relatedEntry (relatedEntry.slug)}
+              <li>
+                <a class={glossRowClass} href={relatedEntry.href}>
+                  <span
+                    class="truncate font-serif text-[1rem] text-blue-800 group-hover:underline"
+                    lang="sk"
+                  >
+                    {relatedEntry.slovak}
+                  </span>
+                  <span class="text-[0.85rem] leading-snug text-slate-600">
+                    {relatedEntry.english}
+                  </span>
                 </a>
-              {:else}
-                <span>{image.license}</span>
-              {/if}
-            {/if}
-
-            {#if image.sourcePageUrl}
-              <span aria-hidden="true"> · </span>
-              <a
-                class="underline decoration-slate-300 hover:text-blue-800"
-                href={image.sourcePageUrl}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Wikimedia
-              </a>
-            {/if}
-          </figcaption>
-        </figure>
+              </li>
+            {/each}
+          </ul>
+        </section>
       {/if}
+
+      {#if entriesNear.length > 0}
+        <section id="nearby" class={sectionClass} aria-labelledby="nearby-heading">
+          <h2 id="nearby-heading" class={headingClass}>Entries near</h2>
+
+          <ul class="m-0 mt-2 list-none p-0">
+            {#each entriesNear as nearby (nearby.slovak)}
+              <li>
+                {#if nearby.current}
+                  <span class={cx(glossRowClass, "bg-selected")} aria-current="true">
+                    <span class="truncate font-serif text-[1rem] font-semibold" lang="sk">
+                      {nearby.slovak}
+                    </span>
+                    <span class="text-[0.85rem] leading-snug text-slate-700">
+                      {nearby.english}
+                    </span>
+                  </span>
+                {:else}
+                  <a class={glossRowClass} href={nearby.href}>
+                    <span
+                      class="truncate font-serif text-[1rem] text-blue-800 group-hover:underline"
+                      lang="sk"
+                    >
+                      {nearby.slovak}
+                    </span>
+                    <span class="text-[0.85rem] leading-snug text-slate-600">
+                      {nearby.english}
+                    </span>
+                  </a>
+                {/if}
+              </li>
+            {/each}
+          </ul>
+        </section>
+      {/if}
+
+      <section id="source" class={sectionClass} aria-labelledby="source-heading">
+        <div
+          class="flex items-baseline justify-between gap-4 border-b border-slate-200 pb-2.5"
+        >
+          <h2
+            id="source-heading"
+            class="m-0 text-[1.05rem] font-semibold tracking-[-0.01em]"
+          >
+            Sources
+          </h2>
+
+          <TextLink href="/references">References</TextLink>
+        </div>
+
+        <dl class="m-0 grid grid-cols-[6rem_minmax(0,1fr)] text-[0.85rem]">
+          <dt class="border-b border-slate-200 py-2 text-slate-600">Meaning</dt>
+          <dd class="m-0 border-b border-slate-200 py-2">
+            <a class="text-blue-800 hover:underline" href={entry.source}>{sourceLabel}</a>
+          </dd>
+
+          {#if entry.frequency}
+            <dt class="border-b border-slate-200 py-2 text-slate-600">Frequency</dt>
+            <dd class="m-0 border-b border-slate-200 py-2">Slovak National Corpus</dd>
+          {/if}
+
+          {#if hasTatoeba}
+            <dt class="border-b border-slate-200 py-2 text-slate-600">Sentences</dt>
+            <dd class="m-0 border-b border-slate-200 py-2">
+              <a class="text-blue-800 hover:underline" href="https://tatoeba.org/"
+                >Tatoeba</a
+              >
+              (CC BY 2.0 FR)
+            </dd>
+          {/if}
+        </dl>
+
+        {#if entry.sourceNote}
+          <p class="m-0 mt-2 text-[0.8rem] leading-relaxed text-slate-600">
+            {entry.sourceNote}
+          </p>
+        {/if}
+      </section>
     </aside>
   </PageShell>
 

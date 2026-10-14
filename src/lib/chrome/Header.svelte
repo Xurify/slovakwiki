@@ -152,21 +152,28 @@
 
 <header
   bind:this={headerEl}
-  class="sticky top-0 border-b border-(--line) bg-(--paper)/95 backdrop-blur-md {menuOpen
+  class="sticky top-0 border-b border-panel-inverse-ink/12 bg-panel-inverse {menuOpen
     ? 'z-[80]'
     : 'z-50'}"
 >
   <div
-    class="mx-auto flex min-h-(--header-height) w-[min(var(--workspace-max),calc(100%-48px))] items-center gap-6 max-[800px]:w-[calc(100%-28px)] max-[480px]:w-[calc(100%-24px)] max-[800px]:flex-wrap max-[800px]:gap-x-3 max-[800px]:gap-y-2.5 max-[800px]:py-3"
+    class="mx-auto flex min-h-(--header-height) w-[min(var(--workspace-max),calc(100%-48px))] items-center gap-8 max-[800px]:w-[calc(100%-28px)] max-[480px]:w-[calc(100%-24px)] max-[800px]:flex-wrap max-[800px]:gap-x-3 max-[800px]:gap-y-2.5 max-[800px]:py-3"
   >
     <a class="inline-flex shrink-0 items-center" href="/" aria-label="Slovak Wiki home">
-      <BrandLockup size="header" />
+      <BrandLockup size="header" tone="inverse" />
     </a>
 
-    <nav class="hidden items-center gap-1 min-[801px]:flex" aria-label="Main navigation">
+    {#if search}
+      {@render search()}
+    {/if}
+
+    <nav
+      class="ml-auto hidden items-center gap-1 min-[801px]:flex"
+      aria-label="Main navigation"
+    >
       {#each primaryNavigation as link (link.href)}
         <a
-          class="relative inline-flex h-10 items-center px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-(--accent) after:transition-transform aria-[current=page]:text-(--accent-strong) aria-[current=page]:after:scale-x-100"
+          class="relative inline-flex h-10 items-center px-3 text-[0.85rem] font-semibold leading-none text-panel-inverse-ink/80 transition-colors hover:text-panel-inverse-ink after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-panel-inverse-ink after:transition-transform aria-[current=page]:text-panel-inverse-ink aria-[current=page]:after:scale-x-100"
           href={link.href}
           aria-current={isActive(link.href) ? "page" : undefined}
         >
@@ -180,9 +187,9 @@
         class="group relative"
       >
         <summary
-          class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.82rem] font-semibold leading-none text-(--muted-strong) transition-colors hover:text-(--ink) group-open:text-(--accent-strong) marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
-            ? 'text-(--accent-strong)'
-            : ''}"
+          class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.85rem] font-semibold leading-none transition-colors hover:text-panel-inverse-ink group-open:text-panel-inverse-ink marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
+            ? 'text-panel-inverse-ink'
+            : 'text-panel-inverse-ink/80'}"
         >
           Reference
           <svg
@@ -211,18 +218,14 @@
         </div>
       </details>
 
-      <ThemeToggle class="ml-1" />
+      <ThemeToggle class="ml-1" tone="inverse" />
     </nav>
 
-    {#if search}
-      {@render search()}
-    {/if}
-
     <div class="ml-auto flex shrink-0 items-center gap-0.5 min-[801px]:hidden">
-      <ThemeToggle />
+      <ThemeToggle tone="inverse" />
 
       <button
-        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-(--ink-soft) transition-transform duration-150 ease-out active:scale-[0.98]"
+        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-panel-inverse-ink transition-transform duration-150 ease-out active:scale-[0.98]"
         type="button"
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}

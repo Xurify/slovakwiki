@@ -21,6 +21,7 @@ import {
   lemmaSenseGroup,
   relatedSlugsForLemmaPage,
 } from "$lib/catalog/dictionary/lemma-senses";
+import { entriesNear, type NearbyEntry } from "$lib/catalog/dictionary/entries-near";
 import {
   frequencyNeighbors,
   type FrequencyNeighbor,
@@ -31,6 +32,7 @@ import type { ContentEntry } from "$lib/catalog/types";
 
 type DictionaryPageProps = {
   entry: ContentEntry;
+  entriesNear: NearbyEntry[];
   exampleAudioSrcs: string[];
   frequencyNeighbors: FrequencyNeighbor[];
   image:
@@ -129,6 +131,7 @@ export function getStaticPaths() {
       })),
       relatedEntries,
       lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
+      entriesNear: entriesNear(entry, words),
       exampleAudioSrcs: exampleAudioSrcsFor(entry),
       frequencyNeighbors: entry.frequency
         ? frequencyNeighbors(
@@ -155,6 +158,7 @@ const {
   relatedEntries,
   lemmaAudioSrc,
   exampleAudioSrcs,
+  entriesNear: nearbyEntries,
   frequencyNeighbors: frequencyRows,
   senses,
   image,
@@ -208,6 +212,7 @@ for (const [senseIndex, sense] of senses.entries()) {
       relatedEntries,
       lemmaAudioSrc,
       exampleAudioSrcs,
+      entriesNear: nearbyEntries,
       frequencyNeighbors: frequencyRows,
       senses,
       image,

@@ -8,10 +8,13 @@
   let {
     lemma,
     dialect = false,
+    compact = false,
     class: className = "",
   }: {
     lemma: string;
     dialect?: boolean;
+    /** Narrow side-column layout: smaller label column, tighter links. */
+    compact?: boolean;
     class?: string;
   } = $props();
 
@@ -60,14 +63,20 @@
     <dl class="m-0 grid gap-y-3">
       {#each groups as entry (entry.group)}
         <div
-          class="grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5"
+          class={compact
+            ? "grid grid-cols-[6rem_1fr] items-baseline gap-x-3"
+            : "grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5"}
         >
           <dt class="text-[0.8rem] font-medium text-slate-600">
             {GROUP_LABEL[entry.group]}
           </dt>
 
           <dd class="m-0">
-            <ul class="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
+            <ul
+              class={compact
+                ? "m-0 flex list-none flex-wrap gap-x-3.5 gap-y-1.5 p-0"
+                : "m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0"}
+            >
               {#each entry.links as link (link.id)}
                 <li>
                   <a

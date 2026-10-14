@@ -13,9 +13,18 @@
 
   let {
     class: className = "",
+    tone = "default",
   }: {
     class?: string;
+    /** `inverse` sits on the indigo top bar. */
+    tone?: "default" | "inverse";
   } = $props();
+
+  const toneClass = $derived(
+    tone === "inverse"
+      ? "text-panel-inverse-ink/80 hover:text-panel-inverse-ink"
+      : "text-(--muted-strong) hover:text-(--ink)",
+  );
 
   // Stay on "system" until mount so SSR and hydration render the same button.
   // The icon itself follows `html[data-theme]`, which the head script sets before paint.
@@ -57,7 +66,7 @@
 </script>
 
 <button
-  class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-transparent text-(--muted-strong) transition-[color,transform,scale] duration-150 ease-out hover:text-(--ink) active:scale-[0.98] {className}"
+  class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-transparent transition-[color,transform,scale] duration-150 ease-out active:scale-[0.98] {toneClass} {className}"
   type="button"
   aria-label={label}
   title={label}

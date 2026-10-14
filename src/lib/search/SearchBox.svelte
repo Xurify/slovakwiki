@@ -88,19 +88,19 @@
   const shellClass = $derived(
     size === "hero"
       ? cx("relative z-30 w-full", className)
-      : cx("relative ml-auto w-full max-w-[320px] min-w-0", className),
+      : cx("relative w-full max-w-[540px] min-w-0 flex-1", className),
   );
 
   const fieldClass = $derived(
     size === "hero"
       ? "flex min-h-[52px] items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-brand bg-surface transition-[box-shadow] focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
-      : "flex min-h-10 w-full items-center rounded-(--control-radius) border border-(--line-strong) bg-(--surface) transition-[box-shadow,border-color] focus-within:border-(--accent) focus-within:shadow-[0_0_0_3px_var(--accent-soft)]",
+      : "flex min-h-10 w-full items-stretch overflow-hidden rounded-[4px] bg-(--surface) transition-[box-shadow] focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--surface)_35%,transparent)]",
   );
 
   const inputClass = $derived(
     size === "hero"
       ? "min-w-0 flex-1 border-0 bg-transparent px-3 text-[1.05rem] text-(--ink) outline-none placeholder:text-(--muted)"
-      : "min-h-[38px] min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.8rem] text-(--ink) outline-none",
+      : "min-h-10 min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.9rem] text-(--ink) outline-none placeholder:text-(--muted)",
   );
 
   function kindLabel(kind: string | undefined, category?: string): string {
@@ -423,7 +423,7 @@
         "shrink-0 fill-none stroke-[1.8]",
         size === "hero"
           ? "ml-4 w-[18px] stroke-(--muted) max-[520px]:hidden"
-          : "ml-3 w-4 stroke-(--muted)",
+          : "ml-3 w-4 self-center stroke-(--muted)",
       )}
       aria-hidden="true"
       viewBox="0 0 24 24"
@@ -463,14 +463,15 @@
       </kbd>
     {/if}
 
-    {#if size === "hero"}
-      <button
-        class="cursor-pointer border-0 bg-brand px-5 text-[0.95rem] font-semibold text-brand-ink hover:opacity-90"
-        type="submit"
-      >
-        Search
-      </button>
-    {/if}
+    <button
+      class={cx(
+        "cursor-pointer border-0 bg-brand font-semibold text-brand-ink hover:opacity-90",
+        size === "hero" ? "px-5 text-[0.95rem]" : "px-4 text-[0.85rem]",
+      )}
+      type="submit"
+    >
+      Search
+    </button>
   </form>
 
   {#if showPanel}
