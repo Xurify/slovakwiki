@@ -31,6 +31,8 @@
     "zena",
     "dieta"
   ],
+  "friends": ["kamarat", "kamaratka", "priatel", "priatelka"],
+  "friendship": ["priatel", "priatelka", "priatelstvo", "priatelsky"],
   "school-learn": [
     "skola",
     "ucitel",

@@ -91954,7 +91954,11 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "kamaratka",
+      "priatel",
+      "priatelka"
+    ]
   },
   {
     "slug": "prvok",
@@ -125329,7 +125333,11 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "priatel",
+      "priatelka",
+      "priatelstvo"
+    ]
   },
   {
     "slug": "herny",
@@ -158160,7 +158168,12 @@
         "tatoebaId": 10644543
       }
     ],
-    "related": []
+    "related": [
+      "priatel",
+      "kamarat",
+      "kamaratka",
+      "priatelstvo"
+    ]
   },
   {
     "slug": "strava",
@@ -163039,7 +163052,11 @@
         "tatoebaId": 9027261
       }
     ],
-    "related": []
+    "related": [
+      "priatel",
+      "priatelka",
+      "priatelsky"
+    ]
   },
   {
     "slug": "biznis",
@@ -178654,7 +178671,11 @@
         "tatoebaId": 12898669
       }
     ],
-    "related": []
+    "related": [
+      "kamarat",
+      "priatel",
+      "priatelka"
+    ]
   },
   {
     "slug": "domcek",
