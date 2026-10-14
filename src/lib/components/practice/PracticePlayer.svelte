@@ -39,8 +39,6 @@
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
-    feedbackFooterClass,
-    feedbackToneFromGrade,
     isMissFeedback,
     shouldShowCorrection,
   } from "$lib/components/practice/practice-feedback-ui";
@@ -455,11 +453,6 @@
       task.promptLang,
     ),
   );
-
-  function exerciseFooterClass(): string {
-    if (!submitted) return "border-t border-slate-200 bg-paper/70";
-    return feedbackFooterClass(feedbackToneFromGrade(grade, revealed));
-  }
 </script>
 
 <svelte:window onkeydown={onWindowKeydown} />
@@ -467,7 +460,7 @@
 {#snippet exerciseFooter()}
   {#if submitted}
     <div
-      class="grid gap-4 focus-visible:outline-none {isMiss
+      class="grid animate-rise gap-4 focus-visible:outline-none {isMiss
         ? ''
         : 'sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-6'}"
       bind:this={feedbackPanel}
@@ -551,7 +544,7 @@
       total={activeItems.length}
     />
 
-    <PracticeExerciseCard footer={exerciseFooter} footerClass={exerciseFooterClass()}>
+    <PracticeExerciseCard footer={exerciseFooter}>
       {#if sectionTitle && !hasScene}
         <p class={sessionKickerClass}>{sectionTitle}</p>
       {/if}

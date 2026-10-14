@@ -10,10 +10,10 @@
     tone?: "default" | "inverse";
   } = $props();
 
-  // Inverse follows the top bar: tile in its ink, ring in its colour.
-  const tileFill = $derived(tone === "inverse" ? "var(--cta)" : "#0f4a66");
-  const ringFill = $derived(tone === "inverse" ? "var(--cta-ink)" : "#f4f8fa");
-  const accentFill = $derived(tone === "inverse" ? "var(--cta-ink)" : "#f4f8fa");
+  // Same blue tile everywhere (favicon included); inverse follows the top bar's CTA tokens.
+  const tileFill = $derived(tone === "inverse" ? "var(--cta)" : "var(--brand)");
+  const ringFill = $derived(tone === "inverse" ? "var(--cta-ink)" : "var(--brand-ink)");
+  const accentFill = $derived(tone === "inverse" ? "var(--cta-ink)" : "var(--brand-ink)");
 </script>
 
 <svg

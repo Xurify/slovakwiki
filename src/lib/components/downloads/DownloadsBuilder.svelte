@@ -431,7 +431,7 @@
         </div>
         <button
           type="button"
-          class="-mt-1 -mr-1 inline-grid size-9 shrink-0 place-items-center rounded-full text-slate-500 transition-[background-color,color,transform] duration-150 hover:bg-subtle hover:text-slate-800 active:scale-[0.96]"
+          class="-mt-1 -mr-1 inline-grid size-9 shrink-0 place-items-center rounded-(--control-radius) text-slate-500 transition-colors duration-150 ease-out hover:bg-subtle hover:text-slate-800"
           aria-label="Close"
           onclick={closeCustomize}
         >

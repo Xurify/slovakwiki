@@ -88,12 +88,9 @@
 
   const triggerClass = $derived(
     [
-      "inline-grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border bg-(--surface) text-blue-900 shadow-(--shadow-border)",
-      "transition-[background-color,border-color,box-shadow,transform] duration-200",
-      "hover:border-blue-700 hover:bg-blue-50 hover:shadow-(--shadow-border-hover) active:scale-[0.98]",
-      open
-        ? "border-blue-700 bg-blue-50 shadow-(--shadow-border-hover)"
-        : "border-slate-300",
+      "inline-grid size-9 shrink-0 cursor-pointer place-items-center rounded-(--control-radius) border-0 bg-transparent",
+      "transition-colors duration-150 ease-out hover:bg-subtle hover:text-slate-900",
+      open ? "bg-subtle text-slate-900" : "text-slate-600",
     ].join(" "),
   );
 </script>
@@ -128,7 +125,7 @@
   {#if open}
     <div
       id="lesson-story-settings"
-      class="absolute top-[calc(100%+0.625rem)] right-0 z-40 w-[min(17.5rem,calc(100vw-2rem))] overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border) ring-1 ring-slate-200/90 ring-inset"
+      class="absolute top-[calc(100%+0.375rem)] right-0 z-40 w-[min(17.5rem,calc(100vw-2rem))] overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-float)"
       role="dialog"
       aria-label="Story settings"
     >

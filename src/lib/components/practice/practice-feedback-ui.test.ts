@@ -1,10 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  feedbackFooterClass,
-  isMissFeedback,
-  missCompareClass,
-  splitEmphasis,
-} from "./practice-feedback-ui";
+import { isMissFeedback, missCompareClass, splitEmphasis } from "./practice-feedback-ui";
 
 describe("splitEmphasis", () => {
   it("returns plain text when there are no markers", () => {
@@ -44,11 +39,8 @@ describe("splitEmphasis", () => {
   });
 });
 
-describe("feedbackFooterClass", () => {
-  it("uses neutral footer on miss so cards carry tone", () => {
-    expect(feedbackFooterClass("incorrect")).toBe(
-      "border-t border-slate-200 bg-paper/70",
-    );
+describe("isMissFeedback", () => {
+  it("counts wrong, accent slips and reveals as misses", () => {
     expect(isMissFeedback("incorrect", false)).toBe(true);
     expect(isMissFeedback("accents", false)).toBe(true);
     expect(isMissFeedback("correct", false)).toBe(false);

@@ -4,7 +4,6 @@
 
   import {
     buildBrowseQueryHref,
-    buildPageItems,
     buildDictionaryViewFromEntries,
     browseStateNeedsIndex,
     categoryForTopic,
@@ -109,7 +108,6 @@
     `${topic}-${letter}-${page}-${waitingForFilteredView ? "loading" : "ready"}`,
   );
 
-  const pageItems = $derived(buildPageItems(view.page, view.totalPages));
   const displayTopic = $derived(view.topic);
   const displayLetter = $derived(view.letter);
   const hasActiveFilters = $derived(hasActiveBrowseFilters(displayTopic, displayLetter));
@@ -145,13 +143,8 @@
         : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
     }`;
 
-  const pagerChipClass = (active: boolean): string =>
-    active
-      ? "border-blue-600 bg-blue-600 text-paper shadow-none"
-      : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900";
-
-  const pagerLinkClass =
-    "inline-flex h-9 min-w-9 cursor-pointer items-center justify-center rounded-(--control-radius) border px-2.5 text-xs font-semibold tabular-nums transition-colors";
+  const pagerButtonClass =
+    "inline-flex h-8 cursor-pointer items-center gap-1 rounded-(--control-radius) border border-slate-300 bg-surface px-2.5 text-xs font-semibold text-slate-700 shadow-(--shadow-border) transition-colors duration-150 hover:border-slate-400 hover:bg-subtle hover:text-slate-900 disabled:cursor-default disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-surface disabled:hover:text-slate-700";
 
   /** word · meaning (· part of speech when no topic narrows it). Phones stack the cells. */
   const browseTrack = $derived(
@@ -306,11 +299,6 @@
   <div class={dataPanelHeadClass}>
     <p class={dataRangeClass}>
       <strong class="font-semibold tabular-nums text-slate-900">{rangeLabel}</strong>
-      {#if view.totalPages > 1 && !waitingForFilteredView && view.totalCount > 0}
-        <span class="tabular-nums text-slate-400">
-          · page {view.page} of {view.totalPages}
-        </span>
-      {/if}
     </p>
 
     {#if hasActiveFilters}
@@ -401,54 +389,43 @@
 
   {#if showPager}
     <nav class={dataPanelFootClass} aria-label="Dictionary pages">
-      {#if view.page > 1}
+      <p class="m-0 text-sm text-slate-500 tabular-nums">
+        Page {view.page} of {view.totalPages}
+      </p>
+
+      <div class="flex items-center gap-2">
         <button
-          class="{pagerLinkClass} {pagerChipClass(false)}"
+          class={pagerButtonClass}
           type="button"
+          disabled={view.page <= 1}
           onclick={() => selectPage(view.page - 1)}
         >
+          <svg
+            class="size-3.5 fill-none stroke-current stroke-2"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="m15 6-6 6 6 6" />
+          </svg>
           Previous
         </button>
-      {:else}
-        <span
-          class="{pagerLinkClass} {pagerChipClass(false)} pointer-events-none opacity-40"
-          aria-hidden="true"
-        >
-          Previous
-        </span>
-      {/if}
 
-      {#each pageItems as item, index (typeof item === "number" ? item : `gap-${index}`)}
-        {#if item === "gap"}
-          <span class="px-1 text-xs text-slate-400" aria-hidden="true">…</span>
-        {:else}
-          <button
-            class="{pagerLinkClass} {pagerChipClass(item === view.page)}"
-            type="button"
-            aria-current={item === view.page ? "page" : undefined}
-            onclick={() => selectPage(item)}
-          >
-            {item}
-          </button>
-        {/if}
-      {/each}
-
-      {#if view.page < view.totalPages}
         <button
-          class="{pagerLinkClass} {pagerChipClass(false)}"
+          class={pagerButtonClass}
           type="button"
+          disabled={view.page >= view.totalPages}
           onclick={() => selectPage(view.page + 1)}
         >
           Next
+          <svg
+            class="size-3.5 fill-none stroke-current stroke-2"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="m9 6 6 6-6 6" />
+          </svg>
         </button>
-      {:else}
-        <span
-          class="{pagerLinkClass} {pagerChipClass(false)} pointer-events-none opacity-40"
-          aria-hidden="true"
-        >
-          Next
-        </span>
-      {/if}
+      </div>
     </nav>
   {/if}
 </section>

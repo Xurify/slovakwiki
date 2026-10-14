@@ -59,12 +59,6 @@ export function feedbackPanelClass(tone: FeedbackTone): string {
   return `${panelBase} bg-emerald-50 ring-emerald-600/15`;
 }
 
-export function feedbackFooterClass(tone: FeedbackTone): string {
-  if (tone === "incorrect") return "border-t border-slate-200 bg-paper/70";
-  if (tone === "accents") return "border-t border-blue-200 bg-blue-50";
-  return "border-t border-emerald-200 bg-emerald-50";
-}
-
 export const feedbackSectionLabelClass =
   "m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.08em]";
 

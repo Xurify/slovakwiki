@@ -36,7 +36,7 @@
     class:shadow-(--shadow-border)={variant === "secondary"}
     class:hover:bg-control-hover={variant === "secondary"}
     class:hover:shadow-(--shadow-border-hover)={variant === "secondary"}
-    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,transform,scale] duration-150 ease-out active:scale-[0.98] {className}"
+    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,color] duration-150 ease-out {className}"
     {href}
     {...rest}
   >
@@ -58,7 +58,7 @@
     class:shadow-(--shadow-border)={variant === "secondary"}
     class:hover:bg-control-hover={variant === "secondary"}
     class:hover:shadow-(--shadow-border-hover)={variant === "secondary"}
-    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,transform,scale] duration-150 ease-out active:scale-[0.98] disabled:opacity-65 {className}"
+    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,color] duration-150 ease-out disabled:opacity-65 {className}"
     {type}
     {disabled}
     {...rest}

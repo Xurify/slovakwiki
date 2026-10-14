@@ -33,9 +33,7 @@
 
   let continueButton: HTMLButtonElement | undefined = $state();
 
-  const incorrect = $derived(grade === "incorrect");
-  const accents = $derived(grade === "accents");
-  const isMiss = $derived(incorrect || accents || revealed);
+  const isMiss = $derived(grade === "incorrect" || grade === "accents" || revealed);
   const whyParts = $derived(why ? splitEmphasis(why) : []);
   const showCorrection = $derived(
     showCorrectionProp ?? (isMiss && shouldShowCorrection(true, grade, revealed)),
@@ -53,7 +51,7 @@
   aria-live="polite"
 >
   <div
-    class="mx-auto flex max-w-2xl flex-wrap justify-between gap-4 {isMiss
+    class="mx-auto flex max-w-2xl animate-rise flex-wrap justify-between gap-4 {isMiss
       ? 'items-start'
       : 'items-center'}"
   >
@@ -86,7 +84,7 @@
           >
             <path d="M5 12l5 5L20 7" />
           </svg>
-          Correct!
+          Correct
         </p>
 
         {#if whyParts.length}
@@ -108,14 +106,7 @@
     <button
       bind:this={continueButton}
       type="button"
-      class={[
-        "inline-flex min-h-11 min-w-36 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) px-6 font-sans text-sm font-bold text-paper transition-[background-color,transform] duration-150 active:scale-[0.96]",
-        incorrect
-          ? "bg-rose-700 hover:bg-rose-800"
-          : accents
-            ? "bg-blue-700 hover:bg-blue-800"
-            : "bg-emerald-600 hover:bg-emerald-700",
-      ].join(" ")}
+      class="inline-flex min-h-11 min-w-36 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-blue-600 px-6 font-sans text-sm font-bold text-paper transition-colors duration-150 ease-out hover:bg-blue-700"
       onclick={oncontinue}
     >
       Continue

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { mount, onDestroy, unmount } from "svelte";
 
-  import Button from "$lib/components/ui/Button.svelte";
   import DictionaryCommonRow from "$lib/components/dictionary/DictionaryCommonRow.svelte";
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import {
@@ -10,7 +9,7 @@
     PAGE_SIZE,
     showMoreDictionaryCommonEntries,
   } from "$lib/components/dictionary/common-client.svelte";
-  import { dataEmptyClass, dataPanelFootClass } from "$lib/components/ui/data-list-ui";
+  import { dataEmptyClass, dataMoreRowClass } from "$lib/components/ui/data-list-ui";
 
   let { totalCount }: { totalCount: number } = $props();
 
@@ -123,14 +122,18 @@
 {/if}
 
 {#if hasMore || (!expanded && totalCount > PAGE_SIZE)}
-  <div class={dataPanelFootClass}>
-    <Button
-      type="button"
-      variant="secondary"
-      class="min-h-10 px-4 text-sm"
-      onclick={() => void showMoreDictionaryCommonEntries()}
+  <button
+    class={dataMoreRowClass}
+    type="button"
+    onclick={() => void showMoreDictionaryCommonEntries()}
+  >
+    Show {PAGE_SIZE} more
+    <svg
+      class="size-3.5 fill-none stroke-current stroke-2"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
     >
-      Show {PAGE_SIZE} more
-    </Button>
-  </div>
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </button>
 {/if}

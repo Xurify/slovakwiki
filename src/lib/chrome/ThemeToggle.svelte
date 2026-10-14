@@ -66,7 +66,7 @@
 </script>
 
 <button
-  class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-transparent transition-[color,transform,scale] duration-150 ease-out active:scale-[0.98] {toneClass} {className}"
+  class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-transparent transition-colors duration-150 ease-out {toneClass} {className}"
   type="button"
   aria-label={label}
   title={label}

@@ -50,7 +50,7 @@
         height="512"
         loading="lazy"
         decoding="async"
-        class="size-full rounded-[inherit] object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+        class="size-full rounded-[inherit] object-cover"
       />
     </span>
 

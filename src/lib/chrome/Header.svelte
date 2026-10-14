@@ -7,7 +7,7 @@
     isReferenceSection,
     navigationIsActive,
     primaryNavigation,
-    referenceNavigation,
+    referenceNavigationGroups,
   } from "./navigation";
 
   let {
@@ -37,16 +37,6 @@
   }
 
   const referenceOpen = $derived(isReferenceSection(pathname));
-
-  const drawerMotion = $derived(
-    menuOpen
-      ? "duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
-      : "duration-200 ease-[cubic-bezier(0.2,0,0,1)]",
-  );
-
-  function linkDelay(index: number): string {
-    return menuOpen ? `${80 + index * 45}ms` : "0ms";
-  }
 
   $effect(() => {
     if (!headerEl) {
@@ -141,6 +131,21 @@
       document.removeEventListener("keydown", onKeydown);
     };
   });
+
+  const topLinkClass =
+    "relative inline-flex h-10 items-center px-3 text-[0.85rem] font-semibold leading-none text-panel-inverse-ink/80 transition-colors duration-150 hover:text-panel-inverse-ink after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-panel-inverse-ink after:transition-transform after:duration-150 aria-[current=page]:text-panel-inverse-ink aria-[current=page]:after:scale-x-100";
+
+  const menuGroupLabelClass =
+    "m-0 px-2.5 pt-2 pb-1 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+
+  const menuItemClass =
+    "flex items-center justify-between gap-3 rounded-(--control-radius) px-2.5 py-1.5 text-sm text-slate-700 no-underline transition-colors duration-150 hover:bg-subtle hover:text-slate-900 aria-[current=page]:font-semibold aria-[current=page]:text-blue-800";
+
+  const drawerLinkClass =
+    "block border-b border-slate-200 py-3.5 text-[0.95rem] font-semibold text-slate-800 no-underline aria-[current=page]:text-blue-800";
+
+  const drawerItemClass =
+    "block border-b border-slate-200/70 py-3 text-[0.95rem] text-slate-800 no-underline aria-[current=page]:font-semibold aria-[current=page]:text-blue-800";
 </script>
 
 <a
@@ -173,7 +178,7 @@
     >
       {#each primaryNavigation as link (link.href)}
         <a
-          class="relative inline-flex h-10 items-center px-3 text-[0.85rem] font-semibold leading-none text-panel-inverse-ink/80 transition-colors hover:text-panel-inverse-ink after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-panel-inverse-ink after:transition-transform aria-[current=page]:text-panel-inverse-ink aria-[current=page]:after:scale-x-100"
+          class={topLinkClass}
           href={link.href}
           aria-current={isActive(link.href) ? "page" : undefined}
         >
@@ -187,13 +192,13 @@
         class="group relative"
       >
         <summary
-          class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.85rem] font-semibold leading-none transition-colors hover:text-panel-inverse-ink group-open:text-panel-inverse-ink marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
+          class="flex h-10 cursor-pointer list-none items-center gap-1 px-3 text-[0.85rem] font-semibold leading-none transition-colors duration-150 hover:text-panel-inverse-ink group-open:text-panel-inverse-ink marker:content-none [&::-webkit-details-marker]:hidden {referenceOpen
             ? 'text-panel-inverse-ink'
             : 'text-panel-inverse-ink/80'}"
         >
           Reference
           <svg
-            class="w-3 fill-none stroke-current stroke-2 transition-transform group-open:rotate-180"
+            class="w-3 fill-none stroke-current stroke-2 transition-transform duration-150 group-open:rotate-180"
             aria-hidden="true"
             viewBox="0 0 24 24"
           >
@@ -202,18 +207,38 @@
         </summary>
 
         <div
-          class="absolute top-full left-0 z-50 mt-1.5 min-w-[220px] overflow-hidden rounded-(--frame-radius) bg-surface py-1.5 shadow-(--shadow-border) ring-1 ring-slate-200/90 ring-inset"
+          class="absolute top-full left-0 z-50 mt-1.5 w-60 rounded-(--frame-radius) bg-surface py-1 shadow-(--shadow-float)"
           role="menu"
         >
-          {#each referenceNavigation as item (item.href)}
-            <a
-              class="block px-4 py-2 text-sm font-medium text-slate-700 no-underline hover:bg-subtle hover:text-slate-900 aria-[current=page]:bg-selected aria-[current=page]:font-semibold aria-[current=page]:text-blue-800"
-              href={item.href}
-              role="menuitem"
-              aria-current={isActive(item.href) ? "page" : undefined}
+          {#each referenceNavigationGroups as group (group.label)}
+            <div
+              class="border-t border-slate-200/80 px-1.5 py-1 first:border-t-0"
+              role="group"
+              aria-label={group.label}
             >
-              {item.label}
-            </a>
+              <p class={menuGroupLabelClass} aria-hidden="true">{group.label}</p>
+
+              {#each group.items as item (item.href)}
+                <a
+                  class={menuItemClass}
+                  href={item.href}
+                  role="menuitem"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+
+                  {#if isActive(item.href)}
+                    <svg
+                      class="size-3.5 shrink-0 fill-none stroke-current stroke-[2.5]"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12l5 5L20 7" />
+                    </svg>
+                  {/if}
+                </a>
+              {/each}
+            </div>
           {/each}
         </div>
       </details>
@@ -225,39 +250,37 @@
       <ThemeToggle tone="inverse" />
 
       <button
-        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-panel-inverse-ink transition-transform duration-150 ease-out active:scale-[0.98]"
+        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-panel-inverse-ink"
         type="button"
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
         aria-controls="mobile-navigation"
         onclick={toggleMenu}
       >
-        <span class="relative block h-6 w-6" aria-hidden="true">
+        {#if menuOpen}
           <svg
-            class="absolute inset-0 h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
-              ? 'scale-100 opacity-100 blur-0'
-              : 'scale-[0.25] opacity-0 blur-[4px]'}"
+            class="h-6 w-6 fill-none stroke-current stroke-2"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path d="M6 6l12 12M18 6 6 18" />
           </svg>
-
+        {:else}
           <svg
-            class="h-6 w-6 fill-none stroke-current stroke-2 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] {menuOpen
-              ? 'scale-[0.25] opacity-0 blur-[4px]'
-              : 'scale-100 opacity-100 blur-0'}"
+            class="h-6 w-6 fill-none stroke-current stroke-2"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path d="M4 7h16M4 12h16M4 17h16" />
           </svg>
-        </span>
+        {/if}
       </button>
     </div>
   </div>
 </header>
 
 <div
-  class="fixed inset-x-0 bottom-0 z-[60] touch-manipulation select-none bg-panel-inverse/30 p-0 backdrop-blur-[1px] transition-[opacity,backdrop-filter] [-webkit-touch-callout:none] min-[801px]:hidden {drawerMotion} {menuOpen
+  class="fixed inset-x-0 bottom-0 z-[60] touch-manipulation select-none bg-panel-inverse/30 p-0 transition-opacity duration-200 ease-out [-webkit-touch-callout:none] min-[801px]:hidden {menuOpen
     ? 'opacity-100'
     : 'pointer-events-none opacity-0'}"
   style:top="{headerOffset}px"
@@ -272,7 +295,7 @@
 ></div>
 
 <nav
-  class="fixed bottom-0 right-0 z-[70] flex w-[min(20rem,calc(100vw-2.5rem))] flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent border-l border-(--line) bg-(--paper) px-5 pb-8 pt-4 shadow-(--shadow-border) transition-transform will-change-transform select-none min-[801px]:hidden {drawerMotion} {menuOpen
+  class="fixed bottom-0 right-0 z-[70] flex w-[min(20rem,calc(100vw-2.5rem))] flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent border-l border-slate-200 bg-paper px-5 pb-8 pt-3 shadow-(--shadow-float) transition-transform duration-200 ease-out will-change-transform select-none min-[801px]:hidden {menuOpen
     ? 'translate-x-0'
     : 'pointer-events-none translate-x-full'}"
   style:top="{headerOffset}px"
@@ -281,12 +304,9 @@
   aria-hidden={!menuOpen}
   inert={!menuOpen}
 >
-  {#each primaryNavigation as link, index (link.href)}
+  {#each primaryNavigation as link (link.href)}
     <a
-      class="block border-b border-(--line) py-3.5 text-[0.95rem] font-semibold text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:text-(--accent-strong) {drawerMotion} {menuOpen
-        ? 'translate-y-0 opacity-100 blur-0'
-        : 'translate-y-3 opacity-0 blur-[4px]'}"
-      style:transition-delay={linkDelay(index)}
+      class={drawerLinkClass}
       href={link.href}
       aria-current={isActive(link.href) ? "page" : undefined}
       tabindex={menuOpen ? 0 : -1}
@@ -296,27 +316,23 @@
     </a>
   {/each}
 
-  <p
-    class="mb-1 mt-5 text-[0.64rem] font-bold uppercase tracking-[0.1em] text-(--muted) transition-[opacity,transform,filter] {drawerMotion} {menuOpen
-      ? 'translate-y-0 opacity-100 blur-0'
-      : 'translate-y-3 opacity-0 blur-[4px]'}"
-    style:transition-delay={linkDelay(primaryNavigation.length)}
-  >
-    Reference
-  </p>
-
-  {#each referenceNavigation as item, index (item.href)}
-    <a
-      class="block border-b border-(--line)/70 py-3 text-[0.95rem] font-medium text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-strong) {drawerMotion} {menuOpen
-        ? 'translate-y-0 opacity-100 blur-0'
-        : 'translate-y-3 opacity-0 blur-[4px]'}"
-      style:transition-delay={linkDelay(primaryNavigation.length + 1 + index)}
-      href={item.href}
-      aria-current={isActive(item.href) ? "page" : undefined}
-      tabindex={menuOpen ? 0 : -1}
-      onclick={closeMenu}
+  {#each referenceNavigationGroups as group (group.label)}
+    <p
+      class="mb-1 mt-5 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-slate-500"
     >
-      {item.label}
-    </a>
+      {group.label}
+    </p>
+
+    {#each group.items as item (item.href)}
+      <a
+        class={drawerItemClass}
+        href={item.href}
+        aria-current={isActive(item.href) ? "page" : undefined}
+        tabindex={menuOpen ? 0 : -1}
+        onclick={closeMenu}
+      >
+        {item.label}
+      </a>
+    {/each}
   {/each}
 </nav>

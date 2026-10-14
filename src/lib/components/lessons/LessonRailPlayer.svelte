@@ -62,10 +62,6 @@
     lessonTracks.find((track) => track.id === lesson.track)?.title ?? lesson.track,
   );
 
-  const progressPercent = $derived(
-    steps.length <= 0 ? 0 : (stepIndex / steps.length) * 100,
-  );
-
   const nextLesson = $derived.by((): Lesson | null => {
     const siblings = lessonsForTrack(lesson.track);
     const index = siblings.findIndex((entry) => entry.id === lesson.id);
@@ -237,9 +233,10 @@
   >
     <LessonPlayerChrome
       {backHref}
-      {progressPercent}
       stepCount={steps.length}
       {stepIndex}
+      title={lesson.title}
+      subtitle={trackTitle}
     />
 
     <div
@@ -259,7 +256,7 @@
               bind:choiceOpen={teachChoiceOpen}
             />
           {:else}
-            <div class="mx-auto w-full max-w-2xl px-4 py-10 sm:px-8 sm:py-12">
+            <div class="mx-auto w-full max-w-2xl px-4 py-8 sm:px-8 sm:py-10">
               <LessonInteraction
                 chrome="player"
                 exercise={step.exercise}

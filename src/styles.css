@@ -27,6 +27,19 @@
   --color-mark: var(--mark);
   --color-saffron: var(--saffron);
   --color-saffron-ink: var(--saffron-ink);
+  --animate-rise: rise 200ms ease-out both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
   /* Keep Tailwind utility names, preserve Slovak Wiki palette. */
   --color-slate-50: var(--surface-subtle);
@@ -158,6 +171,10 @@
       0 0 0 1px color-mix(in srgb, var(--shadow-color) 10%, transparent),
       0 4px 8px -4px color-mix(in srgb, var(--shadow-color) 10%, transparent),
       0 10px 18px -12px color-mix(in srgb, var(--shadow-color) 16%, transparent);
+    --shadow-float:
+      0 0 0 1px color-mix(in srgb, var(--shadow-color) 8%, transparent),
+      0 2px 6px -2px color-mix(in srgb, var(--shadow-color) 8%, transparent),
+      0 12px 28px -10px color-mix(in srgb, var(--shadow-color) 18%, transparent);
     --header-height: 72px;
     --workspace-max: 1080px;
   }
@@ -217,32 +234,17 @@
   }
 
   /* Prefs FOUC: head IIFE sets html data attrs before first paint. */
-  html[data-sfx-preference="off"] [data-sfx-on-icon] {
-    opacity: 0 !important;
-    transform: scale(0.25) !important;
-    filter: blur(4px) !important;
-  }
-
-  html[data-sfx-preference="off"] [data-sfx-off-icon] {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-    filter: none !important;
-  }
-
-  html[data-sfx-preference="on"] [data-sfx-on-icon] {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-    filter: none !important;
-  }
-
+  html[data-sfx-preference="off"] [data-sfx-on-icon],
   html[data-sfx-preference="on"] [data-sfx-off-icon] {
-    opacity: 0 !important;
-    transform: scale(0.25) !important;
-    filter: blur(4px) !important;
+    display: none !important;
+  }
+
+  html[data-sfx-preference="off"] [data-sfx-off-icon],
+  html[data-sfx-preference="on"] [data-sfx-on-icon] {
+    display: block !important;
   }
 
   html[data-sfx-preference="off"] [data-sfx-toggle] {
-    background-color: var(--surface-subtle);
     color: var(--muted);
   }
 
@@ -298,32 +300,6 @@
   button,
   a {
     -webkit-tap-highlight-color: transparent;
-  }
-
-  @keyframes lesson-rise {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    @keyframes lesson-rise {
-      from {
-        opacity: 1;
-        transform: none;
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
   }
 
   :focus-visible {
@@ -384,47 +360,5 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
     }
-  }
-}
-
-/*
- * Key-style pressable surface (choice options, similar controls).
- * Idle lip + press dip. Selected via aria-pressed="true".
- */
-@layer components {
-  .press-key {
-    border: 2px solid var(--line-strong);
-    background-color: var(--surface);
-    color: var(--ink);
-    box-shadow: 0 2px 0 0 var(--line-strong);
-    transition-property: transform, box-shadow, border-color, background-color, color;
-    transition-duration: 100ms;
-    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
-  }
-
-  .press-key:focus-visible {
-    outline: none;
-    border-color: var(--accent);
-  }
-
-  .press-key:hover:not(:disabled) {
-    background-color: var(--accent-soft);
-  }
-
-  .press-key[aria-pressed="true"] {
-    border-color: var(--accent);
-    background-color: var(--accent-soft);
-    color: var(--accent-strong);
-    box-shadow: 0 2px 0 0 var(--accent);
-  }
-
-  .press-key:enabled:active {
-    translate: 0 2px;
-    box-shadow: none;
-  }
-
-  .press-key:disabled {
-    cursor: default;
-    opacity: 1;
   }
 }

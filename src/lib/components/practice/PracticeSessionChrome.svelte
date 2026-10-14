@@ -49,7 +49,7 @@
   <div class="flex items-center gap-3">
     {#if backHref}
       <a
-        class="-ml-1.5 inline-grid size-9 shrink-0 place-items-center rounded-full text-slate-500 transition-[background-color,color,transform] duration-150 hover:bg-subtle hover:text-slate-800 active:scale-[0.96]"
+        class="-ml-1.5 inline-grid size-9 shrink-0 place-items-center rounded-(--control-radius) text-slate-500 transition-colors duration-150 ease-out hover:bg-subtle hover:text-slate-800"
         href={backHref}
         aria-label={`Back to ${backLabel}`}
       >
