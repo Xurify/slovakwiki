@@ -90,30 +90,29 @@
     --font-ui: "IBM Plex Sans Variable", "IBM Plex Sans Fallback", "Segoe UI", sans-serif;
     --font-reading: "Source Serif 4 Variable", "Source Serif 4 Fallback", Georgia, serif;
     /*
-     * Light: petrol and ochre. Petrol comes from the logo tile and carries the
-     * chrome (top bar, footer, primary buttons) and links; ochre marks the search
-     * button, frequency dots and highlighted forms. Red and green stay for
-     * wrong and right answers only.
+     * Light: ocean teal and sand. Deep teal carries the chrome (top bar, footer,
+     * primary buttons) and links; sand marks the search button, frequency dots
+     * and highlighted forms. Red and green stay for wrong and right answers.
      */
-    --canvas: #fcfbf8;
-    --paper: #f3f0e9;
+    --canvas: #fbfcfb;
+    --paper: #eff4f2;
     --surface: #ffffff;
-    --surface-subtle: #eeebe3;
-    --surface-selected: #dcebef;
+    --surface-subtle: #e9efed;
+    --surface-selected: #dfeeed;
     /* Secondary controls: sit above paper/panels without looking hollow. */
     --control: #ffffff;
-    --control-hover: #dcebef;
-    --ink: #1a2327;
-    --ink-soft: #2a363b;
-    --muted: #5b666b;
-    --muted-strong: #45514f;
-    --line: #e4e0d7;
-    --line-strong: #cbc6ba;
-    --accent: #0f6a85;
+    --control-hover: #dfeeed;
+    --ink: #172524;
+    --ink-soft: #283a39;
+    --muted: #586a69;
+    --muted-strong: #435453;
+    --line: #dfe6e4;
+    --line-strong: #c3cfcc;
+    --accent: #0f6b6b;
     --mark-day: #b86a00;
     --mark-time: #0e7aab;
-    --accent-strong: #0b5068;
-    --accent-soft: #dcebef;
+    --accent-strong: #0b5555;
+    --accent-soft: #dfeeed;
     --action: #c23b35;
     --action-strong: #9c302c;
     --blue: #118ab2;
@@ -124,20 +123,20 @@
     --green: #1f6b5c;
     --green-light: #d3eae2;
     --green-mid: color-mix(in oklab, var(--green) 54%, var(--green-light));
-    /* Petrol: top bar, footer and other inverse panels. */
-    --panel-inverse: #0f3b4c;
-    --panel-inverse-ink: #f6f3ec;
+    /* Teal: top bar, footer and other inverse panels. */
+    --panel-inverse: #0d4f4f;
+    --panel-inverse-ink: #f1f6f5;
     /* Primary buttons. */
-    --cta: #0f3b4c;
-    --cta-strong: #0a2c39;
+    --cta: #0d4f4f;
+    --cta-strong: #093c3c;
     --cta-ink: #ffffff;
-    /* Ochre: the search button, form endings, and the highlighter. */
-    --saffron: #e3a33b;
-    --saffron-ink: #94580a;
-    --mark: #f8e2a8;
-    --brand: #e3a33b;
-    --brand-ink: #0f3b4c;
-    --shadow-color: #0f3b4c;
+    /* Sand: the search button, form endings, and the highlighter. */
+    --saffron: #d6a648;
+    --saffron-ink: #8a5e0d;
+    --mark: #f4e3b0;
+    --brand: #e9c98a;
+    --brand-ink: #0d4f4f;
+    --shadow-color: #0d4f4f;
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -164,25 +163,25 @@
 
   html[data-theme="dark"] {
     color-scheme: dark;
-    --canvas: #0d1a1f;
-    --paper: #12232a;
-    --surface: #172b33;
-    --surface-subtle: #0f1f25;
-    --surface-selected: #1d3b46;
+    --canvas: #0b1716;
+    --paper: #102120;
+    --surface: #142a28;
+    --surface-subtle: #0e1d1c;
+    --surface-selected: #1a3a38;
     /* Lift off surface panels (clock drill, modals) so secondary CTAs read. */
-    --control: #1d3b46;
-    --control-hover: #24505e;
-    --ink: #ecf1f2;
-    --ink-soft: #cbd8db;
-    --muted: #93a7ad;
-    --muted-strong: #b2c3c7;
-    --line: #213840;
-    --line-strong: #335059;
-    --accent: #6cc0d8;
+    --control: #1a3a38;
+    --control-hover: #234c49;
+    --ink: #e9f2f0;
+    --ink-soft: #c8d9d6;
+    --muted: #8faaa6;
+    --muted-strong: #adc3c0;
+    --line: #1f3634;
+    --line-strong: #2f4d4a;
+    --accent: #6fcfc8;
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
-    --accent-strong: #93d3e5;
-    --accent-soft: #163843;
+    --accent-strong: #95ddd7;
+    --accent-soft: #143634;
     --action: #e07068;
     --action-strong: #f09088;
     --blue: #5aa8c8;
@@ -193,16 +192,16 @@
     --green: #4a9a88;
     --green-light: color-mix(in srgb, #1a332c 80%, var(--green) 20%);
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
-    --panel-inverse: #0b2a35;
-    --panel-inverse-ink: #eef3f3;
-    --cta: #e3a33b;
-    --cta-strong: #ecb862;
-    --cta-ink: #10242b;
-    --saffron: #e3a33b;
-    --saffron-ink: #e3a33b;
-    --mark: #5a4413;
-    --brand: #e3a33b;
-    --brand-ink: #0b2a35;
+    --panel-inverse: #0a3a39;
+    --panel-inverse-ink: #ecf5f3;
+    --cta: #e9c98a;
+    --cta-strong: #f0d6a3;
+    --cta-ink: #0b2424;
+    --saffron: #e0b25a;
+    --saffron-ink: #e0b25a;
+    --mark: #4f4215;
+    --brand: #e9c98a;
+    --brand-ink: #0a3a39;
     --shadow-color: #000000;
   }
 

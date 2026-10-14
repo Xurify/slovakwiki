@@ -6,7 +6,7 @@
   }: {
     class?: string;
     decorative?: boolean;
-    /** `inverse` sits on the petrol top bar: paper tile, ochre circumflex. */
+    /** `inverse` sits on the teal top bar: pale tile, sand circumflex. */
     tone?: "default" | "inverse";
   } = $props();
 

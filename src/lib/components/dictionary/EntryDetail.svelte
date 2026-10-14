@@ -161,7 +161,7 @@
     "m-0 max-w-[66ch] text-[1rem] leading-relaxed text-pretty text-slate-700";
   const sectionClass = "scroll-mt-[124px]";
   const railRowClass =
-    "group grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)] items-baseline gap-x-3 border-b border-slate-200 py-1.5";
+    "group grid grid-cols-[minmax(0,9rem)_minmax(0,1fr)] items-baseline gap-x-3 border-b border-slate-200 py-1.5";
   const railLinkClass = "font-serif text-[1rem] text-blue-800 group-hover:underline";
   const markClass = "rounded-[2px] bg-mark px-px font-semibold";
   const contentsLinkClass =
@@ -415,7 +415,11 @@
         {@const senseGlosses = senseEntry.english
           .split(";")
           .map((part) => part.trim())
-          .filter(Boolean)}
+          .filter(
+            (part) =>
+              part &&
+              part.toLocaleLowerCase("sk") !== senseEntry.slovak.toLocaleLowerCase("sk"),
+          )}
         {@const summary =
           senseEntry.summary &&
           senseEntry.summary !== `${senseEntry.slovak} means “${senseEntry.english}.”`
@@ -465,6 +469,13 @@
                 <h2 class={subheadingClass}>Meanings</h2>
               {/if}
             </div>
+
+            {#if senseGlosses.length === 0}
+              <p class="m-0 mt-3 text-[1rem] text-slate-700">
+                {senseEntry.category === "Places" ? "Place name, written" : "Written"} the same
+                in English.
+              </p>
+            {/if}
 
             <ol class="m-0 mt-3 list-none p-0">
               {#each senseGlosses as gloss, glossIndex (gloss)}
@@ -702,7 +713,10 @@
                     class={cx(railRowClass, "-mx-2 bg-mark px-2")}
                     aria-current="true"
                   >
-                    <span class="truncate font-serif text-[1rem] font-semibold" lang="sk">
+                    <span
+                      class="font-serif text-[1rem] font-semibold break-words"
+                      lang="sk"
+                    >
                       {nearby.slovak}
                     </span>
                     <span class="truncate text-[0.85rem] text-slate-700">
@@ -711,7 +725,7 @@
                   </span>
                 {:else}
                   <a class={railRowClass} href={nearby.href}>
-                    <span class={cx(railLinkClass, "truncate")} lang="sk">
+                    <span class={cx(railLinkClass, "break-words")} lang="sk">
                       {nearby.slovak}
                     </span>
                     <span class="truncate text-[0.85rem] text-slate-600">
@@ -810,7 +824,7 @@
             {#each relatedEntries as relatedEntry (relatedEntry.slug)}
               <li>
                 <a class={railRowClass} href={relatedEntry.href}>
-                  <span class={cx(railLinkClass, "truncate")} lang="sk">
+                  <span class={cx(railLinkClass, "break-words")} lang="sk">
                     {relatedEntry.slovak}
                   </span>
                   <span class="text-[0.85rem] leading-snug text-slate-600">
