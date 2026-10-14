@@ -2,6 +2,7 @@
   import type { Snippet } from "svelte";
 
   import EntryDetail from "$lib/components/dictionary/EntryDetail.svelte";
+  import type { FrequencyNeighbor } from "$lib/catalog/dictionary/frequency-neighbors";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
   import type { ContentEntry, EntryKind } from "$lib/catalog/types";
 
@@ -26,6 +27,7 @@
     data: {
       entry: ContentEntry;
       exampleAudioSrcs: string[];
+      frequencyNeighbors: FrequencyNeighbor[];
       image?: DictionaryImageView;
       lemmaAudioSrc: string;
       relatedEntries: RelatedEntry[];
@@ -38,6 +40,7 @@
   {audioMount}
   entry={data.entry}
   exampleAudioSrcs={data.exampleAudioSrcs}
+  frequencyNeighbors={data.frequencyNeighbors}
   image={data.image}
   lemmaAudioSrc={data.lemmaAudioSrc}
   relatedEntries={data.relatedEntries}

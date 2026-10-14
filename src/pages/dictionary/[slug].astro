@@ -21,12 +21,18 @@ import {
   lemmaSenseGroup,
   relatedSlugsForLemmaPage,
 } from "$lib/catalog/dictionary/lemma-senses";
+import {
+  frequencyNeighbors,
+  type FrequencyNeighbor,
+} from "$lib/catalog/dictionary/frequency-neighbors";
+import { frequencyListFor } from "$lib/catalog/frequency/load";
 import { contentCacheKey } from "$lib/build/cache-key";
 import type { ContentEntry } from "$lib/catalog/types";
 
 type DictionaryPageProps = {
   entry: ContentEntry;
   exampleAudioSrcs: string[];
+  frequencyNeighbors: FrequencyNeighbor[];
   image:
     | {
         artist?: string;
@@ -124,6 +130,13 @@ export function getStaticPaths() {
       relatedEntries,
       lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
       exampleAudioSrcs: exampleAudioSrcsFor(entry),
+      frequencyNeighbors: entry.frequency
+        ? frequencyNeighbors(
+            entry.frequency,
+            frequencyListFor(entry.frequency.partOfSpeech),
+            words,
+          )
+        : [],
       image: resolveLemmaImage(entry.slug, titleEnglish),
     } satisfies DictionaryPageProps;
 
@@ -137,8 +150,15 @@ export function getStaticPaths() {
   });
 }
 
-const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image } =
-  Astro.props as DictionaryPageProps;
+const {
+  entry,
+  relatedEntries,
+  lemmaAudioSrc,
+  exampleAudioSrcs,
+  frequencyNeighbors: frequencyRows,
+  senses,
+  image,
+} = Astro.props as DictionaryPageProps;
 
 const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 
@@ -183,7 +203,15 @@ for (const [senseIndex, sense] of senses.entries()) {
   canonicalPath={`/dictionary/${entry.slug}`}
 >
   <DictionaryDetailPage
-    data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image }}
+    data={{
+      entry,
+      relatedEntries,
+      lemmaAudioSrc,
+      exampleAudioSrcs,
+      frequencyNeighbors: frequencyRows,
+      senses,
+      image,
+    }}
   >
     {
       audioTargets.length > 0 && (

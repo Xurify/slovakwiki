@@ -19,6 +19,8 @@
   --color-action: var(--action);
   --color-panel-inverse: var(--panel-inverse);
   --color-panel-inverse-ink: var(--panel-inverse-ink);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
 
   /* Keep Tailwind utility names, preserve Slovak Wiki palette. */
   --color-slate-50: var(--surface-subtle);
@@ -81,25 +83,28 @@
     color-scheme: light;
     --font-ui: "IBM Plex Sans Variable", "IBM Plex Sans Fallback", "Segoe UI", sans-serif;
     --font-reading: "Source Serif 4 Variable", "Source Serif 4 Fallback", Georgia, serif;
-    /* Light: Color Hunt cold slate+mint (f2f2ed / 7cd5c7 / 118ab2 / 464b71). */
-    --canvas: #e4e6e4;
-    --paper: #f2f2ed;
-    --surface: #fafaf8;
-    --surface-subtle: #e5e5e4;
+    /*
+     * Light: near-white paper, indigo-black text. The brand indigo (#464b71) is
+     * kept for the headword band and inverse panels, not for body text.
+     */
+    --canvas: #f8f8f5;
+    --paper: #f1f1ec;
+    --surface: #ffffff;
+    --surface-subtle: #ececea;
     --surface-selected: #cfe9e1;
     /* Secondary controls: sit above paper/panels without looking hollow. */
-    --control: #fafaf8;
+    --control: #ffffff;
     --control-hover: #cfe9e1;
-    --ink: #464b71;
-    --ink-soft: #43597f;
-    --muted: #626787;
-    --muted-strong: #52577b;
-    --line: #dbddde;
-    --line-strong: #c2c4cc;
+    --ink: #1e2136;
+    --ink-soft: #2c3150;
+    --muted: #5d6079;
+    --muted-strong: #474b66;
+    --line: #e2e3e6;
+    --line-strong: #c9cad1;
     --accent: #377299;
     --mark-day: #b86a00;
     --mark-time: #0e7aab;
-    --accent-strong: #3e658c;
+    --accent-strong: #245d8f;
     --accent-soft: #daece5;
     --action: #c23b35;
     --action-strong: #9c302c;
@@ -111,12 +116,11 @@
     --green: #1f6b5c;
     --green-light: #d3eae2;
     --green-mid: color-mix(in oklab, var(--green) 54%, var(--green-light));
-    --mist-1: #c6e7de;
-    --mist-2: #e5efe8;
-    --mist-3: #fafaf8;
-    --grain-opacity: 0.03;
     --panel-inverse: #464b71;
     --panel-inverse-ink: #f2f2ed;
+    /* Logo teal: search submit and other brand marks. */
+    --brand: #0f4a66;
+    --brand-ink: #ffffff;
     --shadow-color: #464b71;
     --space-1: 0.25rem;
     --space-2: 0.5rem;
@@ -173,12 +177,10 @@
     --green: #4a9a88;
     --green-light: color-mix(in srgb, #1a332c 80%, var(--green) 20%);
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
-    --mist-1: #1a3a4a;
-    --mist-2: #122028;
-    --mist-3: #0e1a22;
-    --grain-opacity: 0.055;
     --panel-inverse: #0a141c;
     --panel-inverse-ink: #eef4f7;
+    --brand: #4a9fc4;
+    --brand-ink: #0e1a22;
     --shadow-color: #000000;
   }
 
@@ -243,28 +245,8 @@
     padding: 0;
     overflow-x: clip;
     background-color: var(--canvas);
-    background-image:
-      radial-gradient(ellipse 120% 80% at 10% -20%, var(--mist-1) 0%, transparent 55%),
-      radial-gradient(
-        ellipse 90% 60% at 95% 0%,
-        color-mix(in srgb, var(--accent-soft) 70%, var(--surface)) 0%,
-        transparent 50%
-      ),
-      linear-gradient(180deg, var(--mist-2) 0%, var(--canvas) 40%, var(--canvas) 100%);
-    background-attachment: fixed;
     color: var(--ink);
     font-size: 16px;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: var(--grain-opacity);
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    z-index: 0;
   }
 
   a {
@@ -333,27 +315,32 @@
     outline: none;
   }
 
+  /* English headings are set in the UI sans; serif is reserved for Slovak. */
   h1,
   h2,
   h3 {
     color: var(--ink);
-    font-family: var(--font-reading);
-    letter-spacing: -0.04em;
+    font-family: var(--font-ui);
+    letter-spacing: -0.02em;
     text-wrap: balance;
+  }
+
+  :is(h1, h2, h3)[lang="sk"] {
+    font-family: var(--font-reading);
   }
 
   h1 {
     margin-bottom: 0;
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    font-size: clamp(2rem, 4vw, 2.75rem);
     font-weight: 600;
-    line-height: 0.98;
+    line-height: 1.05;
   }
 
   h2 {
     margin-bottom: 0;
-    font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+    font-size: clamp(1.2rem, 1.8vw, 1.4rem);
     font-weight: 600;
-    line-height: 1.12;
+    line-height: 1.2;
   }
 
   p {

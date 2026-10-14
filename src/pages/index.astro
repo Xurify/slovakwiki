@@ -1,21 +1,11 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import HomeHeroSearch from "$lib/search/HomeHeroSearch.svelte";
 import HomePage from "$lib/home/HomePage.svelte";
-import { words } from "$lib/catalog/entries";
-import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
-
-const popularWords = words.slice(0, 5).map((word) => ({
-  href: dictionaryPathForSense(word, words),
-  slovak: word.slovak,
-}));
 ---
 
 <SiteLayout
   title="Slovak Wiki — Slovak language reference and practice"
   description="A practical Slovak dictionary, grammar reference, pronunciation guide, lessons, and focused practice for English speakers."
 >
-  <HomePage>
-    <HomeHeroSearch client:load slot="heroSearch" {popularWords} />
-  </HomePage>
+  <HomePage />
 </SiteLayout>

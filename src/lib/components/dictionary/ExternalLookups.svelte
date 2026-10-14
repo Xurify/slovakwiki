@@ -47,10 +47,13 @@
 {#if groups.length > 0}
   <section
     id="lookups"
-    class="scroll-mt-[88px] {className}"
+    class="scroll-mt-[136px] {className}"
     aria-labelledby="lookups-heading"
   >
-    <h2 id="lookups-heading" class="m-0 mb-4 font-serif text-xl text-slate-900">
+    <h2
+      id="lookups-heading"
+      class="m-0 mb-4 border-b border-slate-200 pb-2.5 text-[1.05rem] font-semibold tracking-[-0.01em]"
+    >
       Look it up elsewhere
     </h2>
 
@@ -59,7 +62,7 @@
         <div
           class="grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5"
         >
-          <dt class="text-xs font-semibold tracking-wide text-slate-500 uppercase">
+          <dt class="text-[0.8rem] font-medium text-slate-600">
             {GROUP_LABEL[entry.group]}
           </dt>
 

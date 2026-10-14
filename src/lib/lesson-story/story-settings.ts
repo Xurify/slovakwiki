@@ -10,6 +10,18 @@ export type LessonSceneArtId =
   | "registration"
   | "default";
 
+/** Painted scene plates in /static/lessons/scenes — counter reuses registration desk. */
+export const lessonSceneSrc: Record<LessonSceneArtId, string> = {
+  cafe: "/lessons/scenes/scene-cafe.webp",
+  classroom: "/lessons/scenes/scene-classroom.webp",
+  counter: "/lessons/scenes/scene-registration.webp",
+  home: "/lessons/scenes/scene-home.webp",
+  market: "/lessons/scenes/scene-market.webp",
+  plaza: "/lessons/scenes/scene-plaza.webp",
+  registration: "/lessons/scenes/scene-registration.webp",
+  default: "/lessons/scenes/scene-default.webp",
+};
+
 export interface LessonStorySetting {
   art: LessonSceneArtId;
   /** Short place line under the beat title. */

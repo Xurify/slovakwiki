@@ -87,19 +87,19 @@
   const idleHintsOffset = $derived(recent.length);
   const shellClass = $derived(
     size === "hero"
-      ? cx("relative z-30 w-full max-w-[480px]", className)
+      ? cx("relative z-30 w-full", className)
       : cx("relative ml-auto w-full max-w-[320px] min-w-0", className),
   );
 
   const fieldClass = $derived(
     size === "hero"
-      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-full border border-slate-300/90 bg-surface/80 shadow-(--shadow-border) backdrop-blur-sm transition-[box-shadow,border-color,background-color] focus-within:border-blue-600 focus-within:bg-surface focus-within:shadow-[0_0_0_4px_var(--accent-soft),var(--shadow-border)] max-[520px]:rounded-(--frame-radius)"
+      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-brand bg-surface transition-[box-shadow] focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
       : "flex min-h-10 w-full items-center rounded-(--control-radius) border border-(--line-strong) bg-(--surface) transition-[box-shadow,border-color] focus-within:border-(--accent) focus-within:shadow-[0_0_0_3px_var(--accent-soft)]",
   );
 
   const inputClass = $derived(
     size === "hero"
-      ? "min-w-0 flex-1 border-0 bg-transparent px-3.5 text-[0.95rem] text-slate-900 outline-none placeholder:text-slate-400"
+      ? "min-w-0 flex-1 border-0 bg-transparent px-3 text-[1.05rem] text-(--ink) outline-none placeholder:text-(--muted)"
       : "min-h-[38px] min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.8rem] text-(--ink) outline-none",
   );
 
@@ -366,7 +366,14 @@
     }
 
     function onGlobalKeydown(event: KeyboardEvent): void {
-      if (size !== "header") {
+      // Only the visible field answers "/" (home hides the header search).
+      if (!rootEl || rootEl.offsetParent === null) {
+        return;
+      }
+
+      // A large page search defers to the header field when both are showing.
+      const headerField = document.getElementById("header-search");
+      if (size === "hero" && headerField && headerField.offsetParent !== null) {
         return;
       }
 
@@ -415,7 +422,7 @@
       class={cx(
         "shrink-0 fill-none stroke-[1.8]",
         size === "hero"
-          ? "ml-4 w-4 stroke-slate-400 max-[520px]:hidden"
+          ? "ml-4 w-[18px] stroke-(--muted) max-[520px]:hidden"
           : "ml-3 w-4 stroke-(--muted)",
       )}
       aria-hidden="true"
@@ -448,12 +455,21 @@
 
     {#if searching}
       <span class={fieldSpinnerClass} aria-hidden="true"></span>
-    {:else if size === "header"}
+    {:else}
       <kbd
-        class="mr-2 hidden rounded border border-(--line) px-1.5 py-0.5 text-[0.65rem] font-semibold text-(--muted) min-[900px]:inline"
+        class="mr-2 hidden self-center rounded border border-(--line) px-1.5 py-0.5 text-[0.65rem] font-semibold text-(--muted) min-[900px]:inline"
       >
         /
       </kbd>
+    {/if}
+
+    {#if size === "hero"}
+      <button
+        class="cursor-pointer border-0 bg-brand px-5 text-[0.95rem] font-semibold text-brand-ink hover:opacity-90"
+        type="submit"
+      >
+        Search
+      </button>
     {/if}
   </form>
 
@@ -463,9 +479,7 @@
         "absolute z-[60] mt-2 overflow-y-auto border border-(--line) bg-(--surface) shadow-(--shadow-border)",
         "scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent",
         "max-h-[min(22rem,calc(100dvh-8rem))]",
-        size === "hero"
-          ? "left-0 right-0 rounded-(--frame-radius)"
-          : "left-0 right-0 rounded-(--control-radius)",
+        "left-0 right-0 rounded-(--control-radius)",
       )}
       id={`${id}-listbox`}
       role="listbox"
