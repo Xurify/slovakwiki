@@ -94,7 +94,7 @@
   const fieldClass = $derived(
     size === "hero"
       ? "flex min-h-[52px] items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-brand bg-surface transition-[box-shadow] focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
-      : "flex min-h-10 w-full items-stretch overflow-hidden rounded-[4px] bg-(--surface) transition-[box-shadow] focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--surface)_35%,transparent)]",
+      : "flex min-h-10 w-full items-stretch overflow-hidden rounded-[4px] bg-(--surface) ring-1 ring-inset ring-black/10 transition-[box-shadow] focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--surface)_35%,transparent)]",
   );
 
   const inputClass = $derived(

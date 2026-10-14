@@ -10,9 +10,10 @@
     tone?: "default" | "inverse";
   } = $props();
 
-  const tileFill = $derived(tone === "inverse" ? "#f7f4ea" : "#0f4a66");
-  const ringFill = $derived(tone === "inverse" ? "#0f3b4c" : "#f4f8fa");
-  const accentFill = $derived(tone === "inverse" ? "#e3a33b" : "#f4f8fa");
+  // Inverse follows the top bar: tile in its ink, ring in its colour.
+  const tileFill = $derived(tone === "inverse" ? "var(--panel-inverse-ink)" : "#0f4a66");
+  const ringFill = $derived(tone === "inverse" ? "var(--panel-inverse)" : "#f4f8fa");
+  const accentFill = $derived(tone === "inverse" ? "var(--saffron)" : "#f4f8fa");
 </script>
 
 <svg
@@ -26,15 +27,15 @@
     <title>Slovak Wiki</title>
   {/if}
 
-  <rect x="3" y="3" width="58" height="58" rx="13" fill={tileFill} />
+  <rect x="3" y="3" width="58" height="58" rx="13" style:fill={tileFill} />
 
   <path
-    fill={accentFill}
+    style:fill={accentFill}
     d="M22.5 22.2 L32 13.2 L41.5 22.2 L37.1 22.2 L32 17.4 L26.9 22.2 Z"
   />
 
   <path
-    fill={ringFill}
+    style:fill={ringFill}
     fill-rule="evenodd"
     d="
       M32 27.5
