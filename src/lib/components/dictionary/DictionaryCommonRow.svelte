@@ -1,55 +1,69 @@
 <script lang="ts">
   import { dictionaryPathForLiveLink } from "$lib/catalog/dictionary/live-links";
+  import {
+    commonListTrack,
+    commonRowClass,
+  } from "$lib/components/dictionary/common-list-ui";
   import type {
     CompactFrequencyEntry,
     LiveLink,
   } from "$lib/components/dictionary/common-client.svelte";
+  import {
+    dataGlossClass,
+    dataMetaClass,
+    dataStaticRowClass,
+    dataWordClass,
+  } from "$lib/components/ui/data-list-ui";
 
   let {
     entry,
     live,
-    rowClass = "grid grid-cols-[2.25rem_minmax(0,1fr)_4.75rem] items-center gap-3 border-b border-slate-200 px-4 py-3 text-sm transition-colors last:border-b-0 hover:bg-blue-50/50 max-[560px]:grid-cols-[2rem_minmax(0,1fr)]",
   }: {
     entry: CompactFrequencyEntry;
     live?: LiveLink;
-    rowClass?: string;
   } = $props();
 
   const href = $derived(live ? dictionaryPathForLiveLink(live) : null);
+
+  const countTitle =
+    "How often this lemma appears in the Slovak National Corpus (prim-8.0-public-all)";
 </script>
+
+{#snippet count()}
+  {#if entry.count !== undefined}
+    <span class="text-right {dataMetaClass} max-sm:hidden" title={countTitle}>
+      {entry.count.toLocaleString("en")}
+    </span>
+  {/if}
+{/snippet}
 
 <li>
   {#if href}
-    <a class={rowClass} {href}>
-      <span class="text-right text-xs tabular-nums text-slate-400">{entry.rank}</span>
-      <div class="min-w-0">
-        <span class="font-serif text-base text-blue-800" lang="sk">{entry.lemma}</span>
-        <span class="mt-0.5 block text-sm text-slate-500">{live?.english}</span>
-      </div>
-      {#if entry.count !== undefined}
-        <span
-          class="cursor-help text-right text-xs tabular-nums text-slate-400 underline decoration-dotted decoration-slate-300 underline-offset-2 max-[560px]:hidden"
-          title="How often this lemma appears in the Slovak National Corpus (prim-8.0-public-all)"
-        >
-          {entry.count.toLocaleString("en")}
-        </span>
-      {/if}
+    <a class={commonRowClass} {href}>
+      <span class="text-right {dataMetaClass}">{entry.rank}</span>
+
+      <span class="min-w-0 truncate {dataWordClass}" lang="sk">{entry.lemma}</span>
+
+      <span class="min-w-0 {dataGlossClass} max-sm:col-start-2">{live?.english}</span>
+
+      {@render count()}
     </a>
   {:else}
-    <div class={rowClass}>
-      <span class="text-right text-xs tabular-nums text-slate-400">{entry.rank}</span>
-      <div class="min-w-0">
-        <span class="font-serif text-base text-slate-800" lang="sk">{entry.lemma}</span>
-        <span class="mt-0.5 block text-xs text-slate-400">Not in dictionary yet</span>
-      </div>
-      {#if entry.count !== undefined}
-        <span
-          class="cursor-help text-right text-xs tabular-nums text-slate-400 underline decoration-dotted decoration-slate-300 underline-offset-2 max-[560px]:hidden"
-          title="How often this lemma appears in the Slovak National Corpus (prim-8.0-public-all)"
-        >
-          {entry.count.toLocaleString("en")}
-        </span>
-      {/if}
+    <div class="{dataStaticRowClass} {commonListTrack}">
+      <span class="text-right {dataMetaClass}">{entry.rank}</span>
+
+      <span
+        class="min-w-0 truncate font-serif text-base leading-snug text-slate-700"
+        lang="sk"
+      >
+        {entry.lemma}
+      </span>
+
+      <span class="min-w-0 text-sm leading-snug text-slate-400 max-sm:col-start-2">
+        Not in the dictionary yet
+      </span>
+
+      {@render count()}
     </div>
   {/if}
 </li>

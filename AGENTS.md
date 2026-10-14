@@ -154,6 +154,16 @@ Palette and spacing are mapped into Tailwind via `@theme` in `src/styles.css`:
 - Fonts: `font-sans` (UI), `font-serif` (reading)
 - Prefer theme utilities over raw `var(--…)` in components
 
+### Motion
+
+One vocabulary site-wide, so interactions read as the same calm reference site as the pages:
+
+- **State changes** (hover, pressed, selected, focus): transition `color`, `background-color`, `border-color`, `box-shadow`, `opacity` over `duration-150 ease-out`. Nothing else moves.
+- **Overlays** (drawer, menus, popovers): one translate or fade on the panel, `duration-200 ease-out`, elevated with `shadow-(--shadow-float)`. No staggered children.
+- **Content that appears** (feedback, revealed dialogue lines, results): `animate-rise` (200ms fade + 4px). Once, on mount.
+- **Icon state** (sound on/off, menu open/close, theme): swap the icon. No scale/blur morphs.
+- **Not used:** `active:scale-*`, hover zooms, 3D "key" lips, pulsing or drifting loops, bouncy easings. Reduced motion is handled globally in `styles.css`.
+
 ### UI composition
 
 General rules for status blocks, compare views, summaries, and any “nested card” moment:

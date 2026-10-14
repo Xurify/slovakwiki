@@ -15,12 +15,20 @@ import {
   lemmaSenseGroup,
   relatedSlugsForLemmaPage,
 } from "$lib/catalog/dictionary/lemma-senses";
+import { entriesNear, type NearbyEntry } from "$lib/catalog/dictionary/entries-near";
+import {
+  frequencyNeighbors,
+  type FrequencyNeighbor,
+} from "$lib/catalog/dictionary/frequency-neighbors";
+import { frequencyListFor } from "$lib/catalog/frequency/load";
 import { contentCacheKey } from "$lib/build/cache-key";
 import type { ContentEntry } from "$lib/catalog/types";
 
 export type DictionaryPageProps = {
   entry: ContentEntry;
+  entriesNear: NearbyEntry[];
   exampleAudioSrcs: string[];
+  frequencyNeighbors: FrequencyNeighbor[];
   image:
     | {
         artist?: string;
@@ -121,7 +129,15 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
     })),
     relatedEntries,
     lemmaAudioSrc: resolveDictionaryAudioSrc(entry.slovak, "lemma"),
+    entriesNear: entriesNear(entry, words),
     exampleAudioSrcs: exampleAudioSrcsFor(entry),
+    frequencyNeighbors: entry.frequency
+      ? frequencyNeighbors(
+          entry.frequency,
+          frequencyListFor(entry.frequency.partOfSpeech),
+          words,
+        )
+      : [],
     image: resolveLemmaImage(entry.slug, titleEnglish),
   };
 }

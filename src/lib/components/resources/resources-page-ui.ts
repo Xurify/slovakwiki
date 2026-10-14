@@ -1,19 +1,17 @@
 import type { LearningResource } from "$lib/catalog/resources/catalog";
 import { resourceCostLabel } from "$lib/catalog/resources/catalog";
+import { panelClass, panelHoverClass, tagClass } from "$lib/components/ui/system-ui";
 
 export { resourceCostLabel };
 
-export const resourcesPanelClass =
-  "overflow-hidden rounded-(--frame-radius) bg-surface ring-1 ring-inset ring-slate-200";
+export const resourcesPanelClass = `${panelClass} overflow-hidden`;
 
 export const resourcesFeaturedGridClass =
   "grid grid-cols-1 gap-4 min-[700px]:grid-cols-2";
 
-export const resourcesFeaturedCardClass =
-  "flex h-full flex-col rounded-(--frame-radius) bg-surface p-5 ring-1 ring-inset ring-slate-200 transition-shadow hover:shadow-(--shadow-border) max-[600px]:p-4";
+export const resourcesFeaturedCardClass = `${panelClass} ${panelHoverClass} flex h-full flex-col p-5 max-[600px]:p-4`;
 
-export const resourcesFeaturedMetaPillClass =
-  "inline-flex items-center rounded-full bg-subtle px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-[0.04em] text-slate-600";
+export const resourcesFeaturedMetaPillClass = tagClass;
 
 export const resourcesFeaturedLinkChipClass =
   "inline-flex items-center rounded-(--control-radius) border border-slate-200 bg-paper px-2.5 py-1 text-xs text-blue-800 transition-colors hover:border-blue-600 hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600";

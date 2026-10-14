@@ -1,12 +1,24 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import SfxMuteToggle from "$lib/audio/SfxMuteToggle.svelte";
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
+  import { iconButtonClass, iconButtonToneClass } from "$lib/components/ui/system-ui";
 
+  /**
+   * The strip above a lesson or practice session: close, title and track,
+   * step counter, controls, and one segment per step. Graded segments carry
+   * their result; otherwise everything up to the current step is filled.
+   */
   let {
     activeIndex = 0,
     backHref,
     backLabel = "Practice",
+    closeLabel,
     complete = false,
+    controls,
+    class: className = "mb-5",
+    progressLabel = "Progress",
     results = [],
     subtitle,
     title,
@@ -15,7 +27,13 @@
     activeIndex?: number;
     backHref?: string;
     backLabel?: string;
+    /** Accessible name of the close link; defaults to "Back to {backLabel}". */
+    closeLabel?: string;
     complete?: boolean;
+    /** Extra icon buttons before the sound toggle. */
+    controls?: Snippet;
+    class?: string;
+    progressLabel?: string;
     results?: readonly (AnswerGrade | "revealed")[];
     subtitle?: string;
     title?: string;
@@ -30,9 +48,7 @@
     results.filter((grade) => grade === "correct" || grade === "accents").length,
   );
   const progressText = $derived(
-    complete
-      ? `${correctCount} of ${total} correct`
-      : `Question ${displayIndex} of ${total}`,
+    complete ? `${correctCount} of ${total} correct` : `${displayIndex} of ${total}`,
   );
 
   function segmentClass(index: number): string {
@@ -40,18 +56,18 @@
     if (grade === "correct") return "bg-emerald-600";
     if (grade === "accents") return "bg-emerald-400";
     if (grade === "incorrect" || grade === "revealed") return "bg-rose-400";
-    if (!complete && index === activeIndex) return "bg-blue-600";
+    if (!complete && index <= activeIndex) return "bg-blue-600";
     return "bg-slate-200";
   }
 </script>
 
-<header class="mb-5 grid gap-3.5">
+<header class="grid gap-3.5 {className}">
   <div class="flex items-center gap-3">
     {#if backHref}
       <a
-        class="-ml-1.5 inline-grid size-9 shrink-0 place-items-center rounded-full text-slate-500 transition-[background-color,color,transform] duration-150 hover:bg-subtle hover:text-slate-800 active:scale-[0.96]"
+        class="{iconButtonClass} {iconButtonToneClass} -ml-1.5 size-9"
         href={backHref}
-        aria-label={`Back to ${backLabel}`}
+        aria-label={closeLabel ?? `Back to ${backLabel}`}
       >
         <svg
           class="size-5 fill-none stroke-current"
@@ -87,13 +103,19 @@
       {displayIndex} / {total}
     </p>
 
-    <SfxMuteToggle />
+    <div class="-mr-1.5 flex shrink-0 items-center gap-0.5">
+      {#if controls}
+        {@render controls()}
+      {/if}
+
+      <SfxMuteToggle />
+    </div>
   </div>
 
   <div
     class="flex gap-1"
     role="progressbar"
-    aria-label="Practice progress"
+    aria-label={progressLabel}
     aria-valuemin={0}
     aria-valuemax={total}
     aria-valuenow={complete ? total : activeIndex}

@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
   import { onDestroy, onMount, tick } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import FormTable from "$lib/components/lessons/FormTable.svelte";
   import LessonSceneBackdrop from "$lib/components/lessons/LessonSceneBackdrop.svelte";
   import LessonStoryLine from "$lib/components/lessons/LessonStoryLine.svelte";
+  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
   import {
     STORY_PREFS_CHANGE_EVENT,
     getStoryAutoAdvance,
@@ -47,7 +49,6 @@
   } = $props();
 
   let revealedCount = $state(0);
-  let stageReady = $state(false);
   let scrollEl: HTMLElement | undefined = $state();
   let lastAdvance = 0;
   let autoAdvanceOn = $state(getStoryAutoAdvance() === "on");
@@ -89,8 +90,7 @@
     takeaways.length > 0 || Boolean(teach.note) || Boolean(teach.visual),
   );
 
-  const visualHeadingClass =
-    "m-0 mb-4 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+  const visualHeadingClass = `${eyebrowMutedClass} mb-4`;
 
   const visuals = $derived(teach.visual ? [teach.visual].flat() : []);
 
@@ -309,7 +309,6 @@
   }
 
   function startStoryAfterCurtain(): void {
-    stageReady = true;
     const waitingToStart =
       scene.length > 0 &&
       revealedCount === 0 &&
@@ -381,58 +380,41 @@
 
 <svelte:window onkeydown={onChoiceKeydown} />
 
-<div class="relative mx-auto flex min-h-full w-full max-w-2xl flex-col">
+<div class="relative mx-auto flex min-h-full w-full max-w-[640px] flex-col">
   {#if storyActive}
-    <div class="isolate overflow-hidden border-b border-slate-200/70 bg-paper">
-      <div class="relative h-[6.5rem] sm:h-[7.75rem]">
+    <div class="border-b border-slate-200/70">
+      <div class="relative h-24 overflow-hidden sm:h-28">
         <LessonSceneBackdrop art={setting.art} />
       </div>
 
-      <div
-        class="relative z-10 -mt-6 flex flex-col items-center gap-2 bg-linear-to-b from-transparent to-paper px-4 pt-2 pb-5 text-center sm:px-8 sm:pb-6 {stageReady
-          ? 'story-header-in'
-          : 'story-header-prep'}"
-      >
-        <p
-          class="m-0 inline-flex items-center gap-2 rounded-full bg-surface/90 px-3 py-1 text-[0.68rem] font-semibold tracking-[0.12em] text-slate-600 uppercase shadow-(--shadow-border) backdrop-blur-sm"
-        >
+      <div class="px-4 pt-3 pb-5 sm:px-8">
+        <p class={eyebrowMutedClass}>
           {#if setting.placeSk}
             <span lang="sk">{setting.placeSk}</span>
-            <span class="text-slate-400" aria-hidden="true">·</span>
+            <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
           {/if}
-          <span class="normal-case tracking-normal">{setting.place}</span>
+          <span class="font-semibold tracking-normal normal-case">{setting.place}</span>
         </p>
 
-        <h2
-          class="m-0 font-serif text-[clamp(1.4rem,3.2vw,1.95rem)] leading-snug tracking-tight text-balance text-slate-900"
-        >
-          {title}
-        </h2>
+        <div class="mt-1.5 flex items-baseline justify-between gap-4">
+          <h2
+            class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl"
+          >
+            {title}
+          </h2>
 
-        {#if scene.length > 1}
-          <div class="mt-1 flex items-center gap-1.5" aria-hidden="true">
-            {#each scene as _, index (index)}
-              <span
-                class="size-1.5 rounded-full transition-colors duration-300 {index <
-                revealedCount
-                  ? 'bg-blue-700'
-                  : index === revealedCount &&
-                      (awaitingChoice || waitingForChoiceAfterAudio)
-                    ? 'bg-blue-400'
-                    : 'bg-slate-300'}"
-              ></span>
-            {/each}
-          </div>
-          <p class="sr-only">
-            Line {Math.min(revealedCount, scene.length)} of {scene.length}
-          </p>
-        {/if}
+          {#if scene.length > 1}
+            <p class="m-0 shrink-0 text-xs text-slate-500 tabular-nums">
+              Line {Math.max(1, Math.min(revealedCount, scene.length))} of {scene.length}
+            </p>
+          {/if}
+        </div>
       </div>
     </div>
   {:else}
-    <div class="px-4 pt-10 pb-2 text-center sm:px-8 sm:pt-12">
+    <div class="px-4 pt-8 pb-2 sm:px-8 sm:pt-10">
       <h2
-        class="m-0 font-serif text-[clamp(1.35rem,3vw,1.85rem)] leading-snug tracking-tight text-balance text-slate-900"
+        class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl"
       >
         {title}
       </h2>
@@ -441,7 +423,7 @@
 
   <div bind:this={scrollEl} class="min-h-0 flex-1 px-4 py-6 sm:px-8 sm:py-8">
     {#if storyActive}
-      <ol class="m-0 flex list-none flex-col gap-5 p-0">
+      <ol class="{dataPanelClass} m-0 list-none p-0">
         {#each visibleLines as line, index (line.id)}
           <LessonStoryLine
             {line}
@@ -455,12 +437,8 @@
       </ol>
 
       {#if pendingChoiceLine?.sayChoices}
-        <div class="story-say-choice mt-8">
-          <p
-            class="m-0 text-[0.62rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-          >
-            Your turn
-          </p>
+        <div class="story-say-choice mt-8 animate-rise">
+          <p class={eyebrowMutedClass}>Your turn</p>
 
           <ChoiceOptions
             choices={pendingChoiceLine.sayChoices.choices}
@@ -472,7 +450,7 @@
 
           {#if choiceMissParts.length}
             <p
-              class="m-0 mt-4 rounded-(--frame-radius) bg-rose-50 px-4 py-3 text-sm leading-relaxed text-pretty text-rose-900 shadow-(--shadow-border)"
+              class="m-0 mt-3 text-sm leading-relaxed text-pretty text-rose-800"
               role="status"
             >
               {#each choiceMissParts as part, index (`${part.type}-${index}-${part.value}`)}
@@ -488,17 +466,11 @@
           {/if}
         </div>
       {:else if waitingForChoiceAfterAudio}
-        <p
-          class="story-nudge m-0 mt-6 text-center text-sm text-slate-500"
-          aria-live="polite"
-        >
+        <p class="m-0 mt-3 text-sm text-slate-500" aria-live="polite">
           Listening — your turn next
         </p>
       {:else if !allLinesRevealed && revealedCount > 0}
-        <p
-          class="story-nudge m-0 mt-6 text-center text-sm text-slate-500"
-          aria-hidden="true"
-        >
+        <p class="m-0 mt-3 text-sm text-slate-500" aria-hidden="true">
           {autoAdvanceOn && soundOn
             ? "Listening — next line plays automatically"
             : "Next line continues the conversation"}
@@ -508,55 +480,55 @@
 
     {#if showAftercare && hasAftercare}
       <div
-        class="story-aftercare mt-8 grid gap-4 {storyActive
+        class="story-aftercare mt-8 grid animate-rise gap-6 {storyActive
           ? 'border-t border-slate-200/80 pt-8'
           : ''}"
       >
         {#if takeaways.length}
-          {#each takeaways as phrase (phrase.slovak)}
-            <div
-              class="rounded-(--frame-radius) bg-subtle px-5 py-4 shadow-(--shadow-border) sm:px-6 sm:py-5"
-            >
-              <div class="flex items-start justify-between gap-4">
-                <div class="min-w-0">
-                  <p
-                    class="m-0 text-[0.62rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-                  >
-                    Takeaway
-                  </p>
+          <div>
+            <h3 class={visualHeadingClass}>
+              {takeaways.length === 1 ? "Takeaway" : "Takeaways"}
+            </h3>
 
-                  <p
-                    class="m-0 mt-2 font-serif text-[clamp(1.2rem,2.5vw,1.5rem)] font-semibold leading-snug text-slate-900"
-                    lang="sk"
-                  >
-                    {phrase.slovak}
-                  </p>
+            <ul class="{dataPanelClass} m-0 list-none p-0">
+              {#each takeaways as phrase (phrase.slovak)}
+                <li
+                  class="flex items-start justify-between gap-4 border-b border-slate-200/70 px-4 py-3.5 last:border-b-0 sm:px-5"
+                >
+                  <div class="min-w-0">
+                    <p
+                      class="m-0 font-serif text-lg font-semibold leading-snug text-slate-900"
+                      lang="sk"
+                    >
+                      {phrase.slovak}
+                    </p>
 
-                  <p class="m-0 mt-1.5 text-sm text-slate-600">{phrase.english}</p>
-                </div>
+                    <p class="m-0 mt-0.5 text-sm text-slate-600">{phrase.english}</p>
 
-                {#if audioSrcs[phrase.slovak] ?? phrase.audio?.src}
-                  <AudioButton
-                    size="sm"
-                    src={audioSrcs[phrase.slovak] ?? phrase.audio?.src}
-                    text={phrase.audio?.transcript ?? phrase.slovak}
-                    label={`Listen: ${phrase.slovak}`}
-                  />
-                {/if}
-              </div>
+                    {#if phrase.note}
+                      <p class="m-0 mt-2 text-sm leading-relaxed text-slate-500">
+                        {phrase.note}
+                      </p>
+                    {/if}
+                  </div>
 
-              {#if phrase.note}
-                <p class="m-0 mt-3 text-sm leading-relaxed text-slate-600">
-                  {phrase.note}
-                </p>
-              {/if}
-            </div>
-          {/each}
+                  {#if audioSrcs[phrase.slovak] ?? phrase.audio?.src}
+                    <AudioButton
+                      size="sm"
+                      src={audioSrcs[phrase.slovak] ?? phrase.audio?.src}
+                      text={phrase.audio?.transcript ?? phrase.slovak}
+                      label={`Listen: ${phrase.slovak}`}
+                    />
+                  {/if}
+                </li>
+              {/each}
+            </ul>
+          </div>
         {/if}
 
         {#if teach.note}
           <p
-            class="m-0 rounded-(--frame-radius) bg-surface/80 px-5 py-4 font-serif text-sm leading-relaxed text-slate-700 shadow-(--shadow-border) sm:px-6"
+            class="m-0 max-w-[62ch] text-[1.02rem] leading-relaxed text-pretty text-slate-800"
           >
             {teach.note}
           </p>
@@ -573,9 +545,7 @@
                 class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
               >
                 {#each visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
-                  <li
-                    class="grid justify-items-center gap-1.5 rounded-(--frame-radius) bg-surface/80 px-3 py-4 shadow-(--shadow-border)"
-                  >
+                  <li class="{panelClass} grid justify-items-center gap-1.5 px-3 py-4">
                     <ClockIllustration
                       hour={item.time.hour}
                       minute={item.time.minute}
@@ -602,64 +572,3 @@
     {/if}
   </div>
 </div>
-
-<style>
-  .story-header-prep {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  .story-header-in {
-    opacity: 1;
-    transform: translateY(0);
-    transition:
-      opacity 480ms cubic-bezier(0.2, 0, 0, 1),
-      transform 480ms cubic-bezier(0.2, 0, 0, 1);
-  }
-
-  .story-nudge {
-    animation: story-nudge-pulse 2.4s ease-in-out infinite;
-  }
-
-  .story-say-choice {
-    animation: story-aftercare-in 420ms cubic-bezier(0.2, 0, 0, 1) both;
-  }
-
-  .story-aftercare {
-    animation: story-aftercare-in 480ms cubic-bezier(0.2, 0, 0, 1) both;
-  }
-
-  @keyframes story-nudge-pulse {
-    0%,
-    100% {
-      opacity: 0.45;
-    }
-    50% {
-      opacity: 0.9;
-    }
-  }
-
-  @keyframes story-aftercare-in {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .story-header-prep,
-    .story-header-in,
-    .story-nudge,
-    .story-say-choice,
-    .story-aftercare {
-      opacity: 1;
-      transform: none;
-      animation: none;
-      transition: none;
-    }
-  }
-</style>

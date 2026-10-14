@@ -2,10 +2,18 @@
   let {
     class: className = "",
     decorative = false,
+    tone = "default",
   }: {
     class?: string;
     decorative?: boolean;
+    /** `inverse` sits on the top bar: blue tile with a white ring and circumflex. */
+    tone?: "default" | "inverse";
   } = $props();
+
+  // Same blue tile everywhere (favicon included); inverse follows the top bar's CTA tokens.
+  const tileFill = $derived(tone === "inverse" ? "var(--cta)" : "var(--brand)");
+  const ringFill = $derived(tone === "inverse" ? "var(--cta-ink)" : "var(--brand-ink)");
+  const accentFill = $derived(tone === "inverse" ? "var(--cta-ink)" : "var(--brand-ink)");
 </script>
 
 <svg
@@ -19,20 +27,17 @@
     <title>Slovak Wiki</title>
   {/if}
 
-  <rect x="3" y="3" width="58" height="58" rx="13" fill="#0f4a66" />
+  <rect x="3" y="3" width="58" height="58" rx="13" style:fill={tileFill} />
 
   <path
-    fill="#f4f8fa"
+    style:fill={accentFill}
+    d="M22.5 22.2 L32 13.2 L41.5 22.2 L37.1 22.2 L32 17.4 L26.9 22.2 Z"
+  />
+
+  <path
+    style:fill={ringFill}
     fill-rule="evenodd"
     d="
-      M22.5 22.2
-      L32 13.2
-      L41.5 22.2
-      L37.1 22.2
-      L32 17.4
-      L26.9 22.2
-      Z
-
       M32 27.5
       C24.6 27.5 19.2 32.6 19.2 39.6
       C19.2 46.6 24.6 51.8 32 51.8

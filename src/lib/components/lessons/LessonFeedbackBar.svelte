@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
+  import Button from "$lib/components/ui/Button.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     shouldShowCorrection,
@@ -31,11 +32,9 @@
     why?: string;
   } = $props();
 
-  let continueButton: HTMLButtonElement | undefined = $state();
+  let rootEl: HTMLDivElement | undefined = $state();
 
-  const incorrect = $derived(grade === "incorrect");
-  const accents = $derived(grade === "accents");
-  const isMiss = $derived(incorrect || accents || revealed);
+  const isMiss = $derived(grade === "incorrect" || grade === "accents" || revealed);
   const whyParts = $derived(why ? splitEmphasis(why) : []);
   const showCorrection = $derived(
     showCorrectionProp ?? (isMiss && shouldShowCorrection(true, grade, revealed)),
@@ -43,17 +42,18 @@
 
   onMount(async () => {
     await tick();
-    continueButton?.focus({ preventScroll: true });
+    rootEl?.querySelector("button")?.focus({ preventScroll: true });
   });
 </script>
 
 <div
+  bind:this={rootEl}
   class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5"
   role="status"
   aria-live="polite"
 >
   <div
-    class="mx-auto flex max-w-2xl flex-wrap justify-between gap-4 {isMiss
+    class="mx-auto flex max-w-[640px] animate-rise flex-wrap justify-between gap-4 {isMiss
       ? 'items-start'
       : 'items-center'}"
   >
@@ -86,7 +86,7 @@
           >
             <path d="M5 12l5 5L20 7" />
           </svg>
-          Correct!
+          Correct
         </p>
 
         {#if whyParts.length}
@@ -105,20 +105,13 @@
       {/if}
     </div>
 
-    <button
-      bind:this={continueButton}
+    <Button
+      class="min-w-36 shrink-0 px-6"
       type="button"
-      class={[
-        "inline-flex min-h-11 min-w-36 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) px-6 font-sans text-sm font-bold text-paper transition-[background-color,transform] duration-150 active:scale-[0.96]",
-        incorrect
-          ? "bg-rose-700 hover:bg-rose-800"
-          : accents
-            ? "bg-blue-700 hover:bg-blue-800"
-            : "bg-emerald-600 hover:bg-emerald-700",
-      ].join(" ")}
+      variant="accent"
       onclick={oncontinue}
     >
       Continue
-    </button>
+    </Button>
   </div>
 </div>

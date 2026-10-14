@@ -8,7 +8,7 @@
     writePracticeState,
   } from "$lib/components/practice/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
-  import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import SessionChrome from "$lib/components/learning/SessionChrome.svelte";
   import { sessionSubtitle } from "$lib/components/practice/practice-session-ui";
   import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
   import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
@@ -119,7 +119,8 @@
             aria-busy="true"
             aria-label="Loading practice"
           >
-            <PracticeSessionChrome
+            <SessionChrome
+              progressLabel="Practice progress"
               backHref="/practice"
               backLabel="Practice"
               subtitle={sessionSubtitle(data.sessionContext)}
@@ -128,7 +129,7 @@
             />
 
             <section
-              class="overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
+              class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
             >
               <div class="grid gap-3 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6">
                 <span class="h-2.5 w-28 rounded-full bg-slate-200"></span>
@@ -138,7 +139,7 @@
               </div>
 
               <div
-                class="flex justify-end border-t border-slate-200 bg-paper/70 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4"
+                class="flex justify-end border-t border-slate-200 bg-subtle/60 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4"
               >
                 <span class="h-11 w-full rounded-(--control-radius) bg-slate-200 sm:w-36"
                 ></span>

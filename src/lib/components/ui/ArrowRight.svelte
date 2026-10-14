@@ -3,7 +3,7 @@
 </script>
 
 <svg
-  class="inline-block size-3.5 shrink-0 translate-y-px stroke-current transition-transform group-hover:translate-x-0.5 {className}"
+  class="inline-block size-3.5 shrink-0 translate-y-px stroke-current {className}"
   viewBox="0 0 16 16"
   fill="none"
   aria-hidden="true"

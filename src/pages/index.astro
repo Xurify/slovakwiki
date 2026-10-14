@@ -1,21 +1,19 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import HomeHeroSearch from "$lib/search/HomeHeroSearch.svelte";
+import LessonsProgressBoot from "$lib/components/lessons/LessonsProgressBoot.astro";
+import LessonsProgressClient from "$lib/components/lessons/LessonsProgressClient.svelte";
 import HomePage from "$lib/home/HomePage.svelte";
-import { words } from "$lib/catalog/entries";
-import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
+import { buildLessonsBootPayload } from "$lib/lesson-progress/boot-payload";
 
-const popularWords = words.slice(0, 5).map((word) => ({
-  href: dictionaryPathForSense(word, words),
-  slovak: word.slovak,
-}));
+const payload = buildLessonsBootPayload(null);
 ---
 
 <SiteLayout
   title="Slovak Wiki — Slovak language reference and practice"
   description="A practical Slovak dictionary, grammar reference, pronunciation guide, lessons, and focused practice for English speakers."
 >
-  <HomePage>
-    <HomeHeroSearch client:load slot="heroSearch" {popularWords} />
-  </HomePage>
+  <LessonsProgressBoot {payload} stage="gate" />
+  <HomePage />
+  <LessonsProgressBoot {payload} stage="script" />
+  <LessonsProgressClient client:load payload={payload} />
 </SiteLayout>

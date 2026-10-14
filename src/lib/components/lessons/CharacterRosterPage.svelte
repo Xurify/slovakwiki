@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { panelClass, tagClass } from "$lib/components/ui/system-ui";
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
@@ -39,9 +40,7 @@
 
     <ul class="mt-10 grid list-none grid-cols-1 gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
       {#each roster as character (character.id)}
-        <li
-          class="flex flex-col justify-between rounded-(--frame-radius) bg-surface p-6 ring-1 ring-slate-200 ring-inset"
-        >
+        <li class="{panelClass} flex flex-col justify-between p-6">
           <div class="flex flex-col items-center text-center">
             <LessonCharacterAvatar characterId={character.id} size="xl" />
 
@@ -50,14 +49,10 @@
             </h2>
 
             <div class="mt-2 flex flex-wrap items-center justify-center gap-1.5">
-              <span
-                class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 font-sans text-xs font-medium text-slate-600 ring-1 ring-slate-200 ring-inset"
-              >
+              <span class={tagClass}>
                 {kindLabel(character.kind)}
               </span>
-              <span
-                class="inline-flex items-center rounded-md bg-blue-50 px-2.5 py-0.5 font-sans text-xs font-medium text-blue-700 ring-1 ring-blue-200/60 ring-inset"
-              >
+              <span class="{tagClass} bg-blue-50 text-blue-800">
                 {genderLabel(character.gender)}
               </span>
             </div>

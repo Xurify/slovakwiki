@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { panelClass, panelHoverClass } from "$lib/components/ui/system-ui";
   import { motifArtSrc } from "$lib/catalog/motifs/art";
   import { grammarMotifId } from "$lib/catalog/reference/grammar-motifs";
   import { sentenceCase } from "$lib/catalog/search/ui";
@@ -21,9 +22,9 @@
   );
 
   const cardClass = cx(
-    "group grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-3.5 rounded-(--frame-radius)",
-    "bg-surface/80 px-3 py-3 no-underline shadow-(--shadow-border)",
-    "transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)",
+    panelClass,
+    panelHoverClass,
+    "group grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-3.5 px-3 py-3 no-underline",
     "max-[480px]:grid-cols-1",
   );
 
@@ -50,7 +51,7 @@
         height="512"
         loading="lazy"
         decoding="async"
-        class="size-full rounded-[inherit] object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+        class="size-full rounded-[inherit] object-cover"
       />
     </span>
 

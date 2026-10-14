@@ -4,7 +4,7 @@
   let {
     children,
     footer,
-    footerClass = "border-t border-slate-200 bg-paper/70",
+    footerClass = "border-t border-slate-200 bg-subtle/60",
   }: {
     children: Snippet;
     footer?: Snippet;
@@ -13,7 +13,7 @@
 </script>
 
 <section
-  class="overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
+  class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
 >
   <div class="px-7 py-8 max-[560px]:px-4 max-[560px]:py-6">
     {@render children()}

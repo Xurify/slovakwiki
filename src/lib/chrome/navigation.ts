@@ -3,21 +3,46 @@ export interface NavigationItem {
   label: string;
 }
 
+export interface NavigationGroup {
+  label: string;
+  items: NavigationItem[];
+}
+
 export const primaryNavigation: NavigationItem[] = [
   { href: "/lessons", label: "Lessons" },
   { href: "/practice", label: "Practice" },
 ];
 
-export const referenceNavigation: NavigationItem[] = [
-  { href: "/dictionary", label: "Dictionary" },
-  { href: "/dictionary/common/verb", label: "Most common" },
-  { href: "/grammar", label: "Grammar" },
-  { href: "/pronunciation", label: "Pronunciation" },
-  { href: "/glossary", label: "Glossary" },
-  { href: "/resources", label: "Resources" },
-  { href: "/references", label: "References" },
-  { href: "/downloads", label: "Downloads" },
+/** The Reference menu, in the order it reads top to bottom. */
+export const referenceNavigationGroups: NavigationGroup[] = [
+  {
+    label: "Look up",
+    items: [
+      { href: "/dictionary", label: "Dictionary" },
+      { href: "/dictionary/common/verb", label: "Most common" },
+    ],
+  },
+  {
+    label: "Learn",
+    items: [
+      { href: "/grammar", label: "Grammar" },
+      { href: "/pronunciation", label: "Pronunciation" },
+      { href: "/glossary", label: "Glossary" },
+    ],
+  },
+  {
+    label: "More",
+    items: [
+      { href: "/resources", label: "Resources" },
+      { href: "/references", label: "References" },
+      { href: "/downloads", label: "Downloads" },
+    ],
+  },
 ];
+
+export const referenceNavigation: NavigationItem[] = referenceNavigationGroups.flatMap(
+  (group) => group.items,
+);
 
 export function isReferenceSection(pathname: string): boolean {
   return (

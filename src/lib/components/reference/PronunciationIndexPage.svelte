@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { panelClass } from "$lib/components/ui/system-ui";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
@@ -7,8 +8,7 @@
 
   const groups = ["Rhythm", "Vowels", "Consonants", "Spelling"] as const;
 
-  const panelClass =
-    "overflow-hidden rounded-(--frame-radius) bg-surface ring-1 ring-inset ring-slate-200";
+  const listClass = `${panelClass} overflow-hidden`;
 
   const rowLinkClass =
     "block border-b border-slate-200 px-4 py-4 transition-colors last:border-b-0 hover:bg-blue-50/50";
@@ -29,7 +29,7 @@
         {#if topics.length}
           <section>
             <h2 class="mb-3 text-xl">{group}</h2>
-            <div class={panelClass}>
+            <div class={listClass}>
               {#each topics as topic (topic.slug)}
                 <a class={rowLinkClass} href="/pronunciation/{topic.slug}">
                   <strong class="font-serif text-base text-blue-800">

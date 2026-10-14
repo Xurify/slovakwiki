@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { panelClass } from "$lib/components/ui/system-ui";
   import Button from "$lib/components/ui/Button.svelte";
 
   import { onDestroy, tick, untrack } from "svelte";
@@ -34,6 +35,11 @@
     shouldShowCorrection,
   } from "$lib/components/practice/practice-feedback-ui";
   import SfxMuteToggle from "$lib/audio/SfxMuteToggle.svelte";
+  import {
+    sessionKickerClass,
+    sessionPromptClass,
+    sessionRevealClass,
+  } from "$lib/components/practice/practice-session-ui";
   import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
 
   let {
@@ -77,6 +83,18 @@
   let feedbackPanel = $state<HTMLElement | null>(null);
 
   const player = $derived(chrome === "player");
+
+  // Same label the practice session shows above its prompt.
+  const kicker = $derived.by(() => {
+    if (!player || exercise.type === "personal") return "";
+    if (exercise.context?.length) return "";
+    if (exercise.type === "choice") {
+      return exercise.choiceStyle === "clock" ? "" : "Choose the answer";
+    }
+    if (exercise.type === "selectAll") return "Select all that apply";
+    if (exercise.type === "build") return "Build the sentence";
+    return exercise.task === "repair" ? "Repair this sentence" : "Write the sentence";
+  });
   const graded = $derived(exercise.type !== "personal" ? exercise : null);
   const hasContext = $derived(Boolean(graded?.context?.length));
   const typedWithScene = $derived(
@@ -330,21 +348,22 @@
 
 <section
   class={chrome === "card"
-    ? "border border-slate-200 bg-surface/90 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6"
+    ? `${panelClass} px-7 py-8 max-[560px]:px-4 max-[560px]:py-6`
     : "bg-transparent"}
   aria-labelledby="interaction-heading"
 >
   {#if exercise.type === "personal"}
-    <h2
-      id="interaction-heading"
-      class="text-center font-serif text-xl font-semibold leading-snug text-pretty text-slate-900 sm:text-2xl"
-    >
+    {#if player}
+      <p class={sessionKickerClass}>Say it aloud</p>
+    {/if}
+
+    <h2 id="interaction-heading" class={sessionPromptClass}>
       {exercise.prompt}
     </h2>
 
     {#if exercise.example}
       <p
-        class="mx-auto mt-5 max-w-xl rounded-(--frame-radius) bg-subtle px-4 py-3.5 text-center font-serif text-lg text-slate-900 shadow-(--shadow-border)"
+        class="mt-5 max-w-xl rounded-(--frame-radius) bg-subtle px-4 py-3.5 font-serif text-lg text-slate-900 shadow-(--shadow-border)"
         lang="sk"
       >
         {exercise.example}
@@ -352,7 +371,7 @@
     {/if}
 
     {#if !player}
-      <div class="mt-7 flex justify-center">
+      <div class="mt-7">
         <Button type="button" onclick={() => onresolve()}>I said it</Button>
       </div>
     {/if}
@@ -375,13 +394,21 @@
       <p class="mt-5 mb-2 {DIALOGUE_SPEAKER_CLASS}">You</p>
     {/if}
 
+    {#if kicker}
+      <p class={sessionKickerClass}>{kicker}</p>
+    {/if}
+
     <h2
       id="interaction-heading"
       class={[
-        typedWithScene ? "" : hasContext ? "mt-5" : chrome === "card" ? "mt-4" : "",
-        player
-          ? "m-0 text-center font-serif text-[clamp(1.3rem,2.9vw,1.75rem)] leading-snug tracking-tight text-pretty text-slate-900"
-          : "m-0 font-serif text-xl font-semibold leading-snug text-pretty text-slate-900",
+        typedWithScene || kicker
+          ? ""
+          : hasContext
+            ? "mt-5"
+            : chrome === "card"
+              ? "mt-4"
+              : "",
+        sessionPromptClass,
       ].join(" ")}
       lang={exercise.promptLang === "sk" ? "sk" : undefined}
     >
@@ -428,7 +455,7 @@
         {submitted}
       />
     {:else}
-      <label class="mx-auto mt-6 grid max-w-md gap-2 text-sm font-medium text-slate-600">
+      <label class="mt-6 grid max-w-md gap-2 text-sm font-medium text-slate-600">
         <span>{exercise.inputLabel}</span>
         <input
           class="min-h-[50px] w-full rounded-(--control-radius) border border-slate-300 bg-control px-4 py-3 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
@@ -474,11 +501,7 @@
         class="mt-6 flex max-w-2xl flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between"
       >
         {#if exercise.type === "typed"}
-          <button
-            class="border-0 bg-transparent py-1 text-sm font-semibold text-blue-800 underline underline-offset-2"
-            type="button"
-            onclick={reveal}
-          >
+          <button class={sessionRevealClass} type="button" onclick={reveal}>
             Reveal answer
           </button>
         {:else}
@@ -496,12 +519,8 @@
         </Button>
       </div>
     {:else if exercise.type === "typed" && !submitted}
-      <div class="mt-4 flex justify-center">
-        <button
-          class="border-0 bg-transparent py-1 text-sm font-semibold text-blue-800 underline underline-offset-2"
-          type="button"
-          onclick={reveal}
-        >
+      <div class="mt-4">
+        <button class={sessionRevealClass} type="button" onclick={reveal}>
           Reveal answer
         </button>
       </div>

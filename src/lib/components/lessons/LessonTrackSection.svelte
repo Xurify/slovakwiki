@@ -2,7 +2,9 @@
   import type { Lesson, LessonTrack } from "$lib/learning/types";
   import type { LessonStatus } from "$lib/lesson-progress/progress";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import SectionHead from "$lib/components/ui/SectionHead.svelte";
   import LessonPathCard from "$lib/components/lessons/LessonPathCard.svelte";
+  import { moreLinkClass } from "$lib/components/ui/system-ui";
 
   let {
     track,
@@ -16,30 +18,17 @@
 </script>
 
 <section data-level={track.id} aria-labelledby="track-{track.id}-heading">
-  <div class="mb-1 flex items-baseline justify-between gap-4">
-    <div class="min-w-0">
-      <p class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase">
-        Track
-      </p>
-
-      <h2
-        id="track-{track.id}-heading"
-        class="m-0 mt-1 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl"
-      >
-        <a class="text-inherit no-underline hover:underline" href="/lessons/{track.id}">
-          {track.title}
-        </a>
-      </h2>
-    </div>
-
-    <span class="shrink-0 text-xs tabular-nums text-slate-500">
+  <SectionHead
+    eyebrow="Track"
+    title={track.title}
+    id="track-{track.id}-heading"
+    href="/lessons/{track.id}"
+    description={track.description}
+  >
+    {#snippet aside()}
       <span data-level-done-pct={track.id}>0</span>%
-    </span>
-  </div>
-
-  <p class="m-0 mt-2 max-w-xl text-sm leading-relaxed text-pretty text-slate-600">
-    {track.description}
-  </p>
+    {/snippet}
+  </SectionHead>
 
   <p class="m-0 mt-2 text-xs tabular-nums text-slate-500">
     {lessons.length}
@@ -66,10 +55,7 @@
   </ul>
 
   <p class="m-0 mt-4">
-    <a
-      class="inline-flex items-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline"
-      href="/lessons/{track.id}"
-    >
+    <a class={moreLinkClass} href="/lessons/{track.id}">
       View track
       <ArrowRight />
     </a>

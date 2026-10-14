@@ -1,0 +1,66 @@
+<script lang="ts">
+  import { highlightLemmaInText } from "$lib/catalog/dictionary/highlight-lemma";
+  import type { Example } from "$lib/catalog/types";
+
+  /**
+   * One example sentence: audio host (or a bullet), Slovak with the lemma
+   * highlighted, English below, and the Tatoeba credit on hover.
+   */
+  let {
+    example,
+    lemma,
+    category,
+    audioKey,
+  }: {
+    example: Example;
+    lemma: string;
+    category: string;
+    /** `data-audio-mount` key the audio island fills; omit when there is no clip. */
+    audioKey?: string;
+  } = $props();
+
+  const parts = $derived(highlightLemmaInText(example.slovak, lemma, category));
+</script>
+
+<li
+  class="group/row grid grid-cols-[2rem_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-slate-200/70 py-3 last:border-b-0 max-[560px]:grid-cols-[2rem_minmax(0,1fr)]"
+>
+  <span class="grid h-7 place-items-center">
+    {#if audioKey}
+      <span class="inline-grid size-7 place-items-center" data-audio-mount={audioKey}
+      ></span>
+    {:else}
+      <span class="text-xs text-slate-400" aria-hidden="true">•</span>
+    {/if}
+  </span>
+
+  <div class="min-w-0">
+    <p class="m-0 font-serif text-lg leading-snug text-pretty text-slate-900" lang="sk">
+      {#each parts as part, partIndex (`${partIndex}-${part.text}`)}
+        {#if part.hit}
+          <span class="rounded-sm bg-mark px-px font-semibold">{part.text}</span>
+        {:else}
+          {part.text}
+        {/if}
+      {/each}
+    </p>
+
+    <p class="m-0 mt-0.5 text-sm leading-snug text-slate-600">{example.english}</p>
+  </div>
+
+  {#if example.isPracticeFrame}
+    <span class="pt-1 text-xs text-slate-500 max-[560px]:col-start-2 max-[560px]:pt-1.5">
+      Practice frame
+    </span>
+  {:else if example.note === "Tatoeba" && example.tatoebaId}
+    <a
+      class="pt-1 text-xs tabular-nums text-slate-500 no-underline opacity-0 transition-opacity group-hover/row:opacity-100 hover:text-blue-800 focus-visible:opacity-100 max-[560px]:col-start-2 max-[560px]:pt-1.5 max-[560px]:opacity-100"
+      href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}
+      rel="noopener noreferrer"
+      target="_blank"
+      title="View on Tatoeba"
+    >
+      Tatoeba #{example.tatoebaId}
+    </a>
+  {/if}
+</li>

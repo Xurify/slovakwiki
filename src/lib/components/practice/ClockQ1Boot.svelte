@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
   import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
   import PracticeKeyHints from "$lib/components/practice/PracticeKeyHints.svelte";
-  import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import SessionChrome from "$lib/components/learning/SessionChrome.svelte";
   import {
     sessionCharKeyClass,
     sessionKickerClass,
@@ -45,7 +46,8 @@
 </script>
 
 <div class="mx-auto w-full max-w-[640px]" data-clock-q1-boot>
-  <PracticeSessionChrome
+  <SessionChrome
+    progressLabel="Practice progress"
     backHref="/practice"
     backLabel="Practice"
     subtitle={sessionSubtitle(sessionContext)}
@@ -54,7 +56,7 @@
   />
 
   <section
-    class="pointer-events-none overflow-hidden rounded-(--frame-radius) border border-slate-200 bg-surface shadow-(--shadow-border)"
+    class="pointer-events-none overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
   >
     <div class="px-7 py-8 max-[560px]:px-4 max-[560px]:py-6">
       <p class={sessionKickerClass} data-clock-q1-kicker hidden></p>
@@ -67,11 +69,7 @@
         >
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0 flex-1">
-              <p
-                class="m-0 mb-2 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-                data-clock-q1-scene-speaker
-                hidden
-              ></p>
+              <p class="{eyebrowMutedClass} mb-2" data-clock-q1-scene-speaker hidden></p>
 
               <p
                 class="m-0 font-serif text-[clamp(1.15rem,2.8vw,1.4rem)] font-semibold leading-snug text-slate-900"
@@ -114,13 +112,7 @@
         </article>
       </template>
 
-      <p
-        class="mt-5 mb-2 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-        data-clock-q1-you
-        hidden
-      >
-        You
-      </p>
+      <p class="{eyebrowMutedClass} mt-5 mb-2" data-clock-q1-you hidden>You</p>
 
       <p
         class="m-0 font-serif text-sm font-medium leading-snug text-slate-500"
@@ -187,7 +179,7 @@
     </div>
 
     <footer
-      class="flex flex-col-reverse items-stretch gap-3 border-t border-slate-200 bg-paper/70 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4 sm:flex-row sm:items-center sm:justify-between"
+      class="flex flex-col-reverse items-stretch gap-3 border-t border-slate-200 bg-subtle/60 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4 sm:flex-row sm:items-center sm:justify-between"
     >
       <button
         class={sessionRevealClass}

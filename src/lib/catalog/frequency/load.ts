@@ -12,6 +12,11 @@ const FREQUENCY_LISTS: Record<FrequencyPartOfSpeech, FrequencyListFile> = {
   adverb: adverbs as FrequencyListFile,
 };
 
+/** Synchronous access for build-time page props. */
+export function frequencyListFor(partOfSpeech: FrequencyPartOfSpeech): FrequencyListFile {
+  return FREQUENCY_LISTS[partOfSpeech];
+}
+
 export async function loadFrequencyList(
   partOfSpeech: FrequencyPartOfSpeech,
 ): Promise<FrequencyListFile> {

@@ -1,6 +1,7 @@
+import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
+
 /** Named-turn label in practice/lesson bubbles. Hidden for system speakers. */
-export const DIALOGUE_SPEAKER_CLASS =
-  "text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+export const DIALOGUE_SPEAKER_CLASS = eyebrowMutedClass;
 
 const HIDDEN_DIALOGUE_SPEAKERS = new Set(["Notice", "Scene", "Sentence"]);
 

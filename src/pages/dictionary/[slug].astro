@@ -23,8 +23,16 @@ if (!pageProps) {
   return new Response(null, { status: 404 });
 }
 
-const { entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image } =
-  pageProps;
+const {
+  entry,
+  relatedEntries,
+  lemmaAudioSrc,
+  exampleAudioSrcs,
+  entriesNear: nearbyEntries,
+  frequencyNeighbors: frequencyRows,
+  senses,
+  image,
+} = pageProps;
 
 const titleEnglish = senses.map((sense) => sense.entry.english).join(" · ");
 
@@ -69,7 +77,16 @@ for (const [senseIndex, sense] of senses.entries()) {
   canonicalPath={`/dictionary/${entry.slug}`}
 >
   <DictionaryDetailPage
-    data={{ entry, relatedEntries, lemmaAudioSrc, exampleAudioSrcs, senses, image }}
+    data={{
+      entry,
+      relatedEntries,
+      lemmaAudioSrc,
+      exampleAudioSrcs,
+      entriesNear: nearbyEntries,
+      frequencyNeighbors: frequencyRows,
+      senses,
+      image,
+    }}
   >
     {
       audioTargets.length > 0 && (

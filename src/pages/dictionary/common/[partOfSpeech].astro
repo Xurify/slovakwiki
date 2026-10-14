@@ -15,6 +15,8 @@ export async function getStaticPaths() {
 
 const { entries, initialEntries, liveByLemma, partOfSpeech, sourceUrl } = Astro.props;
 
+const label = FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase();
+
 const tabs = FREQUENCY_PARTS.map((value) => ({
   value,
   label: FREQUENCY_PART_OF_SPEECH_LABEL[value],
@@ -23,8 +25,8 @@ const tabs = FREQUENCY_PARTS.map((value) => ({
 ---
 
 <SiteLayout
-  title={`Most common ${FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()} — Slovak Wiki`}
-  description={`The most common Slovak ${FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase()} from the Slovak National Corpus.`}
+  title={`Most common ${label} — Slovak Wiki`}
+  description={`The most common Slovak ${label} from the Slovak National Corpus, ranked by frequency.`}
   canonicalPath={`/dictionary/common/${partOfSpeech}`}
 >
   <DictionaryCommonPage
@@ -35,7 +37,14 @@ const tabs = FREQUENCY_PARTS.map((value) => ({
     sourceUrl={sourceUrl}
     totalCount={entries.length}
   >
-    <DictionaryCommonSearch client:load slot="filter" {partOfSpeech} />
+    <DictionaryCommonSearch
+      client:load
+      slot="filter"
+      {partOfSpeech}
+      {label}
+      initialCount={initialEntries.length}
+      totalCount={entries.length}
+    />
     <DictionaryCommonList client:load slot="listControls" totalCount={entries.length} />
   </DictionaryCommonPage>
 </SiteLayout>

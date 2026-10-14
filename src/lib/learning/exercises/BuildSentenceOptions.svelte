@@ -6,6 +6,7 @@
     insertBankIndexAt,
     reorderBuiltIndexes,
   } from "$lib/learning/exercises/build-dnd";
+  import { buildTileIdleClass } from "$lib/learning/exercises/option-ui";
 
   const DRAG_THRESHOLD_PX = 8;
 
@@ -44,13 +45,12 @@
   let floatX = $state(0);
   let floatY = $state(0);
 
-  const chipClass =
-    "press-key min-h-11 cursor-pointer rounded-(--control-radius) px-3.5 py-2 font-serif text-base font-semibold text-blue-800 touch-none select-none";
+  const chipClass = buildTileIdleClass;
 
-  const chipMetricsClass = "px-3.5 py-2 font-serif text-base font-semibold";
+  const chipMetricsClass = "px-3.5 py-1.5 font-serif text-base";
 
   const bankGhostShellClass =
-    "inline-flex shrink-0 min-h-11 items-center rounded-(--control-radius) border border-dashed border-slate-200 bg-slate-50/70 pointer-events-none select-none";
+    "inline-flex shrink-0 min-h-10 items-center rounded-(--control-radius) border border-dashed border-slate-300 bg-subtle/70 pointer-events-none select-none";
 
   const bankGhostSizingClass = `${chipMetricsClass} invisible`;
 
@@ -261,11 +261,11 @@
       </p>
     {/if}
 
-    <div class="flex min-h-11 flex-wrap items-center gap-2">
+    <div class="flex min-h-10 flex-wrap items-center gap-2">
       {#each builtBankIndexes as bankIndex, builtIndex (bankIndex)}
         {#if isDragging && insertAt === builtIndex}
           <div
-            class="h-11 w-14 shrink-0 rounded-(--control-radius) border-2 border-dashed border-blue-500 bg-blue-50/80"
+            class="h-10 w-14 shrink-0 rounded-(--control-radius) border border-dashed border-blue-500 bg-blue-50/80"
             aria-hidden="true"
           ></div>
         {/if}
@@ -290,7 +290,7 @@
 
       {#if isDragging && insertAt === builtBankIndexes.length}
         <div
-          class="h-11 w-14 shrink-0 rounded-(--control-radius) border-2 border-dashed border-blue-500 bg-blue-50/80"
+          class="h-10 w-14 shrink-0 rounded-(--control-radius) border border-dashed border-blue-500 bg-blue-50/80"
           aria-hidden="true"
         ></div>
       {/if}
@@ -310,7 +310,7 @@
         </div>
       {:else}
         <button
-          class="{chipClass} shrink-0 hover:border-blue-600"
+          class="{chipClass} shrink-0"
           type="button"
           disabled={submitted}
           onpointerdown={(event) => onBankPointerDown(event, index)}
@@ -325,10 +325,10 @@
 
 {#if activeDrag}
   <div
-    class="pointer-events-none fixed z-50 rounded-(--control-radius) border-2 border-blue-600 bg-surface px-3.5 py-2 font-serif text-base font-semibold text-blue-800 shadow-(--shadow-border)"
+    class="pointer-events-none fixed z-50 rounded-(--control-radius) border border-blue-600 bg-surface px-3.5 py-1.5 font-serif text-base text-slate-900 shadow-(--shadow-float)"
     style:left="{floatX}px"
     style:top="{floatY}px"
-    style:transform="translate(-50%, -50%) scale(1.04)"
+    style:transform="translate(-50%, -50%)"
     aria-hidden="true"
   >
     <span lang="sk">{floatLabel}</span>

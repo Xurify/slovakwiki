@@ -19,6 +19,6 @@
     width="512"
     height="512"
     decoding="async"
-    class="size-full rounded-[inherit] object-cover outline-0 transition-transform duration-300 ease-out group-hover:scale-105"
+    class="size-full rounded-[inherit] object-cover outline-0"
   />
 </span>

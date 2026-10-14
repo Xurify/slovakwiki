@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { panelClass, panelHoverClass } from "$lib/components/ui/system-ui";
   import type { PracticeHubSheet, PracticeStepState } from "$lib/catalog/practice/hub";
   import PracticeSetPoster from "$lib/components/practice/PracticeSetPoster.svelte";
   import { cx } from "$lib/ui/classes";
@@ -25,9 +26,10 @@
   );
 
   const cardClass = cx(
-    "group grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3.5 rounded-(--frame-radius)",
-    "border-2 border-transparent bg-surface/80 px-3 py-3 no-underline shadow-(--shadow-border)",
-    "transition-[background-color,box-shadow,border-color] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)",
+    panelClass,
+    panelHoverClass,
+    "group grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3.5",
+    "border-2 border-transparent px-3 py-3 no-underline",
     "group-data-[state=next]/step:border-blue-600 group-data-[state=next]/step:bg-surface",
     "max-[480px]:grid-cols-[minmax(0,1fr)_auto]",
   );

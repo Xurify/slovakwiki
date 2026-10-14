@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass, tagClass } from "$lib/components/ui/system-ui";
   import { onDestroy, onMount, untrack } from "svelte";
 
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
@@ -87,20 +88,20 @@
   const idleHintsOffset = $derived(recent.length);
   const shellClass = $derived(
     size === "hero"
-      ? cx("relative z-30 w-full max-w-[480px]", className)
-      : cx("relative ml-auto w-full max-w-[320px] min-w-0", className),
+      ? cx("relative z-30 w-full", className)
+      : cx("relative w-full max-w-[540px] min-w-0 flex-1", className),
   );
 
   const fieldClass = $derived(
     size === "hero"
-      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-full border border-slate-300/90 bg-surface/80 shadow-(--shadow-border) backdrop-blur-sm transition-[box-shadow,border-color,background-color] focus-within:border-blue-600 focus-within:bg-surface focus-within:shadow-[0_0_0_4px_var(--accent-soft),var(--shadow-border)] max-[520px]:rounded-(--frame-radius)"
-      : "flex min-h-10 w-full items-center rounded-(--control-radius) border border-(--line-strong) bg-(--surface) transition-[box-shadow,border-color] focus-within:border-(--accent) focus-within:shadow-[0_0_0_3px_var(--accent-soft)]",
+      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-brand bg-surface transition-[box-shadow] focus-within:shadow-[0_0_0_3px_var(--accent-soft)]"
+      : "flex min-h-10 w-full items-stretch overflow-hidden rounded-[4px] bg-(--surface) ring-1 ring-inset ring-black/10 transition-[box-shadow] focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--surface)_35%,transparent)]",
   );
 
   const inputClass = $derived(
     size === "hero"
-      ? "min-w-0 flex-1 border-0 bg-transparent px-3.5 text-[0.95rem] text-slate-900 outline-none placeholder:text-slate-400"
-      : "min-h-[38px] min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.8rem] text-(--ink) outline-none",
+      ? "min-w-0 flex-1 border-0 bg-transparent px-3 text-[1.05rem] text-(--ink) outline-none placeholder:text-(--muted)"
+      : "min-h-10 min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.9rem] text-(--ink) outline-none placeholder:text-(--muted)",
   );
 
   function kindLabel(kind: string | undefined, category?: string): string {
@@ -366,7 +367,14 @@
     }
 
     function onGlobalKeydown(event: KeyboardEvent): void {
-      if (size !== "header") {
+      // Only the visible field answers "/" (home hides the header search).
+      if (!rootEl || rootEl.offsetParent === null) {
+        return;
+      }
+
+      // A large page search defers to the header field when both are showing.
+      const headerField = document.getElementById("header-search");
+      if (size === "hero" && headerField && headerField.offsetParent !== null) {
         return;
       }
 
@@ -415,8 +423,8 @@
       class={cx(
         "shrink-0 fill-none stroke-[1.8]",
         size === "hero"
-          ? "ml-4 w-4 stroke-slate-400 max-[520px]:hidden"
-          : "ml-3 w-4 stroke-(--muted)",
+          ? "ml-4 w-[18px] stroke-(--muted) max-[520px]:hidden"
+          : "ml-3 w-4 self-center stroke-(--muted)",
       )}
       aria-hidden="true"
       viewBox="0 0 24 24"
@@ -448,13 +456,23 @@
 
     {#if searching}
       <span class={fieldSpinnerClass} aria-hidden="true"></span>
-    {:else if size === "header"}
+    {:else}
       <kbd
-        class="mr-2 hidden rounded border border-(--line) px-1.5 py-0.5 text-[0.65rem] font-semibold text-(--muted) min-[900px]:inline"
+        class="mr-2 hidden self-center rounded border border-(--line) px-1.5 py-0.5 text-[0.65rem] font-semibold text-(--muted) min-[900px]:inline"
       >
         /
       </kbd>
     {/if}
+
+    <button
+      class={cx(
+        "cursor-pointer border-0 bg-brand font-semibold text-brand-ink hover:opacity-90",
+        size === "hero" ? "px-5 text-[0.95rem]" : "px-4 text-[0.85rem]",
+      )}
+      type="submit"
+    >
+      Search
+    </button>
   </form>
 
   {#if showPanel}
@@ -463,9 +481,7 @@
         "absolute z-[60] mt-2 overflow-y-auto border border-(--line) bg-(--surface) shadow-(--shadow-border)",
         "scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent",
         "max-h-[min(22rem,calc(100dvh-8rem))]",
-        size === "hero"
-          ? "left-0 right-0 rounded-(--frame-radius)"
-          : "left-0 right-0 rounded-(--control-radius)",
+        "left-0 right-0 rounded-(--control-radius)",
       )}
       id={`${id}-listbox`}
       role="listbox"
@@ -474,11 +490,7 @@
     >
       {#if showIdle}
         <div class="border-b border-(--line) px-3.5 py-3">
-          <p
-            class="m-0 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
-          >
-            You can search
-          </p>
+          <p class={eyebrowMutedClass}>You can search</p>
 
           <div class="mt-2 flex flex-wrap gap-1.5">
             {#each searchKindChips as kind (kind)}
@@ -493,11 +505,7 @@
 
         {#if recent.length > 0}
           <div class="flex items-center justify-between gap-3 px-3.5 pb-1 pt-3">
-            <p
-              class="m-0 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
-            >
-              Recent
-            </p>
+            <p class={eyebrowMutedClass}>Recent</p>
 
             <button
               class="m-0 border-0 bg-transparent p-0 text-[0.68rem] font-semibold text-(--muted) underline-offset-2 hover:text-(--ink-soft) hover:underline"
@@ -524,20 +532,14 @@
               onclick={() => rememberLookup(item)}
             >
               <span class="font-serif text-[0.95rem]" lang="sk">{item.label}</span>
-              <span
-                class="text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-(--muted)"
-              >
+              <span class="shrink-0 text-xs text-slate-500">
                 {searchMetaLabel(item.kind, item.category)}
               </span>
             </a>
           {/each}
         {/if}
 
-        <p
-          class="m-0 px-3.5 pb-1 pt-3 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
-        >
-          Try
-        </p>
+        <p class="{eyebrowMutedClass} px-3.5 pt-3 pb-1">Try</p>
 
         {#each searchIdleHints as hint, index (hint.href)}
           <a
@@ -554,9 +556,7 @@
             onmouseenter={() => (activeIndex = idleHintsOffset + index)}
           >
             <span class="font-serif text-[0.95rem]" lang={hint.lang}>{hint.label}</span>
-            <span
-              class="text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-(--muted)"
-            >
+            <span class="shrink-0 text-xs text-slate-500">
               {searchMetaLabel(hint.kind, hint.category)}
             </span>
           </a>
@@ -602,9 +602,7 @@
                   {/if}
                 </span>
 
-                <span
-                  class="shrink-0 rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
-                >
+                <span class="{tagClass} shrink-0">
                   {kindLabel(result.meta.kind, result.meta.category)}
                 </span>
               </a>

@@ -2,6 +2,7 @@
   import type { LessonTrack } from "$lib/learning/types";
   import { practiceStepState, type PracticeHubSheet } from "$lib/catalog/practice/hub";
   import PracticePathStep from "$lib/components/practice/PracticePathStep.svelte";
+  import SectionHead from "$lib/components/ui/SectionHead.svelte";
 
   let {
     track,
@@ -24,29 +25,17 @@
   aria-labelledby="track-{track.id}-heading"
   data-practice-track={track.id}
 >
-  <div class="flex items-baseline justify-between gap-4">
-    <div class="min-w-0">
-      <p class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase">
-        Track
-      </p>
-
-      <h2
-        id="track-{track.id}-heading"
-        class="m-0 mt-1 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl"
-      >
-        {track.title}
-      </h2>
-    </div>
-
-    <span class="shrink-0 text-xs tabular-nums text-slate-500">
+  <SectionHead
+    eyebrow="Track"
+    title={track.title}
+    id="track-{track.id}-heading"
+    description={track.description}
+  >
+    {#snippet aside()}
       <span data-track-done>0</span> of {lessonCount}
       {lessonCount === 1 ? "lesson" : "lessons"} done
-    </span>
-  </div>
-
-  <p class="m-0 mt-2 max-w-xl text-sm leading-relaxed text-pretty text-slate-600">
-    {track.description}
-  </p>
+    {/snippet}
+  </SectionHead>
 
   <p class="m-0 mt-2 text-xs tabular-nums text-slate-500">
     {sheets.length}

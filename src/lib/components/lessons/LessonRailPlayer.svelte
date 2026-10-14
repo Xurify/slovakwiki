@@ -2,7 +2,8 @@
   import LessonDoneScreen from "$lib/components/lessons/LessonDoneScreen.svelte";
   import LessonFeedbackBar from "$lib/components/lessons/LessonFeedbackBar.svelte";
   import LessonInteraction from "$lib/components/lessons/LessonInteraction.svelte";
-  import LessonPlayerChrome from "$lib/components/lessons/LessonPlayerChrome.svelte";
+  import LessonStorySettings from "$lib/components/lessons/LessonStorySettings.svelte";
+  import SessionChrome from "$lib/components/learning/SessionChrome.svelte";
   import LessonPlayerFooter from "$lib/components/lessons/LessonPlayerFooter.svelte";
   import LessonStepTeach from "$lib/components/lessons/LessonStepTeach.svelte";
   import { lessonSteps } from "$lib/learning/lesson-steps";
@@ -60,10 +61,6 @@
   const backHref = $derived(`/lessons/${lesson.track}`);
   const trackTitle = $derived(
     lessonTracks.find((track) => track.id === lesson.track)?.title ?? lesson.track,
-  );
-
-  const progressPercent = $derived(
-    steps.length <= 0 ? 0 : (stepIndex / steps.length) * 100,
   );
 
   const nextLesson = $derived.by((): Lesson | null => {
@@ -235,12 +232,24 @@
     aria-label={lesson.title}
     tabindex="-1"
   >
-    <LessonPlayerChrome
-      {backHref}
-      {progressPercent}
-      stepCount={steps.length}
-      {stepIndex}
-    />
+    <div class="relative z-30 shrink-0 border-b border-slate-200 bg-paper">
+      <div class="mx-auto w-full max-w-[640px] px-4 pt-3 sm:px-8">
+        <SessionChrome
+          class="mb-3"
+          activeIndex={stepIndex}
+          {backHref}
+          closeLabel="Close lesson"
+          progressLabel="Lesson progress"
+          subtitle={trackTitle}
+          title={lesson.title}
+          total={steps.length}
+        >
+          {#snippet controls()}
+            <LessonStorySettings />
+          {/snippet}
+        </SessionChrome>
+      </div>
+    </div>
 
     <div
       class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
@@ -259,7 +268,7 @@
               bind:choiceOpen={teachChoiceOpen}
             />
           {:else}
-            <div class="mx-auto w-full max-w-2xl px-4 py-10 sm:px-8 sm:py-12">
+            <div class="mx-auto w-full max-w-[640px] px-4 py-8 sm:px-8 sm:py-10">
               <LessonInteraction
                 chrome="player"
                 exercise={step.exercise}

@@ -1,5 +1,6 @@
 import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
 import type { AnswerGrade } from "$lib/components/practice/practice-state";
+import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
 
 /** "Everyday Slovak · Set 1 of 5" under the session title. */
 export function sessionSubtitle(context?: PracticeSessionContext): string | undefined {
@@ -9,8 +10,7 @@ export function sessionSubtitle(context?: PracticeSessionContext): string | unde
 }
 
 /** Shared by `PracticePlayer` and the clock Q1 pre-paint replica (`ClockQ1Boot` + `apply-clock-q1`). */
-export const sessionKickerClass =
-  "m-0 mb-3 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+export const sessionKickerClass = `${eyebrowMutedClass} mb-3`;
 
 export const sessionPromptClass =
   "m-0 font-serif text-[clamp(1.2rem,2.8vw,1.5rem)] font-semibold leading-snug text-pretty text-slate-900";

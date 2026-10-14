@@ -5,18 +5,20 @@ import {
   segmentsFromMarks,
   type TextMark,
 } from "$lib/learning/marked-text";
+import {
+  buildTileIdleClass,
+  choiceClockIdleClass,
+  choiceRowIdleClass,
+} from "$lib/learning/exercises/option-ui";
 import { formatClockFaceLabel } from "$lib/learning/time/clock";
 
 import type { ClockQ1Choice, ClockQ1Clock, ClockQ1View } from "./clock-q1-view";
 
-const TILE_CLASS =
-  "press-key min-h-11 shrink-0 cursor-pointer rounded-(--control-radius) px-3.5 py-2 font-serif text-base font-semibold text-blue-800";
+const TILE_CLASS = `${buildTileIdleClass} shrink-0`;
 
-const TEXT_CHOICE_CLASS =
-  "press-key relative min-h-14 w-full cursor-pointer rounded-(--control-radius) px-4 py-3.5 text-left font-serif text-base font-semibold";
+const TEXT_CHOICE_CLASS = choiceRowIdleClass;
 
-const CLOCK_CHOICE_CLASS =
-  "press-key relative grid min-h-14 w-full cursor-pointer justify-items-center gap-2 rounded-(--frame-radius) px-3 py-4 text-center font-serif text-sm font-semibold";
+const CLOCK_CHOICE_CLASS = choiceClockIdleClass;
 
 function qs(root: ParentNode, selector: string): HTMLElement | null {
   return root.querySelector(selector);
@@ -109,7 +111,7 @@ function paintTiles(root: ParentNode, tiles: string[] | null): void {
   tray.append(hint);
 
   const bank = document.createElement("div");
-  bank.className = "mt-5 flex flex-wrap gap-2";
+  bank.className = "flex flex-wrap gap-2";
   bank.setAttribute("role", "list");
   bank.setAttribute("aria-label", "Word bank");
 

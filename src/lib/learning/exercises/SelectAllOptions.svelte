@@ -2,6 +2,7 @@
   import PromptClock from "$lib/learning/time/PromptClock.svelte";
   import type { SelectAllExercise } from "$lib/learning/types";
 
+  import { choiceRowIdleClass, optionGradedClass, optionRowClass } from "./option-ui";
   import { selectAllRowMarker, selectAllRowState } from "./select-all";
 
   let {
@@ -24,30 +25,18 @@
     selectedIds = next;
   }
 
-  const idleRowShell =
-    "press-key min-h-14 w-full rounded-(--control-radius) border px-4 py-3.5 text-left font-serif text-base font-semibold";
-
-  const gradedRowShell =
-    "min-h-14 w-full rounded-(--control-radius) border-2 px-4 py-3.5 text-left font-serif text-base font-semibold";
-
   function rowButtonClass(
     state: ReturnType<typeof selectAllRowState>,
     submitted: boolean,
   ): string {
-    if (!submitted) {
-      return `${idleRowShell} cursor-pointer border-slate-300`;
-    }
-
-    if (state === "correct-selected") {
-      return `${gradedRowShell} cursor-default border-emerald-600 bg-emerald-50 shadow-[0_2px_0_0_var(--green)]`;
-    }
-    if (state === "correct-missed") {
-      return `${gradedRowShell} cursor-default border-dashed border-slate-400 bg-paper shadow-none`;
-    }
-    if (state === "wrong-selected") {
-      return `${gradedRowShell} cursor-default border-rose-600 bg-rose-50 shadow-[0_2px_0_0_var(--action)]`;
-    }
-    return `${gradedRowShell} cursor-default border-slate-300 bg-surface shadow-[0_2px_0_0_var(--line-strong)]`;
+    if (!submitted) return choiceRowIdleClass;
+    if (state === "correct-selected")
+      return `${optionRowClass} ${optionGradedClass("right")}`;
+    if (state === "correct-missed")
+      return `${optionRowClass} ${optionGradedClass("missed")}`;
+    if (state === "wrong-selected")
+      return `${optionRowClass} ${optionGradedClass("wrong")}`;
+    return optionRowClass;
   }
 
   function rowCheckboxClass(
@@ -91,36 +80,30 @@
 
     <button
       class={rowButtonClass(rowState, submitted)}
-      class:border-blue-600={!rowState && selected && !submitted}
-      class:bg-blue-50={!rowState && selected && !submitted}
-      class:shadow-[0_2px_0_0_var(--accent)]={!rowState && selected && !submitted}
       disabled={submitted}
       type="button"
       aria-pressed={submitted ? false : selected}
       aria-label={statusLabel ? `${choice.label} — ${statusLabel}` : choice.label}
       onclick={() => toggle(choice.id)}
     >
-      <span class="flex items-start gap-3">
-        <span
-          class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border text-xs font-semibold {rowCheckboxClass(
-            rowState,
-            selected,
-          )}"
-          aria-hidden="true"
-        >
-          {#if marker}
-            {marker}
-          {/if}
-        </span>
+      <span
+        class="flex h-5 w-5 shrink-0 items-center justify-center rounded border text-xs font-semibold transition-colors duration-150 {rowCheckboxClass(
+          rowState,
+          selected,
+        )}"
+        aria-hidden="true"
+      >
+        {#if marker}
+          {marker}
+        {/if}
+      </span>
 
-        <span class="grid gap-0.5">
-          <span lang="sk">{choice.label}</span>
+      <span class="grid min-w-0 flex-1 gap-0.5">
+        <span lang="sk">{choice.label}</span>
 
-          {#if statusLabel}
-            <span class="font-sans text-xs font-medium text-slate-600">{statusLabel}</span
-            >
-          {/if}
-        </span>
+        {#if statusLabel}
+          <span class="font-sans text-xs text-slate-500">{statusLabel}</span>
+        {/if}
       </span>
     </button>
   {/each}

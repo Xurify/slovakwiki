@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowClass } from "$lib/components/ui/system-ui";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -23,9 +24,7 @@
 
 <div class="mx-auto w-full max-w-[560px]">
   <header>
-    <p
-      class="m-0 flex items-center gap-2 text-[0.64rem] font-bold tracking-[0.14em] text-emerald-700 uppercase"
-    >
+    <p class="{eyebrowClass} flex items-center gap-2 text-emerald-700">
       <svg class="size-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path
           d="M3.5 8.5 6.5 11.5 12.5 4.5"

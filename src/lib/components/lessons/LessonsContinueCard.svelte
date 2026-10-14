@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass, moreLinkClass } from "$lib/components/ui/system-ui";
   import type { Lesson, LessonTrack } from "$lib/learning/types";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
@@ -65,7 +66,7 @@
     <div class="flex flex-col px-5 pt-5 pb-5">
       <p class="m-0">
         <a
-          class="text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase no-underline hover:text-blue-800 hover:underline"
+          class="{eyebrowMutedClass} no-underline hover:text-blue-800 hover:underline"
           href="/lessons/{track.id}"
           data-continue-track-link
         >
@@ -115,7 +116,7 @@
         </Button>
 
         <a
-          class="inline-flex items-center justify-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline"
+          class="{moreLinkClass} justify-center"
           href="/lessons/{track.id}"
           data-continue-track-link
         >

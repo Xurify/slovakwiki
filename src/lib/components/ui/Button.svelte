@@ -22,9 +22,10 @@
 
 {#if href}
   <a
-    class:bg-rose-600={variant === "primary"}
-    class:text-paper={variant === "primary" || variant === "accent"}
-    class:hover:bg-rose-700={variant === "primary"}
+    class:bg-cta={variant === "primary"}
+    class:text-cta-ink={variant === "primary"}
+    class:text-paper={variant === "accent"}
+    class:hover:bg-cta-strong={variant === "primary"}
     class:bg-blue-600={variant === "accent"}
     class:hover:bg-blue-700={variant === "accent"}
     class:disabled:bg-slate-200={variant === "accent"}
@@ -35,7 +36,7 @@
     class:shadow-(--shadow-border)={variant === "secondary"}
     class:hover:bg-control-hover={variant === "secondary"}
     class:hover:shadow-(--shadow-border-hover)={variant === "secondary"}
-    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,transform,scale] duration-150 ease-out active:scale-[0.98] {className}"
+    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,color] duration-150 ease-out {className}"
     {href}
     {...rest}
   >
@@ -43,9 +44,10 @@
   </a>
 {:else}
   <button
-    class:bg-rose-600={variant === "primary"}
-    class:text-paper={variant === "primary" || variant === "accent"}
-    class:hover:bg-rose-700={variant === "primary"}
+    class:bg-cta={variant === "primary"}
+    class:text-cta-ink={variant === "primary"}
+    class:text-paper={variant === "accent"}
+    class:hover:bg-cta-strong={variant === "primary"}
     class:bg-blue-600={variant === "accent"}
     class:hover:bg-blue-700={variant === "accent"}
     class:disabled:bg-slate-200={variant === "accent"}
@@ -56,7 +58,7 @@
     class:shadow-(--shadow-border)={variant === "secondary"}
     class:hover:bg-control-hover={variant === "secondary"}
     class:hover:shadow-(--shadow-border-hover)={variant === "secondary"}
-    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,transform,scale] duration-150 ease-out active:scale-[0.98] disabled:opacity-65 {className}"
+    class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border-0 px-4 font-sans font-bold transition-[background-color,box-shadow,color] duration-150 ease-out disabled:opacity-65 {className}"
     {type}
     {disabled}
     {...rest}

@@ -23,6 +23,7 @@ type WordSeed = Pick<
   | "gender"
   | "pluralOnlyGender"
   | "dialect"
+  | "declension"
 >;
 
 type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
@@ -343,6 +344,24 @@ const curatedWordSeed: WordSeed[] = [
     category: "Nouns",
     gender: "masculine-animate",
     topics: ["People"],
+    declension: {
+      singular: [
+        "priateľ",
+        "priateľa",
+        "priateľovi",
+        "priateľa",
+        "priateľovi",
+        "priateľom",
+      ],
+      plural: [
+        "priatelia",
+        "priateľov",
+        "priateľom",
+        "priateľov",
+        "priateľoch",
+        "priateľmi",
+      ],
+    },
     examples: [
       { slovak: "Peter je môj priateľ.", english: "Peter is my friend." },
       { slovak: "Idem s priateľom.", english: "I am going with a friend." },

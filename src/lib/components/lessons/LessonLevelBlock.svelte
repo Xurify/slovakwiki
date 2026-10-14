@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import type { Lesson } from "$lib/learning/types";
   import type { LessonLevel, LessonStatus } from "$lib/lesson-progress/progress";
   import LessonPathCard from "$lib/components/lessons/LessonPathCard.svelte";
@@ -22,7 +23,7 @@
 <section data-level={level.key}>
   {#if showHeader}
     <div class="mb-1 flex items-baseline justify-between gap-4">
-      <h3 class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase">
+      <h3 class={eyebrowMutedClass}>
         Level {number} · {level.label}
       </h3>
 
