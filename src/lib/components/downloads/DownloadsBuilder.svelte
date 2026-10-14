@@ -333,7 +333,7 @@
 
   const rowNoteClass = "m-0 mt-0.5 text-sm leading-snug text-slate-600";
 
-  const rowButtonClass = "min-h-9 px-3.5 text-sm";
+  const rowButtonClass = "min-h-9 min-w-[7.25rem] px-3.5 text-sm";
 
   const inlineLinkClass =
     "cursor-pointer border-0 bg-transparent p-0 text-xs font-bold text-blue-800 hover:underline";
@@ -341,19 +341,6 @@
   const packOptionClass =
     "flex cursor-pointer items-start gap-3 border-b border-slate-200/70 px-4 py-3 transition-colors duration-150 ease-out last:border-b-0 hover:bg-subtle has-[:checked]:bg-blue-50/60";
 </script>
-
-{#if loadState === "error"}
-  <div
-    class="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-(--control-radius) bg-rose-50 px-4 py-3 text-sm text-rose-900"
-    role="alert"
-  >
-    <p class="m-0">{loadError}</p>
-
-    <button class={inlineLinkClass} type="button" onclick={() => void loadExport()}>
-      Retry
-    </button>
-  </div>
-{/if}
 
 <section class={dataPanelClass} aria-labelledby="downloads-packs">
   <h2 id="downloads-packs" class="sr-only">Downloads</h2>
@@ -369,6 +356,13 @@
 
     {#if loadState === "loading"}
       <DotLoader label="Preparing the file…" />
+    {:else if loadState === "error"}
+      <p class="m-0 flex items-center gap-3 text-sm text-rose-800" role="alert">
+        {loadError}
+        <button class={inlineLinkClass} type="button" onclick={() => void loadExport()}>
+          Retry
+        </button>
+      </p>
     {/if}
   </div>
 
