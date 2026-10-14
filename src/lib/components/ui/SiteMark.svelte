@@ -6,13 +6,13 @@
   }: {
     class?: string;
     decorative?: boolean;
-    /** `inverse` sits on the indigo top bar: paper tile, saffron circumflex. */
+    /** `inverse` sits on the petrol top bar: paper tile, ochre circumflex. */
     tone?: "default" | "inverse";
   } = $props();
 
   const tileFill = $derived(tone === "inverse" ? "#f7f4ea" : "#0f4a66");
-  const ringFill = $derived(tone === "inverse" ? "#1c2b66" : "#f4f8fa");
-  const accentFill = $derived(tone === "inverse" ? "#e09a1f" : "#f4f8fa");
+  const ringFill = $derived(tone === "inverse" ? "#0f3b4c" : "#f4f8fa");
+  const accentFill = $derived(tone === "inverse" ? "#e3a33b" : "#f4f8fa");
 </script>
 
 <svg
