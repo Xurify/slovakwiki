@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import type { Snippet } from "svelte";
 
   /**
@@ -29,9 +30,7 @@
 <div class={className}>
   <div class="mb-1 flex items-baseline justify-between gap-4">
     <div class="min-w-0">
-      <p class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase">
-        {eyebrow}
-      </p>
+      <p class={eyebrowMutedClass}>{eyebrow}</p>
 
       <h2
         {id}

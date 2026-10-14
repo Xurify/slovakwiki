@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { iconButtonClass, iconButtonToneClass } from "$lib/components/ui/system-ui";
   import { onMount } from "svelte";
   import {
     SFX_CHANGE_EVENT,
@@ -47,7 +48,7 @@
 </script>
 
 <button
-  class="inline-grid size-9 shrink-0 cursor-pointer place-items-center rounded-(--control-radius) border-0 bg-transparent text-slate-600 transition-colors duration-150 ease-out hover:bg-subtle hover:text-slate-900 data-muted:text-slate-400 {className}"
+  class="{iconButtonClass} {iconButtonToneClass} size-9 data-muted:text-slate-400 {className}"
   type="button"
   aria-label={label}
   aria-pressed={enabled}

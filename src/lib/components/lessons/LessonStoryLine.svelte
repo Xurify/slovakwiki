@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowClass } from "$lib/components/ui/system-ui";
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
@@ -49,11 +50,7 @@
 
   <div class="flex min-w-0 flex-1 items-start justify-between gap-3">
     <div class="min-w-0">
-      <p
-        class="m-0 text-[0.64rem] font-bold tracking-[0.14em] uppercase {learner
-          ? 'text-blue-800'
-          : 'text-slate-500'}"
-      >
+      <p class="{eyebrowClass} {learner ? 'text-blue-800' : 'text-slate-500'}">
         {line.speaker}
       </p>
 

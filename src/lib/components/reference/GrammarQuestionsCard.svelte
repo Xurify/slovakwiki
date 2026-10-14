@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import MotifBanner from "$lib/components/lessons/MotifBanner.svelte";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
@@ -75,9 +76,7 @@
   </div>
 
   <div class="px-5 pt-4 pb-3">
-    <p class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase">
-      Quick answers
-    </p>
+    <p class={eyebrowMutedClass}>Quick answers</p>
 
     <h2
       id="grammar-questions-heading"

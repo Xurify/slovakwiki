@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass, tagClass } from "$lib/components/ui/system-ui";
   import { onDestroy, onMount, untrack } from "svelte";
 
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
@@ -93,7 +94,7 @@
 
   const fieldClass = $derived(
     size === "hero"
-      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-brand bg-surface transition-[box-shadow] focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
+      ? "flex min-h-[52px] items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-brand bg-surface transition-[box-shadow] focus-within:shadow-[0_0_0_3px_var(--accent-soft)]"
       : "flex min-h-10 w-full items-stretch overflow-hidden rounded-[4px] bg-(--surface) ring-1 ring-inset ring-black/10 transition-[box-shadow] focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--surface)_35%,transparent)]",
   );
 
@@ -489,11 +490,7 @@
     >
       {#if showIdle}
         <div class="border-b border-(--line) px-3.5 py-3">
-          <p
-            class="m-0 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
-          >
-            You can search
-          </p>
+          <p class={eyebrowMutedClass}>You can search</p>
 
           <div class="mt-2 flex flex-wrap gap-1.5">
             {#each searchKindChips as kind (kind)}
@@ -508,11 +505,7 @@
 
         {#if recent.length > 0}
           <div class="flex items-center justify-between gap-3 px-3.5 pb-1 pt-3">
-            <p
-              class="m-0 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
-            >
-              Recent
-            </p>
+            <p class={eyebrowMutedClass}>Recent</p>
 
             <button
               class="m-0 border-0 bg-transparent p-0 text-[0.68rem] font-semibold text-(--muted) underline-offset-2 hover:text-(--ink-soft) hover:underline"
@@ -539,20 +532,14 @@
               onclick={() => rememberLookup(item)}
             >
               <span class="font-serif text-[0.95rem]" lang="sk">{item.label}</span>
-              <span
-                class="text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-(--muted)"
-              >
+              <span class="shrink-0 text-xs text-slate-500">
                 {searchMetaLabel(item.kind, item.category)}
               </span>
             </a>
           {/each}
         {/if}
 
-        <p
-          class="m-0 px-3.5 pb-1 pt-3 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--muted)"
-        >
-          Try
-        </p>
+        <p class="{eyebrowMutedClass} px-3.5 pt-3 pb-1">Try</p>
 
         {#each searchIdleHints as hint, index (hint.href)}
           <a
@@ -569,9 +556,7 @@
             onmouseenter={() => (activeIndex = idleHintsOffset + index)}
           >
             <span class="font-serif text-[0.95rem]" lang={hint.lang}>{hint.label}</span>
-            <span
-              class="text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-(--muted)"
-            >
+            <span class="shrink-0 text-xs text-slate-500">
               {searchMetaLabel(hint.kind, hint.category)}
             </span>
           </a>
@@ -617,9 +602,7 @@
                   {/if}
                 </span>
 
-                <span
-                  class="shrink-0 rounded-(--control-radius) bg-(--surface-subtle) px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.06em] text-(--muted-strong)"
-                >
+                <span class="{tagClass} shrink-0">
                   {kindLabel(result.meta.kind, result.meta.category)}
                 </span>
               </a>

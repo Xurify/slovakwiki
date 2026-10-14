@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowClass } from "$lib/components/ui/system-ui";
   import type { Snippet } from "svelte";
 
   /**
@@ -26,7 +27,7 @@
   class:text-slate-500={tone === "muted"}
   class:text-panel-inverse-ink={tone === "inverse"}
   class:opacity-80={tone === "inverse"}
-  class="m-0 font-sans text-[0.64rem] leading-tight font-bold tracking-[0.14em] uppercase {className}"
+  class="{eyebrowClass} {className}"
 >
   {@render children()}
 </p>

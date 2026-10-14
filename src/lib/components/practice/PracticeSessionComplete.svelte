@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowClass } from "$lib/components/ui/system-ui";
   import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
@@ -7,7 +8,7 @@
 
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
-  import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import SessionChrome from "$lib/components/learning/SessionChrome.svelte";
   import {
     answerGloss,
     sessionKickerClass,
@@ -86,8 +87,6 @@
       ? "Go over the one you missed below, then try it again."
       : `Go over the ${missedCount} you missed below, then try them again.`;
   });
-
-  const eyebrowClass = "m-0 text-[0.64rem] font-bold tracking-[0.14em] uppercase";
 </script>
 
 {#snippet reviewRow(row: NumberedResult)}
@@ -189,7 +188,7 @@
 {/snippet}
 
 <div class="mx-auto w-full max-w-[640px]" aria-labelledby="practice-complete-heading">
-  <PracticeSessionChrome
+  <SessionChrome
     {backHref}
     {backLabel}
     complete

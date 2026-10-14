@@ -13,7 +13,7 @@
 </script>
 
 <div class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5">
-  <div class="mx-auto flex max-w-2xl justify-end">
+  <div class="mx-auto flex max-w-[640px] justify-end">
     <Button variant="accent" class="min-w-36 px-8" type="button" {disabled} {onclick}>
       {label}
     </Button>

@@ -1,4 +1,10 @@
 <script lang="ts">
+  import {
+    iconButtonClass,
+    iconButtonToneClass,
+    panelClass,
+    panelHoverClass,
+  } from "$lib/components/ui/system-ui";
   import Button from "$lib/components/ui/Button.svelte";
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -302,8 +308,7 @@
     "bg-control text-slate-900 shadow-(--shadow-border) transition-[box-shadow,background-color] duration-150 ease-out hover:bg-control-hover hover:shadow-(--shadow-border-hover)";
   const choiceActiveClass =
     "bg-blue-50 text-slate-900 shadow-[0_0_0_1px_var(--color-blue-600)]";
-  const packCardClass =
-    "flex h-full flex-col rounded-(--frame-radius) bg-surface p-5 text-left shadow-(--shadow-border) transition-shadow duration-150 ease-out hover:shadow-(--shadow-border-hover)";
+  const packCardClass = `${panelClass} ${panelHoverClass} flex h-full flex-col p-5 text-left`;
 </script>
 
 {#if loadState === "error"}
@@ -431,7 +436,7 @@
         </div>
         <button
           type="button"
-          class="-mt-1 -mr-1 inline-grid size-9 shrink-0 place-items-center rounded-(--control-radius) text-slate-500 transition-colors duration-150 ease-out hover:bg-subtle hover:text-slate-800"
+          class="{iconButtonClass} {iconButtonToneClass} -mt-1 -mr-1 size-9"
           aria-label="Close"
           onclick={closeCustomize}
         >

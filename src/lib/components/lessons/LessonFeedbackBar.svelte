@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
+  import Button from "$lib/components/ui/Button.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     shouldShowCorrection,
@@ -31,7 +32,7 @@
     why?: string;
   } = $props();
 
-  let continueButton: HTMLButtonElement | undefined = $state();
+  let rootEl: HTMLDivElement | undefined = $state();
 
   const isMiss = $derived(grade === "incorrect" || grade === "accents" || revealed);
   const whyParts = $derived(why ? splitEmphasis(why) : []);
@@ -41,17 +42,18 @@
 
   onMount(async () => {
     await tick();
-    continueButton?.focus({ preventScroll: true });
+    rootEl?.querySelector("button")?.focus({ preventScroll: true });
   });
 </script>
 
 <div
+  bind:this={rootEl}
   class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5"
   role="status"
   aria-live="polite"
 >
   <div
-    class="mx-auto flex max-w-2xl animate-rise flex-wrap justify-between gap-4 {isMiss
+    class="mx-auto flex max-w-[640px] animate-rise flex-wrap justify-between gap-4 {isMiss
       ? 'items-start'
       : 'items-center'}"
   >
@@ -103,13 +105,13 @@
       {/if}
     </div>
 
-    <button
-      bind:this={continueButton}
+    <Button
+      class="min-w-36 shrink-0 px-6"
       type="button"
-      class="inline-flex min-h-11 min-w-36 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-blue-600 px-6 font-sans text-sm font-bold text-paper transition-colors duration-150 ease-out hover:bg-blue-700"
+      variant="accent"
       onclick={oncontinue}
     >
       Continue
-    </button>
+    </Button>
   </div>
 </div>

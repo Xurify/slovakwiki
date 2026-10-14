@@ -43,7 +43,7 @@
     shouldShowCorrection,
   } from "$lib/components/practice/practice-feedback-ui";
   import PracticeKeyHints from "$lib/components/practice/PracticeKeyHints.svelte";
-  import PracticeSessionChrome from "$lib/components/practice/PracticeSessionChrome.svelte";
+  import SessionChrome from "$lib/components/learning/SessionChrome.svelte";
   import PracticeSessionComplete, {
     type SessionPhraseResult,
   } from "$lib/components/practice/PracticeSessionComplete.svelte";
@@ -534,7 +534,7 @@
   />
 {:else}
   <div class="mx-auto w-full max-w-[640px]" aria-labelledby="practice-question">
-    <PracticeSessionChrome
+    <SessionChrome
       {activeIndex}
       {backHref}
       {backLabel}

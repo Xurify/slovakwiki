@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass, moreLinkClass } from "$lib/components/ui/system-ui";
   import type { PracticeHubSheet } from "$lib/catalog/practice/hub";
   import { practiceTaskKindsPhrase } from "$lib/catalog/practice/hub";
   import { practiceGraphicId } from "$lib/catalog/practice/motifs";
@@ -58,9 +59,7 @@
       {/if}
 
       <div class="flex flex-col px-5 pt-5 pb-5">
-        <p
-          class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-        >
+        <p class={eyebrowMutedClass}>
           Up next
           <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
           <a
@@ -108,10 +107,7 @@
           </Button>
 
           {#if candidate.lessonHref}
-            <a
-              class="inline-flex items-center justify-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline"
-              href={candidate.lessonHref}
-            >
+            <a class="{moreLinkClass} justify-center" href={candidate.lessonHref}>
               Review the lesson first
               <ArrowRight />
             </a>

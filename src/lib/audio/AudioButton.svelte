@@ -195,7 +195,7 @@
   );
 
   const buttonClass = $derived(
-    `audio-button relative inline-grid shrink-0 cursor-pointer place-items-center rounded-full border transition-[background-color,border-color,box-shadow] duration-200 disabled:cursor-not-allowed disabled:opacity-50 ${sizeClass} ${variantClass} ${className}`,
+    `audio-button relative inline-grid shrink-0 cursor-pointer place-items-center rounded-full border transition-[background-color,border-color,box-shadow] duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50 ${sizeClass} ${variantClass} ${className}`,
   );
 
   onDestroy(stop);

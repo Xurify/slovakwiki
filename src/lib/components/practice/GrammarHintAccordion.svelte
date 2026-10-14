@@ -30,7 +30,7 @@
 
 {#snippet chevron()}
   <svg
-    class="size-4 shrink-0 fill-none stroke-slate-400 stroke-2 transition-transform duration-200"
+    class="size-4 shrink-0 fill-none stroke-slate-400 stroke-2 transition-transform duration-150 ease-out"
     class:rotate-180={open}
     viewBox="0 0 24 24"
     aria-hidden="true"

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass, iconButtonClass } from "$lib/components/ui/system-ui";
   import { onMount } from "svelte";
   import {
     AUDIO_VOLUME_CHANGE_EVENT,
@@ -88,9 +89,9 @@
 
   const triggerClass = $derived(
     [
-      "inline-grid size-9 shrink-0 cursor-pointer place-items-center rounded-(--control-radius) border-0 bg-transparent",
-      "transition-colors duration-150 ease-out hover:bg-subtle hover:text-slate-900",
-      open ? "bg-subtle text-slate-900" : "text-slate-600",
+      iconButtonClass,
+      "size-9 hover:bg-subtle hover:text-slate-900",
+      open ? "bg-subtle text-slate-900" : "text-slate-500",
     ].join(" "),
   );
 </script>
@@ -130,11 +131,7 @@
       aria-label="Story settings"
     >
       <div class="border-b border-slate-200/80 px-3.5 py-2.5">
-        <p
-          class="m-0 text-[0.62rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-        >
-          Story
-        </p>
+        <p class={eyebrowMutedClass}>Story</p>
       </div>
 
       <ul class="m-0 list-none p-0">

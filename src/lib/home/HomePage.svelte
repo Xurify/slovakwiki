@@ -1,4 +1,10 @@
 <script lang="ts">
+  import {
+    letterChipClass,
+    moreLinkClass,
+    panelClass,
+    panelHoverClass,
+  } from "$lib/components/ui/system-ui";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
@@ -83,15 +89,7 @@
 
   const wordCount = words.length.toLocaleString("en");
 
-  // Same chip as the dictionary browse page.
-  const letterChipClass =
-    "flex h-8 min-w-8 items-center justify-center rounded-full border border-slate-300 bg-surface px-2 text-xs font-semibold text-slate-600 no-underline shadow-(--shadow-border) transition-[color,background-color,border-color,box-shadow] duration-150 hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900";
-
-  const trackCardClass =
-    "group grid grid-cols-[3.25rem_minmax(0,1fr)_auto] items-center gap-3.5 rounded-(--frame-radius) border-2 border-transparent bg-surface/80 px-3 py-3 no-underline shadow-(--shadow-border) transition-[background-color,box-shadow] duration-150 hover:bg-surface hover:shadow-(--shadow-border-hover)";
-
-  const moreLinkClass =
-    "inline-flex items-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline";
+  const trackCardClass = `${panelClass} ${panelHoverClass} group grid grid-cols-[3.25rem_minmax(0,1fr)_auto] items-center gap-3.5 border-2 border-transparent px-3 py-3 no-underline`;
 
   const wordRowClass =
     "group grid gap-0.5 border-b border-slate-200/70 py-1.5 no-underline";
@@ -163,7 +161,7 @@
                 {#each letters as letter (letter)}
                   <li>
                     <a
-                      class={letterChipClass}
+                      class={letterChipClass(false)}
                       href={buildBrowseQueryHref("all", letter, 1)}
                       lang="sk"
                     >

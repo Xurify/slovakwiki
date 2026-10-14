@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { moreLinkClass } from "$lib/components/ui/system-ui";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
   import {
@@ -46,10 +47,7 @@
             {/if}
 
             {#if practiceHref}
-              <a
-                class="inline-flex items-center gap-1 text-sm font-bold text-blue-800 no-underline hover:underline"
-                href={practiceHref}
-              >
+              <a class={moreLinkClass} href={practiceHref}>
                 Practice
                 <ArrowRight />
               </a>

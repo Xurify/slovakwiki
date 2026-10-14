@@ -49,7 +49,7 @@ describe("isMissFeedback", () => {
 
 describe("missCompareClass", () => {
   it("frames the compare panel with inset tint rows", () => {
-    expect(missCompareClass).toContain("border border-slate-200");
+    expect(missCompareClass).not.toContain("border border-slate-200");
     expect(missCompareClass).toContain("shadow-(--shadow-border)");
     expect(missCompareClass).toContain("p-1");
     expect(missCompareClass).not.toContain("ring-inset");

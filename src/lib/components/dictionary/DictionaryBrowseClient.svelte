@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { chipClass, letterChipClass } from "$lib/components/ui/system-ui";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
@@ -129,20 +130,6 @@
     view.totalPages > 1 && !waitingForFilteredView && view.visibleEntries.length > 0,
   );
 
-  const chipClass = (active: boolean): string =>
-    `cursor-pointer rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
-      active
-        ? "border-blue-600 bg-blue-600 text-paper shadow-none"
-        : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
-    }`;
-
-  const letterChipClass = (active: boolean): string =>
-    `flex h-8 min-w-8 cursor-pointer items-center justify-center rounded-full border px-2 text-xs font-semibold transition-[color,background-color,border-color,box-shadow] duration-150 ${
-      active
-        ? "border-blue-600 bg-blue-600 text-paper shadow-none"
-        : "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-blue-50 hover:text-slate-900"
-    }`;
-
   const pagerButtonClass =
     "inline-flex h-8 cursor-pointer items-center gap-1 rounded-(--control-radius) border border-slate-300 bg-surface px-2.5 text-xs font-semibold text-slate-700 shadow-(--shadow-border) transition-colors duration-150 hover:border-slate-400 hover:bg-subtle hover:text-slate-900 disabled:cursor-default disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-surface disabled:hover:text-slate-700";
 
@@ -235,7 +222,7 @@
   <form action="/search" method="get" role="search">
     <label class="sr-only" for="wiki-search">Search dictionary words</label>
     <div
-      class="flex min-h-[50px] items-stretch overflow-hidden rounded-(--control-radius) border border-slate-300 bg-surface/90 shadow-(--shadow-border) transition-[box-shadow,border-color] focus-within:border-blue-600 focus-within:shadow-[0_0_0_4px_var(--accent-soft)]"
+      class="flex min-h-[50px] items-stretch overflow-hidden rounded-(--control-radius) border border-slate-300 bg-surface/90 shadow-(--shadow-border) transition-[box-shadow,border-color] focus-within:border-blue-600 focus-within:shadow-[0_0_0_3px_var(--accent-soft)]"
     >
       <svg
         class="ml-4 w-4 shrink-0 fill-none stroke-slate-400 stroke-[1.8]"

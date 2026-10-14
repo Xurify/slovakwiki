@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { moreLinkClass } from "$lib/components/ui/system-ui";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -209,10 +210,7 @@
             </dd>
 
             <dd class="m-0">
-              <a
-                class="group inline-flex items-center gap-1.5 text-sm font-bold whitespace-nowrap text-blue-800 no-underline hover:underline"
-                href={item.href}
-              >
+              <a class="{moreLinkClass} whitespace-nowrap" href={item.href}>
                 {item.link}
                 <ArrowRight />
               </a>

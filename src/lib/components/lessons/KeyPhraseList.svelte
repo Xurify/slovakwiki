@@ -91,7 +91,7 @@
           {@const mountIndex = index + 1}
 
           <li
-            class="flex min-h-[7.5rem] flex-col gap-1.5 rounded-(--control-radius) border border-slate-200 bg-surface px-4 py-4 shadow-(--shadow-border)"
+            class="flex min-h-[7.5rem] flex-col gap-1.5 rounded-(--control-radius) bg-surface px-4 py-4 shadow-(--shadow-border)"
           >
             <div class="flex items-start justify-between gap-2.5">
               <p

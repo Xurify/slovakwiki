@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { moreLinkClass as sharedMoreLinkClass } from "$lib/components/ui/system-ui";
   import type { Snippet } from "svelte";
 
   import EntryMeta from "$lib/components/dictionary/EntryMeta.svelte";
@@ -133,8 +134,7 @@
     "grid grid-cols-[minmax(0,8.5rem)_minmax(0,1fr)] items-baseline gap-x-3 py-1.5";
   const railWordClass = "font-serif text-sm leading-snug break-words text-slate-900";
   const railGlossClass = "text-xs leading-snug text-slate-500";
-  const moreLinkClass =
-    "mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline";
+  const moreLinkClass = `${sharedMoreLinkClass} mt-2`;
 
   function onlyPracticeFrames(examples: Example[]): boolean {
     return examples.length > 0 && examples.every((example) => example.isPracticeFrame);

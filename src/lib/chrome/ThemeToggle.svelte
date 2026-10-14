@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { iconButtonClass, iconButtonToneClass } from "$lib/components/ui/system-ui";
   import { onMount } from "svelte";
   import {
     THEME_CHANGE_EVENT,
@@ -23,7 +24,7 @@
   const toneClass = $derived(
     tone === "inverse"
       ? "text-panel-inverse-ink/80 hover:text-panel-inverse-ink"
-      : "text-(--muted-strong) hover:text-(--ink)",
+      : iconButtonToneClass,
   );
 
   // Stay on "system" until mount so SSR and hydration render the same button.
@@ -66,7 +67,7 @@
 </script>
 
 <button
-  class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-(--control-radius) border-0 bg-transparent transition-colors duration-150 ease-out {toneClass} {className}"
+  class="{iconButtonClass} size-10 {toneClass} {className}"
   type="button"
   aria-label={label}
   title={label}

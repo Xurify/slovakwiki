@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import { ClockIllustration } from "$lib/learning/time";
 
   import {
@@ -77,8 +78,7 @@
   const rowClass =
     "grid grid-cols-1 items-baseline gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5";
 
-  const subheadClass =
-    "border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase sm:px-5";
+  const subheadClass = `${eyebrowMutedClass} border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 sm:px-5`;
 </script>
 
 {#snippet marked(phrase: MarkedPhrase)}

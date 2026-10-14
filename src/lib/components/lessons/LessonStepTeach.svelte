@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
   import { onDestroy, onMount, tick } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import FormTable from "$lib/components/lessons/FormTable.svelte";
@@ -89,8 +90,7 @@
     takeaways.length > 0 || Boolean(teach.note) || Boolean(teach.visual),
   );
 
-  const visualHeadingClass =
-    "m-0 mb-4 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+  const visualHeadingClass = `${eyebrowMutedClass} mb-4`;
 
   const visuals = $derived(teach.visual ? [teach.visual].flat() : []);
 
@@ -380,7 +380,7 @@
 
 <svelte:window onkeydown={onChoiceKeydown} />
 
-<div class="relative mx-auto flex min-h-full w-full max-w-2xl flex-col">
+<div class="relative mx-auto flex min-h-full w-full max-w-[640px] flex-col">
   {#if storyActive}
     <div class="border-b border-slate-200/70">
       <div class="relative h-24 overflow-hidden sm:h-28">
@@ -388,9 +388,7 @@
       </div>
 
       <div class="px-4 pt-3 pb-5 sm:px-8">
-        <p
-          class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-        >
+        <p class={eyebrowMutedClass}>
           {#if setting.placeSk}
             <span lang="sk">{setting.placeSk}</span>
             <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
@@ -440,11 +438,7 @@
 
       {#if pendingChoiceLine?.sayChoices}
         <div class="story-say-choice mt-8 animate-rise">
-          <p
-            class="m-0 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase"
-          >
-            Your turn
-          </p>
+          <p class={eyebrowMutedClass}>Your turn</p>
 
           <ChoiceOptions
             choices={pendingChoiceLine.sayChoices.choices}
@@ -551,9 +545,7 @@
                 class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
               >
                 {#each visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
-                  <li
-                    class="grid justify-items-center gap-1.5 rounded-(--frame-radius) bg-surface/80 px-3 py-4 shadow-(--shadow-border)"
-                  >
+                  <li class="{panelClass} grid justify-items-center gap-1.5 px-3 py-4">
                     <ClockIllustration
                       hour={item.time.hour}
                       minute={item.time.minute}

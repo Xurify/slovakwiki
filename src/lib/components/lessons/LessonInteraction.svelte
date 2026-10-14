@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { panelClass } from "$lib/components/ui/system-ui";
   import Button from "$lib/components/ui/Button.svelte";
 
   import { onDestroy, tick, untrack } from "svelte";
@@ -347,7 +348,7 @@
 
 <section
   class={chrome === "card"
-    ? "border border-slate-200 bg-surface/90 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6"
+    ? `${panelClass} px-7 py-8 max-[560px]:px-4 max-[560px]:py-6`
     : "bg-transparent"}
   aria-labelledby="interaction-heading"
 >

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import type { Snippet } from "svelte";
 
   import ThemeToggle from "./ThemeToggle.svelte";
@@ -135,8 +136,7 @@
   const topLinkClass =
     "relative inline-flex h-10 items-center px-3 text-[0.85rem] font-semibold leading-none text-panel-inverse-ink/80 transition-colors duration-150 hover:text-panel-inverse-ink after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:scale-x-0 after:bg-panel-inverse-ink after:transition-transform after:duration-150 aria-[current=page]:text-panel-inverse-ink aria-[current=page]:after:scale-x-100";
 
-  const menuGroupLabelClass =
-    "m-0 px-2.5 pt-2 pb-1 text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase";
+  const menuGroupLabelClass = `${eyebrowMutedClass} px-2.5 pt-2 pb-1`;
 
   const menuItemClass =
     "flex items-center justify-between gap-3 rounded-(--control-radius) px-2.5 py-1.5 text-sm text-slate-700 no-underline transition-colors duration-150 hover:bg-subtle hover:text-slate-900 aria-[current=page]:font-semibold aria-[current=page]:text-blue-800";
@@ -317,9 +317,7 @@
   {/each}
 
   {#each referenceNavigationGroups as group (group.label)}
-    <p
-      class="mb-1 mt-5 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-slate-500"
-    >
+    <p class="{eyebrowMutedClass} mb-1 mt-5">
       {group.label}
     </p>
 

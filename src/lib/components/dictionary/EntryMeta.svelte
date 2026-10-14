@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { eyebrowClass } from "$lib/components/ui/system-ui";
   import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/catalog/frequency/types";
   import {
     DIALECT_CHIP_LABEL,
@@ -44,8 +45,7 @@
       : 0,
   );
 
-  const chipClass =
-    "inline-flex items-center rounded-(--control-radius) bg-subtle px-1.5 py-0.5 text-[0.64rem] font-bold tracking-[0.14em] text-slate-600 uppercase";
+  const chipClass = `${eyebrowClass} inline-flex items-center rounded-(--control-radius) bg-subtle px-1.5 py-0.5 text-slate-600`;
 </script>
 
 <p
