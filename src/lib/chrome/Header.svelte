@@ -202,12 +202,12 @@
         </summary>
 
         <div
-          class="absolute left-0 top-full z-50 mt-1 min-w-[220px] border border-(--line) bg-(--surface) py-1 shadow-(--shadow-border)"
+          class="absolute top-full left-0 z-50 mt-1.5 min-w-[220px] overflow-hidden rounded-(--frame-radius) bg-surface py-1.5 shadow-(--shadow-border) ring-1 ring-slate-200/90 ring-inset"
           role="menu"
         >
           {#each referenceNavigation as item (item.href)}
             <a
-              class="block px-4 py-2.5 font-serif text-sm text-(--ink-soft) hover:bg-(--surface-subtle) hover:text-(--accent-strong) aria-[current=page]:bg-(--surface-selected) aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-strong)"
+              class="block px-4 py-2 text-sm font-medium text-slate-700 no-underline hover:bg-subtle hover:text-slate-900 aria-[current=page]:bg-selected aria-[current=page]:font-semibold aria-[current=page]:text-blue-800"
               href={item.href}
               role="menuitem"
               aria-current={isActive(item.href) ? "page" : undefined}
@@ -307,7 +307,7 @@
 
   {#each referenceNavigation as item, index (item.href)}
     <a
-      class="block border-b border-(--line)/70 py-3 font-serif text-[0.95rem] text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-strong) {drawerMotion} {menuOpen
+      class="block border-b border-(--line)/70 py-3 text-[0.95rem] font-medium text-(--ink-soft) transition-[opacity,transform,filter] aria-[current=page]:font-semibold aria-[current=page]:text-(--accent-strong) {drawerMotion} {menuOpen
         ? 'translate-y-0 opacity-100 blur-0'
         : 'translate-y-3 opacity-0 blur-[4px]'}"
       style:transition-delay={linkDelay(primaryNavigation.length + 1 + index)}

@@ -33,7 +33,7 @@ const ogImage = absoluteSiteUrl("/favicon.svg");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f0ebd8" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalUrl} />
@@ -90,7 +90,7 @@ const ogImage = absoluteSiteUrl("/favicon.svg");
         root.style.colorScheme = theme;
         var meta = document.querySelector('meta[name="theme-color"]');
         if (meta) {
-          meta.setAttribute("content", theme === "dark" ? "#141414" : "#ffffff");
+          meta.setAttribute("content", theme === "dark" ? "#0d1321" : "#f0ebd8");
         }
       })();
     </script>

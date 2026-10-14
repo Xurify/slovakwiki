@@ -6,14 +6,14 @@
   }: {
     class?: string;
     decorative?: boolean;
-    /** `inverse` sits on the top bar: tile in the bar ink, accent circumflex. */
+    /** `inverse` sits on the top bar: tile in the bar ink, ring and circumflex in the bar colour. */
     tone?: "default" | "inverse";
   } = $props();
 
   // Inverse follows the top bar: tile in its ink, ring in its colour.
   const tileFill = $derived(tone === "inverse" ? "var(--panel-inverse-ink)" : "#0f4a66");
   const ringFill = $derived(tone === "inverse" ? "var(--panel-inverse)" : "#f4f8fa");
-  const accentFill = $derived(tone === "inverse" ? "var(--saffron)" : "#f4f8fa");
+  const accentFill = $derived(tone === "inverse" ? "var(--panel-inverse)" : "#f4f8fa");
 </script>
 
 <svg

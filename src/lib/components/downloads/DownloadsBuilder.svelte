@@ -431,11 +431,17 @@
         </div>
         <button
           type="button"
-          class="relative -mr-1 -mt-1 flex size-10 shrink-0 items-center justify-center text-lg leading-none text-slate-500 transition-colors hover:text-slate-900"
+          class="-mt-1 -mr-1 inline-grid size-9 shrink-0 place-items-center rounded-full text-slate-500 transition-[background-color,color,transform] duration-150 hover:bg-subtle hover:text-slate-800 active:scale-[0.96]"
           aria-label="Close"
           onclick={closeCustomize}
         >
-          ×
+          <svg
+            class="size-5 fill-none stroke-current stroke-2"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
         </button>
       </header>
 

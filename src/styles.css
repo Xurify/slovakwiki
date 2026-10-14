@@ -90,53 +90,54 @@
     --font-ui: "IBM Plex Sans Variable", "IBM Plex Sans Fallback", "Segoe UI", sans-serif;
     --font-reading: "Source Serif 4 Variable", "Source Serif 4 Fallback", Georgia, serif;
     /*
-     * Light: the Babbel pattern — white page and top bar, near-black text and
-     * links, one orange accent (logo mark, main buttons, search, highlights)
-     * and a warm grey for panels. Red and green stay for wrong and right answers.
+     * Light: navy and cream (coolors "0d1321 1d2d44 3e5c76 748cab f0ebd8").
+     * Cream carries the chrome (top bar, footer, drawer, panels), the page is
+     * near-white, steel blue is the one link and button colour, and the
+     * highlighter is a deeper cream. Red and green stay for wrong and right.
      */
-    --canvas: #ffffff;
-    --paper: #f4f3ee;
+    --canvas: #fdfcfa;
+    --paper: #f0ebd8;
     --surface: #ffffff;
-    --surface-subtle: #f4f3ee;
-    --surface-selected: #fde6dc;
+    --surface-subtle: #f5f1e4;
+    --surface-selected: #e3e8ef;
     /* Secondary controls: sit above paper/panels without looking hollow. */
     --control: #ffffff;
-    --control-hover: #fde6dc;
-    --ink: #1c1c1c;
-    --ink-soft: #303030;
-    --muted: #66645e;
-    --muted-strong: #4d4b46;
-    --line: #e6e5df;
-    --line-strong: #cfcdc5;
-    --accent: #e5541f;
+    --control-hover: #e3e8ef;
+    --ink: #0d1321;
+    --ink-soft: #1d2d44;
+    --muted: #5c6b80;
+    --muted-strong: #46556b;
+    --line: #e4e0d4;
+    --line-strong: #c9c2ad;
+    --accent: #3e5c76;
     --mark-day: #b86a00;
     --mark-time: #0e7aab;
-    --accent-strong: #1c1c1c;
-    --accent-soft: #fde6dc;
+    --accent-strong: #3e5c76;
+    --accent-soft: #e3e8ef;
     --action: #c23b35;
     --action-strong: #9c302c;
-    --blue: #118ab2;
-    --blue-light: #d3e1e4;
+    --blue: #748cab;
+    --blue-light: #e3e8ef;
     --red: #c23b35;
     --red-light: #efddd6;
     --red-mid: color-mix(in oklab, var(--action) 54%, var(--red-light));
     --green: #1f6b5c;
     --green-light: #d3eae2;
     --green-mid: color-mix(in oklab, var(--green) 54%, var(--green-light));
-    /* Top bar and footer: white with dark ink. */
-    --panel-inverse: #ffffff;
-    --panel-inverse-ink: #1c1c1c;
+    /* Cream top bar and footer with navy ink. */
+    --panel-inverse: #f0ebd8;
+    --panel-inverse-ink: #0d1321;
     /* Primary buttons. */
-    --cta: #e5541f;
-    --cta-strong: #c9461a;
+    --cta: #3e5c76;
+    --cta-strong: #2f4a63;
     --cta-ink: #ffffff;
-    /* Orange: the search button, frequency dots, form endings, highlighter. */
-    --saffron: #e5541f;
-    --saffron-ink: #b8420f;
-    --mark: #fcd9c6;
-    --brand: #e5541f;
+    /* Steel blue for the search button and frequency dots; cream highlighter. */
+    --saffron: #3e5c76;
+    --saffron-ink: #2f4a63;
+    --mark: #ece4cb;
+    --brand: #3e5c76;
     --brand-ink: #ffffff;
-    --shadow-color: #1c1c1c;
+    --shadow-color: #1d2d44;
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -163,45 +164,45 @@
 
   html[data-theme="dark"] {
     color-scheme: dark;
-    --canvas: #141414;
-    --paper: #1b1b1a;
-    --surface: #1f1f1e;
-    --surface-subtle: #1b1b1a;
-    --surface-selected: #3a2419;
+    --canvas: #0d1321;
+    --paper: #141c2e;
+    --surface: #1d2d44;
+    --surface-subtle: #111a2b;
+    --surface-selected: #2a3f5c;
     /* Lift off surface panels (clock drill, modals) so secondary CTAs read. */
-    --control: #262625;
-    --control-hover: #3a2419;
-    --ink: #f1f0ec;
-    --ink-soft: #d6d4ce;
-    --muted: #a3a19a;
-    --muted-strong: #bebcb5;
-    --line: #2c2b29;
-    --line-strong: #3d3c39;
-    --accent: #f0703f;
+    --control: #2a3f5c;
+    --control-hover: #34506f;
+    --ink: #f0ebd8;
+    --ink-soft: #d6d2c4;
+    --muted: #a0afc4;
+    --muted-strong: #b9c5d6;
+    --line: #243451;
+    --line-strong: #34486a;
+    --accent: #748cab;
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
-    --accent-strong: #f1f0ec;
-    --accent-soft: #3a2419;
+    --accent-strong: #a9bdd6;
+    --accent-soft: #243451;
     --action: #e07068;
     --action-strong: #f09088;
-    --blue: #5aa8c8;
-    --blue-light: #1e3a4a;
+    --blue: #748cab;
+    --blue-light: #243451;
     --red: #e07068;
     --red-light: color-mix(in srgb, #3a2528 80%, var(--red) 20%);
     --red-mid: color-mix(in srgb, var(--action) 68%, var(--red-light));
     --green: #4a9a88;
     --green-light: color-mix(in srgb, #1a332c 80%, var(--green) 20%);
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
-    --panel-inverse: #141414;
-    --panel-inverse-ink: #f1f0ec;
-    --cta: #f0703f;
-    --cta-strong: #f4875c;
-    --cta-ink: #ffffff;
-    --saffron: #f0703f;
-    --saffron-ink: #f4875c;
-    --mark: #4a2a1d;
-    --brand: #f0703f;
-    --brand-ink: #ffffff;
+    --panel-inverse: #0d1321;
+    --panel-inverse-ink: #f0ebd8;
+    --cta: #748cab;
+    --cta-strong: #8ea3bf;
+    --cta-ink: #0d1321;
+    --saffron: #9fb4cc;
+    --saffron-ink: #a9bdd6;
+    --mark: #3a4a63;
+    --brand: #748cab;
+    --brand-ink: #0d1321;
     --shadow-color: #000000;
   }
 

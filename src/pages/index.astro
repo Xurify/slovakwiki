@@ -1,11 +1,63 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import type { AudioMountTarget } from "$lib/audio/mount";
+import AudioMountHost from "$lib/audio/AudioMountHost.svelte";
+import LessonsProgressBoot from "$lib/components/lessons/LessonsProgressBoot.astro";
+import LessonsProgressClient from "$lib/components/lessons/LessonsProgressClient.svelte";
 import HomePage from "$lib/home/HomePage.svelte";
+import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
+import { words } from "$lib/catalog/entries";
+import { buildLessonsBootPayload } from "$lib/lesson-progress/boot-payload";
+
+const payload = buildLessonsBootPayload(null);
+
+// Audio for the sample entry card; keys match HomePage's `data-audio-mount` hosts.
+const featuredWord = words.find((word) => word.slug === "priatel") ?? words[0];
+const featuredExample = featuredWord.examples[0];
+const audioTargets: AudioMountTarget[] = [];
+
+const lemmaAudioSrc = resolveDictionaryAudioSrc(featuredWord.slovak, "lemma");
+if (lemmaAudioSrc) {
+  audioTargets.push({
+    key: "lemma",
+    props: {
+      label: `Listen to ${featuredWord.slovak}`,
+      size: "lg",
+      src: lemmaAudioSrc,
+      text: featuredWord.slovak,
+      variant: "inverse",
+    },
+  });
+}
+
+const exampleAudioSrc = featuredExample
+  ? resolveDictionaryAudioSrc(featuredExample.slovak, "example")
+  : "";
+if (featuredExample && exampleAudioSrc) {
+  audioTargets.push({
+    key: "s0-e0",
+    props: {
+      label: `Listen to example: ${featuredExample.slovak}`,
+      size: "sm",
+      src: exampleAudioSrc,
+      text: featuredExample.slovak,
+    },
+  });
+}
 ---
 
 <SiteLayout
   title="Slovak Wiki — Slovak language reference and practice"
   description="A practical Slovak dictionary, grammar reference, pronunciation guide, lessons, and focused practice for English speakers."
 >
-  <HomePage />
+  <LessonsProgressBoot {payload} stage="gate" />
+  <HomePage>
+    {
+      audioTargets.length > 0 && (
+        <AudioMountHost slot="audioMount" client:load targets={audioTargets} />
+      )
+    }
+  </HomePage>
+  <LessonsProgressBoot {payload} stage="script" />
+  <LessonsProgressClient client:load payload={payload} />
 </SiteLayout>

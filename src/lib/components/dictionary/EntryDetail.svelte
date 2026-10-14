@@ -1,30 +1,29 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
+  import EntryMeta from "$lib/components/dictionary/EntryMeta.svelte";
+  import ExampleRow from "$lib/components/dictionary/ExampleRow.svelte";
   import ExternalLookups from "$lib/components/dictionary/ExternalLookups.svelte";
-  import GlossWithTerms from "$lib/components/dictionary/GlossWithTerms.svelte";
+  import FormsTable from "$lib/components/dictionary/FormsTable.svelte";
+  import SenseList from "$lib/components/dictionary/SenseList.svelte";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
+  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
+  import {
+    grammarHeadingClass,
+    grammarProseClass,
+  } from "$lib/components/reference/grammar-topic-ui";
 
   import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/catalog/frequency/types";
   import { declensionRows } from "$lib/catalog/dictionary/declension";
   import type { NearbyEntry } from "$lib/catalog/dictionary/entries-near";
   import { EXAMPLE_DISPLAY_LIMIT } from "$lib/catalog/dictionary/example-limits";
   import type { FrequencyNeighbor } from "$lib/catalog/dictionary/frequency-neighbors";
-  import { highlightLemmaInText } from "$lib/catalog/dictionary/highlight-lemma";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
   import { senseSectionId } from "$lib/catalog/dictionary/lemma-senses";
-  import { sentenceCase } from "$lib/catalog/search/ui";
   import { cx } from "$lib/ui/classes";
-  import {
-    REGISTER_CHIP_LABEL,
-    DIALECT_CHIP_LABEL,
-    nounGenderLabel,
-    type ContentEntry,
-    type EntryKind,
-    type Example,
-    type NounGender,
-    type PluralOnlyGender,
-  } from "$lib/catalog/types";
+  import type { ContentEntry, EntryKind, Example } from "$lib/catalog/types";
 
   interface RelatedEntry {
     english: string;
@@ -69,19 +68,7 @@
   const sourceLabel = $derived(
     entry.sourceLabel ?? "Jazykovedný ústav Ľudovíta Štúra SAV",
   );
-  const heroGloss = $derived(
-    multiSense
-      ? senseViews.map((sense) => sense.entry.english).join(" · ")
-      : entry.english,
-  );
-  const glossSenses = $derived(
-    multiSense
-      ? []
-      : entry.english
-          .split(";")
-          .map((part) => part.trim())
-          .filter(Boolean),
-  );
+
   /** First N examples for the page; extras stay in data for later picking. */
   const exampleItemsBySense = $derived.by(() => {
     const shown = new Set<string>();
@@ -112,20 +99,21 @@
   const isLink = (item: ContentsLink | false | undefined): item is ContentsLink =>
     Boolean(item);
 
-  // Main-column sections on the left of the strip, data-column ones on the right.
+  // Main-column sections on the left of the strip, rail sections on the right.
   const mainContents = $derived(
     [
+      { href: "#meaning", label: "Meaning" },
       hasExamples && { href: "#examples", label: "Examples" },
       forms && { href: "#forms", label: "Forms" },
       !multiSense && hasUsage && { href: "#usage", label: "Usage" },
       { href: "#lookups", label: "Elsewhere" },
     ].filter(isLink),
   );
-  const dataContents = $derived(
+  const railContents = $derived(
     [
+      entriesNear.length > 0 && { href: "#nearby", label: "Browse" },
       frequencyNeighbors.length > 0 && { href: "#frequency", label: "Frequency" },
       relatedEntries.length > 0 && { href: "#related", label: "Related" },
-      entriesNear.length > 0 && { href: "#nearby", label: "Nearby" },
       { href: "#source", label: "Sources" },
     ].filter(isLink),
   );
@@ -135,37 +123,18 @@
     ),
   );
 
-  // Longman-style frequency dots: three for the top 500 of a word class.
-  const frequencyDots = $derived(
-    entry.frequency
-      ? entry.frequency.rank <= 500
-        ? 3
-        : entry.frequency.rank <= 2000
-          ? 2
-          : 1
-      : 0,
-  );
+  const firstLetter = $derived(entry.slovak.at(0) ?? "");
 
-  const genderLinkClass = cx(
-    "text-slate-700",
-    "underline decoration-slate-300 decoration-dotted underline-offset-4",
-    "hover:text-slate-900 hover:decoration-slate-500",
-  );
-
-  /** Section title in the main column (Cambridge / SpanishDict weight). */
-  const headingClass = "m-0 text-[1.35rem] font-bold tracking-[-0.015em]";
-  const subheadingClass = "m-0 text-[1rem] font-bold tracking-normal";
-  const railHeadingClass =
-    "m-0 border-b-2 border-slate-900 pb-1.5 text-[0.95rem] font-bold tracking-normal";
-  const proseClass =
-    "m-0 max-w-[66ch] text-[1rem] leading-relaxed text-pretty text-slate-700";
-  const sectionClass = "scroll-mt-[124px]";
-  const railRowClass =
-    "group grid grid-cols-[minmax(0,9rem)_minmax(0,1fr)] items-baseline gap-x-3 border-b border-slate-200 py-1.5";
-  const railLinkClass = "font-serif text-[1rem] text-blue-800 group-hover:underline";
-  const markClass = "rounded-[2px] bg-mark px-px font-semibold";
+  // Sticky contents strip sits under the header; anchors clear both.
+  const sectionClass = "scroll-mt-[calc(var(--header-height)+4rem)]";
   const contentsLinkClass =
-    "shrink-0 border-b-2 border-transparent py-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.06em] text-slate-600 hover:border-slate-900 hover:text-slate-900";
+    "shrink-0 py-3 text-xs font-bold text-slate-600 no-underline transition-colors hover:text-blue-800";
+  const railRowClass =
+    "grid grid-cols-[minmax(0,8.5rem)_minmax(0,1fr)] items-baseline gap-x-3 py-1.5";
+  const railWordClass = "font-serif text-sm leading-snug break-words text-slate-900";
+  const railGlossClass = "text-xs leading-snug text-slate-500";
+  const moreLinkClass =
+    "mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-blue-800 no-underline hover:underline";
 
   function onlyPracticeFrames(examples: Example[]): boolean {
     return examples.length > 0 && examples.every((example) => example.isPracticeFrame);
@@ -194,115 +163,50 @@
     return groups;
   }
 
-  function highlightLemma(slovakLine: string, lemma: string) {
-    return highlightLemmaInText(slovakLine, lemma, entry.category);
-  }
-
   function categoryLabel(category: string): string {
     return (category === "Nouns" ? "noun" : category.replace(/s$/, "")).toLowerCase();
   }
+
+  function glossesFor(senseEntry: ContentEntry): string[] {
+    return senseEntry.english
+      .split(";")
+      .map((part) => part.trim())
+      .filter(
+        (part) =>
+          part &&
+          part.toLocaleLowerCase("sk") !== senseEntry.slovak.toLocaleLowerCase("sk"),
+      );
+  }
 </script>
 
-{#snippet genderLabel(gender: NounGender, pluralOnlyGender: PluralOnlyGender | undefined)}
-  {@const label = nounGenderLabel(gender, pluralOnlyGender)}
-
-  <a
-    class={genderLinkClass}
-    href="/grammar/grammatical-gender"
-    title={`In Slovak: ${label.slovak}`}
-  >
-    {label.english}
-  </a>
-{/snippet}
-
-{#snippet exampleRow(
-  item: { example: Example; index: number },
+{#snippet exampleList(
+  items: { example: Example; index: number }[],
   audioSrcs: string[],
   senseIndex: number,
 )}
-  <li
-    class="group/row grid grid-cols-[2rem_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-slate-200 py-3 last:border-b-0 max-[560px]:grid-cols-[2rem_minmax(0,1fr)]"
-  >
-    <span class="grid h-7 place-items-center">
-      {#if audioSrcs[item.index]}
-        <span
-          class="inline-grid size-7 place-items-center"
-          data-audio-mount={`s${senseIndex}-e${item.index}`}
-        ></span>
-      {:else}
-        <span class="text-[0.8rem] text-slate-400" aria-hidden="true">•</span>
-      {/if}
-    </span>
-
-    <div class="min-w-0">
-      <p
-        class="m-0 font-serif text-[1.125rem] leading-snug text-slate-900 text-pretty"
-        lang="sk"
-      >
-        {#each highlightLemma(item.example.slovak, entry.slovak) as part, partIndex (`${partIndex}-${part.text}`)}
-          {#if part.hit}
-            <span class={markClass}>{part.text}</span>
-          {:else}
-            {part.text}
-          {/if}
-        {/each}
-      </p>
-
-      <p class="m-0 mt-0.5 text-[0.9rem] leading-snug text-slate-600">
-        {item.example.english}
-      </p>
-    </div>
-
-    {#if item.example.isPracticeFrame}
-      <span
-        class="pt-1 text-xs text-slate-500 max-[560px]:col-start-2 max-[560px]:pt-1.5"
-      >
-        Practice frame
-      </span>
-    {:else if item.example.note === "Tatoeba" && item.example.tatoebaId}
-      <a
-        class="pt-1 text-xs tabular-nums text-slate-500 no-underline opacity-0 transition-opacity group-hover/row:opacity-100 hover:text-blue-800 focus-visible:opacity-100 max-[560px]:col-start-2 max-[560px]:pt-1.5 max-[560px]:opacity-100"
-        href={`https://tatoeba.org/sentences/show/${item.example.tatoebaId}`}
-        rel="noopener noreferrer"
-        target="_blank"
-        title="View on Tatoeba"
-      >
-        Tatoeba #{item.example.tatoebaId}
-      </a>
-    {/if}
-  </li>
+  <ol class="m-0 list-none p-0">
+    {#each items as item (`${item.example.slovak}-${item.index}`)}
+      <ExampleRow
+        example={item.example}
+        lemma={entry.slovak}
+        category={entry.category}
+        audioKey={audioSrcs[item.index] ? `s${senseIndex}-e${item.index}` : undefined}
+      />
+    {/each}
+  </ol>
 {/snippet}
 
-{#snippet formCell(stem: string, ending: string)}
-  <span class="font-serif text-[1.1rem] text-slate-900" lang="sk">
-    {stem}{#if ending}<span class={markClass}>{ending}</span>{/if}
-  </span>
-{/snippet}
-
-<main class="pb-20">
-  <PageShell class="pt-5 max-[760px]:pt-4">
-    <nav
-      class="flex items-baseline gap-2 text-[0.8125rem] text-slate-600"
-      aria-label="Breadcrumb"
-    >
-      <a class="text-blue-800 hover:underline" href="/dictionary">Dictionary</a>
-      <span aria-hidden="true">›</span>
+<main class="py-10 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[1080px]">
+    <nav class="mb-4 flex flex-wrap gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+      <TextLink href="/dictionary">Dictionary</TextLink>
+      <span aria-hidden="true">/</span>
       <span class="font-serif" lang="sk">{entry.slovak}</span>
     </nav>
 
-    <header class="pt-5 pb-6 max-[760px]:pt-4">
-      <p class="m-0 text-[0.8rem] text-slate-600">
-        Meaning of <span class="font-serif italic" lang="sk">{entry.slovak}</span> in English
-      </p>
-
-      <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-2">
-        <h1
-          id="lemma-heading"
-          class="m-0 font-serif text-[clamp(2.25rem,4.5vw,3rem)] leading-[1.05] font-semibold tracking-[-0.02em] text-slate-900"
-          lang="sk"
-        >
-          {entry.slovak}
-        </h1>
+    <header class="max-w-2xl">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <h1 id="lemma-heading" class="m-0 text-balance" lang="sk">{entry.slovak}</h1>
 
         {#if lemmaAudioSrc}
           <span
@@ -312,567 +216,427 @@
         {/if}
       </div>
 
-      <p
-        class="m-0 mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1.5 text-[0.95rem] text-slate-700"
-      >
-        {#if multiSense}
-          <span class="italic">
+      {#if multiSense}
+        <p class="m-0 mt-2 text-sm text-slate-700">
+          <span class="font-semibold text-slate-900 italic">
             {senseViews.map((sense) => categoryLabel(sense.entry.category)).join(", ")}
           </span>
-        {:else}
-          <span class="font-semibold italic text-slate-900">
-            {categoryLabel(entry.category)}
-          </span>
-
-          {#if entry.gender}
-            {@render genderLabel(entry.gender, entry.pluralOnlyGender)}
-          {/if}
-
-          {#if plural}
-            <span>
-              plural
-              <span
-                class="font-serif text-[1.05rem] font-semibold text-slate-900"
-                lang="sk"
-              >
-                {plural}
-              </span>
-            </span>
-          {/if}
-        {/if}
-
-        {#if entry.frequency}
-          <a
-            class="inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900"
-            href={`/dictionary/common/${entry.frequency.partOfSpeech}`}
-            title="Frequency in the Slovak National Corpus: ●●● top 500, ●●○ top 2,000, ●○○ less common"
-          >
-            <span class="inline-flex gap-0.5" aria-hidden="true">
-              {#each [1, 2, 3] as dot (dot)}
-                <span
-                  class={cx(
-                    "size-2 rounded-full",
-                    dot <= frequencyDots ? "bg-saffron" : "border border-slate-300",
-                  )}
-                ></span>
-              {/each}
-            </span>
-            <span
-              class="underline decoration-slate-300 decoration-dotted underline-offset-4"
-            >
-              #{entry.frequency.rank} among {FREQUENCY_PART_OF_SPEECH_LABEL[
-                entry.frequency.partOfSpeech
-              ].toLowerCase()}
-            </span>
-          </a>
-        {/if}
-
-        {#if entry.register}
-          <span
-            class="rounded-[3px] border border-slate-300 px-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.04em] text-slate-700"
-          >
-            {REGISTER_CHIP_LABEL[entry.register]}
-          </span>
-        {/if}
-
-        {#if entry.dialect}
-          <span
-            class="rounded-[3px] border border-slate-300 px-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.04em] text-slate-700"
-          >
-            {DIALECT_CHIP_LABEL}
-          </span>
-        {/if}
-      </p>
+        </p>
+      {:else}
+        <EntryMeta class="mt-2" {entry} {plural} />
+      {/if}
     </header>
-  </PageShell>
 
-  <nav
-    class="border-y border-slate-200 bg-canvas/95 min-[801px]:sticky min-[801px]:top-(--header-height) min-[801px]:z-10 min-[801px]:backdrop-blur-sm"
-    aria-label="On this page"
-  >
-    <PageShell class="flex gap-6 overflow-x-auto scrollbar-none">
-      <a class={contentsLinkClass} href="#lemma-heading">Meaning</a>
+    <nav
+      class="sticky top-(--header-height) z-10 mt-6 flex gap-5 overflow-x-auto border-y border-slate-200 bg-canvas/95 backdrop-blur-sm scrollbar-none"
+      aria-label="On this page"
+    >
+      {#if multiSense}
+        {#each senseViews as sense (sense.entry.slug)}
+          <a class={contentsLinkClass} href="#{senseSectionId(sense.entry.category)}">
+            {sense.entry.category}
+          </a>
+        {/each}
+      {/if}
 
       {#each mainContents as item (item.href)}
-        <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+        {#if !(multiSense && item.href === "#meaning")}
+          <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+        {/if}
       {/each}
 
       <span class="ml-auto" aria-hidden="true"></span>
 
-      {#each dataContents as item (item.href)}
+      {#each railContents as item (item.href)}
         <a class={contentsLinkClass} href={item.href}>{item.label}</a>
       {/each}
-    </PageShell>
-  </nav>
+    </nav>
 
-  <PageShell
-    class="grid grid-cols-[minmax(0,1fr)_18.5rem] gap-x-14 gap-y-12 pt-8 max-[900px]:grid-cols-1 max-[760px]:pt-6"
-  >
-    <article class="grid min-w-0 grid-cols-[minmax(0,1fr)] content-start gap-y-12">
-      {#each senseViews as sense, senseIndex (sense.entry.slug)}
-        {@const senseEntry = sense.entry}
-        {@const senseHasUsage = senseEntry.body.length > 0}
-        {@const senseGlosses = senseEntry.english
-          .split(";")
-          .map((part) => part.trim())
-          .filter(
-            (part) =>
-              part &&
-              part.toLocaleLowerCase("sk") !== senseEntry.slovak.toLocaleLowerCase("sk"),
-          )}
-        {@const summary =
-          senseEntry.summary &&
-          senseEntry.summary !== `${senseEntry.slovak} means “${senseEntry.english}.”`
-            ? senseEntry.summary
-            : undefined}
-        {@const examplesId =
-          multiSense && senseIndex > 0
-            ? `${senseSectionId(senseEntry.category)}-examples`
-            : "examples"}
-        {@const practiceOnly = onlyPracticeFrames(senseEntry.examples)}
-        {@const visibleItems = exampleItemsBySense[senseIndex] ?? []}
-        {@const grouped = visibleItems.some((item) => item.example.demonstrates)}
+    <div
+      class="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:items-start lg:gap-12"
+    >
+      <article class="min-w-0 space-y-10">
+        {#each senseViews as sense, senseIndex (sense.entry.slug)}
+          {@const senseEntry = sense.entry}
+          {@const glosses = glossesFor(senseEntry)}
+          {@const summary =
+            senseEntry.summary &&
+            senseEntry.summary !== `${senseEntry.slovak} means “${senseEntry.english}.”`
+              ? senseEntry.summary
+              : undefined}
+          {@const examplesId =
+            multiSense && senseIndex > 0
+              ? `${senseSectionId(senseEntry.category)}-examples`
+              : "examples"}
+          {@const practiceOnly = onlyPracticeFrames(senseEntry.examples)}
+          {@const visibleItems = exampleItemsBySense[senseIndex] ?? []}
+          {@const grouped = visibleItems.some((item) => item.example.demonstrates)}
 
-        <section
-          id={multiSense ? senseSectionId(senseEntry.category) : undefined}
-          class={cx(sectionClass, "grid gap-y-8")}
-          aria-label={`${senseEntry.slovak}, ${categoryLabel(senseEntry.category)}`}
-        >
-          <div>
-            <div
-              class="flex flex-wrap items-baseline gap-x-2.5 border-b-2 border-blue-800 pb-1.5"
-            >
+          <section
+            id={multiSense ? senseSectionId(senseEntry.category) : "meaning"}
+            class={cx(sectionClass, "space-y-8")}
+            aria-label={`${senseEntry.slovak}, ${categoryLabel(senseEntry.category)}`}
+          >
+            <div>
               {#if multiSense}
-                <h2 class="m-0 font-serif text-[1.15rem] font-semibold" lang="sk">
-                  {senseEntry.slovak}
+                <h2 class={grammarHeadingClass}>
+                  <span lang="sk">{senseEntry.slovak}</span>
+                  <span class="font-sans text-base font-normal text-slate-600 italic">
+                    {categoryLabel(senseEntry.category)}
+                  </span>
                 </h2>
 
-                <span class="font-semibold italic text-slate-700">
-                  {categoryLabel(senseEntry.category)}
-                </span>
-
-                {#if senseEntry.gender}
-                  <span class="text-[0.85rem] text-slate-600">
-                    [{nounGenderLabel(senseEntry.gender, senseEntry.pluralOnlyGender)
-                      .english}]
-                  </span>
-                {/if}
-
-                {#if senseEntry.frequency}
-                  <span class="ml-auto text-[0.8rem] text-slate-600">
-                    #{senseEntry.frequency.rank} among {FREQUENCY_PART_OF_SPEECH_LABEL[
-                      senseEntry.frequency.partOfSpeech
-                    ].toLowerCase()}
-                  </span>
-                {/if}
+                <EntryMeta class="mt-2" entry={senseEntry} showCategory={false} />
               {:else}
-                <h2 class={subheadingClass}>Meanings</h2>
+                <h2 class={grammarHeadingClass}>Meanings</h2>
+              {/if}
+
+              {#if glosses.length === 0}
+                <p class="{grammarProseClass} mt-3">
+                  {senseEntry.category === "Places" ? "Place name, written" : "Written"} the
+                  same in English.
+                </p>
+              {:else}
+                <SenseList class="mt-3" {glosses} />
+              {/if}
+
+              {#if summary}
+                <p class="{grammarProseClass} mt-3">{summary}</p>
               {/if}
             </div>
 
-            {#if senseGlosses.length === 0}
-              <p class="m-0 mt-3 text-[1rem] text-slate-700">
-                {senseEntry.category === "Places" ? "Place name, written" : "Written"} the same
-                in English.
-              </p>
+            {#if visibleItems.length > 0}
+              <div id={examplesId} class={sectionClass}>
+                <h2 class={grammarHeadingClass}>
+                  {practiceOnly ? "Try this pattern" : "Examples"}
+                </h2>
+
+                {#if practiceOnly}
+                  <p class="m-0 mt-1.5 max-w-[60ch] text-sm text-slate-600">
+                    A simple practice frame while a corpus example is unavailable.
+                  </p>
+                {/if}
+
+                {#if grouped}
+                  <div class="mt-3 grid gap-6">
+                    {#each groupExamplesByPattern(visibleItems) as group (group.label)}
+                      <div>
+                        <Eyebrow tone="muted" class="mb-1">{group.label}</Eyebrow>
+                        {@render exampleList(
+                          group.items,
+                          sense.exampleAudioSrcs,
+                          senseIndex,
+                        )}
+                      </div>
+                    {/each}
+                  </div>
+                {:else}
+                  <div class="mt-2">
+                    {@render exampleList(
+                      visibleItems,
+                      sense.exampleAudioSrcs,
+                      senseIndex,
+                    )}
+                  </div>
+                {/if}
+
+                {#if visibleItems.some((item) => item.example.note === "Tatoeba")}
+                  <p class="m-0 mt-3 text-xs text-slate-500">
+                    Sentences from
+                    <a
+                      class="text-blue-800 hover:underline"
+                      href="https://tatoeba.org/"
+                      rel="noopener noreferrer"
+                      target="_blank">Tatoeba</a
+                    >
+                    (CC BY 2.0 FR).
+                  </p>
+                {/if}
+              </div>
             {/if}
 
-            <ol class="m-0 mt-3 list-none p-0">
-              {#each senseGlosses as gloss, glossIndex (gloss)}
-                <li
-                  class="grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-x-2 py-1.5"
+            {#if senseEntry.body.length > 0}
+              <div id={multiSense ? undefined : "usage"} class={sectionClass}>
+                <h2 class={grammarHeadingClass}>How to use it</h2>
+
+                <div class="mt-3 flex flex-col gap-3">
+                  {#each senseEntry.body as paragraph, index (index)}
+                    <p class={grammarProseClass}>{paragraph}</p>
+                  {/each}
+                </div>
+              </div>
+            {/if}
+          </section>
+        {/each}
+
+        {#if forms}
+          <section id="forms" class={sectionClass} aria-labelledby="forms-heading">
+            <h2 id="forms-heading" class={grammarHeadingClass}>Forms</h2>
+
+            <p class="m-0 mt-1.5 text-sm text-slate-600">
+              Six cases, singular and plural. Endings are highlighted; open a case for
+              what it does.
+            </p>
+
+            <div class="mt-4">
+              <FormsTable lemma={entry.slovak} rows={forms} />
+            </div>
+          </section>
+        {/if}
+
+        <ExternalLookups
+          lemma={entry.slovak}
+          dialect={senseViews.some((sense) => sense.entry.dialect === true)}
+        />
+      </article>
+
+      <aside class="grid min-w-0 content-start gap-8" aria-label="Word details">
+        {#if image}
+          <figure class="m-0">
+            <img
+              alt={image.caption}
+              class="block aspect-[5/4] h-auto w-full rounded-(--control-radius) object-cover"
+              decoding="async"
+              height="280"
+              loading="lazy"
+              src={image.src}
+              width="352"
+            />
+
+            <figcaption class="mt-2 text-xs leading-snug text-slate-500">
+              <span class="text-slate-700">{image.caption}</span>
+
+              {#if image.artist}
+                <span aria-hidden="true"> · </span>
+                <span>{image.artist}</span>
+              {/if}
+
+              {#if image.license}
+                <span aria-hidden="true"> · </span>
+                {#if image.licenseUrl}
+                  <a
+                    class="underline decoration-slate-300 hover:text-blue-800"
+                    href={image.licenseUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {image.license}
+                  </a>
+                {:else}
+                  <span>{image.license}</span>
+                {/if}
+              {/if}
+
+              {#if image.sourcePageUrl}
+                <span aria-hidden="true"> · </span>
+                <a
+                  class="underline decoration-slate-300 hover:text-blue-800"
+                  href={image.sourcePageUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  <span class="text-[0.95rem] font-bold tabular-nums text-slate-900">
-                    {glossIndex + 1}
-                  </span>
-                  <span class="text-[1.2rem] font-semibold leading-snug text-slate-900">
-                    <GlossWithTerms text={gloss} />
+                  Wikimedia
+                </a>
+              {/if}
+            </figcaption>
+          </figure>
+        {/if}
+
+        {#if entriesNear.length > 0}
+          <section id="nearby" class={sectionClass} aria-labelledby="nearby-heading">
+            <Eyebrow compact tone="muted">
+              <span id="nearby-heading">Browse</span>
+            </Eyebrow>
+
+            <ul class="m-0 list-none p-0">
+              {#each entriesNear as nearby (nearby.slovak)}
+                <li>
+                  {#if nearby.current}
+                    <span
+                      class={cx(
+                        railRowClass,
+                        "-mx-2 rounded-(--control-radius) bg-mark px-2",
+                      )}
+                      aria-current="true"
+                    >
+                      <span class={cx(railWordClass, "font-semibold")} lang="sk">
+                        {nearby.slovak}
+                      </span>
+                      <span class={cx(railGlossClass, "text-slate-700")}>
+                        {nearby.english}
+                      </span>
+                    </span>
+                  {:else}
+                    <a class={cx(railRowClass, "group no-underline")} href={nearby.href}>
+                      <span
+                        class={cx(
+                          railWordClass,
+                          "group-hover:text-blue-800 group-hover:underline",
+                        )}
+                        lang="sk"
+                      >
+                        {nearby.slovak}
+                      </span>
+                      <span class={railGlossClass}>{nearby.english}</span>
+                    </a>
+                  {/if}
+                </li>
+              {/each}
+            </ul>
+
+            <a
+              class={moreLinkClass}
+              href={`/dictionary?letter=${encodeURIComponent(firstLetter.toLocaleLowerCase("sk"))}`}
+            >
+              More words in {firstLetter.toLocaleUpperCase("sk")}
+              <ArrowRight />
+            </a>
+          </section>
+        {/if}
+
+        {#if frequencyNeighbors.length > 0 && entry.frequency}
+          <section
+            id="frequency"
+            class={sectionClass}
+            aria-labelledby="frequency-heading"
+          >
+            <Eyebrow compact tone="muted">
+              <span id="frequency-heading">Word frequency</span>
+            </Eyebrow>
+
+            <p class="m-0 mb-2 text-xs leading-snug text-slate-500">
+              Rank among {FREQUENCY_PART_OF_SPEECH_LABEL[
+                entry.frequency.partOfSpeech
+              ].toLowerCase()} in the Slovak National Corpus.
+            </p>
+
+            <ol class="m-0 list-none p-0">
+              {#each frequencyNeighbors as row (row.rank)}
+                <li
+                  class={cx(
+                    "grid grid-cols-[2.75rem_minmax(0,1fr)_auto] items-baseline gap-x-2 py-1.5",
+                    row.current && "-mx-2 rounded-(--control-radius) bg-mark px-2",
+                  )}
+                  aria-current={row.current ? "true" : undefined}
+                >
+                  <span class="text-xs tabular-nums text-slate-500">#{row.rank}</span>
+
+                  {#if row.href && !row.current}
+                    <a
+                      class={cx(
+                        railWordClass,
+                        "no-underline hover:text-blue-800 hover:underline",
+                      )}
+                      href={row.href}
+                      lang="sk"
+                    >
+                      {row.lemma}
+                    </a>
+                  {:else}
+                    <span
+                      class={cx(railWordClass, row.current && "font-semibold")}
+                      lang="sk"
+                    >
+                      {row.lemma}
+                    </span>
+                  {/if}
+
+                  <span class="text-xs tabular-nums text-slate-500">
+                    {#if row.count}
+                      {row.count.toLocaleString("en")}
+                    {/if}
                   </span>
                 </li>
               {/each}
             </ol>
 
-            {#if summary}
-              <p class={cx(proseClass, "mt-3")}>{summary}</p>
-            {/if}
-          </div>
-
-          {#if visibleItems.length > 0}
-            <div id={examplesId} class={sectionClass}>
-              <h2 class={subheadingClass}>
-                {practiceOnly ? "Try this pattern" : "Examples"}
-              </h2>
-
-              {#if practiceOnly}
-                <p class="m-0 mt-1.5 max-w-[60ch] text-sm text-slate-600">
-                  A simple practice frame while a corpus example is unavailable.
-                </p>
-              {/if}
-
-              {#if grouped}
-                <div class="mt-3 grid gap-6">
-                  {#each groupExamplesByPattern(visibleItems) as group (group.label)}
-                    <div>
-                      <h3
-                        class="m-0 mb-1 text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-slate-600"
-                      >
-                        {group.label}
-                      </h3>
-
-                      <ol class="m-0 list-none p-0">
-                        {#each group.items as item (`${item.example.slovak}-${item.index}`)}
-                          {@render exampleRow(item, sense.exampleAudioSrcs, senseIndex)}
-                        {/each}
-                      </ol>
-                    </div>
-                  {/each}
-                </div>
-              {:else}
-                <ol class="m-0 mt-2 list-none border-t border-slate-200 p-0">
-                  {#each visibleItems as item (`${item.example.slovak}-${item.index}`)}
-                    {@render exampleRow(item, sense.exampleAudioSrcs, senseIndex)}
-                  {/each}
-                </ol>
-              {/if}
-
-              {#if visibleItems.some((item) => item.example.note === "Tatoeba")}
-                <p class="m-0 mt-3 text-xs text-slate-600">
-                  Sentences from
-                  <a
-                    class="text-blue-800 underline decoration-slate-300 underline-offset-2 hover:decoration-blue-800"
-                    href="https://tatoeba.org/"
-                    rel="noopener noreferrer"
-                    target="_blank">Tatoeba</a
-                  >
-                  (CC BY 2.0 FR).
-                </p>
-              {/if}
-            </div>
-          {/if}
-
-          {#if senseHasUsage}
-            <div id={multiSense ? undefined : "usage"} class={sectionClass}>
-              <h2 class={subheadingClass}>How to use it</h2>
-
-              <div class="mt-2 grid gap-3">
-                {#each senseEntry.body as paragraph, index (index)}
-                  <p class={proseClass}>{paragraph}</p>
-                {/each}
-              </div>
-            </div>
-          {/if}
-        </section>
-      {/each}
-
-      {#if forms}
-        <section id="forms" class={sectionClass} aria-labelledby="forms-heading">
-          <h2 id="forms-heading" class={headingClass}>
-            Forms of <span class="font-serif" lang="sk">{entry.slovak}</span>
-          </h2>
-
-          <p class="m-0 mt-1.5 text-[0.9rem] text-slate-600">
-            Six cases, singular and plural. Endings are highlighted.
-          </p>
-
-          <div class="mt-4 overflow-x-auto">
-            <table class="w-full border-collapse border border-slate-200 text-left">
-              <thead>
-                <tr class="bg-subtle text-[0.8rem] text-slate-700">
-                  <th
-                    class="border border-slate-200 px-3 py-2 max-[560px]:px-2 font-semibold"
-                    scope="col"
-                  >
-                    Case
-                  </th>
-                  <th
-                    class="border border-slate-200 px-3 py-2 max-[560px]:px-2 font-semibold"
-                    scope="col"
-                  >
-                    Singular
-                  </th>
-                  <th
-                    class="border border-slate-200 px-3 py-2 max-[560px]:px-2 font-semibold"
-                    scope="col"
-                  >
-                    Plural
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {#each forms as row (row.caseSlug)}
-                  <tr>
-                    <th
-                      class="border border-slate-200 px-3 py-2 max-[560px]:px-2 align-baseline font-normal"
-                      scope="row"
-                    >
-                      <a
-                        class="text-[0.9rem] font-semibold text-blue-800 hover:underline"
-                        href="/grammar/cases/{row.caseSlug}"
-                      >
-                        {sentenceCase(row.caseName)}
-                      </a>
-                      <span
-                        class="ml-1.5 font-serif text-[0.85rem] text-slate-600 max-[560px]:ml-0 max-[560px]:block"
-                        lang="sk"
-                      >
-                        {row.question}
-                      </span>
-                    </th>
-                    <td class="border border-slate-200 px-3 py-2 max-[560px]:px-2">
-                      {@render formCell(row.singular.stem, row.singular.ending)}
-                    </td>
-                    <td class="border border-slate-200 px-3 py-2 max-[560px]:px-2">
-                      {@render formCell(row.plural.stem, row.plural.ending)}
-                    </td>
-                  </tr>
-                {/each}
-              </tbody>
-            </table>
-          </div>
-
-          {#if entry.slovak.endsWith("ľ") && plural && !plural.includes("ľ")}
-            <p class="m-0 mt-3 text-[0.85rem] leading-relaxed text-slate-600">
-              Before <span class="font-serif" lang="sk">i</span> and
-              <span class="font-serif" lang="sk">e</span>,
-              <span class="font-serif" lang="sk">ľ</span> is written plain
-              <span class="font-serif" lang="sk">l</span> and still sounds soft:
-              <span class="font-serif text-slate-900" lang="sk">{plural}</span>.
-            </p>
-          {/if}
-        </section>
-      {/if}
-
-      <ExternalLookups
-        lemma={entry.slovak}
-        dialect={senseViews.some((sense) => sense.entry.dialect === true)}
-      />
-    </article>
-
-    <aside class="grid min-w-0 content-start gap-y-10" aria-label="Word details">
-      {#if image}
-        <figure id="image" class="m-0 {sectionClass}">
-          <img
-            alt={image.caption}
-            class="block aspect-[5/4] h-auto w-full rounded-[3px] object-cover"
-            decoding="async"
-            height="280"
-            loading="lazy"
-            src={image.src}
-            width="352"
-          />
-
-          <figcaption class="mt-2 text-xs leading-snug text-slate-600">
-            <span class="text-slate-800">{image.caption}</span>
-
-            {#if image.artist}
-              <span aria-hidden="true"> · </span>
-              <span>{image.artist}</span>
-            {/if}
-
-            {#if image.license}
-              <span aria-hidden="true"> · </span>
-              {#if image.licenseUrl}
-                <a
-                  class="underline decoration-slate-300 hover:text-blue-800"
-                  href={image.licenseUrl}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {image.license}
-                </a>
-              {:else}
-                <span>{image.license}</span>
-              {/if}
-            {/if}
-
-            {#if image.sourcePageUrl}
-              <span aria-hidden="true"> · </span>
-              <a
-                class="underline decoration-slate-300 hover:text-blue-800"
-                href={image.sourcePageUrl}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Wikimedia
-              </a>
-            {/if}
-          </figcaption>
-        </figure>
-      {/if}
-
-      {#if entriesNear.length > 0}
-        <section id="nearby" class={sectionClass} aria-labelledby="nearby-heading">
-          <h2 id="nearby-heading" class={railHeadingClass}>Browse</h2>
-
-          <ul class="m-0 list-none p-0">
-            {#each entriesNear as nearby (nearby.slovak)}
-              <li>
-                {#if nearby.current}
-                  <span
-                    class={cx(railRowClass, "-mx-2 bg-mark px-2")}
-                    aria-current="true"
-                  >
-                    <span
-                      class="font-serif text-[1rem] font-semibold break-words"
-                      lang="sk"
-                    >
-                      {nearby.slovak}
-                    </span>
-                    <span class="truncate text-[0.85rem] text-slate-700">
-                      {nearby.english}
-                    </span>
-                  </span>
-                {:else}
-                  <a class={railRowClass} href={nearby.href}>
-                    <span class={cx(railLinkClass, "break-words")} lang="sk">
-                      {nearby.slovak}
-                    </span>
-                    <span class="truncate text-[0.85rem] text-slate-600">
-                      {nearby.english}
-                    </span>
-                  </a>
-                {/if}
-              </li>
-            {/each}
-          </ul>
-
-          <p class="m-0 mt-2.5 text-[0.85rem]">
             <a
-              class="text-blue-800 hover:underline"
-              href={`/dictionary?letter=${encodeURIComponent(entry.slovak.at(0)?.toLocaleLowerCase("sk") ?? "")}`}
-            >
-              More words in {entry.slovak.at(0)?.toLocaleUpperCase("sk")}
-            </a>
-          </p>
-        </section>
-      {/if}
-
-      {#if frequencyNeighbors.length > 0 && entry.frequency}
-        <section id="frequency" class={sectionClass} aria-labelledby="frequency-heading">
-          <h2 id="frequency-heading" class={railHeadingClass}>Word frequency</h2>
-
-          <table class="w-full border-collapse text-left">
-            <caption
-              class="pt-2 pb-1.5 text-left text-[0.8rem] leading-snug text-slate-600"
-            >
-              Rank among {FREQUENCY_PART_OF_SPEECH_LABEL[
-                entry.frequency.partOfSpeech
-              ].toLowerCase()} in the Slovak National Corpus.
-            </caption>
-
-            <tbody>
-              {#each frequencyNeighbors as row (row.rank)}
-                <tr
-                  class={cx("border-b border-slate-200", row.current && "bg-mark")}
-                  aria-current={row.current ? "true" : undefined}
-                >
-                  <td class="w-14 py-1.5 pl-1 text-[0.8rem] tabular-nums text-slate-600">
-                    #{row.rank}
-                  </td>
-                  <td class="py-1.5">
-                    {#if row.href && !row.current}
-                      <a
-                        class="font-serif text-[1rem] text-blue-800 hover:underline"
-                        href={row.href}
-                        lang="sk"
-                      >
-                        {row.lemma}
-                      </a>
-                    {:else}
-                      <span
-                        class={cx(
-                          "font-serif text-[1rem] text-slate-900",
-                          row.current && "font-semibold",
-                        )}
-                        lang="sk"
-                      >
-                        {row.lemma}
-                      </span>
-                    {/if}
-                  </td>
-                  <td
-                    class="py-1.5 pr-1 text-right text-[0.8rem] tabular-nums text-slate-600"
-                  >
-                    {#if row.count}
-                      {row.count.toLocaleString("en")}
-                    {/if}
-                  </td>
-                </tr>
-              {/each}
-            </tbody>
-          </table>
-
-          <p class="m-0 mt-2.5 text-[0.85rem]">
-            <a
-              class="text-blue-800 hover:underline"
+              class={moreLinkClass}
               href={`/dictionary/common/${entry.frequency.partOfSpeech}`}
             >
               Most common {FREQUENCY_PART_OF_SPEECH_LABEL[
                 entry.frequency.partOfSpeech
               ].toLowerCase()}
+              <ArrowRight />
             </a>
-          </p>
-        </section>
-      {/if}
-
-      {#if relatedEntries.length}
-        <section id="related" class={sectionClass} aria-labelledby="related-heading">
-          <h2 id="related-heading" class={railHeadingClass}>Related words</h2>
-
-          <ul class="m-0 list-none p-0">
-            {#each relatedEntries as relatedEntry (relatedEntry.slug)}
-              <li>
-                <a class={railRowClass} href={relatedEntry.href}>
-                  <span class={cx(railLinkClass, "break-words")} lang="sk">
-                    {relatedEntry.slovak}
-                  </span>
-                  <span class="text-[0.85rem] leading-snug text-slate-600">
-                    {relatedEntry.english}
-                  </span>
-                </a>
-              </li>
-            {/each}
-          </ul>
-        </section>
-      {/if}
-
-      <section id="source" class={sectionClass} aria-labelledby="source-heading">
-        <h2 id="source-heading" class={railHeadingClass}>Sources</h2>
-
-        <dl class="m-0 grid grid-cols-[5.5rem_minmax(0,1fr)] text-[0.85rem]">
-          <dt class="border-b border-slate-200 py-2 text-slate-600">Meaning</dt>
-          <dd class="m-0 border-b border-slate-200 py-2">
-            <a class="text-blue-800 hover:underline" href={entry.source}>{sourceLabel}</a>
-          </dd>
-
-          {#if entry.frequency}
-            <dt class="border-b border-slate-200 py-2 text-slate-600">Frequency</dt>
-            <dd class="m-0 border-b border-slate-200 py-2">Slovak National Corpus</dd>
-          {/if}
-
-          {#if hasTatoeba}
-            <dt class="border-b border-slate-200 py-2 text-slate-600">Sentences</dt>
-            <dd class="m-0 border-b border-slate-200 py-2">
-              <a class="text-blue-800 hover:underline" href="https://tatoeba.org/"
-                >Tatoeba</a
-              >
-              (CC BY 2.0 FR)
-            </dd>
-          {/if}
-        </dl>
-
-        {#if entry.sourceNote}
-          <p class="m-0 mt-2 text-[0.8rem] leading-relaxed text-slate-600">
-            {entry.sourceNote}
-          </p>
+          </section>
         {/if}
 
-        <p class="m-0 mt-2.5 text-[0.85rem]">
-          <a class="text-blue-800 hover:underline" href="/references">All references</a>
-        </p>
-      </section>
-    </aside>
+        {#if relatedEntries.length}
+          <section id="related" class={sectionClass} aria-labelledby="related-heading">
+            <Eyebrow compact tone="muted">
+              <span id="related-heading">Related words</span>
+            </Eyebrow>
+
+            <ul class="m-0 list-none p-0">
+              {#each relatedEntries as relatedEntry (relatedEntry.slug)}
+                <li>
+                  <a
+                    class={cx(railRowClass, "group no-underline")}
+                    href={relatedEntry.href}
+                  >
+                    <span
+                      class={cx(
+                        railWordClass,
+                        "group-hover:text-blue-800 group-hover:underline",
+                      )}
+                      lang="sk"
+                    >
+                      {relatedEntry.slovak}
+                    </span>
+                    <span class={railGlossClass}>{relatedEntry.english}</span>
+                  </a>
+                </li>
+              {/each}
+            </ul>
+          </section>
+        {/if}
+
+        <section id="source" class={sectionClass} aria-labelledby="source-heading">
+          <Eyebrow compact tone="muted">
+            <span id="source-heading">Sources</span>
+          </Eyebrow>
+
+          <dl class="m-0 grid grid-cols-[5.5rem_minmax(0,1fr)] gap-y-2 text-sm">
+            <dt class="text-slate-500">Meaning</dt>
+            <dd class="m-0">
+              <a class="text-blue-800 no-underline hover:underline" href={entry.source}>
+                {sourceLabel}
+              </a>
+            </dd>
+
+            {#if entry.frequency}
+              <dt class="text-slate-500">Frequency</dt>
+              <dd class="m-0 text-slate-700">Slovak National Corpus</dd>
+            {/if}
+
+            {#if hasTatoeba}
+              <dt class="text-slate-500">Sentences</dt>
+              <dd class="m-0 text-slate-700">
+                <a
+                  class="text-blue-800 no-underline hover:underline"
+                  href="https://tatoeba.org/"
+                >
+                  Tatoeba
+                </a>
+                (CC BY 2.0 FR)
+              </dd>
+            {/if}
+          </dl>
+
+          {#if entry.sourceNote}
+            <p class="m-0 mt-3 text-xs leading-relaxed text-pretty text-slate-500">
+              {entry.sourceNote}
+            </p>
+          {/if}
+
+          <a class={moreLinkClass} href="/references">
+            All references
+            <ArrowRight />
+          </a>
+        </section>
+      </aside>
+    </div>
   </PageShell>
 
   {#if audioMount}
