@@ -2,7 +2,7 @@
   import type { Lesson, LessonTrack } from "$lib/learning/types";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import LessonMotif from "$lib/components/lessons/LessonMotif.svelte";
+  import MotifBanner from "$lib/components/lessons/MotifBanner.svelte";
   import { lessonPath } from "$lib/catalog/lessons";
   import { lessonMotifId } from "$lib/lesson-story/lesson-motifs";
 
@@ -36,7 +36,7 @@
           class="absolute inset-0 {lesson.id === focusLesson.id ? '' : 'hidden'}"
           data-continue-motif={lesson.id}
         >
-          <LessonMotif motif={lessonMotifId(lesson.id)} fill />
+          <MotifBanner motif={lessonMotifId(lesson.id)} />
         </span>
       {/each}
     </div>

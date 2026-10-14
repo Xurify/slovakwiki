@@ -366,7 +366,7 @@ const curatedWordSeed: WordSeed[] = [
       { slovak: "Peter je môj priateľ.", english: "Peter is my friend." },
       { slovak: "Idem s priateľom.", english: "I am going with a friend." },
     ],
-    related: ["rodina", "clovek"],
+    related: ["priatelka", "kamarat", "priatelstvo", "rodina", "clovek"],
   },
   {
     slug: "clovek",
@@ -781,50 +781,41 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   };
 });
 
-/** Same-part-of-speech related links for frequency words with empty `related`. */
-function glossToken(english: string): string | null {
-  const first = english.split(";")[0]!.trim().toLowerCase();
-  const stripped = first
-    .replace(/^not\s+to\s+/i, "")
-    .replace(/^not\s+/i, "")
-    .replace(/^to\s+/i, "")
-    .replace(/^(a|an|the)\s+/i, "");
-  const raw = stripped.split(/[\s,/(-]+/)[0] ?? "";
-  const token = raw.replace(/[^a-z]/gi, "");
-  if (token.length < 3) return null;
-
-  const stopwords = new Set([
-    "and",
-    "are",
-    "been",
-    "being",
-    "did",
-    "does",
-    "for",
-    "from",
-    "had",
-    "has",
-    "have",
-    "into",
-    "not",
-    "the",
-    "was",
-    "were",
-    "with",
-  ]);
-  if (stopwords.has(token)) return null;
-  return token;
+/**
+ * Primary English sense as a grouping key: the first `;` segment without
+ * `to` / `not to` / article prefixes or aspect/gender markers. Whole sense,
+ * not first word, so "female friend" never pairs with "female boss"; meaning
+ * qualifiers stay, so "pass (the ball)" never pairs with "pass".
+ */
+function primaryGloss(english: string): string | null {
+  const gloss = english
+    .split(";")[0]!
+    .toLowerCase()
+    .replace(/\((?:imperfective|perfective|habitual|f\.|m\.)\)/g, "")
+    .trim()
+    .replace(/^not\s+(?:to\s+)?/, "")
+    .replace(/^to\s+/, "")
+    .replace(/^(?:a|an|the)\s+/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return gloss.length >= 3 ? gloss : null;
 }
 
-function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
+/**
+ * Fill empty `related` on frequency words with same-part-of-speech peers that
+ * share a primary sense (aspect partners, negations, near-synonyms). Words with
+ * no such peer keep `related: []`: frequency-rank neighbours are not related
+ * words (the entry's rank already links to the common-words list).
+ */
+function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
   const maxPeers = 3;
 
   const glossBuckets = new Map<string, ContentEntry[]>();
   for (const entry of entries) {
     if (!entry.frequency || entry.related.length > 0) continue;
-    const token = glossToken(entry.english);
-    if (!token) continue;
-    const key = `${entry.frequency.partOfSpeech}::${token}`;
+    const gloss = primaryGloss(entry.english);
+    if (!gloss) continue;
+    const key = `${entry.frequency.partOfSpeech}::${gloss}`;
     const list = glossBuckets.get(key) ?? [];
     list.push(entry);
     glossBuckets.set(key, list);
@@ -847,48 +838,10 @@ function attachRelatedNeighbors(entries: ContentEntry[]): ContentEntry[] {
     }
   }
 
-  const byPartOfSpeech: Record<FrequencyPartOfSpeech, ContentEntry[]> = {
-    verb: [],
-    noun: [],
-    adjective: [],
-    adverb: [],
-  };
-
-  for (const entry of entries) {
-    if (!entry.frequency || entry.related.length > 0) continue;
-    if (glossRelated.has(entry.slug)) continue;
-    byPartOfSpeech[entry.frequency.partOfSpeech].push(entry);
-  }
-
-  for (const partOfSpeech of Object.keys(byPartOfSpeech) as FrequencyPartOfSpeech[]) {
-    byPartOfSpeech[partOfSpeech].sort(
-      (first, second) => (first.frequency?.rank ?? 0) - (second.frequency?.rank ?? 0),
-    );
-  }
-
-  const rankNeighbors = new Map<string, string[]>();
-
-  for (const partOfSpeech of Object.keys(byPartOfSpeech) as FrequencyPartOfSpeech[]) {
-    const list = byPartOfSpeech[partOfSpeech];
-
-    for (let index = 0; index < list.length; index += 1) {
-      const entry = list[index]!;
-      const related: string[] = [];
-      const previous = list[index - 1];
-      const next = list[index + 1];
-      if (previous) related.push(previous.slug);
-      if (next) related.push(next.slug);
-      if (related.length > 0) rankNeighbors.set(entry.slug, related);
-    }
-  }
-
   return entries.map((entry) => {
-    if (entry.related.length > 0) return entry;
-    const fromGloss = glossRelated.get(entry.slug);
-    if (fromGloss) return { ...entry, related: fromGloss };
-    const fromRank = rankNeighbors.get(entry.slug);
-    return fromRank ? { ...entry, related: fromRank } : entry;
+    const peers = glossRelated.get(entry.slug);
+    return peers ? { ...entry, related: peers } : entry;
   });
 }
 
-export const words: ContentEntry[] = attachRelatedNeighbors(mappedWords);
+export const words: ContentEntry[] = attachGlossPeers(mappedWords);
