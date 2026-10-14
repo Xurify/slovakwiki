@@ -14,6 +14,7 @@
     type ParadigmCell,
   } from "$lib/catalog/reference/grammar-pattern";
   import type { Example } from "$lib/catalog/types";
+  import { dataColumnHeadClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { cx } from "$lib/ui/classes";
 
   let {
@@ -66,17 +67,18 @@
   const view = $derived(withClocks ? undefined : parsePattern(lines, examples));
   const time = $derived(withClocks ? splitTime(lines) : undefined);
 
-  const studyListClass = "m-0 list-none border-t border-slate-200 p-0";
+  // Same card as the lessons FormTable and the dictionary FormsTable.
+  const listClass = "m-0 list-none p-0";
 
   /** Fixed tracks so the meaning column lines up no matter how long the form is. */
-  const paradigmTrack = "sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]";
-  const tileTrack = "sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]";
+  const paradigmTrack = "gap-x-6 sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]";
+  const tileTrack = "gap-x-6 sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]";
 
-  const studyRowClass =
-    "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200 py-2.5";
+  const rowClass =
+    "grid grid-cols-1 items-baseline gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5";
 
-  const columnHeadClass =
-    "hidden border-b border-slate-200 py-2 font-sans text-[0.64rem] font-bold tracking-[0.12em] text-slate-500 uppercase sm:grid sm:gap-x-6";
+  const subheadClass =
+    "border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 font-sans text-[0.64rem] font-bold tracking-[0.14em] text-slate-500 uppercase sm:px-5";
 </script>
 
 {#snippet marked(phrase: MarkedPhrase)}
@@ -84,7 +86,7 @@
 {/snippet}
 
 {#snippet formCell(cell: ParadigmCell)}
-  <li class={cx(studyRowClass, paradigmTrack)}>
+  <li class={cx(rowClass, paradigmTrack)}>
     <span class="text-sm text-slate-500" lang="sk">{cell.pronoun}</span>
 
     <span class={grammarFormClass} lang="sk">
@@ -102,140 +104,146 @@
 {/snippet}
 
 {#if time}
-  <ol class="m-0 list-none border-t border-slate-200 p-0" aria-label="Clock times">
-    {#each time.rows as row (row.digital)}
-      {@const ahead = namesHourAhead(row.minute)}
+  <div class={dataPanelClass}>
+    <ol class={listClass} aria-label="Clock times">
+      {#each time.rows as row (row.digital)}
+        {@const ahead = namesHourAhead(row.minute)}
 
-      <li
-        class="grid grid-cols-[2.5rem_3.25rem_minmax(0,1fr)] items-center gap-x-3 border-b border-slate-200 py-2 max-[480px]:grid-cols-[2.5rem_minmax(0,1fr)]"
-      >
-        <ClockIllustration
-          hour={row.hour}
-          minute={row.minute}
-          label={row.digital}
-          size={36}
-        />
-
-        <span
-          class="text-[0.8125rem] font-semibold text-slate-500 tabular-nums max-[480px]:hidden"
+        <li
+          class="grid grid-cols-[2.5rem_3.25rem_minmax(0,1fr)] items-center gap-x-3 border-b border-slate-200/70 px-4 py-2 last:border-b-0 sm:px-5 max-[480px]:grid-cols-[2.5rem_minmax(0,1fr)]"
         >
-          {row.digital}
-        </span>
+          <ClockIllustration
+            hour={row.hour}
+            minute={row.minute}
+            label={row.digital}
+            size={36}
+          />
 
-        <span class="min-w-0">
-          <span class="font-serif text-lg leading-snug text-slate-900" lang="sk">
-            {row.slovak}
+          <span
+            class="text-[0.8125rem] font-semibold text-slate-500 tabular-nums max-[480px]:hidden"
+          >
+            {row.digital}
           </span>
 
-          {#if ahead}
-            <span class="ml-2 text-xs text-emerald-800">names the next hour</span>
-          {/if}
-        </span>
-      </li>
-    {/each}
-  </ol>
+          <span class="min-w-0">
+            <span class="font-serif text-lg leading-snug text-slate-900" lang="sk">
+              {row.slovak}
+            </span>
 
-  {#if time.extras.length > 0}
-    <ul class="m-0 mt-4 list-none border-t border-slate-200 p-0">
-      {#each time.extras as row (row.label)}
-        <li
-          class="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200 py-2 max-[520px]:grid-cols-1"
-        >
-          <span class="text-sm text-slate-500">{row.label}</span>
-          <span class="font-serif text-lg text-slate-900" lang="sk">{row.phrases}</span>
+            {#if ahead}
+              <span class="ml-2 text-xs text-emerald-800">names the next hour</span>
+            {/if}
+          </span>
         </li>
       {/each}
-    </ul>
-  {/if}
+    </ol>
+
+    {#if time.extras.length > 0}
+      <ul class={listClass}>
+        <li class={subheadClass}>Also</li>
+
+        {#each time.extras as row (row.label)}
+          <li
+            class="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-2 last:border-b-0 sm:px-5 max-[520px]:grid-cols-1"
+          >
+            <span class="text-sm text-slate-500">{row.label}</span>
+            <span class="font-serif text-lg text-slate-900" lang="sk">{row.phrases}</span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+  </div>
 {:else if view?.kind === "tiles"}
-  <ul class={studyListClass}>
-    <li class={cx(columnHeadClass, tileTrack)}>
+  <div class={dataPanelClass}>
+    <div class={cx(dataColumnHeadClass, tileTrack)} aria-hidden="true">
       <span>Gender</span>
       <span>Example</span>
       <span>Meaning</span>
-    </li>
+    </div>
 
-    {#each view.tiles as tile (tile.label)}
-      <li class={cx(studyRowClass, tileTrack)}>
-        <span class="text-sm text-slate-500">{tile.label}</span>
+    <ul class={listClass}>
+      {#each view.tiles as tile (tile.label)}
+        <li class={cx(rowClass, tileTrack)}>
+          <span class="text-sm text-slate-500">{tile.label}</span>
 
-        <span class={grammarFormClass} lang="sk">
+          <span class={grammarFormClass} lang="sk">
+            {#if tile.example}
+              {@render marked(tile.example.slovak)}
+            {:else}
+              <span class={grammarEndingClass}>{tile.ending}</span>
+            {/if}
+          </span>
+
           {#if tile.example}
-            {@render marked(tile.example.slovak)}
-          {:else}
-            <span class={grammarEndingClass}>{tile.ending}</span>
+            <span class={grammarGlossClass}>{tile.example.english}</span>
           {/if}
-        </span>
-
-        {#if tile.example}
-          <span class={grammarGlossClass}>{tile.example.english}</span>
-        {/if}
-      </li>
-    {/each}
-  </ul>
+        </li>
+      {/each}
+    </ul>
+  </div>
 {:else if view?.kind === "paradigm"}
-  <ul class={studyListClass}>
-    <li class={cx(columnHeadClass, paradigmTrack)}>
+  <div class={dataPanelClass}>
+    <div class={cx(dataColumnHeadClass, paradigmTrack)} aria-hidden="true">
       <span>Person</span>
       <span>Form</span>
       <span>Meaning</span>
-    </li>
+    </div>
 
-    {#each view.singular as cell (cell.pronoun)}
-      {@render formCell(cell)}
-    {/each}
+    <ul class={listClass}>
+      <li class={subheadClass}>Singular</li>
 
-    <li
-      class="border-b border-slate-200 pt-5 pb-2 font-sans text-[0.64rem] font-bold tracking-[0.12em] text-slate-500 uppercase"
-    >
-      Plural
-    </li>
+      {#each view.singular as cell (cell.pronoun)}
+        {@render formCell(cell)}
+      {/each}
 
-    {#each view.plural as cell (cell.pronoun)}
-      {@render formCell(cell)}
-    {/each}
-  </ul>
+      <li class={subheadClass}>Plural</li>
+
+      {#each view.plural as cell (cell.pronoun)}
+        {@render formCell(cell)}
+      {/each}
+    </ul>
+  </div>
 {:else if view?.kind === "rows"}
-  <ul class="m-0 list-none border-t border-slate-200 p-0">
-    {#each view.rows as row, index (index)}
-      {@const prefix = addedPrefix(row)}
+  <div class={dataPanelClass}>
+    <ul class={listClass}>
+      {#each view.rows as row, index (index)}
+        {@const prefix = addedPrefix(row)}
 
-      <li
-        class="grid grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200 py-2.5 max-[520px]:grid-cols-1"
-      >
-        <span
-          class={cx(grammarFormClass, "text-lg")}
-          lang={row.gloss || prefix ? "sk" : undefined}
-        >
-          {#if row.label}
-            <span class="mr-3 font-sans text-sm font-normal text-slate-500"
-              >{row.label}</span
-            >
+        <li class={cx(rowClass, "gap-x-6 sm:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]")}>
+          <span
+            class={cx(grammarFormClass, "text-lg")}
+            lang={row.gloss || prefix ? "sk" : undefined}
+          >
+            {#if row.label}
+              <span class="mr-3 font-sans text-sm font-normal text-slate-500">
+                {row.label}
+              </span>
+            {/if}
+
+            <span class={cx(row.result && "font-normal text-slate-500")}>{row.main}</span>
+
+            {#if row.result}
+              <span
+                class="mx-2 font-sans text-base font-normal text-slate-400"
+                aria-hidden="true"
+              >
+                →
+              </span>
+              <span class="font-semibold">
+                {#if prefix}
+                  {@render marked(prefix)}
+                {:else}
+                  {row.result}
+                {/if}
+              </span>
+            {/if}
+          </span>
+
+          {#if row.gloss}
+            <span class={grammarGlossClass}>{row.gloss}</span>
           {/if}
-
-          <span class={cx(row.result && "font-normal text-slate-500")}>{row.main}</span>
-
-          {#if row.result}
-            <span
-              class="mx-2 font-sans text-base font-normal text-slate-400"
-              aria-hidden="true"
-            >
-              →
-            </span>
-            <span class="font-semibold">
-              {#if prefix}
-                {@render marked(prefix)}
-              {:else}
-                {row.result}
-              {/if}
-            </span>
-          {/if}
-        </span>
-
-        {#if row.gloss}
-          <span class={grammarGlossClass}>{row.gloss}</span>
-        {/if}
-      </li>
-    {/each}
-  </ul>
+        </li>
+      {/each}
+    </ul>
+  </div>
 {/if}

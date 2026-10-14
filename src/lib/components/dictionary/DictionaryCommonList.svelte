@@ -10,14 +10,9 @@
     PAGE_SIZE,
     showMoreDictionaryCommonEntries,
   } from "$lib/components/dictionary/common-client.svelte";
+  import { dataEmptyClass, dataPanelFootClass } from "$lib/components/ui/data-list-ui";
 
   let { totalCount }: { totalCount: number } = $props();
-
-  const rowClass =
-    "grid grid-cols-[2.25rem_minmax(0,1fr)_4.75rem] items-center gap-3 border-b border-slate-200 px-4 py-3 text-sm transition-colors last:border-b-0 hover:bg-blue-50/50 max-[560px]:grid-cols-[2rem_minmax(0,1fr)]";
-
-  const filterMetaClass =
-    "m-0 border-b border-slate-200 bg-slate-50/70 px-4 py-2 text-xs text-slate-500";
 
   const isFiltering = $derived(dictionaryCommonState.query.trim().length > 0);
   const expanded = $derived(dictionaryCommonState.entries !== null);
@@ -49,6 +44,7 @@
     appendInstances.length = 0;
   }
 
+  // The first hundred rows are server-rendered; hide them while a filter is active.
   $effect(() => {
     const ssrList = document.getElementById("common-results");
     if (!ssrList) {
@@ -58,6 +54,7 @@
     ssrList.hidden = isFiltering;
   });
 
+  // "Show more" appends rows after the server-rendered ones instead of re-rendering.
   $effect(() => {
     if (isFiltering || appendedEntries.length === 0) {
       clearAppendedRows();
@@ -80,7 +77,6 @@
           props: {
             entry,
             live: dictionaryCommonState.liveByLemma[entry.lemma],
-            rowClass,
           },
         }),
       );
@@ -97,41 +93,29 @@
 </script>
 
 {#if dictionaryCommonState.loadError}
-  <p class="m-0 px-4 py-3 text-sm text-rose-700" role="alert">
+  <p class="m-0 px-4 py-3 text-sm text-rose-700 sm:px-5" role="alert">
     {dictionaryCommonState.loadError}
   </p>
 {/if}
 
 {#if dictionaryCommonState.loading}
-  <div class="flex min-h-16 items-center px-4 py-6">
-    <DotLoader label="Loading frequency list…" />
+  <div class="flex min-h-16 items-center px-4 py-6 sm:px-5">
+    <DotLoader label="Loading the full list…" />
   </div>
 {/if}
 
 {#if isFiltering && expanded && !dictionaryCommonState.loading}
-  <p class={filterMetaClass}>
-    <strong class="tabular-nums text-slate-900">
-      {visibleEntries.length === 0
-        ? "0 results"
-        : `1–${visibleEntries.length.toLocaleString("en")} of ${filteredEntries.length.toLocaleString("en")}`}
-    </strong>
-    {#if filteredEntries.length !== totalCount}
-      <span class="text-slate-400">· {totalCount.toLocaleString("en")} total</span>
-    {/if}
-  </p>
-
   {#if filteredEntries.length === 0}
-    <div class="px-4 py-16 text-center">
-      <h2 class="text-xl">No matches</h2>
-      <p class="mt-2 text-sm text-slate-500">Try a shorter filter or clear it.</p>
+    <div class={dataEmptyClass}>
+      <p class="m-0 font-serif text-lg text-slate-900">No matches</p>
+      <p class="m-0 mt-1 text-sm text-slate-500">Try a shorter filter, or clear it.</p>
     </div>
   {:else}
-    <ol class="m-0 list-none p-0" start="1" id="common-results-expanded">
+    <ol class="m-0 list-none p-0" id="common-results-expanded">
       {#each visibleEntries as entry (entry.rank + entry.lemma)}
         <DictionaryCommonRow
           {entry}
           live={dictionaryCommonState.liveByLemma[entry.lemma]}
-          {rowClass}
         />
       {/each}
     </ol>
@@ -139,9 +123,14 @@
 {/if}
 
 {#if hasMore || (!expanded && totalCount > PAGE_SIZE)}
-  <div class="flex justify-center border-t border-slate-200 px-4 py-5">
-    <Button type="button" onclick={() => void showMoreDictionaryCommonEntries()}
-      >Show more</Button
+  <div class={dataPanelFootClass}>
+    <Button
+      type="button"
+      variant="secondary"
+      class="min-h-10 px-4 text-sm"
+      onclick={() => void showMoreDictionaryCommonEntries()}
     >
+      Show {PAGE_SIZE} more
+    </Button>
   </div>
 {/if}

@@ -37,7 +37,7 @@
   --color-slate-500: var(--muted);
   --color-slate-600: var(--muted-strong);
   --color-slate-700: var(--ink-soft);
-  --color-slate-800: var(--accent-strong);
+  --color-slate-800: var(--ink-soft);
   --color-slate-900: var(--ink);
   --color-blue-50: var(--accent-soft);
   --color-blue-100: var(--blue-light);

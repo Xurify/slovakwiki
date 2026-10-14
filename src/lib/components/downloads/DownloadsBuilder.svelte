@@ -303,7 +303,7 @@
   const choiceActiveClass =
     "bg-blue-50 text-slate-900 shadow-[0_0_0_1px_var(--color-blue-600)]";
   const packCardClass =
-    "flex h-full flex-col rounded-(--control-radius) border border-slate-200 bg-surface p-5 text-left shadow-(--shadow-border) transition-[border-color,box-shadow] duration-150 ease-out hover:border-slate-300 hover:shadow-(--shadow-border-hover)";
+    "flex h-full flex-col rounded-(--frame-radius) bg-surface p-5 text-left shadow-(--shadow-border) transition-shadow duration-150 ease-out hover:shadow-(--shadow-border-hover)";
 </script>
 
 {#if loadState === "error"}
@@ -337,7 +337,7 @@
   {/if}
 
   <section class="mt-8" aria-labelledby="downloads-packs">
-    <h2 id="downloads-packs" class="text-balance font-serif text-2xl text-blue-800">
+    <h2 id="downloads-packs" class="m-0 font-serif text-xl tracking-tight text-slate-900">
       Ready packs
     </h2>
     <p class="mt-2 max-w-160 text-pretty text-sm leading-relaxed text-slate-600">
