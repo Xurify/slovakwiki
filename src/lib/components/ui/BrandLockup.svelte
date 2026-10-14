@@ -26,7 +26,7 @@
 </script>
 
 <span class="inline-flex items-center gap-2.5 leading-none {className}">
-  <SiteMark class={markClass} decorative />
+  <SiteMark class={markClass} decorative {tone} />
 
   <strong class="{wordmarkClass} {inkClass}">Slovak Wiki</strong>
 </span>

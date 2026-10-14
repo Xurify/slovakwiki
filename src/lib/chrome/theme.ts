@@ -54,8 +54,9 @@ export function syncThemeColorMeta(theme: ResolvedTheme): void {
     return;
   }
 
+  // Match the indigo top bar so mobile browser chrome blends into it.
   const canvas = getComputedStyle(document.documentElement)
-    .getPropertyValue("--canvas")
+    .getPropertyValue("--panel-inverse")
     .trim();
 
   let meta = document.querySelector('meta[name="theme-color"]');
@@ -66,7 +67,7 @@ export function syncThemeColorMeta(theme: ResolvedTheme): void {
     document.head.appendChild(meta);
   }
 
-  meta.setAttribute("content", canvas || (theme === "dark" ? "#0e1a22" : "#f8f8f5"));
+  meta.setAttribute("content", canvas || (theme === "dark" ? "#18245a" : "#1c2b66"));
 }
 
 export function applyTheme(preference: ThemePreference): ResolvedTheme {

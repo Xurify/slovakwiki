@@ -22,9 +22,10 @@
 
 {#if href}
   <a
-    class:bg-rose-600={variant === "primary"}
-    class:text-paper={variant === "primary" || variant === "accent"}
-    class:hover:bg-rose-700={variant === "primary"}
+    class:bg-cta={variant === "primary"}
+    class:text-cta-ink={variant === "primary"}
+    class:text-paper={variant === "accent"}
+    class:hover:bg-cta-strong={variant === "primary"}
     class:bg-blue-600={variant === "accent"}
     class:hover:bg-blue-700={variant === "accent"}
     class:disabled:bg-slate-200={variant === "accent"}
@@ -43,9 +44,10 @@
   </a>
 {:else}
   <button
-    class:bg-rose-600={variant === "primary"}
-    class:text-paper={variant === "primary" || variant === "accent"}
-    class:hover:bg-rose-700={variant === "primary"}
+    class:bg-cta={variant === "primary"}
+    class:text-cta-ink={variant === "primary"}
+    class:text-paper={variant === "accent"}
+    class:hover:bg-cta-strong={variant === "primary"}
     class:bg-blue-600={variant === "accent"}
     class:hover:bg-blue-700={variant === "accent"}
     class:disabled:bg-slate-200={variant === "accent"}

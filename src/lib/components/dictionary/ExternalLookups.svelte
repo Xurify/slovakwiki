@@ -55,7 +55,7 @@
   >
     <h2
       id="lookups-heading"
-      class="m-0 mb-4 border-b border-slate-200 pb-2.5 text-[1.05rem] font-semibold tracking-[-0.01em]"
+      class="m-0 mb-4 text-[1.35rem] font-bold tracking-[-0.015em]"
     >
       Look it up elsewhere
     </h2>

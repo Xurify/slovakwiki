@@ -1,7 +1,6 @@
 <script lang="ts">
   import Button from "$lib/components/ui/Button.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
-  import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import {
     caseTopics,
@@ -11,6 +10,8 @@
   } from "$lib/catalog/entries";
   import { lessonPath, lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
   import { practiceSets } from "$lib/catalog/practice/sets";
+  import { buildBrowseQueryHref } from "$lib/catalog/dictionary/browse-query";
+  import { declensionRows } from "$lib/catalog/dictionary/declension";
   import { dictionaryPathForSense } from "$lib/catalog/dictionary/lemma-senses";
   import { highlightLemmaInText } from "$lib/catalog/dictionary/highlight-lemma";
   import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/catalog/frequency/types";
@@ -19,7 +20,6 @@
   import {
     lessonSceneSrc,
     storySettingForLesson,
-    type LessonSceneArtId,
   } from "$lib/lesson-story/story-settings";
   import { cx } from "$lib/ui/classes";
 
@@ -34,25 +34,46 @@
     ? nounGenderLabel(featuredWord.gender, featuredWord.pluralOnlyGender)
     : undefined;
 
-  const startLesson = lessonsForTrack("everyday")[0];
-  const startSetting = storySettingForLesson(startLesson.id);
-  const startLine = startLesson.scene[0];
+  const featuredForms = featuredWord.declension
+    ? declensionRows(featuredWord.slovak, featuredWord.declension, featuredWord.gender)
+    : [];
 
-  // One scene per track, never repeating the lesson 1 picture above.
-  const shownArt = new Set<LessonSceneArtId>([startSetting.art]);
-  const lessonGroups = lessonTracks.map((track) => {
-    const lessons = lessonsForTrack(track.id).map((lesson, index) => ({
-      lesson,
-      number: index + 1,
-      setting: storySettingForLesson(lesson.id),
-    }));
-    const pictured = lessons.find(
-      (item) => item.setting.art !== "default" && !shownArt.has(item.setting.art),
-    );
-    if (pictured) shownArt.add(pictured.setting.art);
+  const [firstTrack, ...otherTracks] = lessonTracks;
+  const firstLessons = lessonsForTrack(firstTrack.id).map((lesson, index) => ({
+    lesson,
+    number: index + 1,
+    setting: storySettingForLesson(lesson.id),
+  }));
+  const startLesson = firstLessons[0].lesson;
+  const lessonCount = lessonTracks.reduce(
+    (total, track) => total + lessonsForTrack(track.id).length,
+    0,
+  );
 
-    return { track, lessons, pictured };
-  });
+  const letters = [
+    ...new Set(
+      words
+        .filter((word) => word.kind === "word")
+        .map((word) => word.slovak.at(0)?.toLocaleUpperCase("sk") ?? ""),
+    ),
+  ]
+    .filter(Boolean)
+    .sort((left, right) => left.localeCompare(right, "sk"));
+
+  const wordGroups = ["Essentials", "Greetings", "Questions", "People", "Food"]
+    .map((topic) => ({
+      category: topic === "Food" ? "Food and drink" : topic,
+      // A taste of each group; "All words" covers the rest.
+      entries: words.filter((word) => word.topics?.includes(topic)).slice(0, 6),
+    }))
+    .filter((group) => group.entries.length > 0);
+
+  const commonLists = (["noun", "verb", "adjective", "adverb"] as const).map(
+    (partOfSpeech) => ({
+      href: `/dictionary/common/${partOfSpeech}`,
+      label: FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase(),
+    }),
+  );
 
   const practiceGroups = lessonTracks
     .map((track) => ({
@@ -61,485 +82,430 @@
     }))
     .filter((group) => group.sets.length > 0);
 
-  const phraseOfTheDay = {
-    gloss: [
-      { slovak: "Dobrý", english: "good" },
-      { slovak: "deň.", english: "day" },
-      { slovak: "Ako", english: "how" },
-      { slovak: "sa", english: "-self" },
-      { slovak: "máte?", english: "you have" },
-    ],
-    english: "Good day. How are you?",
-    note: "Word for word, Slovak asks how you have yourself. That small sa points the verb mať, to have, back at the person you are speaking to, and the -te ending keeps the question polite, which is what you want with anyone you have only just met.",
-  };
-
-  const wordGroups = ["Essentials", "Greetings", "Questions", "People", "Food"]
-    .map((topic) => ({
-      category: topic === "Food" ? "Food and drink" : topic,
-      // A taste of each group; "Browse all" covers the rest.
-      entries: words.filter((word) => word.topics?.includes(topic)).slice(0, 7),
-    }))
-    .filter((group) => group.entries.length > 0);
-
-  const referenceGroups = [
-    {
-      title: "Grammar",
-      items: grammarEntries.map((entry) => ({
-        href: `/grammar/${entry.slug}`,
-        label: sentenceCase(entry.english),
-        slovak: entry.slovak,
-      })),
-    },
-    {
-      title: "The six cases",
-      items: caseTopics.map((topic) => ({
-        href: `/grammar/cases/${topic.slug}`,
-        label: topic.name,
-        slovak: topic.question?.split("·")[0]?.trim(),
-      })),
-    },
-    {
-      title: "Pronunciation",
-      items: pronunciationEntries.map((entry) => ({
-        href: `/pronunciation/${entry.slug}`,
-        label: sentenceCase(entry.english),
-        slovak: entry.slovak,
-      })),
-    },
-  ];
-
-  const sectionHeadClass =
-    "flex items-baseline justify-between gap-6 border-b border-slate-200 pb-2.5";
-  const sectionTitleClass = "m-0 text-[1.1rem] font-semibold tracking-[-0.01em]";
-  const groupTitleClass =
-    "m-0 text-[0.8rem] font-semibold tracking-normal text-slate-600";
-  const linkClass = "text-blue-800 hover:underline";
+  const moduleHeadingClass =
+    "m-0 border-b-2 border-slate-900 pb-2 text-[1.25rem] font-bold tracking-[-0.01em]";
+  const labelClass =
+    "m-0 text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-slate-600";
+  const moreLinkClass = "text-[0.9rem] font-semibold text-blue-800 hover:underline";
+  const listRowClass = "border-b border-slate-200 py-2";
+  const formCellClass = "border border-slate-200 px-2.5 py-1.5";
+  const endingClass = "rounded-[2px] bg-mark px-px font-semibold";
 
   function firstSense(english: string): string {
     return english.split(";")[0].trim();
   }
 </script>
 
-{#snippet sectionHead(id: string, title: string, linkHref?: string, linkLabel?: string)}
-  <div class={sectionHeadClass}>
-    <h2 {id} class={sectionTitleClass}>{title}</h2>
+{#snippet moduleHead(id: string, title: string, linkHref?: string, linkLabel?: string)}
+  <div class="flex items-baseline justify-between gap-6 border-b-2 border-slate-900 pb-2">
+    <h2 {id} class="m-0 text-[1.25rem] font-bold tracking-[-0.01em]">{title}</h2>
 
     {#if linkHref && linkLabel}
-      <TextLink class="shrink-0" href={linkHref}>{linkLabel}</TextLink>
+      <a class={cx(moreLinkClass, "shrink-0")} href={linkHref}>{linkLabel} ›</a>
     {/if}
   </div>
 {/snippet}
 
 <main class="pb-20 max-[800px]:pb-14">
-  <PageShell class="grid gap-y-16 pt-10 max-[800px]:gap-y-12 max-[800px]:pt-7">
-    <h1 class="sr-only">Slovak Wiki</h1>
+  <PageShell class="pt-8 max-[800px]:pt-6">
+    <header class="border-b border-slate-200 pb-5">
+      <h1 class="m-0 text-[clamp(1.5rem,2.6vw,2rem)] font-bold tracking-[-0.02em]">
+        Slovak–English dictionary and lessons
+      </h1>
+
+      <p class="m-0 mt-1.5 text-[0.95rem] text-slate-600">
+        Free, for English speakers. {words.length.toLocaleString("en")} words,
+        {grammarEntries.length} grammar guides, {lessonCount} lessons and
+        {practiceSets.length} practice sets.
+      </p>
+    </header>
 
     <div
-      class="grid grid-cols-[20rem_minmax(0,1fr)] gap-x-12 gap-y-12 max-[960px]:grid-cols-1"
+      class="mt-8 grid grid-cols-[minmax(0,1fr)_22rem] gap-x-12 gap-y-12 max-[900px]:grid-cols-1"
     >
-      <section aria-labelledby="word-heading">
-        {@render sectionHead("word-heading", "Word to know", featuredHref, "Full entry")}
+      <section aria-labelledby="featured-heading">
+        <h2 id="featured-heading" class={moduleHeadingClass}>Sample entry</h2>
 
-        <a class="group mt-5 inline-block" href={featuredHref}>
-          <span
-            class="block font-serif text-[3.25rem] font-medium leading-none tracking-[-0.03em] text-slate-900 group-hover:text-blue-800"
-            lang="sk"
-          >
-            {featuredWord.slovak}
-          </span>
-        </a>
-
-        <p class="m-0 mt-2.5 text-[0.85rem] text-slate-600">
-          {featuredWord.category === "Nouns"
-            ? "noun"
-            : featuredWord.category.toLowerCase()}
-
-          {#if featuredGender}
-            · {featuredGender.english}
-          {/if}
+        <p class="m-0 mt-3 text-[0.9rem] leading-snug text-slate-600">
+          What a noun entry gives you: its meanings, a real sentence and all twelve forms.
         </p>
 
-        <ol class="m-0 mt-3.5 flex list-none flex-wrap gap-x-5 gap-y-1 p-0">
-          {#each featuredSenses as sense, index (sense)}
-            <li class="flex items-baseline gap-1.5 text-[1.1rem] font-medium">
-              <span class="text-[0.78rem] tabular-nums text-slate-500">{index + 1}</span>
-              {sense}
+        <div class="pt-4">
+          <p class="m-0">
+            <a
+              class="font-serif text-[clamp(2.5rem,5vw,3.25rem)] font-semibold leading-none tracking-[-0.02em] text-slate-900 hover:text-blue-800"
+              href={featuredHref}
+              lang="sk"
+            >
+              {featuredWord.slovak}
+            </a>
+          </p>
+
+          <p
+            class="m-0 mt-2.5 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.95rem] text-slate-700"
+          >
+            <span class="font-semibold italic text-slate-900">noun</span>
+
+            {#if featuredGender}
+              <span>{featuredGender.english}</span>
+            {/if}
+
+            {#if featuredWord.declension}
+              <span>
+                plural
+                <span class="font-serif font-semibold text-slate-900" lang="sk">
+                  {featuredWord.declension.plural[0]}
+                </span>
+              </span>
+            {/if}
+
+            {#if featuredWord.frequency}
+              <span>
+                #{featuredWord.frequency.rank} among {FREQUENCY_PART_OF_SPEECH_LABEL[
+                  featuredWord.frequency.partOfSpeech
+                ].toLowerCase()}
+              </span>
+            {/if}
+          </p>
+
+          <div
+            class="mt-6 grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-x-10 gap-y-6 max-[560px]:grid-cols-1"
+          >
+            <div>
+              <h3 class={labelClass}>What it means</h3>
+
+              <ol class="m-0 mt-2 list-none p-0">
+                {#each featuredSenses as sense, index (sense)}
+                  <li class="flex items-baseline gap-2.5 py-0.5">
+                    <span class="text-[0.9rem] font-bold tabular-nums">{index + 1}</span>
+                    <span class="text-[1.15rem] font-semibold">{sense}</span>
+                  </li>
+                {/each}
+              </ol>
+            </div>
+
+            {#if featuredExample}
+              <div>
+                <h3 class={labelClass}>In a sentence</h3>
+
+                <p
+                  class="m-0 mt-2 font-serif text-[1.2rem] leading-snug text-slate-900"
+                  lang="sk"
+                >
+                  {#each highlightLemmaInText(featuredExample.slovak, featuredWord.slovak, featuredWord.category) as part, partIndex (`${partIndex}-${part.text}`)}
+                    {#if part.hit}
+                      <span class="rounded-[2px] bg-mark px-px font-semibold"
+                        >{part.text}</span
+                      >
+                    {:else}
+                      {part.text}
+                    {/if}
+                  {/each}
+                </p>
+
+                <p class="m-0 mt-0.5 text-[0.9rem] text-slate-600">
+                  {featuredExample.english}
+                </p>
+              </div>
+            {/if}
+          </div>
+
+          {#if featuredForms.length > 0}
+            <h3 class={cx(labelClass, "mt-7")}>Forms</h3>
+
+            <table
+              class="mt-2 w-full border-collapse border border-slate-200 text-left text-[0.9rem]"
+            >
+              <thead>
+                <tr class="bg-subtle text-[0.75rem] text-slate-700">
+                  <th class={cx(formCellClass, "font-semibold")} scope="col">Case</th>
+                  <th class={cx(formCellClass, "font-semibold")} scope="col">Singular</th>
+                  <th class={cx(formCellClass, "font-semibold")} scope="col">Plural</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {#each featuredForms as row (row.caseSlug)}
+                  <tr>
+                    <th class={cx(formCellClass, "font-normal")} scope="row">
+                      <a
+                        class="font-semibold text-blue-800 hover:underline"
+                        href="/grammar/cases/{row.caseSlug}"
+                      >
+                        {sentenceCase(row.caseName)}
+                      </a>
+                    </th>
+                    <td class={cx(formCellClass, "font-serif text-[1rem]")} lang="sk">
+                      {row.singular.stem}{#if row.singular.ending}<span
+                          class={endingClass}>{row.singular.ending}</span
+                        >{/if}
+                    </td>
+                    <td class={cx(formCellClass, "font-serif text-[1rem]")} lang="sk">
+                      {row.plural.stem}{#if row.plural.ending}<span class={endingClass}
+                          >{row.plural.ending}</span
+                        >{/if}
+                    </td>
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+          {/if}
+
+          <p class="m-0 mt-5">
+            <a class={moreLinkClass} href={featuredHref}>
+              Full entry: examples, frequency and related words ›
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <section class="max-[900px]:order-first" aria-labelledby="learn-heading">
+        <h2 id="learn-heading" class={moduleHeadingClass}>Learn Slovak</h2>
+
+        <p class="m-0 mt-3 text-[0.9rem] leading-snug text-slate-600">
+          {firstTrack.title}: a short conversation in each lesson, then drills. No account
+          needed.
+        </p>
+
+        <ol class="m-0 mt-3 list-none p-0">
+          {#each firstLessons as item (item.lesson.id)}
+            <li>
+              <a
+                class="group grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-3 border-b border-slate-200 py-2.5"
+                href={lessonPath(item.lesson)}
+              >
+                <img
+                  class="block size-14 rounded-[4px] object-cover"
+                  src={lessonSceneSrc[item.setting.art]}
+                  alt=""
+                  width="56"
+                  height="56"
+                  loading={item.number === 1 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+
+                <span class="min-w-0">
+                  <span class="block text-[0.75rem] text-slate-600">
+                    Lesson {item.number}
+                    {#if item.setting.placeSk}
+                      ·
+                      <span class="font-serif text-[0.85rem]" lang="sk">
+                        {item.setting.placeSk}
+                      </span>
+                    {/if}
+                  </span>
+
+                  <span
+                    class="block text-[0.95rem] font-semibold leading-snug text-blue-800 group-hover:underline"
+                  >
+                    {item.lesson.title}
+                  </span>
+                </span>
+              </a>
             </li>
           {/each}
         </ol>
 
-        {#if featuredExample}
-          <p
-            class="m-0 mt-4 font-serif text-[1.1rem] leading-snug text-slate-900"
-            lang="sk"
-          >
-            {#each highlightLemmaInText(featuredExample.slovak, featuredWord.slovak, featuredWord.category) as part, partIndex (`${partIndex}-${part.text}`)}
-              {#if part.hit}
-                <span class="font-semibold">{part.text}</span>
-              {:else}
-                {part.text}
-              {/if}
-            {/each}
-          </p>
+        <Button class="mt-4 w-full rounded-[4px]" href={lessonPath(startLesson)}>
+          Start lesson 1
+        </Button>
 
-          <p class="m-0 mt-0.5 text-[0.85rem] text-slate-600">
-            {featuredExample.english}
-          </p>
-        {/if}
+        <p class="m-0 mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.85rem]">
+          {#each otherTracks as track (track.id)}
+            <a class="text-blue-800 hover:underline" href="/lessons/{track.id}">
+              {track.title} ({lessonsForTrack(track.id).length})
+            </a>
+          {/each}
 
-        <dl
-          class="m-0 mt-5 grid grid-cols-[6.5rem_minmax(0,1fr)] border-t border-slate-200 text-[0.85rem]"
-        >
-          {#if featuredWord.declension}
-            <dt class="border-b border-slate-200 py-2 text-slate-600">Plural</dt>
-            <dd
-              class="m-0 border-b border-slate-200 py-2 font-serif text-[0.95rem]"
-              lang="sk"
-            >
-              {featuredWord.declension.plural[0]}
-            </dd>
-          {/if}
-
-          {#if featuredWord.frequency}
-            <dt class="border-b border-slate-200 py-2 text-slate-600">Frequency</dt>
-            <dd class="m-0 border-b border-slate-200 py-2">
-              <span class="font-semibold tabular-nums"
-                >#{featuredWord.frequency.rank}</span
-              >
-              among {FREQUENCY_PART_OF_SPEECH_LABEL[
-                featuredWord.frequency.partOfSpeech
-              ].toLowerCase()}
-            </dd>
-          {/if}
-        </dl>
-      </section>
-
-      <section aria-labelledby="start-heading">
-        {@render sectionHead(
-          "start-heading",
-          "Start with lesson 1",
-          "/lessons",
-          "All lessons",
-        )}
-
-        <div
-          class="mt-5 grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-x-8 gap-y-5 max-[640px]:grid-cols-1"
-        >
-          <img
-            class="block aspect-[3/2] w-full rounded-[2px] object-cover"
-            src={lessonSceneSrc[startSetting.art]}
-            alt={startSetting.place}
-            width="1536"
-            height="1024"
-            loading="eager"
-            decoding="async"
-          />
-
-          <div>
-            <p class="m-0 text-[0.78rem] text-slate-600">
-              {lessonTracks[0].title} · Lesson 1 of {lessonGroups[0].lessons.length}
-            </p>
-
-            <h3 class="m-0 mt-1 text-[1.25rem] font-semibold tracking-[-0.01em]">
-              <a class="hover:text-blue-800" href={lessonPath(startLesson)}>
-                {startLesson.title}
-              </a>
-            </h3>
-
-            {#if startSetting.placeSk}
-              <p class="m-0 mt-1 text-[0.85rem] text-slate-600">
-                <span class="font-serif text-[0.95rem] text-slate-900" lang="sk">
-                  {startSetting.placeSk}
-                </span>
-                · {startSetting.place}
-              </p>
-            {/if}
-
-            <p class="m-0 mt-3 text-[0.95rem] leading-relaxed text-slate-700">
-              {startLesson.promise}
-            </p>
-
-            {#if startLine}
-              <div
-                class="mt-4 grid grid-cols-[3rem_minmax(0,1fr)] gap-x-2 border-t border-slate-200 pt-3"
-              >
-                <span class="pt-1 text-[0.75rem] font-semibold text-slate-500">
-                  {startLine.speaker}
-                </span>
-
-                <div>
-                  <p
-                    class="m-0 font-serif text-[1.1rem] leading-snug text-slate-900"
-                    lang="sk"
-                  >
-                    {startLine.slovak}
-                  </p>
-                  <p class="m-0 mt-0.5 text-[0.8rem] text-slate-600">
-                    {startLine.english}
-                  </p>
-                </div>
-              </div>
-            {/if}
-
-            <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-              <Button
-                class="min-h-10 rounded-[3px] px-4 text-[0.9rem]"
-                href={lessonPath(startLesson)}
-              >
-                Start lesson
-              </Button>
-
-              <span class="max-w-[16rem] text-[0.75rem] leading-snug text-slate-600">
-                Free. No account. Progress stays in this browser.
-              </span>
-            </div>
-          </div>
-        </div>
+          <a class="text-blue-800 hover:underline" href="/lessons">All lessons</a>
+        </p>
       </section>
     </div>
 
-    <section aria-labelledby="words-heading">
-      {@render sectionHead(
-        "words-heading",
-        "Words you will reach for first",
+    <section class="mt-14 max-[800px]:mt-12" aria-labelledby="browse-heading">
+      {@render moduleHead(
+        "browse-heading",
+        "Browse the dictionary",
         "/dictionary",
-        `Browse all ${words.length.toLocaleString("en")} words`,
+        `All ${words.length.toLocaleString("en")} words`,
       )}
 
+      <nav class="mt-4" aria-label="Browse by first letter">
+        <ul class="m-0 flex list-none flex-wrap gap-1.5 p-0">
+          {#each letters as letter (letter)}
+            <li>
+              <a
+                class="grid h-9 min-w-9 place-items-center rounded-[4px] border border-slate-200 px-2 font-serif text-[1.05rem] text-slate-900 hover:border-blue-800 hover:bg-selected hover:text-blue-800"
+                href={buildBrowseQueryHref("all", letter, 1)}
+                lang="sk"
+              >
+                {letter}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </nav>
+
       <div
-        class="mt-5 grid grid-cols-5 gap-x-6 gap-y-8 max-[960px]:grid-cols-3 max-[560px]:grid-cols-2"
+        class="mt-7 grid grid-cols-5 gap-x-6 gap-y-8 max-[960px]:grid-cols-3 max-[560px]:grid-cols-2"
       >
         {#each wordGroups as group (group.category)}
           <section>
-            <h3 class={cx(groupTitleClass, "mb-1.5")}>{group.category}</h3>
+            <h3 class={labelClass}>{group.category}</h3>
 
-            {#each group.entries as word (word.slug)}
-              <a
-                class={cx(
-                  "group -mx-1.5 grid grid-cols-[minmax(0,5.75rem)_minmax(0,1fr)] items-baseline gap-x-2 px-1.5 py-[3px]",
-                  word.slug === featuredWord.slug && "bg-selected",
-                )}
-                href={dictionaryPathForSense(word, words)}
-              >
-                <span
-                  class="truncate font-serif text-[1rem] text-slate-900 group-hover:text-blue-800"
-                  lang="sk"
-                >
-                  {word.slovak}
+            <ul class="m-0 mt-1.5 list-none p-0">
+              {#each group.entries as word (word.slug)}
+                <li>
+                  <a
+                    class="group block border-b border-slate-200 py-1.5"
+                    href={dictionaryPathForSense(word, words)}
+                  >
+                    <span
+                      class="block truncate font-serif text-[1.05rem] text-blue-800 group-hover:underline"
+                      lang="sk"
+                    >
+                      {word.slovak}
+                    </span>
+
+                    <span class="block truncate text-[0.8rem] text-slate-600">
+                      {firstSense(word.english)}
+                    </span>
+                  </a>
+                </li>
+              {/each}
+            </ul>
+          </section>
+        {/each}
+      </div>
+
+      <p
+        class="m-0 mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[0.9rem] text-slate-700"
+      >
+        <span class="font-semibold">Most common words:</span>
+
+        {#each commonLists as list (list.href)}
+          <a class="text-blue-800 hover:underline" href={list.href}>{list.label}</a>
+        {/each}
+      </p>
+    </section>
+
+    <div
+      class="mt-14 grid grid-cols-[minmax(0,1fr)_22rem] gap-x-12 gap-y-12 max-[800px]:mt-12 max-[900px]:grid-cols-1"
+    >
+      <section aria-labelledby="grammar-heading">
+        {@render moduleHead(
+          "grammar-heading",
+          "Grammar guides",
+          "/grammar",
+          "All grammar",
+        )}
+
+        <ul class="m-0 grid list-none grid-cols-2 gap-x-8 p-0 max-[640px]:grid-cols-1">
+          {#each grammarEntries as entry (entry.slug)}
+            <li class={listRowClass}>
+              <a class="group block" href="/grammar/{entry.slug}">
+                <span class="flex flex-wrap items-baseline justify-between gap-x-3">
+                  <span
+                    class="text-[0.95rem] font-semibold text-blue-800 group-hover:underline"
+                  >
+                    {sentenceCase(entry.english)}
+                  </span>
+                  <span class="font-serif text-[0.9rem] text-slate-600" lang="sk">
+                    {entry.slovak}
+                  </span>
                 </span>
 
-                <span class="truncate text-[0.8rem] text-slate-600">
-                  {firstSense(word.english)}
-                </span>
+                {#if entry.summary}
+                  <span class="mt-0.5 block text-[0.85rem] leading-snug text-slate-600">
+                    {entry.summary}
+                  </span>
+                {/if}
               </a>
+            </li>
+          {/each}
+        </ul>
+      </section>
+
+      <div class="grid content-start gap-y-10">
+        <section aria-labelledby="cases-heading">
+          <h2 id="cases-heading" class={moduleHeadingClass}>The six cases</h2>
+
+          <ul class="m-0 list-none p-0">
+            {#each caseTopics as topic (topic.slug)}
+              <li>
+                <a
+                  class="group flex items-baseline justify-between gap-3 border-b border-slate-200 py-2"
+                  href="/grammar/cases/{topic.slug}"
+                >
+                  <span
+                    class="text-[0.95rem] font-semibold text-blue-800 group-hover:underline"
+                  >
+                    {topic.name}
+                  </span>
+                  <span class="font-serif text-[0.9rem] text-slate-600" lang="sk">
+                    {topic.question?.split("·")[0]?.trim()}
+                  </span>
+                </a>
+              </li>
             {/each}
+          </ul>
+        </section>
+
+        <section aria-labelledby="pronunciation-heading">
+          <h2 id="pronunciation-heading" class={moduleHeadingClass}>Pronunciation</h2>
+
+          <ul class="m-0 list-none p-0">
+            {#each pronunciationEntries as entry (entry.slug)}
+              <li>
+                <a
+                  class="group flex flex-wrap items-baseline justify-between gap-x-3 border-b border-slate-200 py-2"
+                  href="/pronunciation/{entry.slug}"
+                >
+                  <span
+                    class="text-[0.95rem] font-semibold text-blue-800 group-hover:underline"
+                  >
+                    {sentenceCase(entry.english)}
+                  </span>
+                  <span class="ml-auto font-serif text-[0.9rem] text-slate-600" lang="sk">
+                    {entry.slovak}
+                  </span>
+                </a>
+              </li>
+            {/each}
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="mt-14 max-[800px]:mt-12" aria-labelledby="practice-heading">
+      {@render moduleHead("practice-heading", "Practice", "/practice", "Open Practice")}
+
+      <div
+        class="mt-1 grid grid-cols-3 gap-x-8 gap-y-8 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1"
+      >
+        {#each practiceGroups as group (group.track.id)}
+          <section>
+            <h3 class={cx(labelClass, "pt-4")}>{group.track.title}</h3>
+
+            <ul class="m-0 mt-1 list-none p-0">
+              {#each group.sets as set (set.id)}
+                <li class={listRowClass}>
+                  <a class="group block" href="/practice/{set.id}">
+                    <span
+                      class="block text-[0.95rem] font-semibold text-blue-800 group-hover:underline"
+                    >
+                      {set.title}
+                    </span>
+                    <span class="mt-0.5 block text-[0.85rem] leading-snug text-slate-600">
+                      {set.summary}
+                    </span>
+                  </a>
+                </li>
+              {/each}
+            </ul>
           </section>
         {/each}
       </div>
     </section>
-
-    <section aria-labelledby="phrase-heading">
-      {@render sectionHead("phrase-heading", "Take a phrase apart")}
-
-      <div
-        class="mt-6 grid grid-cols-[auto_minmax(0,1fr)] gap-x-14 gap-y-6 max-[960px]:grid-cols-1"
-      >
-        <p
-          class="m-0 flex flex-wrap items-end gap-x-5 gap-y-4 self-start max-[480px]:gap-x-3.5"
-          lang="sk"
-        >
-          {#each phraseOfTheDay.gloss as token (token.slovak)}
-            <span class="grid gap-1.5">
-              <span
-                class="border-b border-slate-300 pb-1 font-serif text-[clamp(1.6rem,3vw,2.25rem)] leading-none text-slate-900"
-              >
-                {token.slovak}
-              </span>
-
-              <span class="text-[0.78rem] text-slate-600" lang="en">{token.english}</span>
-            </span>
-          {/each}
-        </p>
-
-        <div>
-          <p class="m-0 text-[1rem] font-semibold">{phraseOfTheDay.english}</p>
-
-          <p class="m-0 mt-2 max-w-[66ch] text-[0.95rem] leading-[1.65] text-slate-700">
-            {phraseOfTheDay.note}
-          </p>
-
-          <p class="m-0 mt-3">
-            <TextLink href={lessonPath(startLesson)}
-              >Use it in the greeting lesson</TextLink
-            >
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section aria-labelledby="tracks-heading">
-      {@render sectionHead(
-        "tracks-heading",
-        "Start inside a scene",
-        "/lessons",
-        "All lessons",
-      )}
-
-      <p class="m-0 mt-4 max-w-[72ch] text-[0.95rem] leading-relaxed text-slate-700">
-        Every track opens with a short conversation, lifts out the phrases worth keeping,
-        then asks you to rebuild them from memory. There is nothing to sign up for, and
-        stopping after a single scene still counts.
-      </p>
-
-      {#each lessonGroups as group (group.track.id)}
-        <div
-          class="mt-6 grid grid-cols-[12rem_10rem_minmax(0,1fr)] gap-x-8 gap-y-4 border-t border-slate-200 pt-5 max-[960px]:grid-cols-[10rem_minmax(0,1fr)] max-[560px]:grid-cols-1"
-        >
-          <div>
-            <h3 class="m-0 text-[0.95rem] font-semibold tracking-normal">
-              <a class="hover:text-blue-800" href="/lessons/{group.track.id}">
-                {group.track.title}
-              </a>
-            </h3>
-
-            <p class="m-0 mt-1 text-[0.8rem] leading-snug text-slate-600">
-              {group.track.description}
-            </p>
-          </div>
-
-          {#if group.pictured}
-            <figure class="m-0 max-[960px]:hidden">
-              <img
-                class="block aspect-[3/2] w-full rounded-[2px] object-cover"
-                src={lessonSceneSrc[group.pictured.setting.art]}
-                alt={group.pictured.setting.place}
-                width="1536"
-                height="1024"
-                loading="lazy"
-                decoding="async"
-              />
-
-              {#if group.pictured.setting.placeSk}
-                <figcaption class="mt-1.5 text-[0.75rem] text-slate-600">
-                  {group.pictured.number} ·
-                  <span class="font-serif text-[0.85rem] text-slate-900" lang="sk">
-                    {group.pictured.setting.placeSk}
-                  </span>
-                </figcaption>
-              {/if}
-            </figure>
-          {:else}
-            <span class="max-[960px]:hidden"></span>
-          {/if}
-
-          <ol class="m-0 list-none p-0">
-            {#each group.lessons as item (item.lesson.id)}
-              <li
-                class="grid grid-cols-[1.25rem_minmax(0,15rem)_minmax(0,1fr)] gap-x-4 border-b border-slate-200 py-2.5 first:pt-0 last:border-b-0 max-[760px]:grid-cols-[1.25rem_minmax(0,1fr)]"
-              >
-                <span class="text-[0.78rem] tabular-nums text-slate-500"
-                  >{item.number}</span
-                >
-
-                <span>
-                  <a
-                    class="block text-[0.95rem] font-medium {linkClass}"
-                    href={lessonPath(item.lesson)}
-                  >
-                    {item.lesson.title}
-                  </a>
-
-                  {#if item.setting.placeSk}
-                    <span
-                      class="block font-serif text-[0.85rem] text-slate-600"
-                      lang="sk"
-                    >
-                      {item.setting.placeSk}
-                    </span>
-                  {/if}
-                </span>
-
-                <span
-                  class="text-[0.85rem] leading-snug text-slate-600 max-[760px]:col-start-2"
-                >
-                  {item.lesson.promise}
-                </span>
-              </li>
-            {/each}
-          </ol>
-        </div>
-      {/each}
-    </section>
-
-    <div
-      class="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-x-12 gap-y-12 max-[960px]:grid-cols-1"
-    >
-      <section aria-labelledby="reference-heading">
-        {@render sectionHead("reference-heading", "When you need the rule, not a lesson")}
-
-        <p class="m-0 mt-4 max-w-[70ch] text-[0.95rem] leading-relaxed text-slate-700">
-          Four places to land when a form stops making sense halfway through a sentence.
-          Each entry keeps the explanation short, shows the pattern beside a real example,
-          and points you to the lesson that drills it.
-        </p>
-
-        <div class="mt-5 grid grid-cols-2 gap-x-10 gap-y-6 max-[560px]:grid-cols-1">
-          {#each referenceGroups as group (group.title)}
-            <section class={group.title === "Grammar" ? "row-span-2" : ""}>
-              <h3 class={cx(groupTitleClass, "mb-1.5")}>{group.title}</h3>
-
-              <ul class="m-0 list-none p-0">
-                {#each group.items as item (item.href)}
-                  <li
-                    class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-x-3 py-[3px]"
-                  >
-                    <a class="text-[0.9rem] {linkClass}" href={item.href}>{item.label}</a>
-
-                    {#if item.slovak}
-                      <span class="font-serif text-[0.95rem] text-slate-900" lang="sk">
-                        {item.slovak}
-                      </span>
-                    {/if}
-                  </li>
-                {/each}
-              </ul>
-            </section>
-          {/each}
-        </div>
-
-        <p class="m-0 mt-5 flex flex-wrap gap-x-5 gap-y-1 text-[0.9rem]">
-          <a class={linkClass} href="/dictionary">Dictionary</a>
-          <a class={linkClass} href="/dictionary/common/verb">Most common words</a>
-          <a class={linkClass} href="/glossary">Glossary</a>
-        </p>
-      </section>
-
-      <section aria-labelledby="practice-heading">
-        {@render sectionHead("practice-heading", "Drill the forms that stick")}
-
-        <p class="m-0 mt-4 text-[0.95rem] leading-relaxed text-slate-700">
-          Short topic sheets you can reopen anytime. Lesson completion stays on this
-          device so you can pick up where you left off — no streaks, no scores.
-        </p>
-
-        {#each practiceGroups as group (group.track.id)}
-          <h3 class={cx(groupTitleClass, "mt-5 mb-1.5")}>{group.track.title}</h3>
-
-          <ul class="m-0 list-none p-0">
-            {#each group.sets as set (set.id)}
-              <li class="py-[3px]">
-                <a class="text-[0.9rem] {linkClass}" href="/practice/{set.id}"
-                  >{set.title}</a
-                >
-              </li>
-            {/each}
-          </ul>
-        {/each}
-
-        <p class="m-0 mt-5">
-          <TextLink href="/practice">Open Practice</TextLink>
-        </p>
-      </section>
-    </div>
   </PageShell>
 </main>

@@ -21,6 +21,12 @@
   --color-panel-inverse-ink: var(--panel-inverse-ink);
   --color-brand: var(--brand);
   --color-brand-ink: var(--brand-ink);
+  --color-cta: var(--cta);
+  --color-cta-strong: var(--cta-strong);
+  --color-cta-ink: var(--cta-ink);
+  --color-mark: var(--mark);
+  --color-saffron: var(--saffron);
+  --color-saffron-ink: var(--saffron-ink);
 
   /* Keep Tailwind utility names, preserve Slovak Wiki palette. */
   --color-slate-50: var(--surface-subtle);
@@ -84,28 +90,29 @@
     --font-ui: "IBM Plex Sans Variable", "IBM Plex Sans Fallback", "Segoe UI", sans-serif;
     --font-reading: "Source Serif 4 Variable", "Source Serif 4 Fallback", Georgia, serif;
     /*
-     * Light: near-white paper, indigo-black text. The brand indigo (#464b71) is
-     * kept for the headword band and inverse panels, not for body text.
+     * Light: the learner-dictionary convention (Cambridge, Oxford, Merriam-Webster)
+     * — navy top bar, white page, blue links, one yellow accent for the search
+     * button and highlighted forms. Red stays for wrong answers only.
      */
-    --canvas: #f8f8f5;
-    --paper: #f1f1ec;
+    --canvas: #ffffff;
+    --paper: #f4f6f9;
     --surface: #ffffff;
-    --surface-subtle: #ececea;
-    --surface-selected: #cfe9e1;
+    --surface-subtle: #eef1f5;
+    --surface-selected: #e3eafa;
     /* Secondary controls: sit above paper/panels without looking hollow. */
     --control: #ffffff;
-    --control-hover: #cfe9e1;
-    --ink: #1e2136;
-    --ink-soft: #2c3150;
-    --muted: #5d6079;
-    --muted-strong: #474b66;
-    --line: #e2e3e6;
-    --line-strong: #c9cad1;
-    --accent: #377299;
+    --control-hover: #e3eafa;
+    --ink: #151a2d;
+    --ink-soft: #283049;
+    --muted: #5a6074;
+    --muted-strong: #444a5f;
+    --line: #e1e5ec;
+    --line-strong: #c6ccd8;
+    --accent: #1f4fbf;
     --mark-day: #b86a00;
     --mark-time: #0e7aab;
-    --accent-strong: #245d8f;
-    --accent-soft: #daece5;
+    --accent-strong: #173c95;
+    --accent-soft: #e3eafa;
     --action: #c23b35;
     --action-strong: #9c302c;
     --blue: #118ab2;
@@ -116,12 +123,20 @@
     --green: #1f6b5c;
     --green-light: #d3eae2;
     --green-mid: color-mix(in oklab, var(--green) 54%, var(--green-light));
-    --panel-inverse: #464b71;
-    --panel-inverse-ink: #f2f2ed;
-    /* Logo teal: search submit and other brand marks. */
-    --brand: #0f4a66;
-    --brand-ink: #ffffff;
-    --shadow-color: #464b71;
+    /* Navy: top bar, footer and other inverse panels. */
+    --panel-inverse: #1c2b66;
+    --panel-inverse-ink: #f5f6fa;
+    /* Primary buttons. */
+    --cta: #1c2b66;
+    --cta-strong: #142152;
+    --cta-ink: #ffffff;
+    /* Yellow: the search button, form endings, and the highlighter. */
+    --saffron: #f2b13a;
+    --saffron-ink: #9c5a07;
+    --mark: #fde7a9;
+    --brand: #f2b13a;
+    --brand-ink: #1c2b66;
+    --shadow-color: #1c2b66;
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -148,25 +163,25 @@
 
   html[data-theme="dark"] {
     color-scheme: dark;
-    --canvas: #0e1a22;
-    --paper: #152430;
-    --surface: #1a2d3a;
-    --surface-subtle: #122028;
-    --surface-selected: #243a4a;
+    --canvas: #0c1124;
+    --paper: #121936;
+    --surface: #172042;
+    --surface-subtle: #0f1530;
+    --surface-selected: #222d5c;
     /* Lift off surface panels (clock drill, modals) so secondary CTAs read. */
-    --control: #2a4254;
-    --control-hover: #35566c;
-    --ink: #e8f0f4;
-    --ink-soft: #c5d6de;
-    --muted: #8fadb9;
-    --muted-strong: #a8c0cb;
-    --line: #2a4050;
-    --line-strong: #3d5668;
-    --accent: #4a9fc4;
+    --control: #222d5c;
+    --control-hover: #2c3a72;
+    --ink: #eef0f8;
+    --ink-soft: #cfd4ea;
+    --muted: #9ba2c2;
+    --muted-strong: #b4bad6;
+    --line: #242d55;
+    --line-strong: #36416f;
+    --accent: #9db0ff;
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
-    --accent-strong: #7ab8d4;
-    --accent-soft: #1a3545;
+    --accent-strong: #b8c6ff;
+    --accent-soft: #1d2654;
     --action: #e07068;
     --action-strong: #f09088;
     --blue: #5aa8c8;
@@ -177,10 +192,16 @@
     --green: #4a9a88;
     --green-light: color-mix(in srgb, #1a332c 80%, var(--green) 20%);
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
-    --panel-inverse: #0a141c;
-    --panel-inverse-ink: #eef4f7;
-    --brand: #4a9fc4;
-    --brand-ink: #0e1a22;
+    --panel-inverse: #18245a;
+    --panel-inverse-ink: #eef0f8;
+    --cta: #f2b13a;
+    --cta-strong: #f6c463;
+    --cta-ink: #141a35;
+    --saffron: #f2b13a;
+    --saffron-ink: #f2b13a;
+    --mark: #5a4413;
+    --brand: #f2b13a;
+    --brand-ink: #18245a;
     --shadow-color: #000000;
   }
 

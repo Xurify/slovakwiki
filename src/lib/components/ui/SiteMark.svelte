@@ -2,10 +2,17 @@
   let {
     class: className = "",
     decorative = false,
+    tone = "default",
   }: {
     class?: string;
     decorative?: boolean;
+    /** `inverse` sits on the indigo top bar: paper tile, saffron circumflex. */
+    tone?: "default" | "inverse";
   } = $props();
+
+  const tileFill = $derived(tone === "inverse" ? "#f7f4ea" : "#0f4a66");
+  const ringFill = $derived(tone === "inverse" ? "#1c2b66" : "#f4f8fa");
+  const accentFill = $derived(tone === "inverse" ? "#e09a1f" : "#f4f8fa");
 </script>
 
 <svg
@@ -19,20 +26,17 @@
     <title>Slovak Wiki</title>
   {/if}
 
-  <rect x="3" y="3" width="58" height="58" rx="13" fill="#0f4a66" />
+  <rect x="3" y="3" width="58" height="58" rx="13" fill={tileFill} />
 
   <path
-    fill="#f4f8fa"
+    fill={accentFill}
+    d="M22.5 22.2 L32 13.2 L41.5 22.2 L37.1 22.2 L32 17.4 L26.9 22.2 Z"
+  />
+
+  <path
+    fill={ringFill}
     fill-rule="evenodd"
     d="
-      M22.5 22.2
-      L32 13.2
-      L41.5 22.2
-      L37.1 22.2
-      L32 17.4
-      L26.9 22.2
-      Z
-
       M32 27.5
       C24.6 27.5 19.2 32.6 19.2 39.6
       C19.2 46.6 24.6 51.8 32 51.8
