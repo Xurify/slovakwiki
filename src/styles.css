@@ -163,25 +163,25 @@
 
   html[data-theme="dark"] {
     color-scheme: dark;
-    --canvas: #0b1716;
-    --paper: #102120;
-    --surface: #142a28;
-    --surface-subtle: #0e1d1c;
-    --surface-selected: #1a3a38;
+    --canvas: #0f1415;
+    --paper: #141b1c;
+    --surface: #182122;
+    --surface-subtle: #121819;
+    --surface-selected: #1c3634;
     /* Lift off surface panels (clock drill, modals) so secondary CTAs read. */
-    --control: #1a3a38;
-    --control-hover: #234c49;
-    --ink: #e9f2f0;
-    --ink-soft: #c8d9d6;
-    --muted: #8faaa6;
-    --muted-strong: #adc3c0;
-    --line: #1f3634;
-    --line-strong: #2f4d4a;
-    --accent: #6fcfc8;
+    --control: #1e2a2b;
+    --control-hover: #24393a;
+    --ink: #e8eeee;
+    --ink-soft: #c9d4d4;
+    --muted: #92a3a3;
+    --muted-strong: #b0bebe;
+    --line: #243031;
+    --line-strong: #344445;
+    --accent: #4fa9a2;
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
-    --accent-strong: #95ddd7;
-    --accent-soft: #143634;
+    --accent-strong: #8fd0c9;
+    --accent-soft: #17302e;
     --action: #e07068;
     --action-strong: #f09088;
     --blue: #5aa8c8;
@@ -192,16 +192,16 @@
     --green: #4a9a88;
     --green-light: color-mix(in srgb, #1a332c 80%, var(--green) 20%);
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
-    --panel-inverse: #0a3a39;
-    --panel-inverse-ink: #ecf5f3;
-    --cta: #e9c98a;
-    --cta-strong: #f0d6a3;
-    --cta-ink: #0b2424;
-    --saffron: #e0b25a;
-    --saffron-ink: #e0b25a;
-    --mark: #4f4215;
-    --brand: #e9c98a;
-    --brand-ink: #0a3a39;
+    --panel-inverse: #0e3534;
+    --panel-inverse-ink: #e9f1f0;
+    --cta: #4fa9a2;
+    --cta-strong: #63bbb4;
+    --cta-ink: #0b1a1a;
+    --saffron: #dcb469;
+    --saffron-ink: #e2bd78;
+    --mark: #1f4643;
+    --brand: #e2c387;
+    --brand-ink: #0e3534;
     --shadow-color: #000000;
   }
 

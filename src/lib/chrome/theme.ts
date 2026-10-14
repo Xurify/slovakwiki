@@ -67,7 +67,7 @@ export function syncThemeColorMeta(theme: ResolvedTheme): void {
     document.head.appendChild(meta);
   }
 
-  meta.setAttribute("content", canvas || (theme === "dark" ? "#0a3a39" : "#0d4f4f"));
+  meta.setAttribute("content", canvas || (theme === "dark" ? "#0e3534" : "#0d4f4f"));
 }
 
 export function applyTheme(preference: ThemePreference): ResolvedTheme {
