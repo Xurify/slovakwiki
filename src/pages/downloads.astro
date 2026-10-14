@@ -2,6 +2,25 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import DownloadsBuilder from "$lib/components/downloads/DownloadsBuilder.svelte";
 import DownloadsPage from "$lib/components/downloads/DownloadsPage.svelte";
+import { words } from "$lib/catalog/entries";
+
+// Same selection as scripts/downloads/export.ts, so the counts on the page
+// match the file the builder downloads.
+const dictionaryWords = words.filter((word) => word.kind === "word");
+
+const categoryCounts: Record<string, { lemmas: number; examples: number }> = {};
+for (const word of dictionaryWords) {
+  const entry = (categoryCounts[word.category] ??= { lemmas: 0, examples: 0 });
+  entry.lemmas += 1;
+  entry.examples += word.examples.length;
+}
+
+const categories = Object.keys(categoryCounts).sort((a, b) => a.localeCompare(b));
+const lemmaCount = dictionaryWords.length;
+const exampleCount = dictionaryWords.reduce(
+  (total, word) => total + word.examples.length,
+  0,
+);
 ---
 
 <SiteLayout
@@ -9,6 +28,13 @@ import DownloadsPage from "$lib/components/downloads/DownloadsPage.svelte";
   description="Download Slovak Wiki dictionary lemmas and example sentences as JSON, CSV, or TSV."
 >
   <DownloadsPage>
-    <DownloadsBuilder client:load slot="builder" />
+    <DownloadsBuilder
+      client:load
+      slot="builder"
+      {categories}
+      {categoryCounts}
+      {lemmaCount}
+      {exampleCount}
+    />
   </DownloadsPage>
 </SiteLayout>
