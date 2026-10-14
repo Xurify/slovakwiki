@@ -16,7 +16,7 @@
     tone = "default",
   }: {
     class?: string;
-    /** `inverse` sits on the teal top bar. */
+    /** `inverse` sits on the top bar. */
     tone?: "default" | "inverse";
   } = $props();
 

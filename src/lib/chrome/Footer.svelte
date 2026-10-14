@@ -12,7 +12,9 @@
   ];
 </script>
 
-<footer class="bg-panel-inverse text-panel-inverse-ink">
+<footer
+  class="border-t border-panel-inverse-ink/12 bg-panel-inverse text-panel-inverse-ink"
+>
   <div
     class="mx-auto flex w-[min(var(--workspace-max),calc(100%-48px))] items-center justify-between gap-6 py-10 max-[800px]:w-[calc(100%-28px)] max-[480px]:w-[calc(100%-24px)] max-[680px]:flex-col max-[680px]:items-start"
   >

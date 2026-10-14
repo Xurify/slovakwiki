@@ -54,7 +54,7 @@ export function syncThemeColorMeta(theme: ResolvedTheme): void {
     return;
   }
 
-  // Match the teal top bar so mobile browser chrome blends into it.
+  // Match the top bar so mobile browser chrome blends into it.
   const canvas = getComputedStyle(document.documentElement)
     .getPropertyValue("--panel-inverse")
     .trim();
@@ -67,7 +67,7 @@ export function syncThemeColorMeta(theme: ResolvedTheme): void {
     document.head.appendChild(meta);
   }
 
-  meta.setAttribute("content", canvas || (theme === "dark" ? "#0e3534" : "#0d4f4f"));
+  meta.setAttribute("content", canvas || (theme === "dark" ? "#141414" : "#ffffff"));
 }
 
 export function applyTheme(preference: ThemePreference): ResolvedTheme {

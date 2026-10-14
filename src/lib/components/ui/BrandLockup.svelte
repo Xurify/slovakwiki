@@ -7,7 +7,7 @@
     class: className = "",
   }: {
     size?: "header" | "footer";
-    /** `inverse` sits on the teal top bar. */
+    /** `inverse` sits on the top bar. */
     tone?: "default" | "inverse";
     class?: string;
   } = $props();
