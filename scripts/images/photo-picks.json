@@ -2598,6 +2598,47 @@
     "keep": "live",
     "why": "Today's upright piano on white is the clearest piano."
   },
+  "klinec": {
+    "source": "unsplash",
+    "id": "q37QoC0m_is",
+    "query": "metal nails",
+    "page": "https://unsplash.com/photos/a-pile-of-nails-sitting-on-top-of-a-white-table-q37QoC0m_is",
+    "by": "Gabriel Mihalcea",
+    "desc": "a pile of nails sitting on top of a white table",
+    "why": "Small pile of steel nails on a plain white background.",
+    "downloadLocation": "https://api.unsplash.com/photos/q37QoC0m_is/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8M3x8bWV0YWwlMjBuYWlsc3xlbnwxfDB8fHwxNzkyMDc0MzgzfDA",
+    "originalUrl": "https://images.unsplash.com/photo-1640958899091-a1f55539eac0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8M3x8bWV0YWwlMjBuYWlsc3xlbnwxfDB8fHwxNzkyMDc0MzgzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@lovelyscape"
+  },
+  "klobuk": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Classic grey felt hat that fills the frame; clearer than the baseball caps."
+  },
+  "kluc": {
+    "source": "unsplash",
+    "id": "y5N2HDwagVw",
+    "query": "door key",
+    "page": "https://unsplash.com/photos/three-silver-keys-y5N2HDwagVw",
+    "by": "Jozsef Hocza",
+    "desc": "three silver keys",
+    "why": "Bunch of ordinary door keys on a plain pale background.",
+    "downloadLocation": "https://api.unsplash.com/photos/y5N2HDwagVw/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NHx8ZG9vciUyMGtleXxlbnwxfDB8fHwxNzkyMDc0Mzg4fDA",
+    "originalUrl": "https://images.unsplash.com/photo-1575908539614-ff89490f4a78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NHx8ZG9vciUyMGtleXxlbnwxfDB8fHwxNzkyMDc0Mzg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@hocza"
+  },
+  "knaz": {
+    "source": "unsplash",
+    "id": "LrwpNJ2yI-A",
+    "query": "catholic priest",
+    "page": "https://unsplash.com/photos/man-in-white-thobe-sitting-on-chair-LrwpNJ2yI-A",
+    "by": "Dawn McDonald",
+    "desc": "man in white thobe sitting on chair",
+    "why": "Priest in vestments clearly saying Mass at the altar, well lit.",
+    "downloadLocation": "https://api.unsplash.com/photos/LrwpNJ2yI-A/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NXx8Y2F0aG9saWMlMjBwcmllc3R8ZW58MXwwfHx8MTc5MjA2Njk1MHww",
+    "originalUrl": "https://images.unsplash.com/photo-1631112728133-b80474761c62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NXx8Y2F0aG9saWMlMjBwcmllc3R8ZW58MXwwfHx8MTc5MjA2Njk1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@dpreacherdawn"
+  },
   "kniha": {
     "source": "unsplash",
     "id": "0FRJ2SCuY4k",
@@ -2609,10 +2650,472 @@
     "downloadLocation": "https://api.unsplash.com/photos/0FRJ2SCuY4k/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8Ym9va3xlbnwxfDB8fHwxNzkyMDQxNTUxfDA",
     "originalUrl": "https://images.unsplash.com/photo-1517770413964-df8ca61194a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8Ym9va3xlbnwxfDB8fHwxNzkyMDQxNTUxfDA&ixlib=rb-4.1.0&q=80&w=1080"
   },
+  "knihkupectvo": {
+    "source": "unsplash",
+    "id": "AV277W01sEg",
+    "query": "bookstore interior",
+    "page": "https://unsplash.com/photos/a-row-of-books-sitting-on-top-of-a-wooden-table-AV277W01sEg",
+    "by": "Declan Sun",
+    "desc": "a row of books sitting on top of a wooden table",
+    "why": "Books laid out for sale on a shop table by the window; calmer than the crowded interiors.",
+    "downloadLocation": "https://api.unsplash.com/photos/AV277W01sEg/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8Ym9va3N0b3JlJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MjA3NDM5MXww",
+    "originalUrl": "https://images.unsplash.com/photo-1709282960433-66dca5006168?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8Ym9va3N0b3JlJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MjA3NDM5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@declansun"
+  },
+  "knizka": {
+    "source": "unsplash",
+    "id": "w7C39ujHP5U",
+    "query": "small book",
+    "page": "https://unsplash.com/photos/closed-red-book-w7C39ujHP5U",
+    "by": "Kelly Sikkema",
+    "desc": "closed red book",
+    "why": "One small red booklet centred on a plain background.",
+    "downloadLocation": "https://api.unsplash.com/photos/w7C39ujHP5U/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTF8fHNtYWxsJTIwYm9va3xlbnwxfDB8fHwxNzkyMDc0MzkzfDA",
+    "originalUrl": "https://images.unsplash.com/photo-1510936470381-68e4c0a5e24b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTF8fHNtYWxsJTIwYm9va3xlbnwxfDB8fHwxNzkyMDc0MzkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@kellysikkema"
+  },
+  "kniznica": {
+    "source": "unsplash",
+    "id": "xYyJAC0IdyI",
+    "query": "library bookshelves",
+    "page": "https://unsplash.com/photos/a-long-row-of-books-in-a-library-xYyJAC0IdyI",
+    "by": "Zetong Li",
+    "desc": "a long row of books in a library",
+    "why": "Bright library aisle between full bookshelves, easy to recognise.",
+    "downloadLocation": "https://api.unsplash.com/photos/xYyJAC0IdyI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8bGlicmFyeSUyMGJvb2tzaGVsdmVzfGVufDF8MHx8fDE3OTIwNzQzOTZ8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1683178861337-ca70ef8c0db3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8bGlicmFyeSUyMGJvb2tzaGVsdmVzfGVufDF8MHx8fDE3OTIwNzQzOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@zetong"
+  },
+  "koberec": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "The rug itself fills the frame; the other tiles are whole living rooms."
+  },
+  "kocka": {
+    "source": "unsplash",
+    "id": "kcweYl7Kjq4",
+    "query": "wooden dice",
+    "page": "https://unsplash.com/photos/white-dice-on-wooden-surface-kcweYl7Kjq4",
+    "by": "clement proust",
+    "desc": "Five white dice with black pips scattered on a wooden surface",
+    "why": "Clear dice with pips on a wooden table.",
+    "downloadLocation": "https://api.unsplash.com/photos/kcweYl7Kjq4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8d29vZGVuJTIwZGljZXxlbnwxfDB8fHwxNzkyMDc0NDAxfDA",
+    "originalUrl": "https://images.unsplash.com/photo-1791909867602-080dc467ba14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8d29vZGVuJTIwZGljZXxlbnwxfDB8fHwxNzkyMDc0NDAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@clementproust"
+  },
+  "kola": {
+    "source": "unsplash",
+    "id": "X6aY_j6JD_Y",
+    "query": "glass of cola",
+    "page": "https://unsplash.com/photos/selective-focus-photo-of-glass-of-brown-liquid-X6aY_j6JD_Y",
+    "by": "Blake Wisz",
+    "desc": "selective focus photo of glass of brown liquid",
+    "why": "Plain glass of cola with no brand logo, on a light background.",
+    "downloadLocation": "https://api.unsplash.com/photos/X6aY_j6JD_Y/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Z2xhc3MlMjBvZiUyMGNvbGF8ZW58MXwwfHx8MTc5MjA3NDQwM3ww",
+    "originalUrl": "https://images.unsplash.com/photo-1517959105821-eaf2591984ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Z2xhc3MlMjBvZiUyMGNvbGF8ZW58MXwwfHx8MTc5MjA3NDQwM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@blakewisz"
+  },
   "kolac": {
     "source": "wikimedia",
     "keep": "live",
     "why": "Today's picture already shows real Slovak koláče; no stock site comes close."
+  },
+  "kolaj": {
+    "source": "unsplash",
+    "id": "_-I1j5BPwmQ",
+    "query": "railway track",
+    "page": "https://unsplash.com/photos/a-train-track-running-through-a-wooded-area-_-I1j5BPwmQ",
+    "by": "Shane Hoving",
+    "desc": "a train track running through a wooded area",
+    "why": "Straight railway track with ballast through European-looking countryside.",
+    "downloadLocation": "https://api.unsplash.com/photos/_-I1j5BPwmQ/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8cmFpbHdheSUyMHRyYWNrfGVufDF8MHx8fDE3OTIwNzQ0MDV8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1648846434410-cdcc87fdceae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8cmFpbHdheSUyMHRyYWNrfGVufDF8MHx8fDE3OTIwNzQ0MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@shanehoving"
+  },
+  "koleno": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "A bare knee, well lit on a pale background; the others show injuries or are dark."
+  },
+  "koleso": {
+    "source": "unsplash",
+    "id": "60ZSTXNgXgM",
+    "query": "car wheel",
+    "page": "https://unsplash.com/photos/silver-and-black-car-wheel-60ZSTXNgXgM",
+    "by": "Luca Nicoletti",
+    "desc": "silver and black car wheel",
+    "why": "A car wheel fills the frame, bright and sharp.",
+    "downloadLocation": "https://api.unsplash.com/photos/60ZSTXNgXgM/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8Y2FyJTIwd2hlZWx8ZW58MXwwfHx8MTc5MjA3NDQwOHww",
+    "originalUrl": "https://images.unsplash.com/photo-1623564493214-6137dff043ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8Y2FyJTIwd2hlZWx8ZW58MXwwfHx8MTc5MjA3NDQwOHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@luca_nicoletti"
+  },
+  "kolotoc": {
+    "source": "unsplash",
+    "id": "G_si-MPSQPc",
+    "query": "carousel",
+    "page": "https://unsplash.com/photos/a-merry-go-round-in-the-middle-of-a-city-G_si-MPSQPc",
+    "by": "Pix Tresa",
+    "desc": "A merry go round in the middle of a city",
+    "why": "Whole traditional carousel in daylight on a European square.",
+    "downloadLocation": "https://api.unsplash.com/photos/G_si-MPSQPc/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fGNhcm91c2VsfGVufDF8MHx8fDE3OTIwNzQ0MTB8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1740168911045-b351f9965941?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fGNhcm91c2VsfGVufDF8MHx8fDE3OTIwNzQ0MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@pixtresa"
+  },
+  "komin": {
+    "source": "unsplash",
+    "id": "wpU5hr8p8FY",
+    "query": "chimney on roof",
+    "page": "https://unsplash.com/photos/chimney-of-house-wpU5hr8p8FY",
+    "by": "Xin",
+    "desc": "chimney of house",
+    "why": "One red brick chimney on a roof against a plain sky.",
+    "downloadLocation": "https://api.unsplash.com/photos/wpU5hr8p8FY/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8M3x8Y2hpbW5leSUyMG9uJTIwcm9vZnxlbnwxfDB8fHwxNzkyMDc0NDEyfDA",
+    "originalUrl": "https://images.unsplash.com/photo-1556009762-36a907690bda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8M3x8Y2hpbW5leSUyMG9uJTIwcm9vZnxlbnwxfDB8fHwxNzkyMDc0NDEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@s1n"
+  },
+  "komora": {
+    "source": "unsplash",
+    "id": "e6PwBakXOJM",
+    "query": "pantry shelves",
+    "page": "https://unsplash.com/photos/a-row-of-jars-filled-with-different-types-of-food-e6PwBakXOJM",
+    "by": "Steven Ungermann",
+    "desc": "a row of jars filled with different types of food",
+    "why": "Pantry shelf with glass jars of dry food, bright and tidy.",
+    "downloadLocation": "https://api.unsplash.com/photos/e6PwBakXOJM/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8cGFudHJ5JTIwc2hlbHZlc3xlbnwxfDB8fHwxNzkyMDc0NDEzfDA",
+    "originalUrl": "https://images.unsplash.com/photo-1645567454567-901dc409551b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8cGFudHJ5JTIwc2hlbHZlc3xlbnwxfDB8fHwxNzkyMDc0NDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@steveungermann"
+  },
+  "kon": {
+    "source": "unsplash",
+    "id": "Huza8QOO3tc",
+    "query": "horse",
+    "page": "https://unsplash.com/photos/brown-horse-on-green-grass-hill-Huza8QOO3tc",
+    "by": "David Dibert",
+    "desc": "brown horse on green grass hill",
+    "why": "Whole chestnut horse side-on against the sky; cleaner than the current picture.",
+    "downloadLocation": "https://api.unsplash.com/photos/Huza8QOO3tc/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTF8fGhvcnNlfGVufDF8MHx8fDE3OTIwNzQ0MTV8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1450052590821-8bf91254a353?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTF8fGhvcnNlfGVufDF8MHx8fDE3OTIwNzQ0MTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@dibert"
+  },
+  "konar": {
+    "source": "unsplash",
+    "id": "H7LxvEmVZnE",
+    "query": "tree branch",
+    "page": "https://unsplash.com/photos/close-up-photography-of-driftwood-near-sea-H7LxvEmVZnE",
+    "by": "Zach Reiner",
+    "desc": "close up photography of driftwood near sea",
+    "why": "One bare tree branch against a pale sky.",
+    "downloadLocation": "https://api.unsplash.com/photos/H7LxvEmVZnE/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8dHJlZSUyMGJyYW5jaHxlbnwxfDB8fHwxNzkyMDc0NDE3fDA",
+    "originalUrl": "https://images.unsplash.com/photo-1521675333836-36e707ac1d20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8dHJlZSUyMGJyYW5jaHxlbnwxfDB8fHwxNzkyMDc0NDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@_zachreiner_"
+  },
+  "koncert": {
+    "source": "unsplash",
+    "id": "BeQ0zrq4nIM",
+    "query": "live concert stage",
+    "page": "https://unsplash.com/photos/a-group-of-people-that-are-on-a-stage-BeQ0zrq4nIM",
+    "by": "Inna Safa",
+    "desc": "a group of people that are on a stage",
+    "why": "Band visible on a lit stage with the audience in front; a concert needs some crowd.",
+    "downloadLocation": "https://api.unsplash.com/photos/BeQ0zrq4nIM/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8bGl2ZSUyMGNvbmNlcnQlMjBzdGFnZXxlbnwxfDB8fHwxNzkyMDc0NDE5fDA",
+    "originalUrl": "https://images.unsplash.com/photo-1709090083073-d130ac28cc19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8bGl2ZSUyMGNvbmNlcnQlMjBzdGFnZXxlbnwxfDB8fHwxNzkyMDc0NDE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@innasafa"
+  },
+  "kontajner": {
+    "source": "unsplash",
+    "id": "cboshyu3SHg",
+    "query": "waste container street",
+    "page": "https://unsplash.com/photos/a-large-green-dumpster-on-wheels-in-a-street-cboshyu3SHg",
+    "by": "Jay Openiano",
+    "desc": "A large green dumpster on wheels in a street",
+    "why": "Green European wheeled metal waste container, the typical Slovak street kontajner.",
+    "downloadLocation": "https://api.unsplash.com/photos/cboshyu3SHg/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fHdhc3RlJTIwY29udGFpbmVyJTIwc3RyZWV0fGVufDF8MHx8fDE3OTIwNzQ0MjF8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1761479141212-e90931a0f523?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fHdhc3RlJTIwY29udGFpbmVyJTIwc3RyZWV0fGVufDF8MHx8fDE3OTIwNzQ0MjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@jayopeniano"
+  },
+  "kopacka": {
+    "source": "unsplash",
+    "id": "o-zzEt8CHGs",
+    "query": "football boots",
+    "page": "https://unsplash.com/photos/unpaired-red-and-black-cleat-o-zzEt8CHGs",
+    "by": "Ian Bevis",
+    "desc": "unpaired red and black cleat",
+    "why": "One red football boot on white.",
+    "downloadLocation": "https://api.unsplash.com/photos/o-zzEt8CHGs/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8Zm9vdGJhbGwlMjBib290c3xlbnwxfDB8fHwxNzkyMDc0NDIzfDA",
+    "originalUrl": "https://images.unsplash.com/photo-1545290211-eab92ace93ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8Zm9vdGJhbGwlMjBib290c3xlbnwxfDB8fHwxNzkyMDc0NDIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@chameleonwebservices"
+  },
+  "kopec": {
+    "source": "unsplash",
+    "id": "qg_bHLQuC0I",
+    "query": "green hill",
+    "page": "https://unsplash.com/photos/green-mountain-qg_bHLQuC0I",
+    "by": "Jakob Owens",
+    "desc": "green mountain",
+    "why": "A single green hill against the sky.",
+    "downloadLocation": "https://api.unsplash.com/photos/qg_bHLQuC0I/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8Z3JlZW4lMjBoaWxsfGVufDF8MHx8fDE3OTIwNzQ0MjV8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1476988186444-a7189cf07b3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8Z3JlZW4lMjBoaWxsfGVufDF8MHx8fDE3OTIwNzQ0MjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@jakobowens1"
+  },
+  "koren": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Plant roots in soil seen in cross-section show the meaning most directly."
+  },
+  "korenie": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Black peppercorns in a bowl match the everyday Slovak sense of korenie as pepper."
+  },
+  "koruna": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "A real royal crown fills the frame; no Unsplash tile shows a clean crown."
+  },
+  "kos": {
+    "source": "unsplash",
+    "id": "eEmqFff924U",
+    "query": "wicker basket",
+    "page": "https://unsplash.com/photos/basket-of-walnuts-with-a-few-green-apples-eEmqFff924U",
+    "by": "Magdalena Zofia Kmiecik",
+    "desc": "Basket of walnuts with a few green apples",
+    "why": "Classic wicker basket with a handle, holding nuts.",
+    "downloadLocation": "https://api.unsplash.com/photos/eEmqFff924U/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8d2lja2VyJTIwYmFza2V0fGVufDF8MHx8fDE3OTIwNzQ0MzN8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1758982423518-d69cc83013c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8d2lja2VyJTIwYmFza2V0fGVufDF8MHx8fDE3OTIwNzQ0MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@mkmiecik"
+  },
+  "kosela": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Blue button-up shirt laid flat on a plain background; the Unsplash tiles are mostly T-shirts."
+  },
+  "kost": {
+    "source": "unsplash",
+    "id": "uaAONZd7Ibs",
+    "query": "bone",
+    "page": "https://unsplash.com/photos/a-bone-of-a-long-necked-animal-on-a-black-background-uaAONZd7Ibs",
+    "by": "Matt Artz",
+    "desc": "a bone of a long necked animal on a black background",
+    "why": "A single bone isolated on a plain background.",
+    "downloadLocation": "https://api.unsplash.com/photos/uaAONZd7Ibs/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8Ym9uZXxlbnwxfDB8fHwxNzkyMDc0NDM3fDA",
+    "originalUrl": "https://images.unsplash.com/photo-1637096979782-8425e35517ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8Ym9uZXxlbnwxfDB8fHwxNzkyMDc0NDM3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@mattartz"
+  },
+  "kostol": {
+    "source": "unsplash",
+    "id": "tkd9gdMOqZE",
+    "query": "european village church",
+    "page": "https://unsplash.com/photos/brick-church-in-small-village-tkd9gdMOqZE",
+    "by": "Erwin Bosman",
+    "desc": "A brick church with a tall steeple in a small village under blue sky",
+    "why": "European brick church with a spire under a blue sky.",
+    "downloadLocation": "https://api.unsplash.com/photos/tkd9gdMOqZE/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8ZXVyb3BlYW4lMjB2aWxsYWdlJTIwY2h1cmNofGVufDF8MHx8fDE3OTIwNzQ0Mzl8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1789658875150-bd125e284d62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8ZXVyb3BlYW4lMjB2aWxsYWdlJTIwY2h1cmNofGVufDF8MHx8fDE3OTIwNzQ0Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@erwinbosman"
+  },
+  "kotol": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Copper cauldron on a stand, a typical Slovak kotol; the Unsplash tiles show pans or busy fires."
+  },
+  "krajina": {
+    "source": "unsplash",
+    "id": "heEtSHWryxc",
+    "query": "countryside landscape",
+    "page": "https://unsplash.com/photos/a-lush-green-field-with-sheep-grazing-on-it-heEtSHWryxc",
+    "by": "Darren Richardson",
+    "desc": "a lush green field with sheep grazing on it",
+    "why": "Open green European countryside with hills and fields.",
+    "downloadLocation": "https://api.unsplash.com/photos/heEtSHWryxc/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y291bnRyeXNpZGUlMjBsYW5kc2NhcGV8ZW58MXwwfHx8MTc5MjA3NDQ0M3ww",
+    "originalUrl": "https://images.unsplash.com/photo-1638057733961-591fa542f718?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y291bnRyeXNpZGUlMjBsYW5kc2NhcGV8ZW58MXwwfHx8MTc5MjA3NDQ0M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@campfire_guy"
+  },
+  "kral": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Golden crowned bust of a medieval king; the Unsplash tiles are empty thrones, costumes or chess pieces."
+  },
+  "kralovna": {
+    "source": "pixabay",
+    "id": "3996945",
+    "query": "queen wearing crown",
+    "page": "https://pixabay.com/photos/statue-pierre-queen-sculpture-3996945/",
+    "by": "GAIMARD",
+    "desc": "statue, pierre, queen, sculpture, artwork, woman, crown, beautiful, queen, queen, queen, queen, queen, crown, crown, crown",
+    "why": "Stone statue of a crowned queen; every Unsplash tile is a crown alone or a woman in costume."
+  },
+  "krava": {
+    "source": "unsplash",
+    "id": "FquDp5N1Gw0",
+    "query": "cow",
+    "page": "https://unsplash.com/photos/black-and-white-cow-standing-on-grass-field-FquDp5N1Gw0",
+    "by": "Screenroad",
+    "desc": "black and white cow standing on grass field",
+    "why": "Whole black-and-white dairy cow standing on green grass.",
+    "downloadLocation": "https://api.unsplash.com/photos/FquDp5N1Gw0/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8Y293fGVufDF8MHx8fDE3OTIwNzQ0NDl8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8Y293fGVufDF8MHx8fDE3OTIwNzQ0NDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@screenroad"
+  },
+  "krcma": {
+    "source": "unsplash",
+    "id": "bIAL7-ZnlLg",
+    "query": "old pub interior",
+    "page": "https://unsplash.com/photos/black-and-brown-short-coated-dog-lying-on-red-and-black-area-rug-bIAL7-ZnlLg",
+    "by": "Michael Cummins",
+    "desc": "black and brown short coated dog lying on red and black area rug",
+    "why": "Cosy traditional pub with a fireplace; calmer than the crowded bars.",
+    "downloadLocation": "https://api.unsplash.com/photos/bIAL7-ZnlLg/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NHx8b2xkJTIwcHViJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MjA3NDQ1MXww",
+    "originalUrl": "https://images.unsplash.com/photo-1588099631365-aacc6480737b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NHx8b2xkJTIwcHViJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MjA3NDQ1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@michaelcummins"
+  },
+  "kresba": {
+    "source": "unsplash",
+    "id": "zdiMKVb5fl0",
+    "query": "pencil drawing",
+    "page": "https://unsplash.com/photos/human-eye-graphite-pencil-sketch-zdiMKVb5fl0",
+    "by": "DHANYA A V",
+    "desc": "A graphite pencil sketch of a human eye with detailed eyelashes and iris",
+    "why": "Pencil drawing of an eye on paper, plainly a drawing.",
+    "downloadLocation": "https://api.unsplash.com/photos/zdiMKVb5fl0/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8cGVuY2lsJTIwZHJhd2luZ3xlbnwxfDB8fHwxNzkyMDc0NDUzfDA",
+    "originalUrl": "https://images.unsplash.com/photo-1602738328654-51ab2ae6c4ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8cGVuY2lsJTIwZHJhd2luZ3xlbnwxfDB8fHwxNzkyMDc0NDUzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@dhanya21"
+  },
+  "kreslo": {
+    "source": "unsplash",
+    "id": "hE0nmTffKtM",
+    "query": "armchair",
+    "page": "https://unsplash.com/photos/a-blue-chair-and-a-yellow-lamp-in-a-white-room-hE0nmTffKtM",
+    "by": "Virender Singh",
+    "desc": "a blue chair and a yellow lamp in a white room",
+    "why": "Single blue armchair against a plain wall.",
+    "downloadLocation": "https://api.unsplash.com/photos/hE0nmTffKtM/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8YXJtY2hhaXJ8ZW58MXwwfHx8MTc5MjA3NDQ1NXww",
+    "originalUrl": "https://images.unsplash.com/photo-1634712282287-14ed57b9cc89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8YXJtY2hhaXJ8ZW58MXwwfHx8MTc5MjA3NDQ1NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@virender833"
+  },
+  "kridlo": {
+    "source": "unsplash",
+    "id": "IJboLCiDwKY",
+    "query": "bird wing",
+    "page": "https://unsplash.com/photos/bird-in-flight-IJboLCiDwKY",
+    "by": "Zdeněk Macháček",
+    "desc": "bird in flight",
+    "why": "Eagle with both wings spread wide; the wings dominate the frame.",
+    "downloadLocation": "https://api.unsplash.com/photos/IJboLCiDwKY/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8YmlyZCUyMHdpbmd8ZW58MXwwfHx8MTc5MjA3NDQ1N3ww",
+    "originalUrl": "https://images.unsplash.com/photo-1567161569146-655f67e64017?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8YmlyZCUyMHdpbmd8ZW58MXwwfHx8MTc5MjA3NDQ1N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@zmachacek"
+  },
+  "kriz": {
+    "source": "unsplash",
+    "id": "HY5CkU3HajI",
+    "query": "wooden cross",
+    "page": "https://unsplash.com/photos/a-wooden-cross-sitting-on-top-of-a-wooden-fence-HY5CkU3HajI",
+    "by": "Csaba Gyulavári",
+    "desc": "a wooden cross sitting on top of a wooden fence",
+    "why": "Simple dark cross with a clear shape against fields.",
+    "downloadLocation": "https://api.unsplash.com/photos/HY5CkU3HajI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8d29vZGVuJTIwY3Jvc3N8ZW58MXwwfHx8MTc5MjA3NDQ2MXww",
+    "originalUrl": "https://images.unsplash.com/photo-1713041411984-602672853adc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8d29vZGVuJTIwY3Jvc3N8ZW58MXwwfHx8MTc5MjA3NDQ2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@gyulavari"
+  },
+  "krk": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "A woman's neck in colour and well lit; the others are dark, black-and-white or show neck rings."
+  },
+  "krv": {
+    "source": "pixabay",
+    "id": "2424105",
+    "query": "drop of blood",
+    "page": "https://pixabay.com/photos/diabetes-glucose-test-sugar-2424105/",
+    "by": "peejhunt",
+    "desc": "diabetes, glucose, test, sugar, insulin, meter, human, health, finger, hand, disease, check, stick, monitor, level, glucometer, care, hypoglycemia, healthcare, brown health, brown human, brown test, brown blood, brown care, brown check, brown healthcare",
+    "why": "A drop of blood on a fingertip from a glucose test; the Unsplash tiles are roses, the moon or packaging."
+  },
+  "kuchar": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Chef in white jacket and hat tasting food, the clearest picture of the role."
+  },
+  "kuchyna": {
+    "source": "unsplash",
+    "id": "UXFJ-6Zj27M",
+    "query": "kitchen interior",
+    "page": "https://unsplash.com/photos/two-brown-wooden-chairs-UXFJ-6Zj27M",
+    "by": "Rune Enstad",
+    "desc": "two brown wooden chairs",
+    "why": "Compact European home kitchen with oven, worktop and window.",
+    "downloadLocation": "https://api.unsplash.com/photos/UXFJ-6Zj27M/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fGtpdGNoZW4lMjBpbnRlcmlvcnxlbnwxfDB8fHwxNzkyMDc0NDY4fDA",
+    "originalUrl": "https://images.unsplash.com/photo-1538944570562-2c9cb7857097?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fGtpdGNoZW4lMjBpbnRlcmlvcnxlbnwxfDB8fHwxNzkyMDc0NDY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@runejohs"
+  },
+  "kufor": {
+    "source": "unsplash",
+    "id": "9p9LbIW5uT0",
+    "query": "suitcase",
+    "page": "https://unsplash.com/photos/a-red-piece-of-luggage-sitting-next-to-a-plant-9p9LbIW5uT0",
+    "by": "American Green Travel",
+    "desc": "a red piece of luggage sitting next to a plant",
+    "why": "One red wheeled suitcase against a plain wall.",
+    "downloadLocation": "https://api.unsplash.com/photos/9p9LbIW5uT0/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fHN1aXRjYXNlfGVufDF8MHx8fDE3OTIwNzQ0NzB8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1670888616597-53457e54b61b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fHN1aXRjYXNlfGVufDF8MHx8fDE3OTIwNzQ0NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@americangreentravel"
+  },
+  "kupalisko": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Outdoor public pool with paved deck and changing building; still the clearest tile."
+  },
+  "kupele": {
+    "source": "unsplash",
+    "id": "YJLnaYU8o-4",
+    "query": "thermal spa pool",
+    "page": "https://unsplash.com/photos/people-walking-on-sidewalk-during-daytime-YJLnaYU8o-4",
+    "by": "Benjamin R.",
+    "desc": "people walking on sidewalk during daytime",
+    "why": "Steaming outdoor thermal pool with handrails, reads as a spa bath.",
+    "downloadLocation": "https://api.unsplash.com/photos/YJLnaYU8o-4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8dGhlcm1hbCUyMHNwYSUyMHBvb2x8ZW58MXwwfHx8MTc5MjA3NDQ3NHww",
+    "originalUrl": "https://images.unsplash.com/photo-1592961091507-c9bf67dd5058?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8dGhlcm1hbCUyMHNwYSUyMHBvb2x8ZW58MXwwfHx8MTc5MjA3NDQ3NHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@dapperprofessional"
+  },
+  "kupelna": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Typical small European bathroom with toilet, basin and shower."
+  },
+  "kvapka": {
+    "source": "unsplash",
+    "id": "aKG5MPuJbKA",
+    "query": "water drop",
+    "page": "https://unsplash.com/photos/a-drop-of-water-hanging-from-a-tree-aKG5MPuJbKA",
+    "by": "Anirudh",
+    "desc": "a drop of water hanging from a tree",
+    "why": "A single teardrop-shaped water drop against a soft green background.",
+    "downloadLocation": "https://api.unsplash.com/photos/aKG5MPuJbKA/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8d2F0ZXIlMjBkcm9wfGVufDF8MHx8fDE3OTIwNzQ0Nzh8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1563372949-0483fa40e5da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8d2F0ZXIlMjBkcm9wfGVufDF8MHx8fDE3OTIwNzQ0Nzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@lanirudhreddy"
+  },
+  "kvet": {
+    "source": "unsplash",
+    "id": "EfhCUc_fjrU",
+    "query": "flower",
+    "page": "https://unsplash.com/photos/selective-focus-photography-of-pink-petaled-flower-EfhCUc_fjrU",
+    "by": "Andrew Small",
+    "desc": "selective focus photography of pink petaled flower",
+    "why": "A single pink gerbera on a plain pale background.",
+    "downloadLocation": "https://api.unsplash.com/photos/EfhCUc_fjrU/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Zmxvd2VyfGVufDF8MHx8fDE3OTIwNzQ0Nzl8MA",
+    "originalUrl": "https://images.unsplash.com/photo-1471899236350-e3016bf1e69e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Zmxvd2VyfGVufDF8MHx8fDE3OTIwNzQ0Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@andsmall"
+  },
+  "laboratorium": {
+    "source": "unsplash",
+    "id": "_9xRHrMOjeg",
+    "query": "science laboratory",
+    "page": "https://unsplash.com/photos/laboratory-workbench-with-microscope-and-equipment-_9xRHrMOjeg",
+    "by": "Trnava University",
+    "desc": "A laboratory workbench with a microscope and analytical equipment in a bright room",
+    "why": "Bright lab bench with microscope and equipment, no people.",
+    "downloadLocation": "https://api.unsplash.com/photos/_9xRHrMOjeg/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MXwwfHx8MTc5MjA3NTA4Mnww",
+    "originalUrl": "https://images.unsplash.com/photo-1602052577122-f73b9710adba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8c2NpZW5jZSUyMGxhYm9yYXRvcnl8ZW58MXwwfHx8MTc5MjA3NTA4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "artistUrl": "https://unsplash.com/@trnavskauni"
   },
   "listok": {
     "source": "unsplash",
