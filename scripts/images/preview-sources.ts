@@ -3,7 +3,8 @@
  * Fluent Emoji / ARASAAC / Claude SVG, without writing the live manifest.
  *
  * Keyed sources run only when their env var is set (PEXELS_API_KEY,
- * UNSPLASH_ACCESS_KEY, PIXABAY_API_KEY, ANTHROPIC_API_KEY); the rest are free.
+ * UNSPLASH_ACCESS_KEY, PIXABAY_API_KEY). Claude SVGs come from
+ * scripts/images/claude-svg/, so use --only with those slugs to see them.
  *
  * Usage:
  *   bun scripts/images/preview-sources.ts -- --limit 24

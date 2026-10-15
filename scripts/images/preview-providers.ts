@@ -1,15 +1,18 @@
 /**
  * Extra comparison sources for preview-sources.ts: stock photo APIs, Fluent Emoji,
- * ARASAAC pictograms and a Claude-drawn SVG. Preview only — none of these feed the
+ * ARASAAC pictograms and hand-drawn SVGs that Claude wrote in chat
+ * (scripts/images/claude-svg/{slug}.svg). Preview only — none of these feed the
  * live manifest.
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 import type {
   ImageSourceHit,
   ImageSourceId,
 } from "../../src/lib/catalog/dictionary/image-source-preview";
+import { ROOT } from "../lib/paths";
 import { USER_AGENT, glossSearchTitle, stripInfinitiveMarker } from "./shared";
 
 export type ProviderId = Extract<
@@ -21,6 +24,7 @@ export interface ProviderInput {
   english: string;
   gloss: string;
   slovak: string;
+  slug: string;
 }
 
 export interface Provider {
@@ -33,7 +37,7 @@ export interface Provider {
 const EMOJIBASE_URL = "https://cdn.jsdelivr.net/npm/emojibase-data@16.0.3/en/data.json";
 const FLUENT_BASE =
   "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets";
-const CLAUDE_MODEL = "claude-opus-5-5";
+const CLAUDE_SVG_DIR = path.join(ROOT, "scripts", "images", "claude-svg");
 
 export function plainQuery(input: ProviderInput): string {
   return stripInfinitiveMarker(glossSearchTitle(input.gloss)).toLowerCase();
@@ -239,49 +243,18 @@ const arasaac: Provider = {
   },
 };
 
-let anthropic: Anthropic | undefined;
-
 const claude: Provider = {
   id: "claude",
-  envKey: "ANTHROPIC_API_KEY",
   async search(input) {
-    anthropic ??= new Anthropic();
-    const query = plainQuery(input);
-    let response: Anthropic.Beta.BetaMessage;
+    let svg: string;
     try {
-      response = await anthropic.beta.messages.create({
-        model: CLAUDE_MODEL,
-        max_tokens: 16_000,
-        betas: ["server-side-fallback-2026-07-01"],
-        fallbacks: "default",
-        output_config: { effort: "low" },
-        messages: [
-          {
-            role: "user",
-            content: `Draw one simple, friendly flat illustration for a Slovak learner dictionary.
-
-Word: ${input.slovak} (English: ${input.english})
-Show the sense "${query}". One clear subject, centered, no background scene.
-
-Rules: reply with a single <svg> element only, viewBox="0 0 400 300", no text or letters, no external references, no scripts.`,
-          },
-        ],
-      });
-    } catch (error: unknown) {
-      console.warn(
-        `claude ${input.slovak}: ${error instanceof Error ? error.message : error}`,
-      );
+      svg = await readFile(path.join(CLAUDE_SVG_DIR, `${input.slug}.svg`), "utf8");
+    } catch {
       return null;
     }
-    if (response.stop_reason === "refusal") return null;
-    const text = response.content
-      .map((block) => (block.type === "text" ? block.text : ""))
-      .join("");
-    const svg = text.match(/<svg[\s\S]*<\/svg>/i)?.[0];
-    if (!svg) return null;
     return {
-      fileTitle: `${CLAUDE_MODEL} SVG`,
-      query,
+      fileTitle: `claude-svg/${input.slug}.svg`,
+      query: plainQuery(input),
       thumbUrl: `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`,
     };
   },
