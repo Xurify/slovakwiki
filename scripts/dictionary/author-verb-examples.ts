@@ -11,10 +11,6 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-limits";
-import {
-  isDamagedExampleTemplate,
-  isWeakFillTemplate,
-} from "../../src/lib/catalog/dictionary/example-quality";
 import type { ContentEntry, Example } from "../../src/lib/catalog/types";
 import { lemmaToSlug } from "../../src/lib/catalog/frequency";
 import { ROOT } from "../lib/paths";
@@ -156,11 +152,6 @@ const HAND_OVERRIDES: Record<string, Example[]> = {
   ],
 };
 
-function liveCount(word: WordSeed): number {
-  return word.examples.filter((example) => !isWeakFillTemplate(example, word.slovak))
-    .length;
-}
-
 function asciiStem(slug: string): string {
   return slug.replace(/-(v|n|a|adv)$/u, "").replace(/(ovat|avat|at|it)$/u, "");
 }
@@ -188,18 +179,12 @@ let skippedNoOverlay = 0;
 
 for (const word of dictionaryWords) {
   if (word.category !== "Verbs") continue;
-  if (liveCount(word) >= EXAMPLE_DISPLAY_LIMIT) {
+  if (word.examples.length >= EXAMPLE_DISPLAY_LIMIT) {
     skippedEnough += 1;
     continue;
   }
 
-  const existing = curatedOverlay[word.slug] ?? [];
-  const existingGood = existing.filter(
-    (example) =>
-      !isWeakFillTemplate(example, word.slovak) &&
-      !isDamagedExampleTemplate(example.slovak, word.slovak),
-  );
-  if (existingGood.length >= EXAMPLE_DISPLAY_LIMIT) {
+  if ((curatedOverlay[word.slug] ?? []).length >= EXAMPLE_DISPLAY_LIMIT) {
     skippedEnough += 1;
     continue;
   }

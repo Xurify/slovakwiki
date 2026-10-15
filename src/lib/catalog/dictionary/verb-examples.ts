@@ -4,9 +4,8 @@
  * should not crowd out `ospravedlňujem sa` / past in the display slice.
  */
 
-import { isWeakFillTemplate } from "./example-quality";
 import { normalizeLemma } from "../frequency";
-import { conjugateVerbForTest, searchFormsForLemma } from "../search/forms";
+import { searchFormsForLemma } from "../search/forms";
 import type { Example } from "../types";
 
 /** Keep these first sentences (valency / hand review). Conjugated rows follow. */
@@ -190,18 +189,6 @@ export function orderVerbExamples<T extends Example>(examples: T[], lemma: strin
   return [...pattern, ...lead, ...rest, ...leftover];
 }
 
-function cap(text: string): string {
-  if (!text) return text;
-  return text.charAt(0).toLocaleUpperCase("sk") + text.slice(1);
-}
-
-function isObjectToStub(example: Example, lemma: string): boolean {
-  if (example.demonstrates || example.note !== "Curated") return false;
-  const sg1 = conjugateVerbForTest(lemma)[0];
-  if (!sg1) return false;
-  return example.slovak === `${cap(sg1)} to.`;
-}
-
 /** Reorder real examples. Never mint stamp sentences. Never bump a pinned first sentence. */
 export function arrangeVerbExamples<T extends Example>(
   examples: T[],
@@ -209,14 +196,11 @@ export function arrangeVerbExamples<T extends Example>(
   _english: string,
   slug: string,
 ): T[] {
-  const stripped = examples.filter(
-    (example) => !isWeakFillTemplate(example, lemma) && !isObjectToStub(example, lemma),
-  );
-  const pinFirst = PIN_FIRST_VERB_SLUGS.has(slug) && stripped[0];
-  const pinned = pinFirst ? stripped[0]! : null;
+  const pinFirst = PIN_FIRST_VERB_SLUGS.has(slug) && examples[0];
+  const pinned = pinFirst ? examples[0]! : null;
   const pool = pinned
-    ? stripped.filter((example) => example.slovak !== pinned.slovak)
-    : stripped;
+    ? examples.filter((example) => example.slovak !== pinned.slovak)
+    : examples;
   const ordered = orderVerbExamples(pool, lemma);
   return pinned ? [pinned, ...ordered] : ordered;
 }

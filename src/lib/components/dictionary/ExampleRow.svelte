@@ -48,11 +48,7 @@
     <p class="m-0 mt-0.5 text-sm leading-snug text-slate-600">{example.english}</p>
   </div>
 
-  {#if example.isPracticeFrame}
-    <span class="pt-1 text-xs text-slate-500 max-[560px]:col-start-2 max-[560px]:pt-1.5">
-      Practice frame
-    </span>
-  {:else if example.note === "Tatoeba" && example.tatoebaId}
+  {#if example.note === "Tatoeba" && example.tatoebaId}
     <a
       class="pt-1 text-xs tabular-nums text-slate-500 no-underline opacity-0 transition-opacity group-hover/row:opacity-100 hover:text-blue-800 focus-visible:opacity-100 max-[560px]:col-start-2 max-[560px]:pt-1.5 max-[560px]:opacity-100"
       href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}

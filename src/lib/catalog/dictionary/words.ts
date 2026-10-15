@@ -722,23 +722,18 @@ const PATTERN_USAGE_NOTES: Record<string, string> = {
 
 function frequencyExampleNote(examples: Example[]): string {
   const hasTatoeba = examples.some((example) => example.note === "Tatoeba");
-  const hasPractice = examples.some((example) => example.isPracticeFrame);
   const hasReviewed = examples.some(
-    (example) =>
-      (example.note === "Curated" || example.demonstrates) && !example.isPracticeFrame,
+    (example) => example.note === "Curated" || example.demonstrates,
   );
 
-  if (hasTatoeba && !hasPractice && !hasReviewed) {
+  if (hasTatoeba && !hasReviewed) {
     return "English gloss from the frequency publish path. Example sentences from Tatoeba (CC BY 2.0 FR).";
   }
   if (hasTatoeba) {
     return "English gloss from the frequency publish path. Includes Tatoeba example sentences when present.";
   }
-  if (hasReviewed && !hasPractice) {
+  if (hasReviewed) {
     return "English gloss from the frequency publish path. Hand-reviewed example sentences.";
-  }
-  if (hasPractice) {
-    return "English gloss from the frequency publish path. Practice frames used until a corpus example is available.";
   }
   return "English gloss from the frequency publish path.";
 }

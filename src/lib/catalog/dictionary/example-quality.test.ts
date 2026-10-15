@@ -3,8 +3,6 @@ import { describe, expect, it } from "vitest";
 import {
   isAcceptableCorpusExample,
   isCleanExample,
-  isDamagedExampleTemplate,
-  isWeakFillTemplate,
   isWellFormedExample,
 } from "./example-quality";
 
@@ -63,89 +61,5 @@ describe("example quality", () => {
       isAcceptableCorpusExample("Celú noc jebali.", "They fucked all night long."),
     ).toBe(false);
     expect(isAcceptableCorpusExample("krátke", "short")).toBe(false);
-  });
-
-  it("flags damaged fill-template residue", () => {
-    expect(isDamagedExampleTemplate("Hľadám medaila.", "medaila")).toBe(true);
-    expect(isDamagedExampleTemplate("Hľadám výskumný byt.")).toBe(true);
-    expect(isDamagedExampleTemplate("Potrebujeme netradičný plán.")).toBe(true);
-    expect(isDamagedExampleTemplate("To je oravský podnik.")).toBe(true);
-    expect(isDamagedExampleTemplate("Toto je kariéra.", "kariéra")).toBe(true);
-    expect(isDamagedExampleTemplate("Začínam dodať.")).toBe(true);
-
-    // Legitimate look-for sentence for the verb hľadať.
-    expect(isDamagedExampleTemplate("Hľadám knihu.", "hľadať")).toBe(false);
-    expect(
-      isDamagedExampleTemplate("Tento chrám je pre miestnych obyvateľov posvätný."),
-    ).toBe(false);
-    expect(isDamagedExampleTemplate("Vyhral zlatú medailu.", "medaila")).toBe(false);
-    expect(isDamagedExampleTemplate("Toto je bežný problém.", "bežný")).toBe(false);
-    expect(isDamagedExampleTemplate("Chcem ospravedlňovať.", "ospravedlňovať")).toBe(
-      true,
-    );
-    expect(isDamagedExampleTemplate("Je ťažké neuvedomovať.", "neuvedomovať")).toBe(true);
-    expect(isDamagedExampleTemplate("Chcem označiť správnu odpoveď.", "označiť")).toBe(
-      false,
-    );
-  });
-
-  it("flags sentences that only mention the headword as a word", () => {
-    expect(
-      isDamagedExampleTemplate(
-        "Učiteľ vysvetlil význam slova 'katedra' na príklade.",
-        "katedra",
-      ),
-    ).toBe(true);
-    expect(
-      isDamagedExampleTemplate("V slovníku si dnes opakujem slovo 'katedra'.", "katedra"),
-    ).toBe(true);
-    expect(
-      isDamagedExampleTemplate('Výraz "katedra" sa objavil v článku.', "katedra"),
-    ).toBe(true);
-    expect(
-      isDamagedExampleTemplate("Učiteľ napísal slovo „katedra“ na tabuľu.", "katedra"),
-    ).toBe(true);
-    expect(
-      isDamagedExampleTemplate("Význam slova katedra závisí od kontextu.", "katedra"),
-    ).toBe(true);
-
-    expect(isDamagedExampleTemplate("Učiteľ stojí pri katedre.", "katedra")).toBe(false);
-    expect(isDamagedExampleTemplate("Dal mi slovo, že príde.", "slovo")).toBe(false);
-  });
-
-  it("flags fake-curated verb infinitive fills without a practice-frame gate", () => {
-    expect(
-      isWeakFillTemplate(
-        {
-          slovak: "Chcem ospravedlňovať.",
-          english: "I want to apologize.",
-        },
-        "ospravedlňovať",
-      ),
-    ).toBe(true);
-    expect(
-      isWeakFillTemplate({
-        slovak: "Chcem označiť správnu odpoveď.",
-        english: "I want to mark the correct answer.",
-      }),
-    ).toBe(false);
-    expect(
-      isWeakFillTemplate({
-        slovak: "Ospravedlňujem sa za meškanie.",
-        english: "I apologize for being late.",
-      }),
-    ).toBe(false);
-    expect(
-      isWeakFillTemplate({
-        slovak: "Prečo sa ospravedlňuješ?",
-        english: "Why do you apologize?",
-      }),
-    ).toBe(true);
-    expect(
-      isWeakFillTemplate({
-        slovak: "Ospravedlňuješ sa mi za každú maličkosť.",
-        english: "You apologize to me for every little thing.",
-      }),
-    ).toBe(false);
   });
 });

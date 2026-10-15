@@ -93,8 +93,6 @@ export interface Example {
   /** Short cue for pattern lemmas (e.g. "byť + location — where"). */
   demonstrates?: string;
   english: string;
-  /** A safe, generated frame used when no corpus or hand-written sentence exists. */
-  isPracticeFrame?: boolean;
   /** `"Curated"` | `"Tatoeba"` | other short attribution. */
   note?: string;
   practiceItemId?: string;
