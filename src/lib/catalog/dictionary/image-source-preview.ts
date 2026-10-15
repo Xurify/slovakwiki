@@ -6,9 +6,6 @@ export const IMAGE_SOURCE_IDS = [
   "pexels",
   "unsplash",
   "pixabay",
-  "emoji",
-  "arasaac",
-  "claude",
 ] as const;
 
 export type ImageSourceId = (typeof IMAGE_SOURCE_IDS)[number];
@@ -63,8 +60,6 @@ export const SOURCE_ORDERS: Array<{ id: string; label: string; order: ImageSourc
       label: "Pexels → Unsplash → Pixabay",
       order: ["pexels", "unsplash", "pixabay"],
     },
-    { id: "emoji-arasaac", label: "Emoji → ARASAAC", order: ["emoji", "arasaac"] },
-    { id: "arasaac-emoji", label: "ARASAAC → Emoji", order: ["arasaac", "emoji"] },
   ];
 
 const SOURCE_LABELS: Record<ImageSourceId, string> = {
@@ -75,9 +70,6 @@ const SOURCE_LABELS: Record<ImageSourceId, string> = {
   pexels: "Pexels",
   unsplash: "Unsplash",
   pixabay: "Pixabay",
-  emoji: "Fluent Emoji",
-  arasaac: "ARASAAC",
-  claude: "Claude SVG",
 };
 
 export function sourceLabel(id: ImageSourceId): string {

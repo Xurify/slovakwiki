@@ -178,10 +178,7 @@
                     {#if hit}
                       <img
                         alt="{sourceLabel(sourceId)} {row.slovak}"
-                        class="aspect-[4/3] h-auto w-full
-                          {sourceId === 'emoji' || sourceId === 'arasaac'
-                          ? 'bg-white object-contain p-3'
-                          : 'object-cover'}"
+                        class="aspect-[4/3] h-auto w-full object-cover"
                         decoding="async"
                         loading="lazy"
                         src={hit.thumbUrl}

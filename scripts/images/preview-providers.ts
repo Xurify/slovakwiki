@@ -1,8 +1,6 @@
 /**
- * Extra comparison sources for preview-sources.ts: stock photo APIs, Fluent Emoji,
- * ARASAAC pictograms and hand-drawn SVGs that Claude wrote in chat
- * (scripts/images/claude-svg/{slug}.svg). Preview only — none of these feed the
- * live manifest.
+ * Stock photo sources for preview-sources.ts. Preview only — none of these feed
+ * the live manifest.
  */
 
 import { readFile } from "node:fs/promises";
@@ -15,10 +13,7 @@ import type {
 import { ROOT } from "../lib/paths";
 import { USER_AGENT, glossSearchTitle, stripInfinitiveMarker } from "./shared";
 
-export type ProviderId = Extract<
-  ImageSourceId,
-  "pexels" | "unsplash" | "pixabay" | "emoji" | "arasaac" | "claude"
->;
+export type ProviderId = Extract<ImageSourceId, "pexels" | "unsplash" | "pixabay">;
 
 export interface ProviderInput {
   english: string;
@@ -34,10 +29,6 @@ export interface Provider {
   search: (input: ProviderInput) => Promise<ImageSourceHit | null>;
 }
 
-const EMOJIBASE_URL = "https://cdn.jsdelivr.net/npm/emojibase-data@16.0.3/en/data.json";
-const FLUENT_BASE =
-  "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets";
-const CLAUDE_SVG_DIR = path.join(ROOT, "scripts", "images", "claude-svg");
 const PHOTO_QUERIES_PATH = path.join(ROOT, "scripts", "images", "photo-queries.json");
 
 export function plainQuery(input: ProviderInput): string {
@@ -168,126 +159,7 @@ const pixabay: Provider = {
   },
 };
 
-interface EmojibaseEntry {
-  emoji: string;
-  group?: number;
-  label: string;
-  skins?: unknown[];
-  tags?: string[];
-}
-
-let emojiIndex: Promise<EmojibaseEntry[]> | undefined;
-
-function loadEmojiIndex(): Promise<EmojibaseEntry[]> {
-  emojiIndex ??= getJson<EmojibaseEntry[]>(EMOJIBASE_URL).then((rows) =>
-    // Group 2 is skin-tone / hair components, group 9 is flags.
-    (rows ?? []).filter((row) => row.group !== 2 && row.group !== 9),
-  );
-  return emojiIndex;
-}
-
-export function rankEmoji(entries: EmojibaseEntry[], query: string): EmojibaseEntry[] {
-  const exact = entries.filter((entry) => entry.label === query);
-  // Fewer tags means the emoji is about the query, not merely related to it
-  // (milk → glass of milk, not cow; car → automobile, not taxi).
-  const tagged = entries
-    .filter((entry) => entry.label !== query && entry.tags?.includes(query))
-    .sort(
-      (a, b) =>
-        (a.tags?.length ?? 0) - (b.tags?.length ?? 0) || a.label.length - b.label.length,
-    );
-  return [...exact, ...tagged];
-}
-
-/** Fluent folders use the CLDR name with a capital first letter; skin-tone emoji nest a Default/ folder. */
-export function fluentEmojiUrl(entry: Pick<EmojibaseEntry, "label" | "skins">): string {
-  const folder = entry.label.charAt(0).toUpperCase() + entry.label.slice(1);
-  const base = entry.label
-    .toLowerCase()
-    .replace(/[:'’.!]/g, "")
-    .replace(/\s+/g, "_");
-  const tail = entry.skins?.length
-    ? `Default/3D/${base}_3d_default.png`
-    : `3D/${base}_3d.png`;
-  return `${FLUENT_BASE}/${encodeURIComponent(folder)}/${tail}`;
-}
-
-async function urlExists(url: string): Promise<boolean> {
-  try {
-    const response = await fetch(url, {
-      method: "HEAD",
-      headers: { "User-Agent": USER_AGENT },
-      signal: AbortSignal.timeout(8_000),
-    });
-    return response.ok;
-  } catch {
-    return false;
-  }
-}
-
-const emoji: Provider = {
-  id: "emoji",
-  async search(input) {
-    const query = plainQuery(input);
-    if (!query) return null;
-    for (const entry of rankEmoji(await loadEmojiIndex(), query).slice(0, 3)) {
-      const thumbUrl = fluentEmojiUrl(entry);
-      if (!(await urlExists(thumbUrl))) continue;
-      return {
-        fileTitle: `${entry.emoji} ${entry.label}`,
-        query,
-        sourcePageUrl: "https://github.com/microsoft/fluentui-emoji",
-        thumbUrl,
-      };
-    }
-    return null;
-  },
-};
-
-const arasaac: Provider = {
-  id: "arasaac",
-  async search(input) {
-    const query = plainQuery(input);
-    if (!query) return null;
-    const data = await getJson<
-      Array<{ _id: number; keywords?: Array<{ keyword?: string }> }>
-    >(`https://api.arasaac.org/v1/pictograms/en/search/${encodeURIComponent(query)}`);
-    const picto = data?.[0];
-    if (!picto) return null;
-    return {
-      fileTitle: `#${picto._id} ${picto.keywords?.[0]?.keyword ?? query}`,
-      query,
-      sourcePageUrl: `https://arasaac.org/pictograms/en/${picto._id}`,
-      thumbUrl: `https://static.arasaac.org/pictograms/${picto._id}/${picto._id}_500.png`,
-    };
-  },
-};
-
-const claude: Provider = {
-  id: "claude",
-  async search(input) {
-    let svg: string;
-    try {
-      svg = await readFile(path.join(CLAUDE_SVG_DIR, `${input.slug}.svg`), "utf8");
-    } catch {
-      return null;
-    }
-    return {
-      fileTitle: `claude-svg/${input.slug}.svg`,
-      query: plainQuery(input),
-      thumbUrl: `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`,
-    };
-  },
-};
-
-export const PREVIEW_PROVIDERS: Provider[] = [
-  pexels,
-  unsplash,
-  pixabay,
-  emoji,
-  arasaac,
-  claude,
-];
+export const PREVIEW_PROVIDERS: Provider[] = [pexels, unsplash, pixabay];
 
 /** Providers that can run now, plus the reason each other one was skipped. */
 export function availableProviders(): {

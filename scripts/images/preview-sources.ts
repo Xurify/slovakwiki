@@ -1,10 +1,9 @@
 /**
- * Preview SK / EN / Commons / Openverse hits, plus Pexels / Unsplash / Pixabay /
- * Fluent Emoji / ARASAAC / Claude SVG, without writing the live manifest.
+ * Preview SK / EN / Commons / Openverse hits, plus Pexels / Unsplash / Pixabay
+ * photos, without writing the live manifest.
  *
- * Keyed sources run only when their env var is set (PEXELS_API_KEY,
- * UNSPLASH_ACCESS_KEY, PIXABAY_API_KEY). Claude SVGs come from
- * scripts/images/claude-svg/, so use --only with those slugs to see them.
+ * Stock sources run only when their env var is set (PEXELS_API_KEY,
+ * UNSPLASH_ACCESS_KEY, PIXABAY_API_KEY).
  *
  * Usage:
  *   bun scripts/images/preview-sources.ts -- --limit 24
