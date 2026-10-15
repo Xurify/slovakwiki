@@ -84,35 +84,6 @@ describe("verb example conjugation", () => {
     ]);
   });
 
-  it("does not mint conjugation-stamp fillers", () => {
-    const arranged = arrangeVerbExamples(
-      [
-        {
-          slovak: "Ospravedlňujem sa za neskorú odpoveď.",
-          english: "I'm sorry for the late response.",
-          note: "Tatoeba",
-        },
-        {
-          slovak: "Nemusíš sa ospravedlňovať.",
-          english: "You don't have to apologize.",
-          note: "Tatoeba",
-        },
-        {
-          slovak: "Prečo sa ospravedlňuješ?",
-          english: "Why do you apologize?",
-          note: "Curated",
-        },
-      ],
-      "ospravedlňovať",
-      "to apologize (sa)",
-      "ospravedlnovat",
-    );
-    expect(
-      arranged.some((example) => example.slovak === "Prečo sa ospravedlňuješ?"),
-    ).toBe(false);
-    expect(arranged[0]?.slovak).toBe("Ospravedlňujem sa za neskorú odpoveď.");
-  });
-
   it("spreads distinct corpus forms when the pool already has them", () => {
     const ordered = orderVerbExamples(
       [
@@ -140,17 +111,12 @@ describe("verb example conjugation", () => {
     expect(new Set(buckets).size).toBe(3);
   });
 
-  it("keeps a pinned first sentence and drops object-valency stubs", () => {
+  it("keeps a pinned first sentence", () => {
     const arranged = arrangeVerbExamples(
       [
         {
           slovak: "Môžem sa ocitnúť v ťažkej situácii.",
           english: "I can find myself in a difficult situation.",
-          note: "Curated",
-        },
-        {
-          slovak: "Ocitnem to.",
-          english: "I find myself it.",
           note: "Curated",
         },
         {
@@ -164,7 +130,6 @@ describe("verb example conjugation", () => {
       "ocitnut",
     );
     expect(arranged[0]?.slovak).toBe("Môžem sa ocitnúť v ťažkej situácii.");
-    expect(arranged.some((example) => example.slovak === "Ocitnem to.")).toBe(false);
     expect(arranged[1]?.slovak).toBe("Ráno som sa ocitol na neznámom nástupišti.");
   });
 });

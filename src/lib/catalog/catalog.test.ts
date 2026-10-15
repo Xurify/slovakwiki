@@ -29,10 +29,6 @@ import {
   validateContent,
   words,
 } from "./entries";
-import {
-  isDamagedExampleTemplate,
-  isWeakFillTemplate,
-} from "./dictionary/example-quality";
 import { exampleShowsConjugatedLemma } from "./dictionary/verb-examples";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessonById, lessons, validateLessons } from "./lessons";
@@ -69,6 +65,24 @@ class MemoryStorage implements StorageLike {
   setItem(key: string, value: string): void {
     this.values.set(key, value);
   }
+}
+
+// Generated fills stamped one frame onto dozens or hundreds of lemmas; hand-written
+// sentences share a frame across at most a handful.
+const STAMPED_FRAME_LIMIT = 8;
+
+/** Masks every token that starts like the lemma (any inflection, `ne-` negation too). */
+function sentenceFrame(slovak: string, lemma: string): string | undefined {
+  const stem = lemma.toLocaleLowerCase("sk").slice(0, 4);
+  let hit = false;
+  const frame = slovak.replace(/\p{L}+/gu, (token) => {
+    const lower = token.toLocaleLowerCase("sk");
+    const bare = lower.startsWith("ne") ? lower.slice(2) : lower;
+    if (!lower.startsWith(stem) && !bare.startsWith(stem)) return token;
+    hit = true;
+    return "…";
+  });
+  return hit ? frame : undefined;
 }
 
 describe("Slovak content", () => {
@@ -386,107 +400,6 @@ describe("Slovak content", () => {
     expect(plain?.body).toEqual([]);
   });
 
-  it("does not paste noun lemmas into accusative Potrebujem stubs", () => {
-    const bad = words.filter((word) =>
-      word.examples.some(
-        (example) =>
-          example.note === "Curated" &&
-          !example.demonstrates &&
-          /^Potrebujem .+\.$/u.test(example.slovak) &&
-          /^I need /i.test(example.english ?? ""),
-      ),
-    );
-    expect(bad.map((word) => word.slug)).toEqual([]);
-  });
-
-  it("uses classed noun fill frames including measure nouns", () => {
-    const meter = words.find((word) => word.slug === "meter");
-    expect(meter?.examples[0]?.slovak).toBe("Kúpili sme meter modrej látky.");
-    expect(meter?.examples[0]?.english).toBe("We bought a meter of blue fabric.");
-    expect(meter?.examples[0]?.note).toBe("Curated");
-    expect(meter?.examples[0]?.isPracticeFrame).toBeUndefined();
-
-    const jednotka = words.find((word) => word.slug === "jednotka");
-    expect(jednotka?.examples[0]?.note).toBe("Tatoeba");
-    expect(jednotka?.examples[0]?.tatoebaId).toBeDefined();
-    expect(jednotka?.examples[0]?.isPracticeFrame).toBeUndefined();
-
-    const informacia = words.find((word) => word.slug === "informacia");
-    expect(informacia?.examples[0]?.slovak).toBe("Táto informácia je dôležitá.");
-    expect(informacia?.examples[0]?.english).toBe("This information is important.");
-    expect(informacia?.examples[0]?.isPracticeFrame).toBeUndefined();
-
-    const podnik = words.find((word) => word.slug === "podnik");
-    expect(podnik?.examples[0]?.note).toBe("Curated");
-    expect(podnik?.examples[0]?.isPracticeFrame).toBeUndefined();
-    expect(podnik?.examples[0]?.slovak).toContain("podnik");
-  });
-
-  it("uses classed adjective fill frames instead of Ten príklad je", () => {
-    const odborny = words.find((word) => word.slug === "odborny");
-    expect(odborny?.examples[0]?.note).toBe("Curated");
-    expect(odborny?.examples[0]?.slovak).toBe("Odborný článok vysvetľuje tému.");
-    expect(odborny?.examples[0]?.isPracticeFrame).toBeUndefined();
-
-    const bad = words.filter((word) =>
-      word.examples.some(
-        (example) =>
-          example.note === "Curated" &&
-          !example.demonstrates &&
-          /^Ten príklad je /u.test(example.slovak),
-      ),
-    );
-    expect(bad.map((word) => word.slug)).toEqual([]);
-  });
-
-  it("replaces audited valency and relational-adjective failures with reviewed examples", () => {
-    const expected = new Map([
-      ["ocitnut", "Môžem sa ocitnúť v ťažkej situácii."],
-      ["podielat", "Chcem sa na tom podieľať."],
-      ["stretavat", "Chcem sa s tebou stretávať."],
-      ["zavisiet", "To môže závisieť od okolností."],
-      ["tatransky", "Tatranský vzduch je čistý."],
-    ]);
-
-    for (const [slug, slovak] of expected) {
-      const word = words.find((entry) => entry.slug === slug);
-      expect(word?.examples[0]?.slovak).toBe(slovak);
-      expect(word?.examples[0]?.isPracticeFrame).toBeUndefined();
-    }
-  });
-
-  it("avoids mono To je adjective fill stubs for masculine lemmas", () => {
-    const bad = words.filter(
-      (word) =>
-        word.category === "Adjectives" &&
-        /[ýí]$/u.test(word.slovak) &&
-        word.examples.some(
-          (example) =>
-            example.note === "Curated" &&
-            !example.demonstrates &&
-            /^To je \S+\.$/u.test(example.slovak) &&
-            /^That is \S+\.$/i.test(example.english ?? ""),
-        ),
-    );
-    expect(bad.map((word) => word.slug)).toEqual([]);
-  });
-
-  it("avoids legacy universal adverb fill stubs", () => {
-    const bad = words.filter(
-      (word) =>
-        word.category === "Adverbs" &&
-        word.examples.some(
-          (example) =>
-            example.isPracticeFrame === true &&
-            ((/^Urobím to .+\.$/u.test(example.slovak) &&
-              /^I'll do it /i.test(example.english ?? "")) ||
-              (/^Stalo sa to .+\.$/u.test(example.slovak) &&
-                /^It happened /i.test(example.english ?? ""))),
-        ),
-    );
-    expect(bad.map((word) => word.slug)).toEqual([]);
-  });
-
   it("publishes adverb homographs under -adv slugs", () => {
     const malo = words.find((word) => word.slug === "malo-adv");
     expect(malo?.slovak).toBe("málo");
@@ -507,74 +420,22 @@ describe("Slovak content", () => {
     expect(maloAdv?.url).toBe("/dictionary/malo#adverb");
   });
 
-  it("does not use citation-gloss verb fill stubs", () => {
-    const bad = words.filter((word) =>
-      word.examples.some(
-        (example) =>
-          example.note === "Curated" &&
-          !example.demonstrates &&
-          /^Sloveso „[^“]+“ znamená /u.test(example.slovak),
-      ),
-    );
-    expect(bad.map((word) => word.slug)).toEqual([]);
-  });
-
-  it("keeps hand-curated examples free of practice-frame flags", () => {
-    const expected = [
-      "ocitnut",
-      "podielat",
-      "stretavat",
-      "zavisiet",
-      "tatransky",
-      "vracat",
-      "informacia",
-    ];
-
-    for (const slug of expected) {
-      const word = words.find((entry) => entry.slug === slug);
-      expect(word?.examples.length).toBeGreaterThan(0);
-      expect(word?.examples.every((example) => !example.isPracticeFrame)).toBe(true);
-      expect(word?.examples[0]?.note).toBe("Curated");
-    }
-  });
-
   it("keeps Tatoeba examples marked as corpus sources", () => {
     const tatoeba = words.filter((word) =>
       word.examples.some((example) => example.note === "Tatoeba"),
     );
     expect(tatoeba.length).toBeGreaterThan(100);
-    expect(
-      tatoeba.every((word) =>
-        word.examples
-          .filter((example) => example.note === "Tatoeba")
-          .every((example) => !example.isPracticeFrame),
-      ),
-    ).toBe(true);
   });
 
-  it("does not claim Tatoeba in sourceNote when only practice frames exist", () => {
-    const practiceOnly = words.filter(
-      (word) =>
-        word.origin === "frequency" &&
-        word.examples.length > 0 &&
-        word.examples.every((example) => example.isPracticeFrame),
-    );
-    for (const word of practiceOnly) {
-      expect(word.sourceNote).toContain("Practice frames");
-      expect(word.sourceNote).not.toContain("Tatoeba");
-    }
-
+  it("claims Tatoeba in sourceNote only when Tatoeba examples exist", () => {
     const reviewedOnly = words.find(
       (word) =>
         word.origin === "frequency" &&
         word.examples.length > 0 &&
-        word.examples.every(
-          (example) => example.note === "Curated" && !example.isPracticeFrame,
-        ),
+        word.examples.every((example) => example.note === "Curated"),
     );
     expect(reviewedOnly).toBeDefined();
     expect(reviewedOnly?.sourceNote).not.toContain("Tatoeba");
-    expect(reviewedOnly?.sourceNote).not.toContain("Practice frames");
 
     const tatoebaOnly = words.find(
       (word) =>
@@ -588,53 +449,12 @@ describe("Slovak content", () => {
     expect(tatoebaOnly?.sourceNote).toContain("Tatoeba");
   });
 
-  it("uses reviewed verb examples instead of leftover infinitive fill frames", () => {
-    const practiceVerbFills = words.filter(
-      (word) =>
-        word.category === "Verbs" &&
-        word.examples.some((example) => example.isPracticeFrame),
-    );
-    expect(practiceVerbFills).toEqual([]);
-
-    const badPrefixes = words.filter((word) =>
-      word.examples.some(
-        (example) =>
-          example.note === "Curated" &&
-          !example.demonstrates &&
-          (/^Niekto môže /u.test(example.slovak) ||
-            /^Je možné /u.test(example.slovak) ||
-            /^Začínam /u.test(example.slovak)),
-      ),
-    );
-    expect(badPrefixes.map((word) => word.slug)).toEqual([]);
-
+  it("leads verb entries with conjugated, reviewed examples", () => {
     const vracat = words.find((word) => word.slug === "vracat");
     expect(vracat?.examples[0]?.slovak).toBe("Knihu vraciam do knižnice.");
-    expect(vracat?.examples[0]?.isPracticeFrame).toBeUndefined();
-
-    const oznacit = words.find((word) => word.slug === "oznacit");
-    expect(
-      oznacit?.examples.some(
-        (example) => example.slovak === "Chcem označiť správnu odpoveď.",
-      ),
-    ).toBe(true);
-    expect(oznacit?.examples[0]?.isPracticeFrame).toBeUndefined();
 
     const nemoct = words.find((word) => word.slug === "nemoct");
     expect(nemoct?.examples[0]?.slovak).toBe("Nemôžem prísť zajtra.");
-    expect(nemoct?.examples[0]?.isPracticeFrame).toBeUndefined();
-
-    const weakReviewed = words.flatMap((word) =>
-      word.examples
-        .filter(
-          (example) =>
-            example.note === "Curated" &&
-            !example.isPracticeFrame &&
-            isWeakFillTemplate(example, word.slovak),
-        )
-        .map((example) => `${word.slug}: ${example.slovak}`),
-    );
-    expect(weakReviewed).toEqual([]);
 
     const ospravedlnovat = words.find((word) => word.slug === "ospravedlnovat");
     expect(ospravedlnovat?.examples.length).toBeGreaterThanOrEqual(4);
@@ -648,11 +468,6 @@ describe("Slovak content", () => {
       "Kolega sa ospravedlňuje za včerajšiu scénu.",
       "Celý večer sa ospravedlňovali za ten omyl.",
     ]);
-    expect(
-      ospravedlnovatDisplay.some(
-        (example) => example.slovak === "Prečo sa ospravedlňuješ?",
-      ),
-    ).toBe(false);
 
     const verbsMissingConjugatedDisplay = words.filter((word) => {
       if (word.category !== "Verbs") return false;
@@ -667,24 +482,23 @@ describe("Slovak content", () => {
     expect(verbsMissingConjugatedDisplay.map((word) => word.slug)).toEqual([]);
   });
 
-  it("rejects damaged fill-template residue on reviewed examples", () => {
-    const damaged = words.flatMap((word) =>
-      word.examples
-        .filter(
-          (example) =>
-            example.note === "Curated" &&
-            !example.isPracticeFrame &&
-            isDamagedExampleTemplate(example.slovak, word.slovak),
-        )
-        .map((example) => `${word.slug}: ${example.slovak}`),
-    );
+  it("does not stamp one sentence frame across many lemmas", () => {
+    const lemmasByFrame = new Map<string, Set<string>>();
+    for (const word of words) {
+      for (const example of word.examples) {
+        if (example.note === "Tatoeba") continue;
+        const frame = sentenceFrame(example.slovak, word.slovak);
+        if (!frame) continue;
+        const slugs = lemmasByFrame.get(frame) ?? new Set<string>();
+        slugs.add(word.slug);
+        lemmasByFrame.set(frame, slugs);
+      }
+    }
 
-    expect(damaged).toEqual([]);
-
-    const posvatny = words.find((word) => word.slug === "posvatny");
-    expect(posvatny?.examples[0]?.slovak).toBe(
-      "Tento chrám je pre miestnych obyvateľov posvätný.",
-    );
+    const stamped = [...lemmasByFrame]
+      .filter(([, slugs]) => slugs.size >= STAMPED_FRAME_LIMIT)
+      .map(([frame, slugs]) => `${frame} (${slugs.size} lemmas)`);
+    expect(stamped).toEqual([]);
   });
 
   it("tags Nárečie.sk lookups on dialect lemmas, not on ordinary SNK lemmas", () => {

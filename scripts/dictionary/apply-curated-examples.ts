@@ -1,12 +1,9 @@
 /**
  * Merge hand-curated example sentences into dictionary words.
  *
- * Corpus-first policy:
- * - Reviewed curated / pattern (`demonstrates`) examples always win.
- * - Practice frames only fill empty or underfilled (<2) slots.
- * - Never replace Tatoeba/hand rows wholesale with practice frames.
- * - Pattern lemmas: curated pedagogy rows lead; existing Tatoeba extras kept (store pool).
- * - Non-pattern applies union-merge so enrich appends survive.
+ * - Curated / pattern (`demonstrates`) examples lead.
+ * - Pattern lemmas keep their non-pattern extras (usually the Tatoeba store pool).
+ * - Other lemmas keep every live row the curated set does not repeat, so enrich appends survive.
  *
  * Usage: bun scripts/dictionary/apply-curated-examples.ts
  */
@@ -15,10 +12,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import {
-  isCleanExample,
-  isWeakFillTemplate,
-} from "../../src/lib/catalog/dictionary/example-quality";
+import { isCleanExample } from "../../src/lib/catalog/dictionary/example-quality";
 import { arrangeVerbExamples } from "../../src/lib/catalog/dictionary/verb-examples";
 import type { ContentEntry, Example } from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
@@ -96,27 +90,8 @@ function normalizeExamples(examples: Example[]): Example[] {
     english: example.english,
     note: example.note ?? "Curated",
     ...(example.demonstrates ? { demonstrates: example.demonstrates } : {}),
-    ...(example.isPracticeFrame ? { isPracticeFrame: true } : {}),
     ...(example.tatoebaId ? { tatoebaId: example.tatoebaId } : {}),
   }));
-}
-
-function isPracticeOnly(examples: Example[]): boolean {
-  return (
-    examples.length > 0 && examples.every((example) => example.isPracticeFrame === true)
-  );
-}
-
-function hasTatoeba(examples: Example[]): boolean {
-  return examples.some((example) => example.note === "Tatoeba");
-}
-
-function isReviewedCurated(examples: Example[], lemma?: string): boolean {
-  return examples.some(
-    (example) =>
-      (example.demonstrates || example.isPracticeFrame !== true) &&
-      !isWeakFillTemplate(example, lemma),
-  );
 }
 
 async function main(): Promise<void> {
@@ -127,7 +102,6 @@ async function main(): Promise<void> {
   >;
 
   let filled = 0;
-  let skippedCorpus = 0;
   let missingSlug = 0;
 
   for (const [slug, examples] of Object.entries(curated)) {
@@ -143,64 +117,16 @@ async function main(): Promise<void> {
     );
     if (clean.length === 0) continue;
 
-    const incoming = normalizeExamples(clean).filter(
-      (example) => !isWeakFillTemplate(example, word.slovak),
+    const usable = normalizeExamples(clean);
+    const curatedKeys = new Set(
+      usable.map((example) => example.slovak.toLocaleLowerCase("sk")),
     );
-    const usable =
-      incoming.length > 0
-        ? incoming
-        : word.examples.length === 0
-          ? normalizeExamples(clean)
-          : incoming;
-    if (usable.length === 0) continue;
-    const reviewed = isReviewedCurated(usable, word.slovak);
-    const practiceOnly = isPracticeOnly(usable);
-    const underfilled = word.examples.length < 2;
     const patternLocked = usable.some((example) => Boolean(example.demonstrates));
-
-    // Practice frames must not replace corpus/hand rows — but may top up underfilled.
-    if (practiceOnly && !underfilled && (hasTatoeba(word.examples) || !reviewed)) {
-      if (hasTatoeba(word.examples) || !isPracticeOnly(word.examples)) {
-        skippedCorpus += 1;
-        continue;
-      }
-    }
-
-    if (patternLocked) {
-      // Curated pedagogy leads; keep non-pattern extras (usually Tatoeba store pool).
-      const curatedKeys = new Set(
-        usable.map((example) => example.slovak.toLocaleLowerCase("sk")),
-      );
-      const extras = word.examples.filter((example) => {
-        const key = example.slovak.toLocaleLowerCase("sk");
-        if (curatedKeys.has(key)) return false;
-        if (example.demonstrates) return false;
-        return true;
-      });
-      word.examples = [...usable, ...extras];
-    } else if (reviewed && !practiceOnly) {
-      // Hand-curated / reviewed rows lead; drop leftover practice frames from live.
-      const curatedKeys = new Set(
-        usable.map((example) => example.slovak.toLocaleLowerCase("sk")),
-      );
-      const extras = word.examples.filter((example) => {
-        if (example.isPracticeFrame) return false;
-        const key = example.slovak.toLocaleLowerCase("sk");
-        return !curatedKeys.has(key);
-      });
-      word.examples = [...usable, ...extras];
-    } else {
-      // Union by Slovak text: keep live rows first, then curated/fill extras.
-      const merged: Example[] = [];
-      const seen = new Set<string>();
-      for (const example of [...word.examples, ...usable]) {
-        const key = example.slovak.toLocaleLowerCase("sk");
-        if (seen.has(key)) continue;
-        seen.add(key);
-        merged.push(example);
-      }
-      word.examples = merged;
-    }
+    const extras = word.examples.filter((example) => {
+      if (patternLocked && example.demonstrates) return false;
+      return !curatedKeys.has(example.slovak.toLocaleLowerCase("sk"));
+    });
+    word.examples = [...usable, ...extras];
 
     const english = CURATED_ENGLISH[slug];
     if (english) {
@@ -232,7 +158,6 @@ async function main(): Promise<void> {
 
   await writeFile(WORDS_PATH, `${JSON.stringify(dictionaryWords, null, 2)}\n`, "utf8");
   console.log(`Applied curated examples to ${filled} words`);
-  console.log(`Skipped practice frames over Tatoeba: ${skippedCorpus}`);
   console.log(`Missing slugs: ${missingSlug}`);
   console.log(`Reordered verbs toward conjugated forms: ${conjugatedFirst}`);
   console.log(`→ ${path.relative(ROOT, WORDS_PATH)}`);

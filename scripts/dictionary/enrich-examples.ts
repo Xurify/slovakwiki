@@ -7,7 +7,6 @@
  * Usage:
  *   bun scripts/dictionary/enrich-examples.ts
  *   bun scripts/dictionary/enrich-examples.ts -- --per-word 8 --report tmp/missing-examples.txt
- *   bun scripts/dictionary/enrich-examples.ts -- --replace-practice
  *
  * Underfilled curated/Tatoeba rows (count < per-word) get extra Tatoeba appended.
  * Pattern pedagogy rows (`demonstrates`) stay first; Tatoeba may pad the store pool.
@@ -34,7 +33,6 @@ import {
 import {
   isAcceptableCorpusExample,
   isCleanExample,
-  isWeakFillTemplate,
 } from "../../src/lib/catalog/dictionary/example-quality";
 import { normalizeLemma } from "../../src/lib/catalog/frequency";
 import { ROOT } from "../lib/paths";
@@ -50,8 +48,7 @@ interface SentencePair {
   tatoebaId: number;
 }
 
-type RejectReason =
-  "no-candidates" | "quality" | "weak-match" | "already-protected" | "no-practice-frame";
+type RejectReason = "no-candidates" | "quality" | "weak-match";
 
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
@@ -61,20 +58,17 @@ function parseArgs(argv: string[]): {
   perWord: number;
   refreshTatoeba: boolean;
   rejectReport: string;
-  replacePractice: boolean;
   report: string;
 } {
   let perWord = EXAMPLE_STORE_PER_WORD;
   let report = path.join(ROOT, "tmp", "missing-examples.txt");
   let rejectReport = path.join(ROOT, "tmp", "enrich-rejects.tsv");
   let force = false;
-  let replacePractice = false;
   let refreshTatoeba = false;
 
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--force") force = true;
-    if (arg === "--replace-practice") replacePractice = true;
     if (arg === "--refresh-tatoeba") refreshTatoeba = true;
     if (arg === "--per-word" && argv[index + 1]) {
       perWord = Number(argv[index + 1]);
@@ -90,7 +84,7 @@ function parseArgs(argv: string[]): {
     }
   }
 
-  return { perWord, report, rejectReport, force, replacePractice, refreshTatoeba };
+  return { perWord, report, rejectReport, force, refreshTatoeba };
 }
 
 function isVerbCategory(category: string): boolean {
@@ -119,27 +113,6 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
 
 function hasStrongMatch(pair: SentencePair, lemma: string, category: string): boolean {
   return exampleContainsLemma(pair.slovak, lemma, category);
-}
-
-function isPracticeOnly(examples: Example[]): boolean {
-  return (
-    examples.length > 0 && examples.every((example) => example.isPracticeFrame === true)
-  );
-}
-
-function isWeakTemplateOnly(examples: Example[], lemma: string): boolean {
-  return (
-    examples.length > 0 && examples.every((example) => isWeakFillTemplate(example, lemma))
-  );
-}
-
-function isProtectedExample(example: Example, lemma?: string): boolean {
-  if (example.demonstrates) return true;
-  if (example.isPracticeFrame) return false;
-  if (isWeakFillTemplate(example, lemma)) return false;
-  if (example.note === "Tatoeba") return true;
-  if (example.note === "Curated") return true;
-  return true;
 }
 
 async function loadTsvMap(
@@ -304,8 +277,9 @@ function hasPatternExamples(examples: Example[]): boolean {
 }
 
 async function main(): Promise<void> {
-  const { perWord, report, rejectReport, force, replacePractice, refreshTatoeba } =
-    parseArgs(process.argv.slice(2));
+  const { perWord, report, rejectReport, force, refreshTatoeba } = parseArgs(
+    process.argv.slice(2),
+  );
 
   const slkPath = path.join(TATOEBA_DIR, "slk_sentences.tsv");
   const engPath = path.join(TATOEBA_DIR, "eng_sentences.tsv");
@@ -341,18 +315,14 @@ async function main(): Promise<void> {
   let appended = 0;
   let scrubbed = 0;
   let skippedProtected = 0;
-  let skippedNoPractice = 0;
-  let practiceReplaced = 0;
-  let practiceRetained = 0;
   const missing: WordSeed[] = [];
   const rejects: { slug: string; reason: RejectReason; detail: string }[] = [];
 
   for (const word of dictionaryWords) {
     const before = word.examples.length;
 
-    // Scrub only crude corpus/unsafe lines; keep curated + practice frames.
+    // Scrub only crude corpus/unsafe lines; keep curated rows.
     let nextExamples = word.examples.filter((example) => {
-      if (example.isPracticeFrame) return true;
       if (example.demonstrates) return true;
       if (example.note === "Curated") return true;
       return isCleanExample(example.slovak, example.english);
@@ -366,67 +336,21 @@ async function main(): Promise<void> {
     if (nextExamples.length < before) scrubbed += 1;
     word.examples = nextExamples;
 
-    const practiceOnly = isPracticeOnly(word.examples);
-    const weakOnly = isWeakTemplateOnly(word.examples, word.slovak);
-    const replaceableStubs = practiceOnly || weakOnly;
-    const hasProtected = word.examples.some((example) =>
-      isProtectedExample(example, word.slovak),
-    );
     const patternLocked = hasPatternExamples(word.examples);
     const underfilled = word.examples.length > 0 && word.examples.length < perWord;
 
-    if (replacePractice) {
-      if (!replaceableStubs) {
-        if (hasProtected) {
-          skippedProtected += 1;
-          rejects.push({
-            slug: word.slug,
-            reason: "already-protected",
-            detail: "Has curated/Tatoeba/pattern examples",
-          });
-          continue;
-        } else if (word.examples.length === 0) {
-          // Fall through and try to enrich empty entries.
-        } else {
-          skippedNoPractice += 1;
-          rejects.push({
-            slug: word.slug,
-            reason: "no-practice-frame",
-            detail: "Not practice-only; skipped under --replace-practice",
-          });
-          continue;
-        }
-      }
-    } else if (!force && !refreshTatoeba && word.examples.length >= perWord) {
+    if (!force && word.examples.length >= perWord) {
       skippedProtected += 1;
       continue;
-    } else if (!force && patternLocked && !underfilled) {
+    }
+    if (!force && patternLocked && !underfilled) {
       // Pedagogy pairs stay; underfilled pattern lemmas still pad the store pool.
       skippedProtected += 1;
       continue;
-    } else if (
-      !force &&
-      !refreshTatoeba &&
-      hasProtected &&
-      !practiceOnly &&
-      !underfilled
-    ) {
-      skippedProtected += 1;
-      continue;
-    } else if (!force && refreshTatoeba && hasProtected && !practiceOnly) {
-      // Keep curated/pattern examples; only refill when Tatoeba rows were cleared.
-      if (word.examples.length >= perWord) {
-        skippedProtected += 1;
-        continue;
-      }
     }
 
-    const need = Math.max(
-      perWord - word.examples.length,
-      replaceableStubs || force ? perWord : 0,
-    );
-    const fetchLimit =
-      replaceableStubs || force || word.examples.length === 0 ? perWord : need;
+    const need = force ? perWord : perWord - word.examples.length;
+    const fetchLimit = force || word.examples.length === 0 ? perWord : need;
 
     const { accepted, rejectedQuality, rejectedWeak } = collectCandidates(
       word.slovak,
@@ -437,8 +361,8 @@ async function main(): Promise<void> {
     const examples = toExamples(accepted, Math.max(fetchLimit, perWord));
 
     if (examples.length === 0) {
-      if (replaceableStubs) {
-        practiceRetained += 1;
+      if (word.examples.length === 0) {
+        missing.push(word);
         rejects.push({
           slug: word.slug,
           reason:
@@ -449,22 +373,14 @@ async function main(): Promise<void> {
               : "no-candidates",
           detail: `quality=${rejectedQuality}; weak=${rejectedWeak}`,
         });
-      } else if (word.examples.length === 0) {
-        missing.push(word);
-        rejects.push({
-          slug: word.slug,
-          reason: "no-candidates",
-          detail: `quality=${rejectedQuality}; weak=${rejectedWeak}`,
-        });
       }
       continue;
     }
 
-    if (replaceableStubs || force || word.examples.length === 0) {
-      if (replaceableStubs) practiceReplaced += 1;
+    if (force || word.examples.length === 0) {
       word.examples = examples.slice(0, perWord);
       enriched += 1;
-    } else if (underfilled) {
+    } else {
       const beforeLen = word.examples.length;
       word.examples = appendExamples(word.examples, examples, perWord);
       if (word.examples.length > beforeLen) {
@@ -473,9 +389,6 @@ async function main(): Promise<void> {
       } else {
         skippedProtected += 1;
       }
-    } else {
-      word.examples = examples.slice(0, perWord);
-      enriched += 1;
     }
   }
 
@@ -485,7 +398,7 @@ async function main(): Promise<void> {
     `# Words still missing Tatoeba examples (${missing.length})`,
     `# Generated ${new Date().toISOString()}`,
     `# Source: Tatoeba dumps in tmp/tatoeba/`,
-    `# Mode: ${replacePractice ? "replace-practice" : force ? "force" : "default"}`,
+    `# Mode: ${force ? "force" : "default"}`,
     "",
     ...missing
       .toSorted((a, b) => a.slovak.localeCompare(b.slovak, "sk"))
@@ -507,17 +420,12 @@ async function main(): Promise<void> {
 
   console.log(`Enriched/replaced: ${enriched}`);
   console.log(`Appended Tatoeba onto underfilled: ${appended}`);
-  console.log(`Practice frames replaced: ${practiceReplaced}`);
-  console.log(`Practice frames retained: ${practiceRetained}`);
   console.log(`Scrubbed crude examples from: ${scrubbed} words`);
   console.log(`Skipped protected entries: ${skippedProtected}`);
-  if (replacePractice) {
-    console.log(`Skipped non-practice entries: ${skippedNoPractice}`);
-  }
   console.log(`Still missing examples: ${missing.length}`);
   console.log(`Reject rows: ${rejects.length}`);
   console.log(
-    `Mode: ${replacePractice ? "replace-practice" : refreshTatoeba ? "refresh-tatoeba" : force ? "force" : "default"}`,
+    `Mode: ${refreshTatoeba ? "refresh-tatoeba" : force ? "force" : "default"}`,
   );
   console.log(`Report: ${path.relative(ROOT, report)}`);
   console.log(`Reject report: ${path.relative(ROOT, rejectReport)}`);

@@ -136,10 +136,6 @@
   const railGlossClass = "text-xs leading-snug text-slate-500";
   const moreLinkClass = `${sharedMoreLinkClass} mt-2`;
 
-  function onlyPracticeFrames(examples: Example[]): boolean {
-    return examples.length > 0 && examples.every((example) => example.isPracticeFrame);
-  }
-
   function groupExamplesByPattern(
     items: { example: Example; index: number }[],
   ): { label: string; items: { example: Example; index: number }[] }[] {
@@ -268,7 +264,6 @@
             multiSense && senseIndex > 0
               ? `${senseSectionId(senseEntry.category)}-examples`
               : "examples"}
-          {@const practiceOnly = onlyPracticeFrames(senseEntry.examples)}
           {@const visibleItems = exampleItemsBySense[senseIndex] ?? []}
           {@const grouped = visibleItems.some((item) => item.example.demonstrates)}
 
@@ -307,15 +302,7 @@
 
             {#if visibleItems.length > 0}
               <div id={examplesId} class={sectionClass}>
-                <h2 class={grammarHeadingClass}>
-                  {practiceOnly ? "Try this pattern" : "Examples"}
-                </h2>
-
-                {#if practiceOnly}
-                  <p class="m-0 mt-1.5 max-w-[60ch] text-sm text-slate-600">
-                    A simple practice frame while a corpus example is unavailable.
-                  </p>
-                {/if}
+                <h2 class={grammarHeadingClass}>Examples</h2>
 
                 {#if grouped}
                   <div class="mt-3 grid gap-6">
