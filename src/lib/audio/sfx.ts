@@ -258,6 +258,23 @@ async function withContext(
   play(ctx, ctx.currentTime);
 }
 
+/**
+ * Call from a user gesture. iOS Safari keeps an AudioContext suspended until
+ * it is resumed and makes a sound inside one.
+ */
+export function unlockSfx(): void {
+  if (!sfxEnabled()) return;
+
+  const ctx = getAudioContext();
+  if (!ctx || ctx.state === "running") return;
+
+  void ctx.resume().catch(() => {});
+  const source = ctx.createBufferSource();
+  source.buffer = ctx.createBuffer(1, 1, ctx.sampleRate);
+  source.connect(ctx.destination);
+  source.start(0);
+}
+
 export function playCorrectSfx(): void {
   void withContext((ctx, now) => scheduleSfx(ctx, "correct", now));
 }

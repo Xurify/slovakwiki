@@ -1,12 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import {
-  classifyPlayFailure,
-  hasPendingStoryAudio,
-  isStoryLineAudioActive,
-  playStoryLineAudio,
-  stopStoryLineAudio,
-} from "./story-audio";
+import { classifyPlayFailure } from "./story-audio";
 
 describe("classifyPlayFailure", () => {
   it("treats NotAllowedError as autoplay block", () => {
@@ -28,43 +22,99 @@ describe("classifyPlayFailure", () => {
   });
 });
 
-describe("isStoryLineAudioActive", () => {
+class FakeAudio {
+  static instances: FakeAudio[] = [];
+  static allowPlay = false;
+
+  onended: (() => void) | null = null;
+  onerror: (() => void) | null = null;
+  paused = true;
+  preload = "";
+  src = "";
+  volume = 1;
+
+  constructor() {
+    FakeAudio.instances.push(this);
+  }
+
+  pause(): void {
+    this.paused = true;
+  }
+
+  play(): Promise<void> {
+    if (!FakeAudio.allowPlay) {
+      return Promise.reject(new DOMException("blocked", "NotAllowedError"));
+    }
+    this.paused = false;
+    return Promise.resolve();
+  }
+}
+
+async function loadStoryAudio(): Promise<typeof import("./story-audio")> {
+  vi.resetModules();
+  FakeAudio.instances = [];
+  FakeAudio.allowPlay = false;
+  vi.stubGlobal("window", { addEventListener: () => {}, clearTimeout, setTimeout });
+  vi.stubGlobal("Audio", FakeAudio);
+  return import("./story-audio");
+}
+
+async function flushPromises(): Promise<void> {
+  await Promise.resolve();
+  await Promise.resolve();
+}
+
+describe("story line playback", () => {
   afterEach(() => {
-    stopStoryLineAudio();
     vi.unstubAllGlobals();
   });
 
-  it("goes false when an autoplay-blocked line is stopped by its Listen button", async () => {
-    vi.stubGlobal("window", {
-      addEventListener: () => {},
-      clearTimeout,
-      setTimeout,
-    });
-    vi.stubGlobal(
-      "Audio",
-      class {
-        paused = true;
-        volume = 1;
-        pause(): void {
-          this.paused = true;
-        }
-        play(): Promise<void> {
-          return Promise.reject(new DOMException("blocked", "NotAllowedError"));
-        }
-      },
-    );
-
+  it("goes inactive when an autoplay-blocked line is stopped by its Listen button", async () => {
+    const audio = await loadStoryAudio();
     const onEnded = vi.fn();
-    playStoryLineAudio("/line.mp3", "Dobrý deň.", { onEnded });
-    await Promise.resolve();
-    await Promise.resolve();
 
-    expect(hasPendingStoryAudio()).toBe(true);
-    expect(isStoryLineAudioActive()).toBe(true);
+    audio.playStoryLineAudio("/line.mp3", "Dobrý deň.", { onEnded });
+    await flushPromises();
 
-    stopStoryLineAudio();
+    expect(audio.hasPendingStoryAudio()).toBe(true);
+    expect(audio.isStoryLineAudioActive()).toBe(true);
 
-    expect(isStoryLineAudioActive()).toBe(false);
+    audio.stopStoryLineAudio();
+
+    expect(audio.isStoryLineAudioActive()).toBe(false);
     expect(onEnded).not.toHaveBeenCalled();
+  });
+
+  it("plays the blocked line on the first gesture and reuses one element", async () => {
+    const audio = await loadStoryAudio();
+
+    audio.playStoryLineAudio("/one.mp3", "Dobrý deň.");
+    await flushPromises();
+
+    FakeAudio.allowPlay = true;
+    audio.primeStoryAudio();
+    await flushPromises();
+
+    expect(audio.hasPendingStoryAudio()).toBe(false);
+    expect(FakeAudio.instances).toHaveLength(1);
+    expect(FakeAudio.instances[0]?.src).toBe("/one.mp3");
+
+    audio.playStoryLineAudio("/two.mp3", "Volám sa Anna.");
+
+    expect(FakeAudio.instances).toHaveLength(1);
+    expect(FakeAudio.instances[0]?.src).toBe("/two.mp3");
+  });
+
+  it("unlocks with silence when no line is waiting", async () => {
+    const audio = await loadStoryAudio();
+    FakeAudio.allowPlay = true;
+
+    audio.primeStoryAudio();
+    await flushPromises();
+    expect(FakeAudio.instances[0]?.src).toMatch(/^data:audio\/wav/);
+
+    FakeAudio.instances[0]!.src = "";
+    audio.primeStoryAudio();
+    expect(FakeAudio.instances[0]?.src).toBe("");
   });
 });
