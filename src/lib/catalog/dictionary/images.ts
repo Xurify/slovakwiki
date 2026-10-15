@@ -14,6 +14,8 @@ export interface ImageManifestEntry {
   caption?: string;
   /** Commons / wiki file title, e.g. `Koláč.jpg`. */
   commonsFile?: string;
+  /** When the Unsplash download event was sent, which the API terms require once per use. */
+  downloadTrackedAt?: string;
   fetchedAt: string;
   /** Filename under `static/images/dictionary/`, e.g. `kolac.webp`. */
   file?: string;

@@ -4,11 +4,15 @@
  * Usage:
  *   bun scripts/images/apply-photo-picks.ts            # needs UNSPLASH_ACCESS_KEY
  *   bun scripts/images/apply-photo-picks.ts -- --dry-run
+ *   bun scripts/images/apply-photo-picks.ts -- --offline   # no API calls
  *
  * Unsplash picks are hotlinked (API terms forbid re-hosting), and each one
  * triggers the photo's download_location once, which the terms also require.
- * Pixabay picks are skipped for now: Pixabay forbids hotlinking, so they need
- * a download plus R2 upload first. Re-running skips picks already applied.
+ * --offline writes picks from the data saved at audit time so they show up
+ * while the hourly API limit is spent; the next normal run sends the download
+ * events and fills in missing photographer links. Pixabay picks are skipped
+ * for now: Pixabay forbids hotlinking, so they need a download plus R2 upload
+ * first. Re-running skips picks already applied and tracked.
  */
 
 import { readFile } from "node:fs/promises";
@@ -63,8 +67,9 @@ async function unsplashGet<T>(url: string, key: string): Promise<T> {
 
 async function main(): Promise<void> {
   const dryRun = process.argv.includes("--dry-run");
+  const offline = process.argv.includes("--offline");
   const key = process.env.UNSPLASH_ACCESS_KEY?.trim();
-  if (!key && !dryRun) throw new Error("UNSPLASH_ACCESS_KEY missing");
+  if (!key && !dryRun && !offline) throw new Error("UNSPLASH_ACCESS_KEY missing");
 
   const picks = JSON.parse(await readFile(PICKS_PATH, "utf8")) as Record<
     string,
@@ -96,7 +101,8 @@ async function main(): Promise<void> {
         continue;
       }
       if (!pick.id) continue;
-      if (previous?.source === "unsplash" && previous.sourceId === pick.id) {
+      const sameId = previous?.source === "unsplash" && previous.sourceId === pick.id;
+      if (sameId && (previous.downloadTrackedAt || offline)) {
         counts.already += 1;
         continue;
       }
@@ -106,25 +112,32 @@ async function main(): Promise<void> {
         continue;
       }
 
+      if (offline && !(pick.originalUrl && pick.page)) continue;
+
       // Picks from the bulk audit already carry every field; older ones need a lookup.
-      const photo: UnsplashPhoto =
-        pick.originalUrl && pick.artistUrl && pick.page && pick.downloadLocation
+      const saved =
+        pick.originalUrl && pick.page && pick.downloadLocation
           ? {
               links: { download_location: pick.downloadLocation, html: pick.page },
               urls: { regular: pick.originalUrl },
-              user: { links: { html: pick.artistUrl }, name: pick.by ?? "" },
+              user: { links: { html: pick.artistUrl ?? "" }, name: pick.by ?? "" },
             }
+          : undefined;
+      const photo: UnsplashPhoto =
+        saved && (offline || pick.artistUrl)
+          ? saved
           : await unsplashGet<UnsplashPhoto>(
               `https://api.unsplash.com/photos/${encodeURIComponent(pick.id)}`,
               key!,
             );
-      await unsplashGet(photo.links.download_location, key!);
+      if (!offline) await unsplashGet(photo.links.download_location, key!);
 
       const english = englishBySlug.get(slug) ?? "";
       const next: ImageManifestEntry = {
         artist: photo.user.name,
-        artistUrl: photo.user.links.html,
+        artistUrl: photo.user.links.html || undefined,
         caption: previous?.caption || glossSearchTitle(english) || slug,
+        downloadTrackedAt: offline ? undefined : now,
         fetchedAt: now,
         license: "Unsplash License",
         licenseUrl: UNSPLASH_LICENSE_URL,
