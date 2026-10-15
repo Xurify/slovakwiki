@@ -38,9 +38,23 @@ const EMOJIBASE_URL = "https://cdn.jsdelivr.net/npm/emojibase-data@16.0.3/en/dat
 const FLUENT_BASE =
   "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets";
 const CLAUDE_SVG_DIR = path.join(ROOT, "scripts", "images", "claude-svg");
+const PHOTO_QUERIES_PATH = path.join(ROOT, "scripts", "images", "photo-queries.json");
 
 export function plainQuery(input: ProviderInput): string {
   return stripInfinitiveMarker(glossSearchTitle(input.gloss)).toLowerCase();
+}
+
+let photoQueries: Promise<Record<string, string>> | undefined;
+
+/**
+ * Stock searches on a bare gloss drift ("milk" → dairy farm portraits), so a
+ * hand-picked concrete phrase in photo-queries.json wins when one exists.
+ */
+async function photoQuery(input: ProviderInput): Promise<string> {
+  photoQueries ??= readFile(PHOTO_QUERIES_PATH, "utf8")
+    .then((raw) => JSON.parse(raw) as Record<string, string>)
+    .catch(() => ({}));
+  return (await photoQueries)[input.slug] ?? plainQuery(input);
 }
 
 async function getJson<T>(url: URL | string, headers: Record<string, string> = {}) {
@@ -68,10 +82,11 @@ const pexels: Provider = {
   id: "pexels",
   envKey: "PEXELS_API_KEY",
   async search(input) {
-    const query = plainQuery(input);
+    const query = await photoQuery(input);
     const url = new URL("https://api.pexels.com/v1/search");
     url.searchParams.set("query", query);
     url.searchParams.set("per_page", "1");
+    url.searchParams.set("orientation", "landscape");
     const data = await getJson<{
       photos?: Array<{
         alt?: string;
@@ -95,20 +110,23 @@ const unsplash: Provider = {
   id: "unsplash",
   envKey: "UNSPLASH_ACCESS_KEY",
   async search(input) {
-    const query = plainQuery(input);
+    const query = await photoQuery(input);
     const url = new URL("https://api.unsplash.com/search/photos");
     url.searchParams.set("query", query);
-    url.searchParams.set("per_page", "1");
+    url.searchParams.set("per_page", "5");
+    url.searchParams.set("orientation", "landscape");
     url.searchParams.set("content_filter", "high");
     const data = await getJson<{
       results?: Array<{
         alt_description?: string;
         links?: { html?: string };
+        sponsorship?: unknown;
         urls?: { small?: string };
         user?: { name?: string };
       }>;
     }>(url, { Authorization: `Client-ID ${env("UNSPLASH_ACCESS_KEY")}` });
-    const photo = data?.results?.[0];
+    // Unsplash puts paid brand campaigns first (the dairy-farm "milk" hit).
+    const photo = data?.results?.find((result) => !result.sponsorship);
     if (!photo?.urls?.small) return null;
     return {
       fileTitle: `${photo.alt_description || query} — ${photo.user?.name ?? "Unsplash"}`,
@@ -123,11 +141,13 @@ const pixabay: Provider = {
   id: "pixabay",
   envKey: "PIXABAY_API_KEY",
   async search(input) {
-    const query = plainQuery(input);
+    const query = await photoQuery(input);
     const url = new URL("https://pixabay.com/api/");
     url.searchParams.set("key", env("PIXABAY_API_KEY"));
     url.searchParams.set("q", query);
     url.searchParams.set("per_page", "3");
+    url.searchParams.set("image_type", "photo");
+    url.searchParams.set("orientation", "horizontal");
     url.searchParams.set("safesearch", "true");
     const data = await getJson<{
       hits?: Array<{
@@ -140,7 +160,7 @@ const pixabay: Provider = {
     const hit = data?.hits?.[0];
     if (!hit?.webformatURL) return null;
     return {
-      fileTitle: `${hit.tags || query} — ${hit.user ?? "Pixabay"}`,
+      fileTitle: `${hit.tags?.split(",").slice(0, 3).join(",") || query} — ${hit.user ?? "Pixabay"}`,
       query,
       sourcePageUrl: hit.pageURL,
       thumbUrl: hit.webformatURL,

@@ -1,0 +1,176 @@
+{
+  "zena": {
+    "source": "unsplash",
+    "id": "j5almO1E8rU",
+    "query": "woman portrait",
+    "page": "https://unsplash.com/photos/woman-in-floral-themed-cardigan-leaning-on-fence-in-bokeh-photography-j5almO1E8rU",
+    "by": "Artem Beliaikin",
+    "desc": "woman in floral-themed cardigan leaning on fence in bokeh photography",
+    "why": "Natural, friendly portrait; face reads clearly at thumbnail size.",
+    "downloadLocation": "https://api.unsplash.com/photos/j5almO1E8rU/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8d29tYW4lMjBwb3J0cmFpdHxlbnwxfDB8fHwxNzkyMDQxNTQyfDA"
+  },
+  "muz": {
+    "source": "unsplash",
+    "id": "DItYlc26zVI",
+    "query": "man portrait",
+    "page": "https://unsplash.com/photos/smiling-man-with-glasses-and-beard-portrait-DItYlc26zVI",
+    "by": "Christian Buehner",
+    "desc": "smiling man with glasses and beard portrait",
+    "why": "Smiling, light background; pairs with the žena pick.",
+    "downloadLocation": "https://api.unsplash.com/photos/DItYlc26zVI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8bWFuJTIwcG9ydHJhaXR8ZW58MXwwfHx8MTc5MjA0MTU0M3ww"
+  },
+  "clovek": {
+    "source": "unsplash",
+    "id": "yIOViGQmjJ4",
+    "query": "person portrait",
+    "page": "https://unsplash.com/photos/man-in-black-crew-neck-shirt-wearing-black-framed-eyeglasses-yIOViGQmjJ4",
+    "by": "Usman Yousaf",
+    "desc": "man in black crew neck shirt wearing black framed eyeglasses",
+    "why": "Plain backdrop, neutral expression: a person, nothing else.",
+    "downloadLocation": "https://api.unsplash.com/photos/yIOViGQmjJ4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8cGVyc29uJTIwcG9ydHJhaXR8ZW58MXwwfHx8MTc5MjA0MTU0NHww"
+  },
+  "pes": {
+    "source": "unsplash",
+    "id": "2l0CWTpcChI",
+    "query": "dog",
+    "page": "https://unsplash.com/photos/dogs-face-2l0CWTpcChI",
+    "by": "Milli",
+    "desc": "dog's face",
+    "why": "One dog, face filling the frame, nothing to distract.",
+    "downloadLocation": "https://api.unsplash.com/photos/2l0CWTpcChI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8M3x8ZG9nfGVufDF8MHx8fDE3OTIwNDE1NDR8MA"
+  },
+  "chlieb": {
+    "source": "unsplash",
+    "id": "wJLGRhZsn5w",
+    "query": "bread loaf",
+    "page": "https://unsplash.com/photos/brown-bread-on-white-table-wJLGRhZsn5w",
+    "by": "Sergio Arze",
+    "desc": "brown bread on white table",
+    "why": "Round floured loaf, closest to a Slovak pecň.",
+    "downloadLocation": "https://api.unsplash.com/photos/wJLGRhZsn5w/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTJ8fGJyZWFkJTIwbG9hZnxlbnwxfDB8fHwxNzkyMDQxNTQ1fDA"
+  },
+  "jablko": {
+    "source": "unsplash",
+    "id": "GskfzsYdHYo",
+    "query": "red apple",
+    "page": "https://unsplash.com/photos/a-red-apple-sitting-on-top-of-a-white-table-GskfzsYdHYo",
+    "by": "Simoné Stander",
+    "desc": "a red apple sitting on top of a white table",
+    "why": "Single red apple on a light background.",
+    "downloadLocation": "https://api.unsplash.com/photos/GskfzsYdHYo/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8cmVkJTIwYXBwbGV8ZW58MXwwfHx8MTc5MjA0MTU0Nnww"
+  },
+  "mlieko": {
+    "source": "unsplash",
+    "id": "2rlleYcpvtI",
+    "query": "glass of milk",
+    "page": "https://unsplash.com/photos/clear-drinking-glass-with-brown-liquid-2rlleYcpvtI",
+    "by": "engin akyurt",
+    "desc": "clear drinking glass with brown liquid",
+    "why": "A plain glass of milk on a pale surface. No cows, no cowboy hat.",
+    "downloadLocation": "https://api.unsplash.com/photos/2rlleYcpvtI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8Z2xhc3MlMjBvZiUyMG1pbGt8ZW58MXwwfHx8MTc5MjA0MTU0N3ww"
+  },
+  "kava": {
+    "source": "unsplash",
+    "id": "tNALoIZhqVM",
+    "query": "cup of coffee",
+    "page": "https://unsplash.com/photos/white-ceramic-mug-and-saucer-with-coffee-beans-on-brown-textile-tNALoIZhqVM",
+    "by": "Mike Kenneally",
+    "desc": "white ceramic mug and saucer with coffee beans on brown textile",
+    "why": "White cup with beans and steam: unmistakably coffee.",
+    "downloadLocation": "https://api.unsplash.com/photos/tNALoIZhqVM/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y3VwJTIwb2YlMjBjb2ZmZWV8ZW58MXwwfHx8MTc5MjA0MTU0N3ww"
+  },
+  "caj": {
+    "source": "unsplash",
+    "id": "7liDpl93wt4",
+    "query": "cup of tea",
+    "page": "https://unsplash.com/photos/white-and-red-ceramic-mug-filled-with-tea-7liDpl93wt4",
+    "by": "Drew Taylor",
+    "desc": "white and red ceramic mug filled with tea",
+    "why": "The tea-bag tag tells it apart from coffee at a glance.",
+    "downloadLocation": "https://api.unsplash.com/photos/7liDpl93wt4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y3VwJTIwb2YlMjB0ZWF8ZW58MXwwfHx8MTc5MjA0MTU0OHww"
+  },
+  "cukor": {
+    "source": "pixabay",
+    "id": "549096",
+    "query": "sugar cubes",
+    "page": "https://pixabay.com/photos/lump-sugar-sugar-cubes-white-sweet-549096/",
+    "by": "Humusak",
+    "desc": "lump sugar, sugar, cubes, white, sweet, candy, sugar, sugar, sugar, sugar, sugar",
+    "why": "Three sugar cubes on white; clean and literal."
+  },
+  "dom": {
+    "source": "unsplash",
+    "id": "HQkaM1Npc8M",
+    "query": "european family house",
+    "page": "https://unsplash.com/photos/old-red-brick-house-with-green-shutters-and-white-balconies-HQkaM1Npc8M",
+    "by": "Ali AOUF",
+    "desc": "Old red brick house with green shutters and white balconies",
+    "why": "A single European house; the first set was all American suburbs.",
+    "downloadLocation": "https://api.unsplash.com/photos/HQkaM1Npc8M/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8ZXVyb3BlYW4lMjBmYW1pbHklMjBob3VzZXxlbnwxfDB8fHwxNzkyMDQxNjMwfDA"
+  },
+  "vlak": {
+    "source": "unsplash",
+    "id": "OHXmo1Ro_j4",
+    "query": "passenger train",
+    "page": "https://unsplash.com/photos/a-train-pulling-into-a-train-station-next-to-a-platform-OHXmo1Ro_j4",
+    "by": "Khushi Gandhi",
+    "desc": "a train pulling into a train station next to a platform",
+    "why": "Modern regional train at a platform, like those in Slovakia.",
+    "downloadLocation": "https://api.unsplash.com/photos/OHXmo1Ro_j4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTF8fHBhc3NlbmdlciUyMHRyYWlufGVufDF8MHx8fDE3OTIwNDE1NTB8MA"
+  },
+  "auto": {
+    "source": "unsplash",
+    "id": "M05m-vSJk2g",
+    "query": "hatchback car parked street",
+    "page": "https://unsplash.com/photos/a-red-car-is-parked-beside-a-stone-building-M05m-vSJk2g",
+    "by": "Zoshua Colah",
+    "desc": "A red car is parked beside a stone building",
+    "why": "Ordinary red hatchback in a European street instead of supercars.",
+    "downloadLocation": "https://api.unsplash.com/photos/M05m-vSJk2g/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8aGF0Y2hiYWNrJTIwY2FyJTIwcGFya2VkJTIwc3RyZWV0fGVufDF8MHx8fDE3OTIwNDE2MzF8MA"
+  },
+  "kniha": {
+    "source": "unsplash",
+    "id": "0FRJ2SCuY4k",
+    "query": "book",
+    "page": "https://unsplash.com/photos/bokeh-photography-of-open-book-0FRJ2SCuY4k",
+    "by": "Jonas Jacobsson",
+    "desc": "bokeh photography of open book",
+    "why": "One open book, close-up; no shelves or piles.",
+    "downloadLocation": "https://api.unsplash.com/photos/0FRJ2SCuY4k/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8Ym9va3xlbnwxfDB8fHwxNzkyMDQxNTUxfDA"
+  },
+  "stol": {
+    "source": "unsplash",
+    "id": "DefZwLAfxlw",
+    "query": "wooden table",
+    "page": "https://unsplash.com/photos/a-wooden-table-sitting-on-top-of-a-tiled-floor-DefZwLAfxlw",
+    "by": "Simeon Galabov",
+    "desc": "a wooden table sitting on top of a tiled floor",
+    "why": "A whole table against a plain wall; the other hits were wood textures.",
+    "downloadLocation": "https://api.unsplash.com/photos/DefZwLAfxlw/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fHdvb2RlbiUyMHRhYmxlfGVufDF8MHx8fDE3OTIwNDE1NTJ8MA"
+  },
+  "kolac": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Today's picture already shows real Slovak koláče; no stock site comes close."
+  },
+  "listok": {
+    "source": "unsplash",
+    "id": "NIS5r6wF6Ko",
+    "query": "train ticket",
+    "page": "https://unsplash.com/photos/a-person-holding-up-a-ticket-for-a-concert-NIS5r6wF6Ko",
+    "by": "Taylor Flowe",
+    "desc": "A person holding up a ticket for a concert",
+    "why": "A paper train ticket, close up.",
+    "downloadLocation": "https://api.unsplash.com/photos/NIS5r6wF6Ko/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8dHJhaW4lMjB0aWNrZXR8ZW58MXwwfHx8MTc5MjA0MTU1M3ww"
+  },
+  "jedlo": {
+    "source": "unsplash",
+    "id": "nZAem1CDE9s",
+    "query": "plate of food",
+    "page": "https://unsplash.com/photos/cooked-vegetable-on-white-plate-nZAem1CDE9s",
+    "by": "Ella Olsson",
+    "desc": "cooked vegetable on white plate",
+    "why": "A plated meal in natural light.",
+    "downloadLocation": "https://api.unsplash.com/photos/nZAem1CDE9s/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NXx8cGxhdGUlMjBvZiUyMGZvb2R8ZW58MXwwfHx8MTc5MjA0MTU1NHww"
+  }
+}
