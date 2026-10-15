@@ -7,7 +7,12 @@
  *
  * If a clip is missing or muted: honor minimum dwell then `onEnded`.
  * If autoplay is blocked: stash the clip and wait for a user gesture
- * (`Listen` / Next / say-choice) via `unlockStoryAudio` — do not silent-advance.
+ * (Next / say-choice via `unlockStoryAudio`, any other tap via
+ * `primeStoryAudio`) — do not silent-advance.
+ *
+ * Every line plays through one shared element: iOS Safari unlocks playback
+ * per element on a gesture, so a fresh `new Audio()` for each line would be
+ * blocked again when the next line autoplays from a timer.
  *
  * Respects the lesson chrome mute toggle (`slovak.wiki.sfx-preference`).
  */
@@ -16,6 +21,8 @@ import { AUDIO_VOLUME_CHANGE_EVENT, applyAudioVolume } from "$lib/audio/volume";
 import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/audio/sfx";
 
 let currentAudio: HTMLAudioElement | undefined;
+let storyAudio: HTMLAudioElement | undefined;
+let storyAudioUnlocked = false;
 let playGeneration = 0;
 let dwellTimer = 0;
 let muteListenerAttached = false;
@@ -27,6 +34,10 @@ let pending:
       startedAt: number;
     }
   | undefined;
+
+/** 10 ms of 8 kHz silence — enough for a gesture to unlock the shared element. */
+const SILENT_WAV =
+  "data:audio/wav;base64,UklGRnQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==";
 
 /** Floor so a missing/broken clip cannot blaze through the whole scene. */
 const MIN_STORY_DWELL_MS = 1600;
@@ -56,6 +67,12 @@ function ensureMuteListener(): void {
   window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, () => {
     if (currentAudio) applyAudioVolume(currentAudio);
   });
+}
+
+function sharedStoryAudio(): HTMLAudioElement {
+  storyAudio ??= new Audio();
+  storyAudio.preload = "auto";
+  return storyAudio;
 }
 
 function clearDwell(): void {
@@ -116,14 +133,15 @@ function tryPlay(
     return;
   }
 
-  const audio = new Audio(src);
-  audio.preload = "auto";
+  const audio = sharedStoryAudio();
+  audio.src = src;
   applyAudioVolume(audio);
   currentAudio = audio;
   attachPlayback(audio, generation, startedAt, onEnded);
 
   void audio.play().then(
     () => {
+      storyAudioUnlocked = true;
       pending = undefined;
     },
     (reason: unknown) => {
@@ -145,6 +163,11 @@ function tryPlay(
 /** True when a clip is waiting for a user gesture after autoplay was blocked. */
 export function hasPendingStoryAudio(): boolean {
   return Boolean(pending && pending.generation === playGeneration);
+}
+
+export function isStoryLineAudioActive(): boolean {
+  if (dwellTimer || hasPendingStoryAudio()) return true;
+  return Boolean(currentAudio && !currentAudio.paused);
 }
 
 /**
@@ -172,6 +195,28 @@ export function unlockStoryAudio(): void {
 
   playGeneration += 1;
   tryPlay(src, playGeneration, startedAt, onEnded);
+}
+
+export function primeStoryAudio(): void {
+  if (typeof window === "undefined" || audioMuted()) return;
+
+  if (hasPendingStoryAudio()) {
+    unlockStoryAudio();
+    return;
+  }
+
+  if (storyAudioUnlocked || currentAudio) return;
+
+  const audio = sharedStoryAudio();
+  audio.onended = null;
+  audio.onerror = null;
+  audio.src = SILENT_WAV;
+  void audio.play().then(
+    () => {
+      storyAudioUnlocked = true;
+    },
+    () => {},
+  );
 }
 
 export interface PlayStoryLineOptions {

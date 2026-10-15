@@ -18,7 +18,12 @@
   import type { Lesson } from "$lib/learning/types";
   import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
   import { practiceSetForLesson } from "$lib/catalog/practice";
-  import { hasPendingStoryAudio, unlockStoryAudio } from "$lib/lesson-story/story-audio";
+  import { unlockSfx } from "$lib/audio/sfx";
+  import {
+    hasPendingStoryAudio,
+    primeStoryAudio,
+    unlockStoryAudio,
+  } from "$lib/lesson-story/story-audio";
 
   let {
     lesson,
@@ -87,6 +92,30 @@
   onMount(() => {
     practiceState = readPracticeState(localStorage);
     hydrated = true;
+
+    // Controls play or replace a blocked line themselves (Next, Listen, say-choice).
+    const controls = "a, button, input, label, select, textarea";
+    const gestures = ["touchend", "click", "keydown"] as const;
+
+    function onGesture(event: Event): void {
+      unlockSfx();
+
+      const target = event.target;
+      const onControl = target instanceof Element && target.closest(controls);
+      if (onControl && hasPendingStoryAudio()) return;
+
+      primeStoryAudio();
+    }
+
+    for (const type of gestures) {
+      window.addEventListener(type, onGesture, { passive: true });
+    }
+
+    return () => {
+      for (const type of gestures) {
+        window.removeEventListener(type, onGesture);
+      }
+    };
   });
 
   $effect(() => {
