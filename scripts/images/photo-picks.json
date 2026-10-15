@@ -1,43 +1,251 @@
 {
-  "zena": {
+  "absolvent": {
     "source": "unsplash",
-    "id": "j5almO1E8rU",
-    "query": "woman portrait",
-    "page": "https://unsplash.com/photos/woman-in-floral-themed-cardigan-leaning-on-fence-in-bokeh-photography-j5almO1E8rU",
-    "by": "Artem Beliaikin",
-    "desc": "woman in floral-themed cardigan leaning on fence in bokeh photography",
-    "why": "Natural, friendly portrait; face reads clearly at thumbnail size.",
-    "downloadLocation": "https://api.unsplash.com/photos/j5almO1E8rU/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8d29tYW4lMjBwb3J0cmFpdHxlbnwxfDB8fHwxNzkyMDQxNTQyfDA"
+    "id": "yqZ7Z3ye154",
+    "query": "graduate in cap and gown",
+    "page": "https://unsplash.com/photos/woman-wearing-academic-gown-yqZ7Z3ye154",
+    "by": "Chichi Onyekanne",
+    "desc": "woman wearing academic gown",
+    "why": "Smiling graduate in cap and gown, well lit, soft green background.",
+    "downloadLocation": "https://api.unsplash.com/photos/yqZ7Z3ye154/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8Z3JhZHVhdGUlMjBpbiUyMGNhcCUyMGFuZCUyMGdvd258ZW58MXwwfHx8MTc5MjA0MjQxMXww"
   },
-  "muz": {
+  "aktivista": {
     "source": "unsplash",
-    "id": "DItYlc26zVI",
-    "query": "man portrait",
-    "page": "https://unsplash.com/photos/smiling-man-with-glasses-and-beard-portrait-DItYlc26zVI",
-    "by": "Christian Buehner",
-    "desc": "smiling man with glasses and beard portrait",
-    "why": "Smiling, light background; pairs with the žena pick.",
-    "downloadLocation": "https://api.unsplash.com/photos/DItYlc26zVI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8bWFuJTIwcG9ydHJhaXR8ZW58MXwwfHx8MTc5MjA0MTU0M3ww"
+    "id": "oeN9bEJzSG0",
+    "query": "activist holding protest sign",
+    "page": "https://unsplash.com/photos/person-holding-happy-birthday-to-you-signage-oeN9bEJzSG0",
+    "by": "Gayatri Malhotra",
+    "desc": "person holding happy birthday to you signage",
+    "why": "One hand-held protest sign on a blurred background; the other tiles are crowds or carry heavy political text.",
+    "downloadLocation": "https://api.unsplash.com/photos/oeN9bEJzSG0/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8YWN0aXZpc3QlMjBob2xkaW5nJTIwcHJvdGVzdCUyMHNpZ258ZW58MXwwfHx8MTc5MjA0MjQxMnww"
   },
-  "clovek": {
+  "album": {
     "source": "unsplash",
-    "id": "yIOViGQmjJ4",
-    "query": "person portrait",
-    "page": "https://unsplash.com/photos/man-in-black-crew-neck-shirt-wearing-black-framed-eyeglasses-yIOViGQmjJ4",
-    "by": "Usman Yousaf",
-    "desc": "man in black crew neck shirt wearing black framed eyeglasses",
-    "why": "Plain backdrop, neutral expression: a person, nothing else.",
-    "downloadLocation": "https://api.unsplash.com/photos/yIOViGQmjJ4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8cGVyc29uJTIwcG9ydHJhaXR8ZW58MXwwfHx8MTc5MjA0MTU0NHww"
+    "id": "73OJLcahQHg",
+    "query": "photo album",
+    "page": "https://unsplash.com/photos/person-opening-photo-album-displaying-grayscale-photos-73OJLcahQHg",
+    "by": "Laura Fuhrman",
+    "desc": "person opening photo album displaying grayscale photos",
+    "why": "Open photo album with mounted photos; L is dark film sleeves.",
+    "downloadLocation": "https://api.unsplash.com/photos/73OJLcahQHg/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8cGhvdG8lMjBhbGJ1bXxlbnwxfDB8fHwxNzkyMDQyNDE0fDA"
   },
-  "pes": {
+  "alkohol": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "A clean glass of red wine on a pale background beats bar shelves and branded bottles."
+  },
+  "ambulancia": {
+    "source": "pixabay",
+    "id": "2340742",
+    "query": "doctor examination room",
+    "page": "https://pixabay.com/photos/nursing-room-hospital-examine-exam-2340742/",
+    "by": "voltamax",
+    "desc": "nursing, room, hospital, examine, exam, medicine, health, consulting room, diagnosis, review, doctor, hospital, hospital, hospital, hospital, hospital, exam, consulting room, consulting room, consulting room, consulting room, consulting room, doctor",
+    "why": "Clean, empty exam room with an examination couch, which is the everyday Slovak sense of a clinic room; L is an ambulance vehicle (sanitka)."
+  },
+  "amfiteater": {
     "source": "unsplash",
-    "id": "2l0CWTpcChI",
-    "query": "dog",
-    "page": "https://unsplash.com/photos/dogs-face-2l0CWTpcChI",
-    "by": "Milli",
-    "desc": "dog's face",
-    "why": "One dog, face filling the frame, nothing to distract.",
-    "downloadLocation": "https://api.unsplash.com/photos/2l0CWTpcChI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8M3x8ZG9nfGVufDF8MHx8fDE3OTIwNDE1NDR8MA"
+    "id": "crrzLVaG6Zk",
+    "query": "open air amphitheater",
+    "page": "https://unsplash.com/photos/ancient-roman-amphitheater-overlooking-a-modern-city-skyline-crrzLVaG6Zk",
+    "by": "Vidar Nordli-Mathisen",
+    "desc": "Ancient roman amphitheater overlooking a modern city skyline",
+    "why": "Classic stone amphitheatre with the seating bowl filling the frame.",
+    "downloadLocation": "https://api.unsplash.com/photos/crrzLVaG6Zk/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8b3BlbiUyMGFpciUyMGFtcGhpdGhlYXRlcnxlbnwxfDB8fHwxNzkyMDQyNDE5fDA"
+  },
+  "anjel": {
+    "source": "unsplash",
+    "id": "iMFA-bP6ScY",
+    "query": "angel statue",
+    "page": "https://unsplash.com/photos/a-statue-of-an-angel-holding-a-rose-iMFA-bP6ScY",
+    "by": "Marek Studzinski",
+    "desc": "a statue of an angel holding a rose",
+    "why": "Angel statue with clearly spread wings, seen from the front.",
+    "downloadLocation": "https://api.unsplash.com/photos/iMFA-bP6ScY/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NXx8YW5nZWwlMjBzdGF0dWV8ZW58MXwwfHx8MTc5MjA0MjQyMXww"
+  },
+  "architekt": {
+    "source": "unsplash",
+    "id": "zhXR20LFowA",
+    "query": "architect with blueprints",
+    "page": "https://unsplash.com/photos/woman-in-red-sleeveless-shirt-holding-white-printer-paper-zhXR20LFowA",
+    "by": "ThisisEngineering",
+    "desc": "woman in red sleeveless shirt holding white printer paper",
+    "why": "Woman studying a floor plan, clearly doing the role, in colour; L is an old black-and-white shot.",
+    "downloadLocation": "https://api.unsplash.com/photos/zhXR20LFowA/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OHx8YXJjaGl0ZWN0JTIwd2l0aCUyMGJsdWVwcmludHN8ZW58MXwwfHx8MTc5MjA0MjQyMnww"
+  },
+  "archiv": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "Rows of labelled archive boxes on shelves already read clearly as an archive."
+  },
+  "arena": {
+    "source": "unsplash",
+    "id": "k7JFRw2keyo",
+    "query": "sports arena interior",
+    "page": "https://unsplash.com/photos/a-basketball-court-with-rows-of-empty-seats-k7JFRw2keyo",
+    "by": "Jonathan Ikemura",
+    "desc": "a basketball court with rows of empty seats",
+    "why": "Indoor sports arena with stands around a court, calm and empty.",
+    "downloadLocation": "https://api.unsplash.com/photos/k7JFRw2keyo/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8c3BvcnRzJTIwYXJlbmElMjBpbnRlcmlvcnxlbnwxfDB8fHwxNzkyMDQyNDI2fDA"
+  },
+  "atelier": {
+    "source": "unsplash",
+    "id": "0Ip-dmYYIcI",
+    "query": "artist painting studio",
+    "page": "https://unsplash.com/photos/an-empty-art-studio-with-easels-awaits-0Ip-dmYYIcI",
+    "by": "Cat Guffin",
+    "desc": "An empty art studio with easels awaits",
+    "why": "Bright studio full of easels; it reads as an art studio without a person or clutter.",
+    "downloadLocation": "https://api.unsplash.com/photos/0Ip-dmYYIcI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8YXJ0aXN0JTIwcGFpbnRpbmclMjBzdHVkaW98ZW58MXwwfHx8MTc5MjA0MjQyOHww"
+  },
+  "auto": {
+    "source": "unsplash",
+    "id": "M05m-vSJk2g",
+    "query": "hatchback car parked street",
+    "page": "https://unsplash.com/photos/a-red-car-is-parked-beside-a-stone-building-M05m-vSJk2g",
+    "by": "Zoshua Colah",
+    "desc": "A red car is parked beside a stone building",
+    "why": "Ordinary red hatchback in a European street instead of supercars.",
+    "downloadLocation": "https://api.unsplash.com/photos/M05m-vSJk2g/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8aGF0Y2hiYWNrJTIwY2FyJTIwcGFya2VkJTIwc3RyZWV0fGVufDF8MHx8fDE3OTIwNDE2MzF8MA"
+  },
+  "autobus": {
+    "source": "wikimedia",
+    "keep": "live",
+    "why": "A single European bus fills the frame; the Unsplash buses are motion-blurred, double-deckers or Asian."
+  },
+  "automat": {
+    "source": "unsplash",
+    "id": "z_MjF1okmEo",
+    "query": "vending machine",
+    "page": "https://unsplash.com/photos/red-and-white-labeled-box-z_MjF1okmEo",
+    "by": "Kanishka Burnwal",
+    "desc": "red and white labeled box",
+    "why": "Single snack vending machine fills the frame with no big logo.",
+    "downloadLocation": "https://api.unsplash.com/photos/z_MjF1okmEo/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8dmVuZGluZyUyMG1hY2hpbmV8ZW58MXwwfHx8MTc5MjA0MjQzMnww"
+  },
+  "automobil": {
+    "source": "pixabay",
+    "id": "1846910",
+    "query": "car parked street",
+    "page": "https://pixabay.com/photos/automotive-volkswagen-beetle-car-1846910/",
+    "by": "Pexels",
+    "desc": "automotive, volkswagen beetle, car, city, classic, classic car, car wallpapers, old car, pavement, red car, parked car, road, sidewalk, street, vehicle, city street, vintage, volkswagen, vw beetle",
+    "why": "Ordinary red car fills the frame on a European street."
+  },
+  "automobilka": {
+    "source": "unsplash",
+    "id": "EyqUxJuOb1Q",
+    "query": "car factory assembly line",
+    "page": "https://unsplash.com/photos/robotic-arms-assembling-a-car-chassis-on-a-factory-line-EyqUxJuOb1Q",
+    "by": "Lilian Do Khac",
+    "desc": "Robotic arms assembling a car chassis on a factory line",
+    "why": "Car body on a robot assembly line, clearly a car factory.",
+    "downloadLocation": "https://api.unsplash.com/photos/EyqUxJuOb1Q/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y2FyJTIwZmFjdG9yeSUyMGFzc2VtYmx5JTIwbGluZXxlbnwxfDB8fHwxNzkyMDQyNDM1fDA"
+  },
+  "baba": {
+    "source": "unsplash",
+    "id": "M3MZ3NRpvPk",
+    "query": "old woman portrait",
+    "page": "https://unsplash.com/photos/elderly-woman-in-grey-coat-M3MZ3NRpvPk",
+    "by": "Raymond Petrik",
+    "desc": "An elderly woman with white hair in a grey coat and patterned scarf",
+    "why": "Friendly, well-lit colour portrait of an old woman.",
+    "downloadLocation": "https://api.unsplash.com/photos/M3MZ3NRpvPk/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8b2xkJTIwd29tYW4lMjBwb3J0cmFpdHxlbnwxfDB8fHwxNzkyMDQyNDM2fDA"
+  },
+  "babatko": {
+    "source": "unsplash",
+    "id": "oOnJWBMlb5A",
+    "query": "newborn baby",
+    "page": "https://unsplash.com/photos/woman-in-white-knit-sweater-lying-on-bed-oOnJWBMlb5A",
+    "by": "Garrett Jackson",
+    "desc": "woman in white knit sweater lying on bed",
+    "why": "Swaddled sleeping baby on a plain pale background.",
+    "downloadLocation": "https://api.unsplash.com/photos/oOnJWBMlb5A/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTJ8fG5ld2Jvcm4lMjBiYWJ5fGVufDF8MHx8fDE3OTIwNDI0Mzh8MA"
+  },
+  "babicka": {
+    "source": "pixabay",
+    "id": "10487963",
+    "query": "grandmother smiling",
+    "page": "https://pixabay.com/photos/grandmother-granddaughter-senior-10487963/",
+    "by": "fatimaperes",
+    "desc": "grandmother, granddaughter, senior, love, happiness, family, bond, laugh, children, interior, older woman, fun, smile, joy, bright, light, cheerful, home, kindness, interaction",
+    "why": "Grandmother smiling with her granddaughter on a bright, calm background, which shows the family role."
+  },
+  "babka": {
+    "source": "unsplash",
+    "id": "wntFSQtCB2c",
+    "query": "elderly grandmother",
+    "page": "https://unsplash.com/photos/an-old-woman-with-glasses-wntFSQtCB2c",
+    "by": "Benjamin Brunner",
+    "desc": "an old woman with glasses",
+    "why": "Smiling elderly woman, natural colour portrait; L is an old sepia drawing.",
+    "downloadLocation": "https://api.unsplash.com/photos/wntFSQtCB2c/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8ZWxkZXJseSUyMGdyYW5kbW90aGVyfGVufDF8MHx8fDE3OTIwNDI0NDF8MA"
+  },
+  "bakteria": {
+    "source": "unsplash",
+    "id": "K1ZoXdpWUNY",
+    "query": "bacteria under microscope",
+    "page": "https://unsplash.com/photos/a-close-up-of-a-blood-cell-with-blood-cells-K1ZoXdpWUNY",
+    "by": "National Institute of Allergy and Infectious Diseases",
+    "desc": "a close up of a blood cell with blood cells",
+    "why": "Clear rod-shaped bacteria on a calm dark background.",
+    "downloadLocation": "https://api.unsplash.com/photos/K1ZoXdpWUNY/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTJ8fGJhY3RlcmlhJTIwdW5kZXIlMjBtaWNyb3Njb3BlfGVufDF8MHx8fDE3OTIwNDI0NDJ8MA"
+  },
+  "balicek": {
+    "source": "unsplash",
+    "id": "f94JPVrDbnY",
+    "query": "small wrapped package",
+    "page": "https://unsplash.com/photos/brown-gift-box-with-pink-ribbon-f94JPVrDbnY",
+    "by": "Jess Bailey",
+    "desc": "brown gift box with pink ribbon",
+    "why": "Small paper-wrapped package with a ribbon on a plain background.",
+    "downloadLocation": "https://api.unsplash.com/photos/f94JPVrDbnY/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8c21hbGwlMjB3cmFwcGVkJTIwcGFja2FnZXxlbnwxfDB8fHwxNzkyMDQyNDQ0fDA"
+  },
+  "balik": {
+    "source": "pixabay",
+    "id": "314504",
+    "query": "cardboard parcel box",
+    "page": "https://pixabay.com/photos/cardboard-box-paper-old-close-up-314504/",
+    "by": "PublicDomainPictures",
+    "desc": "cardboard, box, paper, old, close-up, isolated, heap, square, string, nobody, delivering, copy, merchandise, craft, warehouse, business, brown, blank, shipping, packing, symbol, rope, distribution, gift, bow, freight, tied, carton, send, cargo, cardboard, box, box, box, string, warehouse, warehouse, warehouse, warehouse, shipping, packing, packing, packing, packing, packing, rope, distribution, distribution, distribution, gift, gift, gift, freight, freight, carton, send, send, cargo, cargo, cargo, cargo",
+    "why": "Classic parcel wrapped in kraft paper and string on white; the box tiles have FRAGILE text, busy rugs or dark shadows."
+  },
+  "balkon": {
+    "source": "pixabay",
+    "id": "979257",
+    "query": "balcony with flowers",
+    "page": "https://pixabay.com/photos/balcony-flower-box-flower-979257/",
+    "by": "jeglaat",
+    "desc": "balcony, beautiful flowers, nature, flower box, flower wallpaper, flower background, flower",
+    "why": "One flower-filled balcony on a European facade; the balcony is the clear subject."
+  },
+  "bana": {
+    "source": "pixabay",
+    "id": "7309713",
+    "query": "coal mine",
+    "page": "https://pixabay.com/photos/abandoned-mine-mountain-mining-7309713/",
+    "by": "dkatana",
+    "desc": "abandoned mine, mountain, nature, mining, rocks, coal industry, asturias, covadonga",
+    "why": "Mine tunnel entrance with rails, the typical Slovak mine, not an open-pit truck scene."
+  },
+  "banik": {
+    "source": "pixabay",
+    "id": "1867831",
+    "query": "coal miner helmet",
+    "page": "https://pixabay.com/photos/miner-human-man-one-after-work-1867831/",
+    "by": "stafichukanatoly",
+    "desc": "miner, human, man, one, after work, minerals, coal, mine, hard labour, booty, industry, work, after work, after work, after work, after work, after work, coal",
+    "why": "Smiling miner with a helmet and a coal-dusted face, in colour; L is old black-and-white."
+  },
+  "caj": {
+    "source": "unsplash",
+    "id": "7liDpl93wt4",
+    "query": "cup of tea",
+    "page": "https://unsplash.com/photos/white-and-red-ceramic-mug-filled-with-tea-7liDpl93wt4",
+    "by": "Drew Taylor",
+    "desc": "white and red ceramic mug filled with tea",
+    "why": "The tea-bag tag tells it apart from coffee at a glance.",
+    "downloadLocation": "https://api.unsplash.com/photos/7liDpl93wt4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y3VwJTIwb2YlMjB0ZWF8ZW58MXwwfHx8MTc5MjA0MTU0OHww"
   },
   "chlieb": {
     "source": "unsplash",
@@ -49,45 +257,15 @@
     "why": "Round floured loaf, closest to a Slovak pecň.",
     "downloadLocation": "https://api.unsplash.com/photos/wJLGRhZsn5w/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTJ8fGJyZWFkJTIwbG9hZnxlbnwxfDB8fHwxNzkyMDQxNTQ1fDA"
   },
-  "jablko": {
+  "clovek": {
     "source": "unsplash",
-    "id": "GskfzsYdHYo",
-    "query": "red apple",
-    "page": "https://unsplash.com/photos/a-red-apple-sitting-on-top-of-a-white-table-GskfzsYdHYo",
-    "by": "Simoné Stander",
-    "desc": "a red apple sitting on top of a white table",
-    "why": "Single red apple on a light background.",
-    "downloadLocation": "https://api.unsplash.com/photos/GskfzsYdHYo/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8cmVkJTIwYXBwbGV8ZW58MXwwfHx8MTc5MjA0MTU0Nnww"
-  },
-  "mlieko": {
-    "source": "unsplash",
-    "id": "2rlleYcpvtI",
-    "query": "glass of milk",
-    "page": "https://unsplash.com/photos/clear-drinking-glass-with-brown-liquid-2rlleYcpvtI",
-    "by": "engin akyurt",
-    "desc": "clear drinking glass with brown liquid",
-    "why": "A plain glass of milk on a pale surface. No cows, no cowboy hat.",
-    "downloadLocation": "https://api.unsplash.com/photos/2rlleYcpvtI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8Z2xhc3MlMjBvZiUyMG1pbGt8ZW58MXwwfHx8MTc5MjA0MTU0N3ww"
-  },
-  "kava": {
-    "source": "unsplash",
-    "id": "tNALoIZhqVM",
-    "query": "cup of coffee",
-    "page": "https://unsplash.com/photos/white-ceramic-mug-and-saucer-with-coffee-beans-on-brown-textile-tNALoIZhqVM",
-    "by": "Mike Kenneally",
-    "desc": "white ceramic mug and saucer with coffee beans on brown textile",
-    "why": "White cup with beans and steam: unmistakably coffee.",
-    "downloadLocation": "https://api.unsplash.com/photos/tNALoIZhqVM/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y3VwJTIwb2YlMjBjb2ZmZWV8ZW58MXwwfHx8MTc5MjA0MTU0N3ww"
-  },
-  "caj": {
-    "source": "unsplash",
-    "id": "7liDpl93wt4",
-    "query": "cup of tea",
-    "page": "https://unsplash.com/photos/white-and-red-ceramic-mug-filled-with-tea-7liDpl93wt4",
-    "by": "Drew Taylor",
-    "desc": "white and red ceramic mug filled with tea",
-    "why": "The tea-bag tag tells it apart from coffee at a glance.",
-    "downloadLocation": "https://api.unsplash.com/photos/7liDpl93wt4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y3VwJTIwb2YlMjB0ZWF8ZW58MXwwfHx8MTc5MjA0MTU0OHww"
+    "id": "yIOViGQmjJ4",
+    "query": "person portrait",
+    "page": "https://unsplash.com/photos/man-in-black-crew-neck-shirt-wearing-black-framed-eyeglasses-yIOViGQmjJ4",
+    "by": "Usman Yousaf",
+    "desc": "man in black crew neck shirt wearing black framed eyeglasses",
+    "why": "Plain backdrop, neutral expression: a person, nothing else.",
+    "downloadLocation": "https://api.unsplash.com/photos/yIOViGQmjJ4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8cGVyc29uJTIwcG9ydHJhaXR8ZW58MXwwfHx8MTc5MjA0MTU0NHww"
   },
   "cukor": {
     "source": "pixabay",
@@ -108,25 +286,35 @@
     "why": "A single European house; the first set was all American suburbs.",
     "downloadLocation": "https://api.unsplash.com/photos/HQkaM1Npc8M/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8ZXVyb3BlYW4lMjBmYW1pbHklMjBob3VzZXxlbnwxfDB8fHwxNzkyMDQxNjMwfDA"
   },
-  "vlak": {
+  "jablko": {
     "source": "unsplash",
-    "id": "OHXmo1Ro_j4",
-    "query": "passenger train",
-    "page": "https://unsplash.com/photos/a-train-pulling-into-a-train-station-next-to-a-platform-OHXmo1Ro_j4",
-    "by": "Khushi Gandhi",
-    "desc": "a train pulling into a train station next to a platform",
-    "why": "Modern regional train at a platform, like those in Slovakia.",
-    "downloadLocation": "https://api.unsplash.com/photos/OHXmo1Ro_j4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTF8fHBhc3NlbmdlciUyMHRyYWlufGVufDF8MHx8fDE3OTIwNDE1NTB8MA"
+    "id": "GskfzsYdHYo",
+    "query": "red apple",
+    "page": "https://unsplash.com/photos/a-red-apple-sitting-on-top-of-a-white-table-GskfzsYdHYo",
+    "by": "Simoné Stander",
+    "desc": "a red apple sitting on top of a white table",
+    "why": "Single red apple on a light background.",
+    "downloadLocation": "https://api.unsplash.com/photos/GskfzsYdHYo/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8N3x8cmVkJTIwYXBwbGV8ZW58MXwwfHx8MTc5MjA0MTU0Nnww"
   },
-  "auto": {
+  "jedlo": {
     "source": "unsplash",
-    "id": "M05m-vSJk2g",
-    "query": "hatchback car parked street",
-    "page": "https://unsplash.com/photos/a-red-car-is-parked-beside-a-stone-building-M05m-vSJk2g",
-    "by": "Zoshua Colah",
-    "desc": "A red car is parked beside a stone building",
-    "why": "Ordinary red hatchback in a European street instead of supercars.",
-    "downloadLocation": "https://api.unsplash.com/photos/M05m-vSJk2g/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8aGF0Y2hiYWNrJTIwY2FyJTIwcGFya2VkJTIwc3RyZWV0fGVufDF8MHx8fDE3OTIwNDE2MzF8MA"
+    "id": "nZAem1CDE9s",
+    "query": "plate of food",
+    "page": "https://unsplash.com/photos/cooked-vegetable-on-white-plate-nZAem1CDE9s",
+    "by": "Ella Olsson",
+    "desc": "cooked vegetable on white plate",
+    "why": "A plated meal in natural light.",
+    "downloadLocation": "https://api.unsplash.com/photos/nZAem1CDE9s/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NXx8cGxhdGUlMjBvZiUyMGZvb2R8ZW58MXwwfHx8MTc5MjA0MTU1NHww"
+  },
+  "kava": {
+    "source": "unsplash",
+    "id": "tNALoIZhqVM",
+    "query": "cup of coffee",
+    "page": "https://unsplash.com/photos/white-ceramic-mug-and-saucer-with-coffee-beans-on-brown-textile-tNALoIZhqVM",
+    "by": "Mike Kenneally",
+    "desc": "white ceramic mug and saucer with coffee beans on brown textile",
+    "why": "White cup with beans and steam: unmistakably coffee.",
+    "downloadLocation": "https://api.unsplash.com/photos/tNALoIZhqVM/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8Y3VwJTIwb2YlMjBjb2ZmZWV8ZW58MXwwfHx8MTc5MjA0MTU0N3ww"
   },
   "kniha": {
     "source": "unsplash",
@@ -137,16 +325,6 @@
     "desc": "bokeh photography of open book",
     "why": "One open book, close-up; no shelves or piles.",
     "downloadLocation": "https://api.unsplash.com/photos/0FRJ2SCuY4k/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8OXx8Ym9va3xlbnwxfDB8fHwxNzkyMDQxNTUxfDA"
-  },
-  "stol": {
-    "source": "unsplash",
-    "id": "DefZwLAfxlw",
-    "query": "wooden table",
-    "page": "https://unsplash.com/photos/a-wooden-table-sitting-on-top-of-a-tiled-floor-DefZwLAfxlw",
-    "by": "Simeon Galabov",
-    "desc": "a wooden table sitting on top of a tiled floor",
-    "why": "A whole table against a plain wall; the other hits were wood textures.",
-    "downloadLocation": "https://api.unsplash.com/photos/DefZwLAfxlw/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fHdvb2RlbiUyMHRhYmxlfGVufDF8MHx8fDE3OTIwNDE1NTJ8MA"
   },
   "kolac": {
     "source": "wikimedia",
@@ -163,14 +341,64 @@
     "why": "A paper train ticket, close up.",
     "downloadLocation": "https://api.unsplash.com/photos/NIS5r6wF6Ko/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8dHJhaW4lMjB0aWNrZXR8ZW58MXwwfHx8MTc5MjA0MTU1M3ww"
   },
-  "jedlo": {
+  "mlieko": {
     "source": "unsplash",
-    "id": "nZAem1CDE9s",
-    "query": "plate of food",
-    "page": "https://unsplash.com/photos/cooked-vegetable-on-white-plate-nZAem1CDE9s",
-    "by": "Ella Olsson",
-    "desc": "cooked vegetable on white plate",
-    "why": "A plated meal in natural light.",
-    "downloadLocation": "https://api.unsplash.com/photos/nZAem1CDE9s/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8NXx8cGxhdGUlMjBvZiUyMGZvb2R8ZW58MXwwfHx8MTc5MjA0MTU1NHww"
+    "id": "2rlleYcpvtI",
+    "query": "glass of milk",
+    "page": "https://unsplash.com/photos/clear-drinking-glass-with-brown-liquid-2rlleYcpvtI",
+    "by": "engin akyurt",
+    "desc": "clear drinking glass with brown liquid",
+    "why": "A plain glass of milk on a pale surface. No cows, no cowboy hat.",
+    "downloadLocation": "https://api.unsplash.com/photos/2rlleYcpvtI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Mnx8Z2xhc3MlMjBvZiUyMG1pbGt8ZW58MXwwfHx8MTc5MjA0MTU0N3ww"
+  },
+  "muz": {
+    "source": "unsplash",
+    "id": "DItYlc26zVI",
+    "query": "man portrait",
+    "page": "https://unsplash.com/photos/smiling-man-with-glasses-and-beard-portrait-DItYlc26zVI",
+    "by": "Christian Buehner",
+    "desc": "smiling man with glasses and beard portrait",
+    "why": "Smiling, light background; pairs with the žena pick.",
+    "downloadLocation": "https://api.unsplash.com/photos/DItYlc26zVI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MXx8bWFuJTIwcG9ydHJhaXR8ZW58MXwwfHx8MTc5MjA0MTU0M3ww"
+  },
+  "pes": {
+    "source": "unsplash",
+    "id": "2l0CWTpcChI",
+    "query": "dog",
+    "page": "https://unsplash.com/photos/dogs-face-2l0CWTpcChI",
+    "by": "Milli",
+    "desc": "dog's face",
+    "why": "One dog, face filling the frame, nothing to distract.",
+    "downloadLocation": "https://api.unsplash.com/photos/2l0CWTpcChI/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8M3x8ZG9nfGVufDF8MHx8fDE3OTIwNDE1NDR8MA"
+  },
+  "stol": {
+    "source": "unsplash",
+    "id": "DefZwLAfxlw",
+    "query": "wooden table",
+    "page": "https://unsplash.com/photos/a-wooden-table-sitting-on-top-of-a-tiled-floor-DefZwLAfxlw",
+    "by": "Simeon Galabov",
+    "desc": "a wooden table sitting on top of a tiled floor",
+    "why": "A whole table against a plain wall; the other hits were wood textures.",
+    "downloadLocation": "https://api.unsplash.com/photos/DefZwLAfxlw/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTB8fHdvb2RlbiUyMHRhYmxlfGVufDF8MHx8fDE3OTIwNDE1NTJ8MA"
+  },
+  "vlak": {
+    "source": "unsplash",
+    "id": "OHXmo1Ro_j4",
+    "query": "passenger train",
+    "page": "https://unsplash.com/photos/a-train-pulling-into-a-train-station-next-to-a-platform-OHXmo1Ro_j4",
+    "by": "Khushi Gandhi",
+    "desc": "a train pulling into a train station next to a platform",
+    "why": "Modern regional train at a platform, like those in Slovakia.",
+    "downloadLocation": "https://api.unsplash.com/photos/OHXmo1Ro_j4/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8MTF8fHBhc3NlbmdlciUyMHRyYWlufGVufDF8MHx8fDE3OTIwNDE1NTB8MA"
+  },
+  "zena": {
+    "source": "unsplash",
+    "id": "j5almO1E8rU",
+    "query": "woman portrait",
+    "page": "https://unsplash.com/photos/woman-in-floral-themed-cardigan-leaning-on-fence-in-bokeh-photography-j5almO1E8rU",
+    "by": "Artem Beliaikin",
+    "desc": "woman in floral-themed cardigan leaning on fence in bokeh photography",
+    "why": "Natural, friendly portrait; face reads clearly at thumbnail size.",
+    "downloadLocation": "https://api.unsplash.com/photos/j5almO1E8rU/download?ixid=M3wxMTAyNjQzfDB8MXxzZWFyY2h8Nnx8d29tYW4lMjBwb3J0cmFpdHxlbnwxfDB8fHwxNzkyMDQxNTQyfDA"
   }
 }
