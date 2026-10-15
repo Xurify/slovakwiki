@@ -81,12 +81,20 @@ function lemmaBoundInfinitiveFrame(slovak: string, lemma: string): boolean {
  * Sentences about the headword as a word (`Význam slova X…`, `Výraz „X“ sa objavil…`).
  * They fit any noun, so they teach nothing about how the lemma is used.
  */
+const lemmaMentionPatterns = new Map<string, RegExp>();
+
 function lemmaMentionFrame(slovak: string, lemma: string): boolean {
-  const escaped = escapeLemma(lemma);
-  return new RegExp(
-    `(?<!\\p{L})(slovo|slova|výraz|výrazu)\\s+['"„‚]?${escaped}['"“‘]?(?!\\p{L})`,
-    "iu",
-  ).test(slovak);
+  if (!/slov|výraz/iu.test(slovak)) return false;
+
+  let pattern = lemmaMentionPatterns.get(lemma);
+  if (!pattern) {
+    pattern = new RegExp(
+      `(?<!\\p{L})(slovo|slova|výraz|výrazu)\\s+['"„‚]?${escapeLemma(lemma)}['"“‘]?(?!\\p{L})`,
+      "iu",
+    );
+    lemmaMentionPatterns.set(lemma, pattern);
+  }
+  return pattern.test(slovak);
 }
 
 /**
