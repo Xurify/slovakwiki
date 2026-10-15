@@ -221,7 +221,6 @@
     --brand: #3b82f6;
     --brand-ink: #ffffff;
     --shadow-color: #000000;
-    /* Black rings vanish on dark paper; cards and popovers need a light hairline. */
     --shadow-border:
       0 0 0 1px var(--line),
       0 1px 2px -1px color-mix(in srgb, var(--shadow-color) 30%, transparent),
