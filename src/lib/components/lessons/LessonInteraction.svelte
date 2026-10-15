@@ -215,7 +215,7 @@
     playOption(added?.label);
   }
 
-  // Answer chimes run ~220 ms (sfx.ts); start the sentence once they finish.
+  // Answer chime strikes land within ~250 ms (sfx.ts); start the sentence once they finish.
   const ANSWER_AUDIO_DELAY_MS = 250;
   let answerAudioTimer = 0;
 

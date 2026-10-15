@@ -94,39 +94,151 @@ async function ensureRunning(ctx: AudioContext): Promise<boolean> {
   }
 }
 
-function tone(
-  ctx: AudioContext,
-  {
-    frequency,
-    start,
-    duration,
-    gain = 0.1,
-    type = "sine",
-  }: {
-    frequency: number;
-    start: number;
-    duration: number;
-    gain?: number;
-    type?: OscillatorType;
+export type SfxKind = AnswerSfxKind | "finish";
+
+interface Strike {
+  frequency: number;
+  /** Seconds after the cue starts. */
+  at: number;
+  gain: number;
+  /** Seconds until the strike has faded out. */
+  decay: number;
+}
+
+interface Cue {
+  /** Lowpass cutoff in Hz — lower reads softer and more muted. */
+  brightness: number;
+  strikes: Strike[];
+}
+
+// Every strike lands within ~250 ms: LessonInteraction starts the spoken
+// answer at 250 ms, so later onsets would collide with the voice.
+const CUES: Record<SfxKind, Cue> = {
+  correct: {
+    brightness: 4200,
+    strikes: [
+      { frequency: 783.99, at: 0, gain: 0.067, decay: 0.35 },
+      { frequency: 1046.5, at: 0.085, gain: 0.076, decay: 0.6 },
+    ],
   },
+  almost: {
+    brightness: 3200,
+    strikes: [
+      { frequency: 659.25, at: 0, gain: 0.055, decay: 0.3 },
+      { frequency: 739.99, at: 0.09, gain: 0.05, decay: 0.45 },
+    ],
+  },
+  incorrect: {
+    brightness: 1800,
+    strikes: [
+      { frequency: 440, at: 0, gain: 0.055, decay: 0.3 },
+      { frequency: 349.23, at: 0.1, gain: 0.05, decay: 0.5 },
+    ],
+  },
+  finish: {
+    brightness: 4200,
+    strikes: [
+      { frequency: 523.25, at: 0, gain: 0.05, decay: 0.35 },
+      { frequency: 659.25, at: 0.08, gain: 0.055, decay: 0.35 },
+      { frequency: 783.99, at: 0.16, gain: 0.059, decay: 0.4 },
+      { frequency: 1046.5, at: 0.24, gain: 0.071, decay: 0.9 },
+    ],
+  },
+};
+
+// Harmonic overtones that die faster than the fundamental give a soft
+// mallet (marimba / kalimba) attack instead of a bare sine beep.
+const PARTIALS = [
+  { ratio: 1, level: 1, decay: 1 },
+  { ratio: 2, level: 0.18, decay: 0.5 },
+  { ratio: 4, level: 0.05, decay: 0.2 },
+];
+
+const REVERB_SECONDS = 0.7;
+const REVERB_WET = 0.16;
+
+const buses = new WeakMap<BaseAudioContext, AudioNode>();
+
+function roomImpulse(ctx: BaseAudioContext): AudioBuffer {
+  const length = Math.round(ctx.sampleRate * REVERB_SECONDS);
+  const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+
+  for (let channel = 0; channel < impulse.numberOfChannels; channel++) {
+    const data = impulse.getChannelData(channel);
+    for (let i = 0; i < length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 4);
+    }
+  }
+
+  return impulse;
+}
+
+function getBus(ctx: BaseAudioContext): AudioNode {
+  const existing = buses.get(ctx);
+  if (existing) return existing;
+
+  const input = ctx.createGain();
+  const reverb = ctx.createConvolver();
+  const wet = ctx.createGain();
+
+  reverb.buffer = roomImpulse(ctx);
+  wet.gain.value = REVERB_WET;
+
+  input.connect(ctx.destination);
+  input.connect(reverb);
+  reverb.connect(wet);
+  wet.connect(ctx.destination);
+
+  buses.set(ctx, input);
+  return input;
+}
+
+function strike(
+  ctx: BaseAudioContext,
+  output: AudioNode,
+  { frequency, gain, decay }: Strike,
+  start: number,
+  volume: number,
 ): void {
-  const osc = ctx.createOscillator();
-  const amp = ctx.createGain();
+  for (const partial of PARTIALS) {
+    const osc = ctx.createOscillator();
+    const amp = ctx.createGain();
+    const end = start + decay * partial.decay;
 
-  osc.type = type;
-  osc.frequency.setValueAtTime(frequency, start);
+    osc.frequency.setValueAtTime(frequency * partial.ratio, start);
 
-  const scaled = Math.max(0.0001, gain * getAudioVolume());
+    amp.gain.setValueAtTime(0, start);
+    amp.gain.linearRampToValueAtTime(gain * partial.level * volume, start + 0.004);
+    amp.gain.exponentialRampToValueAtTime(0.0001, end);
 
-  amp.gain.setValueAtTime(0.0001, start);
-  amp.gain.exponentialRampToValueAtTime(scaled, start + 0.012);
-  amp.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    osc.connect(amp);
+    amp.connect(output);
 
-  osc.connect(amp);
-  amp.connect(ctx.destination);
+    osc.start(start);
+    osc.stop(end + 0.02);
+  }
+}
 
-  osc.start(start);
-  osc.stop(start + duration + 0.02);
+/** Schedules a cue on any context — the live one, or an OfflineAudioContext. */
+export function scheduleSfx(
+  ctx: BaseAudioContext,
+  kind: SfxKind,
+  start = ctx.currentTime,
+  volume = getAudioVolume(),
+): void {
+  if (volume <= 0) return;
+
+  const cue = CUES[kind];
+  const filter = ctx.createBiquadFilter();
+
+  filter.type = "lowpass";
+  filter.frequency.value = cue.brightness;
+  filter.Q.value = 0.5;
+  filter.connect(getBus(ctx));
+
+  for (const note of cue.strikes) {
+    strike(ctx, filter, note, start + note.at, volume);
+  }
 }
 
 function sfxEnabled(): boolean {
@@ -146,62 +258,20 @@ async function withContext(
   play(ctx, ctx.currentTime);
 }
 
-/** Soft ascending major third — correct answer. */
 export function playCorrectSfx(): void {
-  void withContext((ctx, now) => {
-    tone(ctx, { frequency: 523.25, start: now, duration: 0.09, gain: 0.09 });
-    tone(ctx, {
-      frequency: 659.25,
-      start: now + 0.07,
-      duration: 0.12,
-      gain: 0.1,
-    });
-  });
+  void withContext((ctx, now) => scheduleSfx(ctx, "correct", now));
 }
 
-/** Soft mid “almost” — accent near-miss. */
 export function playAlmostSfx(): void {
-  void withContext((ctx, now) => {
-    tone(ctx, { frequency: 466.16, start: now, duration: 0.1, gain: 0.08 });
-    tone(ctx, {
-      frequency: 554.37,
-      start: now + 0.08,
-      duration: 0.1,
-      gain: 0.07,
-    });
-  });
+  void withContext((ctx, now) => scheduleSfx(ctx, "almost", now));
 }
 
-/** Soft descending — incorrect / reveal. */
 export function playIncorrectSfx(): void {
-  void withContext((ctx, now) => {
-    tone(ctx, { frequency: 392, start: now, duration: 0.1, gain: 0.08 });
-    tone(ctx, {
-      frequency: 311.13,
-      start: now + 0.08,
-      duration: 0.14,
-      gain: 0.07,
-    });
-  });
+  void withContext((ctx, now) => scheduleSfx(ctx, "incorrect", now));
 }
 
-/** Longer rising arpeggio — practice set finished. */
 export function playFinishSfx(): void {
-  void withContext((ctx, now) => {
-    tone(ctx, { frequency: 523.25, start: now, duration: 0.1, gain: 0.08 });
-    tone(ctx, {
-      frequency: 659.25,
-      start: now + 0.09,
-      duration: 0.1,
-      gain: 0.09,
-    });
-    tone(ctx, {
-      frequency: 783.99,
-      start: now + 0.18,
-      duration: 0.16,
-      gain: 0.1,
-    });
-  });
+  void withContext((ctx, now) => scheduleSfx(ctx, "finish", now));
 }
 
 export function playAnswerSfx(kind: AnswerSfxKind): void {
