@@ -206,7 +206,7 @@
 
         {#if lemmaAudioSrc}
           <span
-            class="inline-grid size-10 shrink-0 place-items-center"
+            class="inline-grid size-8 shrink-0 place-items-center"
             data-audio-mount="lemma"
           ></span>
         {/if}
