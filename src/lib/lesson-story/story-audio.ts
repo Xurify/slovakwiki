@@ -165,10 +165,6 @@ export function hasPendingStoryAudio(): boolean {
   return Boolean(pending && pending.generation === playGeneration);
 }
 
-/**
- * False once the line can no longer reach `onEnded` — e.g. a line's own Listen
- * button called `stopStoryLineAudio` while the clip was autoplay-blocked.
- */
 export function isStoryLineAudioActive(): boolean {
   if (dwellTimer || hasPendingStoryAudio()) return true;
   return Boolean(currentAudio && !currentAudio.paused);
@@ -201,10 +197,6 @@ export function unlockStoryAudio(): void {
   tryPlay(src, playGeneration, startedAt, onEnded);
 }
 
-/**
- * Call from any user gesture. Plays an autoplay-blocked line, or unlocks the
- * shared element with silence so later lines can start from timers.
- */
 export function primeStoryAudio(): void {
   if (typeof window === "undefined" || audioMuted()) return;
 
