@@ -78,6 +78,18 @@ function lemmaBoundInfinitiveFrame(slovak: string, lemma: string): boolean {
 }
 
 /**
+ * Sentences about the headword as a word (`Význam slova X…`, `Výraz „X“ sa objavil…`).
+ * They fit any noun, so they teach nothing about how the lemma is used.
+ */
+function lemmaMentionFrame(slovak: string, lemma: string): boolean {
+  const escaped = escapeLemma(lemma);
+  return new RegExp(
+    `(?<!\\p{L})(slovo|slova|výraz|výrazu)\\s+['"„‚]?${escaped}['"“‘]?(?!\\p{L})`,
+    "iu",
+  ).test(slovak);
+}
+
+/**
  * Detects thin fill-template residue that must not ship as reviewed curated examples.
  * Practice frames may still use safer classed templates; reviewed curated must not.
  *
@@ -105,6 +117,7 @@ export function isDamagedExampleTemplate(slovak: string, lemma?: string): boolea
     if (new RegExp(`^Hľadám ${escaped}\\.$`, "u").test(sk)) return true;
     if (new RegExp(`^Potrebujeme ${escaped}\\.$`, "u").test(sk)) return true;
     if (lemmaBoundInfinitiveFrame(sk, lemma)) return true;
+    if (lemmaMentionFrame(sk, lemma)) return true;
   }
 
   return false;

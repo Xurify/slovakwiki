@@ -89,6 +89,30 @@ describe("example quality", () => {
     );
   });
 
+  it("flags sentences that only mention the headword as a word", () => {
+    expect(
+      isDamagedExampleTemplate(
+        "Učiteľ vysvetlil význam slova 'katedra' na príklade.",
+        "katedra",
+      ),
+    ).toBe(true);
+    expect(
+      isDamagedExampleTemplate("V slovníku si dnes opakujem slovo 'katedra'.", "katedra"),
+    ).toBe(true);
+    expect(
+      isDamagedExampleTemplate('Výraz "katedra" sa objavil v článku.', "katedra"),
+    ).toBe(true);
+    expect(
+      isDamagedExampleTemplate("Učiteľ napísal slovo „katedra“ na tabuľu.", "katedra"),
+    ).toBe(true);
+    expect(
+      isDamagedExampleTemplate("Význam slova katedra závisí od kontextu.", "katedra"),
+    ).toBe(true);
+
+    expect(isDamagedExampleTemplate("Učiteľ stojí pri katedre.", "katedra")).toBe(false);
+    expect(isDamagedExampleTemplate("Dal mi slovo, že príde.", "slovo")).toBe(false);
+  });
+
   it("flags fake-curated verb infinitive fills without a practice-frame gate", () => {
     expect(
       isWeakFillTemplate(
