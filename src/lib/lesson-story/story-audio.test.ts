@@ -1,6 +1,12 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { classifyPlayFailure } from "./story-audio";
+import {
+  classifyPlayFailure,
+  hasPendingStoryAudio,
+  isStoryLineAudioActive,
+  playStoryLineAudio,
+  stopStoryLineAudio,
+} from "./story-audio";
 
 describe("classifyPlayFailure", () => {
   it("treats NotAllowedError as autoplay block", () => {
@@ -19,5 +25,46 @@ describe("classifyPlayFailure", () => {
     );
     expect(classifyPlayFailure(new Error("404"))).toBe("error");
     expect(classifyPlayFailure(undefined)).toBe("error");
+  });
+});
+
+describe("isStoryLineAudioActive", () => {
+  afterEach(() => {
+    stopStoryLineAudio();
+    vi.unstubAllGlobals();
+  });
+
+  it("goes false when an autoplay-blocked line is stopped by its Listen button", async () => {
+    vi.stubGlobal("window", {
+      addEventListener: () => {},
+      clearTimeout,
+      setTimeout,
+    });
+    vi.stubGlobal(
+      "Audio",
+      class {
+        paused = true;
+        volume = 1;
+        pause(): void {
+          this.paused = true;
+        }
+        play(): Promise<void> {
+          return Promise.reject(new DOMException("blocked", "NotAllowedError"));
+        }
+      },
+    );
+
+    const onEnded = vi.fn();
+    playStoryLineAudio("/line.mp3", "Dobrý deň.", { onEnded });
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(hasPendingStoryAudio()).toBe(true);
+    expect(isStoryLineAudioActive()).toBe(true);
+
+    stopStoryLineAudio();
+
+    expect(isStoryLineAudioActive()).toBe(false);
+    expect(onEnded).not.toHaveBeenCalled();
   });
 });

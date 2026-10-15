@@ -148,6 +148,15 @@ export function hasPendingStoryAudio(): boolean {
 }
 
 /**
+ * False once the line can no longer reach `onEnded` — e.g. a line's own Listen
+ * button called `stopStoryLineAudio` while the clip was autoplay-blocked.
+ */
+export function isStoryLineAudioActive(): boolean {
+  if (dwellTimer || hasPendingStoryAudio()) return true;
+  return Boolean(currentAudio && !currentAudio.paused);
+}
+
+/**
  * Call from a user gesture (Listen / Next / say-choice) so autoplay-blocked
  * lines can play the real ElevenLabs MP3.
  */
