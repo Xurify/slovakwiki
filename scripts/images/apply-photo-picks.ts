@@ -2,7 +2,7 @@
  * Write hand-picked stock photos from photo-picks.json into the image manifest.
  *
  * Usage:
- *   bun scripts/images/apply-photo-picks.ts            # needs UNSPLASH_ACCESS_KEY
+ *   bun scripts/images/apply-photo-picks.ts            # needs UNSPLASH_ACCESS_KEY + PIXABAY_API_KEY
  *   bun scripts/images/apply-photo-picks.ts -- --dry-run
  *   bun scripts/images/apply-photo-picks.ts -- --offline   # no API calls
  *
@@ -10,12 +10,17 @@
  * triggers the photo's download_location once, which the terms also require.
  * --offline writes picks from the data saved at audit time so they show up
  * while the hourly API limit is spent; the next normal run sends the download
- * events and fills in missing photographer links. Pixabay picks are skipped
- * for now: Pixabay forbids hotlinking, so they need a download plus R2 upload
- * first. Re-running skips picks already applied and tracked.
+ * events and fills in missing photographer links.
+ *
+ * Pixabay forbids hotlinking, so Pixabay picks are downloaded to
+ * static/images/dictionary/ like Commons images. Run upload.ts afterwards: the
+ * production site serves those files from R2, so a Pixabay manifest entry must
+ * not reach master before its file is uploaded. Re-running skips picks already
+ * applied and tracked, and re-downloads a Pixabay file only when it is missing.
  */
 
-import { readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { ROOT } from "../lib/paths";
@@ -24,12 +29,14 @@ import {
   collectImageTargets,
   glossSearchTitle,
   loadManifest,
+  localImagePath,
   saveManifest,
   type ImageManifestEntry,
 } from "./shared";
 
 const PICKS_PATH = path.join(ROOT, "scripts", "images", "photo-picks.json");
 const UNSPLASH_LICENSE_URL = "https://unsplash.com/license";
+const PIXABAY_LICENSE_URL = "https://pixabay.com/service/license-summary/";
 
 interface PhotoPick {
   artistUrl?: string;
@@ -51,7 +58,40 @@ interface UnsplashPhoto {
   user: { links: { html: string }; name: string };
 }
 
+interface PixabayHit {
+  pageURL: string;
+  user: string;
+  user_id: number;
+  webformatURL: string;
+}
+
 class RateLimited extends Error {}
+
+/** Pixabay image URLs expire after 24 hours, so look the photo up again by id. */
+async function downloadPixabay(id: string, file: string): Promise<PixabayHit> {
+  const key = process.env.PIXABAY_API_KEY?.trim();
+  if (!key) throw new Error("PIXABAY_API_KEY missing");
+  const url = new URL("https://pixabay.com/api/");
+  url.searchParams.set("key", key);
+  url.searchParams.set("id", id);
+  const response = await fetch(url, {
+    headers: { "User-Agent": USER_AGENT },
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (!response.ok) throw new Error(`Pixabay HTTP ${response.status} for ${id}`);
+  const hit = ((await response.json()) as { hits?: PixabayHit[] }).hits?.[0];
+  if (!hit) throw new Error(`Pixabay photo ${id} not found`);
+
+  const image = await fetch(hit.webformatURL, {
+    headers: { "User-Agent": USER_AGENT },
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!image.ok) throw new Error(`Pixabay image HTTP ${image.status} for ${id}`);
+  const dest = localImagePath(file);
+  await mkdir(path.dirname(dest), { recursive: true });
+  await writeFile(dest, Buffer.from(await image.arrayBuffer()));
+  return hit;
+}
 
 async function unsplashGet<T>(url: string, key: string): Promise<T> {
   const response = await fetch(url, {
@@ -80,7 +120,7 @@ async function main(): Promise<void> {
     collectImageTargets().map((target) => [target.slug, target.english]),
   );
   const now = new Date().toISOString();
-  const counts = { applied: 0, already: 0, pixabayPending: 0, wikimedia: 0 };
+  const counts = { applied: 0, already: 0, pixabay: 0, wikimedia: 0 };
 
   for (const entry of Object.values(manifest)) {
     if (entry.status === "ok" && !entry.source && entry.sourcePageUrl) {
@@ -96,11 +136,44 @@ async function main(): Promise<void> {
         counts.wikimedia += 1;
         continue;
       }
+      if (!pick.id) continue;
       if (pick.source === "pixabay") {
-        counts.pixabayPending += 1;
+        const file = `${slug}.jpg`;
+        const done =
+          previous?.source === "pixabay" &&
+          previous.sourceId === pick.id &&
+          existsSync(localImagePath(file));
+        if (done || offline) {
+          counts.already += 1;
+          continue;
+        }
+        if (dryRun) {
+          console.log(`would apply ${slug} ← pixabay ${pick.id}`);
+          counts.pixabay += 1;
+          continue;
+        }
+        const hit = await downloadPixabay(pick.id, file);
+        manifest[slug] = {
+          artist: hit.user,
+          artistUrl: `https://pixabay.com/users/${hit.user}-${hit.user_id}/`,
+          caption:
+            previous?.caption || glossSearchTitle(englishBySlug.get(slug) ?? "") || slug,
+          fetchedAt: now,
+          file,
+          license: "Pixabay Content License",
+          licenseUrl: PIXABAY_LICENSE_URL,
+          query: pick.query,
+          source: "pixabay",
+          sourceId: pick.id,
+          sourcePageUrl: hit.pageURL,
+          status: "ok",
+        };
+        counts.pixabay += 1;
+        console.log(
+          `${slug} ← pixabay ${pick.id} (${hit.user}); run upload.ts before merging`,
+        );
         continue;
       }
-      if (!pick.id) continue;
       const sameId = previous?.source === "unsplash" && previous.sourceId === pick.id;
       if (sameId && (previous.downloadTrackedAt || offline)) {
         counts.already += 1;
@@ -159,7 +232,7 @@ async function main(): Promise<void> {
 
   if (!dryRun) await saveManifest(manifest);
   console.log(
-    `applied ${counts.applied}, already ${counts.already}, kept wikimedia ${counts.wikimedia}, pixabay pending upload ${counts.pixabayPending}`,
+    `unsplash applied ${counts.applied}, pixabay downloaded ${counts.pixabay}, already ${counts.already}, kept wikimedia ${counts.wikimedia}`,
   );
 }
 

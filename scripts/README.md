@@ -127,6 +127,7 @@ Wikimedia free page images for dictionary lemmas → local `static/images/` → 
 | `judge.ts` | `bun scripts/images/judge.ts -- --agent` | Cursor-only: stage thumbs under `scripts/images/judge-thumbs/`, fill `picks.json`, re-run. With `OPENAI_API_KEY`, omit `--agent`. Writes `tmp/image-source-judge.json`. Green ring on `/dev/images/compare`. Never writes the live manifest. `--only kolac,kava` / `--force` / `--dry-run`. |
 | `stage-candidates.ts` | `bun scripts/images/stage-candidates.ts` | Stage Commons candidates under `tmp/image-candidates/{slug}/` for visual audit |
 | `promote.ts` | `bun scripts/images/promote.ts` | Promote audited candidate (`--slug` + `--pick N`) into live set |
+| `apply-photo-picks.ts` | `bun scripts/images/apply-photo-picks.ts` | Write hand-picked photos from `photo-picks.json` into the manifest. Unsplash: hotlinked, reports each use to Unsplash (`UNSPLASH_ACCESS_KEY`; `--offline` skips the API). Pixabay: downloads to `static/images/dictionary/` (`PIXABAY_API_KEY`), then run `upload.ts` before merging. |
 | `status.ts` | `bun scripts/images/status.ts` | Targets vs ok/missing/rejected, by category |
 | `shared.ts` | (lib) | Targets, overrides, paths, verb scenes + noun Commons query helpers |
 
