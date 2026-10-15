@@ -1,6 +1,13 @@
 <script lang="ts">
   import { eyebrowMutedClass, iconButtonClass } from "$lib/components/ui/system-ui";
   import { onMount } from "svelte";
+  import LessonSettingsToggle from "$lib/components/lessons/LessonSettingsToggle.svelte";
+  import {
+    THEME_CHANGE_EVENT,
+    applyTheme,
+    getInitialThemePreference,
+    resolveTheme,
+  } from "$lib/chrome/theme";
   import {
     AUDIO_VOLUME_CHANGE_EVENT,
     getAudioVolume,
@@ -26,12 +33,14 @@
   let autoAdvance = $state<StoryBoolPreference>(getStoryAutoAdvance());
   let showEnglish = $state<StoryBoolPreference>(getStoryShowEnglish());
   let volume = $state(getAudioVolume());
+  let darkOn = $state(false);
   let rootEl: HTMLDivElement | undefined = $state();
 
   onMount(() => {
     autoAdvance = getStoryAutoAdvance();
     showEnglish = getStoryShowEnglish();
     volume = getAudioVolume();
+    darkOn = resolveTheme(getInitialThemePreference()) === "dark";
 
     function onPrefsChange(): void {
       autoAdvance = getStoryAutoAdvance();
@@ -40,6 +49,10 @@
 
     function onVolumeChange(): void {
       volume = getAudioVolume();
+    }
+
+    function onThemeChange(): void {
+      darkOn = resolveTheme(getInitialThemePreference()) === "dark";
     }
 
     function onPointerDown(event: PointerEvent): void {
@@ -54,12 +67,14 @@
 
     window.addEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);
     window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+    window.addEventListener(THEME_CHANGE_EVENT, onThemeChange);
     window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
       window.removeEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);
       window.removeEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+      window.removeEventListener(THEME_CHANGE_EVENT, onThemeChange);
       window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("keydown", onKeyDown);
     };
@@ -77,6 +92,10 @@
   function onShowEnglishToggle(): void {
     showEnglish = toggleStoryBool(showEnglish);
     setStoryShowEnglish(showEnglish);
+  }
+
+  function onDarkModeToggle(): void {
+    darkOn = applyTheme(darkOn ? "light" : "dark") === "dark";
   }
 
   function onVolumeInput(event: Event): void {
@@ -100,11 +119,11 @@
   <button
     class={triggerClass}
     type="button"
-    aria-label="Story settings"
+    aria-label="Lesson settings"
     aria-expanded={open}
     aria-haspopup="dialog"
     aria-controls={open ? "lesson-story-settings" : undefined}
-    title="Story settings"
+    title="Lesson settings"
     onclick={togglePanel}
   >
     <svg
@@ -128,7 +147,7 @@
       id="lesson-story-settings"
       class="absolute top-[calc(100%+0.375rem)] right-0 z-40 w-[min(17.5rem,calc(100vw-2rem))] overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-float)"
       role="dialog"
-      aria-label="Story settings"
+      aria-label="Lesson settings"
     >
       <div class="border-b border-slate-200/80 px-3.5 py-2.5">
         <p class={eyebrowMutedClass}>Story</p>
@@ -136,34 +155,12 @@
 
       <ul class="m-0 list-none p-0">
         <li class="border-b border-slate-200/70 last:border-b-0">
-          <button
-            class="flex w-full cursor-pointer items-start justify-between gap-3 px-3.5 py-3 text-left transition-colors hover:bg-subtle"
-            type="button"
-            aria-pressed={autoAdvance === "on"}
-            onclick={onAutoAdvanceToggle}
-          >
-            <span class="min-w-0">
-              <span class="block text-sm font-semibold text-slate-900">Auto-advance</span>
-              <span class="mt-0.5 block text-xs leading-snug text-pretty text-slate-500">
-                Play the next line when audio ends. Needs sound on.
-              </span>
-            </span>
-
-            <span
-              class="mt-0.5 inline-flex h-5 w-9 shrink-0 items-center rounded-full px-0.5 transition-colors {autoAdvance ===
-              'on'
-                ? 'bg-blue-700'
-                : 'bg-slate-300'}"
-              aria-hidden="true"
-            >
-              <span
-                class="size-4 rounded-full bg-white shadow-sm transition-transform {autoAdvance ===
-                'on'
-                  ? 'translate-x-4'
-                  : 'translate-x-0'}"
-              ></span>
-            </span>
-          </button>
+          <LessonSettingsToggle
+            label="Auto-advance"
+            description="Play the next line when audio ends. Needs sound on."
+            on={autoAdvance === "on"}
+            ontoggle={onAutoAdvanceToggle}
+          />
         </li>
 
         <li class="border-b border-slate-200/70 last:border-b-0">
@@ -198,36 +195,25 @@
         </li>
 
         <li class="border-b border-slate-200/70 last:border-b-0">
-          <button
-            class="flex w-full cursor-pointer items-start justify-between gap-3 px-3.5 py-3 text-left transition-colors hover:bg-subtle"
-            type="button"
-            aria-pressed={showEnglish === "on"}
-            onclick={onShowEnglishToggle}
-          >
-            <span class="min-w-0">
-              <span class="block text-sm font-semibold text-slate-900">Show English</span>
-              <span class="mt-0.5 block text-xs leading-snug text-pretty text-slate-500">
-                Always show translations under Slovak
-              </span>
-            </span>
-
-            <span
-              class="mt-0.5 inline-flex h-5 w-9 shrink-0 items-center rounded-full px-0.5 transition-colors {showEnglish ===
-              'on'
-                ? 'bg-blue-700'
-                : 'bg-slate-300'}"
-              aria-hidden="true"
-            >
-              <span
-                class="size-4 rounded-full bg-white shadow-sm transition-transform {showEnglish ===
-                'on'
-                  ? 'translate-x-4'
-                  : 'translate-x-0'}"
-              ></span>
-            </span>
-          </button>
+          <LessonSettingsToggle
+            label="Show English"
+            description="Always show translations under Slovak"
+            on={showEnglish === "on"}
+            ontoggle={onShowEnglishToggle}
+          />
         </li>
       </ul>
+
+      <div class="border-y border-slate-200/80 px-3.5 py-2.5">
+        <p class={eyebrowMutedClass}>Display</p>
+      </div>
+
+      <LessonSettingsToggle
+        label="Dark mode"
+        description="Light text on a dark background"
+        on={darkOn}
+        ontoggle={onDarkModeToggle}
+      />
     </div>
   {/if}
 </div>
