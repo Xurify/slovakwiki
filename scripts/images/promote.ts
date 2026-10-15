@@ -98,6 +98,7 @@ async function main(): Promise<void> {
     file,
     license: candidate.license,
     licenseUrl: candidate.licenseUrl,
+    source: "wikimedia",
     sourcePageUrl: candidate.descriptionUrl,
     status: "ok",
     wikiLang: "en",

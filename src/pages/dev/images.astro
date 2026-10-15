@@ -9,7 +9,7 @@ import { imagesUseCdn } from "$lib/catalog/dictionary/images";
 
 const cdn = imagesUseCdn();
 const rows = listOkDictionaryImages().filter((row) => {
-  if (cdn) return true;
+  if (cdn || !row.file) return true;
   const diskPath = path.join(process.cwd(), "static", "images", "dictionary", row.file);
   return existsSync(diskPath);
 });

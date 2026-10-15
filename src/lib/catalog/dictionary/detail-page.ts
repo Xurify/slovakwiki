@@ -5,9 +5,11 @@ import { normalizeAudioText } from "$lib/catalog/audio/core";
 import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
 import { entryBySlug, words } from "$lib/catalog/entries";
 import {
+  dictionaryImageView,
   getImageManifestEntry,
   imagesUseCdn,
-  resolveImageSrc,
+  isHotlinkedImage,
+  type DictionaryImageView,
 } from "$lib/catalog/dictionary/images";
 import {
   canonicalWordSlug,
@@ -29,16 +31,7 @@ export type DictionaryPageProps = {
   entriesNear: NearbyEntry[];
   exampleAudioSrcs: string[];
   frequencyNeighbors: FrequencyNeighbor[];
-  image:
-    | {
-        artist?: string;
-        caption: string;
-        license?: string;
-        licenseUrl?: string;
-        sourcePageUrl?: string;
-        src: string;
-      }
-    | undefined;
+  image: DictionaryImageView | undefined;
   lemmaAudioSrc: string;
   relatedEntries: Array<{
     english: string;
@@ -78,10 +71,10 @@ function resolveLemmaImage(
   fallbackCaption: string,
 ): DictionaryPageProps["image"] {
   const imageEntry = getImageManifestEntry(slug);
-  if (!imageEntry || imageEntry.status !== "ok" || !imageEntry.file) return undefined;
+  if (!imageEntry) return undefined;
 
   // Local/dev: require file on disk. Prod CDN: trust manifest (files on R2).
-  if (!imagesUseCdn()) {
+  if (!imagesUseCdn() && !isHotlinkedImage(imageEntry) && imageEntry.file) {
     const diskPath = path.join(
       process.cwd(),
       "static",
@@ -92,14 +85,7 @@ function resolveLemmaImage(
     if (!existsSync(diskPath)) return undefined;
   }
 
-  return {
-    artist: imageEntry.artist,
-    caption: imageEntry.caption?.trim() || fallbackCaption,
-    license: imageEntry.license,
-    licenseUrl: imageEntry.licenseUrl,
-    sourcePageUrl: imageEntry.sourcePageUrl,
-    src: resolveImageSrc(imageEntry.file, imageEntry.uploadedAt ?? imageEntry.fetchedAt),
-  };
+  return dictionaryImageView(slug, fallbackCaption);
 }
 
 /** Props for a lemma page, or `undefined` when the slug is not a canonical page. */

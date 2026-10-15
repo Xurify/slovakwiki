@@ -2,9 +2,14 @@ import imagesManifest from "../../../../content/images/manifest.json";
 
 export type ImageStatus = "missing" | "ok" | "rejected";
 
+/** Where the picture came from. Absent on older entries, which are all Wikimedia. */
+export type ImageSource = "wikimedia" | "unsplash" | "pixabay";
+
 export interface ImageManifestEntry {
   /** Creator / artist from Commons extmetadata (HTML stripped when stored). */
   artist?: string;
+  /** Photographer profile page (Unsplash / Pixabay). */
+  artistUrl?: string;
   /** Display caption; usually the English gloss. */
   caption?: string;
   /** Commons / wiki file title, e.g. `Koláč.jpg`. */
@@ -16,7 +21,17 @@ export interface ImageManifestEntry {
   license?: string;
   /** License deed / info URL when available. */
   licenseUrl?: string;
-  /** Link to the file description page (Commons or Wikipedia). */
+  /**
+   * Image URL at the source. Unsplash entries are served from here: the API
+   * terms require hotlinking instead of copying to our own storage.
+   */
+  originalUrl?: string;
+  /** Search phrase that found a hand-picked stock photo. */
+  query?: string;
+  source?: ImageSource;
+  /** Photo id at the source (Unsplash / Pixabay). */
+  sourceId?: string;
+  /** Link to the file description page (Commons, Wikipedia, Unsplash, Pixabay). */
   sourcePageUrl?: string;
   status: ImageStatus;
   /** ISO timestamp when last uploaded to R2. */
@@ -35,9 +50,11 @@ export interface ImageOverride {
 
 export interface DictionaryImageView {
   artist?: string;
+  artistUrl?: string;
   caption: string;
   license?: string;
   licenseUrl?: string;
+  sourceLabel: string;
   sourcePageUrl?: string;
   src: string;
 }
@@ -77,8 +94,35 @@ export function resolveImageSrc(file: string, version?: string): string {
   return `${src}?v=${encodeURIComponent(version)}`;
 }
 
+/** Unsplash asks for these on every link back to them. */
+const UNSPLASH_REFERRAL = "utm_source=slovak_wiki&utm_medium=referral";
+
+function withUnsplashReferral(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  return `${url}${url.includes("?") ? "&" : "?"}${UNSPLASH_REFERRAL}`;
+}
+
+/** Hotlinked entries carry no `file`; everything else is served from our storage. */
+export function isHotlinkedImage(entry: ImageManifestEntry): boolean {
+  return entry.source === "unsplash" && Boolean(entry.originalUrl);
+}
+
+/** Public URL for an `ok` entry, or `undefined` when it has nothing to show. */
+export function manifestImageSrc(entry: ImageManifestEntry): string | undefined {
+  if (entry.status !== "ok") return undefined;
+  if (isHotlinkedImage(entry)) return entry.originalUrl;
+  if (!entry.file) return undefined;
+  return resolveImageSrc(entry.file, entry.uploadedAt ?? entry.fetchedAt);
+}
+
+export function imageSourceLabel(entry: ImageManifestEntry): string {
+  if (entry.source === "unsplash") return "Unsplash";
+  if (entry.source === "pixabay") return "Pixabay";
+  return "Wikimedia";
+}
+
 /**
- * Build a UI view from a manifest entry when status is `ok` and `file` is set.
+ * Build a UI view from an `ok` manifest entry.
  * Callers that need disk presence (Astro SSG) should check the file separately.
  */
 export function dictionaryImageView(
@@ -86,14 +130,21 @@ export function dictionaryImageView(
   fallbackCaption: string,
 ): DictionaryImageView | undefined {
   const entry = manifest[slug];
-  if (!entry || entry.status !== "ok" || !entry.file) return undefined;
+  if (!entry) return undefined;
+  const src = manifestImageSrc(entry);
+  if (!src) return undefined;
 
+  const unsplash = entry.source === "unsplash";
   return {
     artist: entry.artist,
+    artistUrl: unsplash ? withUnsplashReferral(entry.artistUrl) : entry.artistUrl,
     caption: entry.caption?.trim() || fallbackCaption,
     license: entry.license,
     licenseUrl: entry.licenseUrl,
-    sourcePageUrl: entry.sourcePageUrl,
-    src: resolveImageSrc(entry.file, entry.uploadedAt ?? entry.fetchedAt),
+    sourceLabel: imageSourceLabel(entry),
+    sourcePageUrl: unsplash
+      ? withUnsplashReferral(entry.sourcePageUrl)
+      : entry.sourcePageUrl,
+    src,
   };
 }
