@@ -514,6 +514,7 @@ async function applyOk(
     file,
     license: meta.license,
     licenseUrl: meta.licenseUrl,
+    source: "wikimedia",
     sourcePageUrl: meta.descriptionUrl,
     status: "ok",
     wikiLang: hit.lang,
@@ -572,6 +573,11 @@ async function main(): Promise<void> {
     }
 
     const current = manifest[target.slug];
+    // Hand-picked stock photos (apply-photo-picks.ts) are never auto-replaced, not even with --force.
+    if (current?.source && current.source !== "wikimedia") {
+      skipped += 1;
+      continue;
+    }
     const upgradeThis =
       upgrade &&
       current?.status === "ok" &&

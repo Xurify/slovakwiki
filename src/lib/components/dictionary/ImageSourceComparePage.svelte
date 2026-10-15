@@ -16,11 +16,13 @@
     judgedAt,
     judgeModel,
     rows,
+    skipped = {},
   }: {
     generatedAt?: string;
     judgedAt?: string;
     judgeModel?: string;
     rows: ImageSourcePreviewRow[];
+    skipped?: Partial<Record<ImageSourceId, string>>;
   } = $props();
 
   let orderId = $state(SOURCE_ORDERS[0]!.id);
@@ -130,7 +132,7 @@
               {/if}
             </div>
 
-            <div class="grid grid-cols-2 gap-3 lg:grid-cols-5">
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
               <figure class="m-0">
                 <div
                   class="overflow-hidden rounded-(--control-radius) border bg-slate-50
@@ -183,9 +185,9 @@
                       />
                     {:else}
                       <div
-                        class="flex aspect-[4/3] items-center justify-center text-xs text-slate-400"
+                        class="flex aspect-[4/3] items-center justify-center px-2 text-center text-xs text-slate-400"
                       >
-                        Miss
+                        {skipped[sourceId] ?? "Miss"}
                       </div>
                     {/if}
                   </div>

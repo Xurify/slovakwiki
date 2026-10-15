@@ -1,5 +1,9 @@
 /**
- * Preview SK / EN / Commons / Openverse hits without writing the live manifest.
+ * Preview SK / EN / Commons / Openverse hits, plus Pexels / Unsplash / Pixabay
+ * photos, without writing the live manifest.
+ *
+ * Stock sources run only when their env var is set (PEXELS_API_KEY,
+ * UNSPLASH_ACCESS_KEY, PIXABAY_API_KEY).
  *
  * Usage:
  *   bun scripts/images/preview-sources.ts -- --limit 24
@@ -19,6 +23,7 @@ import type {
 } from "../../src/lib/catalog/dictionary/image-source-preview";
 import { getImageManifestEntry } from "../../src/lib/catalog/dictionary/images";
 import { ROOT } from "../lib/paths";
+import { availableProviders } from "./preview-providers";
 import {
   THUMB_WIDTH,
   USER_AGENT,
@@ -335,6 +340,9 @@ async function main(): Promise<void> {
   targets = targets.slice(0, limit);
 
   console.log(`Preview targets: ${targets.length}`);
+  const { ready: providers, skipped } = availableProviders();
+  for (const [id, reason] of Object.entries(skipped))
+    console.log(`skip ${id}: ${reason}`);
 
   const skTitles = [...new Set(targets.map((target) => target.slovak))];
   const enTitles = [
@@ -357,6 +365,11 @@ async function main(): Promise<void> {
     const commons = await findCommonsHit(target);
     const openverseQuery = nounCommonsQueries(target)[0] ?? enTitle;
     const openverse = openverseQuery ? await searchOpenverse(openverseQuery) : undefined;
+    const extra = await Promise.all(
+      providers.map(
+        async (provider) => [provider.id, await provider.search(target)] as const,
+      ),
+    );
     await sleep(150);
 
     const live = getImageManifestEntry(target.slug);
@@ -371,6 +384,7 @@ async function main(): Promise<void> {
         en: enTitle ? toHit(enHits.get(enTitle)) : null,
         commons: commons ?? null,
         openverse: openverse ?? null,
+        ...Object.fromEntries(extra),
       },
       liveSrc: liveFile
         ? cdn
@@ -380,14 +394,18 @@ async function main(): Promise<void> {
       slovak: target.slovak,
       slug: target.slug,
     });
+    const hits = rows.at(-1)?.hits ?? {};
     console.log(
-      `${target.slug}: sk=${rows.at(-1)?.hits.sk ? "y" : "n"} en=${rows.at(-1)?.hits.en ? "y" : "n"} commons=${commons ? "y" : "n"} openverse=${openverse ? "y" : "n"}`,
+      `${target.slug}: ${Object.entries(hits)
+        .map(([id, hit]) => `${id}=${hit ? "y" : "n"}`)
+        .join(" ")}`,
     );
   }
 
   const file: ImageSourcePreviewFile = {
     generatedAt: new Date().toISOString(),
     rows,
+    skipped,
   };
   await mkdir(path.dirname(PREVIEW_PATH), { recursive: true });
   await writeFile(PREVIEW_PATH, `${JSON.stringify(file, null, 2)}\n`, "utf8");

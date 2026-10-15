@@ -99,6 +99,8 @@
   function sourceLabel(value: ImageAuditSource): string {
     if (value === "sk-wiki") return "SK wiki";
     if (value === "en-wiki") return "EN wiki";
+    if (value === "unsplash") return "Unsplash";
+    if (value === "pixabay") return "Pixabay";
     return "Commons";
   }
 </script>

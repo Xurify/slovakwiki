@@ -1,18 +1,19 @@
 import { words } from "./words";
 import {
   getImageManifestEntry,
-  resolveImageSrc,
+  manifestImageSrc,
   type ImageManifestEntry,
 } from "./images";
 
-export type ImageAuditSource = "sk-wiki" | "en-wiki" | "commons";
+export type ImageAuditSource = "sk-wiki" | "en-wiki" | "commons" | "unsplash" | "pixabay";
 
 export interface DictionaryImageAuditRow {
   caption: string;
   category: string;
   commonsFile?: string;
   english: string;
-  file: string;
+  /** Absent for hotlinked stock photos. */
+  file?: string;
   slovak: string;
   slug: string;
   source: ImageAuditSource;
@@ -23,6 +24,7 @@ export interface DictionaryImageAuditRow {
 }
 
 export function imageAuditSource(entry: ImageManifestEntry): ImageAuditSource {
+  if (entry.source === "unsplash" || entry.source === "pixabay") return entry.source;
   if (entry.wikiTitle?.startsWith("Commons:")) return "commons";
   if (entry.wikiLang === "en") return "en-wiki";
   if (entry.wikiLang === "sk") return "sk-wiki";
@@ -40,7 +42,8 @@ export function listOkDictionaryImages(): DictionaryImageAuditRow[] {
     seen.add(word.slug);
 
     const entry = getImageManifestEntry(word.slug);
-    if (!entry || entry.status !== "ok" || !entry.file) continue;
+    const src = entry && manifestImageSrc(entry);
+    if (!entry || !src) continue;
 
     rows.push({
       caption: entry.caption?.trim() || word.english,
@@ -52,7 +55,7 @@ export function listOkDictionaryImages(): DictionaryImageAuditRow[] {
       slug: word.slug,
       source: imageAuditSource(entry),
       sourcePageUrl: entry.sourcePageUrl,
-      src: resolveImageSrc(entry.file, entry.uploadedAt ?? entry.fetchedAt),
+      src,
       wikiLang: entry.wikiLang,
       wikiTitle: entry.wikiTitle,
     });

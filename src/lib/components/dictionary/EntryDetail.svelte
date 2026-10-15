@@ -395,7 +395,18 @@
 
               {#if image.artist}
                 <span aria-hidden="true"> · </span>
-                <span>{image.artist}</span>
+                {#if image.artistUrl}
+                  <a
+                    class="underline decoration-slate-300 hover:text-blue-800"
+                    href={image.artistUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {image.artist}
+                  </a>
+                {:else}
+                  <span>{image.artist}</span>
+                {/if}
               {/if}
 
               {#if image.license}
@@ -422,7 +433,7 @@
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Wikimedia
+                  {image.sourceLabel}
                 </a>
               {/if}
             </figcaption>

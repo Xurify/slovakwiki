@@ -1,4 +1,12 @@
-export const IMAGE_SOURCE_IDS = ["sk", "en", "commons", "openverse"] as const;
+export const IMAGE_SOURCE_IDS = [
+  "sk",
+  "en",
+  "commons",
+  "openverse",
+  "pexels",
+  "unsplash",
+  "pixabay",
+] as const;
 
 export type ImageSourceId = (typeof IMAGE_SOURCE_IDS)[number];
 
@@ -28,6 +36,8 @@ export interface ImageSourcePreviewRow {
 export interface ImageSourcePreviewFile {
   generatedAt: string;
   rows: ImageSourcePreviewRow[];
+  /** Sources not queried in this snapshot, with the reason (e.g. missing API key). */
+  skipped?: Partial<Record<ImageSourceId, string>>;
 }
 
 export const SOURCE_ORDERS: Array<{ id: string; label: string; order: ImageSourceId[] }> =
@@ -45,13 +55,25 @@ export const SOURCE_ORDERS: Array<{ id: string; label: string; order: ImageSourc
       label: "Commons → Openverse → SK",
       order: ["commons", "openverse", "sk"],
     },
+    {
+      id: "pexels-unsplash-pixabay",
+      label: "Pexels → Unsplash → Pixabay",
+      order: ["pexels", "unsplash", "pixabay"],
+    },
   ];
 
+const SOURCE_LABELS: Record<ImageSourceId, string> = {
+  sk: "SK wiki",
+  en: "EN wiki",
+  commons: "Commons",
+  openverse: "Openverse",
+  pexels: "Pexels",
+  unsplash: "Unsplash",
+  pixabay: "Pixabay",
+};
+
 export function sourceLabel(id: ImageSourceId): string {
-  if (id === "sk") return "SK wiki";
-  if (id === "en") return "EN wiki";
-  if (id === "commons") return "Commons";
-  return "Openverse";
+  return SOURCE_LABELS[id];
 }
 
 /** First source in `order` that returned a thumb. */
