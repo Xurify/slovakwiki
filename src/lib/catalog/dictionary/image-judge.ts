@@ -21,7 +21,7 @@ Simplicity first:
 - If nothing is both simple and correct, pick none. Empty beats a busy or wrong picture.
 
 Reply JSON only:
-{"pick":"live"|"sk"|"en"|"commons"|"openverse"|"none","confidence":"high"|"low","reason":"one short sentence"}`;
+{"pick":${[...IMAGE_JUDGE_PICK_IDS, "none"].map((id) => `"${id}"`).join("|")},"confidence":"high"|"low","reason":"one short sentence"}`;
 
 export interface ImageSourceAiPick {
   confidence: "high" | "low";

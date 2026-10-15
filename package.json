@@ -29,6 +29,7 @@
     "path-to-regexp": "6.3.0"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.134.0",
     "@astrojs/check": "^0.9.10",
     "@astrojs/svelte": "^9.0.1",
     "@astrojs/vercel": "^11.0.11",

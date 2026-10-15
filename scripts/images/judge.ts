@@ -180,9 +180,11 @@ function shouldSkip(
 }
 
 function presentPicks(row: ImageSourcePreviewRow): ImageJudgePickId[] {
-  const present: ImageJudgePickId[] = IMAGE_SOURCE_IDS.filter(
-    (id) => row.hits[id]?.thumbUrl,
-  );
+  // Vision APIs reject SVG, so the Claude-drawn candidate is compare-only.
+  const present: ImageJudgePickId[] = IMAGE_SOURCE_IDS.filter((id) => {
+    const url = row.hits[id]?.thumbUrl;
+    return url && !url.startsWith("data:image/svg");
+  });
   if (row.liveSrc) present.push("live");
   return present;
 }
