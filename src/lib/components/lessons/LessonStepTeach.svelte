@@ -22,6 +22,7 @@
   import { isLearnerSpeaker } from "$lib/lesson-story/story-cast";
   import { storySettingForLesson } from "$lib/lesson-story/story-settings";
   import {
+    isStoryLineAudioActive,
     playStoryLineAudio,
     stopStoryLineAudio,
     unlockStoryAudio,
@@ -194,6 +195,12 @@
 
   function advanceStory(): void {
     if (pendingChoiceLine) return;
+
+    if (lineAudioPlaying && !isStoryLineAudioActive()) {
+      lineAudioPlaying = false;
+      waitingForChoiceAfterAudio = false;
+    }
+
     if (waitingForChoiceAfterAudio) return;
     if (revealedCount >= scene.length) return;
 

@@ -221,6 +221,18 @@
     --brand: #3b82f6;
     --brand-ink: #ffffff;
     --shadow-color: #000000;
+    --shadow-border:
+      0 0 0 1px var(--line),
+      0 1px 2px -1px color-mix(in srgb, var(--shadow-color) 30%, transparent),
+      0 3px 8px -4px color-mix(in srgb, var(--shadow-color) 35%, transparent);
+    --shadow-border-hover:
+      0 0 0 1px var(--line-strong),
+      0 4px 8px -4px color-mix(in srgb, var(--shadow-color) 35%, transparent),
+      0 10px 18px -12px color-mix(in srgb, var(--shadow-color) 45%, transparent);
+    --shadow-float:
+      0 0 0 1px var(--line-strong),
+      0 2px 6px -2px color-mix(in srgb, var(--shadow-color) 40%, transparent),
+      0 12px 28px -10px color-mix(in srgb, var(--shadow-color) 60%, transparent);
   }
 
   * {
