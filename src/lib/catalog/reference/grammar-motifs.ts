@@ -3,6 +3,7 @@ import type { LessonMotifId } from "../../lesson-story/lesson-motifs";
 /** Felt art per grammar topic; topics without their own art share the book. */
 const BY_GRAMMAR_SLUG: Record<string, LessonMotifId> = {
   "byt-present": "byt",
+  demonstratives: "demonstratives",
   "mat-present": "mat",
   negation: "negation",
   "numbers-and-numerals": "numbers",

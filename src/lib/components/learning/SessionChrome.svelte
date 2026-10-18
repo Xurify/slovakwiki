@@ -62,7 +62,7 @@
 </script>
 
 <header class="grid gap-3.5 {className}">
-  <div class="flex items-center gap-3">
+  <div class="flex min-w-0 items-center gap-3">
     {#if backHref}
       <a
         class="{iconButtonClass} {iconButtonToneClass} -ml-1.5 size-9"
