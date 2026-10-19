@@ -15,11 +15,40 @@ export {
   sentenceCase,
 } from "./ui";
 
+/**
+ * Pagefind weight per block (0–10, default 1). Headwords and forms outrank glosses,
+ * and glosses outrank example sentences, so a word that only appears in someone
+ * else's example never beats the word itself.
+ */
+export const SEARCH_WEIGHTS = {
+  headword: 10,
+  forms: 7,
+  gloss: 4,
+  body: 1,
+  examples: 0.5,
+} as const;
+
+export type SearchWeight = keyof typeof SEARCH_WEIGHTS;
+
+export interface SearchSection {
+  text: string;
+  weight: SearchWeight;
+}
+
+export interface SearchExample {
+  english: string;
+  slovak: string;
+}
+
 export interface SearchDocument {
   category?: string;
+  /** All sections joined, for tests and tooling. */
   content: string;
+  /** Word example sentences, so the results page can show the matching line. */
+  examples?: SearchExample[];
   kind: SearchDocKind;
   register?: WordRegister;
+  sections: SearchSection[];
   summary: string;
   title: string;
   url: string;
@@ -31,6 +60,21 @@ function withNormalized(parts: string[]): string {
   return normalized && normalized !== joined.toLocaleLowerCase("sk")
     ? `${joined}\n${normalized}`
     : joined;
+}
+
+type SectionParts = Partial<Record<SearchWeight, Array<string | undefined>>>;
+
+function sections(parts: SectionParts): Pick<SearchDocument, "content" | "sections"> {
+  const built: SearchSection[] = [];
+  for (const weight of Object.keys(SEARCH_WEIGHTS) as SearchWeight[]) {
+    const values = (parts[weight] ?? []).filter((value): value is string =>
+      Boolean(value),
+    );
+    if (values.length > 0) {
+      built.push({ weight, text: withNormalized(values) });
+    }
+  }
+  return { sections: built, content: built.map((section) => section.text).join("\n") };
 }
 
 let cachedDocuments: SearchDocument[] | undefined;
@@ -48,16 +92,21 @@ export function buildSearchDocuments(): SearchDocument[] {
       summary: entry.english,
       category: entry.category,
       ...(entry.register ? { register: entry.register } : {}),
-      content: withNormalized([
-        entry.slovak,
-        entry.english,
-        entry.summary,
-        entry.category,
-        ...entry.tags,
-        ...(entry.aliases ?? []),
-        ...searchFormsForLemma(entry.slovak, entry.category),
-        ...entry.examples.flatMap((example) => [example.slovak, example.english]),
-      ]),
+      ...sections({
+        headword: [entry.slovak],
+        forms: [
+          ...(entry.aliases ?? []),
+          ...searchFormsForLemma(entry.slovak, entry.category),
+        ],
+        gloss: [entry.english],
+        body: [entry.summary, entry.category, ...entry.tags],
+        examples: entry.examples.flatMap((example) => [example.slovak, example.english]),
+      }),
+      ...(entry.examples.length > 0
+        ? {
+            examples: entry.examples.map(({ slovak, english }) => ({ slovak, english })),
+          }
+        : {}),
     });
   }
 
@@ -67,21 +116,21 @@ export function buildSearchDocuments(): SearchDocument[] {
       kind: "grammar",
       title: entry.slovak,
       summary: entry.summary,
-      content: withNormalized([
-        entry.slovak,
-        entry.english,
-        entry.summary,
-        entry.category,
-        entry.lookFor,
-        entry.watchOut.replace(/\*/g, ""),
-        ...entry.tags,
-        ...(entry.aliases ?? []),
-        ...entry.rule,
-        ...entry.pattern.lines,
-        ...(entry.morePatterns ?? []).flatMap((pattern) => pattern.lines),
-        ...entry.body,
-        ...entry.examples.flatMap((example) => [example.slovak, example.english]),
-      ]),
+      ...sections({
+        headword: [entry.slovak, entry.english],
+        forms: entry.aliases ?? [],
+        gloss: [entry.summary, ...entry.tags],
+        body: [
+          entry.category,
+          entry.lookFor,
+          entry.watchOut.replace(/\*/g, ""),
+          ...entry.rule,
+          ...entry.pattern.lines,
+          ...(entry.morePatterns ?? []).flatMap((pattern) => pattern.lines),
+          ...entry.body,
+        ],
+        examples: entry.examples.flatMap((example) => [example.slovak, example.english]),
+      }),
     });
   }
 
@@ -91,19 +140,17 @@ export function buildSearchDocuments(): SearchDocument[] {
       kind: "pronunciation",
       title: entry.slovak,
       summary: entry.summary,
-      content: withNormalized([
-        entry.slovak,
-        entry.english,
-        entry.summary,
-        entry.goal,
-        entry.mouthCue,
-        entry.category,
-        ...entry.tags,
-        ...(entry.aliases ?? []),
-        ...entry.practiceWords,
-        entry.practicePhrase.slovak,
-        entry.practicePhrase.english,
-      ]),
+      ...sections({
+        headword: [entry.slovak, entry.english],
+        forms: entry.aliases ?? [],
+        gloss: [entry.summary, ...entry.tags],
+        body: [entry.goal, entry.mouthCue, entry.category],
+        examples: [
+          ...entry.practiceWords,
+          entry.practicePhrase.slovak,
+          entry.practicePhrase.english,
+        ],
+      }),
     });
   }
 
@@ -113,14 +160,12 @@ export function buildSearchDocuments(): SearchDocument[] {
       kind: "case",
       title: topic.name,
       summary: topic.summary,
-      content: withNormalized([
-        topic.name,
-        topic.question,
-        topic.summary,
-        ...topic.researchPrompts,
-        ...topic.body,
-        ...topic.examples.flatMap((example) => [example.slovak, example.english]),
-      ]),
+      ...sections({
+        headword: [topic.name],
+        gloss: [topic.question, topic.summary],
+        body: [...topic.researchPrompts, ...topic.body],
+        examples: topic.examples.flatMap((example) => [example.slovak, example.english]),
+      }),
     });
   }
 
@@ -130,13 +175,11 @@ export function buildSearchDocuments(): SearchDocument[] {
       kind: "lesson",
       title: lesson.title,
       summary: lesson.promise,
-      content: withNormalized([
-        lesson.title,
-        lesson.promise,
-        lesson.group ?? "",
-        lesson.pattern?.title ?? "",
-        ...lesson.keyPhrases.flatMap((phrase) => [phrase.slovak, phrase.english]),
-      ]),
+      ...sections({
+        headword: [lesson.title],
+        gloss: [lesson.promise, lesson.group, lesson.pattern?.title],
+        examples: lesson.keyPhrases.flatMap((phrase) => [phrase.slovak, phrase.english]),
+      }),
     });
   }
 
@@ -146,7 +189,11 @@ export function buildSearchDocuments(): SearchDocument[] {
       kind: "practice",
       title: set.title,
       summary: `Practice set · ${set.track}`,
-      content: withNormalized([set.title, set.id, set.track, set.lessonId]),
+      ...sections({
+        headword: [set.title],
+        gloss: [set.summary],
+        body: [set.id, set.track, set.lessonId],
+      }),
     });
   }
 

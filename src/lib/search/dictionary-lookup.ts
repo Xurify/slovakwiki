@@ -9,6 +9,7 @@ export interface DictionaryIndexEntry {
   category: string;
   english: string;
   forms?: string[];
+  frequencyRank?: number;
   hash?: string;
   hrefSlug?: string;
   register?: WordRegister;
@@ -19,9 +20,11 @@ export interface DictionaryIndexEntry {
 /** Only promote dictionary hits at or above this score (exact lemma/form/prefix/gloss). */
 export const MIN_DICTIONARY_LOOKUP_SCORE = 3;
 
-type PreparedEntry = {
+export type PreparedEntry = {
   entry: DictionaryIndexEntry;
   forms: string[];
+  /** Whole meanings (“to be”), ranked above single words inside a meaning. */
+  gloss: string[];
   glosses: string[];
   slovak: string;
 };
@@ -59,6 +62,7 @@ function englishGlosses(english: string): string[] {
 
   for (const segment of english.split(";")) {
     add(segment);
+    add(segmentWithoutNotes(segment));
     for (const token of segment.split(/\s+/)) {
       add(token);
     }
@@ -67,20 +71,34 @@ function englishGlosses(english: string): string[] {
   return glosses;
 }
 
+/** “this (m.)” → “this”: grammar notes in brackets aren't part of the meaning. */
+function segmentWithoutNotes(segment: string): string {
+  return segment.replace(/\([^)]*\)/gu, " ").replace(/\s+/gu, " ");
+}
+
+function wholeGlosses(english: string): string[] {
+  return english
+    .split(";")
+    .flatMap((segment) => [segment, segmentWithoutNotes(segment)])
+    .map((segment) => normalizeSearchText(segment))
+    .filter(Boolean);
+}
+
 function normalizedForms(entry: DictionaryIndexEntry): string[] {
   return (entry.forms ?? []).map((form) => normalizeSearchText(form));
 }
 
-function prepareEntry(entry: DictionaryIndexEntry): PreparedEntry {
+export function prepareEntry(entry: DictionaryIndexEntry): PreparedEntry {
   return {
     entry,
     slovak: normalizeSearchText(entry.slovak),
     forms: normalizedForms(entry),
+    gloss: wholeGlosses(entry.english),
     glosses: englishGlosses(entry.english),
   };
 }
 
-function loadPreparedIndex(): Promise<PreparedEntry[]> {
+export function loadPreparedIndex(): Promise<PreparedEntry[]> {
   if (!preparedPromise) {
     preparedPromise = loadDictionaryIndex()
       .then((index) => {
@@ -203,4 +221,90 @@ export function mergeSearchResults(
   }
 
   return merged;
+}
+
+/** Why a word matched, strongest first. */
+export type WordMatchKind =
+  "lemma" | "form" | "prefix" | "gloss" | "gloss-word" | "contains";
+
+export const MATCH_ORDER: Record<WordMatchKind, number> = {
+  lemma: 0,
+  form: 1,
+  prefix: 2,
+  gloss: 3,
+  "gloss-word": 4,
+  contains: 5,
+};
+
+export interface WordMatch {
+  entry: DictionaryIndexEntry;
+  /** The inflected form the query hit, when it is not the lemma. */
+  form?: string;
+  kind: WordMatchKind;
+}
+
+function matchPrepared(prepared: PreparedEntry, query: string): WordMatch | null {
+  const { entry } = prepared;
+
+  if (prepared.slovak === query) {
+    return { entry, kind: "lemma" };
+  }
+
+  const formIndex = prepared.forms.indexOf(query);
+  if (formIndex !== -1) {
+    return { entry, kind: "form", form: entry.forms?.[formIndex] ?? query };
+  }
+
+  if (prepared.slovak.startsWith(query)) {
+    return { entry, kind: "prefix" };
+  }
+
+  if (prepared.gloss.includes(query)) {
+    return { entry, kind: "gloss" };
+  }
+
+  if (prepared.glosses.includes(query)) {
+    return { entry, kind: "gloss-word" };
+  }
+
+  if (query.length > 3 && prepared.slovak.includes(query)) {
+    return { entry, kind: "contains" };
+  }
+
+  return null;
+}
+
+/** Every dictionary entry the query names, strongest match first, then most frequent. */
+export function rankDictionaryMatches(
+  index: readonly PreparedEntry[],
+  query: string,
+): WordMatch[] {
+  const normalized = normalizeSearchText(query);
+  if (!normalized) {
+    return [];
+  }
+
+  const matches: WordMatch[] = [];
+  for (const prepared of index) {
+    const match = matchPrepared(prepared, normalized);
+    if (match) {
+      matches.push(match);
+    }
+  }
+
+  return matches.toSorted((first, second) => {
+    const byKind = MATCH_ORDER[first.kind] - MATCH_ORDER[second.kind];
+    if (byKind !== 0) return byKind;
+
+    const byFrequency =
+      (first.entry.frequencyRank ?? Number.MAX_SAFE_INTEGER) -
+      (second.entry.frequencyRank ?? Number.MAX_SAFE_INTEGER);
+    if (byFrequency !== 0) return byFrequency;
+
+    return first.entry.slovak.localeCompare(second.entry.slovak, "sk");
+  });
+}
+
+export function dictionaryEntryHref(entry: DictionaryIndexEntry): string {
+  return dictionaryPathFromIndexFields(entry);
 }

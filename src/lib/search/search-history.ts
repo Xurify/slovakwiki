@@ -14,6 +14,9 @@ export interface SearchHistoryItem {
   visitedAt: number;
 }
 
+/** A page opened from search, before it gets a timestamp. */
+export type SearchVisit = Omit<SearchHistoryItem, "visitedAt">;
+
 export interface StorageLike {
   getItem(key: string): string | null;
   removeItem(key: string): void;
