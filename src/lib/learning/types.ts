@@ -242,6 +242,8 @@ export interface PracticeItem {
   feedback: ExerciseFeedback;
   id: string;
   newUse?: string;
+  /** Set on the card a session adds after a miss, so it is not retried again. */
+  secondTry?: boolean;
   source: {
     href: string;
     kind: "lesson" | "reference";

@@ -21,6 +21,7 @@ import {
   isDaysDatesTimeKind,
   materializeDaysDatesTimeItem,
 } from "$lib/learning/time/session";
+import { freshVariant } from "./retry";
 
 function itemsFromIds(itemIds: readonly string[]): PracticeItem[] {
   return itemIds
@@ -107,4 +108,27 @@ export function mergePracticeSession(
   }
 
   return next;
+}
+
+/**
+ * The second try for a missed card. Generated sets draw a new sentence for the same
+ * kind; hand-written items come back as they are, with build tiles reshuffled.
+ */
+export function retryPracticeItem(set: PracticeSet, missed: PracticeItem): PracticeItem {
+  const draw = retryDraw(set, missed.id);
+  if (!draw) return maybeMaterializeBuildItem(missed);
+  return freshVariant(draw, (item) => item.feedback.correction, missed);
+}
+
+function retryDraw(set: PracticeSet, itemId: string): (() => PracticeItem) | undefined {
+  if (set.sessionKind === "days-dates-time" && isDaysDatesTimeKind(itemId)) {
+    return () => materializeDaysDatesTimeItem(itemId);
+  }
+  if (set.sessionKind === "possessives" && isPossessiveKind(itemId)) {
+    return () => materializePossessiveItem(itemId);
+  }
+  if (set.sessionKind === "demonstratives" && isDemonstrativeKind(itemId)) {
+    return () => materializeDemonstrativeItem(itemId);
+  }
+  return undefined;
 }

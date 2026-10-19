@@ -18,6 +18,7 @@
   import {
     clientPracticeSession,
     mergePracticeSession,
+    retryPracticeItem,
     ssrPracticeSession,
   } from "$lib/practice/session";
   import { practiceTaskKicker } from "$lib/practice/task-kicker";
@@ -94,6 +95,7 @@
       backLabel="Practice"
       sessionTitle={data.set.title}
       sessionContext={data.sessionContext}
+      makeRetry={(missed) => retryPracticeItem(data.set, missed)}
       bind:sectionTitle
     />
   {/if}
@@ -111,6 +113,7 @@
             backLabel="Practice"
             sessionTitle={data.set.title}
             sessionContext={data.sessionContext}
+            makeRetry={(missed) => retryPracticeItem(data.set, missed)}
             bind:sectionTitle
           />
         {:else}
