@@ -1,7 +1,14 @@
 import type { Lesson } from "$lib/learning/types";
 import { demonstrativesLesson } from "$lib/learning/demonstratives/lesson";
 import { possessivesLesson } from "$lib/learning/possessives/lesson";
-import { withBytExercises, withMatExercises, withPresentTenseExercises } from "./beats";
+import {
+  withBytExercises,
+  withMatExercises,
+  withPresentTenseExercises,
+  presentTenseLine,
+  bytLine,
+  matLine,
+} from "./beats";
 
 export const grammarLessons: Lesson[] = [
   {
@@ -12,14 +19,14 @@ export const grammarLessons: Lesson[] = [
     promise: "Use the six present-tense endings to say who is doing the action.",
     scene: [
       {
-        id: "anna-asks",
+        id: presentTenseLine.annaWhatAreYouDoing,
         speaker: "Anna",
         slovak: "Ahoj! Čo robíš?",
         english: "Hi! What are you doing?",
         audio: { transcript: "Ahoj! Čo robíš?" },
       },
       {
-        id: "you-read",
+        id: presentTenseLine.youReadABook,
         speaker: "You",
         slovak: "Čítam knihu. A ty?",
         english: "I'm reading a book. And you?",
@@ -42,14 +49,14 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: "anna-reads",
+        id: presentTenseLine.annaPeterReads,
         speaker: "Anna",
         slovak: "Aj ja čítam. Peter číta noviny.",
         english: "I'm reading too. Peter is reading the newspaper.",
         audio: { transcript: "Aj ja čítam. Peter číta noviny." },
       },
       {
-        id: "you-ask-both",
+        id: presentTenseLine.youEveryMorning,
         speaker: "You",
         slovak: "Čítate tu každé ráno?",
         english: "Do you two read here every morning?",
@@ -74,7 +81,7 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: "anna-we-read",
+        id: presentTenseLine.annaWeRead,
         speaker: "Anna",
         slovak: "Áno, čítame tu každé ráno.",
         english: "Yes, we read here every morning.",
@@ -156,7 +163,7 @@ export const grammarLessons: Lesson[] = [
         practiceItemId: "grammar/repair-first-person-reading",
         context: [
           {
-            id: "lesson-reading-broken",
+            id: "present-tense-i-broken-ja-cita",
             speaker: "Sentence",
             slovak: "Ja číta knihu.",
             english: "I am reading a book.",
@@ -215,14 +222,14 @@ export const grammarLessons: Lesson[] = [
     promise: "Say who you are and where you are with som / ste / je.",
     scene: [
       {
-        id: "byt-check-in-name",
+        id: bytLine.receptionistAreYouAlex,
         speaker: "Receptionist",
         slovak: "Dobrý deň. Ste Alex?",
         english: "Hello. Are you Alex?",
         audio: { transcript: "Dobrý deň. Ste Alex?" },
       },
       {
-        id: "byt-check-in-answer",
+        id: bytLine.youAreAlex,
         speaker: "You",
         slovak: "Áno, som Alex.",
         english: "Yes, I am Alex.",
@@ -242,14 +249,14 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: "byt-check-in-location",
+        id: bytLine.receptionistFirstTime,
         speaker: "Receptionist",
         slovak: "Je to tu prvýkrát?",
         english: "Is this your first time here?",
         audio: { transcript: "Je to tu prvýkrát?" },
       },
       {
-        id: "byt-check-in-group",
+        id: bytLine.youWithFriends,
         speaker: "You",
         slovak: "Áno. Sme tu s priateľmi.",
         english: "Yes. We are here with friends.",
@@ -372,14 +379,14 @@ export const grammarLessons: Lesson[] = [
     promise: "Say what you have, your age, and that you don’t have something.",
     scene: [
       {
-        id: "mat-cafe-time",
+        id: matLine.annaTimeForCoffee,
         speaker: "Anna",
         slovak: "Máš čas na kávu?",
         english: "Do you have time for coffee?",
         audio: { transcript: "Máš čas na kávu?" },
       },
       {
-        id: "mat-cafe-answer",
+        id: matLine.youHaveTime,
         speaker: "You",
         slovak: "Áno, mám čas.",
         english: "Yes, I have time.",
@@ -399,14 +406,14 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: "mat-cafe-age",
+        id: matLine.annaAsksAge,
         speaker: "Anna",
         slovak: "Koľko máš rokov?",
         english: "How old are you?",
         audio: { transcript: "Koľko máš rokov?" },
       },
       {
-        id: "mat-cafe-age-answer",
+        id: matLine.youAge,
         speaker: "You",
         slovak: "Mám dvadsaťosem rokov.",
         english: "I am twenty-eight years old.",
@@ -429,7 +436,7 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: "mat-cafe-possession",
+        id: matLine.youNoCash,
         speaker: "You",
         slovak: "Nemám hotovosť, ale mám kartu.",
         english: "I do not have cash, but I have a card.",

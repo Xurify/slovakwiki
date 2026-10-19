@@ -1,11 +1,21 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
+export const meetSomeoneLine = {
+  annaGreets: "meet-someone-anna-greets",
+  youIntroduce: "meet-someone-you-introduce",
+  annaNiceToMeetYou: "meet-someone-anna-nice-to-meet-you",
+  youFromCanada: "meet-someone-you-from-canada",
+  annaAsksSlovak: "meet-someone-anna-asks-slovak",
+  youStillLearning: "meet-someone-you-still-learning",
+} as const;
+
 export const meetSomeoneBeats: LessonBeat[] = [
   {
-    id: "greeting",
+    id: "meet-someone-greet-and-introduce",
     title: "Greet and introduce",
     teach: {
-      sceneLineIds: ["anna-greeting", "you-introduction"],
+      sceneLineIds: [meetSomeoneLine.annaGreets, meetSomeoneLine.youIntroduce],
       phrases: [
         {
           slovak: "Volám sa …",
@@ -19,10 +29,10 @@ export const meetSomeoneBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "origin",
+    id: "meet-someone-where-youre-from",
     title: "Where you're from",
     teach: {
-      sceneLineIds: ["anna-origin", "you-origin"],
+      sceneLineIds: [meetSomeoneLine.annaNiceToMeetYou, meetSomeoneLine.youFromCanada],
       phrases: [
         {
           slovak: "Som z …",
@@ -35,10 +45,10 @@ export const meetSomeoneBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "your-turn",
+    id: "meet-someone-your-turn",
     title: "Your turn",
     teach: {
-      sceneLineIds: ["anna-slovak", "you-learning"],
+      sceneLineIds: [meetSomeoneLine.annaAsksSlovak, meetSomeoneLine.youStillLearning],
       phrases: [
         {
           slovak: "Ešte sa učím.",

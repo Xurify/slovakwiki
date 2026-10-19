@@ -1,11 +1,17 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
+export const daysDatesTimeLine = {
+  annaTuesdayAtThree: "days-dates-and-time-anna-tuesday-at-three",
+  youHalfPastTwo: "days-dates-and-time-you-half-past-two",
+} as const;
+
 export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
   {
-    id: "meeting-day",
+    id: "days-dates-and-time-pick-a-day",
     title: "Pick a day",
     teach: {
-      sceneLineIds: ["meeting-offer"],
+      sceneLineIds: [daysDatesTimeLine.annaTuesdayAtThree],
       phrases: [
         {
           slovak: "Dnes je pondelok.",
@@ -22,10 +28,13 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "clock-basics",
+    id: "days-dates-and-time-clock-times",
     title: "Clock times",
     teach: {
-      sceneLineIds: ["meeting-offer", "meeting-counter"],
+      sceneLineIds: [
+        daysDatesTimeLine.annaTuesdayAtThree,
+        daysDatesTimeLine.youHalfPastTwo,
+      ],
       phrases: [
         {
           slovak: "O tretej.",
@@ -48,7 +57,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "quarters",
+    id: "days-dates-and-time-quarters",
     title: "Quarters and faces",
     teach: {
       phrases: [
@@ -67,7 +76,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "registers",
+    id: "days-dates-and-time-two-questions",
     title: "Two questions",
     teach: {
       phrases: [
@@ -86,7 +95,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "duration",
+    id: "days-dates-and-time-duration",
     title: "In X minutes",
     teach: {
       phrases: [
@@ -110,7 +119,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "your-turn",
+    id: "days-dates-and-time-your-turn",
     title: "Your turn",
     teach: {},
   },

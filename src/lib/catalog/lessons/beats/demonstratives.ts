@@ -11,6 +11,26 @@ import {
   type GrammaticalCase,
 } from "$lib/learning/demonstratives/paradigm";
 
+/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
+export const demonstrativesLine = {
+  annaSummerPhotos: "demonstratives-anna-summer-photos",
+  youWhoIsThatMan: "demonstratives-you-who-is-that-man",
+  annaMyBrother: "demonstratives-anna-my-brother-tom",
+  youWhoIsThatWoman: "demonstratives-you-who-is-that-woman",
+  annaHisWifeEva: "demonstratives-anna-his-wife-eva",
+  youWhoAreThoseMen: "demonstratives-you-who-are-those-men",
+  annaHisColleagues: "demonstratives-anna-his-colleagues",
+  youKnowThatMan: "demonstratives-you-know-that-man",
+  annaThatsMarek: "demonstratives-anna-thats-marek",
+  annaManHelpsUs: "demonstratives-anna-man-helps-us",
+  annaCinemaWithColleagues: "demonstratives-anna-cinema-with-colleagues",
+  waiterTakesOrder: "demonstratives-waiter-takes-order",
+  youHowMuchCake: "demonstratives-you-how-much-cake",
+  waiterThreeEuros: "demonstratives-waiter-three-euros",
+  youThisCake: "demonstratives-you-this-cake",
+  annaThatCake: "demonstratives-anna-that-cake",
+} as const;
+
 const SINGULAR: FormTableHeading = { english: "Singular", slovak: "jednotné číslo" };
 const PLURAL: FormTableHeading = { english: "Plural", slovak: "množné číslo" };
 
@@ -114,10 +134,15 @@ const caseTables = [
 
 export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
   {
-    id: "ten-ta-to",
+    id: "demonstratives-ten-ta-to",
     title: "Ten, tá, to",
     teach: {
-      sceneLineIds: ["anna-photos", "you-who-man", "anna-brother", "you-who-woman"],
+      sceneLineIds: [
+        demonstrativesLine.annaSummerPhotos,
+        demonstrativesLine.youWhoIsThatMan,
+        demonstrativesLine.annaMyBrother,
+        demonstrativesLine.youWhoIsThatWoman,
+      ],
       phrases: [
         {
           slovak: "ten muž",
@@ -142,10 +167,10 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "to-je",
+    id: "demonstratives-to-je",
     title: "To je …, to sú …",
     teach: {
-      sceneLineIds: ["anna-wife"],
+      sceneLineIds: [demonstrativesLine.annaHisWifeEva],
       phrases: [
         {
           slovak: "To je môj brat.",
@@ -170,10 +195,13 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "plural",
+    id: "demonstratives-plural",
     title: "Plural: tí and tie",
     teach: {
-      sceneLineIds: ["you-who-men", "anna-colleagues"],
+      sceneLineIds: [
+        demonstrativesLine.youWhoAreThoseMen,
+        demonstrativesLine.annaHisColleagues,
+      ],
       phrases: [
         {
           slovak: "tí muži",
@@ -198,10 +226,15 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "cases",
+    id: "demonstratives-cases",
     title: "In every case",
     teach: {
-      sceneLineIds: ["you-know-man", "anna-marek", "anna-helps", "anna-cinema"],
+      sceneLineIds: [
+        demonstrativesLine.youKnowThatMan,
+        demonstrativesLine.annaThatsMarek,
+        demonstrativesLine.annaManHelpsUs,
+        demonstrativesLine.annaCinemaWithColleagues,
+      ],
       phrases: [
         {
           slovak: "Poznám toho muža.",
@@ -239,15 +272,15 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "tento-tamten",
+    id: "demonstratives-tento-tamten",
     title: "This one, that one",
     teach: {
       sceneLineIds: [
-        "waiter-order",
-        "you-price",
-        "waiter-price",
-        "you-this-cake",
-        "anna-that-cake",
+        demonstrativesLine.waiterTakesOrder,
+        demonstrativesLine.youHowMuchCake,
+        demonstrativesLine.waiterThreeEuros,
+        demonstrativesLine.youThisCake,
+        demonstrativesLine.annaThatCake,
       ],
       phrases: [
         {
@@ -274,7 +307,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "traps",
+    id: "demonstratives-traps",
     title: "Small traps",
     teach: {
       phrases: [
@@ -300,7 +333,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "your-turn",
+    id: "demonstratives-your-turn",
     title: "Your turn",
     teach: {},
   },
