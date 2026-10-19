@@ -29,6 +29,10 @@
   import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
   import type { LessonExercise } from "$lib/learning/types";
   import type { OtherChoiceNote } from "$lib/learning/exercises/feedback-why";
+  import type {
+    LessonAnswerSnapshot,
+    LessonGradeResult,
+  } from "$lib/components/lessons/lesson-review";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import { DIALOGUE_SPEAKER_CLASS } from "$lib/components/practice/dialogue-speaker";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
@@ -52,38 +56,31 @@
     ongraded,
     onresolve,
     exerciseOptionAudioSrcs = {},
+    review,
     sceneAudioSrcs = {},
     submitNonce = 0,
   }: {
     canSubmit?: boolean;
     chrome?: "card" | "plain" | "player";
     exercise: LessonExercise;
-    ongraded?: (result: {
-      attempt?: string;
-      correct: boolean;
-      correction?: string;
-      english?: string;
-      grade: AnswerGrade;
-      markWords?: boolean;
-      missHeadline?: string;
-      otherChoices?: OtherChoiceNote[];
-      revealed?: boolean;
-      showCorrection?: boolean;
-      why: string;
-    }) => void;
+    ongraded?: (result: LessonGradeResult) => void;
     onresolve: () => void;
     exerciseOptionAudioSrcs?: Record<string, string>;
+    /** A past answer: the exercise opens already graded and locked. */
+    review?: LessonAnswerSnapshot;
     sceneAudioSrcs?: Record<string, string>;
     submitNonce?: number;
   } = $props();
 
-  let selectedId = $state<string | null>(null);
-  let selectedIds = $state<Set<string>>(new Set());
+  const initial = untrack(() => review);
+
+  let selectedId = $state<string | null>(initial?.selectedId ?? null);
+  let selectedIds = $state<Set<string>>(new Set(initial?.selectedIds));
   let hintOpen = $state(false);
-  let builtBankIndexes = $state<number[]>([]);
-  let input = $state("");
-  let submitted = $state(false);
-  let revealed = $state(false);
+  let builtBankIndexes = $state<number[]>([...(initial?.builtBankIndexes ?? [])]);
+  let input = $state(initial?.input ?? "");
+  let submitted = $state(Boolean(initial));
+  let revealed = $state(initial?.revealed ?? false);
   let feedbackPanel = $state<HTMLElement | null>(null);
 
   const player = $derived(chrome === "player");
@@ -286,6 +283,7 @@
       }
 
       ongraded({
+        answer: answerSnapshot(),
         attempt: attemptForDisplay(),
         correct: isCorrect,
         correction: feedbackCorrection,
@@ -312,6 +310,7 @@
 
     if (player && ongraded) {
       ongraded({
+        answer: answerSnapshot(),
         correct: false,
         correction: graded.feedback.correction,
         english: feedbackEnglish,
@@ -378,6 +377,16 @@
       return otherChoiceNotes(graded.choices, selectedIds, shownWhy);
     }
     return [];
+  }
+
+  function answerSnapshot(): LessonAnswerSnapshot {
+    return {
+      builtBankIndexes: [...builtBankIndexes],
+      input,
+      revealed,
+      selectedId,
+      selectedIds: [...selectedIds],
+    };
   }
 
   function attemptForDisplay(): string | undefined {

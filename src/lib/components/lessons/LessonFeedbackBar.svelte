@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
   import Button from "$lib/components/ui/Button.svelte";
+  import LessonBackButton from "$lib/components/lessons/LessonBackButton.svelte";
   import OtherChoiceNotes from "$lib/components/practice/OtherChoiceNotes.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
@@ -12,11 +13,13 @@
 
   let {
     attempt,
+    autofocus = true,
     correction,
     english,
     grade,
     markWords = false,
     missHeadline = "Correct answer",
+    onback,
     oncontinue,
     otherChoices = [],
     revealed = false,
@@ -24,11 +27,13 @@
     why,
   }: {
     attempt?: string;
+    autofocus?: boolean;
     correction?: string;
     english?: string;
     grade: AnswerGrade;
     markWords?: boolean;
     missHeadline?: string;
+    onback?: () => void;
     oncontinue: () => void;
     otherChoices?: OtherChoiceNote[];
     revealed?: boolean;
@@ -48,6 +53,7 @@
   );
 
   onMount(async () => {
+    if (!autofocus) return;
     await tick();
     rootEl
       ?.querySelector<HTMLButtonElement>("[data-feedback-continue]")
@@ -115,14 +121,20 @@
       {/if}
     </div>
 
-    <Button
-      class="min-w-36 shrink-0 px-6"
-      type="button"
-      variant="accent"
-      data-feedback-continue
-      onclick={oncontinue}
-    >
-      Continue
-    </Button>
+    <div class="flex shrink-0 items-center gap-2">
+      {#if onback}
+        <LessonBackButton onclick={onback} />
+      {/if}
+
+      <Button
+        class="min-w-36 shrink-0 px-6"
+        type="button"
+        variant="accent"
+        data-feedback-continue
+        onclick={oncontinue}
+      >
+        Continue
+      </Button>
+    </div>
   </div>
 </div>

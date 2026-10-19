@@ -1,6 +1,6 @@
 <script lang="ts">
   import { eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
-  import { onDestroy, onMount, tick } from "svelte";
+  import { onDestroy, onMount, tick, untrack } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import FormTable from "$lib/components/lessons/FormTable.svelte";
   import MarkedNote from "$lib/components/lessons/MarkedNote.svelte";
@@ -34,6 +34,7 @@
     advanceSignal = 0,
     audioSrcs = {},
     lessonId = "",
+    review = false,
     scene = [],
     storyComplete = $bindable(false),
     choiceOpen = $bindable(false),
@@ -43,6 +44,8 @@
     advanceSignal?: number;
     audioSrcs?: Record<string, string>;
     lessonId?: string;
+    /** Already played: open with every line shown and nothing autoplaying. */
+    review?: boolean;
     scene?: DialogueTurn[];
     storyComplete?: boolean;
     choiceOpen?: boolean;
@@ -50,7 +53,7 @@
     title: string;
   } = $props();
 
-  let revealedCount = $state(0);
+  let revealedCount = $state(untrack(() => (review ? scene.length : 0)));
   let scrollEl: HTMLElement | undefined = $state();
   let lastAdvance = 0;
   let autoAdvanceOn = $state(getStoryAutoAdvance() === "on");

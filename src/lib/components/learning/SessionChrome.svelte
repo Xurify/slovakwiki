@@ -18,11 +18,13 @@
     complete = false,
     controls,
     class: className = "mb-5",
+    onselect,
     progressLabel = "Progress",
     results = [],
     subtitle,
     title,
     total,
+    viewIndex,
   }: {
     activeIndex?: number;
     backHref?: string;
@@ -33,17 +35,22 @@
     /** Extra icon buttons before the sound toggle. */
     controls?: Snippet;
     class?: string;
+    /** Makes segments up to `activeIndex` buttons that jump back to that step. */
+    onselect?: (index: number) => void;
     progressLabel?: string;
     results?: readonly (AnswerGrade | "revealed")[];
     subtitle?: string;
     title?: string;
     total: number;
+    /** Step on screen when reviewing behind `activeIndex`; defaults to it. */
+    viewIndex?: number;
   } = $props();
 
   const segments = $derived(
     Array.from({ length: Math.max(total, 0) }, (_, index) => index),
   );
-  const displayIndex = $derived(complete ? total : Math.min(activeIndex + 1, total));
+  const shownIndex = $derived(viewIndex ?? activeIndex);
+  const displayIndex = $derived(complete ? total : Math.min(shownIndex + 1, total));
   const correctCount = $derived(
     results.filter((grade) => grade === "correct" || grade === "accents").length,
   );
@@ -56,9 +63,15 @@
     if (grade === "correct") return "bg-emerald-600";
     if (grade === "accents") return "bg-emerald-400";
     if (grade === "incorrect" || grade === "revealed") return "bg-rose-400";
-    if (!complete && index <= activeIndex) return "bg-blue-600";
+    if (!complete && index <= shownIndex) return "bg-blue-600";
+    if (!complete && index <= activeIndex) return "bg-blue-600/35";
     return "bg-slate-200";
   }
+
+  const segmentBarClass =
+    "h-1.5 min-w-0 flex-1 rounded-full transition-[background-color,opacity] duration-300";
+  const segmentButtonClass =
+    "group -my-2 flex min-w-0 flex-1 cursor-pointer items-center border-0 bg-transparent py-2";
 </script>
 
 <header class="grid gap-3.5 {className}">
@@ -112,21 +125,38 @@
     </div>
   </div>
 
-  <div
-    class="flex gap-1"
-    role="progressbar"
-    aria-label={progressLabel}
-    aria-valuemin={0}
-    aria-valuemax={total}
-    aria-valuenow={complete ? total : activeIndex}
-    aria-valuetext={progressText}
-  >
-    {#each segments as index (index)}
-      <span
-        class="h-1.5 min-w-0 flex-1 rounded-full transition-colors duration-300 {segmentClass(
-          index,
-        )}"
-      ></span>
-    {/each}
-  </div>
+  {#if onselect}
+    <nav class="flex gap-1" aria-label={progressLabel}>
+      {#each segments as index (index)}
+        {#if index <= activeIndex}
+          <button
+            class={segmentButtonClass}
+            type="button"
+            aria-label="Step {index + 1} of {total}"
+            aria-current={index === shownIndex ? "step" : undefined}
+            onclick={() => onselect(index)}
+          >
+            <span class="{segmentBarClass} {segmentClass(index)} group-hover:opacity-70"
+            ></span>
+          </button>
+        {:else}
+          <span class="{segmentBarClass} {segmentClass(index)}" aria-hidden="true"></span>
+        {/if}
+      {/each}
+    </nav>
+  {:else}
+    <div
+      class="flex gap-1"
+      role="progressbar"
+      aria-label={progressLabel}
+      aria-valuemin={0}
+      aria-valuemax={total}
+      aria-valuenow={complete ? total : activeIndex}
+      aria-valuetext={progressText}
+    >
+      {#each segments as index (index)}
+        <span class="{segmentBarClass} {segmentClass(index)}"></span>
+      {/each}
+    </div>
+  {/if}
 </header>

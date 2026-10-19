@@ -13,10 +13,9 @@
     markLessonComplete,
     readPracticeState,
     writePracticeState,
-    type AnswerGrade,
   } from "$lib/components/practice/practice-state";
   import type { Lesson } from "$lib/learning/types";
-  import type { OtherChoiceNote } from "$lib/learning/exercises/feedback-why";
+  import type { LessonGradeResult } from "$lib/components/lessons/lesson-review";
   import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
   import { practiceSetForLesson } from "$lib/catalog/practice";
   import { unlockSfx } from "$lib/audio/sfx";
@@ -39,21 +38,13 @@
   } = $props();
 
   let phase = $state<"play" | "done">("play");
+  /** Furthest step reached; `reviewIndex` is set while looking at an earlier one. */
   let stepIndex = $state(0);
+  let reviewIndex = $state<number | null>(null);
+  let answers = $state<Record<string, LessonGradeResult>>({});
+  let frontierTeachPlayed = $state(false);
   let canSubmit = $state(false);
   let submitNonce = $state(0);
-  let gradeResult = $state<{
-    attempt?: string;
-    correction?: string;
-    english?: string;
-    grade: AnswerGrade;
-    markWords?: boolean;
-    missHeadline?: string;
-    otherChoices?: OtherChoiceNote[];
-    revealed?: boolean;
-    showCorrection?: boolean;
-    why: string;
-  } | null>(null);
   let lastStepId = "";
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
@@ -64,6 +55,11 @@
 
   const steps = $derived(lessonSteps(lesson));
   const step = $derived(steps[stepIndex]);
+  const gradeResult = $derived(step ? (answers[step.id] ?? null) : null);
+  const reviewing = $derived(reviewIndex !== null);
+  const viewIndex = $derived(reviewIndex ?? stepIndex);
+  const viewStep = $derived(steps[viewIndex]);
+  const viewResult = $derived(viewStep ? (answers[viewStep.id] ?? null) : null);
   const practiceSet = $derived(practiceSetForLesson(lesson.id));
   const backHref = $derived(`/lessons/${lesson.track}`);
   const trackTitle = $derived(
@@ -78,13 +74,13 @@
   });
 
   const teachAudioSrcs = $derived.by(() => {
-    if (!step || step.kind !== "teach") return keyPhraseAudioSrcs;
+    if (!viewStep || viewStep.kind !== "teach") return keyPhraseAudioSrcs;
     const srcs: Record<string, string> = { ...keyPhraseAudioSrcs, ...sceneAudioSrcs };
-    for (const phrase of step.beat.teach.phrases ?? []) {
+    for (const phrase of viewStep.beat.teach.phrases ?? []) {
       const fromLesson = keyPhraseAudioSrcs[phrase.slovak];
       if (fromLesson) srcs[phrase.slovak] = fromLesson;
     }
-    for (const line of step.scene) {
+    for (const line of viewStep.scene) {
       const fromScene = sceneAudioSrcs[line.id];
       if (fromScene) srcs[line.id] = fromScene;
     }
@@ -156,7 +152,7 @@
 
   function resetStepUi(): void {
     canSubmit = false;
-    gradeResult = null;
+    frontierTeachPlayed = false;
     teachChoiceOpen = false;
     teachAdvanceSignal = 0;
   }
@@ -188,6 +184,21 @@
     resetStepUi();
   }
 
+  function showStep(index: number): void {
+    if (!reviewing && step?.kind === "teach" && teachStoryComplete) {
+      frontierTeachPlayed = true;
+    }
+    reviewIndex = index >= stepIndex ? null : Math.max(index, 0);
+  }
+
+  function goBack(): void {
+    showStep(viewIndex - 1);
+  }
+
+  function goForward(): void {
+    showStep(viewIndex + 1);
+  }
+
   function onFooterPrimary(): void {
     if (!step) return;
 
@@ -213,18 +224,8 @@
     submitNonce += 1;
   }
 
-  function onGraded(result: {
-    attempt?: string;
-    correction?: string;
-    english?: string;
-    grade: AnswerGrade;
-    missHeadline?: string;
-    otherChoices?: OtherChoiceNote[];
-    revealed?: boolean;
-    showCorrection?: boolean;
-    why: string;
-  }): void {
-    gradeResult = result;
+  function onGraded(result: LessonGradeResult): void {
+    if (step) answers[step.id] = result;
     canSubmit = false;
   }
 
@@ -258,6 +259,12 @@
     if (phase !== "play" || event.key !== "Enter") return;
     if (event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
     if (event.repeat || event.isComposing || isNativeEnterTarget(event.target)) return;
+
+    if (reviewing) {
+      event.preventDefault();
+      goForward();
+      return;
+    }
 
     if (gradeResult) {
       event.preventDefault();
@@ -297,10 +304,12 @@
           activeIndex={stepIndex}
           {backHref}
           closeLabel="Close lesson"
-          progressLabel="Lesson progress"
+          onselect={showStep}
+          progressLabel="Lesson steps"
           subtitle={trackTitle}
           title={lesson.title}
           total={steps.length}
+          {viewIndex}
         >
           {#snippet controls()}
             <LessonStorySettings />
@@ -312,13 +321,23 @@
     <div
       class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
     >
-      {#if step}
-        {#key step.id}
-          {#if step.kind === "teach"}
+      {#if viewStep}
+        {#key viewStep.id}
+          {#if viewStep.kind === "teach" && reviewing}
             <LessonStepTeach
-              title={step.beat.title}
-              teach={step.beat.teach}
-              scene={step.scene}
+              review
+              title={viewStep.beat.title}
+              teach={viewStep.beat.teach}
+              scene={viewStep.scene}
+              audioSrcs={teachAudioSrcs}
+              lessonId={lesson.id}
+            />
+          {:else if viewStep.kind === "teach"}
+            <LessonStepTeach
+              review={frontierTeachPlayed}
+              title={viewStep.beat.title}
+              teach={viewStep.beat.teach}
+              scene={viewStep.scene}
               audioSrcs={teachAudioSrcs}
               lessonId={lesson.id}
               advanceSignal={teachAdvanceSignal}
@@ -329,13 +348,14 @@
             <div class="mx-auto w-full max-w-[640px] px-4 py-8 sm:px-8 sm:py-10">
               <LessonInteraction
                 chrome="player"
-                exercise={step.exercise}
+                exercise={viewStep.exercise}
+                review={viewResult?.answer}
                 {sceneAudioSrcs}
                 {exerciseOptionAudioSrcs}
                 {submitNonce}
                 bind:canSubmit
                 ongraded={onGraded}
-                onresolve={advance}
+                onresolve={reviewing ? goForward : advance}
               />
             </div>
           {/if}
@@ -343,24 +363,35 @@
       {/if}
     </div>
 
-    {#if gradeResult}
-      <LessonFeedbackBar
-        grade={gradeResult.grade}
-        why={gradeResult.why}
-        attempt={gradeResult.attempt}
-        correction={gradeResult.correction}
-        english={gradeResult.english}
-        revealed={gradeResult.revealed}
-        missHeadline={gradeResult.missHeadline}
-        markWords={gradeResult.markWords}
-        showCorrection={gradeResult.showCorrection}
-        otherChoices={gradeResult.otherChoices}
-        oncontinue={advance}
+    {#if viewResult}
+      {#key viewStep?.id}
+        <LessonFeedbackBar
+          autofocus={!reviewing}
+          grade={viewResult.grade}
+          why={viewResult.why}
+          attempt={viewResult.attempt}
+          correction={viewResult.correction}
+          english={viewResult.english}
+          revealed={viewResult.revealed}
+          missHeadline={viewResult.missHeadline}
+          markWords={viewResult.markWords}
+          showCorrection={viewResult.showCorrection}
+          otherChoices={viewResult.otherChoices}
+          onback={viewIndex > 0 ? goBack : undefined}
+          oncontinue={reviewing ? goForward : advance}
+        />
+      {/key}
+    {:else if reviewing}
+      <LessonPlayerFooter
+        label="Continue"
+        onback={viewIndex > 0 ? goBack : undefined}
+        onclick={goForward}
       />
     {:else}
       <LessonPlayerFooter
         disabled={!footerEnabled}
         label={footerLabel}
+        onback={viewIndex > 0 ? goBack : undefined}
         onclick={onFooterPrimary}
       />
     {/if}
