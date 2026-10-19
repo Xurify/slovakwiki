@@ -7,10 +7,7 @@
 const optionMotion =
   "transition-[border-color,background-color,box-shadow,color] duration-150 ease-out disabled:cursor-default";
 
-/**
- * Graded rows leave these out: Tailwind orders same-property utilities by name, not
- * by class order, so `bg-surface` would beat `bg-emerald-50` and hide the tint.
- */
+// Graded rows leave these out: Tailwind sorts same-property utilities by name, so bg-surface would beat bg-emerald-50.
 const optionNeutral = "border-slate-300 bg-surface text-slate-900";
 
 const optionShell = `cursor-pointer border ${optionNeutral} ${optionMotion}`;
@@ -58,7 +55,6 @@ function optionToneClass(state: OptionGradeState): string {
   return "border-slate-200 bg-surface text-slate-500";
 }
 
-/** A graded row or clock tile: shape plus tone, without the neutral colors. */
 export function optionGradedClass(
   state: OptionGradeState,
   shape: "row" | "clock" = "row",

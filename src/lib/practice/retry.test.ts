@@ -1,25 +1,25 @@
 import { describe, expect, it } from "vitest";
 
-import { freshVariant, insertRetry, RETRY_GAP } from "./retry";
+import { drawWithNewSentence, insertRetryCard, CARDS_BEFORE_RETRY } from "./retry";
 
-describe("insertRetry", () => {
-  it("places the second try RETRY_GAP cards after the miss", () => {
+describe("insertRetryCard", () => {
+  it("places the retry CARDS_BEFORE_RETRY cards after the miss", () => {
     const queue = ["a", "b", "c", "d", "e", "f"];
-    const next = insertRetry(queue, 0, "a2");
+    const next = insertRetryCard(queue, 0, "a2");
 
-    expect(next.indexOf("a2")).toBe(1 + RETRY_GAP);
+    expect(next.indexOf("a2")).toBe(1 + CARDS_BEFORE_RETRY);
     expect(next).toHaveLength(queue.length + 1);
   });
 
   it("appends when the miss is near the end", () => {
-    expect(insertRetry(["a", "b", "c"], 2, "c2")).toEqual(["a", "b", "c", "c2"]);
+    expect(insertRetryCard(["a", "b", "c"], 2, "c2")).toEqual(["a", "b", "c", "c2"]);
   });
 });
 
-describe("freshVariant", () => {
+describe("drawWithNewSentence", () => {
   it("skips draws that repeat the missed sentence", () => {
     const draws = ["same", "same", "new"];
-    const pick = freshVariant(
+    const pick = drawWithNewSentence(
       () => draws.shift()!,
       (item) => item,
       "same",
@@ -30,7 +30,7 @@ describe("freshVariant", () => {
 
   it("gives up after a few tries rather than looping", () => {
     expect(
-      freshVariant(
+      drawWithNewSentence(
         () => "same",
         (item) => item,
         "same",

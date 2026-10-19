@@ -62,7 +62,7 @@
     sessionTypedInputIdleClass,
   } from "$lib/components/practice/practice-session-ui";
   import { practiceTaskKicker } from "$lib/practice/task-kicker";
-  import { insertRetry, MAX_RETRIES } from "$lib/practice/retry";
+  import { insertRetryCard, MAX_RETRIES_PER_SESSION } from "$lib/practice/retry";
   import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
   import type { PracticeItem } from "$lib/learning/types";
 
@@ -96,7 +96,7 @@
     sessionContext,
     backHref,
     backLabel = "Practice",
-    makeRetry,
+    buildRetryOfMissedCard,
   }: {
     items: PracticeItem[];
     hintMode?: "inline" | "rail";
@@ -107,8 +107,7 @@
     sessionContext?: PracticeSessionContext;
     backHref?: string;
     backLabel?: string;
-    /** Builds the second try for a missed card; without it, misses are not retried. */
-    makeRetry?: (missed: PracticeItem) => PracticeItem;
+    buildRetryOfMissedCard?: (missed: PracticeItem) => PracticeItem;
   } = $props();
 
   let activeIndex = $state(0);
@@ -124,8 +123,8 @@
   let inputEl = $state<HTMLInputElement | null>(null);
   let itemOverride = $state<PracticeItem[] | null>(null);
   let sessionResults = $state<SessionPhraseResult[]>([]);
-  let retriesUsed = $state(0);
-  let retryScheduled = $state(false);
+  let retriesQueued = $state(0);
+  let retryQueuedForCurrentCard = $state(false);
 
   const activeItems = $derived(itemOverride ?? items);
   const current = $derived(activeItems[activeIndex]);
@@ -226,17 +225,17 @@
 
   function kickerFor(item: PracticeItem): string {
     const kicker = practiceTaskKicker(item.task);
-    return item.secondTry ? `One more time · ${kicker}` : kicker;
+    return item.isRetryOfMissedCard ? `One more time · ${kicker}` : kicker;
   }
 
-  /** Queues a fresh card for the same rule a few cards ahead. */
-  function scheduleRetry(): void {
-    if (!makeRetry || current.secondTry || retriesUsed >= MAX_RETRIES) return;
-    retriesUsed += 1;
-    retryScheduled = true;
-    itemOverride = insertRetry(activeItems, activeIndex, {
-      ...makeRetry(current),
-      secondTry: true,
+  function queueRetryOfMissedCard(): void {
+    if (!buildRetryOfMissedCard) return;
+    if (current.isRetryOfMissedCard || retriesQueued >= MAX_RETRIES_PER_SESSION) return;
+    retriesQueued += 1;
+    retryQueuedForCurrentCard = true;
+    itemOverride = insertRetryCard(activeItems, activeIndex, {
+      ...buildRetryOfMissedCard(current),
+      isRetryOfMissedCard: true,
     });
   }
 
@@ -244,8 +243,7 @@
     if (!canCheck) return;
     const checkGrade = resolveCheckGrade();
     const kind = sfxKindForGrade(checkGrade);
-    // An accent slip still counts as right in the results, so only a real miss returns.
-    if (checkGrade === "incorrect") scheduleRetry();
+    if (checkGrade === "incorrect") queueRetryOfMissedCard();
     submitted = true;
     playAnswerSfx(kind);
     await tick();
@@ -255,7 +253,7 @@
   async function reveal(): Promise<void> {
     if (submitted) return;
     if (task.type !== "typed" && task.type !== "cloze") return;
-    scheduleRetry();
+    queueRetryOfMissedCard();
     revealed = true;
     submitted = true;
     playAnswerSfx("incorrect");
@@ -372,7 +370,7 @@
     submitted = false;
     revealed = false;
     hintOpen = false;
-    retryScheduled = false;
+    retryQueuedForCurrentCard = false;
   }
 
   function next(): void {
@@ -390,7 +388,7 @@
 
   function retry(): void {
     itemOverride = null;
-    retriesUsed = 0;
+    retriesQueued = 0;
     sessionResults = [];
     activeIndex = 0;
     finished = false;
@@ -407,7 +405,7 @@
     const missed = items.filter((item) => missedIds.has(item.id));
 
     itemOverride = missed.length > 0 ? missed : null;
-    retriesUsed = 0;
+    retriesQueued = 0;
     sessionResults = [];
     activeIndex = 0;
     finished = false;
@@ -517,7 +515,7 @@
           : undefined}
       />
 
-      {#if retryScheduled}
+      {#if retryQueuedForCurrentCard}
         <p class="m-0 text-sm text-slate-500">
           This rule comes back in a few cards, with a new sentence.
         </p>
