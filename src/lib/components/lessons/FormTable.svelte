@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { FormTableHeading, FormTableVisual } from "$lib/learning/types";
+  import MarkedNote from "./MarkedNote.svelte";
 
   let { table }: { table: FormTableVisual } = $props();
 
@@ -30,7 +31,7 @@
 >
   <figcaption class="px-4 pt-4 pb-3 sm:px-6">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
-      {table.title}
+      <MarkedNote text={table.title} />
     </h3>
   </figcaption>
 
@@ -85,7 +86,7 @@
                   class="{cellPaddingClass} py-2.5 font-serif text-base whitespace-nowrap text-slate-900"
                   lang="sk"
                 >
-                  {cell}
+                  <MarkedNote text={cell} />
                 </td>
               {/each}
             </tr>
@@ -99,7 +100,7 @@
     <p
       class="m-0 border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-pretty text-slate-600 sm:px-6"
     >
-      {table.note}
+      <MarkedNote text={table.note} />
     </p>
   {/if}
 </figure>

@@ -62,10 +62,10 @@ const agreementTable = ownerTable(
     { owner: "our", english: "our" },
     { owner: "your-vy", english: "your (vy)" },
   ],
-  "Masculine personal means a masculine noun for people. The noun decides, not who is in the group: moji bratia, naši rodičia, naši študenti. Every other plural takes \u2011e, animals included: moje psy, moje sestry, moje kľúče.",
+  "Masculine personal means a masculine noun for people. The noun decides, not who is in the group: **moji** bratia, **naši** rodičia, **naši** študenti. Every other plural takes **\u2011e**, animals included: **moje** psy, **moje** sestry, **moje** kľúče.",
 );
 
-const fixedOwnerTable = ownerTable("Jeho, jej, ich never change", [
+const fixedOwnerTable = ownerTable("**Jeho**, **jej**, **ich** never change", [
   { owner: "his", english: "his" },
   { owner: "her", english: "her" },
   { owner: "their", english: "their" },
@@ -102,14 +102,14 @@ function caseTable(title: string, categories: number[], note?: string): FormTabl
 
 const caseTables = [
   caseTable(
-    "Môj through the cases · singular",
+    "**Môj** through the cases · singular",
     SINGULAR_CATEGORIES,
-    "Masculine accusative splits: people take môjho (môjho brata), things keep môj (môj kľúč).",
+    "Masculine accusative splits: people take **môjho** (môjho brata), things keep **môj** (môj kľúč).",
   ),
   caseTable(
-    "Môj through the cases · plural",
+    "**Môj** through the cases · plural",
     PLURAL_CATEGORIES,
-    "Tvoj, svoj, náš, and váš take the same endings.",
+    "**Tvoj**, **svoj**, **náš**, and **váš** take the same endings.",
   ),
 ];
 
@@ -123,23 +123,23 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "môj brat",
           english: "my brother",
-          note: "Masculine: môj · tvoj · náš · váš",
+          note: "Masculine: **môj** · **tvoj** · **náš** · **váš**",
           audio: { transcript: "môj brat" },
         },
         {
           slovak: "moja sestra",
           english: "my sister",
-          note: "Feminine: moja · tvoja · naša · vaša",
+          note: "Feminine: **moja** · **tvoja** · **naša** · **vaša**",
           audio: { transcript: "moja sestra" },
         },
         {
           slovak: "moje auto",
           english: "my car",
-          note: "Neuter: moje · tvoje · naše · vaše",
+          note: "Neuter: **moje** · **tvoje** · **naše** · **vaše**",
           audio: { transcript: "moje auto" },
         },
       ],
-      note: "Môj, tvoj, náš, and váš take the gender of the thing owned, not of the owner. Anna is a woman, but it is tvoj byt and môj brat — byt and brat are masculine.",
+      note: "**Môj**, **tvoj**, **náš**, and **váš** take the gender of the thing owned, not of the owner. Anna is a woman, but it is **tvoj** byt and **môj** brat — byt and brat are masculine.",
       visual: agreementTable,
     },
   },
@@ -152,17 +152,17 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "Tom volá svojej mame.",
           english: "Tom is calling his (own) mother.",
-          note: "svoj = the subject's own",
+          note: "**svoj** = the subject's own",
           audio: { transcript: "Tom volá svojej mame." },
         },
         {
           slovak: "Tom volá jeho mame.",
           english: "Tom is calling his mother — another man's.",
-          note: "jeho = someone else's",
+          note: "**jeho** = someone else's",
           audio: { transcript: "Tom volá jeho mame." },
         },
       ],
-      note: "When the owner is the subject, use svoj. It ends like môj and takes the case of its noun: svojmu priateľovi, svojej mame. Svoj never sits in the subject itself — that is why you ask Kde býva jeho priateľ?",
+      note: "When the owner is the subject, use **svoj**. It ends like môj and takes the case of its noun: **svojmu** priateľovi, **svojej** mame. Svoj never sits in the subject itself — that is why you ask Kde býva **jeho** priateľ?",
     },
   },
   {
@@ -173,13 +173,13 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "jej brat",
           english: "her brother",
-          note: "Jeho, jej, ich follow the owner — he, she, they.",
+          note: "**Jeho**, **jej**, **ich** follow the owner — he, she, they.",
           audio: { transcript: "jej brat" },
         },
         {
           slovak: "s jeho bratom",
           english: "with his brother",
-          note: "Not s ním bratom — jeho stays jeho after a preposition.",
+          note: "Not s ním bratom — **jeho** stays jeho after a preposition.",
           audio: { transcript: "s jeho bratom" },
         },
       ],
@@ -195,13 +195,13 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "Anna píše list mojej sestre.",
           english: "Anna is writing a letter to my sister.",
-          note: "Dative (to whom): môjmu · mojej · mojim",
+          note: "Dative (to whom): **môjmu** · **mojej** · **mojim**",
           audio: { transcript: "Anna píše list mojej sestre." },
         },
         {
           slovak: "Anna ide do kina s mojou sestrou.",
           english: "Anna is going to the cinema with my sister.",
-          note: "Instrumental (with): mojím · mojou · mojimi",
+          note: "Instrumental (with): **mojím** · **mojou** · **mojimi**",
           audio: { transcript: "Anna ide do kina s mojou sestrou." },
         },
         {
@@ -223,17 +223,17 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "Čí je to kľúč?",
           english: "Whose key is this?",
-          note: "čí · čia · čie agree like môj.",
+          note: "**čí** · **čia** · **čie** agree like môj.",
           audio: { transcript: "Čí je to kľúč?" },
         },
         {
           slovak: "Petrovo auto",
           english: "Peter's car",
-          note: "One named owner becomes an adjective: Petrov, Annina, Petrovo.",
+          note: "One named owner becomes an adjective: **Petrov**, **Annina**, **Petrovo**.",
           audio: { transcript: "Petrovo auto" },
         },
       ],
-      note: "With a longer owner, use the genitive instead: auto môjho brata.",
+      note: "With a longer owner, use the genitive instead: auto **môjho** brata.",
     },
   },
   {
@@ -244,19 +244,19 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "s naším bratom",
           english: "with our brother",
-          note: "Instrumental singular: long -ím.",
+          note: "Instrumental singular: long **-ím**.",
           audio: { transcript: "s naším bratom" },
         },
         {
           slovak: "našim rodičom",
           english: "to our parents",
-          note: "Dative plural: short -im.",
+          note: "Dative plural: short **-im**.",
           audio: { transcript: "našim rodičom" },
         },
         {
           slovak: "Umývam si ruky.",
           english: "I'm washing my hands.",
-          note: "Your own body takes si, not môj.",
+          note: "Your own body takes **si**, not môj.",
           audio: { transcript: "Umývam si ruky." },
         },
       ],

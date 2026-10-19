@@ -1,6 +1,7 @@
 <script lang="ts">
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import type { KeyPhrase } from "$lib/learning/types";
+  import MarkedNote from "./MarkedNote.svelte";
 
   let {
     audioSrcs = {},
@@ -75,7 +76,7 @@
         <p
           class="relative m-0 mt-5 max-w-[48ch] border-l-2 border-panel-inverse-ink/25 pl-3.5 text-sm leading-5 text-panel-inverse-ink/60"
         >
-          {lead.note}
+          <MarkedNote text={lead.note} markClass="text-panel-inverse-ink" />
         </p>
       {/if}
     </article>
@@ -115,7 +116,7 @@
 
             {#if phrase.note}
               <p class="m-0 mt-auto pt-2 text-xs leading-4 text-slate-500">
-                {phrase.note}
+                <MarkedNote text={phrase.note} />
               </p>
             {/if}
           </li>
