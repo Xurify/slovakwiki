@@ -4,6 +4,9 @@ import {
   withMeetSomeoneExercises,
   withNegationExercises,
   withNumbersExercises,
+  meetSomeoneLineIds,
+  numbersLineIds,
+  negationLineIds,
 } from "./beats";
 
 export const everydayLessons: Lesson[] = [
@@ -16,14 +19,14 @@ export const everydayLessons: Lesson[] = [
     promise: "Greet someone politely, introduce yourself, and say where you are from.",
     scene: [
       {
-        id: "anna-greeting",
+        id: meetSomeoneLineIds.annaGreets,
         speaker: "Anna",
         slovak: "Dobrý deň. Volám sa Anna.",
         english: "Hello. My name is Anna.",
         audio: { transcript: "Dobrý deň. Volám sa Anna." },
       },
       {
-        id: "you-introduction",
+        id: meetSomeoneLineIds.youIntroduce,
         speaker: "You",
         slovak: "Dobrý deň. Volám sa Alex.",
         english: "Hello. My name is Alex.",
@@ -47,14 +50,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: "anna-origin",
+        id: meetSomeoneLineIds.annaNiceToMeetYou,
         speaker: "Anna",
         slovak: "Teší ma. Odkiaľ ste?",
         english: "Nice to meet you. Where are you from?",
         audio: { transcript: "Teší ma. Odkiaľ ste?" },
       },
       {
-        id: "you-origin",
+        id: meetSomeoneLineIds.youFromCanada,
         speaker: "You",
         slovak: "Som z Kanady.",
         english: "I am from Canada.",
@@ -78,14 +81,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: "anna-slovak",
+        id: meetSomeoneLineIds.annaAsksSlovak,
         speaker: "Anna",
         slovak: "Hovoríte po slovensky?",
         english: "Do you speak Slovak?",
         audio: { transcript: "Hovoríte po slovensky?" },
       },
       {
-        id: "you-learning",
+        id: meetSomeoneLineIds.youStillLearning,
         speaker: "You",
         slovak: "Trochu. Ešte sa učím.",
         english: "A little. I am still learning.",
@@ -187,7 +190,7 @@ export const everydayLessons: Lesson[] = [
         practiceItemId: "everyday/origin",
         context: [
           {
-            id: "origin-question",
+            id: "meet-someone-anna-where-from",
             speaker: "Anna",
             slovak: "Odkiaľ ste?",
             english: "Where are you from?",
@@ -226,14 +229,14 @@ export const everydayLessons: Lesson[] = [
     promise: "Say your age, give phone digits, and ask how much it costs.",
     scene: [
       {
-        id: "registration-welcome",
+        id: numbersLineIds.mariaWelcome,
         speaker: "Mária",
         slovak: "Dobrý deň. Ste tu na registráciu?",
         english: "Hello. Are you here for registration?",
         audio: { transcript: "Dobrý deň. Ste tu na registráciu?" },
       },
       {
-        id: "registration-yes",
+        id: numbersLineIds.youHereToRegister,
         speaker: "You",
         slovak: "Áno, som.",
         english: "Yes, I am.",
@@ -254,14 +257,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: "registration-age",
+        id: numbersLineIds.mariaAsksAge,
         speaker: "Mária",
         slovak: "Koľko máte rokov?",
         english: "How old are you?",
         audio: { transcript: "Koľko máte rokov?" },
       },
       {
-        id: "registration-age-answer",
+        id: numbersLineIds.youAge,
         speaker: "You",
         slovak: "Mám dvadsaťosem rokov.",
         english: "I am twenty-eight years old.",
@@ -284,14 +287,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: "registration-phone",
+        id: numbersLineIds.mariaAsksPhone,
         speaker: "Mária",
         slovak: "A vaše telefónne číslo?",
         english: "And your phone number?",
         audio: { transcript: "A vaše telefónne číslo?" },
       },
       {
-        id: "registration-phone-answer",
+        id: numbersLineIds.youPhoneNumber,
         speaker: "You",
         slovak: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
         english: "My number is zero nine zero, one two three, four five six.",
@@ -357,14 +360,14 @@ export const everydayLessons: Lesson[] = [
         choices: [
           { id: "age", label: "Mám dvadsaťosem rokov." },
           {
-            id: "number",
-            label: "Moje číslo je dvadsaťosem.",
-            whyWrong: "**Moje číslo je …** gives a phone number — not your age.",
+            id: "byt",
+            label: "Som dvadsaťosem rokov.",
+            whyWrong: "Age uses **mať**, not **byť**: **Mám … rokov**.",
           },
           {
-            id: "price",
-            label: "Stojí to dvadsaťosem eur.",
-            whyWrong: "**Stojí to … eur** states a price — not your age.",
+            id: "roky",
+            label: "Mám dvadsaťosem roky.",
+            whyWrong: "**Roky** goes with 2, 3, and 4. From five on, use **rokov**.",
           },
         ],
         answerId: "age",
@@ -423,14 +426,14 @@ export const everydayLessons: Lesson[] = [
     promise: "Refuse politely, say you do not understand, and use common negative verbs.",
     scene: [
       {
-        id: "cafe-offer",
+        id: negationLineIds.waiterOffersCoffee,
         speaker: "Waiter",
         slovak: "Dáte si kávu?",
         english: "Would you like coffee?",
         audio: { transcript: "Dáte si kávu?" },
       },
       {
-        id: "cafe-refusal",
+        id: negationLineIds.youNoTime,
         speaker: "You",
         slovak: "Nie, ďakujem. Nemám teraz čas.",
         english: "No, thank you. I do not have time now.",
@@ -450,14 +453,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: "cafe-menu",
+        id: negationLineIds.waiterAsksMenu,
         speaker: "Waiter",
         slovak: "Rozumiete menu?",
         english: "Do you understand the menu?",
         audio: { transcript: "Rozumiete menu?" },
       },
       {
-        id: "cafe-clarification",
+        id: negationLineIds.youDontUnderstand,
         speaker: "You",
         slovak: "Nerozumiem. Nie je to pre mňa.",
         english: "I do not understand. It is not for me.",

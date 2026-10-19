@@ -3,6 +3,7 @@ import type { Lesson, LessonExercise } from "$lib/learning/types";
 import {
   daysDatesTimeBeatShells,
   withDaysDatesTimeExercises,
+  daysDatesTimeLineIds,
 } from "$lib/catalog/lessons/beats";
 import {
   appointmentChoiceWhy,
@@ -420,7 +421,7 @@ export const daysDatesTimeLesson: Lesson = {
   promise: "Arrange a meeting with a day and a clock time.",
   scene: [
     {
-      id: "meeting-offer",
+      id: daysDatesTimeLineIds.annaTuesdayAtThree,
       speaker: "Anna",
       slovak: meetingOffer.text,
       marks: meetingOffer.marks,
@@ -428,7 +429,7 @@ export const daysDatesTimeLesson: Lesson = {
       audio: { transcript: "Stretneme sa v utorok o tretej?" },
     },
     {
-      id: "meeting-counter",
+      id: daysDatesTimeLineIds.youHalfPastTwo,
       speaker: "You",
       slovak: "Lepšie o pol tretej.",
       english: "Better at half past two.",
@@ -474,6 +475,12 @@ export const daysDatesTimeLesson: Lesson = {
       english: "2:30 — half past two.",
       note: "Literally, halfway to three.",
       audio: { transcript: "O pol tretej." },
+    },
+    {
+      slovak: "O pol druhej.",
+      english: "1:30 — half past one.",
+      note: "Pol counts toward the next hour: halfway to two.",
+      audio: { transcript: "O pol druhej." },
     },
     {
       slovak: "O štvrť na tri.",

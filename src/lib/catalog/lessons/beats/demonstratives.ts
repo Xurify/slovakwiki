@@ -11,6 +11,25 @@ import {
   type GrammaticalCase,
 } from "$lib/learning/demonstratives/paradigm";
 
+export const demonstrativesLineIds = {
+  annaSummerPhotos: "demonstratives-anna-summer-photos",
+  youWhoIsThatMan: "demonstratives-you-who-is-that-man",
+  annaMyBrother: "demonstratives-anna-my-brother-tom",
+  youWhoIsThatWoman: "demonstratives-you-who-is-that-woman",
+  annaHisWifeEva: "demonstratives-anna-his-wife-eva",
+  youWhoAreThoseMen: "demonstratives-you-who-are-those-men",
+  annaHisColleagues: "demonstratives-anna-his-colleagues",
+  youKnowThatMan: "demonstratives-you-know-that-man",
+  annaThatsMarek: "demonstratives-anna-thats-marek",
+  annaManHelpsUs: "demonstratives-anna-man-helps-us",
+  annaCinemaWithColleagues: "demonstratives-anna-cinema-with-colleagues",
+  waiterTakesOrder: "demonstratives-waiter-takes-order",
+  youHowMuchCake: "demonstratives-you-how-much-cake",
+  waiterThreeEuros: "demonstratives-waiter-three-euros",
+  youThisCake: "demonstratives-you-this-cake",
+  annaThatCake: "demonstratives-anna-that-cake",
+} as const;
+
 const SINGULAR: FormTableHeading = { english: "Singular", slovak: "jednotné číslo" };
 const PLURAL: FormTableHeading = { english: "Plural", slovak: "množné číslo" };
 
@@ -114,10 +133,15 @@ const caseTables = [
 
 export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
   {
-    id: "ten-ta-to",
+    id: "demonstratives-ten-ta-to",
     title: "Ten, tá, to",
     teach: {
-      sceneLineIds: ["anna-photos", "you-who-man", "anna-brother", "you-who-woman"],
+      sceneLineIds: [
+        demonstrativesLineIds.annaSummerPhotos,
+        demonstrativesLineIds.youWhoIsThatMan,
+        demonstrativesLineIds.annaMyBrother,
+        demonstrativesLineIds.youWhoIsThatWoman,
+      ],
       phrases: [
         {
           slovak: "ten muž",
@@ -142,10 +166,10 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "to-je",
+    id: "demonstratives-to-je",
     title: "To je …, to sú …",
     teach: {
-      sceneLineIds: ["anna-wife"],
+      sceneLineIds: [demonstrativesLineIds.annaHisWifeEva],
       phrases: [
         {
           slovak: "To je môj brat.",
@@ -170,10 +194,13 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "plural",
+    id: "demonstratives-plural",
     title: "Plural: tí and tie",
     teach: {
-      sceneLineIds: ["you-who-men", "anna-colleagues"],
+      sceneLineIds: [
+        demonstrativesLineIds.youWhoAreThoseMen,
+        demonstrativesLineIds.annaHisColleagues,
+      ],
       phrases: [
         {
           slovak: "tí muži",
@@ -198,10 +225,15 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "cases",
+    id: "demonstratives-cases",
     title: "In every case",
     teach: {
-      sceneLineIds: ["you-know-man", "anna-marek"],
+      sceneLineIds: [
+        demonstrativesLineIds.youKnowThatMan,
+        demonstrativesLineIds.annaThatsMarek,
+        demonstrativesLineIds.annaManHelpsUs,
+        demonstrativesLineIds.annaCinemaWithColleagues,
+      ],
       phrases: [
         {
           slovak: "Poznám toho muža.",
@@ -216,6 +248,12 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Vidím ten dom." },
         },
         {
+          slovak: "tomu mužovi",
+          english: "to that man",
+          note: "Dative: **tomu** · **tej** · **tým**",
+          audio: { transcript: "tomu mužovi" },
+        },
+        {
           slovak: "v tom dome",
           english: "in that house",
           note: "Locative: **tom** · **tej** · **tých**",
@@ -228,15 +266,21 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "s tou ženou" },
         },
       ],
-      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. After v (in), Anna says v **tom** dome.",
+      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. After v (in), Anna says v **tom** dome. Pomáhať needs the dative: **tomu** mužovi.",
       visual: caseTables,
     },
   },
   {
-    id: "tento-tamten",
+    id: "demonstratives-tento-tamten",
     title: "This one, that one",
     teach: {
-      sceneLineIds: ["waiter-order", "you-this-cake", "anna-that-cake"],
+      sceneLineIds: [
+        demonstrativesLineIds.waiterTakesOrder,
+        demonstrativesLineIds.youHowMuchCake,
+        demonstrativesLineIds.waiterThreeEuros,
+        demonstrativesLineIds.youThisCake,
+        demonstrativesLineIds.annaThatCake,
+      ],
       phrases: [
         {
           slovak: "tento koláč",
@@ -262,7 +306,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "traps",
+    id: "demonstratives-traps",
     title: "Small traps",
     teach: {
       phrases: [
@@ -288,7 +332,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "your-turn",
+    id: "demonstratives-your-turn",
     title: "Your turn",
     teach: {},
   },

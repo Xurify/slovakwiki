@@ -13,4 +13,5 @@ export const DEMONSTRATIVE_RULE_LABELS: Record<DemonstrativeKind, string> = {
   "grammar/demonstrative-role-odd-one-out": "Who does what: toho muža, ten muž",
   "grammar/demonstrative-typed": "Writing tento with its noun",
   "grammar/demonstrative-repair": "Repairing a whole sentence",
+  "grammar/demonstrative-find-mistake": "Finding the wrong form",
 };

@@ -203,6 +203,14 @@ export const NOUNS: readonly NounEntry[] = [
     "ľuďoch",
     "ľuďmi",
   ]),
+  noun("kolegovia", "plural-personal", "colleagues", { person: true }, [
+    "kolegovia",
+    "kolegov",
+    "kolegom",
+    "kolegov",
+    "kolegoch",
+    "kolegami",
+  ]),
   noun("zeny", "plural", "women", { person: true }, [
     "ženy",
     "žien",
@@ -243,6 +251,14 @@ export const NOUNS: readonly NounEntry[] = [
     "telefóne",
     "telefónom",
   ]),
+  noun("dazdnik", "masculine-inanimate", "umbrella", { sold: true }, [
+    "dáždnik",
+    "dáždnika",
+    "dáždniku",
+    "dáždnik",
+    "dáždniku",
+    "dáždnikom",
+  ]),
   noun("dom", "masculine-inanimate", "house", { sold: true }, [
     "dom",
     "domu",
@@ -267,6 +283,14 @@ export const NOUNS: readonly NounEntry[] = [
     "knihe",
     "knihou",
   ]),
+  noun("kava", "feminine", "coffee", { sold: true }, [
+    "káva",
+    "kávy",
+    "káve",
+    "kávu",
+    "káve",
+    "kávou",
+  ]),
   noun("izba", "feminine", "room", {}, ["izba", "izby", "izbe", "izbu", "izbe", "izbou"]),
   noun("auto", "neuter", "car", { sold: true }, [
     "auto",
@@ -275,6 +299,14 @@ export const NOUNS: readonly NounEntry[] = [
     "auto",
     "aute",
     "autom",
+  ]),
+  noun("kreslo", "neuter", "armchair", { sold: true }, [
+    "kreslo",
+    "kresla",
+    "kreslu",
+    "kreslo",
+    "kresle",
+    "kreslom",
   ]),
   noun("pero", "neuter", "pen", { sold: true }, [
     "pero",
@@ -291,6 +323,14 @@ export const NOUNS: readonly NounEntry[] = [
     "kľúče",
     "kľúčoch",
     "kľúčmi",
+  ]),
+  noun("okuliare", "plural", "glasses", { sold: true }, [
+    "okuliare",
+    "okuliarov",
+    "okuliarom",
+    "okuliare",
+    "okuliaroch",
+    "okuliarmi",
   ]),
   noun("knihy", "plural", "books", { sold: true }, [
     "knihy",
@@ -369,7 +409,7 @@ export const CASE_FRAMES: readonly CaseFrame[] = [
   {
     grammaticalCase: "genitive",
     because: "**Bez** (without) takes the genitive",
-    nouns: (entry) => !entry.person && entry.id !== "dom" && entry.id !== "izba",
+    nouns: (entry) => !entry.person && !["dom", "izba", "kreslo"].includes(entry.id),
     slovak: (phrase) => `Anna nejde nikam bez ${phrase}.`,
     english: (phrase) => `Anna doesn't go anywhere without ${phrase}.`,
   },

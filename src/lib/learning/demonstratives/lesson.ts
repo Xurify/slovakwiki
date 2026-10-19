@@ -3,6 +3,7 @@ import type { Lesson, LessonExercise } from "$lib/learning/types";
 import {
   demonstrativesBeatShells,
   withDemonstrativesExercises,
+  demonstrativesLineIds,
 } from "$lib/catalog/lessons/beats";
 import { demonstrativesLessonId } from "./session";
 
@@ -55,10 +56,27 @@ const marekLine = markedText([
   " dome vedľa nás.",
 ]);
 
-const cakeLine = markedText([
-  "Dám si ",
+const helpsLine = markedText([
+  { role: "demonstrative", text: "Ten" },
+  " muž nám často pomáha.",
+]);
+
+const cinemaLine = markedText([
+  "Dnes večer ide s ",
+  { role: "demonstrative", text: "tými" },
+  " kolegami do kina.",
+]);
+
+const priceLine = markedText([
+  "Koľko stojí ",
   { role: "demonstrative", text: "tento" },
-  " koláč, prosím.",
+  " koláč?",
+]);
+
+const cakeLine = markedText([
+  "Dobre, dám si ",
+  { role: "demonstrative", text: "tento" },
+  " koláč.",
 ]);
 
 const tortaLine = markedText([
@@ -265,7 +283,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     practiceItemId: "grammar/demonstrative-repair",
     context: [
       {
-        id: "lesson-keys-broken",
+        id: "demonstratives-broken-ti-kluce",
         speaker: "Sentence",
         slovak: "Tí kľúče sú moje.",
         english: "Those keys are mine.",
@@ -490,7 +508,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     practiceItemId: "grammar/demonstrative-repair",
     context: [
       {
-        id: "lesson-tohto-broken",
+        id: "demonstratives-broken-tohoto",
         speaker: "Sentence",
         slovak: "Poznáš tohoto muža?",
         english: "Do you know this man?",
@@ -531,7 +549,7 @@ export const demonstrativesLesson: Lesson = {
     "Point at people and things — and make ten, tento, and tamten fit the noun and its case.",
   scene: [
     {
-      id: "anna-photos",
+      id: demonstrativesLineIds.annaSummerPhotos,
       speaker: "Anna",
       slovak: photosLine.text,
       marks: photosLine.marks,
@@ -539,7 +557,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: photosLine.text },
     },
     {
-      id: "you-who-man",
+      id: demonstrativesLineIds.youWhoIsThatMan,
       speaker: "You",
       slovak: manLine.text,
       marks: manLine.marks,
@@ -565,7 +583,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: "anna-brother",
+      id: demonstrativesLineIds.annaMyBrother,
       speaker: "Anna",
       slovak: brotherLine.text,
       marks: brotherLine.marks,
@@ -573,7 +591,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: brotherLine.text },
     },
     {
-      id: "you-who-woman",
+      id: demonstrativesLineIds.youWhoIsThatWoman,
       speaker: "You",
       slovak: womanLine.text,
       marks: womanLine.marks,
@@ -599,7 +617,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: "anna-wife",
+      id: demonstrativesLineIds.annaHisWifeEva,
       speaker: "Anna",
       slovak: wifeLine.text,
       marks: wifeLine.marks,
@@ -607,7 +625,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: wifeLine.text },
     },
     {
-      id: "you-who-men",
+      id: demonstrativesLineIds.youWhoAreThoseMen,
       speaker: "You",
       slovak: menLine.text,
       marks: menLine.marks,
@@ -633,7 +651,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: "anna-colleagues",
+      id: demonstrativesLineIds.annaHisColleagues,
       speaker: "Anna",
       slovak: colleaguesLine.text,
       marks: colleaguesLine.marks,
@@ -641,7 +659,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: colleaguesLine.text },
     },
     {
-      id: "you-know-man",
+      id: demonstrativesLineIds.youKnowThatMan,
       speaker: "You",
       slovak: knowLine.text,
       marks: knowLine.marks,
@@ -667,7 +685,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: "anna-marek",
+      id: demonstrativesLineIds.annaThatsMarek,
       speaker: "Anna",
       slovak: marekLine.text,
       marks: marekLine.marks,
@@ -675,32 +693,81 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: marekLine.text },
     },
     {
-      id: "waiter-order",
+      id: demonstrativesLineIds.annaManHelpsUs,
+      speaker: "Anna",
+      slovak: helpsLine.text,
+      marks: helpsLine.marks,
+      english: "That man often helps us.",
+      audio: { transcript: helpsLine.text },
+    },
+    {
+      id: demonstrativesLineIds.annaCinemaWithColleagues,
+      speaker: "Anna",
+      slovak: cinemaLine.text,
+      marks: cinemaLine.marks,
+      english: "Tonight he's going to the cinema with those colleagues.",
+      audio: { transcript: cinemaLine.text },
+    },
+    {
+      id: demonstrativesLineIds.waiterTakesOrder,
       speaker: "Waiter",
       slovak: "Dobrý deň. Čo si dáte?",
       english: "Hello. What would you like?",
       audio: { transcript: "Dobrý deň. Čo si dáte?" },
     },
     {
-      id: "you-this-cake",
+      id: demonstrativesLineIds.youHowMuchCake,
       speaker: "You",
-      slovak: cakeLine.text,
-      marks: cakeLine.marks,
-      english: "I'll have this cake, please.",
-      audio: { transcript: cakeLine.text },
+      slovak: priceLine.text,
+      marks: priceLine.marks,
+      english: "How much is this cake?",
+      audio: { transcript: priceLine.text },
       sayChoices: {
         answerId: "masculine",
         choices: [
-          { id: "masculine", label: "Dám si tento koláč, prosím." },
+          { id: "masculine", label: "Koľko stojí tento koláč?" },
           {
             id: "feminine",
-            label: "Dám si táto koláč, prosím.",
+            label: "Koľko stojí táto koláč?",
             whyWrong:
               "**Táto** goes with feminine nouns like **torta**. **Koláč** is masculine: **tento koláč**.",
           },
           {
+            id: "neuter",
+            label: "Koľko stojí toto koláč?",
+            whyWrong:
+              "**Toto** goes with neuter nouns like **dievča**. **Koláč** is masculine: **tento koláč**.",
+          },
+        ],
+      },
+    },
+    {
+      id: demonstrativesLineIds.waiterThreeEuros,
+      speaker: "Waiter",
+      slovak: "Tri eurá.",
+      english: "Three euros.",
+      audio: { transcript: "Tri eurá." },
+    },
+    {
+      id: demonstrativesLineIds.youThisCake,
+      speaker: "You",
+      slovak: cakeLine.text,
+      marks: cakeLine.marks,
+      english: "OK, I'll have this cake.",
+      audio: { transcript: cakeLine.text },
+      sayChoices: {
+        answerId: "masculine",
+        choices: [
+          { id: "masculine", label: "Dobre, dám si tento koláč." },
+          {
+            id: "feminine",
+            label: "Dobre, dám si túto koláč.",
+            whyWrong:
+              "**Túto** goes with feminine nouns, like **tortu**. **Koláč** is masculine: **tento koláč**.",
+          },
+          {
             id: "person",
-            label: "Dám si tohto koláč, prosím.",
+            label: "Dobre, dám si tohto koláč.",
             whyWrong:
               "**Tohto** is for people in the accusative (**tohto muža**). A thing keeps the basic form: **tento koláč**.",
           },
@@ -708,7 +775,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: "anna-that-cake",
+      id: demonstrativesLineIds.annaThatCake,
       speaker: "Anna",
       slovak: tortaLine.text,
       marks: tortaLine.marks,

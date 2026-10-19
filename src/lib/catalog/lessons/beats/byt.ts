@@ -1,11 +1,18 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+export const bytLineIds = {
+  receptionistAreYouAlex: "byt-present-receptionist-are-you-alex",
+  youAreAlex: "byt-present-you-are-alex",
+  receptionistFirstTime: "byt-present-receptionist-first-time",
+  youWithFriends: "byt-present-you-with-friends",
+} as const;
+
 export const bytBeats: LessonBeat[] = [
   {
-    id: "identity",
+    id: "byt-present-who-you-are",
     title: "Who you are",
     teach: {
-      sceneLineIds: ["byt-check-in-name", "byt-check-in-answer"],
+      sceneLineIds: [bytLineIds.receptionistAreYouAlex, bytLineIds.youAreAlex],
       phrases: [
         { slovak: "Som …", english: "I am …", audio: { transcript: "Som." } },
         {
@@ -19,10 +26,10 @@ export const bytBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "location",
+    id: "byt-present-where-things-are",
     title: "Where things are",
     teach: {
-      sceneLineIds: ["byt-check-in-location", "byt-check-in-group"],
+      sceneLineIds: [bytLineIds.receptionistFirstTime, bytLineIds.youWithFriends],
       phrases: [
         { slovak: "Je to …", english: "It is …", audio: { transcript: "Je to." } },
         { slovak: "Sme …", english: "We are …", audio: { transcript: "Sme." } },
@@ -32,7 +39,7 @@ export const bytBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "your-turn",
+    id: "byt-present-your-turn",
     title: "Your turn",
     teach: {},
     exercises: [] as LessonExercise[],
