@@ -76,6 +76,7 @@
       class={optionClass(state, wrongPick)}
       disabled={submitted}
       type="button"
+      data-answer-option
       aria-pressed={selected}
       aria-label={(choice.clock ? formatClockFaceLabel(choice.clock) : choice.label) +
         (wrongPick ? ", incorrect" : "") +

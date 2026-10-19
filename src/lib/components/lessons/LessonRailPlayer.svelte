@@ -242,7 +242,33 @@
     if (step.exercise.type === "personal") return true;
     return canSubmit;
   });
+
+  function isNativeEnterTarget(target: EventTarget | null): boolean {
+    if (!(target instanceof Element)) return false;
+    if (target.closest("[data-answer-option]")) return false;
+    return (
+      target.closest("a, button, input, select, textarea, [contenteditable]") !== null
+    );
+  }
+
+  function onWindowKeydown(event: KeyboardEvent): void {
+    if (phase !== "play" || event.key !== "Enter") return;
+    if (event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.repeat || event.isComposing || isNativeEnterTarget(event.target)) return;
+
+    if (gradeResult) {
+      event.preventDefault();
+      advance();
+      return;
+    }
+
+    if (!footerEnabled) return;
+    event.preventDefault();
+    onFooterPrimary();
+  }
 </script>
+
+<svelte:window onkeydown={onWindowKeydown} />
 
 {#if phase === "done"}
   <LessonDoneScreen

@@ -315,6 +315,7 @@
       canCheck &&
       !(
         event.target instanceof HTMLElement &&
+        !event.target.closest("[data-answer-option]") &&
         (event.target.tagName === "BUTTON" || event.target.tagName === "A")
       )
     ) {

@@ -16,6 +16,7 @@
     SelectAllOptions,
     attemptFeedbackWhy,
     choiceFeedbackWhy,
+    choiceIndexFromKeyboardEvent,
     gradeChoice,
     gradeSelectAll,
     pickTrapFeedbackEnglish,
@@ -340,6 +341,23 @@
     continueLesson();
   }
 
+  function onChoiceKeydown(event: KeyboardEvent): void {
+    if (!player || submitted || event.shiftKey) return;
+    if (graded?.type !== "choice" || graded.choiceStyle === "clock") return;
+
+    const index = choiceIndexFromKeyboardEvent(event);
+    const choice = index === null ? undefined : graded.choices[index];
+    if (!choice) return;
+
+    event.preventDefault();
+    selectChoice(choice.id);
+  }
+
+  function onWindowKeydown(event: KeyboardEvent): void {
+    onChoiceKeydown(event);
+    onContinueKeydown(event);
+  }
+
   function attemptForDisplay(): string | undefined {
     if (!graded || correct || revealed) return undefined;
     if (graded.type === "selectAll") return undefined;
@@ -353,7 +371,7 @@
   }
 </script>
 
-<svelte:window onkeydown={onContinueKeydown} />
+<svelte:window onkeydown={onWindowKeydown} />
 
 <section
   class={chrome === "card"
