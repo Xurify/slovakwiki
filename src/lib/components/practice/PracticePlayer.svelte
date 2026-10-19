@@ -32,6 +32,13 @@
     PICK_TRAP_MISS_HEADLINE,
     pickTrapFeedbackWhy,
     selectAllFeedbackWhy,
+    SpotMistakeOptions,
+    canCheckSpot,
+    gradeSpot,
+    spotAttempt,
+    spotFeedbackWhy,
+    spotWord,
+    type SpotPick,
   } from "$lib/learning/exercises";
   import { formatClockFaceLabel } from "$lib/learning/time/clock";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
@@ -119,6 +126,7 @@
   let feedbackPanel = $state<HTMLElement | null>(null);
   let inputEl = $state<HTMLInputElement | null>(null);
   let itemOverride = $state<PracticeItem[] | null>(null);
+  let spotPick = $state<SpotPick>(null);
   let sessionResults = $state<SessionPhraseResult[]>([]);
 
   const activeItems = $derived(itemOverride ?? items);
@@ -152,6 +160,7 @@
       return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
+    if (task.type === "spot") return gradeSpot(task, spotPick, input);
     if (task.type === "cloze" || task.type === "typed")
       return gradeAnswer(input, task.answer, task.acceptedAnswers);
     return "incorrect";
@@ -172,6 +181,7 @@
     if (task.type === "selectAll") return selectedIds.size > 0;
     if (task.type === "build")
       return canCheckBuild(builtTiles.length, task.answer.length);
+    if (task.type === "spot") return canCheckSpot(spotPick, input);
     return input.trim().length > 0;
   });
 
@@ -213,6 +223,7 @@
       return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
+    if (task.type === "spot") return gradeSpot(task, spotPick, input);
     if (task.type === "cloze" || task.type === "typed")
       return gradeAnswer(input, task.answer, task.acceptedAnswers);
     return "incorrect";
@@ -286,6 +297,14 @@
     }
   }
 
+  async function pickSpot(next: SpotPick): Promise<void> {
+    spotPick = next;
+    input = "";
+    if (typeof next !== "number") return;
+    await tick();
+    inputEl?.focus();
+  }
+
   function insertChar(char: string): void {
     if (submitted || !inputEl) return;
     const start = inputEl.selectionStart ?? input.length;
@@ -315,6 +334,7 @@
         .join("; ");
     }
     if (task.type === "build" && builtTiles.length > 0) return builtTiles.join(" ");
+    if (task.type === "spot") return spotAttempt(task, spotPick, input);
     if (task.type === "cloze" || task.type === "typed") {
       const trimmed = input.trim();
       return trimmed || undefined;
@@ -346,6 +366,7 @@
     submitted = false;
     revealed = false;
     hintOpen = false;
+    spotPick = null;
   }
 
   function next(): void {
@@ -415,12 +436,14 @@
     if (task.type === "typed" || task.type === "build") {
       return attemptFeedbackWhy(baseWhy, attemptForResult(), task.mistakes);
     }
+    if (task.type === "spot") return spotFeedbackWhy(task, spotPick, baseWhy);
     return baseWhy;
   });
 
   const markWords = $derived(
     task.type === "typed" ||
       task.type === "build" ||
+      task.type === "spot" ||
       (task.type === "choice" &&
         task.choiceMode !== "pickTrap" &&
         task.choiceStyle !== "clock"),
@@ -627,6 +650,52 @@
           bind:builtBankIndexes
           {submitted}
         />
+      {:else if task.type === "spot"}
+        <SpotMistakeOptions
+          words={task.words}
+          pick={spotPick}
+          onpick={pickSpot}
+          {submitted}
+          wrongIndex={task.wrongIndex}
+          solved={grade === "correct" || grade === "accents"}
+        />
+
+        {#if typeof spotPick === "number"}
+          <div class="mt-5 grid gap-3">
+            <label class="text-xs font-bold text-slate-600" for="practice-spot-input">
+              Write “{spotWord(task.words, spotPick)}” correctly
+            </label>
+
+            <input
+              id="practice-spot-input"
+              class="{sessionTypedInputClass} {answeredInputClass(
+                inputTone,
+                sessionTypedInputIdleClass,
+              )}"
+              bind:this={inputEl}
+              bind:value={input}
+              disabled={submitted}
+              placeholder="Type in Slovak…"
+              autocomplete="off"
+              autocapitalize="none"
+              lang="sk"
+            />
+
+            <div class="flex flex-wrap gap-1.5" aria-label="Slovak characters">
+              {#each SK_CHARS as char (char)}
+                <button
+                  class={sessionCharKeyClass}
+                  type="button"
+                  disabled={submitted}
+                  onclick={() => insertChar(char)}
+                  tabindex="-1"
+                >
+                  {char}
+                </button>
+              {/each}
+            </div>
+          </div>
+        {/if}
       {:else if task.type === "cloze"}
         <div
           class={hintMode === "rail"
@@ -740,7 +809,7 @@
         </div>
       {/if}
 
-      {#if (task.type === "choice" || task.type === "selectAll") && task.hint}
+      {#if (task.type === "choice" || task.type === "selectAll" || task.type === "spot") && task.hint}
         <div class="mt-6 border-t border-slate-200 pt-4">
           <GrammarHintAccordion hint={task.hint} bind:open={hintOpen} />
         </div>

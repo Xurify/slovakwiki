@@ -103,6 +103,27 @@ describe("learning/demonstratives/session", () => {
     }
   });
 
+  it("gives every find-the-mistake card one fixable word, or none at all", () => {
+    let clean = 0;
+
+    for (const { kind, task } of everyTask()) {
+      if (task.type !== "spot") continue;
+
+      if (task.wrongIndex === null) {
+        clean += 1;
+        expect(task.words.join(" "), kind).toBe(task.feedback.correction);
+        continue;
+      }
+
+      const fixed = [...task.words];
+      fixed[task.wrongIndex] = task.answer;
+      expect(fixed.join(" "), kind).toBe(task.feedback.correction);
+      expect(task.words[task.wrongIndex], kind).not.toBe(task.answer);
+    }
+
+    expect(clean).toBeGreaterThan(0);
+  });
+
   it("never writes the Czech forms it warns about, or a doubled preposition", () => {
     for (const { kind, task } of everyTask()) {
       if (task.type === "typed" && task.task === "repair") continue;

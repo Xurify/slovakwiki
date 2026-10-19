@@ -195,6 +195,19 @@ export interface ClozeExercise extends ExerciseBase {
   type: "cloze";
 }
 
+/** Tap the one wrong word in a Slovak sentence and type it right; some sentences are fine. */
+export interface SpotExercise extends ExerciseBase {
+  acceptedAnswers?: string[];
+  /** The fixed word, without punctuation. Empty when nothing is wrong. */
+  answer: string;
+  hint?: ClozeHint;
+  type: "spot";
+  /** Index of the wrong word in `words`, or null when the sentence is already right. */
+  wrongIndex: number | null;
+  /** The sentence as shown, one entry per word, punctuation attached. */
+  words: string[];
+}
+
 export interface PersonalExercise {
   example?: string;
   id: string;
@@ -236,7 +249,12 @@ export interface Lesson {
 }
 
 export type PracticeTask =
-  ChoiceExercise | BuildExercise | TypedExercise | ClozeExercise | SelectAllExercise;
+  | ChoiceExercise
+  | BuildExercise
+  | TypedExercise
+  | ClozeExercise
+  | SelectAllExercise
+  | SpotExercise;
 
 export interface PracticeItem {
   feedback: ExerciseFeedback;

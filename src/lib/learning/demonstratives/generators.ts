@@ -4,6 +4,7 @@ import type {
   ChoiceExercise,
   ClozeExercise,
   PracticeTask,
+  SpotExercise,
   TypedExercise,
 } from "$lib/learning/types";
 import { shuffleArray } from "$lib/learning/time/clock";
@@ -32,6 +33,7 @@ import {
   demonstrativePhrase,
   isPluralSlot,
   type DemonstrativeSeries,
+  type GrammaticalCase,
   type NounEntry,
   type Slot,
 } from "./paradigm";
@@ -910,6 +912,176 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
       why: near
         ? `**Tento** points at the one near you, and it agrees with **${noun}**: **${correct} ${noun}**.`
         : `**Tamten** points at the one over there, and it agrees with **${noun}**: **${correct} ${noun}**.`,
+    },
+  };
+}
+
+/** Often enough that “No mistake” is a real answer, rare enough that most cards ask for a fix. */
+const SPOT_CORRECT_SHARE = 0.25;
+
+/** Stands in for the demonstrative while the sentence is split into words. */
+const SPOT_GAP = "\u0000";
+
+const SINGULAR_SLOTS: readonly Slot[] = [
+  "masculine-animate",
+  "masculine-inanimate",
+  "feminine",
+  "neuter",
+];
+const PLURAL_SLOTS: readonly Slot[] = ["plural-personal", "plural"];
+
+interface SpotSentence {
+  english: string;
+  grammaticalCase: GrammaticalCase;
+  /** Why the right form is right, already marked for the UI. */
+  rule: (form: string) => string;
+  words: string[];
+}
+
+function spotSentence(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  rng: Rng,
+): SpotSentence {
+  const frames = CASE_FRAMES.filter((frame) => frame.nouns(entry));
+  const asQuestion = !frames.length || (fitsQuestion(series, entry) && rng() < 0.35);
+
+  if (asQuestion) {
+    const { english, slovak } = nominativeQuestion(series, entry, SPOT_GAP);
+    return {
+      english,
+      grammaticalCase: "nominative",
+      rule: (form) => agreementWhy(entry, form),
+      words: slovak.split(" "),
+    };
+  }
+
+  const frame = pick(frames, rng);
+  const noun = entry.forms[frame.grammaticalCase];
+  return {
+    english: frame.english(demonstrativeEnglish(series, entry)),
+    grammaticalCase: frame.grammaticalCase,
+    rule: (form) =>
+      `${frame.because}, and the demonstrative follows its noun: **${form} ${noun}**.`,
+    words: frame.slovak(`${SPOT_GAP} ${noun}`).split(" "),
+  };
+}
+
+function sameNumberSlots(slot: Slot): readonly Slot[] {
+  return isPluralSlot(slot) ? PLURAL_SLOTS : SINGULAR_SLOTS;
+}
+
+/**
+ * Other genders' forms in the same case, plus the noun's own forms from other cases.
+ * Questions keep to gender: nobody asks “Kde je tomu dom?”, but “Kde je tá dom?” happens.
+ */
+function spotWrongForms(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  grammaticalCase: GrammaticalCase,
+): string[] {
+  const correct = demonstrativeForm(series, entry.slot, grammaticalCase);
+  const forms = sameNumberSlots(entry.slot).map((slot) =>
+    demonstrativeForm(series, slot, grammaticalCase),
+  );
+  if (grammaticalCase !== "nominative") {
+    forms.push(...CASES.map((other) => demonstrativeForm(series, entry.slot, other)));
+  }
+  return [...new Set(forms)].filter((form) => form !== correct);
+}
+
+/** Plain SLOT_LABEL says “plural” for tie, which reads as wrong next to a plural noun. */
+const SPOT_GENDER: Record<Slot, string> = {
+  "masculine-animate": "masculine",
+  "masculine-inanimate": "masculine",
+  feminine: "feminine",
+  neuter: "neuter",
+  "plural-personal": "for masculine people in the plural",
+  plural: "for plurals other than masculine people",
+};
+
+/** “feminine”, “masculine or neuter” — every gender this form serves in this case. */
+function genderOfForm(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  grammaticalCase: GrammaticalCase,
+  form: string,
+): string {
+  const labels = sameNumberSlots(entry.slot)
+    .filter((slot) => demonstrativeForm(series, slot, grammaticalCase) === form)
+    .map((slot) => SPOT_GENDER[slot]);
+  return [...new Set(labels)].join(" or ");
+}
+
+function spotMistakeWhy(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  grammaticalCase: GrammaticalCase,
+  wrong: string,
+): string {
+  const correct = demonstrativeForm(series, entry.slot, grammaticalCase);
+  const Wrong = capitalizeSlovak(wrong);
+
+  if (grammaticalCase === "accusative" && entry.slot === "masculine-inanimate") {
+    if (wrong === demonstrativeForm(series, "masculine-animate", "accusative")) {
+      return `**${Wrong}** is for people in the accusative (**${wrong} muža**). A thing keeps **${correct}**.`;
+    }
+  }
+  if (grammaticalCase === "accusative" && entry.slot === "masculine-animate") {
+    if (wrong === demonstrativeForm(series, "masculine-inanimate", "accusative")) {
+      return `**${Wrong}** is the accusative for things. A person takes **${correct}**.`;
+    }
+  }
+  if (casesOfForm(series, entry.slot, wrong).length) {
+    return `**${Wrong}** is the ${caseNames(series, entry.slot, wrong)} form.`;
+  }
+
+  const gender = genderOfForm(series, entry, grammaticalCase, wrong);
+  // The nominative rule already names the noun's gender.
+  if (grammaticalCase === "nominative") return `**${Wrong}** is ${gender}.`;
+  return `**${Wrong}** is ${gender}, but **${entry.forms.nominative}** is ${SLOT_LABEL[entry.slot]}.`;
+}
+
+export function buildSpotExercise(kind: string, rng: Rng): SpotExercise {
+  const series = tenOrTento(rng);
+  const entry = pick(NOUNS, rng);
+  const sentence = spotSentence(series, entry, rng);
+  const correct = demonstrativeForm(series, entry.slot, sentence.grammaticalCase);
+  const gapIndex = sentence.words.findIndex((word) => word.startsWith(SPOT_GAP));
+  const fill = (form: string) =>
+    sentence.words.map((word) => word.replace(SPOT_GAP, form));
+  const correction = fill(correct).join(" ");
+  const rule = sentence.rule(correct);
+  const nominativeHint = isPluralSlot(entry.slot) ? pluralHint : agreementHint;
+  const hint = sentence.grammaticalCase === "nominative" ? nominativeHint : caseHint;
+  const base = {
+    id: `generated-${kind}`,
+    type: "spot" as const,
+    practiceItemId: kind,
+    prompt: sentence.english,
+    hint,
+  };
+
+  if (rng() < SPOT_CORRECT_SHARE) {
+    return {
+      ...base,
+      words: fill(correct),
+      wrongIndex: null,
+      answer: "",
+      feedback: { correction, english: sentence.english, why: rule },
+    };
+  }
+
+  const wrong = pick(spotWrongForms(series, entry, sentence.grammaticalCase), rng);
+  return {
+    ...base,
+    words: fill(wrong),
+    wrongIndex: gapIndex,
+    answer: correct,
+    feedback: {
+      correction,
+      english: sentence.english,
+      why: `${spotMistakeWhy(series, entry, sentence.grammaticalCase, wrong)} ${rule}`,
     },
   };
 }
