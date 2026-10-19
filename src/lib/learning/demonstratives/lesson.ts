@@ -123,7 +123,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         id: "feminine",
         label: "Kto je tá dievča?",
         whyWrong:
-          "**Tá** goes with feminine nouns. **Dievča** names a girl, but the noun is neuter.",
+          "**Tá** goes with feminine nouns. **Dievča** means a girl, but the noun is neuter.",
       },
       {
         id: "masculine",
@@ -135,7 +135,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "Kto je to dievča?",
       english: "Who is that girl?",
-      why: "**Dievča** names a person, but the noun is neuter: **to dievča**.",
+      why: "**Dievča** means a girl, but the noun is neuter: **to dievča**.",
     },
   },
   {
@@ -186,7 +186,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "To je moja sestra.",
       english: "This is my sister.",
-      why: "On its own, **to** never changes, whoever you name: **To je moja sestra**.",
+      why: "On its own, **to** never changes, whoever it points at: **To je moja sestra**.",
     },
   },
   {
@@ -208,13 +208,13 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         label: "Toto sú moji rodičia.",
         fits: true,
         whyWrong:
-          "**Toto sú moji rodičia** fits — **toto** points a little harder, like *these here*.",
+          "**Toto sú moji rodičia** fits — **toto** just adds *here*: “These here are my parents.”",
       },
       {
         id: "ti",
         label: "Tí rodičia sú moji.",
         whyWrong:
-          "**Tí rodičia sú moji** means “Those parents are mine.” **Tí** sits before a noun, so it points at those parents.",
+          "**Tí rodičia sú moji** means “Those parents are mine.” **Tí** comes before a noun, so it means *those* parents.",
       },
     ],
     answerId: "ti",
@@ -273,7 +273,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "Tie deti sa hrajú vonku.",
       english: "Those children are playing outside.",
-      why: "**Deti** names people, but only masculine nouns for people take **tí**: **tie deti**.",
+      why: "**Deti** are people, but only masculine nouns for people take **tí**: **tie deti**.",
     },
   },
   {
@@ -327,7 +327,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "Anna pomáha tomu chlapcovi.",
       english: "Anna is helping that boy.",
-      why: "**Pomáhať** (to help) takes the dative, and the demonstrative follows its noun: **tomu chlapcovi**.",
+      why: "**Pomáhať** (to help) takes the dative, and the demonstrative takes the same case: **tomu chlapcovi**.",
     },
   },
   {
@@ -353,7 +353,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
       {
         wrong: "tej",
         whyWrong:
-          "**Tej** is the wrong case. **S** (with) takes the instrumental: **tou**.",
+          "**Tej** is the genitive, dative, or locative. **S** (with) takes the instrumental: **tou**.",
       },
       {
         wrong: "žena",
@@ -786,7 +786,7 @@ export const demonstrativesLesson: Lesson = {
   keyPhrases: demonstrativesBeatShells.flatMap((beat) => beat.teach.phrases ?? []),
   pattern: {
     title: "This, that, the",
-    body: "**Ten, tá, to** agree with the noun: *ten muž, tá žena, to dievča*. Add **-to** for this one here (*tento koláč*) and **tam-** for that one over there (*tamtá torta*). In the plural, only masculine nouns for people take **tí**; everything else takes **tie**. On its own, **to** never changes: *To je môj brat. To sú fotky z leta.* In other cases, ten follows its noun: *Poznám toho muža. Býva v tom dome.*",
+    body: "**Ten, tá, to** agree with the noun: *ten muž, tá žena, to dievča*. Add **-to** for this one here (*tento koláč*) and **tam-** for that one over there (*tamtá torta*). In the plural, only masculine nouns for people take **tí**; everything else takes **tie**. On its own, **to** never changes: *To je môj brat. To sú fotky z leta.* In other cases, ten takes the case of its noun: *Poznám toho muža. Býva v tom dome.*",
   },
   beats: withDemonstrativesExercises(
     demonstrativesBeatShells,

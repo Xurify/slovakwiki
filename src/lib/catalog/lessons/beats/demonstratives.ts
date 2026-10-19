@@ -76,6 +76,45 @@ function seriesTable(): FormTableVisual {
   };
 }
 
+function genderFromEndingTable(): FormTableVisual {
+  return {
+    type: "form-table",
+    title: "Look at the ending",
+    columns: [{ english: "the / that", slovak: "ten · tá · to" }],
+    sections: [
+      {
+        rows: [
+          {
+            heading: {
+              english: "Ends in a consonant",
+              slovak: "mužský rod",
+              example: "kufor, dom",
+            },
+            cells: ["ten"],
+          },
+          {
+            heading: {
+              english: "Ends in -a",
+              slovak: "ženský rod",
+              example: "taška, kniha",
+            },
+            cells: ["tá"],
+          },
+          {
+            heading: {
+              english: "Ends in -o, -e, -ie",
+              slovak: "stredný rod",
+              example: "auto, pero, námestie",
+            },
+            cells: ["to"],
+          },
+        ],
+      },
+    ],
+    note: "**Kolega** (colleague) ends in -a, but it is actually masculine: **ten kolega**. **Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**. Some nouns ending in a consonant are feminine: **tá noc** (night), **tá vec** (thing), **tá radosť** (joy).",
+  };
+}
+
 const CASE_HEADINGS: Record<GrammaticalCase, FormTableHeading> = {
   nominative: { english: "Nominative", slovak: "nominatív", example: "Kde je …?" },
   genitive: { english: "Genitive", slovak: "genitív", example: "bez …" },
@@ -162,7 +201,8 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "to dievča" },
         },
       ],
-      note: "**Ten**, **tá**, **to** take the gender of the noun after them. Slovak has no word for “the”, so **ten** often does that job too: Kto je ten muž? can mean “Who is that man?” or “Who is the man?”. Dievča (girl) and dieťa (child) are neuter nouns, so they take **to**.",
+      note: "**Ten**, **tá**, **to** take the gender of the noun after them, and the noun's ending usually shows it. Slovak has no word for “the”, so **ten** often does that job too: Kto je ten muž? can mean “Who is that man?” or “Who is the man?”.",
+      visual: genderFromEndingTable(),
     },
   },
   {
@@ -174,7 +214,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "To je môj brat.",
           english: "That's my brother.",
-          note: "**To** on its own stays to, even for a man.",
+          note: "**To** doesn't change, even when it points at a man.",
           audio: { transcript: "To je môj brat." },
         },
         {
@@ -190,7 +230,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Čo je to?" },
         },
       ],
-      note: "On its own, **to** means *this*, *that*, or *it*, and it never changes, whatever comes after it: To je môj brat. To je jeho žena. To sú fotky. Only the verb follows the noun: **je** for one, **sú** for more. With a noun right after it, ten agrees instead: **tá** žena.",
+      note: "On its own, **to** means *this*, *that*, or *it*, and it never changes, whatever comes after it: To je môj brat. To je jeho žena. To sú fotky. Only the verb changes: **je** for one, **sú** for more. When a noun comes right after it, use the form that matches the noun: **tá** žena.",
     },
   },
   {
@@ -244,7 +284,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "Vidím ten dom.",
           english: "I see that house.",
-          note: "Accusative, things: **ten** stays ten.",
+          note: "Accusative, things: **ten** doesn't change.",
           audio: { transcript: "Vidím ten dom." },
         },
         {
@@ -266,7 +306,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "s tou ženou" },
         },
       ],
-      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. After v (in), Anna says v **tom** dome. Pomáhať needs the dative: **tomu** mužovi.",
+      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. **V** (in) takes the locative, so Anna says v **tom** dome. Pomáhať needs the dative: **tomu** mužovi.",
       visual: caseTables,
     },
   },

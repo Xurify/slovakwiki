@@ -420,7 +420,7 @@ export const grammarEntries: GrammarTopic[] = [
     body: [
       "Ten (tá, to) is the everyday demonstrative. Slovak has no article, so ten also does the job of English “the”. Tento (táto, toto) points at something near you; tamten (tamtá, tamto) at something over there.",
       "All three agree with their noun: ten muž, tá žena, to dievča. In the plural, only masculine nouns for people take tí; every other plural takes tie, including deti and ženy. In other cases they follow the noun: Poznám toho muža. Býva v tom dome. Idem s tou ženou.",
-      "On its own, to means this, that, or it, and it never changes. Only the verb follows the noun: To je môj brat. To sú moji rodičia.",
+      "On its own, to means this, that, or it, and it never changes. Only the verb changes, je for one and sú for more: To je môj brat. To sú moji rodičia.",
     ],
     examples: [
       { slovak: "Kto je ten muž?", english: "Who is that man?" },

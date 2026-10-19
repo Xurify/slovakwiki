@@ -109,7 +109,7 @@ function nominativeQuestion(
 function agreementWhy(entry: NounEntry, form: string): string {
   const noun = entry.forms.nominative;
   if (entry.person && entry.slot === "neuter") {
-    return `**${capitalizeSlovak(noun)}** names a person, but the noun is neuter: **${form} ${noun}**.`;
+    return `**${capitalizeSlovak(noun)}** is a person, but the noun is neuter: **${form} ${noun}**.`;
   }
   return `**${capitalizeSlovak(noun)}** is ${SLOT_LABEL[entry.slot]}, so: **${form} ${noun}**.`;
 }
@@ -176,7 +176,7 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
   if (personal) {
     why = `Masculine nouns for people take **${correct}** in the plural: **${correct} ${noun}**.`;
   } else if (entry.person) {
-    why = `**${capitalizeSlovak(noun)}** names people, but only masculine nouns for people take **${otherPlural}**. Use **${correct} ${noun}**.`;
+    why = `**${capitalizeSlovak(noun)}** are people, but only masculine nouns for people take **${otherPlural}**. Use **${correct} ${noun}**.`;
   }
 
   return {
@@ -246,7 +246,7 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
           id: "verb",
           label: `To ${plural ? "je" : "sú"} ${noun}.`,
           whyWrong: plural
-            ? `**${capitalizeSlovak(noun)}** is plural, so the verb is **sú**. **To** itself stays.`
+            ? `**${capitalizeSlovak(noun)}** is plural, so the verb is **sú**. **To** stays the same.`
             : `**Sú** is plural. One ${entry.english} takes **je**.`,
         },
       ],
@@ -257,7 +257,7 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
     feedback: {
       correction: correct,
       english,
-      why: `On its own, **to** never changes, whatever the noun. Only the verb follows the noun: **${withoutFinalPunctuation(correct)}**.`,
+      why: `On its own, **to** never changes. Only the verb changes, **je** for one and **sú** for more: **${withoutFinalPunctuation(correct)}**.`,
     },
   };
 }
@@ -388,7 +388,7 @@ export function buildCaseChoiceExercise(kind: string, rng: Rng): ChoiceExercise 
     feedback: {
       correction: frame.slovak(`${correct} ${noun}`),
       english,
-      why: `${frame.because}, and the demonstrative follows its noun: **${correct} ${noun}**.`,
+      why: `${frame.because}, and the demonstrative takes the same case: **${correct} ${noun}**.`,
     },
   };
 }
@@ -540,7 +540,7 @@ const REPAIR_ITEMS: readonly RepairItem[] = [
           "**Ten** goes with masculine nouns. **Dievča** is neuter: **to dievča**.",
       },
     ],
-    why: "**Dievča** names a girl, but the noun is neuter: **to dievča**.",
+    why: "**Dievča** means a girl, but the noun is neuter: **to dievča**.",
   },
   {
     broken: "Tí deti sa hrajú vonku.",
@@ -553,7 +553,7 @@ const REPAIR_ITEMS: readonly RepairItem[] = [
           "**Tí** is only for masculine nouns for people. **Deti** takes **tie**.",
       },
     ],
-    why: "Only masculine nouns for people take **tí**. **Deti** names people, but it takes **tie**: **tie deti**.",
+    why: "Only masculine nouns for people take **tí**. **Deti** are people, but the noun isn't masculine: **tie deti**.",
   },
   {
     broken: "Poznáš ten muža?",
@@ -818,7 +818,7 @@ export function buildRoleOddOneOutExercise(kind: string, rng: Rng): ChoiceExerci
           id: "plain",
           label: plain,
           fits: true,
-          whyWrong: `**${withoutFinalPunctuation(plain)}** fits — **${object}** is the accusative, the person you mean.`,
+          whyWrong: `**${withoutFinalPunctuation(plain)}** fits — **${object}** is in the accusative, so it is the person you mean.`,
         },
         {
           id: "fronted",
@@ -963,7 +963,7 @@ function mistakeSentence(
     english: frame.english(demonstrativeEnglish(series, entry)),
     grammaticalCase: frame.grammaticalCase,
     whyRightForm: (form) =>
-      `${frame.because}, and the demonstrative follows its noun: **${form} ${noun}**.`,
+      `${frame.because}, and the demonstrative takes the same case: **${form} ${noun}**.`,
     words: frame.slovak(`${DEMONSTRATIVE_PLACEHOLDER} ${noun}`).split(" "),
   };
 }

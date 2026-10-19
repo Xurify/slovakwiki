@@ -3,7 +3,7 @@ import type { ClozeHint } from "$lib/learning/types";
 export const agreementHint: ClozeHint = {
   chip: "ten · tá · to",
   grammarTopicId: "demonstratives",
-  note: "**Ten**, **tá**, **to** take the gender of the noun: *ten muž*, *tá žena*, *to auto*. **Dievča** and **dieťa** are neuter, even though they name people: *to dievča*. **Tento** and **tamten** follow the same pattern: *táto taška*, *tamto auto*.",
+  note: "**Ten**, **tá**, **to** take the gender of the noun, and the ending usually shows it: nouns ending in a consonant take **ten** (*ten kufor*), in **-a** take **tá** (*tá taška*), and in **-o** or **-e** take **to** (*to auto*). Watch for *ten kolega*, *to dievča*, *to dieťa*, and *tá noc*. **Tento** and **tamten** follow the same pattern: *táto taška*, *tamto auto*.",
 };
 
 export const pluralHint: ClozeHint = {
@@ -15,7 +15,7 @@ export const pluralHint: ClozeHint = {
 export const toJeHint: ClozeHint = {
   chip: "To je …",
   grammarTopicId: "demonstratives",
-  note: "On its own, **to** means this, that, or it, and it never changes: *To je kľúč.* *To je taška.* *To sú kľúče.* Only the verb follows the noun. **Ten** and **tá** agree only with a noun right after them: *tá taška*.",
+  note: "On its own, **to** means this, that, or it, and it never changes: *To je kľúč.* *To je taška.* *To sú kľúče.* Only the verb changes: **je** for one, **sú** for more. Before a noun, use the form that matches it: *tá taška*.",
 };
 
 export const seriesHint: ClozeHint = {
