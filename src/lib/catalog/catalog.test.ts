@@ -223,7 +223,7 @@ describe("Slovak content", () => {
       expect(lessonById.has(set.lessonId)).toBe(true);
     }
 
-    expect(practiceSets).toHaveLength(11);
+    expect(practiceSets).toHaveLength(12);
     const present = practiceSetForLesson("grammar/present-tense-i");
     expect(present?.id).toBe("present-tense-i");
     expect(present?.sessionSize).toBe(7);
@@ -251,6 +251,11 @@ describe("Slovak content", () => {
     expect(possessives.sessionKind).toBe("possessives");
     expect(possessives.sessionSize).toBe(13);
     expect(possessives.itemIds.length).toBeGreaterThan(13);
+
+    const demonstratives = practiceSetForLesson("grammar/demonstratives")!;
+    expect(demonstratives.id).toBe("demonstratives");
+    expect(demonstratives.sessionKind).toBe("demonstratives");
+    expect(practiceSessionCount(demonstratives)).toBe(demonstratives.itemIds.length);
   });
 
   it("gives every practice set a unique skim graphic", () => {

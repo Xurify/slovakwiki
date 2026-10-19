@@ -16,6 +16,10 @@ import {
   materializePossessiveItem,
   seededRng,
 } from "$lib/learning/possessives/session";
+import {
+  DEMONSTRATIVE_KINDS,
+  materializeDemonstrativeItem,
+} from "$lib/learning/demonstratives/session";
 import { practiceItems } from "$lib/catalog/practice";
 import { lessonExercises } from "$lib/learning/beats";
 import { lessons } from "$lib/catalog/lessons";
@@ -25,6 +29,23 @@ import type {
   PracticeTask,
   TypedExercise,
 } from "$lib/learning/types";
+
+function generatedTasks(): PracticeTask[] {
+  return [
+    ...POSSESSIVE_KINDS.flatMap((kind) =>
+      Array.from(
+        { length: 40 },
+        (_, seed) => materializePossessiveItem(kind, seededRng(seed + 1)).task,
+      ),
+    ),
+    ...DEMONSTRATIVE_KINDS.flatMap((kind) =>
+      Array.from(
+        { length: 40 },
+        (_, seed) => materializeDemonstrativeItem(kind, seededRng(seed + 1)).task,
+      ),
+    ),
+  ];
+}
 
 function choiceExercisesFromLessons(): ChoiceExercise[] {
   return lessons.flatMap((lesson) =>
@@ -46,13 +67,6 @@ function allChoiceTasks(): ChoiceExercise[] {
       (seed) => materializeDaysDatesTimeItem(kind as DaysDatesTimeKind, () => seed).task,
     ),
   );
-  const possessives = POSSESSIVE_KINDS.flatMap((kind) =>
-    Array.from(
-      { length: 40 },
-      (_, seed) => materializePossessiveItem(kind, seededRng(seed + 1)).task,
-    ),
-  );
-
   return [
     ...choiceExercisesFromLessons(),
     ...choiceTasksFromPractice(),
@@ -63,7 +77,7 @@ function allChoiceTasks(): ChoiceExercise[] {
       .map((item) => item.task)
       .filter((task): task is ChoiceExercise => task.type === "choice"),
     ...materialized.filter((task): task is ChoiceExercise => task.type === "choice"),
-    ...possessives.filter((task): task is ChoiceExercise => task.type === "choice"),
+    ...generatedTasks().filter((task): task is ChoiceExercise => task.type === "choice"),
   ];
 }
 
@@ -72,13 +86,6 @@ function isAnswerTask(task: PracticeTask): task is BuildExercise | TypedExercise
 }
 
 function allAnswerTasks(): Array<BuildExercise | TypedExercise> {
-  const possessives = POSSESSIVE_KINDS.flatMap((kind) =>
-    Array.from(
-      { length: 40 },
-      (_, seed) => materializePossessiveItem(kind, seededRng(seed + 1)).task,
-    ),
-  );
-
   return [
     ...lessons.flatMap((lesson) =>
       lessonExercises(lesson).filter(
@@ -87,7 +94,7 @@ function allAnswerTasks(): Array<BuildExercise | TypedExercise> {
       ),
     ),
     ...practiceItems.map((item) => item.task).filter(isAnswerTask),
-    ...possessives.filter(isAnswerTask),
+    ...generatedTasks().filter(isAnswerTask),
   ];
 }
 

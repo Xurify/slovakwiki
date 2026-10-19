@@ -9,6 +9,7 @@ export function motifArtSrc(id: string): string {
 export const motifPaper: Record<PracticeGraphicId, string> = {
   byt: "#ece5d3",
   default: "#f0e8d4",
+  demonstratives: "#efe7d3",
   greetings: "#efe4cd",
   mat: "#f5efde",
   negation: "#eee1c8",

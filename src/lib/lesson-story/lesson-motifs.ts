@@ -9,6 +9,7 @@ export type LessonMotifId =
   | "byt"
   | "mat"
   | "stress"
+  | "demonstratives"
   | "default";
 
 const BY_LESSON_ID: Record<string, LessonMotifId> = {
@@ -19,6 +20,7 @@ const BY_LESSON_ID: Record<string, LessonMotifId> = {
   "grammar/present-tense-i": "present-tense",
   "grammar/byt-present": "byt",
   "grammar/mat-present": "mat",
+  "grammar/demonstratives": "demonstratives",
   "pronunciation/first-syllable-stress": "stress",
 };
 

@@ -19,14 +19,15 @@ describe("grammarReadingOrder", () => {
     expect(grammarTopicsInGroup("Nouns").map((topic) => topic.slug)).toEqual([
       "grammatical-gender",
       "cases-overview",
+      "demonstratives",
     ]);
   });
 });
 
 describe("grammarNeighbors", () => {
   it("crosses area boundaries", () => {
-    const { previous, next } = grammarNeighbors("cases-overview");
-    expect(previous?.slug).toBe("grammatical-gender");
+    const { previous, next } = grammarNeighbors("demonstratives");
+    expect(previous?.slug).toBe("cases-overview");
     expect(next?.slug).toBe("present-tense");
   });
 

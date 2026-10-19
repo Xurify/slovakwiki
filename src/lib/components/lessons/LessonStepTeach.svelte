@@ -3,6 +3,7 @@
   import { onDestroy, onMount, tick } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import FormTable from "$lib/components/lessons/FormTable.svelte";
+  import MarkedNote from "$lib/components/lessons/MarkedNote.svelte";
   import LessonSceneBackdrop from "$lib/components/lessons/LessonSceneBackdrop.svelte";
   import LessonStoryLine from "$lib/components/lessons/LessonStoryLine.svelte";
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
@@ -494,7 +495,7 @@
         {#if takeaways.length}
           <div>
             <h3 class={visualHeadingClass}>
-              {takeaways.length === 1 ? "Takeaway" : "Takeaways"}
+              {takeaways.length === 1 ? "Key term" : "Key terms"}
             </h3>
 
             <ul class="{dataPanelClass} m-0 list-none p-0">
@@ -514,7 +515,7 @@
 
                     {#if phrase.note}
                       <p class="m-0 mt-2 text-sm leading-relaxed text-slate-500">
-                        {phrase.note}
+                        <MarkedNote text={phrase.note} />
                       </p>
                     {/if}
                   </div>
@@ -537,7 +538,7 @@
           <p
             class="m-0 max-w-[62ch] text-[1.02rem] leading-relaxed text-pretty text-slate-800"
           >
-            {teach.note}
+            <MarkedNote text={teach.note} />
           </p>
         {/if}
 

@@ -1,5 +1,9 @@
 import type { LessonTrackId } from "$lib/learning/types";
 import {
+  DEMONSTRATIVES_SESSION_SIZE,
+  demonstrativesPracticeItemIds,
+} from "$lib/learning/demonstratives/session";
+import {
   POSSESSIVES_SESSION_SIZE,
   possessivesPracticeItemIds,
 } from "$lib/learning/possessives/session";
@@ -11,7 +15,7 @@ export interface PracticeSet {
   lessonId: string;
   previewItemId?: string;
   sessionSize?: number;
-  sessionKind?: "days-dates-time" | "possessives";
+  sessionKind?: "days-dates-time" | "possessives" | "demonstratives";
   summary?: string;
   title: string;
   track: LessonTrackId;
@@ -144,5 +148,16 @@ export const practiceSets: PracticeSet[] = [
     sessionKind: "possessives",
     sessionSize: POSSESSIVES_SESSION_SIZE,
     itemIds: [...possessivesPracticeItemIds],
+  },
+  {
+    id: "demonstratives",
+    lessonId: "grammar/demonstratives",
+    title: "Demonstratives: ten, tento, tamten",
+    summary:
+      "Fresh drills every session — ten / tá / to, tí vs. tie, to je, tento vs. tamten, all six cases, toho vs. ten, and the tým / tými trap.",
+    track: "grammar",
+    sessionKind: "demonstratives",
+    sessionSize: DEMONSTRATIVES_SESSION_SIZE,
+    itemIds: [...demonstrativesPracticeItemIds],
   },
 ];

@@ -14,6 +14,7 @@ export const TEXT_ROLE_CLASS = {
   /** Who owns it (`Tom`) — shares the day color so svoj visibly points back to it. */
   owner: "text-mark-day",
   possessive: "text-mark-time",
+  demonstrative: "text-mark-time",
 } as const;
 
 export type TextRole = keyof typeof TEXT_ROLE_CLASS;

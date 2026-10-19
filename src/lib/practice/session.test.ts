@@ -66,6 +66,28 @@ describe("practice session", () => {
     expect(session[0]?.id).toBe("grammar/possessive-svoj-choice");
   });
 
+  it("SSR demonstratives paints a fixed-seed session the client keeps the first card of", () => {
+    const set = requireSet("demonstratives");
+    const painted = ssrPracticeSession(set);
+
+    expect(painted).toHaveLength(set.sessionSize!);
+    expect(ssrPracticeSession(set)).toEqual(painted);
+
+    const merged = mergePracticeSession(painted, clientPracticeSession(set, null));
+    expect(merged[0]).toBe(painted[0]);
+    expect(new Set(merged.map((item) => item.id)).size).toBe(set.sessionSize);
+  });
+
+  it("client demonstratives ?at draws that kind fresh", () => {
+    const session = clientPracticeSession(
+      requireSet("demonstratives"),
+      "grammar/demonstrative-tym-tymi",
+    );
+
+    expect(session).toHaveLength(1);
+    expect(session[0]?.id).toBe("grammar/demonstrative-tym-tymi");
+  });
+
   it("client default keeps catalog first item and sessionSize", () => {
     const set = requireSet("present-tense-i");
     const session = clientPracticeSession(set, null);

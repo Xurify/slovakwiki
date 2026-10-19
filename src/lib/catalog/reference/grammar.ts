@@ -407,7 +407,55 @@ export const grammarEntries: GrammarTopic[] = [
     },
     watchOut:
       "Do not try to memorize all six case tables at once. Start with patterns you can use in complete phrases.",
+    nextSlug: "demonstratives",
+  },
+  {
+    slug: "demonstratives",
+    slovak: "ukazovacie zámená",
+    english: "demonstratives: ten, tento, tamten",
+    category: "Nouns",
+    kind: "grammar",
+    summary:
+      "Ten, tento, and tamten point at people and things, and agree with their noun in gender, number, and case.",
+    body: [
+      "Ten (tá, to) is the everyday demonstrative. Slovak has no article, so ten also does the job of English “the”. Tento (táto, toto) points at something near you; tamten (tamtá, tamto) at something over there.",
+      "All three agree with their noun: ten muž, tá žena, to dievča. In the plural, only masculine nouns for people take tí; every other plural takes tie, including deti and ženy. In other cases they follow the noun: Poznám toho muža. Býva v tom dome. Idem s tou ženou.",
+      "On its own, to means this, that, or it, and it never changes. Only the verb follows the noun: To je môj brat. To sú moji rodičia.",
+    ],
+    examples: [
+      { slovak: "Kto je ten muž?", english: "Who is that man?" },
+      { slovak: "Dám si tento koláč.", english: "I'll have this cake." },
+      { slovak: "To sú moji rodičia.", english: "These are my parents." },
+      { slovak: "Poznám toho muža.", english: "I know that man." },
+    ],
+    related: ["grammatical-gender", "cases-overview", "dievca", "dieta"],
+    source: languageSource,
+    tags: ["pronouns", "demonstratives", "agreement", "beginner"],
+    lookFor:
+      "Find the noun after ten. Its gender, number, and case decide the form: ten muž, toho muža, s tou ženou.",
+    pathGroup: "Nouns",
+    order: 3,
+    rule: [
+      "Ten, tá, to agree with the noun in gender, number, and case. Tento adds -to to every form, and tamten adds tam- in front.",
+      "On its own, to never changes; only the verb follows the noun: To je môj brat. To sú moji rodičia.",
+    ],
+    pattern: {
+      label: "Agreement in the nominative",
+      lines: [
+        "Masculine: ten, tento, tamten",
+        "Feminine: tá, táto, tamtá",
+        "Neuter: to, toto, tamto",
+        "Masculine nouns for people, plural: tí, títo, tamtí",
+        "Every other plural: tie, tieto, tamtie",
+      ],
+    },
+    watchOut:
+      "Dievča and dieťa are neuter nouns: to dievča. Masculine people change in the accusative (toho muža), but things keep ten (ten dom). Tohto and tieto, not the Czech tohoto and tyto.",
     nextSlug: "present-tense",
+    lessonLink: {
+      href: "/lessons/grammar/demonstratives",
+      label: "Demonstratives: ten, tento, tamten",
+    },
   },
   {
     slug: "word-order",

@@ -319,6 +319,15 @@
     await focusFeedback();
   }
 
+  function onInputKeydown(event: KeyboardEvent): void {
+    // isComposing: Enter that confirms an IME candidate must not submit.
+    if (event.key !== "Enter" || event.shiftKey || event.isComposing) return;
+    event.preventDefault();
+    // The same keypress would otherwise reach the window listener and skip past the feedback.
+    event.stopPropagation();
+    void check();
+  }
+
   function continueLesson(): void {
     onresolve();
   }
@@ -461,6 +470,7 @@
           class="min-h-[50px] w-full rounded-(--control-radius) border border-slate-300 bg-control px-4 py-3 font-serif text-lg text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
           bind:value={input}
           disabled={submitted}
+          onkeydown={onInputKeydown}
           autocomplete="off"
           autocapitalize="none"
           lang="sk"
