@@ -76,6 +76,45 @@ function seriesTable(): FormTableVisual {
   };
 }
 
+function genderFromEndingTable(): FormTableVisual {
+  return {
+    type: "form-table",
+    title: "Look at the ending",
+    columns: [{ english: "the / that", slovak: "ten · tá · to" }],
+    sections: [
+      {
+        rows: [
+          {
+            heading: {
+              english: "Ends in a consonant",
+              slovak: "mužský rod",
+              example: "kufor, dom",
+            },
+            cells: ["ten"],
+          },
+          {
+            heading: {
+              english: "Ends in -a",
+              slovak: "ženský rod",
+              example: "taška, kniha",
+            },
+            cells: ["tá"],
+          },
+          {
+            heading: {
+              english: "Ends in -o, -e, -ie",
+              slovak: "stredný rod",
+              example: "auto, pero, námestie",
+            },
+            cells: ["to"],
+          },
+        ],
+      },
+    ],
+    note: "**Kolega** ends in -a but names a man: **ten kolega**. **Dievča** and **dieťa** are neuter: **to dievča**. Some nouns ending in a consonant are feminine: **tá noc**, **tá vec**, **tá radosť**.",
+  };
+}
+
 const CASE_HEADINGS: Record<GrammaticalCase, FormTableHeading> = {
   nominative: { english: "Nominative", slovak: "nominatív", example: "Kde je …?" },
   genitive: { english: "Genitive", slovak: "genitív", example: "bez …" },
@@ -162,7 +201,8 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "to dievča" },
         },
       ],
-      note: "**Ten**, **tá**, **to** take the gender of the noun after them. Slovak has no word for “the”, so **ten** often does that job too: Kto je ten muž? can mean “Who is that man?” or “Who is the man?”. Dievča (girl) and dieťa (child) are neuter nouns, so they take **to**.",
+      note: "**Ten**, **tá**, **to** take the gender of the noun after them, and the noun's ending usually shows it. Slovak has no word for “the”, so **ten** often does that job too: Kto je ten muž? can mean “Who is that man?” or “Who is the man?”.",
+      visual: genderFromEndingTable(),
     },
   },
   {

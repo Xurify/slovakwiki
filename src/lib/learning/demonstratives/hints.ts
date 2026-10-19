@@ -3,7 +3,7 @@ import type { ClozeHint } from "$lib/learning/types";
 export const agreementHint: ClozeHint = {
   chip: "ten · tá · to",
   grammarTopicId: "demonstratives",
-  note: "**Ten**, **tá**, **to** take the gender of the noun: *ten muž*, *tá žena*, *to auto*. **Dievča** and **dieťa** are neuter, even though they name people: *to dievča*. **Tento** and **tamten** follow the same pattern: *táto taška*, *tamto auto*.",
+  note: "**Ten**, **tá**, **to** take the gender of the noun, and the ending usually shows it: a consonant takes **ten** (*ten kufor*), **-a** takes **tá** (*tá taška*), **-o** or **-e** takes **to** (*to auto*). Watch for *ten kolega*, *to dievča*, *to dieťa*, and *tá noc*. **Tento** and **tamten** follow the same pattern: *táto taška*, *tamto auto*.",
 };
 
 export const pluralHint: ClozeHint = {
