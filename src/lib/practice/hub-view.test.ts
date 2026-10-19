@@ -67,4 +67,11 @@ describe("buildPracticeHubView", () => {
     expect(view.recents[0]?.id).toBe(`extra-${PRACTICE_RECENTS_CAP + 1}`);
     expect(view.recents.some((item) => item.id === "item-a")).toBe(false);
   });
+
+  it("counts due reviews only for items still in the catalog", () => {
+    const view = buildPracticeHubView(payload, [], [], ["item-b", "removed-item"]);
+
+    expect(view.reviewDue).toBe(1);
+    expect(buildPracticeHubView(payload, [], []).reviewDue).toBe(0);
+  });
 });

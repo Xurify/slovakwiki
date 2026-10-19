@@ -3,9 +3,12 @@ import { describe, expect, it } from "vitest";
 import { practiceSetById } from "$lib/catalog/practice";
 
 import { practiceSetEarlyReadyScript } from "./fouc";
+import { REVIEW_SESSION_SIZE } from "./review-memory";
 import {
   clientPracticeSession,
   mergePracticeSession,
+  reviewPracticeItem,
+  reviewPracticeSession,
   ssrPracticeSession,
 } from "./session";
 
@@ -122,5 +125,23 @@ describe("practice session", () => {
     expect(ready).toContain('p.has("at")');
     expect(ready).toContain("data-practice-set-ready");
     expect(ready).not.toContain("if(true)return");
+  });
+});
+
+describe("review session", () => {
+  it("draws generated kinds fresh and keeps catalog items", () => {
+    const kind = "grammar/demonstrative-agreement";
+    const catalogId = requireSet("meet-someone").itemIds[0] ?? "";
+
+    expect(reviewPracticeItem(kind)?.id).toBe(kind);
+    expect(reviewPracticeItem(catalogId)?.id).toBe(catalogId);
+  });
+
+  it("skips items that left the catalog and caps the session", () => {
+    const ids = requireSet("present-tense-i").itemIds;
+    const session = reviewPracticeSession(["gone/item", ...ids, ...ids]);
+
+    expect(session[0]?.id).toBe(ids[0]);
+    expect(session.length).toBe(Math.min(REVIEW_SESSION_SIZE, ids.length * 2));
   });
 });

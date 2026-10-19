@@ -4,6 +4,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import PracticeRecentsCard from "$lib/components/practice/PracticeRecentsCard.svelte";
+  import PracticeReviewCard from "$lib/components/practice/PracticeReviewCard.svelte";
   import PracticeTrackSection from "$lib/components/practice/PracticeTrackSection.svelte";
   import PracticeUpNextCard from "$lib/components/practice/PracticeUpNextCard.svelte";
   import { emptyPracticeState } from "$lib/components/practice/practice-state";
@@ -35,6 +36,8 @@
         class="flex flex-col gap-4 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
         aria-label="Your practice"
       >
+        <PracticeReviewCard />
+
         {#if featuredId}
           <PracticeUpNextCard {sheets} {featuredId} />
         {/if}

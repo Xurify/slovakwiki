@@ -95,6 +95,7 @@
     sessionContext,
     backHref,
     backLabel = "Practice",
+    onAnswer,
   }: {
     items: PracticeItem[];
     hintMode?: "inline" | "rail";
@@ -105,6 +106,8 @@
     sessionContext?: PracticeSessionContext;
     backHref?: string;
     backLabel?: string;
+    /** Remembers each answer, so misses come back in a later review. */
+    onAnswer?: (item: PracticeItem, grade: SessionPhraseResult["grade"]) => void;
   } = $props();
 
   let activeIndex = $state(0);
@@ -323,6 +326,7 @@
   }
 
   function recordResult(): void {
+    const resultGrade = gradeForResult();
     sessionResults = [
       ...sessionResults,
       {
@@ -333,9 +337,10 @@
         english: current.feedback.english,
         why: feedbackWhy,
         attempt: attemptForResult(),
-        grade: gradeForResult(),
+        grade: resultGrade,
       },
     ];
+    onAnswer?.(current, resultGrade);
   }
 
   function resetExerciseState(): void {
@@ -529,6 +534,7 @@
     onRetry={retry}
     onRetryMissed={retryMissed}
     results={sessionResults}
+    missesComeBack={onAnswer !== undefined}
     {sessionContext}
     {sessionTitle}
   />
