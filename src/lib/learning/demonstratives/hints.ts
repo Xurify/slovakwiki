@@ -15,7 +15,7 @@ export const pluralHint: ClozeHint = {
 export const toJeHint: ClozeHint = {
   chip: "To je …",
   grammarTopicId: "demonstratives",
-  note: "To say what or who something is, use **to**. It never changes: *To je kľúč.* *To je taška.* *To sú kľúče.* **Ten** and **tá** agree only when they sit right before a noun: *tá taška*.",
+  note: "On its own, **to** means this, that, or it, and it never changes: *To je kľúč.* *To je taška.* *To sú kľúče.* Only the verb follows the noun. **Ten** and **tá** agree only with a noun right after them: *tá taška*.",
 };
 
 export const seriesHint: ClozeHint = {

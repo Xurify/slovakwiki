@@ -495,7 +495,7 @@
         {#if takeaways.length}
           <div>
             <h3 class={visualHeadingClass}>
-              {takeaways.length === 1 ? "Takeaway" : "Takeaways"}
+              {takeaways.length === 1 ? "Key phrase" : "Key phrases"}
             </h3>
 
             <ul class="{dataPanelClass} m-0 list-none p-0">

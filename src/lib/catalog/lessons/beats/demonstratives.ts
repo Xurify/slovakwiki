@@ -150,22 +150,23 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "To je môj brat.",
           english: "That's my brother.",
-          note: "**To** stays to, even for a man.",
+          note: "**To** on its own stays to, even for a man.",
           audio: { transcript: "To je môj brat." },
         },
         {
           slovak: "To sú fotky z leta.",
           english: "These are photos from the summer.",
-          note: "Plural: only the verb changes, **to** stays.",
+          note: "Plural: only the verb changes, to **sú**.",
           audio: { transcript: "To sú fotky z leta." },
         },
         {
           slovak: "Čo je to?",
           english: "What is that?",
+          note: "**To** on its own works in questions too.",
           audio: { transcript: "Čo je to?" },
         },
       ],
-      note: "To introduce or name someone, Anna uses **to**: To je môj brat. To je jeho žena. To sú fotky. It never changes. **Ten** and **tá** agree only when a noun follows: tá žena.",
+      note: "On its own, **to** means *this*, *that*, or *it*, and it never changes, whatever comes after it: To je môj brat. To je jeho žena. To sú fotky. Only the verb follows the noun: **je** for one, **sú** for more. With a noun right after it, ten agrees instead: **tá** žena.",
     },
   },
   {

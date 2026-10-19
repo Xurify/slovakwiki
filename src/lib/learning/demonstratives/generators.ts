@@ -238,7 +238,7 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
         {
           id: "agreeing",
           label: `${capitalizeSlovak(agreeing)} ${verb} ${noun}.`,
-          whyWrong: `**${capitalizeSlovak(agreeing)}** agrees only when it sits before a noun (**${agreeing} ${noun}**). To say what something is, use **to**.`,
+          whyWrong: `**${capitalizeSlovak(agreeing)}** agrees only with a noun right after it (**${agreeing} ${noun}**). On its own, use **to**.`,
         },
         {
           id: "verb",
@@ -255,7 +255,7 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
     feedback: {
       correction: correct,
       english,
-      why: `To say what something is, Slovak uses **to**, whatever the noun: **${withoutFinalPunctuation(correct)}**.`,
+      why: `On its own, **to** never changes, whatever the noun. Only the verb follows the noun: **${withoutFinalPunctuation(correct)}**.`,
     },
   };
 }

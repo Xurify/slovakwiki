@@ -156,7 +156,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         id: "ta",
         label: "Tá je moja sestra.",
         whyWrong:
-          "**Tá je …** singles out one woman from a group (“that one is …”). To introduce someone, use **to**.",
+          "**Tá** on its own singles out one woman from a group (“that one is my sister”). To say who someone is, use **to**.",
       },
       {
         id: "plural",
@@ -168,7 +168,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "To je moja sestra.",
       english: "This is my sister.",
-      why: "To introduce someone, Slovak uses **to**, and it never changes: **To je moja sestra**.",
+      why: "On its own, **to** never changes, whoever you name: **To je moja sestra**.",
     },
   },
   {
@@ -196,14 +196,14 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         id: "ti",
         label: "Tí rodičia sú moji.",
         whyWrong:
-          "**Tí rodičia sú moji** means “Those parents are mine” — **tí** points at the parents instead of introducing them.",
+          "**Tí rodičia sú moji** means “Those parents are mine” — **tí** sits before a noun, so it points at those parents.",
       },
     ],
     answerId: "ti",
     feedback: {
       correction: "Tí rodičia sú moji.",
       english: "Those parents are mine.",
-      why: "**Tí rodičia** points at some parents and says whose they are. To introduce people, use **to**: **To sú moji rodičia**.",
+      why: "**Tí rodičia** points at some parents and says whose they are. On its own, **to** says who they are: **To sú moji rodičia**.",
     },
   },
   {
@@ -719,7 +719,7 @@ export const demonstrativesLesson: Lesson = {
   keyPhrases: demonstrativesBeatShells.flatMap((beat) => beat.teach.phrases ?? []),
   pattern: {
     title: "This, that, the",
-    body: "**Ten, tá, to** agree with the noun: *ten muž, tá žena, to dievča*. Add **-to** for this one here (*tento koláč*) and **tam-** for that one over there (*tamtá torta*). In the plural, only masculine nouns for people take **tí**; everything else takes **tie**. To introduce or name something, **to** never changes: *To je môj brat. To sú fotky z leta.* In other cases, ten follows its noun: *Poznám toho muža. Býva v tom dome.*",
+    body: "**Ten, tá, to** agree with the noun: *ten muž, tá žena, to dievča*. Add **-to** for this one here (*tento koláč*) and **tam-** for that one over there (*tamtá torta*). In the plural, only masculine nouns for people take **tí**; everything else takes **tie**. On its own, **to** never changes: *To je môj brat. To sú fotky z leta.* In other cases, ten follows its noun: *Poznám toho muža. Býva v tom dome.*",
   },
   beats: withDemonstrativesExercises(
     demonstrativesBeatShells,
