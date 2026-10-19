@@ -15,7 +15,8 @@ export type PracticeHubDrill = {
 };
 
 /** Learner-facing exercise formats, in display order. */
-export type PracticeTaskKind = "choose" | "fill" | "build" | "type" | "repair" | "select";
+export type PracticeTaskKind =
+  "choose" | "fill" | "build" | "type" | "repair" | "findMistake" | "select";
 
 const TASK_KIND_ORDER: PracticeTaskKind[] = [
   "choose",
@@ -23,6 +24,7 @@ const TASK_KIND_ORDER: PracticeTaskKind[] = [
   "build",
   "type",
   "repair",
+  "findMistake",
   "select",
 ];
 
@@ -32,6 +34,7 @@ export const practiceTaskKindLabel: Record<PracticeTaskKind, string> = {
   fill: "Fill the gap",
   repair: "Repair",
   select: "Select all",
+  findMistake: "Find the mistake",
   type: "Type",
 };
 
@@ -54,6 +57,8 @@ export function practiceTaskKind(task: PracticeTask): PracticeTaskKind {
       return "select";
     case "typed":
       return task.task === "repair" ? "repair" : "type";
+    case "findMistake":
+      return "findMistake";
   }
 }
 
@@ -132,6 +137,13 @@ export function drillLine(item: PracticeItem | undefined): PracticeHubDrill {
   if (task.type === "build") {
     return {
       slovak: task.answer.join(" "),
+      english: item.feedback.english ?? "",
+    };
+  }
+
+  if (task.type === "findMistake") {
+    return {
+      slovak: item.feedback.correction ?? task.words.join(" "),
       english: item.feedback.english ?? "",
     };
   }

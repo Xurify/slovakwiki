@@ -4,6 +4,7 @@ import type {
   ChoiceExercise,
   ClozeExercise,
   PracticeTask,
+  FindMistakeExercise,
   TypedExercise,
 } from "$lib/learning/types";
 import { shuffleArray } from "$lib/learning/time/clock";
@@ -32,6 +33,7 @@ import {
   demonstrativePhrase,
   isPluralSlot,
   type DemonstrativeSeries,
+  type GrammaticalCase,
   type NounEntry,
   type Slot,
 } from "./paradigm";
@@ -910,6 +912,174 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
       why: near
         ? `**Tento** points at the one near you, and it agrees with **${noun}**: **${correct} ${noun}**.`
         : `**Tamten** points at the one over there, and it agrees with **${noun}**: **${correct} ${noun}**.`,
+    },
+  };
+}
+
+const SHARE_WITHOUT_MISTAKE = 0.25;
+
+const DEMONSTRATIVE_PLACEHOLDER = "\u0000";
+
+const SINGULAR_SLOTS: readonly Slot[] = [
+  "masculine-animate",
+  "masculine-inanimate",
+  "feminine",
+  "neuter",
+];
+const PLURAL_SLOTS: readonly Slot[] = ["plural-personal", "plural"];
+
+interface MistakeSentence {
+  english: string;
+  grammaticalCase: GrammaticalCase;
+  whyRightForm: (form: string) => string;
+  words: string[];
+}
+
+function mistakeSentence(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  rng: Rng,
+): MistakeSentence {
+  const frames = CASE_FRAMES.filter((frame) => frame.nouns(entry));
+  const asQuestion = !frames.length || (fitsQuestion(series, entry) && rng() < 0.35);
+
+  if (asQuestion) {
+    const { english, slovak } = nominativeQuestion(
+      series,
+      entry,
+      DEMONSTRATIVE_PLACEHOLDER,
+    );
+    return {
+      english,
+      grammaticalCase: "nominative",
+      whyRightForm: (form) => agreementWhy(entry, form),
+      words: slovak.split(" "),
+    };
+  }
+
+  const frame = pick(frames, rng);
+  const noun = entry.forms[frame.grammaticalCase];
+  return {
+    english: frame.english(demonstrativeEnglish(series, entry)),
+    grammaticalCase: frame.grammaticalCase,
+    whyRightForm: (form) =>
+      `${frame.because}, and the demonstrative follows its noun: **${form} ${noun}**.`,
+    words: frame.slovak(`${DEMONSTRATIVE_PLACEHOLDER} ${noun}`).split(" "),
+  };
+}
+
+function sameNumberSlots(slot: Slot): readonly Slot[] {
+  return isPluralSlot(slot) ? PLURAL_SLOTS : SINGULAR_SLOTS;
+}
+
+function plausibleWrongForms(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  grammaticalCase: GrammaticalCase,
+): string[] {
+  const correct = demonstrativeForm(series, entry.slot, grammaticalCase);
+  const otherGenderForms = sameNumberSlots(entry.slot).map((slot) =>
+    demonstrativeForm(series, slot, grammaticalCase),
+  );
+  const otherCaseForms = CASES.map((other) =>
+    demonstrativeForm(series, entry.slot, other),
+  );
+  const isQuestion = grammaticalCase === "nominative";
+  const forms = isQuestion ? otherGenderForms : [...otherGenderForms, ...otherCaseForms];
+  return [...new Set(forms)].filter((form) => form !== correct);
+}
+
+const GENDER_SERVED_BY_FORM: Record<Slot, string> = {
+  "masculine-animate": "masculine",
+  "masculine-inanimate": "masculine",
+  feminine: "feminine",
+  neuter: "neuter",
+  "plural-personal": "for masculine people in the plural",
+  plural: "for plurals other than masculine people",
+};
+
+function gendersUsingForm(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  grammaticalCase: GrammaticalCase,
+  form: string,
+): string {
+  const labels = sameNumberSlots(entry.slot)
+    .filter((slot) => demonstrativeForm(series, slot, grammaticalCase) === form)
+    .map((slot) => GENDER_SERVED_BY_FORM[slot]);
+  return [...new Set(labels)].join(" or ");
+}
+
+function whyFormIsWrong(
+  series: DemonstrativeSeries,
+  entry: NounEntry,
+  grammaticalCase: GrammaticalCase,
+  wrong: string,
+): string {
+  const correct = demonstrativeForm(series, entry.slot, grammaticalCase);
+  const Wrong = capitalizeSlovak(wrong);
+
+  if (grammaticalCase === "accusative" && entry.slot === "masculine-inanimate") {
+    if (wrong === demonstrativeForm(series, "masculine-animate", "accusative")) {
+      return `**${Wrong}** is for people in the accusative (**${wrong} muža**). A thing keeps **${correct}**.`;
+    }
+  }
+  if (grammaticalCase === "accusative" && entry.slot === "masculine-animate") {
+    if (wrong === demonstrativeForm(series, "masculine-inanimate", "accusative")) {
+      return `**${Wrong}** is the accusative for things. A person takes **${correct}**.`;
+    }
+  }
+  if (casesOfForm(series, entry.slot, wrong).length) {
+    return `**${Wrong}** is the ${caseNames(series, entry.slot, wrong)} form.`;
+  }
+
+  const gender = gendersUsingForm(series, entry, grammaticalCase, wrong);
+  if (grammaticalCase === "nominative") return `**${Wrong}** is ${gender}.`;
+  return `**${Wrong}** is ${gender}, but **${entry.forms.nominative}** is ${SLOT_LABEL[entry.slot]}.`;
+}
+
+export function buildFindMistakeExercise(kind: string, rng: Rng): FindMistakeExercise {
+  const series = tenOrTento(rng);
+  const entry = pick(NOUNS, rng);
+  const sentence = mistakeSentence(series, entry, rng);
+  const correct = demonstrativeForm(series, entry.slot, sentence.grammaticalCase);
+  const demonstrativeIndex = sentence.words.findIndex((word) =>
+    word.startsWith(DEMONSTRATIVE_PLACEHOLDER),
+  );
+  const fill = (form: string) =>
+    sentence.words.map((word) => word.replace(DEMONSTRATIVE_PLACEHOLDER, form));
+  const correction = fill(correct).join(" ");
+  const whyRight = sentence.whyRightForm(correct);
+  const nominativeHint = isPluralSlot(entry.slot) ? pluralHint : agreementHint;
+  const hint = sentence.grammaticalCase === "nominative" ? nominativeHint : caseHint;
+  const base = {
+    id: `generated-${kind}`,
+    type: "findMistake" as const,
+    practiceItemId: kind,
+    prompt: sentence.english,
+    hint,
+  };
+
+  if (rng() < SHARE_WITHOUT_MISTAKE) {
+    return {
+      ...base,
+      words: fill(correct),
+      wrongWordIndex: null,
+      answer: "",
+      feedback: { correction, english: sentence.english, why: whyRight },
+    };
+  }
+
+  const wrong = pick(plausibleWrongForms(series, entry, sentence.grammaticalCase), rng);
+  return {
+    ...base,
+    words: fill(wrong),
+    wrongWordIndex: demonstrativeIndex,
+    answer: correct,
+    feedback: {
+      correction,
+      english: sentence.english,
+      why: `${whyFormIsWrong(series, entry, sentence.grammaticalCase, wrong)} ${whyRight}`,
     },
   };
 }

@@ -195,6 +195,15 @@ export interface ClozeExercise extends ExerciseBase {
   type: "cloze";
 }
 
+export interface FindMistakeExercise extends ExerciseBase {
+  acceptedAnswers?: string[];
+  answer: string;
+  hint?: ClozeHint;
+  type: "findMistake";
+  wrongWordIndex: number | null;
+  words: string[];
+}
+
 export interface PersonalExercise {
   example?: string;
   id: string;
@@ -236,7 +245,12 @@ export interface Lesson {
 }
 
 export type PracticeTask =
-  ChoiceExercise | BuildExercise | TypedExercise | ClozeExercise | SelectAllExercise;
+  | ChoiceExercise
+  | BuildExercise
+  | TypedExercise
+  | ClozeExercise
+  | SelectAllExercise
+  | FindMistakeExercise;
 
 export interface PracticeItem {
   feedback: ExerciseFeedback;
