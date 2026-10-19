@@ -111,7 +111,7 @@ function genderFromEndingTable(): FormTableVisual {
         ],
       },
     ],
-    note: "**Kolega** (colleague) ends in -a, but it means a man, so it is masculine: **ten kolega**. **Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**. Some nouns ending in a consonant are feminine: **tá noc** (night), **tá vec** (thing), **tá radosť** (joy).",
+    note: "**Kolega** (colleague) ends in -a, but it is actually masculine: **ten kolega**. **Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**. Some nouns ending in a consonant are feminine: **tá noc** (night), **tá vec** (thing), **tá radosť** (joy).",
   };
 }
 
