@@ -18,6 +18,7 @@
   import {
     clientPracticeSession,
     mergePracticeSession,
+    retryCardFor,
     ssrPracticeSession,
   } from "$lib/practice/session";
   import { saveAnswerForReview } from "$lib/practice/review-memory";
@@ -95,6 +96,7 @@
       backLabel="Practice"
       sessionTitle={data.set.title}
       sessionContext={data.sessionContext}
+      buildRetryOfMissedCard={(missed) => retryCardFor(data.set, missed)}
       onAnswer={(item, grade) => saveAnswerForReview(localStorage, item.id, grade)}
       bind:sectionTitle
     />
@@ -113,6 +115,7 @@
             backLabel="Practice"
             sessionTitle={data.set.title}
             sessionContext={data.sessionContext}
+            buildRetryOfMissedCard={(missed) => retryCardFor(data.set, missed)}
             onAnswer={(item, grade) => saveAnswerForReview(localStorage, item.id, grade)}
             bind:sectionTitle
           />

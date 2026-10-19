@@ -69,6 +69,7 @@
     sessionTypedInputIdleClass,
   } from "$lib/components/practice/practice-session-ui";
   import { practiceTaskKicker } from "$lib/practice/task-kicker";
+  import { insertRetryCard, MAX_RETRIES_PER_SESSION } from "$lib/practice/retry";
   import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
   import type { PracticeItem } from "$lib/learning/types";
 
@@ -102,6 +103,7 @@
     sessionContext,
     backHref,
     backLabel = "Practice",
+    buildRetryOfMissedCard,
     onAnswer,
   }: {
     items: PracticeItem[];
@@ -113,6 +115,7 @@
     sessionContext?: PracticeSessionContext;
     backHref?: string;
     backLabel?: string;
+    buildRetryOfMissedCard?: (missed: PracticeItem) => PracticeItem;
     onAnswer?: (item: PracticeItem, grade: SessionPhraseResult["grade"]) => void;
   } = $props();
 
@@ -130,6 +133,8 @@
   let itemOverride = $state<PracticeItem[] | null>(null);
   let mistakePick = $state<MistakePick>(null);
   let sessionResults = $state<SessionPhraseResult[]>([]);
+  let retriesQueued = $state(0);
+  let retryQueuedForCurrentCard = $state(false);
 
   const activeItems = $derived(itemOverride ?? items);
   const current = $derived(activeItems[activeIndex]);
@@ -144,7 +149,7 @@
   const typedWithScene = $derived(task.type === "typed" && hasScene);
 
   $effect(() => {
-    if (!finished) sectionTitle = practiceTaskKicker(task);
+    if (!finished) sectionTitle = kickerFor(current);
   });
 
   const frameParts = $derived(task.type === "cloze" ? task.frame.split("{}") : []);
@@ -231,9 +236,27 @@
     return "incorrect";
   }
 
+  function kickerFor(item: PracticeItem): string {
+    const kicker = practiceTaskKicker(item.task);
+    return item.isRetryOfMissedCard ? `One more time · ${kicker}` : kicker;
+  }
+
+  function queueRetryOfMissedCard(): void {
+    if (!buildRetryOfMissedCard) return;
+    if (current.isRetryOfMissedCard || retriesQueued >= MAX_RETRIES_PER_SESSION) return;
+    retriesQueued += 1;
+    retryQueuedForCurrentCard = true;
+    itemOverride = insertRetryCard(activeItems, activeIndex, {
+      ...buildRetryOfMissedCard(current),
+      isRetryOfMissedCard: true,
+    });
+  }
+
   async function check(): Promise<void> {
     if (!canCheck) return;
-    const kind = sfxKindForGrade(resolveCheckGrade());
+    const checkGrade = resolveCheckGrade();
+    const kind = sfxKindForGrade(checkGrade);
+    if (checkGrade === "incorrect") queueRetryOfMissedCard();
     submitted = true;
     playAnswerSfx(kind);
     await tick();
@@ -243,6 +266,7 @@
   async function reveal(): Promise<void> {
     if (submitted) return;
     if (task.type !== "typed" && task.type !== "cloze") return;
+    queueRetryOfMissedCard();
     revealed = true;
     submitted = true;
     playAnswerSfx("incorrect");
@@ -370,6 +394,7 @@
     submitted = false;
     revealed = false;
     hintOpen = false;
+    retryQueuedForCurrentCard = false;
     mistakePick = null;
   }
 
@@ -388,11 +413,12 @@
 
   function retry(): void {
     itemOverride = null;
+    retriesQueued = 0;
     sessionResults = [];
     activeIndex = 0;
     finished = false;
     resetExerciseState();
-    if (activeItems[0]) sectionTitle = practiceTaskKicker(activeItems[0].task);
+    if (activeItems[0]) sectionTitle = kickerFor(activeItems[0]);
   }
 
   function retryMissed(): void {
@@ -404,13 +430,14 @@
     const missed = items.filter((item) => missedIds.has(item.id));
 
     itemOverride = missed.length > 0 ? missed : null;
+    retriesQueued = 0;
     sessionResults = [];
     activeIndex = 0;
     finished = false;
     resetExerciseState();
 
     const first = (itemOverride ?? items)[0];
-    if (first) sectionTitle = practiceTaskKicker(first.task);
+    if (first) sectionTitle = kickerFor(first);
   }
 
   const isMiss = $derived(submitted && isMissFeedback(grade, revealed));
@@ -515,6 +542,12 @@
           ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}
       />
+
+      {#if retryQueuedForCurrentCard}
+        <p class="m-0 text-sm text-slate-500">
+          This rule comes back in a few cards, with a new sentence.
+        </p>
+      {/if}
 
       <Button
         class="w-full sm:w-auto sm:min-w-[9rem] sm:justify-self-end"

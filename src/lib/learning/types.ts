@@ -256,6 +256,7 @@ export interface PracticeItem {
   feedback: ExerciseFeedback;
   id: string;
   newUse?: string;
+  isRetryOfMissedCard?: boolean;
   source: {
     href: string;
     kind: "lesson" | "reference";

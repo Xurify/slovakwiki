@@ -21,6 +21,7 @@ import {
   isDaysDatesTimeKind,
   materializeDaysDatesTimeItem,
 } from "$lib/learning/time/session";
+import { drawWithNewSentence } from "./retry";
 import { MAX_CARDS_PER_REVIEW } from "./review-memory";
 
 function itemsFromIds(itemIds: readonly string[]): PracticeItem[] {
@@ -108,6 +109,28 @@ export function mergePracticeSession(
   }
 
   return next;
+}
+
+export function retryCardFor(set: PracticeSet, missed: PracticeItem): PracticeItem {
+  const draw = drawForSameRule(set, missed.id);
+  if (!draw) return maybeMaterializeBuildItem(missed);
+  return drawWithNewSentence(draw, (item) => item.feedback.correction, missed);
+}
+
+function drawForSameRule(
+  set: PracticeSet,
+  itemId: string,
+): (() => PracticeItem) | undefined {
+  if (set.sessionKind === "days-dates-time" && isDaysDatesTimeKind(itemId)) {
+    return () => materializeDaysDatesTimeItem(itemId);
+  }
+  if (set.sessionKind === "possessives" && isPossessiveKind(itemId)) {
+    return () => materializePossessiveItem(itemId);
+  }
+  if (set.sessionKind === "demonstratives" && isDemonstrativeKind(itemId)) {
+    return () => materializeDemonstrativeItem(itemId);
+  }
+  return undefined;
 }
 
 export function freshCardForReview(formId: string): PracticeItem | undefined {

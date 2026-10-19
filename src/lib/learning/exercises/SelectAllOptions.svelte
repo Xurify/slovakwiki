@@ -30,12 +30,9 @@
     submitted: boolean,
   ): string {
     if (!submitted) return choiceRowIdleClass;
-    if (state === "correct-selected")
-      return `${optionRowClass} ${optionGradedClass("right")}`;
-    if (state === "correct-missed")
-      return `${optionRowClass} ${optionGradedClass("missed")}`;
-    if (state === "wrong-selected")
-      return `${optionRowClass} ${optionGradedClass("wrong")}`;
+    if (state === "correct-selected") return optionGradedClass("right");
+    if (state === "correct-missed") return optionGradedClass("missed");
+    if (state === "wrong-selected") return optionGradedClass("wrong");
     return optionRowClass;
   }
 
