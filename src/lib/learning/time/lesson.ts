@@ -305,8 +305,8 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       { id: "duration", label: "O päť minút." },
       {
         id: "appointment",
-        label: "O tretej.",
-        whyWrong: oDurationAppointmentTrapWhy("O päť minút.", "O tretej."),
+        label: "O piatej.",
+        whyWrong: oDurationAppointmentTrapWhy("O päť minút.", "O piatej."),
       },
       {
         id: "wrong-count",

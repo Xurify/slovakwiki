@@ -6,7 +6,6 @@
 
 import {
   CASES,
-  possessiveEnglish,
   type GrammaticalCase,
   type Slot,
 } from "$lib/learning/possessives/paradigm";
@@ -102,12 +101,10 @@ export function demonstrativeEnglish(
 
 export interface NounEntry {
   english: string;
-  /** Something you order in the café scene (dať si). */
-  food: boolean;
   forms: Record<GrammaticalCase, string>;
   id: string;
   person: boolean;
-  /** Something you could ask the price of. */
+  /** Something you could ask the price of in a shop. */
   sold: boolean;
   slot: Slot;
 }
@@ -116,7 +113,7 @@ function noun(
   id: string,
   slot: Slot,
   english: string,
-  tags: { food?: boolean; person?: boolean; sold?: boolean },
+  tags: { person?: boolean; sold?: boolean },
   forms: [
     nominative: string,
     genitive: string,
@@ -131,18 +128,15 @@ function noun(
     id,
     slot,
     english,
-    food: tags.food ?? false,
     person: tags.person ?? false,
-    sold: (tags.sold ?? false) || (tags.food ?? false),
+    sold: tags.sold ?? false,
     forms: { nominative, genitive, dative, accusative, locative, instrumental },
   };
 }
 
 /**
- * Only nouns the lesson's scene or key terms show, so practice never tests a word
- * the learner has not met (`vocabulary.test.ts` checks it). English glosses are
- * gender-clear (man, girl) so agreement stays decidable. Dievča is neuter, deti and
- * ženy take tie: both are traps on purpose.
+ * People are gender-clear in English (man, girl) so agreement stays decidable.
+ * Dievča and dieťa are neuter, deti and ženy take tie: both are traps on purpose.
  */
 export const NOUNS: readonly NounEntry[] = [
   noun("muz", "masculine-animate", "man", { person: true }, [
@@ -177,6 +171,14 @@ export const NOUNS: readonly NounEntry[] = [
     "dievčati",
     "dievčaťom",
   ]),
+  noun("dieta", "neuter", "child", { person: true }, [
+    "dieťa",
+    "dieťaťa",
+    "dieťaťu",
+    "dieťa",
+    "dieťati",
+    "dieťaťom",
+  ]),
   noun("muzi", "plural-personal", "men", { person: true }, [
     "muži",
     "mužov",
@@ -192,6 +194,14 @@ export const NOUNS: readonly NounEntry[] = [
     "chlapcov",
     "chlapcoch",
     "chlapcami",
+  ]),
+  noun("ludia", "plural-personal", "people", { person: true }, [
+    "ľudia",
+    "ľudí",
+    "ľuďom",
+    "ľudí",
+    "ľuďoch",
+    "ľuďmi",
   ]),
   noun("kolegovia", "plural-personal", "colleagues", { person: true }, [
     "kolegovia",
@@ -217,6 +227,38 @@ export const NOUNS: readonly NounEntry[] = [
     "deťoch",
     "deťmi",
   ]),
+  noun("kluc", "masculine-inanimate", "key", {}, [
+    "kľúč",
+    "kľúča",
+    "kľúču",
+    "kľúč",
+    "kľúči",
+    "kľúčom",
+  ]),
+  noun("kufor", "masculine-inanimate", "suitcase", { sold: true }, [
+    "kufor",
+    "kufra",
+    "kufru",
+    "kufor",
+    "kufri",
+    "kufrom",
+  ]),
+  noun("telefon", "masculine-inanimate", "phone", { sold: true }, [
+    "telefón",
+    "telefónu",
+    "telefónu",
+    "telefón",
+    "telefóne",
+    "telefónom",
+  ]),
+  noun("dazdnik", "masculine-inanimate", "umbrella", { sold: true }, [
+    "dáždnik",
+    "dáždnika",
+    "dáždniku",
+    "dáždnik",
+    "dáždniku",
+    "dáždnikom",
+  ]),
   noun("dom", "masculine-inanimate", "house", { sold: true }, [
     "dom",
     "domu",
@@ -225,29 +267,13 @@ export const NOUNS: readonly NounEntry[] = [
     "dome",
     "domom",
   ]),
-  noun("kolac", "masculine-inanimate", "cake", { food: true }, [
-    "koláč",
-    "koláča",
-    "koláču",
-    "koláč",
-    "koláči",
-    "koláčom",
-  ]),
-  noun("torta", "feminine", "layer cake", { food: true }, [
-    "torta",
-    "torty",
-    "torte",
-    "tortu",
-    "torte",
-    "tortou",
-  ]),
-  noun("fotka", "feminine", "photo", {}, [
-    "fotka",
-    "fotky",
-    "fotke",
-    "fotku",
-    "fotke",
-    "fotkou",
+  noun("taska", "feminine", "bag", { sold: true }, [
+    "taška",
+    "tašky",
+    "taške",
+    "tašku",
+    "taške",
+    "taškou",
   ]),
   noun("kniha", "feminine", "book", { sold: true }, [
     "kniha",
@@ -257,13 +283,54 @@ export const NOUNS: readonly NounEntry[] = [
     "knihe",
     "knihou",
   ]),
-  noun("fotky", "plural", "photos", {}, [
-    "fotky",
-    "fotiek",
-    "fotkám",
-    "fotky",
-    "fotkách",
-    "fotkami",
+  noun("kava", "feminine", "coffee", { sold: true }, [
+    "káva",
+    "kávy",
+    "káve",
+    "kávu",
+    "káve",
+    "kávou",
+  ]),
+  noun("izba", "feminine", "room", {}, ["izba", "izby", "izbe", "izbu", "izbe", "izbou"]),
+  noun("auto", "neuter", "car", { sold: true }, [
+    "auto",
+    "auta",
+    "autu",
+    "auto",
+    "aute",
+    "autom",
+  ]),
+  noun("kreslo", "neuter", "armchair", { sold: true }, [
+    "kreslo",
+    "kresla",
+    "kreslu",
+    "kreslo",
+    "kresle",
+    "kreslom",
+  ]),
+  noun("pero", "neuter", "pen", { sold: true }, [
+    "pero",
+    "pera",
+    "peru",
+    "pero",
+    "pere",
+    "perom",
+  ]),
+  noun("kluce", "plural", "keys", {}, [
+    "kľúče",
+    "kľúčov",
+    "kľúčom",
+    "kľúče",
+    "kľúčoch",
+    "kľúčmi",
+  ]),
+  noun("okuliare", "plural", "glasses", { sold: true }, [
+    "okuliare",
+    "okuliarov",
+    "okuliarom",
+    "okuliare",
+    "okuliaroch",
+    "okuliarmi",
   ]),
   noun("knihy", "plural", "books", { sold: true }, [
     "knihy",
@@ -273,13 +340,13 @@ export const NOUNS: readonly NounEntry[] = [
     "knihách",
     "knihami",
   ]),
-  noun("kolace", "plural", "cakes", { food: true }, [
-    "koláče",
-    "koláčov",
-    "koláčom",
-    "koláče",
-    "koláčoch",
-    "koláčmi",
+  noun("kufre", "plural", "suitcases", { sold: true }, [
+    "kufre",
+    "kufrov",
+    "kufrom",
+    "kufre",
+    "kufroch",
+    "kuframi",
   ]),
 ];
 
@@ -300,10 +367,10 @@ export const SLOT_LABEL: Record<Slot, string> = {
 export const GOES_WITH: Record<Slot, string> = {
   "masculine-animate": "masculine nouns like **muž** or **dom**",
   "masculine-inanimate": "masculine nouns like **muž** or **dom**",
-  feminine: "feminine nouns like **žena** or **torta**",
-  neuter: "neuter nouns like **dievča**",
+  feminine: "feminine nouns like **žena** or **taška**",
+  neuter: "neuter nouns like **auto** or **dievča**",
   "plural-personal": "masculine nouns for people in the plural, like **muži**",
-  plural: "every other plural, like **ženy** or **fotky**",
+  plural: "every other plural, like **ženy** or **kľúče**",
 };
 
 export function demonstrativePhrase(
@@ -326,8 +393,8 @@ export function casesOfForm(
 }
 
 /**
- * Case frames built only from verbs and prepositions the lesson's scene uses.
- * `nouns` keeps each frame natural: Anna helps people, not cakes.
+ * Case frames with Anna as the subject. `nouns` keeps each frame natural:
+ * Anna helps people, not suitcases.
  */
 export interface CaseFrame {
   /** Teaching reason, already marked for the UI. */
@@ -341,10 +408,10 @@ export interface CaseFrame {
 export const CASE_FRAMES: readonly CaseFrame[] = [
   {
     grammaticalCase: "genitive",
-    because: "The owner after **dom** takes the genitive",
-    nouns: (entry) => entry.person,
-    slovak: (phrase) => `To je dom ${phrase}.`,
-    english: (phrase) => `That's ${possessiveEnglish(phrase)} house.`,
+    because: "**Bez** (without) takes the genitive",
+    nouns: (entry) => !entry.person && !["dom", "izba", "kreslo"].includes(entry.id),
+    slovak: (phrase) => `Anna nejde nikam bez ${phrase}.`,
+    english: (phrase) => `Anna doesn't go anywhere without ${phrase}.`,
   },
   {
     grammaticalCase: "dative",
@@ -355,31 +422,17 @@ export const CASE_FRAMES: readonly CaseFrame[] = [
   },
   {
     grammaticalCase: "accusative",
-    because: "**Poznať** (to know someone) takes the accusative",
-    nouns: (entry) => entry.person,
-    slovak: (phrase) => `Anna pozná ${phrase}.`,
-    english: (phrase) => `Anna knows ${phrase}.`,
-  },
-  {
-    grammaticalCase: "accusative",
-    because: "**Dať si** (to have, when ordering) takes the accusative",
-    nouns: (entry) => entry.food,
-    slovak: (phrase) => `Anna si dá ${phrase}.`,
-    english: (phrase) => `Anna will have ${phrase}.`,
+    because: "**Hľadať** (to look for) takes the accusative",
+    nouns: () => true,
+    slovak: (phrase) => `Anna hľadá ${phrase}.`,
+    english: (phrase) => `Anna is looking for ${phrase}.`,
   },
   {
     grammaticalCase: "locative",
-    because: "**Na** (in a photo) takes the locative",
-    nouns: (entry) => entry.id === "fotka" || entry.id === "fotky",
-    slovak: (phrase) => `Kto je na ${phrase}?`,
-    english: (phrase) => `Who is in ${phrase}?`,
-  },
-  {
-    grammaticalCase: "locative",
-    because: "**V** (in) takes the locative",
-    nouns: (entry) => entry.id === "dom",
-    slovak: (phrase) => `Marek býva v ${phrase}.`,
-    english: (phrase) => `Marek lives in ${phrase}.`,
+    because: "**O** (about) takes the locative",
+    nouns: () => true,
+    slovak: (phrase) => `Anna hovorí o ${phrase}.`,
+    english: (phrase) => `Anna is talking about ${phrase}.`,
   },
   {
     grammaticalCase: "instrumental",
