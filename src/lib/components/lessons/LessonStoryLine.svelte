@@ -6,11 +6,12 @@
   import { isLearnerSpeaker } from "$lib/lesson-story/story-cast";
   import { stopStoryLineAudio } from "$lib/lesson-story/story-audio";
   import type { DialogueTurn } from "$lib/learning/types";
+  import { fade } from "svelte/transition";
 
   /**
    * One line of a lesson dialogue, laid out like a script: portrait, speaker,
    * the Slovak line, its English underneath. The learner's own lines carry a
-   * light blue tint; every row enters with the shared `animate-rise`.
+   * light blue tint.
    */
   let {
     audioSrc,
@@ -38,7 +39,8 @@
 </script>
 
 <li
-  class="flex animate-rise list-none gap-3 border-b border-slate-200/70 px-4 py-4 last:border-b-0 sm:px-5 {learner
+  in:fade={{ duration: 120 }}
+  class="flex list-none gap-3 border-b border-slate-200/70 px-4 py-4 last:border-b-0 sm:px-5 {learner
     ? 'bg-blue-50/40'
     : ''} {newest ? 'story-line-newest' : ''}"
   data-story-en-open={englishVisible ? "" : undefined}

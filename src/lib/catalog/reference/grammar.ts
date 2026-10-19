@@ -441,6 +441,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Agreement in the nominative",
+      columns: ["the, that", "this", "that (over there)"],
       lines: [
         "Masculine: ten, tento, tamten",
         "Feminine: tá, táto, tamtá",

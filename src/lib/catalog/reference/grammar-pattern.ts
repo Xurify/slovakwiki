@@ -35,9 +35,15 @@ export interface PatternTile {
   example?: { english: string; slovak: MarkedPhrase };
 }
 
+export interface PatternGridRow {
+  label: string;
+  cells: MarkedPhrase[];
+}
+
 export type PatternView =
   | { kind: "paradigm"; singular: ParadigmCell[]; plural: ParadigmCell[] }
   | { kind: "tiles"; tiles: PatternTile[] }
+  | { kind: "grid"; columns: string[]; rows: PatternGridRow[] }
   | { kind: "rows"; rows: PatternRow[] };
 
 const PERSONS = [
@@ -132,6 +138,36 @@ export function addedPrefix(row: PatternRow): MarkedPhrase | undefined {
   return { before: "", mark: result.slice(0, result.length - main.length), after: main };
 }
 
+export function markAgainst(base: string, form: string): MarkedPhrase {
+  if (form !== base && form.startsWith(base)) {
+    return { before: base, mark: form.slice(base.length), after: "" };
+  }
+  if (form !== base && form.endsWith(base)) {
+    return { before: "", mark: form.slice(0, form.length - base.length), after: base };
+  }
+  return { before: form, mark: "", after: "" };
+}
+
+function parseGrid(rows: readonly PatternRow[], columns: readonly string[]) {
+  if (columns.length < 2) return undefined;
+
+  const split = rows.map((row) => row.main.split(", "));
+  const fits = rows.every(
+    (row, index) => row.label && !row.result && split[index]!.length === columns.length,
+  );
+  if (!fits) return undefined;
+
+  const gridRows: PatternGridRow[] = rows.map((row, index) => {
+    const forms = split[index]!;
+    return {
+      label: row.label!,
+      cells: forms.map((form) => markAgainst(forms[0]!, form)),
+    };
+  });
+
+  return { kind: "grid", columns: [...columns], rows: gridRows } satisfies PatternView;
+}
+
 function parseTiles(rows: readonly PatternRow[], examples: readonly Example[]) {
   const endings = rows.every((row) => row.label && row.main.startsWith("-"));
   if (!endings) return undefined;
@@ -156,12 +192,13 @@ function parseTiles(rows: readonly PatternRow[], examples: readonly Example[]) {
 export function parsePattern(
   lines: readonly string[],
   examples: readonly Example[] = [],
+  columns: readonly string[] = [],
 ): PatternView {
   const paradigm = parseParadigm(lines);
   if (paradigm) return paradigm;
 
   const rows = lines.map(parsePatternRow);
-  return parseTiles(rows, examples) ?? { kind: "rows", rows };
+  return parseGrid(rows, columns) ?? parseTiles(rows, examples) ?? { kind: "rows", rows };
 }
 
 /** Quarters and halves name the coming hour (štvrť na tri, pol tretej, trištvrte na tri). */

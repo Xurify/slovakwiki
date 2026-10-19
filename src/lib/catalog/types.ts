@@ -151,7 +151,6 @@ export interface ContentEntry {
   source: string;
   /** Visible attribution label for the Source section. Falls back in UI when omitted. */
   sourceLabel?: string;
-  /** Optional secondary attribution note. */
   sourceNote?: string;
   summary: string;
   tags: string[];
@@ -173,6 +172,7 @@ export interface ContentEntry {
 export interface GrammarPattern {
   label: string;
   lines: string[];
+  columns?: string[];
 }
 
 /** In-page sections for gloss-term deep links (e.g. #imperfective). */

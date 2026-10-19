@@ -162,6 +162,7 @@
         <div class="mt-3">
           <GrammarPatternList
             lines={topic.pattern.lines}
+            columns={topic.pattern.columns}
             examples={topic.examples}
             withClocks={isTime}
           />

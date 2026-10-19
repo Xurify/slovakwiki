@@ -20,13 +20,13 @@
 
   let {
     lines,
+    columns = [],
     examples = [],
     withClocks = false,
   }: {
     lines: string[];
-    /** Paired with ending tiles when there is one example per line. */
+    columns?: string[];
     examples?: Example[];
-    /** Show mini clock faces for `HH:MM → …` rows (telling-time). */
     withClocks?: boolean;
   } = $props();
 
@@ -65,7 +65,7 @@
     return { rows, extras };
   }
 
-  const view = $derived(withClocks ? undefined : parsePattern(lines, examples));
+  const view = $derived(withClocks ? undefined : parsePattern(lines, examples, columns));
   const time = $derived(withClocks ? splitTime(lines) : undefined);
 
   // Same card as the lessons FormTable and the dictionary FormsTable.
@@ -79,6 +79,9 @@
     "grid grid-cols-1 items-baseline gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5";
 
   const subheadClass = `${eyebrowMutedClass} border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 sm:px-5`;
+
+  const gridLabelCellClass = "py-2.5 pr-3 pl-4 text-left sm:pl-5";
+  const gridFormCellClass = "px-3 py-2.5 align-baseline last:pr-4 sm:last:pr-5";
 </script>
 
 {#snippet marked(phrase: MarkedPhrase)}
@@ -180,6 +183,56 @@
         </li>
       {/each}
     </ul>
+  </div>
+{:else if view?.kind === "grid"}
+  <div class={dataPanelClass}>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="border-b border-slate-200 bg-subtle/60">
+            <td class={gridLabelCellClass}></td>
+
+            {#each view.columns as column (column)}
+              <th
+                scope="col"
+                class={cx(
+                  eyebrowMutedClass,
+                  gridFormCellClass,
+                  "py-2 text-left sm:w-1/4",
+                )}
+              >
+                {column}
+              </th>
+            {/each}
+          </tr>
+        </thead>
+
+        <tbody>
+          {#each view.rows as row (row.label)}
+            <tr class="border-b border-slate-200/70 last:border-b-0">
+              <th
+                scope="row"
+                class={cx(
+                  gridLabelCellClass,
+                  "align-baseline text-sm leading-snug font-normal text-slate-500",
+                )}
+              >
+                {row.label}
+              </th>
+
+              {#each row.cells as cell, index (index)}
+                <td
+                  class={cx(grammarFormClass, gridFormCellClass, "whitespace-nowrap")}
+                  lang="sk"
+                >
+                  {@render marked(cell)}
+                </td>
+              {/each}
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
   </div>
 {:else if view?.kind === "paradigm"}
   <div class={dataPanelClass}>

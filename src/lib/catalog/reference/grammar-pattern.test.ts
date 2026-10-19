@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { grammarEntries } from "./grammar";
 import {
   addedPrefix,
+  markAgainst,
   markSuffix,
   namesHourAhead,
   parsePattern,
@@ -12,7 +13,7 @@ import {
 function patternFor(slug: string) {
   const topic = grammarEntries.find((entry) => entry.slug === slug);
   if (!topic) throw new Error(`missing ${slug}`);
-  return parsePattern(topic.pattern.lines, topic.examples);
+  return parsePattern(topic.pattern.lines, topic.examples, topic.pattern.columns);
 }
 
 describe("parsePattern", () => {
@@ -66,6 +67,16 @@ describe("parsePattern", () => {
       mark: "á",
       after: " žena",
     });
+  });
+
+  it("lays out labelled form lists as a grid when columns are given", () => {
+    const view = patternFor("demonstratives");
+    expect(view.kind).toBe("grid");
+    if (view.kind !== "grid") return;
+
+    expect(view.columns).toHaveLength(3);
+    expect(view.rows.map((row) => row.label)).toContain("Feminine");
+    expect(view.rows[1]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
   });
 
   it("falls back to rows for everything else", () => {
@@ -126,6 +137,18 @@ describe("addedPrefix", () => {
     expect(
       addedPrefix(parsePatternRow("subject + verb + object → neutral")),
     ).toBeUndefined();
+  });
+});
+
+describe("markAgainst", () => {
+  it("marks an added suffix or prefix, and nothing otherwise", () => {
+    expect(markAgainst("tá", "táto")).toEqual({ before: "tá", mark: "to", after: "" });
+    expect(markAgainst("tie", "tamtie")).toEqual({
+      before: "",
+      mark: "tam",
+      after: "tie",
+    });
+    expect(markAgainst("ten", "ten")).toEqual({ before: "ten", mark: "", after: "" });
   });
 });
 
