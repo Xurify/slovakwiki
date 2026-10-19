@@ -189,7 +189,7 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
           id: "other-plural",
           label: line(otherPlural),
           whyWrong: personal
-            ? `**${capitalizeSlovak(otherPlural)}** is for every other plural: **${otherPlural} ženy**, **${otherPlural} kľúče**.`
+            ? `**${capitalizeSlovak(otherPlural)}** is for every other plural: **${otherPlural} ženy**, **${otherPlural} fotky**.`
             : `**${capitalizeSlovak(otherPlural)}** is only for masculine nouns for people: **${otherPlural} muži**.`,
         },
         {
@@ -260,7 +260,7 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
   };
 }
 
-/** Wrong tiles for “Chcem túto tašku, nie tamtú”, each with its note. */
+/** Wrong tiles for “Dám si túto tortu, nie tamtú”, each with its note. */
 function thisNotThatTraps(
   entry: NounEntry,
 ): Array<{ near: string; far: string; why: (form: string) => string }> {
@@ -274,7 +274,7 @@ function thisNotThatTraps(
         near: demonstrativeForm("tento", "feminine", "nominative"),
         far: demonstrativeForm("tamten", "feminine", "nominative"),
         why: (form) =>
-          `**${capitalizeSlovak(form)}** is the subject form. **Chcieť** takes the accusative: **${near} ${noun}**, **${far}**.`,
+          `**${capitalizeSlovak(form)}** is the subject form. **Dať si** takes the accusative: **${near} ${noun}**, **${far}**.`,
       },
     ];
   }
@@ -303,16 +303,16 @@ function thisNotThatTraps(
 
 export function buildThisNotThatExercise(kind: string, rng: Rng): BuildExercise {
   const entry = pick(
-    nounsWhere((candidate) => candidate.sold),
+    nounsWhere((candidate) => candidate.food),
     rng,
   );
   const plural = isPluralSlot(entry.slot);
   const near = demonstrativeForm("tento", entry.slot, "accusative");
   const far = demonstrativeForm("tamten", entry.slot, "accusative");
-  const answer = ["Chcem", near, `${entry.forms.accusative},`, "nie", `${far}.`];
+  const answer = ["Dám", "si", near, `${entry.forms.accusative},`, "nie", `${far}.`];
   const english = plural
-    ? `I want these ${entry.english}, not those.`
-    : `I want this ${entry.english}, not that one.`;
+    ? `I'll have these ${entry.english}, not those.`
+    : `I'll have this ${entry.english}, not that one.`;
 
   const traps = thisNotThatTraps(entry);
   const trapTiles = traps.flatMap((trap) => [trap.near, `${trap.far}.`]);
@@ -332,7 +332,7 @@ export function buildThisNotThatExercise(kind: string, rng: Rng): BuildExercise 
     feedback: {
       correction: answer.join(" "),
       english,
-      why: `**Tento** points at the one near you and **tamten** at the one over there. **Chcieť** takes the accusative, and both agree with **${entry.forms.accusative}**: **${near}**, **${far}**.`,
+      why: `**Tento** points at the one near you and **tamten** at the one over there. **Dať si** takes the accusative, and both agree with **${entry.forms.accusative}**: **${near}**, **${far}**.`,
     },
   };
 }
@@ -490,7 +490,7 @@ export function buildAnimateAccusativeExercise(kind: string, rng: Rng): ChoiceEx
       {
         id: "things",
         label: line(`${thingForm} ${accusative}`),
-        whyWrong: `**${capitalizeSlovak(thingForm)}** is the accusative for every other plural (**${thingForm} kľúče**). Masculine nouns for people take **${objectForm}**.`,
+        whyWrong: `**${capitalizeSlovak(thingForm)}** is the accusative for every other plural (**${thingForm} fotky**). Masculine nouns for people take **${objectForm}**.`,
       },
       {
         id: "nominative",
@@ -524,9 +524,9 @@ interface RepairItem {
 
 const REPAIR_ITEMS: readonly RepairItem[] = [
   {
-    broken: "Tá dievča je moja sestra.",
-    answer: "To dievča je moja sestra.",
-    english: "That girl is my sister.",
+    broken: "Kto je tá dievča?",
+    answer: "Kto je to dievča?",
+    english: "Who is that girl?",
     mistakes: [
       {
         wrong: "tá",
@@ -541,9 +541,9 @@ const REPAIR_ITEMS: readonly RepairItem[] = [
     why: "**Dievča** names a girl, but the noun is neuter: **to dievča**.",
   },
   {
-    broken: "Tí deti sa hrajú vonku.",
-    answer: "Tie deti sa hrajú vonku.",
-    english: "Those children are playing outside.",
+    broken: "Kde sú tí deti?",
+    answer: "Kde sú tie deti?",
+    english: "Where are those children?",
     mistakes: [
       {
         wrong: "tí",
@@ -552,6 +552,19 @@ const REPAIR_ITEMS: readonly RepairItem[] = [
       },
     ],
     why: "Only masculine nouns for people take **tí**. **Deti** names people, but it takes **tie**: **tie deti**.",
+  },
+  {
+    broken: "Tí fotky sú z leta.",
+    answer: "Tie fotky sú z leta.",
+    english: "Those photos are from the summer.",
+    mistakes: [
+      {
+        wrong: "tí",
+        whyWrong:
+          "**Tí** is only for masculine nouns for people. **Fotky** takes **tie**.",
+      },
+    ],
+    why: "**Fotky** are things, and every plural except masculine nouns for people takes **tie**: **tie fotky**.",
   },
   {
     broken: "Poznáš ten muža?",
@@ -776,12 +789,7 @@ export function buildTypedExercise(kind: string, rng: Rng): TypedExercise {
 
 const ROLE_VERBS = [
   { first: "Poznám", third: "pozná", english: "I know", thirdEnglish: "knows" },
-  {
-    first: "Hľadám",
-    third: "hľadá",
-    english: "I'm looking for",
-    thirdEnglish: "is looking for",
-  },
+  { first: "Vidím", third: "vidí", english: "I see", thirdEnglish: "sees" },
 ] as const;
 
 export function buildRoleOddOneOutExercise(kind: string, rng: Rng): ChoiceExercise {
@@ -844,7 +852,7 @@ export function buildRoleOddOneOutExercise(kind: string, rng: Rng): ChoiceExerci
 
 export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise {
   const entry = pick(
-    nounsWhere((candidate) => candidate.sold),
+    nounsWhere((candidate) => candidate.food),
     rng,
   );
   const near = rng() < 0.5;
@@ -853,15 +861,15 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
   const noun = entry.forms.accusative;
   const correct = demonstrativeForm(series, entry.slot, "accusative");
   const other = demonstrativeForm(otherSeries, entry.slot, "accusative");
-  const line = (form: string) => `Chcem ${form} ${noun}.`;
-  const english = `I want ${demonstrativeEnglish(series, entry)}.`;
+  const line = (form: string) => `Dám si ${form} ${noun}.`;
+  const english = `I'll have ${demonstrativeEnglish(series, entry)}.`;
 
   let agreementTrap: { form: string; whyWrong: string };
   if (entry.slot === "feminine") {
     const form = demonstrativeForm(series, "feminine", "nominative");
     agreementTrap = {
       form,
-      whyWrong: `**${capitalizeSlovak(form)}** is the subject form. **Chcieť** takes the accusative: **${correct} ${noun}**.`,
+      whyWrong: `**${capitalizeSlovak(form)}** is the subject form. **Dať si** takes the accusative: **${correct} ${noun}**.`,
     };
   } else if (isPluralSlot(entry.slot)) {
     const form = demonstrativeForm(series, "plural-personal", "nominative");

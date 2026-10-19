@@ -38,6 +38,12 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
           note: "Literally, halfway to three.",
           audio: { transcript: "O pol tretej." },
         },
+        {
+          slovak: "O pol druhej.",
+          english: "1:30 — half past one.",
+          note: "Pol counts toward the next hour: halfway to two.",
+          audio: { transcript: "O pol druhej." },
+        },
       ],
     },
   },
@@ -128,8 +134,8 @@ export function withDaysDatesTimeExercises(
     { ...shells[0]!, exercises: rest.slice(0, 2) },
     { ...(clockTeach ?? shells[1]!), exercises: rest.slice(2, 5) },
     { ...shells[2]!, exercises: rest.slice(5, 8) },
-    { ...shells[3]!, exercises: rest.slice(8, 10) },
-    { ...shells[4]!, exercises: rest.slice(10, 12) },
+    { ...shells[3]!, exercises: rest.slice(8, 9) },
+    { ...shells[4]!, exercises: rest.slice(9, 12) },
     { ...shells[5]!, exercises: personal ? [personal] : [] },
   ];
 }

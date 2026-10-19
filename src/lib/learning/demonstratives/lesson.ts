@@ -55,10 +55,27 @@ const marekLine = markedText([
   " dome vedľa nás.",
 ]);
 
-const cakeLine = markedText([
-  "Dám si ",
+const helpsLine = markedText([
+  { role: "demonstrative", text: "Ten" },
+  " muž nám často pomáha.",
+]);
+
+const cinemaLine = markedText([
+  "Dnes večer ide s ",
+  { role: "demonstrative", text: "tými" },
+  " kolegami do kina.",
+]);
+
+const priceLine = markedText([
+  "Koľko stojí ",
   { role: "demonstrative", text: "tento" },
-  " koláč, prosím.",
+  " koláč?",
+]);
+
+const cakeLine = markedText([
+  "Dobre, dám si ",
+  { role: "demonstrative", text: "tento" },
+  " koláč.",
 ]);
 
 const tortaLine = markedText([
@@ -70,28 +87,28 @@ const tortaLine = markedText([
 /** Graded exercises in beat order: 3 · 2 · 3 · 3 · 3 · 2. */
 export const demonstrativesGradedExercises: LessonExercise[] = [
   {
-    id: "demonstrative-where-bag",
+    id: "demonstrative-brother",
     type: "choice",
     practiceItemId: "grammar/demonstrative-agreement",
-    prompt: "Where is that bag?",
+    prompt: "Is that man your brother?",
     choices: [
-      { id: "feminine", label: "Kde je tá taška?" },
+      { id: "masculine", label: "Je ten muž tvoj brat?" },
       {
-        id: "masculine",
-        label: "Kde je ten taška?",
-        whyWrong: "**Ten** goes with masculine nouns like **muž** or **dom**.",
+        id: "feminine",
+        label: "Je tá muž tvoj brat?",
+        whyWrong: "**Tá** goes with feminine nouns like **žena**.",
       },
       {
         id: "neuter",
-        label: "Kde je to taška?",
-        whyWrong: "**To** goes with neuter nouns like **auto** or **dievča**.",
+        label: "Je to muž tvoj brat?",
+        whyWrong: "Before a noun, **to** is for neuter nouns like **dievča**.",
       },
     ],
-    answerId: "feminine",
+    answerId: "masculine",
     feedback: {
-      correction: "Kde je tá taška?",
-      english: "Where is that bag?",
-      why: "**Taška** is feminine, so: **tá taška**.",
+      correction: "Je ten muž tvoj brat?",
+      english: "Is that man your brother?",
+      why: "**Muž** is masculine, so: **ten muž**.",
     },
   },
   {
@@ -110,7 +127,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
       {
         id: "masculine",
         label: "Kto je ten dievča?",
-        whyWrong: "**Ten** goes with masculine nouns like **muž** or **dom**.",
+        whyWrong: "**Ten** goes with masculine nouns like **muž**.",
       },
     ],
     answerId: "neuter",
@@ -121,195 +138,196 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     },
   },
   {
-    id: "demonstrative-where-car",
+    id: "demonstrative-where-woman",
     type: "typed",
     task: "complete",
     practiceItemId: "grammar/demonstrative-agreement",
-    prompt: "Where is that car?",
+    prompt: "Where is that woman?",
     inputLabel: "Your Slovak answer",
-    answer: "Kde je to auto?",
-    acceptedAnswers: ["Kde je tamto auto?"],
+    answer: "Kde je tá žena?",
+    acceptedAnswers: ["Kde je tamtá žena?"],
     mistakes: [
       {
         wrong: "ten",
-        whyWrong: "**Ten** goes with masculine nouns. **Auto** is neuter: **to auto**.",
+        whyWrong: "**Ten** goes with masculine nouns. **Žena** is feminine: **tá žena**.",
       },
       {
-        wrong: "tá",
-        whyWrong: "**Tá** goes with feminine nouns. **Auto** is neuter: **to auto**.",
+        wrong: "to",
+        whyWrong: "**To** goes with neuter nouns. **Žena** is feminine: **tá žena**.",
       },
     ],
     feedback: {
-      correction: "Kde je to auto?",
-      english: "Where is that car?",
-      why: "**Auto** is neuter, so: **to auto**.",
+      correction: "Kde je tá žena?",
+      english: "Where is that woman?",
+      why: "**Žena** is feminine, so: **tá žena**.",
     },
   },
   {
-    id: "demonstrative-sister",
+    id: "demonstrative-wife",
     type: "choice",
     practiceItemId: "grammar/demonstrative-to-je",
-    prompt: "This is my sister.",
+    prompt: "That's his wife.",
     choices: [
-      { id: "to", label: "To je moja sestra." },
+      { id: "to", label: "To je jeho žena." },
       {
         id: "ta",
-        label: "Tá je moja sestra.",
+        label: "Tá je jeho žena.",
         whyWrong:
-          "**Tá** on its own singles out one woman from a group (“that one is my sister”). To say who someone is, use **to**.",
+          "**Tá** on its own singles out one woman from a group (“that one is his wife”). To say who someone is, use **to**.",
       },
       {
         id: "plural",
-        label: "To sú moja sestra.",
-        whyWrong: "**Sú** is plural. One sister takes **je**.",
+        label: "To sú jeho žena.",
+        whyWrong: "**Sú** is plural. One wife takes **je**.",
       },
     ],
     answerId: "to",
     feedback: {
-      correction: "To je moja sestra.",
-      english: "This is my sister.",
-      why: "On its own, **to** never changes, whoever you name: **To je moja sestra**.",
+      correction: "To je jeho žena.",
+      english: "That's his wife.",
+      why: "On its own, **to** never changes, whoever you name: **To je jeho žena**.",
     },
   },
   {
-    id: "demonstrative-parents-odd-one-out",
+    id: "demonstrative-children-odd-one-out",
     type: "choice",
     practiceItemId: "grammar/demonstrative-to-je",
     choiceMode: "pickTrap",
-    prompt: "Which sentence does not mean “These are my parents”?",
+    prompt: "Which sentence does not mean “These are his children”?",
     choices: [
       {
         id: "to",
-        label: "To sú moji rodičia.",
+        label: "To sú jeho deti.",
         fits: true,
         whyWrong:
-          "**To sú moji rodičia** fits — **to** on its own never changes; only the verb is plural.",
+          "**To sú jeho deti** fits — **to** on its own never changes; only the verb is plural.",
       },
       {
         id: "toto",
-        label: "Toto sú moji rodičia.",
+        label: "Toto sú jeho deti.",
         fits: true,
         whyWrong:
-          "**Toto sú moji rodičia** fits — **toto** points a little harder, like *these here*.",
+          "**Toto sú jeho deti** fits — **toto** points a little harder, like *these here*.",
       },
       {
-        id: "ti",
-        label: "Tí rodičia sú moji.",
+        id: "tie",
+        label: "Tie deti sú jeho.",
         whyWrong:
-          "**Tí rodičia sú moji** means “Those parents are mine.” **Tí** sits before a noun, so it points at those parents.",
+          "**Tie deti sú jeho** means “Those children are his.” **Tie** sits before a noun, so it points at those children.",
       },
     ],
-    answerId: "ti",
+    answerId: "tie",
     feedback: {
-      correction: "Tí rodičia sú moji.",
-      english: "Those parents are mine.",
-      why: "**Tí** before a noun points at those parents: “Those parents are mine.” **To** on its own says who they are: **To sú moji rodičia**.",
+      correction: "Tie deti sú jeho.",
+      english: "Those children are his.",
+      why: "**Tie** before a noun points at those children: “Those children are his.” **To** on its own says who they are: **To sú jeho deti**.",
     },
   },
   {
-    id: "demonstrative-people",
+    id: "demonstrative-colleagues",
     type: "choice",
     practiceItemId: "grammar/demonstrative-plural",
-    prompt: "Who are those people?",
+    prompt: "Where are those colleagues?",
     choices: [
-      { id: "personal", label: "Kto sú tí ľudia?" },
+      { id: "personal", label: "Kde sú tí kolegovia?" },
       {
         id: "other-plural",
-        label: "Kto sú tie ľudia?",
+        label: "Kde sú tie kolegovia?",
         whyWrong:
-          "**Tie** is for every other plural. **Ľudia** is a masculine noun for people: **tí ľudia**.",
+          "**Tie** is for every other plural. **Kolegovia** is a masculine noun for people: **tí kolegovia**.",
       },
       {
         id: "singular",
-        label: "Kto je ten ľudia?",
-        whyWrong: "**Ten** and **je** are singular. **Ľudia** is plural.",
+        label: "Kde je ten kolegovia?",
+        whyWrong: "**Ten** and **je** are singular. **Kolegovia** is plural.",
       },
     ],
     answerId: "personal",
     feedback: {
-      correction: "Kto sú tí ľudia?",
-      english: "Who are those people?",
-      why: "Masculine nouns for people take **tí** in the plural: **tí ľudia**.",
+      correction: "Kde sú tí kolegovia?",
+      english: "Where are those colleagues?",
+      why: "Masculine nouns for people take **tí** in the plural: **tí kolegovia**.",
     },
   },
   {
     id: "demonstrative-children",
     type: "choice",
     practiceItemId: "grammar/demonstrative-plural",
-    prompt: "Those children are playing outside.",
+    prompt: "Where are those children?",
     choices: [
-      { id: "tie", label: "Tie deti sa hrajú vonku." },
+      { id: "tie", label: "Kde sú tie deti?" },
       {
         id: "ti",
-        label: "Tí deti sa hrajú vonku.",
+        label: "Kde sú tí deti?",
         whyWrong:
           "**Tí** is only for masculine nouns for people. **Deti** takes **tie**.",
       },
       {
         id: "to",
-        label: "To deti sa hrajú vonku.",
-        whyWrong: "**To** is singular, as in **to dieťa**. The plural is **tie deti**.",
+        label: "Kde je to deti?",
+        whyWrong:
+          "**To** and **je** are singular, as in **to dievča**. **Deti** is plural.",
       },
     ],
     answerId: "tie",
     feedback: {
-      correction: "Tie deti sa hrajú vonku.",
-      english: "Those children are playing outside.",
+      correction: "Kde sú tie deti?",
+      english: "Where are those children?",
       why: "**Deti** names people, but only masculine nouns for people take **tí**: **tie deti**.",
     },
   },
   {
-    id: "demonstrative-keys-repair",
+    id: "demonstrative-photos-repair",
     type: "typed",
     task: "repair",
     practiceItemId: "grammar/demonstrative-repair",
     context: [
       {
-        id: "lesson-keys-broken",
+        id: "lesson-photos-broken",
         speaker: "Sentence",
-        slovak: "Tí kľúče sú moje.",
-        english: "Those keys are mine.",
+        slovak: "Tí fotky sú z leta.",
+        english: "Those photos are from the summer.",
       },
     ],
     prompt: "Repair this sentence.",
     inputLabel: "Correct Slovak sentence",
-    answer: "Tie kľúče sú moje.",
+    answer: "Tie fotky sú z leta.",
     mistakes: [
       {
         wrong: "tí",
         whyWrong:
-          "**Tí** is only for masculine nouns for people. **Kľúče** takes **tie**.",
+          "**Tí** is only for masculine nouns for people. **Fotky** takes **tie**.",
       },
     ],
     feedback: {
-      correction: "Tie kľúče sú moje.",
-      english: "Those keys are mine.",
-      why: "**Kľúče** are things, and every plural except masculine nouns for people takes **tie**: **tie kľúče**.",
+      correction: "Tie fotky sú z leta.",
+      english: "Those photos are from the summer.",
+      why: "**Fotky** are things, and every plural except masculine nouns for people takes **tie**: **tie fotky**.",
     },
   },
   {
-    id: "demonstrative-help-boy",
+    id: "demonstrative-help-man",
     type: "choice",
     practiceItemId: "grammar/demonstrative-case-choice",
-    prompt: "Anna is helping that boy.",
+    prompt: "Anna is helping that man.",
     choices: [
-      { id: "dative", label: "Anna pomáha tomu chlapcovi." },
+      { id: "dative", label: "Anna pomáha tomu mužovi." },
       {
         id: "genitive",
-        label: "Anna pomáha toho chlapcovi.",
+        label: "Anna pomáha toho mužovi.",
         whyWrong: "**Toho** is the genitive or accusative form.",
       },
       {
         id: "nominative",
-        label: "Anna pomáha ten chlapec.",
-        whyWrong: "**Ten chlapec** is the subject form. **Pomáhať** takes the dative.",
+        label: "Anna pomáha ten muž.",
+        whyWrong: "**Ten muž** is the subject form. **Pomáhať** takes the dative.",
       },
     ],
     answerId: "dative",
     feedback: {
-      correction: "Anna pomáha tomu chlapcovi.",
-      english: "Anna is helping that boy.",
-      why: "**Pomáhať** (to help) takes the dative, and the demonstrative follows its noun: **tomu chlapcovi**.",
+      correction: "Anna pomáha tomu mužovi.",
+      english: "Anna is helping that man.",
+      why: "**Pomáhať** (to help) takes the dative, and the demonstrative follows its noun: **tomu mužovi**.",
     },
   },
   {
@@ -320,7 +338,11 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     prompt: "I'm going to the cinema with that woman.",
     inputLabel: "Your Slovak answer",
     answer: "Idem do kina s tou ženou.",
-    acceptedAnswers: ["Idem do kina s tamtou ženou."],
+    acceptedAnswers: [
+      "Idem s tou ženou do kina.",
+      "Idem do kina s tamtou ženou.",
+      "Idem s tamtou ženou do kina.",
+    ],
     mistakes: [
       {
         wrong: "tú",
@@ -406,55 +428,54 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     },
   },
   {
-    id: "demonstrative-bag-not-that",
+    id: "demonstrative-torta-not-that",
     type: "build",
     practiceItemId: "grammar/demonstrative-this-not-that",
-    prompt: "I want this bag, not that one.",
-    tiles: ["tašku,", "Chcem", "tamtú.", "táto", "nie", "túto", "tamtá."],
-    answer: ["Chcem", "túto", "tašku,", "nie", "tamtú."],
+    prompt: "I'll have this layer cake, not that one.",
+    tiles: ["tortu,", "Dám", "tamtú.", "táto", "si", "nie", "túto", "tamtá."],
+    answer: ["Dám", "si", "túto", "tortu,", "nie", "tamtú."],
     mistakes: [
       {
         wrong: "táto",
         whyWrong:
-          "**Táto** is the subject form. **Chcieť** takes the accusative: **túto tašku**.",
+          "**Táto** is the subject form. **Dať si** takes the accusative: **túto tortu**.",
       },
       {
         wrong: "tamtá",
-        whyWrong: "**Tamtá** is the subject form. After **chcem**, use **tamtú**.",
+        whyWrong: "**Tamtá** is the subject form. After **dám si**, use **tamtú**.",
       },
     ],
     feedback: {
-      correction: "Chcem túto tašku, nie tamtú.",
-      english: "I want this bag, not that one.",
-      why: "**Tento** points at the one near you, **tamten** at the one over there. **Chcieť** takes the accusative: **túto tašku**, **nie tamtú**.",
+      correction: "Dám si túto tortu, nie tamtú.",
+      english: "I'll have this layer cake, not that one.",
+      why: "**Tento** points at the one near you, **tamten** at the one over there. **Dať si** takes the accusative: **túto tortu**, **nie tamtú**.",
     },
   },
   {
-    id: "demonstrative-book-price",
+    id: "demonstrative-torta-price",
     type: "typed",
     task: "complete",
     practiceItemId: "grammar/demonstrative-typed",
-    prompt: "How much is this book?",
+    prompt: "How much is that layer cake?",
     inputLabel: "Your Slovak answer",
-    answer: "Koľko stojí táto kniha?",
-    acceptedAnswers: ["Koľko stojí tá kniha?"],
+    answer: "Koľko stojí tá torta?",
+    acceptedAnswers: ["Koľko stojí tamtá torta?"],
     mistakes: [
       {
-        wrong: "tento",
+        wrong: "ten",
         whyWrong:
-          "**Tento** goes with masculine nouns. **Kniha** is feminine: **táto kniha**.",
+          "**Ten** goes with masculine nouns. **Torta** is feminine: **tá torta**.",
       },
       {
-        wrong: "toto",
-        whyWrong:
-          "**Toto** goes with neuter nouns. **Kniha** is feminine: **táto kniha**.",
+        wrong: "tú",
+        whyWrong: "**Tú** is the accusative. The subject of **stojí** takes **tá**.",
       },
-      { wrong: "stoja", whyWrong: "**Stoja** is plural. One book: **stojí**." },
+      { wrong: "stoja", whyWrong: "**Stoja** is plural. One layer cake: **stojí**." },
     ],
     feedback: {
-      correction: "Koľko stojí táto kniha?",
-      english: "How much is this book?",
-      why: "**Kniha** is feminine, so **tento** becomes **táto**: **táto kniha**.",
+      correction: "Koľko stojí tá torta?",
+      english: "How much is that layer cake?",
+      why: "**Torta** is feminine, so: **tá torta**.",
     },
   },
   {
@@ -519,7 +540,7 @@ export const demonstrativesPersonalExercise: LessonExercise = {
   type: "personal",
   prompt:
     "Point at three things or people around you — one masculine, one feminine, and one plural — and say one sentence about each.",
-  example: "Tento stôl je starý. Tá žena je moja kolegyňa. Tieto knihy sú moje.",
+  example: "Tento koláč je dobrý. Tá žena je moja kolegyňa. Tieto knihy sú moje.",
 };
 
 export const demonstrativesLesson: Lesson = {
@@ -675,6 +696,22 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: marekLine.text },
     },
     {
+      id: "anna-helps",
+      speaker: "Anna",
+      slovak: helpsLine.text,
+      marks: helpsLine.marks,
+      english: "That man often helps us.",
+      audio: { transcript: helpsLine.text },
+    },
+    {
+      id: "anna-cinema",
+      speaker: "Anna",
+      slovak: cinemaLine.text,
+      marks: cinemaLine.marks,
+      english: "Tonight he's going to the cinema with those colleagues.",
+      audio: { transcript: cinemaLine.text },
+    },
+    {
       id: "waiter-order",
       speaker: "Waiter",
       slovak: "Dobrý deň. Čo si dáte?",
@@ -682,25 +719,58 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: "Dobrý deň. Čo si dáte?" },
     },
     {
-      id: "you-this-cake",
+      id: "you-price",
       speaker: "You",
-      slovak: cakeLine.text,
-      marks: cakeLine.marks,
-      english: "I'll have this cake, please.",
-      audio: { transcript: cakeLine.text },
+      slovak: priceLine.text,
+      marks: priceLine.marks,
+      english: "How much is this cake?",
+      audio: { transcript: priceLine.text },
       sayChoices: {
         answerId: "masculine",
         choices: [
-          { id: "masculine", label: "Dám si tento koláč, prosím." },
+          { id: "masculine", label: "Koľko stojí tento koláč?" },
           {
             id: "feminine",
-            label: "Dám si táto koláč, prosím.",
+            label: "Koľko stojí táto koláč?",
             whyWrong:
               "**Táto** goes with feminine nouns like **torta**. **Koláč** is masculine: **tento koláč**.",
           },
           {
+            id: "neuter",
+            label: "Koľko stojí toto koláč?",
+            whyWrong:
+              "**Toto** goes with neuter nouns like **dievča**. **Koláč** is masculine: **tento koláč**.",
+          },
+        ],
+      },
+    },
+    {
+      id: "waiter-price",
+      speaker: "Waiter",
+      slovak: "Tri eurá.",
+      english: "Three euros.",
+      audio: { transcript: "Tri eurá." },
+    },
+    {
+      id: "you-this-cake",
+      speaker: "You",
+      slovak: cakeLine.text,
+      marks: cakeLine.marks,
+      english: "OK, I'll have this cake.",
+      audio: { transcript: cakeLine.text },
+      sayChoices: {
+        answerId: "masculine",
+        choices: [
+          { id: "masculine", label: "Dobre, dám si tento koláč." },
+          {
+            id: "feminine",
+            label: "Dobre, dám si túto koláč.",
+            whyWrong:
+              "**Túto** goes with feminine nouns, like **tortu**. **Koláč** is masculine: **tento koláč**.",
+          },
+          {
             id: "person",
-            label: "Dám si tohto koláč, prosím.",
+            label: "Dobre, dám si tohto koláč.",
             whyWrong:
               "**Tohto** is for people in the accusative (**tohto muža**). A thing keeps the basic form: **tento koláč**.",
           },

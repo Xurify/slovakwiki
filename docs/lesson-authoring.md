@@ -32,6 +32,7 @@ The scene is a real conversation that the beats replay in pieces.
 - [ ] Optional `teach.note` (one or two sentences) and `teach.visual`. Paradigm tables use `form-table`: put long labels in rows, short forms in columns, so the table fits a phone. A beat can hold several visuals.
 - [ ] Grammar labels in full, no abbreviations: “Masculine”, “Nominative”, “Singular”, with the Slovak term beside it (`mužský rod`, `nominatív`, `jednotné číslo`). Gender belongs to the word — say “masculine nouns for people”, never “men”.
 - [ ] Exercises: prompts are the English target line or a direct question (see the content doc). No instructions wrapped around them.
+- [ ] Exercises use only words the learner has already met: in a scene line, key term, or table of this beat or an earlier one. A lesson that teaches endings can test new forms of a word it showed (taška → tašku), not new words. Generated practice draws only from nouns and verbs the lesson shows. `src/lib/learning/vocabulary.test.ts` enforces both.
 - [ ] Every exercise has `feedback.why` with key terms in `**double asterisks**` (a test enforces this).
 - [ ] Every wrong choice has a `whyWrong` (a test enforces this). It explains only that pick — never repeat the `why`, which shows right next to it.
 - [ ] Odd-one-out prompts contain “does not mean” and have exactly one trap; every fitting option still gets a `whyWrong` saying why it fits.

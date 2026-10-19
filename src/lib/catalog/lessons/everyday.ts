@@ -357,14 +357,14 @@ export const everydayLessons: Lesson[] = [
         choices: [
           { id: "age", label: "Mám dvadsaťosem rokov." },
           {
-            id: "number",
-            label: "Moje číslo je dvadsaťosem.",
-            whyWrong: "**Moje číslo je …** gives a phone number — not your age.",
+            id: "byt",
+            label: "Som dvadsaťosem rokov.",
+            whyWrong: "Age uses **mať**, not **byť**: **Mám … rokov**.",
           },
           {
-            id: "price",
-            label: "Stojí to dvadsaťosem eur.",
-            whyWrong: "**Stojí to … eur** states a price — not your age.",
+            id: "roky",
+            label: "Mám dvadsaťosem roky.",
+            whyWrong: "**Roky** goes with 2, 3, and 4. From five on, use **rokov**.",
           },
         ],
         answerId: "age",

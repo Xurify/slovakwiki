@@ -305,8 +305,8 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
       { id: "duration", label: "O päť minút." },
       {
         id: "appointment",
-        label: "O piatej.",
-        whyWrong: oDurationAppointmentTrapWhy("O päť minút.", "O piatej."),
+        label: "O tretej.",
+        whyWrong: oDurationAppointmentTrapWhy("O päť minút.", "O tretej."),
       },
       {
         id: "wrong-count",
@@ -474,6 +474,12 @@ export const daysDatesTimeLesson: Lesson = {
       english: "2:30 — half past two.",
       note: "Literally, halfway to three.",
       audio: { transcript: "O pol tretej." },
+    },
+    {
+      slovak: "O pol druhej.",
+      english: "1:30 — half past one.",
+      note: "Pol counts toward the next hour: halfway to two.",
+      audio: { transcript: "O pol druhej." },
     },
     {
       slovak: "O štvrť na tri.",

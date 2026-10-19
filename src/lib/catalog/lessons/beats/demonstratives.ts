@@ -201,7 +201,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "cases",
     title: "In every case",
     teach: {
-      sceneLineIds: ["you-know-man", "anna-marek"],
+      sceneLineIds: ["you-know-man", "anna-marek", "anna-helps", "anna-cinema"],
       phrases: [
         {
           slovak: "Poznám toho muža.",
@@ -216,6 +216,12 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Vidím ten dom." },
         },
         {
+          slovak: "tomu mužovi",
+          english: "to that man",
+          note: "Dative: **tomu** · **tej** · **tým**",
+          audio: { transcript: "tomu mužovi" },
+        },
+        {
           slovak: "v tom dome",
           english: "in that house",
           note: "Locative: **tom** · **tej** · **tých**",
@@ -228,7 +234,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "s tou ženou" },
         },
       ],
-      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. After v (in), Anna says v **tom** dome.",
+      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. After v (in), Anna says v **tom** dome. Pomáhať needs the dative: **tomu** mužovi.",
       visual: caseTables,
     },
   },
@@ -236,7 +242,13 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "tento-tamten",
     title: "This one, that one",
     teach: {
-      sceneLineIds: ["waiter-order", "you-this-cake", "anna-that-cake"],
+      sceneLineIds: [
+        "waiter-order",
+        "you-price",
+        "waiter-price",
+        "you-this-cake",
+        "anna-that-cake",
+      ],
       phrases: [
         {
           slovak: "tento koláč",
