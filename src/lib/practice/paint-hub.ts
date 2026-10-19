@@ -9,8 +9,11 @@ export function paintPracticeHub(
   payload: PracticeBootPayload,
   completedLessonIds: readonly string[],
   recentItemIds: readonly string[],
+  dueFormIds: readonly string[],
 ): void {
-  applyPracticeHubView(buildPracticeHubView(payload, completedLessonIds, recentItemIds));
+  applyPracticeHubView(
+    buildPracticeHubView(payload, completedLessonIds, recentItemIds, dueFormIds),
+  );
 }
 
 export function markPracticeHubReady(): void {

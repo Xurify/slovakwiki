@@ -10,6 +10,7 @@ export interface PracticeHubView {
   completedLessonIds: readonly string[];
   featuredSetId: string | null;
   recents: PracticeBootItem[];
+  dueReviewCount: number;
 }
 
 function pickFeaturedSheet(
@@ -42,13 +43,16 @@ export function buildPracticeHubView(
   payload: PracticeBootPayload,
   completedLessonIds: readonly string[],
   recentItemIds: readonly string[],
+  dueFormIds: readonly string[] = [],
 ): PracticeHubView {
   const completed = new Set(completedLessonIds);
   const featured = pickFeaturedSheet(payload.sheets, completed);
+  const known = new Set(payload.items.map((item) => item.id));
 
   return {
     completedLessonIds: [...completed],
     featuredSetId: featured?.id ?? null,
     recents: buildRecents(payload.items, recentItemIds),
+    dueReviewCount: dueFormIds.filter((formId) => known.has(formId)).length,
   };
 }
