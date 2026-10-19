@@ -11,6 +11,8 @@ import { resolveKeyedAudioSrc } from "$lib/catalog/audio/resolve-server";
 import { entryBySlug, grammarEntries, words } from "$lib/catalog/entries";
 import { entryHref } from "$lib/catalog/dictionary/lemma-senses";
 import { sentenceCase } from "$lib/catalog/search/ui";
+import GrammarWeakSpots from "$lib/components/reference/GrammarWeakSpots.svelte";
+import { practiceRulesForGrammarTopic } from "$lib/practice/grammar-practice-rules";
 
 export function getStaticPaths() {
   return grammarEntries.map((entry) => {
@@ -43,7 +45,8 @@ export function getStaticPaths() {
       ];
     });
 
-    const props = { entry, relatedEntries, audioTargets };
+    const practiceRules = practiceRulesForGrammarTopic(entry.slug);
+    const props = { entry, relatedEntries, audioTargets, practiceRules };
 
     return {
       params: { slug: entry.slug },
@@ -53,7 +56,7 @@ export function getStaticPaths() {
   });
 }
 
-const { entry, relatedEntries, audioTargets } = Astro.props;
+const { entry, relatedEntries, audioTargets, practiceRules } = Astro.props;
 ---
 
 <SiteLayout
@@ -67,6 +70,11 @@ const { entry, relatedEntries, audioTargets } = Astro.props;
     {
       audioTargets.length > 0 && (
         <AudioMountHost slot="audioMount" client:load targets={audioTargets} />
+      )
+    }
+    {
+      practiceRules.length > 0 && (
+        <GrammarWeakSpots slot="weakSpots" client:only="svelte" rules={practiceRules} />
       )
     }
     {

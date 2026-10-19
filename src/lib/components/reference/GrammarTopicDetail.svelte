@@ -35,12 +35,14 @@
     relatedEntries = [],
     audioKeys = [],
     clockDrill,
+    weakSpots,
   }: {
     topic: GrammarTopic;
     relatedEntries?: RelatedEntry[];
     audioKeys?: string[];
     /** Client island slot from Astro (`client:only` / `client:load`). */
     clockDrill?: Snippet;
+    weakSpots?: Snippet;
   } = $props();
 
   const isTime = $derived(topic.slug === "telling-time");
@@ -234,6 +236,10 @@
           <GrammarExampleList examples={topic.examples} {audioKeys} />
         </div>
       </section>
+    {/if}
+
+    {#if weakSpots}
+      {@render weakSpots()}
     {/if}
 
     {#if words.length > 0 || topics.length > 0}
