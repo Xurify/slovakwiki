@@ -9,15 +9,15 @@
   import PracticeSessionSkeleton from "$lib/components/practice/PracticeSessionSkeleton.svelte";
   import type { PracticeItem } from "$lib/learning/types";
   import {
-    dayKey,
+    localDayKey,
     daysBetween,
-    dueFormIds,
+    dueFormIdsOldestFirst,
     nextDueDay,
     readReviewMemory,
-    rememberAnswer,
-    REVIEW_SESSION_SIZE,
+    saveAnswerForReview,
+    MAX_CARDS_PER_REVIEW,
   } from "$lib/practice/review-memory";
-  import { reviewPracticeSession } from "$lib/practice/session";
+  import { buildReviewSession } from "$lib/practice/session";
 
   let {
     audioSrcs,
@@ -39,8 +39,8 @@
 
   onMount(() => {
     const memory = readReviewMemory(localStorage);
-    const today = dayKey(new Date());
-    items = reviewPracticeSession(dueFormIds(memory, today));
+    const today = localDayKey(new Date());
+    items = buildReviewSession(dueFormIdsOldestFirst(memory, today));
 
     const next = nextDueDay(memory);
     daysToNext = next ? daysBetween(today, next) : null;
@@ -58,7 +58,7 @@
         backHref="/practice"
         backLabel="Practice"
         sessionTitle="Review"
-        onAnswer={(item, grade) => rememberAnswer(localStorage, item.id, grade)}
+        onAnswer={(item, grade) => saveAnswerForReview(localStorage, item.id, grade)}
       />
     {:else if phase === "empty"}
       <section
@@ -93,7 +93,7 @@
         </Button>
       </section>
     {:else}
-      <PracticeSessionSkeleton title="Review" total={REVIEW_SESSION_SIZE} />
+      <PracticeSessionSkeleton title="Review" total={MAX_CARDS_PER_REVIEW} />
     {/if}
   </PageShell>
 </main>

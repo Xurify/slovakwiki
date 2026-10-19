@@ -71,7 +71,7 @@ describe("buildPracticeHubView", () => {
   it("counts due reviews only for items still in the catalog", () => {
     const view = buildPracticeHubView(payload, [], [], ["item-b", "removed-item"]);
 
-    expect(view.reviewDue).toBe(1);
-    expect(buildPracticeHubView(payload, [], []).reviewDue).toBe(0);
+    expect(view.dueReviewCount).toBe(1);
+    expect(buildPracticeHubView(payload, [], []).dueReviewCount).toBe(0);
   });
 });

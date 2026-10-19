@@ -21,7 +21,7 @@ import {
   isDaysDatesTimeKind,
   materializeDaysDatesTimeItem,
 } from "$lib/learning/time/session";
-import { REVIEW_SESSION_SIZE } from "./review-memory";
+import { MAX_CARDS_PER_REVIEW } from "./review-memory";
 
 function itemsFromIds(itemIds: readonly string[]): PracticeItem[] {
   return itemIds
@@ -110,11 +110,7 @@ export function mergePracticeSession(
   return next;
 }
 
-/**
- * A form due for review as a fresh card: generated kinds draw a new sentence, catalog
- * items come back as they are. Undefined when the item no longer exists.
- */
-export function reviewPracticeItem(formId: string): PracticeItem | undefined {
+export function freshCardForReview(formId: string): PracticeItem | undefined {
   if (isDemonstrativeKind(formId)) return materializeDemonstrativeItem(formId);
   if (isPossessiveKind(formId)) return materializePossessiveItem(formId);
   if (isDaysDatesTimeKind(formId)) return materializeDaysDatesTimeItem(formId);
@@ -123,9 +119,9 @@ export function reviewPracticeItem(formId: string): PracticeItem | undefined {
   return item ? maybeMaterializeBuildItem(item) : undefined;
 }
 
-export function reviewPracticeSession(formIds: readonly string[]): PracticeItem[] {
+export function buildReviewSession(formIds: readonly string[]): PracticeItem[] {
   return formIds
-    .map((formId) => reviewPracticeItem(formId))
+    .map((formId) => freshCardForReview(formId))
     .filter((item): item is PracticeItem => item !== undefined)
-    .slice(0, REVIEW_SESSION_SIZE);
+    .slice(0, MAX_CARDS_PER_REVIEW);
 }

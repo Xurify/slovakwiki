@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   addDays,
-  dayKey,
+  localDayKey,
   daysBetween,
-  dueFormIds,
+  dueFormIdsOldestFirst,
   emptyReviewMemory,
   nextDueDay,
   readReviewMemory,
@@ -23,9 +23,9 @@ function memoryStorage(initial: Record<string, string> = {}) {
   };
 }
 
-describe("dayKey / addDays", () => {
+describe("localDayKey / addDays", () => {
   it("uses the local calendar date", () => {
-    expect(dayKey(new Date(2026, 0, 5, 23, 30))).toBe("2026-01-05");
+    expect(localDayKey(new Date(2026, 0, 5, 23, 30))).toBe("2026-01-05");
   });
 
   it("rolls over months and years", () => {
@@ -47,37 +47,37 @@ describe("recordAnswer", () => {
     expect(memory.forms["ten-nom"]).toEqual({
       seen: 1,
       missed: 1,
-      step: 0,
-      due: "2026-03-11",
+      gapIndex: 0,
+      dueDay: "2026-03-11",
     });
   });
 
   it("treats a revealed answer as a miss", () => {
     const memory = recordAnswer(emptyReviewMemory(), "ten-nom", "revealed", today);
-    expect(memory.forms["ten-nom"]?.due).toBe("2026-03-11");
+    expect(memory.forms["ten-nom"]?.dueDay).toBe("2026-03-11");
   });
 
   it("leaves a form that was never missed out of review", () => {
     const memory = recordAnswer(emptyReviewMemory(), "ten-nom", "correct", today);
-    expect(memory.forms["ten-nom"]).toEqual({ seen: 1, missed: 0, step: 0 });
+    expect(memory.forms["ten-nom"]).toEqual({ seen: 1, missed: 0, gapIndex: 0 });
   });
 
   it("does not move a form along when it is right again before it is due", () => {
     const missed = recordAnswer(emptyReviewMemory(), "ten-nom", "incorrect", today);
     const again = recordAnswer(missed, "ten-nom", "correct", today);
-    expect(again.forms["ten-nom"]).toMatchObject({ step: 0, due: "2026-03-11" });
+    expect(again.forms["ten-nom"]).toMatchObject({ gapIndex: 0, dueDay: "2026-03-11" });
   });
 
   it("widens the gap 1 → 3 → 7 → 21 days, then lets the form go", () => {
     let memory = recordAnswer(emptyReviewMemory(), "f", "incorrect", "2026-03-10");
     memory = recordAnswer(memory, "f", "correct", "2026-03-11");
-    expect(memory.forms.f?.due).toBe("2026-03-14");
+    expect(memory.forms.f?.dueDay).toBe("2026-03-14");
     memory = recordAnswer(memory, "f", "accents", "2026-03-14");
-    expect(memory.forms.f?.due).toBe("2026-03-21");
+    expect(memory.forms.f?.dueDay).toBe("2026-03-21");
     memory = recordAnswer(memory, "f", "correct", "2026-03-21");
-    expect(memory.forms.f?.due).toBe("2026-04-11");
+    expect(memory.forms.f?.dueDay).toBe("2026-04-11");
     memory = recordAnswer(memory, "f", "correct", "2026-04-11");
-    expect(memory.forms.f?.due).toBeUndefined();
+    expect(memory.forms.f?.dueDay).toBeUndefined();
     expect(memory.forms.f?.seen).toBe(5);
   });
 
@@ -85,23 +85,27 @@ describe("recordAnswer", () => {
     let memory = recordAnswer(emptyReviewMemory(), "f", "incorrect", "2026-03-10");
     memory = recordAnswer(memory, "f", "correct", "2026-03-11");
     memory = recordAnswer(memory, "f", "incorrect", "2026-03-14");
-    expect(memory.forms.f).toMatchObject({ missed: 2, step: 0, due: "2026-03-15" });
+    expect(memory.forms.f).toMatchObject({
+      missed: 2,
+      gapIndex: 0,
+      dueDay: "2026-03-15",
+    });
   });
 });
 
-describe("dueFormIds / nextDueDay", () => {
+describe("dueFormIdsOldestFirst / nextDueDay", () => {
   const memory: ReviewMemory = {
     version: 1,
     forms: {
-      later: { seen: 1, missed: 1, step: 0, due: "2026-03-12" },
-      today: { seen: 1, missed: 1, step: 0, due: "2026-03-10" },
-      overdue: { seen: 1, missed: 1, step: 1, due: "2026-03-01" },
-      learned: { seen: 4, missed: 0, step: 0 },
+      later: { seen: 1, missed: 1, gapIndex: 0, dueDay: "2026-03-12" },
+      today: { seen: 1, missed: 1, gapIndex: 0, dueDay: "2026-03-10" },
+      overdue: { seen: 1, missed: 1, gapIndex: 1, dueDay: "2026-03-01" },
+      learned: { seen: 4, missed: 0, gapIndex: 0 },
     },
   };
 
   it("lists due forms, longest overdue first", () => {
-    expect(dueFormIds(memory, "2026-03-10")).toEqual(["overdue", "today"]);
+    expect(dueFormIdsOldestFirst(memory, "2026-03-10")).toEqual(["overdue", "today"]);
   });
 
   it("finds the soonest return", () => {
@@ -123,15 +127,15 @@ describe("readReviewMemory / writeReviewMemory", () => {
       [REVIEW_STORAGE_KEY]: JSON.stringify({
         version: 1,
         forms: {
-          good: { seen: 1, missed: 1, step: 0, due: "2026-03-11" },
+          good: { seen: 1, missed: 1, gapIndex: 0, dueDay: "2026-03-11" },
           bad: { seen: "x" },
-          badDue: { seen: 1, missed: 0, step: 0, due: "soon" },
+          badDue: { seen: 1, missed: 0, gapIndex: 0, dueDay: "soon" },
         },
       }),
     });
     expect(readReviewMemory(storage).forms).toEqual({
-      good: { seen: 1, missed: 1, step: 0, due: "2026-03-11" },
-      badDue: { seen: 1, missed: 0, step: 0 },
+      good: { seen: 1, missed: 1, gapIndex: 0, dueDay: "2026-03-11" },
+      badDue: { seen: 1, missed: 0, gapIndex: 0 },
     });
 
     const future = memoryStorage({

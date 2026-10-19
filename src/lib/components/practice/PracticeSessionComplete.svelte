@@ -32,7 +32,7 @@
     onRetry,
     onRetryMissed,
     results,
-    missesComeBack = false,
+    missesComeBackTomorrow = false,
     sessionContext,
     sessionTitle,
   }: {
@@ -41,8 +41,7 @@
     onRetry: () => void;
     onRetryMissed?: () => void;
     results: SessionPhraseResult[];
-    /** Misses were saved for review, so the summary can say when they return. */
-    missesComeBack?: boolean;
+    missesComeBackTomorrow?: boolean;
     sessionContext?: PracticeSessionContext;
     sessionTitle: string;
   } = $props();
@@ -86,7 +85,7 @@
         ? `Nothing to review. Next up: ${nextSet.title}.`
         : "Nothing to review.";
     }
-    if (missesComeBack) {
+    if (missesComeBackTomorrow) {
       return missedCount === 1
         ? "Go over the one you missed below. It comes back for review tomorrow."
         : `Go over the ${missedCount} you missed below. They come back for review tomorrow.`;

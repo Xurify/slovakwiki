@@ -10,8 +10,7 @@ export interface PracticeHubView {
   completedLessonIds: readonly string[];
   featuredSetId: string | null;
   recents: PracticeBootItem[];
-  /** Missed exercises due again today that still exist in the catalog. */
-  reviewDue: number;
+  dueReviewCount: number;
 }
 
 function pickFeaturedSheet(
@@ -54,6 +53,6 @@ export function buildPracticeHubView(
     completedLessonIds: [...completed],
     featuredSetId: featured?.id ?? null,
     recents: buildRecents(payload.items, recentItemIds),
-    reviewDue: dueFormIds.filter((formId) => known.has(formId)).length,
+    dueReviewCount: dueFormIds.filter((formId) => known.has(formId)).length,
   };
 }

@@ -106,7 +106,6 @@
     sessionContext?: PracticeSessionContext;
     backHref?: string;
     backLabel?: string;
-    /** Remembers each answer, so misses come back in a later review. */
     onAnswer?: (item: PracticeItem, grade: SessionPhraseResult["grade"]) => void;
   } = $props();
 
@@ -534,7 +533,7 @@
     onRetry={retry}
     onRetryMissed={retryMissed}
     results={sessionResults}
-    missesComeBack={onAnswer !== undefined}
+    missesComeBackTomorrow={onAnswer !== undefined}
     {sessionContext}
     {sessionTitle}
   />

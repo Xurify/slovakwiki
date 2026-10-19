@@ -20,7 +20,7 @@
     mergePracticeSession,
     ssrPracticeSession,
   } from "$lib/practice/session";
-  import { rememberAnswer } from "$lib/practice/review-memory";
+  import { saveAnswerForReview } from "$lib/practice/review-memory";
   import { practiceTaskKicker } from "$lib/practice/task-kicker";
 
   let {
@@ -95,7 +95,7 @@
       backLabel="Practice"
       sessionTitle={data.set.title}
       sessionContext={data.sessionContext}
-      onAnswer={(item, grade) => rememberAnswer(localStorage, item.id, grade)}
+      onAnswer={(item, grade) => saveAnswerForReview(localStorage, item.id, grade)}
       bind:sectionTitle
     />
   {/if}
@@ -113,7 +113,7 @@
             backLabel="Practice"
             sessionTitle={data.set.title}
             sessionContext={data.sessionContext}
-            onAnswer={(item, grade) => rememberAnswer(localStorage, item.id, grade)}
+            onAnswer={(item, grade) => saveAnswerForReview(localStorage, item.id, grade)}
             bind:sectionTitle
           />
         {:else}

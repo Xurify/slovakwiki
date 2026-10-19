@@ -76,16 +76,16 @@ function paintRecents(recents: PracticeBootItem[]): void {
   }
 }
 
-function paintReview(reviewDue: number): void {
+function paintReview(dueReviewCount: number): void {
   const host = document.querySelector<HTMLElement>("[data-practice-review]");
   const summary = document.querySelector<HTMLElement>("[data-practice-review-summary]");
   if (!host || !summary) return;
 
-  host.hidden = reviewDue === 0;
+  host.hidden = dueReviewCount === 0;
   summary.textContent =
-    reviewDue === 1
+    dueReviewCount === 1
       ? "1 exercise you missed is due again."
-      : `${reviewDue} exercises you missed are due again.`;
+      : `${dueReviewCount} exercises you missed are due again.`;
 }
 
 /** Apply a pure hub view to the practice index DOM. Idempotent. */
@@ -93,5 +93,5 @@ export function applyPracticeHubView(view: PracticeHubView): void {
   paintFeatured(view);
   paintBrowse(view);
   paintRecents(view.recents);
-  paintReview(view.reviewDue);
+  paintReview(view.dueReviewCount);
 }
