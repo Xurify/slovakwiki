@@ -11,8 +11,7 @@ import {
   type GrammaticalCase,
 } from "$lib/learning/demonstratives/paradigm";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const demonstrativesLine = {
+export const demonstrativesLineIds = {
   annaSummerPhotos: "demonstratives-anna-summer-photos",
   youWhoIsThatMan: "demonstratives-you-who-is-that-man",
   annaMyBrother: "demonstratives-anna-my-brother-tom",
@@ -138,10 +137,10 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     title: "Ten, tá, to",
     teach: {
       sceneLineIds: [
-        demonstrativesLine.annaSummerPhotos,
-        demonstrativesLine.youWhoIsThatMan,
-        demonstrativesLine.annaMyBrother,
-        demonstrativesLine.youWhoIsThatWoman,
+        demonstrativesLineIds.annaSummerPhotos,
+        demonstrativesLineIds.youWhoIsThatMan,
+        demonstrativesLineIds.annaMyBrother,
+        demonstrativesLineIds.youWhoIsThatWoman,
       ],
       phrases: [
         {
@@ -170,7 +169,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "demonstratives-to-je",
     title: "To je …, to sú …",
     teach: {
-      sceneLineIds: [demonstrativesLine.annaHisWifeEva],
+      sceneLineIds: [demonstrativesLineIds.annaHisWifeEva],
       phrases: [
         {
           slovak: "To je môj brat.",
@@ -199,8 +198,8 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     title: "Plural: tí and tie",
     teach: {
       sceneLineIds: [
-        demonstrativesLine.youWhoAreThoseMen,
-        demonstrativesLine.annaHisColleagues,
+        demonstrativesLineIds.youWhoAreThoseMen,
+        demonstrativesLineIds.annaHisColleagues,
       ],
       phrases: [
         {
@@ -230,10 +229,10 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     title: "In every case",
     teach: {
       sceneLineIds: [
-        demonstrativesLine.youKnowThatMan,
-        demonstrativesLine.annaThatsMarek,
-        demonstrativesLine.annaManHelpsUs,
-        demonstrativesLine.annaCinemaWithColleagues,
+        demonstrativesLineIds.youKnowThatMan,
+        demonstrativesLineIds.annaThatsMarek,
+        demonstrativesLineIds.annaManHelpsUs,
+        demonstrativesLineIds.annaCinemaWithColleagues,
       ],
       phrases: [
         {
@@ -276,11 +275,11 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
     title: "This one, that one",
     teach: {
       sceneLineIds: [
-        demonstrativesLine.waiterTakesOrder,
-        demonstrativesLine.youHowMuchCake,
-        demonstrativesLine.waiterThreeEuros,
-        demonstrativesLine.youThisCake,
-        demonstrativesLine.annaThatCake,
+        demonstrativesLineIds.waiterTakesOrder,
+        demonstrativesLineIds.youHowMuchCake,
+        demonstrativesLineIds.waiterThreeEuros,
+        demonstrativesLineIds.youThisCake,
+        demonstrativesLineIds.annaThatCake,
       ],
       phrases: [
         {

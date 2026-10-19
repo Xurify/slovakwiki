@@ -24,7 +24,7 @@ The scene is a real conversation that the beats replay in pieces.
 - [ ] Learner lines (`speaker: "You"`) get `sayChoices` with 1–2 plausible wrong replies, each with a `whyWrong`. Use `answerIds` when two replies are both correct.
 - [ ] Highlight the taught word with `marks` built via `markedText` (`src/lib/learning/marked-text.ts`). Add a role there if none fits.
 - [ ] Ids start with the lesson slug and say what they hold. Lines (scene and exercise context): `<slug>-<speaker>-<what is said>`, e.g. `demonstratives-anna-man-helps-us`; broken sentences in repair exercises: `<slug>-broken-<words>`. Beats: `<slug>-<topic>`, e.g. `demonstratives-ten-ta-to`. Every id is unique across the site. `validateLessons` checks both.
-- [ ] Put the scene line ids in the `<topic>Line` table at the top of `beats/<topic>.ts`, and use it in the scene (`id: demonstrativesLine.annaManHelpsUs`) and in each beat's `sceneLineIds`, so a typo fails typecheck. A later beat may replay an earlier line for context.
+- [ ] Put the scene line ids in the `<topic>LineIds` table at the top of `beats/<topic>.ts`, and use it in the scene (`id: demonstrativesLineIds.annaManHelpsUs`) and in each beat's `sceneLineIds`, so a typo fails typecheck. A later beat may replay an earlier line for context.
 - [ ] Add a story setting in `src/lib/lesson-story/story-settings.ts`: `art` (one of `cafe`, `classroom`, `counter`, `home`, `market`, `plaza`, `registration`, `default`), an English `place`, and a Slovak `placeSk` written as a full phrase (`Na návšteve u Anny`, `V kaviarni`) — not a bare `U Anny`, which reads like a pub sign.
 
 ## 3. Write the beats
@@ -42,7 +42,7 @@ The scene is a real conversation that the beats replay in pieces.
 ## 4. Wire it in
 
 - [ ] Lesson object: in `src/lib/catalog/lessons/{everyday,grammar,pronunciation}.ts`, or in `src/lib/learning/<topic>/lesson.ts` when the topic has generators. Fill `id`, `track`, `slug`, `title`, `promise`, `scene`, `keyPhrases`, `pattern`, `beats`, `referenceLinks`.
-- [ ] Beat shells and the `<topic>Line` table in `src/lib/catalog/lessons/beats/<topic>.ts`, exported from `beats/index.ts`.
+- [ ] Beat shells and the `<topic>LineIds` table in `src/lib/catalog/lessons/beats/<topic>.ts`, exported from `beats/index.ts`.
 - [ ] `referenceLinks` only to pages that exist (`/grammar/<slug>`, `/grammar/cases/<case>`, `/dictionary/<slug>`).
 - [ ] Practice items: hand-written in `src/lib/catalog/practice/items-*.ts`, or generated (possessives pattern: `session.ts` materializes catalog stubs from seeded generators).
 - [ ] Practice set in `src/lib/catalog/practice/sets.ts`. Generated sets add a `sessionKind`, wired through `src/lib/practice/session.ts` (seeded SSR session so hydration matches, fresh client session that keeps the painted first card).

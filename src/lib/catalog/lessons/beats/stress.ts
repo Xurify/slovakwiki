@@ -1,7 +1,6 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const stressLine = {
+export const stressLineIds = {
   annaThanks: "first-syllable-stress-anna-thanks",
   noticeDakujem: "first-syllable-stress-notice-dakujem",
 } as const;
@@ -11,7 +10,7 @@ export const stressBeats: LessonBeat[] = [
     id: "first-syllable-stress-dakujem",
     title: "First-syllable stress",
     teach: {
-      sceneLineIds: [stressLine.annaThanks, stressLine.noticeDakujem],
+      sceneLineIds: [stressLineIds.annaThanks, stressLineIds.noticeDakujem],
       phrases: [
         {
           slovak: "ĎA-ku-jem",

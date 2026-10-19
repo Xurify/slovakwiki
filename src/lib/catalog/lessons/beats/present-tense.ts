@@ -1,7 +1,6 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const presentTenseLine = {
+export const presentTenseLineIds = {
   annaWhatAreYouDoing: "present-tense-i-anna-what-are-you-doing",
   youReadABook: "present-tense-i-you-read-a-book",
   annaPeterReads: "present-tense-i-anna-peter-reads",
@@ -15,9 +14,9 @@ export const presentTenseBeats: LessonBeat[] = [
     title: "Who is acting",
     teach: {
       sceneLineIds: [
-        presentTenseLine.annaWhatAreYouDoing,
-        presentTenseLine.youReadABook,
-        presentTenseLine.annaPeterReads,
+        presentTenseLineIds.annaWhatAreYouDoing,
+        presentTenseLineIds.youReadABook,
+        presentTenseLineIds.annaPeterReads,
       ],
       phrases: [
         {
@@ -48,9 +47,9 @@ export const presentTenseBeats: LessonBeat[] = [
     title: "We and they",
     teach: {
       sceneLineIds: [
-        presentTenseLine.annaPeterReads,
-        presentTenseLine.youEveryMorning,
-        presentTenseLine.annaWeRead,
+        presentTenseLineIds.annaPeterReads,
+        presentTenseLineIds.youEveryMorning,
+        presentTenseLineIds.annaWeRead,
       ],
       phrases: [
         {

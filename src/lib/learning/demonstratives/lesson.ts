@@ -3,7 +3,7 @@ import type { Lesson, LessonExercise } from "$lib/learning/types";
 import {
   demonstrativesBeatShells,
   withDemonstrativesExercises,
-  demonstrativesLine,
+  demonstrativesLineIds,
 } from "$lib/catalog/lessons/beats";
 import { demonstrativesLessonId } from "./session";
 
@@ -549,7 +549,7 @@ export const demonstrativesLesson: Lesson = {
     "Point at people and things — and make ten, tento, and tamten fit the noun and its case.",
   scene: [
     {
-      id: demonstrativesLine.annaSummerPhotos,
+      id: demonstrativesLineIds.annaSummerPhotos,
       speaker: "Anna",
       slovak: photosLine.text,
       marks: photosLine.marks,
@@ -557,7 +557,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: photosLine.text },
     },
     {
-      id: demonstrativesLine.youWhoIsThatMan,
+      id: demonstrativesLineIds.youWhoIsThatMan,
       speaker: "You",
       slovak: manLine.text,
       marks: manLine.marks,
@@ -583,7 +583,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: demonstrativesLine.annaMyBrother,
+      id: demonstrativesLineIds.annaMyBrother,
       speaker: "Anna",
       slovak: brotherLine.text,
       marks: brotherLine.marks,
@@ -591,7 +591,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: brotherLine.text },
     },
     {
-      id: demonstrativesLine.youWhoIsThatWoman,
+      id: demonstrativesLineIds.youWhoIsThatWoman,
       speaker: "You",
       slovak: womanLine.text,
       marks: womanLine.marks,
@@ -617,7 +617,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: demonstrativesLine.annaHisWifeEva,
+      id: demonstrativesLineIds.annaHisWifeEva,
       speaker: "Anna",
       slovak: wifeLine.text,
       marks: wifeLine.marks,
@@ -625,7 +625,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: wifeLine.text },
     },
     {
-      id: demonstrativesLine.youWhoAreThoseMen,
+      id: demonstrativesLineIds.youWhoAreThoseMen,
       speaker: "You",
       slovak: menLine.text,
       marks: menLine.marks,
@@ -651,7 +651,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: demonstrativesLine.annaHisColleagues,
+      id: demonstrativesLineIds.annaHisColleagues,
       speaker: "Anna",
       slovak: colleaguesLine.text,
       marks: colleaguesLine.marks,
@@ -659,7 +659,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: colleaguesLine.text },
     },
     {
-      id: demonstrativesLine.youKnowThatMan,
+      id: demonstrativesLineIds.youKnowThatMan,
       speaker: "You",
       slovak: knowLine.text,
       marks: knowLine.marks,
@@ -685,7 +685,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: demonstrativesLine.annaThatsMarek,
+      id: demonstrativesLineIds.annaThatsMarek,
       speaker: "Anna",
       slovak: marekLine.text,
       marks: marekLine.marks,
@@ -693,7 +693,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: marekLine.text },
     },
     {
-      id: demonstrativesLine.annaManHelpsUs,
+      id: demonstrativesLineIds.annaManHelpsUs,
       speaker: "Anna",
       slovak: helpsLine.text,
       marks: helpsLine.marks,
@@ -701,7 +701,7 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: helpsLine.text },
     },
     {
-      id: demonstrativesLine.annaCinemaWithColleagues,
+      id: demonstrativesLineIds.annaCinemaWithColleagues,
       speaker: "Anna",
       slovak: cinemaLine.text,
       marks: cinemaLine.marks,
@@ -709,14 +709,14 @@ export const demonstrativesLesson: Lesson = {
       audio: { transcript: cinemaLine.text },
     },
     {
-      id: demonstrativesLine.waiterTakesOrder,
+      id: demonstrativesLineIds.waiterTakesOrder,
       speaker: "Waiter",
       slovak: "Dobrý deň. Čo si dáte?",
       english: "Hello. What would you like?",
       audio: { transcript: "Dobrý deň. Čo si dáte?" },
     },
     {
-      id: demonstrativesLine.youHowMuchCake,
+      id: demonstrativesLineIds.youHowMuchCake,
       speaker: "You",
       slovak: priceLine.text,
       marks: priceLine.marks,
@@ -742,14 +742,14 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: demonstrativesLine.waiterThreeEuros,
+      id: demonstrativesLineIds.waiterThreeEuros,
       speaker: "Waiter",
       slovak: "Tri eurá.",
       english: "Three euros.",
       audio: { transcript: "Tri eurá." },
     },
     {
-      id: demonstrativesLine.youThisCake,
+      id: demonstrativesLineIds.youThisCake,
       speaker: "You",
       slovak: cakeLine.text,
       marks: cakeLine.marks,
@@ -775,7 +775,7 @@ export const demonstrativesLesson: Lesson = {
       },
     },
     {
-      id: demonstrativesLine.annaThatCake,
+      id: demonstrativesLineIds.annaThatCake,
       speaker: "Anna",
       slovak: tortaLine.text,
       marks: tortaLine.marks,

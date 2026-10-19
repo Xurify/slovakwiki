@@ -1,7 +1,6 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const negationLine = {
+export const negationLineIds = {
   waiterOffersCoffee: "negation-in-conversation-waiter-offers-coffee",
   youNoTime: "negation-in-conversation-you-no-time",
   waiterAsksMenu: "negation-in-conversation-waiter-asks-menu",
@@ -13,7 +12,7 @@ export const negationBeats: LessonBeat[] = [
     id: "negation-in-conversation-refuse-politely",
     title: "Refuse politely",
     teach: {
-      sceneLineIds: [negationLine.waiterOffersCoffee, negationLine.youNoTime],
+      sceneLineIds: [negationLineIds.waiterOffersCoffee, negationLineIds.youNoTime],
       phrases: [
         {
           slovak: "Nie, ďakujem.",
@@ -33,7 +32,7 @@ export const negationBeats: LessonBeat[] = [
     id: "negation-in-conversation-not-understand",
     title: "Say you do not understand",
     teach: {
-      sceneLineIds: [negationLine.waiterAsksMenu, negationLine.youDontUnderstand],
+      sceneLineIds: [negationLineIds.waiterAsksMenu, negationLineIds.youDontUnderstand],
       phrases: [
         {
           slovak: "Nerozumiem.",

@@ -4,9 +4,9 @@ import {
   withMeetSomeoneExercises,
   withNegationExercises,
   withNumbersExercises,
-  meetSomeoneLine,
-  numbersLine,
-  negationLine,
+  meetSomeoneLineIds,
+  numbersLineIds,
+  negationLineIds,
 } from "./beats";
 
 export const everydayLessons: Lesson[] = [
@@ -19,14 +19,14 @@ export const everydayLessons: Lesson[] = [
     promise: "Greet someone politely, introduce yourself, and say where you are from.",
     scene: [
       {
-        id: meetSomeoneLine.annaGreets,
+        id: meetSomeoneLineIds.annaGreets,
         speaker: "Anna",
         slovak: "Dobrý deň. Volám sa Anna.",
         english: "Hello. My name is Anna.",
         audio: { transcript: "Dobrý deň. Volám sa Anna." },
       },
       {
-        id: meetSomeoneLine.youIntroduce,
+        id: meetSomeoneLineIds.youIntroduce,
         speaker: "You",
         slovak: "Dobrý deň. Volám sa Alex.",
         english: "Hello. My name is Alex.",
@@ -50,14 +50,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: meetSomeoneLine.annaNiceToMeetYou,
+        id: meetSomeoneLineIds.annaNiceToMeetYou,
         speaker: "Anna",
         slovak: "Teší ma. Odkiaľ ste?",
         english: "Nice to meet you. Where are you from?",
         audio: { transcript: "Teší ma. Odkiaľ ste?" },
       },
       {
-        id: meetSomeoneLine.youFromCanada,
+        id: meetSomeoneLineIds.youFromCanada,
         speaker: "You",
         slovak: "Som z Kanady.",
         english: "I am from Canada.",
@@ -81,14 +81,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: meetSomeoneLine.annaAsksSlovak,
+        id: meetSomeoneLineIds.annaAsksSlovak,
         speaker: "Anna",
         slovak: "Hovoríte po slovensky?",
         english: "Do you speak Slovak?",
         audio: { transcript: "Hovoríte po slovensky?" },
       },
       {
-        id: meetSomeoneLine.youStillLearning,
+        id: meetSomeoneLineIds.youStillLearning,
         speaker: "You",
         slovak: "Trochu. Ešte sa učím.",
         english: "A little. I am still learning.",
@@ -229,14 +229,14 @@ export const everydayLessons: Lesson[] = [
     promise: "Say your age, give phone digits, and ask how much it costs.",
     scene: [
       {
-        id: numbersLine.mariaWelcome,
+        id: numbersLineIds.mariaWelcome,
         speaker: "Mária",
         slovak: "Dobrý deň. Ste tu na registráciu?",
         english: "Hello. Are you here for registration?",
         audio: { transcript: "Dobrý deň. Ste tu na registráciu?" },
       },
       {
-        id: numbersLine.youHereToRegister,
+        id: numbersLineIds.youHereToRegister,
         speaker: "You",
         slovak: "Áno, som.",
         english: "Yes, I am.",
@@ -257,14 +257,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: numbersLine.mariaAsksAge,
+        id: numbersLineIds.mariaAsksAge,
         speaker: "Mária",
         slovak: "Koľko máte rokov?",
         english: "How old are you?",
         audio: { transcript: "Koľko máte rokov?" },
       },
       {
-        id: numbersLine.youAge,
+        id: numbersLineIds.youAge,
         speaker: "You",
         slovak: "Mám dvadsaťosem rokov.",
         english: "I am twenty-eight years old.",
@@ -287,14 +287,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: numbersLine.mariaAsksPhone,
+        id: numbersLineIds.mariaAsksPhone,
         speaker: "Mária",
         slovak: "A vaše telefónne číslo?",
         english: "And your phone number?",
         audio: { transcript: "A vaše telefónne číslo?" },
       },
       {
-        id: numbersLine.youPhoneNumber,
+        id: numbersLineIds.youPhoneNumber,
         speaker: "You",
         slovak: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
         english: "My number is zero nine zero, one two three, four five six.",
@@ -426,14 +426,14 @@ export const everydayLessons: Lesson[] = [
     promise: "Refuse politely, say you do not understand, and use common negative verbs.",
     scene: [
       {
-        id: negationLine.waiterOffersCoffee,
+        id: negationLineIds.waiterOffersCoffee,
         speaker: "Waiter",
         slovak: "Dáte si kávu?",
         english: "Would you like coffee?",
         audio: { transcript: "Dáte si kávu?" },
       },
       {
-        id: negationLine.youNoTime,
+        id: negationLineIds.youNoTime,
         speaker: "You",
         slovak: "Nie, ďakujem. Nemám teraz čas.",
         english: "No, thank you. I do not have time now.",
@@ -453,14 +453,14 @@ export const everydayLessons: Lesson[] = [
         },
       },
       {
-        id: negationLine.waiterAsksMenu,
+        id: negationLineIds.waiterAsksMenu,
         speaker: "Waiter",
         slovak: "Rozumiete menu?",
         english: "Do you understand the menu?",
         audio: { transcript: "Rozumiete menu?" },
       },
       {
-        id: negationLine.youDontUnderstand,
+        id: negationLineIds.youDontUnderstand,
         speaker: "You",
         slovak: "Nerozumiem. Nie je to pre mňa.",
         english: "I do not understand. It is not for me.",

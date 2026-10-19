@@ -25,11 +25,7 @@ export function lessonsForTrack(track: LessonTrackId): Lesson[] {
 export function validateLessons(): string[] {
   const issues: string[] = [];
   const ids = new Set<string>();
-  /**
-   * Scene and exercise-context lines share one audio map per lesson, keyed by id, so a
-   * repeat would play the wrong clip. Every id is also unique site-wide, so a search for
-   * it lands on one place.
-   */
+  // Scene and exercise-context lines share one audio map per lesson, keyed by line id.
   const idOwners = new Map<string, string>();
 
   function claim(id: string, lessonId: string): void {

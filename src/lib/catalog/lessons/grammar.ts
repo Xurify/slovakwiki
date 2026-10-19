@@ -5,9 +5,9 @@ import {
   withBytExercises,
   withMatExercises,
   withPresentTenseExercises,
-  presentTenseLine,
-  bytLine,
-  matLine,
+  presentTenseLineIds,
+  bytLineIds,
+  matLineIds,
 } from "./beats";
 
 export const grammarLessons: Lesson[] = [
@@ -19,14 +19,14 @@ export const grammarLessons: Lesson[] = [
     promise: "Use the six present-tense endings to say who is doing the action.",
     scene: [
       {
-        id: presentTenseLine.annaWhatAreYouDoing,
+        id: presentTenseLineIds.annaWhatAreYouDoing,
         speaker: "Anna",
         slovak: "Ahoj! Čo robíš?",
         english: "Hi! What are you doing?",
         audio: { transcript: "Ahoj! Čo robíš?" },
       },
       {
-        id: presentTenseLine.youReadABook,
+        id: presentTenseLineIds.youReadABook,
         speaker: "You",
         slovak: "Čítam knihu. A ty?",
         english: "I'm reading a book. And you?",
@@ -49,14 +49,14 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: presentTenseLine.annaPeterReads,
+        id: presentTenseLineIds.annaPeterReads,
         speaker: "Anna",
         slovak: "Aj ja čítam. Peter číta noviny.",
         english: "I'm reading too. Peter is reading the newspaper.",
         audio: { transcript: "Aj ja čítam. Peter číta noviny." },
       },
       {
-        id: presentTenseLine.youEveryMorning,
+        id: presentTenseLineIds.youEveryMorning,
         speaker: "You",
         slovak: "Čítate tu každé ráno?",
         english: "Do you two read here every morning?",
@@ -81,7 +81,7 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: presentTenseLine.annaWeRead,
+        id: presentTenseLineIds.annaWeRead,
         speaker: "Anna",
         slovak: "Áno, čítame tu každé ráno.",
         english: "Yes, we read here every morning.",
@@ -222,14 +222,14 @@ export const grammarLessons: Lesson[] = [
     promise: "Say who you are and where you are with som / ste / je.",
     scene: [
       {
-        id: bytLine.receptionistAreYouAlex,
+        id: bytLineIds.receptionistAreYouAlex,
         speaker: "Receptionist",
         slovak: "Dobrý deň. Ste Alex?",
         english: "Hello. Are you Alex?",
         audio: { transcript: "Dobrý deň. Ste Alex?" },
       },
       {
-        id: bytLine.youAreAlex,
+        id: bytLineIds.youAreAlex,
         speaker: "You",
         slovak: "Áno, som Alex.",
         english: "Yes, I am Alex.",
@@ -249,14 +249,14 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: bytLine.receptionistFirstTime,
+        id: bytLineIds.receptionistFirstTime,
         speaker: "Receptionist",
         slovak: "Je to tu prvýkrát?",
         english: "Is this your first time here?",
         audio: { transcript: "Je to tu prvýkrát?" },
       },
       {
-        id: bytLine.youWithFriends,
+        id: bytLineIds.youWithFriends,
         speaker: "You",
         slovak: "Áno. Sme tu s priateľmi.",
         english: "Yes. We are here with friends.",
@@ -379,14 +379,14 @@ export const grammarLessons: Lesson[] = [
     promise: "Say what you have, your age, and that you don’t have something.",
     scene: [
       {
-        id: matLine.annaTimeForCoffee,
+        id: matLineIds.annaTimeForCoffee,
         speaker: "Anna",
         slovak: "Máš čas na kávu?",
         english: "Do you have time for coffee?",
         audio: { transcript: "Máš čas na kávu?" },
       },
       {
-        id: matLine.youHaveTime,
+        id: matLineIds.youHaveTime,
         speaker: "You",
         slovak: "Áno, mám čas.",
         english: "Yes, I have time.",
@@ -406,14 +406,14 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: matLine.annaAsksAge,
+        id: matLineIds.annaAsksAge,
         speaker: "Anna",
         slovak: "Koľko máš rokov?",
         english: "How old are you?",
         audio: { transcript: "Koľko máš rokov?" },
       },
       {
-        id: matLine.youAge,
+        id: matLineIds.youAge,
         speaker: "You",
         slovak: "Mám dvadsaťosem rokov.",
         english: "I am twenty-eight years old.",
@@ -436,7 +436,7 @@ export const grammarLessons: Lesson[] = [
         },
       },
       {
-        id: matLine.youNoCash,
+        id: matLineIds.youNoCash,
         speaker: "You",
         slovak: "Nemám hotovosť, ale mám kartu.",
         english: "I do not have cash, but I have a card.",

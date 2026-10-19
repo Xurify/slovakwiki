@@ -3,7 +3,7 @@ import type { Lesson, LessonExercise } from "$lib/learning/types";
 import {
   possessivesBeatShells,
   withPossessivesExercises,
-  possessivesLine,
+  possessivesLineIds,
 } from "$lib/catalog/lessons/beats";
 import { possessivesLessonId } from "./session";
 
@@ -519,14 +519,14 @@ export const possessivesLesson: Lesson = {
     "Say whose something is — and make môj, jeho, and svoj fit the noun and its case.",
   scene: [
     {
-      id: possessivesLine.annaComeIn,
+      id: possessivesLineIds.annaComeIn,
       speaker: "Anna",
       slovak: "Ahoj, poď ďalej!",
       english: "Hi, come on in!",
       audio: { transcript: "Ahoj, poď ďalej!" },
     },
     {
-      id: possessivesLine.youNiceFlat,
+      id: possessivesLineIds.youNiceFlat,
       speaker: "You",
       slovak: flatLine.text,
       marks: flatLine.marks,
@@ -552,7 +552,7 @@ export const possessivesLesson: Lesson = {
       },
     },
     {
-      id: possessivesLine.annaMyBrother,
+      id: possessivesLineIds.annaMyBrother,
       speaker: "Anna",
       slovak: brotherLine.text,
       marks: brotherLine.marks,
@@ -560,7 +560,7 @@ export const possessivesLesson: Lesson = {
       audio: { transcript: brotherLine.text },
     },
     {
-      id: possessivesLine.annaTomWritesLetter,
+      id: possessivesLineIds.annaTomWritesLetter,
       speaker: "Anna",
       slovak: letterLine.text,
       marks: letterLine.marks,
@@ -568,7 +568,7 @@ export const possessivesLesson: Lesson = {
       audio: { transcript: letterLine.text },
     },
     {
-      id: possessivesLine.youWhereFriendLives,
+      id: possessivesLineIds.youWhereFriendLives,
       speaker: "You",
       slovak: whereLine.text,
       marks: whereLine.marks,
@@ -593,21 +593,21 @@ export const possessivesLesson: Lesson = {
       },
     },
     {
-      id: possessivesLine.annaInCanada,
+      id: possessivesLineIds.annaInCanada,
       speaker: "Anna",
       slovak: "V Kanade. Píšu si listy už desať rokov.",
       english: "In Canada. They've been writing to each other for ten years.",
       audio: { transcript: "V Kanade. Píšu si listy už desať rokov." },
     },
     {
-      id: possessivesLine.annaWhoDoYouWrite,
+      id: possessivesLineIds.annaWhoDoYouWrite,
       speaker: "Anna",
       slovak: "A ty? Komu píšeš?",
       english: "And you? Who do you write to?",
       audio: { transcript: "A ty? Komu píšeš?" },
     },
     {
-      id: possessivesLine.youCallMom,
+      id: possessivesLineIds.youCallMom,
       speaker: "You",
       slovak: momLine.text,
       marks: momLine.marks,
@@ -634,7 +634,7 @@ export const possessivesLesson: Lesson = {
       },
     },
     {
-      id: possessivesLine.annaWhoseKeys,
+      id: possessivesLineIds.annaWhoseKeys,
       speaker: "Anna",
       slovak: keysLine.text,
       marks: keysLine.marks,
@@ -642,7 +642,7 @@ export const possessivesLesson: Lesson = {
       audio: { transcript: keysLine.text },
     },
     {
-      id: possessivesLine.youMine,
+      id: possessivesLineIds.youMine,
       speaker: "You",
       slovak: mineLine.text,
       marks: mineLine.marks,

@@ -1,7 +1,6 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const matLine = {
+export const matLineIds = {
   annaTimeForCoffee: "mat-present-anna-time-for-coffee",
   youHaveTime: "mat-present-you-have-time",
   annaAsksAge: "mat-present-anna-asks-age",
@@ -14,7 +13,7 @@ export const matBeats: LessonBeat[] = [
     id: "mat-present-what-you-have",
     title: "What you have",
     teach: {
-      sceneLineIds: [matLine.annaTimeForCoffee, matLine.youHaveTime],
+      sceneLineIds: [matLineIds.annaTimeForCoffee, matLineIds.youHaveTime],
       phrases: [
         { slovak: "Mám …", english: "I have …", audio: { transcript: "Mám." } },
         {
@@ -30,7 +29,7 @@ export const matBeats: LessonBeat[] = [
     id: "mat-present-age-and-negation",
     title: "Age and negation",
     teach: {
-      sceneLineIds: [matLine.annaAsksAge, matLine.youAge, matLine.youNoCash],
+      sceneLineIds: [matLineIds.annaAsksAge, matLineIds.youAge, matLineIds.youNoCash],
       phrases: [
         {
           slovak: "Mám … rokov.",

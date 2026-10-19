@@ -1,5 +1,5 @@
 import type { Lesson } from "$lib/learning/types";
-import { withStressExercises, stressLine } from "./beats";
+import { withStressExercises, stressLineIds } from "./beats";
 
 export const pronunciationLessons: Lesson[] = [
   {
@@ -10,14 +10,14 @@ export const pronunciationLessons: Lesson[] = [
     promise: "Hear the regular first-syllable stress in common Slovak words.",
     scene: [
       {
-        id: stressLine.annaThanks,
+        id: stressLineIds.annaThanks,
         speaker: "Anna",
         slovak: "Ďakujem za pomoc.",
         english: "Thank you for the help.",
         audio: { transcript: "Ďakujem za pomoc." },
       },
       {
-        id: stressLine.noticeDakujem,
+        id: stressLineIds.noticeDakujem,
         speaker: "Notice",
         slovak: "ĎA-ku-jem",
         english: "The first syllable takes the steady beat.",

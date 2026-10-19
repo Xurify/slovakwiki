@@ -1,7 +1,6 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const daysDatesTimeLine = {
+export const daysDatesTimeLineIds = {
   annaTuesdayAtThree: "days-dates-and-time-anna-tuesday-at-three",
   youHalfPastTwo: "days-dates-and-time-you-half-past-two",
 } as const;
@@ -11,7 +10,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "days-dates-and-time-pick-a-day",
     title: "Pick a day",
     teach: {
-      sceneLineIds: [daysDatesTimeLine.annaTuesdayAtThree],
+      sceneLineIds: [daysDatesTimeLineIds.annaTuesdayAtThree],
       phrases: [
         {
           slovak: "Dnes je pondelok.",
@@ -32,8 +31,8 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     title: "Clock times",
     teach: {
       sceneLineIds: [
-        daysDatesTimeLine.annaTuesdayAtThree,
-        daysDatesTimeLine.youHalfPastTwo,
+        daysDatesTimeLineIds.annaTuesdayAtThree,
+        daysDatesTimeLineIds.youHalfPastTwo,
       ],
       phrases: [
         {

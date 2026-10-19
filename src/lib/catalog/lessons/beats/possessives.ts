@@ -11,8 +11,7 @@ import {
   type OwnerId,
 } from "$lib/learning/possessives/paradigm";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const possessivesLine = {
+export const possessivesLineIds = {
   annaComeIn: "possessives-anna-come-in",
   youNiceFlat: "possessives-you-nice-flat",
   annaMyBrother: "possessives-anna-my-brother-tom",
@@ -133,9 +132,9 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     title: "My, your, our",
     teach: {
       sceneLineIds: [
-        possessivesLine.annaComeIn,
-        possessivesLine.youNiceFlat,
-        possessivesLine.annaMyBrother,
+        possessivesLineIds.annaComeIn,
+        possessivesLineIds.youNiceFlat,
+        possessivesLineIds.annaMyBrother,
       ],
       phrases: [
         {
@@ -166,9 +165,9 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     title: "His own: svoj",
     teach: {
       sceneLineIds: [
-        possessivesLine.annaTomWritesLetter,
-        possessivesLine.youWhereFriendLives,
-        possessivesLine.annaInCanada,
+        possessivesLineIds.annaTomWritesLetter,
+        possessivesLineIds.youWhereFriendLives,
+        possessivesLineIds.annaInCanada,
       ],
       phrases: [
         {
@@ -212,7 +211,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "possessives-cases",
     title: "In every case",
     teach: {
-      sceneLineIds: [possessivesLine.annaWhoDoYouWrite, possessivesLine.youCallMom],
+      sceneLineIds: [possessivesLineIds.annaWhoDoYouWrite, possessivesLineIds.youCallMom],
       phrases: [
         {
           slovak: "Anna píše list mojej sestre.",
@@ -240,7 +239,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "possessives-whose",
     title: "Whose is it?",
     teach: {
-      sceneLineIds: [possessivesLine.annaWhoseKeys, possessivesLine.youMine],
+      sceneLineIds: [possessivesLineIds.annaWhoseKeys, possessivesLineIds.youMine],
       phrases: [
         {
           slovak: "Čí je to kľúč?",

@@ -1,7 +1,6 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
-/** Scene line ids. The scene and the beats both use these, so a typo fails typecheck. */
-export const numbersLine = {
+export const numbersLineIds = {
   mariaWelcome: "numbers-and-personal-details-maria-welcome",
   youHereToRegister: "numbers-and-personal-details-you-here-to-register",
   mariaAsksAge: "numbers-and-personal-details-maria-asks-age",
@@ -16,10 +15,10 @@ export const numbersBeats: LessonBeat[] = [
     title: "Say your age",
     teach: {
       sceneLineIds: [
-        numbersLine.mariaWelcome,
-        numbersLine.youHereToRegister,
-        numbersLine.mariaAsksAge,
-        numbersLine.youAge,
+        numbersLineIds.mariaWelcome,
+        numbersLineIds.youHereToRegister,
+        numbersLineIds.mariaAsksAge,
+        numbersLineIds.youAge,
       ],
       phrases: [
         {
@@ -36,7 +35,7 @@ export const numbersBeats: LessonBeat[] = [
     id: "numbers-and-personal-details-phone-digits",
     title: "Phone digits",
     teach: {
-      sceneLineIds: [numbersLine.mariaAsksPhone, numbersLine.youPhoneNumber],
+      sceneLineIds: [numbersLineIds.mariaAsksPhone, numbersLineIds.youPhoneNumber],
       phrases: [
         {
           slovak: "Moje číslo je …",
