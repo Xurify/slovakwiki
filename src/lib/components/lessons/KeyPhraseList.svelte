@@ -23,7 +23,7 @@
   {@const leadText = lead.audio?.transcript ?? lead.slovak}
   {@const leadSrc = audioSrcs[lead.slovak] ?? lead.audio?.src}
 
-  <div aria-label="Key phrases">
+  <div aria-label="Key terms">
     <article
       class="relative isolate overflow-hidden rounded-(--frame-radius) bg-panel-inverse px-6 py-7 max-[560px]:px-5 max-[560px]:py-6"
     >

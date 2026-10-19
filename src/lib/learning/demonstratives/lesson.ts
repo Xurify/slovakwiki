@@ -183,7 +183,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         label: "To sú moji rodičia.",
         fits: true,
         whyWrong:
-          "**To sú moji rodičia** fits — **to** stays the same, only the verb is plural.",
+          "**To sú moji rodičia** fits — **to** on its own never changes; only the verb is plural.",
       },
       {
         id: "toto",
@@ -196,14 +196,14 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         id: "ti",
         label: "Tí rodičia sú moji.",
         whyWrong:
-          "**Tí rodičia sú moji** means “Those parents are mine” — **tí** sits before a noun, so it points at those parents.",
+          "**Tí rodičia sú moji** means “Those parents are mine.” **Tí** sits before a noun, so it points at those parents.",
       },
     ],
     answerId: "ti",
     feedback: {
       correction: "Tí rodičia sú moji.",
       english: "Those parents are mine.",
-      why: "**Tí rodičia** points at some parents and says whose they are. On its own, **to** says who they are: **To sú moji rodičia**.",
+      why: "**Tí** before a noun points at those parents: “Those parents are mine.” **To** on its own says who they are: **To sú moji rodičia**.",
     },
   },
   {
