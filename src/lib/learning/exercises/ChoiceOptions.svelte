@@ -6,10 +6,8 @@
   import {
     choiceClockIdleClass,
     choiceRowIdleClass,
-    optionClockClass,
     optionGradedClass,
     optionKeyClass,
-    optionRowClass,
     type OptionGradeState,
   } from "./option-ui";
 
@@ -46,12 +44,9 @@
   }
 
   function optionClass(state: OptionGradeState | null, wrongPick: boolean): string {
-    if (state) {
-      return `${showClockChoices ? optionClockClass : optionRowClass} ${optionGradedClass(state)}`;
-    }
-    if (wrongPick) {
-      return `${showClockChoices ? optionClockClass : optionRowClass} ${optionGradedClass("wrong")}`;
-    }
+    const shape = showClockChoices ? "clock" : "row";
+    if (state) return optionGradedClass(state, shape);
+    if (wrongPick) return optionGradedClass("wrong", shape);
     return showClockChoices ? choiceClockIdleClass : choiceRowIdleClass;
   }
 
@@ -122,7 +117,7 @@
             {/if}
           </svg>
         </span>
-      {:else if numbered}
+      {:else if numbered && !submitted}
         <kbd class={optionKeyClass} aria-hidden="true">{index + 1}</kbd>
       {/if}
     </button>
