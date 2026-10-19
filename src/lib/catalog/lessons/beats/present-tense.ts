@@ -1,11 +1,23 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+export const presentTenseLineIds = {
+  annaWhatAreYouDoing: "present-tense-i-anna-what-are-you-doing",
+  youReadABook: "present-tense-i-you-read-a-book",
+  annaPeterReads: "present-tense-i-anna-peter-reads",
+  youEveryMorning: "present-tense-i-you-every-morning",
+  annaWeRead: "present-tense-i-anna-we-read",
+} as const;
+
 export const presentTenseBeats: LessonBeat[] = [
   {
-    id: "endings",
+    id: "present-tense-i-endings",
     title: "Who is acting",
     teach: {
-      sceneLineIds: ["anna-asks", "you-read", "anna-reads"],
+      sceneLineIds: [
+        presentTenseLineIds.annaWhatAreYouDoing,
+        presentTenseLineIds.youReadABook,
+        presentTenseLineIds.annaPeterReads,
+      ],
       phrases: [
         {
           slovak: "čítam",
@@ -31,10 +43,14 @@ export const presentTenseBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "we-form",
+    id: "present-tense-i-we-and-they",
     title: "We and they",
     teach: {
-      sceneLineIds: ["anna-reads", "you-ask-both", "anna-we-read"],
+      sceneLineIds: [
+        presentTenseLineIds.annaPeterReads,
+        presentTenseLineIds.youEveryMorning,
+        presentTenseLineIds.annaWeRead,
+      ],
       phrases: [
         {
           slovak: "čítame",
@@ -59,7 +75,7 @@ export const presentTenseBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "your-turn",
+    id: "present-tense-i-your-turn",
     title: "Your turn",
     teach: {},
     exercises: [] as LessonExercise[],

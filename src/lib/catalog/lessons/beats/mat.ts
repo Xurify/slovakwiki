@@ -1,11 +1,19 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+export const matLineIds = {
+  annaTimeForCoffee: "mat-present-anna-time-for-coffee",
+  youHaveTime: "mat-present-you-have-time",
+  annaAsksAge: "mat-present-anna-asks-age",
+  youAge: "mat-present-you-age-28",
+  youNoCash: "mat-present-you-no-cash",
+} as const;
+
 export const matBeats: LessonBeat[] = [
   {
-    id: "have",
+    id: "mat-present-what-you-have",
     title: "What you have",
     teach: {
-      sceneLineIds: ["mat-cafe-time", "mat-cafe-answer"],
+      sceneLineIds: [matLineIds.annaTimeForCoffee, matLineIds.youHaveTime],
       phrases: [
         { slovak: "Mám …", english: "I have …", audio: { transcript: "Mám." } },
         {
@@ -18,10 +26,10 @@ export const matBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "age-negative",
+    id: "mat-present-age-and-negation",
     title: "Age and negation",
     teach: {
-      sceneLineIds: ["mat-cafe-age", "mat-cafe-age-answer", "mat-cafe-possession"],
+      sceneLineIds: [matLineIds.annaAsksAge, matLineIds.youAge, matLineIds.youNoCash],
       phrases: [
         {
           slovak: "Mám … rokov.",
@@ -39,7 +47,7 @@ export const matBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "your-turn",
+    id: "mat-present-your-turn",
     title: "Your turn",
     teach: {},
     exercises: [] as LessonExercise[],

@@ -11,6 +11,19 @@ import {
   type OwnerId,
 } from "$lib/learning/possessives/paradigm";
 
+export const possessivesLineIds = {
+  annaComeIn: "possessives-anna-come-in",
+  youNiceFlat: "possessives-you-nice-flat",
+  annaMyBrother: "possessives-anna-my-brother-tom",
+  annaTomWritesLetter: "possessives-anna-tom-writes-letter",
+  youWhereFriendLives: "possessives-you-where-friend-lives",
+  annaInCanada: "possessives-anna-in-canada",
+  annaWhoDoYouWrite: "possessives-anna-who-do-you-write",
+  youCallMom: "possessives-you-call-mom",
+  annaWhoseKeys: "possessives-anna-whose-keys",
+  youMine: "possessives-you-mine",
+} as const;
+
 const SINGULAR: FormTableHeading = { english: "Singular", slovak: "jednotné číslo" };
 const PLURAL: FormTableHeading = { english: "Plural", slovak: "množné číslo" };
 
@@ -115,10 +128,14 @@ const caseTables = [
 
 export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
   {
-    id: "agreement",
+    id: "possessives-my-your-our",
     title: "My, your, our",
     teach: {
-      sceneLineIds: ["anna-welcome", "you-flat", "anna-brother"],
+      sceneLineIds: [
+        possessivesLineIds.annaComeIn,
+        possessivesLineIds.youNiceFlat,
+        possessivesLineIds.annaMyBrother,
+      ],
       phrases: [
         {
           slovak: "môj brat",
@@ -144,10 +161,14 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "svoj",
+    id: "possessives-svoj",
     title: "His own: svoj",
     teach: {
-      sceneLineIds: ["anna-letter", "you-where", "anna-canada"],
+      sceneLineIds: [
+        possessivesLineIds.annaTomWritesLetter,
+        possessivesLineIds.youWhereFriendLives,
+        possessivesLineIds.annaInCanada,
+      ],
       phrases: [
         {
           slovak: "Tom volá svojej mame.",
@@ -166,7 +187,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "his-her-their",
+    id: "possessives-his-her-their",
     title: "His, her, their",
     teach: {
       phrases: [
@@ -187,10 +208,10 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "cases",
+    id: "possessives-cases",
     title: "In every case",
     teach: {
-      sceneLineIds: ["anna-you", "you-mom"],
+      sceneLineIds: [possessivesLineIds.annaWhoDoYouWrite, possessivesLineIds.youCallMom],
       phrases: [
         {
           slovak: "Anna píše list mojej sestre.",
@@ -215,10 +236,10 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "whose",
+    id: "possessives-whose",
     title: "Whose is it?",
     teach: {
-      sceneLineIds: ["anna-keys", "you-mine"],
+      sceneLineIds: [possessivesLineIds.annaWhoseKeys, possessivesLineIds.youMine],
       phrases: [
         {
           slovak: "Čí je to kľúč?",
@@ -237,7 +258,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "traps",
+    id: "possessives-traps",
     title: "Small traps",
     teach: {
       phrases: [
@@ -263,7 +284,7 @@ export const possessivesBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "your-turn",
+    id: "possessives-your-turn",
     title: "Your turn",
     teach: {},
   },

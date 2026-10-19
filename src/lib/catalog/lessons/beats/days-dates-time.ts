@@ -1,11 +1,16 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+export const daysDatesTimeLineIds = {
+  annaTuesdayAtThree: "days-dates-and-time-anna-tuesday-at-three",
+  youHalfPastTwo: "days-dates-and-time-you-half-past-two",
+} as const;
+
 export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
   {
-    id: "meeting-day",
+    id: "days-dates-and-time-pick-a-day",
     title: "Pick a day",
     teach: {
-      sceneLineIds: ["meeting-offer"],
+      sceneLineIds: [daysDatesTimeLineIds.annaTuesdayAtThree],
       phrases: [
         {
           slovak: "Dnes je pondelok.",
@@ -22,10 +27,13 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "clock-basics",
+    id: "days-dates-and-time-clock-times",
     title: "Clock times",
     teach: {
-      sceneLineIds: ["meeting-offer", "meeting-counter"],
+      sceneLineIds: [
+        daysDatesTimeLineIds.annaTuesdayAtThree,
+        daysDatesTimeLineIds.youHalfPastTwo,
+      ],
       phrases: [
         {
           slovak: "O tretej.",
@@ -38,11 +46,17 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
           note: "Literally, halfway to three.",
           audio: { transcript: "O pol tretej." },
         },
+        {
+          slovak: "O pol druhej.",
+          english: "1:30 — half past one.",
+          note: "Pol counts toward the next hour: halfway to two.",
+          audio: { transcript: "O pol druhej." },
+        },
       ],
     },
   },
   {
-    id: "quarters",
+    id: "days-dates-and-time-quarters",
     title: "Quarters and faces",
     teach: {
       phrases: [
@@ -61,7 +75,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "registers",
+    id: "days-dates-and-time-two-questions",
     title: "Two questions",
     teach: {
       phrases: [
@@ -80,7 +94,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "duration",
+    id: "days-dates-and-time-duration",
     title: "In X minutes",
     teach: {
       phrases: [
@@ -104,7 +118,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
     },
   },
   {
-    id: "your-turn",
+    id: "days-dates-and-time-your-turn",
     title: "Your turn",
     teach: {},
   },
@@ -128,8 +142,8 @@ export function withDaysDatesTimeExercises(
     { ...shells[0]!, exercises: rest.slice(0, 2) },
     { ...(clockTeach ?? shells[1]!), exercises: rest.slice(2, 5) },
     { ...shells[2]!, exercises: rest.slice(5, 8) },
-    { ...shells[3]!, exercises: rest.slice(8, 10) },
-    { ...shells[4]!, exercises: rest.slice(10, 12) },
+    { ...shells[3]!, exercises: rest.slice(8, 9) },
+    { ...shells[4]!, exercises: rest.slice(9, 12) },
     { ...shells[5]!, exercises: personal ? [personal] : [] },
   ];
 }

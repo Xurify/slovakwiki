@@ -1,15 +1,24 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+export const numbersLineIds = {
+  mariaWelcome: "numbers-and-personal-details-maria-welcome",
+  youHereToRegister: "numbers-and-personal-details-you-here-to-register",
+  mariaAsksAge: "numbers-and-personal-details-maria-asks-age",
+  youAge: "numbers-and-personal-details-you-age-28",
+  mariaAsksPhone: "numbers-and-personal-details-maria-asks-phone",
+  youPhoneNumber: "numbers-and-personal-details-you-phone-number",
+} as const;
+
 export const numbersBeats: LessonBeat[] = [
   {
-    id: "age",
+    id: "numbers-and-personal-details-say-age",
     title: "Say your age",
     teach: {
       sceneLineIds: [
-        "registration-welcome",
-        "registration-yes",
-        "registration-age",
-        "registration-age-answer",
+        numbersLineIds.mariaWelcome,
+        numbersLineIds.youHereToRegister,
+        numbersLineIds.mariaAsksAge,
+        numbersLineIds.youAge,
       ],
       phrases: [
         {
@@ -23,10 +32,10 @@ export const numbersBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "phone",
+    id: "numbers-and-personal-details-phone-digits",
     title: "Phone digits",
     teach: {
-      sceneLineIds: ["registration-phone", "registration-phone-answer"],
+      sceneLineIds: [numbersLineIds.mariaAsksPhone, numbersLineIds.youPhoneNumber],
       phrases: [
         {
           slovak: "Moje číslo je …",
@@ -39,7 +48,7 @@ export const numbersBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "price",
+    id: "numbers-and-personal-details-how-much",
     title: "How much does it cost?",
     teach: {
       phrases: [
@@ -59,7 +68,7 @@ export const numbersBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "your-turn",
+    id: "numbers-and-personal-details-your-turn",
     title: "Your turn",
     teach: {},
     exercises: [] as LessonExercise[],

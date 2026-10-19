@@ -23,7 +23,8 @@ The scene is a real conversation that the beats replay in pieces.
 - [ ] Speakers come from the roster in `content/audio/config.json` (`speakers` arrays): `Anna`, `Mária`, `Marek`, `You`, `Receptionist`, `Waiter`, `Conductor`, and system labels `Notice` / `Sentence` / `Scene`. Any other name falls back to the narrator voice. Other people can be _mentioned_ (Tom, Peter) — they just can't speak.
 - [ ] Learner lines (`speaker: "You"`) get `sayChoices` with 1–2 plausible wrong replies, each with a `whyWrong`. Use `answerIds` when two replies are both correct.
 - [ ] Highlight the taught word with `marks` built via `markedText` (`src/lib/learning/marked-text.ts`). Add a role there if none fits.
-- [ ] Give each beat its `sceneLineIds`. A later beat may replay an earlier line for context.
+- [ ] Ids start with the lesson slug and say what they hold. Lines (scene and exercise context): `<slug>-<speaker>-<what is said>`, e.g. `demonstratives-anna-man-helps-us`; broken sentences in repair exercises: `<slug>-broken-<words>`. Beats: `<slug>-<topic>`, e.g. `demonstratives-ten-ta-to`. Every id is unique across the site. `validateLessons` checks both.
+- [ ] Put the scene line ids in the `<topic>LineIds` table at the top of `beats/<topic>.ts`, and use it in the scene (`id: demonstrativesLineIds.annaManHelpsUs`) and in each beat's `sceneLineIds`, so a typo fails typecheck. A later beat may replay an earlier line for context.
 - [ ] Add a story setting in `src/lib/lesson-story/story-settings.ts`: `art` (one of `cafe`, `classroom`, `counter`, `home`, `market`, `plaza`, `registration`, `default`), an English `place`, and a Slovak `placeSk` written as a full phrase (`Na návšteve u Anny`, `V kaviarni`) — not a bare `U Anny`, which reads like a pub sign.
 
 ## 3. Write the beats
@@ -32,6 +33,7 @@ The scene is a real conversation that the beats replay in pieces.
 - [ ] Optional `teach.note` (one or two sentences) and `teach.visual`. Paradigm tables use `form-table`: put long labels in rows, short forms in columns, so the table fits a phone. A beat can hold several visuals.
 - [ ] Grammar labels in full, no abbreviations: “Masculine”, “Nominative”, “Singular”, with the Slovak term beside it (`mužský rod`, `nominatív`, `jednotné číslo`). Gender belongs to the word — say “masculine nouns for people”, never “men”.
 - [ ] Exercises: prompts are the English target line or a direct question (see the content doc). No instructions wrapped around them.
+- [ ] Exercises drill the forms the lesson teaches (a beat that tests **tomu** must show it). They should bring in new words beyond the scene: the dialogue talks about a cake, the exercises about a car, a bag, or coffee. Generated practice draws from a wide noun list for the same reason.
 - [ ] Every exercise has `feedback.why` with key terms in `**double asterisks**` (a test enforces this).
 - [ ] Every wrong choice has a `whyWrong` (a test enforces this). It explains only that pick — never repeat the `why`, which shows right next to it.
 - [ ] Odd-one-out prompts contain “does not mean” and have exactly one trap; every fitting option still gets a `whyWrong` saying why it fits.
@@ -40,7 +42,7 @@ The scene is a real conversation that the beats replay in pieces.
 ## 4. Wire it in
 
 - [ ] Lesson object: in `src/lib/catalog/lessons/{everyday,grammar,pronunciation}.ts`, or in `src/lib/learning/<topic>/lesson.ts` when the topic has generators. Fill `id`, `track`, `slug`, `title`, `promise`, `scene`, `keyPhrases`, `pattern`, `beats`, `referenceLinks`.
-- [ ] Beat shells in `src/lib/catalog/lessons/beats/<topic>.ts`, exported from `beats/index.ts`.
+- [ ] Beat shells and the `<topic>LineIds` table in `src/lib/catalog/lessons/beats/<topic>.ts`, exported from `beats/index.ts`.
 - [ ] `referenceLinks` only to pages that exist (`/grammar/<slug>`, `/grammar/cases/<case>`, `/dictionary/<slug>`).
 - [ ] Practice items: hand-written in `src/lib/catalog/practice/items-*.ts`, or generated (possessives pattern: `session.ts` materializes catalog stubs from seeded generators).
 - [ ] Practice set in `src/lib/catalog/practice/sets.ts`. Generated sets add a `sessionKind`, wired through `src/lib/practice/session.ts` (seeded SSR session so hydration matches, fresh client session that keeps the painted first card).

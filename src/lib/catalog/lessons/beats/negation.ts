@@ -1,11 +1,18 @@
 import type { LessonBeat, LessonExercise } from "$lib/learning/types";
 
+export const negationLineIds = {
+  waiterOffersCoffee: "negation-in-conversation-waiter-offers-coffee",
+  youNoTime: "negation-in-conversation-you-no-time",
+  waiterAsksMenu: "negation-in-conversation-waiter-asks-menu",
+  youDontUnderstand: "negation-in-conversation-you-dont-understand",
+} as const;
+
 export const negationBeats: LessonBeat[] = [
   {
-    id: "refuse",
+    id: "negation-in-conversation-refuse-politely",
     title: "Refuse politely",
     teach: {
-      sceneLineIds: ["cafe-offer", "cafe-refusal"],
+      sceneLineIds: [negationLineIds.waiterOffersCoffee, negationLineIds.youNoTime],
       phrases: [
         {
           slovak: "Nie, ďakujem.",
@@ -22,10 +29,10 @@ export const negationBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "understand",
+    id: "negation-in-conversation-not-understand",
     title: "Say you do not understand",
     teach: {
-      sceneLineIds: ["cafe-menu", "cafe-clarification"],
+      sceneLineIds: [negationLineIds.waiterAsksMenu, negationLineIds.youDontUnderstand],
       phrases: [
         {
           slovak: "Nerozumiem.",
@@ -43,7 +50,7 @@ export const negationBeats: LessonBeat[] = [
     exercises: [] as LessonExercise[],
   },
   {
-    id: "your-turn",
+    id: "negation-in-conversation-your-turn",
     title: "Your turn",
     teach: {},
     exercises: [] as LessonExercise[],
