@@ -5,6 +5,7 @@ import {
   attemptFeedbackWhy,
   augmentFeedbackWhy,
   choiceFeedbackWhy,
+  otherChoiceNotes,
   pickTrapFeedbackEnglish,
   pickTrapFeedbackWhy,
 } from "$lib/learning/exercises/feedback-why";
@@ -99,6 +100,35 @@ describe("feedback-why", () => {
     expect(gradeChoice("trap-a", exercise)).toBe(true);
     expect(gradeChoice("trap-b", exercise)).toBe(true);
     expect(gradeChoice("fit", exercise)).toBe(false);
+  });
+
+  it("lists notes for unpicked options, skipping the pick and notes already shown", () => {
+    const choices = [
+      { id: "ti", label: "Kto sú tí ľudia?" },
+      {
+        id: "tie",
+        label: "Kto sú tie ľudia?",
+        whyWrong: "**Tie** is for other plurals.",
+      },
+      { id: "ten", label: "Kto je ten ľudia?", whyWrong: "**Ten** is singular." },
+      { id: "clock", clock: { hour: 3, minute: 0 }, whyWrong: "That face shows 3:00." },
+    ];
+
+    expect(otherChoiceNotes(choices, new Set(["ti"]), "Base.")).toEqual([
+      { label: "Kto sú tie ľudia?", why: "**Tie** is for other plurals." },
+      { label: "Kto je ten ľudia?", why: "**Ten** is singular." },
+      { label: "3:00", why: "That face shows 3:00." },
+    ]);
+
+    const missWhy = choiceFeedbackWhy("Base.", "tie", choices, "ti");
+    expect(otherChoiceNotes(choices, new Set(["tie"]), missWhy)).toEqual([
+      { label: "Kto je ten ľudia?", why: "**Ten** is singular." },
+      { label: "3:00", why: "That face shows 3:00." },
+    ]);
+
+    expect(
+      otherChoiceNotes(choices, new Set(["ti"]), "Base. **Ten** is singular."),
+    ).toHaveLength(2);
   });
 
   it("leads with the note for a wrong form the learner typed", () => {

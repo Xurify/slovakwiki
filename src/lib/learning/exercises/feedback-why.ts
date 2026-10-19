@@ -1,4 +1,5 @@
-import type { AnswerMistake } from "$lib/learning/types";
+import type { AnswerMistake, ClockTime } from "$lib/learning/types";
+import { formatClockFaceLabel } from "$lib/learning/time/clock";
 import { containsAnswerWords } from "./answer-diff";
 
 type FeedbackChoice = {
@@ -45,6 +46,33 @@ export function augmentFeedbackWhy(
 
   if (wrongNotes.length === 0) return baseWhy;
   return [baseWhy, ...wrongNotes].join(" ");
+}
+
+export type OtherChoiceNote = { label: string; why: string };
+
+/** Notes for the options the learner did not pick, minus any the feedback line already shows. */
+export function otherChoiceNotes(
+  choices: ReadonlyArray<FeedbackChoice & { label?: string; clock?: ClockTime }>,
+  selectedIds: ReadonlySet<string>,
+  shownWhy: string,
+): OtherChoiceNote[] {
+  const seen = new Set<string>();
+  const notes: OtherChoiceNote[] = [];
+
+  for (const choice of choices) {
+    const why = choice.whyWrong?.trim();
+    if (!why || selectedIds.has(choice.id) || shownWhy.includes(why) || seen.has(why))
+      continue;
+
+    const label =
+      choice.label ?? (choice.clock ? formatClockFaceLabel(choice.clock) : "");
+    if (!label) continue;
+
+    seen.add(why);
+    notes.push({ label, why });
+  }
+
+  return notes;
 }
 
 export function choiceFeedbackWhy(

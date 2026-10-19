@@ -27,6 +27,7 @@
     choiceIndexFromKeyboardEvent,
     gradeChoice,
     gradeSelectAll,
+    otherChoiceNotes,
     pickTrapFeedbackEnglish,
     PICK_TRAP_CORRECT_HEADLINE,
     PICK_TRAP_MISS_HEADLINE,
@@ -473,6 +474,21 @@
     return baseWhy;
   });
 
+  const otherChoices = $derived.by(() => {
+    if (!submitted) return [];
+    if (task.type === "choice") {
+      return otherChoiceNotes(
+        task.choices,
+        new Set(selectedId ? [selectedId] : []),
+        feedbackWhy,
+      );
+    }
+    if (task.type === "selectAll") {
+      return otherChoiceNotes(task.choices, selectedIds, feedbackWhy);
+    }
+    return [];
+  });
+
   const markWords = $derived(
     task.type === "typed" ||
       task.type === "build" ||
@@ -539,6 +555,7 @@
         correctHeadline={isPickTrap ? PICK_TRAP_CORRECT_HEADLINE : "Correct"}
         missHeadline={isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer"}
         {markWords}
+        {otherChoices}
         dictionaryHref={task.type === "cloze" && task.lemmaId
           ? dictionaryHrefForLemma(task.lemmaId)
           : undefined}

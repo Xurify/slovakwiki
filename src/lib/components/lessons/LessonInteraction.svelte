@@ -19,6 +19,7 @@
     choiceIndexFromKeyboardEvent,
     gradeChoice,
     gradeSelectAll,
+    otherChoiceNotes,
     pickTrapFeedbackEnglish,
     PICK_TRAP_CORRECT_HEADLINE,
     PICK_TRAP_MISS_HEADLINE,
@@ -27,6 +28,7 @@
   } from "$lib/learning/exercises";
   import GrammarHintAccordion from "$lib/components/practice/GrammarHintAccordion.svelte";
   import type { LessonExercise } from "$lib/learning/types";
+  import type { OtherChoiceNote } from "$lib/learning/exercises/feedback-why";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
   import { DIALOGUE_SPEAKER_CLASS } from "$lib/components/practice/dialogue-speaker";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
@@ -64,6 +66,7 @@
       grade: AnswerGrade;
       markWords?: boolean;
       missHeadline?: string;
+      otherChoices?: OtherChoiceNote[];
       revealed?: boolean;
       showCorrection?: boolean;
       why: string;
@@ -139,6 +142,9 @@
     }
     return baseWhy;
   });
+  const otherChoices = $derived(
+    submitted ? choiceNotesFor(feedbackWhy) : ([] as OtherChoiceNote[]),
+  );
   const feedbackCorrection = $derived.by(() => {
     if (
       graded?.type === "choice" &&
@@ -287,6 +293,7 @@
         grade: kind,
         markWords,
         missHeadline: isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer",
+        otherChoices: choiceNotesFor(why),
         showCorrection: !(graded.type === "selectAll" && !isCorrect),
         why,
       });
@@ -337,6 +344,7 @@
     if ((event.key !== "Enter" && event.key !== " ") || event.shiftKey || !submitted)
       return;
     if (player) return;
+    if (event.target instanceof Element && event.target.closest("button, a")) return;
     event.preventDefault();
     continueLesson();
   }
@@ -356,6 +364,20 @@
   function onWindowKeydown(event: KeyboardEvent): void {
     onChoiceKeydown(event);
     onContinueKeydown(event);
+  }
+
+  function choiceNotesFor(shownWhy: string): OtherChoiceNote[] {
+    if (graded?.type === "choice") {
+      return otherChoiceNotes(
+        graded.choices,
+        new Set(selectedId ? [selectedId] : []),
+        shownWhy,
+      );
+    }
+    if (graded?.type === "selectAll") {
+      return otherChoiceNotes(graded.choices, selectedIds, shownWhy);
+    }
+    return [];
   }
 
   function attemptForDisplay(): string | undefined {
@@ -520,6 +542,7 @@
           correctHeadline={isPickTrap ? PICK_TRAP_CORRECT_HEADLINE : "Correct"}
           missHeadline={isPickTrap ? PICK_TRAP_MISS_HEADLINE : "Correct answer"}
           {markWords}
+          {otherChoices}
         />
       </div>
 

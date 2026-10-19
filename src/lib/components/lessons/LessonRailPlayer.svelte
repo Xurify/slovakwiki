@@ -16,6 +16,7 @@
     type AnswerGrade,
   } from "$lib/components/practice/practice-state";
   import type { Lesson } from "$lib/learning/types";
+  import type { OtherChoiceNote } from "$lib/learning/exercises/feedback-why";
   import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
   import { practiceSetForLesson } from "$lib/catalog/practice";
   import { unlockSfx } from "$lib/audio/sfx";
@@ -48,6 +49,7 @@
     grade: AnswerGrade;
     markWords?: boolean;
     missHeadline?: string;
+    otherChoices?: OtherChoiceNote[];
     revealed?: boolean;
     showCorrection?: boolean;
     why: string;
@@ -217,6 +219,7 @@
     english?: string;
     grade: AnswerGrade;
     missHeadline?: string;
+    otherChoices?: OtherChoiceNote[];
     revealed?: boolean;
     showCorrection?: boolean;
     why: string;
@@ -351,6 +354,7 @@
         missHeadline={gradeResult.missHeadline}
         markWords={gradeResult.markWords}
         showCorrection={gradeResult.showCorrection}
+        otherChoices={gradeResult.otherChoices}
         oncontinue={advance}
       />
     {:else}

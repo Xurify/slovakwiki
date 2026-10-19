@@ -1,12 +1,14 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
   import Button from "$lib/components/ui/Button.svelte";
+  import OtherChoiceNotes from "$lib/components/practice/OtherChoiceNotes.svelte";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     shouldShowCorrection,
     splitEmphasis,
   } from "$lib/components/practice/practice-feedback-ui";
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
+  import type { OtherChoiceNote } from "$lib/learning/exercises/feedback-why";
 
   let {
     attempt,
@@ -16,6 +18,7 @@
     markWords = false,
     missHeadline = "Correct answer",
     oncontinue,
+    otherChoices = [],
     revealed = false,
     showCorrection: showCorrectionProp,
     why,
@@ -27,6 +30,7 @@
     markWords?: boolean;
     missHeadline?: string;
     oncontinue: () => void;
+    otherChoices?: OtherChoiceNote[];
     revealed?: boolean;
     showCorrection?: boolean;
     why?: string;
@@ -39,10 +43,15 @@
   const showCorrection = $derived(
     showCorrectionProp ?? (isMiss && shouldShowCorrection(true, grade, revealed)),
   );
+  const rowAlignClass = $derived(
+    isMiss ? "items-start" : otherChoices.length ? "items-end" : "items-center",
+  );
 
   onMount(async () => {
     await tick();
-    rootEl?.querySelector("button")?.focus({ preventScroll: true });
+    rootEl
+      ?.querySelector<HTMLButtonElement>("[data-feedback-continue]")
+      ?.focus({ preventScroll: true });
   });
 </script>
 
@@ -53,9 +62,7 @@
   aria-live="polite"
 >
   <div
-    class="mx-auto flex max-w-[640px] animate-rise flex-wrap justify-between gap-4 {isMiss
-      ? 'items-start'
-      : 'items-center'}"
+    class="mx-auto flex max-w-[640px] animate-rise flex-wrap justify-between gap-4 {rowAlignClass}"
   >
     <div class="min-w-0 flex-1">
       {#if isMiss}
@@ -69,6 +76,7 @@
           {showCorrection}
           {missHeadline}
           {markWords}
+          {otherChoices}
           density="compact"
           correctionLabelTone="emerald"
         />
@@ -102,6 +110,8 @@
             {/each}
           </p>
         {/if}
+
+        <OtherChoiceNotes class="mt-2" notes={otherChoices} />
       {/if}
     </div>
 
@@ -109,6 +119,7 @@
       class="min-w-36 shrink-0 px-6"
       type="button"
       variant="accent"
+      data-feedback-continue
       onclick={oncontinue}
     >
       Continue

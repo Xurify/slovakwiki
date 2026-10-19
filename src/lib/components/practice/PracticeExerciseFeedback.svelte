@@ -1,5 +1,6 @@
 <script lang="ts">
   import TextLink from "$lib/components/ui/TextLink.svelte";
+  import OtherChoiceNotes from "$lib/components/practice/OtherChoiceNotes.svelte";
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
   import { displayPracticeAnswer } from "$lib/components/practice/practice-state";
   import {
@@ -13,6 +14,7 @@
     type MarkedSegment,
   } from "$lib/components/practice/practice-feedback-ui";
   import { diffAnswerWords } from "$lib/learning/exercises/answer-diff";
+  import type { OtherChoiceNote } from "$lib/learning/exercises/feedback-why";
 
   let {
     attempt = undefined,
@@ -31,6 +33,7 @@
     missHeadline = "Correct answer",
     markWords = false,
     status = false,
+    otherChoices = [],
   }: {
     attempt?: string;
     closeSuggestion?: string | null;
@@ -50,6 +53,8 @@
     markWords?: boolean;
     /** Lead with an icon + verdict row (live exercise footer). */
     status?: boolean;
+    /** Choice exercises: explanations for the options the learner did not pick. */
+    otherChoices?: OtherChoiceNote[];
   } = $props();
 
   const statusTone = $derived.by<"accents" | "correct" | "incorrect" | "revealed">(() => {
@@ -208,6 +213,8 @@
       {#if dictionaryHref}
         <TextLink class="text-sm" href={dictionaryHref}>Open in dictionary</TextLink>
       {/if}
+
+      <OtherChoiceNotes notes={otherChoices} />
     </div>
   {:else}
     <div class="grid gap-2">
@@ -259,6 +266,8 @@
       {#if dictionaryHref}
         <TextLink class="text-sm" href={dictionaryHref}>Open in dictionary</TextLink>
       {/if}
+
+      <OtherChoiceNotes notes={otherChoices} />
     </div>
   {/if}
 {/snippet}
