@@ -5,7 +5,7 @@ export function practiceTaskKicker(task: PracticeTask | undefined): string {
   if (!task) return "";
   if (task.type === "typed" && task.task === "repair") return "Repair this sentence";
   if (task.type === "cloze") return "Fill the gap";
-  if (task.type === "spot") return "Find the mistake";
+  if (task.type === "findMistake") return "Find the mistake";
   if (task.type === "selectAll") return "";
   if (task.type === "choice" && task.clock) return "";
   if (task.type === "choice" && task.promptSk) return "";

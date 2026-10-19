@@ -9,7 +9,7 @@ import {
   buildPluralExercise,
   buildRepairExercise,
   buildRoleOddOneOutExercise,
-  buildSpotExercise,
+  buildFindMistakeExercise,
   buildTentoTamtenExercise,
   buildThisNotThatExercise,
   buildToJeExercise,
@@ -39,7 +39,7 @@ const BUILDERS = {
   "grammar/demonstrative-role-odd-one-out": buildRoleOddOneOutExercise,
   "grammar/demonstrative-typed": buildTypedExercise,
   "grammar/demonstrative-repair": buildRepairExercise,
-  "grammar/demonstrative-spot": buildSpotExercise,
+  "grammar/demonstrative-find-mistake": buildFindMistakeExercise,
 } satisfies Record<string, DemonstrativeTaskBuilder>;
 
 export type DemonstrativeKind = keyof typeof BUILDERS;

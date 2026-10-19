@@ -32,13 +32,13 @@
     PICK_TRAP_MISS_HEADLINE,
     pickTrapFeedbackWhy,
     selectAllFeedbackWhy,
-    SpotMistakeOptions,
-    canCheckSpot,
-    gradeSpot,
-    spotAttempt,
-    spotFeedbackWhy,
-    spotWord,
-    type SpotPick,
+    FindMistakeSentence,
+    canCheckFindMistake,
+    gradeFindMistake,
+    findMistakeAttempt,
+    findMistakeFeedbackWhy,
+    wordWithoutPunctuation,
+    type MistakePick,
   } from "$lib/learning/exercises";
   import { formatClockFaceLabel } from "$lib/learning/time/clock";
   import PracticeDialogueBubble from "$lib/components/practice/PracticeDialogueBubble.svelte";
@@ -126,7 +126,7 @@
   let feedbackPanel = $state<HTMLElement | null>(null);
   let inputEl = $state<HTMLInputElement | null>(null);
   let itemOverride = $state<PracticeItem[] | null>(null);
-  let spotPick = $state<SpotPick>(null);
+  let mistakePick = $state<MistakePick>(null);
   let sessionResults = $state<SessionPhraseResult[]>([]);
 
   const activeItems = $derived(itemOverride ?? items);
@@ -160,7 +160,7 @@
       return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
-    if (task.type === "spot") return gradeSpot(task, spotPick, input);
+    if (task.type === "findMistake") return gradeFindMistake(task, mistakePick, input);
     if (task.type === "cloze" || task.type === "typed")
       return gradeAnswer(input, task.answer, task.acceptedAnswers);
     return "incorrect";
@@ -181,7 +181,7 @@
     if (task.type === "selectAll") return selectedIds.size > 0;
     if (task.type === "build")
       return canCheckBuild(builtTiles.length, task.answer.length);
-    if (task.type === "spot") return canCheckSpot(spotPick, input);
+    if (task.type === "findMistake") return canCheckFindMistake(mistakePick, input);
     return input.trim().length > 0;
   });
 
@@ -223,7 +223,7 @@
       return gradeSelectAll(selectedIds, task.choices) ? "correct" : "incorrect";
     if (task.type === "build")
       return gradeBuild(builtTiles, task.answer) ? "correct" : "incorrect";
-    if (task.type === "spot") return gradeSpot(task, spotPick, input);
+    if (task.type === "findMistake") return gradeFindMistake(task, mistakePick, input);
     if (task.type === "cloze" || task.type === "typed")
       return gradeAnswer(input, task.answer, task.acceptedAnswers);
     return "incorrect";
@@ -297,8 +297,8 @@
     }
   }
 
-  async function pickSpot(next: SpotPick): Promise<void> {
-    spotPick = next;
+  async function pickMistakeWord(next: MistakePick): Promise<void> {
+    mistakePick = next;
     input = "";
     if (typeof next !== "number") return;
     await tick();
@@ -334,7 +334,7 @@
         .join("; ");
     }
     if (task.type === "build" && builtTiles.length > 0) return builtTiles.join(" ");
-    if (task.type === "spot") return spotAttempt(task, spotPick, input);
+    if (task.type === "findMistake") return findMistakeAttempt(task, mistakePick, input);
     if (task.type === "cloze" || task.type === "typed") {
       const trimmed = input.trim();
       return trimmed || undefined;
@@ -366,7 +366,7 @@
     submitted = false;
     revealed = false;
     hintOpen = false;
-    spotPick = null;
+    mistakePick = null;
   }
 
   function next(): void {
@@ -436,14 +436,15 @@
     if (task.type === "typed" || task.type === "build") {
       return attemptFeedbackWhy(baseWhy, attemptForResult(), task.mistakes);
     }
-    if (task.type === "spot") return spotFeedbackWhy(task, spotPick, baseWhy);
+    if (task.type === "findMistake")
+      return findMistakeFeedbackWhy(task, mistakePick, baseWhy);
     return baseWhy;
   });
 
   const markWords = $derived(
     task.type === "typed" ||
       task.type === "build" ||
-      task.type === "spot" ||
+      task.type === "findMistake" ||
       (task.type === "choice" &&
         task.choiceMode !== "pickTrap" &&
         task.choiceStyle !== "clock"),
@@ -650,24 +651,27 @@
           bind:builtBankIndexes
           {submitted}
         />
-      {:else if task.type === "spot"}
-        <SpotMistakeOptions
+      {:else if task.type === "findMistake"}
+        <FindMistakeSentence
           words={task.words}
-          pick={spotPick}
-          onpick={pickSpot}
+          pick={mistakePick}
+          onpick={pickMistakeWord}
           {submitted}
-          wrongIndex={task.wrongIndex}
-          solved={grade === "correct" || grade === "accents"}
+          wrongWordIndex={task.wrongWordIndex}
+          answeredCorrectly={grade === "correct" || grade === "accents"}
         />
 
-        {#if typeof spotPick === "number"}
+        {#if typeof mistakePick === "number"}
           <div class="mt-5 grid gap-3">
-            <label class="text-xs font-bold text-slate-600" for="practice-spot-input">
-              Write “{spotWord(task.words, spotPick)}” correctly
+            <label
+              class="text-xs font-bold text-slate-600"
+              for="practice-find-mistake-input"
+            >
+              Write “{wordWithoutPunctuation(task.words, mistakePick)}” correctly
             </label>
 
             <input
-              id="practice-spot-input"
+              id="practice-find-mistake-input"
               class="{sessionTypedInputClass} {answeredInputClass(
                 inputTone,
                 sessionTypedInputIdleClass,
@@ -809,7 +813,7 @@
         </div>
       {/if}
 
-      {#if (task.type === "choice" || task.type === "selectAll" || task.type === "spot") && task.hint}
+      {#if (task.type === "choice" || task.type === "selectAll" || task.type === "findMistake") && task.hint}
         <div class="mt-6 border-t border-slate-200 pt-4">
           <GrammarHintAccordion hint={task.hint} bind:open={hintOpen} />
         </div>

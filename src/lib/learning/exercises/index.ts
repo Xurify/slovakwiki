@@ -8,5 +8,5 @@ export * from "./select-all";
 export { default as BuildSentenceOptions } from "./BuildSentenceOptions.svelte";
 export { default as ChoiceOptions } from "./ChoiceOptions.svelte";
 export { default as SelectAllOptions } from "./SelectAllOptions.svelte";
-export * from "./spot";
-export { default as SpotMistakeOptions } from "./SpotMistakeOptions.svelte";
+export * from "./find-mistake";
+export { default as FindMistakeSentence } from "./FindMistakeSentence.svelte";

@@ -107,18 +107,18 @@ describe("learning/demonstratives/session", () => {
     let clean = 0;
 
     for (const { kind, task } of everyTask()) {
-      if (task.type !== "spot") continue;
+      if (task.type !== "findMistake") continue;
 
-      if (task.wrongIndex === null) {
+      if (task.wrongWordIndex === null) {
         clean += 1;
         expect(task.words.join(" "), kind).toBe(task.feedback.correction);
         continue;
       }
 
       const fixed = [...task.words];
-      fixed[task.wrongIndex] = task.answer;
+      fixed[task.wrongWordIndex] = task.answer;
       expect(fixed.join(" "), kind).toBe(task.feedback.correction);
-      expect(task.words[task.wrongIndex], kind).not.toBe(task.answer);
+      expect(task.words[task.wrongWordIndex], kind).not.toBe(task.answer);
     }
 
     expect(clean).toBeGreaterThan(0);

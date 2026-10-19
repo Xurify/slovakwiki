@@ -1,26 +1,23 @@
 <script lang="ts">
-  import { spotWord, type SpotPick } from "./spot";
+  import { wordWithoutPunctuation, type MistakePick } from "./find-mistake";
 
   let {
     words,
     pick,
     onpick,
     submitted,
-    wrongIndex,
-    solved,
+    wrongWordIndex,
+    answeredCorrectly,
   }: {
     words: string[];
-    pick: SpotPick;
-    onpick: (next: SpotPick) => void;
+    pick: MistakePick;
+    onpick: (next: MistakePick) => void;
     submitted: boolean;
-    /** The wrong word, or null when nothing is wrong. Shown only once checked. */
-    wrongIndex: number | null;
-    /** The learner found and fixed it, or rightly said nothing was wrong. */
-    solved: boolean;
+    wrongWordIndex: number | null;
+    answeredCorrectly: boolean;
   } = $props();
 
-  // Graded states leave the idle colors out: Tailwind orders same-property utilities
-  // by name, so `bg-surface` would hide `bg-rose-50`.
+  // Graded states leave the idle colors out: Tailwind sorts same-property utilities by name, so bg-surface would hide bg-rose-50.
   const wordShape =
     "rounded-(--control-radius) px-1 py-0.5 font-serif text-xl leading-snug transition-[background-color,box-shadow,color] duration-150 ease-out disabled:cursor-default";
   const wordIdleClass = `${wordShape} cursor-pointer text-slate-900 underline decoration-slate-300 decoration-dotted underline-offset-[6px] enabled:hover:bg-blue-50 enabled:hover:text-blue-900 aria-pressed:bg-blue-50 aria-pressed:text-blue-900 aria-pressed:no-underline aria-pressed:shadow-[inset_0_0_0_2px_var(--accent)]`;
@@ -36,7 +33,8 @@
 
   function wordClass(index: number): string {
     if (!submitted) return wordIdleClass;
-    if (index === wrongIndex) return `${wordShape} ${solved ? rightTone : wrongTone}`;
+    if (index === wrongWordIndex)
+      return `${wordShape} ${answeredCorrectly ? rightTone : wrongTone}`;
     if (index === pick) {
       return `${wordShape} text-slate-900 outline-1 -outline-offset-1 outline-dashed outline-slate-400`;
     }
@@ -44,32 +42,31 @@
   }
 
   function wordLabel(index: number): string {
-    const word = spotWord(words, index);
+    const word = wordWithoutPunctuation(words, index);
     if (!submitted) return word;
-    if (index === wrongIndex) return `${word}, the wrong word`;
+    if (index === wrongWordIndex) return `${word}, the wrong word`;
     if (index === pick) return `${word}, your pick`;
     return word;
   }
 
   const noneClass = $derived.by(() => {
     if (!submitted) return noneIdleClass;
-    if (wrongIndex === null) {
+    if (wrongWordIndex === null) {
       return `${noneShape} border-emerald-600 bg-emerald-50 text-slate-900 shadow-[inset_0_0_0_1px_var(--color-emerald-600)]`;
     }
-    if (pick === "none") {
+    if (pick === "no-mistake") {
       return `${noneShape} border-rose-600 bg-rose-50 text-slate-900 shadow-[inset_0_0_0_1px_var(--color-rose-600)]`;
     }
     return `${noneShape} border-slate-200 bg-surface text-slate-500`;
   });
 
-  function choose(next: SpotPick): void {
+  function choose(next: MistakePick): void {
     if (submitted) return;
     onpick(pick === next ? null : next);
   }
 </script>
 
 <div class="mt-6">
-  <!-- The words' own padding is the space between them; -mx-1 lines the first word up with the prompt. -->
   <p class="m-0 -mx-1 flex flex-wrap items-baseline gap-y-1" lang="sk">
     {#each words as word, index (index)}
       <button
@@ -89,8 +86,8 @@
     class={noneClass}
     type="button"
     disabled={submitted}
-    aria-pressed={pick === "none"}
-    onclick={() => choose("none")}
+    aria-pressed={pick === "no-mistake"}
+    onclick={() => choose("no-mistake")}
   >
     No mistake
   </button>
