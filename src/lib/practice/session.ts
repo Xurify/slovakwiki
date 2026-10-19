@@ -22,6 +22,7 @@ import {
   materializeDaysDatesTimeItem,
 } from "$lib/learning/time/session";
 import { drawWithNewSentence } from "./retry";
+import { MAX_CARDS_PER_REVIEW } from "./review-memory";
 
 function itemsFromIds(itemIds: readonly string[]): PracticeItem[] {
   return itemIds
@@ -130,4 +131,20 @@ function drawForSameRule(
     return () => materializeDemonstrativeItem(itemId);
   }
   return undefined;
+}
+
+export function freshCardForReview(formId: string): PracticeItem | undefined {
+  if (isDemonstrativeKind(formId)) return materializeDemonstrativeItem(formId);
+  if (isPossessiveKind(formId)) return materializePossessiveItem(formId);
+  if (isDaysDatesTimeKind(formId)) return materializeDaysDatesTimeItem(formId);
+
+  const item = practiceItemById.get(formId);
+  return item ? maybeMaterializeBuildItem(item) : undefined;
+}
+
+export function buildReviewSession(formIds: readonly string[]): PracticeItem[] {
+  return formIds
+    .map((formId) => freshCardForReview(formId))
+    .filter((item): item is PracticeItem => item !== undefined)
+    .slice(0, MAX_CARDS_PER_REVIEW);
 }

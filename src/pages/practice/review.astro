@@ -1,0 +1,20 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import PracticeReviewPage from "$lib/components/practice/PracticeReviewPage.svelte";
+import { dictionaryHrefsForItems } from "$lib/catalog/dictionary/lemma-href";
+import { clozeAudioSrcs } from "$lib/catalog/practice/audio";
+import { practiceItems } from "$lib/catalog/practice";
+---
+
+<SiteLayout
+  title="Review | Slovak Wiki"
+  description="The practice exercises you missed, back on a spaced schedule."
+  canonicalPath="/practice/review"
+  noindex
+>
+  <PracticeReviewPage
+    client:load
+    audioSrcs={clozeAudioSrcs(practiceItems)}
+    dictionaryHrefs={dictionaryHrefsForItems(practiceItems)}
+  />
+</SiteLayout>

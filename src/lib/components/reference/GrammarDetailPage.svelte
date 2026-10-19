@@ -15,6 +15,7 @@
   let {
     data,
     clockDrill,
+    weakSpots,
     audioMount,
   }: {
     data: {
@@ -23,6 +24,7 @@
       audioKeys: string[];
     };
     clockDrill?: Snippet;
+    weakSpots?: Snippet;
     /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
     audioMount?: Snippet;
     /** Astro passes named slots as siblings; typed so multiple slot children check. */
@@ -35,6 +37,7 @@
   relatedEntries={data.relatedEntries}
   audioKeys={data.audioKeys}
   {clockDrill}
+  {weakSpots}
 />
 
 {#if audioMount}

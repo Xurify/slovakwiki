@@ -8,7 +8,7 @@
     writePracticeState,
   } from "$lib/components/practice/practice-state";
   import PracticePlayer from "$lib/components/practice/PracticePlayer.svelte";
-  import SessionChrome from "$lib/components/learning/SessionChrome.svelte";
+  import PracticeSessionSkeleton from "$lib/components/practice/PracticeSessionSkeleton.svelte";
   import { sessionSubtitle } from "$lib/components/practice/practice-session-ui";
   import { practiceSessionCount, type PracticeSet } from "$lib/catalog/practice";
   import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
@@ -21,6 +21,7 @@
     retryCardFor,
     ssrPracticeSession,
   } from "$lib/practice/session";
+  import { saveAnswerForReview } from "$lib/practice/review-memory";
   import { practiceTaskKicker } from "$lib/practice/task-kicker";
 
   let {
@@ -96,6 +97,7 @@
       sessionTitle={data.set.title}
       sessionContext={data.sessionContext}
       buildRetryOfMissedCard={(missed) => retryCardFor(data.set, missed)}
+      onAnswer={(item, grade) => saveAnswerForReview(localStorage, item.id, grade)}
       bind:sectionTitle
     />
   {/if}
@@ -114,41 +116,15 @@
             sessionTitle={data.set.title}
             sessionContext={data.sessionContext}
             buildRetryOfMissedCard={(missed) => retryCardFor(data.set, missed)}
+            onAnswer={(item, grade) => saveAnswerForReview(localStorage, item.id, grade)}
             bind:sectionTitle
           />
         {:else}
-          <div
-            class="mx-auto w-full max-w-[640px]"
-            aria-busy="true"
-            aria-label="Loading practice"
-          >
-            <SessionChrome
-              progressLabel="Practice progress"
-              backHref="/practice"
-              backLabel="Practice"
-              subtitle={sessionSubtitle(data.sessionContext)}
-              title={data.set.title}
-              total={practiceSessionCount(data.set)}
-            />
-
-            <section
-              class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
-            >
-              <div class="grid gap-3 px-7 py-8 max-[560px]:px-4 max-[560px]:py-6">
-                <span class="h-2.5 w-28 rounded-full bg-slate-200"></span>
-                <span class="h-6 w-3/4 rounded-full bg-slate-200"></span>
-                <span class="mt-3 h-14 rounded-(--control-radius) bg-slate-50"></span>
-                <span class="h-14 rounded-(--control-radius) bg-slate-50"></span>
-              </div>
-
-              <div
-                class="flex justify-end border-t border-slate-200 bg-subtle/60 px-7 py-5 max-[560px]:px-4 max-[560px]:py-4"
-              >
-                <span class="h-11 w-full rounded-(--control-radius) bg-slate-200 sm:w-36"
-                ></span>
-              </div>
-            </section>
-          </div>
+          <PracticeSessionSkeleton
+            subtitle={sessionSubtitle(data.sessionContext)}
+            title={data.set.title}
+            total={practiceSessionCount(data.set)}
+          />
         {/if}
       </div>
     </PageShell>
