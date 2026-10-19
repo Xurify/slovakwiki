@@ -78,6 +78,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         ...(entry.aliases ?? []),
         ...entry.rule,
         ...entry.pattern.lines,
+        ...(entry.morePatterns ?? []).flatMap((pattern) => pattern.lines),
         ...entry.body,
         ...entry.examples.flatMap((example) => [example.slovak, example.english]),
       ]),

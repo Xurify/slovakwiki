@@ -145,6 +145,12 @@ export function markAgainst(base: string, form: string): MarkedPhrase {
   if (form !== base && form.endsWith(base)) {
     return { before: "", mark: form.slice(0, form.length - base.length), after: base };
   }
+  // toho + -to drops the middle o: tohto. Mark the same -to as táto.
+  const head = base.slice(0, -1);
+  const tail = base.slice(-1);
+  if (head && form === `${head}t${tail}`) {
+    return { before: head, mark: `t${tail}`, after: "" };
+  }
   return { before: form, mark: "", after: "" };
 }
 

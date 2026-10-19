@@ -427,6 +427,7 @@ export const grammarEntries: GrammarTopic[] = [
       { slovak: "Dám si tento koláč.", english: "I'll have this cake." },
       { slovak: "To sú moji rodičia.", english: "These are my parents." },
       { slovak: "Poznám toho muža.", english: "I know that man." },
+      { slovak: "Chcem tamtú tašku.", english: "I want that bag over there." },
     ],
     related: ["grammatical-gender", "cases-overview", "dievca", "dieta"],
     source: languageSource,
@@ -450,8 +451,31 @@ export const grammarEntries: GrammarTopic[] = [
         "Every other plural: tie, tieto, tamtie",
       ],
     },
+    morePatterns: [
+      {
+        label: "As the object",
+        columns: ["the, that", "this", "that (over there)"],
+        lines: [
+          "Feminine: tú, túto, tamtú",
+          "Masculine, a person: toho, tohto, tamtoho",
+          "Masculine, a thing: ten, tento, tamten",
+          "Neuter: to, toto, tamto",
+          "Masculine nouns for people, plural: tých, týchto, tamtých",
+          "Every other plural: tie, tieto, tamtie",
+        ],
+      },
+      {
+        label: "Tým and tými",
+        columns: ["the, that", "this", "that (over there)"],
+        lines: [
+          "With one person: tým, týmto, tamtým",
+          "To them: tým, týmto, tamtým",
+          "With them: tými, týmito, tamtými",
+        ],
+      },
+    ],
     watchOut:
-      "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*. As the object of a verb, ten changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**. Write **tohto** and **tieto**; *tohoto* and *tyto* are Czech.",
+      "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*. **Kolega** (colleague) ends in -a and takes **ten kolega**. **Noc** (night) ends in a consonant and takes **tá noc**. As the object of a verb, ten changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**. Write **tohto** and **tieto**; *tohoto* and *tyto* are Czech.",
     nextSlug: "present-tense",
     lessonLink: {
       href: "/lessons/grammar/demonstratives",

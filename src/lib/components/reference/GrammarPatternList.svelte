@@ -82,6 +82,12 @@
 
   const gridLabelCellClass = "py-2.5 pr-3 pl-4 text-left sm:pl-5";
   const gridFormCellClass = "px-3 py-2.5 align-baseline last:pr-4 sm:last:pr-5";
+  /** Below sm the label sits on its own line, so the first form column takes the card's edge padding. */
+  const gridLeadCellClass = "max-sm:pl-4";
+  const gridRowLabelClass =
+    "align-baseline text-sm leading-snug font-normal text-slate-500 max-sm:hidden";
+  const gridMobileLabelClass =
+    "px-4 pt-2.5 pb-0 text-left text-[0.8125rem] leading-snug font-normal text-slate-500";
 </script>
 
 {#snippet marked(phrase: MarkedPhrase)}
@@ -190,15 +196,16 @@
       <table class="w-full border-collapse">
         <thead>
           <tr class="border-b border-slate-200 bg-subtle/60">
-            <td class={gridLabelCellClass}></td>
+            <td class={cx(gridLabelCellClass, "max-sm:hidden")}></td>
 
-            {#each view.columns as column (column)}
+            {#each view.columns as column, index (column)}
               <th
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
                   gridFormCellClass,
-                  "py-2 text-left sm:w-1/4",
+                  "py-2 text-left align-bottom max-sm:w-1/3 sm:w-1/4",
+                  index === 0 && gridLeadCellClass,
                 )}
               >
                 {column}
@@ -207,30 +214,39 @@
           </tr>
         </thead>
 
-        <tbody>
-          {#each view.rows as row (row.label)}
-            <tr class="border-b border-slate-200/70 last:border-b-0">
+        {#each view.rows as row (row.label)}
+          <tbody class="border-b border-slate-200/70 last:border-b-0">
+            <tr class="sm:hidden">
               <th
-                scope="row"
-                class={cx(
-                  gridLabelCellClass,
-                  "align-baseline text-sm leading-snug font-normal text-slate-500",
-                )}
+                scope="rowgroup"
+                colspan={view.columns.length}
+                class={gridMobileLabelClass}
               >
+                {row.label}
+              </th>
+            </tr>
+
+            <tr>
+              <th scope="row" class={cx(gridLabelCellClass, gridRowLabelClass)}>
                 {row.label}
               </th>
 
               {#each row.cells as cell, index (index)}
                 <td
-                  class={cx(grammarFormClass, gridFormCellClass, "whitespace-nowrap")}
+                  class={cx(
+                    grammarFormClass,
+                    gridFormCellClass,
+                    "whitespace-nowrap max-sm:pt-0.5",
+                    index === 0 && gridLeadCellClass,
+                  )}
                   lang="sk"
                 >
                   {@render marked(cell)}
                 </td>
               {/each}
             </tr>
-          {/each}
-        </tbody>
+          </tbody>
+        {/each}
       </table>
     </div>
   </div>

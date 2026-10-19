@@ -4,6 +4,7 @@
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
+  import CountBadge from "$lib/components/ui/CountBadge.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import PracticeExerciseCard from "$lib/components/practice/PracticeExerciseCard.svelte";
@@ -283,9 +284,12 @@
         class="mt-8 border-t border-slate-200 pt-6"
         aria-labelledby="practice-review-heading"
       >
-        <h2 id="practice-review-heading" class={sessionKickerClass}>
+        <h2
+          id="practice-review-heading"
+          class="{sessionKickerClass} flex items-center gap-2"
+        >
           To review
-          <span class="ml-1 tabular-nums text-slate-400">{toReview.length}</span>
+          <CountBadge count={toReview.length} tone="rose" />
         </h2>
 
         <ol class="m-0 mt-2 list-none p-0">
@@ -301,9 +305,12 @@
         class="mt-8 border-t border-slate-200 pt-6"
         aria-labelledby="practice-right-heading"
       >
-        <h2 id="practice-right-heading" class={sessionKickerClass}>
+        <h2
+          id="practice-right-heading"
+          class="{sessionKickerClass} flex items-center gap-2"
+        >
           Correct
-          <span class="ml-1 tabular-nums text-slate-400">{gotRight.length}</span>
+          <CountBadge count={gotRight.length} />
         </h2>
 
         <ol class="m-0 mt-2 list-none p-0">

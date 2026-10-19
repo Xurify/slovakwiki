@@ -7,17 +7,19 @@
     children,
     ...rest
   }: {
-    href: string;
+    href?: string;
     class?: string;
     children: Snippet;
     [key: string]: unknown;
   } = $props();
 </script>
 
-<a
-  class="text-[0.82rem] font-bold text-blue-800 underline decoration-[color-mix(in_srgb,var(--accent)_55%,transparent)] underline-offset-[3px] {className}"
+<svelte:element
+  this={href ? "a" : "button"}
+  class="cursor-pointer border-0 bg-transparent p-0 text-[0.82rem] font-bold text-blue-800 underline decoration-[color-mix(in_srgb,var(--accent)_55%,transparent)] underline-offset-[3px] {className}"
   {href}
+  type={href ? undefined : "button"}
   {...rest}
 >
   {@render children()}
-</a>
+</svelte:element>

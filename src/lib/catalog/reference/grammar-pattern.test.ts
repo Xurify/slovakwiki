@@ -77,6 +77,40 @@ describe("parsePattern", () => {
     expect(view.columns).toHaveLength(3);
     expect(view.rows.map((row) => row.label)).toContain("Feminine");
     expect(view.rows[1]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
+
+    const topic = grammarEntries.find((entry) => entry.slug === "demonstratives");
+    const object = topic?.morePatterns?.[0];
+    if (!object) throw new Error("missing object pattern");
+    const objectView = parsePattern(object.lines, [], object.columns);
+    expect(objectView.kind).toBe("grid");
+    if (objectView.kind !== "grid") return;
+    expect(
+      objectView.rows[0]?.cells.map((cell) => `${cell.before}${cell.mark}${cell.after}`),
+    ).toEqual(["tú", "túto", "tamtú"]);
+    expect(objectView.rows[0]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
+    expect(objectView.rows.map((row) => row.label)).toEqual([
+      "Feminine",
+      "Masculine, a person",
+      "Masculine, a thing",
+      "Neuter",
+      "Masculine nouns for people, plural",
+      "Every other plural",
+    ]);
+
+    const trap = topic?.morePatterns?.[1];
+    if (!trap) throw new Error("missing tým pattern");
+    const trapView = parsePattern(trap.lines, [], trap.columns);
+    expect(trapView.kind).toBe("grid");
+    if (trapView.kind !== "grid") return;
+    expect(
+      trapView.rows.map((row) =>
+        row.cells.map((cell) => `${cell.before}${cell.mark}${cell.after}`),
+      ),
+    ).toEqual([
+      ["tým", "týmto", "tamtým"],
+      ["tým", "týmto", "tamtým"],
+      ["tými", "týmito", "tamtými"],
+    ]);
   });
 
   it("falls back to rows for everything else", () => {
@@ -149,6 +183,11 @@ describe("markAgainst", () => {
       after: "tie",
     });
     expect(markAgainst("ten", "ten")).toEqual({ before: "ten", mark: "", after: "" });
+    expect(markAgainst("toho", "tohto")).toEqual({
+      before: "toh",
+      mark: "to",
+      after: "",
+    });
   });
 });
 

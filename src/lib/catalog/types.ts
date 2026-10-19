@@ -217,6 +217,8 @@ export interface GrammarTopic extends ContentEntry {
   order: number;
   pathGroup: "Nouns" | "Verbs" | "Sentence building" | "Numbers";
   pattern: GrammarPattern;
+  /** Further tables on the same page, each with its own heading. */
+  morePatterns?: GrammarPattern[];
   rule: string[];
   /** Optional deep-link sections for dictionary gloss term tips. */
   termSections?: GrammarTermSection[];

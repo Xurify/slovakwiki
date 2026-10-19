@@ -91,6 +91,26 @@
     practiceState = readPracticeState(localStorage);
     hydrated = true;
 
+    if (import.meta.env.DEV && new URLSearchParams(location.search).has("__done")) {
+      let n = 0;
+      for (const s of steps) {
+        if (s.kind !== "check" || s.exercise.type === "personal") continue;
+        n += 1;
+        const miss = n === 3 || n === 8;
+        answers[s.id] = {
+          correct: !miss,
+          grade: miss ? "incorrect" : n === 5 ? "accents" : "correct",
+          attempt: miss ? "tá muž" : undefined,
+          correction: "ten muž",
+          english: "that man",
+          markWords: miss,
+          why: "Muž is masculine, so it takes **ten**.",
+        };
+      }
+      stepIndex = steps.length - 1;
+      phase = "done";
+    }
+
     // Controls play or replace a blocked line themselves (Next, Listen, say-choice).
     const controls = "a, button, input, label, select, textarea";
     const gestures = ["touchend", "click", "keydown"] as const;
@@ -117,8 +137,6 @@
   });
 
   $effect(() => {
-    if (phase !== "play") return;
-
     playerRoot?.focus({ preventScroll: true });
 
     const previousOverflow = document.body.style.overflow;
@@ -182,6 +200,20 @@
 
     stepIndex += 1;
     resetStepUi();
+  }
+
+  function restart(): void {
+    answers = {};
+    reviewIndex = null;
+    stepIndex = 0;
+    lastStepId = "";
+    resetStepUi();
+    phase = "play";
+  }
+
+  function reopenStep(index: number): void {
+    phase = "play";
+    showStep(index);
   }
 
   function showStep(index: number): void {
@@ -280,44 +312,48 @@
 
 <svelte:window onkeydown={onWindowKeydown} />
 
-{#if phase === "done"}
-  <LessonDoneScreen
-    {backHref}
-    {lesson}
-    {nextLesson}
-    practiceSet={practiceSet ?? null}
-    {trackTitle}
-  />
-{:else}
-  <div
-    bind:this={playerRoot}
-    class="fixed inset-0 z-[90] flex flex-col bg-paper"
-    role="dialog"
-    aria-modal="true"
-    aria-label={lesson.title}
-    tabindex="-1"
-  >
-    <div class="relative z-30 shrink-0 border-b border-slate-200 bg-paper">
-      <div class="mx-auto w-full max-w-[640px] px-4 pt-3 sm:px-8">
-        <SessionChrome
-          class="mb-3"
-          activeIndex={stepIndex}
-          {backHref}
-          closeLabel="Close lesson"
-          onselect={showStep}
-          progressLabel="Lesson steps"
-          subtitle={trackTitle}
-          title={lesson.title}
-          total={steps.length}
-          {viewIndex}
-        >
-          {#snippet controls()}
-            <LessonStorySettings />
-          {/snippet}
-        </SessionChrome>
-      </div>
+<div
+  bind:this={playerRoot}
+  class="fixed inset-0 z-[90] flex flex-col bg-paper"
+  role="dialog"
+  aria-modal="true"
+  aria-label={lesson.title}
+  tabindex="-1"
+>
+  <div class="relative z-30 shrink-0 border-b border-slate-200 bg-paper">
+    <div class="mx-auto w-full max-w-[640px] px-4 pt-3 sm:px-8">
+      <SessionChrome
+        class="mb-3"
+        activeIndex={stepIndex}
+        {backHref}
+        closeLabel="Close lesson"
+        onselect={phase === "done" ? reopenStep : showStep}
+        progressLabel="Lesson steps"
+        subtitle={trackTitle}
+        title={lesson.title}
+        total={steps.length}
+        {viewIndex}
+      >
+        {#snippet controls()}
+          <LessonStorySettings />
+        {/snippet}
+      </SessionChrome>
     </div>
+  </div>
 
+  {#if phase === "done"}
+    <LessonDoneScreen
+      {answers}
+      {backHref}
+      {lesson}
+      {nextLesson}
+      onback={() => reopenStep(stepIndex)}
+      onRestart={restart}
+      practiceSet={practiceSet ?? null}
+      {steps}
+      {trackTitle}
+    />
+  {:else}
     <div
       class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
     >
@@ -395,5 +431,5 @@
         onclick={onFooterPrimary}
       />
     {/if}
-  </div>
-{/if}
+  {/if}
+</div>

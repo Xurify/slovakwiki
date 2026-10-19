@@ -167,6 +167,16 @@
             withClocks={isTime}
           />
         </div>
+
+        {#each topic.morePatterns ?? [] as extra (extra.label)}
+          <div class="mt-8">
+            <h2 class={grammarHeadingClass}>{extra.label}</h2>
+
+            <div class="mt-3">
+              <GrammarPatternList lines={extra.lines} columns={extra.columns} />
+            </div>
+          </div>
+        {/each}
       {/if}
     </div>
 
