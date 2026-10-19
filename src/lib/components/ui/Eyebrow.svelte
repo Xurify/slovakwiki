@@ -12,7 +12,7 @@
     class: className = "",
     children,
   }: {
-    tone?: "accent" | "muted" | "inverse";
+    tone?: "accent" | "muted" | "inverse" | "caution";
     /** Rail and card use: a little more room before the list it labels. */
     compact?: boolean;
     class?: string;
@@ -25,6 +25,7 @@
   class:mb-3={compact}
   class:text-blue-800={tone === "accent"}
   class:text-slate-500={tone === "muted"}
+  class:text-rose-800={tone === "caution"}
   class:text-panel-inverse-ink={tone === "inverse"}
   class:opacity-80={tone === "inverse"}
   class="{eyebrowClass} {className}"

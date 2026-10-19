@@ -8,6 +8,7 @@
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
+  import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
   import {
     grammarHeadingClass,
     grammarProseClass,
@@ -177,19 +178,13 @@
         {/each}
       </div>
 
-      <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-600">
-        <span class="font-semibold text-slate-800">When you read. </span>
+      <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-800">
+        <span class="font-semibold">When you read. </span>
         {topic.lookFor}
       </p>
     </section>
 
-    <p
-      id="watch-out"
-      class="m-0 mt-6 max-w-[62ch] border-l-2 border-rose-400 pl-4 text-[1.02rem] leading-relaxed text-pretty text-rose-900"
-    >
-      <span class="font-semibold">Watch out. </span>
-      {topic.watchOut}
-    </p>
+    <GrammarWatchOut text={topic.watchOut} />
 
     {#if terms.length > 0}
       <section id="terms" class="mt-8" aria-labelledby="terms-heading">

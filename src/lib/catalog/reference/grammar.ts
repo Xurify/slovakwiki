@@ -450,7 +450,7 @@ export const grammarEntries: GrammarTopic[] = [
       ],
     },
     watchOut:
-      "Dievča and dieťa are neuter nouns: to dievča. Masculine people change in the accusative (toho muža), but things keep ten (ten dom). Tohto and tieto, not the Czech tohoto and tyto.",
+      "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*. As the object of a verb, ten changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**. Write **tohto** and **tieto**; *tohoto* and *tyto* are Czech.",
     nextSlug: "present-tense",
     lessonLink: {
       href: "/lessons/grammar/demonstratives",

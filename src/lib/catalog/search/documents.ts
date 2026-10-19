@@ -73,7 +73,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         entry.summary,
         entry.category,
         entry.lookFor,
-        entry.watchOut,
+        entry.watchOut.replace(/\*/g, ""),
         ...entry.tags,
         ...(entry.aliases ?? []),
         ...entry.rule,
