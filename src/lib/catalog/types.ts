@@ -173,6 +173,7 @@ export interface GrammarPattern {
   label: string;
   lines: string[];
   columns?: string[];
+  examples?: Example[];
 }
 
 /** In-page sections for gloss-term deep links (e.g. #imperfective). */

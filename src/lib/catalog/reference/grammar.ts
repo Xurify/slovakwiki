@@ -426,8 +426,21 @@ export const grammarEntries: GrammarTopic[] = [
       { slovak: "Kto je ten muž?", english: "Who is that man?" },
       { slovak: "Dám si tento koláč.", english: "I'll have this cake." },
       { slovak: "To sú moji rodičia.", english: "These are my parents." },
-      { slovak: "Poznám toho muža.", english: "I know that man." },
-      { slovak: "Chcem tamtú tašku.", english: "I want that bag over there." },
+      {
+        slovak: "Býva v tom dome vedľa nás.",
+        english: "He lives in that house next to us.",
+        demonstrates: "After v (in), ten takes the locative: tom.",
+      },
+      {
+        slovak: "Bývame na tejto ulici.",
+        english: "We live on this street.",
+        demonstrates: "Feminine locative: tej, and tento adds -to: tejto.",
+      },
+      {
+        slovak: "Pracujem s tou ženou.",
+        english: "I work with that woman.",
+        demonstrates: "After s (with), feminine ten takes the instrumental: tou.",
+      },
     ],
     related: ["grammatical-gender", "cases-overview", "dievca", "dieta"],
     source: languageSource,
@@ -450,6 +463,19 @@ export const grammarEntries: GrammarTopic[] = [
         "Masculine nouns for people, plural: tí, títo, tamtí",
         "Every other plural: tie, tieto, tamtie",
       ],
+      examples: [
+        { slovak: "Táto taška je moja.", english: "This bag is mine." },
+        { slovak: "Toto mesto je krásne.", english: "This town is beautiful." },
+        {
+          slovak: "Tí chlapci hrajú futbal.",
+          english: "Those boys are playing football.",
+        },
+        {
+          slovak: "Tieto kľúče sú moje.",
+          english: "These keys are mine.",
+          demonstrates: "Kľúč is masculine, but keys are not people, so tieto.",
+        },
+      ],
     },
     morePatterns: [
       {
@@ -463,6 +489,22 @@ export const grammarEntries: GrammarTopic[] = [
           "Masculine nouns for people, plural: tých, týchto, tamtých",
           "Every other plural: tie, tieto, tamtie",
         ],
+        examples: [
+          { slovak: "Chcem tamtú tašku.", english: "I want that bag over there." },
+          {
+            slovak: "Poznám toho muža.",
+            english: "I know that man.",
+            demonstrates: "A man is a person, so ten becomes toho.",
+          },
+          {
+            slovak: "Vidím ten dom.",
+            english: "I see that house.",
+            demonstrates: "A house is a thing, so ten stays ten.",
+          },
+          { slovak: "Vidíš tamto auto?", english: "Do you see that car over there?" },
+          { slovak: "Poznáš tých chlapcov?", english: "Do you know those boys?" },
+          { slovak: "Kúpim si tieto topánky.", english: "I'll buy these shoes." },
+        ],
       },
       {
         label: "Tým and tými",
@@ -471,6 +513,21 @@ export const grammarEntries: GrammarTopic[] = [
           "With one person: tým, týmto, tamtým",
           "To them: tým, týmto, tamtým",
           "With them: tými, týmito, tamtými",
+        ],
+        examples: [
+          {
+            slovak: "Idem na obed s týmto kolegom.",
+            english: "I'm going to lunch with this colleague.",
+          },
+          {
+            slovak: "Kúp tým deťom zmrzlinu.",
+            english: "Buy those children some ice cream.",
+            demonstrates: "Tým here means “to them”: the dative plural.",
+          },
+          {
+            slovak: "Dnes večer ide s tými kolegami do kina.",
+            english: "Tonight he's going to the cinema with those colleagues.",
+          },
         ],
       },
     ],
