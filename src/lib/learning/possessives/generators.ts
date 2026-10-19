@@ -760,7 +760,7 @@ export function buildCaseChoiceExercise(kind: string, rng: Rng): ChoiceExercise 
     feedback: {
       correction: frameSentence(frame, correct, entry),
       english,
-      why: `${frame.because}, and the possessive follows its noun: **${correctPhrase}**.`,
+      why: `${frame.because}, and the possessive takes the same case: **${correctPhrase}**.`,
     },
   };
 }

@@ -324,7 +324,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "Anna píše list môjmu bratovi.",
       english: "Anna is writing a letter to my brother.",
-      why: "**Písať list** + to whom takes the dative, and the possessive follows its noun: **môjmu bratovi**.",
+      why: "With **písať list** (write a letter), the person you write to takes the dative, and the possessive takes the same case: **môjmu bratovi**.",
     },
   },
   {

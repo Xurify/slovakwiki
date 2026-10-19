@@ -111,7 +111,7 @@ function genderFromEndingTable(): FormTableVisual {
         ],
       },
     ],
-    note: "**Kolega** ends in -a but names a man: **ten kolega**. **Dievča** and **dieťa** are neuter: **to dievča**. Some nouns ending in a consonant are feminine: **tá noc**, **tá vec**, **tá radosť**.",
+    note: "**Kolega** (colleague) ends in -a, but it means a man, so it is masculine: **ten kolega**. **Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**. Some nouns ending in a consonant are feminine: **tá noc** (night), **tá vec** (thing), **tá radosť** (joy).",
   };
 }
 
@@ -214,7 +214,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "To je môj brat.",
           english: "That's my brother.",
-          note: "**To** on its own stays to, even for a man.",
+          note: "**To** doesn't change, even when it points at a man.",
           audio: { transcript: "To je môj brat." },
         },
         {
@@ -230,7 +230,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Čo je to?" },
         },
       ],
-      note: "On its own, **to** means *this*, *that*, or *it*, and it never changes, whatever comes after it: To je môj brat. To je jeho žena. To sú fotky. Only the verb follows the noun: **je** for one, **sú** for more. With a noun right after it, ten agrees instead: **tá** žena.",
+      note: "On its own, **to** means *this*, *that*, or *it*, and it never changes, whatever comes after it: To je môj brat. To je jeho žena. To sú fotky. Only the verb changes: **je** for one, **sú** for more. When a noun comes right after it, use the form that matches the noun: **tá** žena.",
     },
   },
   {
@@ -284,7 +284,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "Vidím ten dom.",
           english: "I see that house.",
-          note: "Accusative, things: **ten** stays ten.",
+          note: "Accusative, things: **ten** doesn't change.",
           audio: { transcript: "Vidím ten dom." },
         },
         {
@@ -306,7 +306,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "s tou ženou" },
         },
       ],
-      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. After v (in), Anna says v **tom** dome. Pomáhať needs the dative: **tomu** mužovi.",
+      note: "**Ten** takes the case of its noun. Poznať needs the accusative, so you say **toho** muža. **V** (in) takes the locative, so Anna says v **tom** dome. Pomáhať needs the dative: **tomu** mužovi.",
       visual: caseTables,
     },
   },
