@@ -1,6 +1,21 @@
 export type SearchDocKind =
   "word" | "grammar" | "pronunciation" | "case" | "lesson" | "practice";
 
+/**
+ * Pagefind weight per block (0–10, default 1). Headwords and forms outrank glosses,
+ * and glosses outrank example sentences, so a word that only appears in someone
+ * else's example never beats the word itself.
+ */
+export const SEARCH_WEIGHTS = {
+  headword: 10,
+  forms: 7,
+  gloss: 4,
+  body: 1,
+  examples: 0.5,
+} as const;
+
+export type SearchWeight = keyof typeof SEARCH_WEIGHTS;
+
 export function normalizeSearchText(value: string): string {
   return value
     .normalize("NFD")
@@ -35,7 +50,7 @@ const WORD_CATEGORY_META_LABELS: Record<string, string> = {
  */
 export function searchMetaLabel(kind: SearchDocKind, category?: string | null): string {
   if (kind === "word" && category) {
-    return WORD_CATEGORY_META_LABELS[category] ?? category;
+    return WORD_CATEGORY_META_LABELS[category] ?? sentenceCase(category);
   }
   return searchKindLabels[kind];
 }

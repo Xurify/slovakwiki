@@ -1,7 +1,7 @@
 import { dictionaryPathFromIndexFields } from "$lib/catalog/dictionary/lemma-senses";
 import { fetchDictionaryIndex } from "$lib/catalog/dictionary/browse-query";
 import { normalizeSearchText } from "$lib/catalog/search/ui";
-import type { WordRegister } from "$lib/catalog/types";
+import type { NounGender, PluralOnlyGender, WordRegister } from "$lib/catalog/types";
 
 import type { PagefindResultData } from "./pagefind-client";
 
@@ -10,8 +10,10 @@ export interface DictionaryIndexEntry {
   english: string;
   forms?: string[];
   frequencyRank?: number;
+  gender?: NounGender;
   hash?: string;
   hrefSlug?: string;
+  pluralOnlyGender?: PluralOnlyGender;
   register?: WordRegister;
   slug: string;
   slovak: string;
@@ -189,6 +191,7 @@ export async function lookupDictionary(
     .map(({ entry }) => ({
       url: dictionaryPathFromIndexFields(entry),
       excerpt: "",
+      weighted_locations: [],
       meta: {
         title: entry.slovak,
         summary: entry.english,
@@ -284,13 +287,17 @@ export function rankDictionaryMatches(
     return [];
   }
 
-  const matches: WordMatch[] = [];
+  const candidates: WordMatch[] = [];
   for (const prepared of index) {
     const match = matchPrepared(prepared, normalized);
     if (match) {
-      matches.push(match);
+      candidates.push(match);
     }
   }
+
+  // Mid-word hits (zeny in prirodzený) only count when nothing starts or equals the query.
+  const anchored = candidates.filter((match) => match.kind !== "contains");
+  const matches = anchored.length > 0 ? anchored : candidates;
 
   return matches.toSorted((first, second) => {
     const byKind = MATCH_ORDER[first.kind] - MATCH_ORDER[second.kind];

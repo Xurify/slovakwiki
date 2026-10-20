@@ -11,6 +11,7 @@ function result(url: string, title: string): PagefindResultData {
   return {
     url,
     excerpt: "",
+    weighted_locations: [],
     meta: { title, kind: "word" },
   };
 }

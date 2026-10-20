@@ -77,17 +77,57 @@ describe("search page: test queries", () => {
     expect(best.formOf?.form).toBe("knihu");
   });
 
-  it("this → tento once among the gloss matches, no best match card", () => {
+  it("this → the tento card, not repeated as another word", () => {
     const { best, others } = buildWordResults("this", dictionary);
-    expect(best).toBeNull();
+    expect(best?.type).toBe("pronoun");
+    expect(bestLemma("this")).toBe("tento");
     const tento = others.filter((other) =>
       other.type === "word"
         ? other.match.entry.slovak === "tento"
         : other.pronoun.lemma === "tento",
     );
-    expect(tento).toHaveLength(1);
-    expect(tento[0]?.kind).toBe("gloss");
-    expect(others[0]).toBe(tento[0]);
+    expect(tento).toHaveLength(0);
+  });
+
+  it("an English meaning names the Slovak word", () => {
+    expect(bestLemma("house")).toBe("dom");
+  });
+
+  it("zeny → žena, without words that only contain zeny mid-word", () => {
+    const { best, others } = buildWordResults("zeny", dictionary);
+    expect(best?.entry?.slovak).toBe("žena");
+    const lemmas = others.map((other) =>
+      other.type === "word" ? other.match.entry.slovak : other.pronoun.lemma,
+    );
+    expect(lemmas).not.toContain("prirodzený");
+    expect(lemmas).not.toContain("kožený");
+  });
+
+  it("personal pronoun forms name their lemma", () => {
+    expect(bestLemma("mna")).toBe("ja");
+    expect(bestLemma("tebe")).toBe("ty");
+    expect(bestLemma("ho")).toBe("on");
+    expect(bestLemma("ju")).toBe("ona");
+    expect(bestLemma("ony")).toBe("oni");
+    expect(bestLemma("sebou")).toBe("seba");
+  });
+
+  it("describes long, short and after-preposition personal forms", () => {
+    const formDescription = (query: string): string | undefined => {
+      const { best } = buildWordResults(query, dictionary);
+      return best?.type === "pronoun" ? best.formOf?.description : undefined;
+    };
+    expect(formDescription("mňa")).toBe("genitive, accusative");
+    expect(formDescription("mne")).toBe("dative · locative (after a preposition)");
+    expect(formDescription("neho")).toBe("genitive, accusative (after a preposition)");
+  });
+
+  it("nás is a form of my, but náš keeps its own card", () => {
+    expect(bestLemma("nas")).toBe("náš");
+    const { others } = buildWordResults("nas", dictionary);
+    expect(
+      others.some((other) => other.type === "pronoun" && other.pronoun.lemma === "my"),
+    ).toBe(true);
   });
 
   it("tohot → did you mean tohto", () => {
@@ -108,6 +148,7 @@ describe("topic rows", () => {
     const hit = (url: string, kind: string) => ({
       url,
       excerpt: "",
+      weighted_locations: [],
       meta: { kind, title: url },
     });
     const rows = groupTopicHits(

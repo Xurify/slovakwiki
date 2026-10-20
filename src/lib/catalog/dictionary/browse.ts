@@ -1,6 +1,7 @@
 import { words } from "$lib/catalog/entries";
 import { dictionaryHrefForSense } from "$lib/catalog/dictionary/lemma-senses";
 import { searchFormsForLemma } from "$lib/catalog/search/forms";
+import type { NounGender, PluralOnlyGender } from "$lib/catalog/types";
 
 import {
   buildDictionaryViewFromEntries,
@@ -67,9 +68,11 @@ export interface DictionaryIndexSidecarEntry {
   english: string;
   forms?: string[];
   frequencyRank?: number;
+  gender?: NounGender;
   hash?: string;
   hrefSlug?: string;
   origin?: DictionaryIndexEntry["origin"];
+  pluralOnlyGender?: PluralOnlyGender;
   register?: DictionaryIndexEntry["register"];
   slug: string;
   slovak: string;
@@ -89,6 +92,8 @@ export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
         : {}),
       ...(word.origin !== undefined ? { origin: word.origin } : {}),
       ...(word.register ? { register: word.register } : {}),
+      ...(word.gender ? { gender: word.gender } : {}),
+      ...(word.pluralOnlyGender ? { pluralOnlyGender: word.pluralOnlyGender } : {}),
       ...(forms.length > 0 ? { forms } : {}),
       ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
       ...(href.hash ? { hash: href.hash } : {}),
