@@ -6,6 +6,7 @@
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
+  import GrammarContrastList from "$lib/components/reference/GrammarContrastList.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
@@ -213,6 +214,24 @@
         {topic.lookFor}
       </p>
     </section>
+
+    {#if topic.contrasts}
+      <section id="contrasts" class="mt-8" aria-labelledby="contrasts-heading">
+        <h2 id="contrasts-heading" class={grammarHeadingClass}>
+          {topic.contrasts.label}
+        </h2>
+
+        {#if topic.contrasts.intro}
+          <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+            {topic.contrasts.intro}
+          </p>
+        {/if}
+
+        <div class="mt-4">
+          <GrammarContrastList pairs={topic.contrasts.pairs} {audioKeys} />
+        </div>
+      </section>
+    {/if}
 
     <GrammarWatchOut text={topic.watchOut} />
 

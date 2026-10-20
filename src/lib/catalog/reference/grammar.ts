@@ -1,3 +1,5 @@
+import { markedText } from "$lib/learning/marked-text";
+
 import { languageSource } from "../sources";
 import type { GrammarTopic } from "../types";
 
@@ -324,6 +326,60 @@ export const grammarEntries: GrammarTopic[] = [
         body: "Motion verbs like chodiť cover repeated or multi-direction travel. Ísť covers one trip now or once.",
       },
     ],
+    contrasts: {
+      label: "Imperfective or perfective?",
+      intro:
+        "Both sentences are correct Slovak. They tell a different story about the same action. A perfective verb in the present form, like napíšem, points to the future.",
+      pairs: [
+        [
+          {
+            slovak: markedText([{ role: "contrast", text: "Píšem" }, " e-mail."]),
+            english: "I am writing an email.",
+            when: "you are writing it right now",
+          },
+          {
+            slovak: markedText([{ role: "contrast", text: "Napíšem" }, " e-mail."]),
+            english: "I will write an email.",
+            when: "you will do it later",
+          },
+        ],
+        [
+          {
+            slovak: markedText([
+              "Večer ",
+              { role: "contrast", text: "budem variť" },
+              " polievku.",
+            ]),
+            english: "In the evening I will be cooking soup.",
+            when: "you are saying how you will spend the evening",
+          },
+          {
+            slovak: markedText([
+              "Večer ",
+              { role: "contrast", text: "uvarím" },
+              " polievku.",
+            ]),
+            english: "In the evening I will cook soup.",
+            when: "you are promising the soup will be ready",
+          },
+        ],
+        [
+          {
+            slovak: markedText([
+              { role: "contrast", text: "Chodím" },
+              " do obchodu pešo.",
+            ]),
+            english: "I walk to the shop.",
+            when: "that is how you always get there",
+          },
+          {
+            slovak: markedText([{ role: "contrast", text: "Idem" }, " do obchodu pešo."]),
+            english: "I am walking to the shop.",
+            when: "you are on your way there now",
+          },
+        ],
+      ],
+    },
     watchOut:
       "Do not map English progressive vs simple past onto aspect. Slovak chooses imperfective or perfective by how the event is framed, then places it in time.",
     nextSlug: "word-order",
@@ -545,12 +601,261 @@ export const grammarEntries: GrammarTopic[] = [
         ],
       },
     ],
+    contrasts: {
+      label: "Tento, ten, or tamten?",
+      intro:
+        "You don't need to measure anything. Ask where the thing is — with you, with the listener, or over there — and whether you mean now or the past.",
+      pairs: [
+        [
+          {
+            slovak: markedText([
+              "Páči sa mi ",
+              { role: "demonstrative", text: "táto" },
+              " košeľa.",
+            ]),
+            english: "I like this shirt.",
+            when: "you are holding it or wearing it",
+          },
+          {
+            slovak: markedText([
+              "Páči sa mi ",
+              { role: "demonstrative", text: "tamtá" },
+              " košeľa.",
+            ]),
+            english: "I like that shirt over there.",
+            when: "it is hanging on the other side of the shop",
+          },
+        ],
+        [
+          {
+            slovak: markedText([
+              { role: "demonstrative", text: "Tento" },
+              " víkend bol úžasný.",
+            ]),
+            english: "This weekend was amazing.",
+            when: "the weekend is just ending",
+          },
+          {
+            slovak: markedText([
+              { role: "demonstrative", text: "Ten" },
+              " víkend bol úžasný.",
+            ]),
+            english: "That weekend was amazing.",
+            when: "you are remembering a weekend in the past",
+          },
+        ],
+        [
+          {
+            slovak: markedText([
+              "Prečítaj si ",
+              { role: "demonstrative", text: "túto" },
+              " knihu.",
+            ]),
+            english: "Read this book.",
+            when: "you are holding the book out to them",
+          },
+          {
+            slovak: markedText([
+              "Prečítaj si ",
+              { role: "demonstrative", text: "tú" },
+              " knihu.",
+            ]),
+            english: "Read that book.",
+            when: "they are holding it, or you talked about it before",
+          },
+        ],
+      ],
+    },
     watchOut:
       "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*. **Kolega** (colleague) ends in -a and takes **ten kolega**. **Noc** (night) ends in a consonant and takes **tá noc**. In the accusative, ten changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**. Write **tohto** and **tieto**; *tohoto* and *tyto* are Czech.",
-    nextSlug: "present-tense",
+    nextSlug: "possessives",
     lessonLink: {
       href: "/lessons/grammar/demonstratives",
       label: "Demonstratives: ten, tento, tamten",
+    },
+  },
+  {
+    slug: "possessives",
+    slovak: "privlastňovacie zámená",
+    english: "possessives: môj, jeho, svoj",
+    category: "Nouns",
+    kind: "grammar",
+    summary:
+      "Môj, tvoj, náš, and váš agree with the thing owned. Jeho, jej, and ich never change. Svoj points back to the subject.",
+    body: [
+      "The owner picks the word: môj (my), tvoj (your, to one person you call ty), jeho (his, its), jej (her), náš (our), váš (your, formal or plural), ich (their).",
+      "Môj, tvoj, náš, and váš then agree with the thing owned, like adjectives: môj brat, moja sestra, moje auto. The speaker does not matter; a woman also says môj brat. In the plural, only masculine nouns for people take moji. Every other plural takes moje, including deti and sestry.",
+      "Jeho, jej, and ich never change, even after a preposition: s jeho bratom. Svoj means the subject's own. Use it when the owner is the subject of the same sentence: Anna hľadá svoje kľúče. Jej kľúče would be another woman's keys.",
+    ],
+    examples: [
+      {
+        slovak: "Tom píše list svojmu najlepšiemu priateľovi.",
+        english: "Tom is writing a letter to his best friend.",
+        demonstrates: "Tom is the subject and the owner, so svoj, in the dative: svojmu.",
+        practiceItemId: "grammar/possessive-svoj-choice",
+      },
+      {
+        slovak: "Idem do kina so svojou sestrou.",
+        english: "I'm going to the cinema with my sister.",
+        demonstrates: "With ja as the owner, mojou works too: s mojou sestrou.",
+      },
+      {
+        slovak: "To je auto môjho brata.",
+        english: "That is my brother's car.",
+        demonstrates: "The owner comes after the thing, in the genitive: môjho brata.",
+        practiceItemId: "grammar/possessive-genitive-build",
+      },
+    ],
+    related: ["demonstratives", "grammatical-gender", "cases-overview", "ty-vs-vy"],
+    source: languageSource,
+    tags: ["pronouns", "possessives", "agreement", "beginner"],
+    lookFor:
+      "Find the owner first: it picks môj, jeho, or svoj. For môj, tvoj, náš, and váš, then find the noun. Its gender, number, and case pick the ending.",
+    pathGroup: "Nouns",
+    order: 4,
+    rule: [
+      "Môj, tvoj, náš, and váš agree with the noun in gender, number, and case. Jeho, jej, and ich never change.",
+      "When the owner is the subject of the sentence, use svoj in the noun's case: Tom volá svojej mame.",
+    ],
+    pattern: {
+      label: "Nominative (agreement)",
+      columns: ["my", "your (ty)", "our", "your (vy)"],
+      rows: [
+        { label: "Masculine", cells: ["môj", "tvoj", "náš", "váš"] },
+        { label: "Feminine", cells: ["moja", "tvoja", "naša", "vaša"] },
+        { label: "Neuter", cells: ["moje", "tvoje", "naše", "vaše"] },
+        {
+          label: "Masculine nouns for people, plural",
+          cells: ["moji", "tvoji", "naši", "vaši"],
+        },
+        { label: "Every other plural", cells: ["moje", "tvoje", "naše", "vaše"] },
+      ],
+      examples: [
+        { slovak: "Tvoj byt je krásny.", english: "Your flat is beautiful." },
+        {
+          slovak: "To je moja sestra.",
+          english: "This is my sister.",
+          practiceItemId: "grammar/possessive-agreement",
+        },
+        {
+          slovak: "To sú moji priatelia.",
+          english: "These are my friends.",
+          demonstrates: "Priateľ is masculine and a person, so moji.",
+        },
+        {
+          slovak: "Naše deti chodia do školy.",
+          english: "Our children go to school.",
+          demonstrates: "Deti are people, but not a masculine noun, so naše.",
+        },
+      ],
+    },
+    morePatterns: [
+      {
+        label: "Jeho, jej, ich never change",
+        lines: [
+          "jeho brat · his brother",
+          "jeho sestra · his sister",
+          "jeho auto · his car",
+          "s jeho bratom · with his brother",
+          "jej deti · her children",
+          "ich dom · their house",
+        ],
+        examples: [
+          {
+            slovak: "Jej brat je učiteľ.",
+            english: "Her brother is a teacher.",
+            practiceItemId: "grammar/possessive-third-person",
+          },
+          {
+            slovak: "Anna ide do kina s jeho bratom.",
+            english: "Anna is going to the cinema with his brother.",
+            demonstrates:
+              "After a preposition, jeho stays jeho. S ním means “with him” and cannot stand before a noun.",
+            practiceItemId: "grammar/possessive-jeho-preposition",
+          },
+          {
+            slovak: "Ich auto je červené.",
+            english: "Their car is red.",
+            demonstrates:
+              "Ich never changes. The adjective still agrees with auto: červené.",
+          },
+        ],
+      },
+    ],
+    contrasts: {
+      label: "Who is the owner?",
+      intro:
+        "The owner picks the word, so the same English can need two different Slovak sentences.",
+      pairs: [
+        [
+          {
+            slovak: markedText([
+              "Poznáš ",
+              { role: "possessive", text: "jeho" },
+              " sestru?",
+            ]),
+            english: "Do you know his sister?",
+            when: "she is Peter's sister",
+          },
+          {
+            slovak: markedText([
+              "Poznáš ",
+              { role: "possessive", text: "jej" },
+              " sestru?",
+            ]),
+            english: "Do you know her sister?",
+            when: "she is Eva's sister",
+          },
+        ],
+        [
+          {
+            slovak: markedText([
+              "Je to ",
+              { role: "possessive", text: "tvoj" },
+              " kufor?",
+            ]),
+            english: "Is this your suitcase?",
+            when: "you are asking a friend",
+          },
+          {
+            slovak: markedText([
+              "Je to ",
+              { role: "possessive", text: "váš" },
+              " kufor?",
+            ]),
+            english: "Is this your suitcase?",
+            when: "you are asking a stranger, or a family travelling together",
+          },
+        ],
+        [
+          {
+            slovak: markedText([
+              { role: "owner", text: "Anna" },
+              " hľadá ",
+              { role: "possessive", text: "svoje" },
+              " kľúče.",
+            ]),
+            english: "Anna is looking for her keys.",
+            when: "the keys are Anna's own",
+          },
+          {
+            slovak: markedText([
+              "Anna hľadá ",
+              { role: "possessive", text: "jej" },
+              " kľúče.",
+            ]),
+            english: "Anna is looking for her keys.",
+            when: "the keys belong to another woman, like her sister",
+          },
+        ],
+      ],
+    },
+    watchOut:
+      "Môj follows the thing, not the speaker: Eva says **môj brat**, not *moja brat*. **Svoj** cannot be the subject itself: **Jej brat je učiteľ**, not *Svoj brat je učiteľ*. Long **naším** means “with our”: **s naším bratom**. Short **našim** means “to our”: **našim rodičom**.",
+    nextSlug: "present-tense",
+    lessonLink: {
+      href: "/lessons/grammar/possessives",
+      label: "Possessives: môj, jeho, svoj",
     },
   },
   {
@@ -631,6 +936,37 @@ export const grammarEntries: GrammarTopic[] = [
         "vy máte · formal singular or plural",
         "Prepáč · informal sorry",
         "Prepáčte · formal sorry",
+      ],
+    },
+    contrasts: {
+      label: "Ty or vy?",
+      intro:
+        "Look at who you are talking to, and how many. Vy is the formal you, and it is also the plural.",
+      pairs: [
+        [
+          {
+            slovak: markedText([{ role: "contrast", text: "Máš" }, " čas?"]),
+            english: "Do you have time?",
+            when: "you are asking a friend, a child, or someone in your family",
+          },
+          {
+            slovak: markedText([{ role: "contrast", text: "Máte" }, " čas?"]),
+            english: "Do you have time?",
+            when: "you are asking a stranger, a teacher, or a colleague you call vy",
+          },
+        ],
+        [
+          {
+            slovak: markedText([{ role: "contrast", text: "Prídeš" }, " zajtra?"]),
+            english: "Will you come tomorrow?",
+            when: "you are asking one friend",
+          },
+          {
+            slovak: markedText([{ role: "contrast", text: "Prídete" }, " zajtra?"]),
+            english: "Will you come tomorrow?",
+            when: "you are asking two friends at once",
+          },
+        ],
       ],
     },
     watchOut:
@@ -851,6 +1187,29 @@ export const grammarEntries: GrammarTopic[] = [
         body: "To say in X hours or in X minutes from now, use o + accusative: o dve hodiny, o päť minút. Compare o tretej (at three, locative) — a clock point, not a span of time.",
       },
     ],
+    contrasts: {
+      label: "At three or in three hours?",
+      intro:
+        "O + a clock time names a point on the clock. O + a number of hours counts from now.",
+      pairs: [
+        [
+          {
+            slovak: markedText(["Zavolám ti ", { role: "time", text: "o tretej" }, "."]),
+            english: "I will call you at three.",
+            when: "you mean the clock time, 3:00",
+          },
+          {
+            slovak: markedText([
+              "Zavolám ti ",
+              { role: "time", text: "o tri hodiny" },
+              ".",
+            ]),
+            english: "I will call you in three hours.",
+            when: "you mean three hours from now",
+          },
+        ],
+      ],
+    },
     watchOut:
       "Pol tretej is 02:30, not 03:30 — Slovak names the hour it is heading toward. At 12:15, prefer Je štvrť na jednu, not *jeden*.",
     lessonLink: {

@@ -1,3 +1,5 @@
+import type { MarkedText } from "$lib/learning/marked-text";
+
 import type { FrequencyPartOfSpeech } from "./frequency/types";
 
 export type EntryKind = "word" | "grammar" | "pronunciation";
@@ -192,6 +194,25 @@ export interface GrammarTablePattern extends GrammarPatternShared {
 
 export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 
+/** One side of a “You say … / If …” card. */
+export interface GrammarChoice {
+  english: string;
+  /** Spoken Slovak, with the word the pair turns on marked. */
+  slovak: MarkedText;
+  /** The situation that calls for this sentence. Reads after “If …”. */
+  when: string;
+}
+
+/** Two near-identical sentences; the situation decides between them. */
+export type GrammarContrast = readonly [GrammarChoice, GrammarChoice];
+
+export interface GrammarContrastSet {
+  /** The choice the learner faces: “Tento, ten, or tamten?” */
+  label: string;
+  intro?: string;
+  pairs: GrammarContrast[];
+}
+
 /** In-page sections for gloss-term deep links (e.g. #imperfective). */
 export interface GrammarTermSection {
   body: string;
@@ -224,6 +245,8 @@ export interface CaseTopic {
 
 export interface GrammarTopic extends ContentEntry {
   caseOverview?: CaseReference[];
+  /** Minimal pairs that show when to pick each form. */
+  contrasts?: GrammarContrastSet;
   kind: "grammar";
   lookFor: string;
   lessonLink?: {
