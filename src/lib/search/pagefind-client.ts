@@ -4,18 +4,24 @@ export interface PagefindResultData {
   excerpt: string;
   meta: {
     category?: string;
+    /** JSON `[{ slovak, english }]` on word pages. */
+    examples?: string;
     kind?: string;
     register?: string;
     summary?: string;
     title?: string;
   };
   url: string;
+  weighted_locations: Array<{ weight: number }>;
 }
 
 export interface PagefindSearchResult {
   data: () => Promise<PagefindResultData>;
   id: string;
 }
+
+/** A plain value or array means “all of”; `{ any }` means “one of”. */
+export type PagefindFilters = Record<string, string | string[] | { any: string[] }>;
 
 export interface PagefindSearchResponse {
   results: PagefindSearchResult[];
@@ -24,7 +30,7 @@ export interface PagefindSearchResponse {
 export interface PagefindApi {
   debouncedSearch: (
     query: string,
-    options?: { filters?: Record<string, string | string[]> },
+    options?: { filters?: PagefindFilters },
     debounceMs?: number,
   ) => Promise<PagefindSearchResponse | null>;
   destroy: () => Promise<void>;
@@ -33,7 +39,7 @@ export interface PagefindApi {
   preload: (query: string) => Promise<void>;
   search: (
     query: string,
-    options?: { filters?: Record<string, string | string[]> },
+    options?: { filters?: PagefindFilters },
   ) => Promise<PagefindSearchResponse>;
 }
 

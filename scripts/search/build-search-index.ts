@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import * as pagefind from "pagefind";
 
 import { buildSearchDocuments } from "../../src/lib/catalog/search/documents";
+import { searchDocumentHtml } from "./search-record";
 
 export async function writeSearchIndex(outputPaths: string[]): Promise<number> {
   const { index, errors: createErrors } = await pagefind.createIndex({
@@ -19,20 +20,9 @@ export async function writeSearchIndex(outputPaths: string[]): Promise<number> {
   const documents = buildSearchDocuments();
 
   for (const document of documents) {
-    const { errors } = await index.addCustomRecord({
+    const { errors } = await index.addHTMLFile({
       url: document.url,
-      content: document.content,
-      language: "sk",
-      meta: {
-        title: document.title,
-        kind: document.kind,
-        summary: document.summary,
-        ...(document.category ? { category: document.category } : {}),
-        ...(document.register ? { register: document.register } : {}),
-      },
-      filters: {
-        kind: [document.kind],
-      },
+      content: searchDocumentHtml(document),
     });
 
     if (errors.length > 0) {
