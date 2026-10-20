@@ -4,6 +4,7 @@
 
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
+  import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import {
     grammarHeadingClass,
     grammarProseClass,
@@ -86,7 +87,7 @@
       <div class="mt-3 flex flex-col gap-3">
         {#if topic.status === "ready"}
           {#each topic.body as paragraph (paragraph)}
-            <p class={grammarProseClass}>{paragraph}</p>
+            <p class={grammarProseClass}><GrammarRichText text={paragraph} /></p>
           {/each}
         {:else}
           <p class="m-0 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-600">
@@ -117,7 +118,9 @@
               class="grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-x-3 border-b border-slate-200 py-2.5"
             >
               <span class="text-sm text-slate-400 tabular-nums">{index + 1}</span>
-              <span class="text-[1.02rem] leading-relaxed text-slate-800">{prompt}</span>
+              <span class="text-[1.02rem] leading-relaxed text-slate-800">
+                <GrammarRichText text={prompt} />
+              </span>
             </li>
           {/each}
         </ol>

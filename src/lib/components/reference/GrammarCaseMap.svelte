@@ -1,4 +1,5 @@
 <script lang="ts">
+  import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import type { CaseReference } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
 
@@ -61,7 +62,7 @@
 
           {#if item.explanation}
             <span class="mt-0.5 block text-sm leading-relaxed text-slate-600">
-              {item.explanation}
+              <GrammarRichText text={item.explanation} />
             </span>
           {/if}
         </span>

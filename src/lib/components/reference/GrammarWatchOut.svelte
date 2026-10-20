@@ -1,11 +1,10 @@
 <script lang="ts">
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
-  import { splitRichText } from "$lib/components/practice/practice-feedback-ui";
 
-  /** `**form**` marks the correct Slovak; `*form*` marks the one to avoid. */
-  let { text }: { text: string } = $props();
+  import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
 
-  const parts = $derived(splitRichText(text));
+  /** One trap per item. `**form**` marks the correct Slovak; `*form*` the one to avoid. */
+  let { items }: { items: string[] } = $props();
 </script>
 
 <div
@@ -14,15 +13,13 @@
 >
   <Eyebrow tone="caution">Watch out</Eyebrow>
 
-  <p class="m-0 text-[1.02rem] leading-relaxed text-pretty text-slate-800">
-    {#each parts as part, index (`${part.type}-${index}`)}
-      {#if part.type === "em"}
-        <strong class="font-semibold text-slate-900" lang="sk">{part.value}</strong>
-      {:else if part.type === "i"}
-        <s class="text-slate-600 decoration-rose-600/60" lang="sk">{part.value}</s>
-      {:else}
-        {part.value}
-      {/if}
+  <ul class="m-0 list-none p-0">
+    {#each items as item (item)}
+      <li
+        class="border-t border-rose-600/15 py-2 text-[1.02rem] leading-relaxed text-pretty text-slate-800 first:border-t-0 first:pt-0 last:pb-0"
+      >
+        <GrammarRichText text={item} />
+      </li>
     {/each}
-  </p>
+  </ul>
 </div>

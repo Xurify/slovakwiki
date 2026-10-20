@@ -19,7 +19,9 @@ describe("grammar contrast cards", () => {
 
   it("pairs two different sentences, each with the word it turns on marked", () => {
     for (const topic of contrastTopics) {
-      for (const [left, right] of topic.contrasts!.pairs) {
+      for (const {
+        choices: [left, right],
+      } of topic.contrasts!.pairs) {
         expect(left.slovak.text, topic.slug).not.toBe(right.slovak.text);
 
         for (const choice of [left, right]) {
@@ -35,7 +37,7 @@ describe("grammar contrast cards", () => {
 
   it("writes each situation to follow “If …”", () => {
     for (const topic of contrastTopics) {
-      for (const choice of topic.contrasts!.pairs.flat()) {
+      for (const choice of topic.contrasts!.pairs.flatMap((pair) => pair.choices)) {
         expect(choice.when, choice.slovak.text).toMatch(/^\p{Ll}/u);
         expect(choice.when, choice.slovak.text).not.toMatch(/[.!?]$/);
       }

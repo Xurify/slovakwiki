@@ -204,7 +204,11 @@ export interface GrammarChoice {
 }
 
 /** Two near-identical sentences; the situation decides between them. */
-export type GrammarContrast = readonly [GrammarChoice, GrammarChoice];
+export interface GrammarContrast {
+  /** The case or number the pair shows (Instrumental plural). */
+  label?: string;
+  choices: readonly [GrammarChoice, GrammarChoice];
+}
 
 export interface GrammarContrastSet {
   /** The choice the learner faces: “Tento, ten, or tamten?” */
@@ -262,7 +266,8 @@ export interface GrammarTopic extends ContentEntry {
   rule: string[];
   /** Optional deep-link sections for dictionary gloss term tips. */
   termSections?: GrammarTermSection[];
-  watchOut: string;
+  /** One trap per item. `**form**` marks correct Slovak; `*form*` the one to avoid. */
+  watchOut: string[];
 }
 
 export interface PronunciationContrast {

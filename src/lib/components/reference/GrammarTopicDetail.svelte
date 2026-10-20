@@ -9,6 +9,7 @@
   import GrammarContrastList from "$lib/components/reference/GrammarContrastList.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
+  import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
   import {
     grammarHeadingClass,
@@ -205,13 +206,13 @@
 
       <div class="mt-3 flex flex-col gap-3">
         {#each topic.rule as paragraph (paragraph)}
-          <p class={grammarProseClass}>{paragraph}</p>
+          <p class={grammarProseClass}><GrammarRichText text={paragraph} /></p>
         {/each}
       </div>
 
       <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-800">
         <span class="font-semibold">When you read. </span>
-        {topic.lookFor}
+        <GrammarRichText text={topic.lookFor} />
       </p>
     </section>
 
@@ -223,7 +224,7 @@
 
         {#if topic.contrasts.intro}
           <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
-            {topic.contrasts.intro}
+            <GrammarRichText text={topic.contrasts.intro} />
           </p>
         {/if}
 
@@ -233,7 +234,7 @@
       </section>
     {/if}
 
-    <GrammarWatchOut text={topic.watchOut} />
+    <GrammarWatchOut items={topic.watchOut} />
 
     {#if terms.length > 0}
       <section id="terms" class="mt-8" aria-labelledby="terms-heading">
@@ -246,7 +247,7 @@
                 {term.title}
               </dt>
               <dd class="m-0 mt-1 text-sm leading-relaxed text-pretty text-slate-600">
-                {term.body}
+                <GrammarRichText text={term.body} />
               </dd>
             </div>
           {/each}

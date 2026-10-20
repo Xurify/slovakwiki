@@ -58,7 +58,7 @@ export function getStaticPaths() {
         exampleTargets(pattern.examples ?? [], `more-${index}-ex`),
       ),
       ...(entry.contrasts?.pairs ?? []).flatMap((pair, pairIndex) =>
-        pair.flatMap((choice, side) =>
+        pair.choices.flatMap((choice, side) =>
           audioTarget(choice.slovak.text, `contrast-${pairIndex}-${side}`),
         ),
       ),

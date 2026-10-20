@@ -23,7 +23,8 @@ export const grammarEntries: GrammarTopic[] = [
     related: ["muz", "zena", "mesto"],
     source: languageSource,
     tags: ["nouns", "gender", "beginner"],
-    lookFor: "Match the adjective ending to the noun's gender: -ý, -á, or -é.",
+    lookFor:
+      "Match the adjective ending to the noun's gender: **-ý**, **-á**, or **-é**.",
     pathGroup: "Nouns",
     order: 1,
     rule: [
@@ -34,8 +35,9 @@ export const grammarEntries: GrammarTopic[] = [
       label: "Adjective endings follow gender",
       lines: ["Masculine: -ý", "Feminine: -á", "Neuter: -é"],
     },
-    watchOut:
+    watchOut: [
       "A final letter can suggest gender, but it does not guarantee it. Learn the noun and its pattern together.",
+    ],
     nextSlug: "cases-overview",
   },
   {
@@ -65,12 +67,12 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["nouns", "numbers", "beginner"],
     lookFor:
-      "Notice whether the number is jeden, dva/dve, tri/štyri, or päť and higher. The noun form changes with the group.",
+      "Notice whether the number is **jeden**, **dva / dve**, **tri / štyri**, or **päť** and higher. The noun form changes with the group.",
     pathGroup: "Numbers",
     order: 1,
     rule: [
-      "Jeden goes with a singular noun; dva/dve, tri, and štyri use plural-like noun forms.",
-      "Päť and higher numbers usually take a genitive plural noun form.",
+      "**Jeden** goes with a singular noun; **dva / dve**, **tri**, and **štyri** use plural-like noun forms.",
+      "**Päť** and higher numbers usually take a genitive plural noun form.",
     ],
     pattern: {
       label: "Quantity patterns",
@@ -80,8 +82,9 @@ export const grammarEntries: GrammarTopic[] = [
         "päť+ + genitive plural",
       ],
     },
-    watchOut:
-      "Do not assume every number uses the same noun form. Start with fixed phrases such as dvadsať rokov and päť eur.",
+    watchOut: [
+      "Do not assume every number uses the same noun form. Start with fixed phrases such as **dvadsať rokov** and **päť eur**.",
+    ],
     nextSlug: "telling-time",
   },
   {
@@ -101,7 +104,7 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "Čítam knihu.",
         english: "I am reading a book.",
-        demonstrates: "The ending -m shows that I am the person reading.",
+        demonstrates: "The ending **-m** shows that I am the person reading.",
         practiceItemId: "grammar/first-person-reading",
       },
     ],
@@ -126,8 +129,9 @@ export const grammarEntries: GrammarTopic[] = [
         "oni / ony čítajú · they read",
       ],
     },
-    watchOut:
+    watchOut: [
       "The infinitive is not a shortcut to the present tense. Learn each verb's stem and endings together.",
+    ],
     nextSlug: "byt-present",
     lessonLink: {
       href: "/lessons/grammar/present-tense-i",
@@ -166,12 +170,12 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["verbs", "present tense", "beginner"],
     lookFor:
-      "Find the form of byť, then identify whether it gives an identity or a location.",
+      "Find the form of **byť**, then identify whether it gives an identity or a location.",
     pathGroup: "Verbs",
     order: 4,
     rule: [
       "Slovak usually leaves out the pronoun, because each form already says who is meant.",
-      "Use byť for identity and location; use mať with rokov to state age.",
+      "Use **byť** for identity and location; use **mať** with **rokov** to state age.",
     ],
     pattern: {
       label: "Irregular — six forms to memorize",
@@ -184,8 +188,9 @@ export const grammarEntries: GrammarTopic[] = [
         "oni / ony sú · they are",
       ],
     },
-    watchOut:
-      "Do not translate English age with byť. Say Mám dvadsať rokov, literally “I have twenty years.”",
+    watchOut: [
+      "Do not translate English age with **byť**. Say **Mám dvadsať rokov**, literally “I have twenty years.”",
+    ],
     nextSlug: "mat-present",
     lessonLink: {
       href: "/lessons/grammar/byt-present",
@@ -224,12 +229,12 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["verbs", "present tense", "beginner"],
     lookFor:
-      "Match the mať ending to the person, then notice ne- attached in negative forms.",
+      "Match the **mať** ending to the person, then notice **ne-** attached in negative forms.",
     pathGroup: "Verbs",
     order: 5,
     rule: [
-      "Use mať for possession and availability, much like English “have.”",
-      "Use mať with rokov for age, and use máte for formal singular or plural you.",
+      "Use **mať** for possession and availability, much like English “have.”",
+      "Use **mať** with **rokov** for age, and use **máte** for formal singular or plural you.",
     ],
     pattern: {
       label: "Long á in every form except majú",
@@ -242,8 +247,10 @@ export const grammarEntries: GrammarTopic[] = [
         "oni / ony majú · they have",
       ],
     },
-    watchOut:
-      "Do not say Som dvadsať rokov for age. Use Mám dvadsať rokov; attach ne- to make nemám.",
+    watchOut: [
+      "For age, say **Mám dvadsať rokov**, not *Som dvadsať rokov*.",
+      "Attach **ne-** to the verb: **nemám**.",
+    ],
     nextSlug: "aspect",
     lessonLink: {
       href: "/lessons/grammar/mat-present",
@@ -267,17 +274,17 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "Písal list.",
         english: "He was writing / wrote a letter (process).",
-        demonstrates: "Imperfective písať — ongoing or unbounded writing.",
+        demonstrates: "Imperfective **písať**: ongoing or unbounded writing.",
       },
       {
         slovak: "Napísal list.",
         english: "He wrote the letter (finished it).",
-        demonstrates: "Perfective napísať — the letter is done.",
+        demonstrates: "Perfective **napísať**: the letter is done.",
       },
       {
         slovak: "Chodím do práce.",
         english: "I go to work (habitually).",
-        demonstrates: "Habitual motion verb chodiť — repeated trips, not one journey.",
+        demonstrates: "Habitual motion verb **chodiť**: repeated trips, not one journey.",
       },
     ],
     related: [
@@ -298,7 +305,7 @@ export const grammarEntries: GrammarTopic[] = [
     order: 6,
     rule: [
       "Aspect is separate from tense: the same past time can be imperfective (process) or perfective (completed).",
-      "Learn frequent pairs together (robiť / urobiť, písať / napísať) instead of translating English tense forms one-to-one.",
+      "Learn frequent pairs together (**robiť / urobiť**, **písať / napísať**) instead of translating English tense forms one-to-one.",
     ],
     pattern: {
       label: "Same idea, different aspect",
@@ -323,65 +330,76 @@ export const grammarEntries: GrammarTopic[] = [
       {
         id: "habitual",
         title: "Habitual motion",
-        body: "Motion verbs like chodiť cover repeated or multi-direction travel. Ísť covers one trip now or once.",
+        body: "Motion verbs like **chodiť** cover repeated or multi-direction travel. **Ísť** covers one trip now or once.",
       },
     ],
     contrasts: {
       label: "Imperfective or perfective?",
       intro:
-        "Both sentences are correct Slovak. They tell a different story about the same action. A perfective verb in the present form, like napíšem, points to the future.",
+        "Both sentences are correct Slovak. They tell a different story about the same action. A perfective verb in the present form, like **napíšem**, points to the future.",
       pairs: [
-        [
-          {
-            slovak: markedText([{ role: "contrast", text: "Píšem" }, " e-mail."]),
-            english: "I am writing an email.",
-            when: "you are writing it right now",
-          },
-          {
-            slovak: markedText([{ role: "contrast", text: "Napíšem" }, " e-mail."]),
-            english: "I will write an email.",
-            when: "you will do it later",
-          },
-        ],
-        [
-          {
-            slovak: markedText([
-              "Večer ",
-              { role: "contrast", text: "budem variť" },
-              " polievku.",
-            ]),
-            english: "In the evening I will be cooking soup.",
-            when: "you are saying how you will spend the evening",
-          },
-          {
-            slovak: markedText([
-              "Večer ",
-              { role: "contrast", text: "uvarím" },
-              " polievku.",
-            ]),
-            english: "In the evening I will cook soup.",
-            when: "you are promising the soup will be ready",
-          },
-        ],
-        [
-          {
-            slovak: markedText([
-              { role: "contrast", text: "Chodím" },
-              " do obchodu pešo.",
-            ]),
-            english: "I walk to the shop.",
-            when: "that is how you always get there",
-          },
-          {
-            slovak: markedText([{ role: "contrast", text: "Idem" }, " do obchodu pešo."]),
-            english: "I am walking to the shop.",
-            when: "you are on your way there now",
-          },
-        ],
+        {
+          choices: [
+            {
+              slovak: markedText([{ role: "contrast", text: "Píšem" }, " e-mail."]),
+              english: "I am writing an email.",
+              when: "you are writing it right now",
+            },
+            {
+              slovak: markedText([{ role: "contrast", text: "Napíšem" }, " e-mail."]),
+              english: "I will write an email.",
+              when: "you will do it later",
+            },
+          ],
+        },
+        {
+          choices: [
+            {
+              slovak: markedText([
+                "Večer ",
+                { role: "contrast", text: "budem variť" },
+                " polievku.",
+              ]),
+              english: "In the evening I will be cooking soup.",
+              when: "you are saying how you will spend the evening",
+            },
+            {
+              slovak: markedText([
+                "Večer ",
+                { role: "contrast", text: "uvarím" },
+                " polievku.",
+              ]),
+              english: "In the evening I will cook soup.",
+              when: "you are promising the soup will be ready",
+            },
+          ],
+        },
+        {
+          choices: [
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Chodím" },
+                " do obchodu pešo.",
+              ]),
+              english: "I walk to the shop.",
+              when: "that is how you always get there",
+            },
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Idem" },
+                " do obchodu pešo.",
+              ]),
+              english: "I am walking to the shop.",
+              when: "you are on your way there now",
+            },
+          ],
+        },
       ],
     },
-    watchOut:
+    watchOut: [
       "Do not map English progressive vs simple past onto aspect. Slovak chooses imperfective or perfective by how the event is framed, then places it in time.",
+      "Never use **budem** with a perfective verb: **napíšem**, not *budem napísať*.",
+    ],
     nextSlug: "word-order",
   },
   {
@@ -411,7 +429,7 @@ export const grammarEntries: GrammarTopic[] = [
         question: "Kto? Čo? · Who? What?",
         role: "Subject",
         explanation:
-          "Names the person, thing, or idea doing the action. In Peter číta knihu, Peter is nominative.",
+          "Names the person, thing, or idea doing the action. In **Peter číta knihu**, **Peter** is nominative.",
       },
       {
         slug: "genitive",
@@ -419,7 +437,7 @@ export const grammarEntries: GrammarTopic[] = [
         question: "Koho? Čoho? · Whose? Of what?",
         role: "Possession or source",
         explanation:
-          "Marks possession, amounts, absence, and phrases after z, od, do, or bez.",
+          "Marks possession, amounts, absence, and phrases after **z**, **od**, **do**, or **bez**.",
       },
       {
         slug: "dative",
@@ -441,14 +459,14 @@ export const grammarEntries: GrammarTopic[] = [
         question: "O kom? O čom? · About whom? About what?",
         role: "Location or topic",
         explanation:
-          "Appears after selected prepositions for location and topics, such as v, na, and o.",
+          "Appears after selected prepositions for location and topics, such as **v**, **na**, and **o**.",
       },
       {
         slug: "instrumental",
         name: "Instrumental",
         question: "S kým? S čím? · With whom? With what?",
         role: "Company or tool",
-        explanation: "Marks company, tools, and means, especially after s or so.",
+        explanation: "Marks company, tools, and means, especially after **s** or **so**.",
       },
     ],
     pathGroup: "Nouns",
@@ -461,8 +479,9 @@ export const grammarEntries: GrammarTopic[] = [
       label: "The noun changes with its role",
       lines: ["Mám kávu. · I have coffee.", "Bývam v meste. · I live in the city."],
     },
-    watchOut:
+    watchOut: [
       "Do not try to memorize all six case tables at once. Start with patterns you can use in complete phrases.",
+    ],
     nextSlug: "demonstratives",
   },
   {
@@ -485,29 +504,31 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "Býva v tom dome vedľa nás.",
         english: "He lives in that house next to us.",
-        demonstrates: "After v (in), ten takes the locative: tom.",
+        demonstrates: "After **v** (in), **ten** takes the locative: **tom**.",
       },
       {
         slovak: "Bývame na tejto ulici.",
         english: "We live on this street.",
-        demonstrates: "Feminine locative: tej, and tento adds -to: tejto.",
+        demonstrates:
+          "Feminine locative: **tej**, and **tento** adds **-to**: **tejto**.",
       },
       {
         slovak: "Pracujem s tou ženou.",
         english: "I work with that woman.",
-        demonstrates: "After s (with), feminine ten takes the instrumental: tou.",
+        demonstrates:
+          "After **s** (with), feminine **ten** takes the instrumental: **tou**.",
       },
     ],
     related: ["grammatical-gender", "cases-overview", "dievca", "dieta"],
     source: languageSource,
     tags: ["pronouns", "demonstratives", "agreement", "beginner"],
     lookFor:
-      "Find the noun after ten. Its gender, number, and case decide the form: ten muž, toho muža, s tou ženou.",
+      "Find the noun after **ten**. Its gender, number, and case decide the form: **ten muž**, **toho muža**, **s tou ženou**.",
     pathGroup: "Nouns",
     order: 3,
     rule: [
-      "Ten, tá, to agree with the noun in gender, number, and case. Tento adds -to to every form, and tamten adds tam- in front.",
-      "On its own, to never changes; only the verb follows the noun: To je môj brat. To sú moji rodičia.",
+      "**Ten**, **tá**, **to** agree with the noun in gender, number, and case. **Tento** adds **-to** to every form, and **tamten** adds **tam-** in front.",
+      "On its own, **to** never changes; only the verb follows the noun: **To je** môj brat. **To sú** moji rodičia.",
     ],
     pattern: {
       label: "Nominative (agreement)",
@@ -532,7 +553,7 @@ export const grammarEntries: GrammarTopic[] = [
         {
           slovak: "Tieto kľúče sú moje.",
           english: "These keys are mine.",
-          demonstrates: "Kľúč is masculine, but keys are not people, so tieto.",
+          demonstrates: "**Kľúč** is masculine, but keys are not people, so **tieto**.",
         },
       ],
     },
@@ -556,12 +577,12 @@ export const grammarEntries: GrammarTopic[] = [
           {
             slovak: "Poznám toho muža.",
             english: "I know that man.",
-            demonstrates: "Accusative for a person: ten becomes toho.",
+            demonstrates: "Accusative for a person: **ten** becomes **toho**.",
           },
           {
             slovak: "Vidím ten dom.",
             english: "I see that house.",
-            demonstrates: "Accusative for a thing: ten stays ten.",
+            demonstrates: "Accusative for a thing: **ten** stays **ten**.",
           },
           { slovak: "Vidíš tamto auto?", english: "Do you see that car over there?" },
           { slovak: "Poznáš tých chlapcov?", english: "Do you know those boys?" },
@@ -586,17 +607,17 @@ export const grammarEntries: GrammarTopic[] = [
           {
             slovak: "Idem na obed s týmto kolegom.",
             english: "I'm going to lunch with this colleague.",
-            demonstrates: "Instrumental singular after s (with): tým.",
+            demonstrates: "Instrumental singular after **s** (with): **týmto**.",
           },
           {
             slovak: "Kúp tým deťom zmrzlinu.",
             english: "Buy those children some ice cream.",
-            demonstrates: "Dative plural, “to them”: tým.",
+            demonstrates: "Dative plural, “to them”: **tým**.",
           },
           {
             slovak: "Dnes večer ide s tými kolegami do kina.",
             english: "Tonight he's going to the cinema with those colleagues.",
-            demonstrates: "Instrumental plural after s (with): tými.",
+            demonstrates: "Instrumental plural after **s** (with): **tými**.",
           },
         ],
       },
@@ -604,70 +625,240 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Tento, ten, or tamten?",
       intro:
-        "You don't need to measure anything. Ask where the thing is — with you, with the listener, or over there — and whether you mean now or the past.",
+        "You don't need to measure anything. Ask where the thing is — with you, with the listener, or over there — and whether you mean now or the past. Every case works the same way: pick **tento**, **ten**, or **tamten** first, then take its form from the tables above.",
       pairs: [
-        [
-          {
-            slovak: markedText([
-              "Páči sa mi ",
-              { role: "demonstrative", text: "táto" },
-              " košeľa.",
-            ]),
-            english: "I like this shirt.",
-            when: "you are holding it or wearing it",
-          },
-          {
-            slovak: markedText([
-              "Páči sa mi ",
-              { role: "demonstrative", text: "tamtá" },
-              " košeľa.",
-            ]),
-            english: "I like that shirt over there.",
-            when: "it is hanging on the other side of the shop",
-          },
-        ],
-        [
-          {
-            slovak: markedText([
-              { role: "demonstrative", text: "Tento" },
-              " víkend bol úžasný.",
-            ]),
-            english: "This weekend was amazing.",
-            when: "the weekend is just ending",
-          },
-          {
-            slovak: markedText([
-              { role: "demonstrative", text: "Ten" },
-              " víkend bol úžasný.",
-            ]),
-            english: "That weekend was amazing.",
-            when: "you are remembering a weekend in the past",
-          },
-        ],
-        [
-          {
-            slovak: markedText([
-              "Prečítaj si ",
-              { role: "demonstrative", text: "túto" },
-              " knihu.",
-            ]),
-            english: "Read this book.",
-            when: "you are holding the book out to them",
-          },
-          {
-            slovak: markedText([
-              "Prečítaj si ",
-              { role: "demonstrative", text: "tú" },
-              " knihu.",
-            ]),
-            english: "Read that book.",
-            when: "they are holding it, or you talked about it before",
-          },
-        ],
+        {
+          label: "Nominative · feminine",
+          choices: [
+            {
+              slovak: markedText([
+                "Páči sa mi ",
+                { role: "demonstrative", text: "táto" },
+                " košeľa.",
+              ]),
+              english: "I like this shirt.",
+              when: "you are holding it or wearing it",
+            },
+            {
+              slovak: markedText([
+                "Páči sa mi ",
+                { role: "demonstrative", text: "tamtá" },
+                " košeľa.",
+              ]),
+              english: "I like that shirt over there.",
+              when: "it is hanging on the other side of the shop",
+            },
+          ],
+        },
+        {
+          label: "Nominative · masculine",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "demonstrative", text: "Tento" },
+                " víkend bol úžasný.",
+              ]),
+              english: "This weekend was amazing.",
+              when: "the weekend is just ending",
+            },
+            {
+              slovak: markedText([
+                { role: "demonstrative", text: "Ten" },
+                " víkend bol úžasný.",
+              ]),
+              english: "That weekend was amazing.",
+              when: "you are remembering a weekend in the past",
+            },
+          ],
+        },
+        {
+          label: "Nominative · plural",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "demonstrative", text: "Tieto" },
+                " topánky sú pohodlné.",
+              ]),
+              english: "These shoes are comfortable.",
+              when: "you are wearing them",
+            },
+            {
+              slovak: markedText([
+                { role: "demonstrative", text: "Tamtie" },
+                " topánky sú pohodlné.",
+              ]),
+              english: "Those shoes over there are comfortable.",
+              when: "they are on a shelf across the shop",
+            },
+          ],
+        },
+        {
+          label: "Nominative · masculine nouns for people, plural",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "demonstrative", text: "Títo" },
+                " ľudia čakajú na autobus.",
+              ]),
+              english: "These people are waiting for the bus.",
+              when: "they are standing right next to you",
+            },
+            {
+              slovak: markedText([
+                { role: "demonstrative", text: "Tamtí" },
+                " ľudia čakajú na autobus.",
+              ]),
+              english: "Those people over there are waiting for the bus.",
+              when: "they are at the stop across the street",
+            },
+          ],
+        },
+        {
+          label: "Genitive · masculine",
+          choices: [
+            {
+              slovak: markedText([
+                "Bojím sa ",
+                { role: "demonstrative", text: "tohto" },
+                " psa.",
+              ]),
+              english: "I'm afraid of this dog.",
+              when: "the dog is at your feet",
+            },
+            {
+              slovak: markedText([
+                "Bojím sa ",
+                { role: "demonstrative", text: "tamtoho" },
+                " psa.",
+              ]),
+              english: "I'm afraid of that dog over there.",
+              when: "the dog is behind a fence down the street",
+            },
+          ],
+        },
+        {
+          label: "Dative · plural",
+          choices: [
+            {
+              slovak: markedText([
+                "Pomôž ",
+                { role: "demonstrative", text: "týmto" },
+                " deťom.",
+              ]),
+              english: "Help these children.",
+              when: "the children are standing with you",
+            },
+            {
+              slovak: markedText([
+                "Pomôž ",
+                { role: "demonstrative", text: "tamtým" },
+                " deťom.",
+              ]),
+              english: "Help those children over there.",
+              when: "the children are on the other side of the playground",
+            },
+          ],
+        },
+        {
+          label: "Accusative · feminine",
+          choices: [
+            {
+              slovak: markedText([
+                "Prečítaj si ",
+                { role: "demonstrative", text: "túto" },
+                " knihu.",
+              ]),
+              english: "Read this book.",
+              when: "you are holding the book out to them",
+            },
+            {
+              slovak: markedText([
+                "Prečítaj si ",
+                { role: "demonstrative", text: "tú" },
+                " knihu.",
+              ]),
+              english: "Read that book.",
+              when: "they are holding it, or you talked about it before",
+            },
+          ],
+        },
+        {
+          label: "Locative · masculine",
+          choices: [
+            {
+              slovak: markedText([
+                "Bývam v ",
+                { role: "demonstrative", text: "tomto" },
+                " dome.",
+              ]),
+              english: "I live in this house.",
+              when: "you are standing in front of it",
+            },
+            {
+              slovak: markedText([
+                "Bývam v ",
+                { role: "demonstrative", text: "tamtom" },
+                " dome.",
+              ]),
+              english: "I live in that house over there.",
+              when: "you point at a house further down the street",
+            },
+          ],
+        },
+        {
+          label: "Instrumental · masculine",
+          choices: [
+            {
+              slovak: markedText([
+                "Pôjdem ",
+                { role: "demonstrative", text: "týmto" },
+                " autobusom.",
+              ]),
+              english: "I'll take this bus.",
+              when: "the bus is right here at the stop",
+            },
+            {
+              slovak: markedText([
+                "Pôjdem ",
+                { role: "demonstrative", text: "tamtým" },
+                " autobusom.",
+              ]),
+              english: "I'll take that bus over there.",
+              when: "you point at a bus waiting further back",
+            },
+          ],
+        },
+        {
+          label: "Instrumental · plural",
+          choices: [
+            {
+              slovak: markedText([
+                "Pracujem s ",
+                { role: "demonstrative", text: "týmito" },
+                " ľuďmi.",
+              ]),
+              english: "I work with these people.",
+              when: "they are sitting around you at the table",
+            },
+            {
+              slovak: markedText([
+                "Pracujem s ",
+                { role: "demonstrative", text: "tamtými" },
+                " ľuďmi.",
+              ]),
+              english: "I work with those people over there.",
+              when: "you point at a group across the room",
+            },
+          ],
+        },
       ],
     },
-    watchOut:
-      "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*. **Kolega** (colleague) ends in -a and takes **ten kolega**. **Noc** (night) ends in a consonant and takes **tá noc**. In the accusative, ten changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**. Write **tohto** and **tieto**; *tohoto* and *tyto* are Czech.",
+    watchOut: [
+      "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*.",
+      "**Kolega** (colleague) ends in **-a** but is masculine: **ten kolega**. **Noc** (night) ends in a consonant but is feminine: **tá noc**.",
+      "In the accusative, **ten** changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**.",
+      "Write **tohto** and **tieto**. *Tohoto* and *tyto* are Czech.",
+    ],
     nextSlug: "possessives",
     lessonLink: {
       href: "/lessons/grammar/demonstratives",
@@ -691,18 +882,21 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "Tom píše list svojmu najlepšiemu priateľovi.",
         english: "Tom is writing a letter to his best friend.",
-        demonstrates: "Tom is the subject and the owner, so svoj, in the dative: svojmu.",
+        demonstrates:
+          "Tom is the subject and the owner, so **svoj**, in the dative: **svojmu**.",
         practiceItemId: "grammar/possessive-svoj-choice",
       },
       {
         slovak: "Idem do kina so svojou sestrou.",
         english: "I'm going to the cinema with my sister.",
-        demonstrates: "With ja as the owner, mojou works too: s mojou sestrou.",
+        demonstrates:
+          "With **ja** as the owner, **mojou** works too: **s mojou sestrou**.",
       },
       {
         slovak: "To je auto môjho brata.",
         english: "That is my brother's car.",
-        demonstrates: "The owner comes after the thing, in the genitive: môjho brata.",
+        demonstrates:
+          "The owner comes after the thing, in the genitive: **môjho brata**.",
         practiceItemId: "grammar/possessive-genitive-build",
       },
     ],
@@ -710,12 +904,12 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["pronouns", "possessives", "agreement", "beginner"],
     lookFor:
-      "Find the owner first: it picks môj, jeho, or svoj. For môj, tvoj, náš, and váš, then find the noun. Its gender, number, and case pick the ending.",
+      "Find the owner first: it picks **môj**, **jeho**, or **svoj**. For **môj**, **tvoj**, **náš**, and **váš**, then find the noun. Its gender, number, and case pick the ending.",
     pathGroup: "Nouns",
     order: 4,
     rule: [
-      "Môj, tvoj, náš, and váš agree with the noun in gender, number, and case. Jeho, jej, and ich never change.",
-      "When the owner is the subject of the sentence, use svoj in the noun's case: Tom volá svojej mame.",
+      "**Môj**, **tvoj**, **náš**, and **váš** agree with the noun in gender, number, and case. **Jeho**, **jej**, and **ich** never change.",
+      "When the owner is the subject of the sentence, use **svoj** in the noun's case: Tom volá **svojej** mame.",
     ],
     pattern: {
       label: "Nominative (agreement)",
@@ -740,12 +934,12 @@ export const grammarEntries: GrammarTopic[] = [
         {
           slovak: "To sú moji priatelia.",
           english: "These are my friends.",
-          demonstrates: "Priateľ is masculine and a person, so moji.",
+          demonstrates: "**Priateľ** is masculine and a person, so **moji**.",
         },
         {
           slovak: "Naše deti chodia do školy.",
           english: "Our children go to school.",
-          demonstrates: "Deti are people, but not a masculine noun, so naše.",
+          demonstrates: "**Deti** are people, but not a masculine noun, so **naše**.",
         },
       ],
     },
@@ -770,14 +964,14 @@ export const grammarEntries: GrammarTopic[] = [
             slovak: "Anna ide do kina s jeho bratom.",
             english: "Anna is going to the cinema with his brother.",
             demonstrates:
-              "After a preposition, jeho stays jeho. S ním means “with him” and cannot stand before a noun.",
+              "After a preposition, **jeho** stays **jeho**. **S ním** means “with him” and cannot stand before a noun.",
             practiceItemId: "grammar/possessive-jeho-preposition",
           },
           {
             slovak: "Ich auto je červené.",
             english: "Their car is red.",
             demonstrates:
-              "Ich never changes. The adjective still agrees with auto: červené.",
+              "**Ich** never changes. The adjective still agrees with **auto**: **červené**.",
           },
         ],
       },
@@ -785,73 +979,133 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Who is the owner?",
       intro:
-        "The owner picks the word, so the same English can need two different Slovak sentences.",
+        "The owner picks the word, so the same English can need two different Slovak sentences. The case of the noun then picks the ending.",
       pairs: [
-        [
-          {
-            slovak: markedText([
-              "Poznáš ",
-              { role: "possessive", text: "jeho" },
-              " sestru?",
-            ]),
-            english: "Do you know his sister?",
-            when: "she is Peter's sister",
-          },
-          {
-            slovak: markedText([
-              "Poznáš ",
-              { role: "possessive", text: "jej" },
-              " sestru?",
-            ]),
-            english: "Do you know her sister?",
-            when: "she is Eva's sister",
-          },
-        ],
-        [
-          {
-            slovak: markedText([
-              "Je to ",
-              { role: "possessive", text: "tvoj" },
-              " kufor?",
-            ]),
-            english: "Is this your suitcase?",
-            when: "you are asking a friend",
-          },
-          {
-            slovak: markedText([
-              "Je to ",
-              { role: "possessive", text: "váš" },
-              " kufor?",
-            ]),
-            english: "Is this your suitcase?",
-            when: "you are asking a stranger, or a family travelling together",
-          },
-        ],
-        [
-          {
-            slovak: markedText([
-              { role: "owner", text: "Anna" },
-              " hľadá ",
-              { role: "possessive", text: "svoje" },
-              " kľúče.",
-            ]),
-            english: "Anna is looking for her keys.",
-            when: "the keys are Anna's own",
-          },
-          {
-            slovak: markedText([
-              "Anna hľadá ",
-              { role: "possessive", text: "jej" },
-              " kľúče.",
-            ]),
-            english: "Anna is looking for her keys.",
-            when: "the keys belong to another woman, like her sister",
-          },
-        ],
+        {
+          label: "Nominative",
+          choices: [
+            {
+              slovak: markedText([
+                "Je to ",
+                { role: "possessive", text: "tvoj" },
+                " kufor?",
+              ]),
+              english: "Is this your suitcase?",
+              when: "you are asking a friend",
+            },
+            {
+              slovak: markedText([
+                "Je to ",
+                { role: "possessive", text: "váš" },
+                " kufor?",
+              ]),
+              english: "Is this your suitcase?",
+              when: "you are asking a stranger, or a family travelling together",
+            },
+          ],
+        },
+        {
+          label: "Accusative",
+          choices: [
+            {
+              slovak: markedText([
+                "Poznáš ",
+                { role: "possessive", text: "jeho" },
+                " sestru?",
+              ]),
+              english: "Do you know his sister?",
+              when: "she is Peter's sister",
+            },
+            {
+              slovak: markedText([
+                "Poznáš ",
+                { role: "possessive", text: "jej" },
+                " sestru?",
+              ]),
+              english: "Do you know her sister?",
+              when: "she is Eva's sister",
+            },
+          ],
+        },
+        {
+          label: "Accusative · plural",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "owner", text: "Anna" },
+                " hľadá ",
+                { role: "possessive", text: "svoje" },
+                " kľúče.",
+              ]),
+              english: "Anna is looking for her keys.",
+              when: "the keys are Anna's own",
+            },
+            {
+              slovak: markedText([
+                "Anna hľadá ",
+                { role: "possessive", text: "jej" },
+                " kľúče.",
+              ]),
+              english: "Anna is looking for her keys.",
+              when: "the keys belong to another woman, like her sister",
+            },
+          ],
+        },
+        {
+          label: "Dative",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "owner", text: "Tom" },
+                " volá ",
+                { role: "possessive", text: "svojej" },
+                " mame.",
+              ]),
+              english: "Tom is calling his mom.",
+              when: "she is Tom's own mother",
+            },
+            {
+              slovak: markedText([
+                "Tom volá ",
+                { role: "possessive", text: "jeho" },
+                " mame.",
+              ]),
+              english: "Tom is calling his mom.",
+              when: "she is another man's mother, like his friend's",
+            },
+          ],
+        },
+        {
+          label: "Instrumental",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "owner", text: "Eva" },
+                " ide do kina ",
+                { role: "possessive", text: "so svojím" },
+                " bratom.",
+              ]),
+              english: "Eva is going to the cinema with her brother.",
+              when: "he is Eva's own brother",
+            },
+            {
+              slovak: markedText([
+                "Eva ide do kina ",
+                { role: "possessive", text: "s jej" },
+                " bratom.",
+              ]),
+              english: "Eva is going to the cinema with her brother.",
+              when: "he is another woman's brother, like her friend's",
+            },
+          ],
+        },
       ],
     },
-    watchOut:
-      "Môj follows the thing, not the speaker: Eva says **môj brat**, not *moja brat*. **Svoj** cannot be the subject itself: **Jej brat je učiteľ**, not *Svoj brat je učiteľ*. Long **naším** means “with our”: **s naším bratom**. Short **našim** means “to our”: **našim rodičom**.",
+    watchOut: [
+      "**Môj** follows the thing, not the speaker. Eva says **môj brat**, not *moja brat*.",
+      "**Svoj** cannot be the subject itself: **Jej brat je učiteľ**, not *Svoj brat je učiteľ*.",
+      "Long **naším** means “with our”: **s naším bratom**. Short **našim** means “to our”: **našim rodičom**.",
+    ],
     nextSlug: "present-tense",
     lessonLink: {
       href: "/lessons/grammar/possessives",
@@ -888,8 +1142,9 @@ export const grammarEntries: GrammarTopic[] = [
       label: "Position changes emphasis",
       lines: ["subject + verb + object → neutral", "moved word → emphasis"],
     },
-    watchOut:
+    watchOut: [
       "Flexible does not mean random. Put familiar information earlier and the new or emphasized part later.",
+    ],
     nextSlug: "ty-vs-vy",
   },
   {
@@ -922,12 +1177,13 @@ export const grammarEntries: GrammarTopic[] = [
     related: ["questions", "word-order", "byt-present", "mat-present"],
     source: languageSource,
     tags: ["sentences", "formality", "beginner"],
-    lookFor: "Check whether the situation calls for ty or vy, then match the verb form.",
+    lookFor:
+      "Check whether the situation calls for **ty** or **vy**, then match the verb form.",
     pathGroup: "Sentence building",
     order: 5,
     rule: [
-      "Use ty with one person informally and vy for formal address or more than one person.",
-      "Formal vy uses plural verb forms; capitalize Vy, Vám, and Váš in letters to one formal addressee.",
+      "Use **ty** with one person informally and **vy** for formal address or more than one person.",
+      "Formal **vy** uses plural verb forms; capitalize **Vy**, **Vám**, and **Váš** in letters to one formal addressee.",
     ],
     pattern: {
       label: "Informal and formal address",
@@ -941,36 +1197,42 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Ty or vy?",
       intro:
-        "Look at who you are talking to, and how many. Vy is the formal you, and it is also the plural.",
+        "Look at who you are talking to, and how many. **Vy** is the formal you, and it is also the plural.",
       pairs: [
-        [
-          {
-            slovak: markedText([{ role: "contrast", text: "Máš" }, " čas?"]),
-            english: "Do you have time?",
-            when: "you are asking a friend, a child, or someone in your family",
-          },
-          {
-            slovak: markedText([{ role: "contrast", text: "Máte" }, " čas?"]),
-            english: "Do you have time?",
-            when: "you are asking a stranger, a teacher, or a colleague you call vy",
-          },
-        ],
-        [
-          {
-            slovak: markedText([{ role: "contrast", text: "Prídeš" }, " zajtra?"]),
-            english: "Will you come tomorrow?",
-            when: "you are asking one friend",
-          },
-          {
-            slovak: markedText([{ role: "contrast", text: "Prídete" }, " zajtra?"]),
-            english: "Will you come tomorrow?",
-            when: "you are asking two friends at once",
-          },
-        ],
+        {
+          choices: [
+            {
+              slovak: markedText([{ role: "contrast", text: "Máš" }, " čas?"]),
+              english: "Do you have time?",
+              when: "you are asking a friend, a child, or someone in your family",
+            },
+            {
+              slovak: markedText([{ role: "contrast", text: "Máte" }, " čas?"]),
+              english: "Do you have time?",
+              when: "you are asking a stranger, a teacher, or a colleague you call vy",
+            },
+          ],
+        },
+        {
+          choices: [
+            {
+              slovak: markedText([{ role: "contrast", text: "Prídeš" }, " zajtra?"]),
+              english: "Will you come tomorrow?",
+              when: "you are asking one friend",
+            },
+            {
+              slovak: markedText([{ role: "contrast", text: "Prídete" }, " zajtra?"]),
+              english: "Will you come tomorrow?",
+              when: "you are asking two friends at once",
+            },
+          ],
+        },
       ],
     },
-    watchOut:
-      "Do not mix ty forms with vy forms in one conversation. Formal Vy is capitalized in letters to one person, not in ordinary plural vy.",
+    watchOut: [
+      "Do not mix **ty** forms with **vy** forms in one conversation.",
+      "Capitalize **Vy** only in letters to one person, not in ordinary plural **vy**.",
+    ],
     nextSlug: "negation",
     lessonLink: {
       href: "/lessons/everyday/meet-someone",
@@ -1008,18 +1270,21 @@ export const grammarEntries: GrammarTopic[] = [
     related: ["word-order", "questions", "nie", "rozumiem", "byt-present", "mat-present"],
     source: languageSource,
     tags: ["sentences", "negation", "beginner"],
-    lookFor: "Find ne- attached to the finite verb: nemám, nerozumiem, neviem.",
+    lookFor:
+      "Find **ne-** attached to the finite verb: **nemám**, **nerozumiem**, **neviem**.",
     pathGroup: "Sentence building",
     order: 6,
     rule: [
-      "Form most finite verb negatives with ne- attached to the verb.",
-      "Use nie alone for a negative answer; do not usually say nie mám or nie rozumiem.",
+      "Form most finite verb negatives with **ne-** attached to the verb.",
+      "Use **nie** alone for a negative answer; do not usually say *nie mám* or *nie rozumiem*.",
     ],
     pattern: {
       label: "Negation attaches to the verb",
       lines: ["mám → nemám", "rozumiem → nerozumiem", "Nie, ďakujem. · No, thank you."],
     },
-    watchOut: "Double negation is normal in Slovak: Nikto nevolal means “Nobody called.”",
+    watchOut: [
+      "Double negation is normal in Slovak: **Nikto nevolal** means “Nobody called.”",
+    ],
     nextSlug: "questions",
     lessonLink: {
       href: "/lessons/everyday/negation-in-conversation",
@@ -1083,8 +1348,9 @@ export const grammarEntries: GrammarTopic[] = [
         "Hovoríte po slovensky? · Do you speak Slovak?",
       ],
     },
-    watchOut:
-      "Do not add an English-style auxiliary. Hovoríte po slovensky? is already a complete yes/no question.",
+    watchOut: [
+      "Do not add an English-style auxiliary. **Hovoríte po slovensky?** is already a complete yes/no question.",
+    ],
     lessonLink: {
       href: "/lessons/everyday/meet-someone",
       label: "Greetings and introductions",
@@ -1136,14 +1402,14 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["numbers", "time", "beginner"],
     lookFor:
-      "Is the number 1, 2–4, or 5+? That decides je/sú and hodina/hodiny/hodín. For halves and quarters, name the hour you are heading toward.",
+      "Is the number 1, 2–4, or 5+? That decides **je / sú** and **hodina / hodiny / hodín**. For halves and quarters, name the hour you are heading toward.",
     pathGroup: "Numbers",
     order: 2,
     rule: [
-      "Hours follow 1 / 2–4 / 5+: Je jedna hodina, Sú tri hodiny, Je päť hodín. Minúta does the same; sekunda follows the numbers hub.",
-      "Half and quarter name the coming hour — pol tretej is 02:30, not 03:30. Always Je pol…, never Sú.",
-      "Appointments use o + locative (O tretej); approximate time uses okolo (okolo piatej).",
-      "Duration from now uses o + accusative (O dve hodiny, O päť minút) — not a clock position.",
+      "Hours follow 1 / 2–4 / 5+: **Je jedna hodina**, **Sú tri hodiny**, **Je päť hodín**. **Minúta** does the same; **sekunda** follows the numbers hub.",
+      "Half and quarter name the coming hour: **pol tretej** is 02:30, not 03:30. Always **Je pol…**, never *Sú pol…*.",
+      "Appointments use **o** + locative (**o tretej**); approximate time uses **okolo** (**okolo piatej**).",
+      "Duration from now uses **o** + accusative (**o dve hodiny**, **o päť minút**), not a clock position.",
     ],
     pattern: {
       label: "Hour agreement and looking ahead",
@@ -1169,49 +1435,57 @@ export const grammarEntries: GrammarTopic[] = [
       {
         id: "pol",
         title: "pol",
-        body: "Pol names the coming hour in the genitive: pol tretej is halfway to three (02:30). Always Je pol…, never Sú pol…",
+        body: "**Pol** names the coming hour in the genitive: **pol tretej** is halfway to three (02:30). Always **Je pol…**, never *Sú pol…*",
       },
       {
         id: "stvrt",
         title: "štvrť na",
-        body: "Štvrť na + the next hour means quarter past the previous hour: štvrť na tri is 02:15. After twelve, prefer štvrť na jednu.",
+        body: "**Štvrť na** + the next hour means quarter past the previous hour: **štvrť na tri** is 02:15. After twelve, prefer **štvrť na jednu**.",
       },
       {
         id: "tristvrte",
         title: "trištvrte na",
-        body: "Trištvrte na + the next hour means three-quarters toward that hour: trištvrte na tri is 02:45.",
+        body: "**Trištvrte na** + the next hour means three-quarters toward that hour: **trištvrte na tri** is 02:45.",
       },
       {
         id: "o-duration",
         title: "o + accusative (duration)",
-        body: "To say in X hours or in X minutes from now, use o + accusative: o dve hodiny, o päť minút. Compare o tretej (at three, locative) — a clock point, not a span of time.",
+        body: "To say in X hours or in X minutes from now, use **o** + accusative: **o dve hodiny**, **o päť minút**. Compare **o tretej** (at three, locative): a clock point, not a span of time.",
       },
     ],
     contrasts: {
       label: "At three or in three hours?",
       intro:
-        "O + a clock time names a point on the clock. O + a number of hours counts from now.",
+        "**O** + a clock time names a point on the clock. **O** + a number of hours counts from now.",
       pairs: [
-        [
-          {
-            slovak: markedText(["Zavolám ti ", { role: "time", text: "o tretej" }, "."]),
-            english: "I will call you at three.",
-            when: "you mean the clock time, 3:00",
-          },
-          {
-            slovak: markedText([
-              "Zavolám ti ",
-              { role: "time", text: "o tri hodiny" },
-              ".",
-            ]),
-            english: "I will call you in three hours.",
-            when: "you mean three hours from now",
-          },
-        ],
+        {
+          choices: [
+            {
+              slovak: markedText([
+                "Zavolám ti ",
+                { role: "time", text: "o tretej" },
+                ".",
+              ]),
+              english: "I will call you at three.",
+              when: "you mean the clock time, 3:00",
+            },
+            {
+              slovak: markedText([
+                "Zavolám ti ",
+                { role: "time", text: "o tri hodiny" },
+                ".",
+              ]),
+              english: "I will call you in three hours.",
+              when: "you mean three hours from now",
+            },
+          ],
+        },
       ],
     },
-    watchOut:
-      "Pol tretej is 02:30, not 03:30 — Slovak names the hour it is heading toward. At 12:15, prefer Je štvrť na jednu, not *jeden*.",
+    watchOut: [
+      "**Pol tretej** is 02:30, not 03:30. Slovak names the hour it is heading toward.",
+      "At 12:15, say **Je štvrť na jednu**, not *štvrť na jeden*.",
+    ],
     lessonLink: {
       href: "/lessons/everyday/days-dates-and-time",
       label: "Days, dates, and time",

@@ -21,6 +21,11 @@ import { SEARCH_WEIGHTS, type SearchWeight } from "./ui";
 
 export { SEARCH_WEIGHTS, type SearchWeight };
 
+/** Grammar copy marks Slovak with `**bold**` and `*avoid*`. */
+function plainText(text: string): string {
+  return text.replace(/\*/g, "");
+}
+
 export interface SearchSection {
   text: string;
   weight: SearchWeight;
@@ -103,7 +108,7 @@ export function buildSearchDocuments(): SearchDocument[] {
 
   for (const entry of grammarEntries) {
     const patterns = [entry.pattern, ...(entry.morePatterns ?? [])];
-    const choices = entry.contrasts?.pairs.flat() ?? [];
+    const choices = entry.contrasts?.pairs.flatMap((pair) => pair.choices) ?? [];
     documents.push({
       url: `/grammar/${entry.slug}`,
       kind: "grammar",
@@ -115,12 +120,12 @@ export function buildSearchDocuments(): SearchDocument[] {
         gloss: [entry.summary, ...entry.tags],
         body: [
           entry.category,
-          entry.lookFor,
-          entry.watchOut.replace(/\*/g, ""),
-          ...entry.rule,
+          plainText(entry.lookFor),
+          ...entry.watchOut.map(plainText),
+          ...entry.rule.map(plainText),
           ...patterns.flatMap(patternSearchLines),
           ...entry.body,
-          ...choices.map((choice) => choice.when),
+          ...choices.map((choice) => plainText(choice.when)),
         ],
         examples: [
           ...[
@@ -162,7 +167,7 @@ export function buildSearchDocuments(): SearchDocument[] {
       ...sections({
         headword: [topic.name],
         gloss: [topic.question, topic.summary],
-        body: [...topic.researchPrompts, ...topic.body],
+        body: [...topic.researchPrompts, ...topic.body].map(plainText),
         examples: topic.examples.flatMap((example) => [example.slovak, example.english]),
       }),
     });
