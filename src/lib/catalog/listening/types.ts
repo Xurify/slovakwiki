@@ -40,18 +40,19 @@ export interface GrammarListen extends ListeningChapter {
   grammarSlug: string;
 }
 
-export interface ListeningHost {
-  /** What this person does in the episode (Host, Sells fruit at the market). */
-  role: string;
-  /** Speaker label from `content/audio/config.json`. */
-  speaker: string;
+/** Where the episode page points once every chapter is done. */
+export interface EpisodeNextSteps {
+  grammarHref: string;
+  lessonHref?: string;
+  practiceHref?: string;
 }
 
 export interface ListeningEpisode {
   chapters: ListeningChapter[];
   /** Grammar page this episode listens for. */
   grammarSlug: string;
-  hosts: ListeningHost[];
+  /** Speaker labels from `content/audio/config.json`, in order of appearance. */
+  speakers: string[];
   id: string;
   lessonId?: string;
   /** CEFR band, e.g. "A1–A2". */

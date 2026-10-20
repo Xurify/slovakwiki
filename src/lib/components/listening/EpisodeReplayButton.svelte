@@ -2,17 +2,18 @@
   import { onDestroy } from "svelte";
 
   import { playStoryLineAudio, stopStoryLineAudio } from "$lib/lesson-story/story-audio";
+  import { cx } from "$lib/ui/classes";
 
   /**
-   * Replays one episode line through the shared story element, so it never
-   * talks over the podcast: the player pauses first via `onbeforeplay`.
+   * Replays one line through the shared story element, so it never talks over
+   * the dialogue: the player pauses first via `onbeforeplay`.
    */
   let {
-    label = "Listen again",
+    label,
     onbeforeplay,
     src,
   }: {
-    label?: string;
+    label: string;
     onbeforeplay?: () => void;
     src?: string;
   } = $props();
@@ -45,17 +46,20 @@
 </script>
 
 <button
-  class="relative inline-grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border border-slate-300 bg-surface text-blue-900 shadow-(--shadow-border) transition-[background-color,border-color,box-shadow] duration-150 ease-out hover:border-blue-700 hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-50 {playing
-    ? 'border-blue-800 bg-blue-50'
-    : ''}"
+  class={cx(
+    "inline-flex min-h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-full border px-3 text-sm font-semibold text-blue-800",
+    "transition-[background-color,border-color] duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50",
+    playing
+      ? "border-blue-700 bg-blue-50"
+      : "border-slate-300 bg-surface hover:border-blue-700 hover:bg-blue-50",
+  )}
   type="button"
   aria-pressed={playing}
-  aria-label={playing ? `Stop: ${label}` : label}
   disabled={!src}
   onclick={toggle}
 >
   <svg
-    class="size-[1.125rem] fill-none stroke-current"
+    class="size-4 fill-none stroke-current"
     viewBox="0 0 24 24"
     stroke-width="1.75"
     stroke-linecap="round"
@@ -86,4 +90,6 @@
       <path d="M15.2 9.2a4.2 4.2 0 0 1 0 5.6M18.2 7a7 7 0 0 1 0 10" />
     {/if}
   </svg>
+
+  {label}
 </button>

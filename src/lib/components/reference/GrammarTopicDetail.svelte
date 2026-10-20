@@ -246,8 +246,7 @@
         <h2 id="listen-heading" class={grammarHeadingClass}>Hear it</h2>
 
         <p class="m-0 mt-1.5 mb-4 max-w-[62ch] text-sm leading-relaxed text-slate-600">
-          One short conversation with the forms above in it. Listen first, answer a few
-          questions, then read along.
+          A short conversation that uses the forms above.
         </p>
 
         {@render listen()}

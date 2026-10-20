@@ -15,17 +15,15 @@ export function getStaticPaths() {
       ? practiceSetById.get(episode.practiceSetId)
       : undefined;
 
-    const links = [
-      { href: `/grammar/${episode.grammarSlug}`, label: "Grammar page" },
-      ...(lesson ? [{ href: lessonPath(lesson), label: `Lesson: ${lesson.title}` }] : []),
-      ...(practiceSet
-        ? [{ href: `/practice/${practiceSet.id}`, label: "Practice these forms" }]
-        : []),
-    ];
+    const next = {
+      grammarHref: `/grammar/${episode.grammarSlug}`,
+      lessonHref: lesson ? lessonPath(lesson) : undefined,
+      practiceHref: practiceSet ? `/practice/${practiceSet.id}` : undefined,
+    };
 
     // Clip URLs belong in the cache key: regenerating audio changes them without
     // touching the episode text, and incrementalBuild would keep stale HTML.
-    const props = { episode, audio: episodeAudioSrcs(episode), links };
+    const props = { episode, audio: episodeAudioSrcs(episode), next };
 
     return {
       params: { episode: episode.slug },
@@ -35,7 +33,7 @@ export function getStaticPaths() {
   });
 }
 
-const { episode, audio, links } = Astro.props;
+const { episode, audio, next } = Astro.props;
 ---
 
 <SiteLayout
@@ -44,6 +42,6 @@ const { episode, audio, links } = Astro.props;
   canonicalPath={`/listening/${episode.slug}`}
 >
   <ListeningEpisodePage data={{ episode }}>
-    <EpisodePlayer slot="player" client:load {episode} audioSrcs={audio} {links} />
+    <EpisodePlayer slot="player" client:load {episode} audioSrcs={audio} {next} />
   </ListeningEpisodePage>
 </SiteLayout>

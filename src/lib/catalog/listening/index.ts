@@ -8,7 +8,6 @@ export type {
   ListeningChapter,
   ListeningCheck,
   ListeningEpisode,
-  ListeningHost,
 } from "./types";
 
 export const listeningEpisodes: ListeningEpisode[] = [demonstrativesEpisode];
@@ -62,9 +61,10 @@ export function validateListeningEpisodes(): string[] {
   function checkChapter(
     chapter: ListeningChapter,
     prefix: string,
-    lineIds: Set<string>,
     onSpeaker: (speaker: string, lineId: string) => void,
   ): void {
+    // The player only knows its own chapter, so a replay must point inside it.
+    const lineIds = new Set(chapter.lines.map((line) => line.id));
     claim(chapter.id, chapter.id);
     if (!chapter.id.startsWith(prefix)) {
       issues.push(`Chapter id ${chapter.id} must start with ${prefix}`);
@@ -113,7 +113,7 @@ export function validateListeningEpisodes(): string[] {
       issues.push(`Duplicate grammar listen: ${listen.grammarSlug}`);
     }
     if (!listen.checks.length) issues.push(`Missing checks: ${listen.id}`);
-    checkChapter(listen, prefix, new Set(listen.lines.map((line) => line.id)), () => {});
+    checkChapter(listen, prefix, () => {});
   }
 
   for (const episode of listeningEpisodes) {
@@ -123,25 +123,24 @@ export function validateListeningEpisodes(): string[] {
     }
 
     const prefix = `podcast-${episode.slug}-`;
-    const hosts = new Set(episode.hosts.map((host) => host.speaker));
+    const hosts = new Set(episode.speakers);
     const spoken = new Set<string>();
-    const lineIds = new Set(episodeLines(episode).map((line) => line.id));
 
     if (!episode.chapters.length) issues.push(`Missing chapters: ${episode.id}`);
     if (!episode.vocabulary.length) issues.push(`Missing vocabulary: ${episode.id}`);
     if (episodeCheckCount(episode) === 0) issues.push(`Missing checks: ${episode.id}`);
 
     for (const chapter of episode.chapters) {
-      checkChapter(chapter, prefix, lineIds, (speaker, lineId) => {
+      checkChapter(chapter, prefix, (speaker, lineId) => {
         spoken.add(speaker);
         if (!hosts.has(speaker)) {
-          issues.push(`Speaker ${speaker} in ${lineId} is not a listed host`);
+          issues.push(`Speaker ${speaker} in ${lineId} is not in speakers`);
         }
       });
     }
 
     for (const host of hosts) {
-      if (!spoken.has(host)) issues.push(`Host ${host} never speaks in ${episode.id}`);
+      if (!spoken.has(host)) issues.push(`Speaker ${host} never speaks in ${episode.id}`);
     }
   }
 

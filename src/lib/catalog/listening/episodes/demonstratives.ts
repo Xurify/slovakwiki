@@ -557,34 +557,18 @@ export const demonstrativesEpisode: ListeningEpisode = {
   title: "Ten, tá, to",
   titleSk: "Toto je podcast!",
   promise:
-    "Two hosts, a bag game, a market stall and a quick quiz: hear ten, tá, to, tento and tamten in real sentences.",
+    "A three-minute listen for beginners. Anna and Marek play a guessing game, shop at the market and quiz each other.",
   grammarSlug: "demonstratives",
   lessonId: "grammar/demonstratives",
   practiceSetId: "demonstratives",
-  hosts: [
-    { speaker: "Anna", role: "Host" },
-    { speaker: "Marek", role: "Host" },
-    { speaker: "Lucia", role: "Sells cheese and fruit at the market" },
-  ],
+  speakers: ["Anna", "Marek", "Lucia"],
   vocabulary: [
-    {
-      slovak: "Čo je to?",
-      english: "What is it?",
-      note: "The game question. The answer starts **To je…**",
-    },
-    { slovak: "kľúč", english: "key", note: "Masculine: **ten kľúč**." },
-    { slovak: "kniha", english: "book", note: "Feminine: **tá kniha**." },
-    { slovak: "jablko", english: "apple", note: "Neuter: **to jablko**." },
-    {
-      slovak: "syr",
-      english: "cheese",
-      note: "**Tento syr** here, **tamten syr** over there.",
-    },
-    {
-      slovak: "jahody",
-      english: "strawberries",
-      note: "Plural: **tieto jahody**, **tamtie jahody**.",
-    },
+    { slovak: "kľúč", english: "key" },
+    { slovak: "kniha", english: "book" },
+    { slovak: "jablko", english: "apple" },
+    { slovak: "syr", english: "cheese" },
+    { slovak: "jahody", english: "strawberries" },
+    { slovak: "Čo je to?", english: "What is it?" },
   ],
   chapters: [intro, bag, market, quiz, outro],
 };

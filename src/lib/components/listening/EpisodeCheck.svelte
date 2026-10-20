@@ -24,7 +24,6 @@
   let {
     check,
     index,
-    last = false,
     onbeforereplay,
     onresolve,
     replayLine,
@@ -34,7 +33,6 @@
     check: ListeningCheck;
     /** 1-based position inside the chapter. */
     index: number;
-    last?: boolean;
     onbeforereplay?: () => void;
     onresolve: (correct: boolean) => void;
     replayLine?: DialogueTurn;
@@ -42,11 +40,13 @@
     total: number;
   } = $props();
 
+  let root: HTMLElement | undefined = $state();
   let selectedId = $state<string | null>(null);
   let submitted = $state(false);
   let feedbackPanel: HTMLElement | null = $state(null);
 
   const correct = $derived(submitted && selectedId === check.answerId);
+  const last = $derived(index === total);
   const why = $derived(
     submitted
       ? choiceFeedbackWhy(check.feedback.why, selectedId, check.choices, check.answerId)
@@ -56,14 +56,6 @@
     submitted
       ? otherChoiceNotes(check.choices, new Set(selectedId ? [selectedId] : []), why)
       : [],
-  );
-  const attempt = $derived(
-    submitted && !correct
-      ? check.choices.find((choice) => choice.id === selectedId)?.label
-      : undefined,
-  );
-  const correction = $derived(
-    check.choices.find((choice) => choice.id === check.answerId)?.label,
   );
 
   async function submit(): Promise<void> {
@@ -85,8 +77,15 @@
     );
   }
 
+  /** Keys only act while focus is on this question or nowhere, never elsewhere on the page. */
+  function ownsKeyboard(): boolean {
+    const active = document.activeElement;
+    return active === document.body || Boolean(root?.contains(active));
+  }
+
   function onWindowKeydown(event: KeyboardEvent): void {
     if (event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
+    if (!ownsKeyboard()) return;
 
     if (event.key === "Enter") {
       if (event.repeat || event.isComposing || isNativeTarget(event.target)) return;
@@ -107,22 +106,16 @@
 
 <svelte:window onkeydown={onWindowKeydown} />
 
-<section class="animate-rise" aria-labelledby="{check.id}-prompt">
+<section bind:this={root} class="animate-rise" aria-labelledby="{check.id}-prompt">
   <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
     <p class={eyebrowMutedClass}>Question {index} of {total}</p>
 
     {#if replayLine}
-      <div class="flex items-center gap-2.5">
-        <span class="text-xs font-semibold text-slate-500">
-          Listen again: {replayLine.speaker}
-        </span>
-
-        <EpisodeReplayButton
-          src={replaySrc}
-          label="Listen again: {replayLine.speaker}"
-          onbeforeplay={onbeforereplay}
-        />
-      </div>
+      <EpisodeReplayButton
+        src={replaySrc}
+        label="Hear {replayLine.speaker} again"
+        onbeforeplay={onbeforereplay}
+      />
     {/if}
   </div>
 
@@ -156,28 +149,27 @@
     >
       <PracticeExerciseFeedback
         status
-        {attempt}
-        {correction}
-        english={check.feedback.english}
+        english={correct ? undefined : check.feedback.english}
         {why}
         grade={correct ? "correct" : "incorrect"}
-        showCorrection={!correct}
-        density={correct ? "default" : "compact"}
-        correctionLabelTone="emerald"
+        showCorrection={false}
         correctHeadline="You heard it"
-        missHeadline="What was said"
         {otherChoices}
       />
     </div>
 
     <Button class="mt-5" type="button" onclick={resolve}>
-      {last ? "Finish chapter" : "Continue"}
+      {last ? "Read the text" : "Next question"}
     </Button>
   {:else}
-    <div class="mt-5">
-      <Button type="button" variant="accent" disabled={!selectedId} onclick={submit}>
-        Check
-      </Button>
-    </div>
+    <Button
+      class="mt-5"
+      type="button"
+      variant="accent"
+      disabled={!selectedId}
+      onclick={submit}
+    >
+      Check
+    </Button>
   {/if}
 </section>
