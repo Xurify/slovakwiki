@@ -99,7 +99,7 @@ Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs 
 | ------------ | ------- | ------ | ----------------- | -------- | ----------------------------------- |
 | `alex`       | Alex    | male   | Slovak Wiki Alex  | `You`    | You. Learner turns in dialogue.     |
 | `anna`       | Anna    | female | Slovak Wiki Anna  | `Anna`   | Your Slovak friend. Informal ty.    |
-| `lucia`      | Lucia   | female | Slovak Wiki Lucia | _(none)_ | Works in a shop.                    |
+| `lucia`      | Lucia   | female | Slovak Wiki Lucia | `Lucia`  | Works in a shop; market stall.      |
 | `marek`      | Marek   | male   | Slovak Wiki Marek | `Marek`  | Classmate and coworker.             |
 | `maria`      | Mária   | female | Slovak Wiki Mária | `Mária`  | Course/office registrar. Formal vy. |
 

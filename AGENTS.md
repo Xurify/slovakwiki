@@ -9,6 +9,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                                    |
 | Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md)              |
 | Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
+| Write a listening episode (podcast)         | [`docs/listening-authoring.md`](docs/listening-authoring.md)                |
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)                        |
 | FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                          |
 | Slovak linguistic accuracy                  | [`slovak-language` skill](.agents/skills/slovak-language/SKILL.md)          |

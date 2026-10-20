@@ -56,6 +56,7 @@ export function isSearchDocKind(value: string | undefined): value is SearchDocKi
     value === "pronunciation" ||
     value === "case" ||
     value === "lesson" ||
+    value === "listening" ||
     value === "practice"
   );
 }

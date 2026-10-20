@@ -26,6 +26,7 @@ import {
 } from "../../src/lib/catalog/audio/characters";
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
+import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening";
 import { lessonExercises } from "../../src/lib/learning/beats";
 import {
   exerciseAnswerTexts,
@@ -251,7 +252,7 @@ export function collectDictionaryAudioTargets(options?: {
 }
 
 /**
- * Lesson scene + key-phrase lines with per-character voices.
+ * Lesson scene + key-phrase lines and listening episodes, with per-character voices.
  * Note: lesson content may churn — clips are disposable regenerations.
  */
 export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[] {
@@ -295,6 +296,16 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
           characterIdForSpeaker(line.speaker),
         );
       }
+    }
+  }
+
+  for (const episode of listeningEpisodes) {
+    for (const line of episodeLines(episode)) {
+      addLine(line.audio?.transcript ?? line.slovak, characterIdForSpeaker(line.speaker));
+    }
+
+    for (const phrase of episode.vocabulary) {
+      addLine(phrase.audio?.transcript ?? phrase.slovak, keyPhraseCharacterId());
     }
   }
 

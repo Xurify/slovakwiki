@@ -1,6 +1,7 @@
 import { caseTopics, grammarEntries, pronunciationEntries, words } from "../entries";
 import { dictionaryPathForSense } from "../dictionary/lemma-senses";
 import { lessons } from "../lessons";
+import { episodeLines, episodePath, listeningEpisodes } from "../listening";
 import { practiceSets } from "../practice";
 import { patternSearchLines } from "../reference/grammar-pattern";
 import { searchFormsForLemma } from "./forms";
@@ -189,6 +190,25 @@ export function buildSearchDocuments(): SearchDocument[] {
         headword: [lesson.title],
         gloss: [lesson.promise, lesson.group, lesson.pattern?.title],
         examples: lesson.keyPhrases.flatMap((phrase) => [phrase.slovak, phrase.english]),
+      }),
+    });
+  }
+
+  for (const episode of listeningEpisodes) {
+    const lines = episodeLines(episode);
+    documents.push({
+      url: episodePath(episode),
+      kind: "listening",
+      title: episode.title,
+      summary: episode.promise,
+      ...sections({
+        headword: [episode.title, episode.titleSk],
+        gloss: [episode.promise, episode.level],
+        body: episode.chapters.flatMap((chapter) => [chapter.titleSk, chapter.title]),
+        examples: [
+          ...episode.vocabulary.flatMap((phrase) => [phrase.slovak, phrase.english]),
+          ...lines.flatMap((line) => [line.slovak, line.english]),
+        ],
       }),
     });
   }

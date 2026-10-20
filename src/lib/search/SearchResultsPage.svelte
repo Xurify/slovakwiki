@@ -72,7 +72,14 @@
   const EXAMPLE_PREVIEW = 3;
   const EXAMPLE_PAGE = 20;
   const TOPIC_LIMIT = 12;
-  const TOPIC_KINDS = ["grammar", "case", "pronunciation", "lesson", "practice"];
+  const TOPIC_KINDS = [
+    "grammar",
+    "case",
+    "pronunciation",
+    "lesson",
+    "listening",
+    "practice",
+  ];
 
   let mounted = $state(false);
   let query = $state("");

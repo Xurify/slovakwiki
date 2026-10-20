@@ -17,6 +17,7 @@
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
+  import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
   import {
     grammarGroupAnchor,
@@ -100,6 +101,8 @@
       .find((href) => href),
   );
 
+  const episode = $derived(episodeForGrammarSlug(topic.slug));
+
   const steps = $derived(
     [
       neighbors.previous && { label: "Previous", topic: neighbors.previous, rel: "prev" },
@@ -130,7 +133,7 @@
         {topic.summary}
       </p>
 
-      {#if topic.lessonLink || practiceHref}
+      {#if topic.lessonLink || practiceHref || episode}
         <p class="m-0 mt-4 flex flex-wrap gap-x-5 gap-y-2">
           {#if topic.lessonLink}
             <TextLink
@@ -145,6 +148,16 @@
           {#if practiceHref}
             <TextLink href={practiceHref} class="inline-flex items-center gap-1.5">
               Practice these forms
+              <ArrowRight />
+            </TextLink>
+          {/if}
+
+          {#if episode}
+            <TextLink
+              href={episodePath(episode)}
+              class="inline-flex items-center gap-1.5"
+            >
+              Listen: {episode.title}
               <ArrowRight />
             </TextLink>
           {/if}
