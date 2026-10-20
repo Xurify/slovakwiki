@@ -239,7 +239,7 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 1. Blank line between script clusters: imports → props → state → derived → effects/lifecycle → functions.
 2. Never crush control flow: `{#if}` / `{:else}` / `{#each}` / `{#key}` open on their own line, body indented, close on its own line.
 3. Blank line between major markup sections (`<nav>`, `<header>`, each `<section>`, `<footer>`).
-4. Long Tailwind: prefer multiline `cx("…", "…")` or a `const …Class = "…"` — not one giant `class="…"`.
+4. Long Tailwind: split into a multiline `cx("…", "…")` on the element. Do not hoist classes into local `const …Class = "…"` variables in the script; keep them on the markup they style.
 5. Sibling interactive elements (`<a>`, `<button>`, `<span>`) on separate lines inside flex/grid rows.
 
 ## Stack habits

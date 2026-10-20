@@ -22,17 +22,6 @@
     audioKeys?: string[];
   } = $props();
 
-  const questionRowClass =
-    "flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-slate-200 bg-subtle/60 px-4 py-2 sm:px-5";
-
-  const rowClass = cx(
-    "grid grid-cols-1 gap-y-2 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
-    "sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:items-center sm:gap-x-5 sm:px-5",
-  );
-
-  /** Scene and situation side by side on a phone, stacked in their own column from sm up. */
-  const cueClass = "flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1";
-
   /** The changing word takes the page's ending colour; the owner and the noun ending keep their own. */
   function markClass(role: string): string {
     return role === "owner" || role === "ending"
@@ -62,7 +51,9 @@
 {#snippet frames(list: GrammarContrast[], prefix: string)}
   {#each list as frame, frameIndex (frame.question + frameIndex)}
     <li class="border-t border-slate-200 first:border-t-0">
-      <p class={questionRowClass}>
+      <p
+        class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-slate-200 bg-subtle/60 px-4 py-2 sm:px-5"
+      >
         <span class="text-sm font-semibold text-slate-900">{frame.question}</span>
 
         {#if frame.label}
@@ -79,8 +70,13 @@
         {#each frame.choices as choice, choiceIndex (choice.slovak.text)}
           {@const audioKey = `${prefix}-${frameIndex}-${choiceIndex}`}
 
-          <li class={rowClass}>
-            <div class={cueClass}>
+          <li
+            class={cx(
+              "grid grid-cols-1 gap-y-2 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
+              "sm:grid-cols-[11rem_minmax(0,1fr)] sm:items-center sm:gap-x-6 sm:px-5",
+            )}
+          >
+            <div class="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1.5">
               {#if frame.scene}
                 <GrammarScene kind={frame.scene} at={choice.at} object={frame.object} />
               {/if}

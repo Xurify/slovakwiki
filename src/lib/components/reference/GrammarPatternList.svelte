@@ -68,27 +68,6 @@
   const time = $derived(
     withClocks && !isGrammarTable(pattern) ? splitTime(pattern.lines) : undefined,
   );
-
-  // Same card as the lessons FormTable and the dictionary FormsTable.
-  const listClass = "m-0 list-none p-0";
-
-  /** Fixed tracks so the meaning column lines up no matter how long the form is. */
-  const paradigmTrack = "gap-x-6 sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]";
-  const tileTrack = "gap-x-6 sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]";
-
-  const rowClass =
-    "grid grid-cols-1 items-baseline gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5";
-
-  const subheadClass = `${eyebrowMutedClass} border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 sm:px-5`;
-
-  const gridLabelCellClass = "py-2.5 pr-3 pl-4 text-left sm:pl-5";
-  const gridFormCellClass = "px-3 py-2.5 align-baseline last:pr-4 sm:last:pr-5";
-  /** Below sm the label sits on its own line, so the first form column takes the card's edge padding. */
-  const gridLeadCellClass = "max-sm:pl-4";
-  const gridRowLabelClass =
-    "align-baseline text-sm leading-snug font-normal text-slate-500 max-sm:hidden";
-  const gridMobileLabelClass =
-    "px-4 pt-2.5 pb-0 text-left text-[0.8125rem] leading-snug font-normal text-slate-500";
 </script>
 
 {#snippet marked(phrase: MarkedPhrase)}
@@ -96,7 +75,12 @@
 {/snippet}
 
 {#snippet formCell(cell: ParadigmCell)}
-  <li class={cx(rowClass, paradigmTrack)}>
+  <li
+    class={cx(
+      "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
+      "sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]",
+    )}
+  >
     <span class="text-sm text-slate-500" lang="sk">{cell.pronoun}</span>
 
     <span class={grammarFormClass} lang="sk">
@@ -115,7 +99,7 @@
 
 {#if time}
   <div class={dataPanelClass}>
-    <ol class={listClass} aria-label="Clock times">
+    <ol class="m-0 list-none p-0" aria-label="Clock times">
       {#each time.rows as row (row.digital)}
         {@const ahead = namesHourAhead(row.minute)}
 
@@ -149,8 +133,15 @@
     </ol>
 
     {#if time.extras.length > 0}
-      <ul class={listClass}>
-        <li class={subheadClass}>Also</li>
+      <ul class="m-0 list-none p-0">
+        <li
+          class={cx(
+            eyebrowMutedClass,
+            "border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 sm:px-5",
+          )}
+        >
+          Also
+        </li>
 
         {#each time.extras as row (row.label)}
           <li
@@ -165,15 +156,23 @@
   </div>
 {:else if view?.kind === "tiles"}
   <div class={dataPanelClass}>
-    <div class={cx(dataColumnHeadClass, tileTrack)} aria-hidden="true">
+    <div
+      class={cx(dataColumnHeadClass, "gap-x-6 sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]")}
+      aria-hidden="true"
+    >
       <span>Gender</span>
       <span>Example</span>
       <span>Meaning</span>
     </div>
 
-    <ul class={listClass}>
+    <ul class="m-0 list-none p-0">
       {#each view.tiles as tile (tile.label)}
-        <li class={cx(rowClass, tileTrack)}>
+        <li
+          class={cx(
+            "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
+            "sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]",
+          )}
+        >
           <span class="text-sm text-slate-500">{tile.label}</span>
 
           <span class={grammarFormClass} lang="sk">
@@ -197,22 +196,37 @@
       <table class="w-full border-collapse">
         <thead>
           <tr class="border-b border-slate-200 bg-subtle/60">
-            <td class={cx(gridLabelCellClass, "max-sm:hidden")}></td>
+            <td class="py-2.5 pr-3 pl-4 text-left max-sm:hidden sm:pl-5"></td>
 
             {#each view.columns as column, index (column)}
+              {@const [head, note] = column.split(" · ")}
+
               <th
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
-                  gridFormCellClass,
-                  "py-2 text-left align-bottom",
-                  view.columns.length > 3
-                    ? "max-sm:w-1/4 sm:w-1/6"
-                    : "max-sm:w-1/3 sm:w-1/4",
-                  index === 0 && gridLeadCellClass,
+                  "px-3 py-2 text-left align-bottom last:pr-4 sm:last:pr-5",
+                  view.columns.length > 3 && "max-sm:w-1/4 sm:w-1/6",
+                  view.columns.length === 3 && "max-sm:w-1/3 sm:w-1/4",
+                  view.columns.length === 2 && "max-sm:w-1/2 sm:w-[38%]",
+                  index === 0 && "max-sm:pl-4",
                 )}
               >
-                {column}
+                {#if note}
+                  <span
+                    class="block font-serif text-lg leading-snug font-semibold tracking-normal text-slate-900 normal-case"
+                    lang="sk"
+                  >
+                    {head}
+                  </span>
+                  <span
+                    class="block text-xs font-normal tracking-normal text-slate-500 normal-case"
+                  >
+                    {note}
+                  </span>
+                {:else}
+                  {column}
+                {/if}
               </th>
             {/each}
           </tr>
@@ -224,14 +238,17 @@
               <th
                 scope="rowgroup"
                 colspan={view.columns.length}
-                class={gridMobileLabelClass}
+                class="px-4 pt-2.5 pb-0 text-left text-[0.8125rem] leading-snug font-normal text-slate-500"
               >
                 {row.label}
               </th>
             </tr>
 
             <tr>
-              <th scope="row" class={cx(gridLabelCellClass, gridRowLabelClass)}>
+              <th
+                scope="row"
+                class="py-2.5 pr-3 pl-4 text-left align-baseline text-[0.95rem] leading-snug font-normal text-slate-600 max-sm:hidden sm:pl-5"
+              >
                 {row.label}
               </th>
 
@@ -239,9 +256,8 @@
                 <td
                   class={cx(
                     grammarFormClass,
-                    gridFormCellClass,
-                    "whitespace-nowrap max-sm:pt-0.5",
-                    index === 0 && gridLeadCellClass,
+                    "px-3 py-2.5 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0.5 sm:last:pr-5",
+                    index === 0 && "max-sm:pl-4",
                   )}
                   lang="sk"
                 >
@@ -256,20 +272,37 @@
   </div>
 {:else if view?.kind === "paradigm"}
   <div class={dataPanelClass}>
-    <div class={cx(dataColumnHeadClass, paradigmTrack)} aria-hidden="true">
+    <div
+      class={cx(dataColumnHeadClass, "gap-x-6 sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]")}
+      aria-hidden="true"
+    >
       <span>Person</span>
       <span>Form</span>
       <span>Meaning</span>
     </div>
 
-    <ul class={listClass}>
-      <li class={subheadClass}>Singular</li>
+    <ul class="m-0 list-none p-0">
+      <li
+        class={cx(
+          eyebrowMutedClass,
+          "border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 sm:px-5",
+        )}
+      >
+        Singular
+      </li>
 
       {#each view.singular as cell (cell.pronoun)}
         {@render formCell(cell)}
       {/each}
 
-      <li class={subheadClass}>Plural</li>
+      <li
+        class={cx(
+          eyebrowMutedClass,
+          "border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 sm:px-5",
+        )}
+      >
+        Plural
+      </li>
 
       {#each view.plural as cell (cell.pronoun)}
         {@render formCell(cell)}
@@ -278,11 +311,16 @@
   </div>
 {:else if view?.kind === "rows"}
   <div class={dataPanelClass}>
-    <ul class={listClass}>
+    <ul class="m-0 list-none p-0">
       {#each view.rows as row, index (index)}
         {@const prefix = addedPrefix(row)}
 
-        <li class={cx(rowClass, "gap-x-6 sm:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]")}>
+        <li
+          class={cx(
+            "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
+            "sm:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]",
+          )}
+        >
           <span
             class={cx(grammarFormClass, "text-lg")}
             lang={row.gloss || prefix ? "sk" : undefined}

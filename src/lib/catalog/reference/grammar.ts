@@ -1458,11 +1458,12 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Informal and formal address",
-      lines: [
-        "ty máš · informal singular",
-        "vy máte · formal singular or plural",
-        "Prepáč · informal sorry",
-        "Prepáčte · formal sorry",
+      columns: ["ty · informal", "vy · formal or plural"],
+      rows: [
+        { label: "you are", cells: ["si", "ste"] },
+        { label: "you have", cells: ["máš", "máte"] },
+        { label: "thank you", cells: ["ďakujem ti", "ďakujem vám"] },
+        { label: "sorry", cells: ["prepáč", "prepáčte"] },
       ],
     },
     contrasts: {
