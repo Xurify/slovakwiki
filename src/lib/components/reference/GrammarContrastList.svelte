@@ -1,14 +1,15 @@
 <script lang="ts">
-  import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import { dataMoreRowClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
 
   import GrammarScene from "$lib/components/reference/GrammarScene.svelte";
   import {
+    grammarEndingClass,
     grammarFormClass,
     grammarGlossClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import type { GrammarContrast, GrammarContrastSet } from "$lib/catalog/types";
+  import { markRoleClass, segmentsFromMarks } from "$lib/learning/marked-text";
   import { cx } from "$lib/ui/classes";
 
   let {
@@ -30,6 +31,11 @@
 
   /** Scene and situation side by side on a phone, stacked in their own column from sm up. */
   const cueClass = "flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1";
+
+  /** The changing word takes the page's ending colour; the owner keeps the lesson's gold. */
+  function markClass(role: string): string {
+    return role === "owner" ? markRoleClass(role) : grammarEndingClass;
+  }
 </script>
 
 {#snippet frames(list: GrammarContrast[], prefix: string)}
@@ -50,7 +56,7 @@
           <li class={rowClass}>
             <div class={cueClass}>
               {#if frame.scene}
-                <GrammarScene kind={frame.scene} at={choice.at} />
+                <GrammarScene kind={frame.scene} at={choice.at} object={frame.object} />
               {/if}
 
               <span class="text-xs leading-snug text-slate-600">{choice.when}</span>
@@ -65,8 +71,14 @@
               {/if}
 
               <div class="min-w-0">
-                <p class={cx(grammarFormClass, "m-0 text-lg")}>
-                  <MarkedText text={choice.slovak.text} marks={choice.slovak.marks} />
+                <p class={cx(grammarFormClass, "m-0 text-lg")} lang="sk">
+                  {#each segmentsFromMarks(choice.slovak.text, choice.slovak.marks) as segment, index (index)}
+                    {#if segment.role}
+                      <span class={markClass(segment.role)}>{segment.text}</span>
+                    {:else}
+                      {segment.text}
+                    {/if}
+                  {/each}
                 </p>
 
                 <p class={cx(grammarGlossClass, "m-0 mt-0.5")}>{choice.english}</p>

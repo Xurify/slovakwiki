@@ -643,6 +643,7 @@ export const grammarEntries: GrammarTopic[] = [
       frames: [
         {
           question: "Where is the shirt?",
+          object: "shirt",
           label: "nominative · feminine",
           scene: "space",
           choices: [
@@ -705,6 +706,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Which book?",
+          object: "book",
           label: "accusative · feminine",
           scene: "space",
           choices: [
@@ -744,6 +746,7 @@ export const grammarEntries: GrammarTopic[] = [
       more: [
         {
           question: "Which shoes?",
+          object: "shoes",
           label: "nominative · plural",
           scene: "space",
           choices: [
@@ -778,6 +781,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Which people?",
+          object: "people",
           label: "nominative · men, plural",
           scene: "space",
           choices: [
@@ -812,6 +816,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Which dog?",
+          object: "dog",
           label: "genitive",
           scene: "space",
           choices: [
@@ -849,6 +854,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Which children?",
+          object: "children",
           label: "dative · plural",
           scene: "space",
           choices: [
@@ -886,6 +892,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Which house?",
+          object: "house",
           label: "locative",
           scene: "space",
           choices: [
@@ -923,6 +930,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Which people?",
+          object: "people",
           label: "instrumental · plural",
           scene: "space",
           choices: [
@@ -1156,6 +1164,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Whose keys?",
+          object: "keys",
           label: "accusative · plural",
           scene: "owner",
           choices: [
@@ -1186,6 +1195,7 @@ export const grammarEntries: GrammarTopic[] = [
       more: [
         {
           question: "Whose mom?",
+          object: "person",
           label: "dative",
           scene: "owner",
           choices: [
@@ -1214,6 +1224,7 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Whose brother?",
+          object: "person",
           label: "instrumental",
           scene: "owner",
           choices: [

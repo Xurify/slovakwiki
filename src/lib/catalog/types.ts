@@ -197,6 +197,18 @@ export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 /** The small drawing beside each sentence of a contrast frame. */
 export type GrammarScene = "space" | "time" | "owner" | "address" | "aspect" | "clock";
 
+/** The thing the frame talks about, drawn in the scene where the sentence puts it. */
+export type GrammarObject =
+  | "shirt"
+  | "book"
+  | "shoes"
+  | "people"
+  | "dog"
+  | "children"
+  | "house"
+  | "keys"
+  | "person";
+
 /**
  * What the scene highlights for one sentence: where the thing is (`me`, `them`,
  * `far`), when (`now`, `before`), who owns it (`own`, `other`), who you talk to
@@ -236,6 +248,7 @@ export interface GrammarContrast {
   choices: GrammarChoice[];
   /** Case or number the frame shows: “genitive”. */
   label?: string;
+  object?: GrammarObject;
   /** The question the learner asks first: “Where is the shirt?” */
   question: string;
   scene?: GrammarScene;
