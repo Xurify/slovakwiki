@@ -194,8 +194,27 @@ export interface GrammarTablePattern extends GrammarPatternShared {
 
 export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 
-/** One side of a “You say … / If …” card. */
+/**
+ * A stop on the small scale drawn above each card sentence: where the thing is
+ * (`me`, `them`, `far`), when (`before`, `now`, `later`), whose (`own`, `other`),
+ * or who you talk to (`friend`, `formal`).
+ */
+export type GrammarCue =
+  | "me"
+  | "them"
+  | "far"
+  | "before"
+  | "now"
+  | "later"
+  | "own"
+  | "other"
+  | "friend"
+  | "formal";
+
+/** One side of a contrast card. */
 export interface GrammarChoice {
+  /** Where this sentence sits on the pair's `scale`. */
+  at?: GrammarCue;
   english: string;
   /** Spoken Slovak, with the word the pair turns on marked. */
   slovak: MarkedText;
@@ -208,6 +227,8 @@ export interface GrammarContrast {
   /** The case or number the pair shows (Instrumental plural). */
   label?: string;
   choices: readonly [GrammarChoice, GrammarChoice];
+  /** Stops drawn above both sentences; each choice lights up its `at`. */
+  scale?: readonly GrammarCue[];
 }
 
 export interface GrammarContrastSet {
@@ -216,6 +237,16 @@ export interface GrammarContrastSet {
   intro?: string;
   pairs: GrammarContrast[];
 }
+
+/** A form learners get wrong, the form to use, and a few words on why. */
+export interface GrammarMistake {
+  right: string;
+  why: string;
+  wrong: string;
+}
+
+/** A short tip (`**form**` bolds Slovak), or a mistake to avoid. */
+export type GrammarWatchOut = string | GrammarMistake;
 
 /** In-page sections for gloss-term deep links (e.g. #imperfective). */
 export interface GrammarTermSection {
@@ -266,8 +297,7 @@ export interface GrammarTopic extends ContentEntry {
   rule: string[];
   /** Optional deep-link sections for dictionary gloss term tips. */
   termSections?: GrammarTermSection[];
-  /** One trap per item. `**form**` marks correct Slovak; `*form*` the one to avoid. */
-  watchOut: string[];
+  watchOut: GrammarWatchOut[];
 }
 
 export interface PronunciationContrast {

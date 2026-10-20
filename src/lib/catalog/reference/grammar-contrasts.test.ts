@@ -35,6 +35,22 @@ describe("grammar contrast cards", () => {
     }
   });
 
+  it("lights a different stop on the scale for each side", () => {
+    for (const topic of contrastTopics) {
+      for (const { scale, choices } of topic.contrasts!.pairs) {
+        if (!scale) {
+          expect(choices.some((choice) => choice.at)).toBe(false);
+          continue;
+        }
+
+        const [left, right] = choices;
+        expect(scale, left.slovak.text).toContain(left.at);
+        expect(scale, right.slovak.text).toContain(right.at);
+        expect(left.at, left.slovak.text).not.toBe(right.at);
+      }
+    }
+  });
+
   it("writes each situation to follow “If …”", () => {
     for (const topic of contrastTopics) {
       for (const choice of topic.contrasts!.pairs.flatMap((pair) => pair.choices)) {

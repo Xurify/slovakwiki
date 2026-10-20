@@ -121,7 +121,11 @@ export function buildSearchDocuments(): SearchDocument[] {
         body: [
           entry.category,
           plainText(entry.lookFor),
-          ...entry.watchOut.map(plainText),
+          ...entry.watchOut.map((item) =>
+            plainText(
+              typeof item === "string" ? item : `${item.wrong} ${item.right} ${item.why}`,
+            ),
+          ),
           ...entry.rule.map(plainText),
           ...patterns.flatMap(patternSearchLines),
           ...entry.body,

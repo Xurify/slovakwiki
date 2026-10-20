@@ -1,10 +1,10 @@
 <script lang="ts">
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
-  import { eyebrowClass, eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
 
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
-
+  import GrammarScale from "$lib/components/reference/GrammarScale.svelte";
   import {
     grammarFormClass,
     grammarGlossClass,
@@ -21,60 +21,30 @@
     audioKeys?: string[];
   } = $props();
 
-  // Each choice keeps its sentence and situation together in the markup, so
-  // below sm they stack as one block; from sm up the grid lines them up in rows.
-  const sideColumn = ["sm:col-start-2", "sm:col-start-3"] as const;
-
-  const gridClass = "grid grid-cols-1 sm:grid-cols-[6.5rem_minmax(0,1fr)_minmax(0,1fr)]";
-
-  const labelClass = cx(
-    eyebrowClass,
-    "border-b border-slate-200 bg-subtle px-4 py-2 text-slate-700 sm:px-5",
-  );
-
-  const railClass = cx(
-    eyebrowMutedClass,
-    "bg-subtle/60 px-4 py-3.5 leading-snug max-sm:hidden sm:col-start-1",
-  );
-
-  const sayClass = "px-4 pt-3.5 pb-1.5 sm:row-start-1 sm:border-b sm:px-5 sm:pb-3.5";
-
-  const whenClass = cx(
-    "m-0 px-4 pb-3.5 text-[0.95rem] leading-snug text-pretty text-slate-700",
-    "sm:row-start-2 sm:px-5 sm:pt-3",
-  );
-
-  const dividerClass = "border-slate-200/70";
+  const choiceClass = "flex min-w-0 flex-col gap-3 px-4 py-4 sm:px-5";
 </script>
 
-<ol class="m-0 flex list-none flex-col gap-4 p-0">
+<ol class={cx(dataPanelClass, "m-0 list-none p-0")}>
   {#each pairs as pair, pairIndex (pair.choices[0].slovak.text)}
-    <li class={dataPanelClass}>
+    <li class="border-b border-slate-200 last:border-b-0">
       {#if pair.label}
-        <p class={labelClass}>{pair.label}</p>
+        <p class={cx(eyebrowMutedClass, "px-4 pt-3.5 sm:px-5")}>{pair.label}</p>
       {/if}
 
-      <div class={gridClass}>
-        <span
-          class={cx(railClass, "sm:row-start-1 sm:border-b", dividerClass)}
-          aria-hidden="true"
-        >
-          You say…
-        </span>
-
-        <span class={cx(railClass, "sm:row-start-2")} aria-hidden="true">If…</span>
-
+      <div class="grid sm:grid-cols-2">
         {#each pair.choices as choice, side (side)}
           {@const audioKey = `contrast-${pairIndex}-${side}`}
 
           <div
             class={cx(
-              sayClass,
-              sideColumn[side],
-              dividerClass,
-              side === 1 && "sm:border-l",
+              choiceClass,
+              side === 1 && "border-slate-200/70 max-sm:border-t sm:border-l",
             )}
           >
+            {#if pair.scale}
+              <GrammarScale stops={pair.scale} at={choice.at} />
+            {/if}
+
             <div class="flex items-start gap-2.5">
               {#if audioKeys.includes(audioKey)}
                 <span
@@ -91,20 +61,11 @@
                 <p class={cx(grammarGlossClass, "m-0 mt-0.5")}>{choice.english}</p>
               </div>
             </div>
-          </div>
 
-          <p
-            class={cx(
-              whenClass,
-              sideColumn[side],
-              dividerClass,
-              side === 0 && "max-sm:border-b",
-              side === 1 && "sm:border-l",
-            )}
-          >
-            <span class={cx(eyebrowMutedClass, "mr-1.5 inline sm:sr-only")}>If</span>
-            <GrammarRichText text={choice.when} />
-          </p>
+            <p class="m-0 text-sm leading-snug text-pretty text-slate-600">
+              If <GrammarRichText text={choice.when} />.
+            </p>
+          </div>
         {/each}
       </div>
     </li>
