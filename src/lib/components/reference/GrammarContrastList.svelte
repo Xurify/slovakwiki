@@ -1,6 +1,7 @@
 <script lang="ts">
   import { dataMoreRowClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
 
   import GrammarScene from "$lib/components/reference/GrammarScene.svelte";
   import {
@@ -32,11 +33,31 @@
   /** Scene and situation side by side on a phone, stacked in their own column from sm up. */
   const cueClass = "flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1";
 
-  /** The changing word takes the page's ending colour; the owner keeps the lesson's gold. */
+  /** The changing word takes the page's ending colour; the owner and the noun ending keep their own. */
   function markClass(role: string): string {
-    return role === "owner" ? markRoleClass(role) : grammarEndingClass;
+    return role === "owner" || role === "ending"
+      ? markRoleClass(role)
+      : grammarEndingClass;
   }
+
+  const allFrames = $derived([...contrasts.frames, ...(contrasts.more ?? [])]);
+
+  const showsEndings = $derived(
+    allFrames.some((frame) =>
+      frame.choices.some((choice) =>
+        choice.slovak.marks.some((mark) => mark.role === "ending"),
+      ),
+    ),
+  );
+
+  const labelled = $derived(allFrames.some((frame) => frame.label));
 </script>
+
+{#snippet swatch(className: string)}
+  <span
+    class="mr-1.5 inline-block size-2.5 rounded-full bg-current align-[-1px] {className}"
+  ></span>
+{/snippet}
 
 {#snippet frames(list: GrammarContrast[], prefix: string)}
   {#each list as frame, frameIndex (frame.question + frameIndex)}
@@ -45,7 +66,15 @@
         <span class="text-sm font-semibold text-slate-900">{frame.question}</span>
 
         {#if frame.label}
-          <span class={eyebrowMutedClass}>{frame.label}</span>
+          <span class={cx(eyebrowMutedClass, "text-right")}>
+            {frame.label.en}
+            <span
+              class="font-normal normal-case tracking-normal text-slate-500"
+              lang="sk"
+            >
+              · {frame.label.sk}
+            </span>
+          </span>
         {/if}
       </p>
 
@@ -90,6 +119,30 @@
     </li>
   {/each}
 {/snippet}
+
+{#if showsEndings || labelled}
+  <p class="m-0 mb-3 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+    {#if showsEndings}
+      {@render swatch(grammarEndingClass)}The word that changes.
+      {@render swatch(markRoleClass("ending"))}The noun's case ending, which it agrees
+      with: the verb or preposition picks the case, the noun takes it, and the small word
+      follows the noun.
+    {/if}
+    {#if labelled}
+      Labels give the English term and the Slovak school term (<span lang="sk">pád</span>
+      case,
+      <span lang="sk">rod</span> gender, <span lang="sk">životný</span> animate,
+      <span lang="sk">množné číslo</span> plural), as in
+      <TextLink
+        href="https://www.juls.savba.sk/ediela/msj/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Morfológia slovenského jazyka ↗
+      </TextLink>.
+    {/if}
+  </p>
+{/if}
 
 <div class={dataPanelClass}>
   <ol class="m-0 list-none p-0">

@@ -638,13 +638,30 @@ export const grammarEntries: GrammarTopic[] = [
         ],
       },
     ],
+    termSections: [
+      {
+        id: "zivotny",
+        title: "Mužský rod životný · masculine animate",
+        body: "Masculine nouns for people and animals: **muž**, **kolega**, **pes**, **kôň**. In the accusative singular every one of them takes **toho**: **toho muža**, **toho psa**. In the nominative and accusative plural only the nouns for people do: **tí muži**, **tých mužov**, but **tie psy**. Things are **mužský rod neživotný**, masculine inanimate: **ten dom**, **vidím ten dom**.",
+      },
+      {
+        id: "pad",
+        title: "Pád · case",
+        body: "The six cases are **nominatív**, **genitív**, **datív**, **akuzatív**, **lokál**, **inštrumentál**. A verb or a preposition picks the case; the noun takes it, and **ten**, **tento**, **tamten** follow the noun.",
+      },
+      {
+        id: "mnozne-cislo",
+        title: "Množné číslo · plural",
+        body: "More than one. The singular is **jednotné číslo**. Plural demonstratives split by people (**tí**, **títo**) and everything else (**tie**, **tieto**).",
+      },
+    ],
     contrasts: {
       label: "Tento, ten, or tamten?",
       frames: [
         {
           question: "Where is the shirt?",
           object: "shirt",
-          label: "nominative · feminine",
+          label: { en: "nominative · feminine", sk: "nominatív · ženský rod" },
           scene: "space",
           choices: [
             {
@@ -652,7 +669,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Páči sa mi ",
                 { role: "demonstrative", text: "táto" },
-                " košeľa.",
+                " košeľ",
+                { role: "ending", text: "a" },
+                ".",
               ]),
               english: "I like this shirt.",
               when: "in your hand, or on you",
@@ -662,7 +681,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Páči sa mi ",
                 { role: "demonstrative", text: "tá" },
-                " košeľa.",
+                " košeľ",
+                { role: "ending", text: "a" },
+                ".",
               ]),
               english: "I like that shirt.",
               when: "on them, or one you both know",
@@ -672,7 +693,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Páči sa mi ",
                 { role: "demonstrative", text: "tamtá" },
-                " košeľa.",
+                " košeľ",
+                { role: "ending", text: "a" },
+                ".",
               ]),
               english: "I like that shirt over there.",
               when: "across the shop",
@@ -681,7 +704,10 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Which weekend?",
-          label: "nominative · masculine",
+          label: {
+            en: "nominative · masculine inanimate",
+            sk: "nominatív · mužský rod neživotný",
+          },
           scene: "time",
           choices: [
             {
@@ -707,7 +733,7 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Which book?",
           object: "book",
-          label: "accusative · feminine",
+          label: { en: "accusative · feminine", sk: "akuzatív · ženský rod" },
           scene: "space",
           choices: [
             {
@@ -715,7 +741,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Prečítaj si ",
                 { role: "demonstrative", text: "túto" },
-                " knihu.",
+                " knih",
+                { role: "ending", text: "u" },
+                ".",
               ]),
               english: "Read this book.",
               when: "you're holding it out",
@@ -725,7 +753,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Prečítaj si ",
                 { role: "demonstrative", text: "tú" },
-                " knihu.",
+                " knih",
+                { role: "ending", text: "u" },
+                ".",
               ]),
               english: "Read that book.",
               when: "they're holding it, or you talked about it",
@@ -735,7 +765,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Prečítaj si ",
                 { role: "demonstrative", text: "tamtú" },
-                " knihu.",
+                " knih",
+                { role: "ending", text: "u" },
+                ".",
               ]),
               english: "Read that book over there.",
               when: "on a shelf across the room",
@@ -747,14 +779,16 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Which shoes?",
           object: "shoes",
-          label: "nominative · plural",
+          label: { en: "nominative · plural", sk: "nominatív · množné číslo" },
           scene: "space",
           choices: [
             {
               at: "me",
               slovak: markedText([
                 { role: "demonstrative", text: "Tieto" },
-                " topánky sú pohodlné.",
+                " topánk",
+                { role: "ending", text: "y" },
+                " sú pohodlné.",
               ]),
               english: "These shoes are comfortable.",
               when: "you're wearing them",
@@ -763,7 +797,9 @@ export const grammarEntries: GrammarTopic[] = [
               at: "them",
               slovak: markedText([
                 { role: "demonstrative", text: "Tie" },
-                " topánky sú pohodlné.",
+                " topánk",
+                { role: "ending", text: "y" },
+                " sú pohodlné.",
               ]),
               english: "Those shoes are comfortable.",
               when: "they're wearing them",
@@ -772,7 +808,9 @@ export const grammarEntries: GrammarTopic[] = [
               at: "far",
               slovak: markedText([
                 { role: "demonstrative", text: "Tamtie" },
-                " topánky sú pohodlné.",
+                " topánk",
+                { role: "ending", text: "y" },
+                " sú pohodlné.",
               ]),
               english: "Those shoes over there are comfortable.",
               when: "on a shelf across the shop",
@@ -782,14 +820,19 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Which people?",
           object: "people",
-          label: "nominative · men, plural",
+          label: {
+            en: "nominative · masculine animate, people, plural",
+            sk: "nominatív · mužský rod životný, osoby, množné číslo",
+          },
           scene: "space",
           choices: [
             {
               at: "me",
               slovak: markedText([
                 { role: "demonstrative", text: "Títo" },
-                " ľudia čakajú na autobus.",
+                " ľudi",
+                { role: "ending", text: "a" },
+                " čakajú na autobus.",
               ]),
               english: "These people are waiting for the bus.",
               when: "right next to you",
@@ -798,7 +841,9 @@ export const grammarEntries: GrammarTopic[] = [
               at: "them",
               slovak: markedText([
                 { role: "demonstrative", text: "Tí" },
-                " ľudia čakajú na autobus.",
+                " ľudi",
+                { role: "ending", text: "a" },
+                " čakajú na autobus.",
               ]),
               english: "Those people are waiting for the bus.",
               when: "the ones you talked about",
@@ -807,7 +852,9 @@ export const grammarEntries: GrammarTopic[] = [
               at: "far",
               slovak: markedText([
                 { role: "demonstrative", text: "Tamtí" },
-                " ľudia čakajú na autobus.",
+                " ľudi",
+                { role: "ending", text: "a" },
+                " čakajú na autobus.",
               ]),
               english: "Those people over there are waiting for the bus.",
               when: "at the stop across the street",
@@ -817,7 +864,10 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Which dog?",
           object: "dog",
-          label: "genitive",
+          label: {
+            en: "genitive · masculine animate",
+            sk: "genitív · mužský rod životný",
+          },
           scene: "space",
           choices: [
             {
@@ -825,7 +875,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Bojím sa ",
                 { role: "demonstrative", text: "tohto" },
-                " psa.",
+                " ps",
+                { role: "ending", text: "a" },
+                ".",
               ]),
               english: "I'm afraid of this dog.",
               when: "at your feet",
@@ -835,7 +887,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Bojím sa ",
                 { role: "demonstrative", text: "toho" },
-                " psa.",
+                " ps",
+                { role: "ending", text: "a" },
+                ".",
               ]),
               english: "I'm afraid of that dog.",
               when: "the one you talked about",
@@ -845,7 +899,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Bojím sa ",
                 { role: "demonstrative", text: "tamtoho" },
-                " psa.",
+                " ps",
+                { role: "ending", text: "a" },
+                ".",
               ]),
               english: "I'm afraid of that dog over there.",
               when: "behind a fence down the street",
@@ -855,7 +911,7 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Which children?",
           object: "children",
-          label: "dative · plural",
+          label: { en: "dative · plural", sk: "datív · množné číslo" },
           scene: "space",
           choices: [
             {
@@ -863,7 +919,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Pomôž ",
                 { role: "demonstrative", text: "týmto" },
-                " deťom.",
+                " deť",
+                { role: "ending", text: "om" },
+                ".",
               ]),
               english: "Help these children.",
               when: "standing with you",
@@ -873,7 +931,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Pomôž ",
                 { role: "demonstrative", text: "tým" },
-                " deťom.",
+                " deť",
+                { role: "ending", text: "om" },
+                ".",
               ]),
               english: "Help those children.",
               when: "the ones you talked about",
@@ -883,7 +943,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Pomôž ",
                 { role: "demonstrative", text: "tamtým" },
-                " deťom.",
+                " deť",
+                { role: "ending", text: "om" },
+                ".",
               ]),
               english: "Help those children over there.",
               when: "across the playground",
@@ -893,7 +955,10 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Which house?",
           object: "house",
-          label: "locative",
+          label: {
+            en: "locative · masculine inanimate",
+            sk: "lokál · mužský rod neživotný",
+          },
           scene: "space",
           choices: [
             {
@@ -901,7 +966,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Bývam v ",
                 { role: "demonstrative", text: "tomto" },
-                " dome.",
+                " dom",
+                { role: "ending", text: "e" },
+                ".",
               ]),
               english: "I live in this house.",
               when: "you're standing in front of it",
@@ -911,7 +978,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Bývam v ",
                 { role: "demonstrative", text: "tom" },
-                " dome.",
+                " dom",
+                { role: "ending", text: "e" },
+                ".",
               ]),
               english: "I live in that house.",
               when: "the one you talked about",
@@ -921,7 +990,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Bývam v ",
                 { role: "demonstrative", text: "tamtom" },
-                " dome.",
+                " dom",
+                { role: "ending", text: "e" },
+                ".",
               ]),
               english: "I live in that house over there.",
               when: "further down the street",
@@ -931,7 +1002,7 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Which people?",
           object: "people",
-          label: "instrumental · plural",
+          label: { en: "instrumental · plural", sk: "inštrumentál · množné číslo" },
           scene: "space",
           choices: [
             {
@@ -939,7 +1010,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Pracujem s ",
                 { role: "demonstrative", text: "týmito" },
-                " ľuďmi.",
+                " ľuď",
+                { role: "ending", text: "mi" },
+                ".",
               ]),
               english: "I work with these people.",
               when: "sitting around you",
@@ -949,7 +1022,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Pracujem s ",
                 { role: "demonstrative", text: "tými" },
-                " ľuďmi.",
+                " ľuď",
+                { role: "ending", text: "mi" },
+                ".",
               ]),
               english: "I work with those people.",
               when: "the ones you talked about",
@@ -959,7 +1034,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Pracujem s ",
                 { role: "demonstrative", text: "tamtými" },
-                " ľuďmi.",
+                " ľuď",
+                { role: "ending", text: "mi" },
+                ".",
               ]),
               english: "I work with those people over there.",
               when: "across the room",
@@ -1113,7 +1190,7 @@ export const grammarEntries: GrammarTopic[] = [
       frames: [
         {
           question: "Who are you asking?",
-          label: "nominative",
+          label: { en: "nominative", sk: "nominatív" },
           scene: "address",
           choices: [
             {
@@ -1140,13 +1217,15 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Whose sister?",
-          label: "accusative",
+          label: { en: "accusative", sk: "akuzatív" },
           choices: [
             {
               slovak: markedText([
                 "Poznáš ",
                 { role: "possessive", text: "jeho" },
-                " sestru?",
+                " sestr",
+                { role: "ending", text: "u" },
+                "?",
               ]),
               english: "Do you know his sister?",
               when: "Peter's",
@@ -1155,7 +1234,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Poznáš ",
                 { role: "possessive", text: "jej" },
-                " sestru?",
+                " sestr",
+                { role: "ending", text: "u" },
+                "?",
               ]),
               english: "Do you know her sister?",
               when: "Eva's",
@@ -1165,7 +1246,7 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Whose keys?",
           object: "keys",
-          label: "accusative · plural",
+          label: { en: "accusative · plural", sk: "akuzatív · množné číslo" },
           scene: "owner",
           choices: [
             {
@@ -1174,7 +1255,9 @@ export const grammarEntries: GrammarTopic[] = [
                 { role: "owner", text: "Anna" },
                 " hľadá ",
                 { role: "possessive", text: "svoje" },
-                " kľúče.",
+                " kľúč",
+                { role: "ending", text: "e" },
+                ".",
               ]),
               english: "Anna is looking for her keys.",
               when: "Anna's own",
@@ -1184,7 +1267,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Anna hľadá ",
                 { role: "possessive", text: "jej" },
-                " kľúče.",
+                " kľúč",
+                { role: "ending", text: "e" },
+                ".",
               ]),
               english: "Anna is looking for her keys.",
               when: "another woman's",
@@ -1196,7 +1281,7 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Whose mom?",
           object: "person",
-          label: "dative",
+          label: { en: "dative", sk: "datív" },
           scene: "owner",
           choices: [
             {
@@ -1205,7 +1290,9 @@ export const grammarEntries: GrammarTopic[] = [
                 { role: "owner", text: "Tom" },
                 " volá ",
                 { role: "possessive", text: "svojej" },
-                " mame.",
+                " mam",
+                { role: "ending", text: "e" },
+                ".",
               ]),
               english: "Tom is calling his mom.",
               when: "Tom's own",
@@ -1215,7 +1302,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Tom volá ",
                 { role: "possessive", text: "jeho" },
-                " mame.",
+                " mam",
+                { role: "ending", text: "e" },
+                ".",
               ]),
               english: "Tom is calling his mom.",
               when: "another man's",
@@ -1225,7 +1314,7 @@ export const grammarEntries: GrammarTopic[] = [
         {
           question: "Whose brother?",
           object: "person",
-          label: "instrumental",
+          label: { en: "instrumental", sk: "inštrumentál" },
           scene: "owner",
           choices: [
             {
@@ -1234,7 +1323,9 @@ export const grammarEntries: GrammarTopic[] = [
                 { role: "owner", text: "Eva" },
                 " ide do kina ",
                 { role: "possessive", text: "so svojím" },
-                " bratom.",
+                " brat",
+                { role: "ending", text: "om" },
+                ".",
               ]),
               english: "Eva is going to the cinema with her brother.",
               when: "Eva's own",
@@ -1244,7 +1335,9 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([
                 "Eva ide do kina ",
                 { role: "possessive", text: "s jej" },
-                " bratom.",
+                " brat",
+                { role: "ending", text: "om" },
+                ".",
               ]),
               english: "Eva is going to the cinema with her brother.",
               when: "another woman's",

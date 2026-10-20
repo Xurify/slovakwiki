@@ -194,6 +194,12 @@ export interface GrammarTablePattern extends GrammarPatternShared {
 
 export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 
+/** A grammar label in English and in the Slovak school term (nominatív, mužský rod životný). */
+export interface GrammarTerm {
+  en: string;
+  sk: string;
+}
+
 /** The small drawing beside each sentence of a contrast frame. */
 export type GrammarScene = "space" | "time" | "owner" | "address" | "aspect" | "clock";
 
@@ -246,8 +252,8 @@ export interface GrammarChoice {
 /** One sentence said two or three ways; the situation picks the form. */
 export interface GrammarContrast {
   choices: GrammarChoice[];
-  /** Case or number the frame shows: “genitive”. */
-  label?: string;
+  /** Case, gender and number the frame shows, in the school terms of both languages. */
+  label?: GrammarTerm;
   object?: GrammarObject;
   /** The question the learner asks first: “Where is the shirt?” */
   question: string;
