@@ -1,0 +1,266 @@
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+
+import type { CefrLevel } from "./scale";
+
+export type Skill = "reading" | "listening" | "writing" | "speaking";
+
+/** Formats the adaptive section cycles through; each item carries its own difficulty. */
+export type AdaptiveFormat =
+  "readSelect" | "listenSelect" | "fillBlank" | "readComplete" | "listenType";
+
+interface AdaptiveItemBase {
+  id: string;
+  /** Predicted difficulty on the 0–100 scale. */
+  difficulty: number;
+}
+
+/** "Is this a real Slovak word?" — real lemmas link back to the dictionary on the results page. */
+export interface ReadSelectItem extends AdaptiveItemBase {
+  format: "readSelect";
+  word: string;
+  real: boolean;
+  slug?: string;
+  english?: string;
+}
+
+export interface ListenSelectItem extends AdaptiveItemBase {
+  format: "listenSelect";
+  word: string;
+  real: boolean;
+  audio: string;
+  slug?: string;
+  english?: string;
+}
+
+export interface FillBlankItem extends AdaptiveItemBase {
+  format: "fillBlank";
+  before: string;
+  prefix: string;
+  missing: string;
+  after: string;
+  english: string;
+}
+
+export interface CTestGap {
+  prefix: string;
+  missing: string;
+  difficulty: number;
+}
+
+/** Plain text runs and damaged words, in reading order. */
+export type CTestPart = string | CTestGap;
+
+export interface ReadCompleteItem extends AdaptiveItemBase {
+  format: "readComplete";
+  title: string;
+  parts: CTestPart[];
+}
+
+export interface ListenTypeItem extends AdaptiveItemBase {
+  format: "listenType";
+  text: string;
+  english: string;
+  audio: string;
+}
+
+export type AdaptiveItem =
+  ReadSelectItem | ListenSelectItem | FillBlankItem | ReadCompleteItem | ListenTypeItem;
+
+export interface ChoiceQuestion {
+  options: string[];
+  answer: number;
+}
+
+export interface ReadingBlank extends ChoiceQuestion {
+  id: string;
+}
+
+/** Text runs and drop-down blanks for "Complete the sentences". */
+export type ReadingPart = string | ReadingBlank;
+
+export interface HighlightQuestion {
+  question: string;
+  english: string;
+  /** Exact substring of the full passage. */
+  answer: string;
+}
+
+export interface InteractiveReadingSet {
+  id: string;
+  level: CefrLevel;
+  difficulty: number;
+  kind: "narrative" | "expository";
+  opening: ReadingPart[];
+  missingSentence: ChoiceQuestion;
+  closing: string;
+  highlights: [HighlightQuestion, HighlightQuestion];
+  mainIdea: ChoiceQuestion;
+  title: ChoiceQuestion;
+}
+
+export interface SpokenLine {
+  text: string;
+  english: string;
+  audio: string;
+}
+
+export interface ListenCompleteQuestion {
+  before: string;
+  after: string;
+  english: string;
+  /** Any of these, typed in the gap, earns full credit. */
+  accepted: string[];
+}
+
+export interface ListenRespondTurn {
+  line: SpokenLine;
+  options: string[];
+  answer: number;
+}
+
+export interface InteractiveListeningSet {
+  id: string;
+  level: CefrLevel;
+  difficulty: number;
+  partner: LessonCharacterId;
+  partnerName: string;
+  scenario: SpokenLine;
+  complete: ListenCompleteQuestion[];
+  turns: ListenRespondTurn[];
+  /** The ideas a summary should mention; given to the scorer as the content key. */
+  summaryKey: string[];
+}
+
+export interface PhotoPrompt {
+  id: string;
+  src: string;
+  alt: string;
+  credit: string;
+  creditUrl?: string;
+}
+
+export interface BilingualText {
+  slovak: string;
+  english: string;
+}
+
+export interface WritingPrompt extends BilingualText {
+  id: string;
+  followUp?: BilingualText;
+}
+
+export interface SpeakingPrompt extends BilingualText {
+  id: string;
+  points?: BilingualText[];
+}
+
+export interface ReadAloudItem {
+  id: string;
+  text: string;
+  english: string;
+  difficulty: number;
+}
+
+export interface LevelTestBank {
+  version: 1;
+  adaptive: AdaptiveItem[];
+  interactiveReading: InteractiveReadingSet[];
+  interactiveListening: InteractiveListeningSet[];
+  photos: PhotoPrompt[];
+  interactiveWriting: WritingPrompt[];
+  writingSamples: WritingPrompt[];
+  readAloud: ReadAloudItem[];
+  readThenSpeak: SpeakingPrompt[];
+  speakingSamples: SpeakingPrompt[];
+}
+
+export type TestMode = "quick" | "full";
+
+export type TestSection = "adaptive" | "reading" | "listening" | "writing" | "speaking";
+
+/** Tasks that work today and tasks shown as "planned" placeholders. */
+export type StepKind =
+  | AdaptiveFormat
+  | "interactiveReading"
+  | "interactiveListening"
+  | "writePhoto"
+  | "interactiveWriting"
+  | "writingSample"
+  | "readAloud"
+  | "speakPhoto"
+  | "readThenSpeak"
+  | "speakingSample"
+  | "planned";
+
+export type PlannedTask =
+  | "summarizeConversation"
+  | "writePhoto"
+  | "interactiveWriting"
+  | "writingSample"
+  | "readAloud"
+  | "speakPhoto"
+  | "readThenSpeak"
+  | "interactiveSpeaking"
+  | "speakingSample";
+
+export interface PlanStep {
+  kind: StepKind;
+  section: TestSection;
+  /** Fixed target difficulty for the opening calibration items. */
+  calibration?: number;
+  /** For `planned` steps: what would run here. */
+  planned?: PlannedTask[];
+}
+
+/** What the server can score right now (`/api/level-test/status`). */
+export interface ScoringCapabilities {
+  /** AI scoring of written (and transcribed) answers. */
+  scoring: boolean;
+  /** Speech-to-text for spoken answers. */
+  transcription: boolean;
+}
+
+/** One graded response that feeds the ability estimate. */
+export interface ItemResponse {
+  itemId: string;
+  kind: string;
+  skill: Skill;
+  difficulty: number;
+  score: number;
+  guess?: number;
+  adaptive: boolean;
+}
+
+export type ProductionKind =
+  | "summarizeConversation"
+  | "writePhoto"
+  | "interactiveWriting"
+  | "writingSample"
+  | "speakPhoto"
+  | "readThenSpeak"
+  | "speakingSample";
+
+export interface AiCriterionScores {
+  content: number;
+  coherence: number;
+  grammar: number;
+  lexis: number;
+  fluency?: number;
+}
+
+export interface AiScore {
+  score: number;
+  level: CefrLevel;
+  criteria: AiCriterionScores;
+  feedback: string;
+}
+
+export interface ProductionRecord {
+  id: string;
+  kind: ProductionKind;
+  skill: "writing" | "speaking";
+  prompt: string;
+  response: string;
+  status: "pending" | "scored" | "failed" | "empty";
+  result?: AiScore;
+}

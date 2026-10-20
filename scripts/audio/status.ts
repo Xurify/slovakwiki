@@ -31,10 +31,10 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 async function main(): Promise<void> {
-  const { lemmasOnly, lessonsOnly } = parseArgs(process.argv.slice(2));
+  const { lemmasOnly, lessonsOnly, levelTestOnly } = parseArgs(process.argv.slice(2));
   const config = await loadConfig();
   const manifest = await loadManifest();
-  const targets = collectAudioTargets({ lemmasOnly, lessonsOnly }, config);
+  const targets = collectAudioTargets({ lemmasOnly, lessonsOnly, levelTestOnly }, config);
 
   let onDisk = 0;
   let inManifest = 0;
