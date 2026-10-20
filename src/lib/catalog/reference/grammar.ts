@@ -321,18 +321,23 @@ export const grammarEntries: GrammarTopic[] = [
     termSections: [
       {
         id: "imperfective",
-        title: "Imperfective",
-        body: "Marks process, habit, or an action without a fixed endpoint — what was going on, not that it finished.",
+        term: "nedokonavý vid",
+        gloss: "imperfective",
+        body: "Marks process, habit, or an action without a fixed endpoint: what was going on, not that it finished.",
+        examples: ["Písal som list.", "Každý deň píšem."],
       },
       {
         id: "perfective",
-        title: "Perfective",
-        body: "Marks a completed, bounded, or result-focused event — one trip to the finish line.",
+        term: "dokonavý vid",
+        gloss: "perfective",
+        body: "Marks a completed, bounded, or result-focused event: one trip to the finish line.",
+        examples: ["Napísal som list.", "Zajtra to napíšem."],
       },
       {
         id: "habitual",
-        title: "Habitual motion",
+        term: "Habitual motion",
         body: "Motion verbs like **chodiť** cover repeated or multi-direction travel. **Ísť** covers one trip now or once.",
+        examples: ["Chodím do školy.", "Teraz idem do školy."],
       },
     ],
     contrasts: {
@@ -641,18 +646,29 @@ export const grammarEntries: GrammarTopic[] = [
     termSections: [
       {
         id: "zivotny",
-        title: "Mužský rod životný · masculine animate",
-        body: "Masculine nouns for people and animals: **muž**, **kolega**, **pes**, **kôň**. In the accusative singular every one of them takes **toho**: **toho muža**, **toho psa**. In the nominative and accusative plural only the nouns for people do: **tí muži**, **tých mužov**, but **tie psy**. Things are **mužský rod neživotný**, masculine inanimate: **ten dom**, **vidím ten dom**.",
+        term: "mužský rod životný",
+        gloss: "masculine animate",
+        body: "Masculine nouns for people and animals. In the accusative singular they all take **toho**. In the plural only people take **tí** and **tých**; animals take **tie**. Things are **mužský rod neživotný**, masculine inanimate.",
+        examples: [
+          "vidím toho muža",
+          "vidím toho psa",
+          "tí muži · tie psy",
+          "vidím ten dom",
+        ],
       },
       {
         id: "pad",
-        title: "Pád · case",
-        body: "The six cases are **nominatív**, **genitív**, **datív**, **akuzatív**, **lokál**, **inštrumentál**. A verb or a preposition picks the case; the noun takes it, and **ten**, **tento**, **tamten** follow the noun.",
+        term: "pád",
+        gloss: "case",
+        body: "Slovak has six: nominatív, genitív, datív, akuzatív, lokál, inštrumentál. A verb or a preposition picks the case; the noun takes it, and **ten**, **tento**, **tamten** follow the noun.",
+        examples: ["bez toho muža", "o tom mužovi", "s tým mužom"],
       },
       {
         id: "mnozne-cislo",
-        title: "Množné číslo · plural",
-        body: "More than one. The singular is **jednotné číslo**. Plural demonstratives split by people (**tí**, **títo**) and everything else (**tie**, **tieto**).",
+        term: "množné číslo",
+        gloss: "plural",
+        body: "More than one; one is **jednotné číslo**. Plural demonstratives split into people (**tí**, **títo**) and everything else (**tie**, **tieto**).",
+        examples: ["tí muži", "tie ženy", "tieto domy"],
       },
     ],
     contrasts: {
@@ -1701,22 +1717,23 @@ export const grammarEntries: GrammarTopic[] = [
     termSections: [
       {
         id: "pol",
-        title: "pol",
+        term: "pol",
         body: "**Pol** names the coming hour in the genitive: **pol tretej** is halfway to three (02:30). Always **Je pol…**, never *Sú pol…*",
       },
       {
         id: "stvrt",
-        title: "štvrť na",
+        term: "štvrť na",
         body: "**Štvrť na** + the next hour means quarter past the previous hour: **štvrť na tri** is 02:15. After twelve, prefer **štvrť na jednu**.",
       },
       {
         id: "tristvrte",
-        title: "trištvrte na",
+        term: "trištvrte na",
         body: "**Trištvrte na** + the next hour means three-quarters toward that hour: **trištvrte na tri** is 02:45.",
       },
       {
         id: "o-duration",
-        title: "o + accusative (duration)",
+        term: "o + akuzatív",
+        gloss: "in, from now",
         body: "To say in X hours or in X minutes from now, use **o** + accusative: **o dve hodiny**, **o päť minút**. Compare **o tretej** (at three, locative): a clock point, not a span of time.",
       },
     ],

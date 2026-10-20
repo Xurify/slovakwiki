@@ -281,9 +281,14 @@ export type GrammarWatchOut = string | GrammarMistake;
 
 /** In-page sections for gloss-term deep links (e.g. #imperfective). */
 export interface GrammarTermSection {
+  /** `**form**` marks Slovak to notice. */
   body: string;
+  /** Short Slovak phrases that show the label at work. */
+  examples?: string[];
+  /** English name, when `term` is the Slovak one. */
+  gloss?: string;
   id: string;
-  title: string;
+  term: string;
 }
 
 export interface CaseReference {
