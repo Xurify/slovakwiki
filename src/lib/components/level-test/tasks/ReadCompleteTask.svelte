@@ -27,6 +27,7 @@
 
   let values = $state<Record<number, string>>(emptyValues());
   let inputs = $state<Record<number, HTMLInputElement | undefined>>({});
+  let lastInputs = $state<Record<number, HTMLInputElement | undefined>>({});
   let done = false;
 
   function emptyValues(): Record<number, string> {
@@ -42,6 +43,11 @@
   function focusAfter(partIndex: number): void {
     const next = gapIndexes.find((index) => index > partIndex);
     if (next !== undefined) inputs[next]?.focus();
+  }
+
+  function focusBefore(partIndex: number): void {
+    const previous = gapIndexes.findLast((index) => index < partIndex);
+    if (previous !== undefined) lastInputs[previous]?.focus();
   }
 
   /** Each damaged word is its own item, as on the DET. */
@@ -82,8 +88,10 @@
             length={[...part.missing].length}
             bind:value={values[index]}
             bind:input={inputs[index]}
+            bind:lastInput={lastInputs[index]}
             label={`Word starting “${part.prefix}”, ${[...part.missing].length} missing letters`}
             onfilled={() => focusAfter(index)}
+            onbackout={() => focusBefore(index)}
           />
         {/if}
       {/each}
