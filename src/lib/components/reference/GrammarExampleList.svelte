@@ -13,15 +13,20 @@
   let {
     examples,
     audioKeys = [],
+    audioKeyPrefix = "ex",
   }: {
     examples: Example[];
-    /** `ex-{index}` keys that have a recorded clip; buttons mount there after hydration. */
+    /** `{audioKeyPrefix}-{index}` keys that have a recorded clip; buttons mount there after hydration. */
     audioKeys?: string[];
+    /** Unique per list when one page shows several example lists. */
+    audioKeyPrefix?: string;
   } = $props();
 
   const rows = $derived(
     examples.map((example, index) => ({
-      audioKey: audioKeys.includes(`ex-${index}`) ? `ex-${index}` : undefined,
+      audioKey: audioKeys.includes(`${audioKeyPrefix}-${index}`)
+        ? `${audioKeyPrefix}-${index}`
+        : undefined,
       example,
       practiceHref: example.practiceItemId
         ? practiceItemHref(example.practiceItemId)

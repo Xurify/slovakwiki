@@ -111,6 +111,7 @@ export function buildSearchDocuments(): SearchDocument[] {
   }
 
   for (const entry of grammarEntries) {
+    const patterns = [entry.pattern, ...(entry.morePatterns ?? [])];
     documents.push({
       url: `/grammar/${entry.slug}`,
       kind: "grammar",
@@ -125,11 +126,13 @@ export function buildSearchDocuments(): SearchDocument[] {
           entry.lookFor,
           entry.watchOut.replace(/\*/g, ""),
           ...entry.rule,
-          ...entry.pattern.lines,
-          ...(entry.morePatterns ?? []).flatMap((pattern) => pattern.lines),
+          ...patterns.flatMap((pattern) => pattern.lines),
           ...entry.body,
         ],
-        examples: entry.examples.flatMap((example) => [example.slovak, example.english]),
+        examples: [
+          ...patterns.flatMap((pattern) => pattern.examples ?? []),
+          ...entry.examples,
+        ].flatMap((example) => [example.slovak, example.english]),
       }),
     });
   }

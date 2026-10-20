@@ -91,26 +91,6 @@
     practiceState = readPracticeState(localStorage);
     hydrated = true;
 
-    if (import.meta.env.DEV && new URLSearchParams(location.search).has("__done")) {
-      let n = 0;
-      for (const s of steps) {
-        if (s.kind !== "check" || s.exercise.type === "personal") continue;
-        n += 1;
-        const miss = n === 3 || n === 8;
-        answers[s.id] = {
-          correct: !miss,
-          grade: miss ? "incorrect" : n === 5 ? "accents" : "correct",
-          attempt: miss ? "tá muž" : undefined,
-          correction: "ten muž",
-          english: "that man",
-          markWords: miss,
-          why: "Muž is masculine, so it takes **ten**.",
-        };
-      }
-      stepIndex = steps.length - 1;
-      phase = "done";
-    }
-
     // Controls play or replace a blocked line themselves (Next, Listen, say-choice).
     const controls = "a, button, input, label, select, textarea";
     const gestures = ["touchend", "click", "keydown"] as const;
