@@ -5,6 +5,7 @@
    * A 120×52 sketch of the situation one sentence of a contrast frame is said
    * in. Every frame of a kind draws the same scene; only the lit part moves,
    * so three rows read as the thing passing from you, to them, to far away.
+   * In the space scene the lit figure wears, holds, or stands by the thing.
    */
   let {
     kind,
@@ -23,12 +24,97 @@
     const cues = typeof cue === "string" ? [cue] : cue;
     return at !== undefined && cues.includes(at) ? lit : dim;
   }
+
+  const worn = $derived(object === "shirt" || object === "shoes");
+  const held = $derived(object === "book" || object === "keys");
 </script>
 
-{#snippet person(x: number, y: number, scale: number, className: string)}
-  <g class={className} transform="translate({x} {y}) scale({scale})">
-    <circle cx="0" cy="0" r="3.6" />
-    <path d="M-6.5 15c.6-4.2 3.3-6.5 6.5-6.5s5.9 2.3 6.5 6.5" />
+<!-- Filled silhouettes read at this size where outlines would not. Cut-outs use the paper colour. -->
+{#snippet silhouette()}
+  {#if object === "shirt"}
+    <path
+      d="M-8 -5L-3.5 -7.5A3.5 3.5 0 0 0 3.5 -7.5L8 -5l2.5 4.5L6.5 1v7h-13V1l-4-1.5Z"
+    />
+  {:else if object === "book"}
+    <path d="M-10 -5c4-1.5 7-1 10 1 3-2 6-2.5 10-1v11c-4-1.5-7-1-10 1-3-2-6-2.5-10-1Z" />
+    <path d="M0 -4v11" class="text-paper" stroke="currentColor" stroke-width="1.2" />
+  {:else if object === "shoes"}
+    <rect x="-9" y="-3" width="8" height="3.5" rx="1.75" />
+    <rect x="1" y="-3" width="8" height="3.5" rx="1.75" />
+  {:else if object === "people"}
+    <circle cx="-4.5" cy="-4" r="3" />
+    <circle cx="4.5" cy="-4" r="3" />
+    <path d="M-10 8c0-5 2.5-7.5 5.5-7.5S1 3 1 8ZM-1 8c0-5 2.5-7.5 5.5-7.5S10 3 10 8Z" />
+  {:else if object === "children"}
+    <g transform="translate(0 2) scale(0.75)">
+      <circle cx="-4.5" cy="-4" r="3" />
+      <circle cx="4.5" cy="-4" r="3" />
+      <path d="M-10 8c0-5 2.5-7.5 5.5-7.5S1 3 1 8ZM-1 8c0-5 2.5-7.5 5.5-7.5S10 3 10 8Z" />
+    </g>
+  {:else if object === "dog"}
+    <rect x="-7" y="-2" width="11" height="6" rx="3" />
+    <circle cx="6" cy="-4" r="3.2" />
+    <path d="M5 -7l-2.5-3.5 3.5 1Z" />
+    <path d="M-5 3v5M-1 3v5M2 3v5M-7 -1l-3.5-4" stroke="currentColor" stroke-width="2" />
+  {:else if object === "house"}
+    <path d="M-9 0 0 -9l9 9v9H-9Z" />
+    <rect x="-2" y="3" width="4" height="6" class="text-paper" />
+  {:else if object === "keys"}
+    <circle cx="-4" cy="-4" r="4" />
+    <circle cx="-4" cy="-4" r="1.3" class="text-paper" />
+    <path
+      d="M-1.5 -1.5 7 7M4.5 4.5 2 7M7 7l-2.5 2.5"
+      stroke="currentColor"
+      stroke-width="2.5"
+    />
+  {:else if object === "person"}
+    <circle cx="0" cy="-4" r="3.4" />
+    <path d="M-6 8c0-6 2.7-8.5 6-8.5S6 2 6 8Z" />
+  {:else}
+    <rect x="-5" y="-5" width="10" height="10" rx="2" />
+  {/if}
+{/snippet}
+
+{#snippet thing(x: number, y: number, scale: number)}
+  <g
+    class={lit}
+    transform="translate({x} {y}) scale({scale})"
+    fill="currentColor"
+    stroke="none"
+  >
+    {@render silhouette()}
+  </g>
+{/snippet}
+
+<!-- Feet at the origin, 30 units tall. The thing is worn, held in the right hand, or stands beside. -->
+{#snippet figure(x: number, scale: number, className: string, withThing: boolean)}
+  <g class={className} transform="translate({x} 42) scale({scale})">
+    <circle cx="0" cy="-26" r="3.4" />
+
+    {#if withThing && object === "shirt"}
+      {@render thing(0, -15.5, 0.78)}
+    {:else}
+      <path d="M-5.5 -21h11l-1.5 11h-8Z" />
+    {/if}
+
+    <path d="M-2.5 -10v10M2.5 -10v10" />
+
+    {#if withThing && object === "shoes"}
+      {@render thing(0, -0.5, 1)}
+    {:else if withThing && held}
+      <path d="M5.5 -20l4 7" />
+      {@render thing(11, -12, object === "book" ? 0.7 : 0.6)}
+    {:else if withThing && object === "dog"}
+      {@render thing(13, -4.5, 0.7)}
+    {:else if withThing && object === "children"}
+      {@render thing(13, -4, 0.65)}
+    {:else if withThing && object === "people"}
+      {@render thing(14, -5.5, 0.7)}
+    {:else if withThing && object === "house"}
+      {@render thing(17, -8, 0.9)}
+    {:else if withThing && !worn}
+      {@render thing(12, -5, 0.8)}
+    {/if}
   </g>
 {/snippet}
 
@@ -52,64 +138,6 @@
   </g>
 {/snippet}
 
-<!-- Filled silhouettes read at this size where outlines would not. Cut-outs use the paper colour. -->
-{#snippet thing(x: number, y: number, scale: number)}
-  <g
-    class={lit}
-    transform="translate({x} {y}) scale({scale})"
-    fill="currentColor"
-    stroke="none"
-  >
-    {#if object === "shirt"}
-      <path
-        d="M-8 -5L-3.5 -7.5A3.5 3.5 0 0 0 3.5 -7.5L8 -5l2.5 4.5L6.5 1v7h-13V1l-4-1.5Z"
-      />
-    {:else if object === "book"}
-      <path d="M-7 -8h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H-7Z" />
-      <path d="M-3.5 -6v12" class="text-paper" stroke="currentColor" stroke-width="1.5" />
-    {:else if object === "shoes"}
-      <path d="M-10 4V0c0-2 2-3 5-3h5c2 0 3-3 6-4h4v11Z" />
-    {:else if object === "people"}
-      <circle cx="-4.5" cy="-4" r="3" />
-      <circle cx="4.5" cy="-4" r="3" />
-      <path d="M-10 8c0-5 2.5-7.5 5.5-7.5S1 3 1 8ZM-1 8c0-5 2.5-7.5 5.5-7.5S10 3 10 8Z" />
-    {:else if object === "children"}
-      <g transform="translate(0 2) scale(0.75)">
-        <circle cx="-4.5" cy="-4" r="3" />
-        <circle cx="4.5" cy="-4" r="3" />
-        <path
-          d="M-10 8c0-5 2.5-7.5 5.5-7.5S1 3 1 8ZM-1 8c0-5 2.5-7.5 5.5-7.5S10 3 10 8Z"
-        />
-      </g>
-    {:else if object === "dog"}
-      <rect x="-7" y="-2" width="11" height="6" rx="3" />
-      <circle cx="6" cy="-4" r="3.2" />
-      <path d="M5 -7l-2.5-3.5 3.5 1Z" />
-      <path
-        d="M-5 3v5M-1 3v5M2 3v5M-7 -1l-3.5-4"
-        stroke="currentColor"
-        stroke-width="2"
-      />
-    {:else if object === "house"}
-      <path d="M-9 0 0 -9l9 9v9H-9Z" />
-      <rect x="-2" y="3" width="4" height="6" class="text-paper" />
-    {:else if object === "keys"}
-      <circle cx="-4" cy="-4" r="4" />
-      <circle cx="-4" cy="-4" r="1.3" class="text-paper" />
-      <path
-        d="M-1.5 -1.5 7 7M4.5 4.5 2 7M7 7l-2.5 2.5"
-        stroke="currentColor"
-        stroke-width="2.5"
-      />
-    {:else if object === "person"}
-      <circle cx="0" cy="-4" r="3.4" />
-      <path d="M-6 8c0-6 2.7-8.5 6-8.5S6 2 6 8Z" />
-    {:else}
-      <rect x="-5" y="-5" width="10" height="10" rx="2" />
-    {/if}
-  </g>
-{/snippet}
-
 <svg
   class="h-14 w-32 shrink-0 fill-none stroke-current"
   viewBox="0 0 120 52"
@@ -121,18 +149,10 @@
   {#if kind === "space"}
     <path d="M4 42h112" class="text-slate-300" />
 
-    {@render person(16, 16, 1, tone("me"))}
-    {@render caption(16, 50, "you", dim)}
-    {@render person(62, 16, 1, tone("them"))}
-    {@render person(104, 24, 0.62, tone("far"))}
-
-    {#if at === "me"}
-      {@render thing(30, 31, 1)}
-    {:else if at === "them"}
-      {@render thing(48, 31, 1)}
-    {:else if at === "far"}
-      {@render thing(92, 35, 0.65)}
-    {/if}
+    {@render figure(14, 1, tone("me"), at === "me")}
+    {@render caption(14, 50, "you", dim)}
+    {@render figure(58, 1, tone("them"), at === "them")}
+    {@render figure(100, 0.62, tone("far"), at === "far")}
   {:else if kind === "time"}
     <path d="M8 28h104" class="text-slate-300" />
 
@@ -168,34 +188,34 @@
   {:else if kind === "owner"}
     <path d="M4 42h112" class="text-slate-300" />
 
-    {@render person(18, 16, 1, tone("own"))}
-    {@render person(102, 16, 1, tone("other"))}
+    {@render figure(16, 1, tone("own"), false)}
+    {@render figure(104, 1, tone("other"), false)}
     {@render thing(60, 33, 1)}
 
     {#if at === "own"}
-      <path d="M28 24c8 1 15 4 22 8" class={lit} />
-      <path d="M45 28l5 4-6.5 1.5" class={lit} />
+      <path d="M26 24c8 1 15 4 22 8" class={lit} />
+      <path d="M43 28l5 4-6.5 1.5" class={lit} />
     {:else if at === "other"}
-      <path d="M92 24c-8 1-15 4-22 8" class={lit} />
-      <path d="M75 28l-5 4 6.5 1.5" class={lit} />
+      <path d="M94 24c-8 1-15 4-22 8" class={lit} />
+      <path d="M77 28l-5 4 6.5 1.5" class={lit} />
     {/if}
   {:else if kind === "address"}
     <path d="M4 42h112" class="text-slate-300" />
 
-    {@render person(16, 16, 1, dim)}
+    {@render figure(14, 1, dim, false)}
     <path
-      d="M27 7h14a2.5 2.5 0 0 1 2.5 2.5v6A2.5 2.5 0 0 1 41 18h-8l-3.5 3.5V18H27a2.5 2.5 0 0 1-2.5-2.5v-6A2.5 2.5 0 0 1 27 7Z"
+      d="M25 7h14a2.5 2.5 0 0 1 2.5 2.5v6A2.5 2.5 0 0 1 39 18h-8l-3.5 3.5V18H25a2.5 2.5 0 0 1-2.5-2.5v-6A2.5 2.5 0 0 1 25 7Z"
       class={dim}
     />
 
     {#if at === "friend"}
-      {@render person(60, 16, 1, lit)}
+      {@render figure(58, 1, lit, false)}
     {:else if at === "formal"}
-      {@render person(102, 16, 1, lit)}
+      {@render figure(104, 1, lit, false)}
     {:else if at === "group"}
-      {@render person(70, 16, 1, lit)}
-      {@render person(87, 16, 1, lit)}
-      {@render person(104, 16, 1, lit)}
+      {@render figure(72, 1, lit, false)}
+      {@render figure(88, 1, lit, false)}
+      {@render figure(104, 1, lit, false)}
     {/if}
   {:else if kind === "aspect"}
     <path d="M8 28h104" class="text-slate-300" />
