@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { grammarMarkClass } from "$lib/components/reference/grammar-topic-ui";
   import { eyebrowClass } from "$lib/components/ui/system-ui";
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
@@ -44,7 +45,7 @@
       <p
         class="m-0 mt-1 font-serif text-lg leading-snug font-semibold text-slate-900 sm:text-xl"
       >
-        <MarkedText text={line.slovak} marks={line.marks} />
+        <MarkedText text={line.slovak} marks={line.marks} markClass={grammarMarkClass} />
       </p>
 
       {#if showEnglish}
@@ -62,7 +63,6 @@
       )}
       type="button"
       aria-label={playing ? `Pause line ${number}` : `Play line ${number}`}
-      aria-pressed={playing}
       onclick={playing ? onpause : onplay}
     >
       <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

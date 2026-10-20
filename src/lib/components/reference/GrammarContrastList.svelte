@@ -8,6 +8,7 @@
     grammarEndingClass,
     grammarFormClass,
     grammarGlossClass,
+    grammarMarkClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import type { GrammarContrast, GrammarContrastSet } from "$lib/catalog/types";
   import { markRoleClass, segmentsFromMarks } from "$lib/learning/marked-text";
@@ -21,13 +22,6 @@
     /** `contrast-{frame}-{choice}` and `contrast-more-{frame}-{choice}` keys with a clip. */
     audioKeys?: string[];
   } = $props();
-
-  /** The changing word takes the page's ending colour; the owner and the noun ending keep their own. */
-  function markClass(role: string): string {
-    return role === "owner" || role === "ending"
-      ? markRoleClass(role)
-      : grammarEndingClass;
-  }
 
   const allFrames = $derived([...contrasts.frames, ...(contrasts.more ?? [])]);
 
@@ -96,7 +90,7 @@
                 <p class={cx(grammarFormClass, "m-0 text-lg")} lang="sk">
                   {#each segmentsFromMarks(choice.slovak.text, choice.slovak.marks) as segment, index (index)}
                     {#if segment.role}
-                      <span class={markClass(segment.role)}>{segment.text}</span>
+                      <span class={grammarMarkClass(segment.role)}>{segment.text}</span>
                     {:else}
                       {segment.text}
                     {/if}

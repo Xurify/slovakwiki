@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
 
   import Button from "$lib/components/ui/Button.svelte";
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
@@ -18,6 +18,7 @@
     otherChoiceNotes,
   } from "$lib/learning/exercises";
   import type { DialogueTurn } from "$lib/learning/types";
+  import { followFocus } from "$lib/listening/focus";
 
   import EpisodeReplayButton from "./EpisodeReplayButton.svelte";
 
@@ -77,10 +78,11 @@
     );
   }
 
-  /** Keys only act while focus is on this question or nowhere, never elsewhere on the page. */
+  /** Keys act while focus is in this dialogue (Listen again included) or nowhere. */
   function ownsKeyboard(): boolean {
     const active = document.activeElement;
-    return active === document.body || Boolean(root?.contains(active));
+    const scope = root?.closest("[data-listen-stage]") ?? root;
+    return active === document.body || Boolean(scope?.contains(active));
   }
 
   function onWindowKeydown(event: KeyboardEvent): void {
@@ -102,11 +104,18 @@
     event.preventDefault();
     selectedId = choice.id;
   }
+
+  onMount(() => followFocus(root));
 </script>
 
 <svelte:window onkeydown={onWindowKeydown} />
 
-<section bind:this={root} class="animate-rise" aria-labelledby="{check.id}-prompt">
+<section
+  bind:this={root}
+  class="animate-rise focus-visible:outline-none"
+  aria-labelledby="{check.id}-prompt"
+  tabindex="-1"
+>
   <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
     <p class={eyebrowMutedClass}>Question {index} of {total}</p>
 

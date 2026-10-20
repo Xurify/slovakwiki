@@ -7,6 +7,7 @@
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import { getStoryShowEnglish } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
+  import { followFocus } from "$lib/listening/focus";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
   import { cx } from "$lib/ui/classes";
 
@@ -43,6 +44,8 @@
 
   type Stage = "idle" | "listening" | "checking" | "done";
 
+  const COUNT_WORDS = ["one", "two", "three", "four", "five"];
+
   let root: HTMLElement | undefined = $state();
   let listened = $state(done !== null);
   let checkAt = $state(done ? chapter.checks.length : 0);
@@ -61,10 +64,10 @@
       listened = true;
       if (checks.length === 0) {
         onfinish?.(0);
-        void scrollTo("[data-listen-done]");
+        void reveal("[data-listen-done]", true);
         return;
       }
-      void scrollTo("[data-listen-checks]");
+      void reveal("[data-listen-checks]");
     },
   });
 
@@ -76,13 +79,15 @@
     return check ? "checking" : "done";
   });
   const textVisible = $derived(textOpen || stage === "done");
+  /** Once heard, Listen again steps back so the question or Next chapter leads. */
+  const firstListen = $derived(stage === "idle" || stage === "listening");
 
   const idleCopy =
     checks.length === 0
       ? "Listen, then read along."
       : checks.length === 1
         ? "Listen first. The text opens after one short question."
-        : `Listen first. The text opens after ${checks.length} short questions.`;
+        : `Listen first. The text opens after ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`;
 
   const status = $derived.by(() => {
     const line = player.line;
@@ -90,11 +95,7 @@
     if (player.playing && line) return `${line.speaker} · ${position}`;
     if (stage === "idle") return idleCopy;
     if (stage === "listening") return `Paused · ${position}`;
-    if (stage === "checking") {
-      return checks.length === 1
-        ? "Now answer the question below."
-        : "Now answer the questions below.";
-    }
+    if (stage === "checking") return "";
     return "Play it again and read along.";
   });
 
@@ -121,12 +122,14 @@
     checkAt += 1;
     if (checkAt < checks.length) return;
     onfinish?.(correct);
-    void scrollTo("[data-listen-done]");
+    void reveal("[data-listen-done]", true);
   }
 
-  async function scrollTo(selector: string): Promise<void> {
+  async function reveal(selector: string, focus = false): Promise<void> {
     await tick();
-    root?.querySelector<HTMLElement>(selector)?.scrollIntoView({
+    const target = root?.querySelector<HTMLElement>(selector);
+    if (focus) followFocus(target);
+    target?.scrollIntoView({
       block: "nearest",
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
         ? "auto"
@@ -165,16 +168,18 @@
   onDestroy(() => player.destroy());
 </script>
 
-<div bind:this={root}>
+<div bind:this={root} data-listen-stage>
   <div class="px-4 pt-3 pb-4 sm:px-5">
     <div class="flex flex-wrap items-center justify-between gap-4">
       <button
         class={cx(
-          "inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full border-0 pr-5 pl-4",
-          "bg-cta font-bold text-cta-ink transition-[background-color] duration-150 ease-out hover:bg-cta-strong",
+          "inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full border-0 pr-5 pl-4 font-bold",
+          "transition-[background-color,box-shadow,color] duration-150 ease-out",
+          firstListen
+            ? "bg-cta text-cta-ink hover:bg-cta-strong"
+            : "bg-control text-blue-800 shadow-(--shadow-border) hover:bg-control-hover hover:shadow-(--shadow-border-hover)",
         )}
         type="button"
-        aria-pressed={player.playing}
         onclick={togglePlay}
       >
         <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -214,7 +219,20 @@
       </ul>
     </div>
 
-    <p class="m-0 mt-3 text-sm text-slate-700" aria-live="polite">{status}</p>
+    <div class="mt-4 flex gap-1" aria-hidden="true">
+      {#each lines as line, index (line.id)}
+        <span
+          class={cx(
+            "h-1 flex-1 rounded-full transition-colors duration-150 ease-out",
+            index < player.cursor || (index === player.cursor && stage !== "idle")
+              ? "bg-blue-600"
+              : "bg-slate-200",
+          )}
+        ></span>
+      {/each}
+    </div>
+
+    <p class="m-0 mt-2.5 text-sm text-slate-700 empty:hidden">{status}</p>
 
     <div class="mt-2 -ml-2.5 flex flex-wrap gap-1">
       {#if stage === "listening"}
@@ -237,7 +255,7 @@
 
   {#if stage === "checking" && check}
     <div
-      class="scroll-mt-24 border-t border-slate-200/70 px-4 py-5 sm:px-5"
+      class="scroll-mt-24 border-t border-slate-200/70 px-4 py-5 max-[800px]:scroll-mt-[136px] sm:px-5"
       data-listen-checks
     >
       {#key check.id}
@@ -256,7 +274,11 @@
 
   {#if stage === "done"}
     <div
-      class="flex scroll-mt-24 flex-wrap items-center justify-between gap-3 border-t border-slate-200/70 bg-subtle/60 px-4 py-3 sm:px-5"
+      class={cx(
+        "flex scroll-mt-24 flex-wrap items-center justify-between gap-3 border-t border-slate-200/70 bg-subtle/60 px-4 py-3 sm:px-5",
+        "focus-visible:outline-none max-[800px]:scroll-mt-[136px]",
+      )}
+      tabindex="-1"
       data-listen-done
     >
       <p class="m-0 flex items-center gap-2 text-sm font-semibold text-slate-800">

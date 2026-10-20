@@ -3,12 +3,16 @@
     markRoleClass,
     segmentsFromMarks,
     type TextMark,
+    type TextRole,
   } from "$lib/learning/marked-text";
 
   let {
+    markClass = markRoleClass,
     marks,
     text,
   }: {
+    /** Grammar surfaces pass `grammarMarkClass` so marks match the topic's tables. */
+    markClass?: (role: TextRole) => string;
     marks?: TextMark[];
     text: string;
   } = $props();
@@ -19,7 +23,7 @@
 <span lang="sk">
   {#each segments as segment, index (index)}
     {#if segment.role}
-      <span class={markRoleClass(segment.role)}>{segment.text}</span>
+      <span class={markClass(segment.role)}>{segment.text}</span>
     {:else}
       {segment.text}
     {/if}

@@ -28,7 +28,9 @@
       class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900"
     >
       <span lang="sk">{listen.titleSk}</span>
-      <span class="font-normal text-slate-500"> · {listen.title}</span>
+      <span class="font-sans text-base font-normal tracking-normal text-slate-500">
+        · {listen.title}
+      </span>
     </h3>
   </header>
 

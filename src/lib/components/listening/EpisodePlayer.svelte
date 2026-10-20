@@ -10,6 +10,7 @@
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
   import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
+  import { followFocus } from "$lib/listening/focus";
   import { cx } from "$lib/ui/classes";
 
   import ListenStage from "./ListenStage.svelte";
@@ -78,6 +79,7 @@
 
   async function scrollToStage(): Promise<void> {
     await tick();
+    followFocus(stageEl);
     stageEl?.scrollIntoView({
       block: "start",
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -106,7 +108,7 @@
       class="animate-rise border-t border-slate-200/70 px-4 py-5 sm:px-5"
       aria-live="polite"
     >
-      <p class="m-0 font-serif text-xl text-slate-900">Episode done</p>
+      <h3 class="m-0 text-lg font-semibold">Episode done</h3>
 
       <p class="m-0 mt-1 text-sm text-slate-600">
         {totalCorrect} of {totalChecks} answers right.
@@ -170,8 +172,12 @@
 
   <section
     bind:this={stageEl}
-    class="{panelClass} scroll-mt-24 overflow-hidden"
+    class={cx(
+      panelClass,
+      "scroll-mt-24 overflow-hidden focus-visible:outline-none max-[800px]:scroll-mt-[136px]",
+    )}
     aria-labelledby="stage-title"
+    tabindex="-1"
   >
     <header class="px-4 pt-4 sm:px-5">
       <p class={eyebrowMutedClass}>
@@ -183,7 +189,9 @@
         class="m-0 mt-1 font-serif text-xl tracking-tight text-pretty text-slate-900"
       >
         <span lang="sk">{chapter.titleSk}</span>
-        <span class="font-normal text-slate-500"> · {chapter.title}</span>
+        <span class="font-sans text-base font-normal tracking-normal text-slate-500">
+          · {chapter.title}
+        </span>
       </h2>
     </header>
 
