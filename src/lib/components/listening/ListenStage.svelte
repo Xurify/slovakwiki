@@ -165,6 +165,21 @@
     };
   });
 
+  // Keep the line being read on screen while the text is open; only during
+  // playback, so reading back through the text never jumps.
+  $effect(() => {
+    if (!player.playing || !textVisible) return;
+    void player.cursor;
+    void tick().then(() => {
+      root?.querySelector<HTMLElement>("[data-line-current]")?.scrollIntoView({
+        block: "nearest",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+    });
+  });
+
   onDestroy(() => player.destroy());
 </script>
 
@@ -331,6 +346,7 @@
             number={index + 1}
             current={(player.playing || stage === "listening") && player.cursor === index}
             playing={player.playing && player.cursor === index}
+            dimmed={player.playing && player.cursor !== index}
             showEnglish={english}
             onplay={() => player.playFrom(index)}
             onpause={pause}

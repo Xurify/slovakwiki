@@ -9,6 +9,7 @@
   /** One transcript row: portrait, speaker, the line, and a play-from-here control. */
   let {
     current = false,
+    dimmed = false,
     line,
     number,
     onpause,
@@ -17,6 +18,8 @@
     showEnglish = false,
   }: {
     current?: boolean;
+    /** Another line is playing: step back so the current one stands out. */
+    dimmed?: boolean;
     line: DialogueTurn;
     number: number;
     onpause: () => void;
@@ -29,10 +32,13 @@
 
 <li
   class={cx(
-    "flex list-none gap-3 border-b border-slate-200/70 px-4 py-3 last:border-b-0 sm:px-5",
-    current && "bg-blue-50/40",
+    "flex scroll-mt-28 scroll-mb-4 list-none gap-3 border-b border-slate-200/70 px-4 py-3 last:border-b-0 sm:px-5",
+    "transition-[background-color,box-shadow,opacity] duration-150 ease-out",
+    current && "bg-blue-50 shadow-[inset_3px_0_0_var(--accent)]",
+    dimmed && "opacity-55",
   )}
   aria-current={current ? "true" : undefined}
+  data-line-current={current ? "" : undefined}
 >
   <LessonCharacterAvatar speaker={line.speaker} size="sm" class="mt-0.5" />
 
@@ -40,6 +46,12 @@
     <div class="min-w-0">
       <p class="{eyebrowClass} {current ? 'text-blue-800' : 'text-slate-500'}">
         {line.speaker}
+
+        {#if current}
+          <span class="ml-1.5 font-semibold tracking-normal normal-case">
+            · {playing ? "Playing" : "Paused here"}
+          </span>
+        {/if}
       </p>
 
       <p
@@ -57,7 +69,7 @@
       class={cx(
         "inline-grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border-0",
         "transition-colors duration-150 ease-out",
-        playing
+        current
           ? "bg-blue-600 text-paper hover:bg-blue-700"
           : "bg-transparent text-blue-800 hover:bg-blue-50",
       )}
