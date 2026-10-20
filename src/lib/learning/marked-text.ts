@@ -15,6 +15,10 @@ export const TEXT_ROLE_CLASS = {
   owner: "text-mark-day",
   possessive: "text-mark-time",
   demonstrative: "text-mark-time",
+  /** The word a grammar minimal pair turns on (napíšem, máte). */
+  contrast: "text-mark-time",
+  /** The case ending on the noun a demonstrative or possessive agrees with (v tom dom[e]). */
+  ending: "rounded-sm bg-emerald-50 px-0.5 text-emerald-700",
 } as const;
 
 export type TextRole = keyof typeof TEXT_ROLE_CLASS;

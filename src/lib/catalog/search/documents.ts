@@ -21,6 +21,11 @@ import { SEARCH_WEIGHTS, type SearchWeight } from "./ui";
 
 export { SEARCH_WEIGHTS, type SearchWeight };
 
+/** Grammar copy marks Slovak with `**bold**` and `*avoid*`. */
+function plainText(text: string): string {
+  return text.replace(/\*/g, "");
+}
+
 export interface SearchSection {
   text: string;
   weight: SearchWeight;
@@ -103,6 +108,8 @@ export function buildSearchDocuments(): SearchDocument[] {
 
   for (const entry of grammarEntries) {
     const patterns = [entry.pattern, ...(entry.morePatterns ?? [])];
+    const frames = [...(entry.contrasts?.frames ?? []), ...(entry.contrasts?.more ?? [])];
+    const choices = frames.flatMap((frame) => frame.choices);
     documents.push({
       url: `/grammar/${entry.slug}`,
       kind: "grammar",
@@ -114,16 +121,25 @@ export function buildSearchDocuments(): SearchDocument[] {
         gloss: [entry.summary, ...entry.tags],
         body: [
           entry.category,
-          entry.lookFor,
-          entry.watchOut.replace(/\*/g, ""),
-          ...entry.rule,
+          plainText(entry.lookFor),
+          ...entry.watchOut.map((item) =>
+            plainText(
+              typeof item === "string" ? item : `${item.wrong} ${item.right} ${item.why}`,
+            ),
+          ),
+          ...entry.rule.map(plainText),
           ...patterns.flatMap(patternSearchLines),
           ...entry.body,
+          ...frames.map((frame) => frame.question),
+          ...choices.map((choice) => choice.when),
         ],
         examples: [
-          ...patterns.flatMap((pattern) => pattern.examples ?? []),
-          ...entry.examples,
-        ].flatMap((example) => [example.slovak, example.english]),
+          ...[
+            ...patterns.flatMap((pattern) => pattern.examples ?? []),
+            ...entry.examples,
+          ].flatMap((example) => [example.slovak, example.english]),
+          ...choices.flatMap((choice) => [choice.slovak.text, choice.english]),
+        ],
       }),
     });
   }
@@ -157,7 +173,7 @@ export function buildSearchDocuments(): SearchDocument[] {
       ...sections({
         headword: [topic.name],
         gloss: [topic.question, topic.summary],
-        body: [...topic.researchPrompts, ...topic.body],
+        body: [...topic.researchPrompts, ...topic.body].map(plainText),
         examples: topic.examples.flatMap((example) => [example.slovak, example.english]),
       }),
     });

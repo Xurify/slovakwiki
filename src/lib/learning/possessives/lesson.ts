@@ -781,6 +781,7 @@ export const possessivesLesson: Lesson = {
     possessivesPersonalExercise,
   ),
   referenceLinks: [
+    { href: "/grammar/possessives", label: "Possessives" },
     { href: "/grammar/grammatical-gender", label: "Grammatical gender" },
     { href: "/grammar/cases-overview", label: "Cases overview" },
     { href: "/grammar/cases/dative", label: "Dative" },

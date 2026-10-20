@@ -1,3 +1,5 @@
+import type { MarkedText } from "$lib/learning/marked-text";
+
 import type { FrequencyPartOfSpeech } from "./frequency/types";
 
 export type EntryKind = "word" | "grammar" | "pronunciation";
@@ -192,11 +194,101 @@ export interface GrammarTablePattern extends GrammarPatternShared {
 
 export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 
+/** A grammar label in English and in the Slovak school term (nominatív, mužský rod životný). */
+export interface GrammarTerm {
+  en: string;
+  sk: string;
+}
+
+/** The small drawing beside each sentence of a contrast frame. */
+export type GrammarScene = "space" | "time" | "owner" | "address" | "aspect" | "clock";
+
+/** The thing the frame talks about, drawn in the scene where the sentence puts it. */
+export type GrammarObject =
+  | "shirt"
+  | "book"
+  | "shoes"
+  | "people"
+  | "dog"
+  | "children"
+  | "house"
+  | "keys"
+  | "person";
+
+/**
+ * What the scene highlights for one sentence: where the thing is (`me`, `them`,
+ * `far`), when (`now`, `before`), who owns it (`own`, `other`), who you talk to
+ * (`friend`, `formal`, `group`), how the action runs (`now`, `ongoing`, `done`,
+ * `habit`), or a clock time against a length of time (`clock`, `span`).
+ */
+export type GrammarCue =
+  | "me"
+  | "them"
+  | "far"
+  | "now"
+  | "before"
+  | "own"
+  | "other"
+  | "friend"
+  | "formal"
+  | "group"
+  | "ongoing"
+  | "done"
+  | "habit"
+  | "clock"
+  | "span";
+
+/** One way to fill the frame, and the situation that calls for it. */
+export interface GrammarChoice {
+  /** What the frame's scene highlights for this sentence. */
+  at?: GrammarCue;
+  english: string;
+  /** Spoken Slovak, with the word that changes marked. */
+  slovak: MarkedText;
+  /** The situation in a few words: “in your hand”. */
+  when: string;
+}
+
+/** One sentence said two or three ways; the situation picks the form. */
+export interface GrammarContrast {
+  choices: GrammarChoice[];
+  /** Case, gender and number the frame shows, in the school terms of both languages. */
+  label?: GrammarTerm;
+  object?: GrammarObject;
+  /** The question the learner asks first: “Where is the shirt?” */
+  question: string;
+  scene?: GrammarScene;
+}
+
+export interface GrammarContrastSet {
+  /** The choice the learner faces: “Tento, ten, or tamten?” */
+  label: string;
+  intro?: string;
+  frames: GrammarContrast[];
+  /** The same choice in further cases, folded until opened. */
+  more?: GrammarContrast[];
+}
+
+/** A form learners get wrong, the form to use, and a few words on why. */
+export interface GrammarMistake {
+  right: string;
+  why: string;
+  wrong: string;
+}
+
+/** A short tip (`**form**` bolds Slovak), or a mistake to avoid. */
+export type GrammarWatchOut = string | GrammarMistake;
+
 /** In-page sections for gloss-term deep links (e.g. #imperfective). */
 export interface GrammarTermSection {
+  /** `**form**` marks Slovak to notice. */
   body: string;
+  /** Short Slovak phrases that show the label at work. */
+  examples?: string[];
+  /** English name, when `term` is the Slovak one. */
+  gloss?: string;
   id: string;
-  title: string;
+  term: string;
 }
 
 export interface CaseReference {
@@ -224,6 +316,8 @@ export interface CaseTopic {
 
 export interface GrammarTopic extends ContentEntry {
   caseOverview?: CaseReference[];
+  /** Minimal pairs that show when to pick each form. */
+  contrasts?: GrammarContrastSet;
   kind: "grammar";
   lookFor: string;
   lessonLink?: {
@@ -239,7 +333,7 @@ export interface GrammarTopic extends ContentEntry {
   rule: string[];
   /** Optional deep-link sections for dictionary gloss term tips. */
   termSections?: GrammarTermSection[];
-  watchOut: string;
+  watchOut: GrammarWatchOut[];
 }
 
 export interface PronunciationContrast {

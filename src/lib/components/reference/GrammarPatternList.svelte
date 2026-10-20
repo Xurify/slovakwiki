@@ -205,7 +205,10 @@
                 class={cx(
                   eyebrowMutedClass,
                   gridFormCellClass,
-                  "py-2 text-left align-bottom max-sm:w-1/3 sm:w-1/4",
+                  "py-2 text-left align-bottom",
+                  view.columns.length > 3
+                    ? "max-sm:w-1/4 sm:w-1/6"
+                    : "max-sm:w-1/3 sm:w-1/4",
                   index === 0 && gridLeadCellClass,
                 )}
               >

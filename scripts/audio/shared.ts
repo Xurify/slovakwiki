@@ -6,7 +6,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
-import { words } from "../../src/lib/catalog/entries";
+import { grammarEntries, words } from "../../src/lib/catalog/entries";
 import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-limits";
 import {
   type AudioConfig,
@@ -192,7 +192,23 @@ function targetKey(target: AudioTarget, baseConfig: AudioConfig): string {
   return `${target.kind}|${config.voiceId}|${normalizeAudioText(target.text)}`;
 }
 
-/** Unique lemma + example Slovak strings from the live dictionary merge. */
+/** Every sentence a grammar page shows: examples, table examples, contrast cards. */
+function grammarSentences(slugs?: Set<string>): string[] {
+  return grammarEntries
+    .filter((topic) => !slugs || slugs.has(topic.slug))
+    .flatMap((topic) => [
+      ...topic.examples.map((example) => example.slovak),
+      ...(topic.pattern.examples ?? []).map((example) => example.slovak),
+      ...(topic.morePatterns ?? []).flatMap((pattern) =>
+        (pattern.examples ?? []).map((example) => example.slovak),
+      ),
+      ...[...(topic.contrasts?.frames ?? []), ...(topic.contrasts?.more ?? [])].flatMap(
+        (frame) => frame.choices.map((choice) => choice.slovak.text),
+      ),
+    ]);
+}
+
+/** Unique lemma + example Slovak strings from the live dictionary merge and grammar pages. */
 export function collectDictionaryAudioTargets(options?: {
   lemmasOnly?: boolean;
   slugs?: Set<string>;
@@ -219,6 +235,14 @@ export function collectDictionaryAudioTargets(options?: {
     // Only mint audio for examples the detail page shows (store pool may be larger).
     for (const example of entry.examples.slice(0, EXAMPLE_DISPLAY_LIMIT)) {
       const slovak = normalizeAudioText(example.slovak);
+      if (!slovak || byText.has(slovak)) continue;
+      byText.set(slovak, { kind: "example", text: slovak });
+    }
+  }
+
+  if (!options?.lemmasOnly) {
+    for (const sentence of grammarSentences(options?.slugs)) {
+      const slovak = normalizeAudioText(sentence);
       if (!slovak || byText.has(slovak)) continue;
       byText.set(slovak, { kind: "example", text: slovak });
     }
