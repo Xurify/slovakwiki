@@ -482,9 +482,9 @@ export const grammarEntries: GrammarTopic[] = [
         label: "As the object",
         columns: ["the, that", "this", "that (over there)"],
         lines: [
-          "Feminine: tú, túto, tamtú",
           "Masculine, a person: toho, tohto, tamtoho",
           "Masculine, a thing: ten, tento, tamten",
+          "Feminine: tú, túto, tamtú",
           "Neuter: to, toto, tamto",
           "Masculine nouns for people, plural: tých, týchto, tamtých",
           "Every other plural: tie, tieto, tamtie",
