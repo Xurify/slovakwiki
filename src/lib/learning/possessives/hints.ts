@@ -2,17 +2,19 @@ import type { ClozeHint } from "$lib/learning/types";
 
 export const agreementHint: ClozeHint = {
   chip: "môj · moja · moje",
-  grammarTopicId: "grammatical-gender",
+  grammarTopicId: "possessives",
   note: "**Môj**, **tvoj**, **náš**, **váš** take the gender of the thing owned, not the owner: *môj brat*, *moja sestra*, *moje auto*. In the plural, only masculine nouns for people take **-i**: *moji priatelia*, *naši študenti*. Every other plural takes **-e**, including feminine nouns for people and animals: *moje sestry*, *moje psy*, *moje kľúče*.",
 };
 
 export const fixedOwnerHint: ClozeHint = {
   chip: "jeho · jej · ich",
+  grammarTopicId: "possessives",
   note: "**Jeho** (his), **jej** (her), **ich** (their) never change. They follow the owner, not the noun: *jej brat*, *jej bratovi*, *s jej bratom*.",
 };
 
 export const svojHint: ClozeHint = {
   chip: "svoj = the subject's own",
+  grammarTopicId: "possessives",
   note: "When the owner is the subject of the sentence, use **svoj**: *Tom volá svojej mame* (his own mom). **Jeho mame** would be another man's mom. Svoj never sits in the subject itself.",
 };
 

@@ -11,7 +11,7 @@ export const caseTopics: CaseTopic[] = [
       "The nominative names the subject: the person, thing, or idea doing the action.",
     body: [
       "Use nominative for the subject of a sentence. It answers who or what performs the action.",
-      "In Peter číta knihu, Peter is nominative because Peter performs the reading. The object knihu uses a different case.",
+      "In **Peter číta knihu**, **Peter** is nominative because Peter performs the reading. The object **knihu** uses a different case.",
     ],
     examples: [
       {
@@ -22,7 +22,7 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Mesto je veľké.",
         english: "The city is large.",
-        note: "Mesto is nominative because it is the subject being described.",
+        note: "**Mesto** is nominative because it is the subject being described.",
       },
     ],
     researchPrompts: [
@@ -41,22 +41,22 @@ export const caseTopics: CaseTopic[] = [
       "The genitive marks possession, amounts, absence, and several common prepositional relationships.",
     body: [
       "Use genitive for possession and relationships between nouns. It also appears after words for amounts and after negated byť or mať in some expressions.",
-      "Common prepositions such as z, od, do, and bez regularly introduce the genitive. Learn each preposition with a useful phrase.",
+      "Common prepositions such as **z**, **od**, **do**, and **bez** regularly introduce the genitive. Learn each preposition with a useful phrase.",
     ],
     examples: [
       {
         slovak: "Som z Kanady.",
         english: "I am from Canada.",
-        note: "z takes the genitive: Kanada becomes Kanady.",
+        note: "**Z** takes the genitive: **Kanada** becomes **Kanady**.",
       },
       {
         slovak: "Pohár vody.",
         english: "A glass of water.",
-        note: "vody identifies what the glass contains.",
+        note: "**Vody** identifies what the glass contains.",
       },
     ],
     researchPrompts: [
-      "Notice one genitive phrase with z, od, do, or bez.",
+      "Notice one genitive phrase with **z**, **od**, **do**, or **bez**.",
       "Build a phrase showing possession or amount.",
     ],
     status: "ready",
@@ -77,12 +77,12 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Dám Petrovi knihu.",
         english: "I will give Peter a book.",
-        note: "Petrovi is the recipient.",
+        note: "**Petrovi** is the recipient.",
       },
       {
         slovak: "Pomáham mame.",
         english: "I am helping my mother.",
-        note: "mame is the person receiving help.",
+        note: "**Mame** is the person receiving help.",
       },
     ],
     researchPrompts: [
@@ -107,12 +107,12 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Mám kávu.",
         english: "I have coffee.",
-        note: "kávu is the direct object of mám.",
+        note: "**Kávu** is the direct object of **mám**.",
       },
       {
         slovak: "Vidím mesto.",
         english: "I see the city.",
-        note: "mesto is the thing directly seen.",
+        note: "**Mesto** is the thing directly seen.",
       },
     ],
     researchPrompts: [
@@ -130,29 +130,29 @@ export const caseTopics: CaseTopic[] = [
     summary:
       "The locative is used after selected prepositions for location and for talking about a person or topic.",
     body: [
-      "The locative appears with prepositions such as v, na, and o. It is not used on its own; the preposition helps determine the meaning.",
+      "The locative appears with prepositions such as **v**, **na**, and **o**. It is not used on its own; the preposition helps determine the meaning.",
       "Use it for where something is and for the topic of speech or thought. Learn the preposition and noun as a pair.",
     ],
     examples: [
       {
         slovak: "Bývam v meste.",
         english: "I live in the city.",
-        note: "v meste expresses a location.",
+        note: "**V meste** expresses a location.",
       },
       {
         slovak: "Hovorím o škole.",
         english: "I am talking about school.",
-        note: "o škole marks the topic.",
+        note: "**O škole** marks the topic.",
       },
       {
         slovak: "Stretneme sa o tretej.",
         english: "We will meet at three.",
-        note: "o + locative for a clock time. For a duration (in two hours), o takes accusative: o dve hodiny.",
+        note: "**O** + locative for a clock time. For a duration (in two hours), **o** takes the accusative: **o dve hodiny**.",
       },
     ],
     researchPrompts: [
-      "Collect one location phrase with v or na.",
-      "Find a sentence using o for its topic.",
+      "Collect one location phrase with **v** or **na**.",
+      "Find a sentence using **o** for its topic.",
     ],
     status: "ready",
     source: languageSource,
@@ -163,25 +163,25 @@ export const caseTopics: CaseTopic[] = [
     slovakName: "inštrumentál",
     question: "S kým? S čím? · With whom? With what?",
     summary:
-      "The instrumental marks company, tools, and other means, especially after s or so.",
+      "The instrumental marks company, tools, and other means, especially after **s** or **so**.",
     body: [
-      "Use instrumental after s or so for the person or thing accompanying someone. It also marks the tool used to perform an action.",
-      "Some roles and states use instrumental without s. Start with common phrases, then notice the endings in context.",
+      "Use instrumental after **s** or **so** for the person or thing accompanying someone. It also marks the tool used to perform an action.",
+      "Some roles and states use instrumental without **s**. Start with common phrases, then notice the endings in context.",
     ],
     examples: [
       {
         slovak: "Idem s priateľom.",
         english: "I am going with a friend.",
-        note: "s priateľom marks company.",
+        note: "**S priateľom** marks company.",
       },
       {
         slovak: "Píšem perom.",
         english: "I write with a pen.",
-        note: "perom identifies the tool.",
+        note: "**Perom** identifies the tool.",
       },
     ],
     researchPrompts: [
-      "Find a phrase with s or so plus a person.",
+      "Find a phrase with **s** or **so** plus a person.",
       "Name one tool you use with instrumental.",
     ],
     status: "ready",

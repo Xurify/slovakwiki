@@ -2,6 +2,8 @@
   import { moreLinkClass } from "$lib/components/ui/system-ui";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
+  import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
+
   import {
     grammarFormClass,
     grammarGlossClass,
@@ -63,7 +65,7 @@
 
       {#if example.demonstrates}
         <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-500">
-          {example.demonstrates}
+          <GrammarRichText text={example.demonstrates} />
         </p>
       {/if}
     </li>

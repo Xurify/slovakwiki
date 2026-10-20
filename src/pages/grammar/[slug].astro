@@ -11,7 +11,7 @@ import { resolveKeyedAudioSrc } from "$lib/catalog/audio/resolve-server";
 import { entryBySlug, grammarEntries, words } from "$lib/catalog/entries";
 import { entryHref } from "$lib/catalog/dictionary/lemma-senses";
 import { sentenceCase } from "$lib/catalog/search/ui";
-import type { Example } from "$lib/catalog/types";
+import type { Example, GrammarContrast } from "$lib/catalog/types";
 import GrammarWeakSpots from "$lib/components/reference/GrammarWeakSpots.svelte";
 import { practiceRulesForGrammarTopic } from "$lib/practice/grammar-practice-rules";
 
@@ -28,24 +28,38 @@ export function getStaticPaths() {
         slovak: related.slovak,
       }));
 
-    const exampleTargets = (examples: Example[], prefix: string): AudioMountTarget[] =>
-      examples.flatMap((example, index) => {
-        const hash = audioHash(example.slovak);
-        if (!hasAudioClip(hash)) return [];
+    const audioTarget = (slovak: string, key: string): AudioMountTarget[] => {
+      const hash = audioHash(slovak);
+      if (!hasAudioClip(hash)) return [];
 
-        const kind = audioClipKind(hash) === "lemma" ? "lemma" : "example";
-        return [
-          {
-            key: `${prefix}-${index}`,
-            props: {
-              label: `Listen: ${example.slovak}`,
-              size: "sm" as const,
-              src: resolveKeyedAudioSrc(example.slovak, kind),
-              text: example.slovak,
-            },
+      const kind = audioClipKind(hash) === "lemma" ? "lemma" : "example";
+      return [
+        {
+          key,
+          props: {
+            label: `Listen: ${slovak}`,
+            size: "sm" as const,
+            src: resolveKeyedAudioSrc(slovak, kind),
+            text: slovak,
           },
-        ];
-      });
+        },
+      ];
+    };
+
+    const exampleTargets = (examples: Example[], prefix: string): AudioMountTarget[] =>
+      examples.flatMap((example, index) =>
+        audioTarget(example.slovak, `${prefix}-${index}`),
+      );
+
+    const frameTargets = (
+      frames: GrammarContrast[],
+      prefix: string,
+    ): AudioMountTarget[] =>
+      frames.flatMap((frame, frameIndex) =>
+        frame.choices.flatMap((choice, choiceIndex) =>
+          audioTarget(choice.slovak.text, `${prefix}-${frameIndex}-${choiceIndex}`),
+        ),
+      );
 
     const audioTargets: AudioMountTarget[] = [
       ...exampleTargets(entry.examples, "ex"),
@@ -53,6 +67,8 @@ export function getStaticPaths() {
       ...(entry.morePatterns ?? []).flatMap((pattern, index) =>
         exampleTargets(pattern.examples ?? [], `more-${index}-ex`),
       ),
+      ...frameTargets(entry.contrasts?.frames ?? [], "contrast"),
+      ...frameTargets(entry.contrasts?.more ?? [], "contrast-more"),
     ];
 
     const practiceRules = practiceRulesForGrammarTopic(entry.slug);

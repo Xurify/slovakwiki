@@ -4,10 +4,13 @@
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
+  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
 
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
+  import GrammarContrastList from "$lib/components/reference/GrammarContrastList.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
+  import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
   import {
     grammarHeadingClass,
@@ -22,6 +25,7 @@
   import { patternView } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
+  import { cx } from "$lib/ui/classes";
 
   interface RelatedEntry {
     english: string;
@@ -45,6 +49,14 @@
     clockDrill?: Snippet;
     weakSpots?: Snippet;
   } = $props();
+
+  // Subgrid lines the explanations up in one column, whatever each term's width.
+  const termListClass = "m-0 mt-3 grid sm:grid-cols-[max-content_minmax(0,1fr)]";
+
+  const termRowClass = cx(
+    "grid scroll-mt-24 gap-x-8 gap-y-2 border-b border-slate-200/70 px-4 py-4 last:border-b-0",
+    "sm:col-span-2 sm:grid-cols-subgrid sm:px-5",
+  );
 
   const isTime = $derived(topic.slug === "telling-time");
   const terms = $derived(topic.termSections ?? []);
@@ -204,30 +216,75 @@
 
       <div class="mt-3 flex flex-col gap-3">
         {#each topic.rule as paragraph (paragraph)}
-          <p class={grammarProseClass}>{paragraph}</p>
+          <p class={grammarProseClass}><GrammarRichText text={paragraph} /></p>
         {/each}
       </div>
 
       <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-800">
         <span class="font-semibold">When you read. </span>
-        {topic.lookFor}
+        <GrammarRichText text={topic.lookFor} />
       </p>
     </section>
 
-    <GrammarWatchOut text={topic.watchOut} />
+    {#if topic.contrasts}
+      <section id="contrasts" class="mt-8" aria-labelledby="contrasts-heading">
+        <h2 id="contrasts-heading" class={grammarHeadingClass}>
+          {topic.contrasts.label}
+        </h2>
+
+        {#if topic.contrasts.intro}
+          <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+            <GrammarRichText text={topic.contrasts.intro} />
+          </p>
+        {/if}
+
+        <div class="mt-4">
+          <GrammarContrastList contrasts={topic.contrasts} {audioKeys} />
+        </div>
+      </section>
+    {/if}
+
+    <GrammarWatchOut items={topic.watchOut} />
 
     {#if terms.length > 0}
       <section id="terms" class="mt-8" aria-labelledby="terms-heading">
         <h2 id="terms-heading" class={grammarHeadingClass}>Key labels</h2>
 
-        <dl class="m-0 mt-3 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+        <dl class={cx(dataPanelClass, termListClass)}>
           {#each terms as term (term.id)}
-            <div id={term.id} class="scroll-mt-24 border-t border-slate-200 pt-2">
-              <dt class="font-serif text-lg font-semibold text-slate-900">
-                {term.title}
+            <div id={term.id} class={termRowClass}>
+              <dt class="flex flex-col gap-0.5">
+                <span
+                  class="font-serif text-lg leading-snug font-semibold text-slate-900"
+                  lang={term.gloss ? "sk" : undefined}
+                >
+                  {term.term}
+                </span>
+
+                {#if term.gloss}
+                  <span class="text-sm text-slate-500">{term.gloss}</span>
+                {/if}
               </dt>
-              <dd class="m-0 mt-1 text-sm leading-relaxed text-pretty text-slate-600">
-                {term.body}
+
+              <dd class="m-0 flex flex-col gap-2">
+                <p class="m-0 text-[0.95rem] leading-relaxed text-pretty text-slate-700">
+                  <GrammarRichText text={term.body} />
+                </p>
+
+                {#if term.examples?.length}
+                  <ul
+                    class="m-0 flex list-none flex-wrap gap-x-1.5 gap-y-1 p-0"
+                    lang="sk"
+                  >
+                    {#each term.examples as example (example)}
+                      <li
+                        class="rounded-sm bg-subtle px-2 py-0.5 font-serif text-[0.95rem] text-slate-900"
+                      >
+                        {example}
+                      </li>
+                    {/each}
+                  </ul>
+                {/if}
               </dd>
             </div>
           {/each}

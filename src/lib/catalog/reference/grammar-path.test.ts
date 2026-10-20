@@ -20,14 +20,15 @@ describe("grammarReadingOrder", () => {
       "grammatical-gender",
       "cases-overview",
       "demonstratives",
+      "possessives",
     ]);
   });
 });
 
 describe("grammarNeighbors", () => {
   it("crosses area boundaries", () => {
-    const { previous, next } = grammarNeighbors("demonstratives");
-    expect(previous?.slug).toBe("cases-overview");
+    const { previous, next } = grammarNeighbors("possessives");
+    expect(previous?.slug).toBe("demonstratives");
     expect(next?.slug).toBe("present-tense");
   });
 
