@@ -67,12 +67,9 @@
 
         {#if frame.label}
           <span class={cx(eyebrowMutedClass, "text-right")}>
-            {frame.label.en}
-            <span
-              class="font-normal normal-case tracking-normal text-slate-500"
-              lang="sk"
-            >
-              · {frame.label.sk}
+            <span lang="sk">{frame.label.sk}</span>
+            <span class="font-normal normal-case tracking-normal text-slate-500">
+              · {frame.label.en}
             </span>
           </span>
         {/if}
@@ -129,10 +126,9 @@
       follows the noun.
     {/if}
     {#if labelled}
-      Labels give the English term and the Slovak school term (<span lang="sk">pád</span>
-      case,
+      Labels use the Slovak school terms (<span lang="sk">pád</span> case,
       <span lang="sk">rod</span> gender, <span lang="sk">životný</span> animate,
-      <span lang="sk">množné číslo</span> plural), as in
+      <span lang="sk">množné číslo</span> plural), with the English after, as in
       <TextLink
         href="https://www.juls.savba.sk/ediela/msj/"
         rel="noopener noreferrer"
