@@ -195,9 +195,9 @@ export interface GrammarTablePattern extends GrammarPatternShared {
 export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 
 /**
- * A stop on the small scale drawn above each card sentence: where the thing is
- * (`me`, `them`, `far`), when (`before`, `now`, `later`), whose (`own`, `other`),
- * or who you talk to (`friend`, `formal`).
+ * What decides a choice: where the thing is (`me`, `them`, `far`), when
+ * (`before`, `now`, `later`), whose (`own`, `other`), or who you talk to
+ * (`friend`, `formal`). Drawn as an icon in the legend and on each card side.
  */
 export type GrammarCue =
   | "me"
@@ -211,31 +211,46 @@ export type GrammarCue =
   | "friend"
   | "formal";
 
-/** One side of a contrast card. */
-export interface GrammarChoice {
-  /** Where this sentence sits on the pair's `scale`. */
-  at?: GrammarCue;
+export interface GrammarSentence {
   english: string;
-  /** Spoken Slovak, with the word the pair turns on marked. */
+  /** Spoken Slovak, with the word that changes marked. */
   slovak: MarkedText;
+}
+
+/** One side of a contrast card. */
+export interface GrammarChoice extends GrammarSentence {
+  /** Tags the side with its cue: “near you”, “over there”. */
+  at?: GrammarCue;
   /** The situation that calls for this sentence. Reads after “If …”. */
   when: string;
 }
 
 /** Two near-identical sentences; the situation decides between them. */
 export interface GrammarContrast {
-  /** The case or number the pair shows (Instrumental plural). */
-  label?: string;
   choices: readonly [GrammarChoice, GrammarChoice];
-  /** Stops drawn above both sentences; each choice lights up its `at`. */
-  scale?: readonly GrammarCue[];
+}
+
+/** One stop in the legend above the cards: the word and when to use it. */
+export interface GrammarLegendStop {
+  cue: GrammarCue;
+  note: string;
+  word: string;
+}
+
+/** The same two-way choice repeated across cases, one compact row each. */
+export interface GrammarContrastForms {
+  columns: readonly [string, string];
+  label: string;
+  rows: { label: string; sentences: readonly [GrammarSentence, GrammarSentence] }[];
 }
 
 export interface GrammarContrastSet {
   /** The choice the learner faces: “Tento, ten, or tamten?” */
   label: string;
   intro?: string;
+  legend?: GrammarLegendStop[];
   pairs: GrammarContrast[];
+  forms?: GrammarContrastForms;
 }
 
 /** A form learners get wrong, the form to use, and a few words on why. */

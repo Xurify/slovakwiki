@@ -62,6 +62,11 @@ export function getStaticPaths() {
           audioTarget(choice.slovak.text, `contrast-${pairIndex}-${side}`),
         ),
       ),
+      ...(entry.contrasts?.forms?.rows ?? []).flatMap((row, rowIndex) =>
+        row.sentences.flatMap((sentence, side) =>
+          audioTarget(sentence.slovak.text, `contrast-form-${rowIndex}-${side}`),
+        ),
+      ),
     ];
 
     const practiceRules = practiceRulesForGrammarTopic(entry.slug);

@@ -341,7 +341,6 @@ export const grammarEntries: GrammarTopic[] = [
         "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”.",
       pairs: [
         {
-          scale: ["now", "later"],
           choices: [
             {
               at: "now",
@@ -631,12 +630,13 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     contrasts: {
       label: "Tento, ten, or tamten?",
-      intro:
-        "**Tento** is for something close to you, or happening now. **Tamten** is for something over there. **Ten** is the everyday “that”: near the other person, in the past, or something you both know.",
+      legend: [
+        { cue: "me", word: "tento", note: "with you, or now" },
+        { cue: "them", word: "ten", note: "with them, in the past, or already known" },
+        { cue: "far", word: "tamten", note: "over there" },
+      ],
       pairs: [
         {
-          label: "Nominative · feminine",
-          scale: ["me", "them", "far"],
           choices: [
             {
               at: "me",
@@ -661,8 +661,6 @@ export const grammarEntries: GrammarTopic[] = [
           ],
         },
         {
-          label: "Nominative · masculine",
-          scale: ["before", "now"],
           choices: [
             {
               at: "now",
@@ -685,108 +683,6 @@ export const grammarEntries: GrammarTopic[] = [
           ],
         },
         {
-          label: "Nominative · plural",
-          scale: ["me", "them", "far"],
-          choices: [
-            {
-              at: "me",
-              slovak: markedText([
-                { role: "demonstrative", text: "Tieto" },
-                " topánky sú pohodlné.",
-              ]),
-              english: "These shoes are comfortable.",
-              when: "you are wearing them",
-            },
-            {
-              at: "far",
-              slovak: markedText([
-                { role: "demonstrative", text: "Tamtie" },
-                " topánky sú pohodlné.",
-              ]),
-              english: "Those shoes over there are comfortable.",
-              when: "they are on a shelf across the shop",
-            },
-          ],
-        },
-        {
-          label: "Nominative · masculine nouns for people, plural",
-          scale: ["me", "them", "far"],
-          choices: [
-            {
-              at: "me",
-              slovak: markedText([
-                { role: "demonstrative", text: "Títo" },
-                " ľudia čakajú na autobus.",
-              ]),
-              english: "These people are waiting for the bus.",
-              when: "they are standing right next to you",
-            },
-            {
-              at: "far",
-              slovak: markedText([
-                { role: "demonstrative", text: "Tamtí" },
-                " ľudia čakajú na autobus.",
-              ]),
-              english: "Those people over there are waiting for the bus.",
-              when: "they are at the stop across the street",
-            },
-          ],
-        },
-        {
-          label: "Genitive · masculine",
-          scale: ["me", "them", "far"],
-          choices: [
-            {
-              at: "me",
-              slovak: markedText([
-                "Bojím sa ",
-                { role: "demonstrative", text: "tohto" },
-                " psa.",
-              ]),
-              english: "I'm afraid of this dog.",
-              when: "the dog is at your feet",
-            },
-            {
-              at: "far",
-              slovak: markedText([
-                "Bojím sa ",
-                { role: "demonstrative", text: "tamtoho" },
-                " psa.",
-              ]),
-              english: "I'm afraid of that dog over there.",
-              when: "the dog is behind a fence down the street",
-            },
-          ],
-        },
-        {
-          label: "Dative · plural",
-          scale: ["me", "them", "far"],
-          choices: [
-            {
-              at: "me",
-              slovak: markedText([
-                "Pomôž ",
-                { role: "demonstrative", text: "týmto" },
-                " deťom.",
-              ]),
-              english: "Help these children.",
-              when: "the children are standing with you",
-            },
-            {
-              at: "far",
-              slovak: markedText([
-                "Pomôž ",
-                { role: "demonstrative", text: "tamtým" },
-                " deťom.",
-              ]),
-              english: "Help those children over there.",
-              when: "the children are on the other side of the playground",
-            },
-          ],
-        },
-        {
-          label: "Accusative · feminine",
-          scale: ["me", "them", "far"],
           choices: [
             {
               at: "me",
@@ -810,85 +706,156 @@ export const grammarEntries: GrammarTopic[] = [
             },
           ],
         },
-        {
-          label: "Locative · masculine",
-          scale: ["me", "them", "far"],
-          choices: [
-            {
-              at: "me",
-              slovak: markedText([
-                "Bývam v ",
-                { role: "demonstrative", text: "tomto" },
-                " dome.",
-              ]),
-              english: "I live in this house.",
-              when: "you are standing in front of it",
-            },
-            {
-              at: "far",
-              slovak: markedText([
-                "Bývam v ",
-                { role: "demonstrative", text: "tamtom" },
-                " dome.",
-              ]),
-              english: "I live in that house over there.",
-              when: "you point at a house further down the street",
-            },
-          ],
-        },
-        {
-          label: "Instrumental · masculine",
-          scale: ["me", "them", "far"],
-          choices: [
-            {
-              at: "me",
-              slovak: markedText([
-                "Pôjdem ",
-                { role: "demonstrative", text: "týmto" },
-                " autobusom.",
-              ]),
-              english: "I'll take this bus.",
-              when: "the bus is right here at the stop",
-            },
-            {
-              at: "far",
-              slovak: markedText([
-                "Pôjdem ",
-                { role: "demonstrative", text: "tamtým" },
-                " autobusom.",
-              ]),
-              english: "I'll take that bus over there.",
-              when: "you point at a bus waiting further back",
-            },
-          ],
-        },
-        {
-          label: "Instrumental · plural",
-          scale: ["me", "them", "far"],
-          choices: [
-            {
-              at: "me",
-              slovak: markedText([
-                "Pracujem s ",
-                { role: "demonstrative", text: "týmito" },
-                " ľuďmi.",
-              ]),
-              english: "I work with these people.",
-              when: "they are sitting around you at the table",
-            },
-            {
-              at: "far",
-              slovak: markedText([
-                "Pracujem s ",
-                { role: "demonstrative", text: "tamtými" },
-                " ľuďmi.",
-              ]),
-              english: "I work with those people over there.",
-              when: "you point at a group across the room",
-            },
-          ],
-        },
       ],
+      forms: {
+        label: "The same choice in every case",
+        columns: ["tento · near you", "tamten · over there"],
+        rows: [
+          {
+            label: "Nominative · plural",
+            sentences: [
+              {
+                slovak: markedText([
+                  { role: "demonstrative", text: "Tieto" },
+                  " topánky sú pohodlné.",
+                ]),
+                english: "These shoes are comfortable.",
+              },
+              {
+                slovak: markedText([
+                  { role: "demonstrative", text: "Tamtie" },
+                  " topánky sú pohodlné.",
+                ]),
+                english: "Those shoes are comfortable.",
+              },
+            ],
+          },
+          {
+            label: "Nominative · men, plural",
+            sentences: [
+              {
+                slovak: markedText([
+                  { role: "demonstrative", text: "Títo" },
+                  " ľudia čakajú na autobus.",
+                ]),
+                english: "These people are waiting for the bus.",
+              },
+              {
+                slovak: markedText([
+                  { role: "demonstrative", text: "Tamtí" },
+                  " ľudia čakajú na autobus.",
+                ]),
+                english: "Those people are waiting for the bus.",
+              },
+            ],
+          },
+          {
+            label: "Genitive",
+            sentences: [
+              {
+                slovak: markedText([
+                  "Bojím sa ",
+                  { role: "demonstrative", text: "tohto" },
+                  " psa.",
+                ]),
+                english: "I'm afraid of this dog.",
+              },
+              {
+                slovak: markedText([
+                  "Bojím sa ",
+                  { role: "demonstrative", text: "tamtoho" },
+                  " psa.",
+                ]),
+                english: "I'm afraid of that dog.",
+              },
+            ],
+          },
+          {
+            label: "Dative · plural",
+            sentences: [
+              {
+                slovak: markedText([
+                  "Pomôž ",
+                  { role: "demonstrative", text: "týmto" },
+                  " deťom.",
+                ]),
+                english: "Help these children.",
+              },
+              {
+                slovak: markedText([
+                  "Pomôž ",
+                  { role: "demonstrative", text: "tamtým" },
+                  " deťom.",
+                ]),
+                english: "Help those children.",
+              },
+            ],
+          },
+          {
+            label: "Locative",
+            sentences: [
+              {
+                slovak: markedText([
+                  "Bývam v ",
+                  { role: "demonstrative", text: "tomto" },
+                  " dome.",
+                ]),
+                english: "I live in this house.",
+              },
+              {
+                slovak: markedText([
+                  "Bývam v ",
+                  { role: "demonstrative", text: "tamtom" },
+                  " dome.",
+                ]),
+                english: "I live in that house.",
+              },
+            ],
+          },
+          {
+            label: "Instrumental",
+            sentences: [
+              {
+                slovak: markedText([
+                  "Pôjdem ",
+                  { role: "demonstrative", text: "týmto" },
+                  " autobusom.",
+                ]),
+                english: "I'll take this bus.",
+              },
+              {
+                slovak: markedText([
+                  "Pôjdem ",
+                  { role: "demonstrative", text: "tamtým" },
+                  " autobusom.",
+                ]),
+                english: "I'll take that bus.",
+              },
+            ],
+          },
+          {
+            label: "Instrumental · plural",
+            sentences: [
+              {
+                slovak: markedText([
+                  "Pracujem s ",
+                  { role: "demonstrative", text: "týmito" },
+                  " ľuďmi.",
+                ]),
+                english: "I work with these people.",
+              },
+              {
+                slovak: markedText([
+                  "Pracujem s ",
+                  { role: "demonstrative", text: "tamtými" },
+                  " ľuďmi.",
+                ]),
+                english: "I work with those people.",
+              },
+            ],
+          },
+        ],
+      },
     },
     watchOut: [
       { wrong: "tá dievča", right: "to dievča", why: "**Dievča** is neuter." },
@@ -1024,8 +991,6 @@ export const grammarEntries: GrammarTopic[] = [
         "Look at who owns the thing. That picks the word, even when the English stays the same.",
       pairs: [
         {
-          label: "Nominative",
-          scale: ["friend", "formal"],
           choices: [
             {
               at: "friend",
@@ -1050,7 +1015,6 @@ export const grammarEntries: GrammarTopic[] = [
           ],
         },
         {
-          label: "Accusative",
           choices: [
             {
               slovak: markedText([
@@ -1073,8 +1037,6 @@ export const grammarEntries: GrammarTopic[] = [
           ],
         },
         {
-          label: "Accusative · plural",
-          scale: ["own", "other"],
           choices: [
             {
               at: "own",
@@ -1099,61 +1061,57 @@ export const grammarEntries: GrammarTopic[] = [
             },
           ],
         },
-        {
-          label: "Dative",
-          scale: ["own", "other"],
-          choices: [
-            {
-              at: "own",
-              slovak: markedText([
-                { role: "owner", text: "Tom" },
-                " volá ",
-                { role: "possessive", text: "svojej" },
-                " mame.",
-              ]),
-              english: "Tom is calling his mom.",
-              when: "she is Tom's own mother",
-            },
-            {
-              at: "other",
-              slovak: markedText([
-                "Tom volá ",
-                { role: "possessive", text: "jeho" },
-                " mame.",
-              ]),
-              english: "Tom is calling his mom.",
-              when: "she is another man's mother, like his friend's",
-            },
-          ],
-        },
-        {
-          label: "Instrumental",
-          scale: ["own", "other"],
-          choices: [
-            {
-              at: "own",
-              slovak: markedText([
-                { role: "owner", text: "Eva" },
-                " ide do kina ",
-                { role: "possessive", text: "so svojím" },
-                " bratom.",
-              ]),
-              english: "Eva is going to the cinema with her brother.",
-              when: "he is Eva's own brother",
-            },
-            {
-              at: "other",
-              slovak: markedText([
-                "Eva ide do kina ",
-                { role: "possessive", text: "s jej" },
-                " bratom.",
-              ]),
-              english: "Eva is going to the cinema with her brother.",
-              when: "he is another woman's brother, like her friend's",
-            },
-          ],
-        },
       ],
+      forms: {
+        label: "The same choice in every case",
+        columns: ["svoj · their own", "jeho, jej · someone else's"],
+        rows: [
+          {
+            label: "Dative",
+            sentences: [
+              {
+                slovak: markedText([
+                  { role: "owner", text: "Tom" },
+                  " volá ",
+                  { role: "possessive", text: "svojej" },
+                  " mame.",
+                ]),
+                english: "Tom is calling his own mom.",
+              },
+              {
+                slovak: markedText([
+                  "Tom volá ",
+                  { role: "possessive", text: "jeho" },
+                  " mame.",
+                ]),
+                english: "Tom is calling his (another man's) mom.",
+              },
+            ],
+          },
+          {
+            label: "Instrumental",
+            sentences: [
+              {
+                slovak: markedText([
+                  { role: "owner", text: "Eva" },
+                  " ide do kina ",
+                  { role: "possessive", text: "so svojím" },
+                  " bratom.",
+                ]),
+                english: "Eva is going to the cinema with her own brother.",
+              },
+              {
+                slovak: markedText([
+                  "Eva ide do kina ",
+                  { role: "possessive", text: "s jej" },
+                  " bratom.",
+                ]),
+                english: "Eva is going to the cinema with her (another woman's) brother.",
+              },
+            ],
+          },
+        ],
+      },
     },
     watchOut: [
       {
@@ -1260,11 +1218,16 @@ export const grammarEntries: GrammarTopic[] = [
     },
     contrasts: {
       label: "Ty or vy?",
-      intro:
-        "**Ty** is for one friend. **Vy** is for someone you don't know well, or for more than one person.",
+      legend: [
+        { cue: "friend", word: "ty", note: "one friend, a child, family" },
+        {
+          cue: "formal",
+          word: "vy",
+          note: "someone you don't know well, or more than one person",
+        },
+      ],
       pairs: [
         {
-          scale: ["friend", "formal"],
           choices: [
             {
               at: "friend",
@@ -1281,7 +1244,6 @@ export const grammarEntries: GrammarTopic[] = [
           ],
         },
         {
-          scale: ["friend", "formal"],
           choices: [
             {
               at: "friend",

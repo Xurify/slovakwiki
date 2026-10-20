@@ -204,6 +204,9 @@ function grammarSentences(slugs?: Set<string>): string[] {
       ...(topic.contrasts?.pairs ?? []).flatMap((pair) =>
         pair.choices.map((choice) => choice.slovak.text),
       ),
+      ...(topic.contrasts?.forms?.rows ?? []).flatMap((row) =>
+        row.sentences.map((sentence) => sentence.slovak.text),
+      ),
     ]);
 }
 

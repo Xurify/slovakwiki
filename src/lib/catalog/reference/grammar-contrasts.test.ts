@@ -35,18 +35,25 @@ describe("grammar contrast cards", () => {
     }
   });
 
-  it("lights a different stop on the scale for each side", () => {
+  it("tags the two sides of a card with different cues", () => {
     for (const topic of contrastTopics) {
-      for (const { scale, choices } of topic.contrasts!.pairs) {
-        if (!scale) {
-          expect(choices.some((choice) => choice.at)).toBe(false);
-          continue;
-        }
-
+      for (const { choices } of topic.contrasts!.pairs) {
         const [left, right] = choices;
-        expect(scale, left.slovak.text).toContain(left.at);
-        expect(scale, right.slovak.text).toContain(right.at);
-        expect(left.at, left.slovak.text).not.toBe(right.at);
+        if (left.at && right.at) expect(left.at, left.slovak.text).not.toBe(right.at);
+      }
+    }
+  });
+
+  it("marks the changing word in every case row", () => {
+    for (const topic of contrastTopics) {
+      for (const row of topic.contrasts!.forms?.rows ?? []) {
+        for (const sentence of row.sentences) {
+          const marked = segmentsFromMarks(sentence.slovak.text, sentence.slovak.marks);
+          expect(
+            marked.some((segment) => segment.role),
+            sentence.slovak.text,
+          ).toBe(true);
+        }
       }
     }
   });

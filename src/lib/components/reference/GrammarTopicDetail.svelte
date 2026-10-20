@@ -229,7 +229,7 @@
         {/if}
 
         <div class="mt-4">
-          <GrammarContrastList pairs={topic.contrasts.pairs} {audioKeys} />
+          <GrammarContrastList contrasts={topic.contrasts} {audioKeys} />
         </div>
       </section>
     {/if}

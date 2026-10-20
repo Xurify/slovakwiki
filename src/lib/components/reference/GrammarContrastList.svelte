@@ -3,71 +3,157 @@
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
 
+  import GrammarCueIcon from "$lib/components/reference/GrammarCueIcon.svelte";
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
-  import GrammarScale from "$lib/components/reference/GrammarScale.svelte";
   import {
     grammarFormClass,
     grammarGlossClass,
   } from "$lib/components/reference/grammar-topic-ui";
-  import type { GrammarContrast } from "$lib/catalog/types";
+  import type {
+    GrammarContrastSet,
+    GrammarCue,
+    GrammarSentence,
+  } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
 
   let {
-    pairs,
+    contrasts,
     audioKeys = [],
   }: {
-    pairs: GrammarContrast[];
-    /** `contrast-{pair}-{side}` keys that have a recorded clip. */
+    contrasts: GrammarContrastSet;
+    /** `contrast-{pair}-{side}` / `contrast-form-{row}-{side}` keys with a recorded clip. */
     audioKeys?: string[];
   } = $props();
 
-  const choiceClass = "flex min-w-0 flex-col gap-3 px-4 py-4 sm:px-5";
+  const cueLabel: Record<GrammarCue, string> = {
+    me: "near you",
+    them: "near them",
+    far: "over there",
+    before: "in the past",
+    now: "now",
+    later: "later",
+    own: "their own",
+    other: "someone else's",
+    friend: "a friend",
+    formal: "formal / group",
+  };
+
+  const legendColumns: Record<number, string> = {
+    2: "sm:grid-cols-2",
+    3: "sm:grid-cols-3",
+  };
+
+  const sideClass = "border-slate-200/70 max-sm:border-t sm:border-l";
 </script>
 
-<ol class={cx(dataPanelClass, "m-0 list-none p-0")}>
-  {#each pairs as pair, pairIndex (pair.choices[0].slovak.text)}
-    <li class="border-b border-slate-200 last:border-b-0">
-      {#if pair.label}
-        <p class={cx(eyebrowMutedClass, "px-4 pt-3.5 sm:px-5")}>{pair.label}</p>
-      {/if}
+{#snippet spoken(sentence: GrammarSentence, audioKey: string, size: "lg" | "base")}
+  <div class="flex items-start gap-2.5">
+    {#if audioKeys.includes(audioKey)}
+      <span class="mt-0.5 inline-flex size-7 shrink-0" data-audio-mount={audioKey}></span>
+    {/if}
 
-      <div class="grid sm:grid-cols-2">
-        {#each pair.choices as choice, side (side)}
-          {@const audioKey = `contrast-${pairIndex}-${side}`}
+    <div class="min-w-0">
+      <p class={cx(grammarFormClass, "m-0", size === "lg" ? "text-lg" : "text-base")}>
+        <MarkedText text={sentence.slovak.text} marks={sentence.slovak.marks} />
+      </p>
 
-          <div
-            class={cx(
-              choiceClass,
-              side === 1 && "border-slate-200/70 max-sm:border-t sm:border-l",
-            )}
-          >
-            {#if pair.scale}
-              <GrammarScale stops={pair.scale} at={choice.at} />
-            {/if}
+      <p class={cx(grammarGlossClass, "m-0 mt-0.5", size === "base" && "text-sm")}>
+        {sentence.english}
+      </p>
+    </div>
+  </div>
+{/snippet}
 
-            <div class="flex items-start gap-2.5">
-              {#if audioKeys.includes(audioKey)}
-                <span
-                  class="mt-0.5 inline-flex size-7 shrink-0"
-                  data-audio-mount={audioKey}
-                ></span>
-              {/if}
+{#if contrasts.legend}
+  <ul
+    class={cx(
+      dataPanelClass,
+      "m-0 grid list-none p-0",
+      legendColumns[contrasts.legend.length],
+    )}
+  >
+    {#each contrasts.legend as stop, index (stop.word)}
+      <li
+        class={cx("flex items-start gap-3 px-4 py-3.5 sm:px-5", index > 0 && sideClass)}
+      >
+        <span
+          class="grid size-9 shrink-0 place-items-center rounded-full bg-blue-50 text-blue-800"
+        >
+          <GrammarCueIcon cue={stop.cue} class="size-5" />
+        </span>
 
-              <div class="min-w-0">
-                <p class={cx(grammarFormClass, "m-0 text-lg")}>
-                  <MarkedText text={choice.slovak.text} marks={choice.slovak.marks} />
-                </p>
+        <span class="min-w-0">
+          <span class="block font-serif text-lg font-semibold text-slate-900" lang="sk">
+            {stop.word}
+          </span>
 
-                <p class={cx(grammarGlossClass, "m-0 mt-0.5")}>{choice.english}</p>
-              </div>
-            </div>
+          <span class="block text-sm leading-snug text-slate-600">{stop.note}</span>
+        </span>
+      </li>
+    {/each}
+  </ul>
+{/if}
 
-            <p class="m-0 text-sm leading-snug text-pretty text-slate-600">
-              If <GrammarRichText text={choice.when} />.
-            </p>
-          </div>
-        {/each}
-      </div>
+<ol class={cx(dataPanelClass, "m-0 list-none p-0", contrasts.legend && "mt-4")}>
+  {#each contrasts.pairs as pair, pairIndex (pair.choices[0].slovak.text)}
+    <li class="grid border-b border-slate-200 last:border-b-0 sm:grid-cols-2">
+      {#each pair.choices as choice, side (side)}
+        <div
+          class={cx(
+            "flex min-w-0 flex-col gap-2.5 px-4 py-4 sm:px-5",
+            side === 1 && sideClass,
+          )}
+        >
+          {#if choice.at}
+            <span
+              class="inline-flex items-center gap-1.5 self-start rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-800"
+            >
+              <GrammarCueIcon cue={choice.at} class="size-3.5" />
+              {cueLabel[choice.at]}
+            </span>
+          {/if}
+
+          {@render spoken(choice, `contrast-${pairIndex}-${side}`, "lg")}
+
+          <p class="m-0 text-sm leading-snug text-pretty text-slate-600">
+            If <GrammarRichText text={choice.when} />.
+          </p>
+        </div>
+      {/each}
     </li>
   {/each}
 </ol>
+
+{#if contrasts.forms}
+  {@const forms = contrasts.forms}
+
+  <h3 class="m-0 mt-6 font-serif text-lg text-slate-900">{forms.label}</h3>
+
+  <div class={cx(dataPanelClass, "mt-3")}>
+    <div
+      class={cx(
+        eyebrowMutedClass,
+        "hidden border-b border-slate-200 bg-subtle/60 px-4 py-2 sm:grid sm:grid-cols-[9rem_minmax(0,1fr)_minmax(0,1fr)] sm:gap-x-5 sm:px-5",
+      )}
+      aria-hidden="true"
+    >
+      <span></span>
+      <span>{forms.columns[0]}</span>
+      <span>{forms.columns[1]}</span>
+    </div>
+
+    <ul class="m-0 list-none p-0">
+      {#each forms.rows as row, rowIndex (row.label)}
+        <li
+          class="grid gap-x-5 gap-y-2 border-b border-slate-200/70 px-4 py-3 last:border-b-0 sm:grid-cols-[9rem_minmax(0,1fr)_minmax(0,1fr)] sm:px-5"
+        >
+          <span class="text-sm leading-snug text-slate-500 sm:pt-1">{row.label}</span>
+
+          {#each row.sentences as sentence, side (side)}
+            {@render spoken(sentence, `contrast-form-${rowIndex}-${side}`, "base")}
+          {/each}
+        </li>
+      {/each}
+    </ul>
+  </div>
+{/if}
