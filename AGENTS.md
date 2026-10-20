@@ -265,3 +265,14 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - [ ] Desktop + mobile still look correct
 - [ ] If a layout with a skeleton changed drastically: matching skeleton updated
 - [ ] Hydration: no new full-page `client:*` on mostly-static shells (see **Astro islands**)
+
+## Pull requests
+
+Every PR description has a **QA** section ([template](.github/pull_request_template.md)): one link per page or part the PR changes, so review starts with a click.
+
+- **Link the Vercel preview**, not production: `https://slovakwiki-git-<branch>-xurifys-projects.vercel.app` + path, with each `/` in the branch name turned into `-` (`feat/grammar-contrast-cards` → `slovakwiki-git-feat-grammar-contrast-cards-xurifys-projects.vercel.app`). Vercel shortens long branch names; if the `vercel[bot]` comment's **Preview** link has a different host, use that host.
+- **Point at the exact part**: a section anchor (`/grammar/possessives#contrasts`), a search (`/search?q=tohto`), a practice item (`/practice/possessives?at=grammar%2Fpossessive-svoj-choice`). A bare page link is only for a new page.
+- **One checkbox per link, saying what to check**: `- [ ] [Possessives — Who is the owner?](…/grammar/possessives#contrasts): five cards, case label on each, audio on every sentence`. Name the viewport or theme when the change is layout (mobile, dark).
+- **Cover every surface the diff touches**, including pages that only reuse a changed component or link to a new page.
+- When a later push adds a page or moves an anchor, update the QA list in the same push.
+- Docs-only PRs get no preview build (`scripts/vercel-ignore-preview.mjs`); link the changed files on GitHub instead.
