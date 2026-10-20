@@ -113,7 +113,7 @@ Layout: local `static/audio/{kind}/{hash}.mp3`. R2 `audio/{kind}/{hash}.mp3` (sa
 
 Generate lesson clips: `bun scripts/audio/generate.ts -- --lessons-only`. After voice swaps: add `--force`. Lesson content may churn — treat those MP3s as disposable.
 
-Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
+Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local page URLs stay `/audio/{kind}/{hash}.mp3`. In `astro dev`, a missing file under `static/audio/` is proxied from that base when the env is set; a file on disk still wins.
 
 **QA / accuracy:** Default TTS is `eleven_v4` + `language_code: sk`. Spoken text is the learner line, with no synth rewrite. `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
 

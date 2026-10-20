@@ -10,8 +10,9 @@ function cacheBustUrl(url: string, hash: string): string {
 /**
  * Dictionary page audio URLs (build-time / SSR only).
  *
- * - **Dev:** always `/audio/…` — never CDN, even when `PUBLIC_AUDIO_BASE_URL` is in `.env`.
- *   Matches gitignored `static/audio/` + Vite `publicDir`.
+ * - **Dev:** always `/audio/…`, even when `PUBLIC_AUDIO_BASE_URL` is in `.env`.
+ *   Vite serves `static/audio/`. A missing file is proxied to the CDN by
+ *   `audioDevFallback` so R2-only clips still play.
  * - **Prod:** always CDN via `resolveAudioSrc` — local disk is not on Vercel.
  *   After regen: `bun scripts/audio/upload.ts`.
  */
