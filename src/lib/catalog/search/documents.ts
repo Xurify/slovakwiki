@@ -3,6 +3,7 @@ import { dictionaryPathForSense } from "../dictionary/lemma-senses";
 import { lessons } from "../lessons";
 import { practiceSets } from "../practice";
 import { searchFormsForLemma } from "./forms";
+import { wordCategoryLabel } from "./pronouns";
 import { normalizeSearchText, type SearchDocKind } from "./ui";
 import type { WordRegister } from "../types";
 
@@ -15,20 +16,9 @@ export {
   sentenceCase,
 } from "./ui";
 
-/**
- * Pagefind weight per block (0–10, default 1). Headwords and forms outrank glosses,
- * and glosses outrank example sentences, so a word that only appears in someone
- * else's example never beats the word itself.
- */
-export const SEARCH_WEIGHTS = {
-  headword: 10,
-  forms: 7,
-  gloss: 4,
-  body: 1,
-  examples: 0.5,
-} as const;
+import { SEARCH_WEIGHTS, type SearchWeight } from "./ui";
 
-export type SearchWeight = keyof typeof SEARCH_WEIGHTS;
+export { SEARCH_WEIGHTS, type SearchWeight };
 
 export interface SearchSection {
   text: string;
@@ -90,7 +80,7 @@ export function buildSearchDocuments(): SearchDocument[] {
       kind: "word",
       title: entry.slovak,
       summary: entry.english,
-      category: entry.category,
+      category: wordCategoryLabel(entry.slovak, entry.category),
       ...(entry.register ? { register: entry.register } : {}),
       ...sections({
         headword: [entry.slovak],

@@ -4,14 +4,17 @@ import {
   findPronounForms,
   pronounFormVocabulary,
   pronounLemmas,
+  wordCategoryLabel,
   type PronounLemma,
 } from "$lib/catalog/search/pronouns";
 import type { SearchTopic } from "$lib/catalog/search/topics";
 import {
   normalizeSearchText,
+  SEARCH_WEIGHTS,
   searchMetaLabel,
   type SearchDocKind,
 } from "$lib/catalog/search/ui";
+import { nounGenderLabel } from "$lib/catalog/types";
 
 import {
   MATCH_ORDER,
@@ -28,7 +31,6 @@ export type BestMatch =
   | {
       /** The dictionary entry spelled like the pronoun, when there is one. */
       entry?: DictionaryIndexEntry;
-      /** “genitive (masculine, neuter) · accusative (masculine animate)” when a form was typed. */
       formOf?: { description: string; form: string };
       pronoun: PronounLemma;
       type: "pronoun";
@@ -48,6 +50,16 @@ export interface WordResults {
   others: OtherWord[];
 }
 
+/** Gender tells same-spelled entries (domáci) apart. */
+export function wordMetaLabel(entry: DictionaryIndexEntry): string {
+  const category = searchMetaLabel(
+    "word",
+    wordCategoryLabel(entry.slovak, entry.category),
+  );
+  if (!entry.gender) return category;
+  return `${category} · ${nounGenderLabel(entry.gender, entry.pluralOnlyGender).english}`;
+}
+
 function pronounGlosses(pronoun: PronounLemma): string[] {
   return pronoun.english
     .split(/[,;()]/u)
@@ -55,10 +67,6 @@ function pronounGlosses(pronoun: PronounLemma): string[] {
     .filter(Boolean);
 }
 
-/**
- * The lemma the query names gets the best-match card: an exact lemma first, then a
- * pronoun form (tohto), then a dictionary form (knihu). Everything else is a row.
- */
 export function buildWordResults(
   query: string,
   dictionary: readonly PreparedEntry[],
@@ -69,14 +77,14 @@ export function buildWordResults(
     return { best: null, others: [] };
   }
 
-  const words = rankDictionaryMatches(dictionary, normalized);
+  const dictionaryMatches = rankDictionaryMatches(dictionary, normalized);
   const pronounHits = findPronounForms(normalized);
 
   const pronounLemmaHit = pronounHits.find(
     (hit) => normalizeSearchText(hit.pronoun.lemma) === normalized,
   );
-  const lemmaWord = words.find((match) => match.kind === "lemma");
-  const formWord = words.find((match) => match.kind === "form");
+  const lemmaWord = dictionaryMatches.find((match) => match.kind === "lemma");
+  const formWord = dictionaryMatches.find((match) => match.kind === "form");
 
   const entryFor = (pronoun: PronounLemma): DictionaryIndexEntry | undefined => {
     const lemma = normalizeSearchText(pronoun.lemma);
@@ -110,23 +118,35 @@ export function buildWordResults(
       entry: formWord.entry,
       formOf: { form: formWord.form ?? query.trim() },
     };
+  } else {
+    const glossPronoun = pronounLemmas.find((pronoun) =>
+      pronounGlosses(pronoun).includes(normalized),
+    );
+    const glossWord = dictionaryMatches.find((match) => match.kind === "gloss");
+    if (glossPronoun) {
+      const entry = entryFor(glossPronoun);
+      best = { type: "pronoun", pronoun: glossPronoun, ...(entry ? { entry } : {}) };
+    } else if (glossWord) {
+      best = { type: "word", entry: glossWord.entry };
+    }
   }
 
   const bestPronoun = best?.type === "pronoun" ? best.pronoun : undefined;
   const bestEntry = best?.entry;
 
-  const others: OtherWord[] = words
+  const others: OtherWord[] = dictionaryMatches
     .filter((match) => match.entry !== bestEntry)
     .map((match) => ({ type: "word" as const, kind: match.kind, match }));
 
-  // A pronoun whose dictionary entry is already listed needs no second row.
-  const listed = (pronoun: PronounLemma): boolean => {
+  const alreadyListed = (pronoun: PronounLemma): boolean => {
     const entry = entryFor(pronoun);
-    return entry !== undefined && words.some((match) => match.entry === entry);
+    return (
+      entry !== undefined && dictionaryMatches.some((match) => match.entry === entry)
+    );
   };
 
   for (const hit of pronounHits) {
-    if (hit.pronoun !== bestPronoun && !listed(hit.pronoun)) {
+    if (hit.pronoun !== bestPronoun && !alreadyListed(hit.pronoun)) {
       others.push({ type: "pronoun", kind: "form", pronoun: hit.pronoun });
     }
   }
@@ -135,7 +155,7 @@ export function buildWordResults(
     if (
       pronoun === bestPronoun ||
       pronounHits.some((hit) => hit.pronoun === pronoun) ||
-      listed(pronoun)
+      alreadyListed(pronoun)
     ) {
       continue;
     }
@@ -155,7 +175,6 @@ export function buildWordResults(
   };
 }
 
-/** Lemmas, their forms and pronoun forms, for “did you mean”. */
 export function buildSpellingCandidates(
   dictionary: readonly PreparedEntry[],
 ): SpellingCandidate[] {
@@ -218,10 +237,6 @@ function normalizedWithMap(text: string): { indexes: number[]; normalized: strin
 
 const LETTER = /[\p{L}\p{N}]/u;
 
-/**
- * Marks whole-word hits of the query (diacritics optional). With `prefix`, a word
- * that starts with the query counts too, like Pagefind's own matching.
- */
 export function markMatches(
   text: string,
   query: string,
@@ -272,7 +287,15 @@ export interface ExampleMatch {
   slovak: TextSegment[];
 }
 
-/** The example sentence that shows why a word page matched: Slovak word first, then prefix, then English. */
+export function usesWholeWord(example: ExampleMatch | null, query: string): boolean {
+  const needle = normalizeSearchText(query);
+  return (
+    example?.slovak.some(
+      (segment) => segment.mark && normalizeSearchText(segment.text) === needle,
+    ) ?? false
+  );
+}
+
 export function pickExample(
   examples: readonly SearchExample[],
   query: string,
@@ -343,10 +366,16 @@ export function topicRow(topic: SearchTopic): TopicRow {
   };
 }
 
-/**
- * Collapses lesson, practice and grammar hits for one topic into one row, in the
- * order Pagefind found them. `leadTopicId` (the best match's topic) goes first.
- */
+/** Keeps topics where the query hits a heavy block (title, summary, gloss), not just body text. */
+export function namedTopicHits(
+  hits: readonly PagefindResultData[],
+): PagefindResultData[] {
+  return hits.filter((hit) =>
+    hit.weighted_locations.some((location) => location.weight >= SEARCH_WEIGHTS.gloss),
+  );
+}
+
+/** One row per topic: its lesson, practice and grammar hits merge. The lead topic goes first. */
 export function groupTopicHits(
   hits: readonly PagefindResultData[],
   topics: readonly SearchTopic[],

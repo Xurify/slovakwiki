@@ -12,6 +12,7 @@ export interface PagefindResultData {
     title?: string;
   };
   url: string;
+  weighted_locations: Array<{ weight: number }>;
 }
 
 export interface PagefindSearchResult {

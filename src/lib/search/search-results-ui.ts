@@ -3,7 +3,7 @@
 export const sectionLabelClass =
   "m-0 flex items-baseline gap-2 font-sans text-[0.68rem] font-bold tracking-[0.12em] text-slate-500 uppercase";
 
-export const matchMarkClass = "rounded-[3px] bg-mark px-0.5 text-inherit";
+export const matchMarkClass = "-mx-0.5 rounded-[3px] bg-mark px-0.5 text-inherit";
 
 export const rowLinkClass =
   "font-serif text-[1.05rem] text-slate-900 no-underline hover:text-blue-800 hover:underline";

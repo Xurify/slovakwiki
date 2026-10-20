@@ -3,8 +3,9 @@
 
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import { chipClass, panelClass } from "$lib/components/ui/system-ui";
+  import { wordCategoryLabel } from "$lib/catalog/search/pronouns";
   import type { SearchTopic } from "$lib/catalog/search/topics";
-  import { normalizeSearchText, searchMetaLabel } from "$lib/catalog/search/ui";
+  import { normalizeSearchText } from "$lib/catalog/search/ui";
   import { cx } from "$lib/ui/classes";
 
   import {
@@ -39,8 +40,11 @@
     buildSpellingCandidates,
     buildWordResults,
     groupTopicHits,
+    namedTopicHits,
     parseExamplesMeta,
     pickExample,
+    usesWholeWord,
+    wordMetaLabel,
     type ExampleMatch,
     type TopicRow,
     type WordResults,
@@ -91,6 +95,9 @@
   let recentQueries = $state<RecentQuery[]>([]);
   let viewed = $state<SearchHistoryItem[]>([]);
 
+  let inputEl = $state<HTMLInputElement>();
+  let resultsEl = $state<HTMLDivElement>();
+
   let dictionary: PreparedEntry[] | null = null;
   let spellingCandidates: SpellingCandidate[] | null = null;
   let exampleCursor = 0;
@@ -108,6 +115,16 @@
     ]),
   );
 
+  const leadTopic = $derived(
+    wordResults.best?.type === "pronoun"
+      ? topicRows.find((row) => row.key === wordResults.best?.pronoun.topicId)
+      : undefined,
+  );
+  /** The best-match card already links its own topic; don't list it again below. */
+  const listedTopicRows = $derived(
+    filter === "topics" ? topicRows : topicRows.filter((row) => row !== leadTopic),
+  );
+
   const wordCount = $derived((wordResults.best ? 1 : 0) + wordResults.others.length);
   const exampleCount = $derived(
     examplesExhausted
@@ -116,12 +133,6 @@
   );
   const totalCount = $derived(wordCount + topicRows.length + exampleCount);
   const nothingFound = $derived(totalCount === 0 && !pagefindPending);
-
-  const leadTopic = $derived(
-    wordResults.best?.type === "pronoun"
-      ? topicRows.find((row) => row.key === wordResults.best?.pronoun.topicId)
-      : undefined,
-  );
 
   const visibleExamples = $derived(
     filter === "examples" ? examples : examples.slice(0, EXAMPLE_PREVIEW),
@@ -196,7 +207,11 @@
     filter = "all";
   }
 
-  async function runSearch(raw: string, { spell = true } = {}): Promise<void> {
+  /** `remember` stores the query once it resolves, so a corrected typo is saved as the fix. */
+  async function runSearch(
+    raw: string,
+    { spell = true, remember = false } = {},
+  ): Promise<void> {
     const value = raw.trim();
     const current = ++generation;
     clearTimeout(typeTimer);
@@ -231,14 +246,20 @@
       const empty = words.others.length === 0 && (found?.examples.length ?? 0) === 0;
 
       if (fix && empty) {
+        if (remember) rememberQuery(fix);
         await showCorrected(value, fix, current);
         return;
       }
       suggestion = fix;
     }
 
+    if (remember) rememberQuery(value);
     applyPagefind(found);
     await loadMoreExamples(EXAMPLE_PREVIEW, current, value);
+
+    if (suggestion && examples.some((item) => usesWholeWord(item.example, value))) {
+      suggestion = null;
+    }
   }
 
   async function showCorrected(from: string, to: string, current: number): Promise<void> {
@@ -258,13 +279,17 @@
   ): void {
     const leadTopicId =
       wordResults.best?.type === "pronoun" ? wordResults.best.pronoun.topicId : undefined;
-    topicRows = groupTopicHits(found?.topics ?? [], topics, leadTopicId);
+    const topicHits = found?.topics ?? [];
+    topicRows = groupTopicHits(
+      wordResults.best ? namedTopicHits(topicHits) : topicHits,
+      topics,
+      leadTopicId,
+    );
     exampleHits = found?.examples ?? [];
     examplesExhausted = exampleHits.length === 0;
     pagefindPending = false;
   }
 
-  /** Pages through Pagefind word hits, skipping words already listed above. */
   async function loadMoreExamples(
     wanted: number,
     current: number,
@@ -311,7 +336,7 @@
   }
 
   function visit(item: SearchVisit): void {
-    rememberQuery();
+    rememberQuery(shownQuery);
     viewed = pushSearchHistory(localStorage, item);
   }
 
@@ -328,16 +353,41 @@
     typeTimer = setTimeout(() => void runSearch(query), TYPE_DELAY_MS);
   }
 
+  function resultLinks(): HTMLAnchorElement[] {
+    return resultsEl ? [...resultsEl.querySelectorAll<HTMLAnchorElement>("a[href]")] : [];
+  }
+
+  function onInputKeydown(event: KeyboardEvent): void {
+    if (event.key !== "ArrowDown") return;
+    const first = resultLinks()[0];
+    if (!first) return;
+    event.preventDefault();
+    first.focus();
+  }
+
+  function onResultsKeydown(event: KeyboardEvent): void {
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+    const links = resultLinks();
+    const at = links.indexOf(document.activeElement as HTMLAnchorElement);
+    if (at === -1) return;
+    event.preventDefault();
+
+    const next = at + (event.key === "ArrowDown" ? 1 : -1);
+    if (next < 0) {
+      inputEl?.focus();
+    } else {
+      links[Math.min(next, links.length - 1)]?.focus();
+    }
+  }
+
   function onSubmit(event: SubmitEvent): void {
     event.preventDefault();
-    rememberQuery(query);
-    void runSearch(query);
+    void runSearch(query, { remember: true });
   }
 
   function pickRecent(value: string): void {
     query = value;
-    rememberQuery(value);
-    void runSearch(value);
+    void runSearch(value, { remember: true });
   }
 
   function searchInstead(value: string): void {
@@ -355,8 +405,7 @@
     mounted = true;
 
     if (initial) {
-      rememberQuery(initial);
-      void runSearch(initial, { spell: params.get("spell") !== "off" });
+      void runSearch(initial, { spell: params.get("spell") !== "off", remember: true });
     }
   });
 
@@ -380,7 +429,9 @@
     autocorrect="off"
     autocapitalize="off"
     spellcheck="false"
+    bind:this={inputEl}
     oninput={onInput}
+    onkeydown={onInputKeydown}
   />
 
   <button
@@ -412,7 +463,14 @@
 
   <SearchSkeleton variant="results" />
 {:else}
-  <div class="mt-5 flex flex-col gap-8" aria-live="polite" aria-busy={pagefindPending}>
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div
+    class="mt-5 flex flex-col gap-8"
+    aria-live="polite"
+    aria-busy={pagefindPending}
+    bind:this={resultsEl}
+    onkeydown={onResultsKeydown}
+  >
     {#if corrected || suggestion}
       <div class="animate-rise text-sm text-slate-700">
         {#if corrected}
@@ -504,7 +562,7 @@
                         href,
                         kind: "word",
                         label: entry.slovak,
-                        category: entry.category,
+                        category: wordCategoryLabel(entry.slovak, entry.category),
                       })}
                   >
                     {entry.slovak}
@@ -521,8 +579,8 @@
                   {/if}
                 </div>
 
-                <span class="shrink-0 text-xs text-slate-500">
-                  {searchMetaLabel("word", entry.category)}
+                <span class="shrink-0 text-right text-xs text-slate-500">
+                  {wordMetaLabel(entry)}
                 </span>
               {:else}
                 <div class="min-w-0">
@@ -554,15 +612,15 @@
       </p>
     {/if}
 
-    {#if topicRows.length > 0 && shows("topics")}
+    {#if listedTopicRows.length > 0 && shows("topics")}
       <section aria-labelledby="topics-label">
         <h2 class="{sectionLabelClass} mb-3" id="topics-label">
           Grammar & lessons
-          <span class="font-normal tracking-normal">{topicRows.length}</span>
+          <span class="font-normal tracking-normal">{listedTopicRows.length}</span>
         </h2>
 
         <ul class="{panelClass} {dividedListClass}">
-          {#each topicRows as row (row.key)}
+          {#each listedTopicRows as row (row.key)}
             <li class="px-5 py-4 max-[600px]:px-4">
               <p class="m-0 font-serif text-[1.05rem] text-slate-900">{row.title}</p>
 

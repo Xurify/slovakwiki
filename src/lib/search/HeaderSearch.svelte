@@ -10,9 +10,11 @@
   } = $props();
 
   const searchClass = $derived(
-    pathname === "/practice"
-      ? "max-[800px]:hidden"
-      : "max-[800px]:order-3 max-[800px]:basis-full max-[800px]:max-w-none",
+    pathname === "/search" || pathname === "/search/"
+      ? "hidden"
+      : pathname === "/practice"
+        ? "max-[800px]:hidden"
+        : "max-[800px]:order-3 max-[800px]:basis-full max-[800px]:max-w-none",
   );
 </script>
 
