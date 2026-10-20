@@ -336,7 +336,7 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Imperfective or perfective?",
       intro:
-        "Both sentences are correct Slovak. They tell a different story about the same action. A perfective verb in the present form, like **napíšem**, points to the future.",
+        "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”.",
       pairs: [
         {
           choices: [
@@ -625,7 +625,7 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Tento, ten, or tamten?",
       intro:
-        "You don't need to measure anything. Ask where the thing is — with you, with the listener, or over there — and whether you mean now or the past. Every case works the same way: pick **tento**, **ten**, or **tamten** first, then take its form from the tables above.",
+        "**Tento** is for something close to you, or happening now. **Tamten** is for something over there. **Ten** is the everyday “that”: near the other person, in the past, or something you both know.",
       pairs: [
         {
           label: "Nominative · feminine",
@@ -979,7 +979,7 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Who is the owner?",
       intro:
-        "The owner picks the word, so the same English can need two different Slovak sentences. The case of the noun then picks the ending.",
+        "Look at who owns the thing. That picks the word, even when the English stays the same.",
       pairs: [
         {
           label: "Nominative",
@@ -1197,7 +1197,7 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Ty or vy?",
       intro:
-        "Look at who you are talking to, and how many. **Vy** is the formal you, and it is also the plural.",
+        "**Ty** is for one friend. **Vy** is for someone you don't know well, or for more than one person.",
       pairs: [
         {
           choices: [
@@ -1456,7 +1456,7 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "At three or in three hours?",
       intro:
-        "**O** + a clock time names a point on the clock. **O** + a number of hours counts from now.",
+        "**O tretej** is a time on the clock. **O tri hodiny** is how long from now.",
       pairs: [
         {
           choices: [
