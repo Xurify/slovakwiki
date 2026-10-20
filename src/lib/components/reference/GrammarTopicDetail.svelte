@@ -19,7 +19,7 @@
     grammarGroupAnchor,
     grammarNeighbors,
   } from "$lib/catalog/reference/grammar-path";
-  import { parsePattern } from "$lib/catalog/reference/grammar-pattern";
+  import { patternView } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
 
@@ -76,7 +76,7 @@
   /** Ending rows already show one example each; skip the list so they are not repeated. */
   const examplesInPattern = $derived.by(() => {
     if (topic.caseOverview || isTime) return false;
-    const view = parsePattern(topic.pattern.lines, topic.examples);
+    const view = patternView(topic.pattern, topic.examples);
     return view.kind === "tiles" && view.tiles.every((tile) => tile.example);
   });
 
@@ -161,8 +161,7 @@
 
         <div class="mt-3">
           <GrammarPatternList
-            lines={topic.pattern.lines}
-            columns={topic.pattern.columns}
+            pattern={topic.pattern}
             examples={topic.examples}
             withClocks={isTime}
           />
@@ -183,7 +182,7 @@
             <h2 class={grammarHeadingClass}>{extra.label}</h2>
 
             <div class="mt-3">
-              <GrammarPatternList lines={extra.lines} columns={extra.columns} />
+              <GrammarPatternList pattern={extra} />
             </div>
 
             {#if extra.examples?.length}

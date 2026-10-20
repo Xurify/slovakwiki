@@ -1,6 +1,10 @@
-/** Turns `GrammarPattern.lines` strings into shapes the topic page can lay out. */
+/** Turns a grammar pattern into the shape the topic page lays out. */
 
-import type { Example } from "../types";
+import type { Example, GrammarPattern, GrammarTablePattern } from "../types";
+
+export function isGrammarTable(pattern: GrammarPattern): pattern is GrammarTablePattern {
+  return "rows" in pattern;
+}
 
 export interface ParadigmCell {
   pronoun: string;
@@ -154,24 +158,25 @@ export function markAgainst(base: string, form: string): MarkedPhrase {
   return { before: form, mark: "", after: "" };
 }
 
-function parseGrid(rows: readonly PatternRow[], columns: readonly string[]) {
-  if (columns.length < 2) return undefined;
+export function tableView(pattern: GrammarTablePattern): PatternView {
+  const { columns, rows } = pattern;
 
-  const split = rows.map((row) => row.main.split(", "));
-  const fits = rows.every(
-    (row, index) => row.label && !row.result && split[index]!.length === columns.length,
-  );
-  if (!fits) return undefined;
+  for (const row of rows) {
+    if (row.cells.length !== columns.length) {
+      throw new Error(
+        `"${pattern.label}" row "${row.label}" has ${row.cells.length} cells, expected ${columns.length}`,
+      );
+    }
+  }
 
-  const gridRows: PatternGridRow[] = rows.map((row, index) => {
-    const forms = split[index]!;
-    return {
-      label: row.label!,
-      cells: forms.map((form) => markAgainst(forms[0]!, form)),
-    };
-  });
-
-  return { kind: "grid", columns: [...columns], rows: gridRows } satisfies PatternView;
+  return {
+    kind: "grid",
+    columns: [...columns],
+    rows: rows.map((row) => ({
+      label: row.label,
+      cells: row.cells.map((form) => markAgainst(row.cells[0] ?? "", form)),
+    })),
+  } satisfies PatternView;
 }
 
 function parseTiles(rows: readonly PatternRow[], examples: readonly Example[]) {
@@ -198,13 +203,28 @@ function parseTiles(rows: readonly PatternRow[], examples: readonly Example[]) {
 export function parsePattern(
   lines: readonly string[],
   examples: readonly Example[] = [],
-  columns: readonly string[] = [],
 ): PatternView {
   const paradigm = parseParadigm(lines);
   if (paradigm) return paradigm;
 
   const rows = lines.map(parsePatternRow);
-  return parseGrid(rows, columns) ?? parseTiles(rows, examples) ?? { kind: "rows", rows };
+  return parseTiles(rows, examples) ?? { kind: "rows", rows };
+}
+
+export function patternView(
+  pattern: GrammarPattern,
+  examples: readonly Example[] = [],
+): PatternView {
+  if (isGrammarTable(pattern)) return tableView(pattern);
+  return parsePattern(pattern.lines, examples);
+}
+
+/** Labels and forms a table contributes to search, in place of the old line strings. */
+export function patternSearchLines(pattern: GrammarPattern): string[] {
+  if (isGrammarTable(pattern)) {
+    return pattern.rows.flatMap((row) => [row.label, ...row.cells]);
+  }
+  return [...pattern.lines];
 }
 
 /** Quarters and halves name the coming hour (štvrť na tri, pol tretej, trištvrte na tri). */

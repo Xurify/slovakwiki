@@ -3,17 +3,19 @@ import { describe, expect, it } from "vitest";
 import { grammarEntries } from "./grammar";
 import {
   addedPrefix,
+  isGrammarTable,
   markAgainst,
   markSuffix,
   namesHourAhead,
-  parsePattern,
+  patternView,
   parsePatternRow,
+  tableView,
 } from "./grammar-pattern";
 
 function patternFor(slug: string) {
   const topic = grammarEntries.find((entry) => entry.slug === slug);
   if (!topic) throw new Error(`missing ${slug}`);
-  return parsePattern(topic.pattern.lines, topic.examples, topic.pattern.columns);
+  return patternView(topic.pattern, topic.examples);
 }
 
 describe("parsePattern", () => {
@@ -69,37 +71,36 @@ describe("parsePattern", () => {
     });
   });
 
-  it("lays out labelled form lists as a grid when columns are given", () => {
+  it("lays a table pattern out as a grid from its rows", () => {
     const view = patternFor("demonstratives");
     expect(view.kind).toBe("grid");
     if (view.kind !== "grid") return;
 
-    expect(view.columns).toHaveLength(3);
-    expect(view.rows.map((row) => row.label)).toContain("Feminine");
+    expect(view.columns).toEqual(["the, that", "this", "that (over there)"]);
     expect(view.rows[1]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
 
     const topic = grammarEntries.find((entry) => entry.slug === "demonstratives");
     const object = topic?.morePatterns?.[0];
-    if (!object) throw new Error("missing object pattern");
-    const objectView = parsePattern(object.lines, [], object.columns);
+    if (!object || !isGrammarTable(object)) throw new Error("missing object pattern");
+    const objectView = patternView(object);
     expect(objectView.kind).toBe("grid");
     if (objectView.kind !== "grid") return;
     expect(
       objectView.rows[0]?.cells.map((cell) => `${cell.before}${cell.mark}${cell.after}`),
-    ).toEqual(["tú", "túto", "tamtú"]);
+    ).toEqual(["toho", "tohto", "tamtoho"]);
     expect(objectView.rows[0]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
     expect(objectView.rows.map((row) => row.label)).toEqual([
-      "Feminine",
       "Masculine, a person",
       "Masculine, a thing",
+      "Feminine",
       "Neuter",
       "Masculine nouns for people, plural",
       "Every other plural",
     ]);
 
     const trap = topic?.morePatterns?.[1];
-    if (!trap) throw new Error("missing tým pattern");
-    const trapView = parsePattern(trap.lines, [], trap.columns);
+    if (!trap || !isGrammarTable(trap)) throw new Error("missing tým pattern");
+    const trapView = patternView(trap);
     expect(trapView.kind).toBe("grid");
     if (trapView.kind !== "grid") return;
     expect(
@@ -111,6 +112,16 @@ describe("parsePattern", () => {
       ["tým", "týmto", "tamtým"],
       ["tými", "týmito", "tamtými"],
     ]);
+  });
+
+  it("refuses a table row whose cells do not match the columns", () => {
+    expect(() =>
+      tableView({
+        label: "As the object",
+        columns: ["the, that", "this", "that (over there)"],
+        rows: [{ label: "Feminine", cells: ["tú", "túto"] }],
+      }),
+    ).toThrow(/Feminine/);
   });
 
   it("falls back to rows for everything else", () => {

@@ -2,6 +2,7 @@ import { caseTopics, grammarEntries, pronunciationEntries, words } from "../entr
 import { dictionaryPathForSense } from "../dictionary/lemma-senses";
 import { lessons } from "../lessons";
 import { practiceSets } from "../practice";
+import { patternSearchLines } from "../reference/grammar-pattern";
 import { searchFormsForLemma } from "./forms";
 import { wordCategoryLabel } from "./pronouns";
 import { normalizeSearchText, type SearchDocKind } from "./ui";
@@ -116,7 +117,7 @@ export function buildSearchDocuments(): SearchDocument[] {
           entry.lookFor,
           entry.watchOut.replace(/\*/g, ""),
           ...entry.rule,
-          ...patterns.flatMap((pattern) => pattern.lines),
+          ...patterns.flatMap(patternSearchLines),
           ...entry.body,
         ],
         examples: [

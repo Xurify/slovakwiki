@@ -9,23 +9,22 @@
   } from "$lib/components/reference/grammar-topic-ui";
   import {
     addedPrefix,
+    isGrammarTable,
     namesHourAhead,
-    parsePattern,
+    patternView,
     type MarkedPhrase,
     type ParadigmCell,
   } from "$lib/catalog/reference/grammar-pattern";
-  import type { Example } from "$lib/catalog/types";
+  import type { Example, GrammarPattern } from "$lib/catalog/types";
   import { dataColumnHeadClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { cx } from "$lib/ui/classes";
 
   let {
-    lines,
-    columns = [],
+    pattern,
     examples = [],
     withClocks = false,
   }: {
-    lines: string[];
-    columns?: string[];
+    pattern: GrammarPattern;
     examples?: Example[];
     withClocks?: boolean;
   } = $props();
@@ -65,8 +64,10 @@
     return { rows, extras };
   }
 
-  const view = $derived(withClocks ? undefined : parsePattern(lines, examples, columns));
-  const time = $derived(withClocks ? splitTime(lines) : undefined);
+  const view = $derived(withClocks ? undefined : patternView(pattern, examples));
+  const time = $derived(
+    withClocks && !isGrammarTable(pattern) ? splitTime(pattern.lines) : undefined,
+  );
 
   // Same card as the lessons FormTable and the dictionary FormsTable.
   const listClass = "m-0 list-none p-0";

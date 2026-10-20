@@ -454,14 +454,17 @@ export const grammarEntries: GrammarTopic[] = [
       "On its own, to never changes; only the verb follows the noun: To je môj brat. To sú moji rodičia.",
     ],
     pattern: {
-      label: "Agreement in the nominative",
+      label: "Nominative (agreement)",
       columns: ["the, that", "this", "that (over there)"],
-      lines: [
-        "Masculine: ten, tento, tamten",
-        "Feminine: tá, táto, tamtá",
-        "Neuter: to, toto, tamto",
-        "Masculine nouns for people, plural: tí, títo, tamtí",
-        "Every other plural: tie, tieto, tamtie",
+      rows: [
+        { label: "Masculine", cells: ["ten", "tento", "tamten"] },
+        { label: "Feminine", cells: ["tá", "táto", "tamtá"] },
+        { label: "Neuter", cells: ["to", "toto", "tamto"] },
+        {
+          label: "Masculine nouns for people, plural",
+          cells: ["tí", "títo", "tamtí"],
+        },
+        { label: "Every other plural", cells: ["tie", "tieto", "tamtie"] },
       ],
       examples: [
         { slovak: "Táto taška je moja.", english: "This bag is mine." },
@@ -479,27 +482,30 @@ export const grammarEntries: GrammarTopic[] = [
     },
     morePatterns: [
       {
-        label: "As the object",
+        label: "Accusative (as the object)",
         columns: ["the, that", "this", "that (over there)"],
-        lines: [
-          "Masculine, a person: toho, tohto, tamtoho",
-          "Masculine, a thing: ten, tento, tamten",
-          "Feminine: tú, túto, tamtú",
-          "Neuter: to, toto, tamto",
-          "Masculine nouns for people, plural: tých, týchto, tamtých",
-          "Every other plural: tie, tieto, tamtie",
+        rows: [
+          { label: "Masculine, a person", cells: ["toho", "tohto", "tamtoho"] },
+          { label: "Masculine, a thing", cells: ["ten", "tento", "tamten"] },
+          { label: "Feminine", cells: ["tú", "túto", "tamtú"] },
+          { label: "Neuter", cells: ["to", "toto", "tamto"] },
+          {
+            label: "Masculine nouns for people, plural",
+            cells: ["tých", "týchto", "tamtých"],
+          },
+          { label: "Every other plural", cells: ["tie", "tieto", "tamtie"] },
         ],
         examples: [
           { slovak: "Chcem tamtú tašku.", english: "I want that bag over there." },
           {
             slovak: "Poznám toho muža.",
             english: "I know that man.",
-            demonstrates: "A man is a person, so ten becomes toho.",
+            demonstrates: "Accusative for a person: ten becomes toho.",
           },
           {
             slovak: "Vidím ten dom.",
             english: "I see that house.",
-            demonstrates: "A house is a thing, so ten stays ten.",
+            demonstrates: "Accusative for a thing: ten stays ten.",
           },
           { slovak: "Vidíš tamto auto?", english: "Do you see that car over there?" },
           { slovak: "Poznáš tých chlapcov?", english: "Do you know those boys?" },
@@ -507,32 +513,40 @@ export const grammarEntries: GrammarTopic[] = [
         ],
       },
       {
-        label: "Tým and tými",
+        label: "Dative and instrumental",
         columns: ["the, that", "this", "that (over there)"],
-        lines: [
-          "With one person: tým, týmto, tamtým",
-          "To them: tým, týmto, tamtým",
-          "With them: tými, týmito, tamtými",
+        rows: [
+          {
+            label: "Instrumental, with one person",
+            cells: ["tým", "týmto", "tamtým"],
+          },
+          { label: "Dative plural, to them", cells: ["tým", "týmto", "tamtým"] },
+          {
+            label: "Instrumental plural, with them",
+            cells: ["tými", "týmito", "tamtými"],
+          },
         ],
         examples: [
           {
             slovak: "Idem na obed s týmto kolegom.",
             english: "I'm going to lunch with this colleague.",
+            demonstrates: "Instrumental singular after s (with): tým.",
           },
           {
             slovak: "Kúp tým deťom zmrzlinu.",
             english: "Buy those children some ice cream.",
-            demonstrates: "Tým here means “to them”: the dative plural.",
+            demonstrates: "Dative plural, “to them”: tým.",
           },
           {
             slovak: "Dnes večer ide s tými kolegami do kina.",
             english: "Tonight he's going to the cinema with those colleagues.",
+            demonstrates: "Instrumental plural after s (with): tými.",
           },
         ],
       },
     ],
     watchOut:
-      "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*. **Kolega** (colleague) ends in -a and takes **ten kolega**. **Noc** (night) ends in a consonant and takes **tá noc**. As the object of a verb, ten changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**. Write **tohto** and **tieto**; *tohoto* and *tyto* are Czech.",
+      "**Dievča** (girl) and **dieťa** (child) are neuter: **to dievča**, not *tá dievča*. **Kolega** (colleague) ends in -a and takes **ten kolega**. **Noc** (night) ends in a consonant and takes **tá noc**. In the accusative, ten changes for men but not for things: **Vidím toho muža**, but **Vidím ten dom**. Write **tohto** and **tieto**; *tohoto* and *tyto* are Czech.",
     nextSlug: "present-tense",
     lessonLink: {
       href: "/lessons/grammar/demonstratives",

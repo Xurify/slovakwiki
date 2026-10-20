@@ -169,12 +169,28 @@ export interface ContentEntry {
   dialect?: true;
 }
 
-export interface GrammarPattern {
+export interface GrammarTableRow {
   label: string;
-  lines: string[];
-  columns?: string[];
+  cells: string[];
+}
+
+interface GrammarPatternShared {
+  label: string;
   examples?: Example[];
 }
+
+/** Labelled lines, verb paradigms, and arrow rows. */
+export interface GrammarLinePattern extends GrammarPatternShared {
+  lines: string[];
+}
+
+/** A table. Cells are data, not a comma-split string. */
+export interface GrammarTablePattern extends GrammarPatternShared {
+  columns: string[];
+  rows: GrammarTableRow[];
+}
+
+export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 
 /** In-page sections for gloss-term deep links (e.g. #imperfective). */
 export interface GrammarTermSection {
