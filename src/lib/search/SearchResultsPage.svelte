@@ -34,6 +34,7 @@
     type SearchVisit,
   } from "./search-history";
   import SearchIdle from "./SearchIdle.svelte";
+  import SearchSkeleton from "./SearchSkeleton.svelte";
   import {
     buildSpellingCandidates,
     buildWordResults,
@@ -83,6 +84,8 @@
   let examplesExhausted = $state(false);
   let loadingExamples = $state(false);
   let pagefindPending = $state(false);
+  /** Only the first search waits on the dictionary index; later ones match instantly. */
+  let wordsPending = $state(false);
   let pagefindUnavailable = $state(false);
 
   let recentQueries = $state<RecentQuery[]>([]);
@@ -203,11 +206,14 @@
 
     if (!value) {
       pagefindPending = false;
+      wordsPending = false;
       return;
     }
 
+    wordsPending = dictionary === null;
     const index = await ensureDictionary();
     if (current !== generation) return;
+    wordsPending = false;
 
     const words = buildWordResults(value, index);
     wordResults = words;
@@ -386,11 +392,11 @@
 </form>
 
 {#if !mounted}
-  <div class="mt-8 flex flex-col gap-3" aria-hidden="true">
-    <div class="h-3 w-28 rounded bg-subtle"></div>
-    <div class="h-10 rounded bg-subtle"></div>
-    <div class="h-10 rounded bg-subtle"></div>
-  </div>
+  <p class="sr-only" role="status">Loading search…</p>
+
+  <!-- search.astro marks <html> before paint when the URL has a query. -->
+  <SearchSkeleton class="hidden [[data-search-query]_&]:block" variant="results" />
+  <SearchSkeleton class="[[data-search-query]_&]:hidden" variant="idle" />
 {:else if !activeQuery}
   <div class="mt-8">
     <SearchIdle
@@ -401,6 +407,10 @@
       onvisit={visit}
     />
   </div>
+{:else if wordsPending}
+  <p class="sr-only" role="status">Loading results…</p>
+
+  <SearchSkeleton variant="results" />
 {:else}
   <div class="mt-5 flex flex-col gap-8" aria-live="polite" aria-busy={pagefindPending}>
     {#if corrected || suggestion}

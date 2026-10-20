@@ -13,6 +13,13 @@ const topics = buildSearchTopics();
   canonicalPath="/search"
   noindex
 >
+  <script is:inline>
+    // Lets the pre-hydration skeleton match results vs. the empty state.
+    if ((new URLSearchParams(location.search).get("q") || "").trim()) {
+      document.documentElement.setAttribute("data-search-query", "");
+    }
+  </script>
+
   <SearchPage>
     <SearchResultsPage slot="search" client:load {topics} />
   </SearchPage>
