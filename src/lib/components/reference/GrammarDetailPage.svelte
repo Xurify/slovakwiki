@@ -15,6 +15,7 @@
   let {
     data,
     clockDrill,
+    listen,
     weakSpots,
     audioMount,
   }: {
@@ -24,6 +25,8 @@
       audioKeys: string[];
     };
     clockDrill?: Snippet;
+    /** Client island: the one-minute dialogue with questions. */
+    listen?: Snippet;
     weakSpots?: Snippet;
     /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
     audioMount?: Snippet;
@@ -37,6 +40,7 @@
   relatedEntries={data.relatedEntries}
   audioKeys={data.audioKeys}
   {clockDrill}
+  {listen}
   {weakSpots}
 />
 

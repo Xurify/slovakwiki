@@ -24,6 +24,10 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] `promptSk` with a `___` gap turns a check into "which word did you hear": `___ kľúč je od auta.`
 - [ ] Prompts are a direct English question; choices are Slovak. Every wrong choice has a `whyWrong`; `feedback.why` names the rule or quotes the line in `**bold**`; `feedback.english` glosses that line.
 
+## Grammar page listen block
+
+The short version lives on the grammar page itself: one `GrammarListen` in `src/lib/catalog/listening/grammar-listens/<slug>.ts`, a chapter shape with a `grammarSlug`. Ten to fourteen lines, one situation, every form the page's tables show, two or three checks. Ids start with `listen-<slug>-`. Add it to `grammarListens` in the catalog index and the page picks it up under **Hear it**. Same audio and verification steps as an episode.
+
 ## 4. Wire it in
 
 - [ ] Add the episode to `listeningEpisodes` in `src/lib/catalog/listening/index.ts`.

@@ -35,6 +35,11 @@ export interface ListeningChapter {
   titleSk: string;
 }
 
+/** A one-minute dialogue embedded on a grammar page: one chapter, a few checks. */
+export interface GrammarListen extends ListeningChapter {
+  grammarSlug: string;
+}
+
 export interface ListeningHost {
   /** What this person does in the episode (Host, Sells fruit at the market). */
   role: string;

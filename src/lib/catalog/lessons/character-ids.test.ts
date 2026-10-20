@@ -8,7 +8,7 @@ import {
   listedCharacters,
 } from "$lib/catalog/lessons/character-ids";
 import { lessons } from "$lib/catalog/lessons";
-import { episodeLines, listeningEpisodes } from "$lib/catalog/listening";
+import { episodeLines, grammarListens, listeningEpisodes } from "$lib/catalog/listening";
 import { practiceItems } from "$lib/catalog/practice";
 import { lessonExercises } from "$lib/learning/beats";
 import type { DialogueTurn, LessonExercise } from "$lib/learning/types";
@@ -47,6 +47,10 @@ function collectContentSpeakers(): string[] {
 
   for (const episode of listeningEpisodes) {
     speakersFromTurns(episodeLines(episode), found);
+  }
+
+  for (const listen of grammarListens) {
+    speakersFromTurns(listen.lines, found);
   }
 
   return [...found].sort();

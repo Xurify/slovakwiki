@@ -26,7 +26,11 @@ import {
 } from "../../src/lib/catalog/audio/characters";
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
-import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening";
+import {
+  episodeLines,
+  grammarListens,
+  listeningEpisodes,
+} from "../../src/lib/catalog/listening";
 import { lessonExercises } from "../../src/lib/learning/beats";
 import {
   exerciseAnswerTexts,
@@ -306,6 +310,12 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
 
     for (const phrase of episode.vocabulary) {
       addLine(phrase.audio?.transcript ?? phrase.slovak, keyPhraseCharacterId());
+    }
+  }
+
+  for (const listen of grammarListens) {
+    for (const line of listen.lines) {
+      addLine(line.audio?.transcript ?? line.slovak, characterIdForSpeaker(line.speaker));
     }
   }
 

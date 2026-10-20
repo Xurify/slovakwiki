@@ -41,6 +41,7 @@
     relatedEntries = [],
     audioKeys = [],
     clockDrill,
+    listen,
     weakSpots,
   }: {
     topic: GrammarTopic;
@@ -48,6 +49,7 @@
     audioKeys?: string[];
     /** Client island slot from Astro (`client:only` / `client:load`). */
     clockDrill?: Snippet;
+    listen?: Snippet;
     weakSpots?: Snippet;
   } = $props();
 
@@ -238,6 +240,19 @@
         <GrammarRichText text={topic.lookFor} />
       </p>
     </section>
+
+    {#if listen}
+      <section id="listen" class="mt-8" aria-labelledby="listen-heading">
+        <h2 id="listen-heading" class={grammarHeadingClass}>Hear it</h2>
+
+        <p class="m-0 mt-1.5 mb-4 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+          One short conversation with the forms above in it. Listen first, answer a few
+          questions, then read along.
+        </p>
+
+        {@render listen()}
+      </section>
+    {/if}
 
     {#if topic.contrasts}
       <section id="contrasts" class="mt-8" aria-labelledby="contrasts-heading">

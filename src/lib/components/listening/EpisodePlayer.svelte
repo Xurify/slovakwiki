@@ -11,13 +11,9 @@
   import Button from "$lib/components/ui/Button.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import { eyebrowMutedClass, panelClass, tagClass } from "$lib/components/ui/system-ui";
-  import {
-    hasPendingStoryAudio,
-    playStoryLineAudio,
-    primeStoryAudio,
-    stopStoryLineAudio,
-  } from "$lib/lesson-story/story-audio";
+  import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { getStoryShowEnglish } from "$lib/lesson-story/prefs";
+  import { LinePlayer } from "$lib/listening/line-player.svelte";
   import {
     chapterIndexForLine,
     chapterRanges,
@@ -41,20 +37,12 @@
     links: Array<{ href: string; label: string }>;
   } = $props();
 
-  /** A breath between lines, like the pause a real conversation has. */
-  const LINE_GAP_MS = 450;
-  /** Clips are already paced for learners; this is one more notch down, pitch kept. */
-  const SLOW_RATE = 0.8;
-
   type ChapterState = "upcoming" | "listening" | "checking" | "done";
 
   const lines = episodeLines(episode);
   const ranges = chapterRanges(episode);
   const totalChecks = episodeCheckCount(episode);
 
-  let cursor = $state(0);
-  let playing = $state(false);
-  let slow = $state(false);
   let transcriptAlways = $state(false);
   let showEnglish = $state(false);
   /** Highest chapter the learner has opened. */
@@ -64,9 +52,14 @@
   let results = $state<Record<string, boolean>>({});
   let finished = $state(false);
   let root: HTMLDivElement | undefined = $state();
-  let epoch = 0;
-  let gapTimer = 0;
 
+  const player = new LinePlayer(lines, audioSrcs.lines, {
+    isLast: (index) => isLastLineOfChapter(ranges, index),
+    onRunEnd: (index) => markListened(chapterIndexForLine(ranges, index)),
+  });
+
+  const cursor = $derived(player.cursor);
+  const playing = $derived(player.playing);
   const currentChapter = $derived(chapterIndexForLine(ranges, cursor));
   const currentLine = $derived(lines[cursor]);
   const started = $derived(playing || cursor > 0 || listened.size > 0);
@@ -118,52 +111,14 @@
     };
   }
 
-  function clearGap(): void {
-    if (!gapTimer) return;
-    window.clearTimeout(gapTimer);
-    gapTimer = 0;
-  }
-
   function pause(): void {
-    clearGap();
-    epoch += 1;
-    playing = false;
-    stopStoryLineAudio();
+    player.pause();
   }
 
   function playFrom(index: number): void {
-    const line = lines[index];
-    if (!line) return;
-
-    clearGap();
-    epoch += 1;
-    const mine = epoch;
-    cursor = index;
-    playing = true;
-
     const chapter = chapterIndexForLine(ranges, index);
     if (chapter > reached) reached = chapter;
-
-    playStoryLineAudio(audioSrcs.lines[line.id], line.slovak, {
-      rate: slow ? SLOW_RATE : 1,
-      onEnded: () => onLineEnded(index, mine),
-    });
-  }
-
-  function onLineEnded(index: number, mine: number): void {
-    if (mine !== epoch || !playing) return;
-
-    if (isLastLineOfChapter(ranges, index)) {
-      playing = false;
-      markListened(chapterIndexForLine(ranges, index));
-      return;
-    }
-
-    gapTimer = window.setTimeout(() => {
-      gapTimer = 0;
-      if (mine !== epoch || !playing) return;
-      playFrom(index + 1);
-    }, LINE_GAP_MS);
+    player.playFrom(index);
   }
 
   function markListened(index: number): void {
@@ -209,12 +164,8 @@
   }
 
   function togglePlay(): void {
-    if (playing) {
-      pause();
-      return;
-    }
-
-    playFrom(cursor);
+    if (playing) pause();
+    else playFrom(cursor);
   }
 
   function previousLine(): void {
@@ -228,14 +179,9 @@
     playFrom(cursor + 1);
   }
 
-  function toggleSlow(): void {
-    slow = !slow;
-    if (playing) playFrom(cursor);
-  }
-
   function restartEpisode(): void {
     pause();
-    cursor = 0;
+    player.cursor = 0;
     reached = 0;
     listened = new Set();
     checkIndex = {};
@@ -304,10 +250,7 @@
     };
   });
 
-  onDestroy(() => {
-    clearGap();
-    stopStoryLineAudio();
-  });
+  onDestroy(() => player.destroy());
 
   const chapterHeadClass =
     "flex items-start justify-between gap-4 border-b border-slate-200/70 px-4 py-4 sm:px-5";
@@ -595,7 +538,7 @@
     {chapterLabel}
     {statusLabel}
     {playing}
-    {slow}
+    slow={player.slow}
     transcript={transcriptAlways}
     english={showEnglish}
     canPrev={lines.length > 0}
@@ -603,7 +546,7 @@
     ontoggle={togglePlay}
     onprev={previousLine}
     onnext={nextLine}
-    onslow={toggleSlow}
+    onslow={() => player.toggleSlow()}
     ontranscript={() => (transcriptAlways = !transcriptAlways)}
     onenglish={() => (showEnglish = !showEnglish)}
   />

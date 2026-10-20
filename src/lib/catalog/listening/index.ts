@@ -1,8 +1,10 @@
 import type { DialogueTurn } from "$lib/learning/types";
 import { demonstrativesEpisode } from "./episodes/demonstratives";
-import type { ListeningEpisode } from "./types";
+import { demonstrativesListen } from "./grammar-listens/demonstratives";
+import type { GrammarListen, ListeningChapter, ListeningEpisode } from "./types";
 
 export type {
+  GrammarListen,
   ListeningChapter,
   ListeningCheck,
   ListeningEpisode,
@@ -10,6 +12,13 @@ export type {
 } from "./types";
 
 export const listeningEpisodes: ListeningEpisode[] = [demonstrativesEpisode];
+
+/** Short dialogues that sit on a grammar page, one per topic. */
+export const grammarListens: GrammarListen[] = [demonstrativesListen];
+
+export function grammarListenForSlug(slug: string): GrammarListen | undefined {
+  return grammarListens.find((listen) => listen.grammarSlug === slug);
+}
 
 export const episodeBySlug = new Map(
   listeningEpisodes.map((episode) => [episode.slug, episode]),
@@ -50,6 +59,63 @@ export function validateListeningEpisodes(): string[] {
     ids.add(id);
   }
 
+  function checkChapter(
+    chapter: ListeningChapter,
+    prefix: string,
+    lineIds: Set<string>,
+    onSpeaker: (speaker: string, lineId: string) => void,
+  ): void {
+    claim(chapter.id, chapter.id);
+    if (!chapter.id.startsWith(prefix)) {
+      issues.push(`Chapter id ${chapter.id} must start with ${prefix}`);
+    }
+    if (!chapter.lines.length) issues.push(`Empty chapter ${chapter.id}`);
+
+    for (const line of chapter.lines) {
+      claim(line.id, chapter.id);
+      if (!line.id.startsWith(prefix)) {
+        issues.push(`Line id ${line.id} must start with ${prefix}`);
+      }
+      if (!line.english.trim()) issues.push(`Line ${line.id} has no English`);
+      onSpeaker(line.speaker, line.id);
+    }
+
+    for (const check of chapter.checks) {
+      claim(check.id, chapter.id);
+      if (!check.id.startsWith(prefix)) {
+        issues.push(`Check id ${check.id} must start with ${prefix}`);
+      }
+      if (!check.prompt.trim()) issues.push(`Check ${check.id} has no prompt`);
+      if (check.promptSk !== undefined && !check.promptSk.includes("___")) {
+        issues.push(`Check ${check.id} promptSk needs a ___ gap`);
+      }
+      if (!check.choices.some((choice) => choice.id === check.answerId)) {
+        issues.push(`Check ${check.id} answerId is not a choice`);
+      }
+      if (check.choices.length < 2) issues.push(`Check ${check.id} needs choices`);
+      for (const choice of check.choices) {
+        if (choice.id !== check.answerId && !choice.whyWrong?.trim()) {
+          issues.push(`Check ${check.id} choice ${choice.id} needs whyWrong`);
+        }
+      }
+      if (!check.feedback.why.includes("**")) {
+        issues.push(`Check ${check.id} why needs a **bold** term`);
+      }
+      if (check.replayLineId && !lineIds.has(check.replayLineId)) {
+        issues.push(`Check ${check.id} replays unknown line ${check.replayLineId}`);
+      }
+    }
+  }
+
+  for (const listen of grammarListens) {
+    const prefix = `listen-${listen.grammarSlug}-`;
+    if (grammarListenForSlug(listen.grammarSlug) !== listen) {
+      issues.push(`Duplicate grammar listen: ${listen.grammarSlug}`);
+    }
+    if (!listen.checks.length) issues.push(`Missing checks: ${listen.id}`);
+    checkChapter(listen, prefix, new Set(listen.lines.map((line) => line.id)), () => {});
+  }
+
   for (const episode of listeningEpisodes) {
     claim(episode.id, episode.id);
     if (episodeBySlug.get(episode.slug) !== episode) {
@@ -66,49 +132,12 @@ export function validateListeningEpisodes(): string[] {
     if (episodeCheckCount(episode) === 0) issues.push(`Missing checks: ${episode.id}`);
 
     for (const chapter of episode.chapters) {
-      claim(chapter.id, episode.id);
-      if (!chapter.id.startsWith(prefix)) {
-        issues.push(`Chapter id ${chapter.id} must start with ${prefix}`);
-      }
-      if (!chapter.lines.length) issues.push(`Empty chapter ${chapter.id}`);
-
-      for (const line of chapter.lines) {
-        claim(line.id, chapter.id);
-        if (!line.id.startsWith(prefix)) {
-          issues.push(`Line id ${line.id} must start with ${prefix}`);
+      checkChapter(chapter, prefix, lineIds, (speaker, lineId) => {
+        spoken.add(speaker);
+        if (!hosts.has(speaker)) {
+          issues.push(`Speaker ${speaker} in ${lineId} is not a listed host`);
         }
-        if (!line.english.trim()) issues.push(`Line ${line.id} has no English`);
-        spoken.add(line.speaker);
-        if (!hosts.has(line.speaker)) {
-          issues.push(`Speaker ${line.speaker} in ${line.id} is not a listed host`);
-        }
-      }
-
-      for (const check of chapter.checks) {
-        claim(check.id, chapter.id);
-        if (!check.id.startsWith(prefix)) {
-          issues.push(`Check id ${check.id} must start with ${prefix}`);
-        }
-        if (!check.prompt.trim()) issues.push(`Check ${check.id} has no prompt`);
-        if (check.promptSk !== undefined && !check.promptSk.includes("___")) {
-          issues.push(`Check ${check.id} promptSk needs a ___ gap`);
-        }
-        if (!check.choices.some((choice) => choice.id === check.answerId)) {
-          issues.push(`Check ${check.id} answerId is not a choice`);
-        }
-        if (check.choices.length < 2) issues.push(`Check ${check.id} needs choices`);
-        for (const choice of check.choices) {
-          if (choice.id !== check.answerId && !choice.whyWrong?.trim()) {
-            issues.push(`Check ${check.id} choice ${choice.id} needs whyWrong`);
-          }
-        }
-        if (!check.feedback.why.includes("**")) {
-          issues.push(`Check ${check.id} why needs a **bold** term`);
-        }
-        if (check.replayLineId && !lineIds.has(check.replayLineId)) {
-          issues.push(`Check ${check.id} replays unknown line ${check.replayLineId}`);
-        }
-      }
+      });
     }
 
     for (const host of hosts) {
