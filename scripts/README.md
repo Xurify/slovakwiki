@@ -91,6 +91,7 @@ ElevenLabs TTS → local `static/audio/` → Cloudflare R2 for production.
 | Known slugs (hand lemma, small set) | `bun scripts/audio/generate.ts -- --slugs kseft,objatie --missing-only` |
 | Bulk publish / many new examples    | `bun scripts/audio/generate.ts -- --missing-only`                       |
 | Lesson / practice spoken lines      | `bun scripts/audio/generate.ts -- --lessons-only --missing-only`        |
+| Grammar page sentences              | `bun scripts/audio/generate.ts -- --slugs possessives --missing-only`   |
 
 Needs `ELEVENLABS_API_KEY` in `.env`. Then `bun scripts/audio/upload.ts` before prod (R2). Generate locally even if upload is later.
 
