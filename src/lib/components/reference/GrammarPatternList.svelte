@@ -86,7 +86,14 @@
   /** Below sm the label sits on its own line, so the first form column takes the card's edge padding. */
   const gridLeadCellClass = "max-sm:pl-4";
   const gridRowLabelClass =
-    "align-baseline text-sm leading-snug font-normal text-slate-500 max-sm:hidden";
+    "align-baseline text-[0.95rem] leading-snug font-normal text-slate-600 max-sm:hidden";
+
+  /** Form columns share the width; with only two, the row label column stays narrow. */
+  function gridColumnWidth(count: number): string {
+    if (count > 3) return "max-sm:w-1/4 sm:w-1/6";
+    if (count === 2) return "max-sm:w-1/2 sm:w-[38%]";
+    return "max-sm:w-1/3 sm:w-1/4";
+  }
   const gridMobileLabelClass =
     "px-4 pt-2.5 pb-0 text-left text-[0.8125rem] leading-snug font-normal text-slate-500";
 </script>
@@ -200,19 +207,33 @@
             <td class={cx(gridLabelCellClass, "max-sm:hidden")}></td>
 
             {#each view.columns as column, index (column)}
+              {@const [head, note] = column.split(" · ")}
+
               <th
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
                   gridFormCellClass,
                   "py-2 text-left align-bottom",
-                  view.columns.length > 3
-                    ? "max-sm:w-1/4 sm:w-1/6"
-                    : "max-sm:w-1/3 sm:w-1/4",
+                  gridColumnWidth(view.columns.length),
                   index === 0 && gridLeadCellClass,
                 )}
               >
-                {column}
+                {#if note}
+                  <span
+                    class="block font-serif text-lg leading-snug font-semibold tracking-normal text-slate-900 normal-case"
+                    lang="sk"
+                  >
+                    {head}
+                  </span>
+                  <span
+                    class="block text-xs font-normal tracking-normal text-slate-500 normal-case"
+                  >
+                    {note}
+                  </span>
+                {:else}
+                  {column}
+                {/if}
               </th>
             {/each}
           </tr>

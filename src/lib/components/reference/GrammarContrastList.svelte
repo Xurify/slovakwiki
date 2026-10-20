@@ -27,11 +27,11 @@
 
   const rowClass = cx(
     "grid grid-cols-1 gap-y-2 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
-    "sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:items-center sm:gap-x-5 sm:px-5",
+    "sm:grid-cols-[11rem_minmax(0,1fr)] sm:items-center sm:gap-x-6 sm:px-5",
   );
 
   /** Scene and situation side by side on a phone, stacked in their own column from sm up. */
-  const cueClass = "flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1";
+  const cueClass = "flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1.5";
 
   /** The changing word takes the page's ending colour; the owner and the noun ending keep their own. */
   function markClass(role: string): string {
