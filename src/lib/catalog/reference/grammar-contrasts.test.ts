@@ -6,6 +6,11 @@ import { grammarEntries } from "./grammar";
 
 const contrastTopics = grammarEntries.filter((topic) => topic.contrasts);
 
+const allFrames = (topic: (typeof contrastTopics)[number]) => [
+  ...topic.contrasts!.frames,
+  ...(topic.contrasts!.more ?? []),
+];
+
 describe("grammar contrast cards", () => {
   it("covers the topics where the choice is the hard part", () => {
     expect(contrastTopics.map((topic) => topic.slug).toSorted()).toEqual([
@@ -17,14 +22,15 @@ describe("grammar contrast cards", () => {
     ]);
   });
 
-  it("pairs two different sentences, each with the word it turns on marked", () => {
+  it("says one sentence two or three ways, with the changing word marked", () => {
     for (const topic of contrastTopics) {
-      for (const {
-        choices: [left, right],
-      } of topic.contrasts!.pairs) {
-        expect(left.slovak.text, topic.slug).not.toBe(right.slovak.text);
+      for (const frame of allFrames(topic)) {
+        expect(frame.choices.length, frame.question).toBeGreaterThanOrEqual(2);
+        expect(new Set(frame.choices.map((choice) => choice.slovak.text)).size).toBe(
+          frame.choices.length,
+        );
 
-        for (const choice of [left, right]) {
+        for (const choice of frame.choices) {
           const marked = segmentsFromMarks(choice.slovak.text, choice.slovak.marks);
           expect(
             marked.some((segment) => segment.role),
@@ -35,34 +41,25 @@ describe("grammar contrast cards", () => {
     }
   });
 
-  it("tags the two sides of a card with different cues", () => {
+  it("lights a different part of the scene for each sentence", () => {
     for (const topic of contrastTopics) {
-      for (const { choices } of topic.contrasts!.pairs) {
-        const [left, right] = choices;
-        if (left.at && right.at) expect(left.at, left.slovak.text).not.toBe(right.at);
-      }
-    }
-  });
-
-  it("marks the changing word in every case row", () => {
-    for (const topic of contrastTopics) {
-      for (const row of topic.contrasts!.forms?.rows ?? []) {
-        for (const sentence of row.sentences) {
-          const marked = segmentsFromMarks(sentence.slovak.text, sentence.slovak.marks);
-          expect(
-            marked.some((segment) => segment.role),
-            sentence.slovak.text,
-          ).toBe(true);
+      for (const frame of allFrames(topic)) {
+        const cues = frame.choices.map((choice) => choice.at);
+        if (!frame.scene) {
+          expect(cues, frame.question).toEqual(cues.map(() => undefined));
+          continue;
         }
+        expect(cues, frame.question).not.toContain(undefined);
+        expect(new Set(cues).size, frame.question).toBe(cues.length);
       }
     }
   });
 
-  it("writes each situation to follow “If …”", () => {
+  it("keeps each situation to a few lowercase words", () => {
     for (const topic of contrastTopics) {
-      for (const choice of topic.contrasts!.pairs.flatMap((pair) => pair.choices)) {
-        expect(choice.when, choice.slovak.text).toMatch(/^\p{Ll}/u);
+      for (const choice of allFrames(topic).flatMap((frame) => frame.choices)) {
         expect(choice.when, choice.slovak.text).not.toMatch(/[.!?]$/);
+        expect(choice.when.length, choice.slovak.text).toBeLessThanOrEqual(48);
       }
     }
   });

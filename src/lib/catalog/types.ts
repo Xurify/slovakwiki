@@ -194,63 +194,60 @@ export interface GrammarTablePattern extends GrammarPatternShared {
 
 export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
 
+/** The small drawing beside each sentence of a contrast frame. */
+export type GrammarScene = "space" | "time" | "owner" | "address" | "aspect" | "clock";
+
 /**
- * What decides a choice: where the thing is (`me`, `them`, `far`), when
- * (`before`, `now`, `later`), whose (`own`, `other`), or who you talk to
- * (`friend`, `formal`). Drawn as an icon in the legend and on each card side.
+ * What the scene highlights for one sentence: where the thing is (`me`, `them`,
+ * `far`), when (`now`, `before`), who owns it (`own`, `other`), who you talk to
+ * (`friend`, `formal`, `group`), how the action runs (`now`, `ongoing`, `done`,
+ * `habit`), or a clock time against a length of time (`clock`, `span`).
  */
 export type GrammarCue =
   | "me"
   | "them"
   | "far"
-  | "before"
   | "now"
-  | "later"
+  | "before"
   | "own"
   | "other"
   | "friend"
-  | "formal";
+  | "formal"
+  | "group"
+  | "ongoing"
+  | "done"
+  | "habit"
+  | "clock"
+  | "span";
 
-export interface GrammarSentence {
+/** One way to fill the frame, and the situation that calls for it. */
+export interface GrammarChoice {
+  /** What the frame's scene highlights for this sentence. */
+  at?: GrammarCue;
   english: string;
   /** Spoken Slovak, with the word that changes marked. */
   slovak: MarkedText;
-}
-
-/** One side of a contrast card. */
-export interface GrammarChoice extends GrammarSentence {
-  /** Tags the side with its cue: “near you”, “over there”. */
-  at?: GrammarCue;
-  /** The situation that calls for this sentence. Reads after “If …”. */
+  /** The situation in a few words: “in your hand”. */
   when: string;
 }
 
-/** Two near-identical sentences; the situation decides between them. */
+/** One sentence said two or three ways; the situation picks the form. */
 export interface GrammarContrast {
-  choices: readonly [GrammarChoice, GrammarChoice];
-}
-
-/** One stop in the legend above the cards: the word and when to use it. */
-export interface GrammarLegendStop {
-  cue: GrammarCue;
-  note: string;
-  word: string;
-}
-
-/** The same two-way choice repeated across cases, one compact row each. */
-export interface GrammarContrastForms {
-  columns: readonly [string, string];
-  label: string;
-  rows: { label: string; sentences: readonly [GrammarSentence, GrammarSentence] }[];
+  choices: GrammarChoice[];
+  /** Case or number the frame shows: “genitive”. */
+  label?: string;
+  /** The question the learner asks first: “Where is the shirt?” */
+  question: string;
+  scene?: GrammarScene;
 }
 
 export interface GrammarContrastSet {
   /** The choice the learner faces: “Tento, ten, or tamten?” */
   label: string;
   intro?: string;
-  legend?: GrammarLegendStop[];
-  pairs: GrammarContrast[];
-  forms?: GrammarContrastForms;
+  frames: GrammarContrast[];
+  /** The same choice in further cases, folded until opened. */
+  more?: GrammarContrast[];
 }
 
 /** A form learners get wrong, the form to use, and a few words on why. */

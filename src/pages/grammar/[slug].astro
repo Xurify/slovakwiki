@@ -11,7 +11,7 @@ import { resolveKeyedAudioSrc } from "$lib/catalog/audio/resolve-server";
 import { entryBySlug, grammarEntries, words } from "$lib/catalog/entries";
 import { entryHref } from "$lib/catalog/dictionary/lemma-senses";
 import { sentenceCase } from "$lib/catalog/search/ui";
-import type { Example } from "$lib/catalog/types";
+import type { Example, GrammarContrast } from "$lib/catalog/types";
 import GrammarWeakSpots from "$lib/components/reference/GrammarWeakSpots.svelte";
 import { practiceRulesForGrammarTopic } from "$lib/practice/grammar-practice-rules";
 
@@ -51,22 +51,24 @@ export function getStaticPaths() {
         audioTarget(example.slovak, `${prefix}-${index}`),
       );
 
+    const frameTargets = (
+      frames: GrammarContrast[],
+      prefix: string,
+    ): AudioMountTarget[] =>
+      frames.flatMap((frame, frameIndex) =>
+        frame.choices.flatMap((choice, choiceIndex) =>
+          audioTarget(choice.slovak.text, `${prefix}-${frameIndex}-${choiceIndex}`),
+        ),
+      );
+
     const audioTargets: AudioMountTarget[] = [
       ...exampleTargets(entry.examples, "ex"),
       ...exampleTargets(entry.pattern.examples ?? [], "pattern-ex"),
       ...(entry.morePatterns ?? []).flatMap((pattern, index) =>
         exampleTargets(pattern.examples ?? [], `more-${index}-ex`),
       ),
-      ...(entry.contrasts?.pairs ?? []).flatMap((pair, pairIndex) =>
-        pair.choices.flatMap((choice, side) =>
-          audioTarget(choice.slovak.text, `contrast-${pairIndex}-${side}`),
-        ),
-      ),
-      ...(entry.contrasts?.forms?.rows ?? []).flatMap((row, rowIndex) =>
-        row.sentences.flatMap((sentence, side) =>
-          audioTarget(sentence.slovak.text, `contrast-form-${rowIndex}-${side}`),
-        ),
-      ),
+      ...frameTargets(entry.contrasts?.frames ?? [], "contrast"),
+      ...frameTargets(entry.contrasts?.more ?? [], "contrast-more"),
     ];
 
     const practiceRules = practiceRulesForGrammarTopic(entry.slug);

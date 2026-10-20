@@ -108,9 +108,8 @@ export function buildSearchDocuments(): SearchDocument[] {
 
   for (const entry of grammarEntries) {
     const patterns = [entry.pattern, ...(entry.morePatterns ?? [])];
-    const choices = entry.contrasts?.pairs.flatMap((pair) => pair.choices) ?? [];
-    const formSentences =
-      entry.contrasts?.forms?.rows.flatMap((row) => row.sentences) ?? [];
+    const frames = [...(entry.contrasts?.frames ?? []), ...(entry.contrasts?.more ?? [])];
+    const choices = frames.flatMap((frame) => frame.choices);
     documents.push({
       url: `/grammar/${entry.slug}`,
       kind: "grammar",
@@ -131,17 +130,15 @@ export function buildSearchDocuments(): SearchDocument[] {
           ...entry.rule.map(plainText),
           ...patterns.flatMap(patternSearchLines),
           ...entry.body,
-          ...choices.map((choice) => plainText(choice.when)),
+          ...frames.map((frame) => frame.question),
+          ...choices.map((choice) => choice.when),
         ],
         examples: [
           ...[
             ...patterns.flatMap((pattern) => pattern.examples ?? []),
             ...entry.examples,
           ].flatMap((example) => [example.slovak, example.english]),
-          ...[...choices, ...formSentences].flatMap((sentence) => [
-            sentence.slovak.text,
-            sentence.english,
-          ]),
+          ...choices.flatMap((choice) => [choice.slovak.text, choice.english]),
         ],
       }),
     });

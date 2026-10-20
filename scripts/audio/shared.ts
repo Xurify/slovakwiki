@@ -201,11 +201,8 @@ function grammarSentences(slugs?: Set<string>): string[] {
       ...(topic.morePatterns ?? []).flatMap((pattern) =>
         (pattern.examples ?? []).map((example) => example.slovak),
       ),
-      ...(topic.contrasts?.pairs ?? []).flatMap((pair) =>
-        pair.choices.map((choice) => choice.slovak.text),
-      ),
-      ...(topic.contrasts?.forms?.rows ?? []).flatMap((row) =>
-        row.sentences.map((sentence) => sentence.slovak.text),
+      ...[...(topic.contrasts?.frames ?? []), ...(topic.contrasts?.more ?? [])].flatMap(
+        (frame) => frame.choices.map((choice) => choice.slovak.text),
       ),
     ]);
 }
