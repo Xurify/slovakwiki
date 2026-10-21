@@ -2,7 +2,13 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import StickFigureLab, {
   type StickLabScene,
+  type StickThingWord,
 } from "$lib/components/stick-figure/StickFigureLab.svelte";
+import { audioHash } from "$lib/catalog/audio/core";
+import { hasAudioClip } from "$lib/catalog/audio/manifest";
+import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
+import { dictionaryPathForLemmaId } from "$lib/catalog/dictionary/lemma-href";
+import { words } from "$lib/catalog/entries";
 import { lessons } from "$lib/catalog/lessons";
 import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
 import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
@@ -11,6 +17,7 @@ import {
   storySettingForLesson,
   type LessonSceneArtId,
 } from "$lib/lesson-story/story-settings";
+import { SCENE_THINGS } from "$lib/stick-figure/scene-things";
 
 /**
  * Lessons whose story setting does not fit their dialogue: the waiter offering
@@ -47,8 +54,21 @@ const scenes: StickLabScene[] = lessons
     };
   })
   .filter((scene) => scene.lines.some((line) => dialogueSpeakerLabel(line.speaker)));
+
+const thingWords: Record<string, StickThingWord> = {};
+for (const thing of Object.values(SCENE_THINGS).flat()) {
+  const entry = words.find((word) => word.slovak === thing.word && word.gender);
+  if (!entry || thing.word in thingWords) continue;
+
+  thingWords[thing.word] = {
+    href: dictionaryPathForLemmaId(entry.slug),
+    src: hasAudioClip(audioHash(thing.word))
+      ? resolveDictionaryAudioSrc(thing.word, "lemma")
+      : undefined,
+  };
+}
 ---
 
 <SiteLayout title="Stick figures | Slovak Wiki" noindex>
-  <StickFigureLab client:load {scenes} />
+  <StickFigureLab client:load {scenes} {thingWords} />
 </SiteLayout>

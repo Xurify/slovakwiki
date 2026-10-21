@@ -21,6 +21,13 @@
     vowels?: string;
   }
 
+  /** Dictionary links for a scene thing's word, where the dictionary has it. */
+  export interface StickThingWord {
+    href?: string;
+    /** The lemma clip. */
+    src?: string;
+  }
+
   export interface StickLabScene {
     id: string;
     lines: StickLabLine[];
@@ -37,6 +44,8 @@
     characterIdForSpeaker,
     listedCharacters,
   } from "$lib/catalog/lessons/character-ids";
+  import AudioButton from "$lib/audio/AudioButton.svelte";
+  import { nounGenderLabel } from "$lib/catalog/types";
   import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -59,6 +68,7 @@
     gesturePlan,
     planLine,
     reactionPlan,
+    type LineBeat,
     type LinePlan,
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
@@ -79,6 +89,8 @@
     backdropToStage,
     figureToStage,
     linePoints,
+    thingCenter,
+    thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
   import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
@@ -110,9 +122,19 @@
     width: number;
   }
 
-  let { scenes }: { scenes: StickLabScene[] } = $props();
+  let {
+    scenes,
+    thingWords = {},
+  }: {
+    scenes: StickLabScene[];
+    /** Keyed by the thing's word. */
+    thingWords?: Record<string, StickThingWord>;
+  } = $props();
 
   const SCRIPT_SCENE_ID = "script";
+  /** How long a thing stays lit after a line names it. */
+  const LIT_MS = 1600;
+  const CARD_WIDTH = 220;
   /** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
   const BESIDE_WIDTHS = 0.8;
   /** Where an arm leaves the body, and where a hand holds a prop out to show it, in rig space. */
@@ -155,6 +177,10 @@
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
+  let lit = $state<string[]>([]);
+  let picked = $state<string>();
+  let stageWidth = $state(0);
+  let stageHeight = $state(0);
   let benchProp = $state<StickPropId | undefined>();
   let scriptSetting = $state<LessonSceneArtId>("cafe");
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
@@ -201,6 +227,37 @@
     scene.lines.map((line) => lineProps(line.slovak, line.props)),
   );
   const things = $derived(SCENE_THINGS[scene.setting] ?? []);
+  const pickedThing = $derived(things.find((thing) => thing.id === picked));
+  /** The word card sits under the thing, or over it when the thing is low on the stage. */
+  const card = $derived.by(() => {
+    if (!pickedThing) return undefined;
+
+    const align = backdropAlign(scene.setting);
+    const { box } = pickedThing;
+    const top = backdropToStage(box, stageWidth, stageHeight, align);
+    const bottom = backdropToStage(
+      { x: box.x + box.width / 2, y: box.y + box.height },
+      stageWidth,
+      stageHeight,
+      align,
+    );
+    const centre = backdropToStage(
+      thingCenter(pickedThing),
+      stageWidth,
+      stageHeight,
+      align,
+    );
+    const below = bottom.y + 8 < stageHeight * 0.55;
+
+    return {
+      below,
+      left: Math.min(
+        Math.max(8, centre.x - CARD_WIDTH / 2),
+        Math.max(8, stageWidth - CARD_WIDTH - 8),
+      ),
+      y: below ? Math.max(8, bottom.y + 8) : Math.max(8, stageHeight - top.y + 8),
+    };
+  });
   const held = $derived(
     heldProps(
       scene.lines.map((line, index) => ({
@@ -282,6 +339,8 @@
     stop();
     actors = {};
     heldAt = -1;
+    picked = undefined;
+    lit = [];
     if (id === scene.id) placeStage(0);
     sceneId = id;
   }
@@ -379,7 +438,7 @@
       const thing = things.find((candidate) => candidate.id === target.id);
       if (!thing || !stageEl) return undefined;
       return backdropToStage(
-        thing,
+        thingCenter(thing),
         stageEl.clientWidth,
         stageEl.clientHeight,
         backdropAlign(scene.setting),
@@ -419,6 +478,18 @@
     });
 
     return { facing, plan: { ...plan, beats } };
+  }
+
+  function light(id: string): void {
+    lit = [...lit, id];
+    window.setTimeout(() => {
+      const at = lit.indexOf(id);
+      if (at !== -1) lit = lit.toSpliced(at, 1);
+    }, LIT_MS);
+  }
+
+  function onBeat(beat: LineBeat): void {
+    if (beat.point?.target.kind === "thing") light(beat.point.target.id);
   }
 
   function stop(): void {
@@ -554,7 +625,8 @@
       <Lead class="mt-3">
         Prototype. The lesson cast as SVG figures that gesture while their line plays. The
         gesture comes from the Slovak text and the mouth from the recording, so no line
-        needs hand animation. Draft a new dialogue under Your script.
+        needs hand animation. Tap anything in the drawn scene for its Slovak word, and
+        draft a new dialogue under Your script.
       </Lead>
     </header>
 
@@ -661,6 +733,8 @@
 
         <div
           bind:this={stageEl}
+          bind:clientWidth={stageWidth}
+          bind:clientHeight={stageHeight}
           class="relative flex h-[300px] items-end justify-center gap-[6%] overflow-hidden border-b border-slate-200 px-6 pb-3 max-[600px]:h-[240px]"
         >
           {#if painted}
@@ -673,13 +747,21 @@
               decoding="async"
             />
           {:else}
-            <StickBackdrop class="absolute inset-0 size-full" setting={scene.setting} />
+            <StickBackdrop
+              class="absolute inset-0 size-full"
+              {lit}
+              onpick={(id) => {
+                picked = picked === id ? undefined : id;
+              }}
+              {picked}
+              setting={scene.setting}
+            />
           {/if}
 
           {#each cast as characterId (characterId)}
             <div
               class={cx(
-                "relative w-full transition-transform ease-linear",
+                "pointer-events-none relative w-full transition-transform ease-linear",
                 cast.length > 2
                   ? "max-w-[110px] max-[600px]:max-w-[80px]"
                   : "max-w-[150px] max-[600px]:max-w-[120px]",
@@ -695,11 +777,57 @@
                 facing={facings[characterId] ?? resting[characterId] ?? 1}
                 plan={actors[characterId]?.plan}
                 prop={held[heldAt]?.[characterId]}
+                onbeat={onBeat}
                 talking={actors[characterId]?.talking ?? false}
                 walk={walks[characterId]}
               />
             </div>
           {/each}
+
+          {#if pickedThing && card && !painted}
+            {@const word = thingWords[pickedThing.word]}
+            <div
+              class={cx(
+                "absolute z-10 animate-rise rounded-(--control-radius) bg-surface p-3",
+                "shadow-(--shadow-float) ring-1 ring-slate-200",
+              )}
+              style:left="{card.left}px"
+              style:top={card.below ? `${card.y}px` : undefined}
+              style:bottom={card.below ? undefined : `${card.y}px`}
+              style:width="{CARD_WIDTH}px"
+            >
+              <div class="flex items-center gap-3">
+                {#if word?.src}
+                  <AudioButton
+                    label="Listen: {pickedThing.word}"
+                    size="sm"
+                    src={word.src}
+                    text={pickedThing.word}
+                  />
+                {/if}
+
+                <div class="min-w-0">
+                  <p
+                    class="m-0 font-serif text-lg font-semibold text-slate-900"
+                    lang="sk"
+                  >
+                    {thingWithDemonstrative(pickedThing)}
+                  </p>
+                  <p class="m-0 text-sm text-slate-600">{pickedThing.english}</p>
+                </div>
+              </div>
+
+              <p class="m-0 mt-2 text-xs text-slate-500">
+                {nounGenderLabel(pickedThing.gender).english}
+              </p>
+
+              {#if word?.href}
+                <TextLink class="mt-1 inline-block" href={word.href}>
+                  Open in the dictionary
+                </TextLink>
+              {/if}
+            </div>
+          {/if}
         </div>
 
         <ol class="m-0 list-none divide-y divide-slate-200 p-0">

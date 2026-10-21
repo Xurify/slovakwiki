@@ -3,7 +3,7 @@
 
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import { gestureDuration } from "$lib/stick-figure/gestures";
-  import type { LinePlan } from "$lib/stick-figure/line-plan";
+  import type { LineBeat, LinePlan } from "$lib/stick-figure/line-plan";
   import {
     performFrame,
     startPerformance,
@@ -22,6 +22,7 @@
     clock,
     cue = 0,
     facing = 1,
+    onbeat,
     plan,
     prop,
     talking = false,
@@ -34,6 +35,8 @@
     /** Bump to perform `plan` from the start. */
     cue?: number;
     facing?: 1 | -1;
+    /** Called as each beat of `plan` starts. */
+    onbeat?: (beat: LineBeat) => void;
     plan?: LinePlan;
     /** Held in the lead hand. */
     prop?: StickPropId;
@@ -116,6 +119,10 @@
           talking,
         })
       : undefined;
+    if (next && next.state.beatIndex !== act.beatIndex) {
+      const started = plan?.beats[next.state.beatIndex];
+      if (started) onbeat?.(started);
+    }
     if (next) act = next.state;
 
     const beat = plan?.beats[act.beatIndex];
