@@ -30,9 +30,9 @@
 {/each}
 
 <Chalkboard x={650} y={50} width={108} height={90}>
-  <text x="54" y="24" text-anchor="middle" font-size="20">Ponuka</text>
+  <text x="54" y="24" text-anchor="middle" font-size="21">Menu</text>
   <path
-    d="M28 31q26-4 52 0"
+    d="M34 31q20-4 40 0"
     class="stroke-portrait-bib/80"
     fill="none"
     stroke-width="1.4"
