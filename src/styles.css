@@ -93,6 +93,18 @@
   /* Stick-figure outfits: dark cloth that must not lighten with the theme. */
   --color-portrait-suit: #22385c;
   --color-portrait-vest: #262f3b;
+  /* Stick-figure backdrops: light fixed paints, so the ink cast reads in both themes. */
+  --color-scene-line: #5d7584;
+  --color-scene-sky: #d8e8ef;
+  --color-scene-cool: #e7eef1;
+  --color-scene-warm: #f5ecdd;
+  --color-scene-sand: #e9d9bd;
+  --color-scene-wood: #d2a77a;
+  --color-scene-clay: #e0b39f;
+  --color-scene-honey: #ecc77f;
+  --color-scene-sage: #bed3c4;
+  --color-scene-leaf: #84ab92;
+  --color-scene-board: #45614f;
 }
 
 @layer base {

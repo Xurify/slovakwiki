@@ -7,7 +7,7 @@ import { lessons } from "$lib/catalog/lessons";
 import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
 import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-import { lessonSceneSrc, storySettingForLesson } from "$lib/lesson-story/story-settings";
+import { storySettingForLesson } from "$lib/lesson-story/story-settings";
 
 const scenes: StickLabScene[] = lessons
   .map((lesson) => {
@@ -15,8 +15,8 @@ const scenes: StickLabScene[] = lessons
     const mouths = sceneMouthTracks(lesson.scene);
 
     return {
-      backdrop: lessonSceneSrc[storySettingForLesson(lesson.id).art],
       id: lesson.id,
+      setting: storySettingForLesson(lesson.id).art,
       title: lesson.title,
       lines: lesson.scene.map((line) => ({
         characterId: characterIdForSpeaker(line.speaker),

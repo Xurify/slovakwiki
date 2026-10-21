@@ -1,5 +1,6 @@
 <script lang="ts" module>
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+  import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
   import type { StickGestureId } from "$lib/stick-figure/gestures";
 
   export interface StickLabLine {
@@ -17,10 +18,10 @@
   }
 
   export interface StickLabScene {
-    /** Lesson scene plate; a light painting, so ink limbs read in both themes. */
-    backdrop: string;
     id: string;
     lines: StickLabLine[];
+    /** Where it plays: picks the drawn backdrop and the painted lesson plate. */
+    setting: LessonSceneArtId;
     title: string;
   }
 </script>
@@ -30,6 +31,7 @@
   import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
   import {
     chipClass,
     eyebrowMutedClass,
@@ -48,6 +50,7 @@
   import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
   import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
   import { cx } from "$lib/ui/classes";
+  import StickBackdrop from "./StickBackdrop.svelte";
   import StickFigure from "./StickFigure.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
 
@@ -61,6 +64,16 @@
 
   const SCRIPT_SCENE_ID = "script";
 
+  const PLACES: Array<{ id: LessonSceneArtId; label: string }> = [
+    { id: "default", label: "Park" },
+    { id: "plaza", label: "Square" },
+    { id: "cafe", label: "Café" },
+    { id: "home", label: "Home" },
+    { id: "market", label: "Market" },
+    { id: "registration", label: "Front desk" },
+    { id: "classroom", label: "Classroom" },
+  ];
+
   const characters = listedCharacters();
 
   let sceneId = $state("");
@@ -71,6 +84,8 @@
   let bench = $state<ActorState>({ cue: 0, talking: false });
   let benchGesture = $state<StickGestureId | null>(null);
   let copied = $state(false);
+  let painted = $state(false);
+  let scriptSetting = $state<LessonSceneArtId>("default");
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   let scriptText = $state(
     [
@@ -85,9 +100,9 @@
 
   const script = $derived(parseScript(scriptText));
   const scriptScene = $derived<StickLabScene>({
-    backdrop: lessonSceneSrc.default,
     id: SCRIPT_SCENE_ID,
     lines: script.lines.map((line) => ({ ...line, english: "" })),
+    setting: scriptSetting,
     title: "Your script",
   });
   const allScenes = $derived([...scenes, scriptScene]);
@@ -284,14 +299,25 @@
             </ul>
           {/if}
 
+          <p class="{eyebrowMutedClass} mt-4">Place</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {#each PLACES as place (place.id)}
+              <button
+                class={chipClass(place.id === scriptSetting)}
+                type="button"
+                onclick={() => {
+                  scriptSetting = place.id;
+                }}
+              >
+                {place.label}
+              </button>
+            {/each}
+          </div>
+
           <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <button
-              class="cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline decoration-blue-700/30 underline-offset-2"
-              type="button"
-              onclick={copySnippet}
-            >
+            <TextLink onclick={copySnippet}>
               {copied ? "Copied" : "Copy as lesson scene"}
-            </button>
+            </TextLink>
             <p class="m-0 text-sm text-slate-500">
               Paste it into a lesson, then
               <code class="font-mono text-xs"
@@ -319,19 +345,32 @@
               track.
             {/if}
           </p>
+
+          <TextLink
+            class="ml-auto"
+            onclick={() => {
+              painted = !painted;
+            }}
+          >
+            {painted ? "Show drawn backdrop" : "Show painted backdrop"}
+          </TextLink>
         </div>
 
         <div
           class="relative flex h-[300px] items-end justify-center gap-[6%] overflow-hidden border-b border-slate-200 px-6 pb-3 max-[600px]:h-[240px]"
         >
-          <img
-            class="absolute inset-0 size-full object-cover object-center"
-            src={scene.backdrop}
-            alt=""
-            width="1536"
-            height="1024"
-            decoding="async"
-          />
+          {#if painted}
+            <img
+              class="absolute inset-0 size-full object-cover object-center"
+              src={lessonSceneSrc[scene.setting]}
+              alt=""
+              width="1536"
+              height="1024"
+              decoding="async"
+            />
+          {:else}
+            <StickBackdrop class="absolute inset-0 size-full" setting={scene.setting} />
+          {/if}
 
           {#each cast as characterId, index (characterId)}
             <div
