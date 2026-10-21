@@ -62,6 +62,11 @@ const LEAVING = [
 ];
 /** Folded phrases that call the one spoken to over. */
 const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
+/** Folded words asking whose something is. */
+const WHOSE = ["ci", "cia", "cie", "cieho", "ciu", "cej", "cim"];
+/** Folded words claiming it: môj, moja, moje, moji. */
+const MINE = ["moj", "moja", "moje", "moji"];
+
 /** Folded openers of someone arriving. */
 const GREETINGS = [
   "ahoj",
@@ -169,6 +174,36 @@ function shownTo(
   }
 
   return undefined;
+}
+
+/**
+ * Whose prop the speaker takes: one held up while its holder asked whose it
+ * is ("Čie sú tie kľúče?"), answered with "moje".
+ */
+export function takesFrom(
+  lines: readonly StageLine[],
+  index: number,
+): LessonCharacterId | undefined {
+  const line = lines[index];
+  const previous = lines[index - 1];
+  if (!line?.characterId || !previous?.characterId) return undefined;
+  if (previous.characterId === line.characterId) return undefined;
+
+  const asked = foldLine(previous.slovak)
+    .split(" ")
+    .some((word) => WHOSE.includes(word));
+  const claims = foldLine(line.slovak)
+    .split(" ")
+    .some((word) => MINE.includes(word));
+  const holding = lines
+    .slice(0, index)
+    .some(
+      (earlier) =>
+        earlier.characterId === previous.characterId &&
+        lineProps(earlier.slovak, earlier.props).some(Boolean),
+    );
+
+  return asked && claims && holding ? previous.characterId : undefined;
 }
 
 /**

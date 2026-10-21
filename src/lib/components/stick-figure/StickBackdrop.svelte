@@ -12,12 +12,15 @@
   import StageLight from "./backdrops/StageLight.svelte";
 
   let {
+    board,
     class: className = "",
     lit = [],
     onpick,
     picked,
     setting,
   }: {
+    /** A line to chalk on the classroom board. */
+    board?: string;
     class?: string;
     /** Things to light up: named in the line playing. */
     lit?: readonly string[];
@@ -56,7 +59,7 @@
   {#if setting === "cafe"}
     <Cafe />
   {:else if setting === "classroom"}
-    <Classroom />
+    <Classroom {board} />
   {:else if setting === "home"}
     <Home />
   {:else if setting === "market"}

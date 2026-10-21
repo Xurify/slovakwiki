@@ -39,6 +39,9 @@ const PROP_CUES: Record<StickPropId, { stems?: string[]; words?: string[] }> = {
   phone: { words: ["telefon", "telefonu", "telefonom", "mobil", "mobilu", "mobilom"] },
 };
 
+/** Ordering is not holding: "Ja si dám čaj." brings out no cup. */
+const ORDERING = ["dam si", "si dam", "dame si", "si dame"];
+
 /** Forms of `volať` (to call); with `sa` they mean "to be called" instead. */
 const CALLING = ["volam", "volas", "vola", "volame", "volate", "volaju"];
 
@@ -48,9 +51,12 @@ export function isStickProp(value: string): value is StickPropId {
 
 /** The prop a sentence names, if any: "Pozri, to sú fotky z leta." → camera. */
 export function propForSentence(sentence: string): StickPropId | undefined {
-  const words = foldLine(sentence).split(" ");
+  const folded = foldLine(sentence);
+  const words = folded.split(" ");
+  const ordering = ORDERING.some((phrase) => ` ${folded} `.includes(` ${phrase} `));
 
   for (const id of STICK_PROP_IDS) {
+    if (id === "cup" && ordering) continue;
     const { stems = [], words: whole = [] } = PROP_CUES[id];
     const named = words.some(
       (word) => whole.includes(word) || stems.some((stem) => word.startsWith(stem)),
@@ -94,6 +100,8 @@ export function gesturesWithProps(
 type HeldLine = {
   characterId: LessonCharacterId | null;
   props: ReadonlyArray<StickPropId | undefined>;
+  /** Whose prop the speaker takes as the line starts. */
+  takesFrom?: LessonCharacterId;
 };
 
 /** Who a prop comes out for: the holder's partner just before that line, else just after. */
@@ -114,13 +122,22 @@ function partnerAt(
  * prop their line names and keeps it until they bring out another, so Anna
  * still has the camera while Alex asks about the people in her photos. It
  * goes away when someone else joins in: Anna puts the camera away when the
- * waiter comes to take the order.
+ * waiter comes to take the order. A prop changes hands when its owner
+ * claims it ("Áno, moje!").
  */
 export function heldProps(lines: readonly HeldLine[]): CastProps[] {
   let held: CastProps = {};
   const shownTo: Partial<Record<LessonCharacterId, LessonCharacterId>> = {};
 
-  return lines.map(({ characterId, props }, index) => {
+  return lines.map(({ characterId, props, takesFrom }, index) => {
+    const taken = takesFrom ? held[takesFrom] : undefined;
+    if (characterId && takesFrom && taken) {
+      const handed: CastProps = { ...held, [characterId]: taken };
+      delete handed[takesFrom];
+      held = handed;
+      shownTo[characterId] = takesFrom;
+    }
+
     if (characterId) {
       const kept: CastProps = {};
       for (const holder of Object.keys(held) as LessonCharacterId[]) {

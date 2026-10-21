@@ -13,9 +13,12 @@ export const BACKDROP_HEIGHT = 300;
 /**
  * Which part of the backdrop a narrow stage keeps: 0 the left end, 1 the
  * right, the middle unless set. The café keeps its counter, where the
- * cakes the scenes point at are.
+ * cakes the scenes point at are, and the classroom its board.
  */
-const BACKDROP_ALIGN: Partial<Record<LessonSceneArtId, number>> = { cafe: 1 };
+const BACKDROP_ALIGN: Partial<Record<LessonSceneArtId, number>> = {
+  cafe: 1,
+  classroom: 0,
+};
 
 export function backdropAlign(setting: LessonSceneArtId): number {
   return BACKDROP_ALIGN[setting] ?? 0.5;

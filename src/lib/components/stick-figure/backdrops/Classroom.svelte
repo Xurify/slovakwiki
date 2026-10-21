@@ -3,8 +3,14 @@
   import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 
+  /** What the teacher has just said, chalked up in place of the greeting. */
+  let { board }: { board?: string } = $props();
+
   /** The start of the Slovak alphabet, digraphs included. */
   const LETTERS = ["A", "Á", "Ä", "B", "C", "Č", "D", "Ď", "Dz", "Dž", "E", "É"];
+
+  // Caveat runs about 0.42 em a letter; the board has 196 units to write in.
+  const boardSize = $derived(board ? Math.min(32, 196 / (board.length * 0.42)) : 32);
 </script>
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" />
@@ -36,9 +42,18 @@
 
 <Chalkboard x={44} y={66} width={220} height={88}>
   <text x="14" y="20" font-size="14">pondelok</text>
-  <text x="110" y="58" text-anchor="middle" font-size="32" transform="rotate(-2 110 50)">
-    Dobrý deň!
-  </text>
+  {#key board}
+    <text
+      x="110"
+      y="58"
+      text-anchor="middle"
+      font-size={boardSize}
+      transform="rotate(-2 110 50)"
+      class="animate-rise"
+    >
+      {board ?? "Dobrý deň!"}
+    </text>
+  {/key}
   <path
     d="M52 68q30-5 58 0t56-1"
     class="stroke-portrait-bib/80"
