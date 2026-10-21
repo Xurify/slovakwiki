@@ -11010,11 +11010,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Európsky parlament zasadá v Bruseli.",
-        "english": "The European Parliament sits in Brussels.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Európska spolupráca otvára nové možnosti.",
         "english": "European cooperation opens new possibilities.",
         "note": "Curated"
@@ -103049,32 +103044,7 @@
     "slovak": "francúzsky",
     "english": "French",
     "category": "Adjectives",
-    "examples": [
-      {
-        "slovak": "Hovoríš dobre po francúzsky!",
-        "english": "You speak good French!",
-        "note": "Tatoeba",
-        "tatoebaId": 1044663
-      },
-      {
-        "slovak": "Kde si sa naučil po francúzsky?",
-        "english": "Where did you learn French?",
-        "note": "Tatoeba",
-        "tatoebaId": 1044669
-      },
-      {
-        "slovak": "Vie po francúzsky, nehovoriac o angličtine.",
-        "english": "She speaks French, not to speak of English.",
-        "note": "Tatoeba",
-        "tatoebaId": 2226029
-      },
-      {
-        "slovak": "Hovorím tiež francúzsky.",
-        "english": "I speak French, too.",
-        "note": "Tatoeba",
-        "tatoebaId": 4958355
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -104936,7 +104906,7 @@
       },
       {
         "slovak": "Občiansky preukaz si obnovíš na polícii.",
-        "english": "You renew your ID card at the police.",
+        "english": "You renew your ID card at the police station.",
         "note": "Curated"
       },
       {
@@ -105385,56 +105355,7 @@
     "slovak": "taliansky",
     "english": "Italian",
     "category": "Adjectives",
-    "examples": [
-      {
-        "slovak": "Hovoríte taliansky?",
-        "english": "Do you speak Italian?",
-        "note": "Tatoeba",
-        "tatoebaId": 8905369
-      },
-      {
-        "slovak": "Hovoríš taliansky?",
-        "english": "Do you speak Italian?",
-        "note": "Tatoeba",
-        "tatoebaId": 9815345
-      },
-      {
-        "slovak": "Hovorím trochu taliansky.",
-        "english": "I speak Italian a little bit.",
-        "note": "Tatoeba",
-        "tatoebaId": 9835707
-      },
-      {
-        "slovak": "Učím sa taliansky.",
-        "english": "I am learning Italian.",
-        "note": "Tatoeba",
-        "tatoebaId": 9929893
-      },
-      {
-        "slovak": "Ako sa to povie po taliansky?",
-        "english": "How do you say that in Italian?",
-        "note": "Tatoeba",
-        "tatoebaId": 10072371
-      },
-      {
-        "slovak": "Ako je to po taliansky?",
-        "english": "How do you say that in Italian?",
-        "note": "Tatoeba",
-        "tatoebaId": 10072372
-      },
-      {
-        "slovak": "Nehovorím taliansky.",
-        "english": "I don't speak Italian.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261741
-      },
-      {
-        "slovak": "Nehovorím po taliansky.",
-        "english": "I don't speak Italian.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261743
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -107474,11 +107395,6 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Hovorí po rómsky.",
-        "english": "He speaks Romani.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Rómsky festival predstavil hudbu a tance.",
         "english": "The Roma festival presented music and dances.",
         "note": "Curated"
@@ -107805,11 +107721,6 @@
       {
         "slovak": "Nitriansky kraj je známy vinohradmi.",
         "english": "The Nitra Region is known for its vineyards.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Navštívili nitriansky hrad za pekného počasia.",
-        "english": "They visited Nitra Castle in nice weather.",
         "note": "Curated"
       },
       {
@@ -108563,56 +108474,7 @@
     "slovak": "čínsky",
     "english": "Chinese",
     "category": "Adjectives",
-    "examples": [
-      {
-        "slovak": "On môže hovoriť trochu po čínsky.",
-        "english": "He can speak Chinese a little.",
-        "note": "Tatoeba",
-        "tatoebaId": 2430582
-      },
-      {
-        "slovak": "Učím sa čínsky.",
-        "english": "I am learning Chinese.",
-        "note": "Tatoeba",
-        "tatoebaId": 10184470
-      },
-      {
-        "slovak": "Nehovorím čínsky.",
-        "english": "I don't speak Chinese.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261748
-      },
-      {
-        "slovak": "Nehovorím po čínsky.",
-        "english": "I don't speak Chinese.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261750
-      },
-      {
-        "slovak": "Hovoríš čínsky?",
-        "english": "Do you speak Chinese?",
-        "note": "Tatoeba",
-        "tatoebaId": 12470233
-      },
-      {
-        "slovak": "Hovoríte čínsky?",
-        "english": "Do you speak Chinese?",
-        "note": "Tatoeba",
-        "tatoebaId": 12470234
-      },
-      {
-        "slovak": "Hovoríš po čínsky?",
-        "english": "Do you speak Chinese?",
-        "note": "Tatoeba",
-        "tatoebaId": 12712041
-      },
-      {
-        "slovak": "Hovoríte po čínsky?",
-        "english": "Do you speak Chinese?",
-        "note": "Tatoeba",
-        "tatoebaId": 12712042
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -108855,11 +108717,6 @@
       {
         "slovak": "Rakúsky vlak prichádza.",
         "english": "The Austrian train is arriving.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Rakúsky vlak mešká o desať minút.",
-        "english": "The Austrian train is ten minutes late.",
         "note": "Curated"
       },
       {
@@ -110385,56 +110242,7 @@
     "slovak": "španielsky",
     "english": "Spanish",
     "category": "Adjectives",
-    "examples": [
-      {
-        "slovak": "Milujem hovoriť španielsky.",
-        "english": "I love speaking Spanish.",
-        "note": "Tatoeba",
-        "tatoebaId": 4404941
-      },
-      {
-        "slovak": "Hovorí sa v Mexiku po španielsky?",
-        "english": "Is Spanish spoken in Mexico?",
-        "note": "Tatoeba",
-        "tatoebaId": 8934270
-      },
-      {
-        "slovak": "Carol sa učí španielsky.",
-        "english": "Carol is studying Spanish.",
-        "note": "Tatoeba",
-        "tatoebaId": 9027641
-      },
-      {
-        "slovak": "Vie hovoriť španielsky?",
-        "english": "Can he speak Spanish?",
-        "note": "Tatoeba",
-        "tatoebaId": 9029776
-      },
-      {
-        "slovak": "Hovorím španielsky.",
-        "english": "I speak Spanish.",
-        "note": "Tatoeba",
-        "tatoebaId": 9835702
-      },
-      {
-        "slovak": "Hovorím po španielsky.",
-        "english": "I speak Spanish.",
-        "note": "Tatoeba",
-        "tatoebaId": 9979848
-      },
-      {
-        "slovak": "Áno, hovorím španielsky.",
-        "english": "Yes, I speak Spanish.",
-        "note": "Tatoeba",
-        "tatoebaId": 9979851
-      },
-      {
-        "slovak": "Španielsko sa po španielsky povie „España“.",
-        "english": "Spain is called \"España\" in Spanish.",
-        "note": "Tatoeba",
-        "tatoebaId": 10021503
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -112074,52 +111882,10 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Hovorí aj trochu po grécky.",
-        "english": "He also speaks a little Greek.",
-        "note": "Tatoeba",
-        "tatoebaId": 8987627
-      },
-      {
         "slovak": "Grécky otáznik vyzerá ako bodkočiarka.",
         "english": "The Greek question mark looks like a semicolon.",
         "note": "Tatoeba",
         "tatoebaId": 9872617
-      },
-      {
-        "slovak": "Je ťažké naučiť sa po grécky?",
-        "english": "Is it hard to learn Greek?",
-        "note": "Tatoeba",
-        "tatoebaId": 12597687
-      },
-      {
-        "slovak": "Hovoríš grécky?",
-        "english": "Do you speak Greek?",
-        "note": "Tatoeba",
-        "tatoebaId": 12718604
-      },
-      {
-        "slovak": "Hovoríš po grécky?",
-        "english": "Do you speak Greek?",
-        "note": "Tatoeba",
-        "tatoebaId": 12718605
-      },
-      {
-        "slovak": "Hovoríte grécky?",
-        "english": "Do you speak Greek?",
-        "note": "Tatoeba",
-        "tatoebaId": 12718606
-      },
-      {
-        "slovak": "Hovoríte po grécky?",
-        "english": "Do you speak Greek?",
-        "note": "Tatoeba",
-        "tatoebaId": 12718607
-      },
-      {
-        "slovak": "V Grécku sa hovorí grécky.",
-        "english": "They speak Greek in Greece.",
-        "note": "Tatoeba",
-        "tatoebaId": 12728706
       }
     ],
     "related": []
@@ -119647,11 +119413,6 @@
         "tatoebaId": 12702219
       },
       {
-        "slovak": "Švajčiarsky vlak prichádza na čas aj v zime.",
-        "english": "The Swiss train arrives on time even in winter.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Ochutnali sme švajčiarsku čokoládu z miestnej predajne.",
         "english": "We tasted Swiss chocolate from a local shop.",
         "note": "Curated"
@@ -120399,48 +120160,6 @@
     "english": "Swedish",
     "category": "Adjectives",
     "examples": [
-      {
-        "slovak": "Nehovorím švédsky.",
-        "english": "I don't speak Swedish.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261808
-      },
-      {
-        "slovak": "Nehovorím po švédsky.",
-        "english": "I don't speak Swedish.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261813
-      },
-      {
-        "slovak": "Hovorím trochu po švédsky.",
-        "english": "I speak a little Swedish.",
-        "note": "Tatoeba",
-        "tatoebaId": 12681889
-      },
-      {
-        "slovak": "Hovoríš po švédsky?",
-        "english": "Do you speak Swedish?",
-        "note": "Tatoeba",
-        "tatoebaId": 13215625
-      },
-      {
-        "slovak": "Hovoríte po švédsky?",
-        "english": "Do you speak Swedish?",
-        "note": "Tatoeba",
-        "tatoebaId": 13215627
-      },
-      {
-        "slovak": "Hovoríš švédsky?",
-        "english": "Do you speak Swedish?",
-        "note": "Tatoeba",
-        "tatoebaId": 13215628
-      },
-      {
-        "slovak": "Hovoríte švédsky?",
-        "english": "Do you speak Swedish?",
-        "note": "Tatoeba",
-        "tatoebaId": 13215630
-      },
       {
         "slovak": "Švédsky dizajn nábytku je jednoduchý.",
         "english": "Swedish furniture design is simple.",
@@ -126805,11 +126524,6 @@
         "slovak": "Absolvovala spevácky kurz v lete.",
         "english": "She completed a vocal course in summer.",
         "note": "Curated"
-      },
-      {
-        "slovak": "Spevácky výkon ocenili stojacim potleskom.",
-        "english": "They rewarded the singing performance with a standing ovation.",
-        "note": "Curated"
       }
     ],
     "related": []
@@ -127661,11 +127375,6 @@
       {
         "slovak": "Študovala na londýnskej univerzite semester.",
         "english": "She studied at a London university for a semester.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Londýnsky metrový systém je hustý.",
-        "english": "London's metro system is dense.",
         "note": "Curated"
       }
     ],
@@ -130488,18 +130197,6 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Ako sa to povie po chorvátsky?",
-        "english": "How do you say it in Croatian?",
-        "note": "Tatoeba",
-        "tatoebaId": 12705079
-      },
-      {
-        "slovak": "Ako je to po chorvátsky?",
-        "english": "How do you say it in Croatian?",
-        "note": "Tatoeba",
-        "tatoebaId": 12705148
-      },
-      {
         "slovak": "Na dovolenke sme sa učili chorvátsky pozdrav.",
         "english": "On holiday we learned a Croatian greeting.",
         "note": "Curated"
@@ -130507,11 +130204,6 @@
       {
         "slovak": "Chorvátsky pobrežný vánok bol príjemný.",
         "english": "The Croatian coastal breeze was pleasant.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Chorvátsky pobrežný vlak ide pozdĺž mora.",
-        "english": "The Croatian coastal train runs along the sea.",
         "note": "Curated"
       },
       {
@@ -135510,18 +135202,13 @@
         "note": "Curated"
       },
       {
-        "slovak": "Stredoeurópsky región má podobnú históriu.",
-        "english": "The Central European region has a similar history.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Stredoeurópske univerzity spolupracujú na výskume.",
         "english": "Central European universities cooperate on research.",
         "note": "Curated"
       },
       {
         "slovak": "Stredoeurópsky región spája podobná história.",
-        "english": "A shared history links the Central European region.",
+        "english": "A similar history unites the Central European region.",
         "note": "Curated"
       },
       {
@@ -136588,18 +136275,8 @@
         "note": "Curated"
       },
       {
-        "slovak": "Amatérsky spektákel v obci bol výborný.",
-        "english": "The amateur show in the village was excellent.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Fotografie sú amatérske, ale veľmi živé.",
         "english": "The photos are amateur, but very lively.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Amatérsky súbor hrá divadlo voľným časom.",
-        "english": "An amateur troupe performs theater in their free time.",
         "note": "Curated"
       },
       {
@@ -137613,11 +137290,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Parížsky metro je hustá sieť liniek.",
-        "english": "The Paris metro is a dense network of lines.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Priniesli parížsky suvenír z Eiffelovej veže.",
         "english": "They brought a Parisian souvenir from the Eiffel Tower.",
         "note": "Curated"
@@ -137655,11 +137327,6 @@
         "slovak": "Učia sa nórsky jazyk pred výmenným pobytom.",
         "english": "They are learning Norwegian before an exchange stay.",
         "note": "Curated"
-      },
-      {
-        "slovak": "Nórsky tím vyhral biatlonový šprint.",
-        "english": "The Norwegian team won the biathlon sprint.",
-        "note": "Curated"
       }
     ],
     "related": []
@@ -137670,48 +137337,6 @@
     "english": "Finnish",
     "category": "Adjectives",
     "examples": [
-      {
-        "slovak": "Chcel by som sa naučiť fínsky.",
-        "english": "I'd like to learn Finnish.",
-        "note": "Tatoeba",
-        "tatoebaId": 9922210
-      },
-      {
-        "slovak": "Chcela by som sa naučiť fínsky.",
-        "english": "I'd like to learn Finnish.",
-        "note": "Tatoeba",
-        "tatoebaId": 9922211
-      },
-      {
-        "slovak": "Hovorím fínsky.",
-        "english": "I speak Finnish.",
-        "note": "Tatoeba",
-        "tatoebaId": 10004077
-      },
-      {
-        "slovak": "Hovorím po fínsky.",
-        "english": "I speak Finnish.",
-        "note": "Tatoeba",
-        "tatoebaId": 10004078
-      },
-      {
-        "slovak": "Fíni hovoria fínsky.",
-        "english": "The Finns speak Finnish.",
-        "note": "Tatoeba",
-        "tatoebaId": 10004103
-      },
-      {
-        "slovak": "Nehovorím po fínsky.",
-        "english": "I don't speak Finnish.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261832
-      },
-      {
-        "slovak": "Nehovorím fínsky.",
-        "english": "I don't speak Finnish.",
-        "note": "Tatoeba",
-        "tatoebaId": 12261833
-      },
       {
         "slovak": "Fínsky saunový rituál poznajú aj turisti.",
         "english": "Even tourists know the Finnish sauna ritual.",
@@ -140231,11 +139856,6 @@
       {
         "slovak": "Gréckokatolícka farnosť organizuje charitatívnu zbierku.",
         "english": "The Greek Catholic parish organizes a charity collection.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Gréckokatolícky obrad spieva zbor po slovensky.",
-        "english": "In the Greek Catholic rite the choir sings in Slovak.",
         "note": "Curated"
       },
       {
@@ -204146,12 +203766,6 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Milujem hovoriť španielsky.",
-        "english": "I love speaking Spanish.",
-        "note": "Tatoeba",
-        "tatoebaId": 4404941
-      },
-      {
         "slovak": "Hovorí sa v Mexiku po španielsky?",
         "english": "Is Spanish spoken in Mexico?",
         "note": "Tatoeba",
@@ -204215,11 +203829,6 @@
       {
         "slovak": "Krajina hospodársky rastie už tretí rok.",
         "english": "The country has been growing economically for three years.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Hospodársky plán počíta s úsporami.",
-        "english": "The economic plan includes savings.",
         "note": "Curated"
       }
     ],
