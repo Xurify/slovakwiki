@@ -9,6 +9,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                                    |
 | Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md)              |
 | Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
+| Write a listening episode (podcast)         | [`docs/listening-authoring.md`](docs/listening-authoring.md)                |
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)                        |
 | FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                          |
 | Slovak linguistic accuracy                  | [`slovak-language` skill](.agents/skills/slovak-language/SKILL.md)          |
@@ -178,6 +179,34 @@ General rules for status blocks, compare views, summaries, and any “nested car
 
 Reference: miss feedback — `PracticeExerciseFeedback.svelte` + `practice-feedback-ui.ts`.
 
+### Avoid the generated look
+
+The site should read like a calm reference someone made by hand, not a template. Each pattern below came up in review as "AI slop". Don't add them, and remove them from any page you touch.
+
+**Labels and titles**
+
+- **No small caps.** No tiny uppercase tracked labels (`CHAPTERS`, `WORDS YOU'LL HEAR`). Label lists, rails and form groups in sentence case with `Eyebrow.svelte` or `eyebrowClass`. Counts are plain text: `1 of 6`, `Question 1 of 3`.
+- **No kicker over a heading.** Drop a word above a title that only repeats it: `Track` over "Everyday Slovak", `Area` over "Nouns", `Review` over "Nothing to review today". Keep a line above a title only when it adds something, such as the track a lesson belongs to on the continue card.
+- **No meta strip over a title.** A dot-joined row above the h1, like `Ten, tá, to · 4 min · A1–A2` or `Case 2 of 6 · Direct object`, is the template signature. When a reader needs the facts before starting, list them under the lead as labelled pairs (`Length 4 min`, `Level A1–A2`, `Grammar ten, tá, to`), as the listening episode page does. Otherwise leave them to the body, which often says them already.
+- **One language in a card or list title.** A story or episode name is the Slovak line alone (`Kde je ten kľúč?`). Its English goes under the title on its own page, not after a `·` on the card. A Slovak and English pair elsewhere sits side by side with a gap, as in `Koho? Čo?  Whom? What?`.
+- **Name stories after a line.** An episode or story dialogue is named after a line the learner will hear, not after the grammar it teaches.
+
+**Layout**
+
+- **No dot legends.** A coloured dot never looks like the mark it explains. Explain marks with a sentence that uses a real word styled exactly like the rows: "the word you pick is blue, like _táto_".
+- **No stacked headings.** A section heading, a subtitle and a card title in a row before the first action are three labels for one thing. Keep one.
+- **One primary action per state.** Everything else is a quiet text button, shown only when it applies.
+- **No empty sections.** Render a heading only when its content exists. Astro passes a named slot even when its condition is false, so check the data, not the snippet.
+- **No dead width.** Rows and table columns fit their content. A short phrase list is a grid of cells, not two columns pushed to the edges.
+- **No decoration for its own sake:** no gradient text, glows, sparkle or emoji icons, or badges on everything.
+
+**Content**
+
+- **Restyle, don't delete.** When a block looks wrong, change how it looks and keep what it says. The Slovak case terms on contrast cards were once removed for a cleaner look and had to come back. Ask before you drop information.
+- **Copy never contradicts the UI.** "The text opens after three questions" next to a Show text button is wrong. Say what happens in plain words, and name buttons with verbs: Listen, Next chapter, Show text.
+- **Plain copy.** No hype ("unlock", "master", "dive into", "journey", "seamless") and no emoji in UI text. Exclamation marks belong in the Slovak dialogue, not in the chrome.
+- **One feature, one home.** Don't embed a second interactive copy of a feature on a reference page. Link to where it lives: grammar pages link to the listening episode instead of running their own player.
+
 ## Astro islands (hydration)
 
 **Default: SSR static.** Hydrate only widgets that need browser JS. Nested Svelte inside an SSR parent does **not** hydrate — islands must be imported in `.astro` and passed via slots/snippets.
@@ -263,6 +292,7 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - [ ] No new selectors added to `styles.css` for one-off layout/look
 - [ ] Styling done with Tailwind utilities and/or an existing/shared component
 - [ ] Used theme tokens (`slate` / `blue` / `rose` / `emerald`, `font-serif`, …) not one-off hex in components
+- [ ] Nothing from **Avoid the generated look**: no small caps, kickers, meta strips over titles, dot legends or copy that contradicts the UI
 - [ ] Desktop + mobile still look correct
 - [ ] If a layout with a skeleton changed drastically: matching skeleton updated
 - [ ] Hydration: no new full-page `client:*` on mostly-static shells (see **Astro islands**)

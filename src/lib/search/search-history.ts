@@ -29,6 +29,7 @@ const SEARCH_KINDS = new Set<SearchDocKind>([
   "pronunciation",
   "case",
   "lesson",
+  "listening",
   "practice",
 ]);
 

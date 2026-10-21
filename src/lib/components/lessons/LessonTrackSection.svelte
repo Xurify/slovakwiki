@@ -19,7 +19,6 @@
 
 <section data-level={track.id} aria-labelledby="track-{track.id}-heading">
   <SectionHead
-    eyebrow="Track"
     title={track.title}
     id="track-{track.id}-heading"
     href="/lessons/{track.id}"

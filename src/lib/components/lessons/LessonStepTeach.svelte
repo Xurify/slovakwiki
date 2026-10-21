@@ -399,15 +399,7 @@
       </div>
 
       <div class="px-4 pt-3 pb-5 sm:px-8">
-        <p class={eyebrowMutedClass}>
-          {#if setting.placeSk}
-            <span lang="sk">{setting.placeSk}</span>
-            <span class="mx-1.5 text-slate-400" aria-hidden="true">·</span>
-          {/if}
-          <span class="font-semibold tracking-normal normal-case">{setting.place}</span>
-        </p>
-
-        <div class="mt-1.5 flex items-baseline justify-between gap-4">
+        <div class="flex items-baseline justify-between gap-4">
           <h2
             class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl"
           >
@@ -420,6 +412,13 @@
             </p>
           {/if}
         </div>
+
+        <p class="m-0 mt-1 flex flex-wrap items-baseline gap-x-2 text-sm">
+          {#if setting.placeSk}
+            <span class="text-slate-700" lang="sk">{setting.placeSk}</span>
+          {/if}
+          <span class="text-slate-500">{setting.place}</span>
+        </p>
       </div>
     </div>
   {:else}

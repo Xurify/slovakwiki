@@ -2,7 +2,7 @@ import { eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
 
 /**
  * One card for every table and ranked list: a neutral panel, a grey header
- * row, uppercase column labels, ruled rows, and a plain footer row.
+ * row, sentence-case column labels, ruled rows, and a plain footer row.
  */
 export const dataPanelClass = `${panelClass} overflow-hidden`;
 

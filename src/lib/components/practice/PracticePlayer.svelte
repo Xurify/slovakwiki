@@ -561,20 +561,26 @@
           : undefined}
       />
 
-      {#if retryQueuedForCurrentCard}
-        <p class="m-0 text-sm text-slate-500">
-          This rule comes back in a few cards, with a new sentence.
-        </p>
-      {/if}
-
-      <Button
-        class="w-full sm:w-auto sm:min-w-[9rem] sm:justify-self-end"
-        type="button"
-        variant="accent"
-        onclick={next}
+      <div
+        class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
       >
-        {activeIndex === activeItems.length - 1 ? "See results" : "Continue"}
-      </Button>
+        {#if retryQueuedForCurrentCard}
+          <p class="m-0 text-sm text-pretty text-slate-500">
+            This rule comes back in a few cards, with a new sentence.
+          </p>
+        {:else}
+          <span class="hidden sm:block" aria-hidden="true"></span>
+        {/if}
+
+        <Button
+          class="w-full shrink-0 sm:w-auto sm:min-w-[9rem]"
+          type="button"
+          variant="accent"
+          onclick={next}
+        >
+          {activeIndex === activeItems.length - 1 ? "See results" : "Continue"}
+        </Button>
+      </div>
     </div>
   {:else}
     <div

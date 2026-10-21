@@ -15,6 +15,7 @@ describe("sitemap", () => {
       "sitemap-grammar.xml",
       "sitemap-lessons.xml",
       "sitemap-practice.xml",
+      "sitemap-listening.xml",
       "sitemap-pronunciation.xml",
     ]);
 
@@ -23,6 +24,8 @@ describe("sitemap", () => {
     expect(byName.grammar?.length).toBe(20);
     expect(byName.lessons?.length).toBe(13);
     expect(byName.practice?.length).toBe(12);
+    expect(byName.listening?.length).toBe(1);
+    expect(byName.pages).toContain(`${SITE_ORIGIN}/listening`);
     expect(byName.pronunciation?.length).toBe(5);
 
     const all = groups.flatMap((group) => group.urls);

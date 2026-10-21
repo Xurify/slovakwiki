@@ -8,6 +8,7 @@ import {
   listedCharacters,
 } from "$lib/catalog/lessons/character-ids";
 import { lessons } from "$lib/catalog/lessons";
+import { episodeLines, listeningEpisodes } from "$lib/catalog/listening";
 import { practiceItems } from "$lib/catalog/practice";
 import { lessonExercises } from "$lib/learning/beats";
 import type { DialogueTurn, LessonExercise } from "$lib/learning/types";
@@ -42,6 +43,10 @@ function collectContentSpeakers(): string[] {
 
   for (const item of practiceItems) {
     speakersFromTurns(item.task.context, found);
+  }
+
+  for (const episode of listeningEpisodes) {
+    speakersFromTurns(episodeLines(episode), found);
   }
 
   return [...found].sort();
@@ -95,7 +100,7 @@ describe("character ids from audio config", () => {
     }
   });
 
-  it("maps every lesson and practice speaker without the unknown fallback", () => {
+  it("maps every lesson, practice and episode speaker without the unknown fallback", () => {
     const bySpeaker = new Map(
       listedAudioSpeakers().map((row) => [row.speaker, row.id] as const),
     );
