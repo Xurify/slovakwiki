@@ -131,6 +131,8 @@
   let captionCue = $state(0);
   let showEnglish = $state(false);
   let slower = $state(false);
+  /** Hear each line before reading it. */
+  let listenFirst = $state(false);
   /** Alex's lines answered so far, and whether each was right the first time. */
   let firstTries = $state<Record<number, boolean>>({});
   let stage = $state<ReturnType<typeof StickStage>>();
@@ -141,6 +143,8 @@
   /** How each thing went: found on the first tap, found after a miss, or shown. */
   let results = $state<Record<string, "first" | "later" | "shown">>({});
   let missedTarget = $state(false);
+  /** Things found on the first tap in a row. */
+  let streak = $state(0);
   let findNote = $state<{
     tone: "right" | "wrong" | "shown";
     text: string;
@@ -276,9 +280,20 @@
       return;
     }
 
-    say(index, () => {
-      timer = window.setTimeout(() => step(index + 1), LINE_GAP_MS);
-    });
+    say(index, () => advance(index));
+  }
+
+  /**
+   * After a line: on to the next, or, when the learner listens first, wait
+   * on its words until they ask for the next line.
+   */
+  function advance(index: number): void {
+    if (listenFirst && scene.lines[index + 1]) {
+      at = index + 1;
+      phase = "paused";
+      return;
+    }
+    timer = window.setTimeout(() => step(index + 1), LINE_GAP_MS);
   }
 
   function playScene(): void {
@@ -328,9 +343,7 @@
     firstTries = { ...firstTries, [at]: firstTry };
     phase = "playing";
     const index = at;
-    say(index, () => {
-      timer = window.setTimeout(() => step(index + 1), LINE_GAP_MS);
-    });
+    say(index, () => advance(index));
   }
 
   function missed(said: string): void {
@@ -370,6 +383,7 @@
     findAt = 0;
     results = {};
     missedTarget = false;
+    streak = 0;
     findNote = undefined;
     const who = asker();
     if (who) stage?.gesture(who, "ask");
@@ -414,6 +428,7 @@
 
     if (id !== target.id) {
       missedTarget = true;
+      streak = 0;
       playAnswerSfx("incorrect");
       findNote = { tone: "wrong", text: tapped ? thatIs(tapped) : "" };
       stage?.light(id);
@@ -423,6 +438,7 @@
 
     playAnswerSfx("correct");
     results = { ...results, [id]: missedTarget ? "later" : "first" };
+    if (!missedTarget) streak += 1;
     findNote = { tone: "right", text: "Áno!", why: findWhy(target, level) };
     if (who) stage?.gesture(who, "nod");
     nextThing();
@@ -433,6 +449,7 @@
     if (!target || (findNote && findNote.tone !== "wrong")) return;
 
     results = { ...results, [target.id]: "shown" };
+    streak = 0;
     findNote = { tone: "shown", text: hereIs(target), why: findWhy(target, level) };
     stage?.light(target.id);
     nextThing();
@@ -714,6 +731,7 @@
             <SceneCaption
               cue={captionCue}
               english={caption.english}
+              {listenFirst}
               marks={caption.marks}
               onthing={(id) => stage?.light(id)}
               plan={direction.plans[shown]}
@@ -743,7 +761,12 @@
             class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
             <TextLink onclick={showThing}>Show me</TextLink>
-            <span class="ml-auto text-sm text-slate-500">
+            {#if streak > 1}
+              <span class="ml-auto animate-rise text-sm font-semibold text-emerald-700">
+                {streak} in a row
+              </span>
+            {/if}
+            <span class={cx("text-sm text-slate-500", streak < 2 && "ml-auto")}>
               {Object.keys(results).length} of {queue.length}
             </span>
           </div>
@@ -755,7 +778,11 @@
               <Button variant="secondary" onclick={pause}>Pause</Button>
             {:else}
               <Button variant="accent" onclick={playScene}>
-                {phase === "paused" ? "Resume" : "Play scene"}
+                {#if phase === "paused"}
+                  {listenFirst ? "Next line" : "Resume"}
+                {:else}
+                  Play scene
+                {/if}
               </Button>
             {/if}
 
@@ -770,6 +797,15 @@
               }}
             >
               {slower ? "Normal speed" : "Slower"}
+            </TextLink>
+
+            <TextLink
+              aria-pressed={listenFirst}
+              onclick={() => {
+                listenFirst = !listenFirst;
+              }}
+            >
+              {listenFirst ? "Show text as it is said" : "Listen first"}
             </TextLink>
 
             <span class="ml-auto text-sm text-slate-500">
