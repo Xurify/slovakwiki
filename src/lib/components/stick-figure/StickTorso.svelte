@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-  import { STICK_SHIRT_CLASS } from "./stick-figure-ui";
 
   /**
    * Clothes from the neck to the hem, drawn in torso space: hip at 0,0, neck
@@ -62,7 +61,7 @@
   <circle cx="0" cy="-12.4" r="0.65" class="fill-portrait-bib" />
   <circle cx="0" cy="-8.2" r="0.65" class="fill-portrait-bib" />
   <path d="M-3.4 -31.7v3.2l3.4-1.6ZM3.4 -31.7v3.2l-3.4-1.6Z" class="fill-portrait-ink" />
-{:else if characterId === "guide"}
+{:else if characterId === "guide" || characterId === "narrator"}
   <!-- robot chassis to match the visor head: light casing, chest screen -->
   <rect
     x="-2"
@@ -91,7 +90,12 @@
     class="fill-slate-800 stroke-portrait-ink"
     stroke-width="0.9"
   />
-  <circle cx="0" cy="-20.7" r="1.5" class="fill-sky-400" />
+  <circle
+    cx="0"
+    cy="-20.7"
+    r="1.5"
+    class={characterId === "guide" ? "fill-sky-400" : "fill-rose-400"}
+  />
   <path d="M-4.8 -6.4H4.8" class="stroke-portrait-ink" stroke-width="0.8" />
   <circle cx="-2.6" cy="-3" r="0.7" class="fill-sky-400" />
   <circle cx="0" cy="-3" r="0.7" class="fill-rose-500" />
@@ -118,6 +122,96 @@
     class="fill-portrait-bib stroke-portrait-ink"
     stroke-width="0.6"
   />
-{:else}
-  <path d="M0 0L0 -30" class={STICK_SHIRT_CLASS[characterId]} stroke-width="10" />
+{:else if characterId === "alex"}
+  <!-- blue zip hoodie over a white tee, the hood bunched behind the neck -->
+  <path
+    d="M-4 -32.4Q0 -35.4 4 -32.4L4.6 -29.6H-4.6Z"
+    class="fill-blue-600 stroke-portrait-ink"
+    stroke-width="1"
+  />
+  <path
+    d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L3 -31.1Q6.4 -30.9 6 -27.8L5.6 -1.6Q0 0.4 -5.6 -1.6Z"
+    class="fill-blue-600 stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path d="M-2 -31L0 -26.6L2 -31Z" class="fill-portrait-bib" />
+  <path
+    d="M0 -26.6V-1M-5.6 -3.8Q0 -1.8 5.6 -3.8M-4.4 -9.6Q0 -11.4 4.4 -9.6"
+    class="stroke-portrait-ink"
+    stroke-width="0.8"
+  />
+  <path
+    d="M-1.5 -29.6l-.4 4.4M1.5 -29.6l.4 4.4"
+    class="stroke-portrait-bib"
+    stroke-width="0.7"
+  />
+{:else if characterId === "anna"}
+  <!-- rose knit sweater over a white collar, a bag on a strap across -->
+  <path
+    d="M-5.8 -27.8Q-6.2 -30.9 -3 -31.1L3 -31.1Q6.2 -30.9 5.8 -27.8L5.4 -2.4Q0 -0.6 -5.4 -2.4Z"
+    class="fill-rose-500 stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path
+    d="M-3.2 -31Q-1.6 -27.6 0 -29.2Q1.6 -27.6 3.2 -31Z"
+    class="fill-portrait-bib stroke-portrait-ink"
+    stroke-width="0.7"
+  />
+  <path d="M-5.4 -4.6Q0 -2.8 5.4 -4.6" class="stroke-portrait-ink" stroke-width="0.7" />
+  <path d="M-4.4 -29.6L5.6 -8.6" class="stroke-portrait-hair" stroke-width="1.3" />
+  <rect
+    x="3.4"
+    y="-9.8"
+    width="5.2"
+    height="4.6"
+    rx="1"
+    class="fill-portrait-hair stroke-portrait-ink"
+    stroke-width="0.7"
+  />
+{:else if characterId === "maria"}
+  <!-- rose cardigan open over a white blouse, long navy skirt -->
+  <path
+    d="M-5.6 -1L5.6 -1L7.4 22Q0 23.4 -7.4 22Z"
+    class="fill-portrait-suit stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path
+    d="M-5 -27.8H5L4.6 -1.4H-4.6Z"
+    class="fill-portrait-bib stroke-portrait-ink"
+    stroke-width="1"
+  />
+  <path
+    d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L-1.4 -31L-1.8 -0.8Q-4 -0.4 -5.6 -1.4Z"
+    class="fill-rose-500 stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path
+    d="M6 -27.8Q6.4 -30.9 3 -31.1L1.4 -31L1.8 -0.8Q4 -0.4 5.6 -1.4Z"
+    class="fill-rose-500 stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <circle
+    cx="-3.6"
+    cy="-23.6"
+    r="0.9"
+    class="fill-scene-honey stroke-portrait-ink"
+    stroke-width="0.5"
+  />
+{:else if characterId === "marek"}
+  <!-- charcoal sweater over a collared shirt -->
+  <path
+    d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L3 -31.1Q6.4 -30.9 6 -27.8L5.6 -1.6Q0 0.4 -5.6 -1.6Z"
+    class="fill-portrait-vest stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path
+    d="M-3.6 -31.2L0 -28.2L-1.4 -26ZM3.6 -31.2L0 -28.2L1.4 -26Z"
+    class="fill-portrait-bib stroke-portrait-ink"
+    stroke-width="0.6"
+  />
+  <path
+    d="M-5.6 -3.8Q0 -1.8 5.6 -3.8"
+    class="stroke-portrait-bib/40"
+    stroke-width="0.8"
+  />
 {/if}

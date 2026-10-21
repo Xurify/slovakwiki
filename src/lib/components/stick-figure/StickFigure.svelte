@@ -185,7 +185,7 @@
       stroke-width="3.6"
     />
 
-    {#if characterId === "guide"}
+    {#if robot}
       <circle
         cx={n(rig.rearLeg.joint.x)}
         cy={n(rig.rearLeg.joint.y)}
@@ -225,7 +225,7 @@
       />
     {/if}
 
-    {#if characterId === "guide"}
+    {#if robot}
       <circle
         cx={n(rig.rearArm.joint.x)}
         cy={n(rig.rearArm.joint.y)}
