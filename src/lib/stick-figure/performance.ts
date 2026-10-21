@@ -25,6 +25,29 @@ export interface PerformanceState {
   blendFrom: StickPose;
 }
 
+/**
+ * Where a line is now in its plan's clip time: the clip position when the
+ * plan was fitted to the clip's track, else that position stretched from
+ * text timing to the clip's real length. Without a clip, `sinceStart` on
+ * the wall clock; null while the clip loads.
+ */
+export function planTime(
+  plan: LinePlan | undefined,
+  reading: SpeechClock | undefined,
+  sinceStart: number,
+): number | null {
+  if (!reading) return sinceStart;
+  if (!(reading.durationMs > 0)) return null;
+  if (plan?.track) return reading.timeMs;
+  return reading.timeMs * ((plan?.durationMs ?? reading.durationMs) / reading.durationMs);
+}
+
+/** The word being said at `ms`: the last one started, -1 before the first. */
+export function wordAt(plan: LinePlan | undefined, ms: number | null): number {
+  if (ms === null || !plan?.words) return -1;
+  return plan.words.findLastIndex((word) => ms >= word.start);
+}
+
 export interface PerformanceInput {
   /** Wall clock, ms. */
   now: number;

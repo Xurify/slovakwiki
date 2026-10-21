@@ -2,32 +2,12 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import StickFigureLab, {
   type StickLabScene,
-  type StickThingWord,
 } from "$lib/components/stick-figure/StickFigureLab.svelte";
-import { audioHash } from "$lib/catalog/audio/core";
-import { hasAudioClip } from "$lib/catalog/audio/manifest";
-import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
-import { dictionaryPathForLemmaId } from "$lib/catalog/dictionary/lemma-href";
-import { words } from "$lib/catalog/entries";
 import { lessons } from "$lib/catalog/lessons";
 import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
 import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-import {
-  storySettingForLesson,
-  type LessonSceneArtId,
-} from "$lib/lesson-story/story-settings";
-import { SCENE_THINGS } from "$lib/stick-figure/scene-things";
-
-/**
- * Lessons whose story setting does not fit their dialogue: the waiter offering
- * coffee and a menu is in a café, the receptionist checking Alex in is at the
- * front desk. Both are set "home" in story-settings.ts.
- */
-const STAGE_SETTINGS: Record<string, LessonSceneArtId> = {
-  "everyday/negation-in-conversation": "cafe",
-  "grammar/byt-present": "registration",
-};
+import { sceneThingWords, stageSettingFor } from "$lib/stick-figure/lesson-stage";
 
 const scenes: StickLabScene[] = lessons
   .map((lesson) => {
@@ -36,7 +16,7 @@ const scenes: StickLabScene[] = lessons
 
     return {
       id: lesson.id,
-      setting: STAGE_SETTINGS[lesson.id] ?? storySettingForLesson(lesson.id).art,
+      setting: stageSettingFor(lesson.id),
       title: lesson.title,
       lines: lesson.scene.map((line) => ({
         characterId: characterIdForSpeaker(line.speaker),
@@ -55,18 +35,7 @@ const scenes: StickLabScene[] = lessons
   })
   .filter((scene) => scene.lines.some((line) => dialogueSpeakerLabel(line.speaker)));
 
-const thingWords: Record<string, StickThingWord> = {};
-for (const thing of Object.values(SCENE_THINGS).flat()) {
-  const entry = words.find((word) => word.slovak === thing.word && word.gender);
-  if (!entry || thing.word in thingWords) continue;
-
-  thingWords[thing.word] = {
-    href: dictionaryPathForLemmaId(entry.slug),
-    src: hasAudioClip(audioHash(thing.word))
-      ? resolveDictionaryAudioSrc(thing.word, "lemma")
-      : undefined,
-  };
-}
+const thingWords = sceneThingWords();
 ---
 
 <SiteLayout title="Stick figures | Slovak Wiki" noindex>

@@ -59,6 +59,7 @@
   let {
     class: className = "",
     direction,
+    found = [],
     lines,
     onthing,
     painted = false,
@@ -67,6 +68,8 @@
   }: {
     class?: string;
     direction: SceneDirection;
+    /** Things found in a game, ringed in green. */
+    found?: readonly string[];
     lines: readonly DirectedLine[];
     /** Takes over a tap on a thing; without it the tap opens the thing's word card. */
     onthing?: (id: string) => void;
@@ -83,6 +86,8 @@
   const BESIDE_WIDTHS = 0.8;
   /** How long a thing stays lit after a line names it. */
   const LIT_MS = 1600;
+  /** Long enough to read a short line said in a bubble. */
+  const BUBBLE_MS = 2800;
   const CARD_WIDTH = 220;
   /** Where an arm leaves the body, and where a hand holds a prop out to show it, in rig space. */
   const SHOULDER: Point = { x: 0, y: solveRig(REST_POSE).leadShoulder.y };
@@ -97,6 +102,9 @@
   let lit = $state<string[]>([]);
   let picked = $state<string>();
   let board = $state<string>();
+  /** A line said without a clip, in a bubble over the speaker. */
+  let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
+  let bubbleTimer = 0;
   let stageWidth = $state(0);
   let stageHeight = $state(0);
 
@@ -319,21 +327,37 @@
   /** One silent gesture, outside any line: a listener puzzled by what they heard. */
   export function gesture(id: LessonCharacterId, gesture: StickGestureId): void {
     const plan = gesturePlan(gesture);
-    actors[id] = { cue: (actors[id]?.cue ?? 0) + 1, plan, talking: true };
+    const cue = (actors[id]?.cue ?? 0) + 1;
+    actors[id] = { cue, plan, talking: true };
     window.setTimeout(() => {
-      if (actors[id]?.plan === plan) actors[id].talking = false;
+      const actor = actors[id];
+      if (actor?.cue === cue) actor.talking = false;
     }, plan.durationMs);
   }
 
   export function stop(): void {
     playToken += 1;
     window.clearTimeout(lineTimer);
+    window.clearTimeout(bubbleTimer);
+    bubble = undefined;
     stopStoryLineAudio();
     for (const actor of Object.values(actors)) actor.talking = false;
   }
 
-  /** Play line `index`: the speaker gestures and talks, the rest turn, react, walk. */
-  export function play(index: number, onDone?: () => void): void {
+  /** A line in a speech bubble over a figure, for words that have no clip: a wrong guess said aloud. */
+  export function say(id: LessonCharacterId, text: string): void {
+    window.clearTimeout(bubbleTimer);
+    bubble = { characterId: id, cue: (bubble?.cue ?? 0) + 1, text };
+    bubbleTimer = window.setTimeout(() => {
+      bubble = undefined;
+    }, BUBBLE_MS);
+  }
+
+  /**
+   * Play line `index`: the speaker gestures and talks, the rest turn,
+   * react, walk. `rate` below 1 slows the clip, and the figures with it.
+   */
+  export function play(index: number, onDone?: () => void, rate = 1): void {
     playToken += 1;
     const token = playToken;
     const line = lines[index];
@@ -385,14 +409,14 @@
     };
 
     if (line.src) {
-      playStoryLineAudio(line.src, line.slovak, { onEnded });
+      playStoryLineAudio(line.src, line.slovak, { onEnded, playbackRate: rate });
       return;
     }
 
     // No clip yet: run the line for its text-timed length on the wall clock.
     stopStoryLineAudio();
     window.clearTimeout(lineTimer);
-    lineTimer = window.setTimeout(onEnded, plan?.durationMs ?? 1600);
+    lineTimer = window.setTimeout(onEnded, (plan?.durationMs ?? 1600) / rate);
   }
 
   function pickThing(id: string): void {
@@ -422,6 +446,7 @@
     <StickBackdrop
       class="absolute inset-0 size-full"
       {board}
+      {found}
       {lit}
       onpick={pickThing}
       {picked}
@@ -451,6 +476,33 @@
       />
     </div>
   {/each}
+
+  {#if bubble}
+    {@const mark = standing(markOf(bubble.characterId), offsets[bubble.characterId])}
+    {@const head = mark.left + mark.width / 2}
+    {@const centre = Math.min(Math.max(head, 128), Math.max(128, stageWidth - 128))}
+    {#key bubble.cue}
+      <p
+        class={cx(
+          "absolute z-10 m-0 max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
+          "bg-surface px-3 py-2 font-serif text-base text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
+        )}
+        style:left="{centre}px"
+        style:bottom="{stageHeight - mark.top + 8}px"
+        lang="sk"
+      >
+        {bubble.text}
+        <svg
+          class="absolute top-[calc(100%-1px)] h-2 w-4"
+          style:left="calc(50% + {head - centre}px - 8px)"
+          viewBox="0 0 16 8"
+          aria-hidden="true"
+        >
+          <path d="M0 0L8 8L16 0" class="fill-surface stroke-slate-200" />
+        </svg>
+      </p>
+    {/key}
+  {/if}
 
   {#if pickedThing && card && !painted}
     {@const word = thingWords[pickedThing.word]}

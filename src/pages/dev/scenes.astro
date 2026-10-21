@@ -1,0 +1,52 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import ScenePlayer, {
+  type PlayerScene,
+} from "$lib/components/stick-figure/ScenePlayer.svelte";
+import { lessons } from "$lib/catalog/lessons";
+import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
+import {
+  characterIdForSpeaker,
+  isLearnerSpeaker,
+} from "$lib/catalog/lessons/character-ids";
+import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
+import { sceneThingWords, stageSettingFor } from "$lib/stick-figure/lesson-stage";
+import { stageName } from "$lib/stick-figure/script";
+
+const scenes: PlayerScene[] = lessons
+  .filter((lesson) => lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker)))
+  .map((lesson) => {
+    const srcs = sceneAudioSrcs(lesson.scene);
+    const mouths = sceneMouthTracks(lesson.scene);
+
+    return {
+      id: lesson.id,
+      lessonHref: `/lessons/${lesson.id}`,
+      name: lesson.scene[0]?.slovak ?? lesson.title,
+      setting: stageSettingFor(lesson.id),
+      lines: lesson.scene.map((line) => ({
+        characterId: characterIdForSpeaker(line.speaker),
+        english: line.english,
+        gestures: line.gestures,
+        id: line.id,
+        learner: isLearnerSpeaker(line.speaker),
+        marks: line.marks,
+        mouth: mouths[line.id]?.m,
+        onStage: dialogueSpeakerLabel(line.speaker) !== null,
+        props: line.props,
+        sayChoices: line.sayChoices,
+        slovak: line.slovak,
+        speaker: stageName(line.speaker),
+        src: srcs[line.id],
+        to: line.to ? characterIdForSpeaker(line.to) : undefined,
+        vowels: mouths[line.id]?.v,
+      })),
+    };
+  });
+
+const thingWords = sceneThingWords();
+---
+
+<SiteLayout title="Scenes | Slovak Wiki" noindex>
+  <ScenePlayer client:load {scenes} {thingWords} />
+</SiteLayout>

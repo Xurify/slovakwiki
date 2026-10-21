@@ -58,6 +58,8 @@ export interface LinePlan {
   silent?: boolean;
   /** Loudness per frame (0–1), when the clip has one. */
   track?: number[];
+  /** Where each word is spoken, in clip time, for captions that follow the voice. */
+  words?: LineSpan[];
 }
 
 // Speech timing fitted on 120 lesson clips (eleven_v4, speed 0.88): sentence
@@ -267,6 +269,10 @@ export function planLine(
     questions,
     sentences: spans,
     track,
+    words: words.map(({ end, start }) => ({
+      end: origin + end * scale,
+      start: origin + start * scale,
+    })),
   };
 }
 

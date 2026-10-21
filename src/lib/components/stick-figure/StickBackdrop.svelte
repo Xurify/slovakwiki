@@ -1,6 +1,10 @@
 <script lang="ts">
   import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
-  import { SCENE_THINGS, backdropAlign } from "$lib/stick-figure/scene-things";
+  import {
+    SCENE_THINGS,
+    backdropAlign,
+    thingBoxes,
+  } from "$lib/stick-figure/scene-things";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -14,6 +18,7 @@
   let {
     board,
     class: className = "",
+    found = [],
     lit = [],
     onpick,
     picked,
@@ -22,6 +27,8 @@
     /** A line to chalk on the classroom board. */
     board?: string;
     class?: string;
+    /** Things found in a game, ringed in green for the rest of it. */
+    found?: readonly string[];
     /** Things to light up: named in the line playing. */
     lit?: readonly string[];
     /** Makes each thing a button that reports its id. */
@@ -34,9 +41,14 @@
 
   const align = $derived(backdropAlign(setting));
   const things = $derived(SCENE_THINGS[setting] ?? []);
+  const boxes = $derived(
+    things.flatMap((thing) =>
+      thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
+    ),
+  );
   // The smallest on top, so the clock on the tower gets its own tap.
   const hitOrder = $derived(
-    [...things].sort((a, b) => b.box.width * b.box.height - a.box.width * a.box.height),
+    [...boxes].sort((a, b) => b.box.width * b.box.height - a.box.width * a.box.height),
   );
 </script>
 
@@ -74,16 +86,18 @@
 
   <StageLight />
 
-  {#each things as thing (thing.id)}
+  {#each boxes as { box, copy, thing } (`${thing.id}-${copy}`)}
+    {@const done = found.includes(thing.id)}
     <rect
-      x={thing.box.x - 5}
-      y={thing.box.y - 5}
-      width={thing.box.width + 10}
-      height={thing.box.height + 10}
+      x={box.x - 5}
+      y={box.y - 5}
+      width={box.width + 10}
+      height={box.height + 10}
       rx="8"
       class={cx(
-        "fill-white/20 stroke-blue-500 transition-opacity duration-150 ease-out",
-        lit.includes(thing.id) || picked === thing.id || focused === thing.id
+        "fill-white/20 transition-opacity duration-150 ease-out",
+        done ? "stroke-emerald-500" : "stroke-blue-500",
+        done || lit.includes(thing.id) || picked === thing.id || focused === thing.id
           ? "opacity-100"
           : "opacity-0",
       )}
@@ -92,12 +106,12 @@
   {/each}
 
   {#if onpick}
-    {#each hitOrder as thing (thing.id)}
+    {#each hitOrder as { box, copy, thing } (`${thing.id}-${copy}`)}
       <rect
-        x={thing.box.x - 5}
-        y={thing.box.y - 5}
-        width={thing.box.width + 10}
-        height={thing.box.height + 10}
+        x={box.x - 5}
+        y={box.y - 5}
+        width={box.width + 10}
+        height={box.height + 10}
         rx="8"
         fill="transparent"
         class="cursor-pointer outline-none"

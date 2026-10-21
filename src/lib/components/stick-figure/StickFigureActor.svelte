@@ -6,6 +6,7 @@
   import type { LineBeat, LinePlan } from "$lib/stick-figure/line-plan";
   import {
     performFrame,
+    planTime,
     startPerformance,
     type PerformanceState,
     type SpeechClock,
@@ -96,18 +97,6 @@
     if (!frame) frame = requestAnimationFrame(tick);
   }
 
-  function speechPosition(now: number): number | null {
-    const reading = clock?.();
-    if (!reading) return now - startedAt;
-    if (!(reading.durationMs > 0)) return null;
-
-    // A plan timed from text alone stretches to the real clip; a measured one already fits it.
-    if (plan?.track) return reading.timeMs;
-    return (
-      reading.timeMs * ((plan?.durationMs ?? reading.durationMs) / reading.durationMs)
-    );
-  }
-
   // The loop runs only while a line, its last gesture or a walk is in
   // flight, then parks on the rest pose: no idle motion between lines.
   function tick(now: number): void {
@@ -115,7 +104,7 @@
       ? performFrame(plan, act, {
           now,
           reducedMotion,
-          speechMs: speechPosition(now),
+          speechMs: planTime(plan, clock?.(), now - startedAt),
           talking,
         })
       : undefined;
