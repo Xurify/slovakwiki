@@ -121,13 +121,21 @@ describe("this one and that one", () => {
 
   it("points at keys held up only when the line names them", () => {
     const keys = { holder: "marek" as const, prop: "keys" as const };
-    expect(linePoints("Toho muža poznáš.", home, keys)).toEqual([]);
+    expect(targets(linePoints("Toho muža poznáš.", home, keys))).toEqual([
+      "muz#undefined:-",
+    ]);
+    expect(linePoints("To je jeho sestra.", home, keys)).toEqual([]);
     expect(targets(linePoints("A tieto kľúče už nestrácaj!", home, keys))).toEqual([
       "prop",
     ]);
+    // Over photos the man is in them; at home there is one outside the window.
+    const photos = { holder: "anna" as const, prop: "camera" as const };
     expect(
-      targets(linePoints("Kto je ten muž?", home, { holder: "anna", prop: "camera" })),
+      targets(linePoints("Kto je ten muž?", SCENE_THINGS.cafe ?? [], photos)),
     ).toEqual(["prop"]);
+    expect(targets(linePoints("Kto je ten muž?", home, photos))).toEqual([
+      "muz#undefined:-",
+    ]);
   });
 });
 

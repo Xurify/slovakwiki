@@ -13,6 +13,24 @@
 <rect x="96" y="44" width="150" height="120" class="fill-portrait-bib" />
 <rect x="106" y="54" width="130" height="100" class="fill-scene-sky" />
 <path d="M106 154V128Q140 108 172 124Q204 104 236 120V154Z" class="fill-scene-sage" />
+<g stroke-linecap="round">
+  <path d="M147 140l-2 9M155 140l2 9" class="stroke-portrait-ink" stroke-width="2" />
+  <path d="M144 122h14l2 19h-18Z" class="fill-portrait-suit" />
+  <circle cx="151" cy="115" r="5" class="fill-portrait-skin" />
+  <path
+    d="M144 112h14M146 112v-4h10v4"
+    class="fill-portrait-vest stroke-portrait-vest"
+    stroke-width="2"
+  />
+  <path d="M190 141l-1 7M196 141l1 7" class="stroke-portrait-ink" stroke-width="2" />
+  <path d="M188 124h10l4 18h-18Z" class="fill-scene-honey" />
+  <rect x="187.5" y="112" width="11" height="14" rx="5" class="fill-portrait-hair" />
+  <circle cx="193" cy="118" r="4.5" class="fill-portrait-skin" />
+  <path
+    d="M188.6 116.5q.8-4.5 4.4-4.5q3.6 0 4.4 4.5q-4.4-2-8.8 0Z"
+    class="fill-portrait-hair"
+  />
+</g>
 <path d="M169 54h4v100h-4ZM106 102h130v4H106Z" class="fill-portrait-bib" />
 <rect x="88" y="160" width="166" height="8" rx="2" class="fill-portrait-bib" />
 <rect x="92" y="168" width="158" height="4" class="fill-scene-line/10" />

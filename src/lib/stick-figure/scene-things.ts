@@ -43,6 +43,8 @@ export interface ThingBox {
 
 /** Something drawn in a backdrop that a line can name, a figure can point at and a learner can tap. */
 export interface SceneThing {
+  /** The accusative where it is not the nominative or a feminine -a turned -u: muž → muža. */
+  accusative?: string;
   box: ThingBox;
   english: string;
   /** Folded whole forms, where a stem would catch other words: `stol` is also in `stolička`. */
@@ -213,6 +215,14 @@ const WORDS = {
     stems: ["mikrofon"],
     word: "mikrofón",
   },
+  muz: {
+    accusative: "muža",
+    english: "man",
+    forms: ["muz", "muza", "muzovi", "muzom", "muzi", "muzov", "muzoch", "muzmi"],
+    gender: "masculine-animate",
+    id: "muz",
+    word: "muž",
+  },
   oblak: {
     english: "cloud",
     gender: "masculine-inanimate",
@@ -368,6 +378,13 @@ const WORDS = {
     stems: ["zelenin"],
     word: "zelenina",
   },
+  zena: {
+    english: "woman",
+    forms: ["zena", "zeny", "zene", "zenu", "zenou", "zien", "zenam", "zenach", "zenami"],
+    gender: "feminine",
+    id: "zena",
+    word: "žena",
+  },
   zvoncek: {
     english: "bell",
     gender: "masculine-inanimate",
@@ -410,6 +427,8 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
   ],
   home: [
+    drawn(WORDS.muz, [140, 104, 22, 46]),
+    drawn(WORDS.zena, [182, 108, 22, 42]),
     drawn(WORDS.okno, [96, 44, 150, 124]),
     twins(WORDS.taska, [520, 190, 38, 36], [152, 190, 38, 36], "far"),
     drawn(WORDS.zaves, [78, 36, 34, 142], [230, 36, 34, 142]),

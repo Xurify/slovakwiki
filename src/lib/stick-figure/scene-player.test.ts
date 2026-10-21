@@ -99,6 +99,16 @@ describe("find it", () => {
     expect(findPrompt(thing("dunaj"), "point").slovak).toBe("Ukáž na Dunaj.");
   });
 
+  it("puts a man into the accusative: toho muža", () => {
+    expect(findPrompt(thing("muz"), "find")).toMatchObject({
+      marks: [{ start: 9, end: 10, role: "ending" }],
+      slovak: "Nájdi muža.",
+    });
+    expect(findPrompt(thing("muz"), "point").slovak).toBe("Ukáž na toho muža.");
+    expect(findPrompt(thing("zena"), "point").slovak).toBe("Ukáž na tú ženu.");
+    expect(findWhy(thing("muz"), "find")).toContain("**muž** → **muža**");
+  });
+
   it("keeps plurals plural", () => {
     expect(accusativeOf(thing("jahody"))).toBe("jahody");
     expect(findPrompt(thing("jahody"), "where")).toMatchObject({

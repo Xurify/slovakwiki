@@ -18,11 +18,13 @@ export interface FindPrompt {
 
 /**
  * The accusative, as `nájdi` and `ukáž na` take it. Of the nouns drawn in
- * the scenes only the feminine ones in -a change (torta → tortu); masculine
- * things, neuter nouns and plurals like hodiny or jahody keep the nominative.
+ * the scenes the feminine ones in -a change (torta → tortu) and so does a
+ * man (muž → muža); masculine things, neuter nouns and plurals like hodiny
+ * or jahody keep the nominative.
  */
 export function accusativeOf(thing: SceneThing): string {
-  const { gender, word } = thing;
+  const { accusative, gender, word } = thing;
+  if (accusative) return accusative;
   return gender === "feminine" && !isPlural(thing) && word.endsWith("a")
     ? `${word.slice(0, -1)}u`
     : word;
@@ -32,7 +34,7 @@ function accusativeDemonstrative(thing: SceneThing): string {
   if (isPlural(thing)) return "tie";
   if (thing.gender === "feminine") return "tú";
   if (thing.gender === "neuter") return "to";
-  return "ten";
+  return thing.gender === "masculine-animate" ? "toho" : "ten";
 }
 
 /** English says "the headphones are" where Slovak may not: slúchadlá, but also zelenina. */
