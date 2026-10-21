@@ -1,5 +1,6 @@
 import type { Lesson, LessonTrackId } from "$lib/learning/types";
 import { lessonExercises } from "$lib/learning/beats";
+import { lineSentences } from "$lib/stick-figure/line-plan";
 import { everydayLessons } from "./everyday";
 import { grammarLessons } from "./grammar";
 import { pronunciationLessons } from "./pronunciation";
@@ -72,6 +73,9 @@ export function validateLessons(): string[] {
     ];
     for (const line of lines) {
       claim(line.id, lesson.id);
+      if (line.gestures && line.gestures.length > lineSentences(line.slovak).length) {
+        issues.push(`Line ${line.id} in ${lesson.id} has more gestures than sentences`);
+      }
       if (!line.id.startsWith(prefix)) {
         issues.push(`Line id ${line.id} in ${lesson.id} must start with ${prefix}`);
       }

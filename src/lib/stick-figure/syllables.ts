@@ -2,11 +2,33 @@ const VOWELS = new Set("aáäeéiíoóôuúyý");
 const LONG_VOWELS = new Set("áéíóúýô");
 const SYLLABIC_LIQUIDS = new Set("rŕlĺ");
 
+/** What the lips do on a syllable: `r` is a syllabic r/l, held near neutral. */
+export type VowelShape = "a" | "e" | "i" | "o" | "u" | "r";
+
+/** `ä` is said [e]; `y` like `i`; `ô` [u̯o] starts rounded. */
+const VOWEL_SHAPES: Record<string, VowelShape> = {
+  a: "a",
+  á: "a",
+  ä: "e",
+  e: "e",
+  é: "e",
+  i: "i",
+  í: "i",
+  y: "i",
+  ý: "i",
+  o: "o",
+  ó: "o",
+  ô: "o",
+  u: "u",
+  ú: "u",
+};
+
 export interface SlovakSyllable {
   /** Consonants spoken before the vowel (word-final ones join the last syllable). */
   consonants: number;
   /** Long vowel or diphthong. */
   long: boolean;
+  vowel: VowelShape;
 }
 
 /**
@@ -40,7 +62,13 @@ export function slovakSyllables(word: string): SlovakSyllable[] {
         (letter === "o" && next === "u" && index + 2 === letters.length) ||
         ("ae".includes(letter) && next === "u" && index === 0);
 
-      syllables.push({ consonants, long: diphthong || LONG_VOWELS.has(letter) });
+      // ia/ie/iu glide into their second vowel; au/eu/ou open on their first.
+      const shapeLetter = diphthong && letter === "i" ? next : letter;
+      syllables.push({
+        consonants,
+        long: diphthong || LONG_VOWELS.has(letter),
+        vowel: VOWEL_SHAPES[shapeLetter],
+      });
       consonants = 0;
       if (diphthong) index += 1;
       continue;
@@ -53,7 +81,7 @@ export function slovakSyllables(word: string): SlovakSyllable[] {
       !VOWELS.has(next);
 
     if (syllabic) {
-      syllables.push({ consonants, long: letter === "ŕ" || letter === "ĺ" });
+      syllables.push({ consonants, long: letter === "ŕ" || letter === "ĺ", vowel: "r" });
       consonants = 0;
       continue;
     }

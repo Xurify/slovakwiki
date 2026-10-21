@@ -1,7 +1,12 @@
 import { gestureDuration, type StickGestureId } from "./gestures";
 import { gestureForLine } from "./line-gesture";
-import { MOUTH_FRAME_MS, trackPauses, trackSpeechSpan } from "./mouth-track";
-import { slovakSyllables } from "./syllables";
+import {
+  MOUTH_FRAME_MS,
+  trackPauses,
+  trackSpeechSpan,
+  type LipTrack,
+} from "./mouth-track";
+import { slovakSyllables, type VowelShape } from "./syllables";
 
 export interface LineBeat {
   /** Clip time in ms. */
@@ -18,6 +23,8 @@ export interface LineSpan {
 export interface LinePlan {
   beats: LineBeat[];
   durationMs: number;
+  /** Lip shape per frame, when the clip has an aligned vowel track. */
+  lips?: LipTrack;
   questions: LineSpan[];
   /** Loudness per frame (0–1), when the clip has one. */
   track?: number[];
@@ -45,7 +52,7 @@ const MIN_BEAT_GAP_MS = 700;
 /** A beat pushed later than this before the voice stops is dropped. */
 const LATE_BEAT_MS = 300;
 
-function sentencesOf(slovak: string): string[] {
+export function lineSentences(slovak: string): string[] {
   return (slovak.match(/[^.!?…]+[.!?…]*/g) ?? [])
     .map((sentence) => sentence.trim())
     .filter((sentence) => /\p{L}/u.test(sentence));
@@ -69,6 +76,44 @@ export function estimateSpeechMs(text: string): number {
   return ms;
 }
 
+export interface TimedSyllable {
+  /** Nucleus time from the start of the speech, ms. */
+  at: number;
+  vowel: VowelShape;
+}
+
+/** Every syllable's nucleus time from the text alone, and the speech length. */
+export function textTimeline(text: string): {
+  speechMs: number;
+  syllables: TimedSyllable[];
+} {
+  const syllables: TimedSyllable[] = [];
+  let ms = 0;
+  let pendingPause = 0;
+
+  for (const token of text.match(/\p{L}+|[,;:–—]|[.!?…]+/gu) ?? []) {
+    if (!/\p{L}/u.test(token)) {
+      pendingPause = Math.max(
+        pendingPause,
+        /[,;:–—]/.test(token) ? COMMA_MS : SENTENCE_GAP_MS,
+      );
+      continue;
+    }
+
+    for (const syllable of slovakSyllables(token)) {
+      if (syllables.length > 0) ms += pendingPause;
+      pendingPause = 0;
+
+      const onset = CONSONANT_MS * syllable.consonants;
+      const length = NUCLEUS_MS + onset + (syllable.long ? LONG_EXTRA_MS : 0);
+      syllables.push({ at: ms + onset + (length - onset) * 0.45, vowel: syllable.vowel });
+      ms += length;
+    }
+  }
+
+  return { speechMs: ms, syllables };
+}
+
 function nearestPauseEnd(pauses: LineSpan[], at: number): number | undefined {
   let best: number | undefined;
 
@@ -82,14 +127,25 @@ function nearestPauseEnd(pauses: LineSpan[], at: number): number | undefined {
   return best;
 }
 
+export interface LineClip {
+  /** Per-sentence overrides for the gesture picked from the text. */
+  gestures?: StickGestureId[];
+  lips?: LipTrack;
+  /** Loudness per frame (0–1). */
+  track?: number[];
+}
+
 /**
  * Plan a speaker's line. Without a track, times come from the text estimate
  * and the player stretches them to the real clip length. With one, the
  * estimate is fitted to where the voice sounds and each sentence start moves
  * onto the pause before it.
  */
-export function planLine(slovak: string, track?: number[]): LinePlan {
-  const sentences = sentencesOf(slovak);
+export function planLine(
+  slovak: string,
+  { gestures, lips, track }: LineClip = {},
+): LinePlan {
+  const sentences = lineSentences(slovak);
   const lengths = sentences.map(estimateSpeechMs);
   const speechMs =
     lengths.reduce((sum, length) => sum + length, 0) +
@@ -113,7 +169,7 @@ export function planLine(slovak: string, track?: number[]): LinePlan {
     const start =
       index === 0 ? estimated : (nearestPauseEnd(pauses, estimated) ?? estimated);
     const end = origin + (cursor + lengths[index]) * scale;
-    const gesture = gestureForLine(sentence);
+    const gesture = gestures?.[index] ?? gestureForLine(sentence);
 
     beats.push({ at: start, gesture });
 
@@ -132,7 +188,7 @@ export function planLine(slovak: string, track?: number[]): LinePlan {
   beats.sort((a, b) => a.at - b.at);
   const speechEnd = origin + speechMs * scale;
 
-  return { beats: spaceBeats(beats, speechEnd), durationMs, questions, track };
+  return { beats: spaceBeats(beats, speechEnd), durationMs, lips, questions, track };
 }
 
 /**

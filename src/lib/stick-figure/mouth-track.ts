@@ -1,7 +1,11 @@
+import type { AlignedSyllable } from "./syllable-align";
+import type { VowelShape } from "./syllables";
+
 /**
  * A clip's loudness, one digit (0–9) per frame, so the mouth follows the real
- * recording. Built offline by `scripts/audio/mouth.ts`; text timing alone
- * lands syllables too loosely to read as lip sync.
+ * recording, plus the vowel each frame belongs to for the lip shape. Built
+ * offline by `scripts/audio/mouth.ts`; text timing alone lands syllables too
+ * loosely to read as lip sync.
  */
 export const MOUTH_FRAME_MS = 50;
 
@@ -44,19 +48,86 @@ export function encodeMouthTrack(samples: ArrayLike<number>, sampleRate: number)
     .join("");
 }
 
+/** One letter per frame: the nearest aligned syllable's vowel, `-` where the mouth is shut. */
+export function encodeVowelTrack(loudness: string, syllables: AlignedSyllable[]): string {
+  return [...loudness]
+    .map((digit, frame) => {
+      if (digit === "0" || syllables.length === 0) return "-";
+
+      const centre = (frame + 0.5) * MOUTH_FRAME_MS;
+      let nearest = syllables[0];
+      for (const syllable of syllables) {
+        if (Math.abs(syllable.at - centre) < Math.abs(nearest.at - centre))
+          nearest = syllable;
+      }
+      return nearest.vowel;
+    })
+    .join("");
+}
+
+export interface LipShape {
+  /** Rounding: 0 spread, 1 fully rounded. */
+  round: number;
+  /** Mouth width against a neutral `a`. */
+  width: number;
+}
+
+/** Lip shape per vowel; a shut frame keeps the shape it closes from. */
+export const VOWEL_LIPS: Record<VowelShape, LipShape> = {
+  a: { round: 0, width: 1 },
+  e: { round: 0, width: 1.1 },
+  i: { round: 0, width: 1.18 },
+  o: { round: 0.75, width: 0.72 },
+  u: { round: 1, width: 0.58 },
+  r: { round: 0.2, width: 0.9 },
+};
+
+export const NEUTRAL_LIPS: LipShape = VOWEL_LIPS.a;
+
+export interface LipTrack {
+  round: number[];
+  width: number[];
+}
+
+export function decodeVowelTrack(track: string): LipTrack {
+  const round: number[] = [];
+  const width: number[] = [];
+  let held = NEUTRAL_LIPS;
+
+  for (const letter of track) {
+    if (letter in VOWEL_LIPS) held = VOWEL_LIPS[letter as VowelShape];
+    round.push(held.round);
+    width.push(held.width);
+  }
+
+  return { round, width };
+}
+
+export function lipsFromTrack(lips: LipTrack, timeMs: number): LipShape {
+  return {
+    round: sampleFrames(lips.round, timeMs, NEUTRAL_LIPS.round),
+    width: sampleFrames(lips.width, timeMs, NEUTRAL_LIPS.width),
+  };
+}
+
 export function decodeMouthTrack(track: string): number[] {
   return [...track].map((digit) => Number(digit) / 9);
 }
 
-/** Openness at a clip time, interpolated between frame centres; 0 outside the clip. */
-export function mouthFromTrack(track: number[], timeMs: number): number {
+/** A value at a clip time, interpolated between frame centres; `outside` past either end. */
+function sampleFrames(frames: number[], timeMs: number, outside: number): number {
   const position = (timeMs + MOUTH_LEAD_MS) / MOUTH_FRAME_MS - 0.5;
-  if (position < -0.5 || position > track.length - 0.5) return 0;
+  if (position < -0.5 || position > frames.length - 0.5) return outside;
 
   const before = Math.max(0, Math.floor(position));
-  const after = Math.min(track.length - 1, before + 1);
+  const after = Math.min(frames.length - 1, before + 1);
   const t = Math.min(1, Math.max(0, position - before));
-  return track[before] + (track[after] - track[before]) * t;
+  return frames[before] + (frames[after] - frames[before]) * t;
+}
+
+/** Openness at a clip time; 0 outside the clip. */
+export function mouthFromTrack(track: number[], timeMs: number): number {
+  return sampleFrames(track, timeMs, 0);
 }
 
 export interface TrackSpan {

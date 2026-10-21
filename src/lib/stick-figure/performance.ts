@@ -1,6 +1,6 @@
 import { gestureDuration, gesturePeak, mouthAt, sampleGesture } from "./gestures";
 import type { LinePlan } from "./line-plan";
-import { mouthFromTrack } from "./mouth-track";
+import { NEUTRAL_LIPS, lipsFromTrack, mouthFromTrack } from "./mouth-track";
 import { REST_POSE, easeInOut, lerpPose, type StickPose } from "./pose";
 
 /** Cross-fade into a beat that cuts the previous gesture short. */
@@ -67,9 +67,16 @@ function questionBrow(plan: LinePlan, speechMs: number): number {
   return QUESTION_BROW * easeInOut(brow);
 }
 
-function mouthAtSpeech(plan: LinePlan, speechMs: number): number {
-  if (plan.track) return mouthFromTrack(plan.track, speechMs);
-  return speechMs < plan.durationMs ? mouthAt(speechMs) : 0;
+function mouthAtSpeech(
+  plan: LinePlan,
+  speechMs: number,
+): Pick<StickPose, "mouth" | "mouthWidth" | "round"> {
+  const lips = plan.lips ? lipsFromTrack(plan.lips, speechMs) : NEUTRAL_LIPS;
+  let mouth = 0;
+  if (plan.track) mouth = mouthFromTrack(plan.track, speechMs);
+  else if (speechMs < plan.durationMs) mouth = mouthAt(speechMs);
+
+  return { mouth, mouthWidth: lips.width, round: lips.round };
 }
 
 /**
@@ -110,7 +117,7 @@ export function performFrame(
     pose = {
       ...pose,
       brow: Math.max(pose.brow, questionBrow(plan, speechMs)),
-      mouth: reducedMotion ? STILL_MOUTH : mouthAtSpeech(plan, speechMs),
+      ...(reducedMotion ? { mouth: STILL_MOUTH } : mouthAtSpeech(plan, speechMs)),
     };
   }
 

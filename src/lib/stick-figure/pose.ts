@@ -26,6 +26,10 @@ export interface StickPose {
   brow: number;
   /** 0 closed, 1 wide open. */
   mouth: number;
+  /** Lip rounding for o/u: 0 spread, 1 round. */
+  round: number;
+  /** Mouth width against a neutral `a`. */
+  mouthWidth: number;
 }
 
 export const REST_POSE: StickPose = {
@@ -41,6 +45,8 @@ export const REST_POSE: StickPose = {
   stance: 8,
   brow: 0,
   mouth: 0,
+  round: 0,
+  mouthWidth: 1,
 };
 
 const POSE_KEYS = Object.keys(REST_POSE) as Array<keyof StickPose>;

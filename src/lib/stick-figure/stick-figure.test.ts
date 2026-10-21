@@ -15,6 +15,7 @@ import {
 import { performFrame, startPerformance, type PerformanceInput } from "./performance";
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
+import { parseScript, sceneSnippet } from "./script";
 import { slovakSyllables } from "./syllables";
 
 function distance(a: Point, b: Point): number {
@@ -145,10 +146,21 @@ describe("slovakSyllables", () => {
     ]);
   });
 
+  it("reads the lip shape of each nucleus", () => {
+    const shapes = (word: string) =>
+      slovakSyllables(word).map((syllable) => syllable.vowel);
+
+    expect(shapes("Dobrý")).toEqual(["o", "i"]);
+    expect(shapes("piatok")).toEqual(["a", "o"]);
+    expect(shapes("mäso")).toEqual(["e", "o"]);
+    expect(shapes("môj")).toEqual(["o"]);
+    expect(shapes("auto")).toEqual(["a", "o"]);
+  });
+
   it("gives onset consonants to their vowel and final ones to the last syllable", () => {
     expect(slovakSyllables("štvrtok")).toEqual([
-      { consonants: 3, long: false },
-      { consonants: 2, long: false },
+      { consonants: 3, long: false, vowel: "r" },
+      { consonants: 2, long: false, vowel: "o" },
     ]);
   });
 });
@@ -202,6 +214,12 @@ describe("planLine", () => {
     expect(plan.beats[1].at - plan.beats[0].at).toBeGreaterThanOrEqual(700);
   });
 
+  it("lets the author override a sentence's gesture", () => {
+    const plan = planLine("Teší ma. Odkiaľ ste?", { gestures: ["wave"] });
+
+    expect(plan.beats.map((beat) => beat.gesture)).toEqual(["wave", "ask"]);
+  });
+
   it("adds talking beats through a long sentence", () => {
     const plan = planLine(
       "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
@@ -217,7 +235,7 @@ describe("planLine", () => {
     const track = decodeMouthTrack(
       `0${"8".repeat(8)}${"0".repeat(6)}${"8".repeat(16)}000`,
     );
-    const plan = planLine("Áno. Som z Kanady.", track);
+    const plan = planLine("Áno. Som z Kanady.", { track });
 
     expect(plan.durationMs).toBe(track.length * MOUTH_FRAME_MS);
     expect(plan.beats.map((beat) => beat.gesture)).toEqual(["nod", "self"]);
@@ -291,7 +309,7 @@ describe("performFrame", () => {
 
   it("opens the mouth from the track only while talking", () => {
     const track = decodeMouthTrack("0999990");
-    const tracked = planLine("Ahoj.", track);
+    const tracked = planLine("Ahoj.", { track });
     const loud = 3 * MOUTH_FRAME_MS;
 
     expect(
@@ -329,5 +347,42 @@ describe("performFrame", () => {
 
     expect(later.pose).toEqual(start.pose);
     expect(start.pose.leadRaise).toBeGreaterThan(90);
+  });
+});
+
+describe("parseScript", () => {
+  it("reads speakers, lines and gesture tags", () => {
+    const { lines, problems } = parseScript(
+      "Anna: Dobrý deň. Volám sa Anna.\n\nWaiter: [point] Dáte si kávu?\nYou: Nie. [cheer] Ďakujem!",
+    );
+
+    expect(problems).toEqual([]);
+    expect(lines.map((line) => [line.speaker, line.characterId])).toEqual([
+      ["Anna", "anna"],
+      ["Waiter", "waiter"],
+      ["You", "alex"],
+    ]);
+    expect(lines[0].gestures).toBeUndefined();
+    expect(lines[1]).toMatchObject({ slovak: "Dáte si kávu?", gestures: ["point"] });
+    expect(lines[2]).toMatchObject({
+      slovak: "Nie. Ďakujem!",
+      gestures: ["shake", "cheer"],
+    });
+  });
+
+  it("flags rows it cannot use", () => {
+    const { lines, problems } = parseScript(
+      "Marta: Ahoj!\nno colon here\nAnna: [dance] Ahoj!\nAnna: Ahoj [wave] tu.\nScene: Na námestí.",
+    );
+
+    expect(problems.map((problem) => problem.line)).toEqual([1, 2, 3, 4]);
+    expect(lines.find((line) => line.speaker === "Scene")?.characterId).toBe("narrator");
+  });
+
+  it("writes a lesson scene to paste", () => {
+    const { lines } = parseScript("Waiter: [point] Dáte si kávu?");
+
+    expect(sceneSnippet(lines)).toContain('gestures: ["point"]');
+    expect(sceneSnippet(lines)).toContain('slovak: "Dáte si kávu?"');
   });
 });

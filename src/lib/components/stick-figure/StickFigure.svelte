@@ -46,13 +46,18 @@
     return Math.round(value * 100) / 100;
   }
 
-  /** A flat upper lip over a jaw curve: reads as speech, where an ellipse reads as "oh!". */
-  function mouthPath(cx: number, top: number, open: number): string {
-    const half = (5.8 - open * 0.9) / 2;
-    const depth = 0.8 + open * 3.6;
+  /**
+   * A flat upper lip over a jaw curve reads as speech, where an ellipse reads
+   * as "oh!". Rounding (o, u) narrows the corners and arches the top lip.
+   */
+  function mouthPath(cx: number, top: number): string {
+    const half = ((5.8 - pose.mouth * 0.9) / 2) * pose.mouthWidth;
+    const depth = 0.8 + pose.mouth * 3.6;
+    const arch = depth * (0.18 + 0.55 * pose.round);
+    const belly = half * (0.7 + 0.3 * pose.round);
     const bottom = n(top + depth);
 
-    return `M${n(cx - half)} ${top}Q${n(cx)} ${n(top - depth * 0.18)} ${n(cx + half)} ${top}Q${n(cx + half * 0.7)} ${bottom} ${n(cx)} ${bottom}Q${n(cx - half * 0.7)} ${bottom} ${n(cx - half)} ${top}Z`;
+    return `M${n(cx - half)} ${top}Q${n(cx)} ${n(top - arch)} ${n(cx + half)} ${top}Q${n(cx + belly)} ${bottom} ${n(cx)} ${bottom}Q${n(cx - belly)} ${bottom} ${n(cx - half)} ${top}Z`;
   }
 
   function limbPath(from: Point, limb: StickLimb): string {
@@ -207,7 +212,7 @@
 
         {#if mouthOpen}
           <path
-            d={mouthPath(32 + eyeX, 33.4, pose.mouth)}
+            d={mouthPath(32 + eyeX, 33.4)}
             class={characterId === "guide" ? "fill-sky-400" : "fill-rose-300"}
           />
         {:else}
@@ -358,12 +363,9 @@
         />
 
         {#if mouthOpen}
-          <path
-            d={mouthPath(32 + eyeX * 0.6, 36.2, pose.mouth)}
-            class="fill-portrait-ink"
-          />
+          <path d={mouthPath(32 + eyeX * 0.6, 36.2)} class="fill-portrait-ink" />
 
-          {#if pose.mouth > 0.5}
+          {#if pose.mouth > 0.5 && pose.round < 0.5}
             <ellipse
               cx={32 + eyeX * 0.6}
               cy={36.2 + (0.8 + pose.mouth * 3.6) * 0.76}

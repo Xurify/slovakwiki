@@ -7,8 +7,10 @@ import { loadRuntimeIndex } from "./manifest";
 export interface MouthTrackEntry {
   /** `generatedAt` of the take the track was measured from. */
   g: string;
-  /** One digit 0–9 per 50 ms (see `$lib/stick-figure/mouth-track`). */
+  /** Loudness, one digit 0–9 per 50 ms (see `$lib/stick-figure/mouth-track`). */
   m: string;
+  /** Aligned vowel per frame, same length as `m`. */
+  v?: string;
 }
 
 export type MouthTracks = Record<string, MouthTrackEntry>;
@@ -41,8 +43,8 @@ function loadMouthTracks(): MouthTracks {
 }
 
 /** Server-only: the clip's mouth track, unless it was measured from an older take. */
-export function mouthTrackFor(hash: string): string | undefined {
+export function mouthTrackFor(hash: string): MouthTrackEntry | undefined {
   const entry = loadMouthTracks()[hash];
   if (!entry || entry.g !== loadRuntimeIndex()[hash]?.g) return undefined;
-  return entry.m;
+  return entry;
 }

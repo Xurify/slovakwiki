@@ -1,4 +1,5 @@
 import type { TextMark } from "$lib/learning/marked-text";
+import type { StickGestureId } from "$lib/stick-figure/gestures";
 
 export type LessonTrackId = "everyday" | "grammar" | "pronunciation";
 
@@ -27,6 +28,12 @@ export interface DialogueTurn {
   english: string;
   /** Practice bubble starts with this gloss behind “Show English”. The task prompt stays visible. */
   englishToggle?: boolean;
+  /**
+   * Stick-figure gesture per sentence where the one picked from the text is
+   * wrong; sentences past the end of the list stay automatic. Preview on
+   * `/dev/stick-figures`.
+   */
+  gestures?: StickGestureId[];
   id: string;
   /**
    * Role spans into `slovak` (day, time, …). Plain `slovak` stays the spoken line.
