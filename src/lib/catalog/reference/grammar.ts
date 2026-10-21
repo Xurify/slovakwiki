@@ -1233,7 +1233,9 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Whose sister?",
+          object: "person",
           label: { en: "accusative", sk: "akuzatív" },
+          scene: "gender",
           choices: [
             {
               slovak: markedText([
@@ -1243,6 +1245,7 @@ export const grammarEntries: GrammarTopic[] = [
                 { role: "ending", text: "u" },
                 "?",
               ]),
+              at: "his",
               english: "Do you know his sister?",
               when: "Peter's",
             },
@@ -1254,6 +1257,7 @@ export const grammarEntries: GrammarTopic[] = [
                 { role: "ending", text: "u" },
                 "?",
               ]),
+              at: "hers",
               english: "Do you know her sister?",
               when: "Eva's",
             },

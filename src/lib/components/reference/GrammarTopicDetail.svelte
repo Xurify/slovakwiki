@@ -361,15 +361,15 @@
               <ul class="m-0 mt-2 list-none p-0">
                 {#each group.links as link (link.slug)}
                   <li>
-                    <a class="group block py-1 no-underline" href={link.href}>
+                    <a class="group block py-1.5 no-underline" href={link.href}>
                       <span
-                        class="font-serif text-slate-900 group-hover:text-blue-800"
+                        class="block font-serif leading-snug text-slate-900 group-hover:text-blue-800"
                         lang={group.sk ? "sk" : undefined}
                       >
                         {link.primary}
                       </span>
                       <span
-                        class="ml-2 text-sm text-slate-500"
+                        class="block text-sm leading-snug text-slate-500"
                         lang={group.sk ? undefined : "sk"}
                       >
                         {link.secondary}
