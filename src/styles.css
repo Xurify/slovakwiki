@@ -90,6 +90,9 @@
   --color-portrait-ground: #a9c4d2;
   --color-portrait-ground-sage: #a9c9be;
   --color-portrait-bib: #f4f8fa;
+  /* Stick-figure outfits: dark cloth that must not lighten with the theme. */
+  --color-portrait-suit: #22385c;
+  --color-portrait-vest: #262f3b;
 }
 
 @layer base {

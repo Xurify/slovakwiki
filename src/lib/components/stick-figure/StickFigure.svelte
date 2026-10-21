@@ -8,7 +8,8 @@
     type Point,
     type StickLimb,
   } from "$lib/stick-figure/rig";
-  import { STICK_SHIRT_CLASS } from "./stick-figure-ui";
+  import StickTorso from "./StickTorso.svelte";
+  import { STICK_SLEEVES } from "./stick-figure-ui";
 
   let {
     characterId,
@@ -24,6 +25,10 @@
 
   const rig = $derived(solveRig(pose));
   const robot = $derived(characterId === "narrator" || characterId === "guide");
+  const sleeve = $derived(STICK_SLEEVES[characterId]);
+  const torsoTransform = $derived(
+    `translate(${n(rig.hip.x)} ${n(rig.hip.y)}) rotate(${n(pose.lean)})`,
+  );
   const hair = $derived(
     characterId === "maria" ? "fill-portrait-hair-grey" : "fill-portrait-hair",
   );
@@ -63,6 +68,16 @@
   function limbPath(from: Point, limb: StickLimb): string {
     return `M${n(from.x)} ${n(from.y)}L${n(limb.joint.x)} ${n(limb.joint.y)}L${n(limb.end.x)} ${n(limb.end.y)}`;
   }
+
+  function between(a: Point, b: Point, t: number): string {
+    return `${n(a.x + (b.x - a.x) * t)} ${n(a.y + (b.y - a.y) * t)}`;
+  }
+
+  function sleevePath(from: Point, limb: StickLimb, reach: number): string {
+    if (reach <= 1)
+      return `M${n(from.x)} ${n(from.y)}L${between(from, limb.joint, reach)}`;
+    return `M${n(from.x)} ${n(from.y)}L${n(limb.joint.x)} ${n(limb.joint.y)}L${between(limb.joint, limb.end, reach - 1)}`;
+  }
 </script>
 
 <svg
@@ -95,10 +110,18 @@
           stroke-width="1.15"
         />
       {:else if characterId === "receptionist"}
-        <path
-          d="M18 22c-1.5-12 5-16 14-16s15.5 4 14 16c2 8 0 18-6 23-4 3-6-3-8-3.5-2 .5-4 6.5-8 3.5-6-5-8-15-6-23Z"
+        <!-- low bun at the nape, peeking out behind the head -->
+        <circle
+          cx="16.2"
+          cy="36.4"
+          r="5.2"
           class="{hair} stroke-portrait-ink"
-          stroke-width="1.7"
+          stroke-width="1.6"
+        />
+        <path
+          d="M19.4 32.6q1.6 3.4.4 7.4"
+          class="stroke-portrait-ink"
+          stroke-width="1.1"
         />
       {/if}
     </g>
@@ -108,11 +131,25 @@
       class="stroke-portrait-ink"
       stroke-width="3"
     />
+
+    {#if sleeve}
+      <path
+        d={sleevePath(rig.rearShoulder, rig.rearArm, sleeve.reach)}
+        class="stroke-portrait-ink"
+        stroke-width="5.4"
+      />
+      <path
+        d={sleevePath(rig.rearShoulder, rig.rearArm, sleeve.reach)}
+        class={sleeve.class}
+        stroke-width="3.4"
+      />
+    {/if}
+
     <circle
       cx={n(rig.rearArm.end.x)}
       cy={n(rig.rearArm.end.y)}
       r="2.3"
-      class="fill-portrait-skin stroke-portrait-ink"
+      class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
       stroke-width="1.2"
     />
 
@@ -134,32 +171,68 @@
       stroke-width="3.6"
     />
 
-    <path
-      d="M{n(rig.hip.x)} {n(rig.hip.y)}L{n(rig.neck.x)} {n(rig.neck.y)}"
-      class={STICK_SHIRT_CLASS[characterId]}
-      stroke-width="10"
-    />
-
-    {#if characterId === "waiter"}
-      <path
-        d="M{n(rig.neck.x - 3.6)} {n(rig.neck.y)}v3.4l3.6-1.7ZM{n(rig.neck.x + 3.6)} {n(
-          rig.neck.y,
-        )}v3.4l-3.6-1.7Z"
+    {#if characterId === "guide"}
+      <circle
+        cx={n(rig.rearLeg.joint.x)}
+        cy={n(rig.rearLeg.joint.y)}
+        r="1.6"
         class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="1"
+        stroke-width="0.9"
+      />
+      <circle
+        cx={n(rig.leadLeg.joint.x)}
+        cy={n(rig.leadLeg.joint.y)}
+        r="1.6"
+        class="fill-portrait-bib stroke-portrait-ink"
+        stroke-width="0.9"
       />
     {/if}
+
+    <g transform={torsoTransform}>
+      <StickTorso {characterId} />
+    </g>
 
     <path
       d={limbPath(rig.leadShoulder, rig.leadArm)}
       class="stroke-portrait-ink"
       stroke-width="3"
     />
+
+    {#if sleeve}
+      <path
+        d={sleevePath(rig.leadShoulder, rig.leadArm, sleeve.reach)}
+        class="stroke-portrait-ink"
+        stroke-width="5.4"
+      />
+      <path
+        d={sleevePath(rig.leadShoulder, rig.leadArm, sleeve.reach)}
+        class={sleeve.class}
+        stroke-width="3.4"
+      />
+    {/if}
+
+    {#if characterId === "guide"}
+      <circle
+        cx={n(rig.rearArm.joint.x)}
+        cy={n(rig.rearArm.joint.y)}
+        r="1.5"
+        class="fill-portrait-bib stroke-portrait-ink"
+        stroke-width="0.9"
+      />
+      <circle
+        cx={n(rig.leadArm.joint.x)}
+        cy={n(rig.leadArm.joint.y)}
+        r="1.5"
+        class="fill-portrait-bib stroke-portrait-ink"
+        stroke-width="0.9"
+      />
+    {/if}
+
     <circle
       cx={n(rig.leadArm.end.x)}
       cy={n(rig.leadArm.end.y)}
       r="2.3"
-      class="fill-portrait-skin stroke-portrait-ink"
+      class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
       stroke-width="1.2"
     />
 
@@ -242,7 +315,7 @@
           stroke-width="1.7"
         />
 
-        {#if characterId === "alex" || characterId === "marek" || characterId === "lucia"}
+        {#if characterId === "alex" || characterId === "marek" || characterId === "lucia" || characterId === "receptionist" || characterId === "waiter"}
           <path
             d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
             class="fill-portrait-skin stroke-portrait-ink"
@@ -250,7 +323,7 @@
           />
         {/if}
 
-        {#if characterId === "alex" || characterId === "marek"}
+        {#if characterId === "alex" || characterId === "marek" || characterId === "receptionist" || characterId === "waiter"}
           <path
             d="M45.4 25.8c2.2.6 3 4.6 1.1 7.4-1 1.3-2.3.7-2.1-.9.4-2.2.6-4.6 1-6.5Z"
             class="fill-portrait-skin stroke-portrait-ink"
@@ -271,14 +344,14 @@
           />
         {:else if characterId === "marek"}
           <path
-            d="M19.8 21.6 19.4 17.2 22.6 13 25.8 11.2 27.6 13.2 29.4 11.4 31.2 14.6 33.4 9.2 36.8 7.4 40.6 9.6 44.2 14.2 45.6 19.4 44.8 22.2Q40.6 17.8 35.2 16.8Q32.4 16.4 30.6 18.6Q27.8 16.2 23.6 17.6Q21.2 18.6 19.8 21.6Z"
+            d="M17.8 24A2.8 2.8 0 0 1 17.3 19A2.9 2.9 0 0 1 19.3 14.3A3.1 3.1 0 0 1 23.4 10.6A3.3 3.3 0 0 1 29 8.7A3.4 3.4 0 0 1 35 8.7A3.3 3.3 0 0 1 40.6 10.6A3.1 3.1 0 0 1 44.7 14.3A2.9 2.9 0 0 1 46.7 19A2.8 2.8 0 0 1 46.2 24L44.2 25.6A3.4 3.4 0 0 1 42.4 20.2A3 3 0 0 1 37.6 18.6A3.2 3.2 0 0 1 32.2 18.2A3.3 3.3 0 0 1 26.8 18.8A3 3 0 0 1 22.2 20.6A3.3 3.3 0 0 1 19.8 25.6Z"
             class="{hair} stroke-portrait-ink"
-            stroke-width="1.7"
+            stroke-width="1.6"
           />
           <path
-            d="M29.6 11.6 31 16.8M36.2 10.4q4.2 1.6 7 4.8"
+            d="M23.6 16.6a2.6 2.6 0 0 1 4.6-1.4M30 13.4a2.6 2.6 0 0 1 4.8-.2M36.4 15a2.6 2.6 0 0 1 4.6 1"
             class="stroke-portrait-ink"
-            stroke-width="1.15"
+            stroke-width="1"
           />
         {:else if characterId === "anna"}
           <path
@@ -301,10 +374,30 @@
             stroke-width="1.25"
           />
         {:else if characterId === "receptionist"}
+          <!-- sleek side part, fringe swept across, tucked behind the ears -->
           <path
-            d="M20.6 18.8c3-2.8 7-4.2 11.4-4.2s8.4 1.4 11.4 4.2c-3-1.2-6.8-2-11.4-2s-8.4.8-11.4 2Z"
+            d="M18.7 28.2C17.4 17.6 23.2 11.2 32.2 11.1C41.4 11 47 17.2 45.4 28C44.6 23.6 42.6 20.4 38.6 18.8C34.6 17.4 29.4 16.6 25.8 13.9C24.2 17.4 21.6 21.6 20.6 28.4Z"
             class="{hair} stroke-portrait-ink"
-            stroke-width="1.5"
+            stroke-width="1.6"
+          />
+          <path
+            d="M29.8 13.6Q37 15 42.6 20.2"
+            class="stroke-portrait-ink"
+            stroke-width="1"
+          />
+          <circle
+            cx="18.3"
+            cy="33.4"
+            r="1"
+            class="fill-portrait-bib stroke-portrait-ink"
+            stroke-width="0.8"
+          />
+          <circle
+            cx="45.7"
+            cy="33.4"
+            r="1"
+            class="fill-portrait-bib stroke-portrait-ink"
+            stroke-width="0.8"
           />
         {:else if characterId === "maria"}
           <path
@@ -314,9 +407,14 @@
           />
         {:else if characterId === "waiter"}
           <path
-            d="M20.2 20.6C21.2 11.8 25.8 7.4 32 7.4s10.8 4.4 11.8 13.2c-2.8-1.8-7-2.8-11.8-2.8s-9 1-11.8 2.8Z"
+            d="M19.6 26.6C18.2 22.4 18.4 16.6 21.6 13C24.6 9.6 29.4 8.6 33.4 8.8C39.6 9.2 44.4 12.2 45.4 17.6C46 21 45.6 24.4 44.6 26.6L43.4 26.4C43.6 23.4 43.4 21.2 42 19.6C39.2 16.8 33.6 16 29 16.4L26.2 15.4C23.4 16.6 21 19.6 20.8 26.4Z"
             class="{hair} stroke-portrait-ink"
-            stroke-width="1.7"
+            stroke-width="1.6"
+          />
+          <path
+            d="M26.2 15.4 24.8 10.4M28.8 12.4Q35.4 11.2 41.6 14.8"
+            class="stroke-portrait-ink"
+            stroke-width="1"
           />
         {/if}
 
