@@ -1,0 +1,37 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import StickFigureLab, {
+  type StickLabScene,
+} from "$lib/components/stick-figure/StickFigureLab.svelte";
+import { lessonsForTrack } from "$lib/catalog/lessons";
+import { sceneAudioSrcs } from "$lib/catalog/lessons/audio";
+import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
+import { lessonSceneSrc, storySettingForLesson } from "$lib/lesson-story/story-settings";
+
+const scenes: StickLabScene[] = lessonsForTrack("everyday")
+  .map((lesson) => {
+    const srcs = sceneAudioSrcs(lesson.scene);
+
+    return {
+      backdrop: lessonSceneSrc[storySettingForLesson(lesson.id).art],
+      id: lesson.id,
+      title: lesson.title,
+      lines: lesson.scene.map((line) => ({
+        characterId: characterIdForSpeaker(line.speaker),
+        english: line.english,
+        id: line.id,
+        slovak: line.slovak,
+        speaker: line.speaker,
+        src: srcs[line.id],
+      })),
+    };
+  })
+  .filter((scene) => {
+    const cast = new Set(scene.lines.map((line) => line.characterId));
+    return scene.lines.length > 0 && cast.size <= 2;
+  });
+---
+
+<SiteLayout title="Stick figures | Slovak Wiki" noindex>
+  <StickFigureLab client:load {scenes} />
+</SiteLayout>
