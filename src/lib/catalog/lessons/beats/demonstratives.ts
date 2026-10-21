@@ -28,6 +28,7 @@ export const demonstrativesLineIds = {
   waiterThreeEuros: "demonstratives-waiter-three-euros",
   youThisCake: "demonstratives-you-this-cake",
   annaThatCake: "demonstratives-anna-that-cake",
+  waiterConfirmsOrder: "demonstratives-waiter-confirms-order",
 } as const;
 
 const SINGULAR: FormTableHeading = { english: "Singular", slovak: "jednotné číslo" };
@@ -320,6 +321,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         demonstrativesLineIds.waiterThreeEuros,
         demonstrativesLineIds.youThisCake,
         demonstrativesLineIds.annaThatCake,
+        demonstrativesLineIds.waiterConfirmsOrder,
       ],
       phrases: [
         {
