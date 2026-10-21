@@ -226,14 +226,12 @@
                 >
                   {#if note}
                     <span
-                      class="block font-serif text-lg leading-snug font-semibold tracking-normal text-slate-900 normal-case"
+                      class="block font-serif text-lg leading-snug font-semibold text-slate-900"
                       lang="sk"
                     >
                       {head}
                     </span>
-                    <span
-                      class="block text-xs font-normal tracking-normal text-slate-500 normal-case"
-                    >
+                    <span class="block text-xs font-normal text-slate-500">
                       {note}
                     </span>
                   {:else}

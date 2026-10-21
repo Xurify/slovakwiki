@@ -549,7 +549,7 @@
       <section aria-labelledby="other-words-label">
         <h2 class={sectionLabelClass} id="other-words-label">
           {wordResults.best ? "Other words" : "Words"}
-          <span class="font-normal tracking-normal">{wordResults.others.length}</span>
+          <span class="font-normal">{wordResults.others.length}</span>
         </h2>
 
         <ul class="{dividedListClass} mt-1">
@@ -623,7 +623,7 @@
       <section aria-labelledby="topics-label">
         <h2 class="{sectionLabelClass} mb-3" id="topics-label">
           Grammar & lessons
-          <span class="font-normal tracking-normal">{listedTopicRows.length}</span>
+          <span class="font-normal">{listedTopicRows.length}</span>
         </h2>
 
         <ul class="{panelClass} {dividedListClass}">
@@ -665,7 +665,7 @@
       <section aria-labelledby="examples-label">
         <h2 class={sectionLabelClass} id="examples-label">
           Found in examples
-          <span class="font-normal tracking-normal">{exampleCount}</span>
+          <span class="font-normal">{exampleCount}</span>
         </h2>
 
         <ul class="{dividedListClass} mt-1">
