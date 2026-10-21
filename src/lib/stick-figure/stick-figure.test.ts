@@ -13,11 +13,13 @@ import {
   trackSpeechSpan,
 } from "./mouth-track";
 import { performFrame, startPerformance, type PerformanceInput } from "./performance";
+import { linePictures } from "./pictures";
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
 import { parseScript, sceneSnippet, stageName } from "./script";
 import { gesturesWithProps, heldProps, lineProps, propForSentence } from "./props";
 import { restFacing, stageLine, type StageLine } from "./staging";
+import { STEP_MS, stepsFor, walkDuration, walkPose } from "./walk";
 import { slovakSyllables } from "./syllables";
 
 function distance(a: Point, b: Point): number {
@@ -508,6 +510,35 @@ describe("stageLine", () => {
     });
   });
 
+  it("walks the one shown something over to the speaker", () => {
+    expect(stageLine(lines, 0, cast).approach).toEqual({
+      characterId: "alex",
+      toward: -1,
+    });
+    expect(stageLine(lines, 1, cast).approach).toBeUndefined();
+  });
+
+  it("walks someone called in over to the speaker", () => {
+    const visit: StageLine[] = [
+      { characterId: "anna", slovak: "Ahoj, poď ďalej!" },
+      { characterId: "alex", slovak: "Ahoj!" },
+    ];
+
+    expect(stageLine(visit, 0, ["anna", "alex"]).approach).toEqual({
+      characterId: "alex",
+      toward: -1,
+    });
+  });
+
+  it("walks the waiter off to fetch the order", () => {
+    const order: StageLine[] = [
+      { characterId: "anna", slovak: "A ja si dám tamtú tortu." },
+      { characterId: "waiter", slovak: "Takže tento koláč a tamtú tortu. Hneď to bude." },
+    ];
+
+    expect(stageLine(order, 1, ["anna", "waiter"]).exit).toBe(1);
+  });
+
   it("turns a goodbye away once it ends", () => {
     const goodbye: StageLine[] = [
       { characterId: "waiter", slovak: "Nech sa páči." },
@@ -556,5 +587,61 @@ describe("props", () => {
     ]);
 
     expect(held).toEqual([{ anna: "camera" }, { anna: "camera" }, { anna: "keys" }]);
+  });
+});
+
+describe("walk", () => {
+  it("swings the feet in turn and ends feet together", () => {
+    const ms = walkDuration(4);
+    const stride = walkPose(REST_POSE, STEP_MS * 1.5, ms);
+
+    expect(Math.abs(stride.stride)).toBeCloseTo(1, 5);
+    expect(walkPose(REST_POSE, ms, ms)).toEqual(REST_POSE);
+    expect(solveRig(stride).leadLeg.end.x).not.toBeCloseTo(
+      solveRig(REST_POSE).leadLeg.end.x,
+      1,
+    );
+  });
+
+  it("keeps a full stride within the leg's reach", () => {
+    const rig = solveRig(walkPose(REST_POSE, STEP_MS * 1.5, walkDuration(4)));
+    const reach = Math.hypot(
+      rig.leadLeg.end.x - rig.hip.x,
+      rig.leadLeg.end.y - rig.hip.y,
+    );
+
+    expect(reach).toBeLessThanOrEqual(39);
+  });
+
+  it("takes steps for the ground it covers", () => {
+    expect(stepsFor(0.1)).toBe(2);
+    expect(stepsFor(-2.25)).toBe(10);
+  });
+});
+
+describe("pictures", () => {
+  it("names a country's flag in any case", () => {
+    expect(linePictures("Som z Kanady.")).toEqual([{ picture: "flag-ca", word: 2 }]);
+    expect(linePictures("Hovoríte po slovensky?")).toEqual([
+      { picture: "flag-sk", word: 2 },
+    ]);
+    expect(linePictures("Dobrý deň.")).toEqual([]);
+  });
+
+  it("pops the picture up as its word is said", () => {
+    const plan = planLine("Som z Kanady.");
+    const cue = plan.pictures?.[0];
+    const input = { now: 0, reducedMotion: false, talking: true };
+    const before = performFrame(plan, startPerformance(), { ...input, speechMs: 0 });
+    const after = performFrame(plan, before.state, {
+      ...input,
+      now: 500,
+      speechMs: (cue?.at ?? 0) + 10,
+    });
+
+    expect(cue?.picture).toBe("flag-ca");
+    expect(cue?.at).toBeGreaterThan(plan.sentences[0].start);
+    expect(before.picture).toBeUndefined();
+    expect(after.picture).toBe("flag-ca");
   });
 });

@@ -66,7 +66,9 @@
     heldProps,
     lineProps,
   } from "$lib/stick-figure/props";
+  import { STICK_PICTURE_NAMES } from "$lib/stick-figure/pictures";
   import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
+  import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import {
     restFacing,
     stageLine,
@@ -87,6 +89,8 @@
   let { scenes }: { scenes: StickLabScene[] } = $props();
 
   const SCRIPT_SCENE_ID = "script";
+  /** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
+  const BESIDE_WIDTHS = 0.8;
 
   const PLACES: Array<{ id: LessonSceneArtId; label: string }> = [
     { id: "default", label: "Park" },
@@ -115,6 +119,11 @@
   let copied = $state(false);
   let painted = $state(false);
   let facings = $state<CastFacing>({});
+  /** How far each figure has walked from its mark, in figure widths. */
+  let offsets = $state<Partial<Record<LessonCharacterId, number>>>({});
+  let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
+  let stageEl = $state<HTMLDivElement>();
+  const slots: Partial<Record<LessonCharacterId, HTMLDivElement>> = {};
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
   let benchProp = $state<StickPropId | undefined>();
@@ -125,12 +134,13 @@
       "Waiter: Dobrý deň. Dáte si kávu?",
       "Anna: Áno, prosím.",
       "Alex > Waiter: Ja si dám čaj.",
-      "Anna: Pozri, to sú fotky z leta.",
+      "Anna: Pozri, to sú fotky z Kanady.",
       "Alex: Super! Kto je ten muž?",
       "Anna: To je môj brat Tom.",
       "Alex > Waiter: Prepáčte, koľko to stojí?",
       "Waiter: Štyri eurá päťdesiat.",
-      "Alex: Ďakujem. Dovidenia!",
+      "Alex: Ďakujem.",
+      "Waiter: Nech sa páči. Prajem pekný deň!",
     ].join("\n"),
   );
 
@@ -188,6 +198,7 @@
       stageLine(
         lines.map((line) => ({
           characterId: dialogueSpeakerLabel(line.speaker) ? line.characterId : null,
+          props: line.props,
           slovak: line.slovak,
           to: line.to,
         })),
@@ -221,9 +232,52 @@
   function selectScene(id: string): void {
     stop();
     actors = {};
-    facings = {};
+    resetStage();
     heldAt = -1;
     sceneId = id;
+  }
+
+  /** Everyone back on their mark, facing the middle, before a fresh run. */
+  function resetStage(): void {
+    facings = {};
+    walks = {};
+    offsets = {};
+  }
+
+  /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
+  function walkTo(id: LessonCharacterId, offset: number): void {
+    const from = offsets[id] ?? 0;
+    if (from === offset) return;
+
+    const ms = walkDuration(stepsFor(offset - from));
+    walks = { ...walks, [id]: { cue: (walks[id]?.cue ?? 0) + 1, ms } };
+    offsets = { ...offsets, [id]: offset };
+  }
+
+  /** Figure widths from a figure's mark to where it stands beside `to`, wherever `to` is now. */
+  function beside(id: LessonCharacterId, to: LessonCharacterId, toward: 1 | -1): number {
+    const slot = slots[id];
+    const other = slots[to];
+    if (!slot || !other) return toward * 0.5;
+
+    const box = slot.getBoundingClientRect();
+    const target = other.getBoundingClientRect();
+    const mark = box.left - (offsets[id] ?? 0) * box.width;
+    const gap = (target.left - mark) / box.width;
+    return Math.abs(gap) > BESIDE_WIDTHS ? gap - Math.sign(gap) * BESIDE_WIDTHS : 0;
+  }
+
+  /** Figure widths from a figure's mark to just past the stage edge it walks toward. */
+  function offStage(id: LessonCharacterId, direction: 1 | -1): number {
+    const slot = slots[id];
+    if (!slot || !stageEl) return direction * 4;
+
+    const stage = stageEl.getBoundingClientRect();
+    const box = slot.getBoundingClientRect();
+    const markLeft = box.left - (offsets[id] ?? 0) * box.width;
+    const distance =
+      direction > 0 ? stage.right - markLeft : markLeft + box.width - stage.left;
+    return direction * (distance / box.width + 0.1);
   }
 
   function stop(): void {
@@ -252,6 +306,10 @@
     for (const actor of Object.values(actors)) actor.talking = false;
     facings = { ...facings, ...staging?.facing };
     if (dialogueSpeakerLabel(line.speaker) !== null) cueActor(line.characterId, plan);
+    if (staging?.approach) {
+      const { characterId, toward } = staging.approach;
+      walkTo(characterId, beside(characterId, line.characterId, toward));
+    }
 
     for (const reaction of staging?.reactions ?? []) {
       const span = plan?.sentences[reaction.sentence];
@@ -266,7 +324,10 @@
       if (token !== playToken) return;
 
       for (const actor of Object.values(actors)) actor.talking = false;
-      if (staging?.exit) facings = { ...facings, [line.characterId]: staging.exit };
+      if (staging?.exit) {
+        facings = { ...facings, [line.characterId]: staging.exit };
+        walkTo(line.characterId, offStage(line.characterId, staging.exit));
+      }
       onDone?.();
     };
 
@@ -283,6 +344,7 @@
 
   function playScene(): void {
     stop();
+    resetStage();
     playingScene = true;
     const lines = scene.lines;
 
@@ -437,6 +499,7 @@
         </div>
 
         <div
+          bind:this={stageEl}
           class="relative flex h-[300px] items-end justify-center gap-[6%] overflow-hidden border-b border-slate-200 px-6 pb-3 max-[600px]:h-[240px]"
         >
           {#if painted}
@@ -455,11 +518,14 @@
           {#each cast as characterId (characterId)}
             <div
               class={cx(
-                "relative w-full",
+                "relative w-full transition-transform ease-linear",
                 cast.length > 2
                   ? "max-w-[110px] max-[600px]:max-w-[80px]"
                   : "max-w-[150px] max-[600px]:max-w-[120px]",
               )}
+              bind:this={slots[characterId]}
+              style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
+              style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
             >
               <StickFigureActor
                 {characterId}
@@ -469,6 +535,7 @@
                 plan={actors[characterId]?.plan}
                 prop={held[heldAt]?.[characterId]}
                 talking={actors[characterId]?.talking ?? false}
+                walk={walks[characterId]}
               />
             </div>
           {/each}
@@ -487,6 +554,7 @@
                 type="button"
                 onclick={() => {
                   stop();
+                  resetStage();
                   playLine(line);
                 }}
               >
@@ -520,8 +588,16 @@
                       <span>Shows the {prop}</span>
                     {/each}
 
+                    {#each linePlans.get(line.id)?.pictures ?? [] as cue (cue.picture)}
+                      <span>{STICK_PICTURE_NAMES[cue.picture]} over the head</span>
+                    {/each}
+
+                    {#if staging?.approach}
+                      <span>{nameOf(staging.approach.characterId)} walks over</span>
+                    {/if}
+
                     {#if staging?.exit}
-                      <span>Turns away after</span>
+                      <span>Walks off after</span>
                     {/if}
 
                     {#if scene.id !== SCRIPT_SCENE_ID && !line.src}

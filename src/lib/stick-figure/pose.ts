@@ -22,6 +22,10 @@ export interface StickPose {
   bob: number;
   /** Feet distance from centre, px. */
   stance: number;
+  /** Walking: -1…1 swings the lead foot back or forward and the rear foot the other way. */
+  stride: number;
+  /** Walking: px the moving foot is off the ground; positive lifts the lead foot, negative the rear. */
+  lift: number;
   /** -1 worried, 0 neutral, 1 raised. */
   brow: number;
   /** 0 closed, 1 wide open. */
@@ -43,6 +47,8 @@ export const REST_POSE: StickPose = {
   look: 0.4,
   bob: 0,
   stance: 8,
+  stride: 0,
+  lift: 0,
   brow: 0,
   mouth: 0,
   round: 0,

@@ -6,6 +6,7 @@ import {
   trackSpeechSpan,
   type LipTrack,
 } from "./mouth-track";
+import { linePictures, type StickPictureId } from "./pictures";
 import { slovakSyllables, type VowelShape } from "./syllables";
 
 export interface LineBeat {
@@ -25,6 +26,8 @@ export interface LinePlan {
   durationMs: number;
   /** Lip shape per frame, when the clip has an aligned vowel track. */
   lips?: LipTrack;
+  /** A picture to pop over the speaker's head as the word naming it is said. */
+  pictures?: Array<{ at: number; picture: StickPictureId }>;
   questions: LineSpan[];
   /** Where each sentence is spoken, in clip time. */
   sentences: LineSpan[];
@@ -86,12 +89,14 @@ export interface TimedSyllable {
   vowel: VowelShape;
 }
 
-/** Every syllable's nucleus time from the text alone, and the speech length. */
+/** Every syllable's nucleus time and every word's span from the text alone, and the speech length. */
 export function textTimeline(text: string): {
   speechMs: number;
   syllables: TimedSyllable[];
+  words: LineSpan[];
 } {
   const syllables: TimedSyllable[] = [];
+  const words: LineSpan[] = [];
   let ms = 0;
   let pendingPause = 0;
 
@@ -104,18 +109,21 @@ export function textTimeline(text: string): {
       continue;
     }
 
+    let start: number | undefined;
     for (const syllable of slovakSyllables(token)) {
       if (syllables.length > 0) ms += pendingPause;
       pendingPause = 0;
+      start ??= ms;
 
       const onset = CONSONANT_MS * syllable.consonants;
       const length = NUCLEUS_MS + onset + (syllable.long ? LONG_EXTRA_MS : 0);
       syllables.push({ at: ms + onset + (length - onset) * 0.45, vowel: syllable.vowel });
       ms += length;
     }
+    words.push({ start: start ?? ms, end: ms });
   }
 
-  return { speechMs: ms, syllables };
+  return { speechMs: ms, syllables, words };
 }
 
 function nearestPauseEnd(pauses: LineSpan[], at: number): number | undefined {
@@ -193,11 +201,17 @@ export function planLine(
 
   beats.sort((a, b) => a.at - b.at);
   const speechEnd = origin + speechMs * scale;
+  const { words } = textTimeline(slovak);
+  const pictures = linePictures(slovak).map(({ picture, word }) => ({
+    at: origin + (words[word]?.start ?? 0) * scale,
+    picture,
+  }));
 
   return {
     beats: spaceBeats(beats, speechEnd),
     durationMs,
     lips,
+    pictures,
     questions,
     sentences: spans,
     track,

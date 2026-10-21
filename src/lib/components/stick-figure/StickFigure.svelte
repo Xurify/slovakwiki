@@ -8,7 +8,9 @@
     type Point,
     type StickLimb,
   } from "$lib/stick-figure/rig";
+  import type { StickPictureId } from "$lib/stick-figure/pictures";
   import type { StickPropId } from "$lib/stick-figure/props";
+  import StickPicture from "./StickPicture.svelte";
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
   import { STICK_SLEEVES } from "./stick-figure-ui";
@@ -17,12 +19,15 @@
     characterId,
     class: className = "",
     facing = 1,
+    picture,
     pose = REST_POSE,
     prop,
   }: {
     characterId: LessonCharacterId;
     class?: string;
     facing?: 1 | -1;
+    /** Shown in a bubble over the head, the right way round whichever way the figure faces. */
+    picture?: StickPictureId;
     pose?: StickPose;
     /** Held in the lead hand. */
     prop?: StickPropId;
@@ -178,9 +183,9 @@
       stroke-width="3.4"
     />
     <path
-      d="M{n(rig.rearLeg.end.x - 1)} {GROUND_Y - 1}h5M{n(
+      d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
         rig.leadLeg.end.x - 1,
-      )} {GROUND_Y - 1}h5"
+      )} {n(rig.leadLeg.end.y - 1)}h5"
       class="stroke-portrait-ink"
       stroke-width="3.6"
     />
@@ -495,4 +500,19 @@
       {/if}
     </g>
   </g>
+
+  {#if picture}
+    <g transform="translate({n(rig.head.x * facing)} 4)">
+      <g class="animate-rise">
+        <path
+          d="M-17 -13h34a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5h-13l-4 5-4-5h-13a5 5 0 0 1-5-5v-15a5 5 0 0 1 5-5Z"
+          class="fill-white stroke-portrait-ink"
+          stroke-width="1.1"
+        />
+        <g transform="translate(0 -0.5)">
+          <StickPicture {picture} />
+        </g>
+      </g>
+    </g>
+  {/if}
 </svg>

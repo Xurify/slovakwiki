@@ -9,8 +9,10 @@
     type PerformanceState,
     type SpeechClock,
   } from "$lib/stick-figure/performance";
+  import type { StickPictureId } from "$lib/stick-figure/pictures";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import type { StickPropId } from "$lib/stick-figure/props";
+  import { walkPose } from "$lib/stick-figure/walk";
   import StickFigure from "./StickFigure.svelte";
 
   let {
@@ -22,6 +24,7 @@
     plan,
     prop,
     talking = false,
+    walk,
   }: {
     characterId: LessonCharacterId;
     class?: string;
@@ -35,14 +38,24 @@
     prop?: StickPropId;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
+    /** Bump `cue` to take steps for `ms` while the stage moves the figure. */
+    walk?: { cue: number; ms: number };
   } = $props();
 
+  /** Long enough to see the picture, short enough not to outstay the line. */
+  const PICTURE_MS = 1800;
+
   let pose = $state<StickPose>(REST_POSE);
+  let picture = $state<StickPictureId>();
 
   let frame = 0;
   let startedAt = 0;
   let act: PerformanceState = startPerformance();
   let reducedMotion = false;
+  let walkStartedAt = 0;
+  let walkMs = 0;
+  let pictureCalled: StickPictureId | undefined;
+  let pictureUntil = 0;
 
   $effect(() => {
     if (cue === 0) return;
@@ -50,12 +63,24 @@
     untrack(() => {
       startedAt = performance.now();
       act = startPerformance(startedAt, $state.snapshot(pose));
+      pictureCalled = undefined;
       run();
     });
   });
 
   $effect(() => {
     if (talking) untrack(run);
+  });
+
+  $effect(() => {
+    if (!walk?.cue) return;
+    const ms = walk.ms;
+
+    untrack(() => {
+      walkStartedAt = performance.now();
+      walkMs = ms;
+      run();
+    });
   });
 
   $effect(() => () => cancelAnimationFrame(frame));
@@ -77,25 +102,34 @@
     );
   }
 
-  // The loop runs only while a line or its last gesture is in flight, then
-  // parks on the rest pose: no idle motion between lines.
+  // The loop runs only while a line, its last gesture or a walk is in
+  // flight, then parks on the rest pose: no idle motion between lines.
   function tick(now: number): void {
-    if (!plan) {
-      pose = REST_POSE;
-      frame = 0;
-      return;
-    }
+    const next = plan
+      ? performFrame(plan, act, {
+          now,
+          reducedMotion,
+          speechMs: speechPosition(now),
+          talking,
+        })
+      : undefined;
+    if (next) act = next.state;
 
-    const next = performFrame(plan, act, {
-      now,
-      reducedMotion,
-      speechMs: speechPosition(now),
-      talking,
-    });
-    act = next.state;
-    pose = next.pose;
-    frame = next.settled ? 0 : requestAnimationFrame(tick);
+    const walked = now - walkStartedAt;
+    const walking = walked < walkMs && !reducedMotion;
+    const body = next?.pose ?? REST_POSE;
+    pose = walking ? walkPose(body, walked, walkMs) : body;
+
+    if (next?.picture && next.picture !== pictureCalled) {
+      pictureCalled = next.picture;
+      pictureUntil = now + PICTURE_MS;
+    }
+    const showing = now < pictureUntil ? pictureCalled : undefined;
+    if (showing !== picture) picture = showing;
+
+    const busy = !(next?.settled ?? true) || walking || showing !== undefined;
+    frame = busy ? requestAnimationFrame(tick) : 0;
   }
 </script>
 
-<StickFigure {characterId} class={className} {facing} {pose} {prop} />
+<StickFigure {characterId} class={className} {facing} {picture} {pose} {prop} />

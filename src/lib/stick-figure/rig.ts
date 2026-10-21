@@ -42,6 +42,8 @@ const UPPER_ARM = 15;
 const FOREARM = 14;
 const THIGH = 19.5;
 const SHIN = 19.5;
+/** How far a full stride carries each foot from its stance, px. */
+const STRIDE = 9;
 
 const RAD = Math.PI / 180;
 
@@ -101,7 +103,13 @@ export function solveRig(pose: StickPose): StickRig {
     headAngle: pose.lean + pose.tilt,
     leadArm: arm(leadShoulder, pose.lean, 1, pose.leadRaise, pose.leadBend),
     rearArm: arm(rearShoulder, pose.lean, -1, pose.rearRaise, pose.rearBend),
-    leadLeg: leg(hip, { x: pose.stance, y: GROUND_Y }),
-    rearLeg: leg(hip, { x: -pose.stance, y: GROUND_Y }),
+    leadLeg: leg(hip, {
+      x: pose.stance + pose.stride * STRIDE,
+      y: GROUND_Y - Math.max(0, pose.lift),
+    }),
+    rearLeg: leg(hip, {
+      x: -pose.stance - pose.stride * STRIDE,
+      y: GROUND_Y - Math.max(0, -pose.lift),
+    }),
   };
 }

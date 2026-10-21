@@ -2,6 +2,7 @@ import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { foldLine } from "./line-gesture";
 import { lineSentences } from "./line-plan";
+import { lineProps, type StickPropId } from "./props";
 
 /** 1 faces right (+x), -1 faces left. */
 export type Facing = 1 | -1;
@@ -11,6 +12,8 @@ export type CastFacing = Partial<Record<LessonCharacterId, Facing>>;
 export interface StageLine {
   /** Null when nobody on stage says it: a notice, the narrator. */
   characterId: LessonCharacterId | null;
+  /** Per-sentence prop overrides, as on the lesson line. */
+  props?: ReadonlyArray<StickPropId | null>;
   slovak: string;
   /** Who it is said to, when that is not the person it replies to. */
   to?: LessonCharacterId;
@@ -31,13 +34,29 @@ export interface LineStaging {
   facing: CastFacing;
   /** Silent gestures from the one spoken to. */
   reactions: StageReaction[];
-  /** Where the speaker turns once a goodbye ends. */
+  /** The one spoken to walks up to the speaker, who shows them something or calls them over. */
+  approach?: { characterId: LessonCharacterId; toward: Facing };
+  /** Which way the speaker turns and walks off once their last line, a goodbye, ends. */
   exit?: Facing;
 }
 
 /** Folded sentence openers the one spoken to nods at. */
 const NOD_AT = ["dakujem", "dakujeme", "vdaka", "tesi ma", "prepacte", "prepac"];
-const GOODBYES = ["dovidenia", "do videnia", "maj sa", "majte sa", "zbohom", "dobru noc"];
+/** Folded phrases that end someone's part in a scene: goodbyes, or going to fetch the order. */
+const LEAVING = [
+  "dovidenia",
+  "do videnia",
+  "maj sa",
+  "majte sa",
+  "zbohom",
+  "dobru noc",
+  "pekny den",
+  "hned to bude",
+  "hned som spat",
+  "musim ist",
+];
+/** Folded phrases that call the one spoken to over. */
+const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
 
 function opensWith(sentence: string, openers: string[]): boolean {
   const folded = foldLine(sentence);
@@ -123,8 +142,9 @@ function reactionTo(
 
 /**
  * Stage direction for one line: the speaker turns to the one spoken to,
- * everyone else turns to the speaker, and the one spoken to may react. A
- * speaker whose last line is a goodbye turns away when it ends.
+ * everyone else turns to the speaker, and the one spoken to may react or
+ * walk over to look at what they are shown. A speaker whose last line is a
+ * goodbye turns and walks off when it ends.
  */
 export function stageLine(
   lines: readonly StageLine[],
@@ -146,18 +166,26 @@ export function stageLine(
   }
 
   const reaction = onStage ? reactionTo(lines, index, addressee) : undefined;
+  const sentences = lineSentences(lines[index].slovak);
+  const shows = lineProps(lines[index].slovak, lines[index].props).some(Boolean);
+  const callsOver = sentences.some((sentence) => mentions(sentence, COME_OVER));
+  // Only a neighbour walks over; anyone further would walk through someone.
+  const neighbour =
+    onStage && Math.abs(cast.indexOf(addressee) - cast.indexOf(speaker)) === 1;
   const lastOwnLine = !lines
     .slice(index + 1)
     .some((line) => line.characterId === speaker);
-  const goodbye = lineSentences(lines[index].slovak).some((sentence) =>
-    mentions(sentence, GOODBYES),
-  );
+  const leaving = sentences.some((sentence) => mentions(sentence, LEAVING));
   const turnedTo = facing[speaker];
 
   return {
     addressee,
     facing,
     reactions: reaction ? [reaction] : [],
-    exit: lastOwnLine && goodbye && turnedTo ? (-turnedTo as Facing) : undefined,
+    approach:
+      neighbour && (shows || callsOver)
+        ? { characterId: addressee, toward: toward(cast, addressee, speaker) }
+        : undefined,
+    exit: lastOwnLine && leaving && turnedTo ? (-turnedTo as Facing) : undefined,
   };
 }

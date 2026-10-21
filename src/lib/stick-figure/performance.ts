@@ -1,6 +1,7 @@
 import { gestureDuration, gesturePeak, mouthAt, sampleGesture } from "./gestures";
 import type { LinePlan } from "./line-plan";
 import { NEUTRAL_LIPS, lipsFromTrack, mouthFromTrack } from "./mouth-track";
+import type { StickPictureId } from "./pictures";
 import { REST_POSE, easeInOut, lerpPose, type StickPose } from "./pose";
 
 /** Cross-fade into a beat that cuts the previous gesture short. */
@@ -34,6 +35,8 @@ export interface PerformanceInput {
 }
 
 export interface PerformanceFrame {
+  /** The picture whose word has been said, while the speaker talks. */
+  picture?: StickPictureId;
   pose: StickPose;
   /** Nothing left to animate until the next line. */
   settled: boolean;
@@ -124,5 +127,10 @@ export function performFrame(
     };
   }
 
-  return { pose, settled: !talking && !moving, state };
+  const picture =
+    talking && speechMs !== null && !plan.silent
+      ? plan.pictures?.findLast((cue) => speechMs >= cue.at)?.picture
+      : undefined;
+
+  return { picture, pose, settled: !talking && !moving, state };
 }
