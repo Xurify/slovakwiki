@@ -70,6 +70,7 @@
   let benchCharacter = $state<LessonCharacterId>("anna");
   let bench = $state<ActorState>({ cue: 0, talking: false });
   let benchGesture = $state<StickGestureId | null>(null);
+  let copied = $state(false);
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   let scriptText = $state(
     [
@@ -209,7 +210,12 @@
   }
 
   function copySnippet(): void {
-    void navigator.clipboard?.writeText(sceneSnippet(script.lines));
+    void navigator.clipboard?.writeText(sceneSnippet(script.lines)).then(() => {
+      copied = true;
+      window.setTimeout(() => {
+        copied = false;
+      }, 1500);
+    });
   }
 
   function playBench(plan: LinePlan, gesture: StickGestureId | null = null): void {
@@ -225,12 +231,7 @@
 <main class="py-12 pb-24 max-[600px]:py-8">
   <PageShell class="max-w-[1040px]">
     <header class="max-w-[680px]">
-      <p
-        class="m-0 font-mono text-xs font-medium tracking-widest text-blue-700 uppercase"
-      >
-        Cast & Motion
-      </p>
-      <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+      <h1 class="m-0 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
         Stick figures
       </h1>
       <Lead class="mt-3">
@@ -284,8 +285,13 @@
           {/if}
 
           <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <Button variant="secondary" onclick={copySnippet}>Copy as lesson scene</Button
+            <button
+              class="cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline decoration-blue-700/30 underline-offset-2"
+              type="button"
+              onclick={copySnippet}
             >
+              {copied ? "Copied" : "Copy as lesson scene"}
+            </button>
             <p class="m-0 text-sm text-slate-500">
               Paste it into a lesson, then
               <code class="font-mono text-xs"
@@ -358,19 +364,18 @@
                     <span class="mt-0.5 block text-sm text-slate-500">{line.english}</span
                     >
                   {/if}
-                </span>
 
-                <span class="flex shrink-0 flex-col items-end gap-1">
-                  {#if dialogueSpeakerLabel(line.speaker)}
-                    <span class={tagClass}>{gestureSequence(linePlans.get(line.id))}</span
-                    >
-                  {/if}
+                  <span class="mt-1.5 flex flex-wrap gap-x-4 text-sm text-slate-500">
+                    {#if dialogueSpeakerLabel(line.speaker)}
+                      <span>Gestures: {gestureSequence(linePlans.get(line.id))}</span>
+                    {/if}
 
-                  {#if scene.id !== SCRIPT_SCENE_ID && !line.src}
-                    <span class="text-xs text-slate-500">no clip</span>
-                  {:else if scene.id !== SCRIPT_SCENE_ID && !line.mouth}
-                    <span class="text-xs text-slate-500">no mouth track</span>
-                  {/if}
+                    {#if scene.id !== SCRIPT_SCENE_ID && !line.src}
+                      <span>No clip</span>
+                    {:else if scene.id !== SCRIPT_SCENE_ID && !line.mouth}
+                      <span>No mouth track</span>
+                    {/if}
+                  </span>
                 </span>
               </button>
             </li>
