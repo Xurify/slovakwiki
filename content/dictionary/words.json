@@ -833,7 +833,7 @@
   {
     "slug": "stat",
     "slovak": "stať",
-    "english": "to happen; to become",
+    "english": "to happen; to become (stať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -1889,7 +1889,7 @@
   {
     "slug": "viest",
     "slovak": "viesť",
-    "english": "to lead; to know how (drive)",
+    "english": "to lead; to guide; to run (a business); to drive (a vehicle)",
     "category": "Verbs",
     "examples": [
       {
@@ -2439,7 +2439,7 @@
   {
     "slug": "snazit",
     "slovak": "snažiť",
-    "english": "to try; to strive",
+    "english": "to try; to strive (snažiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -2684,7 +2684,7 @@
   {
     "slug": "podarit",
     "slovak": "podariť",
-    "english": "to succeed; to manage",
+    "english": "to succeed; to manage (podariť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -4090,7 +4090,7 @@
   {
     "slug": "zdat",
     "slovak": "zdať",
-    "english": "to seem",
+    "english": "to seem (zdať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -4733,7 +4733,7 @@
   {
     "slug": "tesit",
     "slovak": "tešiť",
-    "english": "to please; to look forward",
+    "english": "to please; to look forward to (tešiť sa na)",
     "category": "Verbs",
     "examples": [
       {
@@ -7865,7 +7865,7 @@
   {
     "slug": "kolo",
     "slovak": "kolo",
-    "english": "round; wheel; bike",
+    "english": "round; lap; bike (colloq.)",
     "category": "Nouns",
     "gender": "neuter",
     "examples": [
@@ -15997,7 +15997,7 @@
   {
     "slug": "nachadzat",
     "slovak": "nachádzať",
-    "english": "to find; to be located",
+    "english": "to find; to be located (nachádzať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -16623,7 +16623,7 @@
   {
     "slug": "volat",
     "slovak": "volať",
-    "english": "to call; to name",
+    "english": "to call; to name; to be called (volať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -16734,7 +16734,7 @@
   {
     "slug": "vydat",
     "slovak": "vydať",
-    "english": "to publish; to issue; to give out",
+    "english": "to publish; to issue; to give out; to marry, of a woman (vydať sa za)",
     "category": "Verbs",
     "examples": [
       {
@@ -17337,7 +17337,7 @@
   {
     "slug": "spytat",
     "slovak": "spýtať",
-    "english": "to ask",
+    "english": "to ask (spýtať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -17848,7 +17848,7 @@
   {
     "slug": "zucastnit",
     "slovak": "zúčastniť",
-    "english": "to take part; to participate",
+    "english": "to take part; to participate (zúčastniť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -18078,7 +18078,7 @@
   {
     "slug": "tykat",
     "slovak": "týkať",
-    "english": "to concern; to relate to",
+    "english": "to concern; to relate to (týkať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -18574,7 +18574,7 @@
   {
     "slug": "dozvediet",
     "slovak": "dozvedieť",
-    "english": "to find out; to learn",
+    "english": "to find out; to learn (dozvedieť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -18964,7 +18964,7 @@
   {
     "slug": "pytat",
     "slovak": "pýtať",
-    "english": "to ask; to ask for",
+    "english": "to ask (pýtať sa); to ask for",
     "category": "Verbs",
     "examples": [
       {
@@ -19021,7 +19021,7 @@
   {
     "slug": "narodit",
     "slovak": "narodiť",
-    "english": "to be born; to give birth",
+    "english": "to be born (narodiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -19181,7 +19181,7 @@
   {
     "slug": "odohrat",
     "slovak": "odohrať",
-    "english": "to take place; to play out",
+    "english": "to take place (odohrať sa); to play (a match)",
     "category": "Verbs",
     "examples": [
       {
@@ -19869,7 +19869,7 @@
   {
     "slug": "vyrovnat",
     "slovak": "vyrovnať",
-    "english": "to equalize; to settle; to cope",
+    "english": "to equalize; to settle; to cope (vyrovnať sa s)",
     "category": "Verbs",
     "examples": [
       {
@@ -19918,7 +19918,7 @@
   {
     "slug": "spomenut",
     "slovak": "spomenúť",
-    "english": "to mention",
+    "english": "to mention; to remember (spomenúť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -20134,7 +20134,7 @@
   {
     "slug": "stavat",
     "slovak": "stávať",
-    "english": "to become; to happen (imperfective)",
+    "english": "to become; to happen (stávať sa, imperfective)",
     "category": "Verbs",
     "examples": [
       {
@@ -20297,7 +20297,7 @@
   {
     "slug": "dohodnut",
     "slovak": "dohodnúť",
-    "english": "to agree; to arrange",
+    "english": "to agree (dohodnúť sa); to arrange",
     "category": "Verbs",
     "examples": [
       {
@@ -20346,7 +20346,7 @@
   {
     "slug": "ucit",
     "slovak": "učiť",
-    "english": "to teach; to learn",
+    "english": "to teach; to learn (učiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -20695,7 +20695,7 @@
   {
     "slug": "uvedomit",
     "slovak": "uvedomiť",
-    "english": "to realize; to become aware",
+    "english": "to realize; to become aware (uvedomiť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -21111,7 +21111,7 @@
   {
     "slug": "bat",
     "slovak": "báť",
-    "english": "to be afraid",
+    "english": "to be afraid (báť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -21714,7 +21714,7 @@
   {
     "slug": "naucit",
     "slovak": "naučiť",
-    "english": "to teach; to learn",
+    "english": "to teach; to learn (naučiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -22048,7 +22048,7 @@
   {
     "slug": "zaoberat",
     "slovak": "zaoberať",
-    "english": "to deal with; to be concerned with",
+    "english": "to deal with; to be concerned with (zaoberať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -23579,7 +23579,7 @@
   {
     "slug": "pokusit",
     "slovak": "pokúsiť",
-    "english": "to try; to attempt",
+    "english": "to try; to attempt (pokúsiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -23949,7 +23949,7 @@
   {
     "slug": "chystat",
     "slovak": "chystať",
-    "english": "to prepare; to get ready",
+    "english": "to prepare; to get ready, to plan to (chystať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -24063,7 +24063,7 @@
   {
     "slug": "nepodarit",
     "slovak": "nepodariť",
-    "english": "not to succeed; not to work out",
+    "english": "not to succeed; not to work out (nepodariť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -24804,7 +24804,7 @@
   {
     "slug": "opytat",
     "slovak": "opýtať",
-    "english": "to ask",
+    "english": "to ask (opýtať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -25192,7 +25192,7 @@
   {
     "slug": "diat",
     "slovak": "diať",
-    "english": "to happen; to take place",
+    "english": "to happen; to take place (diať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -25292,7 +25292,7 @@
   {
     "slug": "usilovat",
     "slovak": "usilovať",
-    "english": "to strive; to seek",
+    "english": "to strive; to seek (usilovať sa o)",
     "category": "Verbs",
     "examples": [
       {
@@ -25560,7 +25560,7 @@
   {
     "slug": "vsimnut",
     "slovak": "všimnúť",
-    "english": "to notice",
+    "english": "to notice (všimnúť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -26286,7 +26286,7 @@
   {
     "slug": "pamatat",
     "slovak": "pamätať",
-    "english": "to remember",
+    "english": "to remember (pamätať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -26392,7 +26392,7 @@
   {
     "slug": "usmiat",
     "slovak": "usmiať",
-    "english": "to smile",
+    "english": "to smile (usmiať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -26560,7 +26560,7 @@
   {
     "slug": "ocitnut",
     "slovak": "ocitnúť",
-    "english": "to find oneself",
+    "english": "to find oneself (ocitnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -27148,7 +27148,7 @@
   {
     "slug": "starat",
     "slovak": "starať",
-    "english": "to take care; to look after",
+    "english": "to take care; to look after (starať sa o)",
     "category": "Verbs",
     "examples": [
       {
@@ -27630,7 +27630,7 @@
   {
     "slug": "pokusat",
     "slovak": "pokúšať",
-    "english": "to try; to attempt (imperfective)",
+    "english": "to try; to attempt (pokúšať sa, imperfective); to tempt",
     "category": "Verbs",
     "examples": [
       {
@@ -27683,7 +27683,7 @@
   {
     "slug": "priblizit",
     "slovak": "priblížiť",
-    "english": "to bring closer; to approach",
+    "english": "to bring closer; to approach (priblížiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -27987,7 +27987,7 @@
   {
     "slug": "spravat",
     "slovak": "správať",
-    "english": "to behave",
+    "english": "to behave (správať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -28732,7 +28732,7 @@
   {
     "slug": "uvedomovat",
     "slovak": "uvedomovať",
-    "english": "to realize; to be aware (imperfective)",
+    "english": "to realize; to be aware (uvedomovať si, imperfective)",
     "category": "Verbs",
     "examples": [
       {
@@ -28880,7 +28880,7 @@
   {
     "slug": "postarat",
     "slovak": "postarať",
-    "english": "to take care; to see to",
+    "english": "to take care; to see to (postarať sa o)",
     "category": "Verbs",
     "examples": [
       {
@@ -28993,7 +28993,7 @@
   {
     "slug": "podielat",
     "slovak": "podieľať",
-    "english": "to take part; to share in",
+    "english": "to take part; to share in (podieľať sa na)",
     "category": "Verbs",
     "examples": [
       {
@@ -29791,7 +29791,7 @@
   {
     "slug": "zasluzit",
     "slovak": "zaslúžiť",
-    "english": "to deserve",
+    "english": "to deserve (zaslúžiť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -30165,7 +30165,7 @@
   {
     "slug": "obavat",
     "slovak": "obávať",
-    "english": "to fear; to be worried",
+    "english": "to fear; to be worried (obávať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -30534,7 +30534,7 @@
   {
     "slug": "nestat",
     "slovak": "nestať",
-    "english": "not to happen; not to become",
+    "english": "not to happen; not to become (nestať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -31271,7 +31271,7 @@
   {
     "slug": "zvyknut",
     "slovak": "zvyknúť",
-    "english": "to get used to",
+    "english": "to get used to (zvyknúť si na); to tend to",
     "category": "Verbs",
     "examples": [
       {
@@ -32421,7 +32421,7 @@
   {
     "slug": "vyhnut",
     "slovak": "vyhnúť",
-    "english": "to avoid",
+    "english": "to avoid (vyhnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -32470,7 +32470,7 @@
   {
     "slug": "zbavit",
     "slovak": "zbaviť",
-    "english": "to rid; to get rid of",
+    "english": "to rid (of); to get rid of (zbaviť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -32936,7 +32936,7 @@
   {
     "slug": "vazit",
     "slovak": "vážiť",
-    "english": "to weigh; to value",
+    "english": "to weigh; to value (vážiť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -33823,7 +33823,7 @@
   {
     "slug": "smiat",
     "slovak": "smiať",
-    "english": "to laugh",
+    "english": "to laugh (smiať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -33931,7 +33931,7 @@
   {
     "slug": "modlit",
     "slovak": "modliť",
-    "english": "to pray",
+    "english": "to pray (modliť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -33988,7 +33988,7 @@
   {
     "slug": "dotknut",
     "slovak": "dotknúť",
-    "english": "to touch",
+    "english": "to touch (dotknúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -34808,7 +34808,7 @@
   {
     "slug": "zastat",
     "slovak": "zastať",
-    "english": "to stop; to stand up for",
+    "english": "to stop; to stand up for (zastať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -34909,7 +34909,7 @@
   {
     "slug": "nebat",
     "slovak": "nebáť",
-    "english": "not to be afraid",
+    "english": "not to be afraid (nebáť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -35538,7 +35538,7 @@
   {
     "slug": "divat",
     "slovak": "dívať",
-    "english": "to look; to watch",
+    "english": "to look; to watch (dívať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -36313,7 +36313,7 @@
   {
     "slug": "odvolat",
     "slovak": "odvolať",
-    "english": "to revoke; to recall; to appeal",
+    "english": "to revoke; to recall; to appeal (odvolať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -36468,7 +36468,7 @@
   {
     "slug": "dockat",
     "slovak": "dočkať",
-    "english": "to wait until; to live to see",
+    "english": "to live to see; to get at last (dočkať sa); to wait until",
     "category": "Verbs",
     "examples": [
       {
@@ -37147,7 +37147,7 @@
   {
     "slug": "ujat",
     "slovak": "ujať",
-    "english": "to take hold; to take on",
+    "english": "to take on; to take charge of; to catch on (ujať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -37928,7 +37928,7 @@
   {
     "slug": "porozpravat",
     "slovak": "porozprávať",
-    "english": "to talk; to chat",
+    "english": "to talk; to have a chat (porozprávať sa); to tell",
     "category": "Verbs",
     "examples": [
       {
@@ -39035,7 +39035,7 @@
   {
     "slug": "stazovat",
     "slovak": "sťažovať",
-    "english": "to complain; to make difficult",
+    "english": "to complain (sťažovať sa); to make difficult",
     "category": "Verbs",
     "examples": [
       {
@@ -39610,7 +39610,7 @@
   {
     "slug": "blizit",
     "slovak": "blížiť",
-    "english": "to approach; to draw near",
+    "english": "to approach; to draw near (blížiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -39662,7 +39662,7 @@
   {
     "slug": "zasmiat",
     "slovak": "zasmiať",
-    "english": "to laugh; to burst out laughing",
+    "english": "to laugh; to burst out laughing (zasmiať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -41844,7 +41844,7 @@
   {
     "slug": "rozlucit",
     "slovak": "rozlúčiť",
-    "english": "to say goodbye; to part",
+    "english": "to say goodbye; to part (rozlúčiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -42199,7 +42199,7 @@
   {
     "slug": "domnievat",
     "slovak": "domnievať",
-    "english": "to suppose; to believe",
+    "english": "to suppose; to believe (domnievať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -42823,7 +42823,7 @@
   {
     "slug": "tvarit",
     "slovak": "tváriť",
-    "english": "to pretend; to look (as if)",
+    "english": "to pretend; to look (as if) (tváriť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -43089,7 +43089,7 @@
   {
     "slug": "zjavit",
     "slovak": "zjaviť",
-    "english": "to appear; to reveal",
+    "english": "to appear (zjaviť sa); to reveal",
     "category": "Verbs",
     "examples": [
       {
@@ -43501,7 +43501,7 @@
   {
     "slug": "usmievat",
     "slovak": "usmievať",
-    "english": "to smile (imperfective)",
+    "english": "to smile (usmievať sa, imperfective)",
     "category": "Verbs",
     "examples": [
       {
@@ -44918,7 +44918,7 @@
   {
     "slug": "nedarit",
     "slovak": "nedariť",
-    "english": "not to go well; not to succeed",
+    "english": "not to go well; not to succeed (nedariť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -46449,7 +46449,7 @@
   {
     "slug": "vyhybat",
     "slovak": "vyhýbať",
-    "english": "to avoid",
+    "english": "to avoid (vyhýbať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -46765,7 +46765,7 @@
   {
     "slug": "zucastnovat",
     "slovak": "zúčastňovať",
-    "english": "to take part; to participate (imperfective)",
+    "english": "to take part; to participate (zúčastňovať sa, imperfective)",
     "category": "Verbs",
     "examples": [
       {
@@ -46915,7 +46915,7 @@
   {
     "slug": "vyplatit",
     "slovak": "vyplatiť",
-    "english": "to pay out; to be worth",
+    "english": "to pay out; to be worth it (vyplatiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -47224,7 +47224,7 @@
   {
     "slug": "vyskytovat",
     "slovak": "vyskytovať",
-    "english": "to occur; to appear",
+    "english": "to occur; to appear (vyskytovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -47328,7 +47328,7 @@
   {
     "slug": "cudovat",
     "slovak": "čudovať",
-    "english": "to wonder; to be surprised",
+    "english": "to wonder; to be surprised (čudovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -47482,7 +47482,7 @@
   {
     "slug": "zamysliet",
     "slovak": "zamyslieť",
-    "english": "to think; to reflect",
+    "english": "to think; to reflect (zamyslieť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -47733,7 +47733,7 @@
   {
     "slug": "odohravat",
     "slovak": "odohrávať",
-    "english": "to take place; to play out (imperfective)",
+    "english": "to take place; to play out (odohrávať sa, imperfective)",
     "category": "Verbs",
     "examples": [
       {
@@ -48037,7 +48037,7 @@
   {
     "slug": "spoliehat",
     "slovak": "spoliehať",
-    "english": "to rely",
+    "english": "to rely (spoliehať sa na)",
     "category": "Verbs",
     "examples": [
       {
@@ -48143,7 +48143,7 @@
   {
     "slug": "dopustit",
     "slovak": "dopustiť",
-    "english": "to allow; to commit",
+    "english": "to allow; to commit (dopustiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -48345,7 +48345,7 @@
   {
     "slug": "uchadzat",
     "slovak": "uchádzať",
-    "english": "to apply; to seek; to compete for",
+    "english": "to apply; to seek; to compete for (uchádzať sa o)",
     "category": "Verbs",
     "examples": [
       {
@@ -48499,7 +48499,7 @@
   {
     "slug": "prestahovat",
     "slovak": "presťahovať",
-    "english": "to move; to relocate",
+    "english": "to move house; to relocate (presťahovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -48556,7 +48556,7 @@
   {
     "slug": "pozicat",
     "slovak": "požičať",
-    "english": "to lend; to borrow",
+    "english": "to lend; to borrow (požičať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -48719,7 +48719,7 @@
   {
     "slug": "dotykat",
     "slovak": "dotýkať",
-    "english": "to touch; to concern",
+    "english": "to touch; to concern (dotýkať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -50718,7 +50718,7 @@
   {
     "slug": "oplatit",
     "slovak": "oplatiť",
-    "english": "to be worth; to pay back",
+    "english": "to be worth it (oplatiť sa); to pay back",
     "category": "Verbs",
     "examples": [
       {
@@ -50870,7 +50870,7 @@
   {
     "slug": "podobat",
     "slovak": "podobať",
-    "english": "to resemble",
+    "english": "to resemble (podobať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -50974,7 +50974,7 @@
   {
     "slug": "znasat",
     "slovak": "znášať",
-    "english": "to bear; to endure; to get along",
+    "english": "to bear; to endure; to lay (eggs); to get along (znášať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -51549,7 +51549,7 @@
   {
     "slug": "kandidovat",
     "slovak": "kandidovať",
-    "english": "to run (for office); to candidate",
+    "english": "to run (for office); to stand as a candidate",
     "category": "Verbs",
     "examples": [
       {
@@ -51598,7 +51598,7 @@
   {
     "slug": "priblizovat",
     "slovak": "približovať",
-    "english": "to approach; to bring closer",
+    "english": "to approach (približovať sa); to bring closer",
     "category": "Verbs",
     "examples": [
       {
@@ -54405,7 +54405,7 @@
   {
     "slug": "udiat",
     "slovak": "udiať",
-    "english": "to happen; to take place",
+    "english": "to happen; to take place (udiať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -54505,7 +54505,7 @@
   {
     "slug": "ponahlat",
     "slovak": "ponáhľať",
-    "english": "to hurry",
+    "english": "to hurry (ponáhľať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -54815,7 +54815,7 @@
   {
     "slug": "zhovarat",
     "slovak": "zhovárať",
-    "english": "to talk; to converse",
+    "english": "to talk; to converse (zhovárať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -55374,7 +55374,7 @@
   {
     "slug": "javit",
     "slovak": "javiť",
-    "english": "to appear; to seem",
+    "english": "to appear; to seem (javiť sa); to show (interest)",
     "category": "Verbs",
     "examples": [
       {
@@ -55532,7 +55532,7 @@
   {
     "slug": "zhodnut",
     "slovak": "zhodnúť",
-    "english": "to agree",
+    "english": "to agree (zhodnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -56152,7 +56152,7 @@
   {
     "slug": "zaviazat",
     "slovak": "zaviazať",
-    "english": "to bind; to commit",
+    "english": "to tie; to bind; to commit oneself (zaviazať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -56312,7 +56312,7 @@
   {
     "slug": "zrazit",
     "slovak": "zraziť",
-    "english": "to knock down; to reduce; to collide",
+    "english": "to knock down; to reduce; to collide (zraziť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -56667,7 +56667,7 @@
   {
     "slug": "nevsimnut",
     "slovak": "nevšimnúť",
-    "english": "not to notice",
+    "english": "not to notice (nevšimnúť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -56982,7 +56982,7 @@
   {
     "slug": "lisit",
     "slovak": "líšiť",
-    "english": "to differ",
+    "english": "to differ (líšiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -57239,7 +57239,7 @@
   {
     "slug": "posadit",
     "slovak": "posadiť",
-    "english": "to seat; to sit down",
+    "english": "to seat; to plant; to sit down (posadiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -57596,7 +57596,7 @@
   {
     "slug": "vztahovat",
     "slovak": "vzťahovať",
-    "english": "to relate; to apply",
+    "english": "to apply to; to relate to (vzťahovať sa na)",
     "category": "Verbs",
     "examples": [
       {
@@ -57699,7 +57699,7 @@
   {
     "slug": "mylit",
     "slovak": "mýliť",
-    "english": "to be mistaken; to confuse",
+    "english": "to be mistaken (mýliť sa); to confuse",
     "category": "Verbs",
     "examples": [
       {
@@ -58112,7 +58112,7 @@
   {
     "slug": "nepamatat",
     "slovak": "nepamätať",
-    "english": "not to remember",
+    "english": "not to remember (nepamätať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -58417,7 +58417,7 @@
   {
     "slug": "hanbit",
     "slovak": "hanbiť",
-    "english": "to be ashamed",
+    "english": "to be ashamed (hanbiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -58934,7 +58934,7 @@
   {
     "slug": "obzriet",
     "slovak": "obzrieť",
-    "english": "to look around; to look back",
+    "english": "to look back; to look around (obzrieť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -59386,7 +59386,7 @@
   {
     "slug": "vyskytnut",
     "slovak": "vyskytnúť",
-    "english": "to occur; to appear",
+    "english": "to occur; to appear (vyskytnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -60196,7 +60196,7 @@
   {
     "slug": "zahladiet",
     "slovak": "zahľadieť",
-    "english": "to gaze; to stare",
+    "english": "to gaze; to stare (zahľadieť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -60697,7 +60697,7 @@
   {
     "slug": "hnevat",
     "slovak": "hnevať",
-    "english": "to anger; to be angry",
+    "english": "to anger; to be angry (hnevať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -62086,7 +62086,7 @@
   {
     "slug": "nazdavat",
     "slovak": "nazdávať",
-    "english": "to think; to suppose",
+    "english": "to think; to suppose (nazdávať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -62484,7 +62484,7 @@
   {
     "slug": "radovat",
     "slovak": "radovať",
-    "english": "to rejoice; to be glad",
+    "english": "to rejoice; to be glad (radovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -79840,7 +79840,7 @@
   {
     "slug": "zvaz",
     "slovak": "zväz",
-    "english": "union; association; bundle",
+    "english": "union; association; federation",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -84516,7 +84516,7 @@
   {
     "slug": "ustav",
     "slovak": "ústav",
-    "english": "institute; constitution (arch./formal)",
+    "english": "institute; institution",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -97764,7 +97764,7 @@
   {
     "slug": "davka",
     "slovak": "dávka",
-    "english": "dose; batch; installment",
+    "english": "dose; batch; (social) benefit",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -97912,7 +97912,7 @@
   {
     "slug": "kauza",
     "slovak": "kauza",
-    "english": "case (affair); cause",
+    "english": "case; affair; scandal",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -104753,7 +104753,7 @@
   {
     "slug": "mena",
     "slovak": "mena",
-    "english": "currency; name (reputation)",
+    "english": "currency",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -109413,7 +109413,7 @@
   {
     "slug": "hruby",
     "slovak": "hrubý",
-    "english": "gross; rough; coarse",
+    "english": "thick; rough; coarse; rude; gross",
     "category": "Adjectives",
     "examples": [
       {
@@ -109900,7 +109900,7 @@
   {
     "slug": "doterajsi",
     "slovak": "doterajší",
-    "english": "hitherto; previous",
+    "english": "previous; existing",
     "category": "Adjectives",
     "examples": [
       {
@@ -112371,7 +112371,7 @@
   {
     "slug": "pripadny",
     "slovak": "prípadný",
-    "english": "possible; eventual",
+    "english": "possible; potential; any",
     "category": "Adjectives",
     "examples": [
       {
@@ -116616,7 +116616,7 @@
   {
     "slug": "energeticky",
     "slovak": "energetický",
-    "english": "energy; energetic",
+    "english": "energy; power (sector)",
     "category": "Adjectives",
     "examples": [
       {
@@ -118770,7 +118770,7 @@
   {
     "slug": "cestny",
     "slovak": "cestný",
-    "english": "road; honorary",
+    "english": "road",
     "category": "Adjectives",
     "examples": [
       {
@@ -128335,7 +128335,7 @@
   {
     "slug": "uhorsky",
     "slovak": "uhorský",
-    "english": "Hungarian (historical); Magyar",
+    "english": "Hungarian (of the Kingdom of Hungary)",
     "category": "Adjectives",
     "examples": [
       {
@@ -132191,7 +132191,7 @@
   {
     "slug": "sympaticky",
     "slovak": "sympatický",
-    "english": "likeable; sympathetic",
+    "english": "likeable; nice; pleasant",
     "category": "Adjectives",
     "examples": [
       {
@@ -133589,7 +133589,7 @@
   {
     "slug": "rimavsky",
     "slovak": "rimavský",
-    "english": "of Rimavská; Rimava",
+    "english": "of Rimava; Rimava",
     "category": "Adjectives",
     "examples": [
       {
@@ -136056,7 +136056,7 @@
   {
     "slug": "valny",
     "slovak": "valný",
-    "english": "general (assembly); rolling",
+    "english": "general (assembly)",
     "category": "Adjectives",
     "examples": [
       {
@@ -147441,7 +147441,7 @@
   {
     "slug": "vazba",
     "slovak": "väzba",
-    "english": "bond; binding",
+    "english": "custody; bond; binding",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -154046,7 +154046,7 @@
   {
     "slug": "zlava",
     "slovak": "zľava",
-    "english": "discount; left side",
+    "english": "discount",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -155177,7 +155177,7 @@
   {
     "slug": "center",
     "slovak": "center",
-    "english": "center",
+    "english": "center (player); cross (football)",
     "category": "Nouns",
     "examples": [
       {
@@ -156212,7 +156212,7 @@
   {
     "slug": "sestnastka",
     "slovak": "šestnástka",
-    "english": "sixteen; round of sixteen",
+    "english": "sixteen; penalty area (football); last sixteen",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -159958,7 +159958,7 @@
   {
     "slug": "cest",
     "slovak": "česť",
-    "english": "honor; honorific",
+    "english": "honor",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -160788,7 +160788,7 @@
   {
     "slug": "diel",
     "slovak": "diel",
-    "english": "part; work; share",
+    "english": "part; episode; share",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -162372,7 +162372,7 @@
   {
     "slug": "asistencia",
     "slovak": "asistencia",
-    "english": "assistance; attendance",
+    "english": "assistance; assist (sport)",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -163177,7 +163177,7 @@
   {
     "slug": "zriadenie",
     "slovak": "zriadenie",
-    "english": "establishment; arrangement; facility",
+    "english": "establishment; setting up; system (of government)",
     "category": "Nouns",
     "gender": "neuter",
     "examples": [
@@ -164521,7 +164521,7 @@
   {
     "slug": "plot",
     "slovak": "plot",
-    "english": "fence; plot",
+    "english": "fence",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -164671,7 +164671,7 @@
   {
     "slug": "najazd",
     "slovak": "nájazd",
-    "english": "raid; attack; drive-in",
+    "english": "raid; slip road; shootout attempt (hockey)",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -169348,7 +169348,7 @@
   {
     "slug": "paluba",
     "slovak": "paluba",
-    "english": "deck; aboard",
+    "english": "deck; board (na palube = aboard)",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -170622,7 +170622,7 @@
   {
     "slug": "evidencia",
     "slovak": "evidencia",
-    "english": "record; evidence",
+    "english": "records; register; registration",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -170868,7 +170868,7 @@
   {
     "slug": "stit",
     "slovak": "štít",
-    "english": "shield; mountain ridge",
+    "english": "shield; peak; gable",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -175543,7 +175543,7 @@
   {
     "slug": "hostovanie",
     "slovak": "hosťovanie",
-    "english": "guest appearance; hosting",
+    "english": "guest appearance; guest engagement; loan (sport)",
     "category": "Nouns",
     "gender": "neuter",
     "examples": [
@@ -176450,7 +176450,7 @@
   {
     "slug": "ambulancia",
     "slovak": "ambulancia",
-    "english": "outpatient clinic; ambulance",
+    "english": "outpatient clinic; doctor's office",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -179144,7 +179144,7 @@
   {
     "slug": "masa",
     "slovak": "masa",
-    "english": "mass; crowd; dough",
+    "english": "mass; crowd",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -180906,7 +180906,7 @@
   {
     "slug": "pata",
     "slovak": "päta",
-    "english": "heel; footnote",
+    "english": "heel; foot (of a hill); footer",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -181696,7 +181696,7 @@
   {
     "slug": "jedenastka",
     "slovak": "jedenástka",
-    "english": "eleven; team of eleven; number eleven",
+    "english": "eleven; starting eleven; penalty kick (football)",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -181910,7 +181910,7 @@
   {
     "slug": "bezec",
     "slovak": "bežec",
-    "english": "runner; running track lane",
+    "english": "runner",
     "category": "Nouns",
     "gender": "masculine-animate",
     "examples": [
@@ -186542,7 +186542,7 @@
   {
     "slug": "prave",
     "slovak": "práve",
-    "english": "right now",
+    "english": "just; exactly; right now",
     "category": "Adverbs",
     "examples": [
       {
@@ -187051,7 +187051,7 @@
   {
     "slug": "tesne",
     "slovak": "tesne",
-    "english": "closely",
+    "english": "just (before/after); right (next to); narrowly",
     "category": "Adverbs",
     "examples": [
       {
@@ -187223,7 +187223,7 @@
   {
     "slug": "najskor",
     "slovak": "najskôr",
-    "english": "at the earliest",
+    "english": "first; at the earliest; as soon as possible (čo najskôr)",
     "category": "Adverbs",
     "examples": [
       {
@@ -189353,7 +189353,7 @@
   {
     "slug": "definitivne",
     "slovak": "definitívne",
-    "english": "definitely",
+    "english": "definitively; for good; finally",
     "category": "Adverbs",
     "examples": [
       {
@@ -192582,7 +192582,7 @@
   {
     "slug": "zasadne",
     "slovak": "zásadne",
-    "english": "essentially",
+    "english": "fundamentally; on principle; as a rule",
     "category": "Adverbs",
     "examples": [
       {
@@ -192626,7 +192626,7 @@
   {
     "slug": "krasne",
     "slovak": "krásne",
-    "english": "beautiful",
+    "english": "beautifully; nicely; it is lovely (je krásne)",
     "category": "Adverbs",
     "examples": [
       {
@@ -193467,7 +193467,7 @@
   {
     "slug": "neuveritelne",
     "slovak": "neuveriteľne",
-    "english": "unbelievable",
+    "english": "incredibly; unbelievably",
     "category": "Adverbs",
     "examples": [
       {
@@ -193500,7 +193500,7 @@
   {
     "slug": "strelecky-adv",
     "slovak": "strelecky",
-    "english": "shooting",
+    "english": "in terms of shooting; at scoring",
     "category": "Adverbs",
     "examples": [
       {
@@ -194303,7 +194303,7 @@
   {
     "slug": "darmo",
     "slovak": "darmo",
-    "english": "for free",
+    "english": "in vain; no use (darmo je)",
     "category": "Adverbs",
     "examples": [
       {
@@ -194679,7 +194679,7 @@
   {
     "slug": "sportovo",
     "slovak": "športovo",
-    "english": "sporty",
+    "english": "sportily; casually (of dress); in sporting terms",
     "category": "Adverbs",
     "examples": [
       {
@@ -194904,7 +194904,7 @@
   {
     "slug": "ustrety",
     "slovak": "ústrety",
-    "english": "greetings",
+    "english": "towards, to meet (v ústrety); to accommodate (vyjsť v ústrety)",
     "category": "Adverbs",
     "examples": [
       {
@@ -195098,7 +195098,7 @@
   {
     "slug": "dodatocne",
     "slovak": "dodatočne",
-    "english": "additionally",
+    "english": "afterwards; subsequently; additionally",
     "category": "Adverbs",
     "examples": [
       {
@@ -196273,7 +196273,7 @@
   {
     "slug": "nacas",
     "slovak": "načas",
-    "english": "temporarily; for the time being",
+    "english": "on time; for a while",
     "category": "Adverbs",
     "examples": [
       {
@@ -196801,7 +196801,7 @@
   {
     "slug": "vynikajuco",
     "slovak": "vynikajúco",
-    "english": "excellent",
+    "english": "excellently; very well",
     "category": "Adverbs",
     "examples": [
       {
@@ -196854,7 +196854,7 @@
   {
     "slug": "zhodne",
     "slovak": "zhodne",
-    "english": "exactly",
+    "english": "identically; unanimously; in agreement",
     "category": "Adverbs",
     "examples": [
       {
@@ -196892,7 +196892,7 @@
   {
     "slug": "stredne",
     "slovak": "stredne",
-    "english": "medium",
+    "english": "moderately; medium",
     "category": "Adverbs",
     "examples": [
       {
@@ -197402,7 +197402,7 @@
   {
     "slug": "nestastne",
     "slovak": "nešťastne",
-    "english": "unfortunately",
+    "english": "unhappily; unluckily; awkwardly",
     "category": "Adverbs",
     "examples": [
       {
@@ -198399,7 +198399,7 @@
   {
     "slug": "nadherne",
     "slovak": "nádherne",
-    "english": "beautiful",
+    "english": "beautifully; wonderfully",
     "category": "Adverbs",
     "examples": [
       {
@@ -198529,7 +198529,7 @@
   {
     "slug": "jaro",
     "slovak": "jaro",
-    "english": "spring",
+    "english": "briskly; vigorously (bookish)",
     "category": "Adverbs",
     "examples": [
       {
@@ -198592,7 +198592,7 @@
   {
     "slug": "nacisto",
     "slovak": "načisto",
-    "english": "cleanly",
+    "english": "completely; as a fair copy",
     "category": "Adverbs",
     "examples": [
       {
@@ -198918,7 +198918,7 @@
   {
     "slug": "nerozhodne",
     "slovak": "nerozhodne",
-    "english": "undecided",
+    "english": "in a draw (skončiť nerozhodne); indecisively",
     "category": "Adverbs",
     "examples": [
       {
@@ -199144,7 +199144,7 @@
   {
     "slug": "popritom",
     "slovak": "popritom",
-    "english": "by the way",
+    "english": "at the same time; besides",
     "category": "Adverbs",
     "examples": [
       {
@@ -199568,7 +199568,7 @@
   {
     "slug": "zaujimavo",
     "slovak": "zaujímavo",
-    "english": "interesting",
+    "english": "interestingly; in an interesting way",
     "category": "Adverbs",
     "examples": [
       {
@@ -200169,7 +200169,7 @@
   {
     "slug": "neopravnene",
     "slovak": "neoprávnene",
-    "english": "unauthorized",
+    "english": "without authorization; unlawfully; wrongly",
     "category": "Adverbs",
     "examples": [
       {
@@ -200732,7 +200732,7 @@
   {
     "slug": "jednostaj",
     "slovak": "jednostaj",
-    "english": "all the same; it makes no difference",
+    "english": "constantly; all the time",
     "category": "Adverbs",
     "examples": [
       {
@@ -200915,7 +200915,7 @@
   {
     "slug": "rozne",
     "slovak": "rôzne",
-    "english": "various",
+    "english": "variously; in different ways",
     "category": "Adverbs",
     "examples": [
       {
@@ -201147,7 +201147,7 @@
   {
     "slug": "horko",
     "slovak": "horko",
-    "english": "it is hot",
+    "english": "bitterly (horko plakať); with great difficulty (horko-ťažko)",
     "category": "Adverbs",
     "examples": [
       {
@@ -201221,7 +201221,7 @@
   {
     "slug": "mudro",
     "slovak": "múdro",
-    "english": "wise",
+    "english": "wisely",
     "category": "Adverbs",
     "examples": [
       {
@@ -201336,7 +201336,7 @@
   {
     "slug": "hrubo",
     "slovak": "hrubo",
-    "english": "roughly",
+    "english": "rudely; coarsely; roughly",
     "category": "Adverbs",
     "examples": [
       {
@@ -202033,7 +202033,7 @@
   {
     "slug": "kruto",
     "slovak": "kruto",
-    "english": "cruel",
+    "english": "cruelly; harshly",
     "category": "Adverbs",
     "examples": [
       {
@@ -202540,7 +202540,7 @@
   {
     "slug": "podrazdene",
     "slovak": "podráždene",
-    "english": "irritated",
+    "english": "irritably",
     "category": "Adverbs",
     "examples": [
       {
@@ -202911,7 +202911,7 @@
   {
     "slug": "predvlani",
     "slovak": "predvlani",
-    "english": "the year before",
+    "english": "the year before last; two years ago",
     "category": "Adverbs",
     "examples": [
       {
@@ -202993,7 +202993,7 @@
   {
     "slug": "zjednodusene",
     "slovak": "zjednodušene",
-    "english": "simplified",
+    "english": "in simplified terms; simply put",
     "category": "Adverbs",
     "examples": [
       {
@@ -203158,7 +203158,7 @@
   {
     "slug": "malicka",
     "slovak": "malička",
-    "english": "little one",
+    "english": "since childhood (only in od malička)",
     "category": "Adverbs",
     "examples": [
       {
@@ -203271,7 +203271,7 @@
   {
     "slug": "prednostne",
     "slovak": "prednostne",
-    "english": "preferably",
+    "english": "as a priority; first; preferentially",
     "category": "Adverbs",
     "examples": [
       {
@@ -203363,7 +203363,7 @@
   {
     "slug": "podchvilou",
     "slovak": "podchvíľou",
-    "english": "momentarily",
+    "english": "every now and then; every so often",
     "category": "Adverbs",
     "examples": [
       {
@@ -203392,7 +203392,7 @@
   {
     "slug": "zmatene",
     "slovak": "zmätene",
-    "english": "confused",
+    "english": "confusedly; in confusion",
     "category": "Adverbs",
     "examples": [
       {
@@ -203432,7 +203432,7 @@
   {
     "slug": "neveriacky",
     "slovak": "neveriacky",
-    "english": "unbelievably",
+    "english": "incredulously; in disbelief",
     "category": "Adverbs",
     "examples": [
       {
@@ -203629,7 +203629,7 @@
   {
     "slug": "doobeda",
     "slovak": "doobeda",
-    "english": "morning",
+    "english": "in the morning; before noon",
     "category": "Adverbs",
     "examples": [
       {
@@ -203784,7 +203784,7 @@
   {
     "slug": "sustredene",
     "slovak": "sústredene",
-    "english": "concentrated",
+    "english": "with concentration; attentively",
     "category": "Adverbs",
     "examples": [
       {
@@ -203933,7 +203933,7 @@
   {
     "slug": "radovo",
     "slovak": "rádovo",
-    "english": "by an order of magnitude",
+    "english": "on the order of; roughly; by an order of magnitude",
     "category": "Adverbs",
     "examples": [
       {
@@ -204049,7 +204049,7 @@
   {
     "slug": "cielene",
     "slovak": "cielene",
-    "english": "targeted",
+    "english": "deliberately; specifically; in a targeted way",
     "category": "Adverbs",
     "examples": [
       {
@@ -204529,7 +204529,7 @@
   {
     "slug": "nadrobno",
     "slovak": "nadrobno",
-    "english": "in detail",
+    "english": "finely (chopped); into small pieces",
     "category": "Adverbs",
     "examples": [
       {
@@ -204689,7 +204689,7 @@
   {
     "slug": "vtipne",
     "slovak": "vtipne",
-    "english": "funny",
+    "english": "wittily; in a funny way",
     "category": "Adverbs",
     "examples": [
       {
@@ -204807,7 +204807,7 @@
   {
     "slug": "medzimesacne",
     "slovak": "medzimesačne",
-    "english": "monthly",
+    "english": "month on month",
     "category": "Adverbs",
     "examples": [
       {
@@ -205420,7 +205420,7 @@
   {
     "slug": "oddavna",
     "slovak": "oddávna",
-    "english": "a long time ago",
+    "english": "for a long time; since time immemorial",
     "category": "Adverbs",
     "examples": [
       {
@@ -205892,7 +205892,7 @@
   {
     "slug": "posledne",
     "slovak": "posledne",
-    "english": "lastly",
+    "english": "last time; recently",
     "category": "Adverbs",
     "examples": [
       {
@@ -205943,7 +205943,7 @@
   {
     "slug": "surovo",
     "slovak": "surovo",
-    "english": "raw",
+    "english": "brutally; harshly; raw",
     "category": "Adverbs",
     "examples": [
       {
@@ -206426,7 +206426,7 @@
   {
     "slug": "zrozumitelne",
     "slovak": "zrozumiteľne",
-    "english": "understandably",
+    "english": "clearly; intelligibly",
     "category": "Adverbs",
     "examples": [
       {
@@ -207082,7 +207082,7 @@
   {
     "slug": "nepresne",
     "slovak": "nepresne",
-    "english": "not exactly",
+    "english": "inaccurately; imprecisely",
     "category": "Adverbs",
     "examples": [
       {
@@ -207321,7 +207321,7 @@
   {
     "slug": "energeticky-adv",
     "slovak": "energeticky",
-    "english": "energetically",
+    "english": "in terms of energy (energeticky úsporný = energy-saving)",
     "category": "Adverbs",
     "examples": [
       {
@@ -207481,7 +207481,7 @@
   {
     "slug": "priserne",
     "slovak": "príšerne",
-    "english": "horrible",
+    "english": "horribly; terribly",
     "category": "Adverbs",
     "examples": [
       {
@@ -207537,7 +207537,7 @@
   {
     "slug": "obdalec",
     "slovak": "obďaleč",
-    "english": "far away",
+    "english": "at a distance; some way off",
     "category": "Adverbs",
     "examples": [
       {
@@ -208388,7 +208388,7 @@
   {
     "slug": "blaho",
     "slovak": "blaho",
-    "english": "welfare",
+    "english": "blissfully; wonderfully (je mi blaho = I feel wonderful)",
     "category": "Adverbs",
     "examples": [
       {
@@ -208493,7 +208493,7 @@
   {
     "slug": "znechutene",
     "slovak": "znechutene",
-    "english": "disgusted",
+    "english": "in disgust",
     "category": "Adverbs",
     "examples": [
       {
@@ -208527,7 +208527,7 @@
   {
     "slug": "vse",
     "slovak": "vše",
-    "english": "everything",
+    "english": "always; every time (archaic)",
     "category": "Adverbs",
     "examples": [
       {
@@ -208609,7 +208609,7 @@
   {
     "slug": "prenikavo",
     "slovak": "prenikavo",
-    "english": "shrill",
+    "english": "piercingly; shrilly",
     "category": "Adverbs",
     "examples": [
       {
@@ -208666,7 +208666,7 @@
   {
     "slug": "pobavene",
     "slovak": "pobavene",
-    "english": "amused",
+    "english": "with amusement; amusedly",
     "category": "Adverbs",
     "examples": [
       {
@@ -208979,7 +208979,7 @@
   {
     "slug": "nezmyselne",
     "slovak": "nezmyselne",
-    "english": "senseless",
+    "english": "senselessly; pointlessly",
     "category": "Adverbs",
     "examples": [
       {
@@ -209013,7 +209013,7 @@
   {
     "slug": "vzorne",
     "slovak": "vzorne",
-    "english": "exemplary",
+    "english": "in an exemplary way; perfectly",
     "category": "Adverbs",
     "examples": [
       {
@@ -209182,7 +209182,7 @@
   {
     "slug": "triezvo",
     "slovak": "triezvo",
-    "english": "sober",
+    "english": "soberly; level-headedly",
     "category": "Adverbs",
     "examples": [
       {
@@ -209533,7 +209533,7 @@
   {
     "slug": "sklamane",
     "slovak": "sklamane",
-    "english": "disappointed",
+    "english": "in disappointment; disappointedly",
     "category": "Adverbs",
     "examples": [
       {
@@ -209779,7 +209779,7 @@
   {
     "slug": "furt",
     "slovak": "furt",
-    "english": "further",
+    "english": "all the time; constantly (colloquial)",
     "category": "Adverbs",
     "examples": [
       {
@@ -209819,7 +209819,7 @@
   {
     "slug": "kondicne",
     "slovak": "kondične",
-    "english": "conditionally",
+    "english": "in terms of fitness; physically",
     "category": "Adverbs",
     "examples": [
       {
@@ -209895,7 +209895,7 @@
   {
     "slug": "operativne",
     "slovak": "operatívne",
-    "english": "operationally",
+    "english": "promptly; flexibly; at short notice",
     "category": "Adverbs",
     "examples": [
       {
@@ -210329,7 +210329,7 @@
   {
     "slug": "disciplinovane",
     "slovak": "disciplinovane",
-    "english": "disciplined",
+    "english": "in a disciplined way",
     "category": "Adverbs",
     "examples": [
       {
@@ -210533,7 +210533,7 @@
   {
     "slug": "podnes",
     "slovak": "podnes",
-    "english": "today",
+    "english": "to this day; still",
     "category": "Adverbs",
     "examples": [
       {
@@ -210600,7 +210600,7 @@
   {
     "slug": "personalne",
     "slovak": "personálne",
-    "english": "personally; in staffing terms",
+    "english": "in terms of staff; staffing-wise",
     "category": "Adverbs",
     "examples": [
       {
@@ -210929,7 +210929,7 @@
   {
     "slug": "krazom",
     "slovak": "krážom",
-    "english": "cross",
+    "english": "criss-cross (krížom-krážom = all over, back and forth)",
     "category": "Adverbs",
     "examples": [
       {
@@ -211129,7 +211129,7 @@
   {
     "slug": "franko",
     "slovak": "franko",
-    "english": "frankly",
+    "english": "carriage paid; free (to) (franko sklad = free to warehouse)",
     "category": "Adverbs",
     "examples": [
       {
@@ -211434,7 +211434,7 @@
   {
     "slug": "rano-adv",
     "slovak": "ráno",
-    "english": "morning",
+    "english": "in the morning",
     "category": "Adverbs",
     "examples": [
       {
@@ -212150,7 +212150,7 @@
   {
     "slug": "vsimat",
     "slovak": "všímať",
-    "english": "to notice; to pay attention",
+    "english": "to notice; to pay attention (všímať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -212169,7 +212169,7 @@
   {
     "slug": "viezt",
     "slovak": "viezť",
-    "english": "to carry",
+    "english": "to transport (by vehicle); to drive (someone)",
     "category": "Verbs",
     "examples": [
       {
@@ -212391,7 +212391,7 @@
   {
     "slug": "zaspievat",
     "slovak": "zaspievať",
-    "english": "to sing (to sleep)",
+    "english": "to sing (pf.)",
     "category": "Verbs",
     "examples": [
       {
@@ -212627,7 +212627,7 @@
   {
     "slug": "zmocnit",
     "slovak": "zmocniť",
-    "english": "to seize; to empower",
+    "english": "to seize (zmocniť sa); to authorize",
     "category": "Verbs",
     "examples": [
       {
@@ -212774,7 +212774,7 @@
   {
     "slug": "zrutit",
     "slovak": "zrútiť",
-    "english": "to collapse; to demolish",
+    "english": "to collapse (zrútiť sa); to bring down",
     "category": "Verbs",
     "examples": [
       {
@@ -213250,7 +213250,7 @@
   {
     "slug": "zhodovat",
     "slovak": "zhodovať",
-    "english": "to match; to agree",
+    "english": "to agree; to match (zhodovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -213330,7 +213330,7 @@
   {
     "slug": "prebojovat",
     "slovak": "prebojovať",
-    "english": "to fight through",
+    "english": "to fight one's way through (prebojovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -213382,7 +213382,7 @@
   {
     "slug": "ozenit",
     "slovak": "oženiť",
-    "english": "to marry off (a son)",
+    "english": "to get married, of a man (oženiť sa); to marry off",
     "category": "Verbs",
     "examples": [
       {
@@ -213630,7 +213630,7 @@
   {
     "slug": "oddychnut",
     "slovak": "oddýchnuť",
-    "english": "to rest; to take a breath",
+    "english": "to rest; to take a break (oddýchnuť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -213669,7 +213669,7 @@
   {
     "slug": "vyhrazat",
     "slovak": "vyhrážať",
-    "english": "to threaten",
+    "english": "to threaten (vyhrážať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -213769,7 +213769,7 @@
   {
     "slug": "odvolavat",
     "slovak": "odvolávať",
-    "english": "to appeal; to recall",
+    "english": "to recall, to dismiss; to appeal, to refer to (odvolávať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -213887,7 +213887,7 @@
   {
     "slug": "prihovorit",
     "slovak": "prihovoriť",
-    "english": "to address; to speak to",
+    "english": "to speak to; to address (prihovoriť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -214054,7 +214054,7 @@
   {
     "slug": "vychutnat",
     "slovak": "vychutnať",
-    "english": "to enjoy; to savor",
+    "english": "to enjoy; to savor (vychutnať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -214233,7 +214233,7 @@
   {
     "slug": "prsat",
     "slovak": "pršať",
-    "english": "to fall down",
+    "english": "to rain",
     "category": "Verbs",
     "examples": [
       {
@@ -214348,7 +214348,7 @@
   {
     "slug": "nevladat",
     "slovak": "nevládať",
-    "english": "not to know how; not to control",
+    "english": "to have no strength (to); to be unable to go on",
     "category": "Verbs",
     "examples": [
       {
@@ -214968,7 +214968,7 @@
   {
     "slug": "vyznat",
     "slovak": "vyznať",
-    "english": "to confess; to acknowledge",
+    "english": "to confess (love, faith); to know one's way around (vyznať sa v)",
     "category": "Verbs",
     "examples": [
       {
@@ -215031,7 +215031,7 @@
   {
     "slug": "smiet",
     "slovak": "smieť",
-    "english": "to be",
+    "english": "to be allowed to; may",
     "category": "Verbs",
     "examples": [
       {
@@ -215402,7 +215402,7 @@
   {
     "slug": "neuvedomovat",
     "slovak": "neuvedomovať",
-    "english": "not to realize; not to be aware (imperfective)",
+    "english": "not to realize; not to be aware (neuvedomovať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -215666,7 +215666,7 @@
   {
     "slug": "nevyhnut",
     "slovak": "nevyhnúť",
-    "english": "not to avoid",
+    "english": "not to avoid (nevyhnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -215704,7 +215704,7 @@
   {
     "slug": "stavit",
     "slovak": "staviť",
-    "english": "to build; to bet",
+    "english": "to bet (staviť sa); to stake; to drop by (staviť sa u)",
     "category": "Verbs",
     "examples": [
       {
@@ -215763,7 +215763,7 @@
   {
     "slug": "odvijat",
     "slovak": "odvíjať",
-    "english": "to unwind; to develop",
+    "english": "to unwind; to depend on, to be derived from (odvíjať sa od)",
     "category": "Verbs",
     "examples": [
       {
@@ -216067,7 +216067,7 @@
   {
     "slug": "previest",
     "slovak": "previesť",
-    "english": "to transport; to carry across",
+    "english": "to transfer (money, property); to lead across; to show around",
     "category": "Verbs",
     "examples": [
       {
@@ -216105,7 +216105,7 @@
   {
     "slug": "vynorit",
     "slovak": "vynoriť",
-    "english": "to emerge; to surface",
+    "english": "to emerge; to surface (vynoriť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -216245,7 +216245,7 @@
   {
     "slug": "rozist",
     "slovak": "rozísť",
-    "english": "to disperse; to part ways",
+    "english": "to split up; to part ways; to disperse (rozísť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -216341,7 +216341,7 @@
   {
     "slug": "vystriet",
     "slovak": "vystrieť",
-    "english": "to shoot; to aim",
+    "english": "to stretch out; to hold out (a hand)",
     "category": "Verbs",
     "examples": [
       {
@@ -216451,7 +216451,7 @@
   {
     "slug": "vysplhat",
     "slovak": "vyšplhať",
-    "english": "to climb up",
+    "english": "to climb up (vyšplhať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -216470,7 +216470,7 @@
   {
     "slug": "nezdat",
     "slovak": "nezdať",
-    "english": "not to seem",
+    "english": "not to seem (nezdať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -216491,7 +216491,7 @@
   {
     "slug": "uniest",
     "slovak": "uniesť",
-    "english": "to kidnap",
+    "english": "to carry, to bear (a weight); to kidnap; to hijack",
     "category": "Verbs",
     "examples": [
       {
@@ -216524,7 +216524,7 @@
   {
     "slug": "hadat",
     "slovak": "hádať",
-    "english": "to guess",
+    "english": "to guess; to argue (hádať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -216661,7 +216661,7 @@
   {
     "slug": "spamatat",
     "slovak": "spamätať",
-    "english": "to come to one's senses",
+    "english": "to come to one's senses; to recover (spamätať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -216680,7 +216680,7 @@
   {
     "slug": "neznasat",
     "slovak": "neznášať",
-    "english": "not to bear; not to endure; not to get along",
+    "english": "to hate; can't stand",
     "category": "Verbs",
     "examples": [
       {
@@ -216815,7 +216815,7 @@
   {
     "slug": "vahat",
     "slovak": "váhať",
-    "english": "to hesitate; to weigh",
+    "english": "to hesitate",
     "category": "Verbs",
     "examples": [
       {
@@ -216888,7 +216888,7 @@
   {
     "slug": "nadychnut",
     "slovak": "nadýchnuť",
-    "english": "to inhale; to breathe in",
+    "english": "to take a breath; to breathe in (nadýchnuť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -217086,7 +217086,7 @@
   {
     "slug": "nakrutit",
     "slovak": "nakrútiť",
-    "english": "to roll up; to wind",
+    "english": "to film, to shoot (a film); to wind; to curl",
     "category": "Verbs",
     "examples": [
       {
@@ -217595,7 +217595,7 @@
   {
     "slug": "netykat",
     "slovak": "netýkať",
-    "english": "not to concern; not to relate to",
+    "english": "not to concern; not to relate to (netýkať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -217989,7 +217989,7 @@
   {
     "slug": "schadzat",
     "slovak": "schádzať",
-    "english": "to gather; to meet",
+    "english": "to meet; to gather (schádzať sa); to go down",
     "category": "Verbs",
     "examples": [
       {
@@ -218082,7 +218082,7 @@
   {
     "slug": "vozit",
     "slovak": "voziť",
-    "english": "to carry",
+    "english": "to drive (someone), to take (by car); to transport",
     "category": "Verbs",
     "examples": [
       {
@@ -218222,7 +218222,7 @@
   {
     "slug": "spolahnut",
     "slovak": "spoľahnúť",
-    "english": "to rely on",
+    "english": "to rely on (spoľahnúť sa na)",
     "category": "Verbs",
     "examples": [
       {
@@ -218317,7 +218317,7 @@
   {
     "slug": "nevsimat",
     "slovak": "nevšímať",
-    "english": "not to notice; not to pay attention",
+    "english": "to ignore; not to pay attention (nevšímať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -218696,7 +218696,7 @@
   {
     "slug": "nedozvediet",
     "slovak": "nedozvedieť",
-    "english": "not to find out; not to learn",
+    "english": "not to find out (nedozvedieť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -218914,7 +218914,7 @@
   {
     "slug": "dozit",
     "slovak": "dožiť",
-    "english": "to live to see; to survive",
+    "english": "to live to see, to reach an age (dožiť sa); to live out",
     "category": "Verbs",
     "examples": [
       {
@@ -218974,7 +218974,7 @@
   {
     "slug": "strcit",
     "slovak": "strčiť",
-    "english": "to stuck; to stick out",
+    "english": "to stick, to put (into); to push, to shove",
     "category": "Verbs",
     "examples": [
       {
@@ -219031,7 +219031,7 @@
   {
     "slug": "zvrtnut",
     "slovak": "zvrtnúť",
-    "english": "to turn around; to spin",
+    "english": "to twist, to sprain (zvrtnúť si členok); to turn around (zvrtnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -219181,7 +219181,7 @@
   {
     "slug": "neviest",
     "slovak": "neviesť",
-    "english": "not to lead; not to know how (drive)",
+    "english": "not to lead; not to drive (a vehicle)",
     "category": "Verbs",
     "examples": [
       {
@@ -219684,7 +219684,7 @@
   {
     "slug": "lucit",
     "slovak": "lúčiť",
-    "english": "to part; to separate",
+    "english": "to say goodbye (lúčiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -219884,7 +219884,7 @@
   {
     "slug": "zovriet",
     "slovak": "zovrieť",
-    "english": "to boil (transitive)",
+    "english": "to come to the boil; to grip; to clench",
     "category": "Verbs",
     "examples": [
       {
@@ -219942,7 +219942,7 @@
   {
     "slug": "vysluzit",
     "slovak": "vyslúžiť",
-    "english": "to earn; to deserve",
+    "english": "to earn (vyslúžiť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -220803,7 +220803,7 @@
   {
     "slug": "chovat",
     "slovak": "chovať",
-    "english": "to keep; to raise (animals)",
+    "english": "to keep, to raise (animals); to behave (chovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -220835,7 +220835,7 @@
   {
     "slug": "vytratit",
     "slovak": "vytratiť",
-    "english": "to lose track of; to dispel",
+    "english": "to disappear; to slip away (vytratiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -220933,7 +220933,7 @@
   {
     "slug": "zapamatat",
     "slovak": "zapamätať",
-    "english": "to remember",
+    "english": "to remember; to memorize (zapamätať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -221091,7 +221091,7 @@
   {
     "slug": "spavat",
     "slovak": "spávať",
-    "english": "to sleep together",
+    "english": "to sleep (usually, habitually)",
     "category": "Verbs",
     "examples": [
       {
@@ -221480,7 +221480,7 @@
   {
     "slug": "dostavit",
     "slovak": "dostaviť",
-    "english": "to complete; to deliver",
+    "english": "to finish building; to turn up, to report (dostaviť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -221518,7 +221518,7 @@
   {
     "slug": "poobzerat",
     "slovak": "poobzerať",
-    "english": "to look around",
+    "english": "to look around (poobzerať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -221991,7 +221991,7 @@
   {
     "slug": "prihovarat",
     "slovak": "prihovárať",
-    "english": "to address; to speak to",
+    "english": "to speak to; to address (prihovárať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -222010,7 +222010,7 @@
   {
     "slug": "odkupit",
     "slovak": "odkúpiť",
-    "english": "to buy back; to redeem",
+    "english": "to buy (from someone); to buy up, to buy out",
     "category": "Verbs",
     "examples": [
       {
@@ -222248,7 +222248,7 @@
   {
     "slug": "vychutnavat",
     "slovak": "vychutnávať",
-    "english": "to enjoy; to savor",
+    "english": "to enjoy; to savor (vychutnávať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -222287,7 +222287,7 @@
   {
     "slug": "nemylit",
     "slovak": "nemýliť",
-    "english": "not to be mistaken; not to confuse",
+    "english": "not to be mistaken (nemýliť sa); not to mislead",
     "category": "Verbs",
     "examples": [
       {
@@ -222345,7 +222345,7 @@
   {
     "slug": "zlaknut",
     "slovak": "zľaknúť",
-    "english": "to get scared",
+    "english": "to get scared; to take fright (zľaknúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -222825,7 +222825,7 @@
   {
     "slug": "vydarit",
     "slovak": "vydariť",
-    "english": "to succeed; to turn out well",
+    "english": "to turn out well; to succeed (vydariť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -222844,7 +222844,7 @@
   {
     "slug": "nediat",
     "slovak": "nediať",
-    "english": "not to happen; not to take place",
+    "english": "not to happen; not to go on (nediať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -223074,7 +223074,7 @@
   {
     "slug": "najest",
     "slovak": "najesť",
-    "english": "to eat one's fill",
+    "english": "to eat one's fill; to have something to eat (najesť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -223286,7 +223286,7 @@
   {
     "slug": "zasadnut",
     "slovak": "zasadnúť",
-    "english": "to sit down; to impact",
+    "english": "to sit down (at a table); to meet, to sit (of a body)",
     "category": "Verbs",
     "examples": [
       {
@@ -223305,7 +223305,7 @@
   {
     "slug": "poberat",
     "slovak": "poberať",
-    "english": "to collect; to retire",
+    "english": "to receive, to draw (a pension, salary); to get going (poberať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -223440,7 +223440,7 @@
   {
     "slug": "zapacit",
     "slovak": "zapáčiť",
-    "english": "to please; to appeal",
+    "english": "to take a liking; to appeal (zapáčiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -223657,7 +223657,7 @@
   {
     "slug": "obstat",
     "slovak": "obstáť",
-    "english": "to stay; to succeed",
+    "english": "to pass (a test); to hold one's own; to stand up (to)",
     "category": "Verbs",
     "examples": [
       {
@@ -224445,7 +224445,7 @@
   {
     "slug": "napit",
     "slovak": "napiť",
-    "english": "to take a drink",
+    "english": "to have a drink (napiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -224782,7 +224782,7 @@
   {
     "slug": "chviet",
     "slovak": "chvieť",
-    "english": "to tremble; to shake",
+    "english": "to tremble; to shake (chvieť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -224807,7 +224807,7 @@
   {
     "slug": "nedotknut",
     "slovak": "nedotknúť",
-    "english": "not to touch",
+    "english": "not to touch (nedotknúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -225058,7 +225058,7 @@
   {
     "slug": "nezucastnit",
     "slovak": "nezúčastniť",
-    "english": "not to take part; not to participate",
+    "english": "not to take part (nezúčastniť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -225158,7 +225158,7 @@
   {
     "slug": "polepsit",
     "slovak": "polepšiť",
-    "english": "to improve",
+    "english": "to mend one's ways, to do better (polepšiť sa); to improve one's situation (polepšiť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -225310,7 +225310,7 @@
   {
     "slug": "rutit",
     "slovak": "rútiť",
-    "english": "to rush; to tear",
+    "english": "to rush; to hurtle (rútiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -225551,7 +225551,7 @@
   {
     "slug": "vynarat",
     "slovak": "vynárať",
-    "english": "to levy; to raise (taxes)",
+    "english": "to emerge; to surface (vynárať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -225628,7 +225628,7 @@
   {
     "slug": "rozmysliet",
     "slovak": "rozmyslieť",
-    "english": "to reconsider; to change one's mind",
+    "english": "to think over; to change one's mind (rozmyslieť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -225648,7 +225648,7 @@
   {
     "slug": "vdacit",
     "slovak": "vďačiť",
-    "english": "to be grateful",
+    "english": "to owe (something to someone)",
     "category": "Verbs",
     "examples": [
       {
@@ -225686,7 +225686,7 @@
   {
     "slug": "zadivat",
     "slovak": "zadívať",
-    "english": "to gaze; to stare",
+    "english": "to gaze; to stare (zadívať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -225705,7 +225705,7 @@
   {
     "slug": "zavladnut",
     "slovak": "zavládnuť",
-    "english": "to seize; to take over",
+    "english": "to set in, to fall (zavládlo ticho = silence fell); to take hold",
     "category": "Verbs",
     "examples": [
       {
@@ -225724,7 +225724,7 @@
   {
     "slug": "dozvedat",
     "slovak": "dozvedať",
-    "english": "to learn; to find out",
+    "english": "to learn; to find out (dozvedať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -225903,7 +225903,7 @@
   {
     "slug": "rozpadnut",
     "slovak": "rozpadnúť",
-    "english": "to fall apart; to disintegrate",
+    "english": "to fall apart; to break up (rozpadnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -226195,7 +226195,7 @@
   {
     "slug": "pricinit",
     "slovak": "pričiniť",
-    "english": "to cause; to contribute",
+    "english": "to contribute (pričiniť sa o)",
     "category": "Verbs",
     "examples": [
       {
@@ -226362,7 +226362,7 @@
   {
     "slug": "uskrnut",
     "slovak": "uškrnúť",
-    "english": "to grin",
+    "english": "to smirk; to grin (uškrnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -226405,7 +226405,7 @@
   {
     "slug": "pozhovarat",
     "slovak": "pozhovárať",
-    "english": "to chat; to talk",
+    "english": "to have a chat; to talk (pozhovárať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -226444,7 +226444,7 @@
   {
     "slug": "vsietit",
     "slovak": "vsietiť",
-    "english": "to sow; to instill",
+    "english": "to score (a goal)",
     "category": "Verbs",
     "examples": [
       {
@@ -226501,7 +226501,7 @@
   {
     "slug": "nedockat",
     "slovak": "nedočkať",
-    "english": "not to wait until; not to live to see",
+    "english": "not to live to see; to wait in vain (nedočkať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -226578,7 +226578,7 @@
   {
     "slug": "pominut",
     "slovak": "pominúť",
-    "english": "to pass; to forget",
+    "english": "to pass; to subside; to leave out",
     "category": "Verbs",
     "examples": [
       {
@@ -226689,7 +226689,7 @@
   {
     "slug": "odhodlat",
     "slovak": "odhodlať",
-    "english": "to resolve; to decide",
+    "english": "to make up one's mind; to bring oneself to (odhodlať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -227101,7 +227101,7 @@
   {
     "slug": "oblubit",
     "slovak": "obľúbiť",
-    "english": "to like; to grow fond of",
+    "english": "to grow fond of; to take a liking to (obľúbiť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -227120,7 +227120,7 @@
   {
     "slug": "zamilovat",
     "slovak": "zamilovať",
-    "english": "to fall in love",
+    "english": "to fall in love (zamilovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -227217,7 +227217,7 @@
   {
     "slug": "odmlcat",
     "slovak": "odmlčať",
-    "english": "to fall silent",
+    "english": "to fall silent; to pause (odmlčať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -227319,7 +227319,7 @@
   {
     "slug": "neodvazit",
     "slovak": "neodvážiť",
-    "english": "not to dare",
+    "english": "not to dare (neodvážiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -227653,7 +227653,7 @@
   {
     "slug": "nudit",
     "slovak": "nudiť",
-    "english": "to bore",
+    "english": "to bore; to be bored (nudiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -227758,7 +227758,7 @@
   {
     "slug": "priet",
     "slovak": "prieť",
-    "english": "to wrestle; to struggle",
+    "english": "to argue; to dispute (prieť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -228005,7 +228005,7 @@
   {
     "slug": "nestarat",
     "slovak": "nestarať",
-    "english": "not to take care; not to look after",
+    "english": "not to care about; not to look after (nestarať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -228043,7 +228043,7 @@
   {
     "slug": "naskytnut",
     "slovak": "naskytnúť",
-    "english": "to provide; to offer",
+    "english": "to present itself; to arise (naskytnúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -228105,7 +228105,7 @@
   {
     "slug": "zamracit",
     "slovak": "zamračiť",
-    "english": "to frown; to cloud over",
+    "english": "to frown; to cloud over (zamračiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -228204,7 +228204,7 @@
   {
     "slug": "odvazit",
     "slovak": "odvážiť",
-    "english": "to dare; to weigh",
+    "english": "to dare (odvážiť sa); to weigh out",
     "category": "Verbs",
     "examples": [
       {
@@ -228243,7 +228243,7 @@
   {
     "slug": "stotoznit",
     "slovak": "stotožniť",
-    "english": "to identify with",
+    "english": "to identify with (stotožniť sa s); to equate",
     "category": "Verbs",
     "examples": [
       {
@@ -228264,7 +228264,7 @@
   {
     "slug": "nesnazit",
     "slovak": "nesnažiť",
-    "english": "not to try; not to strive",
+    "english": "not to try (nesnažiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -228503,7 +228503,7 @@
   {
     "slug": "zmestit",
     "slovak": "zmestiť",
-    "english": "to fit in",
+    "english": "to fit (in) (zmestiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -228524,7 +228524,7 @@
   {
     "slug": "zaspominat",
     "slovak": "zaspomínať",
-    "english": "to reminisce",
+    "english": "to reminisce (zaspomínať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -228774,7 +228774,7 @@
   {
     "slug": "vlamat",
     "slovak": "vlámať",
-    "english": "to break in",
+    "english": "to break in (vlámať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -229109,7 +229109,7 @@
   {
     "slug": "tajit",
     "slovak": "tajiť",
-    "english": "to be",
+    "english": "to keep secret; to conceal",
     "category": "Verbs",
     "examples": [
       {
@@ -229152,7 +229152,7 @@
   {
     "slug": "prizerat",
     "slovak": "prizerať",
-    "english": "to watch; to supervise",
+    "english": "to look on; to watch (prizerať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -229191,7 +229191,7 @@
   {
     "slug": "vyvazat",
     "slovak": "vyvážať",
-    "english": "to export; to balance",
+    "english": "to export; to cart away",
     "category": "Verbs",
     "examples": [
       {
@@ -229290,7 +229290,7 @@
   {
     "slug": "vypytovat",
     "slovak": "vypytovať",
-    "english": "to ask for repeatedly",
+    "english": "to ask questions; to question (vypytovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -229309,7 +229309,7 @@
   {
     "slug": "udavat",
     "slovak": "udávať",
-    "english": "to report; to betray",
+    "english": "to state, to give (figures); to set (the tone); to inform on",
     "category": "Verbs",
     "examples": [
       {
@@ -229347,7 +229347,7 @@
   {
     "slug": "pomylit",
     "slovak": "pomýliť",
-    "english": "to confuse; to mistake",
+    "english": "to make a mistake (pomýliť sa); to mix up (pomýliť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -229404,7 +229404,7 @@
   {
     "slug": "zorientovat",
     "slovak": "zorientovať",
-    "english": "to orient; to familiarize",
+    "english": "to find one's bearings (zorientovať sa); to orient",
     "category": "Verbs",
     "examples": [
       {
@@ -229555,7 +229555,7 @@
   {
     "slug": "pristat-v",
     "slovak": "pristať",
-    "english": "to land",
+    "english": "to suit (Pristane ti to. = It suits you); to agree to (pristať na)",
     "category": "Verbs",
     "examples": [
       {
@@ -230629,7 +230629,7 @@
   {
     "slug": "trufat",
     "slovak": "trúfať",
-    "english": "to dare",
+    "english": "to dare; to feel up to (trúfať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -230667,7 +230667,7 @@
   {
     "slug": "pristavit",
     "slovak": "pristaviť",
-    "english": "to stop by; to add",
+    "english": "to stop (someone, a car); to bring round (a vehicle); to stop by (pristaviť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -230748,7 +230748,7 @@
   {
     "slug": "vysadit",
     "slovak": "vysadiť",
-    "english": "to plant; to evict",
+    "english": "to plant; to drop off (a passenger); to cut out (of an engine)",
     "category": "Verbs",
     "examples": [
       {
@@ -230768,7 +230768,7 @@
   {
     "slug": "vysporiadat",
     "slovak": "vysporiadať",
-    "english": "to settle; to resolve",
+    "english": "to deal with, to cope with (vysporiadať sa s); to settle (claims)",
     "category": "Verbs",
     "examples": [
       {
@@ -231023,7 +231023,7 @@
   {
     "slug": "obrat-v",
     "slovak": "obrať",
-    "english": "to turn; to harvest",
+    "english": "to pick (fruit), to harvest; to rob (obrať o)",
     "category": "Verbs",
     "examples": [
       {
@@ -231257,7 +231257,7 @@
   {
     "slug": "dozadovat",
     "slovak": "dožadovať",
-    "english": "to insist on; to demand",
+    "english": "to demand; to insist on (dožadovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -231428,7 +231428,7 @@
   {
     "slug": "nezasluzit",
     "slovak": "nezaslúžiť",
-    "english": "not to deserve",
+    "english": "not to deserve (nezaslúžiť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -232095,7 +232095,7 @@
   {
     "slug": "nastahovat",
     "slovak": "nasťahovať",
-    "english": "to move in",
+    "english": "to move in (nasťahovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -232133,7 +232133,7 @@
   {
     "slug": "nepozdavat",
     "slovak": "nepozdávať",
-    "english": "not to consider appropriate",
+    "english": "not to appeal; to seem wrong (nepozdáva sa mi = I don't like it)",
     "category": "Verbs",
     "examples": [
       {
@@ -232233,7 +232233,7 @@
   {
     "slug": "zblaznit",
     "slovak": "zblázniť",
-    "english": "to drive crazy",
+    "english": "to go crazy (zblázniť sa); to drive crazy",
     "category": "Verbs",
     "examples": [
       {
@@ -232303,7 +232303,7 @@
   {
     "slug": "zaobist",
     "slovak": "zaobísť",
-    "english": "to do without; to suffice",
+    "english": "to do without; to manage (zaobísť sa bez)",
     "category": "Verbs",
     "examples": [
       {
@@ -232406,7 +232406,7 @@
   {
     "slug": "prospiet",
     "slovak": "prospieť",
-    "english": "to sleep through; to be useful for",
+    "english": "to do good; to benefit (+ dat.)",
     "category": "Verbs",
     "examples": [
       {
@@ -232826,7 +232826,7 @@
   {
     "slug": "vladat",
     "slovak": "vládať",
-    "english": "to rule; to know how",
+    "english": "to have the strength (to); to manage",
     "category": "Verbs",
     "examples": [
       {
@@ -232979,7 +232979,7 @@
   {
     "slug": "zalubit",
     "slovak": "zaľúbiť",
-    "english": "to fall in love",
+    "english": "to fall in love (zaľúbiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -233030,7 +233030,7 @@
   {
     "slug": "uistit",
     "slovak": "uistiť",
-    "english": "to reassure; to convince",
+    "english": "to assure; to reassure; to make sure (uistiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -233145,7 +233145,7 @@
   {
     "slug": "vypytat",
     "slovak": "vypýtať",
-    "english": "to ask for",
+    "english": "to ask for (vypýtať si)",
     "category": "Verbs",
     "examples": [
       {
@@ -233205,7 +233205,7 @@
   {
     "slug": "dohovorit",
     "slovak": "dohovoriť",
-    "english": "to talk (someone) into; to finish speaking",
+    "english": "to finish speaking; to make oneself understood, to agree (dohovoriť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -233304,7 +233304,7 @@
   {
     "slug": "zvykat",
     "slovak": "zvykať",
-    "english": "to get used to",
+    "english": "to get used to (zvykať si na)",
     "category": "Verbs",
     "examples": [
       {
@@ -233741,7 +233741,7 @@
   {
     "slug": "vyspat",
     "slovak": "vyspať",
-    "english": "to sleep off",
+    "english": "to get a good sleep (vyspať sa); to sleep off",
     "category": "Verbs",
     "examples": [
       {
@@ -233838,7 +233838,7 @@
   {
     "slug": "sadat",
     "slovak": "sadať",
-    "english": "to sit down; to set (sun)",
+    "english": "to sit down (sadať si); to settle, to perch",
     "category": "Verbs",
     "examples": [
       {
@@ -233920,7 +233920,7 @@
   {
     "slug": "vychytat",
     "slovak": "vychytať",
-    "english": "to pick out; to exploit",
+    "english": "to iron out (bugs); to catch (all)",
     "category": "Verbs",
     "examples": [
       {
@@ -233939,7 +233939,7 @@
   {
     "slug": "specializovat",
     "slovak": "špecializovať",
-    "english": "to specialize",
+    "english": "to specialize (špecializovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -234334,7 +234334,7 @@
   {
     "slug": "necudovat",
     "slovak": "nečudovať",
-    "english": "not to wonder; not to be surprised",
+    "english": "not to be surprised (nečudovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -234353,7 +234353,7 @@
   {
     "slug": "rovnat",
     "slovak": "rovnať",
-    "english": "to compare; to equalize",
+    "english": "to equal (rovnať sa); to straighten; to stack",
     "category": "Verbs",
     "examples": [
       {
@@ -234410,7 +234410,7 @@
   {
     "slug": "nehnevat",
     "slovak": "nehnevať",
-    "english": "not to anger; not to be angry",
+    "english": "not to be angry (nehnevať sa); not to anger",
     "category": "Verbs",
     "examples": [
       {
@@ -234437,7 +234437,7 @@
   {
     "slug": "zahravat",
     "slovak": "zahrávať",
-    "english": "to play; to toy with",
+    "english": "to toy with; to play with (zahrávať sa s); to take (a kick)",
     "category": "Verbs",
     "examples": [
       {
@@ -234514,7 +234514,7 @@
   {
     "slug": "stotoznovat",
     "slovak": "stotožňovať",
-    "english": "to identify with",
+    "english": "to identify with (stotožňovať sa s); to equate",
     "category": "Verbs",
     "examples": [
       {
@@ -234673,7 +234673,7 @@
   {
     "slug": "zasadat",
     "slovak": "zasadať",
-    "english": "to plant; to convene",
+    "english": "to sit, to meet (of a council); to sit down (at a table)",
     "category": "Verbs",
     "examples": [
       {
@@ -234752,7 +234752,7 @@
   {
     "slug": "povzdychnut",
     "slovak": "povzdychnúť",
-    "english": "to sigh",
+    "english": "to sigh (povzdychnúť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -235141,7 +235141,7 @@
   {
     "slug": "nezaoberat",
     "slovak": "nezaoberať",
-    "english": "not to deal with; not to be concerned with",
+    "english": "not to deal with (nezaoberať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -235179,7 +235179,7 @@
   {
     "slug": "rozplynut",
     "slovak": "rozplynúť",
-    "english": "to dissolve; to melt away",
+    "english": "to dissolve; to melt away (rozplynúť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -235258,7 +235258,7 @@
   {
     "slug": "neobavat",
     "slovak": "neobávať",
-    "english": "not to fear; not to be worried",
+    "english": "not to fear; not to be worried (neobávať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -242428,7 +242428,7 @@
   {
     "slug": "prizemie",
     "slovak": "prízemie",
-    "english": "groundfloor",
+    "english": "ground floor",
     "category": "Nouns",
     "gender": "neuter",
     "examples": [
@@ -242646,7 +242646,7 @@
   {
     "slug": "skatula",
     "slovak": "škatuľa",
-    "english": "casket, case, jewel case",
+    "english": "box; carton",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -243585,7 +243585,7 @@
   {
     "slug": "lono",
     "slovak": "lono",
-    "english": "lap; woman's reproductive organs:",
+    "english": "lap; bosom; womb",
     "category": "Nouns",
     "gender": "neuter",
     "examples": [
@@ -243847,7 +243847,7 @@
   {
     "slug": "interpret",
     "slovak": "interpret",
-    "english": "performer; interpreter",
+    "english": "performer (of a song, role)",
     "category": "Nouns",
     "gender": "masculine-animate",
     "examples": [
@@ -243867,7 +243867,7 @@
   {
     "slug": "paragraf",
     "slovak": "paragraf",
-    "english": "paragraph; section",
+    "english": "section (of a law), §",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
@@ -245759,7 +245759,7 @@
   {
     "slug": "stajna",
     "slovak": "stajňa",
-    "english": "sty, stable",
+    "english": "stable",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -245875,7 +245875,7 @@
   {
     "slug": "prasok",
     "slovak": "prášok",
-    "english": "powder",
+    "english": "powder; pill, tablet",
     "category": "Nouns",
     "gender": "masculine-inanimate",
     "examples": [
