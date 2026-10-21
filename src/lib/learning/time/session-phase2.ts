@@ -9,6 +9,7 @@ import {
   aroundPhrase,
   dayPartDisambiguationPair,
   englishTimeGloss,
+  englishTimeMeaningPhrase,
   isNoonTime,
   noonMidnightSelectAllChoices,
   oddOneOutChoicesFromDrafts,
@@ -24,6 +25,7 @@ import {
   shuffleArray,
   type ClockFaceTime,
 } from "./clock";
+import { englishAppointmentPrompt } from "./frames";
 import { dayPartHint, okoloHint, oLocativeVsAccusativeHint } from "./hints";
 import {
   enAroundPrompt,
@@ -80,7 +82,7 @@ export function buildDayPartExercise(
     hint: dayPartHint,
     feedback: {
       correction: correctPhrase,
-      english: englishTimeGloss(time),
+      english: englishAppointmentPrompt(time, dayPart),
       why: appointmentDayPartChoiceWhy(time, dayPart),
     },
   };
@@ -110,7 +112,7 @@ export function buildNoonMidnightExercise(
     answerId,
     feedback: {
       correction: trap?.label ?? "",
-      english: isNoon ? "At noon." : "At midnight.",
+      english: isNoon ? "At midnight." : "At noon.",
       why: trapWhy,
     },
   });
@@ -169,7 +171,9 @@ export function buildOkoloVsExactExercise(
     hint: okoloHint,
     feedback: {
       correction,
-      english: englishTimeGloss(time),
+      english: askAround
+        ? `Around ${englishTimeMeaningPhrase(time)}.`
+        : englishTimeGloss(time),
       why: okoloChoiceWhy(time, askAround ? "around" : "exact"),
     },
   };

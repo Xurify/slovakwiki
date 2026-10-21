@@ -123,7 +123,7 @@ export const everydayLessons: Lesson[] = [
       {
         slovak: "Volám sa …",
         english: "My name is …",
-        note: "Use volám sa + your name. Avoid an English-shaped “My name is …” calque.",
+        note: "Use volám sa + your name. Avoid the word-for-word calque Moje meno je …",
         audio: { transcript: "Volám sa." },
       },
       {
@@ -199,10 +199,11 @@ export const everydayLessons: Lesson[] = [
         prompt: "I am from Canada.",
         inputLabel: "Your Slovak answer",
         answer: "Som z Kanady.",
+        acceptedAnswers: ["Ja som z Kanady."],
         feedback: {
           correction: "Som z Kanady.",
           english: "I am from Canada.",
-          why: "Use **Som z …** for where you are from. The country follows **z** in its Slovak form: **Kanada** → **Kanady**.",
+          why: "Use **Som z …** for where you are from. **Z** takes the genitive: **Kanada** → **Kanady**.",
         },
       },
       {
@@ -327,7 +328,7 @@ export const everydayLessons: Lesson[] = [
       {
         slovak: "Mám … rokov.",
         english: "I am … years old.",
-        note: "Use rokov after the number when you say your age.",
+        note: "Use rokov from five up: Mám dvadsaťosem rokov. With 2–4 it is roky; with 1, rok.",
         audio: { transcript: "Mám rokov." },
       },
       {
@@ -349,7 +350,7 @@ export const everydayLessons: Lesson[] = [
     ],
     pattern: {
       title: "Age, digits, and prices",
-      body: "For age, use Mám + number + rokov: Mám dvadsaťosem rokov. For a phone number, say the digits one by one. Ask Koľko to stojí? and answer Stojí to + price.",
+      body: "For age, use Mám + number + rokov from five up: Mám dvadsaťosem rokov. For a phone number, say the digits one by one. Ask Koľko to stojí? and answer Stojí to + price.",
     },
     beats: withNumbersExercises(
       {
@@ -362,19 +363,20 @@ export const everydayLessons: Lesson[] = [
           {
             id: "byt",
             label: "Som dvadsaťosem rokov.",
-            whyWrong: "Age uses **mať**, not **byť**: **Mám … rokov**.",
+            whyWrong: "**Som … rokov** is wrong; age uses **mať**: **Mám … rokov**.",
           },
           {
             id: "roky",
             label: "Mám dvadsaťosem roky.",
-            whyWrong: "**Roky** goes with 2, 3, and 4. From five on, use **rokov**.",
+            whyWrong:
+              "**Roky** goes only with **dva**, **tri**, **štyri** on their own. From five on, and after compounds such as **dvadsaťosem** or **dvadsaťdva**, use **rokov**.",
           },
         ],
         answerId: "age",
         feedback: {
           correction: "Mám dvadsaťosem rokov.",
           english: "I am twenty-eight years old.",
-          why: "Use **Mám** + number + **rokov** for your age.",
+          why: "Use **Mám** + number + **rokov** for ages from five up.",
         },
       },
       {
@@ -382,8 +384,8 @@ export const everydayLessons: Lesson[] = [
         type: "build",
         practiceItemId: "everyday/phone-number-digits",
         prompt: "My number is zero nine zero one.",
-        tiles: ["jeden", "Moje", "číslo", "je", "nula", "deväť", "nula."],
-        answer: ["Moje", "číslo", "je", "nula", "deväť", "nula.", "jeden"],
+        tiles: ["jeden.", "Moje", "číslo", "je", "nula", "deväť", "nula"],
+        answer: ["Moje", "číslo", "je", "nula", "deväť", "nula", "jeden."],
         feedback: {
           correction: "Moje číslo je nula deväť nula jeden.",
           english: "My number is zero nine zero one.",
@@ -398,10 +400,11 @@ export const everydayLessons: Lesson[] = [
         prompt: "It costs five euros.",
         inputLabel: "Your Slovak answer",
         answer: "Stojí to päť eur.",
+        acceptedAnswers: ["To stojí päť eur.", "Stojí päť eur."],
         feedback: {
           correction: "Stojí to päť eur.",
           english: "It costs five euros.",
-          why: "**Koľko to stojí?** asks the price. Use **Stojí to** + number + **eur**.",
+          why: "**Koľko to stojí?** asks the price. Answer **Stojí to** + the price: **jedno euro**, **dve eurá**, **päť eur**.",
         },
       },
       {
@@ -506,8 +509,8 @@ export const everydayLessons: Lesson[] = [
       },
     ],
     pattern: {
-      title: "Put nie with the verb",
-      body: "In Slovak, nie attaches to the verb: rozumiem → nerozumiem, mám → nemám, je → nie je. Learn frequent negative forms as complete chunks, then use them in a short answer.",
+      title: "Negate the verb with ne-",
+      body: "In Slovak, the prefix ne- is written together with the verb: rozumiem → nerozumiem, mám → nemám. Only the present tense of byť keeps a separate nie: nie som, nie si, nie je, nie sme, nie ste, nie sú. Learn frequent negative forms as complete chunks, then use them in a short answer.",
     },
     beats: withNegationExercises(
       {
@@ -543,10 +546,11 @@ export const everydayLessons: Lesson[] = [
         prompt: "I do not understand.",
         inputLabel: "Your Slovak answer",
         answer: "Nerozumiem.",
+        acceptedAnswers: ["Ja nerozumiem."],
         feedback: {
           correction: "Nerozumiem.",
           english: "I do not understand.",
-          why: "**Nie** joins the front of **rozumiem**: **nerozumiem**.",
+          why: "The prefix **ne-** is written together with the verb: **rozumiem** → **nerozumiem**.",
         },
       },
       {
@@ -554,7 +558,7 @@ export const everydayLessons: Lesson[] = [
         type: "build",
         practiceItemId: "everyday/negative-verb-placement",
         prompt: "I do not have time.",
-        tiles: ["čas.", "Nemám"],
+        tiles: ["čas.", "Nemám", "Mám", "nie"],
         answer: ["Nemám", "čas."],
         feedback: {
           correction: "Nemám čas.",

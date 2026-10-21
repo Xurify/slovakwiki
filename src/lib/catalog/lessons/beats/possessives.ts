@@ -32,11 +32,15 @@ const CATEGORIES: FormTableHeading[] = [
   { english: "Masculine", slovak: "mužský rod", example: "brat" },
   { english: "Feminine", slovak: "ženský rod", example: "sestra" },
   { english: "Neuter", slovak: "stredný rod", example: "auto" },
-  { english: "Masculine personal", slovak: "mužský rod životný", example: "bratia" },
   {
-    english: "Masculine inanimate, feminine, neuter",
-    slovak: "mužský neživotný, ženský, stredný rod",
-    example: "kľúče, sestry, autá",
+    english: "Masculine personal",
+    slovak: "mužský rod životný (osoby)",
+    example: "bratia",
+  },
+  {
+    english: "Masculine things and animals, feminine, neuter",
+    slovak: "mužský rod (veci, zvieratá), ženský, stredný rod",
+    example: "kľúče, psy, sestry, autá",
   },
 ];
 
@@ -85,7 +89,7 @@ const fixedOwnerTable = ownerTable("**Jeho**, **jej**, **ich** never change", [
 ]);
 
 const CASE_HEADINGS: Record<GrammaticalCase, FormTableHeading> = {
-  nominative: { english: "Nominative", slovak: "nominatív", example: "To je …" },
+  nominative: { english: "Nominative", slovak: "nominatív", example: "To je / To sú …" },
   genitive: { english: "Genitive", slovak: "genitív", example: "u …" },
   dative: { english: "Dative", slovak: "datív", example: "píšem …" },
   accusative: { english: "Accusative", slovak: "akuzatív", example: "hľadám …" },
@@ -117,7 +121,7 @@ const caseTables = [
   caseTable(
     "**Môj** through the cases · singular",
     SINGULAR_CATEGORIES,
-    "Masculine accusative splits: people take **môjho** (môjho brata), things keep **môj** (môj kľúč).",
+    "Masculine accusative splits: people and animals take **môjho** (môjho brata, môjho psa), things keep **môj** (môj kľúč).",
   ),
   caseTable(
     "**Môj** through the cases · plural",

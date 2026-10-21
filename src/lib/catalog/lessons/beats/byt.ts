@@ -21,7 +21,7 @@ export const bytBeats: LessonBeat[] = [
           audio: { transcript: "Ste?" },
         },
       ],
-      note: "Som, si, je, sme, ste, sú — byť is irregular.",
+      note: "Som, si, je, sme, ste, sú — byť is irregular. Its negative is two words: nie som, nie je.",
     },
     exercises: [] as LessonExercise[],
   },

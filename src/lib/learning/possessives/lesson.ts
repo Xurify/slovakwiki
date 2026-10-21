@@ -109,7 +109,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
       {
         id: "singular",
         label: "To sú môj priatelia.",
-        whyWrong: "**Môj** is singular — for one thing or person.",
+        whyWrong: "**Môj** is singular — for one masculine thing or person.",
       },
     ],
     answerId: "people",
@@ -176,7 +176,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
       {
         wrong: "svoji",
         whyWrong:
-          "**Svoji** is only for masculine nouns for people. **Kľúče** takes **svoje**.",
+          "**Svoji** is the nominative for masculine people. **Kľúče** are things, and **hľadať** takes the accusative: **svoje**.",
       },
       { wrong: "jeho", whyWrong: "**Jeho kľúče** would be a man's keys." },
       { wrong: "moje", whyWrong: "**Moje kľúče** would be my keys, not Anna's." },
@@ -335,7 +335,19 @@ export const possessivesGradedExercises: LessonExercise[] = [
     prompt: "I'm going to the cinema with my sister.",
     inputLabel: "Your Slovak answer",
     answer: "Idem do kina so svojou sestrou.",
-    acceptedAnswers: ["Idem do kina s mojou sestrou."],
+    acceptedAnswers: [
+      "Idem do kina s mojou sestrou.",
+      "Idem do kina so sestrou.",
+      "Idem so svojou sestrou do kina.",
+      "Idem s mojou sestrou do kina.",
+      "Idem so sestrou do kina.",
+      "Ja idem do kina so svojou sestrou.",
+      "Ja idem do kina s mojou sestrou.",
+      "Ja idem do kina so sestrou.",
+      "Ja idem so svojou sestrou do kina.",
+      "Ja idem s mojou sestrou do kina.",
+      "Ja idem so sestrou do kina.",
+    ],
     mistakes: [
       {
         wrong: "svoju",
@@ -365,7 +377,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
       {
         wrong: "so mojou",
         whyWrong:
-          "**So** comes before words starting with **s**, **z**, **š**, or **ž**, like **svojou**. Before **mojou** it stays **s**.",
+          "**So** comes before words starting with **s**, **z**, **š**, or **ž**, like **svojou**, and in a few fixed cases such as **so mnou**. Before **mojou** it stays **s**.",
       },
     ],
     feedback: {
@@ -465,7 +477,7 @@ export const possessivesGradedExercises: LessonExercise[] = [
       {
         id: "genitive",
         label: "Anna píše list našich rodičom.",
-        whyWrong: "**Našich** is genitive or locative.",
+        whyWrong: "**Našich** is genitive, accusative or locative.",
       },
     ],
     answerId: "dative-plural",
@@ -485,12 +497,13 @@ export const possessivesGradedExercises: LessonExercise[] = [
       {
         id: "his",
         label: "Zlomil jeho ruku.",
-        whyWrong: "**Jeho ruku** is another man's arm — he'd have broken someone else's!",
+        whyWrong: "**Jeho ruku** is another man's arm, so he broke someone else's.",
       },
       {
         id: "own",
         label: "Zlomil svoju ruku.",
-        whyWrong: "Slovak does not add **svoju** to a body part.",
+        whyWrong:
+          "**Svoju ruku** sounds as if the arm could be someone else's. With your own body, Slovak uses **si**.",
       },
     ],
     answerId: "si",
@@ -516,7 +529,7 @@ export const possessivesLesson: Lesson = {
   slug: "possessives",
   title: "Possessives: môj, jeho, svoj",
   promise:
-    "Say whose something is — and make môj, jeho, and svoj fit the noun and its case.",
+    "Say whose something is: pick môj, jeho, or svoj, and make môj and svoj fit the noun and its case.",
   scene: [
     {
       id: possessivesLineIds.annaComeIn,

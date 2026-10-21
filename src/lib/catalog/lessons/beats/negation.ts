@@ -45,7 +45,7 @@ export const negationBeats: LessonBeat[] = [
           audio: { transcript: "Nie je to." },
         },
       ],
-      note: "Nie attaches to the verb: rozumiem → nerozumiem, mám → nemám.",
+      note: "The prefix ne- is written together with the verb: rozumiem → nerozumiem, mám → nemám. Present-tense byť keeps a separate nie: nie je, nie som.",
     },
     exercises: [] as LessonExercise[],
   },
