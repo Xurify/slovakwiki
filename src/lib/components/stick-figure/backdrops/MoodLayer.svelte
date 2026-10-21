@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
+  import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { SCENE_THINGS, thingBoxes } from "$lib/stick-figure/scene-things";
 
@@ -8,7 +8,7 @@
    * while someone speaks. Lamps from the place's things glow from evening
    * on; rain and snow fall outside, and indoors only in the window.
    */
-  let { mood, setting }: { mood: SceneMood; setting: LessonSceneArtId } = $props();
+  let { mood, setting }: { mood: SceneMood; setting: StageSetting } = $props();
 
   const id = $props.id();
 

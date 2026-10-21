@@ -1,5 +1,5 @@
 import type { TextMark } from "$lib/learning/marked-text";
-import { isProperName, type SceneThing } from "./scene-things";
+import { isPlural, isProperName, type SceneThing } from "./scene-things";
 
 /** Kde je torta? (where is it), Nájdi tortu. (find it), Ukáž na tú tortu. (point at that one). */
 export type FindLevel = "where" | "find" | "point";
@@ -19,17 +19,25 @@ export interface FindPrompt {
 /**
  * The accusative, as `nájdi` and `ukáž na` take it. Of the nouns drawn in
  * the scenes only the feminine ones in -a change (torta → tortu); masculine
- * things, neuter nouns and plural-only hodiny keep the nominative.
+ * things, neuter nouns and plurals like hodiny or jahody keep the nominative.
  */
-export function accusativeOf({ gender, word }: SceneThing): string {
-  return gender === "feminine" && word.endsWith("a") ? `${word.slice(0, -1)}u` : word;
+export function accusativeOf(thing: SceneThing): string {
+  const { gender, word } = thing;
+  return gender === "feminine" && !isPlural(thing) && word.endsWith("a")
+    ? `${word.slice(0, -1)}u`
+    : word;
 }
 
-function accusativeDemonstrative({ gender }: SceneThing): string {
-  if (gender === "feminine") return "tú";
-  if (gender === "neuter") return "to";
-  if (gender === "plural-only") return "tie";
+function accusativeDemonstrative(thing: SceneThing): string {
+  if (isPlural(thing)) return "tie";
+  if (thing.gender === "feminine") return "tú";
+  if (thing.gender === "neuter") return "to";
   return "ten";
+}
+
+/** English says "the headphones are" where Slovak may not: slúchadlá, but also zelenina. */
+function englishPlural({ english }: SceneThing): boolean {
+  return english.endsWith("s");
 }
 
 /** Marks the ending a noun changes in the accusative, if it changes. */
@@ -48,7 +56,7 @@ export function findPrompt(thing: SceneThing, level: FindLevel): FindPrompt {
 
   if (level === "where") {
     return {
-      english: `Where is ${english}?`,
+      english: `Where ${englishPlural(thing) ? "are" : "is"} ${english}?`,
       marks: [],
       slovak: `Kde ${isAre(thing)} ${thing.word}?`,
     };
@@ -66,7 +74,9 @@ export function findPrompt(thing: SceneThing, level: FindLevel): FindPrompt {
   const opening = "Ukáž na ";
   const demonstrative = isProperName(thing) ? "" : `${accusativeDemonstrative(thing)} `;
   const nounAt = opening.length + demonstrative.length;
-  const pointed = isProperName(thing) ? english : `that ${thing.english}`;
+  const pointed = isProperName(thing)
+    ? english
+    : `${englishPlural(thing) ? "those" : "that"} ${thing.english}`;
   return {
     english: `Point at ${pointed}.`,
     marks: [
@@ -86,7 +96,7 @@ export function findPrompt(thing: SceneThing, level: FindLevel): FindPrompt {
 }
 
 function isAre(thing: SceneThing): string {
-  return thing.gender === "plural-only" ? "sú" : "je";
+  return isPlural(thing) ? "sú" : "je";
 }
 
 /** What the learner hears back on a wrong tap: "To je okno." */
@@ -113,6 +123,9 @@ export function findWhy(thing: SceneThing, level: FindLevel): string | undefined
   }
   if (thing.gender === "plural-only") {
     return `**${thing.word}** is plural only and keeps its form after **${verb}**.`;
+  }
+  if (isPlural(thing)) {
+    return `**${thing.word}** is plural, and plural things keep their form after **${verb}**.`;
   }
   return `**${thing.word}** keeps its form after **${verb}**: masculine things and neuter nouns look the same in the accusative.`;
 }

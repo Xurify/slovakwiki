@@ -1,8 +1,9 @@
 <script lang="ts" module>
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+  import type { ListeningCheck } from "$lib/catalog/listening";
   import type { TextMark } from "$lib/learning/marked-text";
   import type { DialogueSayChoices } from "$lib/learning/types";
-  import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
+  import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import type { StickGestureId } from "$lib/stick-figure/gestures";
   import type { StickPropId } from "$lib/stick-figure/props";
 
@@ -29,17 +30,30 @@
   }
 
   export interface PlayerScene {
+    /** Questions on what was heard, asked once the scene has played: a podcast chapter's. */
+    checks?: ListeningCheck[];
+    /** Where the scene comes from: its lesson or podcast episode. */
+    href: string;
+    hrefLabel: string;
     id: string;
-    lessonHref: string;
     lines: PlayerLine[];
-    /** The line it is named after. */
+    /** A line it is named after, or the podcast chapter's name. */
     name: string;
-    setting: LessonSceneArtId;
+    /** Who stands where, left to right, so a series keeps its hosts in their places. */
+    order?: LessonCharacterId[];
+    setting: StageSetting;
+  }
+
+  export interface PlayerSceneGroup {
+    label: string;
+    /** The Slovak name after the label: the podcast episode's. */
+    slovak?: string;
+    scenes: PlayerScene[];
   }
 </script>
 
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import { playAnswerSfx } from "$lib/audio/sfx";
@@ -70,6 +84,7 @@
   } from "$lib/stick-figure/scene-greet";
   import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
   import { ChoiceOptions } from "$lib/learning/exercises";
+  import EpisodeCheck from "$lib/components/listening/EpisodeCheck.svelte";
   import {
     FIND_LEVELS,
     accusativeOf,
@@ -81,6 +96,7 @@
   } from "$lib/stick-figure/scene-find";
   import {
     thingWithDemonstrative,
+    thingsInView,
     type SceneThing,
   } from "$lib/stick-figure/scene-things";
   import { cx } from "$lib/ui/classes";
@@ -94,13 +110,13 @@
   type Phase = "ready" | "playing" | "paused" | "turn" | "done";
 
   let {
-    scenes,
+    groups,
     greetingClips = {},
     thingWords = {},
   }: {
     /** The dictionary clip for each greeting, where there is one. */
     greetingClips?: Partial<Record<Greeting, string>>;
-    scenes: PlayerScene[];
+    groups: PlayerSceneGroup[];
     /** Dictionary link and clip for a scene thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
@@ -126,7 +142,7 @@
     { id: "build", label: "Build it" },
   ];
 
-  const PLACES: Record<LessonSceneArtId, string> = {
+  const PLACES: Record<StageSetting, string> = {
     cafe: "At the café",
     classroom: "In class",
     counter: "At the front desk",
@@ -135,6 +151,7 @@
     market: "At the market",
     plaza: "On the old town square",
     registration: "At the front desk",
+    studio: "In the podcast studio",
   };
 
   /** Between one line and the next, as in the lesson story. */
@@ -176,6 +193,10 @@
     why?: string;
   }>();
 
+  /** The question on what was heard that is open, and how many were right. */
+  let checkAt = $state(0);
+  let checksRight = $state(0);
+
   let greetQueue = $state<GreetRound[]>([]);
   let greetAt = $state(0);
   let greetPicked = $state<Greeting | null>(null);
@@ -188,7 +209,16 @@
   let findTimer = 0;
   let greetTimer = 0;
 
+  const scenes = $derived(groups.flatMap((group) => group.scenes));
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
+  /** The scene after this one in its group: the podcast's next chapter. */
+  const nextScene = $derived.by(() => {
+    const group = groups.find((option) => option.scenes.includes(scene));
+    const index = group?.scenes.indexOf(scene) ?? -1;
+    return index === -1 ? undefined : group?.scenes[index + 1];
+  });
+  const checks = $derived(scene.checks ?? []);
+  const checking = $derived(phase === "done" && checkAt < checks.length);
   const lines = $derived<DirectedLine[]>(
     scene.lines.map((line) => ({
       characterId: line.onStage ? line.characterId : null,
@@ -201,7 +231,7 @@
       vowels: line.vowels,
     })),
   );
-  const direction = $derived(directScene(lines, scene.setting));
+  const direction = $derived(directScene(lines, scene.setting, scene.order));
   const greetRound = $derived(greetQueue[greetAt]);
   const mood = $derived(
     mode === "greet"
@@ -211,6 +241,10 @@
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
   const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
   const learnerCount = $derived(scene.lines.filter((line) => line.learner).length);
+  /** Taking Alex's part needs Alex in the scene. */
+  const modes = $derived(
+    MODES.filter((option) => option.id !== "play" || learnerCount > 0),
+  );
   const firstTryCount = $derived(Object.values(firstTries).filter(Boolean).length);
   /** The things the dialogue names, in the order it names them. */
   const sceneWords = $derived(
@@ -268,6 +302,8 @@
     shown = -1;
     firstTries = {};
     findNote = undefined;
+    checkAt = 0;
+    checksRight = 0;
   }
 
   function selectScene(id: string): void {
@@ -276,8 +312,36 @@
     sceneId = id;
     // Greeting Mária is the same on any scene, so picking one means watching it.
     if (mode === "greet") mode = "watch";
+    if (mode === "play" && learnerCount === 0) mode = "watch";
     if (same) stage?.place(0);
     if (mode === "find") startFind();
+  }
+
+  /** On to the podcast's next chapter, playing once the stage has its cast. */
+  async function nextChapter(): Promise<void> {
+    if (!nextScene) return;
+    selectScene(nextScene.id);
+    await tick();
+    playScene();
+  }
+
+  function resolveCheck(correct: boolean): void {
+    if (correct) checksRight += 1;
+    checkAt += 1;
+  }
+
+  /** A check's line acted again, everyone where it found them. */
+  function replay(lineId: string | undefined, onEnded: () => void): void {
+    const index = scene.lines.findIndex((line) => line.id === lineId);
+    if (index === -1) {
+      onEnded();
+      return;
+    }
+
+    halt();
+    stage?.place(index);
+    shown = index;
+    stage?.play(index, onEnded, slower ? 0.75 : 1);
   }
 
   function selectMode(next: Mode): void {
@@ -465,8 +529,10 @@
   function startFind(next: FindLevel = level): void {
     window.clearTimeout(findTimer);
     level = next;
+    // Only what the stage shows: a phone slices off the ends of the room.
+    const { height, width } = stage?.size() ?? { height: 0, width: 0 };
     queue = shuffledTiles(
-      direction.things.map((thing) => thing.id),
+      thingsInView(direction.things, scene.setting, width, height).map(({ id }) => id),
       `${scene.id}-${next}`,
     );
     findAt = 0;
@@ -571,36 +637,48 @@
       </Lead>
     </header>
 
-    <nav class="mt-8" aria-label="Scenes">
-      <ul
-        class={cx(
-          "m-0 flex list-none flex-wrap gap-2 p-0",
-          "max-[600px]:-mx-4 max-[600px]:flex-nowrap max-[600px]:overflow-x-auto max-[600px]:px-4 max-[600px]:pb-1",
-          // The page keeps 12px a side below 480px, 16px above.
-          "max-[480px]:-mx-3 max-[480px]:px-3",
-        )}
-      >
-        {#each scenes as option (option.id)}
-          <li class="shrink-0">
-            <button
-              class="{chipClass(option.id === scene.id)} whitespace-nowrap"
-              type="button"
-              aria-pressed={option.id === scene.id}
-              lang="sk"
-              onclick={() => selectScene(option.id)}
-            >
-              {option.name}
-            </button>
-          </li>
-        {/each}
-      </ul>
+    <nav class="mt-8 grid gap-4" aria-label="Scenes">
+      {#each groups as group (`${group.label}-${group.slovak}`)}
+        <!-- A grid item grows to its content, which would stop the chips scrolling. -->
+        <div class="min-w-0">
+          <p class={eyebrowMutedClass}>
+            {group.label}
+            {#if group.slovak}
+              <span class="ml-1 font-serif text-slate-700" lang="sk">{group.slovak}</span>
+            {/if}
+          </p>
+
+          <ul
+            class={cx(
+              "m-0 mt-2 flex list-none flex-wrap gap-2 p-0",
+              "max-[600px]:-mx-4 max-[600px]:flex-nowrap max-[600px]:overflow-x-auto max-[600px]:px-4 max-[600px]:pb-1",
+              // The page keeps 12px a side below 480px, 16px above.
+              "max-[480px]:-mx-3 max-[480px]:px-3",
+            )}
+          >
+            {#each group.scenes as option (option.id)}
+              <li class="shrink-0">
+                <button
+                  class="{chipClass(option.id === scene.id)} whitespace-nowrap"
+                  type="button"
+                  aria-pressed={option.id === scene.id}
+                  lang="sk"
+                  onclick={() => selectScene(option.id)}
+                >
+                  {option.name}
+                </button>
+              </li>
+            {/each}
+          </ul>
+        </div>
+      {/each}
     </nav>
 
     <section class="mt-6" aria-label="Scene">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
           <div class="flex gap-2" role="group" aria-label="Mode">
-            {#each MODES as option (option.id)}
+            {#each modes as option (option.id)}
               <button
                 class={chipClass(option.id === mode)}
                 type="button"
@@ -821,9 +899,28 @@
             <TextLink class="mt-4 inline-block" onclick={hearIt}>
               Hear {turn.speaker} say it
             </TextLink>
+          {:else if checking}
+            {@const check = checks[checkAt]}
+
+            {#key check.id}
+              <EpisodeCheck
+                {check}
+                doneLabel="See how you did"
+                questionNumber={checkAt + 1}
+                onresolve={resolveCheck}
+                playReplay={(onEnded) => replay(check.replayLineId, onEnded)}
+                replayLine={scene.lines.find((line) => line.id === check.replayLineId)}
+                stopReplay={halt}
+                total={checks.length}
+              />
+            {/key}
           {:else if phase === "done"}
             <div class="animate-rise">
-              {#if mode === "play" && learnerCount > 0}
+              {#if checks.length > 0}
+                <p class="m-0 font-serif text-2xl text-slate-900">
+                  {checksRight} of {checks.length} answered right.
+                </p>
+              {:else if mode === "play" && learnerCount > 0}
                 <p class="m-0 font-serif text-2xl text-slate-900">
                   {firstTryCount} of {learnerCount} of Alex's lines right the first time.
                 </p>
@@ -834,7 +931,12 @@
               {/if}
 
               {#if sceneWords.length > 0}
-                <p class={cx(eyebrowMutedClass, learnerCount > 0 && "mt-4")}>
+                <p
+                  class={cx(
+                    eyebrowMutedClass,
+                    (learnerCount > 0 || checks.length > 0) && "mt-4",
+                  )}
+                >
                   Things the dialogue named
                 </p>
                 <ul class="m-0 mt-2 flex list-none flex-wrap gap-2 p-0">
@@ -861,7 +963,11 @@
               {/if}
 
               <div class="mt-4 flex flex-wrap items-center gap-4">
-                {#if mode === "watch" && learnerCount > 0}
+                {#if nextScene && checks.length > 0}
+                  <Button variant="accent" onclick={nextChapter}>
+                    <span>Next chapter: <span lang="sk">{nextScene.name}</span></span>
+                  </Button>
+                {:else if mode === "watch" && learnerCount > 0}
                   <Button variant="accent" onclick={playAlex}>Play Alex</Button>
                 {:else if direction.things.length > 0}
                   <Button variant="accent" onclick={() => selectMode("find")}>
@@ -871,12 +977,14 @@
                 <TextLink onclick={playScene}>
                   {mode === "play" ? "Play again" : "Watch again"}
                 </TextLink>
-                {#if mode === "watch" && learnerCount > 0 && direction.things.length > 0}
-                  <TextLink onclick={() => selectMode("find")}
-                    >Find things in the room</TextLink
-                  >
+                {#if (nextScene && checks.length > 0) || (mode === "watch" && learnerCount > 0)}
+                  {#if direction.things.length > 0}
+                    <TextLink onclick={() => selectMode("find")}
+                      >Find things in the room</TextLink
+                    >
+                  {/if}
                 {/if}
-                <TextLink href={scene.lessonHref}>Open the lesson</TextLink>
+                <TextLink href={scene.href}>{scene.hrefLabel}</TextLink>
               </div>
             </div>
           {:else if caption}
@@ -900,6 +1008,10 @@
             <p class="m-0 mt-1 text-slate-600">
               {#if mode === "play"}
                 The scene stops at each of Alex's lines for you to say it.
+              {:else if checks.length > 0}
+                Each word lights up as it is said. Then
+                {checks.length === 1 ? "a question" : `${checks.length} questions`} on what
+                you heard.
               {:else}
                 Each word lights up as it is said. Tap a dotted word or anything in the
                 room to see it.
@@ -967,7 +1079,8 @@
         {/if}
       </div>
 
-      {#if mode !== "find" && mode !== "greet"}
+      <!-- The questions are on what was heard, so the text waits until they are answered. -->
+      {#if mode !== "find" && mode !== "greet" && !checking}
         <ol
           class="{panelClass} m-0 mt-4 list-none divide-y divide-slate-200 overflow-hidden p-0"
         >

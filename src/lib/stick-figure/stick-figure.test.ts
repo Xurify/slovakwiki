@@ -718,11 +718,13 @@ describe("pointing", () => {
   });
 
   it("points at what is held up, but not on a bare to", () => {
-    expect(linePoints("Kto je ten muž?", cafe, "anna")).toEqual([
-      { reach: undefined, target: { kind: "prop", holder: "anna" }, word: 2 },
-    ]);
+    expect(
+      linePoints("Kto je ten muž?", cafe, { holder: "anna", prop: "camera" }),
+    ).toEqual([{ reach: undefined, target: { kind: "prop", holder: "anna" }, word: 2 }]);
     expect(linePoints("Kto je ten muž?", cafe)).toEqual([]);
-    expect(linePoints("Je to Marek?", cafe, "anna")).toEqual([]);
+    expect(linePoints("Je to Marek?", cafe, { holder: "anna", prop: "camera" })).toEqual(
+      [],
+    );
   });
 
   it("knows which sentence each word is in", () => {

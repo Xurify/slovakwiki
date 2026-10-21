@@ -9,6 +9,7 @@ import {
 } from "$lib/lesson-story/story-settings";
 import { GREETINGS, bare, type Greeting } from "./scene-greet";
 import { SCENE_THINGS } from "./scene-things";
+import type { StageSetting } from "./stage-setting";
 
 /**
  * Lessons whose story setting does not fit their dialogue: the waiter offering
@@ -23,6 +24,17 @@ const STAGE_SETTINGS: Record<string, LessonSceneArtId> = {
 /** Where a lesson's scene plays on the stick-figure stage. */
 export function stageSettingFor(lessonId: string): LessonSceneArtId {
   return STAGE_SETTINGS[lessonId] ?? storySettingForLesson(lessonId).art;
+}
+
+/** Podcast chapters that leave the studio. */
+const CHAPTER_SETTINGS: Record<string, StageSetting> = {
+  "podcast-demonstratives-home": "home",
+  "podcast-demonstratives-market": "market",
+};
+
+/** Where a podcast chapter plays on the stage: the studio, unless the hosts go out. */
+export function chapterSettingFor(chapterId: string): StageSetting {
+  return CHAPTER_SETTINGS[chapterId] ?? "studio";
 }
 
 /**

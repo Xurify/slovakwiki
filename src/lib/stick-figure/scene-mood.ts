@@ -1,4 +1,4 @@
-import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
+import type { StageSetting } from "./stage-setting";
 import { foldLine } from "./line-gesture";
 
 export type TimeOfDay = "morning" | "day" | "evening" | "night";
@@ -11,10 +11,10 @@ export interface SceneMood {
 
 export const DAYTIME: SceneMood = { time: "day", weather: "clear" };
 
-const OUTDOORS: readonly LessonSceneArtId[] = ["default", "market", "plaza"];
+const OUTDOORS: readonly StageSetting[] = ["default", "market", "plaza"];
 
 /** Under the sky, where weather falls on everything and the cast dresses for it. */
-export function isOutdoors(setting: LessonSceneArtId): boolean {
+export function isOutdoors(setting: StageSetting): boolean {
   return OUTDOORS.includes(setting);
 }
 

@@ -6,7 +6,14 @@ const PREFIX = "podcast-demonstratives-";
 
 type Part = string | { demonstrative: string };
 
-function line(id: string, speaker: string, parts: Part[], english: string): DialogueTurn {
+function line(
+  id: string,
+  speaker: string,
+  parts: Part[],
+  english: string,
+  /** What the speaker holds per sentence on `/dev/scenes`, where the words would pick wrong. */
+  props?: DialogueTurn["props"],
+): DialogueTurn {
   const marked = markedText(
     parts.map((part): MarkedPart =>
       typeof part === "string"
@@ -21,8 +28,12 @@ function line(id: string, speaker: string, parts: Part[], english: string): Dial
     slovak: marked.text,
     marks: marked.marks,
     english,
+    ...(props ? { props } : {}),
   };
 }
+
+/** Anna only guesses: the thing is still in Marek's bag. */
+const GUESS = [null, null];
 
 const intro: ListeningChapter = {
   id: `${PREFIX}intro`,
@@ -114,7 +125,13 @@ const bag: ListeningChapter = {
       ["Je ", { demonstrative: "to" }, " malé. Otvára dvere."],
       "It's small. It opens doors.",
     ),
-    line("anna-its-a-key", "Anna", [{ demonstrative: "To" }, " je kľúč!"], "It's a key!"),
+    line(
+      "anna-its-a-key",
+      "Anna",
+      [{ demonstrative: "To" }, " je kľúč!"],
+      "It's a key!",
+      GUESS,
+    ),
     line(
       "marek-car-key",
       "Marek",
@@ -132,6 +149,7 @@ const bag: ListeningChapter = {
       "Marek",
       [{ demonstrative: "To" }, " je ťažké. Má veľa strán."],
       "It's heavy. It has many pages.",
+      ["bag"],
     ),
     line(
       "anna-its-a-book",
@@ -143,6 +161,7 @@ const bag: ListeningChapter = {
         " kniha je veľká.",
       ],
       "It's a book! That book is big.",
+      GUESS,
     ),
     line(
       "marek-dictionary",
@@ -161,12 +180,14 @@ const bag: ListeningChapter = {
       "Marek",
       [{ demonstrative: "To" }, " je zelené a je ", { demonstrative: "to" }, " sladké."],
       "It's green and it's sweet.",
+      ["bag"],
     ),
     line(
       "anna-apple",
       "Anna",
       ["Jablko! ", { demonstrative: "To" }, " je jablko."],
       "An apple! It's an apple.",
+      GUESS,
     ),
     line(
       "marek-apple-for-you",
@@ -320,7 +341,7 @@ const market: ListeningChapter = {
       ["Tak ", { demonstrative: "tamtie" }, ", prosím."],
       "Those over there, then, please.",
     ),
-    line("lucia-here-you-are", "Lucia", ["Nech sa páči."], "Here you are."),
+    line("lucia-here-you-are", "Lucia", ["Nech sa páči."], "Here you are.", ["basket"]),
     line(
       "marek-anna-always-slovak",
       "Marek",
@@ -416,6 +437,7 @@ const home: ListeningChapter = {
       "Marek",
       ["Anna, kde je ", { demonstrative: "ten" }, " malý kľúč?"],
       "Anna, where is that small key?",
+      [null],
     ),
     line(
       "anna-this-or-that",
@@ -464,6 +486,7 @@ const home: ListeningChapter = {
       "Marek",
       ["Aha, mám ho. A kto je ", { demonstrative: "ten" }, " muž vonku?"],
       "Got it. And who is that man outside?",
+      ["keys"],
     ),
     line(
       "anna-neighbour-you-know-him",
@@ -499,6 +522,7 @@ const home: ListeningChapter = {
       "Anna",
       ["Áno. A ", { demonstrative: "tieto" }, " kľúče už nestrácaj!"],
       "Yes. And don't lose these keys again!",
+      [null, null],
     ),
   ],
   checks: [
@@ -719,6 +743,7 @@ const outro: ListeningChapter = {
       "Marek",
       ["Anna? Kde sú ", { demonstrative: "tie" }, " kľúče?"],
       "Anna? Where are those keys?",
+      [null, null],
     ),
     line("anna-marek", "Anna", ["Marek!"], "Marek!"),
   ],

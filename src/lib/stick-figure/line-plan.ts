@@ -15,9 +15,13 @@ import {
 import { linePictures, type StickPictureId } from "./pictures";
 import { slovakSyllables, type VowelShape } from "./syllables";
 
-/** What a point aims at: a thing drawn in the backdrop, or what someone holds up. */
+/**
+ * What a point aims at: a thing drawn in the backdrop (one `copy` of it,
+ * where tento and tamten tell two apart), or what someone holds up.
+ */
 export type PointTarget =
-  { kind: "thing"; id: string } | { kind: "prop"; holder: LessonCharacterId };
+  | { kind: "thing"; copy?: number; id: string }
+  | { kind: "prop"; holder: LessonCharacterId };
 
 /** A word the arm goes out on, and what it points at. */
 export interface LinePoint {

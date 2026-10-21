@@ -99,6 +99,21 @@ describe("find it", () => {
     expect(findPrompt(thing("dunaj"), "point").slovak).toBe("Ukáž na Dunaj.");
   });
 
+  it("keeps plurals plural", () => {
+    expect(accusativeOf(thing("jahody"))).toBe("jahody");
+    expect(findPrompt(thing("jahody"), "where")).toMatchObject({
+      english: "Where are the strawberries?",
+      slovak: "Kde sú jahody?",
+    });
+    expect(findPrompt(thing("jahody"), "point")).toMatchObject({
+      english: "Point at those strawberries.",
+      slovak: "Ukáž na tie jahody.",
+    });
+    expect(findPrompt(thing("dvere"), "point").slovak).toBe("Ukáž na tie dvere.");
+    expect(thatIs(thing("jahody"))).toBe("To sú jahody.");
+    expect(findWhy(thing("jahody"), "find")).toContain("plural things keep their form");
+  });
+
   it("names what was tapped and says why the form changed", () => {
     expect(thatIs(thing("okno"))).toBe("To je okno.");
     expect(thatIs(thing("hodiny"))).toBe("To sú hodiny.");
