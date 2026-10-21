@@ -3,8 +3,8 @@
   import type { Snippet } from "svelte";
 
   /**
-   * The one small-caps label used above section titles, rail lists and card
-   * headers. Same type everywhere; only the tone and bottom margin vary.
+   * The one small label for rail lists, card headers and form groups, in
+   * sentence case. Same type everywhere; only the tone and bottom margin vary.
    */
   let {
     tone = "accent",

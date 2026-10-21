@@ -24,7 +24,7 @@
 </script>
 
 <section id={anchor} class="scroll-mt-24" aria-labelledby="{anchor}-heading">
-  <SectionHead eyebrow="Area" {title} id="{anchor}-heading" description={purpose}>
+  <SectionHead {title} id="{anchor}-heading" description={purpose}>
     {#snippet aside()}
       {#if title === "Numbers"}
         <TextLink

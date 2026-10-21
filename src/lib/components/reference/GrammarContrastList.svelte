@@ -1,13 +1,13 @@
 <script lang="ts">
   import { dataMoreRowClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
-  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
-  import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import TextLink from "$lib/components/ui/TextLink.svelte";
   import GrammarScene from "$lib/components/reference/GrammarScene.svelte";
   import {
     grammarEndingClass,
     grammarFormClass,
     grammarGlossClass,
+    grammarMarkClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import type { GrammarContrast, GrammarContrastSet } from "$lib/catalog/types";
   import { markRoleClass, segmentsFromMarks } from "$lib/learning/marked-text";
@@ -22,31 +22,38 @@
     audioKeys?: string[];
   } = $props();
 
-  /** The changing word takes the page's ending colour; the owner and the noun ending keep their own. */
-  function markClass(role: string): string {
-    return role === "owner" || role === "ending"
-      ? markRoleClass(role)
-      : grammarEndingClass;
-  }
-
   const allFrames = $derived([...contrasts.frames, ...(contrasts.more ?? [])]);
 
-  const showsEndings = $derived(
-    allFrames.some((frame) =>
-      frame.choices.some((choice) =>
-        choice.slovak.marks.some((mark) => mark.role === "ending"),
-      ),
-    ),
-  );
+  /**
+   * The key shows the page's own words in the exact style the rows use, so the
+   * reader matches shapes rather than decoding coloured dots.
+   */
+  const key = $derived.by(() => {
+    for (const choice of allFrames.flatMap((frame) => frame.choices)) {
+      const { text, marks } = choice.slovak;
+      const ending = marks.find((mark) => mark.role === "ending");
+      const changing = marks.find(
+        (mark) => mark.role !== "ending" && mark.role !== "owner",
+      );
+      if (!ending || !changing) continue;
+
+      const stemStart = text.lastIndexOf(" ", ending.start - 1) + 1;
+      return {
+        word: text.slice(changing.start, changing.end),
+        stem: text.slice(stemStart, ending.start),
+        ending: text.slice(ending.start, ending.end),
+      };
+    }
+    return null;
+  });
+
+  /** "akuzatív · množné číslo" → "akuzatív, množné číslo": one term list, not a dotted chain. */
+  function caseTerms(terms: string): string {
+    return terms.split(" · ").join(", ");
+  }
 
   const labelled = $derived(allFrames.some((frame) => frame.label));
 </script>
-
-{#snippet swatch(className: string)}
-  <span
-    class="mr-1.5 inline-block size-2.5 rounded-full bg-current align-[-1px] {className}"
-  ></span>
-{/snippet}
 
 {#snippet frames(list: GrammarContrast[], prefix: string)}
   {#each list as frame, frameIndex (frame.question + frameIndex)}
@@ -57,11 +64,12 @@
         <span class="text-sm font-semibold text-slate-900">{frame.question}</span>
 
         {#if frame.label}
-          <span class={cx(eyebrowMutedClass, "text-right")}>
-            <span lang="sk">{frame.label.sk}</span>
-            <span class="font-normal normal-case tracking-normal text-slate-500">
-              · {frame.label.en}
+          <span class="text-right text-xs leading-snug">
+            <span class="font-semibold text-slate-700" lang="sk">
+              {caseTerms(frame.label.sk)}
             </span>
+            <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+            <span class="text-slate-500">{caseTerms(frame.label.en)}</span>
           </span>
         {/if}
       </p>
@@ -96,7 +104,7 @@
                 <p class={cx(grammarFormClass, "m-0 text-lg")} lang="sk">
                   {#each segmentsFromMarks(choice.slovak.text, choice.slovak.marks) as segment, index (index)}
                     {#if segment.role}
-                      <span class={markClass(segment.role)}>{segment.text}</span>
+                      <span class={grammarMarkClass(segment.role)}>{segment.text}</span>
                     {:else}
                       {segment.text}
                     {/if}
@@ -113,25 +121,29 @@
   {/each}
 {/snippet}
 
-{#if showsEndings || labelled}
+{#if key || labelled}
   <p class="m-0 mb-3 max-w-[62ch] text-sm leading-relaxed text-slate-600">
-    {#if showsEndings}
-      {@render swatch(grammarEndingClass)}The word that changes.
-      {@render swatch(markRoleClass("ending"))}The noun's case ending, which it agrees
-      with: the verb or preposition picks the case, the noun takes it, and the small word
-      follows the noun.
+    {#if key}
+      In each sentence the word you pick is blue, like
+      <span class="font-serif font-semibold {grammarEndingClass}" lang="sk"
+        >{key.word}</span
+      >, and the noun's case ending is boxed, like
+      <span class="font-serif font-semibold text-slate-900" lang="sk"
+        >{key.stem}<span class={markRoleClass("ending")}>{key.ending}</span></span
+      >.
     {/if}
     {#if labelled}
-      Labels use the Slovak school terms (<span lang="sk">pád</span> case,
-      <span lang="sk">rod</span> gender, <span lang="sk">životný</span> animate,
-      <span lang="sk">množné číslo</span> plural), with the English after, as in
+      Each card names its case with the Slovak school term first:
+      <span lang="sk">pád</span> (case), <span lang="sk">rod</span> (gender),
+      <span lang="sk">životný</span> (animate), <span lang="sk">množné číslo</span>
+      (plural), as in
       <TextLink
         href="https://www.juls.savba.sk/ediela/msj/"
         rel="noopener noreferrer"
         target="_blank"
       >
-        Morfológia slovenského jazyka ↗
-      </TextLink>.
+        Morfológia slovenského jazyka ↗</TextLink
+      >.
     {/if}
   </p>
 {/if}

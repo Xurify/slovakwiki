@@ -1,0 +1,35 @@
+<script lang="ts">
+  import type { Snippet } from "svelte";
+
+  import { cx } from "$lib/ui/classes";
+
+  /** Quiet text control under the player: Slower, Show text, English, Replay line. */
+  let {
+    children,
+    disabled = false,
+    onclick,
+    pressed,
+  }: {
+    children: Snippet;
+    disabled?: boolean;
+    onclick: () => void;
+    /** Set for a toggle; leave out for a one-shot action. */
+    pressed?: boolean;
+  } = $props();
+</script>
+
+<button
+  class={cx(
+    "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-(--control-radius) border-0 px-2.5 text-sm font-semibold",
+    "transition-colors duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50",
+    pressed
+      ? "bg-blue-50 text-blue-800"
+      : "bg-transparent text-slate-600 hover:bg-subtle hover:text-slate-900",
+  )}
+  type="button"
+  aria-pressed={pressed}
+  {disabled}
+  {onclick}
+>
+  {@render children()}
+</button>

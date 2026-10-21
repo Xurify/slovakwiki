@@ -41,7 +41,7 @@
       "blurb": "A shop assistant in town. She helps customers find items, check prices, and pay at the register.",
       "voiceId": "QW7RcNLFTKhyMDZ9Jt3E",
       "voiceName": "Slovak Wiki Lucia",
-      "speakers": [],
+      "speakers": ["Lucia"],
       "note": "Voice Design. Shop assistant."
     },
     "receptionist": {

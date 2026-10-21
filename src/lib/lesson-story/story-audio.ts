@@ -30,6 +30,7 @@ let pending:
   | {
       generation: number;
       onEnded?: () => void;
+      rate: number;
       src: string;
       startedAt: number;
     }
@@ -127,6 +128,7 @@ function tryPlay(
   generation: number,
   startedAt: number,
   onEnded?: () => void,
+  rate = 1,
 ): void {
   if (audioMuted()) {
     scheduleEnded(generation, startedAt, onEnded);
@@ -135,6 +137,7 @@ function tryPlay(
 
   const audio = sharedStoryAudio();
   audio.src = src;
+  audio.playbackRate = rate;
   applyAudioVolume(audio);
   currentAudio = audio;
   attachPlayback(audio, generation, startedAt, onEnded);
@@ -149,7 +152,7 @@ function tryPlay(
 
       const kind = classifyPlayFailure(reason);
       if (kind === "autoplay") {
-        pending = { generation, onEnded, src, startedAt };
+        pending = { generation, onEnded, rate, src, startedAt };
         return;
       }
 
@@ -177,7 +180,7 @@ export function isStoryLineAudioActive(): boolean {
 export function unlockStoryAudio(): void {
   if (!pending || audioMuted()) return;
 
-  const { generation, onEnded, src, startedAt } = pending;
+  const { generation, onEnded, rate, src, startedAt } = pending;
   if (generation !== playGeneration) {
     pending = undefined;
     return;
@@ -194,7 +197,7 @@ export function unlockStoryAudio(): void {
   }
 
   playGeneration += 1;
-  tryPlay(src, playGeneration, startedAt, onEnded);
+  tryPlay(src, playGeneration, startedAt, onEnded, rate);
 }
 
 export function primeStoryAudio(): void {
@@ -222,6 +225,8 @@ export function primeStoryAudio(): void {
 export interface PlayStoryLineOptions {
   /** Fires when playback finishes (honors a minimum on-screen dwell). */
   onEnded?: () => void;
+  /** Playback speed; browsers keep the pitch, so 0.8 slows a line without deepening the voice. */
+  rate?: number;
 }
 
 /** Play a lesson line; replaces any in-flight story audio. MP3 only — no TTS. */
@@ -234,7 +239,7 @@ export function playStoryLineAudio(
 
   ensureMuteListener();
 
-  const { onEnded } = options;
+  const { onEnded, rate = 1 } = options;
   stopAll();
   const generation = playGeneration;
   const startedAt = Date.now();
@@ -244,7 +249,7 @@ export function playStoryLineAudio(
     return;
   }
 
-  tryPlay(src, generation, startedAt, onEnded);
+  tryPlay(src, generation, startedAt, onEnded, rate);
 }
 
 export function stopStoryLineAudio(): void {

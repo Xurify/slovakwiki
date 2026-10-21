@@ -1,5 +1,5 @@
 export type SearchDocKind =
-  "word" | "grammar" | "pronunciation" | "case" | "lesson" | "practice";
+  "word" | "grammar" | "pronunciation" | "case" | "lesson" | "listening" | "practice";
 
 /**
  * Pagefind weight per block (0–10, default 1). Headwords and forms outrank glosses,
@@ -30,6 +30,7 @@ export const searchKindLabels: Record<SearchDocKind, string> = {
   pronunciation: "Pronunciation",
   case: "Case",
   lesson: "Lesson",
+  listening: "Listening",
   practice: "Practice",
 };
 
@@ -61,6 +62,7 @@ export const searchKindChips: SearchDocKind[] = [
   "case",
   "pronunciation",
   "lesson",
+  "listening",
   "practice",
 ];
 
