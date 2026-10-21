@@ -46,7 +46,7 @@
   import { STICK_GESTURE_IDS } from "$lib/stick-figure/gestures";
   import { gesturePlan, planLine, type LinePlan } from "$lib/stick-figure/line-plan";
   import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
-  import { parseScript, sceneSnippet } from "$lib/stick-figure/script";
+  import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
   import { cx } from "$lib/ui/classes";
   import StickFigure from "./StickFigure.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
@@ -75,11 +75,11 @@
   let scriptText = $state(
     [
       "Anna: Dobrý deň. Volám sa Anna.",
-      "You: Dobrý deň. Volám sa Alex.",
+      "Alex: Dobrý deň. Volám sa Alex.",
       "Waiter: [point] Dáte si kávu?",
-      "You: Nie, ďakujem. Nemám teraz čas.",
+      "Alex: Nie, ďakujem. Nemám teraz čas.",
       "Anna: Hovoríte po slovensky?",
-      "You: Trochu. Ešte sa učím.",
+      "Alex: Trochu. Ešte sa učím.",
     ].join("\n"),
   );
 
@@ -370,7 +370,7 @@
                 }}
               >
                 <span class="min-w-0 flex-1">
-                  <span class="{eyebrowMutedClass} block">{line.speaker}</span>
+                  <span class="{eyebrowMutedClass} block">{stageName(line.speaker)}</span>
                   <span
                     class="mt-1 block font-serif text-lg font-semibold text-slate-900"
                     lang="sk"

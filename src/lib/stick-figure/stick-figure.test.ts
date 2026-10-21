@@ -15,7 +15,7 @@ import {
 import { performFrame, startPerformance, type PerformanceInput } from "./performance";
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
-import { parseScript, sceneSnippet } from "./script";
+import { parseScript, sceneSnippet, stageName } from "./script";
 import { slovakSyllables } from "./syllables";
 
 function distance(a: Point, b: Point): number {
@@ -377,6 +377,23 @@ describe("parseScript", () => {
 
     expect(problems.map((problem) => problem.line)).toEqual([1, 2, 3, 4]);
     expect(lines.find((line) => line.speaker === "Scene")?.characterId).toBe("narrator");
+  });
+
+  it("takes a cast name for the learner and stores the lesson label", () => {
+    const { lines, problems } = parseScript("Alex: Dobrý deň.\nYou: Ďakujem.");
+
+    expect(problems).toEqual([]);
+    expect(lines.map((line) => [line.speaker, line.characterId])).toEqual([
+      ["You", "alex"],
+      ["You", "alex"],
+    ]);
+    expect(sceneSnippet(lines)).toContain('speaker: "You"');
+  });
+
+  it("names the learner's figure on stage", () => {
+    expect(stageName("You")).toBe("Alex");
+    expect(stageName("Mária")).toBe("Mária");
+    expect(stageName("Scene")).toBe("Scene");
   });
 
   it("writes a lesson scene to paste", () => {

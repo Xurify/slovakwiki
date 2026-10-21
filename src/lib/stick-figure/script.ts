@@ -1,5 +1,6 @@
 import {
   characterIdForSpeaker,
+  isLearnerSpeaker,
   listedCharacters,
   type LessonCharacterId,
 } from "$lib/catalog/lessons/character-ids";
@@ -32,16 +33,35 @@ function isGesture(value: string): value is StickGestureId {
 }
 
 /**
+ * The name to put over a line on stage. Lessons label the learner's turns
+ * "You", but on stage those lines belong to a figure with a name.
+ */
+export function stageName(speaker: string): string {
+  if (!isLearnerSpeaker(speaker)) return speaker;
+
+  const id = characterIdForSpeaker(speaker);
+  return (
+    listedCharacters().find((character) => character.id === id)?.displayName ?? speaker
+  );
+}
+
+/**
  * Read a draft dialogue, one `Speaker: line` per row, before it has audio.
- * A `[gesture]` tag at the start of a sentence overrides the gesture picked
- * from its text: `You: Nie, ďakujem. [point] Tam je pošta.`
+ * A speaker is a lesson label (`You`, `Waiter`) or a cast name (`Alex`), which
+ * is stored as its lesson label. A `[gesture]` tag at the start of a sentence
+ * overrides the gesture picked from its text: `Alex: Nie, ďakujem. [point] Tam
+ * je pošta.`
  */
 export function parseScript(text: string): {
   lines: ScriptLine[];
   problems: ScriptProblem[];
 } {
-  const castSpeakers = new Set(
-    listedCharacters().flatMap((character) => character.speakers),
+  const cast = listedCharacters();
+  const castSpeakers = new Set(cast.flatMap((character) => character.speakers));
+  const labelForName = new Map(
+    cast
+      .filter((character) => character.kind !== "system" && character.speakers.length > 0)
+      .map((character) => [character.displayName, character.speakers[0]]),
   );
   const lines: ScriptLine[] = [];
   const problems: ScriptProblem[] = [];
@@ -56,13 +76,16 @@ export function parseScript(text: string): {
       return;
     }
 
-    const speaker = match[1].trim();
+    const written = match[1].trim();
+    const speaker = castSpeakers.has(written)
+      ? written
+      : (labelForName.get(written) ?? written);
     const body = match[2].trim();
     const system = dialogueSpeakerLabel(speaker) === null;
     if (!system && !castSpeakers.has(speaker)) {
       problems.push({
         line,
-        message: `${speaker} is not in the cast, so the narrator speaks`,
+        message: `${written} is not in the cast, so the narrator speaks`,
       });
     }
 
@@ -87,7 +110,7 @@ export function parseScript(text: string): {
 
     const slovak = body.replace(ANY_TAG, "").replace(/\s+/g, " ").trim();
     if (!/\p{L}/u.test(slovak)) {
-      problems.push({ line, message: `${speaker} has no line` });
+      problems.push({ line, message: `${written} has no line` });
       return;
     }
 
