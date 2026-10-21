@@ -26,7 +26,6 @@
   data-practice-track={track.id}
 >
   <SectionHead
-    eyebrow="Track"
     title={track.title}
     id="track-{track.id}-heading"
     description={track.description}

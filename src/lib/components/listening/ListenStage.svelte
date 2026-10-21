@@ -85,8 +85,8 @@
     checks.length === 0
       ? "Listen, then read along."
       : checks.length === 1
-        ? "Listen first. The text opens after one short question."
-        : `Listen first. The text opens after ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`;
+        ? "Listen first, then answer one short question."
+        : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`;
 
   const status = $derived.by(() => {
     const line = player.line;

@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import type { Snippet } from "svelte";
 
   /**
-   * Section opener shared by index pages: eyebrow, serif title, optional
-   * description, and a small right-hand aside (a count or a link). Mirrors the
-   * track head on the lessons page so every index reads the same way.
+   * Section opener shared by index pages: serif title, optional description,
+   * and a small right-hand aside (a count or a link). Mirrors the track head on
+   * the lessons page so every index reads the same way.
    */
   let {
-    eyebrow,
     title,
     id,
     href,
@@ -16,7 +14,6 @@
     aside,
     class: className = "",
   }: {
-    eyebrow: string;
     title: string;
     id: string;
     /** Makes the title a link. */
@@ -30,11 +27,9 @@
 <div class={className}>
   <div class="mb-1 flex items-baseline justify-between gap-4">
     <div class="min-w-0">
-      <p class={eyebrowMutedClass}>{eyebrow}</p>
-
       <h2
         {id}
-        class="m-0 mt-1 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl"
+        class="m-0 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl"
       >
         {#if href}
           <a class="text-inherit no-underline hover:underline" {href}>{title}</a>

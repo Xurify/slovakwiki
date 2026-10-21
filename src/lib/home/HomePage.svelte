@@ -140,7 +140,6 @@
         <div class="space-y-12">
           <section aria-labelledby="browse-heading">
             <SectionHead
-              eyebrow="Dictionary"
               title="Browse {wordCount} words"
               id="browse-heading"
               href="/dictionary"
@@ -208,7 +207,6 @@
             {#if otherGroups.length > 0}
               <section aria-labelledby="tracks-heading">
                 <SectionHead
-                  eyebrow="More tracks"
                   title="Grammar and pronunciation lessons"
                   id="tracks-heading"
                   href="/lessons"
@@ -258,7 +256,6 @@
 
           <section aria-labelledby="common-heading">
             <SectionHead
-              eyebrow="Most common"
               title="The words you will meet first"
               id="common-heading"
               href="/dictionary/common/verb"
@@ -313,7 +310,6 @@
 
           <section aria-labelledby="reference-heading">
             <SectionHead
-              eyebrow="Reference"
               title="Grammar and pronunciation"
               id="reference-heading"
               href="/grammar"
@@ -406,7 +402,6 @@
 
           <section aria-labelledby="practice-heading">
             <SectionHead
-              eyebrow="Practice"
               title="Drill what you learned"
               id="practice-heading"
               href="/practice"

@@ -108,12 +108,7 @@
 <main class="py-12 pb-28 max-[600px]:py-8">
   <PageShell class="max-w-[1100px]">
     <header class="max-w-[680px]">
-      <p
-        class="m-0 font-mono text-xs font-medium tracking-widest text-blue-700 uppercase"
-      >
-        Images
-      </p>
-      <h1 class="mt-2 text-3xl font-bold tracking-tight text-blue-950 sm:text-4xl">
+      <h1 class="m-0 text-3xl font-bold tracking-tight text-blue-950 sm:text-4xl">
         Dictionary image audit
       </h1>
       <Lead class="mt-3">
