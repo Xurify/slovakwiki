@@ -11,4 +11,6 @@ export const FREQUENCY_PUBLISH_BLOCKLIST = new Set([
   "pro",
   // Only the second half of compounds (dvojčlenný); "member" is členský.
   "členný",
+  // Dated for "last time" and not in PSP or KSSJ; Slovak says naposledy or minule.
+  "posledne",
 ]);
