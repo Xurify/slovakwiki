@@ -154,6 +154,9 @@
     studio: "In the podcast studio",
   };
 
+  /** The scene a link opens: `?scene=podcast-demonstratives-market`. */
+  const SCENE_PARAM = "scene";
+
   /** Between one line and the next, as in the lesson story. */
   const LINE_GAP_MS = 450;
   /** Long enough to read why the found word looks the way it does. */
@@ -274,6 +277,9 @@
   );
 
   onMount(() => {
+    const linked = new URLSearchParams(window.location.search).get(SCENE_PARAM);
+    if (linked && scenes.some((option) => option.id === linked)) sceneId = linked;
+
     showEnglish = getStoryShowEnglish() === "on";
     const sync = () => {
       showEnglish = getStoryShowEnglish() === "on";
@@ -310,6 +316,9 @@
     const same = id === scene.id;
     reset();
     sceneId = id;
+    const url = new URL(window.location.href);
+    url.searchParams.set(SCENE_PARAM, id);
+    window.history.replaceState(window.history.state, "", url);
     // Greeting Mária is the same on any scene, so picking one means watching it.
     if (mode === "greet") mode = "watch";
     if (mode === "play" && learnerCount === 0) mode = "watch";
