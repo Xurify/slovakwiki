@@ -1,23 +1,10 @@
 import type { DialogueTurn } from "$lib/learning/types";
 import { demonstrativesEpisode } from "./episodes/demonstratives";
-import { demonstrativesListen } from "./grammar-listens/demonstratives";
-import type { GrammarListen, ListeningChapter, ListeningEpisode } from "./types";
+import type { ListeningChapter, ListeningEpisode } from "./types";
 
-export type {
-  GrammarListen,
-  ListeningChapter,
-  ListeningCheck,
-  ListeningEpisode,
-} from "./types";
+export type { ListeningChapter, ListeningCheck, ListeningEpisode } from "./types";
 
 export const listeningEpisodes: ListeningEpisode[] = [demonstrativesEpisode];
-
-/** Short dialogues that sit on a grammar page, one per topic. */
-export const grammarListens: GrammarListen[] = [demonstrativesListen];
-
-export function grammarListenForSlug(slug: string): GrammarListen | undefined {
-  return grammarListens.find((listen) => listen.grammarSlug === slug);
-}
 
 export const episodeBySlug = new Map(
   listeningEpisodes.map((episode) => [episode.slug, episode]),
@@ -105,15 +92,6 @@ export function validateListeningEpisodes(): string[] {
         issues.push(`Check ${check.id} replays unknown line ${check.replayLineId}`);
       }
     }
-  }
-
-  for (const listen of grammarListens) {
-    const prefix = `listen-${listen.grammarSlug}-`;
-    if (grammarListenForSlug(listen.grammarSlug) !== listen) {
-      issues.push(`Duplicate grammar listen: ${listen.grammarSlug}`);
-    }
-    if (!listen.checks.length) issues.push(`Missing checks: ${listen.id}`);
-    checkChapter(listen, prefix, () => {});
   }
 
   for (const episode of listeningEpisodes) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
+  import { episodeMinutes, episodePath, listeningEpisodes } from "$lib/catalog/listening";
   import LessonMotif from "$lib/components/lessons/LessonMotif.svelte";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
@@ -35,13 +35,28 @@
 
             <span class="min-w-0">
               <strong
-                class="block font-serif text-base leading-snug tracking-tight text-balance text-blue-800 underline-offset-2 group-hover:underline sm:text-lg"
+                class="block font-serif text-base leading-snug tracking-tight text-balance text-blue-800 sm:text-lg"
               >
-                {episode.title}
+                <span class="underline-offset-2 group-hover:underline" lang="sk">
+                  {episode.titleSk}
+                </span>
+                <span
+                  class="font-sans text-sm font-normal tracking-normal text-slate-500"
+                >
+                  · {episode.title}
+                </span>
               </strong>
 
               <span class="mt-0.5 block text-sm leading-snug text-pretty text-slate-600">
                 {episode.promise}
+              </span>
+
+              <span class="mt-1 block text-xs text-slate-500">
+                <span lang="sk">{episode.topic}</span>
+                <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+                {episodeMinutes(episode)} min
+                <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+                {episode.level}
               </span>
             </span>
 

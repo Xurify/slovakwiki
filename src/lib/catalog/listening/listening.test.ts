@@ -10,8 +10,6 @@ import {
   episodeLines,
   episodeMinutes,
   episodePath,
-  grammarListenForSlug,
-  grammarListens,
   listeningEpisodes,
   validateListeningEpisodes,
 } from "./index";
@@ -35,38 +33,17 @@ describe("listening episodes", () => {
     }
   });
 
-  it("puts each grammar listen on a grammar page that exists", () => {
-    const grammarSlugs = new Set(grammarEntries.map((entry) => entry.slug));
-
-    for (const listen of grammarListens) {
-      expect(grammarSlugs.has(listen.grammarSlug), listen.grammarSlug).toBe(true);
-      expect(grammarListenForSlug(listen.grammarSlug)).toBe(listen);
-      expect(listen.lines.length).toBeLessThanOrEqual(16);
-    }
-  });
-
   it("gives every speaker a voice of their own, never the narrator fallback", () => {
     const listed = new Set(listedAudioSpeakers().map((row) => row.speaker));
-    const allLines = [
-      ...listeningEpisodes.flatMap(episodeLines),
-      ...grammarListens.flatMap((listen) => listen.lines),
-    ];
 
-    {
-      for (const line of allLines) {
-        expect(listed.has(line.speaker), `speaker ${line.speaker}`).toBe(true);
-        expect(characterIdForSpeaker(line.speaker)).not.toBe("narrator");
-      }
+    for (const line of listeningEpisodes.flatMap(episodeLines)) {
+      expect(listed.has(line.speaker), `speaker ${line.speaker}`).toBe(true);
+      expect(characterIdForSpeaker(line.speaker)).not.toBe("narrator");
     }
   });
 
   it("keeps marks inside the spoken line", () => {
-    const allLines = [
-      ...listeningEpisodes.flatMap(episodeLines),
-      ...grammarListens.flatMap((listen) => listen.lines),
-    ];
-
-    for (const line of allLines) {
+    for (const line of listeningEpisodes.flatMap(episodeLines)) {
       for (const mark of line.marks ?? []) {
         expect(mark.start).toBeGreaterThanOrEqual(0);
         expect(mark.end).toBeLessThanOrEqual(line.slovak.length);

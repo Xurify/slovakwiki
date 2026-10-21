@@ -386,6 +386,152 @@ const market: ListeningChapter = {
   ],
 };
 
+/** The car key from the bag game goes missing, which brings in the other cases. */
+const home: ListeningChapter = {
+  id: `${PREFIX}home`,
+  titleSk: "Doma",
+  title: "The lost car key",
+  lines: [
+    line("anna-now-at-home", "Anna", ["A teraz sme doma."], "And now we're at home."),
+    line(
+      "marek-where-is-key",
+      "Marek",
+      ["Anna, kde je ", { d: "ten" }, " malý kľúč?"],
+      "Anna, where is that small key?",
+    ),
+    line(
+      "anna-this-or-that",
+      "Anna",
+      ["Ktorý? ", { d: "Tento" }, " alebo ", { d: "tamten" }, "?"],
+      "Which one? This one or that one over there?",
+    ),
+    line(
+      "marek-that-one-car",
+      "Marek",
+      [{ d: "Tamten" }, ". ", { d: "Ten" }, " od auta."],
+      "That one over there. The car key.",
+    ),
+    line(
+      "anna-in-that-bag",
+      "Anna",
+      ["Je v ", { d: "tej" }, " taške."],
+      "It's in that bag.",
+    ),
+    line("marek-in-this-one", "Marek", ["V ", { d: "tejto" }, "?"], "In this one?"),
+    line(
+      "anna-in-that-one-window",
+      "Anna",
+      ["Nie, v ", { d: "tamtej" }, ". Pri ", { d: "tom" }, " okne."],
+      "No, in that one over there. By that window.",
+    ),
+    line(
+      "marek-got-it-who-is-man",
+      "Marek",
+      ["Aha, mám ho. A kto je ", { d: "ten" }, " muž vonku?"],
+      "Got it. And who is that man outside?",
+    ),
+    line(
+      "anna-neighbour-you-know-him",
+      "Anna",
+      [{ d: "To" }, " je náš sused, pán Novák. ", { d: "Toho" }, " muža poznáš."],
+      "That's our neighbour, Mr Novák. You know that man.",
+    ),
+    line(
+      "marek-with-that-woman",
+      "Marek",
+      ["Áno! Ide s ", { d: "tou" }, " ženou z obchodu."],
+      "Yes! He's walking with that woman from the shop.",
+    ),
+    line(
+      "anna-his-sister",
+      "Anna",
+      [{ d: "To" }, " je jeho sestra."],
+      "That's his sister.",
+    ),
+    line(
+      "marek-those-people-nice",
+      "Marek",
+      [{ d: "Tí" }, " ľudia sú milí."],
+      "Those people are nice.",
+    ),
+    line(
+      "anna-dont-lose-these-keys",
+      "Anna",
+      ["Áno. A ", { d: "tieto" }, " kľúče už nestrácaj!"],
+      "Yes. And don't lose these keys again!",
+    ),
+  ],
+  checks: [
+    {
+      id: `${PREFIX}check-where-key`,
+      prompt: "Where is the key?",
+      replayLineId: `${PREFIX}anna-in-that-one-window`,
+      choices: [
+        { id: "far-bag", label: "V tamtej taške, pri okne." },
+        {
+          id: "this-bag",
+          label: "V tejto taške.",
+          whyWrong: "Marek asks **v tejto?** and Anna says **nie**.",
+        },
+        {
+          id: "car",
+          label: "V aute.",
+          whyWrong: "It is the key **od auta**, the car key, but it is in a bag.",
+        },
+      ],
+      answerId: "far-bag",
+      feedback: {
+        english: "No, in that one over there. By that window.",
+        why: "Anna says **v tamtej**, in that bag over there, **pri tom okne**.",
+      },
+    },
+    {
+      id: `${PREFIX}check-toho`,
+      promptSk: "___ muža poznáš.",
+      prompt: "Which form did Anna say?",
+      replayLineId: `${PREFIX}anna-neighbour-you-know-him`,
+      choices: [
+        { id: "toho", label: "toho" },
+        {
+          id: "ten",
+          label: "ten",
+          whyWrong:
+            "**Ten** is the nominative. After **poznať** a man takes the accusative.",
+        },
+        { id: "tomu", label: "tomu", whyWrong: "**Tomu** is the dative: to that man." },
+      ],
+      answerId: "toho",
+      feedback: {
+        english: "You know that man.",
+        why: "**Poznať** takes the accusative, and a man changes: **toho muža**.",
+      },
+    },
+    {
+      id: `${PREFIX}check-who-is-woman`,
+      prompt: "Who is the woman with the neighbour?",
+      replayLineId: `${PREFIX}anna-his-sister`,
+      choices: [
+        { id: "sister", label: "Jeho sestra." },
+        {
+          id: "wife",
+          label: "Jeho žena.",
+          whyWrong: "Anna says **sestra**, sister, not **žena**.",
+        },
+        {
+          id: "neighbour",
+          label: "Suseda.",
+          whyWrong: "**Suseda** is a female neighbour. Anna says **jeho sestra**.",
+        },
+      ],
+      answerId: "sister",
+      feedback: {
+        english: "That's his sister.",
+        why: "Anna says **to je jeho sestra**: **to je** never changes, whoever it points at.",
+      },
+    },
+  ],
+};
+
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Správne alebo nesprávne?",
@@ -521,6 +667,13 @@ const outro: ListeningChapter = {
     ),
     line("marek-take-care", "Marek", ["Majte sa pekne!"], "Take care!"),
     line("anna-bye", "Anna", ["Ahojte!"], "Bye!"),
+    line(
+      "marek-where-are-those-keys",
+      "Marek",
+      ["Anna? Kde sú ", { d: "tie" }, " kľúče?"],
+      "Anna? Where are those keys?",
+    ),
+    line("anna-marek", "Anna", ["Marek!"], "Marek!"),
   ],
   checks: [
     {
@@ -546,6 +699,30 @@ const outro: ListeningChapter = {
         why: "**Ahojte** is the friendly bye to more than one person: all the listeners.",
       },
     },
+    {
+      id: `${PREFIX}check-lost-again`,
+      prompt: "What is Marek looking for at the very end?",
+      replayLineId: `${PREFIX}marek-where-are-those-keys`,
+      choices: [
+        { id: "keys", label: "Kľúče." },
+        {
+          id: "apple",
+          label: "Jablko.",
+          whyWrong: "The apple was in the bag game. Now Marek asks **kde sú tie kľúče?**",
+        },
+        {
+          id: "bag",
+          label: "Tašku.",
+          whyWrong:
+            "The keys were in a bag at home. Now Marek asks **kde sú tie kľúče?**",
+        },
+      ],
+      answerId: "keys",
+      feedback: {
+        english: "Anna? Where are those keys?",
+        why: "**Kľúče** are things, so **tie kľúče**. Only masculine nouns for people take **tí**: **tí muži**.",
+      },
+    },
   ],
 };
 
@@ -554,10 +731,11 @@ export const demonstrativesEpisode: ListeningEpisode = {
   slug: "demonstratives",
   number: 1,
   level: "A1–A2",
-  title: "Ten, tá, to",
-  titleSk: "Toto je podcast!",
+  titleSk: "Kde je ten kľúč?",
+  title: "Where is that key?",
+  topic: "Ten, tá, to",
   promise:
-    "A three-minute listen for beginners. Anna and Marek play a guessing game, shop at the market and quiz each other.",
+    "Anna and Marek play a guessing game, shop at the market, lose the car key and quiz each other.",
   grammarSlug: "demonstratives",
   lessonId: "grammar/demonstratives",
   practiceSetId: "demonstratives",
@@ -570,5 +748,5 @@ export const demonstrativesEpisode: ListeningEpisode = {
     { slovak: "jahody", english: "strawberries" },
     { slovak: "Čo je to?", english: "What is it?" },
   ],
-  chapters: [intro, bag, market, quiz, outro],
+  chapters: [intro, bag, market, home, quiz, outro],
 };

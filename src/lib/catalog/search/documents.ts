@@ -199,10 +199,10 @@ export function buildSearchDocuments(): SearchDocument[] {
     documents.push({
       url: episodePath(episode),
       kind: "listening",
-      title: episode.title,
+      title: `${episode.titleSk} · ${episode.title}`,
       summary: episode.promise,
       ...sections({
-        headword: [episode.title, episode.titleSk],
+        headword: [episode.titleSk, episode.title, episode.topic],
         gloss: [episode.promise, episode.level],
         body: episode.chapters.flatMap((chapter) => [chapter.titleSk, chapter.title]),
         examples: [

@@ -35,11 +35,6 @@ export interface ListeningChapter {
   titleSk: string;
 }
 
-/** A one-minute dialogue embedded on a grammar page: one chapter, a few checks. */
-export interface GrammarListen extends ListeningChapter {
-  grammarSlug: string;
-}
-
 /** Where the episode page points once every chapter is done. */
 export interface EpisodeNextSteps {
   grammarHref: string;
@@ -63,10 +58,12 @@ export interface ListeningEpisode {
   /** One sentence: what you will hear. */
   promise: string;
   slug: string;
-  /** English title. */
+  /** English gloss of the Slovak title. */
   title: string;
-  /** Slovak title, shown under the English one. */
+  /** The episode's name: a line from the story, shown first. */
   titleSk: string;
+  /** The grammar it listens for, as the grammar page names it: "Ten, tá, to". */
+  topic: string;
   /** Words to listen for, read by the guide voice. */
   vocabulary: KeyPhrase[];
 }

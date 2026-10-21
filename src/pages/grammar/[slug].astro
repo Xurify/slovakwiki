@@ -13,13 +13,6 @@ import { entryHref } from "$lib/catalog/dictionary/lemma-senses";
 import { sentenceCase } from "$lib/catalog/search/ui";
 import type { Example, GrammarContrast } from "$lib/catalog/types";
 import GrammarWeakSpots from "$lib/components/reference/GrammarWeakSpots.svelte";
-import GrammarListen from "$lib/components/listening/GrammarListen.svelte";
-import { grammarListenAudioSrcs } from "$lib/catalog/listening/audio";
-import {
-  episodeForGrammarSlug,
-  episodePath,
-  grammarListenForSlug,
-} from "$lib/catalog/listening";
 import { practiceRulesForGrammarTopic } from "$lib/practice/grammar-practice-rules";
 
 export function getStaticPaths() {
@@ -79,16 +72,7 @@ export function getStaticPaths() {
     ];
 
     const practiceRules = practiceRulesForGrammarTopic(entry.slug);
-    const listen = grammarListenForSlug(entry.slug);
-    const episode = episodeForGrammarSlug(entry.slug);
-    const listenBlock = listen
-      ? {
-          listen,
-          audioSrcs: grammarListenAudioSrcs(listen),
-          episodeHref: episode ? episodePath(episode) : undefined,
-        }
-      : undefined;
-    const props = { entry, relatedEntries, audioTargets, practiceRules, listenBlock };
+    const props = { entry, relatedEntries, audioTargets, practiceRules };
 
     return {
       params: { slug: entry.slug },
@@ -98,7 +82,7 @@ export function getStaticPaths() {
   });
 }
 
-const { entry, relatedEntries, audioTargets, practiceRules, listenBlock } = Astro.props;
+const { entry, relatedEntries, audioTargets, practiceRules } = Astro.props;
 ---
 
 <SiteLayout
@@ -112,17 +96,6 @@ const { entry, relatedEntries, audioTargets, practiceRules, listenBlock } = Astr
     {
       audioTargets.length > 0 && (
         <AudioMountHost slot="audioMount" client:load targets={audioTargets} />
-      )
-    }
-    {
-      listenBlock && (
-        <GrammarListen
-          slot="listen"
-          client:load
-          listen={listenBlock.listen}
-          audioSrcs={listenBlock.audioSrcs}
-          episodeHref={listenBlock.episodeHref}
-        />
       )
     }
     {

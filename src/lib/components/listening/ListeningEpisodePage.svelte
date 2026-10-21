@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import type { ListeningEpisode } from "$lib/catalog/listening";
+  import { episodeMinutes, type ListeningEpisode } from "$lib/catalog/listening";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -27,9 +27,21 @@
     </nav>
 
     <header>
-      <h1 class="m-0 text-[1.85rem] leading-tight sm:text-[2.15rem]">{episode.title}</h1>
+      <p class="m-0 text-sm text-slate-500">
+        <span lang="sk">{episode.topic}</span>
+        <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+        {episodeMinutes(episode)} min
+        <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+        {episode.level}
+      </p>
 
-      <Lead class="mt-2 text-pretty">{episode.promise}</Lead>
+      <h1 class="m-0 mt-1 text-[1.85rem] leading-tight sm:text-[2.15rem]" lang="sk">
+        {episode.titleSk}
+      </h1>
+
+      <p class="m-0 mt-1 text-lg text-slate-500">{episode.title}</p>
+
+      <Lead class="mt-3 text-pretty">{episode.promise}</Lead>
     </header>
 
     <div class="mt-8">

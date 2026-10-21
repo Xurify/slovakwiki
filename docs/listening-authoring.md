@@ -5,7 +5,10 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 ## 1. Plan
 
 - [ ] One grammar page (`grammarSlug`), one promise sentence, level `A1–A2`.
+- [ ] Name it like a story, after a line the learner will hear: `titleSk: "Kde je ten kľúč?"`, with the English gloss in `title`. The grammar label goes in `topic` (`"Ten, tá, to"`) and shows beside the length and level.
 - [ ] 4–6 chapters of 4–14 lines. Each chapter is one situation (an intro, a game, a shop, a quiz, an outro) and brings in its own nouns, so the target forms turn up in different company.
+- [ ] Cover every form the grammar page's tables show, the other cases too, not only the nominative.
+- [ ] Give the chapters a thread: something from an early chapter comes back later. The car key from the bag game goes missing at home, and again in the last line.
 - [ ] Keep the Slovak inside the level: present tense, high-frequency nouns, fixed chunks. Repetition is a feature: a learner should hear the taught forms many times.
 - [ ] Speakers come from the roster in `content/audio/config.json` (`speakers`): `Anna`, `Marek`, `Lucia`, `Mária`, `Waiter`, `Receptionist`. List them in the episode's `speakers`; any other label falls back to the narrator voice and fails the speaker test.
 
@@ -23,10 +26,6 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] `replayLineId` points at the line the answer comes from, in the same chapter; the learner can replay it, audio only.
 - [ ] `promptSk` with a `___` gap turns a check into "which word did you hear": `___ kľúč je od auta.`
 - [ ] Prompts are a direct English question; choices are Slovak. Every wrong choice has a `whyWrong`; `feedback.why` names the rule or quotes the line in `**bold**`; `feedback.english` glosses that line.
-
-## Grammar page listen block
-
-The short version lives on the grammar page itself: one `GrammarListen` in `src/lib/catalog/listening/grammar-listens/<slug>.ts`, a chapter shape with a `grammarSlug`. Ten to fourteen lines, one situation, every form the page's tables show, two or three checks. Ids start with `listen-<slug>-`. Add it to `grammarListens` in the catalog index and the page picks it up under **Hear it**. Same audio and verification steps as an episode.
 
 ## 4. Wire it in
 

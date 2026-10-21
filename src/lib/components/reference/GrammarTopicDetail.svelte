@@ -17,11 +17,7 @@
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
-  import {
-    episodeForGrammarSlug,
-    episodePath,
-    grammarListenForSlug,
-  } from "$lib/catalog/listening";
+  import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
   import {
     grammarGroupAnchor,
@@ -45,7 +41,6 @@
     relatedEntries = [],
     audioKeys = [],
     clockDrill,
-    listen,
     weakSpots,
   }: {
     topic: GrammarTopic;
@@ -53,7 +48,6 @@
     audioKeys?: string[];
     /** Client island slot from Astro (`client:only` / `client:load`). */
     clockDrill?: Snippet;
-    listen?: Snippet;
     weakSpots?: Snippet;
   } = $props();
 
@@ -109,10 +103,6 @@
 
   const episode = $derived(episodeForGrammarSlug(topic.slug));
 
-  // Astro hands over a named slot even when its condition is false, so the
-  // snippet alone does not say whether this topic has a dialogue.
-  const hasListen = $derived(Boolean(grammarListenForSlug(topic.slug)));
-
   const steps = $derived(
     [
       neighbors.previous && { label: "Previous", topic: neighbors.previous, rel: "prev" },
@@ -167,7 +157,7 @@
               href={episodePath(episode)}
               class="inline-flex items-center gap-1.5"
             >
-              Listen: {episode.title}
+              <span>Listen: <span lang="sk">{episode.titleSk}</span></span>
               <ArrowRight />
             </TextLink>
           {/if}
@@ -252,18 +242,6 @@
         <GrammarRichText text={topic.lookFor} />
       </p>
     </section>
-
-    {#if listen && hasListen}
-      <section id="listen" class="mt-8" aria-labelledby="listen-heading">
-        <h2 id="listen-heading" class={grammarHeadingClass}>Hear it</h2>
-
-        <p class="m-0 mt-1.5 mb-4 max-w-[62ch] text-sm leading-relaxed text-slate-600">
-          A short conversation that uses the forms above.
-        </p>
-
-        {@render listen()}
-      </section>
-    {/if}
 
     {#if topic.contrasts}
       <section id="contrasts" class="mt-8" aria-labelledby="contrasts-heading">

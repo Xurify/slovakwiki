@@ -37,7 +37,7 @@ const { episode, audio, next } = Astro.props;
 ---
 
 <SiteLayout
-  title={`${episode.title} | Slovak Wiki Listening`}
+  title={`${episode.titleSk} (${episode.topic}) | Slovak Wiki Listening`}
   description={episode.promise}
   canonicalPath={`/listening/${episode.slug}`}
 >
