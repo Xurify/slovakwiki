@@ -11,7 +11,6 @@
     player,
   }: {
     data: { episode: ListeningEpisode };
-    /** Client island: words, the chapter player and the chapter list. */
     player: Snippet;
   } = $props();
 

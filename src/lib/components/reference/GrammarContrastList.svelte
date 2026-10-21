@@ -18,16 +18,11 @@
     audioKeys = [],
   }: {
     contrasts: GrammarContrastSet;
-    /** `contrast-{frame}-{choice}` and `contrast-more-{frame}-{choice}` keys with a clip. */
     audioKeys?: string[];
   } = $props();
 
   const allFrames = $derived([...contrasts.frames, ...(contrasts.more ?? [])]);
 
-  /**
-   * The key shows the page's own words in the exact style the rows use, so the
-   * reader matches shapes rather than decoding coloured dots.
-   */
   const key = $derived.by(() => {
     for (const choice of allFrames.flatMap((frame) => frame.choices)) {
       const { text, marks } = choice.slovak;
@@ -47,7 +42,6 @@
     return null;
   });
 
-  /** "akuzatív · množné číslo" → "akuzatív, množné číslo": one term list, not a dotted chain. */
   function caseTerms(terms: string): string {
     return terms.split(" · ").join(", ");
   }

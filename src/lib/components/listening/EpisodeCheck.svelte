@@ -17,13 +17,13 @@
     otherChoiceNotes,
   } from "$lib/learning/exercises";
   import type { DialogueTurn } from "$lib/learning/types";
-  import { followFocus } from "$lib/listening/focus";
+  import { focusUnlessTyping } from "$lib/listening/focus";
 
   import EpisodeReplayButton from "./EpisodeReplayButton.svelte";
 
   let {
     check,
-    index,
+    questionNumber,
     onbeforereplay,
     onresolve,
     replayLine,
@@ -31,8 +31,7 @@
     total,
   }: {
     check: ListeningCheck;
-    /** 1-based position inside the chapter. */
-    index: number;
+    questionNumber: number;
     onbeforereplay?: () => void;
     onresolve: (correct: boolean) => void;
     replayLine?: DialogueTurn;
@@ -46,7 +45,7 @@
   let feedbackPanel: HTMLElement | null = $state(null);
 
   const correct = $derived(submitted && selectedId === check.answerId);
-  const last = $derived(index === total);
+  const last = $derived(questionNumber === total);
   const why = $derived(
     submitted
       ? choiceFeedbackWhy(check.feedback.why, selectedId, check.choices, check.answerId)
@@ -77,7 +76,6 @@
     );
   }
 
-  /** Keys act while focus is in this dialogue (Listen again included) or nowhere. */
   function ownsKeyboard(): boolean {
     const active = document.activeElement;
     const scope = root?.closest("[data-listen-stage]") ?? root;
@@ -104,7 +102,7 @@
     selectedId = choice.id;
   }
 
-  onMount(() => followFocus(root));
+  onMount(() => focusUnlessTyping(root));
 </script>
 
 <svelte:window onkeydown={onWindowKeydown} />
@@ -116,7 +114,7 @@
   tabindex="-1"
 >
   <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-    <p class="m-0 text-sm text-slate-500">Question {index} of {total}</p>
+    <p class="m-0 text-sm text-slate-500">Question {questionNumber} of {total}</p>
 
     {#if replayLine}
       <EpisodeReplayButton

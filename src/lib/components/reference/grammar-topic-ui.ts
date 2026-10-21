@@ -5,7 +5,6 @@ import { markRoleClass, type TextRole } from "$lib/learning/marked-text";
 /** The part of a form the pattern is about: an ending, a prefix. */
 export const grammarEndingClass = "text-blue-800";
 
-/** The changing word takes the page's ending colour; the owner and the noun ending keep their own. */
 export function grammarMarkClass(role: TextRole): string {
   return role === "owner" || role === "ending" ? markRoleClass(role) : grammarEndingClass;
 }

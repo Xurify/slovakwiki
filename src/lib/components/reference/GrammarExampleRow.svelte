@@ -14,29 +14,30 @@
   let {
     example,
     audioKey,
-    marked,
+    forms,
     practiceHref,
-    showAudio,
+    reserveAudioColumn,
   }: {
     example: Example;
     audioKey?: string;
-    /** Lowercase words to show in the page's form colour. */
-    marked: ReadonlySet<string>;
+    forms: ReadonlySet<string>;
     practiceHref?: string;
-    /** Keep the audio column when any row in the list has a clip, so text lines up. */
-    showAudio: boolean;
+    reserveAudioColumn: boolean;
   } = $props();
 
   const parts = $derived(
     example.slovak
       .split(/(\p{L}+)/u)
       .filter((part) => part !== "")
-      .map((text) => ({ text, marked: marked.has(text.toLocaleLowerCase("sk")) })),
+      .map((text) => ({
+        text,
+        highlighted: forms.has(text.toLocaleLowerCase("sk")),
+      })),
   );
 </script>
 
 <li class="flex items-start gap-2.5 border-t border-slate-200/70 py-3">
-  {#if showAudio}
+  {#if reserveAudioColumn}
     <span class="mt-0.5 inline-grid size-7 shrink-0 place-items-center">
       {#if audioKey}
         <span data-audio-mount={audioKey}></span>
@@ -47,7 +48,7 @@
   <div class="min-w-0 flex-1">
     <p class={cx(grammarFormClass, "m-0 text-lg")} lang="sk">
       {#each parts as part, index (index)}
-        {#if part.marked}
+        {#if part.highlighted}
           <span class={grammarEndingClass}>{part.text}</span>
         {:else}
           {part.text}

@@ -15,7 +15,7 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 ## 2. Write the script
 
 - [ ] It must read like a show: a hello, a reason to talk, banter, a goodbye. Read it aloud.
-- [ ] Mark the taught word with `{ d: "ten" }` parts (the `demonstrative` role) so the transcript lights it up after listening. Add a role in `marked-text.ts` when a new topic needs one, then run `bun run fouc:boot`.
+- [ ] Mark the taught word with `{ demonstrative: "ten" }` so the transcript lights it up after listening. Add a role in `marked-text.ts` when a new topic needs one, then run `bun run fouc:boot`.
 - [ ] When a host says something wrong on purpose (a quiz), say so in the English gloss, so the transcript never teaches the wrong form.
 - [ ] Ids start with `podcast-<slug>-` and say what they hold: `podcast-demonstratives-marek-car-key`. `validateListeningEpisodes` checks prefixes and uniqueness.
 - [ ] `vocabulary`: 4–6 words to listen for, Slovak and English only. They show as tap-to-hear chips above the player, read by the guide voice; grammar notes belong on the grammar page.

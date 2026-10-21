@@ -11,7 +11,6 @@
     marks,
     text,
   }: {
-    /** Grammar surfaces pass `grammarMarkClass` so marks match the topic's tables. */
     markClass?: (role: TextRole) => string;
     marks?: TextMark[];
     text: string;

@@ -86,8 +86,7 @@
       })),
   );
 
-  /** Ending rows already show one example each; skip the list so they are not repeated. */
-  const examplesInPattern = $derived.by(() => {
+  const patternIncludesExamples = $derived.by(() => {
     if (topic.caseOverview || isTime) return false;
     const view = patternView(topic.pattern, topic.examples);
     return view.kind === "tiles" && view.tiles.every((tile) => tile.example);
@@ -327,7 +326,7 @@
       </section>
     {/if}
 
-    {#if topic.examples.length > 0 && !examplesInPattern}
+    {#if topic.examples.length > 0 && !patternIncludesExamples}
       <section id="examples" class="mt-8" aria-labelledby="examples-heading">
         <h2 id="examples-heading" class={grammarHeadingClass}>In real sentences</h2>
 
