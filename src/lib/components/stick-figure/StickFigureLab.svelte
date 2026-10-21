@@ -118,16 +118,19 @@
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
   let benchProp = $state<StickPropId | undefined>();
-  let scriptSetting = $state<LessonSceneArtId>("default");
+  let scriptSetting = $state<LessonSceneArtId>("cafe");
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   let scriptText = $state(
     [
-      "Anna: Dobrý deň. Volám sa Anna.",
-      "Alex: Dobrý deň. Volám sa Alex.",
-      "Waiter: [point] Dáte si kávu?",
-      "Alex: Nie, ďakujem. Nemám teraz čas.",
-      "Anna: Hovoríte po slovensky?",
-      "Alex: Trochu. Ešte sa učím.",
+      "Waiter: Dobrý deň. Dáte si kávu?",
+      "Anna: Áno, prosím.",
+      "Alex > Waiter: Ja si dám čaj.",
+      "Anna: Pozri, to sú fotky z leta.",
+      "Alex: Super! Kto je ten muž?",
+      "Anna: To je môj brat Tom.",
+      "Alex > Waiter: Prepáčte, koľko to stojí?",
+      "Waiter: Štyri eurá päťdesiat.",
+      "Alex: Ďakujem. Dovidenia!",
     ].join("\n"),
   );
 
@@ -516,6 +519,10 @@
                     {#each [...new Set(lineCues[index]?.filter((prop) => prop))] as prop (prop)}
                       <span>Shows the {prop}</span>
                     {/each}
+
+                    {#if staging?.exit}
+                      <span>Turns away after</span>
+                    {/if}
 
                     {#if scene.id !== SCRIPT_SCENE_ID && !line.src}
                       <span>No clip</span>

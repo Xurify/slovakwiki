@@ -7,7 +7,20 @@ import { lessons } from "$lib/catalog/lessons";
 import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
 import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-import { storySettingForLesson } from "$lib/lesson-story/story-settings";
+import {
+  storySettingForLesson,
+  type LessonSceneArtId,
+} from "$lib/lesson-story/story-settings";
+
+/**
+ * Lessons whose story setting does not fit their dialogue: the waiter offering
+ * coffee and a menu is in a café, the receptionist checking Alex in is at the
+ * front desk. Both are set "home" in story-settings.ts.
+ */
+const STAGE_SETTINGS: Record<string, LessonSceneArtId> = {
+  "everyday/negation-in-conversation": "cafe",
+  "grammar/byt-present": "registration",
+};
 
 const scenes: StickLabScene[] = lessons
   .map((lesson) => {
@@ -16,7 +29,7 @@ const scenes: StickLabScene[] = lessons
 
     return {
       id: lesson.id,
-      setting: storySettingForLesson(lesson.id).art,
+      setting: STAGE_SETTINGS[lesson.id] ?? storySettingForLesson(lesson.id).art,
       title: lesson.title,
       lines: lesson.scene.map((line) => ({
         characterId: characterIdForSpeaker(line.speaker),
