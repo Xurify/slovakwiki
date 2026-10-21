@@ -33,6 +33,7 @@
     thingCenter,
     thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
+  import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { stageMarks } from "$lib/stick-figure/stage-layout";
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
@@ -61,6 +62,7 @@
     direction,
     found = [],
     lines,
+    mood = DAYTIME,
     onthing,
     painted = false,
     setting,
@@ -71,6 +73,8 @@
     /** Things found in a game, ringed in green. */
     found?: readonly string[];
     lines: readonly DirectedLine[];
+    /** Time of day and weather over the place. */
+    mood?: SceneMood;
     /** Takes over a tap on a thing; without it the tap opens the thing's word card. */
     onthing?: (id: string) => void;
     /** Show the painted lesson plate instead of the drawn backdrop. */
@@ -114,6 +118,7 @@
   let lineTimer = 0;
 
   const resting = $derived(restFacing(direction.cast));
+  const wrapped = $derived(mood.weather === "snow" && isOutdoors(setting));
   const entering = $derived(
     Object.fromEntries(
       direction.stagings.flatMap(({ enter }) =>
@@ -448,6 +453,7 @@
       {board}
       {found}
       {lit}
+      {mood}
       onpick={pickThing}
       {picked}
       {setting}
@@ -471,6 +477,7 @@
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
         prop={direction.held[heldAt]?.[characterId]}
+        scarf={wrapped}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}
       />

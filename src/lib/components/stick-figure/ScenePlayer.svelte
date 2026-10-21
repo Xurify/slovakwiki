@@ -58,6 +58,18 @@
   } from "$lib/lesson-story/prefs";
   import { shuffledTiles } from "$lib/stick-figure/caption";
   import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
+  import { sceneMood } from "$lib/stick-figure/scene-mood";
+  import {
+    GREETINGS,
+    GREET_ROUNDS,
+    TIME_WORDS,
+    greetWhy,
+    isGreetRight,
+    type Greeting,
+    type GreetRound,
+  } from "$lib/stick-figure/scene-greet";
+  import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
+  import { ChoiceOptions } from "$lib/learning/exercises";
   import {
     FIND_LEVELS,
     accusativeOf,
@@ -76,15 +88,18 @@
   import SceneTurn from "./SceneTurn.svelte";
   import StickStage from "./StickStage.svelte";
 
-  type Mode = "watch" | "play" | "find";
+  type Mode = "watch" | "play" | "find" | "greet";
   /** Pick Alex's line from the lesson's choices, or build it from its words. */
   type Turn = "pick" | "build";
   type Phase = "ready" | "playing" | "paused" | "turn" | "done";
 
   let {
     scenes,
+    greetingClips = {},
     thingWords = {},
   }: {
+    /** The dictionary clip for each greeting, where there is one. */
+    greetingClips?: Partial<Record<Greeting, string>>;
     scenes: PlayerScene[];
     /** Dictionary link and clip for a scene thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
@@ -94,7 +109,17 @@
     { id: "watch", label: "Watch" },
     { id: "play", label: "Play Alex" },
     { id: "find", label: "Find it" },
+    { id: "greet", label: "Greet" },
   ];
+
+  /** Mária on the square: someone Alex says Dobrý deň to, not Ahoj. */
+  const GREET_LINES: DirectedLine[] = [
+    { characterId: "maria", slovak: "Dobrý deň." },
+    { characterId: "alex", slovak: "Dobrý deň." },
+  ];
+  const GREET_DIRECTION = directScene(GREET_LINES, "plaza");
+  /** Long enough to hear the greeting and see it answered. */
+  const GREETED_PAUSE_MS = 2200;
 
   const TURNS: Array<{ id: Turn; label: string }> = [
     { id: "pick", label: "Pick the line" },
@@ -151,8 +176,17 @@
     why?: string;
   }>();
 
+  let greetQueue = $state<GreetRound[]>([]);
+  let greetAt = $state(0);
+  let greetPicked = $state<Greeting | null>(null);
+  let greetMissed = $state(false);
+  /** Each round: right the first time or not. */
+  let greetResults = $state<Record<string, boolean>>({});
+  let greetNote = $state<{ right: boolean; text: string }>();
+
   let timer = 0;
   let findTimer = 0;
+  let greetTimer = 0;
 
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
   const lines = $derived<DirectedLine[]>(
@@ -168,6 +202,12 @@
     })),
   );
   const direction = $derived(directScene(lines, scene.setting));
+  const greetRound = $derived(greetQueue[greetAt]);
+  const mood = $derived(
+    mode === "greet"
+      ? { time: greetRound?.time ?? "day", weather: "clear" as const }
+      : sceneMood(scene.lines.map((line) => line.slovak)),
+  );
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
   const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
   const learnerCount = $derived(scene.lines.filter((line) => line.learner).length);
@@ -216,6 +256,7 @@
   function halt(): void {
     window.clearTimeout(timer);
     window.clearTimeout(findTimer);
+    window.clearTimeout(greetTimer);
     stage?.stop();
     speaking = false;
   }
@@ -233,6 +274,8 @@
     const same = id === scene.id;
     reset();
     sceneId = id;
+    // Greeting Mária is the same on any scene, so picking one means watching it.
+    if (mode === "greet") mode = "watch";
     if (same) stage?.place(0);
     if (mode === "find") startFind();
   }
@@ -242,6 +285,52 @@
     stage?.place(0);
     mode = next;
     if (next === "find") startFind();
+    if (next === "greet") startGreet();
+  }
+
+  function startGreet(): void {
+    window.clearTimeout(greetTimer);
+    greetQueue = shuffledTiles([...GREET_ROUNDS], "greet");
+    greetAt = 0;
+    greetPicked = null;
+    greetMissed = false;
+    greetResults = {};
+    greetNote = undefined;
+  }
+
+  function greet(picked: Greeting | null): void {
+    const round = greetRound;
+    if (!picked || !round || greetNote?.right) return;
+
+    greetPicked = picked;
+    stage?.say("alex", picked);
+
+    if (!isGreetRight(round, picked)) {
+      playAnswerSfx("incorrect");
+      greetMissed = true;
+      greetNote = { right: false, text: greetWhy(round, picked) };
+      stage?.gesture("maria", "think");
+      return;
+    }
+
+    playAnswerSfx("correct");
+    const clip = greetingClips[picked];
+    if (clip) playStoryLineAudio(clip, picked);
+    greetResults = { ...greetResults, [round.id]: !greetMissed };
+    greetNote = {
+      right: true,
+      text: picked === round.answers[0] ? "Áno!" : `Áno! ${round.note ?? ""}`,
+    };
+    stage?.gesture("alex", "wave");
+    greetTimer = window.setTimeout(() => {
+      stage?.gesture("maria", "wave");
+      greetTimer = window.setTimeout(() => {
+        greetAt += 1;
+        greetPicked = null;
+        greetMissed = false;
+        greetNote = undefined;
+      }, GREETED_PAUSE_MS);
+    }, 500);
   }
 
   /** Play line `index` with its caption; `onDone` runs when its clip ends. */
@@ -550,16 +639,79 @@
         <StickStage
           bind:this={stage}
           class="border-b border-slate-200"
-          {direction}
+          direction={mode === "greet" ? GREET_DIRECTION : direction}
           {found}
-          {lines}
+          lines={mode === "greet" ? GREET_LINES : lines}
+          {mood}
           onthing={mode === "find" ? tapThing : undefined}
-          setting={scene.setting}
+          setting={mode === "greet" ? "plaza" : scene.setting}
           {thingWords}
         />
 
         <div class="min-h-44 px-5 py-5 sm:px-6">
-          {#if mode === "find"}
+          {#if mode === "greet"}
+            {#if greetRound}
+              {@const when = TIME_WORDS[greetRound.time]}
+
+              <p class={eyebrowMutedClass}>
+                <span lang="sk">{when.slovak}</span>
+                <span class="font-normal">{when.english}</span>
+              </p>
+              <p class="m-0 mt-1 text-lg text-slate-900">
+                {greetRound.leaving
+                  ? "Alex is saying goodbye to Mária. What does Alex say?"
+                  : "Alex meets Mária on the square. What does Alex say?"}
+              </p>
+
+              {#key greetRound.id}
+                <ChoiceOptions
+                  choices={GREETINGS.map((greeting) => ({
+                    id: greeting,
+                    label: greeting,
+                  }))}
+                  bind:selectedId={
+                    () => greetPicked, (id) => greet(id as Greeting | null)
+                  }
+                  submitted={Boolean(greetNote?.right)}
+                  wrongChoiceId={greetNote && !greetNote.right ? greetPicked : null}
+                  correctIds={greetNote?.right ? greetRound.answers : null}
+                  variant="cards"
+                />
+              {/key}
+
+              {#if greetNote}
+                <p
+                  class={cx(
+                    "m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty",
+                    greetNote.right ? "text-emerald-800" : "text-rose-800",
+                  )}
+                  role="status"
+                >
+                  {#each splitEmphasis(greetNote.text) as part, index (index)}
+                    {#if part.type === "em"}
+                      <strong class="font-semibold">{part.value}</strong>
+                    {:else}
+                      {part.value}
+                    {/if}
+                  {/each}
+                </p>
+              {/if}
+            {:else}
+              <div class="animate-rise">
+                <p class="m-0 font-serif text-2xl text-slate-900">
+                  {Object.values(greetResults).filter(Boolean).length} of {greetQueue.length}
+                  right the first time.
+                </p>
+                <p class="m-0 mt-1 text-slate-600">
+                  Dobrý večer stays a hello however late it gets. Dobrú noc only ever says
+                  goodbye.
+                </p>
+                <div class="mt-4 flex flex-wrap items-center gap-4">
+                  <Button variant="accent" onclick={startGreet}>Play again</Button>
+                </div>
+              </div>
+            {/if}
+          {:else if mode === "find"}
             {#if findTarget}
               {@const prompt = findPrompt(findTarget, level)}
 
@@ -770,7 +922,7 @@
               {Object.keys(results).length} of {queue.length}
             </span>
           </div>
-        {:else if mode !== "find" && phase !== "turn" && phase !== "done"}
+        {:else if mode !== "find" && mode !== "greet" && phase !== "turn" && phase !== "done"}
           <div
             class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
@@ -815,7 +967,7 @@
         {/if}
       </div>
 
-      {#if mode !== "find"}
+      {#if mode !== "find" && mode !== "greet"}
         <ol
           class="{panelClass} m-0 mt-4 list-none divide-y divide-slate-200 overflow-hidden p-0"
         >

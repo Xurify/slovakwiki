@@ -22,6 +22,7 @@
     picture,
     pose = REST_POSE,
     prop,
+    scarf = false,
   }: {
     characterId: LessonCharacterId;
     class?: string;
@@ -31,6 +32,7 @@
     pose?: StickPose;
     /** Held in the lead hand. */
     prop?: StickPropId;
+    scarf?: boolean;
   } = $props();
 
   const rig = $derived(solveRig(pose));
@@ -208,7 +210,7 @@
     {/if}
 
     <g transform={torsoTransform}>
-      <StickTorso {characterId} />
+      <StickTorso {characterId} {scarf} />
     </g>
 
     <path

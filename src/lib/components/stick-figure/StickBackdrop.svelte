@@ -13,13 +13,16 @@
   import Park from "./backdrops/Park.svelte";
   import Plaza from "./backdrops/Plaza.svelte";
   import Registration from "./backdrops/Registration.svelte";
+  import MoodLayer from "./backdrops/MoodLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
+  import { CLOCK_HOURS, DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
 
   let {
     board,
     class: className = "",
     found = [],
     lit = [],
+    mood = DAYTIME,
     onpick,
     picked,
     setting,
@@ -31,6 +34,8 @@
     found?: readonly string[];
     /** Things to light up: named in the line playing. */
     lit?: readonly string[];
+    /** Time of day and weather, from the dialogue or picked in the lab. */
+    mood?: SceneMood;
     /** Makes each thing a button that reports its id. */
     onpick?: (id: string) => void;
     picked?: string;
@@ -40,6 +45,7 @@
   let focused = $state<string>();
 
   const align = $derived(backdropAlign(setting));
+  const hour = $derived(CLOCK_HOURS[mood.time]);
   const things = $derived(SCENE_THINGS[setting] ?? []);
   const boxes = $derived(
     things.flatMap((thing) =>
@@ -71,19 +77,20 @@
   {#if setting === "cafe"}
     <Cafe />
   {:else if setting === "classroom"}
-    <Classroom {board} />
+    <Classroom {board} {hour} />
   {:else if setting === "home"}
     <Home />
   {:else if setting === "market"}
     <Market />
   {:else if setting === "plaza"}
-    <Plaza />
+    <Plaza {hour} />
   {:else if setting === "registration" || setting === "counter"}
-    <Registration />
+    <Registration {hour} />
   {:else}
     <Park />
   {/if}
 
+  <MoodLayer {mood} {setting} />
   <StageLight />
 
   {#each boxes as { box, copy, thing } (`${thing.id}-${copy}`)}

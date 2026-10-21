@@ -1,10 +1,11 @@
 <script lang="ts">
   import Chalkboard from "./Chalkboard.svelte";
+  import ClockHands from "./ClockHands.svelte";
   import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 
   /** What the teacher has just said, chalked up in place of the greeting. */
-  let { board }: { board?: string } = $props();
+  let { board, hour }: { board?: string; hour: number } = $props();
 
   /** The start of the Slovak alphabet, digraphs included. */
   const LETTERS = ["A", "Á", "Ä", "B", "C", "Č", "D", "Ď", "Dz", "Dž", "E", "É"];
@@ -67,7 +68,7 @@
 
 <circle cx="800" cy="78" r="20" class="fill-scene-edge" />
 <circle cx="800" cy="78" r="17.5" class="fill-white" />
-<path d="M800 66V78L808 83" class="stroke-scene-line" fill="none" stroke-width="2" />
+<ClockHands {hour} length={12} width={2} x={800} y={78} />
 
 <ellipse cx="800" cy="228" rx="118" ry="4" class="fill-scene-line/12" />
 <rect x="696" y="180" width="74" height="46" class="fill-scene-wood" />

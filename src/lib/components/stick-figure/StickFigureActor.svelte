@@ -26,6 +26,7 @@
     onbeat,
     plan,
     prop,
+    scarf = false,
     talking = false,
     walk,
   }: {
@@ -41,6 +42,7 @@
     plan?: LinePlan;
     /** Held in the lead hand. */
     prop?: StickPropId;
+    scarf?: boolean;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
     /** Bump `cue` to take steps for `ms` while the stage moves the figure. */
@@ -146,4 +148,5 @@
   {picture}
   {pose}
   {prop}
+  {scarf}
 />

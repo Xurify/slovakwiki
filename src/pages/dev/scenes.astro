@@ -10,7 +10,11 @@ import {
   isLearnerSpeaker,
 } from "$lib/catalog/lessons/character-ids";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-import { sceneThingWords, stageSettingFor } from "$lib/stick-figure/lesson-stage";
+import {
+  greetingClips,
+  sceneThingWords,
+  stageSettingFor,
+} from "$lib/stick-figure/lesson-stage";
 import { stageName } from "$lib/stick-figure/script";
 
 const scenes: PlayerScene[] = lessons
@@ -45,8 +49,9 @@ const scenes: PlayerScene[] = lessons
   });
 
 const thingWords = sceneThingWords();
+const clips = greetingClips();
 ---
 
 <SiteLayout title="Scenes | Slovak Wiki" noindex>
-  <ScenePlayer client:load {scenes} {thingWords} />
+  <ScenePlayer client:load greetingClips={clips} {scenes} {thingWords} />
 </SiteLayout>
