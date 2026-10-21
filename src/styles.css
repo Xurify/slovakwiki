@@ -4,6 +4,7 @@
 @theme {
   --font-sans: var(--font-ui);
   --font-serif: var(--font-reading);
+  --font-hand: "Caveat Variable", "Segoe Print", cursive;
   --color-canvas: var(--canvas);
   --color-paper: var(--paper);
   --color-surface: var(--surface);

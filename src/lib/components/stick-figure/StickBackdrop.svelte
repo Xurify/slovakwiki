@@ -16,36 +16,33 @@
 <!--
   960×300 with the floor line at y 226. Slice keeps the floor on the bottom
   edge and trims the sides on a narrow stage, so what names the place sits
-  near the middle or above head height (y < 70).
+  near the middle or above head height (y < 70). Shapes are flat, without
+  outlines, so the ink-outlined cast stands in front of them.
 -->
 <svg
   class="block {className}"
   viewBox="0 0 960 300"
   preserveAspectRatio="xMidYMax slice"
   fill="none"
-  stroke-width="1.4"
   stroke-linecap="round"
   stroke-linejoin="round"
   aria-hidden="true"
 >
-  <!-- Light edges keep the backdrop behind the ink-outlined cast. -->
-  <g class="stroke-scene-edge">
-    {#if setting === "cafe"}
-      <Cafe />
-    {:else if setting === "classroom"}
-      <Classroom />
-    {:else if setting === "home"}
-      <Home />
-    {:else if setting === "market"}
-      <Market />
-    {:else if setting === "plaza"}
-      <Plaza />
-    {:else if setting === "registration" || setting === "counter"}
-      <Registration />
-    {:else}
-      <Park />
-    {/if}
+  {#if setting === "cafe"}
+    <Cafe />
+  {:else if setting === "classroom"}
+    <Classroom />
+  {:else if setting === "home"}
+    <Home />
+  {:else if setting === "market"}
+    <Market />
+  {:else if setting === "plaza"}
+    <Plaza />
+  {:else if setting === "registration" || setting === "counter"}
+    <Registration />
+  {:else}
+    <Park />
+  {/if}
 
-    <StageLight />
-  </g>
+  <StageLight />
 </svg>

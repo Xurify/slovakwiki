@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Chalkboard from "./Chalkboard.svelte";
   import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 
@@ -6,58 +7,74 @@
   const LETTERS = ["A", "Á", "Ä", "B", "C", "Č", "D", "Ď", "Dz", "Dž", "E", "É"];
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" stroke="none" />
-<rect x="-10" y="168" width="980" height="58" class="fill-scene-sage/60" stroke="none" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" stroke="none" />
-<FloorShade seams />
+<rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" />
+<rect x="-10" y="168" width="980" height="58" class="fill-scene-sage/50" />
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
+<FloorShade />
 
 {#each LETTERS as letter, index (letter)}
   <rect
-    x={260 + index * 37}
-    y="34"
+    x={261 + index * 37}
+    y="36"
     width="33"
     height="32"
     rx="3"
-    class="fill-portrait-bib"
+    class="fill-scene-line/10"
   />
+  <rect x={260 + index * 37} y="34" width="33" height="32" rx="3" class="fill-white" />
+  <circle cx={276.5 + index * 37} cy="37.5" r="1.6" class="fill-scene-clay" />
   <text
     x={276.5 + index * 37}
-    y="56"
+    y="58"
     text-anchor="middle"
     class="fill-portrait-ink font-serif"
-    stroke="none"
     font-size="16"
   >
     {letter}
   </text>
 {/each}
 
-<rect x="36" y="58" width="236" height="104" rx="3" class="fill-scene-wood" />
-<rect x="44" y="66" width="220" height="88" rx="2" class="fill-scene-board" />
-<text x="66" y="106" class="fill-portrait-bib font-serif" stroke="none" font-size="24">
-  Dobrý deň!
-</text>
-<path d="M66 118q62-6 124 0" class="stroke-portrait-bib" />
-<rect x="40" y="160" width="228" height="7" rx="2" class="fill-scene-wood" />
-<path d="M220 159h14" class="stroke-portrait-bib" stroke-width="3" />
+<Chalkboard x={44} y={66} width={220} height={88}>
+  <text x="14" y="20" font-size="14">pondelok</text>
+  <text x="110" y="58" text-anchor="middle" font-size="32" transform="rotate(-2 110 50)">
+    Dobrý deň!
+  </text>
+  <path
+    d="M52 68q30-5 58 0t56-1"
+    class="stroke-portrait-bib/80"
+    fill="none"
+    stroke-width="1.6"
+  />
+</Chalkboard>
+<rect x="40" y="158" width="228" height="7" rx="2" class="fill-scene-wood" />
+<rect x="220" y="154" width="14" height="4" rx="1.5" class="fill-white" />
+<rect x="198" y="155" width="9" height="3" rx="1.5" class="fill-scene-honey" />
 
-<circle cx="800" cy="78" r="18" class="fill-portrait-bib" />
-<path d="M800 64v2M800 90v2M784 78h2M814 78h2" />
-<path d="M800 69V78L807 82" stroke-width="2" />
+<circle cx="800" cy="78" r="20" class="fill-scene-edge" />
+<circle cx="800" cy="78" r="17.5" class="fill-white" />
+<path d="M800 66V78L808 83" class="stroke-scene-line" fill="none" stroke-width="2" />
 
-<rect x="686" y="170" width="228" height="10" rx="2" class="fill-scene-wood" />
+<ellipse cx="800" cy="228" rx="118" ry="4" class="fill-scene-line/12" />
 <rect x="696" y="180" width="74" height="46" class="fill-scene-wood" />
-<path d="M904 180V226" stroke-width="3" />
-<rect x="716" y="160" width="46" height="10" class="fill-scene-clay" />
-<rect x="720" y="150" width="40" height="10" class="fill-scene-sage" />
-<rect x="714" y="140" width="44" height="10" class="fill-scene-honey" />
-<path d="M854 170h24M866 170v-4" />
-<circle cx="866" cy="142" r="20" class="fill-scene-sky" />
+<rect x="704" y="188" width="58" height="14" rx="2" class="fill-scene-line/8" />
+<rect x="902" y="180" width="5" height="46" class="fill-scene-wood" />
+<rect x="686" y="170" width="228" height="10" rx="2" class="fill-scene-wood" />
+<rect x="686" y="180" width="228" height="3" class="fill-scene-line/12" />
+<rect x="716" y="160" width="46" height="10" rx="1" class="fill-scene-clay" />
+<rect x="720" y="150" width="40" height="10" rx="1" class="fill-scene-sage" />
+<rect x="714" y="140" width="44" height="10" rx="1" class="fill-scene-honey" />
+<rect x="854" y="166" width="24" height="4" rx="2" class="fill-scene-line/60" />
+<rect x="864.5" y="160" width="3" height="7" class="fill-scene-line/60" />
+<circle cx="866" cy="140" r="20" class="fill-scene-sky" />
 <path
-  d="M856 128q-6 10 2 18q8 6 4 14M874 126q8 8 2 14"
-  class="stroke-scene-leaf"
-  stroke-width="3"
+  d="M852 128q5-6 12-3q3 6-3 9q-6 2-9-6ZM870 138q8-4 12 3q-2 8-8 9q-5-4-4-12Z"
+  class="fill-scene-leaf"
 />
-<path d="M866 118a24 24 0 0 1 0 48" stroke-width="2.4" />
+<path
+  d="M866 118a22 22 0 0 1 0 44"
+  class="stroke-scene-line/60"
+  fill="none"
+  stroke-width="2.4"
+/>
 
-<Plant x={944} y={226} />
+<Plant x={944} y={232} />

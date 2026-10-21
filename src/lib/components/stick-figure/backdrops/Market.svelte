@@ -1,13 +1,15 @@
 <script lang="ts">
+  import Chalkboard from "./Chalkboard.svelte";
+  import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
 
   const FLAG_PAINTS = ["fill-scene-clay", "fill-scene-honey", "fill-scene-sage"];
 
-  /** Bunting on a curve from (250, 34) through (480, 80) to (710, 34). */
-  const flags = Array.from({ length: 11 }, (_, index) => {
-    const t = 0.08 + index * 0.084;
-    const x = (1 - t) ** 2 * 250 + 2 * (1 - t) * t * 480 + t ** 2 * 710;
-    const y = (1 - t) ** 2 * 34 + 2 * (1 - t) * t * 80 + t ** 2 * 34;
+  /** Bunting tied to the inner stall poles, sagging from (300, 30) through (480, 74) to (660, 30). */
+  const flags = Array.from({ length: 9 }, (_, index) => {
+    const t = 0.1 + index * 0.1;
+    const x = (1 - t) ** 2 * 300 + 2 * (1 - t) * t * 480 + t ** 2 * 660;
+    const y = (1 - t) ** 2 * 30 + 2 * (1 - t) * t * 74 + t ** 2 * 30;
     return { paint: FLAG_PAINTS[index % 3], x, y };
   });
 
@@ -15,11 +17,13 @@
     {
       label: "Ovocie",
       x: 20,
+      inner: 300,
       produce: ["fill-scene-clay", "fill-scene-honey", "fill-scene-sage"],
     },
     {
       label: "Zelenina",
       x: 640,
+      inner: 660,
       produce: ["fill-scene-leaf", "fill-scene-clay", "fill-scene-honey"],
     },
   ];
@@ -27,16 +31,22 @@
   const STRIPE = 30;
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" stroke="none" />
+<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
+<Cloud x={150} y={52} size={0.8} />
+<Cloud x={820} y={50} />
 <path
   d="M-10 226V164L36 140L82 164V152H170L206 128L242 152V170H330V146H420V160L470 134L520 160V150H620L660 126L700 150V168H790V144H870L910 120L950 144H970V226Z"
   class="fill-scene-cool"
-  stroke="none"
 />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" stroke="none" />
-<FloorShade seams />
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
+<FloorShade />
 
-<path d="M250 34Q480 80 710 34" />
+<path
+  d="M300 30Q480 118 660 30"
+  class="stroke-scene-line/40"
+  fill="none"
+  stroke-width="1.2"
+/>
 {#each flags as flag (flag.x)}
   <path
     d="M{flag.x - 7} {flag.y}H{flag.x + 7}L{flag.x} {flag.y + 15}Z"
@@ -45,39 +55,52 @@
 {/each}
 
 {#each stalls as stall (stall.label)}
-  <path d="M{stall.x + 20} 226V86M{stall.x + 280} 226V86" stroke-width="3" />
+  <ellipse cx={stall.x + 150} cy="227" rx="150" ry="4" class="fill-scene-line/12" />
+  <path
+    d="M{stall.x + 18} 226V86h4V226ZM{stall.x + 278} 226V86h4V226Z"
+    class="fill-scene-wood"
+  />
+  <rect x={stall.inner - 2} y="28" width="4" height="60" class="fill-scene-wood" />
 
   {#each Array.from({ length: 10 }, (_, index) => stall.x + index * STRIPE) as x, index (x)}
     <path
       d="M{x} 70H{x + STRIPE}V100A15 10 0 0 1 {x} 100Z"
-      class={index % 2 === 0 ? "fill-scene-clay" : "fill-scene-warm"}
+      class={index % 2 === 0 ? "fill-scene-clay" : "fill-white/90"}
     />
   {/each}
-  <path d="M{stall.x - 4} 70H{stall.x + 304}" stroke-width="3" />
+  <rect x={stall.x - 4} y="66" width="308" height="6" rx="2" class="fill-scene-wood" />
 
   {#each stall.produce as paint, crate (crate)}
+    {#each [0, 1, 2, 3, 4] as fruit (fruit)}
+      <circle cx={stall.x + 34 + crate * 88 + fruit * 14} cy="146" r="7" class={paint} />
+      <circle
+        cx={stall.x + 32 + crate * 88 + fruit * 14}
+        cy="143.5"
+        r="2"
+        class="fill-white/45"
+      />
+    {/each}
     <rect
       x={stall.x + 24 + crate * 88}
       y="148"
       width="76"
       height="24"
+      rx="2"
       class="fill-scene-wood"
     />
-    {#each [0, 1, 2, 3, 4] as fruit (fruit)}
-      <circle cx={stall.x + 34 + crate * 88 + fruit * 14} cy="144" r="7" class={paint} />
-    {/each}
+    <rect
+      x={stall.x + 24 + crate * 88}
+      y="158"
+      width="76"
+      height="2"
+      class="fill-scene-line/12"
+    />
   {/each}
 
   <rect x={stall.x + 4} y="170" width="292" height="8" rx="2" class="fill-scene-wood" />
   <rect x={stall.x + 10} y="178" width="280" height="48" class="fill-scene-wood" />
-  <text
-    x={stall.x + 150}
-    y="208"
-    text-anchor="middle"
-    class="fill-portrait-bib font-serif"
-    stroke="none"
-    font-size="17"
-  >
-    {stall.label}
-  </text>
+  <rect x={stall.x + 10} y="178" width="280" height="4" class="fill-scene-line/12" />
+  <Chalkboard x={stall.x + 105} y={188} width={90} height={28}>
+    <text x="45" y="21" text-anchor="middle" font-size="19">{stall.label}</text>
+  </Chalkboard>
 {/each}
