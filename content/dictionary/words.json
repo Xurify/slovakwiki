@@ -13125,7 +13125,23 @@
     "slovak": "nemecký",
     "english": "German",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Jeho otec má staré nemecké auto.",
+        "english": "His father has an old German car.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Študovala dva roky na nemeckej univerzite.",
+        "english": "She studied at a German university for two years.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na hranici nás zastavila nemecká polícia.",
+        "english": "The German police stopped us at the border.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -13466,7 +13482,23 @@
     "slovak": "ruský",
     "english": "Russian",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Čítam ruský román v origináli.",
+        "english": "I'm reading a Russian novel in the original.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jeho slovenčina má mierny ruský prízvuk.",
+        "english": "His Slovak has a slight Russian accent.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V knižnici majú aj ruské rozprávky pre deti.",
+        "english": "The library also has Russian fairy tales for children.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -29099,7 +29131,23 @@
     "slovak": "určiť",
     "english": "to determine; to specify",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Termín stretnutia určí šéf až zajtra.",
+        "english": "The boss won't set the date of the meeting until tomorrow.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Podľa slnka sa dajú určiť svetové strany.",
+        "english": "You can work out the points of the compass from the sun.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V nemocnici mu určili krvnú skupinu.",
+        "english": "At the hospital they determined his blood type.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -38274,7 +38322,23 @@
     "slovak": "radiť",
     "english": "to advise",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Čo mi radíš, mám tú prácu prijať?",
+        "english": "What do you advise me to do? Should I take that job?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lekár jej radil, aby viac chodila pešo.",
+        "english": "The doctor advised her to walk more.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rodičia mu radia študovať medicínu.",
+        "english": "His parents are advising him to study medicine.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -38478,7 +38542,23 @@
     "slovak": "minúť",
     "english": "to spend; to miss",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Ak si kúpiš to auto, minieš všetky úspory.",
+        "english": "If you buy that car, you'll spend all your savings.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Strela tesne minula bránu.",
+        "english": "The shot narrowly missed the goal.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "S bratom sme sa na stanici minuli.",
+        "english": "My brother and I missed each other at the station.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -103044,7 +103124,23 @@
     "slovak": "francúzsky",
     "english": "French",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "K večeri sme otvorili fľašu francúzskeho vína.",
+        "english": "We opened a bottle of French wine with dinner.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Brat už dva roky pracuje vo francúzskej firme.",
+        "english": "My brother has been working for a French company for two years.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Otec rád počúva staré francúzske piesne.",
+        "english": "Dad likes listening to old French songs.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -105355,7 +105451,23 @@
     "slovak": "taliansky",
     "english": "Italian",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Mama má rada taliansku kuchyňu, najmä cestoviny.",
+        "english": "Mum likes Italian cuisine, especially pasta.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na námestí sme stretli skupinu talianskych turistov.",
+        "english": "We met a group of Italian tourists on the square.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V lete sme strávili týždeň v talianskom mestečku pri mori.",
+        "english": "In the summer we spent a week in a little Italian town by the sea.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -105818,7 +105930,23 @@
     "slovak": "poľský",
     "english": "Polish",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Krakov je krásne poľské mesto.",
+        "english": "Kraków is a beautiful Polish city.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V obchode sme kúpili poľskú klobásu.",
+        "english": "We bought Polish sausage in the shop.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V zime sme lyžovali na poľskej strane Tatier.",
+        "english": "In winter we went skiing on the Polish side of the Tatras.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -108474,7 +108602,23 @@
     "slovak": "čínsky",
     "english": "Chinese",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V nedeľu sme obedovali v čínskej reštaurácii.",
+        "english": "On Sunday we had lunch at a Chinese restaurant.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Babka dostala na Vianoce balíček čínskeho čaju.",
+        "english": "Grandma got a packet of Chinese tea for Christmas.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na poličke stojí stará čínska váza.",
+        "english": "There is an old Chinese vase on the shelf.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -110242,7 +110386,23 @@
     "slovak": "španielsky",
     "english": "Spanish",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V práci máme nového španielskeho kolegu.",
+        "english": "We have a new Spanish colleague at work.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na trhu predávajú šťavnaté španielske pomaranče.",
+        "english": "They sell juicy Spanish oranges at the market.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na internáte bývam v izbe so španielskou študentkou.",
+        "english": "In the dorm I share a room with a Spanish student.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -110435,7 +110595,23 @@
     "slovak": "denný",
     "english": "daily; day",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Deti potrebujú pravidelný denný režim.",
+        "english": "Children need a regular daily routine.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pri dennom svetle vyzerá tá farba inak.",
+        "english": "That colour looks different in daylight.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento týždeň mám dennú zmenu.",
+        "english": "This week I'm on the day shift.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -113036,7 +113212,23 @@
     "slovak": "japonský",
     "english": "Japanese",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Večer ideme do japonskej reštaurácie.",
+        "english": "This evening we're going to a Japanese restaurant.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Máš rád japonské jedlo?",
+        "english": "Do you like Japanese food?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kuchár krája zeleninu ostrým japonským nožom.",
+        "english": "The chef cuts vegetables with a sharp Japanese knife.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -116027,7 +116219,23 @@
     "slovak": "ukrajinský",
     "english": "Ukrainian",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Vedľa nás býva ukrajinská rodina.",
+        "english": "A Ukrainian family lives next door to us.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V triede máme dvoch ukrajinských žiakov.",
+        "english": "We have two Ukrainian pupils in our class.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Babka varí výborný ukrajinský boršč.",
+        "english": "Grandma makes excellent Ukrainian borscht.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -121427,7 +121635,23 @@
     "slovak": "srbský",
     "english": "Serbian",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Belehrad je najväčšie srbské mesto.",
+        "english": "Belgrade is the largest Serbian city.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Srbský jazyk sa píše latinkou aj cyrilikou.",
+        "english": "Serbian is written in both the Latin and the Cyrillic alphabet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na oslave hrala srbská kapela.",
+        "english": "A Serbian band played at the party.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -121435,7 +121659,23 @@
     "slovak": "holandský",
     "english": "Dutch",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Holandské mestá sú plné bicyklov.",
+        "english": "Dutch cities are full of bicycles.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V múzeu visia obrazy holandských maliarov.",
+        "english": "Paintings by Dutch painters hang in the museum.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na raňajky si dám chlieb s holandským syrom.",
+        "english": "For breakfast I'll have bread with Dutch cheese.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -134292,7 +134532,23 @@
     "slovak": "latinský",
     "english": "Latin",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Lekári často používajú latinské názvy chorôb.",
+        "english": "Doctors often use the Latin names of diseases.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Slovenčina používa latinskú abecedu.",
+        "english": "Slovak uses the Latin alphabet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nad vchodom do kostola je starý latinský nápis.",
+        "english": "There is an old Latin inscription above the church entrance.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -138095,7 +138351,23 @@
     "slovak": "nemalý",
     "english": "not small; considerable",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Oprava strechy nás stála nemalé peniaze.",
+        "english": "Repairing the roof cost us a considerable amount of money.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na úspechu má nemalú zásluhu aj tréner.",
+        "english": "The coach also deserves considerable credit for the success.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pre malú obec je to nemalý problém.",
+        "english": "For a small village that's no small problem.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -141067,7 +141339,23 @@
     "slovak": "stavať",
     "english": "to build",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Susedia si stavajú nový dom.",
+        "english": "The neighbours are building a new house.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Deti na pláži stavali hrad z piesku.",
+        "english": "The children were building a sandcastle on the beach.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lastovička si stavia hniezdo pod strechou.",
+        "english": "A swallow is building its nest under the roof.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -141473,7 +141761,23 @@
     "slovak": "vecný",
     "english": "factual; matter-of-fact",
     "category": "Adjectives",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Ďakujem za vecné pripomienky k návrhu.",
+        "english": "Thank you for the factual comments on the proposal.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Diskusia bola pokojná a vecná.",
+        "english": "The discussion was calm and matter-of-fact.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prijímam len vecnú kritiku, nie urážky.",
+        "english": "I only accept factual criticism, not insults.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -142064,7 +142368,23 @@
     "english": "press; printing",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "O jeho novom filme písala aj zahraničná tlač.",
+        "english": "Even the foreign press wrote about his new film.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Farebná tlač je drahšia ako čiernobiela.",
+        "english": "Color printing is more expensive than black-and-white.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dedko každé ráno pri káve číta dennú tlač.",
+        "english": "Every morning Grandpa reads the daily papers over coffee.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -142287,7 +142607,23 @@
     "english": "signature",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na zmluve chýba tvoj podpis.",
+        "english": "Your signature is missing from the contract.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bez podpisu rodičov to neplatí.",
+        "english": "It isn't valid without the parents' signature.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pod petíciu zozbierali vyše tisíc podpisov.",
+        "english": "They collected over a thousand signatures for the petition.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -142296,7 +142632,23 @@
     "english": "route; track",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na mape si naplánujeme trasu výletu.",
+        "english": "We'll plan the route of our trip on the map.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Táto turistická trasa je dlhá dvadsať kilometrov.",
+        "english": "This hiking trail is twenty kilometres long.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Most opravujú, takže autobus ide inou trasou.",
+        "english": "The bridge is being repaired, so the bus takes a different route.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -143000,7 +143352,23 @@
     "english": "bustle; activity",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V centre mesta je cez deň veľký ruch.",
+        "english": "There is a lot of bustle in the city centre during the day.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na chalupe si oddýchneme od mestského ruchu.",
+        "english": "At the cottage we'll get a rest from the bustle of the city.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cestovný ruch je pre Tatry veľmi dôležitý.",
+        "english": "Tourism is very important for the Tatras.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -143871,7 +144239,23 @@
     "english": "wound; blow",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Rana na kolene sa už pomaly hojí.",
+        "english": "The wound on the knee is slowly healing now.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zdravotná sestra mu opatrne vyčistila ranu.",
+        "english": "The nurse carefully cleaned his wound.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jeho odchod bol pre tím veľká rana.",
+        "english": "His departure was a big blow to the team.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -145933,7 +146317,23 @@
     "english": "female player",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Naša najlepšia hráčka si zranila koleno.",
+        "english": "Our best player injured her knee.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tréner pochválil hráčky za výborný výkon.",
+        "english": "The coach praised the players for an excellent performance.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na turnaji hralo dvanásť hráčok.",
+        "english": "Twelve players took part in the tournament.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -147772,7 +148172,23 @@
     "english": "feeling; sense",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Otec nikdy nedával najavo svoje city.",
+        "english": "Dad never showed his feelings.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sestra má dobrý cit pre farby.",
+        "english": "My sister has a good sense of colour.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Klaviristka hrala s veľkým citom.",
+        "english": "The pianist played with great feeling.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -147877,7 +148293,23 @@
     "english": "evil",
     "category": "Nouns",
     "gender": "neuter",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V rozprávkach dobro vždy zvíťazí nad zlom.",
+        "english": "In fairy tales, good always triumphs over evil.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Malé deti ešte nevedia rozlíšiť dobro od zla.",
+        "english": "Little children can't yet tell good from evil.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Z tých dvoch možností si vybral menšie zlo.",
+        "english": "Of the two options, he chose the lesser evil.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -148667,7 +149099,23 @@
     "english": "track; path",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Víťazka bežala na štvrtej dráhe.",
+        "english": "The winner ran in lane four.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Raketa vyniesla družicu na obežnú dráhu.",
+        "english": "The rocket carried the satellite into orbit.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jeho športová dráha sa začala v malom klube.",
+        "english": "His sporting career began at a small club.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -151097,7 +151545,23 @@
     "english": "expedition; trip",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Horolezecká výprava sa vrátila z Himalájí.",
+        "english": "The mountaineering expedition came back from the Himalayas.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cez víkend sme sa vybrali na výpravu do lesa.",
+        "english": "At the weekend we set off on a trip into the forest.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Z výpravy na Island priniesli krásne fotografie.",
+        "english": "They brought back beautiful photos from their expedition to Iceland.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -151536,7 +152000,23 @@
     "english": "belt; strip; band",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V aute si vždy zapni bezpečnostný pás.",
+        "english": "Always fasten your seatbelt in the car.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Medzi cestou a poľom je úzky pás trávy.",
+        "english": "Between the road and the field there's a narrow strip of grass.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V posilňovni behám na bežiacom páse.",
+        "english": "At the gym I run on the treadmill.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -151641,7 +152121,23 @@
     "english": "entry; record; registration",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Zápis do prvej triedy bude v apríli.",
+        "english": "Registration for first grade will be in April.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V zápise z porady chýba jedna dôležitá vec.",
+        "english": "One important thing is missing from the minutes of the meeting.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hostia nám nechali milý zápis v knihe návštev.",
+        "english": "The guests left us a nice entry in the guest book.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -156577,7 +157073,23 @@
     "english": "inscription; caption",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na dverách visel nápis „Zatvorené“.",
+        "english": "A sign saying “Closed” hung on the door.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Brat nosí tričko s vtipným nápisom.",
+        "english": "My brother wears a T-shirt with funny writing on it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nápis na starom hrobe sa už nedá prečítať.",
+        "english": "The inscription on the old grave can no longer be read.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -156606,7 +157118,23 @@
     "english": "file; case file; work",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Advokát si dôkladne preštudoval celý spis.",
+        "english": "The lawyer studied the whole case file thoroughly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na stole mala celú hŕbu spisov.",
+        "english": "She had a whole pile of files on her desk.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jeho zobrané spisy vyšli v desiatich zväzkoch.",
+        "english": "His collected works came out in ten volumes.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -156942,7 +157470,23 @@
     "english": "warehouse; store; composition",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Tento model máme momentálne na sklade.",
+        "english": "We currently have this model in stock.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starý nábytok sme odviezli do skladu.",
+        "english": "We took the old furniture to storage.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nový sklad postavili hneď pri diaľnici.",
+        "english": "They built the new warehouse right next to the motorway.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -159641,7 +160185,23 @@
     "english": "fuel",
     "category": "Nouns",
     "gender": "neuter",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Auto má málo paliva, musíme natankovať.",
+        "english": "The car is low on fuel, so we need to fill up.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Drevo je pre nás najlacnejšie palivo.",
+        "english": "For us, wood is the cheapest fuel.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ceny palív opäť stúpli.",
+        "english": "Fuel prices have gone up again.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -161172,7 +161732,23 @@
     "english": "inflammation",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Lekár zistil, že má zápal pľúc.",
+        "english": "The doctor found that she has pneumonia.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zápal stredného ucha je u malých detí častý.",
+        "english": "Middle-ear infections are common in small children.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "So zápalom hrdla zostal tri dni doma.",
+        "english": "He stayed at home for three days with a throat infection.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -162766,7 +163342,23 @@
     "english": "description; copy",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Polícia zverejnila opis podozrivého muža.",
+        "english": "The police released a description of the suspect.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Podľa opisu to bol vysoký muž v čiernej bunde.",
+        "english": "According to the description, it was a tall man in a black jacket.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na hodine slovenčiny sme písali opis svojej izby.",
+        "english": "In Slovak class we each wrote a description of our room.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -163843,7 +164435,23 @@
     "english": "injury; accident",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Po úraze musel dva mesiace chodiť o barlách.",
+        "english": "After the injury he had to walk on crutches for two months.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pri práci sa mu stal vážny úraz.",
+        "english": "He had a serious accident at work.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prilba chráni cyklistov pred vážnym úrazom.",
+        "english": "A helmet protects cyclists from serious injury.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -163998,7 +164606,23 @@
     "english": "coat; cloak; casing",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V laboratóriu chodíme v bielych plášťoch.",
+        "english": "In the lab we wear white coats.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kúzelník mal na sebe dlhý čierny plášť.",
+        "english": "The magician was wearing a long black cloak.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na bicykli treba vymeniť zadný plášť.",
+        "english": "The rear tyre on the bike needs replacing.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -165382,7 +166006,23 @@
     "english": "chin; beard",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Otec si cez leto nechal narásť bradu.",
+        "english": "Dad grew a beard over the summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Podoprela si bradu rukou a zamyslela sa.",
+        "english": "She propped her chin on her hand and thought for a moment.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na brade má malú jazvu z detstva.",
+        "english": "He has a small scar on his chin from childhood.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -166332,7 +166972,18 @@
     "english": "operation; course; walk",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Mama sa stará o chod celej domácnosti.",
+        "english": "Mum takes care of running the whole household.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na svadbe podávali obed s tromi chodmi.",
+        "english": "At the wedding they served a three-course lunch.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -167175,7 +167826,23 @@
     "english": "greenery; vegetation",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V našej štvrti chýba zeleň.",
+        "english": "Our neighbourhood lacks greenery.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dom stojí uprostred zelene.",
+        "english": "The house stands surrounded by greenery.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na jar je všade svieža zeleň.",
+        "english": "In spring there is fresh greenery everywhere.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -169773,7 +170440,23 @@
     "english": "cell; prison cell",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Zadržaný muž strávil noc v policajnej cele.",
+        "english": "The detained man spent the night in a police cell.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mnísi mali v kláštore malé, skromné cely.",
+        "english": "The monks had small, simple cells in the monastery.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cela bola tmavá a studená.",
+        "english": "The cell was dark and cold.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -172077,7 +172760,23 @@
     "english": "record; plate; slab",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Otec si večer rád pustí starú platňu.",
+        "english": "In the evening Dad likes to put on an old record.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nedotýkaj sa platne, je ešte horúca.",
+        "english": "Don't touch the hotplate, it's still hot.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hrob zakrýva ťažká mramorová platňa.",
+        "english": "A heavy marble slab covers the grave.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -172574,8 +173273,25 @@
     "english": "old woman; woman; hag",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
-    "related": []
+    "examples": [
+      {
+        "slovak": "Na lavičke pred domom sedela stará baba.",
+        "english": "An old woman was sitting on the bench in front of the house.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V sobotu idem s babami z práce na kávu.",
+        "english": "On Saturday I'm going for coffee with the girls from work.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tá klebetná baba zo susedstva vie o každom všetko.",
+        "english": "That gossipy old hag next door knows everything about everyone.",
+        "note": "Curated"
+      }
+    ],
+    "related": [],
+    "register": "colloquial"
   },
   {
     "slug": "vrtulnik",
@@ -172839,7 +173555,23 @@
     "english": "mass; crowd",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na námestie prúdila masa ľudí.",
+        "english": "A mass of people was streaming into the square.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Z hory sa zosunula obrovská masa snehu.",
+        "english": "A huge mass of snow slid down the mountain.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nakoniec koláč potrieme čokoládovou masou.",
+        "english": "Finally, we spread the chocolate mixture over the cake.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -173221,7 +173953,23 @@
     "english": "ball; sphere",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Deti sa cez prestávku hádzali snehovými guľami.",
+        "english": "The children threw snowballs at each other during break.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zem má približne tvar gule.",
+        "english": "The Earth is roughly the shape of a sphere.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na stromček sme zavesili sklenené gule.",
+        "english": "We hung glass baubles on the Christmas tree.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -175053,7 +175801,23 @@
     "english": "filling; content; job description",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Do pera potrebujem novú náplň.",
+        "english": "I need a new refill for my pen.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mama upiekla koláč s makovou náplňou.",
+        "english": "Mum baked a cake with a poppy-seed filling.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čo presne je náplňou vašej práce?",
+        "english": "What exactly does your job involve?",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -175102,7 +175866,23 @@
     "english": "opening; hole",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Pes utiekol cez otvor v plote.",
+        "english": "The dog escaped through a hole in the fence.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vyvŕtal do steny malý otvor a zavesil obraz.",
+        "english": "He drilled a small hole in the wall and hung the picture.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vetrací otvor v kúpeľni treba vyčistiť.",
+        "english": "The vent in the bathroom needs cleaning.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -179550,7 +180330,23 @@
     "slovak": "podobne",
     "english": "similarly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Obaja bratia sa obliekajú veľmi podobne.",
+        "english": "Both brothers dress very similarly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Podobne ako vlani pôjdeme v lete k moru.",
+        "english": "Like last year, we'll go to the seaside in summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ďakujem, aj vám podobne!",
+        "english": "Thank you, the same to you!",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -180768,7 +181564,23 @@
     "slovak": "pôvodne",
     "english": "originally",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Pôvodne sme chceli ostať doma, ale nakoniec sme šli von.",
+        "english": "Originally we wanted to stay at home, but in the end we went out.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento dom bol pôvodne škola.",
+        "english": "This house was originally a school.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Koncert sa mal pôvodne začať o siedmej.",
+        "english": "The concert was originally supposed to start at seven.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -180877,7 +181689,23 @@
     "slovak": "minimálne",
     "english": "at least",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Babku navštevujeme minimálne raz za týždeň.",
+        "english": "We visit Grandma at least once a week.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lístky si treba kúpiť minimálne týždeň vopred.",
+        "english": "You need to buy tickets at least a week in advance.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Oprava strechy potrvá minimálne dva týždne.",
+        "english": "Repairing the roof will take at least two weeks.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -181999,7 +182827,23 @@
     "slovak": "úspešne",
     "english": "successfully",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Syn úspešne zložil maturitu.",
+        "english": "My son successfully passed his school-leaving exams.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Operácia prebehla úspešne a pacient je v poriadku.",
+        "english": "The operation was successful and the patient is fine.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Firma úspešne podniká už dvadsať rokov.",
+        "english": "The company has been doing business successfully for twenty years.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -182824,7 +183668,23 @@
     "slovak": "podstatne",
     "english": "substantially",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Ceny potravín sa podstatne zvýšili.",
+        "english": "Food prices have risen substantially.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nový byt je podstatne väčší ako starý.",
+        "english": "The new flat is substantially bigger than the old one.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odvtedy sa situácia podstatne zlepšila.",
+        "english": "The situation has improved substantially since then.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -182861,7 +183721,23 @@
     "slovak": "tradične",
     "english": "traditionally",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na Štedrý večer tradične varíme kapustnicu.",
+        "english": "On Christmas Eve we traditionally make cabbage soup.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Svadby sa u nás tradične konajú v sobotu.",
+        "english": "Here, weddings are traditionally held on Saturdays.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Najviac turistov tradične prichádza v auguste.",
+        "english": "Traditionally, most tourists come in August.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -183059,7 +183935,23 @@
     "slovak": "zbytočne",
     "english": "needlessly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Zbytočne si sa bál, skúška bola ľahká.",
+        "english": "You were worried for nothing: the exam was easy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechcem vás zbytočne zdržiavať.",
+        "english": "I don't want to hold you up unnecessarily.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zbytočne sa nerozčuľuj, nestojí to za to.",
+        "english": "Don't get upset over nothing, it isn't worth it.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -183217,7 +184109,23 @@
     "slovak": "verejne",
     "english": "publicly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Minister sa verejne ospravedlnil za svoju chybu.",
+        "english": "The minister publicly apologised for his mistake.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Herečka nerada hovorí verejne o svojom súkromí.",
+        "english": "The actress doesn't like talking about her private life in public.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Výsledky súťaže verejne oznámia v piatok.",
+        "english": "The results of the competition will be announced publicly on Friday.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -183941,7 +184849,23 @@
     "slovak": "otvorene",
     "english": "openly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Povedz mi otvorene, čo si o tom myslíš.",
+        "english": "Tell me openly what you think about it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "O svojich problémoch hovorí otvorene.",
+        "english": "He talks openly about his problems.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na porade otvorene kritizovala vedenie firmy.",
+        "english": "At the meeting she openly criticised the company's management.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -183978,7 +184902,23 @@
     "slovak": "nečakane",
     "english": "unexpectedly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Hostia prišli nečakane skoro.",
+        "english": "The guests arrived unexpectedly early.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Večer nečakane začalo pršať.",
+        "english": "In the evening it unexpectedly started to rain.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nečakane mi zavolal starý kamarát.",
+        "english": "An old friend unexpectedly called me.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -184126,7 +185066,23 @@
     "slovak": "zaslúžene",
     "english": "deservedly so",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Náš tím včera zaslúžene vyhral.",
+        "english": "Our team deservedly won yesterday.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cenu dostala úplne zaslúžene.",
+        "english": "She got the award, and fully deserved it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Reštaurácia je zaslúžene plná každý večer.",
+        "english": "The restaurant is full every evening, and deservedly so.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -184407,7 +185363,23 @@
     "slovak": "bežne",
     "english": "normally",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Bežne vstávam o šiestej.",
+        "english": "I normally get up at six.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Toto ovocie sa bežne predáva v každom obchode.",
+        "english": "This fruit is commonly sold in every shop.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V lete tu bežne býva aj tridsať stupňov.",
+        "english": "In summer it commonly gets up to thirty degrees here.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -184430,7 +185402,23 @@
     "slovak": "podrobne",
     "english": "in detail",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Vysvetlil nám podrobne, ako to funguje.",
+        "english": "He explained to us in detail how it works.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lekár ju podrobne vyšetril.",
+        "english": "The doctor examined her in detail.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pred podpisom si podrobne prečítajte zmluvu.",
+        "english": "Read the contract in detail before you sign it.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -184660,7 +185648,23 @@
     "slovak": "voľne",
     "english": "freely; loosely",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V tomto parku môžu psy voľne pobehovať.",
+        "english": "In this park dogs can run around freely.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vlasy jej voľne padali na plecia.",
+        "english": "Her hair fell loosely onto her shoulders.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Báseň preložili voľne, nie doslova.",
+        "english": "The poem was translated freely, not word for word.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -185358,7 +186362,23 @@
     "slovak": "historicky",
     "english": "historically",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Slovensko získalo historicky prvú medailu v tomto športe.",
+        "english": "Slovakia won its first-ever medal in this sport.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento kraj historicky patril k Uhorsku.",
+        "english": "This region historically belonged to the Kingdom of Hungary.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ceny nehnuteľností sú na historicky najvyššej úrovni.",
+        "english": "Property prices are at an all-time high.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -185387,7 +186407,23 @@
     "slovak": "silne",
     "english": "strongly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Niekto silne zaklopal na dvere.",
+        "english": "Someone knocked hard on the door.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Celú noc silne fúkal studený vietor.",
+        "english": "A cold wind blew hard all night.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po povodni bol most silne poškodený.",
+        "english": "After the flood, the bridge was badly damaged.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -185439,7 +186475,23 @@
     "slovak": "bezpečne",
     "english": "safely",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Lietadlo bezpečne pristálo v Košiciach.",
+        "english": "The plane landed safely in Košice.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "S tebou sa cítim bezpečne.",
+        "english": "I feel safe with you.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Peniaze máme bezpečne uložené v banke.",
+        "english": "Our money is safely deposited in the bank.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -185476,7 +186528,23 @@
     "slovak": "normálne",
     "english": "normally",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Normálne vstávam o šiestej, ale dnes som zaspal.",
+        "english": "Normally I get up at six, but today I overslept.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po operácii už znova normálne chodí.",
+        "english": "He's already walking normally again after the operation.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Správaj sa normálne, všetci sa na nás pozerajú.",
+        "english": "Act normally — everyone is looking at us.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -185513,7 +186581,23 @@
     "slovak": "predčasne",
     "english": "prematurely; too early",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Naša dcéra sa narodila predčasne.",
+        "english": "Our daughter was born prematurely.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Neoslavuj predčasne, ešte nie je koniec.",
+        "english": "Don't celebrate too early, it isn't over yet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Otec odišiel do dôchodku predčasne.",
+        "english": "Dad took early retirement.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -185521,7 +186605,23 @@
     "slovak": "krásne",
     "english": "beautifully; nicely; it is lovely (je krásne)",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Tvoja sestra spieva naozaj krásne.",
+        "english": "Your sister sings really beautifully.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dnes je vonku krásne, poďme sa prejsť.",
+        "english": "It's lovely outside today, so let's go for a walk.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten koláč sa ti krásne podaril.",
+        "english": "Your cake turned out beautifully.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -186150,7 +187250,23 @@
     "slovak": "srdečne",
     "english": "cordially",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Hostitelia nás srdečne privítali.",
+        "english": "Our hosts gave us a warm welcome.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Srdečne vás pozývame na našu svadbu.",
+        "english": "We cordially invite you to our wedding.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Všetci sa na tom srdečne zasmiali.",
+        "english": "Everyone had a hearty laugh about it.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -186244,7 +187360,23 @@
     "slovak": "hlavne",
     "english": "mainly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Do Tatier chodíme hlavne v lete.",
+        "english": "We go to the Tatras mainly in summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na porade sa hovorilo hlavne o peniazoch.",
+        "english": "At the meeting, the talk was mainly about money.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rád čítam, hlavne detektívky.",
+        "english": "I like reading, mainly detective stories.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -187008,7 +188140,18 @@
     "slovak": "slobodne",
     "english": "freely",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Chcem žiť slobodne a robiť, čo ma baví.",
+        "english": "I want to live freely and do what I enjoy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tu môžete slobodne vyjadriť svoj názor.",
+        "english": "Here you can express your opinion freely.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -187271,7 +188414,23 @@
     "slovak": "tajne",
     "english": "secretly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Tajne som dúfal, že vyhrám.",
+        "english": "I secretly hoped I would win.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Stretávali sa tajne, aby to nikto nevedel.",
+        "english": "They met in secret so that nobody would know.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Deti tajne pripravili oslavu pre mamu.",
+        "english": "The children secretly prepared a party for Mum.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -187882,7 +189041,23 @@
     "slovak": "výnimočne",
     "english": "exceptionally; only exceptionally",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Dnes výnimočne zatvárame už o tretej.",
+        "english": "Today, exceptionally, we're closing at three.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tentoraz ti to výnimočne prepáčim.",
+        "english": "This time I'll make an exception and let it go.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Je to výnimočne talentované dieťa.",
+        "english": "This is an exceptionally talented child.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -188748,7 +189923,23 @@
     "slovak": "ideálne",
     "english": "ideally",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Mali by sme sa stretnúť ešte tento týždeň, ideálne v stredu.",
+        "english": "We should meet this week, ideally on Wednesday.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tá farba sa ti ideálne hodí k očiam.",
+        "english": "That color goes perfectly with your eyes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pohovor nedopadol ideálne, ale prácu som nakoniec dostal.",
+        "english": "The interview didn't go perfectly, but I got the job in the end.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -188902,7 +190093,23 @@
     "slovak": "vedome",
     "english": "consciously",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Nikdy by som ti vedome neublížil.",
+        "english": "I would never knowingly hurt you.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vedome sa vyhýbam sladkostiam.",
+        "english": "I consciously avoid sweets.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Neurobil to omylom, ale vedome.",
+        "english": "He didn't do it by mistake, he did it knowingly.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -189139,7 +190346,23 @@
     "slovak": "vhodne",
     "english": "appropriately",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na pohovor sa treba vhodne obliecť.",
+        "english": "You need to dress appropriately for a job interview.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Neviem, ako na to vhodne zareagovať.",
+        "english": "I don't know how to respond to that appropriately.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Byt je vhodne zariadený aj pre malé deti.",
+        "english": "The flat is suitably furnished for small children too.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -189503,7 +190726,23 @@
     "slovak": "nebezpečne",
     "english": "dangerously",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Auto prešlo okolo nás nebezpečne blízko.",
+        "english": "A car went past us dangerously close.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten vodič jazdí veľmi nebezpečne.",
+        "english": "That driver drives very dangerously.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chodník pred domom je nebezpečne klzký.",
+        "english": "The pavement in front of the house is dangerously slippery.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -189881,7 +191120,23 @@
     "slovak": "nešťastne",
     "english": "unhappily; unluckily; awkwardly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Prečo sa tváriš tak nešťastne?",
+        "english": "Why do you look so unhappy?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na schodoch si nešťastne vyvrtla členok.",
+        "english": "She unluckily twisted her ankle on the stairs.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Otázku sformuloval dosť nešťastne.",
+        "english": "He worded the question rather awkwardly.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -189946,7 +191201,23 @@
     "slovak": "povinne",
     "english": "compulsorily; obligatorily",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Všetci noví zamestnanci povinne absolvujú školenie.",
+        "english": "All new employees have to complete a training course.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na stavbe sa povinne nosí prilba.",
+        "english": "On the building site, wearing a helmet is compulsory.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Od piatich rokov chodia deti do škôlky povinne.",
+        "english": "From the age of five, children have to attend nursery school.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -190222,7 +191493,18 @@
     "slovak": "spätne",
     "english": "retrospectively; afterward",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Spätne si uvedomujem, že som sa mýlil.",
+        "english": "Looking back, I realise I was wrong.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zvýšenie platu dostaneme spätne od januára.",
+        "english": "We'll get the pay rise backdated to January.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -190249,7 +191531,23 @@
     "slovak": "rýchle",
     "english": "quickly; fast (less common than rýchlo)",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Hovorí tak rýchle, že mu nerozumiem.",
+        "english": "He talks so fast that I can't understand him.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rýchle sa obliekol a utekal na autobus.",
+        "english": "He got dressed quickly and ran for the bus.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dovolenke nám čas ubehol veľmi rýchle.",
+        "english": "On holiday, time went by very fast for us.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -190401,7 +191699,23 @@
     "slovak": "nadšene",
     "english": "enthusiastically",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Diváci po koncerte nadšene tlieskali.",
+        "english": "The audience clapped enthusiastically after the concert.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nadšene nám rozprávala o výlete do Ríma.",
+        "english": "She told us enthusiastically about her trip to Rome.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Deti nadšene vybehli na sneh.",
+        "english": "The children ran out into the snow excitedly.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -190795,7 +192109,23 @@
     "slovak": "nádherne",
     "english": "beautifully; wonderfully",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Tvoja sestra spieva nádherne.",
+        "english": "Your sister sings beautifully.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V kuchyni to nádherne vonia.",
+        "english": "It smells wonderful in the kitchen.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cez víkend bolo pri jazere nádherne.",
+        "english": "It was wonderful by the lake at the weekend.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -190803,7 +192133,23 @@
     "slovak": "opačne",
     "english": "the other way around; oppositely",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Nie, bolo to presne opačne.",
+        "english": "No, it was exactly the other way around.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Batériu máš vloženú opačne, preto to nefunguje.",
+        "english": "You've put the battery in the wrong way round, that's why it doesn't work.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Brat nosí šiltovku vždy opačne.",
+        "english": "My brother always wears his cap backwards.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -190874,7 +192220,23 @@
     "slovak": "rozumne",
     "english": "sensibly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Snažíme sa rozumne hospodáriť s peniazmi.",
+        "english": "We try to manage our money sensibly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rozumne si rozdeľ sily, cesta je dlhá.",
+        "english": "Pace yourself sensibly, it's a long way.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Konečne niekto hovorí rozumne.",
+        "english": "At last someone is talking sense.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -190920,7 +192282,23 @@
     "slovak": "nezvyčajne",
     "english": "unusually",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na október je nezvyčajne teplo.",
+        "english": "It's unusually warm for October.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dnes si nezvyčajne tichý.",
+        "english": "You're unusually quiet today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na ulici bolo nezvyčajne veľa ľudí.",
+        "english": "There were an unusually large number of people in the street.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -191563,7 +192941,23 @@
     "slovak": "duchovne",
     "english": "spiritually",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Hudba ma duchovne obohacuje.",
+        "english": "Music enriches me spiritually.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chce rásť nielen telesne, ale aj duchovne.",
+        "english": "She wants to grow not only physically but also spiritually.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tí dvaja sú si duchovne veľmi blízki.",
+        "english": "Those two are spiritually very close.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -191664,7 +193058,23 @@
     "slovak": "odvážne",
     "english": "boldly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Ako prvá odvážne skočila do studenej vody.",
+        "english": "She was the first to bravely jump into the cold water.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na porade odvážne povedala šéfovi, čo si myslí.",
+        "english": "At the meeting she boldly told the boss what she thought.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten kuchár odvážne kombinuje nezvyčajné chute.",
+        "english": "That chef boldly combines unusual flavors.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -192046,7 +193456,23 @@
     "slovak": "duševne",
     "english": "mentally",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Po skúškovom období som duševne vyčerpaný.",
+        "english": "After the exam period, I'm mentally exhausted.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Duševne chorí ľudia potrebujú pochopenie a pomoc.",
+        "english": "Mentally ill people need understanding and help.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na chate si vždy duševne oddýchnem.",
+        "english": "At the cottage, I always get a mental rest.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -192292,7 +193718,23 @@
     "slovak": "nutne",
     "english": "necessarily",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Nutne potrebujem s tebou hovoriť.",
+        "english": "I urgently need to talk to you.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Drahšie nemusí nutne znamenať lepšie.",
+        "english": "More expensive doesn't necessarily mean better.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na stretnutie nemusíš nutne prísť osobne.",
+        "english": "You don't necessarily have to come to the meeting in person.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -192425,7 +193867,23 @@
     "slovak": "chladne",
     "english": "coldly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Odpovedala mu veľmi chladne.",
+        "english": "She answered him very coldly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chladne sa na mňa pozrela a odišla.",
+        "english": "She gave me a cold look and left.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V krízovej situácii treba uvažovať chladne.",
+        "english": "In a crisis you need to think with a cool head.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -193104,7 +194562,18 @@
     "slovak": "rôzne",
     "english": "variously; in different ways",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Ľudia na tú správu reagovali rôzne.",
+        "english": "People reacted to the news in different ways.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tá veta sa dá chápať rôzne.",
+        "english": "That sentence can be understood in different ways.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -193160,7 +194629,23 @@
     "slovak": "smrteľne",
     "english": "deadly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Vojak bol v boji smrteľne zranený.",
+        "english": "The soldier was fatally wounded in battle.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bola smrteľne bledá a triasla sa.",
+        "english": "She was deathly pale and trembling.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nesmej sa, myslím to smrteľne vážne.",
+        "english": "Don't laugh, I'm deadly serious.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -193168,7 +194653,23 @@
     "slovak": "vecne",
     "english": "factually; objectively; to the point",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Snažte sa vyjadrovať stručne a vecne.",
+        "english": "Try to express yourselves briefly and to the point.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rozprávajme sa vecne, bez emócií.",
+        "english": "Let's talk objectively, without emotions.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Článok je vecne správny, ale nudný.",
+        "english": "The article is factually correct, but boring.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -194163,7 +195664,23 @@
     "slovak": "životne",
     "english": "vitally; crucially",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Voda je pre rastliny životne dôležitá.",
+        "english": "Water is vitally important for plants.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ide o životne dôležité rozhodnutie.",
+        "english": "This is a crucially important decision.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tie lieky musí brať, sú pre neho životne dôležité.",
+        "english": "He has to take those medicines because they're vital for him.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -195292,7 +196809,23 @@
     "slovak": "malička",
     "english": "since childhood (only in od malička)",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Od malička rád kreslím.",
+        "english": "I've loved drawing since I was little.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "So susedou sa poznáme od malička.",
+        "english": "My neighbour and I have known each other since we were little.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Od malička chcela byť lekárkou.",
+        "english": "Ever since she was little, she wanted to be a doctor.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -195928,7 +197461,23 @@
     "slovak": "čestne",
     "english": "honestly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Celý život žil skromne a čestne.",
+        "english": "All his life he lived modestly and honestly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čestne priznal, že sa pomýlil.",
+        "english": "He honestly admitted that he had made a mistake.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Náš malý klub na turnaji čestne obstál.",
+        "english": "Our small club did respectably at the tournament.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -195936,7 +197485,23 @@
     "slovak": "smiešne",
     "english": "funnily; ridiculously",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "V tom klobúku vyzeráš smiešne.",
+        "english": "You look funny in that hat.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten byt predali za smiešne nízku cenu.",
+        "english": "They sold that flat for a ridiculously low price.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Náš pes smiešne podskakuje, keď sa teší.",
+        "english": "Our dog hops around funnily when he's happy.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -196727,7 +198292,23 @@
     "slovak": "vtipne",
     "english": "wittily; in a funny way",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Vtipne sa vyhol odpovedi na otázku.",
+        "english": "He wittily dodged the question.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Moderátor vtipne uviedol každého hosťa.",
+        "english": "The presenter introduced each guest in a funny way.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vie vtipne rozprávať aj o nudných veciach.",
+        "english": "He can talk wittily even about boring things.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -198328,7 +199909,23 @@
     "slovak": "zrozumiteľne",
     "english": "clearly; intelligibly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Hovorte, prosím, pomaly a zrozumiteľne.",
+        "english": "Please speak slowly and clearly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Učiteľka nám to vysvetlila veľmi zrozumiteľne.",
+        "english": "The teacher explained it to us very clearly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Návod je napísaný jednoducho a zrozumiteľne.",
+        "english": "The instructions are written simply and clearly.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -198790,7 +200387,23 @@
     "slovak": "sprava",
     "english": "from the right",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na tej fotke som tretí sprava.",
+        "english": "I'm third from the right in that photo.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pozor, sprava ide bicykel!",
+        "english": "Watch out, there's a bike coming from the right!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zrazu sa sprava vyrútilo auto.",
+        "english": "Suddenly a car shot out from the right.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -199059,7 +200672,23 @@
     "slovak": "neočakávane",
     "english": "unexpectedly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Včera k nám neočakávane prišla návšteva.",
+        "english": "Yesterday we had some unexpected visitors.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Náš tím neočakávane vyhral nad favoritom.",
+        "english": "Our team unexpectedly beat the favourite.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Skúška bola neočakávane ľahká.",
+        "english": "The exam was unexpectedly easy.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -199878,7 +201507,23 @@
     "slovak": "korektne",
     "english": "correctly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Hostia hrali tvrdo, ale korektne.",
+        "english": "The visitors played hard but fair.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Program funguje korektne aj na starších počítačoch.",
+        "english": "The program works correctly on older computers too.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Predajca nám reklamáciu vybavil rýchlo a korektne.",
+        "english": "The seller handled our complaint quickly and properly.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -199915,7 +201560,23 @@
     "slovak": "prechodne",
     "english": "temporarily",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Obchod je prechodne zatvorený.",
+        "english": "The shop is temporarily closed.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kým nenájdem byt, prechodne bývam u sestry.",
+        "english": "Until I find a flat, I'm staying with my sister for now.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cesta je pre opravu prechodne uzavretá.",
+        "english": "The road is temporarily closed for repairs.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -200788,7 +202449,23 @@
     "slovak": "nezmyselne",
     "english": "senselessly; pointlessly",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Celý večer sme sa nezmyselne hádali.",
+        "english": "We argued pointlessly all evening.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Minul všetky peniaze úplne nezmyselne.",
+        "english": "He spent all the money completely pointlessly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prečo musíš tak nezmyselne riskovať?",
+        "english": "Why do you have to take such senseless risks?",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -202221,7 +203898,23 @@
     "slovak": "zmysluplne",
     "english": "meaningfully",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Snažím sa tráviť voľný čas zmysluplne.",
+        "english": "I try to spend my free time meaningfully.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ako zmysluplne využiť dlhé zimné večery?",
+        "english": "How can you make good use of the long winter evenings?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vyzbierané peniaze sme použili zmysluplne.",
+        "english": "We put the money we collected to meaningful use.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -202456,7 +204149,23 @@
     "slovak": "nejasne",
     "english": "unclearly; vaguely",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Nejasne si spomínam na náš starý dom.",
+        "english": "I vaguely remember our old house.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cez hmlu bolo nejasne vidieť kopce.",
+        "english": "Through the fog, the hills were only faintly visible.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vyjadril sa k tomu dosť nejasne.",
+        "english": "He spoke about it rather vaguely.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -202540,7 +204249,23 @@
     "slovak": "šialene",
     "english": "insanely; crazily",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Je do nej šialene zaľúbený.",
+        "english": "He's madly in love with her.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ceny bytov sú šialene vysoké.",
+        "english": "Flat prices are insanely high.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pes šialene pobehoval po záhrade.",
+        "english": "The dog was running around the garden like crazy.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -202605,7 +204330,23 @@
     "slovak": "nevhodne",
     "english": "inappropriately",
     "category": "Adverbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na pohrebe sa správal veľmi nevhodne.",
+        "english": "He behaved very inappropriately at the funeral.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dúfam, že som neprišiel nevhodne.",
+        "english": "I hope I haven't come at a bad time.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mnohí turisti chodia do hôr nevhodne obutí.",
+        "english": "Many tourists go into the mountains in unsuitable shoes.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -203850,7 +205591,23 @@
     "slovak": "viezť",
     "english": "to transport (by vehicle); to drive (someone)",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Teraz nemôžem hovoriť, veziem deti do školy.",
+        "english": "I can't talk now, I'm driving the kids to school.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten kamión vezie ovocie do Poľska.",
+        "english": "That lorry is carrying fruit to Poland.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Taxikár nás viezol cez celé mesto.",
+        "english": "The taxi driver drove us across the whole town.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -204455,7 +206212,23 @@
     "slovak": "hnať",
     "english": "to drive",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Pastier práve ženie ovce domov.",
+        "english": "The shepherd is driving the sheep home right now.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vietor hnal po oblohe tmavé mraky.",
+        "english": "The wind drove dark clouds across the sky.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nikto ťa neženie, máme dosť času.",
+        "english": "Nobody's rushing you, we have plenty of time.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -206486,7 +208259,23 @@
     "slovak": "vyznať",
     "english": "to confess (love, faith); to know one's way around (vyznať sa v)",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Po rokoch mu konečne vyznala lásku.",
+        "english": "After years, she finally confessed her love to him.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V tomto meste sa ešte nevyznám.",
+        "english": "I don't know my way around this town yet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sused sa dobre vyzná v autách.",
+        "english": "Our neighbour knows a lot about cars.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -207789,7 +209578,23 @@
     "slovak": "vystrieť",
     "english": "to stretch out; to hold out (a hand)",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Vystrel ku mne ruku a pomohol mi vstať.",
+        "english": "He held out his hand to me and helped me up.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ľahol si na gauč a vystrel nohy.",
+        "english": "He lay down on the sofa and stretched out his legs.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vystri ruky pred seba a zavri oči.",
+        "english": "Stretch your arms out in front of you and close your eyes.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -210536,7 +212341,23 @@
     "slovak": "neviesť",
     "english": "not to lead; not to drive (a vehicle)",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Táto cesta nevedie do dediny.",
+        "english": "This road doesn't lead to the village.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hádať sa s ním nikam nevedie.",
+        "english": "Arguing with him gets you nowhere.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vodičský preukaz má, ale auto ešte nikdy neviedol.",
+        "english": "He has a driving licence but has never driven a car.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -218959,7 +220780,23 @@
     "slovak": "prieť",
     "english": "to argue; to dispute (prieť sa)",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Deti sa prú, kto pôjde prvý.",
+        "english": "The children are arguing about who goes first.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechcem sa s tebou prieť pre maličkosť.",
+        "english": "I don't want to argue with you over a trifle.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dlho sa preli o detailoch zmluvy.",
+        "english": "They argued for a long time over the details of the contract.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -222387,7 +224224,23 @@
     "slovak": "stekať",
     "english": "to drip; to flow",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Po okne stekajú kvapky dažďa.",
+        "english": "Raindrops are running down the window.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pot mu stekal po čele.",
+        "english": "Sweat was running down his forehead.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Voda zo strechy steká rovno do suda.",
+        "english": "Water from the roof runs straight into the barrel.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -224053,7 +225906,23 @@
     "slovak": "šiť",
     "english": "to sew",
     "category": "Verbs",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Babka mi šije nové šaty.",
+        "english": "Grandma is sewing me a new dress.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Naučila som sa šiť na stroji.",
+        "english": "I learned to sew on a sewing machine.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten oblek mu šili na mieru.",
+        "english": "That suit was made to measure for him.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -227670,7 +229539,23 @@
     "english": "technician",
     "category": "Nouns",
     "gender": "masculine-animate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Technik povedal, že sa práčka už nedá opraviť.",
+        "english": "The technician said the washing machine can't be repaired anymore.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jej manžel pracuje ako zubný technik.",
+        "english": "Her husband works as a dental technician.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zavolali sme technika, lebo nefungovalo kúrenie.",
+        "english": "We called a technician because the heating wasn't working.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -227939,7 +229824,23 @@
     "english": "throw",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Posledný hod rozhodol celý zápas.",
+        "english": "The last throw decided the whole match.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vyhrala súťaž v hode oštepom.",
+        "english": "She won the javelin throw competition.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pri prvom hode kockou mi padla šestka.",
+        "english": "On my first roll of the die, I got a six.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -231539,7 +233440,23 @@
     "english": "menu",
     "category": "Nouns",
     "gender": "neuter",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Čašník nám priniesol menu a opýtal sa, čo budeme piť.",
+        "english": "The waiter brought us the menu and asked what we would like to drink.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Táto reštaurácia ponúka každý deň lacné obedové menu.",
+        "english": "This restaurant offers a cheap lunch menu every day.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kliknite na menu v pravom hornom rohu.",
+        "english": "Click on the menu in the top right corner.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -231969,7 +233886,23 @@
     "english": "culprit; guilty party",
     "category": "Nouns",
     "gender": "masculine-animate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Polícia stále hľadá vinníka nehody.",
+        "english": "The police are still looking for whoever caused the accident.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vinník sa nakoniec sám priznal.",
+        "english": "In the end, the culprit owned up.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Netreba hľadať vinníkov, treba riešiť problém.",
+        "english": "There's no point looking for someone to blame, we need to solve the problem.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -232280,7 +234213,23 @@
     "english": "scale",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Reštaurácia ponúka širokú škálu jedál.",
+        "english": "The restaurant offers a wide range of dishes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zákazníci hodnotili spokojnosť na päťbodovej škále.",
+        "english": "Customers rated their satisfaction on a five-point scale.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Les na jeseň hrá celou škálou farieb.",
+        "english": "In autumn, the forest shows a whole range of colours.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -232289,7 +234238,23 @@
     "english": "study; office",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Zavrel sa v pracovni a písal.",
+        "english": "He shut himself away in his study and wrote.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Z detskej izby sme urobili pracovňu.",
+        "english": "We turned the children's room into a study.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechoď do pracovne, otec telefonuje.",
+        "english": "Don't go into the study, Dad is on the phone.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -233962,7 +235927,23 @@
     "english": "reflection; rebound",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Deti pozorovali odraz mesiaca na vode.",
+        "english": "The children watched the moon's reflection on the water.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pozrel sa na svoj odraz vo výklade.",
+        "english": "He looked at his reflection in the shop window.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lopta sa po odraze od steny vrátila k nám.",
+        "english": "After bouncing off the wall, the ball came back to us.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -235119,7 +237100,23 @@
     "english": "lady",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Na plese vyzerala ako skutočná lady.",
+        "english": "At the ball she looked like a real lady.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hlavnou postavou filmu je bohatá anglická lady.",
+        "english": "The main character of the film is a rich English lady.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do hotela prišla elegantná lady s malým psíkom.",
+        "english": "An elegant lady with a little dog came into the hotel.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
@@ -236298,7 +238295,23 @@
     "english": "diet",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [],
+    "examples": [
+      {
+        "slovak": "Lekár mi predpísal prísnu diétu.",
+        "english": "The doctor put me on a strict diet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bez pohybu ti diéta veľmi nepomôže.",
+        "english": "Without exercise, a diet won't help you much.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ďakujem, koláč si nedám, som na diéte.",
+        "english": "Thanks, I won't have any cake, I'm on a diet.",
+        "note": "Curated"
+      }
+    ],
     "related": []
   },
   {
