@@ -53,7 +53,7 @@
 </script>
 
 <script lang="ts">
-  import { onMount, tick } from "svelte";
+  import { onMount, tick, untrack } from "svelte";
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import { playAnswerSfx } from "$lib/audio/sfx";
@@ -100,6 +100,11 @@
     type SceneThing,
   } from "$lib/stick-figure/scene-things";
   import { cx } from "$lib/ui/classes";
+  import {
+    ambienceFor,
+    playAmbience,
+    type AmbiencePlayer,
+  } from "$lib/stick-figure/ambience";
   import { canRecord } from "$lib/stick-figure/recorder";
   import type { Take } from "$lib/stick-figure/take";
   import SceneCaption from "./SceneCaption.svelte";
@@ -177,6 +182,9 @@
   let takes = $state<Record<number, Take>>({});
   /** Alex's lines in the learner's recordings instead of Alex's clips. */
   let ownVoice = $state(false);
+  /** The place's own sound under the dialogue: chatter, birds, rain. */
+  let ambient = $state(false);
+  let ambience: AmbiencePlayer | undefined;
   let phase = $state<Phase>("ready");
   /** The line the scene is on: playing, waiting for Alex, or next after a pause. */
   let at = $state(0);
@@ -262,6 +270,10 @@
   );
   const turns = $derived(TURNS.filter(({ id }) => id !== "say" || recordable));
   const takeCount = $derived(Object.keys(takes).length);
+  const soundscape = $derived(
+    ambienceFor(mode === "greet" ? "plaza" : scene.setting, mood),
+  );
+  const soundKey = $derived(JSON.stringify(soundscape));
   const greetRound = $derived(greetQueue[greetAt]);
   const mood = $derived(
     mode === "greet"
@@ -302,6 +314,26 @@
       return character?.kind === "recurring" ? name : `the ${name.toLowerCase()}`;
     }),
   );
+
+  // A new place or light changes the sound; the toggle starts and stops it.
+  $effect(() => {
+    void soundKey;
+    if (!ambient) return;
+
+    const player = untrack(() => playAmbience(soundscape));
+    player?.duck(untrack(() => speaking));
+    ambience = player;
+    return () => {
+      player?.stop();
+      if (ambience === player) ambience = undefined;
+    };
+  });
+
+  $effect(() => {
+    // Read first: with no sound playing yet, `?.` would skip it and the effect would never rerun.
+    const talking = speaking;
+    ambience?.duck(talking);
+  });
 
   onMount(() => {
     recordable = canRecord();
@@ -794,9 +826,20 @@
           {/if}
         </div>
 
-        <TextLink onclick={toggleEnglish}>
-          {showEnglish ? "Hide English" : "Show English"}
-        </TextLink>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <TextLink
+            aria-pressed={ambient}
+            onclick={() => {
+              ambient = !ambient;
+            }}
+          >
+            {ambient ? "Stop background sound" : "Play background sound"}
+          </TextLink>
+
+          <TextLink onclick={toggleEnglish}>
+            {showEnglish ? "Hide English" : "Show English"}
+          </TextLink>
+        </div>
       </div>
 
       <div class="{panelClass} mt-3 overflow-hidden">
