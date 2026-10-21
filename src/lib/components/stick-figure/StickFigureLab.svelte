@@ -305,6 +305,23 @@
 
       <div class="{panelClass} mt-5 overflow-hidden">
         <div
+          class="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-slate-200 px-5 py-3"
+        >
+          <Button variant="accent" onclick={playingScene ? stop : playScene}>
+            {playingScene ? "Stop" : "Play scene"}
+          </Button>
+
+          <p class="m-0 text-sm text-slate-500">
+            {#if scene.id === SCRIPT_SCENE_ID}
+              No clips yet: lines run on text timing with a timed mouth.
+            {:else}
+              {voicedCount} of {scene.lines.length} lines have a clip, {trackedCount} a mouth
+              track.
+            {/if}
+          </p>
+        </div>
+
+        <div
           class="relative flex h-[300px] items-end justify-center gap-[6%] overflow-hidden border-b border-slate-200 px-6 pb-3 max-[600px]:h-[240px]"
         >
           <img
@@ -381,23 +398,6 @@
             </li>
           {/each}
         </ol>
-
-        <div
-          class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 px-5 py-4"
-        >
-          <Button variant="accent" onclick={playingScene ? stop : playScene}>
-            {playingScene ? "Stop" : "Play scene"}
-          </Button>
-
-          <p class="m-0 text-sm text-slate-500">
-            {#if scene.id === SCRIPT_SCENE_ID}
-              No clips yet: lines run on text timing with a timed mouth.
-            {:else}
-              {voicedCount} of {scene.lines.length} lines have a clip, {trackedCount} a mouth
-              track.
-            {/if}
-          </p>
-        </div>
       </div>
     </section>
 
