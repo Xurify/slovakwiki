@@ -18,6 +18,17 @@ export const STICK_GESTURE_IDS = [
 
 export type StickGestureId = (typeof STICK_GESTURE_IDS)[number];
 
+/** `tento` points at something near, `tamten` reaches for something over there. */
+export type PointReach = "near" | "far";
+
+/** Where a point goes: degrees above level toward the facing side, and how far. */
+export interface PointAim {
+  /** The rear hand points when the lead one holds a prop. */
+  hand?: "lead" | "rear";
+  reach?: PointReach;
+  rise?: number;
+}
+
 interface GestureKey {
   at: number;
   pose: StickPose;
@@ -58,7 +69,6 @@ const shrugUp = {
   brow: 1,
 };
 const handOnChest = { leadRaise: 40, leadBend: -155, tilt: 3, look: 0.6 };
-const aim = { leadRaise: 82, leadBend: 4, lean: 3, look: 1 };
 const armsUp = {
   leadRaise: 135,
   leadBend: 15,
@@ -71,6 +81,36 @@ const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, loo
 const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: -0.4, brow: 0.6 };
 const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 const holdOut = { leadRaise: 55, leadBend: 45, lean: 2, tilt: 3, look: 1, brow: 0.6 };
+
+/** A point with no target aims a little below level, at someone's hands or the table. */
+const POINT_RISE = -9;
+
+/**
+ * A straight-ish arm toward `rise`. The upper arm leaves at `raise − lean`
+ * from straight down and the forearm adds about half the elbow bend, so the
+ * raise is solved from the lean and bend to land the hand on the aim. The
+ * rear arm mirrors it, swinging forward from behind the body. A far point
+ * straightens the arm, leans in and lifts the head; a near one bends the
+ * elbow. Each shifts the aim a little so the two read apart.
+ */
+function pointing({ hand = "lead", reach, rise = POINT_RISE }: PointAim): StickGesture {
+  const lean = reach === "far" ? 5 : reach === "near" ? 2 : 3;
+  const bend = reach === "far" ? 0 : reach === "near" ? 24 : 4;
+  const shift = reach === "far" ? 6 : reach === "near" ? -6 : 0;
+  const raise = 90 + rise + shift + lean - bend * 0.48;
+  const arm =
+    hand === "rear"
+      ? { rearRaise: -raise, rearBend: -bend }
+      : { leadRaise: raise, leadBend: bend };
+  const at = {
+    ...arm,
+    lean,
+    look: 1,
+    tilt: reach === "far" ? -2 : 0,
+    bob: reach === "far" ? -0.8 : 0,
+  };
+  return gesture(at, [key(0), key(320, at), key(950, at), key(1250)]);
+}
 
 const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
   talk: gesture(beat, [
@@ -117,7 +157,7 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
     key(950, handOnChest),
     key(1250),
   ]),
-  point: gesture(aim, [key(0), key(320, aim), key(950, aim), key(1250)]),
+  point: pointing({}),
   cheer: gesture(armsUp, [
     key(0),
     key(260, armsUp),
@@ -141,8 +181,16 @@ export function gestureDuration(id: StickGestureId): number {
   return keys[keys.length - 1].at;
 }
 
-export function sampleGesture(id: StickGestureId, elapsed: number): StickPose {
-  const { keys } = STICK_GESTURES[id];
+function gestureFor(id: StickGestureId, aim?: PointAim): StickGesture {
+  return id === "point" && aim ? pointing(aim) : STICK_GESTURES[id];
+}
+
+export function sampleGesture(
+  id: StickGestureId,
+  elapsed: number,
+  aim?: PointAim,
+): StickPose {
+  const { keys } = gestureFor(id, aim);
 
   for (let index = 1; index < keys.length; index += 1) {
     const previous = keys[index - 1];
@@ -157,8 +205,8 @@ export function sampleGesture(id: StickGestureId, elapsed: number): StickPose {
 }
 
 /** The still frame that stands in for the whole gesture under reduced motion. */
-export function gesturePeak(id: StickGestureId): StickPose {
-  return STICK_GESTURES[id].peak;
+export function gesturePeak(id: StickGestureId, aim?: PointAim): StickPose {
+  return gestureFor(id, aim).peak;
 }
 
 /**

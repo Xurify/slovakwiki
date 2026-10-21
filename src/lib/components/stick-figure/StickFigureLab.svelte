@@ -31,6 +31,8 @@
 </script>
 
 <script lang="ts">
+  import { untrack } from "svelte";
+
   import {
     characterIdForSpeaker,
     listedCharacters,
@@ -52,12 +54,13 @@
   } from "$lib/lesson-story/story-audio";
   import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
   import { lessonSceneSrc } from "$lib/lesson-story/story-settings";
-  import { STICK_GESTURE_IDS } from "$lib/stick-figure/gestures";
+  import { STICK_GESTURE_IDS, gesturePeak } from "$lib/stick-figure/gestures";
   import {
     gesturePlan,
     planLine,
     reactionPlan,
     type LinePlan,
+    type PointTarget,
   } from "$lib/stick-figure/line-plan";
   import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
   import {
@@ -67,12 +70,23 @@
     lineProps,
   } from "$lib/stick-figure/props";
   import { STICK_PICTURE_NAMES } from "$lib/stick-figure/pictures";
+  import { REST_POSE } from "$lib/stick-figure/pose";
+  import { solveRig, type Point } from "$lib/stick-figure/rig";
+  import {
+    SCENE_THINGS,
+    aimAt,
+    backdropAlign,
+    backdropToStage,
+    figureToStage,
+    linePoints,
+  } from "$lib/stick-figure/scene-things";
   import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import {
     restFacing,
     stageLine,
     type CastFacing,
+    type Facing,
     type StageReaction,
   } from "$lib/stick-figure/staging";
   import { cx } from "$lib/ui/classes";
@@ -86,11 +100,24 @@
     talking: boolean;
   }
 
+  /** Figure widths each figure stands from its mark. */
+  type Offsets = Partial<Record<LessonCharacterId, number>>;
+
+  /** A figure's slot as the stage lays it out, before any walk moves it. */
+  interface Mark {
+    left: number;
+    top: number;
+    width: number;
+  }
+
   let { scenes }: { scenes: StickLabScene[] } = $props();
 
   const SCRIPT_SCENE_ID = "script";
   /** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
   const BESIDE_WIDTHS = 0.8;
+  /** Where an arm leaves the body, and where a hand holds a prop out to show it, in rig space. */
+  const SHOULDER: Point = { x: 0, y: solveRig(REST_POSE).leadShoulder.y };
+  const SHOWN_HAND: Point = solveRig(gesturePeak("show")).leadArm.end;
 
   const PLACES: Array<{ id: LessonSceneArtId; label: string }> = [
     { id: "default", label: "Park" },
@@ -107,6 +134,7 @@
   const REACTION_COPY: Partial<Record<StickGestureId, string>> = {
     lean: "leans in",
     nod: "nods",
+    show: "holds it up",
   };
 
   let sceneId = $state("");
@@ -119,11 +147,12 @@
   let copied = $state(false);
   let painted = $state(false);
   let facings = $state<CastFacing>({});
-  /** How far each figure has walked from its mark, in figure widths. */
-  let offsets = $state<Partial<Record<LessonCharacterId, number>>>({});
+  let offsets = $state<Offsets>({});
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   let stageEl = $state<HTMLDivElement>();
   const slots: Partial<Record<LessonCharacterId, HTMLDivElement>> = {};
+  /** When each walk in flight ends, on the `performance.now()` clock. */
+  let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
   let benchProp = $state<StickPropId | undefined>();
@@ -171,6 +200,7 @@
   const lineCues = $derived(
     scene.lines.map((line) => lineProps(line.slovak, line.props)),
   );
+  const things = $derived(SCENE_THINGS[scene.setting] ?? []);
   const held = $derived(
     heldProps(
       scene.lines.map((line, index) => ({
@@ -179,19 +209,6 @@
       })),
     ),
   );
-  const linePlans = $derived(
-    new Map(
-      scene.lines.map((line, index) => [
-        line.id,
-        planLine(line.slovak, {
-          gestures: gesturesWithProps(lineCues[index], line.gestures),
-          lips: line.vowels ? decodeVowelTrack(line.vowels) : undefined,
-          track: line.mouth ? decodeMouthTrack(line.mouth) : undefined,
-        }),
-      ]),
-    ),
-  );
-  const tryPlan = $derived(planLine(tryLine));
   const resting = $derived(restFacing(cast));
   const stagings = $derived(
     scene.lines.map((_, index, lines) =>
@@ -204,14 +221,37 @@
         })),
         index,
         cast,
+        things,
       ),
     ),
   );
+  const linePlans = $derived(
+    new Map(
+      scene.lines.map((line, index) => [
+        line.id,
+        planLine(line.slovak, {
+          gestures: gesturesWithProps(lineCues[index], line.gestures),
+          lips: line.vowels ? decodeVowelTrack(line.vowels) : undefined,
+          points: dialogueSpeakerLabel(line.speaker)
+            ? linePoints(line.slovak, things, stagings[index]?.looksAt)
+            : [],
+          track: line.mouth ? decodeMouthTrack(line.mouth) : undefined,
+        }),
+      ]),
+    ),
+  );
+  const tryPlan = $derived(planLine(tryLine));
 
   let playToken = 0;
   let sceneTimer = 0;
   let lineTimer = 0;
   let benchTimer = 0;
+
+  // A new scene, or an edit to the script, starts everyone where its first line finds them.
+  $effect(() => {
+    void stagings;
+    untrack(() => placeStage(0));
+  });
 
   /** "wave → self", with repeated talking beats said once. */
   function gestureSequence(plan: LinePlan | undefined): string {
@@ -229,19 +269,33 @@
     return `${nameOf(reaction.characterId)} ${REACTION_COPY[reaction.gesture] ?? reaction.gesture}`;
   }
 
+  function pointCopy(target: PointTarget, index: number): string {
+    if (target.kind === "prop") {
+      const prop = held[index]?.[target.holder];
+      return `Points at ${nameOf(target.holder)}'s ${prop ?? "hands"}`;
+    }
+    const thing = things.find((candidate) => candidate.id === target.id);
+    return `Points at the ${thing?.word ?? target.id}`;
+  }
+
   function selectScene(id: string): void {
     stop();
     actors = {};
-    resetStage();
     heldAt = -1;
+    if (id === scene.id) placeStage(0);
     sceneId = id;
   }
 
-  /** Everyone back on their mark, facing the middle, before a fresh run. */
-  function resetStage(): void {
-    facings = {};
-    walks = {};
-    offsets = {};
+  // Layout positions, not the drawn ones: a walk in flight moves the figure
+  // with a transform, which offsetLeft leaves out.
+  function markOf(id: LessonCharacterId): Mark | undefined {
+    const slot = slots[id];
+    if (!slot) return undefined;
+    return { left: slot.offsetLeft, top: slot.offsetTop, width: slot.offsetWidth };
+  }
+
+  function standing(mark: Mark, offset = 0): Mark {
+    return { ...mark, left: mark.left + offset * mark.width };
   }
 
   /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
@@ -252,32 +306,119 @@
     const ms = walkDuration(stepsFor(offset - from));
     walks = { ...walks, [id]: { cue: (walks[id]?.cue ?? 0) + 1, ms } };
     offsets = { ...offsets, [id]: offset };
+    // Reduced motion puts the figure there at once, so nobody waits on the walk.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      walkEndsAt[id] = performance.now() + ms;
+    }
   }
 
-  /** Figure widths from a figure's mark to where it stands beside `to`, wherever `to` is now. */
-  function beside(id: LessonCharacterId, to: LessonCharacterId, toward: 1 | -1): number {
-    const slot = slots[id];
-    const other = slots[to];
-    if (!slot || !other) return toward * 0.5;
+  /** Figure widths from a figure's mark to where it stands beside `to`, wherever `to` stands in `at`. */
+  function beside(
+    id: LessonCharacterId,
+    to: LessonCharacterId,
+    toward: Facing,
+    at: Offsets = offsets,
+  ): number {
+    const mark = markOf(id);
+    const other = markOf(to);
+    if (!mark || !other) return toward * 0.5;
 
-    const box = slot.getBoundingClientRect();
-    const target = other.getBoundingClientRect();
-    const mark = box.left - (offsets[id] ?? 0) * box.width;
-    const gap = (target.left - mark) / box.width;
+    const gap = (standing(other, at[to]).left - mark.left) / mark.width;
     return Math.abs(gap) > BESIDE_WIDTHS ? gap - Math.sign(gap) * BESIDE_WIDTHS : 0;
   }
 
-  /** Figure widths from a figure's mark to just past the stage edge it walks toward. */
-  function offStage(id: LessonCharacterId, direction: 1 | -1): number {
-    const slot = slots[id];
-    if (!slot || !stageEl) return direction * 4;
+  /** Figure widths from a figure's mark to just past the stage edge on that side. */
+  function offStage(id: LessonCharacterId, direction: Facing): number {
+    const mark = markOf(id);
+    if (!mark || !stageEl) return direction * 4;
 
-    const stage = stageEl.getBoundingClientRect();
-    const box = slot.getBoundingClientRect();
-    const markLeft = box.left - (offsets[id] ?? 0) * box.width;
     const distance =
-      direction > 0 ? stage.right - markLeft : markLeft + box.width - stage.left;
-    return direction * (distance / box.width + 0.1);
+      direction > 0 ? stageEl.clientWidth - mark.left : mark.left + mark.width;
+    return direction * (distance / mark.width + 0.1);
+  }
+
+  /** Where everyone stands and faces as line `index` begins, as if the scene had played to it. */
+  function stageBefore(index: number): { facings: CastFacing; offsets: Offsets } {
+    let placedFacings: CastFacing = {};
+    const placed: Offsets = {};
+
+    for (const { enter } of stagings) {
+      if (enter) placed[enter.characterId] = offStage(enter.characterId, enter.from);
+    }
+
+    stagings.slice(0, index).forEach((staging, at) => {
+      const speaker = scene.lines[at].characterId;
+      placedFacings = { ...placedFacings, ...staging.facing };
+
+      if (staging.enter) placed[staging.enter.characterId] = 0;
+      if (staging.approach) {
+        const { characterId, toward } = staging.approach;
+        placed[characterId] = beside(characterId, speaker, toward, placed);
+      }
+      if (staging.exit) {
+        placedFacings[speaker] = staging.exit;
+        placed[speaker] = offStage(speaker, staging.exit);
+      }
+    });
+
+    return { facings: placedFacings, offsets: placed };
+  }
+
+  /** Put everyone where line `index` finds them, without walking there. */
+  function placeStage(index: number): void {
+    const placed = stageBefore(index);
+    facings = placed.facings;
+    offsets = placed.offsets;
+    walks = {};
+    walkEndsAt = {};
+  }
+
+  /** Stage px of what a point aims at, as everyone stands now. */
+  function targetOf(target: PointTarget): Point | undefined {
+    if (target.kind === "thing") {
+      const thing = things.find((candidate) => candidate.id === target.id);
+      if (!thing || !stageEl) return undefined;
+      return backdropToStage(
+        thing,
+        stageEl.clientWidth,
+        stageEl.clientHeight,
+        backdropAlign(scene.setting),
+      );
+    }
+
+    const mark = markOf(target.holder);
+    if (!mark) return undefined;
+    const facing = facings[target.holder] ?? resting[target.holder] ?? 1;
+    return figureToStage(SHOWN_HAND, standing(mark, offsets[target.holder]), facing);
+  }
+
+  /**
+   * The plan with each point aimed from where the speaker stands, and the
+   * way the first one turns them. A hand holding a prop leaves the pointing
+   * to the other one.
+   */
+  function aimLine(
+    id: LessonCharacterId,
+    plan: LinePlan,
+    holding: boolean,
+  ): { facing?: Facing; plan: LinePlan } {
+    const mark = markOf(id);
+    const from = mark && figureToStage(SHOULDER, standing(mark, offsets[id]), 1);
+    let facing: Facing | undefined;
+
+    const beats = plan.beats.map((beat) => {
+      const to = beat.point && targetOf(beat.point.target);
+      if (!beat.point || !from || !to) return beat;
+
+      const aim = aimAt(from, to);
+      facing ??= aim.facing;
+      return {
+        ...beat,
+        point: { ...beat.point, ...aim, hand: holding ? ("rear" as const) : undefined },
+      };
+    });
+
+    return { facing, plan: { ...plan, beats } };
   }
 
   function stop(): void {
@@ -305,10 +446,23 @@
 
     for (const actor of Object.values(actors)) actor.talking = false;
     facings = { ...facings, ...staging?.facing };
-    if (dialogueSpeakerLabel(line.speaker) !== null) cueActor(line.characterId, plan);
+    if (dialogueSpeakerLabel(line.speaker) !== null && plan) {
+      const aimed = aimLine(
+        line.characterId,
+        plan,
+        Boolean(held[index]?.[line.characterId]),
+      );
+      if (aimed.facing) facings = { ...facings, [line.characterId]: aimed.facing };
+      cueActor(line.characterId, aimed.plan);
+    }
     if (staging?.approach) {
       const { characterId, toward } = staging.approach;
       walkTo(characterId, beside(characterId, line.characterId, toward));
+    }
+    if (staging?.enter) {
+      const { characterId, from } = staging.enter;
+      facings = { ...facings, [characterId]: from === 1 ? -1 : 1 };
+      walkTo(characterId, 0);
     }
 
     for (const reaction of staging?.reactions ?? []) {
@@ -344,7 +498,7 @@
 
   function playScene(): void {
     stop();
-    resetStage();
+    placeStage(0);
     playingScene = true;
     const lines = scene.lines;
 
@@ -354,6 +508,13 @@
       if (!line) {
         playingScene = false;
         activeLineId = null;
+        return;
+      }
+
+      // Someone still walking on gets to their mark before they speak.
+      const walking = (walkEndsAt[line.characterId] ?? 0) - performance.now();
+      if (walking > 0) {
+        sceneTimer = window.setTimeout(() => step(index), walking);
         return;
       }
 
@@ -554,7 +715,7 @@
                 type="button"
                 onclick={() => {
                   stop();
-                  resetStage();
+                  placeStage(index);
                   playLine(line);
                 }}
               >
@@ -592,8 +753,18 @@
                       <span>{STICK_PICTURE_NAMES[cue.picture]} over the head</span>
                     {/each}
 
+                    {#each linePlans.get(line.id)?.beats ?? [] as beat, beatIndex (beatIndex)}
+                      {#if beat.point}
+                        <span>{pointCopy(beat.point.target, index)}</span>
+                      {/if}
+                    {/each}
+
                     {#if staging?.approach}
                       <span>{nameOf(staging.approach.characterId)} walks over</span>
+                    {/if}
+
+                    {#if staging?.enter}
+                      <span>{nameOf(staging.enter.characterId)} walks in</span>
                     {/if}
 
                     {#if staging?.exit}

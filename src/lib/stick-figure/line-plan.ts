@@ -1,4 +1,10 @@
-import { gestureDuration, type StickGestureId } from "./gestures";
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import {
+  gestureDuration,
+  type PointAim,
+  type PointReach,
+  type StickGestureId,
+} from "./gestures";
 import { gestureForLine } from "./line-gesture";
 import {
   MOUTH_FRAME_MS,
@@ -9,10 +15,27 @@ import {
 import { linePictures, type StickPictureId } from "./pictures";
 import { slovakSyllables, type VowelShape } from "./syllables";
 
+/** What a point aims at: a thing drawn in the backdrop, or what someone holds up. */
+export type PointTarget =
+  { kind: "thing"; id: string } | { kind: "prop"; holder: LessonCharacterId };
+
+/** A word the arm goes out on, and what it points at. */
+export interface LinePoint {
+  reach?: PointReach;
+  target: PointTarget;
+  /** Index among the line's words. */
+  word: number;
+}
+
 export interface LineBeat {
   /** Clip time in ms. */
   at: number;
   gesture: StickGestureId;
+  /**
+   * A point's target. The stage works out `rise` and `facing` from where
+   * everyone stands; the speaker turns that way while the point plays.
+   */
+  point?: PointAim & { facing?: 1 | -1; target: PointTarget };
 }
 
 export interface LineSpan {
@@ -56,6 +79,8 @@ const TALK_MIN_LEFT_MS = 900;
 const SNAP_MS = 400;
 /** A gesture needs this long to read before the next one cuts in. */
 const MIN_BEAT_GAP_MS = 700;
+/** The arm starts out this far ahead of the word it points on, so it is up as the word lands. */
+const POINT_LEAD_MS = 200;
 /** A beat pushed later than this before the voice stops is dropped. */
 const LATE_BEAT_MS = 300;
 
@@ -63,6 +88,18 @@ export function lineSentences(slovak: string): string[] {
   return (slovak.match(/[^.!?…]+[.!?…]*/g) ?? [])
     .map((sentence) => sentence.trim())
     .filter((sentence) => /\p{L}/u.test(sentence));
+}
+
+/** The words of a line, in the order `textTimeline` times them. */
+export function lineWords(slovak: string): string[] {
+  return slovak.match(/\p{L}+/gu) ?? [];
+}
+
+/** Which sentence each of the line's words is in. */
+export function wordSentences(slovak: string): number[] {
+  return lineSentences(slovak).flatMap((sentence, index) =>
+    lineWords(sentence).map(() => index),
+  );
 }
 
 export function estimateSpeechMs(text: string): number {
@@ -143,6 +180,8 @@ export interface LineClip {
   /** Per-sentence overrides for the gesture picked from the text; gaps stay automatic. */
   gestures?: ReadonlyArray<StickGestureId | undefined>;
   lips?: LipTrack;
+  /** Words to point on, from what the scene has to point at. */
+  points?: readonly LinePoint[];
   /** Loudness per frame (0–1). */
   track?: number[];
 }
@@ -155,7 +194,7 @@ export interface LineClip {
  */
 export function planLine(
   slovak: string,
-  { gestures, lips, track }: LineClip = {},
+  { gestures, lips, points = [], track }: LineClip = {},
 ): LinePlan {
   const sentences = lineSentences(slovak);
   const lengths = sentences.map(estimateSpeechMs);
@@ -199,9 +238,22 @@ export function planLine(
     cursor += lengths[index] + SENTENCE_GAP_MS;
   });
 
+  const { words } = textTimeline(slovak);
+  const sentenceOf = wordSentences(slovak);
+  for (const { reach, target, word } of points) {
+    const said = words[word];
+    const sentence = spans[sentenceOf[word] ?? -1];
+    if (!said || !sentence) continue;
+
+    beats.push({
+      at: Math.max(sentence.start, origin + said.start * scale - POINT_LEAD_MS),
+      gesture: "point",
+      point: { reach, target },
+    });
+  }
+
   beats.sort((a, b) => a.at - b.at);
   const speechEnd = origin + speechMs * scale;
-  const { words } = textTimeline(slovak);
   const pictures = linePictures(slovak).map(({ picture, word }) => ({
     at: origin + (words[word]?.start ?? 0) * scale,
     picture,
@@ -221,12 +273,31 @@ export function planLine(
 /**
  * Short sentences would chain gestures faster than they read ("Dobrý deň.
  * Volám sa Anna." in under a second), so each beat waits for the last one.
+ * A point belongs on its word: it takes over from a beat that has not had
+ * time to read, and talking beats leave it alone until it is done.
  */
 function spaceBeats(beats: LineBeat[], speechEnd: number): LineBeat[] {
   const spaced: LineBeat[] = [];
 
   for (const beat of beats) {
-    const previous = spaced.at(-1);
+    let previous = spaced.at(-1);
+    if (
+      beat.point &&
+      previous &&
+      !previous.point &&
+      beat.at - previous.at < MIN_BEAT_GAP_MS
+    ) {
+      spaced.pop();
+      previous = spaced.at(-1);
+    }
+    if (
+      beat.gesture === "talk" &&
+      previous?.point &&
+      beat.at - previous.at < gestureDuration("point")
+    ) {
+      continue;
+    }
+
     const at = previous ? Math.max(beat.at, previous.at + MIN_BEAT_GAP_MS) : beat.at;
     if (previous && at > speechEnd - LATE_BEAT_MS) continue;
 

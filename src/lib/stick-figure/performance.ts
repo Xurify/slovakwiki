@@ -54,7 +54,7 @@ export function startPerformance(now = 0, from: StickPose = REST_POSE): Performa
 function bodyAt(plan: LinePlan, state: PerformanceState, now: number): StickPose {
   const beat = plan.beats[state.beatIndex];
   const elapsed = now - state.beatStartedAt;
-  const pose = beat ? sampleGesture(beat.gesture, elapsed) : REST_POSE;
+  const pose = beat ? sampleGesture(beat.gesture, elapsed, beat.point) : REST_POSE;
   if (elapsed >= BLEND_MS) return pose;
 
   return lerpPose(state.blendFrom, pose, easeInOut(elapsed / BLEND_MS));
@@ -116,8 +116,11 @@ export function performFrame(
     : elapsed < BLEND_MS;
 
   let pose: StickPose;
-  if (reducedMotion) pose = moving && beat ? gesturePeak(beat.gesture) : REST_POSE;
-  else pose = bodyAt(plan, state, now);
+  if (reducedMotion) {
+    pose = moving && beat ? gesturePeak(beat.gesture, beat.point) : REST_POSE;
+  } else {
+    pose = bodyAt(plan, state, now);
+  }
 
   if (talking && speechMs !== null && !plan.silent) {
     pose = {

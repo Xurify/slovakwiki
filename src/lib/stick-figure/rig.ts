@@ -29,8 +29,9 @@ export interface StickRig {
 export const GROUND_Y = 130;
 export const HEAD_RADIUS = 12.5;
 
-/** Centred on x = 0 so facing left is a plain `scale(-1 1)`. */
-export const STICK_VIEWBOX = "-40 22 80 114";
+/** The drawing box, centred on x = 0 so facing left is a plain `scale(-1 1)`. */
+export const STICK_BOX = { x: -40, y: 22, width: 80, height: 114 };
+export const STICK_VIEWBOX = `${STICK_BOX.x} ${STICK_BOX.y} ${STICK_BOX.width} ${STICK_BOX.height}`;
 
 const HIP_HEIGHT = 38;
 const TORSO = 30;

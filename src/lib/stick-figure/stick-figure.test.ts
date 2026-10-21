@@ -1,8 +1,14 @@
 import { describe, expect, it } from "vitest";
 
-import { STICK_GESTURE_IDS, gestureDuration, mouthAt, sampleGesture } from "./gestures";
+import {
+  STICK_GESTURE_IDS,
+  gestureDuration,
+  gesturePeak,
+  mouthAt,
+  sampleGesture,
+} from "./gestures";
 import { foldLine, gestureForLine } from "./line-gesture";
-import { estimateSpeechMs, planLine, reactionPlan } from "./line-plan";
+import { estimateSpeechMs, planLine, reactionPlan, wordSentences } from "./line-plan";
 import {
   MOUTH_FRAME_MS,
   MOUTH_LEAD_MS,
@@ -16,6 +22,13 @@ import { performFrame, startPerformance, type PerformanceInput } from "./perform
 import { linePictures } from "./pictures";
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
+import {
+  SCENE_THINGS,
+  aimAt,
+  backdropToStage,
+  figureToStage,
+  linePoints,
+} from "./scene-things";
 import { parseScript, sceneSnippet, stageName } from "./script";
 import { gesturesWithProps, heldProps, lineProps, propForSentence } from "./props";
 import { restFacing, stageLine, type StageLine } from "./staging";
@@ -493,8 +506,8 @@ describe("stageLine", () => {
   });
 
   it("leans in to a question and nods at its answer", () => {
-    expect(stageLine(lines, 1, cast).reactions).toEqual([
-      { characterId: "anna", gesture: "lean", sentence: 0, at: 0.5 },
+    expect(stageLine(lines, 3, cast).reactions).toEqual([
+      { characterId: "anna", gesture: "lean", sentence: 1, at: 0.5 },
     ]);
     expect(stageLine(lines, 2, cast).reactions).toEqual([
       { characterId: "alex", gesture: "nod", sentence: 0, at: 1 },
@@ -537,6 +550,30 @@ describe("stageLine", () => {
     ];
 
     expect(stageLine(order, 1, ["anna", "waiter"]).exit).toBe(1);
+  });
+
+  it("holds up what the speaker points at in their hands", () => {
+    expect(stageLine(lines, 1, cast)).toMatchObject({
+      looksAt: "anna",
+      reactions: [{ characterId: "anna", gesture: "show", sentence: 0, at: 0 }],
+    });
+    expect(stageLine(lines, 4, cast).looksAt).toBeUndefined();
+  });
+
+  it("walks someone on to say hello", () => {
+    expect(stageLine(lines, 2, cast).enter).toEqual({ characterId: "waiter", from: 1 });
+    expect(lines.filter((_, index) => stageLine(lines, index, cast).enter)).toHaveLength(
+      1,
+    );
+  });
+
+  it("leaves someone answering a hello where they are", () => {
+    const meeting: StageLine[] = [
+      { characterId: "maria", slovak: "Dobrý deň." },
+      { characterId: "alex", slovak: "Dobrý deň." },
+    ];
+
+    expect(stageLine(meeting, 0, ["maria", "alex"]).enter).toBeUndefined();
   });
 
   it("turns a goodbye away once it ends", () => {
@@ -587,6 +624,16 @@ describe("props", () => {
     ]);
 
     expect(held).toEqual([{ anna: "camera" }, { anna: "camera" }, { anna: "keys" }]);
+  });
+
+  it("puts a prop away when someone else joins in", () => {
+    const held = heldProps([
+      { characterId: "anna", props: ["camera"] },
+      { characterId: "alex", props: [undefined] },
+      { characterId: "waiter", props: [undefined] },
+    ]);
+
+    expect(held).toEqual([{ anna: "camera" }, { anna: "camera" }, {}]);
   });
 });
 
@@ -643,5 +690,108 @@ describe("pictures", () => {
     expect(cue?.at).toBeGreaterThan(plan.sentences[0].start);
     expect(before.picture).toBeUndefined();
     expect(after.picture).toBe("flag-ca");
+  });
+});
+
+describe("pointing", () => {
+  const cafe = SCENE_THINGS.cafe ?? [];
+
+  it("points from the demonstrative at the thing it names", () => {
+    expect(linePoints("Koľko stojí tento koláč?", cafe)).toEqual([
+      { reach: "near", target: { kind: "thing", id: "kolac" }, word: 2 },
+    ]);
+    expect(linePoints("A ja si dám tamtú tortu.", cafe)).toEqual([
+      { reach: "far", target: { kind: "thing", id: "torta" }, word: 4 },
+    ]);
+    expect(
+      linePoints("Takže tento koláč a tamtú tortu. Hneď to bude.", cafe).map(
+        ({ word }) => word,
+      ),
+    ).toEqual([1, 4]);
+  });
+
+  it("points at a thing named without a demonstrative, once while it stays the same", () => {
+    expect(linePoints("Koláč je dobrý. Ten koláč si dám.", cafe)).toEqual([
+      { reach: undefined, target: { kind: "thing", id: "kolac" }, word: 0 },
+    ]);
+    expect(linePoints("Koláč je dobrý.", [])).toEqual([]);
+  });
+
+  it("points at what is held up, but not on a bare to", () => {
+    expect(linePoints("Kto je ten muž?", cafe, "anna")).toEqual([
+      { reach: undefined, target: { kind: "prop", holder: "anna" }, word: 2 },
+    ]);
+    expect(linePoints("Kto je ten muž?", cafe)).toEqual([]);
+    expect(linePoints("Je to Marek?", cafe, "anna")).toEqual([]);
+  });
+
+  it("knows which sentence each word is in", () => {
+    expect(wordSentences("Áno, to je Marek. Býva v tom dome.")).toEqual([
+      0, 0, 0, 0, 1, 1, 1, 1,
+    ]);
+  });
+
+  it("raises the arm just ahead of its word, over a beat that has not read yet", () => {
+    const points = linePoints("Koľko stojí tento koláč?", cafe);
+    const plan = planLine("Koľko stojí tento koláč?", { points });
+
+    expect(plan.beats).toHaveLength(1);
+    expect(plan.beats[0]).toMatchObject({
+      gesture: "point",
+      point: { reach: "near", target: { kind: "thing", id: "kolac" } },
+    });
+    expect(plan.beats[0].at).toBeGreaterThan(plan.sentences[0].start);
+  });
+
+  it("keeps an opening nod when the point comes late enough", () => {
+    const slovak = "Dobre, dám si tento koláč.";
+    const plan = planLine(slovak, { points: linePoints(slovak, cafe) });
+
+    expect(plan.beats.map((beat) => beat.gesture)).toEqual(["nod", "point"]);
+  });
+
+  it("aims the hand where the point goes, reaching for a far one", () => {
+    const shoulder = solveRig(REST_POSE).leadShoulder;
+    const level = solveRig(gesturePeak("point", { rise: 0 })).leadArm.end;
+    const up = solveRig(gesturePeak("point", { rise: 30 })).leadArm.end;
+    const near = gesturePeak("point", { reach: "near", rise: 0 });
+    const far = gesturePeak("point", { reach: "far", rise: 0 });
+
+    expect(Math.abs(level.y - shoulder.y)).toBeLessThan(1.5);
+    expect(up.y).toBeLessThan(level.y - 10);
+    expect(solveRig(far).leadArm.end.y).toBeLessThan(solveRig(near).leadArm.end.y);
+    expect(far).toMatchObject({ leadBend: 0 });
+    expect(far.lean).toBeGreaterThan(near.lean);
+    expect(sampleGesture("point", 600, { rise: 0 })).toEqual(
+      gesturePeak("point", { rise: 0 }),
+    );
+  });
+
+  it("points with the rear hand when the lead one is full", () => {
+    const pose = gesturePeak("point", { hand: "rear", rise: 0 });
+    const rig = solveRig(pose);
+
+    expect(rig.rearArm.end.x).toBeGreaterThan(rig.neck.x + 15);
+    expect(Math.abs(rig.rearArm.end.y - rig.rearShoulder.y)).toBeLessThan(2);
+    expect(pose.leadRaise).toBe(REST_POSE.leadRaise);
+  });
+
+  it("faces the target and keeps the arm in a pointing range", () => {
+    expect(aimAt({ x: 100, y: 100 }, { x: 200, y: 100 })).toEqual({ facing: 1, rise: 0 });
+    expect(aimAt({ x: 100, y: 100 }, { x: 0, y: 0 })).toEqual({ facing: -1, rise: 40 });
+    expect(aimAt({ x: 100, y: 100 }, { x: 110, y: 200 }).rise).toBe(-40);
+  });
+
+  it("maps the backdrop onto the stage the way slice draws it", () => {
+    expect(backdropToStage({ x: 480, y: 300 }, 1040, 300)).toEqual({ x: 520, y: 300 });
+    expect(backdropToStage({ x: 960, y: 0 }, 366, 240, 1)).toEqual({ x: 366, y: 0 });
+    expect(backdropToStage({ x: 480, y: 150 }, 366, 240).x).toBeCloseTo(183, 5);
+  });
+
+  it("places a rig point on the stage, mirrored for a figure facing left", () => {
+    const box = { left: 100, top: 50, width: 80 };
+
+    expect(figureToStage({ x: 0, y: GROUND_Y }, box, 1)).toEqual({ x: 140, y: 158 });
+    expect(figureToStage({ x: 10, y: 22 }, box, -1)).toEqual({ x: 130, y: 50 });
   });
 });

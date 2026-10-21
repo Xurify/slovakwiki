@@ -91,22 +91,51 @@ export function gesturesWithProps(
   );
 }
 
+type HeldLine = {
+  characterId: LessonCharacterId | null;
+  props: ReadonlyArray<StickPropId | undefined>;
+};
+
+/** Who a prop comes out for: the holder's partner just before that line, else just after. */
+function partnerAt(
+  lines: readonly HeldLine[],
+  index: number,
+): LessonCharacterId | undefined {
+  const holder = lines[index].characterId;
+  const other = (line: HeldLine) =>
+    line.characterId !== null && line.characterId !== holder;
+  const partner =
+    lines.slice(0, index).findLast(other) ?? lines.slice(index + 1).find(other);
+  return partner?.characterId ?? undefined;
+}
+
 /**
  * What everyone holds while each line plays. A speaker takes out the last
  * prop their line names and keeps it until they bring out another, so Anna
- * still has the camera while Alex asks about the people in her photos.
+ * still has the camera while Alex asks about the people in her photos. It
+ * goes away when someone else joins in: Anna puts the camera away when the
+ * waiter comes to take the order.
  */
-export function heldProps(
-  lines: ReadonlyArray<{
-    characterId: LessonCharacterId | null;
-    props: ReadonlyArray<StickPropId | undefined>;
-  }>,
-): CastProps[] {
+export function heldProps(lines: readonly HeldLine[]): CastProps[] {
   let held: CastProps = {};
+  const shownTo: Partial<Record<LessonCharacterId, LessonCharacterId>> = {};
 
-  return lines.map(({ characterId, props }) => {
+  return lines.map(({ characterId, props }, index) => {
+    if (characterId) {
+      const kept: CastProps = {};
+      for (const holder of Object.keys(held) as LessonCharacterId[]) {
+        if (holder === characterId || shownTo[holder] === characterId) {
+          kept[holder] = held[holder];
+        }
+      }
+      held = kept;
+    }
+
     const prop = props.findLast((id) => id !== undefined);
-    if (characterId && prop) held = { ...held, [characterId]: prop };
+    if (characterId && prop) {
+      held = { ...held, [characterId]: prop };
+      shownTo[characterId] = partnerAt(lines, index);
+    }
     return held;
   });
 }

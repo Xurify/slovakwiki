@@ -2,6 +2,7 @@
   import { untrack } from "svelte";
 
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+  import { gestureDuration } from "$lib/stick-figure/gestures";
   import type { LinePlan } from "$lib/stick-figure/line-plan";
   import {
     performFrame,
@@ -47,6 +48,8 @@
 
   let pose = $state<StickPose>(REST_POSE);
   let picture = $state<StickPictureId>();
+  /** The way a point in flight turns the figure, when its target is behind it. */
+  let turned = $state<1 | -1>();
 
   let frame = 0;
   let startedAt = 0;
@@ -115,6 +118,14 @@
       : undefined;
     if (next) act = next.state;
 
+    const beat = plan?.beats[act.beatIndex];
+    const aiming =
+      beat?.point?.facing !== undefined &&
+      now - act.beatStartedAt < gestureDuration(beat.gesture)
+        ? beat.point.facing
+        : undefined;
+    if (aiming !== turned) turned = aiming;
+
     const walked = now - walkStartedAt;
     const walking = walked < walkMs && !reducedMotion;
     const body = next?.pose ?? REST_POSE;
@@ -132,4 +143,11 @@
   }
 </script>
 
-<StickFigure {characterId} class={className} {facing} {picture} {pose} {prop} />
+<StickFigure
+  {characterId}
+  class={className}
+  facing={turned ?? facing}
+  {picture}
+  {pose}
+  {prop}
+/>

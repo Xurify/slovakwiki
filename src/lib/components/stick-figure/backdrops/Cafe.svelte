@@ -65,6 +65,19 @@
   stroke-width="2"
 />
 
+<rect x="872" y="84" width="98" height="5" rx="1.5" class="fill-scene-wood" />
+<rect x="874" y="89" width="94" height="2" class="fill-scene-line/10" />
+<path d="M884 89h8l-8 8ZM956 89h-8l8 8Z" class="fill-scene-wood" />
+<rect x="893" y="77" width="50" height="3" rx="1.5" class="fill-portrait-bib" />
+<rect x="912" y="80" width="12" height="4" rx="1" class="fill-scene-edge" />
+<rect x="898" y="56" width="40" height="21" rx="2" class="fill-scene-honey" />
+<path d="M898 63h40v2.4h-40ZM898 70h40v2.4h-40Z" class="fill-scene-clay" />
+<rect x="897" y="52" width="42" height="7" rx="3" class="fill-portrait-bib" />
+{#each [903, 913, 923, 933] as x (x)}
+  <circle cx={x} cy="51.5" r="2.7" class="fill-portrait-bib" />
+  <circle cx={x} cy="48.8" r="1.8" class="fill-scene-clay" />
+{/each}
+
 <rect x="880" y="98" width="58" height="52" rx="5" class="fill-portrait-vest" />
 <rect x="890" y="107" width="38" height="12" rx="2" class="fill-scene-sage" />
 <path d="M901 119h3v8h-3ZM914 119h3v8h-3Z" class="fill-scene-edge" />

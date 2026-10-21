@@ -1,8 +1,9 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { foldLine } from "./line-gesture";
-import { lineSentences } from "./line-plan";
+import { lineSentences, wordSentences } from "./line-plan";
 import { lineProps, type StickPropId } from "./props";
+import { linePoints, type SceneThing } from "./scene-things";
 
 /** 1 faces right (+x), -1 faces left. */
 export type Facing = 1 | -1;
@@ -38,6 +39,10 @@ export interface LineStaging {
   approach?: { characterId: LessonCharacterId; toward: Facing };
   /** Which way the speaker turns and walks off once their last line, a goodbye, ends. */
   exit?: Facing;
+  /** Someone who walks on from that side during this line, to say hello next. */
+  enter?: { characterId: LessonCharacterId; from: Facing };
+  /** Who holds up what the speaker is looking at. */
+  looksAt?: LessonCharacterId;
 }
 
 /** Folded sentence openers the one spoken to nods at. */
@@ -57,6 +62,18 @@ const LEAVING = [
 ];
 /** Folded phrases that call the one spoken to over. */
 const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
+/** Folded openers of someone arriving. */
+const GREETINGS = [
+  "ahoj",
+  "cau",
+  "dobry den",
+  "dobry vecer",
+  "dobre rano",
+  "vitajte",
+  "vitaj",
+  "zdravim",
+  "nazdar",
+];
 
 function opensWith(sentence: string, openers: string[]): boolean {
   const folded = foldLine(sentence);
@@ -105,17 +122,79 @@ export function addresseeOf(
   return replyTo?.characterId ?? next?.characterId ?? null;
 }
 
+function greets(line: StageLine | undefined): boolean {
+  const first = line ? lineSentences(line.slovak)[0] : undefined;
+  return first !== undefined && opensWith(first, GREETINGS);
+}
+
+/**
+ * Who walks on during line `index`: the next speaker, when that is their
+ * first line and a hello that does not answer one. Someone greeting after
+ * the scene has started has just arrived; the side is the stage edge
+ * nearest their mark.
+ */
+function entrance(
+  lines: readonly StageLine[],
+  index: number,
+  cast: readonly LessonCharacterId[],
+): LineStaging["enter"] {
+  const next = lines[index + 1];
+  const id = next?.characterId;
+  if (!id || !cast.includes(id) || !greets(next) || greets(lines[index])) return;
+  if (lines.slice(0, index + 1).some((line) => line.characterId === id)) return;
+
+  return { characterId: id, from: cast.indexOf(id) < cast.length / 2 ? -1 : 1 };
+}
+
+/**
+ * Whose prop the speaker is looking at: one shown to them by the person
+ * they are talking with, with nobody else speaking since.
+ */
+function shownTo(
+  lines: readonly StageLine[],
+  index: number,
+): LessonCharacterId | undefined {
+  const speaker = lines[index]?.characterId;
+  let partner: LessonCharacterId | undefined;
+
+  for (let at = index - 1; at >= 0; at -= 1) {
+    const other = lines[at].characterId;
+    if (!other || other === speaker) continue;
+
+    partner ??= other;
+    if (other !== partner) return undefined;
+
+    const shows = lineProps(lines[at].slovak, lines[at].props).some(Boolean);
+    if (shows && addresseeOf(lines, at) === speaker) return partner;
+  }
+
+  return undefined;
+}
+
 /**
  * One reaction at most, so a listener answers the line instead of
- * fidgeting: lean in to a question, nod at the answer to their own question,
- * or at thanks and apologies.
+ * fidgeting: hold up what the speaker points at in their hands, lean in to
+ * a question, nod at the answer to their own question, or at thanks and
+ * apologies.
  */
 function reactionTo(
   lines: readonly StageLine[],
   index: number,
   addressee: LessonCharacterId,
+  things: readonly SceneThing[],
 ): StageReaction | undefined {
-  const sentences = lineSentences(lines[index].slovak);
+  const { slovak } = lines[index];
+  const sentences = lineSentences(slovak);
+
+  if (shownTo(lines, index) === addressee) {
+    const point = linePoints(slovak, things, addressee).find(
+      ({ target }) => target.kind === "prop",
+    );
+    const sentence = point ? wordSentences(slovak)[point.word] : undefined;
+    if (sentence !== undefined) {
+      return { characterId: addressee, gesture: "show", sentence, at: 0 };
+    }
+  }
 
   const question = sentences.findLastIndex((sentence) => sentence.includes("?"));
   if (question !== -1) {
@@ -144,16 +223,19 @@ function reactionTo(
  * Stage direction for one line: the speaker turns to the one spoken to,
  * everyone else turns to the speaker, and the one spoken to may react or
  * walk over to look at what they are shown. A speaker whose last line is a
- * goodbye turns and walks off when it ends.
+ * goodbye turns and walks off when it ends; someone about to say hello
+ * walks on. `things` are what the backdrop has to point at.
  */
 export function stageLine(
   lines: readonly StageLine[],
   index: number,
   cast: readonly LessonCharacterId[],
+  things: readonly SceneThing[] = [],
 ): LineStaging {
   const speaker = lines[index]?.characterId;
+  const enter = entrance(lines, index, cast);
   if (!speaker || !cast.includes(speaker)) {
-    return { addressee: null, facing: {}, reactions: [] };
+    return { addressee: null, facing: {}, reactions: [], enter };
   }
 
   const addressee = addresseeOf(lines, index);
@@ -165,7 +247,7 @@ export function stageLine(
     else if (onStage) facing[id] = toward(cast, id, addressee);
   }
 
-  const reaction = onStage ? reactionTo(lines, index, addressee) : undefined;
+  const reaction = onStage ? reactionTo(lines, index, addressee, things) : undefined;
   const sentences = lineSentences(lines[index].slovak);
   const shows = lineProps(lines[index].slovak, lines[index].props).some(Boolean);
   const callsOver = sentences.some((sentence) => mentions(sentence, COME_OVER));
@@ -187,5 +269,7 @@ export function stageLine(
         ? { characterId: addressee, toward: toward(cast, addressee, speaker) }
         : undefined,
     exit: lastOwnLine && leaving && turnedTo ? (-turnedTo as Facing) : undefined,
+    enter,
+    looksAt: shownTo(lines, index),
   };
 }
