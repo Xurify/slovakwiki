@@ -40,11 +40,19 @@
   const eyeY = $derived(28.6 + pose.nod * 0.6);
   const browY = $derived(24.8 - Math.max(0, pose.brow) * 2.2);
   const browWorry = $derived(Math.max(0, -pose.brow) * 1.8);
-  const mouthOpen = $derived(pose.mouth > 0.08);
-  const mouthRy = $derived(0.8 + pose.mouth * 2.6);
+  const mouthOpen = $derived(pose.mouth > 0.06);
 
   function n(value: number): number {
     return Math.round(value * 100) / 100;
+  }
+
+  /** A flat upper lip over a jaw curve: reads as speech, where an ellipse reads as "oh!". */
+  function mouthPath(cx: number, top: number, open: number): string {
+    const half = (5.8 - open * 0.9) / 2;
+    const depth = 0.8 + open * 3.6;
+    const bottom = n(top + depth);
+
+    return `M${n(cx - half)} ${top}Q${n(cx)} ${n(top - depth * 0.18)} ${n(cx + half)} ${top}Q${n(cx + half * 0.7)} ${bottom} ${n(cx)} ${bottom}Q${n(cx - half * 0.7)} ${bottom} ${n(cx - half)} ${top}Z`;
   }
 
   function limbPath(from: Point, limb: StickLimb): string {
@@ -198,11 +206,8 @@
         />
 
         {#if mouthOpen}
-          <ellipse
-            cx={32 + eyeX}
-            cy="34.6"
-            rx="2.8"
-            ry={mouthRy * 0.8}
+          <path
+            d={mouthPath(32 + eyeX, 33.4, pose.mouth)}
             class={characterId === "guide" ? "fill-sky-400" : "fill-rose-300"}
           />
         {:else}
@@ -353,13 +358,20 @@
         />
 
         {#if mouthOpen}
-          <ellipse
-            cx={32 + eyeX * 0.6}
-            cy="37.2"
-            rx="2.6"
-            ry={mouthRy}
+          <path
+            d={mouthPath(32 + eyeX * 0.6, 36.2, pose.mouth)}
             class="fill-portrait-ink"
           />
+
+          {#if pose.mouth > 0.5}
+            <ellipse
+              cx={32 + eyeX * 0.6}
+              cy={36.2 + (0.8 + pose.mouth * 3.6) * 0.76}
+              rx="1.3"
+              ry={0.3 + pose.mouth * 0.5}
+              class="fill-rose-400"
+            />
+          {/if}
         {:else}
           <path
             d="M{28.6 + eyeX * 0.6} 36.6q3.4 2.2 6.8 0"

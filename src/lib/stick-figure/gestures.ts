@@ -150,39 +150,18 @@ export function sampleGesture(id: StickGestureId, elapsed: number): StickPose {
   return keys[keys.length - 1].pose;
 }
 
+/** The still frame that stands in for the whole gesture under reduced motion. */
+export function gesturePeak(id: StickGestureId): StickPose {
+  return STICK_GESTURES[id].peak;
+}
+
 /**
- * Mouth flap while a clip plays. A fast sine reads as syllables (~5 a second,
- * close to the slowed ElevenLabs pace); a slow one varies how wide they open.
+ * Mouth flap for a clip without a loudness track. A fast sine reads as
+ * syllables (~5 a second, the slowed ElevenLabs pace); the slow one starts
+ * wide and closes down, like a phrase's loudness falling toward its end.
  */
 export function mouthAt(elapsed: number): number {
   const syllable = Math.abs(Math.sin(elapsed / 62));
   const phrase = 0.55 + 0.45 * Math.sin(elapsed / 410 + 1.3);
   return Math.min(1, syllable * phrase);
-}
-
-export interface StickFrameInput {
-  elapsed: number;
-  reducedMotion: boolean;
-  talking: boolean;
-}
-
-export function stickFrame(
-  id: StickGestureId,
-  { elapsed, reducedMotion, talking }: StickFrameInput,
-): StickPose {
-  if (reducedMotion) {
-    const holding = talking || elapsed < gestureDuration(id);
-    if (!holding) return REST_POSE;
-    return { ...STICK_GESTURES[id].peak, mouth: talking ? 0.35 : 0 };
-  }
-
-  const pose = sampleGesture(id, elapsed);
-  return talking ? { ...pose, mouth: mouthAt(elapsed) } : pose;
-}
-
-export function stickFrameSettled(
-  id: StickGestureId,
-  { elapsed, talking }: Pick<StickFrameInput, "elapsed" | "talking">,
-): boolean {
-  return !talking && elapsed >= gestureDuration(id);
 }

@@ -170,6 +170,25 @@ export function isStoryLineAudioActive(): boolean {
   return Boolean(currentAudio && !currentAudio.paused);
 }
 
+export interface StoryAudioClock {
+  /** NaN until the clip's metadata loads. */
+  durationMs: number;
+  timeMs: number;
+}
+
+/**
+ * Position of the line now playing, so visuals follow the real playback
+ * (it can start late, stall, or wait for a tap). Undefined when the line
+ * has no clip to play: muted or missing.
+ */
+export function storyAudioClock(): StoryAudioClock | undefined {
+  if (!currentAudio) return undefined;
+  return {
+    durationMs: currentAudio.duration * 1000,
+    timeMs: currentAudio.currentTime * 1000,
+  };
+}
+
 /**
  * Call from a user gesture (Listen / Next / say-choice) so autoplay-blocked
  * lines can play the real ElevenLabs MP3.

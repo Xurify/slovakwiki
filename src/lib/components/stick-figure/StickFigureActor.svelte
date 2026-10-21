@@ -2,37 +2,42 @@
   import { untrack } from "svelte";
 
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+  import type { LinePlan } from "$lib/stick-figure/line-plan";
   import {
-    stickFrame,
-    stickFrameSettled,
-    type StickGestureId,
-  } from "$lib/stick-figure/gestures";
+    performFrame,
+    startPerformance,
+    type PerformanceState,
+    type SpeechClock,
+  } from "$lib/stick-figure/performance";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import StickFigure from "./StickFigure.svelte";
 
   let {
     characterId,
     class: className = "",
+    clock,
     cue = 0,
     facing = 1,
-    gesture = "talk",
+    plan,
     talking = false,
   }: {
     characterId: LessonCharacterId;
     class?: string;
-    /** Bump to play `gesture` from the start. */
+    /** Playback position of the line's clip; without one the line runs on the wall clock. */
+    clock?: () => SpeechClock | undefined;
+    /** Bump to perform `plan` from the start. */
     cue?: number;
     facing?: 1 | -1;
-    gesture?: StickGestureId;
-    /** True while this character's clip plays; drives the mouth. */
+    plan?: LinePlan;
+    /** True while this character's line plays. */
     talking?: boolean;
   } = $props();
 
   let pose = $state<StickPose>(REST_POSE);
 
   let frame = 0;
-  /** Long past, so `talking` without a cue moves only the mouth. */
-  let startedAt = -60_000;
+  let startedAt = 0;
+  let act: PerformanceState = startPerformance();
   let reducedMotion = false;
 
   $effect(() => {
@@ -40,6 +45,7 @@
 
     untrack(() => {
       startedAt = performance.now();
+      act = startPerformance();
       run();
     });
   });
@@ -55,12 +61,36 @@
     if (!frame) frame = requestAnimationFrame(tick);
   }
 
-  // The loop only runs while a gesture or a clip is in flight, then parks on
-  // the rest pose: no idle motion between lines.
+  function speechPosition(now: number): number | null {
+    const reading = clock?.();
+    if (!reading) return now - startedAt;
+    if (!(reading.durationMs > 0)) return null;
+
+    // A plan timed from text alone stretches to the real clip; a measured one already fits it.
+    if (plan?.track) return reading.timeMs;
+    return (
+      reading.timeMs * ((plan?.durationMs ?? reading.durationMs) / reading.durationMs)
+    );
+  }
+
+  // The loop runs only while a line or its last gesture is in flight, then
+  // parks on the rest pose: no idle motion between lines.
   function tick(now: number): void {
-    const input = { elapsed: now - startedAt, reducedMotion, talking };
-    pose = stickFrame(gesture, input);
-    frame = stickFrameSettled(gesture, input) ? 0 : requestAnimationFrame(tick);
+    if (!plan) {
+      pose = REST_POSE;
+      frame = 0;
+      return;
+    }
+
+    const next = performFrame(plan, act, {
+      now,
+      reducedMotion,
+      speechMs: speechPosition(now),
+      talking,
+    });
+    act = next.state;
+    pose = next.pose;
+    frame = next.settled ? 0 : requestAnimationFrame(tick);
   }
 </script>
 

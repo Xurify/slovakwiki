@@ -1,16 +1,21 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  STICK_GESTURE_IDS,
-  gestureDuration,
-  mouthAt,
-  sampleGesture,
-  stickFrame,
-  stickFrameSettled,
-} from "./gestures";
+import { STICK_GESTURE_IDS, gestureDuration, mouthAt, sampleGesture } from "./gestures";
 import { foldLine, gestureForLine } from "./line-gesture";
+import { estimateSpeechMs, planLine } from "./line-plan";
+import {
+  MOUTH_FRAME_MS,
+  MOUTH_LEAD_MS,
+  decodeMouthTrack,
+  encodeMouthTrack,
+  mouthFromTrack,
+  trackPauses,
+  trackSpeechSpan,
+} from "./mouth-track";
+import { performFrame, startPerformance, type PerformanceInput } from "./performance";
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
+import { slovakSyllables } from "./syllables";
 
 function distance(a: Point, b: Point): number {
   return Math.hypot(a.x - b.x, a.y - b.y);
@@ -64,49 +69,6 @@ describe("gestures", () => {
     expect(sampleGesture(id, gestureDuration(id) / 2)).not.toEqual(REST_POSE);
   });
 
-  it("keeps the loop running while the clip plays", () => {
-    const elapsed = gestureDuration("nod") + 2000;
-
-    expect(stickFrameSettled("nod", { elapsed, talking: true })).toBe(false);
-    expect(stickFrameSettled("nod", { elapsed, talking: false })).toBe(true);
-  });
-
-  it("opens the mouth only while talking", () => {
-    const silent = stickFrame("talk", {
-      elapsed: 3000,
-      reducedMotion: false,
-      talking: false,
-    });
-    const opened = Array.from({ length: 40 }, (_, step) =>
-      stickFrame("talk", {
-        elapsed: 3000 + step * 25,
-        reducedMotion: false,
-        talking: true,
-      }),
-    ).some((pose) => pose.mouth > 0.3);
-
-    expect(silent.mouth).toBe(0);
-    expect(opened).toBe(true);
-  });
-
-  it("holds one still pose under reduced motion", () => {
-    const early = stickFrame("wave", {
-      elapsed: 100,
-      reducedMotion: true,
-      talking: true,
-    });
-    const late = stickFrame("wave", { elapsed: 900, reducedMotion: true, talking: true });
-    const done = stickFrame("wave", {
-      elapsed: 5000,
-      reducedMotion: true,
-      talking: false,
-    });
-
-    expect(early).toEqual(late);
-    expect(early.leadRaise).toBeGreaterThan(90);
-    expect(done).toEqual(REST_POSE);
-  });
-
   it("keeps the mouth between closed and fully open", () => {
     for (let elapsed = 0; elapsed < 5000; elapsed += 7) {
       const mouth = mouthAt(elapsed);
@@ -143,5 +105,229 @@ describe("gestureForLine", () => {
     ["Dobrý nápad.", "talk"],
   ] as const)("%s → %s", (line, gesture) => {
     expect(gestureForLine(line)).toBe(gesture);
+  });
+});
+
+describe("slovakSyllables", () => {
+  it.each([
+    ["Dobrý", 2],
+    ["deň", 1],
+    ["piatok", 2],
+    ["ľudia", 2],
+    ["Taliansko", 3],
+    ["Mária", 3],
+    ["registráciu", 5],
+    ["štvrtok", 2],
+    ["vlk", 1],
+    ["krk", 1],
+    ["slnko", 2],
+    ["jablko", 3],
+    ["auto", 2],
+    ["Európa", 3],
+    ["naučiť", 3],
+    ["krásnou", 2],
+    ["chlieb", 1],
+    ["môj", 1],
+    ["v", 0],
+  ] as const)("%s has %i", (word, count) => {
+    expect(slovakSyllables(word)).toHaveLength(count);
+  });
+
+  it("marks diphthongs and long vowels long, hiatus after a long vowel short", () => {
+    expect(slovakSyllables("piatok").map((syllable) => syllable.long)).toEqual([
+      true,
+      false,
+    ]);
+    expect(slovakSyllables("Mária").map((syllable) => syllable.long)).toEqual([
+      true,
+      false,
+      false,
+    ]);
+  });
+
+  it("gives onset consonants to their vowel and final ones to the last syllable", () => {
+    expect(slovakSyllables("štvrtok")).toEqual([
+      { consonants: 3, long: false },
+      { consonants: 2, long: false },
+    ]);
+  });
+});
+
+describe("mouth track", () => {
+  const rate = 1000;
+  const frame = (rate * MOUTH_FRAME_MS) / 1000;
+
+  function tone(frames: number, amplitude: number): number[] {
+    return Array.from({ length: frames * frame }, (_, i) =>
+      i % 2 ? amplitude : -amplitude,
+    );
+  }
+
+  it("encodes silence, a quiet hiss under the gate, and a loud burst", () => {
+    const samples = [...tone(2, 0), ...tone(2, 20), ...tone(3, 20_000), ...tone(1, 0)];
+
+    expect(encodeMouthTrack(samples, rate)).toBe("00009990");
+  });
+
+  it("reads frame centres, a little ahead of the sound", () => {
+    const track = decodeMouthTrack("090");
+    const centre = 1.5 * MOUTH_FRAME_MS - MOUTH_LEAD_MS;
+
+    expect(mouthFromTrack(track, centre)).toBeCloseTo(1, 5);
+    expect(mouthFromTrack(track, centre - MOUTH_FRAME_MS / 2)).toBeCloseTo(0.5, 5);
+    expect(mouthFromTrack(track, 10_000)).toBe(0);
+  });
+
+  it("finds the voiced span and the pauses inside it", () => {
+    const track = decodeMouthTrack("0055000550055000");
+
+    expect(trackSpeechSpan(track)).toEqual({ start: 100, end: 650 });
+    expect(trackPauses(track)).toEqual([{ start: 200, end: 350 }]);
+  });
+});
+
+describe("planLine", () => {
+  it("gives every sentence its own gesture and marks questions", () => {
+    const plan = planLine("Teší ma. Odkiaľ ste?");
+
+    expect(plan.beats.map((beat) => beat.gesture)).toEqual(["nod", "ask"]);
+    expect(plan.questions).toHaveLength(1);
+    expect(plan.questions[0].start).toBe(plan.beats[1].at);
+  });
+
+  it("gives each gesture time to read before the next", () => {
+    const plan = planLine("Dobrý deň. Volám sa Anna.");
+
+    expect(plan.beats.map((beat) => beat.gesture)).toEqual(["wave", "self"]);
+    expect(plan.beats[1].at - plan.beats[0].at).toBeGreaterThanOrEqual(700);
+  });
+
+  it("adds talking beats through a long sentence", () => {
+    const plan = planLine(
+      "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+    );
+    const times = plan.beats.map((beat) => beat.at);
+
+    expect(plan.beats.length).toBeGreaterThan(1);
+    expect(plan.beats.every((beat) => beat.gesture === "talk")).toBe(true);
+    expect(times).toEqual([...times].sort((a, b) => a - b));
+  });
+
+  it("puts the next sentence on the pause in the clip", () => {
+    const track = decodeMouthTrack(
+      `0${"8".repeat(8)}${"0".repeat(6)}${"8".repeat(16)}000`,
+    );
+    const plan = planLine("Áno. Som z Kanady.", track);
+
+    expect(plan.durationMs).toBe(track.length * MOUTH_FRAME_MS);
+    expect(plan.beats.map((beat) => beat.gesture)).toEqual(["nod", "self"]);
+    expect(plan.beats[0].at).toBe(MOUTH_FRAME_MS);
+    expect(plan.beats[1].at).toBe(15 * MOUTH_FRAME_MS);
+  });
+
+  it("estimates longer speech for longer text", () => {
+    expect(estimateSpeechMs("Dobrý deň, volám sa Anna")).toBeGreaterThan(
+      estimateSpeechMs("Dobrý deň"),
+    );
+  });
+});
+
+describe("performFrame", () => {
+  const plan = planLine("Dobrý deň. Ako sa máte?");
+  const firstAt = plan.beats[0].at;
+
+  function input(overrides: Partial<PerformanceInput>): PerformanceInput {
+    return { now: 0, reducedMotion: false, speechMs: 0, talking: true, ...overrides };
+  }
+
+  it("waits at rest while the clip loads, without settling", () => {
+    const frame = performFrame(plan, startPerformance(), input({ speechMs: null }));
+
+    expect(frame.pose).toEqual(REST_POSE);
+    expect(frame.settled).toBe(false);
+  });
+
+  it("fires each sentence's gesture when the clip reaches it", () => {
+    const first = performFrame(
+      plan,
+      startPerformance(),
+      input({ speechMs: plan.beats[0].at }),
+    );
+    const second = performFrame(
+      plan,
+      first.state,
+      input({ now: 400, speechMs: plan.beats[1].at }),
+    );
+
+    expect(plan.beats.map((beat) => beat.gesture)).toEqual(["wave", "ask"]);
+    expect(first.state.beatIndex).toBe(0);
+    expect(second.state.beatIndex).toBe(1);
+    expect(second.state.beatStartedAt).toBe(400);
+  });
+
+  it("cross-fades from the cut-off gesture instead of snapping to rest", () => {
+    const first = performFrame(plan, startPerformance(), input({ speechMs: firstAt }));
+    const waving = performFrame(
+      plan,
+      first.state,
+      input({ now: 400, speechMs: firstAt }),
+    );
+    const cut = performFrame(
+      plan,
+      waving.state,
+      input({ now: 400, speechMs: plan.beats[1].at }),
+    );
+
+    expect(cut.pose.leadRaise).toBeCloseTo(waving.pose.leadRaise, 5);
+  });
+
+  it("raises the brows through a question", () => {
+    const [question] = plan.questions;
+    const middle = (question.start + question.end) / 2;
+    const frame = performFrame(plan, startPerformance(), input({ speechMs: middle }));
+
+    expect(frame.pose.brow).toBeGreaterThanOrEqual(0.8);
+  });
+
+  it("opens the mouth from the track only while talking", () => {
+    const track = decodeMouthTrack("0999990");
+    const tracked = planLine("Ahoj.", track);
+    const loud = 3 * MOUTH_FRAME_MS;
+
+    expect(
+      performFrame(tracked, startPerformance(), input({ speechMs: loud })).pose.mouth,
+    ).toBe(1);
+    expect(
+      performFrame(tracked, startPerformance(), input({ speechMs: loud, talking: false }))
+        .pose.mouth,
+    ).toBe(0);
+  });
+
+  it("settles once the line ends and the last gesture finishes", () => {
+    const playing = performFrame(plan, startPerformance(), input({ speechMs: firstAt }));
+    const after = gestureDuration("wave") + 1;
+
+    expect(
+      performFrame(plan, playing.state, input({ now: after, talking: false })).settled,
+    ).toBe(true);
+    expect(
+      performFrame(plan, playing.state, input({ now: 100, talking: false })).settled,
+    ).toBe(false);
+  });
+
+  it("holds one still pose per gesture under reduced motion", () => {
+    const start = performFrame(
+      plan,
+      startPerformance(),
+      input({ reducedMotion: true, speechMs: firstAt }),
+    );
+    const later = performFrame(
+      plan,
+      start.state,
+      input({ now: 700, reducedMotion: true, speechMs: firstAt + 10 }),
+    );
+
+    expect(later.pose).toEqual(start.pose);
+    expect(start.pose.leadRaise).toBeGreaterThan(90);
   });
 });

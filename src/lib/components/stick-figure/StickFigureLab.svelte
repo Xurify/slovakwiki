@@ -5,6 +5,8 @@
     characterId: LessonCharacterId;
     english: string;
     id: string;
+    /** Loudness track of the clip (`content/audio/mouth.json`). */
+    mouth?: string;
     slovak: string;
     speaker: string;
     src?: string;
@@ -30,20 +32,21 @@
     panelClass,
     tagClass,
   } from "$lib/components/ui/system-ui";
-  import { playStoryLineAudio, stopStoryLineAudio } from "$lib/lesson-story/story-audio";
   import {
-    STICK_GESTURE_IDS,
-    gestureDuration,
-    type StickGestureId,
-  } from "$lib/stick-figure/gestures";
-  import { gestureForLine } from "$lib/stick-figure/line-gesture";
+    playStoryLineAudio,
+    stopStoryLineAudio,
+    storyAudioClock,
+  } from "$lib/lesson-story/story-audio";
+  import { STICK_GESTURE_IDS, type StickGestureId } from "$lib/stick-figure/gestures";
+  import { gesturePlan, planLine, type LinePlan } from "$lib/stick-figure/line-plan";
+  import { decodeMouthTrack } from "$lib/stick-figure/mouth-track";
   import { cx } from "$lib/ui/classes";
   import StickFigure from "./StickFigure.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
 
   interface ActorState {
     cue: number;
-    gesture: StickGestureId;
+    plan?: LinePlan;
     talking: boolean;
   }
 
@@ -56,20 +59,34 @@
   let playingScene = $state(false);
   let actors = $state<Partial<Record<LessonCharacterId, ActorState>>>({});
   let benchCharacter = $state<LessonCharacterId>("anna");
-  let bench = $state<ActorState>({ cue: 0, gesture: "wave", talking: false });
-  let tryLine = $state("Prepáčte, kde je stanica?");
+  let bench = $state<ActorState>({ cue: 0, talking: false });
+  let benchGesture = $state<StickGestureId | null>(null);
+  let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
 
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
   const cast = $derived([...new Set(scene?.lines.map((line) => line.characterId))]);
   const voicedCount = $derived(scene?.lines.filter((line) => line.src).length ?? 0);
-  const tryGesture = $derived(gestureForLine(tryLine));
+  const trackedCount = $derived(scene?.lines.filter((line) => line.mouth).length ?? 0);
+  const linePlans = $derived(
+    new Map(
+      scene?.lines.map((line) => [
+        line.id,
+        planLine(line.slovak, line.mouth ? decodeMouthTrack(line.mouth) : undefined),
+      ]),
+    ),
+  );
+  const tryPlan = $derived(planLine(tryLine));
 
   let playToken = 0;
   let sceneTimer = 0;
   let benchTimer = 0;
 
-  function idleActor(): ActorState {
-    return { cue: 0, gesture: "talk", talking: false };
+  /** "wave → self", with repeated talking beats said once. */
+  function gestureSequence(plan: LinePlan | undefined): string {
+    const gestures = plan?.beats.map((beat) => beat.gesture) ?? [];
+    return gestures
+      .filter((gesture, index) => gesture !== gestures[index - 1])
+      .join(" → ");
   }
 
   function selectScene(id: string): void {
@@ -92,10 +109,9 @@
     const token = playToken;
 
     for (const actor of Object.values(actors)) actor.talking = false;
-    const previous = actors[line.characterId] ?? idleActor();
     actors[line.characterId] = {
-      cue: previous.cue + 1,
-      gesture: gestureForLine(line.slovak),
+      cue: (actors[line.characterId]?.cue ?? 0) + 1,
+      plan: linePlans.get(line.id),
       talking: true,
     };
     activeLineId = line.id;
@@ -135,12 +151,13 @@
     step(0);
   }
 
-  function playBench(gesture: StickGestureId): void {
+  function playBench(plan: LinePlan, gesture: StickGestureId | null = null): void {
     window.clearTimeout(benchTimer);
-    bench = { cue: bench.cue + 1, gesture, talking: true };
+    benchGesture = gesture;
+    bench = { cue: bench.cue + 1, plan, talking: true };
     benchTimer = window.setTimeout(() => {
       bench.talking = false;
-    }, gestureDuration(gesture));
+    }, plan.durationMs);
   }
 </script>
 
@@ -201,9 +218,10 @@
               <div class="relative w-full max-w-[150px] max-[600px]:max-w-[120px]">
                 <StickFigureActor
                   {characterId}
+                  clock={storyAudioClock}
                   cue={actors[characterId]?.cue ?? 0}
                   facing={index === 0 ? 1 : -1}
-                  gesture={actors[characterId]?.gesture ?? "talk"}
+                  plan={actors[characterId]?.plan}
                   talking={actors[characterId]?.talking ?? false}
                 />
               </div>
@@ -237,7 +255,9 @@
                     >
                   </span>
 
-                  <span class="{tagClass} shrink-0">{gestureForLine(line.slovak)}</span>
+                  <span class="{tagClass} shrink-0">
+                    {gestureSequence(linePlans.get(line.id))}
+                  </span>
                 </button>
               </li>
             {/each}
@@ -251,8 +271,8 @@
             </Button>
 
             <p class="m-0 text-sm text-slate-500">
-              {voicedCount} of {scene.lines.length} lines have a clip here. Lines without one
-              hold for 1.6 s.
+              {voicedCount} of {scene.lines.length} lines have a clip, {trackedCount} a mouth
+              track. Lines without a clip hold for 1.6 s.
             </p>
           </div>
         </div>
@@ -274,7 +294,7 @@
           <StickFigureActor
             characterId={benchCharacter}
             cue={bench.cue}
-            gesture={bench.gesture}
+            plan={bench.plan}
             talking={bench.talking}
           />
         </div>
@@ -299,9 +319,9 @@
           <div class="mt-2 flex flex-wrap gap-2">
             {#each STICK_GESTURE_IDS as gesture (gesture)}
               <button
-                class={chipClass(gesture === bench.gesture && bench.cue > 0)}
+                class={chipClass(gesture === benchGesture)}
                 type="button"
-                onclick={() => playBench(gesture)}
+                onclick={() => playBench(gesturePlan(gesture), gesture)}
               >
                 {gesture}
               </button>
@@ -322,11 +342,10 @@
               autocomplete="off"
               lang="sk"
             />
-            <Button variant="secondary" onclick={() => playBench(tryGesture)}>Play</Button
-            >
+            <Button variant="secondary" onclick={() => playBench(tryPlan)}>Play</Button>
           </div>
           <p class="m-0 mt-2 text-sm text-slate-500">
-            Picks <span class={tagClass}>{tryGesture}</span>
+            Picks <span class={tagClass}>{gestureSequence(tryPlan)}</span>
           </p>
         </div>
       </div>

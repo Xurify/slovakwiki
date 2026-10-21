@@ -4,13 +4,14 @@ import StickFigureLab, {
   type StickLabScene,
 } from "$lib/components/stick-figure/StickFigureLab.svelte";
 import { lessonsForTrack } from "$lib/catalog/lessons";
-import { sceneAudioSrcs } from "$lib/catalog/lessons/audio";
+import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
 import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { lessonSceneSrc, storySettingForLesson } from "$lib/lesson-story/story-settings";
 
 const scenes: StickLabScene[] = lessonsForTrack("everyday")
   .map((lesson) => {
     const srcs = sceneAudioSrcs(lesson.scene);
+    const mouths = sceneMouthTracks(lesson.scene);
 
     return {
       backdrop: lessonSceneSrc[storySettingForLesson(lesson.id).art],
@@ -20,6 +21,7 @@ const scenes: StickLabScene[] = lessonsForTrack("everyday")
         characterId: characterIdForSpeaker(line.speaker),
         english: line.english,
         id: line.id,
+        mouth: mouths[line.id],
         slovak: line.slovak,
         speaker: line.speaker,
         src: srcs[line.id],
