@@ -199,7 +199,7 @@ export function buildSearchDocuments(): SearchDocument[] {
     documents.push({
       url: episodePath(episode),
       kind: "listening",
-      title: `${episode.titleSk} · ${episode.title}`,
+      title: episode.titleSk,
       summary: episode.promise,
       ...sections({
         headword: [episode.titleSk, episode.title, episode.topic],

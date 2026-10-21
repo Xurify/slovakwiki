@@ -35,16 +35,10 @@
 
             <span class="min-w-0">
               <strong
-                class="block font-serif text-base leading-snug tracking-tight text-balance text-blue-800 sm:text-lg"
+                class="block font-serif text-base leading-snug tracking-tight text-balance text-blue-800 underline-offset-2 group-hover:underline sm:text-lg"
+                lang="sk"
               >
-                <span class="underline-offset-2 group-hover:underline" lang="sk">
-                  {episode.titleSk}
-                </span>
-                <span
-                  class="font-sans text-sm font-normal tracking-normal text-slate-500"
-                >
-                  · {episode.title}
-                </span>
+                {episode.titleSk}
               </strong>
 
               <span class="mt-0.5 block text-sm leading-snug text-pretty text-slate-600">
