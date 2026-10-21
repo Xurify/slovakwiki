@@ -42,15 +42,8 @@
               </strong>
 
               <span class="mt-0.5 block text-sm leading-snug text-pretty text-slate-600">
-                {episode.promise}
-              </span>
-
-              <span class="mt-1 block text-xs text-slate-500">
-                <span lang="sk">{episode.topic}</span>
-                <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
-                {episodeMinutes(episode)} min
-                <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
-                {episode.level}
+                A {episodeMinutes(episode)}-minute episode on
+                <span lang="sk">{episode.topic}</span>. {episode.promise}
               </span>
             </span>
 

@@ -733,7 +733,7 @@ export const demonstrativesEpisode: ListeningEpisode = {
   level: "A1–A2",
   titleSk: "Kde je ten kľúč?",
   title: "Where is that key?",
-  topic: "Ten, tá, to",
+  topic: "ten, tá, to",
   promise:
     "Anna and Marek play a guessing game, shop at the market, lose the car key and quiz each other.",
   grammarSlug: "demonstratives",

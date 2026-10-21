@@ -1,6 +1,5 @@
 <script lang="ts">
   import { grammarMarkClass } from "$lib/components/reference/grammar-topic-ui";
-  import { eyebrowClass } from "$lib/components/ui/system-ui";
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import type { DialogueTurn } from "$lib/learning/types";
@@ -44,13 +43,15 @@
 
   <div class="flex min-w-0 flex-1 items-start justify-between gap-3">
     <div class="min-w-0">
-      <p class="{eyebrowClass} {current ? 'text-blue-800' : 'text-slate-500'}">
+      <p
+        class="m-0 text-sm leading-tight font-semibold {current
+          ? 'text-blue-800'
+          : 'text-slate-500'}"
+      >
         {line.speaker}
 
         {#if current}
-          <span class="ml-1.5 font-semibold tracking-normal normal-case">
-            · {playing ? "Playing" : "Paused here"}
-          </span>
+          <span class="font-normal">· {playing ? "Playing" : "Paused here"}</span>
         {/if}
       </p>
 

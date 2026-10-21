@@ -62,7 +62,7 @@ export interface ListeningEpisode {
   title: string;
   /** The episode's name: a line from the story, shown first. */
   titleSk: string;
-  /** The grammar it listens for, as the grammar page names it: "Ten, tá, to". */
+  /** The grammar it listens for, lowercase to sit mid-sentence: "ten, tá, to". */
   topic: string;
   /** Words to listen for, read by the guide voice. */
   vocabulary: KeyPhrase[];

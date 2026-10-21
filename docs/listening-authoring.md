@@ -5,7 +5,7 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 ## 1. Plan
 
 - [ ] One grammar page (`grammarSlug`), one promise sentence, level `A1–A2`.
-- [ ] Name it like a story, after a line the learner will hear: `titleSk: "Kde je ten kľúč?"`, with the English gloss in `title`. The grammar label goes in `topic` (`"Ten, tá, to"`) and shows beside the length and level.
+- [ ] Name it like a story, after a line the learner will hear: `titleSk: "Kde je ten kľúč?"`, with the English gloss in `title`. The grammar label goes in `topic` (`"ten, tá, to"`), lowercase because it is read in the first sentence: "A 4-minute episode on ten, tá, to."
 - [ ] 4–6 chapters of 4–14 lines. Each chapter is one situation (an intro, a game, a shop, a quiz, an outro) and brings in its own nouns, so the target forms turn up in different company.
 - [ ] Cover every form the grammar page's tables show, the other cases too, not only the nominative.
 - [ ] Give the chapters a thread: something from an early chapter comes back later. The car key from the bag game goes missing at home, and again in the last line.

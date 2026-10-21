@@ -4,7 +4,6 @@
   import { unlockSfx } from "$lib/audio/sfx";
   import type { ListeningChapter } from "$lib/catalog/listening/types";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
-  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import { getStoryShowEnglish } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { followFocus } from "$lib/listening/focus";
@@ -332,7 +331,7 @@
   {#if textVisible}
     <div class="border-t border-slate-200/70">
       <div class="flex items-center justify-between gap-3 px-4 pt-2.5 sm:px-5">
-        <p class={eyebrowMutedClass}>Text</p>
+        <p class="m-0 text-sm font-semibold text-slate-700">Text</p>
 
         <ListenControl pressed={english} onclick={() => (english = !english)}>
           English

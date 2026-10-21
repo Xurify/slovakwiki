@@ -2,7 +2,6 @@
   import { onMount, tick } from "svelte";
 
   import Button from "$lib/components/ui/Button.svelte";
-  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import PracticeExerciseFeedback from "$lib/components/practice/PracticeExerciseFeedback.svelte";
   import {
     feedbackPanelClass,
@@ -117,7 +116,7 @@
   tabindex="-1"
 >
   <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-    <p class={eyebrowMutedClass}>Question {index} of {total}</p>
+    <p class="m-0 text-sm text-slate-500">Question {index} of {total}</p>
 
     {#if replayLine}
       <EpisodeReplayButton

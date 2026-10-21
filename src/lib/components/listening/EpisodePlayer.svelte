@@ -8,7 +8,7 @@
   import Button from "$lib/components/ui/Button.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
-  import { eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
+  import { panelClass } from "$lib/components/ui/system-ui";
   import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
   import { followFocus } from "$lib/listening/focus";
   import { cx } from "$lib/ui/classes";
@@ -133,7 +133,9 @@
 
 <div class="grid gap-8">
   <section aria-labelledby="words-heading">
-    <h2 id="words-heading" class={eyebrowMutedClass}>Words you'll hear</h2>
+    <h2 id="words-heading" class="m-0 text-sm font-semibold text-slate-700">
+      Words you'll hear
+    </h2>
 
     <ul class="m-0 mt-2.5 flex list-none flex-wrap gap-2 p-0">
       {#each episode.vocabulary as phrase (phrase.slovak)}
@@ -179,20 +181,21 @@
     aria-labelledby="stage-title"
     tabindex="-1"
   >
-    <header class="px-4 pt-4 sm:px-5">
-      <p class={eyebrowMutedClass}>
-        Chapter {active + 1} of {episode.chapters.length}
-      </p>
-
+    <header class="flex items-baseline justify-between gap-4 px-4 pt-4 sm:px-5">
       <h2
         id="stage-title"
-        class="m-0 mt-1 font-serif text-xl tracking-tight text-pretty text-slate-900"
+        class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900"
       >
         <span lang="sk">{chapter.titleSk}</span>
         <span class="font-sans text-base font-normal tracking-normal text-slate-500">
           · {chapter.title}
         </span>
       </h2>
+
+      <p class="m-0 shrink-0 text-sm text-slate-500 tabular-nums">
+        <span class="sr-only">Chapter</span>
+        {active + 1} of {episode.chapters.length}
+      </p>
     </header>
 
     {#key `${chapter.id}-${run}`}
@@ -210,7 +213,9 @@
   </section>
 
   <nav aria-labelledby="chapters-heading">
-    <h2 id="chapters-heading" class={eyebrowMutedClass}>Chapters</h2>
+    <h2 id="chapters-heading" class="m-0 text-sm font-semibold text-slate-700">
+      Chapters
+    </h2>
 
     <ol class="{dataPanelClass} m-0 mt-2.5 list-none p-0">
       {#each episode.chapters as entry, index (entry.id)}
