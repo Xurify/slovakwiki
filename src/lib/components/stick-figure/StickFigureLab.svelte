@@ -13,6 +13,8 @@
     slovak: string;
     speaker: string;
     src?: string;
+    /** Who the line is said to, when it is not the person it replies to. */
+    to?: LessonCharacterId;
     /** Aligned vowel per mouth frame. */
     vowels?: string;
   }
@@ -27,7 +29,10 @@
 </script>
 
 <script lang="ts">
-  import { listedCharacters } from "$lib/catalog/lessons/character-ids";
+  import {
+    characterIdForSpeaker,
+    listedCharacters,
+  } from "$lib/catalog/lessons/character-ids";
   import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -46,9 +51,20 @@
   import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
   import { lessonSceneSrc } from "$lib/lesson-story/story-settings";
   import { STICK_GESTURE_IDS } from "$lib/stick-figure/gestures";
-  import { gesturePlan, planLine, type LinePlan } from "$lib/stick-figure/line-plan";
+  import {
+    gesturePlan,
+    planLine,
+    reactionPlan,
+    type LinePlan,
+  } from "$lib/stick-figure/line-plan";
   import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
   import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
+  import {
+    restFacing,
+    stageLine,
+    type CastFacing,
+    type StageReaction,
+  } from "$lib/stick-figure/staging";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
   import StickFigure from "./StickFigure.svelte";
@@ -76,6 +92,11 @@
 
   const characters = listedCharacters();
 
+  const REACTION_COPY: Partial<Record<StickGestureId, string>> = {
+    lean: "leans in",
+    nod: "nods",
+  };
+
   let sceneId = $state("");
   let activeLineId = $state<string | null>(null);
   let playingScene = $state(false);
@@ -85,6 +106,7 @@
   let benchGesture = $state<StickGestureId | null>(null);
   let copied = $state(false);
   let painted = $state(false);
+  let facings = $state<CastFacing>({});
   let scriptSetting = $state<LessonSceneArtId>("default");
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   let scriptText = $state(
@@ -101,7 +123,11 @@
   const script = $derived(parseScript(scriptText));
   const scriptScene = $derived<StickLabScene>({
     id: SCRIPT_SCENE_ID,
-    lines: script.lines.map((line) => ({ ...line, english: "" })),
+    lines: script.lines.map((line) => ({
+      ...line,
+      english: "",
+      to: line.to ? characterIdForSpeaker(line.to) : undefined,
+    })),
     setting: scriptSetting,
     title: "Your script",
   });
@@ -131,6 +157,20 @@
     ),
   );
   const tryPlan = $derived(planLine(tryLine));
+  const resting = $derived(restFacing(cast));
+  const stagings = $derived(
+    scene.lines.map((_, index, lines) =>
+      stageLine(
+        lines.map((line) => ({
+          characterId: dialogueSpeakerLabel(line.speaker) ? line.characterId : null,
+          slovak: line.slovak,
+          to: line.to,
+        })),
+        index,
+        cast,
+      ),
+    ),
+  );
 
   let playToken = 0;
   let sceneTimer = 0;
@@ -145,14 +185,18 @@
       .join(" → ");
   }
 
-  /** Two figures face each other; a bigger cast faces the middle of the stage. */
-  function facingFor(index: number): 1 | -1 {
-    return index < cast.length / 2 ? 1 : -1;
+  function nameOf(id: LessonCharacterId): string {
+    return characters.find((character) => character.id === id)?.displayName ?? id;
+  }
+
+  function reactionCopy(reaction: StageReaction): string {
+    return `${nameOf(reaction.characterId)} ${REACTION_COPY[reaction.gesture] ?? reaction.gesture}`;
   }
 
   function selectScene(id: string): void {
     stop();
     actors = {};
+    facings = {};
     sceneId = id;
   }
 
@@ -166,28 +210,35 @@
     activeLineId = null;
   }
 
+  function cueActor(id: LessonCharacterId, plan: LinePlan | undefined): void {
+    actors[id] = { cue: (actors[id]?.cue ?? 0) + 1, plan, talking: true };
+  }
+
   function playLine(line: StickLabLine, onDone?: () => void): void {
     playToken += 1;
     const token = playToken;
 
     const plan = linePlans.get(line.id);
-    const onscreen = dialogueSpeakerLabel(line.speaker) !== null;
+    const staging = stagings[scene.lines.findIndex((other) => other.id === line.id)];
 
     for (const actor of Object.values(actors)) actor.talking = false;
-    if (onscreen) {
-      actors[line.characterId] = {
-        cue: (actors[line.characterId]?.cue ?? 0) + 1,
-        plan,
-        talking: true,
-      };
+    facings = { ...facings, ...staging?.facing };
+    if (dialogueSpeakerLabel(line.speaker) !== null) cueActor(line.characterId, plan);
+
+    for (const reaction of staging?.reactions ?? []) {
+      const span = plan?.sentences[reaction.sentence];
+      if (!plan || !span) continue;
+
+      const at = span.start + (span.end - span.start) * reaction.at;
+      cueActor(reaction.characterId, reactionPlan(plan, reaction.gesture, at));
     }
     activeLineId = line.id;
 
     const onEnded = () => {
       if (token !== playToken) return;
 
-      const actor = actors[line.characterId];
-      if (actor && onscreen) actor.talking = false;
+      for (const actor of Object.values(actors)) actor.talking = false;
+      if (staging?.exit) facings = { ...facings, [line.characterId]: staging.exit };
       onDone?.();
     };
 
@@ -278,7 +329,8 @@
       {#if scene.id === SCRIPT_SCENE_ID}
         <div class="{panelClass} mt-5 p-5">
           <label class="{eyebrowMutedClass} block" for="stick-script">
-            One line per row: Speaker: line. A [gesture] before a sentence overrides it.
+            One line per row: Speaker: line. Anna &gt; Waiter: line says who it is for. A
+            [gesture] before a sentence overrides it.
           </label>
           <textarea
             id="stick-script"
@@ -372,7 +424,7 @@
             <StickBackdrop class="absolute inset-0 size-full" setting={scene.setting} />
           {/if}
 
-          {#each cast as characterId, index (characterId)}
+          {#each cast as characterId (characterId)}
             <div
               class={cx(
                 "relative w-full",
@@ -385,7 +437,7 @@
                 {characterId}
                 clock={storyAudioClock}
                 cue={actors[characterId]?.cue ?? 0}
-                facing={facingFor(index)}
+                facing={facings[characterId] ?? resting[characterId] ?? 1}
                 plan={actors[characterId]?.plan}
                 talking={actors[characterId]?.talking ?? false}
               />
@@ -394,7 +446,8 @@
         </div>
 
         <ol class="m-0 list-none divide-y divide-slate-200 p-0">
-          {#each scene.lines as line (line.id)}
+          {#each scene.lines as line, index (line.id)}
+            {@const staging = stagings[index]}
             <li>
               <button
                 class={cx(
@@ -425,6 +478,14 @@
                     {#if dialogueSpeakerLabel(line.speaker)}
                       <span>Gestures: {gestureSequence(linePlans.get(line.id))}</span>
                     {/if}
+
+                    {#if staging?.addressee}
+                      <span>To {nameOf(staging.addressee)}</span>
+                    {/if}
+
+                    {#each staging?.reactions ?? [] as reaction (reaction.characterId)}
+                      <span>{reactionCopy(reaction)}</span>
+                    {/each}
 
                     {#if scene.id !== SCRIPT_SCENE_ID && !line.src}
                       <span>No clip</span>

@@ -27,6 +27,7 @@ const scenes: StickLabScene[] = lessons
         slovak: line.slovak,
         speaker: line.speaker,
         src: srcs[line.id],
+        to: line.to ? characterIdForSpeaker(line.to) : undefined,
         vowels: mouths[line.id]?.v,
       })),
     };

@@ -26,6 +26,10 @@ export interface LinePlan {
   /** Lip shape per frame, when the clip has an aligned vowel track. */
   lips?: LipTrack;
   questions: LineSpan[];
+  /** Where each sentence is spoken, in clip time. */
+  sentences: LineSpan[];
+  /** A listener's plan: beats on the speaker's clock, mouth closed. */
+  silent?: boolean;
   /** Loudness per frame (0–1), when the clip has one. */
   track?: number[];
 }
@@ -162,6 +166,7 @@ export function planLine(
 
   const beats: LineBeat[] = [];
   const questions: LineSpan[] = [];
+  const spans: LineSpan[] = [];
   let cursor = 0;
 
   sentences.forEach((sentence, index) => {
@@ -182,13 +187,21 @@ export function planLine(
     }
 
     if (sentence.includes("?")) questions.push({ start, end });
+    spans.push({ start, end });
     cursor += lengths[index] + SENTENCE_GAP_MS;
   });
 
   beats.sort((a, b) => a.at - b.at);
   const speechEnd = origin + speechMs * scale;
 
-  return { beats: spaceBeats(beats, speechEnd), durationMs, lips, questions, track };
+  return {
+    beats: spaceBeats(beats, speechEnd),
+    durationMs,
+    lips,
+    questions,
+    sentences: spans,
+    track,
+  };
 }
 
 /**
@@ -215,5 +228,26 @@ export function gesturePlan(gesture: StickGestureId): LinePlan {
     beats: [{ at: 0, gesture }],
     durationMs: gestureDuration(gesture),
     questions: [],
+    sentences: [],
+  };
+}
+
+/**
+ * A listener's one silent gesture at `at` in the speaker's line. It keeps the
+ * speaker's length and track because the player maps clip time through them,
+ * so the beat lands on the same word for both figures.
+ */
+export function reactionPlan(
+  speaker: LinePlan,
+  gesture: StickGestureId,
+  at: number,
+): LinePlan {
+  return {
+    beats: [{ at, gesture }],
+    durationMs: speaker.durationMs,
+    questions: [],
+    sentences: [],
+    silent: true,
+    track: speaker.track,
   };
 }

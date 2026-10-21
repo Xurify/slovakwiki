@@ -16,6 +16,8 @@ export interface ScriptLine {
   id: string;
   slovak: string;
   speaker: string;
+  /** Lesson label of who the line is said to (`Anna > Waiter: …`). */
+  to?: string;
 }
 
 export interface ScriptProblem {
@@ -48,9 +50,10 @@ export function stageName(speaker: string): string {
 /**
  * Read a draft dialogue, one `Speaker: line` per row, before it has audio.
  * A speaker is a lesson label (`You`, `Waiter`) or a cast name (`Alex`), which
- * is stored as its lesson label. A `[gesture]` tag at the start of a sentence
- * overrides the gesture picked from its text: `Alex: Nie, ďakujem. [point] Tam
- * je pošta.`
+ * is stored as its lesson label. `Anna > Waiter: …` says who the line is for
+ * when it is not the person Anna replies to. A `[gesture]` tag at the start of
+ * a sentence overrides the gesture picked from its text: `Alex: Nie, ďakujem.
+ * [point] Tam je pošta.`
  */
 export function parseScript(text: string): {
   lines: ScriptLine[];
@@ -76,11 +79,16 @@ export function parseScript(text: string): {
       return;
     }
 
-    const written = match[1].trim();
-    const speaker = castSpeakers.has(written)
-      ? written
-      : (labelForName.get(written) ?? written);
+    const label = (name: string) =>
+      castSpeakers.has(name) ? name : (labelForName.get(name) ?? name);
+    const [written, writtenTo] = match[1].split(">").map((part) => part.trim());
+    const speaker = label(written);
+    const to = writtenTo ? label(writtenTo) : undefined;
     const body = match[2].trim();
+
+    if (to !== undefined && (!castSpeakers.has(to) || to === speaker)) {
+      problems.push({ line, message: `${writtenTo} cannot be who ${written} speaks to` });
+    }
     const system = dialogueSpeakerLabel(speaker) === null;
     if (!system && !castSpeakers.has(speaker)) {
       problems.push({
@@ -129,6 +137,7 @@ export function parseScript(text: string): {
       id: `script-${line}`,
       slovak,
       speaker,
+      to: to && castSpeakers.has(to) && to !== speaker ? to : undefined,
     });
   });
 
@@ -145,6 +154,7 @@ export function sceneSnippet(lines: ScriptLine[]): string {
       `english: ""`,
     ];
     if (line.gestures) fields.push(`gestures: ${JSON.stringify(line.gestures)}`);
+    if (line.to) fields.push(`to: ${JSON.stringify(line.to)}`);
     return `  {\n${fields.map((field) => `    ${field},`).join("\n")}\n  },`;
   });
 

@@ -41,7 +41,12 @@
   const headTransform = $derived(
     `translate(${n(rig.head.x)} ${n(rig.head.y)}) rotate(${n(rig.headAngle)}) scale(0.82) translate(-32 -29)`,
   );
-  const eyeX = $derived(pose.look * 2);
+  // The face sits turned toward the way the figure faces (a three-quarter
+  // view), so a turn reads at a glance; `look` moves the eyes on top of that.
+  const turn = $derived(robot ? 1.4 : 2.6);
+  const eyeX = $derived(turn + pose.look * 2);
+  const noseX = $derived(32 + turn * 1.15 + pose.look * 0.8);
+  const mouthX = $derived(32 + turn * 0.9 + pose.look * 1.2);
   const eyeY = $derived(28.6 + pose.nod * 0.6);
   const browY = $derived(24.8 - Math.max(0, pose.brow) * 2.2);
   const browWorry = $derived(Math.max(0, -pose.brow) * 1.8);
@@ -88,7 +93,11 @@
   stroke-linejoin="round"
   aria-hidden="true"
 >
-  <g transform={facing === -1 ? "scale(-1 1)" : undefined}>
+  <!-- A turn is a 200 ms flip through edge-on, like a paper cut-out. -->
+  <g
+    class="transition-transform duration-200 ease-out"
+    style:transform="scaleX({facing})"
+  >
     <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 
     <g transform={headTransform}>
@@ -323,14 +332,6 @@
           />
         {/if}
 
-        {#if characterId === "alex" || characterId === "marek" || characterId === "receptionist" || characterId === "waiter"}
-          <path
-            d="M45.4 25.8c2.2.6 3 4.6 1.1 7.4-1 1.3-2.3.7-2.1-.9.4-2.2.6-4.6 1-6.5Z"
-            class="fill-portrait-skin stroke-portrait-ink"
-            stroke-width="1.5"
-          />
-        {/if}
-
         {#if characterId === "alex"}
           <path
             d="M19.6 22.2 18.8 17.6 21.4 12.2 24.2 9.4 26.6 11.6 29.2 8.2 32.2 7.6 35.2 9.4 37.8 8 41.2 11.4 44.2 16.2 44.6 21.8Q40.2 17.6 32.2 17.2Q24.6 16.8 19.6 22.2Z"
@@ -392,13 +393,6 @@
             class="fill-portrait-bib stroke-portrait-ink"
             stroke-width="0.8"
           />
-          <circle
-            cx="45.7"
-            cy="33.4"
-            r="1"
-            class="fill-portrait-bib stroke-portrait-ink"
-            stroke-width="0.8"
-          />
         {:else if characterId === "maria"}
           <path
             d="M20.4 21.4c.8-8.6 6-12.4 11.6-12.4s10.8 3.8 11.6 12.4c-2.2-4-6.2-6.6-11.6-6.6s-9.4 2.6-11.6 6.6Z"
@@ -419,8 +413,20 @@
         {/if}
 
         {#if characterId === "anna" || characterId === "lucia"}
-          <ellipse cx="24.4" cy="33.4" rx="2" ry="1.3" class="fill-rose-400/60" />
-          <ellipse cx="39.6" cy="33.4" rx="2" ry="1.3" class="fill-rose-400/60" />
+          <ellipse
+            cx={24.4 + turn * 0.8}
+            cy="33.4"
+            rx="2"
+            ry="1.3"
+            class="fill-rose-400/60"
+          />
+          <ellipse
+            cx={39.6 + turn * 0.8}
+            cy="33.4"
+            rx="2"
+            ry="1.3"
+            class="fill-rose-400/60"
+          />
         {/if}
 
         <path
@@ -434,38 +440,34 @@
 
         {#if characterId === "maria"}
           <circle
-            cx="26.2"
+            cx={26.2 + turn}
             cy="28.5"
             r="4.55"
             class="stroke-portrait-ink"
             stroke-width="1.55"
           />
           <circle
-            cx="37.8"
+            cx={37.8 + turn}
             cy="28.5"
             r="4.55"
             class="stroke-portrait-ink"
             stroke-width="1.55"
           />
           <path
-            d="M30.7 28.5h2.6M21.6 28.4h-2.6M42.4 28.4h2.6"
+            d="M{30.7 + turn} 28.5h2.6M{21.6 + turn} 28.4H19"
             class="stroke-portrait-ink"
             stroke-width="1.35"
           />
         {/if}
 
-        <path
-          d="M{32 + eyeX * 0.4} 31.2v2.6"
-          class="stroke-portrait-ink"
-          stroke-width="1.25"
-        />
+        <path d="M{noseX} 31.2v2.6" class="stroke-portrait-ink" stroke-width="1.25" />
 
         {#if mouthOpen}
-          <path d={mouthPath(32 + eyeX * 0.6, 36.2)} class="fill-portrait-ink" />
+          <path d={mouthPath(mouthX, 36.2)} class="fill-portrait-ink" />
 
           {#if pose.mouth > 0.5 && pose.round < 0.5}
             <ellipse
-              cx={32 + eyeX * 0.6}
+              cx={mouthX}
               cy={36.2 + (0.8 + pose.mouth * 3.6) * 0.76}
               rx="1.3"
               ry={0.3 + pose.mouth * 0.5}
@@ -474,7 +476,7 @@
           {/if}
         {:else}
           <path
-            d="M{28.6 + eyeX * 0.6} 36.6q3.4 2.2 6.8 0"
+            d="M{mouthX - 3.4} 36.6q3.4 2.2 6.8 0"
             class="stroke-portrait-ink"
             stroke-width="1.4"
           />

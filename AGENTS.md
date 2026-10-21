@@ -163,7 +163,7 @@ One vocabulary site-wide, so interactions read as the same calm reference site a
 - **Overlays** (drawer, menus, popovers): one translate or fade on the panel, `duration-200 ease-out`, elevated with `shadow-(--shadow-float)`. No staggered children.
 - **Content that appears** (feedback, revealed dialogue lines, results): `animate-rise` (200ms fade + 4px). Once, on mount.
 - **Icon state** (sound on/off, menu open/close, theme): swap the icon. No scale/blur morphs.
-- **Stick-figure cast** (`src/lib/stick-figure/`, dev only at `/dev/stick-figures` until promoted): a figure moves only while its own line plays — gestures planned from the line, mouth from the clip's loudness track — then returns to rest. No idle sway, breathing, or blinking. Under reduced motion each gesture is one held pose and the mouth stays still.
+- **Stick-figure cast** (`src/lib/stick-figure/`, dev only at `/dev/stick-figures` until promoted): figures move only while a line plays. The speaker gestures (planned from the line) and moves its mouth (from the clip's loudness track); everyone turns to face the speaker with a 200 ms flip, and the one spoken to may answer with one silent gesture (lean in to a question, nod at an answer or thanks). Then they return to rest. No idle sway, breathing, or blinking. Under reduced motion each gesture is one held pose, turns are instant, and the mouth stays still.
 - **Not used:** `active:scale-*`, hover zooms, 3D "key" lips, pulsing or drifting loops, bouncy easings. Reduced motion is handled globally in `styles.css`.
 
 ### UI composition

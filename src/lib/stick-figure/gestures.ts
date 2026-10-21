@@ -12,6 +12,7 @@ export const STICK_GESTURE_IDS = [
   "cheer",
   "apologize",
   "think",
+  "lean",
 ] as const;
 
 export type StickGestureId = (typeof STICK_GESTURE_IDS)[number];
@@ -67,6 +68,7 @@ const armsUp = {
 };
 const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, look: 0 };
 const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: -0.4, brow: 0.6 };
+const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 
 const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
   talk: gesture(beat, [
@@ -128,6 +130,7 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
     key(1000, handOnChin),
     key(1300),
   ]),
+  lean: gesture(leanIn, [key(0), key(340, leanIn), key(1100, leanIn), key(1450)]),
 };
 
 export function gestureDuration(id: StickGestureId): number {

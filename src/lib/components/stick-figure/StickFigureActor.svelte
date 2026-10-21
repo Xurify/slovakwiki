@@ -29,7 +29,7 @@
     cue?: number;
     facing?: 1 | -1;
     plan?: LinePlan;
-    /** True while this character's line plays. */
+    /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
   } = $props();
 
@@ -45,7 +45,7 @@
 
     untrack(() => {
       startedAt = performance.now();
-      act = startPerformance();
+      act = startPerformance(startedAt, $state.snapshot(pose));
       run();
     });
   });

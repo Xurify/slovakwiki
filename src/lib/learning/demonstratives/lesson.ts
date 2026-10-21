@@ -777,6 +777,7 @@ export const demonstrativesLesson: Lesson = {
     {
       id: demonstrativesLineIds.annaThatCake,
       speaker: "Anna",
+      to: "Waiter",
       slovak: tortaLine.text,
       marks: tortaLine.marks,
       english: "And I'll have that layer cake over there.",

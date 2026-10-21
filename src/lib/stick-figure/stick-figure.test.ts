@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { STICK_GESTURE_IDS, gestureDuration, mouthAt, sampleGesture } from "./gestures";
 import { foldLine, gestureForLine } from "./line-gesture";
-import { estimateSpeechMs, planLine } from "./line-plan";
+import { estimateSpeechMs, planLine, reactionPlan } from "./line-plan";
 import {
   MOUTH_FRAME_MS,
   MOUTH_LEAD_MS,
@@ -16,6 +16,7 @@ import { performFrame, startPerformance, type PerformanceInput } from "./perform
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
 import { parseScript, sceneSnippet, stageName } from "./script";
+import { restFacing, stageLine, type StageLine } from "./staging";
 import { slovakSyllables } from "./syllables";
 
 function distance(a: Point, b: Point): number {
@@ -243,6 +244,14 @@ describe("planLine", () => {
     expect(plan.beats[1].at).toBe(15 * MOUTH_FRAME_MS);
   });
 
+  it("records where each sentence is spoken", () => {
+    const plan = planLine("Dobrý deň. Volám sa Anna.");
+
+    expect(plan.sentences).toHaveLength(2);
+    expect(plan.sentences[0].start).toBe(plan.beats[0].at);
+    expect(plan.sentences[1].start).toBeGreaterThan(plan.sentences[0].end);
+  });
+
   it("estimates longer speech for longer text", () => {
     expect(estimateSpeechMs("Dobrý deň, volám sa Anna")).toBeGreaterThan(
       estimateSpeechMs("Dobrý deň"),
@@ -257,6 +266,29 @@ describe("performFrame", () => {
   function input(overrides: Partial<PerformanceInput>): PerformanceInput {
     return { now: 0, reducedMotion: false, speechMs: 0, talking: true, ...overrides };
   }
+
+  it("keeps a listener's mouth shut while their gesture runs on the speaker's clip", () => {
+    const listener = reactionPlan(plan, "lean", 200);
+    const frame = performFrame(
+      listener,
+      startPerformance(),
+      input({ now: 50, speechMs: 300 }),
+    );
+
+    expect(listener.durationMs).toBe(plan.durationMs);
+    expect(frame.state.beatIndex).toBe(0);
+    expect(frame.pose.mouth).toBe(0);
+  });
+
+  it("eases a pose still in flight back to rest before the first beat", () => {
+    const state = startPerformance(1000, { ...REST_POSE, nod: 3 });
+    const early = performFrame(plan, state, input({ now: 1040, speechMs: null }));
+    const later = performFrame(plan, state, input({ now: 1400, speechMs: null }));
+
+    expect(early.pose.nod).toBeGreaterThan(0);
+    expect(early.pose.nod).toBeLessThan(3);
+    expect(later.pose.nod).toBe(0);
+  });
 
   it("waits at rest while the clip loads, without settling", () => {
     const frame = performFrame(plan, startPerformance(), input({ speechMs: null }));
@@ -390,6 +422,17 @@ describe("parseScript", () => {
     expect(sceneSnippet(lines)).toContain('speaker: "You"');
   });
 
+  it("reads who a line is for", () => {
+    const { lines, problems } = parseScript(
+      "Anna > Waiter: A ja si dám tamtú tortu.\nAnna > Marta: Ahoj.\nAnna > Anna: Ahoj.",
+    );
+
+    expect(lines[0]).toMatchObject({ speaker: "Anna", to: "Waiter" });
+    expect(lines[1].to).toBeUndefined();
+    expect(problems.map((problem) => problem.line)).toEqual([2, 3]);
+    expect(sceneSnippet(lines.slice(0, 1))).toContain('to: "Waiter"');
+  });
+
   it("names the learner's figure on stage", () => {
     expect(stageName("You")).toBe("Alex");
     expect(stageName("Mária")).toBe("Mária");
@@ -401,5 +444,72 @@ describe("parseScript", () => {
 
     expect(sceneSnippet(lines)).toContain('gestures: ["point"]');
     expect(sceneSnippet(lines)).toContain('slovak: "Dáte si kávu?"');
+  });
+});
+
+describe("stageLine", () => {
+  const cast = ["anna", "alex", "waiter"] as const;
+  const lines: StageLine[] = [
+    { characterId: "anna", slovak: "Pozri, to sú fotky z leta." },
+    { characterId: "alex", slovak: "Kto je ten muž?" },
+    { characterId: "anna", slovak: "To je môj brat Tom." },
+    { characterId: "waiter", slovak: "Dobrý deň. Čo si dáte?" },
+    { characterId: "alex", slovak: "Dobre, dám si tento koláč." },
+    { characterId: "anna", slovak: "A ja si dám tamtú tortu.", to: "waiter" },
+    { characterId: null, slovak: "ĎA-ku-jem" },
+  ];
+
+  it("faces the middle before anyone speaks", () => {
+    expect(restFacing(cast)).toEqual({ anna: 1, alex: 1, waiter: -1 });
+  });
+
+  it("turns the speaker to the one spoken to and everyone else to the speaker", () => {
+    expect(stageLine(lines, 0, cast)).toMatchObject({
+      addressee: "alex",
+      facing: { anna: 1, alex: -1, waiter: -1 },
+    });
+    expect(stageLine(lines, 3, cast)).toMatchObject({
+      addressee: "anna",
+      facing: { anna: 1, alex: 1, waiter: -1 },
+    });
+  });
+
+  it("follows a line's to over the order of replies", () => {
+    expect(stageLine(lines, 5, cast)).toMatchObject({
+      addressee: "waiter",
+      facing: { anna: 1, alex: -1, waiter: -1 },
+    });
+  });
+
+  it("leans in to a question and nods at its answer", () => {
+    expect(stageLine(lines, 1, cast).reactions).toEqual([
+      { characterId: "anna", gesture: "lean", sentence: 0, at: 0.5 },
+    ]);
+    expect(stageLine(lines, 2, cast).reactions).toEqual([
+      { characterId: "alex", gesture: "nod", sentence: 0, at: 1 },
+    ]);
+    expect(stageLine(lines, 0, cast).reactions).toEqual([]);
+  });
+
+  it("leaves the stage alone for a line nobody on it says", () => {
+    expect(stageLine(lines, 6, cast)).toEqual({
+      addressee: null,
+      facing: {},
+      reactions: [],
+    });
+  });
+
+  it("turns a goodbye away once it ends", () => {
+    const goodbye: StageLine[] = [
+      { characterId: "waiter", slovak: "Nech sa páči." },
+      { characterId: "alex", slovak: "Ďakujem. Dovidenia!" },
+    ];
+
+    expect(stageLine(goodbye, 1, ["alex", "waiter"])).toMatchObject({
+      facing: { alex: 1, waiter: -1 },
+      reactions: [{ characterId: "waiter", gesture: "nod", sentence: 0 }],
+      exit: -1,
+    });
+    expect(stageLine(goodbye, 0, ["alex", "waiter"]).exit).toBeUndefined();
   });
 });

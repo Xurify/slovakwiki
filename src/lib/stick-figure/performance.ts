@@ -40,16 +40,18 @@ export interface PerformanceFrame {
   state: PerformanceState;
 }
 
-export function startPerformance(): PerformanceState {
-  return { beatIndex: -1, beatStartedAt: 0, blendFrom: REST_POSE };
+/**
+ * Start a line from `from`, the pose the last line left the figure in: a nod
+ * still in flight eases back to rest instead of snapping there.
+ */
+export function startPerformance(now = 0, from: StickPose = REST_POSE): PerformanceState {
+  return { beatIndex: -1, beatStartedAt: now, blendFrom: from };
 }
 
 function bodyAt(plan: LinePlan, state: PerformanceState, now: number): StickPose {
   const beat = plan.beats[state.beatIndex];
-  if (!beat) return REST_POSE;
-
   const elapsed = now - state.beatStartedAt;
-  const pose = sampleGesture(beat.gesture, elapsed);
+  const pose = beat ? sampleGesture(beat.gesture, elapsed) : REST_POSE;
   if (elapsed >= BLEND_MS) return pose;
 
   return lerpPose(state.blendFrom, pose, easeInOut(elapsed / BLEND_MS));
@@ -106,14 +108,15 @@ export function performFrame(
 
   const beat = plan.beats[state.beatIndex];
   const elapsed = now - state.beatStartedAt;
-  const moving =
-    beat !== undefined && (talking || elapsed < gestureDuration(beat.gesture));
+  const moving = beat
+    ? talking || elapsed < gestureDuration(beat.gesture)
+    : elapsed < BLEND_MS;
 
   let pose: StickPose;
   if (reducedMotion) pose = moving && beat ? gesturePeak(beat.gesture) : REST_POSE;
   else pose = bodyAt(plan, state, now);
 
-  if (talking && speechMs !== null) {
+  if (talking && speechMs !== null && !plan.silent) {
     pose = {
       ...pose,
       brow: Math.max(pose.brow, questionBrow(plan, speechMs)),

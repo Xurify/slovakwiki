@@ -44,6 +44,11 @@ export interface DialogueTurn {
   sayChoices?: DialogueSayChoices;
   slovak: string;
   speaker: string;
+  /**
+   * Speaker the stick figure says this to, when it is not the one it replies
+   * to (Anna ordering from the waiter). Preview on `/dev/stick-figures`.
+   */
+  to?: string;
 }
 
 export interface LessonTrack {
