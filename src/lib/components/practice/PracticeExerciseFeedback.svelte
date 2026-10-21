@@ -154,7 +154,7 @@
 
 {#snippet body()}
   {#if useCompare}
-    <div class="grid gap-2">
+    <div class="grid gap-3">
       {#if grade === "accents" && !status}
         <p class="m-0 text-sm font-semibold text-blue-900">Almost — check the accents.</p>
       {/if}
@@ -195,26 +195,28 @@
         </div>
       {/if}
 
-      {@render whyLine()}
+      <div class="grid gap-2 empty:hidden">
+        {@render whyLine()}
 
-      {#if closeSuggestion}
-        <p class="m-0 text-sm text-slate-700">
-          Did you mean
-          <strong class="font-serif text-base text-slate-900" lang="sk"
-            >{displayedCloseSuggestion}</strong
-          >?
-        </p>
-      {/if}
+        {#if closeSuggestion}
+          <p class="m-0 text-sm text-slate-700">
+            Did you mean
+            <strong class="font-serif text-base text-slate-900" lang="sk"
+              >{displayedCloseSuggestion}</strong
+            >?
+          </p>
+        {/if}
 
-      {#if newUse}
-        <p class="m-0 text-sm text-blue-900">{newUse}</p>
-      {/if}
+        {#if newUse}
+          <p class="m-0 text-sm text-blue-900">{newUse}</p>
+        {/if}
 
-      {#if dictionaryHref}
-        <TextLink class="text-sm" href={dictionaryHref}>Open in dictionary</TextLink>
-      {/if}
+        {#if dictionaryHref}
+          <TextLink class="text-sm" href={dictionaryHref}>Open in dictionary</TextLink>
+        {/if}
 
-      <OtherChoiceNotes notes={otherChoices} />
+        <OtherChoiceNotes notes={otherChoices} />
+      </div>
     </div>
   {:else}
     <div class="grid gap-2">
