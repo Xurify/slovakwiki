@@ -302,7 +302,7 @@
       {statusHeadline}
     </p>
 
-    <div class="col-span-2 sm:col-span-1 sm:col-start-2">
+    <div class="col-span-2">
       {@render body()}
     </div>
   </div>
