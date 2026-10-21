@@ -27,7 +27,7 @@
     grammarGroupAnchor,
     grammarNeighbors,
   } from "$lib/catalog/reference/grammar-path";
-  import { patternView } from "$lib/catalog/reference/grammar-pattern";
+  import { patternForms, patternView } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
@@ -199,34 +199,40 @@
             pattern={topic.pattern}
             examples={topic.examples}
             withClocks={isTime}
-          >
-            {#if topic.pattern.examples?.length}
-              <GrammarExampleList
-                examples={topic.pattern.examples}
-                {audioKeys}
-                audioKeyPrefix="pattern-ex"
-                framed={false}
-              />
-            {/if}
-          </GrammarPatternList>
+          />
         </div>
+
+        {#if topic.pattern.examples?.length}
+          <div class="mt-5">
+            <GrammarExampleList
+              examples={topic.pattern.examples}
+              {audioKeys}
+              audioKeyPrefix="pattern-ex"
+              highlight={patternForms(topic.pattern)}
+              label="Examples"
+            />
+          </div>
+        {/if}
 
         {#each topic.morePatterns ?? [] as extra, index (extra.label)}
           <div class="mt-8">
             <h2 class={grammarHeadingClass}>{extra.label}</h2>
 
             <div class="mt-3">
-              <GrammarPatternList pattern={extra}>
-                {#if extra.examples?.length}
-                  <GrammarExampleList
-                    examples={extra.examples}
-                    {audioKeys}
-                    audioKeyPrefix="more-{index}-ex"
-                    framed={false}
-                  />
-                {/if}
-              </GrammarPatternList>
+              <GrammarPatternList pattern={extra} />
             </div>
+
+            {#if extra.examples?.length}
+              <div class="mt-5">
+                <GrammarExampleList
+                  examples={extra.examples}
+                  {audioKeys}
+                  audioKeyPrefix="more-{index}-ex"
+                  highlight={patternForms(extra)}
+                  label="Examples"
+                />
+              </div>
+            {/if}
           </div>
         {/each}
       {/if}

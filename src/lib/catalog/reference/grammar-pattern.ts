@@ -219,6 +219,21 @@ export function patternView(
   return parsePattern(pattern.lines, examples);
 }
 
+/** Every Slovak word a table shows, lowercased, so its example sentences can mark the same forms. */
+export function patternForms(pattern: GrammarPattern): string[] {
+  if (!isGrammarTable(pattern)) return [];
+
+  const forms = new Set<string>();
+  for (const row of pattern.rows) {
+    for (const cell of row.cells) {
+      for (const word of cell.match(/\p{L}+/gu) ?? []) {
+        forms.add(word.toLocaleLowerCase("sk"));
+      }
+    }
+  }
+  return [...forms];
+}
+
 /** Labels and forms a table contributes to search, in place of the old line strings. */
 export function patternSearchLines(pattern: GrammarPattern): string[] {
   if (isGrammarTable(pattern)) {

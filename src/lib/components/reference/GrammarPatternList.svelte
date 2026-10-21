@@ -15,8 +15,6 @@
     type MarkedPhrase,
     type ParadigmCell,
   } from "$lib/catalog/reference/grammar-pattern";
-  import type { Snippet } from "svelte";
-
   import type { Example, GrammarPattern } from "$lib/catalog/types";
   import { dataColumnHeadClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { cx } from "$lib/ui/classes";
@@ -25,13 +23,10 @@
     pattern,
     examples = [],
     withClocks = false,
-    children,
   }: {
     pattern: GrammarPattern;
     examples?: Example[];
     withClocks?: boolean;
-    /** Example sentences for this table, inside the same panel under a rule. */
-    children?: Snippet;
   } = $props();
 
   type TimeRow = {
@@ -391,12 +386,6 @@
           </li>
         {/each}
       </ul>
-    </div>
-  {/if}
-
-  {#if children}
-    <div class="border-t border-slate-200">
-      {@render children()}
     </div>
   {/if}
 </div>
