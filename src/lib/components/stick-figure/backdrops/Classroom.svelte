@@ -1,4 +1,5 @@
 <script lang="ts">
+  import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 
   /** The start of the Slovak alphabet, digraphs included. */
@@ -6,10 +7,9 @@
 </script>
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" stroke="none" />
-<rect x="-10" y="142" width="980" height="84" class="fill-scene-sage" />
-<path d="M-10 142H970" class="stroke-scene-wood" stroke-width="4" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<rect x="-10" y="226" width="980" height="7" class="fill-scene-line/15" stroke="none" />
+<rect x="-10" y="168" width="980" height="58" class="fill-scene-sage/60" stroke="none" />
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" stroke="none" />
+<FloorShade seams />
 
 {#each LETTERS as letter, index (letter)}
   <rect

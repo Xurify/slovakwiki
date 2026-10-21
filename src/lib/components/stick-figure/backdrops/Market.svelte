@@ -1,4 +1,6 @@
 <script lang="ts">
+  import FloorShade from "./FloorShade.svelte";
+
   const FLAG_PAINTS = ["fill-scene-clay", "fill-scene-honey", "fill-scene-sage"];
 
   /** Bunting on a curve from (250, 34) through (480, 80) to (710, 34). */
@@ -29,9 +31,10 @@
 <path
   d="M-10 226V164L36 140L82 164V152H170L206 128L242 152V170H330V146H420V160L470 134L520 160V150H620L660 126L700 150V168H790V144H870L910 120L950 144H970V226Z"
   class="fill-scene-cool"
+  stroke="none"
 />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<rect x="-10" y="226" width="980" height="7" class="fill-scene-line/15" stroke="none" />
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" stroke="none" />
+<FloorShade seams />
 
 <path d="M250 34Q480 80 710 34" />
 {#each flags as flag (flag.x)}

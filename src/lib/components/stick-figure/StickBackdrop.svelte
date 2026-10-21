@@ -7,6 +7,7 @@
   import Park from "./backdrops/Park.svelte";
   import Plaza from "./backdrops/Plaza.svelte";
   import Registration from "./backdrops/Registration.svelte";
+  import StageLight from "./backdrops/StageLight.svelte";
 
   let { class: className = "", setting }: { class?: string; setting: LessonSceneArtId } =
     $props();
@@ -22,12 +23,13 @@
   viewBox="0 0 960 300"
   preserveAspectRatio="xMidYMax slice"
   fill="none"
-  stroke-width="1.6"
+  stroke-width="1.4"
   stroke-linecap="round"
   stroke-linejoin="round"
   aria-hidden="true"
 >
-  <g class="stroke-scene-line">
+  <!-- Light edges keep the backdrop behind the ink-outlined cast. -->
+  <g class="stroke-scene-edge">
     {#if setting === "cafe"}
       <Cafe />
     {:else if setting === "classroom"}
@@ -43,5 +45,7 @@
     {:else}
       <Park />
     {/if}
+
+    <StageLight />
   </g>
 </svg>

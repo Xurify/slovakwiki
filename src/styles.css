@@ -95,6 +95,7 @@
   --color-portrait-vest: #262f3b;
   /* Stick-figure backdrops: light fixed paints, so the ink cast reads in both themes. */
   --color-scene-line: #5d7584;
+  --color-scene-edge: #9aaebb;
   --color-scene-sky: #d8e8ef;
   --color-scene-cool: #e7eef1;
   --color-scene-warm: #f5ecdd;

@@ -1,10 +1,11 @@
 <script lang="ts">
+  import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 </script>
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-cool" stroke="none" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<rect x="-10" y="226" width="980" height="7" class="fill-scene-line/15" stroke="none" />
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" stroke="none" />
+<FloorShade seams />
 
 <path d="M426 -10V30M534 -10V30" />
 <rect x="400" y="30" width="160" height="34" rx="4" class="fill-portrait-ground" />
@@ -33,7 +34,10 @@
 <Plant x={256} y={226} />
 
 <rect x="648" y="150" width="330" height="76" class="fill-scene-wood" />
-<path d="M648 172H978" class="stroke-scene-line/40" />
+<path
+  d="M690 160V216M740 160V216M790 160V216M840 160V216M890 160V216M940 160V216"
+  class="stroke-scene-line/15"
+/>
 <rect x="640" y="140" width="340" height="12" rx="3" class="fill-portrait-bib" />
 <rect x="842" y="86" width="72" height="48" rx="4" class="fill-scene-cool" />
 <rect x="848" y="92" width="60" height="36" rx="2" class="fill-scene-sky" />

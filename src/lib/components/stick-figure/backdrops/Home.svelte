@@ -1,4 +1,5 @@
 <script lang="ts">
+  import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 
   const stripes = Array.from({ length: 33 }, (_, index) => index * 30);
@@ -6,17 +7,12 @@
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" stroke="none" />
 {#each stripes as x (x)}
-  <path d="M{x} -10V226" class="stroke-scene-clay/25" stroke-width="6" />
+  <path d="M{x} -10V226" class="stroke-scene-clay/15" stroke-width="6" />
 {/each}
 
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-wood" />
-<path
-  d="M-10 252H970M-10 280H970M120 226V252M420 226V252M700 226V252M260 252V280M560 252V280M860 252V280"
-  class="stroke-scene-line/30"
-/>
-<rect x="-10" y="217" width="980" height="9" class="fill-portrait-bib" />
-<rect x="-10" y="226" width="980" height="7" class="fill-scene-line/15" stroke="none" />
-<ellipse cx="480" cy="277" rx="250" ry="18" class="fill-scene-sage" />
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-wood" stroke="none" />
+<FloorShade seams />
+<ellipse cx="480" cy="277" rx="250" ry="18" class="fill-scene-sage" stroke="none" />
 <ellipse
   cx="480"
   cy="277"

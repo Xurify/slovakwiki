@@ -1,4 +1,5 @@
 <script lang="ts">
+  import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 
   /** Old-town facades left to right: x, width, roof line, paint. */
@@ -41,7 +42,15 @@
 
   {#each windowXs(house) as x (x)}
     {#each WINDOW_ROWS.filter((y) => y > house.top + 8) as y (y)}
-      <rect {x} {y} width="12" height="18" rx="1.5" class="fill-portrait-bib" />
+      <rect
+        {x}
+        {y}
+        width="12"
+        height="18"
+        rx="1.5"
+        class="fill-portrait-bib"
+        stroke="none"
+      />
     {/each}
   {/each}
 {/each}
@@ -57,22 +66,15 @@
 <path d="M283 120V128L289 132" />
 <path d="M272 226V190A11 11 0 0 1 294 190V226Z" class="fill-scene-line/25" />
 
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<rect x="-10" y="226" width="980" height="7" class="fill-scene-line/15" stroke="none" />
-<path
-  d="M40 256q30-6 60 0M160 276q34-6 68 0M300 252q30-5 60 0M612 256q32-6 64 0M760 278q34-6 68 0M860 250q30-5 60 0"
-  class="stroke-scene-line/40"
-/>
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" stroke="none" />
+<FloorShade seams />
 
-<g stroke-width="2.6">
-  <path d="M30 226V206M130 226V206M24 206H136M28 186H132M30 206V186M130 206V186" />
-</g>
-<rect x="22" y="198" width="116" height="8" rx="2" class="fill-scene-wood" />
-<rect x="26" y="180" width="108" height="8" rx="2" class="fill-scene-wood" />
+<path d="M34 250V202M126 250V202" class="stroke-scene-wood" stroke-width="3" />
+<rect x="24" y="220" width="112" height="8" rx="2" class="fill-scene-wood" />
+<rect x="28" y="200" width="104" height="8" rx="2" class="fill-scene-wood" />
 
-<rect x="776" y="96" width="6" height="130" class="fill-scene-line" />
-<path d="M769 226h20" stroke-width="3" />
+<rect x="776" y="96" width="6" height="134" class="fill-scene-edge" stroke="none" />
 <path d="M767 96h24l-4-22h-16Z" class="fill-scene-honey" />
-<path d="M771 74h16l-8-8Z" class="fill-scene-line" />
+<path d="M771 74h16l-8-8Z" class="fill-scene-edge" />
 
 <Plant x={900} y={226} />
