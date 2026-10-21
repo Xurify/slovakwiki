@@ -17,7 +17,11 @@
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
-  import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
+  import {
+    episodeForGrammarSlug,
+    episodePath,
+    grammarListenForSlug,
+  } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
   import {
     grammarGroupAnchor,
@@ -104,6 +108,10 @@
   );
 
   const episode = $derived(episodeForGrammarSlug(topic.slug));
+
+  // Astro hands over a named slot even when its condition is false, so the
+  // snippet alone does not say whether this topic has a dialogue.
+  const hasListen = $derived(Boolean(grammarListenForSlug(topic.slug)));
 
   const steps = $derived(
     [
@@ -239,7 +247,7 @@
       </p>
     </section>
 
-    {#if listen}
+    {#if listen && hasListen}
       <section id="listen" class="mt-8" aria-labelledby="listen-heading">
         <h2 id="listen-heading" class={grammarHeadingClass}>Hear it</h2>
 

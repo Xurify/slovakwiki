@@ -121,39 +121,30 @@
   {/each}
 {/snippet}
 
-{#if key}
-  <p
-    class="m-0 mb-3 flex flex-wrap items-baseline gap-x-6 gap-y-1 text-sm text-slate-600"
-  >
-    <span>
-      <span class="font-serif text-base font-semibold {grammarEndingClass}" lang="sk">
-        {key.word}
-      </span>
-      the word that changes
-    </span>
-
-    <span>
-      <span class="font-serif text-base font-semibold text-slate-900" lang="sk"
-        >{key.stem}<span class={markRoleClass("ending")}>{key.ending}</span></span
-      >
-      the ending the case gives the noun
-    </span>
-  </p>
-{/if}
-
-{#if labelled}
+{#if key || labelled}
   <p class="m-0 mb-3 max-w-[62ch] text-sm leading-relaxed text-slate-600">
-    Each card names its case with the Slovak school term first:
-    <span lang="sk">pád</span> (case), <span lang="sk">rod</span> (gender),
-    <span lang="sk">životný</span> (animate), <span lang="sk">množné číslo</span>
-    (plural). The terms follow
-    <TextLink
-      href="https://www.juls.savba.sk/ediela/msj/"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Morfológia slovenského jazyka ↗</TextLink
-    >.
+    {#if key}
+      In each sentence the word you pick is blue, like
+      <span class="font-serif font-semibold {grammarEndingClass}" lang="sk"
+        >{key.word}</span
+      >, and the noun's case ending is boxed, like
+      <span class="font-serif font-semibold text-slate-900" lang="sk"
+        >{key.stem}<span class={markRoleClass("ending")}>{key.ending}</span></span
+      >.
+    {/if}
+    {#if labelled}
+      Each card names its case with the Slovak school term first:
+      <span lang="sk">pád</span> (case), <span lang="sk">rod</span> (gender),
+      <span lang="sk">životný</span> (animate), <span lang="sk">množné číslo</span>
+      (plural), as in
+      <TextLink
+        href="https://www.juls.savba.sk/ediela/msj/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Morfológia slovenského jazyka ↗</TextLink
+      >.
+    {/if}
   </p>
 {/if}
 
