@@ -99,5 +99,36 @@ Also check: the sentence uses the headword in a typical sense, not an obscure on
 2. Diacritics present; `„…“` quotes; sentence-case headings; `nie je` as two words.
 3. Every typed or cloze answer has its valid variants in `acceptedAnswers`, or the prompt rules them out.
 4. Each cloze gap has exactly one correct fill.
-5. Dictionary examples: reflexive shown, first four are the best, no Tatoeba calques.
-6. Then the repo steps in `AGENTS.md`: search index and audio generation.
+5. Dictionary examples: the headword is in the sentence, reflexive shown, first four are the best, no Tatoeba calques, no stamped frames (`Xm to.`).
+6. Read every scene for who speaks to whom: the speaker fits the line (a conductor checks tickets, not a waiter), the context leads to the prompted answer, and `ty`/`vy` matches the person addressed.
+7. `bun run test`, then the repo steps in `AGENTS.md`: search index and audio generation.
+
+## 10. Rules that shipped wrong before
+
+Each of these was taught wrongly on the site. `src/lib/catalog/content-rules.test.ts` fails if the old wording returns. When you fix a new false rule, add its wrong wording there too.
+
+| Topic        | Right                                                                                                                                                          | Wrong wording that shipped                  |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| Negation     | The prefix `ne-` joins the verb: `nemám`, `nerozumiem`. Present `byť` keeps `nie` apart: `nie som`, `nie si`, `nie je`, `nie sme`, `nie ste`, `nie sú`.        | "Nie attaches to the verb"                  |
+| Two          | `dva` for masculine things and animals (`dva psy`), `dvaja` for men (`dvaja bratia`), `dve` for feminine and neuter (`dve autá`).                              | "dva is masculine and neuter"               |
+| Animacy      | Accusative singular: people and animals both change (`toho psa`, `môjho psa`). Only the plural splits people (`tí`, `tých`, `moji`) from the rest (`tie psy`). | "people take môjho / toho"                  |
+| `ten` cases  | `tým` is the masculine and neuter instrumental singular and the dative plural; the feminine instrumental is `tou`.                                             | "Instrumental, with one person: tým"        |
+| `to`         | Only presentational `to` (`To je …`, `To sú …`) stays `to`; otherwise it declines: `o tom`, `s tým`.                                                           | "to never changes"                          |
+| Motion       | `ísť` and `chodiť` are both imperfective: one trip versus habit.                                                                                               | "same destination, different aspect"        |
+| Age          | `jeden rok`, `dva roky`, `päť rokov`; compounds take `rokov`: `dvadsaťdva rokov`.                                                                              | "Use rokov after the number"                |
+| Prices       | `jedno euro`, `dve eurá`, `päť eur`.                                                                                                                           | "Stojí to + number + eur"                   |
+| Days         | `v pondelok`, `v stredu`, but `vo štvrtok`.                                                                                                                    | generated `v štvrtok`                       |
+| Word order   | New or stressed information comes last.                                                                                                                        | "what moves to the front receives emphasis" |
+| Instrumental | `s`/`so` for company; a tool or means takes the bare instrumental: `píšem perom`, `idem autobusom`.                                                            | "tools and means, especially after s or so" |
+| Register     | `dačo`, `dakto`, `dakde` are standard (KSSJ, SSSJ list them without a label).                                                                                  | `dačo` marked as eastern dialect            |
+
+## 11. What the tests check, and what they cannot
+
+`bun run test` runs these content checks on every lesson, practice item and generated drill:
+
+- `src/lib/learning/exercises/exercises-audit.test.ts`: build tiles join into exactly the correction, so end punctuation sits on the last tile; every answer tile is in the bank; a typed answer that opens with a first- or second-person verb also accepts its subject pronoun (`Som Alex.` → `Ja som Alex.`, `Stretneme sa v utorok.` → `My sa stretneme v utorok.`).
+- `src/lib/catalog/content-rules.test.ts`: the table in §10, `nieje`, `v štvrtok` and Czech letters in common words.
+- `src/lib/catalog/search/forms.test.ts`: generated word forms. Search shows them as a word's forms only when `formsVerified` trusts that paradigm.
+- `src/lib/catalog/dictionary/dictionary-content.test.ts`: every Tatoeba example contains its headword (reviewed exceptions sit in `tatoeba-lemma-exceptions.json`), no sentence from `content/dictionary/tatoeba-rejected.json` comes back, blocklisted lemmas stay out, and no short frame is stamped across many headwords.
+
+They cannot judge meaning. A person still has to check speaker roles, scene logic, `ty`/`vy`, word-order variants other than the subject pronoun, whether a distractor is really wrong, and whether an example uses the headword's part of speech when another word is spelled the same (`krásne dievča` is the adjective, not the adverb `krásne`).

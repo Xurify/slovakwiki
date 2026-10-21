@@ -6,7 +6,7 @@ How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../.
 
 | Intent                                               | File                                                                                                       | Notes                                                                                                                                             |
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/catalog/entries.ts`](../../src/lib/catalog/entries.ts)                      | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
+| Beginner / topic word (greetings, food, essentials…) | `curatedWordSeed` in [`src/lib/catalog/dictionary/words.ts`](../../src/lib/catalog/dictionary/words.ts)    | Merged first at runtime → `origin: "curated"`. Do **not** also add the same slug to `words.json`.                                                 |
 | Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                                               | Usual home for Verbs / Nouns / Adjectives / Adverbs / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
 | Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun scripts/dictionary/apply-curated-examples.ts` | Overlay keyed by existing slug — not a new entry.                                                                                                 |
 | Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun scripts/dictionary/apply-related.ts`          | Fills empty related arrays only.                                                                                                                  |
@@ -114,6 +114,12 @@ Hand-add checklist:
 
 ## Anti-patterns
 
+- An example that does not contain the headword: `hrá` (verb) on `hra` (noun), `jasné` (adjective) on `jasne` (adverb), `mená` on `mena`. Check the word itself, not its diacritic twin.
+- An example where the headword has the same spelling but another part of speech: `krásne dievča` is the adjective, so it does not belong on the adverb `krásne` (`Spieva krásne.`). The headword test cannot see this; read the sentence.
+- A headword that is not a Slovak word on its own: `pro` is Czech (Slovak `za`), `členný` only ends compounds (`dvojčlenný`). Check PSP / KSSJ, and add such lemmas to `FREQUENCY_PUBLISH_BLOCKLIST` in [`src/lib/catalog/frequency/blocklist.ts`](../../src/lib/catalog/frequency/blocklist.ts) so a publish never brings them back.
+- Stamped fragments such as `Chujem to.` / `I keep it.`: one frame filled with every verb produces wrong forms and nonsense. Write a real sentence or leave the slot empty.
+- Editing a Tatoeba sentence to fix a typo or a Czech word. Drop the row and add its ID with a short reason to [`tatoeba-rejected.json`](./tatoeba-rejected.json), so `enrich-examples.ts` never brings it back.
+- A gloss taken from a near-twin: `prieť` is “to argue (prieť sa)”, not “to wrestle”; `smieť` is “to be allowed to”, not “to be”. Adverbs are glossed as adverbs (`krásne` = beautifully), and reflexive verbs show `sa` / `si`.
 - Duplicating a curated slug into `words.json` (seed wins; bulk row is filtered out).
 - Putting theme labels (`Food`) into `category` instead of `topics` (breaks POS browse + search forms).
 - Related entries that are English glosses or Slovak surface forms instead of slugs.

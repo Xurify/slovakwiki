@@ -34,22 +34,23 @@ Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.
 
 ### Content files
 
-| File                                             | Role                                                                             |
-| ------------------------------------------------ | -------------------------------------------------------------------------------- |
-| `content/dictionary/README.md`                   | Hand-add lemma template (fields, homes, slug/category, examples)                 |
-| `content/dictionary/words.json`                  | Live bulk dictionary (frequency publish + enrich/fill/curate). Prettier-ignored. |
-| `content/dictionary/curated-examples.json`       | Hand/pattern example overlay; apply with `apply-curated-examples.ts`             |
-| `content/dictionary/related-clusters.json`       | Semantic related peers for `apply-related.ts`                                    |
-| `content/audio/config.json`                      | ElevenLabs voice / model / settings + lesson `characters` cast                   |
-| `content/audio/README.md`                        | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                 |
-| `content/audio/manifest.json`                    | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only                   |
-| `content/audio/runtime-index.json`               | Slim build index (hash → kind + generatedAt); app via `readFile`                 |
-| `content/images/manifest.json`                   | Lemma image metadata (slug → file/license/attribution/status/uploadedAt)         |
-| `content/images/overrides.json`                  | Manual reject / force Commons file per slug                                      |
-| `src/lib/catalog/entries.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime                  |
-| `static/audio/`                                  | Local MP3 cache (gitignored; `.vercelignore`d)                                   |
-| `static/images/`                                 | Local dictionary thumbs (gitignored; upload to R2 for prod)                      |
-| `static/downloads/`                              | Local dictionary export JSON for `/downloads` (gitignored)                       |
+| File                                                      | Role                                                                             |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `content/dictionary/README.md`                            | Hand-add lemma template (fields, homes, slug/category, examples)                 |
+| `content/dictionary/words.json`                           | Live bulk dictionary (frequency publish + enrich/fill/curate). Prettier-ignored. |
+| `content/dictionary/curated-examples.json`                | Hand/pattern example overlay; apply with `apply-curated-examples.ts`             |
+| `content/dictionary/related-clusters.json`                | Semantic related peers for `apply-related.ts`                                    |
+| `content/dictionary/tatoeba-rejected.json`                | Tatoeba sentence IDs rejected as wrong Slovak (ID → reason); enrich skips them   |
+| `content/audio/config.json`                               | ElevenLabs voice / model / settings + lesson `characters` cast                   |
+| `content/audio/README.md`                                 | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                 |
+| `content/audio/manifest.json`                             | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only                   |
+| `content/audio/runtime-index.json`                        | Slim build index (hash → kind + generatedAt); app via `readFile`                 |
+| `content/images/manifest.json`                            | Lemma image metadata (slug → file/license/attribution/status/uploadedAt)         |
+| `content/images/overrides.json`                           | Manual reject / force Commons file per slug                                      |
+| `src/lib/catalog/dictionary/words.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime                  |
+| `static/audio/`                                           | Local MP3 cache (gitignored; `.vercelignore`d)                                   |
+| `static/images/`                                          | Local dictionary thumbs (gitignored; upload to R2 for prod)                      |
+| `static/downloads/`                                       | Local dictionary export JSON for `/downloads` (gitignored)                       |
 
 ## `dictionary/`
 
@@ -71,7 +72,7 @@ Frequency lists, live dictionary publish, Tatoeba examples. Hand-add fields: [`c
 | `merge-noun-gloss-batch.ts`    | `bun scripts/dictionary/merge-noun-gloss-batch.ts`                           | Merges noun batch into `glosses.json`                                                                                                                                                                                                        |
 | `report-missing-glosses.ts`    | `bun scripts/dictionary/report-missing-glosses.ts`                           | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                                                                                          |
 | `publish-frequency.ts`         | `bun scripts/dictionary/publish-frequency.ts`                                | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                                                                                     |
-| `enrich-examples.ts`           | `bun scripts/dictionary/enrich-examples.ts`                                  | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--refresh-tatoeba`                                                                                        |
+| `enrich-examples.ts`           | `bun scripts/dictionary/enrich-examples.ts`                                  | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--refresh-tatoeba`; skips IDs in `content/dictionary/tatoeba-rejected.json`                               |
 | `assign-noun-gender.ts`        | `bun scripts/dictionary/assign-noun-gender.ts`                               | Writes `gender` (+ `pluralOnlyGender`) on `Nouns` rows: exceptions file, else ending rule. Prints every gender it sets or changes — new masculine nouns for people/animals need an exception. Re-run after publishing new nouns. `--dry-run` |
 | `drop-mismatched-examples.ts`  | `bun scripts/dictionary/drop-mismatched-examples.ts -- --slugs chyba,chybat` | Drops Tatoeba rows that are not the lemma / a diacritic-true form. **Requires `--slugs`** — heuristic forms are too incomplete for a full sweep                                                                                              |
 | `author-verb-examples.ts`      | `bun scripts/dictionary/author-verb-examples.ts`                             | Writes hand/agent verb overlays from `HAND_OVERRIDES` + aspect clusters. Does **not** mint `Prečo sa ${sg2}?` stamps — unique sentences live in `curated-examples.json`                                                                      |
