@@ -85,6 +85,9 @@ export function validateLessons(): string[] {
       if (line.gestures && line.gestures.length > lineSentences(line.slovak).length) {
         issues.push(`Line ${line.id} in ${lesson.id} has more gestures than sentences`);
       }
+      if (line.props && line.props.length > lineSentences(line.slovak).length) {
+        issues.push(`Line ${line.id} in ${lesson.id} has more props than sentences`);
+      }
       if (!line.id.startsWith(prefix)) {
         issues.push(`Line id ${line.id} in ${lesson.id} must start with ${prefix}`);
       }

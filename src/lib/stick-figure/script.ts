@@ -8,12 +8,15 @@ import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker"
 import { STICK_GESTURE_IDS, type StickGestureId } from "./gestures";
 import { gestureForLine } from "./line-gesture";
 import { lineSentences } from "./line-plan";
+import { isStickProp, propForSentence, type StickPropId } from "./props";
 
 export interface ScriptLine {
   characterId: LessonCharacterId;
   /** Present when a `[gesture]` tag overrides a sentence. */
   gestures?: StickGestureId[];
   id: string;
+  /** Present when a `[prop]` tag picks what a sentence brings out. */
+  props?: Array<StickPropId | null>;
   slovak: string;
   speaker: string;
   /** Lesson label of who the line is said to (`Anna > Waiter: …`). */
@@ -53,7 +56,8 @@ export function stageName(speaker: string): string {
  * is stored as its lesson label. `Anna > Waiter: …` says who the line is for
  * when it is not the person Anna replies to. A `[gesture]` tag at the start of
  * a sentence overrides the gesture picked from its text: `Alex: Nie, ďakujem.
- * [point] Tam je pošta.`
+ * [point] Tam je pošta.` A `[prop]` tag there has the speaker show it:
+ * `Alex: [phone] Moje číslo je…`
  */
 export function parseScript(text: string): {
   lines: ScriptLine[];
@@ -98,12 +102,13 @@ export function parseScript(text: string): {
     }
 
     const overrides: Array<StickGestureId | undefined> = [];
+    const propTags: Array<StickPropId | undefined> = [];
     for (const sentence of lineSentences(body)) {
       const tag = LEADING_TAG.exec(sentence)?.[1];
       const rest = sentence.replace(LEADING_TAG, "");
 
-      if (tag !== undefined && !isGesture(tag)) {
-        problems.push({ line, message: `[${tag}] is not a gesture` });
+      if (tag !== undefined && !isGesture(tag) && !isStickProp(tag)) {
+        problems.push({ line, message: `[${tag}] is not a gesture or a prop` });
       }
       if (TAG.test(rest)) {
         problems.push({ line, message: "Put a [gesture] at the start of its sentence" });
@@ -114,6 +119,7 @@ export function parseScript(text: string): {
         continue;
       }
       overrides.push(tag !== undefined && isGesture(tag) ? tag : undefined);
+      propTags.push(tag !== undefined && isStickProp(tag) ? tag : undefined);
     }
 
     const slovak = body.replace(ANY_TAG, "").replace(/\s+/g, " ").trim();
@@ -130,11 +136,19 @@ export function parseScript(text: string): {
         : sentences
             .slice(0, last + 1)
             .map((sentence, i) => overrides[i] ?? gestureForLine(sentence));
+    const lastProp = propTags.findLastIndex((prop) => prop !== undefined);
+    const props =
+      lastProp === -1
+        ? undefined
+        : sentences
+            .slice(0, lastProp + 1)
+            .map((sentence, i) => propTags[i] ?? propForSentence(sentence) ?? null);
 
     lines.push({
       characterId: characterIdForSpeaker(speaker),
       gestures,
       id: `script-${line}`,
+      props,
       slovak,
       speaker,
       to: to && castSpeakers.has(to) && to !== speaker ? to : undefined,
@@ -154,6 +168,7 @@ export function sceneSnippet(lines: ScriptLine[]): string {
       `english: ""`,
     ];
     if (line.gestures) fields.push(`gestures: ${JSON.stringify(line.gestures)}`);
+    if (line.props) fields.push(`props: ${JSON.stringify(line.props)}`);
     if (line.to) fields.push(`to: ${JSON.stringify(line.to)}`);
     return `  {\n${fields.map((field) => `    ${field},`).join("\n")}\n  },`;
   });

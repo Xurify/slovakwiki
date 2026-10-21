@@ -297,6 +297,7 @@ export const everydayLessons: Lesson[] = [
         id: numbersLineIds.youPhoneNumber,
         speaker: "You",
         slovak: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",
+        props: ["phone"],
         english: "My number is zero nine zero, one two three, four five six.",
         audio: {
           transcript: "Moje číslo je nula deväť nula, jeden dva tri, štyri päť šesť.",

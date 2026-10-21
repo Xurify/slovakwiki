@@ -10,6 +10,7 @@
     type SpeechClock,
   } from "$lib/stick-figure/performance";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
+  import type { StickPropId } from "$lib/stick-figure/props";
   import StickFigure from "./StickFigure.svelte";
 
   let {
@@ -19,6 +20,7 @@
     cue = 0,
     facing = 1,
     plan,
+    prop,
     talking = false,
   }: {
     characterId: LessonCharacterId;
@@ -29,6 +31,8 @@
     cue?: number;
     facing?: 1 | -1;
     plan?: LinePlan;
+    /** Held in the lead hand. */
+    prop?: StickPropId;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
   } = $props();
@@ -94,4 +98,4 @@
   }
 </script>
 
-<StickFigure {characterId} class={className} {facing} {pose} />
+<StickFigure {characterId} class={className} {facing} {pose} {prop} />

@@ -16,6 +16,7 @@ import { performFrame, startPerformance, type PerformanceInput } from "./perform
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
 import { parseScript, sceneSnippet, stageName } from "./script";
+import { gesturesWithProps, heldProps, lineProps, propForSentence } from "./props";
 import { restFacing, stageLine, type StageLine } from "./staging";
 import { slovakSyllables } from "./syllables";
 
@@ -422,6 +423,14 @@ describe("parseScript", () => {
     expect(sceneSnippet(lines)).toContain('speaker: "You"');
   });
 
+  it("reads prop tags", () => {
+    const { lines, problems } = parseScript("Alex: [phone] Moje číslo je nula deväť.");
+
+    expect(problems).toEqual([]);
+    expect(lines[0].props).toEqual(["phone"]);
+    expect(sceneSnippet(lines)).toContain('props: ["phone"]');
+  });
+
   it("reads who a line is for", () => {
     const { lines, problems } = parseScript(
       "Anna > Waiter: A ja si dám tamtú tortu.\nAnna > Marta: Ahoj.\nAnna > Anna: Ahoj.",
@@ -511,5 +520,41 @@ describe("stageLine", () => {
       exit: -1,
     });
     expect(stageLine(goodbye, 0, ["alex", "waiter"]).exit).toBeUndefined();
+  });
+});
+
+describe("props", () => {
+  it("brings out the prop a sentence names", () => {
+    expect(propForSentence("Pozri, to sú fotky z leta.")).toBe("camera");
+    expect(propForSentence("Čítam knihu. A ty?")).toBe("book");
+    expect(propForSentence("Mimochodom, čie sú tie kľúče?")).toBe("keys");
+    expect(propForSentence("Dáte si kávu?")).toBe("cup");
+    expect(propForSentence("Ale každý týždeň volám svojej mame.")).toBe("phone");
+  });
+
+  it("stays empty-handed for words that only look like one", () => {
+    expect(propForSentence("Volám sa Anna.")).toBeUndefined();
+    expect(propForSentence("Ideme do kaviarne.")).toBeUndefined();
+    expect(propForSentence("A vaše telefónne číslo?")).toBeUndefined();
+  });
+
+  it("lets the author pick or drop a sentence's prop", () => {
+    expect(lineProps("Moje číslo je nula.", ["phone"])).toEqual(["phone"]);
+    expect(lineProps("Pozri, to sú fotky z leta.", [null])).toEqual([undefined]);
+  });
+
+  it("shows a prop unless the author picked the gesture", () => {
+    expect(gesturesWithProps(["camera", undefined])).toEqual(["show", undefined]);
+    expect(gesturesWithProps(["camera"], ["point"])).toEqual(["point"]);
+  });
+
+  it("keeps a prop in hand until its holder brings out another", () => {
+    const held = heldProps([
+      { characterId: "anna", props: ["camera"] },
+      { characterId: "alex", props: [undefined] },
+      { characterId: "anna", props: ["keys"] },
+    ]);
+
+    expect(held).toEqual([{ anna: "camera" }, { anna: "camera" }, { anna: "keys" }]);
   });
 });

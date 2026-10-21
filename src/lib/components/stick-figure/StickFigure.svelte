@@ -8,6 +8,8 @@
     type Point,
     type StickLimb,
   } from "$lib/stick-figure/rig";
+  import type { StickPropId } from "$lib/stick-figure/props";
+  import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
   import { STICK_SLEEVES } from "./stick-figure-ui";
 
@@ -16,11 +18,14 @@
     class: className = "",
     facing = 1,
     pose = REST_POSE,
+    prop,
   }: {
     characterId: LessonCharacterId;
     class?: string;
     facing?: 1 | -1;
     pose?: StickPose;
+    /** Held in the lead hand. */
+    prop?: StickPropId;
   } = $props();
 
   const rig = $derived(solveRig(pose));
@@ -235,6 +240,12 @@
         class="fill-portrait-bib stroke-portrait-ink"
         stroke-width="0.9"
       />
+    {/if}
+
+    {#if prop}
+      <g transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})">
+        <StickProp {prop} />
+      </g>
     {/if}
 
     <circle

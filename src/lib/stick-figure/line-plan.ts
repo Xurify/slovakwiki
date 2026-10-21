@@ -132,8 +132,8 @@ function nearestPauseEnd(pauses: LineSpan[], at: number): number | undefined {
 }
 
 export interface LineClip {
-  /** Per-sentence overrides for the gesture picked from the text. */
-  gestures?: StickGestureId[];
+  /** Per-sentence overrides for the gesture picked from the text; gaps stay automatic. */
+  gestures?: ReadonlyArray<StickGestureId | undefined>;
   lips?: LipTrack;
   /** Loudness per frame (0–1). */
   track?: number[];

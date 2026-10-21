@@ -1,5 +1,6 @@
 import type { TextMark } from "$lib/learning/marked-text";
 import type { StickGestureId } from "$lib/stick-figure/gestures";
+import type { StickPropId } from "$lib/stick-figure/props";
 
 export type LessonTrackId = "everyday" | "grammar" | "pronunciation";
 
@@ -40,6 +41,11 @@ export interface DialogueTurn {
    * Built with `markedText` so indexes cannot drift from a search.
    */
   marks?: TextMark[];
+  /**
+   * Stick-figure prop each sentence brings out, where its words do not name
+   * one (`null` keeps a sentence empty-handed). Preview on `/dev/stick-figures`.
+   */
+  props?: Array<StickPropId | null>;
   /** Mid-story gate: pick what to say before this learner line reveals. */
   sayChoices?: DialogueSayChoices;
   slovak: string;

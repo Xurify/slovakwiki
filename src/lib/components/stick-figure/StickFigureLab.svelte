@@ -2,6 +2,7 @@
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
   import type { StickGestureId } from "$lib/stick-figure/gestures";
+  import type { StickPropId } from "$lib/stick-figure/props";
 
   export interface StickLabLine {
     characterId: LessonCharacterId;
@@ -10,6 +11,7 @@
     id: string;
     /** Loudness track of the clip (`content/audio/mouth.json`). */
     mouth?: string;
+    props?: Array<StickPropId | null>;
     slovak: string;
     speaker: string;
     src?: string;
@@ -58,6 +60,12 @@
     type LinePlan,
   } from "$lib/stick-figure/line-plan";
   import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
+  import {
+    STICK_PROP_IDS,
+    gesturesWithProps,
+    heldProps,
+    lineProps,
+  } from "$lib/stick-figure/props";
   import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
   import {
     restFacing,
@@ -107,6 +115,9 @@
   let copied = $state(false);
   let painted = $state(false);
   let facings = $state<CastFacing>({});
+  /** The line whose props are in hand: the one playing, or the last one played. */
+  let heldAt = $state(-1);
+  let benchProp = $state<StickPropId | undefined>();
   let scriptSetting = $state<LessonSceneArtId>("default");
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   let scriptText = $state(
@@ -144,12 +155,23 @@
   ]);
   const voicedCount = $derived(scene.lines.filter((line) => line.src).length);
   const trackedCount = $derived(scene.lines.filter((line) => line.mouth).length);
+  const lineCues = $derived(
+    scene.lines.map((line) => lineProps(line.slovak, line.props)),
+  );
+  const held = $derived(
+    heldProps(
+      scene.lines.map((line, index) => ({
+        characterId: dialogueSpeakerLabel(line.speaker) ? line.characterId : null,
+        props: lineCues[index],
+      })),
+    ),
+  );
   const linePlans = $derived(
     new Map(
-      scene.lines.map((line) => [
+      scene.lines.map((line, index) => [
         line.id,
         planLine(line.slovak, {
-          gestures: line.gestures,
+          gestures: gesturesWithProps(lineCues[index], line.gestures),
           lips: line.vowels ? decodeVowelTrack(line.vowels) : undefined,
           track: line.mouth ? decodeMouthTrack(line.mouth) : undefined,
         }),
@@ -197,6 +219,7 @@
     stop();
     actors = {};
     facings = {};
+    heldAt = -1;
     sceneId = id;
   }
 
@@ -219,7 +242,9 @@
     const token = playToken;
 
     const plan = linePlans.get(line.id);
-    const staging = stagings[scene.lines.findIndex((other) => other.id === line.id)];
+    const index = scene.lines.findIndex((other) => other.id === line.id);
+    const staging = stagings[index];
+    heldAt = index;
 
     for (const actor of Object.values(actors)) actor.talking = false;
     facings = { ...facings, ...staging?.facing };
@@ -439,6 +464,7 @@
                 cue={actors[characterId]?.cue ?? 0}
                 facing={facings[characterId] ?? resting[characterId] ?? 1}
                 plan={actors[characterId]?.plan}
+                prop={held[heldAt]?.[characterId]}
                 talking={actors[characterId]?.talking ?? false}
               />
             </div>
@@ -487,6 +513,10 @@
                       <span>{reactionCopy(reaction)}</span>
                     {/each}
 
+                    {#each [...new Set(lineCues[index]?.filter((prop) => prop))] as prop (prop)}
+                      <span>Shows the {prop}</span>
+                    {/each}
+
                     {#if scene.id !== SCRIPT_SCENE_ID && !line.src}
                       <span>No clip</span>
                     {:else if scene.id !== SCRIPT_SCENE_ID && !line.mouth}
@@ -517,6 +547,7 @@
             characterId={benchCharacter}
             cue={bench.cue}
             plan={bench.plan}
+            prop={benchProp}
             talking={bench.talking}
           />
         </div>
@@ -546,6 +577,31 @@
                 onclick={() => playBench(gesturePlan(gesture), gesture)}
               >
                 {gesture}
+              </button>
+            {/each}
+          </div>
+
+          <p class="{eyebrowMutedClass} mt-5">Holds</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <button
+              class={chipClass(benchProp === undefined)}
+              type="button"
+              onclick={() => {
+                benchProp = undefined;
+              }}
+            >
+              Nothing
+            </button>
+            {#each STICK_PROP_IDS as prop (prop)}
+              <button
+                class={chipClass(prop === benchProp)}
+                type="button"
+                onclick={() => {
+                  benchProp = prop;
+                  playBench(gesturePlan("show"), "show");
+                }}
+              >
+                {prop}
               </button>
             {/each}
           </div>
