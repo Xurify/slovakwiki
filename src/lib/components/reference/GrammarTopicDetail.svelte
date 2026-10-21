@@ -17,12 +17,13 @@
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
+  import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
   import {
     grammarGroupAnchor,
     grammarNeighbors,
   } from "$lib/catalog/reference/grammar-path";
-  import { patternView } from "$lib/catalog/reference/grammar-pattern";
+  import { patternForms, patternView } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
@@ -100,6 +101,8 @@
       .find((href) => href),
   );
 
+  const episode = $derived(episodeForGrammarSlug(topic.slug));
+
   const steps = $derived(
     [
       neighbors.previous && { label: "Previous", topic: neighbors.previous, rel: "prev" },
@@ -130,7 +133,7 @@
         {topic.summary}
       </p>
 
-      {#if topic.lessonLink || practiceHref}
+      {#if topic.lessonLink || practiceHref || episode}
         <p class="m-0 mt-4 flex flex-wrap gap-x-5 gap-y-2">
           {#if topic.lessonLink}
             <TextLink
@@ -145,6 +148,16 @@
           {#if practiceHref}
             <TextLink href={practiceHref} class="inline-flex items-center gap-1.5">
               Practice these forms
+              <ArrowRight />
+            </TextLink>
+          {/if}
+
+          {#if episode}
+            <TextLink
+              href={episodePath(episode)}
+              class="inline-flex items-center gap-1.5"
+            >
+              <span>Listen: <span lang="sk">{episode.titleSk}</span></span>
               <ArrowRight />
             </TextLink>
           {/if}
@@ -180,11 +193,13 @@
         </div>
 
         {#if topic.pattern.examples?.length}
-          <div class="mt-4">
+          <div class="mt-5">
             <GrammarExampleList
               examples={topic.pattern.examples}
               {audioKeys}
               audioKeyPrefix="pattern-ex"
+              highlight={patternForms(topic.pattern)}
+              label="Examples"
             />
           </div>
         {/if}
@@ -198,11 +213,13 @@
             </div>
 
             {#if extra.examples?.length}
-              <div class="mt-4">
+              <div class="mt-5">
                 <GrammarExampleList
                   examples={extra.examples}
                   {audioKeys}
                   audioKeyPrefix="more-{index}-ex"
+                  highlight={patternForms(extra)}
+                  label="Examples"
                 />
               </div>
             {/if}
@@ -334,15 +351,15 @@
               <ul class="m-0 mt-2 list-none p-0">
                 {#each group.links as link (link.slug)}
                   <li>
-                    <a class="group block py-1 no-underline" href={link.href}>
+                    <a class="group block py-1.5 no-underline" href={link.href}>
                       <span
-                        class="font-serif text-slate-900 group-hover:text-blue-800"
+                        class="block font-serif leading-snug text-slate-900 group-hover:text-blue-800"
                         lang={group.sk ? "sk" : undefined}
                       >
                         {link.primary}
                       </span>
                       <span
-                        class="ml-2 text-sm text-slate-500"
+                        class="block text-sm leading-snug text-slate-500"
                         lang={group.sk ? undefined : "sk"}
                       >
                         {link.secondary}

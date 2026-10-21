@@ -4,9 +4,11 @@
  * buttons, "more" links) identical wherever they appear.
  */
 
-/** Small-caps label above titles, rail lists, card headers and columns. */
-export const eyebrowClass =
-  "m-0 font-sans text-[0.64rem] leading-tight font-bold tracking-[0.14em] uppercase";
+/**
+ * Label for a list, rail, card or column, written in sentence case. Tiny
+ * uppercase tracked labels read as template filler on this site.
+ */
+export const eyebrowClass = "m-0 font-sans text-sm leading-snug font-semibold";
 
 export const eyebrowMutedClass = `${eyebrowClass} text-slate-500`;
 

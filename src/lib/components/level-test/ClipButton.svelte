@@ -84,7 +84,7 @@
   {#if failed}
     <p class="m-0 text-xs font-semibold text-rose-700">The recording could not load.</p>
   {:else if Number.isFinite(maxPlays)}
-    <p class="m-0 text-xs font-semibold tracking-wide text-blue-800 uppercase">
+    <p class="m-0 text-xs font-semibold text-blue-800">
       {left === 1 ? "1 play left" : `${Math.max(0, left)} plays left`}
     </p>
   {/if}

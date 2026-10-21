@@ -3,7 +3,7 @@
  * Shared by story say-gates and any numbered ChoiceOptions UI.
  */
 
-function isEditableTarget(target: EventTarget | null): boolean {
+export function isEditableTarget(target: EventTarget | null): boolean {
   if (!target || typeof target !== "object") return false;
 
   const el = target as { isContentEditable?: boolean; tagName?: string };

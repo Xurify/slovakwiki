@@ -3,6 +3,7 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
+import { audioDevFallback } from "./src/integrations/audio-dev-fallback";
 import { dictionaryDownloads } from "./src/integrations/dictionary-downloads";
 import { dictionaryIndex } from "./src/integrations/dictionary-index";
 import { frequencyStatic } from "./src/integrations/frequency-static";
@@ -27,6 +28,7 @@ export default defineConfig({
   },
   integrations: [
     svelte(),
+    audioDevFallback(),
     groupedSitemap(),
     pagefindSearch(),
     dictionaryDownloads(),

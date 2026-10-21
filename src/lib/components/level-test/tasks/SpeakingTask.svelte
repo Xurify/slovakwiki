@@ -197,7 +197,7 @@
                 </svg>
               </button>
 
-              <p class="m-0 text-xs font-semibold tracking-wide text-blue-800 uppercase">
+              <p class="m-0 text-xs font-semibold text-blue-800">
                 Click to record · one take
               </p>
             {:else}

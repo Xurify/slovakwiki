@@ -1,7 +1,6 @@
 <script lang="ts">
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
   import { onMount } from "svelte";
@@ -65,8 +64,6 @@
         class="animate-rise rounded-(--frame-radius) bg-surface px-7 py-8 shadow-(--shadow-border) max-[560px]:px-4 max-[560px]:py-6"
         aria-labelledby="review-empty-heading"
       >
-        <Eyebrow tone="muted">Review</Eyebrow>
-
         <h1
           id="review-empty-heading"
           class="m-0 font-serif text-[clamp(1.6rem,4vw,2rem)] leading-tight font-semibold tracking-tight text-slate-900"

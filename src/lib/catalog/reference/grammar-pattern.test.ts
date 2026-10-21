@@ -9,6 +9,7 @@ import {
   namesHourAhead,
   patternView,
   parsePatternRow,
+  patternForms,
   tableView,
 } from "./grammar-pattern";
 
@@ -212,5 +213,23 @@ describe("namesHourAhead", () => {
       true,
       false,
     ]);
+  });
+});
+
+describe("patternForms", () => {
+  it("lists a table's forms once each, lowercased", () => {
+    const topic = grammarEntries.find((entry) => entry.slug === "demonstratives");
+    const accusative = topic?.morePatterns?.[0];
+    expect(accusative).toBeDefined();
+    if (!accusative) return;
+
+    const forms = patternForms(accusative);
+    expect(forms).toContain("tamtú");
+    expect(forms).toContain("toho");
+    expect(forms.filter((form) => form === "ten")).toHaveLength(1);
+  });
+
+  it("returns nothing for line patterns", () => {
+    expect(patternForms({ label: "x", lines: ["jeho brat · his brother"] })).toEqual([]);
   });
 });
