@@ -331,11 +331,6 @@
       "note": "Curated"
     },
     {
-      "slovak": "Film sa odohráva v Prahe.",
-      "english": "The film takes place in Prague.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Zápas sa odohral v sobotu.",
       "english": "The match was played on Saturday.",
       "note": "Curated"
@@ -635,11 +630,6 @@
       "slovak": "Poslanci hlasovali o zákone.",
       "english": "The MPs voted on the law.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Je poslankyňou parlamentu.",
-      "english": "She is a member of parliament.",
-      "note": "Curated"
     }
   ],
   "stav": [
@@ -720,22 +710,12 @@
       "slovak": "Našiel starý peniaz na zemi.",
       "english": "He found an old coin on the ground.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Nemám peňazí na cestu.",
-      "english": "I don't have money for the trip.",
-      "note": "Curated"
     }
   ],
   "ramec": [
     {
       "slovak": "Pracujeme v tomto rámci.",
       "english": "We are working within this framework.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Obraz je v drevenom rámci.",
-      "english": "The picture is in a wooden frame.",
       "note": "Curated"
     },
     {
@@ -2074,12 +2054,6 @@
       "english": "He committed a serious mistake in the calculation.",
       "note": "Curated",
       "demonstrates": "to commit"
-    },
-    {
-      "slovak": "Rodičia mu nedopustili neskorý odchod.",
-      "english": "His parents didn't allow him to leave late.",
-      "note": "Curated",
-      "demonstrates": "to allow"
     }
   ],
   "dosahovat": [
@@ -2162,12 +2136,6 @@
       "english": "He lifts weights every morning.",
       "note": "Curated",
       "demonstrates": "to lift"
-    },
-    {
-      "slovak": "Dvihol som ruku, aby som sa prihlásil.",
-      "english": "I raised my hand to volunteer.",
-      "note": "Curated",
-      "demonstrates": "to raise"
     }
   ],
   "evidovat": [
@@ -2247,11 +2215,6 @@
     {
       "slovak": "Svetlo v byte stále horí.",
       "english": "The light in the apartment is still on.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Celý deň horelo slnko.",
-      "english": "The sun was blazing all day.",
       "note": "Curated"
     }
   ],
@@ -2501,11 +2464,6 @@
       "slovak": "Tento prístroj meria teplotu každých päť minút.",
       "english": "This device measures the temperature every five minutes.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Meril stenu, aby vedel, akú maľku potrebuje.",
-      "english": "He measured the wall to know how much paint he needed.",
-      "note": "Curated"
     }
   ],
   "motivovat": [
@@ -2536,12 +2494,6 @@
   ],
   "nabrat": [
     {
-      "slovak": "Po chorobe začal znova naberať silu.",
-      "english": "After the illness, he began to regain strength.",
-      "note": "Curated",
-      "demonstrates": "to gain (strength)"
-    },
-    {
       "slovak": "Nabral pár kilogramov počas sviatkov.",
       "english": "He gained a few kilograms during the holidays.",
       "note": "Curated",
@@ -2556,7 +2508,7 @@
     },
     {
       "slovak": "Nadobudol si skúsenosti v zahraničí.",
-      "english": "He gained experience abroad.",
+      "english": "You gained experience abroad.",
       "note": "Curated"
     }
   ],
@@ -2566,12 +2518,6 @@
       "english": "We managed to establish cooperation.",
       "note": "Curated",
       "demonstrates": "to establish"
-    },
-    {
-      "slovak": "Nadväzala na jeho nápad v prezentácii.",
-      "english": "She followed up on his idea in the presentation.",
-      "note": "Curated",
-      "demonstrates": "to follow up"
     }
   ],
   "nahradit": [
@@ -2581,7 +2527,7 @@
       "note": "Tatoeba"
     },
     {
-      "slovak": "Nahradili starý mixer novým.",
+      "slovak": "Nahradili starý mixér novým.",
       "english": "They replaced the old mixer with a new one.",
       "note": "Curated"
     }
@@ -2594,7 +2540,7 @@
       "demonstrates": "to fulfill"
     },
     {
-      "slovak": "Napĺňala fľašu vodou z kránu.",
+      "slovak": "Napĺňala fľašu vodou z kohútika.",
       "english": "She was filling the bottle with water from the tap.",
       "note": "Curated",
       "demonstrates": "to fill"
@@ -2604,11 +2550,6 @@
     {
       "slovak": "Po dažďoch výrazne narástla hladina rieky.",
       "english": "The river level rose significantly after the rains.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Dopyt na byty v meste narástol.",
-      "english": "Demand for apartments in the city grew.",
       "note": "Curated"
     }
   ],
@@ -2673,12 +2614,6 @@
       "english": "She strained a muscle while running.",
       "note": "Curated",
       "demonstrates": "to pull (strain)"
-    },
-    {
-      "slovak": "Natiahol si ruku za ďalšou knihou.",
-      "english": "He stretched his arm for another book.",
-      "note": "Curated",
-      "demonstrates": "to stretch"
     }
   ],
   "navrhnut": [
@@ -2770,11 +2705,6 @@
     {
       "slovak": "Nechápem, prečo sa hneváš.",
       "english": "I do not understand why you are angry.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Stále mi nechápe, čo od neho chcem.",
-      "english": "He still does not understand what I want from him.",
       "note": "Curated"
     },
     {
@@ -3064,7 +2994,7 @@
     },
     {
       "slovak": "V tlači som si tej chyby nevšimol.",
-      "english": "In the rush I did not notice that mistake.",
+      "english": "I didn't notice that mistake in print.",
       "note": "Curated"
     }
   ],
@@ -3133,11 +3063,6 @@
     }
   ],
   "nezostat": [
-    {
-      "slovak": "Po predstavení sme nechceli zostať doma.",
-      "english": "After the performance, we did not want to stay home.",
-      "note": "Curated"
-    },
     {
       "slovak": "V noci sme nezostali dlho hore.",
       "english": "We did not stay up late at night.",
@@ -3352,7 +3277,7 @@
       "note": "Curated"
     },
     {
-      "slovak": "Deti sa obzerali po zahrade.",
+      "slovak": "Deti sa obzerali po záhrade.",
       "english": "The children looked around the garden.",
       "note": "Curated"
     }
@@ -3495,12 +3420,6 @@
   ],
   "odrazit": [
     {
-      "slovak": "Zrkadlo odráža svetlo zo sviečky.",
-      "english": "The mirror reflects the candlelight.",
-      "note": "Curated",
-      "demonstrates": "to reflect"
-    },
-    {
       "slovak": "Lopta sa odrazila od steny.",
       "english": "The ball bounced off the wall.",
       "note": "Curated",
@@ -3595,7 +3514,7 @@
       "demonstrates": "to avert"
     },
     {
-      "slovak": "Odvrátil zrak od nepríjemnej sceny.",
+      "slovak": "Odvrátil zrak od nepríjemnej scény.",
       "english": "He turned his gaze away from the unpleasant scene.",
       "note": "Curated",
       "demonstrates": "to turn away"
@@ -3926,7 +3845,7 @@
       "note": "Curated"
     },
     {
-      "slovak": "Po hádke stále pociťoval vinnú mysľ.",
+      "slovak": "Po hádke stále pociťoval vinu.",
       "english": "After the argument, he still felt guilty.",
       "note": "Curated"
     }
@@ -3943,12 +3862,6 @@
       "english": "Every year we submit a tax return.",
       "note": "Curated",
       "demonstrates": "to submit"
-    },
-    {
-      "slovak": "Podávaj mi prosím soľ.",
-      "english": "Please pass me the salt.",
-      "note": "Curated",
-      "demonstrates": "to hand"
     }
   ],
   "podelit": [
@@ -4699,11 +4612,6 @@
   ],
   "prekrocit": [
     {
-      "slovak": "Neprekračujte povolenú rýchlosť.",
-      "english": "Do not exceed the permitted speed.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Prekročili sme hranicu o tretej.",
       "english": "We crossed the border at three o'clock.",
       "note": "Curated",
@@ -4741,12 +4649,6 @@
       "slovak": "Študent prepadol z matematiky.",
       "english": "The student failed mathematics.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Starý most prepadol minulú zimu.",
-      "english": "The old bridge collapsed last winter.",
-      "note": "Curated",
-      "demonstrates": "to fall"
     }
   ],
   "prerusit": [
@@ -4976,12 +4878,6 @@
       "slovak": "Prijímame nové objednávky.",
       "english": "We are accepting new orders.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Prijali našu ponuku bez váhania.",
-      "english": "They accepted our offer without hesitation.",
-      "note": "Curated",
-      "demonstrates": "to accept"
     }
   ],
   "prikazat": [
@@ -5025,12 +4921,6 @@
       "slovak": "Pripadám si ako hlupák, že som ti veril.",
       "english": "I feel like an idiot for believing you.",
       "note": "Tatoeba"
-    },
-    {
-      "slovak": "Každému pripadla iná úloha.",
-      "english": "Everyone was assigned a different task.",
-      "note": "Curated",
-      "demonstrates": "to be allotted"
     }
   ],
   "pripisat": [
@@ -5045,11 +4935,6 @@
       "english": "The bank credited the payment to my account.",
       "note": "Curated",
       "demonstrates": "to add in writing"
-    },
-    {
-      "slovak": "Vinu pripisujem vlastnej nepozornosti.",
-      "english": "I blame my own carelessness.",
-      "note": "Curated"
     }
   ],
   "pripojit": [
@@ -5082,11 +4967,6 @@
     {
       "slovak": "Prispejem na dobrú vec.",
       "english": "I will contribute to a good cause.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Každý mesiac prispieva desať eur na charitu.",
-      "english": "Every month she contributes ten euros to charity.",
       "note": "Curated"
     }
   ],
@@ -5127,12 +5007,6 @@
       "english": "The new advertisement attracted many customers.",
       "note": "Curated",
       "demonstrates": "to attract"
-    },
-    {
-      "slovak": "Potiahol som záves a pozrel von oknom.",
-      "english": "I pulled the curtain and looked out the window.",
-      "note": "Curated",
-      "demonstrates": "to pull"
     }
   ],
   "priviest": [
@@ -5269,12 +5143,6 @@
       "slovak": "Na jar sa v záhrade rodia mláďatá.",
       "english": "In spring, young animals are born in the garden.",
       "note": "Curated"
-    },
-    {
-      "slovak": "V nemocnici včera porodila zdravú dcéru.",
-      "english": "She gave birth to a healthy daughter at the hospital yesterday.",
-      "note": "Curated",
-      "demonstrates": "to give birth"
     }
   ],
   "rokovat": [
@@ -5444,7 +5312,7 @@
       "demonstrates": "to reach for"
     },
     {
-      "slovak": "Teplota dnes siahnula na tridsať stupňov.",
+      "slovak": "Teplota dnes siahla na tridsať stupňov.",
       "english": "The temperature reached thirty degrees today.",
       "note": "Curated",
       "demonstrates": "to reach"
@@ -5585,11 +5453,6 @@
     {
       "slovak": "Tento výrobok spĺňa všetky normy.",
       "english": "This product meets all the standards.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Musíš splniť všetky podmienky do piatku.",
-      "english": "You have to meet all the requirements by Friday.",
       "note": "Curated"
     }
   ],
@@ -5861,11 +5724,6 @@
     {
       "slovak": "Nemá zmysel trestať dieťa za každú chybu.",
       "english": "There is no point in punishing a child for every mistake.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Za tú poznámku ho tentoraz nestrestali.",
-      "english": "They didn't punish him for that remark this time.",
       "note": "Curated"
     }
   ],
@@ -6154,11 +6012,6 @@
       "slovak": "Pravidlá tu určujem ja.",
       "english": "It is me who sets the rules here.",
       "note": "Tatoeba"
-    },
-    {
-      "slovak": "O presnom čase rozhodnutia určíme zajtra.",
-      "english": "We'll determine the exact time of the decision tomorrow.",
-      "note": "Curated"
     }
   ],
   "uskutocnit": [
@@ -6526,7 +6379,7 @@
       "note": "Tatoeba"
     },
     {
-      "slovak": "Vyhol sa stretu s šéfom v chodbe.",
+      "slovak": "Vyhol sa stretu so šéfom na chodbe.",
       "english": "He avoided running into his boss in the corridor.",
       "note": "Curated"
     }
@@ -6639,7 +6492,7 @@
       "note": "Curated"
     },
     {
-      "slovak": "Dokázal si vymyslieť dobrý výhovor?",
+      "slovak": "Dokázal si vymyslieť dobrú výhovorku?",
       "english": "Were you able to come up with a good excuse?",
       "note": "Curated",
       "demonstrates": "to think up"
@@ -6763,12 +6616,6 @@
       "english": "If you plant an apple seed, it might grow into a tree.",
       "note": "Tatoeba",
       "demonstrates": "to grow"
-    },
-    {
-      "slovak": "Vyrastala v malom meste na východe.",
-      "english": "She grew up in a small town in the east.",
-      "note": "Curated",
-      "demonstrates": "to grow up"
     }
   ],
   "vyrazit": [
@@ -6881,12 +6728,6 @@
       "english": "We are getting off at the next station.",
       "note": "Tatoeba",
       "demonstrates": "to get off"
-    },
-    {
-      "slovak": "Kapela vystúpi na pódiu o ôsmej.",
-      "english": "The band will perform on stage at eight.",
-      "note": "Curated",
-      "demonstrates": "to perform"
     }
   ],
   "vytiahnut": [
@@ -6916,11 +6757,6 @@
     }
   ],
   "vytvarat": [
-    {
-      "slovak": "Napriek svojmu menu, pakôň patrí medzi antilopy, vytvára obrovské stáda a dokáže bežať rýchlosťou až 70 km/h.",
-      "english": "Despite its name, the wildebeest is an antelope, forms huge herds and can run at a speed of up to 70 km/h.",
-      "note": "Tatoeba"
-    },
     {
       "slovak": "Hudba vytvára príjemnú atmosféru.",
       "english": "Music creates a pleasant atmosphere.",
@@ -6962,11 +6798,6 @@
     }
   ],
   "vyvinut": [
-    {
-      "slovak": "Dôležitým činiteľom vo vývine dieťaťa sú jeho súrodenci.",
-      "english": "An important factor in a child's development are his siblings.",
-      "note": "Tatoeba"
-    },
     {
       "slovak": "Vedci vyvinuli novú vakcínu.",
       "english": "Scientists developed a new vaccine.",
@@ -7031,11 +6862,6 @@
     }
   ],
   "vyzvat": [
-    {
-      "slovak": "Bude to výzva.",
-      "english": "It's gonna be a challenge.",
-      "note": "Tatoeba"
-    },
     {
       "slovak": "Tréner vyzval hráčov na väčšie úsilie.",
       "english": "The coach challenged the players to greater effort.",
@@ -7142,7 +6968,7 @@
       "note": "Curated"
     },
     {
-      "slovak": "Rodiče každý deň zabezpečujú obedy pre deti.",
+      "slovak": "Rodičia každý deň zabezpečujú obedy pre deti.",
       "english": "Parents provide meals for the children every day.",
       "note": "Curated"
     }
@@ -7191,12 +7017,6 @@
       "slovak": "Z vedľajšej izby začul hluk.",
       "english": "He heard a noise from the next room.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Z otvorenej dveri začula náš rozhovor.",
-      "english": "She overheard our conversation from the open door.",
-      "note": "Curated",
-      "demonstrates": "to overhear"
     }
   ],
   "zahladiet": [
@@ -7668,11 +7488,6 @@
       "note": "Curated"
     },
     {
-      "slovak": "Učiteľ zdôrazil, že na čas príchod je dôležitý.",
-      "english": "The teacher emphasized that arriving on time is important.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Na stretnutí zdôraznila svoj postoj.",
       "english": "At the meeting she emphasized her position.",
       "note": "Curated"
@@ -7756,11 +7571,6 @@
       "slovak": "Zišiel z kopca pešo.",
       "english": "He walked down the hill.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Autíčko zišlo dole so snehom.",
-      "english": "The car slid down with the snow.",
-      "note": "Curated"
     }
   ],
   "zistovat": [
@@ -7819,11 +7629,6 @@
     {
       "slovak": "Kľúče zmizli zo stola.",
       "english": "The keys disappeared from the table.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Sneženie zmizlo za pár hodín.",
-      "english": "The snowfall disappeared within a few hours.",
       "note": "Curated"
     }
   ],
@@ -9718,11 +9523,6 @@
       "slovak": "Zdravotne je pre ňu dôležitý pohyb.",
       "english": "Exercise is important for her health.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Musel odísť zo zdravotných dôvodov.",
-      "english": "He had to leave for health reasons.",
-      "note": "Curated"
     }
   ],
   "bezprostredne": [
@@ -10370,11 +10170,6 @@
       "note": "Curated"
     },
     {
-      "slovak": "Cesto vymiešaj dohladka.",
-      "english": "Mix the dough until smooth.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Hladko prešiel cez bezpečnostnú kontrolu.",
       "english": "He passed through security smoothly.",
       "note": "Curated"
@@ -10761,11 +10556,6 @@
   ],
   "prv": [
     {
-      "slovak": "Najprv si umy ruky.",
-      "english": "First, wash your hands.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Prv než odídeš, zavolaj mi.",
       "english": "Before you leave, call me.",
       "note": "Curated"
@@ -10812,11 +10602,6 @@
     {
       "slovak": "Dodatočne sme zistili chybu.",
       "english": "We found out about the error afterwards.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Treba zaplatiť dodatočné poplatky.",
-      "english": "Additional fees need to be paid.",
       "note": "Curated"
     },
     {
@@ -10906,11 +10691,6 @@
       "slovak": "Predbežne máme rezervovaný stôl.",
       "english": "We have a table reserved provisionally.",
       "note": "Curated"
-    },
-    {
-      "slovak": "Termín je zatiaľ iba predbežný.",
-      "english": "The date is only provisional for now.",
-      "note": "Curated"
     }
   ],
   "vyslovene": [
@@ -10983,16 +10763,6 @@
     {
       "slovak": "Dnes je vonku jasno.",
       "english": "It is clear outside today.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Je mi jasné, čo mám robiť.",
-      "english": "It is clear to me what I should do.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Vysvetlil to úplne jasne.",
-      "english": "He explained it completely clearly.",
       "note": "Curated"
     },
     {
@@ -13247,22 +13017,22 @@
   ],
   "kvalitativne": [
     {
-      "slovak": "Nová metóda kvalitativne zlepšila naše služby.",
+      "slovak": "Nová metóda kvalitatívne zlepšila naše služby.",
       "english": "The new method qualitatively improved our services.",
       "note": "Curated"
     },
     {
-      "slovak": "Po kurze sa jeho práca kvalitativne zmenila.",
+      "slovak": "Po kurze sa jeho práca kvalitatívne zmenila.",
       "english": "After the course, his work changed qualitatively.",
       "note": "Curated"
     },
     {
-      "slovak": "Tieto dva materiály sa kvalitativne výrazne líšia.",
+      "slovak": "Tieto dva materiály sa kvalitatívne výrazne líšia.",
       "english": "These two materials differ significantly in quality.",
       "note": "Curated"
     },
     {
-      "slovak": "Výskum ukázal, že sa život v meste kvalitativne zlepšil.",
+      "slovak": "Výskum ukázal, že sa život v meste kvalitatívne zlepšil.",
       "english": "The research showed that life in the city improved qualitatively.",
       "note": "Curated"
     }
@@ -15806,18 +15576,8 @@
       "note": "Curated"
     },
     {
-      "slovak": "Včera sme sledovali zápas v póle.",
-      "english": "Yesterday we watched a polo match.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Polo sa hrá na koňoch s dlhou palicou.",
       "english": "Polo is played on horses with a long mallet.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "O póle sa dozvedel z dokumentu.",
-      "english": "He learned about polo from a documentary.",
       "note": "Curated"
     }
   ],
@@ -15867,28 +15627,6 @@
       "note": "Curated"
     }
   ],
-  "pro": [
-    {
-      "slovak": "Bol pro návrh, hoci mal výhrady.",
-      "english": "He was for the proposal, although he had reservations.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "V hlasovaní bolo viac ľudí pro než proti.",
-      "english": "More people voted for than against.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Som pro krátku prestávku pred poradou.",
-      "english": "I am for a short break before the meeting.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Napokon sa vyslovili pro zmenu pravidiel.",
-      "english": "In the end they spoke in favor of changing the rules.",
-      "note": "Curated"
-    }
-  ],
   "odvcera": [
     {
       "slovak": "Odvčera ma bolí hrdlo.",
@@ -15924,11 +15662,6 @@
     }
   ],
   "spolovice": [
-    {
-      "slovak": "Jablko rozkroj na polovice.",
-      "english": "Cut the apple in half.",
-      "note": "Curated"
-    },
     {
       "slovak": "Dvere zostali spolovice otvorené.",
       "english": "The door remained half open.",
@@ -16475,7 +16208,7 @@
       "note": "Curated"
     },
     {
-      "slovak": "Pri polojasne sa dobre chodí na túru.",
+      "slovak": "Keď je polojasno, dobre sa chodí na túru.",
       "english": "It is good to hike when it is partly cloudy.",
       "note": "Curated"
     },
@@ -16541,13 +16274,7 @@
       "note": "Curated"
     }
   ],
-  "viezt": [
-    {
-      "slovak": "Veziem to.",
-      "english": "I carry it.",
-      "note": "Curated"
-    }
-  ],
+  "viezt": [],
   "obmedzovat": [
     {
       "slovak": "Nová vyhláška obmedzuje parkovanie v centre mesta.",
@@ -16610,11 +16337,6 @@
   ],
   "bodovat": [
     {
-      "slovak": "Bodujem to.",
-      "english": "I score it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Náš útočník boduje takmer v každom zápase.",
       "english": "Our striker scores in almost every match.",
       "note": "Curated"
@@ -16632,13 +16354,7 @@
       "note": "Curated"
     }
   ],
-  "rusit": [
-    {
-      "slovak": "Ruším to.",
-      "english": "I cancel it.",
-      "note": "Curated"
-    }
-  ],
+  "rusit": [],
   "uzatvorit": [
     {
       "slovak": "Firma uzatvorila zmluvu s novým dodávateľom.",
@@ -16748,11 +16464,6 @@
     }
   ],
   "dbat": [
-    {
-      "slovak": "Dbám to.",
-      "english": "I care it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Mama vždy dbala o zdravú stravu.",
       "english": "Mum always made sure we ate healthily.",
@@ -17235,11 +16946,6 @@
   ],
   "hybat": [
     {
-      "slovak": "Hýbám to.",
-      "english": "I move it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Bábätko už hýbe rukami aj nohami.",
       "english": "The baby is already moving its arms and legs.",
       "note": "Curated"
@@ -17295,11 +17001,6 @@
   ],
   "viazat": [
     {
-      "slovak": "Viažem to.",
-      "english": "I tie it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Otec viaže paradajky ku kolíkom.",
       "english": "Dad is tying the tomatoes to stakes.",
       "note": "Curated"
@@ -17311,11 +17012,6 @@
     }
   ],
   "vyhnat": [
-    {
-      "slovak": "Vyženem to.",
-      "english": "I expel it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Pastier vyhnal ovce na pašu.",
       "english": "The shepherd drove the sheep out to pasture.",
@@ -17384,11 +17080,6 @@
   ],
   "panovat": [
     {
-      "slovak": "Panujem to.",
-      "english": "I rule it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Mária Terézia panovala štyridsať rokov.",
       "english": "Maria Theresa reigned for forty years.",
       "note": "Curated"
@@ -17436,11 +17127,6 @@
     }
   ],
   "kryt": [
-    {
-      "slovak": "Kryjem to.",
-      "english": "I cover it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Strecha kryje terasu pred dažďom.",
       "english": "The roof covers the terrace from the rain.",
@@ -17563,11 +17249,6 @@
     }
   ],
   "ozit": [
-    {
-      "slovak": "Ožím to.",
-      "english": "I come alive it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Na jar ožije celá záhrada.",
       "english": "In spring the whole garden comes back to life.",
@@ -17943,13 +17624,7 @@
       "note": "Curated"
     }
   ],
-  "zniest": [
-    {
-      "slovak": "Znesiem to.",
-      "english": "I bear it.",
-      "note": "Curated"
-    }
-  ],
+  "zniest": [],
   "nahlasit": [
     {
       "slovak": "Krádež bicykla som nahlásil na polícii.",
@@ -17975,11 +17650,6 @@
     }
   ],
   "vyviest": [
-    {
-      "slovak": "Vyvediem to.",
-      "english": "I lead out it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Hasiči vyviedli všetkých ľudí z budovy.",
       "english": "The firefighters led everyone out of the building.",
@@ -18016,11 +17686,6 @@
     }
   ],
   "orat": [
-    {
-      "slovak": "Orem to.",
-      "english": "I plough it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Na jeseň dedo oral pole traktorom.",
       "english": "In the autumn grandpa ploughed the field with a tractor.",
@@ -18069,11 +17734,6 @@
     }
   ],
   "lamat": [
-    {
-      "slovak": "Lámem to.",
-      "english": "I break it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Deti lámali suché konáre na oheň.",
       "english": "The children were breaking dry branches for the fire.",
@@ -18147,13 +17807,7 @@
       "note": "Curated"
     }
   ],
-  "cenit": [
-    {
-      "slovak": "Cením to.",
-      "english": "I appreciate it.",
-      "note": "Curated"
-    }
-  ],
+  "cenit": [],
   "obohatit": [
     {
       "slovak": "Cestovanie mi obohatilo život.",
@@ -18290,11 +17944,6 @@
   ],
   "minat": [
     {
-      "slovak": "Míňám to.",
-      "english": "I spend it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Na jedlo míňame asi tristo eur mesačne.",
       "english": "We spend about three hundred euros a month on food.",
       "note": "Curated"
@@ -18312,13 +17961,7 @@
       "note": "Curated"
     }
   ],
-  "umyt": [
-    {
-      "slovak": "Umyjem to.",
-      "english": "I wash it.",
-      "note": "Curated"
-    }
-  ],
+  "umyt": [],
   "vystavit": [
     {
       "slovak": "Galéria vystaví diela mladých umelcov.",
@@ -18332,11 +17975,6 @@
     }
   ],
   "vozit": [
-    {
-      "slovak": "Vozím to.",
-      "english": "I carry it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Každé ráno vozím deti do školy autom.",
       "english": "Every morning I drive the children to school.",
@@ -18520,11 +18158,6 @@
   ],
   "kazat": [
     {
-      "slovak": "Kážem to.",
-      "english": "I command it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Kňaz v nedeľu kázal o odpustení.",
       "english": "On Sunday the priest preached about forgiveness.",
       "note": "Curated"
@@ -18586,11 +18219,6 @@
     }
   ],
   "doviezt": [
-    {
-      "slovak": "Doveziem to.",
-      "english": "I bring it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Taxík nás doviezol až k hotelu.",
       "english": "The taxi took us all the way to the hotel.",
@@ -19306,13 +18934,7 @@
       "note": "Curated"
     }
   ],
-  "chovat": [
-    {
-      "slovak": "Chujem to.",
-      "english": "I keep it.",
-      "note": "Curated"
-    }
-  ],
+  "chovat": [],
   "vytratit": [
     {
       "slovak": "Z večierka sa nenápadne vytratil.",
@@ -19523,7 +19145,7 @@
   ],
   "uberat": [
     {
-      "slovak": "Pred ostrou zákrutou uber plyn.",
+      "slovak": "Pred ostrou zákrutou uberaj plyn.",
       "english": "Ease off the gas before a sharp bend.",
       "note": "Curated"
     },
@@ -19680,11 +19302,6 @@
     }
   ],
   "vzist": [
-    {
-      "slovak": "Vzídem to.",
-      "english": "I sprout it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Fazuľa, ktorú sme zasadili v apríli, už vzišla.",
       "english": "The beans we planted in April have already come up.",
@@ -19916,11 +19533,6 @@
   ],
   "sokovat": [
     {
-      "slovak": "Šokujem to.",
-      "english": "I shock it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Vysoká cena nájmu nás šokovala.",
       "english": "The high rent shocked us.",
       "note": "Curated"
@@ -19945,22 +19557,12 @@
   ],
   "tocit": [
     {
-      "slovak": "Točím to.",
-      "english": "I turn it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Režisér točí nový film v Tatrách.",
       "english": "The director is shooting a new film in the Tatras.",
       "note": "Curated"
     }
   ],
   "uctit": [
-    {
-      "slovak": "Uctím to.",
-      "english": "I honor it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Minútou ticha si uctili pamiatku obetí.",
       "english": "They honoured the memory of the victims with a minute of silence.",
@@ -19997,11 +19599,6 @@
     }
   ],
   "vyliezt": [
-    {
-      "slovak": "Vyleziem to.",
-      "english": "I climb out it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Ráno som ledva vyliezol z postele.",
       "english": "This morning I barely crawled out of bed.",
@@ -20076,11 +19673,6 @@
     }
   ],
   "menovat": [
-    {
-      "slovak": "Menujem to.",
-      "english": "I appoint it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Vláda menovala nového veľvyslanca.",
       "english": "The government appointed a new ambassador.",
@@ -20232,11 +19824,6 @@
     }
   ],
   "upriet": [
-    {
-      "slovak": "Uprím to.",
-      "english": "I aim it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Uprela pohľad na dvere a čakala.",
       "english": "She fixed her gaze on the door and waited.",
@@ -20504,11 +20091,6 @@
   ],
   "trcat": [
     {
-      "slovak": "Trčím to.",
-      "english": "I stick out it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Z vrecka mu trčala peňaženka.",
       "english": "A wallet was sticking out of his pocket.",
       "note": "Curated"
@@ -20532,11 +20114,6 @@
     }
   ],
   "zahnat": [
-    {
-      "slovak": "Zaženem to.",
-      "english": "I drive away it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Pes zahnal mačku zo záhrady.",
       "english": "The dog chased the cat out of the garden.",
@@ -20611,11 +20188,6 @@
     }
   ],
   "chviet": [
-    {
-      "slovak": "Chvím to.",
-      "english": "I tremble it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Na zastávke sme sa chveli od zimy.",
       "english": "At the bus stop we were shivering with cold.",
@@ -20714,11 +20286,6 @@
     }
   ],
   "uhrat": [
-    {
-      "slovak": "Uhrám to.",
-      "english": "I win it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Hráči uhrali cenný bod na ihrisku súpera.",
       "english": "The players earned a valuable point on their opponent's ground.",
@@ -21058,11 +20625,6 @@
   ],
   "dlhovat": [
     {
-      "slovak": "Dlhujem to.",
-      "english": "I owe it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Dlhujem ti ešte desať eur za lístok.",
       "english": "I still owe you ten euros for the ticket.",
       "note": "Curated"
@@ -21293,11 +20855,6 @@
   ],
   "valit": [
     {
-      "slovak": "Valím to.",
-      "english": "I roll it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Chlapci valili veľký kameň dolu kopcom.",
       "english": "The boys were rolling a big stone down the hill.",
       "note": "Curated"
@@ -21505,11 +21062,6 @@
     }
   ],
   "vniest": [
-    {
-      "slovak": "Vnesiem to.",
-      "english": "I bring in it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Nová riaditeľka vniesla do firmy veľa energie.",
       "english": "The new director brought a lot of energy into the company.",
@@ -21849,11 +21401,6 @@
   ],
   "uctovat": [
     {
-      "slovak": "Účtujem to.",
-      "english": "I charge it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Hotel nám účtoval aj parkovanie.",
       "english": "The hotel also charged us for parking.",
       "note": "Curated"
@@ -21889,11 +21436,6 @@
     }
   ],
   "vrhat": [
-    {
-      "slovak": "Vrhám to.",
-      "english": "I throw it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Starý strom vrhá dlhý tieň na trávnik.",
       "english": "The old tree casts a long shadow on the lawn.",
@@ -22058,11 +21600,6 @@
   ],
   "trhat": [
     {
-      "slovak": "Trhám to.",
-      "english": "I tear it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Deti trhajú jablká v sade.",
       "english": "The children are picking apples in the orchard.",
       "note": "Curated"
@@ -22164,7 +21701,7 @@
   ],
   "objimat": [
     {
-      "slovak": "Objímám ťa.",
+      "slovak": "Objímam ťa.",
       "english": "I hug you.",
       "note": "Curated"
     },
@@ -22179,7 +21716,7 @@
       "note": "Curated"
     },
     {
-      "slovak": "Prečo ju objímá?",
+      "slovak": "Prečo ju objíma?",
       "english": "Why does he/she hug her?",
       "note": "Curated"
     }
@@ -22203,13 +21740,7 @@
       "note": "Curated"
     }
   ],
-  "krmit": [
-    {
-      "slovak": "Kŕmím to.",
-      "english": "I feed it.",
-      "note": "Curated"
-    }
-  ],
+  "krmit": [],
   "myknut": [
     {
       "slovak": "Len mykol plecami a odišiel.",
@@ -22223,11 +21754,6 @@
     }
   ],
   "fotit": [
-    {
-      "slovak": "Fotím to.",
-      "english": "I photograph it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Najradšej fotím západy slnka nad morom.",
       "english": "Most of all I like photographing sunsets over the sea.",
@@ -22324,11 +21850,6 @@
     }
   ],
   "tajit": [
-    {
-      "slovak": "Tajím to.",
-      "english": "I be it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Pred rodičmi tajil, že prepadol z matematiky.",
       "english": "He kept it from his parents that he had failed maths.",
@@ -22742,11 +22263,6 @@
   ],
   "crtat": [
     {
-      "slovak": "Črtám to.",
-      "english": "I draw it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Architekt črtá na papier prvé návrhy domu.",
       "english": "The architect is sketching the first designs of the house on paper.",
       "note": "Curated"
@@ -22965,11 +22481,6 @@
   ],
   "nukat": [
     {
-      "slovak": "Núkám to.",
-      "english": "I offer it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Babka nám stále núka koláče.",
       "english": "Grandma keeps offering us cakes.",
       "note": "Curated"
@@ -23025,11 +22536,6 @@
   ],
   "obrat-v": [
     {
-      "slovak": "Obrám to.",
-      "english": "I turn it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "V sobotu sme obrali všetky čerešne zo stromu.",
       "english": "On Saturday we picked all the cherries from the tree.",
       "note": "Curated"
@@ -23082,11 +22588,6 @@
     }
   ],
   "budit": [
-    {
-      "slovak": "Budím to.",
-      "english": "I wake it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Jeho správanie budilo podozrenie.",
       "english": "His behaviour aroused suspicion.",
@@ -23178,11 +22679,6 @@
     }
   ],
   "napomahat": [
-    {
-      "slovak": "Napomáhám ti to.",
-      "english": "I help you for that.",
-      "note": "Curated"
-    },
     {
       "slovak": "Chcem mu napomáhať tú chybu.",
       "english": "I want to help him that fault.",
@@ -23333,11 +22829,6 @@
   ],
   "kazit": [
     {
-      "slovak": "Kazím to.",
-      "english": "I spoil it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Časté sladkosti kazia deťom zuby.",
       "english": "Frequent sweets ruin children's teeth.",
       "note": "Curated"
@@ -23349,11 +22840,6 @@
     }
   ],
   "dusit": [
-    {
-      "slovak": "Dusím to.",
-      "english": "I choke it.",
-      "note": "Curated"
-    },
     {
       "slovak": "V noci ma dusil silný kašeľ.",
       "english": "A bad cough was choking me at night.",
@@ -23427,11 +22913,6 @@
   ],
   "zalovat": [
     {
-      "slovak": "Žalujem to.",
-      "english": "I sue it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Firma žaluje bývalého riaditeľa o náhradu škody.",
       "english": "The company is suing its former director for damages.",
       "note": "Curated"
@@ -23491,11 +22972,6 @@
     }
   ],
   "prehnat": [
-    {
-      "slovak": "Preženem to.",
-      "english": "I exaggerate it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Tentoraz si to s cukrom prehnala, koláč je príliš sladký.",
       "english": "This time you overdid the sugar, the cake is too sweet.",
@@ -23605,11 +23081,6 @@
   ],
   "kupat": [
     {
-      "slovak": "Kúpám to.",
-      "english": "I bathe it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Otec večer kúpal deti vo vani.",
       "english": "In the evening Dad bathed the children in the tub.",
       "note": "Curated"
@@ -23660,11 +23131,6 @@
   ],
   "velit": [
     {
-      "slovak": "Velím to.",
-      "english": "I command it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Kapitán velí posádke lode.",
       "english": "The captain commands the ship's crew.",
       "note": "Curated"
@@ -23676,11 +23142,6 @@
     }
   ],
   "sefovat": [
-    {
-      "slovak": "Šéfujem to.",
-      "english": "I boss it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Doma šéfuje celej rodine babka.",
       "english": "At home Grandma bosses the whole family around.",
@@ -23919,7 +23380,7 @@
       "note": "Curated"
     },
     {
-      "slovak": "Porucha na trati znemožní odchod vlaku najmenej o hodinu.",
+      "slovak": "Porucha na trati znemožní odchod vlaku najmenej na hodinu.",
       "english": "A fault on the line will prevent the train from leaving for at least an hour.",
       "note": "Curated"
     }
@@ -23938,22 +23399,12 @@
   ],
   "cinit": [
     {
-      "slovak": "Činím to.",
-      "english": "I act it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Náklady na opravu strechy činia vyše tisíc eur.",
       "english": "The cost of repairing the roof amounts to over a thousand euros.",
       "note": "Curated"
     }
   ],
   "vyviezt": [
-    {
-      "slovak": "Vyveziem to.",
-      "english": "I export it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Vlek nás vyviezol až na vrchol kopca.",
       "english": "The ski lift took us all the way to the top of the hill.",
@@ -24002,11 +23453,6 @@
     }
   ],
   "uchovat": [
-    {
-      "slovak": "Uchujem to.",
-      "english": "I preserve it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Tento recept si naša rodina uchovala celé generácie.",
       "english": "Our family has kept this recipe for generations.",
@@ -24092,11 +23538,6 @@
   ],
   "sadat": [
     {
-      "slovak": "Sadám to.",
-      "english": "I sit down it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Každé ráno si sadá s kávou k oknu.",
       "english": "Every morning she sits down by the window with her coffee.",
       "note": "Curated"
@@ -24164,11 +23605,6 @@
   ],
   "uzriet": [
     {
-      "slovak": "Uzrím to.",
-      "english": "I behold it.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Po dlhej ceste konečne uzreli more.",
       "english": "After a long journey they finally beheld the sea.",
       "note": "Curated"
@@ -24204,11 +23640,6 @@
     }
   ],
   "tipovat": [
-    {
-      "slovak": "Tipujem to.",
-      "english": "I tip it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Tipujem, že zápas vyhrajú domáci.",
       "english": "My guess is that the home team will win the match.",
@@ -24505,13 +23936,7 @@
       "note": "Curated"
     }
   ],
-  "vadit": [
-    {
-      "slovak": "Vadím to.",
-      "english": "I bother it.",
-      "note": "Curated"
-    }
-  ],
+  "vadit": [],
   "rozprestierat": [
     {
       "slovak": "Pod hradom sa rozprestiera malé mesto.",
@@ -24681,11 +24106,6 @@
     }
   ],
   "past-v": [
-    {
-      "slovak": "Pasiem to.",
-      "english": "I graze it.",
-      "note": "Curated"
-    },
     {
       "slovak": "Na lúke pod lesom sa pasú kravy.",
       "english": "Cows are grazing in the meadow below the forest.",
@@ -24950,11 +24370,6 @@
     {
       "slovak": "Starý pán sedí na lavičke.",
       "english": "An old man is sitting on the bench.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Sedeli sme v prvej rade.",
-      "english": "We sat in the first row.",
       "note": "Curated"
     }
   ],
@@ -30157,7 +29572,7 @@
   ],
   "skandal": [
     {
-      "slovak": "Po finančnom škandáli minister odstúpil z funkcie.",
+      "slovak": "Po finančnom škandále minister odstúpil z funkcie.",
       "english": "After the financial scandal, the minister resigned from office.",
       "note": "Curated"
     },
@@ -40975,7 +40390,7 @@
     },
     {
       "slovak": "V tomto paragrafe je chyba.",
-      "english": "There is a mistake in this paragraph.",
+      "english": "There is a mistake in this section.",
       "note": "Curated"
     }
   ],
@@ -41173,7 +40588,7 @@
   ],
   "sortiment": [
     {
-      "slovak": "Obchod rozšíril sortiment o bio potraviny.",
+      "slovak": "Obchod rozšíril sortiment o biopotraviny.",
       "english": "The shop has expanded its range to include organic food.",
       "note": "Curated"
     },
@@ -45356,7 +44771,7 @@
   ],
   "nedotknut": [
     {
-      "slovak": "Na obed, ktorý jej mama uvarila, sa ani nedotkla.",
+      "slovak": "Obeda, ktorý jej mama uvarila, sa ani nedotkla.",
       "english": "She didn't even touch the lunch her mum had cooked for her.",
       "note": "Curated"
     },
