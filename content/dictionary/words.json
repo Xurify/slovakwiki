@@ -910,18 +910,6 @@
         "demonstrates": "pozerať — look / watch (see pozerať)"
       },
       {
-        "slovak": "Ja chcem vidieť tvoj dom.",
-        "english": "I want to see your house.",
-        "note": "Tatoeba",
-        "tatoebaId": 2926487
-      },
-      {
-        "slovak": "Smutné vidieť ťa ísť.",
-        "english": "Sad to see you go.",
-        "note": "Tatoeba",
-        "tatoebaId": 4404766
-      },
-      {
         "slovak": "Tom nemohol vidieť nič.",
         "english": "Tom couldn't see anything.",
         "note": "Tatoeba",
@@ -3172,7 +3160,7 @@
   {
     "slug": "predstavit",
     "slovak": "predstaviť",
-    "english": "to introduce; to present",
+    "english": "to introduce; to present; to imagine (predstaviť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -3192,12 +3180,6 @@
         "english": "I’d like to introduce my friend.",
         "note": "Tatoeba",
         "tatoebaId": 9017052
-      },
-      {
-        "slovak": "Ani vo svojich najbláznivejších snoch som si nevedela predstaviť, ako nosím kožušinu.",
-        "english": "I couldn't in my wildest dreams imagine myself wearing fur.",
-        "note": "Tatoeba",
-        "tatoebaId": 5016737
       },
       {
         "slovak": "Vieš si to predstaviť?",
@@ -6033,18 +6015,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Svet je ako kniha, a tí čo necestujú čítajú len jednu stranu.",
-        "english": "The world is like a book, and those who don't travel read only one page.",
-        "note": "Tatoeba",
-        "tatoebaId": 1548485
-      },
-      {
-        "slovak": "Ak si ma z tej strany nepoznal, tak si ma nepoznal vôbec.",
-        "english": "If you didn't know me that way then you simply didn't know me.",
-        "note": "Tatoeba",
-        "tatoebaId": 8865601
-      },
-      {
         "slovak": "Tom žije na druhej strane mesta.",
         "english": "Tom lives on the other side of the city.",
         "note": "Tatoeba",
@@ -6299,12 +6269,6 @@
         "english": "What would the world be like without women?",
         "note": "Tatoeba",
         "tatoebaId": 1548451
-      },
-      {
-        "slovak": "Svet je ako kniha, a tí čo necestujú čítajú len jednu stranu.",
-        "english": "The world is like a book, and those who don't travel read only one page.",
-        "note": "Tatoeba",
-        "tatoebaId": 1548485
       },
       {
         "slovak": "Svet je plný zaujímavých ľudí.",
@@ -7461,12 +7425,6 @@
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
-      {
-        "slovak": "Svet je ako kniha, a tí čo necestujú čítajú len jednu stranu.",
-        "english": "The world is like a book, and those who don't travel read only one page.",
-        "note": "Tatoeba",
-        "tatoebaId": 1548485
-      },
       {
         "slovak": "Kniha leží na stole.",
         "english": "The book is on the table.",
@@ -9245,12 +9203,6 @@
         "english": "I think my living with you has influenced your way of living.",
         "note": "Tatoeba",
         "tatoebaId": 8865548
-      },
-      {
-        "slovak": "Spôsob, ako kráča mi veľmi pripomína jeho otca.",
-        "english": "The way he walks reminds me very much of his father.",
-        "note": "Tatoeba",
-        "tatoebaId": 8920590
       },
       {
         "slovak": "Iba tvrdím, že musí byť aj iný spôsob, ako to urobiť.",
@@ -18033,12 +17985,6 @@
         "english": "This park reminds me of my childhood.",
         "note": "Tatoeba",
         "tatoebaId": 8867203
-      },
-      {
-        "slovak": "Spôsob, ako kráča mi veľmi pripomína jeho otca.",
-        "english": "The way he walks reminds me very much of his father.",
-        "note": "Tatoeba",
-        "tatoebaId": 8920590
       },
       {
         "slovak": "Čo ti to pripomína?",
@@ -27251,12 +27197,6 @@
         "tatoebaId": 4404864
       },
       {
-        "slovak": "Nemám ďalšie veci, ktoré by som mohla študovať.",
-        "english": "I don't have other things to study.",
-        "note": "Tatoeba",
-        "tatoebaId": 4404904
-      },
-      {
         "slovak": "Mojím snom je študovať slovenčinu v Bratislave.",
         "english": "My dream is to study Slovak in Bratislava.",
         "note": "Tatoeba",
@@ -28755,12 +28695,6 @@
         "english": "Be careful where you walk.",
         "note": "Tatoeba",
         "tatoebaId": 12694110
-      },
-      {
-        "slovak": "Spôsob, ako kráča mi veľmi pripomína jeho otca.",
-        "english": "The way he walks reminds me very much of his father.",
-        "note": "Tatoeba",
-        "tatoebaId": 8920590
       },
       {
         "slovak": "Dávajte pozor, kadiaľ kráčate.",
@@ -31439,7 +31373,7 @@
         "note": "Tatoeba"
       },
       {
-        "slovak": "Vyhol sa stretu so šéfom na chodbe.",
+        "slovak": "Vyhol sa stretnutiu so šéfom na chodbe.",
         "english": "He avoided running into his boss in the corridor.",
         "note": "Curated"
       },
@@ -46385,11 +46319,6 @@
         "note": "Tatoeba"
       },
       {
-        "slovak": "Vtipná poznámka odviedla napätie z miestnosti.",
-        "english": "A funny remark diverted the tension from the room.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Záchranári odviedli zraneného do sanitky.",
         "english": "Rescuers led the injured person away to the ambulance.",
         "note": "Curated"
@@ -52560,8 +52489,8 @@
         "note": "Curated"
       },
       {
-        "slovak": "Dvíha ťažké krabice do skladu.",
-        "english": "He is lifting heavy boxes into the warehouse.",
+        "slovak": "Dvíha ťažké krabice na policu.",
+        "english": "He is lifting heavy boxes onto the shelf.",
         "note": "Curated"
       },
       {
@@ -64194,8 +64123,8 @@
         "note": "Curated"
       },
       {
-        "slovak": "Zo Žiliny vedie rýchla cesta do Tatier.",
-        "english": "A fast road leads from Žilina to the Tatras.",
+        "slovak": "Zo Žiliny vedie cesta do Tatier.",
+        "english": "A road leads from Žilina to the Tatras.",
         "note": "Curated"
       },
       {
@@ -65746,7 +65675,7 @@
     "gender": "masculine-animate",
     "examples": [
       {
-        "slovak": "Vo finále stretne silného súpera.",
+        "slovak": "Vo finále sa stretne so silným súperom.",
         "english": "In the final he will face a strong opponent.",
         "note": "Curated"
       },
@@ -66225,13 +66154,8 @@
         "note": "Curated"
       },
       {
-        "slovak": "Obchodná únia zjednodušila výmenu tovaru.",
-        "english": "The trade union simplified the exchange of goods.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Členské štáty únie rokovali o spoločnej politike.",
-        "english": "Member states of the union negotiated a common policy.",
+        "english": "The union's member states held talks on a common policy.",
         "note": "Curated"
       },
       {
@@ -70097,7 +70021,7 @@
       },
       {
         "slovak": "Priebeh operácie bol podľa lekárov pokojný.",
-        "english": "The course of the operation was calm according to the doctors.",
+        "english": "According to the doctors, the course of the operation was uneventful.",
         "note": "Curated"
       },
       {
@@ -70198,12 +70122,6 @@
         "english": "Russia is a nuclear power.",
         "note": "Tatoeba",
         "tatoebaId": 12816358
-      },
-      {
-        "slovak": "Rusko hrá veľkú úlohu v Sýrii.",
-        "english": "Russia plays a major role in Syria.",
-        "note": "Tatoeba",
-        "tatoebaId": 13729560
       },
       {
         "slovak": "Rusko je najväčšia krajina na svete.",
@@ -92416,18 +92334,6 @@
         "tatoebaId": 12572769
       },
       {
-        "slovak": "Lepší vrabec v hrsti, ako holub na streche.",
-        "english": "Better an egg today than a hen tomorrow.",
-        "note": "Tatoeba",
-        "tatoebaId": 9457031
-      },
-      {
-        "slovak": "Pozri na tú mačku na streche.",
-        "english": "Look at that cat on the roof.",
-        "note": "Tatoeba",
-        "tatoebaId": 10262639
-      },
-      {
         "slovak": "Pozri! Na streche sedí mačka.",
         "english": "Look. There's a cat sitting on the roof.",
         "note": "Tatoeba",
@@ -103163,18 +103069,6 @@
         "tatoebaId": 2226029
       },
       {
-        "slovak": "On vie tiež hovoriť po francúzsky.",
-        "english": "He can also speak French.",
-        "note": "Tatoeba",
-        "tatoebaId": 2926475
-      },
-      {
-        "slovak": "Hovorím po francúzsky každý deň v práci.",
-        "english": "I speak French every day at work.",
-        "note": "Tatoeba",
-        "tatoebaId": 4811303
-      },
-      {
         "slovak": "Hovorím tiež francúzsky.",
         "english": "I speak French, too.",
         "note": "Tatoeba",
@@ -110164,11 +110058,6 @@
       {
         "slovak": "Profesionálny športovec trénuje dvakrát denne.",
         "english": "A professional athlete trains twice a day.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Profesionálne služby účtujú hodinovo.",
-        "english": "They bill professional services by the hour.",
         "note": "Curated"
       }
     ],
@@ -131903,8 +131792,8 @@
         "note": "Curated"
       },
       {
-        "slovak": "Papierová mapa je spoľahlivejšia bez signálu.",
-        "english": "A paper map is more reliable without a signal.",
+        "slovak": "Bez signálu je papierová mapa spoľahlivejšia.",
+        "english": "Without a signal, a paper map is more reliable.",
         "note": "Curated"
       },
       {
@@ -142555,14 +142444,7 @@
     "english": "press; printing",
     "category": "Nouns",
     "gender": "feminine",
-    "examples": [
-      {
-        "slovak": "Tlač silnejšie.",
-        "english": "Push harder.",
-        "note": "Tatoeba",
-        "tatoebaId": 13995263
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -150294,12 +150176,6 @@
         "english": "Monday I am free.",
         "note": "Tatoeba",
         "tatoebaId": 12273748
-      },
-      {
-        "slovak": "Čo robíte vo voľnom čase?",
-        "english": "What do you do in your free time?",
-        "note": "Tatoeba",
-        "tatoebaId": 13542400
       }
     ],
     "related": []
@@ -175606,50 +175482,7 @@
     "english": "opening; hole",
     "category": "Nouns",
     "gender": "masculine-inanimate",
-    "examples": [
-      {
-        "slovak": "Otvor fľašu.",
-        "english": "Open the bottle.",
-        "note": "Tatoeba",
-        "tatoebaId": 8923895
-      },
-      {
-        "slovak": "Otvor knihu a ona otvorí tvoju dušu.",
-        "english": "Open a book and it will open your soul.",
-        "note": "Tatoeba",
-        "tatoebaId": 1338421
-      },
-      {
-        "slovak": "Otvor dvere.",
-        "english": "Open the door.",
-        "note": "Tatoeba",
-        "tatoebaId": 4732572
-      },
-      {
-        "slovak": "Bill, otvor dvere.",
-        "english": "Bill, open the door.",
-        "note": "Tatoeba",
-        "tatoebaId": 2226168
-      },
-      {
-        "slovak": "Otvor krabicu.",
-        "english": "Open the box.",
-        "note": "Tatoeba",
-        "tatoebaId": 10065103
-      },
-      {
-        "slovak": "Vytiahni kľúče a otvor dvere.",
-        "english": "Get out your keys and open the door.",
-        "note": "Tatoeba",
-        "tatoebaId": 12571530
-      },
-      {
-        "slovak": "Otvor klietku.",
-        "english": "Open the cage.",
-        "note": "Tatoeba",
-        "tatoebaId": 12839138
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -178365,7 +178198,7 @@
       },
       {
         "slovak": "Stále si myslíš, že si vymýšľam?",
-        "english": "You still think I'm bluffing?",
+        "english": "You still think I'm making it up?",
         "note": "Tatoeba",
         "tatoebaId": 4404874
       },
@@ -181424,14 +181257,7 @@
     "slovak": "minimálne",
     "english": "at least",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Aké sú minimálne požiadavky?",
-        "english": "What are the minimum requirements?",
-        "note": "Tatoeba",
-        "tatoebaId": 8360931
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -181530,12 +181356,6 @@
     "english": "seriously",
     "category": "Adverbs",
     "examples": [
-      {
-        "slovak": "Je nepravdepodobné, že sa stane niečo vážne.",
-        "english": "It's unlikely that anything serious will happen.",
-        "note": "Tatoeba",
-        "tatoebaId": 2926464
-      },
       {
         "slovak": "Oni to mysleli vážne?",
         "english": "Were they serious?",
@@ -181778,7 +181598,7 @@
       },
       {
         "slovak": "Vlak ide mimoriadne cez Žilinu.",
-        "english": "The train is running as a special service via Žilina.",
+        "english": "Exceptionally, the train is running via Žilina.",
         "note": "Curated"
       },
       {
@@ -182396,20 +182216,8 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Milujem meno Bella, znamená to krásna, správne?",
-        "english": "I love the name Bella. It means \"pretty\", right?",
-        "note": "Tatoeba",
-        "tatoebaId": 4404944
-      },
-      {
-        "slovak": "Našiel som riešenie, ale našiel som ho tak rýchlo, že nemôže byť správne.",
-        "english": "I found a solution, but I found it so fast that it can't be the right solution.",
-        "note": "Tatoeba",
-        "tatoebaId": 8865629
-      },
-      {
         "slovak": "Tom konal správne.",
-        "english": "Tom has acted wisely.",
+        "english": "Tom acted correctly.",
         "note": "Tatoeba",
         "tatoebaId": 8902733
       },
@@ -182418,24 +182226,6 @@
         "english": "Is your watch correct?",
         "note": "Tatoeba",
         "tatoebaId": 8994698
-      },
-      {
-        "slovak": "Obidve výslovnosti sú správne.",
-        "english": "Both pronunciations are correct.",
-        "note": "Tatoeba",
-        "tatoebaId": 9008151
-      },
-      {
-        "slovak": "Je to úplne správne.",
-        "english": "That's absolutely right.",
-        "note": "Tatoeba",
-        "tatoebaId": 9024334
-      },
-      {
-        "slovak": "Musím urobiť to, čo pokladám za správne.",
-        "english": "I've got to do what I believe is right.",
-        "note": "Tatoeba",
-        "tatoebaId": 9027555
       },
       {
         "slovak": "Nemyslím, že to Tom urobil správne.",
@@ -183211,23 +183001,18 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Definitívne prídem v sobotu.",
-        "english": "I will definitely come on Saturday.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Rozhodol sa definitívne odísť.",
         "english": "He decided to leave for good.",
         "note": "Curated"
       },
       {
         "slovak": "Definitívne sme si vybrali modrú farbu.",
-        "english": "We have definitely chosen the blue colour.",
+        "english": "We have definitively chosen the blue colour.",
         "note": "Curated"
       },
       {
         "slovak": "Je to definitívne posledná zmena.",
-        "english": "This is definitely the final change.",
+        "english": "This is definitively the last change.",
         "note": "Curated"
       }
     ],
@@ -183473,11 +183258,6 @@
       {
         "slovak": "O ktorej knihe konkrétne hovoríš?",
         "english": "Which book exactly are you talking about?",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Konkrétne číslo ešte nepoznáme.",
-        "english": "We do not know the exact number yet.",
         "note": "Curated"
       },
       {
@@ -184525,7 +184305,7 @@
       },
       {
         "slovak": "Vôňa kávy intenzívne prenikla do bytu.",
-        "english": "The smell of coffee spread intensely through the flat.",
+        "english": "The smell of coffee seeped intensely into the flat.",
         "note": "Curated"
       },
       {
@@ -185485,11 +185265,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Nie je reálne odísť dnes.",
-        "english": "It is not realistic to leave today.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Reálne potrebujeme viac času.",
         "english": "Realistically, we need more time.",
         "note": "Curated"
@@ -185770,11 +185545,6 @@
       {
         "slovak": "Špeciálne mám rada domáci chlieb.",
         "english": "I especially like homemade bread.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Potrebujeme špeciálne povolenie.",
-        "english": "We need special permission.",
         "note": "Curated"
       },
       {
@@ -186086,14 +185856,7 @@
     "slovak": "normálne",
     "english": "normally",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Čo je normálne?",
-        "english": "What is normal?",
-        "note": "Tatoeba",
-        "tatoebaId": 13088731
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -186138,56 +185901,7 @@
     "slovak": "krásne",
     "english": "beautifully; nicely; it is lovely (je krásne)",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Laurie je krásne dievča.",
-        "english": "Laurie is a beautiful girl.",
-        "note": "Tatoeba",
-        "tatoebaId": 2430528
-      },
-      {
-        "slovak": "Aké krásne kvety!",
-        "english": "What pretty flowers!",
-        "note": "Tatoeba",
-        "tatoebaId": 2915873
-      },
-      {
-        "slovak": "Jorge je také krásne meno.",
-        "english": "Jorge is such a beautiful name.",
-        "note": "Tatoeba",
-        "tatoebaId": 4404948
-      },
-      {
-        "slovak": "Juraj je také krásne meno.",
-        "english": "Jorge is such a beautiful name.",
-        "note": "Tatoeba",
-        "tatoebaId": 4404952
-      },
-      {
-        "slovak": "Všetky mačky sú krásne.",
-        "english": "All cats are beautiful.",
-        "note": "Tatoeba",
-        "tatoebaId": 7584427
-      },
-      {
-        "slovak": "Všetky ženy sú krásne.",
-        "english": "All women are beautiful.",
-        "note": "Tatoeba",
-        "tatoebaId": 8978136
-      },
-      {
-        "slovak": "Vo váze sú krásne ruže.",
-        "english": "There are some beautiful roses in the vase.",
-        "note": "Tatoeba",
-        "tatoebaId": 8984463
-      },
-      {
-        "slovak": "Povedal ti už niekto niekedy, že máš krásne oči?",
-        "english": "Has anyone ever told you that you have beautiful eyes?",
-        "note": "Tatoeba",
-        "tatoebaId": 9002681
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -187925,11 +187639,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Individuálne hodiny sú drahšie.",
-        "english": "One-to-one lessons are more expensive.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Každý reaguje individuálne.",
         "english": "Everyone reacts individually.",
         "note": "Curated"
@@ -189368,24 +189077,6 @@
         "tatoebaId": 8950047
       },
       {
-        "slovak": "Čítaš nesprávne knihy.",
-        "english": "You're reading the wrong books.",
-        "note": "Tatoeba",
-        "tatoebaId": 11902462
-      },
-      {
-        "slovak": "Nesprávne knihy čítate.",
-        "english": "You're reading the wrong books.",
-        "note": "Tatoeba",
-        "tatoebaId": 11902463
-      },
-      {
-        "slovak": "Viem, že to je nesprávne.",
-        "english": "I know that's wrong.",
-        "note": "Tatoeba",
-        "tatoebaId": 13896730
-      },
-      {
         "slovak": "Nesprávne.",
         "english": "Wrong.",
         "note": "Tatoeba",
@@ -189437,14 +189128,7 @@
     "slovak": "ideálne",
     "english": "ideally",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Počasie bolo ideálne.",
-        "english": "The weather was ideal.",
-        "note": "Tatoeba",
-        "tatoebaId": 13290457
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -190945,20 +190629,7 @@
     "slovak": "rýchle",
     "english": "fast",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Aké je toto lietadlo rýchle!",
-        "english": "How fast the plane is!",
-        "note": "Tatoeba",
-        "tatoebaId": 12009704
-      },
-      {
-        "slovak": "Aké rýchle je to lietadlo!",
-        "english": "How fast the plane is!",
-        "note": "Tatoeba",
-        "tatoebaId": 12009706
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -192373,14 +192044,7 @@
     "slovak": "odvážne",
     "english": "boldly",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Sú odvážne.",
-        "english": "They're courageous.",
-        "note": "Tatoeba",
-        "tatoebaId": 12845242
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -193820,14 +193484,7 @@
     "slovak": "rôzne",
     "english": "variously; in different ways",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Kresťanstvo a islam sú dve rôzne náboženstvá.",
-        "english": "Christianity and Islam are two different religions.",
-        "note": "Tatoeba",
-        "tatoebaId": 5052384
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -194645,11 +194302,6 @@
       {
         "slovak": "Mesto je kultúrne veľmi živé.",
         "english": "The city is very lively culturally.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Kultúrne podujatia priťahujú turistov.",
-        "english": "Cultural events attract tourists.",
         "note": "Curated"
       },
       {
@@ -196003,11 +195655,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Nelegálne parkovanie môže stáť veľa peňazí.",
-        "english": "Illegal parking can cost a lot of money.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Film bol nelegálne zverejnený.",
         "english": "The film was published illegally.",
         "note": "Curated"
@@ -196669,56 +196316,7 @@
     "slovak": "smiešne",
     "english": "funnily; ridiculously",
     "category": "Adverbs",
-    "examples": [
-      {
-        "slovak": "Vypadá to smiešne.",
-        "english": "It looks ridiculous.",
-        "note": "Tatoeba",
-        "tatoebaId": 9146713
-      },
-      {
-        "slovak": "Nezdalo sa jej to smiešne.",
-        "english": "She did not find it funny.",
-        "note": "Tatoeba",
-        "tatoebaId": 9150099
-      },
-      {
-        "slovak": "Nezdalo sa mu to smiešne.",
-        "english": "He did not find it funny.",
-        "note": "Tatoeba",
-        "tatoebaId": 9150102
-      },
-      {
-        "slovak": "Prestaň, Tom! Už to nie je smiešne!",
-        "english": "Stop it, Tom! It's not funny anymore!",
-        "note": "Tatoeba",
-        "tatoebaId": 9943808
-      },
-      {
-        "slovak": "To je smiešne!",
-        "english": "That's ridiculous!",
-        "note": "Tatoeba",
-        "tatoebaId": 10005118
-      },
-      {
-        "slovak": "Nemyslíš, že je to smiešne?",
-        "english": "Don't you think this is ridiculous?",
-        "note": "Tatoeba",
-        "tatoebaId": 10076920
-      },
-      {
-        "slovak": "Nemyslíte, že je to smiešne?",
-        "english": "Don't you think this is ridiculous?",
-        "note": "Tatoeba",
-        "tatoebaId": 10076921
-      },
-      {
-        "slovak": "To nie je smiešne.",
-        "english": "It's not funny.",
-        "note": "Tatoeba",
-        "tatoebaId": 12797599
-      }
-    ],
+    "examples": [],
     "related": []
   },
   {
@@ -197107,21 +196705,6 @@
       {
         "slovak": "V poradni sa otvorene rozprávajú aj o sexuálne prenášaných infekciách.",
         "english": "At the counselling centre, they also talk openly about sexually transmitted infections.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Kniha opisuje sexuálne zdravie zrozumiteľným spôsobom.",
-        "english": "The book explains sexual health in an understandable way.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Sexuálne dospievanie môže byť pre mladých ľudí citlivou témou.",
-        "english": "Sexual development can be a sensitive topic for young people.",
-        "note": "Curated"
-      },
-      {
-        "slovak": "Tieto hormóny sexuálne dozrievanie ovplyvňujú.",
-        "english": "These hormones influence sexual maturation.",
         "note": "Curated"
       }
     ],
@@ -198175,52 +197758,10 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "To je zvláštne.",
-        "english": "That's strange.",
-        "note": "Tatoeba",
-        "tatoebaId": 8978042
-      },
-      {
-        "slovak": "Myslím, že je to zvláštne.",
-        "english": "I think that it's strange.",
-        "note": "Tatoeba",
-        "tatoebaId": 8987285
-      },
-      {
         "slovak": "Myslel som, že to znelo tak zvláštne.",
         "english": "I thought it sounded so odd.",
         "note": "Tatoeba",
         "tatoebaId": 9838772
-      },
-      {
-        "slovak": "Zvláštne, že tu nie sú vaši priatelia.",
-        "english": "It's strange that your friends aren't here.",
-        "note": "Tatoeba",
-        "tatoebaId": 9850132
-      },
-      {
-        "slovak": "Tom hovorí, že videl niečo zvláštne.",
-        "english": "Tom says he saw something strange.",
-        "note": "Tatoeba",
-        "tatoebaId": 10009239
-      },
-      {
-        "slovak": "Deje sa niečo zvláštne.",
-        "english": "Something strange is going on.",
-        "note": "Tatoeba",
-        "tatoebaId": 10048292
-      },
-      {
-        "slovak": "Deje sa čosi zvláštne.",
-        "english": "Something strange is going on.",
-        "note": "Tatoeba",
-        "tatoebaId": 10048295
-      },
-      {
-        "slovak": "Na tom nie je nič zvláštne.",
-        "english": "There's nothing strange about it.",
-        "note": "Tatoeba",
-        "tatoebaId": 12470243
       }
     ],
     "related": []
@@ -204312,12 +203853,6 @@
         "english": "She speaks French, not to speak of English.",
         "note": "Tatoeba",
         "tatoebaId": 2226029
-      },
-      {
-        "slovak": "On vie tiež hovoriť po francúzsky.",
-        "english": "He can also speak French.",
-        "note": "Tatoeba",
-        "tatoebaId": 2926475
       },
       {
         "slovak": "Hovorím po francúzsky každý deň v práci.",

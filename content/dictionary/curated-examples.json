@@ -6379,7 +6379,7 @@
       "note": "Tatoeba"
     },
     {
-      "slovak": "Vyhol sa stretu so šéfom na chodbe.",
+      "slovak": "Vyhol sa stretnutiu so šéfom na chodbe.",
       "english": "He avoided running into his boss in the corridor.",
       "note": "Curated"
     }
@@ -8355,7 +8355,7 @@
     },
     {
       "slovak": "Vlak ide mimoriadne cez Žilinu.",
-      "english": "The train is running as a special service via Žilina.",
+      "english": "Exceptionally, the train is running via Žilina.",
       "note": "Curated"
     },
     {
@@ -8542,23 +8542,18 @@
   ],
   "definitivne": [
     {
-      "slovak": "Definitívne prídem v sobotu.",
-      "english": "I will definitely come on Saturday.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Rozhodol sa definitívne odísť.",
       "english": "He decided to leave for good.",
       "note": "Curated"
     },
     {
       "slovak": "Definitívne sme si vybrali modrú farbu.",
-      "english": "We have definitely chosen the blue colour.",
+      "english": "We have definitively chosen the blue colour.",
       "note": "Curated"
     },
     {
       "slovak": "Je to definitívne posledná zmena.",
-      "english": "This is definitely the final change.",
+      "english": "This is definitively the last change.",
       "note": "Curated"
     }
   ],
@@ -8637,11 +8632,6 @@
     {
       "slovak": "O ktorej knihe konkrétne hovoríš?",
       "english": "Which book exactly are you talking about?",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Konkrétne číslo ešte nepoznáme.",
-      "english": "We do not know the exact number yet.",
       "note": "Curated"
     },
     {
@@ -8839,7 +8829,7 @@
     },
     {
       "slovak": "Vôňa kávy intenzívne prenikla do bytu.",
-      "english": "The smell of coffee spread intensely through the flat.",
+      "english": "The smell of coffee seeped intensely into the flat.",
       "note": "Curated"
     },
     {
@@ -9185,11 +9175,6 @@
       "note": "Curated"
     },
     {
-      "slovak": "Nie je reálne odísť dnes.",
-      "english": "It is not realistic to leave today.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Reálne potrebujeme viac času.",
       "english": "Realistically, we need more time.",
       "note": "Curated"
@@ -9297,11 +9282,6 @@
     {
       "slovak": "Špeciálne mám rada domáci chlieb.",
       "english": "I especially like homemade bread.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Potrebujeme špeciálne povolenie.",
-      "english": "We need special permission.",
       "note": "Curated"
     },
     {
@@ -10343,11 +10323,6 @@
     {
       "slovak": "Termín dohodneme individuálne.",
       "english": "We will arrange the date individually.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Individuálne hodiny sú drahšie.",
-      "english": "One-to-one lessons are more expensive.",
       "note": "Curated"
     },
     {
@@ -11966,11 +11941,6 @@
       "note": "Curated"
     },
     {
-      "slovak": "Kultúrne podujatia priťahujú turistov.",
-      "english": "Cultural events attract tourists.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Región je kultúrne pestrý.",
       "english": "The region is culturally diverse.",
       "note": "Curated"
@@ -12472,11 +12442,6 @@
       "note": "Curated"
     },
     {
-      "slovak": "Nelegálne parkovanie môže stáť veľa peňazí.",
-      "english": "Illegal parking can cost a lot of money.",
-      "note": "Curated"
-    },
-    {
       "slovak": "Film bol nelegálne zverejnený.",
       "english": "The film was published illegally.",
       "note": "Curated"
@@ -12972,21 +12937,6 @@
     }
   ],
   "sexualne": [
-    {
-      "slovak": "Kniha opisuje sexuálne zdravie zrozumiteľným spôsobom.",
-      "english": "The book explains sexual health in an understandable way.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Sexuálne dospievanie môže byť pre mladých ľudí citlivou témou.",
-      "english": "Sexual development can be a sensitive topic for young people.",
-      "note": "Curated"
-    },
-    {
-      "slovak": "Tieto hormóny sexuálne dozrievanie ovplyvňujú.",
-      "english": "These hormones influence sexual maturation.",
-      "note": "Curated"
-    },
     {
       "slovak": "V poradni sa otvorene rozprávajú aj o sexuálne prenášaných infekciách.",
       "english": "At the counselling centre, they also talk openly about sexually transmitted infections.",
