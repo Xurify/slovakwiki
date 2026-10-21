@@ -191,36 +191,34 @@
             pattern={topic.pattern}
             examples={topic.examples}
             withClocks={isTime}
-          />
+          >
+            {#if topic.pattern.examples?.length}
+              <GrammarExampleList
+                examples={topic.pattern.examples}
+                {audioKeys}
+                audioKeyPrefix="pattern-ex"
+                framed={false}
+              />
+            {/if}
+          </GrammarPatternList>
         </div>
-
-        {#if topic.pattern.examples?.length}
-          <div class="mt-4">
-            <GrammarExampleList
-              examples={topic.pattern.examples}
-              {audioKeys}
-              audioKeyPrefix="pattern-ex"
-            />
-          </div>
-        {/if}
 
         {#each topic.morePatterns ?? [] as extra, index (extra.label)}
           <div class="mt-8">
             <h2 class={grammarHeadingClass}>{extra.label}</h2>
 
             <div class="mt-3">
-              <GrammarPatternList pattern={extra} />
+              <GrammarPatternList pattern={extra}>
+                {#if extra.examples?.length}
+                  <GrammarExampleList
+                    examples={extra.examples}
+                    {audioKeys}
+                    audioKeyPrefix="more-{index}-ex"
+                    framed={false}
+                  />
+                {/if}
+              </GrammarPatternList>
             </div>
-
-            {#if extra.examples?.length}
-              <div class="mt-4">
-                <GrammarExampleList
-                  examples={extra.examples}
-                  {audioKeys}
-                  audioKeyPrefix="more-{index}-ex"
-                />
-              </div>
-            {/if}
           </div>
         {/each}
       {/if}

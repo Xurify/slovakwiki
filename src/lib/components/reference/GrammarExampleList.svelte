@@ -2,18 +2,21 @@
   import GrammarExampleRow from "$lib/components/reference/GrammarExampleRow.svelte";
   import { practiceItemHref } from "$lib/catalog/practice";
   import type { Example } from "$lib/catalog/types";
-  import { cx } from "$lib/ui/classes";
+  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
 
   let {
     examples,
     audioKeys = [],
     audioKeyPrefix = "ex",
+    framed = true,
   }: {
     examples: Example[];
     /** `{audioKeyPrefix}-{index}` keys that have a recorded clip; buttons mount there after hydration. */
     audioKeys?: string[];
     /** Unique per list when one page shows several example lists. */
     audioKeyPrefix?: string;
+    /** False when the list sits inside another panel, under its table. */
+    framed?: boolean;
   } = $props();
 
   const rows = $derived(
@@ -29,20 +32,10 @@
   );
 
   const showAudio = $derived(rows.some((row) => row.audioKey));
-  const showPractice = $derived(rows.some((row) => row.practiceHref));
 </script>
 
-<ol
-  class={cx(
-    "m-0 grid list-none border-t border-slate-200 p-0",
-    showAudio && showPractice
-      ? "min-[561px]:grid-cols-[minmax(0,max-content)_minmax(0,1fr)_auto_auto]"
-      : showAudio || showPractice
-        ? "min-[561px]:grid-cols-[minmax(0,max-content)_minmax(0,1fr)_auto]"
-        : "min-[561px]:grid-cols-[minmax(0,max-content)_minmax(0,1fr)]",
-  )}
->
+<ol class="m-0 list-none p-0 {framed ? dataPanelClass : ''}">
   {#each rows as { audioKey, example, practiceHref } (example.slovak)}
-    <GrammarExampleRow {example} {audioKey} {practiceHref} {showAudio} {showPractice} />
+    <GrammarExampleRow {example} {audioKey} {practiceHref} {showAudio} />
   {/each}
 </ol>

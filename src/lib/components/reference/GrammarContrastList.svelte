@@ -1,6 +1,7 @@
 <script lang="ts">
   import { dataMoreRowClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
 
+  import TextLink from "$lib/components/ui/TextLink.svelte";
   import GrammarScene from "$lib/components/reference/GrammarScene.svelte";
   import {
     grammarEndingClass,
@@ -10,7 +11,6 @@
   } from "$lib/components/reference/grammar-topic-ui";
   import type { GrammarContrast, GrammarContrastSet } from "$lib/catalog/types";
   import { markRoleClass, segmentsFromMarks } from "$lib/learning/marked-text";
-  import { sentenceCase } from "$lib/catalog/search/ui";
   import { cx } from "$lib/ui/classes";
 
   let {
@@ -47,10 +47,12 @@
     return null;
   });
 
-  /** "accusative · plural" → "Accusative, plural"; the Slovak school term goes in the tooltip. */
-  function caseLabel(en: string): string {
-    return sentenceCase(en.split(" · ").join(", "));
+  /** "akuzatív · množné číslo" → "akuzatív, množné číslo": one term list, not a dotted chain. */
+  function caseTerms(terms: string): string {
+    return terms.split(" · ").join(", ");
   }
+
+  const labelled = $derived(allFrames.some((frame) => frame.label));
 </script>
 
 {#snippet frames(list: GrammarContrast[], prefix: string)}
@@ -62,8 +64,12 @@
         <span class="text-sm font-semibold text-slate-900">{frame.question}</span>
 
         {#if frame.label}
-          <span class="text-xs text-slate-500" title={frame.label.sk}>
-            {caseLabel(frame.label.en)}
+          <span class="text-right text-xs leading-snug">
+            <span class="font-semibold text-slate-700" lang="sk">
+              {caseTerms(frame.label.sk)}
+            </span>
+            <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
+            <span class="text-slate-500">{caseTerms(frame.label.en)}</span>
           </span>
         {/if}
       </p>
@@ -132,6 +138,22 @@
       >
       the ending the case gives the noun
     </span>
+  </p>
+{/if}
+
+{#if labelled}
+  <p class="m-0 mb-3 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+    Each card names its case with the Slovak school term first:
+    <span lang="sk">pád</span> (case), <span lang="sk">rod</span> (gender),
+    <span lang="sk">životný</span> (animate), <span lang="sk">množné číslo</span>
+    (plural). The terms follow
+    <TextLink
+      href="https://www.juls.savba.sk/ediela/msj/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Morfológia slovenského jazyka ↗</TextLink
+    >.
   </p>
 {/if}
 
