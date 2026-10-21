@@ -66,7 +66,6 @@
 
   const view = $derived(withClocks ? undefined : patternView(pattern, examples));
 
-  /** Short phrase + gloss pairs read best as a compact grid, not two far-apart columns. */
   const phrases = $derived(
     view?.kind === "rows" &&
       view.rows.every((row) => row.gloss && !row.result && !row.label),

@@ -219,7 +219,6 @@ export function patternView(
   return parsePattern(pattern.lines, examples);
 }
 
-/** Every Slovak word a table shows, lowercased, so its example sentences can mark the same forms. */
 export function patternForms(pattern: GrammarPattern): string[] {
   if (!isGrammarTable(pattern)) return [];
 

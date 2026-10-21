@@ -225,8 +225,7 @@ export function primeStoryAudio(): void {
 export interface PlayStoryLineOptions {
   /** Fires when playback finishes (honors a minimum on-screen dwell). */
   onEnded?: () => void;
-  /** Playback speed; browsers keep the pitch, so 0.8 slows a line without deepening the voice. */
-  rate?: number;
+  playbackRate?: number;
 }
 
 /** Play a lesson line; replaces any in-flight story audio. MP3 only — no TTS. */
@@ -239,7 +238,7 @@ export function playStoryLineAudio(
 
   ensureMuteListener();
 
-  const { onEnded, rate = 1 } = options;
+  const { onEnded, playbackRate = 1 } = options;
   stopAll();
   const generation = playGeneration;
   const startedAt = Date.now();
@@ -249,7 +248,7 @@ export function playStoryLineAudio(
     return;
   }
 
-  tryPlay(src, generation, startedAt, onEnded, rate);
+  tryPlay(src, generation, startedAt, onEnded, playbackRate);
 }
 
 export function stopStoryLineAudio(): void {
