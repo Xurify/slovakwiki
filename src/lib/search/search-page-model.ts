@@ -116,7 +116,9 @@ export function buildWordResults(
     best = {
       type: "word",
       entry: formWord.entry,
-      formOf: { form: formWord.form ?? query.trim() },
+      ...(formWord.entry.formsVerified
+        ? { formOf: { form: formWord.form ?? query.trim() } }
+        : {}),
     };
   } else {
     const glossPronoun = pronounLemmas.find((pronoun) =>

@@ -5,7 +5,10 @@
 
 import { IRREGULAR } from "./forms-irregulars";
 
-const LONG_VOWEL = /[áäéíóôúý]/u;
+/** Last stem syllable is long, so the rhythmic law shortens the ending: čítam, vrátim. */
+const LONG_LAST_SYLLABLE = /(?:[áéíóúýôŕĺ]|i[aeu])[^aáäeéiíoóôuúyýŕĺ]*$/u;
+
+const VOWEL_OR_SYLLABIC_FINAL = /(?:[aáäeéiíoóôuúyý]|[^aáäeéiíoóôuúyý][rl])$/u;
 
 /** Soft -ieť verbs that take -iem (not default -ím). Bare heuristic fallback. */
 const IET_E_CLASS = new Set(["rozumieť", "umieť"]);
@@ -139,10 +142,9 @@ function uniqueForms(forms: string[]): string[] {
   return out;
 }
 
-function personFromBase(
-  base: string,
-  endings: [string, string, string, string, string, string],
-): string[] {
+type PersonEndings = [string, string, string, string, string, string];
+
+function personFromBase(base: string, endings: PersonEndings): string[] {
   return endings.map((ending) => `${base}${ending}`);
 }
 
@@ -209,19 +211,35 @@ function conjugateVerb(lemma: string): string[] {
     ];
   } else if (lower.endsWith("núť")) {
     const stem = lower.slice(0, -3);
-    forms = [
-      ...personFromBase(stem, ["nem", "neš", "ne", "neme", "nete", "nú"]),
-      `${stem}nul`,
-      `${stem}nula`,
-      `${stem}nulo`,
-      `${stem}nuli`,
-    ];
+    // After a vowel or syllabic r/l: minúť → miniem, minul. Otherwise stretnúť →
+    // stretnem, stretol (stretnul is colloquial but still searched).
+    forms = VOWEL_OR_SYLLABIC_FINAL.test(stem)
+      ? [
+          ...personFromBase(stem, ["niem", "nieš", "nie", "nieme", "niete", "nú"]),
+          `${stem}nul`,
+          `${stem}nula`,
+          `${stem}nulo`,
+          `${stem}nuli`,
+        ]
+      : [
+          ...personFromBase(stem, ["nem", "neš", "ne", "neme", "nete", "nú"]),
+          `${stem}ol`,
+          `${stem}la`,
+          `${stem}lo`,
+          `${stem}li`,
+          `${stem}nul`,
+          `${stem}nula`,
+        ];
   } else if (lower.endsWith("ieť")) {
     const pastStem = lower.slice(0, -3);
-    if (IET_E_CLASS.has(lower)) {
+    // pozrieť → pozriem, pozrú; znieť → zniem, znejú.
+    const rootIem = /[^aáäeéiíoóôuúyý][rn]ieť$/u.test(lower);
+    if (IET_E_CLASS.has(lower) || rootIem) {
       const base = lower.slice(0, -1);
+      const plural = lower.endsWith("rieť") ? `${pastStem}ú` : `${pastStem}ejú`;
       forms = [
-        ...personFromBase(base, ["m", "š", "", "me", "te", "jú"]),
+        ...["m", "š", "", "me", "te"].map((ending) => `${base}${ending}`),
+        plural,
         `${pastStem}el`,
         `${pastStem}ela`,
         `${pastStem}elo`,
@@ -249,7 +267,7 @@ function conjugateVerb(lemma: string): string[] {
         `${stem}ili`,
       ];
     } else {
-      const short = LONG_VOWEL.test(stem);
+      const short = LONG_LAST_SYLLABLE.test(stem);
       const person = short
         ? personFromBase(stem, ["im", "iš", "i", "ime", "ite", "ia"])
         : personFromBase(stem, ["ím", "íš", "í", "íme", "íte", "ia"]);
@@ -264,12 +282,26 @@ function conjugateVerb(lemma: string): string[] {
       `${stem}ylo`,
       `${stem}yli`,
     ];
+  } else if (lower.endsWith("iať")) {
+    // siať → sejem, smiať → smejem, naliať → nalejem.
+    const stem = lower.slice(0, -3);
+    forms = [
+      ...personFromBase(stem, ["ejem", "eješ", "eje", "ejeme", "ejete", "ejú"]),
+      `${stem}ial`,
+      `${stem}iala`,
+      `${stem}ialo`,
+      `${stem}iali`,
+    ];
   } else if (lower.endsWith("ať")) {
     const stem = lower.slice(0, -2);
+    // c and š stems take -iam (vracať → vraciam) unless a long syllable shortens it.
+    const present: PersonEndings = LONG_LAST_SYLLABLE.test(stem)
+      ? ["am", "aš", "a", "ame", "ate", "ajú"]
+      : /[cš]$/u.test(stem)
+        ? ["iam", "iaš", "ia", "iame", "iate", "ajú"]
+        : ["ám", "áš", "á", "áme", "áte", "ajú"];
     forms = [
-      ...personFromBase(stem, ["ám", "áš", "á", "áme", "áte", "ajú"]),
-      // Soft-stem presents (vracať → vraciam), in addition to regular -ám.
-      ...["iam", "iaš", "ia", "iame", "iate"].map((ending) => `${stem}${ending}`),
+      ...personFromBase(stem, present),
       `${stem}al`,
       `${stem}ala`,
       `${stem}alo`,
@@ -374,6 +406,46 @@ export function searchFormsForLemma(slovak: string, category: string): string[] 
   );
   formCache.set(cacheKey, filtered);
   return filtered;
+}
+
+const SOFT_FINAL = /(?:[cčďjľňšťž]|dz|dž)$/u;
+
+/**
+ * Whether {@link searchFormsForLemma} gives real forms of this word, so a page may
+ * show them as its forms. Other paradigms stay search keys only: their guesses
+ * (pesa for pes, čítám for čítať) must never reach a learner as Slovak.
+ */
+export function formsVerified(
+  slovak: string,
+  category: string,
+  gender?: string,
+): boolean {
+  const lower = slovak.toLocaleLowerCase("sk").replace(/ s[ai]$/u, "");
+
+  if (category === "Adjectives") return /[ýí]$/u.test(lower);
+
+  if (category === "Verbs") {
+    if (resolveIrregular(lower)) return true;
+    if (/(?:ovať|ávať)$/u.test(lower)) return true;
+    const stem = lower.slice(0, -2);
+    return (
+      lower.endsWith("iť") && !lower.endsWith("ieť") && /[aáäeéiíoóôuúyý]/u.test(stem)
+    );
+  }
+
+  if (category === "Nouns") {
+    const feminine = gender === "feminine" && lower.endsWith("a");
+    const neuter = gender === "neuter" && lower.endsWith("o");
+    const stem = lower.slice(0, -1);
+    return (
+      (feminine || neuter) &&
+      /[^aáäeéiíoóôuúyý]$/u.test(stem) &&
+      !SOFT_FINAL.test(stem) &&
+      !LONG_LAST_SYLLABLE.test(stem)
+    );
+  }
+
+  return false;
 }
 
 /** @internal exported for unit tests */

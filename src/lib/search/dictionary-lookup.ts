@@ -9,6 +9,7 @@ export interface DictionaryIndexEntry {
   category: string;
   english: string;
   forms?: string[];
+  formsVerified?: true;
   frequencyRank?: number;
   gender?: NounGender;
   hash?: string;

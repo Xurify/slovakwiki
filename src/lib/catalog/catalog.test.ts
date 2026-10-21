@@ -120,7 +120,7 @@ describe("Slovak content", () => {
     expect(conjugateVerbForTest("pomôcť")).toContain("pomôžem");
     expect(conjugateVerbForTest("neprísť")).toContain("neprídem");
     expect(conjugateVerbForTest("myslieť")).toContain("myslím");
-    expect(conjugateVerbForTest("hnať")).toContain("ženem");
+    expect(conjugateVerbForTest("hnať")).toContain("ženiem");
     // Regular -ám; must not inherit povedať → poviem.
     expect(conjugateVerbForTest("odpovedať")).toContain("odpovedám");
     expect(conjugateVerbForTest("odpovedať")).not.toContain("odpoviem");
