@@ -27,9 +27,13 @@ export function lemmaAppearsAsToken(text: string, lemma: string): boolean {
   return tokenizeSlovak(text).some((token) => token === lemmaLower);
 }
 
-export function morphFormKeys(lemma: string, category: string): Set<string> {
+export function morphFormKeys(
+  lemma: string,
+  category: string,
+  gender?: string,
+): Set<string> {
   const keys = new Set<string>();
-  for (const form of searchFormsForLemma(lemma, category)) {
+  for (const form of searchFormsForLemma(lemma, category, gender)) {
     const lower = form.toLocaleLowerCase("sk");
     if (lower) keys.add(lower);
   }
@@ -40,8 +44,9 @@ export function morphAppearsAsToken(
   text: string,
   lemma: string,
   category: string,
+  gender?: string,
 ): boolean {
-  const keys = morphFormKeys(lemma, category);
+  const keys = morphFormKeys(lemma, category, gender);
   if (keys.size === 0) return false;
   return tokenizeSlovak(text).some((token) => keys.has(token));
 }
@@ -70,9 +75,10 @@ export function exampleContainsLemma(
   slovak: string,
   lemma: string,
   category: string,
+  gender?: string,
 ): boolean {
   if (lemmaAppearsAsToken(slovak, lemma)) return true;
-  if (morphAppearsAsToken(slovak, lemma, category)) return true;
+  if (morphAppearsAsToken(slovak, lemma, category, gender)) return true;
   if (category === "Verbs" && verbInflectionEvidence(slovak, lemma)) return true;
   return false;
 }

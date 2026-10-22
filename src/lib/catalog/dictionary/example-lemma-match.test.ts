@@ -22,4 +22,31 @@ describe("exampleContainsLemma", () => {
     expect(exampleContainsLemma("Tomovi chýba Boston.", "chýbať", "Verbs")).toBe(true);
     expect(exampleContainsLemma("Budeš mi chýbať.", "chýbať", "Verbs")).toBe(true);
   });
+
+  it("uses the noun gender to find case forms", () => {
+    expect(
+      exampleContainsLemma("Kúpil som nové náplne.", "náplň", "Nouns", "feminine"),
+    ).toBe(true);
+    expect(exampleContainsLemma("Spadol do studne.", "studňa", "Nouns", "feminine")).toBe(
+      true,
+    );
+    expect(exampleContainsLemma("Slnko zapadá na západe.", "západ", "Nouns")).toBe(true);
+  });
+
+  it("rejects another word that only looks like a case form", () => {
+    expect(
+      exampleContainsLemma("Dnes je streda.", "stred", "Nouns", "masculine-inanimate"),
+    ).toBe(false);
+    expect(
+      exampleContainsLemma(
+        "Praha je hlavné mesto Česka.",
+        "prah",
+        "Nouns",
+        "masculine-inanimate",
+      ),
+    ).toBe(false);
+    expect(exampleContainsLemma("Dáte si kávu?", "dáta", "Nouns", "plural-only")).toBe(
+      false,
+    );
+  });
 });
