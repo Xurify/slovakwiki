@@ -44,7 +44,7 @@ export interface AmbiencePlayer {
 }
 
 /** Under the site volume: a background, never louder than the voices. */
-const LEVEL = 0.45;
+const LEVEL = 0.18;
 const DUCKED = 0.3;
 
 interface Kit {
