@@ -427,8 +427,8 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
   ],
   home: [
-    drawn(WORDS.muz, [140, 104, 22, 46]),
-    drawn(WORDS.zena, [182, 108, 22, 42]),
+    drawn(WORDS.muz, [140, 105, 24, 48]),
+    drawn(WORDS.zena, [184, 109, 25, 43]),
     drawn(WORDS.okno, [96, 44, 150, 124]),
     twins(WORDS.taska, [510, 240, 48, 50], [152, 189, 38, 38], "far"),
     drawn(WORDS.zaves, [78, 36, 34, 142], [230, 36, 34, 142]),
@@ -475,7 +475,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.koberec, [210, 252, 540, 40]),
   ],
   default: [
-    drawn(WORDS.hrad, [636, 38, 88, 74]),
+    drawn(WORDS.hrad, [632, 34, 96, 78]),
     drawn(WORDS.kopec, [520, 84, 440, 110]),
     drawn(WORDS.dunaj, [0, 194, 960, 18]),
     drawn(WORDS.strom, [836, 86, 84, 140], [52, 88, 88, 136]),
