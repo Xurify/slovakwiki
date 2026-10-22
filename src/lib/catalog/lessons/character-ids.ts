@@ -5,6 +5,7 @@ import audioConfig from "../../../../content/audio/config.json";
 export const LESSON_CHARACTER_IDS = [
   "alex",
   "anna",
+  "announcer",
   "guide",
   "lucia",
   "marek",

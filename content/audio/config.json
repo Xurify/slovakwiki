@@ -21,7 +21,9 @@
       "blurb": "Your friend in Slovakia. She meets you for coffee, shows you around the city, and chats about daily life.",
       "voiceId": "NU9W5gI11aREqGgopfm8",
       "voiceName": "Slovak Wiki Anna",
-      "speakers": ["Anna"],
+      "speakers": [
+        "Anna"
+      ],
       "note": "Voice Design. Friendly peer in everyday dialogues."
     },
     "maria": {
@@ -31,7 +33,9 @@
       "blurb": "An administrator at the language school. She handles course registrations, schedules, and official forms.",
       "voiceId": "7bkfvPHZlJY9LfqOtBKb",
       "voiceName": "Slovak Wiki Mária",
-      "speakers": ["Mária"],
+      "speakers": [
+        "Mária"
+      ],
       "note": "Voice Design. Older / admin counterpart (registration, forms)."
     },
     "lucia": {
@@ -41,7 +45,9 @@
       "blurb": "A shop assistant in town. She helps customers find items, check prices, and pay at the register.",
       "voiceId": "QW7RcNLFTKhyMDZ9Jt3E",
       "voiceName": "Slovak Wiki Lucia",
-      "speakers": ["Lucia"],
+      "speakers": [
+        "Lucia"
+      ],
       "note": "Voice Design. Shop assistant."
     },
     "receptionist": {
@@ -51,7 +57,9 @@
       "blurb": "A front desk receptionist. She greets guests, checks reservations, and answers questions at check-in.",
       "voiceId": "TJm7whRcvNsGnL3DPy67",
       "voiceName": "Slovak Wiki Receptionist",
-      "speakers": ["Receptionist"],
+      "speakers": [
+        "Receptionist"
+      ],
       "note": "Voice Design. Front-desk / service role."
     },
     "alex": {
@@ -61,7 +69,9 @@
       "blurb": "The learner in everyday dialogues. Alex moves through Bratislava, asks for directions, and orders food.",
       "voiceId": "eK3Hn8qiedGm31Jrozgn",
       "voiceName": "Slovak Wiki Alex",
-      "speakers": ["You"],
+      "speakers": [
+        "You"
+      ],
       "note": "Voice Design. Learner voice for dialogue turns labeled You."
     },
     "marek": {
@@ -71,7 +81,9 @@
       "blurb": "A friendly coworker and classmate. He chats during work breaks, helps with projects, and plans weekend outings.",
       "voiceId": "uUnmszGfUW9O6qdstQHs",
       "voiceName": "Slovak Wiki Marek",
-      "speakers": ["Marek"],
+      "speakers": [
+        "Marek"
+      ],
       "note": "Voice Design. Classmate and coworker."
     },
     "waiter": {
@@ -79,10 +91,13 @@
       "gender": "male",
       "kind": "oneOff",
       "blurb": "A café waiter in old town. He takes drink orders, serves pastries, and brings the bill.",
-      "voiceId": "vTjn72hcQp2zpBEqZUEs",
+      "voiceId": "TLDStZqJLpwgwabaJVhT",
       "voiceName": "Slovak Wiki Waiter",
-      "speakers": ["Waiter", "Conductor"],
-      "note": "Voice Design. Café / restaurant service."
+      "speakers": [
+        "Waiter",
+        "Conductor"
+      ],
+      "note": "Voice Design, second take: a waiter at the table, not on the loudspeaker. Custom Voice Design."
     },
     "guide": {
       "displayName": "Guide",
@@ -101,8 +116,24 @@
       "blurb": "The site host robot. Pronounces dictionary words and reads public signs, announcements, and scene notes.",
       "voiceId": "YJsJ2Mt3VRr0gCiTY6DA",
       "voiceName": "Slovak Wiki Dictionary Neutral",
-      "speakers": ["Notice", "Sentence", "Scene"],
+      "speakers": [
+        "Notice",
+        "Sentence",
+        "Scene"
+      ],
       "note": "Same voice as dictionary Neutral. Unknown-speaker fallback."
+    },
+    "announcer": {
+      "displayName": "Announcer",
+      "gender": "male",
+      "kind": "system",
+      "blurb": "The loudspeaker. Reads out stops and stations on the tram, platform announcements and public notices.",
+      "voiceId": "vTjn72hcQp2zpBEqZUEs",
+      "voiceName": "Slovak Wiki Announcer",
+      "speakers": [
+        "Announcement"
+      ],
+      "note": "The first Waiter take, which sounds like a tannoy. Never a person on stage."
     }
   }
 }
