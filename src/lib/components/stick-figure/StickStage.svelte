@@ -484,6 +484,19 @@
     lineTimer = window.setTimeout(onEnded, (plan?.durationMs ?? 1600) / rate);
   }
 
+  /** A tap anywhere but the card or a thing puts the card away; so does Escape. */
+  function closeCard(event: PointerEvent | KeyboardEvent): void {
+    if (!picked) return;
+    if ("key" in event) {
+      if (event.key === "Escape") picked = undefined;
+      return;
+    }
+    const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest("[data-word-card]") || target?.closest('svg [role="button"]'))
+      return;
+    picked = undefined;
+  }
+
   function pickThing(id: string): void {
     if (onthing) {
       onthing(id);
@@ -492,6 +505,8 @@
     picked = picked === id ? undefined : id;
   }
 </script>
+
+<svelte:window onpointerdown={closeCard} onkeydown={closeCard} />
 
 <div
   class={cx("relative h-[300px] overflow-hidden max-[600px]:h-[240px]", className)}
@@ -576,6 +591,7 @@
   {#if pickedThing && card && !plate}
     {@const word = thingWords[pickedThing.word]}
     <div
+      data-word-card
       class={cx(
         "absolute z-10 animate-rise rounded-(--control-radius) bg-surface p-3",
         "shadow-(--shadow-float) ring-1 ring-slate-200",
