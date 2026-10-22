@@ -15,7 +15,7 @@ const GAP_SHARE = 0.02;
 export const STAGE_POSTS: Partial<Record<LessonSceneArtId, number>> = {
   cafe: 690,
   counter: 560,
-  market: 600,
+  market: 660,
   registration: 560,
 };
 /** Below this stage width figures take their narrow size. */
