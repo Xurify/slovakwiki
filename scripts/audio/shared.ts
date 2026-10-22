@@ -28,6 +28,7 @@ import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview
 import { lessons } from "../../src/lib/catalog/lessons";
 import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening";
 import { lessonExercises } from "../../src/lib/learning/beats";
+import { dayTurns } from "../../src/lib/stick-figure/scene-day";
 import { SCENE_THINGS } from "../../src/lib/stick-figure/scene-things";
 import {
   exerciseAnswerTexts,
@@ -317,6 +318,10 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
     for (const phrase of episode.vocabulary) {
       addLine(phrase.audio?.transcript ?? phrase.slovak, keyPhraseCharacterId());
     }
+  }
+
+  for (const turn of dayTurns()) {
+    addLine(turn.slovak, characterIdForSpeaker(turn.speaker));
   }
 
   for (const [characterId, preview] of Object.entries(VOICE_PREVIEW_LINES)) {

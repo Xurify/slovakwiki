@@ -7,7 +7,6 @@ import {
   storySettingForLesson,
   type LessonSceneArtId,
 } from "$lib/lesson-story/story-settings";
-import { GREETINGS, bare, type Greeting } from "./scene-greet";
 import { SCENE_THINGS } from "./scene-things";
 import type { StageSetting } from "./stage-setting";
 
@@ -55,19 +54,4 @@ export function sceneThingWords(): Record<string, { href?: string; src?: string 
   }
 
   return found;
-}
-
-/** The dictionary clip for each greeting the Greet game offers, where there is one. */
-export function greetingClips(): Partial<Record<Greeting, string>> {
-  const clips: Partial<Record<Greeting, string>> = {};
-
-  for (const greeting of GREETINGS) {
-    const lemma = bare(greeting).toLocaleLowerCase("sk");
-    const entry = words.find((word) => word.slovak === lemma);
-    if (entry && hasAudioClip(audioHash(entry.slovak))) {
-      clips[greeting] = resolveDictionaryAudioSrc(entry.slovak, "lemma");
-    }
-  }
-
-  return clips;
 }

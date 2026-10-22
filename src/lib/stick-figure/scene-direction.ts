@@ -33,6 +33,8 @@ export interface DirectedLine {
   slovak: string;
   /** The clip; without one the line runs on its text timing. */
   src?: string;
+  /** Keeps their place after a goodbye: the host of a scene that goes on without the other. */
+  stays?: boolean;
   to?: LessonCharacterId;
   /** Aligned vowel per mouth frame, encoded. */
   vowels?: string;
@@ -114,12 +116,15 @@ export function directScene(
   const things = SCENE_THINGS[setting] ?? [];
   const authored = lines.map((line) => propsBesides(line, things));
   const props = lines.map((line, index) => lineProps(line.slovak, authored[index]));
-  const stageLines: StageLine[] = lines.map(({ characterId, slovak, to }, index) => ({
-    characterId,
-    props: authored[index],
-    slovak,
-    to,
-  }));
+  const stageLines: StageLine[] = lines.map(
+    ({ characterId, slovak, stays, to }, index) => ({
+      characterId,
+      props: authored[index],
+      slovak,
+      stays,
+      to,
+    }),
+  );
   const stagings = lines.map((_, index) => stageLine(stageLines, index, cast, things));
   const takes = lines.map((_, index) => takesFrom(stageLines, index));
   const held = heldProps(

@@ -16,6 +16,8 @@ export interface StageLine {
   /** Per-sentence prop overrides, as on the lesson line; `undefined` reads the words. */
   props?: ReadonlyArray<StickPropId | null | undefined>;
   slovak: string;
+  /** Keeps their place after a goodbye: the host of a scene that goes on without the other. */
+  stays?: boolean;
   /** Who it is said to, when that is not the person it replies to. */
   to?: LessonCharacterId;
 }
@@ -343,7 +345,10 @@ export function stageLine(
       neighbour && (shows || callsOver)
         ? { characterId: addressee, toward: toward(cast, addressee, speaker) }
         : undefined,
-    exit: lastOwnLine && leaving && turnedTo ? (-turnedTo as Facing) : undefined,
+    exit:
+      lastOwnLine && leaving && turnedTo && !lines[index].stays
+        ? (-turnedTo as Facing)
+        : undefined,
     enter,
     gives: onStage ? givesTo(lines, index) : undefined,
     looksAt: shownTo(lines, index)?.holder,
