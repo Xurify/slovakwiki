@@ -1,6 +1,9 @@
 <script lang="ts">
+  import ClockHands from "./ClockHands.svelte";
   import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
+
+  let { hour }: { hour: number } = $props();
 </script>
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-cool" />
@@ -29,7 +32,7 @@
   fill="none"
   stroke-width="1.6"
 />
-<path d="M300 60V72L310 78" class="stroke-scene-line" fill="none" stroke-width="2.2" />
+<ClockHands {hour} length={12} width={2.2} x={300} y={72} />
 
 {#each [36, 104, 172] as x (x)}
   <ellipse cx={x + 29} cy="227" rx="30" ry="3" class="fill-scene-line/12" />

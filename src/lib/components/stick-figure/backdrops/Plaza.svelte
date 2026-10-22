@@ -1,6 +1,9 @@
 <script lang="ts">
+  import ClockHands from "./ClockHands.svelte";
   import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
+
+  let { hour }: { hour: number } = $props();
 
   /** Old-town facades left to right; neighbours never share a paint, as nothing outlines them. */
   const houses = [
@@ -84,7 +87,7 @@
 <circle cx="283" cy="29" r="2.6" class="fill-scene-honey" />
 <circle cx="283" cy="128" r="14" class="fill-scene-edge" />
 <circle cx="283" cy="128" r="12" class="fill-white" />
-<path d="M283 119V128L289 132" class="stroke-scene-line" fill="none" stroke-width="1.8" />
+<ClockHands {hour} length={9} width={1.8} x={283} y={128} />
 <path d="M272 226V190A11 11 0 0 1 294 190V226Z" class="fill-scene-line/25" />
 
 <rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />

@@ -60,6 +60,13 @@
   import { STICK_PROP_IDS } from "$lib/stick-figure/props";
   import { STICK_PICTURE_NAMES } from "$lib/stick-figure/pictures";
   import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
+  import {
+    TIMES_OF_DAY,
+    WEATHERS,
+    sceneMood,
+    type TimeOfDay,
+    type Weather,
+  } from "$lib/stick-figure/scene-mood";
   import { stageName } from "$lib/stick-figure/stage-name";
   import type { StageReaction } from "$lib/stick-figure/staging";
   import { cx } from "$lib/ui/classes";
@@ -84,6 +91,16 @@
 
   const characters = listedCharacters();
 
+  const MOOD_LABELS: Record<TimeOfDay | Weather, string> = {
+    clear: "Clear",
+    day: "Day",
+    evening: "Evening",
+    morning: "Morning",
+    night: "Night",
+    rain: "Rain",
+    snow: "Snow",
+  };
+
   const REACTION_COPY: Partial<Record<StickGestureId, string>> = {
     lean: "leans in",
     nod: "nods",
@@ -98,6 +115,9 @@
   let bench = $state<ActorState>({ cue: 0, talking: false });
   let benchGesture = $state<StickGestureId | null>(null);
   let painted = $state(false);
+  /** Light and weather picked here instead of read from the dialogue. */
+  let timeOverride = $state<TimeOfDay>();
+  let weatherOverride = $state<Weather>();
   let benchProp = $state<StickPropId | undefined>();
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
@@ -114,6 +134,11 @@
     })),
   );
   const direction = $derived(directScene(directedLines, scene.setting));
+  const spoken = $derived(sceneMood(scene.lines.map((line) => line.slovak)));
+  const mood = $derived({
+    time: timeOverride ?? spoken.time,
+    weather: weatherOverride ?? spoken.weather,
+  });
   const voicedCount = $derived(scene.lines.filter((line) => line.src).length);
   const trackedCount = $derived(scene.lines.filter((line) => line.mouth).length);
   const tryPlan = $derived(planLine(tryLine));
@@ -266,11 +291,57 @@
           </TextLink>
         </div>
 
+        <div
+          class="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-slate-200 px-5 py-2.5"
+        >
+          <div class="flex flex-wrap gap-1.5" role="group" aria-label="Time of day">
+            {#each TIMES_OF_DAY as time (time)}
+              <button
+                class={chipClass(time === mood.time)}
+                type="button"
+                aria-pressed={time === mood.time}
+                onclick={() => {
+                  timeOverride = time;
+                }}
+              >
+                {MOOD_LABELS[time]}
+              </button>
+            {/each}
+          </div>
+
+          <div class="flex flex-wrap gap-1.5" role="group" aria-label="Weather">
+            {#each WEATHERS as weather (weather)}
+              <button
+                class={chipClass(weather === mood.weather)}
+                type="button"
+                aria-pressed={weather === mood.weather}
+                onclick={() => {
+                  weatherOverride = weather;
+                }}
+              >
+                {MOOD_LABELS[weather]}
+              </button>
+            {/each}
+          </div>
+
+          {#if timeOverride || weatherOverride}
+            <TextLink
+              onclick={() => {
+                timeOverride = undefined;
+                weatherOverride = undefined;
+              }}
+            >
+              As the dialogue says
+            </TextLink>
+          {/if}
+        </div>
+
         <StickStage
           bind:this={stage}
           class="border-b border-slate-200"
           {direction}
           lines={directedLines}
+          {mood}
           {painted}
           setting={scene.setting}
           {thingWords}

@@ -7,7 +7,25 @@
    * garments bend with the body. Skirts and aprons hang over the legs, which
    * are drawn first.
    */
-  let { characterId }: { characterId: LessonCharacterId } = $props();
+  let {
+    characterId,
+    scarf = false,
+  }: {
+    characterId: LessonCharacterId;
+    /** Wrapped round the neck outdoors in the snow. */
+    scarf?: boolean;
+  } = $props();
+
+  /** A colour that stands off each outfit. */
+  const SCARF_PAINT: Partial<Record<LessonCharacterId, string>> = {
+    alex: "fill-scene-honey",
+    anna: "fill-scene-sage",
+    lucia: "fill-scene-clay",
+    marek: "fill-scene-clay",
+    maria: "fill-blue-600",
+    receptionist: "fill-scene-honey",
+    waiter: "fill-scene-clay",
+  };
 </script>
 
 {#if characterId === "receptionist"}
@@ -213,5 +231,18 @@
     d="M-5.6 -3.8Q0 -1.8 5.6 -3.8"
     class="stroke-portrait-bib/40"
     stroke-width="0.8"
+  />
+{/if}
+
+{#if scarf && SCARF_PAINT[characterId]}
+  <path
+    d="M2 -28.4L4.6 -17.8L1.4 -17.4L0 -27.6Z"
+    class="{SCARF_PAINT[characterId]} stroke-portrait-ink"
+    stroke-width="0.9"
+  />
+  <path
+    d="M-5.6 -32.2Q0 -29 5.6 -32.2L5.8 -28.4Q0 -25.4 -5.8 -28.4Z"
+    class="{SCARF_PAINT[characterId]} stroke-portrait-ink"
+    stroke-width="1"
   />
 {/if}
