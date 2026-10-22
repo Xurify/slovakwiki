@@ -1,0 +1,102 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import ScenePlayer, {
+  type PlayerLine,
+  type PlayerSceneGroup,
+} from "$lib/components/stick-figure/ScenePlayer.svelte";
+import { lessons } from "$lib/catalog/lessons";
+import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
+import {
+  characterIdForSpeaker,
+  isLearnerSpeaker,
+} from "$lib/catalog/lessons/character-ids";
+import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
+import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
+import type { DialogueTurn } from "$lib/learning/types";
+import { RAIN_AND_TRAM, WEATHER_TODAY } from "$lib/stick-figure/dev-scenes";
+import {
+  chapterSettingFor,
+  sceneThingWords,
+  stageSettingFor,
+} from "$lib/stick-figure/lesson-stage";
+import { dayTurns } from "$lib/stick-figure/scene-day";
+import { stageName } from "$lib/stick-figure/stage-name";
+
+function playerLines(turns: DialogueTurn[]): PlayerLine[] {
+  const srcs = sceneAudioSrcs(turns);
+  const mouths = sceneMouthTracks(turns);
+
+  return turns.map((line) => ({
+    characterId: characterIdForSpeaker(line.speaker),
+    english: line.english,
+    gestures: line.gestures,
+    id: line.id,
+    learner: isLearnerSpeaker(line.speaker),
+    marks: line.marks,
+    mouth: mouths[line.id]?.m,
+    onStage: dialogueSpeakerLabel(line.speaker) !== null,
+    props: line.props,
+    sayChoices: line.sayChoices,
+    slovak: line.slovak,
+    speaker: stageName(line.speaker),
+    src: srcs[line.id],
+    to: line.to ? characterIdForSpeaker(line.to) : undefined,
+    vowels: mouths[line.id]?.v,
+  }));
+}
+
+const groups: PlayerSceneGroup[] = [
+  {
+    label: "From the lessons",
+    scenes: lessons
+      .filter((lesson) => lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker)))
+      .map((lesson) => ({
+        href: `/lessons/${lesson.id}`,
+        hrefLabel: "Open the lesson",
+        id: lesson.id,
+        lines: playerLines(lesson.scene),
+        name: lesson.scene[0]?.slovak ?? lesson.title,
+        setting: stageSettingFor(lesson.id),
+      })),
+  },
+  ...listeningEpisodes.map((episode) => ({
+    label: "From the podcast",
+    slovak: episode.titleSk,
+    scenes: episode.chapters.map((chapter) => ({
+      checks: chapter.checks,
+      href: episodePath(episode),
+      hrefLabel: "Open the episode",
+      id: chapter.id,
+      lines: playerLines(chapter.lines),
+      name: chapter.titleSk,
+      order: episode.speakers.map(characterIdForSpeaker),
+      setting: chapterSettingFor(chapter.id),
+    })),
+  })),
+];
+
+groups.push({
+  label: "Prototype",
+  scenes: [
+    {
+      id: "dev/rain-and-tram",
+      lines: playerLines(RAIN_AND_TRAM),
+      name: RAIN_AND_TRAM[0].slovak,
+      setting: "street",
+    },
+    {
+      id: "dev/weather-today",
+      lines: playerLines(WEATHER_TODAY),
+      name: WEATHER_TODAY[0].slovak,
+      setting: "default",
+    },
+  ],
+});
+
+const thingWords = sceneThingWords();
+const day = playerLines(dayTurns());
+---
+
+<SiteLayout title="Scenes | Slovak Wiki" noindex>
+  <ScenePlayer client:load {day} {groups} {thingWords} />
+</SiteLayout>

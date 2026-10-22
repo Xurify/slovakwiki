@@ -4,6 +4,7 @@
 @theme {
   --font-sans: var(--font-ui);
   --font-serif: var(--font-reading);
+  --font-hand: "Caveat Variable", "Segoe Print", cursive;
   --color-canvas: var(--canvas);
   --color-paper: var(--paper);
   --color-surface: var(--surface);
@@ -90,6 +91,27 @@
   --color-portrait-ground: #a9c4d2;
   --color-portrait-ground-sage: #a9c9be;
   --color-portrait-bib: #f4f8fa;
+  /* Stick-figure outfits: dark cloth that must not lighten with the theme. */
+  --color-portrait-suit: #22385c;
+  --color-portrait-vest: #262f3b;
+  /* Stick-figure backdrops: light fixed paints, so the ink cast reads in both themes. */
+  --color-scene-line: #5d7584;
+  --color-scene-edge: #9aaebb;
+  --color-scene-sky: #d8e8ef;
+  --color-scene-cool: #e7eef1;
+  --color-scene-warm: #f5ecdd;
+  --color-scene-sand: #e9d9bd;
+  --color-scene-wood: #d2a77a;
+  --color-scene-clay: #e0b39f;
+  --color-scene-honey: #ecc77f;
+  --color-scene-sage: #bed3c4;
+  --color-scene-leaf: #84ab92;
+  --color-scene-board: #45614f;
+  --color-flag-red: #d52b1e;
+  --color-flag-blue: #0b4ea2;
+  --color-flag-gold: #ffcd00;
+  --color-flag-green: #138a43;
+  --color-flag-black: #1d1d1b;
 }
 
 @layer base {

@@ -28,6 +28,9 @@ import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview
 import { lessons } from "../../src/lib/catalog/lessons";
 import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening";
 import { lessonExercises } from "../../src/lib/learning/beats";
+import { RAIN_AND_TRAM, WEATHER_TODAY } from "../../src/lib/stick-figure/dev-scenes";
+import { dayTurns } from "../../src/lib/stick-figure/scene-day";
+import { SCENE_THINGS } from "../../src/lib/stick-figure/scene-things";
 import {
   exerciseAnswerTexts,
   exerciseOptionTexts,
@@ -240,6 +243,15 @@ export function collectDictionaryAudioTargets(options?: {
     }
   }
 
+  // Things on the stick-figure stage are tapped for their word, and some
+  // (torta, kávovar) have no dictionary entry to bring a clip with them.
+  if (!options?.slugs) {
+    for (const thing of Object.values(SCENE_THINGS).flat()) {
+      const word = normalizeAudioText(thing.word);
+      if (word && !byText.has(word)) byText.set(word, { kind: "lemma", text: word });
+    }
+  }
+
   if (!options?.lemmasOnly) {
     for (const sentence of grammarSentences(options?.slugs)) {
       const slovak = normalizeAudioText(sentence);
@@ -307,6 +319,14 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
     for (const phrase of episode.vocabulary) {
       addLine(phrase.audio?.transcript ?? phrase.slovak, keyPhraseCharacterId());
     }
+  }
+
+  for (const turn of dayTurns()) {
+    addLine(turn.slovak, characterIdForSpeaker(turn.speaker));
+  }
+
+  for (const line of [...RAIN_AND_TRAM, ...WEATHER_TODAY]) {
+    addLine(line.slovak, characterIdForSpeaker(line.speaker));
   }
 
   for (const [characterId, preview] of Object.entries(VOICE_PREVIEW_LINES)) {

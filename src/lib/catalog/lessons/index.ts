@@ -1,5 +1,6 @@
 import type { Lesson, LessonTrackId } from "$lib/learning/types";
 import { lessonExercises } from "$lib/learning/beats";
+import { lineSentences } from "$lib/stick-figure/line-plan";
 import { everydayLessons } from "./everyday";
 import { grammarLessons } from "./grammar";
 import { pronunciationLessons } from "./pronunciation";
@@ -70,8 +71,23 @@ export function validateLessons(): string[] {
         "context" in exercise ? (exercise.context ?? []) : [],
       ),
     ];
+    const sceneSpeakers = new Set(lesson.scene.map((line) => line.speaker));
+    for (const line of lesson.scene) {
+      if (line.to && (line.to === line.speaker || !sceneSpeakers.has(line.to))) {
+        issues.push(
+          `Line ${line.id} in ${lesson.id} is said to ${line.to}, not in its scene`,
+        );
+      }
+    }
+
     for (const line of lines) {
       claim(line.id, lesson.id);
+      if (line.gestures && line.gestures.length > lineSentences(line.slovak).length) {
+        issues.push(`Line ${line.id} in ${lesson.id} has more gestures than sentences`);
+      }
+      if (line.props && line.props.length > lineSentences(line.slovak).length) {
+        issues.push(`Line ${line.id} in ${lesson.id} has more props than sentences`);
+      }
       if (!line.id.startsWith(prefix)) {
         issues.push(`Line id ${line.id} in ${lesson.id} must start with ${prefix}`);
       }

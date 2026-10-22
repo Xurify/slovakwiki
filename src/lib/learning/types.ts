@@ -1,4 +1,6 @@
 import type { TextMark } from "$lib/learning/marked-text";
+import type { StickGestureId } from "$lib/stick-figure/gestures";
+import type { StickPropId } from "$lib/stick-figure/props";
 
 export type LessonTrackId = "everyday" | "grammar" | "pronunciation";
 
@@ -27,16 +29,32 @@ export interface DialogueTurn {
   english: string;
   /** Practice bubble starts with this gloss behind “Show English”. The task prompt stays visible. */
   englishToggle?: boolean;
+  /**
+   * Stick-figure gesture per sentence where the one picked from the text is
+   * wrong; sentences past the end of the list stay automatic. Preview on
+   * `/dev/stick-figures`.
+   */
+  gestures?: StickGestureId[];
   id: string;
   /**
    * Role spans into `slovak` (day, time, …). Plain `slovak` stays the spoken line.
    * Built with `markedText` so indexes cannot drift from a search.
    */
   marks?: TextMark[];
+  /**
+   * Stick-figure prop each sentence brings out, where its words do not name
+   * one (`null` keeps a sentence empty-handed). Preview on `/dev/stick-figures`.
+   */
+  props?: Array<StickPropId | null>;
   /** Mid-story gate: pick what to say before this learner line reveals. */
   sayChoices?: DialogueSayChoices;
   slovak: string;
   speaker: string;
+  /**
+   * Speaker the stick figure says this to, when it is not the one it replies
+   * to (Anna ordering from the waiter). Preview on `/dev/stick-figures`.
+   */
+  to?: string;
 }
 
 export interface LessonTrack {

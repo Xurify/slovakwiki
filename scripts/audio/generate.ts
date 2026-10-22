@@ -16,6 +16,7 @@ import path from "node:path";
 
 import { ROOT } from "../lib/paths";
 import { judgeClip, judgeModeFromSttProvider } from "./judge";
+import { formatMouthTrackReport, updateMouthTracks } from "./mouth-tracks";
 import {
   AUDIO_DIR,
   audioRelativePath,
@@ -107,6 +108,7 @@ async function main(): Promise<void> {
   if (limit !== undefined) targets = targets.slice(0, limit);
 
   let generated = 0;
+  let lessonsGenerated = 0;
   let skipped = 0;
   let failed = 0;
   let verified = 0;
@@ -318,6 +320,7 @@ async function main(): Promise<void> {
       await withManifestLock(async () => {
         manifest[hash] = entry;
         generated += 1;
+        if (target.kind === "lesson") lessonsGenerated += 1;
         sinceSave += 1;
         const who = target.characterId ? `/${target.characterId}` : "";
         console.log(
@@ -351,6 +354,16 @@ async function main(): Promise<void> {
 
   if (!dryRun) {
     await persistManifest();
+  }
+
+  // New lesson takes need fresh mouth tracks for the stick-figure cast.
+  if (!dryRun && lessonsGenerated > 0) {
+    try {
+      console.log(formatMouthTrackReport(await updateMouthTracks({ concurrency })));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`mouth tracks skipped (${message}); run bun scripts/audio/mouth.ts`);
+    }
   }
 
   if (verifyFailures.length > 0) {

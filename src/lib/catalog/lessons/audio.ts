@@ -3,6 +3,7 @@ import { audioHash } from "../audio/core";
 import { resolveAudioSrc } from "../audio";
 import { characterIdForSpeaker, type LessonCharacterId } from "./character-ids";
 import { audioConfigForCharacter, keyPhraseCharacterId } from "../audio/characters";
+import { mouthTrackFor, type MouthTrackEntry } from "../audio/mouth";
 import { lessonExercises } from "$lib/learning/beats";
 import type {
   DialogueTurn,
@@ -32,6 +33,20 @@ export function sceneAudioSrcs(scene: DialogueTurn[]): Record<string, string> {
   }
 
   return srcs;
+}
+
+/** Scene line id → mouth track, when the character clip has a current one. */
+export function sceneMouthTracks(scene: DialogueTurn[]): Record<string, MouthTrackEntry> {
+  const tracks: Record<string, MouthTrackEntry> = {};
+
+  for (const line of scene) {
+    const text = line.audio?.transcript ?? line.slovak;
+    const config = audioConfigForCharacter(characterIdForSpeaker(line.speaker));
+    const track = mouthTrackFor(audioHash(text, config));
+    if (track) tracks[line.id] = track;
+  }
+
+  return tracks;
 }
 
 /** Key-phrase slovak → public URL (guide voice). */

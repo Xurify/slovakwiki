@@ -23,19 +23,27 @@
 
   let {
     check,
+    doneLabel = "Read the text",
     questionNumber,
     onbeforereplay,
     onresolve,
+    playReplay,
     replayLine,
     replaySrc,
+    stopReplay,
     total,
   }: {
     check: ListeningCheck;
+    /** The button after the last question. */
+    doneLabel?: string;
     questionNumber: number;
     onbeforereplay?: () => void;
     onresolve: (correct: boolean) => void;
+    /** Replays the line some other way than its clip alone, such as acted on a stage. */
+    playReplay?: (onEnded: () => void) => void;
     replayLine?: DialogueTurn;
     replaySrc?: string;
+    stopReplay?: () => void;
     total: number;
   } = $props();
 
@@ -121,6 +129,8 @@
         src={replaySrc}
         label="Hear {replayLine.speaker} again"
         onbeforeplay={onbeforereplay}
+        play={playReplay}
+        stop={stopReplay}
       />
     {/if}
   </div>
@@ -165,7 +175,7 @@
     </div>
 
     <Button class="mt-5" type="button" onclick={resolve}>
-      {last ? "Read the text" : "Next question"}
+      {last ? doneLabel : "Next question"}
     </Button>
   {:else}
     <Button
