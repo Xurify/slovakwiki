@@ -115,7 +115,7 @@ Hand-add checklist:
 ## Anti-patterns
 
 - An example that does not contain the headword: `hrá` (verb) on `hra` (noun), `jasné` (adjective) on `jasne` (adverb), `mená` on `mena`. Check the word itself, not its diacritic twin.
-- An example where the headword has the same spelling but another part of speech: `krásne dievča` is the adjective, so it does not belong on the adverb `krásne` (`Spieva krásne.`). The headword test cannot see this; read the sentence.
+- An example where the headword has the same spelling but another part of speech: `krásne dievča` is the adjective, so it does not belong on the adverb `krásne` (`Spieva krásne.`). The headword test cannot see this; read the sentence. Each such adverb lists its adjective first in `related`, and the adjective lists the adverb.
 - A headword that is not a Slovak word on its own: `pro` is Czech (Slovak `za`), `členný` only ends compounds (`dvojčlenný`). Check PSP / KSSJ, and add such lemmas to `FREQUENCY_PUBLISH_BLOCKLIST` in [`src/lib/catalog/frequency/blocklist.ts`](../../src/lib/catalog/frequency/blocklist.ts) so a publish never brings them back.
 - Stamped fragments such as `Chujem to.` / `I keep it.`: one frame filled with every verb produces wrong forms and nonsense. Write a real sentence or leave the slot empty.
 - Editing a Tatoeba sentence to fix a typo or a Czech word. Drop the row and add its ID with a short reason to [`tatoeba-rejected.json`](./tatoeba-rejected.json), so `enrich-examples.ts` never brings it back.
