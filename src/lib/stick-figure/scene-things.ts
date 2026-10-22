@@ -294,6 +294,13 @@ const WORDS = {
     stems: ["sluchad"],
     word: "slúchadlá",
   },
+  slnko: {
+    english: "sun",
+    gender: "neuter",
+    id: "slnko",
+    stems: ["slnk"],
+    word: "slnko",
+  },
   stanok: {
     english: "stall",
     forms: ["stanok", "stanku", "stanky", "stankom", "stankov", "stankoch"],
@@ -475,7 +482,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.stol, [450, 204, 60, 86], [24, 156, 180, 70]),
     drawn(WORDS.pocitac, [56, 116, 68, 44]),
     drawn(WORDS.sluchadla, [128, 130, 52, 30]),
-    drawn(WORDS.mikrofon, [436, 128, 30, 36], [494, 128, 30, 36]),
+    drawn(WORDS.mikrofon, [413, 120, 34, 22], [513, 120, 34, 22]),
     drawn(WORDS.okno, [660, 52, 140, 108]),
     drawn(WORDS.reproduktor, [832, 140, 40, 86]),
     drawn(WORDS.rastlina, plantAt(922, 240)),
@@ -505,6 +512,8 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.dunaj, [0, 194, 960, 18]),
     drawn(WORDS.strom, [836, 86, 84, 140], [52, 88, 88, 136]),
     drawn(WORDS.oblak, [212, 33, 76, 29], [446, 27, 48, 19]),
+    // Where the sky layer draws the sun on a sunny day.
+    drawn(WORDS.slnko, [818, 14, 44, 44]),
   ],
 };
 
