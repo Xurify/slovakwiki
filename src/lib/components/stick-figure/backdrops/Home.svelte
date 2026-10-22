@@ -33,7 +33,7 @@
 
 <rect x="742" y="50" width="104" height="72" class="fill-scene-wood" />
 <rect x="750" y="58" width="88" height="56" class="fill-scene-sky" />
-<Castle x={794} y={96} size={0.45} />
+<Castle x={794} y={97} size={0.42} />
 <path d="M750 114V100Q776 86 794 92Q816 82 838 98V114Z" class="fill-scene-sage" />
 <path d="M750 58h88v3h-88ZM750 61h3v53h-3Z" class="fill-scene-line/15" />
 
