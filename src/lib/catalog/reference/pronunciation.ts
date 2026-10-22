@@ -10,7 +10,7 @@ export const pronunciationEntries: PronunciationTopic[] = [
     kind: "pronunciation",
     summary: "Learn the letters, diacritics, and ch as one Slovak digraph.",
     body: [
-      "The Slovak alphabet has 46 letters, including letters with diacritics and the digraphs dz, dž, and ch. Acute marks show long vowels, while the caron marks several changed consonants and vowels.",
+      "The Slovak alphabet has 46 letters, including letters with diacritics and the digraphs dz, dž, and ch. The acute (dĺžeň) marks long vowels and the long syllabic ĺ and ŕ. The caron (mäkčeň) marks consonants only: č, ď, ľ, ň, š, ť, ž, dž. Two vowels have their own marks: ä (dve bodky) and ô (vokáň).",
       "Treat ch as one letter in the alphabet and as one sound in a word. It comes after h in alphabetical order, so chlieb begins with the single digraph ch, not a separate c followed by h.",
     ],
     examples: [
@@ -30,7 +30,7 @@ export const pronunciationEntries: PronunciationTopic[] = [
       { left: "ch", right: "c + h", note: "one digraph / two letters" },
     ],
     mouthCue:
-      "Read each marked letter clearly, then make ch as one breathy sound instead of pausing between c and h.",
+      "Read each marked letter clearly, then make ch as one rough sound at the back of the mouth, as in Scottish loch or German Bach, instead of pausing between c and h.",
     practiceWords: ["čo", "žena", "chlieb"],
     practicePhrase: {
       slovak: "Čo je chlieb?",
@@ -60,8 +60,16 @@ export const pronunciationEntries: PronunciationTopic[] = [
     order: 2,
     goal: "Hear and place the steady first-syllable beat.",
     contrasts: [
-      { left: "BRAtislava", right: "bra-ti-SLA-va", note: "Stress first syllable" },
-      { left: "ĎAkujem", right: "ďa-KU-jem", note: "Keep later syllables light" },
+      {
+        left: "BRAtislava",
+        right: "*bra-ti-SLA-va",
+        note: "Stress the first syllable / wrong: a later stress",
+      },
+      {
+        left: "ĎAkujem",
+        right: "*ďa-KU-jem",
+        note: "Keep later syllables light / wrong: stress on KU",
+      },
     ],
     mouthCue:
       "Give the first syllable a small lift. Keep the rest even; do not stretch it for stress.",
@@ -95,11 +103,19 @@ export const pronunciationEntries: PronunciationTopic[] = [
     contrasts: [
       {
         left: "krásny",
-        right: "krásný",
-        note: "standard Slovak / two long syllables avoided",
+        right: "*krásný",
+        note: "standard Slovak / wrong: two long syllables in a row",
       },
-      { left: "bývam", right: "bývám", note: "standard Slovak / second vowel shortened" },
-      { left: "múdry", right: "múdrý", note: "standard Slovak / second vowel shortened" },
+      {
+        left: "bývam",
+        right: "*bývám",
+        note: "standard Slovak / wrong: a long ending after a long syllable",
+      },
+      {
+        left: "múdry",
+        right: "*múdrý",
+        note: "standard Slovak / wrong: a long ending after a long syllable",
+      },
     ],
     mouthCue:
       "Hold the first long vowel or diphthong, then keep the following syllable short and light instead of stretching both.",

@@ -73,10 +73,11 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     prompt: "We will meet on Tuesday.",
     inputLabel: "Your Slovak answer",
     answer: "Stretneme sa v utorok.",
+    acceptedAnswers: ["V utorok sa stretneme.", "My sa stretneme v utorok."],
     feedback: {
       correction: "Stretneme sa v utorok.",
       english: "We will meet on Tuesday.",
-      why: "Use **v** before the day when arranging a meeting.",
+      why: "Use **v** + accusative for “on” a day: **v utorok**, **v stredu** — but **vo štvrtok**.",
     },
   },
   {
@@ -256,6 +257,49 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     },
   },
   {
+    id: "days-time-variants",
+    type: "choice",
+    practiceItemId: "everyday/time-variants",
+    prompt: "Which phrase does not mean half past two?",
+    clock: { hour: 2, minute: 30 },
+    choiceMode: "pickTrap",
+    choices: [
+      {
+        id: "pol-tretej",
+        label: "Je pol tretej.",
+        fits: true,
+        whyWrong: oddOneOutFitWhy("Je pol tretej.", englishTimeMeaningPhrase(t(2, 30))),
+      },
+      {
+        id: "pol-druhej",
+        label: "Je pol druhej.",
+        whyWrong: tellingDistractorWhy(t(2, 30), t(1, 30)),
+      },
+      {
+        id: "hodiny-minuty",
+        label: "Sú dve hodiny a tridsať minút.",
+        fits: true,
+        whyWrong: oddOneOutFitWhy(
+          "Sú dve hodiny a tridsať minút.",
+          englishTimeMeaningPhrase(t(2, 30)),
+        ),
+      },
+      {
+        id: "digital",
+        label: "Dve tridsať.",
+        fits: true,
+        whyWrong: oddOneOutFitWhy("Dve tridsať.", englishTimeMeaningPhrase(t(2, 30))),
+      },
+    ],
+    answerId: "pol-druhej",
+    hint: hodinaAgreementHint,
+    feedback: {
+      correction: "Je pol druhej.",
+      english: "1:30 — half past one.",
+      why: tellingDistractorWhy(t(2, 30), t(1, 30)),
+    },
+  },
+  {
     id: "days-time-register",
     type: "choice",
     practiceItemId: "everyday/time-register",
@@ -325,49 +369,6 @@ export const daysDatesTimeGradedExercises: LessonExercise[] = [
     },
   },
   {
-    id: "days-time-variants",
-    type: "choice",
-    practiceItemId: "everyday/time-variants",
-    prompt: "Which phrase does not mean half past two?",
-    clock: { hour: 2, minute: 30 },
-    choiceMode: "pickTrap",
-    choices: [
-      {
-        id: "pol-tretej",
-        label: "Je pol tretej.",
-        fits: true,
-        whyWrong: oddOneOutFitWhy("Je pol tretej.", englishTimeMeaningPhrase(t(2, 30))),
-      },
-      {
-        id: "pol-druhej",
-        label: "Je pol druhej.",
-        whyWrong: tellingDistractorWhy(t(2, 30), t(1, 30)),
-      },
-      {
-        id: "hodiny-minuty",
-        label: "Sú dve hodiny a tridsať minút.",
-        fits: true,
-        whyWrong: oddOneOutFitWhy(
-          "Sú dve hodiny a tridsať minút.",
-          englishTimeMeaningPhrase(t(2, 30)),
-        ),
-      },
-      {
-        id: "digital",
-        label: "Dve tridsať.",
-        fits: true,
-        whyWrong: oddOneOutFitWhy("Dve tridsať.", englishTimeMeaningPhrase(t(2, 30))),
-      },
-    ],
-    answerId: "pol-druhej",
-    hint: hodinaAgreementHint,
-    feedback: {
-      correction: "Je pol druhej.",
-      english: "2:30 — half past two.",
-      why: tellingDistractorWhy(t(2, 30), t(1, 30)),
-    },
-  },
-  {
     id: "days-okolo-vs-exact",
     type: "choice",
     practiceItemId: "everyday/okolo-vs-exact",
@@ -417,7 +418,7 @@ export const daysDatesTimeLesson: Lesson = {
   track: "everyday",
   slug: "days-dates-and-time",
   group: "Core tools",
-  title: "Days, dates, and time",
+  title: "Days and time",
   promise: "Arrange a meeting with a day and a clock time.",
   scene: [
     {
@@ -473,7 +474,7 @@ export const daysDatesTimeLesson: Lesson = {
     {
       slovak: "O pol tretej.",
       english: "2:30 — half past two.",
-      note: "Literally, halfway to three.",
+      note: "Literally “half of the third (hour)” — halfway to three.",
       audio: { transcript: "O pol tretej." },
     },
     {
@@ -517,7 +518,7 @@ export const daysDatesTimeLesson: Lesson = {
     {
       slovak: "O koľkej?",
       english: "At what time?",
-      note: "Kedy? works the same way — answer with O …",
+      note: "Kedy? (when?) takes O … for a clock time: O tretej. For a day, use v: V utorok.",
       audio: { transcript: "O koľkej?" },
     },
     {
@@ -553,7 +554,7 @@ export const daysDatesTimeLesson: Lesson = {
   ],
   pattern: {
     title: "Days, telling time, and appointments",
-    body: "**Koľko je hodín?** → **Je/Sú …**. **O koľkej?** or **Kedy?** → **O tretej** (locative). **In X hours/minutes** → **O dve hodiny** / **O päť minút** (accusative). Use **v** + day: *v utorok*.",
+    body: "**Koľko je hodín?** → **Je/Sú …**. **O koľkej?** (or **Kedy?** for a clock time) → **O tretej** (locative). **In X hours/minutes** → **O dve hodiny** / **O päť minút** (accusative). Use **v** + day: *v utorok* (but *vo štvrtok*).",
   },
   visual: daysDatesTimeVisual,
   beats: withDaysDatesTimeExercises(

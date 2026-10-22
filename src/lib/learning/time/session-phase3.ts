@@ -1,16 +1,24 @@
 import type { PracticeItem } from "$lib/learning/types";
 import {
   analogFace,
+  appointment24hChoiceWhy,
+  appointment24hFaceDistractorWhy,
+  appointment24hPhrase,
   appointmentPhrase,
+  englishTimeGloss,
+  englishTimeMeaningPhrase,
   exactMinuteChoiceWhy,
   exactMinuteTellingLabel,
   exactMinuteWrongWhy,
+  formatDigital,
+  formatFaceDigital12,
   oddOneOutFromOptions,
   random24hQuarterTime,
   randomExactMinuteTime,
   shuffleArray,
   zaCountdownClockFace,
   zaCountdownPhrase,
+  type ClockFaceTime,
   type QuarterMinute,
 } from "./clock";
 import { hodinaAgreementHint } from "./hints";
@@ -19,16 +27,27 @@ import {
   enZaCountdownMeaningPhrase,
   skWhichClockShows,
 } from "./prompts";
-import { buildClockMatchForTime } from "./session-clock";
+import { buildClockMatchForTime, type ClockMatchPhrase } from "./session-clock";
 import { phraseForWhy, pickTrapChoiceTask } from "./session-shared";
 import type { DaysDatesTimeKind } from "./session-kinds";
+
+function timetableMatchPhrase(time: ClockFaceTime): ClockMatchPhrase {
+  const correction = appointment24hPhrase(time);
+  return {
+    bare: phraseForWhy(correction).replace(/^O /, "o "),
+    correction,
+    english: `${formatDigital(time)} — ${englishTimeMeaningPhrase(time)}.`,
+    why: appointment24hChoiceWhy(time),
+    wrongWhy: (miss) => appointment24hFaceDistractorWhy(time, miss),
+  };
+}
 
 export function buildTimetableExercise(
   kind: DaysDatesTimeKind,
   rng: () => number,
 ): PracticeItem["task"] {
   const time = random24hQuarterTime(rng);
-  return buildClockMatchForTime(kind, time, rng);
+  return buildClockMatchForTime(kind, time, rng, timetableMatchPhrase(time));
 }
 
 export function buildExactMinuteExercise(
@@ -99,18 +118,22 @@ export function buildZaCountdownExercise(
   const minutesBefore = 5;
   const correctPhrase = zaCountdownPhrase(minutesBefore, targetHour12);
   const meaningPhrase = enZaCountdownMeaningPhrase(targetHour12);
-  const halfPhrase = appointmentPhrase({ hour: targetHour12 - 1, minute: 30 });
-  const quarterPhrase = appointmentPhrase({ hour: targetHour12 - 1, minute: 45 });
   const primaryTrapId = rng() < 0.5 ? "half" : "quarter";
+  const trapTime: ClockFaceTime = {
+    hour: targetHour12 - 1,
+    minute: primaryTrapId === "half" ? 30 : 45,
+  };
+  const trapPhrase = appointmentPhrase(trapTime);
   const face = zaCountdownClockFace(minutesBefore, targetHour12);
+  const faceDigital = `${face.hour}:${String(face.minute).padStart(2, "0")}`;
 
   const { choices, trapWhy } = oddOneOutFromOptions(
     [
       { id: "correct", label: correctPhrase, fits: true },
       {
         id: primaryTrapId,
-        label: primaryTrapId === "half" ? halfPhrase : quarterPhrase,
-        whyWrong: `**${phraseForWhy(primaryTrapId === "half" ? halfPhrase : quarterPhrase)}** is an **O …** appointment time — not a **za …** countdown.`,
+        label: trapPhrase,
+        whyWrong: `**${phraseForWhy(trapPhrase)}** means ${englishTimeMeaningPhrase(trapTime)} (**${formatFaceDigital12(trapTime)}**) — not ${meaningPhrase} (**${faceDigital}**).`,
       },
     ],
     primaryTrapId,
@@ -127,7 +150,7 @@ export function buildZaCountdownExercise(
     answerId: primaryTrapId,
     feedback: {
       correction: primaryTrap?.label ?? "",
-      english: targetHour12 === 10 ? "Five minutes to ten." : "Five minutes to twelve.",
+      english: englishTimeGloss(trapTime),
       why: trapWhy,
     },
   });

@@ -27,7 +27,9 @@
   const entry = $derived(match.entry);
   const entryHref = $derived(entry ? dictionaryEntryHref(entry) : undefined);
   const formsShown = $derived(
-    match.type === "word" ? [...new Set(match.entry.forms ?? [])].slice(0, 16) : [],
+    match.type === "word" && match.entry.formsVerified
+      ? [...new Set(match.entry.forms ?? [])].slice(0, 16)
+      : [],
   );
   const related = $derived(
     match.type === "pronoun"

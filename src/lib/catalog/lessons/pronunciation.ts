@@ -79,7 +79,7 @@ export const pronunciationLessons: Lesson[] = [
         feedback: {
           correction: "Ďakujem za pomoc.",
           english: "Thank you for the help.",
-          why: "Keep the first beat on **ĎA-** in **ďakujem**, then say the rest of the phrase evenly.",
+          why: "Keep the first beat on **ĎA-** in **ďakujem**. **Za pomoc** is one stress unit with its beat on the preposition: **ĎA-ku-jem ZA po-moc**.",
         },
       },
       {

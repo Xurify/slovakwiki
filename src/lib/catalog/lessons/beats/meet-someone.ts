@@ -19,7 +19,7 @@ export const meetSomeoneBeats: LessonBeat[] = [
         {
           slovak: "Volám sa …",
           english: "My name is …",
-          note: "Use volám sa + your name. Avoid an English-shaped “My name is …” calque.",
+          note: "Use volám sa + your name. Avoid the word-for-word calque Moje meno je …",
           audio: { transcript: "Volám sa." },
         },
       ],

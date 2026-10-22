@@ -24,7 +24,7 @@ export const numbersBeats: LessonBeat[] = [
         {
           slovak: "Mám … rokov.",
           english: "I am … years old.",
-          note: "Use rokov after the number when you say your age.",
+          note: "Use rokov from five up: Mám dvadsaťosem rokov. With 2–4 it is roky; with 1, rok.",
           audio: { transcript: "Mám rokov." },
         },
       ],

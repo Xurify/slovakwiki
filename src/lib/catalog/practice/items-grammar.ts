@@ -18,7 +18,7 @@ export const grammarPracticeItems: PracticeItem[] = [
         {
           id: "third-person",
           label: "Číta knihu.",
-          whyWrong: "**Číta** ends in **-a** for he/she — not I.",
+          whyWrong: "**Číta** has no personal ending: it is he/she — not I.",
         },
         {
           id: "second-person",
@@ -125,7 +125,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       id: "review-cloze-first-person-reading",
       type: "cloze",
       practiceItemId: "grammar/cloze-first-person-reading",
-      prompt: "Fill the gap so the sentence is about you.",
+      prompt: "Fill the gap for I (ja).",
       frame: "Dnes {} knihu.",
       answer: "čítam",
       gapEn: "I read / I am reading",
@@ -164,6 +164,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       prompt: "Ask someone informally if they speak Slovak — fill the gap.",
       frame: "{} po slovensky?",
       answer: "hovoríš",
+      acceptedAnswers: ["rozprávaš"],
       gapEn: "you speak",
       lemmaId: "hovorit",
       morphHint: "hovoriť → hovoríš",
@@ -276,6 +277,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       prompt: "Ask politely if someone speaks Slovak — fill the gap.",
       frame: "{} po slovensky?",
       answer: "hovoríte",
+      acceptedAnswers: ["rozprávate"],
       gapEn: "you speak (formal / plural)",
       lemmaId: "hovorit",
       morphHint: "hovoriť → hovoríte",
@@ -349,7 +351,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       id: "review-cloze-first-person-working",
       type: "cloze",
       practiceItemId: "grammar/cloze-first-person-working",
-      prompt: "Fill the gap so the sentence is about you.",
+      prompt: "Fill the gap for I (ja).",
       frame: "Zajtra {} v Bratislave.",
       answer: "pracujem",
       gapEn: "I work / I am working",
@@ -359,7 +361,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       hint: {
         chip: "1st person sg. · -m",
         grammarTopicId: "present-tense",
-        note: "Present -m still marks I. Pracovať takes the stem pracuj- before the ending.",
+        note: "Present -m still marks I. Pracovať becomes pracuje- before it: pracujem.",
         reveal: [
           "The verb is pracovať.",
           "First person singular takes -m.",
@@ -440,7 +442,7 @@ export const grammarPracticeItems: PracticeItem[] = [
         {
           id: "he",
           label: "Číta knihu.",
-          whyWrong: "**Číta** ends in **-a** for he/she — not they.",
+          whyWrong: "**Číta** has no personal ending: it is he/she — not they.",
         },
       ],
       answerId: "they",
@@ -467,7 +469,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       id: "review-choice-formal-speaking",
       type: "choice",
       practiceItemId: "grammar/choice-formal-speaking",
-      prompt: "Do you speak Slovak?",
+      prompt: "Do you speak Slovak? (formal)",
       choices: [
         { id: "formal", label: "Hovoríte po slovensky?" },
         {
@@ -580,6 +582,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       prompt: "I am Alex.",
       inputLabel: "Your Slovak answer",
       answer: "Som Alex.",
+      acceptedAnswers: ["Ja som Alex."],
       feedback: {
         correction: "Som Alex.",
         english: "I am Alex.",
@@ -609,8 +612,8 @@ export const grammarPracticeItems: PracticeItem[] = [
         {
           id: "review-byt-ste-call",
           speaker: "Marek",
-          slovak: "Som pri vchode.",
-          english: "I am by the entrance.",
+          slovak: "Už sme tu! Vidíš nás?",
+          english: "We’re already here! Can you see us?",
         },
       ],
       prompt: "Where are you?",
@@ -651,15 +654,16 @@ export const grammarPracticeItems: PracticeItem[] = [
       prompt: "He is in Bratislava.",
       inputLabel: "Your Slovak answer",
       answer: "Je v Bratislave.",
+      acceptedAnswers: ["On je v Bratislave.", "Peter je v Bratislave."],
       feedback: {
         correction: "Je v Bratislave.",
-        english: "He/She is in Bratislava.",
+        english: "He is in Bratislava.",
         why: "**Je** is he/she/it is. After **v** for location, Bratislava changes to **v Bratislave**.",
       },
     },
     feedback: {
       correction: "Je v Bratislave.",
-      english: "He/She is in Bratislava.",
+      english: "He is in Bratislava.",
       why: "**Je** is he/she/it is. After **v** for location, Bratislava changes to **v Bratislave**.",
     },
     newUse: "Ask: Kde je Peter?",
@@ -687,6 +691,7 @@ export const grammarPracticeItems: PracticeItem[] = [
       prompt: "I have time.",
       inputLabel: "Your Slovak answer",
       answer: "Mám čas.",
+      acceptedAnswers: ["Ja mám čas.", "Áno, mám čas."],
       feedback: {
         correction: "Mám čas.",
         english: "I have time.",
@@ -714,14 +719,15 @@ export const grammarPracticeItems: PracticeItem[] = [
       context: [
         {
           id: "review-mat-mas-train",
-          speaker: "Waiter",
-          slovak: "Prosím, lístok.",
-          english: "Ticket, please.",
+          speaker: "Anna",
+          slovak: "Vlak už ide.",
+          english: "The train is coming.",
         },
       ],
       prompt: "Do you have a ticket?",
       inputLabel: "Your Slovak question",
       answer: "Máš lístok?",
+      acceptedAnswers: ["Ty máš lístok?"],
       feedback: {
         correction: "Máš lístok?",
         english: "Do you have a ticket?",
@@ -757,16 +763,17 @@ export const grammarPracticeItems: PracticeItem[] = [
       prompt: "I don’t have time.",
       inputLabel: "Your Slovak answer",
       answer: "Nemám čas.",
+      acceptedAnswers: ["Ja nemám čas."],
       feedback: {
         correction: "Nemám čas.",
         english: "I don’t have time.",
-        why: "Negation attaches to the verb: **mám** becomes **nemám**, not **nie mám**.",
+        why: "**Ne-** joins **mám** as one word: **nemám**, not **nie mám**.",
       },
     },
     feedback: {
       correction: "Nemám čas.",
       english: "I don’t have time.",
-      why: "Negation attaches to the verb: **mám** becomes **nemám**, not **nie mám**.",
+      why: "**Ne-** joins **mám** as one word: **nemám**, not **nie mám**.",
     },
     newUse: "Add: Prepáč, nemám čas.",
   },

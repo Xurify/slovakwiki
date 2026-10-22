@@ -378,7 +378,7 @@ export const IRREGULAR: Record<string, string[]> = {
     "počula",
   ],
   priať: ["prajem", "praješ", "praje", "prajeme", "prajete", "prajú", "prial", "priala"],
-  smieť: ["smiem", "smieš", "smie", "smieme", "smiete", "smejú", "smel", "smela"],
+  smieť: ["smiem", "smieš", "smie", "smieme", "smiete", "smú", "smel", "smela"],
   umrieť: ["umriem", "umrieš", "umrie", "umrieme", "umriete", "umrú", "umrel", "umrela"],
   zomrieť: [
     "zomriem",
@@ -391,7 +391,7 @@ export const IRREGULAR: Record<string, string[]> = {
     "zomrela",
   ],
   hnať: [
-    "ženem",
+    "ženiem",
     "ženieš",
     "ženie",
     "ženieme",

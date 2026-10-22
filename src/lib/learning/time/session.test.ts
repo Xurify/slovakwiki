@@ -3,7 +3,12 @@ import { describe, expect, it } from "vitest";
 import { gradeAnswer } from "$lib/components/practice/practice-state";
 import { gradeSelectAll, choiceFeedbackWhy } from "$lib/learning/exercises/select-all";
 import { appointmentPhrase, selectAllChoicesForTime } from "$lib/learning/time/clock";
-import { negotiateOfferTurn } from "$lib/learning/time/frames";
+import {
+  negotiateOfferTurn,
+  pickScheduleTime,
+  SCHEDULE_FRAMES,
+  typedAcceptedAnswers,
+} from "$lib/learning/time/frames";
 import {
   buildDaysDatesTimeSession,
   isDaysDatesTimeKind,
@@ -325,6 +330,7 @@ describe("learning/time/session", () => {
     if (agree.task.type === "typed") {
       expect(agree.task.prompt).toBe("Yes. At one o’clock.");
       expect(agree.task.answer).toBe("Áno. O jednej.");
+      expect(agree.task.acceptedAnswers).toContain("Áno, o jednej.");
     }
 
     const move = materializeDaysDatesTimeItem(
@@ -334,6 +340,7 @@ describe("learning/time/session", () => {
     expect(move.task.type).toBe("typed");
     if (move.task.type === "typed") {
       expect(move.task.answer).toBe("V sobotu nemôžem. V nedeľu?");
+      expect(move.task.acceptedAnswers).toContain("Nemôžem v sobotu. V nedeľu?");
       expect(move.task.prompt).toBe("I can't on Saturday. Sunday?");
       expect(move.task.feedback?.why).toMatch(/sobota/);
     }
@@ -346,6 +353,46 @@ describe("learning/time/session", () => {
     if (confirm.task.type === "typed") {
       expect(confirm.task.answer).toBe("V sobotu? Áno.");
       expect(confirm.task.prompt).toBe("On Saturday? Yes.");
+    }
+  });
+
+  it("accepts O dvanástej and the 24-hour evening form in framed typed answers", () => {
+    const lunch = SCHEDULE_FRAMES.find((frame) => frame.id === "lunch")!;
+    expect(typedAcceptedAnswers(lunch, { hour: 12, minute: 0 })).toEqual(
+      expect.arrayContaining(["O dvanástej.", "Obedujeme o dvanástej."]),
+    );
+
+    const film = SCHEDULE_FRAMES.find((frame) => frame.id === "film-starts")!;
+    expect(typedAcceptedAnswers(film, { hour: 8, minute: 0 }, "večer")).toEqual(
+      expect.arrayContaining([
+        "Film začína o ôsmej večer.",
+        "Začína o ôsmej večer.",
+        "O dvadsiatej.",
+        "Film začína o dvadsiatej.",
+      ]),
+    );
+  });
+
+  it("keeps lunch at lunchtime", () => {
+    const lunch = SCHEDULE_FRAMES.find((frame) => frame.id === "lunch")!;
+    for (const value of [0, 0.3, 0.6, 0.99]) {
+      const { time, dayPart } = pickScheduleTime(() => value, lunch);
+      expect([11, 12, 1, 2]).toContain(time.hour);
+      expect(dayPart).toBeUndefined();
+    }
+  });
+
+  it("quotes 24-hour phrases in timetable clock-match", () => {
+    const item = materializeDaysDatesTimeItem("everyday/timetable-24h", () => 0.2);
+    expect(item.task.type).toBe("choice");
+    if (item.task.type === "choice") {
+      expect(item.task.prompt).toBe("Ktoré hodiny ukazujú „o pätnástej“?");
+      expect(item.task.feedback?.correction).toBe("O pätnástej.");
+      expect(item.task.feedback?.english).toBe("15:00 — three o’clock.");
+      expect(item.task.choices.find((c) => c.id === "correct")?.clock).toEqual({
+        hour: 3,
+        minute: 0,
+      });
     }
   });
 
