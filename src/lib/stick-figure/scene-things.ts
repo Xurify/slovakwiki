@@ -364,6 +364,13 @@ const WORDS = {
     id: "veza",
     word: "veža",
   },
+  zastavka: {
+    english: "tram stop",
+    gender: "feminine",
+    id: "zastavka",
+    stems: ["zastavk", "zastavok"],
+    word: "zastávka",
+  },
   zaves: {
     english: "curtain",
     forms: ["zaves", "zavesu", "zavese", "zavesom", "zavesy", "zavesov"],
@@ -473,6 +480,24 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.reproduktor, [832, 140, 40, 86]),
     drawn(WORDS.rastlina, plantAt(922, 240)),
     drawn(WORDS.koberec, [210, 252, 540, 40]),
+  ],
+  street: [
+    drawn(
+      WORDS.dom,
+      [470, 104, 160, 122],
+      [0, 100, 140, 126],
+      [140, 88, 90, 138],
+      [230, 96, 130, 130],
+      [360, 94, 110, 132],
+      [630, 86, 100, 140],
+      [730, 94, 130, 132],
+      [860, 90, 110, 136],
+    ),
+    drawn(WORDS.strom, [52, 100, 98, 160]),
+    drawn({ ...WORDS.lampa, english: "street lamp" }, [286, 66, 28, 190]),
+    drawn(WORDS.zastavka, [630, 144, 40, 112]),
+    drawn(WORDS.lavicka, [668, 218, 130, 62]),
+    drawn(WORDS.oblak, [382, 19, 76, 31], [733, 40, 54, 22]),
   ],
   default: [
     drawn(WORDS.hrad, [632, 34, 96, 78]),

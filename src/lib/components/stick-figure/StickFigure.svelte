@@ -3,8 +3,9 @@
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import {
     GROUND_Y,
-    STICK_VIEWBOX,
+    HEAD_RADIUS,
     solveRig,
+    STICK_VIEWBOX,
     type Point,
     type StickLimb,
   } from "$lib/stick-figure/rig";
@@ -249,7 +250,38 @@
       />
     {/if}
 
-    {#if prop}
+    {#if prop === "umbrella"}
+      {@const top = { x: rig.head.x + 18, y: rig.head.y - HEAD_RADIUS - 7 }}
+      <!-- Over the holder and whoever stands beside them; the stick runs down to the hand. -->
+      <g class="stroke-portrait-ink" stroke-linejoin="round">
+        <path
+          d="M{n(top.x)} {n(top.y)}L{n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)}"
+          stroke-width="1.6"
+        />
+        <path
+          d="M{n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)}q0 5.5 -4 5.5q-2.6 0 -2.6 -2.4"
+          fill="none"
+          stroke-width="1.6"
+        />
+        <g transform="translate({n(top.x)} {n(top.y)})" stroke-width="1">
+          <path
+            d="M-46 0C-46 -18 -26 -27 0 -27C26 -27 46 -18 46 0Q34.5 -5 23 0Q11.5 -5 0 0Q-11.5 -5 -23 0Q-34.5 -5 -46 0Z"
+            class="fill-rose-500"
+          />
+          <path
+            d="M-23 0Q-11.5 -5 0 0Q-4 -14 0 -27Q-17 -16 -23 0ZM23 0Q34.5 -5 46 0Q40 -18 0 -27Q17 -16 23 0Z"
+            class="fill-white/30"
+            stroke="none"
+          />
+          <path
+            d="M0 -27Q-17 -16 -23 0M0 -27Q-4 -14 0 0M0 -27Q17 -16 23 0"
+            fill="none"
+            stroke-width="0.8"
+          />
+          <path d="M0 -27v-5" stroke-width="1.6" />
+        </g>
+      </g>
+    {:else if prop}
       <g transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})">
         <StickProp {prop} />
       </g>

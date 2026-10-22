@@ -1,9 +1,9 @@
 import type { DialogueTurn } from "$lib/learning/types";
 
 /**
- * A scene the lessons do not have yet, to try the stage with rain, a tram
- * and everything outdoors in the background sound: Anna and Alex caught in
- * the rain on the square, waiting for the tram. Voiced like a lesson scene.
+ * A scene the lessons do not have yet, to try the stage with rain, a walk
+ * to the stop and a tram pulling in: Anna and Alex caught in the rain,
+ * waiting for the tram. Voiced like a lesson scene.
  */
 export const RAIN_AND_TRAM: DialogueTurn[] = [
   {
@@ -15,6 +15,7 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
   {
     english: "Do you have an umbrella?",
     id: "dev-rain-tram-alex-umbrella",
+    props: [null],
     sayChoices: {
       answerId: "umbrella",
       choices: [
@@ -37,21 +38,21 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
     speaker: "You",
   },
   {
-    english: "I don't. Let's go to the stop.",
-    id: "dev-rain-tram-anna-stop",
-    slovak: "Nemám. Poďme na zastávku.",
+    english: "I do. Come here, under the umbrella.",
+    id: "dev-rain-tram-anna-umbrella",
+    slovak: "Mám. Poď sem, pod dáždnik.",
     speaker: "Anna",
   },
   {
-    english: "Where is the stop?",
+    english: "Thanks. Where is the stop?",
     id: "dev-rain-tram-alex-where",
-    slovak: "Kde je zastávka?",
+    slovak: "Ďakujem. Kde je zastávka?",
     speaker: "You",
   },
   {
-    english: "There, by the bench.",
+    english: "There, by the bench. Let's go!",
     id: "dev-rain-tram-anna-bench",
-    slovak: "Tam, pri lavičke.",
+    slovak: "Tam, pri lavičke. Poďme!",
     speaker: "Anna",
   },
   {
@@ -122,13 +123,16 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
   {
     english: "On the tram. You can pay by card.",
     id: "dev-rain-tram-anna-card",
+    // Her hands are full with the umbrella; the card stays in her pocket.
+    props: [null, null],
     slovak: "V električke. Môžeš platiť kartou.",
     speaker: "Anna",
   },
   {
-    english: "Good. Look, here it comes!",
+    english: "Look, here it comes!",
+    gestures: ["point"],
     id: "dev-rain-tram-alex-coming",
-    slovak: "Dobre. Aha, už ide!",
+    slovak: "Aha, už ide!",
     speaker: "You",
   },
   {

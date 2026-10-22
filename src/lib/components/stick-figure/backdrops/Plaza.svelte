@@ -1,12 +1,13 @@
 <script lang="ts">
   import ClockHands from "./ClockHands.svelte";
   import Cloud from "./Cloud.svelte";
+  import Facades, { type Facade } from "./Facades.svelte";
   import FloorShade from "./FloorShade.svelte";
 
   let { hour }: { hour: number } = $props();
 
   /** Old-town facades left to right; neighbours never share a paint, as nothing outlines them. */
-  const houses = [
+  const houses: Facade[] = [
     { x: -10, width: 120, top: 92, gable: true, door: true, paint: "fill-scene-clay" },
     { x: 110, width: 70, top: 116, gable: false, door: false, paint: "fill-scene-sage" },
     { x: 180, width: 70, top: 104, gable: true, door: false, paint: "fill-scene-honey" },
@@ -16,24 +17,6 @@
     { x: 710, width: 112, top: 118, gable: true, door: false, paint: "fill-scene-honey" },
     { x: 822, width: 148, top: 90, gable: false, door: true, paint: "fill-scene-warm" },
   ];
-  type House = (typeof houses)[number];
-
-  const WINDOW_ROWS = [106, 140, 174];
-
-  function housePath(house: House): string {
-    const right = house.x + house.width;
-    const roof = house.gable ? `L${house.x + house.width / 2} ${house.top - 30}` : "";
-    return `M${house.x} 226V${house.top}${roof}L${right} ${house.top}V226Z`;
-  }
-
-  function windowXs(house: House): number[] {
-    const count = Math.max(1, Math.floor(house.width / 40));
-    const step = house.width / count;
-    return Array.from(
-      { length: count },
-      (_, index) => house.x + step * (index + 0.5) - 7,
-    );
-  }
 </script>
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
@@ -41,40 +24,7 @@
 <Cloud x={860} y={64} size={0.7} />
 <Cloud x={110} y={56} size={0.8} />
 
-{#each houses as house (house.x)}
-  <path d={housePath(house)} class={house.paint} />
-
-  {#if house.gable}
-    <circle
-      cx={house.x + house.width / 2}
-      cy={house.top - 10}
-      r="5"
-      class="fill-white/60"
-    />
-  {:else}
-    <rect
-      x={house.x}
-      y={house.top}
-      width={house.width}
-      height="5"
-      class="fill-white/35"
-    />
-  {/if}
-
-  {#each windowXs(house) as x (x)}
-    {#each WINDOW_ROWS.filter((y) => y > house.top + 8) as y (y)}
-      <rect {x} {y} width="14" height="20" rx="1.5" class="fill-white/70" />
-      <rect x={x + 2} y={y + 2} width="10" height="16" rx="1" class="fill-scene-sky" />
-    {/each}
-  {/each}
-
-  {#if house.door}
-    <path
-      d="M{house.x + house.width / 2 - 9} 226V206a9 9 0 0 1 18 0V226Z"
-      class="fill-scene-line/25"
-    />
-  {/if}
-{/each}
+<Facades {houses} />
 
 <!-- Michael's Gate: the old-town tower with a green copper roof. -->
 <rect x="250" y="104" width="66" height="122" class="fill-portrait-bib" />

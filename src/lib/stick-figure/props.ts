@@ -17,6 +17,7 @@ export const STICK_PROP_IDS = [
   "menu",
   "newspaper",
   "phone",
+  "umbrella",
 ] as const;
 
 export type StickPropId = (typeof STICK_PROP_IDS)[number];
@@ -43,6 +44,7 @@ const PROP_CUES: Record<StickPropId, { stems?: string[]; words?: string[] }> = {
   menu: { words: ["menu"] },
   newspaper: { words: ["noviny", "novin", "novinach", "novinami"] },
   phone: { words: ["telefon", "telefonu", "telefonom", "mobil", "mobilu", "mobilom"] },
+  umbrella: { stems: ["dazdnik"] },
 };
 
 /** Props with pictures or words on them, which a question can be about: "Kto je ten muž?" */
@@ -63,6 +65,8 @@ export function hasContent(prop: StickPropId): boolean {
 
 /** Ordering is not holding: "Ja si dám čaj." brings out no cup. */
 const ORDERING = ["dam si", "si dam", "dame si", "si dame"];
+/** Not having it is not holding it either: "Nemám dáždnik." brings out no umbrella. */
+const NOT_HAVING = ["nemam", "nemas", "nema", "nemame", "nemate", "nemaju"];
 
 /** Forms of `volať` (to call); with `sa` they mean "to be called" instead. */
 const CALLING = ["volam", "volas", "vola", "volame", "volate", "volaju"];
@@ -76,6 +80,7 @@ export function propForSentence(sentence: string): StickPropId | undefined {
   const folded = foldLine(sentence);
   const words = folded.split(" ");
   const ordering = ORDERING.some((phrase) => ` ${folded} `.includes(` ${phrase} `));
+  if (words.some((word) => NOT_HAVING.includes(word))) return undefined;
 
   for (const id of STICK_PROP_IDS) {
     if (id === "cup" && ordering) continue;

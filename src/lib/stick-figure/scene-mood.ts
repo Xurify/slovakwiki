@@ -11,7 +11,7 @@ export interface SceneMood {
 
 export const DAYTIME: SceneMood = { time: "day", weather: "clear" };
 
-const OUTDOORS: readonly StageSetting[] = ["default", "market", "plaza"];
+const OUTDOORS: readonly StageSetting[] = ["default", "market", "plaza", "street"];
 
 /** Under the sky, where weather falls on everything and the cast dresses for it. */
 export function isOutdoors(setting: StageSetting): boolean {

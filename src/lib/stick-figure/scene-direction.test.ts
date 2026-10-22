@@ -190,3 +190,50 @@ describe("the podcast at the market", () => {
     expect(direction.held.at(-1)).toEqual({ anna: "basket" });
   });
 });
+
+describe("the tram stop", () => {
+  const lines: DirectedLine[] = [
+    { characterId: "alex", props: [null], slovak: "Máš dáždnik?" },
+    { characterId: "anna", slovak: "Mám. Poď sem, pod dáždnik." },
+    { characterId: "alex", slovak: "Ďakujem. Kde je zastávka?" },
+    { characterId: "anna", slovak: "Tam, pri lavičke. Poďme!" },
+    { characterId: "alex", slovak: "Aha, už ide!" },
+    {
+      characterId: "anna",
+      props: [null, null],
+      slovak: "V električke. Môžeš platiť kartou.",
+    },
+    { characterId: "anna", slovak: "Konečne! Nastúpme." },
+  ];
+  const { held, stagings } = directScene(lines, "street");
+
+  it("brings out the umbrella for whoever has one, and keeps it up through the walk", () => {
+    expect(propForSentence("Nemám dáždnik.")).toBeUndefined();
+    expect(held[0].alex).toBeUndefined();
+    expect(held[1].anna).toBe("umbrella");
+    expect(stagings[1].approach).toEqual({ characterId: "alex", toward: 1 });
+    expect(held[3].anna).toBe("umbrella");
+    expect(held[5].anna).toBe("umbrella");
+  });
+
+  it("walks everyone over to the bench on Poďme, not on a line that names nothing drawn", () => {
+    expect(stagings[1].goTo).toBeUndefined();
+    expect(stagings[3].goTo).toBe("lavicka");
+  });
+
+  it("brings the tram in on už ide, with everyone watching it come", () => {
+    expect(stagings[4].arrives).toBe("tram");
+    expect(stagings[4].facing).toEqual({ alex: 1, anna: 1 });
+  });
+
+  it("gets on once it is there, without anyone walking off", () => {
+    expect(stagings[6].boards).toBe(true);
+    expect(stagings[6].exit).toBeUndefined();
+  });
+
+  it("has no tram on the square", () => {
+    const square = directScene(lines, "plaza").stagings;
+    expect(square[4].arrives).toBeUndefined();
+    expect(square[6].boards).toBeUndefined();
+  });
+});

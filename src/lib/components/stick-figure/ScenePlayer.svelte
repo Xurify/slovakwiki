@@ -160,6 +160,7 @@
     market: "At the market",
     plaza: "On the old town square",
     registration: "At the front desk",
+    street: "On the street, by the tram stop",
     studio: "In the podcast studio",
   };
 
