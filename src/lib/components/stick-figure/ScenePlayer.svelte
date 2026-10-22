@@ -33,8 +33,8 @@
     /** Questions on what was heard, asked once the scene has played: a podcast chapter's. */
     checks?: ListeningCheck[];
     /** Where the scene comes from: its lesson or podcast episode. */
-    href: string;
-    hrefLabel: string;
+    href?: string;
+    hrefLabel?: string;
     id: string;
     lines: PlayerLine[];
     /** A line it is named after, or the podcast chapter's name. */
@@ -53,7 +53,7 @@
 </script>
 
 <script lang="ts">
-  import { onMount, tick } from "svelte";
+  import { onMount, tick, untrack } from "svelte";
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import { playAnswerSfx } from "$lib/audio/sfx";
@@ -100,6 +100,11 @@
     type SceneThing,
   } from "$lib/stick-figure/scene-things";
   import { cx } from "$lib/ui/classes";
+  import {
+    ambienceFor,
+    playAmbience,
+    type AmbiencePlayer,
+  } from "$lib/stick-figure/ambience";
   import { canRecord } from "$lib/stick-figure/recorder";
   import type { Take } from "$lib/stick-figure/take";
   import SceneAction from "./SceneAction.svelte";
@@ -178,6 +183,8 @@
   let takes = $state<Record<number, Take>>({});
   /** Alex's lines in the learner's recordings instead of Alex's clips. */
   let ownVoice = $state(false);
+  let ambient = $state(false);
+  let ambience: AmbiencePlayer | undefined;
   let phase = $state<Phase>("ready");
   /** The line the scene is on: playing, waiting for Alex, or next after a pause. */
   let at = $state(0);
@@ -260,6 +267,10 @@
   );
   const turns = $derived(TURNS.filter(({ id }) => id !== "say" || recordable));
   const takeCount = $derived(Object.keys(takes).length);
+  const soundscape = $derived(
+    ambienceFor(mode === "greet" ? "plaza" : scene.setting, mood),
+  );
+  const soundKey = $derived(JSON.stringify(soundscape));
   const greetRound = $derived(greetQueue[greetAt]);
   const mood = $derived(
     mode === "greet"
@@ -303,6 +314,18 @@
       return character?.kind === "recurring" ? name : `the ${name.toLowerCase()}`;
     }),
   );
+
+  $effect(() => {
+    void soundKey;
+    if (!ambient) return;
+
+    const player = untrack(() => playAmbience(soundscape));
+    ambience = player;
+    return () => {
+      player?.stop();
+      if (ambience === player) ambience = undefined;
+    };
+  });
 
   onMount(() => {
     recordable = canRecord();
@@ -810,12 +833,23 @@
           </div>
         {/if}
 
-        <!-- Find it asks in Slovak only: the English would give the answer away. -->
-        {#if mode !== "find" && mode !== "greet"}
-          <TextLink onclick={toggleEnglish}>
-            {showEnglish ? "Hide English" : "Show English"}
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <TextLink
+            aria-pressed={ambient}
+            onclick={() => {
+              ambient = !ambient;
+            }}
+          >
+            {ambient ? "Stop background sound" : "Play background sound"}
           </TextLink>
-        {/if}
+
+          <!-- Find it asks in Slovak only: the English would give the answer away. -->
+          {#if mode !== "find" && mode !== "greet"}
+            <TextLink onclick={toggleEnglish}>
+              {showEnglish ? "Hide English" : "Show English"}
+            </TextLink>
+          {/if}
+        </div>
       </div>
 
       <div class="{panelClass} mt-3 overflow-hidden">
@@ -1122,7 +1156,11 @@
                     Find things in the scene
                   </SceneAction>
                 {/if}
-                <SceneAction href={scene.href} icon="book">{scene.hrefLabel}</SceneAction>
+                {#if scene.href}
+                  <SceneAction href={scene.href} icon="book"
+                    >{scene.hrefLabel}</SceneAction
+                  >
+                {/if}
               </div>
             </div>
           {:else if caption}

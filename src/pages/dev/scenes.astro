@@ -13,6 +13,7 @@ import {
 import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
 import type { DialogueTurn } from "$lib/learning/types";
+import { RAIN_AND_TRAM } from "$lib/stick-figure/dev-scenes";
 import {
   chapterSettingFor,
   greetingClips,
@@ -73,6 +74,18 @@ const groups: PlayerSceneGroup[] = [
     })),
   })),
 ];
+
+groups.push({
+  label: "Prototype",
+  scenes: [
+    {
+      id: "dev/rain-and-tram",
+      lines: playerLines(RAIN_AND_TRAM),
+      name: RAIN_AND_TRAM[0].slovak,
+      setting: "plaza",
+    },
+  ],
+});
 
 const thingWords = sceneThingWords();
 const clips = greetingClips();
