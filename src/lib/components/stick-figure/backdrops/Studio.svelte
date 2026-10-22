@@ -110,27 +110,48 @@
 <rect x="476.5" y="212" width="7" height="74" class="fill-scene-line/60" />
 <ellipse cx="480" cy="210" rx="30" ry="6" class="fill-scene-wood" />
 <ellipse cx="480" cy="212" rx="28" ry="3" class="fill-scene-line/12" />
-<path
-  d="M470 208L454 158M490 208L506 158"
-  class="stroke-scene-line/70"
-  fill="none"
-  stroke-width="2.4"
-/>
-{#each [{ x: 452, turn: -24 }, { x: 508, turn: 24 }] as mic (mic.x)}
-  <g transform="rotate({mic.turn} {mic.x} 146)">
+<!-- Two desk arms, one per host, each holding a broadcast mic level with their mouth. -->
+{#each [-1, 1] as side (side)}
+  {@const elbow = { x: 480 + side * 16, y: 168 }}
+  {@const tip = { x: 480 + side * 40, y: 136 }}
+  <rect
+    x={480 + side * 6 - 3}
+    y="203"
+    width="6"
+    height="7"
+    rx="1"
+    class="fill-scene-line/70"
+  />
+  <path
+    d="M{480 + side * 6} 205L{elbow.x} {elbow.y}L{tip.x} {tip.y}"
+    class="stroke-scene-line/70"
+    fill="none"
+    stroke-width="2.6"
+  />
+  <circle cx={elbow.x} cy={elbow.y} r="2.6" class="fill-scene-line/80" />
+  <g transform="translate({tip.x + side * 9} {tip.y - 3}) rotate({-side * 6})">
+    <ellipse
+      cx="0"
+      cy="0"
+      rx="3.2"
+      ry="9"
+      class="stroke-scene-line/80"
+      fill="none"
+      stroke-width="1.4"
+    />
+    <rect x="-14" y="-6.5" width="28" height="13" rx="6.5" class="fill-portrait-vest" />
     <rect
-      x={mic.x - 6}
-      y="132"
-      width="12"
-      height="26"
+      x={side > 0 ? 1 : -14}
+      y="-6.5"
+      width="13"
+      height="13"
       rx="6"
-      class="fill-portrait-vest"
+      class="fill-scene-line"
     />
-    <path
-      d="M{mic.x - 5} 139h10M{mic.x - 5} 144h10"
-      class="stroke-scene-edge"
-      stroke-width="1.2"
-    />
+    {#each [4, 7.5, 11] as offset (offset)}
+      <path d="M{side * offset} -5V5" class="stroke-portrait-vest/70" stroke-width="1" />
+    {/each}
+    <path d="M{-side * 9} -4.5h{side * 6}" class="stroke-white/25" stroke-width="1.2" />
   </g>
 {/each}
 

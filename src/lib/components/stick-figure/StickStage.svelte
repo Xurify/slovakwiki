@@ -11,7 +11,11 @@
     storyAudioClock,
   } from "$lib/lesson-story/story-audio";
   import { lessonSceneSrc } from "$lib/lesson-story/story-settings";
-  import { gesturePeak, type StickGestureId } from "$lib/stick-figure/gestures";
+  import {
+    gestureDuration,
+    gesturePeak,
+    type StickGestureId,
+  } from "$lib/stick-figure/gestures";
   import {
     gesturePlan,
     reactionPlan,
@@ -34,7 +38,7 @@
     thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
   import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
-  import { STAGE_PADDING, stageMarks } from "$lib/stick-figure/stage-layout";
+  import { STAGE_PADDING, STAGE_POSTS, stageMarks } from "$lib/stick-figure/stage-layout";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import {
     restFacing,
@@ -42,6 +46,7 @@
     type Facing,
     type LineStaging,
   } from "$lib/stick-figure/staging";
+  import { playTramCue } from "$lib/stick-figure/ambience";
   import { TRAM, type TramState } from "$lib/stick-figure/street";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
@@ -143,7 +148,22 @@
       ),
     ) as Partial<Record<LessonCharacterId, Facing>>,
   );
-  const layout = $derived(stageMarks(direction.cast, entering, stageWidth));
+  const post = $derived(STAGE_POSTS[setting]);
+  const layout = $derived(
+    stageMarks(
+      direction.cast,
+      entering,
+      stageWidth,
+      post === undefined || !stageWidth
+        ? undefined
+        : backdropToStage(
+            { x: post, y: 0 },
+            stageWidth,
+            stageHeight,
+            backdropAlign(setting),
+          ).x,
+    ),
+  );
   const pickedThing = $derived(direction.things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room
@@ -416,7 +436,38 @@
 
   function onBeat(beat: LineBeat): void {
     const target = beat.point?.target;
-    if (target?.kind === "thing") light(target.id, target.copy);
+    if (target?.kind !== "thing") return;
+
+    light(target.id, target.copy);
+    lookAt(target);
+  }
+
+  /**
+   * Everyone else on stage turns to what the speaker points at and looks
+   * at it for a moment, then turns back to the speaker.
+   */
+  function lookAt(target: PointTarget): void {
+    const to = targetOf(target);
+    const line = lines[heldAt];
+    if (!to || !line) return;
+
+    const token = playToken;
+    for (const id of direction.cast) {
+      if (id === line.characterId) continue;
+      const mark = standing(markOf(id), offsets[id]);
+      if (mark.left + mark.width < 0 || mark.left > stageWidth) continue;
+
+      const centre = mark.left + mark.width / 2;
+      if (Math.abs(to.x - centre) > mark.width * 0.2) {
+        facings = { ...facings, [id]: to.x > centre ? 1 : -1 };
+      }
+      gesture(id, "glance");
+    }
+
+    window.setTimeout(() => {
+      if (token !== playToken) return;
+      facings = { ...facings, ...direction.stagings[heldAt]?.facing };
+    }, gestureDuration("glance"));
   }
 
   function cueActor(id: LessonCharacterId, plan: LinePlan | undefined): void {
@@ -551,6 +602,7 @@
         const to = destinationOf(staging, true);
         if (to !== undefined) walkGroup(to);
       }
+      if (direction.stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
     };
 
