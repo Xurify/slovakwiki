@@ -83,7 +83,7 @@ const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: -0.4, brow: 
 const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 const holdOut = { leadRaise: 55, leadBend: 45, lean: 2, tilt: 3, look: 1, brow: 0.6 };
 /** Head up a little and eyes ahead: following where someone points. */
-const lookOver = { tilt: -7, look: 1, brow: 0.5 };
+const lookOver = { tilt: -12, look: 1, brow: 0.6, lean: -1 };
 
 /** A point with no target aims a little below level, at someone's hands or the table. */
 const POINT_RISE = -9;
