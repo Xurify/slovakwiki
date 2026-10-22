@@ -57,11 +57,11 @@ const scenes: StickLabScene[] = lessons
 
 const thingWords: Record<string, StickThingWord> = {};
 for (const thing of Object.values(SCENE_THINGS).flat()) {
-  const entry = words.find((word) => word.slovak === thing.word && word.gender);
-  if (!entry || thing.word in thingWords) continue;
+  if (thing.word in thingWords) continue;
 
+  const entry = words.find((word) => word.slovak === thing.word && word.gender);
   thingWords[thing.word] = {
-    href: dictionaryPathForLemmaId(entry.slug),
+    href: entry ? dictionaryPathForLemmaId(entry.slug) : undefined,
     src: hasAudioClip(audioHash(thing.word))
       ? resolveDictionaryAudioSrc(thing.word, "lemma")
       : undefined,
