@@ -441,12 +441,18 @@
   /**
    * Play line `index`: the speaker gestures and talks, the rest turn,
    * react, walk. `rate` below 1 slows the clip, and the figures with it.
+   * `take` is the learner's recording of the line, said in its place.
    */
-  export function play(index: number, onDone?: () => void, rate = 1): void {
+  export function play(
+    index: number,
+    onDone?: () => void,
+    rate = 1,
+    take?: { plan: LinePlan; src: string },
+  ): void {
     playToken += 1;
     const token = playToken;
     const line = lines[index];
-    const plan = direction.plans[index];
+    const plan = take?.plan ?? direction.plans[index];
     const staging = direction.stagings[index];
     if (!line) return;
 
@@ -495,8 +501,9 @@
       onDone?.();
     };
 
-    if (line.src) {
-      playStoryLineAudio(line.src, line.slovak, { onEnded, playbackRate: rate });
+    const src = take?.src ?? line.src;
+    if (src) {
+      playStoryLineAudio(src, line.slovak, { onEnded, playbackRate: rate });
       return;
     }
 

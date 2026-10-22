@@ -1,6 +1,6 @@
 <script lang="ts" module>
   export type SceneIconName =
-    "book" | "find" | "listen" | "pause" | "person" | "play" | "replay";
+    "book" | "find" | "listen" | "mic" | "pause" | "person" | "play" | "replay" | "stop";
 </script>
 
 <script lang="ts">
@@ -25,6 +25,9 @@
   {:else if name === "listen"}
     <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
     <path d="M4 15h3v5H5a1 1 0 0 1-1-1ZM20 15h-3v5h2a1 1 0 0 0 1-1Z" />
+  {:else if name === "mic"}
+    <rect x="9" y="3" width="6" height="11" rx="3" />
+    <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" />
   {:else if name === "pause"}
     <rect x="7" y="6" width="3.25" height="12" rx="1" fill="currentColor" stroke="none" />
     <rect
@@ -41,8 +44,18 @@
     <path d="M5 20a7 7 0 0 1 14 0" />
   {:else if name === "play"}
     <path d="M8 5.5v13l10.5-6.5Z" fill="currentColor" stroke="none" />
-  {:else}
+  {:else if name === "replay"}
     <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3" />
     <path d="M4.5 4v4h4" />
+  {:else}
+    <rect
+      x="6.5"
+      y="6.5"
+      width="11"
+      height="11"
+      rx="1.5"
+      fill="currentColor"
+      stroke="none"
+    />
   {/if}
 </svg>

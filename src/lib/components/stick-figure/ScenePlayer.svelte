@@ -100,15 +100,18 @@
     type SceneThing,
   } from "$lib/stick-figure/scene-things";
   import { cx } from "$lib/ui/classes";
+  import { canRecord } from "$lib/stick-figure/recorder";
+  import type { Take } from "$lib/stick-figure/take";
   import SceneAction from "./SceneAction.svelte";
   import SceneCaption from "./SceneCaption.svelte";
   import SceneIcon from "./SceneIcon.svelte";
+  import SceneSay from "./SceneSay.svelte";
   import SceneTurn from "./SceneTurn.svelte";
   import StickStage from "./StickStage.svelte";
 
   type Mode = "watch" | "play" | "find" | "greet";
-  /** Pick Alex's line from the lesson's choices, or build it from its words. */
-  type Turn = "pick" | "build";
+  /** Pick Alex's line from the lesson's choices, build it from its words, or say it. */
+  type Turn = "pick" | "build" | "say";
   type Phase = "ready" | "playing" | "paused" | "turn" | "done";
 
   let {
@@ -142,6 +145,7 @@
   const TURNS: Array<{ id: Turn; label: string }> = [
     { id: "pick", label: "Pick the line" },
     { id: "build", label: "Build it" },
+    { id: "say", label: "Say it" },
   ];
 
   const PLACES: Record<StageSetting, string> = {
@@ -169,6 +173,11 @@
   let sceneId = $state("");
   let mode = $state<Mode>("watch");
   let turnKind = $state<Turn>("pick");
+  /** The browser can record from a microphone, so Say it is offered. */
+  let recordable = $state(false);
+  let takes = $state<Record<number, Take>>({});
+  /** Alex's lines in the learner's recordings instead of Alex's clips. */
+  let ownVoice = $state(false);
   let phase = $state<Phase>("ready");
   /** The line the scene is on: playing, waiting for Alex, or next after a pause. */
   let at = $state(0);
@@ -234,6 +243,23 @@
     })),
   );
   const direction = $derived(directScene(lines, scene.setting, scene.order));
+  /** The same scene timed to the learner's takes, for the lines they recorded. */
+  const dubbed = $derived(
+    Object.keys(takes).length === 0
+      ? direction
+      : directScene(
+          lines.map((line, index) => {
+            const take = takes[index];
+            return take
+              ? { ...line, mouth: take.mouth, src: take.src, vowels: undefined }
+              : line;
+          }),
+          scene.setting,
+          scene.order,
+        ),
+  );
+  const turns = $derived(TURNS.filter(({ id }) => id !== "say" || recordable));
+  const takeCount = $derived(Object.keys(takes).length);
   const greetRound = $derived(greetQueue[greetAt]);
   const mood = $derived(
     mode === "greet"
@@ -279,6 +305,7 @@
   );
 
   onMount(() => {
+    recordable = canRecord();
     const linked = new URLSearchParams(window.location.search).get(SCENE_PARAM);
     if (linked && scenes.some((option) => option.id === linked)) sceneId = linked;
 
@@ -314,9 +341,16 @@
     checksRight = 0;
   }
 
+  function dropTakes(): void {
+    for (const take of Object.values(takes)) URL.revokeObjectURL(take.src);
+    takes = {};
+    ownVoice = false;
+  }
+
   function selectScene(id: string): void {
     const same = id === scene.id;
     reset();
+    if (!same) dropTakes();
     sceneId = id;
     const url = new URL(window.location.href);
     url.searchParams.set(SCENE_PARAM, id);
@@ -406,10 +440,16 @@
     }, 500);
   }
 
+  /** The learner's take of line `index`, when it should be heard in Alex's place. */
+  function takeAt(index: number): Take | undefined {
+    return ownVoice ? takes[index] : undefined;
+  }
+
   function say(index: number, onDone?: () => void): void {
     shown = index;
     speaking = true;
     captionCue += 1;
+    const take = takeAt(index);
     stage?.play(
       index,
       () => {
@@ -417,6 +457,7 @@
         onDone?.();
       },
       slower ? 0.75 : 1,
+      take && { plan: dubbed.plans[index], src: take.src },
     );
   }
 
@@ -472,6 +513,17 @@
     playScene();
   }
 
+  function recordAgain(): void {
+    dropTakes();
+    playAlex();
+  }
+
+  function watchWith(own: boolean): void {
+    selectMode("watch");
+    ownVoice = own;
+    playScene();
+  }
+
   function pause(): void {
     halt();
     phase = "paused";
@@ -517,6 +569,26 @@
 
   function hearIt(): void {
     answered(false, true);
+  }
+
+  /** Alex's own clip of the turn's line, to copy before recording; the turn waits. */
+  function hearFirst(): void {
+    halt();
+    const index = at;
+    stage?.place(index);
+    speaking = true;
+    stage?.play(index, () => {
+      speaking = false;
+    });
+  }
+
+  function useTake(take: Take): void {
+    takes = { ...takes, [at]: take };
+    ownVoice = true;
+    firstTries = { ...firstTries, [at]: true };
+    phase = "playing";
+    const index = at;
+    say(index, () => advance(index));
   }
 
   function toggleEnglish(): void {
@@ -721,7 +793,7 @@
                 role="group"
                 aria-label="How Alex's lines are asked"
               >
-                {#each TURNS as option (option.id)}
+                {#each turns as option (option.id)}
                   <button
                     class={chipClass(option.id === turnKind)}
                     type="button"
@@ -920,19 +992,33 @@
             {/if}
           {:else if turn}
             {#key at}
-              <SceneTurn
-                english={turn.english}
-                id={turn.id}
-                ondone={answered}
-                onmiss={missed}
-                sayChoices={turnKind === "pick" ? turn.sayChoices : undefined}
-                slovak={turn.slovak}
-                speaker={turn.speaker}
-              />
+              {#if turnKind === "say"}
+                <SceneSay
+                  english={turn.english}
+                  marks={turn.marks}
+                  onhear={hearFirst}
+                  ontake={useTake}
+                  {showEnglish}
+                  slovak={turn.slovak}
+                  speaker={turn.speaker}
+                />
+              {:else}
+                <SceneTurn
+                  english={turn.english}
+                  id={turn.id}
+                  ondone={answered}
+                  onmiss={missed}
+                  sayChoices={turnKind === "pick" ? turn.sayChoices : undefined}
+                  slovak={turn.slovak}
+                  speaker={turn.speaker}
+                />
+              {/if}
             {/key}
 
             <SceneAction class="mt-3 -ml-2.5" icon="listen" onclick={hearIt}>
-              Hear {turn.speaker} say it
+              {turnKind === "say"
+                ? `Let ${turn.speaker} say it`
+                : `Hear ${turn.speaker} say it`}
             </SceneAction>
           {:else if checking}
             {@const check = checks[checkAt]}
@@ -956,6 +1042,11 @@
               {#if checks.length > 0}
                 <p class="m-0 font-serif text-2xl text-slate-900">
                   {checksRight} of {checks.length} answered right.
+                </p>
+              {:else if mode === "play" && turnKind === "say" && learnerCount > 0}
+                <p class="m-0 font-serif text-2xl text-slate-900">
+                  You said {takeCount} of {learnerName}'s {learnerCount}
+                  {learnerCount === 1 ? "line" : "lines"}.
                 </p>
               {:else if scored}
                 <p class="m-0 font-serif text-2xl text-slate-900">
@@ -1002,11 +1093,24 @@
                     <span>Next chapter: <span lang="sk">{nextScene.name}</span></span>
                   </Button>
                   <SceneAction icon="replay" onclick={playScene}>Watch again</SceneAction>
+                {:else if mode === "play" && takeCount > 0}
+                  <Button class="mr-2" variant="accent" onclick={() => watchWith(true)}>
+                    <SceneIcon name="play" />
+                    Watch it in your voice
+                  </Button>
+                  <SceneAction icon="mic" onclick={recordAgain}>Record again</SceneAction>
                 {:else}
                   <Button class="mr-2" variant="accent" onclick={playScene}>
                     <SceneIcon name="replay" />
                     {mode === "play" ? "Play again" : "Watch again"}
                   </Button>
+                {/if}
+                {#if mode === "watch" && takeCount > 0}
+                  <SceneAction icon="listen" onclick={() => watchWith(!ownVoice)}>
+                    {ownVoice
+                      ? `Watch with ${learnerName}'s voice`
+                      : "Watch in your voice"}
+                  </SceneAction>
                 {/if}
                 {#if mode === "watch" && learnerCount > 0}
                   <SceneAction icon="person" onclick={playAlex}>
@@ -1028,7 +1132,7 @@
               {listenFirst}
               marks={caption.marks}
               onthing={(id) => stage?.light(id)}
-              plan={direction.plans[shown]}
+              plan={(takeAt(shown) ? dubbed : direction).plans[shown]}
               playing={speaking}
               {showEnglish}
               slovak={caption.slovak}
@@ -1111,6 +1215,18 @@
             >
               {listenFirst ? "Show text as it is said" : "Listen first"}
             </SceneAction>
+
+            {#if mode === "watch" && takeCount > 0}
+              <SceneAction
+                aria-pressed={ownVoice}
+                icon="mic"
+                onclick={() => {
+                  ownVoice = !ownVoice;
+                }}
+              >
+                {ownVoice ? `Use ${learnerName}'s voice` : "Use your voice"}
+              </SceneAction>
+            {/if}
 
             <span class="ml-auto text-sm text-slate-500">
               Line {Math.min(at + 1, scene.lines.length)} of {scene.lines.length}
