@@ -361,8 +361,11 @@
   }
 
   function toggleEnglish(): void {
-    setStoryShowEnglish(showEnglish ? "off" : "on");
-    showEnglish = !showEnglish;
+    // Saving the setting fires the change event, whose listener already sets
+    // showEnglish; flipping it again here would undo that.
+    const next = !showEnglish;
+    setStoryShowEnglish(next ? "on" : "off");
+    showEnglish = next;
   }
 
   /** Whoever stands first on stage asks for each thing and answers each tap. */
