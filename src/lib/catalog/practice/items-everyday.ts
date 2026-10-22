@@ -12,7 +12,7 @@ export const everydayPracticeItems: PracticeItem[] = [
       id: "review-formal-greeting",
       type: "choice",
       practiceItemId: "everyday/formal-greeting",
-      prompt: "Hello; good day.",
+      prompt: "Which greeting fits someone you are meeting for the first time?",
       choices: [
         { id: "formal", label: "Dobrý deň." },
         {
@@ -51,8 +51,15 @@ export const everydayPracticeItems: PracticeItem[] = [
       id: "review-introduction",
       type: "build",
       practiceItemId: "everyday/introduction",
-      prompt:
-        "A colleague says Volám sa Marta. Build your reply: “Hello. My name is Alex.”",
+      context: [
+        {
+          id: "review-introduction-anna",
+          speaker: "Anna",
+          slovak: "Dobrý deň. Volám sa Anna.",
+          english: "Hello. My name is Anna.",
+        },
+      ],
+      prompt: "Hello. My name is Alex.",
       tiles: ["Alex.", "sa", "Dobrý deň.", "Volám"],
       answer: ["Dobrý deň.", "Volám", "sa", "Alex."],
       feedback: {
@@ -90,16 +97,17 @@ export const everydayPracticeItems: PracticeItem[] = [
       prompt: "I am from Canada.",
       inputLabel: "Your Slovak answer",
       answer: "Som z Kanady.",
+      acceptedAnswers: ["Ja som z Kanady."],
       feedback: {
         correction: "Som z Kanady.",
         english: "I am from Canada.",
-        why: "Use **Som z …** for your origin. The country takes its Slovak form after **z**.",
+        why: "Use **Som z …** for your origin. **Z** takes the genitive: **Kanada** → **Kanady**.",
       },
     },
     feedback: {
       correction: "Som z Kanady.",
       english: "I am from Canada.",
-      why: "Use **Som z …** for your origin. The country takes its Slovak form after **z**.",
+      why: "Use **Som z …** for your origin. **Z** takes the genitive: **Kanada** → **Kanady**.",
     },
     newUse: "Now answer once with your own country.",
   },
@@ -126,16 +134,17 @@ export const everydayPracticeItems: PracticeItem[] = [
       prompt: "I am twenty years old.",
       inputLabel: "Your Slovak answer",
       answer: "Mám dvadsať rokov.",
+      acceptedAnswers: ["Ja mám dvadsať rokov.", "Je mi dvadsať rokov."],
       feedback: {
         correction: "Mám dvadsať rokov.",
         english: "I am twenty years old.",
-        why: "Slovak says I have twenty years: **mám** + number + **rokov**.",
+        why: "Slovak says I have twenty years: **mám** + number + **rokov**, from five up.",
       },
     },
     feedback: {
       correction: "Mám dvadsať rokov.",
       english: "I am twenty years old.",
-      why: "Slovak says I have twenty years: **mám** + number + **rokov**.",
+      why: "Slovak says I have twenty years: **mám** + number + **rokov**, from five up.",
     },
     newUse: "Say your own age with Mám … rokov.",
   },
@@ -151,8 +160,8 @@ export const everydayPracticeItems: PracticeItem[] = [
       type: "build",
       practiceItemId: "everyday/phone-number-digits",
       prompt: "Zero nine zero five.",
-      tiles: ["päť.", "deväť", "nula", "nula", "deväť", "nula"],
-      answer: ["nula", "deväť", "nula", "päť."],
+      tiles: ["päť.", "deväť", "Nula", "nula", "šesť"],
+      answer: ["Nula", "deväť", "nula", "päť."],
       feedback: {
         correction: "Nula deväť nula päť.",
         english: "Zero nine zero five.",
@@ -194,13 +203,13 @@ export const everydayPracticeItems: PracticeItem[] = [
       feedback: {
         correction: "Stojí to päť eur.",
         english: "It costs five euros.",
-        why: "**Koľko to stojí?** asks the price. Use **Stojí to** + number + **eur**.",
+        why: "**Koľko to stojí?** asks the price. Answer **Stojí to** + the price: **jedno euro**, **dve eurá**, **päť eur**.",
       },
     },
     feedback: {
       correction: "Stojí to päť eur.",
       english: "It costs five euros.",
-      why: "**Koľko to stojí?** asks the price. Use **Stojí to** + number + **eur**.",
+      why: "**Koľko to stojí?** asks the price. Answer **Stojí to** + the price: **jedno euro**, **dve eurá**, **päť eur**.",
     },
   },
   {
@@ -220,12 +229,12 @@ export const everydayPracticeItems: PracticeItem[] = [
         {
           id: "yes-thanks",
           label: "Áno, ďakujem.",
-          whyWrong: "**Áno, ďakujem** accepts the offer — you want to decline.",
+          whyWrong: "**Áno, ďakujem** says yes — you need **nie** to say no.",
         },
         {
           id: "understand",
           label: "Rozumiem.",
-          whyWrong: "**Rozumiem** means I understand — it does not decline the bag.",
+          whyWrong: "**Rozumiem** means I understand — it is not a refusal.",
         },
       ],
       answerId: "no-thanks",
@@ -264,6 +273,7 @@ export const everydayPracticeItems: PracticeItem[] = [
       prompt: "I do not understand.",
       inputLabel: "Your Slovak answer",
       answer: "Nerozumiem.",
+      acceptedAnswers: ["Ja nerozumiem."],
       feedback: {
         correction: "Nerozumiem.",
         english: "I do not understand.",
@@ -289,18 +299,18 @@ export const everydayPracticeItems: PracticeItem[] = [
       type: "build",
       practiceItemId: "everyday/negative-verb-placement",
       prompt: "I do not have time.",
-      tiles: ["čas.", "Nie", "Nemám", "čas."],
+      tiles: ["čas.", "Nemám", "Mám", "nie"],
       answer: ["Nemám", "čas."],
       feedback: {
         correction: "Nemám čas.",
         english: "I do not have time.",
-        why: "**Nie** attaches to the verb as a negative form: **mám** becomes **nemám**, not **nie mám**.",
+        why: "Add **ne-** to the verb itself: **mám** → **nemám**. Slovak does not say **nie mám**.",
       },
     },
     feedback: {
       correction: "Nemám čas.",
       english: "I do not have time.",
-      why: "**Nie** attaches to the verb as a negative form: **mám** becomes **nemám**, not **nie mám**.",
+      why: "Add **ne-** to the verb itself: **mám** → **nemám**. Slovak does not say **nie mám**.",
     },
   },
   {
@@ -391,7 +401,13 @@ export const everydayPracticeItems: PracticeItem[] = [
       prompt: "I speak a little Slovak.",
       inputLabel: "Your Slovak answer",
       answer: "Hovorím trochu po slovensky.",
-      acceptedAnswers: ["Trochu hovorím po slovensky."],
+      acceptedAnswers: [
+        "Trochu hovorím po slovensky.",
+        "Ja hovorím trochu po slovensky.",
+        "Hovorím trošku po slovensky.",
+        "Trošku hovorím po slovensky.",
+        "Ja hovorím trošku po slovensky.",
+      ],
       feedback: {
         correction: "Hovorím trochu po slovensky.",
         english: "I speak a little Slovak.",

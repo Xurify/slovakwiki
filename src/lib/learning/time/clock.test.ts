@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  appointment24hChoiceWhy,
+  appointment24hPhrase,
   appointmentChoiceDistractors,
   appointmentPrvejTrapWhy,
   appointmentChoiceWhy,
@@ -14,6 +16,7 @@ import {
   aroundPhrase,
   answersForTime,
   clockFaceDistractorWhy,
+  englishTellingGloss,
   englishTimeGloss,
   exactMinuteTellingLabel,
   faceHour12,
@@ -44,6 +47,13 @@ describe("learning/time/clock", () => {
     expect(englishTimeGloss({ hour: 9, minute: 30 })).toBe("At half past nine.");
     expect(englishTimeGloss({ hour: 2, minute: 15 })).toBe("At quarter past two.");
     expect(englishTimeGloss({ hour: 12, minute: 45 })).toBe("At quarter to one.");
+  });
+
+  it("glosses noon, midnight and Je/Sú telling lines", () => {
+    expect(englishTimeGloss({ hour: 12, minute: 0 })).toBe("At noon.");
+    expect(englishTimeGloss({ hour: 0, minute: 0 })).toBe("At midnight.");
+    expect(englishTellingGloss({ hour: 10, minute: 15 })).toBe("It’s quarter past ten.");
+    expect(englishTellingGloss({ hour: 12, minute: 0 })).toBe("It’s noon.");
   });
 
   it("accepts full-hour agreement patterns", () => {
@@ -120,12 +130,43 @@ describe("learning/time/clock", () => {
     expect(appointmentAnswersForTime({ hour: 1, minute: 0 })).toEqual(["O jednej"]);
   });
 
+  it("accepts ordinal hour + minutes and 24-hour appointment forms", () => {
+    expect(appointmentAnswersForTime({ hour: 2, minute: 30 })).toEqual([
+      "O pol tretej",
+      "O druhej tridsať",
+    ]);
+    expect(appointmentAnswersForTime({ hour: 14, minute: 30 })).toEqual([
+      "O pol tretej",
+      "O druhej tridsať",
+      "O štrnástej tridsať",
+    ]);
+    expect(appointmentAnswersForTime({ hour: 14, minute: 0 })).toEqual([
+      "O druhej",
+      "O štrnástej",
+    ]);
+  });
+
+  it("builds 24-hour appointment phrases with ordinal hours", () => {
+    expect(appointment24hPhrase({ hour: 13, minute: 0 })).toBe("O trinástej.");
+    expect(appointment24hPhrase({ hour: 14, minute: 30 })).toBe("O štrnástej tridsať.");
+    expect(appointment24hPhrase({ hour: 20, minute: 0 })).toBe("O dvadsiatej.");
+    expect(appointment24hPhrase({ hour: 21, minute: 15 })).toBe(
+      "O dvadsiatej prvej pätnásť.",
+    );
+    expect(appointment24hPhrase({ hour: 23, minute: 45 })).toBe(
+      "O dvadsiatej tretej štyridsaťpäť.",
+    );
+    expect(appointment24hChoiceWhy({ hour: 14, minute: 30 })).toBe(
+      "**O štrnástej tridsať** is **14:30**: 24-hour time names the hour as an ordinal, then the minutes. On the face that is **2:30**, **O pol tretej**.",
+    );
+  });
+
   it("uses O prvej as appointment trap why", () => {
     expect(appointmentPrvejTrapWhy({ hour: 1, minute: 0 })).toBe(
       "**O jednej** is **1:00** — **O prvej** does not name this time.",
     );
     expect(appointmentPrvejTrapWhy({ hour: 3, minute: 0 })).toBe(
-      "**1:00** is **O jednej** — not **O prvej** (**3:00**).",
+      "**1:00** is **O jednej**, not **O prvej**. This time is **O tretej** (**3:00**).",
     );
   });
 
@@ -154,12 +195,13 @@ describe("learning/time/clock", () => {
     );
   });
 
-  it("uses noon/midnight lexical appointments, not bare O dvanástej", () => {
+  it("prefers noon/midnight lexical appointments and accepts O dvanástej at noon", () => {
     expect(appointmentPhrase({ hour: 12, minute: 0 })).toBe("O poludní.");
     expect(appointmentPhrase({ hour: 0, minute: 0 })).toBe("O polnoci.");
     expect(appointmentAnswersForTime({ hour: 12, minute: 0 })).toEqual([
       "O poludní",
       "O dvanástej napoludnie",
+      "O dvanástej",
     ]);
     expect(appointmentAnswersForTime({ hour: 0, minute: 0 })).toEqual([
       "O polnoci",
@@ -220,7 +262,7 @@ describe("learning/time/clock", () => {
     const correct = { hour: 6, minute: 45 as const };
     const wrong = { hour: 5, minute: 45 as const };
     expect(appointmentDistractorWhy(correct, wrong)).toBe(
-      "**O trištvrte na šesť** means quarter to six (**5:45**). For quarter to seven, name **sedem** after **na** — the hand is near **6**, but Slovak looks ahead.",
+      "**O trištvrte na šesť** means quarter to six (**5:45**). For quarter to seven, name **sedem** after **na** — the hour hand is already close to **7**, and Slovak names that hour.",
     );
     expect(tellingDistractorWhy(correct, wrong)).toMatch(/means quarter to six/);
     expect(clockFaceDistractorWhy(correct, wrong)).toMatch(
