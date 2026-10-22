@@ -11,7 +11,7 @@ import {
 } from "$lib/catalog/lessons/character-ids";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
 import { sceneThingWords, stageSettingFor } from "$lib/stick-figure/lesson-stage";
-import { stageName } from "$lib/stick-figure/script";
+import { stageName } from "$lib/stick-figure/stage-name";
 
 const scenes: PlayerScene[] = lessons
   .filter((lesson) => lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker)))
