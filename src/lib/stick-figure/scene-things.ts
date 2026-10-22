@@ -389,7 +389,6 @@ export function thingWithDemonstrative(thing: SceneThing): string {
     : `${demonstrativeFor(thing.gender)} ${thing.word}`;
 }
 
-/** The thing a folded word names, if the scene has one. */
 export function thingNamed(
   folded: string,
   things: readonly SceneThing[],

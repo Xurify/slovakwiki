@@ -26,7 +26,6 @@
     return `M${house.x} 226V${house.top}${roof}L${right} ${house.top}V226Z`;
   }
 
-  /** Evenly spaced window columns across a facade. */
   function windowXs(house: House): number[] {
     const count = Math.max(1, Math.floor(house.width / 40));
     const step = house.width / count;
