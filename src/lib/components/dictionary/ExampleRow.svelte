@@ -10,16 +10,19 @@
     example,
     lemma,
     category,
+    gender,
     audioKey,
   }: {
     example: Example;
     lemma: string;
     category: string;
+    /** Noun gender, so the highlight finds its case forms. */
+    gender?: string;
     /** `data-audio-mount` key the audio island fills; omit when there is no clip. */
     audioKey?: string;
   } = $props();
 
-  const parts = $derived(highlightLemmaInText(example.slovak, lemma, category));
+  const parts = $derived(highlightLemmaInText(example.slovak, lemma, category, gender));
 </script>
 
 <li

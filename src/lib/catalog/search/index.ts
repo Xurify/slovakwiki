@@ -79,7 +79,9 @@ export function searchEntries(query: string): ContentEntry[] {
   return allEntries
     .map((entry) => {
       const forms =
-        entry.kind === "word" ? searchFormsForLemma(entry.slovak, entry.category) : [];
+        entry.kind === "word"
+          ? searchFormsForLemma(entry.slovak, entry.category, entry.gender)
+          : [];
       const score = scoreWordEntry(entry, normalizedQuery, forms);
 
       return { entry, score };
