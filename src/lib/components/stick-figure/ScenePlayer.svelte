@@ -564,7 +564,7 @@
       </h1>
       <Lead class="mt-3">
         Prototype. Watch a lesson's dialogue with each word lit as it is said, take Alex's
-        part, or find things in the room by their Slovak names.
+        part, or find things in the scene by their Slovak names.
       </Lead>
     </header>
 
@@ -845,7 +845,7 @@
                 </p>
               {:else if learnerCount > 0}
                 <p class="m-0 font-serif text-2xl text-slate-900">
-                  Now say Alex's lines yourself.
+                  Now take Alex's part.
                 </p>
               {/if}
 
@@ -881,7 +881,7 @@
                   <Button variant="accent" onclick={playAlex}>Play Alex</Button>
                 {:else if direction.things.length > 0}
                   <Button variant="accent" onclick={() => selectMode("find")}>
-                    Find things in the room
+                    Find things in the scene
                   </Button>
                 {/if}
                 <TextLink onclick={playScene}>
@@ -889,7 +889,7 @@
                 </TextLink>
                 {#if mode === "watch" && learnerCount > 0 && direction.things.length > 0}
                   <TextLink onclick={() => selectMode("find")}
-                    >Find things in the room</TextLink
+                    >Find things in the scene</TextLink
                   >
                 {/if}
                 <TextLink href={scene.lessonHref}>Open the lesson</TextLink>
@@ -918,7 +918,7 @@
                 The scene stops at each of Alex's lines for you to say it.
               {:else}
                 Each word lights up as it is said. Tap a dotted word or anything in the
-                room to see it.
+                scene to see it.
               {/if}
             </p>
           {/if}
