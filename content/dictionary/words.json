@@ -173270,7 +173270,7 @@
   {
     "slug": "baba",
     "slovak": "baba",
-    "english": "old woman; woman; hag",
+    "english": "old woman; woman (often rude)",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -173286,7 +173286,7 @@
       },
       {
         "slovak": "Tá klebetná baba zo susedstva vie o každom všetko.",
-        "english": "That gossipy old hag next door knows everything about everyone.",
+        "english": "That gossipy woman next door knows everything about everyone.",
         "note": "Curated"
       }
     ],
