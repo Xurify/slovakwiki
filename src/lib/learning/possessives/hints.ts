@@ -41,6 +41,6 @@ export const nameOwnerHint: ClozeHint = {
 };
 
 export const bodyPartHint: ClozeHint = {
-  chip: "si, not môj",
-  note: "Slovak does not name the owner of your own body or clothes. **Si** already says whose: *Umývam si ruky*, *Obliekam si kabát*.",
+  chip: "si, ma — not môj",
+  note: "When something happens to your own body or clothes, Slovak shows whose with **si** (or **ma** for pain), not môj: *Umývam si ruky*, *Obliekam si kabát*, *Bolí ma hlava*.",
 };

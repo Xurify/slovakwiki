@@ -45,12 +45,12 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "aky",
     slovak: "aký",
-    english: "what kind; which (m.)",
+    english: "what kind of (m.); what … like",
     category: "Phrases",
     topics: ["Questions"],
     examples: [
       { slovak: "Aký je to deň?", english: "What kind of day is it?" },
-      { slovak: "Akú farbu máš rád?", english: "Which color do you like?" },
+      { slovak: "Akú farbu máš rád?", english: "What color do you like?" },
     ],
     related: ["ktory", "co", "kolko"],
   },
@@ -82,7 +82,10 @@ export const curatedEssentialsSeed: WordSeed[] = [
     topics: ["Questions"],
     examples: [
       { slovak: "Neviem, či príde.", english: "I don't know whether he will come." },
-      { slovak: "Či už si doma?", english: "Are you home yet?" },
+      {
+        slovak: "Nevieš, či je obchod otvorený?",
+        english: "Do you know if the shop is open?",
+      },
     ],
     related: ["ano", "nie", "co"],
   },
@@ -151,7 +154,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "tu",
     slovak: "tu",
-    english: "here",
+    english: "here (location — for motion use sem)",
     category: "Phrases",
     topics: ["Essentials"],
     examples: [
@@ -199,10 +202,9 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "daco",
     slovak: "dačo",
-    english: "something (východné nárečie)",
+    english: "something",
     category: "Phrases",
     topics: ["Essentials"],
-    dialect: true,
     examples: [
       {
         slovak: "Máš dačo na jedenie?",
@@ -254,11 +256,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "kazdy",
     slovak: "každý",
-    english: "every; each",
+    english: "every; each; everyone",
     category: "Phrases",
     topics: ["Essentials"],
     examples: [
-      { slovak: "Každý deň cvičím.", english: "I practice every day." },
+      { slovak: "Každý deň cvičím.", english: "I exercise every day." },
       { slovak: "Každý to vie.", english: "Everyone knows that." },
     ],
     related: ["niekto", "kolko", "den"],
@@ -292,7 +294,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "on",
     slovak: "on",
-    english: "he",
+    english: "he; it (masculine noun)",
     category: "Phrases",
     topics: ["Conversation"],
     examples: [
@@ -304,7 +306,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "ona",
     slovak: "ona",
-    english: "she",
+    english: "she; it (feminine noun)",
     category: "Phrases",
     topics: ["Conversation"],
     examples: [
@@ -333,14 +335,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
     topics: ["Conversation"],
     examples: [
       { slovak: "Vy ste z Kanady?", english: "Are you from Canada?" },
-      { slovak: "Čo chcete vy?", english: "What would you like?" },
+      { slovak: "Čo chcete vy?", english: "And what do you want?" },
     ],
     related: ["ty", "my", "dobry-den"],
   },
   {
     slug: "oni",
     slovak: "oni",
-    english: "they",
+    english: "they (men or mixed groups — ony for women, children, things)",
     category: "Phrases",
     topics: ["Conversation"],
     examples: [
@@ -376,7 +378,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "svoj",
     slovak: "svoj",
-    english: "one's own",
+    english: "one's own; my, your, his, her… (refers back to the subject)",
     category: "Phrases",
     topics: ["Conversation"],
     examples: [
@@ -455,14 +457,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
     topics: ["Essentials"],
     examples: [
       { slovak: "Hovorí, že príde.", english: "He says that he will come." },
-      { slovak: "Myslím, že áno.", english: "I think that yes." },
+      { slovak: "Myslím, že áno.", english: "I think so." },
     ],
     related: ["ci", "lebo", "a"],
   },
   {
     slug: "ked",
     slovak: "keď",
-    english: "when",
+    english: "when (conjunction); if",
     category: "Phrases",
     topics: ["Essentials"],
     examples: [
@@ -495,7 +497,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "lebo",
     slovak: "lebo",
-    english: "because (informal)",
+    english: "because",
     category: "Phrases",
     topics: ["Essentials"],
     examples: [
@@ -611,7 +613,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     topics: ["Essentials"],
     examples: [
       { slovak: "Toto je pre teba.", english: "This is for you." },
-      { slovak: "Prečo to robíš?", english: "Why are you doing that?" },
+      { slovak: "Kúpil som to pre mamu.", english: "I bought it for Mom." },
     ],
     related: ["o", "s", "na"],
   },
@@ -630,7 +632,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "po",
     slovak: "po",
-    english: "after; along; for (duration)",
+    english: "after; along; for (duration); in (a language: po slovensky)",
     category: "Phrases",
     topics: ["Essentials"],
     examples: [
@@ -670,7 +672,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     category: "Phrases",
     topics: ["Essentials"],
     examples: [
-      { slovak: "Aj ja tiež.", english: "Me too." },
+      { slovak: "Ja tiež.", english: "Me too." },
       { slovak: "Ona tiež rozumie.", english: "She understands too." },
     ],
     related: ["len", "a", "ano"],
@@ -763,11 +765,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "kseft",
     slovak: "kšeft",
-    english: "deal; hustle; bit of business",
+    english: "(shady) deal; racket; business",
     category: "Nouns",
     gender: "masculine-inanimate",
     topics: ["Everyday life"],
-    register: "slang",
+    register: "colloquial",
     examples: [
       {
         slovak: "Mám dobrý kšeft.",
@@ -795,10 +797,10 @@ export const curatedEssentialsSeed: WordSeed[] = [
   {
     slug: "kseftovat",
     slovak: "kšeftovať",
-    english: "to deal; to hustle; to do business",
+    english: "to wheel and deal; to trade shadily; to hustle",
     category: "Verbs",
     topics: ["Everyday life"],
-    register: "slang",
+    register: "colloquial",
     examples: [
       {
         slovak: "Kšeftujem s použitými autami.",

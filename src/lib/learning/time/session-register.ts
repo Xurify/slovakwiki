@@ -3,6 +3,7 @@ import {
   analogFace,
   appointmentDistractorWhy,
   appointmentPhrase,
+  englishTellingGloss,
   englishTimeGloss,
   englishTimeMeaningPhrase,
   nearMissTimes,
@@ -76,7 +77,7 @@ export function buildRegisterContrastExercise(
     hint: registersHint,
     feedback: {
       correction,
-      english: englishTimeGloss(time),
+      english: askAppointment ? englishTimeGloss(time) : englishTellingGloss(time),
       why: askAppointment
         ? `**O koľkej?** asks when something happens → answer with **O …**: **${phraseForWhy(appointmentLabel)}**.`
         : `**Koľko je hodín?** asks what time it is → answer with **Je/Sú …**: **${phraseForWhy(tellingLabel)}**.`,
@@ -98,6 +99,11 @@ export function buildTimeVariantsOddOneOutExercise(
     meaningPhrase,
   );
   const trap = drafts.find((draft) => draft.id === answerId);
+  // The trap is pol + the hour on the face, which is half past the hour before.
+  const trapTime: ClockFaceTime = {
+    hour: face.hour === 1 ? 12 : face.hour - 1,
+    minute: 30,
+  };
 
   return pickTrapChoiceTask({
     id: `generated-${kind}`,
@@ -109,7 +115,7 @@ export function buildTimeVariantsOddOneOutExercise(
     hint: hodinaAgreementHint,
     feedback: {
       correction: trap?.label ?? "",
-      english: englishTimeGloss(time),
+      english: englishTellingGloss(trapTime),
       why: trapWhy,
     },
   });

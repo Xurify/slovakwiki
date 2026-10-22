@@ -52,6 +52,7 @@ type RejectReason = "no-candidates" | "quality" | "weak-match";
 
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
+const REJECTED_PATH = path.join(ROOT, "content", "dictionary", "tatoeba-rejected.json");
 
 function parseArgs(argv: string[]): {
   force: boolean;
@@ -298,8 +299,16 @@ async function main(): Promise<void> {
   const eng = await loadTsvMap(engPath, neededEng);
   console.log(`EN sentences kept: ${eng.size}`);
 
+  // Sentences a reviewer rejected as wrong Slovak; a refill must not bring them back.
+  const rejected = new Set(
+    Object.keys(
+      JSON.parse(await readFile(REJECTED_PATH, "utf8")) as Record<string, string>,
+    ).map(Number),
+  );
+
   const pairs: SentencePair[] = [];
   for (const [skId, enId] of links) {
+    if (rejected.has(skId)) continue;
     const slovak = slk.get(skId);
     const english = eng.get(enId);
     if (!slovak || !english) continue;

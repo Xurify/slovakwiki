@@ -48,6 +48,21 @@ const POL_ORDINAL: Record<number, string> = {
   12: "dvanástej",
 };
 
+/** Feminine locative ordinals for 24-hour times (o štrnástej). Indexed by hour 13–23. */
+const ORDINAL_24: Record<number, string> = {
+  13: "trinástej",
+  14: "štrnástej",
+  15: "pätnástej",
+  16: "šestnástej",
+  17: "sedemnástej",
+  18: "osemnástej",
+  19: "devätnástej",
+  20: "dvadsiatej",
+  21: "dvadsiatej prvej",
+  22: "dvadsiatej druhej",
+  23: "dvadsiatej tretej",
+};
+
 /** Forms after štvrť na / trištvrte na (toward next hour). */
 export const TOWARD_HOUR: Record<number, string> = {
   1: "jednu",
@@ -245,12 +260,20 @@ export function appointmentPhrase(time: ClockFaceTime): string {
   return `O trištvrte na ${towardWord}.`;
 }
 
+/** Ordinal hour + minutes, as read off a digital display: O štrnástej tridsať. */
+export function appointment24hPhrase(time: ClockFaceTime): string {
+  const hour = normalizeHour24(time.hour);
+  const ordinal = ORDINAL_24[hour] ?? locativeOrdinal12(faceHour12(hour));
+  if (time.minute === 0) return `O ${ordinal}.`;
+  return `O ${ordinal} ${MINUTE_WORD[time.minute]}.`;
+}
+
 /** Preferred appointment answer for O koľkej? drills (no trailing period). */
 export function preferredAppointmentAnswerForTime(time: ClockFaceTime): string {
   return appointmentPhrase(time).replace(/\.$/, "");
 }
 
-/** Accepted appointment forms for O koľkej? / Kedy? (noon/midnight alts; 1:00 is O jednej only). */
+/** Accepted appointment forms for O koľkej? / Kedy? (1:00 is O jednej only). */
 export function appointmentAnswersForTime(time: ClockFaceTime): string[] {
   return appointmentAlternates(time).map((phrase) => phrase.replace(/\.$/, ""));
 }
@@ -280,6 +303,8 @@ export function englishTimeGloss(time: ClockFaceTime): string {
   const h = face.hour;
   const m = face.minute;
 
+  if (isNoonTime(time)) return "At noon.";
+  if (isMidnightTime(time)) return "At midnight.";
   if (m === 0) return `At ${englishHourWord(h)} o’clock.`;
   if (m === 15) return `At quarter past ${englishHourWord(h === 12 ? 12 : h)}.`;
   if (m === 30) return `At half past ${englishHourWord(h)}.`;
@@ -289,6 +314,11 @@ export function englishTimeGloss(time: ClockFaceTime): string {
 /** Spoken English time without “At …” — for odd-one-out prompts. */
 export function englishTimeMeaningPhrase(time: ClockFaceTime): string {
   return englishTimeGloss(time).replace(/^At /, "").replace(/\.$/, "");
+}
+
+/** English gloss for a Je/Sú telling line (It’s half past two.). */
+export function englishTellingGloss(time: ClockFaceTime): string {
+  return `It’s ${englishTimeMeaningPhrase(time)}.`;
 }
 
 /** 12-face digital label for prompts (2:45). */
@@ -398,10 +428,21 @@ export function aroundPhrase(time: ClockFaceTime): string {
 export function appointmentAlternates(time: ClockFaceTime): string[] {
   const primary = appointmentPhrase(time);
   const alts: string[] = [primary];
+  const hour = normalizeHour24(time.hour);
 
+  if (time.minute !== 0) {
+    pushUnique(
+      alts,
+      appointment24hPhrase({ hour: faceHour12(hour), minute: time.minute }),
+    );
+  }
+  if (hour >= 13) {
+    pushUnique(alts, appointment24hPhrase(time));
+  }
   if (isNoonTime(time)) {
     pushUnique(alts, "O poludní.");
     pushUnique(alts, "O dvanástej napoludnie.");
+    pushUnique(alts, "O dvanástej.");
   }
   if (isMidnightTime(time)) {
     pushUnique(alts, "O polnoci.");

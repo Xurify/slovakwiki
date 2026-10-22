@@ -102,6 +102,8 @@ After publish/enrich/curate/related or lesson/practice text changes: `bun run in
 
 **Skip when:** Pure UI/CSS/layout, infra, tests with no learner-facing Slovak strings, or copy-pasting existing verified Slovak unchanged.
 
+**Check:** `bun run test` covers content too. `src/lib/catalog/content-rules.test.ts` fails on rules that shipped wrong before and on rhythmic-law slips, `src/lib/learning/exercises/exercises-audit.test.ts` checks tile builds and subject-pronoun variants, and `src/lib/catalog/dictionary/dictionary-content.test.ts` checks that examples contain their headword and that Tatoeba sentences rejected in `content/dictionary/tatoeba-rejected.json` stay out. When you fix a false rule, add its old wording to `content-rules.test.ts` (the skill's `references/slovak-wiki-authoring.md` §10 lists them).
+
 Repo content tone and exercise UX → [`docs/lessons-practice-content.md`](docs/lessons-practice-content.md). The skill owns linguistic accuracy; that doc owns product/content conventions.
 
 ## Styling: Tailwind first (non-negotiable)

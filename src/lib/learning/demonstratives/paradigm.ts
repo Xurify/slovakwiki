@@ -373,6 +373,13 @@ export const GOES_WITH: Record<Slot, string> = {
   plural: "every other plural, like **ženy** or **kľúče**",
 };
 
+/** The same, for an object in the accusative: tento dom, but tohto muža. */
+export const OBJECT_GOES_WITH: Record<Slot, string> = {
+  ...GOES_WITH,
+  "masculine-animate": "masculine nouns for people and animals, like **muž**",
+  "masculine-inanimate": "masculine things like **dom** or **kufor**",
+};
+
 export function demonstrativePhrase(
   series: DemonstrativeSeries,
   entry: NounEntry,
@@ -411,7 +418,7 @@ export const CASE_FRAMES: readonly CaseFrame[] = [
     because: "**Bez** (without) takes the genitive",
     nouns: (entry) => !entry.person && !["dom", "izba", "kreslo"].includes(entry.id),
     slovak: (phrase) => `Anna nejde nikam bez ${phrase}.`,
-    english: (phrase) => `Anna doesn't go anywhere without ${phrase}.`,
+    english: (phrase) => `Anna isn't going anywhere without ${phrase}.`,
   },
   {
     grammaticalCase: "dative",
@@ -460,7 +467,7 @@ export function paradigmRow(
   const inanimate = demonstrativeForm(series, "masculine-inanimate", grammaticalCase);
 
   return [
-    // Only the accusative splits people from things: toho muža, ten dom.
+    // Only the accusative splits people and animals from things: toho muža, toho psa, ten dom.
     animate === inanimate ? animate : `${animate} / ${inanimate}`,
     demonstrativeForm(series, "feminine", grammaticalCase),
     demonstrativeForm(series, "neuter", grammaticalCase),
