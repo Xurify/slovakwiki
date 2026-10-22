@@ -510,6 +510,38 @@ export const curatedEssentialsSeed: WordSeed[] = [
     related: ["pretoze", "preco", "ze"],
   },
   {
+    slug: "cize",
+    slovak: "čiže",
+    english: "that is; in other words; so",
+    category: "Phrases",
+    topics: ["Conversation"],
+    examples: [
+      {
+        slovak: "Vlak mešká, čiže prídeme neskôr.",
+        english: "The train is late, so we will arrive later.",
+        note: "Curated",
+        demonstrates: "čiže — so (a conclusion)",
+      },
+      {
+        slovak: "Prídem pozajtra, čiže v piatok.",
+        english: "I will come the day after tomorrow, that is, on Friday.",
+        note: "Curated",
+        demonstrates: "čiže — that is (a clarification)",
+      },
+      {
+        slovak: "Čiže zajtra nepracuješ?",
+        english: "So you are not working tomorrow?",
+        note: "Curated",
+      },
+      {
+        slovak: "Je to môj bratranec, čiže syn mojej tety.",
+        english: "He is my cousin, that is, my aunt's son.",
+        note: "Curated",
+      },
+    ],
+    related: ["lebo", "pretoze", "ze", "alebo"],
+  },
+  {
     slug: "v",
     slovak: "v",
     english: "in; at",

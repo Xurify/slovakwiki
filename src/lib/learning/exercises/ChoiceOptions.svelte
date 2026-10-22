@@ -14,6 +14,7 @@
   let {
     choices,
     choiceStyle = "text",
+    columns = 1,
     promptClock,
     selectedId = $bindable(null),
     submitted,
@@ -23,6 +24,8 @@
   }: {
     choices: ChoiceExercise["choices"];
     choiceStyle?: ChoiceExercise["choiceStyle"];
+    /** Two columns of text choices, for a long list of short ones. */
+    columns?: 1 | 2;
     promptClock?: ChoiceExercise["clock"];
     selectedId?: string | null;
     submitted: boolean;
@@ -64,7 +67,9 @@
 <div
   class={showClockChoices
     ? "mt-6 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3"
-    : "mt-6 grid gap-2.5"}
+    : columns === 2
+      ? "mt-6 grid grid-cols-2 gap-2.5"
+      : "mt-6 grid gap-2.5"}
   aria-label="Answer choices"
 >
   {#each choices as choice, index (choice.id)}

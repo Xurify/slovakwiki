@@ -15,6 +15,10 @@ export const VOICE_PREVIEW_LINES: Record<LessonCharacterId, VoicePreviewLine> = 
     sampleSlovak: "Dobrý deň. Volám sa Anna.",
     sampleEnglish: "Good day. My name is Anna.",
   },
+  announcer: {
+    sampleSlovak: "Nasledujúca zastávka: Hlavná stanica.",
+    sampleEnglish: "Next stop: Main Station.",
+  },
   guide: {
     sampleSlovak: "Dobrý deň.",
     sampleEnglish: "Good day.",

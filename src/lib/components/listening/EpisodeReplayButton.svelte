@@ -7,11 +7,16 @@
   let {
     label,
     onbeforeplay,
+    play,
     src,
+    stop = stopStoryLineAudio,
   }: {
     label: string;
     onbeforeplay?: () => void;
+    /** Plays the line some other way than its clip alone, such as acted on a stage. */
+    play?: (onEnded: () => void) => void;
     src?: string;
+    stop?: () => void;
   } = $props();
 
   let playing = $state(false);
@@ -21,23 +26,23 @@
     if (playing) {
       epoch += 1;
       playing = false;
-      stopStoryLineAudio();
+      stop();
       return;
     }
 
     onbeforeplay?.();
     epoch += 1;
     const mine = epoch;
+    const onEnded = () => {
+      if (mine === epoch) playing = false;
+    };
     playing = true;
-    playStoryLineAudio(src, "", {
-      onEnded: () => {
-        if (mine === epoch) playing = false;
-      },
-    });
+    if (play) play(onEnded);
+    else playStoryLineAudio(src, "", { onEnded });
   }
 
   onDestroy(() => {
-    if (playing) stopStoryLineAudio();
+    if (playing) stop();
   });
 </script>
 
@@ -51,7 +56,7 @@
   )}
   type="button"
   aria-pressed={playing}
-  disabled={!src}
+  disabled={!src && !play}
   onclick={toggle}
 >
   <svg
