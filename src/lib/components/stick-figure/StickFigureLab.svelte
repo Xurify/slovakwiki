@@ -38,10 +38,7 @@
 </script>
 
 <script lang="ts">
-  import {
-    characterIdForSpeaker,
-    listedCharacters,
-  } from "$lib/catalog/lessons/character-ids";
+  import { listedCharacters } from "$lib/catalog/lessons/character-ids";
   import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -70,7 +67,7 @@
     type TimeOfDay,
     type Weather,
   } from "$lib/stick-figure/scene-mood";
-  import { parseScript, sceneSnippet, stageName } from "$lib/stick-figure/script";
+  import { stageName } from "$lib/stick-figure/stage-name";
   import type { StageReaction } from "$lib/stick-figure/staging";
   import { cx } from "$lib/ui/classes";
   import StickFigure from "./StickFigure.svelte";
@@ -91,19 +88,6 @@
     /** Keyed by the thing's word. */
     thingWords?: Record<string, StickThingWord>;
   } = $props();
-
-  const SCRIPT_SCENE_ID = "script";
-
-  const PLACES: Array<{ id: StageSetting; label: string }> = [
-    { id: "default", label: "Park" },
-    { id: "plaza", label: "Square" },
-    { id: "cafe", label: "Café" },
-    { id: "home", label: "Home" },
-    { id: "market", label: "Market" },
-    { id: "registration", label: "Front desk" },
-    { id: "classroom", label: "Classroom" },
-    { id: "studio", label: "Studio" },
-  ];
 
   const characters = listedCharacters();
 
@@ -130,44 +114,13 @@
   let benchCharacter = $state<LessonCharacterId>("anna");
   let bench = $state<ActorState>({ cue: 0, talking: false });
   let benchGesture = $state<StickGestureId | null>(null);
-  let copied = $state(false);
   let painted = $state(false);
   /** Light and weather picked here instead of read from the dialogue. */
   let timeOverride = $state<TimeOfDay>();
   let weatherOverride = $state<Weather>();
   let benchProp = $state<StickPropId | undefined>();
-  let scriptSetting = $state<StageSetting>("cafe");
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
-  let scriptText = $state(
-    [
-      "Waiter: Dobrý deň. Dáte si kávu?",
-      "Anna: Áno, prosím.",
-      "Alex > Waiter: Ja si dám čaj.",
-      "Anna: Pozri, to sú fotky z Kanady.",
-      "Alex: Super! Kto je ten muž?",
-      "Anna: To je môj brat Tom.",
-      "Alex > Waiter: Prepáčte, koľko to stojí?",
-      "Waiter: Štyri eurá päťdesiat.",
-      "Alex: Ďakujem.",
-      "Waiter: Nech sa páči. Prajem pekný deň!",
-    ].join("\n"),
-  );
-
-  const script = $derived(parseScript(scriptText));
-  const scriptScene = $derived<StickLabScene>({
-    id: SCRIPT_SCENE_ID,
-    lines: script.lines.map((line) => ({
-      ...line,
-      english: "",
-      to: line.to ? characterIdForSpeaker(line.to) : undefined,
-    })),
-    setting: scriptSetting,
-    title: "Your script",
-  });
-  const allScenes = $derived([...scenes, scriptScene]);
-  const scene = $derived(
-    allScenes.find((option) => option.id === sceneId) ?? allScenes[0],
-  );
+  const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
   const directedLines = $derived<DirectedLine[]>(
     scene.lines.map((line) => ({
       characterId: dialogueSpeakerLabel(line.speaker) ? line.characterId : null,
@@ -269,15 +222,6 @@
     step(0);
   }
 
-  function copySnippet(): void {
-    void navigator.clipboard?.writeText(sceneSnippet(script.lines)).then(() => {
-      copied = true;
-      window.setTimeout(() => {
-        copied = false;
-      }, 1500);
-    });
-  }
-
   function playBench(plan: LinePlan, gesture: StickGestureId | null = null): void {
     window.clearTimeout(benchTimer);
     benchGesture = gesture;
@@ -297,8 +241,7 @@
       <Lead class="mt-3">
         Prototype. The lesson cast as SVG figures that gesture while their line plays. The
         gesture comes from the Slovak text and the mouth from the recording, so no line
-        needs hand animation. Tap anything in the drawn scene for its Slovak word, and
-        draft a new dialogue under Your script.
+        needs hand animation. Tap anything in the drawn scene for its Slovak word.
       </Lead>
       <p class="m-0 mt-3 text-sm text-slate-600">
         This page is for staging. Learners play the same scenes on
@@ -313,7 +256,7 @@
         </h2>
 
         <div class="flex flex-wrap gap-2">
-          {#each allScenes as option (option.id)}
+          {#each scenes as option (option.id)}
             <button
               class={chipClass(option.id === scene.id)}
               type="button"
@@ -325,61 +268,6 @@
         </div>
       </div>
 
-      {#if scene.id === SCRIPT_SCENE_ID}
-        <div class="{panelClass} mt-5 p-5">
-          <label class="{eyebrowMutedClass} block" for="stick-script">
-            One line per row: Speaker: line. Anna &gt; Waiter: line says who it is for. A
-            [gesture] before a sentence overrides it.
-          </label>
-          <textarea
-            id="stick-script"
-            class={cx(
-              "mt-2 block min-h-40 w-full resize-y rounded-(--control-radius) border border-slate-300 bg-control p-3",
-              "font-mono text-sm leading-relaxed text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100",
-            )}
-            bind:value={scriptText}
-            oninput={stop}
-            spellcheck="false"
-            lang="sk"></textarea>
-
-          {#if script.problems.length > 0}
-            <ul class="m-0 mt-3 list-none p-0 text-sm text-rose-700">
-              {#each script.problems as problem, index (index)}
-                <li>Row {problem.line}: {problem.message}</li>
-              {/each}
-            </ul>
-          {/if}
-
-          <p class="{eyebrowMutedClass} mt-4">Place</p>
-          <div class="mt-2 flex flex-wrap gap-2">
-            {#each PLACES as place (place.id)}
-              <button
-                class={chipClass(place.id === scriptSetting)}
-                type="button"
-                onclick={() => {
-                  scriptSetting = place.id;
-                }}
-              >
-                {place.label}
-              </button>
-            {/each}
-          </div>
-
-          <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <TextLink onclick={copySnippet}>
-              {copied ? "Copied" : "Copy as lesson scene"}
-            </TextLink>
-            <p class="m-0 text-sm text-slate-500">
-              Paste it into a lesson, then
-              <code class="font-mono text-xs"
-                >bun scripts/audio/generate.ts -- --lessons-only --missing-only</code
-              >
-              makes the clips and their mouth tracks.
-            </p>
-          </div>
-        </div>
-      {/if}
-
       <div class="{panelClass} mt-5 overflow-hidden">
         <div
           class="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-slate-200 px-5 py-3"
@@ -389,12 +277,8 @@
           </Button>
 
           <p class="m-0 text-sm text-slate-500">
-            {#if scene.id === SCRIPT_SCENE_ID}
-              No clips yet: lines run on text timing with a timed mouth.
-            {:else}
-              {voicedCount} of {scene.lines.length} lines have a clip, {trackedCount} a mouth
-              track.
-            {/if}
+            {voicedCount} of {scene.lines.length} lines have a clip, {trackedCount} a mouth
+            track.
           </p>
 
           <TextLink
@@ -529,9 +413,9 @@
                       <span>Walks off after</span>
                     {/if}
 
-                    {#if scene.id !== SCRIPT_SCENE_ID && !line.src}
+                    {#if !line.src}
                       <span>No clip</span>
-                    {:else if scene.id !== SCRIPT_SCENE_ID && !line.mouth}
+                    {:else if !line.mouth}
                       <span>No mouth track</span>
                     {/if}
                   </span>
