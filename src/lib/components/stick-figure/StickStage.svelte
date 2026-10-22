@@ -102,7 +102,6 @@
   let lit = $state<string[]>([]);
   let picked = $state<string>();
   let board = $state<string>();
-  /** A line said without a clip, in a bubble over the speaker. */
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
   let bubbleTimer = 0;
   let stageWidth = $state(0);
