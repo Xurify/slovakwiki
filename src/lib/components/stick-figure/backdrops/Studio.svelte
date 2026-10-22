@@ -112,8 +112,8 @@
 <ellipse cx="480" cy="212" rx="28" ry="3" class="fill-scene-line/12" />
 <!-- Two desk arms, one per host, each holding a broadcast mic level with their mouth. -->
 {#each [-1, 1] as side (side)}
-  {@const elbow = { x: 480 + side * 16, y: 168 }}
-  {@const tip = { x: 480 + side * 40, y: 136 }}
+  {@const elbow = { x: 480 + side * 12, y: 168 }}
+  {@const tip = { x: 480 + side * 24, y: 136 }}
   <rect
     x={480 + side * 6 - 3}
     y="203"
