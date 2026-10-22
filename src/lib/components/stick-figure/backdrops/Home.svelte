@@ -65,20 +65,27 @@
   <circle cx="159.6" cy="134.4" r="1.4" class="fill-portrait-skin" />
   <rect x="148" y="119.4" width="6" height="2.8" rx="1.2" class="fill-scene-clay" />
   <path d="M153 121.8l1.2 5h-1.9Z" class="fill-scene-clay" />
-  <circle cx="151" cy="116" r="4.6" class="fill-portrait-skin" />
-  <circle cx="149.4" cy="115.6" r="0.45" class="fill-portrait-ink" stroke="none" />
-  <circle cx="152.6" cy="115.6" r="0.45" class="fill-portrait-ink" stroke="none" />
+  <circle cx="151" cy="116.4" r="4.6" class="fill-portrait-skin" />
   <path
-    d="M148.6 118.3q1.2-.9 2.4 0q1.2-.9 2.4 0q-1.2 1.1-2.4.3q-1.2.8-2.4-.3Z"
+    d="M146.6 114Q146.2 116 146.9 117.8L148 117.4Q147.5 115.7 147.9 114ZM155.4 114Q155.8 116 155.1 117.8L154 117.4Q154.5 115.7 154.1 114Z"
+    class="fill-portrait-hair-grey"
+  />
+  <circle cx="149.4" cy="116" r="0.45" class="fill-portrait-ink" stroke="none" />
+  <circle cx="152.6" cy="116" r="0.45" class="fill-portrait-ink" stroke="none" />
+  <path
+    d="M148.6 118.7q1.2-.9 2.4 0q1.2-.9 2.4 0q-1.2 1.1-2.4.3q-1.2.8-2.4-.3Z"
     class="fill-portrait-hair-grey"
     stroke="none"
   />
-  <ellipse cx="151" cy="112.2" rx="7.4" ry="1.5" class="fill-portrait-vest" />
   <path
-    d="M146 112.2V108.4Q146 106.2 148.4 106.2H153.6Q156 106.2 156 108.4V112.2Z"
-    class="fill-portrait-vest"
+    d="M146.9 114L147.5 109.6Q147.8 108.2 149.3 108.4L151 109.2L152.7 108.4Q154.2 108.2 154.5 109.6L155.1 114Z"
+    class="fill-portrait-suit"
   />
-  <rect x="146" y="110.2" width="10" height="1.6" class="fill-scene-clay" stroke="none" />
+  <path d="M147.2 112.2H154.8L155 113.8H147Z" class="fill-portrait-vest" stroke="none" />
+  <path
+    d="M143.6 114Q151 112.6 158.4 114Q151 115.4 143.6 114Z"
+    class="fill-portrait-suit"
+  />
 
   <ellipse
     cx="195"
@@ -134,15 +141,14 @@
   <rect x="198.8" y="137" width="7.4" height="7.4" rx="1" class="fill-portrait-ground" />
   <circle cx="186.4" cy="134.4" r="1.3" class="fill-portrait-skin" />
   <circle cx="202.4" cy="134.2" r="1.3" class="fill-portrait-skin" />
-  <circle cx="193" cy="112" r="2.6" class="fill-portrait-hair" />
   <path
-    d="M188.5 117q-.6 3.4.6 5.2l1.4-.2q-.8-2.4-.4-4.6ZM197.5 117q.6 3.4-.6 5.2l-1.4-.2q.8-2.4.4-4.6Z"
-    class="fill-portrait-hair"
+    d="M188 121.4C187.2 116.6 188 112 193 112C198 112 198.8 116.6 198 121.4C197.4 122 196.6 122 196.2 121.4L196.4 120C195 121.8 191 121.8 189.6 120L189.8 121.4C189.4 122 188.6 122 188 121.4Z"
+    class="fill-portrait-hair-grey"
   />
   <circle cx="193" cy="117.6" r="4.4" class="fill-portrait-skin" />
   <path
-    d="M188.5 117.4Q188.4 112.6 193 112.6Q197.6 112.6 197.5 117.4Q196 115.2 193 115Q190 115.2 188.5 117.4Z"
-    class="fill-portrait-hair"
+    d="M188.6 117.6C188.4 114 190.6 112.4 193.2 112.4C196 112.4 197.6 114.2 197.5 117C196.4 115.4 194.6 114.6 192.8 115C191.2 115.4 189.8 116.4 188.6 117.6Z"
+    class="fill-portrait-hair-grey"
   />
   <circle cx="191.5" cy="117.9" r="0.45" class="fill-portrait-ink" stroke="none" />
   <circle cx="194.5" cy="117.9" r="0.45" class="fill-portrait-ink" stroke="none" />
