@@ -84,7 +84,6 @@
   const FLOOR = 12;
   /** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
   const BESIDE_WIDTHS = 0.8;
-  /** How long a thing stays lit after a line names it. */
   const LIT_MS = 1600;
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
@@ -101,6 +100,7 @@
   let heldAt = $state(-1);
   let lit = $state<string[]>([]);
   let picked = $state<string>();
+  let cardHeight = $state(120);
   let board = $state<string>();
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
   let bubbleTimer = 0;
@@ -109,6 +109,8 @@
 
   /** When each walk in flight ends, on the `performance.now()` clock. */
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
+  /** Never reset, so a figure's next walk always has a cue it has not seen. */
+  let walkCount = 0;
   let playToken = 0;
   let lineTimer = 0;
 
@@ -122,7 +124,11 @@
   );
   const layout = $derived(stageMarks(direction.cast, entering, stageWidth));
   const pickedThing = $derived(direction.things.find((thing) => thing.id === picked));
-  /** The word card sits under the thing, or over it when the thing is low on the stage. */
+  /**
+   * The word card sits under the thing, or over it when there is no room
+   * below. A thing as tall as the stage (a house on the square) has room on
+   * neither side, so the card covers its middle rather than leave the stage.
+   */
   const card = $derived.by(() => {
     if (!pickedThing) return undefined;
 
@@ -141,15 +147,21 @@
       stageHeight,
       align,
     );
-    const below = bottom.y + 8 < stageHeight * 0.55;
+    const lowest = stageHeight - cardHeight - 8;
+    const under = bottom.y + 8;
+    const over = top.y - 8 - cardHeight;
 
     return {
-      below,
       left: Math.min(
         Math.max(8, centre.x - CARD_WIDTH / 2),
         Math.max(8, stageWidth - CARD_WIDTH - 8),
       ),
-      y: below ? Math.max(8, bottom.y + 8) : Math.max(8, stageHeight - top.y + 8),
+      top:
+        under <= lowest
+          ? under
+          : over >= 8
+            ? over
+            : Math.min(Math.max(8, centre.y - cardHeight / 2), Math.max(8, lowest)),
     };
   });
 
@@ -184,7 +196,8 @@
     if (from === offset) return;
 
     const ms = walkDuration(stepsFor(offset - from));
-    walks = { ...walks, [id]: { cue: (walks[id]?.cue ?? 0) + 1, ms } };
+    walkCount += 1;
+    walks = { ...walks, [id]: { cue: walkCount, ms } };
     offsets = { ...offsets, [id]: offset };
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -215,7 +228,6 @@
     return direction * (distance / mark.width + 0.1);
   }
 
-  /** The last line nobody on stage said before `index`, for the classroom board. */
   function boardBefore(index: number): string | undefined {
     return lines.slice(0, index).findLast((line) => line.characterId === null)?.slovak;
   }
@@ -301,7 +313,6 @@
     return { facing, plan: { ...plan, beats } };
   }
 
-  /** Light a thing up for a moment, as when a line names it. */
   export function light(id: string): void {
     lit = [...lit, id];
     window.setTimeout(() => {
@@ -511,9 +522,9 @@
         "shadow-(--shadow-float) ring-1 ring-slate-200",
       )}
       style:left="{card.left}px"
-      style:top={card.below ? `${card.y}px` : undefined}
-      style:bottom={card.below ? undefined : `${card.y}px`}
+      style:top="{card.top}px"
       style:width="{CARD_WIDTH}px"
+      bind:offsetHeight={cardHeight}
     >
       <div class="flex items-center gap-3">
         {#if word?.src}
