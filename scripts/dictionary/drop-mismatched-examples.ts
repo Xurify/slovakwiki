@@ -18,7 +18,7 @@ import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related"
+  "slug" | "slovak" | "english" | "category" | "gender" | "examples" | "related"
 >;
 
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
@@ -42,7 +42,7 @@ function parseSlugs(argv: string[]): string[] {
 function keepExample(word: WordSeed, example: Example): boolean {
   if (example.note !== "Tatoeba") return true;
   if (example.demonstrates) return true;
-  return exampleContainsLemma(example.slovak, word.slovak, word.category);
+  return exampleContainsLemma(example.slovak, word.slovak, word.category, word.gender);
 }
 
 async function main(): Promise<void> {
