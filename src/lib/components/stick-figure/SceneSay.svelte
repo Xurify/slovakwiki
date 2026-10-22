@@ -38,7 +38,6 @@
   let mic = $state<Mic>("ready");
   let take = $state<Take>();
   let meter = $state(0);
-  /** The last take had no voice in it. */
   let silent = $state(false);
 
   let recording: Recording | undefined;

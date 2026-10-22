@@ -13,7 +13,6 @@
     return { paint: FLAG_PAINTS[index % 3], x, y };
   });
 
-  /** A crate's fruit by its paint; strawberries get leaf caps. */
   const BERRIES = "fill-rose-500";
 
   const stalls = [
@@ -29,7 +28,6 @@
       x: 640,
       inner: 660,
       produce: [BERRIES, "fill-scene-leaf", BERRIES],
-      // Oštiepky hung from the awning, one at each end of the stall.
       cheeses: [676, 904],
     },
   ];

@@ -74,6 +74,50 @@ const groups: PlayerSceneGroup[] = [
   })),
 ];
 
+/**
+ * Rain on the square with a tram due, to hear the background sound with
+ * everything outdoors in it. No clips: the lines run on text timing, so the
+ * background is all there is to hear.
+ */
+const soundCheck: DialogueTurn[] = [
+  {
+    id: "dev-rain-tram-anna-where",
+    speaker: "Anna",
+    slovak: "Prší! Kde je električka?",
+    english: "It's raining! Where's the tram?",
+  },
+  {
+    id: "dev-rain-tram-alex-five",
+    speaker: "You",
+    slovak: "Príde o päť minút.",
+    english: "It's coming in five minutes.",
+  },
+  {
+    id: "dev-rain-tram-anna-roof",
+    speaker: "Anna",
+    slovak: "Tak počkajme pod strechou.",
+    english: "Then let's wait under the roof.",
+  },
+  {
+    id: "dev-rain-tram-alex-coming",
+    speaker: "You",
+    slovak: "Pozri, už ide!",
+    english: "Look, here it comes!",
+  },
+];
+
+groups.push({
+  label: "Sound check",
+  scenes: [
+    {
+      id: "dev/rain-and-tram",
+      lines: playerLines(soundCheck),
+      name: soundCheck[0].slovak,
+      setting: "plaza",
+    },
+  ],
+});
+
 const thingWords = sceneThingWords();
 const clips = greetingClips();
 ---

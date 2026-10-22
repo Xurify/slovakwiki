@@ -21,7 +21,6 @@ const STAGE_SETTINGS: Record<string, LessonSceneArtId> = {
   "grammar/byt-present": "registration",
 };
 
-/** Where a lesson's scene plays on the stick-figure stage. */
 export function stageSettingFor(lessonId: string): LessonSceneArtId {
   return STAGE_SETTINGS[lessonId] ?? storySettingForLesson(lessonId).art;
 }
@@ -32,7 +31,6 @@ const CHAPTER_SETTINGS: Record<string, StageSetting> = {
   "podcast-demonstratives-market": "market",
 };
 
-/** Where a podcast chapter plays on the stage: the studio, unless the hosts go out. */
 export function chapterSettingFor(chapterId: string): StageSetting {
   return CHAPTER_SETTINGS[chapterId] ?? "studio";
 }

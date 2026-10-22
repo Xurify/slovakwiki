@@ -12,7 +12,6 @@ export interface Recording {
   level(): number;
   /** Stop and keep what was said: undefined when it was only silence. */
   stop(): Promise<Take | undefined>;
-  /** Stop and throw it away. */
   cancel(): void;
 }
 

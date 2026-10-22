@@ -2,7 +2,6 @@ import { getAudioVolume } from "$lib/audio/volume";
 import { isOutdoors, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 
-/** One strand of a place's sound, all synthesized: there are no recordings to load. */
 export type AmbienceLayer =
   "birds" | "clinks" | "crickets" | "hum" | "murmur" | "rain" | "tram" | "wind";
 
@@ -24,12 +23,6 @@ const PLACE_LAYERS: Record<StageSetting, readonly AmbienceLayer[]> = {
   studio: ["hum"],
 };
 
-/**
- * What a place sounds like at a time of day and in a weather: birds sing
- * outside on clear days and crickets take over after dark, the tram stops
- * running at night, and rain falls on whatever is outside, heard through
- * the window indoors.
- */
 export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
   const outdoors = isOutdoors(setting);
   const dark = mood.time === "evening" || mood.time === "night";
@@ -46,7 +39,6 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
 }
 
 export interface AmbiencePlayer {
-  /** Quieter while someone speaks, so the line stays clear. */
   duck(speaking: boolean): void;
   stop(): void;
 }
@@ -60,8 +52,8 @@ interface Kit {
   indoors: boolean;
   noise: AudioBuffer;
   out: AudioNode;
-  /** Run `play` again and again, `min`–`max` seconds apart. */
-  every: (min: number, max: number, play: () => void) => void;
+  /** Run `play` again and again, `min`–`max` seconds apart, the first time within `first` s. */
+  every: (min: number, max: number, play: () => void, first?: number) => void;
 }
 
 function between(min: number, max: number): number {
@@ -76,7 +68,6 @@ function noiseBuffer(ctx: AudioContext): AudioBuffer {
   return buffer;
 }
 
-/** Looping noise through `filters`, at `level`: its gain to move, and the source to stop. */
 function bed(
   { ctx, noise, out }: Kit,
   filters: Array<{ frequency: number; q?: number; type: BiquadFilterType }>,
@@ -104,7 +95,6 @@ function bed(
   return { gain, source };
 }
 
-/** A struck note that dies away: a cup on a saucer, a tram bell. */
 function strike(
   { ctx, out }: Kit,
   frequency: number,
@@ -128,7 +118,6 @@ function strike(
   }
 }
 
-/** A short rising whistle, a few in a row: a sparrow. */
 function chirp({ ctx, out }: Kit, notes: number) {
   const pitch = between(2800, 4200);
   for (let note = 0; note < notes; note += 1) {
@@ -196,15 +185,21 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
   },
 
   tram(kit) {
-    kit.every(18, 35, () => {
-      strike(kit, 1318.5, 0.035, 1.2);
-      strike(kit, 1046.5, 0.035, 1.2, 0.35);
-      const rumble = bed(kit, [{ frequency: 120, type: "lowpass" }], 0);
-      const now = kit.ctx.currentTime;
-      rumble.gain.gain.linearRampToValueAtTime(0.3, now + 1.5);
-      rumble.gain.gain.linearRampToValueAtTime(0, now + 4);
-      rumble.source.stop(now + 4.1);
-    });
+    // The first tram comes soon after the sound is turned on, so it is heard at all.
+    kit.every(
+      18,
+      35,
+      () => {
+        strike(kit, 1318.5, 0.035, 1.2);
+        strike(kit, 1046.5, 0.035, 1.2, 0.35);
+        const rumble = bed(kit, [{ frequency: 120, type: "lowpass" }], 0);
+        const now = kit.ctx.currentTime;
+        rumble.gain.gain.linearRampToValueAtTime(0.3, now + 1.5);
+        rumble.gain.gain.linearRampToValueAtTime(0, now + 4);
+        rumble.source.stop(now + 4.1);
+      },
+      6,
+    );
   },
 
   wind(kit) {
@@ -242,7 +237,7 @@ export function playAmbience({ indoors, layers }: Ambience): AmbiencePlayer | un
     indoors,
     noise: noiseBuffer(ctx),
     out: master,
-    every(min, max, play) {
+    every(min, max, play, first = max) {
       const next = (wait: number) => {
         const timer = window.setTimeout(() => {
           timers.delete(timer);
@@ -251,7 +246,7 @@ export function playAmbience({ indoors, layers }: Ambience): AmbiencePlayer | un
         }, wait * 1000);
         timers.add(timer);
       };
-      next(between(0, max));
+      next(between(0, first));
     },
   };
   for (const layer of layers) LAYERS[layer](kit);

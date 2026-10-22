@@ -74,7 +74,6 @@
     /** Things found in a game, ringed in green. */
     found?: readonly string[];
     lines: readonly DirectedLine[];
-    /** Time of day and weather over the place. */
     mood?: SceneMood;
     /** Takes over a tap on a thing; without it the tap opens the thing's word card. */
     onthing?: (id: string) => void;
@@ -109,7 +108,6 @@
   let lit = $state<string[]>([]);
   let picked = $state<string>();
   let board = $state<string>();
-  /** A line said without a clip, in a bubble over the speaker. */
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
   let bubbleTimer = 0;
   let stageWidth = $state(0);
@@ -340,7 +338,6 @@
     actors[id] = { cue: (actors[id]?.cue ?? 0) + 1, plan, talking: true };
   }
 
-  /** The stage's size in px as it is drawn now. */
   export function size(): { height: number; width: number } {
     return { height: stageHeight, width: stageWidth };
   }
