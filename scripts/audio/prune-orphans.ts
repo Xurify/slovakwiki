@@ -6,13 +6,21 @@
  * (typical after switching multilingual_v2 → flash_v2_5 or voice settings).
  * Does not touch `images/` in the shared bucket.
  *
+ * R2 also holds clips that open branches uploaded for lines this branch does not
+ * have yet, so `--r2` keeps orphans uploaded in the last 30 days (`--keep-days N`;
+ * `--keep-days 0` deletes them too). A branch open longer than that can still lose
+ * clips: raise the window or check open branches first. Local orphans are deleted
+ * whatever their age.
+ *
  * Default is dry-run. Pass --delete to remove.
  *
  * Usage:
  *   bun scripts/audio/prune-orphans.ts
  *   bun scripts/audio/prune-orphans.ts -- --r2
  *   bun scripts/audio/prune-orphans.ts -- --delete
- *   bun scripts/audio/prune-orphans.ts -- --delete --r2
+ *   bun scripts/audio/prune-orphans.ts -- --delete --r2                 # keeps R2 uploads from the last 30 days
+ *   bun scripts/audio/prune-orphans.ts -- --delete --r2 --keep-days 90
+ *   bun scripts/audio/prune-orphans.ts -- --delete --r2 --keep-days 0   # deletes recent R2 uploads too
  *   bun scripts/audio/prune-orphans.ts -- --delete --local-only
  *   bun scripts/audio/prune-orphans.ts -- --limit 20
  */
@@ -22,6 +30,12 @@ import path from "node:path";
 
 import { AwsClient } from "aws4fetch";
 
+import {
+  DEFAULT_KEEP_DAYS,
+  parseListObjectsPage,
+  planPrune,
+  type R2Object,
+} from "./orphans";
 import {
   AUDIO_DIR,
   DEFAULT_UPLOAD_CONCURRENCY,
@@ -43,12 +57,14 @@ function parsePruneArgs(argv: string[]): {
   concurrency: number;
   deleteFiles: boolean;
   dryRun: boolean;
+  keepDays: number;
   limit: number | undefined;
   localOnly: boolean;
   r2: boolean;
 } {
   let concurrency = DEFAULT_UPLOAD_CONCURRENCY;
   let deleteFiles = false;
+  let keepDays = DEFAULT_KEEP_DAYS;
   let limit: number | undefined;
   let localOnly = false;
   let r2 = false;
@@ -67,6 +83,13 @@ function parsePruneArgs(argv: string[]): {
       }
       concurrency = Math.min(64, Math.floor(value));
       i += 1;
+    } else if (arg === "--keep-days") {
+      const value = Number(argv[i + 1]);
+      if (!Number.isFinite(value) || value < 0) {
+        throw new Error("--keep-days requires a number of days (0 keeps none)");
+      }
+      keepDays = value;
+      i += 1;
     } else if (arg === "--limit") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 1) {
@@ -76,7 +99,7 @@ function parsePruneArgs(argv: string[]): {
       i += 1;
     } else if (arg === "--help" || arg === "-h") {
       console.log(
-        `Usage: bun scripts/audio/prune-orphans.ts [--delete] [--r2] [--local-only] [--limit N]`,
+        `Usage: bun scripts/audio/prune-orphans.ts [--delete] [--r2] [--local-only] [--keep-days N] [--limit N]`,
       );
       process.exit(0);
     }
@@ -90,6 +113,7 @@ function parsePruneArgs(argv: string[]): {
     concurrency,
     deleteFiles,
     dryRun: !deleteFiles,
+    keepDays,
     limit,
     localOnly,
     r2,
@@ -100,15 +124,6 @@ function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value) throw new Error(`${name} missing (set in .env)`);
   return value;
-}
-
-function decodeXml(value: string): string {
-  return value
-    .replaceAll("&amp;", "&")
-    .replaceAll("&lt;", "<")
-    .replaceAll("&gt;", ">")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&apos;", "'");
 }
 
 function r2Client(): { aws: AwsClient; bucket: string; endpointHost: string } {
@@ -130,12 +145,12 @@ function r2Client(): { aws: AwsClient; bucket: string; endpointHost: string } {
   };
 }
 
-async function listR2AudioObjectKeys(
+async function listR2AudioObjects(
   aws: AwsClient,
   endpointHost: string,
   bucket: string,
-): Promise<string[]> {
-  const keys: string[] = [];
+): Promise<R2Object[]> {
+  const objects: R2Object[] = [];
 
   for (const kind of AUDIO_PREFIXES) {
     for (const prefix of [`${kind}/`, `audio/${kind}/`]) {
@@ -153,64 +168,54 @@ async function listR2AudioObjectKeys(
           throw new Error(`R2 list ${prefix} failed ${res.status}: ${xml.slice(0, 400)}`);
         }
 
-        for (const match of xml.matchAll(/<Key>([^<]+)<\/Key>/g)) {
-          const key = decodeXml(match[1] ?? "");
-          if (key.endsWith(".mp3")) keys.push(key);
+        const page = parseListObjectsPage(xml);
+        for (const object of page.objects) {
+          if (object.key.endsWith(".mp3")) objects.push(object);
         }
-
-        const truncated = xml.includes("<IsTruncated>true</IsTruncated>");
-        const next = xml.match(/<NextContinuationToken>([^<]+)<\/NextContinuationToken>/);
-        token = truncated && next?.[1] ? decodeXml(next[1]) : "";
+        token = page.nextToken;
       } while (token);
     }
   }
 
-  return keys;
+  return objects;
 }
 
 async function main(): Promise<void> {
-  const { concurrency, dryRun, limit, localOnly, r2 } = parsePruneArgs(
+  const { concurrency, dryRun, keepDays, limit, r2 } = parsePruneArgs(
     process.argv.slice(2),
   );
 
   const config = await loadConfig();
   const expected = collectExpectedAudioObjectKeys(config);
   const onDisk = await listAudioObjectKeys();
-  const onDiskSet = new Set(onDisk);
 
   let aws: AwsClient | undefined;
   let endpointHost = "";
   let bucket = "";
-  let onR2: string[] = [];
+  let onR2: R2Object[] = [];
 
   if (r2) {
     const client = r2Client();
     aws = client.aws;
     endpointHost = client.endpointHost;
     bucket = client.bucket;
-    onR2 = await listR2AudioObjectKeys(aws, endpointHost, bucket);
+    onR2 = await listR2AudioObjects(aws, endpointHost, bucket);
   }
 
-  const orphanSet = new Set<string>();
-  for (const key of onDisk) {
-    if (!expected.has(key)) orphanSet.add(key);
-  }
-  for (const key of onR2) {
-    const diskKey = key.replace(/^audio\//, "");
-    if (!expected.has(diskKey)) orphanSet.add(key);
-  }
+  const plan = planPrune({ expected, keepDays, now: Date.now(), onDisk, onR2 });
+  const toUnlink = new Set(plan.local);
+  const toDeleteOnR2 = new Set(plan.r2);
 
-  let orphans = sortObjectKeysByKind([...orphanSet]);
+  let orphans = sortObjectKeysByKind([...new Set([...plan.local, ...plan.r2])]);
   if (limit !== undefined) orphans = orphans.slice(0, limit);
 
-  const onR2Set = new Set(onR2);
   const byKind = { lemma: 0, example: 0, lesson: 0 };
   let diskOrphans = 0;
   let r2Orphans = 0;
   for (const key of orphans) {
     byKind[kindFromObjectKey(key)] += 1;
-    if (onDiskSet.has(key)) diskOrphans += 1;
-    if (onR2Set.has(key)) r2Orphans += 1;
+    if (toUnlink.has(key)) diskOrphans += 1;
+    if (toDeleteOnR2.has(key)) r2Orphans += 1;
   }
 
   console.log(`Model: ${config.modelId}`);
@@ -221,6 +226,12 @@ async function main(): Promise<void> {
     `Orphans: ${orphans.length} (lemma=${byKind.lemma}, example=${byKind.example}, lesson=${byKind.lesson}` +
       `; disk=${diskOrphans}${r2 ? `, r2=${r2Orphans}` : ""})`,
   );
+  if (plan.recentOnR2.length > 0) {
+    console.log(
+      `Keeping ${plan.recentOnR2.length} more on R2, uploaded in the last ${keepDays} days: ` +
+        "an open branch may need them (--keep-days 0 deletes them too)",
+    );
+  }
   console.log(
     dryRun
       ? "Dry-run (pass --delete to remove). Sample:"
@@ -253,7 +264,7 @@ async function main(): Promise<void> {
     const hash = path.basename(objectKey, ".mp3");
     const filePath = path.join(AUDIO_DIR, objectKey);
 
-    if (onDiskSet.has(objectKey) || !r2) {
+    if (toUnlink.has(objectKey)) {
       try {
         await unlink(filePath);
         removedLocal += 1;
@@ -269,7 +280,7 @@ async function main(): Promise<void> {
       }
     }
 
-    if (aws && !localOnly) {
+    if (aws && toDeleteOnR2.has(objectKey)) {
       try {
         const url = `https://${endpointHost}/${bucket}/${objectKey}`;
         const response = await aws.fetch(url, { method: "DELETE" });
@@ -312,6 +323,7 @@ async function main(): Promise<void> {
 
   console.log(
     `Done. removedLocal=${removedLocal} removedR2=${removedR2}` +
+      ` keptRecentR2=${plan.recentOnR2.length}` +
       ` removedManifest=${removedManifest + staleManifest} failed=${failed}`,
   );
   if (failed > 0) process.exitCode = 1;
