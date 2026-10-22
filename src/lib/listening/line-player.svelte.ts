@@ -1,24 +1,15 @@
 import { playStoryLineAudio, stopStoryLineAudio } from "$lib/lesson-story/story-audio";
 import type { DialogueTurn } from "$lib/learning/types";
 
-/** A breath between lines, like the pause a real conversation has. */
 export const LINE_GAP_MS = 450;
 
-/** Clips are already paced for learners; this is one more notch down, pitch kept. */
 export const SLOW_RATE = 0.8;
 
 export interface LinePlayerOptions {
-  /** Stop after this line instead of running on (end of a chapter). */
   isLast: (index: number) => boolean;
-  /** Fires once the last line of a run has played. */
   onRunEnd: (index: number) => void;
 }
 
-/**
- * Plays dialogue lines back to back through the shared story element, one
- * clip per line, with a short gap between them. Shared by the episode player
- * and the grammar page listen block.
- */
 export class LinePlayer {
   cursor = $state(0);
   playing = $state(false);
@@ -55,7 +46,7 @@ export class LinePlayer {
     this.playing = true;
 
     playStoryLineAudio(this.#srcs[line.id], line.slovak, {
-      rate: this.slow ? SLOW_RATE : 1,
+      playbackRate: this.slow ? SLOW_RATE : 1,
       onEnded: () => this.#onLineEnded(index, mine),
     });
   }
@@ -72,7 +63,6 @@ export class LinePlayer {
     else this.playFrom(this.cursor);
   }
 
-  /** Restarts the current line at the new speed when something is playing. */
   toggleSlow(): void {
     this.slow = !this.slow;
     if (this.playing) this.playFrom(this.cursor);

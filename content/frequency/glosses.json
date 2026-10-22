@@ -123,7 +123,7 @@
     "english": "ambition"
   },
   "ambulancia": {
-    "english": "outpatient clinic; ambulance"
+    "english": "outpatient clinic; doctor's office"
   },
   "americký": {
     "english": "American"
@@ -205,7 +205,7 @@
     "english": "army"
   },
   "asistencia": {
-    "english": "assistance; attendance"
+    "english": "assistance; assist (sport)"
   },
   "asistent": {
     "english": "assistant"
@@ -292,7 +292,7 @@
     "english": "Asian"
   },
   "baba": {
-    "english": "old woman; woman; hag"
+    "english": "old woman; woman (often rude)"
   },
   "babka": {
     "english": "grandmother; old woman"
@@ -358,7 +358,7 @@
     "english": "poet"
   },
   "báť": {
-    "english": "to be afraid"
+    "english": "to be afraid (báť sa)"
   },
   "baviť": {
     "english": "to amuse; to enjoy"
@@ -454,7 +454,7 @@
     "english": "to run"
   },
   "bežec": {
-    "english": "runner; running track lane"
+    "english": "runner"
   },
   "bežne": {
     "english": "normally"
@@ -502,7 +502,7 @@
     "english": "business"
   },
   "blaho": {
-    "english": "welfare"
+    "english": "blissfully; wonderfully (je mi blaho = I feel wonderful)"
   },
   "blahoželať": {
     "english": "to congratulate"
@@ -529,7 +529,7 @@
     "english": "near; close"
   },
   "blížiť": {
-    "english": "to approach; to draw near"
+    "english": "to approach; to draw near (blížiť sa)"
   },
   "blog": {
     "english": "blog"
@@ -805,7 +805,7 @@
     "english": "cent"
   },
   "center": {
-    "english": "center"
+    "english": "center (player); cross (football)"
   },
   "centimeter": {
     "english": "centimeter; centimetre"
@@ -826,7 +826,7 @@
     "english": "road; journey; way"
   },
   "cestný": {
-    "english": "road; honorary"
+    "english": "road"
   },
   "cesto": {
     "english": "dough"
@@ -856,7 +856,7 @@
     "english": "purposefully"
   },
   "cielene": {
-    "english": "targeted"
+    "english": "deliberately; specifically; in a targeted way"
   },
   "cieľový": {
     "english": "target; goal"
@@ -1023,7 +1023,7 @@
     "english": "Czech"
   },
   "česť": {
-    "english": "honor; honorific"
+    "english": "honor"
   },
   "čestne": {
     "english": "honestly"
@@ -1129,7 +1129,7 @@
     "english": "odd; strange"
   },
   "čudovať": {
-    "english": "to wonder; to be surprised"
+    "english": "to wonder; to be surprised (čudovať sa)"
   },
   "ďakovať": {
     "english": "to thank"
@@ -1171,7 +1171,7 @@
     "english": "to go well; to succeed (sa)"
   },
   "darmo": {
-    "english": "for free"
+    "english": "in vain; no use (darmo je)"
   },
   "darovať": {
     "english": "to give; to donate"
@@ -1192,7 +1192,7 @@
     "english": "to give (imperfective)"
   },
   "dávka": {
-    "english": "dose; batch; installment"
+    "english": "dose; batch; (social) benefit"
   },
   "dávno": {
     "english": "a long time ago"
@@ -1237,7 +1237,7 @@
     "english": "definition"
   },
   "definitívne": {
-    "english": "definitely"
+    "english": "definitively; for good; finally"
   },
   "definitívny": {
     "english": "definitive; final"
@@ -1348,7 +1348,7 @@
     "english": "events; goings-on"
   },
   "diať": {
-    "english": "to happen; to take place"
+    "english": "to happen; to take place (diať sa)"
   },
   "diecéza": {
     "english": "diocese"
@@ -1357,7 +1357,7 @@
     "english": "diocesan"
   },
   "diel": {
-    "english": "part; work; share"
+    "english": "part; episode; share"
   },
   "dielňa": {
     "english": "workshop"
@@ -1399,7 +1399,7 @@
     "english": "disciplinary"
   },
   "disciplinovane": {
-    "english": "disciplined"
+    "english": "in a disciplined way"
   },
   "disk": {
     "english": "disk; disc"
@@ -1435,7 +1435,7 @@
     "english": "spectator; viewer"
   },
   "dívať": {
-    "english": "to look; to watch"
+    "english": "to look; to watch (dívať sa)"
   },
   "divízia": {
     "english": "division"
@@ -1540,13 +1540,13 @@
     "english": "temporary"
   },
   "dočkať": {
-    "english": "to wait until; to live to see"
+    "english": "to live to see; to get at last (dočkať sa); to wait until"
   },
   "dodať": {
     "english": "to add; to supply"
   },
   "dodatočne": {
-    "english": "additionally"
+    "english": "afterwards; subsequently; additionally"
   },
   "dodatočný": {
     "english": "additional; supplementary"
@@ -1576,7 +1576,7 @@
     "english": "agreement"
   },
   "dohodnúť": {
-    "english": "to agree; to arrange"
+    "english": "to agree (dohodnúť sa); to arrange"
   },
   "dohora": {
     "english": "upward"
@@ -1675,7 +1675,7 @@
     "english": "to dominate"
   },
   "domnievať": {
-    "english": "to suppose; to believe"
+    "english": "to suppose; to believe (domnievať sa)"
   },
   "domov": {
     "english": "home (direction)"
@@ -1693,13 +1693,13 @@
     "english": "to bring"
   },
   "doobeda": {
-    "english": "morning"
+    "english": "in the morning; before noon"
   },
   "dookola": {
     "english": "round and round; repeatedly"
   },
   "dopad": {
-    "english": "impact; effect; fallout"
+    "english": "landing; impact (of a fall)"
   },
   "dopadnúť": {
     "english": "to land; to turn out"
@@ -1738,7 +1738,7 @@
     "english": "forward; in advance"
   },
   "dopustiť": {
-    "english": "to allow; to commit"
+    "english": "to allow; to commit (dopustiť sa)"
   },
   "dopyt": {
     "english": "demand"
@@ -1804,7 +1804,7 @@
     "english": "subsidy; grant"
   },
   "doterajší": {
-    "english": "hitherto; previous"
+    "english": "previous; existing"
   },
   "doteraz": {
     "english": "until now"
@@ -1813,13 +1813,13 @@
     "english": "to pull; to finish; to tighten"
   },
   "dotknúť": {
-    "english": "to touch"
+    "english": "to touch (dotknúť sa)"
   },
   "dotyk": {
     "english": "touch; contact"
   },
   "dotýkať": {
-    "english": "to touch; to concern"
+    "english": "to touch; to concern (dotýkať sa)"
   },
   "dovedna": {
     "english": "altogether; in total"
@@ -1846,7 +1846,7 @@
     "english": "supervisory; oversight"
   },
   "dozvedieť": {
-    "english": "to find out; to learn"
+    "english": "to find out; to learn (dozvedieť sa)"
   },
   "dôchodca": {
     "english": "pensioner; retiree"
@@ -2096,10 +2096,10 @@
     "english": "emotionally"
   },
   "energeticky": {
-    "english": "energetically"
+    "english": "in terms of energy (energeticky úsporný = energy-saving)"
   },
   "energetický": {
-    "english": "energy; energetic"
+    "english": "energy; power (sector)"
   },
   "energetika": {
     "english": "energy sector; energy industry"
@@ -2163,7 +2163,7 @@
     "english": "gospel"
   },
   "evidencia": {
-    "english": "record; evidence"
+    "english": "records; register; registration"
   },
   "evidentne": {
     "english": "evidently"
@@ -2404,7 +2404,7 @@
     "english": "in French"
   },
   "franko": {
-    "english": "frankly"
+    "english": "carriage paid; free (to) (franko sklad = free to warehouse)"
   },
   "frekvencia": {
     "english": "frequency"
@@ -2428,7 +2428,7 @@
     "english": "functional"
   },
   "furt": {
-    "english": "further"
+    "english": "all the time; constantly (colloquial)"
   },
   "futbal": {
     "english": "football; soccer"
@@ -2543,7 +2543,7 @@
     "english": "shame; disgrace"
   },
   "hanbiť": {
-    "english": "to be ashamed"
+    "english": "to be ashamed (hanbiť sa)"
   },
   "hasič": {
     "english": "firefighter"
@@ -2693,7 +2693,7 @@
     "english": "anger"
   },
   "hnevať": {
-    "english": "to anger; to be angry"
+    "english": "to anger; to be angry (hnevať sa)"
   },
   "hniezdo": {
     "english": "nest"
@@ -2762,7 +2762,7 @@
     "english": "horizon"
   },
   "horko": {
-    "english": "it is hot"
+    "english": "bitterly (horko plakať); with great difficulty (horko-ťažko)"
   },
   "horlivo": {
     "english": "eagerly"
@@ -2795,7 +2795,7 @@
     "english": "guest"
   },
   "hosťovanie": {
-    "english": "guest appearance; hosting"
+    "english": "guest appearance; guest engagement; loan (sport)"
   },
   "hotel": {
     "english": "hotel"
@@ -2903,10 +2903,10 @@
     "english": "horror; terror"
   },
   "hrubo": {
-    "english": "roughly"
+    "english": "rudely; coarsely; roughly"
   },
   "hrubý": {
-    "english": "gross; rough; coarse"
+    "english": "thick; rough; coarse; rude; gross"
   },
   "hruď": {
     "english": "chest; breast"
@@ -3093,7 +3093,7 @@
     "english": "to be missing; to miss"
   },
   "chystať": {
-    "english": "to prepare; to get ready"
+    "english": "to prepare; to get ready, to plan to (chystať sa)"
   },
   "chytať": {
     "english": "to catch (imperfective)"
@@ -3352,7 +3352,7 @@
     "english": "spring"
   },
   "jaro": {
-    "english": "spring"
+    "english": "briskly; vigorously (bookish)"
   },
   "jaskyňa": {
     "english": "cave"
@@ -3373,7 +3373,7 @@
     "english": "stage"
   },
   "javiť": {
-    "english": "to appear; to seem"
+    "english": "to appear; to seem (javiť sa); to show (interest)"
   },
   "jazda": {
     "english": "ride; drive"
@@ -3400,7 +3400,7 @@
     "english": "canteen; dining room"
   },
   "jedenástka": {
-    "english": "eleven; team of eleven; number eleven"
+    "english": "eleven; starting eleven; penalty kick (football)"
   },
   "jedinec": {
     "english": "individual"
@@ -3427,7 +3427,7 @@
     "english": "one time"
   },
   "jednostaj": {
-    "english": "all the same; it makes no difference"
+    "english": "constantly; all the time"
   },
   "jednostranne": {
     "english": "unilaterally"
@@ -3574,7 +3574,7 @@
     "english": "candidacy"
   },
   "kandidovať": {
-    "english": "to run (for office); to candidate"
+    "english": "to run (for office); to stand as a candidate"
   },
   "kanonier": {
     "english": "top scorer; gunner"
@@ -3640,7 +3640,7 @@
     "english": "Catholic"
   },
   "kauza": {
-    "english": "case (affair); cause"
+    "english": "case; affair; scandal"
   },
   "kaviareň": {
     "english": "café; coffee shop"
@@ -3781,7 +3781,7 @@
     "english": "wheel"
   },
   "kolo": {
-    "english": "round; wheel; bike"
+    "english": "circle; round; lap; bike (colloq.)"
   },
   "kombinácia": {
     "english": "combination"
@@ -3904,7 +3904,7 @@
     "english": "to end; to finish"
   },
   "kondične": {
-    "english": "conditionally"
+    "english": "in terms of fitness; physically"
   },
   "konečne": {
     "english": "finally"
@@ -4103,7 +4103,7 @@
     "english": "beauty"
   },
   "krásne": {
-    "english": "beautiful"
+    "english": "beautifully; nicely; it is lovely (je krásne)"
   },
   "krásny": {
     "english": "beautiful"
@@ -4124,7 +4124,7 @@
     "english": "cow"
   },
   "krážom": {
-    "english": "cross"
+    "english": "criss-cross (krížom-krážom = all over, back and forth)"
   },
   "krčma": {
     "english": "tavern; pub"
@@ -4217,7 +4217,7 @@
     "english": "to twist; to turn"
   },
   "kruto": {
-    "english": "cruel"
+    "english": "cruelly; harshly"
   },
   "krutý": {
     "english": "cruel"
@@ -4532,7 +4532,7 @@
     "english": "ticket; leaf; slip"
   },
   "líšiť": {
-    "english": "to differ"
+    "english": "to differ (líšiť sa)"
   },
   "liter": {
     "english": "liter; litre"
@@ -4690,7 +4690,7 @@
     "english": "painter"
   },
   "malička": {
-    "english": "little one"
+    "english": "since childhood (only in od malička)"
   },
   "maličký": {
     "english": "tiny"
@@ -4759,7 +4759,7 @@
     "english": "of Martin; Martin"
   },
   "masa": {
-    "english": "mass; crowd; dough"
+    "english": "mass; crowd"
   },
   "masívny": {
     "english": "massive"
@@ -4849,7 +4849,7 @@
     "english": "in the meantime"
   },
   "medzimesačne": {
-    "english": "monthly"
+    "english": "month on month"
   },
   "medzinárodne": {
     "english": "internationally"
@@ -4876,7 +4876,7 @@
     "english": "memoriam"
   },
   "mena": {
-    "english": "currency; name (reputation)"
+    "english": "currency"
   },
   "meniť": {
     "english": "to change"
@@ -5140,7 +5140,7 @@
     "english": "modern"
   },
   "modliť": {
-    "english": "to pray"
+    "english": "to pray (modliť sa)"
   },
   "modlitba": {
     "english": "prayer"
@@ -5243,7 +5243,7 @@
     "english": "to regret; to annoy; to be sorry"
   },
   "múdro": {
-    "english": "wise"
+    "english": "wisely"
   },
   "múdrosť": {
     "english": "wisdom"
@@ -5276,7 +5276,7 @@
     "english": "team (esp. sports)"
   },
   "mýliť": {
-    "english": "to be mistaken; to confuse"
+    "english": "to be mistaken (mýliť sa); to confuse"
   },
   "myseľ": {
     "english": "mind"
@@ -5321,7 +5321,7 @@
     "english": "furniture"
   },
   "načas": {
-    "english": "temporarily; for the time being"
+    "english": "on time; for a while"
   },
   "načase": {
     "english": "it is time"
@@ -5333,7 +5333,7 @@
     "english": "illegally; off the books"
   },
   "načisto": {
-    "english": "cleanly"
+    "english": "completely; as a fair copy"
   },
   "nadácia": {
     "english": "foundation"
@@ -5348,7 +5348,7 @@
     "english": "hope"
   },
   "nádherne": {
-    "english": "beautiful"
+    "english": "beautifully; wonderfully"
   },
   "nádherný": {
     "english": "gorgeous; magnificent"
@@ -5384,7 +5384,7 @@
     "english": "before dawn"
   },
   "nadrobno": {
-    "english": "in detail"
+    "english": "finely (chopped); into small pieces"
   },
   "nádrž": {
     "english": "tank; reservoir"
@@ -5450,7 +5450,7 @@
     "english": "naked"
   },
   "nachádzať": {
-    "english": "to find; to be located"
+    "english": "to find; to be located (nachádzať sa)"
   },
   "naivne": {
     "english": "naively"
@@ -5465,7 +5465,7 @@
     "english": "openly"
   },
   "nájazd": {
-    "english": "raid; attack; drive-in"
+    "english": "raid; slip road; shootout attempt (hockey)"
   },
   "najneskôr": {
     "english": "at the latest"
@@ -5480,7 +5480,7 @@
     "english": "first"
   },
   "najskôr": {
-    "english": "at the earliest"
+    "english": "first; at the earliest; as soon as possible (čo najskôr)"
   },
   "nájsť": {
     "english": "to find"
@@ -5657,7 +5657,7 @@
     "english": "birthday"
   },
   "narodiť": {
-    "english": "to be born; to give birth"
+    "english": "to be born (narodiť sa)"
   },
   "národne": {
     "english": "nationally"
@@ -5774,7 +5774,7 @@
     "english": "permanently"
   },
   "naučiť": {
-    "english": "to teach; to learn"
+    "english": "to teach; to learn (naučiť sa)"
   },
   "naveky": {
     "english": "forever"
@@ -5834,7 +5834,7 @@
     "english": "back"
   },
   "nazdávať": {
-    "english": "to think; to suppose"
+    "english": "to think; to suppose (nazdávať sa)"
   },
   "naznačiť": {
     "english": "to indicate; to hint"
@@ -5870,7 +5870,7 @@
     "english": "imperceptibly; unnoticed"
   },
   "nebáť": {
-    "english": "not to be afraid"
+    "english": "not to be afraid (nebáť sa)"
   },
   "nebeský": {
     "english": "heavenly; celestial"
@@ -5918,7 +5918,7 @@
     "english": "nearby"
   },
   "nedariť": {
-    "english": "not to go well; not to succeed"
+    "english": "not to go well; not to succeed (nedariť sa)"
   },
   "nedať": {
     "english": "not to give; not to let"
@@ -6138,13 +6138,13 @@
     "english": "reluctantly"
   },
   "neoprávnene": {
-    "english": "unauthorized"
+    "english": "without authorization; unlawfully; wrongly"
   },
   "nepáčiť": {
     "english": "not to please; not to like (sa)"
   },
   "nepamätať": {
-    "english": "not to remember"
+    "english": "not to remember (nepamätať si)"
   },
   "nepatriť": {
     "english": "not to belong"
@@ -6159,7 +6159,7 @@
     "english": "not to hear"
   },
   "nepodariť": {
-    "english": "not to succeed; not to work out"
+    "english": "not to succeed; not to work out (nepodariť sa)"
   },
   "nepodmienečne": {
     "english": "unconditionally"
@@ -6201,7 +6201,7 @@
     "english": "not to bother; not to mind"
   },
   "nepresne": {
-    "english": "not exactly"
+    "english": "inaccurately; imprecisely"
   },
   "neprestajne": {
     "english": "continuously"
@@ -6246,7 +6246,7 @@
     "english": "not to do; not to make"
   },
   "nerozhodne": {
-    "english": "undecided"
+    "english": "in a draw (skončiť nerozhodne); indecisively"
   },
   "nerozumieť": {
     "english": "not to understand"
@@ -6315,7 +6315,7 @@
     "english": "not to be enough; not to suffice"
   },
   "nestať": {
-    "english": "not to happen; not to become"
+    "english": "not to happen; not to become (nestať sa)"
   },
   "nestáť": {
     "english": "not to stand; not to cost; not to be worth"
@@ -6336,7 +6336,7 @@
     "english": "misfortune; disaster"
   },
   "nešťastne": {
-    "english": "unfortunately"
+    "english": "unhappily; unluckily; awkwardly"
   },
   "nešťastný": {
     "english": "unhappy; unfortunate"
@@ -6390,7 +6390,7 @@
     "english": "constant; continual"
   },
   "neuveriteľne": {
-    "english": "unbelievable"
+    "english": "incredibly; unbelievably"
   },
   "neuveriteľný": {
     "english": "unbelievable"
@@ -6411,7 +6411,7 @@
     "english": "not very"
   },
   "neveriacky": {
-    "english": "unbelievably"
+    "english": "incredulously; in disbelief"
   },
   "neveriť": {
     "english": "not to believe"
@@ -6444,7 +6444,7 @@
     "english": "not to return; not to give back"
   },
   "nevšimnúť": {
-    "english": "not to notice"
+    "english": "not to notice (nevšimnúť si)"
   },
   "nevyhnutne": {
     "english": "necessarily"
@@ -6504,7 +6504,7 @@
     "english": "nonsense; absurdity"
   },
   "nezmyselne": {
-    "english": "senseless"
+    "english": "senselessly; pointlessly"
   },
   "nezmyselný": {
     "english": "nonsensical; pointless"
@@ -6658,7 +6658,7 @@
     "english": "concern; fear"
   },
   "obávať": {
-    "english": "to fear; to be worried"
+    "english": "to fear; to be worried (obávať sa)"
   },
   "občan": {
     "english": "citizen"
@@ -6676,7 +6676,7 @@
     "english": "citizenship"
   },
   "obďaleč": {
-    "english": "far away"
+    "english": "at a distance; some way off"
   },
   "obdiv": {
     "english": "admiration"
@@ -6907,7 +6907,7 @@
     "english": "horizon; outlook"
   },
   "obzrieť": {
-    "english": "to look around; to look back"
+    "english": "to look back; to look around (obzrieť sa)"
   },
   "obzvlášť": {
     "english": "especially"
@@ -6928,7 +6928,7 @@
     "english": "to appreciate; to value"
   },
   "ocitnúť": {
-    "english": "to find oneself"
+    "english": "to find oneself (ocitnúť sa)"
   },
   "ocko": {
     "english": "daddy"
@@ -6970,7 +6970,7 @@
     "english": "trade-union; departmental"
   },
   "oddávna": {
-    "english": "a long time ago"
+    "english": "for a long time; since time immemorial"
   },
   "oddelene": {
     "english": "separately"
@@ -7054,10 +7054,10 @@
     "english": "to take away; to carry off"
   },
   "odohrať": {
-    "english": "to take place; to play out"
+    "english": "to take place (odohrať sa); to play (a match)"
   },
   "odohrávať": {
-    "english": "to take place; to play out (imperfective)"
+    "english": "to take place; to play out (odohrávať sa, imperfective)"
   },
   "odovzdať": {
     "english": "to hand over; to pass on"
@@ -7162,7 +7162,7 @@
     "english": "appeal; dismissal"
   },
   "odvolať": {
-    "english": "to revoke; to recall; to appeal"
+    "english": "to revoke; to recall; to appeal (odvolať sa)"
   },
   "odvrátiť": {
     "english": "to avert; to turn away"
@@ -7360,7 +7360,7 @@
     "english": "operational; surgical"
   },
   "operatívne": {
-    "english": "operationally"
+    "english": "promptly; flexibly; at short notice"
   },
   "operátor": {
     "english": "operator"
@@ -7378,7 +7378,7 @@
     "english": "to describe"
   },
   "oplatiť": {
-    "english": "to be worth; to pay back"
+    "english": "to be worth it (oplatiť sa); to pay back"
   },
   "opora": {
     "english": "support; mainstay"
@@ -7423,7 +7423,7 @@
     "english": "to leave; to abandon"
   },
   "opýtať": {
-    "english": "to ask"
+    "english": "to ask (opýtať sa)"
   },
   "oravský": {
     "english": "of Orava; Orava"
@@ -7675,7 +7675,7 @@
     "english": "fuel"
   },
   "paluba": {
-    "english": "deck; aboard"
+    "english": "deck; board (na palube = aboard)"
   },
   "palubovka": {
     "english": "court; dashboard"
@@ -7684,7 +7684,7 @@
     "english": "memory"
   },
   "pamätať": {
-    "english": "to remember"
+    "english": "to remember (pamätať si)"
   },
   "pamätník": {
     "english": "memorial; monument"
@@ -7812,7 +7812,7 @@
     "english": "fist"
   },
   "päta": {
-    "english": "heel; footnote"
+    "english": "heel; foot (of a hill); footer"
   },
   "pec": {
     "english": "furnace; kiln; stove"
@@ -7875,7 +7875,7 @@
     "english": "staff"
   },
   "personálne": {
-    "english": "personally; in staffing terms"
+    "english": "in terms of staff; staffing-wise"
   },
   "personálny": {
     "english": "personnel; personal"
@@ -8070,7 +8070,7 @@
     "english": "area; surface"
   },
   "plot": {
-    "english": "fence; plot"
+    "english": "fence"
   },
   "pľúca": {
     "english": "lungs"
@@ -8097,7 +8097,7 @@
     "english": "tire; tyre"
   },
   "pobavene": {
-    "english": "amused"
+    "english": "with amusement; amusedly"
   },
   "pobočka": {
     "english": "branch; subsidiary"
@@ -8166,7 +8166,7 @@
     "english": "submission; serving; delivery"
   },
   "podariť": {
-    "english": "to succeed; to manage"
+    "english": "to succeed; to manage (podariť sa)"
   },
   "podať": {
     "english": "to hand over; to submit; to give"
@@ -8178,13 +8178,13 @@
     "english": "to share; to divide"
   },
   "podchvíľou": {
-    "english": "momentarily"
+    "english": "every now and then; every so often"
   },
   "podiel": {
     "english": "share; portion"
   },
   "podieľať": {
-    "english": "to take part; to share in"
+    "english": "to take part; to share in (podieľať sa na)"
   },
   "podielový": {
     "english": "share; mutual-fund"
@@ -8211,7 +8211,7 @@
     "english": "condition"
   },
   "podnes": {
-    "english": "today"
+    "english": "to this day; still"
   },
   "podnet": {
     "english": "stimulus; initiative"
@@ -8238,7 +8238,7 @@
     "english": "form; appearance; likeness"
   },
   "podobať": {
-    "english": "to resemble"
+    "english": "to resemble (podobať sa)"
   },
   "podobne": {
     "english": "similarly"
@@ -8277,7 +8277,7 @@
     "english": "vice-chair; deputy chair"
   },
   "podráždene": {
-    "english": "irritated"
+    "english": "irritably"
   },
   "podrobne": {
     "english": "in detail"
@@ -8460,10 +8460,10 @@
     "english": "attempt; experiment"
   },
   "pokúsiť": {
-    "english": "to try; to attempt"
+    "english": "to try; to attempt (pokúsiť sa)"
   },
   "pokúšať": {
-    "english": "to try; to attempt (imperfective)"
+    "english": "to try; to attempt (pokúšať sa, imperfective); to tempt"
   },
   "pokušenie": {
     "english": "temptation"
@@ -8526,7 +8526,7 @@
     "english": "field"
   },
   "polo": {
-    "english": "polo"
+    "english": "half; partly"
   },
   "poloha": {
     "english": "position; location"
@@ -8590,7 +8590,7 @@
     "english": "to think; to consider"
   },
   "ponáhľať": {
-    "english": "to hurry"
+    "english": "to hurry (ponáhľať sa)"
   },
   "pondelok": {
     "english": "Monday"
@@ -8630,7 +8630,7 @@
     "english": "leading; prominent"
   },
   "popritom": {
-    "english": "by the way"
+    "english": "at the same time; besides"
   },
   "populácia": {
     "english": "population"
@@ -8690,7 +8690,7 @@
     "english": "to compare"
   },
   "porozprávať": {
-    "english": "to talk; to chat"
+    "english": "to talk; to have a chat (porozprávať sa); to tell"
   },
   "porozumenie": {
     "english": "understanding; comprehension"
@@ -8720,7 +8720,7 @@
     "english": "violation; infringement"
   },
   "posadiť": {
-    "english": "to seat; to sit down"
+    "english": "to seat; to plant; to sit down (posadiť sa)"
   },
   "posádka": {
     "english": "crew; occupants"
@@ -8774,7 +8774,7 @@
     "english": "to send"
   },
   "posledne": {
-    "english": "lastly"
+    "english": "last time; recently"
   },
   "posledný": {
     "english": "last; final"
@@ -8795,7 +8795,7 @@
     "english": "post; position"
   },
   "postarať": {
-    "english": "to take care; to see to"
+    "english": "to take care; to see to (postarať sa o)"
   },
   "postava": {
     "english": "figure; character"
@@ -9110,7 +9110,7 @@
     "english": "fire (blaze)"
   },
   "požičať": {
-    "english": "to lend; to borrow"
+    "english": "to lend; to borrow (požičať si)"
   },
   "pôda": {
     "english": "soil; land; ground"
@@ -9201,7 +9201,7 @@
     "english": "true; truthful"
   },
   "práve": {
-    "english": "right now"
+    "english": "just; exactly; right now"
   },
   "pravica": {
     "english": "right hand; political right"
@@ -9351,7 +9351,7 @@
     "english": "head; chief; stationmaster"
   },
   "prednostne": {
-    "english": "preferably"
+    "english": "as a priority; first; preferentially"
   },
   "predný": {
     "english": "front; leading"
@@ -9399,7 +9399,7 @@
     "english": "board of directors"
   },
   "predstaviť": {
-    "english": "to introduce; to present"
+    "english": "to introduce; to present; to imagine (predstaviť si)"
   },
   "predstaviteľ": {
     "english": "representative; official"
@@ -9417,7 +9417,7 @@
     "english": "to demonstrate; to show"
   },
   "predvlani": {
-    "english": "the year before"
+    "english": "the year before last; two years ago"
   },
   "predvolebný": {
     "english": "pre-election"
@@ -9546,7 +9546,7 @@
     "english": "to transfer; to carry over"
   },
   "prenikavo": {
-    "english": "shrill"
+    "english": "piercingly; shrilly"
   },
   "preniknúť": {
     "english": "to penetrate; to get through"
@@ -9600,7 +9600,7 @@
     "english": "precise; exact"
   },
   "presťahovať": {
-    "english": "to move; to relocate"
+    "english": "to move house; to relocate (presťahovať sa)"
   },
   "prestať": {
     "english": "to stop"
@@ -9754,13 +9754,13 @@
     "english": "story"
   },
   "priblížiť": {
-    "english": "to bring closer; to approach"
+    "english": "to bring closer; to approach (priblížiť sa)"
   },
   "približne": {
     "english": "approximately"
   },
   "približovať": {
-    "english": "to approach; to bring closer"
+    "english": "to approach (približovať sa); to bring closer"
   },
   "pribúdať": {
     "english": "to increase; to be added"
@@ -9959,7 +9959,7 @@
     "english": "to seem; to fall to; to be allotted"
   },
   "prípadný": {
-    "english": "possible; eventual"
+    "english": "possible; potential; any"
   },
   "pripísať": {
     "english": "to attribute; to ascribe; to add in writing"
@@ -10064,7 +10064,7 @@
     "english": "to approach; to treat"
   },
   "príšerne": {
-    "english": "horrible"
+    "english": "horribly; terribly"
   },
   "príťažlivý": {
     "english": "attractive"
@@ -10304,7 +10304,7 @@
     "english": "proudly"
   },
   "pýtať": {
-    "english": "to ask; to ask for"
+    "english": "to ask (pýtať sa); to ask for"
   },
   "racionálne": {
     "english": "rationally"
@@ -10346,10 +10346,10 @@
     "english": "joyful"
   },
   "radovať": {
-    "english": "to rejoice; to be glad"
+    "english": "to rejoice; to be glad (radovať sa)"
   },
   "rádovo": {
-    "english": "by an order of magnitude"
+    "english": "on the order of; roughly; by an order of magnitude"
   },
   "raj": {
     "english": "paradise; heaven"
@@ -10383,7 +10383,7 @@
     "english": "morning"
   },
   "ráno": {
-    "english": "morning"
+    "english": "in the morning"
   },
   "rapídne": {
     "english": "quickly"
@@ -10569,7 +10569,7 @@
     "english": "resolutely"
   },
   "rezort": {
-    "english": "ministry; sector; resort"
+    "english": "ministry; sector"
   },
   "réžia": {
     "english": "direction; directing"
@@ -10618,7 +10618,7 @@
     "category": "Places"
   },
   "rimavský": {
-    "english": "of Rimavská; Rimava"
+    "english": "of Rimava; Rimava"
   },
   "rímskokatolícky": {
     "english": "Roman Catholic"
@@ -10807,7 +10807,7 @@
     "english": "area; extent"
   },
   "rozlúčiť": {
-    "english": "to say goodbye; to part"
+    "english": "to say goodbye; to part (rozlúčiť sa)"
   },
   "rozlúčka": {
     "english": "farewell; goodbye"
@@ -10891,7 +10891,7 @@
     "english": "development"
   },
   "rôzne": {
-    "english": "various"
+    "english": "variously; in different ways"
   },
   "rôzny": {
     "english": "various; different"
@@ -10950,7 +10950,7 @@
     "english": "fish"
   },
   "rýchle": {
-    "english": "fast"
+    "english": "quickly; fast (less common than rýchlo)"
   },
   "rýchlo": {
     "english": "quickly"
@@ -10995,7 +10995,7 @@
     "english": "self-governing"
   },
   "samostatne": {
-    "english": "separately"
+    "english": "separately; independently"
   },
   "samostatný": {
     "english": "independent; separate"
@@ -11234,7 +11234,7 @@
     "english": "landfill; dump"
   },
   "sklamane": {
-    "english": "disappointed"
+    "english": "in disappointment; disappointedly"
   },
   "sklamanie": {
     "english": "disappointment"
@@ -11499,7 +11499,7 @@
     "english": "to head; to aim; to direct"
   },
   "smiať": {
-    "english": "to laugh"
+    "english": "to laugh (smiať sa)"
   },
   "smiech": {
     "english": "laughter"
@@ -11538,7 +11538,7 @@
     "english": "effort; endeavor"
   },
   "snažiť": {
-    "english": "to try; to strive"
+    "english": "to try; to strive (snažiť sa)"
   },
   "sneh": {
     "english": "snow"
@@ -11703,7 +11703,7 @@
     "english": "reliable"
   },
   "spoliehať": {
-    "english": "to rely"
+    "english": "to rely (spoliehať sa na)"
   },
   "spolkový": {
     "english": "federal (German); association"
@@ -11754,7 +11754,7 @@
     "english": "classmate"
   },
   "spomenúť": {
-    "english": "to mention"
+    "english": "to mention; to remember (spomenúť si)"
   },
   "spomienka": {
     "english": "memory; recollection"
@@ -11823,7 +11823,7 @@
     "english": "behavior; behaviour"
   },
   "správať": {
-    "english": "to behave"
+    "english": "to behave (správať sa)"
   },
   "správca": {
     "english": "administrator; manager"
@@ -11886,7 +11886,7 @@
     "english": "to launch; to start; to lower"
   },
   "spýtať": {
-    "english": "to ask"
+    "english": "to ask (spýtať sa)"
   },
   "spýtavo": {
     "english": "questioningly"
@@ -11940,7 +11940,7 @@
     "english": "to set; to establish"
   },
   "starať": {
-    "english": "to take care; to look after"
+    "english": "to take care; to look after (starať sa o)"
   },
   "starec": {
     "english": "old man"
@@ -11970,7 +11970,7 @@
     "english": "old"
   },
   "stať": {
-    "english": "to happen; to become"
+    "english": "to happen; to become (stať sa)"
   },
   "stáť": {
     "english": "to stand; to cost"
@@ -11985,7 +11985,7 @@
     "english": "to build"
   },
   "stávať": {
-    "english": "to become; to happen (imperfective)"
+    "english": "to become; to happen (stávať sa, imperfective)"
   },
   "stavba": {
     "english": "building; construction"
@@ -12000,7 +12000,7 @@
     "english": "complaint"
   },
   "sťažovať": {
-    "english": "to complain; to make difficult"
+    "english": "to complain (sťažovať sa); to make difficult"
   },
   "stena": {
     "english": "wall"
@@ -12108,7 +12108,7 @@
     "english": "center; resort; facility"
   },
   "stredne": {
-    "english": "medium"
+    "english": "moderately; medium"
   },
   "stredný": {
     "english": "middle; secondary; average"
@@ -12138,7 +12138,7 @@
     "english": "shooter; striker; gunner"
   },
   "strelecky": {
-    "english": "shooting"
+    "english": "in terms of shooting; at scoring"
   },
   "strelecký": {
     "english": "shooting; scoring"
@@ -12318,7 +12318,7 @@
     "english": "raw material; ingredient"
   },
   "surovo": {
-    "english": "raw"
+    "english": "brutally; harshly; roughly"
   },
   "surový": {
     "english": "raw; crude"
@@ -12336,7 +12336,7 @@
     "english": "consistently"
   },
   "sústredene": {
-    "english": "concentrated"
+    "english": "with concentration; attentively"
   },
   "sústredenie": {
     "english": "concentration; gathering"
@@ -12438,7 +12438,7 @@
     "english": "symbolic"
   },
   "sympatický": {
-    "english": "likeable; sympathetic"
+    "english": "likeable; nice; pleasant"
   },
   "syn": {
     "english": "son"
@@ -12486,7 +12486,7 @@
     "english": "editor-in-chief"
   },
   "šestnástka": {
-    "english": "sixteen; round of sixteen"
+    "english": "sixteen; penalty area (football); last sixteen"
   },
   "šetriť": {
     "english": "to save; to conserve; to spare"
@@ -12595,7 +12595,7 @@
     "english": "athlete; sportsperson"
   },
   "športovo": {
-    "english": "sporty"
+    "english": "sportily; casually (of dress); in sporting terms"
   },
   "športový": {
     "english": "sports"
@@ -12667,7 +12667,7 @@
     "english": "slim; slender"
   },
   "štít": {
-    "english": "shield; mountain ridge"
+    "english": "shield; peak; gable"
   },
   "štrajk": {
     "english": "strike"
@@ -12975,7 +12975,7 @@
     "english": "terrorism"
   },
   "tesne": {
-    "english": "closely"
+    "english": "just (before/after); right (next to); narrowly"
   },
   "tesný": {
     "english": "tight; close"
@@ -12984,7 +12984,7 @@
     "english": "test"
   },
   "tešiť": {
-    "english": "to please; to look forward"
+    "english": "to please; to look forward to (tešiť sa na)"
   },
   "teta": {
     "english": "aunt"
@@ -13187,7 +13187,7 @@
     "english": "class"
   },
   "triezvo": {
-    "english": "sober"
+    "english": "soberly; level-headedly"
   },
   "triumf": {
     "english": "triumph"
@@ -13317,7 +13317,7 @@
     "english": "face"
   },
   "tváriť": {
-    "english": "to pretend; to look (as if)"
+    "english": "to pretend; to look (as if) (tváriť sa)"
   },
   "tvorba": {
     "english": "creation; work (creative)"
@@ -13350,7 +13350,7 @@
     "english": "hard; tough"
   },
   "týkať": {
-    "english": "to concern; to relate to"
+    "english": "to concern; to relate to (týkať sa)"
   },
   "typ": {
     "english": "type"
@@ -13428,7 +13428,7 @@
     "english": "effect"
   },
   "učiť": {
-    "english": "to teach; to learn"
+    "english": "to teach; to learn (učiť sa)"
   },
   "učiteľ": {
     "english": "teacher"
@@ -13458,7 +13458,7 @@
     "english": "blow; strike; hit"
   },
   "udiať": {
-    "english": "to happen; to take place"
+    "english": "to happen; to take place (udiať sa)"
   },
   "údolie": {
     "english": "valley"
@@ -13485,7 +13485,7 @@
     "english": "angle; corner"
   },
   "uhorský": {
-    "english": "Hungarian (historical); Magyar"
+    "english": "Hungarian (of the Kingdom of Hungary)"
   },
   "úhrada": {
     "english": "payment; reimbursement"
@@ -13497,13 +13497,13 @@
     "english": "applicant; candidate"
   },
   "uchádzať": {
-    "english": "to apply; to seek; to compete for"
+    "english": "to apply; to seek; to compete for (uchádzať sa o)"
   },
   "ucho": {
     "english": "ear"
   },
   "ujať": {
-    "english": "to take hold; to take on"
+    "english": "to take on; to take charge of; to catch on (ujať sa)"
   },
   "ujsť": {
     "english": "to escape; to get away"
@@ -13753,7 +13753,7 @@
     "english": "effort"
   },
   "usilovať": {
-    "english": "to strive; to seek"
+    "english": "to strive; to seek (usilovať sa o)"
   },
   "usilovne": {
     "english": "diligently"
@@ -13768,10 +13768,10 @@
     "english": "smile"
   },
   "usmiať": {
-    "english": "to smile"
+    "english": "to smile (usmiať sa)"
   },
   "usmievať": {
-    "english": "to smile (imperfective)"
+    "english": "to smile (usmievať sa, imperfective)"
   },
   "úspech": {
     "english": "success"
@@ -13810,7 +13810,7 @@
     "english": "provision; appointment; establishment"
   },
   "ústav": {
-    "english": "institute; constitution (arch./formal)"
+    "english": "institute; institution"
   },
   "ústava": {
     "english": "constitution"
@@ -13831,7 +13831,7 @@
     "english": "central"
   },
   "ústrety": {
-    "english": "greetings"
+    "english": "towards, to meet (v ústrety); to accommodate (vyjsť v ústrety)"
   },
   "ustúpiť": {
     "english": "to step back; to yield"
@@ -13891,10 +13891,10 @@
     "english": "introduction; launch; presentation"
   },
   "uvedomiť": {
-    "english": "to realize; to become aware"
+    "english": "to realize; to become aware (uvedomiť si)"
   },
   "uvedomovať": {
-    "english": "to realize; to be aware (imperfective)"
+    "english": "to realize; to be aware (uvedomovať si, imperfective)"
   },
   "úver": {
     "english": "loan; credit"
@@ -13990,7 +13990,7 @@
     "english": "to use; to enjoy; to take (medicine)"
   },
   "užívateľ": {
-    "english": "user"
+    "english": "user (of a flat or land); occupant"
   },
   "váha": {
     "english": "weight; scale"
@@ -14005,7 +14005,7 @@
     "english": "small egg; egg"
   },
   "valný": {
-    "english": "general (assembly); rolling"
+    "english": "general (assembly)"
   },
   "varenie": {
     "english": "cooking; boiling"
@@ -14029,7 +14029,7 @@
     "english": "Vatican"
   },
   "vážiť": {
-    "english": "to weigh; to value"
+    "english": "to weigh; to value (vážiť si)"
   },
   "vážne": {
     "english": "seriously"
@@ -14047,7 +14047,7 @@
     "english": "more; rather"
   },
   "väzba": {
-    "english": "bond; binding"
+    "english": "custody; bond; binding"
   },
   "väzeň": {
     "english": "prisoner; inmate"
@@ -14233,7 +14233,7 @@
     "english": "version"
   },
   "ves": {
-    "english": "village"
+    "english": "village (only in place names: Spišská Nová Ves)"
   },
   "veselo": {
     "english": "cheerfully"
@@ -14257,7 +14257,7 @@
     "english": "tower"
   },
   "vhod": {
-    "english": "suitably; fittingly"
+    "english": "at the right time (prísť vhod: to come in handy)"
   },
   "vhodne": {
     "english": "appropriately"
@@ -14314,7 +14314,7 @@
     "english": "faith; belief"
   },
   "viesť": {
-    "english": "to lead; to know how (drive)"
+    "english": "to lead; to guide; to run (a business); to drive (a vehicle)"
   },
   "vietor": {
     "english": "wind"
@@ -14491,7 +14491,7 @@
     "english": "steering wheel"
   },
   "volať": {
-    "english": "to call; to name"
+    "english": "to call; to name; to be called (volať sa)"
   },
   "voľba": {
     "english": "choice; election"
@@ -14632,7 +14632,7 @@
     "english": "to enter"
   },
   "vše": {
-    "english": "everything"
+    "english": "always; every time (archaic)"
   },
   "všemožne": {
     "english": "in every possible way"
@@ -14650,7 +14650,7 @@
     "english": "comprehensively; in all respects"
   },
   "všimnúť": {
-    "english": "to notice"
+    "english": "to notice (všimnúť si)"
   },
   "vták": {
     "english": "bird"
@@ -14662,7 +14662,7 @@
     "english": "joke; wit"
   },
   "vtipne": {
-    "english": "funny"
+    "english": "wittily; in a funny way"
   },
   "vtipný": {
     "english": "funny; witty"
@@ -14731,7 +14731,7 @@
     "english": "edition; issue; publication"
   },
   "vydať": {
-    "english": "to publish; to issue; to give out"
+    "english": "to publish; to issue; to give out; to marry, of a woman (vydať sa za)"
   },
   "výdatne": {
     "english": "copiously"
@@ -14767,7 +14767,7 @@
     "english": "to declare; to announce"
   },
   "vyhnúť": {
-    "english": "to avoid"
+    "english": "to avoid (vyhnúť sa)"
   },
   "výhoda": {
     "english": "advantage"
@@ -14803,7 +14803,7 @@
     "english": "to win (imperfective)"
   },
   "vyhýbať": {
-    "english": "to avoid"
+    "english": "to avoid (vyhýbať sa)"
   },
   "vychádzať": {
     "english": "to go out; to come out; to be based on"
@@ -14893,7 +14893,7 @@
     "english": "to carry out; to take out; to pronounce"
   },
   "vynikajúco": {
-    "english": "excellent"
+    "english": "excellently; very well"
   },
   "výnimka": {
     "english": "exception"
@@ -14920,7 +14920,7 @@
     "english": "pay; paycheck; payout"
   },
   "vyplatiť": {
-    "english": "to pay out; to be worth"
+    "english": "to pay out; to be worth it (vyplatiť sa)"
   },
   "vyplniť": {
     "english": "to fill in; to complete"
@@ -14995,7 +14995,7 @@
     "english": "settlement; balancing; equalization"
   },
   "vyrovnať": {
-    "english": "to equalize; to settle; to cope"
+    "english": "to equalize; to settle; to cope (vyrovnať sa s)"
   },
   "vysielanie": {
     "english": "broadcast; broadcasting"
@@ -15019,10 +15019,10 @@
     "english": "occurrence; incidence"
   },
   "vyskytnúť": {
-    "english": "to occur; to appear"
+    "english": "to occur; to appear (vyskytnúť sa)"
   },
   "vyskytovať": {
-    "english": "to occur; to appear"
+    "english": "to occur; to appear (vyskytovať sa)"
   },
   "vyslať": {
     "english": "to send out; to dispatch"
@@ -15289,7 +15289,7 @@
     "english": "sample; specimen"
   },
   "vzorne": {
-    "english": "exemplary"
+    "english": "in an exemplary way; perfectly"
   },
   "vzrásť": {
     "english": "to grow; to rise"
@@ -15301,7 +15301,7 @@
     "english": "relationship"
   },
   "vzťahovať": {
-    "english": "to relate; to apply"
+    "english": "to apply to; to relate to (vzťahovať sa na)"
   },
   "web": {
     "english": "web; website"
@@ -15389,7 +15389,7 @@
     "english": "mysterious; enigmatic"
   },
   "zahľadieť": {
-    "english": "to gaze; to stare"
+    "english": "to gaze; to stare (zahľadieť sa)"
   },
   "záhrada": {
     "english": "garden"
@@ -15557,7 +15557,7 @@
     "english": "thoughtfully"
   },
   "zamyslieť": {
-    "english": "to think; to reflect"
+    "english": "to think; to reflect (zamyslieť sa)"
   },
   "zanechať": {
     "english": "to leave behind; to abandon"
@@ -15569,7 +15569,7 @@
     "english": "to cease; to disappear; to die out"
   },
   "zaoberať": {
-    "english": "to deal with; to be concerned with"
+    "english": "to deal with; to be concerned with (zaoberať sa)"
   },
   "západ": {
     "english": "west; sunset"
@@ -15656,7 +15656,7 @@
     "english": "meeting; session"
   },
   "zásadne": {
-    "english": "essentially"
+    "english": "fundamentally; on principle; as a rule"
   },
   "zasadnutie": {
     "english": "meeting; session"
@@ -15689,10 +15689,10 @@
     "english": "deservedly so"
   },
   "zaslúžiť": {
-    "english": "to deserve"
+    "english": "to deserve (zaslúžiť si)"
   },
   "zasmiať": {
-    "english": "to laugh; to burst out laughing"
+    "english": "to laugh; to burst out laughing (zasmiať sa)"
   },
   "zásoba": {
     "english": "supply; stock"
@@ -15701,7 +15701,7 @@
     "english": "to fall asleep"
   },
   "zastať": {
-    "english": "to stop; to stand up for"
+    "english": "to stop; to stand up for (zastať sa)"
   },
   "zastávať": {
     "english": "to hold (a post); to advocate"
@@ -15755,7 +15755,7 @@
     "english": "to interest"
   },
   "zaujímavo": {
-    "english": "interesting"
+    "english": "interestingly; in an interesting way"
   },
   "zaujímavosť": {
     "english": "interesting fact; attraction"
@@ -15788,7 +15788,7 @@
     "english": "final; closing"
   },
   "zaviazať": {
-    "english": "to bind; to commit"
+    "english": "to tie; to bind; to commit oneself (zaviazať sa)"
   },
   "zaviesť": {
     "english": "to introduce; to bring in"
@@ -15806,7 +15806,7 @@
     "english": "to visit; to drop in"
   },
   "závod": {
-    "english": "race; plant; factory"
+    "english": "plant; works; enterprise"
   },
   "zavolať": {
     "english": "to call"
@@ -15851,7 +15851,7 @@
     "english": "to notice; to spot"
   },
   "zbaviť": {
-    "english": "to rid; to get rid of"
+    "english": "to rid (of); to get rid of (zbaviť sa)"
   },
   "zber": {
     "english": "collection; gathering"
@@ -15890,7 +15890,7 @@
     "english": "for free"
   },
   "zdať": {
-    "english": "to seem"
+    "english": "to seem (zdať sa)"
   },
   "zdola": {
     "english": "from below"
@@ -15968,19 +15968,19 @@
     "english": "agreement; match; coincidence"
   },
   "zhodne": {
-    "english": "exactly"
+    "english": "identically; unanimously; in agreement"
   },
   "zhodnotiť": {
     "english": "to evaluate; to assess"
   },
   "zhodnúť": {
-    "english": "to agree"
+    "english": "to agree (zhodnúť sa)"
   },
   "zhora": {
     "english": "from above"
   },
   "zhovárať": {
-    "english": "to talk; to converse"
+    "english": "to talk; to converse (zhovárať sa)"
   },
   "zhromaždenie": {
     "english": "assembly; gathering"
@@ -16019,7 +16019,7 @@
     "english": "to find out; to ascertain"
   },
   "zjaviť": {
-    "english": "to appear; to reveal"
+    "english": "to appear (zjaviť sa); to reveal"
   },
   "zjavne": {
     "english": "obviously; apparently"
@@ -16028,7 +16028,7 @@
     "english": "congress; descent"
   },
   "zjednodušene": {
-    "english": "simplified"
+    "english": "in simplified terms; simply put"
   },
   "zjesť": {
     "english": "to eat up"
@@ -16100,7 +16100,7 @@
     "english": "to fail"
   },
   "zmätene": {
-    "english": "confused"
+    "english": "confusedly; in confusion"
   },
   "zmena": {
     "english": "change"
@@ -16163,10 +16163,10 @@
     "english": "known; famous"
   },
   "znášať": {
-    "english": "to bear; to endure; to get along"
+    "english": "to bear; to endure; to lay (eggs); to get along (znášať sa)"
   },
   "znechutene": {
-    "english": "disgusted"
+    "english": "in disgust"
   },
   "znenazdajky": {
     "english": "suddenly; unexpectedly"
@@ -16277,7 +16277,7 @@
     "english": "to injure; to wound"
   },
   "zraziť": {
-    "english": "to knock down; to reduce; to collide"
+    "english": "to knock down; to reduce; to collide (zraziť sa)"
   },
   "zrazu": {
     "english": "suddenly"
@@ -16298,7 +16298,7 @@
     "english": "clearly"
   },
   "zriadenie": {
-    "english": "establishment; arrangement; facility"
+    "english": "establishment; setting up; system (of government)"
   },
   "zriadiť": {
     "english": "to establish; to set up"
@@ -16316,7 +16316,7 @@
     "english": "to give birth; to be born"
   },
   "zrozumiteľne": {
-    "english": "understandably"
+    "english": "clearly; intelligibly"
   },
   "zručnosť": {
     "english": "skill"
@@ -16331,10 +16331,10 @@
     "english": "tooth"
   },
   "zúčastniť": {
-    "english": "to take part; to participate"
+    "english": "to take part; to participate (zúčastniť sa)"
   },
   "zúčastňovať": {
-    "english": "to take part; to participate (imperfective)"
+    "english": "to take part; to participate (zúčastňovať sa, imperfective)"
   },
   "zúfalo": {
     "english": "desperately"
@@ -16355,7 +16355,7 @@
     "english": "mostly"
   },
   "zväz": {
-    "english": "union; association; bundle"
+    "english": "union; association; federation"
   },
   "zväzok": {
     "english": "volume; bundle; union"
@@ -16437,7 +16437,7 @@
     "english": "habit; custom"
   },
   "zvyknúť": {
-    "english": "to get used to"
+    "english": "to get used to (zvyknúť si na); to tend to"
   },
   "zvýšenie": {
     "english": "increase; raise"
@@ -16609,10 +16609,10 @@
     "english": "not to achieve; not to reach"
   },
   "neuvedomovať": {
-    "english": "not to realize; not to be aware (imperfective)"
+    "english": "not to realize; not to be aware (neuvedomovať si)"
   },
   "nevyhnúť": {
-    "english": "not to avoid"
+    "english": "not to avoid (nevyhnúť sa)"
   },
   "nežiť": {
     "english": "not to live"
@@ -16630,13 +16630,13 @@
     "english": "not to accept; not to receive"
   },
   "nezdať": {
-    "english": "not to seem"
+    "english": "not to seem (nezdať sa)"
   },
   "nesplniť": {
     "english": "not to fulfill; not to meet"
   },
   "neznášať": {
-    "english": "not to bear; not to endure; not to get along"
+    "english": "to hate; can't stand"
   },
   "nevnímať": {
     "english": "not to perceive"
@@ -16645,7 +16645,7 @@
     "english": "not to disappoint"
   },
   "netýkať": {
-    "english": "not to concern; not to relate to"
+    "english": "not to concern; not to relate to (netýkať sa)"
   },
   "nekonať": {
     "english": "not to act; not to proceed"
@@ -16660,16 +16660,16 @@
     "english": "to guarantee"
   },
   "nedozvedieť": {
-    "english": "not to find out; not to learn"
+    "english": "not to find out (nedozvedieť sa)"
   },
   "strčiť": {
-    "english": "to stuck; to stick out"
+    "english": "to stick, to put (into); to push, to shove"
   },
   "neprichádzať": {
     "english": "not to come; not to arrive (imperfective)"
   },
   "neviesť": {
-    "english": "not to lead; not to know how (drive)"
+    "english": "not to lead; not to drive (a vehicle)"
   },
   "nepochybovať": {
     "english": "not to doubt"
@@ -16738,7 +16738,7 @@
     "english": "not to win"
   },
   "nemýliť": {
-    "english": "not to be mistaken; not to confuse"
+    "english": "not to be mistaken (nemýliť sa); not to mislead"
   },
   "nenachádzať": {
     "english": "not to find; not to be located"
@@ -16753,7 +16753,7 @@
     "english": "not to trouble; not to worry"
   },
   "nediať": {
-    "english": "not to happen; not to take place"
+    "english": "not to happen; not to go on (nediať sa)"
   },
   "neuvidieť": {
     "english": "not to see; not to catch sight of"
@@ -16786,7 +16786,7 @@
     "english": "to brake; to hinder"
   },
   "nedotknúť": {
-    "english": "not to touch"
+    "english": "not to touch (nedotknúť sa)"
   },
   "pretekať": {
     "english": "to race"
@@ -16798,7 +16798,7 @@
     "english": "not to find out"
   },
   "nezúčastniť": {
-    "english": "not to take part; not to participate"
+    "english": "not to take part (nezúčastniť sa)"
   },
   "neodísť": {
     "english": "not to leave"
@@ -16825,7 +16825,7 @@
     "english": "not to solve; not to resolve"
   },
   "nedočkať": {
-    "english": "not to wait until; not to live to see"
+    "english": "not to live to see; to wait in vain (nedočkať sa)"
   },
   "nerozprávať": {
     "english": "not to talk; not to tell"
@@ -16858,13 +16858,13 @@
     "english": "to fall behind"
   },
   "nestarať": {
-    "english": "not to take care; not to look after"
+    "english": "not to care about; not to look after (nestarať sa)"
   },
   "neopakovať": {
     "english": "not to repeat"
   },
   "nesnažiť": {
-    "english": "not to try; not to strive"
+    "english": "not to try (nesnažiť sa)"
   },
   "nespĺňať": {
     "english": "not to fulfill; not to meet"
@@ -16954,7 +16954,7 @@
     "english": "not to push through; not to assert"
   },
   "nezaslúžiť": {
-    "english": "not to deserve"
+    "english": "not to deserve (nezaslúžiť si)"
   },
   "nevyjadriť": {
     "english": "not to express"
@@ -16972,7 +16972,7 @@
     "english": "not to keep; not to maintain"
   },
   "zaobísť": {
-    "english": "to do without; to suffice"
+    "english": "to do without; to manage (zaobísť sa bez)"
   },
   "nevravieť": {
     "english": "not to say; not to speak"
@@ -17017,10 +17017,10 @@
     "english": "not to represent; not to introduce"
   },
   "nečudovať": {
-    "english": "not to wonder; not to be surprised"
+    "english": "not to be surprised (nečudovať sa)"
   },
   "nehnevať": {
-    "english": "not to anger; not to be angry"
+    "english": "not to be angry (nehnevať sa); not to anger"
   },
   "nepriať": {
     "english": "not to wish"
@@ -17029,16 +17029,16 @@
     "english": "not to notice; not to spot"
   },
   "nezaoberať": {
-    "english": "not to deal with; not to be concerned with"
+    "english": "not to deal with (nezaoberať sa)"
   },
   "neschváliť": {
     "english": "not to approve"
   },
   "neobávať": {
-    "english": "not to fear; not to be worried"
+    "english": "not to fear; not to be worried (neobávať sa)"
   },
   "viezť": {
-    "english": "to carry"
+    "english": "to transport (by vehicle); to drive (someone)"
   },
   "hnať": {
     "english": "to drive"
@@ -17047,10 +17047,10 @@
     "english": "to telephone"
   },
   "pršať": {
-    "english": "to fall down"
+    "english": "to rain"
   },
   "smieť": {
-    "english": "to be"
+    "english": "to be allowed to; may"
   },
   "pátrať": {
     "english": "to look for; to scout"
@@ -17065,13 +17065,13 @@
     "english": "to cover"
   },
   "rozísť": {
-    "english": "to disperse; to part ways"
+    "english": "to split up; to part ways; to disperse (rozísť sa)"
   },
   "uniesť": {
-    "english": "to kidnap"
+    "english": "to carry, to bear (a weight); to kidnap; to hijack"
   },
   "hádať": {
-    "english": "to guess"
+    "english": "to guess; to argue (hádať sa)"
   },
   "piecť": {
     "english": "to bake; to roast"
@@ -17083,7 +17083,7 @@
     "english": "to plough"
   },
   "voziť": {
-    "english": "to carry"
+    "english": "to drive (someone), to take (by car); to transport"
   },
   "vyhodnotiť": {
     "english": "to evaluate"
@@ -17095,7 +17095,7 @@
     "english": "to eliminate"
   },
   "obstáť": {
-    "english": "to stay; to succeed"
+    "english": "to pass (a test); to hold one's own; to stand up (to)"
   },
   "liezť": {
     "english": "to crawl; to climb"
@@ -17113,7 +17113,7 @@
     "english": "to hunt"
   },
   "tajiť": {
-    "english": "to be"
+    "english": "to keep secret; to conceal"
   },
   "fúkať": {
     "english": "to blow"
@@ -17131,7 +17131,7 @@
     "english": "to graze"
   },
   "všímať": {
-    "english": "to notice; to pay attention"
+    "english": "to notice; to pay attention (všímať si)"
   },
   "obmedzovať": {
     "english": "to limit; to restrict"
@@ -17149,7 +17149,7 @@
     "english": "to catch up; to reach"
   },
   "zaspievať": {
-    "english": "to sing (to sleep)"
+    "english": "to sing (pf.)"
   },
   "priťahovať": {
     "english": "to attract"
@@ -17170,7 +17170,7 @@
     "english": "to close; to conclude"
   },
   "zmocniť": {
-    "english": "to seize; to empower"
+    "english": "to seize (zmocniť sa); to authorize"
   },
   "zdržať": {
     "english": "to detain; to delay"
@@ -17191,7 +17191,7 @@
     "english": "to commit (a crime)"
   },
   "zrútiť": {
-    "english": "to collapse; to demolish"
+    "english": "to collapse (zrútiť sa); to bring down"
   },
   "oslabiť": {
     "english": "to weaken"
@@ -17224,7 +17224,7 @@
     "english": "to attach; to enclose"
   },
   "zhodovať": {
-    "english": "to match; to agree"
+    "english": "to agree; to match (zhodovať sa)"
   },
   "spomaliť": {
     "english": "to slow down"
@@ -17236,13 +17236,13 @@
     "english": "to revive; to enliven"
   },
   "prebojovať": {
-    "english": "to fight through"
+    "english": "to fight one's way through (prebojovať sa)"
   },
   "maľovať": {
     "english": "to paint"
   },
   "oženiť": {
-    "english": "to marry off (a son)"
+    "english": "to get married, of a man (oženiť sa); to marry off"
   },
   "prilákať": {
     "english": "to attract"
@@ -17272,13 +17272,13 @@
     "english": "to destroy; to ruin"
   },
   "oddýchnuť": {
-    "english": "to rest; to take a breath"
+    "english": "to rest; to take a break (oddýchnuť si)"
   },
   "poklesnúť": {
     "english": "to decrease; to drop"
   },
   "vyhrážať": {
-    "english": "to threaten"
+    "english": "to threaten (vyhrážať sa)"
   },
   "splácať": {
     "english": "to repay; to pay off"
@@ -17287,7 +17287,7 @@
     "english": "to comply; to accommodate"
   },
   "odvolávať": {
-    "english": "to appeal; to recall"
+    "english": "to recall, to dismiss; to appeal, to refer to (odvolávať sa)"
   },
   "povzbudzovať": {
     "english": "to encourage; to cheer on"
@@ -17302,7 +17302,7 @@
     "english": "to worsen"
   },
   "prihovoriť": {
-    "english": "to address; to speak to"
+    "english": "to speak to; to address (prihovoriť sa)"
   },
   "prevládať": {
     "english": "to prevail; to dominate"
@@ -17323,7 +17323,7 @@
     "english": "to clarify; to explain"
   },
   "vychutnať": {
-    "english": "to enjoy; to savor"
+    "english": "to enjoy; to savor (vychutnať si)"
   },
   "nakúpiť": {
     "english": "to buy (in bulk); to shop"
@@ -17350,7 +17350,7 @@
     "english": "to throw over; to switch"
   },
   "nevládať": {
-    "english": "not to know how; not to control"
+    "english": "to have no strength (to); to be unable to go on"
   },
   "naliať": {
     "english": "to pour in"
@@ -17419,7 +17419,7 @@
     "english": "not to intend; not to mean"
   },
   "vyznať": {
-    "english": "to confess; to acknowledge"
+    "english": "to confess (love, faith); to know one's way around (vyznať sa v)"
   },
   "panovať": {
     "english": "to rule; to reign"
@@ -17479,7 +17479,7 @@
     "english": "to disturb; to disrupt"
   },
   "staviť": {
-    "english": "to build; to bet"
+    "english": "to bet (staviť sa); to stake; to drop by (staviť sa u)"
   },
   "zašepkať": {
     "english": "to whisper"
@@ -17488,7 +17488,7 @@
     "english": "to persist; to last"
   },
   "odvíjať": {
-    "english": "to unwind; to develop"
+    "english": "to unwind; to depend on, to be derived from (odvíjať sa od)"
   },
   "ochrániť": {
     "english": "to protect"
@@ -17518,13 +17518,13 @@
     "english": "to fade away; to die down"
   },
   "previesť": {
-    "english": "to transport; to carry across"
+    "english": "to transfer (money, property); to lead across; to show around"
   },
   "presúvať": {
     "english": "to move; to transfer"
   },
   "vynoriť": {
-    "english": "to emerge; to surface"
+    "english": "to emerge; to surface (vynoriť sa)"
   },
   "nadávať": {
     "english": "to swear at; to scold"
@@ -17548,7 +17548,7 @@
     "english": "to project; to reflect"
   },
   "vystrieť": {
-    "english": "to shoot; to aim"
+    "english": "to stretch out; to hold out (a hand)"
   },
   "oceňovať": {
     "english": "to appreciate; to evaluate"
@@ -17557,13 +17557,13 @@
     "english": "to force; to compel"
   },
   "vyšplhať": {
-    "english": "to climb up"
+    "english": "to climb up (vyšplhať sa)"
   },
   "vyhľadať": {
     "english": "to search for; to look up"
   },
   "spamätať": {
-    "english": "to come to one's senses"
+    "english": "to come to one's senses; to recover (spamätať sa)"
   },
   "iniciovať": {
     "english": "to initiate"
@@ -17578,7 +17578,7 @@
     "english": "to mix"
   },
   "váhať": {
-    "english": "to hesitate; to weigh"
+    "english": "to hesitate"
   },
   "ukrývať": {
     "english": "to hide"
@@ -17587,7 +17587,7 @@
     "english": "to graduate; to complete studies"
   },
   "nadýchnuť": {
-    "english": "to inhale; to breathe in"
+    "english": "to take a breath; to breathe in (nadýchnuť sa)"
   },
   "poučiť": {
     "english": "to instruct; to teach"
@@ -17611,7 +17611,7 @@
     "english": "to contemplate; to plan"
   },
   "nakrútiť": {
-    "english": "to roll up; to wind"
+    "english": "to film, to shoot (a film); to wind; to curl"
   },
   "remizovať": {
     "english": "to draw (tie)"
@@ -17713,7 +17713,7 @@
     "english": "to spend (money or time)"
   },
   "schádzať": {
-    "english": "to gather; to meet"
+    "english": "to meet; to gather (schádzať sa); to go down"
   },
   "umyť": {
     "english": "to wash"
@@ -17740,10 +17740,10 @@
     "english": "to create"
   },
   "spoľahnúť": {
-    "english": "to rely on"
+    "english": "to rely on (spoľahnúť sa na)"
   },
   "nevšímať": {
-    "english": "not to notice; not to pay attention"
+    "english": "to ignore; not to pay attention (nevšímať si)"
   },
   "dočítať": {
     "english": "to read to the end"
@@ -17815,7 +17815,7 @@
     "english": "to report; to show"
   },
   "dožiť": {
-    "english": "to live to see; to survive"
+    "english": "to live to see, to reach an age (dožiť sa); to live out"
   },
   "vyletieť": {
     "english": "to fly out"
@@ -17830,7 +17830,7 @@
     "english": "to decorate"
   },
   "zvrtnúť": {
-    "english": "to turn around; to spin"
+    "english": "to twist, to sprain (zvrtnúť si členok); to turn around (zvrtnúť sa)"
   },
   "umierať": {
     "english": "to die"
@@ -17884,7 +17884,7 @@
     "english": "to complicate"
   },
   "lúčiť": {
-    "english": "to part; to separate"
+    "english": "to say goodbye (lúčiť sa)"
   },
   "porušovať": {
     "english": "to violate; to break (rules)"
@@ -17908,7 +17908,7 @@
     "english": "to squeeze; to press"
   },
   "zovrieť": {
-    "english": "to boil (transitive)"
+    "english": "to come to the boil; to grip; to clench"
   },
   "odtiahnuť": {
     "english": "to pull away"
@@ -17917,7 +17917,7 @@
     "english": "to approve; to agree"
   },
   "vyslúžiť": {
-    "english": "to earn; to deserve"
+    "english": "to earn (vyslúžiť si)"
   },
   "zdržiavať": {
     "english": "to detain; to delay"
@@ -18013,10 +18013,10 @@
     "english": "to make cry"
   },
   "chovať": {
-    "english": "to keep; to raise (animals)"
+    "english": "to keep, to raise (animals); to behave (chovať sa)"
   },
   "vytratiť": {
-    "english": "to lose track of; to dispel"
+    "english": "to disappear; to slip away (vytratiť sa)"
   },
   "upevniť": {
     "english": "to strengthen; to fasten"
@@ -18031,7 +18031,7 @@
     "english": "to prefer"
   },
   "zapamätať": {
-    "english": "to remember"
+    "english": "to remember; to memorize (zapamätať si)"
   },
   "odmeniť": {
     "english": "to reward"
@@ -18046,7 +18046,7 @@
     "english": "to improve"
   },
   "spávať": {
-    "english": "to sleep together"
+    "english": "to sleep (usually, habitually)"
   },
   "podstúpiť": {
     "english": "to undergo"
@@ -18094,13 +18094,13 @@
     "english": "to exchange; to replace"
   },
   "dostaviť": {
-    "english": "to complete; to deliver"
+    "english": "to finish building; to turn up, to report (dostaviť sa)"
   },
   "nominovať": {
     "english": "to nominate"
   },
   "poobzerať": {
-    "english": "to look around"
+    "english": "to look around (poobzerať sa)"
   },
   "pochvaľovať": {
     "english": "to praise"
@@ -18148,10 +18148,10 @@
     "english": "to nod"
   },
   "prihovárať": {
-    "english": "to address; to speak to"
+    "english": "to speak to; to address (prihovárať sa)"
   },
   "odkúpiť": {
-    "english": "to buy back; to redeem"
+    "english": "to buy (from someone); to buy up, to buy out"
   },
   "vybavovať": {
     "english": "to handle; to arrange"
@@ -18169,7 +18169,7 @@
     "english": "to fall into; to decay"
   },
   "vychutnávať": {
-    "english": "to enjoy; to savor"
+    "english": "to enjoy; to savor (vychutnávať si)"
   },
   "poistiť": {
     "english": "to insure"
@@ -18178,7 +18178,7 @@
     "english": "to mutter"
   },
   "zľaknúť": {
-    "english": "to get scared"
+    "english": "to get scared; to take fright (zľaknúť sa)"
   },
   "zaraďovať": {
     "english": "to classify; to assign"
@@ -18235,7 +18235,7 @@
     "english": "to host"
   },
   "vydariť": {
-    "english": "to succeed; to turn out well"
+    "english": "to turn out well; to succeed (vydariť sa)"
   },
   "vyliezť": {
     "english": "to climb out"
@@ -18262,7 +18262,7 @@
     "english": "to exceed; to surpass"
   },
   "najesť": {
-    "english": "to eat one's fill"
+    "english": "to eat one's fill; to have something to eat (najesť sa)"
   },
   "vznášať": {
     "english": "to raise; to hover"
@@ -18283,10 +18283,10 @@
     "english": "to break through"
   },
   "zasadnúť": {
-    "english": "to sit down; to impact"
+    "english": "to sit down (at a table); to meet, to sit (of a body)"
   },
   "poberať": {
-    "english": "to collect; to retire"
+    "english": "to receive, to draw (a pension, salary); to get going (poberať sa)"
   },
   "znepokojovať": {
     "english": "to worry; to disturb"
@@ -18304,7 +18304,7 @@
     "english": "to occupy; to take up"
   },
   "zapáčiť": {
-    "english": "to please; to appeal"
+    "english": "to take a liking; to appeal (zapáčiť sa)"
   },
   "odskočiť": {
     "english": "to jump off; to bounce"
@@ -18391,7 +18391,7 @@
     "english": "to stick out; to protrude"
   },
   "napiť": {
-    "english": "to take a drink"
+    "english": "to have a drink (napiť sa)"
   },
   "naberať": {
     "english": "to scoop; to gain"
@@ -18427,7 +18427,7 @@
     "english": "to shoot through; to overshoot"
   },
   "chvieť": {
-    "english": "to tremble; to shake"
+    "english": "to tremble; to shake (chvieť sa)"
   },
   "prekladať": {
     "english": "to translate"
@@ -18466,7 +18466,7 @@
     "english": "to promote; to advertise"
   },
   "polepšiť": {
-    "english": "to improve"
+    "english": "to mend one's ways, to do better (polepšiť sa); to improve one's situation (polepšiť si)"
   },
   "vyznávať": {
     "english": "to profess; to confess"
@@ -18487,7 +18487,7 @@
     "english": "to throw away"
   },
   "rútiť": {
-    "english": "to rush; to tear"
+    "english": "to rush; to hurtle (rútiť sa)"
   },
   "porodiť": {
     "english": "to give birth"
@@ -18517,7 +18517,7 @@
     "english": "to remain; to stay"
   },
   "vynárať": {
-    "english": "to levy; to raise (taxes)"
+    "english": "to emerge; to surface (vynárať sa)"
   },
   "celebrovať": {
     "english": "to celebrate"
@@ -18526,22 +18526,22 @@
     "english": "to taste"
   },
   "rozmyslieť": {
-    "english": "to reconsider; to change one's mind"
+    "english": "to think over; to change one's mind (rozmyslieť si)"
   },
   "vďačiť": {
-    "english": "to be grateful"
+    "english": "to owe (something to someone)"
   },
   "uvítať": {
     "english": "to welcome"
   },
   "zadívať": {
-    "english": "to gaze; to stare"
+    "english": "to gaze; to stare (zadívať sa)"
   },
   "zavládnuť": {
-    "english": "to seize; to take over"
+    "english": "to set in, to fall (zavládlo ticho = silence fell); to take hold"
   },
   "dozvedať": {
-    "english": "to learn; to find out"
+    "english": "to learn; to find out (dozvedať sa)"
   },
   "prehĺbiť": {
     "english": "to deepen"
@@ -18565,7 +18565,7 @@
     "english": "to resist; to withstand"
   },
   "rozpadnúť": {
-    "english": "to fall apart; to disintegrate"
+    "english": "to fall apart; to break up (rozpadnúť sa)"
   },
   "načúvať": {
     "english": "to listen attentively"
@@ -18601,7 +18601,7 @@
     "english": "to collect; to gather"
   },
   "pričiniť": {
-    "english": "to cause; to contribute"
+    "english": "to contribute (pričiniť sa o)"
   },
   "dohliadať": {
     "english": "to supervise; to watch over"
@@ -18616,16 +18616,16 @@
     "english": "to wash"
   },
   "uškrnúť": {
-    "english": "to grin"
+    "english": "to smirk; to grin (uškrnúť sa)"
   },
   "valiť": {
     "english": "to roll; to rush"
   },
   "pozhovárať": {
-    "english": "to chat; to talk"
+    "english": "to have a chat; to talk (pozhovárať sa)"
   },
   "vsietiť": {
-    "english": "to sow; to instill"
+    "english": "to score (a goal)"
   },
   "zhorieť": {
     "english": "to burn down; to burn out"
@@ -18637,7 +18637,7 @@
     "english": "to liquidate; to dispose of"
   },
   "pominúť": {
-    "english": "to pass; to forget"
+    "english": "to pass; to subside; to leave out"
   },
   "spadať": {
     "english": "to fall; to belong"
@@ -18652,7 +18652,7 @@
     "english": "to sip; to drink slowly"
   },
   "odhodlať": {
-    "english": "to resolve; to decide"
+    "english": "to make up one's mind; to bring oneself to (odhodlať sa)"
   },
   "rezignovať": {
     "english": "to resign"
@@ -18700,16 +18700,16 @@
     "english": "to announce"
   },
   "obľúbiť": {
-    "english": "to like; to grow fond of"
+    "english": "to grow fond of; to take a liking to (obľúbiť si)"
   },
   "zamilovať": {
-    "english": "to fall in love"
+    "english": "to fall in love (zamilovať sa)"
   },
   "spúšťať": {
     "english": "to release; to lower"
   },
   "odmlčať": {
-    "english": "to fall silent"
+    "english": "to fall silent; to pause (odmlčať sa)"
   },
   "miznúť": {
     "english": "to disappear; to vanish"
@@ -18718,7 +18718,7 @@
     "english": "to write off; to reply"
   },
   "neodvážiť": {
-    "english": "not to dare"
+    "english": "not to dare (neodvážiť sa)"
   },
   "povolať": {
     "english": "to summon; to call up"
@@ -18757,7 +18757,7 @@
     "english": "to exceed; to cross"
   },
   "nudiť": {
-    "english": "to bore"
+    "english": "to bore; to be bored (nudiť sa)"
   },
   "vniknúť": {
     "english": "to break in; to intrude"
@@ -18766,7 +18766,7 @@
     "english": "to protect"
   },
   "prieť": {
-    "english": "to wrestle; to struggle"
+    "english": "to argue; to dispute (prieť sa)"
   },
   "poslúchnuť": {
     "english": "to obey; to listen"
@@ -18787,13 +18787,13 @@
     "english": "to urge; to encourage"
   },
   "naskytnúť": {
-    "english": "to provide; to offer"
+    "english": "to present itself; to arise (naskytnúť sa)"
   },
   "vrhať": {
     "english": "to throw"
   },
   "zamračiť": {
-    "english": "to frown; to cloud over"
+    "english": "to frown; to cloud over (zamračiť sa)"
   },
   "zvrátiť": {
     "english": "to overturn; to reverse"
@@ -18808,13 +18808,13 @@
     "english": "to cure; to heal"
   },
   "odvážiť": {
-    "english": "to dare; to weigh"
+    "english": "to dare (odvážiť sa); to weigh out"
   },
   "zvaliť": {
     "english": "to knock down; to dump"
   },
   "stotožniť": {
-    "english": "to identify with"
+    "english": "to identify with (stotožniť sa s); to equate"
   },
   "odsudzovať": {
     "english": "to condemn"
@@ -18835,10 +18835,10 @@
     "english": "to tie; to bind; to oblige"
   },
   "zmestiť": {
-    "english": "to fit in"
+    "english": "to fit (in) (zmestiť sa)"
   },
   "zaspomínať": {
-    "english": "to reminisce"
+    "english": "to reminisce (zaspomínať si)"
   },
   "dopraviť": {
     "english": "to transport; to deliver"
@@ -18856,7 +18856,7 @@
     "english": "to deny; to aim"
   },
   "vlámať": {
-    "english": "to break in"
+    "english": "to break in (vlámať sa)"
   },
   "kŕmiť": {
     "english": "to feed"
@@ -18904,13 +18904,13 @@
     "english": "to run up; to arrive running"
   },
   "prizerať": {
-    "english": "to watch; to supervise"
+    "english": "to look on; to watch (prizerať sa)"
   },
   "zdražieť": {
     "english": "to become more expensive"
   },
   "vyvážať": {
-    "english": "to export; to balance"
+    "english": "to export; to cart away"
   },
   "utrieť": {
     "english": "to wipe"
@@ -18922,19 +18922,19 @@
     "english": "to separate"
   },
   "vypytovať": {
-    "english": "to ask for repeatedly"
+    "english": "to ask questions; to question (vypytovať sa)"
   },
   "udávať": {
-    "english": "to report; to betray"
+    "english": "to state, to give (figures); to set (the tone); to inform on"
   },
   "vzdialiť": {
     "english": "to distance; to move away"
   },
   "pomýliť": {
-    "english": "to confuse; to mistake"
+    "english": "to make a mistake (pomýliť sa); to mix up (pomýliť si)"
   },
   "zorientovať": {
-    "english": "to orient; to familiarize"
+    "english": "to find one's bearings (zorientovať sa); to orient"
   },
   "podčiarknuť": {
     "english": "to underline; to emphasize"
@@ -18952,7 +18952,7 @@
     "english": "to profit; to benefit"
   },
   "pristať": {
-    "english": "to land"
+    "english": "to suit (Pristane ti to. = It suits you); to agree to (pristať na)"
   },
   "nasadnúť": {
     "english": "to board; to get on"
@@ -19063,22 +19063,22 @@
     "english": "to radiate; to shine"
   },
   "trúfať": {
-    "english": "to dare"
+    "english": "to dare; to feel up to (trúfať si)"
   },
   "podriadiť": {
     "english": "to subordinate"
   },
   "pristaviť": {
-    "english": "to stop by; to add"
+    "english": "to stop (someone, a car); to bring round (a vehicle); to stop by (pristaviť sa)"
   },
   "núkať": {
     "english": "to offer; to force upon"
   },
   "vysadiť": {
-    "english": "to plant; to evict"
+    "english": "to plant; to drop off (a passenger); to cut out (of an engine)"
   },
   "vysporiadať": {
-    "english": "to settle; to resolve"
+    "english": "to deal with, to cope with (vysporiadať sa s); to settle (claims)"
   },
   "ubezpečovať": {
     "english": "to reassure"
@@ -19096,7 +19096,7 @@
     "english": "not to harm; not to hurt"
   },
   "obrať": {
-    "english": "to turn; to harvest"
+    "english": "to pick (fruit), to harvest; to rob (obrať o)"
   },
   "nastreliť": {
     "english": "to shoot; to target"
@@ -19117,7 +19117,7 @@
     "english": "to illustrate"
   },
   "dožadovať": {
-    "english": "to insist on; to demand"
+    "english": "to demand; to insist on (dožadovať sa)"
   },
   "zvierať": {
     "english": "to clench; to grip"
@@ -19207,13 +19207,13 @@
     "english": "to sue; to complain"
   },
   "nasťahovať": {
-    "english": "to move in"
+    "english": "to move in (nasťahovať sa)"
   },
   "zjavovať": {
     "english": "to reveal; to appear"
   },
   "nepozdávať": {
-    "english": "not to consider appropriate"
+    "english": "not to appeal; to seem wrong (nepozdáva sa mi = I don't like it)"
   },
   "zbaliť": {
     "english": "to pack; to wrap"
@@ -19228,7 +19228,7 @@
     "english": "to outline; to sketch"
   },
   "zblázniť": {
-    "english": "to drive crazy"
+    "english": "to go crazy (zblázniť sa); to drive crazy"
   },
   "nezaváhať": {
     "english": "not to hesitate"
@@ -19240,7 +19240,7 @@
     "english": "to consult"
   },
   "prospieť": {
-    "english": "to sleep through; to be useful for"
+    "english": "to do good; to benefit (+ dat.)"
   },
   "asistovať": {
     "english": "to assist"
@@ -19285,7 +19285,7 @@
     "english": "to unload; to lay out"
   },
   "vládať": {
-    "english": "to rule; to know how"
+    "english": "to have the strength (to); to manage"
   },
   "rozobrať": {
     "english": "to dismantle; to analyze"
@@ -19297,10 +19297,10 @@
     "english": "to telephone"
   },
   "zaľúbiť": {
-    "english": "to fall in love"
+    "english": "to fall in love (zaľúbiť sa)"
   },
   "uistiť": {
-    "english": "to reassure; to convince"
+    "english": "to assure; to reassure; to make sure (uistiť sa)"
   },
   "hovorievať": {
     "english": "to speak; to say"
@@ -19312,13 +19312,13 @@
     "english": "to sew"
   },
   "vypýtať": {
-    "english": "to ask for"
+    "english": "to ask for (vypýtať si)"
   },
   "zdvojnásobiť": {
     "english": "to double"
   },
   "dohovoriť": {
-    "english": "to talk (someone) into; to finish speaking"
+    "english": "to finish speaking; to make oneself understood, to agree (dohovoriť sa)"
   },
   "uhádnuť": {
     "english": "to guess"
@@ -19333,7 +19333,7 @@
     "english": "to turn off; to divert"
   },
   "zvykať": {
-    "english": "to get used to"
+    "english": "to get used to (zvykať si na)"
   },
   "odporovať": {
     "english": "to contradict; to resist"
@@ -19381,7 +19381,7 @@
     "english": "to run down"
   },
   "vyspať": {
-    "english": "to sleep off"
+    "english": "to get a good sleep (vyspať sa); to sleep off"
   },
   "manipulovať": {
     "english": "to manipulate"
@@ -19393,7 +19393,7 @@
     "english": "to delete; to erase"
   },
   "sadať": {
-    "english": "to sit down; to set (sun)"
+    "english": "to sit down (sadať si); to settle, to perch"
   },
   "urážať": {
     "english": "to offend; to insult"
@@ -19402,10 +19402,10 @@
     "english": "to suspect"
   },
   "vychytať": {
-    "english": "to pick out; to exploit"
+    "english": "to iron out (bugs); to catch (all)"
   },
   "špecializovať": {
-    "english": "to specialize"
+    "english": "to specialize (špecializovať sa)"
   },
   "nasmerovať": {
     "english": "to direct; to aim"
@@ -19426,7 +19426,7 @@
     "english": "to tip; to guess"
   },
   "poznávať": {
-    "english": "to get to know"
+    "english": "to get to know; to recognize"
   },
   "poskladať": {
     "english": "to assemble; to put together"
@@ -19456,10 +19456,10 @@
     "english": "to bend"
   },
   "rovnať": {
-    "english": "to compare; to equalize"
+    "english": "to equal (rovnať sa); to straighten; to stack"
   },
   "zahrávať": {
-    "english": "to play; to toy with"
+    "english": "to toy with; to play with (zahrávať sa s); to take (a kick)"
   },
   "predbiehať": {
     "english": "to outrun; to anticipate"
@@ -19471,7 +19471,7 @@
     "english": "to seduce; to tempt"
   },
   "stotožňovať": {
-    "english": "to identify with"
+    "english": "to identify with (stotožňovať sa s); to equate"
   },
   "nakladať": {
     "english": "to load"
@@ -19492,7 +19492,7 @@
     "english": "to wait; to hold back"
   },
   "zasadať": {
-    "english": "to plant; to convene"
+    "english": "to sit, to meet (of a council); to sit down (at a table)"
   },
   "stvárniť": {
     "english": "to embody; to portray"
@@ -19501,7 +19501,7 @@
     "english": "to draw"
   },
   "povzdychnúť": {
-    "english": "to sigh"
+    "english": "to sigh (povzdychnúť si)"
   },
   "prekvapovať": {
     "english": "to surprise"
@@ -19549,13 +19549,13 @@
     "english": "to affect; to punish"
   },
   "rozhovoriť": {
-    "english": "to get (someone) talking"
+    "english": "to start talking (rozhovoriť sa)"
   },
   "roztrhnúť": {
     "english": "to tear apart"
   },
   "rozplynúť": {
-    "english": "to dissolve; to melt away"
+    "english": "to dissolve; to melt away (rozplynúť sa)"
   },
   "zasvätiť": {
     "english": "to dedicate; to initiate"
@@ -19846,13 +19846,13 @@
     "english": "eagle"
   },
   "prízemie": {
-    "english": "groundfloor"
+    "english": "ground floor"
   },
   "drak": {
     "english": "dragon"
   },
   "škatuľa": {
-    "english": "casket, case, jewel case"
+    "english": "box; carton"
   },
   "svätyňa": {
     "english": "sanctuary"
@@ -19880,7 +19880,7 @@
     "english": "pillow; cushion"
   },
   "lono": {
-    "english": "lap; woman's reproductive organs:"
+    "english": "lap; bosom; womb"
   },
   "paprika": {
     "english": "pepper"
@@ -19937,7 +19937,7 @@
     "english": "diet"
   },
   "stajňa": {
-    "english": "sty, stable"
+    "english": "stable"
   },
   "rituál": {
     "english": "ritual, rite"
@@ -20820,10 +20820,10 @@
     "english": "supporter; adherent"
   },
   "interpret": {
-    "english": "performer; interpreter"
+    "english": "performer (of a song, role)"
   },
   "paragraf": {
-    "english": "paragraph; section"
+    "english": "section (of a law), §"
   },
   "fontána": {
     "english": "fountain"
@@ -21034,7 +21034,7 @@
     "english": "sprint"
   },
   "prášok": {
-    "english": "powder"
+    "english": "powder; pill, tablet"
   },
   "panelák": {
     "english": "prefabricated apartment block"

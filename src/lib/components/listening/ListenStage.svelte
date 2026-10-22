@@ -6,7 +6,7 @@
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import { getStoryShowEnglish } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
-  import { followFocus } from "$lib/listening/focus";
+  import { focusUnlessTyping } from "$lib/listening/focus";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
   import { cx } from "$lib/ui/classes";
 
@@ -14,11 +14,6 @@
   import EpisodeLine from "./EpisodeLine.svelte";
   import ListenControl from "./ListenControl.svelte";
 
-  /**
-   * One dialogue, one action at a time: listen with the text hidden, answer the
-   * questions, then read along. Used by the grammar page block and each episode
-   * chapter; the parent supplies the frame and the title.
-   */
   let {
     actions,
     afterResult,
@@ -28,15 +23,11 @@
     done = null,
     onfinish,
   }: {
-    /** Rendered in the result row once the questions are answered. */
     actions?: Snippet;
-    /** Rendered right under the result row, above the text. */
     afterResult?: Snippet;
     audioSrcs: Record<string, string>;
-    /** Start playing on mount; only from a click, so autoplay is allowed. */
     autoplay?: boolean;
     chapter: ListeningChapter;
-    /** Already answered: open on the result and the text. */
     done?: { correct: number } | null;
     onfinish?: (correct: number) => void;
   } = $props();
@@ -78,7 +69,6 @@
     return check ? "checking" : "done";
   });
   const textVisible = $derived(textOpen || stage === "done");
-  /** Once heard, Listen again steps back so the question or Next chapter leads. */
   const firstListen = $derived(stage === "idle" || stage === "listening");
 
   const idleCopy =
@@ -105,7 +95,6 @@
     return "Listen again";
   });
 
-  /** Lets the parent stop the dialogue before it plays something else. */
   export function pause(): void {
     player.pause();
   }
@@ -127,7 +116,7 @@
   async function reveal(selector: string, focus = false): Promise<void> {
     await tick();
     const target = root?.querySelector<HTMLElement>(selector);
-    if (focus) followFocus(target);
+    if (focus) focusUnlessTyping(target);
     target?.scrollIntoView({
       block: "nearest",
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -139,12 +128,10 @@
   onMount(() => {
     english = getStoryShowEnglish() === "on";
 
-    // Any tap primes the shared story element, so a line played later from a
-    // timer is not blocked by the autoplay policy (iOS Safari).
     const controls = "a, button, input, label, select, textarea";
     const gestures = ["touchend", "click", "keydown"] as const;
 
-    function onGesture(event: Event): void {
+    function primePlaybackOnGesture(event: Event): void {
       unlockSfx();
       const onControl = event.target instanceof Element && event.target.closest(controls);
       if (onControl && hasPendingStoryAudio()) return;
@@ -152,31 +139,31 @@
     }
 
     for (const type of gestures) {
-      window.addEventListener(type, onGesture, { passive: true });
+      window.addEventListener(type, primePlaybackOnGesture, { passive: true });
     }
 
     if (autoplay && !done) player.playFrom(0);
 
     return () => {
       for (const type of gestures) {
-        window.removeEventListener(type, onGesture);
+        window.removeEventListener(type, primePlaybackOnGesture);
       }
     };
   });
 
-  // Keep the line being read on screen while the text is open; only during
-  // playback, so reading back through the text never jumps.
+  function scrollPlayingLineIntoView(): void {
+    root?.querySelector<HTMLElement>("[data-line-current]")?.scrollIntoView({
+      block: "nearest",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }
+
   $effect(() => {
     if (!player.playing || !textVisible) return;
     void player.cursor;
-    void tick().then(() => {
-      root?.querySelector<HTMLElement>("[data-line-current]")?.scrollIntoView({
-        block: "nearest",
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth",
-      });
-    });
+    void tick().then(scrollPlayingLineIntoView);
   });
 
   onDestroy(() => player.destroy());
@@ -275,7 +262,7 @@
       {#key check.id}
         <EpisodeCheck
           {check}
-          index={checkAt + 1}
+          questionNumber={checkAt + 1}
           total={checks.length}
           replayLine={lines.find((line) => line.id === check.replayLineId)}
           replaySrc={check.replayLineId ? audioSrcs[check.replayLineId] : undefined}

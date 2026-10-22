@@ -39,7 +39,7 @@ import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related"
+  "slug" | "slovak" | "english" | "category" | "gender" | "examples" | "related"
 >;
 
 interface SentencePair {
@@ -52,6 +52,13 @@ type RejectReason = "no-candidates" | "quality" | "weak-match";
 
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
+const REJECTED_PATH = path.join(ROOT, "content", "dictionary", "tatoeba-rejected.json");
+const LEMMA_REJECTED_PATH = path.join(
+  ROOT,
+  "content",
+  "dictionary",
+  "tatoeba-lemma-rejected.json",
+);
 
 function parseArgs(argv: string[]): {
   force: boolean;
@@ -91,7 +98,12 @@ function isVerbCategory(category: string): boolean {
   return category === "Verbs";
 }
 
-function scorePair(pair: SentencePair, lemma: string, category: string): number {
+function scorePair(
+  pair: SentencePair,
+  lemma: string,
+  category: string,
+  gender?: string,
+): number {
   let score = 0;
   const length = pair.slovak.length;
   if (length >= 12 && length <= 90) score += 3;
@@ -99,7 +111,7 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
 
   if (lemmaAppearsAsToken(pair.slovak, lemma)) {
     score += isVerbCategory(category) ? 4 : 8;
-  } else if (morphAppearsAsToken(pair.slovak, lemma, category)) {
+  } else if (morphAppearsAsToken(pair.slovak, lemma, category, gender)) {
     score += isVerbCategory(category) ? 12 : 7;
   } else if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma))
     score += 8;
@@ -111,8 +123,13 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
   return score;
 }
 
-function hasStrongMatch(pair: SentencePair, lemma: string, category: string): boolean {
-  return exampleContainsLemma(pair.slovak, lemma, category);
+function hasStrongMatch(
+  pair: SentencePair,
+  lemma: string,
+  category: string,
+  gender?: string,
+): boolean {
+  return exampleContainsLemma(pair.slovak, lemma, category, gender);
 }
 
 async function loadTsvMap(
@@ -183,12 +200,13 @@ function buildIndex(pairs: SentencePair[]): Map<string, number[]> {
 function collectCandidates(
   lemma: string,
   category: string,
+  gender: string | undefined,
   pairs: SentencePair[],
   index: Map<string, number[]>,
 ): { accepted: SentencePair[]; rejectedQuality: number; rejectedWeak: number } {
   const exactKeys = new Set<string>([
     lemma.toLocaleLowerCase("sk"),
-    ...morphFormKeys(lemma, category),
+    ...morphFormKeys(lemma, category, gender),
   ]);
   const stem = isVerbCategory(category) ? verbStemForMatch(lemma) : undefined;
 
@@ -216,14 +234,17 @@ function collectCandidates(
       rejectedQuality += 1;
       continue;
     }
-    if (!hasStrongMatch(pair, lemma, category)) {
+    if (!hasStrongMatch(pair, lemma, category, gender)) {
       rejectedWeak += 1;
       continue;
     }
     accepted.push(pair);
   }
 
-  accepted.sort((a, b) => scorePair(b, lemma, category) - scorePair(a, lemma, category));
+  accepted.sort(
+    (a, b) =>
+      scorePair(b, lemma, category, gender) - scorePair(a, lemma, category, gender),
+  );
 
   return { accepted, rejectedQuality, rejectedWeak };
 }
@@ -298,8 +319,22 @@ async function main(): Promise<void> {
   const eng = await loadTsvMap(engPath, neededEng);
   console.log(`EN sentences kept: ${eng.size}`);
 
+  // Sentences a reviewer rejected as wrong Slovak; a refill must not bring them back.
+  const rejected = new Set(
+    Object.keys(
+      JSON.parse(await readFile(REJECTED_PATH, "utf8")) as Record<string, string>,
+    ).map(Number),
+  );
+  // Right Slovak, but the word is another entry's form there (robota under robot).
+  const rejectedForLemma = new Set(
+    Object.keys(
+      JSON.parse(await readFile(LEMMA_REJECTED_PATH, "utf8")) as Record<string, string>,
+    ),
+  );
+
   const pairs: SentencePair[] = [];
   for (const [skId, enId] of links) {
+    if (rejected.has(skId)) continue;
     const slovak = slk.get(skId);
     const english = eng.get(enId);
     if (!slovak || !english) continue;
@@ -355,10 +390,14 @@ async function main(): Promise<void> {
     const { accepted, rejectedQuality, rejectedWeak } = collectCandidates(
       word.slovak,
       word.category,
+      word.gender,
       pairs,
       index,
     );
-    const examples = toExamples(accepted, Math.max(fetchLimit, perWord));
+    const examples = toExamples(
+      accepted.filter((pair) => !rejectedForLemma.has(`${word.slug}#${pair.tatoebaId}`)),
+      Math.max(fetchLimit, perWord),
+    );
 
     if (examples.length === 0) {
       if (word.examples.length === 0) {

@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
 
+import { answersMatch } from "$lib/components/practice/practice-state";
+import { words } from "$lib/catalog/entries";
+import { searchFormsForLemma } from "$lib/catalog/search/forms";
+import { maybeMaterializeBuildItem } from "$lib/learning/exercises/materialize-build";
 import { containsAnswerWords } from "$lib/learning/exercises/answer-diff";
 import { gradeChoice } from "$lib/learning/exercises/choice";
 import {
@@ -103,6 +107,115 @@ function acceptedAnswers(task: BuildExercise | TypedExercise): string[] {
   return [task.answer, ...(task.acceptedAnswers ?? [])];
 }
 
+/** Every build or typed task a learner can meet, including session-time variants. */
+function answerTaskPool(): Array<BuildExercise | TypedExercise> {
+  const seeds = Array.from({ length: 40 }, (_, seed) => seededRng(seed + 1));
+  return [
+    ...allAnswerTasks(),
+    ...daysDatesTimePracticeItemIds.flatMap((kind) =>
+      seeds.map(
+        (rng) => materializeDaysDatesTimeItem(kind as DaysDatesTimeKind, rng).task,
+      ),
+    ),
+    ...practiceItems.flatMap((item) =>
+      seeds.map((rng) => maybeMaterializeBuildItem(item, rng).task),
+    ),
+  ].filter(isAnswerTask);
+}
+
+function sentenceCase(text: string): string {
+  const trimmed = text.trim().replace(/\s+/gu, " ");
+  return trimmed.charAt(0).toLocaleUpperCase("sk") + trimmed.slice(1);
+}
+
+function countTiles(tiles: readonly string[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const tile of tiles) counts.set(tile, (counts.get(tile) ?? 0) + 1);
+  return counts;
+}
+
+type Person = "1sg" | "2sg" | "1pl" | "2pl";
+
+const SUBJECT_PRONOUN: Record<Person, string> = {
+  "1sg": "Ja",
+  "2sg": "Ty",
+  "1pl": "My",
+  "2pl": "Vy",
+};
+
+const BYT_PERSON: Record<string, Person> = {
+  som: "1sg",
+  si: "2sg",
+  sme: "1pl",
+  ste: "2pl",
+};
+
+// Clitics sit second in the clause, so they move in front of the verb after a pronoun.
+const CLITICS = new Set([
+  "sa",
+  "si",
+  "mi",
+  "ti",
+  "mu",
+  "nám",
+  "vám",
+  "im",
+  "ma",
+  "ťa",
+  "ho",
+  "ju",
+]);
+
+// Imperatives that end like a present-tense plural (pite, umyte) take no pronoun.
+const VOWEL_IMPERATIVE = /(?:pi|bi|ši|ži|my|kry)(?:me|te)$/u;
+
+const verbForms = new Set(
+  words
+    .filter((word) => word.category === "Verbs")
+    .flatMap((word) => [word.slovak, ...searchFormsForLemma(word.slovak, "Verbs")])
+    .map((form) => form.toLocaleLowerCase("sk")),
+);
+
+function bareWord(word: string): string {
+  return word.replace(/[\p{P}]/gu, "").toLocaleLowerCase("sk");
+}
+
+function isVerbForm(word: string): boolean {
+  return verbForms.has(word) || (word.startsWith("ne") && verbForms.has(word.slice(2)));
+}
+
+function presentPerson(word: string): Person | undefined {
+  if (BYT_PERSON[word]) return BYT_PERSON[word];
+  if (!isVerbForm(word)) return undefined;
+  if (word.endsWith("m")) return "1sg";
+  if (word.endsWith("š")) return "2sg";
+  if (VOWEL_IMPERATIVE.test(word)) return undefined;
+  if (/[aáäeéiíoóuúyý]me$/u.test(word)) return "1pl";
+  if (/[aáäeéiíoóuúyý]te$/u.test(word)) return "2pl";
+  return undefined;
+}
+
+/**
+ * The same answer with its optional subject pronoun: "Som Alex." → "Ja som Alex.",
+ * "Stretneme sa v utorok." → "My sa stretneme v utorok."
+ */
+function withSubjectPronoun(answer: string): string | undefined {
+  const tokens = answer.trim().split(/\s+/u);
+  const first = bareWord(tokens[0] ?? "");
+  const negatedByt = first === "nie" ? BYT_PERSON[bareWord(tokens[1] ?? "")] : undefined;
+  const person = negatedByt ?? presentPerson(first);
+  if (!person) return undefined;
+
+  const verbLength = negatedByt ? 2 : 1;
+  const verb = tokens.slice(0, verbLength);
+  const rest = tokens.slice(verbLength);
+  const clitics: string[] = [];
+  while (rest.length > 1 && CLITICS.has(bareWord(rest[0]!))) clitics.push(rest.shift()!);
+
+  verb[0] = verb[0]!.toLocaleLowerCase("sk");
+  return [SUBJECT_PRONOUN[person], ...clitics, ...verb, ...rest].join(" ");
+}
+
 function trapChoices(task: ChoiceExercise) {
   return task.choices.filter((choice) => choice.fits !== true);
 }
@@ -161,6 +274,44 @@ describe("exercise audit invariants", () => {
         `${task.id} mistakes matching an accepted answer`,
       ).toEqual([]);
     }
+  });
+
+  it("builds every answer from the tile bank", () => {
+    const problems = new Set<string>();
+    for (const task of answerTaskPool()) {
+      if (task.type !== "build") continue;
+      const bank = countTiles(task.tiles);
+      for (const [tile, count] of countTiles(task.answer)) {
+        if ((bank.get(tile) ?? 0) < count) problems.add(`${task.id}: no tile "${tile}"`);
+      }
+    }
+    expect([...problems]).toEqual([]);
+  });
+
+  it("joins build tiles into exactly the correction, punctuation included", () => {
+    const problems = new Set<string>();
+    for (const task of answerTaskPool()) {
+      if (task.type !== "build") continue;
+      const built = sentenceCase(task.answer.join(" "));
+      const correction = sentenceCase(task.feedback.correction ?? "");
+      if (built !== correction) {
+        problems.add(`${task.id}: tiles read "${built}", correction is "${correction}"`);
+      }
+    }
+    expect([...problems]).toEqual([]);
+  });
+
+  it("accepts the optional subject pronoun when an answer opens with a verb", () => {
+    const problems = new Set<string>();
+    for (const task of answerTaskPool()) {
+      if (task.type !== "typed" || task.task !== "complete") continue;
+      for (const variant of acceptedAnswers(task).map(withSubjectPronoun)) {
+        if (variant && !answersMatch(variant, task.answer, task.acceptedAnswers)) {
+          problems.add(`${task.id}: add "${variant}" to acceptedAnswers`);
+        }
+      }
+    }
+    expect([...problems]).toEqual([]);
   });
 
   it("grades only the lone trap on pickTrap success", () => {

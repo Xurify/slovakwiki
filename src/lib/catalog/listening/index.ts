@@ -14,7 +14,6 @@ export function episodePath(episode: Pick<ListeningEpisode, "slug">): string {
   return `/listening/${episode.slug}`;
 }
 
-/** Every spoken line in chapter order. */
 export function episodeLines(episode: ListeningEpisode): DialogueTurn[] {
   return episode.chapters.flatMap((chapter) => chapter.lines);
 }
@@ -23,13 +22,14 @@ export function episodeCheckCount(episode: ListeningEpisode): number {
   return episode.chapters.reduce((sum, chapter) => sum + chapter.checks.length, 0);
 }
 
-/** Rough listening time: learner-paced speech runs near 90 words a minute. */
+const WORDS_PER_MINUTE = 90;
+
 export function episodeMinutes(episode: ListeningEpisode): number {
   const words = episodeLines(episode).reduce(
     (sum, line) => sum + line.slovak.split(/\s+/).filter(Boolean).length,
     0,
   );
-  return Math.max(1, Math.ceil(words / 90));
+  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
 }
 
 export function episodeForGrammarSlug(slug: string): ListeningEpisode | undefined {
@@ -50,8 +50,7 @@ export function validateListeningEpisodes(): string[] {
     prefix: string,
     onSpeaker: (speaker: string, lineId: string) => void,
   ): void {
-    // The player only knows its own chapter, so a replay must point inside it.
-    const lineIds = new Set(chapter.lines.map((line) => line.id));
+    const chapterLineIds = new Set(chapter.lines.map((line) => line.id));
     claim(chapter.id, chapter.id);
     if (!chapter.id.startsWith(prefix)) {
       issues.push(`Chapter id ${chapter.id} must start with ${prefix}`);
@@ -88,7 +87,7 @@ export function validateListeningEpisodes(): string[] {
       if (!check.feedback.why.includes("**")) {
         issues.push(`Check ${check.id} why needs a **bold** term`);
       }
-      if (check.replayLineId && !lineIds.has(check.replayLineId)) {
+      if (check.replayLineId && !chapterLineIds.has(check.replayLineId)) {
         issues.push(`Check ${check.id} replays unknown line ${check.replayLineId}`);
       }
     }

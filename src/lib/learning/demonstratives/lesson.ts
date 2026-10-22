@@ -186,7 +186,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     feedback: {
       correction: "To je moja sestra.",
       english: "This is my sister.",
-      why: "On its own, **to** never changes, whoever it points at: **To je moja sestra**.",
+      why: "In **to je**, **to** stays **to**, whoever it points at: **To je moja sestra**.",
     },
   },
   {
@@ -201,7 +201,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         label: "To sú moji rodičia.",
         fits: true,
         whyWrong:
-          "**To sú moji rodičia** fits — **to** on its own never changes; only the verb is plural.",
+          "**To sú moji rodičia** fits — **to** stays **to**; only the verb is plural.",
       },
       {
         id: "toto",
@@ -338,7 +338,15 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     prompt: "I'm going to the cinema with that woman.",
     inputLabel: "Your Slovak answer",
     answer: "Idem do kina s tou ženou.",
-    acceptedAnswers: ["Idem do kina s tamtou ženou."],
+    acceptedAnswers: [
+      "Idem do kina s tamtou ženou.",
+      "Idem s tou ženou do kina.",
+      "Idem s tamtou ženou do kina.",
+      "Ja idem do kina s tou ženou.",
+      "Ja idem do kina s tamtou ženou.",
+      "Ja idem s tou ženou do kina.",
+      "Ja idem s tamtou ženou do kina.",
+    ],
     mistakes: [
       {
         wrong: "tú",
@@ -363,7 +371,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
       {
         wrong: "so tou",
         whyWrong:
-          "**So** comes only before s, z, š, or ž. Before **tou** it stays **s**.",
+          "**So** is for words starting with s, z, š, or ž (and a few others, like **so mnou**). Before **tou** it stays **s**.",
       },
     ],
     feedback: {
@@ -383,7 +391,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         id: "person",
         label: "Vidíš toho dom?",
         whyWrong:
-          "**Toho** is for people in the accusative (**toho muža**). **Dom** is a thing, so it keeps **ten**.",
+          "**Toho** is the accusative for people and animals (**toho muža**, **toho psa**). **Dom** is a thing, so it keeps **ten**.",
       },
       {
         id: "genitive",
@@ -455,7 +463,11 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
     prompt: "How much is this book?",
     inputLabel: "Your Slovak answer",
     answer: "Koľko stojí táto kniha?",
-    acceptedAnswers: ["Koľko stojí tá kniha?"],
+    acceptedAnswers: [
+      "Koľko stojí tá kniha?",
+      "Koľko táto kniha stojí?",
+      "Koľko tá kniha stojí?",
+    ],
     mistakes: [
       {
         wrong: "tento",
@@ -486,7 +498,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
         id: "singular",
         label: "Anna ide do kina s tým chlapcami.",
         whyWrong:
-          "**Tým** is instrumental singular (**s tým chlapcom**) or dative plural (**tým deťom**).",
+          "**Tým** is masculine or neuter instrumental singular (**s tým chlapcom**) or dative plural (**tým deťom**).",
       },
       {
         id: "genitive",
@@ -673,7 +685,7 @@ export const demonstrativesLesson: Lesson = {
             id: "nominative",
             label: "A ten muž poznám! Je to Marek?",
             whyWrong:
-              "**Ten muž** is the subject form. **Poznať** takes the accusative, and masculine nouns for people change: **toho muža**.",
+              "**Ten muž** is the subject form. **Poznať** takes the accusative, and masculine nouns for people and animals change: **toho muža**.",
           },
           {
             id: "half",
@@ -769,7 +781,7 @@ export const demonstrativesLesson: Lesson = {
             id: "person",
             label: "Dobre, dám si tohto koláč.",
             whyWrong:
-              "**Tohto** is for people in the accusative (**tohto muža**). A thing keeps the basic form: **tento koláč**.",
+              "**Tohto** is the accusative for people and animals (**tohto muža**, **tohto psa**). A thing keeps the basic form: **tento koláč**.",
           },
         ],
       },
@@ -786,7 +798,7 @@ export const demonstrativesLesson: Lesson = {
   keyPhrases: demonstrativesBeatShells.flatMap((beat) => beat.teach.phrases ?? []),
   pattern: {
     title: "This, that, the",
-    body: "**Ten, tá, to** agree with the noun: *ten muž, tá žena, to dievča*. Add **-to** for this one here (*tento koláč*) and **tam-** for that one over there (*tamtá torta*). In the plural, only masculine nouns for people take **tí**; everything else takes **tie**. On its own, **to** never changes: *To je môj brat. To sú fotky z leta.* In other cases, ten takes the case of its noun: *Poznám toho muža. Býva v tom dome.*",
+    body: "**Ten, tá, to** agree with the noun: *ten muž, tá žena, to dievča*. Add **-to** for this one here (*tento koláč*) and **tam-** for that one over there (*tamtá torta*). In the plural, only masculine nouns for people take **tí**; everything else takes **tie**. In **to je** and **to sú**, **to** does not agree with the noun: *To je môj brat. To sú fotky z leta.* In other cases, ten takes the case of its noun: *Poznám toho muža. Býva v tom dome.*",
   },
   beats: withDemonstrativesExercises(
     demonstrativesBeatShells,

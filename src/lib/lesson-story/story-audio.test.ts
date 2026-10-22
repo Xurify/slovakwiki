@@ -109,7 +109,7 @@ describe("story line playback", () => {
   it("keeps a slow rate through an autoplay unlock", async () => {
     const audio = await loadStoryAudio();
 
-    audio.playStoryLineAudio("/slow.mp3", "Pomaly.", { rate: 0.8 });
+    audio.playStoryLineAudio("/slow.mp3", "Pomaly.", { playbackRate: 0.8 });
     await flushPromises();
     expect(FakeAudio.instances[0]?.playbackRate).toBe(0.8);
 

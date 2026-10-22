@@ -7,12 +7,14 @@ import type {
 import { DAY_PART_ALIASES } from "./clock-types";
 import {
   analogFace,
+  appointment24hPhrase,
   appointmentPhrase,
   aroundPhrase,
   comingHour12,
   englishTimeMeaningPhrase,
   exactMinuteTellingLabel,
   faceHour12,
+  formatDigital,
   formatFaceDigital12,
   locativeOrdinal12,
   oDurationHoursPhrase,
@@ -55,7 +57,7 @@ export function appointmentChoiceWhy(time: ClockFaceTime): string {
   if (time.minute === 30) {
     const toward = comingHour12(time.hour);
     const polWord = polWordForTime(time);
-    return `**O pol ${polWord}** means ${meaning}: halfway toward **${toward}** (**${digital}**). **Pol** names the hour ahead, not the one the hand sits on.`;
+    return `**O pol ${polWord}** means ${meaning}: halfway toward **${toward}** (**${digital}**). **Pol** names the hour ahead, not the hour that has passed.`;
   }
 
   const towardWord = towardWordForTime(time);
@@ -159,7 +161,7 @@ function timeDistractorWhy(
   if (wrong.minute === correct.minute && wrongFace.hour !== correctFace.hour) {
     if (correct.minute === 45) {
       const correctToward = towardWordForTime(correct);
-      return `**${wrongPhrase}** means ${wrongMeaning} (**${wrongDigital}**). For ${correctMeaning}, name **${correctToward}** after **na** — the hand is near **${correctFace.hour}**, but Slovak looks ahead.`;
+      return `**${wrongPhrase}** means ${wrongMeaning} (**${wrongDigital}**). For ${correctMeaning}, name **${correctToward}** after **na** — the hour hand is already close to **${comingHour12(correct.hour)}**, and Slovak names that hour.`;
     }
     if (correct.minute === 15) {
       const correctToward = towardWordForTime(correct);
@@ -220,7 +222,8 @@ export function appointmentPrvejTrapWhy(correct: ClockFaceTime): string {
   if (correct.minute === 0 && faceHour12(correct.hour) === 1) {
     return `**O jednej** is **1:00** — **O prvej** does not name this time.`;
   }
-  return `**1:00** is **O jednej** — not **O prvej** (**${digital}**).`;
+  const phrase = appointmentPhraseEmphasis(appointmentPhrase(correct));
+  return `**1:00** is **O jednej**, not **O prvej**. This time is **${phrase}** (**${digital}**).`;
 }
 
 export function tellingDistractorWhy(
@@ -254,6 +257,23 @@ export function clockFaceDistractorWhy(
   }
 
   return `This face is ${wrongMeaning} (**${wrongDigital}**) — you need ${correctMeaning} (**${correctDigital}**).`;
+}
+
+/** Rule-first feedback for a 24-hour appointment time (O štrnástej tridsať). */
+export function appointment24hChoiceWhy(time: ClockFaceTime): string {
+  const phrase = appointmentPhraseEmphasis(appointment24hPhrase(time));
+  const facePhrase = appointmentPhraseEmphasis(appointmentPhrase(time));
+  const minutes = time.minute === 0 ? "" : ", then the minutes";
+  return `**${phrase}** is **${formatDigital(time)}**: 24-hour time names the hour as an ordinal${minutes}. On the face that is **${formatFaceDigital12(time)}**, **${facePhrase}**.`;
+}
+
+export function appointment24hFaceDistractorWhy(
+  correct: ClockFaceTime,
+  wrong: ClockFaceTime,
+): string {
+  const phrase = appointmentPhraseEmphasis(appointment24hPhrase(correct));
+  const wrongMeaning = englishTimeMeaningPhrase(wrong).toLowerCase();
+  return `This face is ${wrongMeaning} (**${formatFaceDigital12(wrong)}**). **${phrase}** is **${formatDigital(correct)}**, which is **${formatFaceDigital12(correct)}** on the face.`;
 }
 
 const DAY_PART_ENGLISH: Record<DayPart, string> = {

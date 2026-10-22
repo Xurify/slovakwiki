@@ -10,7 +10,7 @@
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { panelClass } from "$lib/components/ui/system-ui";
   import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
-  import { followFocus } from "$lib/listening/focus";
+  import { focusUnlessTyping } from "$lib/listening/focus";
   import { cx } from "$lib/ui/classes";
 
   import ListenStage from "./ListenStage.svelte";
@@ -22,15 +22,13 @@
   }: {
     audioSrcs: EpisodeAudioSrcs;
     episode: ListeningEpisode;
-    /** Where to go once every chapter is done. */
     next: EpisodeNextSteps;
   } = $props();
 
   let active = $state(0);
   let autoplay = $state(false);
   let scores = $state<Record<string, number>>({});
-  /** Bumped by Start again so a chapter that is already open mounts fresh. */
-  let run = $state(0);
+  let restartCount = $state(0);
   let stage = $state<{ pause: () => void }>();
   let stageEl: HTMLElement | undefined = $state();
 
@@ -43,7 +41,6 @@
     Object.values(scores).reduce((sum, score) => sum + score, 0),
   );
 
-  /** The next chapter still to do, after this one first, then from the top. */
   const nextIndex = $derived.by(() => {
     const open = (index: number) => scores[episode.chapters[index]!.id] === undefined;
     const indexes = episode.chapters.map((_, index) => index);
@@ -68,18 +65,18 @@
 
   function restart(): void {
     scores = {};
-    run += 1;
+    restartCount += 1;
     openChapter(0);
   }
 
   function playWord(slovak: string): void {
     stage?.pause();
-    playStoryLineAudio(audioSrcs.vocabulary[slovak], slovak);
+    playStoryLineAudio(audioSrcs.srcBySlovak[slovak], slovak);
   }
 
   async function scrollToStage(): Promise<void> {
     await tick();
-    followFocus(stageEl);
+    focusUnlessTyping(stageEl);
     stageEl?.scrollIntoView({
       block: "start",
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -198,11 +195,11 @@
       </p>
     </header>
 
-    {#key `${chapter.id}-${run}`}
+    {#key `${chapter.id}-${restartCount}`}
       <ListenStage
         bind:this={stage}
         {chapter}
-        audioSrcs={audioSrcs.lines}
+        audioSrcs={audioSrcs.srcByLineId}
         {autoplay}
         done={scores[chapter.id] === undefined ? null : { correct: scores[chapter.id]! }}
         onfinish={finishChapter}

@@ -4,10 +4,6 @@
   import { playStoryLineAudio, stopStoryLineAudio } from "$lib/lesson-story/story-audio";
   import { cx } from "$lib/ui/classes";
 
-  /**
-   * Replays one line through the shared story element, so it never talks over
-   * the dialogue: the player pauses first via `onbeforeplay`.
-   */
   let {
     label,
     onbeforeplay,

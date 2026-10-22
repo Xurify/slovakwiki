@@ -3,7 +3,6 @@
 
   import { cx } from "$lib/ui/classes";
 
-  /** Quiet text control under the player: Slower, Show text, English, Replay line. */
   let {
     children,
     disabled = false,
@@ -13,7 +12,6 @@
     children: Snippet;
     disabled?: boolean;
     onclick: () => void;
-    /** Set for a toggle; leave out for a one-shot action. */
     pressed?: boolean;
   } = $props();
 </script>

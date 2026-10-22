@@ -208,7 +208,6 @@
       <path d="M77 28l-5 4 6.5 1.5" class={lit} />
     {/if}
   {:else if kind === "gender"}
-    <!-- His or hers: the same thing between a man and a woman; the arrow comes from its owner. -->
     <path d="M4 42h112" class="text-slate-300" />
 
     {@render figure(16, 1, tone("his"), false)}

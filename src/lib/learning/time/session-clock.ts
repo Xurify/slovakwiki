@@ -4,7 +4,7 @@ import {
   appointmentChoiceWhy,
   appointmentPhrase,
   clockFaceDistractorWhy,
-  englishTimeGloss,
+  englishTellingGloss,
   englishTimeMeaningPhrase,
   formatFaceDigital12,
   nearMissTimes,
@@ -20,14 +20,32 @@ import { skWhichClockShows } from "./prompts";
 import { appointmentBarePhrase, choiceIdForTime } from "./session-shared";
 import type { DaysDatesTimeKind } from "./session-kinds";
 
+/** What a clock-match card quotes and teaches for one time. */
+export interface ClockMatchPhrase {
+  bare: string;
+  correction: string;
+  english: string;
+  why: string;
+  wrongWhy: (miss: ClockFaceTime) => string;
+}
+
+function appointmentMatchPhrase(time: ClockFaceTime): ClockMatchPhrase {
+  return {
+    bare: appointmentBarePhrase(time),
+    correction: appointmentPhrase(time),
+    english: `${formatFaceDigital12(time)} — ${englishTimeMeaningPhrase(time)}.`,
+    why: appointmentChoiceWhy(time),
+    wrongWhy: (miss) => clockFaceDistractorWhy(time, miss),
+  };
+}
+
 export function buildClockMatchForTime(
   kind: DaysDatesTimeKind,
   time: ClockFaceTime,
   rng: () => number,
-  barePhrase = appointmentBarePhrase(time),
+  phrase: ClockMatchPhrase = appointmentMatchPhrase(time),
 ): PracticeItem["task"] {
   const face = analogFace(time);
-  const correctPhrase = appointmentPhrase(time);
   const misses = nearMissTimes(time, rng);
 
   const choices = shuffleArray(
@@ -36,7 +54,7 @@ export function buildClockMatchForTime(
       ...misses.map((miss) => ({
         id: choiceIdForTime(miss),
         clock: analogFace(miss),
-        whyWrong: clockFaceDistractorWhy(time, miss),
+        whyWrong: phrase.wrongWhy(miss),
       })),
     ],
     rng,
@@ -46,15 +64,15 @@ export function buildClockMatchForTime(
     id: `generated-${kind}`,
     type: "choice",
     practiceItemId: kind,
-    prompt: skWhichClockShows(barePhrase),
+    prompt: skWhichClockShows(phrase.bare),
     promptLang: "sk",
     choiceStyle: "clock",
     choices,
     answerId: "correct",
     feedback: {
-      correction: correctPhrase,
-      english: `${formatFaceDigital12(time)} — ${englishTimeMeaningPhrase(time)}.`,
-      why: appointmentChoiceWhy(time),
+      correction: phrase.correction,
+      english: phrase.english,
+      why: phrase.why,
     },
   };
 }
@@ -107,7 +125,7 @@ export function buildTellingAskExercise(
     hint: registersHint,
     feedback: {
       correction: correctLabel,
-      english: englishTimeGloss(time),
+      english: englishTellingGloss(time),
       why: tellingChoiceWhy(time),
     },
   };

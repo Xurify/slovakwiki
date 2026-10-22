@@ -5,7 +5,6 @@
   import type { DialogueTurn } from "$lib/learning/types";
   import { cx } from "$lib/ui/classes";
 
-  /** One transcript row: portrait, speaker, the line, and a play-from-here control. */
   let {
     current = false,
     dimmed = false,
@@ -17,13 +16,11 @@
     showEnglish = false,
   }: {
     current?: boolean;
-    /** Another line is playing: step back so the current one stands out. */
     dimmed?: boolean;
     line: DialogueTurn;
     number: number;
     onpause: () => void;
     onplay: () => void;
-    /** The dialogue is playing this line right now. */
     playing?: boolean;
     showEnglish?: boolean;
   } = $props();

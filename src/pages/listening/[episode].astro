@@ -21,8 +21,6 @@ export function getStaticPaths() {
       practiceHref: practiceSet ? `/practice/${practiceSet.id}` : undefined,
     };
 
-    // Clip URLs belong in the cache key: regenerating audio changes them without
-    // touching the episode text, and incrementalBuild would keep stale HTML.
     const props = { episode, audio: episodeAudioSrcs(episode), next };
 
     return {

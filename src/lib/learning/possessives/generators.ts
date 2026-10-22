@@ -91,8 +91,17 @@ function genderSlot(slot: Slot): GenderSlot {
   return "masculine-inanimate";
 }
 
+/** “Staying at my child's place” reads oddly, so the u-frame leaves out dieťa. */
+function fitsFrame(
+  candidate: NounEntry,
+  frame: { grammaticalCase: GrammaticalCase; people: boolean },
+): boolean {
+  if (frame.people && !candidate.person) return false;
+  return frame.grammaticalCase !== "genitive" || candidate.id !== "dieta";
+}
+
 function frameNouns(frame: CaseFrame): NounEntry[] {
-  return nounsWhere((candidate) => !frame.people || candidate.person);
+  return nounsWhere((candidate) => fitsFrame(candidate, frame));
 }
 
 export function buildAgreementExercise(kind: string, rng: Rng): ChoiceExercise {
@@ -168,7 +177,7 @@ export function buildPluralExercise(kind: string, rng: Rng): ChoiceExercise {
         {
           id: "singular",
           label: line(singular),
-          whyWrong: `**${capitalizeSlovak(singular)}** is singular — for one thing or person.`,
+          whyWrong: `**${capitalizeSlovak(singular)}** is singular — for one masculine thing or person.`,
         },
       ],
       rng,
@@ -201,7 +210,7 @@ export function buildFormalExercise(kind: string, rng: Rng): ChoiceExercise {
   );
   const wrongGender = possessiveForm(owner, wrongGenderSlot, "nominative");
   const line = (form: string) => `Je to ${form} ${entry.forms.nominative}?`;
-  const english = `Is this your ${entry.english}? (${formal ? "formal" : "informal"})`;
+  const english = `Is this your ${entry.english}? (${formal ? "formal" : "to a friend"})`;
 
   return {
     id: `generated-${kind}`,
@@ -414,7 +423,7 @@ const SVOJ_FRAMES: readonly SvojFrame[] = [
 ];
 
 function svojNouns(frame: SvojFrame): NounEntry[] {
-  return nounsWhere((candidate) => !frame.people || candidate.person);
+  return nounsWhere((candidate) => fitsFrame(candidate, frame));
 }
 
 /** Same owner, another case — the nominative first, since that is the usual slip. */
@@ -506,6 +515,17 @@ function bareLine(frame: SvojFrame, subject: string, entry: NounEntry): string {
 }
 
 /**
+ * Whether the bare noun still reads as the subject's own: hľadá kľúče does, but
+ * hľadá byt or izbu means flat-hunting, and a bare dieťaťu reads as any child.
+ */
+function bareReadsAsOwn(entry: NounEntry, frame: SvojFrame): boolean {
+  if (frame.grammaticalCase === "accusative") {
+    return entry.id === "kluc" || entry.id === "kluce" || entry.id === "telefon";
+  }
+  return entry.id !== "dieta" || frame.grammaticalCase === "instrumental";
+}
+
+/**
  * Notes for every other svoj form a learner might type: another case of the right
  * gender first (the frame says which case it needs), then the right case of another
  * gender or number. Forms an accepted answer contains — accents ignored — are skipped.
@@ -519,6 +539,22 @@ function svojMistakes(
   const ownPhrase = ownedSlovak("own", entry, frame.grammaticalCase);
   const noun = entry.forms[frame.grammaticalCase];
   const notes = new Map<string, string>();
+
+  // Svojho and svojich are accusatives too (svojho brata), so the slip is animacy, not case.
+  if (frame.grammaticalCase === "accusative" && entry.slot === "masculine-inanimate") {
+    const animate = possessiveForm("own", "masculine-animate", "accusative");
+    notes.set(
+      animate,
+      `**${capitalizeSlovak(animate)}** is the accusative for people and animals (**${animate} brata**, **${animate} psa**). A thing keeps **${correct}**: **${ownPhrase}**.`,
+    );
+  }
+  if (frame.grammaticalCase === "accusative" && entry.slot === "plural") {
+    const personal = possessiveForm("own", "plural-personal", "accusative");
+    notes.set(
+      personal,
+      `**${capitalizeSlovak(personal)}** is the accusative for masculine people (**${personal} bratov**). **${capitalizeSlovak(noun)}** takes **${correct}**: **${ownPhrase}**.`,
+    );
+  }
 
   for (const grammaticalCase of CASES) {
     const form = possessiveForm("own", entry.slot, grammaticalCase);
@@ -555,14 +591,25 @@ export function buildSvojRepairExercise(kind: string, rng: Rng): TypedExercise {
   );
 
   const ownPhrase = ownedSlovak("own", entry, frame.grammaticalCase);
+  const instrumental = frame.grammaticalCase === "instrumental";
+  const shownPhrase = instrumental ? withPreposition("s", ownPhrase) : ownPhrase;
   const broken = frame.slovak(
     subject.name,
     ownedSlovak(subject.fixed, entry, frame.grammaticalCase),
   );
   const answer = frame.slovak(subject.name, ownPhrase);
-  const bare = bareLine(frame, subject.name, entry);
+  const bare = bareReadsAsOwn(entry, frame) ? [bareLine(frame, subject.name, entry)] : [];
   const english = frame.english(subject.name, `${subject.fixed} own ${entry.english}`);
   const fixedForm = possessiveForm(subject.fixed, entry.slot, frame.grammaticalCase);
+  const ownForm = possessiveForm("own", entry.slot, frame.grammaticalCase);
+
+  const mistakes = svojMistakes(entry, frame, [answer, ...bare]);
+  if (instrumental) {
+    mistakes.push({
+      wrong: `s ${ownForm}`,
+      whyWrong: `Before **${ownForm}** the preposition is **so**: **${shownPhrase}**.`,
+    });
+  }
 
   return {
     id: `generated-${kind}`,
@@ -580,12 +627,12 @@ export function buildSvojRepairExercise(kind: string, rng: Rng): TypedExercise {
     prompt: "Repair this sentence.",
     inputLabel: "Correct Slovak sentence",
     answer,
-    acceptedAnswers: [bare],
-    mistakes: svojMistakes(entry, frame, [answer, bare]),
+    acceptedAnswers: bare,
+    mistakes,
     feedback: {
       correction: answer,
       english,
-      why: `**${capitalizeSlovak(fixedForm)}** points to someone else. ${subject.name} is the owner and the subject, so use **svoj**: **${ownPhrase}**.`,
+      why: `**${capitalizeSlovak(fixedForm)}** points to someone else. ${subject.name} is the owner and the subject, so use **svoj**: **${shownPhrase}**.`,
     },
   };
 }
@@ -626,7 +673,7 @@ function buildFirstPersonOddOneOut(
           id: "mine",
           label: mine,
           fits: true,
-          whyWrong: `**${withoutFinalPunctuation(mine)}** fits — with I or you as the owner, **môj** works too.`,
+          whyWrong: `**${withoutFinalPunctuation(mine)}** fits — with I as the owner, **môj** works too.`,
         },
         {
           id: "trap",
@@ -641,14 +688,17 @@ function buildFirstPersonOddOneOut(
     feedback: {
       correction: trap,
       english,
-      why: `**${capitalizeSlovak(trapForm)}** means “${OWNER_ENGLISH[trapOwner]}”, so the ${entry.english} is someone else's. For your own, use **svoj** or **môj**.`,
+      why: `**${capitalizeSlovak(trapForm)}** means “${OWNER_ENGLISH[trapOwner]}”: someone else's ${entry.english}. For your own, use **svoj** or **môj**.`,
     },
   };
 }
 
 export function buildSvojOddOneOutExercise(kind: string, rng: Rng): ChoiceExercise {
   const frame = pick(BARE_OK_FRAMES, rng);
-  const entry = pick(svojNouns(frame), rng);
+  const entry = pick(
+    svojNouns(frame).filter((candidate) => bareReadsAsOwn(candidate, frame)),
+    rng,
+  );
   if (rng() < 0.4) return buildFirstPersonOddOneOut(kind, rng, frame, entry);
 
   const subject = pick(SVOJ_SUBJECTS, rng);
@@ -742,7 +792,7 @@ export function buildCaseChoiceExercise(kind: string, rng: Rng): ChoiceExercise 
     label: frameSentence(frame, wrong, entry),
     whyWrong:
       thingAccusative && index === 0
-        ? `**${capitalizeSlovak(wrong)}** is for people in the accusative (**${wrong} brata**). A thing keeps the basic form.`
+        ? `**${capitalizeSlovak(wrong)}** is the accusative for people and animals (**${wrong} brata**, **${wrong} psa**). A thing keeps the basic form.`
         : `**${capitalizeSlovak(wrong)}** is the ${caseOfForm(owner, entry.slot, wrong)} form.`,
   }));
 
@@ -841,7 +891,10 @@ export function buildGenitiveBuildExercise(kind: string, rng: Rng): BuildExercis
 
 export function buildTypedExercise(kind: string, rng: Rng): TypedExercise {
   const owner = pick<NamedOwnerId>([...DECLINABLE_NAMED_OWNERS, ...FIXED_OWNERS], rng);
-  const entry = pick(NOUNS, rng);
+  const entry = pick(
+    nounsWhere((candidate) => candidate.id !== "priatelia"),
+    rng,
+  );
   const plural = isPluralSlot(entry.slot);
   const form = possessiveForm(owner, entry.slot, "nominative");
   const owned = `${form} ${entry.forms.nominative}`;
@@ -875,9 +928,9 @@ export function buildTypedExercise(kind: string, rng: Rng): TypedExercise {
 }
 
 const WHOSE_LABEL: Record<string, string> = {
-  čí: "masculine",
-  čia: "feminine",
-  čie: "neuter or plural",
+  čí: "masculine singular",
+  čia: "feminine singular",
+  čie: "neuter singular or plural",
 };
 
 export function buildWhoseExercise(kind: string, rng: Rng): ChoiceExercise {
@@ -960,7 +1013,7 @@ export function buildNameAdjectiveExercise(kind: string, rng: Rng): ChoiceExerci
           return {
             id: `name-${wrongSlot}`,
             label: line(wrong),
-            whyWrong: `**${capitalizeSlovak(wrong)}** goes with ${SLOT_LABEL[wrongSlot]} nouns.`,
+            whyWrong: `**${capitalizeSlovak(wrong)}** goes with ${wrongSlot === "plural" ? "plural" : `${SLOT_LABEL[wrongSlot]} singular`} nouns.`,
           };
         }),
       ],
@@ -1100,11 +1153,12 @@ const BODY_PART_ITEMS: readonly BodyPartItem[] = [
     wrong: [
       {
         label: "Zlomil jeho ruku.",
-        whyWrong: "**Jeho ruku** is another man's arm — he'd have broken someone else's!",
+        whyWrong: "**Jeho ruku** is another man's arm, so he broke someone else's.",
       },
       {
         label: "Zlomil svoju ruku.",
-        whyWrong: "Slovak does not add **svoju** to a body part.",
+        whyWrong:
+          "**Svoju ruku** sounds as if the arm could be someone else's. With your own body, Slovak uses **si**.",
       },
     ],
   },

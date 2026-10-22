@@ -3,11 +3,6 @@
   import { practiceItemHref } from "$lib/catalog/practice";
   import type { Example } from "$lib/catalog/types";
 
-  /**
-   * Example sentences as a light list, apart from any table: no box of their
-   * own, two columns on wide screens. Forms the table shows light up in blue,
-   * which ties the two together without merging them.
-   */
   let {
     examples,
     audioKeys = [],
@@ -16,13 +11,9 @@
     label,
   }: {
     examples: Example[];
-    /** `{audioKeyPrefix}-{index}` keys that have a recorded clip; buttons mount there after hydration. */
     audioKeys?: string[];
-    /** Unique per list when one page shows several example lists. */
     audioKeyPrefix?: string;
-    /** Lowercase Slovak words to mark in each sentence (the table's forms). */
     highlight?: readonly string[];
-    /** Small heading above the list when no section heading names it. */
     label?: string;
   } = $props();
 
@@ -38,8 +29,8 @@
     })),
   );
 
-  const showAudio = $derived(rows.some((row) => row.audioKey));
-  const marked = $derived(new Set(highlight));
+  const reserveAudioColumn = $derived(rows.some((row) => row.audioKey));
+  const forms = $derived(new Set(highlight.map((form) => form.toLocaleLowerCase("sk"))));
 </script>
 
 <div>
@@ -49,7 +40,13 @@
 
   <ul class="m-0 grid list-none gap-x-8 p-0 md:grid-cols-2">
     {#each rows as { audioKey, example, practiceHref } (example.slovak)}
-      <GrammarExampleRow {example} {audioKey} {practiceHref} {showAudio} {marked} />
+      <GrammarExampleRow
+        {example}
+        {audioKey}
+        {practiceHref}
+        {reserveAudioColumn}
+        {forms}
+      />
     {/each}
   </ul>
 </div>
