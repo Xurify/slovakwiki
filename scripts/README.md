@@ -46,6 +46,7 @@ Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.
 | `content/audio/README.md`                                 | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                 |
 | `content/audio/manifest.json`                             | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only                   |
 | `content/audio/runtime-index.json`                        | Slim build index (hash → kind + generatedAt); app via `readFile`                 |
+| `content/audio/mouth.json`                                | Lesson clip loudness + vowel per 50 ms (hash → take + tracks), stick-figure cast |
 | `content/images/manifest.json`                            | Lemma image metadata (slug → file/license/attribution/status/uploadedAt)         |
 | `content/images/overrides.json`                           | Manual reject / force Commons file per slug                                      |
 | `src/lib/catalog/dictionary/words.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime                  |
@@ -104,6 +105,7 @@ Needs `ELEVENLABS_API_KEY` in `.env`. Then `bun scripts/audio/upload.ts` before 
 | `migrate-r2-prefix.ts` | `bun scripts/audio/migrate-r2-prefix.ts` | Copy bucket-root `{kind}/` → `audio/{kind}/`; `--delete-source` after prod is on new URLs |
 | `prune-orphans.ts` | `bun scripts/audio/prune-orphans.ts` | Dry-run orphan report (old hashes); `--delete` local+manifest; `--delete --r2` also DELETE on R2 |
 | `status.ts` | `bun scripts/audio/status.ts` | Targets vs disk vs manifest |
+| `mouth.ts` | `bun scripts/audio/mouth.ts` | Lesson clip loudness + aligned vowels → `content/audio/mouth.json` for stick-figure lip sync. `generate.ts` already runs it for lesson clips it writes; run it to backfill or after pulling new takes. Reads local MP3s, else `PUBLIC_AUDIO_BASE_URL`; needs ffmpeg; `--force` re-measures all |
 | `verify.ts` | `bun scripts/audio/verify.ts` | Dual STT audit → `tmp/audio-verify-report.json` |
 | `judge.ts` | (lib) | Dual STT + near-miss ending + logprob gap |
 | `stt.ts` | (lib) | Scribe + Whisper adapters |

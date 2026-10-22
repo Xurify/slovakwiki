@@ -85,6 +85,14 @@ const tortaLine = markedText([
   " tortu.",
 ]);
 
+const confirmLine = markedText([
+  "Takže ",
+  { role: "demonstrative", text: "tento" },
+  " koláč a ",
+  { role: "demonstrative", text: "tamtú" },
+  " tortu. Hneď to bude.",
+]);
+
 /** Graded exercises in beat order: 3 · 2 · 3 · 3 · 3 · 2. */
 export const demonstrativesGradedExercises: LessonExercise[] = [
   {
@@ -789,10 +797,19 @@ export const demonstrativesLesson: Lesson = {
     {
       id: demonstrativesLineIds.annaThatCake,
       speaker: "Anna",
+      to: "Waiter",
       slovak: tortaLine.text,
       marks: tortaLine.marks,
       english: "And I'll have that layer cake over there.",
       audio: { transcript: tortaLine.text },
+    },
+    {
+      id: demonstrativesLineIds.waiterConfirmsOrder,
+      speaker: "Waiter",
+      slovak: confirmLine.text,
+      marks: confirmLine.marks,
+      english: "So, this cake and that layer cake. Coming right up.",
+      audio: { transcript: confirmLine.text },
     },
   ],
   keyPhrases: demonstrativesBeatShells.flatMap((beat) => beat.teach.phrases ?? []),
