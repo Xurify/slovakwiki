@@ -204,7 +204,6 @@ export function sampleGesture(
   return keys[keys.length - 1].pose;
 }
 
-/** The still frame that stands in for the whole gesture under reduced motion. */
 export function gesturePeak(id: StickGestureId, aim?: PointAim): StickPose {
   return gestureFor(id, aim).peak;
 }

@@ -23,7 +23,6 @@ import {
 import type { StageSetting } from "./stage-setting";
 import { stageLine, takesFrom, type LineStaging, type StageLine } from "./staging";
 
-/** A scene line as the stage needs it. */
 export interface DirectedLine {
   /** Null for a line nobody on stage says: a notice, the narrator. */
   characterId: LessonCharacterId | null;
