@@ -108,7 +108,7 @@
 </script>
 
 <div class="animate-rise">
-  <p class={eyebrowMutedClass}>Say {speaker}'s line</p>
+  <p class={eyebrowMutedClass}>Say it</p>
   <p
     class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
     lang="sk"

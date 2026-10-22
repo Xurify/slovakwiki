@@ -19,7 +19,6 @@
     onmiss,
     sayChoices,
     slovak,
-    speaker,
   }: {
     english: string;
     /** Seeds the tile order, so a retry is the same puzzle. */
@@ -30,7 +29,6 @@
     onmiss: (said: string) => void;
     sayChoices?: DialogueSayChoices;
     slovak: string;
-    speaker: string;
   } = $props();
 
   let misses = $state(0);
@@ -105,7 +103,7 @@
 <svelte:window onkeydown={onKeydown} />
 
 <div class="animate-rise">
-  <p class={eyebrowMutedClass}>{speaker} wants to say</p>
+  <p class={eyebrowMutedClass}>Your line</p>
   <p class="m-0 mt-1 text-lg text-slate-900">{english}</p>
 
   {#if sayChoices}
