@@ -21,7 +21,7 @@ export const STICK_NAME_CLASSES: Partial<Record<LessonCharacterId, string>> = {
   alex: "text-blue-700",
   anna: "text-rose-700",
   lucia: "text-emerald-700",
-  marek: "text-portrait-vest",
+  marek: "text-slate-700",
   maria: "text-rose-700",
   receptionist: "text-blue-700",
   waiter: "text-slate-700",

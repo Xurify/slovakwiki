@@ -1453,34 +1453,38 @@
 
         {#if scriptOpen}
           <ol
-            class="m-0 mt-3 list-none divide-y divide-slate-200 border-t border-slate-200 p-0"
+            class="{panelClass} m-0 mt-3 list-none divide-y divide-slate-200 overflow-hidden p-0"
           >
-            <li class="py-3">
-              <span class="block text-sm font-semibold text-slate-500">Alex</span>
-              <span class="mt-0.5 block font-serif text-lg text-slate-900" lang="sk">
-                {dayPicked}
-              </span>
-              {#if showEnglish}
-                <span class="block text-sm text-slate-500">
-                  {greetingGloss(dayPicked)}
-                </span>
-              {/if}
-            </li>
-            {#if dayReplied}
-              <li class="animate-rise py-3">
-                <span class="block text-sm font-semibold text-slate-500">
-                  {dayName(dayRound.who)}
-                </span>
-                <span class="mt-0.5 block font-serif text-lg text-slate-900" lang="sk">
-                  {dayRound.reply.slovak}
-                </span>
-                {#if showEnglish}
-                  <span class="block text-sm text-slate-500">
-                    {dayRound.reply.english}
-                  </span>
-                {/if}
+            {#each scene.lines as line, index (line.id)}
+              <li>
+                <button
+                  class={cx(
+                    "block w-full cursor-pointer border-0 px-5 py-3 text-left sm:px-6",
+                    "transition-colors duration-150 ease-out hover:bg-subtle",
+                    index === shown ? "bg-blue-50" : "bg-transparent",
+                  )}
+                  type="button"
+                  onclick={() => startAt(index)}
+                >
+                  <span class="block text-sm font-semibold text-slate-500"
+                    >{line.speaker}</span
+                  >
+
+                  {#if hiddenLine(index)}
+                    <span class="mt-0.5 block text-base text-slate-500 italic">
+                      Your line: {line.english}
+                    </span>
+                  {:else}
+                    <span class="mt-0.5 block font-serif text-lg text-slate-900">
+                      <MarkedText text={line.slovak} marks={line.marks} />
+                    </span>
+                    {#if showEnglish}
+                      <span class="block text-sm text-slate-500">{line.english}</span>
+                    {/if}
+                  {/if}
+                </button>
               </li>
-            {/if}
+            {/each}
           </ol>
         {/if}
       {/if}
