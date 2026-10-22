@@ -3,8 +3,9 @@
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import {
     GROUND_Y,
-    STICK_VIEWBOX,
+    HEAD_RADIUS,
     solveRig,
+    STICK_VIEWBOX,
     type Point,
     type StickLimb,
   } from "$lib/stick-figure/rig";
@@ -249,7 +250,23 @@
       />
     {/if}
 
-    {#if prop}
+    {#if prop === "umbrella"}
+      {@const canopy = { x: rig.head.x + 22, y: rig.head.y - HEAD_RADIUS - 8 }}
+      <!-- Wide enough for whoever stands beside them; the canopy stays put while the hand moves the stick. -->
+      <g class="stroke-portrait-ink" stroke-width="0.8">
+        <path
+          d="M{n(canopy.x)} {n(canopy.y)}L{n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)}"
+          stroke-width="1.2"
+        />
+        <g transform="translate({n(canopy.x)} {n(canopy.y)})">
+          <path
+            d="M-46 0A46 13 0 0 1 46 0A11.5 3.6 0 0 1 23 0A11.5 3.6 0 0 1 0 0A11.5 3.6 0 0 1 -23 0A11.5 3.6 0 0 1 -46 0Z"
+            class="fill-scene-honey"
+          />
+          <path d="M0 -13v-4" stroke-width="1.2" />
+        </g>
+      </g>
+    {:else if prop}
       <g transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})">
         <StickProp {prop} />
       </g>
