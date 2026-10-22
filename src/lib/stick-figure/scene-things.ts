@@ -267,7 +267,7 @@ export const SCENE_THINGS: Partial<Record<LessonSceneArtId, readonly SceneThing[
       "masculine-inanimate",
       "castle",
       { stems: ["hrad"] },
-      [636, 38, 88, 74],
+      [632, 34, 96, 78],
     ),
     thing(
       "kopec",

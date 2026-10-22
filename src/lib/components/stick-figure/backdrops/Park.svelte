@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Castle from "./Castle.svelte";
   import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
 </script>
@@ -10,11 +11,7 @@
 <path d="M-10 226V176Q90 136 220 152Q300 162 380 196V226Z" class="fill-scene-cool" />
 
 <!-- The castle is drawn before its hill, so the hill hides the foot of the walls. -->
-<path d="M646 112V60H714V112Z" class="fill-white" />
-<path d="M638 112V50H652V112ZM708 112V50H722V112Z" class="fill-white" />
-<path d="M636 50L645 38L654 50ZM706 50L715 38L724 50Z" class="fill-scene-clay" />
-<path d="M658 68h6v6h-6ZM677 68h6v6h-6ZM696 68h6v6h-6Z" class="fill-scene-sky" />
-<path d="M646 60h68v4h-68Z" class="fill-scene-line/8" />
+<Castle x={680} y={112} />
 <path
   d="M520 226V170Q600 96 680 88Q760 84 880 120Q930 142 970 156V226Z"
   class="fill-scene-sage"

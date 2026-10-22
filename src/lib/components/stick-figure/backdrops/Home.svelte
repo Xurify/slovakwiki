@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Castle from "./Castle.svelte";
   import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
 </script>
@@ -32,9 +33,9 @@
 
 <rect x="742" y="50" width="104" height="72" class="fill-scene-wood" />
 <rect x="750" y="58" width="88" height="56" class="fill-scene-sky" />
-<path d="M776 96V78H780V72H786V78H804V72H810V78H814V96Z" class="fill-white" />
-<path d="M775 72l4-6 4 6ZM805 72l4-6 4 6Z" class="fill-scene-clay" />
+<Castle x={794} y={96} size={0.45} />
 <path d="M750 114V100Q776 86 794 92Q816 82 838 98V114Z" class="fill-scene-sage" />
+<path d="M750 58h88v3h-88ZM750 61h3v53h-3Z" class="fill-scene-line/15" />
 
 <ellipse cx="792" cy="240" rx="128" ry="5" class="fill-scene-line/12" />
 <rect x="686" y="152" width="214" height="58" rx="10" class="fill-portrait-ground" />
