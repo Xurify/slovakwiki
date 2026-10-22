@@ -804,12 +804,11 @@
             {/if}
 
             {#if shown >= 0}
-              <SceneAction icon="replay" onclick={again}>Again</SceneAction>
+              <SceneAction onclick={again}>Again</SceneAction>
             {/if}
 
             <SceneAction
               aria-pressed={slower}
-              icon="slower"
               onclick={() => {
                 slower = !slower;
               }}
@@ -819,7 +818,6 @@
 
             <SceneAction
               aria-pressed={listenFirst}
-              icon="listen"
               onclick={() => {
                 listenFirst = !listenFirst;
               }}

@@ -14,7 +14,7 @@
     children: Snippet;
     class?: string;
     href?: string;
-    icon: SceneIconName;
+    icon?: SceneIconName;
     [key: string]: unknown;
   } = $props();
 </script>
@@ -31,6 +31,8 @@
   type={href ? undefined : "button"}
   {...rest}
 >
-  <SceneIcon name={icon} />
+  {#if icon}
+    <SceneIcon name={icon} />
+  {/if}
   {@render children()}
 </svelte:element>
