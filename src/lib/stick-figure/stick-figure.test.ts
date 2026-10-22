@@ -29,7 +29,7 @@ import {
   figureToStage,
   linePoints,
 } from "./scene-things";
-import { parseScript, sceneSnippet, stageName } from "./script";
+import { stageName } from "./stage-name";
 import { gesturesWithProps, heldProps, lineProps, propForSentence } from "./props";
 import { restFacing, stageLine, type StageLine } from "./staging";
 import { STEP_MS, stepsFor, walkDuration, walkPose } from "./walk";
@@ -398,76 +398,11 @@ describe("performFrame", () => {
   });
 });
 
-describe("parseScript", () => {
-  it("reads speakers, lines and gesture tags", () => {
-    const { lines, problems } = parseScript(
-      "Anna: Dobrý deň. Volám sa Anna.\n\nWaiter: [point] Dáte si kávu?\nYou: Nie. [cheer] Ďakujem!",
-    );
-
-    expect(problems).toEqual([]);
-    expect(lines.map((line) => [line.speaker, line.characterId])).toEqual([
-      ["Anna", "anna"],
-      ["Waiter", "waiter"],
-      ["You", "alex"],
-    ]);
-    expect(lines[0].gestures).toBeUndefined();
-    expect(lines[1]).toMatchObject({ slovak: "Dáte si kávu?", gestures: ["point"] });
-    expect(lines[2]).toMatchObject({
-      slovak: "Nie. Ďakujem!",
-      gestures: ["shake", "cheer"],
-    });
-  });
-
-  it("flags rows it cannot use", () => {
-    const { lines, problems } = parseScript(
-      "Marta: Ahoj!\nno colon here\nAnna: [dance] Ahoj!\nAnna: Ahoj [wave] tu.\nScene: Na námestí.",
-    );
-
-    expect(problems.map((problem) => problem.line)).toEqual([1, 2, 3, 4]);
-    expect(lines.find((line) => line.speaker === "Scene")?.characterId).toBe("narrator");
-  });
-
-  it("takes a cast name for the learner and stores the lesson label", () => {
-    const { lines, problems } = parseScript("Alex: Dobrý deň.\nYou: Ďakujem.");
-
-    expect(problems).toEqual([]);
-    expect(lines.map((line) => [line.speaker, line.characterId])).toEqual([
-      ["You", "alex"],
-      ["You", "alex"],
-    ]);
-    expect(sceneSnippet(lines)).toContain('speaker: "You"');
-  });
-
-  it("reads prop tags", () => {
-    const { lines, problems } = parseScript("Alex: [phone] Moje číslo je nula deväť.");
-
-    expect(problems).toEqual([]);
-    expect(lines[0].props).toEqual(["phone"]);
-    expect(sceneSnippet(lines)).toContain('props: ["phone"]');
-  });
-
-  it("reads who a line is for", () => {
-    const { lines, problems } = parseScript(
-      "Anna > Waiter: A ja si dám tamtú tortu.\nAnna > Marta: Ahoj.\nAnna > Anna: Ahoj.",
-    );
-
-    expect(lines[0]).toMatchObject({ speaker: "Anna", to: "Waiter" });
-    expect(lines[1].to).toBeUndefined();
-    expect(problems.map((problem) => problem.line)).toEqual([2, 3]);
-    expect(sceneSnippet(lines.slice(0, 1))).toContain('to: "Waiter"');
-  });
-
+describe("stageName", () => {
   it("names the learner's figure on stage", () => {
     expect(stageName("You")).toBe("Alex");
     expect(stageName("Mária")).toBe("Mária");
     expect(stageName("Scene")).toBe("Scene");
-  });
-
-  it("writes a lesson scene to paste", () => {
-    const { lines } = parseScript("Waiter: [point] Dáte si kávu?");
-
-    expect(sceneSnippet(lines)).toContain('gestures: ["point"]');
-    expect(sceneSnippet(lines)).toContain('slovak: "Dáte si kávu?"');
   });
 });
 
