@@ -139,3 +139,132 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
     speaker: "Anna",
   },
 ];
+
+/**
+ * The weather in Bratislava, all of it in one hour: sun, clouds, rain and
+ * snow in the park by the Danube, each as the lines name it.
+ */
+export const WEATHER_TODAY: DialogueTurn[] = [
+  {
+    english: "What's the weather like today?",
+    id: "dev-weather-alex-ask",
+    sayChoices: {
+      answerId: "weather",
+      choices: [
+        { id: "weather", label: "Aké je dnes počasie?" },
+        {
+          id: "time",
+          label: "Koľko je hodín?",
+          whyWrong: "**Koľko je hodín?** asks the time. The weather is **počasie**.",
+        },
+        {
+          id: "where",
+          label: "Kde je počasie?",
+          whyWrong:
+            "**Kde** asks where something is. For what the weather is like, ask **aké**.",
+        },
+      ],
+    },
+    slovak: "Aké je dnes počasie?",
+    speaker: "You",
+  },
+  {
+    english: "Nice. The sun is shining and it's warm.",
+    id: "dev-weather-anna-sun",
+    slovak: "Pekné. Svieti slnko a je teplo.",
+    speaker: "Anna",
+  },
+  {
+    english: "Great. Are we going for a walk?",
+    id: "dev-weather-alex-walk",
+    slovak: "Super. Ideme na prechádzku?",
+    speaker: "You",
+  },
+  {
+    english: "Yes. But look, clouds are coming.",
+    id: "dev-weather-anna-clouds",
+    slovak: "Áno. Ale pozri, prichádzajú oblaky.",
+    speaker: "Anna",
+  },
+  {
+    english: "Hm. It's cloudy.",
+    id: "dev-weather-alex-cloudy",
+    sayChoices: {
+      answerId: "cloudy",
+      choices: [
+        { id: "cloudy", label: "Hm. Je oblačno." },
+        {
+          id: "sunny",
+          label: "Hm. Je slnečno.",
+          whyWrong: "**Slnečno** is sunny. The clouds have just come: **oblačno**.",
+        },
+        {
+          id: "noun",
+          label: "Hm. Je oblak.",
+          whyWrong:
+            "**Oblak** is the thing, a cloud. The weather word is **oblačno**: cloudy.",
+        },
+      ],
+    },
+    slovak: "Hm. Je oblačno.",
+    speaker: "You",
+  },
+  {
+    english: "Yes. And now it's raining!",
+    id: "dev-weather-anna-rain",
+    slovak: "Áno. A teraz prší!",
+    speaker: "Anna",
+  },
+  {
+    english: "Oh no. I don't have an umbrella.",
+    id: "dev-weather-alex-umbrella",
+    slovak: "Ach nie. Nemám dáždnik.",
+    speaker: "You",
+  },
+  {
+    english: "Me neither. And it's cold!",
+    id: "dev-weather-anna-cold",
+    slovak: "Ja tiež nie. A je zima!",
+    speaker: "Anna",
+  },
+  {
+    english: "Look! It's snowing!",
+    id: "dev-weather-alex-snow",
+    sayChoices: {
+      answerId: "snow",
+      choices: [
+        { id: "snow", label: "Pozri! Sneží!" },
+        {
+          id: "rain",
+          label: "Pozri! Prší!",
+          whyWrong: "**Prší** is rain. White flakes are **sneh**, and it **sneží**.",
+        },
+        {
+          id: "sun",
+          label: "Pozri! Svieti slnko!",
+          whyWrong: "**Svieti slnko** says the sun is out. Those are snowflakes.",
+        },
+      ],
+    },
+    slovak: "Pozri! Sneží!",
+    speaker: "You",
+  },
+  {
+    english: "Snowing? In October?!",
+    id: "dev-weather-anna-october",
+    slovak: "Sneží? V októbri?!",
+    speaker: "Anna",
+  },
+  {
+    english: "Sun, clouds, rain, snow. In one hour.",
+    id: "dev-weather-alex-hour",
+    slovak: "Slnko, oblaky, dážď, sneh. Za jednu hodinu.",
+    speaker: "You",
+  },
+  {
+    english: "That's Bratislava. Let's go home!",
+    id: "dev-weather-anna-home",
+    slovak: "To je Bratislava. Poďme domov!",
+    speaker: "Anna",
+  },
+];

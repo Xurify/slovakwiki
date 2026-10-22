@@ -93,12 +93,14 @@
 
   const MOOD_LABELS: Record<TimeOfDay | Weather, string> = {
     clear: "Clear",
+    cloudy: "Cloudy",
     day: "Day",
     evening: "Evening",
     morning: "Morning",
     night: "Night",
     rain: "Rain",
     snow: "Snow",
+    sunny: "Sunny",
   };
 
   const REACTION_COPY: Partial<Record<StickGestureId, string>> = {

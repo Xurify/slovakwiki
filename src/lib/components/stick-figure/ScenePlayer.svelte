@@ -301,7 +301,10 @@
           time: (dayRound ?? DAY_ROUNDS[DAY_ROUNDS.length - 1]).time,
           weather: "clear" as const,
         }
-      : sceneMood(scene.lines.map((line) => line.slovak)),
+      : sceneMood(
+          scene.lines.map((line) => line.slovak),
+          shown >= 0 ? shown : at,
+        ),
   );
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
   const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
