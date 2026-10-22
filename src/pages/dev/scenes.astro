@@ -16,10 +16,10 @@ import type { DialogueTurn } from "$lib/learning/types";
 import { RAIN_AND_TRAM } from "$lib/stick-figure/dev-scenes";
 import {
   chapterSettingFor,
-  greetingClips,
   sceneThingWords,
   stageSettingFor,
 } from "$lib/stick-figure/lesson-stage";
+import { dayTurns } from "$lib/stick-figure/scene-day";
 import { stageName } from "$lib/stick-figure/stage-name";
 
 function playerLines(turns: DialogueTurn[]): PlayerLine[] {
@@ -88,9 +88,9 @@ groups.push({
 });
 
 const thingWords = sceneThingWords();
-const clips = greetingClips();
+const day = playerLines(dayTurns());
 ---
 
 <SiteLayout title="Scenes | Slovak Wiki" noindex>
-  <ScenePlayer client:load greetingClips={clips} {groups} {thingWords} />
+  <ScenePlayer client:load {day} {groups} {thingWords} />
 </SiteLayout>

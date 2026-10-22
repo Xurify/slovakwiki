@@ -74,15 +74,19 @@
   import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
   import { sceneMood } from "$lib/stick-figure/scene-mood";
   import {
+    DAY_ROUNDS,
     GREETINGS,
-    GREET_ROUNDS,
     TIME_WORDS,
-    greetWhy,
-    isGreetRight,
+    dayName,
+    dayWho,
+    dayWhy,
+    greetingGloss,
+    greetingTurnId,
+    isDayRight,
+    pairOf,
+    replyTurnId,
     type Greeting,
-    type GreetRound,
-  } from "$lib/stick-figure/scene-greet";
-  import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
+  } from "$lib/stick-figure/scene-day";
   import { ChoiceOptions } from "$lib/learning/exercises";
   import EpisodeCheck from "$lib/components/listening/EpisodeCheck.svelte";
   import {
@@ -114,38 +118,32 @@
   import SceneTurn from "./SceneTurn.svelte";
   import StickStage from "./StickStage.svelte";
 
-  type Mode = "watch" | "play" | "find" | "greet";
+  type Mode = "watch" | "play" | "find" | "day";
   /** Pick Alex's line from the lesson's choices, build it from its words, or say it. */
   type Turn = "pick" | "build" | "say";
   type Phase = "ready" | "playing" | "paused" | "turn" | "done";
 
   let {
+    day = [],
     groups,
-    greetingClips = {},
     thingWords = {},
   }: {
-    /** The dictionary clip for each greeting, where there is one. */
-    greetingClips?: Partial<Record<Greeting, string>>;
+    /** Alex's greetings and the answers of the people on the square, with their clips. */
+    day?: PlayerLine[];
     groups: PlayerSceneGroup[];
     /** Dictionary link and clip for a scene thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
-  /** Ways to take a lesson scene; greeting Mária is a game of its own. */
-  const MODES: Array<{ id: Exclude<Mode, "greet">; label: string }> = [
+  /** Ways to take a lesson scene; the day on the square is a game of its own. */
+  const MODES: Array<{ id: Exclude<Mode, "day">; label: string }> = [
     { id: "watch", label: "Watch" },
     { id: "play", label: "Play as" },
     { id: "find", label: "Find it" },
   ];
 
-  /** Mária on the square: someone Alex says Dobrý deň to, not Ahoj. */
-  const GREET_LINES: DirectedLine[] = [
-    { characterId: "maria", slovak: "Dobrý deň." },
-    { characterId: "alex", slovak: "Dobrý deň." },
-  ];
-  const GREET_DIRECTION = directScene(GREET_LINES, "plaza");
-  /** Long enough to hear the greeting and see it answered. */
-  const GREETED_PAUSE_MS = 2200;
+  /** Long enough to read what was said back before the next person comes. */
+  const DAY_PAUSE_MS = 2600;
 
   const TURNS: Array<{ id: Turn; label: string }> = [
     { id: "pick", label: "Pick the line" },
@@ -216,16 +214,21 @@
   let checkAt = $state(0);
   let checksRight = $state(0);
 
-  let greetQueue = $state<GreetRound[]>([]);
-  let greetAt = $state(0);
-  let greetPicked = $state<Greeting | null>(null);
-  let greetMissed = $state(false);
-  let greetResults = $state<Record<string, boolean>>({});
-  let greetNote = $state<{ right: boolean; text: string }>();
+  let dayAt = $state(0);
+  let dayPicked = $state<Greeting | null>(null);
+  let dayMissed = $state(false);
+  let dayResults = $state<Record<string, boolean>>({});
+  let dayNote = $state<{ right: boolean; text: string }>();
+  /** What Alex said in each round, for the stage to play back. */
+  let daySaid = $state<Record<string, Greeting>>({});
+  /** True while a greeting and its answer play, so the next pick waits. */
+  let dayBusy = $state(false);
+  /** True once the person has started answering, so their line shows as it is said. */
+  let dayReplied = $state(false);
 
   let timer = 0;
   let findTimer = 0;
-  let greetTimer = 0;
+  let dayTimer = 0;
 
   const scenes = $derived(groups.flatMap((group) => group.scenes));
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
@@ -268,13 +271,35 @@
   const turns = $derived(TURNS.filter(({ id }) => id !== "say" || recordable));
   const takeCount = $derived(Object.keys(takes).length);
   const soundscape = $derived(
-    ambienceFor(mode === "greet" ? "plaza" : scene.setting, mood),
+    ambienceFor(mode === "day" ? "plaza" : scene.setting, mood),
   );
   const soundKey = $derived(JSON.stringify(soundscape));
-  const greetRound = $derived(greetQueue[greetAt]);
+  const dayRound = $derived(DAY_ROUNDS[dayAt]);
+  /** The person on the square now, or the last one once the day is over. */
+  const dayVisitor = $derived(DAY_ROUNDS[Math.min(dayAt, DAY_ROUNDS.length - 1)].who);
+  // Keyed on who, not the round, so moving on to the goodbye does not restage them.
+  const dayPair = $derived(
+    pairOf(
+      DAY_ROUNDS,
+      DAY_ROUNDS.findIndex((round) => round.who === dayVisitor),
+    ),
+  );
+  const dayLines = $derived<DirectedLine[]>(
+    dayPair.flatMap((round) => {
+      const said = daySaid[round.id] ?? round.answers[0];
+      return [
+        dayLine(greetingTurnId(said), "alex", said),
+        dayLine(replyTurnId(round), round.who, round.reply.slovak),
+      ];
+    }),
+  );
+  const dayDirection = $derived(directScene(dayLines, "plaza"));
   const mood = $derived(
-    mode === "greet"
-      ? { time: greetRound?.time ?? "day", weather: "clear" as const }
+    mode === "day"
+      ? {
+          time: (dayRound ?? DAY_ROUNDS[DAY_ROUNDS.length - 1]).time,
+          weather: "clear" as const,
+        }
       : sceneMood(scene.lines.map((line) => line.slovak)),
   );
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
@@ -348,7 +373,7 @@
   function halt(): void {
     window.clearTimeout(timer);
     window.clearTimeout(findTimer);
-    window.clearTimeout(greetTimer);
+    window.clearTimeout(dayTimer);
     stage?.stop();
     speaking = false;
   }
@@ -378,7 +403,7 @@
     const url = new URL(window.location.href);
     url.searchParams.set(SCENE_PARAM, id);
     window.history.replaceState(window.history.state, "", url);
-    if (mode === "greet") mode = "watch";
+    if (mode === "day") mode = "watch";
     if (mode === "play" && learnerCount === 0) mode = "watch";
     if (same) stage?.place(0);
     if (mode === "find") startFind();
@@ -415,52 +440,85 @@
     stage?.place(0);
     mode = next;
     if (next === "find") startFind();
-    if (next === "greet") startGreet();
+    if (next === "day") void startDay();
   }
 
-  function startGreet(): void {
-    window.clearTimeout(greetTimer);
-    greetQueue = shuffledTiles([...GREET_ROUNDS], "greet");
-    greetAt = 0;
-    greetPicked = null;
-    greetMissed = false;
-    greetResults = {};
-    greetNote = undefined;
+  /** A line of the game with its clip; Alex stays on the square after each goodbye. */
+  function dayLine(
+    id: string,
+    characterId: LessonCharacterId,
+    slovak: string,
+  ): DirectedLine {
+    const line = day.find((option) => option.id === id);
+    return {
+      characterId,
+      mouth: line?.mouth,
+      slovak,
+      src: line?.src,
+      stays: characterId === "alex",
+      vowels: line?.vowels,
+    };
   }
 
-  function greet(picked: Greeting | null): void {
-    const round = greetRound;
-    if (!picked || !round || greetNote?.right) return;
+  /** Stage the square with its first visitor on the way, once the stage has the cast. */
+  async function startDay(): Promise<void> {
+    window.clearTimeout(dayTimer);
+    dayAt = 0;
+    dayPicked = null;
+    dayMissed = false;
+    dayResults = {};
+    dayNote = undefined;
+    daySaid = {};
+    dayBusy = false;
+    dayReplied = false;
+    await tick();
+    stage?.arrive(dayPair[0].who, 1);
+  }
 
-    greetPicked = picked;
-    stage?.say("alex", picked);
+  function sayOnSquare(picked: Greeting | null): void {
+    const round = dayRound;
+    if (!picked || !round || dayBusy) return;
 
-    if (!isGreetRight(round, picked)) {
+    dayPicked = picked;
+    if (!isDayRight(round, picked)) {
       playAnswerSfx("incorrect");
-      greetMissed = true;
-      greetNote = { right: false, text: greetWhy(round, picked) };
-      stage?.gesture("maria", "think");
+      stage?.say("alex", picked);
+      stage?.gesture(round.who, "think");
+      dayMissed = true;
+      dayNote = { right: false, text: dayWhy(round, picked) };
       return;
     }
 
     playAnswerSfx("correct");
-    const clip = greetingClips[picked];
-    if (clip) playStoryLineAudio(clip, picked);
-    greetResults = { ...greetResults, [round.id]: !greetMissed };
-    greetNote = {
-      right: true,
-      text: picked === round.answers[0] ? "Áno!" : `Áno! ${round.note ?? ""}`,
-    };
-    stage?.gesture("alex", "wave");
-    greetTimer = window.setTimeout(() => {
-      stage?.gesture("maria", "wave");
-      greetTimer = window.setTimeout(() => {
-        greetAt += 1;
-        greetPicked = null;
-        greetMissed = false;
-        greetNote = undefined;
-      }, GREETED_PAUSE_MS);
-    }, 500);
+    dayResults = { ...dayResults, [round.id]: !dayMissed };
+    daySaid = { ...daySaid, [round.id]: picked };
+    dayNote = { right: true, text: round.notes?.[picked] ?? "" };
+    dayBusy = true;
+
+    // The stage restages for the greeting Alex picked before it can play it.
+    const index = dayPair.indexOf(round) * 2;
+    void tick().then(() => {
+      stage?.play(index, () => {
+        dayReplied = true;
+        stage?.play(index + 1, () => {
+          dayTimer = window.setTimeout(() => void nextOnSquare(), DAY_PAUSE_MS);
+        });
+      });
+    });
+  }
+
+  async function nextOnSquare(): Promise<void> {
+    const gone = dayRound?.leaving;
+    dayAt += 1;
+    dayPicked = null;
+    dayMissed = false;
+    dayNote = undefined;
+    dayBusy = false;
+    dayReplied = false;
+    if (gone && dayRound) {
+      await tick();
+      stage?.arrive(dayRound.who, 1);
+    }
   }
 
   /** The learner's take of line `index`, when it should be heard in Alex's place. */
@@ -764,10 +822,10 @@
               <li class="shrink-0">
                 <button
                   class="{chipClass(
-                    option.id === scene.id && mode !== 'greet',
+                    option.id === scene.id && mode !== 'day',
                   )} whitespace-nowrap"
                   type="button"
-                  aria-pressed={option.id === scene.id && mode !== "greet"}
+                  aria-pressed={option.id === scene.id && mode !== "day"}
                   lang="sk"
                   onclick={() => selectScene(option.id)}
                 >
@@ -782,20 +840,20 @@
       <div>
         <p class={eyebrowMutedClass}>Games</p>
         <button
-          class="{chipClass(mode === 'greet')} mt-2 whitespace-nowrap"
+          class="{chipClass(mode === 'day')} mt-2 whitespace-nowrap"
           type="button"
-          aria-pressed={mode === "greet"}
+          aria-pressed={mode === "day"}
           lang="sk"
-          onclick={() => selectMode("greet")}
+          onclick={() => selectMode("day")}
         >
-          Dobrý deň, či dobrý večer?
+          Deň na námestí
         </button>
       </div>
     </nav>
 
     <section class="mt-6" aria-label="Scene">
       <div class="flex flex-wrap items-center justify-between gap-3">
-        {#if mode !== "greet"}
+        {#if mode !== "day"}
           <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
             <div class="flex gap-2" role="group" aria-label="Mode">
               {#each modes as option (option.id)}
@@ -844,7 +902,7 @@
           </TextLink>
 
           <!-- Find it asks in Slovak only: the English would give the answer away. -->
-          {#if mode !== "find" && mode !== "greet"}
+          {#if mode !== "find"}
             <TextLink onclick={toggleEnglish}>
               {showEnglish ? "Hide English" : "Show English"}
             </TextLink>
@@ -856,75 +914,153 @@
         <StickStage
           bind:this={stage}
           class="border-b border-slate-200"
-          direction={mode === "greet" ? GREET_DIRECTION : direction}
+          direction={mode === "day" ? dayDirection : direction}
           {found}
-          lines={mode === "greet" ? GREET_LINES : lines}
+          lines={mode === "day" ? dayLines : lines}
           {mood}
           onthing={mode === "find" ? tapThing : undefined}
-          setting={mode === "greet" ? "plaza" : scene.setting}
+          setting={mode === "day" ? "plaza" : scene.setting}
           {thingWords}
         />
 
         <div class="px-5 py-5 sm:px-6">
-          {#if mode === "greet"}
-            {#if greetRound}
-              {@const when = TIME_WORDS[greetRound.time]}
+          {#if mode === "day"}
+            {#if dayRound}
+              {@const when = TIME_WORDS[dayRound.time]}
+              {@const who = dayWho(dayRound.who)}
 
-              <p class={eyebrowMutedClass}>
-                <span lang="sk">{when.slovak}</span>
-                <span class="font-normal">{when.english}</span>
-              </p>
-              <p class="m-0 mt-1 text-lg text-slate-900">
-                {greetRound.leaving
-                  ? "Alex is saying goodbye to Mária. What does Alex say?"
-                  : "Alex meets Mária on the square. What does Alex say?"}
-              </p>
+              {#key dayRound.id}
+                <div class="animate-rise">
+                  <p class={eyebrowMutedClass}>
+                    <span lang="sk">{when.slovak}</span>
+                    <span class="font-normal">{when.english}</span>
+                  </p>
+                  <p
+                    class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
+                    lang="sk"
+                  >
+                    {dayRound.prompt.slovak}
+                  </p>
+                  <p class="m-0 mt-1 text-sm text-slate-600">
+                    <span class="font-semibold text-slate-700" lang="sk"
+                      >{who.slovak}</span
+                    >
+                    <span class="ml-2">{who.english}</span>
+                  </p>
 
-              {#key greetRound.id}
-                <ChoiceOptions
-                  choices={GREETINGS.map((greeting) => ({
-                    id: greeting,
-                    label: greeting,
-                  }))}
-                  bind:selectedId={
-                    () => greetPicked, (id) => greet(id as Greeting | null)
-                  }
-                  submitted={Boolean(greetNote?.right)}
-                  wrongChoiceId={greetNote && !greetNote.right ? greetPicked : null}
-                  correctIds={greetNote?.right ? greetRound.answers : null}
-                  variant="cards"
-                />
-              {/key}
+                  {#if dayNote?.right && dayPicked}
+                    <ol
+                      class="m-0 mt-4 list-none divide-y divide-slate-200 border-t border-slate-200 p-0"
+                    >
+                      <li class="py-3">
+                        <span class="block text-sm font-semibold text-slate-500"
+                          >Alex</span
+                        >
+                        <span
+                          class="mt-0.5 block font-serif text-lg text-slate-900"
+                          lang="sk"
+                        >
+                          {dayPicked}
+                        </span>
+                        {#if showEnglish}
+                          <span class="block text-sm text-slate-500">
+                            {greetingGloss(dayPicked)}
+                          </span>
+                        {/if}
+                      </li>
+                      {#if dayReplied}
+                        <li class="animate-rise py-3">
+                          <span class="block text-sm font-semibold text-slate-500">
+                            {dayName(dayRound.who)}
+                          </span>
+                          <span
+                            class="mt-0.5 block font-serif text-lg text-slate-900"
+                            lang="sk"
+                          >
+                            {dayRound.reply.slovak}
+                          </span>
+                          {#if showEnglish}
+                            <span class="block text-sm text-slate-500">
+                              {dayRound.reply.english}
+                            </span>
+                          {/if}
+                        </li>
+                      {/if}
+                    </ol>
 
-              {#if greetNote}
-                <p
-                  class={cx(
-                    "m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty",
-                    greetNote.right ? "text-emerald-800" : "text-rose-800",
-                  )}
-                  role="status"
-                >
-                  {#each splitEmphasis(greetNote.text) as part, index (index)}
-                    {#if part.type === "em"}
-                      <strong class="font-semibold">{part.value}</strong>
-                    {:else}
-                      {part.value}
+                    {#if dayNote.text}
+                      <p
+                        class="m-0 mt-3 text-sm leading-relaxed text-pretty text-slate-600"
+                      >
+                        {#each splitEmphasis(dayNote.text) as part, index (index)}
+                          {#if part.type === "em"}
+                            <strong class="font-semibold text-slate-800"
+                              >{part.value}</strong
+                            >
+                          {:else}
+                            {part.value}
+                          {/if}
+                        {/each}
+                      </p>
                     {/if}
-                  {/each}
-                </p>
-              {/if}
+                  {:else}
+                    <ChoiceOptions
+                      choices={GREETINGS.map((greeting) => ({
+                        id: greeting,
+                        label: greeting,
+                      }))}
+                      bind:selectedId={
+                        () => dayPicked, (id) => sayOnSquare(id as Greeting | null)
+                      }
+                      columns={2}
+                      submitted={false}
+                      wrongChoiceId={dayNote && !dayNote.right ? dayPicked : null}
+                      variant="cards"
+                    />
+
+                    {#if dayNote && !dayNote.right}
+                      <p
+                        class="m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty text-rose-800"
+                        role="status"
+                      >
+                        {#each splitEmphasis(dayNote.text) as part, index (index)}
+                          {#if part.type === "em"}
+                            <strong class="font-semibold">{part.value}</strong>
+                          {:else}
+                            {part.value}
+                          {/if}
+                        {/each}
+                      </p>
+                    {/if}
+                  {/if}
+                </div>
+              {/key}
             {:else}
               <div class="animate-rise">
                 <p class="m-0 font-serif text-2xl text-slate-900">
-                  {Object.values(greetResults).filter(Boolean).length} of {greetQueue.length}
+                  {Object.values(dayResults).filter(Boolean).length} of {DAY_ROUNDS.length}
                   right the first time.
                 </p>
-                <p class="m-0 mt-1 text-slate-600">
-                  Dobrý večer stays a hello however late it gets. Dobrú noc only ever says
-                  goodbye.
-                </p>
+
+                <p class="{eyebrowMutedClass} mt-4">Who came by</p>
+                <ul class="m-0 mt-2 flex list-none flex-wrap gap-2 p-0">
+                  {#each DAY_ROUNDS.filter((round) => !round.leaving) as meet (meet.id)}
+                    {@const leave = pairOf(DAY_ROUNDS, DAY_ROUNDS.indexOf(meet))[1]}
+                    <li
+                      class="inline-flex items-center gap-2 rounded-(--control-radius) bg-subtle px-3 py-1.5"
+                    >
+                      <span class="font-serif text-base text-slate-900"
+                        >{dayName(meet.who)}</span
+                      >
+                      <span class="text-sm text-slate-500" lang="sk">
+                        {meet.answers[0].slice(0, -1)} · {leave.answers[0].slice(0, -1)}
+                      </span>
+                    </li>
+                  {/each}
+                </ul>
+
                 <div class="mt-4 flex flex-wrap items-center gap-4">
-                  <Button variant="accent" onclick={startGreet}>
+                  <Button variant="accent" onclick={startDay}>
                     <SceneIcon name="replay" />
                     Play again
                   </Button>
@@ -1212,7 +1348,7 @@
               {Object.keys(results).length} of {queue.length}
             </span>
           </div>
-        {:else if mode !== "find" && mode !== "greet" && phase !== "turn" && phase !== "done"}
+        {:else if mode !== "find" && mode !== "day" && phase !== "turn" && phase !== "done"}
           <div
             class="flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
@@ -1274,7 +1410,7 @@
       </div>
 
       <!-- The questions are on what was heard, so the text waits until they are answered. -->
-      {#if mode !== "find" && mode !== "greet" && !checking}
+      {#if mode !== "find" && mode !== "day" && !checking}
         <ol
           class="{panelClass} m-0 mt-4 list-none divide-y divide-slate-200 overflow-hidden p-0"
         >

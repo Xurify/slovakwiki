@@ -429,6 +429,27 @@
     for (const actor of Object.values(actors)) actor.talking = false;
   }
 
+  /**
+   * Walk `id` on from the `from` edge to their mark, as someone coming over
+   * to say hello, while the others turn to watch them come.
+   */
+  export function arrive(id: LessonCharacterId, from: Facing): void {
+    const rest = { ...walks };
+    delete rest[id];
+    walks = rest;
+    offsets = { ...offsets, [id]: offStage(id, from) };
+
+    const cast = direction.cast;
+    const turned = Object.fromEntries(
+      cast
+        .filter((other) => other !== id)
+        .map((other) => [other, cast.indexOf(id) > cast.indexOf(other) ? 1 : -1]),
+    );
+    facings = { ...facings, ...turned, [id]: from === 1 ? -1 : 1 };
+    // The jump off stage has to paint before the walk back, or it animates too.
+    window.requestAnimationFrame(() => walkTo(id, 0));
+  }
+
   /** A line in a speech bubble over a figure, for words that have no clip: a wrong guess said aloud. */
   export function say(id: LessonCharacterId, text: string): void {
     window.clearTimeout(bubbleTimer);
