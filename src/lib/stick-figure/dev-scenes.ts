@@ -15,6 +15,7 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
   {
     english: "Do you have an umbrella?",
     id: "dev-rain-tram-alex-umbrella",
+    props: [null],
     sayChoices: {
       answerId: "umbrella",
       choices: [
@@ -37,21 +38,21 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
     speaker: "You",
   },
   {
-    english: "I don't. Let's take the tram.",
-    id: "dev-rain-tram-anna-tram",
-    slovak: "Nemám. Poďme na električku.",
+    english: "I do. Come here, under the umbrella.",
+    id: "dev-rain-tram-anna-umbrella",
+    slovak: "Mám. Poď sem, pod dáždnik.",
     speaker: "Anna",
   },
   {
-    english: "OK. Where is the stop?",
+    english: "Thanks. Where is the stop?",
     id: "dev-rain-tram-alex-where",
-    slovak: "Dobre. Kde je zastávka?",
+    slovak: "Ďakujem. Kde je zastávka?",
     speaker: "You",
   },
   {
-    english: "There, by the bench. Come on!",
+    english: "There, by the bench. Let's go!",
     id: "dev-rain-tram-anna-bench",
-    slovak: "Tam, pri lavičke. Poď!",
+    slovak: "Tam, pri lavičke. Poďme!",
     speaker: "Anna",
   },
   {
@@ -122,6 +123,8 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
   {
     english: "On the tram. You can pay by card.",
     id: "dev-rain-tram-anna-card",
+    // Her hands are full with the umbrella; the card stays in her pocket.
+    props: [null, null],
     slovak: "V električke. Môžeš platiť kartou.",
     speaker: "Anna",
   },
