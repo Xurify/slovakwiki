@@ -46,7 +46,6 @@
     ),
   );
 
-  // The word being said, read off the clip while the line plays.
   $effect(() => {
     void cue;
     if (!playing) {

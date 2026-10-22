@@ -156,7 +156,6 @@
   let captionCue = $state(0);
   let showEnglish = $state(false);
   let slower = $state(false);
-  /** Hear each line before reading it. */
   let listenFirst = $state(false);
   /** Alex's lines answered so far, and whether each was right the first time. */
   let firstTries = $state<Record<number, boolean>>({});
@@ -333,7 +332,6 @@
     }, 500);
   }
 
-  /** Play line `index` with its caption; `onDone` runs when its clip ends. */
   function say(index: number, onDone?: () => void): void {
     shown = index;
     speaking = true;
@@ -395,7 +393,6 @@
     step(at);
   }
 
-  /** From watching straight into taking Alex's part, from the top. */
   function playAlex(): void {
     selectMode("play");
     playScene();
@@ -406,7 +403,6 @@
     phase = "paused";
   }
 
-  /** Start the scene from line `index`, everyone where that line finds them. */
   function startAt(index: number): void {
     halt();
     stage?.place(index);
@@ -633,9 +629,12 @@
           {/if}
         </div>
 
-        <TextLink onclick={toggleEnglish}>
-          {showEnglish ? "Hide English" : "Show English"}
-        </TextLink>
+        <!-- Find it asks in Slovak only: the English would give the answer away. -->
+        {#if mode !== "find"}
+          <TextLink onclick={toggleEnglish}>
+            {showEnglish ? "Hide English" : "Show English"}
+          </TextLink>
+        {/if}
       </div>
 
       <div class="{panelClass} mt-3 overflow-hidden">
@@ -726,9 +725,6 @@
                       <MarkedText text={prompt.slovak} marks={prompt.marks} />
                     </p>
                   {/key}
-                  {#if showEnglish}
-                    <p class="m-0 mt-1 text-base text-slate-600">{prompt.english}</p>
-                  {/if}
                 </div>
 
                 <div class="flex flex-wrap gap-2" role="group" aria-label="Level">
