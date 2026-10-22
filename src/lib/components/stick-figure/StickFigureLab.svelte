@@ -218,6 +218,10 @@
         gesture comes from the Slovak text and the mouth from the recording, so no line
         needs hand animation. Tap anything in the drawn scene for its Slovak word.
       </Lead>
+      <p class="m-0 mt-3 text-sm text-slate-600">
+        This page is for staging. Learners play the same scenes on
+        <TextLink href="/dev/scenes">Scenes</TextLink>.
+      </p>
     </header>
 
     <section class="mt-10" aria-labelledby="stick-scene">
