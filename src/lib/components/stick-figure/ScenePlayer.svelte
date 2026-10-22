@@ -78,7 +78,9 @@
     GREETINGS,
     TIME_WORDS,
     dayName,
+    dayWho,
     dayWhy,
+    greetingGloss,
     greetingTurnId,
     isDayRight,
     pairOf,
@@ -221,6 +223,8 @@
   let daySaid = $state<Record<string, Greeting>>({});
   /** True while a greeting and its answer play, so the next pick waits. */
   let dayBusy = $state(false);
+  /** True once the person has started answering, so their line shows as it is said. */
+  let dayReplied = $state(false);
 
   let timer = 0;
   let findTimer = 0;
@@ -272,12 +276,12 @@
   const soundKey = $derived(JSON.stringify(soundscape));
   const dayRound = $derived(DAY_ROUNDS[dayAt]);
   /** The person on the square now, or the last one once the day is over. */
-  const dayWho = $derived(DAY_ROUNDS[Math.min(dayAt, DAY_ROUNDS.length - 1)].who);
+  const dayVisitor = $derived(DAY_ROUNDS[Math.min(dayAt, DAY_ROUNDS.length - 1)].who);
   // Keyed on who, not the round, so moving on to the goodbye does not restage them.
   const dayPair = $derived(
     pairOf(
       DAY_ROUNDS,
-      DAY_ROUNDS.findIndex((round) => round.who === dayWho),
+      DAY_ROUNDS.findIndex((round) => round.who === dayVisitor),
     ),
   );
   const dayLines = $derived<DirectedLine[]>(
@@ -473,6 +477,7 @@
     dayNote = undefined;
     daySaid = {};
     dayBusy = false;
+    dayReplied = false;
     await tick();
     stage?.arrive(dayPair[0].who, 1);
   }
@@ -494,16 +499,14 @@
     playAnswerSfx("correct");
     dayResults = { ...dayResults, [round.id]: !dayMissed };
     daySaid = { ...daySaid, [round.id]: picked };
-    dayNote = {
-      right: true,
-      text: picked === round.answers[0] ? "Áno!" : `Áno! ${round.notes?.[picked] ?? ""}`,
-    };
+    dayNote = { right: true, text: round.notes?.[picked] ?? "" };
     dayBusy = true;
 
     // The stage restages for the greeting Alex picked before it can play it.
     const index = dayPair.indexOf(round) * 2;
     void tick().then(() => {
       stage?.play(index, () => {
+        dayReplied = true;
         stage?.play(index + 1, () => {
           dayTimer = window.setTimeout(() => void nextOnSquare(), DAY_PAUSE_MS);
         });
@@ -518,6 +521,7 @@
     dayMissed = false;
     dayNote = undefined;
     dayBusy = false;
+    dayReplied = false;
     if (gone && dayRound) {
       await tick();
       stage?.arrive(dayRound.who, 1);
@@ -930,82 +934,138 @@
           {#if mode === "day"}
             {#if dayRound}
               {@const when = TIME_WORDS[dayRound.time]}
-
-              <p class={eyebrowMutedClass}>
-                <span lang="sk">{when.slovak}</span>
-                <span class="font-normal">{when.english}</span>
-              </p>
-              <p class="m-0 mt-1 text-lg text-slate-900" lang="sk">
-                {dayRound.prompt.slovak} Čo povieš?
-              </p>
-              <p class="m-0 text-sm text-slate-600">
-                {dayRound.prompt.english} What do you say?
-              </p>
+              {@const who = dayWho(dayRound.who)}
 
               {#key dayRound.id}
-                <ChoiceOptions
-                  choices={GREETINGS.map((greeting) => ({
-                    id: greeting,
-                    label: greeting,
-                  }))}
-                  bind:selectedId={
-                    () => dayPicked, (id) => sayOnSquare(id as Greeting | null)
-                  }
-                  submitted={Boolean(dayNote?.right)}
-                  wrongChoiceId={dayNote && !dayNote.right ? dayPicked : null}
-                  columns={2}
-                  correctIds={dayNote?.right ? dayRound.answers : null}
-                  variant="cards"
-                />
-              {/key}
-
-              {#if dayNote}
-                <p
-                  class={cx(
-                    "m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty",
-                    dayNote.right ? "text-emerald-800" : "text-rose-800",
-                  )}
-                  role="status"
-                >
-                  {#each splitEmphasis(dayNote.text) as part, index (index)}
-                    {#if part.type === "em"}
-                      <strong class="font-semibold">{part.value}</strong>
-                    {:else}
-                      {part.value}
-                    {/if}
-                  {/each}
-                </p>
-
-                {#if dayNote.right}
-                  <div class="mt-3 animate-rise" aria-live="polite">
-                    <p class="m-0 text-sm font-semibold text-slate-500">
-                      {dayName(dayRound.who)}
-                    </p>
-                    <p
-                      class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
-                      lang="sk"
+                <div class="animate-rise">
+                  <p class={eyebrowMutedClass}>
+                    <span lang="sk">{when.slovak}</span>
+                    <span class="font-normal">{when.english}</span>
+                  </p>
+                  <p
+                    class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
+                    lang="sk"
+                  >
+                    {dayRound.prompt.slovak}
+                  </p>
+                  <p class="m-0 mt-1 text-sm text-slate-600">
+                    <span class="font-semibold text-slate-700" lang="sk"
+                      >{who.slovak}</span
                     >
-                      {dayRound.reply.slovak}
-                    </p>
-                    {#if showEnglish}
-                      <p class="m-0 mt-1.5 text-base text-slate-600">
-                        {dayRound.reply.english}
+                    <span class="ml-2">{who.english}</span>
+                  </p>
+
+                  {#if dayNote?.right && dayPicked}
+                    <ol
+                      class="m-0 mt-4 list-none divide-y divide-slate-200 border-t border-slate-200 p-0"
+                    >
+                      <li class="py-3">
+                        <span class="block text-sm font-semibold text-slate-500"
+                          >Alex</span
+                        >
+                        <span
+                          class="mt-0.5 block font-serif text-lg text-slate-900"
+                          lang="sk"
+                        >
+                          {dayPicked}
+                        </span>
+                        {#if showEnglish}
+                          <span class="block text-sm text-slate-500">
+                            {greetingGloss(dayPicked)}
+                          </span>
+                        {/if}
+                      </li>
+                      {#if dayReplied}
+                        <li class="animate-rise py-3">
+                          <span class="block text-sm font-semibold text-slate-500">
+                            {dayName(dayRound.who)}
+                          </span>
+                          <span
+                            class="mt-0.5 block font-serif text-lg text-slate-900"
+                            lang="sk"
+                          >
+                            {dayRound.reply.slovak}
+                          </span>
+                          {#if showEnglish}
+                            <span class="block text-sm text-slate-500">
+                              {dayRound.reply.english}
+                            </span>
+                          {/if}
+                        </li>
+                      {/if}
+                    </ol>
+
+                    {#if dayNote.text}
+                      <p
+                        class="m-0 mt-3 text-sm leading-relaxed text-pretty text-slate-600"
+                      >
+                        {#each splitEmphasis(dayNote.text) as part, index (index)}
+                          {#if part.type === "em"}
+                            <strong class="font-semibold text-slate-800"
+                              >{part.value}</strong
+                            >
+                          {:else}
+                            {part.value}
+                          {/if}
+                        {/each}
                       </p>
                     {/if}
-                  </div>
-                {/if}
-              {/if}
+                  {:else}
+                    <ChoiceOptions
+                      choices={GREETINGS.map((greeting) => ({
+                        id: greeting,
+                        label: greeting,
+                      }))}
+                      bind:selectedId={
+                        () => dayPicked, (id) => sayOnSquare(id as Greeting | null)
+                      }
+                      columns={2}
+                      submitted={false}
+                      wrongChoiceId={dayNote && !dayNote.right ? dayPicked : null}
+                      variant="cards"
+                    />
+
+                    {#if dayNote && !dayNote.right}
+                      <p
+                        class="m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty text-rose-800"
+                        role="status"
+                      >
+                        {#each splitEmphasis(dayNote.text) as part, index (index)}
+                          {#if part.type === "em"}
+                            <strong class="font-semibold">{part.value}</strong>
+                          {:else}
+                            {part.value}
+                          {/if}
+                        {/each}
+                      </p>
+                    {/if}
+                  {/if}
+                </div>
+              {/key}
             {:else}
               <div class="animate-rise">
                 <p class="m-0 font-serif text-2xl text-slate-900">
                   {Object.values(dayResults).filter(Boolean).length} of {DAY_ROUNDS.length}
                   right the first time.
                 </p>
-                <p class="m-0 mt-1 text-slate-600">
-                  Ahoj and Čau are for friends; everyone else gets Dobrý deň and
-                  Dovidenia. Dobrý večer stays a hello however late it gets, and Dobrú noc
-                  only ever says goodbye.
-                </p>
+
+                <p class="{eyebrowMutedClass} mt-4">Who came by</p>
+                <ul class="m-0 mt-2 flex list-none flex-wrap gap-2 p-0">
+                  {#each DAY_ROUNDS.filter((round) => !round.leaving) as meet (meet.id)}
+                    {@const leave = pairOf(DAY_ROUNDS, DAY_ROUNDS.indexOf(meet))[1]}
+                    <li
+                      class="inline-flex items-center gap-2 rounded-(--control-radius) bg-subtle px-3 py-1.5"
+                    >
+                      <span class="font-serif text-base text-slate-900"
+                        >{dayName(meet.who)}</span
+                      >
+                      <span class="text-sm text-slate-500" lang="sk">
+                        {meet.answers[0].slice(0, -1)} · {leave.answers[0].slice(0, -1)}
+                      </span>
+                    </li>
+                  {/each}
+                </ul>
+
                 <div class="mt-4 flex flex-wrap items-center gap-4">
                   <Button variant="accent" onclick={startDay}>
                     <SceneIcon name="replay" />

@@ -37,6 +37,20 @@ export interface DayRound {
 /** Alex says ty to them, so Ahoj and Čau are theirs. */
 const FRIENDS: readonly LessonCharacterId[] = ["anna", "marek"];
 
+/** Who each person is to Alex, so the learner can tell ty from vy before picking. */
+const PEOPLE: Partial<Record<LessonCharacterId, { english: string; slovak: string }>> = {
+  anna: { english: "Your friend.", slovak: "Tvoja kamarátka." },
+  lucia: {
+    english: "The shop assistant. Not a friend.",
+    slovak: "Predavačka z obchodu. Nie je to kamarátka.",
+  },
+  marek: { english: "Your friend.", slovak: "Tvoj kamarát." },
+  maria: {
+    english: "The lady from the language school. Not a friend.",
+    slovak: "Pani z jazykovej školy. Nie je to kamarátka.",
+  },
+};
+
 export const DAY_ROUNDS: readonly DayRound[] = [
   {
     answers: ["Ahoj.", "Čau.", "Dobré ráno."],
@@ -46,10 +60,7 @@ export const DAY_ROUNDS: readonly DayRound[] = [
       "Dobré ráno.":
         "**Dobré ráno** is fine with a friend too; **Ahoj** is what you will hear most.",
     },
-    prompt: {
-      english: "Marek, your friend, is coming over.",
-      slovak: "Prichádza Marek, tvoj kamarát.",
-    },
+    prompt: { english: "Marek is coming over.", slovak: "Prichádza Marek." },
     reply: { english: "Hi, Alex! How are you?", slovak: "Ahoj, Alex! Ako sa máš?" },
     time: "morning",
     who: "marek",
@@ -67,10 +78,7 @@ export const DAY_ROUNDS: readonly DayRound[] = [
     answers: ["Dobrý deň."],
     id: "lucia-meets",
     leaving: false,
-    prompt: {
-      english: "Lucia from the shop is coming over.",
-      slovak: "Prichádza Lucia z obchodu.",
-    },
+    prompt: { english: "Lucia is coming over.", slovak: "Prichádza Lucia." },
     reply: { english: "Good day. How are you?", slovak: "Dobrý deň. Ako sa máte?" },
     time: "day",
     who: "lucia",
@@ -92,10 +100,7 @@ export const DAY_ROUNDS: readonly DayRound[] = [
       "Dobrý večer.":
         "**Dobrý večer** works with a friend too; **Ahoj** is what you will hear most.",
     },
-    prompt: {
-      english: "Anna, your friend, is coming over.",
-      slovak: "Prichádza Anna, tvoja kamarátka.",
-    },
+    prompt: { english: "Anna is coming over.", slovak: "Prichádza Anna." },
     reply: { english: "Hi, Alex! Where are you going?", slovak: "Ahoj, Alex! Kam ideš?" },
     time: "evening",
     who: "anna",
@@ -117,10 +122,7 @@ export const DAY_ROUNDS: readonly DayRound[] = [
     answers: ["Dobrý večer."],
     id: "maria-meets",
     leaving: false,
-    prompt: {
-      english: "Mária from the language school is coming over.",
-      slovak: "Prichádza pani Mária zo školy.",
-    },
+    prompt: { english: "Mária is coming over.", slovak: "Prichádza pani Mária." },
     reply: { english: "Good evening, Alex.", slovak: "Dobrý večer, Alex." },
     time: "night",
     who: "maria",
@@ -183,6 +185,14 @@ export function bare(greeting: Greeting): string {
 
 export function dayName(id: LessonCharacterId): string {
   return listedCharacters().find((character) => character.id === id)?.displayName ?? id;
+}
+
+export function dayWho(id: LessonCharacterId): { english: string; slovak: string } {
+  return PEOPLE[id] ?? { english: "", slovak: "" };
+}
+
+export function greetingGloss(greeting: Greeting): string {
+  return GLOSSES[greeting];
 }
 
 export function isDayRight(round: DayRound, picked: Greeting): boolean {
