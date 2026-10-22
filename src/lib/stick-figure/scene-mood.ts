@@ -2,7 +2,7 @@ import type { StageSetting } from "./stage-setting";
 import { foldLine } from "./line-gesture";
 
 export type TimeOfDay = "morning" | "day" | "evening" | "night";
-export type Weather = "clear" | "rain" | "snow";
+export type Weather = "clear" | "sunny" | "cloudy" | "rain" | "snow";
 
 export interface SceneMood {
   time: TimeOfDay;
@@ -27,7 +27,7 @@ export const CLOCK_HOURS: Record<TimeOfDay, number> = {
   morning: 8,
   night: 23,
 };
-export const WEATHERS: readonly Weather[] = ["clear", "rain", "snow"];
+export const WEATHERS: readonly Weather[] = ["clear", "sunny", "cloudy", "rain", "snow"];
 
 /** Folded greetings that tell the time of day; Dobrý deň says nothing new. */
 const GREETING_TIMES: Array<[string, TimeOfDay]> = [
@@ -36,7 +36,7 @@ const GREETING_TIMES: Array<[string, TimeOfDay]> = [
   ["dobru noc", "night"],
 ];
 
-/** Folded words for the weather: prší and sneží whole, dážď and sneh in any case. */
+/** Folded words for the weather: prší, sneží and slnko whole, dážď, sneh and oblak in any case. Sunny is clear with the sun out. */
 const WEATHER_WORDS: Array<[string, Weather]> = [
   ["prsi", "rain"],
   ["prsalo", "rain"],
@@ -44,17 +44,25 @@ const WEATHER_WORDS: Array<[string, Weather]> = [
   ["snezi", "snow"],
   ["snezilo", "snow"],
   ["snezit", "snow"],
+  ["slnko", "sunny"],
+  ["slnecno", "sunny"],
+  ["oblacno", "cloudy"],
+  ["zamracene", "cloudy"],
 ];
 const WEATHER_STEMS: Array<[string, Weather]> = [
   ["dazd", "rain"],
   ["sneh", "snow"],
+  ["oblak", "cloudy"],
+  ["mrak", "cloudy"],
 ];
 
 /**
- * The light and weather a scene's own words call for: the first greeting
- * that names a time of day, and rain or snow if anyone mentions it.
+ * The light and weather a scene's own words call for at line `upTo`: the
+ * first greeting that names a time of day, and the weather named last by
+ * then, so a sky that clouds over and rains changes as the lines say so.
+ * Without `upTo`, the weather the scene ends in.
  */
-export function sceneMood(lines: readonly string[]): SceneMood {
+export function sceneMood(lines: readonly string[], upTo = lines.length - 1): SceneMood {
   const folded = lines.map(foldLine);
   const time =
     folded
@@ -67,13 +75,14 @@ export function sceneMood(lines: readonly string[]): SceneMood {
       .find(Boolean) ?? "day";
   const weather =
     folded
+      .slice(0, upTo + 1)
       .flatMap((line) => line.split(" "))
       .map(
         (word) =>
           WEATHER_WORDS.find(([whole]) => word === whole)?.[1] ??
           WEATHER_STEMS.find(([stem]) => word.startsWith(stem))?.[1],
       )
-      .find(Boolean) ?? "clear";
+      .findLast(Boolean) ?? "clear";
 
   return { time, weather };
 }

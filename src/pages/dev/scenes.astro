@@ -13,7 +13,7 @@ import {
 import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
 import type { DialogueTurn } from "$lib/learning/types";
-import { RAIN_AND_TRAM } from "$lib/stick-figure/dev-scenes";
+import { RAIN_AND_TRAM, WEATHER_TODAY } from "$lib/stick-figure/dev-scenes";
 import {
   chapterSettingFor,
   sceneThingWords,
@@ -83,6 +83,12 @@ groups.push({
       lines: playerLines(RAIN_AND_TRAM),
       name: RAIN_AND_TRAM[0].slovak,
       setting: "street",
+    },
+    {
+      id: "dev/weather-today",
+      lines: playerLines(WEATHER_TODAY),
+      name: WEATHER_TODAY[0].slovak,
+      setting: "default",
     },
   ],
 });

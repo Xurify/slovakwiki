@@ -20,6 +20,27 @@ describe("sceneMood", () => {
     expect(sceneMood(["Dobrý deň. Dáte si kávu?"]).weather).toBe("clear");
   });
 
+  it("changes the sky line by line, as the words name the weather", () => {
+    const lines = [
+      "Pekné. Svieti slnko a je teplo.",
+      "Áno. Ale pozri, prichádzajú oblaky.",
+      "Áno. A teraz prší!",
+      "Pozri! Sneží!",
+      "Slnko, oblaky, dážď, sneh. Za jednu hodinu.",
+      "To je Bratislava. Poďme domov!",
+    ];
+    expect(lines.map((_, at) => sceneMood(lines, at).weather)).toEqual([
+      "sunny",
+      "cloudy",
+      "rain",
+      "snow",
+      "snow",
+      "snow",
+    ]);
+    expect(sceneMood(["Prší!", "Už svieti slnko."]).weather).toBe("sunny");
+    expect(sceneMood(["Je oblačno."]).weather).toBe("cloudy");
+  });
+
   it("knows which places are under the sky", () => {
     const places = ["plaza", "market", "default", "cafe", "home"] as const;
     expect(places.map((place) => isOutdoors(place))).toEqual([

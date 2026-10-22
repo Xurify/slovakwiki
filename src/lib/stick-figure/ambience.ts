@@ -28,12 +28,13 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
   const outdoors = isOutdoors(setting);
   const dark = mood.time === "evening" || mood.time === "night";
   const layers = PLACE_LAYERS[setting].filter((layer) => {
-    if (layer === "birds") return !dark && mood.weather === "clear";
+    if (layer === "birds") return !dark && !["rain", "snow"].includes(mood.weather);
     if (layer === "tram") return mood.time !== "night";
     return true;
   });
 
-  if (outdoors && dark && mood.weather === "clear") layers.push("crickets");
+  if (outdoors && dark && !["rain", "snow"].includes(mood.weather))
+    layers.push("crickets");
   if (mood.weather === "rain") layers.push("rain");
   if (mood.weather === "snow" && outdoors) layers.push("wind");
   return { indoors: !outdoors, layers: [...new Set(layers)] };
