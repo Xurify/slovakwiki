@@ -35,7 +35,6 @@
     /** Bump to perform `plan` from the start. */
     cue?: number;
     facing?: 1 | -1;
-    /** Called as each beat of `plan` starts. */
     onbeat?: (beat: LineBeat) => void;
     plan?: LinePlan;
     /** Held in the lead hand. */
@@ -60,6 +59,7 @@
   let reducedMotion = false;
   let walkStartedAt = 0;
   let walkMs = 0;
+  let walkCue = 0;
   let pictureCalled: StickPictureId | undefined;
   let pictureUntil = 0;
 
@@ -79,7 +79,10 @@
   });
 
   $effect(() => {
-    if (!walk?.cue) return;
+    // The stage hands out a new record of walks whenever anyone walks; only a
+    // new cue means this figure steps, or it would walk on the spot.
+    if (!walk?.cue || walk.cue === walkCue) return;
+    walkCue = walk.cue;
     const ms = walk.ms;
 
     untrack(() => {
