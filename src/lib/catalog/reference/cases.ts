@@ -101,7 +101,7 @@ export const caseTopics: CaseTopic[] = [
       "The accusative marks the direct object: the person or thing directly affected by an action.",
     body: [
       "Use accusative for what or whom you see, have, want, read, or otherwise act on directly.",
-      "For many feminine nouns, the accusative ending differs from the nominative. Learn the object form inside a complete phrase.",
+      "Feminine nouns in **-a** (**káva → kávu**) and masculine nouns for people and animals (**brat → brata**) change in the accusative; most other singular nouns keep the nominative form. Learn the object form inside a complete phrase.",
     ],
     examples: [
       {
@@ -163,9 +163,9 @@ export const caseTopics: CaseTopic[] = [
     slovakName: "inštrumentál",
     question: "S kým? S čím? · With whom? With what?",
     summary:
-      "The instrumental marks company, tools, and other means, especially after **s** or **so**.",
+      "The instrumental marks company after s or so, and tools or other means on their own, without a preposition.",
     body: [
-      "Use instrumental after **s** or **so** for the person or thing accompanying someone. It also marks the tool used to perform an action.",
+      "Use instrumental after **s** or **so** for the person or thing that goes along with someone: **s priateľom**. For a tool or means of transport, use the instrumental on its own: **Píšem perom.** **Idem autobusom.**",
       "Some roles and states use instrumental without **s**. Start with common phrases, then notice the endings in context.",
     ],
     examples: [

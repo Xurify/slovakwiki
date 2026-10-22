@@ -2,7 +2,7 @@ import { shuffleArray } from "$lib/learning/time/clock";
 
 import type { BuildTemplate } from "../types";
 
-const NAMES = ["Alex.", "Marta.", "Peter."] as const;
+const NAMES = ["Alex.", "Eva.", "Peter."] as const;
 
 export const introReplyTemplate: BuildTemplate = {
   id: "intro-reply",
