@@ -53,6 +53,12 @@ type RejectReason = "no-candidates" | "quality" | "weak-match";
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 const REJECTED_PATH = path.join(ROOT, "content", "dictionary", "tatoeba-rejected.json");
+const LEMMA_REJECTED_PATH = path.join(
+  ROOT,
+  "content",
+  "dictionary",
+  "tatoeba-lemma-rejected.json",
+);
 
 function parseArgs(argv: string[]): {
   force: boolean;
@@ -319,6 +325,12 @@ async function main(): Promise<void> {
       JSON.parse(await readFile(REJECTED_PATH, "utf8")) as Record<string, string>,
     ).map(Number),
   );
+  // Right Slovak, but the word is another entry's form there (robota under robot).
+  const rejectedForLemma = new Set(
+    Object.keys(
+      JSON.parse(await readFile(LEMMA_REJECTED_PATH, "utf8")) as Record<string, string>,
+    ),
+  );
 
   const pairs: SentencePair[] = [];
   for (const [skId, enId] of links) {
@@ -382,7 +394,10 @@ async function main(): Promise<void> {
       pairs,
       index,
     );
-    const examples = toExamples(accepted, Math.max(fetchLimit, perWord));
+    const examples = toExamples(
+      accepted.filter((pair) => !rejectedForLemma.has(`${word.slug}#${pair.tatoebaId}`)),
+      Math.max(fetchLimit, perWord),
+    );
 
     if (examples.length === 0) {
       if (word.examples.length === 0) {
