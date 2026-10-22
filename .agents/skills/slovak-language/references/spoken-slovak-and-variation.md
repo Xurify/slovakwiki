@@ -14,7 +14,7 @@ Slovak dictionaries (KSSJ, SSSJ) mark words with labels. Map them to this site's
 | `expr.`   | expressive, emotional          | `chlapisko`, `psisko`     | usually `colloquial`     |
 | `slang.`  | slang                          | `prachy`, `makať`         | `register: "slang"`      |
 | `subšt.`  | substandard                    | `furt`, `jak`             | `colloquial` or `slang`  |
-| `nár.`    | dialectal                      | `grule`, `dačo`           | `dialect: true`          |
+| `nár.`    | dialectal                      | `grule`                   | `dialect: true`          |
 | `zastar.` | archaic                        | —                         | —                        |
 | `odb.`    | technical                      | `substantívum`            | —                        |
 

@@ -23,6 +23,7 @@ import {
   CASES,
   GOES_WITH,
   NOUNS,
+  OBJECT_GOES_WITH,
   SERIES_ENGLISH,
   SLOT_LABEL,
   capitalizeSlovak,
@@ -219,7 +220,12 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
   const verb = plural ? "sú" : "je";
   const correct = `To ${verb} ${noun}.`;
   const agreeing = demonstrativeForm("ten", entry.slot, "nominative");
-  const english = plural ? `They're ${entry.english}.` : `It's a ${entry.english}.`;
+  // Coffee is uncountable in English: “It's coffee”, not “It's a coffee”.
+  const article =
+    entry.id === "kava" ? "" : /^[aeiou]/u.test(entry.english) ? "an " : "a ";
+  const english = plural
+    ? `They're ${entry.english}.`
+    : `It's ${article}${entry.english}.`;
 
   return {
     id: `generated-${kind}`,
@@ -240,7 +246,7 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
         {
           id: "agreeing",
           label: `${capitalizeSlovak(agreeing)} ${verb} ${noun}.`,
-          whyWrong: `**${capitalizeSlovak(agreeing)}** agrees only with a noun right after it (**${agreeing} ${noun}**). On its own, use **to**.`,
+          whyWrong: `**${capitalizeSlovak(agreeing)}** on its own means ${plural ? "“those ones”, picking some" : "“that one”, picking one"} out of several. To say what something is, use **to**: **${withoutFinalPunctuation(correct)}**.`,
         },
         {
           id: "verb",
@@ -257,7 +263,7 @@ export function buildToJeExercise(kind: string, rng: Rng): ChoiceExercise {
     feedback: {
       correction: correct,
       english,
-      why: `On its own, **to** never changes. Only the verb changes, **je** for one and **sú** for more: **${withoutFinalPunctuation(correct)}**.`,
+      why: `In **to je** and **to sú**, **to** doesn't agree with the noun. Only the verb changes, **je** for one and **sú** for more: **${withoutFinalPunctuation(correct)}**.`,
     },
   };
 }
@@ -286,7 +292,7 @@ function thisNotThatTraps(
         near: demonstrativeForm("tento", "plural-personal", "nominative"),
         far: demonstrativeForm("tamten", "plural-personal", "nominative"),
         why: (form) =>
-          `**${capitalizeSlovak(form)}** is only for masculine nouns for people. **${capitalizeSlovak(noun)}** takes **${near}**, **${far}**.`,
+          `**${capitalizeSlovak(form)}** is the subject form, and only for masculine nouns for people. **${capitalizeSlovak(noun)}** takes **${near}**, **${far}**.`,
       },
     ];
   }
@@ -298,7 +304,7 @@ function thisNotThatTraps(
       near: demonstrativeForm("tento", wrongSlot, "accusative"),
       far: demonstrativeForm("tamten", wrongSlot, "accusative"),
       why: (form) =>
-        `**${capitalizeSlovak(form)}** goes with ${GOES_WITH[wrongSlot]}. **${capitalizeSlovak(entry.forms.nominative)}** is ${SLOT_LABEL[entry.slot]}: **${near} ${noun}**.`,
+        `**${capitalizeSlovak(form)}** goes with ${OBJECT_GOES_WITH[wrongSlot]}. **${capitalizeSlovak(entry.forms.nominative)}** is ${SLOT_LABEL[entry.slot]}: **${near} ${noun}**.`,
     },
   ];
 }
@@ -334,7 +340,7 @@ export function buildThisNotThatExercise(kind: string, rng: Rng): BuildExercise 
     feedback: {
       correction: answer.join(" "),
       english,
-      why: `**Tento** points at the one near you and **tamten** at the one over there. **Chcieť** takes the accusative, and both agree with **${entry.forms.accusative}**: **${near}**, **${far}**.`,
+      why: `**Tento** points at ${plural ? "the ones" : "the one"} near you and **tamten** at ${plural ? "the ones" : "the one"} over there. **Chcieť** takes the accusative, and both agree with **${entry.forms.accusative}**: **${near}**, **${far}**.`,
     },
   };
 }
@@ -370,7 +376,7 @@ export function buildCaseChoiceExercise(kind: string, rng: Rng): ChoiceExercise 
     label: frame.slovak(`${wrong} ${noun}`),
     whyWrong:
       thingAccusative && index === 0
-        ? `**${capitalizeSlovak(wrong)}** is for people in the accusative (**${wrong} muža**). A thing keeps **${correct}**.`
+        ? `**${capitalizeSlovak(wrong)}** is the accusative for people and animals (**${wrong} muža**, **${wrong} psa**). A thing keeps **${correct}**.`
         : `**${capitalizeSlovak(wrong)}** is the ${caseNames("ten", entry.slot, wrong)} form.`,
   }));
 
@@ -463,7 +469,7 @@ export function buildAnimateAccusativeExercise(kind: string, rng: Rng): ChoiceEx
       {
         id: "animate",
         label: line(`${animateForm} ${nominative}`),
-        whyWrong: `**${capitalizeSlovak(animateForm)}** is for people in the accusative (**${animateForm} muža**). **${capitalizeSlovak(nominative)}** is a thing, so it keeps **${objectForm}**.`,
+        whyWrong: `**${capitalizeSlovak(animateForm)}** is the accusative for people and animals (**${animateForm} muža**, **${animateForm} psa**). **${capitalizeSlovak(nominative)}** is a thing, so it keeps **${objectForm}**.`,
       },
       {
         id: "genitive",
@@ -485,7 +491,7 @@ export function buildAnimateAccusativeExercise(kind: string, rng: Rng): ChoiceEx
         whyWrong: `**${capitalizeSlovak(subjectForm)} ${nominative}** is the subject form. **Poznať** takes the accusative.`,
       },
     ];
-    why = `Masculine nouns for people change in the accusative, and **${subjectForm}** changes with them: **${objectForm} ${accusative}**.`;
+    why = `Masculine nouns for people and animals change in the accusative, and **${subjectForm}** changes with them: **${objectForm} ${accusative}**.`;
   } else {
     const thingForm = demonstrativeForm(series, "plural", "accusative");
     distractors = [
@@ -566,7 +572,7 @@ const REPAIR_ITEMS: readonly RepairItem[] = [
           "**Ten** is the subject form. With **muža** in the accusative, use **toho**.",
       },
     ],
-    why: "**Poznať** takes the accusative. Masculine nouns for people change, and so does **ten**: **toho muža**.",
+    why: "**Poznať** takes the accusative. Masculine nouns for people and animals change, and so does **ten**: **toho muža**.",
   },
   {
     broken: "Vidíš toho dom?",
@@ -576,7 +582,7 @@ const REPAIR_ITEMS: readonly RepairItem[] = [
       {
         wrong: "toho",
         whyWrong:
-          "**Toho** is for people in the accusative. **Dom** is a thing, so it keeps **ten**.",
+          "**Toho** is the accusative for people and animals. **Dom** is a thing, so it keeps **ten**.",
       },
       {
         wrong: "domu",
@@ -698,7 +704,7 @@ export function buildTymTymiExercise(kind: string, rng: Rng): ChoiceExercise {
           id: "length",
           label: frame.slovak(`${lengthTrap} ${noun}`),
           whyWrong: instrumental
-            ? `**${capitalizeSlovak(lengthTrap)}** is instrumental singular (**s ${singularInstrumental} chlapcom**) or dative plural (**${lengthTrap} deťom**).`
+            ? `**${capitalizeSlovak(lengthTrap)}** is masculine or neuter instrumental singular (**s ${singularInstrumental} chlapcom**) or dative plural (**${lengthTrap} deťom**).`
             : `**${capitalizeSlovak(lengthTrap)}** is instrumental plural: **s ${lengthTrap} ${entry.forms.instrumental}**.`,
         },
         {
@@ -716,7 +722,7 @@ export function buildTymTymiExercise(kind: string, rng: Rng): ChoiceExercise {
       english,
       why: instrumental
         ? `Instrumental plural ends in **-mi**, on the demonstrative too: **s ${correct} ${noun}**.`
-        : `Dative plural is **${correct}**, the same form as instrumental singular: **${correct} ${noun}**.`,
+        : `Dative plural is **${correct}** for every gender: **${correct} ${noun}**.`,
     },
   };
 }
@@ -764,7 +770,11 @@ export function buildTypedExercise(kind: string, rng: Rng): TypedExercise {
     prompt: english,
     inputLabel: "Your Slovak answer",
     answer,
-    acceptedAnswers: [`Koľko ${verb} ${plain} ${noun}?`],
+    acceptedAnswers: [
+      `Koľko ${verb} ${plain} ${noun}?`,
+      `Koľko ${near} ${noun} ${verb}?`,
+      `Koľko ${plain} ${noun} ${verb}?`,
+    ],
     mistakes,
     feedback: {
       correction: answer,
@@ -857,6 +867,7 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
   const other = demonstrativeForm(otherSeries, entry.slot, "accusative");
   const line = (form: string) => `Chcem ${form} ${noun}.`;
   const english = `I want ${demonstrativeEnglish(series, entry)}.`;
+  const theOne = isPluralSlot(entry.slot) ? "the ones" : "the one";
 
   let agreementTrap: { form: string; whyWrong: string };
   if (entry.slot === "feminine") {
@@ -869,7 +880,7 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
     const form = demonstrativeForm(series, "plural-personal", "nominative");
     agreementTrap = {
       form,
-      whyWrong: `**${capitalizeSlovak(form)}** is only for masculine nouns for people.`,
+      whyWrong: `**${capitalizeSlovak(form)}** is the subject form, and only for masculine nouns for people. **Chcieť** takes the accusative: **${correct} ${noun}**.`,
     };
   } else {
     const wrongSlot: GenderSlot =
@@ -877,7 +888,7 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
     const form = demonstrativeForm(series, wrongSlot, "accusative");
     agreementTrap = {
       form,
-      whyWrong: `**${capitalizeSlovak(form)}** goes with ${GOES_WITH[wrongSlot]}.`,
+      whyWrong: `**${capitalizeSlovak(form)}** goes with ${OBJECT_GOES_WITH[wrongSlot]}.`,
     };
   }
 
@@ -893,8 +904,8 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
           id: "distance",
           label: line(other),
           whyWrong: near
-            ? `**${capitalizeSlovak(other)}** points at something over there, not the one near you.`
-            : `**${capitalizeSlovak(other)}** is this one, near you.`,
+            ? `**${capitalizeSlovak(other)}** points at ${theOne} over there, not ${theOne} near you.`
+            : `**${capitalizeSlovak(other)}** points at ${theOne} near you.`,
         },
         {
           id: "agreement",
@@ -910,8 +921,8 @@ export function buildTentoTamtenExercise(kind: string, rng: Rng): ChoiceExercise
       correction: line(correct),
       english,
       why: near
-        ? `**Tento** points at the one near you, and it agrees with **${noun}**: **${correct} ${noun}**.`
-        : `**Tamten** points at the one over there, and it agrees with **${noun}**: **${correct} ${noun}**.`,
+        ? `**Tento** points at ${theOne} near you, and it agrees with **${noun}**: **${correct} ${noun}**.`
+        : `**Tamten** points at ${theOne} over there, and it agrees with **${noun}**: **${correct} ${noun}**.`,
     },
   };
 }
@@ -1021,12 +1032,12 @@ function whyFormIsWrong(
 
   if (grammaticalCase === "accusative" && entry.slot === "masculine-inanimate") {
     if (wrong === demonstrativeForm(series, "masculine-animate", "accusative")) {
-      return `**${Wrong}** is for people in the accusative (**${wrong} muža**). A thing keeps **${correct}**.`;
+      return `**${Wrong}** is the accusative for people and animals (**${wrong} muža**, **${wrong} psa**). A thing keeps **${correct}**.`;
     }
   }
   if (grammaticalCase === "accusative" && entry.slot === "masculine-animate") {
     if (wrong === demonstrativeForm(series, "masculine-inanimate", "accusative")) {
-      return `**${Wrong}** is the accusative for things. A person takes **${correct}**.`;
+      return `**${Wrong}** is the accusative for things. People and animals take **${correct}**.`;
     }
   }
   if (casesOfForm(series, entry.slot, wrong).length) {

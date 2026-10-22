@@ -15,7 +15,7 @@ export const pluralHint: ClozeHint = {
 export const toJeHint: ClozeHint = {
   chip: "To je …",
   grammarTopicId: "demonstratives",
-  note: "On its own, **to** means this, that, or it, and it never changes: *To je kľúč.* *To je taška.* *To sú kľúče.* Only the verb changes: **je** for one, **sú** for more. Before a noun, use the form that matches it: *tá taška*.",
+  note: "On its own, **to** means this, that, or it. In **to je** and **to sú** it stays **to**, whatever the noun: *To je kľúč.* *To je taška.* *To sú kľúče.* Only the verb changes: **je** for one, **sú** for more. Before a noun, use the form that matches it: *tá taška*.",
 };
 
 export const seriesHint: ClozeHint = {
@@ -33,13 +33,13 @@ export const caseHint: ClozeHint = {
 export const animateHint: ClozeHint = {
   chip: "toho / ten",
   grammarTopicId: "demonstratives",
-  note: "In the accusative, masculine nouns for people change, and **ten** becomes **toho**: *Poznám toho muža.* Masculine things keep **ten**: *Vidím ten dom.* In the plural, people take **tých**: *Poznám tých chlapcov.*",
+  note: "In the accusative singular, masculine nouns for people and animals change, and **ten** becomes **toho**: *Poznám toho muža.* *Vidím toho psa.* Masculine things keep **ten**: *Vidím ten dom.* In the plural, only people take **tých**: *Poznám tých chlapcov.*",
 };
 
 export const tymHint: ClozeHint = {
   chip: "tým · tými",
   grammarTopicId: "demonstratives",
-  note: "**Tým** is instrumental singular (*s tým chlapcom*) and dative plural (*tým deťom*). **Tými** is instrumental plural: *s tými chlapcami*.",
+  note: "**Tým** is masculine and neuter instrumental singular (*s tým chlapcom*; feminine is *s tou ženou*) and dative plural for every noun (*tým deťom*). **Tými** is instrumental plural: *s tými chlapcami*.",
 };
 
 export const roleHint: ClozeHint = {

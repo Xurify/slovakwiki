@@ -62,16 +62,22 @@ export const pronunciationPracticeItems: PracticeItem[] = [
       prompt: "Thank you for the help.",
       inputLabel: "Your Slovak answer",
       answer: "Ďakujem za pomoc.",
+      acceptedAnswers: [
+        "Ďakujem vám za pomoc.",
+        "Ja ďakujem za pomoc.",
+        "Ja vám ďakujem za pomoc.",
+        "Ja ďakujem vám za pomoc.",
+      ],
       feedback: {
         correction: "Ďakujem za pomoc.",
         english: "Thank you for the help.",
-        why: "**Ďakujem** is stressed on its first syllable. Say **ĎA-ku-jem**, then keep the rest of the phrase even.",
+        why: "**Ďakujem** is stressed on its first syllable: **ĎA-ku-jem**. In **za pomoc** the beat moves to the preposition: **ZA po-moc**.",
       },
     },
     feedback: {
       correction: "Ďakujem za pomoc.",
       english: "Thank you for the help.",
-      why: "**Ďakujem** is stressed on its first syllable. Say **ĎA-ku-jem**, then keep the rest of the phrase even.",
+      why: "**Ďakujem** is stressed on its first syllable: **ĎA-ku-jem**. In **za pomoc** the beat moves to the preposition: **ZA po-moc**.",
     },
   },
   {
