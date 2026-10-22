@@ -32,10 +32,10 @@ const intro: ListeningChapter = {
     line(
       "anna-this-is-podcast",
       "Anna",
-      ["Ahoj! ", { demonstrative: "Toto" }, " je podcast Slovak Wiki. Ja som Anna."],
+      ["Ahojte! ", { demonstrative: "Toto" }, " je podcast Slovak Wiki. Ja som Anna."],
       "Hi! This is the Slovak Wiki podcast. I'm Anna.",
     ),
-    line("marek-i-am-marek", "Marek", ["A ja som Marek. Ahoj!"], "And I'm Marek. Hi!"),
+    line("marek-i-am-marek", "Marek", ["A ja som Marek. Ahojte!"], "And I'm Marek. Hi!"),
     line(
       "anna-small-topic",
       "Anna",
@@ -566,7 +566,7 @@ const home: ListeningChapter = {
       answerId: "sister",
       feedback: {
         english: "That's his sister.",
-        why: "Anna says **to je jeho sestra**: **to je** never changes, whoever it points at.",
+        why: "Anna says **to je jeho sestra**: **to** stays **to**, whoever it points at.",
       },
     },
   ],

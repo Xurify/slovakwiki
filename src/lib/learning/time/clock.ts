@@ -11,6 +11,7 @@ export { DAY_PART_ALIASES, EXACT_MINUTE_POOL, QUARTERS } from "./clock-types";
 export {
   analogFace,
   answersForTime,
+  appointment24hPhrase,
   appointmentAlternates,
   appointmentAnswersForTime,
   appointmentFrom24h,
@@ -20,6 +21,7 @@ export {
   dayPartForHour24,
   durationHourPhrase,
   durationMinutePhrase,
+  englishTellingGloss,
   englishTimeGloss,
   englishTimeMeaningPhrase,
   exactMinuteAnswers,
@@ -44,6 +46,8 @@ export {
 } from "./clock-phrases";
 
 export {
+  appointment24hChoiceWhy,
+  appointment24hFaceDistractorWhy,
   appointmentChoiceWhy,
   appointmentDayPartChoiceWhy,
   appointmentDayPartWrongWhy,

@@ -236,7 +236,7 @@ const curatedWordSeed: WordSeed[] = [
   {
     slug: "hovorit",
     slovak: "hovoriť",
-    english: "to speak",
+    english: "to speak; to talk; to say (imperfective)",
     category: "Verbs",
     topics: ["Conversation"],
     examples: [
@@ -665,11 +665,11 @@ function wordBody(word: WordSeed): string[] {
 
 /** Extra Usage copy for high-confusion pattern lemmas. */
 const PATTERN_USAGE_NOTES: Record<string, string> = {
-  daco: "Dačo is eastern Slovak for niečo — something. Standard Slovak uses niečo.",
+  daco: "Dačo means the same as niečo — something. Both are standard Slovak; niečo is the more common word.",
   rad: "English “to like” is not one Slovak verb. Use mať rád for a thing or person, and rád + a verb for an activity. Páčiť sa and ľúbiť cover nearby meanings.",
   pacit:
-    "Páčiť sa frames liking from the thing’s side: it appeals to me. Compare mať rád on rád for the more direct “I like …”.",
-  ist: "Ísť is for going now or once. Chodiť covers the habit — the same destination, different aspect.",
+    "Páčiť sa frames liking from the thing’s side: it appeals to me. Compare mať rád (see the rád entry) for the more direct “I like …”.",
+  ist: "Ísť is for going now or once. Chodiť covers the habit — the same destination; both verbs are imperfective.",
   chodit:
     "Chodiť is the habit. Ísť is the one trip happening now — compare the pair with the same place.",
   byt: "Byť changes meaning with what follows: a place (where), z + place (origin), or a noun (who/what you are).",

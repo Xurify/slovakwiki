@@ -189,7 +189,10 @@ function noun(
   };
 }
 
-/** English glosses avoid gender-ambiguous people (friend, neighbor) — agreement must be decidable. */
+/**
+ * English glosses avoid gender-ambiguous people (neighbor) — agreement must be decidable.
+ * “Friends” could also be priateľky, so typed drills skip it.
+ */
 export const NOUNS: readonly NounEntry[] = [
   noun("brat", "masculine-animate", true, "brother", [
     "brat",
@@ -215,7 +218,7 @@ export const NOUNS: readonly NounEntry[] = [
     "synovi",
     "synom",
   ]),
-  noun("dedko", "masculine-animate", true, "grandfather", [
+  noun("dedko", "masculine-animate", true, "grandpa", [
     "dedko",
     "dedka",
     "dedkovi",
@@ -231,7 +234,7 @@ export const NOUNS: readonly NounEntry[] = [
     "sestre",
     "sestrou",
   ]),
-  noun("mama", "feminine", true, "mother", [
+  noun("mama", "feminine", true, "mom", [
     "mama",
     "mamy",
     "mame",
@@ -506,7 +509,7 @@ export function paradigmRow(owner: OwnerId, grammaticalCase: GrammaticalCase): s
   const inanimate = possessiveForm(owner, "masculine-inanimate", grammaticalCase);
 
   return [
-    // Only the accusative splits people from things: môjho brata, môj kľúč.
+    // Only the accusative splits people and animals from things: môjho brata, môj kľúč.
     animate === inanimate ? animate : `${animate} / ${inanimate}`,
     possessiveForm(owner, "feminine", grammaticalCase),
     possessiveForm(owner, "neuter", grammaticalCase),

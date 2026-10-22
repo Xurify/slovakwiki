@@ -11,7 +11,7 @@ export const hodinaAgreementHint: ClozeHint = {
 export const registersHint: ClozeHint = {
   chip: "Koľko / O",
   grammarTopicId: "telling-time",
-  note: "**Koľko je hodín?** asks what time it is → answer with **Je/Sú …**. **O koľkej?** or **Kedy?** ask when something happens → answer with **O …** (appointment form).",
+  note: "**Koľko je hodín?** asks what time it is → answer with **Je/Sú …**. **O koľkej?** (or **Kedy?** about a clock time) asks when something happens → answer with **O …** (appointment form).",
 };
 
 /** Okolo vs exact O appointment. */

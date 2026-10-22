@@ -796,7 +796,8 @@
                 <span>{frameSuffix}</span>
               {/if}
 
-              {#if audioSrcs[task.id]}
+              <!-- The clip speaks the missing word, so it waits for the check. -->
+              {#if submitted && audioSrcs[task.id]}
                 <AudioButton src={audioSrcs[task.id]} text={spokenFrame} />
               {/if}
             </p>

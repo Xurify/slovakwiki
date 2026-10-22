@@ -3,7 +3,7 @@ import type { PracticeItem } from "$lib/learning/types";
 
 const daysDatesTimeSource = {
   kind: "lesson" as const,
-  label: "Days, dates, and time",
+  label: "Days and time",
   href: "/lessons/everyday/days-dates-and-time",
 };
 
@@ -36,13 +36,13 @@ export const daysDatesTimePracticeItems: PracticeItem[] = [
       feedback: {
         correction: "Stretneme sa v utorok.",
         english: "We are meeting on Tuesday.",
-        why: "Use **v** + the day of the week for an appointment day: **v utorok**.",
+        why: "Use **v** + accusative for “on” a day: **v utorok**, **v stredu** — but **vo štvrtok**.",
       },
     },
     feedback: {
       correction: "Stretneme sa v utorok.",
       english: "We are meeting on Tuesday.",
-      why: "Use **v** + the day of the week for an appointment day: **v utorok**.",
+      why: "Use **v** + accusative for “on” a day: **v utorok**, **v stredu** — but **vo štvrtok**.",
     },
   },
   stubClockMatch("everyday/meeting-time", "review-meeting-time"),
