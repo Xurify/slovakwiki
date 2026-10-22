@@ -28,6 +28,7 @@ import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview
 import { lessons } from "../../src/lib/catalog/lessons";
 import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening";
 import { lessonExercises } from "../../src/lib/learning/beats";
+import { SCENE_THINGS } from "../../src/lib/stick-figure/scene-things";
 import {
   exerciseAnswerTexts,
   exerciseOptionTexts,
@@ -237,6 +238,15 @@ export function collectDictionaryAudioTargets(options?: {
       const slovak = normalizeAudioText(example.slovak);
       if (!slovak || byText.has(slovak)) continue;
       byText.set(slovak, { kind: "example", text: slovak });
+    }
+  }
+
+  // Things on the stick-figure stage are tapped for their word, and some
+  // (torta, kávovar) have no dictionary entry to bring a clip with them.
+  if (!options?.slugs) {
+    for (const thing of Object.values(SCENE_THINGS).flat()) {
+      const word = normalizeAudioText(thing.word);
+      if (word && !byText.has(word)) byText.set(word, { kind: "lemma", text: word });
     }
   }
 
