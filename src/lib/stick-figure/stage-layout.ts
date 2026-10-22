@@ -1,5 +1,5 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
+import type { StageSetting } from "./stage-setting";
 import type { Facing } from "./staging";
 
 /** The stage's side padding, px. */
@@ -13,7 +13,7 @@ const GAP_SHARE = 0.02;
  * the bag on the rug at home.
  * Elsewhere the middle of the stage.
  */
-export const STAGE_POSTS: Partial<Record<LessonSceneArtId, number>> = {
+export const STAGE_POSTS: Partial<Record<StageSetting, number>> = {
   cafe: 690,
   counter: 560,
   // Left of the bag on the rug, so nobody stands on it.

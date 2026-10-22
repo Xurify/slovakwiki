@@ -3,7 +3,7 @@ import type { StickGestureId } from "./gestures";
 import { foldLine } from "./line-gesture";
 import { lineSentences, wordSentences } from "./line-plan";
 import { lineProps, type StickPropId } from "./props";
-import { linePoints, type SceneThing } from "./scene-things";
+import { linePoints, type SceneThing, type ShownProp } from "./scene-things";
 
 /** 1 faces right (+x), -1 faces left. */
 export type Facing = 1 | -1;
@@ -13,8 +13,8 @@ export type CastFacing = Partial<Record<LessonCharacterId, Facing>>;
 export interface StageLine {
   /** Null when nobody on stage says it: a notice, the narrator. */
   characterId: LessonCharacterId | null;
-  /** Per-sentence prop overrides, as on the lesson line. */
-  props?: ReadonlyArray<StickPropId | null>;
+  /** Per-sentence prop overrides, as on the lesson line; `undefined` reads the words. */
+  props?: ReadonlyArray<StickPropId | null | undefined>;
   slovak: string;
   /** Who it is said to, when that is not the person it replies to. */
   to?: LessonCharacterId;
@@ -41,6 +41,8 @@ export interface LineStaging {
   exit?: Facing;
   /** Someone who walks on from that side during this line, to say hello next. */
   enter?: { characterId: LessonCharacterId; from: Facing };
+  /** Who the speaker hands what they hold to as the line ends. */
+  gives?: LessonCharacterId;
   /** Who holds up what the speaker is looking at. */
   looksAt?: LessonCharacterId;
 }
@@ -66,6 +68,8 @@ const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
 const WHOSE = ["ci", "cia", "cie", "cieho", "ciu", "cej", "cim"];
 /** Folded words claiming it: môj, moja, moje, moji. */
 const MINE = ["moj", "moja", "moje", "moji"];
+/** Folded phrases that hand over what the speaker holds. */
+const GIVING = ["nech sa paci", "pre teba", "pre vas", "tu mas", "tu mate"];
 
 /** Folded openers of someone arriving. */
 const GREETINGS = [
@@ -152,13 +156,11 @@ function entrance(
 }
 
 /**
- * Whose prop the speaker is looking at: one shown to them by the person
- * they are talking with, with nobody else speaking since.
+ * What the speaker is looking at and who holds it up: a prop shown to them
+ * by the person they are talking with, with nobody else speaking since,
+ * unless it was handed to the speaker.
  */
-function shownTo(
-  lines: readonly StageLine[],
-  index: number,
-): LessonCharacterId | undefined {
+function shownTo(lines: readonly StageLine[], index: number): ShownProp | undefined {
   const speaker = lines[index]?.characterId;
   let partner: LessonCharacterId | undefined;
 
@@ -169,8 +171,10 @@ function shownTo(
     partner ??= other;
     if (other !== partner) return undefined;
 
-    const shows = lineProps(lines[at].slovak, lines[at].props).some(Boolean);
-    if (shows && addresseeOf(lines, at) === speaker) return partner;
+    const prop = lineProps(lines[at].slovak, lines[at].props).findLast(Boolean);
+    if (prop && addresseeOf(lines, at) === speaker) {
+      return givesTo(lines, at) === speaker ? undefined : { holder: partner, prop };
+    }
   }
 
   return undefined;
@@ -207,10 +211,36 @@ export function takesFrom(
 }
 
 /**
+ * Who the speaker hands what they hold to as the line ends: the one spoken
+ * to, on "Nech sa páči." or "A to jablko je pre teba.", once the speaker
+ * has brought something out.
+ */
+export function givesTo(
+  lines: readonly StageLine[],
+  index: number,
+): LessonCharacterId | undefined {
+  const line = lines[index];
+  const speaker = line?.characterId;
+  if (!speaker) return undefined;
+  if (!lineSentences(line.slovak).some((sentence) => mentions(sentence, GIVING))) {
+    return undefined;
+  }
+
+  const holding = lines
+    .slice(0, index + 1)
+    .some(
+      (earlier) =>
+        earlier.characterId === speaker &&
+        lineProps(earlier.slovak, earlier.props).some(Boolean),
+    );
+  return holding ? (addresseeOf(lines, index) ?? undefined) : undefined;
+}
+
+/**
  * One reaction at most, so a listener answers the line instead of
- * fidgeting: hold up what the speaker points at in their hands, lean in to
- * a question, nod at the answer to their own question, or at thanks and
- * apologies.
+ * fidgeting: reach for what they are handed, hold up what the speaker
+ * points at in their hands, lean in to a question, nod at the answer to
+ * their own question, or at thanks and apologies.
  */
 function reactionTo(
   lines: readonly StageLine[],
@@ -221,8 +251,18 @@ function reactionTo(
   const { slovak } = lines[index];
   const sentences = lineSentences(slovak);
 
-  if (shownTo(lines, index) === addressee) {
-    const point = linePoints(slovak, things, addressee).find(
+  if (givesTo(lines, index) === addressee) {
+    return {
+      characterId: addressee,
+      gesture: "show",
+      sentence: sentences.length - 1,
+      at: 0.8,
+    };
+  }
+
+  const shown = shownTo(lines, index);
+  if (shown?.holder === addressee) {
+    const point = linePoints(slovak, things, shown).find(
       ({ target }) => target.kind === "prop",
     );
     const sentence = point ? wordSentences(slovak)[point.word] : undefined;
@@ -305,6 +345,7 @@ export function stageLine(
         : undefined,
     exit: lastOwnLine && leaving && turnedTo ? (-turnedTo as Facing) : undefined,
     enter,
-    looksAt: shownTo(lines, index),
+    gives: onStage ? givesTo(lines, index) : undefined,
+    looksAt: shownTo(lines, index)?.holder,
   };
 }

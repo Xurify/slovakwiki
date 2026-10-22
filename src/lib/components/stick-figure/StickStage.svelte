@@ -10,10 +10,7 @@
     stopStoryLineAudio,
     storyAudioClock,
   } from "$lib/lesson-story/story-audio";
-  import {
-    lessonSceneSrc,
-    type LessonSceneArtId,
-  } from "$lib/lesson-story/story-settings";
+  import { lessonSceneSrc } from "$lib/lesson-story/story-settings";
   import {
     gestureDuration,
     gesturePeak,
@@ -33,12 +30,16 @@
     aimAt,
     backdropAlign,
     backdropToStage,
+    boxCenter,
     figureToStage,
+    litKey,
+    thingBoxes,
     thingCenter,
     thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
   import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { STAGE_POSTS, stageMarks } from "$lib/stick-figure/stage-layout";
+  import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
@@ -82,7 +83,7 @@
     onthing?: (id: string) => void;
     /** Show the painted lesson plate instead of the drawn backdrop. */
     painted?: boolean;
-    setting: LessonSceneArtId;
+    setting: StageSetting;
     /** Dictionary link and clip for a thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
@@ -105,6 +106,8 @@
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
+  /** A line that gave something away and has ended, so it is in the new hand. */
+  let handedAt = $state(-1);
   let lit = $state<string[]>([]);
   let picked = $state<string>();
   let cardHeight = $state(120);
@@ -122,6 +125,15 @@
   let lineTimer = 0;
 
   const resting = $derived(restFacing(direction.cast));
+  const holding = $derived(
+    (handedAt === heldAt ? direction.handed[heldAt] : undefined) ??
+      direction.held[heldAt] ??
+      {},
+  );
+  /** The studio has no painted plate, so it stays drawn. */
+  const plate = $derived(
+    painted && setting !== "studio" ? lessonSceneSrc[setting] : undefined,
+  );
   const wrapped = $derived(mood.weather === "snow" && isOutdoors(setting));
   const entering = $derived(
     Object.fromEntries(
@@ -284,6 +296,7 @@
     walks = {};
     walkEndsAt = {};
     heldAt = index - 1;
+    handedAt = index - 1;
     board = boardBefore(index);
   }
 
@@ -291,9 +304,10 @@
   function targetOf(target: PointTarget): Point | undefined {
     if (target.kind === "thing") {
       const thing = direction.things.find((candidate) => candidate.id === target.id);
-      if (!thing || !stageWidth) return undefined;
+      const box = thing && thingBoxes(thing)[target.copy ?? 0];
+      if (!box || !stageWidth) return undefined;
       return backdropToStage(
-        thingCenter(thing),
+        boxCenter(box),
         stageWidth,
         stageHeight,
         backdropAlign(setting),
@@ -336,10 +350,12 @@
     return { facing, plan: { ...plan, beats } };
   }
 
-  export function light(id: string): void {
-    lit = [...lit, id];
+  /** Light a thing up for a moment, as when a line names it: one `copy` of it, or all. */
+  export function light(id: string, copy?: number): void {
+    const key = litKey(id, copy);
+    lit = [...lit, key];
     window.setTimeout(() => {
-      const at = lit.indexOf(id);
+      const at = lit.indexOf(key);
       if (at !== -1) lit = lit.toSpliced(at, 1);
     }, LIT_MS);
   }
@@ -348,7 +364,7 @@
     const target = beat.point?.target;
     if (target?.kind !== "thing") return;
 
-    light(target.id);
+    light(target.id, target.copy);
     lookAt(target);
   }
 
@@ -382,6 +398,10 @@
 
   function cueActor(id: LessonCharacterId, plan: LinePlan | undefined): void {
     actors[id] = { cue: (actors[id]?.cue ?? 0) + 1, plan, talking: true };
+  }
+
+  export function size(): { height: number; width: number } {
+    return { height: stageHeight, width: stageWidth };
   }
 
   /** Ms until `id` reaches where they are walking, 0 when they stand. */
@@ -431,6 +451,7 @@
     if (!line) return;
 
     heldAt = index;
+    handedAt = -1;
     if (line.characterId === null) board = line.slovak;
 
     for (const actor of Object.values(actors)) actor.talking = false;
@@ -466,6 +487,7 @@
       if (token !== playToken) return;
 
       for (const actor of Object.values(actors)) actor.talking = false;
+      if (staging?.gives) handedAt = index;
       if (staging?.exit && line.characterId) {
         facings = { ...facings, [line.characterId]: staging.exit };
         walkTo(line.characterId, offStage(line.characterId, staging.exit));
@@ -513,10 +535,10 @@
   bind:clientWidth={stageWidth}
   bind:clientHeight={stageHeight}
 >
-  {#if painted}
+  {#if plate}
     <img
       class="absolute inset-0 size-full object-cover object-center"
-      src={lessonSceneSrc[setting]}
+      src={plate}
       alt=""
       width="1536"
       height="1024"
@@ -527,11 +549,13 @@
       class="absolute inset-0 size-full"
       {board}
       {found}
+      height={stageHeight}
       {lit}
       {mood}
       onpick={pickThing}
       {picked}
       {setting}
+      width={stageWidth}
     />
   {/if}
 
@@ -551,7 +575,7 @@
         facing={facings[characterId] ?? resting[characterId] ?? 1}
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
-        prop={direction.held[heldAt]?.[characterId]}
+        prop={holding[characterId]}
         scarf={wrapped}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}
@@ -586,7 +610,7 @@
     {/key}
   {/if}
 
-  {#if pickedThing && card && !painted}
+  {#if pickedThing && card && !plate}
     {@const word = thingWords[pickedThing.word]}
     <div
       data-word-card
@@ -618,7 +642,9 @@
       </div>
 
       <p class="m-0 mt-2 text-xs text-slate-500">
-        {nounGenderLabel(pickedThing.gender).english}
+        {nounGenderLabel(pickedThing.gender).english}{pickedThing.plural
+          ? ", plural"
+          : ""}
       </p>
 
       {#if word?.href}

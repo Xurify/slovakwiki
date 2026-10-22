@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
+import { demonstrativesEpisode } from "$lib/catalog/listening/episodes/demonstratives";
 import { heldProps, propForSentence } from "./props";
 import { castFor, directScene, type DirectedLine } from "./scene-direction";
 import { STAGE_PADDING, stageMarks } from "./stage-layout";
@@ -78,5 +80,113 @@ describe("props in hand", () => {
 
     expect(direction.plans[1].beats[0].gesture).toBe("show");
     expect(direction.held[1]).toEqual({ alex: "keys" });
+  });
+});
+
+describe("handing things over", () => {
+  it("gives what the speaker holds on Nech sa páči, and the one given it keeps it", () => {
+    const direction = directScene(
+      [
+        { characterId: "anna", slovak: "Tak tamtie, prosím." },
+        { characterId: "lucia", props: ["basket"], slovak: "Nech sa páči." },
+        { characterId: "marek", slovak: "Anna vždy kupuje slovenské jahody." },
+      ],
+      "market",
+    );
+
+    expect(direction.stagings[1].gives).toBe("anna");
+    expect(direction.stagings[1].reactions).toEqual([
+      expect.objectContaining({ characterId: "anna", gesture: "show" }),
+    ]);
+    expect(direction.held[1]).toEqual({ lucia: "basket" });
+    expect(direction.handed[1]).toEqual({ anna: "basket" });
+    expect(direction.held[2]).toEqual({ anna: "basket" });
+  });
+
+  it("gives nothing when nothing is in hand", () => {
+    const direction = directScene(
+      [
+        { characterId: "alex", slovak: "Môžem?" },
+        { characterId: "waiter", slovak: "Nech sa páči." },
+      ],
+      "cafe",
+    );
+
+    expect(direction.stagings[1].gives).toBeUndefined();
+    expect(direction.handed[1]).toBeUndefined();
+  });
+
+  it("does not point at a present that was given away", () => {
+    const direction = directScene(
+      [
+        { characterId: "marek", slovak: "Presne. A to jablko je pre teba." },
+        { characterId: "anna", slovak: "Ďakujem! Tento podcast má aj jedlo." },
+      ],
+      "studio",
+    );
+
+    expect(direction.held[1]).toEqual({ anna: "apple" });
+    expect(direction.stagings[1].looksAt).toBeUndefined();
+  });
+});
+
+describe("words for drawn things", () => {
+  it("point at the thing in the room instead of bringing one out", () => {
+    const home = directScene(
+      [{ characterId: "anna", slovak: "Je v tej taške." }],
+      "home",
+    );
+    const studio = directScene(
+      [{ characterId: "marek", slovak: "Anna, mám tu tašku." }],
+      "studio",
+    );
+
+    expect(home.held[0]).toEqual({});
+    expect(home.plans[0].beats.some((beat) => beat.point?.target.kind === "thing")).toBe(
+      true,
+    );
+    expect(studio.held[0]).toEqual({ marek: "bag" });
+  });
+});
+
+describe("a series keeps its cast in place", () => {
+  it("stands the hosts in the order given, whoever speaks first", () => {
+    const lines: DirectedLine[] = [
+      { characterId: "marek", slovak: "Anna, mám tu tašku." },
+      { characterId: "anna", slovak: "Dobre. Čo je to?" },
+    ];
+
+    expect(castFor(lines, "studio")).toEqual(["marek", "anna"]);
+    expect(castFor(lines, "studio", ["anna", "marek", "lucia"])).toEqual([
+      "anna",
+      "marek",
+    ]);
+  });
+});
+
+describe("the podcast at the market", () => {
+  it("points this cheese near, that cheese far, and hands Anna the strawberries", () => {
+    const market = demonstrativesEpisode.chapters.find(({ id }) =>
+      id.endsWith("market"),
+    )!;
+    const direction = directScene(
+      market.lines.map((line) => ({
+        characterId: characterIdForSpeaker(line.speaker),
+        props: line.props,
+        slovak: line.slovak,
+      })),
+      "market",
+      demonstrativesEpisode.speakers.map(characterIdForSpeaker),
+    );
+    const copies = direction.plans.map((plan) =>
+      plan.beats.flatMap(({ point }) =>
+        point?.target.kind === "thing" ? [`${point.target.id}#${point.target.copy}`] : [],
+      ),
+    );
+
+    expect(direction.cast).toEqual(["anna", "marek", "lucia"]);
+    expect(copies.slice(2, 6)).toEqual([["syr#0"], ["syr#1"], ["syr#1"], ["syr#1"]]);
+    expect(copies[7]).toEqual(["jahody#0", "jahody#1"]);
+    expect(direction.held.at(-1)).toEqual({ anna: "basket" });
   });
 });

@@ -4,6 +4,9 @@ import { foldLine } from "./line-gesture";
 import { lineSentences } from "./line-plan";
 
 export const STICK_PROP_IDS = [
+  "apple",
+  "bag",
+  "basket",
   "book",
   "camera",
   "card",
@@ -27,6 +30,9 @@ export type CastProps = Partial<Record<LessonCharacterId, StickPropId>>;
  * `kaviareň`, `telefon` in `telefónne číslo`, which asks for a number).
  */
 const PROP_CUES: Record<StickPropId, { stems?: string[]; words?: string[] }> = {
+  apple: { stems: ["jablk", "jablc"] },
+  bag: { stems: ["task", "tasiek"] },
+  basket: { stems: ["kosik"] },
   book: { stems: ["knih"] },
   camera: { stems: ["fotk", "fotograf"] },
   card: { words: ["karta", "kartu", "karty", "kartou"] },
@@ -38,6 +44,22 @@ const PROP_CUES: Record<StickPropId, { stems?: string[]; words?: string[] }> = {
   newspaper: { words: ["noviny", "novin", "novinach", "novinami"] },
   phone: { words: ["telefon", "telefonu", "telefonom", "mobil", "mobilu", "mobilom"] },
 };
+
+/** Props with pictures or words on them, which a question can be about: "Kto je ten muž?" */
+const WITH_CONTENT: readonly StickPropId[] = [
+  "book",
+  "camera",
+  "card",
+  "clipboard",
+  "letter",
+  "menu",
+  "newspaper",
+  "phone",
+];
+
+export function hasContent(prop: StickPropId): boolean {
+  return WITH_CONTENT.includes(prop);
+}
 
 /** Ordering is not holding: "Ja si dám čaj." brings out no cup. */
 const ORDERING = ["dam si", "si dam", "dame si", "si dame"];
@@ -78,7 +100,7 @@ export function propForSentence(sentence: string): StickPropId | undefined {
  */
 export function lineProps(
   slovak: string,
-  props: ReadonlyArray<StickPropId | null> = [],
+  props: ReadonlyArray<StickPropId | null | undefined> = [],
 ): Array<StickPropId | undefined> {
   return lineSentences(slovak).map((sentence, index) =>
     props[index] === undefined ? propForSentence(sentence) : (props[index] ?? undefined),
@@ -99,6 +121,8 @@ export function gesturesWithProps(
 
 type HeldLine = {
   characterId: LessonCharacterId | null;
+  /** Who the speaker hands what they hold to as the line ends. */
+  givesTo?: LessonCharacterId;
   props: ReadonlyArray<StickPropId | undefined>;
   /** Whose prop the speaker takes as the line starts. */
   takesFrom?: LessonCharacterId;
@@ -117,31 +141,47 @@ function partnerAt(
   return partner?.characterId ?? undefined;
 }
 
+export function handOver(
+  held: CastProps,
+  from: LessonCharacterId,
+  to: LessonCharacterId,
+): CastProps {
+  const prop = held[from];
+  if (!prop) return held;
+
+  const handed: CastProps = { ...held, [to]: prop };
+  delete handed[from];
+  return handed;
+}
+
 /**
  * What everyone holds while each line plays. A speaker takes out the last
  * prop their line names and keeps it until they bring out another, so Anna
  * still has the camera while Alex asks about the people in her photos. It
  * goes away when someone else joins in: Anna puts the camera away when the
  * waiter comes to take the order. A prop changes hands when its owner
- * claims it ("Áno, moje!").
+ * claims it ("Áno, moje!") or its holder gives it away ("Nech sa páči."),
+ * and what someone was given they keep.
  */
 export function heldProps(lines: readonly HeldLine[]): CastProps[] {
   let held: CastProps = {};
   const shownTo: Partial<Record<LessonCharacterId, LessonCharacterId>> = {};
+  const given = new Set<LessonCharacterId>();
 
-  return lines.map(({ characterId, props, takesFrom }, index) => {
-    const taken = takesFrom ? held[takesFrom] : undefined;
-    if (characterId && takesFrom && taken) {
-      const handed: CastProps = { ...held, [characterId]: taken };
-      delete handed[takesFrom];
-      held = handed;
+  return lines.map(({ characterId, givesTo, props, takesFrom }, index) => {
+    if (characterId && takesFrom && held[takesFrom]) {
+      held = handOver(held, takesFrom, characterId);
       shownTo[characterId] = takesFrom;
     }
 
     if (characterId) {
       const kept: CastProps = {};
       for (const holder of Object.keys(held) as LessonCharacterId[]) {
-        if (holder === characterId || shownTo[holder] === characterId) {
+        if (
+          holder === characterId ||
+          shownTo[holder] === characterId ||
+          given.has(holder)
+        ) {
           kept[holder] = held[holder];
         }
       }
@@ -151,8 +191,15 @@ export function heldProps(lines: readonly HeldLine[]): CastProps[] {
     const prop = props.findLast((id) => id !== undefined);
     if (characterId && prop) {
       held = { ...held, [characterId]: prop };
+      given.delete(characterId);
       shownTo[characterId] = partnerAt(lines, index);
     }
-    return held;
+
+    const during = held;
+    if (characterId && givesTo && held[characterId]) {
+      held = handOver(held, characterId, givesTo);
+      given.add(givesTo);
+    }
+    return during;
   });
 }

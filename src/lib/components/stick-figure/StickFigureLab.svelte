@@ -1,6 +1,6 @@
 <script lang="ts" module>
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-  import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
+  import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import type { StickGestureId } from "$lib/stick-figure/gestures";
   import type { StickPropId } from "$lib/stick-figure/props";
 
@@ -32,7 +32,7 @@
     id: string;
     lines: StickLabLine[];
     /** Where it plays: picks the drawn backdrop and the painted lesson plate. */
-    setting: LessonSceneArtId;
+    setting: StageSetting;
     title: string;
   }
 </script>

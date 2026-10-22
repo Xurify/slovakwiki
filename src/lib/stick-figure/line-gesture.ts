@@ -3,6 +3,7 @@ import type { StickGestureId } from "./gestures";
 /** Opening words of a line, folded (no diacritics, lowercase, words only). */
 const OPENERS: Array<[string, StickGestureId]> = [
   ["ahoj", "wave"],
+  ["ahojte", "wave"],
   ["cau", "wave"],
   ["dobry den", "wave"],
   ["dobry vecer", "wave"],
@@ -21,6 +22,7 @@ const OPENERS: Array<[string, StickGestureId]> = [
   ["dobre", "nod"],
   ["v poriadku", "nod"],
   ["presne", "nod"],
+  ["spravne", "nod"],
   ["urcite", "nod"],
   ["tesi ma", "nod"],
   ["aj mna", "nod"],
@@ -31,6 +33,7 @@ const OPENERS: Array<[string, StickGestureId]> = [
   ["nie je za co", "nod"],
 
   ["nie", "shake"],
+  ["nespravne", "shake"],
   ["vobec", "shake"],
   ["nikdy", "shake"],
 

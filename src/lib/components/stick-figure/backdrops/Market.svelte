@@ -13,18 +13,22 @@
     return { paint: FLAG_PAINTS[index % 3], x, y };
   });
 
+  const BERRIES = "fill-rose-500";
+
   const stalls = [
     {
       label: "Ovocie",
       x: 20,
       inner: 300,
       produce: ["fill-scene-clay", "fill-scene-honey", "fill-scene-sage"],
+      cheeses: [],
     },
     {
-      label: "Zelenina",
+      label: "Z farmy",
       x: 640,
       inner: 660,
-      produce: ["fill-scene-leaf", "fill-scene-clay", "fill-scene-honey"],
+      produce: [BERRIES, "fill-scene-leaf", BERRIES],
+      cheeses: [676, 904],
     },
   ];
 
@@ -70,15 +74,40 @@
   {/each}
   <rect x={stall.x - 4} y="66" width="308" height="6" rx="2" class="fill-scene-wood" />
 
+  {#each stall.cheeses as x (x)}
+    <path d="M{x} 100V106" class="stroke-scene-line/60" stroke-width="1.2" />
+    <path
+      d="M{x} 104C{x + 16} 106 {x + 15} 128 {x} 140C{x - 15} 128 {x - 16} 106 {x} 104Z"
+      class="fill-scene-wood"
+    />
+    <path
+      d="M{x - 10} 114h20M{x - 11} 121h22M{x - 9} 128h18"
+      class="stroke-scene-honey"
+      stroke-width="2"
+    />
+    <path
+      d="M{x - 5} 110v24M{x + 5} 110v24"
+      class="stroke-scene-honey/60"
+      stroke-width="1.2"
+    />
+  {/each}
+
   {#each stall.produce as paint, crate (crate)}
     {#each [0, 1, 2, 3, 4] as fruit (fruit)}
-      <circle cx={stall.x + 34 + crate * 88 + fruit * 14} cy="146" r="7" class={paint} />
-      <circle
-        cx={stall.x + 32 + crate * 88 + fruit * 14}
-        cy="143.5"
-        r="2"
-        class="fill-white/45"
-      />
+      {@const x = stall.x + 34 + crate * 88 + fruit * 14}
+      {#if paint === BERRIES}
+        <path
+          d="M{x - 6} 142Q{x} 140 {x + 6} 142Q{x + 5} 150 {x} 154Q{x - 5} 150 {x -
+            6} 142Z"
+          class={paint}
+        />
+        <path d="M{x - 4} 142l4 -3l4 3Z" class="fill-scene-leaf" />
+        <circle cx={x - 2} cy="146" r="0.9" class="fill-white/60" />
+        <circle cx={x + 2} cy="149" r="0.9" class="fill-white/60" />
+      {:else}
+        <circle cx={x} cy="146" r="7" class={paint} />
+        <circle cx={x - 2} cy="143.5" r="2" class="fill-white/45" />
+      {/if}
     {/each}
     <rect
       x={stall.x + 24 + crate * 88}
