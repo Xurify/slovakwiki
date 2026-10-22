@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { words } from "$lib/catalog/entries";
 import { FREQUENCY_PUBLISH_BLOCKLIST } from "$lib/catalog/frequency/blocklist";
 
+import rejectedForLemma from "../../../../content/dictionary/tatoeba-lemma-rejected.json";
 import rejectedTatoeba from "../../../../content/dictionary/tatoeba-rejected.json";
 import { exampleContainsLemma } from "./example-lemma-match";
 import reviewedLemmaMatches from "./tatoeba-lemma-exceptions.json";
@@ -24,7 +25,13 @@ describe("dictionary examples", () => {
       word.examples
         .filter((example) => example.note === "Tatoeba" && !example.demonstrates)
         .filter(
-          (example) => !exampleContainsLemma(example.slovak, word.slovak, word.category),
+          (example) =>
+            !exampleContainsLemma(
+              example.slovak,
+              word.slovak,
+              word.category,
+              word.gender,
+            ),
         )
         .map((example) => `${word.slug}#${example.tatoebaId ?? example.slovak}`)
         .filter((key) => !reviewed.has(key)),
@@ -37,6 +44,20 @@ describe("dictionary examples", () => {
     const problems = words.flatMap((word) =>
       word.examples
         .filter((example) => example.tatoebaId && rejected.has(example.tatoebaId))
+        .map((example) => `${word.slug}: ${example.slovak}`),
+    );
+    expect(problems).toEqual([]);
+  });
+
+  it("keeps Tatoeba rows rejected for one entry off that entry", () => {
+    const keys = Object.keys(rejectedForLemma);
+    const slugs = new Set(words.map((word) => word.slug));
+    expect(keys.filter((key) => !slugs.has(key.slice(0, key.indexOf("#"))))).toEqual([]);
+
+    const rejected = new Set(keys);
+    const problems = words.flatMap((word) =>
+      word.examples
+        .filter((example) => rejected.has(`${word.slug}#${example.tatoebaId}`))
         .map((example) => `${word.slug}: ${example.slovak}`),
     );
     expect(problems).toEqual([]);
