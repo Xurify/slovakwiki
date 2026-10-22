@@ -145,7 +145,7 @@
 
   {#if outdoors && mood.weather === "rain"}
     <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/10" />
-    {#each [140, 430, 720] as x (x)}
+    {#each [110, 450, 880] as x (x)}
       <ellipse cx={x} cy={262 + (x % 3) * 8} rx="54" ry="5" class="fill-scene-sky/70" />
     {/each}
   {:else if outdoors && mood.weather === "snow"}

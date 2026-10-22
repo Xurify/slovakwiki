@@ -41,13 +41,11 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
 }
 
 export interface AmbiencePlayer {
-  duck(speaking: boolean): void;
   stop(): void;
 }
 
-/** Under the site volume: a background, never louder than the voices. */
-const LEVEL = 0.18;
-const DUCKED = 0.3;
+/** Under the site volume: a background the voices talk over, steady rather than dipping as they speak. */
+const LEVEL = 0.14;
 
 interface Kit {
   ctx: AudioContext;
@@ -254,10 +252,6 @@ export function playAmbience({ indoors, layers }: Ambience): AmbiencePlayer | un
   for (const layer of layers) LAYERS[layer](kit);
 
   return {
-    duck(speaking) {
-      const level = (speaking ? DUCKED : 1) * LEVEL * getAudioVolume();
-      master.gain.setTargetAtTime(level, ctx.currentTime, 0.15);
-    },
     stop() {
       for (const timer of timers) window.clearTimeout(timer);
       timers.clear();

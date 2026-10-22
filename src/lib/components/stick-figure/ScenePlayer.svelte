@@ -349,18 +349,11 @@
     if (!ambient) return;
 
     const player = untrack(() => playAmbience(soundscape));
-    player?.duck(untrack(() => speaking));
     ambience = player;
     return () => {
       player?.stop();
       if (ambience === player) ambience = undefined;
     };
-  });
-
-  $effect(() => {
-    // Read first: with no sound playing yet, `?.` would skip it and the effect would never rerun.
-    const talking = speaking;
-    ambience?.duck(talking);
   });
 
   onMount(() => {

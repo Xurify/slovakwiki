@@ -496,7 +496,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.strom, [52, 100, 98, 160]),
     drawn({ ...WORDS.lampa, english: "street lamp" }, [286, 66, 28, 190]),
     drawn(WORDS.zastavka, [630, 144, 40, 112]),
-    drawn(WORDS.lavicka, [676, 232, 108, 42]),
+    drawn(WORDS.lavicka, [668, 218, 130, 62]),
     drawn(WORDS.oblak, [382, 19, 76, 31], [733, 40, 54, 22]),
   ],
   default: [
