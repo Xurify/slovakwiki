@@ -3,11 +3,12 @@
 
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import TextLink from "$lib/components/ui/TextLink.svelte";
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import type { TextMark } from "$lib/learning/marked-text";
   import { MicrophoneError, record, type Recording } from "$lib/stick-figure/recorder";
   import type { Take } from "$lib/stick-figure/take";
+  import SceneAction from "./SceneAction.svelte";
+  import SceneIcon from "./SceneIcon.svelte";
 
   let {
     english,
@@ -120,24 +121,31 @@
 
   {#if mic === "recording"}
     <div class="mt-4 flex flex-wrap items-center gap-4">
-      <Button variant="secondary" onclick={stop}>Stop</Button>
+      <Button variant="secondary" onclick={stop}>
+        <SceneIcon name="stop" />
+        Stop
+      </Button>
       <div class="h-2 w-40 overflow-hidden rounded-full bg-subtle" aria-hidden="true">
         <div class="h-full rounded-full bg-rose-500" style:width="{meter * 100}%"></div>
       </div>
       <span class="text-sm text-slate-600" role="status">Recording</span>
     </div>
   {:else if take}
-    <div class="mt-4 flex flex-wrap items-center gap-4">
-      <Button variant="accent" onclick={use}>Play it in the scene</Button>
-      <TextLink onclick={start}>Record again</TextLink>
-      <TextLink onclick={onhear}>Hear {speaker}</TextLink>
+    <div class="mt-4 flex flex-wrap items-center gap-2">
+      <Button class="mr-2" variant="accent" onclick={use}>
+        <SceneIcon name="play" />
+        Play it in the scene
+      </Button>
+      <SceneAction icon="mic" onclick={start}>Record again</SceneAction>
+      <SceneAction icon="listen" onclick={onhear}>Hear {speaker}</SceneAction>
     </div>
   {:else}
-    <div class="mt-4 flex flex-wrap items-center gap-4">
-      <Button variant="accent" disabled={mic === "starting"} onclick={start}
-        >Record</Button
-      >
-      <TextLink onclick={onhear}>Hear {speaker} first</TextLink>
+    <div class="mt-4 flex flex-wrap items-center gap-2">
+      <Button class="mr-2" variant="accent" disabled={mic === "starting"} onclick={start}>
+        <SceneIcon name="mic" />
+        Record
+      </Button>
+      <SceneAction icon="listen" onclick={onhear}>Hear {speaker} first</SceneAction>
     </div>
   {/if}
 

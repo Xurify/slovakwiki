@@ -102,7 +102,9 @@
   import { cx } from "$lib/ui/classes";
   import { canRecord } from "$lib/stick-figure/recorder";
   import type { Take } from "$lib/stick-figure/take";
+  import SceneAction from "./SceneAction.svelte";
   import SceneCaption from "./SceneCaption.svelte";
+  import SceneIcon from "./SceneIcon.svelte";
   import SceneSay from "./SceneSay.svelte";
   import SceneTurn from "./SceneTurn.svelte";
   import StickStage from "./StickStage.svelte";
@@ -127,7 +129,7 @@
   /** Ways to take a lesson scene; greeting Mária is a game of its own. */
   const MODES: Array<{ id: Exclude<Mode, "greet">; label: string }> = [
     { id: "watch", label: "Watch" },
-    { id: "play", label: "Play Alex" },
+    { id: "play", label: "Play as" },
     { id: "find", label: "Find it" },
   ];
 
@@ -270,6 +272,9 @@
   /** Taking Alex's part needs Alex in the scene. */
   const modes = $derived(
     MODES.filter((option) => option.id !== "play" || learnerCount > 0),
+  );
+  const learnerName = $derived(
+    scene.lines.find((line) => line.learner)?.speaker ?? "Alex",
   );
   const firstTryCount = $derived(Object.values(firstTries).filter(Boolean).length);
   /** The things the dialogue names, in the order it names them. */
@@ -777,7 +782,7 @@
                   aria-pressed={option.id === mode}
                   onclick={() => selectMode(option.id)}
                 >
-                  {option.label}
+                  {option.id === "play" ? `Play as ${learnerName}` : option.label}
                 </button>
               {/each}
             </div>
@@ -826,7 +831,7 @@
           {thingWords}
         />
 
-        <div class="min-h-44 px-5 py-5 sm:px-6">
+        <div class="px-5 py-5 sm:px-6">
           {#if mode === "greet"}
             {#if greetRound}
               {@const when = TIME_WORDS[greetRound.time]}
@@ -885,7 +890,10 @@
                   goodbye.
                 </p>
                 <div class="mt-4 flex flex-wrap items-center gap-4">
-                  <Button variant="accent" onclick={startGreet}>Play again</Button>
+                  <Button variant="accent" onclick={startGreet}>
+                    <SceneIcon name="replay" />
+                    Play again
+                  </Button>
                 </div>
               </div>
             {/if}
@@ -974,7 +982,9 @@
                       Next: {FIND_LEVELS.find(({ id }) => id === upNext)?.label}
                     </Button>
                   {/if}
-                  <TextLink onclick={() => startFind(level)}>Play again</TextLink>
+                  <SceneAction icon="replay" onclick={() => startFind(level)}
+                    >Play again</SceneAction
+                  >
                 </div>
               </div>
             {:else}
@@ -1005,11 +1015,11 @@
               {/if}
             {/key}
 
-            <TextLink class="mt-4 inline-block" onclick={hearIt}>
+            <SceneAction class="mt-3 -ml-2.5" icon="listen" onclick={hearIt}>
               {turnKind === "say"
                 ? `Let ${turn.speaker} say it`
                 : `Hear ${turn.speaker} say it`}
-            </TextLink>
+            </SceneAction>
           {:else if checking}
             {@const check = checks[checkAt]}
 
@@ -1026,6 +1036,8 @@
               />
             {/key}
           {:else if phase === "done"}
+            {@const scored = mode === "play" && learnerCount > 0}
+
             <div class="animate-rise">
               {#if checks.length > 0}
                 <p class="m-0 font-serif text-2xl text-slate-900">
@@ -1033,26 +1045,18 @@
                 </p>
               {:else if mode === "play" && turnKind === "say" && learnerCount > 0}
                 <p class="m-0 font-serif text-2xl text-slate-900">
-                  You said {takeCount} of Alex's {learnerCount}
+                  You said {takeCount} of {learnerName}'s {learnerCount}
                   {learnerCount === 1 ? "line" : "lines"}.
                 </p>
-              {:else if mode === "play" && learnerCount > 0}
+              {:else if scored}
                 <p class="m-0 font-serif text-2xl text-slate-900">
-                  {firstTryCount} of {learnerCount} of Alex's lines right the first time.
-                </p>
-              {:else if learnerCount > 0}
-                <p class="m-0 font-serif text-2xl text-slate-900">
-                  Now take Alex's part.
+                  {firstTryCount} of {learnerCount} of {learnerName}'s lines right the
+                  first time.
                 </p>
               {/if}
 
               {#if sceneWords.length > 0}
-                <p
-                  class={cx(
-                    eyebrowMutedClass,
-                    (learnerCount > 0 || checks.length > 0) && "mt-4",
-                  )}
-                >
+                <p class={cx(eyebrowMutedClass, (scored || checks.length > 0) && "mt-4")}>
                   Things the dialogue named
                 </p>
                 <ul class="m-0 mt-2 flex list-none flex-wrap gap-2 p-0">
@@ -1078,42 +1082,47 @@
                 </ul>
               {/if}
 
-              <div class="mt-4 flex flex-wrap items-center gap-4">
+              <div
+                class={cx(
+                  "flex flex-wrap items-center gap-x-2 gap-y-2",
+                  (scored || checks.length > 0 || sceneWords.length > 0) && "mt-4",
+                )}
+              >
                 {#if nextScene && checks.length > 0}
-                  <Button variant="accent" onclick={nextChapter}>
+                  <Button class="mr-2" variant="accent" onclick={nextChapter}>
                     <span>Next chapter: <span lang="sk">{nextScene.name}</span></span>
                   </Button>
+                  <SceneAction icon="replay" onclick={playScene}>Watch again</SceneAction>
                 {:else if mode === "play" && takeCount > 0}
-                  <Button variant="accent" onclick={() => watchWith(true)}>
+                  <Button class="mr-2" variant="accent" onclick={() => watchWith(true)}>
+                    <SceneIcon name="play" />
                     Watch it in your voice
                   </Button>
-                {:else if mode === "watch" && learnerCount > 0}
-                  <Button variant="accent" onclick={playAlex}>Play Alex</Button>
-                {:else if direction.things.length > 0}
-                  <Button variant="accent" onclick={() => selectMode("find")}>
-                    Find things in the scene
+                  <SceneAction icon="mic" onclick={recordAgain}>Record again</SceneAction>
+                {:else}
+                  <Button class="mr-2" variant="accent" onclick={playScene}>
+                    <SceneIcon name="replay" />
+                    {mode === "play" ? "Play again" : "Watch again"}
                   </Button>
                 {/if}
-                {#if mode === "play" && turnKind === "say"}
-                  <TextLink onclick={recordAgain}>Record again</TextLink>
-                {:else}
-                  <TextLink onclick={playScene}>
-                    {mode === "play" ? "Play again" : "Watch again"}
-                  </TextLink>
-                {/if}
                 {#if mode === "watch" && takeCount > 0}
-                  <TextLink onclick={() => watchWith(!ownVoice)}>
-                    {ownVoice ? "Watch with Alex's voice" : "Watch in your voice"}
-                  </TextLink>
+                  <SceneAction icon="listen" onclick={() => watchWith(!ownVoice)}>
+                    {ownVoice
+                      ? `Watch with ${learnerName}'s voice`
+                      : "Watch in your voice"}
+                  </SceneAction>
                 {/if}
-                {#if (nextScene && checks.length > 0) || (mode === "watch" && learnerCount > 0)}
-                  {#if direction.things.length > 0}
-                    <TextLink onclick={() => selectMode("find")}
-                      >Find things in the scene</TextLink
-                    >
-                  {/if}
+                {#if mode === "watch" && learnerCount > 0}
+                  <SceneAction icon="person" onclick={playAlex}>
+                    Play as {learnerName}
+                  </SceneAction>
                 {/if}
-                <TextLink href={scene.href}>{scene.hrefLabel}</TextLink>
+                {#if direction.things.length > 0}
+                  <SceneAction icon="find" onclick={() => selectMode("find")}>
+                    Find things in the scene
+                  </SceneAction>
+                {/if}
+                <SceneAction href={scene.href} icon="book">{scene.hrefLabel}</SceneAction>
               </div>
             </div>
           {:else if caption}
@@ -1153,7 +1162,9 @@
           <div
             class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
-            <TextLink onclick={showThing}>Show me</TextLink>
+            <SceneAction class="-ml-2.5" icon="find" onclick={showThing}
+              >Show me</SceneAction
+            >
             {#if streak > 1}
               <span class="ml-auto animate-rise text-sm font-semibold text-emerald-700">
                 {streak} in a row
@@ -1165,12 +1176,16 @@
           </div>
         {:else if mode !== "find" && mode !== "greet" && phase !== "turn" && phase !== "done"}
           <div
-            class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
+            class="flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
             {#if phase === "playing"}
-              <Button variant="secondary" onclick={pause}>Pause</Button>
+              <Button class="mr-2" variant="secondary" onclick={pause}>
+                <SceneIcon name="pause" />
+                Pause
+              </Button>
             {:else}
-              <Button variant="accent" onclick={playScene}>
+              <Button class="mr-2" variant="accent" onclick={playScene}>
+                <SceneIcon name="play" />
                 {#if phase === "paused"}
                   {listenFirst ? "Next line" : "Resume"}
                 {:else}
@@ -1180,36 +1195,39 @@
             {/if}
 
             {#if shown >= 0}
-              <TextLink onclick={again}>Again</TextLink>
+              <SceneAction icon="replay" onclick={again}>Again</SceneAction>
             {/if}
 
-            <TextLink
+            <SceneAction
               aria-pressed={slower}
+              icon="slower"
               onclick={() => {
                 slower = !slower;
               }}
             >
               {slower ? "Normal speed" : "Slower"}
-            </TextLink>
+            </SceneAction>
 
-            <TextLink
+            <SceneAction
               aria-pressed={listenFirst}
+              icon="listen"
               onclick={() => {
                 listenFirst = !listenFirst;
               }}
             >
               {listenFirst ? "Show text as it is said" : "Listen first"}
-            </TextLink>
+            </SceneAction>
 
             {#if mode === "watch" && takeCount > 0}
-              <TextLink
+              <SceneAction
                 aria-pressed={ownVoice}
+                icon="mic"
                 onclick={() => {
                   ownVoice = !ownVoice;
                 }}
               >
-                {ownVoice ? "Use Alex's voice" : "Use your voice"}
-              </TextLink>
+                {ownVoice ? `Use ${learnerName}'s voice` : "Use your voice"}
+              </SceneAction>
             {/if}
 
             <span class="ml-auto text-sm text-slate-500">
