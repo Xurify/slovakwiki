@@ -24,7 +24,7 @@
 <main class="py-12 pb-24 max-[600px]:py-8">
   <PageShell class="max-w-[1040px]">
     <header class="max-w-[680px]">
-      <h1 class="m-0 text-3xl font-bold tracking-tight text-blue-950 sm:text-4xl">
+      <h1 class="m-0 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
         Characters & voices
       </h1>
       <Lead class="mt-3">
@@ -39,7 +39,7 @@
           <div class="flex flex-col items-center text-center">
             <LessonCharacterAvatar characterId={character.id} size="xl" />
 
-            <h2 class="m-0 mt-4 font-serif text-xl font-semibold text-blue-950">
+            <h2 class="m-0 mt-4 font-serif text-xl font-semibold text-slate-900">
               {character.displayName}
             </h2>
 
