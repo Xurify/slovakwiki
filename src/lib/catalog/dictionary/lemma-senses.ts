@@ -17,6 +17,44 @@ export function senseSectionId(category: string): string {
   );
 }
 
+// Search documents, browse rows and the sitemap look up every word in a list;
+// group each list once so those builds stay linear.
+const senseGroupCache = new WeakMap<
+  readonly ContentEntry[],
+  Map<string, ContentEntry[]>
+>();
+
+function senseGroupsByLemma(words: readonly ContentEntry[]): Map<string, ContentEntry[]> {
+  const cached = senseGroupCache.get(words);
+  if (cached) return cached;
+
+  const groups = new Map<string, ContentEntry[]>();
+  for (const word of words) {
+    if (word.kind !== "word") continue;
+    const group = groups.get(word.slovak) ?? [];
+    group.push(word);
+    groups.set(word.slovak, group);
+  }
+
+  for (const group of groups.values()) {
+    group.sort((left, right) => {
+      const leftOrder = CATEGORY_ORDER.indexOf(
+        left.category as (typeof CATEGORY_ORDER)[number],
+      );
+      const rightOrder = CATEGORY_ORDER.indexOf(
+        right.category as (typeof CATEGORY_ORDER)[number],
+      );
+      const leftRank = leftOrder === -1 ? 99 : leftOrder;
+      const rightRank = rightOrder === -1 ? 99 : rightOrder;
+      if (leftRank !== rightRank) return leftRank - rightRank;
+      return left.slug.localeCompare(right.slug);
+    });
+  }
+
+  senseGroupCache.set(words, groups);
+  return groups;
+}
+
 /** All live word rows that share the same lemma string (part-of-speech siblings). */
 export function lemmaSenseGroup(
   entry: ContentEntry,
@@ -24,22 +62,7 @@ export function lemmaSenseGroup(
 ): ContentEntry[] {
   if (entry.kind !== "word") return [entry];
 
-  const matches = words.filter(
-    (word) => word.kind === "word" && word.slovak === entry.slovak,
-  );
-
-  return [...matches].sort((left, right) => {
-    const leftOrder = CATEGORY_ORDER.indexOf(
-      left.category as (typeof CATEGORY_ORDER)[number],
-    );
-    const rightOrder = CATEGORY_ORDER.indexOf(
-      right.category as (typeof CATEGORY_ORDER)[number],
-    );
-    const leftRank = leftOrder === -1 ? 99 : leftOrder;
-    const rightRank = rightOrder === -1 ? 99 : rightOrder;
-    if (leftRank !== rightRank) return leftRank - rightRank;
-    return left.slug.localeCompare(right.slug);
-  });
+  return [...(senseGroupsByLemma(words).get(entry.slovak) ?? [])];
 }
 
 /**
