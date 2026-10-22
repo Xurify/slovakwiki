@@ -90,7 +90,7 @@ export const practiceSets: PracticeSet[] = [
     id: "numbers-and-personal-details",
     lessonId: "everyday/numbers-and-personal-details",
     title: "Numbers and personal details",
-    summary: "Say your age, read phone digits, and ask how much is it.",
+    summary: "Say your age, read phone digits, and ask how much something costs.",
     track: "everyday",
     itemIds: [
       "everyday/age-with-rokov",
@@ -101,9 +101,9 @@ export const practiceSets: PracticeSet[] = [
   {
     id: "days-dates-and-time",
     lessonId: "everyday/days-dates-and-time",
-    title: "Days, dates, and time",
+    title: "Days and time",
     summary:
-      "Arrange a meeting day and practice clock times — day-parts, noon, 24h, and fresh faces each session.",
+      "Arrange a meeting day and read clock times: parts of the day, noon, and the 24-hour clock, with new clocks each session.",
     track: "everyday",
     sessionKind: "days-dates-time",
     sessionSize: 13,
@@ -126,7 +126,7 @@ export const practiceSets: PracticeSet[] = [
     lessonId: "grammar/byt-present",
     title: "Present forms of byť",
     summary:
-      "Introduce yourself, address someone formally, and place a person in Bratislava.",
+      "Introduce yourself, ask where your friends are, and place a person in Bratislava.",
     track: "grammar",
     itemIds: ["grammar/byt-som", "grammar/byt-ste", "grammar/byt-je-location"],
   },

@@ -37,7 +37,7 @@ Optional `marks` on a turn color a span of `slovak` by role (`day` gold, `time` 
 
 `englishToggle: true` hides that bubble’s English behind Show English. The You prompt stays visible. Lesson scene lines already have their own English control, so leave `englishToggle` off there.
 
-`speaker` is for audio roster / `characterIdForSpeaker` and that visible eyebrow. Use a label that already exists on a character’s `speakers[]` in `content/audio/config.json` (named people like `Anna` / `Mária` / `You`, approved one-offs like `Receptionist` / `Waiter`, or system `Notice` / `Sentence` / `Scene`). Do not invent extra names (`Marta`) — they fall back to the narrator voice. Lesson **scene** table still uses a muted speaker column for multi-line scripts.
+`speaker` is for audio roster / `characterIdForSpeaker` and that visible eyebrow. Use a label that already exists on a character’s `speakers[]` in `content/audio/config.json` (named people like `Anna` / `Mária` / `You`, approved one-offs like `Receptionist` / `Waiter` / `Conductor`, or system `Notice` / `Sentence` / `Scene`). Do not invent extra names (`Marta`) — they fall back to the narrator voice. Pick the role the line belongs to: a waiter does not check train tickets. Lesson **scene** table still uses a muted speaker column for multi-line scripts.
 
 ## Feedback (`feedback` on exercise + practice item)
 
@@ -49,7 +49,16 @@ Optional `marks` on a turn color a span of `slovak` by role (`day` gold, `time` 
 
 Reuse `PracticeExerciseFeedback.svelte` for any new exercise UI — do not invent new status labels.
 
+## Scenes and answers
+
+- The context leads to the prompt. Do not ask “Where are you?” right after someone said where they are.
+- Settle `ty` / `vy` in the scene or the prompt: a named friend, `(formal)`, `(to a friend)`. If the scene leaves it open, accept both.
+- Say-gate choices hide the line’s English until the learner answers, so a wrong choice must be wrong in form (`Nie mám…`, `Nemáš…`), not just a less likely reply.
+- Build tiles: the first word is capitalised and the end punctuation sits on the last tile. A distractor is a real trap (`Mám` beside `Nemám`), never a copy of an answer tile.
+- Typed answers list every correct variant in `acceptedAnswers`; the authoring checklist is in the `slovak-language` skill (`references/slovak-wiki-authoring.md`).
+
 ## After content changes
 
+- `bun run test`: `exercises-audit.test.ts` checks tile builds and subject-pronoun variants; `content-rules.test.ts` fails on rules that shipped wrong before. When you fix a false rule, add its old wording to `content-rules.test.ts`.
 - New/changed lesson or practice text: `bun run index:search` (Pagefind includes these routes).
-- New lesson dialogue: `bun scripts/audio/generate.ts -- --lessons-only` when audio should ship.
+- New lesson dialogue, key phrase, lesson choice label or correction: `bun scripts/audio/generate.ts -- --lessons-only --missing-only` when audio should ship. Practice-item context lines are not voiced.

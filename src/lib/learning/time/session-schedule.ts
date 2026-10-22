@@ -23,7 +23,7 @@ export function buildFrameTimeChoiceExercise(
   rng: () => number,
 ): PracticeItem["task"] {
   const frame = pickRandomScheduleFrame(rng);
-  const { time, dayPart } = pickScheduleTime(rng);
+  const { time, dayPart } = pickScheduleTime(rng, frame);
   const { promptSk, prompt } = scheduleExercisePrompt(frame, time, dayPart);
   const correctPhrase = preferredAppointmentAnswer(time, dayPart);
   const misses = nearMissTimes(time, rng);
@@ -63,7 +63,7 @@ export function buildFrameTimeBuildExercise(
   rng: () => number,
 ): PracticeItem["task"] {
   const frame = pickRandomScheduleFrame(rng);
-  const time = pickScheduleTimeWithoutDayPart(rng);
+  const time = pickScheduleTimeWithoutDayPart(rng, frame);
   const { promptSk, prompt } = scheduleExercisePrompt(frame, time);
   const wrongFrame =
     SCHEDULE_FRAMES.find((candidate) => candidate.id !== frame.id) ?? SCHEDULE_FRAMES[0]!;
@@ -100,7 +100,7 @@ export function buildFrameTimeTypedExercise(
   rng: () => number,
 ): PracticeItem["task"] {
   const frame = pickRandomScheduleFrame(rng);
-  const { time, dayPart } = pickScheduleTime(rng);
+  const { time, dayPart } = pickScheduleTime(rng, frame);
   const answer = preferredAppointmentAnswer(time, dayPart);
   const accepted = typedAcceptedAnswers(frame, time, dayPart).filter(
     (candidate) => candidate !== answer,

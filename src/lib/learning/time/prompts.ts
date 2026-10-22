@@ -33,7 +33,7 @@ export function enExactMinuteMeaningPhrase(time: ClockTimeOfDay): string {
 }
 
 export function enZaCountdownMeaningPhrase(targetHour12: number): string {
-  return enPromptMeaningPhrase(enZaCountdownPrompt(targetHour12));
+  return `five minutes to ${zaCountdownHourEn(targetHour12)}`;
 }
 
 function enAroundMeaning(time: ClockFaceTime): string {
@@ -87,8 +87,14 @@ export function enExactMinuteDigitalPrompt(time: ClockTimeOfDay): string {
   return skWhichPhraseMeans(label);
 }
 
+function zaCountdownHourEn(targetHour12: number): string {
+  return targetHour12 === 10
+    ? "ten"
+    : targetHour12 === 12
+      ? "twelve"
+      : String(targetHour12);
+}
+
 export function enZaCountdownPrompt(targetHour12: number): string {
-  const hourEn =
-    targetHour12 === 10 ? "ten" : targetHour12 === 12 ? "twelve" : String(targetHour12);
-  return `Five minutes to ${hourEn}.`;
+  return `Five minutes to ${zaCountdownHourEn(targetHour12)}.`;
 }
