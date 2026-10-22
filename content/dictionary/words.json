@@ -11222,7 +11222,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "socialne"
+    ]
   },
   {
     "slug": "rozny",
@@ -11261,7 +11263,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "rozne"
+    ]
   },
   {
     "slug": "politicky",
@@ -13352,7 +13356,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "kulturne"
+    ]
   },
   {
     "slug": "miestny",
@@ -13850,6 +13856,7 @@
       }
     ],
     "related": [
+      "spravne",
       "nespravny"
     ]
   },
@@ -14206,6 +14213,7 @@
       }
     ],
     "related": [
+      "krasne",
       "velky",
       "maly",
       "novy",
@@ -14700,6 +14708,7 @@
       }
     ],
     "related": [
+      "rychle",
       "pomaly"
     ]
   },
@@ -97997,7 +98006,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "konkretne"
+    ]
   },
   {
     "slug": "cisty",
@@ -98209,7 +98220,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "pravne"
+    ]
   },
   {
     "slug": "skutocny",
@@ -98512,7 +98525,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "vazne"
+    ]
   },
   {
     "slug": "spokojny",
@@ -98754,7 +98769,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "regionalne"
+    ]
   },
   {
     "slug": "tradicny",
@@ -99163,7 +99180,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "specialne"
+    ]
   },
   {
     "slug": "aktualny",
@@ -99207,7 +99226,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "aktualne"
+    ]
   },
   {
     "slug": "zivy",
@@ -99710,7 +99731,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "pozitivne"
+    ]
   },
   {
     "slug": "ludovy",
@@ -99885,7 +99908,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "literarne"
+    ]
   },
   {
     "slug": "duchovny",
@@ -100268,7 +100293,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "aktivne"
+    ]
   },
   {
     "slug": "zaverecny",
@@ -100558,7 +100585,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "oficialne"
+    ]
   },
   {
     "slug": "realny",
@@ -100602,7 +100631,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "realne"
+    ]
   },
   {
     "slug": "neznamy",
@@ -101111,7 +101142,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "zvlastne"
+    ]
   },
   {
     "slug": "internetovy",
@@ -101314,7 +101347,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "centralne"
+    ]
   },
   {
     "slug": "presny",
@@ -102278,7 +102313,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "negativne"
+    ]
   },
   {
     "slug": "slavnostny",
@@ -102366,7 +102403,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "mimoriadne"
+    ]
   },
   {
     "slug": "slavny",
@@ -102599,7 +102638,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "sudne"
+    ]
   },
   {
     "slug": "clensky",
@@ -104165,7 +104206,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "minimalne"
+    ]
   },
   {
     "slug": "tichy",
@@ -104329,7 +104372,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "profesionalne"
+    ]
   },
   {
     "slug": "drobny",
@@ -104888,7 +104933,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "individualne"
+    ]
   },
   {
     "slug": "normalny",
@@ -104923,7 +104970,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "normalne"
+    ]
   },
   {
     "slug": "uzky",
@@ -105496,7 +105545,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "vzacne"
+    ]
   },
   {
     "slug": "trvaly",
@@ -107371,7 +107422,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "mierne"
+    ]
   },
   {
     "slug": "lekarsky",
@@ -107449,7 +107502,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "maximalne"
+    ]
   },
   {
     "slug": "urokovy",
@@ -108010,7 +108065,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "idealne"
+    ]
   },
   {
     "slug": "dramaticky",
@@ -108088,7 +108145,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "prisne"
+    ]
   },
   {
     "slug": "horsky",
@@ -108720,7 +108779,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "medialne"
+    ]
   },
   {
     "slug": "pritomny",
@@ -109381,7 +109442,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "absolutne"
+    ]
   },
   {
     "slug": "ceskoslovensky",
@@ -109717,7 +109780,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "moralne"
+    ]
   },
   {
     "slug": "socialisticky",
@@ -109853,7 +109918,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "sexualne"
+    ]
   },
   {
     "slug": "dlhorocny",
@@ -110445,7 +110512,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "efektivne"
+    ]
   },
   {
     "slug": "verny",
@@ -110859,7 +110928,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "stale"
+    ]
   },
   {
     "slug": "majstrovsky",
@@ -112577,7 +112648,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "riadne"
+    ]
   },
   {
     "slug": "turecky",
@@ -112642,7 +112715,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "atraktivne"
+    ]
   },
   {
     "slug": "vysokoskolsky",
@@ -113092,7 +113167,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "originalne"
+    ]
   },
   {
     "slug": "jednotny",
@@ -113850,7 +113927,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "intenzivne"
+    ]
   },
   {
     "slug": "rovny",
@@ -114364,7 +114443,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "personalne"
+    ]
   },
   {
     "slug": "potencialny",
@@ -114408,7 +114489,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "potencialne"
+    ]
   },
   {
     "slug": "automobilovy",
@@ -115392,6 +115475,7 @@
       }
     ],
     "related": [
+      "nespravne",
       "spravny"
     ]
   },
@@ -116115,7 +116199,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "radikalne"
+    ]
   },
   {
     "slug": "technologicky",
@@ -117601,7 +117687,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "lokalne"
+    ]
   },
   {
     "slug": "fantasticky",
@@ -118613,7 +118701,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "poriadne"
+    ]
   },
   {
     "slug": "rozvojovy",
@@ -119223,7 +119313,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "definitivne"
+    ]
   },
   {
     "slug": "symbolicky",
@@ -119473,7 +119565,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "rozdielne"
+    ]
   },
   {
     "slug": "civilny",
@@ -120952,7 +121046,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "odvazne"
+    ]
   },
   {
     "slug": "uctovny",
@@ -121020,7 +121116,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "materialne"
+    ]
   },
   {
     "slug": "opatrny",
@@ -121229,7 +121327,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "objektivne"
+    ]
   },
   {
     "slug": "neustaly",
@@ -121280,7 +121380,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "neustale"
+    ]
   },
   {
     "slug": "smiesny",
@@ -121310,7 +121412,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "smiesne"
+    ]
   },
   {
     "slug": "kratkodoby",
@@ -122239,7 +122343,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "nervozne"
+    ]
   },
   {
     "slug": "rekreacny",
@@ -122452,7 +122558,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "agresivne"
+    ]
   },
   {
     "slug": "opatovny",
@@ -123753,7 +123861,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "optimalne"
+    ]
   },
   {
     "slug": "projektovy",
@@ -124471,7 +124581,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "nahle"
+    ]
   },
   {
     "slug": "plastovy",
@@ -125345,7 +125457,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "extremne"
+    ]
   },
   {
     "slug": "nelegalny",
@@ -125389,7 +125503,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "nelegalne"
+    ]
   },
   {
     "slug": "nespokojny",
@@ -125654,7 +125770,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "formalne"
+    ]
   },
   {
     "slug": "univerzalny",
@@ -127885,7 +128003,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "primarne"
+    ]
   },
   {
     "slug": "neziskovy",
@@ -128514,7 +128634,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "preventivne"
+    ]
   },
   {
     "slug": "priebezny",
@@ -131122,7 +131244,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "seriozne"
+    ]
   },
   {
     "slug": "halovy",
@@ -131996,7 +132120,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "nesmierne"
+    ]
   },
   {
     "slug": "karlov",
@@ -133277,7 +133403,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "racionalne"
+    ]
   },
   {
     "slug": "stat-v",
@@ -165210,7 +165338,7 @@
   {
     "slug": "baba",
     "slovak": "baba",
-    "english": "old woman; woman; hag",
+    "english": "old woman; woman (often rude)",
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
@@ -165226,7 +165354,7 @@
       },
       {
         "slovak": "Tá klebetná baba zo susedstva vie o každom všetko.",
-        "english": "That gossipy old hag next door knows everything about everyone.",
+        "english": "That gossipy woman next door knows everything about everyone.",
         "note": "Curated"
       }
     ],
@@ -170522,7 +170650,9 @@
         "tatoebaId": 8863067
       }
     ],
-    "related": []
+    "related": [
+      "staly"
+    ]
   },
   {
     "slug": "uz",
@@ -173565,7 +173695,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "minimalny"
+    ]
   },
   {
     "slug": "spolocne",
@@ -173700,7 +173832,9 @@
         "tatoebaId": 9929190
       }
     ],
-    "related": []
+    "related": [
+      "vazny"
+    ]
   },
   {
     "slug": "skoro",
@@ -173911,7 +174045,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "mimoriadny"
+    ]
   },
   {
     "slug": "celkovo",
@@ -174134,7 +174270,9 @@
         "tatoebaId": 12684086
       }
     ],
-    "related": []
+    "related": [
+      "neustaly"
+    ]
   },
   {
     "slug": "coskoro",
@@ -174263,7 +174401,9 @@
         "tatoebaId": 13390951
       }
     ],
-    "related": []
+    "related": [
+      "poriadny"
+    ]
   },
   {
     "slug": "navzdy",
@@ -174526,7 +174666,9 @@
         "tatoebaId": 9190393
       }
     ],
-    "related": []
+    "related": [
+      "spravny"
+    ]
   },
   {
     "slug": "pekne",
@@ -174801,7 +174943,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "mierny"
+    ]
   },
   {
     "slug": "neskoro",
@@ -175167,7 +175311,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "oficialny"
+    ]
   },
   {
     "slug": "rovno",
@@ -175304,7 +175450,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "definitivny"
+    ]
   },
   {
     "slug": "zadarmo",
@@ -175485,7 +175633,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "aktivny"
+    ]
   },
   {
     "slug": "podstatne",
@@ -175586,7 +175736,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "konkretny"
+    ]
   },
   {
     "slug": "pevne",
@@ -175708,7 +175860,9 @@
         "tatoebaId": 13588675
       }
     ],
-    "related": []
+    "related": [
+      "absolutny"
+    ]
   },
   {
     "slug": "spociatku",
@@ -176024,7 +176178,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "maximalny"
+    ]
   },
   {
     "slug": "medzitym",
@@ -176124,7 +176280,9 @@
         "tatoebaId": 12686939
       }
     ],
-    "related": []
+    "related": [
+      "nesmierny"
+    ]
   },
   {
     "slug": "opatrne",
@@ -176261,7 +176419,9 @@
         "tatoebaId": 12156074
       }
     ],
-    "related": []
+    "related": [
+      "pozitivny"
+    ]
   },
   {
     "slug": "omnoho",
@@ -176574,7 +176734,9 @@
         "tatoebaId": 7584270
       }
     ],
-    "related": []
+    "related": [
+      "nahly"
+    ]
   },
   {
     "slug": "tvrdo",
@@ -176666,7 +176828,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "intenzivny"
+    ]
   },
   {
     "slug": "otvorene",
@@ -176951,7 +177115,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "aktualny"
+    ]
   },
   {
     "slug": "najneskor",
@@ -177183,7 +177349,9 @@
         "tatoebaId": 11889570
       }
     ],
-    "related": []
+    "related": [
+      "prisny"
+    ]
   },
   {
     "slug": "bezne",
@@ -177302,7 +177470,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "riadny"
+    ]
   },
   {
     "slug": "opatovne",
@@ -177721,7 +177891,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "realny"
+    ]
   },
   {
     "slug": "doposial",
@@ -177993,7 +178165,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "specialny"
+    ]
   },
   {
     "slug": "ostro",
@@ -178279,7 +178453,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "negativny"
+    ]
   },
   {
     "slug": "bezpecne",
@@ -178356,7 +178532,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "normalny"
+    ]
   },
   {
     "slug": "zasadne",
@@ -178433,7 +178611,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "krasny"
+    ]
   },
   {
     "slug": "docasne",
@@ -178772,7 +178952,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "efektivny"
+    ]
   },
   {
     "slug": "ekonomicky-adv",
@@ -179048,7 +179230,9 @@
         "tatoebaId": 7584151
       }
     ],
-    "related": []
+    "related": [
+      "socialny"
+    ]
   },
   {
     "slug": "srdecne",
@@ -180202,7 +180386,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "individualny"
+    ]
   },
   {
     "slug": "tajne",
@@ -180465,7 +180651,9 @@
         "tatoebaId": 13067319
       }
     ],
-    "related": []
+    "related": [
+      "extremny"
+    ]
   },
   {
     "slug": "zretelne",
@@ -181381,7 +181569,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "formalny"
+    ]
   },
   {
     "slug": "dorazne",
@@ -181648,7 +181838,9 @@
         "tatoebaId": 8905431
       }
     ],
-    "related": []
+    "related": [
+      "nespravny"
+    ]
   },
   {
     "slug": "zvonku",
@@ -181710,7 +181902,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "idealny"
+    ]
   },
   {
     "slug": "ucinne",
@@ -182069,7 +182263,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "nervozny"
+    ]
   },
   {
     "slug": "odborne",
@@ -182209,7 +182405,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "medialny"
+    ]
   },
   {
     "slug": "dovnutra",
@@ -182624,7 +182822,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "objektivny"
+    ]
   },
   {
     "slug": "neuspesne",
@@ -182849,7 +183049,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "radikalny"
+    ]
   },
   {
     "slug": "nahodne",
@@ -183064,7 +183266,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "profesionalny"
+    ]
   },
   {
     "slug": "vyhodne",
@@ -183318,7 +183522,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "rychly"
+    ]
   },
   {
     "slug": "usilovne",
@@ -184413,7 +184619,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "pravny"
+    ]
   },
   {
     "slug": "nasilu",
@@ -184820,7 +185028,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "odvazny"
+    ]
   },
   {
     "slug": "zurivo",
@@ -184896,7 +185106,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "primarny"
+    ]
   },
   {
     "slug": "radostne",
@@ -186254,7 +186466,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "rozny"
+    ]
   },
   {
     "slug": "tematicky-adv",
@@ -186369,7 +186583,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "moralny"
+    ]
   },
   {
     "slug": "napravo",
@@ -187091,7 +187307,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "kulturny"
+    ]
   },
   {
     "slug": "obrazne",
@@ -187407,7 +187625,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "agresivny"
+    ]
   },
   {
     "slug": "nasilne",
@@ -188159,7 +188379,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "preventivny"
+    ]
   },
   {
     "slug": "predvlani",
@@ -188241,7 +188463,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "racionalny"
+    ]
   },
   {
     "slug": "zjednodusene",
@@ -188391,7 +188615,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "nelegalny"
+    ]
   },
   {
     "slug": "malicka",
@@ -188965,7 +189191,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "seriozny"
+    ]
   },
   {
     "slug": "sustredene",
@@ -189042,7 +189270,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "smiesny"
+    ]
   },
   {
     "slug": "kazdodenne",
@@ -189423,7 +189653,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "sexualny"
+    ]
   },
   {
     "slug": "potajomky",
@@ -189510,7 +189742,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "potencialny"
+    ]
   },
   {
     "slug": "permanentne",
@@ -189843,7 +190077,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "vzacny"
+    ]
   },
   {
     "slug": "povacsine",
@@ -190316,7 +190552,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "sudny"
+    ]
   },
   {
     "slug": "skumavo",
@@ -190460,7 +190698,9 @@
         "tatoebaId": 9838772
       }
     ],
-    "related": []
+    "related": [
+      "zvlastny"
+    ]
   },
   {
     "slug": "oddavna",
@@ -191318,7 +191558,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "atraktivny"
+    ]
   },
   {
     "slug": "jednomyselne",
@@ -193525,7 +193767,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "rozdielny"
+    ]
   },
   {
     "slug": "pobavene",
@@ -193563,7 +193807,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "originalny"
+    ]
   },
   {
     "slug": "polo",
@@ -194636,7 +194882,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "materialny"
+    ]
   },
   {
     "slug": "vulgarne",
@@ -194846,7 +195094,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "regionalny"
+    ]
   },
   {
     "slug": "rozhorcene",
@@ -195382,7 +195632,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "personalny"
+    ]
   },
   {
     "slug": "nepatrne",
@@ -195439,7 +195691,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "centralny"
+    ]
   },
   {
     "slug": "realisticky",
@@ -195777,7 +196031,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "lokalny"
+    ]
   },
   {
     "slug": "jednorazovo",
@@ -195882,7 +196138,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "literarny"
+    ]
   },
   {
     "slug": "uporne",
@@ -195992,7 +196250,9 @@
         "note": "Curated"
       }
     ],
-    "related": []
+    "related": [
+      "optimalny"
+    ]
   },
   {
     "slug": "slepo",

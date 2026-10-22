@@ -49,6 +49,26 @@ describe("dictionary examples", () => {
     expect(listed).toEqual([]);
   });
 
+  it("links an adverb and the adjective it is spelled like", () => {
+    // krásne is both the adverb and a form of krásny, so each page points to the other.
+    const adjectives = new Map(
+      words
+        .filter((word) => word.category === "Adjectives")
+        .map((word) => [word.slovak, word]),
+    );
+    const unlinked = words
+      .filter((word) => word.category === "Adverbs" && word.slovak.endsWith("e"))
+      .flatMap((adverb) => {
+        const adjective = adjectives.get(`${adverb.slovak.slice(0, -1)}y`);
+        if (!adjective) return [];
+        return adverb.related.includes(adjective.slug) &&
+          adjective.related.includes(adverb.slug)
+          ? []
+          : [`${adverb.slug} / ${adjective.slug}`];
+      });
+    expect(unlinked).toEqual([]);
+  });
+
   it("does not fill one short frame with many headwords", () => {
     const slugsByFrame = new Map<string, Set<string>>();
     for (const word of words) {
