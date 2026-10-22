@@ -74773,12 +74773,6 @@
         "tatoebaId": 13789206
       },
       {
-        "slovak": "Nezaujímam sa o politiku.",
-        "english": "I'm not interested in politics.",
-        "note": "Tatoeba",
-        "tatoebaId": 12889250
-      },
-      {
         "slovak": "Politik odpovedal na otázky občanov na námestí.",
         "english": "The politician answered citizens' questions in the square.",
         "note": "Curated"
@@ -95565,52 +95559,19 @@
     "gender": "masculine-inanimate",
     "examples": [
       {
-        "slovak": "Týždeň má sedem dní: pondelok, utorok, streda, štvrtok, piatok, sobota a nedeľa.",
-        "english": "A week has seven days: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday.",
-        "note": "Tatoeba",
-        "tatoebaId": 8961211
+        "slovak": "Stôl stojí v strede izby.",
+        "english": "The table stands in the middle of the room.",
+        "note": "Curated"
       },
       {
-        "slovak": "Pondelok, utorok, streda, štvrtok, piatok, sobota a nedeľa je sedem dní týždňa.",
-        "english": "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday are the seven days of the week.",
-        "note": "Tatoeba",
-        "tatoebaId": 9872867
+        "slovak": "Postavte sa do stredu kruhu.",
+        "english": "Stand in the middle of the circle.",
+        "note": "Curated"
       },
       {
-        "slovak": "Dnes je streda.",
-        "english": "Today it's Wednesday.",
-        "note": "Tatoeba",
-        "tatoebaId": 9932772
-      },
-      {
-        "slovak": "Dneska je streda.",
-        "english": "Today it's Wednesday.",
-        "note": "Tatoeba",
-        "tatoebaId": 9932773
-      },
-      {
-        "slovak": "Dnes je streda?",
-        "english": "Is today Wednesday?",
-        "note": "Tatoeba",
-        "tatoebaId": 12727338
-      },
-      {
-        "slovak": "Dneska je streda?",
-        "english": "Is today Wednesday?",
-        "note": "Tatoeba",
-        "tatoebaId": 12727339
-      },
-      {
-        "slovak": "Včera bola streda.",
-        "english": "Yesterday was Wednesday.",
-        "note": "Tatoeba",
-        "tatoebaId": 12727813
-      },
-      {
-        "slovak": "Viem, že je streda.",
-        "english": "I know it's Wednesday.",
-        "note": "Tatoeba",
-        "tatoebaId": 12756895
+        "slovak": "Bývame v strede mesta.",
+        "english": "We live in the center of town.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -151447,52 +151408,19 @@
     "pluralOnlyGender": "neuter",
     "examples": [
       {
-        "slovak": "Dáte si niečo na pitie?",
-        "english": "Would you like something to drink?",
-        "note": "Tatoeba",
-        "tatoebaId": 8869206
+        "slovak": "Dáta sú uložené na serveri.",
+        "english": "The data is stored on the server.",
+        "note": "Curated"
       },
       {
-        "slovak": "Dáte si kávu alebo čaj?",
-        "english": "Do you want coffee or tea?",
-        "note": "Tatoeba",
-        "tatoebaId": 9833352
+        "slovak": "Tieto dáta treba skontrolovať.",
+        "english": "This data needs to be checked.",
+        "note": "Curated"
       },
       {
-        "slovak": "Dáte si zelený čaj?",
-        "english": "Would you like some green tea?",
-        "note": "Tatoeba",
-        "tatoebaId": 10183907
-      },
-      {
-        "slovak": "Dáte si ešte piva?",
-        "english": "Would you like some more beer?",
-        "note": "Tatoeba",
-        "tatoebaId": 11889508
-      },
-      {
-        "slovak": "Dáte si kávu?",
-        "english": "Would you like some coffee?",
-        "note": "Tatoeba",
-        "tatoebaId": 12634951
-      },
-      {
-        "slovak": "Dáte si čaj?",
-        "english": "Would you like some tea?",
-        "note": "Tatoeba",
-        "tatoebaId": 12634968
-      },
-      {
-        "slovak": "Dáte si čaj alebo kávu?",
-        "english": "Would you like tea or coffee?",
-        "note": "Tatoeba",
-        "tatoebaId": 12635285
-      },
-      {
-        "slovak": "Dáte si ešte?",
-        "english": "Would you like some more?",
-        "note": "Tatoeba",
-        "tatoebaId": 12635345
+        "slovak": "S dátami pracujem každý deň.",
+        "english": "I work with data every day.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -172080,10 +172008,19 @@
     "gender": "feminine",
     "examples": [
       {
-        "slovak": "Všetkým zverom zeme a všetkému vtáctvu neba i všetkému, čo sa hýbe na zemi, v čom je dych života, všetku zelenú trávu.",
-        "english": "And to all beasts of the earth, and to every fowl of the air, and to all that move upon the earth, and wherein there is life, that they may have to feed upon.",
-        "note": "Tatoeba",
-        "tatoebaId": 9733958
+        "slovak": "V lese žije veľa zveri.",
+        "english": "Many wild animals live in the forest.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Poľovník pozoroval zver na lúke.",
+        "english": "The hunter was watching the game in the meadow.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Divá zver sa v zime blíži k dedinám.",
+        "english": "In winter, wild animals come closer to the villages.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -172112,28 +172049,19 @@
     "gender": "masculine-inanimate",
     "examples": [
       {
-        "slovak": "Hlavné mesto Česka je Praha.",
-        "english": "The capital of Czechia is Prague.",
-        "note": "Tatoeba",
-        "tatoebaId": 10726988
+        "slovak": "Stál na prahu a nechcel vojsť.",
+        "english": "He stood on the threshold and didn't want to come in.",
+        "note": "Curated"
       },
       {
-        "slovak": "Hlavným mestom Česka je Praha.",
-        "english": "The capital of Czechia is Prague.",
-        "note": "Tatoeba",
-        "tatoebaId": 12743350
+        "slovak": "Topánky nechal pri prahu.",
+        "english": "He left his shoes by the doorstep.",
+        "note": "Curated"
       },
       {
-        "slovak": "Praha je hlavné mesto Česka.",
-        "english": "Prague is the capital of Czechia.",
-        "note": "Tatoeba",
-        "tatoebaId": 12743387
-      },
-      {
-        "slovak": "Praha je hlavným mestom Česka.",
-        "english": "Prague is the capital of Czechia.",
-        "note": "Tatoeba",
-        "tatoebaId": 12743389
+        "slovak": "Stojíme na prahu nového roka.",
+        "english": "We are on the threshold of a new year.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -232722,18 +232650,6 @@
         "english": "\"I'm not a robot,\" said the robot.",
         "note": "Tatoeba",
         "tatoebaId": 14011210
-      },
-      {
-        "slovak": "Ich robota je krájať zeleninu.",
-        "english": "Their job is to cut the vegetables.",
-        "note": "Tatoeba",
-        "tatoebaId": 9987857
-      },
-      {
-        "slovak": "Robota je dôležitejšia.",
-        "english": "Work is more important.",
-        "note": "Tatoeba",
-        "tatoebaId": 12871974
       },
       {
         "slovak": "Musíme dokončiť túto robotu.",

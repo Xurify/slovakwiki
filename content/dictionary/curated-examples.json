@@ -47550,5 +47550,73 @@
       "english": "In the dorm I share a room with a Spanish student.",
       "note": "Curated"
     }
+  ],
+  "stred": [
+    {
+      "slovak": "Stôl stojí v strede izby.",
+      "english": "The table stands in the middle of the room.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Postavte sa do stredu kruhu.",
+      "english": "Stand in the middle of the circle.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Bývame v strede mesta.",
+      "english": "We live in the center of town.",
+      "note": "Curated"
+    }
+  ],
+  "data": [
+    {
+      "slovak": "Dáta sú uložené na serveri.",
+      "english": "The data is stored on the server.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Tieto dáta treba skontrolovať.",
+      "english": "This data needs to be checked.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "S dátami pracujem každý deň.",
+      "english": "I work with data every day.",
+      "note": "Curated"
+    }
+  ],
+  "zver": [
+    {
+      "slovak": "V lese žije veľa zveri.",
+      "english": "Many wild animals live in the forest.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Poľovník pozoroval zver na lúke.",
+      "english": "The hunter was watching the game in the meadow.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Divá zver sa v zime blíži k dedinám.",
+      "english": "In winter, wild animals come closer to the villages.",
+      "note": "Curated"
+    }
+  ],
+  "prah": [
+    {
+      "slovak": "Stál na prahu a nechcel vojsť.",
+      "english": "He stood on the threshold and didn't want to come in.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Topánky nechal pri prahu.",
+      "english": "He left his shoes by the doorstep.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Stojíme na prahu nového roka.",
+      "english": "We are on the threshold of a new year.",
+      "note": "Curated"
+    }
   ]
 }
