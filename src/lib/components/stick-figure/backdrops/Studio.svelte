@@ -14,7 +14,6 @@
     })),
   );
 
-  /** A recording's waveform on the laptop screen. */
   const wave = [3, 7, 4, 10, 6, 12, 5, 9, 4, 11, 7, 5, 8, 3];
 </script>
 
@@ -105,32 +104,32 @@
   />
 {/each}
 
-<ellipse cx="480" cy="227" rx="20" ry="3" class="fill-scene-line/15" />
-<path d="M466 224h28v3h-28Z" class="fill-scene-line/50" />
-<rect x="477" y="180" width="6" height="44" class="fill-scene-line/50" />
-<ellipse cx="480" cy="178" rx="32" ry="6" class="fill-scene-wood" />
-<ellipse cx="480" cy="180" rx="30" ry="3" class="fill-scene-line/12" />
+<!-- Stands where the hosts do, at the front, so the mics come up to their mouths. -->
+<ellipse cx="480" cy="289" rx="24" ry="4" class="fill-scene-line/15" />
+<ellipse cx="480" cy="286" rx="17" ry="3.5" class="fill-scene-line/60" />
+<rect x="476.5" y="212" width="7" height="74" class="fill-scene-line/60" />
+<ellipse cx="480" cy="210" rx="30" ry="6" class="fill-scene-wood" />
+<ellipse cx="480" cy="212" rx="28" ry="3" class="fill-scene-line/12" />
 <path
-  d="M468 175L462 154M492 175L498 154"
+  d="M470 208L454 158M490 208L506 158"
   class="stroke-scene-line/70"
   fill="none"
-  stroke-width="2"
+  stroke-width="2.4"
 />
-<path d="M462 175h12M486 175h12" class="stroke-scene-line/70" stroke-width="2.4" />
-{#each [{ x: 459, turn: -18 }, { x: 501, turn: 18 }] as mic (mic.x)}
+{#each [{ x: 452, turn: -24 }, { x: 508, turn: 24 }] as mic (mic.x)}
   <g transform="rotate({mic.turn} {mic.x} 146)">
     <rect
-      x={mic.x - 5}
-      y="134"
-      width="10"
-      height="20"
-      rx="5"
+      x={mic.x - 6}
+      y="132"
+      width="12"
+      height="26"
+      rx="6"
       class="fill-portrait-vest"
     />
     <path
-      d="M{mic.x - 4} 140h8M{mic.x - 4} 144h8"
+      d="M{mic.x - 5} 139h10M{mic.x - 5} 144h10"
       class="stroke-scene-edge"
-      stroke-width="1"
+      stroke-width="1.2"
     />
   </g>
 {/each}

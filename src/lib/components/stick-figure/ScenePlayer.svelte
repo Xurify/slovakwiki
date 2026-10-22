@@ -195,7 +195,6 @@
     why?: string;
   }>();
 
-  /** The question on what was heard that is open, and how many were right. */
   let checkAt = $state(0);
   let checksRight = $state(0);
 
@@ -336,7 +335,6 @@
     checkAt += 1;
   }
 
-  /** A check's line acted again, everyone where it found them. */
   function replay(lineId: string | undefined, onEnded: () => void): void {
     const index = scene.lines.findIndex((line) => line.id === lineId);
     if (index === -1) {

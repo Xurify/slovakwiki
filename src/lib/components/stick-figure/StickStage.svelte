@@ -338,7 +338,6 @@
     actors[id] = { cue: (actors[id]?.cue ?? 0) + 1, plan, talking: true };
   }
 
-  /** The stage's size in px as it is drawn now. */
   export function size(): { height: number; width: number } {
     return { height: stageHeight, width: stageWidth };
   }

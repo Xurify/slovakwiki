@@ -430,7 +430,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.muz, [140, 104, 22, 46]),
     drawn(WORDS.zena, [182, 108, 22, 42]),
     drawn(WORDS.okno, [96, 44, 150, 124]),
-    twins(WORDS.taska, [520, 190, 38, 36], [152, 190, 38, 36], "far"),
+    twins(WORDS.taska, [510, 240, 48, 50], [152, 189, 38, 38], "far"),
     drawn(WORDS.zaves, [78, 36, 34, 142], [230, 36, 34, 142]),
     drawn(WORDS.obraz, [742, 50, 104, 72], [424, 36, 50, 40], [488, 42, 40, 34]),
     drawn(WORDS.pohovka, [666, 152, 254, 86]),
@@ -465,10 +465,10 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
   studio: [
     drawn(WORDS.dvere, [246, 40, 82, 186]),
     drawn(WORDS.hodiny, [93, 45, 42, 42]),
-    drawn(WORDS.stol, [448, 172, 64, 54], [24, 156, 180, 70]),
+    drawn(WORDS.stol, [450, 204, 60, 86], [24, 156, 180, 70]),
     drawn(WORDS.pocitac, [56, 116, 68, 44]),
     drawn(WORDS.sluchadla, [128, 130, 52, 30]),
-    drawn(WORDS.mikrofon, [446, 130, 26, 32], [488, 130, 26, 32]),
+    drawn(WORDS.mikrofon, [436, 128, 30, 36], [494, 128, 30, 36]),
     drawn(WORDS.okno, [660, 52, 140, 108]),
     drawn(WORDS.reproduktor, [832, 140, 40, 86]),
     drawn(WORDS.rastlina, plantAt(922, 240)),
@@ -587,14 +587,12 @@ const VERBS_AFTER = [
   "stoja",
 ];
 
-/** Whether each of a line's words ends a clause, a comma or a full stop after it. */
 function clauseEnds(slovak: string): boolean[] {
   return [...slovak.matchAll(/\p{L}+([^\p{L}]*)/gu)].map(([, after]) =>
     /[,.!?…;:–—]/.test(after),
   );
 }
 
-/** A thing a scene has named or pointed at, and which copy of it. */
 export interface NamedThing {
   copy?: number;
   id: string;
@@ -621,7 +619,6 @@ function sameTarget(a: PointTarget, b: PointTarget | undefined): boolean {
   return b?.kind === "prop" && b.holder === a.holder;
 }
 
-/** Someone holding something up to the speaker, and what. */
 export interface ShownProp {
   holder: LessonCharacterId;
   prop?: StickPropId;

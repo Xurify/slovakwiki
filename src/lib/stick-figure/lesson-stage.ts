@@ -31,7 +31,6 @@ const CHAPTER_SETTINGS: Record<string, StageSetting> = {
   "podcast-demonstratives-market": "market",
 };
 
-/** Where a podcast chapter plays on the stage: the studio, unless the hosts go out. */
 export function chapterSettingFor(chapterId: string): StageSetting {
   return CHAPTER_SETTINGS[chapterId] ?? "studio";
 }
