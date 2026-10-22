@@ -475,7 +475,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.koberec, [210, 252, 540, 40]),
   ],
   default: [
-    drawn(WORDS.hrad, [636, 38, 88, 74]),
+    drawn(WORDS.hrad, [632, 34, 96, 78]),
     drawn(WORDS.kopec, [520, 84, 440, 110]),
     drawn(WORDS.dunaj, [0, 194, 960, 18]),
     drawn(WORDS.strom, [836, 86, 84, 140], [52, 88, 88, 136]),
