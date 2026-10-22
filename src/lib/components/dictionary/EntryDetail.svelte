@@ -186,6 +186,7 @@
         example={item.example}
         lemma={entry.slovak}
         category={entry.category}
+        gender={entry.gender}
         audioKey={audioSrcs[item.index] ? `s${senseIndex}-e${item.index}` : undefined}
       />
     {/each}
