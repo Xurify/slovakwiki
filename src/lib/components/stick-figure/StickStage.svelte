@@ -33,7 +33,7 @@
     thingCenter,
     thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
-  import { stageMarks } from "$lib/stick-figure/stage-layout";
+  import { STAGE_POSTS, stageMarks } from "$lib/stick-figure/stage-layout";
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
@@ -115,7 +115,22 @@
       ),
     ) as Partial<Record<LessonCharacterId, Facing>>,
   );
-  const layout = $derived(stageMarks(direction.cast, entering, stageWidth));
+  const post = $derived(STAGE_POSTS[setting]);
+  const layout = $derived(
+    stageMarks(
+      direction.cast,
+      entering,
+      stageWidth,
+      post === undefined || !stageWidth
+        ? undefined
+        : backdropToStage(
+            { x: post, y: 0 },
+            stageWidth,
+            stageHeight,
+            backdropAlign(setting),
+          ).x,
+    ),
+  );
   const pickedThing = $derived(direction.things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room
