@@ -44,6 +44,9 @@
     <path d="M5 20a7 7 0 0 1 14 0" />
   {:else if name === "play"}
     <path d="M8 5.5v13l10.5-6.5Z" fill="currentColor" stroke="none" />
+  {:else if name === "replay"}
+    <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3" />
+    <path d="M4.5 4v4h4" />
   {:else}
     <rect
       x="6.5"
