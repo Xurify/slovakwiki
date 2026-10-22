@@ -362,17 +362,24 @@ export function collectAudioTargets(
   ]);
 }
 
+/** Every dictionary and lesson target by its clip's `{kind}/{hash}.mp3` key. */
+export function collectAudioTargetsByObjectKey(
+  baseConfig: AudioConfig,
+): Map<string, AudioTarget> {
+  const byKey = new Map<string, AudioTarget>();
+  for (const target of collectAudioTargets({}, baseConfig)) {
+    const voiceConfig = target.voiceConfig ?? baseConfig;
+    byKey.set(audioRelativePath(target.text, target.kind, voiceConfig), target);
+  }
+  return byKey;
+}
+
 /**
  * Live object keys for current config + content.
  * Anything else under static/audio/{kind}/ is an orphan (old model/settings hash).
  */
 export function collectExpectedAudioObjectKeys(baseConfig: AudioConfig): Set<string> {
-  const keys = new Set<string>();
-  for (const target of collectAudioTargets({}, baseConfig)) {
-    const voiceConfig = target.voiceConfig ?? baseConfig;
-    keys.add(audioRelativePath(target.text, target.kind, voiceConfig));
-  }
-  return keys;
+  return new Set(collectAudioTargetsByObjectKey(baseConfig).keys());
 }
 
 /** Lemma texts — examples that match a lemma resolve to `lemma/` path. */
