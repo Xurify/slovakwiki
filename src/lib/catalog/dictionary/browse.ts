@@ -82,7 +82,7 @@ export interface DictionaryIndexSidecarEntry {
 
 export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
   return words.map((word) => {
-    const forms = searchFormsForLemma(word.slovak, word.category);
+    const forms = searchFormsForLemma(word.slovak, word.category, word.gender);
     const href = dictionaryHrefForSense(word, words);
     return {
       slug: word.slug,
