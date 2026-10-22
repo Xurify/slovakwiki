@@ -42,7 +42,6 @@ function englishPlural({ english }: SceneThing): boolean {
   return english.endsWith("s");
 }
 
-/** Marks the ending a noun changes in the accusative, if it changes. */
 function endingMark(thing: SceneThing, start: number): TextMark[] {
   const accusative = accusativeOf(thing);
   if (accusative === thing.word) return [];

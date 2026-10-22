@@ -21,7 +21,6 @@ const STAGE_SETTINGS: Record<string, LessonSceneArtId> = {
   "grammar/byt-present": "registration",
 };
 
-/** Where a lesson's scene plays on the stick-figure stage. */
 export function stageSettingFor(lessonId: string): LessonSceneArtId {
   return STAGE_SETTINGS[lessonId] ?? storySettingForLesson(lessonId).art;
 }
