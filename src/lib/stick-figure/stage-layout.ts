@@ -17,7 +17,7 @@ export const STAGE_POSTS: Partial<Record<StageSetting, number>> = {
   cafe: 690,
   counter: 560,
   // Left of the bag on the rug, so nobody stands on it.
-  home: 400,
+  home: 360,
   market: 660,
   registration: 560,
 };
