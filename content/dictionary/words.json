@@ -7459,18 +7459,18 @@
   {
     "slug": "kolo",
     "slovak": "kolo",
-    "english": "circle; round; lap",
+    "english": "circle; round; lap; bike (colloq.)",
     "category": "Nouns",
     "gender": "neuter",
     "examples": [
       {
-        "slovak": "Hrajú tretie kolo súťaže.",
-        "english": "They are playing the third round of the competition.",
+        "slovak": "Ideme na kolo.",
+        "english": "We're going for a bike ride.",
         "note": "Curated"
       },
       {
-        "slovak": "Vo finálovom kole získali rozhodujúci bod.",
-        "english": "In the final round they won the decisive point.",
+        "slovak": "Hrajú tretie kolo súťaže.",
+        "english": "They are playing the third round of the competition.",
         "note": "Curated"
       },
       {
@@ -7481,6 +7481,16 @@
       {
         "slovak": "Sadli sme si do kola okolo ohňa.",
         "english": "We sat in a circle around the fire.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vo finálovom kole získali rozhodujúci bod.",
+        "english": "In the final round they won the decisive point.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po práci idem na kolo do parku.",
+        "english": "After work I'm going for a bike ride in the park.",
         "note": "Curated"
       }
     ],
@@ -156551,12 +156561,6 @@
     "category": "Nouns",
     "gender": "feminine",
     "examples": [
-      {
-        "slovak": "Diétna kola stojí na Ukrajine ₴2.",
-        "english": "A diet Coke in Ukraine costs ₴2.",
-        "note": "Tatoeba",
-        "tatoebaId": 1044817
-      },
       {
         "slovak": "Kolu, prosím.",
         "english": "A coke, please.",

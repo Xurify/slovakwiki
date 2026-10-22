@@ -88,6 +88,11 @@
   ],
   "kolo": [
     {
+      "slovak": "Ideme na kolo.",
+      "english": "We're going for a bike ride.",
+      "note": "Curated"
+    },
+    {
       "slovak": "Hrajú tretie kolo súťaže.",
       "english": "They are playing the third round of the competition.",
       "note": "Curated"
@@ -100,6 +105,11 @@
     {
       "slovak": "Sadli sme si do kola okolo ohňa.",
       "english": "We sat in a circle around the fire.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Po práci idem na kolo do parku.",
+      "english": "After work I'm going for a bike ride in the park.",
       "note": "Curated"
     }
   ],
