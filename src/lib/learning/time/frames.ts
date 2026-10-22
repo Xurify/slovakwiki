@@ -1,6 +1,7 @@
 import { markedText } from "$lib/learning/marked-text";
 import type { DialogueTurn } from "$lib/learning/types";
 import {
+  appointment24hPhrase,
   appointmentChoiceWhy,
   appointmentDayPartChoiceWhy,
   appointmentPhrase,
@@ -8,6 +9,7 @@ import {
   dayPartForHour24,
   englishTimeGloss,
   englishTimeMeaningPhrase,
+  isNoonTime,
   randomFaceHour12,
   randomQuarterMinute,
   shuffleArray,
@@ -24,6 +26,8 @@ export interface ScheduleFrame {
   skQuestion: string;
   enQuestion: string;
   whyCarriers: string;
+  /** Face hours that suit the event; any hour when unset. */
+  hours?: number[];
 }
 
 export const SCHEDULE_FRAMES: ScheduleFrame[] = [
@@ -46,6 +50,7 @@ export const SCHEDULE_FRAMES: ScheduleFrame[] = [
     skQuestion: "Kedy obedujeme?",
     enQuestion: "When do we have lunch?",
     whyCarriers: "**Obed** is lunch. **Obedujeme** means we have lunch.",
+    hours: [11, 12, 1, 2],
   },
   {
     id: "train-leaves",
@@ -131,11 +136,14 @@ export function isAmbiguousOnTheHour(time: ClockFaceTime): boolean {
   return time.minute === 0 && (time.hour === 7 || time.hour === 8);
 }
 
-export function pickScheduleTime(rng: () => number): {
+export function pickScheduleTime(
+  rng: () => number,
+  frame?: ScheduleFrame,
+): {
   time: ClockFaceTime;
   dayPart?: DayPart;
 } {
-  const hour = randomFaceHour12(rng);
+  const hour = frame?.hours ? pickFrom(rng, frame.hours) : randomFaceHour12(rng);
   const minute = randomQuarterMinute(rng);
   const time: ClockFaceTime = { hour, minute };
 
@@ -149,10 +157,13 @@ export function pickScheduleTime(rng: () => number): {
   return { time };
 }
 
-export function pickScheduleTimeWithoutDayPart(rng: () => number): ClockFaceTime {
-  let picked = pickScheduleTime(rng);
+export function pickScheduleTimeWithoutDayPart(
+  rng: () => number,
+  frame?: ScheduleFrame,
+): ClockFaceTime {
+  let picked = pickScheduleTime(rng, frame);
   while (picked.dayPart) {
-    picked = pickScheduleTime(rng);
+    picked = pickScheduleTime(rng, frame);
   }
   return picked.time;
 }
@@ -253,9 +264,24 @@ export function typedAcceptedAnswers(
   time: ClockFaceTime,
   dayPart?: DayPart,
 ): string[] {
-  const preferred = preferredAppointmentAnswer(time, dayPart);
-  const full = fullScheduleLine(frame, time, dayPart);
-  const alts = [preferred, full];
+  const phrases = [preferredAppointmentAnswer(time, dayPart)];
+  if (!dayPart && isNoonTime(time)) {
+    phrases.push("O dvanástej.", "O dvanástej napoludnie.");
+  }
+  if (dayPart === "večer") {
+    phrases.push(appointment24hPhrase({ hour: time.hour + 12, minute: time.minute }));
+  }
+
+  const tokens = frame.skPrefixTokens;
+  const verb = tokens.length > 1 ? tokens[tokens.length - 1]! : undefined;
+  const alts: string[] = [];
+  for (const phrase of phrases) {
+    const tail = phrase.replace(/^O /, "o ");
+    alts.push(phrase, `${tokens.join(" ")} ${tail}`);
+    if (verb) {
+      alts.push(`${verb.charAt(0).toLocaleUpperCase("sk-SK")}${verb.slice(1)} ${tail}`);
+    }
+  }
   return [...new Set(alts)];
 }
 
@@ -333,8 +359,8 @@ function addPolRound(rng: () => number): NegotiateRound {
     context: negotiateOfferTurn(day, proposed),
     prompt,
     answer,
-    acceptedAnswers: bare !== answer ? [bare] : [],
-    why: `**Lepšie** moves the time. She said **${citedTime(proposed)}**. **${citedTime(better)}** is *${prompt.replace(/\.$/, "")}* — **pol** names the hour ahead, so keep her word.`,
+    acceptedAnswers: [bare, `Radšej ${citedTime(better)}.`],
+    why: `**Lepšie** moves the time. She said **${citedTime(proposed)}**. **${citedTime(better)}** is *at ${englishTimeMeaningPhrase(better)}* — **pol** names the hour ahead, so keep her word.`,
   };
 }
 
@@ -351,8 +377,8 @@ function dropPolRound(rng: () => number): NegotiateRound {
     context: negotiateOfferTurn(day, proposed),
     prompt,
     answer,
-    acceptedAnswers: [appointmentPhrase(better)],
-    why: `**Lepšie** drops **pol**. She said **${citedTime(proposed)}**. **${citedTime(better)}** is *${prompt.replace(/\.$/, "")}*.`,
+    acceptedAnswers: [appointmentPhrase(better), `Radšej ${citedTime(better)}.`],
+    why: `**Lepšie** drops **pol**. She said **${citedTime(proposed)}**. **${citedTime(better)}** is *at ${englishTimeMeaningPhrase(better)}*.`,
   };
 }
 
@@ -366,7 +392,7 @@ function agreeTimeRound(rng: () => number): NegotiateRound {
     context: negotiateOfferTurn(day, time),
     prompt,
     answer: `Áno. ${phrase}.`,
-    acceptedAnswers: [phrase, `${phrase}.`],
+    acceptedAnswers: [phrase, `Áno, ${citedTime(time)}.`],
     why: `**Áno** agrees. **${citedTime(time)}** is her time, echoed back. It stays locative after **o**.`,
   };
 }
@@ -380,7 +406,10 @@ function moveDayRound(rng: () => number): NegotiateRound {
     context: negotiateOfferTurn(move.from, time),
     prompt: `I can't on ${move.from.en}. ${move.to.en}?`,
     answer,
-    acceptedAnswers: [],
+    acceptedAnswers: [
+      `Nemôžem v ${move.from.inPhrase}. V ${move.to.inPhrase}?`,
+      `Ja nemôžem v ${move.from.inPhrase}. V ${move.to.inPhrase}?`,
+    ],
     why: `**Nemôžem** means I can't. **${move.from.lemma}** after **v** is **v ${move.from.inPhrase}**.`,
   };
 }

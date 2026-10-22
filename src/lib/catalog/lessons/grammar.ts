@@ -38,7 +38,7 @@ export const grammarLessons: Lesson[] = [
             {
               id: "he-reads",
               label: "Číta knihu. A ty?",
-              whyWrong: "**Číta** ends in **-a** for he/she — not I.",
+              whyWrong: "**Číta** has no personal ending: it is he/she — not I.",
             },
             {
               id: "you-read",
@@ -66,10 +66,9 @@ export const grammarLessons: Lesson[] = [
           choices: [
             { id: "you-both", label: "Čítate tu každé ráno?" },
             {
-              id: "you-one",
-              label: "Čítaš tu každé ráno?",
-              whyWrong:
-                "**Čítaš** asks only Anna. You are asking her and Peter together: **čítate**.",
+              id: "we",
+              label: "Čítame tu každé ráno?",
+              whyWrong: "**Čítame** is we — you are asking them: **čítate**.",
             },
             {
               id: "they",
@@ -128,7 +127,7 @@ export const grammarLessons: Lesson[] = [
     ],
     pattern: {
       title: "Six endings, one present tense",
-      body: "Čítať shows the pattern: čítam, čítaš, číta, čítame, čítate, čítajú. Slovak often drops ja, ty, and my because the ending already says who acts. Vy covers both plural you and formal singular you.",
+      body: "Čítať shows the pattern: čítam, čítaš, číta, čítame, čítate, čítajú. Slovak usually leaves out the subject pronoun because the ending already says who acts. Vy covers both plural you and formal singular you.",
     },
     beats: withPresentTenseExercises(
       {
@@ -141,7 +140,7 @@ export const grammarLessons: Lesson[] = [
           {
             id: "third-person",
             label: "Číta knihu.",
-            whyWrong: "**Číta** ends in **-a** for he/she — not I.",
+            whyWrong: "**Číta** has no personal ending: it is he/she — not I.",
           },
           {
             id: "second-person",
@@ -219,7 +218,8 @@ export const grammarLessons: Lesson[] = [
     track: "grammar",
     slug: "byt-present",
     title: "Present forms of byť",
-    promise: "Say who you are and where you are with som / ste / je.",
+    promise:
+      "Use som, sme, ste, and je to say who someone is and where people and things are.",
     scene: [
       {
         id: bytLineIds.receptionistAreYouAlex,
@@ -251,9 +251,9 @@ export const grammarLessons: Lesson[] = [
       {
         id: bytLineIds.receptionistFirstTime,
         speaker: "Receptionist",
-        slovak: "Je to tu prvýkrát?",
-        english: "Is this your first time here?",
-        audio: { transcript: "Je to tu prvýkrát?" },
+        slovak: "Je to vaša prvá návšteva?",
+        english: "Is this your first visit?",
+        audio: { transcript: "Je to vaša prvá návšteva?" },
       },
       {
         id: bytLineIds.youWithFriends,
@@ -266,14 +266,15 @@ export const grammarLessons: Lesson[] = [
           choices: [
             { id: "we-here", label: "Áno. Sme tu s priateľmi." },
             {
-              id: "i-here",
-              label: "Áno. Som tu sám.",
-              whyWrong: "She asked about **we** — use **sme**, not a solo **som**.",
+              id: "you-here",
+              label: "Áno. Ste tu s priateľmi.",
+              whyWrong:
+                "**Ste** means you are. You and your friends are **we**: **sme**.",
             },
             {
-              id: "first-time",
-              label: "Nie, nie je.",
-              whyWrong: "Answer that you are here with friends: **Sme tu s priateľmi.**",
+              id: "they-here",
+              label: "Áno. Sú tu s priateľmi.",
+              whyWrong: "**Sú** means they are. You are part of the group: **sme**.",
             },
           ],
         },
@@ -303,7 +304,7 @@ export const grammarLessons: Lesson[] = [
     ],
     pattern: {
       title: "Present forms of byť",
-      body: "Byť (to be) is irregular: som, si, je, sme, ste, sú. Use it for identity and location: Som Alex. Sme tu. Do not use byť for age: Slovak uses mať, as in Mám dvadsať rokov.",
+      body: "Byť (to be) is irregular: som, si, je, sme, ste, sú. The negative keeps nie as a separate word: nie som, nie si, nie je, nie sme, nie ste, nie sú. Use it for identity and location: Som Alex. Sme tu. Do not use byť for age: Slovak uses mať, as in Mám dvadsať rokov.",
     },
     beats: withBytExercises(
       {
@@ -336,7 +337,7 @@ export const grammarLessons: Lesson[] = [
         type: "build",
         practiceItemId: "grammar/byt-ste",
         prompt: "Are you Alex?",
-        tiles: ["Alex?", "Ste"],
+        tiles: ["Alex?", "Ste", "Sme", "Som"],
         answer: ["Ste", "Alex?"],
         feedback: {
           correction: "Ste Alex?",
@@ -352,6 +353,7 @@ export const grammarLessons: Lesson[] = [
         prompt: "The café is here.",
         inputLabel: "Your Slovak answer",
         answer: "Kaviareň je tu.",
+        acceptedAnswers: ["Tu je kaviareň."],
         feedback: {
           correction: "Kaviareň je tu.",
           english: "The café is here.",
@@ -446,14 +448,15 @@ export const grammarLessons: Lesson[] = [
           choices: [
             { id: "card", label: "Nemám hotovosť, ale mám kartu." },
             {
-              id: "cash-only",
-              label: "Mám hotovosť.",
-              whyWrong: "You need the contrast: **nemám** cash, but **mám** a card.",
+              id: "nie-mam",
+              label: "Nie mám hotovosť, ale mám kartu.",
+              whyWrong: "**Ne-** joins **mám** as one word: **nemám**, not **nie mám**.",
             },
             {
-              id: "no-card",
-              label: "Nemám kartu.",
-              whyWrong: "Say you have a card: **mám kartu**, with **nemám hotovosť**.",
+              id: "you-form",
+              label: "Nemáš hotovosť, ale máš kartu.",
+              whyWrong:
+                "**Nemáš** and **máš** mean you have. For yourself, use **nemám** and **mám**.",
             },
           ],
         },
@@ -517,7 +520,7 @@ export const grammarLessons: Lesson[] = [
         type: "build",
         practiceItemId: "grammar/mat-mas",
         prompt: "Do you have a card?",
-        tiles: ["kartu?", "Máš"],
+        tiles: ["kartu?", "Máš", "Mám", "Má"],
         answer: ["Máš", "kartu?"],
         feedback: {
           correction: "Máš kartu?",
@@ -533,6 +536,7 @@ export const grammarLessons: Lesson[] = [
         prompt: "I do not have cash.",
         inputLabel: "Your Slovak answer",
         answer: "Nemám hotovosť.",
+        acceptedAnswers: ["Ja nemám hotovosť."],
         feedback: {
           correction: "Nemám hotovosť.",
           english: "I do not have cash.",
