@@ -86,20 +86,19 @@
 <path d="M928 98h32l-6-28h-20Z" class="fill-scene-honey" />
 <path d="M928 98h32l-1-4h-30Z" class="fill-scene-line/12" />
 
-{#each [{ paint: "fill-scene-clay", x: 152 }, { paint: "fill-scene-sage", x: 520 }] as bag (bag.x)}
-  <ellipse cx={bag.x + 19} cy="227" rx="22" ry="3" class="fill-scene-line/15" />
-  <path
-    d="M{bag.x + 9} 204Q{bag.x + 9} 190 {bag.x + 19} 190Q{bag.x + 29} 190 {bag.x +
-      29} 204"
-    class="stroke-scene-line/60"
-    fill="none"
-    stroke-width="2.4"
-  />
-  <path
-    d="M{bag.x + 2} 202h34l-2 22a3 3 0 0 1-3 3h-24a3 3 0 0 1-3-3Z"
-    class={bag.paint}
-  />
-  <path d="M{bag.x + 3} 210h32" class="stroke-white/40" stroke-width="2" />
+<!-- One bag by the far wall and one at the front by the cast: tamtá and táto taška. -->
+{#each [{ paint: "fill-scene-clay", scale: 1, x: 171, y: 227 }, { paint: "fill-scene-honey", scale: 1.25, x: 534, y: 288 }] as bag (bag.x)}
+  <g transform="translate({bag.x} {bag.y}) scale({bag.scale})">
+    <ellipse cx="0" cy="0" rx="22" ry="3" class="fill-scene-line/15" />
+    <path
+      d="M-10 -23Q-10 -37 0 -37Q10 -37 10 -23"
+      class="stroke-scene-line/60"
+      fill="none"
+      stroke-width="2.4"
+    />
+    <path d="M-17 -25h34l-2 22a3 3 0 0 1-3 3h-24a3 3 0 0 1-3-3Z" class={bag.paint} />
+    <path d="M-16 -17h32" class="stroke-white/40" stroke-width="2" />
+  </g>
 {/each}
 
 <Plant x={40} y={244} />

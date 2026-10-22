@@ -42,7 +42,6 @@ export const GREET_ROUNDS: readonly GreetRound[] = [
   },
 ];
 
-/** The time of day in Slovak, with its English. */
 export const TIME_WORDS: Record<TimeOfDay, { english: string; slovak: string }> = {
   day: { english: "afternoon", slovak: "Popoludnie" },
   evening: { english: "evening", slovak: "Večer" },

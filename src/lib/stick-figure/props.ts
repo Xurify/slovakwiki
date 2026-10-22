@@ -141,7 +141,6 @@ function partnerAt(
   return partner?.characterId ?? undefined;
 }
 
-/** `held` with `from`'s prop in `to`'s hand instead. */
 export function handOver(
   held: CastProps,
   from: LessonCharacterId,

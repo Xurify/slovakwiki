@@ -124,11 +124,11 @@
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
-  const MODES: Array<{ id: Mode; label: string }> = [
+  /** Ways to take a lesson scene; greeting Mária is a game of its own. */
+  const MODES: Array<{ id: Exclude<Mode, "greet">; label: string }> = [
     { id: "watch", label: "Watch" },
     { id: "play", label: "Play Alex" },
     { id: "find", label: "Find it" },
-    { id: "greet", label: "Greet" },
   ];
 
   /** Mária on the square: someone Alex says Dobrý deň to, not Ahoj. */
@@ -173,7 +173,6 @@
   let turnKind = $state<Turn>("pick");
   /** The browser can record from a microphone, so Say it is offered. */
   let recordable = $state(false);
-  /** The learner's recordings of Alex's lines, by line. */
   let takes = $state<Record<number, Take>>({});
   /** Alex's lines in the learner's recordings instead of Alex's clips. */
   let ownVoice = $state(false);
@@ -186,7 +185,6 @@
   let captionCue = $state(0);
   let showEnglish = $state(false);
   let slower = $state(false);
-  /** Hear each line before reading it. */
   let listenFirst = $state(false);
   /** Alex's lines answered so far, and whether each was right the first time. */
   let firstTries = $state<Record<number, boolean>>({});
@@ -206,7 +204,6 @@
     why?: string;
   }>();
 
-  /** The question on what was heard that is open, and how many were right. */
   let checkAt = $state(0);
   let checksRight = $state(0);
 
@@ -214,7 +211,6 @@
   let greetAt = $state(0);
   let greetPicked = $state<Greeting | null>(null);
   let greetMissed = $state(false);
-  /** Each round: right the first time or not. */
   let greetResults = $state<Record<string, boolean>>({});
   let greetNote = $state<{ right: boolean; text: string }>();
 
@@ -340,7 +336,6 @@
     checksRight = 0;
   }
 
-  /** Throw the learner's recordings away, as on a new scene. */
   function dropTakes(): void {
     for (const take of Object.values(takes)) URL.revokeObjectURL(take.src);
     takes = {};
@@ -355,7 +350,6 @@
     const url = new URL(window.location.href);
     url.searchParams.set(SCENE_PARAM, id);
     window.history.replaceState(window.history.state, "", url);
-    // Greeting Mária is the same on any scene, so picking one means watching it.
     if (mode === "greet") mode = "watch";
     if (mode === "play" && learnerCount === 0) mode = "watch";
     if (same) stage?.place(0);
@@ -375,7 +369,6 @@
     checkAt += 1;
   }
 
-  /** A check's line acted again, everyone where it found them. */
   function replay(lineId: string | undefined, onEnded: () => void): void {
     const index = scene.lines.findIndex((line) => line.id === lineId);
     if (index === -1) {
@@ -447,7 +440,6 @@
     return ownVoice ? takes[index] : undefined;
   }
 
-  /** Play line `index` with its caption; `onDone` runs when its clip ends. */
   function say(index: number, onDone?: () => void): void {
     shown = index;
     speaking = true;
@@ -511,19 +503,16 @@
     step(at);
   }
 
-  /** From watching straight into taking Alex's part, from the top. */
   function playAlex(): void {
     selectMode("play");
     playScene();
   }
 
-  /** Say Alex's lines afresh, from the top. */
   function recordAgain(): void {
     dropTakes();
     playAlex();
   }
 
-  /** The whole scene with Alex's lines in the learner's voice, or back in Alex's. */
   function watchWith(own: boolean): void {
     selectMode("watch");
     ownVoice = own;
@@ -535,7 +524,6 @@
     phase = "paused";
   }
 
-  /** Start the scene from line `index`, everyone where that line finds them. */
   function startAt(index: number): void {
     halt();
     stage?.place(index);
@@ -589,7 +577,6 @@
     });
   }
 
-  /** The learner's take goes in, and the scene plays on in their voice. */
   function useTake(take: Take): void {
     takes = { ...takes, [at]: take };
     ownVoice = true;
@@ -722,7 +709,7 @@
       </h1>
       <Lead class="mt-3">
         Prototype. Watch a lesson's dialogue with each word lit as it is said, take Alex's
-        part, or find things in the room by their Slovak names.
+        part, or find things in the scene by their Slovak names.
       </Lead>
     </header>
 
@@ -748,9 +735,11 @@
             {#each group.scenes as option (option.id)}
               <li class="shrink-0">
                 <button
-                  class="{chipClass(option.id === scene.id)} whitespace-nowrap"
+                  class="{chipClass(
+                    option.id === scene.id && mode !== 'greet',
+                  )} whitespace-nowrap"
                   type="button"
-                  aria-pressed={option.id === scene.id}
+                  aria-pressed={option.id === scene.id && mode !== "greet"}
                   lang="sk"
                   onclick={() => selectScene(option.id)}
                 >
@@ -761,45 +750,67 @@
           </ul>
         </div>
       {/each}
+
+      <div>
+        <p class={eyebrowMutedClass}>Games</p>
+        <button
+          class="{chipClass(mode === 'greet')} mt-2 whitespace-nowrap"
+          type="button"
+          aria-pressed={mode === "greet"}
+          lang="sk"
+          onclick={() => selectMode("greet")}
+        >
+          Dobrý deň, či dobrý večer?
+        </button>
+      </div>
     </nav>
 
     <section class="mt-6" aria-label="Scene">
       <div class="flex flex-wrap items-center justify-between gap-3">
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <div class="flex gap-2" role="group" aria-label="Mode">
-            {#each modes as option (option.id)}
-              <button
-                class={chipClass(option.id === mode)}
-                type="button"
-                aria-pressed={option.id === mode}
-                onclick={() => selectMode(option.id)}
-              >
-                {option.label}
-              </button>
-            {/each}
-          </div>
-
-          {#if mode === "play"}
-            <div class="flex gap-2" role="group" aria-label="How Alex's lines are asked">
-              {#each turns as option (option.id)}
+        {#if mode !== "greet"}
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <div class="flex gap-2" role="group" aria-label="Mode">
+              {#each modes as option (option.id)}
                 <button
-                  class={chipClass(option.id === turnKind)}
+                  class={chipClass(option.id === mode)}
                   type="button"
-                  aria-pressed={option.id === turnKind}
-                  onclick={() => {
-                    turnKind = option.id;
-                  }}
+                  aria-pressed={option.id === mode}
+                  onclick={() => selectMode(option.id)}
                 >
                   {option.label}
                 </button>
               {/each}
             </div>
-          {/if}
-        </div>
 
-        <TextLink onclick={toggleEnglish}>
-          {showEnglish ? "Hide English" : "Show English"}
-        </TextLink>
+            {#if mode === "play"}
+              <div
+                class="flex gap-2"
+                role="group"
+                aria-label="How Alex's lines are asked"
+              >
+                {#each turns as option (option.id)}
+                  <button
+                    class={chipClass(option.id === turnKind)}
+                    type="button"
+                    aria-pressed={option.id === turnKind}
+                    onclick={() => {
+                      turnKind = option.id;
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        {/if}
+
+        <!-- Find it asks in Slovak only: the English would give the answer away. -->
+        {#if mode !== "find" && mode !== "greet"}
+          <TextLink onclick={toggleEnglish}>
+            {showEnglish ? "Hide English" : "Show English"}
+          </TextLink>
+        {/if}
       </div>
 
       <div class="{panelClass} mt-3 overflow-hidden">
@@ -890,9 +901,6 @@
                       <MarkedText text={prompt.slovak} marks={prompt.marks} />
                     </p>
                   {/key}
-                  {#if showEnglish}
-                    <p class="m-0 mt-1 text-base text-slate-600">{prompt.english}</p>
-                  {/if}
                 </div>
 
                 <div class="flex flex-wrap gap-2" role="group" aria-label="Level">
@@ -1034,7 +1042,7 @@
                 </p>
               {:else if learnerCount > 0}
                 <p class="m-0 font-serif text-2xl text-slate-900">
-                  Now say Alex's lines yourself.
+                  Now take Alex's part.
                 </p>
               {/if}
 
@@ -1083,7 +1091,7 @@
                   <Button variant="accent" onclick={playAlex}>Play Alex</Button>
                 {:else if direction.things.length > 0}
                   <Button variant="accent" onclick={() => selectMode("find")}>
-                    Find things in the room
+                    Find things in the scene
                   </Button>
                 {/if}
                 {#if mode === "play" && turnKind === "say"}
@@ -1101,7 +1109,7 @@
                 {#if (nextScene && checks.length > 0) || (mode === "watch" && learnerCount > 0)}
                   {#if direction.things.length > 0}
                     <TextLink onclick={() => selectMode("find")}
-                      >Find things in the room</TextLink
+                      >Find things in the scene</TextLink
                     >
                   {/if}
                 {/if}
@@ -1135,7 +1143,7 @@
                 you heard.
               {:else}
                 Each word lights up as it is said. Tap a dotted word or anything in the
-                room to see it.
+                scene to see it.
               {/if}
             </p>
           {/if}
