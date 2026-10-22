@@ -72,7 +72,9 @@
     type SceneThing,
   } from "$lib/stick-figure/scene-things";
   import { cx } from "$lib/ui/classes";
+  import SceneAction from "./SceneAction.svelte";
   import SceneCaption from "./SceneCaption.svelte";
+  import SceneIcon from "./SceneIcon.svelte";
   import SceneTurn from "./SceneTurn.svelte";
   import StickStage from "./StickStage.svelte";
 
@@ -92,7 +94,7 @@
 
   const MODES: Array<{ id: Mode; label: string }> = [
     { id: "watch", label: "Watch" },
-    { id: "play", label: "Play Alex" },
+    { id: "play", label: "Play as" },
     { id: "find", label: "Find it" },
   ];
 
@@ -170,6 +172,9 @@
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
   const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
   const learnerCount = $derived(scene.lines.filter((line) => line.learner).length);
+  const learnerName = $derived(
+    scene.lines.find((line) => line.learner)?.speaker ?? "Alex",
+  );
   const firstTryCount = $derived(Object.values(firstTries).filter(Boolean).length);
   /** The things the dialogue names, in the order it names them. */
   const sceneWords = $derived(
@@ -517,7 +522,7 @@
                 aria-pressed={option.id === mode}
                 onclick={() => selectMode(option.id)}
               >
-                {option.label}
+                {option.id === "play" ? `Play as ${learnerName}` : option.label}
               </button>
             {/each}
           </div>
@@ -560,7 +565,7 @@
           {thingWords}
         />
 
-        <div class="min-h-44 px-5 py-5 sm:px-6">
+        <div class="px-5 py-5 sm:px-6">
           {#if mode === "find"}
             {#if findTarget}
               {@const prompt = findPrompt(findTarget, level)}
@@ -646,7 +651,9 @@
                       Next: {FIND_LEVELS.find(({ id }) => id === upNext)?.label}
                     </Button>
                   {/if}
-                  <TextLink onclick={() => startFind(level)}>Play again</TextLink>
+                  <SceneAction icon="replay" onclick={() => startFind(level)}
+                    >Play again</SceneAction
+                  >
                 </div>
               </div>
             {:else}
@@ -665,23 +672,22 @@
               />
             {/key}
 
-            <TextLink class="mt-4 inline-block" onclick={hearIt}>
+            <SceneAction class="mt-3 -ml-2.5" icon="listen" onclick={hearIt}>
               Hear {turn.speaker} say it
-            </TextLink>
+            </SceneAction>
           {:else if phase === "done"}
+            {@const scored = mode === "play" && learnerCount > 0}
+
             <div class="animate-rise">
-              {#if mode === "play" && learnerCount > 0}
+              {#if scored}
                 <p class="m-0 font-serif text-2xl text-slate-900">
-                  {firstTryCount} of {learnerCount} of Alex's lines right the first time.
-                </p>
-              {:else if learnerCount > 0}
-                <p class="m-0 font-serif text-2xl text-slate-900">
-                  Now take Alex's part.
+                  {firstTryCount} of {learnerCount} of {learnerName}'s lines right the
+                  first time.
                 </p>
               {/if}
 
               {#if sceneWords.length > 0}
-                <p class={cx(eyebrowMutedClass, learnerCount > 0 && "mt-4")}>
+                <p class={cx(eyebrowMutedClass, scored && "mt-4")}>
                   Things the dialogue named
                 </p>
                 <ul class="m-0 mt-2 flex list-none flex-wrap gap-2 p-0">
@@ -707,23 +713,29 @@
                 </ul>
               {/if}
 
-              <div class="mt-4 flex flex-wrap items-center gap-4">
-                {#if mode === "watch" && learnerCount > 0}
-                  <Button variant="accent" onclick={playAlex}>Play Alex</Button>
-                {:else if direction.things.length > 0}
-                  <Button variant="accent" onclick={() => selectMode("find")}>
-                    Find things in the scene
-                  </Button>
-                {/if}
-                <TextLink onclick={playScene}>
+              <div
+                class={cx(
+                  "flex flex-wrap items-center gap-x-2 gap-y-2",
+                  (scored || sceneWords.length > 0) && "mt-4",
+                )}
+              >
+                <Button class="mr-2" variant="accent" onclick={playScene}>
+                  <SceneIcon name="replay" />
                   {mode === "play" ? "Play again" : "Watch again"}
-                </TextLink>
-                {#if mode === "watch" && learnerCount > 0 && direction.things.length > 0}
-                  <TextLink onclick={() => selectMode("find")}
-                    >Find things in the scene</TextLink
-                  >
+                </Button>
+                {#if mode === "watch" && learnerCount > 0}
+                  <SceneAction icon="person" onclick={playAlex}>
+                    Play as {learnerName}
+                  </SceneAction>
                 {/if}
-                <TextLink href={scene.lessonHref}>Open the lesson</TextLink>
+                {#if direction.things.length > 0}
+                  <SceneAction icon="find" onclick={() => selectMode("find")}>
+                    Find things in the scene
+                  </SceneAction>
+                {/if}
+                <SceneAction href={scene.lessonHref} icon="book"
+                  >Open the lesson</SceneAction
+                >
               </div>
             </div>
           {:else if caption}
@@ -759,7 +771,9 @@
           <div
             class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
-            <TextLink onclick={showThing}>Show me</TextLink>
+            <SceneAction class="-ml-2.5" icon="find" onclick={showThing}
+              >Show me</SceneAction
+            >
             {#if streak > 1}
               <span class="ml-auto animate-rise text-sm font-semibold text-emerald-700">
                 {streak} in a row
@@ -771,12 +785,16 @@
           </div>
         {:else if mode !== "find" && phase !== "turn" && phase !== "done"}
           <div
-            class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
+            class="flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
             {#if phase === "playing"}
-              <Button variant="secondary" onclick={pause}>Pause</Button>
+              <Button class="mr-2" variant="secondary" onclick={pause}>
+                <SceneIcon name="pause" />
+                Pause
+              </Button>
             {:else}
-              <Button variant="accent" onclick={playScene}>
+              <Button class="mr-2" variant="accent" onclick={playScene}>
+                <SceneIcon name="play" />
                 {#if phase === "paused"}
                   {listenFirst ? "Next line" : "Resume"}
                 {:else}
@@ -786,26 +804,28 @@
             {/if}
 
             {#if shown >= 0}
-              <TextLink onclick={again}>Again</TextLink>
+              <SceneAction icon="replay" onclick={again}>Again</SceneAction>
             {/if}
 
-            <TextLink
+            <SceneAction
               aria-pressed={slower}
+              icon="slower"
               onclick={() => {
                 slower = !slower;
               }}
             >
               {slower ? "Normal speed" : "Slower"}
-            </TextLink>
+            </SceneAction>
 
-            <TextLink
+            <SceneAction
               aria-pressed={listenFirst}
+              icon="listen"
               onclick={() => {
                 listenFirst = !listenFirst;
               }}
             >
               {listenFirst ? "Show text as it is said" : "Listen first"}
-            </TextLink>
+            </SceneAction>
 
             <span class="ml-auto text-sm text-slate-500">
               Line {Math.min(at + 1, scene.lines.length)} of {scene.lines.length}
