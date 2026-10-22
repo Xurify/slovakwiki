@@ -31,11 +31,11 @@ export function sceneThingWords(): Record<string, { href?: string; src?: string 
   const found: Record<string, { href?: string; src?: string }> = {};
 
   for (const thing of Object.values(SCENE_THINGS).flat()) {
-    const entry = words.find((word) => word.slovak === thing.word && word.gender);
-    if (!entry || thing.word in found) continue;
+    if (thing.word in found) continue;
 
+    const entry = words.find((word) => word.slovak === thing.word && word.gender);
     found[thing.word] = {
-      href: dictionaryPathForLemmaId(entry.slug),
+      href: entry ? dictionaryPathForLemmaId(entry.slug) : undefined,
       src: hasAudioClip(audioHash(thing.word))
         ? resolveDictionaryAudioSrc(thing.word, "lemma")
         : undefined,
