@@ -317,7 +317,10 @@
         return dayRound ? { characterId: "alex", name: "Alex" } : undefined;
       if (mode === "find" || checking || phase === "done") return undefined;
       const line = turn ?? caption;
-      return line ? { characterId: line.characterId, name: line.speaker } : undefined;
+      // A board or a notice has nobody on stage saying it, so no name goes on the box.
+      return line?.onStage
+        ? { characterId: line.characterId, name: line.speaker }
+        : undefined;
     },
   );
   const learnerCount = $derived(scene.lines.filter((line) => line.learner).length);
