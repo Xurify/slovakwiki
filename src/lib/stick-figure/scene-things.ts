@@ -441,8 +441,8 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
   ],
   home: [
-    drawn(WORDS.muz, [140, 105, 24, 48]),
-    drawn(WORDS.zena, [184, 109, 25, 43]),
+    drawn(WORDS.muz, [140, 108, 24, 45]),
+    drawn(WORDS.zena, [184, 111, 25, 41]),
     drawn(WORDS.okno, [96, 44, 150, 124]),
     twins(WORDS.taska, [510, 240, 48, 50], [152, 189, 38, 38], "far"),
     drawn(WORDS.zaves, [78, 36, 34, 142], [230, 36, 34, 142]),
