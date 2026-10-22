@@ -20,6 +20,7 @@ const PLACE_LAYERS: Record<StageSetting, readonly AmbienceLayer[]> = {
   market: ["murmur", "birds"],
   plaza: ["murmur", "birds", "tram"],
   registration: ["hum", "murmur"],
+  street: ["murmur"],
   studio: ["hum"],
 };
 

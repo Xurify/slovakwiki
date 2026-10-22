@@ -190,3 +190,35 @@ describe("the podcast at the market", () => {
     expect(direction.held.at(-1)).toEqual({ anna: "basket" });
   });
 });
+
+describe("the tram stop", () => {
+  const lines: DirectedLine[] = [
+    { characterId: "anna", slovak: "Nemám. Poďme na električku." },
+    { characterId: "alex", slovak: "Dobre. Kde je zastávka?" },
+    { characterId: "anna", slovak: "Tam, pri lavičke. Poď!" },
+    { characterId: "alex", slovak: "Aha, už ide!" },
+    { characterId: "anna", slovak: "Konečne! Nastúpme." },
+  ];
+  const { stagings } = directScene(lines, "street");
+
+  it("walks everyone over to the bench on Poď, not on a line that names nothing drawn", () => {
+    expect(stagings[0].goTo).toBeUndefined();
+    expect(stagings[2].goTo).toBe("lavicka");
+  });
+
+  it("brings the tram in on už ide, with everyone watching it come", () => {
+    expect(stagings[3].arrives).toBe("tram");
+    expect(stagings[3].facing).toEqual({ alex: 1, anna: 1 });
+  });
+
+  it("gets on once it is there, without anyone walking off", () => {
+    expect(stagings[4].boards).toBe(true);
+    expect(stagings[4].exit).toBeUndefined();
+  });
+
+  it("has no tram on the square", () => {
+    const square = directScene(lines, "plaza").stagings;
+    expect(square[3].arrives).toBeUndefined();
+    expect(square[4].boards).toBeUndefined();
+  });
+});

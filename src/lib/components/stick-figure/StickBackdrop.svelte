@@ -16,10 +16,12 @@
   import Park from "./backdrops/Park.svelte";
   import Plaza from "./backdrops/Plaza.svelte";
   import Registration from "./backdrops/Registration.svelte";
+  import Street from "./backdrops/Street.svelte";
   import Studio from "./backdrops/Studio.svelte";
   import MoodLayer from "./backdrops/MoodLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
   import { CLOCK_HOURS, DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import type { TramState } from "$lib/stick-figure/street";
 
   let {
     board,
@@ -31,6 +33,7 @@
     onpick,
     picked,
     setting,
+    tram = "away",
     width = 0,
   }: {
     /** A line to chalk on the classroom board. */
@@ -48,6 +51,8 @@
     onpick?: (id: string) => void;
     picked?: string;
     setting: StageSetting;
+    /** Where the street's tram is. */
+    tram?: TramState;
     width?: number;
   } = $props();
 
@@ -112,6 +117,8 @@
     <Plaza {hour} />
   {:else if setting === "registration" || setting === "counter"}
     <Registration {hour} />
+  {:else if setting === "street"}
+    <Street {tram} />
   {:else if setting === "studio"}
     <Studio {hour} />
   {:else}

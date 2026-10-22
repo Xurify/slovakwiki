@@ -1,9 +1,9 @@
 import type { DialogueTurn } from "$lib/learning/types";
 
 /**
- * A scene the lessons do not have yet, to try the stage with rain, a tram
- * and everything outdoors in the background sound: Anna and Alex caught in
- * the rain on the square, waiting for the tram. Voiced like a lesson scene.
+ * A scene the lessons do not have yet, to try the stage with rain, a walk
+ * to the stop and a tram pulling in: Anna and Alex caught in the rain,
+ * waiting for the tram. Voiced like a lesson scene.
  */
 export const RAIN_AND_TRAM: DialogueTurn[] = [
   {
@@ -37,21 +37,21 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
     speaker: "You",
   },
   {
-    english: "I don't. Let's go to the stop.",
-    id: "dev-rain-tram-anna-stop",
-    slovak: "Nemám. Poďme na zastávku.",
+    english: "I don't. Let's take the tram.",
+    id: "dev-rain-tram-anna-tram",
+    slovak: "Nemám. Poďme na električku.",
     speaker: "Anna",
   },
   {
-    english: "Where is the stop?",
+    english: "OK. Where is the stop?",
     id: "dev-rain-tram-alex-where",
-    slovak: "Kde je zastávka?",
+    slovak: "Dobre. Kde je zastávka?",
     speaker: "You",
   },
   {
-    english: "There, by the bench.",
+    english: "There, by the bench. Come on!",
     id: "dev-rain-tram-anna-bench",
-    slovak: "Tam, pri lavičke.",
+    slovak: "Tam, pri lavičke. Poď!",
     speaker: "Anna",
   },
   {
@@ -126,9 +126,10 @@ export const RAIN_AND_TRAM: DialogueTurn[] = [
     speaker: "Anna",
   },
   {
-    english: "Good. Look, here it comes!",
+    english: "Look, here it comes!",
+    gestures: ["point"],
     id: "dev-rain-tram-alex-coming",
-    slovak: "Dobre. Aha, už ide!",
+    slovak: "Aha, už ide!",
     speaker: "You",
   },
   {

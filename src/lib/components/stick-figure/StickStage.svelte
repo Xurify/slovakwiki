@@ -34,9 +34,15 @@
     thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
   import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
-  import { stageMarks } from "$lib/stick-figure/stage-layout";
+  import { STAGE_PADDING, stageMarks } from "$lib/stick-figure/stage-layout";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
+  import {
+    restFacing,
+    type CastFacing,
+    type Facing,
+    type LineStaging,
+  } from "$lib/stick-figure/staging";
+  import { TRAM, type TramState } from "$lib/stick-figure/street";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
@@ -110,6 +116,7 @@
   let board = $state<string>();
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
   let bubbleTimer = 0;
+  let tram = $state<TramState>("away");
   let stageWidth = $state(0);
   let stageHeight = $state(0);
 
@@ -126,10 +133,8 @@
       direction.held[heldAt] ??
       {},
   );
-  /** The studio has no painted plate, so it stays drawn. */
-  const plate = $derived(
-    painted && setting !== "studio" ? lessonSceneSrc[setting] : undefined,
-  );
+  /** The studio and the street have no painted plate, so they stay drawn. */
+  const plate = $derived(painted ? plateFor(setting) : undefined);
   const wrapped = $derived(mood.weather === "snow" && isOutdoors(setting));
   const entering = $derived(
     Object.fromEntries(
@@ -193,6 +198,11 @@
     });
   });
 
+  function plateFor(setting: StageSetting): string | undefined {
+    if (setting === "street" || setting === "studio") return undefined;
+    return lessonSceneSrc[setting];
+  }
+
   function markOf(id: LessonCharacterId): Mark {
     const width = layout.width;
     return {
@@ -232,7 +242,11 @@
 
     const mark = markOf(id);
     const gap = (standing(markOf(to), at[to]).left - mark.left) / mark.width;
-    return Math.abs(gap) > BESIDE_WIDTHS ? gap - Math.sign(gap) * BESIDE_WIDTHS : 0;
+    const now = at[id] ?? 0;
+    // Close enough already, after a walk the two made together, is close enough.
+    return Math.abs(gap - now) > BESIDE_WIDTHS
+      ? gap - Math.sign(gap - now) * BESIDE_WIDTHS
+      : now;
   }
 
   /** Figure widths from a figure's mark to just past the stage edge on that side. */
@@ -242,6 +256,51 @@
     const mark = markOf(id);
     const distance = direction > 0 ? stageWidth - mark.left : mark.left + mark.width;
     return direction * (distance / mark.width + 0.1);
+  }
+
+  /** Whether a figure stands on the stage, as opposed to off one side of it. */
+  function onStage(id: LessonCharacterId, at: Offsets): boolean {
+    const mark = standing(markOf(id), at[id]);
+    return mark.left + mark.width > 0 && mark.left < stageWidth;
+  }
+
+  /**
+   * Figure widths everyone on stage moves, keeping their places in the row,
+   * to stand centred on stage x `to`, or as near as the stage edge allows.
+   */
+  function shiftTo(to: number, at: Offsets): { by: number; ids: LessonCharacterId[] } {
+    const ids = direction.cast.filter((id) => onStage(id, at));
+    if (!stageWidth || ids.length === 0) return { by: 0, ids };
+
+    const marks = ids.map((id) => standing(markOf(id), at[id]));
+    const left = Math.min(...marks.map((mark) => mark.left));
+    const right = Math.max(...marks.map((mark) => mark.left + mark.width));
+    const shift = to - (left + right) / 2;
+    const clamped = Math.min(
+      stageWidth - STAGE_PADDING - right,
+      Math.max(STAGE_PADDING - left, shift),
+    );
+    return { by: clamped / marks[0].width, ids };
+  }
+
+  /** Stage x of where a line takes everyone: a thing it names, or the tram's door. */
+  function destinationOf(staging: LineStaging, boarding: boolean): number | undefined {
+    const thing = direction.things.find((candidate) => candidate.id === staging.goTo);
+    const point = boarding ? { x: TRAM.door, y: 0 } : thing && thingCenter(thing);
+    if (!point || !stageWidth) return undefined;
+    return backdropToStage(point, stageWidth, stageHeight, backdropAlign(setting)).x;
+  }
+
+  /** Walk everyone on stage over to stand by stage x `to`, facing the way they go. */
+  function walkGroup(to: number): void {
+    const { by, ids } = shiftTo(to, offsets);
+    if (by === 0) return;
+
+    facings = {
+      ...facings,
+      ...Object.fromEntries(ids.map((id) => [id, by > 0 ? 1 : -1])),
+    };
+    for (const id of ids) walkTo(id, (offsets[id] ?? 0) + by);
   }
 
   function boardBefore(index: number): string | undefined {
@@ -270,12 +329,26 @@
         placedFacings[speaker] = staging.exit;
         placed[speaker] = offStage(speaker, staging.exit);
       }
+      const to =
+        staging.goTo || staging.boards
+          ? destinationOf(staging, Boolean(staging.boards))
+          : undefined;
+      if (to !== undefined) {
+        const { by, ids } = shiftTo(to, placed);
+        for (const id of ids) {
+          placed[id] = (placed[id] ?? 0) + by;
+          if (by !== 0) placedFacings[id] = by > 0 ? 1 : -1;
+        }
+      }
     });
 
     facings = placedFacings;
     offsets = placed;
     walks = {};
     walkEndsAt = {};
+    tram = direction.stagings.slice(0, index).some(({ arrives }) => arrives)
+      ? "here"
+      : "away";
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -451,6 +524,11 @@
       facings = { ...facings, [characterId]: from === 1 ? -1 : 1 };
       walkTo(characterId, 0);
     }
+    if (staging?.goTo) {
+      const to = destinationOf(staging, false);
+      if (to !== undefined) walkGroup(to);
+    }
+    if (staging?.arrives) tram = "coming";
 
     for (const reaction of staging?.reactions ?? []) {
       const span = plan?.sentences[reaction.sentence];
@@ -468,6 +546,10 @@
       if (staging?.exit && line.characterId) {
         facings = { ...facings, [line.characterId]: staging.exit };
         walkTo(line.characterId, offStage(line.characterId, staging.exit));
+      }
+      if (staging?.boards) {
+        const to = destinationOf(staging, true);
+        if (to !== undefined) walkGroup(to);
       }
       onDone?.();
     };
@@ -533,6 +615,7 @@
       onpick={pickThing}
       {picked}
       {setting}
+      {tram}
       width={stageWidth}
     />
   {/if}

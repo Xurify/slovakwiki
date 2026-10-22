@@ -1,9 +1,9 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { foldLine } from "./line-gesture";
-import { lineSentences, wordSentences } from "./line-plan";
+import { lineSentences, lineWords, wordSentences } from "./line-plan";
 import { lineProps, type StickPropId } from "./props";
-import { linePoints, type SceneThing, type ShownProp } from "./scene-things";
+import { linePoints, thingNamed, type SceneThing, type ShownProp } from "./scene-things";
 
 /** 1 faces right (+x), -1 faces left. */
 export type Facing = 1 | -1;
@@ -47,6 +47,12 @@ export interface LineStaging {
   gives?: LessonCharacterId;
   /** Who holds up what the speaker is looking at. */
   looksAt?: LessonCharacterId;
+  /** The thing everyone on stage walks over to during this line: "Poďme na zastávku." */
+  goTo?: string;
+  /** The tram pulls in from the right during this line, and everyone turns to watch it. */
+  arrives?: "tram";
+  /** Everyone walks to the tram's door as this line ends. */
+  boards?: boolean;
 }
 
 /** Folded sentence openers the one spoken to nods at. */
@@ -66,6 +72,12 @@ const LEAVING = [
 ];
 /** Folded phrases that call the one spoken to over. */
 const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
+/** Folded openers that take everyone along to a thing the line names. */
+const COME_ALONG = ["podme", "podte"];
+/** Folded phrases that say the tram is pulling in; only a street with a stop has one. */
+const TRAM_COMING = ["uz ide", "uz prichadza", "tu je elektricka"];
+/** Folded phrases for getting on it. */
+const BOARDING = ["nastupme", "nastupte", "nastup", "nastupime"];
 /** Folded words asking whose something is. */
 const WHOSE = ["ci", "cia", "cie", "cieho", "ciu", "cej", "cim"];
 /** Folded words claiming it: môj, moja, moje, moji. */
@@ -94,6 +106,22 @@ function opensWith(sentence: string, openers: string[]): boolean {
 function mentions(sentence: string, phrases: string[]): boolean {
   const folded = ` ${foldLine(sentence)} `;
   return phrases.some((phrase) => folded.includes(` ${phrase} `));
+}
+
+/** Where the line takes everyone: the last thing it names, when it says "Poďme" or "Poď!". */
+function destination(line: StageLine, things: readonly SceneThing[]): string | undefined {
+  const along = lineSentences(line.slovak).some(
+    (sentence) => opensWith(sentence, COME_ALONG) || foldLine(sentence) === "pod",
+  );
+  if (!along) return undefined;
+
+  return lineWords(line.slovak)
+    .map((word) => thingNamed(foldLine(word), things))
+    .findLast(Boolean)?.id;
+}
+
+function tramComing(line: StageLine): boolean {
+  return lineSentences(line.slovak).some((sentence) => mentions(sentence, TRAM_COMING));
 }
 
 function toward(
@@ -318,9 +346,12 @@ export function stageLine(
   const addressee = addresseeOf(lines, index);
   const onStage = addressee !== null && cast.includes(addressee);
   const facing: CastFacing = {};
+  const hasStop = things.some((thing) => thing.id === "zastavka");
+  const arrives = hasStop && tramComing(lines[index]);
 
   for (const id of cast) {
-    if (id !== speaker) facing[id] = toward(cast, id, speaker);
+    if (arrives) facing[id] = 1;
+    else if (id !== speaker) facing[id] = toward(cast, id, speaker);
     else if (onStage) facing[id] = toward(cast, id, addressee);
   }
 
@@ -336,6 +367,7 @@ export function stageLine(
     .some((line) => line.characterId === speaker);
   const leaving = sentences.some((sentence) => mentions(sentence, LEAVING));
   const turnedTo = facing[speaker];
+  const tramHere = hasStop && lines.slice(0, index).some(tramComing);
 
   return {
     addressee,
@@ -352,5 +384,11 @@ export function stageLine(
     enter,
     gives: onStage ? givesTo(lines, index) : undefined,
     looksAt: shownTo(lines, index)?.holder,
+    goTo: destination(lines[index], things),
+    arrives: arrives ? "tram" : undefined,
+    boards:
+      tramHere && sentences.some((sentence) => mentions(sentence, BOARDING))
+        ? true
+        : undefined,
   };
 }
