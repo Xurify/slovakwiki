@@ -9,12 +9,15 @@ const GAP_SHARE = 0.02;
 
 /**
  * Where a place's cast gathers, as an x in the backdrop's drawing: by the
- * counter in the café and at the desk, by the stall at the market.
+ * counter in the café and at the desk, by the stall at the market, beside
+ * the bag on the rug at home.
  * Elsewhere the middle of the stage.
  */
 export const STAGE_POSTS: Partial<Record<StageSetting, number>> = {
   cafe: 690,
   counter: 560,
+  // Left of the bag on the rug, so nobody stands on it.
+  home: 400,
   market: 660,
   registration: 560,
 };
