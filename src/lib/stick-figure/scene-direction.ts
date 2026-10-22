@@ -43,8 +43,8 @@ export interface SceneDirection {
 /** Who works where, so they stand at the counter end of the stage. */
 const STAFF: Partial<Record<LessonSceneArtId, readonly LessonCharacterId[]>> = {
   cafe: ["waiter"],
-  counter: ["receptionist"],
-  registration: ["receptionist"],
+  counter: ["receptionist", "maria"],
+  registration: ["receptionist", "maria"],
 };
 
 /** Everyone on stage in the order they first speak, staff last, by their counter on the right. */

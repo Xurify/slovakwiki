@@ -1,10 +1,23 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import type { LessonSceneArtId } from "$lib/lesson-story/story-settings";
 import type { Facing } from "./staging";
 
 /** The stage's side padding, px. */
 export const STAGE_PADDING = 24;
-/** Between neighbours, as a share of the stage's inner width. */
-const GAP_SHARE = 0.06;
+/** Between neighbours, as a share of the stage's inner width: close enough to be talking. */
+const GAP_SHARE = 0.02;
+
+/**
+ * Where a place's cast gathers, as an x in the backdrop's drawing: by the
+ * counter in the café and at the desk, by the stall at the market.
+ * Elsewhere the middle of the stage.
+ */
+export const STAGE_POSTS: Partial<Record<LessonSceneArtId, number>> = {
+  cafe: 690,
+  counter: 560,
+  market: 600,
+  registration: 560,
+};
 /** Below this stage width figures take their narrow size. */
 const NARROW_STAGE = 560;
 
@@ -19,7 +32,8 @@ export function figureWidth(castSize: number, stageWidth: number): number {
 
 /**
  * Each figure's mark, as the left edge in px: the cast in a row, a gap
- * apart. Whoever is on stage stands centred; someone who walks on later
+ * apart, centred on `at` (the middle of the stage unless the place has a
+ * post). Whoever is on stage stands there; someone who walks on later
  * takes no room until then, but the row is kept far enough over that they
  * still fit when they arrive.
  */
@@ -27,6 +41,7 @@ export function stageMarks(
   cast: readonly LessonCharacterId[],
   entering: Partial<Record<LessonCharacterId, Facing>>,
   stageWidth: number,
+  at = stageWidth / 2,
 ): { marks: Partial<Record<LessonCharacterId, number>>; width: number } {
   const width = figureWidth(cast.length, stageWidth);
   const step = width + GAP_SHARE * (stageWidth - 2 * STAGE_PADDING);
@@ -36,7 +51,7 @@ export function stageMarks(
   const row = (cast.length - 1) * step + width;
   const lowest = Math.min(STAGE_PADDING, (stageWidth - row) / 2);
   const highest = Math.max(stageWidth - STAGE_PADDING - row, (stageWidth - row) / 2);
-  const start = Math.min(highest, Math.max(lowest, stageWidth / 2 - middle));
+  const start = Math.min(highest, Math.max(lowest, at - middle));
 
   return {
     marks: Object.fromEntries(cast.map((id, index) => [id, start + index * step])),
