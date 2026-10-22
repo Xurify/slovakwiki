@@ -117,6 +117,7 @@
   import SceneSay from "./SceneSay.svelte";
   import SceneTurn from "./SceneTurn.svelte";
   import StickStage from "./StickStage.svelte";
+  import { STICK_NAME_CLASSES } from "./stick-figure-ui";
 
   type Mode = "watch" | "play" | "find" | "day";
   /** Pick Alex's line from the lesson's choices, build it from its words, or say it. */
@@ -194,6 +195,7 @@
   let showEnglish = $state(false);
   let slower = $state(false);
   let listenFirst = $state(false);
+  let scriptOpen = $state(false);
   /** Alex's lines answered so far, and whether each was right the first time. */
   let firstTries = $state<Record<number, boolean>>({});
   let stage = $state<ReturnType<typeof StickStage>>();
@@ -308,6 +310,19 @@
   );
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
   const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
+  /** Whose name sits on the dialogue box: the speaker of the line showing, or Alex at his turn. */
+  const tag = $derived.by(
+    (): { characterId: LessonCharacterId; name: string } | undefined => {
+      if (mode === "day")
+        return dayRound ? { characterId: "alex", name: "Alex" } : undefined;
+      if (mode === "find" || checking || phase === "done") return undefined;
+      const line = turn ?? caption;
+      // A board or a notice has nobody on stage saying it, so no name goes on the box.
+      return line?.onStage
+        ? { characterId: line.characterId, name: line.speaker }
+        : undefined;
+    },
+  );
   const learnerCount = $derived(scene.lines.filter((line) => line.learner).length);
   /** Taking Alex's part needs Alex in the scene. */
   const modes = $derived(
@@ -896,6 +911,26 @@
         {/if}
 
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          {#if mode === "watch" || mode === "play"}
+            <TextLink
+              aria-pressed={slower}
+              onclick={() => {
+                slower = !slower;
+              }}
+            >
+              {slower ? "Normal speed" : "Slower"}
+            </TextLink>
+
+            <TextLink
+              aria-pressed={listenFirst}
+              onclick={() => {
+                listenFirst = !listenFirst;
+              }}
+            >
+              {listenFirst ? "Show text as it is said" : "Listen first"}
+            </TextLink>
+          {/if}
+
           <TextLink
             aria-pressed={ambient}
             onclick={() => {
@@ -927,7 +962,20 @@
           {thingWords}
         />
 
-        <div class="px-5 py-5 sm:px-6">
+        <!-- The dialogue box: whose line it is sits on its top edge, as in a dialogue game. -->
+        <div class="relative px-5 pt-6 pb-5 sm:px-6">
+          {#if tag}
+            <span
+              class={cx(
+                "absolute -top-3.5 left-5 inline-flex items-center rounded-(--control-radius) bg-surface px-2.5 py-1 sm:left-6",
+                "text-sm font-semibold shadow-(--shadow-border) ring-1 ring-slate-200",
+                STICK_NAME_CLASSES[tag.characterId] ?? "text-slate-600",
+              )}
+            >
+              {tag.name}
+            </span>
+          {/if}
+
           {#if mode === "day"}
             {#if dayRound}
               {@const when = TIME_WORDS[dayRound.time]}
@@ -1019,7 +1067,7 @@
                       columns={2}
                       submitted={false}
                       wrongChoiceId={dayNote && !dayNote.right ? dayPicked : null}
-                      variant="cards"
+                      variant="default"
                     />
 
                     {#if dayNote && !dayNote.right}
@@ -1184,7 +1232,6 @@
                   onmiss={missed}
                   sayChoices={turnKind === "pick" ? turn.sayChoices : undefined}
                   slovak={turn.slovak}
-                  speaker={turn.speaker}
                 />
               {/if}
             {/key}
@@ -1314,7 +1361,6 @@
               playing={speaking}
               {showEnglish}
               slovak={caption.slovak}
-              speaker={caption.speaker}
               things={direction.things}
             />
           {:else}
@@ -1376,24 +1422,6 @@
               <SceneAction onclick={again}>Again</SceneAction>
             {/if}
 
-            <SceneAction
-              aria-pressed={slower}
-              onclick={() => {
-                slower = !slower;
-              }}
-            >
-              {slower ? "Normal speed" : "Slower"}
-            </SceneAction>
-
-            <SceneAction
-              aria-pressed={listenFirst}
-              onclick={() => {
-                listenFirst = !listenFirst;
-              }}
-            >
-              {listenFirst ? "Show text as it is said" : "Listen first"}
-            </SceneAction>
-
             {#if mode === "watch" && takeCount > 0}
               <SceneAction
                 aria-pressed={ownVoice}
@@ -1415,40 +1443,53 @@
 
       <!-- The questions are on what was heard, so the text waits until they are answered. -->
       {#if mode !== "find" && mode !== "day" && !checking}
-        <ol
-          class="{panelClass} m-0 mt-4 list-none divide-y divide-slate-200 overflow-hidden p-0"
-        >
-          {#each scene.lines as line, index (line.id)}
-            <li>
-              <button
-                class={cx(
-                  "block w-full cursor-pointer border-0 px-5 py-3 text-left sm:px-6",
-                  "transition-colors duration-150 ease-out hover:bg-subtle",
-                  index === shown ? "bg-blue-50" : "bg-transparent",
-                )}
-                type="button"
-                onclick={() => startAt(index)}
-              >
-                <span class="block text-sm font-semibold text-slate-500"
-                  >{line.speaker}</span
-                >
+        <div class="mt-3 flex justify-end">
+          <TextLink
+            aria-expanded={scriptOpen}
+            onclick={() => {
+              scriptOpen = !scriptOpen;
+            }}
+          >
+            {scriptOpen ? "Hide the script" : "Show the script"}
+          </TextLink>
+        </div>
 
-                {#if hiddenLine(index)}
-                  <span class="mt-0.5 block text-base text-slate-500 italic">
-                    Your line: {line.english}
-                  </span>
-                {:else}
-                  <span class="mt-0.5 block font-serif text-lg text-slate-900">
-                    <MarkedText text={line.slovak} marks={line.marks} />
-                  </span>
-                  {#if showEnglish}
-                    <span class="block text-sm text-slate-500">{line.english}</span>
+        {#if scriptOpen}
+          <ol
+            class="{panelClass} m-0 mt-3 list-none divide-y divide-slate-200 overflow-hidden p-0"
+          >
+            {#each scene.lines as line, index (line.id)}
+              <li>
+                <button
+                  class={cx(
+                    "block w-full cursor-pointer border-0 px-5 py-3 text-left sm:px-6",
+                    "transition-colors duration-150 ease-out hover:bg-subtle",
+                    index === shown ? "bg-blue-50" : "bg-transparent",
+                  )}
+                  type="button"
+                  onclick={() => startAt(index)}
+                >
+                  <span class="block text-sm font-semibold text-slate-500"
+                    >{line.speaker}</span
+                  >
+
+                  {#if hiddenLine(index)}
+                    <span class="mt-0.5 block text-base text-slate-500 italic">
+                      Your line: {line.english}
+                    </span>
+                  {:else}
+                    <span class="mt-0.5 block font-serif text-lg text-slate-900">
+                      <MarkedText text={line.slovak} marks={line.marks} />
+                    </span>
+                    {#if showEnglish}
+                      <span class="block text-sm text-slate-500">{line.english}</span>
+                    {/if}
                   {/if}
-                {/if}
-              </button>
-            </li>
-          {/each}
-        </ol>
+                </button>
+              </li>
+            {/each}
+          </ol>
+        {/if}
       {/if}
     </section>
   </PageShell>

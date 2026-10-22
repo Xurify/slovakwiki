@@ -18,7 +18,6 @@
     playing,
     showEnglish,
     slovak,
-    speaker,
     things = [],
   }: {
     /** Bump when the line starts playing, so the highlight follows it from its first word. */
@@ -33,7 +32,6 @@
     playing: boolean;
     showEnglish: boolean;
     slovak: string;
-    speaker: string;
     things?: readonly SceneThing[];
   } = $props();
 
@@ -65,17 +63,13 @@
 </script>
 
 <div aria-live="polite">
-  <p class="m-0 text-sm font-semibold text-slate-500">{speaker}</p>
-
   {#if listenFirst && playing}
-    <p
-      class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-400 max-[600px]:text-xl"
-    >
+    <p class="m-0 font-serif text-2xl leading-snug text-slate-400 max-[600px]:text-xl">
       Listen…
     </p>
   {:else}
     <p
-      class="m-0 mt-1 animate-rise font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
+      class="m-0 animate-rise font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
       lang="sk"
     >
       {#each runs as run, index (index)}
