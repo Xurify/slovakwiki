@@ -111,8 +111,8 @@
 <circle cx="645.5" cy="170.5" r="2" class="fill-scene-clay" />
 <circle cx="654.5" cy="170.5" r="2" class="fill-scene-clay" />
 
-<ellipse cx="730" cy="273" rx="58" ry="3" class="fill-scene-line/12" />
-<path d="M684 234h4v38h-4ZM772 234h4v38h-4Z" class="fill-scene-wood" />
-<rect x="676" y="252" width="108" height="8" rx="2" class="fill-scene-wood" />
-<rect x="680" y="234" width="100" height="8" rx="2" class="fill-scene-wood" />
-<rect x="676" y="260" width="108" height="3" class="fill-scene-line/12" />
+<ellipse cx="733" cy="279" rx="70" ry="4" class="fill-scene-line/12" />
+<path d="M678 222h5v56h-5ZM783 222h5v56h-5Z" class="fill-scene-wood" />
+<rect x="668" y="250" width="130" height="10" rx="2" class="fill-scene-wood" />
+<rect x="672" y="222" width="122" height="10" rx="2" class="fill-scene-wood" />
+<rect x="668" y="260" width="130" height="3" class="fill-scene-line/12" />
