@@ -3,7 +3,6 @@
   import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
 
-  /** What the tower clock shows. */
   let { hour }: { hour: number } = $props();
 
   /** Old-town facades left to right; neighbours never share a paint, as nothing outlines them. */

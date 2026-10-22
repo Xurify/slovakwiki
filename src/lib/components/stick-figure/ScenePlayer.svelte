@@ -105,11 +105,11 @@
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
-  const MODES: Array<{ id: Mode; label: string }> = [
+  /** Ways to take a lesson scene; greeting Mária is a game of its own. */
+  const MODES: Array<{ id: Exclude<Mode, "greet">; label: string }> = [
     { id: "watch", label: "Watch" },
     { id: "play", label: "Play Alex" },
     { id: "find", label: "Find it" },
-    { id: "greet", label: "Greet" },
   ];
 
   /** Mária on the square: someone Alex says Dobrý deň to, not Ahoj. */
@@ -179,7 +179,6 @@
   let greetAt = $state(0);
   let greetPicked = $state<Greeting | null>(null);
   let greetMissed = $state(false);
-  /** Each round: right the first time or not. */
   let greetResults = $state<Record<string, boolean>>({});
   let greetNote = $state<{ right: boolean; text: string }>();
 
@@ -273,7 +272,6 @@
     const same = id === scene.id;
     reset();
     sceneId = id;
-    // Greeting Mária is the same on any scene, so picking one means watching it.
     if (mode === "greet") mode = "watch";
     if (same) stage?.place(0);
     if (mode === "find") startFind();
@@ -582,9 +580,11 @@
         {#each scenes as option (option.id)}
           <li class="shrink-0">
             <button
-              class="{chipClass(option.id === scene.id)} whitespace-nowrap"
+              class="{chipClass(
+                option.id === scene.id && mode !== 'greet',
+              )} whitespace-nowrap"
               type="button"
-              aria-pressed={option.id === scene.id}
+              aria-pressed={option.id === scene.id && mode !== "greet"}
               lang="sk"
               onclick={() => selectScene(option.id)}
             >
@@ -593,44 +593,61 @@
           </li>
         {/each}
       </ul>
+
+      <p class="{eyebrowMutedClass} mt-4">Games</p>
+      <button
+        class="{chipClass(mode === 'greet')} mt-2 whitespace-nowrap"
+        type="button"
+        aria-pressed={mode === "greet"}
+        lang="sk"
+        onclick={() => selectMode("greet")}
+      >
+        Dobrý deň, či dobrý večer?
+      </button>
     </nav>
 
     <section class="mt-6" aria-label="Scene">
       <div class="flex flex-wrap items-center justify-between gap-3">
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <div class="flex gap-2" role="group" aria-label="Mode">
-            {#each MODES as option (option.id)}
-              <button
-                class={chipClass(option.id === mode)}
-                type="button"
-                aria-pressed={option.id === mode}
-                onclick={() => selectMode(option.id)}
-              >
-                {option.label}
-              </button>
-            {/each}
-          </div>
-
-          {#if mode === "play"}
-            <div class="flex gap-2" role="group" aria-label="How Alex's lines are asked">
-              {#each TURNS as option (option.id)}
+        {#if mode !== "greet"}
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <div class="flex gap-2" role="group" aria-label="Mode">
+              {#each MODES as option (option.id)}
                 <button
-                  class={chipClass(option.id === turnKind)}
+                  class={chipClass(option.id === mode)}
                   type="button"
-                  aria-pressed={option.id === turnKind}
-                  onclick={() => {
-                    turnKind = option.id;
-                  }}
+                  aria-pressed={option.id === mode}
+                  onclick={() => selectMode(option.id)}
                 >
                   {option.label}
                 </button>
               {/each}
             </div>
-          {/if}
-        </div>
+
+            {#if mode === "play"}
+              <div
+                class="flex gap-2"
+                role="group"
+                aria-label="How Alex's lines are asked"
+              >
+                {#each TURNS as option (option.id)}
+                  <button
+                    class={chipClass(option.id === turnKind)}
+                    type="button"
+                    aria-pressed={option.id === turnKind}
+                    onclick={() => {
+                      turnKind = option.id;
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        {/if}
 
         <!-- Find it asks in Slovak only: the English would give the answer away. -->
-        {#if mode !== "find"}
+        {#if mode !== "find" && mode !== "greet"}
           <TextLink onclick={toggleEnglish}>
             {showEnglish ? "Hide English" : "Show English"}
           </TextLink>
