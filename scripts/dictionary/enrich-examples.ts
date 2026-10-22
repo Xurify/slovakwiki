@@ -39,7 +39,7 @@ import { ROOT } from "../lib/paths";
 
 type WordSeed = Pick<
   ContentEntry,
-  "slug" | "slovak" | "english" | "category" | "examples" | "related"
+  "slug" | "slovak" | "english" | "category" | "gender" | "examples" | "related"
 >;
 
 interface SentencePair {
@@ -92,7 +92,12 @@ function isVerbCategory(category: string): boolean {
   return category === "Verbs";
 }
 
-function scorePair(pair: SentencePair, lemma: string, category: string): number {
+function scorePair(
+  pair: SentencePair,
+  lemma: string,
+  category: string,
+  gender?: string,
+): number {
   let score = 0;
   const length = pair.slovak.length;
   if (length >= 12 && length <= 90) score += 3;
@@ -100,7 +105,7 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
 
   if (lemmaAppearsAsToken(pair.slovak, lemma)) {
     score += isVerbCategory(category) ? 4 : 8;
-  } else if (morphAppearsAsToken(pair.slovak, lemma, category)) {
+  } else if (morphAppearsAsToken(pair.slovak, lemma, category, gender)) {
     score += isVerbCategory(category) ? 12 : 7;
   } else if (isVerbCategory(category) && verbInflectionEvidence(pair.slovak, lemma))
     score += 8;
@@ -112,8 +117,13 @@ function scorePair(pair: SentencePair, lemma: string, category: string): number 
   return score;
 }
 
-function hasStrongMatch(pair: SentencePair, lemma: string, category: string): boolean {
-  return exampleContainsLemma(pair.slovak, lemma, category);
+function hasStrongMatch(
+  pair: SentencePair,
+  lemma: string,
+  category: string,
+  gender?: string,
+): boolean {
+  return exampleContainsLemma(pair.slovak, lemma, category, gender);
 }
 
 async function loadTsvMap(
@@ -184,12 +194,13 @@ function buildIndex(pairs: SentencePair[]): Map<string, number[]> {
 function collectCandidates(
   lemma: string,
   category: string,
+  gender: string | undefined,
   pairs: SentencePair[],
   index: Map<string, number[]>,
 ): { accepted: SentencePair[]; rejectedQuality: number; rejectedWeak: number } {
   const exactKeys = new Set<string>([
     lemma.toLocaleLowerCase("sk"),
-    ...morphFormKeys(lemma, category),
+    ...morphFormKeys(lemma, category, gender),
   ]);
   const stem = isVerbCategory(category) ? verbStemForMatch(lemma) : undefined;
 
@@ -217,14 +228,17 @@ function collectCandidates(
       rejectedQuality += 1;
       continue;
     }
-    if (!hasStrongMatch(pair, lemma, category)) {
+    if (!hasStrongMatch(pair, lemma, category, gender)) {
       rejectedWeak += 1;
       continue;
     }
     accepted.push(pair);
   }
 
-  accepted.sort((a, b) => scorePair(b, lemma, category) - scorePair(a, lemma, category));
+  accepted.sort(
+    (a, b) =>
+      scorePair(b, lemma, category, gender) - scorePair(a, lemma, category, gender),
+  );
 
   return { accepted, rejectedQuality, rejectedWeak };
 }
@@ -364,6 +378,7 @@ async function main(): Promise<void> {
     const { accepted, rejectedQuality, rejectedWeak } = collectCandidates(
       word.slovak,
       word.category,
+      word.gender,
       pairs,
       index,
     );

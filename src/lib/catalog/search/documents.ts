@@ -93,7 +93,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         headword: [entry.slovak],
         forms: [
           ...(entry.aliases ?? []),
-          ...searchFormsForLemma(entry.slovak, entry.category),
+          ...searchFormsForLemma(entry.slovak, entry.category, entry.gender),
         ],
         gloss: [entry.english],
         body: [entry.summary, entry.category, ...entry.tags],

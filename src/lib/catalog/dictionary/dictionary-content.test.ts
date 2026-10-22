@@ -24,7 +24,13 @@ describe("dictionary examples", () => {
       word.examples
         .filter((example) => example.note === "Tatoeba" && !example.demonstrates)
         .filter(
-          (example) => !exampleContainsLemma(example.slovak, word.slovak, word.category),
+          (example) =>
+            !exampleContainsLemma(
+              example.slovak,
+              word.slovak,
+              word.category,
+              word.gender,
+            ),
         )
         .map((example) => `${word.slug}#${example.tatoebaId ?? example.slovak}`)
         .filter((key) => !reviewed.has(key)),
