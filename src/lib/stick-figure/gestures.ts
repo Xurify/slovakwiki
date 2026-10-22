@@ -14,6 +14,7 @@ export const STICK_GESTURE_IDS = [
   "think",
   "lean",
   "show",
+  "glance",
 ] as const;
 
 export type StickGestureId = (typeof STICK_GESTURE_IDS)[number];
@@ -81,6 +82,8 @@ const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, loo
 const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: -0.4, brow: 0.6 };
 const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 const holdOut = { leadRaise: 55, leadBend: 45, lean: 2, tilt: 3, look: 1, brow: 0.6 };
+/** Head up a little and eyes ahead: following where someone points. */
+const lookOver = { tilt: -7, look: 1, brow: 0.5 };
 
 /** A point with no target aims a little below level, at someone's hands or the table. */
 const POINT_RISE = -9;
@@ -174,6 +177,7 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
   ]),
   lean: gesture(leanIn, [key(0), key(340, leanIn), key(1100, leanIn), key(1450)]),
   show: gesture(holdOut, [key(0), key(320, holdOut), key(1200, holdOut), key(1550)]),
+  glance: gesture(lookOver, [key(0), key(260, lookOver), key(1300, lookOver), key(1600)]),
 };
 
 export function gestureDuration(id: StickGestureId): number {
