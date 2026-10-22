@@ -555,7 +555,7 @@ function masculineInstrumentalPlural(lower: string, stem: string): string {
   return stem.length < lower.length || stem.endsWith("m") ? `${stem}ami` : `${stem}mi`;
 }
 
-/** Hard -ý / -y / -í / -i nouns decline like adjectives: dospelý → dospelého. */
+/** Nouns in -ý / -y / -í / -i decline like adjectives: dospelý → dospelého. */
 function adjectivalMasculineForms(lower: string): NounForms | null {
   const parts = adjectiveParts(lower);
   if (!parts) return null;
@@ -622,9 +622,14 @@ const MASCULINE_LOCATIVE_I = /(?:ál|[^i]el|ér)$/u;
 /**
  * dub and stroj types. The genitive -a / -u is lexical: -u unless listed
  * (odrazu, jazyka), but soft stems, -ík and -ček take -a. Kalendár, papier and
- * meter (metra, metre) decline like stroj. Place names take -a (z Prešova).
+ * meter (metra, metre) decline like stroj. Place names take -a (z Prešova), and
+ * a noun with no gender gets both, since it may be animate (robota).
  */
-function masculineInanimateForms(lower: string, place: boolean): NounForms {
+function masculineInanimateForms(
+  lower: string,
+  place: boolean,
+  guessed: boolean,
+): NounForms {
   if (VOWEL_FINAL.test(lower)) return NO_FORMS;
 
   const stem = masculineStem(lower);
@@ -636,7 +641,7 @@ function masculineInanimateForms(lower: string, place: boolean): NounForms {
     ? ["u"]
     : place || soft || GENITIVE_A.has(lower) || /(?:ík|ček)$/u.test(lower)
       ? ["a"]
-      : GENITIVE_A_OR_U.has(lower)
+      : guessed || GENITIVE_A_OR_U.has(lower)
         ? ["a", "u"]
         : ["u"];
   const locative = LOCATIVE_SINGULAR[lower]
@@ -771,8 +776,9 @@ function nounForms(lemma: string, category: string, gender?: string): string[] {
   if (irregular) return irregular;
   if (gender === "plural-only") return pluralOnlyForms(lower);
 
+  // Proper names only: mesto is filed under Places but has a plural.
+  const place = category === "Places" && lemma !== lower;
   // Place names in -e, -é or -y are plural or adjectival (Košice, Humenné, Tatry).
-  const place = category === "Places";
   if (place && /[eéy]$/u.test(lower)) return [];
 
   let forms = NO_FORMS;
@@ -784,7 +790,7 @@ function nounForms(lemma: string, category: string, gender?: string): string[] {
       forms = masculineAnimateForms(lower);
       break;
     case "masculine-inanimate":
-      forms = masculineInanimateForms(lower, place);
+      forms = masculineInanimateForms(lower, place, !gender);
       break;
     case "neuter":
       forms = neuterForms(lower);

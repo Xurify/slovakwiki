@@ -1019,7 +1019,7 @@ export const IRREGULAR: Record<string, string[]> = {
   ],
 };
 
-/** Every oblique form of nouns no rule here derives (človek → ľudia, oko → oči). */
+/** Nouns no rule here derives (človek → ľudia, oko → oči). Months keep the singular. */
 export const IRREGULAR_NOUNS: Record<string, string[]> = {
   človek: ["človeka", "človeku", "človekom", "ľudia", "ľudí", "ľuďom", "ľuďoch", "ľuďmi"],
   deň: ["dňa", "dňu", "dni", "dňom", "dní", "dňoch", "dňami"],
@@ -1113,7 +1113,7 @@ export const OBLIQUE_STEMS: Record<string, string> = {
 };
 
 /** -ok nouns whose o stays (útoku, not útku); -rok, -skok and -blok keep it by rule. */
-export const KEEP_OK = new Set(["jarmok", "potok", "protiútok", "útok"]);
+export const KEEP_OK = new Set(["jarmok", "notebook", "potok", "protiútok", "útok"]);
 
 /**
  * Masculine inanimate hard stems with genitive -a (jazyka, roka). The rest take

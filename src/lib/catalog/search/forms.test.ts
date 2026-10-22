@@ -77,6 +77,30 @@ describe("search forms", () => {
     expect(conjugateVerbForTest("neodpovedať")).not.toContain("neodpoviem");
   });
 
+  it("conjugates the prefixed verbs the search card shows", () => {
+    expect(conjugateVerbForTest("dozvedieť")).toEqual(
+      expect.arrayContaining(["dozviem", "dozvie", "dozvedia", "dozvedel"]),
+    );
+    expect(conjugateVerbForTest("nedozvedieť")).toContain("nedozviem");
+    expect(conjugateVerbForTest("opísať")).toEqual(
+      expect.arrayContaining(["opíšem", "opíšu", "opísal"]),
+    );
+    expect(conjugateVerbForTest("nepodpísať")).toContain("nepodpíšem");
+    expect(conjugateVerbForTest("poukázať")).toContain("poukážem");
+    expect(conjugateVerbForTest("preukázať")).toContain("preukážu");
+    expect(conjugateVerbForTest("nenávidieť")).toEqual(
+      expect.arrayContaining(["nenávidím", "nenávidia", "nenávidel"]),
+    );
+    expect(conjugateVerbForTest("oklamať")).toEqual(
+      expect.arrayContaining(["oklamem", "oklamú"]),
+    );
+    expect(conjugateVerbForTest("oklamať")).not.toContain("oklamám");
+    expect(conjugateVerbForTest("obrať")).toEqual(
+      expect.arrayContaining(["oberiem", "oberú"]),
+    );
+    expect(conjugateVerbForTest("rozobrať")).toContain("rozoberiem");
+  });
+
   it("declines soft -a feminines like ulica", () => {
     const gula = searchFormsForLemma("guľa", "Nouns", "feminine");
     expect(gula).toEqual(
@@ -168,6 +192,35 @@ describe("search forms", () => {
     );
   });
 
+  it("drops the o of -ok only where Slovak does", () => {
+    expect(searchFormsForLemma("výsledok", "Nouns", "masculine-inanimate")).toContain(
+      "výsledku",
+    );
+    expect(searchFormsForLemma("útok", "Nouns", "masculine-inanimate")).toContain(
+      "útoku",
+    );
+    const notebook = searchFormsForLemma("notebook", "Nouns", "masculine-inanimate");
+    expect(notebook).toEqual(
+      expect.arrayContaining(["notebooku", "notebookom", "notebooky", "notebookmi"]),
+    );
+    expect(notebook).not.toContain("noteboku");
+  });
+
+  it("gives a noun without a gender both genitives", () => {
+    expect(searchFormsForLemma("robot", "Nouns")).toEqual(
+      expect.arrayContaining(["robota", "robotu"]),
+    );
+    expect(searchFormsForLemma("župan", "Nouns")).toContain("župana");
+    expect(searchFormsForLemma("Prešov", "Places")).toContain("prešova");
+  });
+
+  it("declines a common noun filed under Places", () => {
+    expect(searchFormsForLemma("mesto", "Places")).toEqual(
+      expect.arrayContaining(["meste", "mestá", "mestách"]),
+    );
+    expect(searchFormsForLemma("Bratislava", "Places")).not.toContain("bratislavách");
+  });
+
   it("declines short masculine nouns such as pás and cit", () => {
     expect(searchFormsForLemma("pás", "Nouns", "masculine-inanimate")).toEqual(
       expect.arrayContaining(["pása", "pásu", "páse", "pásom", "pásy"]),
@@ -204,15 +257,44 @@ describe("search forms", () => {
     );
   });
 
+  it("declines adjectives in short -i after a long syllable", () => {
+    const domaci = searchFormsForLemma("domáci", "Adjectives");
+    expect(domaci).toEqual(
+      expect.arrayContaining(["domáca", "domáce", "domáceho", "domácemu", "domácu"]),
+    );
+    expect(domaci).not.toContain("domácia");
+    expect(domaci).not.toContain("domácieho");
+    expect(searchFormsForLemma("budúci", "Adjectives")).toContain("budúceho");
+    expect(searchFormsForLemma("horúci", "Adjectives")).toContain("horúcu");
+    expect(searchFormsForLemma("vynikajúci", "Adjectives")).toContain("vynikajúcich");
+  });
+
   it("verifies only the paradigms it builds correctly", () => {
     expect(formsVerified("kupovať", "Verbs")).toBe(true);
     expect(formsVerified("robiť", "Verbs")).toBe(true);
     expect(formsVerified("brať", "Verbs")).toBe(true);
     expect(formsVerified("stavať", "Verbs")).toBe(true);
+    for (const verb of [
+      "dozvedieť",
+      "nedozvedieť",
+      "opísať",
+      "nepodpísať",
+      "poukázať",
+      "preukázať",
+      "nenávidieť",
+      "oklamať",
+      "obrať",
+      "rozobrať",
+    ]) {
+      expect(formsVerified(verb, "Verbs")).toBe(true);
+    }
     expect(formsVerified("čítať", "Verbs")).toBe(false);
     expect(formsVerified("nový", "Adjectives")).toBe(true);
     expect(formsVerified("krásny", "Adjectives")).toBe(true);
     expect(formsVerified("francúzsky", "Adjectives")).toBe(true);
+    for (const adjective of ["domáci", "budúci", "horúci", "vynikajúci"]) {
+      expect(formsVerified(adjective, "Adjectives")).toBe(true);
+    }
     expect(formsVerified("sexy", "Adjectives")).toBe(false);
     expect(formsVerified("kniha", "Nouns", "feminine")).toBe(true);
     expect(formsVerified("mesto", "Nouns", "neuter")).toBe(true);
