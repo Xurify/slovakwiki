@@ -46,6 +46,7 @@
     type Facing,
     type LineStaging,
   } from "$lib/stick-figure/staging";
+  import { playTramCue } from "$lib/stick-figure/ambience";
   import { TRAM, type TramState } from "$lib/stick-figure/street";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
@@ -601,6 +602,7 @@
         const to = destinationOf(staging, true);
         if (to !== undefined) walkGroup(to);
       }
+      if (direction.stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
     };
 

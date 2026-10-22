@@ -259,3 +259,73 @@ export function playAmbience({ indoors, layers }: Ambience): AmbiencePlayer | un
     },
   };
 }
+
+/**
+ * What you hear on a Bratislava platform as a tram comes in: the driver's
+ * bell, the rails starting to hum, the wheels knocking over the rail joints
+ * as it gets close, the motor whining down, and the brakes as it stops.
+ * About four seconds; plays on its own, background sound or not.
+ */
+export function playTramCue(): void {
+  const Context =
+    window.AudioContext ??
+    (window as unknown as { webkitAudioContext?: typeof AudioContext })
+      .webkitAudioContext;
+  if (!Context) return;
+
+  const ctx = new Context();
+  const out = ctx.createGain();
+  out.gain.value = 0.5 * getAudioVolume();
+  out.connect(ctx.destination);
+  const kit: Kit = { ctx, every: () => {}, indoors: false, noise: noiseBuffer(ctx), out };
+  const now = ctx.currentTime;
+
+  strike(kit, 1250, 0.05, 0.9, 0.2);
+  strike(kit, 1250, 0.05, 0.9, 0.5);
+
+  const rumble = bed(kit, [{ frequency: 150, type: "lowpass" }], 0);
+  rumble.gain.gain.setValueAtTime(0, now);
+  rumble.gain.gain.linearRampToValueAtTime(0.55, now + 2.6);
+  rumble.gain.gain.linearRampToValueAtTime(0.4, now + 3.2);
+  rumble.gain.gain.linearRampToValueAtTime(0, now + 4.2);
+  rumble.source.stop(now + 4.3);
+
+  // Two axles of a bogie over each joint, closer together as it slows.
+  for (const [at, level] of [
+    [1.1, 0.12],
+    [1.24, 0.12],
+    [1.75, 0.18],
+    [1.9, 0.18],
+    [2.4, 0.22],
+    [2.57, 0.22],
+  ]) {
+    const knock = bed(kit, [{ frequency: 520, q: 2, type: "bandpass" }], 0);
+    knock.gain.gain.setValueAtTime(level, now + at);
+    knock.gain.gain.exponentialRampToValueAtTime(0.0001, now + at + 0.07);
+    knock.source.stop(now + at + 0.1);
+  }
+
+  const motor = ctx.createOscillator();
+  const motorGain = ctx.createGain();
+  motor.frequency.setValueAtTime(520, now + 0.8);
+  motor.frequency.exponentialRampToValueAtTime(260, now + 3.2);
+  motorGain.gain.setValueAtTime(0, now);
+  motorGain.gain.linearRampToValueAtTime(0.018, now + 1.6);
+  motorGain.gain.linearRampToValueAtTime(0, now + 3.4);
+  motor.connect(motorGain).connect(out);
+  motor.start(now + 0.8);
+  motor.stop(now + 3.5);
+
+  const brake = ctx.createOscillator();
+  const brakeGain = ctx.createGain();
+  brake.frequency.setValueAtTime(2350, now + 2.9);
+  brake.frequency.linearRampToValueAtTime(2150, now + 3.5);
+  brakeGain.gain.setValueAtTime(0, now + 2.9);
+  brakeGain.gain.linearRampToValueAtTime(0.012, now + 3.05);
+  brakeGain.gain.linearRampToValueAtTime(0, now + 3.5);
+  brake.connect(brakeGain).connect(out);
+  brake.start(now + 2.9);
+  brake.stop(now + 3.6);
+
+  window.setTimeout(() => void ctx.close(), 4800);
+}
