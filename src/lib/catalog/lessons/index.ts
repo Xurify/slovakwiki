@@ -1,6 +1,6 @@
 import type { Lesson, LessonTrackId } from "$lib/learning/types";
 import { lessonExercises } from "$lib/learning/beats";
-import { lineSentences } from "$lib/stick-figure/line-plan";
+import { lineSentences } from "$lib/stick-figure/slovak-text";
 import { everydayLessons } from "./everyday";
 import { grammarLessons } from "./grammar";
 import { pronunciationLessons } from "./pronunciation";

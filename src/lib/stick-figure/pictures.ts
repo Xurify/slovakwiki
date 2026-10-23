@@ -1,4 +1,4 @@
-import { foldLine } from "./line-gesture";
+import { foldLine, lineWords } from "./slovak-text";
 
 const STICK_PICTURE_IDS = [
   "flag-at",
@@ -61,7 +61,7 @@ export function linePictures(
 ): Array<{ picture: StickPictureId; word: number }> {
   const found: Array<{ picture: StickPictureId; word: number }> = [];
 
-  (slovak.match(/\p{L}+/gu) ?? []).forEach((word, index) => {
+  lineWords(slovak).forEach((word, index) => {
     const folded = foldLine(word);
     const picture = PICTURE_STEMS.find(([stem]) => folded.startsWith(stem))?.[1];
     if (picture && !found.some((cue) => cue.picture === picture)) {

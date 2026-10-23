@@ -1,9 +1,19 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
-import { foldLine } from "./line-gesture";
-import { lineSentences, lineWords, wordSentences } from "./line-plan";
 import { lineProps, type StickPropId } from "./props";
 import { linePoints, type ShownProp } from "./scene-points";
+import {
+  APOLOGIES,
+  GOODBYES,
+  HELLOS,
+  THANKS,
+  foldLine,
+  lineSentences,
+  lineWords,
+  mentions,
+  opensWith,
+  wordSentences,
+} from "./slovak-text";
 import { thingNamed, type SceneThing } from "./thing-words";
 
 /** 1 faces right (+x), -1 faces left. */
@@ -57,20 +67,9 @@ export interface LineStaging {
 }
 
 /** Folded sentence openers the one spoken to nods at. */
-const NOD_AT = ["dakujem", "dakujeme", "vdaka", "tesi ma", "prepacte", "prepac"];
+const NOD_AT = [...THANKS, "tesi ma", ...APOLOGIES];
 /** Folded phrases that end someone's part in a scene: goodbyes, or going to fetch the order. */
-const LEAVING = [
-  "dovidenia",
-  "do videnia",
-  "maj sa",
-  "majte sa",
-  "zbohom",
-  "dobru noc",
-  "pekny den",
-  "hned to bude",
-  "hned som spat",
-  "musim ist",
-];
+const LEAVING = [...GOODBYES, "pekny den", "hned to bude", "hned som spat", "musim ist"];
 /** Folded phrases that call the one spoken to over. */
 const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
 /** Folded openers that take everyone along to a thing the line names. */
@@ -85,29 +84,6 @@ const WHOSE = ["ci", "cia", "cie", "cieho", "ciu", "cej", "cim"];
 const MINE = ["moj", "moja", "moje", "moji"];
 /** Folded phrases that hand over what the speaker holds. */
 const GIVING = ["nech sa paci", "pre teba", "pre vas", "tu mas", "tu mate"];
-
-/** Folded openers of someone arriving. */
-const GREETINGS = [
-  "ahoj",
-  "cau",
-  "dobry den",
-  "dobry vecer",
-  "dobre rano",
-  "vitajte",
-  "vitaj",
-  "zdravim",
-  "nazdar",
-];
-
-function opensWith(sentence: string, openers: string[]): boolean {
-  const folded = foldLine(sentence);
-  return openers.some((opener) => folded === opener || folded.startsWith(`${opener} `));
-}
-
-function mentions(sentence: string, phrases: string[]): boolean {
-  const folded = ` ${foldLine(sentence)} `;
-  return phrases.some((phrase) => folded.includes(` ${phrase} `));
-}
 
 /** Where the line takes everyone: the last thing it names, when it says "Poďme" or "Poď!". */
 function destination(line: StageLine, things: readonly SceneThing[]): string | undefined {
@@ -164,7 +140,7 @@ function addresseeOf(
 
 function greets(line: StageLine | undefined): boolean {
   const first = line ? lineSentences(line.slovak)[0] : undefined;
-  return first !== undefined && opensWith(first, GREETINGS);
+  return first !== undefined && opensWith(first, HELLOS);
 }
 
 /**

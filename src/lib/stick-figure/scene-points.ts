@@ -1,5 +1,4 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-import type { NounGender } from "$lib/catalog/types";
 import {
   CASES,
   demonstrativeForm,
@@ -7,10 +6,10 @@ import {
   type Slot,
 } from "$lib/learning/demonstratives/paradigm";
 import type { PointReach } from "./gestures";
-import { foldLine } from "./line-gesture";
-import { lineWords, wordSentences, type LinePoint, type PointTarget } from "./line-plan";
+import type { LinePoint, PointTarget } from "./line-plan";
 import { hasContent, propForSentence, type StickPropId } from "./props";
-import { isPlural, thingNamed, type SceneThing } from "./thing-words";
+import { foldLine, lineWords, wordSentences } from "./slovak-text";
+import { slotOf, thingNamed, type SceneThing } from "./thing-words";
 
 const SLOTS: readonly Slot[] = [
   "masculine-animate",
@@ -44,12 +43,6 @@ for (const series of ["ten", "tento", "tamten"] as const) {
 
 function demonstrative(word: string | undefined) {
   return DEMONSTRATIVES.get(word?.toLocaleLowerCase("sk") ?? "");
-}
-
-function slotOf(thing: SceneThing): Slot {
-  return isPlural(thing)
-    ? "plural"
-    : (thing.gender as Exclude<NounGender, "plural-only">);
 }
 
 /** To, toto and tamto on their own mostly mean it, this and that, not a noun said before. */

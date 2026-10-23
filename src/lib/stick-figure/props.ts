@@ -1,7 +1,12 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
-import { foldLine } from "./line-gesture";
-import { lineSentences } from "./line-plan";
+import {
+  foldLine,
+  lineSentences,
+  matchesWord,
+  mentions,
+  type WordCues,
+} from "./slovak-text";
 
 export const STICK_PROP_IDS = [
   "apple",
@@ -30,7 +35,7 @@ export type CastProps = Partial<Record<LessonCharacterId, StickPropId>>;
  * stay whole where a stem would catch something else (`kav` is also in
  * `kaviareň`, `telefon` in `telefónne číslo`, which asks for a number).
  */
-const PROP_CUES: Record<StickPropId, { stems?: string[]; words?: string[] }> = {
+const PROP_CUES: Record<StickPropId, WordCues> = {
   apple: { stems: ["jablk", "jablc"] },
   bag: { stems: ["task", "tasiek"] },
   basket: { stems: ["kosik"] },
@@ -73,25 +78,19 @@ const CALLING = ["volam", "volas", "vola", "volame", "volate", "volaju"];
 
 /** The prop a sentence names, if any: "Pozri, to sú fotky z leta." → camera. */
 export function propForSentence(sentence: string): StickPropId | undefined {
-  const folded = foldLine(sentence);
-  const words = folded.split(" ");
-  const ordering = ORDERING.some((phrase) => ` ${folded} `.includes(` ${phrase} `));
+  const words = foldLine(sentence).split(" ");
   if (words.some((word) => NOT_HAVING.includes(word))) return undefined;
 
-  for (const id of STICK_PROP_IDS) {
-    if (id === "cup" && ordering) continue;
-    const { stems = [], words: whole = [] } = PROP_CUES[id];
-    const named = words.some(
-      (word) => whole.includes(word) || stems.some((stem) => word.startsWith(stem)),
-    );
-    if (named) return id;
-  }
+  const ordering = mentions(sentence, ORDERING);
+  const named = STICK_PROP_IDS.find(
+    (id) =>
+      !(id === "cup" && ordering) &&
+      words.some((word) => matchesWord(word, PROP_CUES[id])),
+  );
+  if (named) return named;
 
-  if (words.some((word) => CALLING.includes(word)) && !words.includes("sa")) {
-    return "phone";
-  }
-
-  return undefined;
+  const calling = words.some((word) => CALLING.includes(word)) && !words.includes("sa");
+  return calling ? "phone" : undefined;
 }
 
 /**

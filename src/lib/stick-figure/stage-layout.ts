@@ -1,6 +1,5 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import { BACKDROP_HEIGHT } from "./backdrop-geometry";
-import type { StageSetting } from "./stage-setting";
 import type { Facing } from "./staging";
 
 /** The stage's side padding, px. */

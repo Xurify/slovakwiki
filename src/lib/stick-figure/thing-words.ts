@@ -1,6 +1,8 @@
 import type { NounGender } from "$lib/catalog/types";
+import { demonstrativeForm, type Slot } from "$lib/learning/demonstratives/paradigm";
 import type { PointReach } from "./gestures";
 import type { Point } from "./rig";
+import { matchesWord } from "./slovak-text";
 
 /**
  * The words for things drawn in the backdrops, how they are drawn (one box
@@ -100,12 +102,11 @@ export function isPlural({ gender, plural }: SceneThing): boolean {
   return plural === true || gender === "plural-only";
 }
 
-/** ten, tá, to or tie for a thing: what goes in front of it in the nominative. */
-function demonstrativeFor(thing: SceneThing): string {
-  if (isPlural(thing)) return "tie";
-  if (thing.gender === "feminine") return "tá";
-  if (thing.gender === "neuter") return "to";
-  return "ten";
+/** Where a thing sits in the demonstrative paradigm: its gender, or plural. */
+export function slotOf(thing: SceneThing): Slot {
+  return isPlural(thing)
+    ? "plural"
+    : (thing.gender as Exclude<NounGender, "plural-only">);
 }
 
 /** A name like Dunaj takes no demonstrative. */
@@ -115,17 +116,16 @@ export function isProperName({ word }: SceneThing): boolean {
 
 /** The thing with its demonstrative, so the word shows its gender: ten koláč, tá torta. */
 export function thingWithDemonstrative(thing: SceneThing): string {
-  return isProperName(thing) ? thing.word : `${demonstrativeFor(thing)} ${thing.word}`;
+  return isProperName(thing)
+    ? thing.word
+    : `${demonstrativeForm("ten", slotOf(thing), "nominative")} ${thing.word}`;
 }
 
 export function thingNamed(
   folded: string,
   things: readonly SceneThing[],
 ): SceneThing | undefined {
-  return things.find(
-    ({ forms = [], stems = [] }) =>
-      forms.includes(folded) || stems.some((stem) => folded.startsWith(stem)),
-  );
+  return things.find(({ forms, stems }) => matchesWord(folded, { stems, words: forms }));
 }
 
 export const THING_WORDS = {

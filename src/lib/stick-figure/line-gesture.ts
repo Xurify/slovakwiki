@@ -1,21 +1,11 @@
 import type { StickGestureId } from "./gestures";
+import { APOLOGIES, GOODBYES, HELLOS, THANKS, foldLine, opens } from "./slovak-text";
+
+type Opener = [phrase: string, gesture: StickGestureId];
 
 /** Opening words of a line, folded (no diacritics, lowercase, words only). */
-const OPENERS: Array<[string, StickGestureId]> = [
-  ["ahoj", "wave"],
-  ["ahojte", "wave"],
-  ["cau", "wave"],
-  ["dobry den", "wave"],
-  ["dobry vecer", "wave"],
-  ["dobre rano", "wave"],
-  ["dobru noc", "wave"],
-  ["dovidenia", "wave"],
-  ["do videnia", "wave"],
-  ["vitajte", "wave"],
-  ["vitaj", "wave"],
-  ["zdravim", "wave"],
-  ["maj sa", "wave"],
-  ["majte sa", "wave"],
+const OPENERS: Opener[] = [
+  ...[...HELLOS, ...GOODBYES].map((phrase): Opener => [phrase, "wave"]),
 
   ["ano", "nod"],
   ["jasne", "nod"],
@@ -26,9 +16,7 @@ const OPENERS: Array<[string, StickGestureId]> = [
   ["urcite", "nod"],
   ["tesi ma", "nod"],
   ["aj mna", "nod"],
-  ["dakujem", "nod"],
-  ["dakujeme", "nod"],
-  ["vdaka", "nod"],
+  ...THANKS.map((phrase): Opener => [phrase, "nod"]),
   ["rado sa stalo", "nod"],
   ["nie je za co", "nod"],
 
@@ -37,10 +25,7 @@ const OPENERS: Array<[string, StickGestureId]> = [
   ["vobec", "shake"],
   ["nikdy", "shake"],
 
-  ["prepacte", "apologize"],
-  ["prepac", "apologize"],
-  ["pardon", "apologize"],
-  ["ospravedlnujem", "apologize"],
+  ...APOLOGIES.map((phrase): Opener => [phrase, "apologize"]),
 
   ["volam sa", "self"],
   ["moje meno", "self"],
@@ -81,16 +66,6 @@ const OPENERS: Array<[string, StickGestureId]> = [
 /** Longest first, so "nie je za co" wins over "nie" and "ja neviem" over "ja". */
 const OPENERS_BY_LENGTH = [...OPENERS].sort(([a], [b]) => b.length - a.length);
 
-export function foldLine(text: string): string {
-  const words = text
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLocaleLowerCase("sk")
-    .match(/\p{L}+/gu);
-
-  return words ? words.join(" ") : "";
-}
-
 /**
  * Pick a gesture from what the line says, so every scene line animates
  * without hand-authored keyframes: greetings wave, "áno" nods, "nie"
@@ -98,10 +73,6 @@ export function foldLine(text: string): string {
  */
 export function gestureForLine(slovak: string): StickGestureId {
   const folded = foldLine(slovak);
-
-  for (const [opener, gesture] of OPENERS_BY_LENGTH) {
-    if (folded === opener || folded.startsWith(`${opener} `)) return gesture;
-  }
-
-  return slovak.includes("?") ? "ask" : "talk";
+  const opener = OPENERS_BY_LENGTH.find(([phrase]) => opens(folded, phrase));
+  return opener?.[1] ?? (slovak.includes("?") ? "ask" : "talk");
 }

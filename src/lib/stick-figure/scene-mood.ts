@@ -1,4 +1,4 @@
-import { foldLine } from "./line-gesture";
+import { foldLine, matchesWord, opens, type WordCues } from "./slovak-text";
 
 export type TimeOfDay = "morning" | "day" | "evening" | "night";
 export type Weather = "clear" | "sunny" | "cloudy" | "rain" | "snow";
@@ -41,23 +41,11 @@ const GREETING_TIMES: Array<[string, TimeOfDay]> = [
 ];
 
 /** Folded words for the weather: prší, sneží and slnko whole, dážď, sneh and oblak in any case. Sunny is clear with the sun out. */
-const WEATHER_WORDS: Array<[string, Weather]> = [
-  ["prsi", "rain"],
-  ["prsalo", "rain"],
-  ["prsat", "rain"],
-  ["snezi", "snow"],
-  ["snezilo", "snow"],
-  ["snezit", "snow"],
-  ["slnko", "sunny"],
-  ["slnecno", "sunny"],
-  ["oblacno", "cloudy"],
-  ["zamracene", "cloudy"],
-];
-const WEATHER_STEMS: Array<[string, Weather]> = [
-  ["dazd", "rain"],
-  ["sneh", "snow"],
-  ["oblak", "cloudy"],
-  ["mrak", "cloudy"],
+const WEATHER_CUES: Array<[Weather, WordCues]> = [
+  ["rain", { stems: ["dazd"], words: ["prsi", "prsalo", "prsat"] }],
+  ["snow", { stems: ["sneh"], words: ["snezi", "snezilo", "snezit"] }],
+  ["sunny", { words: ["slnko", "slnecno"] }],
+  ["cloudy", { stems: ["oblak", "mrak"], words: ["oblacno", "zamracene"] }],
 ];
 
 /**
@@ -71,22 +59,13 @@ export function sceneMood(lines: readonly string[], upTo = lines.length - 1): Sc
   const folded = lines.map(foldLine);
   const time =
     folded
-      .map(
-        (line) =>
-          GREETING_TIMES.find(
-            ([greeting]) => line === greeting || line.startsWith(`${greeting} `),
-          )?.[1],
-      )
+      .map((line) => GREETING_TIMES.find(([greeting]) => opens(line, greeting))?.[1])
       .find(Boolean) ?? "day";
   const weather =
     folded
       .slice(0, upTo + 1)
       .flatMap((line) => line.split(" "))
-      .map(
-        (word) =>
-          WEATHER_WORDS.find(([whole]) => word === whole)?.[1] ??
-          WEATHER_STEMS.find(([stem]) => word.startsWith(stem))?.[1],
-      )
+      .map((word) => WEATHER_CUES.find(([, cues]) => matchesWord(word, cues))?.[0])
       .findLast(Boolean) ?? "clear";
 
   const over = upTo >= lines.length && isFalling(weather);

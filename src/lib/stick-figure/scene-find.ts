@@ -1,5 +1,6 @@
 import type { TextMark } from "$lib/learning/marked-text";
-import { isPlural, isProperName, type SceneThing } from "./thing-words";
+import { demonstrativeForm } from "$lib/learning/demonstratives/paradigm";
+import { isPlural, isProperName, slotOf, type SceneThing } from "./thing-words";
 
 /** Kde je torta? (where is it, the dictionary form) or Ukáž na tú tortu. (point at that one, the accusative). */
 export type FindAsk = "where" | "point";
@@ -22,13 +23,6 @@ export function accusativeOf(thing: SceneThing): string {
   return gender === "feminine" && !isPlural(thing) && word.endsWith("a")
     ? `${word.slice(0, -1)}u`
     : word;
-}
-
-function accusativeDemonstrative(thing: SceneThing): string {
-  if (isPlural(thing)) return "tie";
-  if (thing.gender === "feminine") return "tú";
-  if (thing.gender === "neuter") return "to";
-  return thing.gender === "masculine-animate" ? "toho" : "ten";
 }
 
 /** English says "the headphones are" where Slovak may not: slúchadlá, but also zelenina. */
@@ -80,7 +74,9 @@ export function findPrompt(thing: SceneThing, ask: FindAsk): FindPrompt {
   }
 
   const opening = "Ukáž na ";
-  const demonstrative = isProperName(thing) ? "" : `${accusativeDemonstrative(thing)} `;
+  const demonstrative = isProperName(thing)
+    ? ""
+    : `${demonstrativeForm("ten", slotOf(thing), "accusative")} `;
   const nounAt = opening.length + demonstrative.length;
   const pointed = isProperName(thing)
     ? english

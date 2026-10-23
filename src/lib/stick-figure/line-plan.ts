@@ -13,6 +13,7 @@ import {
   type LipTrack,
 } from "./mouth-track";
 import { linePictures, type StickPictureId } from "./pictures";
+import { lineSentences, wordSentences } from "./slovak-text";
 import { slovakSyllables, type VowelShape } from "./syllables";
 
 /**
@@ -89,24 +90,6 @@ const MIN_BEAT_GAP_MS = 700;
 const POINT_LEAD_MS = 200;
 /** A beat pushed later than this before the voice stops is dropped. */
 const LATE_BEAT_MS = 300;
-
-export function lineSentences(slovak: string): string[] {
-  return (slovak.match(/[^.!?…]+[.!?…]*/g) ?? [])
-    .map((sentence) => sentence.trim())
-    .filter((sentence) => /\p{L}/u.test(sentence));
-}
-
-/** The words of a line, in the order `textTimeline` times them. */
-export function lineWords(slovak: string): string[] {
-  return slovak.match(/\p{L}+/gu) ?? [];
-}
-
-/** Which sentence each of the line's words is in. */
-export function wordSentences(slovak: string): number[] {
-  return lineSentences(slovak).flatMap((sentence, index) =>
-    lineWords(sentence).map(() => index),
-  );
-}
 
 export function estimateSpeechMs(text: string): number {
   let ms = 0;

@@ -1,8 +1,6 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { planLine, type LinePlan } from "./line-plan";
-import { foldLine } from "./line-gesture";
-import { lineSentences, lineWords } from "./line-plan";
 import { decodeMouthTrack, decodeVowelTrack } from "./mouth-track";
 import {
   gesturesWithProps,
@@ -15,6 +13,7 @@ import {
 } from "./props";
 import { PLACES } from "./places";
 import { linePoints, type NamedThing } from "./scene-points";
+import { foldLine, lineSentences, lineWords } from "./slovak-text";
 import type { StageSetting } from "./stage-setting";
 import { stageLine, takesFrom, type LineStaging, type StageLine } from "./staging";
 import { thingNamed, type SceneThing } from "./thing-words";

@@ -2,7 +2,7 @@
   import { storyAudioClock } from "$lib/lesson-story/story-audio";
   import { markRoleClass, type TextMark } from "$lib/learning/marked-text";
   import { captionRuns } from "$lib/stick-figure/caption";
-  import { foldLine } from "$lib/stick-figure/line-gesture";
+  import { foldLine } from "$lib/stick-figure/slovak-text";
   import type { LinePlan } from "$lib/stick-figure/line-plan";
   import { planTime, wordAt } from "$lib/stick-figure/performance";
   import { thingNamed, type SceneThing } from "$lib/stick-figure/thing-words";

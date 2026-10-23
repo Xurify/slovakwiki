@@ -7,8 +7,9 @@ import {
   mouthAt,
   sampleGesture,
 } from "./gestures";
-import { foldLine, gestureForLine } from "./line-gesture";
-import { estimateSpeechMs, planLine, reactionPlan, wordSentences } from "./line-plan";
+import { gestureForLine } from "./line-gesture";
+import { estimateSpeechMs, planLine, reactionPlan } from "./line-plan";
+import { foldLine, wordSentences } from "./slovak-text";
 import {
   MOUTH_FRAME_MS,
   MOUTH_LEAD_MS,

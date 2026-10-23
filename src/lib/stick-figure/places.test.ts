@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { words } from "$lib/catalog/entries";
-import { foldLine } from "./line-gesture";
+import { foldLine } from "./slovak-text";
 import type { StageSetting } from "./stage-setting";
 import { BACKDROP_WIDTH, thingsInView } from "./backdrop-geometry";
 import { PLACES, backdropAlign, sunIn, thingsIn } from "./places";
