@@ -4,7 +4,7 @@ import { formsVerified, searchFormsForLemma } from "../search/forms";
 import type { GrammaticalCase, WordClass, WordTag } from "$lib/level-test/types";
 
 /** Prepositions, conjunctions, particles and question words: one list covers them. */
-const SMALL_WORDS = new Set(
+const FUNCTION_WORDS = new Set(
   [
     "a aj ak ako ale alebo ani asi až aby bez cez či do hneď i iba k keď kým ku kvôli",
     "lebo len medzi na nad nech nie no o od odo okolo okrem oproti po pod podľa počas",
@@ -16,7 +16,7 @@ const SMALL_WORDS = new Set(
     .split(" "),
 );
 
-/** Každý, niektorý, všetci…: they decline, but learners meet them as small words. */
+/** Každý, niektorý, všetci…: they decline, but they work as function words, not content words. */
 const QUANTIFIER =
   /^(?:každ|niektor|mnoh|všetk|všetc|žiadn|nijak)\p{L}*$|^(?:niečo|nič|niekto|nikto|všetko)$/u;
 
@@ -124,7 +124,7 @@ function buildDictionaryIndex(): Map<string, DictionaryForm> {
  */
 export function tagWord(surface: string): WordTag {
   const word = lower(surface);
-  if (SMALL_WORDS.has(word) || QUANTIFIER.test(word)) return { class: "smallWord" };
+  if (FUNCTION_WORDS.has(word) || QUANTIFIER.test(word)) return { class: "functionWord" };
   if (NUMBER.test(word)) return { class: "other", topic: "numbers-and-numerals" };
 
   const verbTopic = VERB_TOPICS.get(word);
@@ -134,7 +134,7 @@ export function tagWord(surface: string): WordTag {
   const pronoun = pronounIndex.get(word);
   if (pronoun) {
     return {
-      class: "smallWord",
+      class: "functionWord",
       lemma: pronoun.lemma,
       ...(pronoun.topic ? { topic: pronoun.topic } : {}),
       cases: pronoun.cases,

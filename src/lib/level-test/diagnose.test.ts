@@ -14,8 +14,8 @@ function gap(
       ? "nouns"
       : tag.class === "verb"
         ? "verbs"
-        : tag.class === "smallWord"
-          ? "smallWords"
+        : tag.class === "functionWord"
+          ? "functionWords"
           : "vocabulary";
   return {
     itemId: `${expected}-${given}-${difficulty}`,

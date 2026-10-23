@@ -17,12 +17,12 @@ describe("tagWord", () => {
 
   it("knows a demonstrative's cases", () => {
     const tag = tagWord("tohto");
-    expect(tag).toMatchObject({ class: "smallWord", topic: "demonstratives" });
+    expect(tag).toMatchObject({ class: "functionWord", topic: "demonstratives" });
     expect(tag.cases).toEqual(expect.arrayContaining(["genitive"]));
   });
 
   it("treats prepositions and numbers as their own kinds", () => {
-    expect(tagWord("na").class).toBe("smallWord");
+    expect(tagWord("na").class).toBe("functionWord");
     expect(tagWord("štvrtej")).toMatchObject({ topic: "numbers-and-numerals" });
   });
 });

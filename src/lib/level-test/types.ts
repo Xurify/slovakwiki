@@ -11,12 +11,12 @@ export type StudyArea =
   | "nouns"
   | "verbs"
   | "adjectives"
-  | "smallWords"
+  | "functionWords"
   | "accents"
   | "listening"
   | "reading";
 
-export type WordClass = "noun" | "verb" | "adjective" | "smallWord" | "other";
+export type WordClass = "noun" | "verb" | "adjective" | "functionWord" | "other";
 
 export type { GrammaticalCase } from "$lib/learning/possessives/paradigm";
 
@@ -292,7 +292,7 @@ export const AI_ISSUE_TOPICS = [
   "verbForms",
   "aspect",
   "adjectiveAgreement",
-  "smallWords",
+  "functionWords",
   "wordOrder",
   "accents",
   "vocabulary",

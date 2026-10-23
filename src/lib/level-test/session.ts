@@ -172,8 +172,8 @@ export function areaForTag(tag: WordTag | undefined): StudyArea {
       return "verbs";
     case "adjective":
       return "adjectives";
-    case "smallWord":
-      return "smallWords";
+    case "functionWord":
+      return "functionWords";
     default:
       return "vocabulary";
   }

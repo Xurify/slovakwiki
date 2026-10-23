@@ -17,7 +17,7 @@ export const STUDY_AREAS: readonly StudyArea[] = [
   "nouns",
   "adjectives",
   "verbs",
-  "smallWords",
+  "functionWords",
   "accents",
   "listening",
   "reading",
@@ -47,10 +47,10 @@ export const STUDY_AREA_INFO: Record<
     short: "Verbs",
     what: "verb endings for person and tense",
   },
-  smallWords: {
-    label: "Small words",
-    short: "Small words",
-    what: "prepositions, conjunctions, pronouns, sa and si",
+  functionWords: {
+    label: "Function words",
+    short: "Function words",
+    what: "prepositions, conjunctions, pronouns and particles such as sa, si and nie",
   },
   accents: {
     label: "Accents and spelling",
@@ -176,8 +176,8 @@ const ISSUE_AREA: Record<AiIssueTopic, StudyArea> = {
   verbForms: "verbs",
   aspect: "verbs",
   adjectiveAgreement: "adjectives",
-  smallWords: "smallWords",
-  wordOrder: "smallWords",
+  functionWords: "functionWords",
+  wordOrder: "functionWords",
   accents: "accents",
   vocabulary: "vocabulary",
 };
@@ -233,7 +233,7 @@ const AREA_LINKS: Record<StudyArea, StudyLink[]> = {
     { label: "Lesson: present-tense endings", href: "/lessons/grammar/present-tense-i" },
     { label: "Practice: present-tense endings", href: "/practice/present-tense-i" },
   ],
-  smallWords: [
+  functionWords: [
     { label: "Word order", href: "/grammar/word-order" },
     { label: "Negation", href: "/grammar/negation" },
   ],
