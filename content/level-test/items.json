@@ -23388,53 +23388,53 @@
     },
     " peňazí, ",
     {
-     "prefix": "pri",
-     "missing": "čom",
-     "difficulty": 32
+     "prefix": "zat",
+     "missing": "iaľ",
+     "difficulty": 31.7
     },
-    " pracujúcich ",
+    " čo ",
     {
-     "prefix": "ub",
-     "missing": "úda",
-     "difficulty": 70.1
+     "prefix": "pracu",
+     "missing": "júcich",
+     "difficulty": 54.3
     },
-    ". Chýbať ",
+    " ubúda. ",
     {
-     "prefix": "bu",
-     "missing": "dú",
-     "difficulty": 31.4
+     "prefix": "Chý",
+     "missing": "bať",
+     "difficulty": 38.6
     },
-    " aj ",
+    " budú ",
     {
-     "prefix": "opatro",
-     "missing": "vatelia",
-     "difficulty": 71.9
+     "prefix": "a",
+     "missing": "j",
+     "difficulty": 30.2
     },
-    ", ktorí ",
+    " opatrovatelia, ",
     {
-     "prefix": "b",
-     "missing": "y",
-     "difficulty": 76.6
+     "prefix": "kt",
+     "missing": "orí",
+     "difficulty": 31.2
     },
-    " sa ",
+    " by ",
     {
-     "prefix": "sta",
-     "missing": "rali",
-     "difficulty": 64.6
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 30
     },
-    " o seniorov ",
+    " starali o ",
     {
-     "prefix": "odkáz",
-     "missing": "aných",
-     "difficulty": 70.5
+     "prefix": "seni",
+     "missing": "orov",
+     "difficulty": 44.6
     },
-    " na ",
+    " odkázaných ",
     {
-     "prefix": "po",
-     "missing": "moc",
-     "difficulty": 32.1
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 30
     },
-    ". Starnutie však neznamená len problémy, keďže mnohí starší ľudia zostávajú dlho aktívni. Môžu odovzdávať skúsenosti mladším kolegom, pomáhať v rodine alebo sa zapájať do života v obci. Úlohou politiky je vytvoriť podmienky, aby tento potenciál nezostal nevyužitý."
+    " pomoc. Starnutie však neznamená len problémy, keďže mnohí starší ľudia zostávajú dlho aktívni. Môžu odovzdávať skúsenosti mladším kolegom, pomáhať v rodine alebo sa zapájať do života v obci. Úlohou politiky je vytvoriť podmienky, aby tento potenciál nezostal nevyužitý."
    ]
   },
   {
@@ -24321,23 +24321,23 @@
     },
     " narušili ",
     {
-     "prefix": "r",
-     "missing": "áz",
-     "difficulty": 52.9
+     "prefix": "pôv",
+     "missing": "odný",
+     "difficulty": 55.3
     },
-    " celých ",
+    " ráz ",
     {
-     "prefix": "ul",
-     "missing": "íc",
-     "difficulty": 56
+     "prefix": "cel",
+     "missing": "ých",
+     "difficulty": 58.6
     },
-    ". Spor ",
+    " ulíc. ",
     {
-     "prefix": "s",
-     "missing": "a",
-     "difficulty": 40
+     "prefix": "Sp",
+     "missing": "or",
+     "difficulty": 51.4
     },
-    " neraz zužuje na zdanlivú voľbu medzi zachovaním a pokrokom. Viaceré príklady zo zahraničia však ukazujú, že citlivá obnova dokáže spojiť obe hodnoty. Staré budovy možno prispôsobiť súčasným potrebám bez toho, aby stratili svoj charakter. Predpokladom je včasný dialóg medzi vlastníkmi, úradmi a odborníkmi."
+    " sa neraz zužuje na zdanlivú voľbu medzi zachovaním a pokrokom. Viaceré príklady zo zahraničia však ukazujú, že citlivá obnova dokáže spojiť obe hodnoty. Staré budovy možno prispôsobiť súčasným potrebám bez toho, aby stratili svoj charakter. Predpokladom je včasný dialóg medzi vlastníkmi, úradmi a odborníkmi."
    ]
   }
  ],

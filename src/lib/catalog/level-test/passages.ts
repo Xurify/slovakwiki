@@ -174,7 +174,7 @@ export const ctestPassages: CTestPassage[] = [
     id: "starnuca-spolocnost",
     level: "B2",
     title: "Starnúca spoločnosť",
-    text: "Slovensko, podobne ako väčšina európskych krajín, rýchlo starne. Ľudia sa dožívajú vyššieho veku a zároveň sa rodí menej detí. Tento vývoj prináša spoločnosti viacero výziev. Na dôchodky a zdravotnú starostlivosť bude treba stále viac peňazí, pričom pracujúcich ubúda. Chýbať budú aj opatrovatelia, ktorí by sa starali o seniorov odkázaných na pomoc. Starnutie však neznamená len problémy, keďže mnohí starší ľudia zostávajú dlho aktívni. Môžu odovzdávať skúsenosti mladším kolegom, pomáhať v rodine alebo sa zapájať do života v obci. Úlohou politiky je vytvoriť podmienky, aby tento potenciál nezostal nevyužitý.",
+    text: "Slovensko, podobne ako väčšina európskych krajín, rýchlo starne. Ľudia sa dožívajú vyššieho veku a zároveň sa rodí menej detí. Tento vývoj prináša spoločnosti viacero výziev. Na dôchodky a zdravotnú starostlivosť bude treba stále viac peňazí, zatiaľ čo pracujúcich ubúda. Chýbať budú aj opatrovatelia, ktorí by sa starali o seniorov odkázaných na pomoc. Starnutie však neznamená len problémy, keďže mnohí starší ľudia zostávajú dlho aktívni. Môžu odovzdávať skúsenosti mladším kolegom, pomáhať v rodine alebo sa zapájať do života v obci. Úlohou politiky je vytvoriť podmienky, aby tento potenciál nezostal nevyužitý.",
   },
   {
     id: "veda-a-verejnost",
@@ -216,6 +216,6 @@ export const ctestPassages: CTestPassage[] = [
     id: "pamiatky-a-rozvoj-miest",
     level: "C1",
     title: "Pamiatky a rozvoj miest",
-    text: "Historické centrá miest sú svedectvom minulosti, no zároveň musia slúžiť ľuďom, ktorí v nich žijú dnes. Ochrana pamiatok sa preto často dostáva do konfliktu s požiadavkami moderného života. Majitelia starých domov sa sťažujú, že prísne predpisy im bránia vymeniť okná či zatepliť fasádu. Pamiatkari naopak namietajú, že necitlivé zásahy by nenávratne narušili ráz celých ulíc. Spor sa neraz zužuje na zdanlivú voľbu medzi zachovaním a pokrokom. Viaceré príklady zo zahraničia však ukazujú, že citlivá obnova dokáže spojiť obe hodnoty. Staré budovy možno prispôsobiť súčasným potrebám bez toho, aby stratili svoj charakter. Predpokladom je včasný dialóg medzi vlastníkmi, úradmi a odborníkmi.",
+    text: "Historické centrá miest sú svedectvom minulosti, no zároveň musia slúžiť ľuďom, ktorí v nich žijú dnes. Ochrana pamiatok sa preto často dostáva do konfliktu s požiadavkami moderného života. Majitelia starých domov sa sťažujú, že prísne predpisy im bránia vymeniť okná či zatepliť fasádu. Pamiatkari naopak namietajú, že necitlivé zásahy by nenávratne narušili pôvodný ráz celých ulíc. Spor sa neraz zužuje na zdanlivú voľbu medzi zachovaním a pokrokom. Viaceré príklady zo zahraničia však ukazujú, že citlivá obnova dokáže spojiť obe hodnoty. Staré budovy možno prispôsobiť súčasným potrebám bez toho, aby stratili svoj charakter. Predpokladom je včasný dialóg medzi vlastníkmi, úradmi a odborníkmi.",
   },
 ];
