@@ -34,7 +34,7 @@
 
   @keyframes fall {
     to {
-      transform: translate(var(--fall-x, 0), var(--fall-y, 0));
+      transform: translate(var(--fall-x), var(--fall-y));
     }
   }
 

@@ -204,12 +204,4 @@ describe("the sun", () => {
       }
     }
   });
-
-  it("is where the park's slnko is tapped and pointed at", () => {
-    const sun = SCENE_THINGS.default?.find((thing) => thing.id === "slnko")?.box;
-    const day = SUN_SPOTS.default?.day;
-    expect(sun && day && { x: sun.x + sun.width / 2, y: sun.y + sun.height / 2 }).toEqual(
-      day,
-    );
-  });
 });

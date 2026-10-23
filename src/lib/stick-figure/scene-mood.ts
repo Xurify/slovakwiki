@@ -11,6 +11,18 @@ export interface SceneMood {
 
 export const DAYTIME: SceneMood = { time: "day", weather: "clear" };
 
+/** How long the sky takes to change, so rain coming on or easing off reads as weather, not a cut. */
+export const WEATHER_FADE_MS = 900;
+
+/** No cloud, rain or snow: the sun or the stars can show. */
+export function isFair(weather: Weather): boolean {
+  return weather === "clear" || weather === "sunny";
+}
+
+export function isFalling(weather: Weather): boolean {
+  return weather === "rain" || weather === "snow";
+}
+
 const OUTDOORS: readonly StageSetting[] = ["default", "market", "plaza", "street"];
 
 /** Under the sky, where weather falls on everything and the cast dresses for it. */
@@ -62,6 +74,10 @@ const WEATHER_STEMS: Array<[string, Weather]> = [
  * then, so a sky that clouds over and rains changes as the lines say so.
  * Without `upTo`, the weather the scene ends in.
  */
+/**
+ * The time of day and the weather as of line `upTo`. Past the last line
+ * the scene is over and rain or snow has let up, so it does not end mid-shower.
+ */
 export function sceneMood(lines: readonly string[], upTo = lines.length - 1): SceneMood {
   const folded = lines.map(foldLine);
   const time =
@@ -84,5 +100,6 @@ export function sceneMood(lines: readonly string[], upTo = lines.length - 1): Sc
       )
       .findLast(Boolean) ?? "clear";
 
-  return { time, weather };
+  const over = upTo >= lines.length && isFalling(weather);
+  return { time, weather: over ? "cloudy" : weather };
 }

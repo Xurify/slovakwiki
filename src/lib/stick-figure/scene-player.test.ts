@@ -4,7 +4,7 @@ import { markedText } from "$lib/learning/marked-text";
 import { captionRuns, lineTiles, shuffledTiles } from "./caption";
 import { planLine } from "./line-plan";
 import { wordAt } from "./performance";
-import { accusativeOf, findAsk, findPrompt, findWhy, thatIs } from "./scene-find";
+import { accusativeOf, findAsks, findPrompt, findWhy, thatIs } from "./scene-find";
 import { SCENE_THINGS, type SceneThing } from "./scene-things";
 
 const thingsById = new Map(
@@ -138,10 +138,8 @@ describe("find it", () => {
   });
 
   it("mixes both forms in one round, always pointing where the form changes", () => {
-    expect(findAsk(thing("torta"), 0)).toBe("point");
-    expect(findAsk(thing("muz"), 2)).toBe("point");
-    expect(findAsk(thing("okno"), 0)).toBe("where");
-    expect(findAsk(thing("okno"), 1)).toBe("point");
-    expect(findAsk(thing("jahody"), 2)).toBe("where");
+    expect(
+      findAsks(["kolac", "torta", "okno", "muz", "jahody", "dvere"].map(thing)),
+    ).toEqual(["where", "point", "point", "point", "where", "point"]);
   });
 });

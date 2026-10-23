@@ -1,3 +1,4 @@
+import { lemmaToSlug } from "$lib/catalog/frequency";
 import {
   listedCharacters,
   type LessonCharacterId,
@@ -322,13 +323,7 @@ export function dayAnswer(exchange: DayExchange): DayChoice {
 }
 
 export function alexTurnId(slovak: string): string {
-  const slug = slovak
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLocaleLowerCase("sk")
-    .replace(/[^a-z]+/g, "-")
-    .replace(/^-|-$/g, "");
-  return `day/say/${slug}`;
+  return `day/say/${lemmaToSlug(slovak)}`;
 }
 
 export function replyTurnId(exchange: DayExchange): string {

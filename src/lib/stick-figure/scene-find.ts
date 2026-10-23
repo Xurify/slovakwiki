@@ -44,16 +44,24 @@ function endingMark(thing: SceneThing, start: number): TextMark[] {
   return [{ start: end - 1, end, role: "ending" }];
 }
 
+/** The noun takes another ending after `ukáž na`: torta → tortu, muž → muža. */
+export function formChanges(thing: SceneThing): boolean {
+  return accusativeOf(thing) !== thing.word;
+}
+
 /**
- * How a round asks for the thing at `index`, so one round mixes both forms
- * and needs no levels: a noun whose accusative differs (torta → tortu,
- * muž → toho muža) is always pointed at, so the change is seen; the rest
- * take turns, so the dictionary form is heard as well.
+ * How a round asks for each thing, in the round's order, so one round
+ * mixes both forms and needs no levels: a noun whose form changes is
+ * always pointed at, so the change is seen; the rest take turns, so the
+ * dictionary form is heard as well.
  */
-export function findAsk(thing: SceneThing, index: number): FindAsk {
-  const changes =
-    accusativeOf(thing) !== thing.word || thing.gender === "masculine-animate";
-  return changes || index % 2 === 1 ? "point" : "where";
+export function findAsks(things: readonly SceneThing[]): FindAsk[] {
+  let keeps = 0;
+  return things.map((thing) => {
+    if (formChanges(thing)) return "point";
+    keeps += 1;
+    return keeps % 2 === 1 ? "where" : "point";
+  });
 }
 
 export function findPrompt(thing: SceneThing, ask: FindAsk): FindPrompt {
@@ -114,16 +122,14 @@ export function hereIs(thing: SceneThing): string {
 export function findWhy(thing: SceneThing, ask: FindAsk): string | undefined {
   if (ask === "where") return undefined;
 
-  const accusative = accusativeOf(thing);
-  const verb = "ukáž na";
-  if (accusative !== thing.word) {
-    return `After **${verb}** the noun takes the accusative: **${thing.word}** → **${accusative}**.`;
+  if (formChanges(thing)) {
+    return `After **ukáž na** the noun takes the accusative: **${thing.word}** → **${accusativeOf(thing)}**.`;
   }
   if (thing.gender === "plural-only") {
-    return `**${thing.word}** is plural only and keeps its form after **${verb}**.`;
+    return `**${thing.word}** is plural only and keeps its form after **ukáž na**.`;
   }
   if (isPlural(thing)) {
-    return `**${thing.word}** is plural, and plural things keep their form after **${verb}**.`;
+    return `**${thing.word}** is plural, and plural things keep their form after **ukáž na**.`;
   }
-  return `**${thing.word}** keeps its form after **${verb}**: masculine things and neuter nouns look the same in the accusative.`;
+  return `**${thing.word}** keeps its form after **ukáž na**: masculine things and neuter nouns look the same in the accusative.`;
 }

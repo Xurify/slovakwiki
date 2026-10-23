@@ -1,4 +1,5 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import { BACKDROP_HEIGHT } from "./scene-things";
 import type { StageSetting } from "./stage-setting";
 import type { Facing } from "./staging";
 
@@ -21,20 +22,18 @@ export const STAGE_POSTS: Partial<Record<StageSetting, number>> = {
   market: 660,
   registration: 560,
 };
-/** The stage's height on a wide screen, px; a phone's stage is shorter, keeping more of the place in view. */
-export const STAGE_HEIGHT = 300;
-
 /**
  * A figure's width on a stage this size: in step with the stage's height,
- * so the cast keeps its size against the place on a phone, smaller in a
- * crowd, and never wider than its share.
+ * so on a phone's shorter stage the cast keeps its size against the place;
+ * smaller in a crowd, and never wider than its share. A wide stage is as
+ * tall as the backdrop.
  */
 export function figureWidth(
   castSize: number,
   stageWidth: number,
-  stageHeight = STAGE_HEIGHT,
+  stageHeight = BACKDROP_HEIGHT,
 ): number {
-  const preferred = ((castSize > 2 ? 110 : 150) * stageHeight) / STAGE_HEIGHT;
+  const preferred = ((castSize > 2 ? 110 : 150) * stageHeight) / BACKDROP_HEIGHT;
   const inner = stageWidth - 2 * STAGE_PADDING;
   const gaps = GAP_SHARE * inner * Math.max(0, castSize - 1);
   return Math.max(40, Math.min(preferred, (inner - gaps) / Math.max(1, castSize)));
@@ -52,7 +51,7 @@ export function stageMarks(
   entering: Partial<Record<LessonCharacterId, Facing>>,
   stageWidth: number,
   at = stageWidth / 2,
-  stageHeight = STAGE_HEIGHT,
+  stageHeight = BACKDROP_HEIGHT,
 ): { marks: Partial<Record<LessonCharacterId, number>>; width: number } {
   const width = figureWidth(cast.length, stageWidth, stageHeight);
   const step = width + GAP_SHARE * (stageWidth - 2 * STAGE_PADDING);

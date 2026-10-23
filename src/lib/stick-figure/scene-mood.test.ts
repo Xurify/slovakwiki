@@ -39,6 +39,9 @@ describe("sceneMood", () => {
     ]);
     expect(sceneMood(["Prší!", "Už svieti slnko."]).weather).toBe("sunny");
     expect(sceneMood(["Je oblačno."]).weather).toBe("cloudy");
+    expect(sceneMood(["Prší!", "Poďme."], 2).weather).toBe("cloudy");
+    expect(sceneMood(["Sneží!"], 1).weather).toBe("cloudy");
+    expect(sceneMood(["Svieti slnko."], 1).weather).toBe("sunny");
   });
 
   it("knows which places are under the sky", () => {

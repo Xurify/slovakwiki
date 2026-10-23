@@ -1,12 +1,10 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-
   import ClockHands from "./ClockHands.svelte";
   import Cloud from "./Cloud.svelte";
   import Facades, { type Facade } from "./Facades.svelte";
   import FloorShade from "./FloorShade.svelte";
 
-  let { hour, sky }: { hour: number; sky?: Snippet } = $props();
+  let { hour }: { hour: number } = $props();
 
   /** Old-town facades left to right; neighbours never share a paint, as nothing outlines them. */
   const houses: Facade[] = [
@@ -21,8 +19,6 @@
   ];
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
-{@render sky?.()}
 <Cloud x={560} y={60} />
 <Cloud x={860} y={64} size={0.7} />
 <Cloud x={110} y={56} size={0.8} />

@@ -51,6 +51,7 @@
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
+  import StickWeather from "./StickWeather.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
 
   interface ActorState {
@@ -140,7 +141,8 @@
   );
   /** The studio and the street have no painted plate, so they stay drawn. */
   const plate = $derived(painted ? plateFor(setting) : undefined);
-  const wrapped = $derived(mood.weather === "snow" && isOutdoors(setting));
+  /** The weather the cast is out in: indoors nobody wears a scarf or opens an umbrella. */
+  const outside = $derived(isOutdoors(setting) ? mood.weather : "clear");
   const entering = $derived(
     Object.fromEntries(
       direction.stagings.flatMap(({ enter }) =>
@@ -675,6 +677,7 @@
       {tram}
       width={stageWidth}
     />
+    <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
   {/if}
 
   {#each direction.cast as characterId (characterId)}
@@ -694,8 +697,8 @@
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
         prop={holding[characterId]}
-        furled={mood.weather !== "rain"}
-        scarf={wrapped}
+        furled={outside !== "rain"}
+        scarf={outside === "snow"}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}
       />

@@ -1,6 +1,4 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-
   import Chalkboard from "./Chalkboard.svelte";
   import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
@@ -35,13 +33,8 @@
   ];
 
   const STRIPE = 30;
-
-  /** Drawn on the sky, behind everything else. */
-  let { sky }: { sky?: Snippet } = $props();
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
-{@render sky?.()}
 <Cloud x={150} y={52} size={0.8} />
 <Cloud x={820} y={50} />
 <path

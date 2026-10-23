@@ -1,24 +1,22 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
 
-  import type { SceneMood } from "$lib/stick-figure/scene-mood";
+  import { scatter } from "$lib/stick-figure/scatter";
+  import { WEATHER_FADE_MS, isFair, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { SUN_SPOTS } from "$lib/stick-figure/scene-things";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import Cloud from "./Cloud.svelte";
 
   /**
-   * What hangs in an outdoor place's sky: the sun, the stars, an overcast
-   * grey and its clouds. Each backdrop draws it straight over its sky, so
-   * towers, lamps and bunting stand in front of it.
+   * An outdoor place's sky and what hangs in it: the sun, the stars, an
+   * overcast grey and its clouds. StickBackdrop draws it before the place,
+   * so towers, lamps and bunting stand in front of it.
    */
   let { mood, setting }: { mood: SceneMood; setting: StageSetting } = $props();
 
   const id = $props.id();
 
-  /** As MoodLayer's weather, so the sky changes with the rain. */
-  const WEATHER_MS = 900;
-
-  const fair = $derived(mood.weather === "clear" || mood.weather === "sunny");
+  const fair = $derived(isFair(mood.weather));
   const sun = $derived.by(() => {
     const spots = SUN_SPOTS[setting];
     if (!spots) return undefined;
@@ -27,19 +25,7 @@
     return undefined;
   });
 
-  /** The same scatter every time, so the stars do not move between renders. */
-  const stars = (() => {
-    let state = 3;
-    const next = () => {
-      state = (state * 1664525 + 1013904223) >>> 0;
-      return state / 2 ** 32;
-    };
-    return Array.from({ length: 30 }, () => ({
-      size: next(),
-      x: next() * 960,
-      y: 6 + next() * 80,
-    }));
-  })();
+  const stars = scatter(30, 3, 960, 80);
 </script>
 
 <defs>
@@ -49,8 +35,10 @@
   </radialGradient>
 </defs>
 
+<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
+
 {#if sun}
-  <g transition:fade={{ duration: WEATHER_MS }}>
+  <g transition:fade={{ duration: WEATHER_FADE_MS }}>
     <circle cx={sun.x} cy={sun.y} r={sun.r * 2.3} fill="url(#{id}-sun)" />
     <circle cx={sun.x} cy={sun.y} r={sun.r} class="fill-scene-honey" />
   </g>
@@ -61,13 +49,13 @@
   <rect x="-10" y="-10" width="980" height="236" class="fill-portrait-suit/60" />
   {#if fair}
     {#each stars as star, index (index)}
-      <circle cx={star.x} cy={star.y} r={1 + star.size * 1.2} class="fill-white" />
+      <circle cx={star.x} cy={star.y + 6} r={1 + star.size * 1.2} class="fill-white" />
     {/each}
   {/if}
 {/if}
 
-{#if mood.weather === "cloudy" || mood.weather === "rain" || mood.weather === "snow"}
-  <g transition:fade={{ duration: WEATHER_MS }}>
+{#if !fair}
+  <g transition:fade={{ duration: WEATHER_FADE_MS }}>
     <rect x="-10" y="-10" width="980" height="236" class="fill-scene-line/15" />
     {#if mood.weather === "cloudy"}
       <Cloud x={200} y={64} size={1.3} />

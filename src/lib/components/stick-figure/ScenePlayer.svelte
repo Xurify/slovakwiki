@@ -61,6 +61,7 @@
   import { playAnswerSfx } from "$lib/audio/sfx";
   import { listedCharacters } from "$lib/catalog/lessons/character-ids";
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
+  import MarkedNote from "$lib/components/lessons/MarkedNote.svelte";
   import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
   import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
@@ -90,7 +91,8 @@
   import EpisodeCheck from "$lib/components/listening/EpisodeCheck.svelte";
   import {
     accusativeOf,
-    findAsk,
+    findAsks,
+    formChanges,
     findPrompt,
     findWhy,
     hereIs,
@@ -160,6 +162,7 @@
   ];
 
   const DAY = { english: "A day on the square", name: "Deň na námestí" };
+  const DAY_SETTING: StageSetting = "plaza";
 
   const PLACES: Record<StageSetting, string> = {
     cafe: "At the café",
@@ -231,12 +234,8 @@
   /** The visitor on the square, and the exchange of their talk with Alex. */
   let dayAt = $state(0);
   let dayStep = $state(0);
-  /** Alex picking a line, a line and its answer playing, or the visitor walking off. */
-  let dayPhase = $state<"choose" | "talk" | "gone">("choose");
-  /** The line in the dialogue box, as an index into the visit's lines; -1 before the first. */
-  let dayShown = $state(-1);
+  /** The wrong line picked last in this exchange; none once it is answered. */
   let dayWrong = $state<string | null>(null);
-  let dayMissed = $state(false);
   /** Each exchange answered so far, and whether it was right the first time. */
   let dayResults = $state<Record<string, boolean>>({});
 
@@ -285,52 +284,43 @@
   const turns = $derived(TURNS.filter(({ id }) => id !== "say" || recordable));
   const takeCount = $derived(Object.keys(takes).length);
   const soundscape = $derived(
-    ambienceFor(mode === "day" ? "plaza" : scene.setting, mood),
+    ambienceFor(mode === "day" ? DAY_SETTING : scene.setting, mood),
   );
   const soundKey = $derived(JSON.stringify(soundscape));
   const dayVisit = $derived(DAY_VISITS[dayAt]);
   /** The visitor on stage: the last one stays once the day is over. */
   const dayStaged = $derived(DAY_VISITS[Math.min(dayAt, DAY_VISITS.length - 1)]);
   const dayExchange = $derived(dayVisit?.exchanges[dayStep]);
-  const dayLines = $derived<DirectedLine[]>(
+  /** The visit's lines in order: Alex's answer, then the visitor's reply, each exchange. */
+  const dayScript = $derived(
     dayStaged.exchanges.flatMap((exchange) => {
-      const said = dayAnswer(exchange).slovak;
+      const said = dayAnswer(exchange);
       return [
-        dayLine(alexTurnId(said), "alex", said),
-        dayLine(replyTurnId(exchange), dayStaged.who, exchange.reply.slovak),
+        { ...said, characterId: "alex" as const, id: alexTurnId(said.slovak) },
+        { ...exchange.reply, characterId: dayStaged.who, id: replyTurnId(exchange) },
       ];
     }),
   );
-  /** Alex's lines and the visitor's take turns, so an even line is Alex's. */
+  const dayLines = $derived<DirectedLine[]>(dayScript.map(dayLine));
   const dayCaption = $derived.by(() => {
-    const exchange = dayStaged.exchanges[Math.floor(dayShown / 2)];
-    if (dayShown < 0 || !exchange) return undefined;
-
-    const alex = dayShown % 2 === 0;
-    const line = alex ? dayAnswer(exchange) : exchange.reply;
-    const characterId: LessonCharacterId = alex ? "alex" : dayStaged.who;
-    return {
-      characterId,
-      english: line.english,
-      name: dayName(characterId),
-      slovak: line.slovak,
-    };
+    const line = mode === "day" && shown >= 0 ? dayScript[shown] : undefined;
+    return line && { ...line, name: dayName(line.characterId) };
   });
+  /** Alex is to pick a line: the exchange is not answered yet. */
+  const dayChoosing = $derived(Boolean(dayExchange && !(dayExchange.id in dayResults)));
   const dayWhy = $derived(
     dayExchange?.choices.find((choice) => choice.slovak === dayWrong)?.why,
   );
-  const dayDirection = $derived(directScene(dayLines, "plaza"));
-  const mood = $derived.by((): SceneMood => {
-    if (mode === "day") return { time: dayStaged.time, weather: "clear" };
-
-    const told = sceneMood(
-      scene.lines.map((line) => line.slovak),
-      shown >= 0 ? shown : at,
-    );
-    // Once the story is told the rain or snow lets up, so the scene does not end mid-shower.
-    const over = phase === "done" && ["rain", "snow"].includes(told.weather);
-    return over ? { ...told, weather: "cloudy" } : told;
-  });
+  const dayDirection = $derived(directScene(dayLines, DAY_SETTING));
+  const mood = $derived<SceneMood>(
+    mode === "day"
+      ? { time: dayStaged.time, weather: "clear" }
+      : sceneMood(
+          scene.lines.map((line) => line.slovak),
+          // Past the last line once it is over, where the rain has let up.
+          phase === "done" ? scene.lines.length : shown >= 0 ? shown : at,
+        ),
+  );
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
   const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
   /** Whose name sits on the dialogue box: the speaker of the line showing, or Alex at his turn. */
@@ -370,6 +360,8 @@
       ),
     ].flatMap((id) => direction.things.filter((thing) => thing.id === id)),
   );
+  /** How the round asks for each thing, in the round's order. */
+  const findAsk = $derived(findAsks(inOrder(direction.things))[findAt]);
   const findTarget = $derived(
     direction.things.find((thing) => thing.id === queue[findAt]),
   );
@@ -389,8 +381,9 @@
             ontoggle: toggleEnglish,
           },
         ]),
-    ...(mode === "watch" || mode === "play"
-      ? [
+    ...(mode === "find"
+      ? []
+      : [
           {
             description: "Lines play at three-quarter speed",
             label: "Slower",
@@ -399,6 +392,9 @@
               slower = !slower;
             },
           },
+        ]),
+    ...(mode === "watch" || mode === "play"
+      ? [
           {
             description:
               "Hear each line before you read it, then go on when you are ready",
@@ -627,11 +623,15 @@
   }
 
   /** A line of the game with its clip; Alex stays on the square after each goodbye. */
-  function dayLine(
-    id: string,
-    characterId: LessonCharacterId,
-    slovak: string,
-  ): DirectedLine {
+  function dayLine({
+    characterId,
+    id,
+    slovak,
+  }: {
+    characterId: LessonCharacterId;
+    id: string;
+    slovak: string;
+  }): DirectedLine {
     const line = day.find((option) => option.id === id);
     return {
       characterId,
@@ -648,10 +648,8 @@
     window.clearTimeout(dayTimer);
     dayAt = 0;
     dayStep = 0;
-    dayPhase = "choose";
-    dayShown = -1;
+    shown = -1;
     dayWrong = null;
-    dayMissed = false;
     dayResults = {};
     await tick();
     stage?.arrive(DAY_VISITS[0].who, 1);
@@ -661,74 +659,51 @@
   function sayOnSquare(picked: string | null): void {
     const exchange = dayExchange;
     const choice = exchange?.choices.find((option) => option.slovak === picked);
-    if (!exchange || !choice || dayPhase !== "choose") return;
+    if (!exchange || !choice || !dayChoosing) return;
 
     if (choice.why) {
       playAnswerSfx("incorrect");
       stage?.say("alex", choice.slovak);
       stage?.gesture(dayVisit.who, "think");
       dayWrong = choice.slovak;
-      dayMissed = true;
       return;
     }
 
     playAnswerSfx("correct");
-    dayResults = { ...dayResults, [exchange.id]: !dayMissed };
+    dayResults = { ...dayResults, [exchange.id]: dayWrong === null };
     dayWrong = null;
-    dayMissed = false;
-    dayPhase = "talk";
     const index = dayStep * 2;
-    sayDay(index, () => {
-      dayTimer = window.setTimeout(
-        () => sayDay(index + 1, answeredOnSquare),
-        LINE_GAP_MS,
-      );
+    say(index, () => {
+      dayTimer = window.setTimeout(() => say(index + 1, answeredOnSquare), LINE_GAP_MS);
     });
-  }
-
-  function sayDay(index: number, onDone?: () => void): void {
-    dayShown = index;
-    speaking = true;
-    captionCue += 1;
-    stage?.play(
-      index,
-      () => {
-        speaking = false;
-        onDone?.();
-      },
-      slower ? 0.75 : 1,
-    );
   }
 
   /** The visitor's line once more, while Alex thinks what to say. */
   function hearOnSquare(): void {
-    if (dayShown < 0 || dayPhase !== "choose") return;
+    if (shown < 0 || !dayChoosing) return;
     halt();
-    sayDay(dayShown);
+    say(shown);
   }
 
   function answeredOnSquare(): void {
     if (dayStep + 1 < dayVisit.exchanges.length) {
       dayStep += 1;
-      dayPhase = "choose";
       return;
     }
-    dayPhase = "gone";
     dayTimer = window.setTimeout(() => void nextOnSquare(), DAY_PAUSE_MS);
   }
 
   async function nextOnSquare(): Promise<void> {
     dayAt += 1;
     dayStep = 0;
-    dayShown = -1;
-    dayPhase = "choose";
+    shown = -1;
     if (!dayVisit) return;
     await tick();
     stage?.arrive(dayVisit.who, 1);
   }
 
   function onDayKeydown(event: KeyboardEvent): void {
-    if (mode !== "day" || dayPhase !== "choose" || !dayExchange) return;
+    if (mode !== "day" || !dayChoosing || !dayExchange) return;
 
     const index = choiceIndexFromKeyboardEvent(event);
     const choice = index === null ? undefined : dayExchange.choices[index];
@@ -740,7 +715,8 @@
 
   /** The learner's take of line `index`, when it should be heard in Alex's place. */
   function takeAt(index: number): Take | undefined {
-    return ownVoice ? takes[index] : undefined;
+    // Takes are of the lesson scene's lines; the day on the square has its own.
+    return ownVoice && mode !== "day" ? takes[index] : undefined;
   }
 
   function say(index: number, onDone?: () => void): void {
@@ -976,7 +952,7 @@
     findNote = {
       tone: "right",
       text: "Áno!",
-      why: findWhy(target, findAsk(target, findAt)),
+      why: findWhy(target, findAsk),
     };
     if (who) stage?.gesture(who, "nod");
     nextThing();
@@ -991,7 +967,7 @@
     findNote = {
       tone: "shown",
       text: hereIs(target),
-      why: findWhy(target, findAsk(target, findAt)),
+      why: findWhy(target, findAsk),
     };
     stage?.light(target.id);
     nextThing();
@@ -1113,7 +1089,7 @@
           lines={mode === "day" ? dayLines : lines}
           {mood}
           onthing={mode === "find" ? tapThing : undefined}
-          setting={mode === "day" ? "plaza" : scene.setting}
+          setting={mode === "day" ? DAY_SETTING : scene.setting}
           {thingWords}
         />
 
@@ -1142,7 +1118,7 @@
                     <SceneCaption
                       cue={captionCue}
                       english={dayCaption.english}
-                      plan={dayDirection.plans[dayShown]}
+                      plan={dayDirection.plans[shown]}
                       playing={speaking}
                       {showEnglish}
                       slovak={dayCaption.slovak}
@@ -1190,7 +1166,7 @@
                 </p>
               </div>
 
-              {#if dayPhase === "choose" && dayExchange}
+              {#if dayChoosing && dayExchange}
                 {#key dayExchange.id}
                   <div class="animate-rise">
                     <ChoiceOptions
@@ -1209,13 +1185,7 @@
                         class="m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty text-rose-800"
                         role="status"
                       >
-                        {#each splitEmphasis(dayWhy) as part, index (index)}
-                          {#if part.type === "em"}
-                            <strong class="font-semibold">{part.value}</strong>
-                          {:else}
-                            {part.value}
-                          {/if}
-                        {/each}
+                        <MarkedNote text={dayWhy} markClass="" />
                       </p>
                     {/if}
 
@@ -1305,7 +1275,7 @@
             {/if}
           {:else if mode === "find"}
             {#if findTarget}
-              {@const prompt = findPrompt(findTarget, findAsk(findTarget, findAt))}
+              {@const prompt = findPrompt(findTarget, findAsk)}
 
               <p class={eyebrowMutedClass}>Tap it in the scene</p>
               {#key prompt.slovak}
@@ -1342,8 +1312,8 @@
                 </p>
               {/if}
             {:else if queue.length > 0}
-              {@const changed = inOrder(direction.things).filter(
-                (thing) => accusativeOf(thing) !== thing.word,
+              {@const changed = inOrder(direction.things).filter((thing) =>
+                formChanges(thing),
               )}
 
               <div class="animate-rise">

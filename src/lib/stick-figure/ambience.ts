@@ -1,5 +1,5 @@
 import { getAudioVolume } from "$lib/audio/volume";
-import { isOutdoors, type SceneMood } from "./scene-mood";
+import { isFalling, isOutdoors, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 
 export type AmbienceLayer =
@@ -28,13 +28,12 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
   const outdoors = isOutdoors(setting);
   const dark = mood.time === "evening" || mood.time === "night";
   const layers = PLACE_LAYERS[setting].filter((layer) => {
-    if (layer === "birds") return !dark && !["rain", "snow"].includes(mood.weather);
+    if (layer === "birds") return !dark && !isFalling(mood.weather);
     if (layer === "tram") return mood.time !== "night";
     return true;
   });
 
-  if (outdoors && dark && !["rain", "snow"].includes(mood.weather))
-    layers.push("crickets");
+  if (outdoors && dark && !isFalling(mood.weather)) layers.push("crickets");
   if (mood.weather === "rain") layers.push("rain");
   if (mood.weather === "snow" && outdoors) layers.push("wind");
   return { indoors: !outdoors, layers: [...new Set(layers)] };
@@ -56,7 +55,7 @@ interface Kit {
   indoors: boolean;
   noise: AudioBuffer;
   out: AudioNode;
-  /** Keep a looping source, so it is stopped with its layer. */
+  /** Keep a source until it ends, so a layer that stops can stop it. */
   hold?: (source: AudioScheduledSourceNode) => void;
   /** Run `play` again and again, `min`–`max` seconds apart, the first time within `first` s. */
   every: (min: number, max: number, play: () => void, first?: number) => void;
@@ -125,20 +124,27 @@ function strike(
   }
 }
 
-/** One drop landing: a tick of noise, brighter outside than through a window. */
-function patter({ ctx, indoors, noise, out }: Kit, at: number) {
-  const start = ctx.currentTime + at;
-  const source = ctx.createBufferSource();
-  source.buffer = noise;
-  const filter = ctx.createBiquadFilter();
-  filter.type = "bandpass";
-  filter.frequency.value = indoors ? between(700, 1600) : between(1800, 5000);
-  filter.Q.value = 2;
-  const gain = ctx.createGain();
-  gain.gain.setValueAtTime(between(0.08, 0.25) * (indoors ? 0.5 : 1), start);
-  gain.gain.exponentialRampToValueAtTime(0.0001, start + between(0.015, 0.04));
-  source.connect(filter).connect(gain).connect(out);
-  source.start(start, Math.random(), 0.05);
+/**
+ * Three seconds of drops landing, written once and looped: ticks of noise,
+ * some duller than others. A node per drop would be dozens a second.
+ */
+function patterBuffer(ctx: AudioContext, indoors: boolean): AudioBuffer {
+  const buffer = ctx.createBuffer(1, ctx.sampleRate * 3, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  const drops = indoors ? 36 : 75;
+  for (let drop = 0; drop < drops; drop += 1) {
+    const start = Math.floor(Math.random() * data.length);
+    const length = Math.floor(ctx.sampleRate * between(0.015, 0.04));
+    const level = between(0.08, 0.25);
+    const dull = between(0.2, 0.8);
+    let last = 0;
+    for (let at = 0; at < length; at += 1) {
+      last = last * dull + (Math.random() * 2 - 1) * (1 - dull);
+      // Wrapped round the end, so the loop has no seam.
+      data[(start + at) % data.length] += last * level * Math.exp((-4 * at) / length);
+    }
+  }
+  return buffer;
 }
 
 function chirp({ ctx, out }: Kit, notes: number) {
@@ -206,15 +212,18 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
       ],
       kit.indoors ? 0.08 : 0.18,
     );
-    kit.every(
-      0.2,
-      0.2,
-      () => {
-        const drops = Math.round(between(2, kit.indoors ? 3 : 6));
-        for (let drop = 0; drop < drops; drop += 1) patter(kit, between(0, 0.2));
-      },
-      0.2,
-    );
+    const patter = kit.ctx.createBufferSource();
+    patter.buffer = patterBuffer(kit.ctx, kit.indoors);
+    patter.loop = true;
+    const filter = kit.ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = kit.indoors ? 1100 : 3000;
+    filter.Q.value = 0.7;
+    const gain = kit.ctx.createGain();
+    gain.gain.value = kit.indoors ? 0.5 : 1;
+    patter.connect(filter).connect(gain).connect(kit.out);
+    patter.start();
+    kit.hold?.(patter);
   },
 
   tram(kit) {
@@ -275,10 +284,13 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
     out.connect(master);
 
     const timers = new Set<number>();
-    const sources: AudioScheduledSourceNode[] = [];
+    const sources = new Set<AudioScheduledSourceNode>();
     LAYERS[layer]({
       ctx,
-      hold: (source) => sources.push(source),
+      hold: (source) => {
+        sources.add(source);
+        source.addEventListener("ended", () => sources.delete(source));
+      },
       indoors,
       noise,
       out,
@@ -304,7 +316,7 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
           try {
             source.stop();
           } catch {
-            // A one-off sound that already ended.
+            // A tram's rumble has its stop scheduled already, and some browsers refuse a second.
           }
         }
         out.disconnect();
