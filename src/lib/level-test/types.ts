@@ -7,16 +7,10 @@ export type Skill = "reading" | "listening" | "writing" | "speaking";
 
 /** The parts of Slovak the results page breaks a score into. */
 export type StudyArea =
-  | "vocabulary"
-  | "nouns"
-  | "verbs"
-  | "adjectives"
-  | "functionWords"
-  | "accents"
-  | "listening"
-  | "reading";
+  "vocabulary" | "declension" | "conjugation" | "functionWords" | "spelling";
 
-export type WordClass = "noun" | "verb" | "adjective" | "functionWord" | "other";
+export type WordClass =
+  "noun" | "adjective" | "pronoun" | "numeral" | "verb" | "functionWord" | "other";
 
 export type { GrammaticalCase } from "$lib/learning/possessives/paradigm";
 
@@ -91,6 +85,8 @@ export interface ListenTypeItem extends AdaptiveItemBase {
   text: string;
   english: string;
   audio: string;
+  /** One tag per word of `text`, in `tokenizeWords` order. */
+  wordTags?: WordTag[];
 }
 
 export type AdaptiveItem =
@@ -265,6 +261,8 @@ export interface ItemResponse {
   expected?: string;
   given?: string;
   tag?: WordTag;
+  /** Listen and Type: one tag per word of `expected`, so each word counts for its area. */
+  wordTags?: WordTag[];
   /** Read and Select / Listen and Select: the word, and whether it was real. */
   word?: { text: string; real: boolean; slug?: string; english?: string };
 }

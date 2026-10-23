@@ -58,6 +58,13 @@
                 {:else if weak.has(summary.area)}
                   <span class="ml-1 text-xs font-semibold text-rose-700">To work on</span>
                 {/if}
+
+                <span
+                  class="block font-serif text-xs font-normal text-slate-500"
+                  lang="sk"
+                >
+                  {STUDY_AREA_INFO[summary.area].slovak}
+                </span>
               </th>
               <td class="px-3 py-2 whitespace-nowrap text-slate-700">
                 {summary.level} · <span class="tabular-nums">{summary.score}</span>
@@ -126,7 +133,7 @@
             </p>
           </div>
 
-          {#if gap.area === "accents" && diagnosis.accentSlips.length}
+          {#if gap.area === "spelling" && diagnosis.accentSlips.length}
             <ul class="m-0 grid list-none gap-1 p-0 text-sm text-slate-700">
               {#each diagnosis.accentSlips as slip (slip.kind)}
                 <li>

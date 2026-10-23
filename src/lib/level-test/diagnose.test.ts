@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { diagnose } from "./diagnose";
+import { areaForTag } from "./session";
 import type { ItemResponse, ProductionRecord, WordTag } from "./types";
 
 function gap(
@@ -9,14 +10,7 @@ function gap(
   tag: WordTag,
   difficulty = 30,
 ): ItemResponse {
-  const area =
-    tag.class === "noun"
-      ? "nouns"
-      : tag.class === "verb"
-        ? "verbs"
-        : tag.class === "functionWord"
-          ? "functionWords"
-          : "vocabulary";
+  const area = areaForTag(tag);
   return {
     itemId: `${expected}-${given}-${difficulty}`,
     kind: "readComplete",
@@ -42,8 +36,12 @@ describe("diagnose", () => {
     ];
     const result = diagnose(responses, [], 30);
 
-    expect(result.areas.map((area) => area.area)).toEqual(["nouns", "verbs", "accents"]);
-    expect(result.gaps[0]?.area).toBe("nouns");
+    expect(result.areas.map((area) => area.area)).toEqual([
+      "declension",
+      "conjugation",
+      "spelling",
+    ]);
+    expect(result.gaps[0]?.area).toBe("declension");
     expect(result.gaps[0]?.examples[0]).toMatchObject({
       expected: "školy",
       note: "škola",
@@ -52,7 +50,7 @@ describe("diagnose", () => {
     expect(result.gaps[0]?.links.map((link) => link.href)).toContain(
       "/grammar/cases-overview",
     );
-    expect(result.strengths.map((area) => area.area)).toContain("verbs");
+    expect(result.strengths.map((area) => area.area)).toContain("conjugation");
   });
 
   it("never calls an area strong with nothing right", () => {
@@ -74,8 +72,8 @@ describe("diagnose", () => {
     const responses = [1, 2, 3].map((n) => gap("pekný", "pekny", noun, 20 + n));
     const result = diagnose(responses, [], 30);
 
-    expect(result.areas.find((area) => area.area === "nouns")?.percent).toBe(100);
-    expect(result.areas.find((area) => area.area === "accents")?.percent).toBe(0);
+    expect(result.areas.find((area) => area.area === "declension")?.percent).toBe(100);
+    expect(result.areas.find((area) => area.area === "spelling")?.percent).toBe(0);
     expect(result.accentSlips).toMatchObject([{ kind: "long", count: 3 }]);
   });
 
@@ -98,7 +96,6 @@ describe("diagnose", () => {
       difficulty: 20,
       score: 0.8,
       adaptive: true,
-      area: "listening",
       expected: "Včera sme hrali karty do noci.",
       given: "vcera sme hrali karty do noci",
     };
@@ -107,6 +104,42 @@ describe("diagnose", () => {
     expect(result.accentSlips[0]?.examples[0]).toEqual({
       expected: "včera",
       given: "vcera",
+    });
+  });
+
+  it("counts each dictation word for its own area", () => {
+    const dictation = (given: string, difficulty: number): ItemResponse => ({
+      itemId: `lt-${difficulty}`,
+      kind: "listenType",
+      skill: "listening",
+      difficulty,
+      score: 0.5,
+      adaptive: true,
+      expected: "Bývam s manželkou.",
+      given,
+      wordTags: [
+        { class: "verb", lemma: "bývať", slug: "byvat" },
+        { class: "functionWord" },
+        { class: "noun", lemma: "manželka", slug: "manzelka" },
+      ],
+    });
+    const result = diagnose(
+      [
+        dictation("Bývam s manželka.", 20),
+        dictation("Bývam s manželka", 25),
+        dictation("bývam s manzelka", 30),
+      ],
+      [],
+      40,
+    );
+    const declension = result.areas.find((area) => area.area === "declension");
+    expect(declension).toMatchObject({ total: 3, percent: 0 });
+    expect(result.areas.find((area) => area.area === "conjugation")?.percent).toBe(100);
+    const gap = result.gaps.find((entry) => entry.area === "declension");
+    expect(gap?.examples[0]).toMatchObject({
+      expected: "manželkou",
+      given: "manželka",
+      note: "manželka",
     });
   });
 
@@ -161,7 +194,7 @@ describe("diagnose", () => {
     };
     const result = diagnose([], [record], 30);
     expect(result.gaps).toHaveLength(1);
-    expect(result.gaps[0]).toMatchObject({ area: "verbs", summary: null });
+    expect(result.gaps[0]).toMatchObject({ area: "conjugation", summary: null });
     expect(result.gaps[0]?.links.map((link) => link.href)).toContain("/grammar/aspect");
   });
 });

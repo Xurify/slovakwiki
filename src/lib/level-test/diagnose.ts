@@ -1,6 +1,7 @@
 import { estimateAbility, type Observation } from "./estimate";
 import { foldDiacritics, normalizeTyped, tokenizeWords } from "./grade";
 import { cefrForScore, probabilityCorrect, type CefrLevel } from "./scale";
+import { areaForTag } from "./session";
 import type {
   AiIssue,
   AiIssueTopic,
@@ -11,61 +12,47 @@ import type {
   WordTag,
 } from "./types";
 
-/** Axis order on the chart: word knowledge, then grammar, then spelling and skills. */
+/**
+ * The parts of the language itself (CEFR: vocabulary range, grammatical
+ * accuracy, orthographic control). Reading and listening are skills, shown as
+ * skill scores, not here.
+ */
 export const STUDY_AREAS: readonly StudyArea[] = [
   "vocabulary",
-  "nouns",
-  "adjectives",
-  "verbs",
+  "declension",
+  "conjugation",
   "functionWords",
-  "accents",
-  "listening",
-  "reading",
+  "spelling",
 ];
 
 export const STUDY_AREA_INFO: Record<
   StudyArea,
-  { label: string; short: string; what: string }
+  { label: string; slovak: string; what: string }
 > = {
   vocabulary: {
     label: "Vocabulary",
-    short: "Vocabulary",
-    what: "telling real Slovak words from made-up ones, and words with no grammar to lean on",
+    slovak: "slovná zásoba",
+    what: "knowing which words are real Slovak, and which word a sentence needs",
   },
-  nouns: {
-    label: "Noun endings",
-    short: "Nouns",
-    what: "case and number endings on nouns",
+  declension: {
+    label: "Declension",
+    slovak: "skloňovanie",
+    what: "case, number and gender endings on nouns, adjectives, pronouns and numerals",
   },
-  adjectives: {
-    label: "Adjective endings",
-    short: "Adjectives",
-    what: "adjective endings that agree with their noun",
-  },
-  verbs: {
-    label: "Verb forms",
-    short: "Verbs",
-    what: "verb endings for person and tense",
+  conjugation: {
+    label: "Conjugation",
+    slovak: "časovanie",
+    what: "verb endings for person, number and tense",
   },
   functionWords: {
     label: "Function words",
-    short: "Function words",
-    what: "prepositions, conjunctions, pronouns and particles such as sa, si and nie",
+    slovak: "neplnovýznamové slová",
+    what: "prepositions, conjunctions and particles such as nie, aj and len, and sa or si",
   },
-  accents: {
-    label: "Accents and spelling",
-    short: "Accents",
-    what: "long vowels, háčeks, ä and ô, i or y",
-  },
-  listening: {
-    label: "Listening for detail",
-    short: "Listening",
-    what: "catching every word of a sentence and replying in a conversation",
-  },
-  reading: {
-    label: "Reading for meaning",
-    short: "Reading",
-    what: "the main idea, the title, the missing sentence and the answer in a text",
+  spelling: {
+    label: "Spelling",
+    slovak: "pravopis",
+    what: "long vowels, háčeks, ä and ô, and i or y",
   },
 };
 
@@ -172,13 +159,13 @@ const LONG = new Set([..."áéíóúýĺŕ"]);
 const HACEK = new Set([..."čšžďťňľ"]);
 
 const ISSUE_AREA: Record<AiIssueTopic, StudyArea> = {
-  nounEndings: "nouns",
-  verbForms: "verbs",
-  aspect: "verbs",
-  adjectiveAgreement: "adjectives",
+  nounEndings: "declension",
+  adjectiveAgreement: "declension",
+  verbForms: "conjugation",
+  aspect: "conjugation",
   functionWords: "functionWords",
   wordOrder: "functionWords",
-  accents: "accents",
+  accents: "spelling",
   vocabulary: "vocabulary",
 };
 
@@ -220,15 +207,11 @@ const AREA_LINKS: Record<StudyArea, StudyLink[]> = {
     { label: "The most common nouns", href: "/dictionary/common/noun" },
     { label: "The most common verbs", href: "/dictionary/common/verb" },
   ],
-  nouns: [
+  declension: [
     { label: "The six cases", href: "/grammar/cases-overview" },
     { label: "Grammatical gender", href: "/grammar/grammatical-gender" },
   ],
-  adjectives: [
-    { label: "Grammatical gender", href: "/grammar/grammatical-gender" },
-    { label: "The most common adjectives", href: "/dictionary/common/adjective" },
-  ],
-  verbs: [
+  conjugation: [
     { label: "Present tense", href: "/grammar/present-tense" },
     { label: "Lesson: present-tense endings", href: "/lessons/grammar/present-tense-i" },
     { label: "Practice: present-tense endings", href: "/practice/present-tense-i" },
@@ -237,20 +220,9 @@ const AREA_LINKS: Record<StudyArea, StudyLink[]> = {
     { label: "Word order", href: "/grammar/word-order" },
     { label: "Negation", href: "/grammar/negation" },
   ],
-  accents: [
+  spelling: [
     { label: "Vowel length", href: "/pronunciation/vowel-length" },
     { label: "The Slovak alphabet", href: "/pronunciation/slovak-alphabet" },
-  ],
-  listening: [
-    { label: "Listening episodes", href: "/listening" },
-    {
-      label: "Lesson: greetings and introductions",
-      href: "/lessons/everyday/meet-someone",
-    },
-  ],
-  reading: [
-    { label: "Lessons", href: "/lessons" },
-    { label: "Questions", href: "/grammar/questions" },
   ],
 };
 
@@ -265,7 +237,7 @@ function fold(value: string): string {
   return foldDiacritics(normalizeTyped(value));
 }
 
-/** Letter gaps judged on the letters alone, so a missing háček counts under accents, not grammar. */
+/** Letter gaps judged on the letters alone, so a missing háček counts under spelling, not grammar. */
 function areaScore(response: ItemResponse): number {
   if (isTyped(response) && LETTER_KINDS.has(response.kind)) {
     return fold(response.expected) === fold(response.given) ? 1 : 0;
@@ -373,6 +345,91 @@ function accentEvidence(responses: readonly ItemResponse[]): AccentEvidence {
   return { observations, slips };
 }
 
+interface DictationArea {
+  observations: Observation[];
+  missedTags: WordTag[];
+  examples: Example[];
+}
+
+/** Shares most of its letters with the wanted word: the same word with another ending. */
+function sameStem(expected: string, given: string): boolean {
+  const a = toIy(foldDiacritics(expected));
+  const b = toIy(foldDiacritics(given));
+  let prefix = 0;
+  while (prefix < a.length && a[prefix] === b[prefix]) prefix += 1;
+  return prefix >= 3 && prefix >= a.length - 3 && Math.abs(a.length - b.length) <= 3;
+}
+
+/**
+ * Listen and Type, word by word: each word of the sentence is evidence for its
+ * own area, one observation per area per sentence so a long sentence does not
+ * outweigh a C-test gap. Accents and i/y are left to spelling.
+ */
+function dictationEvidence(
+  responses: readonly ItemResponse[],
+): Map<StudyArea, DictationArea> {
+  const byArea = new Map<StudyArea, DictationArea>();
+
+  for (const response of responses) {
+    if (!isTyped(response) || !response.wordTags) continue;
+    const words = tokenizeWords(response.expected);
+    if (words.length !== response.wordTags.length) continue;
+
+    const unused = tokenizeWords(response.given);
+    const tally = new Map<StudyArea, { right: number; total: number }>();
+
+    words.forEach((word, index) => {
+      const tag = response.wordTags?.[index] ?? { class: "other" };
+      const area = areaForTag(tag);
+      const counts = tally.get(area) ?? { right: 0, total: 0 };
+      counts.total += 1;
+      tally.set(area, counts);
+
+      const exact = unused.findIndex(
+        (candidate) => toIy(foldDiacritics(candidate)) === toIy(foldDiacritics(word)),
+      );
+      if (exact !== -1) {
+        counts.right += 1;
+        unused.splice(exact, 1);
+        return;
+      }
+
+      const entry = byArea.get(area) ?? {
+        observations: [],
+        missedTags: [],
+        examples: [],
+      };
+      entry.missedTags.push(tag);
+      const near = unused.findIndex((candidate) => sameStem(word, candidate));
+      if (near !== -1) {
+        entry.examples.push({
+          expected: word,
+          given: unused[near] ?? "",
+          ...(noteFor(tag) ? { note: noteFor(tag) } : {}),
+          ...(tag.slug ? { href: `/dictionary/${tag.slug}` } : {}),
+        });
+        unused.splice(near, 1);
+      }
+      byArea.set(area, entry);
+    });
+
+    for (const [area, counts] of tally) {
+      const entry = byArea.get(area) ?? {
+        observations: [],
+        missedTags: [],
+        examples: [],
+      };
+      entry.observations.push({
+        difficulty: response.difficulty,
+        score: counts.right / counts.total,
+      });
+      byArea.set(area, entry);
+    }
+  }
+
+  return byArea;
+}
+
 function noteFor(tag: WordTag | undefined): string | undefined {
   if (!tag?.lemma) return undefined;
   if (tag.cases?.length) return `${tag.lemma}, ${tag.cases.join(" or ")}`;
@@ -412,16 +469,16 @@ function uniqueLinks(links: readonly StudyLink[]): StudyLink[] {
 /** The pages that teach what the misses have in common, most specific first. */
 function linksFor(
   area: StudyArea,
-  misses: readonly ItemResponse[],
+  missedTags: readonly WordTag[],
   issues: readonly AiIssue[],
   slips: readonly AccentSlip[],
 ): StudyLink[] {
   const specific: StudyLink[] = [];
 
-  for (const miss of misses) {
-    const topic = miss.tag?.topic;
+  for (const tag of missedTags) {
+    const topic = tag.topic;
     if (topic && TOPIC_LINKS[topic]) specific.push(...TOPIC_LINKS[topic]);
-    for (const grammaticalCase of miss.tag?.cases ?? []) {
+    for (const grammaticalCase of tag.cases ?? []) {
       if (grammaticalCase === "nominative") continue;
       const name = grammaticalCase[0]?.toUpperCase() + grammaticalCase.slice(1);
       specific.push({ label: `${name} case`, href: CASE_PAGE[grammaticalCase] });
@@ -431,7 +488,7 @@ function linksFor(
     if (issue.topic === "aspect") specific.push(...(TOPIC_LINKS.aspect ?? []));
     if (issue.topic === "wordOrder") specific.push(...(TOPIC_LINKS.wordOrder ?? []));
   }
-  if (area === "accents") {
+  if (area === "spelling") {
     for (const slip of slips) specific.push(ACCENT_SLIP_INFO[slip.kind].link);
   }
 
@@ -465,6 +522,7 @@ export function diagnose(
   center: number,
 ): Diagnosis {
   const prior = { mean: center, sd: AREA_PRIOR_SD };
+  const dictation = dictationEvidence(responses);
   const accents = accentEvidence(responses);
   const accentSlips = [...accents.slips.values()].sort((a, b) => b.count - a.count);
 
@@ -475,15 +533,18 @@ export function diagnose(
   const areas: AreaSummary[] = [];
   for (const area of STUDY_AREAS) {
     const observations: Observation[] =
-      area === "accents"
+      area === "spelling"
         ? accents.observations
-        : responses
-            .filter((response) => response.area === area)
-            .map((response) => ({
-              difficulty: response.difficulty,
-              score: areaScore(response),
-              guess: response.guess,
-            }));
+        : [
+            ...responses
+              .filter((response) => response.area === area)
+              .map((response) => ({
+                difficulty: response.difficulty,
+                score: areaScore(response),
+                guess: response.guess,
+              })),
+            ...(dictation.get(area)?.observations ?? []),
+          ];
     if (observations.length < MIN_EVIDENCE) continue;
 
     const score = Math.round(estimateAbility(observations, prior).theta);
@@ -529,19 +590,25 @@ export function diagnose(
     const misses = responses.filter(
       (response) => response.area === area && areaScore(response) < 1,
     );
+    const heard = dictation.get(area);
     const areaIssues = issues.filter((issue) => ISSUE_AREA[issue.topic] === area);
     const examples = uniqueExamples([
       ...misses.flatMap((miss) => exampleFor(miss) ?? []),
+      ...(heard?.examples ?? []),
       ...areaIssues.map((issue) => ({ expected: issue.correct, given: issue.wrote })),
     ]).slice(0, 4);
+    const missedTags = [
+      ...misses.flatMap((miss) => (miss.tag ? [miss.tag] : [])),
+      ...(heard?.missedTags ?? []),
+    ];
     return {
       area,
       summary,
       examples:
-        area === "accents"
+        area === "spelling"
           ? accentSlips.flatMap((slip) => slip.examples).slice(0, 4)
           : examples,
-      links: linksFor(area, misses, areaIssues, accentSlips),
+      links: linksFor(area, missedTags, areaIssues, accentSlips),
     };
   });
 

@@ -3,22 +3,25 @@ import { pronounLemmas } from "../search/pronouns";
 import { formsVerified, searchFormsForLemma } from "../search/forms";
 import type { GrammaticalCase, WordClass, WordTag } from "$lib/level-test/types";
 
-/** Prepositions, conjunctions, particles and question words: one list covers them. */
+/**
+ * Slovak's neplnovýznamové slová: prepositions, conjunctions and particles,
+ * plus the clitics sa and si. They never inflect, so one list covers them.
+ */
 const FUNCTION_WORDS = new Set(
   [
-    "a aj ak ako ale alebo ani asi až aby bez cez či do hneď i iba k keď kým ku kvôli",
-    "lebo len medzi na nad nech nie no o od odo okolo okrem oproti po pod podľa počas",
-    "pre pred preto pretože pri proti s sa si so teda tiež u už v vedľa veď však vo z",
-    "za zo že ešte než kde kedy prečo kto čo koho komu čom čím ktorý ktorá ktoré ktorí",
-    "ktorého ktorej ktorému ktorom ktorým ktorú ktorých ktorými",
+    "bez cez do k ku kvôli medzi na nad o od odo okolo okrem oproti po pod podľa počas",
+    "pre pred pri proti s so u v vedľa vo z za zo",
+    "a aby ak ako ale alebo ani až či i keď kým lebo než no pretože preto teda však že",
+    "aj asi iba len nech nie tiež už ešte veď",
+    "sa si",
   ]
     .join(" ")
     .split(" "),
 );
 
-/** Každý, niektorý, všetci…: they decline, but they work as function words, not content words. */
-const QUANTIFIER =
-  /^(?:každ|niektor|mnoh|všetk|všetc|žiadn|nijak)\p{L}*$|^(?:niečo|nič|niekto|nikto|všetko)$/u;
+/** Question, relative and indefinite pronouns, which decline like the rest. */
+const OTHER_PRONOUN =
+  /^(?:kto|čo|koho|komu|čom|čím|niečo|nič|niekto|nikto|všetko)$|^(?:ktor|každ|niektor|mnoh|všetk|všetc|žiadn|nijak)\p{L}*$/u;
 
 const NUMBER =
   /^(?:jeden|jedna|jedno|dva|dve|tri|štyri|päť|šesť|sedem|osem|deväť|desať|\p{L}+násť|dvadsať|tridsať|štyridsať|\p{L}+desiat|sto|tisíc)$|^(?:prv|druh|tret|štvrt|piat|šiest|siedm|ôsm|deviat|desiat)(?:ý|á|é|í|ej|ého|ému|om|ou|ú|ých|ým|ými)$/u;
@@ -124,8 +127,9 @@ function buildDictionaryIndex(): Map<string, DictionaryForm> {
  */
 export function tagWord(surface: string): WordTag {
   const word = lower(surface);
-  if (FUNCTION_WORDS.has(word) || QUANTIFIER.test(word)) return { class: "functionWord" };
-  if (NUMBER.test(word)) return { class: "other", topic: "numbers-and-numerals" };
+  if (FUNCTION_WORDS.has(word)) return { class: "functionWord" };
+  if (OTHER_PRONOUN.test(word)) return { class: "pronoun" };
+  if (NUMBER.test(word)) return { class: "numeral", topic: "numbers-and-numerals" };
 
   const verbTopic = VERB_TOPICS.get(word);
   if (verbTopic) return { class: "verb", ...verbTopic };
@@ -134,7 +138,7 @@ export function tagWord(surface: string): WordTag {
   const pronoun = pronounIndex.get(word);
   if (pronoun) {
     return {
-      class: "functionWord",
+      class: "pronoun",
       lemma: pronoun.lemma,
       ...(pronoun.topic ? { topic: pronoun.topic } : {}),
       cases: pronoun.cases,

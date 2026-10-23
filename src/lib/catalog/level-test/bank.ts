@@ -5,6 +5,7 @@ import { audioClipKind, hasAudioClip } from "../audio/manifest";
 import { resolveKeyedAudioSrc } from "../audio/resolve-server";
 import { dictionaryImageView } from "../dictionary/images";
 import type { LessonCharacterId } from "../lessons/character-ids";
+import { tokenizeWords } from "$lib/level-test/grade";
 import { CEFR_ANCHOR, type CefrLevel } from "$lib/level-test/scale";
 import type {
   AdaptiveItem,
@@ -75,6 +76,7 @@ function listenTypeItems(): ListenTypeItem[] {
         ...item,
         format: "listenType" as const,
         audio: resolveKeyedAudioSrc(item.text, kind),
+        wordTags: tokenizeWords(item.text).map(tagWord),
       },
     ];
   });

@@ -167,11 +167,12 @@ export interface TypedAnswer {
 export function areaForTag(tag: WordTag | undefined): StudyArea {
   switch (tag?.class) {
     case "noun":
-      return "nouns";
-    case "verb":
-      return "verbs";
     case "adjective":
-      return "adjectives";
+    case "pronoun":
+    case "numeral":
+      return "declension";
+    case "verb":
+      return "conjugation";
     case "functionWord":
       return "functionWords";
     default:
@@ -193,7 +194,7 @@ function evidence(item: AdaptiveItem, typed?: TypedAnswer): Partial<ItemResponse
         },
       };
     case "listenType":
-      return { area: "listening", ...typed };
+      return { ...typed, ...(item.wordTags ? { wordTags: item.wordTags } : {}) };
     default:
       return { area: areaForTag(typed?.tag), ...typed };
   }
@@ -228,7 +229,5 @@ export function taskResponse(
   score: number,
   guess?: number,
 ): ItemResponse {
-  const area: StudyArea | undefined =
-    skill === "reading" || skill === "listening" ? skill : undefined;
-  return { itemId, kind, skill, difficulty, score, guess, adaptive: false, area };
+  return { itemId, kind, skill, difficulty, score, guess, adaptive: false };
 }

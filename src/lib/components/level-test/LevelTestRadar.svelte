@@ -102,7 +102,7 @@
           class="fill-slate-700 text-[15px] font-semibold"
           x={label.x}
           y={label.y + baseline(angle)}
-          text-anchor={anchor(angle)}>{STUDY_AREA_INFO[area.area].short}</text
+          text-anchor={anchor(angle)}>{STUDY_AREA_INFO[area.area].label}</text
         >
 
         <circle
