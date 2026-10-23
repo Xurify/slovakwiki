@@ -10,7 +10,7 @@
   import {
     BACKDROP_HEIGHT,
     BACKDROP_WIDTH,
-    SCENE_THINGS,
+    GLASS,
     backdropAlign,
     backdropScale,
     backdropToStage,
@@ -61,17 +61,18 @@
   const origin = $derived(
     backdropToStage({ x: 0, y: 0 }, width, height, backdropAlign(setting)),
   );
-  /** Where the weather shows, in stage px. */
+  /** Where the weather shows, in stage px, and how round its top is: an arched window's. */
   const area = $derived.by(() => {
-    if (isOutdoors(setting)) return { height, left: 0, top: 0, width };
+    if (isOutdoors(setting)) return { height, left: 0, round: 0, top: 0, width };
 
-    const box = SCENE_THINGS[setting]?.find((thing) => thing.id === "okno")?.box;
-    if (!box) return undefined;
+    const glass = GLASS[setting];
+    if (!glass) return undefined;
     return {
-      height: box.height * scale,
-      left: origin.x + box.x * scale,
-      top: origin.y + box.y * scale,
-      width: box.width * scale,
+      height: glass.height * scale,
+      left: origin.x + glass.x * scale,
+      round: glass.arch ? (glass.width / 2) * scale : 0,
+      top: origin.y + glass.y * scale,
+      width: glass.width * scale,
     };
   });
   const fall = $derived(
@@ -87,6 +88,7 @@
       style:left="{area.left}px"
       style:top="{area.top}px"
       style:width="{area.width}px"
+      style:border-radius="{area.round}px {area.round}px 0 0"
       transition:fade={{ duration: WEATHER_FADE_MS }}
     >
       {#each fall.layers as layer, depth (depth)}

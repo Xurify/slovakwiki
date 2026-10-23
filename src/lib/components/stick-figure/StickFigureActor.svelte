@@ -20,7 +20,6 @@
 
   let {
     characterId,
-    class: className = "",
     clock,
     cue = 0,
     facing = 1,
@@ -32,7 +31,6 @@
     walk,
   }: {
     characterId: LessonCharacterId;
-    class?: string;
     /** Playback position of the line's clip; without one the line runs on the wall clock. */
     clock?: () => SpeechClock | undefined;
     /** Bump to perform `plan` from the start. */
@@ -146,12 +144,4 @@
   }
 </script>
 
-<StickFigure
-  {characterId}
-  class={className}
-  facing={turned ?? facing}
-  {picture}
-  {pose}
-  {prop}
-  {dress}
-/>
+<StickFigure {characterId} facing={turned ?? facing} {picture} {pose} {prop} {dress} />

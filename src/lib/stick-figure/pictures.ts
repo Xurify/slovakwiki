@@ -1,6 +1,6 @@
 import { foldLine } from "./line-gesture";
 
-export const STICK_PICTURE_IDS = [
+const STICK_PICTURE_IDS = [
   "flag-at",
   "flag-ca",
   "flag-cz",

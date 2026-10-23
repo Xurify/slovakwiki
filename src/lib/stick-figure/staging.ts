@@ -144,7 +144,7 @@ export function restFacing(cast: readonly LessonCharacterId[]): CastFacing {
  * speak. A line's `to` wins, for turns like ordering from a waiter who has
  * not spoken yet.
  */
-export function addresseeOf(
+function addresseeOf(
   lines: readonly StageLine[],
   index: number,
 ): LessonCharacterId | null {
@@ -245,7 +245,7 @@ export function takesFrom(
  * to, on "Nech sa páči." or "A to jablko je pre teba.", once the speaker
  * has brought something out.
  */
-export function givesTo(
+function givesTo(
   lines: readonly StageLine[],
   index: number,
 ): LessonCharacterId | undefined {

@@ -5,13 +5,17 @@ import { foldLine } from "./line-gesture";
 import type { StageSetting } from "./stage-setting";
 import {
   BACKDROP_WIDTH,
+  GLASS,
   SCENE_THINGS,
   SUN_SPOTS,
   backdropAlign,
   linePoints,
+  sunIn,
   thingBoxes,
+  thingCenter,
   thingNamed,
   thingWithDemonstrative,
+  thingsIn,
   thingsInView,
 } from "./scene-things";
 
@@ -202,6 +206,44 @@ describe("the sun", () => {
           }
         }
       }
+    }
+  });
+});
+
+describe("the sun as a thing", () => {
+  const park = SCENE_THINGS.default ?? [];
+  const sunThing = (time: "morning" | "day", weather: "clear" | "sunny") =>
+    thingsIn(park, "default", { time, weather }).find(({ id }) => id === "slnko");
+
+  it("is there to tap only while the sky shows it", () => {
+    expect(sunThing("day", "clear")).toBeUndefined();
+    expect(sunThing("day", "sunny")).toBeDefined();
+  });
+
+  it("is tapped where it is drawn, in the morning too", () => {
+    for (const time of ["morning", "day"] as const) {
+      const mood = { time, weather: "sunny" } as const;
+      const thing = sunThing(time, "sunny");
+      const sun = sunIn("default", mood);
+      expect(thing && thingCenter(thing)).toEqual({ x: sun?.x, y: sun?.y });
+    }
+  });
+});
+
+describe("window glass", () => {
+  it("sits inside the window a learner taps", () => {
+    for (const [place, glass] of Object.entries(GLASS)) {
+      const window = SCENE_THINGS[place as StageSetting]?.find(({ id }) => id === "okno");
+      expect(window, place).toBeDefined();
+      if (!window || !glass) continue;
+      expect(glass.x, place).toBeGreaterThanOrEqual(window.box.x);
+      expect(glass.y, place).toBeGreaterThanOrEqual(window.box.y);
+      expect(glass.x + glass.width, place).toBeLessThanOrEqual(
+        window.box.x + window.box.width,
+      );
+      expect(glass.y + glass.height, place).toBeLessThanOrEqual(
+        window.box.y + window.box.height,
+      );
     }
   });
 });

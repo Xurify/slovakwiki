@@ -35,7 +35,7 @@
   d="M{wave
     .map((height, index) => `${70 + index * 3} ${136 - height / 2}v${height}`)
     .join('M')}"
-  class="stroke-blue-500"
+  class="stroke-scene-blue"
   fill="none"
   stroke-width="1.6"
 />
@@ -69,8 +69,8 @@
 <ClockHands {hour} length={10} width={2} x={114} y={66} />
 
 <path d="M444 -10V22M516 -10V22" class="stroke-scene-line/40" stroke-width="1.2" />
-<rect x="404" y="18" width="152" height="42" rx="9" class="fill-rose-500/20" />
-<rect x="410" y="22" width="140" height="34" rx="6" class="fill-rose-500" />
+<rect x="404" y="18" width="152" height="42" rx="9" class="fill-scene-red/20" />
+<rect x="410" y="22" width="140" height="34" rx="6" class="fill-scene-red" />
 <text
   x="480"
   y="45"

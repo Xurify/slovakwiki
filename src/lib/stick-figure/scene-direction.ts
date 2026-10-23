@@ -57,7 +57,6 @@ export interface SceneDirection {
 /** Who works where, so they stand at the counter end of the stage. */
 const STAFF: Partial<Record<StageSetting, readonly LessonCharacterId[]>> = {
   cafe: ["waiter"],
-  counter: ["receptionist", "maria"],
   // Lucia sells at the market in the podcast, from the stall on the right.
   market: ["lucia"],
   registration: ["receptionist", "maria"],

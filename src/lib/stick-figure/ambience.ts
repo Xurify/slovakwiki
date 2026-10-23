@@ -1,5 +1,6 @@
 import { getAudioVolume } from "$lib/audio/volume";
 import { isFalling, isOutdoors, type SceneMood } from "./scene-mood";
+import { GLASS } from "./scene-things";
 import type { StageSetting } from "./stage-setting";
 
 export type AmbienceLayer =
@@ -14,7 +15,6 @@ export interface Ambience {
 const PLACE_LAYERS: Record<StageSetting, readonly AmbienceLayer[]> = {
   cafe: ["murmur", "clinks"],
   classroom: ["hum"],
-  counter: ["hum", "murmur"],
   default: ["birds", "wind"],
   home: ["hum"],
   market: ["murmur", "birds"],
@@ -34,7 +34,8 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
   });
 
   if (outdoors && dark && !isFalling(mood.weather)) layers.push("crickets");
-  if (mood.weather === "rain") layers.push("rain");
+  // Rain is heard where it is seen: outside, or through a window.
+  if (mood.weather === "rain" && (outdoors || GLASS[setting])) layers.push("rain");
   if (mood.weather === "snow" && outdoors) layers.push("wind");
   return { indoors: !outdoors, layers: [...new Set(layers)] };
 }

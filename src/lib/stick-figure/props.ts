@@ -71,10 +71,6 @@ const NOT_HAVING = ["nemam", "nemas", "nema", "nemame", "nemate", "nemaju"];
 /** Forms of `volať` (to call); with `sa` they mean "to be called" instead. */
 const CALLING = ["volam", "volas", "vola", "volame", "volate", "volaju"];
 
-export function isStickProp(value: string): value is StickPropId {
-  return (STICK_PROP_IDS as readonly string[]).includes(value);
-}
-
 /** The prop a sentence names, if any: "Pozri, to sú fotky z leta." → camera. */
 export function propForSentence(sentence: string): StickPropId | undefined {
   const folded = foldLine(sentence);

@@ -10,7 +10,6 @@
     stopStoryLineAudio,
     storyAudioClock,
   } from "$lib/lesson-story/story-audio";
-  import { lessonSceneSrc } from "$lib/lesson-story/story-settings";
   import {
     gestureDuration,
     gesturePeak,
@@ -36,6 +35,7 @@
     thingBoxes,
     thingCenter,
     thingWithDemonstrative,
+    thingsIn,
   } from "$lib/stick-figure/scene-things";
   import { dressFor } from "$lib/stick-figure/dress";
   import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
@@ -78,7 +78,6 @@
     lines,
     mood = DAYTIME,
     onthing,
-    painted = false,
     setting,
     thingWords = {},
   }: {
@@ -90,8 +89,6 @@
     mood?: SceneMood;
     /** Takes over a tap on a thing; without it the tap opens the thing's word card. */
     onthing?: (id: string) => void;
-    /** Show the painted lesson plate instead of the drawn backdrop. */
-    painted?: boolean;
     setting: StageSetting;
     /** Dictionary link and clip for a thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
@@ -143,8 +140,6 @@
       direction.held[heldAt] ??
       {},
   );
-  /** The studio and the street have no painted plate, so they stay drawn. */
-  const plate = $derived(painted ? plateFor(setting) : undefined);
   /** The weather on the cast: none indoors or once on the tram. */
   const dress = $derived(
     dressFor(isOutdoors(setting) && !aboard ? mood.weather : "clear"),
@@ -188,7 +183,9 @@
       stageHeight || undefined,
     ),
   );
-  const pickedThing = $derived(direction.things.find((thing) => thing.id === picked));
+  /** The scene's things as the stage shows them now: the sun only while it is out. */
+  const things = $derived(thingsIn(direction.things, setting, mood));
+  const pickedThing = $derived(things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room
    * below. A thing as tall as the stage (a house on the square) has room on
@@ -241,11 +238,6 @@
       place(0);
     });
   });
-
-  function plateFor(setting: StageSetting): string | undefined {
-    if (setting === "street" || setting === "studio") return undefined;
-    return lessonSceneSrc[setting];
-  }
 
   function markOf(id: LessonCharacterId): Mark {
     const width = layout.width;
@@ -329,7 +321,7 @@
 
   /** Stage x of where a line takes everyone: a thing it names, or the tram's door. */
   function destinationOf(staging: LineStaging, boarding: boolean): number | undefined {
-    const thing = direction.things.find((candidate) => candidate.id === staging.goTo);
+    const thing = things.find((candidate) => candidate.id === staging.goTo);
     const point = boarding ? { x: TRAM.door, y: 0 } : thing && thingCenter(thing);
     if (!point || !stageWidth) return undefined;
     return backdropToStage(point, stageWidth, stageHeight, backdropAlign(setting)).x;
@@ -408,7 +400,7 @@
   /** Stage px of what a point aims at, as everyone stands now. */
   function targetOf(target: PointTarget): Point | undefined {
     if (target.kind === "thing") {
-      const thing = direction.things.find((candidate) => candidate.id === target.id);
+      const thing = things.find((candidate) => candidate.id === target.id);
       const box = thing && thingBoxes(thing)[target.copy ?? 0];
       if (!box || !stageWidth) return undefined;
       return backdropToStage(
@@ -684,31 +676,20 @@
   bind:clientWidth={stageWidth}
   bind:clientHeight={stageHeight}
 >
-  {#if plate}
-    <img
-      class="absolute inset-0 size-full object-cover object-center"
-      src={plate}
-      alt=""
-      width="1536"
-      height="1024"
-      decoding="async"
-    />
-  {:else}
-    <StickBackdrop
-      class="absolute inset-0 size-full"
-      {board}
-      {found}
-      height={stageHeight}
-      {lit}
-      {mood}
-      onpick={pickThing}
-      {picked}
-      {setting}
-      {tram}
-      width={stageWidth}
-    />
-    <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
-  {/if}
+  <StickBackdrop
+    class="absolute inset-0 size-full"
+    {board}
+    {found}
+    height={stageHeight}
+    {lit}
+    {mood}
+    onpick={pickThing}
+    {picked}
+    {setting}
+    {tram}
+    width={stageWidth}
+  />
+  <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
 
   {#each direction.cast as characterId (characterId)}
     <div
@@ -762,7 +743,7 @@
     {/key}
   {/if}
 
-  {#if pickedThing && card && !plate}
+  {#if pickedThing && card}
     {@const word = thingWords[pickedThing.word]}
     <div
       data-word-card

@@ -3,7 +3,7 @@ import type { StickPose } from "./pose";
 /** One step, foot to foot. A walk is a whole number of them, so it ends feet together. */
 export const STEP_MS = 280;
 /** Ground a step covers, in figure widths: the swing of each foot (±9 of the 80-wide box). */
-export const STEP_WIDTHS = 0.225;
+const STEP_WIDTHS = 0.225;
 /** The legs ease in and out over this long, so a walk does not start or stop mid-stride. */
 const EASE_MS = 160;
 /** Feet close in under the body while walking, so a full stride stays within reach of the hip. */

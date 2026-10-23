@@ -23,11 +23,14 @@ describe("the sound of a place", () => {
     ).not.toContain("tram");
   });
 
-  it("hears rain through the window indoors, and snow only outside", () => {
+  it("hears rain outside and through a window, and snow only outside", () => {
     expect(ambienceFor("cafe", { time: "day", weather: "rain" })).toEqual({
       indoors: true,
       layers: ["murmur", "clinks", "rain"],
     });
+    expect(ambienceFor("classroom", { time: "day", weather: "rain" }).layers).toEqual([
+      "hum",
+    ]);
     expect(ambienceFor("home", { time: "day", weather: "snow" }).layers).toEqual(["hum"]);
     expect(ambienceFor("market", { time: "day", weather: "snow" })).toEqual({
       indoors: false,

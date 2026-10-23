@@ -31,7 +31,7 @@
   export interface StickLabScene {
     id: string;
     lines: StickLabLine[];
-    /** Where it plays: picks the drawn backdrop and the painted lesson plate. */
+    /** Where it plays: picks the drawn backdrop. */
     setting: StageSetting;
     title: string;
   }
@@ -116,7 +116,6 @@
   let benchCharacter = $state<LessonCharacterId>("anna");
   let bench = $state<ActorState>({ cue: 0, talking: false });
   let benchGesture = $state<StickGestureId | null>(null);
-  let painted = $state(false);
   /** Light and weather picked here instead of read from the dialogue. */
   let timeOverride = $state<TimeOfDay>();
   let weatherOverride = $state<Weather>();
@@ -282,15 +281,6 @@
             {voicedCount} of {scene.lines.length} lines have a clip, {trackedCount} a mouth
             track.
           </p>
-
-          <TextLink
-            class="ml-auto"
-            onclick={() => {
-              painted = !painted;
-            }}
-          >
-            {painted ? "Show drawn backdrop" : "Show painted backdrop"}
-          </TextLink>
         </div>
 
         <div
@@ -344,7 +334,6 @@
           {direction}
           lines={directedLines}
           {mood}
-          {painted}
           setting={scene.setting}
           {thingWords}
         />

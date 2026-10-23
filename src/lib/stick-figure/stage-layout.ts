@@ -16,7 +16,6 @@ const GAP_SHARE = 0.02;
  */
 export const STAGE_POSTS: Partial<Record<StageSetting, number>> = {
   cafe: 690,
-  counter: 560,
   // Left of the bag on the rug, so nobody stands on it.
   home: 360,
   market: 660,

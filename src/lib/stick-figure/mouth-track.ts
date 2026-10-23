@@ -73,7 +73,7 @@ export interface LipShape {
 }
 
 /** Lip shape per vowel; a shut frame keeps the shape it closes from. */
-export const VOWEL_LIPS: Record<VowelShape, LipShape> = {
+const VOWEL_LIPS: Record<VowelShape, LipShape> = {
   a: { round: 0, width: 1 },
   e: { round: 0, width: 1.1 },
   i: { round: 0, width: 1.18 },

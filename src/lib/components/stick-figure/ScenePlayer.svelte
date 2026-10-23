@@ -110,6 +110,7 @@
   } from "$lib/stick-figure/scene-find";
   import {
     thingWithDemonstrative,
+    thingsIn,
     thingsInView,
     type SceneThing,
   } from "$lib/stick-figure/scene-things";
@@ -181,7 +182,6 @@
   const PLACES: Record<StageSetting, string> = {
     cafe: "At the café",
     classroom: "In class",
-    counter: "At the front desk",
     default: "In the park by the Danube",
     home: "At home",
     market: "At the market",
@@ -855,7 +855,12 @@
     // Only what the stage shows: a phone slices off the ends of the room.
     const { height, width } = stage?.size() ?? { height: 0, width: 0 };
     queue = shuffledTiles(
-      thingsInView(direction.things, scene.setting, width, height).map(({ id }) => id),
+      thingsInView(
+        thingsIn(direction.things, scene.setting, mood),
+        scene.setting,
+        width,
+        height,
+      ).map(({ id }) => id),
       `${scene.id}-${findRound}`,
     );
     findAt = 0;

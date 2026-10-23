@@ -8,7 +8,12 @@
     isOutdoors,
     type SceneMood,
   } from "$lib/stick-figure/scene-mood";
-  import { SCENE_THINGS, thingBoxes } from "$lib/stick-figure/scene-things";
+  import {
+    GLASS,
+    SCENE_THINGS,
+    glassPath,
+    thingBoxes,
+  } from "$lib/stick-figure/scene-things";
 
   /**
    * Light and weather over a drawn place, in front of it: the tint of the
@@ -32,7 +37,7 @@
         y: box.height < 40 ? box.y + box.height : box.y + 18,
       })),
   );
-  const windowBox = $derived(things.find((thing) => thing.id === "okno")?.box);
+  const glass = $derived(GLASS[setting]);
   const lit = $derived(mood.time === "evening" || mood.time === "night");
 </script>
 
@@ -59,12 +64,9 @@
   <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/55" />
 {/if}
 
-{#if !outdoors && windowBox && !isFair(mood.weather)}
-  <rect
-    x={windowBox.x}
-    y={windowBox.y}
-    width={windowBox.width}
-    height={windowBox.height}
+{#if !outdoors && glass && !isFair(mood.weather)}
+  <path
+    d={glassPath(glass)}
     class="fill-scene-line/20"
     transition:fade={{ duration: WEATHER_FADE_MS }}
   />

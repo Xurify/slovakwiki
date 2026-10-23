@@ -11,6 +11,7 @@ import { foldLine } from "./line-gesture";
 import { lineWords, wordSentences, type LinePoint, type PointTarget } from "./line-plan";
 import { hasContent, propForSentence, type StickPropId } from "./props";
 import { STICK_BOX, type Point } from "./rig";
+import { isFair, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 
 /** The backdrops' drawing space (StickBackdrop.svelte). */
@@ -52,11 +53,42 @@ export const SUN_SPOTS: Partial<
   street: { day: { x: 640, y: 36 }, morning: { x: 520, y: 46 } },
 };
 
+/** Where the sun is drawn, if it is out: outdoors, on a fair morning or a sunny afternoon. */
+export function sunIn(
+  setting: StageSetting,
+  mood: SceneMood,
+): (Point & { r: number }) | undefined {
+  const spots = SUN_SPOTS[setting];
+  if (!spots) return undefined;
+  if (mood.time === "morning" && isFair(mood.weather)) return { ...spots.morning, r: 17 };
+  if (mood.time === "day" && mood.weather === "sunny") return { ...spots.day, r: 19 };
+  return undefined;
+}
+
 export interface ThingBox {
   height: number;
   width: number;
   x: number;
   y: number;
+}
+
+/** A room window's glass, where rain and grey show indoors: an arched one is round at the top. */
+export interface Glass extends ThingBox {
+  arch?: boolean;
+}
+
+/** The rooms with a window, and its glass inside the frame and sill. */
+export const GLASS: Partial<Record<StageSetting, Glass>> = {
+  cafe: { arch: true, height: 166, width: 156, x: 110, y: 34 },
+  home: { height: 100, width: 130, x: 106, y: 54 },
+  studio: { height: 94, width: 126, x: 667, y: 59 },
+};
+
+/** The glass as an SVG path in backdrop units. */
+export function glassPath({ arch, height, width, x, y }: Glass): string {
+  if (!arch) return `M${x} ${y}h${width}v${height}h${-width}Z`;
+  const r = width / 2;
+  return `M${x} ${y + height}V${y + r}A${r} ${r} 0 0 1 ${x + width} ${y + r}V${y + height}Z`;
 }
 
 /** Something drawn in a backdrop that a line can name, a figure can point at and a learner can tap. */
@@ -114,6 +146,19 @@ function twins(
   return main === "near"
     ? { ...drawn(word, near, far), twins: { far: 1, near: 0 } }
     : { ...drawn(word, far, near), twins: { far: 0, near: 1 } };
+}
+
+/** The things a place shows in a mood: the sun only while it is out, and where it is drawn. */
+export function thingsIn(
+  things: readonly SceneThing[],
+  setting: StageSetting,
+  mood: SceneMood,
+): readonly SceneThing[] {
+  const sun = sunIn(setting, mood);
+  return things.flatMap((thing) => {
+    if (thing.id !== "slnko") return [thing];
+    return sun ? [{ ...thing, box: toBox([sun.x - 22, sun.y - 22, 44, 44]) }] : [];
+  });
 }
 
 /** Every box a thing is drawn in, its main one first. */
@@ -553,7 +598,7 @@ export function isPlural({ gender, plural }: SceneThing): boolean {
 }
 
 /** ten, tá, to or tie for a thing: what goes in front of it in the nominative. */
-export function demonstrativeFor(thing: SceneThing): string {
+function demonstrativeFor(thing: SceneThing): string {
   if (isPlural(thing)) return "tie";
   if (thing.gender === "feminine") return "tá";
   if (thing.gender === "neuter") return "to";

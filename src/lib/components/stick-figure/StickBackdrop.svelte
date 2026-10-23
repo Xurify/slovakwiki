@@ -8,6 +8,7 @@
     backdropScale,
     litKey,
     thingBoxes,
+    thingsIn,
   } from "$lib/stick-figure/scene-things";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
@@ -84,7 +85,7 @@
     return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
   });
   const hour = $derived(CLOCK_HOURS[mood.time]);
-  const things = $derived(SCENE_THINGS[setting] ?? []);
+  const things = $derived(thingsIn(SCENE_THINGS[setting] ?? [], setting, mood));
   const boxes = $derived(
     things.flatMap((thing) =>
       thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
@@ -126,7 +127,7 @@
     <Market />
   {:else if setting === "plaza"}
     <Plaza {hour} />
-  {:else if setting === "registration" || setting === "counter"}
+  {:else if setting === "registration"}
     <Registration {hour} />
   {:else if setting === "street"}
     <Street {tram} />
