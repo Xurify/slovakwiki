@@ -54,6 +54,12 @@ describe("props in hand", () => {
     expect(propForSentence("Dáte si kávu?")).toBe("cup");
   });
 
+  it("brings out nothing that is to be brought another day", () => {
+    expect(propForSentence("Zajtra si prineste fotku rodiny.")).toBeUndefined();
+    expect(propForSentence("Dobre, prinesiem fotku.")).toBeUndefined();
+    expect(propForSentence("Pozri, to sú fotky z leta.")).toBe("camera");
+  });
+
   it("hands a prop to whoever claims it", () => {
     const lines: StageLine[] = [
       { characterId: "anna", slovak: "Mimochodom, čie sú tie kľúče? Tvoje?" },
