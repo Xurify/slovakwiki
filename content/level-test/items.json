@@ -20462,6 +20462,438 @@
    ]
   },
   {
+   "id": "rc-nas-pes",
+   "format": "readComplete",
+   "difficulty": 5,
+   "title": "Náš pes",
+   "parts": [
+    "Náš pes sa volá Max a má päť rokov. Je ",
+    {
+     "prefix": "ve",
+     "missing": "ľký",
+     "difficulty": 4.5
+    },
+    ", čierny a ",
+    {
+     "prefix": "ve",
+     "missing": "ľmi",
+     "difficulty": 3.6
+    },
+    " priateľský. ",
+    {
+     "prefix": "Ka",
+     "missing": "ždé",
+     "difficulty": 6.5
+    },
+    " ráno s ",
+    {
+     "prefix": "n",
+     "missing": "ím",
+     "difficulty": 4.3
+    },
+    " chodím ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 2.5
+    },
+    " prechádzku ",
+    {
+     "prefix": "d",
+     "missing": "o",
+     "difficulty": 2.7
+    },
+    " parku. ",
+    {
+     "prefix": "R",
+     "missing": "ád",
+     "difficulty": 4.5
+    },
+    " behá ",
+    {
+     "prefix": "p",
+     "missing": "o",
+     "difficulty": 3
+    },
+    " tráve a ",
+    {
+     "prefix": "h",
+     "missing": "rá",
+     "difficulty": 5
+    },
+    " sa s ",
+    {
+     "prefix": "lop",
+     "missing": "tou",
+     "difficulty": 33
+    },
+    ". Potom ",
+    {
+     "prefix": "j",
+     "missing": "e",
+     "difficulty": 2.5
+    },
+    " hladný a ",
+    {
+     "prefix": "pi",
+     "missing": "je",
+     "difficulty": 34.2
+    },
+    " veľa ",
+    {
+     "prefix": "vo",
+     "missing": "dy",
+     "difficulty": 4.7
+    },
+    ". Doma ",
+    {
+     "prefix": "s",
+     "missing": "pí",
+     "difficulty": 30.6
+    },
+    " pri ",
+    {
+     "prefix": "ok",
+     "missing": "ne",
+     "difficulty": 28.5
+    },
+    " alebo ",
+    {
+     "prefix": "p",
+     "missing": "od",
+     "difficulty": 3.8
+    },
+    " stolom. Max je pre nás ako člen rodiny."
+   ]
+  },
+  {
+   "id": "rc-moj-vikend",
+   "format": "readComplete",
+   "difficulty": 5,
+   "title": "Môj víkend",
+   "parts": [
+    "Cez víkend nemusím ísť do práce. V sobotu ",
+    {
+     "prefix": "dl",
+     "missing": "ho",
+     "difficulty": 4.6
+    },
+    " spím a ",
+    {
+     "prefix": "raňaj",
+     "missing": "kujem",
+     "difficulty": 45.2
+    },
+    " až o ",
+    {
+     "prefix": "desi",
+     "missing": "atej",
+     "difficulty": 25.7
+    },
+    ". Potom ",
+    {
+     "prefix": "upra",
+     "missing": "tujem",
+     "difficulty": 44.6
+    },
+    " byt a ",
+    {
+     "prefix": "id",
+     "missing": "em",
+     "difficulty": 12
+    },
+    " na ",
+    {
+     "prefix": "ná",
+     "missing": "kup",
+     "difficulty": 11.3
+    },
+    ". Poobede ",
+    {
+     "prefix": "cho",
+     "missing": "dím",
+     "difficulty": 25.6
+    },
+    " s kamarátmi ",
+    {
+     "prefix": "d",
+     "missing": "o",
+     "difficulty": 2.7
+    },
+    " mesta. ",
+    {
+     "prefix": "Nie",
+     "missing": "kedy",
+     "difficulty": 4.5
+    },
+    " ideme ",
+    {
+     "prefix": "d",
+     "missing": "o",
+     "difficulty": 2.7
+    },
+    " kina ",
+    {
+     "prefix": "al",
+     "missing": "ebo",
+     "difficulty": 3.4
+    },
+    " na ",
+    {
+     "prefix": "kon",
+     "missing": "cert",
+     "difficulty": 7
+    },
+    ". V nedeľu ",
+    {
+     "prefix": "obed",
+     "missing": "ujem",
+     "difficulty": 45.3
+    },
+    " u rodičov a ",
+    {
+     "prefix": "ma",
+     "missing": "ma",
+     "difficulty": 4.9
+    },
+    " vždy ",
+    {
+     "prefix": "va",
+     "missing": "rí",
+     "difficulty": 37.7
+    },
+    " niečo ",
+    {
+     "prefix": "do",
+     "missing": "bré",
+     "difficulty": 4.5
+    },
+    ". Večer už odpočívam, lebo v pondelok skoro vstávam."
+   ]
+  },
+  {
+   "id": "rc-moje-mesto",
+   "format": "readComplete",
+   "difficulty": 5,
+   "title": "Moje mesto",
+   "parts": [
+    "Bývam v malom meste na východe Slovenska. Mesto ",
+    {
+     "prefix": "m",
+     "missing": "á",
+     "difficulty": 3.5
+    },
+    " pekné ",
+    {
+     "prefix": "náme",
+     "missing": "stie",
+     "difficulty": 10.5
+    },
+    " a starý ",
+    {
+     "prefix": "kos",
+     "missing": "tol",
+     "difficulty": 10.1
+    },
+    ". Na ",
+    {
+     "prefix": "nám",
+     "missing": "estí",
+     "difficulty": 6.5
+    },
+    " sú ",
+    {
+     "prefix": "obc",
+     "missing": "hody",
+     "difficulty": 19.2
+    },
+    ", kaviarne a ",
+    {
+     "prefix": "je",
+     "missing": "dna",
+     "difficulty": 4.5
+    },
+    " reštaurácia. ",
+    {
+     "prefix": "P",
+     "missing": "ri",
+     "difficulty": 3.3
+    },
+    " rieke ",
+    {
+     "prefix": "j",
+     "missing": "e",
+     "difficulty": 2.5
+    },
+    " park, ",
+    {
+     "prefix": "k",
+     "missing": "de",
+     "difficulty": 3.7
+    },
+    " sa ",
+    {
+     "prefix": "hr",
+     "missing": "ajú",
+     "difficulty": 10.4
+    },
+    " deti. V ",
+    {
+     "prefix": "me",
+     "missing": "ste",
+     "difficulty": 4.5
+    },
+    " máme ",
+    {
+     "prefix": "a",
+     "missing": "j",
+     "difficulty": 2.7
+    },
+    " školu, ",
+    {
+     "prefix": "po",
+     "missing": "štu",
+     "difficulty": 33.3
+    },
+    " a malú ",
+    {
+     "prefix": "nemo",
+     "missing": "cnicu",
+     "difficulty": 31.4
+    },
+    ". Ľudia ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 2.5
+    },
+    " tu ",
+    {
+     "prefix": "poz",
+     "missing": "najú",
+     "difficulty": 16.1
+    },
+    " a na ",
+    {
+     "prefix": "ul",
+     "missing": "ici",
+     "difficulty": 4.6
+    },
+    " sa ",
+    {
+     "prefix": "zdr",
+     "missing": "avia",
+     "difficulty": 11.1
+    },
+    ". Mám to tu veľmi rád."
+   ]
+  },
+  {
+   "id": "rc-moja-kamaratka",
+   "format": "readComplete",
+   "difficulty": 5,
+   "title": "Moja kamarátka",
+   "parts": [
+    "Moja najlepšia kamarátka sa volá Lucia. Poznáme ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 2.5
+    },
+    " zo ",
+    {
+     "prefix": "šk",
+     "missing": "oly",
+     "difficulty": 4.3
+    },
+    " a teraz ",
+    {
+     "prefix": "býv",
+     "missing": "ame",
+     "difficulty": 42.8
+    },
+    " blízko ",
+    {
+     "prefix": "se",
+     "missing": "ba",
+     "difficulty": 4.3
+    },
+    ". Pracuje v ",
+    {
+     "prefix": "kniž",
+     "missing": "nici",
+     "difficulty": 20.9
+    },
+    ", lebo ",
+    {
+     "prefix": "m",
+     "missing": "á",
+     "difficulty": 3.5
+    },
+    " rada ",
+    {
+     "prefix": "kn",
+     "missing": "ihy",
+     "difficulty": 4.7
+    },
+    ". Má ",
+    {
+     "prefix": "dl",
+     "missing": "hé",
+     "difficulty": 5
+    },
+    " vlasy a ",
+    {
+     "prefix": "no",
+     "missing": "sí",
+     "difficulty": 26.9
+    },
+    " okuliare. ",
+    {
+     "prefix": "V",
+     "missing": "o",
+     "difficulty": 3.3
+    },
+    " voľnom ",
+    {
+     "prefix": "ča",
+     "missing": "se",
+     "difficulty": 4.2
+    },
+    " rada ",
+    {
+     "prefix": "pe",
+     "missing": "čie",
+     "difficulty": 43.3
+    },
+    " koláče. ",
+    {
+     "prefix": "Ča",
+     "missing": "sto",
+     "difficulty": 4.3
+    },
+    " spolu ",
+    {
+     "prefix": "pij",
+     "missing": "eme",
+     "difficulty": 43.1
+    },
+    " kávu a ",
+    {
+     "prefix": "rozpr",
+     "missing": "ávame",
+     "difficulty": 42.6
+    },
+    " sa o ",
+    {
+     "prefix": "vše",
+     "missing": "tkom",
+     "difficulty": 10.8
+    },
+    ". Keď mám problém, vždy mi pomôže."
+   ]
+  },
+  {
    "id": "rc-vylet-do-tatier",
    "format": "readComplete",
    "difficulty": 20,
@@ -20816,6 +21248,516 @@
      "difficulty": 51
     },
     " polievku. Trh mám radšej ako veľký supermarket."
+   ]
+  },
+  {
+   "id": "rc-strateny-kufor",
+   "format": "readComplete",
+   "difficulty": 20,
+   "title": "Stratený kufor",
+   "parts": [
+    "Minulé leto som letel na dovolenku do Španielska. Po ",
+    {
+     "prefix": "prí",
+     "missing": "lete",
+     "difficulty": 50.3
+    },
+    " som ",
+    {
+     "prefix": "dl",
+     "missing": "ho",
+     "difficulty": 12.1
+    },
+    " čakal ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 10
+    },
+    " kufor, ",
+    {
+     "prefix": "a",
+     "missing": "le",
+     "difficulty": 10.5
+    },
+    " neprišiel. ",
+    {
+     "prefix": "Iš",
+     "missing": "iel",
+     "difficulty": 16.6
+    },
+    " som ",
+    {
+     "prefix": "te",
+     "missing": "da",
+     "difficulty": 11.4
+    },
+    " do ",
+    {
+     "prefix": "kance",
+     "missing": "lárie",
+     "difficulty": 16.2
+    },
+    " a všetko ",
+    {
+     "prefix": "s",
+     "missing": "om",
+     "difficulty": 10.4
+    },
+    " vysvetlil. ",
+    {
+     "prefix": "Pa",
+     "missing": "ni",
+     "difficulty": 12.1
+    },
+    " za ",
+    {
+     "prefix": "pul",
+     "missing": "tom",
+     "difficulty": 50.2
+    },
+    " mi ",
+    {
+     "prefix": "pove",
+     "missing": "dala",
+     "difficulty": 11.8
+    },
+    ", že ",
+    {
+     "prefix": "ku",
+     "missing": "for",
+     "difficulty": 43.2
+    },
+    " zostal v Bratislave. ",
+    {
+     "prefix": "Mu",
+     "missing": "sel",
+     "difficulty": 12.2
+    },
+    " som ",
+    {
+     "prefix": "s",
+     "missing": "i",
+     "difficulty": 10.3
+    },
+    " kúpiť ",
+    {
+     "prefix": "no",
+     "missing": "vé",
+     "difficulty": 11.7
+    },
+    " tričko, ",
+    {
+     "prefix": "pla",
+     "missing": "vky",
+     "difficulty": 50.3
+    },
+    " a zubnú ",
+    {
+     "prefix": "ke",
+     "missing": "fku",
+     "difficulty": 51.1
+    },
+    ". Kufor ",
+    {
+     "prefix": "pri",
+     "missing": "šiel",
+     "difficulty": 12
+    },
+    " do ",
+    {
+     "prefix": "hot",
+     "missing": "ela",
+     "difficulty": 22.2
+    },
+    " až ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 10
+    },
+    " tretí deň. Odvtedy si do lietadla vždy beriem aj náhradné oblečenie."
+   ]
+  },
+  {
+   "id": "rc-kurz-varenia",
+   "format": "readComplete",
+   "difficulty": 20,
+   "title": "Kurz varenia",
+   "parts": [
+    "Dlho som nevedela variť, a preto som často jedla v reštauráciách. Minulú ",
+    {
+     "prefix": "je",
+     "missing": "seň",
+     "difficulty": 15.6
+    },
+    " som ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 10
+    },
+    " prihlásila ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 10
+    },
+    " kurz ",
+    {
+     "prefix": "var",
+     "missing": "enia",
+     "difficulty": 50.3
+    },
+    ". Kurz ",
+    {
+     "prefix": "b",
+     "missing": "ol",
+     "difficulty": 10.9
+    },
+    " vždy ",
+    {
+     "prefix": "v",
+     "missing": "o",
+     "difficulty": 10.8
+    },
+    " štvrtok ",
+    {
+     "prefix": "ve",
+     "missing": "čer",
+     "difficulty": 12
+    },
+    " a trval ",
+    {
+     "prefix": "d",
+     "missing": "va",
+     "difficulty": 11.6
+    },
+    " mesiace. ",
+    {
+     "prefix": "Nau",
+     "missing": "čili",
+     "difficulty": 30.9
+    },
+    " sme ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 10
+    },
+    " piecť ",
+    {
+     "prefix": "chl",
+     "missing": "ieb",
+     "difficulty": 19.9
+    },
+    " a variť ",
+    {
+     "prefix": "jedno",
+     "missing": "duché",
+     "difficulty": 15.2
+    },
+    " polievky. ",
+    {
+     "prefix": "Naj",
+     "missing": "viac",
+     "difficulty": 11.9
+    },
+    " ma ",
+    {
+     "prefix": "bav",
+     "missing": "ilo",
+     "difficulty": 50.1
+    },
+    " robiť ",
+    {
+     "prefix": "dom",
+     "missing": "áce",
+     "difficulty": 14.8
+    },
+    " cestoviny. ",
+    {
+     "prefix": "R",
+     "missing": "az",
+     "difficulty": 11.6
+    },
+    " som ",
+    {
+     "prefix": "poz",
+     "missing": "vala",
+     "difficulty": 45.7
+    },
+    " kamarátov ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 10
+    },
+    " večeru a ",
+    {
+     "prefix": "vše",
+     "missing": "tko",
+     "difficulty": 11.4
+    },
+    " im ",
+    {
+     "prefix": "chu",
+     "missing": "tilo",
+     "difficulty": 50.6
+    },
+    ". Teraz varím doma takmer každý deň a šetrím tak peniaze."
+   ]
+  },
+  {
+   "id": "rc-prvy-den-v-praci",
+   "format": "readComplete",
+   "difficulty": 20,
+   "title": "Prvý deň v práci",
+   "parts": [
+    "Minulý pondelok som začal pracovať v novej firme. Ráno ",
+    {
+     "prefix": "s",
+     "missing": "om",
+     "difficulty": 10.4
+    },
+    " vstal ",
+    {
+     "prefix": "sk",
+     "missing": "ôr",
+     "difficulty": 11.8
+    },
+    ", lebo ",
+    {
+     "prefix": "s",
+     "missing": "om",
+     "difficulty": 10.4
+    },
+    " nechcel ",
+    {
+     "prefix": "meš",
+     "missing": "kať",
+     "difficulty": 50.9
+    },
+    ". Do ",
+    {
+     "prefix": "kance",
+     "missing": "lárie",
+     "difficulty": 16.2
+    },
+    " som ",
+    {
+     "prefix": "pri",
+     "missing": "šiel",
+     "difficulty": 12
+    },
+    " už o ",
+    {
+     "prefix": "p",
+     "missing": "ol",
+     "difficulty": 12.2
+    },
+    " ôsmej. ",
+    {
+     "prefix": "Šé",
+     "missing": "fka",
+     "difficulty": 33.8
+    },
+    " mi ",
+    {
+     "prefix": "uká",
+     "missing": "zala",
+     "difficulty": 20.9
+    },
+    " môj ",
+    {
+     "prefix": "st",
+     "missing": "ôl",
+     "difficulty": 17
+    },
+    " a predstavila ",
+    {
+     "prefix": "m",
+     "missing": "a",
+     "difficulty": 11.3
+    },
+    " kolegom. ",
+    {
+     "prefix": "Vše",
+     "missing": "tci",
+     "difficulty": 11.7
+    },
+    " boli ",
+    {
+     "prefix": "mi",
+     "missing": "lí",
+     "difficulty": 32.9
+    },
+    " a na ",
+    {
+     "prefix": "ob",
+     "missing": "ed",
+     "difficulty": 23.3
+    },
+    " sme ",
+    {
+     "prefix": "iš",
+     "missing": "li",
+     "difficulty": 16.2
+    },
+    " spolu. ",
+    {
+     "prefix": "Poo",
+     "missing": "bede",
+     "difficulty": 34.6
+    },
+    " som ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 10
+    },
+    " učil ",
+    {
+     "prefix": "prac",
+     "missing": "ovať",
+     "difficulty": 12.4
+    },
+    " s novým ",
+    {
+     "prefix": "prog",
+     "missing": "ramom",
+     "difficulty": 24.7
+    },
+    ". Večer som bol unavený, ale aj veľmi spokojný."
+   ]
+  },
+  {
+   "id": "rc-u-lekara",
+   "format": "readComplete",
+   "difficulty": 20,
+   "title": "U lekára",
+   "parts": [
+    "Minulý týždeň som ochorela. V utorok ",
+    {
+     "prefix": "rá",
+     "missing": "no",
+     "difficulty": 12.1
+    },
+    " ma ",
+    {
+     "prefix": "bol",
+     "missing": "ela",
+     "difficulty": 50.5
+    },
+    " hlava a ",
+    {
+     "prefix": "ma",
+     "missing": "la",
+     "difficulty": 11.5
+    },
+    " som ",
+    {
+     "prefix": "hor",
+     "missing": "účku",
+     "difficulty": 50.2
+    },
+    ". Zavolala ",
+    {
+     "prefix": "s",
+     "missing": "om",
+     "difficulty": 10.4
+    },
+    " do ",
+    {
+     "prefix": "pr",
+     "missing": "áce",
+     "difficulty": 11.6
+    },
+    ", že ",
+    {
+     "prefix": "nepr",
+     "missing": "ídem",
+     "difficulty": 50.8
+    },
+    ", a išla ",
+    {
+     "prefix": "s",
+     "missing": "om",
+     "difficulty": 10.4
+    },
+    " k lekárke. ",
+    {
+     "prefix": "Lek",
+     "missing": "árka",
+     "difficulty": 37.6
+    },
+    " mi ",
+    {
+     "prefix": "zme",
+     "missing": "rala",
+     "difficulty": 51.9
+    },
+    " teplotu a ",
+    {
+     "prefix": "poz",
+     "missing": "rela",
+     "difficulty": 17.7
+    },
+    " sa ",
+    {
+     "prefix": "m",
+     "missing": "i",
+     "difficulty": 11.1
+    },
+    " do ",
+    {
+     "prefix": "hr",
+     "missing": "dla",
+     "difficulty": 42.6
+    },
+    ". Povedala, ",
+    {
+     "prefix": "ž",
+     "missing": "e",
+     "difficulty": 10.1
+    },
+    " mám ",
+    {
+     "prefix": "chr",
+     "missing": "ípku",
+     "difficulty": 43.6
+    },
+    " a musím ",
+    {
+     "prefix": "zos",
+     "missing": "tať",
+     "difficulty": 18.3
+    },
+    " doma. ",
+    {
+     "prefix": "Ce",
+     "missing": "lý",
+     "difficulty": 11.8
+    },
+    " týždeň ",
+    {
+     "prefix": "s",
+     "missing": "om",
+     "difficulty": 10.4
+    },
+    " ležala v ",
+    {
+     "prefix": "pos",
+     "missing": "teli",
+     "difficulty": 19.2
+    },
+    " a pila ",
+    {
+     "prefix": "č",
+     "missing": "aj",
+     "difficulty": 23.5
+    },
+    " s medom. Teraz som už zdravá a znova chodím do práce."
    ]
   },
   {
@@ -21206,6 +22148,522 @@
    ]
   },
   {
+   "id": "rc-socialne-siete",
+   "format": "readComplete",
+   "difficulty": 40,
+   "title": "Sociálne siete",
+   "parts": [
+    "Sociálne siete dnes používa takmer každý mladý človek. Pomáhajú ",
+    {
+     "prefix": "n",
+     "missing": "ám",
+     "difficulty": 21.3
+    },
+    " zostať v ",
+    {
+     "prefix": "kont",
+     "missing": "akte",
+     "difficulty": 40.8
+    },
+    " s priateľmi, ",
+    {
+     "prefix": "kt",
+     "missing": "orí",
+     "difficulty": 21.2
+    },
+    " bývajú ",
+    {
+     "prefix": "ďal",
+     "missing": "eko",
+     "difficulty": 23
+    },
+    ". Okrem ",
+    {
+     "prefix": "to",
+     "missing": "ho",
+     "difficulty": 21.3
+    },
+    " na ",
+    {
+     "prefix": "ni",
+     "missing": "ch",
+     "difficulty": 21.4
+    },
+    " môžeme ",
+    {
+     "prefix": "rýc",
+     "missing": "hlo",
+     "difficulty": 22.1
+    },
+    " nájsť ",
+    {
+     "prefix": "zauj",
+     "missing": "ímavé",
+     "difficulty": 22.5
+    },
+    " informácie. ",
+    {
+     "prefix": "Ma",
+     "missing": "jú",
+     "difficulty": 21.4
+    },
+    " však ",
+    {
+     "prefix": "a",
+     "missing": "j",
+     "difficulty": 20.2
+    },
+    " nevýhody. ",
+    {
+     "prefix": "Mn",
+     "missing": "ohí",
+     "difficulty": 22.3
+    },
+    " ľudia ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 20
+    },
+    " nich ",
+    {
+     "prefix": "trá",
+     "missing": "via",
+     "difficulty": 57.6
+    },
+    " niekoľko ",
+    {
+     "prefix": "ho",
+     "missing": "dín",
+     "difficulty": 22.3
+    },
+    " denne a ",
+    {
+     "prefix": "po",
+     "missing": "tom",
+     "difficulty": 21.2
+    },
+    " im ",
+    {
+     "prefix": "ch",
+     "missing": "ýba",
+     "difficulty": 23.2
+    },
+    " čas ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 20
+    },
+    " iné ",
+    {
+     "prefix": "ve",
+     "missing": "ci",
+     "difficulty": 21.9
+    },
+    ". Niektorí ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 20
+    },
+    " navyše ",
+    {
+     "prefix": "st",
+     "missing": "ále",
+     "difficulty": 21.5
+    },
+    " porovnávajú s ostatnými a sú nespokojní so svojím životom. Podľa mňa je dôležité používať ich rozumne a občas si dať pauzu."
+   ]
+  },
+  {
+   "id": "rc-zivot-na-dedine",
+   "format": "readComplete",
+   "difficulty": 40,
+   "title": "Život na dedine",
+   "parts": [
+    "Už tri roky bývame s manželom na dedine neďaleko Nitry. Mnohí ",
+    {
+     "prefix": "zn",
+     "missing": "ámi",
+     "difficulty": 38.5
+    },
+    " nechápali, ",
+    {
+     "prefix": "pr",
+     "missing": "ečo",
+     "difficulty": 21.6
+    },
+    " sme ",
+    {
+     "prefix": "odi",
+     "missing": "šli",
+     "difficulty": 29.1
+    },
+    " z mesta. ",
+    {
+     "prefix": "M",
+     "missing": "y",
+     "difficulty": 21.7
+    },
+    " sme ",
+    {
+     "prefix": "chc",
+     "missing": "eli",
+     "difficulty": 22.1
+    },
+    " žiť v ",
+    {
+     "prefix": "pok",
+     "missing": "oji",
+     "difficulty": 39.1
+    },
+    " a bližšie k ",
+    {
+     "prefix": "prí",
+     "missing": "rode",
+     "difficulty": 30.1
+    },
+    ". Deti ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 20
+    },
+    " môžu ",
+    {
+     "prefix": "ce",
+     "missing": "lý",
+     "difficulty": 21.8
+    },
+    " deň ",
+    {
+     "prefix": "hr",
+     "missing": "ať",
+     "difficulty": 22.2
+    },
+    " vonku a ",
+    {
+     "prefix": "má",
+     "missing": "me",
+     "difficulty": 21.8
+    },
+    " vlastnú ",
+    {
+     "prefix": "záh",
+     "missing": "radu",
+     "difficulty": 46.8
+    },
+    ". Život ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 20
+    },
+    " dedine ",
+    {
+     "prefix": "m",
+     "missing": "á",
+     "difficulty": 21
+    },
+    " však ",
+    {
+     "prefix": "a",
+     "missing": "j",
+     "difficulty": 20.2
+    },
+    " nevýhody. ",
+    {
+     "prefix": "D",
+     "missing": "o",
+     "difficulty": 20.2
+    },
+    " práce ",
+    {
+     "prefix": "mus",
+     "missing": "íme",
+     "difficulty": 22.2
+    },
+    " dochádzať ",
+    {
+     "prefix": "au",
+     "missing": "tom",
+     "difficulty": 32.7
+    },
+    ", pretože ",
+    {
+     "prefix": "aut",
+     "missing": "obus",
+     "difficulty": 34.9
+    },
+    " tu ",
+    {
+     "prefix": "ch",
+     "missing": "odí",
+     "difficulty": 29
+    },
+    " len niekoľkokrát denne. Napriek tomu si myslím, že sme sa rozhodli správne."
+   ]
+  },
+  {
+   "id": "rc-byvanie-s-rodicmi",
+   "format": "readComplete",
+   "difficulty": 40,
+   "title": "Bývanie s rodičmi",
+   "parts": [
+    "Na Slovensku žije veľa mladých ľudí s rodičmi aj po skončení školy. Hlavným ",
+    {
+     "prefix": "dôv",
+     "missing": "odom",
+     "difficulty": 23.8
+    },
+    " sú ",
+    {
+     "prefix": "vys",
+     "missing": "oké",
+     "difficulty": 22.5
+    },
+    " ceny ",
+    {
+     "prefix": "by",
+     "missing": "tov",
+     "difficulty": 25.5
+    },
+    " a nájmov. ",
+    {
+     "prefix": "Niek",
+     "missing": "torí",
+     "difficulty": 22.2
+    },
+    " si ",
+    {
+     "prefix": "ch",
+     "missing": "cú",
+     "difficulty": 22.1
+    },
+    " najprv ",
+    {
+     "prefix": "naše",
+     "missing": "triť",
+     "difficulty": 61.5
+    },
+    " na ",
+    {
+     "prefix": "vla",
+     "missing": "stné",
+     "difficulty": 22.4
+    },
+    " bývanie. ",
+    {
+     "prefix": "Býv",
+     "missing": "anie",
+     "difficulty": 32
+    },
+    " s rodičmi ",
+    {
+     "prefix": "m",
+     "missing": "á",
+     "difficulty": 21
+    },
+    " určite ",
+    {
+     "prefix": "výh",
+     "missing": "ody",
+     "difficulty": 30.3
+    },
+    ", pretože ",
+    {
+     "prefix": "člo",
+     "missing": "vek",
+     "difficulty": 21.7
+    },
+    " nemusí ",
+    {
+     "prefix": "pla",
+     "missing": "tiť",
+     "difficulty": 22.5
+    },
+    " nájom a ",
+    {
+     "prefix": "n",
+     "missing": "ie",
+     "difficulty": 20.8
+    },
+    " je ",
+    {
+     "prefix": "s",
+     "missing": "ám",
+     "difficulty": 21.8
+    },
+    ". Mladí ",
+    {
+     "prefix": "ľu",
+     "missing": "dia",
+     "difficulty": 21.5
+    },
+    " však ",
+    {
+     "prefix": "ča",
+     "missing": "sto",
+     "difficulty": 21.8
+    },
+    " chcú ",
+    {
+     "prefix": "b",
+     "missing": "yť",
+     "difficulty": 21.1
+    },
+    " samostatní a ",
+    {
+     "prefix": "rozho",
+     "missing": "dovať",
+     "difficulty": 31.1
+    },
+    " o svojom ",
+    {
+     "prefix": "živ",
+     "missing": "ote",
+     "difficulty": 22.1
+    },
+    ". Ak ",
+    {
+     "prefix": "zos",
+     "missing": "tanú",
+     "difficulty": 40.3
+    },
+    " doma príliš dlho, neskôr sa ťažšie osamostatnia. Dôležité je, aby sa celá rodina dohodla na jasných pravidlách."
+   ]
+  },
+  {
+   "id": "rc-domace-ulohy",
+   "format": "readComplete",
+   "difficulty": 40,
+   "title": "Domáce úlohy",
+   "parts": [
+    "O domácich úlohách sa medzi rodičmi a učiteľmi často diskutuje. Niektorí ",
+    {
+     "prefix": "s",
+     "missing": "i",
+     "difficulty": 20.3
+    },
+    " myslia, ",
+    {
+     "prefix": "ž",
+     "missing": "e",
+     "difficulty": 20.1
+    },
+    " úlohy ",
+    {
+     "prefix": "pomá",
+     "missing": "hajú",
+     "difficulty": 33.3
+    },
+    " deťom ",
+    {
+     "prefix": "zopa",
+     "missing": "kovať",
+     "difficulty": 44.9
+    },
+    " si ",
+    {
+     "prefix": "uč",
+     "missing": "ivo",
+     "difficulty": 60.3
+    },
+    ". Žiaci ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 20
+    },
+    " tak ",
+    {
+     "prefix": "nau",
+     "missing": "čia",
+     "difficulty": 58.6
+    },
+    " pracovať ",
+    {
+     "prefix": "samos",
+     "missing": "tatne",
+     "difficulty": 34.5
+    },
+    " a plánovať ",
+    {
+     "prefix": "s",
+     "missing": "i",
+     "difficulty": 20.3
+    },
+    " čas. ",
+    {
+     "prefix": "I",
+     "missing": "ní",
+     "difficulty": 25
+    },
+    " však ",
+    {
+     "prefix": "tvr",
+     "missing": "dia",
+     "difficulty": 26.2
+    },
+    ", že ",
+    {
+     "prefix": "de",
+     "missing": "ti",
+     "difficulty": 21.6
+    },
+    " majú ",
+    {
+     "prefix": "p",
+     "missing": "o",
+     "difficulty": 20.5
+    },
+    " vyučovaní ",
+    {
+     "prefix": "má",
+     "missing": "lo",
+     "difficulty": 22.2
+    },
+    " času ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 20
+    },
+    " hru a ",
+    {
+     "prefix": "šp",
+     "missing": "ort",
+     "difficulty": 22.3
+    },
+    ". Ak ",
+    {
+     "prefix": "j",
+     "missing": "e",
+     "difficulty": 20
+    },
+    " úloh ",
+    {
+     "prefix": "prí",
+     "missing": "liš",
+     "difficulty": 22.2
+    },
+    " veľa, ",
+    {
+     "prefix": "de",
+     "missing": "ti",
+     "difficulty": 21.6
+    },
+    " sú ",
+    {
+     "prefix": "una",
+     "missing": "vené",
+     "difficulty": 60.3
+    },
+    " a strácajú chuť do učenia. Podľa mňa by úlohy mali byť krátke a zaujímavé. Viac úloh totiž neznamená lepšie výsledky."
+   ]
+  },
+  {
    "id": "rc-mesta-a-auta",
    "format": "readComplete",
    "difficulty": 60,
@@ -21593,6 +23051,522 @@
    ]
   },
   {
+   "id": "rc-prilis-vela-turistov",
+   "format": "readComplete",
+   "difficulty": 60,
+   "title": "Príliš veľa turistov",
+   "parts": [
+    "Turizmus prináša mnohým regiónom prácu a peniaze, no jeho rýchly rast má aj tienisté stránky. V obľúbených ",
+    {
+     "prefix": "mes",
+     "missing": "tách",
+     "difficulty": 37.6
+    },
+    " sa v ",
+    {
+     "prefix": "sez",
+     "missing": "óne",
+     "difficulty": 32.3
+    },
+    " tlačia ",
+    {
+     "prefix": "da",
+     "missing": "vy",
+     "difficulty": 65.2
+    },
+    " návštevníkov. ",
+    {
+     "prefix": "Mie",
+     "missing": "stni",
+     "difficulty": 50.9
+    },
+    " obyvatelia ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 30
+    },
+    " sťažujú ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 30
+    },
+    " hluk, ",
+    {
+     "prefix": "od",
+     "missing": "pad",
+     "difficulty": 44.8
+    },
+    " a vyššie ",
+    {
+     "prefix": "ce",
+     "missing": "ny",
+     "difficulty": 32
+    },
+    " bývania. ",
+    {
+     "prefix": "Mn",
+     "missing": "ohé",
+     "difficulty": 32.4
+    },
+    " byty v ",
+    {
+     "prefix": "cen",
+     "missing": "tre",
+     "difficulty": 32.5
+    },
+    " sa ",
+    {
+     "prefix": "to",
+     "missing": "tiž",
+     "difficulty": 31.7
+    },
+    " menia ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 30
+    },
+    " ubytovanie ",
+    {
+     "prefix": "p",
+     "missing": "re",
+     "difficulty": 30.5
+    },
+    " turistov. ",
+    {
+     "prefix": "Tr",
+     "missing": "pí",
+     "difficulty": 48.9
+    },
+    " aj ",
+    {
+     "prefix": "prí",
+     "missing": "roda",
+     "difficulty": 46.2
+    },
+    ", najmä v ",
+    {
+     "prefix": "hor",
+     "missing": "ách",
+     "difficulty": 47
+    },
+    ", kde ",
+    {
+     "prefix": "ľu",
+     "missing": "dia",
+     "difficulty": 31.5
+    },
+    " schádzajú z ",
+    {
+     "prefix": "chod",
+     "missing": "níkov",
+     "difficulty": 57.1
+    },
+    " a rušia ",
+    {
+     "prefix": "zvie",
+     "missing": "ratá",
+     "difficulty": 41.6
+    },
+    ". Niektoré ",
+    {
+     "prefix": "mie",
+     "missing": "sta",
+     "difficulty": 32.1
+    },
+    " preto zavádzajú poplatky alebo obmedzujú počet návštevníkov. Cieľom nie je turistov odradiť, ale nájsť rovnováhu medzi ich záujmami a kvalitou života obyvateľov."
+   ]
+  },
+  {
+   "id": "rc-plytvanie-jedlom",
+   "format": "readComplete",
+   "difficulty": 60,
+   "title": "Plytvanie jedlom",
+   "parts": [
+    "Hoci mnoho ľudí na svete trpí hladom, v bohatých krajinách končí veľká časť jedla v koši. Najviac ",
+    {
+     "prefix": "potr",
+     "missing": "avín",
+     "difficulty": 38.7
+    },
+    " sa ",
+    {
+     "prefix": "pri",
+     "missing": "tom",
+     "difficulty": 31.9
+    },
+    " nevyhadzuje v ",
+    {
+     "prefix": "obch",
+     "missing": "odoch",
+     "difficulty": 50.6
+    },
+    ", ale v ",
+    {
+     "prefix": "domácn",
+     "missing": "ostiach",
+     "difficulty": 64.8
+    },
+    ". Často ",
+    {
+     "prefix": "kupu",
+     "missing": "jeme",
+     "difficulty": 70.6
+    },
+    " viac, ",
+    {
+     "prefix": "n",
+     "missing": "ež",
+     "difficulty": 31.8
+    },
+    " dokážeme ",
+    {
+     "prefix": "zj",
+     "missing": "esť",
+     "difficulty": 67.7
+    },
+    ", a zabúdame ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 30
+    },
+    " jedlo v ",
+    {
+     "prefix": "chlad",
+     "missing": "ničke",
+     "difficulty": 70.1
+    },
+    ". Problémom ",
+    {
+     "prefix": "n",
+     "missing": "ie",
+     "difficulty": 30.8
+    },
+    " sú ",
+    {
+     "prefix": "l",
+     "missing": "en",
+     "difficulty": 30.8
+    },
+    " vyhodené ",
+    {
+     "prefix": "potr",
+     "missing": "aviny",
+     "difficulty": 42.7
+    },
+    ", ale ",
+    {
+     "prefix": "a",
+     "missing": "j",
+     "difficulty": 30.2
+    },
+    " voda a ",
+    {
+     "prefix": "ene",
+     "missing": "rgia",
+     "difficulty": 50.8
+    },
+    ", ktoré ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 30
+    },
+    " spotrebovali ",
+    {
+     "prefix": "p",
+     "missing": "ri",
+     "difficulty": 30.8
+    },
+    " ich ",
+    {
+     "prefix": "výr",
+     "missing": "obe",
+     "difficulty": 43.8
+    },
+    ". Odborníci ",
+    {
+     "prefix": "pr",
+     "missing": "eto",
+     "difficulty": 31.3
+    },
+    " radia ",
+    {
+     "prefix": "plán",
+     "missing": "ovať",
+     "difficulty": 70.1
+    },
+    " nákupy a ",
+    {
+     "prefix": "spr",
+     "missing": "ávne",
+     "difficulty": 32.3
+    },
+    " skladovať jedlo. Niektoré obchody zas darujú tovar tesne pred koncom trvanlivosti charitatívnym organizáciám. Keby každá domácnosť nakupovala o niečo uvážlivejšie, odpadu by bolo podstatne menej."
+   ]
+  },
+  {
+   "id": "rc-starnuca-spolocnost",
+   "format": "readComplete",
+   "difficulty": 60,
+   "title": "Starnúca spoločnosť",
+   "parts": [
+    "Slovensko, podobne ako väčšina európskych krajín, rýchlo starne. Ľudia ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 30
+    },
+    " dožívajú ",
+    {
+     "prefix": "vyšš",
+     "missing": "ieho",
+     "difficulty": 56.4
+    },
+    " veku a ",
+    {
+     "prefix": "zár",
+     "missing": "oveň",
+     "difficulty": 31.8
+    },
+    " sa ",
+    {
+     "prefix": "ro",
+     "missing": "dí",
+     "difficulty": 59.8
+    },
+    " menej ",
+    {
+     "prefix": "de",
+     "missing": "tí",
+     "difficulty": 32
+    },
+    ". Tento ",
+    {
+     "prefix": "vý",
+     "missing": "voj",
+     "difficulty": 32.4
+    },
+    " prináša ",
+    {
+     "prefix": "spolo",
+     "missing": "čnosti",
+     "difficulty": 31.6
+    },
+    " viacero ",
+    {
+     "prefix": "výz",
+     "missing": "iev",
+     "difficulty": 70.1
+    },
+    ". Na ",
+    {
+     "prefix": "dôch",
+     "missing": "odky",
+     "difficulty": 54.9
+    },
+    " a zdravotnú ",
+    {
+     "prefix": "staros",
+     "missing": "tlivosť",
+     "difficulty": 35.8
+    },
+    " bude ",
+    {
+     "prefix": "tr",
+     "missing": "eba",
+     "difficulty": 31.6
+    },
+    " stále ",
+    {
+     "prefix": "vi",
+     "missing": "ac",
+     "difficulty": 31.2
+    },
+    " peňazí, ",
+    {
+     "prefix": "pri",
+     "missing": "čom",
+     "difficulty": 32
+    },
+    " pracujúcich ",
+    {
+     "prefix": "ub",
+     "missing": "úda",
+     "difficulty": 70.1
+    },
+    ". Chýbať ",
+    {
+     "prefix": "bu",
+     "missing": "dú",
+     "difficulty": 31.4
+    },
+    " aj ",
+    {
+     "prefix": "opatro",
+     "missing": "vatelia",
+     "difficulty": 71.9
+    },
+    ", ktorí ",
+    {
+     "prefix": "b",
+     "missing": "y",
+     "difficulty": 76.6
+    },
+    " sa ",
+    {
+     "prefix": "sta",
+     "missing": "rali",
+     "difficulty": 64.6
+    },
+    " o seniorov ",
+    {
+     "prefix": "odkáz",
+     "missing": "aných",
+     "difficulty": 70.5
+    },
+    " na ",
+    {
+     "prefix": "po",
+     "missing": "moc",
+     "difficulty": 32.1
+    },
+    ". Starnutie však neznamená len problémy, keďže mnohí starší ľudia zostávajú dlho aktívni. Môžu odovzdávať skúsenosti mladším kolegom, pomáhať v rodine alebo sa zapájať do života v obci. Úlohou politiky je vytvoriť podmienky, aby tento potenciál nezostal nevyužitý."
+   ]
+  },
+  {
+   "id": "rc-veda-a-verejnost",
+   "format": "readComplete",
+   "difficulty": 60,
+   "title": "Veda a verejnosť",
+   "parts": [
+    "Od vedcov sa dnes čoraz častejšie očakáva, že budú o svojej práci hovoriť aj s verejnosťou. Ľudia ",
+    {
+     "prefix": "to",
+     "missing": "tiž",
+     "difficulty": 31.7
+    },
+    " chcú ",
+    {
+     "prefix": "ved",
+     "missing": "ieť",
+     "difficulty": 32.3
+    },
+    ", na ",
+    {
+     "prefix": "č",
+     "missing": "o",
+     "difficulty": 30.6
+    },
+    " sa ",
+    {
+     "prefix": "použ",
+     "missing": "ívajú",
+     "difficulty": 40
+    },
+    " peniaze z ",
+    {
+     "prefix": "da",
+     "missing": "ní",
+     "difficulty": 37.2
+    },
+    ". Okrem ",
+    {
+     "prefix": "to",
+     "missing": "ho",
+     "difficulty": 31.3
+    },
+    " môže ",
+    {
+     "prefix": "zrozum",
+     "missing": "iteľné",
+     "difficulty": 70.4
+    },
+    " vysvetlenie ",
+    {
+     "prefix": "pom",
+     "missing": "ôcť",
+     "difficulty": 32.3
+    },
+    " v boji ",
+    {
+     "prefix": "pr",
+     "missing": "oti",
+     "difficulty": 31.4
+    },
+    " nepravdivým ",
+    {
+     "prefix": "infor",
+     "missing": "máciám",
+     "difficulty": 59
+    },
+    ". Pre ",
+    {
+     "prefix": "mno",
+     "missing": "hých",
+     "difficulty": 32.2
+    },
+    " výskumníkov ",
+    {
+     "prefix": "vš",
+     "missing": "ak",
+     "difficulty": 30.8
+    },
+    " nie ",
+    {
+     "prefix": "j",
+     "missing": "e",
+     "difficulty": 30
+    },
+    " jednoduché ",
+    {
+     "prefix": "hov",
+     "missing": "oriť",
+     "difficulty": 32.3
+    },
+    " bez ",
+    {
+     "prefix": "odbo",
+     "missing": "rných",
+     "difficulty": 42.8
+    },
+    " pojmov. ",
+    {
+     "prefix": "Zlo",
+     "missing": "žité",
+     "difficulty": 51.8
+    },
+    " výsledky ",
+    {
+     "prefix": "mu",
+     "missing": "sia",
+     "difficulty": 32.1
+    },
+    " zjednodušiť, ",
+    {
+     "prefix": "n",
+     "missing": "o",
+     "difficulty": 31.2
+    },
+    " zároveň ",
+    {
+     "prefix": "ne",
+     "missing": "smú",
+     "difficulty": 50.8
+    },
+    " skresliť ",
+    {
+     "prefix": "i",
+     "missing": "ch",
+     "difficulty": 30.8
+    },
+    " význam. Univerzity preto organizujú kurzy, na ktorých sa vedci učia písať pre bežných čitateľov. Obľúbené sú aj vedecké kaviarne či festivaly, kde sa môžu návštevníci s vedcami priamo porozprávať."
+   ]
+  },
+  {
    "id": "rc-jazyk-a-identita",
    "format": "readComplete",
    "difficulty": 80,
@@ -21848,6 +23822,522 @@
      "difficulty": 58
     },
     " úlohu zohráva aj obnova mokradí a remízok, ktoré pomáhajú zadržiavať vodu v krajine. Takéto zmeny si však vyžadujú investície a ochotu meniť zaužívané postupy. Bez systematickej podpory zo strany štátu sa preto presadzujú len pomaly."
+   ]
+  },
+  {
+   "id": "rc-dezinformacie",
+   "format": "readComplete",
+   "difficulty": 80,
+   "title": "Dezinformácie",
+   "parts": [
+    "Šírenie dezinformácií nie je novým javom, no sociálne siete ho výrazne urýchlili. Algoritmy ",
+    {
+     "prefix": "upredn",
+     "missing": "ostňujú",
+     "difficulty": 77.1
+    },
+    " obsah, ",
+    {
+     "prefix": "kt",
+     "missing": "orý",
+     "difficulty": 40.8
+    },
+    " vyvoláva ",
+    {
+     "prefix": "si",
+     "missing": "lné",
+     "difficulty": 47.6
+    },
+    " emócie, a ",
+    {
+     "prefix": "nepra",
+     "missing": "vdivé",
+     "difficulty": 79.3
+    },
+    " tvrdenia ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 40
+    },
+    " preto ",
+    {
+     "prefix": "ší",
+     "missing": "ria",
+     "difficulty": 74.1
+    },
+    " rýchlejšie ",
+    {
+     "prefix": "n",
+     "missing": "ež",
+     "difficulty": 41.8
+    },
+    " ich ",
+    {
+     "prefix": "vyvrá",
+     "missing": "tenie",
+     "difficulty": 81.7
+    },
+    ". Výskumy ",
+    {
+     "prefix": "nazn",
+     "missing": "ačujú",
+     "difficulty": 65.4
+    },
+    ", že ",
+    {
+     "prefix": "ľu",
+     "missing": "dia",
+     "difficulty": 41.5
+    },
+    " ľahšie ",
+    {
+     "prefix": "uve",
+     "missing": "ria",
+     "difficulty": 80.8
+    },
+    " informácii, ",
+    {
+     "prefix": "kt",
+     "missing": "orá",
+     "difficulty": 41.1
+    },
+    " potvrdzuje ",
+    {
+     "prefix": "i",
+     "missing": "ch",
+     "difficulty": 40.8
+    },
+    " doterajšie ",
+    {
+     "prefix": "presve",
+     "missing": "dčenie",
+     "difficulty": 57.6
+    },
+    ". Samotné ",
+    {
+     "prefix": "uvád",
+     "missing": "zanie",
+     "difficulty": 80.9
+    },
+    " vecí ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 40
+    },
+    " pravú ",
+    {
+     "prefix": "mi",
+     "missing": "eru",
+     "difficulty": 46.5
+    },
+    " často ",
+    {
+     "prefix": "nes",
+     "missing": "tačí",
+     "difficulty": 53.5
+    },
+    ", najmä ",
+    {
+     "prefix": "a",
+     "missing": "k",
+     "difficulty": 41
+    },
+    " prichádza ",
+    {
+     "prefix": "nes",
+     "missing": "koro",
+     "difficulty": 48.7
+    },
+    ". Odborníci sa čoraz viac zameriavajú na prevenciu, teda na rozvoj mediálnej gramotnosti. Ukazuje sa, že ak ľudia vopred poznajú typické manipulačné techniky, dokážu ich neskôr ľahšie rozpoznať. Kritické myslenie tak nemožno chápať ako výsadu vzdelanej menšiny, ale ako základnú zručnosť každého občana."
+   ]
+  },
+  {
+   "id": "rc-stvordnovy-pracovny-tyzden",
+   "format": "readComplete",
+   "difficulty": 80,
+   "title": "Štvordňový pracovný týždeň",
+   "parts": [
+    "Myšlienka štvordňového pracovného týždňa sa v posledných rokoch presunula z okraja diskusie do jej centra. Viaceré ",
+    {
+     "prefix": "fi",
+     "missing": "rmy",
+     "difficulty": 42
+    },
+    " v zahraničí ",
+    {
+     "prefix": "u",
+     "missing": "ž",
+     "difficulty": 40.6
+    },
+    " takýto ",
+    {
+     "prefix": "re",
+     "missing": "žim",
+     "difficulty": 49.4
+    },
+    " vyskúšali a ",
+    {
+     "prefix": "uvád",
+     "missing": "zajú",
+     "difficulty": 62.3
+    },
+    ", že ",
+    {
+     "prefix": "produk",
+     "missing": "tivita",
+     "difficulty": 80.2
+    },
+    " zamestnancov ",
+    {
+     "prefix": "nekl",
+     "missing": "esla",
+     "difficulty": 81.4
+    },
+    ", ba v ",
+    {
+     "prefix": "niekt",
+     "missing": "orých",
+     "difficulty": 42.1
+    },
+    " prípadoch ",
+    {
+     "prefix": "dok",
+     "missing": "onca",
+     "difficulty": 41.8
+    },
+    " vzrástla. ",
+    {
+     "prefix": "Zames",
+     "missing": "tnanci",
+     "difficulty": 47.5
+    },
+    " sa ",
+    {
+     "prefix": "zár",
+     "missing": "oveň",
+     "difficulty": 41.8
+    },
+    " cítili ",
+    {
+     "prefix": "me",
+     "missing": "nej",
+     "difficulty": 41.9
+    },
+    " vyčerpaní a ",
+    {
+     "prefix": "ľah",
+     "missing": "šie",
+     "difficulty": 49.6
+    },
+    " zosúlaďovali ",
+    {
+     "prefix": "pr",
+     "missing": "ácu",
+     "difficulty": 42.1
+    },
+    " so ",
+    {
+     "prefix": "súkr",
+     "missing": "omným",
+     "difficulty": 72.9
+    },
+    " životom. ",
+    {
+     "prefix": "Kri",
+     "missing": "tici",
+     "difficulty": 66
+    },
+    " však ",
+    {
+     "prefix": "upozo",
+     "missing": "rňujú",
+     "difficulty": 63.5
+    },
+    ", že ",
+    {
+     "prefix": "výsl",
+     "missing": "edky",
+     "difficulty": 42
+    },
+    " pilotných ",
+    {
+     "prefix": "proj",
+     "missing": "ektov",
+     "difficulty": 45.4
+    },
+    " nemožno ",
+    {
+     "prefix": "jedno",
+     "missing": "ducho",
+     "difficulty": 42.2
+    },
+    " zovšeobecniť. ",
+    {
+     "prefix": "Zapo",
+     "missing": "jili",
+     "difficulty": 60.9
+    },
+    " sa do nich prevažne firmy, ktoré o zmenu stáli. V zdravotníctve či v nepretržitých prevádzkach by si takýto model navyše vyžadoval viac personálu, ktorého je už teraz nedostatok. Kratší týždeň tak zrejme nebude univerzálnym riešením, skôr možnosťou pre vybrané odvetvia."
+   ]
+  },
+  {
+   "id": "rc-odliv-mozgov",
+   "format": "readComplete",
+   "difficulty": 80,
+   "title": "Odliv mozgov",
+   "parts": [
+    "Slovensko patrí ku krajinám, z ktorých odchádza do zahraničia veľa mladých a vzdelaných ľudí. Mnohí z ",
+    {
+     "prefix": "ni",
+     "missing": "ch",
+     "difficulty": 41.4
+    },
+    " odídu ",
+    {
+     "prefix": "štud",
+     "missing": "ovať",
+     "difficulty": 55.3
+    },
+    " a po ",
+    {
+     "prefix": "skon",
+     "missing": "čení",
+     "difficulty": 45.9
+    },
+    " školy ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 40
+    },
+    " už ",
+    {
+     "prefix": "nevr",
+     "missing": "átia",
+     "difficulty": 80.4
+    },
+    ". Lákajú ",
+    {
+     "prefix": "i",
+     "missing": "ch",
+     "difficulty": 40.8
+    },
+    " nielen ",
+    {
+     "prefix": "vyš",
+     "missing": "šie",
+     "difficulty": 42.4
+    },
+    " platy, ",
+    {
+     "prefix": "a",
+     "missing": "le",
+     "difficulty": 40.5
+    },
+    " aj ",
+    {
+     "prefix": "lep",
+     "missing": "šie",
+     "difficulty": 41.9
+    },
+    " podmienky ",
+    {
+     "prefix": "n",
+     "missing": "a",
+     "difficulty": 40
+    },
+    " výskum a ",
+    {
+     "prefix": "kari",
+     "missing": "érny",
+     "difficulty": 80.8
+    },
+    " rast. ",
+    {
+     "prefix": "Kra",
+     "missing": "jina",
+     "difficulty": 43.1
+    },
+    " tak ",
+    {
+     "prefix": "pric",
+     "missing": "hádza",
+     "difficulty": 44.2
+    },
+    " o ľudí, ",
+    {
+     "prefix": "kto",
+     "missing": "rých",
+     "difficulty": 41.6
+    },
+    " vzdelanie ",
+    {
+     "prefix": "finan",
+     "missing": "covala",
+     "difficulty": 80.7
+    },
+    " z verejných ",
+    {
+     "prefix": "zdr",
+     "missing": "ojov",
+     "difficulty": 42.5
+    },
+    ". Odborníci ",
+    {
+     "prefix": "vš",
+     "missing": "ak",
+     "difficulty": 40.8
+    },
+    " upozorňujú, ",
+    {
+     "prefix": "ž",
+     "missing": "e",
+     "difficulty": 40.1
+    },
+    " pobyt v ",
+    {
+     "prefix": "zahr",
+     "missing": "aničí",
+     "difficulty": 42.8
+    },
+    " nemusí ",
+    {
+     "prefix": "b",
+     "missing": "yť",
+     "difficulty": 41.1
+    },
+    " stratou. Ak sa ľudia neskôr vrátia so skúsenosťami a kontaktmi, môžu doma presadiť nové postupy. Otázkou preto nie je, ako odchodom zabrániť, ale ako vytvoriť podmienky, za ktorých sa návrat oplatí."
+   ]
+  },
+  {
+   "id": "rc-pamiatky-a-rozvoj-miest",
+   "format": "readComplete",
+   "difficulty": 80,
+   "title": "Pamiatky a rozvoj miest",
+   "parts": [
+    "Historické centrá miest sú svedectvom minulosti, no zároveň musia slúžiť ľuďom, ktorí v nich žijú dnes. Ochrana ",
+    {
+     "prefix": "pami",
+     "missing": "atok",
+     "difficulty": 63.2
+    },
+    " sa ",
+    {
+     "prefix": "pr",
+     "missing": "eto",
+     "difficulty": 41.3
+    },
+    " často ",
+    {
+     "prefix": "dos",
+     "missing": "táva",
+     "difficulty": 48.9
+    },
+    " do ",
+    {
+     "prefix": "konf",
+     "missing": "liktu",
+     "difficulty": 56.9
+    },
+    " s požiadavkami ",
+    {
+     "prefix": "mode",
+     "missing": "rného",
+     "difficulty": 62
+    },
+    " života. ",
+    {
+     "prefix": "Maji",
+     "missing": "telia",
+     "difficulty": 53.4
+    },
+    " starých ",
+    {
+     "prefix": "do",
+     "missing": "mov",
+     "difficulty": 42
+    },
+    " sa ",
+    {
+     "prefix": "sťa",
+     "missing": "žujú",
+     "difficulty": 68.9
+    },
+    ", že ",
+    {
+     "prefix": "prí",
+     "missing": "sne",
+     "difficulty": 51.3
+    },
+    " predpisy ",
+    {
+     "prefix": "i",
+     "missing": "m",
+     "difficulty": 41.4
+    },
+    " bránia ",
+    {
+     "prefix": "vym",
+     "missing": "eniť",
+     "difficulty": 59.6
+    },
+    " okná ",
+    {
+     "prefix": "č",
+     "missing": "i",
+     "difficulty": 40.9
+    },
+    " zatepliť ",
+    {
+     "prefix": "fas",
+     "missing": "ádu",
+     "difficulty": 80.3
+    },
+    ". Pamiatkari ",
+    {
+     "prefix": "nao",
+     "missing": "pak",
+     "difficulty": 42.1
+    },
+    " namietajú, ",
+    {
+     "prefix": "ž",
+     "missing": "e",
+     "difficulty": 40.1
+    },
+    " necitlivé ",
+    {
+     "prefix": "zás",
+     "missing": "ahy",
+     "difficulty": 64.6
+    },
+    " by ",
+    {
+     "prefix": "nenáv",
+     "missing": "ratne",
+     "difficulty": 80.2
+    },
+    " narušili ",
+    {
+     "prefix": "r",
+     "missing": "áz",
+     "difficulty": 52.9
+    },
+    " celých ",
+    {
+     "prefix": "ul",
+     "missing": "íc",
+     "difficulty": 56
+    },
+    ". Spor ",
+    {
+     "prefix": "s",
+     "missing": "a",
+     "difficulty": 40
+    },
+    " neraz zužuje na zdanlivú voľbu medzi zachovaním a pokrokom. Viaceré príklady zo zahraničia však ukazujú, že citlivá obnova dokáže spojiť obe hodnoty. Staré budovy možno prispôsobiť súčasným potrebám bez toho, aby stratili svoj charakter. Predpokladom je včasný dialóg medzi vlastníkmi, úradmi a odborníkmi."
    ]
   }
  ],
