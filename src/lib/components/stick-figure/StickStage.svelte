@@ -23,7 +23,7 @@
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
   import { REST_POSE } from "$lib/stick-figure/pose";
-  import { STICK_BOX, solveRig, type Point } from "$lib/stick-figure/rig";
+  import { solveRig, type Point } from "$lib/stick-figure/rig";
   import type { DirectedLine, SceneDirection } from "$lib/stick-figure/scene-direction";
   import {
     aimAt,
@@ -40,16 +40,25 @@
   } from "$lib/stick-figure/thing-words";
   import { dressFor } from "$lib/stick-figure/dress";
   import { DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
-  import { STAGE_PADDING, stageMarks } from "$lib/stick-figure/stage-layout";
-  import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import {
-    restFacing,
-    type CastFacing,
-    type Facing,
-    type LineStaging,
-  } from "$lib/stick-figure/staging";
+    blockingBefore,
+    endLine,
+    startLine,
+    type Blocking,
+  } from "$lib/stick-figure/stage-blocking";
+  import {
+    FLOOR,
+    markOf,
+    offStage,
+    stageFrame,
+    standing,
+    walkOns,
+    type Offsets,
+  } from "$lib/stick-figure/stage-frame";
+  import type { StageSetting } from "$lib/stick-figure/stage-setting";
+  import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { playTramCue } from "$lib/stick-figure/ambience";
-  import { TRAM, type TramState } from "$lib/stick-figure/street";
+  import type { TramState } from "$lib/stick-figure/street";
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
@@ -60,16 +69,6 @@
     cue: number;
     plan?: LinePlan;
     talking: boolean;
-  }
-
-  /** Figure widths each figure stands from its mark. */
-  type Offsets = Partial<Record<LessonCharacterId, number>>;
-
-  /** Where a figure's box is drawn, before any walk moves it. */
-  interface Mark {
-    left: number;
-    top: number;
-    width: number;
   }
 
   let {
@@ -95,10 +94,6 @@
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
-  /** The stage's bottom padding, where the figures' feet stand. */
-  const FLOOR = 12;
-  /** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
-  const BESIDE_WIDTHS = 0.8;
   const LIT_MS = 1600;
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
@@ -161,30 +156,18 @@
       );
     });
   });
-  const entering = $derived(
-    Object.fromEntries(
-      stagings.flatMap(({ enter }) => (enter ? [[enter.characterId, enter.from]] : [])),
-    ) as Partial<Record<LessonCharacterId, Facing>>,
-  );
-  const post = $derived(PLACES[setting].post);
-  const layout = $derived(
-    stageMarks(
-      direction.cast,
-      entering,
-      stageWidth,
-      post === undefined || !stageWidth
-        ? undefined
-        : backdropToStage(
-            { x: post, y: 0 },
-            stageWidth,
-            stageHeight,
-            backdropAlign(setting),
-          ).x,
-      stageHeight || undefined,
-    ),
-  );
   /** The scene's things as the stage shows them now: the sun only while it is out. */
   const things = $derived(thingsIn(direction.things, setting, mood));
+  const frame = $derived(
+    stageFrame(
+      direction.cast,
+      walkOns(stagings),
+      setting,
+      things,
+      stageWidth,
+      stageHeight,
+    ),
+  );
   const pickedThing = $derived(things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room
@@ -239,19 +222,6 @@
     });
   });
 
-  function markOf(id: LessonCharacterId): Mark {
-    const width = layout.width;
-    return {
-      left: layout.marks[id] ?? 0,
-      top: stageHeight - FLOOR - (width * STICK_BOX.height) / STICK_BOX.width,
-      width,
-    };
-  }
-
-  function standing(mark: Mark, offset = 0): Mark {
-    return { ...mark, left: mark.left + offset * mark.width };
-  }
-
   /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
   function walkTo(id: LessonCharacterId, offset: number): void {
     const from = offsets[id] ?? 0;
@@ -267,76 +237,19 @@
     }
   }
 
-  /** Figure widths from a figure's mark to where it stands beside `to`, wherever `to` stands in `at`. */
-  function beside(
-    id: LessonCharacterId,
-    to: LessonCharacterId,
-    toward: Facing,
-    at: Offsets = offsets,
-  ): number {
-    if (!stageWidth) return toward * 0.5;
-
-    const mark = markOf(id);
-    const gap = (standing(markOf(to), at[to]).left - mark.left) / mark.width;
-    const now = at[id] ?? 0;
-    // Close enough already, after a walk the two made together, is close enough.
-    return Math.abs(gap - now) > BESIDE_WIDTHS
-      ? gap - Math.sign(gap - now) * BESIDE_WIDTHS
-      : now;
+  function blocking(): Blocking {
+    return { aboard, facings, offsets, tram };
   }
 
-  /** Figure widths from a figure's mark to just past the stage edge on that side. */
-  function offStage(id: LessonCharacterId, direction: Facing): number {
-    if (!stageWidth) return direction * 4;
-
-    const mark = markOf(id);
-    const distance = direction > 0 ? stageWidth - mark.left : mark.left + mark.width;
-    return direction * (distance / mark.width + 0.1);
-  }
-
-  /** Whether a figure stands on the stage, as opposed to off one side of it. */
-  function onStage(id: LessonCharacterId, at: Offsets): boolean {
-    const mark = standing(markOf(id), at[id]);
-    return mark.left + mark.width > 0 && mark.left < stageWidth;
-  }
-
-  /**
-   * Figure widths everyone on stage moves, keeping their places in the row,
-   * to stand centred on stage x `to`, or as near as the stage edge allows.
-   */
-  function shiftTo(to: number, at: Offsets): { by: number; ids: LessonCharacterId[] } {
-    const ids = direction.cast.filter((id) => onStage(id, at));
-    if (!stageWidth || ids.length === 0) return { by: 0, ids };
-
-    const marks = ids.map((id) => standing(markOf(id), at[id]));
-    const left = Math.min(...marks.map((mark) => mark.left));
-    const right = Math.max(...marks.map((mark) => mark.left + mark.width));
-    const shift = to - (left + right) / 2;
-    const clamped = Math.min(
-      stageWidth - STAGE_PADDING - right,
-      Math.max(STAGE_PADDING - left, shift),
-    );
-    return { by: clamped / marks[0].width, ids };
-  }
-
-  /** Stage x of where a line takes everyone: a thing it names, or the tram's door. */
-  function destinationOf(staging: LineStaging, boarding: boolean): number | undefined {
-    const thing = things.find((candidate) => candidate.id === staging.goTo);
-    const point = boarding ? { x: TRAM.door, y: 0 } : thing && thingCenter(thing);
-    if (!point || !stageWidth) return undefined;
-    return backdropToStage(point, stageWidth, stageHeight, backdropAlign(setting)).x;
-  }
-
-  /** Walk everyone on stage over to stand by stage x `to`, facing the way they go. */
-  function walkGroup(to: number): void {
-    const { by, ids } = shiftTo(to, offsets);
-    if (by === 0) return;
-
-    facings = {
-      ...facings,
-      ...Object.fromEntries(ids.map((id) => [id, by > 0 ? 1 : -1])),
-    };
-    for (const id of ids) walkTo(id, (offsets[id] ?? 0) + by);
+  /** Turn everyone as `next` has them at once, and walk whoever it moves. */
+  function block(next: Blocking): void {
+    facings = next.facings;
+    tram = next.tram;
+    aboard = next.aboard;
+    for (const id of direction.cast) {
+      const to = next.offsets[id] ?? 0;
+      if (to !== (offsets[id] ?? 0)) walkTo(id, to);
+    }
   }
 
   function boardBefore(index: number): string | undefined {
@@ -350,46 +263,20 @@
 
   /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   export function place(index: number): void {
+    const placed = blockingBefore(
+      index,
+      lines.map((line) => line.characterId),
+      stagings,
+      frame,
+    );
+
     umbrellas = {};
-    let placedFacings: CastFacing = {};
-    const placed: Offsets = {};
-
-    for (const { enter } of stagings) {
-      if (enter) placed[enter.characterId] = offStage(enter.characterId, enter.from);
-    }
-
-    stagings.slice(0, index).forEach((staging, at) => {
-      const speaker = lines[at].characterId;
-      placedFacings = { ...placedFacings, ...staging.facing };
-
-      if (staging.enter) placed[staging.enter.characterId] = 0;
-      if (staging.approach && speaker) {
-        const { characterId, toward } = staging.approach;
-        placed[characterId] = beside(characterId, speaker, toward, placed);
-      }
-      if (staging.exit && speaker) {
-        placedFacings[speaker] = staging.exit;
-        placed[speaker] = offStage(speaker, staging.exit);
-      }
-      const to =
-        staging.goTo || staging.boards
-          ? destinationOf(staging, Boolean(staging.boards))
-          : undefined;
-      if (to !== undefined) {
-        const { by, ids } = shiftTo(to, placed);
-        for (const id of ids) {
-          placed[id] = (placed[id] ?? 0) + by;
-          if (by !== 0) placedFacings[id] = by > 0 ? 1 : -1;
-        }
-      }
-    });
-
-    facings = placedFacings;
-    offsets = placed;
+    facings = placed.facings;
+    offsets = placed.offsets;
+    tram = placed.tram;
+    aboard = placed.aboard;
     walks = {};
     walkEndsAt = {};
-    tram = stagings.slice(0, index).some(({ arrives }) => arrives) ? "here" : "away";
-    aboard = stagings.slice(0, index).some(({ boards }) => boards);
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -412,7 +299,7 @@
     const facing = facings[target.holder] ?? resting[target.holder] ?? 1;
     return figureToStage(
       SHOWN_HAND,
-      standing(markOf(target.holder), offsets[target.holder]),
+      standing(markOf(frame, target.holder), offsets[target.holder]),
       facing,
     );
   }
@@ -427,7 +314,7 @@
     plan: LinePlan,
     holding: boolean,
   ): { facing?: Facing; plan: LinePlan } {
-    const from = figureToStage(SHOULDER, standing(markOf(id), offsets[id]), 1);
+    const from = figureToStage(SHOULDER, standing(markOf(frame, id), offsets[id]), 1);
     let facing: Facing | undefined;
 
     const beats = plan.beats.map((beat) => {
@@ -475,7 +362,7 @@
     const token = playToken;
     for (const id of direction.cast) {
       if (id === line.characterId) continue;
-      const mark = standing(markOf(id), offsets[id]);
+      const mark = standing(markOf(frame, id), offsets[id]);
       if (mark.left + mark.width < 0 || mark.left > stageWidth) continue;
 
       const centre = mark.left + mark.width / 2;
@@ -532,7 +419,7 @@
     const rest = { ...walks };
     delete rest[id];
     walks = rest;
-    offsets = { ...offsets, [id]: offStage(id, from) };
+    offsets = { ...offsets, [id]: offStage(frame, id, from) };
 
     const cast = direction.cast;
     const turned = Object.fromEntries(
@@ -578,29 +465,19 @@
 
     for (const actor of Object.values(actors)) actor.talking = false;
     facings = { ...facings, ...staging?.facing };
-    if (line.characterId && plan) {
-      const aimed = aimLine(
-        line.characterId,
-        plan,
-        Boolean(direction.lines[index]?.held[line.characterId]),
-      );
-      if (aimed.facing) facings = { ...facings, [line.characterId]: aimed.facing };
-      cueActor(line.characterId, aimed.plan);
+    const speaker = line.characterId;
+    // Aimed from where the speaker stands before anyone walks this line.
+    const aimed =
+      speaker && plan
+        ? aimLine(speaker, plan, Boolean(direction.lines[index]?.held[speaker]))
+        : undefined;
+    const standingAt = speaker ? offsets[speaker] : undefined;
+    if (staging) block(startLine(blocking(), staging, speaker, frame));
+    // A speaker walking somewhere faces the way they go, not where they point.
+    if (speaker && aimed?.facing && offsets[speaker] === standingAt) {
+      facings = { ...facings, [speaker]: aimed.facing };
     }
-    if (staging?.approach && line.characterId) {
-      const { characterId, toward } = staging.approach;
-      walkTo(characterId, beside(characterId, line.characterId, toward));
-    }
-    if (staging?.enter) {
-      const { characterId, from } = staging.enter;
-      facings = { ...facings, [characterId]: from === 1 ? -1 : 1 };
-      walkTo(characterId, 0);
-    }
-    if (staging?.goTo) {
-      const to = destinationOf(staging, false);
-      if (to !== undefined) walkGroup(to);
-    }
-    if (staging?.arrives) tram = "coming";
+    if (speaker && aimed) cueActor(speaker, aimed.plan);
 
     for (const reaction of staging?.reactions ?? []) {
       const span = plan?.sentences[reaction.sentence];
@@ -615,16 +492,8 @@
 
       for (const actor of Object.values(actors)) actor.talking = false;
       if (staging?.gives) handedAt = index;
-      if (staging?.exit && line.characterId) {
-        facings = { ...facings, [line.characterId]: staging.exit };
-        walkTo(line.characterId, offStage(line.characterId, staging.exit));
-      }
-      if (staging?.boards) {
-        const to = destinationOf(staging, true);
-        if (to !== undefined) walkGroup(to);
-        aboard = true;
-        foldUmbrellas();
-      }
+      if (staging) block(endLine(blocking(), staging, speaker, frame));
+      if (staging?.boards) foldUmbrellas();
       if (stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
     };
@@ -693,8 +562,8 @@
     <div
       class="pointer-events-none absolute transition-transform ease-linear"
       style:bottom="{FLOOR}px"
-      style:left="{layout.marks[characterId] ?? 0}px"
-      style:width="{layout.width}px"
+      style:left="{frame.marks[characterId] ?? 0}px"
+      style:width="{frame.figureWidth}px"
       style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
       style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
     >
@@ -714,7 +583,10 @@
   {/each}
 
   {#if bubble}
-    {@const mark = standing(markOf(bubble.characterId), offsets[bubble.characterId])}
+    {@const mark = standing(
+      markOf(frame, bubble.characterId),
+      offsets[bubble.characterId],
+    )}
     {@const head = mark.left + mark.width / 2}
     {@const centre = Math.min(Math.max(head, 128), Math.max(128, stageWidth - 128))}
     {#key bubble.cue}
