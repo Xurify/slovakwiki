@@ -136,9 +136,10 @@
   let lineTimer = 0;
 
   const resting = $derived(restFacing(direction.cast));
+  const stagings = $derived(direction.lines.map(({ staging }) => staging));
   const holding = $derived(
-    (handedAt === heldAt ? direction.handed[heldAt] : undefined) ??
-      direction.held[heldAt] ??
+    (handedAt === heldAt ? direction.lines[heldAt]?.handed : undefined) ??
+      direction.lines[heldAt]?.held ??
       {},
   );
   /** The weather on the cast: none indoors or once on the tram. */
@@ -162,9 +163,7 @@
   });
   const entering = $derived(
     Object.fromEntries(
-      direction.stagings.flatMap(({ enter }) =>
-        enter ? [[enter.characterId, enter.from]] : [],
-      ),
+      stagings.flatMap(({ enter }) => (enter ? [[enter.characterId, enter.from]] : [])),
     ) as Partial<Record<LessonCharacterId, Facing>>,
   );
   const post = $derived(PLACES[setting].post);
@@ -355,11 +354,11 @@
     let placedFacings: CastFacing = {};
     const placed: Offsets = {};
 
-    for (const { enter } of direction.stagings) {
+    for (const { enter } of stagings) {
       if (enter) placed[enter.characterId] = offStage(enter.characterId, enter.from);
     }
 
-    direction.stagings.slice(0, index).forEach((staging, at) => {
+    stagings.slice(0, index).forEach((staging, at) => {
       const speaker = lines[at].characterId;
       placedFacings = { ...placedFacings, ...staging.facing };
 
@@ -389,10 +388,8 @@
     offsets = placed;
     walks = {};
     walkEndsAt = {};
-    tram = direction.stagings.slice(0, index).some(({ arrives }) => arrives)
-      ? "here"
-      : "away";
-    aboard = direction.stagings.slice(0, index).some(({ boards }) => boards);
+    tram = stagings.slice(0, index).some(({ arrives }) => arrives) ? "here" : "away";
+    aboard = stagings.slice(0, index).some(({ boards }) => boards);
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -490,7 +487,7 @@
 
     window.setTimeout(() => {
       if (token !== playToken) return;
-      facings = { ...facings, ...direction.stagings[heldAt]?.facing };
+      facings = { ...facings, ...stagings[heldAt]?.facing };
     }, gestureDuration("glance"));
   }
 
@@ -571,8 +568,8 @@
     playToken += 1;
     const token = playToken;
     const line = lines[index];
-    const plan = take?.plan ?? direction.plans[index];
-    const staging = direction.stagings[index];
+    const plan = take?.plan ?? direction.lines[index]?.plan;
+    const staging = stagings[index];
     if (!line) return;
 
     heldAt = index;
@@ -585,7 +582,7 @@
       const aimed = aimLine(
         line.characterId,
         plan,
-        Boolean(direction.held[index]?.[line.characterId]),
+        Boolean(direction.lines[index]?.held[line.characterId]),
       );
       if (aimed.facing) facings = { ...facings, [line.characterId]: aimed.facing };
       cueActor(line.characterId, aimed.plan);
@@ -628,7 +625,7 @@
         aboard = true;
         foldUmbrellas();
       }
-      if (direction.stagings[index + 1]?.arrives) playTramCue();
+      if (stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
     };
 

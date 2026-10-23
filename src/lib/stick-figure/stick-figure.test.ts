@@ -8,6 +8,7 @@ import {
   sampleGesture,
 } from "./gestures";
 import { gestureForLine } from "./line-gesture";
+import type { StageLine } from "./line-reading";
 import { estimateSpeechMs, planLine, reactionPlan } from "./line-plan";
 import { foldLine, wordSentences } from "./slovak-text";
 import {
@@ -25,10 +26,11 @@ import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
 import { aimAt, backdropToStage, figureToStage } from "./backdrop-geometry";
 import { PLACES } from "./places";
+import { directScene } from "./scene-direction";
 import { linePoints } from "./scene-points";
 import { stageName } from "./stage-name";
 import { gesturesWithProps, heldProps, lineProps, propForSentence } from "./props";
-import { restFacing, stageLine, type StageLine } from "./staging";
+import { restFacing } from "./staging";
 import { STEP_MS, stepsFor, walkDuration, walkPose } from "./walk";
 import { slovakSyllables } from "./syllables";
 
@@ -403,7 +405,7 @@ describe("stageName", () => {
   });
 });
 
-describe("stageLine", () => {
+describe("staging", () => {
   const cast = ["anna", "alex", "waiter"] as const;
   const lines: StageLine[] = [
     { characterId: "anna", slovak: "Pozri, to sú fotky z leta." },
@@ -414,41 +416,44 @@ describe("stageLine", () => {
     { characterId: "anna", slovak: "A ja si dám tamtú tortu.", to: "waiter" },
     { characterId: null, slovak: "ĎA-ku-jem" },
   ];
+  /** Each line's staging in the café, where the cast stands in the order they first speak. */
+  const staged = (scene: readonly StageLine[]) =>
+    directScene(scene, "cafe").lines.map(({ staging }) => staging);
 
   it("faces the middle before anyone speaks", () => {
     expect(restFacing(cast)).toEqual({ anna: 1, alex: 1, waiter: -1 });
   });
 
   it("turns the speaker to the one spoken to and everyone else to the speaker", () => {
-    expect(stageLine(lines, 0, cast)).toMatchObject({
+    expect(staged(lines)[0]).toMatchObject({
       addressee: "alex",
       facing: { anna: 1, alex: -1, waiter: -1 },
     });
-    expect(stageLine(lines, 3, cast)).toMatchObject({
+    expect(staged(lines)[3]).toMatchObject({
       addressee: "anna",
       facing: { anna: 1, alex: 1, waiter: -1 },
     });
   });
 
   it("follows a line's to over the order of replies", () => {
-    expect(stageLine(lines, 5, cast)).toMatchObject({
+    expect(staged(lines)[5]).toMatchObject({
       addressee: "waiter",
       facing: { anna: 1, alex: -1, waiter: -1 },
     });
   });
 
   it("leans in to a question and nods at its answer", () => {
-    expect(stageLine(lines, 3, cast).reactions).toEqual([
+    expect(staged(lines)[3].reactions).toEqual([
       { characterId: "anna", gesture: "lean", sentence: 1, at: 0.5 },
     ]);
-    expect(stageLine(lines, 2, cast).reactions).toEqual([
+    expect(staged(lines)[2].reactions).toEqual([
       { characterId: "alex", gesture: "nod", sentence: 0, at: 1 },
     ]);
-    expect(stageLine(lines, 0, cast).reactions).toEqual([]);
+    expect(staged(lines)[0].reactions).toEqual([]);
   });
 
   it("leaves the stage alone for a line nobody on it says", () => {
-    expect(stageLine(lines, 6, cast)).toEqual({
+    expect(staged(lines)[6]).toEqual({
       addressee: null,
       facing: {},
       reactions: [],
@@ -456,11 +461,11 @@ describe("stageLine", () => {
   });
 
   it("walks the one shown something over to the speaker", () => {
-    expect(stageLine(lines, 0, cast).approach).toEqual({
+    expect(staged(lines)[0].approach).toEqual({
       characterId: "alex",
       toward: -1,
     });
-    expect(stageLine(lines, 1, cast).approach).toBeUndefined();
+    expect(staged(lines)[1].approach).toBeUndefined();
   });
 
   it("walks someone called in over to the speaker", () => {
@@ -469,7 +474,7 @@ describe("stageLine", () => {
       { characterId: "alex", slovak: "Ahoj!" },
     ];
 
-    expect(stageLine(visit, 0, ["anna", "alex"]).approach).toEqual({
+    expect(staged(visit)[0].approach).toEqual({
       characterId: "alex",
       toward: -1,
     });
@@ -481,22 +486,20 @@ describe("stageLine", () => {
       { characterId: "waiter", slovak: "Takže tento koláč a tamtú tortu. Hneď to bude." },
     ];
 
-    expect(stageLine(order, 1, ["anna", "waiter"]).exit).toBe(1);
+    expect(staged(order)[1].exit).toBe(1);
   });
 
   it("holds up what the speaker points at in their hands", () => {
-    expect(stageLine(lines, 1, cast)).toMatchObject({
+    expect(staged(lines)[1]).toMatchObject({
       looksAt: "anna",
       reactions: [{ characterId: "anna", gesture: "show", sentence: 0, at: 0 }],
     });
-    expect(stageLine(lines, 4, cast).looksAt).toBeUndefined();
+    expect(staged(lines)[4].looksAt).toBeUndefined();
   });
 
   it("walks someone on to say hello", () => {
-    expect(stageLine(lines, 2, cast).enter).toEqual({ characterId: "waiter", from: 1 });
-    expect(lines.filter((_, index) => stageLine(lines, index, cast).enter)).toHaveLength(
-      1,
-    );
+    expect(staged(lines)[2].enter).toEqual({ characterId: "waiter", from: 1 });
+    expect(staged(lines).filter(({ enter }) => enter)).toHaveLength(1);
   });
 
   it("leaves someone answering a hello where they are", () => {
@@ -505,7 +508,7 @@ describe("stageLine", () => {
       { characterId: "alex", slovak: "Dobrý deň." },
     ];
 
-    expect(stageLine(meeting, 0, ["maria", "alex"]).enter).toBeUndefined();
+    expect(staged(meeting)[0].enter).toBeUndefined();
   });
 
   it("turns a goodbye away once it ends", () => {
@@ -514,12 +517,12 @@ describe("stageLine", () => {
       { characterId: "alex", slovak: "Ďakujem. Dovidenia!" },
     ];
 
-    expect(stageLine(goodbye, 1, ["alex", "waiter"])).toMatchObject({
+    expect(staged(goodbye)[1]).toMatchObject({
       facing: { alex: 1, waiter: -1 },
       reactions: [{ characterId: "waiter", gesture: "nod", sentence: 0 }],
       exit: -1,
     });
-    expect(stageLine(goodbye, 0, ["alex", "waiter"]).exit).toBeUndefined();
+    expect(staged(goodbye)[0].exit).toBeUndefined();
   });
 });
 
@@ -550,9 +553,9 @@ describe("props", () => {
 
   it("keeps a prop in hand until its holder brings out another", () => {
     const held = heldProps([
-      { characterId: "anna", props: ["camera"] },
+      { addressee: "alex", characterId: "anna", props: ["camera"] },
       { characterId: "alex", props: [undefined] },
-      { characterId: "anna", props: ["keys"] },
+      { addressee: "alex", characterId: "anna", props: ["keys"] },
     ]);
 
     expect(held).toEqual([{ anna: "camera" }, { anna: "camera" }, { anna: "keys" }]);
@@ -560,7 +563,7 @@ describe("props", () => {
 
   it("puts a prop away when someone else joins in", () => {
     const held = heldProps([
-      { characterId: "anna", props: ["camera"] },
+      { addressee: "alex", characterId: "anna", props: ["camera"] },
       { characterId: "alex", props: [undefined] },
       { characterId: "waiter", props: [undefined] },
     ]);

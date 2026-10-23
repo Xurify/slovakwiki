@@ -94,18 +94,17 @@ describe("every scene, directed", () => {
   for (const scene of SCENES) {
     it(scene.name, () => {
       const direction = directScene(scene.lines, scene.setting, scene.order);
-      const lines = scene.lines.map((line, index) =>
-        compact({
-          handed: direction.handed[index],
-          held: direction.held[index],
+      const lines = scene.lines.map((line, index) => {
+        const { handed, held, plan, props, staging } = direction.lines[index];
+        return compact({
+          handed,
+          held,
           line: `${line.characterId ?? "-"}: ${line.slovak}`,
-          plan: planSummary(direction.plans[index]),
-          props: direction.props[index].some(Boolean)
-            ? direction.props[index]
-            : undefined,
-          staging: direction.stagings[index],
-        }),
-      );
+          plan: planSummary(plan),
+          props: props.some(Boolean) ? props : undefined,
+          staging,
+        });
+      });
 
       expect({
         cast: direction.cast,

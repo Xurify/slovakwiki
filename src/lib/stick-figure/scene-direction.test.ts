@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { demonstrativesEpisode } from "$lib/catalog/listening/episodes/demonstratives";
+import { readLines, type StageLine } from "./line-reading";
 import { heldProps, propForSentence } from "./props";
 import { castFor, directScene, type DirectedLine } from "./scene-direction";
 import { STAGE_PADDING, figureWidth, stageMarks } from "./stage-layout";
-import { takesFrom, type StageLine } from "./staging";
 
 describe("castFor", () => {
   const order: DirectedLine[] = [
@@ -70,12 +70,12 @@ describe("props in hand", () => {
       { characterId: "alex", slovak: "Moje číslo je nula deväť nula." },
     ];
 
-    expect(takesFrom(lines, 1)).toBe("anna");
-    expect(takesFrom(registration, 1)).toBeUndefined();
+    expect(readLines(lines, ["anna", "alex"])[1].takes).toBe("anna");
+    expect(readLines(registration, ["alex", "maria"])[1].takes).toBeUndefined();
     expect(
       heldProps([
         { characterId: "anna", props: ["keys"] },
-        { characterId: "alex", props: [undefined], takesFrom: "anna" },
+        { characterId: "alex", props: [undefined], takes: "anna" },
       ]),
     ).toEqual([{ anna: "keys" }, { alex: "keys" }]);
   });
@@ -89,8 +89,8 @@ describe("props in hand", () => {
       "home",
     );
 
-    expect(direction.plans[1].beats[0].gesture).toBe("show");
-    expect(direction.held[1]).toEqual({ alex: "keys" });
+    expect(direction.lines[1].plan.beats[0].gesture).toBe("show");
+    expect(direction.lines[1].held).toEqual({ alex: "keys" });
   });
 });
 
@@ -105,13 +105,13 @@ describe("handing things over", () => {
       "market",
     );
 
-    expect(direction.stagings[1].gives).toBe("anna");
-    expect(direction.stagings[1].reactions).toEqual([
+    expect(direction.lines[1].staging.gives).toBe("anna");
+    expect(direction.lines[1].staging.reactions).toEqual([
       expect.objectContaining({ characterId: "anna", gesture: "show" }),
     ]);
-    expect(direction.held[1]).toEqual({ lucia: "basket" });
-    expect(direction.handed[1]).toEqual({ anna: "basket" });
-    expect(direction.held[2]).toEqual({ anna: "basket" });
+    expect(direction.lines[1].held).toEqual({ lucia: "basket" });
+    expect(direction.lines[1].handed).toEqual({ anna: "basket" });
+    expect(direction.lines[2].held).toEqual({ anna: "basket" });
   });
 
   it("gives nothing when nothing is in hand", () => {
@@ -123,8 +123,8 @@ describe("handing things over", () => {
       "cafe",
     );
 
-    expect(direction.stagings[1].gives).toBeUndefined();
-    expect(direction.handed[1]).toBeUndefined();
+    expect(direction.lines[1].staging.gives).toBeUndefined();
+    expect(direction.lines[1].handed).toBeUndefined();
   });
 
   it("does not point at a present that was given away", () => {
@@ -136,8 +136,8 @@ describe("handing things over", () => {
       "studio",
     );
 
-    expect(direction.held[1]).toEqual({ anna: "apple" });
-    expect(direction.stagings[1].looksAt).toBeUndefined();
+    expect(direction.lines[1].held).toEqual({ anna: "apple" });
+    expect(direction.lines[1].staging.looksAt).toBeUndefined();
   });
 });
 
@@ -152,11 +152,11 @@ describe("words for drawn things", () => {
       "studio",
     );
 
-    expect(home.held[0]).toEqual({});
-    expect(home.plans[0].beats.some((beat) => beat.point?.target.kind === "thing")).toBe(
-      true,
-    );
-    expect(studio.held[0]).toEqual({ marek: "bag" });
+    expect(home.lines[0].held).toEqual({});
+    expect(
+      home.lines[0].plan.beats.some((beat) => beat.point?.target.kind === "thing"),
+    ).toBe(true);
+    expect(studio.lines[0].held).toEqual({ marek: "bag" });
   });
 });
 
@@ -189,7 +189,7 @@ describe("the podcast at the market", () => {
       "market",
       demonstrativesEpisode.speakers.map(characterIdForSpeaker),
     );
-    const copies = direction.plans.map((plan) =>
+    const copies = direction.lines.map(({ plan }) =>
       plan.beats.flatMap(({ point }) =>
         point?.target.kind === "thing" ? [`${point.target.id}#${point.target.copy}`] : [],
       ),
@@ -198,7 +198,7 @@ describe("the podcast at the market", () => {
     expect(direction.cast).toEqual(["anna", "marek", "lucia"]);
     expect(copies.slice(2, 6)).toEqual([["syr#0"], ["syr#1"], ["syr#1"], ["syr#1"]]);
     expect(copies[7]).toEqual(["jahody#0", "jahody#1"]);
-    expect(direction.held.at(-1)).toEqual({ anna: "basket" });
+    expect(direction.lines.at(-1)?.held).toEqual({ anna: "basket" });
   });
 });
 
@@ -216,7 +216,9 @@ describe("the tram stop", () => {
     },
     { characterId: "anna", slovak: "Konečne! Nastúpme." },
   ];
-  const { held, stagings } = directScene(lines, "street");
+  const directed = directScene(lines, "street").lines;
+  const held = directed.map((line) => line.held);
+  const stagings = directed.map((line) => line.staging);
 
   it("brings out the umbrella for whoever has one, and keeps it up through the walk", () => {
     expect(propForSentence("Nemám dáždnik.")).toBeUndefined();
@@ -243,9 +245,9 @@ describe("the tram stop", () => {
   });
 
   it("has no tram on the square", () => {
-    const square = directScene(lines, "plaza").stagings;
-    expect(square[4].arrives).toBeUndefined();
-    expect(square[6].boards).toBeUndefined();
+    const square = directScene(lines, "plaza").lines;
+    expect(square[4].staging.arrives).toBeUndefined();
+    expect(square[6].staging.boards).toBeUndefined();
   });
 });
 
@@ -260,8 +262,8 @@ describe("the podcast studio", () => {
       slovak: line.slovak,
     }));
     const moves = (setting: "default" | "studio") =>
-      directScene(lines, setting).stagings.filter(
-        (staging) => staging.approach || staging.goTo,
+      directScene(lines, setting).lines.filter(
+        ({ staging }) => staging.approach || staging.goTo,
       ).length;
 
     expect(moves("default")).toBeGreaterThan(0);

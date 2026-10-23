@@ -116,7 +116,7 @@
 
   function pointCopy(target: PointTarget, index: number): string {
     if (target.kind === "prop") {
-      const prop = direction.held[index]?.[target.holder];
+      const prop = direction.lines[index]?.held[target.holder];
       return `Points at ${nameOf(target.holder)}'s ${prop ?? "hands"}`;
     }
     const thing = direction.things.find((candidate) => candidate.id === target.id);
@@ -291,8 +291,7 @@
 
         <ol class="m-0 list-none divide-y divide-slate-200 p-0">
           {#each scene.lines as line, index (line.id)}
-            {@const staging = direction.stagings[index]}
-            {@const plan = direction.plans[index]}
+            {@const { plan, props, staging } = direction.lines[index]}
             <li>
               <button
                 class={cx(
@@ -321,37 +320,37 @@
                       <span>Gestures: {gestureSequence(plan)}</span>
                     {/if}
 
-                    {#if staging?.addressee}
+                    {#if staging.addressee}
                       <span>To {nameOf(staging.addressee)}</span>
                     {/if}
 
-                    {#each staging?.reactions ?? [] as reaction (reaction.characterId)}
+                    {#each staging.reactions as reaction (reaction.characterId)}
                       <span>{reactionCopy(reaction)}</span>
                     {/each}
 
-                    {#each [...new Set(direction.props[index]?.filter((prop) => prop))] as prop (prop)}
+                    {#each [...new Set(props.filter((prop) => prop))] as prop (prop)}
                       <span>Shows the {prop}</span>
                     {/each}
 
-                    {#each plan?.pictures ?? [] as cue (cue.picture)}
+                    {#each plan.pictures ?? [] as cue (cue.picture)}
                       <span>{STICK_PICTURE_NAMES[cue.picture]} over the head</span>
                     {/each}
 
-                    {#each plan?.beats ?? [] as beat, beatIndex (beatIndex)}
+                    {#each plan.beats as beat, beatIndex (beatIndex)}
                       {#if beat.point}
                         <span>{pointCopy(beat.point.target, index)}</span>
                       {/if}
                     {/each}
 
-                    {#if staging?.approach}
+                    {#if staging.approach}
                       <span>{nameOf(staging.approach.characterId)} walks over</span>
                     {/if}
 
-                    {#if staging?.enter}
+                    {#if staging.enter}
                       <span>{nameOf(staging.enter.characterId)} walks in</span>
                     {/if}
 
-                    {#if staging?.exit}
+                    {#if staging.exit}
                       <span>Walks off after</span>
                     {/if}
 

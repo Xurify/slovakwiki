@@ -106,14 +106,14 @@ describe("a day on the square", () => {
   it("ends every talk on the other person's goodbye, so they walk off", () => {
     for (const talk of DAY_TALKS) {
       for (const node of talk.nodes.filter((entry) => !entry.replies)) {
-        const { stagings } = directScene(
+        const { lines } = directScene(
           [
             { characterId: "alex", slovak: "Ahoj!", stays: true },
             ...node.says.map(({ slovak }) => ({ characterId: talk.who, slovak })),
           ],
           talk.setting,
         );
-        expect(stagings.at(-1)?.exit, `${talk.id}/${node.id}`).toBeDefined();
+        expect(lines.at(-1)?.staging.exit, `${talk.id}/${node.id}`).toBeDefined();
       }
     }
   });

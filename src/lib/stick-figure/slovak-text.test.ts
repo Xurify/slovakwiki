@@ -51,13 +51,13 @@ describe("one list of hellos and goodbyes", () => {
   });
 
   it("walks on whoever opens with any hello", () => {
-    const { stagings } = directScene(
+    const { lines } = directScene(
       [
         { characterId: "anna", slovak: "Kde je Marek?" },
         { characterId: "marek", slovak: "Ahojte!" },
       ],
       "plaza",
     );
-    expect(stagings[0].enter?.characterId).toBe("marek");
+    expect(lines[0].staging.enter?.characterId).toBe("marek");
   });
 });

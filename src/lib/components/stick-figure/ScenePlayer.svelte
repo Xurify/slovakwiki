@@ -91,7 +91,7 @@
     holdsAt: (index) => unanswered(index),
     takeAt: (index) => {
       const take = ownVoice ? takes[index] : undefined;
-      return take && { plan: dubbed.plans[index], src: take.src };
+      return take && { plan: dubbed.lines[index].plan, src: take.src };
     },
     rate: () => (slower ? 0.75 : 1),
     listenFirst: () => listenFirst,
@@ -135,7 +135,9 @@
   /** Who walks on during the scene, so is not there when it starts. */
   const entering = $derived(
     new Set(
-      direction.stagings.flatMap(({ enter }) => (enter ? [enter.characterId] : [])),
+      direction.lines.flatMap(({ staging: { enter } }) =>
+        enter ? [enter.characterId] : [],
+      ),
     ),
   );
   const takeCount = $derived(Object.keys(takes).length);
@@ -191,7 +193,7 @@
   const sceneWords = $derived(
     [
       ...new Set(
-        direction.plans.flatMap((plan) =>
+        direction.lines.flatMap(({ plan }) =>
           plan.beats.flatMap(({ point }) =>
             point?.target.kind === "thing" ? [point.target.id] : [],
           ),
@@ -486,7 +488,7 @@
 
     playAnswerSfx("incorrect");
     stage?.say(line.characterId, said);
-    const listener = scene.talk?.who ?? direction.stagings[playback.at]?.addressee;
+    const listener = scene.talk?.who ?? direction.lines[playback.at]?.staging.addressee;
     const miss =
       choice === undefined ? undefined : turnNode?.replies?.[Number(choice)]?.miss;
     if (!listener) return;
@@ -552,7 +554,7 @@
       cue={playback.cue}
       english={answering.english}
       marks={answering.marks}
-      plan={direction.plans[playback.shown]}
+      plan={direction.lines[playback.shown]?.plan}
       playing={playback.speaking}
       {showEnglish}
       slovak={answering.slovak}
@@ -664,9 +666,9 @@
         {listenFirst}
         marks={caption.marks}
         onthing={(id) => stage?.light(id)}
-        plan={(ownVoice && takes[playback.shown] ? dubbed : direction).plans[
+        plan={(ownVoice && takes[playback.shown] ? dubbed : direction).lines[
           playback.shown
-        ]}
+        ]?.plan}
         playing={playback.speaking}
         {showEnglish}
         slovak={caption.slovak}
