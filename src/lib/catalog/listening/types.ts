@@ -11,9 +11,12 @@ export interface ListeningCheck {
     english?: string;
     why: string;
   };
+  /** A sentence from the chapter with a `___` gap, for "which word did you hear". */
+  gap?: string;
   id: string;
+  /** The question in plain Slovak; its English sits under it. */
   prompt: string;
-  promptSk?: string;
+  promptEnglish: string;
   replayLineId?: string;
 }
 

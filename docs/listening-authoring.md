@@ -24,8 +24,9 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 
 - [ ] 1–3 per chapter, asked after the chapter has played, with the transcript still hidden. Ask about what was said, not about grammar labels: who it is for, which one he takes, which word she said.
 - [ ] `replayLineId` points at the line the answer comes from, in the same chapter; the learner can replay it, audio only.
-- [ ] `promptSk` with a `___` gap turns a check into "which word did you hear": `___ kľúč je od auta.`
-- [ ] Prompts are a direct English question; choices are Slovak. Every wrong choice has a `whyWrong`; `feedback.why` names the rule or quotes the line in `**bold**`; `feedback.english` glosses that line.
+- [ ] `gap` with a `___` turns a check into "which word did you hear": `___ kľúč je od auta.`
+- [ ] `prompt` is a short, plain Slovak question (`Pre koho je jablko?`) and `promptEnglish` its English, shown under it. Choices are Slovak and read as answers to the question on their own: `Ten lacnejší, za tri eurá.`, not a bare `Tamten.` that only works at the stall.
+- [ ] Every wrong choice has a `whyWrong` that first says what the choice means (`**Pre poslucháčov** means for the listeners.`), then what was said instead. No filler like "Nice idea, but". `feedback.why` names the rule or quotes the line in `**bold**`; `feedback.english` glosses that line.
 
 ## 4. Wire it in
 
