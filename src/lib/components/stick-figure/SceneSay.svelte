@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { onDestroy, type Snippet } from "svelte";
 
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import Button from "$lib/components/ui/Button.svelte";
@@ -11,6 +11,7 @@
   import SceneIcon from "./SceneIcon.svelte";
 
   let {
+    aside,
     english,
     marks,
     onhear,
@@ -19,6 +20,8 @@
     slovak,
     speaker,
   }: {
+    /** Beside the line to say: how to answer it. */
+    aside?: Snippet;
     english: string;
     marks?: TextMark[];
     /** Play the line as the cast says it, and stay on this turn. */
@@ -108,16 +111,22 @@
 </script>
 
 <div class="animate-rise">
-  <p class={eyebrowMutedClass}>Say it</p>
-  <p
-    class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
-    lang="sk"
-  >
-    <MarkedText text={slovak} {marks} />
-  </p>
-  {#if showEnglish}
-    <p class="m-0 mt-1 text-base text-slate-600">{english}</p>
-  {/if}
+  <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+    <div class="min-w-0">
+      <p class={eyebrowMutedClass}>Say it</p>
+      <p
+        class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
+        lang="sk"
+      >
+        <MarkedText text={slovak} {marks} />
+      </p>
+      {#if showEnglish}
+        <p class="m-0 mt-1 text-base text-slate-600">{english}</p>
+      {/if}
+    </div>
+
+    {@render aside?.()}
+  </div>
 
   {#if mic === "recording"}
     <div class="mt-4 flex flex-wrap items-center gap-4">

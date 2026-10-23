@@ -51,6 +51,7 @@ const groups: PlayerSceneGroup[] = [
     scenes: lessons
       .filter((lesson) => lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker)))
       .map((lesson) => ({
+        english: lesson.title,
         href: `/lessons/${lesson.id}`,
         hrefLabel: "Open the lesson",
         id: lesson.id,
@@ -64,6 +65,7 @@ const groups: PlayerSceneGroup[] = [
     slovak: episode.titleSk,
     scenes: episode.chapters.map((chapter) => ({
       checks: chapter.checks,
+      english: chapter.title,
       href: episodePath(episode),
       hrefLabel: "Open the episode",
       id: chapter.id,
@@ -79,12 +81,14 @@ groups.push({
   label: "Prototype",
   scenes: [
     {
+      english: RAIN_AND_TRAM[0].english,
       id: "dev/rain-and-tram",
       lines: playerLines(RAIN_AND_TRAM),
       name: RAIN_AND_TRAM[0].slovak,
       setting: "street",
     },
     {
+      english: WEATHER_TODAY[0].english,
       id: "dev/weather-today",
       lines: playerLines(WEATHER_TODAY),
       name: WEATHER_TODAY[0].slovak,

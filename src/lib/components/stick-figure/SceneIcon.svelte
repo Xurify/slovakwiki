@@ -1,6 +1,16 @@
 <script lang="ts" module>
   export type SceneIconName =
-    "book" | "find" | "listen" | "mic" | "pause" | "person" | "play" | "replay" | "stop";
+    | "book"
+    | "find"
+    | "listen"
+    | "mic"
+    | "next"
+    | "pause"
+    | "person"
+    | "play"
+    | "replay"
+    | "settings"
+    | "stop";
 </script>
 
 <script lang="ts">
@@ -28,6 +38,9 @@
   {:else if name === "mic"}
     <rect x="9" y="3" width="6" height="11" rx="3" />
     <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" />
+  {:else if name === "next"}
+    <path d="M6 5.5v13l9.5-6.5Z" fill="currentColor" stroke="none" />
+    <path d="M18 5.5v13" />
   {:else if name === "pause"}
     <rect x="7" y="6" width="3.25" height="12" rx="1" fill="currentColor" stroke="none" />
     <rect
@@ -47,6 +60,11 @@
   {:else if name === "replay"}
     <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3" />
     <path d="M4.5 4v4h4" />
+  {:else if name === "settings"}
+    <path
+      d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+    />
+    <circle cx="12" cy="12" r="3" />
   {:else}
     <rect
       x="6.5"
