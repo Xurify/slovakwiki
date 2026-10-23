@@ -19,6 +19,7 @@
   } = $props();
 
   let picked = $state<Set<string>>(new Set());
+  let unplayable = $state<Set<string>>(new Set());
   let done = false;
 
   function toggle(id: string): void {
@@ -33,9 +34,11 @@
     if (done) return;
     done = true;
     ondone({
-      responses: items.map((item) =>
-        adaptiveResponse(item, gradeYesNo(item.real, picked.has(item.id))),
-      ),
+      responses: items
+        .filter((item) => !unplayable.has(item.id))
+        .map((item) =>
+          adaptiveResponse(item, gradeYesNo(item.real, picked.has(item.id))),
+        ),
     });
   }
 </script>
@@ -50,7 +53,12 @@
           : 'border-slate-300 bg-control'}"
       >
         <div class="flex items-center gap-3">
-          <ClipButton src={item.audio} size="sm" label={`Play sound ${index + 1}`} />
+          <ClipButton
+            src={item.audio}
+            size="sm"
+            label={`Play sound ${index + 1}`}
+            onfailed={() => (unplayable = new Set(unplayable).add(item.id))}
+          />
           <span class="text-sm font-semibold text-slate-700">Sound {index + 1}</span>
         </div>
 

@@ -11,6 +11,7 @@
     size = "lg",
     autoplay = false,
     onended,
+    onfailed,
   }: {
     src: string;
     maxPlays?: number;
@@ -18,6 +19,8 @@
     size?: "lg" | "md" | "sm";
     autoplay?: boolean;
     onended?: () => void;
+    /** The clip could not load: the task leaves this question out of the score. */
+    onfailed?: () => void;
   } = $props();
 
   let plays = $state(0);
@@ -39,16 +42,22 @@
       playing = false;
       onended?.();
     };
-    audio.onerror = () => {
-      playing = false;
-      failed = true;
-    };
+    audio.onerror = fail;
     plays += 1;
     playing = true;
-    audio.play().catch(() => {
+    audio.play().catch((error: unknown) => {
       playing = false;
       plays -= 1;
+      // NotAllowedError is a blocked autoplay; the learner can still press play.
+      if (!(error instanceof DOMException && error.name === "NotAllowedError")) fail();
     });
+  }
+
+  function fail(): void {
+    playing = false;
+    if (failed) return;
+    failed = true;
+    onfailed?.();
   }
 
   $effect(() => {
@@ -58,7 +67,7 @@
   onDestroy(() => audio?.pause());
 </script>
 
-<div class="inline-flex flex-col items-center gap-2">
+<div class="inline-flex flex-col items-center gap-2" class:w-32={size === "lg"}>
   <button
     class="inline-grid {dim} cursor-pointer place-items-center rounded-full border-0 text-paper transition-[background-color,box-shadow] duration-150 ease-out disabled:cursor-not-allowed {playing
       ? 'bg-blue-700 shadow-[0_0_0_6px_var(--accent-soft)]'
@@ -68,21 +77,27 @@
     disabled={exhausted && !playing}
     onclick={play}
   >
-    <svg class="{icon} fill-current" viewBox="0 0 24 24" aria-hidden="true">
-      {#if playing}
-        <path
-          d="M4 9v6h4l5 4V5L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-8.8v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z"
-        />
-      {:else}
-        <path
-          d="M4 9v6h4l5 4V5L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Z"
-        />
-      {/if}
+    <svg
+      class="{icon} translate-x-px fill-none stroke-current"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path
+        d="M11 5 6.5 8.5H4a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.5L11 19Z"
+        fill="currentColor"
+      />
+      <path d="M15.5 9a4 4 0 0 1 0 6" />
+      <path d="M18.5 6a8 8 0 0 1 0 12" />
     </svg>
   </button>
 
   {#if failed}
-    <p class="m-0 text-xs font-semibold text-rose-700">The recording could not load.</p>
+    <p class="m-0 max-w-32 text-center text-xs font-semibold text-rose-700">
+      The recording could not load. It won't count.
+    </p>
   {:else if Number.isFinite(maxPlays)}
     <p class="m-0 text-xs font-semibold text-blue-800">
       {left === 1 ? "1 play left" : `${Math.max(0, left)} plays left`}

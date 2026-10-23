@@ -40,14 +40,17 @@
   let picked = $state<number | null>(null);
   let replies = $state<(number | null)[]>([]);
   let summary = $state("");
+  let scenarioUnplayable = $state(false);
+  let unplayableTurns = $state<Set<number>>(new Set());
   let done = false;
 
   const current = $derived(set.turns[turn]);
   const lastTurn = $derived(turn >= set.turns.length - 1);
 
   function listeningResponses(): ItemResponse[] {
+    const complete = scenarioUnplayable ? [] : set.complete;
     return [
-      ...set.complete.map((question, index) =>
+      ...complete.map((question, index) =>
         taskResponse(
           `${set.id}#complete-${index}`,
           "ilComplete",
@@ -56,15 +59,17 @@
           gradeIdeaGap(question.accepted, typed[index] ?? ""),
         ),
       ),
-      ...set.turns.map((entry, index) =>
-        taskResponse(
-          `${set.id}#turn-${index}`,
-          "ilRespond",
-          "listening",
-          set.difficulty,
-          gradeChoice(entry.answer, replies[index] ?? null),
-          RESPOND_GUESS,
-        ),
+      ...set.turns.flatMap((entry, index) =>
+        unplayableTurns.has(index)
+          ? []
+          : taskResponse(
+              `${set.id}#turn-${index}`,
+              "ilRespond",
+              "listening",
+              set.difficulty,
+              gradeChoice(entry.answer, replies[index] ?? null),
+              RESPOND_GUESS,
+            ),
       ),
     ];
   }
@@ -129,7 +134,11 @@
     {#if phase === "complete"}
       <div class="grid gap-6">
         <div class="flex flex-col items-center gap-2">
-          <ClipButton src={set.scenario.audio} label="Play the scenario" />
+          <ClipButton
+            src={set.scenario.audio}
+            label="Play the scenario"
+            onfailed={() => (scenarioUnplayable = true)}
+          />
           <p class="m-0 text-xs text-slate-500">
             You can play the scenario as often as you like.
           </p>
@@ -195,6 +204,7 @@
                 size="md"
                 autoplay
                 label={`Play what ${set.partnerName} says`}
+                onfailed={() => (unplayableTurns = new Set(unplayableTurns).add(turn))}
               />
             {/key}
           </div>

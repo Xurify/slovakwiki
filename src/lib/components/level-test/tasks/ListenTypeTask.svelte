@@ -22,19 +22,29 @@
 
   let typed = $state("");
   let field = $state<HTMLTextAreaElement>();
+  let unplayable = $state(false);
   let done = false;
 
   function submit(): void {
     if (done) return;
     done = true;
-    ondone({ responses: [adaptiveResponse(item, gradeDictation(item.text, typed))] });
+    ondone({
+      responses: unplayable
+        ? []
+        : [adaptiveResponse(item, gradeDictation(item.text, typed))],
+    });
   }
 </script>
 
 <TaskFrame heading="Type the Slovak sentence you hear" {seconds} onexpire={submit}>
   <div class="grid gap-6 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:gap-8">
     <div class="flex justify-center pt-1">
-      <ClipButton src={item.audio} maxPlays={3} onended={() => field?.focus()} />
+      <ClipButton
+        src={item.audio}
+        maxPlays={3}
+        onended={() => field?.focus()}
+        onfailed={() => (unplayable = true)}
+      />
     </div>
 
     <div class="grid gap-3">
@@ -55,6 +65,8 @@
   </div>
 
   {#snippet footer()}
-    <Button variant="accent" class="min-w-32" onclick={submit}>Next</Button>
+    <Button variant="accent" class="min-w-32" onclick={submit}>
+      {unplayable ? "Skip" : "Next"}
+    </Button>
   {/snippet}
 </TaskFrame>

@@ -75,13 +75,17 @@ export const SECTION_LABEL: Record<TestSection, string> = {
   speaking: "Speaking",
 };
 
-/** Seconds per screen, from the DET 2026 scoring guide. */
+/**
+ * Seconds per screen, from the DET 2026 scoring guide, except the three typing
+ * tasks: Slovak accents cost extra keystrokes and most takers here are A1–B1,
+ * so they get about a third more than the DET (timed on the longest passage).
+ */
 export const TIME_LIMIT_SECONDS: Partial<Record<StepKind, number>> = {
   readSelect: 5,
   listenSelect: 90,
-  fillBlank: 20,
-  readComplete: 180,
-  listenType: 60,
+  fillBlank: 30,
+  readComplete: 240,
+  listenType: 90,
   interactiveReading: 420,
   interactiveListening: 390,
   writePhoto: 60,
