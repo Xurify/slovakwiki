@@ -32,6 +32,8 @@
   export interface PlayerScene {
     /** Questions on what was heard, asked once the scene has played: a podcast chapter's. */
     checks?: ListeningCheck[];
+    /** Under the name in the list of scenes: the lesson's title, or the name in English. */
+    english?: string;
     /** Where the scene comes from: its lesson or podcast episode. */
     href?: string;
     hrefLabel?: string;
@@ -64,12 +66,14 @@
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
+  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
   import { chipClass, eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
   import {
     STORY_PREFS_CHANGE_EVENT,
     getStoryShowEnglish,
     setStoryShowEnglish,
   } from "$lib/lesson-story/prefs";
+  import { focusUnlessTyping } from "$lib/listening/focus";
   import { shuffledTiles } from "$lib/stick-figure/caption";
   import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
   import { sceneMood } from "$lib/stick-figure/scene-mood";
@@ -113,8 +117,9 @@
   import type { Take } from "$lib/stick-figure/take";
   import SceneAction from "./SceneAction.svelte";
   import SceneCaption from "./SceneCaption.svelte";
-  import SceneIcon from "./SceneIcon.svelte";
+  import SceneIcon, { type SceneIconName } from "./SceneIcon.svelte";
   import SceneSay from "./SceneSay.svelte";
+  import SceneSettings, { type SceneSetting } from "./SceneSettings.svelte";
   import SceneTurn from "./SceneTurn.svelte";
   import StickStage from "./StickStage.svelte";
   import { STICK_NAME_CLASSES } from "./stick-figure-ui";
@@ -123,6 +128,14 @@
   /** Pick Alex's line from the lesson's choices, build it from its words, or say it. */
   type Turn = "pick" | "build" | "say";
   type Phase = "ready" | "playing" | "paused" | "turn" | "done";
+
+  interface DoneAction {
+    icon: SceneIconName;
+    label: string;
+    run: () => void;
+    /** A Slovak name after the label: the next scene's. */
+    slovak?: string;
+  }
 
   let {
     day = [],
@@ -146,11 +159,13 @@
   /** Long enough to read what was said back before the next person comes. */
   const DAY_PAUSE_MS = 2600;
 
-  const TURNS: Array<{ id: Turn; label: string }> = [
-    { id: "pick", label: "Pick the line" },
-    { id: "build", label: "Build it" },
-    { id: "say", label: "Say it" },
+  const TURNS: Array<{ id: Turn; label: string; task: string }> = [
+    { id: "pick", label: "Pick the line", task: "pick what to say" },
+    { id: "build", label: "Build it", task: "build the line from its words" },
+    { id: "say", label: "Say it", task: "say the line out loud" },
   ];
+
+  const DAY = { english: "A day on the square", name: "Deň na námestí" };
 
   const PLACES: Record<StageSetting, string> = {
     cafe: "At the café",
@@ -199,6 +214,7 @@
   /** Alex's lines answered so far, and whether each was right the first time. */
   let firstTries = $state<Record<number, boolean>>({});
   let stage = $state<ReturnType<typeof StickStage>>();
+  let player = $state<HTMLElement>();
 
   let level = $state<FindLevel>("find");
   let queue = $state<string[]>([]);
@@ -324,9 +340,13 @@
     },
   );
   const learnerCount = $derived(scene.lines.filter((line) => line.learner).length);
-  /** Taking Alex's part needs Alex in the scene. */
+  const findable = $derived(direction.things.length > 0);
+  /** Taking Alex's part needs Alex in the scene, and finding things needs things. */
   const modes = $derived(
-    MODES.filter((option) => option.id !== "play" || learnerCount > 0),
+    MODES.filter(
+      (option) =>
+        (option.id !== "play" || learnerCount > 0) && (option.id !== "find" || findable),
+    ),
   );
   const learnerName = $derived(
     scene.lines.find((line) => line.learner)?.speaker ?? "Alex",
@@ -351,6 +371,111 @@
   const firstTaps = $derived(
     Object.values(results).filter((result) => result === "first").length,
   );
+  const settings = $derived<SceneSetting[]>([
+    // Find it asks in Slovak only: the English would give the answer away.
+    ...(mode === "find"
+      ? []
+      : [
+          {
+            description: "Translations under the Slovak lines",
+            label: "Show English",
+            on: showEnglish,
+            ontoggle: toggleEnglish,
+          },
+        ]),
+    ...(mode === "watch" || mode === "play"
+      ? [
+          {
+            description: "Lines play at three-quarter speed",
+            label: "Slower",
+            on: slower,
+            ontoggle: () => {
+              slower = !slower;
+            },
+          },
+          {
+            description:
+              "Hear each line before you read it, then go on when you are ready",
+            label: "Listen first",
+            on: listenFirst,
+            ontoggle: () => {
+              listenFirst = !listenFirst;
+            },
+          },
+        ]
+      : []),
+    {
+      description: "The sound of the place, quieter under the voices",
+      label: "Background sound",
+      on: ambient,
+      ontoggle: () => {
+        ambient = !ambient;
+      },
+    },
+  ]);
+  /**
+   * Once the scene is over, the main step first: on to the next way to take
+   * it, then the next scene. A turn missed on the way plays the scene again first.
+   */
+  const doneActions = $derived.by((): DoneAction[] => {
+    const again: DoneAction = {
+      icon: "replay",
+      label: mode === "play" ? "Play again" : "Watch again",
+      run: playScene,
+    };
+    const next: DoneAction[] = nextScene
+      ? [
+          {
+            icon: "next",
+            label: checks.length > 0 ? "Next chapter" : "Next scene",
+            run: () => void goNext(),
+            slovak: nextScene.name,
+          },
+        ]
+      : [];
+    const find: DoneAction[] = findable
+      ? [
+          {
+            icon: "find",
+            label: "Find things in the scene",
+            run: () => selectMode("find"),
+          },
+        ]
+      : [];
+
+    if (mode === "play" && takeCount > 0) {
+      return [
+        { icon: "play", label: "Watch it in your voice", run: () => watchWith(true) },
+        { icon: "mic", label: "Record again", run: recordAgain },
+        ...find,
+        ...next,
+      ];
+    }
+
+    const play: DoneAction[] =
+      mode === "watch" && learnerCount > 0
+        ? [{ icon: "person", label: `Play as ${learnerName}`, run: playAlex }]
+        : [];
+    const voice: DoneAction[] =
+      mode === "watch" && takeCount > 0
+        ? [
+            {
+              icon: "listen",
+              label: ownVoice
+                ? `Watch with ${learnerName}'s voice`
+                : "Watch in your voice",
+              run: () => watchWith(!ownVoice),
+            },
+          ]
+        : [];
+    // A podcast goes on chapter by chapter; a lesson scene takes each way in turn.
+    const onward = checks.length > 0 ? [...next, ...find] : [...play, ...find, ...next];
+    const missed = mode === "play" && firstTryCount < learnerCount;
+
+    return missed || onward.length === 0
+      ? [again, ...voice, ...onward]
+      : [onward[0], again, ...voice, ...onward.slice(1)];
+  });
   const castNames = $derived(
     direction.cast.map((id) => {
       const character = characters.find((candidate) => candidate.id === id);
@@ -424,16 +549,44 @@
     window.history.replaceState(window.history.state, "", url);
     if (mode === "day") mode = "watch";
     if (mode === "play" && learnerCount === 0) mode = "watch";
+    if (mode === "find" && !findable) mode = "watch";
     if (same) stage?.place(0);
     if (mode === "find") startFind();
   }
 
-  /** On to the podcast's next chapter, playing once the stage has its cast. */
-  async function nextChapter(): Promise<void> {
+  /** On to the next scene in its group, playing once the stage has its cast. */
+  async function goNext(): Promise<void> {
     if (!nextScene) return;
     selectScene(nextScene.id);
+    void scrollToPlayer();
     await tick();
-    playScene();
+    if (mode !== "find") playScene();
+  }
+
+  function openScene(id: string): void {
+    selectScene(id);
+    void scrollToPlayer();
+  }
+
+  function openDay(): void {
+    selectMode("day");
+    void scrollToPlayer();
+  }
+
+  /** Back up to the player from the list under it, unless its top is in view already. */
+  async function scrollToPlayer(): Promise<void> {
+    await tick();
+    if (!player) return;
+
+    focusUnlessTyping(player);
+    const top = Number.parseFloat(getComputedStyle(player).scrollMarginTop) || 0;
+    if (player.getBoundingClientRect().top >= top) return;
+    player.scrollIntoView({
+      block: "start",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
   }
 
   function resolveCheck(correct: boolean): void {
@@ -806,6 +959,56 @@
   }
 </script>
 
+{#snippet answerKinds()}
+  <div class="flex flex-wrap gap-2" role="group" aria-label="How to answer">
+    {#each turns as option (option.id)}
+      <button
+        class={chipClass(option.id === turnKind)}
+        type="button"
+        aria-pressed={option.id === turnKind}
+        onclick={() => {
+          turnKind = option.id;
+        }}
+      >
+        {option.label}
+      </button>
+    {/each}
+  </div>
+{/snippet}
+
+{#snippet sceneLink(
+  name: string,
+  english: string | undefined,
+  current: boolean,
+  onclick: () => void,
+)}
+  <li class="min-w-0">
+    <button
+      class={cx(
+        "block h-full w-full cursor-pointer rounded-(--control-radius) border-0 px-3 py-2.5 text-left",
+        "transition-colors duration-150 ease-out hover:bg-blue-50/50",
+        current ? "bg-blue-50/70" : "bg-transparent",
+      )}
+      type="button"
+      aria-current={current ? "true" : undefined}
+      {onclick}
+    >
+      <span
+        class={cx(
+          "block font-serif text-base leading-snug",
+          current ? "font-semibold text-slate-900" : "text-slate-800",
+        )}
+        lang="sk"
+      >
+        {name}
+      </span>
+      {#if english}
+        <span class="block text-sm leading-snug text-slate-500">{english}</span>
+      {/if}
+    </button>
+  </li>
+{/snippet}
+
 <main class="py-12 pb-24 max-[600px]:py-8">
   <PageShell class="max-w-[1040px]">
     <header class="max-w-[680px]">
@@ -813,141 +1016,43 @@
         Scenes
       </h1>
       <Lead class="mt-3">
-        Prototype. Watch a lesson's dialogue with each word lit as it is said, take Alex's
-        part, or find things in the scene by their Slovak names.
+        Prototype. Watch a dialogue with each word lit as it is said, take Alex's part, or
+        find things in the scene by their Slovak names.
       </Lead>
     </header>
 
-    <nav class="mt-8 grid gap-4" aria-label="Scenes">
-      {#each groups as group (`${group.label}-${group.slovak}`)}
-        <!-- A grid item grows to its content, which would stop the chips scrolling. -->
-        <div class="min-w-0">
-          <p class={eyebrowMutedClass}>
-            {group.label}
-            {#if group.slovak}
-              <span class="ml-1 font-serif text-slate-700" lang="sk">{group.slovak}</span>
-            {/if}
-          </p>
-
-          <ul
-            class={cx(
-              "m-0 mt-2 flex list-none flex-wrap gap-2 p-0",
-              "max-[600px]:-mx-4 max-[600px]:flex-nowrap max-[600px]:overflow-x-auto max-[600px]:px-4 max-[600px]:pb-1",
-              // The page keeps 12px a side below 480px, 16px above.
-              "max-[480px]:-mx-3 max-[480px]:px-3",
-            )}
-          >
-            {#each group.scenes as option (option.id)}
-              <li class="shrink-0">
-                <button
-                  class="{chipClass(
-                    option.id === scene.id && mode !== 'day',
-                  )} whitespace-nowrap"
-                  type="button"
-                  aria-pressed={option.id === scene.id && mode !== "day"}
-                  lang="sk"
-                  onclick={() => selectScene(option.id)}
-                >
-                  {option.name}
-                </button>
-              </li>
-            {/each}
-          </ul>
-        </div>
-      {/each}
-
-      <div>
-        <p class={eyebrowMutedClass}>Games</p>
-        <button
-          class="{chipClass(mode === 'day')} mt-2 whitespace-nowrap"
-          type="button"
-          aria-pressed={mode === "day"}
+    <section
+      bind:this={player}
+      class="mt-8 scroll-mt-24 focus-visible:outline-none max-[800px]:scroll-mt-[136px]"
+      aria-labelledby="scene-title"
+      tabindex="-1"
+    >
+      <div class="flex items-start justify-between gap-4">
+        <h2
+          id="scene-title"
+          class="m-0 pt-0.5 font-serif text-2xl tracking-tight text-pretty text-slate-900"
           lang="sk"
-          onclick={() => selectMode("day")}
         >
-          Deň na námestí
-        </button>
+          {mode === "day" ? DAY.name : scene.name}
+        </h2>
+
+        <SceneSettings class="-mr-2" {settings} />
       </div>
-    </nav>
 
-    <section class="mt-6" aria-label="Scene">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        {#if mode !== "day"}
-          <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <div class="flex gap-2" role="group" aria-label="Mode">
-              {#each modes as option (option.id)}
-                <button
-                  class={chipClass(option.id === mode)}
-                  type="button"
-                  aria-pressed={option.id === mode}
-                  onclick={() => selectMode(option.id)}
-                >
-                  {option.id === "play" ? `Play as ${learnerName}` : option.label}
-                </button>
-              {/each}
-            </div>
-
-            {#if mode === "play"}
-              <div
-                class="flex gap-2"
-                role="group"
-                aria-label="How Alex's lines are asked"
-              >
-                {#each turns as option (option.id)}
-                  <button
-                    class={chipClass(option.id === turnKind)}
-                    type="button"
-                    aria-pressed={option.id === turnKind}
-                    onclick={() => {
-                      turnKind = option.id;
-                    }}
-                  >
-                    {option.label}
-                  </button>
-                {/each}
-              </div>
-            {/if}
-          </div>
-        {/if}
-
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-          {#if mode === "watch" || mode === "play"}
-            <TextLink
-              aria-pressed={slower}
-              onclick={() => {
-                slower = !slower;
-              }}
+      {#if mode !== "day"}
+        <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Mode">
+          {#each modes as option (option.id)}
+            <button
+              class={chipClass(option.id === mode)}
+              type="button"
+              aria-pressed={option.id === mode}
+              onclick={() => selectMode(option.id)}
             >
-              {slower ? "Normal speed" : "Slower"}
-            </TextLink>
-
-            <TextLink
-              aria-pressed={listenFirst}
-              onclick={() => {
-                listenFirst = !listenFirst;
-              }}
-            >
-              {listenFirst ? "Show text as it is said" : "Listen first"}
-            </TextLink>
-          {/if}
-
-          <TextLink
-            aria-pressed={ambient}
-            onclick={() => {
-              ambient = !ambient;
-            }}
-          >
-            {ambient ? "Stop background sound" : "Play background sound"}
-          </TextLink>
-
-          <!-- Find it asks in Slovak only: the English would give the answer away. -->
-          {#if mode !== "find"}
-            <TextLink onclick={toggleEnglish}>
-              {showEnglish ? "Hide English" : "Show English"}
-            </TextLink>
-          {/if}
+              {option.id === "play" ? `Play as ${learnerName}` : option.label}
+            </button>
+          {/each}
         </div>
-      </div>
+      {/if}
 
       <div class="{panelClass} mt-3 overflow-hidden">
         <StickStage
@@ -983,10 +1088,15 @@
 
               {#key dayRound.id}
                 <div class="animate-rise">
-                  <p class={eyebrowMutedClass}>
-                    <span lang="sk">{when.slovak}</span>
-                    <span class="font-normal">{when.english}</span>
-                  </p>
+                  <div class="flex items-baseline justify-between gap-4">
+                    <p class={eyebrowMutedClass}>
+                      <span lang="sk">{when.slovak}</span>
+                      <span class="font-normal">{when.english}</span>
+                    </p>
+                    <p class="m-0 shrink-0 text-sm text-slate-500 tabular-nums">
+                      {dayAt + 1} of {DAY_ROUNDS.length}
+                    </p>
+                  </div>
                   <p
                     class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
                     lang="sk"
@@ -1198,15 +1308,32 @@
                   </ul>
                 {/if}
 
-                <div class="mt-4 flex flex-wrap items-center gap-4">
+                <div class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2">
                   {#if upNext}
-                    <Button variant="accent" onclick={() => startFind(upNext)}>
-                      Next: {FIND_LEVELS.find(({ id }) => id === upNext)?.label}
+                    <Button
+                      class="mr-2"
+                      variant="accent"
+                      onclick={() => startFind(upNext)}
+                    >
+                      <span>
+                        Next:
+                        <span lang="sk">
+                          {FIND_LEVELS.find(({ id }) => id === upNext)?.label}
+                        </span>
+                      </span>
+                    </Button>
+                  {:else if nextScene}
+                    <Button class="mr-2" variant="accent" onclick={goNext}>
+                      <SceneIcon name="next" />
+                      <span>Next scene: <span lang="sk">{nextScene.name}</span></span>
                     </Button>
                   {/if}
                   <SceneAction icon="replay" onclick={() => startFind(level)}
                     >Play again</SceneAction
                   >
+                  {#if upNext && nextScene}
+                    <SceneAction icon="next" onclick={goNext}>Next scene</SceneAction>
+                  {/if}
                 </div>
               </div>
             {:else}
@@ -1216,6 +1343,7 @@
             {#key at}
               {#if turnKind === "say"}
                 <SceneSay
+                  aside={answerKinds}
                   english={turn.english}
                   marks={turn.marks}
                   onhear={hearFirst}
@@ -1226,6 +1354,7 @@
                 />
               {:else}
                 <SceneTurn
+                  aside={answerKinds}
                   english={turn.english}
                   id={turn.id}
                   ondone={answered}
@@ -1309,40 +1438,21 @@
                   (scored || checks.length > 0 || sceneWords.length > 0) && "mt-4",
                 )}
               >
-                {#if nextScene && checks.length > 0}
-                  <Button class="mr-2" variant="accent" onclick={nextChapter}>
-                    <span>Next chapter: <span lang="sk">{nextScene.name}</span></span>
-                  </Button>
-                  <SceneAction icon="replay" onclick={playScene}>Watch again</SceneAction>
-                {:else if mode === "play" && takeCount > 0}
-                  <Button class="mr-2" variant="accent" onclick={() => watchWith(true)}>
-                    <SceneIcon name="play" />
-                    Watch it in your voice
-                  </Button>
-                  <SceneAction icon="mic" onclick={recordAgain}>Record again</SceneAction>
-                {:else}
-                  <Button class="mr-2" variant="accent" onclick={playScene}>
-                    <SceneIcon name="replay" />
-                    {mode === "play" ? "Play again" : "Watch again"}
-                  </Button>
-                {/if}
-                {#if mode === "watch" && takeCount > 0}
-                  <SceneAction icon="listen" onclick={() => watchWith(!ownVoice)}>
-                    {ownVoice
-                      ? `Watch with ${learnerName}'s voice`
-                      : "Watch in your voice"}
-                  </SceneAction>
-                {/if}
-                {#if mode === "watch" && learnerCount > 0}
-                  <SceneAction icon="person" onclick={playAlex}>
-                    Play as {learnerName}
-                  </SceneAction>
-                {/if}
-                {#if direction.things.length > 0}
-                  <SceneAction icon="find" onclick={() => selectMode("find")}>
-                    Find things in the scene
-                  </SceneAction>
-                {/if}
+                {#each doneActions as action, index (action.label)}
+                  {#if index === 0}
+                    <Button class="mr-2" variant="accent" onclick={action.run}>
+                      <SceneIcon name={action.icon} />
+                      <span>
+                        {action.label}{#if action.slovak}:
+                          <span lang="sk">{action.slovak}</span>{/if}
+                      </span>
+                    </Button>
+                  {:else}
+                    <SceneAction icon={action.icon} onclick={action.run}>
+                      {action.label}
+                    </SceneAction>
+                  {/if}
+                {/each}
                 {#if scene.href}
                   <SceneAction href={scene.href} icon="book"
                     >{scene.hrefLabel}</SceneAction
@@ -1364,21 +1474,30 @@
               things={direction.things}
             />
           {:else}
-            <p class="m-0 font-serif text-2xl text-slate-900">
-              {PLACES[scene.setting]}: {listOf(castNames)}.
-            </p>
-            <p class="m-0 mt-1 text-slate-600">
+            <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+              <div class="min-w-0">
+                <p class="m-0 font-serif text-2xl text-slate-900">
+                  {PLACES[scene.setting]}: {listOf(castNames)}.
+                </p>
+                <p class="m-0 mt-1 text-slate-600">
+                  {#if mode === "play"}
+                    The scene stops at each of {learnerName}'s lines for you to
+                    {TURNS.find(({ id }) => id === turnKind)?.task}.
+                  {:else if checks.length > 0}
+                    Each word lights up as it is said. Then
+                    {checks.length === 1 ? "a question" : `${checks.length} questions`} on what
+                    you heard.
+                  {:else}
+                    Each word lights up as it is said. Tap a dotted word or anything in
+                    the scene to see it.
+                  {/if}
+                </p>
+              </div>
+
               {#if mode === "play"}
-                The scene stops at each of Alex's lines for you to say it.
-              {:else if checks.length > 0}
-                Each word lights up as it is said. Then
-                {checks.length === 1 ? "a question" : `${checks.length} questions`} on what
-                you heard.
-              {:else}
-                Each word lights up as it is said. Tap a dotted word or anything in the
-                scene to see it.
+                {@render answerKinds()}
               {/if}
-            </p>
+            </div>
           {/if}
         </div>
 
@@ -1478,7 +1597,10 @@
                       Your line: {line.english}
                     </span>
                   {:else}
-                    <span class="mt-0.5 block font-serif text-lg text-slate-900">
+                    <span
+                      class="mt-0.5 block font-serif text-lg text-slate-900"
+                      lang="sk"
+                    >
                       <MarkedText text={line.slovak} marks={line.marks} />
                     </span>
                     {#if showEnglish}
@@ -1492,5 +1614,41 @@
         {/if}
       {/if}
     </section>
+
+    <nav class="mt-12 grid gap-6" aria-label="All scenes">
+      {#each groups as group (`${group.label}-${group.slovak}`)}
+        <div>
+          <h2 class="m-0 text-sm font-semibold text-slate-700">
+            {group.label}
+            {#if group.slovak}
+              <span class="ml-1 font-serif text-slate-900" lang="sk">{group.slovak}</span>
+            {/if}
+          </h2>
+
+          <ul
+            class="{dataPanelClass} m-0 mt-2.5 grid list-none gap-1 p-1.5 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {#each group.scenes as option (option.id)}
+              {@render sceneLink(
+                option.name,
+                option.english,
+                option.id === scene.id && mode !== "day",
+                () => openScene(option.id),
+              )}
+            {/each}
+          </ul>
+        </div>
+      {/each}
+
+      <div>
+        <h2 class="m-0 text-sm font-semibold text-slate-700">Games</h2>
+
+        <ul
+          class="{dataPanelClass} m-0 mt-2.5 grid list-none gap-1 p-1.5 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {@render sceneLink(DAY.name, DAY.english, mode === "day", openDay)}
+        </ul>
+      </div>
+    </nav>
   </PageShell>
 </main>

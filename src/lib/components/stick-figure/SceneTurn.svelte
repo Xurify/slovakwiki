@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
@@ -13,6 +15,7 @@
   import { lineTiles, shuffledTiles } from "$lib/stick-figure/caption";
 
   let {
+    aside,
     english,
     id,
     ondone,
@@ -20,6 +23,8 @@
     sayChoices,
     slovak,
   }: {
+    /** Beside the line to say: how to answer it. */
+    aside?: Snippet;
     english: string;
     /** Seeds the tile order, so a retry is the same puzzle. */
     id: string;
@@ -103,8 +108,14 @@
 <svelte:window onkeydown={onKeydown} />
 
 <div class="animate-rise">
-  <p class={eyebrowMutedClass}>Your line</p>
-  <p class="m-0 mt-1 text-lg text-slate-900">{english}</p>
+  <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+    <div class="min-w-0">
+      <p class={eyebrowMutedClass}>Your line</p>
+      <p class="m-0 mt-1 text-lg text-slate-900">{english}</p>
+    </div>
+
+    {@render aside?.()}
+  </div>
 
   {#if sayChoices}
     <ChoiceOptions
