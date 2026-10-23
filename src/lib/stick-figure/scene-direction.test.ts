@@ -242,3 +242,23 @@ describe("the tram stop", () => {
     expect(square[6].boards).toBeUndefined();
   });
 });
+
+describe("the podcast studio", () => {
+  it("keeps the hosts at their mics while Marek shows Anna what is in the bag", () => {
+    const bag = demonstrativesEpisode.chapters.find((chapter) =>
+      chapter.id.endsWith("bag"),
+    );
+    const lines = (bag?.lines ?? []).map((line) => ({
+      characterId: characterIdForSpeaker(line.speaker),
+      props: line.props,
+      slovak: line.slovak,
+    }));
+    const moves = (setting: "default" | "studio") =>
+      directScene(lines, setting).stagings.filter(
+        (staging) => staging.approach || staging.goTo,
+      ).length;
+
+    expect(moves("default")).toBeGreaterThan(0);
+    expect(moves("studio")).toBe(0);
+  });
+});
