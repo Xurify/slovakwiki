@@ -1,76 +1,3 @@
-<script lang="ts" module>
-  import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-  import type { ListeningCheck } from "$lib/catalog/listening";
-  import type { TextMark } from "$lib/learning/marked-text";
-  import type { DialogueSayChoices } from "$lib/learning/types";
-  import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import type { StickGestureId } from "$lib/stick-figure/gestures";
-  import type { TimeOfDay } from "$lib/stick-figure/scene-mood";
-  import type { Said, TalkNode } from "$lib/stick-figure/talk";
-  import type { StickPropId } from "$lib/stick-figure/props";
-
-  export interface PlayerLine {
-    characterId: LessonCharacterId;
-    english: string;
-    gestures?: StickGestureId[];
-    id: string;
-    /** Alex's line, which the learner can take. */
-    learner: boolean;
-    marks?: TextMark[];
-    /** Loudness track of the clip, encoded. */
-    mouth?: string;
-    /** False for a line nobody on stage says: the narrator. */
-    onStage: boolean;
-    props?: Array<StickPropId | null>;
-    sayChoices?: DialogueSayChoices;
-    slovak: string;
-    /** The name shown over the line: Alex, not You. */
-    speaker: string;
-    src?: string;
-    /** Keeps their place after a goodbye: Alex, whom the others visit. */
-    stays?: boolean;
-    to?: LessonCharacterId;
-    vowels?: string;
-  }
-
-  /** A conversation that branches on Alex's replies, with the one he talks with. */
-  export interface PlayerTalk {
-    nodes: TalkNode<PlayerLine>[];
-    who: LessonCharacterId;
-  }
-
-  export interface PlayerScene {
-    /** Questions on what was heard, asked once the scene has played: a podcast chapter's. */
-    checks?: ListeningCheck[];
-    /** Under the name in the list of scenes: the lesson's title, or the name in English. */
-    english?: string;
-    /** Where the scene comes from: its lesson or podcast episode. */
-    href?: string;
-    hrefLabel?: string;
-    id: string;
-    /** Before it starts, in place of the place and the cast: the hour and who comes. */
-    intro?: Said;
-    /** The lines as played without picking: a talk's along the first reply that fits. */
-    lines: PlayerLine[];
-    /** A line it is named after, or the podcast chapter's name. */
-    name: string;
-    /** Who stands where, left to right, so a series keeps its hosts in their places. */
-    order?: LessonCharacterId[];
-    setting: StageSetting;
-    /** Branches on what Alex says, so its lines follow his picks. */
-    talk?: PlayerTalk;
-    /** The hour, when the lines do not say it with a greeting. */
-    time?: TimeOfDay;
-  }
-
-  export interface PlayerSceneGroup {
-    label: string;
-    /** The Slovak name after the label: the podcast episode's. */
-    slovak?: string;
-    scenes: PlayerScene[];
-  }
-</script>
-
 <script lang="ts">
   import { onMount, tick, untrack } from "svelte";
 
@@ -93,7 +20,8 @@
   } from "$lib/lesson-story/prefs";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { shuffledTiles } from "$lib/stick-figure/caption";
-  import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
+  import { directScene } from "$lib/stick-figure/scene-direction";
+  import type { SceneGroup } from "$lib/stick-figure/scene-line";
   import { sceneMood, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { defaultReply, fits, replyChoices, walkTalk } from "$lib/stick-figure/talk";
   import EpisodeCheck from "$lib/components/listening/EpisodeCheck.svelte";
@@ -148,7 +76,7 @@
     groups,
     thingWords = {},
   }: {
-    groups: PlayerSceneGroup[];
+    groups: SceneGroup[];
     /** Dictionary link and clip for a scene thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
@@ -255,26 +183,13 @@
   const walked = $derived(scene.talk ? walkTalk(scene.talk.nodes, picks) : undefined);
   const sceneLines = $derived(walked?.lines ?? scene.lines);
   const checking = $derived(phase === "done" && checkAt < checks.length);
-  const lines = $derived<DirectedLine[]>(
-    sceneLines.map((line) => ({
-      characterId: line.onStage ? line.characterId : null,
-      gestures: line.gestures,
-      mouth: line.mouth,
-      props: line.props,
-      slovak: line.slovak,
-      src: line.src,
-      stays: line.stays,
-      to: line.to,
-      vowels: line.vowels,
-    })),
-  );
-  const direction = $derived(directScene(lines, scene.setting, scene.order));
+  const direction = $derived(directScene(sceneLines, scene.setting, scene.order));
   /** The same scene timed to the learner's takes, for the lines they recorded. */
   const dubbed = $derived(
     Object.keys(takes).length === 0
       ? direction
       : directScene(
-          lines.map((line, index) => {
+          sceneLines.map((line, index) => {
             const take = takes[index];
             return take
               ? { ...line, mouth: take.mouth, src: take.src, vowels: undefined }
@@ -321,7 +236,7 @@
       // In a talk, the box keeps the other person's line over Alex's replies.
       const line = turn && scene.talk && answering ? answering : (turn ?? caption);
       // A board or a notice has nobody on stage saying it, so no name goes on the box.
-      return line?.onStage
+      return line?.characterId
         ? { characterId: line.characterId, name: line.speaker }
         : undefined;
     },
@@ -644,7 +559,7 @@
     }
 
     at = index;
-    const walking = stage?.walking(lines[index].characterId) ?? 0;
+    const walking = stage?.walking(line.characterId) ?? 0;
     if (walking > 0) {
       timer = window.setTimeout(() => step(index), walking);
       return;
@@ -768,7 +683,7 @@
    */
   function missed(said: string, choice?: string): void {
     const line = sceneLines[at];
-    if (!line) return;
+    if (!line?.characterId) return;
 
     playAnswerSfx("incorrect");
     stage?.say(line.characterId, said);
@@ -1046,7 +961,7 @@
           class="border-b border-slate-200"
           {direction}
           {found}
-          {lines}
+          lines={sceneLines}
           {mood}
           onthing={mode === "find" ? tapThing : undefined}
           setting={scene.setting}

@@ -1,110 +1,51 @@
 import { describe, expect, it } from "vitest";
 
-import { lessons } from "$lib/catalog/lessons";
-import { sceneMouthTracks } from "$lib/catalog/lessons/audio";
-import {
-  characterIdForSpeaker,
-  listedCharacters,
-  type LessonCharacterId,
-} from "$lib/catalog/lessons/character-ids";
-import { listeningEpisodes } from "$lib/catalog/listening";
-import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-import type { DialogueTurn } from "$lib/learning/types";
-import { RAIN_AND_TRAM, WEATHER_TODAY } from "./dev-scenes";
-import { chapterSettingFor, stageSettingFor } from "./lesson-stage";
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { LinePlan, LineSpan } from "./line-plan";
-import { dayTalks } from "./scene-day";
 import { directScene, type DirectedLine } from "./scene-direction";
+import { sceneGroups } from "./scene-sources";
 import type { StageSetting } from "./stage-setting";
-import { fits, walkTalk, type Said, type TalkNode } from "./talk";
+import { fits, walkTalk } from "./talk";
 
 /**
  * Every scene the player can show, directed and written down, so a change
  * that is meant to only move code shows up here if it moves a figure.
  */
 
-interface Scene {
-  lines: DirectedLine[];
+interface Directed {
+  lines: readonly DirectedLine[];
   name: string;
   order?: LessonCharacterId[];
   setting: StageSetting;
 }
 
-function directedLines(turns: DialogueTurn[], stays?: (turn: DialogueTurn) => boolean) {
-  const mouths = sceneMouthTracks(turns);
-  return turns.map((turn): DirectedLine => ({
-    characterId:
-      dialogueSpeakerLabel(turn.speaker) === null
-        ? null
-        : characterIdForSpeaker(turn.speaker),
-    gestures: turn.gestures,
-    mouth: mouths[turn.id]?.m,
-    props: turn.props,
-    slovak: turn.slovak,
-    stays: stays?.(turn),
-    to: turn.to ? characterIdForSpeaker(turn.to) : undefined,
-    vowels: mouths[turn.id]?.v,
-  }));
-}
+const SOURCES: Record<string, string> = {
+  Games: "talk",
+  "From the lessons": "lesson",
+  "From the podcast": "podcast",
+  Prototype: "dev",
+};
 
-const speakers = Object.fromEntries(
-  listedCharacters().map((character) => [character.id, character.speakers[0] ?? ""]),
-);
+/** Each scene once, and a talk along each reply that fits besides the first. */
+const SCENES: Directed[] = sceneGroups().flatMap((group) =>
+  group.scenes.flatMap((scene) => {
+    const source = SOURCES[group.label];
+    const name = `${source} ${scene.id.replace(/^dev\//, "")}`;
+    if (!scene.talk) return [{ ...scene, name }];
 
-/** A talk along the first replies that fit, and along each other reply that fits. */
-function talkScenes(): Scene[] {
-  return dayTalks().flatMap((talk) => {
-    const alex = new Set<string>();
-    const turnOf = (
-      said: Said & { id: string },
-      who: LessonCharacterId,
-    ): DialogueTurn => {
-      if (who === "alex") alex.add(said.id);
-      return { ...said, speaker: speakers[who] };
-    };
-    const nodes: Array<TalkNode<DialogueTurn>> = talk.nodes.map((node) => ({
-      id: node.id,
-      says: node.says.map((said) => turnOf(said, talk.who)),
-      replies: node.replies?.map((reply) => ({
-        line: turnOf(reply.line, "alex"),
-        miss: reply.miss && { reaction: reply.miss.reaction, why: reply.miss.why },
-        next: reply.next,
-      })),
-    }));
+    const { nodes } = scene.talk;
     const picks = nodes.flatMap((node) =>
       (node.replies ?? []).flatMap((reply, index) =>
         fits(reply) && index > 0 ? [{ [node.id]: index }] : [],
       ),
     );
-
     return [{}, ...picks].map((pick) => ({
-      lines: directedLines(walkTalk(nodes, pick).lines, (turn) => alex.has(turn.id)),
-      name: `talk ${talk.id} ${JSON.stringify(pick)}`,
-      setting: talk.setting,
+      lines: walkTalk(nodes, pick).lines,
+      name: `${name} ${JSON.stringify(pick)}`,
+      setting: scene.setting,
     }));
-  });
-}
-
-const SCENES: Scene[] = [
-  ...lessons
-    .filter((lesson) => lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker)))
-    .map((lesson) => ({
-      lines: directedLines(lesson.scene),
-      name: `lesson ${lesson.id}`,
-      setting: stageSettingFor(lesson.id),
-    })),
-  ...listeningEpisodes.flatMap((episode) =>
-    episode.chapters.map((chapter) => ({
-      lines: directedLines(chapter.lines),
-      name: `podcast ${chapter.id}`,
-      order: episode.speakers.map(characterIdForSpeaker),
-      setting: chapterSettingFor(chapter.id),
-    })),
-  ),
-  { lines: directedLines(RAIN_AND_TRAM), name: "dev rain-and-tram", setting: "street" },
-  { lines: directedLines(WEATHER_TODAY), name: "dev weather-today", setting: "default" },
-  ...talkScenes(),
-];
+  }),
+);
 
 const ms = (value: number) => Math.round(value);
 const spans = (list: readonly LineSpan[] = []) =>

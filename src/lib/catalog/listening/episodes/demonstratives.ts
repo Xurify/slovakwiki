@@ -284,6 +284,7 @@ const bag: ListeningChapter = {
 
 const market: ListeningChapter = {
   id: `${PREFIX}market`,
+  stage: "market",
   titleSk: "Na trhu",
   title: "At the market: this one or that one?",
   lines: [
@@ -438,6 +439,7 @@ const market: ListeningChapter = {
 
 const home: ListeningChapter = {
   id: `${PREFIX}home`,
+  stage: "home",
   titleSk: "Doma",
   title: "The lost car key",
   lines: [

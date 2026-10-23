@@ -1,44 +1,8 @@
-<script lang="ts" module>
-  import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-  import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import type { StickGestureId } from "$lib/stick-figure/gestures";
-  import type { StickPropId } from "$lib/stick-figure/props";
-
-  export interface StickLabLine {
-    characterId: LessonCharacterId;
-    english: string;
-    gestures?: StickGestureId[];
-    id: string;
-    /** Loudness track of the clip (`content/audio/mouth.json`). */
-    mouth?: string;
-    props?: Array<StickPropId | null>;
-    slovak: string;
-    speaker: string;
-    src?: string;
-    /** Who the line is said to, when it is not the person it replies to. */
-    to?: LessonCharacterId;
-    /** Aligned vowel per mouth frame. */
-    vowels?: string;
-  }
-
-  /** Dictionary links for a scene thing's word, where the dictionary has it. */
-  export interface StickThingWord {
-    href?: string;
-    /** The lemma clip. */
-    src?: string;
-  }
-
-  export interface StickLabScene {
-    id: string;
-    lines: StickLabLine[];
-    /** Where it plays: picks the drawn backdrop. */
-    setting: StageSetting;
-    title: string;
-  }
-</script>
-
 <script lang="ts">
-  import { listedCharacters } from "$lib/catalog/lessons/character-ids";
+  import {
+    listedCharacters,
+    type LessonCharacterId,
+  } from "$lib/catalog/lessons/character-ids";
   import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -49,17 +13,17 @@
     panelClass,
     tagClass,
   } from "$lib/components/ui/system-ui";
-  import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-  import { STICK_GESTURE_IDS } from "$lib/stick-figure/gestures";
+  import { STICK_GESTURE_IDS, type StickGestureId } from "$lib/stick-figure/gestures";
   import {
     gesturePlan,
     planLine,
     type LinePlan,
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
-  import { STICK_PROP_IDS } from "$lib/stick-figure/props";
+  import { STICK_PROP_IDS, type StickPropId } from "$lib/stick-figure/props";
   import { STICK_PICTURE_NAMES } from "$lib/stick-figure/pictures";
-  import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
+  import { directScene } from "$lib/stick-figure/scene-direction";
+  import type { Scene } from "$lib/stick-figure/scene-line";
   import {
     TIMES_OF_DAY,
     WEATHERS,
@@ -67,7 +31,6 @@
     type TimeOfDay,
     type Weather,
   } from "$lib/stick-figure/scene-mood";
-  import { stageName } from "$lib/stick-figure/stage-name";
   import type { StageReaction } from "$lib/stick-figure/staging";
   import { cx } from "$lib/ui/classes";
   import StickFigure from "./StickFigure.svelte";
@@ -84,9 +47,9 @@
     scenes,
     thingWords = {},
   }: {
-    scenes: StickLabScene[];
-    /** Keyed by the thing's word. */
-    thingWords?: Record<string, StickThingWord>;
+    scenes: Scene[];
+    /** Dictionary link and clip for a scene thing's word, keyed by the word. */
+    thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
   const characters = listedCharacters();
@@ -122,19 +85,7 @@
   let benchProp = $state<StickPropId | undefined>();
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
-  const directedLines = $derived<DirectedLine[]>(
-    scene.lines.map((line) => ({
-      characterId: dialogueSpeakerLabel(line.speaker) ? line.characterId : null,
-      gestures: line.gestures,
-      mouth: line.mouth,
-      props: line.props,
-      slovak: line.slovak,
-      src: line.src,
-      to: line.to,
-      vowels: line.vowels,
-    })),
-  );
-  const direction = $derived(directScene(directedLines, scene.setting));
+  const direction = $derived(directScene(scene.lines, scene.setting));
   const spoken = $derived(sceneMood(scene.lines.map((line) => line.slovak)));
   const mood = $derived({
     time: timeOverride ?? spoken.time,
@@ -208,7 +159,7 @@
       }
 
       // Someone still walking on gets to their mark before they speak.
-      const walking = stage?.walking(directedLines[index].characterId) ?? 0;
+      const walking = stage?.walking(scene.lines[index].characterId) ?? 0;
       if (walking > 0) {
         sceneTimer = window.setTimeout(() => step(index), walking);
         return;
@@ -263,7 +214,7 @@
               type="button"
               onclick={() => selectScene(option.id)}
             >
-              {option.title}
+              {option.english ?? option.name}
             </button>
           {/each}
         </div>
@@ -332,7 +283,7 @@
           bind:this={stage}
           class="border-b border-slate-200"
           {direction}
-          lines={directedLines}
+          lines={scene.lines}
           {mood}
           setting={scene.setting}
           {thingWords}
@@ -353,7 +304,7 @@
                 onclick={() => playLine(index)}
               >
                 <span class="min-w-0 flex-1">
-                  <span class="{eyebrowMutedClass} block">{stageName(line.speaker)}</span>
+                  <span class="{eyebrowMutedClass} block">{line.speaker}</span>
                   <span
                     class="mt-1 block font-serif text-lg font-semibold text-slate-900"
                     lang="sk"
@@ -366,7 +317,7 @@
                   {/if}
 
                   <span class="mt-1.5 flex flex-wrap gap-x-4 text-sm text-slate-500">
-                    {#if dialogueSpeakerLabel(line.speaker)}
+                    {#if line.characterId}
                       <span>Gestures: {gestureSequence(plan)}</span>
                     {/if}
 
