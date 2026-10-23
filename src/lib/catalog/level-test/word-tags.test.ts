@@ -25,6 +25,8 @@ describe("tagWord", () => {
     expect(tagWord("na").class).toBe("functionWord");
     expect(tagWord("že").class).toBe("functionWord");
     expect(tagWord("ktorého").class).toBe("pronoun");
+    expect(tagWord("každou").class).toBe("pronoun");
+    expect(tagWord("každodenné").class).not.toBe("pronoun");
     expect(tagWord("štvrtej")).toMatchObject({
       class: "numeral",
       topic: "numbers-and-numerals",

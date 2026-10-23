@@ -25,6 +25,7 @@ import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-
 import { words } from "../../src/lib/catalog/entries";
 import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/catalog/frequency/blocklist";
 import { ctestPassages } from "../../src/lib/catalog/level-test/passages";
+import { isCommonWord, tagWord } from "../../src/lib/catalog/level-test/word-tags";
 import { searchFormsForLemma } from "../../src/lib/catalog/search/forms";
 import { damagePassage } from "../../src/lib/level-test/ctest";
 import { CEFR_ANCHOR, clampScale } from "../../src/lib/level-test/scale";
@@ -33,7 +34,7 @@ import { ROOT } from "../lib/paths";
 
 import { CharModel, foldDiacritics, isPlausibleSlovak, seededRandom } from "./char-model";
 import { loadSnkFormCounts } from "./snk-forms";
-import { loadSpokenChecks } from "./spoken-check";
+import { loadLengthChecks, loadSpokenChecks, type LengthCheck } from "./spoken-check";
 
 const OUT_PATH = path.join(ROOT, "content", "level-test", "items.json");
 const SUBTITLES_URL =
@@ -81,12 +82,35 @@ const ESSENTIALS_CAP = 10;
  */
 const FORM_TO_LEMMA_COUNT = 3;
 
+const LONG_VOWEL: Readonly<Record<string, string>> = {
+  a: "á",
+  e: "é",
+  i: "í",
+  o: "ó",
+  u: "ú",
+  y: "ý",
+};
+
+/** Short/long pairs for Short or Long; both forms must be this common in the SNK. */
+const MIN_LENGTH_FORM_COUNT = 300;
+const LENGTH_PAIRS = 80;
+
+/**
+ * Not yet calibrated: hearing vowel length is put at A2, nudged up for rarer
+ * words, until answers from real learners can place it.
+ */
+const LENGTH_BASE_DIFFICULTY = 20;
+
+/** So "desať" or "svoj" does not fill a whole level of pronoun and number gaps. */
+const MAX_SENTENCES_PER_BLANK_WORD = 2;
+
 const PER_BIN = {
   readSelectReal: 40,
   readSelectPseudo: 25,
   listenSelectReal: 12,
   listenSelectPseudo: 12,
   fillBlank: 18,
+  classBlank: 6,
   listenType: 14,
   readAloud: 8,
 };
@@ -566,6 +590,62 @@ function makeDifficulty(formCounts: ReadonlyMap<string, number>, sortedCounts: n
   return { form, sentence };
 }
 
+interface LengthPair {
+  short: string;
+  long: string;
+  difficulty: number;
+}
+
+/**
+ * Real word pairs that differ only in one vowel's length (dobre/dobré,
+ * mala/malá, rad/rád), commonest first. Names and misspellings drop out because
+ * both forms must be plain dictionary words or their forms; a pair whose clip
+ * speech-to-text did not hear exactly is dropped too.
+ */
+function lengthPairs(
+  formCounts: ReadonlyMap<string, number>,
+  form: (word: string) => number,
+  checks: Readonly<Record<string, LengthCheck>>,
+): LengthPair[] {
+  const candidates: (LengthPair & { count: number })[] = [];
+  for (const [short, count] of formCounts) {
+    if (count < MIN_LENGTH_FORM_COUNT || !/^\p{Ll}{3,8}$/u.test(short)) continue;
+    const letters = [...short];
+    letters.forEach((letter, index) => {
+      const lengthened = LONG_VOWEL[letter];
+      if (!lengthened) return;
+      const long = [
+        ...letters.slice(0, index),
+        lengthened,
+        ...letters.slice(index + 1),
+      ].join("");
+      const longCount = formCounts.get(long) ?? 0;
+      if (longCount < MIN_LENGTH_FORM_COUNT) return;
+      if (!isCommonWord(short) || !isCommonWord(long)) return;
+      if (checks[short]?.clear === false || checks[long]?.clear === false) return;
+      candidates.push({
+        short,
+        long,
+        count: Math.min(count, longCount),
+        difficulty: LENGTH_BASE_DIFFICULTY + 0.3 * Math.max(form(short), form(long)),
+      });
+    });
+  }
+
+  const taken = new Set<string>();
+  const pairs: LengthPair[] = [];
+  for (const pair of candidates.sort(
+    (a, b) => b.count - a.count || a.short.localeCompare(b.short, "sk"),
+  )) {
+    if (taken.has(pair.short) || taken.has(pair.long)) continue;
+    taken.add(pair.short);
+    taken.add(pair.long);
+    pairs.push({ short: pair.short, long: pair.long, difficulty: pair.difficulty });
+    if (pairs.length >= LENGTH_PAIRS) break;
+  }
+  return pairs;
+}
+
 async function main(): Promise<void> {
   const [formCounts, audioHashes, subtitleCounts] = await Promise.all([
     loadSnkFormCounts(),
@@ -579,6 +659,8 @@ async function main(): Promise<void> {
   console.log(`Real words: ${real.length}; curated sentences: ${sentences.length}`);
 
   const difficulty = makeDifficulty(formCounts, sortedCounts);
+
+  const lengths = lengthPairs(formCounts, difficulty.form, await loadLengthChecks());
 
   const pseudo = generatePseudowords(real, formCounts);
   assignPseudowordDifficulty(real, pseudo);
@@ -678,6 +760,55 @@ async function main(): Promise<void> {
     PER_BIN.readAloud,
     (item) => item.source.slovak,
   );
+  for (const item of readAloud) usedSentences.add(item.source.slovak);
+
+  // A lemma search never blanks a pronoun or a number, and natural text has
+  // few of them, so these classes get their own Fill in the Blanks items from
+  // the sentences nothing else took.
+  const classBlanks = (wanted: "pronoun" | "numeral") => {
+    const perWord = new Map<string, number>();
+    return sampleByBin(
+      [
+        ...new Map(
+          sentences
+            .filter(
+              (source) =>
+                !usedSentences.has(source.slovak) && cleanSentence(source.slovak, 4, 14),
+            )
+            .map((source) => [source.slovak, source]),
+        ).values(),
+      ].flatMap((source) => {
+        for (const match of source.slovak.matchAll(WORD_RE)) {
+          const word = match[0];
+          const start = match.index ?? 0;
+          if (start === 0 || [...word].length < 4 || !/^\p{Ll}/u.test(word)) continue;
+          if (tagWord(word).class !== wanted) continue;
+          const key = word.toLocaleLowerCase("sk");
+          if ((perWord.get(key) ?? 0) >= MAX_SENTENCES_PER_BLANK_WORD) continue;
+          perWord.set(key, (perWord.get(key) ?? 0) + 1);
+          const letters = [...word];
+          const keep = Math.floor(letters.length / 2);
+          return [
+            {
+              source,
+              before: source.slovak.slice(0, start),
+              prefix: letters.slice(0, keep).join(""),
+              missing: letters.slice(keep).join(""),
+              after: source.slovak.slice(start + word.length),
+              difficulty:
+                0.6 * difficulty.form(word) + 0.4 * difficulty.sentence(source.slovak),
+            },
+          ];
+        }
+        return [];
+      }),
+      PER_BIN.classBlank,
+      (item) => item.source.slovak,
+    );
+  };
+  const pronounBlanks = classBlanks("pronoun");
+  for (const item of pronounBlanks) usedSentences.add(item.source.slovak);
+  const numeralBlanks = classBlanks("numeral");
 
   const readComplete = ctestPassages.map((passage) => {
     const passageDifficulty = passage.level === "A1" ? 5 : CEFR_ANCHOR[passage.level];
@@ -730,8 +861,18 @@ async function main(): Promise<void> {
         real: false,
       })),
     ],
-    fillBlank: fillBlank.map((item) => ({
-      id: `fb-${item.source.slug}`,
+    fillBlank: [
+      ...fillBlank.map((item) => ({ ...item, id: `fb-${item.source.slug}` })),
+      ...pronounBlanks.map((item) => ({
+        ...item,
+        id: `fb-pron-${audioHash(item.source.slovak).slice(0, 10)}`,
+      })),
+      ...numeralBlanks.map((item) => ({
+        ...item,
+        id: `fb-num-${audioHash(item.source.slovak).slice(0, 10)}`,
+      })),
+    ].map((item) => ({
+      id: item.id,
       format: "fillBlank" as const,
       difficulty: round(item.difficulty),
       before: item.before,
@@ -747,6 +888,16 @@ async function main(): Promise<void> {
       text: item.source.slovak,
       english: item.source.english,
     })),
+    listenLength: lengths.flatMap((pair) =>
+      [pair.short, pair.long].map((word) => ({
+        id: `ll-${word}`,
+        format: "listenLength" as const,
+        difficulty: round(pair.difficulty),
+        word,
+        short: pair.short,
+        long: pair.long,
+      })),
+    ),
     readComplete,
     readAloud: readAloud.map((item) => ({
       id: `ra-${audioHash(item.source.slovak).slice(0, 10)}`,

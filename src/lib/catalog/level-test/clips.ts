@@ -20,6 +20,8 @@ export function levelTestClips(): LevelTestClip[] {
   // Dictionary examples, but listed here too: once an example is rewritten, the
   // dictionary drops its clip while Listen and Type still plays it.
   for (const item of items.listenType) clips.push({ text: item.text, kind: "example" });
+  for (const item of items.listenLength ?? [])
+    clips.push({ text: item.word, kind: "lemma" });
 
   for (const set of listeningSets) {
     clips.push({

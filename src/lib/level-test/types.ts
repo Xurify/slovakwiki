@@ -7,7 +7,18 @@ export type Skill = "reading" | "listening" | "writing" | "speaking";
 
 /** The parts of Slovak the results page breaks a score into. */
 export type StudyArea =
-  "vocabulary" | "declension" | "conjugation" | "functionWords" | "spelling";
+  | "vocabulary"
+  | "nouns"
+  | "adjectives"
+  | "pronouns"
+  | "numerals"
+  | "conjugation"
+  | "aspect"
+  | "wordOrder"
+  | "functionWords"
+  | "spelling"
+  | "vowelLength"
+  | "intelligibility";
 
 export type WordClass =
   "noun" | "adjective" | "pronoun" | "numeral" | "verb" | "functionWord" | "other";
@@ -28,7 +39,12 @@ export interface WordTag {
 
 /** Formats the adaptive section cycles through; each item carries its own difficulty. */
 export type AdaptiveFormat =
-  "readSelect" | "listenSelect" | "fillBlank" | "readComplete" | "listenType";
+  | "readSelect"
+  | "listenSelect"
+  | "listenLength"
+  | "fillBlank"
+  | "readComplete"
+  | "listenType";
 
 interface AdaptiveItemBase {
   id: string;
@@ -52,6 +68,16 @@ export interface ListenSelectItem extends AdaptiveItemBase {
   audio: string;
   slug?: string;
   english?: string;
+}
+
+/** Short or Long: one clip of a pair that differs only in a vowel's length. */
+export interface ListenLengthItem extends AdaptiveItemBase {
+  format: "listenLength";
+  /** The word the clip says. */
+  word: string;
+  short: string;
+  long: string;
+  audio: string;
 }
 
 export interface FillBlankItem extends AdaptiveItemBase {
@@ -90,7 +116,12 @@ export interface ListenTypeItem extends AdaptiveItemBase {
 }
 
 export type AdaptiveItem =
-  ReadSelectItem | ListenSelectItem | FillBlankItem | ReadCompleteItem | ListenTypeItem;
+  | ReadSelectItem
+  | ListenSelectItem
+  | ListenLengthItem
+  | FillBlankItem
+  | ReadCompleteItem
+  | ListenTypeItem;
 
 export interface ChoiceQuestion {
   options: string[];

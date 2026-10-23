@@ -1,28 +1,74 @@
 import { estimateAbility, type Observation } from "./estimate";
 import { foldDiacritics, normalizeTyped, tokenizeWords } from "./grade";
 import { cefrForScore, probabilityCorrect, type CefrLevel } from "./scale";
-import { areaForTag } from "./session";
+import { areaForTag } from "./areas";
 import type {
   AiIssue,
   AiIssueTopic,
   GrammaticalCase,
   ItemResponse,
   ProductionRecord,
+  StepKind,
   StudyArea,
+  TestMode,
   WordTag,
 } from "./types";
 
+export type AreaGroup =
+  | "vocabulary"
+  | "declension"
+  | "conjugation"
+  | "aspect"
+  | "wordOrder"
+  | "functionWords"
+  | "spelling"
+  | "pronunciation";
+
 /**
- * The parts of the language itself (CEFR: vocabulary range, grammatical
- * accuracy, orthographic control). Reading and listening are skills, shown as
- * skill scores, not here.
+ * Everything a Slovak learner is expected to master (CEFR: vocabulary range,
+ * grammatical accuracy, orthographic and phonological control), whether or not
+ * this test measures it yet: an area the test cannot reach is shown as such,
+ * not hidden. Reading, listening, writing and speaking are skills, scored above.
  */
-export const STUDY_AREAS: readonly StudyArea[] = [
-  "vocabulary",
-  "declension",
-  "conjugation",
-  "functionWords",
-  "spelling",
+export const AREA_GROUPS: readonly {
+  id: AreaGroup;
+  label: string;
+  slovak: string;
+  areas: readonly StudyArea[];
+}[] = [
+  {
+    id: "vocabulary",
+    label: "Vocabulary",
+    slovak: "slovná zásoba",
+    areas: ["vocabulary"],
+  },
+  {
+    id: "declension",
+    label: "Declension",
+    slovak: "skloňovanie",
+    areas: ["nouns", "adjectives", "pronouns", "numerals"],
+  },
+  {
+    id: "conjugation",
+    label: "Conjugation",
+    slovak: "časovanie",
+    areas: ["conjugation"],
+  },
+  { id: "aspect", label: "Aspect", slovak: "vid", areas: ["aspect"] },
+  { id: "wordOrder", label: "Word order", slovak: "slovosled", areas: ["wordOrder"] },
+  {
+    id: "functionWords",
+    label: "Function words",
+    slovak: "neplnovýznamové slová",
+    areas: ["functionWords"],
+  },
+  { id: "spelling", label: "Spelling", slovak: "pravopis", areas: ["spelling"] },
+  {
+    id: "pronunciation",
+    label: "Pronunciation",
+    slovak: "výslovnosť",
+    areas: ["vowelLength", "intelligibility"],
+  },
 ];
 
 export const STUDY_AREA_INFO: Record<
@@ -34,15 +80,40 @@ export const STUDY_AREA_INFO: Record<
     slovak: "slovná zásoba",
     what: "knowing which words are real Slovak, and which word a sentence needs",
   },
-  declension: {
-    label: "Declension",
-    slovak: "skloňovanie",
-    what: "case, number and gender endings on nouns, adjectives, pronouns and numerals",
+  nouns: {
+    label: "Noun cases",
+    slovak: "pády podstatných mien",
+    what: "case and number endings on nouns",
+  },
+  adjectives: {
+    label: "Adjective agreement",
+    slovak: "zhoda prídavných mien",
+    what: "adjective endings that match their noun's gender, number and case",
+  },
+  pronouns: {
+    label: "Pronouns",
+    slovak: "zámená",
+    what: "the forms of ten, môj, ktorý, každý and the personal pronouns",
+  },
+  numerals: {
+    label: "Numbers",
+    slovak: "číslovky",
+    what: "numbers and ordinals, and the forms they take",
   },
   conjugation: {
     label: "Conjugation",
     slovak: "časovanie",
     what: "verb endings for person, number and tense",
+  },
+  aspect: {
+    label: "Aspect",
+    slovak: "vid",
+    what: "choosing robiť or urobiť: an action in progress or a finished one",
+  },
+  wordOrder: {
+    label: "Word order",
+    slovak: "slovosled",
+    what: "where sa, si, som and the other short words go in a sentence",
   },
   functionWords: {
     label: "Function words",
@@ -54,6 +125,32 @@ export const STUDY_AREA_INFO: Record<
     slovak: "pravopis",
     what: "long vowels, háčeks, ä and ô, and i or y",
   },
+  vowelLength: {
+    label: "Hearing vowel length",
+    slovak: "dĺžka samohlások",
+    what: "hearing short and long vowels apart, as in mala and malá",
+  },
+  intelligibility: {
+    label: "Being understood",
+    slovak: "zrozumiteľnosť",
+    what: "how much of what you said aloud speech recognition understood",
+  },
+};
+
+/** The test tasks that give evidence for each area; empty means no task does yet. */
+export const AREA_SOURCES: Record<StudyArea, readonly StepKind[]> = {
+  vocabulary: ["readSelect", "listenSelect", "fillBlank", "readComplete", "listenType"],
+  nouns: ["fillBlank", "readComplete", "listenType"],
+  adjectives: ["fillBlank", "readComplete", "listenType"],
+  pronouns: ["fillBlank", "readComplete", "listenType"],
+  numerals: ["fillBlank", "readComplete", "listenType"],
+  conjugation: ["fillBlank", "readComplete", "listenType"],
+  aspect: [],
+  wordOrder: [],
+  functionWords: ["fillBlank", "readComplete", "listenType"],
+  spelling: ["fillBlank", "readComplete", "listenType"],
+  vowelLength: ["listenLength"],
+  intelligibility: ["readAloud"],
 };
 
 /** Fewer answers than this and an area says more about luck than about the learner. */
@@ -134,6 +231,27 @@ export interface WordToLearn {
   href?: string;
 }
 
+export type AreaStatus =
+  | { kind: "measured"; summary: AreaSummary }
+  /** Some answers, too few to judge. */
+  | { kind: "thin"; count: number }
+  /** A task exists for it but did not run or got no answer this time. */
+  | { kind: "skipped"; reason: string }
+  /** No task in the test measures it yet. */
+  | { kind: "untested" };
+
+export interface AreaResult {
+  area: StudyArea;
+  status: AreaStatus;
+}
+
+export interface GroupResult {
+  group: AreaGroup;
+  /** The group's own estimate, from all its areas' answers together. */
+  status: AreaStatus;
+  areas: AreaResult[];
+}
+
 export interface Gap {
   area: StudyArea;
   /** Null when only the AI's notes on writing or speaking point here. */
@@ -142,10 +260,17 @@ export interface Gap {
   links: StudyLink[];
 }
 
+/** What ran, so an unmeasured area can say why. */
+export interface RunContext {
+  stepKinds: ReadonlySet<string>;
+  mode: TestMode;
+  microphone: boolean;
+  transcription: boolean;
+}
+
 export interface Diagnosis {
   center: number;
-  /** Measured areas in chart order; only these go on the chart. */
-  areas: AreaSummary[];
+  groups: GroupResult[];
   strengths: AreaSummary[];
   gaps: Gap[];
   accentSlips: AccentSlip[];
@@ -159,12 +284,12 @@ const LONG = new Set([..."áéíóúýĺŕ"]);
 const HACEK = new Set([..."čšžďťňľ"]);
 
 const ISSUE_AREA: Record<AiIssueTopic, StudyArea> = {
-  nounEndings: "declension",
-  adjectiveAgreement: "declension",
+  nounEndings: "nouns",
+  adjectiveAgreement: "adjectives",
   verbForms: "conjugation",
-  aspect: "conjugation",
+  aspect: "aspect",
   functionWords: "functionWords",
-  wordOrder: "functionWords",
+  wordOrder: "wordOrder",
   accents: "spelling",
   vocabulary: "vocabulary",
 };
@@ -207,15 +332,29 @@ const AREA_LINKS: Record<StudyArea, StudyLink[]> = {
     { label: "The most common nouns", href: "/dictionary/common/noun" },
     { label: "The most common verbs", href: "/dictionary/common/verb" },
   ],
-  declension: [
+  nouns: [
     { label: "The six cases", href: "/grammar/cases-overview" },
     { label: "Grammatical gender", href: "/grammar/grammatical-gender" },
+  ],
+  adjectives: [
+    { label: "Grammatical gender", href: "/grammar/grammatical-gender" },
+    { label: "The most common adjectives", href: "/dictionary/common/adjective" },
+  ],
+  pronouns: [
+    { label: "Ten, tento, tamten", href: "/grammar/demonstratives" },
+    { label: "Môj, jeho, svoj", href: "/grammar/possessives" },
+  ],
+  numerals: [
+    { label: "Numbers and numerals", href: "/grammar/numbers-and-numerals" },
+    { label: "Lesson: numbers", href: "/lessons/everyday/numbers-and-personal-details" },
   ],
   conjugation: [
     { label: "Present tense", href: "/grammar/present-tense" },
     { label: "Lesson: present-tense endings", href: "/lessons/grammar/present-tense-i" },
     { label: "Practice: present-tense endings", href: "/practice/present-tense-i" },
   ],
+  aspect: [{ label: "Aspect: robiť or urobiť", href: "/grammar/aspect" }],
+  wordOrder: [{ label: "Word order", href: "/grammar/word-order" }],
   functionWords: [
     { label: "Word order", href: "/grammar/word-order" },
     { label: "Negation", href: "/grammar/negation" },
@@ -223,6 +362,15 @@ const AREA_LINKS: Record<StudyArea, StudyLink[]> = {
   spelling: [
     { label: "Vowel length", href: "/pronunciation/vowel-length" },
     { label: "The Slovak alphabet", href: "/pronunciation/slovak-alphabet" },
+  ],
+  vowelLength: [
+    { label: "Vowel length", href: "/pronunciation/vowel-length" },
+    { label: "The Slovak alphabet", href: "/pronunciation/slovak-alphabet" },
+  ],
+  intelligibility: [
+    { label: "First-syllable stress", href: "/pronunciation/first-syllable-stress" },
+    { label: "Vowel length", href: "/pronunciation/vowel-length" },
+    { label: "Soft consonants", href: "/pronunciation/soft-consonants" },
   ],
 };
 
@@ -511,17 +659,69 @@ function wordsToLearn(responses: readonly ItemResponse[]): WordToLearn[] {
   return missed.slice(0, 10);
 }
 
+/** Why an area with a task behind it got no evidence in this run. */
+function skippedReason(area: StudyArea, run: RunContext): string {
+  const sources = AREA_SOURCES[area];
+  if (sources.some((kind) => run.stepKinds.has(kind))) return "No answers this time.";
+  if (run.mode === "quick") return "Not part of the quick test.";
+  if (sources.includes("readAloud")) {
+    if (!run.microphone) return "Needs a microphone.";
+    if (!run.transcription) return "Needs speech recognition, not set up yet.";
+  }
+  return "Not part of this run.";
+}
+
+function summarize(
+  area: StudyArea,
+  observations: readonly Observation[],
+  center: number,
+): AreaSummary {
+  const score = Math.round(
+    estimateAbility(observations, { mean: center, sd: AREA_PRIOR_SD }).theta,
+  );
+  const earned = observations.reduce((sum, observation) => sum + observation.score, 0);
+  const expected = observations.reduce(
+    (sum, observation) =>
+      sum + probabilityCorrect(center, observation.difficulty, observation.guess),
+    0,
+  );
+  return {
+    area,
+    score,
+    level: cefrForScore(score),
+    percent: Math.round((earned / observations.length) * 100),
+    total: observations.length,
+    delta: score - Math.round(center),
+    surplus: earned - expected,
+  };
+}
+
+function statusFor(
+  area: StudyArea,
+  observations: readonly Observation[],
+  center: number,
+  run: RunContext,
+): AreaStatus {
+  if (observations.length >= MIN_EVIDENCE) {
+    return { kind: "measured", summary: summarize(area, observations, center) };
+  }
+  if (observations.length > 0) return { kind: "thin", count: observations.length };
+  if (AREA_SOURCES[area].length === 0) return { kind: "untested" };
+  return { kind: "skipped", reason: skippedReason(area, run) };
+}
+
 /**
  * Breaks one test into the parts of Slovak it touched. Each area gets its own
  * ability on the test's 0–100 scale, pulled toward the overall score so a few
  * answers cannot swing it; an area well below the rest is a gap worth study.
+ * Areas the run could not reach say so, and why.
  */
 export function diagnose(
   responses: readonly ItemResponse[],
   production: readonly ProductionRecord[],
   center: number,
+  run: RunContext,
 ): Diagnosis {
-  const prior = { mean: center, sd: AREA_PRIOR_SD };
   const dictation = dictationEvidence(responses);
   const accents = accentEvidence(responses);
   const accentSlips = [...accents.slips.values()].sort((a, b) => b.count - a.count);
@@ -530,59 +730,75 @@ export function diagnose(
     record.status === "scored" ? (record.result?.issues ?? []) : [],
   );
 
-  const areas: AreaSummary[] = [];
-  for (const area of STUDY_AREAS) {
-    const observations: Observation[] =
-      area === "spelling"
-        ? accents.observations
-        : [
-            ...responses
-              .filter((response) => response.area === area)
-              .map((response) => ({
-                difficulty: response.difficulty,
-                score: areaScore(response),
-                guess: response.guess,
-              })),
-            ...(dictation.get(area)?.observations ?? []),
-          ];
-    if (observations.length < MIN_EVIDENCE) continue;
-
-    const score = Math.round(estimateAbility(observations, prior).theta);
-    const earned = observations.reduce((sum, observation) => sum + observation.score, 0);
-    const expected = observations.reduce(
-      (sum, observation) =>
-        sum + probabilityCorrect(center, observation.difficulty, observation.guess),
-      0,
-    );
-    areas.push({
-      area,
-      score,
-      level: cefrForScore(score),
-      percent: Math.round((earned / observations.length) * 100),
-      total: observations.length,
-      delta: score - Math.round(center),
-      surplus: earned - expected,
-    });
+  function observationsFor(area: StudyArea): Observation[] {
+    if (area === "spelling") return accents.observations;
+    if (area === "intelligibility") {
+      return responses
+        .filter((response) => response.kind === "readAloud")
+        .map((response) => ({ difficulty: response.difficulty, score: response.score }));
+    }
+    return [
+      ...responses
+        .filter((response) => response.area === area)
+        .map((response) => ({
+          difficulty: response.difficulty,
+          score: areaScore(response),
+          guess: response.guess,
+        })),
+      ...(dictation.get(area)?.observations ?? []),
+    ];
   }
+
+  const groups: GroupResult[] = AREA_GROUPS.map((group) => {
+    const perArea = group.areas.map((area) => ({
+      area,
+      observations: observationsFor(area),
+    }));
+    const areas = perArea.map(({ area, observations }) => ({
+      area,
+      status: statusFor(area, observations, center, run),
+    }));
+    const all = perArea.flatMap(({ observations }) => observations);
+    // A group of one area shares its status; a larger group pools its answers.
+    const status =
+      areas.length === 1
+        ? (areas[0]?.status ?? { kind: "untested" })
+        : all.length >= MIN_EVIDENCE
+          ? {
+              kind: "measured" as const,
+              summary: summarize(group.areas[0] ?? "vocabulary", all, center),
+            }
+          : (areas.find((entry) => entry.status.kind === "thin")?.status ??
+            areas.find((entry) => entry.status.kind === "skipped")?.status ?? {
+              kind: "untested" as const,
+            });
+    return { group: group.id, status, areas };
+  });
+
+  const measured = groups.flatMap((group) =>
+    group.areas.flatMap((entry) =>
+      entry.status.kind === "measured" ? [entry.status.summary] : [],
+    ),
+  );
 
   // Near 0 or 100 the estimate cannot move past the edge, so the delta alone can
   // call an area strong with nothing right; the raw surplus has to agree.
-  const strengths = areas
+  const strengths = measured
     .filter((summary) => summary.delta >= DELTA_THRESHOLD && summary.surplus > 0)
     .sort((a, b) => b.delta - a.delta);
 
   const weak = new Map<StudyArea, AreaSummary | null>(
-    areas
+    measured
       .filter((summary) => summary.delta <= -DELTA_THRESHOLD && summary.surplus < 0)
       .sort((a, b) => a.delta - b.delta)
       .map((summary) => [summary.area, summary]),
   );
   // Two slips of one kind in free writing or speech are a pattern even when the
   // short tasks never reached that area.
-  for (const area of STUDY_AREAS) {
+  for (const area of Object.keys(STUDY_AREA_INFO) as StudyArea[]) {
     const count = issues.filter((issue) => ISSUE_AREA[issue.topic] === area).length;
     if (count >= 2 && !weak.has(area) && !strengths.some((s) => s.area === area)) {
-      weak.set(area, areas.find((summary) => summary.area === area) ?? null);
+      weak.set(area, measured.find((summary) => summary.area === area) ?? null);
     }
   }
 
@@ -614,7 +830,7 @@ export function diagnose(
 
   return {
     center: Math.round(center),
-    areas,
+    groups,
     strengths,
     gaps,
     accentSlips,

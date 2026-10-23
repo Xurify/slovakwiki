@@ -6,6 +6,7 @@ import {
   spanOfSubstring,
   tokenizePassage,
 } from "$lib/level-test/passage";
+import { foldDiacritics } from "$lib/level-test/grade";
 import type { CTestPart } from "$lib/level-test/types";
 
 import { listeningSets } from "./listening";
@@ -68,10 +69,23 @@ describe("generated items", () => {
       ...items.listenSelect,
       ...items.fillBlank,
       ...items.listenType,
+      ...items.listenLength,
       ...items.readComplete,
       ...items.readAloud,
     ].map((item) => item.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("keeps both words of every Short or Long pair, one vowel apart in length", () => {
+    for (const item of items.listenLength) {
+      expect([item.short, item.long]).toContain(item.word);
+      expect(foldDiacritics(item.short)).toBe(foldDiacritics(item.long));
+      const partner = item.word === item.short ? item.long : item.short;
+      expect(
+        items.listenLength.some((other) => other.word === partner),
+        partner,
+      ).toBe(true);
+    }
   });
 
   it("never shows a pseudoword that is also a real item", () => {

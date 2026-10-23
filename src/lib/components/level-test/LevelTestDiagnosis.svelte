@@ -3,89 +3,139 @@
   import { chipClass, eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
   import {
     ACCENT_SLIP_INFO,
+    AREA_GROUPS,
     NEXT_STEPS,
     STUDY_AREA_INFO,
+    type AreaStatus,
     type AreaSummary,
     type Diagnosis,
   } from "$lib/level-test/diagnose";
   import type { CefrLevel } from "$lib/level-test/scale";
+  import type { StudyArea } from "$lib/level-test/types";
 
-  import LevelTestRadar from "./LevelTestRadar.svelte";
+  import LevelTestRadar, { type RadarAxis } from "./LevelTestRadar.svelte";
 
   let { diagnosis, level }: { diagnosis: Diagnosis; level: CefrLevel } = $props();
-
-  /** A spider needs three legs; fewer areas read better as the table alone. */
-  const MIN_AREAS_FOR_CHART = 3;
 
   const strong = $derived(new Set(diagnosis.strengths.map((summary) => summary.area)));
   const weak = $derived(new Set(diagnosis.gaps.map((gap) => gap.area)));
 
+  const axes = $derived<RadarAxis[]>(
+    diagnosis.groups.map((group) => ({
+      id: group.group,
+      label: AREA_GROUPS.find((entry) => entry.id === group.group)?.label ?? group.group,
+      summary: group.status.kind === "measured" ? group.status.summary : null,
+    })),
+  );
+
   function counted(summary: AreaSummary): string {
     return `${summary.percent}% right over ${summary.total} answers`;
   }
+
+  function unmeasured(status: AreaStatus): string {
+    switch (status.kind) {
+      case "thin":
+        return `Not enough data: ${status.count === 1 ? "1 answer" : `${status.count} answers`}`;
+      case "skipped":
+        return status.reason;
+      case "untested":
+        return "No task in the test measures this yet";
+      default:
+        return "";
+    }
+  }
 </script>
 
-{#if diagnosis.areas.length}
-  <section aria-labelledby="level-test-areas" class="grid gap-3">
-    <h3 id="level-test-areas" class={eyebrowMutedClass}>Strengths and gaps</h3>
-
-    <div
-      class="{panelClass} grid items-center gap-6 px-6 py-6 max-[560px]:px-4"
-      class:md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]={diagnosis.areas.length >=
-        MIN_AREAS_FOR_CHART}
+{#snippet row(
+  label: string,
+  slovak: string,
+  status: AreaStatus,
+  area: StudyArea | null,
+  nested: boolean,
+)}
+  <tr class="border-b border-slate-200 last:border-b-0">
+    <th
+      class="py-2 pr-3 text-left text-slate-900"
+      class:font-semibold={!nested}
+      class:font-normal={nested}
+      class:pl-4={nested}
+      scope="row"
     >
-      {#if diagnosis.areas.length >= MIN_AREAS_FOR_CHART}
-        <LevelTestRadar areas={diagnosis.areas} center={diagnosis.center} />
+      {label}
+
+      {#if area && strong.has(area)}
+        <span class="ml-1 text-xs font-semibold text-emerald-700">Strong</span>
+      {:else if area && weak.has(area)}
+        <span class="ml-1 text-xs font-semibold text-rose-700">To work on</span>
       {/if}
 
-      <table class="w-full border-collapse text-sm">
-        <thead>
-          <tr class="border-b border-slate-200 text-left text-xs text-slate-500">
-            <th class="py-2 pr-3 font-semibold" scope="col">Area</th>
-            <th class="px-3 py-2 font-semibold" scope="col">Level</th>
-            <th class="py-2 pl-3 text-right font-semibold" scope="col">Right</th>
-          </tr>
-        </thead>
+      <span class="block font-serif text-xs font-normal text-slate-500" lang="sk">
+        {slovak}
+      </span>
+    </th>
 
-        <tbody>
-          {#each diagnosis.areas as summary (summary.area)}
-            <tr class="border-b border-slate-200 last:border-b-0">
-              <th class="py-2 pr-3 text-left font-semibold text-slate-900" scope="row">
-                {STUDY_AREA_INFO[summary.area].label}
+    {#if status.kind === "measured"}
+      <td class="px-3 py-2 whitespace-nowrap text-slate-700">
+        {status.summary.level} · <span class="tabular-nums">{status.summary.score}</span>
+      </td>
+      <td class="py-2 pl-3 text-right whitespace-nowrap text-slate-600 tabular-nums">
+        {status.summary.percent}%
+      </td>
+    {:else}
+      <td class="px-3 py-2 text-xs text-slate-500" colspan="2">{unmeasured(status)}</td>
+    {/if}
+  </tr>
+{/snippet}
 
-                {#if strong.has(summary.area)}
-                  <span class="ml-1 text-xs font-semibold text-emerald-700">Strong</span>
-                {:else if weak.has(summary.area)}
-                  <span class="ml-1 text-xs font-semibold text-rose-700">To work on</span>
-                {/if}
+<section aria-labelledby="level-test-areas" class="grid gap-3">
+  <h3 id="level-test-areas" class={eyebrowMutedClass}>Strengths and gaps</h3>
 
-                <span
-                  class="block font-serif text-xs font-normal text-slate-500"
-                  lang="sk"
-                >
-                  {STUDY_AREA_INFO[summary.area].slovak}
-                </span>
-              </th>
-              <td class="px-3 py-2 whitespace-nowrap text-slate-700">
-                {summary.level} · <span class="tabular-nums">{summary.score}</span>
-              </td>
-              <td
-                class="py-2 pl-3 text-right whitespace-nowrap text-slate-600 tabular-nums"
-              >
-                {summary.percent}%
-              </td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
+  <div class="{panelClass} grid gap-6 px-6 py-6 max-[560px]:px-4">
+    <LevelTestRadar {axes} center={diagnosis.center} />
 
-    <p class="m-0 px-1 text-xs text-slate-500">
-      Each area starts at your overall level and moves with your answers, so a single slip
-      does not count as a gap.
-    </p>
-  </section>
-{/if}
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr class="border-b border-slate-200 text-left text-xs text-slate-500">
+          <th class="py-2 pr-3 font-semibold" scope="col">Part of Slovak</th>
+          <th class="px-3 py-2 font-semibold" scope="col">Level</th>
+          <th class="py-2 pl-3 text-right font-semibold" scope="col">Right</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {#each diagnosis.groups as group (group.group)}
+          {@const info = AREA_GROUPS.find((entry) => entry.id === group.group)}
+          {#if info}
+            {@render row(
+              info.label,
+              info.slovak,
+              group.status,
+              group.areas.length === 1 ? (group.areas[0]?.area ?? null) : null,
+              false,
+            )}
+
+            {#if group.areas.length > 1}
+              {#each group.areas as entry (entry.area)}
+                {@render row(
+                  STUDY_AREA_INFO[entry.area].label,
+                  STUDY_AREA_INFO[entry.area].slovak,
+                  entry.status,
+                  entry.area,
+                  true,
+                )}
+              {/each}
+            {/if}
+          {/if}
+        {/each}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="m-0 px-1 text-xs text-slate-500">
+    Each part starts at your overall level and moves with your answers, so a single slip
+    does not count as a gap. A part with too few answers says so instead of guessing.
+  </p>
+</section>
 
 {#if diagnosis.strengths.length}
   <section aria-labelledby="level-test-strengths" class="grid gap-3">

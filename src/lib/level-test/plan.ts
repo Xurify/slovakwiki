@@ -14,11 +14,14 @@ import type {
  * One pass through the adaptive formats. Counts follow the DET's per-test
  * ranges (Read and Select 15–18, Fill in the Blanks 6–9, Read and Complete 3–6,
  * Listen and Type 6–9) spread over three rounds; Listen and Select is the audio
- * yes/no format from the original DET paper.
+ * yes/no format from the original DET paper. Short or Long is this test's own:
+ * Slovak vowel length changes meaning (mala, malá), which English has no task for.
  */
 const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
   [
     ...Array<AdaptiveFormat>(6).fill("readSelect"),
+    "listenLength",
+    "fillBlank",
     "fillBlank",
     "fillBlank",
     "listenSelect",
@@ -28,6 +31,8 @@ const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
   ],
   [
     ...Array<AdaptiveFormat>(6).fill("readSelect"),
+    "listenLength",
+    "fillBlank",
     "fillBlank",
     "fillBlank",
     "listenType",
@@ -36,6 +41,8 @@ const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
   ],
   [
     ...Array<AdaptiveFormat>(6).fill("readSelect"),
+    "listenLength",
+    "fillBlank",
     "fillBlank",
     "fillBlank",
     "listenSelect",
@@ -58,6 +65,7 @@ export const SKILL_FOR_FORMAT: Record<AdaptiveFormat, Skill> = {
   fillBlank: "reading",
   readComplete: "reading",
   listenSelect: "listening",
+  listenLength: "listening",
   listenType: "listening",
 };
 
@@ -65,6 +73,7 @@ export const SKILL_FOR_FORMAT: Record<AdaptiveFormat, Skill> = {
 export const GUESS_FOR_FORMAT: Partial<Record<AdaptiveFormat, number>> = {
   readSelect: 0.5,
   listenSelect: 0.5,
+  listenLength: 0.5,
 };
 
 export const SECTION_LABEL: Record<TestSection, string> = {
@@ -83,6 +92,7 @@ export const SECTION_LABEL: Record<TestSection, string> = {
 export const TIME_LIMIT_SECONDS: Partial<Record<StepKind, number>> = {
   readSelect: 5,
   listenSelect: 90,
+  listenLength: 60,
   fillBlank: 30,
   readComplete: 240,
   listenType: 90,
@@ -231,19 +241,37 @@ export function seededRandom(seed: number): () => number {
  * at random among the nearest (not always the single nearest) keeps two test
  * takers at the same level from seeing the same items, as the DET's bins do.
  */
+/**
+ * How much farther from the target (scale points, about 0.8 logit) an item a
+ * learner has not seen before may sit and still be preferred over a seen one.
+ */
+export const SEEN_SLACK = 8;
+
+/**
+ * One of the `window` unused items closest to the target ("randomesque"), so
+ * two learners at the same level rarely see the same sequence. Items in
+ * `avoid` (seen in an earlier run) are skipped while an unseen one is close.
+ */
 export function pickNearest<T extends { id: string; difficulty: number }>(
   pool: readonly T[],
   target: number,
   used: ReadonlySet<string>,
   random: () => number,
   window = 4,
+  avoid?: ReadonlySet<string>,
 ): T | undefined {
+  const distance = (item: T): number => Math.abs(item.difficulty - target);
   const ranked = pool
     .filter((item) => !used.has(item.id))
-    .sort((a, b) => Math.abs(a.difficulty - target) - Math.abs(b.difficulty - target))
-    .slice(0, window);
-  if (ranked.length === 0) return undefined;
-  return ranked[Math.floor(random() * ranked.length)];
+    .sort((a, b) => distance(a) - distance(b));
+  const nearest = ranked[0];
+  if (!nearest) return undefined;
+  const limit = distance(nearest) + SEEN_SLACK;
+  const unseen = avoid
+    ? ranked.filter((item) => !avoid.has(item.id) && distance(item) <= limit)
+    : [];
+  const choices = (unseen.length ? unseen : ranked).slice(0, window);
+  return choices[Math.floor(random() * choices.length)];
 }
 
 export function itemsOfFormat<F extends AdaptiveFormat>(

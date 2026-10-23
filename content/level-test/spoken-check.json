@@ -55,6 +55,14 @@
   "heard": "čestajne",
   "heardAsReal": false
  },
+ "čochovo": {
+  "heard": "čochovo",
+  "heardAsReal": false
+ },
+ "demožne": {
+  "heard": "kde možné",
+  "heardAsReal": true
+ },
  "demožniť": {
   "heard": "demožniť",
   "heardAsReal": false
@@ -95,6 +103,10 @@
   "heard": "ekonomický",
   "heardAsReal": true
  },
+ "enerský": {
+  "heard": "energií",
+  "heardAsReal": true
+ },
  "eurofa": {
   "heard": "eurofa",
   "heardAsReal": false
@@ -107,6 +119,10 @@
   "heard": "sandka",
   "heardAsReal": false
  },
+ "formálo": {
+  "heard": "formálo",
+  "heardAsReal": false
+ },
  "fronteriér": {
   "heard": "frontier",
   "heardAsReal": true
@@ -114,6 +130,10 @@
  "haváha": {
   "heard": "havaha",
   "heardAsReal": false
+ },
+ "hneďale": {
+  "heard": "nie ďalej",
+  "heardAsReal": true
  },
  "hokejina": {
   "heard": "hokejina",
@@ -126,6 +146,10 @@
  "hospodák": {
   "heard": "hospodák",
   "heardAsReal": false
+ },
+ "hospoko": {
+  "heard": "no spoko",
+  "heardAsReal": true
  },
  "hosporuke": {
   "heard": "hosporuke",
@@ -143,12 +167,20 @@
   "heard": "charadca",
   "heardAsReal": false
  },
+ "cheoločný": {
+  "heard": "georgy",
+  "heardAsReal": false
+ },
  "inšpec": {
   "heard": "inšpekcia",
   "heardAsReal": true
  },
  "inšpechnolór": {
   "heard": "inžpechnolóre",
+  "heardAsReal": false
+ },
+ "inšpička": {
+  "heard": "inšpička",
   "heardAsReal": false
  },
  "inštip": {
@@ -179,6 +211,10 @@
   "heard": "jedník",
   "heardAsReal": false
  },
+ "kaštrum": {
+  "heard": "kaštrum",
+  "heardAsReal": false
+ },
  "klesnažiť": {
   "heard": "kvesnažiť",
   "heardAsReal": false
@@ -199,12 +235,20 @@
   "heard": "kriminálny",
   "heardAsReal": true
  },
+ "kvapivo": {
+  "heard": "kvapivo",
+  "heardAsReal": false
+ },
  "kvidieľať": {
   "heard": "k vydieľať",
   "heardAsReal": false
  },
  "leteľne": {
   "heard": "letelňa",
+  "heardAsReal": false
+ },
+ "lierka": {
+  "heard": "lierka",
   "heardAsReal": false
  },
  "lístupca": {
@@ -267,6 +311,10 @@
   "heard": "nádherený",
   "heardAsReal": false
  },
+ "nadoxne": {
+  "heard": "nadoxne",
+  "heardAsReal": false
+ },
  "naklopakovať": {
   "heard": "naklopakovať",
   "heardAsReal": false
@@ -278,6 +326,10 @@
  "navedčivo": {
   "heard": "naveďčivo",
   "heardAsReal": false
+ },
+ "navlastne": {
+  "heard": "no vlastne",
+  "heardAsReal": true
  },
  "návštevanie": {
   "heard": "návštevanie",
@@ -307,8 +359,16 @@
   "heard": "nemierovský",
   "heardAsReal": false
  },
+ "nepodovo": {
+  "heard": "nepodovo",
+  "heardAsReal": false
+ },
  "neprihovať": {
   "heard": "neprihováť",
+  "heardAsReal": false
+ },
+ "neskoročne": {
+  "heard": "neskoročne",
   "heardAsReal": false
  },
  "nesmierový": {
@@ -322,6 +382,10 @@
  "netranne": {
   "heard": "niet ranne",
   "heardAsReal": true
+ },
+ "neusponútiť": {
+  "heard": "neusponútiť",
+  "heardAsReal": false
  },
  "nevideolo": {
   "heard": "nevideolo",
@@ -371,6 +435,10 @@
   "heard": "odložiadať",
   "heardAsReal": false
  },
+ "odmiešne": {
+  "heard": "odmietne",
+  "heardAsReal": true
+ },
  "odovek": {
   "heard": "odovek",
   "heardAsReal": false
@@ -385,6 +453,10 @@
  },
  "ohromaticky": {
   "heard": "ohromaticky",
+  "heardAsReal": false
+ },
+ "okrvne": {
+  "heard": "okrvne",
   "heardAsReal": false
  },
  "operovský": {
@@ -427,8 +499,20 @@
   "heard": "pedaktivita",
   "heardAsReal": false
  },
+ "písmera": {
+  "heard": "písmera",
+  "heardAsReal": false
+ },
+ "pobaveky": {
+  "heard": "pobaveky",
+  "heardAsReal": false
+ },
  "pobrodencia": {
   "heard": "pobrodencia",
+  "heardAsReal": false
+ },
+ "podmiešne": {
+  "heard": "podmiešne",
   "heardAsReal": false
  },
  "polinica": {
@@ -447,6 +531,10 @@
   "heard": "popoluha",
   "heardAsReal": false
  },
+ "poprávno": {
+  "heard": "poprávno",
+  "heardAsReal": false
+ },
  "poprechnický": {
   "heard": "poprachnický",
   "heardAsReal": false
@@ -463,8 +551,20 @@
   "heard": "porizen",
   "heardAsReal": false
  },
+ "poročne": {
+  "heard": "po ročne",
+  "heardAsReal": true
+ },
+ "poskytok": {
+  "heard": "poskytok",
+  "heardAsReal": false
+ },
  "posvetový": {
   "heard": "posvetový",
+  "heardAsReal": false
+ },
+ "potratúra": {
+  "heard": "potratúra",
   "heardAsReal": false
  },
  "potreliť": {
@@ -503,6 +603,10 @@
   "heard": "pre dievča",
   "heardAsReal": true
  },
+ "prednodenne": {
+  "heard": "prednodenne",
+  "heardAsReal": false
+ },
  "prednostávať": {
   "heard": "prednostávať",
   "heardAsReal": false
@@ -523,12 +627,20 @@
   "heard": "predpoveď",
   "heardAsReal": true
  },
+ "predsedieť": {
+  "heard": "predsedieť",
+  "heardAsReal": false
+ },
  "prechtivo": {
   "heard": "prechtivo",
   "heardAsReal": false
  },
  "prekvaliať": {
   "heard": "prekvaliať",
+  "heardAsReal": false
+ },
+ "prenivo": {
+  "heard": "prenivo",
   "heardAsReal": false
  },
  "prepor": {
@@ -591,6 +703,14 @@
   "heard": "produšiť",
   "heardAsReal": false
  },
+ "psychtivo": {
+  "heard": "psychtivo",
+  "heardAsReal": false
+ },
+ "pýchlad": {
+  "heard": "píchlat",
+  "heardAsReal": false
+ },
  "radent": {
   "heard": "redent",
   "heardAsReal": false
@@ -618,6 +738,10 @@
  "relaticky": {
   "heard": "relatívny",
   "heardAsReal": true
+ },
+ "releskoro": {
+  "heard": "rele skoro",
+  "heardAsReal": false
  },
  "repodhadavka": {
   "heard": "repodhadávka",
@@ -811,9 +935,17 @@
   "heard": "štauráca",
   "heardAsReal": false
  },
+ "techutene": {
+  "heard": "tešúťene",
+  "heardAsReal": false
+ },
  "telekcia": {
   "heard": "tá lekcia",
   "heardAsReal": true
+ },
+ "teolór": {
+  "heard": "teolór",
+  "heardAsReal": false
  },
  "testniť": {
   "heard": "testniť",
@@ -863,6 +995,10 @@
   "heard": "upresovať",
   "heardAsReal": false
  },
+ "úprijateľský": {
+  "heard": "úpriateľský",
+  "heardAsReal": false
+ },
  "večervózne": {
   "heard": "večer vôzne",
   "heardAsReal": false
@@ -901,6 +1037,10 @@
  },
  "výbavedenie": {
   "heard": "výbavedenie",
+  "heardAsReal": false
+ },
+ "vybovať": {
+  "heard": "vybovať",
   "heardAsReal": false
  },
  "výcvička": {
@@ -945,6 +1085,10 @@
  },
  "vystrafiť": {
   "heard": "vystrafiť",
+  "heardAsReal": false
+ },
+ "vyžreberať": {
+  "heard": "vyžreberať",
   "heardAsReal": false
  },
  "zábavebník": {

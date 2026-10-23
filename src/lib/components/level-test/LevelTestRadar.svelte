@@ -1,9 +1,19 @@
+<script lang="ts" module>
+  import type { AreaSummary } from "$lib/level-test/diagnose";
+
+  export interface RadarAxis {
+    id: string;
+    label: string;
+    /** Null when the test could not measure this axis. */
+    summary: AreaSummary | null;
+  }
+</script>
+
 <script lang="ts">
-  import { STUDY_AREA_INFO, type AreaSummary } from "$lib/level-test/diagnose";
   import { CEFR_ANCHOR, CEFR_LEVELS } from "$lib/level-test/scale";
 
-  /** One learner, several areas, on the test's 0–100 scale; CEFR rings are the grid. */
-  let { areas, center }: { areas: AreaSummary[]; center: number } = $props();
+  /** One learner on the test's 0–100 scale; CEFR rings are the grid. */
+  let { axes, center }: { axes: RadarAxis[]; center: number } = $props();
 
   const SIZE = 340;
   const MID = SIZE / 2;
@@ -13,7 +23,7 @@
   let active = $state<number | null>(null);
 
   const angles = $derived(
-    areas.map((_, index) => -Math.PI / 2 + (index * 2 * Math.PI) / areas.length),
+    axes.map((_, index) => -Math.PI / 2 + (index * 2 * Math.PI) / axes.length),
   );
 
   function point(angle: number, score: number, extra = 0): { x: number; y: number } {
@@ -22,10 +32,24 @@
   }
 
   const vertices = $derived(
-    areas.map((area, index) => point(angles[index] ?? 0, area.score)),
+    axes.map((axis, index) =>
+      axis.summary ? point(angles[index] ?? 0, axis.summary.score) : null,
+    ),
   );
 
-  const outline = $derived(vertices.map(({ x, y }) => `${x},${y}`).join(" "));
+  const complete = $derived(vertices.every((vertex) => vertex !== null));
+
+  /** Lines only between neighbouring axes that were both measured: no made-up values. */
+  const segments = $derived(
+    vertices.flatMap((vertex, index) => {
+      const next = vertices[(index + 1) % vertices.length];
+      return vertex && next && axes.length > 2 ? [{ from: vertex, to: next }] : [];
+    }),
+  );
+
+  const outline = $derived(
+    vertices.flatMap((vertex) => (vertex ? [`${vertex.x},${vertex.y}`] : [])).join(" "),
+  );
 
   const rings = CEFR_LEVELS.filter((level) => CEFR_ANCHOR[level] > 0);
 
@@ -36,21 +60,22 @@
     return "middle";
   }
 
+  /** Two-line labels: keep them off the ring above and below the chart. */
   function baseline(angle: number): number {
     const sin = Math.sin(angle);
     if (sin > 0.3) return 12;
-    if (sin < -0.3) return -4;
-    return 4;
+    if (sin < -0.3) return -18;
+    return -4;
   }
 </script>
 
 <figure class="m-0 grid gap-3">
-  <div class="relative mx-auto w-full max-w-[400px]">
+  <div class="relative mx-auto w-full max-w-[420px]">
     <svg
       class="block h-auto w-full overflow-visible"
-      viewBox="-50 0 {SIZE + 100} {SIZE}"
+      viewBox="-60 0 {SIZE + 120} {SIZE}"
       role="img"
-      aria-label="Your level in each area, on the CEFR scale"
+      aria-label="Your level in each part of Slovak, on the CEFR scale"
     >
       {#each rings as level (level)}
         <circle
@@ -87,67 +112,91 @@
         stroke-width="1.5"
       />
 
-      <polygon
-        class="fill-blue-600/15 stroke-blue-600"
-        points={outline}
-        stroke-width="2"
-        stroke-linejoin="round"
-      />
+      {#if complete}
+        <polygon class="fill-blue-600/15 stroke-none" points={outline} />
+      {/if}
 
-      {#each areas as area, index (area.area)}
+      {#each segments as segment, index (index)}
+        <line
+          class="stroke-blue-600"
+          x1={segment.from.x}
+          y1={segment.from.y}
+          x2={segment.to.x}
+          y2={segment.to.y}
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      {/each}
+
+      {#each axes as axis, index (axis.id)}
         {@const angle = angles[index] ?? 0}
-        {@const vertex = vertices[index] ?? { x: MID, y: MID }}
+        {@const vertex = vertices[index]}
         {@const label = point(angle, 100, LABEL_GAP)}
         <text
-          class="fill-slate-700 text-[15px] font-semibold"
+          class="text-[15px] font-semibold {axis.summary
+            ? 'fill-slate-700'
+            : 'fill-slate-400'}"
           x={label.x}
           y={label.y + baseline(angle)}
-          text-anchor={anchor(angle)}>{STUDY_AREA_INFO[area.area].label}</text
+          text-anchor={anchor(angle)}
         >
+          <tspan x={label.x}>{axis.label}</tspan>
+          <tspan class="text-[12px] font-normal" x={label.x} dy="16"
+            >{axis.summary
+              ? `${axis.summary.level} · ${axis.summary.score}`
+              : "not measured"}</tspan
+          >
+        </text>
 
-        <circle
-          class="fill-blue-600 stroke-surface"
-          cx={vertex.x}
-          cy={vertex.y}
-          r={active === index ? 6 : 4.5}
-          stroke-width="2"
-        />
+        {#if vertex && axis.summary}
+          <circle
+            class="fill-blue-600 stroke-surface"
+            cx={vertex.x}
+            cy={vertex.y}
+            r={active === index ? 6 : 4.5}
+            stroke-width="2"
+          />
 
-        <!-- Bigger than the dot, so it is easy to hover or tap. -->
-        <circle
-          class="cursor-default fill-transparent outline-none"
-          cx={vertex.x}
-          cy={vertex.y}
-          r="14"
-          role="button"
-          tabindex="0"
-          aria-label={`${STUDY_AREA_INFO[area.area].label}: ${area.level}, ${area.score}`}
-          onpointerenter={() => (active = index)}
-          onpointerleave={() => (active = null)}
-          onfocus={() => (active = index)}
-          onblur={() => (active = null)}
-        />
+          <!-- Bigger than the dot, so it is easy to hover or tap. -->
+          <circle
+            class="cursor-default fill-transparent outline-none"
+            cx={vertex.x}
+            cy={vertex.y}
+            r="14"
+            role="button"
+            tabindex="0"
+            aria-label={`${axis.label}: ${axis.summary.level}, ${axis.summary.score}`}
+            onpointerenter={() => (active = index)}
+            onpointerleave={() => (active = null)}
+            onfocus={() => (active = index)}
+            onblur={() => (active = null)}
+          />
+        {/if}
       {/each}
     </svg>
 
-    {#if active !== null && areas[active] && vertices[active]}
-      {@const area = areas[active]}
+    {#if active !== null}
+      {@const axis = axes[active]}
       {@const vertex = vertices[active]}
-      <div
-        class="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+12px)] rounded-(--control-radius) bg-surface px-3 py-2 text-xs whitespace-nowrap shadow-(--shadow-float) ring-1 ring-slate-200"
-        style:left="{((vertex.x + 50) / (SIZE + 100)) * 100}%"
-        style:top="{(vertex.y / SIZE) * 100}%"
-      >
-        <p class="m-0 font-semibold text-slate-900">{STUDY_AREA_INFO[area.area].label}</p>
-        <p class="m-0 text-slate-600">
-          {area.level} · {area.score} · {area.percent}% right over {area.total} answers
-        </p>
-      </div>
+      {#if axis?.summary && vertex}
+        <div
+          class="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+12px)] rounded-(--control-radius) bg-surface px-3 py-2 text-xs whitespace-nowrap shadow-(--shadow-float) ring-1 ring-slate-200"
+          style:left="{((vertex.x + 60) / (SIZE + 120)) * 100}%"
+          style:top="{(vertex.y / SIZE) * 100}%"
+        >
+          <p class="m-0 font-semibold text-slate-900">{axis.label}</p>
+          <p class="m-0 text-slate-600">
+            {axis.summary.level} · {axis.summary.score} · {axis.summary.percent}% right
+            over {axis.summary.total} answers
+          </p>
+        </div>
+      {/if}
     {/if}
   </div>
 
   <figcaption class="m-0 text-center text-xs text-pretty text-slate-600">
-    The blue shape is your level in each area; the grey circle is your overall level,
-    {center}. Rings mark the CEFR levels.
+    The blue line is your level in each part; the grey circle is your overall level,
+    {center}. Rings mark the CEFR levels. Names in grey are parts this test could not
+    measure.
   </figcaption>
 </figure>

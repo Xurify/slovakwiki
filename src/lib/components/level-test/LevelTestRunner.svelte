@@ -2,6 +2,7 @@
   import { onDestroy, onMount, tick } from "svelte";
 
   import { iconButtonClass, iconButtonToneClass } from "$lib/components/ui/system-ui";
+  import { addCoverage } from "$lib/level-test/areas";
   import { gradeReadAloud } from "$lib/level-test/grade";
   import { SECTION_LABEL, TIME_LIMIT_SECONDS, seededRandom } from "$lib/level-test/plan";
   import {
@@ -26,10 +27,12 @@
   import { requestScore, requestTranscript } from "./client";
   import { portal } from "./portal";
   import { closeMicrophone, openMicrophone } from "./recorder";
+  import { readSeenItems, rememberSeenItems } from "./storage";
   import type { ProductionDraft, StepResult } from "./steps";
   import FillBlankTask from "./tasks/FillBlankTask.svelte";
   import InteractiveListeningTask from "./tasks/InteractiveListeningTask.svelte";
   import InteractiveReadingTask from "./tasks/InteractiveReadingTask.svelte";
+  import ListenLengthTask from "./tasks/ListenLengthTask.svelte";
   import ListenSelectTask from "./tasks/ListenSelectTask.svelte";
   import ListenTypeTask from "./tasks/ListenTypeTask.svelte";
   import PlannedTask from "./tasks/PlannedTask.svelte";
@@ -80,6 +83,8 @@
     used: new Set(),
     balance: 0,
     random: seededRandom(Date.now()),
+    seen: readSeenItems(),
+    coverage: new Map(),
   };
 
   const step = $derived(plan[index]);
@@ -171,6 +176,8 @@
 
   function stepDone(result: StepResult): void {
     responses = [...responses, ...result.responses];
+    addCoverage(picker.coverage, result.responses);
+    rememberSeenItems(picker.used);
 
     for (const draft of result.production ?? []) {
       const id = `${draft.kind}-${production.length}`;
@@ -304,6 +311,8 @@
           <ReadSelectTask item={content.item} {seconds} ondone={stepDone} />
         {:else if content.kind === "listenSelect"}
           <ListenSelectTask items={content.items} {seconds} ondone={stepDone} />
+        {:else if content.kind === "listenLength"}
+          <ListenLengthTask items={content.items} {seconds} ondone={stepDone} />
         {:else if content.kind === "fillBlank"}
           <FillBlankTask item={content.item} {seconds} ondone={stepDone} />
         {:else if content.kind === "readComplete"}

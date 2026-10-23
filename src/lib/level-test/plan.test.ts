@@ -34,7 +34,8 @@ describe("buildPlan", () => {
     const plan = buildPlan({ mode: "full", capabilities: allOn, speaking: true });
     const count = (kind: string) => plan.filter((step) => step.kind === kind).length;
     expect(count("readSelect")).toBe(18);
-    expect(count("fillBlank")).toBe(6);
+    expect(count("fillBlank")).toBe(9);
+    expect(count("listenLength")).toBe(3);
     expect(count("listenType")).toBe(6);
     expect(count("readComplete")).toBe(3);
     expect(count("writePhoto")).toBe(3);
@@ -101,6 +102,16 @@ describe("pickNearest", () => {
   it("skips used items", () => {
     const picked = pickNearest(pool, 10, new Set(["w10"]), seededRandom(2), 1);
     expect(picked?.id).toBe("w20");
+  });
+
+  it("prefers an item from no earlier run while one is close", () => {
+    const seen = new Set(["w30"]);
+    expect(pickNearest(pool, 34, new Set(), seededRandom(3), 1, seen)?.id).toBe("w40");
+  });
+
+  it("repeats a seen item rather than drift far from the target", () => {
+    const seen = new Set(["w10", "w20", "w30"]);
+    expect(pickNearest(pool, 10, new Set(), seededRandom(4), 1, seen)?.id).toBe("w10");
   });
 });
 

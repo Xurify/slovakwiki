@@ -13,6 +13,7 @@ import type {
   FillBlankItem,
   InteractiveListeningSet,
   LevelTestBank,
+  ListenLengthItem,
   ListenSelectItem,
   ListenTypeItem,
   PhotoPrompt,
@@ -65,6 +66,17 @@ function listenSelectItems(): ListenSelectItem[] {
   });
   const pseudowords = voiced.filter((item) => !item.real).length;
   return pseudowords >= MIN_LISTEN_SELECT_PSEUDOWORDS ? voiced : [];
+}
+
+/** A pair plays only when both of its words have a clip, or one answer would always be the other. */
+function listenLengthItems(): ListenLengthItem[] {
+  const voiced = (items.listenLength ?? []).flatMap((item) => {
+    const audio = clipSrc(item.word, "lemma");
+    return audio ? [{ ...item, format: "listenLength" as const, audio }] : [];
+  });
+  return voiced.filter(
+    (item) => voiced.filter((other) => other.short === item.short).length === 2,
+  );
 }
 
 function listenTypeItems(): ListenTypeItem[] {
@@ -154,6 +166,7 @@ export function buildLevelTestBank(): LevelTestBank {
   const adaptive: AdaptiveItem[] = [
     ...(items.readSelect as AdaptiveItem[]),
     ...listenSelectItems(),
+    ...listenLengthItems(),
     ...fillBlankItems(),
     ...readCompleteItems(),
     ...listenTypeItems(),

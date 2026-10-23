@@ -21,7 +21,7 @@ const FUNCTION_WORDS = new Set(
 
 /** Question, relative and indefinite pronouns, which decline like the rest. */
 const OTHER_PRONOUN =
-  /^(?:kto|čo|koho|komu|čom|čím|niečo|nič|niekto|nikto|všetko)$|^(?:ktor|každ|niektor|mnoh|všetk|všetc|žiadn|nijak)\p{L}*$/u;
+  /^(?:kto|čo|koho|komu|čom|čím|niečo|nič|niekto|nikto|všetko|všetci|všetky|všetka|všetku)$|^(?:ktor|každ|niektor|mnoh|žiadn|nijak|všetk)(?:ý|á|é|í|ého|ej|ému|om|ú|ou|ých|ým|ými)$/u;
 
 const NUMBER =
   /^(?:jeden|jedna|jedno|dva|dve|tri|štyri|päť|šesť|sedem|osem|deväť|desať|\p{L}+násť|dvadsať|tridsať|štyridsať|\p{L}+desiat|sto|tisíc)$|^(?:prv|druh|tret|štvrt|piat|šiest|siedm|ôsm|deviat|desiat)(?:ý|á|é|í|ej|ého|ému|om|ou|ú|ých|ým|ými)$/u;
@@ -55,6 +55,8 @@ interface DictionaryForm {
   class: WordClass;
   verified: boolean;
   rank: number;
+  /** A place or other name: its forms are capitalised, never a plain word. */
+  proper: boolean;
 }
 
 let pronounIndex: Map<string, PronounForm> | undefined;
@@ -106,6 +108,7 @@ function buildDictionaryIndex(): Map<string, DictionaryForm> {
       class: wordClass,
       verified: formsVerified(entry.slovak, entry.category, entry.gender),
       rank: entry.frequency?.rank ?? Number.MAX_SAFE_INTEGER,
+      proper: entry.category === "Places" || /^\p{Lu}/u.test(entry.slovak),
     };
     const forms = [
       entry.slovak,
@@ -152,4 +155,22 @@ export function tagWord(surface: string): WordTag {
   if (entry) return { class: entry.class, lemma: entry.lemma, slug: entry.slug };
 
   return { class: "other" };
+}
+
+/**
+ * A plain Slovak word as written in lower case: a dictionary word, one of its
+ * forms, or a function word. Names (Nemecka, Číny) and stray spellings are not.
+ */
+export function isCommonWord(surface: string): boolean {
+  const word = lower(surface);
+  if (FUNCTION_WORDS.has(word) || OTHER_PRONOUN.test(word) || NUMBER.test(word))
+    return true;
+  if (VERB_TOPICS.has(word)) return true;
+  pronounIndex ??= buildPronounIndex();
+  if (pronounIndex.has(word)) return true;
+  dictionaryIndex ??= buildDictionaryIndex();
+  const head = headwords?.get(word);
+  if (head === null) return true;
+  const entry = head ?? dictionaryIndex.get(word);
+  return entry !== undefined && !entry.proper;
 }

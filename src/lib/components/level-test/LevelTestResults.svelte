@@ -76,7 +76,14 @@
     production.filter((record) => record.status === "pending").length,
   );
   const result = $derived(computeResult(responses, production));
-  const diagnosis = $derived(diagnose(responses, production, currentTheta(responses)));
+  const diagnosis = $derived(
+    diagnose(responses, production, currentTheta(responses), {
+      stepKinds: new Set(plan.map((step) => step.kind)),
+      mode,
+      microphone,
+      transcription: capabilities.transcription,
+    }),
+  );
   let saved = false;
 
   $effect(() => {

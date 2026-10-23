@@ -1,8 +1,40 @@
 import { describe, expect, it } from "vitest";
 
-import { diagnose } from "./diagnose";
-import { areaForTag } from "./session";
-import type { ItemResponse, ProductionRecord, WordTag } from "./types";
+import { diagnose, type AreaStatus, type Diagnosis, type RunContext } from "./diagnose";
+import { areaForTag } from "./areas";
+import type { ItemResponse, ProductionRecord, StudyArea, WordTag } from "./types";
+
+const QUICK: RunContext = {
+  stepKinds: new Set([
+    "readSelect",
+    "listenSelect",
+    "fillBlank",
+    "readComplete",
+    "listenType",
+  ]),
+  mode: "quick",
+  microphone: false,
+  transcription: false,
+};
+
+function statusOf(result: Diagnosis, area: StudyArea): AreaStatus | undefined {
+  return result.groups
+    .flatMap((group) => group.areas)
+    .find((entry) => entry.area === area)?.status;
+}
+
+function measured(result: Diagnosis): StudyArea[] {
+  return result.groups.flatMap((group) =>
+    group.areas.flatMap((entry) =>
+      entry.status.kind === "measured" ? [entry.area] : [],
+    ),
+  );
+}
+
+function percent(result: Diagnosis, area: StudyArea): number | undefined {
+  const status = statusOf(result, area);
+  return status?.kind === "measured" ? status.summary.percent : undefined;
+}
 
 function gap(
   expected: string,
@@ -29,19 +61,15 @@ const noun: WordTag = { class: "noun", lemma: "škola", slug: "skola" };
 const verb: WordTag = { class: "verb", lemma: "chodiť", slug: "chodit" };
 
 describe("diagnose", () => {
-  it("finds a gap in noun endings and a strength in verbs", () => {
+  it("finds a gap in noun cases and a strength in verbs", () => {
     const responses = [
       ...[1, 2, 3, 4, 5].map((n) => gap("školy", `škol${"aeiou"[n - 1]}`, noun)),
       ...[1, 2, 3, 4, 5].map((n) => gap("chodí", "chodí", verb, 30 + n)),
     ];
-    const result = diagnose(responses, [], 30);
+    const result = diagnose(responses, [], 30, QUICK);
 
-    expect(result.areas.map((area) => area.area)).toEqual([
-      "declension",
-      "conjugation",
-      "spelling",
-    ]);
-    expect(result.gaps[0]?.area).toBe("declension");
+    expect(measured(result)).toEqual(["nouns", "conjugation", "spelling"]);
+    expect(result.gaps[0]?.area).toBe("nouns");
     expect(result.gaps[0]?.examples[0]).toMatchObject({
       expected: "školy",
       note: "škola",
@@ -55,25 +83,49 @@ describe("diagnose", () => {
 
   it("never calls an area strong with nothing right", () => {
     const responses = [1, 2, 3].map((n) => gap("malá", "maľ", noun, n));
-    const result = diagnose(responses, [], 0);
+    const result = diagnose(responses, [], 0, QUICK);
     expect(result.strengths).toEqual([]);
   });
 
-  it("leaves out an area with too few answers", () => {
+  it("says so when an area has too few answers, instead of guessing", () => {
     const result = diagnose(
       [gap("školy", "školu", noun), gap("školy", "školy", noun)],
       [],
       30,
+      QUICK,
     );
-    expect(result.areas).toEqual([]);
+    expect(statusOf(result, "nouns")).toEqual({ kind: "thin", count: 2 });
+    expect(statusOf(result, "adjectives")).toEqual({
+      kind: "skipped",
+      reason: "No answers this time.",
+    });
+  });
+
+  it("shows every area, and why the run could not measure some", () => {
+    const result = diagnose([], [], 30, QUICK);
+    expect(result.groups.map((group) => group.group)).toEqual([
+      "vocabulary",
+      "declension",
+      "conjugation",
+      "aspect",
+      "wordOrder",
+      "functionWords",
+      "spelling",
+      "pronunciation",
+    ]);
+    expect(statusOf(result, "aspect")).toEqual({ kind: "untested" });
+    expect(statusOf(result, "intelligibility")).toEqual({
+      kind: "skipped",
+      reason: "Not part of the quick test.",
+    });
   });
 
   it("counts a missing accent under accents, not under grammar", () => {
     const responses = [1, 2, 3].map((n) => gap("pekný", "pekny", noun, 20 + n));
-    const result = diagnose(responses, [], 30);
+    const result = diagnose(responses, [], 30, QUICK);
 
-    expect(result.areas.find((area) => area.area === "declension")?.percent).toBe(100);
-    expect(result.areas.find((area) => area.area === "spelling")?.percent).toBe(0);
+    expect(percent(result, "nouns")).toBe(100);
+    expect(percent(result, "spelling")).toBe(0);
     expect(result.accentSlips).toMatchObject([{ kind: "long", count: 3 }]);
   });
 
@@ -84,7 +136,7 @@ describe("diagnose", () => {
       gap("päť", "pät", noun),
       gap("kôň", "kon", noun),
     ];
-    const kinds = diagnose(responses, [], 30).accentSlips.map((slip) => slip.kind);
+    const kinds = diagnose(responses, [], 30, QUICK).accentSlips.map((slip) => slip.kind);
     expect(kinds).toEqual(expect.arrayContaining(["hacek", "iy", "aeo"]));
   });
 
@@ -99,7 +151,7 @@ describe("diagnose", () => {
       expected: "Včera sme hrali karty do noci.",
       given: "vcera sme hrali karty do noci",
     };
-    const result = diagnose([dictation, dictation, dictation], [], 30);
+    const result = diagnose([dictation, dictation, dictation], [], 30, QUICK);
     expect(result.accentSlips[0]).toMatchObject({ kind: "hacek" });
     expect(result.accentSlips[0]?.examples[0]).toEqual({
       expected: "včera",
@@ -131,11 +183,14 @@ describe("diagnose", () => {
       ],
       [],
       40,
+      QUICK,
     );
-    const declension = result.areas.find((area) => area.area === "declension");
-    expect(declension).toMatchObject({ total: 3, percent: 0 });
-    expect(result.areas.find((area) => area.area === "conjugation")?.percent).toBe(100);
-    const gap = result.gaps.find((entry) => entry.area === "declension");
+    expect(statusOf(result, "nouns")).toMatchObject({
+      kind: "measured",
+      summary: { total: 3, percent: 0 },
+    });
+    expect(percent(result, "conjugation")).toBe(100);
+    const gap = result.gaps.find((entry) => entry.area === "nouns");
     expect(gap?.examples[0]).toMatchObject({
       expected: "manželkou",
       given: "manželka",
@@ -166,7 +221,7 @@ describe("diagnose", () => {
         word: { text: "bydlivo", real: false },
       },
     ];
-    const result = diagnose(responses, [], 30);
+    const result = diagnose(responses, [], 30, QUICK);
     expect(result.wordsToLearn).toEqual([
       { text: "pes", english: "dog", href: "/dictionary/pes" },
     ]);
@@ -187,14 +242,22 @@ describe("diagnose", () => {
         criteria: { content: 30, coherence: 30, grammar: 25, lexis: 30 },
         feedback: "",
         issues: [
-          { topic: "aspect", wrote: "včera som urobil", correct: "včera som robil" },
-          { topic: "verbForms", wrote: "ja ide", correct: "ja idem" },
+          {
+            topic: "aspect",
+            wrote: "včera som celý deň urobil úlohy",
+            correct: "včera som celý deň robil úlohy",
+          },
+          {
+            topic: "aspect",
+            wrote: "každý deň napíšem list",
+            correct: "každý deň píšem list",
+          },
         ],
       },
     };
-    const result = diagnose([], [record], 30);
+    const result = diagnose([], [record], 30, QUICK);
     expect(result.gaps).toHaveLength(1);
-    expect(result.gaps[0]).toMatchObject({ area: "conjugation", summary: null });
+    expect(result.gaps[0]).toMatchObject({ area: "aspect", summary: null });
     expect(result.gaps[0]?.links.map((link) => link.href)).toContain("/grammar/aspect");
   });
 });

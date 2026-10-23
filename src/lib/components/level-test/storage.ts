@@ -43,3 +43,33 @@ export function readSavedResult(): SavedResult | null {
     return null;
   }
 }
+
+const SEEN_STORAGE_KEY = "slovak.wiki.level-test.seen.v1";
+
+/** About ten full tests' worth; older items may come round again after that. */
+const SEEN_LIMIT = 1500;
+
+/** Items shown in earlier runs on this device, so a retake picks others first. */
+export function readSeenItems(): Set<string> {
+  try {
+    const raw = localStorage.getItem(SEEN_STORAGE_KEY);
+    const parsed: unknown = raw ? JSON.parse(raw) : [];
+    return new Set(
+      Array.isArray(parsed)
+        ? parsed.filter((id): id is string => typeof id === "string")
+        : [],
+    );
+  } catch {
+    return new Set();
+  }
+}
+
+export function rememberSeenItems(ids: Iterable<string>): void {
+  try {
+    const merged = [...readSeenItems()];
+    for (const id of ids) if (!merged.includes(id)) merged.push(id);
+    localStorage.setItem(SEEN_STORAGE_KEY, JSON.stringify(merged.slice(-SEEN_LIMIT)));
+  } catch {
+    // Private mode or full storage: the next run just may repeat items.
+  }
+}

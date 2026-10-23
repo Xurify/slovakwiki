@@ -25,6 +25,13 @@ export const TASK_INFO: Record<TaskKind, TaskInfo> = {
     section: "adaptive",
     scoring: "adaptive",
   },
+  listenLength: {
+    label: "Short or Long",
+    description:
+      "Hear six words and pick the one you heard: mala or malá, dobre or dobré.",
+    section: "adaptive",
+    scoring: "adaptive",
+  },
   fillBlank: {
     label: "Fill in the Blanks",
     description: "Finish one word in a sentence.",
