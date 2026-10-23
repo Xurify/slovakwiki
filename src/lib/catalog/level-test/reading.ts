@@ -121,7 +121,7 @@ export const readingSets: AuthoredReadingSet[] = [
         "Na Slovensku nie sú Vianoce dôležité.",
         "Slováci jedia kapra každý deň.",
         "Na Slovensku nosí darčeky Santa Claus.",
-        "Štedrý večer je pre rodiny na Slovensku dôležitý deň.",
+        "Štedrý večer je pre rodiny na Slovensku veľmi dôležitý.",
       ],
       answer: 3,
     },
@@ -463,7 +463,7 @@ export const readingSets: AuthoredReadingSet[] = [
       },
       " aktivitám. Keď po daždi príde teplé počasie, lesy sa zaplnia ľuďmi s ",
       { id: "b2", options: ["košík", "košíka", "košíky", "košíkmi"], answer: 3 },
-      ". Mnohí sa túto záľubu naučili už ako deti od svojich ",
+      ". Zbierať huby sa mnohí naučili už ako deti od svojich ",
       { id: "b3", options: ["rodičia", "rodičov", "rodičom", "rodičmi"], answer: 1 },
       " alebo starých rodičov. Každý rok však skončí v nemocnici niekoľko ľudí, ktorí ",
       { id: "b4", options: ["zjedli", "zjedol", "zjesť", "zje"], answer: 0 },
@@ -485,7 +485,7 @@ export const readingSets: AuthoredReadingSet[] = [
       answer: 3,
     },
     closing:
-      "Huby treba nosiť v košíku, a nie v plastovej taške, v ktorej sa rýchlo kazia. Kto si nie je istý, môže nájdené huby ukázať v hubárskej poradni, kde ich odborník skontroluje.",
+      "Huby treba nosiť v košíku, a nie v plastovej taške, v ktorej sa rýchlo kazia. Kto si nie je istý, môže nájdené huby ukázať v hubárskej poradni, kde ich odborník skontroluje. Takéto poradne bývajú počas sezóny otvorené v niektorých mestách.",
     highlights: [
       {
         question: "Od koho sa mnohí naučili zbierať huby?",
@@ -665,7 +665,7 @@ export const readingSets: AuthoredReadingSet[] = [
       { id: "b1", options: ["zjesť", "zje", "zjedlo", "zjedené"], answer: 0 },
       ". Plytvanie potravinami pritom nie je len ",
       { id: "b2", options: ["etická", "etický", "etické", "etickou"], answer: 1 },
-      " problém. Na výrobu vyhodeného jedla bolo treba vodu, energiu aj pôdu a zvyšky hnijúce na skládkach ",
+      " problém. Na výrobu vyhodeného jedla bolo treba vodu, energiu aj pôdu. Zvyšky hnijúce na skládkach navyše ",
       {
         id: "b3",
         options: ["uvoľňuje", "uvoľňovať", "uvoľňujú", "uvoľňujúce"],
@@ -764,7 +764,7 @@ export const readingSets: AuthoredReadingSet[] = [
       options: [
         "Väčšina z nich si nehodu zapamätala presne tak, ako sa stala.",
         "Film im však pustili až o týždeň neskôr.",
-        "Jednej skupine potom položili otázku, ako rýchlo išli autá, keď do seba „vrazili“, druhej skupine, keď sa „dotkli“.",
+        "Jednej skupine potom položili otázku, ako rýchlo išli autá, keď do seba „vrazili“, a druhej skupine tú istú otázku so slovesom „narazili“.",
         "Vedci z toho vyvodili, že pamäť funguje ako spoľahlivý videozáznam.",
       ],
       answer: 2,

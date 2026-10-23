@@ -413,7 +413,7 @@ export const listeningSets: AuthoredListeningSet[] = [
             "We need to buy food and drinks. Will you come to the shop with me on Friday?",
         },
         options: [
-          "Prepáč, ja teraz nemám hlad.",
+          "Prepáč, teraz nemám hlad.",
           "Obchod je hneď za rohom.",
           "Jasné. V piatok mám čas až po piatej.",
         ],
@@ -581,11 +581,11 @@ export const listeningSets: AuthoredListeningSet[] = [
     id: "listok-vo-vlaku",
     level: "B1",
     partner: "waiter",
-    partnerName: "Conductor",
+    partnerName: "Peter",
     scenario: {
-      text: "Cestuješ vlakom z Bratislavy do Žiliny. Lístok máš v mobile. Sprievodca práve kontroluje cestovné lístky a s tvojím lístkom je nejaký problém.",
+      text: "Cestuješ vlakom z Bratislavy do Žiliny. Lístok máš v mobile. Sprievodca Peter práve kontroluje cestovné lístky a s tvojím lístkom je nejaký problém.",
       english:
-        "You are travelling by train from Bratislava to Žilina. Your ticket is on your phone. The conductor is checking tickets, and there is some problem with yours.",
+        "You are travelling by train from Bratislava to Žilina. Your ticket is on your phone. The conductor, Peter, is checking tickets, and there is some problem with yours.",
     },
     complete: [
       {
