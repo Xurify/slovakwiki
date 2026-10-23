@@ -72,11 +72,8 @@ const WEATHER_STEMS: Array<[string, Weather]> = [
  * The light and weather a scene's own words call for at line `upTo`: the
  * first greeting that names a time of day, and the weather named last by
  * then, so a sky that clouds over and rains changes as the lines say so.
- * Without `upTo`, the weather the scene ends in.
- */
-/**
- * The time of day and the weather as of line `upTo`. Past the last line
- * the scene is over and rain or snow has let up, so it does not end mid-shower.
+ * Without `upTo`, the weather the scene ends in. Past the last line the
+ * scene is over and rain or snow has let up, so it does not end mid-shower.
  */
 export function sceneMood(lines: readonly string[], upTo = lines.length - 1): SceneMood {
   const folded = lines.map(foldLine);
