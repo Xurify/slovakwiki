@@ -23,7 +23,6 @@
   const shift = $derived(tram === "away" ? TRAM.away : 0);
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
 <Cloud x={420} y={50} />
 <Cloud x={760} y={62} size={0.7} />
 

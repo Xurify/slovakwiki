@@ -5,7 +5,6 @@
 </script>
 
 <!-- By the Danube, with Bratislava Castle on its hill. -->
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
 <Cloud x={250} y={62} />
 <Cloud x={470} y={46} size={0.6} />
 <path d="M-10 226V176Q90 136 220 152Q300 162 380 196V226Z" class="fill-scene-cool" />

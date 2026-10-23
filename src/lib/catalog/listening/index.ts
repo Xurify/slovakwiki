@@ -72,8 +72,9 @@ export function validateListeningEpisodes(): string[] {
         issues.push(`Check id ${check.id} must start with ${prefix}`);
       }
       if (!check.prompt.trim()) issues.push(`Check ${check.id} has no prompt`);
-      if (check.promptSk !== undefined && !check.promptSk.includes("___")) {
-        issues.push(`Check ${check.id} promptSk needs a ___ gap`);
+      if (!check.promptEnglish.trim()) issues.push(`Check ${check.id} has no English`);
+      if (check.gap !== undefined && !check.gap.includes("___")) {
+        issues.push(`Check ${check.id} gap needs a ___`);
       }
       if (!check.choices.some((choice) => choice.id === check.answerId)) {
         issues.push(`Check ${check.id} answerId is not a choice`);

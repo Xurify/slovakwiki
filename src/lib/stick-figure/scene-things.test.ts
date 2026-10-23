@@ -2,8 +2,12 @@ import { describe, expect, it } from "vitest";
 
 import { words } from "$lib/catalog/entries";
 import { foldLine } from "./line-gesture";
+import type { StageSetting } from "./stage-setting";
 import {
+  BACKDROP_WIDTH,
   SCENE_THINGS,
+  SUN_SPOTS,
+  backdropAlign,
   linePoints,
   thingBoxes,
   thingNamed,
@@ -168,5 +172,36 @@ describe("things in view", () => {
     };
     expect(far("syr")).toHaveLength(1);
     expect(far("jahody")).toHaveLength(1);
+  });
+});
+
+describe("the sun", () => {
+  // A 390px phone: a 364px stage, half as tall, shows 600 of the 960.
+  const PHONE_SHOWS = 600;
+  const RADIUS = 19;
+
+  it("stands in open sky a phone's stage shows, clear of the place's things", () => {
+    for (const [place, spots] of Object.entries(SUN_SPOTS)) {
+      const setting = place as StageSetting;
+      const left = (BACKDROP_WIDTH - PHONE_SHOWS) * backdropAlign(setting);
+      for (const { x, y } of Object.values(spots ?? {})) {
+        expect(x - RADIUS, setting).toBeGreaterThanOrEqual(left);
+        expect(x + RADIUS, setting).toBeLessThanOrEqual(left + PHONE_SHOWS);
+
+        const things = (SCENE_THINGS[setting] ?? []).filter(
+          (thing) => thing.id !== "slnko",
+        );
+        for (const thing of things) {
+          for (const box of thingBoxes(thing)) {
+            const apart =
+              x + RADIUS <= box.x ||
+              x - RADIUS >= box.x + box.width ||
+              y + RADIUS <= box.y ||
+              y - RADIUS >= box.y + box.height;
+            expect(apart, `${setting}: ${thing.id}`).toBe(true);
+          }
+        }
+      }
+    }
   });
 });

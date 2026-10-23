@@ -4,7 +4,7 @@ import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { demonstrativesEpisode } from "$lib/catalog/listening/episodes/demonstratives";
 import { heldProps, propForSentence } from "./props";
 import { castFor, directScene, type DirectedLine } from "./scene-direction";
-import { STAGE_PADDING, stageMarks } from "./stage-layout";
+import { STAGE_PADDING, figureWidth, stageMarks } from "./stage-layout";
 import { takesFrom, type StageLine } from "./staging";
 
 describe("castFor", () => {
@@ -41,12 +41,23 @@ describe("stageMarks", () => {
     );
     expect(phone.marks.anna ?? 0).toBeGreaterThanOrEqual(STAGE_PADDING);
   });
+  it("keeps the cast in step with the stage's height, so a phone's stage is not all cast", () => {
+    expect(figureWidth(2, 1040)).toBe(150);
+    expect(figureWidth(2, 366, 183)).toBeCloseTo(91.5, 5);
+    expect(figureWidth(3, 366, 183)).toBeCloseTo(67.1, 1);
+  });
 });
 
 describe("props in hand", () => {
   it("brings out no cup for an order", () => {
     expect(propForSentence("Ja si dám čaj.")).toBeUndefined();
     expect(propForSentence("Dáte si kávu?")).toBe("cup");
+  });
+
+  it("brings out nothing that is to be brought another day", () => {
+    expect(propForSentence("Zajtra si prineste fotku rodiny.")).toBeUndefined();
+    expect(propForSentence("Dobre, prinesiem fotku.")).toBeUndefined();
+    expect(propForSentence("Pozri, to sú fotky z leta.")).toBe("camera");
   });
 
   it("hands a prop to whoever claims it", () => {
@@ -235,5 +246,25 @@ describe("the tram stop", () => {
     const square = directScene(lines, "plaza").stagings;
     expect(square[4].arrives).toBeUndefined();
     expect(square[6].boards).toBeUndefined();
+  });
+});
+
+describe("the podcast studio", () => {
+  it("keeps the hosts at their mics while Marek shows Anna what is in the bag", () => {
+    const bag = demonstrativesEpisode.chapters.find((chapter) =>
+      chapter.id.endsWith("bag"),
+    );
+    const lines = (bag?.lines ?? []).map((line) => ({
+      characterId: characterIdForSpeaker(line.speaker),
+      props: line.props,
+      slovak: line.slovak,
+    }));
+    const moves = (setting: "default" | "studio") =>
+      directScene(lines, setting).stagings.filter(
+        (staging) => staging.approach || staging.goTo,
+      ).length;
+
+    expect(moves("default")).toBeGreaterThan(0);
+    expect(moves("studio")).toBe(0);
   });
 });

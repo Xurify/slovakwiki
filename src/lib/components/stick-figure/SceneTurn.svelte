@@ -25,13 +25,14 @@
   }: {
     /** Beside the line to say: how to answer it. */
     aside?: Snippet;
-    english: string;
+    /** What to say, in English; none when the learner picks their own reply. */
+    english?: string;
     /** Seeds the tile order, so a retry is the same puzzle. */
     id: string;
-    /** The right line is in: `firstTry` when nothing was missed on the way. */
-    ondone: (firstTry: boolean) => void;
-    /** A wrong line, for the stage to say in a bubble. */
-    onmiss: (said: string) => void;
+    /** The right line is in: `firstTry` when nothing was missed on the way, and which choice it was. */
+    ondone: (firstTry: boolean, choiceId?: string) => void;
+    /** A wrong line, for the stage to say in a bubble, and which choice it was. */
+    onmiss: (said: string, choiceId?: string) => void;
     sayChoices?: DialogueSayChoices;
     slovak: string;
   } = $props();
@@ -66,14 +67,14 @@
     if (!choiceId || !sayChoices) return;
 
     if (isSayChoiceCorrect(choiceId, sayChoices)) {
-      ondone(misses === 0);
+      ondone(misses === 0, choiceId);
       return;
     }
 
     const picked = sayChoices.choices.find((choice) => choice.id === choiceId);
     misses += 1;
     whyWrong = picked?.whyWrong?.trim() || "Not that line. Pick the one that means it.";
-    if (picked) onmiss(picked.label);
+    if (picked) onmiss(picked.label, picked.id);
   }
 
   function onKeydown(event: KeyboardEvent): void {
@@ -110,8 +111,10 @@
 <div class="animate-rise">
   <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
     <div class="min-w-0">
-      <p class={eyebrowMutedClass}>Your line</p>
-      <p class="m-0 mt-1 text-lg text-slate-900">{english}</p>
+      <p class={eyebrowMutedClass}>{english ? "Your line" : "Your reply"}</p>
+      {#if english}
+        <p class="m-0 mt-1 text-lg text-slate-900">{english}</p>
+      {/if}
     </div>
 
     {@render aside?.()}

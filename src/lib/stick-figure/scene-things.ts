@@ -34,6 +34,24 @@ export function backdropAlign(setting: StageSetting): number {
   return BACKDROP_ALIGN[setting] ?? 0.5;
 }
 
+/** The park's afternoon sun, which a line can point at and Find it can ask for. */
+const PARK_SUN = { x: 562, y: 36 };
+
+/**
+ * Where the sun stands in each outdoor place, morning and afternoon: in
+ * open sky clear of towers, lamps, bunting and the place's own clouds, and
+ * inside the part a phone's stage shows (the middle 600 of the 960, the
+ * right end at the market).
+ */
+export const SUN_SPOTS: Partial<
+  Record<StageSetting, Record<"morning" | "day", { x: number; y: number }>>
+> = {
+  default: { day: PARK_SUN, morning: { x: 370, y: 46 } },
+  market: { day: { x: 738, y: 30 }, morning: { x: 738, y: 32 } },
+  plaza: { day: { x: 688, y: 36 }, morning: { x: 400, y: 46 } },
+  street: { day: { x: 640, y: 36 }, morning: { x: 520, y: 46 } },
+};
+
 export interface ThingBox {
   height: number;
   width: number;
@@ -463,7 +481,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
   ],
   market: [
     drawn(WORDS.ovocie, [40, 136, 260, 38]),
-    drawn(WORDS.zelenina, [748, 136, 84, 38]),
+    drawn(WORDS.zelenina, [748, 128, 84, 46]),
     twins(WORDS.syr, [662, 100, 28, 42], [890, 100, 28, 42]),
     twins(WORDS.jahody, [660, 134, 84, 24], [836, 134, 84, 24]),
     drawn(WORDS.stanok, [636, 66, 308, 162], [16, 66, 308, 162]),
@@ -512,8 +530,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
     drawn(WORDS.dunaj, [0, 194, 960, 18]),
     drawn(WORDS.strom, [836, 86, 84, 140], [52, 88, 88, 136]),
     drawn(WORDS.oblak, [212, 33, 76, 29], [446, 27, 48, 19]),
-    // Where the sky layer draws the sun on a sunny day.
-    drawn(WORDS.slnko, [818, 14, 44, 44]),
+    drawn(WORDS.slnko, [PARK_SUN.x - 22, PARK_SUN.y - 22, 44, 44]),
   ],
 };
 
@@ -748,6 +765,11 @@ export function linePoints(
     });
 }
 
+/** Px per backdrop unit on a stage `width` × `height` px: the drawing is sliced to fill it. */
+export function backdropScale(width: number, height: number): number {
+  return Math.max(width / BACKDROP_WIDTH, height / BACKDROP_HEIGHT);
+}
+
 /** Where a backdrop point lands on a stage `width` × `height` px, sliced to fill it as StickBackdrop draws it. */
 export function backdropToStage(
   { x, y }: Point,
@@ -755,7 +777,7 @@ export function backdropToStage(
   height: number,
   align = 0.5,
 ): Point {
-  const scale = Math.max(width / BACKDROP_WIDTH, height / BACKDROP_HEIGHT);
+  const scale = backdropScale(width, height);
   return {
     x: (width - BACKDROP_WIDTH * scale) * align + x * scale,
     y: height - BACKDROP_HEIGHT * scale + y * scale,

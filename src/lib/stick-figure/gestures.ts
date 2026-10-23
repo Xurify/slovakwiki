@@ -15,6 +15,9 @@ export const STICK_GESTURE_IDS = [
   "lean",
   "show",
   "glance",
+  "puzzle",
+  "laugh",
+  "frown",
 ] as const;
 
 export type StickGestureId = (typeof STICK_GESTURE_IDS)[number];
@@ -84,6 +87,36 @@ const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 const holdOut = { leadRaise: 55, leadBend: 45, lean: 2, tilt: 3, look: 1, brow: 0.6 };
 /** Head up a little and eyes ahead: following where someone points. */
 const lookOver = { tilt: -12, look: 1, brow: 0.6, lean: -1 };
+/** Head on one side, brows up, eyes off: did I hear that right? */
+const puzzled = {
+  tilt: 13,
+  brow: 1,
+  look: -0.5,
+  lean: -1.5,
+  rearRaise: 30,
+  rearBend: 70,
+};
+/** Head back, mouth open, a hand to the stomach: a friend amused at a slip. */
+const laughing = {
+  tilt: -9,
+  brow: 0.7,
+  mouth: 0.45,
+  mouthWidth: 1.2,
+  leadRaise: 32,
+  leadBend: -130,
+  look: 0.6,
+};
+/** Arms folded, leaning back, brows drawn: politely put out by too familiar a word. */
+const putOut = {
+  leadRaise: 42,
+  leadBend: -150,
+  rearRaise: 42,
+  rearBend: -150,
+  lean: -3,
+  tilt: -3,
+  brow: -0.8,
+  look: 0.2,
+};
 
 /** A point with no target aims a little below level, at someone's hands or the table. */
 const POINT_RISE = -9;
@@ -116,6 +149,22 @@ function pointing({ hand = "lead", reach, rise = POINT_RISE }: PointAim): StickG
 }
 
 const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
+  puzzle: gesture(puzzled, [
+    key(0),
+    key(300, puzzled),
+    key(1300, { ...puzzled, tilt: 10 }),
+    key(1650),
+  ]),
+  laugh: gesture(laughing, [
+    key(0),
+    key(220, laughing),
+    key(420, { ...laughing, bob: 1, mouth: 0.25 }),
+    key(620, laughing),
+    key(820, { ...laughing, bob: 1, mouth: 0.25 }),
+    key(1020, laughing),
+    key(1350),
+  ]),
+  frown: gesture(putOut, [key(0), key(380, putOut), key(1500, putOut), key(1850)]),
   talk: gesture(beat, [
     key(0),
     key(260, beat),

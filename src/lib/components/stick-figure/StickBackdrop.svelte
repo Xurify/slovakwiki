@@ -5,6 +5,7 @@
     BACKDROP_WIDTH,
     SCENE_THINGS,
     backdropAlign,
+    backdropScale,
     litKey,
     thingBoxes,
   } from "$lib/stick-figure/scene-things";
@@ -19,8 +20,14 @@
   import Street from "./backdrops/Street.svelte";
   import Studio from "./backdrops/Studio.svelte";
   import MoodLayer from "./backdrops/MoodLayer.svelte";
+  import SkyLayer from "./backdrops/SkyLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
-  import { CLOCK_HOURS, DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import {
+    CLOCK_HOURS,
+    DAYTIME,
+    isOutdoors,
+    type SceneMood,
+  } from "$lib/stick-figure/scene-mood";
   import type { TramState } from "$lib/stick-figure/street";
 
   let {
@@ -70,7 +77,7 @@
       return { box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`, ratio: `${x}YMax slice` };
     }
 
-    const scale = Math.max(width / BACKDROP_WIDTH, height / BACKDROP_HEIGHT);
+    const scale = backdropScale(width, height);
     const shown = { height: height / scale, width: width / scale };
     const x = (BACKDROP_WIDTH - shown.width) * align;
     const y = BACKDROP_HEIGHT - shown.height;
@@ -105,6 +112,10 @@
   stroke-linecap="round"
   stroke-linejoin="round"
 >
+  {#if isOutdoors(setting)}
+    <SkyLayer {mood} {setting} />
+  {/if}
+
   {#if setting === "cafe"}
     <Cafe />
   {:else if setting === "classroom"}

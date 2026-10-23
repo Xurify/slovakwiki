@@ -19,7 +19,6 @@
   ];
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
 <Cloud x={560} y={60} />
 <Cloud x={860} y={64} size={0.7} />
 <Cloud x={110} y={56} size={0.8} />

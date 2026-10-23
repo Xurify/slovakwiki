@@ -165,7 +165,8 @@ One vocabulary site-wide, so interactions read as the same calm reference site a
 - **Overlays** (drawer, menus, popovers): one translate or fade on the panel, `duration-200 ease-out`, elevated with `shadow-(--shadow-float)`. No staggered children.
 - **Content that appears** (feedback, revealed dialogue lines, results): `animate-rise` (200ms fade + 4px). Once, on mount.
 - **Icon state** (sound on/off, menu open/close, theme): swap the icon. No scale/blur morphs.
-- **Stick-figure cast** (`src/lib/stick-figure/`, dev only at `/dev/stick-figures` until promoted): figures move only while a line plays. The speaker gestures (planned from the line) and moves its mouth (from the clip's loudness track); everyone turns to face the speaker with a 200 ms flip, and the one spoken to may answer with one silent gesture (lean in to a question, nod at an answer or thanks, hold up what is pointed at in their hands) or walk over to see what they are shown; someone who claims what is held up ("Áno, moje!") reaches out and takes it, and someone handed something ("Nech sa páči.", "…je pre teba.") reaches for it and keeps it. A speaker who names something in the backdrop or held up for them points at it on its word with a free hand, turning to it if it is behind them: a straight reaching arm for `tamten`, a bent one for `tento`. Where the backdrop has two of a thing, `tento` means the one by the cast and `tamten` the one further off, and only that one lights up; a demonstrative on its own points back at the noun it agrees with ("Tamten je lacnejší."). Someone who arrives with a hello walks on during the line before; someone whose last line takes them away walks off the stage. A word with a picture (a country's flag) pops it over the speaker's head with `animate-rise` for under two seconds. Then they return to rest. No idle sway, breathing, or blinking. Under reduced motion each gesture is one held pose, turns and walks are instant, and the mouth stays still.
+- **Stick-figure cast** (`src/lib/stick-figure/`, dev only at `/dev/stick-figures` and `/dev/scenes` until promoted; see **Stick-figure scenes**): figures move only while a line plays. The speaker gestures (planned from the line) and moves its mouth (from the clip's loudness track); everyone turns to face the speaker with a 200 ms flip, and the one spoken to may answer with one silent gesture (lean in to a question, nod at an answer or thanks, hold up what is pointed at in their hands) or walk over to see what they are shown. In a talk, a reply that does not fit is taken as a Slovak would take it, with one reaction before they answer it: a puzzled tilt, a laugh, or folded arms. Someone who claims what is held up ("Áno, moje!") reaches out and takes it, and someone handed something ("Nech sa páči.", "…je pre teba.") reaches for it and keeps it. A speaker who names something in the backdrop or held up for them points at it on its word with a free hand, turning to it if it is behind them: a straight reaching arm for `tamten`, a bent one for `tento`. Where the backdrop has two of a thing, `tento` means the one by the cast and `tamten` the one further off, and only that one lights up; a demonstrative on its own points back at the noun it agrees with ("Tamten je lacnejší."). Someone who arrives with a hello walks on during the line before; someone whose last line takes them away walks off the stage. A word with a picture (a country's flag) pops it over the speaker's head with `animate-rise` for under two seconds. Then they return to rest. No idle sway, breathing, or blinking. Under reduced motion each gesture is one held pose, turns and walks are instant, and the mouth stays still.
+- **Weather:** rain and snow on the stage fall in a seamless loop (`animate-fall`), near drops faster than far ones, and fade in and out over 900 ms as the lines change the weather. It is the one loop on the site; reduced motion holds it still.
 - **Not used:** `active:scale-*`, hover zooms, 3D "key" lips, pulsing or drifting loops, bouncy easings. Reduced motion is handled globally in `styles.css`.
 
 ### UI composition
@@ -254,6 +255,42 @@ Full-page hydrate only when the page **is** the interactive app (filters, player
 - Keep `src/pages/` to `.astro` routes (and endpoints). Do not colocate `.svelte` there.
 - Use standard HTML/Svelte elements only — no invented component names, no Framer Motion / motion libraries unless already imported in that file.
 - Colocate markup + Tailwind. Avoid a second stylesheet for a component.
+
+## Stick-figure scenes (prototype)
+
+The animated cast, its places and the scene player. Logic lives in `src/lib/stick-figure/` (plain TypeScript with tests), drawing and UI state in `src/lib/components/stick-figure/`. Both run only on `/dev/stick-figures` (the lab) and `/dev/scenes` (the player) until promoted. How things move is under **Motion** above; these are the decisions behind the rest.
+
+**Animate from the data, never by hand**
+
+- Gestures are picked from the Slovak text, one per sentence (`line-gesture.ts` → `line-plan.ts`). Set `DialogueTurn.gestures` only when the guess is wrong; lesson validation rejects more gestures than sentences.
+- Mouths follow the clip's loudness and vowel track in `content/audio/mouth.json`, which `scripts/audio/generate.ts` writes with every clip. Never drive a mouth from a timer: timer mouths matched the voice at r = 0.29, the track at r = 1.00.
+- Staging (who faces whom, enters, leaves, walks over, points, hands something over) is worked out from the dialogue in `staging.ts` and `scene-direction.ts`. Change a rule there, with a case in `scene-direction.test.ts`; never stage one scene by hand. A line sets `to` only when the order of replies guesses the listener wrong, and `stays` keeps Alex on stage after a goodbye.
+- What differs by place is data in a per-place table, not an `if` in a component. Hosts stay at their mics in the studio because `studio` is in `AT_MARKS`, which drops walks there.
+
+**Places and the stage**
+
+- Backdrops are drawn SVG in the cast's style with fixed light paints, so the dark-ink cast reads in both themes. Keep a place's landmark near the middle or above head height.
+- The stage is twice as wide as tall, up to 300px, and figures scale with its height. Check a changed place at 390px and at desktop width; Find it asks only for what the stage shows.
+- The sky (sun, stars, clouds) is drawn behind the scenery. The sun stands at its place's spot in `SUN_SPOTS`, and `scene-things.test.ts` fails when it leaves what a phone shows or touches a thing's box.
+- A tappable thing's box in `SCENE_THINGS` is in backdrop units and must match the drawing. Move both in the same change.
+- Each character reads as themselves at a glance (Marek has curls so he is not a second Alex). On stage the learner's lines belong to Alex, not "You" (`stageName`), and a line nobody says, like a board or a notice, gets no name tag.
+
+**Weather, dress and sound**
+
+- The words set the mood: `sceneMood` reads the lines up to the current one for the hour and the weather. Past the last line, rain and snow let up. Weather changes fade over `WEATHER_FADE_MS`.
+- Falling rain and snow are an HTML layer (`StickWeather`), never animation inside the backdrop SVG: WebKit repainted the whole stage every frame and dropped to 7.5 fps.
+- `dress.ts` decides what the weather does to a figure's things: umbrella up in rain, scarf in snow, neither indoors. Once open, an umbrella stays open until the stage folds it with `foldUmbrellas()`, on boarding the tram or at the scene's end. It never folds by itself. A new item that follows the weather works the same way: a field in the dress, and an explicit stage call to change it.
+- Background sound is synthesized with Web Audio in `ambience.ts`, so there is nothing to load. It is off until the learner turns it on, plays steadily under the voices, and one player lasts the visit: `set()` fades layers in and out instead of restarting them.
+
+**Player and games**
+
+- `/dev/scenes?scene=<id>` opens one scene; use these links in PR QA lists.
+- Modes are Watch, Play as (Pick the line, Build it, Say it, Adaptive) and Find it. A game that is not about the scene picked goes in the scene list under Games, not in the mode chips.
+- Find it asks in Slovak only, since English would give the answer away. It names each find in English after the tap and ends with the case behind the forms.
+- A talk (`talk.ts`) is a graph: the other person's lines, then Alex's replies. A reply that fits leads to a node and is voiced. A slip carries `why`, a reaction (`puzzle`, `laugh`, `frown`) and a voiced answer. `talk.test.ts` checks every talk: all nodes reachable, slips lead nowhere, ends are goodbyes, ty or vy fits who is spoken to.
+- A talk has a casual topic, and its intro says who the person is to Alex. When a talk gets long or its topic deserves more, give it a game of its own rather than lengthen the day.
+- Say it records in the browser and keeps the take there. Nothing is uploaded.
+- Every voiced scene line gets a clip and a mouth track (see **Audio**), slip answers included. Talks reach the generator through `dayTurns()` in `scripts/audio/shared.ts`.
 
 ## Loading states
 

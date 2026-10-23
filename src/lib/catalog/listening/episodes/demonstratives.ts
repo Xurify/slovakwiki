@@ -77,7 +77,8 @@ const intro: ListeningChapter = {
   checks: [
     {
       id: `${PREFIX}check-topic`,
-      prompt: "What is today's topic?",
+      prompt: "Aká je dnešná téma?",
+      promptEnglish: "What is today's topic?",
       replayLineId: `${PREFIX}anna-small-topic`,
       choices: [
         { id: "demonstratives", label: "Ten, tá, to." },
@@ -205,19 +206,20 @@ const bag: ListeningChapter = {
   checks: [
     {
       id: `${PREFIX}check-first-thing`,
-      prompt: "What is the first thing in Marek's bag?",
+      prompt: "Čo je prvá vec v Marekovej taške?",
+      promptEnglish: "What is the first thing in Marek's bag?",
       replayLineId: `${PREFIX}marek-small-opens-doors`,
       choices: [
         { id: "key", label: "Kľúč." },
         {
           id: "book",
           label: "Kniha.",
-          whyWrong: "**Kniha** is the second thing: heavy, with many pages.",
+          whyWrong: "**Kniha** is a book, the second thing: heavy, with many pages.",
         },
         {
           id: "apple",
           label: "Jablko.",
-          whyWrong: "**Jablko** is the third thing: green and sweet.",
+          whyWrong: "**Jablko** is an apple, the third thing: green and sweet.",
         },
       ],
       answerId: "key",
@@ -228,8 +230,9 @@ const bag: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-key-form`,
-      promptSk: "___ kľúč je od auta.",
-      prompt: "Which word did Marek say?",
+      gap: "___ kľúč je od auta.",
+      prompt: "Ktoré slovo povedal Marek?",
+      promptEnglish: "Which word did Marek say?",
       replayLineId: `${PREFIX}marek-car-key`,
       choices: [
         { id: "ten", label: "ten" },
@@ -252,7 +255,8 @@ const bag: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-apple-for`,
-      prompt: "Who is the apple for?",
+      prompt: "Pre koho je jablko?",
+      promptEnglish: "Who is the apple for?",
       replayLineId: `${PREFIX}marek-apple-for-you`,
       choices: [
         { id: "anna", label: "Pre Annu." },
@@ -260,12 +264,13 @@ const bag: ListeningChapter = {
           id: "marek",
           label: "Pre Mareka.",
           whyWrong:
-            "Marek is giving it away: **pre teba** means for you, and he is talking to Anna.",
+            "**Pre Mareka** means for Marek, but he is giving it away: **pre teba**, for you, to Anna.",
         },
         {
           id: "listeners",
           label: "Pre poslucháčov.",
-          whyWrong: "Nice idea, but Marek says **pre teba**, for you, to Anna.",
+          whyWrong:
+            "**Pre poslucháčov** means for the listeners. Marek says **pre teba**, for you, to Anna.",
         },
       ],
       answerId: "anna",
@@ -352,20 +357,22 @@ const market: ListeningChapter = {
   checks: [
     {
       id: `${PREFIX}check-which-cheese`,
-      prompt: "Which cheese does Marek take?",
+      prompt: "Ktorý syr si Marek kúpi?",
+      promptEnglish: "Which cheese does Marek buy?",
       replayLineId: `${PREFIX}marek-ill-take-that-one`,
       choices: [
-        { id: "far", label: "Tamten. Stojí tri eurá." },
+        { id: "far", label: "Ten lacnejší, za tri eurá." },
         {
           id: "near",
-          label: "Tento. Stojí päť eur.",
+          label: "Ten drahší, za päť eur.",
           whyWrong:
-            "**Tento syr** is the one in front of him, the five-euro one. He picks the cheaper one.",
+            "**Ten drahší** means the dearer one: **tento syr**, the five-euro one in front of him. He takes **tamten**, the cheaper one.",
         },
         {
           id: "none",
           label: "Žiadny.",
-          whyWrong: "**Žiadny** means none, but Marek says **dám si tamten**.",
+          whyWrong:
+            "**Žiadny** means none, but Marek says **dám si tamten**, I'll take that one.",
         },
       ],
       answerId: "far",
@@ -376,8 +383,9 @@ const market: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-strawberries-form`,
-      promptSk: "A ja chcem ___ jahody.",
-      prompt: "Which word did Anna say?",
+      gap: "A ja chcem ___ jahody.",
+      prompt: "Ktoré slovo povedala Anna?",
+      promptEnglish: "Which word did Anna say?",
       replayLineId: `${PREFIX}anna-want-these-strawberries`,
       choices: [
         { id: "tieto", label: "tieto" },
@@ -400,7 +408,8 @@ const market: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-strawberries-from`,
-      prompt: "Where are the strawberries Anna buys from?",
+      prompt: "Odkiaľ sú jahody, ktoré kupuje Anna?",
+      promptEnglish: "Where are the strawberries Anna buys from?",
       replayLineId: `${PREFIX}lucia-strawberries-from`,
       choices: [
         { id: "slovakia", label: "Zo Slovenska." },
@@ -408,12 +417,13 @@ const market: ListeningChapter = {
           id: "austria",
           label: "Z Rakúska.",
           whyWrong:
-            "**Tieto**, the ones in front, are from Austria. Anna asks for **tamtie**.",
+            "**Z Rakúska** means from Austria: **tieto**, the ones in front. Anna asks for **tamtie**.",
         },
         {
           id: "czechia",
           label: "Z Česka.",
-          whyWrong: "Lucia names **Rakúsko** and **Slovensko**, not Czechia.",
+          whyWrong:
+            "**Z Česka** means from Czechia. Lucia names only **Rakúsko** and **Slovensko**.",
         },
       ],
       answerId: "slovakia",
@@ -528,19 +538,22 @@ const home: ListeningChapter = {
   checks: [
     {
       id: `${PREFIX}check-where-key`,
-      prompt: "Where is the key?",
+      prompt: "Kde je kľúč?",
+      promptEnglish: "Where is the key?",
       replayLineId: `${PREFIX}anna-in-that-one-window`,
       choices: [
         { id: "far-bag", label: "V tamtej taške, pri okne." },
         {
           id: "this-bag",
           label: "V tejto taške.",
-          whyWrong: "Marek asks **v tejto?** and Anna says **nie**.",
+          whyWrong:
+            "**V tejto taške** means in this bag. Marek asks **v tejto?** and Anna says **nie**.",
         },
         {
           id: "car",
           label: "V aute.",
-          whyWrong: "It is the key **od auta**, the car key, but it is in a bag.",
+          whyWrong:
+            "**V aute** means in the car. It is the car key, **kľúč od auta**, but it is in a bag.",
         },
       ],
       answerId: "far-bag",
@@ -551,8 +564,9 @@ const home: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-toho`,
-      promptSk: "___ muža poznáš.",
-      prompt: "Which form did Anna say?",
+      gap: "___ muža poznáš.",
+      prompt: "Ktorý tvar povedala Anna?",
+      promptEnglish: "Which form did Anna say?",
       replayLineId: `${PREFIX}anna-neighbour-you-know-him`,
       choices: [
         { id: "toho", label: "toho" },
@@ -572,14 +586,16 @@ const home: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-who-is-woman`,
-      prompt: "Who is the woman with the neighbour?",
+      prompt: "Kto je tá žena so susedom?",
+      promptEnglish: "Who is the woman with the neighbour?",
       replayLineId: `${PREFIX}anna-his-sister`,
       choices: [
         { id: "sister", label: "Jeho sestra." },
         {
           id: "wife",
           label: "Jeho žena.",
-          whyWrong: "Anna says **sestra**, sister, not **žena**.",
+          whyWrong:
+            "**Jeho žena** means his wife. Anna says **jeho sestra**, his sister.",
         },
         {
           id: "neighbour",
@@ -671,7 +687,8 @@ const quiz: ListeningChapter = {
   checks: [
     {
       id: `${PREFIX}check-correct-sentence`,
-      prompt: "Which sentence did Anna call correct?",
+      prompt: "Ktorá veta je podľa Anny správna?",
+      promptEnglish: "Which sentence does Anna call correct?",
       choices: [
         { id: "children", label: "Tie deti sa hrajú vonku." },
         {
@@ -694,15 +711,16 @@ const quiz: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-tohto`,
-      promptSk: "Poznáš ___ muža?",
-      prompt: "How does Anna correct Marek?",
+      gap: "Poznáš ___ muža?",
+      prompt: "Ako Anna opravila Mareka?",
+      promptEnglish: "How did Anna correct Marek?",
       replayLineId: `${PREFIX}anna-tohto-not-tohoto`,
       choices: [
         { id: "tohto", label: "tohto" },
         {
           id: "tohoto",
           label: "tohoto",
-          whyWrong: "That is the Czech form. Slovak drops the middle o: **tohto**.",
+          whyWrong: "**Tohoto** is the Czech form. Slovak drops the middle o: **tohto**.",
         },
         {
           id: "tato",
@@ -750,7 +768,8 @@ const outro: ListeningChapter = {
   checks: [
     {
       id: `${PREFIX}check-goodbye`,
-      prompt: "How does Anna say goodbye?",
+      prompt: "Ako sa Anna lúči?",
+      promptEnglish: "How does Anna say goodbye?",
       replayLineId: `${PREFIX}anna-bye`,
       choices: [
         { id: "ahojte", label: "Ahojte!" },
@@ -773,20 +792,22 @@ const outro: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-lost-again`,
-      prompt: "What is Marek looking for at the very end?",
+      prompt: "Čo hľadá Marek úplne na konci?",
+      promptEnglish: "What is Marek looking for at the very end?",
       replayLineId: `${PREFIX}marek-where-are-those-keys`,
       choices: [
         { id: "keys", label: "Kľúče." },
         {
           id: "apple",
           label: "Jablko.",
-          whyWrong: "The apple was in the bag game. Now Marek asks **kde sú tie kľúče?**",
+          whyWrong:
+            "**Jablko** is an apple, from the bag game. Now Marek asks **kde sú tie kľúče?**",
         },
         {
           id: "bag",
           label: "Tašku.",
           whyWrong:
-            "The keys were in a bag at home. Now Marek asks **kde sú tie kľúče?**",
+            "**Tašku** is a bag. The keys were in one at home; now Marek asks **kde sú tie kľúče?**",
         },
       ],
       answerId: "keys",
