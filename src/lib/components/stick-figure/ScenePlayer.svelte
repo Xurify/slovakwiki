@@ -89,13 +89,12 @@
   import { ChoiceOptions, choiceIndexFromKeyboardEvent } from "$lib/learning/exercises";
   import EpisodeCheck from "$lib/components/listening/EpisodeCheck.svelte";
   import {
-    FIND_LEVELS,
     accusativeOf,
+    findAsk,
     findPrompt,
     findWhy,
     hereIs,
     thatIs,
-    type FindLevel,
   } from "$lib/stick-figure/scene-find";
   import {
     thingWithDemonstrative,
@@ -211,7 +210,8 @@
   let stage = $state<ReturnType<typeof StickStage>>();
   let player = $state<HTMLElement>();
 
-  let level = $state<FindLevel>("find");
+  /** Rounds of Find it played on this scene, so Play again asks in a new order. */
+  let findRound = 0;
   let queue = $state<string[]>([]);
   let findAt = $state(0);
   /** How each thing went: found on the first tap, found after a miss, or shown. */
@@ -905,14 +905,14 @@
     return direction.cast.find((id) => !entering.has(id));
   }
 
-  function startFind(next: FindLevel = level): void {
+  function startFind(again = false): void {
     window.clearTimeout(findTimer);
-    level = next;
+    findRound = again ? findRound + 1 : 0;
     // Only what the stage shows: a phone slices off the ends of the room.
     const { height, width } = stage?.size() ?? { height: 0, width: 0 };
     queue = shuffledTiles(
       thingsInView(direction.things, scene.setting, width, height).map(({ id }) => id),
-      `${scene.id}-${next}`,
+      `${scene.id}-${findRound}`,
     );
     findAt = 0;
     results = {};
@@ -973,7 +973,11 @@
     playAnswerSfx("correct");
     results = { ...results, [id]: missedTarget ? "later" : "first" };
     if (!missedTarget) streak += 1;
-    findNote = { tone: "right", text: "Áno!", why: findWhy(target, level) };
+    findNote = {
+      tone: "right",
+      text: "Áno!",
+      why: findWhy(target, findAsk(target, findAt)),
+    };
     if (who) stage?.gesture(who, "nod");
     nextThing();
   }
@@ -984,14 +988,13 @@
 
     results = { ...results, [target.id]: "shown" };
     streak = 0;
-    findNote = { tone: "shown", text: hereIs(target), why: findWhy(target, level) };
+    findNote = {
+      tone: "shown",
+      text: hereIs(target),
+      why: findWhy(target, findAsk(target, findAt)),
+    };
     stage?.light(target.id);
     nextThing();
-  }
-
-  function nextLevel(): FindLevel | undefined {
-    const index = FIND_LEVELS.findIndex(({ id }) => id === level);
-    return FIND_LEVELS[index + 1]?.id;
   }
 
   function hiddenLine(index: number): boolean {
@@ -1302,32 +1305,17 @@
             {/if}
           {:else if mode === "find"}
             {#if findTarget}
-              {@const prompt = findPrompt(findTarget, level)}
+              {@const prompt = findPrompt(findTarget, findAsk(findTarget, findAt))}
 
-              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
-                <div class="min-w-0">
-                  <p class={eyebrowMutedClass}>Tap it in the scene</p>
-                  {#key prompt.slovak}
-                    <p class="m-0 mt-1 animate-rise font-serif text-3xl text-slate-900">
-                      <MarkedText text={prompt.slovak} marks={prompt.marks} />
-                    </p>
-                  {/key}
-                </div>
-
-                <div class="flex flex-wrap gap-2" role="group" aria-label="Level">
-                  {#each FIND_LEVELS as option (option.id)}
-                    <button
-                      class={chipClass(option.id === level)}
-                      type="button"
-                      aria-pressed={option.id === level}
-                      lang="sk"
-                      onclick={() => startFind(option.id)}
-                    >
-                      {option.label}
-                    </button>
-                  {/each}
-                </div>
-              </div>
+              <p class={eyebrowMutedClass}>Tap it in the scene</p>
+              {#key prompt.slovak}
+                <p
+                  class="m-0 mt-1 animate-rise font-serif text-3xl text-slate-900 max-[600px]:text-2xl"
+                  lang="sk"
+                >
+                  <MarkedText text={prompt.slovak} marks={prompt.marks} />
+                </p>
+              {/key}
 
               {#if findNote}
                 <p
@@ -1354,56 +1342,45 @@
                 </p>
               {/if}
             {:else if queue.length > 0}
-              {@const upNext = nextLevel()}
+              {@const changed = inOrder(direction.things).filter(
+                (thing) => accusativeOf(thing) !== thing.word,
+              )}
 
               <div class="animate-rise">
                 <p class="m-0 font-serif text-2xl text-slate-900">
                   {firstTaps} of {queue.length} found on the first tap.
                 </p>
 
-                {#if level !== "where"}
-                  <ul class="m-0 mt-3 flex list-none flex-wrap gap-x-5 gap-y-1 p-0">
-                    {#each inOrder(direction.things) as thing (thing.id)}
+                {#if changed.length > 0}
+                  <p class="m-0 mt-3 text-sm text-slate-600">
+                    After <span class="font-serif text-base" lang="sk">ukáž na</span> these
+                    change their ending:
+                  </p>
+                  <ul class="m-0 mt-1 flex list-none flex-wrap gap-x-5 gap-y-1 p-0">
+                    {#each changed as thing (thing.id)}
                       <li class="font-serif text-base text-slate-700" lang="sk">
                         {thing.word}
                         <span class="text-slate-400" aria-hidden="true">→</span>
-                        <span
-                          class={accusativeOf(thing) === thing.word
-                            ? undefined
-                            : "text-emerald-700"}
-                        >
-                          {accusativeOf(thing)}
-                        </span>
+                        <span class="text-emerald-700">{accusativeOf(thing)}</span>
                       </li>
                     {/each}
                   </ul>
                 {/if}
 
                 <div class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2">
-                  {#if upNext}
-                    <Button
-                      class="mr-2"
-                      variant="accent"
-                      onclick={() => startFind(upNext)}
-                    >
-                      <span>
-                        Next:
-                        <span lang="sk">
-                          {FIND_LEVELS.find(({ id }) => id === upNext)?.label}
-                        </span>
-                      </span>
-                    </Button>
-                  {:else if nextScene}
+                  {#if nextScene}
                     <Button class="mr-2" variant="accent" onclick={goNext}>
                       <SceneIcon name="next" />
                       <span>Next scene: <span lang="sk">{nextScene.name}</span></span>
                     </Button>
-                  {/if}
-                  <SceneAction icon="replay" onclick={() => startFind(level)}
-                    >Play again</SceneAction
-                  >
-                  {#if upNext && nextScene}
-                    <SceneAction icon="next" onclick={goNext}>Next scene</SceneAction>
+                    <SceneAction icon="replay" onclick={() => startFind(true)}>
+                      Play again
+                    </SceneAction>
+                  {:else}
+                    <Button variant="accent" onclick={() => startFind(true)}>
+                      <SceneIcon name="replay" />
+                      Play again
+                    </Button>
                   {/if}
                 </div>
               </div>

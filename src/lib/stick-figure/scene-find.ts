@@ -1,14 +1,8 @@
 import type { TextMark } from "$lib/learning/marked-text";
 import { isPlural, isProperName, type SceneThing } from "./scene-things";
 
-/** Kde je torta? (where is it), Nájdi tortu. (find it), Ukáž na tú tortu. (point at that one). */
-export type FindLevel = "where" | "find" | "point";
-
-export const FIND_LEVELS: ReadonlyArray<{ id: FindLevel; label: string }> = [
-  { id: "where", label: "Kde je…?" },
-  { id: "find", label: "Nájdi…" },
-  { id: "point", label: "Ukáž na…" },
-];
+/** Kde je torta? (where is it, the dictionary form) or Ukáž na tú tortu. (point at that one, the accusative). */
+export type FindAsk = "where" | "point";
 
 export interface FindPrompt {
   english: string;
@@ -17,7 +11,7 @@ export interface FindPrompt {
 }
 
 /**
- * The accusative, as `nájdi` and `ukáž na` take it. Of the nouns drawn in
+ * The accusative, as `ukáž na` takes it. Of the nouns drawn in
  * the scenes the feminine ones in -a change (torta → tortu) and so does a
  * man (muž → muža); masculine things, neuter nouns and plurals like hodiny
  * or jahody keep the nominative.
@@ -50,25 +44,28 @@ function endingMark(thing: SceneThing, start: number): TextMark[] {
   return [{ start: end - 1, end, role: "ending" }];
 }
 
-export function findPrompt(thing: SceneThing, level: FindLevel): FindPrompt {
+/**
+ * How a round asks for the thing at `index`, so one round mixes both forms
+ * and needs no levels: a noun whose accusative differs (torta → tortu,
+ * muž → toho muža) is always pointed at, so the change is seen; the rest
+ * take turns, so the dictionary form is heard as well.
+ */
+export function findAsk(thing: SceneThing, index: number): FindAsk {
+  const changes =
+    accusativeOf(thing) !== thing.word || thing.gender === "masculine-animate";
+  return changes || index % 2 === 1 ? "point" : "where";
+}
+
+export function findPrompt(thing: SceneThing, ask: FindAsk): FindPrompt {
   const english = thing.english.startsWith("the ")
     ? thing.english
     : `the ${thing.english}`;
 
-  if (level === "where") {
+  if (ask === "where") {
     return {
       english: `Where ${englishPlural(thing) ? "are" : "is"} ${english}?`,
       marks: [],
       slovak: `Kde ${isAre(thing)} ${thing.word}?`,
-    };
-  }
-
-  if (level === "find") {
-    const opening = "Nájdi ";
-    return {
-      english: `Find ${english}.`,
-      marks: endingMark(thing, opening.length),
-      slovak: `${opening}${accusativeOf(thing)}.`,
     };
   }
 
@@ -114,11 +111,11 @@ export function hereIs(thing: SceneThing): string {
  * Why the form in the prompt looks the way it does, once the thing is
  * found. Nothing to say for "Kde je…?", which asks with the dictionary form.
  */
-export function findWhy(thing: SceneThing, level: FindLevel): string | undefined {
-  if (level === "where") return undefined;
+export function findWhy(thing: SceneThing, ask: FindAsk): string | undefined {
+  if (ask === "where") return undefined;
 
   const accusative = accusativeOf(thing);
-  const verb = level === "find" ? "nájdi" : "ukáž na";
+  const verb = "ukáž na";
   if (accusative !== thing.word) {
     return `After **${verb}** the noun takes the accusative: **${thing.word}** → **${accusative}**.`;
   }

@@ -4,7 +4,7 @@ import { markedText } from "$lib/learning/marked-text";
 import { captionRuns, lineTiles, shuffledTiles } from "./caption";
 import { planLine } from "./line-plan";
 import { wordAt } from "./performance";
-import { accusativeOf, findPrompt, findWhy, thatIs } from "./scene-find";
+import { accusativeOf, findAsk, findPrompt, findWhy, thatIs } from "./scene-find";
 import { SCENE_THINGS, type SceneThing } from "./scene-things";
 
 const thingsById = new Map(
@@ -83,10 +83,13 @@ describe("find it", () => {
   it("asks in three ways", () => {
     expect(findPrompt(thing("torta"), "where").slovak).toBe("Kde je torta?");
     expect(findPrompt(thing("hodiny"), "where").slovak).toBe("Kde sú hodiny?");
-    expect(findPrompt(thing("torta"), "find")).toMatchObject({
-      english: "Find the layer cake.",
-      marks: [{ start: 10, end: 11, role: "ending" }],
-      slovak: "Nájdi tortu.",
+    expect(findPrompt(thing("torta"), "point")).toMatchObject({
+      english: "Point at that layer cake.",
+      marks: [
+        { start: 8, end: 10, role: "demonstrative" },
+        { start: 15, end: 16, role: "ending" },
+      ],
+      slovak: "Ukáž na tú tortu.",
     });
     expect(findPrompt(thing("okno"), "point").slovak).toBe("Ukáž na to okno.");
     expect(findPrompt(thing("lampa"), "point")).toMatchObject({
@@ -100,13 +103,15 @@ describe("find it", () => {
   });
 
   it("puts a man into the accusative: toho muža", () => {
-    expect(findPrompt(thing("muz"), "find")).toMatchObject({
-      marks: [{ start: 9, end: 10, role: "ending" }],
-      slovak: "Nájdi muža.",
+    expect(findPrompt(thing("muz"), "point")).toMatchObject({
+      marks: [
+        { start: 8, end: 12, role: "demonstrative" },
+        { start: 16, end: 17, role: "ending" },
+      ],
+      slovak: "Ukáž na toho muža.",
     });
-    expect(findPrompt(thing("muz"), "point").slovak).toBe("Ukáž na toho muža.");
     expect(findPrompt(thing("zena"), "point").slovak).toBe("Ukáž na tú ženu.");
-    expect(findWhy(thing("muz"), "find")).toContain("**muž** → **muža**");
+    expect(findWhy(thing("muz"), "point")).toContain("**muž** → **muža**");
   });
 
   it("keeps plurals plural", () => {
@@ -121,14 +126,22 @@ describe("find it", () => {
     });
     expect(findPrompt(thing("dvere"), "point").slovak).toBe("Ukáž na tie dvere.");
     expect(thatIs(thing("jahody"))).toBe("To sú jahody.");
-    expect(findWhy(thing("jahody"), "find")).toContain("plural things keep their form");
+    expect(findWhy(thing("jahody"), "point")).toContain("plural things keep their form");
   });
 
   it("names what was tapped and says why the form changed", () => {
     expect(thatIs(thing("okno"))).toBe("To je okno.");
     expect(thatIs(thing("hodiny"))).toBe("To sú hodiny.");
-    expect(findWhy(thing("torta"), "find")).toContain("**torta** → **tortu**");
-    expect(findWhy(thing("kolac"), "find")).toContain("keeps its form");
+    expect(findWhy(thing("torta"), "point")).toContain("**torta** → **tortu**");
+    expect(findWhy(thing("kolac"), "point")).toContain("keeps its form");
     expect(findWhy(thing("torta"), "where")).toBeUndefined();
+  });
+
+  it("mixes both forms in one round, always pointing where the form changes", () => {
+    expect(findAsk(thing("torta"), 0)).toBe("point");
+    expect(findAsk(thing("muz"), 2)).toBe("point");
+    expect(findAsk(thing("okno"), 0)).toBe("where");
+    expect(findAsk(thing("okno"), 1)).toBe("point");
+    expect(findAsk(thing("jahody"), 2)).toBe("where");
   });
 });
