@@ -7,10 +7,10 @@
   import Cloud from "./Cloud.svelte";
 
   /**
-   * Light and weather over a drawn place, all still: the stage moves only
-   * while someone speaks. Lamps from the place's things glow from evening
-   * on; clouds gather over the sky outdoors, and rain and snow fall
-   * outside, indoors only in the window.
+   * Light and weather over a drawn place. Lamps from the place's things glow
+   * from evening on; clouds gather over the sky outdoors, and rain and snow
+   * fall outside, indoors only in the window. Falling rain and snow is the
+   * one thing on the stage that moves while nobody speaks.
    */
   let { mood, setting }: { mood: SceneMood; setting: StageSetting } = $props();
 
@@ -49,8 +49,30 @@
     }));
   }
 
-  const drops = scatter(120, 7, 980, 250);
-  const flakes = scatter(110, 11, 980, 300);
+  /** Drops are scattered over one fall's height and loop through it, so the loop has no seam. */
+  const FALL_HEIGHT = 300;
+  /** Sideways over one fall: the slant of a drop, 4 across for about 13 down. */
+  const RAIN_DRIFT = -90;
+  const SNOW_DRIFT = 24;
+
+  // Wider than the stage, so drifting sideways never bares an edge.
+  const drops = scatter(170, 7, 1180, FALL_HEIGHT).map((drop) => ({
+    ...drop,
+    x: drop.x - 100,
+  }));
+  const flakes = scatter(130, 11, 1180, FALL_HEIGHT).map((flake) => ({
+    ...flake,
+    x: flake.x - 100,
+  }));
+  // Near drops and flakes fall faster than far ones, so the weather has depth.
+  const rain = [
+    { items: drops.filter((drop) => drop.size < 0.5), seconds: 1 },
+    { items: drops.filter((drop) => drop.size >= 0.5), seconds: 0.6 },
+  ];
+  const snow = [
+    { items: flakes.filter((flake) => flake.size < 0.5), seconds: 14 },
+    { items: flakes.filter((flake) => flake.size >= 0.5), seconds: 9 },
+  ];
   const stars = scatter(26, 3, 960, 70);
 </script>
 
@@ -128,15 +150,27 @@
     {/if}
 
     <g clip-path={outdoors || !windowBox ? undefined : `url(#${id}-window)`}>
-      {#each drops as drop, index (index)}
-        <!-- Near drops are longer and brighter, far ones faint, so the rain has depth. -->
-        <path
-          d="M{drop.x} {drop.y}l-4 {8 + drop.size * 12}"
-          class="stroke-white"
-          stroke-opacity={0.2 + drop.size * 0.5}
-          stroke-width={0.8 + drop.size * 0.7}
-          stroke-linecap="round"
-        />
+      {#each rain as layer, depth (depth)}
+        <g
+          class="animate-fall"
+          style:animation-duration="{layer.seconds}s"
+          style:--fall-x="{RAIN_DRIFT}px"
+          style:--fall-y="{FALL_HEIGHT}px"
+        >
+          {#each [0, 1] as copy (copy)}
+            <g transform="translate({-copy * RAIN_DRIFT} {-copy * FALL_HEIGHT})">
+              {#each layer.items as drop, index (index)}
+                <path
+                  d="M{drop.x} {drop.y}l-4 {8 + drop.size * 12}"
+                  class="stroke-white"
+                  stroke-opacity={0.2 + drop.size * 0.5}
+                  stroke-width={0.8 + drop.size * 0.7}
+                  stroke-linecap="round"
+                />
+              {/each}
+            </g>
+          {/each}
+        </g>
       {/each}
     </g>
 
@@ -152,13 +186,26 @@
 {#if mood.weather === "snow"}
   <g transition:fade={{ duration: WEATHER_MS }}>
     <g clip-path={outdoors || !windowBox ? undefined : `url(#${id}-window)`}>
-      {#each flakes as flake, index (index)}
-        <circle
-          cx={flake.x}
-          cy={flake.y}
-          r={1.4 + flake.size * 1.8}
-          class="fill-white/90"
-        />
+      {#each snow as layer, depth (depth)}
+        <g
+          class="animate-fall"
+          style:animation-duration="{layer.seconds}s"
+          style:--fall-x="{SNOW_DRIFT}px"
+          style:--fall-y="{FALL_HEIGHT}px"
+        >
+          {#each [0, 1] as copy (copy)}
+            <g transform="translate({-copy * SNOW_DRIFT} {-copy * FALL_HEIGHT})">
+              {#each layer.items as flake, index (index)}
+                <circle
+                  cx={flake.x}
+                  cy={flake.y}
+                  r={1.4 + flake.size * 1.8}
+                  class="fill-white/90"
+                />
+              {/each}
+            </g>
+          {/each}
+        </g>
       {/each}
     </g>
 

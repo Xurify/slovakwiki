@@ -29,6 +29,14 @@
   --color-saffron: var(--saffron);
   --color-saffron-ink: var(--saffron-ink);
   --animate-rise: rise 200ms ease-out both;
+  /* Rain and snow on the stage; each layer sets its own duration and --fall-x / --fall-y. */
+  --animate-fall: fall 1s linear infinite;
+
+  @keyframes fall {
+    to {
+      transform: translate(var(--fall-x, 0), var(--fall-y, 0));
+    }
+  }
 
   @keyframes rise {
     from {
