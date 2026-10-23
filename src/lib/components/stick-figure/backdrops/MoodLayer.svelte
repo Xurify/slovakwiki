@@ -12,7 +12,16 @@
    * fall outside, indoors only in the window. Falling rain and snow is the
    * one thing on the stage that moves while nobody speaks.
    */
-  let { mood, setting }: { mood: SceneMood; setting: StageSetting } = $props();
+  let {
+    mood,
+    seen = { width: 960, x: 0 },
+    setting,
+  }: {
+    mood: SceneMood;
+    /** The part of the drawing the stage shows, so the sun stays in the sky on a phone. */
+    seen?: { width: number; x: number };
+    setting: StageSetting;
+  } = $props();
 
   const id = $props.id();
 
@@ -100,14 +109,14 @@
 {#if mood.time === "morning"}
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-honey/20" />
   {#if outdoors && fair}
-    <circle cx="96" cy="44" r="40" fill="url(#{id}-glow)" />
-    <circle cx="96" cy="44" r="17" class="fill-scene-honey" />
+    <circle cx={seen.x + seen.width * 0.1} cy="44" r="40" fill="url(#{id}-glow)" />
+    <circle cx={seen.x + seen.width * 0.1} cy="44" r="17" class="fill-scene-honey" />
   {/if}
 {:else if mood.time === "day" && mood.weather === "sunny"}
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-honey/10" />
   {#if outdoors}
-    <circle cx="840" cy="36" r="44" fill="url(#{id}-glow)" />
-    <circle cx="840" cy="36" r="19" class="fill-scene-honey" />
+    <circle cx={seen.x + seen.width * 0.875} cy="36" r="44" fill="url(#{id}-glow)" />
+    <circle cx={seen.x + seen.width * 0.875} cy="36" r="19" class="fill-scene-honey" />
   {/if}
 {:else if mood.time === "evening"}
   <rect x="-10" y="-10" width="980" height="240" fill="url(#{id}-dusk)" />

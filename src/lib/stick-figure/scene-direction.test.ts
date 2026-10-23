@@ -4,7 +4,7 @@ import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { demonstrativesEpisode } from "$lib/catalog/listening/episodes/demonstratives";
 import { heldProps, propForSentence } from "./props";
 import { castFor, directScene, type DirectedLine } from "./scene-direction";
-import { STAGE_PADDING, stageMarks } from "./stage-layout";
+import { STAGE_PADDING, figureWidth, stageMarks } from "./stage-layout";
 import { takesFrom, type StageLine } from "./staging";
 
 describe("castFor", () => {
@@ -40,6 +40,11 @@ describe("stageMarks", () => {
       366 - STAGE_PADDING + 0.001,
     );
     expect(phone.marks.anna ?? 0).toBeGreaterThanOrEqual(STAGE_PADDING);
+  });
+  it("keeps the cast in step with the stage's height, so a phone's stage is not all cast", () => {
+    expect(figureWidth(2, 1040)).toBe(150);
+    expect(figureWidth(2, 366, 183)).toBeCloseTo(91.5, 5);
+    expect(figureWidth(3, 366, 183)).toBeCloseTo(67.1, 1);
   });
 });
 

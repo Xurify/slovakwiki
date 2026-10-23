@@ -162,6 +162,7 @@
             stageHeight,
             backdropAlign(setting),
           ).x,
+      stageHeight || undefined,
     ),
   );
   const pickedThing = $derived(direction.things.find((thing) => thing.id === picked));
@@ -643,7 +644,11 @@
 <svelte:window onpointerdown={closeCard} onkeydown={closeCard} />
 
 <div
-  class={cx("relative h-[300px] overflow-hidden max-[600px]:h-[240px]", className)}
+  class={cx(
+    // Twice as wide as tall up to 300px, so a phone sees most of the place rather than a slice of its middle.
+    "relative aspect-[2/1] max-h-[300px] w-full overflow-hidden",
+    className,
+  )}
   bind:clientWidth={stageWidth}
   bind:clientHeight={stageHeight}
 >
@@ -689,6 +694,7 @@
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
         prop={holding[characterId]}
+        furled={mood.weather !== "rain"}
         scarf={wrapped}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}

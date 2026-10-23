@@ -1145,20 +1145,37 @@
                       slovak={dayCaption.slovak}
                     />
                   {:else}
+                    {@const name = dayName(dayVisit.who)}
+                    {@const [before, after] = dayVisit.arrive.slovak.split(name)}
+
                     {#key dayAt}
                       <div class="animate-rise">
+                        <p class="m-0 text-sm text-slate-500">
+                          <span class="font-semibold text-slate-600" lang="sk">
+                            {when.slovak}
+                          </span>
+                          <span class="ml-1.5">{when.english}</span>
+                        </p>
                         <p
-                          class="m-0 font-serif text-2xl leading-snug text-slate-600 italic max-[600px]:text-xl"
+                          class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
                           lang="sk"
                         >
-                          {when.slovak}
-                          {dayVisit.arrive.slovak}
+                          {before}<span class={STICK_NAME_CLASSES[dayVisit.who]}
+                            >{name}</span
+                          >{after}
                         </p>
-                        <p class="m-0 mt-1.5 text-sm text-slate-600">
-                          <span class="font-semibold text-slate-700" lang="sk">
+                        {#if showEnglish}
+                          <p class="m-0 mt-1 text-base text-slate-600">
+                            {dayVisit.arrive.english}
+                          </p>
+                        {/if}
+                        <p
+                          class="m-0 mt-3 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 border-l-2 border-slate-200 pl-3"
+                        >
+                          <span class="font-serif text-base text-slate-800" lang="sk">
                             {who.slovak}
                           </span>
-                          <span class="ml-2">{who.english}</span>
+                          <span class="text-sm text-slate-500">{who.english}</span>
                         </p>
                       </div>
                     {/key}
@@ -1213,30 +1230,64 @@
               {/if}
             {:else}
               {@const exchanges = DAY_VISITS.flatMap((visit) => visit.exchanges)}
+              {@const firstMiss = exchanges.find((exchange) => !dayResults[exchange.id])}
 
               <div class="animate-rise">
-                <p class="m-0 font-serif text-2xl text-slate-900">
+                <p class="m-0 font-serif text-2xl text-slate-900 max-[600px]:text-xl">
                   {Object.values(dayResults).filter(Boolean).length} of {exchanges.length}
                   right the first time.
                 </p>
+                {#if firstMiss}
+                  <p class="m-0 mt-1 text-sm text-pretty text-slate-600">
+                    The lines that took another try are red, like
+                    <span class="font-serif text-base text-rose-800" lang="sk">
+                      {dayAnswer(firstMiss).slovak}
+                    </span>
+                  </p>
+                {/if}
 
-                <p class="{eyebrowMutedClass} mt-4">What Alex said</p>
+                <!-- One panel; the 1px gaps over the line colour are the dividers between people. -->
                 <ul
-                  class="m-0 mt-2 grid list-none gap-x-6 gap-y-2 p-0 sm:grid-cols-[auto_1fr]"
+                  class="m-0 mt-4 grid list-none gap-px overflow-hidden rounded-(--control-radius) bg-slate-200 p-0 ring-1 ring-slate-200 sm:grid-cols-2"
                 >
                   {#each DAY_VISITS as visit (visit.id)}
-                    <li class="contents">
-                      <span class="text-sm font-semibold text-slate-700">
-                        {dayName(visit.who)}
-                      </span>
-                      <span
-                        class="flex flex-wrap gap-x-4 font-serif text-base text-slate-900 max-sm:mb-2"
-                        lang="sk"
-                      >
+                    <li class="bg-surface px-4 py-3">
+                      <p class="m-0 flex items-baseline gap-2">
+                        <span
+                          class={cx(
+                            "text-sm font-semibold",
+                            STICK_NAME_CLASSES[visit.who],
+                          )}
+                        >
+                          {dayName(visit.who)}
+                        </span>
+                        <span class="text-sm text-slate-500">
+                          {TIME_WORDS[visit.time].english}
+                        </span>
+                      </p>
+
+                      <ol class="m-0 mt-1.5 grid list-none gap-1 p-0">
                         {#each visit.exchanges as exchange (exchange.id)}
-                          <span>{dayAnswer(exchange).slovak}</span>
+                          {@const answer = dayAnswer(exchange)}
+
+                          <li class="flex flex-wrap items-baseline gap-x-2.5">
+                            <span
+                              class={cx(
+                                "font-serif text-base",
+                                dayResults[exchange.id]
+                                  ? "text-slate-900"
+                                  : "text-rose-800",
+                              )}
+                              lang="sk"
+                            >
+                              {answer.slovak}
+                            </span>
+                            {#if showEnglish}
+                              <span class="text-sm text-slate-500">{answer.english}</span>
+                            {/if}
+                          </li>
                         {/each}
-                      </span>
+                      </ol>
                     </li>
                   {/each}
                 </ul>

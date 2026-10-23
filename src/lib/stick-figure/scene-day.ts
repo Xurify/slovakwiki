@@ -302,10 +302,10 @@ export const DAY_VISITS: readonly DayVisit[] = [
 ];
 
 export const TIME_WORDS: Record<TimeOfDay, Said> = {
-  day: { english: "Afternoon.", slovak: "Popoludnie." },
-  evening: { english: "Evening.", slovak: "Večer." },
-  morning: { english: "Morning.", slovak: "Ráno." },
-  night: { english: "Late at night.", slovak: "Noc." },
+  day: { english: "afternoon", slovak: "Popoludnie" },
+  evening: { english: "evening", slovak: "Večer" },
+  morning: { english: "morning", slovak: "Ráno" },
+  night: { english: "late at night", slovak: "Noc" },
 };
 
 export function dayName(id: LessonCharacterId): string {

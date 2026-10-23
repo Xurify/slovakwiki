@@ -67,14 +67,22 @@
   const view = $derived.by(() => {
     if (!width || !height) {
       const x = align === 0 ? "xMin" : align === 1 ? "xMax" : "xMid";
-      return { box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`, ratio: `${x}YMax slice` };
+      return {
+        box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`,
+        ratio: `${x}YMax slice`,
+        seen: { width: BACKDROP_WIDTH, x: 0 },
+      };
     }
 
     const scale = Math.max(width / BACKDROP_WIDTH, height / BACKDROP_HEIGHT);
     const shown = { height: height / scale, width: width / scale };
     const x = (BACKDROP_WIDTH - shown.width) * align;
     const y = BACKDROP_HEIGHT - shown.height;
-    return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
+    return {
+      box: `${x} ${y} ${shown.width} ${shown.height}`,
+      ratio: "none",
+      seen: { width: shown.width, x },
+    };
   });
   const hour = $derived(CLOCK_HOURS[mood.time]);
   const things = $derived(SCENE_THINGS[setting] ?? []);
@@ -125,7 +133,7 @@
     <Park />
   {/if}
 
-  <MoodLayer {mood} {setting} />
+  <MoodLayer {mood} {setting} seen={view.seen} />
   <StageLight />
 
   {#each boxes as { box, copy, thing } (`${thing.id}-${copy}`)}

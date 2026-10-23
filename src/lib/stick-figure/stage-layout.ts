@@ -21,13 +21,20 @@ export const STAGE_POSTS: Partial<Record<StageSetting, number>> = {
   market: 660,
   registration: 560,
 };
-/** Below this stage width figures take their narrow size. */
-const NARROW_STAGE = 560;
+/** The stage's height on a wide screen, px; a phone's stage is shorter, keeping more of the place in view. */
+export const STAGE_HEIGHT = 300;
 
-/** A figure's width on a stage this wide: smaller in a crowd and on phones, never wider than its share. */
-export function figureWidth(castSize: number, stageWidth: number): number {
-  const narrow = stageWidth < NARROW_STAGE;
-  const preferred = castSize > 2 ? (narrow ? 80 : 110) : narrow ? 120 : 150;
+/**
+ * A figure's width on a stage this size: in step with the stage's height,
+ * so the cast keeps its size against the place on a phone, smaller in a
+ * crowd, and never wider than its share.
+ */
+export function figureWidth(
+  castSize: number,
+  stageWidth: number,
+  stageHeight = STAGE_HEIGHT,
+): number {
+  const preferred = ((castSize > 2 ? 110 : 150) * stageHeight) / STAGE_HEIGHT;
   const inner = stageWidth - 2 * STAGE_PADDING;
   const gaps = GAP_SHARE * inner * Math.max(0, castSize - 1);
   return Math.max(40, Math.min(preferred, (inner - gaps) / Math.max(1, castSize)));
@@ -45,8 +52,9 @@ export function stageMarks(
   entering: Partial<Record<LessonCharacterId, Facing>>,
   stageWidth: number,
   at = stageWidth / 2,
+  stageHeight = STAGE_HEIGHT,
 ): { marks: Partial<Record<LessonCharacterId, number>>; width: number } {
-  const width = figureWidth(cast.length, stageWidth);
+  const width = figureWidth(cast.length, stageWidth, stageHeight);
   const step = width + GAP_SHARE * (stageWidth - 2 * STAGE_PADDING);
   const present = cast.flatMap((id, index) => (id in entering ? [] : [index]));
   const shown = present.length > 0 ? present : cast.map((_, index) => index);

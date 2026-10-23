@@ -26,6 +26,7 @@
     onbeat,
     plan,
     prop,
+    furled = false,
     scarf = false,
     talking = false,
     walk,
@@ -41,6 +42,8 @@
     plan?: LinePlan;
     /** Held in the lead hand. */
     prop?: StickPropId;
+    /** An umbrella held closed: the rain has stopped. */
+    furled?: boolean;
     scarf?: boolean;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
@@ -151,5 +154,6 @@
   {picture}
   {pose}
   {prop}
+  {furled}
   {scarf}
 />

@@ -23,6 +23,7 @@
     picture,
     pose = REST_POSE,
     prop,
+    furled = false,
     scarf = false,
   }: {
     characterId: LessonCharacterId;
@@ -33,6 +34,8 @@
     pose?: StickPose;
     /** Held in the lead hand. */
     prop?: StickPropId;
+    /** An umbrella held closed: the rain has stopped. */
+    furled?: boolean;
     scarf?: boolean;
   } = $props();
 
@@ -250,7 +253,18 @@
       />
     {/if}
 
-    {#if prop === "umbrella"}
+    {#if prop === "umbrella" && furled}
+      <!-- Hung from the hand by its crook, tip down, the canopy wrapped round the shaft. -->
+      <g
+        class="stroke-portrait-ink"
+        stroke-linejoin="round"
+        transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})"
+      >
+        <path d="M0 26V-2q0-4 3.4-4q3.4 0 3.4 3.4" fill="none" stroke-width="1.6" />
+        <path d="M0 5Q-3.6 14 0 23Q3.6 14 0 5Z" class="fill-rose-500" stroke-width="1" />
+        <path d="M-1.6 9.5l3.2 1.2" stroke-width="0.8" />
+      </g>
+    {:else if prop === "umbrella"}
       {@const top = { x: rig.head.x + 18, y: rig.head.y - HEAD_RADIUS - 7 }}
       <!-- Over the holder and whoever stands beside them; the stick runs down to the hand. -->
       <g class="stroke-portrait-ink" stroke-linejoin="round">
