@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import ScenePlayer from "$lib/components/stick-figure/ScenePlayer.svelte";
+import ScenesPage from "$lib/components/stick-figure/ScenesPage.svelte";
 import { sceneGroups, sceneThingWords } from "$lib/stick-figure/scene-sources";
 
 const groups = sceneGroups();
@@ -8,5 +8,5 @@ const thingWords = sceneThingWords();
 ---
 
 <SiteLayout title="Scenes | Slovak Wiki" noindex>
-  <ScenePlayer client:load {groups} {thingWords} />
+  <ScenesPage client:load {groups} {thingWords} />
 </SiteLayout>
