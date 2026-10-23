@@ -135,16 +135,18 @@
     {/if}
   </div>
 
-  {#if check.promptSk}
-    <p class="m-0 mt-4 font-serif text-lg text-slate-500" lang="sk">{check.promptSk}</p>
+  {#if check.gap}
+    <p class="m-0 mt-4 font-serif text-lg text-slate-500" lang="sk">{check.gap}</p>
   {/if}
 
   <h3
     id="{check.id}-prompt"
-    class="{sessionPromptClass} {check.promptSk ? 'mt-1' : 'mt-4'}"
+    class="{sessionPromptClass} {check.gap ? 'mt-1' : 'mt-4'}"
+    lang="sk"
   >
     {check.prompt}
   </h3>
+  <p class="m-0 mt-1 text-base text-slate-600">{check.promptEnglish}</p>
 
   <ChoiceOptions
     choices={check.choices}

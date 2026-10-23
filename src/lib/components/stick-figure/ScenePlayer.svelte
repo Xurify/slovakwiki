@@ -5,6 +5,8 @@
   import type { DialogueSayChoices } from "$lib/learning/types";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import type { StickGestureId } from "$lib/stick-figure/gestures";
+  import type { TimeOfDay } from "$lib/stick-figure/scene-mood";
+  import type { Said, TalkNode } from "$lib/stick-figure/talk";
   import type { StickPropId } from "$lib/stick-figure/props";
 
   export interface PlayerLine {
@@ -25,8 +27,16 @@
     /** The name shown over the line: Alex, not You. */
     speaker: string;
     src?: string;
+    /** Keeps their place after a goodbye: Alex, whom the others visit. */
+    stays?: boolean;
     to?: LessonCharacterId;
     vowels?: string;
+  }
+
+  /** A conversation that branches on Alex's replies, with the one he talks with. */
+  export interface PlayerTalk {
+    nodes: TalkNode<PlayerLine>[];
+    who: LessonCharacterId;
   }
 
   export interface PlayerScene {
@@ -38,12 +48,19 @@
     href?: string;
     hrefLabel?: string;
     id: string;
+    /** Before it starts, in place of the place and the cast: the hour and who comes. */
+    intro?: Said;
+    /** The lines as played without picking: a talk's along the first reply that fits. */
     lines: PlayerLine[];
     /** A line it is named after, or the podcast chapter's name. */
     name: string;
     /** Who stands where, left to right, so a series keeps its hosts in their places. */
     order?: LessonCharacterId[];
     setting: StageSetting;
+    /** Branches on what Alex says, so its lines follow his picks. */
+    talk?: PlayerTalk;
+    /** The hour, when the lines do not say it with a greeting. */
+    time?: TimeOfDay;
   }
 
   export interface PlayerSceneGroup {
@@ -59,6 +76,7 @@
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import { playAnswerSfx } from "$lib/audio/sfx";
+  import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
   import { listedCharacters } from "$lib/catalog/lessons/character-ids";
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
@@ -76,31 +94,19 @@
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { shuffledTiles } from "$lib/stick-figure/caption";
   import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
-  import { sceneMood } from "$lib/stick-figure/scene-mood";
-  import {
-    DAY_ROUNDS,
-    GREETINGS,
-    TIME_WORDS,
-    dayName,
-    dayWho,
-    dayWhy,
-    greetingGloss,
-    greetingTurnId,
-    isDayRight,
-    pairOf,
-    replyTurnId,
-    type Greeting,
-  } from "$lib/stick-figure/scene-day";
-  import { ChoiceOptions } from "$lib/learning/exercises";
+  import { sceneMood, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import { defaultReply, fits, replyChoices, walkTalk } from "$lib/stick-figure/talk";
   import EpisodeCheck from "$lib/components/listening/EpisodeCheck.svelte";
   import {
-    FIND_LEVELS,
     accusativeOf,
+    accusativeRule,
+    findAsks,
+    findEnglish,
+    formChanges,
     findPrompt,
     findWhy,
     hereIs,
     thatIs,
-    type FindLevel,
   } from "$lib/stick-figure/scene-find";
   import {
     thingWithDemonstrative,
@@ -124,9 +130,12 @@
   import StickStage from "./StickStage.svelte";
   import { STICK_NAME_CLASSES } from "./stick-figure-ui";
 
-  type Mode = "watch" | "play" | "find" | "day";
-  /** Pick Alex's line from the lesson's choices, build it from its words, or say it. */
-  type Turn = "pick" | "build" | "say";
+  type Mode = "watch" | "play" | "find";
+  /**
+   * Pick Alex's line from the choices, build it from its words, or say it;
+   * adaptive moves between them as the learner gets lines right or not.
+   */
+  type Turn = "pick" | "build" | "say" | "adaptive";
   type Phase = "ready" | "playing" | "paused" | "turn" | "done";
 
   interface DoneAction {
@@ -138,34 +147,36 @@
   }
 
   let {
-    day = [],
     groups,
     thingWords = {},
   }: {
-    /** Alex's greetings and the answers of the people on the square, with their clips. */
-    day?: PlayerLine[];
     groups: PlayerSceneGroup[];
     /** Dictionary link and clip for a scene thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
-  /** Ways to take a lesson scene; the day on the square is a game of its own. */
-  const MODES: Array<{ id: Exclude<Mode, "day">; label: string }> = [
+  /** Ways to take a scene. */
+  const MODES: Array<{ id: Mode; label: string }> = [
     { id: "watch", label: "Watch" },
     { id: "play", label: "Play as" },
     { id: "find", label: "Find it" },
   ];
 
-  /** Long enough to read what was said back before the next person comes. */
-  const DAY_PAUSE_MS = 2600;
+  /** After a slip, before the one spoken to answers it, so Alex's bubble is read first. */
+  const ANSWER_DELAY_MS = 900;
 
   const TURNS: Array<{ id: Turn; label: string; task: string }> = [
     { id: "pick", label: "Pick the line", task: "pick what to say" },
     { id: "build", label: "Build it", task: "build the line from its words" },
     { id: "say", label: "Say it", task: "say the line out loud" },
+    {
+      id: "adaptive",
+      label: "Adaptive",
+      task: "answer: picking first, then building the line and saying it as you get lines right, and back a step after a slip",
+    },
   ];
-
-  const DAY = { english: "A day on the square", name: "Deň na námestí" };
+  /** Two right the first time in a row moves adaptive on a step. */
+  const STEP_UP_AFTER = 2;
 
   const PLACES: Record<StageSetting, string> = {
     cafe: "At the café",
@@ -216,7 +227,8 @@
   let stage = $state<ReturnType<typeof StickStage>>();
   let player = $state<HTMLElement>();
 
-  let level = $state<FindLevel>("find");
+  /** Rounds of Find it played on this scene, so Play again asks in a new order. */
+  let findRound = 0;
   let queue = $state<string[]>([]);
   let findAt = $state(0);
   /** How each thing went: found on the first tap, found after a miss, or shown. */
@@ -225,6 +237,7 @@
   /** Things found on the first tap in a row. */
   let streak = $state(0);
   let findNote = $state<{
+    english: string;
     tone: "right" | "wrong" | "shown";
     text: string;
     why?: string;
@@ -233,21 +246,16 @@
   let checkAt = $state(0);
   let checksRight = $state(0);
 
-  let dayAt = $state(0);
-  let dayPicked = $state<Greeting | null>(null);
-  let dayMissed = $state(false);
-  let dayResults = $state<Record<string, boolean>>({});
-  let dayNote = $state<{ right: boolean; text: string }>();
-  /** What Alex said in each round, for the stage to play back. */
-  let daySaid = $state<Record<string, Greeting>>({});
-  /** True while a greeting and its answer play, so the next pick waits. */
-  let dayBusy = $state(false);
-  /** True once the person has started answering, so their line shows as it is said. */
-  let dayReplied = $state(false);
+  /** Each talk node's reply picked so far, by index; the rest follow the first that fits. */
+  let picks = $state<Record<string, number>>({});
+  /** Adaptive's step: picking, building, saying. */
+  let adaptiveStep = $state(0);
+  /** Lines right the first time in a row since adaptive last moved. */
+  let adaptiveRun = 0;
 
   let timer = 0;
   let findTimer = 0;
-  let dayTimer = 0;
+  let answerTimer = 0;
 
   const scenes = $derived(groups.flatMap((group) => group.scenes));
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
@@ -258,15 +266,19 @@
     return index === -1 ? undefined : group?.scenes[index + 1];
   });
   const checks = $derived(scene.checks ?? []);
+  /** A talk walked along Alex's picks: its lines, and which node each of his turns answers. */
+  const walked = $derived(scene.talk ? walkTalk(scene.talk.nodes, picks) : undefined);
+  const sceneLines = $derived(walked?.lines ?? scene.lines);
   const checking = $derived(phase === "done" && checkAt < checks.length);
   const lines = $derived<DirectedLine[]>(
-    scene.lines.map((line) => ({
+    sceneLines.map((line) => ({
       characterId: line.onStage ? line.characterId : null,
       gestures: line.gestures,
       mouth: line.mouth,
       props: line.props,
       slovak: line.slovak,
       src: line.src,
+      stays: line.stays,
       to: line.to,
       vowels: line.vowels,
     })),
@@ -289,57 +301,49 @@
   );
   const turns = $derived(TURNS.filter(({ id }) => id !== "say" || recordable));
   const takeCount = $derived(Object.keys(takes).length);
-  const soundscape = $derived(
-    ambienceFor(mode === "day" ? "plaza" : scene.setting, mood),
-  );
+  const soundscape = $derived(ambienceFor(scene.setting, mood));
   const soundKey = $derived(JSON.stringify(soundscape));
-  const dayRound = $derived(DAY_ROUNDS[dayAt]);
-  /** The person on the square now, or the last one once the day is over. */
-  const dayVisitor = $derived(DAY_ROUNDS[Math.min(dayAt, DAY_ROUNDS.length - 1)].who);
-  // Keyed on who, not the round, so moving on to the goodbye does not restage them.
-  const dayPair = $derived(
-    pairOf(
-      DAY_ROUNDS,
-      DAY_ROUNDS.findIndex((round) => round.who === dayVisitor),
+  const mood = $derived.by((): SceneMood => {
+    const told = sceneMood(
+      sceneLines.map((line) => line.slovak),
+      // Past the last line once it is over, where the rain has let up.
+      phase === "done" ? sceneLines.length : shown >= 0 ? shown : at,
+    );
+    return { ...told, time: scene.time ?? told.time };
+  });
+  const caption = $derived(shown >= 0 ? sceneLines[shown] : undefined);
+  const turn = $derived(phase === "turn" ? sceneLines[at] : undefined);
+  /** The talk node Alex's turn answers, when the scene branches. */
+  const turnNode = $derived(phase === "turn" ? walked?.turns.get(at) : undefined);
+  /** How this turn is answered: the kind picked, or adaptive's step. */
+  const turnNow = $derived.by((): Exclude<Turn, "adaptive"> => {
+    if (turnKind !== "adaptive") return turnKind;
+    const steps: Array<Exclude<Turn, "adaptive">> = recordable
+      ? ["pick", "build", "say"]
+      : ["pick", "build"];
+    return steps[Math.min(adaptiveStep, steps.length - 1)];
+  });
+  /** In a talk, the replies that fit, when there is more than one to choose between. */
+  const intents = $derived(
+    (turnNode?.replies ?? []).flatMap((reply, index) =>
+      fits(reply) ? [{ english: reply.line.english, index }] : [],
     ),
   );
-  const dayLines = $derived<DirectedLine[]>(
-    dayPair.flatMap((round) => {
-      const said = daySaid[round.id] ?? round.answers[0];
-      return [
-        dayLine(greetingTurnId(said), "alex", said),
-        dayLine(replyTurnId(round), round.who, round.reply.slovak),
-      ];
-    }),
-  );
-  const dayDirection = $derived(directScene(dayLines, "plaza"));
-  const mood = $derived(
-    mode === "day"
-      ? {
-          time: (dayRound ?? DAY_ROUNDS[DAY_ROUNDS.length - 1]).time,
-          weather: "clear" as const,
-        }
-      : sceneMood(
-          scene.lines.map((line) => line.slovak),
-          shown >= 0 ? shown : at,
-        ),
-  );
-  const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
-  const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
   /** Whose name sits on the dialogue box: the speaker of the line showing, or Alex at his turn. */
   const tag = $derived.by(
     (): { characterId: LessonCharacterId; name: string } | undefined => {
-      if (mode === "day")
-        return dayRound ? { characterId: "alex", name: "Alex" } : undefined;
       if (mode === "find" || checking || phase === "done") return undefined;
-      const line = turn ?? caption;
+      // In a talk, the box keeps the other person's line over Alex's replies.
+      const line = turn && scene.talk && answering ? answering : (turn ?? caption);
       // A board or a notice has nobody on stage saying it, so no name goes on the box.
       return line?.onStage
         ? { characterId: line.characterId, name: line.speaker }
         : undefined;
     },
   );
-  const learnerCount = $derived(scene.lines.filter((line) => line.learner).length);
+  /** In a talk, at Alex's turn: what the other person has just said, which he answers. */
+  const answering = $derived(caption && !caption.learner ? caption : undefined);
+  const learnerCount = $derived(sceneLines.filter((line) => line.learner).length);
   const findable = $derived(direction.things.length > 0);
   /** Taking Alex's part needs Alex in the scene, and finding things needs things. */
   const modes = $derived(
@@ -349,7 +353,7 @@
     ),
   );
   const learnerName = $derived(
-    scene.lines.find((line) => line.learner)?.speaker ?? "Alex",
+    sceneLines.find((line) => line.learner)?.speaker ?? "Alex",
   );
   const firstTryCount = $derived(Object.values(firstTries).filter(Boolean).length);
   /** The things the dialogue names, in the order it names them. */
@@ -364,6 +368,8 @@
       ),
     ].flatMap((id) => direction.things.filter((thing) => thing.id === id)),
   );
+  /** How the round asks for each thing, in the round's order. */
+  const findAsk = $derived(findAsks(inOrder(direction.things))[findAt]);
   const findTarget = $derived(
     direction.things.find((thing) => thing.id === queue[findAt]),
   );
@@ -383,8 +389,9 @@
             ontoggle: toggleEnglish,
           },
         ]),
-    ...(mode === "watch" || mode === "play"
-      ? [
+    ...(mode === "find"
+      ? []
+      : [
           {
             description: "Lines play at three-quarter speed",
             label: "Slower",
@@ -393,6 +400,9 @@
               slower = !slower;
             },
           },
+        ]),
+    ...(mode === "watch" || mode === "play"
+      ? [
           {
             description:
               "Hear each line before you read it, then go on when you are ready",
@@ -427,7 +437,7 @@
       ? [
           {
             icon: "next",
-            label: checks.length > 0 ? "Next chapter" : "Next scene",
+            label: checks.length > 0 ? "Next segment" : "Next scene",
             run: () => void goNext(),
             slovak: nextScene.name,
           },
@@ -485,7 +495,6 @@
   );
 
   $effect(() => {
-    void soundKey;
     if (!ambient) return;
 
     const player = untrack(() => playAmbience(soundscape));
@@ -496,10 +505,17 @@
     };
   });
 
+  // One player for the whole visit: the weather fades in and out of it rather than restarting it.
+  $effect(() => {
+    void soundKey;
+    untrack(() => ambience?.set(soundscape));
+  });
+
   onMount(() => {
     recordable = canRecord();
     const linked = new URLSearchParams(window.location.search).get(SCENE_PARAM);
     if (linked && scenes.some((option) => option.id === linked)) sceneId = linked;
+    if (scene.talk) mode = "play";
 
     showEnglish = getStoryShowEnglish() === "on";
     const sync = () => {
@@ -517,7 +533,7 @@
   function halt(): void {
     window.clearTimeout(timer);
     window.clearTimeout(findTimer);
-    window.clearTimeout(dayTimer);
+    window.clearTimeout(answerTimer);
     stage?.stop();
     speaking = false;
   }
@@ -528,6 +544,7 @@
     at = 0;
     shown = -1;
     firstTries = {};
+    picks = {};
     findNote = undefined;
     checkAt = 0;
     checksRight = 0;
@@ -547,7 +564,8 @@
     const url = new URL(window.location.href);
     url.searchParams.set(SCENE_PARAM, id);
     window.history.replaceState(window.history.state, "", url);
-    if (mode === "day") mode = "watch";
+    // A talk is there to be played: watching it only shows one way through.
+    if (scene.talk) mode = "play";
     if (mode === "play" && learnerCount === 0) mode = "watch";
     if (mode === "find" && !findable) mode = "watch";
     if (same) stage?.place(0);
@@ -565,11 +583,6 @@
 
   function openScene(id: string): void {
     selectScene(id);
-    void scrollToPlayer();
-  }
-
-  function openDay(): void {
-    selectMode("day");
     void scrollToPlayer();
   }
 
@@ -595,7 +608,7 @@
   }
 
   function replay(lineId: string | undefined, onEnded: () => void): void {
-    const index = scene.lines.findIndex((line) => line.id === lineId);
+    const index = sceneLines.findIndex((line) => line.id === lineId);
     if (index === -1) {
       onEnded();
       return;
@@ -612,85 +625,6 @@
     stage?.place(0);
     mode = next;
     if (next === "find") startFind();
-    if (next === "day") void startDay();
-  }
-
-  /** A line of the game with its clip; Alex stays on the square after each goodbye. */
-  function dayLine(
-    id: string,
-    characterId: LessonCharacterId,
-    slovak: string,
-  ): DirectedLine {
-    const line = day.find((option) => option.id === id);
-    return {
-      characterId,
-      mouth: line?.mouth,
-      slovak,
-      src: line?.src,
-      stays: characterId === "alex",
-      vowels: line?.vowels,
-    };
-  }
-
-  /** Stage the square with its first visitor on the way, once the stage has the cast. */
-  async function startDay(): Promise<void> {
-    window.clearTimeout(dayTimer);
-    dayAt = 0;
-    dayPicked = null;
-    dayMissed = false;
-    dayResults = {};
-    dayNote = undefined;
-    daySaid = {};
-    dayBusy = false;
-    dayReplied = false;
-    await tick();
-    stage?.arrive(dayPair[0].who, 1);
-  }
-
-  function sayOnSquare(picked: Greeting | null): void {
-    const round = dayRound;
-    if (!picked || !round || dayBusy) return;
-
-    dayPicked = picked;
-    if (!isDayRight(round, picked)) {
-      playAnswerSfx("incorrect");
-      stage?.say("alex", picked);
-      stage?.gesture(round.who, "think");
-      dayMissed = true;
-      dayNote = { right: false, text: dayWhy(round, picked) };
-      return;
-    }
-
-    playAnswerSfx("correct");
-    dayResults = { ...dayResults, [round.id]: !dayMissed };
-    daySaid = { ...daySaid, [round.id]: picked };
-    dayNote = { right: true, text: round.notes?.[picked] ?? "" };
-    dayBusy = true;
-
-    // The stage restages for the greeting Alex picked before it can play it.
-    const index = dayPair.indexOf(round) * 2;
-    void tick().then(() => {
-      stage?.play(index, () => {
-        dayReplied = true;
-        stage?.play(index + 1, () => {
-          dayTimer = window.setTimeout(() => void nextOnSquare(), DAY_PAUSE_MS);
-        });
-      });
-    });
-  }
-
-  async function nextOnSquare(): Promise<void> {
-    const gone = dayRound?.leaving;
-    dayAt += 1;
-    dayPicked = null;
-    dayMissed = false;
-    dayNote = undefined;
-    dayBusy = false;
-    dayReplied = false;
-    if (gone && dayRound) {
-      await tick();
-      stage?.arrive(dayRound.who, 1);
-    }
   }
 
   /** The learner's take of line `index`, when it should be heard in Alex's place. */
@@ -715,10 +649,11 @@
   }
 
   function step(index: number): void {
-    const line = scene.lines[index];
+    const line = sceneLines[index];
 
     if (!line) {
       phase = "done";
+      stage?.foldUmbrellas();
       if (mode === "play") cheer();
       return;
     }
@@ -743,7 +678,7 @@
    * on its words until they ask for the next line.
    */
   function advance(index: number): void {
-    if (listenFirst && scene.lines[index + 1]) {
+    if (listenFirst && sceneLines[index + 1]) {
       at = index + 1;
       phase = "paused";
       return;
@@ -757,6 +692,8 @@
       stage?.place(0);
     }
     halt();
+    // The one Alex talks with walks onto the square as the talk begins.
+    if (scene.talk && phase === "ready" && at === 0) stage?.arrive(scene.talk.who, 1);
     phase = "playing";
     step(at);
   }
@@ -802,22 +739,73 @@
     });
   }
 
-  function answered(firstTry: boolean, heard = false): void {
+  /**
+   * Alex's line is in: the reply picked, when the talk branches on it. The
+   * talk takes that way, and the stage restages before the line plays.
+   */
+  async function answered(
+    firstTry: boolean,
+    heard = false,
+    choice?: string,
+  ): Promise<void> {
     if (!heard) playAnswerSfx("correct");
+    window.clearTimeout(answerTimer);
+    const node = turnNode;
+    if (node && choice !== undefined) {
+      picks = { ...picks, [node.id]: Number(choice) };
+      await tick();
+    }
+    if (!heard) stepAdaptive(firstTry);
     firstTries = { ...firstTries, [at]: firstTry };
     phase = "playing";
     const index = at;
     say(index, () => advance(index));
   }
 
-  function missed(said: string): void {
-    const line = scene.lines[at];
+  /** Adaptive moves on a step after a run of lines right the first time, and back one after a slip. */
+  function stepAdaptive(firstTry: boolean): void {
+    if (turnKind !== "adaptive") return;
+    if (!firstTry) {
+      adaptiveRun = 0;
+      adaptiveStep = Math.max(0, adaptiveStep - 1);
+      return;
+    }
+    adaptiveRun += 1;
+    if (adaptiveRun < STEP_UP_AFTER) return;
+    adaptiveRun = 0;
+    adaptiveStep = Math.min(adaptiveStep + 1, recordable ? 2 : 1);
+  }
+
+  /**
+   * A line that does not fit, said in a bubble. The one spoken to takes it
+   * as they would: in a talk, a laugh, a puzzled look or a stiffening, then
+   * their answer to it; otherwise a moment's thought.
+   */
+  function missed(said: string, choice?: string): void {
+    const line = sceneLines[at];
     if (!line) return;
 
     playAnswerSfx("incorrect");
     stage?.say(line.characterId, said);
-    const listener = direction.stagings[at]?.addressee;
-    if (listener) stage?.gesture(listener, "think");
+    const listener = scene.talk?.who ?? direction.stagings[at]?.addressee;
+    const miss =
+      choice === undefined ? undefined : turnNode?.replies?.[Number(choice)]?.miss;
+    if (!listener) return;
+
+    stage?.gesture(listener, miss?.reaction ?? "think");
+    const answer = miss?.answer;
+    if (!answer) return;
+
+    window.clearTimeout(answerTimer);
+    answerTimer = window.setTimeout(() => {
+      stage?.say(listener, answer.slovak);
+      if (answer.src) playStoryLineAudio(answer.src, answer.slovak);
+    }, ANSWER_DELAY_MS);
+  }
+
+  /** In a talk, which of the replies that fit Alex will build or say. */
+  function chooseIntent(index: number): void {
+    if (turnNode) picks = { ...picks, [turnNode.id]: index };
   }
 
   function hearIt(): void {
@@ -836,6 +824,7 @@
   }
 
   function useTake(take: Take): void {
+    stepAdaptive(true);
     takes = { ...takes, [at]: take };
     ownVoice = true;
     firstTries = { ...firstTries, [at]: true };
@@ -860,14 +849,14 @@
     return direction.cast.find((id) => !entering.has(id));
   }
 
-  function startFind(next: FindLevel = level): void {
+  function startFind(again = false): void {
     window.clearTimeout(findTimer);
-    level = next;
+    findRound = again ? findRound + 1 : 0;
     // Only what the stage shows: a phone slices off the ends of the room.
     const { height, width } = stage?.size() ?? { height: 0, width: 0 };
     queue = shuffledTiles(
       thingsInView(direction.things, scene.setting, width, height).map(({ id }) => id),
-      `${scene.id}-${next}`,
+      `${scene.id}-${findRound}`,
     );
     findAt = 0;
     results = {};
@@ -919,7 +908,11 @@
       missedTarget = true;
       streak = 0;
       playAnswerSfx("incorrect");
-      findNote = { tone: "wrong", text: tapped ? thatIs(tapped) : "" };
+      findNote = {
+        english: tapped ? findEnglish(tapped, "wrong") : "",
+        tone: "wrong",
+        text: tapped ? thatIs(tapped) : "",
+      };
       stage?.light(id);
       if (who) stage?.gesture(who, "shake");
       return;
@@ -928,7 +921,12 @@
     playAnswerSfx("correct");
     results = { ...results, [id]: missedTarget ? "later" : "first" };
     if (!missedTarget) streak += 1;
-    findNote = { tone: "right", text: "Áno!", why: findWhy(target, level) };
+    findNote = {
+      english: findEnglish(target, "right"),
+      tone: "right",
+      text: "Áno!",
+      why: findWhy(target, findAsk),
+    };
     if (who) stage?.gesture(who, "nod");
     nextThing();
   }
@@ -939,18 +937,18 @@
 
     results = { ...results, [target.id]: "shown" };
     streak = 0;
-    findNote = { tone: "shown", text: hereIs(target), why: findWhy(target, level) };
+    findNote = {
+      english: findEnglish(target, "shown"),
+      tone: "shown",
+      text: hereIs(target),
+      why: findWhy(target, findAsk),
+    };
     stage?.light(target.id);
     nextThing();
   }
 
-  function nextLevel(): FindLevel | undefined {
-    const index = FIND_LEVELS.findIndex(({ id }) => id === level);
-    return FIND_LEVELS[index + 1]?.id;
-  }
-
   function hiddenLine(index: number): boolean {
-    const line = scene.lines[index];
+    const line = sceneLines[index];
     return mode === "play" && Boolean(line?.learner) && !(index in firstTries);
   }
 
@@ -1033,37 +1031,35 @@
           class="m-0 pt-0.5 font-serif text-2xl tracking-tight text-pretty text-slate-900"
           lang="sk"
         >
-          {mode === "day" ? DAY.name : scene.name}
+          {scene.name}
         </h2>
 
         <SceneSettings class="-mr-2" {settings} />
       </div>
 
-      {#if mode !== "day"}
-        <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Mode">
-          {#each modes as option (option.id)}
-            <button
-              class={chipClass(option.id === mode)}
-              type="button"
-              aria-pressed={option.id === mode}
-              onclick={() => selectMode(option.id)}
-            >
-              {option.id === "play" ? `Play as ${learnerName}` : option.label}
-            </button>
-          {/each}
-        </div>
-      {/if}
+      <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Mode">
+        {#each modes as option (option.id)}
+          <button
+            class={chipClass(option.id === mode)}
+            type="button"
+            aria-pressed={option.id === mode}
+            onclick={() => selectMode(option.id)}
+          >
+            {option.id === "play" ? `Play as ${learnerName}` : option.label}
+          </button>
+        {/each}
+      </div>
 
       <div class="{panelClass} mt-3 overflow-hidden">
         <StickStage
           bind:this={stage}
           class="border-b border-slate-200"
-          direction={mode === "day" ? dayDirection : direction}
+          {direction}
           {found}
-          lines={mode === "day" ? dayLines : lines}
+          {lines}
           {mood}
           onthing={mode === "find" ? tapThing : undefined}
-          setting={mode === "day" ? "plaza" : scene.setting}
+          setting={scene.setting}
           {thingWords}
         />
 
@@ -1081,182 +1077,19 @@
             </span>
           {/if}
 
-          {#if mode === "day"}
-            {#if dayRound}
-              {@const when = TIME_WORDS[dayRound.time]}
-              {@const who = dayWho(dayRound.who)}
-
-              {#key dayRound.id}
-                <div class="animate-rise">
-                  <div class="flex items-baseline justify-between gap-4">
-                    <p class={eyebrowMutedClass}>
-                      <span lang="sk">{when.slovak}</span>
-                      <span class="font-normal">{when.english}</span>
-                    </p>
-                    <p class="m-0 shrink-0 text-sm text-slate-500 tabular-nums">
-                      {dayAt + 1} of {DAY_ROUNDS.length}
-                    </p>
-                  </div>
-                  <p
-                    class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
-                    lang="sk"
-                  >
-                    {dayRound.prompt.slovak}
-                  </p>
-                  <p class="m-0 mt-1 text-sm text-slate-600">
-                    <span class="font-semibold text-slate-700" lang="sk"
-                      >{who.slovak}</span
-                    >
-                    <span class="ml-2">{who.english}</span>
-                  </p>
-
-                  {#if dayNote?.right && dayPicked}
-                    <ol
-                      class="m-0 mt-4 list-none divide-y divide-slate-200 border-t border-slate-200 p-0"
-                    >
-                      <li class="py-3">
-                        <span class="block text-sm font-semibold text-slate-500"
-                          >Alex</span
-                        >
-                        <span
-                          class="mt-0.5 block font-serif text-lg text-slate-900"
-                          lang="sk"
-                        >
-                          {dayPicked}
-                        </span>
-                        {#if showEnglish}
-                          <span class="block text-sm text-slate-500">
-                            {greetingGloss(dayPicked)}
-                          </span>
-                        {/if}
-                      </li>
-                      {#if dayReplied}
-                        <li class="animate-rise py-3">
-                          <span class="block text-sm font-semibold text-slate-500">
-                            {dayName(dayRound.who)}
-                          </span>
-                          <span
-                            class="mt-0.5 block font-serif text-lg text-slate-900"
-                            lang="sk"
-                          >
-                            {dayRound.reply.slovak}
-                          </span>
-                          {#if showEnglish}
-                            <span class="block text-sm text-slate-500">
-                              {dayRound.reply.english}
-                            </span>
-                          {/if}
-                        </li>
-                      {/if}
-                    </ol>
-
-                    {#if dayNote.text}
-                      <p
-                        class="m-0 mt-3 text-sm leading-relaxed text-pretty text-slate-600"
-                      >
-                        {#each splitEmphasis(dayNote.text) as part, index (index)}
-                          {#if part.type === "em"}
-                            <strong class="font-semibold text-slate-800"
-                              >{part.value}</strong
-                            >
-                          {:else}
-                            {part.value}
-                          {/if}
-                        {/each}
-                      </p>
-                    {/if}
-                  {:else}
-                    <ChoiceOptions
-                      choices={GREETINGS.map((greeting) => ({
-                        id: greeting,
-                        label: greeting,
-                      }))}
-                      bind:selectedId={
-                        () => dayPicked, (id) => sayOnSquare(id as Greeting | null)
-                      }
-                      columns={2}
-                      submitted={false}
-                      wrongChoiceId={dayNote && !dayNote.right ? dayPicked : null}
-                      variant="default"
-                    />
-
-                    {#if dayNote && !dayNote.right}
-                      <p
-                        class="m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty text-rose-800"
-                        role="status"
-                      >
-                        {#each splitEmphasis(dayNote.text) as part, index (index)}
-                          {#if part.type === "em"}
-                            <strong class="font-semibold">{part.value}</strong>
-                          {:else}
-                            {part.value}
-                          {/if}
-                        {/each}
-                      </p>
-                    {/if}
-                  {/if}
-                </div>
-              {/key}
-            {:else}
-              <div class="animate-rise">
-                <p class="m-0 font-serif text-2xl text-slate-900">
-                  {Object.values(dayResults).filter(Boolean).length} of {DAY_ROUNDS.length}
-                  right the first time.
-                </p>
-
-                <p class="{eyebrowMutedClass} mt-4">Who came by</p>
-                <ul class="m-0 mt-2 flex list-none flex-wrap gap-2 p-0">
-                  {#each DAY_ROUNDS.filter((round) => !round.leaving) as meet (meet.id)}
-                    {@const leave = pairOf(DAY_ROUNDS, DAY_ROUNDS.indexOf(meet))[1]}
-                    <li
-                      class="inline-flex items-center gap-2 rounded-(--control-radius) bg-subtle px-3 py-1.5"
-                    >
-                      <span class="font-serif text-base text-slate-900"
-                        >{dayName(meet.who)}</span
-                      >
-                      <span class="text-sm text-slate-500" lang="sk">
-                        {meet.answers[0].slice(0, -1)} · {leave.answers[0].slice(0, -1)}
-                      </span>
-                    </li>
-                  {/each}
-                </ul>
-
-                <div class="mt-4 flex flex-wrap items-center gap-4">
-                  <Button variant="accent" onclick={startDay}>
-                    <SceneIcon name="replay" />
-                    Play again
-                  </Button>
-                </div>
-              </div>
-            {/if}
-          {:else if mode === "find"}
+          {#if mode === "find"}
             {#if findTarget}
-              {@const prompt = findPrompt(findTarget, level)}
+              {@const prompt = findPrompt(findTarget, findAsk)}
 
-              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
-                <div class="min-w-0">
-                  <p class={eyebrowMutedClass}>Tap it in the scene</p>
-                  {#key prompt.slovak}
-                    <p class="m-0 mt-1 animate-rise font-serif text-3xl text-slate-900">
-                      <MarkedText text={prompt.slovak} marks={prompt.marks} />
-                    </p>
-                  {/key}
-                </div>
-
-                <div class="flex flex-wrap gap-2" role="group" aria-label="Level">
-                  {#each FIND_LEVELS as option (option.id)}
-                    <button
-                      class={chipClass(option.id === level)}
-                      type="button"
-                      aria-pressed={option.id === level}
-                      lang="sk"
-                      onclick={() => startFind(option.id)}
-                    >
-                      {option.label}
-                    </button>
-                  {/each}
-                </div>
-              </div>
+              <p class={eyebrowMutedClass}>Tap it in the scene</p>
+              {#key prompt.slovak}
+                <p
+                  class="m-0 mt-1 animate-rise font-serif text-3xl text-slate-900 max-[600px]:text-2xl"
+                  lang="sk"
+                >
+                  <MarkedText text={prompt.slovak} marks={prompt.marks} />
+                </p>
+              {/key}
 
               {#if findNote}
                 <p
@@ -1271,6 +1104,7 @@
                   <span class="font-serif text-base font-semibold" lang="sk">
                     {findNote.text}
                   </span>
+                  <span class="mr-1 ml-1.5 text-slate-600">{findNote.english}</span>
                   {#if findNote.why}
                     {#each splitEmphasis(findNote.why) as part, index (index)}
                       {#if part.type === "em"}
@@ -1283,56 +1117,51 @@
                 </p>
               {/if}
             {:else if queue.length > 0}
-              {@const upNext = nextLevel()}
-
               <div class="animate-rise">
                 <p class="m-0 font-serif text-2xl text-slate-900">
                   {firstTaps} of {queue.length} found on the first tap.
                 </p>
+                <p class="m-0 mt-2 text-sm leading-relaxed text-pretty text-slate-600">
+                  After <span class="font-serif text-base" lang="sk">ukáž na</span> a noun
+                  is in the accusative,
+                  <span class="font-serif text-base" lang="sk">akuzatív</span>: the case
+                  that answers
+                  <span class="font-serif text-base" lang="sk">Koho? Čo?</span>, whom?
+                  what? Some nouns change their ending for it, and the rest stay the same.
+                </p>
 
-                {#if level !== "where"}
-                  <ul class="m-0 mt-3 flex list-none flex-wrap gap-x-5 gap-y-1 p-0">
-                    {#each inOrder(direction.things) as thing (thing.id)}
-                      <li class="font-serif text-base text-slate-700" lang="sk">
+                <ul
+                  class="m-0 mt-3 list-none divide-y divide-slate-200 rounded-(--control-radius) p-0 ring-1 ring-slate-200 ring-inset"
+                >
+                  {#each inOrder(direction.things) as thing (thing.id)}
+                    <li class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 px-3 py-2">
+                      <span class="font-serif text-base text-slate-900" lang="sk">
                         {thing.word}
-                        <span class="text-slate-400" aria-hidden="true">→</span>
-                        <span
-                          class={accusativeOf(thing) === thing.word
-                            ? undefined
-                            : "text-emerald-700"}
-                        >
-                          {accusativeOf(thing)}
-                        </span>
-                      </li>
-                    {/each}
-                  </ul>
-                {/if}
+                        {#if formChanges(thing)}
+                          <span class="text-slate-400" aria-hidden="true">→</span>
+                          <span class="text-emerald-700">{accusativeOf(thing)}</span>
+                        {/if}
+                      </span>
+                      <span class="text-sm text-slate-600">{thing.english}</span>
+                      <span class="text-sm text-slate-500">{accusativeRule(thing)}</span>
+                    </li>
+                  {/each}
+                </ul>
 
                 <div class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2">
-                  {#if upNext}
-                    <Button
-                      class="mr-2"
-                      variant="accent"
-                      onclick={() => startFind(upNext)}
-                    >
-                      <span>
-                        Next:
-                        <span lang="sk">
-                          {FIND_LEVELS.find(({ id }) => id === upNext)?.label}
-                        </span>
-                      </span>
-                    </Button>
-                  {:else if nextScene}
+                  {#if nextScene}
                     <Button class="mr-2" variant="accent" onclick={goNext}>
                       <SceneIcon name="next" />
                       <span>Next scene: <span lang="sk">{nextScene.name}</span></span>
                     </Button>
-                  {/if}
-                  <SceneAction icon="replay" onclick={() => startFind(level)}
-                    >Play again</SceneAction
-                  >
-                  {#if upNext && nextScene}
-                    <SceneAction icon="next" onclick={goNext}>Next scene</SceneAction>
+                    <SceneAction icon="replay" onclick={() => startFind(true)}>
+                      Play again
+                    </SceneAction>
+                  {:else}
+                    <Button variant="accent" onclick={() => startFind(true)}>
+                      <SceneIcon name="replay" />
+                      Play again
+                    </Button>
                   {/if}
                 </div>
               </div>
@@ -1340,11 +1169,51 @@
               <p class="m-0 text-slate-600">Nothing to find in this place yet.</p>
             {/if}
           {:else if turn}
-            {#key at}
-              {#if turnKind === "say"}
+            {@const pick = turnNode ? (picks[turnNode.id] ?? defaultReply(turnNode)) : 0}
+            <!-- In a talk the English is the reply chosen below when there is a choice of them. -->
+            {@const english =
+              scene.talk && (turnNow === "pick" || intents.length > 1)
+                ? undefined
+                : turn.english}
+
+            {#if scene.talk && answering}
+              <div class="mb-5 border-b border-slate-200 pb-4">
+                <SceneCaption
+                  cue={captionCue}
+                  english={answering.english}
+                  marks={answering.marks}
+                  plan={direction.plans[shown]}
+                  playing={speaking}
+                  {showEnglish}
+                  slovak={answering.slovak}
+                  things={direction.things}
+                />
+              </div>
+            {/if}
+
+            {#if turnNow !== "pick" && intents.length > 1}
+              <div class="mb-4" role="group" aria-label="What to say">
+                <p class={eyebrowMutedClass}>What do you want to say?</p>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  {#each intents as intent (intent.index)}
+                    <button
+                      class={chipClass(intent.index === pick)}
+                      type="button"
+                      aria-pressed={intent.index === pick}
+                      onclick={() => chooseIntent(intent.index)}
+                    >
+                      {intent.english}
+                    </button>
+                  {/each}
+                </div>
+              </div>
+            {/if}
+
+            {#key `${at}-${pick}-${turnNow}`}
+              {#if turnNow === "say"}
                 <SceneSay
                   aside={answerKinds}
-                  english={turn.english}
+                  {english}
                   marks={turn.marks}
                   onhear={hearFirst}
                   ontake={useTake}
@@ -1355,18 +1224,22 @@
               {:else}
                 <SceneTurn
                   aside={answerKinds}
-                  english={turn.english}
+                  {english}
                   id={turn.id}
-                  ondone={answered}
+                  ondone={(firstTry, choice) => void answered(firstTry, false, choice)}
                   onmiss={missed}
-                  sayChoices={turnKind === "pick" ? turn.sayChoices : undefined}
+                  sayChoices={turnNow !== "pick"
+                    ? undefined
+                    : turnNode
+                      ? replyChoices(turnNode)
+                      : turn.sayChoices}
                   slovak={turn.slovak}
                 />
               {/if}
             {/key}
 
             <SceneAction class="mt-3 -ml-2.5" icon="listen" onclick={hearIt}>
-              {turnKind === "say"
+              {turnNow === "say"
                 ? `Let ${turn.speaker} say it`
                 : `Hear ${turn.speaker} say it`}
             </SceneAction>
@@ -1380,7 +1253,7 @@
                 questionNumber={checkAt + 1}
                 onresolve={resolveCheck}
                 playReplay={(onEnded) => replay(check.replayLineId, onEnded)}
-                replayLine={scene.lines.find((line) => line.id === check.replayLineId)}
+                replayLine={sceneLines.find((line) => line.id === check.replayLineId)}
                 stopReplay={halt}
                 total={checks.length}
               />
@@ -1403,6 +1276,39 @@
                   {firstTryCount} of {learnerCount} of {learnerName}'s lines right the
                   first time.
                 </p>
+              {/if}
+
+              {#if scene.talk && scored}
+                {@const said = sceneLines.flatMap((line, index) =>
+                  line.learner ? [{ index, line }] : [],
+                )}
+
+                <p class="{eyebrowMutedClass} mt-4">What {learnerName} said</p>
+                <ol
+                  class="m-0 mt-2 grid list-none gap-1 rounded-(--control-radius) p-3 ring-1 ring-slate-200 ring-inset"
+                >
+                  {#each said as { index, line } (index)}
+                    <li class="flex flex-wrap items-baseline gap-x-2.5">
+                      <span
+                        class={cx(
+                          "font-serif text-base",
+                          firstTries[index] === false
+                            ? "text-rose-800"
+                            : "text-slate-900",
+                        )}
+                        lang="sk"
+                      >
+                        {line.slovak}
+                      </span>
+                      <span class="text-sm text-slate-500">{line.english}</span>
+                    </li>
+                  {/each}
+                </ol>
+                {#if said.some(({ index }) => firstTries[index] === false)}
+                  <p class="m-0 mt-2 text-sm text-slate-600">
+                    The lines that took another try are red.
+                  </p>
+                {/if}
               {/if}
 
               {#if sceneWords.length > 0}
@@ -1476,11 +1382,24 @@
           {:else}
             <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
               <div class="min-w-0">
-                <p class="m-0 font-serif text-2xl text-slate-900">
-                  {PLACES[scene.setting]}: {listOf(castNames)}.
-                </p>
+                {#if scene.intro}
+                  <p class="m-0 font-serif text-2xl text-slate-900" lang="sk">
+                    {scene.intro.slovak}
+                  </p>
+                  {#if showEnglish}
+                    <p class="m-0 mt-1 text-base text-slate-600">{scene.intro.english}</p>
+                  {/if}
+                {:else}
+                  <p class="m-0 font-serif text-2xl text-slate-900">
+                    {PLACES[scene.setting]}: {listOf(castNames)}.
+                  </p>
+                {/if}
                 <p class="m-0 mt-1 text-slate-600">
-                  {#if mode === "play"}
+                  {#if mode === "play" && scene.talk}
+                    The talk goes where your replies take it. It stops at each of
+                    {learnerName}'s lines for you to
+                    {TURNS.find(({ id }) => id === turnKind)?.task}.
+                  {:else if mode === "play"}
                     The scene stops at each of {learnerName}'s lines for you to
                     {TURNS.find(({ id }) => id === turnKind)?.task}.
                   {:else if checks.length > 0}
@@ -1517,7 +1436,7 @@
               {Object.keys(results).length} of {queue.length}
             </span>
           </div>
-        {:else if mode !== "find" && mode !== "day" && phase !== "turn" && phase !== "done"}
+        {:else if mode !== "find" && phase !== "turn" && phase !== "done"}
           <div
             class="flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-slate-200 px-5 py-3 sm:px-6"
           >
@@ -1554,14 +1473,14 @@
             {/if}
 
             <span class="ml-auto text-sm text-slate-500">
-              Line {Math.min(at + 1, scene.lines.length)} of {scene.lines.length}
+              Line {Math.min(at + 1, sceneLines.length)} of {sceneLines.length}
             </span>
           </div>
         {/if}
       </div>
 
       <!-- The questions are on what was heard, so the text waits until they are answered. -->
-      {#if mode !== "find" && mode !== "day" && !checking}
+      {#if mode !== "find" && !checking}
         <div class="mt-3 flex justify-end">
           <TextLink
             aria-expanded={scriptOpen}
@@ -1577,7 +1496,7 @@
           <ol
             class="{panelClass} m-0 mt-3 list-none divide-y divide-slate-200 overflow-hidden p-0"
           >
-            {#each scene.lines as line, index (line.id)}
+            {#each sceneLines as line, index (line.id)}
               <li>
                 <button
                   class={cx(
@@ -1632,23 +1551,13 @@
               {@render sceneLink(
                 option.name,
                 option.english,
-                option.id === scene.id && mode !== "day",
+                option.id === scene.id,
                 () => openScene(option.id),
               )}
             {/each}
           </ul>
         </div>
       {/each}
-
-      <div>
-        <h2 class="m-0 text-sm font-semibold text-slate-700">Games</h2>
-
-        <ul
-          class="{dataPanelClass} m-0 mt-2.5 grid list-none gap-1 p-1.5 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {@render sceneLink(DAY.name, DAY.english, mode === "day", openDay)}
-        </ul>
-      </div>
     </nav>
   </PageShell>
 </main>

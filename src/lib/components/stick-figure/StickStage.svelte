@@ -37,6 +37,7 @@
     thingCenter,
     thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
+  import { dressFor } from "$lib/stick-figure/dress";
   import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { STAGE_PADDING, STAGE_POSTS, stageMarks } from "$lib/stick-figure/stage-layout";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
@@ -51,6 +52,7 @@
   import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
+  import StickWeather from "./StickWeather.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
 
   interface ActorState {
@@ -121,7 +123,10 @@
   let board = $state<string>();
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
   let bubbleTimer = 0;
+  let bubbleHeight = $state(0);
   let tram = $state<TramState>("away");
+  /** Everyone has got on the tram, out of the weather. */
+  let aboard = $state(false);
   let stageWidth = $state(0);
   let stageHeight = $state(0);
 
@@ -140,7 +145,25 @@
   );
   /** The studio and the street have no painted plate, so they stay drawn. */
   const plate = $derived(painted ? plateFor(setting) : undefined);
-  const wrapped = $derived(mood.weather === "snow" && isOutdoors(setting));
+  /** The weather on the cast: none indoors or once on the tram. */
+  const dress = $derived(
+    dressFor(isOutdoors(setting) && !aboard ? mood.weather : "clear"),
+  );
+  /**
+   * Each umbrella in hand, up or not. It comes out the way the weather on
+   * its holder calls for; after that only foldUmbrellas() puts it down, when
+   * the scene says so: everyone gets on the tram, or the story is over.
+   */
+  let umbrellas = $state<Partial<Record<LessonCharacterId, boolean>>>({});
+
+  $effect(() => {
+    const held = direction.cast.filter((id) => holding[id] === "umbrella");
+    untrack(() => {
+      umbrellas = Object.fromEntries(
+        held.map((id) => [id, umbrellas[id] ?? dress.umbrellaUp]),
+      );
+    });
+  });
   const entering = $derived(
     Object.fromEntries(
       direction.stagings.flatMap(({ enter }) =>
@@ -162,6 +185,7 @@
             stageHeight,
             backdropAlign(setting),
           ).x,
+      stageHeight || undefined,
     ),
   );
   const pickedThing = $derived(direction.things.find((thing) => thing.id === picked));
@@ -327,8 +351,14 @@
     return lines.slice(0, index).findLast((line) => line.characterId === null)?.slovak;
   }
 
+  /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
+  export function foldUmbrellas(): void {
+    umbrellas = Object.fromEntries(Object.keys(umbrellas).map((id) => [id, false]));
+  }
+
   /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   export function place(index: number): void {
+    umbrellas = {};
     let placedFacings: CastFacing = {};
     const placed: Offsets = {};
 
@@ -369,6 +399,7 @@
     tram = direction.stagings.slice(0, index).some(({ arrives }) => arrives)
       ? "here"
       : "away";
+    aboard = direction.stagings.slice(0, index).some(({ boards }) => boards);
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -601,6 +632,8 @@
       if (staging?.boards) {
         const to = destinationOf(staging, true);
         if (to !== undefined) walkGroup(to);
+        aboard = true;
+        foldUmbrellas();
       }
       if (direction.stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
@@ -643,7 +676,11 @@
 <svelte:window onpointerdown={closeCard} onkeydown={closeCard} />
 
 <div
-  class={cx("relative h-[300px] overflow-hidden max-[600px]:h-[240px]", className)}
+  class={cx(
+    // Twice as wide as tall up to 300px, so a phone sees most of the place rather than a slice of its middle.
+    "relative aspect-[2/1] max-h-[300px] w-full overflow-hidden",
+    className,
+  )}
   bind:clientWidth={stageWidth}
   bind:clientHeight={stageHeight}
 >
@@ -670,6 +707,7 @@
       {tram}
       width={stageWidth}
     />
+    <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
   {/if}
 
   {#each direction.cast as characterId (characterId)}
@@ -689,7 +727,7 @@
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
         prop={holding[characterId]}
-        scarf={wrapped}
+        dress={{ ...dress, umbrellaUp: umbrellas[characterId] ?? dress.umbrellaUp }}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}
       />
@@ -703,11 +741,12 @@
     {#key bubble.cue}
       <p
         class={cx(
-          "absolute z-10 m-0 max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
+          "absolute z-10 m-0 w-max max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
           "bg-surface px-3 py-2 font-serif text-base text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
         )}
         style:left="{centre}px"
-        style:bottom="{stageHeight - mark.top + 8}px"
+        style:top="{Math.max(4, mark.top - 8 - bubbleHeight)}px"
+        bind:offsetHeight={bubbleHeight}
         lang="sk"
       >
         {bubble.text}

@@ -2,6 +2,7 @@
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import ScenePlayer, {
   type PlayerLine,
+  type PlayerScene,
   type PlayerSceneGroup,
 } from "$lib/components/stick-figure/ScenePlayer.svelte";
 import { lessons } from "$lib/catalog/lessons";
@@ -9,6 +10,7 @@ import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
 import {
   characterIdForSpeaker,
   isLearnerSpeaker,
+  listedCharacters,
 } from "$lib/catalog/lessons/character-ids";
 import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
@@ -19,8 +21,9 @@ import {
   sceneThingWords,
   stageSettingFor,
 } from "$lib/stick-figure/lesson-stage";
-import { dayTurns } from "$lib/stick-figure/scene-day";
+import { dayTalks } from "$lib/stick-figure/scene-day";
 import { stageName } from "$lib/stick-figure/stage-name";
+import { walkTalk, type Said, type Talk } from "$lib/stick-figure/talk";
 
 function playerLines(turns: DialogueTurn[]): PlayerLine[] {
   const srcs = sceneAudioSrcs(turns);
@@ -97,10 +100,53 @@ groups.push({
   ],
 });
 
+const speakers = Object.fromEntries(
+  listedCharacters().map((character) => [character.id, character.speakers[0] ?? ""]),
+);
+
+/** A talk of the day on the square as a scene that branches on what Alex says. */
+function talkScene(talk: Talk<Said & { id: string }>): PlayerScene {
+  const line = (said: Said & { id: string }, speaker: string): PlayerLine =>
+    playerLines([{ ...said, speaker }])[0];
+  // Alex stays on the square after every goodbye; it is the others who walk on.
+  const alex = (said: Said & { id: string }): PlayerLine => ({
+    ...line(said, speakers.alex),
+    stays: true,
+  });
+  const nodes = talk.nodes.map((node) => ({
+    id: node.id,
+    says: node.says.map((said) => line(said, speakers[talk.who])),
+    replies: node.replies?.map((reply) => ({
+      line: alex(reply.line),
+      miss: reply.miss && {
+        ...reply.miss,
+        answer: reply.miss.answer && line(reply.miss.answer, speakers[talk.who]),
+      },
+      next: reply.next,
+    })),
+  }));
+
+  return {
+    english: talk.topic,
+    id: talk.id,
+    intro: talk.intro,
+    lines: walkTalk(nodes).lines,
+    name: talk.name,
+    setting: talk.setting,
+    talk: { nodes, who: talk.who },
+    time: talk.time,
+  };
+}
+
+groups.push({
+  label: "Games",
+  slovak: "Deň na námestí",
+  scenes: dayTalks().map(talkScene),
+});
+
 const thingWords = sceneThingWords();
-const day = playerLines(dayTurns());
 ---
 
 <SiteLayout title="Scenes | Slovak Wiki" noindex>
-  <ScenePlayer client:load {day} {groups} {thingWords} />
+  <ScenePlayer client:load {groups} {thingWords} />
 </SiteLayout>

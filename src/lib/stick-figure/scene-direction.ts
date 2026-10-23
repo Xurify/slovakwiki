@@ -107,6 +107,13 @@ function propsBesides(
   });
 }
 
+/**
+ * Places where the cast keeps to their marks whatever is said: podcast
+ * hosts talk into their own mics, so nobody walks over to look or goes
+ * to a thing the line names.
+ */
+const AT_MARKS: readonly StageSetting[] = ["studio"];
+
 export function directScene(
   lines: readonly DirectedLine[],
   setting: StageSetting,
@@ -125,7 +132,12 @@ export function directScene(
       to,
     }),
   );
-  const stagings = lines.map((_, index) => stageLine(stageLines, index, cast, things));
+  const stagings = lines.map((_, index) => {
+    const staging = stageLine(stageLines, index, cast, things);
+    return AT_MARKS.includes(setting)
+      ? { ...staging, approach: undefined, goTo: undefined }
+      : staging;
+  });
   const takes = lines.map((_, index) => takesFrom(stageLines, index));
   const held = heldProps(
     lines.map(({ characterId }, index) => ({
