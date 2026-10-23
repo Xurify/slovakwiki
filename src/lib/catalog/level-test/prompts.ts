@@ -130,9 +130,9 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   {
     id: "sport",
     slovak:
-      "Športujete? Napíšte, aký šport alebo pohyb vás baví a ako často sa mu venujete.",
+      "Športujete alebo cvičíte? Napíšte, čo vás baví a ako často sa tomu venujete.",
     english:
-      "Do you do any sport? Write about the sport or exercise you enjoy and how often you do it.",
+      "Do you do any sport or exercise? Write about what you enjoy and how often you do it.",
     followUp: {
       slovak: "Sledujete šport aj v televízii alebo priamo na štadióne? Ktorý?",
       english: "Do you also watch sport on TV or live at a stadium? Which one?",
@@ -153,7 +153,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
     english: "What music do you listen to most, and when?",
     followUp: {
       slovak:
-        "Hráte na nejaký hudobný nástroj? Ak nie, na čo by ste sa chceli naučiť hrať?",
+        "Hráte na nejakom hudobnom nástroji? Ak nie, na čom by ste sa chceli naučiť hrať?",
       english:
         "Do you play a musical instrument? If not, what would you like to learn to play?",
     },
@@ -290,9 +290,9 @@ export const writingSamplePrompts: WritingPrompt[] = [
   {
     id: "spravy",
     slovak:
-      "Odkiaľ sa dozvedáte správy? Ako zistíte, či je informácia na internete pravdivá?",
+      "Odkiaľ sa dozvedáte, čo sa deje vo svete? Ako zistíte, či je informácia na internete pravdivá?",
     english:
-      "Where do you get your news? How do you find out whether information online is true?",
+      "Where do you find out what is going on in the world? How do you tell whether information online is true?",
   },
   {
     id: "dochvilnost",
@@ -381,8 +381,8 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
     points: [
       { slovak: "Čo nosíte najčastejšie?", english: "What do you wear most often?" },
       {
-        slovak: "Obliekate sa inak do práce a vo voľnom čase?",
-        english: "Do you dress differently for work and in your free time?",
+        slovak: "Obliekate sa do práce inak ako vo voľnom čase?",
+        english: "Do you dress differently for work than in your free time?",
       },
       { slovak: "Je pre vás móda dôležitá?", english: "Is fashion important to you?" },
     ],
@@ -407,7 +407,10 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
     points: [
       { slovak: "Čo alebo kto je na nej?", english: "What or who is in it?" },
       { slovak: "Kde ju máte?", english: "Where do you keep it?" },
-      { slovak: "Čo vám pripomína?", english: "What does it remind you of?" },
+      {
+        slovak: "Čo vám tá fotografia pripomína?",
+        english: "What does the photo remind you of?",
+      },
     ],
   },
   {
