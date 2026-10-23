@@ -8,12 +8,15 @@ import type { LessonCharacterId } from "../lessons/character-ids";
 import { CEFR_ANCHOR, type CefrLevel } from "$lib/level-test/scale";
 import type {
   AdaptiveItem,
+  CTestPart,
+  FillBlankItem,
   InteractiveListeningSet,
   LevelTestBank,
   ListenSelectItem,
   ListenTypeItem,
   PhotoPrompt,
   ReadAloudItem,
+  ReadCompleteItem,
   SpokenLine,
 } from "$lib/level-test/types";
 
@@ -26,6 +29,7 @@ import {
   writingSamplePrompts,
 } from "./prompts";
 import { readingSets } from "./reading";
+import { tagWord } from "./word-tags";
 
 /** Below this many voiced pseudowords Listen and Select would be all real words. */
 const MIN_LISTEN_SELECT_PSEUDOWORDS = 30;
@@ -101,6 +105,26 @@ function listeningSetsWithAudio(): InteractiveListeningSet[] {
   });
 }
 
+function fillBlankItems(): FillBlankItem[] {
+  return items.fillBlank.map((item) => ({
+    ...item,
+    format: "fillBlank" as const,
+    tag: tagWord(item.prefix + item.missing),
+  }));
+}
+
+function readCompleteItems(): ReadCompleteItem[] {
+  return items.readComplete.map((item) => ({
+    ...item,
+    format: "readComplete" as const,
+    parts: (item.parts as CTestPart[]).map((part) =>
+      typeof part === "string"
+        ? part
+        : { ...part, tag: tagWord(part.prefix + part.missing) },
+    ),
+  }));
+}
+
 function photos(): PhotoPrompt[] {
   return photoSlugs.flatMap((slug) => {
     const view = dictionaryImageView(slug, slug);
@@ -128,8 +152,8 @@ export function buildLevelTestBank(): LevelTestBank {
   const adaptive: AdaptiveItem[] = [
     ...(items.readSelect as AdaptiveItem[]),
     ...listenSelectItems(),
-    ...(items.fillBlank as AdaptiveItem[]),
-    ...(items.readComplete as AdaptiveItem[]),
+    ...fillBlankItems(),
+    ...readCompleteItems(),
     ...listenTypeItems(),
   ];
 

@@ -23,6 +23,8 @@ import type {
   ReadCompleteItem,
   ReadSelectItem,
   SpeakingPrompt,
+  StudyArea,
+  WordTag,
   WritingPrompt,
 } from "./types";
 
@@ -155,11 +157,54 @@ export function currentTheta(responses: readonly ItemResponse[]): number {
   ).theta;
 }
 
+/** A typed answer: kept so the results can show it and check its accents. */
+export interface TypedAnswer {
+  expected: string;
+  given: string;
+  tag?: WordTag;
+}
+
+export function areaForTag(tag: WordTag | undefined): StudyArea {
+  switch (tag?.class) {
+    case "noun":
+      return "nouns";
+    case "verb":
+      return "verbs";
+    case "adjective":
+      return "adjectives";
+    case "smallWord":
+      return "smallWords";
+    default:
+      return "vocabulary";
+  }
+}
+
+function evidence(item: AdaptiveItem, typed?: TypedAnswer): Partial<ItemResponse> {
+  switch (item.format) {
+    case "readSelect":
+    case "listenSelect":
+      return {
+        area: "vocabulary",
+        word: {
+          text: item.word,
+          real: item.real,
+          slug: item.slug,
+          english: item.english,
+        },
+      };
+    case "listenType":
+      return { area: "listening", ...typed };
+    default:
+      return { area: areaForTag(typed?.tag), ...typed };
+  }
+}
+
 export function adaptiveResponse(
   item: AdaptiveItem,
   score: number,
   difficulty: number = item.difficulty,
   suffix = "",
+  typed?: TypedAnswer,
 ): ItemResponse {
   const format: AdaptiveFormat = item.format;
   return {
@@ -170,6 +215,7 @@ export function adaptiveResponse(
     score,
     guess: GUESS_FOR_FORMAT[format],
     adaptive: true,
+    ...evidence(item, typed),
   };
 }
 
@@ -182,5 +228,7 @@ export function taskResponse(
   score: number,
   guess?: number,
 ): ItemResponse {
-  return { itemId, kind, skill, difficulty, score, guess, adaptive: false };
+  const area: StudyArea | undefined =
+    skill === "reading" || skill === "listening" ? skill : undefined;
+  return { itemId, kind, skill, difficulty, score, guess, adaptive: false, area };
 }

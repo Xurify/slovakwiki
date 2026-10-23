@@ -62,6 +62,11 @@
           gradeLetters(gap.missing, values[index] ?? ""),
           gap.difficulty,
           `#${index}`,
+          {
+            expected: gap.prefix + gap.missing,
+            given: gap.prefix + (values[index] ?? ""),
+            tag: gap.tag,
+          },
         );
       }),
     });

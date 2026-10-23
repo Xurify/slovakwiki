@@ -31,7 +31,12 @@
     ondone({
       responses: unplayable
         ? []
-        : [adaptiveResponse(item, gradeDictation(item.text, typed))],
+        : [
+            adaptiveResponse(item, gradeDictation(item.text, typed), undefined, "", {
+              expected: item.text,
+              given: typed,
+            }),
+          ],
     });
   }
 </script>

@@ -31,7 +31,15 @@
   function submit(): void {
     if (done) return;
     done = true;
-    ondone({ responses: [adaptiveResponse(item, gradeLetters(item.missing, value))] });
+    ondone({
+      responses: [
+        adaptiveResponse(item, gradeLetters(item.missing, value), undefined, "", {
+          expected: item.prefix + item.missing,
+          given: item.prefix + value,
+          tag: item.tag,
+        }),
+      ],
+    });
   }
 </script>
 

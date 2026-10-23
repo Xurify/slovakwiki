@@ -2,12 +2,8 @@
   import RichTeachingText from "$lib/components/practice/RichTeachingText.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
-  import {
-    chipClass,
-    panelClass,
-    tagClass,
-    eyebrowMutedClass,
-  } from "$lib/components/ui/system-ui";
+  import { panelClass, tagClass, eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import { diagnose } from "$lib/level-test/diagnose";
   import {
     INTEGRATED_SKILLS,
     SKILLS,
@@ -16,6 +12,7 @@
     type IntegratedSkill,
   } from "$lib/level-test/results";
   import type { CefrLevel } from "$lib/level-test/scale";
+  import { currentTheta } from "$lib/level-test/session";
   import { TASK_INFO, type TaskKind } from "$lib/level-test/task-info";
   import type {
     ItemResponse,
@@ -28,6 +25,7 @@
     TestMode,
   } from "$lib/level-test/types";
 
+  import LevelTestDiagnosis from "./LevelTestDiagnosis.svelte";
   import ScaleBar from "./ScaleBar.svelte";
   import { plannedTagClass } from "./level-test-ui";
   import { saveResult } from "./storage";
@@ -78,6 +76,7 @@
     production.filter((record) => record.status === "pending").length,
   );
   const result = $derived(computeResult(responses, production));
+  const diagnosis = $derived(diagnose(responses, production, currentTheta(responses)));
   let saved = false;
 
   $effect(() => {
@@ -98,17 +97,6 @@
       count: scores.length,
       percent: Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 100),
     }));
-  });
-
-  const missedWords = $derived.by(() => {
-    const byId = new Map(bank.adaptive.map((item) => [item.id, item]));
-    return responses.flatMap((response) => {
-      const item = byId.get(response.itemId);
-      if (!item || response.score > 0) return [];
-      if (item.format !== "readSelect" && item.format !== "listenSelect") return [];
-      if (!item.real || !item.slug) return [];
-      return [{ word: item.word, slug: item.slug, english: item.english ?? "" }];
-    });
   });
 
   const plannedHere = $derived.by(() => {
@@ -235,6 +223,10 @@
     </dl>
   </section>
 
+  {#if result.overall}
+    <LevelTestDiagnosis {diagnosis} level={result.overall.level} />
+  {/if}
+
   {#if production.length}
     <section aria-labelledby="level-test-feedback" class="grid gap-3">
       <h3 id="level-test-feedback" class={eyebrowMutedClass}>
@@ -278,6 +270,21 @@
                 text={record.result.feedback}
               />
             {/if}
+
+            {#if record.result?.issues?.length}
+              <ul class="m-0 grid list-none gap-1 p-0 text-sm">
+                {#each record.result.issues as issue, issueIndex (issueIndex)}
+                  <li class="flex flex-wrap items-baseline gap-x-2">
+                    <span class="font-serif text-rose-700 line-through" lang="sk"
+                      >{issue.wrote}</span
+                    >
+                    <span class="font-serif text-slate-900" lang="sk"
+                      >{issue.correct}</span
+                    >
+                  </li>
+                {/each}
+              </ul>
+            {/if}
           </li>
         {/each}
       </ul>
@@ -319,28 +326,6 @@
       Percentages are raw. Your level weighs each answer by how hard the question was.
     </p>
   </section>
-
-  {#if missedWords.length}
-    <section aria-labelledby="level-test-words" class="grid gap-3">
-      <h3 id="level-test-words" class={eyebrowMutedClass}>
-        Real words you marked as made up
-      </h3>
-
-      <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
-        {#each missedWords as word (word.slug)}
-          <li>
-            <a
-              class={chipClass(false)}
-              href={`/dictionary/${word.slug}`}
-              title={word.english}
-            >
-              <span lang="sk">{word.word}</span>
-            </a>
-          </li>
-        {/each}
-      </ul>
-    </section>
-  {/if}
 
   {#if plannedHere.length}
     <section aria-labelledby="level-test-planned" class="grid gap-3">

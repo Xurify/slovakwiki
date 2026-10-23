@@ -1,8 +1,36 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import type { GrammaticalCase } from "$lib/learning/possessives/paradigm";
 
 import type { CefrLevel } from "./scale";
 
 export type Skill = "reading" | "listening" | "writing" | "speaking";
+
+/** The parts of Slovak the results page breaks a score into. */
+export type StudyArea =
+  | "vocabulary"
+  | "nouns"
+  | "verbs"
+  | "adjectives"
+  | "smallWords"
+  | "accents"
+  | "listening"
+  | "reading";
+
+export type WordClass = "noun" | "verb" | "adjective" | "smallWord" | "other";
+
+export type { GrammaticalCase } from "$lib/learning/possessives/paradigm";
+
+/** What a damaged or missing word is, so a miss can say which grammar it tests. */
+export interface WordTag {
+  class: WordClass;
+  lemma?: string;
+  /** Dictionary slug, for a link to the word's page. */
+  slug?: string;
+  /** Grammar page slug for pronouns and byť/mať (`demonstratives`, `byt-present`). */
+  topic?: string;
+  /** Pronoun forms only: the cases this form can be. */
+  cases?: GrammaticalCase[];
+}
 
 /** Formats the adaptive section cycles through; each item carries its own difficulty. */
 export type AdaptiveFormat =
@@ -39,12 +67,14 @@ export interface FillBlankItem extends AdaptiveItemBase {
   missing: string;
   after: string;
   english: string;
+  tag?: WordTag;
 }
 
 export interface CTestGap {
   prefix: string;
   missing: string;
   difficulty: number;
+  tag?: WordTag;
 }
 
 /** Plain text runs and damaged words, in reading order. */
@@ -229,6 +259,14 @@ export interface ItemResponse {
   score: number;
   guess?: number;
   adaptive: boolean;
+  /** Which study area this answer is evidence for. */
+  area?: StudyArea;
+  /** Typed answers: what was wanted and what came in, for spelling and examples. */
+  expected?: string;
+  given?: string;
+  tag?: WordTag;
+  /** Read and Select / Listen and Select: the word, and whether it was real. */
+  word?: { text: string; real: boolean; slug?: string; english?: string };
 }
 
 export type ProductionKind =
@@ -248,11 +286,32 @@ export interface AiCriterionScores {
   fluency?: number;
 }
 
+/** Grammar and spelling slips the AI scorer names in a written or spoken answer. */
+export const AI_ISSUE_TOPICS = [
+  "nounEndings",
+  "verbForms",
+  "aspect",
+  "adjectiveAgreement",
+  "smallWords",
+  "wordOrder",
+  "accents",
+  "vocabulary",
+] as const;
+
+export type AiIssueTopic = (typeof AI_ISSUE_TOPICS)[number];
+
+export interface AiIssue {
+  topic: AiIssueTopic;
+  wrote: string;
+  correct: string;
+}
+
 export interface AiScore {
   score: number;
   level: CefrLevel;
   criteria: AiCriterionScores;
   feedback: string;
+  issues?: AiIssue[];
 }
 
 export interface ProductionRecord {
