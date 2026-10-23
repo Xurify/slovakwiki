@@ -2,6 +2,8 @@
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { SCENE_THINGS, thingBoxes } from "$lib/stick-figure/scene-things";
+  import { fade } from "svelte/transition";
+
   import Cloud from "./Cloud.svelte";
 
   /**
@@ -13,6 +15,9 @@
   let { mood, setting }: { mood: SceneMood; setting: StageSetting } = $props();
 
   const id = $props.id();
+
+  /** Slow enough that rain coming on or easing off reads as weather, not a cut. */
+  const WEATHER_MS = 900;
 
   const outdoors = $derived(isOutdoors(setting));
   const things = $derived(SCENE_THINGS[setting] ?? []);
@@ -44,7 +49,7 @@
     }));
   }
 
-  const drops = scatter(90, 7, 980, 230);
+  const drops = scatter(120, 7, 980, 250);
   const flakes = scatter(110, 11, 980, 300);
   const stars = scatter(26, 3, 960, 70);
 </script>
@@ -95,43 +100,58 @@
   {/if}
 {/if}
 
-{#if mood.weather === "cloudy"}
-  {#if outdoors}
+{#if outdoors && mood.weather === "cloudy"}
+  <g transition:fade={{ duration: WEATHER_MS }}>
     <rect x="-10" y="-10" width="980" height="236" class="fill-scene-line/12" />
     <Cloud x={200} y={64} size={1.3} />
     <Cloud x={500} y={48} size={1.5} />
     <Cloud x={790} y={58} size={1.2} />
     <rect x="-10" y="-10" width="980" height="236" class="fill-scene-line/8" />
-  {:else if windowBox}
-    <rect
-      x={windowBox.x}
-      y={windowBox.y}
-      width={windowBox.width}
-      height={windowBox.height}
-      class="fill-scene-line/20"
-    />
-  {/if}
-{:else if !fair}
-  <g clip-path={outdoors || !windowBox ? undefined : `url(#${id}-window)`}>
-    {#if !outdoors && windowBox}
-      <rect
-        x={windowBox.x}
-        y={windowBox.y}
-        width={windowBox.width}
-        height={windowBox.height}
-        class="fill-scene-line/20"
-      />
+  </g>
+{/if}
+
+{#if !outdoors && windowBox && !fair}
+  <rect
+    x={windowBox.x}
+    y={windowBox.y}
+    width={windowBox.width}
+    height={windowBox.height}
+    class="fill-scene-line/20"
+    transition:fade={{ duration: WEATHER_MS }}
+  />
+{/if}
+
+{#if mood.weather === "rain"}
+  <g transition:fade={{ duration: WEATHER_MS }}>
+    {#if outdoors}
+      <rect x="-10" y="-10" width="980" height="236" class="fill-scene-line/12" />
     {/if}
 
-    {#if mood.weather === "rain"}
+    <g clip-path={outdoors || !windowBox ? undefined : `url(#${id}-window)`}>
       {#each drops as drop, index (index)}
+        <!-- Near drops are longer and brighter, far ones faint, so the rain has depth. -->
         <path
-          d="M{drop.x} {drop.y}l-5 {10 + drop.size * 8}"
-          class="stroke-white/60"
-          stroke-width="1.3"
+          d="M{drop.x} {drop.y}l-4 {8 + drop.size * 12}"
+          class="stroke-white"
+          stroke-opacity={0.2 + drop.size * 0.5}
+          stroke-width={0.8 + drop.size * 0.7}
+          stroke-linecap="round"
         />
       {/each}
-    {:else}
+    </g>
+
+    {#if outdoors}
+      <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/10" />
+      {#each [110, 450, 880] as x (x)}
+        <ellipse cx={x} cy={262 + (x % 3) * 8} rx="54" ry="5" class="fill-scene-sky/70" />
+      {/each}
+    {/if}
+  </g>
+{/if}
+
+{#if mood.weather === "snow"}
+  <g transition:fade={{ duration: WEATHER_MS }}>
+    <g clip-path={outdoors || !windowBox ? undefined : `url(#${id}-window)`}>
       {#each flakes as flake, index (index)}
         <circle
           cx={flake.x}
@@ -140,17 +160,12 @@
           class="fill-white/90"
         />
       {/each}
+    </g>
+
+    {#if outdoors}
+      <path d="M-10 230Q240 220 480 228T970 226V310H-10Z" class="fill-white/75" />
     {/if}
   </g>
-
-  {#if outdoors && mood.weather === "rain"}
-    <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/10" />
-    {#each [110, 450, 880] as x (x)}
-      <ellipse cx={x} cy={262 + (x % 3) * 8} rx="54" ry="5" class="fill-scene-sky/70" />
-    {/each}
-  {:else if outdoors && mood.weather === "snow"}
-    <path d="M-10 230Q240 220 480 228T970 226V310H-10Z" class="fill-white/75" />
-  {/if}
 {/if}
 
 {#if lit}

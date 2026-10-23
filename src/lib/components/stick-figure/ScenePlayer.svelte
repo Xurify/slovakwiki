@@ -76,7 +76,7 @@
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { shuffledTiles } from "$lib/stick-figure/caption";
   import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
-  import { sceneMood } from "$lib/stick-figure/scene-mood";
+  import { sceneMood, type SceneMood } from "$lib/stick-figure/scene-mood";
   import {
     DAY_VISITS,
     TIME_WORDS,
@@ -320,17 +320,17 @@
     dayExchange?.choices.find((choice) => choice.slovak === dayWrong)?.why,
   );
   const dayDirection = $derived(directScene(dayLines, "plaza"));
-  const mood = $derived(
-    mode === "day"
-      ? {
-          time: dayStaged.time,
-          weather: "clear" as const,
-        }
-      : sceneMood(
-          scene.lines.map((line) => line.slovak),
-          shown >= 0 ? shown : at,
-        ),
-  );
+  const mood = $derived.by((): SceneMood => {
+    if (mode === "day") return { time: dayStaged.time, weather: "clear" };
+
+    const told = sceneMood(
+      scene.lines.map((line) => line.slovak),
+      shown >= 0 ? shown : at,
+    );
+    // Once the story is told the rain or snow lets up, so the scene does not end mid-shower.
+    const over = phase === "done" && ["rain", "snow"].includes(told.weather);
+    return over ? { ...told, weather: "cloudy" } : told;
+  });
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
   const turn = $derived(phase === "turn" ? scene.lines[at] : undefined);
   /** Whose name sits on the dialogue box: the speaker of the line showing, or Alex at his turn. */
@@ -491,7 +491,6 @@
   );
 
   $effect(() => {
-    void soundKey;
     if (!ambient) return;
 
     const player = untrack(() => playAmbience(soundscape));
@@ -500,6 +499,12 @@
       player?.stop();
       if (ambience === player) ambience = undefined;
     };
+  });
+
+  // One player for the whole visit: the weather fades in and out of it rather than restarting it.
+  $effect(() => {
+    void soundKey;
+    untrack(() => ambience?.set(soundscape));
   });
 
   onMount(() => {

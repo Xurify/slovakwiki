@@ -41,17 +41,23 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
 }
 
 export interface AmbiencePlayer {
+  /** Fade over to another place or weather; what both share keeps playing. */
+  set(ambience: Ambience): void;
   stop(): void;
 }
 
 /** Under the site volume: a background the voices talk over, steady rather than dipping as they speak. */
 const LEVEL = 0.14;
+/** Seconds for a layer to come in or die away, so a change of weather is heard as weather, not a cut. */
+const FADE_S = 1.5;
 
 interface Kit {
   ctx: AudioContext;
   indoors: boolean;
   noise: AudioBuffer;
   out: AudioNode;
+  /** Keep a looping source, so it is stopped with its layer. */
+  hold?: (source: AudioScheduledSourceNode) => void;
   /** Run `play` again and again, `min`–`max` seconds apart, the first time within `first` s. */
   every: (min: number, max: number, play: () => void, first?: number) => void;
 }
@@ -69,7 +75,7 @@ function noiseBuffer(ctx: AudioContext): AudioBuffer {
 }
 
 function bed(
-  { ctx, noise, out }: Kit,
+  { ctx, hold, noise, out }: Kit,
   filters: Array<{ frequency: number; q?: number; type: BiquadFilterType }>,
   level: number,
 ): { gain: GainNode; source: AudioBufferSourceNode } {
@@ -92,6 +98,7 @@ function bed(
   gain.gain.value = level;
   node.connect(gain).connect(out);
   source.start();
+  hold?.(source);
   return { gain, source };
 }
 
@@ -116,6 +123,22 @@ function strike(
     tone.start(start);
     tone.stop(start + decay);
   }
+}
+
+/** One drop landing: a tick of noise, brighter outside than through a window. */
+function patter({ ctx, indoors, noise, out }: Kit, at: number) {
+  const start = ctx.currentTime + at;
+  const source = ctx.createBufferSource();
+  source.buffer = noise;
+  const filter = ctx.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.frequency.value = indoors ? between(700, 1600) : between(1800, 5000);
+  filter.Q.value = 2;
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(between(0.08, 0.25) * (indoors ? 0.5 : 1), start);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + between(0.015, 0.04));
+  source.connect(filter).connect(gain).connect(out);
+  source.start(start, Math.random(), 0.05);
 }
 
 function chirp({ ctx, out }: Kit, notes: number) {
@@ -174,13 +197,23 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
   },
 
   rain(kit) {
+    // A soft wash with drops landing on it: flat noise alone sounds like static.
     bed(
       kit,
       [
-        { frequency: 900, type: "highpass" },
-        { frequency: kit.indoors ? 1800 : 7000, type: "lowpass" },
+        { frequency: 500, type: "highpass" },
+        { frequency: kit.indoors ? 1400 : 4500, type: "lowpass" },
       ],
-      kit.indoors ? 0.12 : 0.3,
+      kit.indoors ? 0.08 : 0.18,
+    );
+    kit.every(
+      0.2,
+      0.2,
+      () => {
+        const drops = Math.round(between(2, kit.indoors ? 3 : 6));
+        for (let drop = 0; drop < drops; drop += 1) patter(kit, between(0, 0.2));
+      },
+      0.2,
     );
   },
 
@@ -218,7 +251,7 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
 };
 
 /** Start a place's sound, fading in; undefined where the browser has no Web Audio. */
-export function playAmbience({ indoors, layers }: Ambience): AmbiencePlayer | undefined {
+export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
   const Context =
     window.AudioContext ??
     (window as unknown as { webkitAudioContext?: typeof AudioContext })
@@ -230,31 +263,74 @@ export function playAmbience({ indoors, layers }: Ambience): AmbiencePlayer | un
   master.gain.value = 0;
   master.gain.setTargetAtTime(LEVEL * getAudioVolume(), ctx.currentTime, 0.3);
   master.connect(ctx.destination);
+  const noise = noiseBuffer(ctx);
 
-  const timers = new Set<number>();
-  const kit: Kit = {
-    ctx,
-    indoors,
-    noise: noiseBuffer(ctx),
-    out: master,
-    every(min, max, play, first = max) {
-      const next = (wait: number) => {
-        const timer = window.setTimeout(() => {
-          timers.delete(timer);
-          play();
-          next(between(min, max));
-        }, wait * 1000);
-        timers.add(timer);
-      };
-      next(between(0, first));
-    },
-  };
-  for (const layer of layers) LAYERS[layer](kit);
+  /** Each layer by name and whether it is heard through a window. */
+  const running = new Map<string, () => void>();
 
-  return {
-    stop() {
+  function start(layer: AmbienceLayer, indoors: boolean): () => void {
+    const out = ctx.createGain();
+    out.gain.value = 0;
+    out.gain.setTargetAtTime(1, ctx.currentTime, FADE_S / 3);
+    out.connect(master);
+
+    const timers = new Set<number>();
+    const sources: AudioScheduledSourceNode[] = [];
+    LAYERS[layer]({
+      ctx,
+      hold: (source) => sources.push(source),
+      indoors,
+      noise,
+      out,
+      every(min, max, play, first = max) {
+        const next = (wait: number) => {
+          const timer = window.setTimeout(() => {
+            timers.delete(timer);
+            play();
+            next(between(min, max));
+          }, wait * 1000);
+          timers.add(timer);
+        };
+        next(between(0, first));
+      },
+    });
+
+    return () => {
       for (const timer of timers) window.clearTimeout(timer);
       timers.clear();
+      out.gain.setTargetAtTime(0, ctx.currentTime, FADE_S / 3);
+      window.setTimeout(() => {
+        for (const source of sources) {
+          try {
+            source.stop();
+          } catch {
+            // A one-off sound that already ended.
+          }
+        }
+        out.disconnect();
+      }, FADE_S * 2000);
+    };
+  }
+
+  function set({ indoors, layers }: Ambience): void {
+    const wanted = new Map(layers.map((layer) => [`${layer}:${indoors}`, layer]));
+    for (const [key, stop] of running) {
+      if (wanted.has(key)) continue;
+      stop();
+      running.delete(key);
+    }
+    for (const [key, layer] of wanted) {
+      if (!running.has(key)) running.set(key, start(layer, indoors));
+    }
+  }
+
+  set(first);
+
+  return {
+    set,
+    stop() {
+      for (const stop of running.values()) stop();
+      running.clear();
       master.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
       window.setTimeout(() => void ctx.close(), 500);
     },
