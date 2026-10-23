@@ -78,20 +78,15 @@
   import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
   import { sceneMood } from "$lib/stick-figure/scene-mood";
   import {
-    DAY_ROUNDS,
-    GREETINGS,
+    DAY_VISITS,
     TIME_WORDS,
+    alexTurnId,
+    dayAnswer,
     dayName,
     dayWho,
-    dayWhy,
-    greetingGloss,
-    greetingTurnId,
-    isDayRight,
-    pairOf,
     replyTurnId,
-    type Greeting,
   } from "$lib/stick-figure/scene-day";
-  import { ChoiceOptions } from "$lib/learning/exercises";
+  import { ChoiceOptions, choiceIndexFromKeyboardEvent } from "$lib/learning/exercises";
   import EpisodeCheck from "$lib/components/listening/EpisodeCheck.svelte";
   import {
     FIND_LEVELS,
@@ -156,8 +151,8 @@
     { id: "find", label: "Find it" },
   ];
 
-  /** Long enough to read what was said back before the next person comes. */
-  const DAY_PAUSE_MS = 2600;
+  /** Long enough to watch the visitor walk off before the next one comes. */
+  const DAY_PAUSE_MS = 2200;
 
   const TURNS: Array<{ id: Turn; label: string; task: string }> = [
     { id: "pick", label: "Pick the line", task: "pick what to say" },
@@ -233,17 +228,17 @@
   let checkAt = $state(0);
   let checksRight = $state(0);
 
+  /** The visitor on the square, and the exchange of their talk with Alex. */
   let dayAt = $state(0);
-  let dayPicked = $state<Greeting | null>(null);
+  let dayStep = $state(0);
+  /** Alex picking a line, a line and its answer playing, or the visitor walking off. */
+  let dayPhase = $state<"choose" | "talk" | "gone">("choose");
+  /** The line in the dialogue box, as an index into the visit's lines; -1 before the first. */
+  let dayShown = $state(-1);
+  let dayWrong = $state<string | null>(null);
   let dayMissed = $state(false);
+  /** Each exchange answered so far, and whether it was right the first time. */
   let dayResults = $state<Record<string, boolean>>({});
-  let dayNote = $state<{ right: boolean; text: string }>();
-  /** What Alex said in each round, for the stage to play back. */
-  let daySaid = $state<Record<string, Greeting>>({});
-  /** True while a greeting and its answer play, so the next pick waits. */
-  let dayBusy = $state(false);
-  /** True once the person has started answering, so their line shows as it is said. */
-  let dayReplied = $state(false);
 
   let timer = 0;
   let findTimer = 0;
@@ -293,30 +288,42 @@
     ambienceFor(mode === "day" ? "plaza" : scene.setting, mood),
   );
   const soundKey = $derived(JSON.stringify(soundscape));
-  const dayRound = $derived(DAY_ROUNDS[dayAt]);
-  /** The person on the square now, or the last one once the day is over. */
-  const dayVisitor = $derived(DAY_ROUNDS[Math.min(dayAt, DAY_ROUNDS.length - 1)].who);
-  // Keyed on who, not the round, so moving on to the goodbye does not restage them.
-  const dayPair = $derived(
-    pairOf(
-      DAY_ROUNDS,
-      DAY_ROUNDS.findIndex((round) => round.who === dayVisitor),
-    ),
-  );
+  const dayVisit = $derived(DAY_VISITS[dayAt]);
+  /** The visitor on stage: the last one stays once the day is over. */
+  const dayStaged = $derived(DAY_VISITS[Math.min(dayAt, DAY_VISITS.length - 1)]);
+  const dayExchange = $derived(dayVisit?.exchanges[dayStep]);
   const dayLines = $derived<DirectedLine[]>(
-    dayPair.flatMap((round) => {
-      const said = daySaid[round.id] ?? round.answers[0];
+    dayStaged.exchanges.flatMap((exchange) => {
+      const said = dayAnswer(exchange).slovak;
       return [
-        dayLine(greetingTurnId(said), "alex", said),
-        dayLine(replyTurnId(round), round.who, round.reply.slovak),
+        dayLine(alexTurnId(said), "alex", said),
+        dayLine(replyTurnId(exchange), dayStaged.who, exchange.reply.slovak),
       ];
     }),
+  );
+  /** Alex's lines and the visitor's take turns, so an even line is Alex's. */
+  const dayCaption = $derived.by(() => {
+    const exchange = dayStaged.exchanges[Math.floor(dayShown / 2)];
+    if (dayShown < 0 || !exchange) return undefined;
+
+    const alex = dayShown % 2 === 0;
+    const line = alex ? dayAnswer(exchange) : exchange.reply;
+    const characterId: LessonCharacterId = alex ? "alex" : dayStaged.who;
+    return {
+      characterId,
+      english: line.english,
+      name: dayName(characterId),
+      slovak: line.slovak,
+    };
+  });
+  const dayWhy = $derived(
+    dayExchange?.choices.find((choice) => choice.slovak === dayWrong)?.why,
   );
   const dayDirection = $derived(directScene(dayLines, "plaza"));
   const mood = $derived(
     mode === "day"
       ? {
-          time: (dayRound ?? DAY_ROUNDS[DAY_ROUNDS.length - 1]).time,
+          time: dayStaged.time,
           weather: "clear" as const,
         }
       : sceneMood(
@@ -329,8 +336,7 @@
   /** Whose name sits on the dialogue box: the speaker of the line showing, or Alex at his turn. */
   const tag = $derived.by(
     (): { characterId: LessonCharacterId; name: string } | undefined => {
-      if (mode === "day")
-        return dayRound ? { characterId: "alex", name: "Alex" } : undefined;
+      if (mode === "day") return dayVisit ? dayCaption : undefined;
       if (mode === "find" || checking || phase === "done") return undefined;
       const line = turn ?? caption;
       // A board or a notice has nobody on stage saying it, so no name goes on the box.
@@ -636,61 +642,95 @@
   async function startDay(): Promise<void> {
     window.clearTimeout(dayTimer);
     dayAt = 0;
-    dayPicked = null;
+    dayStep = 0;
+    dayPhase = "choose";
+    dayShown = -1;
+    dayWrong = null;
     dayMissed = false;
     dayResults = {};
-    dayNote = undefined;
-    daySaid = {};
-    dayBusy = false;
-    dayReplied = false;
     await tick();
-    stage?.arrive(dayPair[0].who, 1);
+    stage?.arrive(DAY_VISITS[0].who, 1);
   }
 
-  function sayOnSquare(picked: Greeting | null): void {
-    const round = dayRound;
-    if (!picked || !round || dayBusy) return;
+  /** Alex says the picked line: a wrong one only in a bubble, the right one aloud, and the visitor answers. */
+  function sayOnSquare(picked: string | null): void {
+    const exchange = dayExchange;
+    const choice = exchange?.choices.find((option) => option.slovak === picked);
+    if (!exchange || !choice || dayPhase !== "choose") return;
 
-    dayPicked = picked;
-    if (!isDayRight(round, picked)) {
+    if (choice.why) {
       playAnswerSfx("incorrect");
-      stage?.say("alex", picked);
-      stage?.gesture(round.who, "think");
+      stage?.say("alex", choice.slovak);
+      stage?.gesture(dayVisit.who, "think");
+      dayWrong = choice.slovak;
       dayMissed = true;
-      dayNote = { right: false, text: dayWhy(round, picked) };
       return;
     }
 
     playAnswerSfx("correct");
-    dayResults = { ...dayResults, [round.id]: !dayMissed };
-    daySaid = { ...daySaid, [round.id]: picked };
-    dayNote = { right: true, text: round.notes?.[picked] ?? "" };
-    dayBusy = true;
-
-    // The stage restages for the greeting Alex picked before it can play it.
-    const index = dayPair.indexOf(round) * 2;
-    void tick().then(() => {
-      stage?.play(index, () => {
-        dayReplied = true;
-        stage?.play(index + 1, () => {
-          dayTimer = window.setTimeout(() => void nextOnSquare(), DAY_PAUSE_MS);
-        });
-      });
+    dayResults = { ...dayResults, [exchange.id]: !dayMissed };
+    dayWrong = null;
+    dayMissed = false;
+    dayPhase = "talk";
+    const index = dayStep * 2;
+    sayDay(index, () => {
+      dayTimer = window.setTimeout(
+        () => sayDay(index + 1, answeredOnSquare),
+        LINE_GAP_MS,
+      );
     });
   }
 
-  async function nextOnSquare(): Promise<void> {
-    const gone = dayRound?.leaving;
-    dayAt += 1;
-    dayPicked = null;
-    dayMissed = false;
-    dayNote = undefined;
-    dayBusy = false;
-    dayReplied = false;
-    if (gone && dayRound) {
-      await tick();
-      stage?.arrive(dayRound.who, 1);
+  function sayDay(index: number, onDone?: () => void): void {
+    dayShown = index;
+    speaking = true;
+    captionCue += 1;
+    stage?.play(
+      index,
+      () => {
+        speaking = false;
+        onDone?.();
+      },
+      slower ? 0.75 : 1,
+    );
+  }
+
+  /** The visitor's line once more, while Alex thinks what to say. */
+  function hearOnSquare(): void {
+    if (dayShown < 0 || dayPhase !== "choose") return;
+    halt();
+    sayDay(dayShown);
+  }
+
+  function answeredOnSquare(): void {
+    if (dayStep + 1 < dayVisit.exchanges.length) {
+      dayStep += 1;
+      dayPhase = "choose";
+      return;
     }
+    dayPhase = "gone";
+    dayTimer = window.setTimeout(() => void nextOnSquare(), DAY_PAUSE_MS);
+  }
+
+  async function nextOnSquare(): Promise<void> {
+    dayAt += 1;
+    dayStep = 0;
+    dayShown = -1;
+    dayPhase = "choose";
+    if (!dayVisit) return;
+    await tick();
+    stage?.arrive(dayVisit.who, 1);
+  }
+
+  function onDayKeydown(event: KeyboardEvent): void {
+    if (mode !== "day" || dayPhase !== "choose" || !dayExchange) return;
+
+    const index = choiceIndexFromKeyboardEvent(event);
+    const choice = index === null ? undefined : dayExchange.choices[index];
+    if (!choice) return;
+
+    event.preventDefault();
+    sayOnSquare(choice.slovak);
   }
 
   /** The learner's take of line `index`, when it should be heard in Alex's place. */
@@ -1009,6 +1049,8 @@
   </li>
 {/snippet}
 
+<svelte:window onkeydown={onDayKeydown} />
+
 <main class="py-12 pb-24 max-[600px]:py-8">
   <PageShell class="max-w-[1040px]">
     <header class="max-w-[680px]">
@@ -1082,110 +1124,67 @@
           {/if}
 
           {#if mode === "day"}
-            {#if dayRound}
-              {@const when = TIME_WORDS[dayRound.time]}
-              {@const who = dayWho(dayRound.who)}
+            {#if dayVisit}
+              {@const when = TIME_WORDS[dayVisit.time]}
+              {@const who = dayWho(dayVisit.who)}
 
-              {#key dayRound.id}
-                <div class="animate-rise">
-                  <div class="flex items-baseline justify-between gap-4">
-                    <p class={eyebrowMutedClass}>
-                      <span lang="sk">{when.slovak}</span>
-                      <span class="font-normal">{when.english}</span>
-                    </p>
-                    <p class="m-0 shrink-0 text-sm text-slate-500 tabular-nums">
-                      {dayAt + 1} of {DAY_ROUNDS.length}
-                    </p>
-                  </div>
-                  <p
-                    class="m-0 mt-1 font-serif text-2xl leading-snug text-slate-900 max-[600px]:text-xl"
-                    lang="sk"
-                  >
-                    {dayRound.prompt.slovak}
-                  </p>
-                  <p class="m-0 mt-1 text-sm text-slate-600">
-                    <span class="font-semibold text-slate-700" lang="sk"
-                      >{who.slovak}</span
-                    >
-                    <span class="ml-2">{who.english}</span>
-                  </p>
-
-                  {#if dayNote?.right && dayPicked}
-                    <ol
-                      class="m-0 mt-4 list-none divide-y divide-slate-200 border-t border-slate-200 p-0"
-                    >
-                      <li class="py-3">
-                        <span class="block text-sm font-semibold text-slate-500"
-                          >Alex</span
-                        >
-                        <span
-                          class="mt-0.5 block font-serif text-lg text-slate-900"
+              <div class="flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                  {#if dayCaption}
+                    <SceneCaption
+                      cue={captionCue}
+                      english={dayCaption.english}
+                      plan={dayDirection.plans[dayShown]}
+                      playing={speaking}
+                      {showEnglish}
+                      slovak={dayCaption.slovak}
+                    />
+                  {:else}
+                    {#key dayAt}
+                      <div class="animate-rise">
+                        <p
+                          class="m-0 font-serif text-2xl leading-snug text-slate-600 italic max-[600px]:text-xl"
                           lang="sk"
                         >
-                          {dayPicked}
-                        </span>
-                        {#if showEnglish}
-                          <span class="block text-sm text-slate-500">
-                            {greetingGloss(dayPicked)}
+                          {when.slovak}
+                          {dayVisit.arrive.slovak}
+                        </p>
+                        <p class="m-0 mt-1.5 text-sm text-slate-600">
+                          <span class="font-semibold text-slate-700" lang="sk">
+                            {who.slovak}
                           </span>
-                        {/if}
-                      </li>
-                      {#if dayReplied}
-                        <li class="animate-rise py-3">
-                          <span class="block text-sm font-semibold text-slate-500">
-                            {dayName(dayRound.who)}
-                          </span>
-                          <span
-                            class="mt-0.5 block font-serif text-lg text-slate-900"
-                            lang="sk"
-                          >
-                            {dayRound.reply.slovak}
-                          </span>
-                          {#if showEnglish}
-                            <span class="block text-sm text-slate-500">
-                              {dayRound.reply.english}
-                            </span>
-                          {/if}
-                        </li>
-                      {/if}
-                    </ol>
+                          <span class="ml-2">{who.english}</span>
+                        </p>
+                      </div>
+                    {/key}
+                  {/if}
+                </div>
 
-                    {#if dayNote.text}
-                      <p
-                        class="m-0 mt-3 text-sm leading-relaxed text-pretty text-slate-600"
-                      >
-                        {#each splitEmphasis(dayNote.text) as part, index (index)}
-                          {#if part.type === "em"}
-                            <strong class="font-semibold text-slate-800"
-                              >{part.value}</strong
-                            >
-                          {:else}
-                            {part.value}
-                          {/if}
-                        {/each}
-                      </p>
-                    {/if}
-                  {:else}
+                <p class="m-0 shrink-0 pt-1.5 text-sm text-slate-500 tabular-nums">
+                  {dayAt + 1} of {DAY_VISITS.length}
+                </p>
+              </div>
+
+              {#if dayPhase === "choose" && dayExchange}
+                {#key dayExchange.id}
+                  <div class="animate-rise">
                     <ChoiceOptions
-                      choices={GREETINGS.map((greeting) => ({
-                        id: greeting,
-                        label: greeting,
+                      choices={dayExchange.choices.map((choice) => ({
+                        id: choice.slovak,
+                        label: choice.slovak,
                       }))}
-                      bind:selectedId={
-                        () => dayPicked, (id) => sayOnSquare(id as Greeting | null)
-                      }
-                      columns={2}
+                      bind:selectedId={() => dayWrong, sayOnSquare}
                       submitted={false}
-                      wrongChoiceId={dayNote && !dayNote.right ? dayPicked : null}
-                      variant="default"
+                      wrongChoiceId={dayWrong}
+                      variant="cards"
                     />
 
-                    {#if dayNote && !dayNote.right}
+                    {#if dayWhy}
                       <p
                         class="m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty text-rose-800"
                         role="status"
                       >
-                        {#each splitEmphasis(dayNote.text) as part, index (index)}
+                        {#each splitEmphasis(dayWhy) as part, index (index)}
                           {#if part.type === "em"}
                             <strong class="font-semibold">{part.value}</strong>
                           {:else}
@@ -1194,34 +1193,50 @@
                         {/each}
                       </p>
                     {/if}
-                  {/if}
-                </div>
-              {/key}
+
+                    {#if dayCaption}
+                      <SceneAction
+                        class="mt-3 -ml-2.5"
+                        icon="listen"
+                        onclick={hearOnSquare}
+                      >
+                        Hear {dayCaption.name} again
+                      </SceneAction>
+                    {/if}
+                  </div>
+                {/key}
+              {/if}
             {:else}
+              {@const exchanges = DAY_VISITS.flatMap((visit) => visit.exchanges)}
+
               <div class="animate-rise">
                 <p class="m-0 font-serif text-2xl text-slate-900">
-                  {Object.values(dayResults).filter(Boolean).length} of {DAY_ROUNDS.length}
+                  {Object.values(dayResults).filter(Boolean).length} of {exchanges.length}
                   right the first time.
                 </p>
 
-                <p class="{eyebrowMutedClass} mt-4">Who came by</p>
-                <ul class="m-0 mt-2 flex list-none flex-wrap gap-2 p-0">
-                  {#each DAY_ROUNDS.filter((round) => !round.leaving) as meet (meet.id)}
-                    {@const leave = pairOf(DAY_ROUNDS, DAY_ROUNDS.indexOf(meet))[1]}
-                    <li
-                      class="inline-flex items-center gap-2 rounded-(--control-radius) bg-subtle px-3 py-1.5"
-                    >
-                      <span class="font-serif text-base text-slate-900"
-                        >{dayName(meet.who)}</span
+                <p class="{eyebrowMutedClass} mt-4">What Alex said</p>
+                <ul
+                  class="m-0 mt-2 grid list-none gap-x-6 gap-y-2 p-0 sm:grid-cols-[auto_1fr]"
+                >
+                  {#each DAY_VISITS as visit (visit.id)}
+                    <li class="contents">
+                      <span class="text-sm font-semibold text-slate-700">
+                        {dayName(visit.who)}
+                      </span>
+                      <span
+                        class="flex flex-wrap gap-x-4 font-serif text-base text-slate-900 max-sm:mb-2"
+                        lang="sk"
                       >
-                      <span class="text-sm text-slate-500" lang="sk">
-                        {meet.answers[0].slice(0, -1)} · {leave.answers[0].slice(0, -1)}
+                        {#each visit.exchanges as exchange (exchange.id)}
+                          <span>{dayAnswer(exchange).slovak}</span>
+                        {/each}
                       </span>
                     </li>
                   {/each}
                 </ul>
 
-                <div class="mt-4 flex flex-wrap items-center gap-4">
+                <div class="mt-5 flex flex-wrap items-center gap-4">
                   <Button variant="accent" onclick={startDay}>
                     <SceneIcon name="replay" />
                     Play again

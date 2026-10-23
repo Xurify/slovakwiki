@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { DAY_ROUNDS, GREETINGS, dayTurns, dayWhy, isDayRight, pairOf } from "./scene-day";
+import { DAY_VISITS, dayAnswer, dayTurns } from "./scene-day";
 import { isOutdoors, sceneMood } from "./scene-mood";
 
 describe("sceneMood", () => {
@@ -54,60 +54,52 @@ describe("sceneMood", () => {
 });
 
 describe("a day on the square", () => {
-  it("meets each person and sees them off, with every answer among the choices", () => {
-    expect(new Set(DAY_ROUNDS.map((round) => round.id)).size).toBe(DAY_ROUNDS.length);
-    for (let at = 0; at < DAY_ROUNDS.length; at += 2) {
-      const [meet, leave] = DAY_ROUNDS.slice(at, at + 2);
-      expect(meet.leaving).toBe(false);
-      expect(leave.leaving).toBe(true);
-      expect(leave.who).toBe(meet.who);
-      expect(pairOf(DAY_ROUNDS, at)).toEqual([meet, leave]);
-      expect(pairOf(DAY_ROUNDS, at + 1)).toEqual([meet, leave]);
-    }
-    for (const round of DAY_ROUNDS) {
-      for (const answer of round.answers) expect(GREETINGS).toContain(answer);
+  it("greets each person, talks, and sees them off, with one line that fits each time", () => {
+    const ids = DAY_VISITS.flatMap((visit) => visit.exchanges.map(({ id }) => id));
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const visit of DAY_VISITS) {
+      expect(visit.exchanges).toHaveLength(3);
+      for (const exchange of visit.exchanges) {
+        expect(exchange.choices).toHaveLength(3);
+        expect(exchange.choices.filter((choice) => !choice.why)).toHaveLength(1);
+        expect(new Set(exchange.choices.map((choice) => choice.slovak)).size).toBe(3);
+      }
     }
   });
 
   it("never takes Dobrú noc as a hello", () => {
-    const meeting = DAY_ROUNDS.filter((round) => !round.leaving);
-    expect(meeting.some((round) => isDayRight(round, "Dobrú noc."))).toBe(false);
-
-    const night = DAY_ROUNDS.find((round) => round.id === "maria-meets");
-    expect(night && isDayRight(night, "Dobrý večer.")).toBe(true);
-    expect(night && dayWhy(night, "Dobrú noc.")).toBe(
-      "**Dobrú noc** is a goodbye when you part for the night, never a hello. Greeting Mária late at night: **Dobrý večer**.",
-    );
+    for (const visit of DAY_VISITS) {
+      expect(dayAnswer(visit.exchanges[0]).slovak).not.toBe("Dobrú noc.");
+    }
+    const maria = DAY_VISITS.find((visit) => visit.who === "maria");
+    expect(maria && dayAnswer(maria.exchanges[0]).slovak).toBe("Dobrý večer.");
   });
 
-  it("keeps Ahoj for friends and Dobrý deň for everyone else", () => {
-    const marek = DAY_ROUNDS.find((round) => round.id === "marek-meets");
-    expect(marek && isDayRight(marek, "Dobrý deň.")).toBe(false);
-    expect(marek && dayWhy(marek, "Dobrý deň.")).toBe(
-      "**Dobrý deň** is a hello in the daytime, to people you say vy to. Greeting Marek, a friend, in the morning: **Ahoj**.",
+  it("keeps ty for friends and vy for everyone else", () => {
+    const answers = Object.fromEntries(
+      DAY_VISITS.map((visit) => [
+        visit.who,
+        visit.exchanges.map((exchange) => dayAnswer(exchange).slovak),
+      ]),
     );
-
-    const lucia = DAY_ROUNDS.find((round) => round.id === "lucia-meets");
-    expect(lucia && isDayRight(lucia, "Ahoj.")).toBe(false);
-    expect(lucia && dayWhy(lucia, "Ahoj.")).toBe(
-      "**Ahoj** is a hello or a goodbye between friends. Greeting Lucia in the afternoon: **Dobrý deň**.",
-    );
-
-    const bye = DAY_ROUNDS.find((round) => round.id === "marek-leaves");
-    expect(bye && isDayRight(bye, "Dovidenia.")).toBe(false);
-    expect(bye && isDayRight(bye, "Maj sa.")).toBe(true);
+    expect(answers.marek).toEqual(["Ahoj.", "Dobre, ďakujem. A ty?", "Maj sa."]);
+    expect(answers.lucia).toEqual(["Dobrý deň.", "Dobre, ďakujem. A vy?", "Dovidenia."]);
   });
 
-  it("voices every greeting in Alex's voice and every answer in its speaker's", () => {
+  it("ends each visit on a goodbye, so the visitor walks off", () => {
+    for (const visit of DAY_VISITS) {
+      expect(visit.exchanges.at(-1)?.reply.slovak).toMatch(/Maj sa|Dovidenia|Dobrú noc/);
+    }
+  });
+
+  it("voices each line that fits in Alex's voice once, and every answer in its speaker's", () => {
     const turns = dayTurns();
     expect(new Set(turns.map((turn) => turn.id)).size).toBe(turns.length);
-    expect(turns.length).toBe(GREETINGS.length + DAY_ROUNDS.length);
-    expect(turns.slice(0, GREETINGS.length).every((turn) => turn.speaker === "You")).toBe(
-      true,
-    );
-    expect(turns.find((turn) => turn.id === "day/maria-leaves")?.speaker).toBe("Mária");
+    expect(turns.filter((turn) => turn.speaker !== "You")).toHaveLength(12);
+    expect(turns.find((turn) => turn.id === "day/maria-bye")?.speaker).toBe("Mária");
     expect(turns.find((turn) => turn.id === "day/say/dobru-noc")?.slovak).toBe(
       "Dobrú noc.",
     );
+    expect(turns.some((turn) => turn.slovak === "Som doma. A ty?")).toBe(false);
   });
 });

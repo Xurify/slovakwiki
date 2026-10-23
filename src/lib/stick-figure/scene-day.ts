@@ -5,40 +5,33 @@ import {
 import type { DialogueTurn } from "$lib/learning/types";
 import type { TimeOfDay } from "./scene-mood";
 
-export const GREETINGS = [
-  "Ahoj.",
-  "Čau.",
-  "Dobré ráno.",
-  "Dobrý deň.",
-  "Dobrý večer.",
-  "Dobrú noc.",
-  "Dovidenia.",
-  "Maj sa.",
-] as const;
+type Said = { english: string; slovak: string };
 
-export type Greeting = (typeof GREETINGS)[number];
+/** Something Alex could say. A choice without `why` fits. */
+export interface DayChoice extends Said {
+  /** Why it does not fit here, and what does. */
+  why?: string;
+}
 
-/** One person crossing the square: Alex meets them, or sees them off. */
-export interface DayRound {
-  /** What fits; the first is what a Slovak would most likely say. */
-  answers: readonly Greeting[];
+/** Alex says one line, and the person answers. */
+export interface DayExchange {
+  choices: readonly DayChoice[];
   id: string;
-  leaving: boolean;
-  /** Said when another accepted answer is picked. */
-  notes?: Partial<Record<Greeting, string>>;
-  /** Who it is and what they are doing, in both languages. */
-  prompt: { english: string; slovak: string };
-  /** What they say back, in their own voice. */
-  reply: { english: string; slovak: string };
+  reply: Said;
+}
+
+/** One person crossing the square: Alex greets them, talks, and sees them off. */
+export interface DayVisit {
+  /** The stage direction before Alex's first line. */
+  arrive: Said;
+  exchanges: readonly DayExchange[];
+  id: string;
   time: TimeOfDay;
   who: LessonCharacterId;
 }
 
-/** Alex says ty to them, so Ahoj and Čau are theirs. */
-const FRIENDS: readonly LessonCharacterId[] = ["anna", "marek"];
-
 /** Who each person is to Alex, so the learner can tell ty from vy before picking. */
-const PEOPLE: Partial<Record<LessonCharacterId, { english: string; slovak: string }>> = {
+const PEOPLE: Partial<Record<LessonCharacterId, Said>> = {
   anna: { english: "Your friend.", slovak: "Tvoja kamarátka." },
   lucia: {
     english: "The shop assistant. Not a friend.",
@@ -51,173 +44,285 @@ const PEOPLE: Partial<Record<LessonCharacterId, { english: string; slovak: strin
   },
 };
 
-export const DAY_ROUNDS: readonly DayRound[] = [
+export const DAY_VISITS: readonly DayVisit[] = [
   {
-    answers: ["Ahoj.", "Čau.", "Dobré ráno."],
-    id: "marek-meets",
-    leaving: false,
-    notes: {
-      "Dobré ráno.":
-        "**Dobré ráno** is fine with a friend too; **Ahoj** is what you will hear most.",
-    },
-    prompt: { english: "Marek is coming over.", slovak: "Prichádza Marek." },
-    reply: { english: "Hi, Alex! How are you?", slovak: "Ahoj, Alex! Ako sa máš?" },
+    arrive: { english: "Marek is coming over.", slovak: "Prichádza Marek." },
+    exchanges: [
+      {
+        choices: [
+          { english: "Hi.", slovak: "Ahoj." },
+          {
+            english: "Good day.",
+            slovak: "Dobrý deň.",
+            why: "**Dobrý deň** is for people you say vy to. Marek is a friend: **Ahoj**.",
+          },
+          {
+            english: "Good night.",
+            slovak: "Dobrú noc.",
+            why: "**Dobrú noc** is a goodbye for the night, never a hello. To a friend: **Ahoj**.",
+          },
+        ],
+        id: "marek-hello",
+        reply: { english: "Hi, Alex! How are you?", slovak: "Ahoj, Alex! Ako sa máš?" },
+      },
+      {
+        choices: [
+          {
+            english: "Good, thanks. And you?",
+            slovak: "Dobre, ďakujem. A vy?",
+            why: "**A vy?** is for people you say vy to. Marek is a friend: **A ty?**",
+          },
+          { english: "Good, thanks. And you?", slovak: "Dobre, ďakujem. A ty?" },
+          {
+            english: "No, thank you.",
+            slovak: "Nie, ďakujem.",
+            why: "**Nie, ďakujem** turns down an offer. Marek asked how you are: **Dobre, ďakujem**.",
+          },
+        ],
+        id: "marek-how",
+        reply: {
+          english: "Good too. I have to go now.",
+          slovak: "Aj ja dobre. Už musím ísť.",
+        },
+      },
+      {
+        choices: [
+          {
+            english: "Goodbye.",
+            slovak: "Dovidenia.",
+            why: "**Dovidenia** is for people you say vy to. To a friend: **Maj sa**.",
+          },
+          {
+            english: "Good morning.",
+            slovak: "Dobré ráno.",
+            why: "**Dobré ráno** is a hello. Marek is leaving: **Maj sa**.",
+          },
+          { english: "Take care.", slovak: "Maj sa." },
+        ],
+        id: "marek-bye",
+        reply: { english: "Take care, Alex!", slovak: "Maj sa, Alex!" },
+      },
+    ],
+    id: "marek",
     time: "morning",
     who: "marek",
   },
   {
-    answers: ["Ahoj.", "Čau.", "Maj sa."],
-    id: "marek-leaves",
-    leaving: true,
-    prompt: { english: "Marek is leaving.", slovak: "Marek odchádza." },
-    reply: { english: "Take care, Alex!", slovak: "Maj sa, Alex!" },
-    time: "morning",
-    who: "marek",
-  },
-  {
-    answers: ["Dobrý deň."],
-    id: "lucia-meets",
-    leaving: false,
-    prompt: { english: "Lucia is coming over.", slovak: "Prichádza Lucia." },
-    reply: { english: "Good day. How are you?", slovak: "Dobrý deň. Ako sa máte?" },
+    arrive: { english: "Lucia is coming over.", slovak: "Prichádza Lucia." },
+    exchanges: [
+      {
+        choices: [
+          {
+            english: "Hi.",
+            slovak: "Čau.",
+            why: "**Čau** is for friends. Lucia is not a friend: **Dobrý deň**.",
+          },
+          { english: "Good day.", slovak: "Dobrý deň." },
+          {
+            english: "Good evening.",
+            slovak: "Dobrý večer.",
+            why: "**Dobrý večer** is for the evening. In the afternoon: **Dobrý deň**.",
+          },
+        ],
+        id: "lucia-hello",
+        reply: { english: "Good day. How are you?", slovak: "Dobrý deň. Ako sa máte?" },
+      },
+      {
+        choices: [
+          { english: "Good, thanks. And you?", slovak: "Dobre, ďakujem. A vy?" },
+          {
+            english: "Good, thanks. And you?",
+            slovak: "Dobre, ďakujem. A ty?",
+            why: "**A ty?** is for friends. Lucia says vy to you, so: **A vy?**",
+          },
+          {
+            english: "Yes, please.",
+            slovak: "Áno, prosím.",
+            why: "**Áno, prosím** says yes to an offer. Lucia asked how you are: **Dobre, ďakujem**.",
+          },
+        ],
+        id: "lucia-how",
+        reply: {
+          english: "Fine, thank you. I'm on my way to work.",
+          slovak: "Ďakujem, dobre. Idem do práce.",
+        },
+      },
+      {
+        choices: [
+          {
+            english: "Take care.",
+            slovak: "Maj sa.",
+            why: "**Maj sa** is for friends. To Lucia: **Dovidenia**.",
+          },
+          {
+            english: "Good night.",
+            slovak: "Dobrú noc.",
+            why: "**Dobrú noc** is for parting at night. In the afternoon: **Dovidenia**.",
+          },
+          { english: "Goodbye.", slovak: "Dovidenia." },
+        ],
+        id: "lucia-bye",
+        reply: { english: "Goodbye. Have a nice day!", slovak: "Dovidenia. Pekný deň!" },
+      },
+    ],
+    id: "lucia",
     time: "day",
     who: "lucia",
   },
   {
-    answers: ["Dovidenia."],
-    id: "lucia-leaves",
-    leaving: true,
-    prompt: { english: "Lucia is leaving.", slovak: "Lucia odchádza." },
-    reply: { english: "Goodbye. Have a nice day!", slovak: "Dovidenia. Pekný deň!" },
-    time: "day",
-    who: "lucia",
-  },
-  {
-    answers: ["Ahoj.", "Čau.", "Dobrý večer."],
-    id: "anna-meets",
-    leaving: false,
-    notes: {
-      "Dobrý večer.":
-        "**Dobrý večer** works with a friend too; **Ahoj** is what you will hear most.",
-    },
-    prompt: { english: "Anna is coming over.", slovak: "Prichádza Anna." },
-    reply: { english: "Hi, Alex! Where are you going?", slovak: "Ahoj, Alex! Kam ideš?" },
+    arrive: { english: "Anna is coming over.", slovak: "Prichádza Anna." },
+    exchanges: [
+      {
+        choices: [
+          {
+            english: "Good night.",
+            slovak: "Dobrú noc.",
+            why: "**Dobrú noc** is a goodbye for the night, never a hello. To a friend: **Čau**.",
+          },
+          { english: "Hi.", slovak: "Čau." },
+          {
+            english: "Good day.",
+            slovak: "Dobrý deň.",
+            why: "**Dobrý deň** is for people you say vy to, in the daytime. Anna is a friend: **Čau**.",
+          },
+        ],
+        id: "anna-hello",
+        reply: {
+          english: "Hi, Alex! Where are you going?",
+          slovak: "Ahoj, Alex! Kam ideš?",
+        },
+      },
+      {
+        choices: [
+          { english: "I'm going home. And you?", slovak: "Idem domov. A ty?" },
+          {
+            english: "I'm at home. And you?",
+            slovak: "Som doma. A ty?",
+            why: "**Som doma** says where you are. **Kam?** asks where to: **Idem domov**.",
+          },
+          {
+            english: "Good, thanks. And you?",
+            slovak: "Dobre, ďakujem. A ty?",
+            why: "That answers **Ako sa máš?** Anna asked **Kam ideš?**, where you are going: **Idem domov**.",
+          },
+        ],
+        id: "anna-where",
+        reply: {
+          english: "I'm going to the cinema. I have to go now.",
+          slovak: "Ja idem do kina. Už musím ísť.",
+        },
+      },
+      {
+        choices: [
+          { english: "Take care.", slovak: "Maj sa." },
+          {
+            english: "Goodbye.",
+            slovak: "Dovidenia.",
+            why: "**Dovidenia** is for people you say vy to. To a friend: **Maj sa**.",
+          },
+          {
+            english: "Good evening.",
+            slovak: "Dobrý večer.",
+            why: "**Dobrý večer** is a hello. Anna is leaving: **Maj sa**.",
+          },
+        ],
+        id: "anna-bye",
+        reply: { english: "Bye! Take care!", slovak: "Čau! Maj sa pekne!" },
+      },
+    ],
+    id: "anna",
     time: "evening",
     who: "anna",
   },
   {
-    answers: ["Ahoj.", "Čau.", "Maj sa.", "Dobrú noc."],
-    id: "anna-leaves",
-    leaving: true,
-    notes: {
-      "Dobrú noc.":
-        "**Dobrú noc** is for parting for the night; with a friend **Ahoj** or **Čau** is more usual.",
-    },
-    prompt: { english: "Anna is leaving.", slovak: "Anna odchádza." },
-    reply: { english: "Bye! Take care!", slovak: "Čau! Maj sa pekne!" },
-    time: "evening",
-    who: "anna",
-  },
-  {
-    answers: ["Dobrý večer."],
-    id: "maria-meets",
-    leaving: false,
-    prompt: { english: "Mária is coming over.", slovak: "Prichádza pani Mária." },
-    reply: { english: "Good evening, Alex.", slovak: "Dobrý večer, Alex." },
-    time: "night",
-    who: "maria",
-  },
-  {
-    answers: ["Dobrú noc.", "Dovidenia."],
-    id: "maria-leaves",
-    leaving: true,
-    notes: {
-      "Dovidenia.":
-        "**Dovidenia** is fine at any hour; late at night people say **Dobrú noc**.",
-    },
-    prompt: { english: "Mária is leaving.", slovak: "Pani Mária odchádza." },
-    reply: { english: "Good night, Alex.", slovak: "Dobrú noc, Alex." },
+    arrive: { english: "Mária is coming over.", slovak: "Prichádza pani Mária." },
+    exchanges: [
+      {
+        choices: [
+          {
+            english: "Good night.",
+            slovak: "Dobrú noc.",
+            why: "**Dobrú noc** is a goodbye for the night, never a hello. Late at night: **Dobrý večer**.",
+          },
+          {
+            english: "Hi.",
+            slovak: "Ahoj.",
+            why: "**Ahoj** is for friends. Pani Mária is not a friend: **Dobrý večer**.",
+          },
+          { english: "Good evening.", slovak: "Dobrý večer." },
+        ],
+        id: "maria-hello",
+        reply: {
+          english: "Good evening, Alex. Are you going home?",
+          slovak: "Dobrý večer, Alex. Idete domov?",
+        },
+      },
+      {
+        choices: [
+          { english: "Yes, I'm going home.", slovak: "Áno, idem domov." },
+          {
+            english: "Yes, you're going home.",
+            slovak: "Áno, idete domov.",
+            why: "**Idete** is what she says to you. About yourself you say **idem**: **Áno, idem domov**.",
+          },
+          {
+            english: "Yes, I'm at home.",
+            slovak: "Áno, som doma.",
+            why: "**Som doma** says you are home already. You are on the square: **Áno, idem domov**.",
+          },
+        ],
+        id: "maria-home",
+        reply: {
+          english: "Me too. It's late already.",
+          slovak: "Ja tiež. Je už neskoro.",
+        },
+      },
+      {
+        choices: [
+          {
+            english: "Good evening.",
+            slovak: "Dobrý večer.",
+            why: "**Dobrý večer** is a hello. Parting late at night: **Dobrú noc**.",
+          },
+          { english: "Good night.", slovak: "Dobrú noc." },
+          {
+            english: "Bye.",
+            slovak: "Čau.",
+            why: "**Čau** is for friends. To pani Mária: **Dobrú noc**.",
+          },
+        ],
+        id: "maria-bye",
+        reply: { english: "Good night, Alex.", slovak: "Dobrú noc, Alex." },
+      },
+    ],
+    id: "maria",
     time: "night",
     who: "maria",
   },
 ];
 
-export const TIME_WORDS: Record<TimeOfDay, { english: string; slovak: string }> = {
-  day: { english: "afternoon", slovak: "Popoludnie" },
-  evening: { english: "evening", slovak: "Večer" },
-  morning: { english: "morning", slovak: "Ráno" },
-  night: { english: "late at night", slovak: "Noc" },
+export const TIME_WORDS: Record<TimeOfDay, Said> = {
+  day: { english: "Afternoon.", slovak: "Popoludnie." },
+  evening: { english: "Evening.", slovak: "Večer." },
+  morning: { english: "Morning.", slovak: "Ráno." },
+  night: { english: "Late at night.", slovak: "Noc." },
 };
-
-const USES: Record<Greeting, string> = {
-  "Ahoj.": "a hello or a goodbye between friends",
-  "Čau.": "a hello or a goodbye between friends",
-  "Dobré ráno.": "a hello in the morning",
-  "Dobrý deň.": "a hello in the daytime, to people you say vy to",
-  "Dobrý večer.": "a hello from the evening on, late at night too",
-  "Dobrú noc.": "a goodbye when you part for the night, never a hello",
-  "Dovidenia.": "a goodbye to people you say vy to",
-  "Maj sa.": "a goodbye between friends",
-};
-
-const WHEN: Record<TimeOfDay, string> = {
-  day: "in the afternoon",
-  evening: "in the evening",
-  morning: "in the morning",
-  night: "late at night",
-};
-
-const GLOSSES: Record<Greeting, string> = {
-  "Ahoj.": "Hi.",
-  "Čau.": "Hi.",
-  "Dobré ráno.": "Good morning.",
-  "Dobrý deň.": "Good day.",
-  "Dobrý večer.": "Good evening.",
-  "Dobrú noc.": "Good night.",
-  "Dovidenia.": "Goodbye.",
-  "Maj sa.": "Take care.",
-};
-
-/** A greeting as a word, without the full stop it has when said. */
-export function bare(greeting: Greeting): string {
-  return greeting.slice(0, -1);
-}
 
 export function dayName(id: LessonCharacterId): string {
   return listedCharacters().find((character) => character.id === id)?.displayName ?? id;
 }
 
-export function dayWho(id: LessonCharacterId): { english: string; slovak: string } {
+export function dayWho(id: LessonCharacterId): Said {
   return PEOPLE[id] ?? { english: "", slovak: "" };
 }
 
-export function greetingGloss(greeting: Greeting): string {
-  return GLOSSES[greeting];
+/** What Alex says in an exchange when nothing has been picked yet: the first that fits. */
+export function dayAnswer(exchange: DayExchange): DayChoice {
+  return exchange.choices.find((choice) => !choice.why) ?? exchange.choices[0];
 }
 
-export function isDayRight(round: DayRound, picked: Greeting): boolean {
-  return round.answers.includes(picked);
-}
-
-/** Why a pick is wrong here: what it is for, and what fits instead. */
-export function dayWhy(round: DayRound, picked: Greeting): string {
-  const name = `${dayName(round.who)}${FRIENDS.includes(round.who) ? ", a friend," : ""}`;
-  const moment = round.leaving ? `Saying goodbye to ${name}` : `Greeting ${name}`;
-  return `**${bare(picked)}** is ${USES[picked]}. ${moment} ${WHEN[round.time]}: **${bare(round.answers[0])}**.`;
-}
-
-/** The rounds with the same person as round `at`: meeting them, then seeing them off. */
-export function pairOf(rounds: readonly DayRound[], at: number): DayRound[] {
-  const who = rounds[at]?.who;
-  let start = at;
-  while (start > 0 && rounds[start - 1].who === who) start -= 1;
-  let end = at;
-  while (end + 1 < rounds.length && rounds[end + 1].who === who) end += 1;
-  return rounds.slice(start, end + 1);
-}
-
-export function greetingTurnId(greeting: Greeting): string {
-  const slug = greeting
+export function alexTurnId(slovak: string): string {
+  const slug = slovak
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
     .toLocaleLowerCase("sk")
@@ -226,28 +331,39 @@ export function greetingTurnId(greeting: Greeting): string {
   return `day/say/${slug}`;
 }
 
-export function replyTurnId(round: DayRound): string {
-  return `day/${round.id}`;
+export function replyTurnId(exchange: DayExchange): string {
+  return `day/${exchange.id}`;
 }
 
-/** Every line of the game as a dialogue turn, so it is voiced and timed like a lesson scene. */
+/** Every voiced line of the game as a dialogue turn, so it is timed like a lesson scene. */
 export function dayTurns(): DialogueTurn[] {
   const speakers = Object.fromEntries(
     listedCharacters().map((character) => [character.id, character.speakers[0] ?? ""]),
   );
+  const exchanges = DAY_VISITS.flatMap((visit) =>
+    visit.exchanges.map((exchange) => ({ exchange, who: visit.who })),
+  );
+  // Wrong picks are said in a bubble, so only the lines that fit get a clip.
+  const alex = new Map(
+    exchanges.flatMap(({ exchange }) =>
+      exchange.choices
+        .filter((choice) => !choice.why)
+        .map((choice) => [alexTurnId(choice.slovak), choice] as const),
+    ),
+  );
 
   return [
-    ...GREETINGS.map((greeting) => ({
-      english: GLOSSES[greeting],
-      id: greetingTurnId(greeting),
-      slovak: greeting,
+    ...[...alex].map(([id, choice]) => ({
+      english: choice.english,
+      id,
+      slovak: choice.slovak,
       speaker: speakers.alex,
     })),
-    ...DAY_ROUNDS.map((round) => ({
-      english: round.reply.english,
-      id: replyTurnId(round),
-      slovak: round.reply.slovak,
-      speaker: speakers[round.who],
+    ...exchanges.map(({ exchange, who }) => ({
+      english: exchange.reply.english,
+      id: replyTurnId(exchange),
+      slovak: exchange.reply.slovak,
+      speaker: speakers[who],
     })),
   ];
 }
