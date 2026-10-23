@@ -72,6 +72,18 @@ export function hasContent(prop: StickPropId): boolean {
 const ORDERING = ["dam si", "si dam", "dame si", "si dame"];
 /** Not having it is not holding it either: "Nemám dáždnik." brings out no umbrella. */
 const NOT_HAVING = ["nemam", "nemas", "nema", "nemame", "nemate", "nemaju"];
+/** Bringing it another day is not holding it now: "Prineste fotku rodiny." brings out no camera. */
+const BRINGING = [
+  "prinesiem",
+  "prinesies",
+  "prinesie",
+  "prinesieme",
+  "prinesiete",
+  "prinesu",
+  "prines",
+  "prineste",
+  "prinesme",
+];
 
 /** Forms of `volať` (to call); with `sa` they mean "to be called" instead. */
 const CALLING = ["volam", "volas", "vola", "volame", "volate", "volaju"];
@@ -79,7 +91,9 @@ const CALLING = ["volam", "volas", "vola", "volame", "volate", "volaju"];
 /** The prop a sentence names, if any: "Pozri, to sú fotky z leta." → camera. */
 export function propForSentence(sentence: string): StickPropId | undefined {
   const words = foldLine(sentence).split(" ");
-  if (words.some((word) => NOT_HAVING.includes(word))) return undefined;
+  if (words.some((word) => NOT_HAVING.includes(word) || BRINGING.includes(word))) {
+    return undefined;
+  }
 
   const ordering = mentions(sentence, ORDERING);
   const named = STICK_PROP_IDS.find(

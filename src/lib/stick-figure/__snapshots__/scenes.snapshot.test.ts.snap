@@ -11560,29 +11560,20 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     {
       "held": {
         "alex": "bag",
-        "maria": "camera",
       },
       "line": "maria: Výborne! Zajtra budete hovoriť o rodine, tak si prineste fotku rodiny.",
       "plan": {
         "beats": [
           "0 cheer",
-          "950 show",
+          "950 talk",
           "2750 talk",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
         "words": "0-533 847-1214 1214-1686 1686-2183 2183-2314 2314-2786 2873-3057 3057-3214 3214-3738 3738-4078 4078-4550",
       },
-      "props": [
-        undefined,
-        "camera",
-      ],
       "staging": {
         "addressee": "alex",
-        "approach": {
-          "characterId": "alex",
-          "toward": 1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
@@ -11592,38 +11583,28 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Dobre, prinesiem fotku.",
       "plan": {
         "beats": [
-          "0 show",
+          "0 nod",
         ],
         "ms": 1850,
         "sentences": "0-1650",
         "words": "0-423 532-1227 1227-1650",
       },
-      "props": [
-        "camera",
-      ],
       "staging": {
         "addressee": "maria",
-        "approach": {
-          "characterId": "maria",
-          "toward": -1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
@@ -11646,8 +11627,7 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Ďakujem, dobrú noc!",
       "plan": {
@@ -11664,7 +11644,6 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
         "reactions": [
           {
             "at": 1,
@@ -11677,8 +11656,7 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Dovidenia, Alex.",
       "plan": {
@@ -11809,29 +11787,20 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
     {
       "held": {
         "alex": "bag",
-        "maria": "camera",
       },
       "line": "maria: Výborne! Zajtra budete hovoriť o rodine, tak si prineste fotku rodiny.",
       "plan": {
         "beats": [
           "0 cheer",
-          "950 show",
+          "950 talk",
           "2750 talk",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
         "words": "0-533 847-1214 1214-1686 1686-2183 2183-2314 2314-2786 2873-3057 3057-3214 3214-3738 3738-4078 4078-4550",
       },
-      "props": [
-        undefined,
-        "camera",
-      ],
       "staging": {
         "addressee": "alex",
-        "approach": {
-          "characterId": "alex",
-          "toward": 1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
@@ -11842,7 +11811,6 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
     {
       "held": {
         "alex": "camera",
-        "maria": "camera",
       },
       "line": "alex: Dobre. Mám pekné fotky z leta.",
       "plan": {
@@ -11868,13 +11836,11 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
         "alex": "camera",
-        "maria": "camera",
       },
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
@@ -11898,7 +11864,6 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
     {
       "held": {
         "alex": "camera",
-        "maria": "camera",
       },
       "line": "alex: Dobrú noc, pani Mária.",
       "plan": {
@@ -11915,13 +11880,11 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
         "alex": "camera",
-        "maria": "camera",
       },
       "line": "maria: Dovidenia, Alex.",
       "plan": {
@@ -12052,29 +12015,20 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
     {
       "held": {
         "alex": "bag",
-        "maria": "camera",
       },
       "line": "maria: Výborne! Zajtra budete hovoriť o rodine, tak si prineste fotku rodiny.",
       "plan": {
         "beats": [
           "0 cheer",
-          "950 show",
+          "950 talk",
           "2750 talk",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
         "words": "0-533 847-1214 1214-1686 1686-2183 2183-2314 2314-2786 2873-3057 3057-3214 3214-3738 3738-4078 4078-4550",
       },
-      "props": [
-        undefined,
-        "camera",
-      ],
       "staging": {
         "addressee": "alex",
-        "approach": {
-          "characterId": "alex",
-          "toward": 1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
@@ -12084,38 +12038,28 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Dobre, prinesiem fotku.",
       "plan": {
         "beats": [
-          "0 show",
+          "0 nod",
         ],
         "ms": 1850,
         "sentences": "0-1650",
         "words": "0-423 532-1227 1227-1650",
       },
-      "props": [
-        "camera",
-      ],
       "staging": {
         "addressee": "maria",
-        "approach": {
-          "characterId": "maria",
-          "toward": -1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
@@ -12138,8 +12082,7 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Dobrú noc, pani Mária.",
       "plan": {
@@ -12156,13 +12099,11 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Dovidenia, Alex.",
       "plan": {
@@ -12483,29 +12424,20 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
     {
       "held": {
         "alex": "bag",
-        "maria": "camera",
       },
       "line": "maria: Výborne! Zajtra budete hovoriť o rodine, tak si prineste fotku rodiny.",
       "plan": {
         "beats": [
           "0 cheer",
-          "950 show",
+          "950 talk",
           "2750 talk",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
         "words": "0-533 847-1214 1214-1686 1686-2183 2183-2314 2314-2786 2873-3057 3057-3214 3214-3738 3738-4078 4078-4550",
       },
-      "props": [
-        undefined,
-        "camera",
-      ],
       "staging": {
         "addressee": "alex",
-        "approach": {
-          "characterId": "alex",
-          "toward": 1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
@@ -12515,38 +12447,28 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Dobre, prinesiem fotku.",
       "plan": {
         "beats": [
-          "0 show",
+          "0 nod",
         ],
         "ms": 1850,
         "sentences": "0-1650",
         "words": "0-423 532-1227 1227-1650",
       },
-      "props": [
-        "camera",
-      ],
       "staging": {
         "addressee": "maria",
-        "approach": {
-          "characterId": "maria",
-          "toward": -1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
@@ -12569,8 +12491,7 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Dobrú noc, pani Mária.",
       "plan": {
@@ -12587,13 +12508,11 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Dovidenia, Alex.",
       "plan": {
@@ -12724,29 +12643,20 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
     {
       "held": {
         "alex": "bag",
-        "maria": "camera",
       },
       "line": "maria: Výborne! Zajtra budete hovoriť o rodine, tak si prineste fotku rodiny.",
       "plan": {
         "beats": [
           "0 cheer",
-          "950 show",
+          "950 talk",
           "2750 talk",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
         "words": "0-533 847-1214 1214-1686 1686-2183 2183-2314 2314-2786 2873-3057 3057-3214 3214-3738 3738-4078 4078-4550",
       },
-      "props": [
-        undefined,
-        "camera",
-      ],
       "staging": {
         "addressee": "alex",
-        "approach": {
-          "characterId": "alex",
-          "toward": 1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
@@ -12756,38 +12666,28 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Dobre, prinesiem fotku.",
       "plan": {
         "beats": [
-          "0 show",
+          "0 nod",
         ],
         "ms": 1850,
         "sentences": "0-1650",
         "words": "0-423 532-1227 1227-1650",
       },
-      "props": [
-        "camera",
-      ],
       "staging": {
         "addressee": "maria",
-        "approach": {
-          "characterId": "maria",
-          "toward": -1,
-        },
         "facing": {
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
@@ -12810,8 +12710,7 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "alex: Dobrú noc, pani Mária.",
       "plan": {
@@ -12828,13 +12727,11 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
           "alex": 1,
           "maria": -1,
         },
-        "looksAt": "maria",
       },
     },
     {
       "held": {
-        "alex": "camera",
-        "maria": "camera",
+        "alex": "bag",
       },
       "line": "maria: Dovidenia, Alex.",
       "plan": {
