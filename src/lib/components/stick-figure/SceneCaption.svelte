@@ -5,7 +5,7 @@
   import { foldLine } from "$lib/stick-figure/line-gesture";
   import type { LinePlan } from "$lib/stick-figure/line-plan";
   import { planTime, wordAt } from "$lib/stick-figure/performance";
-  import { thingNamed, type SceneThing } from "$lib/stick-figure/scene-things";
+  import { thingNamed, type SceneThing } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
 
   let {

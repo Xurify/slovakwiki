@@ -7,7 +7,7 @@ import {
   storySettingForLesson,
   type LessonSceneArtId,
 } from "$lib/lesson-story/story-settings";
-import { SCENE_THINGS } from "./scene-things";
+import { PLACES } from "./places";
 import type { StageSetting } from "./stage-setting";
 
 /**
@@ -41,7 +41,7 @@ export function chapterSettingFor(chapterId: string): StageSetting {
 export function sceneThingWords(): Record<string, { href?: string; src?: string }> {
   const found: Record<string, { href?: string; src?: string }> = {};
 
-  for (const thing of Object.values(SCENE_THINGS).flat()) {
+  for (const thing of Object.values(PLACES).flatMap((place) => place.things)) {
     if (thing.word in found) continue;
 
     const entry = words.find((word) => word.slovak === thing.word && word.gender);

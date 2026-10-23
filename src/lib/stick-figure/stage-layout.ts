@@ -1,5 +1,5 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-import { BACKDROP_HEIGHT } from "./scene-things";
+import { BACKDROP_HEIGHT } from "./backdrop-geometry";
 import type { StageSetting } from "./stage-setting";
 import type { Facing } from "./staging";
 
@@ -8,19 +8,6 @@ export const STAGE_PADDING = 24;
 /** Between neighbours, as a share of the stage's inner width: close enough to be talking. */
 const GAP_SHARE = 0.02;
 
-/**
- * Where a place's cast gathers, as an x in the backdrop's drawing: by the
- * counter in the café and at the desk, by the stall at the market, beside
- * the bag on the rug at home.
- * Elsewhere the middle of the stage.
- */
-export const STAGE_POSTS: Partial<Record<StageSetting, number>> = {
-  cafe: 690,
-  // Left of the bag on the rug, so nobody stands on it.
-  home: 360,
-  market: 660,
-  registration: 560,
-};
 /**
  * A figure's width on a stage this size: in step with the stage's height,
  * so on a phone's shorter stage the cast keeps its size against the place;

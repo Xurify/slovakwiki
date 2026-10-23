@@ -22,13 +22,9 @@ import { performFrame, startPerformance, type PerformanceInput } from "./perform
 import { linePictures } from "./pictures";
 import { REST_POSE } from "./pose";
 import { GROUND_Y, solveRig, type Point } from "./rig";
-import {
-  SCENE_THINGS,
-  aimAt,
-  backdropToStage,
-  figureToStage,
-  linePoints,
-} from "./scene-things";
+import { aimAt, backdropToStage, figureToStage } from "./backdrop-geometry";
+import { PLACES } from "./places";
+import { linePoints } from "./scene-points";
 import { stageName } from "./stage-name";
 import { gesturesWithProps, heldProps, lineProps, propForSentence } from "./props";
 import { restFacing, stageLine, type StageLine } from "./staging";
@@ -629,7 +625,7 @@ describe("pictures", () => {
 });
 
 describe("pointing", () => {
-  const cafe = SCENE_THINGS.cafe ?? [];
+  const cafe = PLACES.cafe.things;
 
   it("points from the demonstrative at the thing it names", () => {
     expect(linePoints("Koľko stojí tento koláč?", cafe)).toEqual([

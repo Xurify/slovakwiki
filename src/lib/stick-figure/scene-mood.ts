@@ -1,4 +1,3 @@
-import type { StageSetting } from "./stage-setting";
 import { foldLine } from "./line-gesture";
 
 export type TimeOfDay = "morning" | "day" | "evening" | "night";
@@ -21,13 +20,6 @@ export function isFair(weather: Weather): boolean {
 
 export function isFalling(weather: Weather): boolean {
   return weather === "rain" || weather === "snow";
-}
-
-const OUTDOORS: readonly StageSetting[] = ["default", "market", "plaza", "street"];
-
-/** Under the sky, where weather falls on everything and the cast dresses for it. */
-export function isOutdoors(setting: StageSetting): boolean {
-  return OUTDOORS.includes(setting);
 }
 
 export const TIMES_OF_DAY: readonly TimeOfDay[] = ["morning", "day", "evening", "night"];

@@ -108,12 +108,9 @@
     hereIs,
     thatIs,
   } from "$lib/stick-figure/scene-find";
-  import {
-    thingWithDemonstrative,
-    thingsIn,
-    thingsInView,
-    type SceneThing,
-  } from "$lib/stick-figure/scene-things";
+  import { thingsInView } from "$lib/stick-figure/backdrop-geometry";
+  import { PLACES, thingsIn } from "$lib/stick-figure/places";
+  import { thingWithDemonstrative, type SceneThing } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
   import {
     ambienceFor,
@@ -178,18 +175,6 @@
   ];
   /** Two right the first time in a row moves adaptive on a step. */
   const STEP_UP_AFTER = 2;
-
-  const PLACES: Record<StageSetting, string> = {
-    cafe: "At the café",
-    classroom: "In class",
-    default: "In the park by the Danube",
-    home: "At home",
-    market: "At the market",
-    plaza: "On the old town square",
-    registration: "At the front desk",
-    street: "On the street, by the tram stop",
-    studio: "In the podcast studio",
-  };
 
   /** The scene a link opens: `?scene=podcast-demonstratives-market`. */
   const SCENE_PARAM = "scene";
@@ -1396,7 +1381,7 @@
                   {/if}
                 {:else}
                   <p class="m-0 font-serif text-2xl text-slate-900">
-                    {PLACES[scene.setting]}: {listOf(castNames)}.
+                    {PLACES[scene.setting].label}: {listOf(castNames)}.
                   </p>
                 {/if}
                 <p class="m-0 mt-1 text-slate-600">

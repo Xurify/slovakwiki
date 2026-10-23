@@ -2,18 +2,10 @@
   import { fade } from "svelte/transition";
 
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import {
-    WEATHER_FADE_MS,
-    isFair,
-    isOutdoors,
-    type SceneMood,
-  } from "$lib/stick-figure/scene-mood";
-  import {
-    GLASS,
-    SCENE_THINGS,
-    glassPath,
-    thingBoxes,
-  } from "$lib/stick-figure/scene-things";
+  import { glassPath } from "$lib/stick-figure/backdrop-geometry";
+  import { PLACES } from "$lib/stick-figure/places";
+  import { WEATHER_FADE_MS, isFair, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import { thingBoxes } from "$lib/stick-figure/thing-words";
 
   /**
    * Light and weather over a drawn place, in front of it: the tint of the
@@ -25,8 +17,8 @@
 
   const id = $props.id();
 
-  const outdoors = $derived(isOutdoors(setting));
-  const things = $derived(SCENE_THINGS[setting] ?? []);
+  const outdoors = $derived(PLACES[setting].outdoors);
+  const things = $derived(PLACES[setting].things);
   const lamps = $derived(
     things
       .filter((thing) => thing.id === "lampa")
@@ -37,7 +29,7 @@
         y: box.height < 40 ? box.y + box.height : box.y + 18,
       })),
   );
-  const glass = $derived(GLASS[setting]);
+  const glass = $derived(PLACES[setting].glass);
   const lit = $derived(mood.time === "evening" || mood.time === "night");
 </script>
 

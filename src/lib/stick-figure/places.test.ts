@@ -3,23 +3,17 @@ import { describe, expect, it } from "vitest";
 import { words } from "$lib/catalog/entries";
 import { foldLine } from "./line-gesture";
 import type { StageSetting } from "./stage-setting";
+import { BACKDROP_WIDTH, thingsInView } from "./backdrop-geometry";
+import { PLACES, backdropAlign, sunIn, thingsIn } from "./places";
+import { linePoints } from "./scene-points";
 import {
-  BACKDROP_WIDTH,
-  GLASS,
-  SCENE_THINGS,
-  SUN_SPOTS,
-  backdropAlign,
-  linePoints,
-  sunIn,
   thingBoxes,
   thingCenter,
   thingNamed,
   thingWithDemonstrative,
-  thingsIn,
-  thingsInView,
-} from "./scene-things";
+} from "./thing-words";
 
-const all = Object.values(SCENE_THINGS).flat();
+const all = Object.values(PLACES).flatMap((place) => place.things);
 
 describe("scene things", () => {
   it("gives each thing the gender the dictionary does", () => {
@@ -30,9 +24,9 @@ describe("scene things", () => {
   });
 
   it("knows each thing by its own nominative", () => {
-    for (const [setting, things] of Object.entries(SCENE_THINGS)) {
-      for (const thing of things ?? []) {
-        expect([setting, thingNamed(foldLine(thing.word), things ?? [])?.id]).toEqual([
+    for (const [setting, { things }] of Object.entries(PLACES)) {
+      for (const thing of things) {
+        expect([setting, thingNamed(foldLine(thing.word), things)?.id]).toEqual([
           setting,
           thing.id,
         ]);
@@ -41,8 +35,8 @@ describe("scene things", () => {
   });
 
   it("keeps a table apart from a chair, and a tower apart from taking", () => {
-    const cafe = SCENE_THINGS.cafe ?? [];
-    const plaza = SCENE_THINGS.plaza ?? [];
+    const cafe = PLACES.cafe.things;
+    const plaza = PLACES.plaza.things;
 
     expect(thingNamed("stolicku", cafe)?.id).toBe("stolicka");
     expect(thingNamed("stole", cafe)?.id).toBe("stol");
@@ -59,7 +53,7 @@ describe("scene things", () => {
   });
 
   it("shows the gender with the demonstrative", () => {
-    const cafe = SCENE_THINGS.cafe ?? [];
+    const cafe = PLACES.cafe.things;
     const named = (id: string) =>
       thingWithDemonstrative(cafe.find((thing) => thing.id === id)!);
 
@@ -68,13 +62,13 @@ describe("scene things", () => {
       "tá torta",
       "to okno",
     ]);
-    expect(thingWithDemonstrative(SCENE_THINGS.plaza![1])).toBe("tie hodiny");
+    expect(thingWithDemonstrative(PLACES.plaza.things[1])).toBe("tie hodiny");
   });
 });
 
 describe("this one and that one", () => {
-  const market = SCENE_THINGS.market ?? [];
-  const home = SCENE_THINGS.home ?? [];
+  const market = PLACES.market.things;
+  const home = PLACES.home.things;
   const targets = (points: ReturnType<typeof linePoints>) =>
     points.map(({ reach, target }) =>
       target.kind === "thing" ? `${target.id}#${target.copy}:${reach ?? "-"}` : "prop",
@@ -138,9 +132,9 @@ describe("this one and that one", () => {
     ]);
     // Over photos the man is in them; at home there is one outside the window.
     const photos = { holder: "anna" as const, prop: "camera" as const };
-    expect(
-      targets(linePoints("Kto je ten muž?", SCENE_THINGS.cafe ?? [], photos)),
-    ).toEqual(["prop"]);
+    expect(targets(linePoints("Kto je ten muž?", PLACES.cafe.things, photos))).toEqual([
+      "prop",
+    ]);
     expect(targets(linePoints("Kto je ten muž?", home, photos))).toEqual([
       "muz#undefined:-",
     ]);
@@ -149,7 +143,7 @@ describe("this one and that one", () => {
 
 describe("things in view", () => {
   it("leaves out what a phone slices off", () => {
-    const cafe = SCENE_THINGS.cafe ?? [];
+    const cafe = PLACES.cafe.things;
     const ids = (width: number, height: number) =>
       thingsInView(cafe, "cafe", width, height).map(({ id }) => id);
 
@@ -161,10 +155,10 @@ describe("things in view", () => {
 
   it("keeps both bags at home and Lucia's whole stall on a phone", () => {
     const at = (setting: "home" | "market") =>
-      thingsInView(SCENE_THINGS[setting] ?? [], setting, 366, 240).map(({ id }) => id);
+      thingsInView(PLACES[setting].things, setting, 366, 240).map(({ id }) => id);
 
     expect(at("home")).toEqual(expect.arrayContaining(["okno", "taska"]));
-    const market = SCENE_THINGS.market ?? [];
+    const market = PLACES.market.things;
     const far = (id: string) => {
       const thing = market.find((candidate) => candidate.id === id)!;
       return thingsInView(
@@ -185,16 +179,14 @@ describe("the sun", () => {
   const RADIUS = 19;
 
   it("stands in open sky a phone's stage shows, clear of the place's things", () => {
-    for (const [place, spots] of Object.entries(SUN_SPOTS)) {
+    for (const [place, { sun: spots }] of Object.entries(PLACES)) {
       const setting = place as StageSetting;
       const left = (BACKDROP_WIDTH - PHONE_SHOWS) * backdropAlign(setting);
       for (const { x, y } of Object.values(spots ?? {})) {
         expect(x - RADIUS, setting).toBeGreaterThanOrEqual(left);
         expect(x + RADIUS, setting).toBeLessThanOrEqual(left + PHONE_SHOWS);
 
-        const things = (SCENE_THINGS[setting] ?? []).filter(
-          (thing) => thing.id !== "slnko",
-        );
+        const things = PLACES[setting].things.filter((thing) => thing.id !== "slnko");
         for (const thing of things) {
           for (const box of thingBoxes(thing)) {
             const apart =
@@ -211,7 +203,7 @@ describe("the sun", () => {
 });
 
 describe("the sun as a thing", () => {
-  const park = SCENE_THINGS.default ?? [];
+  const park = PLACES.default.things;
   const sunThing = (time: "morning" | "day", weather: "clear" | "sunny") =>
     thingsIn(park, "default", { time, weather }).find(({ id }) => id === "slnko");
 
@@ -232,10 +224,11 @@ describe("the sun as a thing", () => {
 
 describe("window glass", () => {
   it("sits inside the window a learner taps", () => {
-    for (const [place, glass] of Object.entries(GLASS)) {
-      const window = SCENE_THINGS[place as StageSetting]?.find(({ id }) => id === "okno");
+    for (const [place, { glass, things }] of Object.entries(PLACES)) {
+      if (!glass) continue;
+      const window = things.find(({ id }) => id === "okno");
       expect(window, place).toBeDefined();
-      if (!window || !glass) continue;
+      if (!window) continue;
       expect(glass.x, place).toBeGreaterThanOrEqual(window.box.x);
       expect(glass.y, place).toBeGreaterThanOrEqual(window.box.y);
       expect(glass.x + glass.width, place).toBeLessThanOrEqual(

@@ -3,18 +3,13 @@
 
   import { scatter } from "$lib/stick-figure/scatter";
   import {
-    WEATHER_FADE_MS,
-    isOutdoors,
-    type SceneMood,
-  } from "$lib/stick-figure/scene-mood";
-  import {
     BACKDROP_HEIGHT,
     BACKDROP_WIDTH,
-    GLASS,
-    backdropAlign,
     backdropScale,
     backdropToStage,
-  } from "$lib/stick-figure/scene-things";
+  } from "$lib/stick-figure/backdrop-geometry";
+  import { PLACES, backdropAlign } from "$lib/stick-figure/places";
+  import { WEATHER_FADE_MS, type SceneMood } from "$lib/stick-figure/scene-mood";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
   /**
@@ -63,9 +58,9 @@
   );
   /** Where the weather shows, in stage px, and how round its top is: an arched window's. */
   const area = $derived.by(() => {
-    if (isOutdoors(setting)) return { height, left: 0, round: 0, top: 0, width };
+    const { glass, outdoors } = PLACES[setting];
+    if (outdoors) return { height, left: 0, round: 0, top: 0, width };
 
-    const glass = GLASS[setting];
     if (!glass) return undefined;
     return {
       height: glass.height * scale,

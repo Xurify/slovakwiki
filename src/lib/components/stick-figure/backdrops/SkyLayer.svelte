@@ -3,7 +3,7 @@
 
   import { scatter } from "$lib/stick-figure/scatter";
   import { WEATHER_FADE_MS, isFair, type SceneMood } from "$lib/stick-figure/scene-mood";
-  import { sunIn } from "$lib/stick-figure/scene-things";
+  import { sunIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import Cloud from "./Cloud.svelte";
 

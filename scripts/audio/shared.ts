@@ -30,7 +30,7 @@ import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening
 import { lessonExercises } from "../../src/lib/learning/beats";
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "../../src/lib/stick-figure/dev-scenes";
 import { dayTurns } from "../../src/lib/stick-figure/scene-day";
-import { SCENE_THINGS } from "../../src/lib/stick-figure/scene-things";
+import { PLACES } from "../../src/lib/stick-figure/places";
 import {
   exerciseAnswerTexts,
   exerciseOptionTexts,
@@ -246,7 +246,7 @@ export function collectDictionaryAudioTargets(options?: {
   // Things on the stick-figure stage are tapped for their word, and some
   // (torta, kávovar) have no dictionary entry to bring a clip with them.
   if (!options?.slugs) {
-    for (const thing of Object.values(SCENE_THINGS).flat()) {
+    for (const thing of Object.values(PLACES).flatMap((place) => place.things)) {
       const word = normalizeAudioText(thing.word);
       if (word && !byText.has(word)) byText.set(word, { kind: "lemma", text: word });
     }

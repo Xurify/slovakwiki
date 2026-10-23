@@ -13,15 +13,11 @@ import {
   type CastProps,
   type StickPropId,
 } from "./props";
-import {
-  SCENE_THINGS,
-  linePoints,
-  thingNamed,
-  type NamedThing,
-  type SceneThing,
-} from "./scene-things";
+import { PLACES } from "./places";
+import { linePoints, type NamedThing } from "./scene-points";
 import type { StageSetting } from "./stage-setting";
 import { stageLine, takesFrom, type LineStaging, type StageLine } from "./staging";
+import { thingNamed, type SceneThing } from "./thing-words";
 
 export interface DirectedLine {
   /** Null for a line nobody on stage says: a notice, the narrator. */
@@ -54,14 +50,6 @@ export interface SceneDirection {
   things: readonly SceneThing[];
 }
 
-/** Who works where, so they stand at the counter end of the stage. */
-const STAFF: Partial<Record<StageSetting, readonly LessonCharacterId[]>> = {
-  cafe: ["waiter"],
-  // Lucia sells at the market in the podcast, from the stall on the right.
-  market: ["lucia"],
-  registration: ["receptionist", "maria"],
-};
-
 /**
  * Everyone on stage in the order they first speak, or in `order` where it
  * names them, so a series keeps its hosts in their places; staff go last,
@@ -79,7 +67,7 @@ export function castFor(
     ...order.filter((id) => speakers.includes(id)),
     ...speakers.filter((id) => !order.includes(id)),
   ];
-  const staff = STAFF[setting] ?? [];
+  const staff = PLACES[setting].staff ?? [];
   return [
     ...cast.filter((id) => !staff.includes(id)),
     ...cast.filter((id) => staff.includes(id)),
@@ -106,20 +94,13 @@ function propsBesides(
   });
 }
 
-/**
- * Places where the cast keeps to their marks whatever is said: podcast
- * hosts talk into their own mics, so nobody walks over to look or goes
- * to a thing the line names.
- */
-const AT_MARKS: readonly StageSetting[] = ["studio"];
-
 export function directScene(
   lines: readonly DirectedLine[],
   setting: StageSetting,
   order?: readonly LessonCharacterId[],
 ): SceneDirection {
   const cast = castFor(lines, setting, order);
-  const things = SCENE_THINGS[setting] ?? [];
+  const { atMarks, things } = PLACES[setting];
   const authored = lines.map((line) => propsBesides(line, things));
   const props = lines.map((line, index) => lineProps(line.slovak, authored[index]));
   const stageLines: StageLine[] = lines.map(
@@ -133,9 +114,7 @@ export function directScene(
   );
   const stagings = lines.map((_, index) => {
     const staging = stageLine(stageLines, index, cast, things);
-    return AT_MARKS.includes(setting)
-      ? { ...staging, approach: undefined, goTo: undefined }
-      : staging;
+    return atMarks ? { ...staging, approach: undefined, goTo: undefined } : staging;
   });
   const takes = lines.map((_, index) => takesFrom(stageLines, index));
   const held = heldProps(

@@ -27,19 +27,20 @@
   import type { DirectedLine, SceneDirection } from "$lib/stick-figure/scene-direction";
   import {
     aimAt,
-    backdropAlign,
     backdropToStage,
-    boxCenter,
     figureToStage,
+  } from "$lib/stick-figure/backdrop-geometry";
+  import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
+  import {
+    boxCenter,
     litKey,
     thingBoxes,
     thingCenter,
     thingWithDemonstrative,
-    thingsIn,
-  } from "$lib/stick-figure/scene-things";
+  } from "$lib/stick-figure/thing-words";
   import { dressFor } from "$lib/stick-figure/dress";
-  import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
-  import { STAGE_PADDING, STAGE_POSTS, stageMarks } from "$lib/stick-figure/stage-layout";
+  import { DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import { STAGE_PADDING, stageMarks } from "$lib/stick-figure/stage-layout";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import {
     restFacing,
@@ -142,7 +143,7 @@
   );
   /** The weather on the cast: none indoors or once on the tram. */
   const dress = $derived(
-    dressFor(isOutdoors(setting) && !aboard ? mood.weather : "clear"),
+    dressFor(PLACES[setting].outdoors && !aboard ? mood.weather : "clear"),
   );
   /**
    * Each umbrella in hand, up or not. It comes out the way the weather on
@@ -166,7 +167,7 @@
       ),
     ) as Partial<Record<LessonCharacterId, Facing>>,
   );
-  const post = $derived(STAGE_POSTS[setting]);
+  const post = $derived(PLACES[setting].post);
   const layout = $derived(
     stageMarks(
       direction.cast,

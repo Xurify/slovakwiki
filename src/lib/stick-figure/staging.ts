@@ -3,7 +3,8 @@ import type { StickGestureId } from "./gestures";
 import { foldLine } from "./line-gesture";
 import { lineSentences, lineWords, wordSentences } from "./line-plan";
 import { lineProps, type StickPropId } from "./props";
-import { linePoints, thingNamed, type SceneThing, type ShownProp } from "./scene-things";
+import { linePoints, type ShownProp } from "./scene-points";
+import { thingNamed, type SceneThing } from "./thing-words";
 
 /** 1 faces right (+x), -1 faces left. */
 export type Facing = 1 | -1;

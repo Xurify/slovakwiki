@@ -13,11 +13,12 @@ import {
   findWhy,
   thatIs,
 } from "./scene-find";
-import { SCENE_THINGS, type SceneThing } from "./scene-things";
+import { PLACES } from "./places";
+import type { SceneThing } from "./thing-words";
 
 const thingsById = new Map(
-  Object.values(SCENE_THINGS)
-    .flat()
+  Object.values(PLACES)
+    .flatMap((place) => place.things)
     .map((thing) => [thing.id, thing] as const),
 );
 const thing = (id: string): SceneThing => {

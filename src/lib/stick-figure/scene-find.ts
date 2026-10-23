@@ -1,5 +1,5 @@
 import type { TextMark } from "$lib/learning/marked-text";
-import { isPlural, isProperName, type SceneThing } from "./scene-things";
+import { isPlural, isProperName, type SceneThing } from "./thing-words";
 
 /** Kde je torta? (where is it, the dictionary form) or Ukáž na tú tortu. (point at that one, the accusative). */
 export type FindAsk = "where" | "point";

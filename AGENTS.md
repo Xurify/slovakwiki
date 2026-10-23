@@ -265,14 +265,14 @@ The animated cast, its places and the scene player. Logic lives in `src/lib/stic
 - Gestures are picked from the Slovak text, one per sentence (`line-gesture.ts` → `line-plan.ts`). Set `DialogueTurn.gestures` only when the guess is wrong; lesson validation rejects more gestures than sentences.
 - Mouths follow the clip's loudness and vowel track in `content/audio/mouth.json`, which `scripts/audio/generate.ts` writes with every clip. Never drive a mouth from a timer: timer mouths matched the voice at r = 0.29, the track at r = 1.00.
 - Staging (who faces whom, enters, leaves, walks over, points, hands something over) is worked out from the dialogue in `staging.ts` and `scene-direction.ts`. Change a rule there, with a case in `scene-direction.test.ts`; never stage one scene by hand. A line sets `to` only when the order of replies guesses the listener wrong, and `stays` keeps Alex on stage after a goodbye.
-- What differs by place is data in a per-place table, not an `if` in a component. Hosts stay at their mics in the studio because `studio` is in `AT_MARKS`, which drops walks there.
+- What differs by place is a field in its row of `places.ts` (`PLACES`), not an `if` in a component: its label, sky and sun, things, sounds, staff, where the cast gathers, its window glass. Hosts stay at their mics in the studio because its row sets `atMarks`, which drops walks there. A new place is a row there plus its drawing in `StickBackdrop`'s `DRAWINGS`; both are typed over every `StageSetting`, so leaving one out fails the typecheck.
 
 **Places and the stage**
 
 - Backdrops are drawn SVG in the cast's style with fixed light paints, so the dark-ink cast reads in both themes. Keep a place's landmark near the middle or above head height.
 - The stage is twice as wide as tall, up to 300px, and figures scale with its height. Check a changed place at 390px and at desktop width; Find it asks only for what the stage shows.
-- The sky (sun, stars, clouds) is drawn behind the scenery. The sun stands at its place's spot in `SUN_SPOTS`, and `scene-things.test.ts` fails when it leaves what a phone shows or touches a thing's box.
-- A tappable thing's box in `SCENE_THINGS` is in backdrop units and must match the drawing. Move both in the same change.
+- The sky (sun, stars, clouds) is drawn behind the scenery. The sun stands at its place's `sun` spot, and `places.test.ts` fails when it leaves what a phone shows or touches a thing's box. The sun is a thing to tap or find only while it is out (`thingsIn`).
+- A tappable thing's box in its place's `things` is in backdrop units and must match the drawing. Move both in the same change. The words for things live in `thing-words.ts`, the geometry in `backdrop-geometry.ts`.
 - Each character reads as themselves at a glance (Marek has curls so he is not a second Alex). On stage the learner's lines belong to Alex, not "You" (`stageName`), and a line nobody says, like a board or a notice, gets no name tag.
 
 **Weather, dress and sound**
