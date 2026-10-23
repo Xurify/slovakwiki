@@ -22,7 +22,8 @@
   }: {
     /** Beside the line to say: how to answer it. */
     aside?: Snippet;
-    english: string;
+    /** The line in English; none when the line was just chosen by its English. */
+    english?: string;
     marks?: TextMark[];
     /** Play the line as the cast says it, and stay on this turn. */
     onhear: () => void;
@@ -120,7 +121,7 @@
       >
         <MarkedText text={slovak} {marks} />
       </p>
-      {#if showEnglish}
+      {#if showEnglish && english}
         <p class="m-0 mt-1 text-base text-slate-600">{english}</p>
       {/if}
     </div>

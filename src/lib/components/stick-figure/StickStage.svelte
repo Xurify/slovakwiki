@@ -123,6 +123,7 @@
   let board = $state<string>();
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
   let bubbleTimer = 0;
+  let bubbleHeight = $state(0);
   let tram = $state<TramState>("away");
   /** Everyone has got on the tram, out of the weather. */
   let aboard = $state(false);
@@ -740,11 +741,12 @@
     {#key bubble.cue}
       <p
         class={cx(
-          "absolute z-10 m-0 max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
+          "absolute z-10 m-0 w-max max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
           "bg-surface px-3 py-2 font-serif text-base text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
         )}
         style:left="{centre}px"
-        style:bottom="{stageHeight - mark.top + 8}px"
+        style:top="{Math.max(4, mark.top - 8 - bubbleHeight)}px"
+        bind:offsetHeight={bubbleHeight}
         lang="sk"
       >
         {bubble.text}
