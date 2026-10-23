@@ -27,6 +27,14 @@
 
   let active = $state(0);
   let autoplay = $state(false);
+  /**
+   * Off, the episode plays straight through, one segment into the next;
+   * on, each segment stops for its questions. Off first, so the episode
+   * can be heard as a show.
+   */
+  let questions = $state(false);
+  /** Segments played to their end. */
+  let heard = $state<Record<string, boolean>>({});
   let scores = $state<Record<string, number>>({});
   let restartCount = $state(0);
   let stage = $state<{ pause: () => void }>();
@@ -37,6 +45,7 @@
   const allDone = $derived(
     episode.chapters.every((entry) => scores[entry.id] !== undefined),
   );
+  const allHeard = $derived(episode.chapters.every((entry) => heard[entry.id]));
   const totalCorrect = $derived(
     Object.values(scores).reduce((sum, score) => sum + score, 0),
   );
@@ -51,11 +60,29 @@
     );
   });
 
-  function openChapter(index: number, play = false): void {
+  function openChapter(index: number, play = false, scroll = true): void {
     stage?.pause();
     active = index;
     autoplay = play;
-    void scrollToStage();
+    if (scroll) void scrollToStage();
+  }
+
+  /** A segment has played to its end: straight on to the next one, unless stopping for questions. */
+  function listened(): void {
+    heard = { ...heard, [chapter.id]: true };
+    const following = active + 1;
+    if (questions || following >= episode.chapters.length) return;
+    openChapter(following, true, false);
+  }
+
+  function toggleQuestions(): void {
+    questions = !questions;
+  }
+
+  /** After a straight listen: the questions, segment by segment, from the first. */
+  function askQuestions(): void {
+    questions = true;
+    openChapter(0);
   }
 
   function finishChapter(correct: number): void {
@@ -65,6 +92,7 @@
 
   function restart(): void {
     scores = {};
+    heard = {};
     restartCount += 1;
     openChapter(0);
   }
@@ -94,13 +122,32 @@
       class="min-h-10 px-4 text-sm"
       onclick={() => openChapter(nextIndex, true)}
     >
-      Next chapter
+      Next segment
     </Button>
   {/if}
 {/snippet}
 
 {#snippet episodeDone()}
-  {#if allDone}
+  {#if !questions && allHeard}
+    <div
+      class="animate-rise border-t border-slate-200/70 px-4 py-5 sm:px-5"
+      aria-live="polite"
+    >
+      <h3 class="m-0 text-lg font-semibold">Episode played</h3>
+
+      <p class="m-0 mt-1 text-sm text-slate-600">
+        {totalChecks} short questions go with it, a few after each segment.
+      </p>
+
+      <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <Button variant="accent" onclick={askQuestions}>Answer the questions</Button>
+
+        <TextLink href={next.grammarHref}>Grammar page</TextLink>
+
+        <TextLink onclick={restart}>Start again</TextLink>
+      </div>
+    </div>
+  {:else if allDone}
     <div
       class="animate-rise border-t border-slate-200/70 px-4 py-5 sm:px-5"
       aria-live="polite"
@@ -190,7 +237,7 @@
       </h2>
 
       <p class="m-0 shrink-0 text-sm text-slate-500 tabular-nums">
-        <span class="sr-only">Chapter</span>
+        <span class="sr-only">Segment</span>
         {active + 1} of {episode.chapters.length}
       </p>
     </header>
@@ -202,21 +249,26 @@
         audioSrcs={audioSrcs.srcByLineId}
         {autoplay}
         done={scores[chapter.id] === undefined ? null : { correct: scores[chapter.id]! }}
+        heard={heard[chapter.id] ?? false}
         onfinish={finishChapter}
+        onlistened={listened}
+        ontogglequestions={toggleQuestions}
+        {questions}
         actions={nextChapter}
         afterResult={episodeDone}
       />
     {/key}
   </section>
 
-  <nav aria-labelledby="chapters-heading">
-    <h2 id="chapters-heading" class="m-0 text-sm font-semibold text-slate-700">
-      Chapters
+  <nav aria-labelledby="segments-heading">
+    <h2 id="segments-heading" class="m-0 text-sm font-semibold text-slate-700">
+      Segments
     </h2>
 
     <ol class="{dataPanelClass} m-0 mt-2.5 list-none p-0">
       {#each episode.chapters as entry, index (entry.id)}
         {@const score = scores[entry.id]}
+        {@const played = score !== undefined || heard[entry.id]}
         {@const current = index === active}
 
         <li class="border-b border-slate-200/70 last:border-b-0">
@@ -233,7 +285,7 @@
             <span
               class={cx(
                 "grid size-7 shrink-0 place-items-center rounded-full text-xs font-semibold tabular-nums",
-                score !== undefined
+                played
                   ? "bg-emerald-50 text-emerald-700"
                   : current
                     ? "bg-blue-600 text-paper"
@@ -241,7 +293,7 @@
               )}
               aria-hidden="true"
             >
-              {#if score !== undefined}
+              {#if played}
                 <svg
                   class="size-3.5 fill-none stroke-current"
                   viewBox="0 0 24 24"

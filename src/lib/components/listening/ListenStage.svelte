@@ -21,7 +21,11 @@
     autoplay = false,
     chapter,
     done = null,
+    heard = false,
     onfinish,
+    onlistened,
+    ontogglequestions,
+    questions = true,
   }: {
     actions?: Snippet;
     afterResult?: Snippet;
@@ -29,7 +33,14 @@
     autoplay?: boolean;
     chapter: ListeningChapter;
     done?: { correct: number } | null;
+    /** Played through already, so its questions come straight away. */
+    heard?: boolean;
     onfinish?: (correct: number) => void;
+    /** The segment has played to its end. */
+    onlistened?: () => void;
+    ontogglequestions?: () => void;
+    /** Stop for the segment's questions once it has played; off, it only plays. */
+    questions?: boolean;
   } = $props();
 
   type Stage = "idle" | "listening" | "checking" | "done";
@@ -37,14 +48,15 @@
   const COUNT_WORDS = ["one", "two", "three", "four", "five"];
 
   let root: HTMLElement | undefined = $state();
-  let listened = $state(done !== null);
+  let listened = $state(done !== null || heard);
   let checkAt = $state(done ? chapter.checks.length : 0);
   let correct = $state(done?.correct ?? 0);
   let textOpen = $state(false);
   let english = $state(false);
 
   const lines = chapter.lines;
-  const checks = chapter.checks;
+  // Switching questions on mid-segment changes only what comes at its end.
+  const checks = $derived(questions ? chapter.checks : []);
   const speakers = [...new Set(lines.map((line) => line.speaker))];
 
   const player = new LinePlayer(lines, audioSrcs, {
@@ -52,6 +64,8 @@
     onRunEnd: () => {
       if (listened) return;
       listened = true;
+      onlistened?.();
+      if (!questions) return;
       if (checks.length === 0) {
         onfinish?.(0);
         void reveal("[data-listen-done]", true);
@@ -71,12 +85,15 @@
   const textVisible = $derived(textOpen || stage === "done");
   const firstListen = $derived(stage === "idle" || stage === "listening");
 
-  const idleCopy =
-    checks.length === 0
-      ? "Listen, then read along."
-      : checks.length === 1
-        ? "Listen first, then answer one short question."
-        : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`;
+  const idleCopy = $derived(
+    !questions
+      ? "Listen straight through, or read along."
+      : checks.length === 0
+        ? "Listen, then read along."
+        : checks.length === 1
+          ? "Listen first, then answer one short question."
+          : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`,
+  );
 
   const status = $derived.by(() => {
     const line = player.line;
@@ -245,6 +262,12 @@
       <ListenControl pressed={player.slow} onclick={() => player.toggleSlow()}>
         Slower
       </ListenControl>
+
+      {#if ontogglequestions}
+        <ListenControl pressed={questions} onclick={ontogglequestions}>
+          Stop for questions
+        </ListenControl>
+      {/if}
 
       {#if stage !== "done"}
         <ListenControl onclick={() => (textOpen = !textOpen)}>

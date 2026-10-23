@@ -148,6 +148,21 @@
   const dress = $derived(
     dressFor(isOutdoors(setting) && !aboard ? mood.weather : "clear"),
   );
+  /**
+   * Each umbrella in hand, up or not. It comes out the way the weather on
+   * its holder calls for; after that only foldUmbrellas() puts it down, when
+   * the scene says so: everyone gets on the tram, or the story is over.
+   */
+  let umbrellas = $state<Partial<Record<LessonCharacterId, boolean>>>({});
+
+  $effect(() => {
+    const held = direction.cast.filter((id) => holding[id] === "umbrella");
+    untrack(() => {
+      umbrellas = Object.fromEntries(
+        held.map((id) => [id, umbrellas[id] ?? dress.umbrellaUp]),
+      );
+    });
+  });
   const entering = $derived(
     Object.fromEntries(
       direction.stagings.flatMap(({ enter }) =>
@@ -336,7 +351,13 @@
   }
 
   /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
+  /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
+  export function foldUmbrellas(): void {
+    umbrellas = Object.fromEntries(Object.keys(umbrellas).map((id) => [id, false]));
+  }
+
   export function place(index: number): void {
+    umbrellas = {};
     let placedFacings: CastFacing = {};
     const placed: Offsets = {};
 
@@ -611,6 +632,7 @@
         const to = destinationOf(staging, true);
         if (to !== undefined) walkGroup(to);
         aboard = true;
+        foldUmbrellas();
       }
       if (direction.stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
@@ -704,7 +726,7 @@
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
         prop={holding[characterId]}
-        {dress}
+        dress={{ ...dress, umbrellaUp: umbrellas[characterId] ?? dress.umbrellaUp }}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}
       />

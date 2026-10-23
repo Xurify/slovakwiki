@@ -432,7 +432,7 @@
       ? [
           {
             icon: "next",
-            label: checks.length > 0 ? "Next chapter" : "Next scene",
+            label: checks.length > 0 ? "Next segment" : "Next scene",
             run: () => void goNext(),
             slovak: nextScene.name,
           },
@@ -743,6 +743,7 @@
 
     if (!line) {
       phase = "done";
+      stage?.foldUmbrellas();
       if (mode === "play") cheer();
       return;
     }
