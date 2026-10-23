@@ -115,6 +115,15 @@
   --color-scene-sage: #bed3c4;
   --color-scene-leaf: #84ab92;
   --color-scene-board: #45614f;
+  /* Market produce: soft like the rest of the backdrop, true enough to tell a carrot from a beet. */
+  --color-scene-apple: #d9675b;
+  --color-scene-pear: #cfcf7a;
+  --color-scene-plum: #6f5b8e;
+  --color-scene-carrot: #e8904f;
+  --color-scene-beet: #8f3456;
+  --color-scene-cabbage: #c5dba5;
+  --color-scene-onion: #d9a35e;
+  --color-scene-potato: #b98a58;
   --color-flag-red: #d52b1e;
   --color-flag-blue: #0b4ea2;
   --color-flag-gold: #ffcd00;

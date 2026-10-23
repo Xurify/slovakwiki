@@ -3,17 +3,18 @@
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import {
     GROUND_Y,
-    HEAD_RADIUS,
     solveRig,
     STICK_VIEWBOX,
     type Point,
     type StickLimb,
   } from "$lib/stick-figure/rig";
   import type { StickPictureId } from "$lib/stick-figure/pictures";
+  import { dressFor, type Dress } from "$lib/stick-figure/dress";
   import type { StickPropId } from "$lib/stick-figure/props";
   import StickPicture from "./StickPicture.svelte";
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
+  import StickUmbrella from "./StickUmbrella.svelte";
   import { STICK_SLEEVES } from "./stick-figure-ui";
 
   let {
@@ -23,8 +24,7 @@
     picture,
     pose = REST_POSE,
     prop,
-    furled = false,
-    scarf = false,
+    dress = dressFor("clear"),
   }: {
     characterId: LessonCharacterId;
     class?: string;
@@ -34,9 +34,8 @@
     pose?: StickPose;
     /** Held in the lead hand. */
     prop?: StickPropId;
-    /** An umbrella held closed: the rain has stopped. */
-    furled?: boolean;
-    scarf?: boolean;
+    /** What the weather on them does to what they wear and hold. */
+    dress?: Dress;
   } = $props();
 
   const rig = $derived(solveRig(pose));
@@ -214,7 +213,7 @@
     {/if}
 
     <g transform={torsoTransform}>
-      <StickTorso {characterId} {scarf} />
+      <StickTorso {characterId} scarf={dress.scarf} />
     </g>
 
     <path
@@ -253,48 +252,8 @@
       />
     {/if}
 
-    {#if prop === "umbrella" && furled}
-      <!-- Hung from the hand by its crook, tip down, the canopy wrapped round the shaft. -->
-      <g
-        class="stroke-portrait-ink"
-        stroke-linejoin="round"
-        transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})"
-      >
-        <path d="M0 26V-2q0-4 3.4-4q3.4 0 3.4 3.4" fill="none" stroke-width="1.6" />
-        <path d="M0 5Q-3.6 14 0 23Q3.6 14 0 5Z" class="fill-rose-500" stroke-width="1" />
-        <path d="M-1.6 9.5l3.2 1.2" stroke-width="0.8" />
-      </g>
-    {:else if prop === "umbrella"}
-      {@const top = { x: rig.head.x + 18, y: rig.head.y - HEAD_RADIUS - 7 }}
-      <!-- Over the holder and whoever stands beside them; the stick runs down to the hand. -->
-      <g class="stroke-portrait-ink" stroke-linejoin="round">
-        <path
-          d="M{n(top.x)} {n(top.y)}L{n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)}"
-          stroke-width="1.6"
-        />
-        <path
-          d="M{n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)}q0 5.5 -4 5.5q-2.6 0 -2.6 -2.4"
-          fill="none"
-          stroke-width="1.6"
-        />
-        <g transform="translate({n(top.x)} {n(top.y)})" stroke-width="1">
-          <path
-            d="M-46 0C-46 -18 -26 -27 0 -27C26 -27 46 -18 46 0Q34.5 -5 23 0Q11.5 -5 0 0Q-11.5 -5 -23 0Q-34.5 -5 -46 0Z"
-            class="fill-rose-500"
-          />
-          <path
-            d="M-23 0Q-11.5 -5 0 0Q-4 -14 0 -27Q-17 -16 -23 0ZM23 0Q34.5 -5 46 0Q40 -18 0 -27Q17 -16 23 0Z"
-            class="fill-white/30"
-            stroke="none"
-          />
-          <path
-            d="M0 -27Q-17 -16 -23 0M0 -27Q-4 -14 0 0M0 -27Q17 -16 23 0"
-            fill="none"
-            stroke-width="0.8"
-          />
-          <path d="M0 -27v-5" stroke-width="1.6" />
-        </g>
-      </g>
+    {#if prop === "umbrella"}
+      <StickUmbrella {rig} up={dress.umbrellaUp} />
     {:else if prop}
       <g transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})">
         <StickProp {prop} />
@@ -426,11 +385,12 @@
           />
         {:else if characterId === "lucia"}
           <path
-            d="M18.8 22.2 18 16.4 21.8 10.6 27.6 6.6 33.8 5.8 40.4 8 45.6 13.6 47.6 20.6 46.4 27.2 43.6 33.4Q40.2 18.4 33.6 17Q31.6 16.6 30.2 19Q26.4 15.8 22.2 17.4Q20 18.8 18.8 22.2Z"
+            d="M18.8 23 18 16.4 21.8 10.6 27.6 6.6 33.8 5.8 40.4 8 45.6 13.6 47.6 20.6 47 27.4 45.4 30.4Q44.8 21.6 39 18.4Q35 16.6 31.2 17.6Q27.6 16.4 23.6 17.8Q20.2 19.6 18.8 23Z"
             class="{hair} stroke-portrait-ink"
             stroke-width="1.7"
           />
-          <path d="M32.2 7.2 31.4 16.6" class="stroke-portrait-ink" stroke-width="1.15" />
+          <!-- A side part; the hair frames the face down to the ear rather than over the cheek. -->
+          <path d="M32.2 7.2 31.2 17.4" class="stroke-portrait-ink" stroke-width="1.15" />
           <circle
             cx="16.6"
             cy="33.6"

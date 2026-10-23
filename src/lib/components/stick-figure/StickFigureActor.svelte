@@ -13,6 +13,7 @@
   } from "$lib/stick-figure/performance";
   import type { StickPictureId } from "$lib/stick-figure/pictures";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
+  import type { Dress } from "$lib/stick-figure/dress";
   import type { StickPropId } from "$lib/stick-figure/props";
   import { walkPose } from "$lib/stick-figure/walk";
   import StickFigure from "./StickFigure.svelte";
@@ -26,8 +27,7 @@
     onbeat,
     plan,
     prop,
-    furled = false,
-    scarf = false,
+    dress,
     talking = false,
     walk,
   }: {
@@ -42,9 +42,8 @@
     plan?: LinePlan;
     /** Held in the lead hand. */
     prop?: StickPropId;
-    /** An umbrella held closed: the rain has stopped. */
-    furled?: boolean;
-    scarf?: boolean;
+    /** What the weather on them does to what they wear and hold. */
+    dress?: Dress;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
     /** Bump `cue` to take steps for `ms` while the stage moves the figure. */
@@ -154,6 +153,5 @@
   {picture}
   {pose}
   {prop}
-  {furled}
-  {scarf}
+  {dress}
 />

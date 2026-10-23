@@ -2,6 +2,7 @@
   import Chalkboard from "./Chalkboard.svelte";
   import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
+  import Produce, { type Crate } from "./Produce.svelte";
 
   const FLAG_PAINTS = ["fill-scene-clay", "fill-scene-honey", "fill-scene-sage"];
 
@@ -13,21 +14,26 @@
     return { paint: FLAG_PAINTS[index % 3], x, y };
   });
 
-  const BERRIES = "fill-rose-500";
-
-  const stalls = [
+  const stalls: Array<{
+    cheeses: number[];
+    crates: Crate[];
+    inner: number;
+    label: string;
+    x: number;
+  }> = [
     {
       label: "Ovocie",
       x: 20,
       inner: 300,
-      produce: ["fill-scene-clay", "fill-scene-honey", "fill-scene-sage"],
+      crates: ["apples", "pears", "plums"],
       cheeses: [],
     },
     {
       label: "Z farmy",
       x: 640,
       inner: 660,
-      produce: [BERRIES, "fill-scene-leaf", BERRIES],
+      // Tieto jahody and tamtie jahody, with the vegetables between them.
+      crates: ["strawberries", "vegetables", "strawberries"],
       cheeses: [676, 904],
     },
   ];
@@ -91,25 +97,10 @@
     />
   {/each}
 
-  {#each stall.produce as paint, crate (crate)}
-    {#each [0, 1, 2, 3, 4] as fruit (fruit)}
-      {@const x = stall.x + 34 + crate * 88 + fruit * 14}
-      {#if paint === BERRIES}
-        <path
-          d="M{x - 6} 142Q{x} 140 {x + 6} 142Q{x + 5} 150 {x} 154Q{x - 5} 150 {x -
-            6} 142Z"
-          class={paint}
-        />
-        <path d="M{x - 4} 142l4 -3l4 3Z" class="fill-scene-leaf" />
-        <circle cx={x - 2} cy="146" r="0.9" class="fill-white/60" />
-        <circle cx={x + 2} cy="149" r="0.9" class="fill-white/60" />
-      {:else}
-        <circle cx={x} cy="146" r="7" class={paint} />
-        <circle cx={x - 2} cy="143.5" r="2" class="fill-white/45" />
-      {/if}
-    {/each}
+  {#each stall.crates as crate, index (index)}
+    <Produce {crate} x={stall.x + 24 + index * 88} />
     <rect
-      x={stall.x + 24 + crate * 88}
+      x={stall.x + 24 + index * 88}
       y="148"
       width="76"
       height="24"
@@ -117,7 +108,7 @@
       class="fill-scene-wood"
     />
     <rect
-      x={stall.x + 24 + crate * 88}
+      x={stall.x + 24 + index * 88}
       y="158"
       width="76"
       height="2"

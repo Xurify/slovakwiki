@@ -36,6 +36,10 @@ function englishPlural({ english }: SceneThing): boolean {
   return english.endsWith("s");
 }
 
+function theEnglish({ english }: SceneThing): string {
+  return english.startsWith("the ") ? english : `the ${english}`;
+}
+
 function endingMark(thing: SceneThing, start: number): TextMark[] {
   const accusative = accusativeOf(thing);
   if (accusative === thing.word) return [];
@@ -65,9 +69,7 @@ export function findAsks(things: readonly SceneThing[]): FindAsk[] {
 }
 
 export function findPrompt(thing: SceneThing, ask: FindAsk): FindPrompt {
-  const english = thing.english.startsWith("the ")
-    ? thing.english
-    : `the ${thing.english}`;
+  const english = theEnglish(thing);
 
   if (ask === "where") {
     return {
@@ -113,6 +115,32 @@ export function thatIs(thing: SceneThing): string {
 /** Shown when the learner gives up on one: "Tu je torta." */
 export function hereIs(thing: SceneThing): string {
   return `Tu ${isAre(thing)} ${thing.word}.`;
+}
+
+/**
+ * The English under a tap's answer, so each tap teaches the word: what was
+ * tapped by mistake, the one found, or the one shown.
+ */
+export function findEnglish(thing: SceneThing, tap: "wrong" | "right" | "shown"): string {
+  const name = theEnglish(thing);
+  const be = englishPlural(thing) ? "are" : "is";
+  if (tap === "wrong") return `That ${be} ${name}.`;
+  if (tap === "right") return `Yes, ${name}.`;
+  return `Here ${be} ${name}.`;
+}
+
+/**
+ * How the accusative treats a noun, in a few words: what `ukáž na` does to
+ * its ending, or that it leaves it be.
+ */
+export function accusativeRule(thing: SceneThing): string {
+  if (thing.gender === "masculine-animate") return "a man or an animal: adds -a";
+  if (thing.gender === "plural-only") return "plural only: stays the same";
+  if (isPlural(thing)) return "plural: stays the same";
+  if (formChanges(thing)) return "feminine in -a: -a becomes -u";
+  if (thing.gender === "feminine") return "feminine, not in -a: stays the same";
+  if (thing.gender === "neuter") return "neuter: stays the same";
+  return "masculine thing: stays the same";
 }
 
 /**

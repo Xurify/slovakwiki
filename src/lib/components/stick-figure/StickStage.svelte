@@ -37,6 +37,7 @@
     thingCenter,
     thingWithDemonstrative,
   } from "$lib/stick-figure/scene-things";
+  import { dressFor } from "$lib/stick-figure/dress";
   import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
   import { STAGE_PADDING, STAGE_POSTS, stageMarks } from "$lib/stick-figure/stage-layout";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
@@ -123,6 +124,8 @@
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
   let bubbleTimer = 0;
   let tram = $state<TramState>("away");
+  /** Everyone has got on the tram, out of the weather. */
+  let aboard = $state(false);
   let stageWidth = $state(0);
   let stageHeight = $state(0);
 
@@ -141,8 +144,10 @@
   );
   /** The studio and the street have no painted plate, so they stay drawn. */
   const plate = $derived(painted ? plateFor(setting) : undefined);
-  /** The weather the cast is out in: indoors nobody wears a scarf or opens an umbrella. */
-  const outside = $derived(isOutdoors(setting) ? mood.weather : "clear");
+  /** The weather on the cast: none indoors or once on the tram. */
+  const dress = $derived(
+    dressFor(isOutdoors(setting) && !aboard ? mood.weather : "clear"),
+  );
   const entering = $derived(
     Object.fromEntries(
       direction.stagings.flatMap(({ enter }) =>
@@ -372,6 +377,7 @@
     tram = direction.stagings.slice(0, index).some(({ arrives }) => arrives)
       ? "here"
       : "away";
+    aboard = direction.stagings.slice(0, index).some(({ boards }) => boards);
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -604,6 +610,7 @@
       if (staging?.boards) {
         const to = destinationOf(staging, true);
         if (to !== undefined) walkGroup(to);
+        aboard = true;
       }
       if (direction.stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
@@ -697,8 +704,7 @@
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
         prop={holding[characterId]}
-        furled={outside !== "rain"}
-        scarf={outside === "snow"}
+        {dress}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}
       />

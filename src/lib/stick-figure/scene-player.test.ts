@@ -4,7 +4,15 @@ import { markedText } from "$lib/learning/marked-text";
 import { captionRuns, lineTiles, shuffledTiles } from "./caption";
 import { planLine } from "./line-plan";
 import { wordAt } from "./performance";
-import { accusativeOf, findAsks, findPrompt, findWhy, thatIs } from "./scene-find";
+import {
+  accusativeOf,
+  accusativeRule,
+  findAsks,
+  findEnglish,
+  findPrompt,
+  findWhy,
+  thatIs,
+} from "./scene-find";
 import { SCENE_THINGS, type SceneThing } from "./scene-things";
 
 const thingsById = new Map(
@@ -135,6 +143,16 @@ describe("find it", () => {
     expect(findWhy(thing("torta"), "point")).toContain("**torta** → **tortu**");
     expect(findWhy(thing("kolac"), "point")).toContain("keeps its form");
     expect(findWhy(thing("torta"), "where")).toBeUndefined();
+  });
+
+  it("says each thing's name in English and how the accusative treats it", () => {
+    expect(findEnglish(thing("okno"), "wrong")).toBe("That is the window.");
+    expect(findEnglish(thing("jahody"), "shown")).toBe("Here are the strawberries.");
+    expect(accusativeRule(thing("torta"))).toBe("feminine in -a: -a becomes -u");
+    expect(accusativeRule(thing("muz"))).toBe("a man or an animal: adds -a");
+    expect(accusativeRule(thing("jahody"))).toBe("plural: stays the same");
+    expect(accusativeRule(thing("okno"))).toBe("neuter: stays the same");
+    expect(accusativeRule(thing("kolac"))).toBe("masculine thing: stays the same");
   });
 
   it("mixes both forms in one round, always pointing where the form changes", () => {

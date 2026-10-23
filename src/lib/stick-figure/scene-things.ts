@@ -481,7 +481,7 @@ export const SCENE_THINGS: Partial<Record<StageSetting, readonly SceneThing[]>> 
   ],
   market: [
     drawn(WORDS.ovocie, [40, 136, 260, 38]),
-    drawn(WORDS.zelenina, [748, 136, 84, 38]),
+    drawn(WORDS.zelenina, [748, 128, 84, 46]),
     twins(WORDS.syr, [662, 100, 28, 42], [890, 100, 28, 42]),
     twins(WORDS.jahody, [660, 134, 84, 24], [836, 134, 84, 24]),
     drawn(WORDS.stanok, [636, 66, 308, 162], [16, 66, 308, 162]),
