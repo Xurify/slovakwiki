@@ -4,24 +4,14 @@
   import { SCENE_THINGS, thingBoxes } from "$lib/stick-figure/scene-things";
   import { fade } from "svelte/transition";
 
-  import Cloud from "./Cloud.svelte";
-
   /**
-   * Light and weather over a drawn place. Lamps from the place's things glow
-   * from evening on; clouds gather over the sky outdoors, and rain and snow
-   * fall outside, indoors only in the window. Falling rain and snow is the
-   * one thing on the stage that moves while nobody speaks.
+   * Light and weather over a drawn place, in front of it; what hangs in
+   * the sky is SkyLayer's. Lamps from the place's things glow from evening
+   * on, and rain and snow fall outside, indoors only in the window. Falling
+   * rain and snow is the one thing on the stage that moves while nobody
+   * speaks.
    */
-  let {
-    mood,
-    seen = { width: 960, x: 0 },
-    setting,
-  }: {
-    mood: SceneMood;
-    /** The part of the drawing the stage shows, so the sun stays in the sky on a phone. */
-    seen?: { width: number; x: number };
-    setting: StageSetting;
-  } = $props();
+  let { mood, setting }: { mood: SceneMood; setting: StageSetting } = $props();
 
   const id = $props.id();
 
@@ -82,7 +72,6 @@
     { items: flakes.filter((flake) => flake.size < 0.5), seconds: 14 },
     { items: flakes.filter((flake) => flake.size >= 0.5), seconds: 9 },
   ];
-  const stars = scatter(26, 3, 960, 70);
 </script>
 
 <defs>
@@ -108,37 +97,14 @@
 
 {#if mood.time === "morning"}
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-honey/20" />
-  {#if outdoors && fair}
-    <circle cx={seen.x + seen.width * 0.1} cy="44" r="40" fill="url(#{id}-glow)" />
-    <circle cx={seen.x + seen.width * 0.1} cy="44" r="17" class="fill-scene-honey" />
-  {/if}
 {:else if mood.time === "day" && mood.weather === "sunny"}
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-honey/10" />
-  {#if outdoors}
-    <circle cx={seen.x + seen.width * 0.875} cy="36" r="44" fill="url(#{id}-glow)" />
-    <circle cx={seen.x + seen.width * 0.875} cy="36" r="19" class="fill-scene-honey" />
-  {/if}
 {:else if mood.time === "evening"}
   <rect x="-10" y="-10" width="980" height="240" fill="url(#{id}-dusk)" />
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-clay/12" />
   <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/10" />
 {:else if mood.time === "night"}
   <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/55" />
-  {#if outdoors}
-    {#each stars as star, index (index)}
-      <circle cx={star.x} cy={star.y + 6} r={0.8 + star.size} class="fill-white/80" />
-    {/each}
-  {/if}
-{/if}
-
-{#if outdoors && mood.weather === "cloudy"}
-  <g transition:fade={{ duration: WEATHER_MS }}>
-    <rect x="-10" y="-10" width="980" height="236" class="fill-scene-line/12" />
-    <Cloud x={200} y={64} size={1.3} />
-    <Cloud x={500} y={48} size={1.5} />
-    <Cloud x={790} y={58} size={1.2} />
-    <rect x="-10" y="-10" width="980" height="236" class="fill-scene-line/8" />
-  </g>
 {/if}
 
 {#if !outdoors && windowBox && !fair}
@@ -154,10 +120,6 @@
 
 {#if mood.weather === "rain"}
   <g transition:fade={{ duration: WEATHER_MS }}>
-    {#if outdoors}
-      <rect x="-10" y="-10" width="980" height="236" class="fill-scene-line/12" />
-    {/if}
-
     <g clip-path={outdoors || !windowBox ? undefined : `url(#${id}-window)`}>
       {#each rain as layer, depth (depth)}
         <g
@@ -219,7 +181,8 @@
     </g>
 
     {#if outdoors}
-      <path d="M-10 230Q240 220 480 228T970 226V310H-10Z" class="fill-white/75" />
+      <!-- From the floor line down, so the snow lies on the ground, not over the houses. -->
+      <path d="M-10 232Q240 226 480 230T970 229V310H-10Z" class="fill-white/75" />
     {/if}
   </g>
 {/if}

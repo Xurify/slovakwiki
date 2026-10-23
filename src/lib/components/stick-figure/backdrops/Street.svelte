@@ -1,10 +1,12 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import { TRAM, type TramState } from "$lib/stick-figure/street";
   import Cloud from "./Cloud.svelte";
   import Facades, { type Facade } from "./Facades.svelte";
   import FloorShade from "./FloorShade.svelte";
 
-  let { tram }: { tram: TramState } = $props();
+  let { sky, tram }: { sky?: Snippet; tram: TramState } = $props();
 
   /** Town houses along the far side of the street; neighbours never share a paint. */
   const houses: Facade[] = [
@@ -24,6 +26,7 @@
 </script>
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
+{@render sky?.()}
 <Cloud x={420} y={50} />
 <Cloud x={760} y={62} size={0.7} />
 

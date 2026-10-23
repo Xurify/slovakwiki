@@ -19,6 +19,7 @@
   import Street from "./backdrops/Street.svelte";
   import Studio from "./backdrops/Studio.svelte";
   import MoodLayer from "./backdrops/MoodLayer.svelte";
+  import SkyLayer from "./backdrops/SkyLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
   import { CLOCK_HOURS, DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
   import type { TramState } from "$lib/stick-figure/street";
@@ -67,22 +68,14 @@
   const view = $derived.by(() => {
     if (!width || !height) {
       const x = align === 0 ? "xMin" : align === 1 ? "xMax" : "xMid";
-      return {
-        box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`,
-        ratio: `${x}YMax slice`,
-        seen: { width: BACKDROP_WIDTH, x: 0 },
-      };
+      return { box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`, ratio: `${x}YMax slice` };
     }
 
     const scale = Math.max(width / BACKDROP_WIDTH, height / BACKDROP_HEIGHT);
     const shown = { height: height / scale, width: width / scale };
     const x = (BACKDROP_WIDTH - shown.width) * align;
     const y = BACKDROP_HEIGHT - shown.height;
-    return {
-      box: `${x} ${y} ${shown.width} ${shown.height}`,
-      ratio: "none",
-      seen: { width: shown.width, x },
-    };
+    return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
   });
   const hour = $derived(CLOCK_HOURS[mood.time]);
   const things = $derived(SCENE_THINGS[setting] ?? []);
@@ -113,6 +106,10 @@
   stroke-linecap="round"
   stroke-linejoin="round"
 >
+  {#snippet sky()}
+    <SkyLayer {mood} {setting} />
+  {/snippet}
+
   {#if setting === "cafe"}
     <Cafe />
   {:else if setting === "classroom"}
@@ -120,20 +117,20 @@
   {:else if setting === "home"}
     <Home />
   {:else if setting === "market"}
-    <Market />
+    <Market {sky} />
   {:else if setting === "plaza"}
-    <Plaza {hour} />
+    <Plaza {hour} {sky} />
   {:else if setting === "registration" || setting === "counter"}
     <Registration {hour} />
   {:else if setting === "street"}
-    <Street {tram} />
+    <Street {sky} {tram} />
   {:else if setting === "studio"}
     <Studio {hour} />
   {:else}
-    <Park />
+    <Park {sky} />
   {/if}
 
-  <MoodLayer {mood} {setting} seen={view.seen} />
+  <MoodLayer {mood} {setting} />
   <StageLight />
 
   {#each boxes as { box, copy, thing } (`${thing.id}-${copy}`)}
