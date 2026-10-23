@@ -351,12 +351,12 @@
     return lines.slice(0, index).findLast((line) => line.characterId === null)?.slovak;
   }
 
-  /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
   export function foldUmbrellas(): void {
     umbrellas = Object.fromEntries(Object.keys(umbrellas).map((id) => [id, false]));
   }
 
+  /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   export function place(index: number): void {
     umbrellas = {};
     let placedFacings: CastFacing = {};
