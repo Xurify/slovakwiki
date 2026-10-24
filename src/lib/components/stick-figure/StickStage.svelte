@@ -34,6 +34,7 @@
     backdropToStage,
     figureToStage,
   } from "$lib/stick-figure/backdrop-geometry";
+  import { LOOKS } from "$lib/stick-figure/looks";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import {
     boxCenter,
@@ -251,7 +252,10 @@
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       walkEndsAt[id] = performance.now() + ms;
-      playSteps(steps, STEP_MS, !PLACES[setting].outdoors);
+      playSteps(steps, STEP_MS, {
+        ground: PLACES[setting].ground,
+        shoes: LOOKS[id].shoes,
+      });
     }
   }
 

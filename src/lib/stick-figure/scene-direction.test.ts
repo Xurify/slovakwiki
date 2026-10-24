@@ -141,6 +141,25 @@ describe("handing things over", () => {
   });
 });
 
+describe("under the umbrella", () => {
+  it("brings the one called in under it right up to the speaker", () => {
+    const direction = directScene(
+      [
+        { characterId: "alex", slovak: "Prší! Máš dáždnik?" },
+        { characterId: "anna", slovak: "Mám. Poď sem, pod dáždnik." },
+        { characterId: "alex", slovak: "Ďakujem." },
+      ],
+      "street",
+    );
+
+    expect(direction.lines[1].staging.approach).toEqual({
+      characterId: "alex",
+      close: true,
+      toward: 1,
+    });
+  });
+});
+
 describe("words for drawn things", () => {
   it("point at the thing in the room instead of bringing one out", () => {
     const home = directScene(
@@ -224,7 +243,7 @@ describe("the tram stop", () => {
     expect(propForSentence("Nemám dáždnik.")).toBeUndefined();
     expect(held[0].alex).toBeUndefined();
     expect(held[1].anna).toBe("umbrella");
-    expect(stagings[1].approach).toEqual({ characterId: "alex", toward: 1 });
+    expect(stagings[1].approach).toEqual({ characterId: "alex", close: true, toward: 1 });
     expect(held[3].anna).toBe("umbrella");
     expect(held[5].anna).toBe("umbrella");
   });

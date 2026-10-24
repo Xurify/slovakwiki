@@ -20,7 +20,6 @@ interface Directed {
 }
 
 const SOURCES: Record<string, string> = {
-  Games: "talk",
   "From the lessons": "lesson",
   "From the podcast": "podcast",
   Prototype: "dev",
@@ -29,7 +28,7 @@ const SOURCES: Record<string, string> = {
 /** Each scene once, and a talk along each reply that fits besides the first. */
 const SCENES: Directed[] = sceneGroups().flatMap((group) =>
   group.scenes.flatMap((scene) => {
-    const source = SOURCES[group.label];
+    const source = scene.talk ? "talk" : SOURCES[group.label];
     const name = `${source} ${scene.id.replace(/^dev\//, "")}`;
     if (!scene.talk) return [{ ...scene, name }];
 

@@ -25,6 +25,7 @@ describe("the sound of a place", () => {
 
   it("hears rain outside and through a window, and snow only outside", () => {
     expect(ambienceFor("cafe", { time: "day", weather: "rain" })).toEqual({
+      dark: false,
       indoors: true,
       layers: ["murmur", "clinks", "rain"],
     });
@@ -33,6 +34,7 @@ describe("the sound of a place", () => {
     ]);
     expect(ambienceFor("home", { time: "day", weather: "snow" }).layers).toEqual(["hum"]);
     expect(ambienceFor("market", { time: "day", weather: "snow" })).toEqual({
+      dark: false,
       indoors: false,
       layers: ["murmur", "wind"],
     });

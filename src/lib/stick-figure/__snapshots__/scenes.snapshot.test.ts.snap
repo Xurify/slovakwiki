@@ -75,6 +75,7 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
         "addressee": "alex",
         "approach": {
           "characterId": "alex",
+          "close": true,
           "toward": -1,
         },
         "facing": {

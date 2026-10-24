@@ -35,7 +35,7 @@ export interface LineStaging {
   /** Silent gestures from the one spoken to. */
   reactions: StageReaction[];
   /** The one spoken to walks up to the speaker, who shows them something or calls them over. */
-  approach?: { characterId: LessonCharacterId; toward: Facing };
+  approach?: { characterId: LessonCharacterId; toward: Facing; close?: boolean };
   /** Which way the speaker turns and walks off once their last line, a goodbye, ends. */
   exit?: Facing;
   /** Someone who walks on from that side during this line, to say hello next. */
@@ -58,6 +58,8 @@ const NOD_AT = [...THANKS, "tesi ma", ...APOLOGIES];
 const LEAVING = [...GOODBYES, "pekny den", "hned to bude", "hned som spat", "musim ist"];
 /** Folded phrases that call the one spoken to over. */
 const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
+/** Folded phrases that call someone in under the speaker's umbrella, so they come right up. */
+const SHELTER = ["pod dazdnik"];
 /** Folded openers that take everyone along to a thing the line names. */
 const COME_ALONG = ["podme", "podte"];
 /** Folded phrases that say the tram is pulling in; only a street with a stop has one. */
@@ -209,6 +211,7 @@ export function stageLine(
   const reaction = onStage ? reactionTo(lines, index, addressee, points) : undefined;
   const shows = line.props.some(Boolean);
   const callsOver = sentences.some((sentence) => mentions(sentence, COME_OVER));
+  const shelters = sentences.some((sentence) => mentions(sentence, SHELTER));
   // Only a neighbour walks over; anyone further would walk through someone.
   const neighbour =
     onStage && Math.abs(cast.indexOf(addressee) - cast.indexOf(speaker)) === 1;
@@ -225,7 +228,11 @@ export function stageLine(
     reactions: reaction ? [reaction] : [],
     approach:
       neighbour && (shows || callsOver)
-        ? { characterId: addressee, toward: toward(cast, addressee, speaker) }
+        ? {
+            characterId: addressee,
+            toward: toward(cast, addressee, speaker),
+            ...(shelters ? { close: true } : {}),
+          }
         : undefined,
     exit:
       lastOwnLine && leaving && turnedTo && !line.stays

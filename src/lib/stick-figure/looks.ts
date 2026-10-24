@@ -5,6 +5,9 @@ import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
  * which StickFigure and StickTorso draw: the colours they wear and the
  * small things a glance picks up.
  */
+/** What their steps sound like: heels click on a hard floor, soft soles (trainers) land dull; the rest are plain shoes. */
+export type Shoes = "heels" | "soft";
+
 export interface Look {
   /** The top of the hair (a bare head's crown, a robot's antenna light) in the head's 64-unit space, where a headband sits. */
   crown: number;
@@ -24,12 +27,14 @@ export interface Look {
   robot?: { chest: string; eyes: string; light: string; smile: string };
   /** Wrapped round the neck in the snow, in a colour that stands off the outfit. */
   scarfClass?: string;
+  shoes?: Shoes;
   /** Over the ink arm. `reach` runs along it: 1 ends at the elbow, 2 at the wrist. */
   sleeve?: { class: string; reach: number };
 }
 
 export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   alex: {
+    shoes: "soft",
     crown: 7.6,
     ear: true,
     nameClass: "text-blue-700",
@@ -78,6 +83,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     sleeve: { class: "stroke-portrait-vest", reach: 1.85 },
   },
   maria: {
+    shoes: "heels",
     crown: 3.5,
     glasses: true,
     grey: true,
@@ -95,6 +101,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     },
   },
   receptionist: {
+    shoes: "heels",
     crown: 11.1,
     ear: true,
     nameClass: "text-blue-700",

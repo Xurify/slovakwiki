@@ -1,6 +1,7 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { Point } from "./rig";
 import {
+  SHELTER_WIDTHS,
   beside,
   offStage,
   shiftTo,
@@ -70,8 +71,15 @@ export function startLine(
   const offsets = { ...state.offsets };
 
   if (staging.approach && speaker) {
-    const { characterId, toward } = staging.approach;
-    offsets[characterId] = beside(frame, characterId, speaker, toward, state.offsets);
+    const { characterId, close, toward } = staging.approach;
+    offsets[characterId] = beside(
+      frame,
+      characterId,
+      speaker,
+      toward,
+      state.offsets,
+      close ? SHELTER_WIDTHS : undefined,
+    );
   }
   if (staging.enter) {
     const { characterId, from } = staging.enter;

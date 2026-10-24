@@ -11,6 +11,8 @@ import type { SceneThing } from "./thing-words";
 export const FLOOR = 12;
 /** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
 const BESIDE_WIDTHS = 0.8;
+/** Figure widths apart when called in under an umbrella: shoulder to shoulder, both under the canopy. */
+export const SHELTER_WIDTHS = 0.45;
 
 /** Figure widths each figure stands from its mark. */
 export type Offsets = Partial<Record<LessonCharacterId, number>>;
@@ -100,6 +102,7 @@ export function beside(
   to: LessonCharacterId,
   toward: Facing,
   at: Offsets,
+  widths = BESIDE_WIDTHS,
 ): number {
   if (!frame.width) return toward * 0.5;
 
@@ -107,9 +110,7 @@ export function beside(
   const gap = (standing(markOf(frame, to), at[to]).left - mark.left) / mark.width;
   const now = at[id] ?? 0;
   // Close enough already, after a walk the two made together, is close enough.
-  return Math.abs(gap - now) > BESIDE_WIDTHS
-    ? gap - Math.sign(gap - now) * BESIDE_WIDTHS
-    : now;
+  return Math.abs(gap - now) > widths ? gap - Math.sign(gap - now) * widths : now;
 }
 
 /** Figure widths from a figure's mark to just past the stage edge on that side. */

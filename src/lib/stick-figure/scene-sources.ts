@@ -261,9 +261,9 @@ export function sceneGroups(): SceneGroup[] {
       scenes: [
         prototypeScene("rain-and-tram", RAIN_AND_TRAM, "street"),
         prototypeScene("weather-today", WEATHER_TODAY, "default"),
+        ...dayTalks().map(talkScene),
       ],
     },
-    { label: "Games", slovak: "Deň na námestí", scenes: dayTalks().map(talkScene) },
   ];
   return groups.map((group) => ({
     ...group,

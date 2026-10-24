@@ -1,6 +1,7 @@
 import { getStoredSfxPreference } from "$lib/audio/sfx";
 import { getAudioVolume } from "$lib/audio/volume";
-import { PLACES } from "./places";
+import type { Shoes } from "./looks";
+import { PLACES, type Ground } from "./places";
 import { isDark, isFalling, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 
@@ -11,6 +12,8 @@ export interface Ambience {
   layers: AmbienceLayer[];
   /** Weather heard through a window, muffled. */
   indoors: boolean;
+  /** Evening or night: fewer voices on the square, and the wind drops with the day. */
+  dark: boolean;
 }
 
 export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
@@ -26,7 +29,7 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
   // Rain is heard where it is seen: outside, or through a window.
   if (mood.weather === "rain" && (outdoors || glass)) layers.push("rain");
   if (mood.weather === "snow" && outdoors) layers.push("wind");
-  return { indoors: !outdoors, layers: [...new Set(layers)] };
+  return { dark, indoors: !outdoors, layers: [...new Set(layers)] };
 }
 
 export interface AmbiencePlayer {
@@ -42,6 +45,7 @@ const FADE_S = 1.5;
 
 interface Kit {
   ctx: AudioContext;
+  dark: boolean;
   indoors: boolean;
   noise: AudioBuffer;
   out: AudioNode;
@@ -178,17 +182,21 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
   },
 
   murmur(kit) {
-    // Voices too far off to make out: talk-band noise that swells and dips.
+    // Voices too far off to make out: talk-band noise that swells and dips. Few are about after dark.
+    const crowd = kit.dark ? 0.35 : 1;
     const { gain } = bed(
       kit,
       [
         { frequency: 650, q: 0.8, type: "bandpass" },
         { frequency: 1800, type: "lowpass" },
       ],
-      0.3,
+      0.3 * crowd,
     );
     kit.every(0.25, 0.6, () => {
-      gain.gain.linearRampToValueAtTime(between(0.15, 0.45), kit.ctx.currentTime + 0.25);
+      gain.gain.linearRampToValueAtTime(
+        between(0.15, 0.45) * crowd,
+        kit.ctx.currentTime + 0.25,
+      );
     });
   },
 
@@ -200,7 +208,7 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
         { frequency: 500, type: "highpass" },
         { frequency: kit.indoors ? 1400 : 4500, type: "lowpass" },
       ],
-      kit.indoors ? 0.08 : 0.18,
+      kit.indoors ? 0.05 : 0.11,
     );
     const patter = kit.ctx.createBufferSource();
     patter.buffer = patterBuffer(kit.ctx, kit.indoors);
@@ -210,7 +218,7 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
     filter.frequency.value = kit.indoors ? 1100 : 3000;
     filter.Q.value = 0.7;
     const gain = kit.ctx.createGain();
-    gain.gain.value = kit.indoors ? 0.5 : 1;
+    gain.gain.value = kit.indoors ? 0.3 : 0.6;
     patter.connect(filter).connect(gain).connect(kit.out);
     patter.start();
     kit.hold?.(patter);
@@ -235,16 +243,21 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
   },
 
   wind(kit) {
+    // The wind drops with the day: a night breeze, not the afternoon's gusts.
+    const breeze = kit.dark ? 0.5 : 1;
     const { gain } = bed(
       kit,
       [
         { frequency: kit.indoors ? 200 : 320, q: 0.5, type: "bandpass" },
         { frequency: 900, type: "lowpass" },
       ],
-      0.15,
+      0.15 * breeze,
     );
     kit.every(2, 4, () => {
-      gain.gain.linearRampToValueAtTime(between(0.05, 0.3), kit.ctx.currentTime + 2);
+      gain.gain.linearRampToValueAtTime(
+        between(0.05, 0.3) * breeze,
+        kit.ctx.currentTime + 2,
+      );
     });
   },
 };
@@ -267,7 +280,7 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
   /** Each layer by name and whether it is heard through a window. */
   const running = new Map<string, () => void>();
 
-  function start(layer: AmbienceLayer, indoors: boolean): () => void {
+  function start(layer: AmbienceLayer, indoors: boolean, dark: boolean): () => void {
     const out = ctx.createGain();
     out.gain.value = 0;
     out.gain.setTargetAtTime(1, ctx.currentTime, FADE_S / 3);
@@ -277,6 +290,7 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
     const sources = new Set<AudioScheduledSourceNode>();
     LAYERS[layer]({
       ctx,
+      dark,
       hold: (source) => {
         sources.add(source);
         source.addEventListener("ended", () => sources.delete(source));
@@ -314,15 +328,15 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
     };
   }
 
-  function set({ indoors, layers }: Ambience): void {
-    const wanted = new Map(layers.map((layer) => [`${layer}:${indoors}`, layer]));
+  function set({ dark, indoors, layers }: Ambience): void {
+    const wanted = new Map(layers.map((layer) => [`${layer}:${indoors}:${dark}`, layer]));
     for (const [key, stop] of running) {
       if (wanted.has(key)) continue;
       stop();
       running.delete(key);
     }
     for (const [key, layer] of wanted) {
-      if (!running.has(key)) running.set(key, start(layer, indoors));
+      if (!running.has(key)) running.set(key, start(layer, indoors, dark));
     }
   }
 
@@ -357,7 +371,14 @@ export function playTramCue(): void {
   const out = ctx.createGain();
   out.gain.value = 0.5 * getAudioVolume();
   out.connect(ctx.destination);
-  const kit: Kit = { ctx, every: () => {}, indoors: false, noise: noiseBuffer(ctx), out };
+  const kit: Kit = {
+    ctx,
+    dark: false,
+    every: () => {},
+    indoors: false,
+    noise: noiseBuffer(ctx),
+    out,
+  };
   const now = ctx.currentTime;
 
   strike(kit, 1250, 0.05, 0.9, 0.2);
@@ -434,10 +455,88 @@ function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
  * the scuff of a sole on each footfall, duller on a floor than on paving.
  * Plays on its own, background sound or not, unless sound is off.
  */
-export function playSteps(steps: number, stepMs: number, indoors: boolean): void {
+/** What a footfall sounds like on each ground: the thud of the heel, the scuff of the sole, and any click of the surface. */
+const GROUND_STEPS: Record<
+  Ground,
+  {
+    click: number;
+    heel: number;
+    heelHz: number;
+    heelDecay: number;
+    sole: number;
+    soleHz: number;
+    soleDecay: number;
+  }
+> = {
+  // Pavement and cobbles: a hard, bright footfall with a click to it.
+  stone: {
+    click: 0.3,
+    heel: 0.45,
+    heelHz: 115,
+    heelDecay: 0.08,
+    sole: 0.4,
+    soleHz: 1900,
+    soleDecay: 0.07,
+  },
+  // Boards: a hollow knock that rings a little.
+  wood: {
+    click: 0.1,
+    heel: 0.6,
+    heelHz: 160,
+    heelDecay: 0.12,
+    sole: 0.25,
+    soleHz: 750,
+    soleDecay: 0.07,
+  },
+  // Carpet swallows the click; a soft thud and a brush.
+  carpet: {
+    click: 0,
+    heel: 0.35,
+    heelHz: 90,
+    heelDecay: 0.08,
+    sole: 0.15,
+    soleHz: 500,
+    soleDecay: 0.06,
+  },
+  // A path or grass: little heel, a longer crunch.
+  soil: {
+    click: 0,
+    heel: 0.3,
+    heelHz: 100,
+    heelDecay: 0.08,
+    sole: 0.4,
+    soleHz: 1200,
+    soleDecay: 0.12,
+  },
+};
+
+/**
+ * Footsteps for a walk of `steps`, one every `stepMs`, on the `ground`
+ * underfoot: heels click on it, soft soles land dull, plain shoes are the
+ * ground's own sound.
+ */
+export function playSteps(
+  steps: number,
+  stepMs: number,
+  { ground, shoes }: { ground: Ground; shoes?: Shoes },
+): void {
   if (getStoredSfxPreference() === "off") return;
   const kit = cues();
   if (!kit) return;
+
+  const base = GROUND_STEPS[ground];
+  const sound =
+    shoes === "heels"
+      ? { ...base, click: Math.max(base.click * 2.2, 0.3), sole: base.sole * 0.6 }
+      : shoes === "soft"
+        ? {
+            ...base,
+            click: 0,
+            heel: base.heel * 0.85,
+            sole: base.sole * 0.75,
+            soleHz: base.soleHz * 0.7,
+          }
+        : base;
 
   const { ctx, noise } = kit;
   const out = ctx.createGain();
@@ -451,30 +550,46 @@ export function playSteps(steps: number, stepMs: number, indoors: boolean): void
 
     const heel = ctx.createOscillator();
     const heelGain = ctx.createGain();
-    heel.frequency.setValueAtTime(between(95, 125), at);
-    heel.frequency.exponentialRampToValueAtTime(50, at + 0.08);
+    heel.frequency.setValueAtTime(sound.heelHz * between(0.85, 1.1), at);
+    heel.frequency.exponentialRampToValueAtTime(
+      sound.heelHz * 0.45,
+      at + sound.heelDecay,
+    );
     heelGain.gain.setValueAtTime(0.0001, at);
-    heelGain.gain.exponentialRampToValueAtTime(0.5 * level, at + 0.004);
-    heelGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.09);
+    heelGain.gain.exponentialRampToValueAtTime(sound.heel * level, at + 0.004);
+    heelGain.gain.exponentialRampToValueAtTime(0.0001, at + sound.heelDecay + 0.01);
     heel.connect(heelGain).connect(out);
     heel.start(at);
-    heel.stop(at + 0.1);
+    heel.stop(at + sound.heelDecay + 0.02);
 
     const sole = ctx.createBufferSource();
     sole.buffer = noise;
     const filter = ctx.createBiquadFilter();
     filter.type = "bandpass";
-    filter.frequency.value = (indoors ? 900 : 1900) * between(0.85, 1.15);
+    filter.frequency.value = sound.soleHz * between(0.85, 1.15);
     filter.Q.value = 1.2;
     const soleGain = ctx.createGain();
     soleGain.gain.setValueAtTime(0.0001, at);
-    soleGain.gain.exponentialRampToValueAtTime(
-      (indoors ? 0.25 : 0.4) * level,
-      at + 0.006,
-    );
-    soleGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.07);
+    soleGain.gain.exponentialRampToValueAtTime(sound.sole * level, at + 0.006);
+    soleGain.gain.exponentialRampToValueAtTime(0.0001, at + sound.soleDecay);
     sole.connect(filter).connect(soleGain).connect(out);
-    sole.start(at, Math.random(), 0.08);
+    sole.start(at, Math.random(), sound.soleDecay + 0.01);
+
+    if (sound.click > 0) {
+      // The tap of a hard surface: a few milliseconds of bright noise on the heel.
+      const click = ctx.createBufferSource();
+      click.buffer = noise;
+      const bright = ctx.createBiquadFilter();
+      bright.type = "bandpass";
+      bright.frequency.value = (shoes === "heels" ? 3400 : 2800) * between(0.9, 1.1);
+      bright.Q.value = 2;
+      const clickGain = ctx.createGain();
+      clickGain.gain.setValueAtTime(0.0001, at);
+      clickGain.gain.exponentialRampToValueAtTime(sound.click * level, at + 0.002);
+      clickGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.025);
+      click.connect(bright).connect(clickGain).connect(out);
+      click.start(at, Math.random(), 0.03);
+    }
   }
 
   window.setTimeout(() => out.disconnect(), steps * stepMs + 500);
@@ -494,6 +609,7 @@ export function playSegmentCue(): void {
   out.connect(kit.ctx.destination);
   const strikeKit: Kit = {
     ctx: kit.ctx,
+    dark: false,
     every: () => {},
     indoors: false,
     noise: kit.noise,

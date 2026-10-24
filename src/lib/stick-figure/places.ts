@@ -1,4 +1,7 @@
 import type { Headwear } from "./dress";
+
+/** What a place has underfoot: pavement and cobbles, floorboards, a carpet, a path or grass. */
+export type Ground = "stone" | "wood" | "carpet" | "soil";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { AmbienceLayer } from "./ambience";
 import { PARTS, benchBox, clockBox, lampBox, plantBox, treeBox } from "./backdrop-parts";
@@ -43,6 +46,8 @@ export interface Place {
   post?: number;
   /** The cast keeps to its marks whatever is said, so nobody walks over or to a thing a line names. */
   atMarks?: boolean;
+  /** What is underfoot, for the sound of a walk. */
+  ground: Ground;
   /** What everyone on stage wears on their head here: the podcast hosts' headphones. */
   headwear?: Headwear;
   /** Where rain and grey show indoors, and the way rain is heard; a room without one stays quiet. */
@@ -54,6 +59,7 @@ const PARK_SUN = { x: 562, y: 36 };
 
 export const PLACES: Readonly<Record<StageSetting, Place>> = {
   cafe: {
+    ground: "wood",
     label: "At the café",
     outdoors: false,
     // The counter, where the cakes the scenes point at are.
@@ -76,6 +82,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     glass: { arch: true, height: 166, width: 156, x: 110, y: 34 },
   },
   classroom: {
+    ground: "wood",
     label: "In class",
     outdoors: false,
     // The board.
@@ -91,6 +98,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["hum"],
   },
   default: {
+    ground: "soil",
     label: "In the park by the Danube",
     outdoors: true,
     sun: { day: PARK_SUN, morning: { x: 370, y: 46 } },
@@ -105,6 +113,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["birds", "wind"],
   },
   home: {
+    ground: "wood",
     label: "At home",
     outdoors: false,
     // The window.
@@ -128,6 +137,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     glass: { height: 100, width: 130, x: 106, y: 54 },
   },
   market: {
+    ground: "stone",
     label: "At the market",
     outdoors: true,
     // The stall Lucia sells cheese and strawberries from.
@@ -146,6 +156,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     post: 660,
   },
   plaza: {
+    ground: "stone",
     label: "On the old town square",
     outdoors: true,
     sun: { day: { x: 688, y: 36 }, morning: { x: 400, y: 46 } },
@@ -171,6 +182,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["murmur", "birds", "tram"],
   },
   registration: {
+    ground: "stone",
     label: "At the front desk",
     outdoors: false,
     things: [
@@ -186,6 +198,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     post: 560,
   },
   street: {
+    ground: "stone",
     label: "On the street, by the tram stop",
     outdoors: true,
     sun: { day: { x: 640, y: 36 }, morning: { x: 520, y: 46 } },
@@ -210,6 +223,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["murmur"],
   },
   studio: {
+    ground: "carpet",
     label: "In the podcast studio",
     outdoors: false,
     things: [
