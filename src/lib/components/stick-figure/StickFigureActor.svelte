@@ -14,7 +14,7 @@
   import type { StickPictureId } from "$lib/stick-figure/pictures";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
-  import type { StickPropId } from "$lib/stick-figure/props";
+  import type { Held } from "$lib/stick-figure/props";
   import { walkPose } from "$lib/stick-figure/walk";
   import StickFigure from "./StickFigure.svelte";
 
@@ -25,7 +25,7 @@
     facing = 1,
     onbeat,
     plan,
-    prop,
+    held,
     dress,
     talking = false,
     walk,
@@ -38,9 +38,9 @@
     facing?: 1 | -1;
     onbeat?: (beat: LineBeat) => void;
     plan?: LinePlan;
-    /** Held in the lead hand. */
-    prop?: StickPropId;
-    /** What the weather on them does to what they wear and hold. */
+    /** In the lead hand. */
+    held?: Held;
+    /** What the weather on them does to what they wear. */
     dress?: Dress;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
@@ -144,4 +144,4 @@
   }
 </script>
 
-<StickFigure {characterId} facing={turned ?? facing} {picture} {pose} {prop} {dress} />
+<StickFigure {characterId} facing={turned ?? facing} {picture} {pose} {held} {dress} />

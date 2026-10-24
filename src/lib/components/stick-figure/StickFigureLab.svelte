@@ -384,7 +384,7 @@
             characterId={benchCharacter}
             cue={bench.cue}
             plan={bench.plan}
-            prop={benchProp}
+            held={benchProp && { id: benchProp }}
             talking={bench.talking}
           />
         </div>

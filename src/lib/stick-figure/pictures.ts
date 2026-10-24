@@ -1,6 +1,6 @@
 import { foldLine, lineWords } from "./slovak-text";
 
-const STICK_PICTURE_IDS = [
+export const STICK_PICTURE_IDS = [
   "flag-at",
   "flag-ca",
   "flag-cz",

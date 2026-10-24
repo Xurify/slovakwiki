@@ -39,6 +39,7 @@
     thingWithDemonstrative,
   } from "$lib/stick-figure/thing-words";
   import { dressFor } from "$lib/stick-figure/dress";
+  import type { Held } from "$lib/stick-figure/props";
   import { DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
   import {
     blockingBefore,
@@ -254,6 +255,15 @@
 
   function boardBefore(index: number): string | undefined {
     return lines.slice(0, index).findLast((line) => line.characterId === null)?.slovak;
+  }
+
+  /** What a figure has in hand: an umbrella stays open or folded as it came out. */
+  function heldBy(id: LessonCharacterId): Held | undefined {
+    const prop = holding[id];
+    if (!prop) return undefined;
+    return prop === "umbrella"
+      ? { id: prop, open: umbrellas[id] ?? dress.umbrellaUp }
+      : { id: prop };
   }
 
   /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
@@ -574,8 +584,8 @@
         facing={facings[characterId] ?? resting[characterId] ?? 1}
         onbeat={onBeat}
         plan={actors[characterId]?.plan}
-        prop={holding[characterId]}
-        dress={{ ...dress, umbrellaUp: umbrellas[characterId] ?? dress.umbrellaUp }}
+        held={heldBy(characterId)}
+        {dress}
         talking={actors[characterId]?.talking ?? false}
         walk={walks[characterId]}
       />

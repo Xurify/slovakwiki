@@ -30,6 +30,12 @@ export type StickPropId = (typeof STICK_PROP_IDS)[number];
 /** What each figure has in hand. */
 export type CastProps = Partial<Record<LessonCharacterId, StickPropId>>;
 
+/** A prop in a figure's hand as drawn: an umbrella is open or folded. */
+export interface Held {
+  id: StickPropId;
+  open?: boolean;
+}
+
 /**
  * Folded words that bring a prop out. Stems match any ending; whole words
  * stay whole where a stem would catch something else (`kav` is also in

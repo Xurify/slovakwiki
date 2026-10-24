@@ -10,12 +10,12 @@
   } from "$lib/stick-figure/rig";
   import type { StickPictureId } from "$lib/stick-figure/pictures";
   import { dressFor, type Dress } from "$lib/stick-figure/dress";
-  import type { StickPropId } from "$lib/stick-figure/props";
+  import { limbPath, n, sleevePath } from "$lib/stick-figure/draw";
+  import { LOOKS } from "$lib/stick-figure/looks";
+  import type { Held } from "$lib/stick-figure/props";
+  import StickHeld from "./StickHeld.svelte";
   import StickPicture from "./StickPicture.svelte";
-  import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
-  import StickUmbrella from "./StickUmbrella.svelte";
-  import { STICK_SLEEVES } from "./stick-figure-ui";
 
   let {
     characterId,
@@ -23,7 +23,7 @@
     facing = 1,
     picture,
     pose = REST_POSE,
-    prop,
+    held,
     dress = dressFor("clear"),
   }: {
     characterId: LessonCharacterId;
@@ -32,23 +32,21 @@
     /** Shown in a bubble over the head, the right way round whichever way the figure faces. */
     picture?: StickPictureId;
     pose?: StickPose;
-    /** Held in the lead hand. */
-    prop?: StickPropId;
-    /** What the weather on them does to what they wear and hold. */
+    /** In the lead hand. */
+    held?: Held;
+    /** What the weather on them does to what they wear. */
     dress?: Dress;
   } = $props();
 
   const rig = $derived(solveRig(pose));
-  const robot = $derived(characterId === "narrator" || characterId === "guide");
-  const sleeve = $derived(STICK_SLEEVES[characterId]);
+  const look = $derived(LOOKS[characterId]);
+  const robot = $derived(look.robot);
   const torsoTransform = $derived(
     `translate(${n(rig.hip.x)} ${n(rig.hip.y)}) rotate(${n(pose.lean)})`,
   );
-  const hair = $derived(
-    characterId === "maria" ? "fill-portrait-hair-grey" : "fill-portrait-hair",
-  );
+  const hair = $derived(look.grey ? "fill-portrait-hair-grey" : "fill-portrait-hair");
   const brows = $derived(
-    characterId === "maria" ? "stroke-portrait-hair-grey" : "stroke-portrait-hair",
+    look.grey ? "stroke-portrait-hair-grey" : "stroke-portrait-hair",
   );
 
   // Head art reuses the 64×64 portrait space of LessonCharacterAvatar, so hair
@@ -67,10 +65,6 @@
   const browWorry = $derived(Math.max(0, -pose.brow) * 1.8);
   const mouthOpen = $derived(pose.mouth > 0.06);
 
-  function n(value: number): number {
-    return Math.round(value * 100) / 100;
-  }
-
   /**
    * A flat upper lip over a jaw curve reads as speech, where an ellipse reads
    * as "oh!". Rounding (o, u) narrows the corners and arches the top lip.
@@ -84,21 +78,48 @@
 
     return `M${n(cx - half)} ${top}Q${n(cx)} ${n(top - arch)} ${n(cx + half)} ${top}Q${n(cx + belly)} ${bottom} ${n(cx)} ${bottom}Q${n(cx - belly)} ${bottom} ${n(cx - half)} ${top}Z`;
   }
-
-  function limbPath(from: Point, limb: StickLimb): string {
-    return `M${n(from.x)} ${n(from.y)}L${n(limb.joint.x)} ${n(limb.joint.y)}L${n(limb.end.x)} ${n(limb.end.y)}`;
-  }
-
-  function between(a: Point, b: Point, t: number): string {
-    return `${n(a.x + (b.x - a.x) * t)} ${n(a.y + (b.y - a.y) * t)}`;
-  }
-
-  function sleevePath(from: Point, limb: StickLimb, reach: number): string {
-    if (reach <= 1)
-      return `M${n(from.x)} ${n(from.y)}L${between(from, limb.joint, reach)}`;
-    return `M${n(from.x)} ${n(from.y)}L${n(limb.joint.x)} ${n(limb.joint.y)}L${between(limb.joint, limb.end, reach - 1)}`;
-  }
 </script>
+
+{#snippet arm(shoulder: Point, limb: StickLimb)}
+  <path d={limbPath(shoulder, limb)} class="stroke-portrait-ink" stroke-width="3" />
+
+  {#if look.sleeve}
+    <path
+      d={sleevePath(shoulder, limb, look.sleeve.reach)}
+      class="stroke-portrait-ink"
+      stroke-width="5.4"
+    />
+    <path
+      d={sleevePath(shoulder, limb, look.sleeve.reach)}
+      class={look.sleeve.class}
+      stroke-width="3.4"
+    />
+  {/if}
+{/snippet}
+
+{#snippet hand(at: Point)}
+  <circle
+    cx={n(at.x)}
+    cy={n(at.y)}
+    r="2.3"
+    class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
+    stroke-width="1.2"
+  />
+{/snippet}
+
+{#snippet leg(limb: StickLimb)}
+  <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="3.4" />
+{/snippet}
+
+{#snippet joint(at: Point, r: number)}
+  <circle
+    cx={n(at.x)}
+    cy={n(at.y)}
+    {r}
+    class="fill-portrait-bib stroke-portrait-ink"
+    stroke-width="0.9"
+  />
+{/snippet}
 
 <svg
   class="block h-auto w-full overflow-visible {className}"
@@ -150,43 +171,10 @@
       {/if}
     </g>
 
-    <path
-      d={limbPath(rig.rearShoulder, rig.rearArm)}
-      class="stroke-portrait-ink"
-      stroke-width="3"
-    />
-
-    {#if sleeve}
-      <path
-        d={sleevePath(rig.rearShoulder, rig.rearArm, sleeve.reach)}
-        class="stroke-portrait-ink"
-        stroke-width="5.4"
-      />
-      <path
-        d={sleevePath(rig.rearShoulder, rig.rearArm, sleeve.reach)}
-        class={sleeve.class}
-        stroke-width="3.4"
-      />
-    {/if}
-
-    <circle
-      cx={n(rig.rearArm.end.x)}
-      cy={n(rig.rearArm.end.y)}
-      r="2.3"
-      class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
-      stroke-width="1.2"
-    />
-
-    <path
-      d={limbPath(rig.hip, rig.rearLeg)}
-      class="stroke-portrait-ink"
-      stroke-width="3.4"
-    />
-    <path
-      d={limbPath(rig.hip, rig.leadLeg)}
-      class="stroke-portrait-ink"
-      stroke-width="3.4"
-    />
+    {@render arm(rig.rearShoulder, rig.rearArm)}
+    {@render hand(rig.rearArm.end)}
+    {@render leg(rig.rearLeg)}
+    {@render leg(rig.leadLeg)}
     <path
       d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
         rig.leadLeg.end.x - 1,
@@ -196,77 +184,26 @@
     />
 
     {#if robot}
-      <circle
-        cx={n(rig.rearLeg.joint.x)}
-        cy={n(rig.rearLeg.joint.y)}
-        r="1.6"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="0.9"
-      />
-      <circle
-        cx={n(rig.leadLeg.joint.x)}
-        cy={n(rig.leadLeg.joint.y)}
-        r="1.6"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="0.9"
-      />
+      {@render joint(rig.rearLeg.joint, 1.6)}
+      {@render joint(rig.leadLeg.joint, 1.6)}
     {/if}
 
     <g transform={torsoTransform}>
       <StickTorso {characterId} scarf={dress.scarf} />
     </g>
 
-    <path
-      d={limbPath(rig.leadShoulder, rig.leadArm)}
-      class="stroke-portrait-ink"
-      stroke-width="3"
-    />
-
-    {#if sleeve}
-      <path
-        d={sleevePath(rig.leadShoulder, rig.leadArm, sleeve.reach)}
-        class="stroke-portrait-ink"
-        stroke-width="5.4"
-      />
-      <path
-        d={sleevePath(rig.leadShoulder, rig.leadArm, sleeve.reach)}
-        class={sleeve.class}
-        stroke-width="3.4"
-      />
-    {/if}
+    {@render arm(rig.leadShoulder, rig.leadArm)}
 
     {#if robot}
-      <circle
-        cx={n(rig.rearArm.joint.x)}
-        cy={n(rig.rearArm.joint.y)}
-        r="1.5"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="0.9"
-      />
-      <circle
-        cx={n(rig.leadArm.joint.x)}
-        cy={n(rig.leadArm.joint.y)}
-        r="1.5"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="0.9"
-      />
+      {@render joint(rig.rearArm.joint, 1.5)}
+      {@render joint(rig.leadArm.joint, 1.5)}
     {/if}
 
-    {#if prop === "umbrella"}
-      <StickUmbrella {rig} up={dress.umbrellaUp} />
-    {:else if prop}
-      <g transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})">
-        <StickProp {prop} />
-      </g>
+    {#if held}
+      <StickHeld {held} {rig} />
     {/if}
 
-    <circle
-      cx={n(rig.leadArm.end.x)}
-      cy={n(rig.leadArm.end.y)}
-      r="2.3"
-      class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
-      stroke-width="1.2"
-    />
+    {@render hand(rig.leadArm.end)}
 
     <g transform={headTransform}>
       {#if robot}
@@ -275,9 +212,7 @@
           cx="32"
           cy="8.5"
           r="2.2"
-          class="{characterId === 'guide'
-            ? 'fill-rose-500'
-            : 'fill-rose-400'} stroke-portrait-ink"
+          class="{robot.light} stroke-portrait-ink"
           stroke-width="1.2"
         />
         <rect
@@ -304,7 +239,7 @@
           width="4.8"
           height="6.8"
           rx="2.4"
-          class={characterId === "guide" ? "fill-sky-400" : "fill-rose-300"}
+          class={robot.eyes}
         />
         <rect
           x={37.7 + eyeX}
@@ -312,18 +247,15 @@
           width="4.8"
           height="6.8"
           rx="2.4"
-          class={characterId === "guide" ? "fill-sky-400" : "fill-rose-300"}
+          class={robot.eyes}
         />
 
         {#if mouthOpen}
-          <path
-            d={mouthPath(32 + eyeX, 33.4)}
-            class={characterId === "guide" ? "fill-sky-400" : "fill-rose-300"}
-          />
+          <path d={mouthPath(32 + eyeX, 33.4)} class={robot.eyes} />
         {:else}
           <path
             d="M{28.5 + eyeX} 34q3.5 2.5 7 0"
-            class={characterId === "guide" ? "stroke-sky-400" : "stroke-rose-300"}
+            class={robot.smile}
             stroke-width="1.35"
           />
         {/if}
@@ -347,7 +279,7 @@
           stroke-width="1.7"
         />
 
-        {#if characterId === "alex" || characterId === "marek" || characterId === "lucia" || characterId === "receptionist" || characterId === "waiter"}
+        {#if look.ear}
           <path
             d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
             class="fill-portrait-skin stroke-portrait-ink"
@@ -436,7 +368,7 @@
           />
         {/if}
 
-        {#if characterId === "anna" || characterId === "lucia"}
+        {#if look.blush}
           <ellipse
             cx={24.4 + turn * 0.8}
             cy="33.4"
@@ -462,7 +394,7 @@
         <circle cx={26.2 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
         <circle cx={37.8 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
 
-        {#if characterId === "maria"}
+        {#if look.glasses}
           <circle
             cx={26.2 + turn}
             cy="28.5"

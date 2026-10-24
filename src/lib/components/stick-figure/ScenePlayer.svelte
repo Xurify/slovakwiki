@@ -21,6 +21,7 @@
   } from "$lib/stick-figure/ambience";
   import { thingsInView } from "$lib/stick-figure/backdrop-geometry";
   import { FindRound } from "$lib/stick-figure/find-round.svelte";
+  import { LOOKS } from "$lib/stick-figure/looks";
   import { PLACES, thingsIn } from "$lib/stick-figure/places";
   import { PlayTurns } from "$lib/stick-figure/play-turns.svelte";
   import { canRecord } from "$lib/stick-figure/recorder";
@@ -41,7 +42,6 @@
   import SceneScript from "./SceneScript.svelte";
   import SceneSettings, { type SceneSetting } from "./SceneSettings.svelte";
   import StickStage from "./StickStage.svelte";
-  import { STICK_NAME_CLASSES } from "./stick-figure-ui";
 
   /** Ways to take a scene. */
   type Mode = "watch" | "play" | "find";
@@ -603,7 +603,7 @@
         class={cx(
           "absolute -top-3.5 left-5 inline-flex items-center rounded-(--control-radius) bg-surface px-2.5 py-1 sm:left-6",
           "text-sm font-semibold shadow-(--shadow-border) ring-1 ring-slate-200",
-          STICK_NAME_CLASSES[tag.characterId] ?? "text-slate-600",
+          LOOKS[tag.characterId].nameClass ?? "text-slate-600",
         )}
       >
         {tag.name}

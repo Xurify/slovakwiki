@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+  import { LOOKS } from "$lib/stick-figure/looks";
 
   /**
    * Clothes from the neck to the hem, drawn in torso space: hip at 0,0, neck
@@ -16,16 +17,7 @@
     scarf?: boolean;
   } = $props();
 
-  /** A colour that stands off each outfit. */
-  const SCARF_PAINT: Partial<Record<LessonCharacterId, string>> = {
-    alex: "fill-scene-honey",
-    anna: "fill-scene-sage",
-    lucia: "fill-scene-clay",
-    marek: "fill-scene-clay",
-    maria: "fill-blue-600",
-    receptionist: "fill-scene-honey",
-    waiter: "fill-scene-clay",
-  };
+  const look = $derived(LOOKS[characterId]);
 </script>
 
 {#if characterId === "receptionist"}
@@ -79,7 +71,7 @@
   <circle cx="0" cy="-12.4" r="0.65" class="fill-portrait-bib" />
   <circle cx="0" cy="-8.2" r="0.65" class="fill-portrait-bib" />
   <path d="M-3.4 -31.7v3.2l3.4-1.6ZM3.4 -31.7v3.2l-3.4-1.6Z" class="fill-portrait-ink" />
-{:else if characterId === "guide" || characterId === "narrator"}
+{:else if look.robot}
   <!-- robot chassis to match the visor head: light casing, chest screen -->
   <rect
     x="-2"
@@ -108,12 +100,7 @@
     class="fill-slate-800 stroke-portrait-ink"
     stroke-width="0.9"
   />
-  <circle
-    cx="0"
-    cy="-20.7"
-    r="1.5"
-    class={characterId === "guide" ? "fill-sky-400" : "fill-rose-400"}
-  />
+  <circle cx="0" cy="-20.7" r="1.5" class={look.robot.chest} />
   <path d="M-4.8 -6.4H4.8" class="stroke-portrait-ink" stroke-width="0.8" />
   <circle cx="-2.6" cy="-3" r="0.7" class="fill-sky-400" />
   <circle cx="0" cy="-3" r="0.7" class="fill-rose-500" />
@@ -234,15 +221,15 @@
   />
 {/if}
 
-{#if scarf && SCARF_PAINT[characterId]}
+{#if scarf && look.scarfClass}
   <path
     d="M2 -28.4L4.6 -17.8L1.4 -17.4L0 -27.6Z"
-    class="{SCARF_PAINT[characterId]} stroke-portrait-ink"
+    class="{look.scarfClass} stroke-portrait-ink"
     stroke-width="0.9"
   />
   <path
     d="M-5.6 -32.2Q0 -29 5.6 -32.2L5.8 -28.4Q0 -25.4 -5.8 -28.4Z"
-    class="{SCARF_PAINT[characterId]} stroke-portrait-ink"
+    class="{look.scarfClass} stroke-portrait-ink"
     stroke-width="1"
   />
 {/if}

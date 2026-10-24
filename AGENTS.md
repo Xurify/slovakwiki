@@ -273,13 +273,13 @@ The animated cast, its places and the scene player. Logic lives in `src/lib/stic
 - The stage is twice as wide as tall, up to 300px, and figures scale with its height. Check a changed place at 390px and at desktop width; Find it asks only for what the stage shows.
 - The sky (sun, stars, clouds) is drawn behind the scenery. The sun stands at its place's `sun` spot, and `places.test.ts` fails when it leaves what a phone shows or touches a thing's box. The sun is a thing to tap or find only while it is out (`thingsIn`).
 - A tappable thing's box in its place's `things` is in backdrop units and must match the drawing. Move both in the same change. The words for things live in `thing-words.ts`, the geometry in `backdrop-geometry.ts`.
-- Each character reads as themselves at a glance (Marek has curls so he is not a second Alex). On stage the learner's lines belong to Alex, not "You" (`stageName`), and a line nobody says, like a board or a notice, gets no name tag.
+- Each character reads as themselves at a glance (Marek has curls so he is not a second Alex). Their colours and small marks (ear, blush, glasses, sleeves, scarf, name tag) are one entry in `looks.ts`; the shapes of hair and clothes are drawn in `StickFigure` and `StickTorso`. `drawings.test.ts` renders every prop, picture and character, so a new id fails until it has a drawing of its own. On stage the learner's lines belong to Alex, not "You" (`stageName`), and a line nobody says, like a board or a notice, gets no name tag.
 
 **Weather, dress and sound**
 
 - The words set the mood: `sceneMood` reads the lines up to the current one for the hour and the weather. Past the last line, rain and snow let up. Weather changes fade over `WEATHER_FADE_MS`.
 - Falling rain and snow are an HTML layer (`StickWeather`), never animation inside the backdrop SVG: WebKit repainted the whole stage every frame and dropped to 7.5 fps.
-- `dress.ts` decides what the weather does to a figure's things: umbrella up in rain, scarf in snow, neither indoors. Once open, an umbrella stays open until the stage folds it with `foldUmbrellas()`, on boarding the tram or at the scene's end. It never folds by itself. A new item that follows the weather works the same way: a field in the dress, and an explicit stage call to change it.
+- `dress.ts` decides what the weather does to a figure's things: umbrella up in rain, scarf in snow, neither indoors. Once open, an umbrella stays open until the stage folds it with `foldUmbrellas()`, on boarding the tram or at the scene's end. It never folds by itself. The figure gets what is in its hand as `held: { id, open }`, and the stage sets `open` from the dress when the umbrella comes out. A new item that follows the weather works the same way: a field in the dress, and an explicit stage call to change it.
 - Background sound is synthesized with Web Audio in `ambience.ts`, so there is nothing to load. It is off until the learner turns it on, plays steadily under the voices, and one player lasts the visit: `set()` fades layers in and out instead of restarting them.
 
 **Player and games**
