@@ -55,35 +55,27 @@
     <p class="m-0 text-slate-600">{NOTES[section]}</p>
   </div>
 
-  <ul class="m-0 grid list-none gap-2 p-0">
+  <ul class="m-0 grid list-none p-0">
     {#each kinds as kind (kind)}
-      <li
-        class="flex items-baseline justify-between gap-4 border-b border-slate-200 pb-2"
-      >
+      <li class="grid gap-0.5 border-b border-slate-200 py-2.5 first:pt-0">
         <span class="font-semibold text-slate-900">{TASK_INFO[kind].label}</span>
-        <span class="text-right text-sm text-slate-500"
-          >{TASK_INFO[kind].description}</span
-        >
+        <span class="text-sm text-slate-600">{TASK_INFO[kind].description}</span>
       </li>
     {/each}
 
     {#each planned as task (task)}
-      <li
-        class="flex items-baseline justify-between gap-4 border-b border-slate-200 pb-2"
-      >
+      <li class="grid gap-0.5 border-b border-slate-200 py-2.5 first:pt-0">
         <span class="flex items-center gap-2 font-semibold text-slate-500">
           {TASK_INFO[task].label}
           <span class={plannedTagClass}>Planned</span>
         </span>
-        <span class="text-right text-sm text-slate-500"
-          >{TASK_INFO[task].description}</span
-        >
+        <span class="text-sm text-slate-500">{TASK_INFO[task].description}</span>
       </li>
     {/each}
   </ul>
 
   <div class="flex flex-wrap items-center justify-between gap-3">
-    <p class="m-0 text-sm text-slate-500">
+    <p class="m-0 text-sm text-slate-600">
       {timed && minutes > 0 ? `Up to ${minutes} min` : "Take the time you need"}
     </p>
 
