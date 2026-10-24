@@ -77,8 +77,9 @@ const COMMA_MS = 100;
 const SENTENCE_GAP_MS = 360;
 /** Silence where the clip text says `[pause]`: the median over the podcast's 19 pauses. */
 const PAUSE_MS = 1050;
-/** An audio tag in clip text, such as `[pause]`: said as silence, not as a word. */
+/** An audio tag in clip text: `[pause]` is said as silence, a direction such as `[slowly]` not at all. */
 const TAG = /^\[[^\]]*\]$/;
+const PAUSE_TAG = /^\[pause\]/i;
 const LEAD_MS = 40;
 const TAIL_MS = 180;
 
@@ -100,7 +101,7 @@ export function estimateSpeechMs(text: string): number {
 
   for (const token of text.match(/\[[^\]]*\]|\p{L}+|[,;:–—]/gu) ?? []) {
     if (TAG.test(token)) {
-      ms += PAUSE_MS;
+      if (PAUSE_TAG.test(token)) ms += PAUSE_MS;
       continue;
     }
     if (!/\p{L}/u.test(token)) {
@@ -136,7 +137,7 @@ export function textTimeline(text: string): {
 
   for (const token of text.match(/\[[^\]]*\]|\p{L}+|[,;:–—]|[.!?…]+/gu) ?? []) {
     if (TAG.test(token)) {
-      pendingPause = Math.max(pendingPause, PAUSE_MS);
+      if (PAUSE_TAG.test(token)) pendingPause = Math.max(pendingPause, PAUSE_MS);
       continue;
     }
     if (!/\p{L}/u.test(token)) {
@@ -203,10 +204,10 @@ export function planLine(
   const saidSentences = said ? lineSentences(said) : [];
   const timed = saidSentences.length === sentences.length ? saidSentences : sentences;
   const gaps = timed.map((sentence, index) =>
-    index === 0 ? 0 : sentence.startsWith("[") ? PAUSE_MS : SENTENCE_GAP_MS,
+    index === 0 ? 0 : PAUSE_TAG.test(sentence) ? PAUSE_MS : SENTENCE_GAP_MS,
   );
   const lengths = timed.map((sentence) =>
-    estimateSpeechMs(sentence.replace(/^\[[^\]]*\]/, "")),
+    estimateSpeechMs(sentence.replace(PAUSE_TAG, "")),
   );
   const speechMs = [...lengths, ...gaps].reduce((sum, ms) => sum + ms, 0);
 

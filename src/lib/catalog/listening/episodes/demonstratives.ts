@@ -5,9 +5,11 @@ import type { ListeningChapter, ListeningEpisode } from "../types";
 const PREFIX = "podcast-demonstratives-";
 
 /** A beat of silence in the clip, where the speaker thinks or lets a clue sink in; not shown in the text. */
-const PAUSE = { pause: true } as const;
+const PAUSE = { tag: "pause" } as const;
+/** First in a line: said slowly, as Marek gives a clue for Anna to guess from. */
+const SLOWLY = { tag: "slowly" } as const;
 
-type Part = string | { demonstrative: string } | typeof PAUSE;
+type Part = string | { demonstrative: string } | typeof PAUSE | typeof SLOWLY;
 
 function line(
   id: string,
@@ -21,7 +23,7 @@ function line(
     parts.flatMap((part): MarkedPart[] =>
       typeof part === "string"
         ? [part]
-        : "pause" in part
+        : "tag" in part
           ? []
           : [{ role: "demonstrative", text: part.demonstrative }],
     ),
@@ -29,7 +31,11 @@ function line(
   // Eleven v4 takes [pause] inside a line; at its start or end it makes next to no silence.
   const said = parts
     .map((part) =>
-      typeof part === "string" ? part : "pause" in part ? "[pause] " : part.demonstrative,
+      typeof part === "string"
+        ? part
+        : "tag" in part
+          ? `[${part.tag}] `
+          : part.demonstrative,
     )
     .join("");
 
@@ -39,7 +45,7 @@ function line(
     slovak: marked.text,
     marks: marked.marks,
     english,
-    ...(parts.includes(PAUSE) ? { audio: { transcript: said } } : {}),
+    ...(said !== marked.text ? { audio: { transcript: said } } : {}),
     ...(props ? { props } : {}),
   };
 }
@@ -137,8 +143,17 @@ const bag: ListeningChapter = {
     line(
       "marek-small-opens-doors",
       "Marek",
-      ["Je ", { demonstrative: "to" }, " malé. ", PAUSE, "Otvára dvere."],
-      "It's small. It opens doors.",
+      [
+        SLOWLY,
+        "Prvá vec. ",
+        PAUSE,
+        "Je ",
+        { demonstrative: "to" },
+        " malé… ",
+        PAUSE,
+        "a otvára dvere.",
+      ],
+      "First thing. It's small… and it opens doors.",
     ),
     line(
       "anna-its-a-key",
@@ -162,29 +177,42 @@ const bag: ListeningChapter = {
     line(
       "marek-heavy-pages",
       "Marek",
-      [{ demonstrative: "To" }, " je ťažké. ", PAUSE, "Má veľa strán."],
-      "It's heavy. It has many pages.",
+      [
+        SLOWLY,
+        "Je ",
+        { demonstrative: "to" },
+        " žlté… ",
+        PAUSE,
+        "je ",
+        { demonstrative: "to" },
+        " ťažké… ",
+        PAUSE,
+        "a má ",
+        { demonstrative: "to" },
+        " veľa strán.",
+      ],
+      "It's yellow… it's heavy… and it has a lot of pages.",
       ["bag"],
     ),
     line(
       "anna-its-a-book",
       "Anna",
       [
-        "Hm… ",
+        "Žlté a ťažké… ",
         PAUSE,
         { demonstrative: "to" },
         " je kniha! ",
         { demonstrative: "Tá" },
         " kniha je veľká.",
       ],
-      "Hmm… it's a book! That book is big.",
+      "Yellow and heavy… it's a book! That book is big.",
       guess(3),
     ),
     line(
       "marek-dictionary",
       "Marek",
-      ["Áno, ", { demonstrative: "tá" }, " kniha je slovník."],
-      "Yes, that book is a dictionary.",
+      ["Áno, ", { demonstrative: "tá" }, " žltá kniha je slovník."],
+      "Yes, that yellow book is a dictionary.",
     ),
     line(
       "anna-third-thing",
@@ -196,14 +224,16 @@ const bag: ListeningChapter = {
       "marek-green-sweet",
       "Marek",
       [
-        { demonstrative: "To" },
-        " je zelené ",
+        SLOWLY,
+        "Je ",
+        { demonstrative: "to" },
+        " zelené… ",
         PAUSE,
         "a je ",
         { demonstrative: "to" },
         " sladké.",
       ],
-      "It's green and it's sweet.",
+      "It's green… and it's sweet.",
       ["bag"],
     ),
     line(
@@ -237,7 +267,8 @@ const bag: ListeningChapter = {
         {
           id: "book",
           label: "Kniha.",
-          whyWrong: "**Kniha** is a book, the second thing: heavy, with many pages.",
+          whyWrong:
+            "**Kniha** is a book, the second thing: yellow, heavy, with many pages.",
         },
         {
           id: "apple",
@@ -247,7 +278,7 @@ const bag: ListeningChapter = {
       ],
       answerId: "key",
       feedback: {
-        english: "It's small. It opens doors.",
+        english: "It's small… and it opens doors.",
         why: "Marek says **otvára dvere**, it opens doors, so Anna guesses **kľúč**.",
       },
     },

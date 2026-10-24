@@ -2760,15 +2760,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "marek: Je to malé. Otvára dvere.",
+      "line": "marek: Prvá vec. Je to malé… a otvára dvere.",
       "plan": {
         "beats": [
-          "0 talk",
-          "2638 point → dvere",
+          "100 talk",
+          "2000 talk",
+          "4697 point → dvere",
         ],
-        "ms": 3400,
-        "sentences": "0-875 2300-3200",
-        "words": "0-207 207-414 414-875 2300-2838 2838-3200",
+        "ms": 5550,
+        "sentences": "100-798 2000-2868 4050-5350",
+        "words": "100-558 558-798 2000-2206 2206-2411 2411-2868 4050-4224 4224-4897 4897-5350",
       },
       "staging": {
         "addressee": "anna",
@@ -2781,7 +2782,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 1,
+            "sentence": 2,
           },
         ],
       },
@@ -2870,18 +2871,20 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "marek: To je ťažké. Má veľa strán.",
+      "line": "marek: Je to žlté… je to ťažké… a má to veľa strán.",
       "plan": {
         "beats": [
-          "50 show",
-          "1900 talk",
+          "150 show",
+          "2350 talk",
+          "4250 talk",
         ],
-        "ms": 3300,
-        "sentences": "50-947 1900-3150",
-        "words": "50-254 254-459 459-947 1900-2209 2209-2715 2715-3150",
+        "ms": 5950,
+        "sentences": "150-1024 2350-3140 4250-5750",
+        "words": "150-357 357-564 564-1024 2350-2530 2530-2710 2710-3140 4250-4434 4434-4705 4705-4926 4926-5369 5369-5750",
       },
       "props": [
         "bag",
+        undefined,
         undefined,
       ],
       "staging": {
@@ -2895,7 +2898,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 1,
+            "sentence": 2,
           },
         ],
       },
@@ -2904,16 +2907,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "anna: Hm… to je kniha! Tá kniha je veľká.",
+      "line": "anna: Žlté a ťažké… to je kniha! Tá kniha je veľká.",
       "plan": {
         "beats": [
-          "100 think",
-          "1450 talk",
-          "2750 talk",
+          "0 talk",
+          "2650 talk",
+          "3900 talk",
         ],
-        "ms": 4600,
-        "sentences": "100-310 1450-2408 2750-4250",
-        "words": "100-310 1450-1680 1680-1910 1910-2408 2750-3020 3020-3500 3500-3721 3721-4250",
+        "ms": 5700,
+        "sentences": "0-1203 2650-3411 3900-5350",
+        "words": "0-491 491-675 675-1203 2650-2833 2833-3015 3015-3411 3900-4161 4161-4625 4625-4839 4839-5350",
       },
       "staging": {
         "addressee": "marek",
@@ -2928,14 +2931,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "book",
       },
-      "line": "marek: Áno, tá kniha je slovník.",
+      "line": "marek: Áno, tá žltá kniha je slovník.",
       "plan": {
         "beats": [
           "0 show",
+          "1800 talk",
         ],
-        "ms": 2450,
-        "sentences": "0-2200",
-        "words": "0-465 591-867 867-1358 1358-1584 1584-2200",
+        "ms": 2900,
+        "sentences": "0-2700",
+        "words": "0-465 590-867 867-1369 1369-1859 1859-2085 2085-2700",
       },
       "props": [
         "book",
@@ -2983,18 +2987,19 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "marek: To je zelené a je to sladké.",
+      "line": "marek: Je to zelené… a je to sladké.",
       "plan": {
         "beats": [
           "100 show",
-          "1900 talk",
+          "3050 talk",
         ],
-        "ms": 3200,
-        "sentences": "100-3050",
-        "words": "100-279 279-459 459-1037 2083-2233 2233-2412 2412-2592 2592-3050",
+        "ms": 4650,
+        "sentences": "100-1497 3050-4500",
+        "words": "100-368 368-635 635-1497 3050-3274 3274-3543 3543-3812 3812-4500",
       },
       "props": [
         "bag",
+        undefined,
       ],
       "staging": {
         "addressee": "anna",
@@ -3007,7 +3012,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },

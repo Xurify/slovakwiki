@@ -296,6 +296,15 @@ describe("planLine", () => {
     expect(plan.sentences[1].start).toBeGreaterThan(plan.sentences[0].end);
   });
 
+  it("counts [pause] as silence and a direction like [slowly] as nothing", () => {
+    expect(estimateSpeechMs("[slowly] Je to malé.")).toBe(
+      estimateSpeechMs("Je to malé."),
+    );
+    expect(estimateSpeechMs("Je to malé. [pause] Áno.")).toBeGreaterThan(
+      estimateSpeechMs("Je to malé. Áno.") + 1000,
+    );
+  });
+
   it("estimates longer speech for longer text", () => {
     expect(estimateSpeechMs("Dobrý deň, volám sa Anna")).toBeGreaterThan(
       estimateSpeechMs("Dobrý deň"),
