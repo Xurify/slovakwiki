@@ -40,10 +40,10 @@
       ú, ý).
     </p>
 
-    <ul class="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
+    <ul class="m-0 grid list-none gap-2.5 p-0">
       {#each items as item, index (item.id)}
         <li
-          class="flex items-center justify-between gap-3 rounded-(--control-radius) border border-slate-300 bg-control px-3 py-2.5"
+          class="flex min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-(--control-radius) border border-slate-300 bg-control px-3 py-2.5"
         >
           <div class="flex items-center gap-3">
             <ClipButton
@@ -57,7 +57,11 @@
             >
           </div>
 
-          <div class="flex gap-1.5" role="radiogroup" aria-label={`Sound ${index + 1}`}>
+          <div
+            class="ml-auto flex gap-1.5"
+            role="radiogroup"
+            aria-label={`Sound ${index + 1}`}
+          >
             {#each [item.short, item.long] as word (word)}
               {@const isPicked = picked[item.id] === word}
               <button
