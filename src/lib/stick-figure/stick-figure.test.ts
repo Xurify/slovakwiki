@@ -23,7 +23,7 @@ import {
 import { performFrame, startPerformance, type PerformanceInput } from "./performance";
 import { linePictures } from "./pictures";
 import { REST_POSE } from "./pose";
-import { GROUND_Y, solveRig, type Point } from "./rig";
+import { GROUND_Y, solveRig, type Point, type StickLimb } from "./rig";
 import { aimAt, backdropToStage, figureToStage } from "./backdrop-geometry";
 import { PLACES } from "./places";
 import { directScene } from "./scene-direction";
@@ -636,7 +636,16 @@ describe("walk", () => {
 
   it("takes steps for the ground it covers", () => {
     expect(stepsFor(0.1)).toBe(2);
-    expect(stepsFor(-2.25)).toBe(10);
+    expect(stepsFor(-3.25)).toBe(10);
+  });
+
+  it("keeps both feet within reach of the hip at the widest stride", () => {
+    const rig = solveRig(walkPose(REST_POSE, STEP_MS / 2, 10 * STEP_MS));
+    const shin = (leg: StickLimb) =>
+      Math.hypot(leg.end.x - leg.joint.x, leg.end.y - leg.joint.y);
+
+    expect(shin(rig.leadLeg)).toBeCloseTo(19.5, 1);
+    expect(shin(rig.rearLeg)).toBeCloseTo(19.5, 1);
   });
 });
 

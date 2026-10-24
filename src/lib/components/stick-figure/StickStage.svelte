@@ -61,9 +61,9 @@
   } from "$lib/stick-figure/stage-frame";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
-  import { playTramCue } from "$lib/stick-figure/ambience";
+  import { playSteps, playTramCue } from "$lib/stick-figure/ambience";
   import type { TramState } from "$lib/stick-figure/street";
-  import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
+  import { STEP_MS, stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
   import StickWeather from "./StickWeather.svelte";
@@ -237,13 +237,15 @@
     const from = offsets[id] ?? 0;
     if (from === offset) return;
 
-    const ms = walkDuration(stepsFor(offset - from));
+    const steps = stepsFor(offset - from);
+    const ms = walkDuration(steps);
     walkCount += 1;
     walks = { ...walks, [id]: { cue: walkCount, ms } };
     offsets = { ...offsets, [id]: offset };
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       walkEndsAt[id] = performance.now() + ms;
+      playSteps(steps, STEP_MS, !PLACES[setting].outdoors);
     }
   }
 

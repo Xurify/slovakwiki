@@ -1,15 +1,17 @@
 import type { StickPose } from "./pose";
+import { STICK_BOX, STRIDE } from "./rig";
 
 /** One step, foot to foot. A walk is a whole number of them, so it ends feet together. */
 export const STEP_MS = 280;
-/** Ground a step covers, in figure widths: the swing of each foot (±9 of the 80-wide box). */
-const STEP_WIDTHS = 0.225;
+/** Ground a step covers, in figure widths: one foot's whole swing, so the planted foot does not slide. */
+const STEP_WIDTHS = (2 * STRIDE) / STICK_BOX.width;
 /** The legs ease in and out over this long, so a walk does not start or stop mid-stride. */
 const EASE_MS = 160;
 /** Feet close in under the body while walking, so a full stride stays within reach of the hip. */
 const WALK_STANCE = 4;
 const LIFT = 2.4;
-const HIP_DIP = 1.6;
+/** The hip drops at the widest stride so both feet still reach the ground. */
+const HIP_DIP = 3.2;
 
 /** Steps to cover `widths` figure widths, at least two so a walk reads as one. */
 export function stepsFor(widths: number): number {

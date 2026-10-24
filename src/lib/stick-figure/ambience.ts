@@ -1,3 +1,4 @@
+import { getStoredSfxPreference } from "$lib/audio/sfx";
 import { getAudioVolume } from "$lib/audio/volume";
 import { PLACES } from "./places";
 import { isDark, isFalling, type SceneMood } from "./scene-mood";
@@ -345,6 +346,7 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
  * About four seconds; plays on its own, background sound or not.
  */
 export function playTramCue(): void {
+  if (getStoredSfxPreference() === "off") return;
   const Context =
     window.AudioContext ??
     (window as unknown as { webkitAudioContext?: typeof AudioContext })
@@ -406,4 +408,74 @@ export function playTramCue(): void {
   brake.stop(now + 3.6);
 
   window.setTimeout(() => void ctx.close(), 4800);
+}
+
+let cueContext: { ctx: AudioContext; noise: AudioBuffer } | undefined;
+
+/** One context for the short cues that follow the figures, made on first use. */
+function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
+  if (cueContext) {
+    if (cueContext.ctx.state === "suspended") void cueContext.ctx.resume();
+    return cueContext;
+  }
+  const Context =
+    window.AudioContext ??
+    (window as unknown as { webkitAudioContext?: typeof AudioContext })
+      .webkitAudioContext;
+  if (!Context) return undefined;
+
+  const ctx = new Context();
+  cueContext = { ctx, noise: noiseBuffer(ctx) };
+  return cueContext;
+}
+
+/**
+ * Footsteps for a walk of `steps` steps, `stepMs` apart: a soft heel and
+ * the scuff of a sole on each footfall, duller on a floor than on paving.
+ * Plays on its own, background sound or not, unless sound is off.
+ */
+export function playSteps(steps: number, stepMs: number, indoors: boolean): void {
+  if (getStoredSfxPreference() === "off") return;
+  const kit = cues();
+  if (!kit) return;
+
+  const { ctx, noise } = kit;
+  const out = ctx.createGain();
+  out.gain.value = 0.3 * getAudioVolume();
+  out.connect(ctx.destination);
+
+  for (let step = 0; step < steps; step += 1) {
+    // The heel lands at the widest stride, halfway through each step.
+    const at = ctx.currentTime + ((step + 0.5) * stepMs) / 1000 + between(-0.01, 0.01);
+    const level = between(0.6, 1);
+
+    const heel = ctx.createOscillator();
+    const heelGain = ctx.createGain();
+    heel.frequency.setValueAtTime(between(95, 125), at);
+    heel.frequency.exponentialRampToValueAtTime(50, at + 0.08);
+    heelGain.gain.setValueAtTime(0.0001, at);
+    heelGain.gain.exponentialRampToValueAtTime(0.5 * level, at + 0.004);
+    heelGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.09);
+    heel.connect(heelGain).connect(out);
+    heel.start(at);
+    heel.stop(at + 0.1);
+
+    const sole = ctx.createBufferSource();
+    sole.buffer = noise;
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = (indoors ? 900 : 1900) * between(0.85, 1.15);
+    filter.Q.value = 1.2;
+    const soleGain = ctx.createGain();
+    soleGain.gain.setValueAtTime(0.0001, at);
+    soleGain.gain.exponentialRampToValueAtTime(
+      (indoors ? 0.25 : 0.4) * level,
+      at + 0.006,
+    );
+    soleGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.07);
+    sole.connect(filter).connect(soleGain).connect(out);
+    sole.start(at, Math.random(), 0.08);
+  }
+
+  window.setTimeout(() => out.disconnect(), steps * stepMs + 500);
 }
