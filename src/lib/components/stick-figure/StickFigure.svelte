@@ -44,11 +44,11 @@
   } = $props();
 
   const rig = $derived(solveRig(pose));
-  /** From the near cup over the crown of the hair to the far one. */
-  const headband = $derived.by(() => {
-    const apex = look.crown - 1.6;
+  /** From the near cup over the crown of the hair to the far one, `lift` above the hair. */
+  function headband(lift: number): string {
+    const apex = look.crown - lift;
     return `M17.9 25.6C16.6 ${n(apex + 4)} 22 ${n(apex)} 32 ${n(apex)}S47.4 ${n(apex + 4)} 46.1 25.6`;
-  });
+  }
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
   const torsoTransform = $derived(
@@ -123,16 +123,24 @@
     <g transform={headTransform}>
       <StickHead {characterId} part="back" {pose} />
 
-      {#if dress.headphones}
+      {#if dress.headwear === "headphones"}
         <!-- The far cup, behind the head in the three-quarter view. -->
         <rect
-          x="43.5"
-          y="25.4"
-          width="5.2"
-          height="7.8"
-          rx="2.4"
-          class="fill-slate-700 stroke-portrait-ink"
+          x="42.9"
+          y="25.2"
+          width="6.6"
+          height="8.4"
+          rx="3.2"
+          class="fill-scene-cool stroke-portrait-ink"
           stroke-width="1.3"
+        />
+      {:else if dress.headwear === "headset"}
+        <circle
+          cx="46.2"
+          cy="29.4"
+          r="3.4"
+          class="fill-scene-line stroke-portrait-ink"
+          stroke-width="1.2"
         />
       {/if}
     </g>
@@ -174,18 +182,46 @@
     <g transform={headTransform}>
       <StickHead {characterId} {pose} />
 
-      {#if dress.headphones}
-        <!-- The band over the hair from cup to cup, in the head's own 64-unit space, and the near cup on the ear. -->
-        <path d={headband} class="stroke-portrait-ink" stroke-width="2.6" />
-        <path d={headband} class="stroke-slate-500" stroke-width="1.2" />
+      {#if dress.headwear === "headphones"}
+        <!-- Open-back headphones in the head's own 64-unit space: a thin band over the hair, a light cup with a grille on the near ear. -->
+        <path d={headband(1.2)} class="stroke-portrait-ink" stroke-width="2" />
+        <path d={headband(1.2)} class="stroke-scene-edge" stroke-width="0.8" />
         <rect
-          x="15.3"
-          y="25.4"
-          width="5.2"
-          height="7.8"
-          rx="2.4"
-          class="fill-slate-700 stroke-portrait-ink"
+          x="14.5"
+          y="25.2"
+          width="6.6"
+          height="8.4"
+          rx="3.2"
+          class="fill-scene-cool stroke-portrait-ink"
           stroke-width="1.3"
+        />
+        <path
+          d="M16.2 27.4h3.2M16.2 29.4h3.2M16.2 31.4h3.2"
+          class="stroke-scene-line"
+          stroke-width="0.9"
+        />
+      {:else if dress.headwear === "headset"}
+        <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
+        <path d={headband(1)} class="stroke-portrait-ink" stroke-width="1.8" />
+        <circle
+          cx="17.8"
+          cy="29.4"
+          r="3.4"
+          class="fill-scene-line stroke-portrait-ink"
+          stroke-width="1.2"
+        />
+        <circle cx="17.8" cy="29.4" r="1.4" class="fill-scene-edge" />
+        <path
+          d="M20.4 31.6C22 37.6 26.4 40.6 30.2 40.8"
+          class="stroke-portrait-ink"
+          stroke-width="1.3"
+        />
+        <circle
+          cx="31"
+          cy="40.9"
+          r="1.7"
+          class="fill-scene-line stroke-portrait-ink"
+          stroke-width="1"
         />
       {/if}
     </g>

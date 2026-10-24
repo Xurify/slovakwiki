@@ -1,3 +1,4 @@
+import type { Headwear } from "./dress";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { AmbienceLayer } from "./ambience";
 import { PARTS, benchBox, clockBox, lampBox, plantBox, treeBox } from "./backdrop-parts";
@@ -42,8 +43,8 @@ export interface Place {
   post?: number;
   /** The cast keeps to its marks whatever is said, so nobody walks over or to a thing a line names. */
   atMarks?: boolean;
-  /** Everyone on stage wears headphones here, as podcast hosts do. */
-  headphones?: boolean;
+  /** What everyone on stage wears on their head here: the podcast hosts' headphones. */
+  headwear?: Headwear;
   /** Where rain and grey show indoors, and the way rain is heard; a room without one stays quiet. */
   glass?: Glass;
 }
@@ -226,7 +227,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["hum"],
     // Podcast hosts talk into their own mics, headphones on.
     atMarks: true,
-    headphones: true,
+    headwear: "headphones",
     glass: { height: 94, width: 126, x: 667, y: 59 },
   },
 };

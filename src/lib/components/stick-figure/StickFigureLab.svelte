@@ -13,6 +13,7 @@
     panelClass,
     tagClass,
   } from "$lib/components/ui/system-ui";
+  import { dressFor, type Headwear } from "$lib/stick-figure/dress";
   import { STICK_GESTURE_IDS, type StickGestureId } from "$lib/stick-figure/gestures";
   import {
     gesturePlan,
@@ -83,6 +84,7 @@
   let timeOverride = $state<TimeOfDay>();
   let weatherOverride = $state<Weather>();
   let benchProp = $state<StickPropId | undefined>();
+  let benchHeadwear = $state<Headwear | undefined>();
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
   const direction = $derived(directScene(scene.lines, scene.setting));
@@ -385,6 +387,7 @@
             cue={bench.cue}
             plan={bench.plan}
             held={benchProp && { id: benchProp }}
+            dress={dressFor("clear", { headwear: benchHeadwear })}
             talking={bench.talking}
           />
         </div>
@@ -439,6 +442,21 @@
                 }}
               >
                 {prop}
+              </button>
+            {/each}
+          </div>
+
+          <p class="{eyebrowMutedClass} mt-5">Wears</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {#each [undefined, "headphones", "headset"] as const as headwear (headwear ?? "bare")}
+              <button
+                class={chipClass(headwear === benchHeadwear)}
+                type="button"
+                onclick={() => {
+                  benchHeadwear = headwear;
+                }}
+              >
+                {headwear ?? "Bare head"}
               </button>
             {/each}
           </div>
