@@ -19,11 +19,14 @@
     class: className = "",
     label = "Scene settings",
     settings,
+    side = "bottom",
   }: {
     class?: string;
     /** What the menu is called, for the button and the dialog. */
     label?: string;
     settings: SceneSetting[];
+    /** Where the menu opens: above the gear when it sits at the foot of a clipped card. */
+    side?: "bottom" | "top";
   } = $props();
 
   let open = $state(false);
@@ -73,7 +76,8 @@
     <div
       id="scene-settings"
       class={cx(
-        "absolute top-[calc(100%+0.375rem)] right-0 z-40 w-[min(17.5rem,calc(100vw-2rem))] overflow-hidden",
+        "absolute right-0 z-40 w-[min(17.5rem,calc(100vw-2rem))] overflow-hidden",
+        side === "top" ? "bottom-[calc(100%+0.375rem)]" : "top-[calc(100%+0.375rem)]",
         "rounded-(--frame-radius) bg-surface shadow-(--shadow-float)",
       )}
       role="dialog"

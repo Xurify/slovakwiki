@@ -342,10 +342,15 @@
       {/if}
 
       <ListenControl onclick={() => (textOpen = !textOpen)}>
-        {textOpen ? "Hide text" : "Show text"}
+        {textOpen ? "Hide transcript" : "Show transcript"}
       </ListenControl>
 
-      <SceneSettings class="ml-auto -mr-1.5" label="Listening settings" {settings} />
+      <SceneSettings
+        class="ml-auto -mr-1.5"
+        label="Listening settings"
+        {settings}
+        side="top"
+      />
     </div>
   </div>
 

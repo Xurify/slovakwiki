@@ -140,22 +140,14 @@ const bag: ListeningChapter = {
     line(
       "marek-not-a-box",
       "Marek",
-      [
-        "Nie, nie je ",
-        mark("to"),
-        " krabica. ",
-        PAUSE,
-        "Má ",
-        mark("to"),
-        " veľa strán.",
-      ],
-      "No, it's not a box. It has a lot of pages.",
+      ["Nie, nie je ", mark("to"), " krabica. ", PAUSE, "Je ", mark("to"), " z papiera."],
+      "No, it's not a box. It's made of paper.",
     ),
     line(
       "anna-is-it-a-book",
       "Anna",
-      ["Veľa strán… ", PAUSE, "je ", mark("to"), " kniha?"],
-      "A lot of pages… is it a book?",
+      ["Z papiera… ", PAUSE, "je ", mark("to"), " kniha?"],
+      "Made of paper… is it a book?",
       { props: guess(2) },
     ),
     line(

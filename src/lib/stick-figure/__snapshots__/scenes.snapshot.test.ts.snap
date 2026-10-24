@@ -2939,15 +2939,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "marek: Nie, nie je to krabica. Má to veľa strán.",
+      "line": "marek: Nie, nie je to krabica. Je to z papiera.",
       "plan": {
         "beats": [
           "0 shake",
-          "3400 tell",
+          "3200 tell",
         ],
-        "ms": 4900,
-        "sentences": "0-1925 3400-4700",
-        "words": "0-288 419-707 707-943 943-1178 1178-1925 3400-3667 3667-3886 3886-4323 4323-4700",
+        "ms": 4350,
+        "sentences": "0-1763 3200-4150",
+        "words": "0-264 384-648 648-864 864-1079 1079-1763 3200-3382 3382-3564 3564-3564 3564-4150",
       },
       "staging": {
         "addressee": "anna",
@@ -2969,16 +2969,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "anna: Veľa strán… je to kniha?",
+      "line": "anna: Z papiera… je to kniha?",
       "plan": {
         "beats": [
-          "0 muse",
-          "1850 ask",
+          "50 muse",
+          "2000 ask",
         ],
-        "ms": 3400,
-        "questions": "1850-3050",
-        "sentences": "0-827 1850-3050",
-        "words": "0-445 445-827 1850-2138 2138-2426 2426-3050",
+        "ms": 3200,
+        "questions": "2000-2950",
+        "sentences": "50-757 2000-2950",
+        "words": "50-50 50-757 2000-2228 2228-2456 2456-2950",
       },
       "staging": {
         "addressee": "marek",

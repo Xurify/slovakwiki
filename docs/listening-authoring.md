@@ -39,7 +39,7 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] `bun scripts/audio/generate.ts -- --lessons-only --missing-only`, then `bun scripts/audio/upload.ts -- --lessons-only`. Commit `content/audio/manifest.json` and `runtime-index.json`.
 - [ ] Update the `listening` count in `src/lib/seo/sitemap.test.ts`.
 - [ ] `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
-- [ ] In the browser: play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show text. Phone width and dark mode.
+- [ ] In the browser: play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show transcript. Phone width and dark mode.
 
 ## Slips we shipped
 
