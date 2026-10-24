@@ -39,7 +39,15 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     scarfClass: "fill-scene-sage",
     sleeve: { class: "stroke-rose-500", reach: 1.6 },
   },
-  announcer: {},
+  // The loudspeaker: a companion robot like the guide, in the tram's green.
+  announcer: {
+    robot: {
+      chest: "fill-emerald-400",
+      eyes: "fill-emerald-300",
+      light: "fill-emerald-400",
+      smile: "stroke-emerald-300",
+    },
+  },
   guide: {
     robot: {
       chest: "fill-sky-400",
