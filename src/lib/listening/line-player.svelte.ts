@@ -5,6 +5,12 @@ export const LINE_GAP_MS = 450;
 
 export const SLOW_RATE = 0.8;
 
+/**
+ * Heard this much of a line, Replay line starts it over; before that it goes
+ * back a line, the way a player's previous button does on a track just begun.
+ */
+export const BACK_MS = 1500;
+
 /** Where a line can play besides its bare clip: a stage that voices it and acts it out. */
 export interface LineStage {
   /** `onStart` once the voice starts, which waits for anyone still walking over. */
@@ -29,6 +35,9 @@ export class LinePlayer {
 
   #epoch = 0;
   #gap = 0;
+  /** How long the current line's voice has been heard, over its pauses. */
+  #heardMs = 0;
+  #speakingSince: number | null = null;
   readonly #lines: DialogueTurn[];
   readonly #srcs: Record<string, string>;
   readonly #options: LinePlayerOptions;
@@ -57,11 +66,15 @@ export class LinePlayer {
     this.cursor = index;
     this.playing = true;
     this.speaking = false;
+    this.#heardMs = 0;
+    this.#speakingSince = null;
 
     const rate = this.slow ? SLOW_RATE : 1;
     const onEnded = () => this.#onLineEnded(index, mine);
     const onStart = () => {
-      if (mine === this.#epoch) this.speaking = true;
+      if (mine !== this.#epoch) return;
+      this.speaking = true;
+      this.#speakingSince = Date.now();
     };
     const stage = this.#options.stage?.();
     if (stage) stage.play(index, onEnded, rate, onStart);
@@ -79,8 +92,24 @@ export class LinePlayer {
     this.#epoch += 1;
     this.playing = false;
     this.speaking = false;
+    this.#heardMs = this.#heard();
+    this.#speakingSince = null;
     this.#options.stage?.()?.stop();
     stopStoryLineAudio();
+  }
+
+  /** The current line over, or the one before it when this one has only just begun. */
+  back(): void {
+    const index =
+      this.#heard() < BACK_MS && this.cursor > 0 ? this.cursor - 1 : this.cursor;
+    this.playFrom(index);
+  }
+
+  #heard(): number {
+    return (
+      this.#heardMs +
+      (this.#speakingSince === null ? 0 : Date.now() - this.#speakingSince)
+    );
   }
 
   toggle(): void {

@@ -244,11 +244,11 @@
         <p class="m-0 text-sm leading-snug text-slate-600">{chapter.title}</p>
       </div>
 
-      <div class="-mr-3 flex shrink-0 items-center gap-1">
+      <div class="-mr-2 flex shrink-0 items-center gap-2">
         <button
           class={cx(
             iconButtonClass,
-            "size-11 text-slate-500 hover:bg-subtle hover:text-slate-900",
+            "size-9 text-slate-500 hover:bg-subtle hover:text-slate-900",
             active === 0 && "invisible",
           )}
           type="button"
@@ -276,7 +276,7 @@
         <button
           class={cx(
             iconButtonClass,
-            "size-11 text-slate-500 hover:bg-subtle hover:text-slate-900",
+            "size-9 text-slate-500 hover:bg-subtle hover:text-slate-900",
             active === episode.chapters.length - 1 && "invisible",
           )}
           type="button"
