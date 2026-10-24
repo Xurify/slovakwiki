@@ -40,3 +40,19 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] Update the `listening` count in `src/lib/seo/sitemap.test.ts`.
 - [ ] `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
 - [ ] In the browser: play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show text. Phone width and dark mode.
+
+## Slips we shipped
+
+Each of these went out in the first episode and had to be fixed. Read a script against them before the first clip. The parts a line is made of (`PAUSE`, `SIGH`, `STOP`, `afterThinking`, `guess`) live in `src/lib/catalog/listening/dialogue.ts`.
+
+- **The guess comes at once.** Anna named the key the instant Marek gave the clue. Give the guesser a `Hm…` and a `PAUSE`, or the clues said back.
+- **Pointing at what cannot be seen.** `A čo je toto?` about a thing still in the bag. Ask for the next thing: `A druhá vec?`
+- **Nobody ever guesses wrong, and a right guess gets a flat `Áno`.** A wrong guess first, a second clue in answer, and a glad word: `Správne!`, `Presne tak!`, `Výborne!`
+- **An exchange that contradicts itself.** `Kde je ten kľúč? — Tento alebo tamten? — … Je v taške.` Read it as a scene: who can see what, who holds what.
+- **A cut with nothing said.** Studio to market with no line about going. The last line before a change of place says where they go, the first after it where they are.
+- **A quiz with no time to think.** Invite the listener (`Hádajte s nami!`) and wrap each verdict in `afterThinking(line(…))`.
+- **A line that replies to the wrong person.** `Syr. Dobrý deň!` answered Anna, so Marek waved at her and not at the stallholder. Set `to` when a line turns to someone else.
+- **Directed slowly, or trailing off on an ellipsis.** A drawn-out whisper. `STOP` and `PAUSE`, never `[slowly]`.
+- **A feeling that does not fit.** `Marek!` said flat when he has lost the keys again. A `SIGH` before it. Say how every directed line should feel, and listen back.
+- **A pause at the start of a clip.** It makes next to none; the player waits instead (`wait` on the line).
+- **The mouth on the wrong word.** The vowel track was aligned on the line without its pauses. `bun scripts/audio/lipsync.ts -- --only "…"` scores a clip; under 80% is wrong.

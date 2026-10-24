@@ -1,83 +1,13 @@
-import { markedText, type MarkedPart } from "$lib/learning/marked-text";
-import type { DialogueTurn } from "$lib/learning/types";
+import type { MarkedPart } from "$lib/learning/marked-text";
+import { PAUSE, SIGH, STOP, afterThinking, guess, lineWriter } from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-demonstratives-";
+const line = lineWriter(PREFIX);
 
-/** A direction to the voice, not shown in the text. */
-interface Direction {
-  readonly tag: "pause" | "sighs";
-}
-
-/** A beat of silence in the clip, where the speaker thinks or lets a clue sink in. */
-const PAUSE: Direction = { tag: "pause" };
-/** A sigh before the words: fond exasperation, as when Marek has lost the keys again. */
-const SIGH: Direction = { tag: "sighs" };
-/** The listener gets this long to decide before the answer comes. */
-const THINK_MS = 2000;
-/**
- * A clue trailing off in the text, a full stop in the clip: Eleven reads an
- * ellipsis as trailing off, and with a direction to go slowly it made Marek's
- * clues a drawn-out whisper. The beat comes from the PAUSE after it.
- */
-const STOP = { said: ". ", shown: "… " } as const;
-
-type Part = string | { demonstrative: string } | Direction | typeof STOP;
-
-function line(
-  id: string,
-  speaker: string,
-  parts: Part[],
-  english: string,
-  /** What the speaker holds per sentence on `/dev/scenes`, where the words would pick wrong. */
-  props?: DialogueTurn["props"],
-  /** Who it is said to, when that is not who it replies to. */
-  to?: string,
-): DialogueTurn {
-  const marked = markedText(
-    parts.flatMap((part): MarkedPart[] =>
-      typeof part === "string"
-        ? [part]
-        : "tag" in part
-          ? []
-          : "shown" in part
-            ? [part.shown]
-            : [{ role: "demonstrative", text: part.demonstrative }],
-    ),
-  );
-  // Eleven v4 takes [pause] inside a line; at its start or end it makes next to no silence.
-  const said = parts
-    .map((part) =>
-      typeof part === "string"
-        ? part
-        : "tag" in part
-          ? `[${part.tag}] `
-          : "shown" in part
-            ? part.said
-            : part.demonstrative,
-    )
-    .join("");
-
-  return {
-    id: `${PREFIX}${id}`,
-    speaker,
-    slovak: marked.text,
-    marks: marked.marks,
-    english,
-    ...(said !== marked.text ? { audio: { transcript: said } } : {}),
-    ...(props ? { props } : {}),
-    ...(to ? { to } : {}),
-  };
-}
-
-/** The answer to a question put to the listener: the player waits before it, since a pause at the start of a clip makes next to none. */
-function afterThinking(turn: DialogueTurn): DialogueTurn {
-  return { ...turn, wait: THINK_MS };
-}
-
-/** Anna only guesses: the thing is still in Marek's bag, so none of her `sentences` brings it out. */
-function guess(sentences: number): null[] {
-  return Array.from({ length: sentences }, () => null);
+/** A demonstrative, the episode's topic, lit in the transcript. */
+function mark(text: string): Exclude<MarkedPart, string> {
+  return { role: "demonstrative", text };
 }
 
 const intro: ListeningChapter = {
@@ -88,34 +18,26 @@ const intro: ListeningChapter = {
     line(
       "anna-this-is-podcast",
       "Anna",
-      ["Ahojte! ", { demonstrative: "Toto" }, " je podcast Slovak Wiki. Ja som Anna."],
+      ["Ahojte! ", mark("Toto"), " je podcast Slovak Wiki. Ja som Anna."],
       "Hi! This is the Slovak Wiki podcast. I'm Anna.",
     ),
     line("marek-i-am-marek", "Marek", ["A ja som Marek. Ahojte!"], "And I'm Marek. Hi!"),
     line(
       "anna-small-topic",
       "Anna",
-      [
-        "Dnes máme malú tému: ",
-        { demonstrative: "ten" },
-        ", ",
-        { demonstrative: "tá" },
-        ", ",
-        { demonstrative: "to" },
-        ".",
-      ],
+      ["Dnes máme malú tému: ", mark("ten"), ", ", mark("tá"), ", ", mark("to"), "."],
       "Today we have a small topic: ten, tá, to.",
     ),
     line(
       "marek-not-small",
       "Marek",
-      ["Malú? ", PAUSE, { demonstrative: "To" }, " nie je malá téma, Anna!"],
+      ["Malú? ", PAUSE, mark("To"), " nie je malá téma, Anna!"],
       "Small? That's not a small topic, Anna!",
     ),
     line(
       "anna-lets-go",
       "Anna",
-      ["Dobre, dobre. Ideme na ", { demonstrative: "to" }, "!"],
+      ["Dobre, dobre. Ideme na ", mark("to"), "!"],
       "OK, OK. Let's get to it!",
     ),
   ],
@@ -162,35 +84,26 @@ const bag: ListeningChapter = {
     line(
       "anna-what-is-it",
       "Anna",
-      ["Dobre. Čo je ", { demonstrative: "to" }, "?"],
+      ["Dobre. Čo je ", mark("to"), "?"],
       "OK. What is it?",
     ),
     line(
       "marek-small-opens-doors",
       "Marek",
-      [
-        "Prvá vec. ",
-        PAUSE,
-        "Je ",
-        { demonstrative: "to" },
-        " malé",
-        STOP,
-        PAUSE,
-        "a otvára dvere.",
-      ],
+      ["Prvá vec. ", PAUSE, "Je ", mark("to"), " malé", STOP, PAUSE, "a otvára dvere."],
       "First thing. It's small… and it opens doors.",
     ),
     line(
       "anna-its-a-key",
       "Anna",
-      ["Hm… ", PAUSE, { demonstrative: "to" }, " je kľúč!"],
+      ["Hm… ", PAUSE, mark("to"), " je kľúč!"],
       "Hmm… it's a key!",
-      guess(2),
+      { props: guess(2) },
     ),
     line(
       "marek-car-key",
       "Marek",
-      ["Správne! ", { demonstrative: "Ten" }, " kľúč je od auta."],
+      ["Správne! ", mark("Ten"), " kľúč je od auta."],
       "Right! That key is for the car.",
     ),
     line(
@@ -204,24 +117,24 @@ const bag: ListeningChapter = {
       "Marek",
       [
         "Je ",
-        { demonstrative: "to" },
+        mark("to"),
         " žlté",
         STOP,
         PAUSE,
         "je ",
-        { demonstrative: "to" },
+        mark("to"),
         " ťažké",
         STOP,
         PAUSE,
         "a vnútri je papier.",
       ],
       "It's yellow… it's heavy… and there's paper inside.",
-      ["bag"],
+      { props: ["bag"] },
     ),
     line(
       "anna-is-it-a-box",
       "Anna",
-      ["Žlté a ťažké… ", PAUSE, "je ", { demonstrative: "to" }, " krabica?"],
+      ["Žlté a ťažké… ", PAUSE, "je ", mark("to"), " krabica?"],
       "Yellow and heavy… is it a box?",
     ),
     line(
@@ -229,11 +142,11 @@ const bag: ListeningChapter = {
       "Marek",
       [
         "Nie, nie je ",
-        { demonstrative: "to" },
+        mark("to"),
         " krabica. ",
         PAUSE,
         "Má ",
-        { demonstrative: "to" },
+        mark("to"),
         " veľa strán.",
       ],
       "No, it's not a box. It has a lot of pages.",
@@ -241,42 +154,28 @@ const bag: ListeningChapter = {
     line(
       "anna-is-it-a-book",
       "Anna",
-      ["Veľa strán… ", PAUSE, "je ", { demonstrative: "to" }, " kniha?"],
+      ["Veľa strán… ", PAUSE, "je ", mark("to"), " kniha?"],
       "A lot of pages… is it a book?",
-      guess(2),
+      { props: guess(2) },
     ),
     line(
       "marek-dictionary",
       "Marek",
-      ["Presne tak! ", { demonstrative: "Tá" }, " žltá kniha je slovník."],
+      ["Presne tak! ", mark("Tá"), " žltá kniha je slovník."],
       "Exactly! That yellow book is a dictionary.",
     ),
     line(
       "anna-third-thing",
       "Anna",
-      [
-        { demonstrative: "Tá" },
-        " kniha je veľká! A ",
-        { demonstrative: "tá" },
-        " tretia vec?",
-      ],
+      [mark("Tá"), " kniha je veľká! A ", mark("tá"), " tretia vec?"],
       "That book is big! And that third thing?",
     ),
     line(
       "marek-green-sweet",
       "Marek",
-      [
-        "Je ",
-        { demonstrative: "to" },
-        " zelené",
-        STOP,
-        PAUSE,
-        "a je ",
-        { demonstrative: "to" },
-        " sladké.",
-      ],
+      ["Je ", mark("to"), " zelené", STOP, PAUSE, "a je ", mark("to"), " sladké."],
       "It's green… and it's sweet.",
-      ["bag"],
+      { props: ["bag"] },
     ),
     line(
       "anna-a-pear",
@@ -287,26 +186,26 @@ const bag: ListeningChapter = {
     line(
       "marek-not-a-pear",
       "Marek",
-      ["Nie, hruška nie. ", PAUSE, "Je ", { demonstrative: "to" }, " okrúhle."],
+      ["Nie, hruška nie. ", PAUSE, "Je ", mark("to"), " okrúhle."],
       "No, not a pear. It's round.",
     ),
     line(
       "anna-apple",
       "Anna",
-      ["Okrúhle a sladké… ", PAUSE, "jablko! ", { demonstrative: "To" }, " je jablko."],
+      ["Okrúhle a sladké… ", PAUSE, "jablko! ", mark("To"), " je jablko."],
       "Round and sweet… an apple! It's an apple.",
-      guess(3),
+      { props: guess(3) },
     ),
     line(
       "marek-apple-for-you",
       "Marek",
-      ["Výborne! A ", { demonstrative: "to" }, " jablko je pre teba."],
+      ["Výborne! A ", mark("to"), " jablko je pre teba."],
       "Excellent! And that apple is for you.",
     ),
     line(
       "anna-podcast-has-food",
       "Anna",
-      ["Ďakujem! ", { demonstrative: "Tento" }, " podcast má aj jedlo."],
+      ["Ďakujem! ", mark("Tento"), " podcast má aj jedlo."],
       "Thanks! This podcast even has food.",
     ),
     line(
@@ -411,60 +310,56 @@ const market: ListeningChapter = {
     line(
       "marek-how-much-this-cheese",
       "Marek",
-      ["Syr. ", PAUSE, "Dobrý deň! Koľko stojí ", { demonstrative: "tento" }, " syr?"],
+      ["Syr. ", PAUSE, "Dobrý deň! Koľko stojí ", mark("tento"), " syr?"],
       "Cheese. Hello! How much is this cheese?",
-      undefined,
       // The one word answers Anna; the greeting and the question are for Lucia at her stall.
-      "Lucia",
+      { to: "Lucia" },
     ),
     line(
       "lucia-this-cheese-five",
       "Lucia",
-      [{ demonstrative: "Tento" }, " syr stojí päť eur."],
+      [mark("Tento"), " syr stojí päť eur."],
       "This cheese costs five euros.",
     ),
     line(
       "marek-and-that-cheese",
       "Marek",
-      ["Aha. ", PAUSE, "A ", { demonstrative: "tamten" }, " syr?"],
+      ["Aha. ", PAUSE, "A ", mark("tamten"), " syr?"],
       "I see. And that cheese over there?",
     ),
     line(
       "lucia-that-one-cheaper",
       "Lucia",
-      [{ demonstrative: "Tamten" }, " je lacnejší. Stojí tri eurá."],
+      [mark("Tamten"), " je lacnejší. Stojí tri eurá."],
       "That one over there is cheaper. It costs three euros.",
     ),
     line(
       "marek-ill-take-that-one",
       "Marek",
-      ["Dobre, ", PAUSE, "dám si ", { demonstrative: "tamten" }, "."],
+      ["Dobre, ", PAUSE, "dám si ", mark("tamten"), "."],
       "OK, I'll take that one over there.",
     ),
     line(
       "anna-want-these-strawberries",
       "Anna",
-      ["A ja chcem ", { demonstrative: "tieto" }, " jahody."],
+      ["A ja chcem ", mark("tieto"), " jahody."],
       "And I want these strawberries.",
     ),
     line(
       "lucia-strawberries-from",
       "Lucia",
-      [
-        { demonstrative: "Tieto" },
-        " jahody sú z Rakúska. ",
-        { demonstrative: "Tamtie" },
-        " sú zo Slovenska.",
-      ],
+      [mark("Tieto"), " jahody sú z Rakúska. ", mark("Tamtie"), " sú zo Slovenska."],
       "These strawberries are from Austria. Those over there are from Slovakia.",
     ),
     line(
       "anna-those-please",
       "Anna",
-      ["Tak ", { demonstrative: "tamtie" }, ", prosím."],
+      ["Tak ", mark("tamtie"), ", prosím."],
       "Those over there, then, please.",
     ),
-    line("lucia-here-you-are", "Lucia", ["Nech sa páči."], "Here you are.", ["basket"]),
+    line("lucia-here-you-are", "Lucia", ["Nech sa páči."], "Here you are.", {
+      props: ["basket"],
+    }),
     line(
       "marek-anna-always-slovak",
       "Marek",
@@ -565,95 +460,69 @@ const home: ListeningChapter = {
     line(
       "marek-where-is-key",
       "Marek",
-      ["Anna, kde je ", { demonstrative: "ten" }, " malý kľúč?"],
+      ["Anna, kde je ", mark("ten"), " malý kľúč?"],
       "Anna, where is that small key?",
-      [null],
+      { props: [null] },
     ),
     line(
       "anna-car-or-flat",
       "Anna",
-      [
-        "Ktorý? ",
-        { demonstrative: "Ten" },
-        " od auta alebo ",
-        { demonstrative: "ten" },
-        " od bytu?",
-      ],
+      ["Ktorý? ", mark("Ten"), " od auta alebo ", mark("ten"), " od bytu?"],
       "Which one? The car one or the flat one?",
     ),
-    line(
-      "marek-the-car-one",
-      "Marek",
-      [{ demonstrative: "Ten" }, " od auta."],
-      "The car one.",
-      [null],
-    ),
+    line("marek-the-car-one", "Marek", [mark("Ten"), " od auta."], "The car one.", {
+      props: [null],
+    }),
     line(
       "anna-in-that-bag",
       "Anna",
-      ["Je v ", { demonstrative: "tej" }, " taške."],
+      ["Je v ", mark("tej"), " taške."],
       "It's in that bag.",
     ),
-    line(
-      "marek-in-this-one",
-      "Marek",
-      ["V ", { demonstrative: "tejto" }, "?"],
-      "In this one?",
-    ),
+    line("marek-in-this-one", "Marek", ["V ", mark("tejto"), "?"], "In this one?"),
     line(
       "anna-in-that-one-window",
       "Anna",
-      [
-        "Nie, v ",
-        { demonstrative: "tamtej" },
-        ". Pri ",
-        { demonstrative: "tom" },
-        " okne.",
-      ],
+      ["Nie, v ", mark("tamtej"), ". Pri ", mark("tom"), " okne."],
       "No, in that one over there. By that window.",
     ),
     line(
       "marek-got-it-who-is-man",
       "Marek",
-      ["Aha, mám ho. ", PAUSE, "A kto je ", { demonstrative: "ten" }, " muž vonku?"],
+      ["Aha, mám ho. ", PAUSE, "A kto je ", mark("ten"), " muž vonku?"],
       "Got it. And who is that man outside?",
-      ["keys"],
+      { props: ["keys"] },
     ),
     line(
       "anna-neighbour-you-know-him",
       "Anna",
-      [
-        { demonstrative: "To" },
-        " je náš sused, pán Novák. ",
-        { demonstrative: "Toho" },
-        " muža poznáš.",
-      ],
+      [mark("To"), " je náš sused, pán Novák. ", mark("Toho"), " muža poznáš."],
       "That's our neighbour, Mr Novák. You know that man.",
     ),
     line(
       "marek-with-that-woman",
       "Marek",
-      ["Áno! Ide s ", { demonstrative: "tou" }, " ženou z obchodu."],
+      ["Áno! Ide s ", mark("tou"), " ženou z obchodu."],
       "Yes! He's walking with that woman from the shop.",
     ),
     line(
       "anna-his-sister",
       "Anna",
-      [{ demonstrative: "To" }, " je jeho sestra."],
+      [mark("To"), " je jeho sestra."],
       "That's his sister.",
     ),
     line(
       "marek-those-people-nice",
       "Marek",
-      [{ demonstrative: "Tí" }, " ľudia sú milí."],
+      [mark("Tí"), " ľudia sú milí."],
       "Those people are nice.",
     ),
     line(
       "anna-dont-lose-these-keys",
       "Anna",
-      ["Áno. A ", { demonstrative: "tieto" }, " kľúče už nestrácaj!"],
+      ["Áno. A ", mark("tieto"), " kľúče už nestrácaj!"],
       "Yes. And don't lose these keys again!",
-      [null, null],
+      { props: [null, null] },
     ),
     line(
       "marek-back-to-studio",
@@ -753,27 +622,21 @@ const quiz: ListeningChapter = {
     line(
       "marek-first-sentence",
       "Marek",
-      ["Dobre. Prvá veta: ", PAUSE, { demonstrative: "Tá" }, " dievča je moja sestra."],
+      ["Dobre. Prvá veta: ", PAUSE, mark("Tá"), " dievča je moja sestra."],
       "OK. First sentence: Tá dievča je moja sestra. (Wrong on purpose.)",
     ),
     afterThinking(
       line(
         "anna-dievca-neuter",
         "Anna",
-        [
-          "Nesprávne! ",
-          PAUSE,
-          "Dievča je stredný rod: ",
-          { demonstrative: "to" },
-          " dievča.",
-        ],
+        ["Nesprávne! ", PAUSE, "Dievča je stredný rod: ", mark("to"), " dievča."],
         "Wrong! Dievča is neuter: to dievča.",
       ),
     ),
     line(
       "marek-second-sentence",
       "Marek",
-      ["Druhá veta: ", PAUSE, { demonstrative: "Tie" }, " deti sa hrajú vonku."],
+      ["Druhá veta: ", PAUSE, mark("Tie"), " deti sa hrajú vonku."],
       "Second sentence: Those children are playing outside.",
     ),
     afterThinking(
@@ -783,13 +646,13 @@ const quiz: ListeningChapter = {
         [
           "Správne! ",
           PAUSE,
-          { demonstrative: "Tie" },
+          mark("Tie"),
           " deti, ",
-          { demonstrative: "tie" },
+          mark("tie"),
           " ženy. ",
-          { demonstrative: "Tí" },
+          mark("Tí"),
           " muži, ",
-          { demonstrative: "tí" },
+          mark("tí"),
           " chlapci.",
         ],
         "Right! Tie deti, tie ženy. Tí muži, tí chlapci.",
@@ -798,36 +661,21 @@ const quiz: ListeningChapter = {
     line(
       "marek-third-sentence",
       "Marek",
-      ["Tretia veta: ", PAUSE, "Poznáš ", { demonstrative: "tohoto" }, " muža?"],
+      ["Tretia veta: ", PAUSE, "Poznáš ", mark("tohoto"), " muža?"],
       "Third sentence: Poznáš tohoto muža? (The Czech form, on purpose.)",
     ),
     afterThinking(
       line(
         "anna-tohto-not-tohoto",
         "Anna",
-        [
-          "Pozor! ",
-          PAUSE,
-          "Tohoto je po česky. Po slovensky je ",
-          { demonstrative: "tohto" },
-          ".",
-        ],
+        ["Pozor! ", PAUSE, "Tohoto je po česky. Po slovensky je ", mark("tohto"), "."],
         "Careful! Tohoto is Czech. In Slovak it's tohto.",
       ),
     ),
     line(
       "marek-tohto-now-i-know",
       "Marek",
-      [
-        { demonstrative: "Tohto" },
-        ", ",
-        { demonstrative: "tohto" },
-        ", ",
-        { demonstrative: "tohto" },
-        ". ",
-        PAUSE,
-        "Už viem.",
-      ],
+      [mark("Tohto"), ", ", mark("tohto"), ", ", mark("tohto"), ". ", PAUSE, "Už viem."],
       "Tohto, tohto, tohto. Now I know.",
     ),
     line("anna-excellent", "Anna", ["Výborne, Marek!"], "Excellent, Marek!"),
@@ -893,7 +741,7 @@ const outro: ListeningChapter = {
     line(
       "marek-thats-all",
       "Marek",
-      [{ demonstrative: "To" }, " je všetko na dnes."],
+      [mark("To"), " je všetko na dnes."],
       "That's all for today.",
     ),
     line(
@@ -907,9 +755,9 @@ const outro: ListeningChapter = {
     line(
       "marek-where-are-those-keys",
       "Marek",
-      ["Anna? ", PAUSE, "Kde sú ", { demonstrative: "tie" }, " kľúče?"],
+      ["Anna? ", PAUSE, "Kde sú ", mark("tie"), " kľúče?"],
       "Anna? Where are those keys?",
-      [null, null],
+      { props: [null, null] },
     ),
     line("anna-marek", "Anna", [SIGH, "Marek!"], "Marek!"),
   ],

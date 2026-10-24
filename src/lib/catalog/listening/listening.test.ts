@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { spokenText } from "../audio/core";
+import { sceneAudioSrcs, sceneMouthTracks } from "../lessons/audio";
 import { grammarEntries } from "../entries";
 import { characterIdForSpeaker, listedAudioSpeakers } from "../lessons/character-ids";
 import { lessonById } from "../lessons";
@@ -48,6 +49,32 @@ describe("listening episodes", () => {
     for (const line of listeningEpisodes.flatMap(episodeLines)) {
       if (!line.audio) continue;
       expect(words(spokenText(line.audio.transcript)), line.id).toBe(words(line.slovak));
+    }
+  });
+
+  it("never directs a line slowly, or pauses at the edge of a clip", () => {
+    for (const line of listeningEpisodes.flatMap(episodeLines)) {
+      const said = line.audio?.transcript;
+      if (!said) continue;
+      // A slowed line came out as a whisper; a pause at a clip's edge makes next to none.
+      expect(said, line.id).not.toMatch(/\[slowly\]/i);
+      expect(said, line.id).not.toMatch(/^\s*\[pause\]|\[pause\]\s*$/i);
+    }
+  });
+
+  it("has a clip and a current mouth track for every line, so the stage can say it", () => {
+    for (const episode of listeningEpisodes) {
+      for (const chapter of episode.chapters) {
+        const srcs = sceneAudioSrcs(chapter.lines);
+        const tracks = sceneMouthTracks(chapter.lines);
+        for (const line of chapter.lines) {
+          expect(srcs[line.id], `${line.id}: no clip; run generate.ts`).toBeDefined();
+          expect(
+            tracks[line.id]?.v,
+            `${line.id}: no vowel track; run mouth.ts`,
+          ).toBeDefined();
+        }
+      }
     }
   });
 

@@ -125,6 +125,13 @@ export function weakLastLogprob(
   return last < mid - gap;
 }
 
+/** The words heard are the words written, whatever the punctuation and case. */
+export function heardAsWritten(expected: string, heard: string): boolean {
+  const words = (text: string) =>
+    (text.toLocaleLowerCase("sk").match(/[\p{L}\p{N}]+/gu) ?? []).join(" ");
+  return words(expected) === words(heard);
+}
+
 export async function judgeClip(
   clipText: string,
   audioPath: string,
@@ -164,8 +171,11 @@ export async function judgeClip(
     if (scribe && prefersNearMissEnding(expected, scribe.text)) {
       reasons.push("scribe:near-miss-ending");
     }
+    // A last word Scribe is unsure of is a wrong word only when it heard the
+    // line differently; heard as written, it failed correct takes over and over.
     if (
       scribe &&
+      !heardAsWritten(expected, scribe.text) &&
       weakLastLogprob(scribe, {
         absoluteFloor: options.minLastLogprob ?? -0.5,
         gap: options.logprobGap ?? 0.003,

@@ -106,6 +106,7 @@ Needs `ELEVENLABS_API_KEY` in `.env`. Then `bun scripts/audio/upload.ts` before 
 | `prune-orphans.ts` | `bun scripts/audio/prune-orphans.ts` | Dry-run orphan report (old hashes); `--delete` local+manifest; `--delete --r2` also DELETE on R2, except R2 orphans uploaded in the last 30 days, which an open branch may still need (`--keep-days N`; `--keep-days 0` deletes them too). A branch open longer than that can still lose clips: raise the window or check open branches first |
 | `status.ts` | `bun scripts/audio/status.ts` | Targets vs disk vs manifest |
 | `mouth.ts` | `bun scripts/audio/mouth.ts` | Lesson clip loudness + aligned vowels → `content/audio/mouth.json` for stick-figure lip sync. `generate.ts` already runs it for lesson clips it writes; run it to backfill or after pulling new takes. Reads local MP3s, else `PUBLIC_AUDIO_BASE_URL`; needs ffmpeg; `--force` re-measures all |
+| `lipsync.ts` | `bun scripts/audio/lipsync.ts -- --only "Je to"` | How well the mouth follows the voice: syllables placed by `alignSyllables` against Scribe's word times, per clip and in all. `--tags` scores clips with a direction in their text. Scribe's word times are cached in `tmp/scribe-words.json`. Under 80% means a mouth on the wrong words |
 | `verify.ts` | `bun scripts/audio/verify.ts` | Dual STT audit → `tmp/audio-verify-report.json` |
 | `judge.ts` | (lib) | Dual STT + near-miss ending + logprob gap |
 | `stt.ts` | (lib) | Scribe + Whisper adapters |
