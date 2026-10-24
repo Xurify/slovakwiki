@@ -24,6 +24,11 @@ describe("parseScore", () => {
         lexis: 35.6,
         score: 33,
         feedback: "Good.",
+        usage: {
+          aspect: { right: 3, wrong: 1 },
+          wordOrder: { right: 0, wrong: 0 },
+          vocabulary: { right: -2, wrong: 500 },
+        },
       }),
       false,
     );
@@ -34,6 +39,10 @@ describe("parseScore", () => {
       lexis: 36,
     });
     expect(score.level).toBe("B1");
+    expect(score.usage).toEqual({
+      aspect: { right: 3, wrong: 1 },
+      vocabulary: { right: 0, wrong: 200 },
+    });
   });
 
   it("rejects a reply without numbers", () => {

@@ -41,7 +41,7 @@
   ];
 
   const HEADINGS: Record<Phase, string> = {
-    sentences: "Select the best word for each gap",
+    sentences: "Select the best option for each gap",
     passage: "Select the sentence that best fills the gap",
     "highlight-0": "Highlight the answer in the text",
     "highlight-1": "Highlight the answer in the text",
@@ -86,16 +86,24 @@
     const id = set.id;
     const difficulty = set.difficulty;
     const responses: ItemResponse[] = [
-      ...blankParts.map((blank) =>
-        taskResponse(
-          `${id}#${blank.id}`,
-          "irCompleteSentences",
-          "reading",
-          difficulty,
-          gradeChoice(blank.answer, blanks[blank.id] ?? null),
-          MULTIPLE_CHOICE_GUESS,
-        ),
-      ),
+      ...blankParts.map((blank) => {
+        const picked = blanks[blank.id] ?? null;
+        return {
+          ...taskResponse(
+            `${id}#${blank.id}`,
+            "irCompleteSentences",
+            "reading",
+            difficulty,
+            gradeChoice(blank.answer, picked),
+            1 / blank.options.length,
+          ),
+          area: blank.area,
+          choice: {
+            expected: blank.options[blank.answer] ?? "",
+            given: picked === null ? "" : (blank.options[picked] ?? ""),
+          },
+        };
+      }),
       taskResponse(
         `${id}#passage`,
         "irCompletePassage",

@@ -207,7 +207,7 @@
                     >{example.expected}</span
                   >
                   <span class="text-slate-500">
-                    you wrote
+                    {example.picked ? "you picked" : "you wrote"}
                     <span class="font-serif text-rose-700 line-through" lang="sk"
                       >{example.given || "nothing"}</span
                     >
@@ -217,6 +217,9 @@
                     {#if example.href}
                       <TextLink class="ml-auto" href={example.href} lang="sk"
                         >{example.note}</TextLink
+                      >
+                    {:else if example.picked}
+                      <span class="basis-full text-xs text-slate-500">{example.note}</span
                       >
                     {:else}
                       <span class="ml-auto text-xs text-slate-500" lang="sk"

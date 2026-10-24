@@ -1,6 +1,6 @@
 import { areaForTag } from "./areas";
 import { estimateAbility } from "./estimate";
-import { GUESS_FOR_FORMAT, SKILL_FOR_FORMAT, pickNearest } from "./plan";
+import { GUESS_FOR_FORMAT, SKILL_FOR_FORMAT, itemsOfFormat, pickNearest } from "./plan";
 import {
   pickAdaptiveItem,
   pickClosestSet,
@@ -8,10 +8,12 @@ import {
   pickListenLength,
   pickListenSelect,
   pickReadSelect,
+  pickSentences,
 } from "./select";
 import type {
   AdaptiveFormat,
   AdaptiveItem,
+  ChooseVerbItem,
   FillBlankItem,
   InteractiveListeningSet,
   InteractiveReadingSet,
@@ -21,6 +23,7 @@ import type {
   ListenSelectItem,
   ListenTypeItem,
   PhotoPrompt,
+  PlaceCliticItem,
   PlanStep,
   PlannedTask,
   ReadAloudItem,
@@ -39,6 +42,8 @@ export type StepContent =
   | { kind: "fillBlank"; item: FillBlankItem }
   | { kind: "readComplete"; item: ReadCompleteItem }
   | { kind: "listenType"; item: ListenTypeItem }
+  | { kind: "chooseVerb"; items: ChooseVerbItem[] }
+  | { kind: "placeClitic"; items: PlaceCliticItem[] }
   | { kind: "interactiveReading"; set: InteractiveReadingSet }
   | { kind: "interactiveListening"; set: InteractiveListeningSet }
   | { kind: "writePhoto"; photo: PhotoPrompt }
@@ -132,6 +137,30 @@ export function resolveStep(
       if (items.length < 2) return null;
       for (const item of items) picker.used.add(item.id);
       return { kind: "listenLength", items };
+    }
+    case "chooseVerb": {
+      const items = pickSentences(
+        itemsOfFormat(bank.adaptive, "chooseVerb"),
+        target,
+        picker.used,
+        picker.random,
+        picker.seen,
+      );
+      if (!items.length) return null;
+      for (const item of items) picker.used.add(item.id);
+      return { kind: "chooseVerb", items };
+    }
+    case "placeClitic": {
+      const items = pickSentences(
+        itemsOfFormat(bank.adaptive, "placeClitic"),
+        target,
+        picker.used,
+        picker.random,
+        picker.seen,
+      );
+      if (!items.length) return null;
+      for (const item of items) picker.used.add(item.id);
+      return { kind: "placeClitic", items };
     }
     case "fillBlank": {
       const item = take(
@@ -241,6 +270,10 @@ function evidence(item: AdaptiveItem, typed?: TypedAnswer): Partial<ItemResponse
       };
     case "listenLength":
       return { area: "vowelLength" };
+    case "chooseVerb":
+      return { area: "aspect" };
+    case "placeClitic":
+      return { area: "wordOrder" };
     case "listenType":
       return { ...typed, ...(item.wordTags ? { wordTags: item.wordTags } : {}) };
     default:

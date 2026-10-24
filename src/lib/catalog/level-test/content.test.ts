@@ -9,9 +9,11 @@ import {
 import { foldDiacritics } from "$lib/level-test/grade";
 import type { CTestPart } from "$lib/level-test/types";
 
+import { aspectItems } from "./aspect";
 import { listeningSets } from "./listening";
 import { ctestPassages } from "./passages";
 import { readingSets } from "./reading";
+import { cliticItems } from "./word-order";
 
 describe("interactive reading content", () => {
   for (const set of readingSets) {
@@ -28,6 +30,14 @@ describe("interactive reading content", () => {
       }
     });
 
+    it(`${set.id}: has an aspect gap and a word-order gap`, () => {
+      const areas = set.opening.flatMap((part) =>
+        typeof part === "string" ? [] : [part.area],
+      );
+      expect(areas).toContain("aspect");
+      expect(areas).toContain("wordOrder");
+    });
+
     it(`${set.id}: highlight answers appear in the passage`, () => {
       const passage = fullReadingPassage({ ...set, difficulty: 0 });
       const tokens = tokenizePassage(passage);
@@ -39,6 +49,39 @@ describe("interactive reading content", () => {
       }
     });
   }
+});
+
+describe("Choose the Verb content", () => {
+  it("offers two different forms and keys one", () => {
+    for (const item of aspectItems) {
+      expect(item.options[0], item.id).not.toBe(item.options[1]);
+      expect([0, 1], item.id).toContain(item.answer);
+    }
+  });
+
+  it("never repeats an id or a verb pair", () => {
+    expect(new Set(aspectItems.map((item) => item.id)).size).toBe(aspectItems.length);
+    const pairs = aspectItems.map((item) => item.options.join("/"));
+    expect(new Set(pairs).size).toBe(pairs.length);
+  });
+});
+
+describe("Where Does It Go content", () => {
+  it("keys a gap inside the sentence", () => {
+    for (const item of cliticItems) {
+      expect(item.words.length, item.id).toBeGreaterThan(1);
+      expect(item.answer, item.id).toBeGreaterThan(0);
+      expect(item.answer, item.id).toBeLessThan(item.words.length + 1);
+      expect(
+        item.words.every((word) => word && !/\s/u.test(word)),
+        item.id,
+      ).toBe(true);
+    }
+  });
+
+  it("never repeats an id", () => {
+    expect(new Set(cliticItems.map((item) => item.id)).size).toBe(cliticItems.length);
+  });
 });
 
 describe("interactive listening content", () => {

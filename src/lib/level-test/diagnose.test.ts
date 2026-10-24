@@ -8,7 +8,10 @@ const QUICK: RunContext = {
   stepKinds: new Set([
     "readSelect",
     "listenSelect",
+    "listenLength",
     "fillBlank",
+    "chooseVerb",
+    "placeClitic",
     "readComplete",
     "listenType",
   ]),
@@ -113,7 +116,10 @@ describe("diagnose", () => {
       "spelling",
       "pronunciation",
     ]);
-    expect(statusOf(result, "aspect")).toEqual({ kind: "untested" });
+    expect(statusOf(result, "aspect")).toEqual({
+      kind: "skipped",
+      reason: "No answers this time.",
+    });
     expect(statusOf(result, "intelligibility")).toEqual({
       kind: "skipped",
       reason: "Not part of the quick test.",
@@ -226,6 +232,74 @@ describe("diagnose", () => {
       { text: "pes", english: "dog", href: "/dictionary/pes" },
     ]);
     expect(result.fakeWordsAccepted).toBe(1);
+  });
+
+  it("measures aspect from Choose the Verb and shows the picked verb", () => {
+    const responses: ItemResponse[] = [0, 1, 2].map((n) => ({
+      itemId: `cv-${n}`,
+      kind: "chooseVerb",
+      skill: "reading",
+      difficulty: 30,
+      score: 0,
+      guess: 0.5,
+      adaptive: true,
+      area: "aspect",
+      choice: {
+        expected: `Včera som celý deň písal list ${n}.`,
+        given: "napísal",
+        why: "Celý deň says how long it went on, so the imperfective.",
+      },
+    }));
+    const result = diagnose(responses, [], 40, QUICK);
+    expect(statusOf(result, "aspect")?.kind).toBe("measured");
+    expect(statusOf(result, "spelling")?.kind).not.toBe("measured");
+    expect(result.gaps[0]?.examples[0]).toMatchObject({
+      given: "napísal",
+      picked: true,
+      note: "Celý deň says how long it went on, so the imperfective.",
+    });
+  });
+
+  it("counts each reading blank for the part of Slovak it tests", () => {
+    const responses: ItemResponse[] = [0, 1, 2].map((n) => ({
+      itemId: `set#b${n}`,
+      kind: "irCompleteSentences",
+      skill: "reading",
+      difficulty: 40,
+      score: 1,
+      guess: 0.5,
+      adaptive: false,
+      area: "wordOrder",
+    }));
+    expect(percent(diagnose(responses, [], 40, QUICK), "wordOrder")).toBe(100);
+  });
+
+  it("counts what the scorer saw used in writing, one answer per text", () => {
+    const record = (id: string, right: number): ProductionRecord => ({
+      id,
+      kind: "writingSample",
+      skill: "writing",
+      prompt: "",
+      response: "",
+      status: "scored",
+      result: {
+        score: 40,
+        level: "B1",
+        criteria: { content: 40, coherence: 40, grammar: 40, lexis: 40 },
+        feedback: "",
+        usage: { aspect: { right, wrong: 4 - right }, wordOrder: { right: 2, wrong: 0 } },
+      },
+    });
+    const result = diagnose(
+      [],
+      [record("a", 1), record("b", 2), record("c", 3)],
+      40,
+      QUICK,
+    );
+    const aspect = statusOf(result, "aspect");
+    expect(aspect?.kind === "measured" && aspect.summary.total).toBe(3);
+    expect(percent(result, "aspect")).toBe(50);
+    expect(percent(result, "wordOrder")).toBe(100);
   });
 
   it("turns repeated writing slips into a gap with the right page", () => {

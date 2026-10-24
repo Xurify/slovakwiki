@@ -116,6 +116,28 @@ export function pickListenLength(
   return shuffle(picked, random);
 }
 
+/** Sentences on one Choose the Verb or Where Does It Go screen. */
+export const SENTENCES_PER_SCREEN = 3;
+
+/** A few sentences near the target, for the formats that show several per screen. */
+export function pickSentences<T extends { id: string; difficulty: number }>(
+  pool: readonly T[],
+  target: number,
+  used: ReadonlySet<string>,
+  random: () => number,
+  seen?: ReadonlySet<string>,
+): T[] {
+  const taken = new Set(used);
+  const picked: T[] = [];
+  for (let index = 0; index < SENTENCES_PER_SCREEN; index++) {
+    const item = pickNearest(pool, target, taken, random, 6, seen);
+    if (!item) break;
+    taken.add(item.id);
+    picked.push(item);
+  }
+  return picked;
+}
+
 export function pickAdaptiveItem(
   items: readonly AdaptiveItem[],
   format: Exclude<AdaptiveFormat, "readSelect" | "listenSelect">,

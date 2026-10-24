@@ -28,6 +28,8 @@ describe("buildPlan", () => {
     const plan = buildPlan({ mode: "quick", capabilities: allOn, speaking: true });
     expect(plan.every((step) => step.section === "adaptive")).toBe(true);
     expect(plan.filter((step) => step.kind === "readSelect")).toHaveLength(12);
+    expect(plan.filter((step) => step.kind === "chooseVerb")).toHaveLength(2);
+    expect(plan.filter((step) => step.kind === "placeClitic")).toHaveLength(2);
   });
 
   it("matches the DET's per-test counts in the full test", () => {
@@ -36,6 +38,8 @@ describe("buildPlan", () => {
     expect(count("readSelect")).toBe(18);
     expect(count("fillBlank")).toBe(9);
     expect(count("listenLength")).toBe(3);
+    expect(count("chooseVerb")).toBe(3);
+    expect(count("placeClitic")).toBe(3);
     expect(count("listenType")).toBe(6);
     expect(count("readComplete")).toBe(3);
     expect(count("writePhoto")).toBe(3);

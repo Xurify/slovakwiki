@@ -14,8 +14,10 @@ import type {
  * One pass through the adaptive formats. Counts follow the DET's per-test
  * ranges (Read and Select 15–18, Fill in the Blanks 6–9, Read and Complete 3–6,
  * Listen and Type 6–9) spread over three rounds; Listen and Select is the audio
- * yes/no format from the original DET paper. Short or Long is this test's own:
- * Slovak vowel length changes meaning (mala, malá), which English has no task for.
+ * yes/no format from the original DET paper. Three formats are this test's own,
+ * for what Slovak has and English does not: vowel length that changes meaning
+ * (Short or Long: mala, malá), verbal aspect (Choose the Verb: písal, napísal) and
+ * clitics fixed in second position (Where Does It Go: Včera som sa…).
  */
 const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
   [
@@ -24,6 +26,8 @@ const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
     "fillBlank",
     "fillBlank",
     "fillBlank",
+    "chooseVerb",
+    "placeClitic",
     "listenSelect",
     "listenType",
     "listenType",
@@ -35,6 +39,8 @@ const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
     "fillBlank",
     "fillBlank",
     "fillBlank",
+    "chooseVerb",
+    "placeClitic",
     "listenType",
     "listenType",
     "readComplete",
@@ -45,6 +51,8 @@ const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
     "fillBlank",
     "fillBlank",
     "fillBlank",
+    "chooseVerb",
+    "placeClitic",
     "listenSelect",
     "listenType",
     "listenType",
@@ -67,13 +75,21 @@ export const SKILL_FOR_FORMAT: Record<AdaptiveFormat, Skill> = {
   listenSelect: "listening",
   listenLength: "listening",
   listenType: "listening",
+  chooseVerb: "reading",
+  placeClitic: "reading",
 };
 
-/** Two-way formats: a blind guess is right half the time. */
+/**
+ * Chance of a blind guess being right. Where Does It Go offers a gap between
+ * every word, but the ends and the gap after the verb are rarely tempting, so
+ * a guess lands about one time in four.
+ */
 export const GUESS_FOR_FORMAT: Partial<Record<AdaptiveFormat, number>> = {
   readSelect: 0.5,
   listenSelect: 0.5,
   listenLength: 0.5,
+  chooseVerb: 0.5,
+  placeClitic: 0.25,
 };
 
 export const SECTION_LABEL: Record<TestSection, string> = {
@@ -96,6 +112,8 @@ export const TIME_LIMIT_SECONDS: Partial<Record<StepKind, number>> = {
   fillBlank: 30,
   readComplete: 240,
   listenType: 90,
+  chooseVerb: 45,
+  placeClitic: 60,
   interactiveReading: 420,
   interactiveListening: 390,
   writePhoto: 60,

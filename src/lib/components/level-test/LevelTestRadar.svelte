@@ -37,19 +37,14 @@
     ),
   );
 
-  const complete = $derived(vertices.every((vertex) => vertex !== null));
-
-  /** Lines only between neighbouring axes that were both measured: no made-up values. */
-  const segments = $derived(
-    vertices.flatMap((vertex, index) => {
-      const next = vertices[(index + 1) % vertices.length];
-      return vertex && next && axes.length > 2 ? [{ from: vertex, to: next }] : [];
-    }),
-  );
-
+  /**
+   * The shape joins the measured axes in order and steps over an unmeasured one,
+   * whose spoke is dashed and label grey, so the gap reads as missing data.
+   */
   const outline = $derived(
     vertices.flatMap((vertex) => (vertex ? [`${vertex.x},${vertex.y}`] : [])).join(" "),
   );
+  const measuredCount = $derived(vertices.filter((vertex) => vertex !== null).length);
 
   const rings = CEFR_LEVELS.filter((level) => CEFR_ANCHOR[level] > 0);
 
@@ -85,22 +80,18 @@
           r={(CEFR_ANCHOR[level] / 100) * RADIUS}
           stroke-width="1"
         />
-        <text
-          class="fill-slate-500 text-[11px]"
-          x={MID + 4}
-          y={MID - (CEFR_ANCHOR[level] / 100) * RADIUS - 3}>{level}</text
-        >
       {/each}
 
       {#each angles as angle, index (index)}
         {@const end = point(angle, 100)}
         <line
-          class="stroke-slate-200"
+          class={axes[index]?.summary ? "stroke-slate-200" : "stroke-slate-300"}
           x1={MID}
           y1={MID}
           x2={end.x}
           y2={end.y}
           stroke-width="1"
+          stroke-dasharray={axes[index]?.summary ? undefined : "3 4"}
         />
       {/each}
 
@@ -112,20 +103,23 @@
         stroke-width="1.5"
       />
 
-      {#if complete}
-        <polygon class="fill-blue-600/15 stroke-none" points={outline} />
+      {#if measuredCount >= 3}
+        <polygon
+          class="fill-blue-600/15 stroke-blue-600"
+          points={outline}
+          stroke-width="2"
+          stroke-linejoin="round"
+        />
       {/if}
 
-      {#each segments as segment, index (index)}
-        <line
-          class="stroke-blue-600"
-          x1={segment.from.x}
-          y1={segment.from.y}
-          x2={segment.to.x}
-          y2={segment.to.y}
-          stroke-width="2"
-          stroke-linecap="round"
-        />
+      {#each rings as level (level)}
+        <text
+          class="fill-slate-500 stroke-surface text-[11px]"
+          x={MID + 4}
+          y={MID - (CEFR_ANCHOR[level] / 100) * RADIUS - 3}
+          stroke-width="3"
+          paint-order="stroke">{level}</text
+        >
       {/each}
 
       {#each axes as axis, index (axis.id)}
@@ -195,8 +189,8 @@
   </div>
 
   <figcaption class="m-0 text-center text-xs text-pretty text-slate-600">
-    The blue line is your level in each part; the grey circle is your overall level,
-    {center}. Rings mark the CEFR levels. Names in grey are parts this test could not
-    measure.
+    The blue shape is your level in each part; the grey circle is your overall level,
+    {center}. Rings mark the CEFR levels. A dashed line with its name in grey is a part
+    this run could not measure.
   </figcaption>
 </figure>

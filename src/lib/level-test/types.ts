@@ -44,7 +44,9 @@ export type AdaptiveFormat =
   | "listenLength"
   | "fillBlank"
   | "readComplete"
-  | "listenType";
+  | "listenType"
+  | "chooseVerb"
+  | "placeClitic";
 
 interface AdaptiveItemBase {
   id: string;
@@ -115,13 +117,42 @@ export interface ListenTypeItem extends AdaptiveItemBase {
   wordTags?: WordTag[];
 }
 
+/** Choose the Verb: a sentence with one verb gap and the aspect pair for it. */
+export interface ChooseVerbItem extends AdaptiveItemBase {
+  format: "chooseVerb";
+  before: string;
+  after: string;
+  /** Imperfective first, then perfective: the same person, number and tense. */
+  options: [string, string];
+  answer: 0 | 1;
+  english: string;
+  /** The cue in the sentence that decides the aspect, in one English sentence. */
+  why: string;
+}
+
+/** Where Does It Go: the learner puts a group of clitics into one gap between words. */
+export interface PlaceCliticItem extends AdaptiveItemBase {
+  format: "placeClitic";
+  /** The sentence without the clitics; punctuation stays on its word. */
+  words: string[];
+  /** One or more clitics in their fixed order: "sa", "som sa", "by sme mu ho". */
+  clitic: string;
+  /** The gap the group belongs in: 0 is before the first word. */
+  answer: number;
+  english: string;
+  /** Why that gap, in one English sentence. */
+  why: string;
+}
+
 export type AdaptiveItem =
   | ReadSelectItem
   | ListenSelectItem
   | ListenLengthItem
   | FillBlankItem
   | ReadCompleteItem
-  | ListenTypeItem;
+  | ListenTypeItem
+  | ChooseVerbItem
+  | PlaceCliticItem;
 
 export interface ChoiceQuestion {
   options: string[];
@@ -130,6 +161,8 @@ export interface ChoiceQuestion {
 
 export interface ReadingBlank extends ChoiceQuestion {
   id: string;
+  /** The part of Slovak the options differ in. */
+  area: StudyArea;
 }
 
 /** Text runs and drop-down blanks for "Complete the sentences". */
@@ -296,6 +329,11 @@ export interface ItemResponse {
   wordTags?: WordTag[];
   /** Read and Select / Listen and Select: the word, and whether it was real. */
   word?: { text: string; real: boolean; slug?: string; english?: string };
+  /**
+   * A picked answer, for the study examples. Kept apart from `expected` and
+   * `given`, which are typed and so also count as spelling.
+   */
+  choice?: { expected: string; given: string; why?: string };
 }
 
 export type ProductionKind =
@@ -335,12 +373,19 @@ export interface AiIssue {
   correct: string;
 }
 
+/** How often a point of grammar came up in the learner's own words, and how often it was right. */
+export interface AiUsage {
+  right: number;
+  wrong: number;
+}
+
 export interface AiScore {
   score: number;
   level: CefrLevel;
   criteria: AiCriterionScores;
   feedback: string;
   issues?: AiIssue[];
+  usage?: Partial<Record<AiIssueTopic, AiUsage>>;
 }
 
 export interface ProductionRecord {

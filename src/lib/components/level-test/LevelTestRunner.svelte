@@ -29,12 +29,14 @@
   import { closeMicrophone, openMicrophone } from "./recorder";
   import { readSeenItems, rememberSeenItems } from "./storage";
   import type { ProductionDraft, StepResult } from "./steps";
+  import ChooseVerbTask from "./tasks/ChooseVerbTask.svelte";
   import FillBlankTask from "./tasks/FillBlankTask.svelte";
   import InteractiveListeningTask from "./tasks/InteractiveListeningTask.svelte";
   import InteractiveReadingTask from "./tasks/InteractiveReadingTask.svelte";
   import ListenLengthTask from "./tasks/ListenLengthTask.svelte";
   import ListenSelectTask from "./tasks/ListenSelectTask.svelte";
   import ListenTypeTask from "./tasks/ListenTypeTask.svelte";
+  import PlaceCliticTask from "./tasks/PlaceCliticTask.svelte";
   import PlannedTask from "./tasks/PlannedTask.svelte";
   import ReadCompleteTask from "./tasks/ReadCompleteTask.svelte";
   import ReadSelectTask from "./tasks/ReadSelectTask.svelte";
@@ -315,6 +317,10 @@
           <ListenLengthTask items={content.items} {seconds} ondone={stepDone} />
         {:else if content.kind === "fillBlank"}
           <FillBlankTask item={content.item} {seconds} ondone={stepDone} />
+        {:else if content.kind === "chooseVerb"}
+          <ChooseVerbTask items={content.items} {seconds} ondone={stepDone} />
+        {:else if content.kind === "placeClitic"}
+          <PlaceCliticTask items={content.items} {seconds} ondone={stepDone} />
         {:else if content.kind === "readComplete"}
           <ReadCompleteTask item={content.item} {seconds} ondone={stepDone} />
         {:else if content.kind === "listenType"}

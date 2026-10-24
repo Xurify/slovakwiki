@@ -137,18 +137,67 @@ export const STUDY_AREA_INFO: Record<
   },
 };
 
+/**
+ * Tasks whose answers the AI scorer reads for each point of grammar it sees
+ * used; Interactive Listening ends with a written summary.
+ */
+const WRITTEN: readonly StepKind[] = [
+  "interactiveListening",
+  "writePhoto",
+  "interactiveWriting",
+  "writingSample",
+];
+const FREE_PRODUCTION: readonly StepKind[] = [
+  ...WRITTEN,
+  "speakPhoto",
+  "readThenSpeak",
+  "speakingSample",
+];
+
 /** The test tasks that give evidence for each area; empty means no task does yet. */
 export const AREA_SOURCES: Record<StudyArea, readonly StepKind[]> = {
-  vocabulary: ["readSelect", "listenSelect", "fillBlank", "readComplete", "listenType"],
-  nouns: ["fillBlank", "readComplete", "listenType"],
-  adjectives: ["fillBlank", "readComplete", "listenType"],
-  pronouns: ["fillBlank", "readComplete", "listenType"],
-  numerals: ["fillBlank", "readComplete", "listenType"],
-  conjugation: ["fillBlank", "readComplete", "listenType"],
-  aspect: [],
-  wordOrder: [],
-  functionWords: ["fillBlank", "readComplete", "listenType"],
-  spelling: ["fillBlank", "readComplete", "listenType"],
+  vocabulary: [
+    "readSelect",
+    "listenSelect",
+    "fillBlank",
+    "readComplete",
+    "listenType",
+    "interactiveReading",
+    ...FREE_PRODUCTION,
+  ],
+  nouns: [
+    "fillBlank",
+    "readComplete",
+    "listenType",
+    "interactiveReading",
+    ...FREE_PRODUCTION,
+  ],
+  adjectives: [
+    "fillBlank",
+    "readComplete",
+    "listenType",
+    "interactiveReading",
+    ...FREE_PRODUCTION,
+  ],
+  pronouns: ["fillBlank", "readComplete", "listenType", "interactiveReading"],
+  numerals: ["fillBlank", "readComplete", "listenType", "interactiveReading"],
+  conjugation: [
+    "fillBlank",
+    "readComplete",
+    "listenType",
+    "interactiveReading",
+    ...FREE_PRODUCTION,
+  ],
+  aspect: ["chooseVerb", "interactiveReading", ...FREE_PRODUCTION],
+  wordOrder: ["placeClitic", "interactiveReading", ...FREE_PRODUCTION],
+  functionWords: [
+    "fillBlank",
+    "readComplete",
+    "listenType",
+    "interactiveReading",
+    ...FREE_PRODUCTION,
+  ],
+  spelling: ["fillBlank", "readComplete", "listenType", ...WRITTEN],
   vowelLength: ["listenLength"],
   intelligibility: ["readAloud"],
 };
@@ -214,6 +263,8 @@ export interface AreaSummary {
 export interface Example {
   expected: string;
   given: string;
+  /** Chosen from options rather than typed. */
+  picked?: boolean;
   /** "dieťa", "byť", "ten (instrumental)": what the word is, when we know. */
   note?: string;
   href?: string;
@@ -585,6 +636,14 @@ function noteFor(tag: WordTag | undefined): string | undefined {
 }
 
 function exampleFor(response: ItemResponse): Example | null {
+  if (response.choice) {
+    return {
+      expected: response.choice.expected,
+      given: response.choice.given,
+      picked: true,
+      ...(response.choice.why ? { note: response.choice.why } : {}),
+    };
+  }
   if (!isTyped(response)) return null;
   const given = response.given.trim();
   return {
@@ -659,6 +718,31 @@ function wordsToLearn(responses: readonly ItemResponse[]): WordToLearn[] {
   return missed.slice(0, 10);
 }
 
+/**
+ * Writing and speaking, as the AI scorer counted them: one observation per
+ * answer and area, at the level that answer was written or spoken at, so a
+ * long essay does not outweigh the short tasks.
+ */
+function productionEvidence(
+  production: readonly ProductionRecord[],
+): Map<StudyArea, Observation[]> {
+  const byArea = new Map<StudyArea, Observation[]>();
+  for (const record of production) {
+    const result = record.status === "scored" ? record.result : undefined;
+    if (!result?.usage) continue;
+    for (const [topic, usage] of Object.entries(result.usage)) {
+      const total = (usage?.right ?? 0) + (usage?.wrong ?? 0);
+      if (!usage || total === 0) continue;
+      const area = ISSUE_AREA[topic as AiIssueTopic];
+      byArea.set(area, [
+        ...(byArea.get(area) ?? []),
+        { difficulty: result.score, score: usage.right / total },
+      ]);
+    }
+  }
+  return byArea;
+}
+
 /** Why an area with a task behind it got no evidence in this run. */
 function skippedReason(area: StudyArea, run: RunContext): string {
   const sources = AREA_SOURCES[area];
@@ -723,6 +807,7 @@ export function diagnose(
   run: RunContext,
 ): Diagnosis {
   const dictation = dictationEvidence(responses);
+  const produced = productionEvidence(production);
   const accents = accentEvidence(responses);
   const accentSlips = [...accents.slips.values()].sort((a, b) => b.count - a.count);
 
@@ -731,7 +816,8 @@ export function diagnose(
   );
 
   function observationsFor(area: StudyArea): Observation[] {
-    if (area === "spelling") return accents.observations;
+    if (area === "spelling")
+      return [...accents.observations, ...(produced.get(area) ?? [])];
     if (area === "intelligibility") {
       return responses
         .filter((response) => response.kind === "readAloud")
@@ -746,6 +832,7 @@ export function diagnose(
           guess: response.guess,
         })),
       ...(dictation.get(area)?.observations ?? []),
+      ...(produced.get(area) ?? []),
     ];
   }
 

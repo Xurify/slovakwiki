@@ -38,6 +38,19 @@ export const TASK_INFO: Record<TaskKind, TaskInfo> = {
     section: "adaptive",
     scoring: "adaptive",
   },
+  chooseVerb: {
+    label: "Choose the Verb",
+    description: "Pick the verb that fits each of three sentences: písal or napísal.",
+    section: "adaptive",
+    scoring: "adaptive",
+  },
+  placeClitic: {
+    label: "Where Does It Go?",
+    description:
+      "Put short words such as sa, som or by in the right place in a sentence.",
+    section: "adaptive",
+    scoring: "adaptive",
+  },
   readComplete: {
     label: "Read and Complete",
     description: "Restore the missing letters across a short text.",

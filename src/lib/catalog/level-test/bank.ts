@@ -9,6 +9,7 @@ import { tokenizeWords } from "$lib/level-test/grade";
 import { CEFR_ANCHOR, type CefrLevel } from "$lib/level-test/scale";
 import type {
   AdaptiveItem,
+  ChooseVerbItem,
   CTestPart,
   FillBlankItem,
   InteractiveListeningSet,
@@ -17,11 +18,13 @@ import type {
   ListenSelectItem,
   ListenTypeItem,
   PhotoPrompt,
+  PlaceCliticItem,
   ReadAloudItem,
   ReadCompleteItem,
   SpokenLine,
 } from "$lib/level-test/types";
 
+import { aspectItems } from "./aspect";
 import { LISTENING_NARRATOR, listeningSets, type AuthoredLine } from "./listening";
 import {
   interactiveWritingPrompts,
@@ -31,6 +34,7 @@ import {
   writingSamplePrompts,
 } from "./prompts";
 import { readingSets } from "./reading";
+import { cliticItems } from "./word-order";
 import { tagWord } from "./word-tags";
 
 /** Below this many voiced pseudowords Listen and Select would be all real words. */
@@ -127,6 +131,22 @@ function fillBlankItems(): FillBlankItem[] {
   }));
 }
 
+function chooseVerbItems(): ChooseVerbItem[] {
+  return aspectItems.map(({ level, ...item }) => ({
+    ...item,
+    format: "chooseVerb" as const,
+    difficulty: levelDifficulty(level),
+  }));
+}
+
+function placeCliticItems(): PlaceCliticItem[] {
+  return cliticItems.map(({ level, ...item }) => ({
+    ...item,
+    format: "placeClitic" as const,
+    difficulty: levelDifficulty(level),
+  }));
+}
+
 function readCompleteItems(): ReadCompleteItem[] {
   return items.readComplete.map((item) => ({
     ...item,
@@ -168,6 +188,8 @@ export function buildLevelTestBank(): LevelTestBank {
     ...listenSelectItems(),
     ...listenLengthItems(),
     ...fillBlankItems(),
+    ...chooseVerbItems(),
+    ...placeCliticItems(),
     ...readCompleteItems(),
     ...listenTypeItems(),
   ];
