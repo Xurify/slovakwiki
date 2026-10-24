@@ -14,12 +14,12 @@
       <h1>Dictionary</h1>
       <Lead>
         Search or browse every lemma by letter and part of speech. Featured is a short
-        curated starter set; Common is the SNK top 500 per list. For full ranked lists,
-        open Most common.
+        starter list. Common is the 500 most frequent words in each part of speech. For
+        the full ranked lists, open Most common.
       </Lead>
       <p class="mt-4 text-sm text-slate-500">
         Also browse the
-        <TextLink href="/dictionary/common/noun"
+        <TextLink href="/dictionary/common"
           >most common verbs, nouns, adjectives, and adverbs</TextLink
         >.
       </p>
@@ -33,7 +33,7 @@
       class="mt-14 flex flex-wrap gap-x-6 gap-y-2 border-t border-slate-200 pt-8 text-sm"
       aria-label="Other reference"
     >
-      <TextLink href="/dictionary/common/noun">Most common</TextLink>
+      <TextLink href="/dictionary/common">Most common</TextLink>
       <TextLink href="/grammar">Grammar</TextLink>
       <TextLink href="/pronunciation">Pronunciation</TextLink>
       <TextLink href="/glossary">Glossary</TextLink>

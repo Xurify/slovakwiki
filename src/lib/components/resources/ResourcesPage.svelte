@@ -24,7 +24,7 @@
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[1080px]">
     <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <TextLink href="/dictionary">Dictionary</TextLink>
+      <TextLink href="/">Home</TextLink>
       <span aria-hidden="true">/</span>
       <span>Resources</span>
     </nav>

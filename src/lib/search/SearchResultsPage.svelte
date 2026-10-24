@@ -2,6 +2,7 @@
   import { onDestroy, onMount } from "svelte";
 
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
+  import TextLink from "$lib/components/ui/TextLink.svelte";
   import { chipClass, panelClass } from "$lib/components/ui/system-ui";
   import { wordCategoryLabel } from "$lib/catalog/search/pronouns";
   import type { SearchTopic } from "$lib/catalog/search/topics";
@@ -535,6 +536,20 @@
         No matches for “{shownQuery}”. Try a shorter word, the English meaning, or leave
         out an ending.
       </p>
+
+      <div class="mt-3 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm">
+        <TextLink href="/dictionary">Browse the dictionary</TextLink>
+
+        {#if shownQuery.trim().length > 4}
+          <button
+            class="cursor-pointer border-0 bg-transparent p-0 font-semibold text-blue-800 hover:underline"
+            type="button"
+            onclick={() => pickRecent(shownQuery.trim().slice(0, -1))}
+          >
+            Search “{shownQuery.trim().slice(0, -1)}”
+          </button>
+        {/if}
+      </div>
     {/if}
 
     {#if wordResults.best && shows("words")}

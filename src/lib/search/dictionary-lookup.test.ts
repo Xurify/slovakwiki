@@ -90,6 +90,19 @@ describe("dictionary lookup merge", () => {
     expect(mergeSearchResults([hit], [hit])).toEqual([hit]);
   });
 
+  it("drops pagefind hits whose title does not contain the query", () => {
+    const dictionary = [result("/dictionary/kava", "káva")];
+    const pagefind = [
+      result("/dictionary/kava", "káva"),
+      result("/dictionary/alebo", "alebo"),
+      result("/dictionary/minuta", "minúta"),
+    ];
+
+    expect(mergeSearchResults(dictionary, pagefind, 8, "kava")).toEqual([
+      result("/dictionary/kava", "káva"),
+    ]);
+  });
+
   it("keeps noun and adverb sense hashes as distinct urls", () => {
     const noun = result("/dictionary/malo#noun", "málo");
     const adverb = result("/dictionary/malo#adverb", "málo");

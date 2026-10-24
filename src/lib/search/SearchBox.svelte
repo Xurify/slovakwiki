@@ -95,13 +95,13 @@
   const fieldClass = $derived(
     size === "hero"
       ? "flex min-h-[52px] items-stretch overflow-hidden rounded-[4px] border-[1.5px] border-brand bg-surface transition-[box-shadow] focus-within:shadow-[0_0_0_3px_var(--accent-soft)]"
-      : "flex min-h-10 w-full items-stretch overflow-hidden rounded-[4px] bg-(--surface) ring-1 ring-inset ring-black/10 transition-[box-shadow] focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--surface)_35%,transparent)]",
+      : "flex min-h-11 w-full items-stretch overflow-hidden rounded-[4px] bg-(--surface) ring-1 ring-inset ring-black/10 transition-[box-shadow] focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--surface)_35%,transparent)]",
   );
 
   const inputClass = $derived(
     size === "hero"
       ? "min-w-0 flex-1 border-0 bg-transparent px-3 text-[1.05rem] text-(--ink) outline-none placeholder:text-(--muted)"
-      : "min-h-10 min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.9rem] text-(--ink) outline-none placeholder:text-(--muted)",
+      : "min-h-11 min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.9rem] text-(--ink) outline-none placeholder:text-(--muted)",
   );
 
   function kindLabel(kind: string | undefined, category?: string): string {
@@ -239,7 +239,7 @@
 
       // Index still loading: show Pagefind hits now, merge dictionary hits when it lands.
       if (page.length > 0 && !isDictionaryLookupReady()) {
-        results = page;
+        results = mergeSearchResults([], page, 8, normalized);
         activeIndex = 0;
         loading = false;
         pending = false;
@@ -250,7 +250,7 @@
         return;
       }
 
-      results = mergeSearchResults(dictionaryHits, page);
+      results = mergeSearchResults(dictionaryHits, page, 8, normalized);
       activeIndex = 0;
     } catch {
       if (generation === searchGeneration) {

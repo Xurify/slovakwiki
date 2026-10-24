@@ -203,15 +203,24 @@ export async function lookupDictionary(
     }));
 }
 
+function pageTitleMatchesQuery(result: PagefindResultData, query: string): boolean {
+  const title = normalizeSearchText(result.meta.title ?? "");
+  return title.includes(normalizeSearchText(query));
+}
+
 export function mergeSearchResults(
   dictionary: PagefindResultData[],
   pagefind: PagefindResultData[],
   limit = 8,
+  query?: string,
 ): PagefindResultData[] {
   const seen = new Set<string>();
   const merged: PagefindResultData[] = [];
+  const pageHits = query
+    ? pagefind.filter((result) => pageTitleMatchesQuery(result, query))
+    : pagefind;
 
-  for (const result of [...dictionary, ...pagefind]) {
+  for (const result of [...dictionary, ...pageHits]) {
     if (seen.has(result.url)) {
       continue;
     }

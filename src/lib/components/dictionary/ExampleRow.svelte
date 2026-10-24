@@ -30,7 +30,7 @@
 >
   <span class="grid h-7 place-items-center">
     {#if audioKey}
-      <span class="inline-grid size-7 place-items-center" data-audio-mount={audioKey}
+      <span class="inline-grid size-11 place-items-center" data-audio-mount={audioKey}
       ></span>
     {:else}
       <span class="text-xs text-slate-400" aria-hidden="true">•</span>
@@ -60,6 +60,7 @@
       title="View on Tatoeba"
     >
       Tatoeba #{example.tatoebaId}
+      <span class="sr-only"> (opens in a new tab)</span>
     </a>
   {/if}
 </li>

@@ -18,6 +18,7 @@
 
   let {
     attempt = undefined,
+    attemptLabel = "You wrote",
     closeSuggestion = null,
     correction,
     english,
@@ -36,6 +37,7 @@
     otherChoices = [],
   }: {
     attempt?: string;
+    attemptLabel?: string;
     closeSuggestion?: string | null;
     correction?: string;
     english?: string;
@@ -163,7 +165,7 @@
         <div class={missCompareClass}>
           {#if attempt}
             <div class={missCompareAttemptRowClass}>
-              <p class="{feedbackSectionLabelClass} text-rose-800">You wrote</p>
+              <p class="{feedbackSectionLabelClass} text-rose-800">{attemptLabel}</p>
 
               <p class={attemptClass} lang="sk">
                 {#if attemptSegments}
