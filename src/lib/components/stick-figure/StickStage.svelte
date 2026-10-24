@@ -123,6 +123,8 @@
   let aboard = $state(false);
   let stageWidth = $state(0);
   let stageHeight = $state(0);
+  /** The page has measured the stage, so marks and walk-ons are known. */
+  const measured = $derived(stageWidth > 0 && stageHeight > 0);
 
   /** When each walk in flight ends, on the `performance.now()` clock. */
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
@@ -212,8 +214,10 @@
   });
 
   // A new scene, or an edit to the script, starts everyone where its first line finds them.
+  // Placing needs the stage's size: who walks on stands off its edge.
   $effect(() => {
     void direction;
+    if (!measured) return;
     untrack(() => {
       stop();
       actors = {};
@@ -568,29 +572,32 @@
   />
   <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
 
-  {#each direction.cast as characterId (characterId)}
-    <div
-      class="pointer-events-none absolute transition-transform ease-linear"
-      style:bottom="{FLOOR}px"
-      style:left="{frame.marks[characterId] ?? 0}px"
-      style:width="{frame.figureWidth}px"
-      style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
-      style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
-    >
-      <StickFigureActor
-        {characterId}
-        clock={storyAudioClock}
-        cue={actors[characterId]?.cue ?? 0}
-        facing={facings[characterId] ?? resting[characterId] ?? 1}
-        onbeat={onBeat}
-        plan={actors[characterId]?.plan}
-        held={heldBy(characterId)}
-        {dress}
-        talking={actors[characterId]?.talking ?? false}
-        walk={walks[characterId]}
-      />
-    </div>
-  {/each}
+  <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
+  {#if measured}
+    {#each direction.cast as characterId (characterId)}
+      <div
+        class="pointer-events-none absolute transition-transform ease-linear"
+        style:bottom="{FLOOR}px"
+        style:left="{frame.marks[characterId] ?? 0}px"
+        style:width="{frame.figureWidth}px"
+        style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
+        style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
+      >
+        <StickFigureActor
+          {characterId}
+          clock={storyAudioClock}
+          cue={actors[characterId]?.cue ?? 0}
+          facing={facings[characterId] ?? resting[characterId] ?? 1}
+          onbeat={onBeat}
+          plan={actors[characterId]?.plan}
+          held={heldBy(characterId)}
+          {dress}
+          talking={actors[characterId]?.talking ?? false}
+          walk={walks[characterId]}
+        />
+      </div>
+    {/each}
+  {/if}
 
   {#if bubble}
     {@const mark = standing(
