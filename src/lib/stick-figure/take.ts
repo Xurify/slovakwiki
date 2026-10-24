@@ -1,4 +1,4 @@
-import { MOUTH_FRAME_MS, encodeMouthTrack } from "./mouth-track";
+import { MOUTH_FRAME_MS, encodeMouthTrack, frameHop, rmsFrames } from "./mouth-track";
 
 /** A line the learner recorded, ready to play in a figure's place. */
 export interface Take {
@@ -14,17 +14,6 @@ const SILENCE_DB = 30;
 /** Kept either side of the voice, so a soft first or last consonant is not cut. */
 const PAD_MS = 120;
 
-function frameLevels(samples: Float32Array, hop: number): number[] {
-  const levels: number[] = [];
-  for (let start = 0; start < samples.length; start += hop) {
-    const end = Math.min(samples.length, start + hop);
-    let sum = 0;
-    for (let index = start; index < end; index += 1) sum += samples[index] ** 2;
-    levels.push(Math.sqrt(sum / (end - start)));
-  }
-  return levels;
-}
-
 /**
  * The recording from just before the voice starts to just after it stops,
  * or undefined when nothing was said. The silence while reaching for the
@@ -34,8 +23,8 @@ export function trimSilence(
   samples: Float32Array,
   sampleRate: number,
 ): Float32Array | undefined {
-  const hop = Math.max(1, Math.round((sampleRate * MOUTH_FRAME_MS) / 1000));
-  const levels = frameLevels(samples, hop);
+  const hop = frameHop(sampleRate, MOUTH_FRAME_MS);
+  const levels = rmsFrames(samples, sampleRate, MOUTH_FRAME_MS);
   const loudest = Math.max(0, ...levels);
   if (loudest < 1e-4) return undefined;
 

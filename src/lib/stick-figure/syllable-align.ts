@@ -1,4 +1,5 @@
 import { textTimeline } from "./line-plan";
+import { rmsFrames } from "./mouth-track";
 import type { VowelShape } from "./syllables";
 
 const FRAME_MS = 10;
@@ -17,19 +18,6 @@ export interface AlignedSyllable {
   /** Vowel centre in the clip, ms. */
   at: number;
   vowel: VowelShape;
-}
-
-function rmsFrames(samples: ArrayLike<number>, sampleRate: number): number[] {
-  const hop = Math.max(1, Math.round((sampleRate * FRAME_MS) / 1000));
-  const levels: number[] = [];
-
-  for (let start = 0; start + hop <= samples.length; start += hop) {
-    let sum = 0;
-    for (let index = start; index < start + hop; index += 1) sum += samples[index] ** 2;
-    levels.push(Math.sqrt(sum / hop));
-  }
-
-  return levels;
 }
 
 /** Scaled to the 95th-percentile frame and lightly smoothed. */
@@ -73,7 +61,7 @@ export function alignSyllables(
   sampleRate: number,
 ): AlignedSyllable[] {
   const { speechMs, syllables } = textTimeline(text);
-  const levels = rmsFrames(samples, sampleRate);
+  const levels = rmsFrames(samples, sampleRate, FRAME_MS, true);
   if (syllables.length === 0 || levels.length === 0) return [];
 
   const loud = loudness(levels);

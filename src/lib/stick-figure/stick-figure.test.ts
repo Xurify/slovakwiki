@@ -626,6 +626,26 @@ describe("pictures", () => {
     expect(before.picture).toBeUndefined();
     expect(after.picture).toBe("flag-ca");
   });
+
+  it("keeps the picture up for a moment after its line, then settles", () => {
+    const plan = planLine("Som z Kanady.");
+    const said = performFrame(plan, startPerformance(100), {
+      now: 100,
+      reducedMotion: false,
+      speechMs: (plan.pictures?.[0]?.at ?? 0) + 10,
+      talking: true,
+    });
+    const after = (now: number) =>
+      performFrame(plan, said.state, {
+        now,
+        reducedMotion: false,
+        speechMs: null,
+        talking: false,
+      });
+
+    expect(after(1000)).toMatchObject({ picture: "flag-ca", settled: false });
+    expect(after(10_000)).toMatchObject({ picture: undefined, settled: true });
+  });
 });
 
 describe("pointing", () => {
@@ -678,6 +698,33 @@ describe("pointing", () => {
       point: { reach: "near", target: { kind: "thing", id: "kolac" } },
     });
     expect(plan.beats[0].at).toBeGreaterThan(plan.sentences[0].start);
+  });
+
+  it("turns to what it points at behind it only while the point is in flight", () => {
+    const slovak = "Koľko stojí tento koláč?";
+    const plan = planLine(slovak, { points: linePoints(slovak, cafe) });
+    const behind = {
+      ...plan,
+      beats: plan.beats.map((beat) =>
+        beat.point ? { ...beat, point: { ...beat.point, facing: -1 as const } } : beat,
+      ),
+    };
+    const input = { reducedMotion: false, talking: true };
+    const pointing = performFrame(behind, startPerformance(), {
+      ...input,
+      now: 0,
+      speechMs: behind.beats[0].at,
+    });
+    const done = performFrame(behind, pointing.state, {
+      ...input,
+      now: gestureDuration("point") + 1,
+      speechMs: behind.beats[0].at,
+    });
+
+    expect(pointing.started).toBe(behind.beats[0]);
+    expect(pointing.facing).toBe(-1);
+    expect(done.started).toBeUndefined();
+    expect(done.facing).toBeUndefined();
   });
 
   it("keeps an opening nod when the point comes late enough", () => {
