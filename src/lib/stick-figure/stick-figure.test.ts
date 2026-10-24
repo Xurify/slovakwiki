@@ -9,7 +9,7 @@ import {
 } from "./gestures";
 import { gestureForLine } from "./line-gesture";
 import type { StageLine } from "./line-reading";
-import { estimateSpeechMs, planLine, reactionPlan } from "./line-plan";
+import { estimateSpeechMs, gesturePlan, planLine, reactionPlan } from "./line-plan";
 import { foldLine, wordSentences } from "./slovak-text";
 import {
   MOUTH_FRAME_MS,
@@ -322,6 +322,16 @@ describe("performFrame", () => {
     expect(listener.durationMs).toBe(plan.durationMs);
     expect(frame.state.beatIndex).toBe(0);
     expect(frame.pose.mouth).toBe(0);
+  });
+
+  it("keeps the mouth shut on a glance at what the speaker points at", () => {
+    const frames = [100, 400, 700].map(
+      (speechMs) =>
+        performFrame(gesturePlan("glance"), startPerformance(), input({ speechMs })).pose
+          .mouth,
+    );
+
+    expect(frames).toEqual([0, 0, 0]);
   });
 
   it("eases a pose still in flight back to rest before the first beat", () => {

@@ -342,13 +342,18 @@ function spaceBeats(beats: LineBeat[], speechEnd: number): LineBeat[] {
   return spaced;
 }
 
-/** One gesture from the start, for trying gestures without a line. */
+/**
+ * One gesture from the start, mouth shut: a listener glancing at what is
+ * pointed at, or a gesture tried without a line. It may run while someone
+ * else's clip plays, so it must not move its mouth to that voice.
+ */
 export function gesturePlan(gesture: StickGestureId): LinePlan {
   return {
     beats: [{ at: 0, gesture }],
     durationMs: gestureDuration(gesture),
     questions: [],
     sentences: [],
+    silent: true,
   };
 }
 
