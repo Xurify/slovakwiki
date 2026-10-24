@@ -150,7 +150,10 @@
   );
   /** The weather on the cast: none indoors or once on the tram. */
   const dress = $derived(
-    dressFor(PLACES[setting].outdoors && !aboard ? mood.weather : "clear"),
+    dressFor(
+      PLACES[setting].outdoors && !aboard ? mood.weather : "clear",
+      PLACES[setting],
+    ),
   );
   /**
    * Each umbrella in hand, up or not. It comes out the way the weather on

@@ -155,6 +155,33 @@
 
     <g transform={headTransform}>
       <StickHead {characterId} {pose} />
+
+      {#if dress.headphones}
+        <!-- Over the hair, in the head's own 64-unit space: a band and two cups at the ears. -->
+        <path
+          d="M18.2 29C17.6 17.8 23.6 11.2 32 11.2S46.4 17.8 45.8 29"
+          class="stroke-slate-500"
+          stroke-width="2.6"
+        />
+        <rect
+          x="14.6"
+          y="24.6"
+          width="6"
+          height="9.4"
+          rx="2.6"
+          class="fill-slate-700 stroke-portrait-ink"
+          stroke-width="1.3"
+        />
+        <rect
+          x="43.4"
+          y="24.6"
+          width="6"
+          height="9.4"
+          rx="2.6"
+          class="fill-slate-700 stroke-portrait-ink"
+          stroke-width="1.3"
+        />
+      {/if}
     </g>
   </g>
 

@@ -607,6 +607,18 @@ const quiz: ListeningChapter = {
   title: "Right or wrong? Marek takes the test",
   lines: [
     line(
+      "anna-back-in-studio",
+      "Anna",
+      ["Tak, sme späť v štúdiu."],
+      "So, we're back in the studio.",
+    ),
+    line(
+      "marek-key-is-here",
+      "Marek",
+      ["Áno. A ", mark("ten"), " kľúč mám tu."],
+      "Yes. And I have that key here.",
+    ),
+    line(
       "anna-right-or-wrong",
       "Anna",
       ["A teraz hra: správne alebo nesprávne? Hádajte s nami!"],
@@ -661,8 +673,8 @@ const quiz: ListeningChapter = {
       line(
         "anna-tohto-not-tohoto",
         "Anna",
-        ["Pozor! ", PAUSE, "Tohoto je po česky. Po slovensky je ", mark("tohto"), "."],
-        "Careful! Tohoto is Czech. In Slovak it's tohto.",
+        ["Nesprávne! ", PAUSE, "Tohoto je po česky. Správne je ", mark("tohto"), "."],
+        "Wrong! Tohoto is Czech. The right form is tohto.",
       ),
     ),
     line(
@@ -689,7 +701,7 @@ const quiz: ListeningChapter = {
           id: "man",
           label: "Poznáš tohoto muža?",
           whyWrong:
-            "Anna says **pozor**: **tohoto** is Czech, the Slovak form is **tohto**.",
+            "Anna says **nesprávne**: **tohoto** is Czech, the Slovak form is **tohto**.",
         },
       ],
       answerId: "children",

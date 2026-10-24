@@ -42,6 +42,8 @@ export interface Place {
   post?: number;
   /** The cast keeps to its marks whatever is said, so nobody walks over or to a thing a line names. */
   atMarks?: boolean;
+  /** Everyone on stage wears headphones here, as podcast hosts do. */
+  headphones?: boolean;
   /** Where rain and grey show indoors, and the way rain is heard; a room without one stays quiet. */
   glass?: Glass;
 }
@@ -222,8 +224,9 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.koberec, [210, 252, 540, 40]),
     ],
     sounds: ["hum"],
-    // Podcast hosts talk into their own mics.
+    // Podcast hosts talk into their own mics, headphones on.
     atMarks: true,
+    headphones: true,
     glass: { height: 94, width: 126, x: 667, y: 59 },
   },
 };
