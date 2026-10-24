@@ -32,7 +32,7 @@
   import { walkTalk } from "$lib/stick-figure/talk";
   import type { Take } from "$lib/stick-figure/take";
   import { cx } from "$lib/ui/classes";
-  import ChipGroup from "./ChipGroup.svelte";
+  import SegmentedControl from "$lib/components/ui/SegmentedControl.svelte";
   import FindPanel from "./FindPanel.svelte";
   import PlaybackBar from "./PlaybackBar.svelte";
   import PlayTurn from "./PlayTurn.svelte";
@@ -581,25 +581,20 @@
   {/if}
 {/snippet}
 
-<div class="flex items-start justify-between gap-4">
-  <h2
-    id="scene-title"
-    class="m-0 pt-0.5 font-serif text-2xl tracking-tight text-pretty text-slate-900"
-    lang="sk"
-  >
-    {scene.name}
-  </h2>
+<h2
+  id="scene-title"
+  class="m-0 font-serif text-2xl tracking-tight text-pretty text-slate-900"
+  lang="sk"
+>
+  {scene.name}
+</h2>
 
-  <SceneSettings class="-mr-2" {settings} />
+<!-- The player's own controls sit together on the stage's top edge: what to do, and how it plays. -->
+<div class="mt-3 flex items-center justify-between gap-3">
+  <SegmentedControl label="Mode" onselect={selectMode} options={modes} selected={mode} />
+
+  <SceneSettings class="-mr-1.5" {settings} />
 </div>
-
-<ChipGroup
-  class="mt-3"
-  label="Mode"
-  onselect={selectMode}
-  options={modes}
-  selected={mode}
-/>
 
 <div class="{panelClass} mt-3 overflow-hidden">
   <StickStage
@@ -726,7 +721,7 @@
         </div>
 
         {#if mode === "play"}
-          <ChipGroup
+          <SegmentedControl
             label="How to answer"
             onselect={(id) => {
               turns.kind = id;

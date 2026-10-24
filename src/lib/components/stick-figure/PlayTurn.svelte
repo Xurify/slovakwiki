@@ -11,6 +11,7 @@
     type TalkNode,
   } from "$lib/stick-figure/talk";
   import type { Take } from "$lib/stick-figure/take";
+  import SegmentedControl from "$lib/components/ui/SegmentedControl.svelte";
   import ChipGroup from "./ChipGroup.svelte";
   import SceneAction from "./SceneAction.svelte";
   import SceneSay from "./SceneSay.svelte";
@@ -63,7 +64,7 @@
 </script>
 
 {#snippet answerKinds()}
-  <ChipGroup
+  <SegmentedControl
     label="How to answer"
     onselect={(id) => {
       turns.kind = id;
