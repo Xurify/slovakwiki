@@ -12,6 +12,7 @@ import {
   type LessonCharacterId,
 } from "$lib/catalog/lessons/character-ids";
 import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
+import type { ListeningEpisode } from "$lib/catalog/listening/types";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
 import type { DialogueTurn } from "$lib/learning/types";
 import {
@@ -21,7 +22,8 @@ import {
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "./dev-scenes";
 import { PLACES } from "./places";
 import { dayTalks } from "./scene-day";
-import type { Scene, SceneGroup, SceneLine } from "./scene-line";
+import type { DirectedLine } from "./scene-direction";
+import type { Scene, SceneGroup, SceneLine, StagedScene } from "./scene-line";
 import { stageName } from "./stage-name";
 import { walkTalk, type Said, type Talk, type TalkNode } from "./talk";
 
@@ -99,6 +101,52 @@ export function podcastGroups(): SceneGroup[] {
       setting: chapter.stage ?? "studio",
     })),
   }));
+}
+
+/** The part of a scene line the stage reads, so a page sends no more than it plays. */
+function directedLine({
+  characterId,
+  gestures,
+  mouth,
+  props,
+  slovak,
+  src,
+  stays,
+  to,
+  vowels,
+}: SceneLine): DirectedLine {
+  return { characterId, gestures, mouth, props, slovak, src, stays, to, vowels };
+}
+
+/**
+ * An episode's segments as the stage acts them out on its page, keyed by
+ * segment, with the dictionary link and clip for each thing on their stages.
+ */
+export function episodeStages(episode: ListeningEpisode): {
+  scenes: Record<string, StagedScene>;
+  thingWords: Record<string, { href?: string; src?: string }>;
+} {
+  const order = episode.speakers.map(characterIdForSpeaker);
+  const scenes = Object.fromEntries(
+    episode.chapters.map((chapter) => [
+      chapter.id,
+      {
+        lines: sceneLines(chapter.lines).map(directedLine),
+        order,
+        setting: chapter.stage ?? "studio",
+      },
+    ]),
+  );
+  const onStage = new Set(
+    Object.values(scenes).flatMap(({ setting }) =>
+      PLACES[setting].things.map((thing) => thing.word),
+    ),
+  );
+  const thingWords = Object.fromEntries(
+    Object.entries(sceneThingWords()).filter(([word]) => onStage.has(word)),
+  );
+
+  return { scenes, thingWords };
 }
 
 function prototypeScene(

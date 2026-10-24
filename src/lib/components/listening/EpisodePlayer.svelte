@@ -5,6 +5,7 @@
   import { episodeCheckCount } from "$lib/catalog/listening";
   import type { EpisodeAudioSrcs } from "$lib/catalog/listening/audio";
   import type { EpisodeNextSteps, ListeningEpisode } from "$lib/catalog/listening/types";
+  import type { StagedScene } from "$lib/stick-figure/scene-line";
   import Button from "$lib/components/ui/Button.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
@@ -19,10 +20,16 @@
     audioSrcs,
     episode,
     next,
+    stages,
   }: {
     audioSrcs: EpisodeAudioSrcs;
     episode: ListeningEpisode;
     next: EpisodeNextSteps;
+    /** Each segment acted out on the stick-figure stage, and the words for what is on it. */
+    stages?: {
+      scenes: Record<string, StagedScene>;
+      thingWords: Record<string, { href?: string; src?: string }>;
+    };
   } = $props();
 
   let active = $state(0);
@@ -254,6 +261,8 @@
         onlistened={listened}
         ontogglequestions={toggleQuestions}
         {questions}
+        scene={stages?.scenes[chapter.id]}
+        thingWords={stages?.thingWords}
         actions={nextChapter}
         afterResult={episodeDone}
       />

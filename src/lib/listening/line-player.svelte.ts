@@ -5,9 +5,17 @@ export const LINE_GAP_MS = 450;
 
 export const SLOW_RATE = 0.8;
 
+/** Where a line can play besides its bare clip: a stage that voices it and acts it out. */
+export interface LineStage {
+  play(index: number, onEnded: () => void, rate: number): void;
+  stop(): void;
+}
+
 export interface LinePlayerOptions {
   isLast: (index: number) => boolean;
   onRunEnd: (index: number) => void;
+  /** The stage to play each line on, once there is one; the clip alone until then. */
+  stage?: () => LineStage | undefined;
 }
 
 export class LinePlayer {
@@ -45,16 +53,22 @@ export class LinePlayer {
     this.cursor = index;
     this.playing = true;
 
-    playStoryLineAudio(this.#srcs[line.id], line.slovak, {
-      playbackRate: this.slow ? SLOW_RATE : 1,
-      onEnded: () => this.#onLineEnded(index, mine),
-    });
+    const rate = this.slow ? SLOW_RATE : 1;
+    const onEnded = () => this.#onLineEnded(index, mine);
+    const stage = this.#options.stage?.();
+    if (stage) stage.play(index, onEnded, rate);
+    else
+      playStoryLineAudio(this.#srcs[line.id], line.slovak, {
+        onEnded,
+        playbackRate: rate,
+      });
   }
 
   pause(): void {
     this.#clearGap();
     this.#epoch += 1;
     this.playing = false;
+    this.#options.stage?.()?.stop();
     stopStoryLineAudio();
   }
 
@@ -70,6 +84,7 @@ export class LinePlayer {
 
   destroy(): void {
     this.#clearGap();
+    this.#options.stage?.()?.stop();
     stopStoryLineAudio();
   }
 

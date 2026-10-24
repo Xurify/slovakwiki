@@ -8,11 +8,13 @@
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
+  import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { cx } from "$lib/ui/classes";
 
   import EpisodeCheck from "./EpisodeCheck.svelte";
   import EpisodeLine from "./EpisodeLine.svelte";
   import ListenControl from "./ListenControl.svelte";
+  import ListenScene from "./ListenScene.svelte";
 
   let {
     actions,
@@ -26,6 +28,8 @@
     onlistened,
     ontogglequestions,
     questions = true,
+    scene,
+    thingWords,
   }: {
     actions?: Snippet;
     afterResult?: Snippet;
@@ -41,6 +45,9 @@
     ontogglequestions?: () => void;
     /** Stop for the segment's questions once it has played; off, it only plays. */
     questions?: boolean;
+    /** The segment acted out on the stick-figure stage as it plays. */
+    scene?: StagedScene;
+    thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
   type Stage = "idle" | "listening" | "checking" | "done";
@@ -53,6 +60,7 @@
   let correct = $state(done?.correct ?? 0);
   let textOpen = $state(false);
   let english = $state(false);
+  let sceneStage = $state<ReturnType<typeof ListenScene>>();
 
   const lines = chapter.lines;
   // Switching questions on mid-segment changes only what comes at its end.
@@ -60,6 +68,7 @@
   const speakers = [...new Set(lines.map((line) => line.speaker))];
 
   const player = new LinePlayer(lines, audioSrcs, {
+    stage: () => sceneStage,
     isLast: (index) => index === lines.length - 1,
     onRunEnd: () => {
       if (listened) return;
@@ -187,6 +196,15 @@
 </script>
 
 <div bind:this={root} data-listen-stage>
+  {#if scene}
+    <ListenScene
+      bind:this={sceneStage}
+      class="mt-3 border-y border-slate-200/70"
+      {scene}
+      {thingWords}
+    />
+  {/if}
+
   <div class="px-4 pt-3 pb-4 sm:px-5">
     <div class="flex flex-wrap items-center justify-between gap-4">
       <button

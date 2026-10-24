@@ -52,6 +52,13 @@ export interface Scene {
   time?: TimeOfDay;
 }
 
+/** What the stage needs to act a scene out: its lines, the place, and who stands where. */
+export interface StagedScene {
+  lines: DirectedLine[];
+  order?: LessonCharacterId[];
+  setting: StageSetting;
+}
+
 export interface SceneGroup {
   label: string;
   /** The Slovak name after the label: the podcast episode's. */
