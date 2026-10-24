@@ -24,7 +24,7 @@
     <g transform="translate({n(top.x)} {n(top.y)})" stroke-width="1">
       <path
         d="M-46 0C-46 -18 -26 -27 0 -27C26 -27 46 -18 46 0Q34.5 -5 23 0Q11.5 -5 0 0Q-11.5 -5 -23 0Q-34.5 -5 -46 0Z"
-        class="fill-rose-500"
+        class="fill-scene-red"
       />
       <path
         d="M-23 0Q-11.5 -5 0 0Q-4 -14 0 -27Q-17 -16 -23 0ZM23 0Q34.5 -5 46 0Q40 -18 0 -27Q17 -16 23 0Z"
@@ -46,7 +46,7 @@
     transform="translate({n(hand.x)} {n(hand.y)})"
   >
     <path d="M0 26V-2q0-4 3.4-4q3.4 0 3.4 3.4" fill="none" stroke-width="1.6" />
-    <path d="M0 5Q-3.6 14 0 23Q3.6 14 0 5Z" class="fill-rose-500" stroke-width="1" />
+    <path d="M0 5Q-3.6 14 0 23Q3.6 14 0 5Z" class="fill-scene-red" stroke-width="1" />
     <path d="M-1.6 9.5l3.2 1.2" stroke-width="0.8" />
   </g>
 {/if}

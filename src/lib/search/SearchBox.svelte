@@ -272,10 +272,12 @@
     void runSearch(query);
   }
 
+  // Tabbing through the header should not drop a panel over the page, so a
+  // keyboard focus only warms the lookup; a click, typing or Down opens it.
   function onFocus(): void {
     warmDictionaryLookup();
-    openPanel();
     if (trimmedQuery) {
+      openPanel();
       void runSearch(query);
     }
   }
@@ -287,6 +289,10 @@
 
   function onKeydown(event: KeyboardEvent): void {
     if (!open) {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        openPanel();
+      }
       return;
     }
 
@@ -451,6 +457,7 @@
       role="combobox"
       oninput={onInput}
       onfocus={onFocus}
+      onpointerdown={openPanel}
       onkeydown={onKeydown}
     />
 

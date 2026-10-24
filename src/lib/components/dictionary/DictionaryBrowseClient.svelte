@@ -251,7 +251,7 @@
       onclick={() => selectTopic(option.slug)}
     >
       {option.label}
-      <span class="ml-1 opacity-70">{option.count}</span>
+      <span class="ml-1 font-normal">{option.count}</span>
     </button>
   {/each}
 </nav>

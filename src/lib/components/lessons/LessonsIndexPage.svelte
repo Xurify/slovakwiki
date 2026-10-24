@@ -30,16 +30,6 @@
     <div
       class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:items-start lg:gap-12"
     >
-      <aside class="order-1 lg:order-2 lg:sticky lg:top-24 lg:self-start">
-        <LessonsContinueCard
-          {focusLesson}
-          {lessonNumber}
-          {lessons}
-          track={focusGroup?.track ?? null}
-          trackLessonCount={focusGroup?.lessons.length ?? 0}
-        />
-      </aside>
-
       <div class="order-2 min-w-0 lg:order-1">
         <header class="max-w-xl">
           <h1 class="text-balance">Lessons</h1>
@@ -60,6 +50,16 @@
           {/each}
         </div>
       </div>
+
+      <aside class="order-1 lg:order-2 lg:sticky lg:top-24 lg:self-start">
+        <LessonsContinueCard
+          {focusLesson}
+          {lessonNumber}
+          {lessons}
+          track={focusGroup?.track ?? null}
+          trackLessonCount={focusGroup?.lessons.length ?? 0}
+        />
+      </aside>
     </div>
   </PageShell>
 </main>

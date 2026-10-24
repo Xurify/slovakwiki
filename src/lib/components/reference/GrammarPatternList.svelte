@@ -203,7 +203,7 @@
     </div>
   {:else if view?.kind === "grid"}
     <div>
-      <div class="overflow-x-auto">
+      <div class="overflow-x-auto" role="region" aria-label={pattern.label} tabindex="0">
         <table class="w-full border-collapse">
           <thead>
             <tr class="border-b border-slate-200 bg-subtle/60">

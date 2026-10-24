@@ -229,8 +229,20 @@
   {/if}
 
   {#if look.blush}
-    <ellipse cx={24.4 + aside * 0.8} cy="33.4" rx="2" ry="1.3" class="fill-rose-400/60" />
-    <ellipse cx={39.6 + aside * 0.8} cy="33.4" rx="2" ry="1.3" class="fill-rose-400/60" />
+    <ellipse
+      cx={24.4 + aside * 0.8}
+      cy="33.4"
+      rx="2"
+      ry="1.3"
+      class="fill-scene-red-mid/60"
+    />
+    <ellipse
+      cx={39.6 + aside * 0.8}
+      cy="33.4"
+      rx="2"
+      ry="1.3"
+      class="fill-scene-red-mid/60"
+    />
   {/if}
 
   <path
@@ -275,7 +287,7 @@
         cy={36.2 + (0.8 + pose.mouth * 3.6) * 0.76}
         rx="1.3"
         ry={0.3 + pose.mouth * 0.5}
-        class="fill-rose-400"
+        class="fill-scene-red-mid"
       />
     {/if}
   {:else}

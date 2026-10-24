@@ -127,6 +127,11 @@
   /* The studio's on-air sign and screen, and the strawberries: the light theme's red and blue, fixed. */
   --color-scene-red: #c23b35;
   --color-scene-blue: #3b82f6;
+  /* The cast's clothes, robot shells and props: the light theme's reds and greens, fixed, since the backdrop is. */
+  --color-scene-red-mid: #d9918a;
+  --color-scene-pale: #cbd5e1;
+  --color-scene-green: #1f6b5c;
+  --color-scene-green-mid: #74a89b;
   --color-flag-red: #d52b1e;
   --color-flag-blue: #0b4ea2;
   --color-flag-gold: #ffcd00;
@@ -237,10 +242,11 @@
     --muted-strong: #cbd5e1;
     --line: #334155;
     --line-strong: #475569;
-    --accent: #3b82f6;
+    /* Blue-400 for the accent so the dark ink on buttons and chips reads at 5.7:1; blue-500 was 3.9:1. */
+    --accent: #60a5fa;
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
-    --accent-strong: #60a5fa;
+    --accent-strong: #93c5fd;
     --accent-soft: #1e3a8a;
     --action: #e07068;
     --action-strong: #f09088;
@@ -254,14 +260,14 @@
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
     --panel-inverse: #0f172a;
     --panel-inverse-ink: #f1f5f9;
-    --cta: #3b82f6;
-    --cta-strong: #2563eb;
-    --cta-ink: #ffffff;
+    --cta: #60a5fa;
+    --cta-strong: #3b82f6;
+    --cta-ink: #0f172a;
     --saffron: #60a5fa;
     --saffron-ink: #93c5fd;
     --mark: #1e3a8a;
-    --brand: #3b82f6;
-    --brand-ink: #ffffff;
+    --brand: #60a5fa;
+    --brand-ink: #0f172a;
     --shadow-color: #000000;
     --shadow-border:
       0 0 0 1px var(--line),

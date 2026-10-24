@@ -19,6 +19,11 @@
    * backdrop under it; animated inside the backdrop's SVG it repainted the
    * whole stage every frame in WebKit.
    */
+  /** Under reduced motion the weather changes at once instead of fading. */
+  const reducedMotion = (): boolean =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   let {
     height,
     mood,
@@ -85,7 +90,7 @@
       style:top="{area.top}px"
       style:width="{area.width}px"
       style:border-radius="{area.round}px {area.round}px 0 0"
-      transition:fade={{ duration: WEATHER_FADE_MS }}
+      transition:fade={{ duration: reducedMotion() ? 0 : WEATHER_FADE_MS }}
     >
       {#each fall.layers as layer, depth (depth)}
         <!-- Two copies a fall apart: as one slides out at the bottom the other has taken its place. -->

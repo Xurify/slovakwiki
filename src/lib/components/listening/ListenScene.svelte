@@ -202,6 +202,7 @@
     <!-- A line tall before the first line comes, so the controls do not jump then. -->
     <div
       class="min-h-[3.6rem] border-t border-slate-200/70 px-4 py-3 max-[600px]:min-h-[3.25rem] sm:px-5"
+      aria-live="polite"
     >
       {#if turn}
         {#key shown}

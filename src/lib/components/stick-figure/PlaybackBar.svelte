@@ -59,6 +59,10 @@
   {/if}
 
   <span class="ml-auto text-sm text-slate-500">
-    Line {Math.min(playback.at + 1, count)} of {count}
+    {#if playback.shown < 0 && playback.phase === "ready"}
+      {count} {count === 1 ? "line" : "lines"}
+    {:else}
+      Line {Math.min(playback.at + 1, count)} of {count}
+    {/if}
   </span>
 </div>

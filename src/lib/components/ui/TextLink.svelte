@@ -19,7 +19,9 @@
 
 <svelte:element
   this={href ? "a" : "button"}
-  class="cursor-pointer border-0 bg-transparent p-0 text-[0.82rem] font-bold text-blue-800 underline decoration-[color-mix(in_srgb,var(--accent)_55%,transparent)] underline-offset-[3px] {className}"
+  class="cursor-pointer border-0 bg-transparent p-0 text-[0.82rem] font-bold text-blue-800 underline decoration-[color-mix(in_srgb,var(--accent)_55%,transparent)] underline-offset-[3px] {href
+    ? ''
+    : 'py-1'} {className}"
   {href}
   type={href ? undefined : "button"}
   {...rest}
