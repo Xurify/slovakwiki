@@ -50,13 +50,13 @@
     stroke-width="0.6"
   />
 {:else if characterId === "waiter"}
-  <!-- long bistro apron, white shirt, dark waistcoat, bow tie -->
+  <!-- short waist apron over the trousers (a long one read as a skirt), white shirt, dark waistcoat, bow tie -->
   <path
-    d="M-6.4 -3.2L6.4 -3.2L7.2 22Q0 23.4 -7.2 22Z"
+    d="M-5.6 -3.2L5.6 -3.2L6 8.8Q0 9.8 -6 8.8Z"
     class="fill-portrait-vest stroke-portrait-ink"
     stroke-width="1.1"
   />
-  <path d="M-6.1 -3.2H6.1" class="stroke-portrait-bib" stroke-width="0.9" />
+  <path d="M-5.3 -3.2H5.3" class="stroke-portrait-bib" stroke-width="0.9" />
   <path
     d="M-5.4 -27.8Q-5.8 -30.9 -2.8 -31.1L2.8 -31.1Q5.8 -30.9 5.4 -27.8L4.9 -3.2L-4.9 -3.2Z"
     class="fill-portrait-bib stroke-portrait-ink"

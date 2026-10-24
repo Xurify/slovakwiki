@@ -118,8 +118,10 @@ describe("gestureForLine", () => {
     ["Tam je pošta.", "point"],
     ["Výborne!", "cheer"],
     ["Hovoríte po slovensky?", "ask"],
-    ["Mám dvadsaťosem rokov.", "talk"],
-    ["Dobrý nápad.", "talk"],
+    ["Mám dvadsaťosem rokov.", "tell"],
+    ["Dobrý nápad.", "tell"],
+    ["To nie je malá téma, Anna!", "stress"],
+    ["Je to žlté…", "muse"],
   ] as const)("%s → %s", (line, gesture) => {
     expect(gestureForLine(line)).toBe(gesture);
   });
@@ -243,7 +245,10 @@ describe("planLine", () => {
     const times = plan.beats.map((beat) => beat.at);
 
     expect(plan.beats.length).toBeGreaterThan(1);
-    expect(plan.beats.every((beat) => beat.gesture === "talk")).toBe(true);
+    expect(plan.beats.every((beat) => ["tell", "muse"].includes(beat.gesture))).toBe(
+      true,
+    );
+    expect(new Set(plan.beats.map((beat) => beat.gesture)).size).toBe(2);
     expect(times).toEqual([...times].sort((a, b) => a - b));
   });
 

@@ -69,10 +69,16 @@ const OPENERS_BY_LENGTH = [...OPENERS].sort(([a], [b]) => b.length - a.length);
 /**
  * Pick a gesture from what the line says, so every scene line animates
  * without hand-authored keyframes: greetings wave, "áno" nods, "nie"
- * shakes, questions open the hands, everything else gets a talking beat.
+ * shakes, questions open the hands, an exclamation gets a beat of the
+ * hand, words that trail off a tilt of the head, and a plain statement
+ * a small open hand.
  */
 export function gestureForLine(slovak: string): StickGestureId {
   const folded = foldLine(slovak);
   const opener = OPENERS_BY_LENGTH.find(([phrase]) => opens(folded, phrase));
-  return opener?.[1] ?? (slovak.includes("?") ? "ask" : "talk");
+  if (opener) return opener[1];
+  if (slovak.includes("?")) return "ask";
+  if (slovak.includes("!")) return "stress";
+  if (slovak.includes("…")) return "muse";
+  return "tell";
 }

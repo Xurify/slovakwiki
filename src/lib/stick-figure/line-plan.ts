@@ -83,8 +83,9 @@ const PAUSE_TAG = /^\[pause\]/i;
 const LEAD_MS = 40;
 const TAIL_MS = 180;
 
-/** A long sentence gets another talking beat this often. */
-const TALK_EVERY_MS = 1800;
+/** A long sentence gets another talking beat this often, a hand and a tilt of the head in turn. */
+const TALK_EVERY_MS = 2600;
+const FILLERS: readonly StickGestureId[] = ["tell", "muse"];
 /** …unless less than this is left of it. */
 const TALK_MIN_LEFT_MS = 900;
 /** How far a sentence start may move to sit on a real pause in the track. */
@@ -235,12 +236,14 @@ export function planLine(
 
     beats.push({ at: start, gesture });
 
+    let filler = FILLERS.indexOf(gesture) === 0 ? 1 : 0;
     for (
       let at = start + Math.max(TALK_EVERY_MS, gestureDuration(gesture));
       end - at >= TALK_MIN_LEFT_MS;
       at += TALK_EVERY_MS
     ) {
-      beats.push({ at, gesture: "talk" });
+      beats.push({ at, gesture: FILLERS[filler] });
+      filler = 1 - filler;
     }
 
     if (sentence.includes("?")) questions.push({ start, end });
@@ -327,7 +330,7 @@ function spaceBeats(beats: LineBeat[], speechEnd: number): LineBeat[] {
       previous = spaced.at(-1);
     }
     if (
-      beat.gesture === "talk" &&
+      FILLERS.includes(beat.gesture) &&
       previous?.point &&
       beat.at - previous.at < gestureDuration("point")
     ) {

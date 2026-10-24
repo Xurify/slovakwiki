@@ -11,8 +11,8 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
       "line": "anna: Prší! A je zima.",
       "plan": {
         "beats": [
-          "50 talk",
-          "950 talk",
+          "50 stress",
+          "950 tell",
         ],
         "ms": 2000,
         "sentences": "50-547 950-1850",
@@ -60,7 +60,7 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
       "line": "anna: Mám. Poď sem, pod dáždnik.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "800 show",
         ],
         "ms": 2500,
@@ -131,6 +131,7 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
       "plan": {
         "beats": [
           "373 point → lavicka",
+          "1550 stress",
         ],
         "ms": 2100,
         "sentences": "50-1146 1550-1900",
@@ -191,8 +192,8 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
       "line": "anna: Štvorka. Príde o päť minút.",
       "plan": {
         "beats": [
-          "50 talk",
-          "1150 talk",
+          "50 tell",
+          "1150 tell",
         ],
         "ms": 2500,
         "sentences": "50-538 1150-2250",
@@ -315,8 +316,8 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
       "line": "anna: V električke. Môžeš platiť kartou.",
       "plan": {
         "beats": [
-          "100 talk",
-          "1350 talk",
+          "100 tell",
+          "1350 tell",
         ],
         "ms": 2900,
         "sentences": "100-938 1350-2700",
@@ -368,8 +369,8 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
       "line": "anna: Konečne! Nastúpme.",
       "plan": {
         "beats": [
-          "0 talk",
-          "900 talk",
+          "0 stress",
+          "900 tell",
         ],
         "ms": 1800,
         "sentences": "0-581 900-1600",
@@ -435,7 +436,7 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "line": "anna: Pekné. Svieti slnko a je teplo.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1244 point → slnko",
         ],
         "ms": 3100,
@@ -491,7 +492,7 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "750 talk",
+          "750 tell",
           "2132 point → oblak",
         ],
         "ms": 3100,
@@ -519,7 +520,7 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "plan": {
         "beats": [
           "100 think",
-          "1100 talk",
+          "1100 tell",
         ],
         "ms": 2250,
         "sentences": "100-365 1100-2000",
@@ -538,7 +539,7 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "800 talk",
+          "800 stress",
         ],
         "ms": 2100,
         "sentences": "0-421 800-1900",
@@ -556,8 +557,8 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "line": "alex: Ach nie. Nemám dáždnik.",
       "plan": {
         "beats": [
-          "50 talk",
-          "1350 talk",
+          "50 tell",
+          "1350 tell",
         ],
         "ms": 2700,
         "sentences": "50-621 1350-2450",
@@ -576,7 +577,7 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "plan": {
         "beats": [
           "0 self",
-          "1300 talk",
+          "1300 stress",
         ],
         "ms": 2350,
         "sentences": "0-841 1300-2200",
@@ -595,7 +596,7 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "plan": {
         "beats": [
           "50 point",
-          "750 talk",
+          "750 stress",
         ],
         "ms": 1650,
         "sentences": "50-513 700-1450",
@@ -643,7 +644,7 @@ exports[`every scene, directed > dev weather-today 1`] = `
         "beats": [
           "0 point → slnko",
           "700 point → oblak",
-          "2916 talk",
+          "2916 tell",
         ],
         "ms": 4700,
         "sentences": "0-2418 2916-4450",
@@ -661,8 +662,8 @@ exports[`every scene, directed > dev weather-today 1`] = `
       "line": "anna: To je Bratislava. Poďme domov!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1350 talk",
+          "50 tell",
+          "1350 stress",
         ],
         "ms": 2350,
         "sentences": "50-1075 1350-2100",
@@ -727,7 +728,7 @@ exports[`every scene, directed > lesson everyday/days-dates-and-time 1`] = `
       "line": "alex: Lepšie o pol tretej.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 1700,
         "sentences": "0-1450",
@@ -903,7 +904,7 @@ exports[`every scene, directed > lesson everyday/meet-someone 1`] = `
       "plan": {
         "beats": [
           "100 shrug",
-          "950 talk",
+          "950 tell",
         ],
         "ms": 2250,
         "sentences": "100-550 950-2050",
@@ -991,7 +992,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
       "plan": {
         "beats": [
           "0 shake",
-          "1425 talk",
+          "1425 tell",
         ],
         "ms": 2850,
         "sentences": "0-1015 1425-2600",
@@ -1058,7 +1059,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
       "line": "alex: Nerozumiem. Nie je to pre mňa.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1200 shake",
         ],
         "ms": 2450,
@@ -1212,7 +1213,7 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
       "line": "alex: Mám dvadsaťosem rokov.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 1800,
         "sentences": "0-1550",
@@ -1274,8 +1275,7 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
       "plan": {
         "beats": [
           "0 show",
-          "1800 talk",
-          "3600 talk",
+          "2600 tell",
         ],
         "ms": 5550,
         "sentences": "0-5350",
@@ -1411,7 +1411,7 @@ exports[`every scene, directed > lesson grammar/byt-present 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "750 talk",
+          "750 tell",
         ],
         "ms": 2100,
         "sentences": "0-389 750-1850",
@@ -1522,7 +1522,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "anna: To je môj brat Tom.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 1800,
         "sentences": "50-1600",
@@ -1584,8 +1584,8 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "anna: To je jeho žena Eva. A tie deti sú ich.",
       "plan": {
         "beats": [
-          "50 talk",
-          "1700 talk",
+          "50 tell",
+          "1700 tell",
         ],
         "ms": 3400,
         "sentences": "50-1557 1700-3150",
@@ -1647,7 +1647,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "anna: To sú jeho kolegovia z práce.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 2050,
         "sentences": "50-1850",
@@ -1711,7 +1711,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "1600 talk",
+          "1600 tell",
         ],
         "ms": 3250,
         "sentences": "0-1186 1600-3100",
@@ -1741,7 +1741,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "anna: Ten muž nám často pomáha.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 2050,
         "sentences": "50-1850",
@@ -1763,7 +1763,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "anna: Dnes večer ide s tými kolegami do kina.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 2700,
         "sentences": "0-2500",
@@ -1843,7 +1843,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "waiter: Tri eurá.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 1000,
         "sentences": "50-1000",
@@ -1911,7 +1911,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
         "beats": [
           "279 point → kolac (near)",
           "1345 point → torta (far)",
-          "3050 talk",
+          "3050 tell",
         ],
         "ms": 3850,
         "sentences": "50-2447 3050-3700",
@@ -2055,7 +2055,7 @@ exports[`every scene, directed > lesson grammar/mat-present 1`] = `
       "line": "alex: Mám dvadsaťosem rokov.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 1800,
         "sentences": "0-1550",
@@ -2085,7 +2085,7 @@ exports[`every scene, directed > lesson grammar/mat-present 1`] = `
       "line": "alex: Nemám hotovosť, ale mám kartu.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 2600,
         "sentences": "50-2350",
@@ -2146,7 +2146,7 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
       "plan": {
         "beats": [
           "0 wave",
-          "800 talk",
+          "800 stress",
         ],
         "ms": 2450,
         "sentences": "0-448 800-2250",
@@ -2165,7 +2165,7 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "1050 talk",
+          "1050 tell",
         ],
         "ms": 2500,
         "sentences": "0-604 1050-2300",
@@ -2195,7 +2195,6 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
       "plan": {
         "beats": [
           "50 show",
-          "1850 talk",
         ],
         "ms": 3100,
         "sentences": "50-2900",
@@ -2254,7 +2253,7 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
       "line": "anna: V Kanade. Píšu si listy už desať rokov.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1200 show",
         ],
         "ms": 3400,
@@ -2327,7 +2326,7 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
       "line": "alex: Nikomu. Ale každý týždeň volám svojej mame.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "950 show",
         ],
         "ms": 3300,
@@ -2532,7 +2531,7 @@ exports[`every scene, directed > lesson grammar/present-tense-i 1`] = `
       "line": "anna: Aj ja čítam. Peter číta noviny.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1350 show",
         ],
         "ms": 2850,
@@ -2668,7 +2667,7 @@ exports[`every scene, directed > lesson pronunciation/first-syllable-stress 1`] 
       "line": "-: ĎA-ku-jem",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 900,
         "sentences": "50-750",
@@ -2763,8 +2762,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "marek: Prvá vec. Je to malé… a otvára dvere.",
       "plan": {
         "beats": [
-          "100 talk",
-          "1900 talk",
+          "100 tell",
+          "1900 muse",
           "4365 point → dvere",
         ],
         "ms": 5200,
@@ -2795,7 +2794,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "plan": {
         "beats": [
           "100 think",
-          "1800 talk",
+          "1800 stress",
         ],
         "ms": 3000,
         "sentences": "100-341 1800-2600",
@@ -2876,8 +2875,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "plan": {
         "beats": [
           "50 show",
-          "1900 talk",
-          "3600 talk",
+          "1900 muse",
+          "3600 tell",
         ],
         "ms": 5400,
         "sentences": "50-846 1900-2773 3600-5150",
@@ -2911,7 +2910,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "anna: Žlté a ťažké… je to krabica?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 muse",
           "2650 ask",
         ],
         "ms": 4100,
@@ -2944,7 +2943,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "plan": {
         "beats": [
           "0 shake",
-          "3400 talk",
+          "3400 tell",
         ],
         "ms": 4900,
         "sentences": "0-1925 3400-4700",
@@ -2973,7 +2972,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "anna: Veľa strán… je to kniha?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 muse",
           "1850 ask",
         ],
         "ms": 3400,
@@ -3078,7 +3077,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "plan": {
         "beats": [
           "50 show",
-          "2050 talk",
+          "2050 tell",
         ],
         "ms": 3600,
         "sentences": "50-1130 2050-3450",
@@ -3113,7 +3112,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "anna: Zelené a sladké… hruška?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 muse",
           "3495 ask",
         ],
         "ms": 4350,
@@ -3147,7 +3146,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "plan": {
         "beats": [
           "0 shake",
-          "2950 talk",
+          "2950 tell",
         ],
         "ms": 4100,
         "sentences": "0-1256 2950-3900",
@@ -3178,9 +3177,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "anna: Okrúhle a sladké… jablko! To je jablko.",
       "plan": {
         "beats": [
-          "0 talk",
-          "2750 talk",
-          "3800 talk",
+          "0 muse",
+          "2750 stress",
+          "3800 tell",
         ],
         "ms": 5000,
         "sentences": "0-1394 2750-3210 3800-4650",
@@ -3243,7 +3242,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "950 talk",
+          "950 tell",
         ],
         "ms": 3000,
         "sentences": "0-635 950-2850",
@@ -3272,7 +3271,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "marek: A teraz poďme na trh!",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 stress",
         ],
         "ms": 1950,
         "sentences": "0-1650",
@@ -3315,7 +3314,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       "line": "anna: A teraz sme doma.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 1700,
         "sentences": "0-1400",
@@ -3388,7 +3387,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       "line": "marek: Ten od auta.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 1150,
         "sentences": "50-1000",
@@ -3528,7 +3527,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       "line": "anna: To je náš sused, pán Novák. Toho muža poznáš.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "2350 point → muz",
         ],
         "ms": 3650,
@@ -3581,7 +3580,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       "line": "anna: To je jeho sestra.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 1300,
         "sentences": "50-1150",
@@ -3603,7 +3602,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       "line": "marek: Tí ľudia sú milí.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 1500,
         "sentences": "50-1300",
@@ -3655,8 +3654,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       "line": "marek: Nebudem. Poďme späť do štúdia!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1000 talk",
+          "50 tell",
+          "1000 stress",
         ],
         "ms": 2350,
         "sentences": "50-566 1000-2150",
@@ -3700,7 +3699,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       "plan": {
         "beats": [
           "0 wave",
-          "1000 talk",
+          "1000 tell",
           "3150 self",
         ],
         "ms": 4150,
@@ -3722,7 +3721,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       "line": "marek: A ja som Marek. Ahojte!",
       "plan": {
         "beats": [
-          "100 talk",
+          "100 tell",
           "1150 wave",
         ],
         "ms": 1900,
@@ -3741,8 +3740,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       "line": "anna: Dnes máme malú tému: ten, tá, to.",
       "plan": {
         "beats": [
-          "50 talk",
-          "1850 talk",
+          "50 tell",
         ],
         "ms": 3650,
         "sentences": "50-3450",
@@ -3761,7 +3759,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       "plan": {
         "beats": [
           "50 ask",
-          "1650 talk",
+          "1650 stress",
         ],
         "ms": 3700,
         "questions": "50-476",
@@ -3789,7 +3787,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "1200 talk",
+          "1200 stress",
         ],
         "ms": 2200,
         "sentences": "0-834 1200-2000",
@@ -3832,7 +3830,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "line": "anna: Teraz sme na trhu. Marek, čo kupuješ?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1550 ask",
         ],
         "ms": 3150,
@@ -3918,7 +3916,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "line": "marek: Aha. A tamten syr?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1840 point → syr#1 (far)",
         ],
         "ms": 3200,
@@ -3948,7 +3946,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "plan": {
         "beats": [
           "50 point → syr#1 (far)",
-          "1450 talk",
+          "1450 tell",
         ],
         "ms": 2850,
         "sentences": "50-1267 1450-2650",
@@ -4097,7 +4095,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "line": "marek: Anna vždy kupuje slovenské jahody.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1571 point → jahody#1",
         ],
         "ms": 2500,
@@ -4124,7 +4122,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "800 talk",
+          "800 stress",
         ],
         "ms": 1700,
         "sentences": "0-382 800-1500",
@@ -4162,7 +4160,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       "line": "marek: To je všetko na dnes.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
         ],
         "ms": 1550,
         "sentences": "50-1200",
@@ -4270,7 +4268,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       "line": "anna: Marek!",
       "plan": {
         "beats": [
-          "100 talk",
+          "100 stress",
         ],
         "ms": 2000,
         "sentences": "100-1700",
@@ -4321,8 +4319,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "plan": {
         "beats": [
           "50 ask",
-          "1850 talk",
-          "3500 talk",
+          "3500 stress",
         ],
         "ms": 4650,
         "questions": "50-2930",
@@ -4350,8 +4347,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
-          "2700 talk",
+          "900 tell",
+          "3500 muse",
         ],
         "ms": 4600,
         "sentences": "0-402 900-4400",
@@ -4370,8 +4367,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "plan": {
         "beats": [
           "50 shake",
-          "2100 talk",
-          "3900 talk",
+          "2100 tell",
         ],
         "ms": 5050,
         "sentences": "50-910 2100-4850",
@@ -4389,8 +4385,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Druhá veta: Tie deti sa hrajú vonku.",
       "plan": {
         "beats": [
-          "50 talk",
-          "1850 talk",
+          "50 tell",
         ],
         "ms": 3600,
         "sentences": "50-3400",
@@ -4409,8 +4404,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1900 talk",
-          "4300 talk",
+          "1900 tell",
+          "4300 tell",
         ],
         "ms": 6250,
         "sentences": "50-706 1900-3800 4300-6050",
@@ -4429,7 +4424,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "plan": {
         "beats": [
           "50 ask",
-          "1850 talk",
         ],
         "ms": 3050,
         "questions": "50-2800",
@@ -4456,9 +4450,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "anna: Pozor! Tohoto je po česky. Po slovensky je tohto.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2000 talk",
-          "3600 talk",
+          "50 stress",
+          "2000 tell",
+          "3600 tell",
         ],
         "ms": 5600,
         "pictures": [
@@ -4488,8 +4482,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Tohto, tohto, tohto. Už viem.",
       "plan": {
         "beats": [
-          "50 talk",
-          "3350 talk",
+          "50 tell",
+          "3350 tell",
         ],
         "ms": 4100,
         "sentences": "50-1901 3350-3900",
@@ -4568,8 +4562,8 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
       "plan": {
         "beats": [
           "100 wave",
-          "1200 talk",
-          "3000 talk",
+          "1200 tell",
+          "3800 muse",
           "5300 ask",
         ],
         "ms": 6250,
@@ -4600,7 +4594,7 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
       "line": "alex: Dnes nemôžem. Môžeme ísť zajtra?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1400 ask",
         ],
         "ms": 2900,
@@ -4629,8 +4623,8 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
       "plan": {
         "beats": [
           "0 ask",
-          "1000 talk",
-          "3150 talk",
+          "1000 tell",
+          "3150 tell",
           "4550 ask",
         ],
         "ms": 5800,
@@ -4686,9 +4680,9 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
       "line": "anna: Tak sa stretneme pred kinom. Kino je na rohu, vedľa kaviarne. Nemeškaj!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1800 talk",
-          "3950 talk",
+          "50 tell",
+          "1800 tell",
+          "3950 stress",
         ],
         "ms": 4750,
         "sentences": "50-1492 1800-3711 3950-4550",
@@ -4706,7 +4700,7 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
       "line": "alex: Nebudem meškať. Ahoj!",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1150 wave",
         ],
         "ms": 1850,
@@ -4785,8 +4779,8 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
       "plan": {
         "beats": [
           "100 wave",
-          "1200 talk",
-          "3000 talk",
+          "1200 tell",
+          "3800 muse",
           "5300 ask",
         ],
         "ms": 6250,
@@ -4845,9 +4839,8 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
       "line": "anna: O ôsmej. Lístky kúpim ja a ty kúpiš popcorn, dobre?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1100 ask",
-          "2900 talk",
         ],
         "ms": 4350,
         "questions": "1100-4100",
@@ -4900,9 +4893,9 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
       "line": "anna: Tak sa stretneme pred kinom. Kino je na rohu, vedľa kaviarne. Nemeškaj!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1800 talk",
-          "3950 talk",
+          "50 tell",
+          "1800 tell",
+          "3950 stress",
         ],
         "ms": 4750,
         "sentences": "50-1492 1800-3711 3950-4550",
@@ -4920,7 +4913,7 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
       "line": "alex: Nebudem meškať. Ahoj!",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1150 wave",
         ],
         "ms": 1850,
@@ -4999,8 +4992,8 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
       "plan": {
         "beats": [
           "100 wave",
-          "1200 talk",
-          "3000 talk",
+          "1200 tell",
+          "3800 muse",
           "5300 ask",
         ],
         "ms": 6250,
@@ -5059,9 +5052,8 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
       "line": "anna: O ôsmej. Lístky kúpim ja a ty kúpiš popcorn, dobre?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1100 ask",
-          "2900 talk",
         ],
         "ms": 4350,
         "questions": "1100-4100",
@@ -5114,9 +5106,9 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
       "line": "anna: Tak sa stretneme pred kinom. Kino je na rohu, vedľa kaviarne. Nemeškaj!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1800 talk",
-          "3950 talk",
+          "50 tell",
+          "1800 tell",
+          "3950 stress",
         ],
         "ms": 4750,
         "sentences": "50-1492 1800-3711 3950-4550",
@@ -5134,7 +5126,7 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
       "line": "alex: Nebudem meškať. Ahoj!",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1150 wave",
         ],
         "ms": 1850,
@@ -5213,8 +5205,8 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
       "plan": {
         "beats": [
           "100 wave",
-          "1200 talk",
-          "3000 talk",
+          "1200 tell",
+          "3800 muse",
           "5300 ask",
         ],
         "ms": 6250,
@@ -5273,9 +5265,8 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
       "line": "anna: O ôsmej. Lístky kúpim ja a ty kúpiš popcorn, dobre?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1100 ask",
-          "2900 talk",
         ],
         "ms": 4350,
         "questions": "1100-4100",
@@ -5328,9 +5319,9 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
       "line": "anna: Tak sa stretneme pred kinom. Kino je na rohu, vedľa kaviarne. Nemeškaj!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1800 talk",
-          "3950 talk",
+          "50 tell",
+          "1800 tell",
+          "3950 stress",
         ],
         "ms": 4750,
         "sentences": "50-1492 1800-3711 3950-4550",
@@ -5348,7 +5339,7 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
       "line": "alex: Neboj sa. Maj sa!",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1050 wave",
         ],
         "ms": 1850,
@@ -5427,8 +5418,8 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
       "plan": {
         "beats": [
           "100 wave",
-          "1200 talk",
-          "3000 talk",
+          "1200 tell",
+          "3800 muse",
           "5300 ask",
         ],
         "ms": 6250,
@@ -5487,9 +5478,8 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
       "line": "anna: O ôsmej. Lístky kúpim ja a ty kúpiš popcorn, dobre?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1100 ask",
-          "2900 talk",
         ],
         "ms": 4350,
         "questions": "1100-4100",
@@ -5544,9 +5534,9 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
       "line": "anna: Tak sa stretneme pred kinom. Kino je na rohu, vedľa kaviarne. Nemeškaj!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1800 talk",
-          "3950 talk",
+          "50 tell",
+          "1800 tell",
+          "3950 stress",
         ],
         "ms": 4750,
         "sentences": "50-1492 1800-3711 3950-4550",
@@ -5572,7 +5562,7 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
       "line": "alex: Nebudem meškať. Ahoj!",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1150 wave",
         ],
         "ms": 1850,
@@ -5651,8 +5641,8 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
       "plan": {
         "beats": [
           "100 wave",
-          "1200 talk",
-          "3000 talk",
+          "1200 tell",
+          "3800 muse",
           "5300 ask",
         ],
         "ms": 6250,
@@ -5711,9 +5701,8 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
       "line": "anna: O ôsmej. Lístky kúpim ja a ty kúpiš popcorn, dobre?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1100 ask",
-          "2900 talk",
         ],
         "ms": 4350,
         "questions": "1100-4100",
@@ -5766,9 +5755,9 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
       "line": "anna: Tak sa stretneme pred kinom. Kino je na rohu, vedľa kaviarne. Nemeškaj!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1800 talk",
-          "3950 talk",
+          "50 tell",
+          "1800 tell",
+          "3950 stress",
         ],
         "ms": 4750,
         "sentences": "50-1492 1800-3711 3950-4550",
@@ -5786,7 +5775,7 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
       "line": "alex: Nebudem meškať. Ahoj!",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1150 wave",
         ],
         "ms": 1850,
@@ -5865,8 +5854,8 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
       "plan": {
         "beats": [
           "100 wave",
-          "1200 talk",
-          "3000 talk",
+          "1200 tell",
+          "3800 muse",
           "5300 ask",
         ],
         "ms": 6250,
@@ -5925,9 +5914,8 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
       "line": "anna: O ôsmej. Lístky kúpim ja a ty kúpiš popcorn, dobre?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1100 ask",
-          "2900 talk",
         ],
         "ms": 4350,
         "questions": "1100-4100",
@@ -5980,9 +5968,9 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
       "line": "anna: Tak sa stretneme pred kinom. Kino je na rohu, vedľa kaviarne. Nemeškaj!",
       "plan": {
         "beats": [
-          "50 talk",
-          "1800 talk",
-          "3950 talk",
+          "50 tell",
+          "1800 tell",
+          "3950 stress",
         ],
         "ms": 4750,
         "sentences": "50-1492 1800-3711 3950-4550",
@@ -6000,7 +5988,7 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
       "line": "alex: Nebudem meškať. Ahoj!",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1150 wave",
         ],
         "ms": 1850,
@@ -6080,8 +6068,7 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -6127,8 +6114,7 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "1050 talk",
-          "2850 talk",
+          "1050 tell",
           "4700 ask",
         ],
         "ms": 6200,
@@ -6184,8 +6170,8 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
       "line": "lucia: Tento syr stojí tri eurá. Ten údený stojí štyri.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2150 talk",
+          "50 tell",
+          "2150 tell",
         ],
         "ms": 4100,
         "sentences": "50-1777 2150-3850",
@@ -6211,7 +6197,7 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
       "line": "alex: Dám si ten údený, prosím.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 2100,
         "sentences": "0-1900",
@@ -6233,7 +6219,7 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "2900 talk",
+          "2900 tell",
         ],
         "ms": 4750,
         "sentences": "0-2554 2900-4500",
@@ -6294,7 +6280,7 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -6409,8 +6395,7 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -6456,8 +6441,7 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "1050 talk",
-          "2850 talk",
+          "1050 tell",
           "4700 ask",
         ],
         "ms": 6200,
@@ -6513,8 +6497,8 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
       "line": "lucia: Tento syr stojí tri eurá. Ten údený stojí štyri.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2150 talk",
+          "50 tell",
+          "2150 tell",
         ],
         "ms": 4100,
         "sentences": "50-1777 2150-3850",
@@ -6540,7 +6524,7 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
       "line": "alex: Tak ten za tri eurá, prosím.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 2400,
         "sentences": "0-2200",
@@ -6562,7 +6546,7 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "2900 talk",
+          "2900 tell",
         ],
         "ms": 4750,
         "sentences": "0-2554 2900-4500",
@@ -6623,7 +6607,7 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -6747,8 +6731,7 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -6794,8 +6777,7 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "1050 talk",
-          "2850 talk",
+          "1050 tell",
           "4700 ask",
         ],
         "ms": 6200,
@@ -6851,8 +6833,8 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
       "line": "lucia: Tento syr stojí tri eurá. Ten údený stojí štyri.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2150 talk",
+          "50 tell",
+          "2150 tell",
         ],
         "ms": 4100,
         "sentences": "50-1777 2150-3850",
@@ -6878,7 +6860,7 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
       "line": "alex: Dám si ten údený, prosím.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 2100,
         "sentences": "0-1900",
@@ -6900,7 +6882,7 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "2900 talk",
+          "2900 tell",
         ],
         "ms": 4750,
         "sentences": "0-2554 2900-4500",
@@ -6961,7 +6943,7 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -7085,8 +7067,7 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -7132,8 +7113,7 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "1050 talk",
-          "2850 talk",
+          "1050 tell",
           "4700 ask",
         ],
         "ms": 6200,
@@ -7162,7 +7142,7 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
       "plan": {
         "beats": [
           "0 shake",
-          "1500 talk",
+          "1500 tell",
         ],
         "ms": 2400,
         "sentences": "0-1052 1500-2400",
@@ -7192,7 +7172,7 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "2900 talk",
+          "2900 tell",
         ],
         "ms": 4750,
         "sentences": "0-2554 2900-4500",
@@ -7253,7 +7233,7 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -7377,8 +7357,7 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -7424,8 +7403,7 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "1050 talk",
-          "2850 talk",
+          "1050 tell",
           "4700 ask",
         ],
         "ms": 6200,
@@ -7481,8 +7459,8 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
       "line": "lucia: Tento syr stojí tri eurá. Ten údený stojí štyri.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2150 talk",
+          "50 tell",
+          "2150 tell",
         ],
         "ms": 4100,
         "sentences": "50-1777 2150-3850",
@@ -7508,7 +7486,7 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
       "line": "alex: Dám si ten údený, prosím.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 2100,
         "sentences": "0-1900",
@@ -7530,7 +7508,7 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "2900 talk",
+          "2900 tell",
         ],
         "ms": 4750,
         "sentences": "0-2554 2900-4500",
@@ -7591,7 +7569,7 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -7715,8 +7693,7 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -7762,8 +7739,7 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "1050 talk",
-          "2850 talk",
+          "1050 tell",
           "4700 ask",
         ],
         "ms": 6200,
@@ -7819,8 +7795,8 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
       "line": "lucia: Tento syr stojí tri eurá. Ten údený stojí štyri.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2150 talk",
+          "50 tell",
+          "2150 tell",
         ],
         "ms": 4100,
         "sentences": "50-1777 2150-3850",
@@ -7846,7 +7822,7 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
       "line": "alex: Dám si ten údený, prosím.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 2100,
         "sentences": "0-1900",
@@ -7868,7 +7844,7 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "2900 talk",
+          "2900 tell",
         ],
         "ms": 4750,
         "sentences": "0-2554 2900-4500",
@@ -7897,7 +7873,7 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
       "line": "alex: Zaplatím v hotovosti.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 1550,
         "sentences": "0-1350",
@@ -7920,7 +7896,7 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -8040,8 +8016,7 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -8068,8 +8043,8 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
       "line": "alex: Dnes nie, ďakujem. Idem domov.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1750 talk",
+          "0 tell",
+          "1750 tell",
         ],
         "ms": 2650,
         "sentences": "0-1236 1750-2450",
@@ -8088,8 +8063,8 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "750 talk",
-          "2550 talk",
+          "750 tell",
+          "3350 muse",
         ],
         "ms": 5300,
         "sentences": "0-373 750-5150",
@@ -8134,7 +8109,7 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -8247,8 +8222,7 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
         "beats": [
           "0 wave",
           "1000 ask",
-          "2550 talk",
-          "4350 talk",
+          "2550 tell",
         ],
         "ms": 5550,
         "questions": "1000-2457",
@@ -8294,8 +8268,7 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "1050 talk",
-          "2850 talk",
+          "1050 tell",
           "4700 ask",
         ],
         "ms": 6200,
@@ -8351,8 +8324,8 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
       "line": "lucia: Tento syr stojí tri eurá. Ten údený stojí štyri.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2150 talk",
+          "50 tell",
+          "2150 tell",
         ],
         "ms": 4100,
         "sentences": "50-1777 2150-3850",
@@ -8378,7 +8351,7 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
       "line": "alex: Dám si ten údený, prosím.",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
         ],
         "ms": 2100,
         "sentences": "0-1900",
@@ -8400,7 +8373,7 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "2900 talk",
+          "2900 tell",
         ],
         "ms": 4750,
         "sentences": "0-2554 2900-4500",
@@ -8461,7 +8434,7 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "900 talk",
+          "900 stress",
         ],
         "ms": 2200,
         "sentences": "0-522 900-2050",
@@ -8585,7 +8558,7 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -8612,7 +8585,7 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -8640,7 +8613,7 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -8670,7 +8643,7 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
       "plan": {
         "beats": [
           "0 self",
-          "1250 talk",
+          "1250 tell",
         ],
         "ms": 2500,
         "sentences": "0-811 1250-2250",
@@ -8688,8 +8661,8 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
       "line": "marek: Škoda! Tak možno inokedy. A čo sa učíš? Slovenčinu?",
       "plan": {
         "beats": [
-          "50 talk",
-          "1100 talk",
+          "50 stress",
+          "1100 tell",
           "2650 ask",
           "4050 ask",
         ],
@@ -8722,7 +8695,7 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "1700 talk",
+          "1700 tell",
         ],
         "ms": 3150,
         "pictures": [
@@ -8751,8 +8724,8 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
       "line": "marek: Tak veľa šťastia na teste! Už musím ísť do práce.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2100 talk",
+          "50 stress",
+          "2100 tell",
         ],
         "ms": 3550,
         "sentences": "50-1613 2100-3400",
@@ -8858,7 +8831,7 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -8885,7 +8858,7 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -8913,7 +8886,7 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -8942,7 +8915,7 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -8971,8 +8944,8 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -8999,7 +8972,7 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -9018,8 +8991,8 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -9115,7 +9088,7 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -9142,7 +9115,7 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -9170,7 +9143,7 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -9199,7 +9172,7 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -9228,8 +9201,8 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -9256,7 +9229,7 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -9275,8 +9248,8 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -9372,7 +9345,7 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -9400,7 +9373,7 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
       "plan": {
         "beats": [
           "0 self",
-          "1863 talk",
+          "1863 tell",
         ],
         "ms": 3000,
         "sentences": "0-1466 1863-2800",
@@ -9421,7 +9394,7 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
       "line": "marek: Chudák. Daj si kávu! Počuj, a čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1000 show",
           "1987 ask",
           "4600 self",
@@ -9464,7 +9437,7 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -9497,8 +9470,8 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -9528,7 +9501,7 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -9551,8 +9524,8 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -9655,7 +9628,7 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -9682,7 +9655,7 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -9710,7 +9683,7 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -9739,7 +9712,7 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -9768,8 +9741,8 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -9796,7 +9769,7 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -9815,8 +9788,8 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -9912,7 +9885,7 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -9939,7 +9912,7 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -9967,7 +9940,7 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -9996,7 +9969,7 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -10025,8 +9998,8 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -10053,7 +10026,7 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -10072,8 +10045,8 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -10169,7 +10142,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -10196,7 +10169,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -10224,7 +10197,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -10253,7 +10226,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -10282,8 +10255,8 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -10310,7 +10283,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -10329,8 +10302,8 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -10426,7 +10399,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -10453,7 +10426,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -10481,7 +10454,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -10510,7 +10483,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -10539,8 +10512,8 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -10567,7 +10540,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -10586,8 +10559,8 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -10683,7 +10656,7 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -10710,7 +10683,7 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -10738,7 +10711,7 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -10767,7 +10740,7 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -10796,8 +10769,8 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -10824,7 +10797,7 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -10843,8 +10816,8 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -10940,7 +10913,7 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -10967,7 +10940,7 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -10995,7 +10968,7 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -11024,7 +10997,7 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -11053,8 +11026,8 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -11081,8 +11054,8 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
       "plan": {
         "beats": [
           "0 ask",
-          "1050 talk",
-          "2350 talk",
+          "1050 stress",
+          "2350 tell",
         ],
         "ms": 3300,
         "questions": "0-664",
@@ -11110,8 +11083,8 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -11207,7 +11180,7 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -11234,7 +11207,7 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -11262,7 +11235,7 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -11291,7 +11264,7 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -11320,8 +11293,8 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -11348,7 +11321,7 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -11367,8 +11340,8 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -11464,7 +11437,7 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
         "beats": [
           "50 wave",
           "1129 ask",
-          "2250 talk",
+          "2250 tell",
         ],
         "ms": 3850,
         "questions": "1129-1825",
@@ -11491,7 +11464,7 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
       "line": "alex: Mám sa dobre, ďakujem. A ty?",
       "plan": {
         "beats": [
-          "0 talk",
+          "0 tell",
           "1800 ask",
         ],
         "ms": 2400,
@@ -11519,7 +11492,7 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
       "line": "marek: Aj ja, ďakujem. Počuj, čo robíš cez víkend? Ja idem v sobotu do Tatier.",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 tell",
           "1700 ask",
           "3950 self",
         ],
@@ -11548,7 +11521,7 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
       "line": "alex: To je super! Môžem ísť s tebou?",
       "plan": {
         "beats": [
-          "50 talk",
+          "50 stress",
           "1150 ask",
         ],
         "ms": 2500,
@@ -11577,8 +11550,8 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "1450 talk",
-          "4100 talk",
+          "1450 tell",
+          "4100 tell",
         ],
         "ms": 6600,
         "sentences": "50-740 1450-3500 4100-6400",
@@ -11605,7 +11578,7 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "700 talk",
+          "700 tell",
         ],
         "ms": 2350,
         "sentences": "0-361 700-2150",
@@ -11624,8 +11597,8 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
       "plan": {
         "beats": [
           "50 cheer",
-          "1800 talk",
-          "3500 talk",
+          "1800 tell",
+          "3500 tell",
         ],
         "ms": 4800,
         "sentences": "50-1126 1800-2809 3500-4600",
@@ -11721,7 +11694,7 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
         "beats": [
           "0 wave",
           "1450 ask",
-          "2900 talk",
+          "2900 tell",
           "5000 ask",
         ],
         "ms": 6400,
@@ -11791,8 +11764,8 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "950 talk",
-          "2750 talk",
+          "950 tell",
+          "3550 muse",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
@@ -11835,8 +11808,8 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1600 talk",
+          "0 tell",
+          "1600 tell",
         ],
         "ms": 3300,
         "sentences": "0-1143 1600-3150",
@@ -11948,7 +11921,7 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
         "beats": [
           "0 wave",
           "1450 ask",
-          "2900 talk",
+          "2900 tell",
           "5000 ask",
         ],
         "ms": 6400,
@@ -12018,8 +11991,8 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "950 talk",
-          "2750 talk",
+          "950 tell",
+          "3550 muse",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
@@ -12071,8 +12044,8 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1600 talk",
+          "0 tell",
+          "1600 tell",
         ],
         "ms": 3300,
         "sentences": "0-1143 1600-3150",
@@ -12176,7 +12149,7 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
         "beats": [
           "0 wave",
           "1450 ask",
-          "2900 talk",
+          "2900 tell",
           "5000 ask",
         ],
         "ms": 6400,
@@ -12246,8 +12219,8 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "950 talk",
-          "2750 talk",
+          "950 tell",
+          "3550 muse",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
@@ -12290,8 +12263,8 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1600 talk",
+          "0 tell",
+          "1600 tell",
         ],
         "ms": 3300,
         "sentences": "0-1143 1600-3150",
@@ -12395,7 +12368,7 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
         "beats": [
           "0 wave",
           "1450 ask",
-          "2900 talk",
+          "2900 tell",
           "5000 ask",
         ],
         "ms": 6400,
@@ -12423,8 +12396,8 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
       "line": "alex: Ešte nie. Urobím ju dnes večer.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1050 talk",
+          "0 tell",
+          "1050 tell",
         ],
         "ms": 2600,
         "sentences": "0-597 1050-2400",
@@ -12450,9 +12423,8 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
       "line": "maria: Tak nechoďte spať neskoro. Úloha nie je dlhá, len desať viet o rodine.",
       "plan": {
         "beats": [
-          "50 talk",
-          "2050 talk",
-          "3850 talk",
+          "50 tell",
+          "2050 tell",
         ],
         "ms": 5050,
         "sentences": "50-1611 2050-4900",
@@ -12488,8 +12460,8 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1600 talk",
+          "0 tell",
+          "1600 tell",
         ],
         "ms": 3300,
         "sentences": "0-1143 1600-3150",
@@ -12585,7 +12557,7 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
         "beats": [
           "0 wave",
           "1450 ask",
-          "2900 talk",
+          "2900 tell",
           "5000 ask",
         ],
         "ms": 6400,
@@ -12655,8 +12627,8 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "950 talk",
-          "2750 talk",
+          "950 tell",
+          "3550 muse",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
@@ -12699,8 +12671,8 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1600 talk",
+          "0 tell",
+          "1600 tell",
         ],
         "ms": 3300,
         "sentences": "0-1143 1600-3150",
@@ -12804,7 +12776,7 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
         "beats": [
           "0 wave",
           "1450 ask",
-          "2900 talk",
+          "2900 tell",
           "5000 ask",
         ],
         "ms": 6400,
@@ -12874,8 +12846,8 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
       "plan": {
         "beats": [
           "0 cheer",
-          "950 talk",
-          "2750 talk",
+          "950 tell",
+          "3550 muse",
         ],
         "ms": 4750,
         "sentences": "0-533 950-4550",
@@ -12918,8 +12890,8 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
       "line": "maria: Tak dobrú noc, Alex. Vidíme sa zajtra o deviatej.",
       "plan": {
         "beats": [
-          "0 talk",
-          "1600 talk",
+          "0 tell",
+          "1600 tell",
         ],
         "ms": 3300,
         "sentences": "0-1143 1600-3150",

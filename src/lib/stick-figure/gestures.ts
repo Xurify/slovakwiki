@@ -1,7 +1,9 @@
 import { REST_POSE, easeInOut, lerpPose, type StickPose } from "./pose";
 
 export const STICK_GESTURE_IDS = [
-  "talk",
+  "tell",
+  "stress",
+  "muse",
   "wave",
   "nod",
   "shake",
@@ -52,7 +54,12 @@ function gesture(peak: Partial<StickPose>, keys: GestureKey[]): StickGesture {
   return { keys, peak: { ...REST_POSE, ...peak } };
 }
 
-const beat = { leadRaise: 34, leadBend: -70, look: 0.6 };
+/** A statement, offered on a small open hand turned out at the waist. */
+const telling = { leadRaise: 28, leadBend: 38, tilt: 2, look: 0.6, brow: 0.2 };
+/** An exclamation: a short beat of the hand with a nod on the word. */
+const stressing = { leadRaise: 46, leadBend: 12, nod: 1.6, look: 0.6, brow: 0.5 };
+/** Words that trail off, or a long thought: head on one side, hands still. */
+const musing = { tilt: 6, lean: 1, look: 0.3, brow: 0.35 };
 const waveUp = { leadRaise: 120, tilt: 4, brow: 0.6 };
 const openHands = {
   leadRaise: 36,
@@ -165,13 +172,20 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
     key(1350),
   ]),
   frown: gesture(putOut, [key(0), key(380, putOut), key(1500, putOut), key(1850)]),
-  talk: gesture(beat, [
+  tell: gesture(telling, [
     key(0),
-    key(260, beat),
-    key(520, { leadRaise: 26, leadBend: -55, look: 0.6 }),
-    key(780, { leadRaise: 36, leadBend: -74, look: 0.6 }),
-    key(1150),
+    key(300, telling),
+    key(900, { ...telling, tilt: 3, leadBend: 44 }),
+    key(1250),
   ]),
+  stress: gesture(stressing, [
+    key(0),
+    key(220, { ...stressing, leadRaise: 52, leadBend: 0, nod: -0.5 }),
+    key(400, { ...stressing, leadRaise: 40, leadBend: 24, nod: 2 }),
+    key(600, stressing),
+    key(1000),
+  ]),
+  muse: gesture(musing, [key(0), key(340, musing), key(1100, musing), key(1400)]),
   wave: gesture({ ...waveUp, leadBend: 10 }, [
     key(0),
     key(280, { ...waveUp, leadBend: 25 }),
