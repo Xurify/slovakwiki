@@ -17,7 +17,9 @@
   import { untrack } from "svelte";
 
   import { getStoredSfxPreference } from "$lib/audio/sfx";
+  import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
+  import type { DialogueTurn } from "$lib/learning/types";
   import { directScene } from "$lib/stick-figure/scene-direction";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { sceneMood } from "$lib/stick-figure/scene-mood";
@@ -32,8 +34,11 @@
     class: className = "",
     follows = false,
     scene,
+    showEnglish = false,
     sound = true,
+    subtitles = true,
     thingWords = {},
+    turns = [],
   }: {
     class?: string;
     /**
@@ -43,10 +48,16 @@
      */
     follows?: boolean;
     scene: StagedScene;
+    /** The English under the subtitle. */
+    showEnglish?: boolean;
     /** The sound of the place under the voices. */
     sound?: boolean;
+    /** The line being said, under the stage, from its first word until the next line starts. */
+    subtitles?: boolean;
     /** Dictionary link and clip for each thing's word, for the card a tap opens. */
     thingWords?: Record<string, { href?: string; src?: string }>;
+    /** The segment's lines as written, one per scene line, for the subtitle's marks and English. */
+    turns?: readonly DialogueTurn[];
   } = $props();
 
   /** The place is seen and heard this long before the first line of a segment that follows on. */
@@ -57,6 +68,10 @@
   let stage = $state<ReturnType<typeof StickStage>>();
   /** The line on stage: the one playing, or the last one played. */
   let at = $state(-1);
+  /** The line in the subtitle: `at` once its voice has started, so a walk-on is not read ahead. */
+  let shown = $state(-1);
+  let cue = $state(0);
+  let speaking = $state(false);
   let veiled = $state(follows);
   /** A line is playing or about to: the place is heard. */
   let live = $state(false);
@@ -105,10 +120,14 @@
     const last = index === scene.lines.length - 1;
     // Someone still walking over gets there before they speak or are spoken to.
     waiting = window.setTimeout(() => {
+      shown = index;
+      cue += 1;
+      speaking = true;
       onStart();
       stage?.play(
         index,
         () => {
+          speaking = false;
           if (last) {
             live = false;
             hush(HANDOVER_MS);
@@ -127,6 +146,7 @@
   export function stop(leaving = false): void {
     window.clearTimeout(waiting);
     live = false;
+    speaking = false;
     stage?.stop();
     hush(leaving ? HANDOVER_MS : 0);
   }
@@ -154,23 +174,51 @@
   }
 </script>
 
-<div class={cx("relative", className)}>
-  <StickStage
-    bind:this={stage}
-    {direction}
-    lines={scene.lines}
-    {mood}
-    setting={scene.setting}
-    {thingWords}
-  />
+<div class={className}>
+  <div class="relative">
+    <StickStage
+      bind:this={stage}
+      {direction}
+      lines={scene.lines}
+      {mood}
+      setting={scene.setting}
+      {thingWords}
+    />
 
-  {#if follows}
+    {#if follows}
+      <div
+        class={cx(
+          "pointer-events-none absolute inset-0 z-20 bg-paper transition-opacity duration-200 ease-out",
+          veiled ? "opacity-100" : "opacity-0",
+        )}
+        aria-hidden="true"
+      ></div>
+    {/if}
+  </div>
+
+  {#if subtitles}
+    {@const turn = turns[shown]}
+
+    <!-- Room for two lines, so the controls stay put as the lines change. -->
     <div
-      class={cx(
-        "pointer-events-none absolute inset-0 z-20 bg-paper transition-opacity duration-200 ease-out",
-        veiled ? "opacity-100" : "opacity-0",
-      )}
-      aria-hidden="true"
-    ></div>
+      class="min-h-[5.75rem] border-t border-slate-200/70 px-4 py-3 max-[600px]:min-h-[5rem] sm:px-5"
+    >
+      {#if turn}
+        {#key shown}
+          <SceneCaption
+            clock={() => stage?.clock()}
+            {cue}
+            english={turn.english}
+            marks={turn.marks}
+            onthing={(id) => stage?.light(id)}
+            plan={direction.lines[shown]?.plan}
+            playing={speaking}
+            {showEnglish}
+            slovak={turn.slovak}
+            things={direction.things}
+          />
+        {/key}
+      {/if}
+    </div>
   {/if}
 </div>

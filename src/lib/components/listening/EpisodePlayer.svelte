@@ -243,7 +243,7 @@
         </span>
       </h2>
 
-      <div class="-mr-2 flex shrink-0 items-center gap-0.5">
+      <div class="-mr-2 flex shrink-0 items-center gap-2">
         <button
           class={cx(
             iconButtonClass,

@@ -24,6 +24,7 @@
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
   import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
+  import { turnDelays, type TurnDelays } from "$lib/stick-figure/turns";
   import type { SpeechClock } from "$lib/stick-figure/performance";
   import { REST_POSE } from "$lib/stick-figure/pose";
   import { solveRig, type Point } from "$lib/stick-figure/rig";
@@ -108,6 +109,8 @@
 
   let actors = $state<Partial<Record<LessonCharacterId, ActorState>>>({});
   let facings = $state<CastFacing>({});
+  /** When each figure begins a turn: the speaker at once, the others a beat later. */
+  let turns = $state<TurnDelays>({});
   let offsets = $state<Offsets>({});
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** The line whose props are in hand: the one playing, or the last one played. */
@@ -456,6 +459,7 @@
         .filter((other) => other !== id)
         .map((other) => [other, cast.indexOf(id) > cast.indexOf(other) ? 1 : -1]),
     );
+    turns = turnDelays(direction.cast, id);
     facings = { ...facings, ...turned, [id]: from === 1 ? -1 : 1 };
     // Counted from now, so whoever waits on the walk waits from the start.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -543,8 +547,9 @@
 
     for (const actor of Object.values(actors)) actor.talking = false;
     spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
-    facings = { ...facings, ...staging?.facing };
     const speaker = line.characterId;
+    turns = turnDelays(direction.cast, speaker);
+    facings = { ...facings, ...staging?.facing };
     // Aimed from where the speaker stands before anyone walks this line.
     const aimed =
       speaker && plan
@@ -662,6 +667,7 @@
           held={heldBy(characterId)}
           {dress}
           talking={actors[characterId]?.talking ?? false}
+          turnDelay={turns[characterId] ?? 0}
           walk={walks[characterId]}
         />
       </div>

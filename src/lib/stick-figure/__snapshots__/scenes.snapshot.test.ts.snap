@@ -3238,15 +3238,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "anna": "apple",
       },
-      "line": "anna: Ďakujem! Tento podcast má aj jedlo.",
+      "line": "anna: Ďakujem! Mám hlad.",
       "plan": {
         "beats": [
           "0 nod",
-          "950 tell",
+          "1179 tell",
         ],
-        "ms": 3000,
-        "sentences": "0-635 950-2850",
-        "words": "0-635 950-1405 1405-1929 1929-2186 2186-2395 2395-2850",
+        "ms": 1950,
+        "sentences": "0-723 1179-1800",
+        "words": "0-723 1179-1496 1496-1800",
       },
       "staging": {
         "addressee": "marek",
@@ -4420,15 +4420,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
     },
     {
-      "line": "marek: Tretia veta: Poznáš tohoto muža?",
+      "line": "marek: A posledná veta: Poznáš tohoto muža?",
       "plan": {
         "beats": [
-          "50 ask",
+          "100 ask",
         ],
-        "ms": 3050,
-        "questions": "50-2800",
-        "sentences": "50-2800",
-        "words": "50-420 420-729 1631-2027 2027-2491 2491-2800",
+        "ms": 3400,
+        "questions": "100-3200",
+        "sentences": "100-3200",
+        "words": "100-231 231-788 788-1101 2016-2416 2416-2887 2887-3200",
       },
       "staging": {
         "addressee": "anna",

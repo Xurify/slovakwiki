@@ -131,7 +131,7 @@ describe("handing things over", () => {
     const direction = directScene(
       [
         { characterId: "marek", slovak: "Presne. A to jablko je pre teba." },
-        { characterId: "anna", slovak: "Ďakujem! Tento podcast má aj jedlo." },
+        { characterId: "anna", slovak: "Ďakujem! Mám hlad." },
       ],
       "studio",
     );

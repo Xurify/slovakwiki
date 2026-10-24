@@ -28,9 +28,9 @@
 
 <li
   class={cx(
-    "flex scroll-mt-28 scroll-mb-4 list-none gap-3 border-b border-slate-200/70 px-4 py-3 last:border-b-0 sm:px-5",
-    "transition-[background-color,box-shadow,opacity] duration-150 ease-out",
-    current && "bg-blue-50 shadow-[inset_3px_0_0_var(--accent)]",
+    "flex scroll-mt-28 scroll-mb-4 list-none gap-3 border-b border-l-[3px] border-slate-200/70 border-l-transparent px-4 py-3 last:border-b-0 sm:px-5",
+    "transition-[background-color,border-color,opacity] duration-150 ease-out",
+    current && "border-l-blue-600 bg-blue-50",
     dimmed && "opacity-55",
   )}
   aria-current={current ? "true" : undefined}

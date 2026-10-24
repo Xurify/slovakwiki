@@ -8,8 +8,10 @@
   import {
     getStoryPlaceSound,
     getStoryShowEnglish,
+    getStorySubtitles,
     setStoryPlaceSound,
     setStoryShowEnglish,
+    setStorySubtitles,
   } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
@@ -70,6 +72,7 @@
   let textOpen = $state(false);
   let english = $state(false);
   let placeSound = $state(true);
+  let subtitles = $state(true);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
 
   const lines = chapter.lines;
@@ -142,8 +145,21 @@
 
   /** What stays set from one segment to the next, behind one gear. */
   const settings = $derived<SceneSetting[]>([
+    ...(scene
+      ? [
+          {
+            description: "The line being said, under the stage",
+            label: "Subtitles",
+            on: subtitles,
+            ontoggle: () => {
+              subtitles = !subtitles;
+              setStorySubtitles(subtitles ? "on" : "off");
+            },
+          },
+        ]
+      : []),
     {
-      description: "Translations under the Slovak lines",
+      description: "Translations under the Slovak lines and the subtitles",
       label: "Show English",
       on: english,
       ontoggle: () => {
@@ -211,6 +227,7 @@
   onMount(() => {
     english = getStoryShowEnglish() === "on";
     placeSound = getStoryPlaceSound() === "on";
+    subtitles = getStorySubtitles() === "on";
 
     const controls = "a, button, input, label, select, textarea";
     const gestures = ["touchend", "click", "keydown"] as const;
@@ -250,8 +267,11 @@
       class="mt-3 border-y border-slate-200/70"
       follows={autoplay}
       {scene}
+      showEnglish={english}
       sound={placeSound}
+      {subtitles}
       {thingWords}
+      turns={lines}
     />
   {/if}
 
@@ -392,8 +412,6 @@
 
   {#if textOpen}
     <div class="border-t border-slate-200/70">
-      <p class="m-0 px-4 pt-2.5 text-sm font-semibold text-slate-700 sm:px-5">Text</p>
-
       <ol class="m-0 list-none p-0" aria-label="Transcript">
         {#each lines as line, index (line.id)}
           <EpisodeLine

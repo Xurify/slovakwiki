@@ -202,12 +202,7 @@ const bag: ListeningChapter = {
       ["Výborne! A ", mark("to"), " jablko je pre teba."],
       "Excellent! And that apple is for you.",
     ),
-    line(
-      "anna-podcast-has-food",
-      "Anna",
-      ["Ďakujem! ", mark("Tento"), " podcast má aj jedlo."],
-      "Thanks! This podcast even has food.",
-    ),
+    line("anna-hungry", "Anna", ["Ďakujem! Mám hlad."], "Thanks! I'm hungry."),
     line(
       "marek-lets-go-to-market",
       "Marek",
@@ -468,11 +463,17 @@ const home: ListeningChapter = {
       "anna-car-or-flat",
       "Anna",
       ["Ktorý? ", mark("Ten"), " od auta alebo ", mark("ten"), " od bytu?"],
-      "Which one? The car one or the flat one?",
+      "Which one? The one for the car or the one for the apartment?",
     ),
-    line("marek-the-car-one", "Marek", [mark("Ten"), " od auta."], "The car one.", {
-      props: [null],
-    }),
+    line(
+      "marek-the-car-one",
+      "Marek",
+      [mark("Ten"), " od auta."],
+      "The one for the car.",
+      {
+        props: [null],
+      },
+    ),
     line(
       "anna-in-that-bag",
       "Anna",
@@ -659,10 +660,10 @@ const quiz: ListeningChapter = {
       ),
     ),
     line(
-      "marek-third-sentence",
+      "marek-last-sentence",
       "Marek",
-      ["Tretia veta: ", PAUSE, "Poznáš ", mark("tohoto"), " muža?"],
-      "Third sentence: Poznáš tohoto muža? (The Czech form, on purpose.)",
+      ["A posledná veta: ", PAUSE, "Poznáš ", mark("tohoto"), " muža?"],
+      "And the last sentence: Poznáš tohoto muža? (The Czech form, on purpose.)",
     ),
     afterThinking(
       line(

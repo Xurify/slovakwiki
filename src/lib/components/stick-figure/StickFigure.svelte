@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
+  import { TURN_MS } from "$lib/stick-figure/turns";
   import {
     GROUND_Y,
     solveRig,
@@ -26,6 +27,7 @@
     pose = REST_POSE,
     held,
     dress = dressFor("clear"),
+    turnDelay = 0,
   }: {
     characterId: LessonCharacterId;
     class?: string;
@@ -37,6 +39,8 @@
     held?: Held;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
+    /** Ms before a change of `facing` starts: a listener turns a beat after the speaker. */
+    turnDelay?: number;
   } = $props();
 
   const rig = $derived(solveRig(pose));
@@ -102,10 +106,12 @@
   stroke-linejoin="round"
   aria-hidden="true"
 >
-  <!-- A turn is a 200 ms flip through edge-on, like a paper cut-out. -->
+  <!-- A turn is a flip through edge-on, like a paper cut-out, slowing into and out of it. -->
   <g
-    class="transition-transform duration-200 ease-out"
+    class="transition-transform ease-in-out"
     style:transform="scaleX({facing})"
+    style:transition-duration="{TURN_MS}ms"
+    style:transition-delay="{turnDelay}ms"
   >
     <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 

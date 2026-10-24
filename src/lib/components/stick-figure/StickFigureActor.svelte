@@ -27,6 +27,7 @@
     held,
     dress,
     talking = false,
+    turnDelay = 0,
     walk,
   }: {
     characterId: LessonCharacterId;
@@ -43,6 +44,8 @@
     dress?: Dress;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
+    /** Ms before a change of `facing` starts. */
+    turnDelay?: number;
     /** Bump `cue` to take steps for `ms` while the stage moves the figure. */
     walk?: { cue: number; ms: number };
   } = $props();
@@ -120,4 +123,12 @@
   }
 </script>
 
-<StickFigure {characterId} facing={turned ?? facing} {picture} {pose} {held} {dress} />
+<StickFigure
+  {characterId}
+  facing={turned ?? facing}
+  {picture}
+  {pose}
+  {held}
+  {dress}
+  turnDelay={turned ? 0 : turnDelay}
+/>
