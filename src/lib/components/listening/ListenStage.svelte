@@ -338,7 +338,9 @@
 
     <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
       {#if stage === "listening"}
-        <ListenControl onclick={() => player.back()}>Replay line</ListenControl>
+        <ListenControl onclick={() => player.back()}>
+          {player.justBegun && player.cursor > 0 ? "Previous line" : "Replay line"}
+        </ListenControl>
       {/if}
 
       <ListenControl onclick={() => (textOpen = !textOpen)}>

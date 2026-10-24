@@ -32,8 +32,11 @@ export class LinePlayer {
   /** The line's voice has started: on a stage, after anyone walking over is there. */
   speaking = $state(false);
   slow = $state(false);
+  /** Less than BACK_MS of the line heard: Replay line would go back a line instead. */
+  justBegun = $state(true);
 
   #epoch = 0;
+  #begun = 0;
   #gap = 0;
   /** How long the current line's voice has been heard, over its pauses. */
   #heardMs = 0;
@@ -68,6 +71,7 @@ export class LinePlayer {
     this.speaking = false;
     this.#heardMs = 0;
     this.#speakingSince = null;
+    this.#markBegun();
 
     const rate = this.slow ? SLOW_RATE : 1;
     const onEnded = () => this.#onLineEnded(index, mine);
@@ -75,6 +79,7 @@ export class LinePlayer {
       if (mine !== this.#epoch) return;
       this.speaking = true;
       this.#speakingSince = Date.now();
+      this.#markBegun();
     };
     const stage = this.#options.stage?.();
     if (stage) stage.play(index, onEnded, rate, onStart);
@@ -94,6 +99,7 @@ export class LinePlayer {
     this.speaking = false;
     this.#heardMs = this.#heard();
     this.#speakingSince = null;
+    this.#markBegun();
     this.#options.stage?.()?.stop();
     stopStoryLineAudio();
   }
@@ -103,6 +109,20 @@ export class LinePlayer {
     const index =
       this.#heard() < BACK_MS && this.cursor > 0 ? this.cursor - 1 : this.cursor;
     this.playFrom(index);
+  }
+
+  /** `justBegun` from the time heard, and off once the voice reaches BACK_MS. */
+  #markBegun(): void {
+    window.clearTimeout(this.#begun);
+    this.#begun = 0;
+    const left = BACK_MS - this.#heard();
+    this.justBegun = left > 0;
+    if (left > 0 && this.#speakingSince !== null) {
+      this.#begun = window.setTimeout(() => {
+        this.#begun = 0;
+        this.justBegun = false;
+      }, left);
+    }
   }
 
   #heard(): number {
@@ -124,6 +144,7 @@ export class LinePlayer {
 
   destroy(): void {
     this.#clearGap();
+    window.clearTimeout(this.#begun);
     this.#options.stage?.()?.stop(true);
     stopStoryLineAudio();
   }
