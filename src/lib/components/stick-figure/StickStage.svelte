@@ -610,7 +610,7 @@
       <p
         class={cx(
           "absolute z-10 m-0 w-max max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
-          "bg-surface px-3 py-2 font-serif text-base text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
+          "bg-surface px-3 py-2 text-center font-serif text-base text-balance text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
         )}
         style:left="{centre}px"
         style:top="{Math.max(4, mark.top - 8 - bubbleHeight)}px"
