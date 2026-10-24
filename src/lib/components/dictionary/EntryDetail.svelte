@@ -522,7 +522,7 @@
                   )}
                   aria-current={row.current ? "true" : undefined}
                 >
-                  <span class="text-xs tabular-nums text-slate-500">#{row.rank}</span>
+                  <span class="text-xs tabular-nums text-slate-700">#{row.rank}</span>
 
                   {#if row.href && !row.current}
                     <a

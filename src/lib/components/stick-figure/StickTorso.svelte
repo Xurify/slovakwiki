@@ -29,7 +29,7 @@
   />
   <path
     d="M-6 -27.6Q-6.4 -30.8 -3 -31L3 -31Q6.4 -30.8 6 -27.6L4.7 -14Q5.9 -6.5 5.6 0.6Q0 1.8 -5.6 0.6Q-5.9 -6.5 -4.7 -14Z"
-    class="fill-blue-600 stroke-portrait-ink"
+    class="fill-scene-blue stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path d="M-2.7 -30.8L0 -23.2L2.7 -30.8Z" class="fill-portrait-bib" />
@@ -103,13 +103,13 @@
   <circle cx="0" cy="-20.7" r="1.5" class={look.robot.chest} />
   <path d="M-4.8 -6.4H4.8" class="stroke-portrait-ink" stroke-width="0.8" />
   <circle cx="-2.6" cy="-3" r="0.7" class="fill-sky-400" />
-  <circle cx="0" cy="-3" r="0.7" class="fill-rose-500" />
+  <circle cx="0" cy="-3" r="0.7" class="fill-scene-red" />
   <circle cx="2.6" cy="-3" r="0.7" class="fill-sky-400" />
 {:else if characterId === "lucia"}
   <!-- green A-line dress with a scoop neck and a shop name tag -->
   <path
     d="M-5.2 -28.4Q-5.6 -30.8 -2.7 -31L2.7 -31Q5.6 -30.8 5.2 -28.4L4.2 -12.2L8.6 11.8Q0 13.8 -8.6 11.8L-4.2 -12.2Z"
-    class="fill-emerald-600 stroke-portrait-ink"
+    class="fill-scene-green stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
@@ -131,12 +131,12 @@
   <!-- blue zip hoodie over a white tee, the hood bunched behind the neck -->
   <path
     d="M-4 -32.4Q0 -35.4 4 -32.4L4.6 -29.6H-4.6Z"
-    class="fill-blue-600 stroke-portrait-ink"
+    class="fill-scene-blue stroke-portrait-ink"
     stroke-width="1"
   />
   <path
     d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L3 -31.1Q6.4 -30.9 6 -27.8L5.6 -1.6Q0 0.4 -5.6 -1.6Z"
-    class="fill-blue-600 stroke-portrait-ink"
+    class="fill-scene-blue stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path d="M-2 -31L0 -26.6L2 -31Z" class="fill-portrait-bib" />
@@ -154,7 +154,7 @@
   <!-- rose knit sweater over a white collar, a bag on a strap across -->
   <path
     d="M-5.8 -27.8Q-6.2 -30.9 -3 -31.1L3 -31.1Q6.2 -30.9 5.8 -27.8L5.4 -2.4Q0 -0.6 -5.4 -2.4Z"
-    class="fill-rose-500 stroke-portrait-ink"
+    class="fill-scene-red stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
@@ -187,12 +187,12 @@
   />
   <path
     d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L-1.4 -31L-1.8 -0.8Q-4 -0.4 -5.6 -1.4Z"
-    class="fill-rose-500 stroke-portrait-ink"
+    class="fill-scene-red stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
     d="M6 -27.8Q6.4 -30.9 3 -31.1L1.4 -31L1.8 -0.8Q4 -0.4 5.6 -1.4Z"
-    class="fill-rose-500 stroke-portrait-ink"
+    class="fill-scene-red stroke-portrait-ink"
     stroke-width="1.1"
   />
   <circle

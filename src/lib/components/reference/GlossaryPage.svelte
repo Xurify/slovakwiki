@@ -235,7 +235,7 @@
           <strong class="font-semibold tabular-nums text-slate-900"
             >{terms.length} terms</strong
           >
-          <span class="text-slate-400">A to Z of the grammar vocabulary</span>
+          <span class="text-slate-600">A to Z of the grammar vocabulary</span>
         </p>
       </div>
 

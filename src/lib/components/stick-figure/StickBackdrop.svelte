@@ -30,6 +30,7 @@
     class: className = "",
     found = [],
     height = 0,
+    hint,
     lit = [],
     mood = DAYTIME,
     onpick,
@@ -38,6 +39,8 @@
     tram = "away",
     width = 0,
   }: {
+    /** Before each thing's name for assistive tech, when a tap shows its word rather than plays a game. */
+    hint?: string;
     /** A line to chalk on the classroom board. */
     board?: string;
     class?: string;
@@ -97,6 +100,18 @@
   const hour = $derived(CLOCK_HOURS[mood.time]);
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
+  /** Which thing the Tab key lands on: the last one focused, so leaving and coming back keeps the place. */
+  let tabStop = $state(0);
+  /** Right and Down go to the next thing, Left and Up to the one before; Home and End to the ends. */
+  const ARROW_STEPS: Record<string, number> = {
+    ArrowRight: 1,
+    ArrowDown: 1,
+    ArrowLeft: -1,
+    ArrowUp: -1,
+    Home: Number.NEGATIVE_INFINITY,
+    End: Number.POSITIVE_INFINITY,
+  };
+
   const boxes = $derived(
     things.flatMap((thing) =>
       thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
@@ -117,6 +132,8 @@
 -->
 <svg
   class="block {className}"
+  role={onpick ? "group" : undefined}
+  aria-label={onpick ? `Scene: ${PLACES[setting].label}` : undefined}
   aria-hidden={onpick ? undefined : "true"}
   viewBox={view.box}
   preserveAspectRatio={view.ratio}
@@ -124,14 +141,17 @@
   stroke-linecap="round"
   stroke-linejoin="round"
 >
-  {#if PLACES[setting].outdoors}
-    <SkyLayer {mood} {setting} />
-  {/if}
+  <!-- Paint only: the things below carry the names. -->
+  <g aria-hidden="true">
+    {#if PLACES[setting].outdoors}
+      <SkyLayer {mood} {setting} />
+    {/if}
 
-  <Drawing {board} {hour} {tram} />
+    <Drawing {board} {hour} {tram} />
 
-  <MoodLayer {mood} {setting} />
-  <StageLight />
+    <MoodLayer {mood} {setting} />
+    <StageLight />
+  </g>
 
   {#each boxes as { box, copy, thing } (`${thing.id}-${copy}`)}
     {@const done = found.includes(thing.id)}
@@ -157,7 +177,8 @@
   {/each}
 
   {#if onpick}
-    {#each hitOrder as { box, copy, thing } (`${thing.id}-${copy}`)}
+    <!-- One tab stop for the whole scene; the arrow keys move between its things. -->
+    {#each hitOrder as { box, copy, thing }, index (`${thing.id}-${copy}`)}
       <rect
         x={box.x - 5}
         y={box.y - 5}
@@ -167,20 +188,38 @@
         fill="transparent"
         class="cursor-pointer outline-none"
         role="button"
-        tabindex="0"
-        aria-label={thing.word}
+        tabindex={index === tabStop ? 0 : -1}
+        aria-label={hint ? `${hint}: ${thing.word}` : thing.word}
         aria-pressed={picked === thing.id}
         onclick={() => onpick(thing.id)}
         onfocus={() => {
           focused = thing.id;
+          tabStop = index;
         }}
         onblur={() => {
           focused = undefined;
         }}
         onkeydown={(event) => {
-          if (event.key !== "Enter" && event.key !== " ") return;
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onpick(thing.id);
+            return;
+          }
+          const step = ARROW_STEPS[event.key];
+          if (step === undefined) return;
           event.preventDefault();
-          onpick(thing.id);
+          const rects = [
+            ...event.currentTarget.ownerSVGElement!.querySelectorAll<SVGRectElement>(
+              'rect[role="button"]',
+            ),
+          ];
+          const at = rects.indexOf(event.currentTarget);
+          const next = Number.isFinite(step)
+            ? (at + step + rects.length) % rects.length
+            : step > 0
+              ? rects.length - 1
+              : 0;
+          rects[next]?.focus();
         }}
       />
     {/each}

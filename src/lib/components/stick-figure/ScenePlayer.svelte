@@ -673,21 +673,24 @@
         words={sceneWords}
       />
     {:else if caption}
-      <SceneCaption
-        clock={() => stage?.clock()}
-        cue={playback.cue}
-        english={caption.english}
-        {listenFirst}
-        marks={caption.marks}
-        onthing={(id) => stage?.light(id)}
-        plan={(ownVoice && takes[playback.shown] ? dubbed : direction).lines[
-          playback.shown
-        ]?.plan}
-        playing={playback.speaking}
-        {showEnglish}
-        slovak={caption.slovak}
-        things={direction.things}
-      />
+      <!-- One live region for the whole scene, so each line is read as it comes. -->
+      <div aria-live="polite">
+        <SceneCaption
+          clock={() => stage?.clock()}
+          cue={playback.cue}
+          english={caption.english}
+          {listenFirst}
+          marks={caption.marks}
+          onthing={(id) => stage?.light(id)}
+          plan={(ownVoice && takes[playback.shown] ? dubbed : direction).lines[
+            playback.shown
+          ]?.plan}
+          playing={playback.speaking}
+          {showEnglish}
+          slovak={caption.slovak}
+          things={direction.things}
+        />
+      </div>
     {:else}
       <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
         <div class="min-w-0">

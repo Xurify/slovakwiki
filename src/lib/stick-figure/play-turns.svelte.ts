@@ -13,7 +13,7 @@ export const TURN_KINDS: ReadonlyArray<{ id: TurnKind; label: string; task: stri
   { id: "say", label: "Say it", task: "say the line out loud" },
   {
     id: "adaptive",
-    label: "Adaptive",
+    label: "Harder as you go",
     task: "answer: picking first, then building the line and saying it as you get lines right, and back a step after a slip",
   },
 ];

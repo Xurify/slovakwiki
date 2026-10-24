@@ -525,7 +525,7 @@
             onclick={() => (filter = option.id)}
           >
             {option.label}
-            <span class="ml-1.5 font-normal tabular-nums opacity-80">{option.count}</span>
+            <span class="ml-1.5 font-normal tabular-nums">{option.count}</span>
           </button>
         {/each}
       </div>

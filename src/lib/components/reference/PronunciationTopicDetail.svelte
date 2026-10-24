@@ -115,7 +115,7 @@
                   >
                     {contrast.left} / {contrast.right}
                   </strong>
-                  <span class="text-sm text-slate-500">{contrast.note}</span>
+                  <span class="text-sm text-slate-600">{contrast.note}</span>
                 </span>
               </li>
             {/each}

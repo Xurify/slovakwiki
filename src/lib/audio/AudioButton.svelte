@@ -202,7 +202,6 @@
   class:playing
   disabled={supported === false}
   type="button"
-  aria-pressed={playing}
   aria-label={supported === false
     ? `Play: ${text.trim() || label}. Unavailable`
     : playing

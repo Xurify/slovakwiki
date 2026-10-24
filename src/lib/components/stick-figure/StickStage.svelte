@@ -216,12 +216,8 @@
         Math.max(8, centre.x - CARD_WIDTH / 2),
         Math.max(8, stageWidth - CARD_WIDTH - 8),
       ),
-      top:
-        under <= lowest
-          ? under
-          : over >= 8
-            ? over
-            : Math.min(Math.max(8, centre.y - cardHeight / 2), Math.max(8, lowest)),
+      // Under the thing, or over it; on a stage too short for either (a phone's), under it and past the stage's edge, where the card is not clipped.
+      top: under <= lowest ? under : over >= 8 ? over : under,
     };
   });
 
@@ -630,88 +626,92 @@
 
 <svelte:window onpointerdown={closeCard} onkeydown={closeCard} />
 
-<div
-  class={cx(
-    // Twice as wide as tall up to 300px, so a phone sees most of the place rather than a slice of its middle.
-    "relative aspect-[2/1] max-h-[300px] w-full overflow-hidden",
-    className,
-  )}
-  bind:clientWidth={stageWidth}
-  bind:clientHeight={stageHeight}
->
-  <StickBackdrop
-    class="absolute inset-0 size-full"
-    {board}
-    {found}
-    height={stageHeight}
-    {lit}
-    {mood}
-    onpick={pickThing}
-    {picked}
-    {setting}
-    {tram}
-    width={stageWidth}
-  />
-  <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
-
-  <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
-  {#if measured}
-    {#each direction.cast as characterId (characterId)}
-      <div
-        class="pointer-events-none absolute transition-transform ease-linear"
-        style:bottom="{FLOOR}px"
-        style:left="{frame.marks[characterId] ?? 0}px"
-        style:width="{frame.figureWidth}px"
-        style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
-        style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
-      >
-        <StickFigureActor
-          {characterId}
-          {clock}
-          cue={actors[characterId]?.cue ?? 0}
-          facing={facings[characterId] ?? resting[characterId] ?? 1}
-          onbeat={onBeat}
-          plan={actors[characterId]?.plan}
-          held={heldBy(characterId)}
-          {dress}
-          talking={actors[characterId]?.talking ?? false}
-          turnDelay={turns[characterId] ?? 0}
-          walk={walks[characterId]}
-        />
-      </div>
-    {/each}
-  {/if}
-
-  {#if bubble}
-    {@const mark = standing(
-      markOf(frame, bubble.characterId),
-      offsets[bubble.characterId],
+<!-- The word card sits outside the clipped stage so it can hang past its edge on a short stage. -->
+<div class="relative">
+  <div
+    class={cx(
+      // Twice as wide as tall up to 300px, so a phone sees most of the place rather than a slice of its middle.
+      "relative aspect-[2/1] max-h-[300px] w-full overflow-hidden",
+      className,
     )}
-    {@const head = mark.left + mark.width / 2}
-    {@const centre = Math.min(Math.max(head, 128), Math.max(128, stageWidth - 128))}
-    {#key bubble.cue}
-      <p
-        class={cx(
-          "absolute z-10 m-0 w-max max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
-          "bg-surface px-3 py-2 text-center font-serif text-base text-balance text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
-        )}
-        style:left="{centre}px"
-        style:top="{Math.max(4, mark.top - 8 - bubbleHeight)}px"
-        bind:offsetHeight={bubbleHeight}
-        lang="sk"
-      >
-        {bubble.text}
-        <svg
-          class="absolute top-[calc(100%-1px)] h-2 w-4"
-          style:left="calc(50% + {head - centre}px - 8px)"
-          viewBox="0 0 16 8"
-          aria-hidden="true"
+    bind:clientWidth={stageWidth}
+    bind:clientHeight={stageHeight}
+  >
+    <StickBackdrop
+      class="absolute inset-0 size-full"
+      {board}
+      {found}
+      height={stageHeight}
+      hint={onthing ? undefined : "Show the word"}
+      {lit}
+      {mood}
+      onpick={pickThing}
+      {picked}
+      {setting}
+      {tram}
+      width={stageWidth}
+    />
+    <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
+
+    <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
+    {#if measured}
+      {#each direction.cast as characterId (characterId)}
+        <div
+          class="pointer-events-none absolute transition-transform ease-linear"
+          style:bottom="{FLOOR}px"
+          style:left="{frame.marks[characterId] ?? 0}px"
+          style:width="{frame.figureWidth}px"
+          style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
+          style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
         >
-          <path d="M0 0L8 8L16 0" class="fill-surface stroke-slate-200" />
-        </svg>
-      </p>
-    {/key}
-  {/if}
+          <StickFigureActor
+            {characterId}
+            {clock}
+            cue={actors[characterId]?.cue ?? 0}
+            facing={facings[characterId] ?? resting[characterId] ?? 1}
+            onbeat={onBeat}
+            plan={actors[characterId]?.plan}
+            held={heldBy(characterId)}
+            {dress}
+            talking={actors[characterId]?.talking ?? false}
+            turnDelay={turns[characterId] ?? 0}
+            walk={walks[characterId]}
+          />
+        </div>
+      {/each}
+    {/if}
+
+    {#if bubble}
+      {@const mark = standing(
+        markOf(frame, bubble.characterId),
+        offsets[bubble.characterId],
+      )}
+      {@const head = mark.left + mark.width / 2}
+      {@const centre = Math.min(Math.max(head, 128), Math.max(128, stageWidth - 128))}
+      {#key bubble.cue}
+        <p
+          class={cx(
+            "absolute z-10 m-0 w-max max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
+            "bg-surface px-3 py-2 text-center font-serif text-base text-balance text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
+          )}
+          style:left="{centre}px"
+          style:top="{Math.max(4, mark.top - 8 - bubbleHeight)}px"
+          bind:offsetHeight={bubbleHeight}
+          lang="sk"
+        >
+          {bubble.text}
+          <svg
+            class="absolute top-[calc(100%-1px)] h-2 w-4"
+            style:left="calc(50% + {head - centre}px - 8px)"
+            viewBox="0 0 16 8"
+            aria-hidden="true"
+          >
+            <path d="M0 0L8 8L16 0" class="fill-surface stroke-slate-200" />
+          </svg>
+        </p>
+      {/key}
+    {/if}
+  </div>
 
   {#if pickedThing && card}
     {@const word = thingWords[pickedThing.word]}

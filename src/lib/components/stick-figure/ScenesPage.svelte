@@ -126,15 +126,18 @@
             {#each group.scenes as option (option.id)}
               {@const current = option.id === scene.id}
               <li class="min-w-0">
-                <button
+                <a
                   class={cx(
-                    "block h-full w-full cursor-pointer rounded-(--control-radius) border-0 px-3 py-2.5 text-left",
+                    "block h-full w-full rounded-(--control-radius) px-3 py-2.5 text-left no-underline",
                     "transition-colors duration-150 ease-out hover:bg-blue-50/50",
                     current ? "bg-blue-50/70" : "bg-transparent",
                   )}
-                  type="button"
+                  href="?{SCENE_PARAM}={encodeURIComponent(option.id)}"
                   aria-current={current ? "true" : undefined}
-                  onclick={() => open(option.id)}
+                  onclick={(event) => {
+                    event.preventDefault();
+                    open(option.id);
+                  }}
                 >
                   <span
                     class={cx(
@@ -146,11 +149,11 @@
                     {option.name}
                   </span>
                   {#if option.english}
-                    <span class="block text-sm leading-snug text-slate-500">
+                    <span class="block text-sm leading-snug text-slate-600">
                       {option.english}
                     </span>
                   {/if}
-                </button>
+                </a>
               </li>
             {/each}
           </ul>
