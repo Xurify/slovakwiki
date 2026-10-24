@@ -42,10 +42,13 @@ export function optionRowClass(selected: boolean, font = "font-serif text-lg"): 
   ].join(" ");
 }
 
+/** A radio mark: an outlined ring, with a small dot inside when chosen. */
 export function optionDotClass(selected: boolean): string {
   return [
-    "mt-1.5 size-3.5 shrink-0 rounded-full border-2",
-    selected ? "border-blue-600 bg-blue-600" : "border-slate-400 bg-surface",
+    "mt-1 size-4 shrink-0 rounded-full border-2 transition-[background-color,border-color] duration-150 ease-out",
+    selected
+      ? "border-blue-600 bg-blue-600 shadow-[inset_0_0_0_3px_var(--surface)]"
+      : "border-slate-400 bg-surface",
   ].join(" ");
 }
 
