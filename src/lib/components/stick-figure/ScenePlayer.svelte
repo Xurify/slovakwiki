@@ -125,7 +125,13 @@
           sceneLines.map((line, index) => {
             const take = takes[index];
             return take
-              ? { ...line, mouth: take.mouth, src: take.src, vowels: undefined }
+              ? {
+                  ...line,
+                  mouth: take.mouth,
+                  said: undefined,
+                  src: take.src,
+                  vowels: undefined,
+                }
               : line;
           }),
           scene.setting,

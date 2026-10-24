@@ -259,6 +259,35 @@ describe("planLine", () => {
     expect(plan.beats[1].at).toBe(15 * MOUTH_FRAME_MS);
   });
 
+  it("keeps the words after a long pause in their sentence", () => {
+    const track = decodeMouthTrack(
+      `0${"6".repeat(4)}${"0".repeat(20)}${"8".repeat(30)}000`,
+    );
+    const plan = planLine("Hm… to je kľúč!", { track });
+    const [hum, guess] = plan.sentences;
+
+    expect(hum.end).toBeGreaterThan(hum.start);
+    expect(guess.start).toBe(25 * MOUTH_FRAME_MS);
+    expect(plan.words?.[0].start).toBe(hum.start);
+    expect(plan.words?.[1].start).toBe(guess.start);
+    expect(plan.words?.at(-1)?.end).toBeCloseTo(guess.end);
+  });
+
+  it("times a word after a pause in the clip text by the pause", () => {
+    const track = decodeMouthTrack(
+      `0${"8".repeat(14)}${"0".repeat(22)}${"8".repeat(16)}000`,
+    );
+    const plan = planLine("Dobre, dám si tamten.", {
+      said: "Dobre, [pause] dám si tamten.",
+      track,
+    });
+
+    expect(plan.words?.[1].start).toBeGreaterThan(30 * MOUTH_FRAME_MS);
+    expect(planLine("Dobre, dám si tamten.", { track }).words?.[1].start).toBeLessThan(
+      25 * MOUTH_FRAME_MS,
+    );
+  });
+
   it("records where each sentence is spoken", () => {
     const plan = planLine("Dobrý deň. Volám sa Anna.");
 

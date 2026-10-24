@@ -75,6 +75,10 @@ const CONSONANT_MS = 30;
 const LONG_EXTRA_MS = 40;
 const COMMA_MS = 100;
 const SENTENCE_GAP_MS = 360;
+/** Silence where the clip text says `[pause]`: the median over the podcast's 19 pauses. */
+const PAUSE_MS = 1050;
+/** An audio tag in clip text, such as `[pause]`: said as silence, not as a word. */
+const TAG = /^\[[^\]]*\]$/;
 const LEAD_MS = 40;
 const TAIL_MS = 180;
 
@@ -94,7 +98,11 @@ const LATE_BEAT_MS = 300;
 export function estimateSpeechMs(text: string): number {
   let ms = 0;
 
-  for (const token of text.match(/\p{L}+|[,;:–—]/gu) ?? []) {
+  for (const token of text.match(/\[[^\]]*\]|\p{L}+|[,;:–—]/gu) ?? []) {
+    if (TAG.test(token)) {
+      ms += PAUSE_MS;
+      continue;
+    }
     if (!/\p{L}/u.test(token)) {
       ms += COMMA_MS;
       continue;
@@ -126,7 +134,11 @@ export function textTimeline(text: string): {
   let ms = 0;
   let pendingPause = 0;
 
-  for (const token of text.match(/\p{L}+|[,;:–—]|[.!?…]+/gu) ?? []) {
+  for (const token of text.match(/\[[^\]]*\]|\p{L}+|[,;:–—]|[.!?…]+/gu) ?? []) {
+    if (TAG.test(token)) {
+      pendingPause = Math.max(pendingPause, PAUSE_MS);
+      continue;
+    }
     if (!/\p{L}/u.test(token)) {
       pendingPause = Math.max(
         pendingPause,
@@ -171,6 +183,8 @@ export interface LineClip {
   lips?: LipTrack;
   /** Words to point on, from what the scene has to point at. */
   points?: readonly LinePoint[];
+  /** The clip's text, when it marks pauses the line does not show (`[pause]`). */
+  said?: string;
   /** Loudness per frame (0–1). */
   track?: number[];
 }
@@ -183,13 +197,18 @@ export interface LineClip {
  */
 export function planLine(
   slovak: string,
-  { gestures, lips, points = [], track }: LineClip = {},
+  { gestures, lips, points = [], said, track }: LineClip = {},
 ): LinePlan {
   const sentences = lineSentences(slovak);
-  const lengths = sentences.map(estimateSpeechMs);
-  const speechMs =
-    lengths.reduce((sum, length) => sum + length, 0) +
-    SENTENCE_GAP_MS * Math.max(0, sentences.length - 1);
+  const saidSentences = said ? lineSentences(said) : [];
+  const timed = saidSentences.length === sentences.length ? saidSentences : sentences;
+  const gaps = timed.map((sentence, index) =>
+    index === 0 ? 0 : sentence.startsWith("[") ? PAUSE_MS : SENTENCE_GAP_MS,
+  );
+  const lengths = timed.map((sentence) =>
+    estimateSpeechMs(sentence.replace(/^\[[^\]]*\]/, "")),
+  );
+  const speechMs = [...lengths, ...gaps].reduce((sum, ms) => sum + ms, 0);
 
   const span = track ? trackSpeechSpan(track) : undefined;
   const pauses = track ? trackPauses(track) : [];
@@ -206,6 +225,7 @@ export function planLine(
   let cursor = 0;
 
   sentences.forEach((sentence, index) => {
+    cursor += gaps[index];
     const estimated = origin + cursor * scale;
     const start =
       index === 0 ? estimated : (nearestPauseEnd(pauses, estimated) ?? estimated);
@@ -224,18 +244,18 @@ export function planLine(
 
     if (sentence.includes("?")) questions.push({ start, end });
     spans.push({ start, end });
-    cursor += lengths[index] + SENTENCE_GAP_MS;
+    cursor += lengths[index];
   });
 
-  const { words } = textTimeline(slovak);
   const sentenceOf = wordSentences(slovak);
+  const words = fitWords(textTimeline(said ?? slovak).words, sentenceOf, spans);
   for (const { reach, target, word } of points) {
     const said = words[word];
     const sentence = spans[sentenceOf[word] ?? -1];
     if (!said || !sentence) continue;
 
     beats.push({
-      at: Math.max(sentence.start, origin + said.start * scale - POINT_LEAD_MS),
+      at: Math.max(sentence.start, said.start - POINT_LEAD_MS),
       gesture: "point",
       point: { reach, target },
     });
@@ -244,7 +264,7 @@ export function planLine(
   beats.sort((a, b) => a.at - b.at);
   const speechEnd = origin + speechMs * scale;
   const pictures = linePictures(slovak).map(({ picture, word }) => ({
-    at: origin + (words[word]?.start ?? 0) * scale,
+    at: words[word]?.start ?? origin,
     picture,
   }));
 
@@ -256,11 +276,33 @@ export function planLine(
     questions,
     sentences: spans,
     track,
-    words: words.map(({ end, start }) => ({
-      end: origin + end * scale,
-      start: origin + start * scale,
-    })),
+    words,
   };
+}
+
+/**
+ * Each word's span in clip time: its place in its sentence, laid over where
+ * the sentence is spoken. A sentence start sits on the real pause before it,
+ * so a long `[pause]` in the clip does not leave the words after it early.
+ */
+function fitWords(
+  words: readonly LineSpan[],
+  sentenceOf: readonly number[],
+  sentences: readonly LineSpan[],
+): LineSpan[] {
+  return words.map((word, index) => {
+    const sentence = sentences[sentenceOf[index] ?? -1];
+    if (!sentence) return word;
+
+    const own = words.filter((_, other) => sentenceOf[other] === sentenceOf[index]);
+    const from = own[0].start;
+    const length = own[own.length - 1].end - from;
+    const at = (ms: number) =>
+      sentence.start +
+      (length > 0 ? ((ms - from) / length) * (sentence.end - sentence.start) : 0);
+
+    return { end: at(word.end), start: at(word.start) };
+  });
 }
 
 /**

@@ -20,6 +20,8 @@ export interface DirectedLine extends StageLine {
   gestures?: StickGestureId[];
   /** Loudness track of the clip, encoded (`content/audio/mouth.json`). */
   mouth?: string;
+  /** The clip's text, when it marks pauses the line does not show. */
+  said?: string;
   /** The clip; without one the line runs on its text timing. */
   src?: string;
   /** Aligned vowel per mouth frame, encoded. */
@@ -97,7 +99,7 @@ export function directScene(
     }
 
     const staging = stageLine(read, index, cast, things, points);
-    const { gestures, mouth, vowels } = lines[index];
+    const { gestures, mouth, said, vowels } = lines[index];
     return {
       handed:
         characterId && gives ? handOver(held[index], characterId, gives) : undefined,
@@ -110,6 +112,7 @@ export function directScene(
         ),
         lips: vowels ? decodeVowelTrack(vowels) : undefined,
         points,
+        said,
         track: mouth ? decodeMouthTrack(mouth) : undefined,
       }),
       props,

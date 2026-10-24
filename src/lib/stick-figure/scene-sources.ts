@@ -50,6 +50,7 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
     marks: turn.marks,
     mouth: mouths[turn.id]?.m,
     props: turn.props,
+    said: turn.audio?.transcript,
     sayChoices: turn.sayChoices,
     slovak: turn.slovak,
     speaker: stageName(turn.speaker),
@@ -109,13 +110,14 @@ function directedLine({
   gestures,
   mouth,
   props,
+  said,
   slovak,
   src,
   stays,
   to,
   vowels,
 }: SceneLine): DirectedLine {
-  return { characterId, gestures, mouth, props, slovak, src, stays, to, vowels };
+  return { characterId, gestures, mouth, props, said, slovak, src, stays, to, vowels };
 }
 
 /**
