@@ -1,19 +1,9 @@
 <script lang="ts">
   import { dictionaryPathForLiveLink } from "$lib/catalog/dictionary/live-links";
-  import {
-    commonListTrack,
-    commonRowClass,
-  } from "$lib/components/dictionary/common-list-ui";
   import type {
     CompactFrequencyEntry,
     LiveLink,
   } from "$lib/components/dictionary/common-client.svelte";
-  import {
-    dataGlossClass,
-    dataMetaClass,
-    dataStaticRowClass,
-    dataWordClass,
-  } from "$lib/components/ui/data-list-ui";
 
   let {
     entry,
@@ -29,41 +19,36 @@
     "How often this lemma appears in the Slovak National Corpus (prim-8.0-public-all)";
 </script>
 
-{#snippet count()}
-  {#if entry.count !== undefined}
-    <span class="text-right {dataMetaClass} max-sm:hidden" title={countTitle}>
-      {entry.count.toLocaleString("en")}
-    </span>
-  {/if}
-{/snippet}
+<tr class="border-b border-slate-200/70">
+  <th
+    class="px-4 py-2.5 text-right text-sm font-normal text-slate-500 tabular-nums sm:px-5"
+    scope="row"
+  >
+    {entry.rank}
+  </th>
 
-<li>
-  {#if href}
-    <a class={commonRowClass} {href}>
-      <span class="text-right {dataMetaClass}">{entry.rank}</span>
-
-      <span class="min-w-0 truncate {dataWordClass}" lang="sk">{entry.lemma}</span>
-
-      <span class="min-w-0 {dataGlossClass} max-sm:col-start-2">{live?.english}</span>
-
-      {@render count()}
-    </a>
-  {:else}
-    <div class="{dataStaticRowClass} {commonListTrack}">
-      <span class="text-right {dataMetaClass}">{entry.rank}</span>
-
-      <span
-        class="min-w-0 truncate font-serif text-base leading-snug text-slate-700"
+  <td class="px-2 py-2.5">
+    {#if href}
+      <a
+        class="font-serif text-base text-blue-800 no-underline hover:underline"
+        {href}
         lang="sk"
       >
         {entry.lemma}
-      </span>
+      </a>
+    {:else}
+      <span class="font-serif text-base text-slate-700" lang="sk">{entry.lemma}</span>
+    {/if}
+  </td>
 
-      <span class="min-w-0 text-sm leading-snug text-slate-400 max-sm:col-start-2">
-        Not in the dictionary yet
-      </span>
+  <td class="px-2 py-2.5 text-sm text-slate-600">
+    {live?.english ?? "Not in the dictionary yet"}
+  </td>
 
-      {@render count()}
-    </div>
-  {/if}
-</li>
+  <td
+    class="px-4 py-2.5 text-right text-sm text-slate-500 tabular-nums max-sm:hidden sm:px-5"
+    title={entry.count !== undefined ? countTitle : undefined}
+  >
+    {entry.count?.toLocaleString("en")}
+  </td>
+</tr>

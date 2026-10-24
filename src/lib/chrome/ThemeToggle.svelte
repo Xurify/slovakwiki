@@ -67,7 +67,7 @@
 </script>
 
 <button
-  class="{iconButtonClass} size-10 {toneClass} {className}"
+  class="{iconButtonClass} size-11 {toneClass} {className}"
   type="button"
   aria-label={label}
   title={label}

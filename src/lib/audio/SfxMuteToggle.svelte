@@ -48,7 +48,7 @@
 </script>
 
 <button
-  class="{iconButtonClass} {iconButtonToneClass} size-9 data-muted:text-slate-400 {className}"
+  class="{iconButtonClass} {iconButtonToneClass} size-11 data-muted:text-slate-400 {className}"
   type="button"
   aria-label={label}
   aria-pressed={enabled}

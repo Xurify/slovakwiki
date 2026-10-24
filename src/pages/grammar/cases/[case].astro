@@ -1,18 +1,45 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import type { AudioMountTarget } from "$lib/audio/mount";
+import AudioMountHost from "$lib/audio/AudioMountHost.svelte";
 import GrammarCasePage from "$lib/components/reference/GrammarCasePage.svelte";
 import { contentCacheKey } from "$lib/build/cache-key";
+import { audioHash } from "$lib/catalog/audio/core";
+import { audioClipKind, hasAudioClip } from "$lib/catalog/audio/manifest";
+import { resolveKeyedAudioSrc } from "$lib/catalog/audio/resolve-server";
 import { caseTopics } from "$lib/catalog/entries";
 
 export function getStaticPaths() {
-  return caseTopics.map((topic) => ({
-    params: { case: topic.slug },
-    props: { topic },
-    cacheKey: contentCacheKey(topic),
-  }));
+  return caseTopics.map((topic) => {
+    const audioTargets: AudioMountTarget[] = topic.examples.flatMap((example, index) => {
+      const hash = audioHash(example.slovak);
+      if (!hasAudioClip(hash)) return [];
+
+      const kind = audioClipKind(hash) === "lemma" ? "lemma" : "example";
+      return [
+        {
+          key: `ex-${index}`,
+          props: {
+            label: `Play: ${example.slovak}`,
+            size: "sm" as const,
+            src: resolveKeyedAudioSrc(example.slovak, kind),
+            text: example.slovak,
+          },
+        },
+      ];
+    });
+
+    const props = { topic, audioTargets };
+
+    return {
+      params: { case: topic.slug },
+      props,
+      cacheKey: contentCacheKey(props),
+    };
+  });
 }
 
-const { topic } = Astro.props;
+const { topic, audioTargets } = Astro.props;
 ---
 
 <SiteLayout
@@ -20,5 +47,11 @@ const { topic } = Astro.props;
   description={topic.summary}
   canonicalPath={`/grammar/cases/${topic.slug}`}
 >
-  <GrammarCasePage data={{ topic }} />
+  <GrammarCasePage data={{ topic, audioKeys: audioTargets.map((target) => target.key) }}>
+    {
+      audioTargets.length > 0 && (
+        <AudioMountHost slot="audioMount" client:load targets={audioTargets} />
+      )
+    }
+  </GrammarCasePage>
 </SiteLayout>

@@ -117,7 +117,7 @@ export const caseTopics: CaseTopic[] = [
     ],
     researchPrompts: [
       "Underline the direct object in three Slovak sentences.",
-      "Practise one feminine noun in nominative and accusative.",
+      "Practice one feminine noun in nominative and accusative.",
     ],
     status: "ready",
     source: languageSource,

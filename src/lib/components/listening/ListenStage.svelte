@@ -260,12 +260,14 @@
       {/if}
 
       <ListenControl pressed={player.slow} onclick={() => player.toggleSlow()}>
-        Slower
+        Slower speed
+        <span class="font-normal">{player.slow ? "On" : "Off"}</span>
       </ListenControl>
 
       {#if ontogglequestions}
         <ListenControl pressed={questions} onclick={ontogglequestions}>
-          Stop for questions
+          Pause at questions
+          <span class="font-normal">{questions ? "On" : "Off"}</span>
         </ListenControl>
       {/if}
 

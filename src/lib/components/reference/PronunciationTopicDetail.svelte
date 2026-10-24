@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import SlovakAlphabetIllustration from "$lib/components/reference/SlovakAlphabetIllustration.svelte";
@@ -9,6 +11,7 @@
   } from "$lib/components/reference/grammar-topic-ui";
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
 
+  import { practiceSetById } from "$lib/catalog/practice";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, PronunciationTopic } from "$lib/catalog/types";
 
@@ -23,10 +26,16 @@
   let {
     topic,
     relatedEntries = [],
+    audioKeys = [],
+    audioMount,
   }: {
     topic: PronunciationTopic;
     relatedEntries?: RelatedEntry[];
+    audioKeys?: string[];
+    audioMount?: Snippet;
   } = $props();
+
+  const practiceSet = $derived(practiceSetById.get(topic.slug));
 
   const relatedWords = $derived(relatedEntries.filter((entry) => entry.kind === "word"));
   const relatedTopics = $derived(relatedEntries.filter((entry) => entry.kind !== "word"));
@@ -90,12 +99,24 @@
           <ul
             class="{dataPanelClass} mt-3 grid list-none grid-cols-2 divide-x divide-slate-200 p-0 max-[560px]:grid-cols-1 max-[560px]:divide-x-0 max-[560px]:divide-y"
           >
-            {#each topic.contrasts as contrast (contrast.left)}
-              <li class="grid gap-1 px-4 py-3.5 sm:px-5">
-                <strong class="font-serif text-lg font-semibold text-slate-900" lang="sk">
-                  {contrast.left} / {contrast.right}
-                </strong>
-                <span class="text-sm text-slate-500">{contrast.note}</span>
+            {#each topic.contrasts as contrast, index (contrast.left)}
+              <li class="flex items-start gap-2 px-4 py-3.5 sm:px-5">
+                {#if audioKeys.includes(`contrast-${index}`)}
+                  <span
+                    class="inline-grid size-11 shrink-0 place-items-center"
+                    data-audio-mount={`contrast-${index}`}
+                  ></span>
+                {/if}
+
+                <span class="grid min-w-0 gap-1">
+                  <strong
+                    class="font-serif text-lg font-semibold text-slate-900"
+                    lang="sk"
+                  >
+                    {contrast.left} / {contrast.right}
+                  </strong>
+                  <span class="text-sm text-slate-500">{contrast.note}</span>
+                </span>
               </li>
             {/each}
           </ul>
@@ -114,11 +135,17 @@
           <h2 id="practice-heading" class={grammarHeadingClass}>Words and phrase</h2>
 
           <ul class="m-0 mt-3 flex list-none flex-wrap gap-2 p-0">
-            {#each topic.practiceWords as word (word)}
+            {#each topic.practiceWords as word, index (word)}
               <li
-                class="rounded-full border border-slate-300 bg-surface px-3 py-1.5 font-serif text-base text-slate-900 shadow-(--shadow-border)"
+                class="inline-flex min-h-11 items-center gap-1 rounded-full border border-slate-300 bg-surface py-1 pr-3 pl-1.5 font-serif text-base text-slate-900 shadow-(--shadow-border)"
                 lang="sk"
               >
+                {#if audioKeys.includes(`word-${index}`)}
+                  <span
+                    class="inline-grid size-11 shrink-0 place-items-center"
+                    data-audio-mount={`word-${index}`}
+                  ></span>
+                {/if}
                 {word}
               </li>
             {/each}
@@ -127,9 +154,17 @@
           <blockquote
             class="mt-4 grid gap-1 rounded-r-(--control-radius) border-l-4 border-blue-600 bg-subtle px-4 py-3"
           >
-            <strong class="font-serif text-lg text-slate-900" lang="sk">
-              {topic.practicePhrase.slovak}
-            </strong>
+            <span class="flex items-center gap-2">
+              {#if audioKeys.includes("phrase")}
+                <span
+                  class="inline-grid size-11 shrink-0 place-items-center"
+                  data-audio-mount="phrase"
+                ></span>
+              {/if}
+              <strong class="font-serif text-lg text-slate-900" lang="sk">
+                {topic.practicePhrase.slovak}
+              </strong>
+            </span>
             <span class="text-sm text-slate-500">{topic.practicePhrase.english}</span>
           </blockquote>
         </section>
@@ -152,7 +187,12 @@
             <a class={railLinkClass} href="#goal-heading">Hear and say</a>
             <a class={railLinkClass} href="#contrast-heading">Contrasts</a>
             <a class={railLinkClass} href="#cue-heading">Mouth cue</a>
-            <a class={railLinkClass} href="#practice-heading">Practice</a>
+            <a class={railLinkClass} href="#practice-heading">Words and phrase</a>
+            {#if practiceSet}
+              <a class={railLinkClass} href="/practice/{topic.slug}"
+                >Practice this sound</a
+              >
+            {/if}
             <a class={railLinkClass} href="#source">Source</a>
           </nav>
         </section>
@@ -185,4 +225,8 @@
       </aside>
     </div>
   </PageShell>
+
+  {#if audioMount}
+    {@render audioMount()}
+  {/if}
 </main>

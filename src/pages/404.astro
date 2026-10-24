@@ -1,0 +1,25 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import Lead from "$lib/components/ui/Lead.svelte";
+import PageShell from "$lib/components/ui/PageShell.svelte";
+import TextLink from "$lib/components/ui/TextLink.svelte";
+---
+
+<SiteLayout
+  title="Page not found | Slovak Wiki"
+  description="That page is not on Slovak Wiki."
+  noindex
+>
+  <main class="py-16 pb-20 max-[600px]:py-12">
+    <PageShell class="max-w-[640px]">
+      <h1>Page not found</h1>
+      <Lead>That address is not on Slovak Wiki. Search, or go back to a section.</Lead>
+      <nav class="mt-6 flex flex-wrap gap-x-6 gap-y-2" aria-label="Leave this page">
+        <TextLink href="/">Home</TextLink>
+        <TextLink href="/search">Search</TextLink>
+        <TextLink href="/lessons">Lessons</TextLink>
+        <TextLink href="/dictionary">Dictionary</TextLink>
+      </nav>
+    </PageShell>
+  </main>
+</SiteLayout>

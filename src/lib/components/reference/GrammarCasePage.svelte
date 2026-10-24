@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
@@ -13,7 +15,13 @@
   import { grammarEntries } from "$lib/catalog/reference/grammar";
   import type { CaseTopic } from "$lib/catalog/types";
 
-  let { data }: { data: { topic: CaseTopic } } = $props();
+  let {
+    data,
+    audioMount,
+  }: {
+    data: { topic: CaseTopic; audioKeys?: string[] };
+    audioMount?: Snippet;
+  } = $props();
 
   const topic = $derived(data.topic);
 
@@ -93,12 +101,25 @@
         <h2 id="examples-heading" class={grammarHeadingClass}>In real sentences</h2>
 
         <div class="mt-3">
-          <GrammarExampleList {examples} />
+          <GrammarExampleList {examples} audioKeys={data.audioKeys ?? []} />
         </div>
       </section>
     {/if}
 
-    {#if topic.researchPrompts.length > 0}
+    {#if topic.slug === "accusative"}
+      <section id="try" class="mt-8" aria-labelledby="try-heading">
+        <h2 id="try-heading" class={grammarHeadingClass}>Practice</h2>
+
+        <p class="{grammarProseClass} mt-2">
+          The direct object is the thing you have, see, or want. Drill it with present
+          forms of <span lang="sk">mať</span>.
+        </p>
+
+        <p class="mt-3">
+          <TextLink href="/practice/mat-present">Practice present forms of mať</TextLink>
+        </p>
+      </section>
+    {:else if topic.researchPrompts.length > 0}
       <section id="try" class="mt-8" aria-labelledby="try-heading">
         <h2 id="try-heading" class={grammarHeadingClass}>Try it yourself</h2>
 
@@ -169,4 +190,8 @@
       Full attribution on <TextLink href="/references">References</TextLink>.
     </p>
   </PageShell>
+
+  {#if audioMount}
+    {@render audioMount()}
+  {/if}
 </main>
