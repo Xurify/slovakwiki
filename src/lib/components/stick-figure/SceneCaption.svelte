@@ -4,11 +4,12 @@
   import { captionRuns } from "$lib/stick-figure/caption";
   import { foldLine } from "$lib/stick-figure/slovak-text";
   import type { LinePlan } from "$lib/stick-figure/line-plan";
-  import { planTime, wordAt } from "$lib/stick-figure/performance";
+  import { planTime, wordAt, type SpeechClock } from "$lib/stick-figure/performance";
   import { thingNamed, type SceneThing } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
 
   let {
+    clock = storyAudioClock,
     cue,
     english,
     listenFirst = false,
@@ -20,6 +21,8 @@
     slovak,
     things = [],
   }: {
+    /** Where the line is: the stage's clock, which keeps time when no clip plays. */
+    clock?: () => SpeechClock | undefined;
     /** Bump when the line starts playing, so the highlight follows it from its first word. */
     cue: number;
     english?: string;
@@ -54,7 +57,7 @@
     const startedAt = performance.now();
     let frame = 0;
     const tick = (now: number) => {
-      current = wordAt(plan, planTime(plan, storyAudioClock(), now - startedAt));
+      current = wordAt(plan, planTime(plan, clock(), now - startedAt));
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);

@@ -7,7 +7,8 @@ export const SLOW_RATE = 0.8;
 
 /** Where a line can play besides its bare clip: a stage that voices it and acts it out. */
 export interface LineStage {
-  play(index: number, onEnded: () => void, rate: number): void;
+  /** `onStart` once the voice starts, which waits for anyone still walking over. */
+  play(index: number, onEnded: () => void, rate: number, onStart: () => void): void;
   stop(): void;
 }
 
@@ -21,6 +22,8 @@ export interface LinePlayerOptions {
 export class LinePlayer {
   cursor = $state(0);
   playing = $state(false);
+  /** The line's voice has started: on a stage, after anyone walking over is there. */
+  speaking = $state(false);
   slow = $state(false);
 
   #epoch = 0;
@@ -52,22 +55,29 @@ export class LinePlayer {
     const mine = this.#epoch;
     this.cursor = index;
     this.playing = true;
+    this.speaking = false;
 
     const rate = this.slow ? SLOW_RATE : 1;
     const onEnded = () => this.#onLineEnded(index, mine);
+    const onStart = () => {
+      if (mine === this.#epoch) this.speaking = true;
+    };
     const stage = this.#options.stage?.();
-    if (stage) stage.play(index, onEnded, rate);
-    else
+    if (stage) stage.play(index, onEnded, rate, onStart);
+    else {
+      onStart();
       playStoryLineAudio(this.#srcs[line.id], line.slovak, {
         onEnded,
         playbackRate: rate,
       });
+    }
   }
 
   pause(): void {
     this.#clearGap();
     this.#epoch += 1;
     this.playing = false;
+    this.speaking = false;
     this.#options.stage?.()?.stop();
     stopStoryLineAudio();
   }
@@ -91,6 +101,7 @@ export class LinePlayer {
   #onLineEnded(index: number, mine: number): void {
     if (mine !== this.#epoch || !this.playing) return;
 
+    this.speaking = false;
     if (this.#options.isLast(index)) {
       this.playing = false;
       this.#options.onRunEnd(index);

@@ -33,13 +33,21 @@
     ),
   );
 
-  export function play(index: number, onEnded: () => void, rate: number): void {
+  export function play(
+    index: number,
+    onEnded: () => void,
+    rate: number,
+    onStart: () => void,
+  ): void {
     window.clearTimeout(waiting);
     if (index !== at + 1) stage?.place(index);
     at = index;
-    // Someone still walking over gets there before they speak.
-    const walk = stage?.walking(scene.lines[index]?.characterId ?? null) ?? 0;
-    waiting = window.setTimeout(() => stage?.play(index, onEnded, rate), walk);
+    // Someone still walking over gets there before they speak or are spoken to.
+    const walk = stage?.ready(index) ?? 0;
+    waiting = window.setTimeout(() => {
+      onStart();
+      stage?.play(index, onEnded, rate);
+    }, walk);
   }
 
   export function stop(): void {

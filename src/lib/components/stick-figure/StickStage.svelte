@@ -17,11 +17,14 @@
   } from "$lib/stick-figure/gestures";
   import {
     gesturePlan,
+    planLine,
     reactionPlan,
     type LineBeat,
     type LinePlan,
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
+  import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
+  import type { SpeechClock } from "$lib/stick-figure/performance";
   import { REST_POSE } from "$lib/stick-figure/pose";
   import { solveRig, type Point } from "$lib/stick-figure/rig";
   import type { DirectedLine, SceneDirection } from "$lib/stick-figure/scene-direction";
@@ -132,6 +135,8 @@
   let walkCount = 0;
   let playToken = 0;
   let lineTimer = 0;
+  /** The line being said, for the clock the figures move to when no clip plays. */
+  let spoken = { at: 0, durationMs: 0, rate: 1 };
 
   const resting = $derived(restFacing(direction.cast));
   const stagings = $derived(direction.lines.map(({ staging }) => staging));
@@ -400,9 +405,17 @@
     return { height: stageHeight, width: stageWidth };
   }
 
-  /** Ms until `id` reaches where they are walking, 0 when they stand. */
-  export function walking(id: LessonCharacterId | null): number {
-    return id ? Math.max(0, (walkEndsAt[id] ?? 0) - performance.now()) : 0;
+  /**
+   * Ms until the speaker of line `index` and the one they speak to stand
+   * where they say it, 0 when both do: nobody answers someone still on
+   * their way over.
+   */
+  export function ready(index: number): number {
+    const people = [lines[index]?.characterId, stagings[index]?.addressee];
+    return Math.max(
+      0,
+      ...people.map((id) => (id ? (walkEndsAt[id] ?? 0) - performance.now() : 0)),
+    );
   }
 
   /** One silent gesture, outside any line: a listener puzzled by what they heard. */
@@ -442,17 +455,66 @@
         .map((other) => [other, cast.indexOf(id) > cast.indexOf(other) ? 1 : -1]),
     );
     facings = { ...facings, ...turned, [id]: from === 1 ? -1 : 1 };
+    // Counted from now, so whoever waits on the walk waits from the start.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      walkEndsAt[id] = performance.now() + walkDuration(stepsFor(offsets[id] ?? 0));
+    }
     // The jump off stage has to paint before the walk back, or it animates too.
     window.requestAnimationFrame(() => walkTo(id, 0));
   }
 
   /** A line in a speech bubble over a figure, for words that have no clip: a wrong guess said aloud. */
-  export function say(id: LessonCharacterId, text: string): void {
+  export function say(id: LessonCharacterId, text: string, ms = BUBBLE_MS): void {
     window.clearTimeout(bubbleTimer);
     bubble = { characterId: id, cue: (bubble?.cue ?? 0) + 1, text };
     bubbleTimer = window.setTimeout(() => {
       bubble = undefined;
-    }, BUBBLE_MS);
+    }, ms);
+  }
+
+  /**
+   * A line said outside the script, as a talk's answer to a slip: in a
+   * bubble for as long as it lasts, voiced, the mouth on its clip.
+   */
+  export function answer(
+    id: LessonCharacterId,
+    line: Pick<DirectedLine, "mouth" | "said" | "slovak" | "src" | "vowels">,
+    rate = 1,
+  ): void {
+    const plan = planLine(line.slovak, {
+      lips: line.vowels ? decodeVowelTrack(line.vowels) : undefined,
+      said: line.said,
+      track: line.mouth ? decodeMouthTrack(line.mouth) : undefined,
+    });
+    say(id, line.slovak, Math.max(BUBBLE_MS, plan.durationMs / rate));
+    if (!line.src) return;
+
+    playToken += 1;
+    const token = playToken;
+    spoken = { at: performance.now(), durationMs: plan.durationMs, rate };
+    cueActor(id, plan);
+    playStoryLineAudio(line.src, line.slovak, {
+      onEnded: () => {
+        const actor = actors[id];
+        if (token === playToken && actor) actor.talking = false;
+      },
+      playbackRate: rate,
+      silentMs: plan.durationMs / rate,
+    });
+  }
+
+  /**
+   * Where the line being said is, for every figure acting it out: its clip,
+   * or with none playing (no clip, or sound off) the wall clock at the
+   * line's rate, so a slowed line and the timer that ends it agree.
+   */
+  export function clock(): SpeechClock | undefined {
+    return (
+      storyAudioClock() ?? {
+        durationMs: spoken.durationMs,
+        timeMs: (performance.now() - spoken.at) * spoken.rate,
+      }
+    );
   }
 
   /**
@@ -478,6 +540,7 @@
     if (line.characterId === null) board = line.slovak;
 
     for (const actor of Object.values(actors)) actor.talking = false;
+    spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
     facings = { ...facings, ...staging?.facing };
     const speaker = line.characterId;
     // Aimed from where the speaker stands before anyone walks this line.
@@ -514,14 +577,18 @@
 
     const src = take?.src ?? line.src;
     if (src) {
-      playStoryLineAudio(src, line.slovak, { onEnded, playbackRate: rate });
+      playStoryLineAudio(src, line.slovak, {
+        onEnded,
+        playbackRate: rate,
+        silentMs: spoken.durationMs / rate,
+      });
       return;
     }
 
     // No clip yet: run the line for its text-timed length on the wall clock.
     stopStoryLineAudio();
     window.clearTimeout(lineTimer);
-    lineTimer = window.setTimeout(onEnded, (plan?.durationMs ?? 1600) / rate);
+    lineTimer = window.setTimeout(onEnded, spoken.durationMs / rate);
   }
 
   /** A tap anywhere but the card or a thing puts the card away; so does Escape. */
@@ -585,7 +652,7 @@
       >
         <StickFigureActor
           {characterId}
-          clock={storyAudioClock}
+          {clock}
           cue={actors[characterId]?.cue ?? 0}
           facing={facings[characterId] ?? resting[characterId] ?? 1}
           onbeat={onBeat}

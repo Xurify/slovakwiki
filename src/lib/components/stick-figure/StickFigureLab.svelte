@@ -159,7 +159,7 @@
       }
 
       // Someone still walking on gets to their mark before they speak.
-      const walking = stage?.walking(scene.lines[index].characterId) ?? 0;
+      const walking = stage?.ready(index) ?? 0;
       if (walking > 0) {
         sceneTimer = window.setTimeout(() => step(index), walking);
         return;

@@ -107,7 +107,8 @@
   const status = $derived.by(() => {
     const line = player.line;
     const position = `line ${player.cursor + 1} of ${lines.length}`;
-    if (player.playing && line) return `${line.speaker} · ${position}`;
+    if (player.speaking && line) return `${line.speaker} · ${position}`;
+    if (player.playing) return position;
     if (stage === "idle") return idleCopy;
     if (stage === "listening") return `Paused · ${position}`;
     if (stage === "checking") return "";
@@ -232,7 +233,7 @@
 
       <ul class="m-0 flex list-none gap-3 p-0" aria-label="Voices">
         {#each speakers as speaker (speaker)}
-          {@const speaking = player.playing && player.line?.speaker === speaker}
+          {@const speaking = player.speaking && player.line?.speaker === speaker}
 
           <li class="flex flex-col items-center gap-1">
             <LessonCharacterAvatar

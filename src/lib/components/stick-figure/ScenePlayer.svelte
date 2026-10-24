@@ -13,7 +13,6 @@
     getStoryShowEnglish,
     setStoryShowEnglish,
   } from "$lib/lesson-story/prefs";
-  import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
   import {
     ambienceFor,
     playAmbience,
@@ -93,7 +92,7 @@
       const take = ownVoice ? takes[index] : undefined;
       return take && { plan: dubbed.lines[index].plan, src: take.src };
     },
-    rate: () => (slower ? 0.75 : 1),
+    rate: () => rate,
     listenFirst: () => listenFirst,
     // The one Alex talks with walks onto the square as the talk begins.
     onStart: () => {
@@ -110,6 +109,7 @@
     onEnd: () => cheer(),
   });
 
+  const rate = $derived(slower ? 0.75 : 1);
   const checks = $derived(scene.checks ?? []);
   /** A talk walked along Alex's picks: its lines, and which node each of his turns answers. */
   const walked = $derived(
@@ -504,10 +504,10 @@
     if (!answer) return;
 
     window.clearTimeout(answerTimer);
-    answerTimer = window.setTimeout(() => {
-      stage?.say(listener, answer.slovak);
-      if (answer.src) playStoryLineAudio(answer.src, answer.slovak);
-    }, ANSWER_DELAY_MS);
+    answerTimer = window.setTimeout(
+      () => stage?.answer(listener, answer, rate),
+      ANSWER_DELAY_MS,
+    );
   }
 
   function useTake(take: Take): void {
@@ -667,6 +667,7 @@
       />
     {:else if caption}
       <SceneCaption
+        clock={() => stage?.clock()}
         cue={playback.cue}
         english={caption.english}
         {listenFirst}

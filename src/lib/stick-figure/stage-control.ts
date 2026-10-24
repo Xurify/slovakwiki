@@ -1,6 +1,8 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import type { LinePlan } from "./line-plan";
+import type { SpeechClock } from "./performance";
+import type { DirectedLine } from "./scene-direction";
 import type { Facing } from "./staging";
 
 /** The learner's recording of a line, said in its place, with the plan timed to it. */
@@ -26,10 +28,18 @@ export interface StageControl {
   place(index: number): void;
   /** Act out line `index`; `rate` below 1 slows it, `take` says it in the learner's voice. */
   play(index: number, onDone?: () => void, rate?: number, take?: StageTake): void;
+  /** A line said outside the script, voiced, as a talk's answer to a slip. */
+  answer(
+    id: LessonCharacterId,
+    line: Pick<DirectedLine, "mouth" | "said" | "slovak" | "src" | "vowels">,
+    rate?: number,
+  ): void;
+  /** Where the line being said is, on its clip or, with none playing, the wall clock. */
+  clock(): SpeechClock | undefined;
   /** Words in a bubble over a figure, for what has no clip. */
-  say(id: LessonCharacterId, text: string): void;
+  say(id: LessonCharacterId, text: string, ms?: number): void;
   size(): { height: number; width: number };
   stop(): void;
-  /** Ms until `id` reaches where they are walking, 0 when they stand. */
-  walking(id: LessonCharacterId | null): number;
+  /** Ms until the speaker of line `index` and the one they speak to stand where they say it. */
+  ready(index: number): number;
 }

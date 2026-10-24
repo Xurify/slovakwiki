@@ -140,7 +140,7 @@ export class ScenePlayback {
     }
 
     this.at = index;
-    const walking = this.#stage?.walking(line.characterId) ?? 0;
+    const walking = this.#stage?.ready(index) ?? 0;
     if (walking > 0) {
       this.#timer = window.setTimeout(() => this.#step(index), walking);
       return;
