@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { onDestroy, onMount, tick, type Snippet } from "svelte";
+  import { onDestroy, onMount, tick, untrack, type Snippet } from "svelte";
 
   import { unlockSfx } from "$lib/audio/sfx";
   import type { ListeningChapter } from "$lib/catalog/listening/types";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
+  import Button from "$lib/components/ui/Button.svelte";
   import { getStoryShowEnglish } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
@@ -91,7 +92,6 @@
     }
     return check ? "checking" : "done";
   });
-  const textVisible = $derived(textOpen || stage === "done");
   const firstListen = $derived(stage === "idle" || stage === "listening");
 
   const idleCopy = $derived(
@@ -178,19 +178,9 @@
     };
   });
 
-  function scrollPlayingLineIntoView(): void {
-    root?.querySelector<HTMLElement>("[data-line-current]")?.scrollIntoView({
-      block: "nearest",
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-  }
-
+  // Played through, the text opens to read along; it closes like any other time.
   $effect(() => {
-    if (!player.playing || !textVisible) return;
-    void player.cursor;
-    void tick().then(scrollPlayingLineIntoView);
+    if (stage === "done") untrack(() => (textOpen = true));
   });
 
   onDestroy(() => player.destroy());
@@ -208,15 +198,9 @@
 
   <div class="px-4 pt-3 pb-4 sm:px-5">
     <div class="flex flex-wrap items-center justify-between gap-4">
-      <button
-        class={cx(
-          "inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full border-0 pr-5 pl-4 font-bold",
-          "transition-[background-color,box-shadow,color] duration-150 ease-out",
-          firstListen
-            ? "bg-cta text-cta-ink hover:bg-cta-strong"
-            : "bg-control text-blue-800 shadow-(--shadow-border) hover:bg-control-hover hover:shadow-(--shadow-border-hover)",
-        )}
-        type="button"
+      <Button
+        class="min-h-12 pr-5 pl-4"
+        variant={firstListen ? "accent" : "secondary"}
         onclick={togglePlay}
       >
         <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -229,7 +213,7 @@
         </svg>
 
         {playLabel}
-      </button>
+      </Button>
 
       <ul class="m-0 flex list-none gap-3 p-0" aria-label="Voices">
         {#each speakers as speaker (speaker)}
@@ -288,11 +272,9 @@
         </ListenControl>
       {/if}
 
-      {#if stage !== "done"}
-        <ListenControl onclick={() => (textOpen = !textOpen)}>
-          {textOpen ? "Hide text" : "Show text"}
-        </ListenControl>
-      {/if}
+      <ListenControl onclick={() => (textOpen = !textOpen)}>
+        {textOpen ? "Hide text" : "Show text"}
+      </ListenControl>
     </div>
   </div>
 
@@ -357,7 +339,7 @@
     {/if}
   {/if}
 
-  {#if textVisible}
+  {#if textOpen}
     <div class="border-t border-slate-200/70">
       <div class="flex items-center justify-between gap-3 px-4 pt-2.5 sm:px-5">
         <p class="m-0 text-sm font-semibold text-slate-700">Text</p>
