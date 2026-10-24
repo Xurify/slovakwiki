@@ -21,7 +21,7 @@ export const referenceNavigationGroups: NavigationGroup[] = [
     label: "Look up",
     items: [
       { href: "/dictionary", label: "Dictionary" },
-      { href: "/dictionary/common/verb", label: "Most common" },
+      { href: "/dictionary/common", label: "Most common" },
     ],
   },
   {

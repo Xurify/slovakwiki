@@ -23,7 +23,7 @@
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[960px]">
     <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <TextLink href="/dictionary">Dictionary</TextLink>
+      <TextLink href="/">Home</TextLink>
       <span aria-hidden="true">/</span>
       <span>References</span>
     </nav>
@@ -114,6 +114,7 @@
                             target="_blank"
                           >
                             {link.label}
+                            <span class="sr-only"> (opens in a new tab)</span>
                           </a>
 
                           {#if link.note}

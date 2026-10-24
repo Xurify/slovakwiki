@@ -45,12 +45,12 @@
 
   // The first hundred rows are server-rendered; hide them while a filter is active.
   $effect(() => {
-    const ssrList = document.getElementById("common-results");
-    if (!ssrList) {
+    const ssrTable = document.getElementById("common-results-table");
+    if (!ssrTable) {
       return;
     }
 
-    ssrList.hidden = isFiltering;
+    ssrTable.hidden = isFiltering;
   });
 
   // "Show more" appends rows after the server-rendered ones instead of re-rendering.
@@ -110,14 +110,27 @@
       <p class="m-0 mt-1 text-sm text-slate-500">Try a shorter filter, or clear it.</p>
     </div>
   {:else}
-    <ol class="m-0 list-none p-0" id="common-results-expanded">
-      {#each visibleEntries as entry (entry.rank + entry.lemma)}
-        <DictionaryCommonRow
-          {entry}
-          live={dictionaryCommonState.liveByLemma[entry.lemma]}
-        />
-      {/each}
-    </ol>
+    <table class="w-full border-collapse text-left" id="common-results-expanded">
+      <caption class="sr-only">Words matching the filter</caption>
+      <thead>
+        <tr class="border-b border-slate-200 text-sm text-slate-500">
+          <th class="px-4 py-2 text-right font-normal sm:px-5" scope="col">#</th>
+          <th class="px-2 py-2 font-normal" scope="col">Word</th>
+          <th class="px-2 py-2 font-normal" scope="col">Meaning</th>
+          <th class="px-4 py-2 text-right font-normal max-sm:hidden sm:px-5" scope="col">
+            In corpus
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each visibleEntries as entry (entry.rank + entry.lemma)}
+          <DictionaryCommonRow
+            {entry}
+            live={dictionaryCommonState.liveByLemma[entry.lemma]}
+          />
+        {/each}
+      </tbody>
+    </table>
   {/if}
 {/if}
 

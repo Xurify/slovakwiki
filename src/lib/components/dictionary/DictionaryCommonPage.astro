@@ -4,7 +4,6 @@ import DictionaryCommonRow from "$lib/components/dictionary/DictionaryCommonRow.
 import Lead from "$lib/components/ui/Lead.svelte";
 import PageShell from "$lib/components/ui/PageShell.svelte";
 import TextLink from "$lib/components/ui/TextLink.svelte";
-import { commonColumnHeadClass } from "$lib/components/dictionary/common-list-ui";
 import { dataPanelClass, dataPanelHeadClass } from "$lib/components/ui/data-list-ui";
 import {
   FREQUENCY_PART_OF_SPEECH_LABEL,
@@ -46,10 +45,12 @@ const label = FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase();
 
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[880px]">
-    <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+    <nav class="mb-6 flex flex-wrap gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/dictionary">Dictionary</TextLink>
       <span aria-hidden="true">/</span>
-      <span>Most common</span>
+      <TextLink href="/dictionary/common">Most common</TextLink>
+      <span aria-hidden="true">/</span>
+      <span class="capitalize">{label}</span>
     </nav>
 
     <header class="max-w-[640px]">
@@ -80,21 +81,32 @@ const label = FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase();
         <slot name="filter" />
       </div>
 
-      <div class={commonColumnHeadClass} aria-hidden="true">
-        <span class="text-right">#</span>
-        <span>Word</span>
-        <span>Meaning</span>
-        <span class="text-right">In corpus</span>
-      </div>
-
-      <ol class="m-0 list-none p-0" id="common-results">
-        {
-          initialEntries.map((entry) => (
-            <DictionaryCommonRow entry={entry} live={liveByLemma[entry.lemma]} />
-          ))
-        }
-        <li id="common-results-append-anchor" class="sr-only" aria-hidden="true"></li>
-      </ol>
+      <table class="w-full border-collapse text-left" id="common-results-table">
+        <caption class="sr-only">
+          Most common {label} in the Slovak National Corpus
+        </caption>
+        <thead>
+          <tr class="border-b border-slate-200 text-sm text-slate-500">
+            <th class="px-4 py-2 text-right font-normal sm:px-5" scope="col">#</th>
+            <th class="px-2 py-2 font-normal" scope="col">Word</th>
+            <th class="px-2 py-2 font-normal" scope="col">Meaning</th>
+            <th
+              class="px-4 py-2 text-right font-normal max-sm:hidden sm:px-5"
+              scope="col"
+            >
+              In corpus
+            </th>
+          </tr>
+        </thead>
+        <tbody id="common-results">
+          {
+            initialEntries.map((entry) => (
+              <DictionaryCommonRow entry={entry} live={liveByLemma[entry.lemma]} />
+            ))
+          }
+          <tr id="common-results-append-anchor" hidden></tr>
+        </tbody>
+      </table>
 
       <slot name="listControls" />
     </section>
@@ -108,6 +120,7 @@ const label = FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech].toLowerCase();
         target="_blank"
       >
         Slovak National Corpus
+        <span class="sr-only"> (opens in a new tab)</span>
       </a>
       (prim-8.0-public-all). Full attribution on
       <TextLink href="/references">References</TextLink>.

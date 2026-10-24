@@ -311,6 +311,7 @@
         progressLabel="Lesson steps"
         subtitle={trackTitle}
         title={lesson.title}
+        titleTag="h1"
         total={steps.length}
         {viewIndex}
       >

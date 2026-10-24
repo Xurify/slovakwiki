@@ -6,7 +6,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
-import { grammarEntries, words } from "../../src/lib/catalog/entries";
+import { caseTopics, grammarEntries, words } from "../../src/lib/catalog/entries";
 import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-limits";
 import {
   type AudioConfig,
@@ -196,6 +196,13 @@ function targetKey(target: AudioTarget, baseConfig: AudioConfig): string {
   return `${target.kind}|${config.voiceId}|${normalizeAudioText(target.text)}`;
 }
 
+/** Every sentence a case page shows under "In real sentences". */
+function caseSentences(slugs?: Set<string>): string[] {
+  return caseTopics
+    .filter((topic) => !slugs || slugs.has(topic.slug))
+    .flatMap((topic) => topic.examples.map((example) => example.slovak));
+}
+
 /** Every sentence a grammar page shows: examples, table examples, contrast cards. */
 function grammarSentences(slugs?: Set<string>): string[] {
   return grammarEntries
@@ -212,7 +219,7 @@ function grammarSentences(slugs?: Set<string>): string[] {
     ]);
 }
 
-/** Unique lemma + example Slovak strings from the live dictionary merge and grammar pages. */
+/** Unique lemma + example Slovak strings from the dictionary, grammar pages, and case pages. */
 export function collectDictionaryAudioTargets(options?: {
   lemmasOnly?: boolean;
   slugs?: Set<string>;
@@ -254,7 +261,10 @@ export function collectDictionaryAudioTargets(options?: {
   }
 
   if (!options?.lemmasOnly) {
-    for (const sentence of grammarSentences(options?.slugs)) {
+    for (const sentence of [
+      ...grammarSentences(options?.slugs),
+      ...caseSentences(options?.slugs),
+    ]) {
       const slovak = normalizeAudioText(sentence);
       if (!slovak || byText.has(slovak)) continue;
       byText.set(slovak, { kind: "example", text: slovak });

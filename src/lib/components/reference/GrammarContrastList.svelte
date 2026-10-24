@@ -89,7 +89,7 @@
             <div class="flex items-start gap-2.5">
               {#if audioKeys.includes(audioKey)}
                 <span
-                  class="mt-0.5 inline-flex size-7 shrink-0"
+                  class="mt-0.5 inline-flex size-11 shrink-0"
                   data-audio-mount={audioKey}
                 ></span>
               {/if}

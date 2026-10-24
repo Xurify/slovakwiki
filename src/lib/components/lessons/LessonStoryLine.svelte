@@ -68,7 +68,7 @@
         </p>
 
         <button
-          class="story-en-toggle mt-1.5 cursor-pointer border-0 bg-transparent p-0 text-left text-xs font-semibold text-blue-800 underline decoration-blue-800/30 underline-offset-2 transition-colors duration-150 hover:decoration-blue-800"
+          class="story-en-toggle mt-1.5 inline-flex min-h-11 cursor-pointer items-center border-0 bg-transparent p-0 text-left text-xs font-semibold text-blue-800 underline decoration-blue-800/30 underline-offset-2 transition-colors duration-150 hover:decoration-blue-800"
           type="button"
           onclick={revealEnglish}
         >

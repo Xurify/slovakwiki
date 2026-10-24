@@ -180,13 +180,9 @@
     else play();
   }
 
-  const sizeClass = $derived(
-    size === "lg" ? "size-12" : size === "sm" ? "size-7" : "size-8",
-  );
+  const sizeClass = $derived(size === "lg" ? "size-12" : "size-11");
 
-  const iconClass = $derived(
-    size === "lg" ? "size-6" : size === "sm" ? "size-4" : "size-[1.125rem]",
-  );
+  const iconClass = $derived(size === "lg" ? "size-6" : "size-5");
 
   const variantClass = $derived(
     variant === "inverse"
@@ -208,10 +204,10 @@
   type="button"
   aria-pressed={playing}
   aria-label={supported === false
-    ? `${label}: unavailable`
+    ? `Play: ${text.trim() || label}. Unavailable`
     : playing
-      ? `Stop: ${label}`
-      : `${label}: ${text}`}
+      ? `Stop: ${text.trim() || label}`
+      : `Play: ${text.trim() || label}`}
   onclick={toggle}
 >
   {#if ringMode !== "off"}

@@ -450,6 +450,18 @@
     return true;
   });
 
+  const attemptLabel = $derived(
+    task.type === "choice" ||
+      task.type === "selectAll" ||
+      task.type === "findMistake" ||
+      task.type === "clock-grid" ||
+      task.type === "form-table"
+      ? "You picked"
+      : task.type === "build"
+        ? "You built"
+        : "You wrote",
+  );
+
   const feedbackAttempt = $derived(
     isMiss && !revealed && task.type !== "selectAll" ? attemptForResult() : undefined,
   );
@@ -542,6 +554,7 @@
       <PracticeExerciseFeedback
         status
         attempt={feedbackAttempt}
+        {attemptLabel}
         {closeSuggestion}
         correction={feedbackCorrection}
         english={feedbackEnglish}
@@ -566,7 +579,8 @@
       >
         {#if retryQueuedForCurrentCard}
           <p class="m-0 text-sm text-pretty text-slate-500">
-            This rule comes back in a few cards, with a new sentence.
+            This card comes back in a few cards, with a new sentence. The count stays the
+            same.
           </p>
         {:else}
           <span class="hidden sm:block" aria-hidden="true"></span>
@@ -627,7 +641,7 @@
       results={chromeResults}
       {subtitle}
       title={sessionTitle}
-      total={activeItems.length}
+      total={items.length}
     />
 
     <PracticeExerciseCard footer={exerciseFooter}>
