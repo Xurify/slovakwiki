@@ -5,12 +5,13 @@
   import type { SceneLine } from "$lib/stick-figure/scene-line";
   import { cx } from "$lib/ui/classes";
 
-  /** The whole script behind Show the script; a line starts the scene from there. */
+  /** The script under the stage, or a talk's lines so far; a line starts the scene from there. */
   let {
     hidden,
     lines,
     onpick,
     open = $bindable(false),
+    said = false,
     shown,
     showEnglish,
   }: {
@@ -20,6 +21,8 @@
     onpick: (index: number) => void;
     /** The script is showing; bound, so it stays open while the questions hide it. */
     open?: boolean;
+    /** The lines said so far, not a script: a talk that branches on Alex's replies. */
+    said?: boolean;
     /** The line in the caption. */
     shown: number;
     showEnglish: boolean;
@@ -33,7 +36,11 @@
       open = !open;
     }}
   >
-    {open ? "Hide the script" : "Show the script"}
+    {#if said}
+      {open ? "Hide what was said" : "Show what was said"}
+    {:else}
+      {open ? "Hide the script" : "Show the script"}
+    {/if}
   </TextLink>
 </div>
 

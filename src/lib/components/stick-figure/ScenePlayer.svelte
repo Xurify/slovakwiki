@@ -117,6 +117,15 @@
   );
   const sceneLines = $derived(walked?.lines ?? scene.lines);
   const direction = $derived(directScene(sceneLines, scene.setting, scene.order));
+  /**
+   * The text under the stage. A talk goes where Alex's replies take it, so
+   * it has no script ahead: only what has been said so far.
+   */
+  const scriptLines = $derived(
+    scene.talk && playback.phase !== "done"
+      ? sceneLines.slice(0, playback.shown + 1)
+      : sceneLines,
+  );
   /** The same scene timed to the learner's takes, for the lines they recorded. */
   const dubbed = $derived(
     Object.keys(takes).length === 0
@@ -760,12 +769,13 @@
 </div>
 
 <!-- The questions are on what was heard, so the text waits until they are answered. -->
-{#if mode !== "find" && !checking}
+{#if mode !== "find" && !checking && scriptLines.length > 0}
   <SceneScript
     bind:open={scriptOpen}
     hidden={unanswered}
-    lines={sceneLines}
+    lines={scriptLines}
     onpick={(index) => playback.startAt(index)}
+    said={Boolean(scene.talk)}
     shown={playback.shown}
     {showEnglish}
   />

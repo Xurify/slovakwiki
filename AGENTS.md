@@ -289,7 +289,7 @@ The animated cast, its places and the scene player. Logic lives in `src/lib/stic
 - `/dev/scenes?scene=<id>` opens one scene; use these links in PR QA lists.
 - Modes are Watch, Play as (Pick the line, Build it, Say it, Adaptive) and Find it. A game that is not about the scene picked goes in the scene list under Games, not in the mode chips.
 - Find it asks in Slovak only, since English would give the answer away. It names each find in English after the tap and ends with the case behind the forms.
-- A talk (`talk.ts`) is a graph: the other person's lines, then Alex's replies. A reply that fits leads to a node and is voiced. A slip carries `why`, a reaction (`puzzle`, `laugh`, `frown`) and a voiced answer. `talk.test.ts` checks every talk: all nodes reachable, slips lead nowhere, ends are goodbyes, ty or vy fits who is spoken to.
+- A talk (`talk.ts`) is a graph: the other person's lines, then Alex's replies. A reply that fits leads to a node and is voiced. A slip carries `why`, a reaction (`puzzle`, `laugh`, `frown`) and a voiced answer. `talk.test.ts` checks every talk: all nodes reachable, slips lead nowhere, ends are goodbyes, ty or vy fits who is spoken to. A talk has no script ahead of the learner: the text under the stage lists only what has been said.
 - A talk has a casual topic, and its intro says who the person is to Alex. When a talk gets long or its topic deserves more, give it a game of its own rather than lengthen the day.
 - Say it records in the browser and keeps the take there. Nothing is uploaded.
 - Every voiced scene line gets a clip and a mouth track (see **Audio**), slip answers included. Talks reach the generator through `dayTurns()` in `scripts/audio/shared.ts`.
