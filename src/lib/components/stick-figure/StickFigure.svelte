@@ -44,6 +44,11 @@
   } = $props();
 
   const rig = $derived(solveRig(pose));
+  /** From the near cup over the crown of the hair to the far one. */
+  const headband = $derived.by(() => {
+    const apex = look.crown - 1.6;
+    return `M17.8 25.2C16.4 ${n(apex + 4)} 22 ${n(apex)} 32 ${n(apex)}S47.6 ${n(apex + 4)} 46.2 25.2`;
+  });
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
   const torsoTransform = $derived(
@@ -117,6 +122,19 @@
 
     <g transform={headTransform}>
       <StickHead {characterId} part="back" {pose} />
+
+      {#if dress.headphones}
+        <!-- The far cup, behind the head in the three-quarter view. -->
+        <rect
+          x="43.1"
+          y="24.9"
+          width="6.2"
+          height="9"
+          rx="2.8"
+          class="fill-slate-700 stroke-portrait-ink"
+          stroke-width="1.3"
+        />
+      {/if}
     </g>
 
     {@render arm(rig.rearShoulder, rig.rearArm)}
@@ -157,27 +175,15 @@
       <StickHead {characterId} {pose} />
 
       {#if dress.headphones}
-        <!-- Over the hair, in the head's own 64-unit space: a band and two cups at the ears. -->
-        <path
-          d="M18.2 29C17.6 17.8 23.6 11.2 32 11.2S46.4 17.8 45.8 29"
-          class="stroke-slate-500"
-          stroke-width="2.6"
-        />
+        <!-- The band over the hair from cup to cup, in the head's own 64-unit space, and the near cup on the ear. -->
+        <path d={headband} class="stroke-portrait-ink" stroke-width="3.6" />
+        <path d={headband} class="stroke-slate-500" stroke-width="1.8" />
         <rect
-          x="14.6"
-          y="24.6"
-          width="6"
-          height="9.4"
-          rx="2.6"
-          class="fill-slate-700 stroke-portrait-ink"
-          stroke-width="1.3"
-        />
-        <rect
-          x="43.4"
-          y="24.6"
-          width="6"
-          height="9.4"
-          rx="2.6"
+          x="14.7"
+          y="24.9"
+          width="6.2"
+          height="9"
+          rx="2.8"
           class="fill-slate-700 stroke-portrait-ink"
           stroke-width="1.3"
         />

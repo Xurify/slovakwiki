@@ -6,6 +6,8 @@ import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
  * small things a glance picks up.
  */
 export interface Look {
+  /** The top of the hair (a bare head's crown, a robot's antenna light) in the head's 64-unit space, where a headband sits. */
+  crown: number;
   /** Shows beside short hair; long hair covers it. */
   ear?: boolean;
   blush?: boolean;
@@ -28,12 +30,14 @@ export interface Look {
 
 export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   alex: {
+    crown: 7.6,
     ear: true,
     nameClass: "text-blue-700",
     scarfClass: "fill-scene-honey",
     sleeve: { class: "stroke-blue-600", reach: 1.85 },
   },
   anna: {
+    crown: 6.4,
     blush: true,
     nameClass: "text-rose-700",
     scarfClass: "fill-scene-sage",
@@ -41,6 +45,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   },
   // The loudspeaker: a companion robot like the guide, in the tram's green.
   announcer: {
+    crown: 6.3,
     robot: {
       chest: "fill-emerald-400",
       eyes: "fill-emerald-300",
@@ -49,6 +54,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     },
   },
   guide: {
+    crown: 6.3,
     robot: {
       chest: "fill-sky-400",
       eyes: "fill-sky-400",
@@ -57,6 +63,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     },
   },
   lucia: {
+    crown: 5.8,
     blush: true,
     ear: true,
     nameClass: "text-emerald-700",
@@ -64,12 +71,14 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     sleeve: { class: "stroke-emerald-600", reach: 0.6 },
   },
   marek: {
+    crown: 8.7,
     ear: true,
     nameClass: "text-slate-700",
     scarfClass: "fill-scene-clay",
     sleeve: { class: "stroke-portrait-vest", reach: 1.85 },
   },
   maria: {
+    crown: 3.5,
     glasses: true,
     grey: true,
     nameClass: "text-rose-700",
@@ -77,6 +86,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     sleeve: { class: "stroke-rose-500", reach: 1.85 },
   },
   narrator: {
+    crown: 13.8,
     robot: {
       chest: "fill-rose-400",
       eyes: "fill-rose-300",
@@ -85,12 +95,14 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     },
   },
   receptionist: {
+    crown: 11.1,
     ear: true,
     nameClass: "text-blue-700",
     scarfClass: "fill-scene-honey",
     sleeve: { class: "stroke-blue-600", reach: 1.85 },
   },
   waiter: {
+    crown: 8.6,
     ear: true,
     nameClass: "text-slate-700",
     scarfClass: "fill-scene-clay",
