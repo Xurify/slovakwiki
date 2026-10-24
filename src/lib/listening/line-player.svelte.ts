@@ -113,8 +113,7 @@ export class LinePlayer {
 
   /** `justBegun` from the time heard, and off once the voice reaches BACK_MS. */
   #markBegun(): void {
-    window.clearTimeout(this.#begun);
-    this.#begun = 0;
+    this.#clearBegun();
     const left = BACK_MS - this.#heard();
     this.justBegun = left > 0;
     if (left > 0 && this.#speakingSince !== null) {
@@ -144,7 +143,7 @@ export class LinePlayer {
 
   destroy(): void {
     this.#clearGap();
-    window.clearTimeout(this.#begun);
+    this.#clearBegun();
     this.#options.stage?.()?.stop(true);
     stopStoryLineAudio();
   }
@@ -167,6 +166,13 @@ export class LinePlayer {
       },
       LINE_GAP_MS + (this.#lines[index + 1]?.wait ?? 0),
     );
+  }
+
+  /** Safe on the server too, where destroy runs after a render and there is no window. */
+  #clearBegun(): void {
+    if (!this.#begun) return;
+    window.clearTimeout(this.#begun);
+    this.#begun = 0;
   }
 
   #clearGap(): void {
