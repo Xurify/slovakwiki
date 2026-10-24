@@ -12,7 +12,7 @@ export const grammarGroups: readonly GrammarGroup[] = [
 
 export const grammarGroupPurpose: Record<GrammarGroup, string> = {
   Nouns: "Gender and cases — how nouns change in a sentence.",
-  Verbs: "Present forms, byť / mať, and aspect pairs.",
+  Verbs: "Present, past, and future; aspect, motion, commands, would, and sa / si.",
   "Sentence building": "Word order, formality, negation, and questions.",
   Numbers: "Counting, quantity agreement, and clock time.",
 };

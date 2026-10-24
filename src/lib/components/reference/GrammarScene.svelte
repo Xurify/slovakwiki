@@ -266,6 +266,25 @@
         <circle cx={x} cy="28" r="3.5" class={lit} fill="currentColor" stroke="none" />
       {/each}
     {/if}
+  {:else if kind === "past"}
+    <path d="M8 28h104" class="text-slate-300" />
+
+    {@render nowMark(94, dim)}
+
+    {#if at === "ongoing"}
+      <path
+        d="M24 28c3.5-6 7-6 10.5 0s7 6 10.5 0 7-6 10.5 0 7 6 10.5 0"
+        class={lit}
+        stroke-width="2.2"
+      />
+    {:else if at === "done"}
+      <circle cx="50" cy="28" r="7" class={lit} fill="currentColor" stroke="none" />
+      <path d="M46.5 28l2.5 2.5 4.5-5" class="text-paper" stroke-width="2" />
+    {:else if at === "habit"}
+      {#each [16, 30, 44, 58, 72] as x (x)}
+        <circle cx={x} cy="28" r="3.5" class={lit} fill="currentColor" stroke="none" />
+      {/each}
+    {/if}
   {:else if kind === "clock"}
     <g class={tone("clock")}>
       <circle cx="30" cy="26" r="16" />

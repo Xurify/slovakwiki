@@ -78,8 +78,8 @@
           text: "The time of an action: present, past, or future. Tense is one part of conjugation.",
         },
       ],
-      href: "/grammar/present-tense",
-      link: "Present tense",
+      href: "/grammar/past-tense",
+      link: "Past tense",
     },
     {
       id: "gender",
@@ -163,6 +163,59 @@
       ],
       href: "/grammar/aspect#perfective",
       link: "Aspect",
+    },
+    {
+      id: "mood",
+      term: "Mood",
+      parts: [
+        {
+          text: "How the speaker presents an action: as a fact (indicative), a command (imperative), or something imagined or polite (conditional).",
+        },
+      ],
+      href: "/grammar/conditional",
+      link: "Conditional",
+    },
+    {
+      id: "imperative",
+      term: "Imperative",
+      parts: [
+        { text: "The verb form for commands and requests, such as " },
+        { text: "Píš!", sk: true },
+        { text: " or " },
+        { text: "Zavolajte mi.", sk: true },
+      ],
+      href: "/grammar/imperative",
+      link: "Imperative",
+    },
+    {
+      id: "conditional",
+      term: "Conditional",
+      parts: [
+        { text: "The “would” form: the -l form plus " },
+        { text: "by", sk: true },
+        { text: ", as in " },
+        { text: "Chcel by som kávu", sk: true },
+        { text: "." },
+      ],
+      href: "/grammar/conditional",
+      link: "Conditional",
+    },
+    {
+      id: "reflexive",
+      term: "Reflexive verb",
+      parts: [
+        { text: "A verb used with " },
+        { text: "sa", sk: true },
+        { text: " or " },
+        { text: "si", sk: true },
+        { text: ", such as " },
+        { text: "volať sa", sk: true },
+        { text: " (to be called) or " },
+        { text: "dať si", sk: true },
+        { text: " (to have, for yourself)." },
+      ],
+      href: "/grammar/reflexive-verbs",
+      link: "Sa and si",
     },
   ];
 
