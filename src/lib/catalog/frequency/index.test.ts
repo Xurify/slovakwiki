@@ -203,6 +203,7 @@ describe("resources", () => {
     expect(resourcesByGroup("adjacent").some((r) => r.id === "duolingo-czech")).toBe(
       true,
     );
+    expect(resourcesByGroup("tutors").some((r) => r.id === "doucma-slovak")).toBe(true);
     expect(resourcesByGroup("dictionaries").some((r) => r.id === "zoznam")).toBe(true);
     expect(resourcesByGroup("dictionaries").some((r) => r.id === "narecie")).toBe(true);
   });
