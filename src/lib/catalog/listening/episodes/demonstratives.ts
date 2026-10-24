@@ -187,26 +187,17 @@ const bag: ListeningChapter = {
         { demonstrative: "to" },
         " ťažké… ",
         PAUSE,
-        "a má ",
-        { demonstrative: "to" },
-        " veľa strán.",
+        "a vnútri sú strany.",
       ],
-      "It's yellow… it's heavy… and it has a lot of pages.",
+      "It's yellow… it's heavy… and there are pages inside.",
       ["bag"],
     ),
     line(
       "anna-its-a-book",
       "Anna",
-      [
-        "Žlté a ťažké… ",
-        PAUSE,
-        { demonstrative: "to" },
-        " je kniha! ",
-        { demonstrative: "Tá" },
-        " kniha je veľká.",
-      ],
-      "Yellow and heavy… it's a book! That book is big.",
-      guess(3),
+      ["Žlté a ťažké… ", PAUSE, "je ", { demonstrative: "to" }, " kniha?"],
+      "Yellow and heavy… is it a book?",
+      guess(2),
     ),
     line(
       "marek-dictionary",
@@ -217,8 +208,13 @@ const bag: ListeningChapter = {
     line(
       "anna-third-thing",
       "Anna",
-      ["A ", { demonstrative: "tá" }, " tretia vec?"],
-      "And that third thing?",
+      [
+        { demonstrative: "Tá" },
+        " kniha je veľká! A ",
+        { demonstrative: "tá" },
+        " tretia vec?",
+      ],
+      "That book is big! And that third thing?",
     ),
     line(
       "marek-green-sweet",
@@ -274,7 +270,7 @@ const bag: ListeningChapter = {
           id: "book",
           label: "Kniha.",
           whyWrong:
-            "**Kniha** is a book, the second thing: yellow, heavy, with many pages.",
+            "**Kniha** is a book, the second thing: yellow, heavy, with pages inside.",
         },
         {
           id: "apple",
