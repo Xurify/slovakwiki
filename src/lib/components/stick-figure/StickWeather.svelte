@@ -9,7 +9,7 @@
     backdropToStage,
   } from "$lib/stick-figure/backdrop-geometry";
   import { PLACES, backdropAlign } from "$lib/stick-figure/places";
-  import { WEATHER_FADE_MS, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import { WEATHER_FADE_MS, fallOf, type SceneMood } from "$lib/stick-figure/scene-mood";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
   /**
@@ -70,9 +70,10 @@
       width: glass.width * scale,
     };
   });
-  const fall = $derived(
-    mood.weather === "rain" || mood.weather === "snow" ? FALLS[mood.weather] : undefined,
-  );
+  const fall = $derived.by(() => {
+    const falls = fallOf(mood.weather);
+    return falls && FALLS[falls];
+  });
 </script>
 
 {#if fall && area && width}

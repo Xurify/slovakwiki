@@ -1,6 +1,6 @@
 import { getAudioVolume } from "$lib/audio/volume";
 import { PLACES } from "./places";
-import { isFalling, type SceneMood } from "./scene-mood";
+import { isDark, isFalling, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 
 export type AmbienceLayer =
@@ -14,7 +14,7 @@ export interface Ambience {
 
 export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
   const { glass, outdoors, sounds } = PLACES[setting];
-  const dark = mood.time === "evening" || mood.time === "night";
+  const dark = isDark(mood.time);
   const layers = sounds.filter((layer) => {
     if (layer === "birds") return !dark && !isFalling(mood.weather);
     if (layer === "tram") return mood.time !== "night";

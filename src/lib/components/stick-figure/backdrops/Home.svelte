@@ -1,12 +1,11 @@
 <script lang="ts">
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import Castle from "./Castle.svelte";
-  import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
+  import Room from "./Room.svelte";
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-wood" />
-<FloorShade />
+<Room wall="fill-scene-warm" floor="fill-scene-wood" />
 <ellipse cx="480" cy="277" rx="250" ry="18" class="fill-scene-sage" />
 <ellipse cx="480" cy="277" rx="226" ry="12" class="fill-white/20" />
 <ellipse cx="480" cy="277" rx="212" ry="9.5" class="fill-scene-sage" />
@@ -232,4 +231,4 @@
   </g>
 {/each}
 
-<Plant x={40} y={244} />
+<Plant plant={PARTS.home.plant} />

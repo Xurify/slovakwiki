@@ -1,12 +1,12 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { AmbienceLayer } from "./ambience";
+import { PARTS, benchBox, clockBox, lampBox, plantBox, treeBox } from "./backdrop-parts";
 import type { Point } from "./rig";
 import { isFair, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 import {
   THING_WORDS as WORDS,
   drawn,
-  plantAt,
   toBox,
   twins,
   type SceneThing,
@@ -65,7 +65,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.kavovar, [880, 98, 58, 52]),
       drawn(WORDS.stol, [148, 204, 84, 52]),
       drawn(WORDS.stolicka, [114, 186, 42, 72], [224, 186, 42, 72]),
-      drawn(WORDS.rastlina, plantAt(44, 246)),
+      drawn(WORDS.rastlina, plantBox(PARTS.cafe.plant)),
     ],
     sounds: ["murmur", "clinks"],
     staff: ["waiter"],
@@ -80,10 +80,10 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     things: [
       drawn({ ...WORDS.tabula, english: "blackboard" }, [44, 66, 220, 88]),
       drawn(WORDS.abeceda, [260, 34, 441, 34]),
-      drawn(WORDS.hodiny, [780, 58, 40, 40]),
+      drawn(WORDS.hodiny, clockBox(PARTS.classroom.clock)),
       drawn(WORDS.globus, [844, 118, 46, 52]),
       drawn({ ...WORDS.stol, english: "desk" }, [686, 170, 228, 56]),
-      drawn(WORDS.rastlina, plantAt(944, 232)),
+      drawn(WORDS.rastlina, plantBox(PARTS.classroom.plant)),
     ],
     sounds: ["hum"],
   },
@@ -117,7 +117,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.vankus, [704, 160, 48, 44], [834, 160, 48, 44]),
       drawn(WORDS.lampa, [926, 70, 36, 172]),
       drawn(WORDS.koberec, [230, 259, 500, 36]),
-      drawn(WORDS.rastlina, plantAt(40, 244)),
+      drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
     ],
     sounds: ["hum"],
     // Left of the bag on the rug, so nobody stands on it.
@@ -148,7 +148,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sun: { day: { x: 688, y: 36 }, morning: { x: 400, y: 46 } },
     things: [
       drawn(WORDS.veza, [250, 28, 66, 198]),
-      drawn(WORDS.hodiny, [268, 113, 30, 30]),
+      drawn(WORDS.hodiny, clockBox(PARTS.plaza.clock)),
       drawn(
         WORDS.dom,
         [474, 82, 124, 144],
@@ -160,9 +160,9 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         [710, 88, 112, 138],
         [822, 90, 138, 136],
       ),
-      drawn(WORDS.lavicka, [24, 198, 112, 54]),
-      drawn({ ...WORDS.lampa, english: "street lamp" }, [765, 66, 28, 166]),
-      drawn(WORDS.strom, [854, 100, 98, 150]),
+      drawn(WORDS.lavicka, benchBox(PARTS.plaza.bench)),
+      drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.plaza.lamp)),
+      drawn(WORDS.strom, treeBox(PARTS.plaza.tree)),
       drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
     ],
     sounds: ["murmur", "birds", "tram"],
@@ -171,9 +171,9 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     label: "At the front desk",
     outdoors: false,
     things: [
-      drawn(WORDS.hodiny, [276, 48, 48, 48]),
+      drawn(WORDS.hodiny, clockBox(PARTS.registration.clock)),
       drawn(WORDS.stolicka, [36, 156, 58, 72], [104, 156, 58, 72], [172, 156, 58, 72]),
-      drawn(WORDS.rastlina, plantAt(256, 228)),
+      drawn(WORDS.rastlina, plantBox(PARTS.registration.plant)),
       drawn(WORDS.pult, [640, 140, 340, 86]),
       drawn(WORDS.pocitac, [842, 86, 72, 56]),
       drawn(WORDS.zvoncek, [698, 126, 22, 16]),
@@ -198,10 +198,10 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         [730, 94, 130, 132],
         [860, 90, 110, 136],
       ),
-      drawn(WORDS.strom, [52, 100, 98, 160]),
-      drawn({ ...WORDS.lampa, english: "street lamp" }, [286, 66, 28, 190]),
+      drawn(WORDS.strom, treeBox(PARTS.street.tree)),
+      drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.street.lamp)),
       drawn(WORDS.zastavka, [630, 144, 40, 112]),
-      drawn(WORDS.lavicka, [668, 218, 130, 62]),
+      drawn(WORDS.lavicka, benchBox(PARTS.street.bench)),
       drawn(WORDS.oblak, [382, 19, 76, 31], [733, 40, 54, 22]),
     ],
     sounds: ["murmur"],
@@ -211,14 +211,14 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     outdoors: false,
     things: [
       drawn(WORDS.dvere, [246, 40, 82, 186]),
-      drawn(WORDS.hodiny, [93, 45, 42, 42]),
+      drawn(WORDS.hodiny, clockBox(PARTS.studio.clock)),
       drawn(WORDS.stol, [450, 204, 60, 86], [24, 156, 180, 70]),
       drawn(WORDS.pocitac, [56, 116, 68, 44]),
       drawn(WORDS.sluchadla, [128, 130, 52, 30]),
       drawn(WORDS.mikrofon, [429, 120, 34, 22], [497, 120, 34, 22]),
       drawn(WORDS.okno, [660, 52, 140, 108]),
       drawn(WORDS.reproduktor, [832, 140, 40, 86]),
-      drawn(WORDS.rastlina, plantAt(922, 240)),
+      drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)),
       drawn(WORDS.koberec, [210, 252, 540, 40]),
     ],
     sounds: ["hum"],

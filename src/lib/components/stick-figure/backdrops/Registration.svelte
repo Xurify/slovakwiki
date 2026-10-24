@@ -1,14 +1,13 @@
 <script lang="ts">
-  import ClockHands from "./ClockHands.svelte";
-  import FloorShade from "./FloorShade.svelte";
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import Plant from "./Plant.svelte";
+  import Room from "./Room.svelte";
+  import WallClock from "./WallClock.svelte";
 
   let { hour }: { hour: number } = $props();
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-cool" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<FloorShade />
+<Room wall="fill-scene-cool" floor="fill-scene-sand" />
 
 <path d="M426 -10V30M534 -10V30" class="stroke-scene-line/40" stroke-width="1.2" />
 <rect x="402" y="32" width="160" height="34" rx="4" class="fill-scene-line/10" />
@@ -24,15 +23,7 @@
   Registrácia
 </text>
 
-<circle cx="300" cy="72" r="24" class="fill-scene-edge" />
-<circle cx="300" cy="72" r="21" class="fill-white" />
-<path
-  d="M300 54v3M300 87v3M282 72h3M315 72h3"
-  class="stroke-scene-line/50"
-  fill="none"
-  stroke-width="1.6"
-/>
-<ClockHands {hour} length={12} width={2.2} x={300} y={72} />
+<WallClock clock={PARTS.registration.clock} {hour} />
 
 {#each [36, 104, 172] as x (x)}
   <ellipse cx={x + 29} cy="227" rx="30" ry="3" class="fill-scene-line/12" />
@@ -42,7 +33,7 @@
   <rect x={x + 4} y="186" width="50" height="3" class="fill-scene-line/10" />
 {/each}
 
-<Plant x={256} y={228} />
+<Plant plant={PARTS.registration.plant} />
 
 <rect x="648" y="150" width="330" height="76" class="fill-scene-wood" />
 {#each [662, 744, 826, 908] as x (x)}

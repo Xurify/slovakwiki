@@ -1,7 +1,8 @@
 <script lang="ts">
-  import ClockHands from "./ClockHands.svelte";
-  import FloorShade from "./FloorShade.svelte";
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import Plant from "./Plant.svelte";
+  import Room from "./Room.svelte";
+  import WallClock from "./WallClock.svelte";
 
   let { hour }: { hour: number } = $props();
 
@@ -17,9 +18,7 @@
   const wave = [3, 7, 4, 10, 6, 12, 5, 9, 4, 11, 7, 5, 8, 3];
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-cool" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-wood" />
-<FloorShade />
+<Room wall="fill-scene-cool" floor="fill-scene-wood" />
 <ellipse cx="480" cy="272" rx="270" ry="20" class="fill-portrait-ground" />
 <ellipse cx="480" cy="272" rx="246" ry="13" class="fill-white/20" />
 
@@ -58,15 +57,7 @@
 <rect x="304" y="140" width="12" height="4" rx="2" class="fill-scene-line/70" />
 <circle cx="307" cy="142" r="3" class="fill-scene-line/70" />
 
-<circle cx="114" cy="66" r="20" class="fill-scene-edge" />
-<circle cx="114" cy="66" r="17" class="fill-white" />
-<path
-  d="M114 52v3M114 77v3M100 66h3M125 66h3"
-  class="stroke-scene-line/50"
-  fill="none"
-  stroke-width="1.6"
-/>
-<ClockHands {hour} length={10} width={2} x={114} y={66} />
+<WallClock clock={PARTS.studio.clock} {hour} />
 
 <path d="M444 -10V22M516 -10V22" class="stroke-scene-line/40" stroke-width="1.2" />
 <rect x="404" y="18" width="152" height="42" rx="9" class="fill-scene-red/20" />
@@ -171,4 +162,4 @@
 <circle cx="852" cy="198" r="14" class="fill-scene-line" />
 <circle cx="852" cy="198" r="6" class="fill-portrait-vest" />
 
-<Plant x={922} y={240} />
+<Plant plant={PARTS.studio.plant} />

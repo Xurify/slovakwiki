@@ -79,11 +79,6 @@ export function thingBoxes(thing: SceneThing): ThingBox[] {
   return [thing.box, ...(thing.more ?? [])];
 }
 
-/** Plants stand on the floor at their x; this is the box around pot and leaves. */
-export function plantAt(x: number, y: number): Rect {
-  return [x - 22, y - 108, 44, 108];
-}
-
 export function boxCenter(box: ThingBox): Point {
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 }

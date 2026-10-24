@@ -13,13 +13,32 @@ export const DAYTIME: SceneMood = { time: "day", weather: "clear" };
 /** How long the sky takes to change, so rain coming on or easing off reads as weather, not a cut. */
 export const WEATHER_FADE_MS = 900;
 
+/** What each weather does: whether the sky is open, so the sun or the stars show, and what falls from it. */
+const WEATHER_TRAITS: Record<Weather, { fair: boolean; falls?: "rain" | "snow" }> = {
+  clear: { fair: true },
+  cloudy: { fair: false },
+  rain: { fair: false, falls: "rain" },
+  snow: { fair: false, falls: "snow" },
+  sunny: { fair: true },
+};
+
 /** No cloud, rain or snow: the sun or the stars can show. */
 export function isFair(weather: Weather): boolean {
-  return weather === "clear" || weather === "sunny";
+  return WEATHER_TRAITS[weather].fair;
+}
+
+/** Rain or snow coming down, or nothing. */
+export function fallOf(weather: Weather): "rain" | "snow" | undefined {
+  return WEATHER_TRAITS[weather].falls;
 }
 
 export function isFalling(weather: Weather): boolean {
-  return weather === "rain" || weather === "snow";
+  return fallOf(weather) !== undefined;
+}
+
+/** Evening and night: the lamps are lit and the birds have gone quiet. */
+export function isDark(time: TimeOfDay): boolean {
+  return time === "evening" || time === "night";
 }
 
 export const TIMES_OF_DAY: readonly TimeOfDay[] = ["morning", "day", "evening", "night"];

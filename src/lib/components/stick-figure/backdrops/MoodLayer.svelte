@@ -4,7 +4,12 @@
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { glassPath } from "$lib/stick-figure/backdrop-geometry";
   import { PLACES } from "$lib/stick-figure/places";
-  import { WEATHER_FADE_MS, isFair, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import {
+    WEATHER_FADE_MS,
+    isDark,
+    isFair,
+    type SceneMood,
+  } from "$lib/stick-figure/scene-mood";
   import { thingBoxes } from "$lib/stick-figure/thing-words";
 
   /**
@@ -30,7 +35,7 @@
       })),
   );
   const glass = $derived(PLACES[setting].glass);
-  const lit = $derived(mood.time === "evening" || mood.time === "night");
+  const lit = $derived(isDark(mood.time));
 </script>
 
 <defs>
