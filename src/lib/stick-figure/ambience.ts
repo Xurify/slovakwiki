@@ -479,3 +479,27 @@ export function playSteps(steps: number, stepMs: number, indoors: boolean): void
 
   window.setTimeout(() => out.disconnect(), steps * stepMs + 500);
 }
+
+/**
+ * The sting between two podcast segments: two soft notes, a fifth apart,
+ * like a radio show's break. Unless sound is off.
+ */
+export function playSegmentCue(): void {
+  if (getStoredSfxPreference() === "off") return;
+  const kit = cues();
+  if (!kit) return;
+
+  const out = kit.ctx.createGain();
+  out.gain.value = 0.35 * getAudioVolume();
+  out.connect(kit.ctx.destination);
+  const strikeKit: Kit = {
+    ctx: kit.ctx,
+    every: () => {},
+    indoors: false,
+    noise: kit.noise,
+    out,
+  };
+  strike(strikeKit, 659, 0.22, 1.1);
+  strike(strikeKit, 988, 0.18, 1.4, 0.16);
+  window.setTimeout(() => out.disconnect(), 2000);
+}

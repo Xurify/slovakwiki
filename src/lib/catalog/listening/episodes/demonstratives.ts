@@ -255,6 +255,12 @@ const bag: ListeningChapter = {
       ["Ďakujem! ", { demonstrative: "Tento" }, " podcast má aj jedlo."],
       "Thanks! This podcast even has food.",
     ),
+    line(
+      "marek-lets-go-to-market",
+      "Marek",
+      ["A teraz poďme na trh!"],
+      "And now let's go to the market!",
+    ),
   ],
   checks: [
     {
@@ -408,6 +414,7 @@ const market: ListeningChapter = {
       ["Anna vždy kupuje slovenské jahody."],
       "Anna always buys Slovak strawberries.",
     ),
+    line("anna-lets-go-home", "Anna", ["Dobre. Poďme domov!"], "OK. Let's go home!"),
   ],
   checks: [
     {
@@ -589,6 +596,12 @@ const home: ListeningChapter = {
       ["Áno. A ", { demonstrative: "tieto" }, " kľúče už nestrácaj!"],
       "Yes. And don't lose these keys again!",
       [null, null],
+    ),
+    line(
+      "marek-back-to-studio",
+      "Marek",
+      ["Nebudem. Poďme späť do štúdia!"],
+      "I won't. Let's go back to the studio!",
     ),
   ],
   checks: [

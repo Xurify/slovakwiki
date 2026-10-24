@@ -4,6 +4,7 @@ export type StoryBoolPreference = "on" | "off";
 
 export const STORY_AUTO_ADVANCE_KEY = "slovak.wiki.story-auto-advance";
 export const STORY_SHOW_ENGLISH_KEY = "slovak.wiki.story-show-english";
+export const STORY_PLACE_SOUND_KEY = "slovak.wiki.story-place-sound";
 export const STORY_PREFS_CHANGE_EVENT = "slovak-story-prefs-change";
 
 /**
@@ -12,6 +13,8 @@ export const STORY_PREFS_CHANGE_EVENT = "slovak-story-prefs-change";
  */
 export const STORY_AUTO_ADVANCE_DEFAULT: StoryBoolPreference = "on";
 export const STORY_SHOW_ENGLISH_DEFAULT: StoryBoolPreference = "off";
+/** A podcast segment plays over the sound of its place unless the learner turns it off. */
+export const STORY_PLACE_SOUND_DEFAULT: StoryBoolPreference = "on";
 
 export interface StorageLike {
   getItem(key: string): string | null;
@@ -88,6 +91,17 @@ export function setStoryShowEnglish(
   storage?: StorageLike,
 ): void {
   writePreference(STORY_SHOW_ENGLISH_KEY, value, storage);
+}
+
+export function getStoryPlaceSound(storage?: StorageLike): StoryBoolPreference {
+  return readPreference(STORY_PLACE_SOUND_KEY, STORY_PLACE_SOUND_DEFAULT, storage);
+}
+
+export function setStoryPlaceSound(
+  value: StoryBoolPreference,
+  storage?: StorageLike,
+): void {
+  writePreference(STORY_PLACE_SOUND_KEY, value, storage);
 }
 
 export function toggleStoryBool(value: StoryBoolPreference): StoryBoolPreference {

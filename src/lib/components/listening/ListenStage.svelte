@@ -5,7 +5,11 @@
   import type { ListeningChapter } from "$lib/catalog/listening/types";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import { getStoryShowEnglish } from "$lib/lesson-story/prefs";
+  import {
+    getStoryPlaceSound,
+    getStoryShowEnglish,
+    setStoryPlaceSound,
+  } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
@@ -61,6 +65,7 @@
   let correct = $state(done?.correct ?? 0);
   let textOpen = $state(false);
   let english = $state(false);
+  let placeSound = $state(true);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
 
   const lines = chapter.lines;
@@ -154,6 +159,7 @@
 
   onMount(() => {
     english = getStoryShowEnglish() === "on";
+    placeSound = getStoryPlaceSound() === "on";
 
     const controls = "a, button, input, label, select, textarea";
     const gestures = ["touchend", "click", "keydown"] as const;
@@ -191,7 +197,9 @@
     <ListenScene
       bind:this={sceneStage}
       class="mt-3 border-y border-slate-200/70"
+      follows={autoplay}
       {scene}
+      sound={placeSound}
       {thingWords}
     />
   {/if}
@@ -265,6 +273,18 @@
       <ListenControl pressed={player.slow} onclick={() => player.toggleSlow()}>
         Slower
       </ListenControl>
+
+      {#if scene}
+        <ListenControl
+          pressed={placeSound}
+          onclick={() => {
+            placeSound = !placeSound;
+            setStoryPlaceSound(placeSound ? "on" : "off");
+          }}
+        >
+          Background sound
+        </ListenControl>
+      {/if}
 
       {#if ontogglequestions}
         <ListenControl pressed={questions} onclick={ontogglequestions}>
