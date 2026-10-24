@@ -10,7 +10,7 @@ import { resolveFoucBoots, type FoucBootTarget } from "./registry";
 
 const BUN_PACKAGE_MANAGER = /^bun@(\d+\.\d+\.\d+)/;
 
-/** `package.json` `packageManager`, e.g. `bun@1.2.19` → `1.2.19`. */
+/** `package.json` `packageManager`, e.g. `bun@1.4.4` → `1.4.4`. */
 export function requiredFoucBunVersion(packageManager: string | undefined): string {
   const version = packageManager?.match(BUN_PACKAGE_MANAGER)?.[1];
   if (!version) {
