@@ -47,7 +47,7 @@
   /** From the near cup over the crown of the hair to the far one. */
   const headband = $derived.by(() => {
     const apex = look.crown - 1.6;
-    return `M17.8 25.2C16.4 ${n(apex + 4)} 22 ${n(apex)} 32 ${n(apex)}S47.6 ${n(apex + 4)} 46.2 25.2`;
+    return `M17.9 25.6C16.6 ${n(apex + 4)} 22 ${n(apex)} 32 ${n(apex)}S47.4 ${n(apex + 4)} 46.1 25.6`;
   });
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
@@ -126,11 +126,11 @@
       {#if dress.headphones}
         <!-- The far cup, behind the head in the three-quarter view. -->
         <rect
-          x="43.1"
-          y="24.9"
-          width="6.2"
-          height="9"
-          rx="2.8"
+          x="43.5"
+          y="25.4"
+          width="5.2"
+          height="7.8"
+          rx="2.4"
           class="fill-slate-700 stroke-portrait-ink"
           stroke-width="1.3"
         />
@@ -176,14 +176,14 @@
 
       {#if dress.headphones}
         <!-- The band over the hair from cup to cup, in the head's own 64-unit space, and the near cup on the ear. -->
-        <path d={headband} class="stroke-portrait-ink" stroke-width="3.6" />
-        <path d={headband} class="stroke-slate-500" stroke-width="1.8" />
+        <path d={headband} class="stroke-portrait-ink" stroke-width="2.6" />
+        <path d={headband} class="stroke-slate-500" stroke-width="1.2" />
         <rect
-          x="14.7"
-          y="24.9"
-          width="6.2"
-          height="9"
-          rx="2.8"
+          x="15.3"
+          y="25.4"
+          width="5.2"
+          height="7.8"
+          rx="2.4"
           class="fill-slate-700 stroke-portrait-ink"
           stroke-width="1.3"
         />

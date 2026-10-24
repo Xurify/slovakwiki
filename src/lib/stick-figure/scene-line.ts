@@ -24,6 +24,9 @@ export interface SceneLine extends DirectedLine {
   wait?: number;
 }
 
+/** A clip and mouth track for words said outside the script. */
+export type FindVoice = Pick<DirectedLine, "mouth" | "src" | "vowels">;
+
 /** A conversation that branches on Alex's replies, with the one he talks with. */
 export interface SceneTalk {
   nodes: Array<TalkNode<SceneLine>>;
@@ -35,6 +38,8 @@ export interface Scene {
   checks?: ListeningCheck[];
   /** Under the name in the list of scenes: the lesson's title, or the name in English. */
   english?: string;
+  /** What the Find it asker says over the scene's things, voiced, by its words. */
+  finds?: Record<string, FindVoice>;
   /** Where the scene comes from: its lesson or podcast episode. */
   href?: string;
   hrefLabel?: string;

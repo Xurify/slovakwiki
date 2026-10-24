@@ -4,11 +4,14 @@ import { shuffledTiles } from "./caption";
 import {
   findAsks,
   findEnglish,
+  findPrompt,
   findWhy,
   hereIs,
   thatIs,
+  yesThatIs,
   type FindAsk,
 } from "./scene-find";
+import type { FindVoice } from "./scene-line";
 import type { StageControl } from "./stage-control";
 import type { SceneThing } from "./thing-words";
 
@@ -27,17 +30,20 @@ export interface FindRoundOptions {
   stage: () => StageControl | undefined;
   /** Who asks for each thing and answers each tap. */
   asker: () => LessonCharacterId | undefined;
+  /** The asker's clips by their words; without one, the asker only gestures. */
+  voices: () => Record<string, FindVoice>;
+  rate?: () => number;
   /** Every thing in the round has been found or shown. */
   onEnd: () => void;
 }
 
-/** Long enough to read why the found word looks the way it does. */
-const FOUND_PAUSE_MS = 1800;
+/** Long enough to hear the answer and read why the found word looks the way it does. */
+const FOUND_PAUSE_MS = 2200;
 
 /**
- * Find it: someone on stage asks for each thing in turn, in Slovak, and
- * the learner taps it. A wrong tap is named, a right one is explained,
- * and Show me points it out.
+ * Find it: someone on stage asks for each thing in turn, in Slovak and out
+ * loud, and the learner taps it. A wrong tap is named, a right one is
+ * explained, and Show me points it out.
  */
 export class FindRound {
   /** The round's things, by id, in the order it asks for them. */
@@ -90,7 +96,7 @@ export class FindRound {
     this.#missed = false;
     this.streak = 0;
     this.note = undefined;
-    this.#gesture("ask");
+    this.#ask();
   }
 
   stop(): void {
@@ -112,7 +118,7 @@ export class FindRound {
         text: tapped ? thatIs(tapped) : "",
       };
       this.#options.stage()?.light(id);
-      this.#gesture("shake");
+      if (tapped) this.#say(thatIs(tapped), "shake");
       return;
     }
 
@@ -122,10 +128,10 @@ export class FindRound {
     this.note = {
       english: findEnglish(target, "right"),
       tone: "right",
-      text: "Áno!",
+      text: yesThatIs(target),
       why: this.ask && findWhy(target, this.ask),
     };
-    this.#gesture("nod");
+    this.#say(yesThatIs(target), "nod");
     this.#next();
   }
 
@@ -143,6 +149,7 @@ export class FindRound {
       why: this.ask && findWhy(target, this.ask),
     };
     this.#options.stage()?.light(target.id);
+    this.#say(hereIs(target));
     this.#next();
   }
 
@@ -153,15 +160,28 @@ export class FindRound {
       this.#missed = false;
       this.at += 1;
       if (this.at < this.queue.length) {
-        this.#gesture("ask");
+        this.#ask();
         return;
       }
       this.#options.onEnd();
     }, FOUND_PAUSE_MS);
   }
 
-  #gesture(gesture: "ask" | "nod" | "shake"): void {
+  #ask(): void {
+    const target = this.target;
+    const ask = this.ask;
+    if (target && ask) this.#say(findPrompt(target, ask).slovak, "ask");
+  }
+
+  /** The asker says `text` on stage; with no clip for it, they make the gesture instead. */
+  #say(text: string, gesture?: "ask" | "nod" | "shake"): void {
     const who = this.#options.asker();
-    if (who) this.#options.stage()?.gesture(who, gesture);
+    const stage = this.#options.stage();
+    if (!who || !stage) return;
+
+    const voice = this.#options.voices()[text];
+    if (voice?.src)
+      stage.answer(who, { slovak: text, ...voice }, this.#options.rate?.() ?? 1, false);
+    else if (gesture) stage.gesture(who, gesture);
   }
 }

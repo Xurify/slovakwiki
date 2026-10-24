@@ -489,13 +489,14 @@
     id: LessonCharacterId,
     line: Pick<DirectedLine, "mouth" | "said" | "slovak" | "src" | "vowels">,
     rate = 1,
+    bubble = true,
   ): void {
     const plan = planLine(line.slovak, {
       lips: line.vowels ? decodeVowelTrack(line.vowels) : undefined,
       said: line.said,
       track: line.mouth ? decodeMouthTrack(line.mouth) : undefined,
     });
-    say(id, line.slovak, Math.max(BUBBLE_MS, plan.durationMs / rate));
+    if (bubble) say(id, line.slovak, Math.max(BUBBLE_MS, plan.durationMs / rate));
     if (!line.src) return;
 
     playToken += 1;

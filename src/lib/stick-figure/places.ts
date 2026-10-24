@@ -96,7 +96,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     things: [
       drawn(WORDS.hrad, [632, 34, 96, 78]),
       drawn(WORDS.kopec, [520, 84, 440, 110]),
-      drawn(WORDS.dunaj, [0, 194, 960, 18]),
+      drawn(WORDS.rieka, [0, 194, 960, 18]),
       drawn(WORDS.strom, [836, 86, 84, 140], [52, 88, 88, 136]),
       drawn(WORDS.oblak, [212, 33, 76, 29], [446, 27, 48, 19]),
       drawn(WORDS.slnko, [PARK_SUN.x - 22, PARK_SUN.y - 22, 44, 44]),

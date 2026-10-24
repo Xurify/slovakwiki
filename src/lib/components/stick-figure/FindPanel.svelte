@@ -46,29 +46,33 @@
   {/key}
 
   {#if round.note}
-    <p
-      class={cx(
-        "m-0 mt-3 animate-rise text-sm leading-relaxed text-pretty",
-        round.note.tone === "right" && "text-emerald-800",
-        round.note.tone === "wrong" && "text-rose-800",
-        round.note.tone === "shown" && "text-slate-700",
-      )}
-      role="status"
-    >
-      <span class="font-serif text-base font-semibold" lang="sk">
+    <div class="mt-3 animate-rise" role="status">
+      <p
+        class={cx(
+          "m-0 font-serif text-xl",
+          round.note.tone === "right" && "text-emerald-800",
+          round.note.tone === "wrong" && "text-rose-800",
+          round.note.tone === "shown" && "text-slate-900",
+        )}
+        lang="sk"
+      >
         {round.note.text}
-      </span>
-      <span class="mr-1 ml-1.5 text-slate-600">{round.note.english}</span>
+      </p>
+
+      <p class="m-0 mt-0.5 text-sm text-slate-600">{round.note.english}</p>
+
       {#if round.note.why}
-        {#each splitEmphasis(round.note.why) as part, index (index)}
-          {#if part.type === "em"}
-            <strong class="font-semibold">{part.value}</strong>
-          {:else}
-            {part.value}
-          {/if}
-        {/each}
+        <p class="m-0 mt-1.5 text-sm leading-relaxed text-pretty text-slate-700">
+          {#each splitEmphasis(round.note.why) as part, index (index)}
+            {#if part.type === "em"}
+              <strong class="font-semibold">{part.value}</strong>
+            {:else}
+              {part.value}
+            {/if}
+          {/each}
+        </p>
       {/if}
-    </p>
+    </div>
   {/if}
 {:else if round.queue.length > 0}
   <div class="animate-rise">

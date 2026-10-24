@@ -138,12 +138,13 @@ export const THING_WORDS = {
     id: "dom",
     word: "dom",
   },
-  dunaj: {
-    english: "the Danube",
-    gender: "masculine-inanimate",
-    id: "dunaj",
-    stems: ["dunaj", "riek"],
-    word: "Dunaj",
+  rieka: {
+    english: "river",
+    gender: "feminine",
+    id: "rieka",
+    // The park's river is the Danube, so a line naming it points there too.
+    stems: ["riek", "dunaj"],
+    word: "rieka",
   },
   dvere: {
     english: "door",

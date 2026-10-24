@@ -22,8 +22,9 @@ import {
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "./dev-scenes";
 import { PLACES } from "./places";
 import { dayTalks } from "./scene-day";
-import type { DirectedLine } from "./scene-direction";
-import type { Scene, SceneGroup, SceneLine, StagedScene } from "./scene-line";
+import { directScene, type DirectedLine } from "./scene-direction";
+import { findAsker, findSayings } from "./scene-find";
+import type { FindVoice, Scene, SceneGroup, SceneLine, StagedScene } from "./scene-line";
 import { stageName } from "./stage-name";
 import { walkTalk, type Said, type Talk, type TalkNode } from "./talk";
 
@@ -204,9 +205,55 @@ function talkScene(talk: Talk<Said & { id: string }>): Scene {
   };
 }
 
+/** The name a character's lines are written under, for their voice. */
+function speakerOf(characterId: LessonCharacterId): string {
+  return (
+    listedCharacters().find((character) => character.id === characterId)?.speakers[0] ??
+    ""
+  );
+}
+
+/** The Find it asker's lines over a scene's things, each as a turn in the asker's voice. */
+function findTurnsOf(scene: Scene): DialogueTurn[] {
+  const direction = directScene(scene.lines, scene.setting, scene.order);
+  const asker = findAsker(direction);
+  if (!asker) return [];
+
+  const speaker = speakerOf(asker);
+  return findSayings(direction.things).map((slovak) => ({
+    english: "",
+    id: slovak,
+    slovak,
+    speaker,
+  }));
+}
+
+/** What the Find it asker says in `scene`, with its clip and mouth track where it has them. */
+function findVoices(scene: Scene): Record<string, FindVoice> {
+  const turns = findTurnsOf(scene);
+  const srcs = sceneAudioSrcs(turns);
+  const mouths = sceneMouthTracks(turns);
+  return Object.fromEntries(
+    turns.map((turn) => [
+      turn.slovak,
+      { mouth: mouths[turn.id]?.m, src: srcs[turn.id], vowels: mouths[turn.id]?.v },
+    ]),
+  );
+}
+
+/** Every line a Find it asker says across the scenes, one per voice and words, for the clips to make. */
+export function findTurns(): DialogueTurn[] {
+  const turns = new Map<string, DialogueTurn>();
+  for (const scene of sceneGroups().flatMap((group) => group.scenes)) {
+    for (const turn of findTurnsOf(scene))
+      turns.set(`${turn.speaker}:${turn.slovak}`, turn);
+  }
+  return [...turns.values()];
+}
+
 /** Everything on /dev/scenes, in the order the list shows it. */
 export function sceneGroups(): SceneGroup[] {
-  return [
+  const groups: SceneGroup[] = [
     { label: "From the lessons", scenes: lessonScenes() },
     ...podcastGroups(),
     {
@@ -218,6 +265,10 @@ export function sceneGroups(): SceneGroup[] {
     },
     { label: "Games", slovak: "Deň na námestí", scenes: dayTalks().map(talkScene) },
   ];
+  return groups.map((group) => ({
+    ...group,
+    scenes: group.scenes.map((scene) => ({ ...scene, finds: findVoices(scene) })),
+  }));
 }
 
 /**

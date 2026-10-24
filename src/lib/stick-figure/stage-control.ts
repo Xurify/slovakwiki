@@ -28,11 +28,12 @@ export interface StageControl {
   place(index: number): void;
   /** Act out line `index`; `rate` below 1 slows it, `take` says it in the learner's voice. */
   play(index: number, onDone?: () => void, rate?: number, take?: StageTake): void;
-  /** A line said outside the script, voiced, as a talk's answer to a slip. */
+  /** A line said outside the script, voiced, as a talk's answer to a slip; `bubble` false says it with no words over the head. */
   answer(
     id: LessonCharacterId,
     line: Pick<DirectedLine, "mouth" | "said" | "slovak" | "src" | "vowels">,
     rate?: number,
+    bubble?: boolean,
   ): void;
   /** Where the line being said is, on its clip or, with none playing, the wall clock. */
   clock(): SpeechClock | undefined;

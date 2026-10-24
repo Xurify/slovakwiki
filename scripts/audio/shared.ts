@@ -30,6 +30,7 @@ import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening
 import { lessonExercises } from "../../src/lib/learning/beats";
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "../../src/lib/stick-figure/dev-scenes";
 import { dayTurns } from "../../src/lib/stick-figure/scene-day";
+import { findTurns } from "../../src/lib/stick-figure/scene-sources";
 import { PLACES } from "../../src/lib/stick-figure/places";
 import {
   exerciseAnswerTexts,
@@ -322,6 +323,10 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
   }
 
   for (const turn of dayTurns()) {
+    addLine(turn.slovak, characterIdForSpeaker(turn.speaker));
+  }
+
+  for (const turn of findTurns()) {
     addLine(turn.slovak, characterIdForSpeaker(turn.speaker));
   }
 

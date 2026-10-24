@@ -24,6 +24,7 @@
   import { PLACES, thingsIn } from "$lib/stick-figure/places";
   import { PlayTurns } from "$lib/stick-figure/play-turns.svelte";
   import { canRecord } from "$lib/stick-figure/recorder";
+  import { findAsker } from "$lib/stick-figure/scene-find";
   import { directScene } from "$lib/stick-figure/scene-direction";
   import type { Scene } from "$lib/stick-figure/scene-line";
   import { sceneMood, type SceneMood } from "$lib/stick-figure/scene-mood";
@@ -105,7 +106,9 @@
   const find = new FindRound({
     things: () => direction.things,
     stage: () => stage,
-    asker: () => direction.cast.find((id) => !entering.has(id)),
+    asker: () => findAsker(direction),
+    voices: () => scene.finds ?? {},
+    rate: () => rate,
     onEnd: () => cheer(),
   });
 
