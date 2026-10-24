@@ -34,7 +34,7 @@
     <path d="M-8 7h16l-2 8.5h-12Z" class="fill-scene-wood" />
     <path d="M-7 10h14M-6.4 13h12.8" class="stroke-scene-line/40" stroke-width="0.7" />
   {:else if prop === "book"}
-    <rect x="-4" y="-11" width="9" height="11.5" rx="1" class="fill-scene-clay" />
+    <rect x="-4" y="-11" width="9" height="11.5" rx="1" class="fill-scene-honey" />
     <path d="M-2.2 -11V0.5" stroke-width="0.6" />
     <path d="M0 -8.2h3M0 -6.4h2" class="stroke-portrait-bib" stroke-width="0.7" />
   {:else if prop === "camera"}

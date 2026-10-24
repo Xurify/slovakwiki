@@ -7,6 +7,7 @@ import { listeningEpisodes } from "$lib/catalog/listening";
 import { episodeAudioSrcs } from "$lib/catalog/listening/audio";
 import { lessonById, lessonPath } from "$lib/catalog/lessons";
 import { practiceSetById } from "$lib/catalog/practice";
+import { episodeStages } from "$lib/stick-figure/scene-sources";
 
 export function getStaticPaths() {
   return listeningEpisodes.map((episode) => {
@@ -21,7 +22,12 @@ export function getStaticPaths() {
       practiceHref: practiceSet ? `/practice/${practiceSet.id}` : undefined,
     };
 
-    const props = { episode, audio: episodeAudioSrcs(episode), next };
+    const props = {
+      episode,
+      audio: episodeAudioSrcs(episode),
+      next,
+      stages: episodeStages(episode),
+    };
 
     return {
       params: { episode: episode.slug },
@@ -31,7 +37,7 @@ export function getStaticPaths() {
   });
 }
 
-const { episode, audio, next } = Astro.props;
+const { episode, audio, next, stages } = Astro.props;
 ---
 
 <SiteLayout
@@ -40,6 +46,13 @@ const { episode, audio, next } = Astro.props;
   canonicalPath={`/listening/${episode.slug}`}
 >
   <ListeningEpisodePage data={{ episode }}>
-    <EpisodePlayer slot="player" client:load {episode} audioSrcs={audio} {next} />
+    <EpisodePlayer
+      slot="player"
+      client:load
+      {episode}
+      audioSrcs={audio}
+      {next}
+      {stages}
+    />
   </ListeningEpisodePage>
 </SiteLayout>

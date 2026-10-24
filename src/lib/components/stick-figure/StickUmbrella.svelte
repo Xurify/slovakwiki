@@ -1,22 +1,19 @@
 <script lang="ts">
+  import { n } from "$lib/stick-figure/draw";
   import { HEAD_RADIUS, type StickRig } from "$lib/stick-figure/rig";
 
   /**
-   * The umbrella in a figure's lead hand: up over the holder and whoever
+   * The umbrella in a figure's lead hand: open over the holder and whoever
    * stands beside them, or folded and hung from the hand by its crook.
-   * Which one comes from the weather on the holder (dress.ts).
+   * It comes out the way the weather on the holder calls for (dress.ts).
    */
-  let { rig, up }: { rig: StickRig; up: boolean } = $props();
+  let { open, rig }: { open: boolean; rig: StickRig } = $props();
 
   const hand = $derived(rig.leadArm.end);
   const top = $derived({ x: rig.head.x + 18, y: rig.head.y - HEAD_RADIUS - 7 });
-
-  function n(value: number): number {
-    return Math.round(value * 100) / 100;
-  }
 </script>
 
-{#if up}
+{#if open}
   <g class="stroke-portrait-ink" stroke-linejoin="round">
     <path d="M{n(top.x)} {n(top.y)}L{n(hand.x)} {n(hand.y)}" stroke-width="1.6" />
     <path

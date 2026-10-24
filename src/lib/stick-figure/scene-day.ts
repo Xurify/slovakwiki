@@ -750,7 +750,7 @@ const maria: Talk = {
 export const DAY_TALKS: readonly Talk[] = [marek, lucia, anna, maria];
 
 /** Alex's lines that fit share one clip wherever they come up: `day/say/<slug>`. */
-export function alexTurnId(slovak: string): string {
+function alexTurnId(slovak: string): string {
   return `day/say/${lemmaToSlug(slovak)}`;
 }
 

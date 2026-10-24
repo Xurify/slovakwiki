@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { StageSetting } from "$lib/stick-figure/stage-setting";
+  import type { Component } from "svelte";
+
   import {
     BACKDROP_HEIGHT,
     BACKDROP_WIDTH,
-    SCENE_THINGS,
-    backdropAlign,
     backdropScale,
-    litKey,
-    thingBoxes,
-  } from "$lib/stick-figure/scene-things";
+  } from "$lib/stick-figure/backdrop-geometry";
+  import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
+  import type { StageSetting } from "$lib/stick-figure/stage-setting";
+  import { litKey, thingBoxes } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -22,12 +22,7 @@
   import MoodLayer from "./backdrops/MoodLayer.svelte";
   import SkyLayer from "./backdrops/SkyLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
-  import {
-    CLOCK_HOURS,
-    DAYTIME,
-    isOutdoors,
-    type SceneMood,
-  } from "$lib/stick-figure/scene-mood";
+  import { CLOCK_HOURS, DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
   import type { TramState } from "$lib/stick-figure/street";
 
   let {
@@ -63,6 +58,22 @@
     width?: number;
   } = $props();
 
+  /** Each place's drawing; every one takes the same props and uses what it needs. */
+  const DRAWINGS: Record<
+    StageSetting,
+    Component<{ board?: string; hour: number; tram: TramState }>
+  > = {
+    cafe: Cafe,
+    classroom: Classroom,
+    default: Park,
+    home: Home,
+    market: Market,
+    plaza: Plaza,
+    registration: Registration,
+    street: Street,
+    studio: Studio,
+  };
+
   let focused = $state<string>();
 
   const align = $derived(backdropAlign(setting));
@@ -84,7 +95,8 @@
     return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
   });
   const hour = $derived(CLOCK_HOURS[mood.time]);
-  const things = $derived(SCENE_THINGS[setting] ?? []);
+  const Drawing = $derived(DRAWINGS[setting]);
+  const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
   const boxes = $derived(
     things.flatMap((thing) =>
       thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
@@ -112,29 +124,11 @@
   stroke-linecap="round"
   stroke-linejoin="round"
 >
-  {#if isOutdoors(setting)}
+  {#if PLACES[setting].outdoors}
     <SkyLayer {mood} {setting} />
   {/if}
 
-  {#if setting === "cafe"}
-    <Cafe />
-  {:else if setting === "classroom"}
-    <Classroom {board} {hour} />
-  {:else if setting === "home"}
-    <Home />
-  {:else if setting === "market"}
-    <Market />
-  {:else if setting === "plaza"}
-    <Plaza {hour} />
-  {:else if setting === "registration" || setting === "counter"}
-    <Registration {hour} />
-  {:else if setting === "street"}
-    <Street {tram} />
-  {:else if setting === "studio"}
-    <Studio {hour} />
-  {:else}
-    <Park />
-  {/if}
+  <Drawing {board} {hour} {tram} />
 
   <MoodLayer {mood} {setting} />
   <StageLight />

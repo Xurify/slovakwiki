@@ -1,20 +1,12 @@
 /** Atmosphere for the immersive lesson story stage. */
 
 export type LessonSceneArtId =
-  | "cafe"
-  | "classroom"
-  | "counter"
-  | "home"
-  | "market"
-  | "plaza"
-  | "registration"
-  | "default";
+  "cafe" | "classroom" | "home" | "market" | "plaza" | "registration" | "default";
 
-/** Painted scene plates in /static/lessons/scenes — counter reuses registration desk. */
+/** Painted scene plates in /static/lessons/scenes. */
 export const lessonSceneSrc: Record<LessonSceneArtId, string> = {
   cafe: "/lessons/scenes/scene-cafe.webp",
   classroom: "/lessons/scenes/scene-classroom.webp",
-  counter: "/lessons/scenes/scene-registration.webp",
   home: "/lessons/scenes/scene-home.webp",
   market: "/lessons/scenes/scene-market.webp",
   plaza: "/lessons/scenes/scene-plaza.webp",

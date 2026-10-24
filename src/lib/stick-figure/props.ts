@@ -1,7 +1,12 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
-import { foldLine } from "./line-gesture";
-import { lineSentences } from "./line-plan";
+import {
+  foldLine,
+  lineSentences,
+  matchesWord,
+  mentions,
+  type WordCues,
+} from "./slovak-text";
 
 export const STICK_PROP_IDS = [
   "apple",
@@ -25,12 +30,18 @@ export type StickPropId = (typeof STICK_PROP_IDS)[number];
 /** What each figure has in hand. */
 export type CastProps = Partial<Record<LessonCharacterId, StickPropId>>;
 
+/** A prop in a figure's hand as drawn: an umbrella is open or folded. */
+export interface Held {
+  id: StickPropId;
+  open?: boolean;
+}
+
 /**
  * Folded words that bring a prop out. Stems match any ending; whole words
  * stay whole where a stem would catch something else (`kav` is also in
  * `kaviareň`, `telefon` in `telefónne číslo`, which asks for a number).
  */
-const PROP_CUES: Record<StickPropId, { stems?: string[]; words?: string[] }> = {
+const PROP_CUES: Record<StickPropId, WordCues> = {
   apple: { stems: ["jablk", "jablc"] },
   bag: { stems: ["task", "tasiek"] },
   basket: { stems: ["kosik"] },
@@ -83,33 +94,23 @@ const BRINGING = [
 /** Forms of `volať` (to call); with `sa` they mean "to be called" instead. */
 const CALLING = ["volam", "volas", "vola", "volame", "volate", "volaju"];
 
-export function isStickProp(value: string): value is StickPropId {
-  return (STICK_PROP_IDS as readonly string[]).includes(value);
-}
-
 /** The prop a sentence names, if any: "Pozri, to sú fotky z leta." → camera. */
 export function propForSentence(sentence: string): StickPropId | undefined {
-  const folded = foldLine(sentence);
-  const words = folded.split(" ");
-  const ordering = ORDERING.some((phrase) => ` ${folded} `.includes(` ${phrase} `));
+  const words = foldLine(sentence).split(" ");
   if (words.some((word) => NOT_HAVING.includes(word) || BRINGING.includes(word))) {
     return undefined;
   }
 
-  for (const id of STICK_PROP_IDS) {
-    if (id === "cup" && ordering) continue;
-    const { stems = [], words: whole = [] } = PROP_CUES[id];
-    const named = words.some(
-      (word) => whole.includes(word) || stems.some((stem) => word.startsWith(stem)),
-    );
-    if (named) return id;
-  }
+  const ordering = mentions(sentence, ORDERING);
+  const named = STICK_PROP_IDS.find(
+    (id) =>
+      !(id === "cup" && ordering) &&
+      words.some((word) => matchesWord(word, PROP_CUES[id])),
+  );
+  if (named) return named;
 
-  if (words.some((word) => CALLING.includes(word)) && !words.includes("sa")) {
-    return "phone";
-  }
-
-  return undefined;
+  const calling = words.some((word) => CALLING.includes(word)) && !words.includes("sa");
+  return calling ? "phone" : undefined;
 }
 
 /**
@@ -139,26 +140,15 @@ export function gesturesWithProps(
 }
 
 type HeldLine = {
+  /** Who the line is said to, and so who sees the prop it brings out. */
+  addressee?: LessonCharacterId | null;
   characterId: LessonCharacterId | null;
   /** Who the speaker hands what they hold to as the line ends. */
-  givesTo?: LessonCharacterId;
+  gives?: LessonCharacterId;
   props: ReadonlyArray<StickPropId | undefined>;
   /** Whose prop the speaker takes as the line starts. */
-  takesFrom?: LessonCharacterId;
+  takes?: LessonCharacterId;
 };
-
-/** Who a prop comes out for: the holder's partner just before that line, else just after. */
-function partnerAt(
-  lines: readonly HeldLine[],
-  index: number,
-): LessonCharacterId | undefined {
-  const holder = lines[index].characterId;
-  const other = (line: HeldLine) =>
-    line.characterId !== null && line.characterId !== holder;
-  const partner =
-    lines.slice(0, index).findLast(other) ?? lines.slice(index + 1).find(other);
-  return partner?.characterId ?? undefined;
-}
 
 export function handOver(
   held: CastProps,
@@ -187,10 +177,10 @@ export function heldProps(lines: readonly HeldLine[]): CastProps[] {
   const shownTo: Partial<Record<LessonCharacterId, LessonCharacterId>> = {};
   const given = new Set<LessonCharacterId>();
 
-  return lines.map(({ characterId, givesTo, props, takesFrom }, index) => {
-    if (characterId && takesFrom && held[takesFrom]) {
-      held = handOver(held, takesFrom, characterId);
-      shownTo[characterId] = takesFrom;
+  return lines.map(({ addressee, characterId, gives, props, takes }) => {
+    if (characterId && takes && held[takes]) {
+      held = handOver(held, takes, characterId);
+      shownTo[characterId] = takes;
     }
 
     if (characterId) {
@@ -211,13 +201,13 @@ export function heldProps(lines: readonly HeldLine[]): CastProps[] {
     if (characterId && prop) {
       held = { ...held, [characterId]: prop };
       given.delete(characterId);
-      shownTo[characterId] = partnerAt(lines, index);
+      shownTo[characterId] = addressee ?? undefined;
     }
 
     const during = held;
-    if (characterId && givesTo && held[characterId]) {
-      held = handOver(held, characterId, givesTo);
-      given.add(givesTo);
+    if (characterId && gives && held[characterId]) {
+      held = handOver(held, characterId, gives);
+      given.add(gives);
     }
     return during;
   });

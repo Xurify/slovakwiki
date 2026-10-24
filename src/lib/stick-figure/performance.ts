@@ -1,5 +1,5 @@
 import { gestureDuration, gesturePeak, mouthAt, sampleGesture } from "./gestures";
-import type { LinePlan } from "./line-plan";
+import type { LineBeat, LinePlan } from "./line-plan";
 import { NEUTRAL_LIPS, lipsFromTrack, mouthFromTrack } from "./mouth-track";
 import type { StickPictureId } from "./pictures";
 import { REST_POSE, easeInOut, lerpPose, type StickPose } from "./pose";
@@ -11,6 +11,8 @@ const QUESTION_RAMP_MS = 220;
 const QUESTION_BROW = 0.8;
 /** Reduced motion: a still, slightly open mouth while the line plays. */
 const STILL_MOUTH = 0.3;
+/** Long enough to see the picture, short enough not to outstay the line. */
+const PICTURE_MS = 1800;
 
 /** Where a line's clip is now. `durationMs` is NaN until its metadata loads. */
 export interface SpeechClock {
@@ -23,6 +25,8 @@ export interface PerformanceState {
   /** Wall time the current beat started; gestures run in real time once cued. */
   beatStartedAt: number;
   blendFrom: StickPose;
+  /** The last picture the line called up, and the wall time it goes away. */
+  picture?: { id: StickPictureId; until: number };
 }
 
 /**
@@ -58,11 +62,15 @@ export interface PerformanceInput {
 }
 
 export interface PerformanceFrame {
-  /** The picture whose word has been said, while the speaker talks. */
+  /** Which way a point in flight turns the figure, when what it points at is behind it. */
+  facing?: 1 | -1;
+  /** Over the head for a moment once its word is said. */
   picture?: StickPictureId;
   pose: StickPose;
   /** Nothing left to animate until the next line. */
   settled: boolean;
+  /** The beat that began on this frame, for the stage to light what it points at. */
+  started?: LineBeat;
   state: PerformanceState;
 }
 
@@ -153,10 +161,26 @@ export function performFrame(
     };
   }
 
-  const picture =
+  const called =
     talking && speechMs !== null && !plan.silent
       ? plan.pictures?.findLast((cue) => speechMs >= cue.at)?.picture
       : undefined;
+  if (called && called !== state.picture?.id) {
+    state = { ...state, picture: { id: called, until: now + PICTURE_MS } };
+  }
+  const picture =
+    state.picture && now < state.picture.until ? state.picture.id : undefined;
+  const facing =
+    beat?.point?.facing !== undefined && elapsed < gestureDuration(beat.gesture)
+      ? beat.point.facing
+      : undefined;
 
-  return { picture, pose, settled: !talking && !moving, state };
+  return {
+    facing,
+    picture,
+    pose,
+    settled: !talking && !moving && !picture,
+    started: state.beatIndex !== previous.beatIndex ? beat : undefined,
+    state,
+  };
 }

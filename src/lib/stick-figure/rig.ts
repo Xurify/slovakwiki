@@ -43,8 +43,8 @@ const UPPER_ARM = 15;
 const FOREARM = 14;
 const THIGH = 19.5;
 const SHIN = 19.5;
-/** How far a full stride carries each foot from its stance, px. */
-const STRIDE = 9;
+/** How far a full stride carries each foot from its stance, px: about a person's step for the figure's height. */
+export const STRIDE = 13;
 
 const RAD = Math.PI / 180;
 

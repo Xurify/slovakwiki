@@ -10,16 +10,27 @@ import {
   findAsks,
   findEnglish,
   findPrompt,
+  findSayings,
   findWhy,
   thatIs,
+  yesThatIs,
 } from "./scene-find";
-import { SCENE_THINGS, type SceneThing } from "./scene-things";
+import { PLACES } from "./places";
+import type { SceneThing } from "./thing-words";
 
 const thingsById = new Map(
-  Object.values(SCENE_THINGS)
-    .flat()
+  Object.values(PLACES)
+    .flatMap((place) => place.things)
     .map((thing) => [thing.id, thing] as const),
 );
+/** A proper name is asked for without a demonstrative and keeps its form. */
+const DUNAJ: SceneThing = {
+  box: { height: 1, width: 1, x: 0, y: 0 },
+  english: "the Danube",
+  gender: "masculine-inanimate",
+  id: "dunaj",
+  word: "Dunaj",
+};
 const thing = (id: string): SceneThing => {
   const found = thingsById.get(id);
   if (!found) throw new Error(`no thing ${id}`);
@@ -73,7 +84,7 @@ describe("captions", () => {
 describe("find it", () => {
   it("puts feminine nouns in -a into the accusative and leaves the rest", () => {
     expect(
-      ["torta", "lampa", "tabula", "stolicka", "kolac", "okno", "hodiny", "dunaj"].map(
+      ["torta", "lampa", "tabula", "stolicka", "kolac", "okno", "hodiny", "rieka"].map(
         (id) => accusativeOf(thing(id)),
       ),
     ).toEqual([
@@ -84,7 +95,7 @@ describe("find it", () => {
       "koláč",
       "okno",
       "hodiny",
-      "Dunaj",
+      "rieku",
     ]);
   });
 
@@ -107,7 +118,9 @@ describe("find it", () => {
       ],
       slovak: "Ukáž na tú lampu.",
     });
-    expect(findPrompt(thing("dunaj"), "point").slovak).toBe("Ukáž na Dunaj.");
+    expect(findPrompt(thing("rieka"), "point").slovak).toBe("Ukáž na tú rieku.");
+    expect(findPrompt(DUNAJ, "point").slovak).toBe("Ukáž na Dunaj.");
+    expect(findPrompt(DUNAJ, "where").slovak).toBe("Kde je Dunaj?");
   });
 
   it("puts a man into the accusative: toho muža", () => {
@@ -143,6 +156,18 @@ describe("find it", () => {
     expect(findWhy(thing("torta"), "point")).toContain("**torta** → **tortu**");
     expect(findWhy(thing("kolac"), "point")).toContain("keeps its form");
     expect(findWhy(thing("torta"), "where")).toBeUndefined();
+  });
+
+  it("answers a right tap with the thing's name, and has a line for every ask and answer", () => {
+    expect(yesThatIs(thing("kopec"))).toBe("Áno, to je kopec.");
+    expect(findEnglish(thing("kopec"), "right")).toBe("Yes, that is the hill.");
+    expect(findSayings([thing("torta")])).toEqual([
+      "Kde je torta?",
+      "Ukáž na tú tortu.",
+      "To je torta.",
+      "Tu je torta.",
+      "Áno, to je torta.",
+    ]);
   });
 
   it("says each thing's name in English and how the accusative treats it", () => {

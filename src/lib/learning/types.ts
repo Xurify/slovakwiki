@@ -55,6 +55,8 @@ export interface DialogueTurn {
    * to (Anna ordering from the waiter). Preview on `/dev/stick-figures`.
    */
   to?: string;
+  /** Silence before the line, ms: a moment for the listener to decide before the answer comes. */
+  wait?: number;
 }
 
 export interface LessonTrack {

@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import Chalkboard from "./Chalkboard.svelte";
-  import ClockHands from "./ClockHands.svelte";
-  import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
+  import Room from "./Room.svelte";
+  import WallClock from "./WallClock.svelte";
 
   /** What the teacher has just said, chalked up in place of the greeting. */
   let { board, hour }: { board?: string; hour: number } = $props();
@@ -14,10 +15,8 @@
   const boardSize = $derived(board ? Math.min(32, 196 / (board.length * 0.42)) : 32);
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" />
+<Room wall="fill-scene-warm" floor="fill-scene-sand" />
 <rect x="-10" y="168" width="980" height="58" class="fill-scene-sage/50" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<FloorShade />
 
 {#each LETTERS as letter, index (letter)}
   <rect
@@ -66,9 +65,7 @@
 <rect x="220" y="154" width="14" height="4" rx="1.5" class="fill-white" />
 <rect x="198" y="155" width="9" height="3" rx="1.5" class="fill-scene-honey" />
 
-<circle cx="800" cy="78" r="20" class="fill-scene-edge" />
-<circle cx="800" cy="78" r="17.5" class="fill-white" />
-<ClockHands {hour} length={12} width={2} x={800} y={78} />
+<WallClock clock={PARTS.classroom.clock} {hour} />
 
 <ellipse cx="800" cy="228" rx="118" ry="4" class="fill-scene-line/12" />
 <rect x="696" y="180" width="74" height="46" class="fill-scene-wood" />
@@ -93,4 +90,4 @@
   stroke-width="2.4"
 />
 
-<Plant x={944} y={232} />
+<Plant plant={PARTS.classroom.plant} />

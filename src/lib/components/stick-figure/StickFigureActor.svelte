@@ -2,7 +2,6 @@
   import { untrack } from "svelte";
 
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-  import { gestureDuration } from "$lib/stick-figure/gestures";
   import type { LineBeat, LinePlan } from "$lib/stick-figure/line-plan";
   import {
     performFrame,
@@ -14,25 +13,24 @@
   import type { StickPictureId } from "$lib/stick-figure/pictures";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
-  import type { StickPropId } from "$lib/stick-figure/props";
+  import type { Held } from "$lib/stick-figure/props";
   import { walkPose } from "$lib/stick-figure/walk";
   import StickFigure from "./StickFigure.svelte";
 
   let {
     characterId,
-    class: className = "",
     clock,
     cue = 0,
     facing = 1,
     onbeat,
     plan,
-    prop,
+    held,
     dress,
     talking = false,
+    turnDelay = 0,
     walk,
   }: {
     characterId: LessonCharacterId;
-    class?: string;
     /** Playback position of the line's clip; without one the line runs on the wall clock. */
     clock?: () => SpeechClock | undefined;
     /** Bump to perform `plan` from the start. */
@@ -40,18 +38,17 @@
     facing?: 1 | -1;
     onbeat?: (beat: LineBeat) => void;
     plan?: LinePlan;
-    /** Held in the lead hand. */
-    prop?: StickPropId;
-    /** What the weather on them does to what they wear and hold. */
+    /** In the lead hand. */
+    held?: Held;
+    /** What the weather on them does to what they wear. */
     dress?: Dress;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
+    /** Ms before a change of `facing` starts. */
+    turnDelay?: number;
     /** Bump `cue` to take steps for `ms` while the stage moves the figure. */
     walk?: { cue: number; ms: number };
   } = $props();
-
-  /** Long enough to see the picture, short enough not to outstay the line. */
-  const PICTURE_MS = 1800;
 
   let pose = $state<StickPose>(REST_POSE);
   let picture = $state<StickPictureId>();
@@ -65,8 +62,6 @@
   let walkStartedAt = 0;
   let walkMs = 0;
   let walkCue = 0;
-  let pictureCalled: StickPictureId | undefined;
-  let pictureUntil = 0;
 
   $effect(() => {
     if (cue === 0) return;
@@ -74,7 +69,6 @@
     untrack(() => {
       startedAt = performance.now();
       act = startPerformance(startedAt, $state.snapshot(pose));
-      pictureCalled = undefined;
       run();
     });
   });
@@ -104,7 +98,7 @@
     if (!frame) frame = requestAnimationFrame(tick);
   }
 
-  // The loop runs only while a line, its last gesture or a walk is in
+  // The loop runs only while a line, its last gesture, a picture or a walk is in
   // flight, then parks on the rest pose: no idle motion between lines.
   function tick(now: number): void {
     const next = plan
@@ -115,43 +109,26 @@
           talking,
         })
       : undefined;
-    if (next && next.state.beatIndex !== act.beatIndex) {
-      const started = plan?.beats[next.state.beatIndex];
-      if (started) onbeat?.(started);
-    }
+    if (next?.started) onbeat?.(next.started);
     if (next) act = next.state;
-
-    const beat = plan?.beats[act.beatIndex];
-    const aiming =
-      beat?.point?.facing !== undefined &&
-      now - act.beatStartedAt < gestureDuration(beat.gesture)
-        ? beat.point.facing
-        : undefined;
-    if (aiming !== turned) turned = aiming;
+    if (next?.facing !== turned) turned = next?.facing;
+    if (next?.picture !== picture) picture = next?.picture;
 
     const walked = now - walkStartedAt;
     const walking = walked < walkMs && !reducedMotion;
     const body = next?.pose ?? REST_POSE;
     pose = walking ? walkPose(body, walked, walkMs) : body;
 
-    if (next?.picture && next.picture !== pictureCalled) {
-      pictureCalled = next.picture;
-      pictureUntil = now + PICTURE_MS;
-    }
-    const showing = now < pictureUntil ? pictureCalled : undefined;
-    if (showing !== picture) picture = showing;
-
-    const busy = !(next?.settled ?? true) || walking || showing !== undefined;
-    frame = busy ? requestAnimationFrame(tick) : 0;
+    frame = !(next?.settled ?? true) || walking ? requestAnimationFrame(tick) : 0;
   }
 </script>
 
 <StickFigure
   {characterId}
-  class={className}
   facing={turned ?? facing}
   {picture}
   {pose}
-  {prop}
+  {held}
   {dress}
+  turnDelay={turned ? 0 : turnDelay}
 />

@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+  import StickHead from "$lib/components/stick-figure/StickHead.svelte";
   import { storyCastForId, storyCastForSpeaker } from "$lib/lesson-story/story-cast";
+  import { LOOKS } from "$lib/stick-figure/looks";
 
   let {
     characterId,
@@ -17,6 +19,7 @@
   const cast = $derived(
     characterId ? storyCastForId(characterId) : storyCastForSpeaker(speaker),
   );
+  const robot = $derived(LOOKS[cast.id].robot);
   const dim = $derived(
     size === "xl"
       ? "size-24"
@@ -31,23 +34,13 @@
       ? "fill-portrait-ground-sage"
       : "fill-portrait-ground",
   );
-  const hair = $derived(
-    cast.id === "maria" ? "fill-portrait-hair-grey" : "fill-portrait-hair",
-  );
 </script>
 
 <!--
-  Portrait recipe (64×64, read at 44px first):
-  - Shared skull: head ellipse 32,29 rx=13.2 ry=15.2. Do not restyle skin with UI 50/100.
-  - Hair = a specific cut, not a blob. Name it (crop, side part, bob, bun) then draw that.
-  - Short hair: ears visible, hair stops at ear-top, sideburns as thin ticks — not a helmet
-    around the jaw and not a lid sitting on the forehead.
-  - Long hair in a round bust: ONE mass behind the head (bob / lob / layers). Two
-    separate side tails read as pigtails. Irregular hem. Part lives on the hairline.
-  - Outer hair path: line segments / tufts (L), irregular. Inner hairline: soft (Q).
-  - 1–2 ink strokes inside the fill for direction. Asymmetry > mirrored beziers.
-  - Draw for size="md". Check /dev/faces at xl after.
-  - Guide and Narrator are companion robots (system teacher and host): rounded screen visor, audio ear modules, antenna beacon. Skip shared skull.
+  Portrait (64×64, read at 36px first): the head is StickHead, the one the
+  stick figure wears on stage, seen from the front. Only the bust under it is
+  drawn here, in the clothes StickTorso dresses the figure in, so a change to
+  a face or a collar shows on the stage and beside the line alike.
 -->
 
 <span
@@ -63,412 +56,10 @@
   >
     <circle cx="32" cy="32" r="32" class={ground} />
 
-    {#if cast.id === "alex"}
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-blue-600" />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M45.4 25.8c2.2.6 3 4.6 1.1 7.4-1 1.3-2.3.7-2.1-.9.4-2.2.6-4.6 1-6.5Z"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M19.6 22.2 18.8 17.6 21.4 12.2 24.2 9.4 26.6 11.6 29.2 8.2 32.2 7.6 35.2 9.4 37.8 8 41.2 11.4 44.2 16.2 44.6 21.8Q40.2 17.6 32.2 17.2Q24.6 16.8 19.6 22.2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M19.4 22.4c-.3 3.4 0 6.6.8 8.4.5-2.2.6-5.2.4-8.2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.4"
-      />
-      <path
-        d="M44.6 22.4c.3 3.4 0 6.6-.8 8.4-.5-2.2-.6-5.2-.4-8.2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.4"
-      />
-      <path
-        d="M24.4 13.4q3.4-1.6 7 .2M34.4 12.8q3.8.6 6.6 2.8"
-        class="stroke-portrait-ink"
-        stroke-width="1.15"
-      />
-      <path
-        d="M23.2 24.8q2.8-1.2 5.8 0M35 24.8q2.8-1.2 5.8 0"
-        class="stroke-portrait-hair"
-        stroke-width="1.25"
-      />
-      <circle cx="26.2" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <path d="M32 31.2v3" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M28.2 36.8q3.8 2.4 7.6 0" class="stroke-portrait-ink" stroke-width="1.4" />
-    {:else if cast.id === "marek"}
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-slate-800" />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M45.4 25.8c2.2.6 3 4.6 1.1 7.4-1 1.3-2.3.7-2.1-.9.4-2.2.6-4.6 1-6.5Z"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M19.8 21.6 19.4 17.2 22.6 13 25.8 11.2 27.6 13.2 29.4 11.4 31.2 14.6 33.4 9.2 36.8 7.4 40.6 9.6 44.2 14.2 45.6 19.4 44.8 22.2Q40.6 17.8 35.2 16.8Q32.4 16.4 30.6 18.6Q27.8 16.2 23.6 17.6Q21.2 18.6 19.8 21.6Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M19.6 22.2c-.3 3.2.1 6.2.8 7.8.4-2 .5-4.8.3-7.6Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.4"
-      />
-      <path
-        d="M44.6 22c.4 3.4.2 6.4-.6 8.2-.5-2.2-.7-5.2-.5-8Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.4"
-      />
-      <path
-        d="M29.6 11.6 31 16.8M36.2 10.4q4.2 1.6 7 4.8"
-        class="stroke-portrait-ink"
-        stroke-width="1.15"
-      />
-      <path
-        d="M23.4 25q2.6-1 5.4.2M35.2 24.6q3.2-1.4 6.2.2"
-        class="stroke-portrait-hair"
-        stroke-width="1.25"
-      />
-      <circle cx="26.2" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <path d="M32 30.8q1.5 2.2 0 4" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M28.4 37.2h7.2" class="stroke-portrait-ink" stroke-width="1.4" />
-    {:else if cast.id === "anna"}
-      <!-- side-part shoulder lob -->
-      <path
-        d="M15.4 48.8 14 39 15.2 29 14.2 20 18.2 11.4 25.2 7 33.2 6.4 41.6 8.6 47.8 15.2 50.4 24 48.6 34 50 43.5 47.6 50.8 42.4 47 37.2 51.6 31.4 47.2 25.6 51.4 20.2 47.2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M20.4 17.8C23.8 13.6 28.4 12.8 33.2 14.2C38.2 15.6 42.4 18.6 44.6 22.2C41.2 18.4 36.4 16.6 31.6 16.8C27.2 17 23.4 18 20.4 17.8Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.55"
-      />
-      <path
-        d="M28.6 13.4 30.2 17.6M17.4 28 16.2 39.5M46.8 26.5 48.2 39"
-        class="stroke-portrait-ink"
-        stroke-width="1.15"
-      />
-      <path
-        d="M23.4 23.4q3.2-2.6 6.4 0.2M34.4 23.4q3.2-2.6 6.4 0.2"
-        class="stroke-portrait-hair"
-        stroke-width="1.2"
-      />
-      <ellipse cx="24.4" cy="33.2" rx="2.2" ry="1.45" class="fill-rose-400/70" />
-      <ellipse cx="39.6" cy="33.2" rx="2.2" ry="1.45" class="fill-rose-400/70" />
-      <circle cx="26.2" cy="28.4" r="2.5" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.4" r="2.5" class="fill-portrait-ink" />
-      <circle cx="25.35" cy="27.45" r="0.95" class="fill-portrait-bib" />
-      <circle cx="36.95" cy="27.45" r="0.95" class="fill-portrait-bib" />
-      <path
-        d="M23.9 26.7q-1.3-1.7-2.1-.2M40.1 26.7q1.3-1.7 2.1-.2"
-        class="stroke-portrait-ink"
-        stroke-width="1.15"
-      />
-      <path d="M32 31.4v2.4" class="stroke-portrait-ink" stroke-width="1.2" />
-      <path d="M28.6 36.2q3.4 3.2 6.8 0" class="stroke-portrait-ink" stroke-width="1.4" />
-    {:else if cast.id === "lucia"}
-      <!-- over-shoulder braid, curtain bangs, hoop -->
-      <path
-        d="M39.4 34.2 43.2 32.4 47.8 36.2 46 42.4 50 47.2 46.6 52.6 49.4 58.2 45.6 62.4 39.8 61.2 37.4 55.2 40.2 49.6 36.8 43.8 38.2 38.2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-emerald-600" />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M18.8 22.2 18 16.4 21.8 10.6 27.6 6.6 33.8 5.8 40.4 8 45.6 13.6 47.6 20.6 46.4 27.2 43.6 33.4Q40.2 18.4 33.6 17Q31.6 16.6 30.2 19Q26.4 15.8 22.2 17.4Q20 18.8 18.8 22.2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M19.2 22.6c-.3 3.2.2 6.2 1 7.8.3-2 .3-4.8.1-7.6Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.4"
-      />
-      <ellipse
-        cx="41.2"
-        cy="33.6"
-        rx="2.35"
-        ry="1.45"
-        class="fill-rose-500 stroke-portrait-ink"
-        stroke-width="1.15"
-      />
-      <path
-        d="M42.8 37.4 46.2 41.2M41.6 44.6 46.8 48.2M40.6 52.4 46.2 55.8"
-        class="stroke-portrait-ink"
-        stroke-width="1.15"
-      />
-      <path d="M32.2 7.2 31.4 16.6" class="stroke-portrait-ink" stroke-width="1.15" />
-      <circle
-        cx="16.6"
-        cy="33.6"
-        r="1.45"
-        class="stroke-portrait-ink"
-        stroke-width="1.25"
-      />
-      <ellipse cx="24.6" cy="33.4" rx="1.9" ry="1.2" class="fill-rose-400/55" />
-      <ellipse cx="39.4" cy="33.4" rx="1.9" ry="1.2" class="fill-rose-400/55" />
-      <circle cx="26.2" cy="28.5" r="2.05" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.5" r="2.05" class="fill-portrait-ink" />
-      <path
-        d="M23.6 26.2q1.4-1.6 3.2-.4M37.2 26q1.6-1.6 3.2-.2"
-        class="stroke-portrait-ink"
-        stroke-width="1.15"
-      />
-      <path
-        d="M23.4 27.4 22.2 26.2M24.8 26.6 24.2 25.2M40.6 27.4 41.8 26.2M39.2 26.6 39.8 25.2"
-        class="stroke-portrait-ink"
-        stroke-width="1.05"
-      />
-      <path d="M32 31.4v2.2" class="stroke-portrait-ink" stroke-width="1.15" />
-      <path
-        d="M29.2 36.4q2.8 1.8 5.6 0"
-        class="stroke-portrait-ink"
-        stroke-width="1.35"
-      />
-    {:else if cast.id === "receptionist"}
-      <path
-        d="M18 22c-1.5-12 5-16 14-16s15.5 4 14 16c2 8 0 18-6 23-4 3-6-3-8-3.5-2 .5-4 6.5-8 3.5-6-5-8-15-6-23Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-blue-600" />
-      <path d="M26 45.6 32 52.2 38 45.6" class="stroke-portrait-bib" stroke-width="1.6" />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M20.6 18.8c3-2.8 7-4.2 11.4-4.2s8.4 1.4 11.4 4.2c-3-1.2-6.8-2-11.4-2s-8.4.8-11.4 2Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.5"
-      />
-      <path
-        d="M23.4 24.6h6.6M34 24.6h6.6"
-        class="stroke-portrait-hair"
-        stroke-width="1.25"
-      />
-      <ellipse cx="26.2" cy="28.6" rx="2.15" ry="1.3" class="fill-portrait-ink" />
-      <ellipse cx="37.8" cy="28.6" rx="2.15" ry="1.3" class="fill-portrait-ink" />
-      <path d="M32 31.2v3" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M28.2 36.8q3.8 2.4 7.6 0" class="stroke-portrait-ink" stroke-width="1.4" />
-    {:else if cast.id === "maria"}
-      <circle
-        cx="32"
-        cy="8.6"
-        r="5.1"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M20.4 21.4c.8-8.6 6-12.4 11.6-12.4s10.8 3.8 11.6 12.4c-2.2-4-6.2-6.6-11.6-6.6s-9.4 2.6-11.6 6.6Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
-      <!-- blouse V under cardigan -->
-      <path d="M26.4 45.4 32 55.2 37.6 45.4Z" class="fill-portrait-bib" />
-      <path
-        d="M26.4 45.4 32 55.2 37.6 45.4"
-        class="stroke-portrait-ink"
-        stroke-width="1.25"
-      />
-      <path d="M32 55.2v8.6" class="stroke-portrait-ink" stroke-width="1.15" />
-      <circle
-        cx="32"
-        cy="55.2"
-        r="1.05"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="1"
-      />
-      <circle
-        cx="32"
-        cy="59.6"
-        r="1.05"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="1"
-      />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M23 24.8q2.8-1.2 5.8 0M35 24.8q2.8-1.2 5.8 0"
-        class="stroke-portrait-hair-grey"
-        stroke-width="1.2"
-      />
-      <circle cx="26.2" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="1.55" class="fill-portrait-ink" />
-      <path d="M32 30.8q1.5 2.2 0 4" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M28.4 37.2h7.2" class="stroke-portrait-ink" stroke-width="1.4" />
-      <circle
-        cx="26.2"
-        cy="28.5"
-        r="4.55"
-        class="stroke-portrait-ink"
-        stroke-width="1.55"
-      />
-      <circle
-        cx="37.8"
-        cy="28.5"
-        r="4.55"
-        class="stroke-portrait-ink"
-        stroke-width="1.55"
-      />
-      <path
-        d="M30.7 28.5h2.6M21.6 28.4h-2.6M42.4 28.4h2.6"
-        class="stroke-portrait-ink"
-        stroke-width="1.35"
-      />
-    {:else if cast.id === "waiter"}
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-slate-800" />
-      <path
-        d="M25 46.5 22.4 64h19.2L39 46.5Q32 50.5 25 46.5Z"
-        class="fill-portrait-bib"
-      />
-      <path
-        d="M25 46.5 32 53.2 39 46.5"
-        class="stroke-portrait-ink"
-        stroke-width="1.35"
-      />
-      <rect
-        x="28.2"
-        y="52.4"
-        width="7.6"
-        height="4"
-        rx="0.7"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="1.1"
-      />
-      <rect
-        x="29.6"
-        y="53.6"
-        width="4.8"
-        height="1.15"
-        rx="0.35"
-        class="fill-emerald-600"
-      />
-      <path
-        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <ellipse
-        cx="32"
-        cy="29"
-        rx="13.2"
-        ry="15.2"
-        class="fill-portrait-skin stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M20.2 20.6C21.2 11.8 25.8 7.4 32 7.4s10.8 4.4 11.8 13.2c-2.8-1.8-7-2.8-11.8-2.8s-9 1-11.8 2.8Z"
-        class="{hair} stroke-portrait-ink"
-        stroke-width="1.7"
-      />
-      <path
-        d="M23.4 24.8h6.4M34.2 24.8h6.4"
-        class="stroke-portrait-hair"
-        stroke-width="1.2"
-      />
-      <circle cx="26.2" cy="28.6" r="1.5" class="fill-portrait-ink" />
-      <circle cx="37.8" cy="28.6" r="1.5" class="fill-portrait-ink" />
-      <path d="M32 31.2v3" class="stroke-portrait-ink" stroke-width="1.3" />
-      <path d="M28.2 36.8q3.8 2.4 7.6 0" class="stroke-portrait-ink" stroke-width="1.4" />
-    {:else if cast.id === "narrator"}
-      <!-- narrator: system host robot (feminine companion, big bold expressive face) -->
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
-      <path d="M25 47q7 3 14 0" class="stroke-rose-300/80" stroke-width="1.2" />
-      <!-- Slender neck -->
+    <StickHead characterId={cast.id} part="back" turn={0} />
+
+    {#if robot}
+      <!-- light casing with the chest screen -->
       <rect
         x="29"
         y="42"
@@ -478,147 +69,117 @@
         class="fill-slate-700 stroke-portrait-ink"
         stroke-width="1.2"
       />
-      <!-- Sleek ear accents -->
-      <rect
-        x="13.2"
-        y="24"
-        width="2.5"
-        height="9.5"
-        rx="1.25"
-        class="fill-slate-700 stroke-portrait-ink"
-        stroke-width="1.2"
-      />
-      <rect
-        x="48.3"
-        y="24"
-        width="2.5"
-        height="9.5"
-        rx="1.25"
-        class="fill-slate-700 stroke-portrait-ink"
-        stroke-width="1.2"
-      />
-      <circle cx="14.45" cy="28.75" r="0.9" class="fill-rose-400" />
-      <circle cx="49.55" cy="28.75" r="0.9" class="fill-rose-400" />
-      <!-- Head casing: bold, generous squircle -->
-      <rect
-        x="15.5"
-        y="14.5"
-        width="33"
-        height="28.5"
-        rx="12"
+      <path
+        d="M13 64c2-13 9-19 19-19s17 6 19 19Z"
         class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <!-- Soft blush -->
-      <ellipse cx="17.8" cy="36.5" rx="1.6" ry="1" class="fill-rose-300/60" />
-      <ellipse cx="46.2" cy="36.5" rx="1.6" ry="1" class="fill-rose-300/60" />
-      <!-- Antenna: graceful, airy curve with comfortable headroom -->
-      <path d="M32 14.5q2.2-3.5 0-6" class="stroke-portrait-ink" stroke-width="1.3" />
-      <circle
-        cx="32"
-        cy="8.5"
-        r="2.2"
-        class="fill-rose-400 stroke-portrait-ink"
-        stroke-width="1.2"
-      />
-      <circle cx="31.3" cy="7.8" r="0.6" class="fill-white" />
-      <!-- Big, immersive visor screen -->
-      <rect
-        x="18"
-        y="17"
-        width="28"
-        height="23.5"
-        rx="9.5"
-        class="fill-slate-800 stroke-portrait-ink"
         stroke-width="1.3"
       />
-      <!-- Friendly, glowing eyes and smile -->
-      <rect x="21.5" y="23" width="4.8" height="6.8" rx="2.4" class="fill-rose-300" />
-      <circle cx="23" cy="24.5" r="0.9" class="fill-white" />
-      <rect x="37.7" y="23" width="4.8" height="6.8" rx="2.4" class="fill-rose-300" />
-      <circle cx="39.2" cy="24.5" r="0.9" class="fill-white" />
-      <path
-        d="M28.5 34q3.5 2.5 7 0"
-        class="stroke-rose-300"
-        stroke-width="1.35"
-        stroke-linecap="round"
+      <rect
+        x="26.5"
+        y="50.5"
+        width="11"
+        height="9"
+        rx="2.4"
+        class="fill-slate-800 stroke-portrait-ink"
+        stroke-width="0.9"
       />
+      <circle cx="32" cy="55" r="1.8" class={robot.chest} />
     {:else}
-      <!-- guide: system teacher robot (big bold expressive face, clean & warm) -->
-      <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-blue-600" />
-      <path d="M25 47q7 3 14 0" class="stroke-sky-300/80" stroke-width="1.2" />
-      <!-- Slender neck -->
-      <rect
-        x="29"
-        y="42"
-        width="6"
-        height="4"
-        rx="1.2"
-        class="fill-slate-700 stroke-portrait-ink"
-        stroke-width="1.2"
-      />
-      <!-- Sleek ear accents -->
-      <rect
-        x="13.2"
-        y="24"
-        width="2.5"
-        height="9.5"
-        rx="1.25"
-        class="fill-slate-700 stroke-portrait-ink"
-        stroke-width="1.2"
-      />
-      <rect
-        x="48.3"
-        y="24"
-        width="2.5"
-        height="9.5"
-        rx="1.25"
-        class="fill-slate-700 stroke-portrait-ink"
-        stroke-width="1.2"
-      />
-      <circle cx="14.45" cy="28.75" r="0.9" class="fill-sky-400" />
-      <circle cx="49.55" cy="28.75" r="0.9" class="fill-sky-400" />
-      <!-- Head casing: bold, generous squircle -->
-      <rect
-        x="15.5"
-        y="14.5"
-        width="33"
-        height="28.5"
-        rx="12"
-        class="fill-portrait-bib stroke-portrait-ink"
-        stroke-width="1.6"
-      />
-      <!-- Antenna: clean vertical stem with comfortable headroom -->
-      <path d="M32 14.5V9" class="stroke-portrait-ink" stroke-width="1.4" />
-      <circle
-        cx="32"
-        cy="8.5"
-        r="2.2"
-        class="fill-rose-500 stroke-portrait-ink"
-        stroke-width="1.2"
-      />
-      <circle cx="31.3" cy="7.8" r="0.6" class="fill-white" />
-      <!-- Big, immersive visor screen -->
-      <rect
-        x="18"
-        y="17"
-        width="28"
-        height="23.5"
-        rx="9.5"
-        class="fill-slate-800 stroke-portrait-ink"
-        stroke-width="1.3"
-      />
-      <!-- Friendly, glowing eyes and smile -->
-      <rect x="21.5" y="23" width="4.8" height="6.8" rx="2.4" class="fill-sky-400" />
-      <circle cx="23" cy="24.5" r="0.9" class="fill-white" />
-      <rect x="37.7" y="23" width="4.8" height="6.8" rx="2.4" class="fill-sky-400" />
-      <circle cx="39.2" cy="24.5" r="0.9" class="fill-white" />
+      {#if cast.id === "alex"}
+        <!-- blue zip hoodie over a white tee -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-blue-600" />
+        <path d="M28.2 45.6 32 51.6 35.8 45.6Z" class="fill-portrait-bib" />
+        <path d="M32 51.6V64" class="stroke-portrait-ink" stroke-width="0.9" />
+      {:else if cast.id === "anna"}
+        <!-- rose knit sweater over a white collar -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
+        <path
+          d="M27.4 45.4Q29.8 50 32 47.8Q34.2 50 36.6 45.4Z"
+          class="fill-portrait-bib stroke-portrait-ink"
+          stroke-width="0.9"
+        />
+      {:else if cast.id === "lucia"}
+        <!-- green A-line dress with a scoop neck and a shop name tag -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-emerald-600" />
+        <path
+          d="M27.6 45.4Q32 52 36.4 45.4Z"
+          class="fill-portrait-skin stroke-portrait-ink"
+          stroke-width="0.9"
+        />
+        <rect
+          x="37.2"
+          y="52.4"
+          width="4.6"
+          height="2.6"
+          rx="0.5"
+          class="fill-portrait-bib stroke-portrait-ink"
+          stroke-width="0.7"
+        />
+      {:else if cast.id === "marek"}
+        <!-- charcoal sweater over a collared shirt -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-portrait-vest" />
+        <path
+          d="M26.6 45.2 32 49.8 29.6 53.2ZM37.4 45.2 32 49.8 34.4 53.2Z"
+          class="fill-portrait-bib stroke-portrait-ink"
+          stroke-width="0.8"
+        />
+      {:else if cast.id === "maria"}
+        <!-- rose cardigan open over a white blouse -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
+        <path d="M26.4 45.4 32 55.2 37.6 45.4Z" class="fill-portrait-bib" />
+        <path
+          d="M26.4 45.4 32 55.2 37.6 45.4"
+          class="stroke-portrait-ink"
+          stroke-width="1.25"
+        />
+        <path d="M32 55.2v8.6" class="stroke-portrait-ink" stroke-width="1.15" />
+        <circle
+          cx="32"
+          cy="55.2"
+          r="1.05"
+          class="fill-portrait-bib stroke-portrait-ink"
+          stroke-width="1"
+        />
+        <circle
+          cx="32"
+          cy="59.6"
+          r="1.05"
+          class="fill-portrait-bib stroke-portrait-ink"
+          stroke-width="1"
+        />
+      {:else if cast.id === "receptionist"}
+        <!-- blue blazer, white blouse -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-blue-600" />
+        <path
+          d="M26 45.6 32 52.2 38 45.6"
+          class="stroke-portrait-bib"
+          stroke-width="1.6"
+        />
+      {:else if cast.id === "waiter"}
+        <!-- white shirt, dark waistcoat, bow tie -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-portrait-vest" />
+        <path
+          d="M25 46.5 22.4 64h19.2L39 46.5Q32 50.5 25 46.5Z"
+          class="fill-portrait-bib"
+        />
+        <path
+          d="M25 46.5 32 53.2 39 46.5"
+          class="stroke-portrait-ink"
+          stroke-width="1.35"
+        />
+        <path
+          d="M28.4 45.2v4.2l3.6-2.1ZM35.6 45.2v4.2L32 47.3Z"
+          class="fill-portrait-ink"
+        />
+      {/if}
+
       <path
-        d="M28.5 34q3.5 2.5 7 0"
-        class="stroke-sky-400"
-        stroke-width="1.35"
-        stroke-linecap="round"
+        d="M26.5 43c.5 3.6 1.8 6.2 5.5 6.2s5-2.6 5.5-6.2"
+        class="fill-portrait-skin stroke-portrait-ink"
+        stroke-width="1.6"
       />
     {/if}
+
+    <StickHead characterId={cast.id} turn={0} />
   </svg>
 </span>

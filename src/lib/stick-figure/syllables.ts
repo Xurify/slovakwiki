@@ -2,7 +2,7 @@ const VOWELS = new Set("aáäeéiíoóôuúyý");
 const LONG_VOWELS = new Set("áéíóúýô");
 const SYLLABIC_LIQUIDS = new Set("rŕlĺ");
 
-/** What the lips do on a syllable: `r` is a syllabic r/l, held near neutral. */
+/** What the lips do on a syllable: `r` is a syllabic r/l or a hum, held near neutral. */
 export type VowelShape = "a" | "e" | "i" | "o" | "u" | "r";
 
 /** `ä` is said [e]; `y` like `i`; `ô` [u̯o] starts rounded. */
@@ -91,6 +91,11 @@ export function slovakSyllables(word: string): SlovakSyllable[] {
 
   const last = syllables.at(-1);
   if (last) last.consonants += consonants;
+  // A one-letter word (`v`, `s`, `z`, `k`) is said with the next one, but an
+  // interjection with no vowel (`hm`, `pst`) is a syllable of its own.
+  else if (letters.length > 1) {
+    syllables.push({ consonants: letters.length - 1, long: false, vowel: "r" });
+  }
 
   return syllables;
 }

@@ -124,6 +124,9 @@
   --color-scene-cabbage: #c5dba5;
   --color-scene-onion: #d9a35e;
   --color-scene-potato: #b98a58;
+  /* The studio's on-air sign and screen, and the strawberries: the light theme's red and blue, fixed. */
+  --color-scene-red: #c23b35;
+  --color-scene-blue: #3b82f6;
   --color-flag-red: #d52b1e;
   --color-flag-blue: #0b4ea2;
   --color-flag-gold: #ffcd00;
@@ -408,6 +411,7 @@
     *::after {
       scroll-behavior: auto !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
     }

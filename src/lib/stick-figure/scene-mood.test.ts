@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { isOutdoors, sceneMood } from "./scene-mood";
+import { isOutdoors } from "./places";
+import { sceneMood } from "./scene-mood";
 
 describe("sceneMood", () => {
   it("reads the time of day from the first greeting that names one", () => {
