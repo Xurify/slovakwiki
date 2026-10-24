@@ -15,8 +15,14 @@ describe("grammar contrast cards", () => {
   it("covers the topics where the choice is the hard part", () => {
     expect(contrastTopics.map((topic) => topic.slug).toSorted()).toEqual([
       "aspect",
+      "conditional",
       "demonstratives",
+      "future-tense",
+      "imperative",
+      "motion-verbs",
+      "past-tense",
       "possessives",
+      "reflexive-verbs",
       "telling-time",
       "ty-vs-vy",
     ]);

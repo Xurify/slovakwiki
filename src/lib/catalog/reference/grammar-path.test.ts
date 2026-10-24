@@ -23,6 +23,21 @@ describe("grammarReadingOrder", () => {
       "possessives",
     ]);
   });
+
+  it("walks the verbs from tenses to moods", () => {
+    expect(grammarTopicsInGroup("Verbs").map((topic) => topic.slug)).toEqual([
+      "present-tense",
+      "byt-present",
+      "mat-present",
+      "past-tense",
+      "aspect",
+      "future-tense",
+      "motion-verbs",
+      "imperative",
+      "conditional",
+      "reflexive-verbs",
+    ]);
+  });
 });
 
 describe("grammarNeighbors", () => {

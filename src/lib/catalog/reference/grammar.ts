@@ -253,11 +253,202 @@ export const grammarEntries: GrammarTopic[] = [
       },
       { wrong: "nie mám", right: "nemám", why: "**Ne-** joins the verb." },
     ],
-    nextSlug: "aspect",
+    nextSlug: "past-tense",
     lessonLink: {
       href: "/lessons/grammar/mat-present",
       label: "Present forms of mať",
     },
+  },
+  {
+    slug: "past-tense",
+    slovak: "minulý čas",
+    english: "past tense",
+    category: "Verbs",
+    kind: "grammar",
+    summary:
+      "The past tense is the -l form of the verb plus som, si, sme, or ste. The -l form also shows whether a man or a woman is speaking.",
+    body: [
+      "Build the -l form from the infinitive: drop -ť and add -l. robiť → robil, čítať → čítal, pracovať → pracoval. Verbs in -ieť take -el: vidieť → videl, chcieť → chcel.",
+      "The -l form agrees with the subject: robil (masculine), robila (feminine), robilo (neuter), robili (plural). A man says Bol som doma; a woman says Bola som doma.",
+      "Add som, si, sme, or ste for I, you, we, and you (formal or plural). The third person has no extra word: Peter pracoval. Formal vy takes the plural form, even for one person: Kde ste boli?",
+      "A few common verbs have their own -l form: ísť → išiel, išla; jesť → jedol; môcť → mohol; niesť → niesol.",
+    ],
+    examples: [
+      {
+        slovak: "Včera som bol doma.",
+        english: "Yesterday I was at home.",
+        demonstrates: "**Som** stands second in the sentence, right after **včera**.",
+      },
+      {
+        slovak: "Anna pracovala celý deň.",
+        english: "Anna worked all day.",
+        demonstrates: "Third person: no **som**, just the **-l** form **pracovala**.",
+      },
+      {
+        slovak: "Kde ste boli?",
+        english: "Where were you?",
+        demonstrates: "Formal **vy** takes the plural **boli**, even for one person.",
+      },
+    ],
+    related: ["byt", "robit", "ist", "byt-present", "aspect", "negation"],
+    source: languageSource,
+    tags: ["verbs", "past tense", "beginner"],
+    lookFor:
+      "Find the verb ending in **-l**, **-la**, **-lo**, or **-li**. Then look for **som**, **si**, **sme**, or **ste** near it: that word says who.",
+    pathGroup: "Verbs",
+    order: 6,
+    rule: [
+      "Past = the **-l** form + **som**, **si**, **sme**, **ste**. In the third person, the **-l** form stands alone: **Peter pracoval**.",
+      "The **-l** form agrees with the subject: **robil**, **robila**, **robilo**, **robili**.",
+      "**Som** and **si** take second place in the sentence: **Včera som bol doma.**",
+    ],
+    pattern: {
+      label: "Robiť — to do, in the past",
+      columns: ["Masculine", "Feminine"],
+      rows: [
+        { label: "ja (I)", cells: ["robil som", "robila som"] },
+        { label: "ty (you, informal)", cells: ["robil si", "robila si"] },
+        { label: "on / ona (he, she)", cells: ["robil", "robila"] },
+        { label: "my (we)", cells: ["robili sme", "robili sme"] },
+        { label: "vy (you, formal or plural)", cells: ["robili ste", "robili ste"] },
+        { label: "oni / ony (they)", cells: ["robili", "robili"] },
+      ],
+      examples: [
+        {
+          slovak: "Čo si robil cez víkend?",
+          english: "What did you do at the weekend?",
+          demonstrates: "Asking a man. To a woman: **Čo si robila?**",
+        },
+        {
+          slovak: "Dieťa spalo.",
+          english: "The child was sleeping.",
+          demonstrates: "**Dieťa** is neuter, so the **-l** form ends in **-lo**.",
+        },
+      ],
+    },
+    morePatterns: [
+      {
+        label: "From the infinitive to the -l form",
+        lines: [
+          "robiť → robil · did",
+          "čítať → čítal · read",
+          "pracovať → pracoval · worked",
+          "piť → pil · drank",
+          "vidieť → videl · saw",
+          "chcieť → chcel · wanted",
+        ],
+      },
+      {
+        label: "Verbs with their own -l form",
+        lines: [
+          "ísť → išiel, išla · went",
+          "prísť → prišiel, prišla · came",
+          "jesť → jedol, jedla · ate",
+          "môcť → mohol, mohla · could",
+          "niesť → niesol, niesla · carried",
+          "zabudnúť → zabudol, zabudla · forgot",
+        ],
+        examples: [
+          {
+            slovak: "Prišla neskoro.",
+            english: "She came late.",
+            demonstrates: "**Prísť** → **prišiel**, **prišla**: learn both forms.",
+          },
+        ],
+      },
+    ],
+    contrasts: {
+      label: "Who did it?",
+      intro:
+        "The **-l** form shows a man or a woman. **Som**, **si**, **sme**, **ste** show the person; the third person has none.",
+      frames: [
+        {
+          question: "A man, or a woman?",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Bol" },
+                " som unaven",
+                { role: "ending", text: "ý" },
+                ".",
+              ]),
+              english: "I was tired.",
+              when: "a man says it",
+            },
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Bola" },
+                " som unaven",
+                { role: "ending", text: "á" },
+                ".",
+              ]),
+              english: "I was tired.",
+              when: "a woman says it",
+            },
+          ],
+        },
+        {
+          question: "You, or him?",
+          choices: [
+            {
+              slovak: markedText([
+                "Včera ",
+                { role: "contrast", text: "som pracoval" },
+                ".",
+              ]),
+              english: "Yesterday I worked.",
+              when: "you did",
+            },
+            {
+              slovak: markedText(["Včera ", { role: "contrast", text: "pracoval" }, "."]),
+              english: "Yesterday he worked.",
+              when: "he did",
+            },
+          ],
+        },
+        {
+          question: "Who are you asking?",
+          scene: "address",
+          choices: [
+            {
+              at: "friend",
+              slovak: markedText(["Kde ", { role: "contrast", text: "si bol" }, "?"]),
+              english: "Where were you?",
+              when: "a friend",
+            },
+            {
+              at: "formal",
+              slovak: markedText(["Kde ", { role: "contrast", text: "ste boli" }, "?"]),
+              english: "Where were you?",
+              when: "a stranger, or more than one person",
+            },
+          ],
+        },
+      ],
+    },
+    watchOut: [
+      {
+        wrong: "Ja bol doma.",
+        right: "Bol som doma.",
+        why: "“I” needs **som**.",
+      },
+      {
+        wrong: "Som bol doma.",
+        right: "Bol som doma.",
+        why: "**Som** never comes first.",
+      },
+      {
+        wrong: "Peter je pracoval.",
+        right: "Peter pracoval.",
+        why: "No extra word in the third person.",
+      },
+      {
+        wrong: "nie som bol",
+        right: "nebol som",
+        why: "**Ne-** joins the **-l** form.",
+      },
+    ],
+    nextSlug: "aspect",
   },
   {
     slug: "aspect",
@@ -269,8 +460,9 @@ export const grammarEntries: GrammarTopic[] = [
       "Slovak verbs mark whether an action is ongoing or completed — not just when it happens.",
     body: [
       "Most verbs come in imperfective / perfective pairs. The imperfective covers process, habit, or an unbounded activity. The perfective frames one completed or result-focused event.",
-      "Prefixes often build perfectives: písať → napísať, čítať → prečítať, robiť → urobiť. The prefix can also change meaning, so learn common pairs in full sentences.",
+      "Pairs are built three ways. A prefix: písať → napísať, čítať → prečítať, robiť → urobiť. A different suffix: kupovať / kúpiť, dávať / dať. Or a different verb: brať / vziať, hovoriť / povedať. Each verb has its own prefix, so learn pairs in full sentences.",
       "Future tense depends on aspect: imperfective usually uses budem + infinitive (budem písať), while perfective uses a present-looking form with future meaning (napíšem).",
+      "After začať, prestať, and skončiť, use the imperfective infinitive: Začal som sa učiť slovenčinu.",
     ],
     examples: [
       {
@@ -284,9 +476,9 @@ export const grammarEntries: GrammarTopic[] = [
         demonstrates: "Perfective **napísať**: the letter is done.",
       },
       {
-        slovak: "Chodím do práce.",
-        english: "I go to work (habitually).",
-        demonstrates: "Habitual motion verb **chodiť**: repeated trips, not one journey.",
+        slovak: "Začal som sa učiť slovenčinu.",
+        english: "I started learning Slovak.",
+        demonstrates: "After **začať**, the imperfective: **učiť sa**.",
       },
     ],
     related: [
@@ -296,28 +488,73 @@ export const grammarEntries: GrammarTopic[] = [
       "napisat",
       "citat",
       "precitat",
-      "ist",
-      "chodit",
+      "kupovat",
+      "kupit",
+      "past-tense",
+      "future-tense",
+      "motion-verbs",
     ],
     source: languageSource,
     tags: ["verbs", "aspect", "intermediate"],
     lookFor:
       "Ask whether the speaker means the process/habit or the completed result — that choice is aspect.",
     pathGroup: "Verbs",
-    order: 6,
+    order: 7,
     rule: [
       "Aspect is separate from tense: the same past time can be imperfective (process) or perfective (completed).",
       "Learn frequent pairs together (**robiť / urobiť**, **písať / napísať**) instead of translating English tense forms one-to-one.",
+      "Perfective verbs have no present meaning: **napíšem** is always “I will write”.",
     ],
     pattern: {
-      label: "Same idea, different aspect",
+      label: "A prefix: the same verb, finished",
       lines: [
-        "robiť → urobiť · do / get done",
-        "písať → napísať · write / write to completion",
-        "čítať → prečítať · read / read through",
-        "ísť / chodiť · one trip vs habit",
+        "písať → napísať · write",
+        "čítať → prečítať · read",
+        "robiť → urobiť · do",
+        "variť → uvariť · cook",
+        "piť → vypiť · drink",
+        "volať → zavolať · call",
       ],
     },
+    morePatterns: [
+      {
+        label: "A new suffix or a new verb: learn both",
+        columns: ["Imperfective", "Perfective"],
+        rows: [
+          { label: "buy", cells: ["kupovať", "kúpiť"] },
+          { label: "give", cells: ["dávať", "dať"] },
+          { label: "open", cells: ["otvárať", "otvoriť"] },
+          { label: "help", cells: ["pomáhať", "pomôcť"] },
+          { label: "forget", cells: ["zabúdať", "zabudnúť"] },
+          { label: "get up", cells: ["vstávať", "vstať"] },
+          { label: "take", cells: ["brať", "vziať"] },
+          { label: "say, tell", cells: ["hovoriť", "povedať"] },
+        ],
+        examples: [
+          {
+            slovak: "Každý deň kupujem chlieb.",
+            english: "I buy bread every day.",
+            demonstrates: "A habit: imperfective **kupovať**.",
+          },
+          {
+            slovak: "Včera som kúpil nový telefón.",
+            english: "Yesterday I bought a new phone.",
+            demonstrates: "One purchase, done: perfective **kúpiť**.",
+          },
+        ],
+      },
+      {
+        label: "Which aspect?",
+        lines: [
+          "Práve píšem e-mail. · in progress: imperfective",
+          "Každé ráno pijem kávu. · a habit: imperfective",
+          "Dve hodiny som čítal. · how long: imperfective",
+          "Prečítal som to za hodinu. · done, with a result: perfective",
+          "Prišiel, sadol si a otvoril list. · one event after another: perfective",
+          "Keď som varil, zazvonil telefón. · background, then an event: both",
+        ],
+      },
+    ],
     termSections: [
       {
         id: "imperfective",
@@ -414,6 +651,77 @@ export const grammarEntries: GrammarTopic[] = [
           ],
         },
       ],
+      more: [
+        {
+          question: "Busy, or finished?",
+          scene: "past",
+          choices: [
+            {
+              at: "ongoing",
+              slovak: markedText([
+                "Večer som ",
+                { role: "contrast", text: "písal" },
+                " list.",
+              ]),
+              english: "In the evening I was writing a letter.",
+              when: "how the evening went",
+            },
+            {
+              at: "done",
+              slovak: markedText([
+                "Večer som ",
+                { role: "contrast", text: "napísal" },
+                " list.",
+              ]),
+              english: "In the evening I wrote the letter.",
+              when: "the letter is finished",
+            },
+          ],
+        },
+        {
+          question: "Have you read it?",
+          choices: [
+            {
+              slovak: markedText([{ role: "contrast", text: "Čítal" }, " si tú knihu?"]),
+              english: "Have you read that book?",
+              when: "ever, even a page",
+            },
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Prečítal" },
+                " si tú knihu?",
+              ]),
+              english: "Have you finished that book?",
+              when: "all of it, to the end",
+            },
+          ],
+        },
+        {
+          question: "Every week, or this once?",
+          scene: "past",
+          choices: [
+            {
+              at: "habit",
+              slovak: markedText([
+                { role: "contrast", text: "Volal" },
+                " som mame každú nedeľu.",
+              ]),
+              english: "I called my mom every Sunday.",
+              when: "every Sunday",
+            },
+            {
+              at: "done",
+              slovak: markedText([
+                "V nedeľu som ",
+                { role: "contrast", text: "zavolal" },
+                " mame.",
+              ]),
+              english: "On Sunday I called my mom.",
+              when: "once, last Sunday",
+            },
+          ],
+        },
+      ],
     },
     watchOut: [
       {
@@ -421,7 +729,917 @@ export const grammarEntries: GrammarTopic[] = [
         right: "napíšem",
         why: "No **budem** with a perfective verb.",
       },
+      {
+        wrong: "Začal som napísať list.",
+        right: "Začal som písať list.",
+        why: "After **začať**, the imperfective.",
+      },
       "English tenses do not map onto aspect. Ask: process, or result?",
+    ],
+    nextSlug: "future-tense",
+  },
+  {
+    slug: "future-tense",
+    slovak: "budúci čas",
+    english: "future tense",
+    category: "Verbs",
+    kind: "grammar",
+    summary:
+      "Imperfective verbs make the future with budem + infinitive. Perfective verbs use their present forms, which already mean the future.",
+    body: [
+      "Byť has its own future: budem, budeš, bude, budeme, budete, budú. Zajtra budem doma.",
+      "Imperfective verbs add the infinitive to budem: budem pracovať, budeme čakať. This is the future of a process or a habit.",
+      "Perfective verbs have no present meaning. Their present forms are the future: napíšem (I will write), zavolám (I will call), prídem (I will come).",
+      "Ísť has its own future: pôjdem, pôjdeš, pôjde. Other one-trip motion verbs can take po- too: ponesiem, poletím, pobežím.",
+    ],
+    examples: [
+      {
+        slovak: "Zajtra budem celý deň doma.",
+        english: "Tomorrow I will be at home all day.",
+        demonstrates: "**Budem** is the future of **byť**.",
+      },
+      {
+        slovak: "Večer ti zavolám.",
+        english: "I'll call you in the evening.",
+        demonstrates:
+          "Perfective **zavolať**: the present form **zavolám** means the future.",
+      },
+      {
+        slovak: "V lete pôjdeme k moru.",
+        english: "In summer we will go to the sea.",
+        demonstrates: "**Ísť** makes its own future: **pôjdeme**.",
+      },
+    ],
+    related: ["byt", "ist", "zavolat", "volat", "aspect", "motion-verbs"],
+    source: languageSource,
+    tags: ["verbs", "future tense", "aspect", "beginner"],
+    lookFor:
+      "Find **budem**, **budeš**, **bude**…: that is the future of an imperfective verb. No **budem**, but a perfective verb in a present form? That is the future too.",
+    pathGroup: "Verbs",
+    order: 8,
+    rule: [
+      "Imperfective: **budem** + infinitive: **budem písať**.",
+      "Perfective: the present form is the future: **napíšem**. Never **budem** + perfective.",
+    ],
+    pattern: {
+      label: "Budem — will (be)",
+      lines: [
+        "ja budem · I will",
+        "ty budeš · you will (informal)",
+        "on / ona / ono bude · he, she, it will",
+        "my budeme · we will",
+        "vy budete · you will (formal or plural)",
+        "oni / ony budú · they will",
+      ],
+      examples: [
+        { slovak: "Budeš doma?", english: "Will you be at home?" },
+        {
+          slovak: "Budeme čakať pred kinom.",
+          english: "We will wait in front of the cinema.",
+          demonstrates: "**Budeme** + imperfective **čakať**.",
+        },
+      ],
+    },
+    morePatterns: [
+      {
+        label: "Imperfective or perfective future",
+        columns: ["Imperfective", "Perfective"],
+        rows: [
+          { label: "write", cells: ["budem písať", "napíšem"] },
+          { label: "read", cells: ["budem čítať", "prečítam"] },
+          { label: "cook", cells: ["budem variť", "uvarím"] },
+          { label: "call", cells: ["budem volať", "zavolám"] },
+          { label: "buy", cells: ["budem kupovať", "kúpim"] },
+        ],
+        examples: [
+          {
+            slovak: "Zajtra ti to pošlem.",
+            english: "I'll send it to you tomorrow.",
+            demonstrates: "One act, then done: perfective **poslať** → **pošlem**.",
+          },
+        ],
+      },
+      {
+        label: "One-trip motion verbs take po-",
+        lines: [
+          "ísť → pôjdem · I will go",
+          "niesť → ponesiem · I will carry",
+          "letieť → poletím · I will fly",
+          "bežať → pobežím · I will run",
+        ],
+      },
+    ],
+    contrasts: {
+      label: "Budem, or the perfective?",
+      intro:
+        "Both talk about later. **Budem** + imperfective is about the time you spend, or a habit. The perfective is about one result.",
+      frames: [
+        {
+          question: "The weekend, or the book?",
+          scene: "aspect",
+          choices: [
+            {
+              at: "ongoing",
+              slovak: markedText([
+                "Cez víkend ",
+                { role: "contrast", text: "budem čítať" },
+                " tú knihu.",
+              ]),
+              english: "At the weekend I'll be reading that book.",
+              when: "how you'll spend the weekend",
+            },
+            {
+              at: "done",
+              slovak: markedText([
+                "Cez víkend ",
+                { role: "contrast", text: "prečítam" },
+                " tú knihu.",
+              ]),
+              english: "I'll read that book over the weekend.",
+              when: "the book will be finished",
+            },
+          ],
+        },
+        {
+          question: "Every day, or once?",
+          scene: "aspect",
+          choices: [
+            {
+              at: "habit",
+              slovak: markedText([
+                "Každý deň ti ",
+                { role: "contrast", text: "budem volať" },
+                ".",
+              ]),
+              english: "I'll call you every day.",
+              when: "again and again",
+            },
+            {
+              at: "done",
+              slovak: markedText([
+                "Zajtra ti ",
+                { role: "contrast", text: "zavolám" },
+                ".",
+              ]),
+              english: "I'll call you tomorrow.",
+              when: "once, tomorrow",
+            },
+          ],
+        },
+      ],
+    },
+    watchOut: [
+      {
+        wrong: "budem napísať",
+        right: "napíšem",
+        why: "No **budem** with a perfective verb.",
+      },
+      {
+        wrong: "budem ísť",
+        right: "pôjdem",
+        why: "**Ísť** has its own future.",
+      },
+      {
+        wrong: "Keď budeš prísť, zavolaj.",
+        right: "Keď prídeš, zavolaj.",
+        why: "**Prídeš** is already future.",
+      },
+      "**Napíšem** looks like the present, but it means “I will write”.",
+    ],
+    nextSlug: "motion-verbs",
+  },
+  {
+    slug: "motion-verbs",
+    slovak: "slovesá pohybu",
+    english: "motion verbs: ísť or chodiť",
+    category: "Verbs",
+    kind: "grammar",
+    summary:
+      "Most kinds of movement have two verbs: one for a single trip in one direction (ísť), one for habits and round trips (chodiť).",
+    body: [
+      "Ísť, niesť, viezť, letieť, and bežať describe one trip in one direction, now or at one moment. Chodiť, nosiť, voziť, lietať, and behať describe habits, round trips, ability, or moving around.",
+      "Both verbs in a pair are imperfective. The one-trip verb makes its future with po-: pôjdem, ponesiem, poletím.",
+      "A prefix on the one-trip verb makes a perfective with a new meaning: prísť (arrive), odísť (leave), vojsť (go in), vyjsť (go out). The imperfective partner uses another stem: prichádzať, odchádzať.",
+      "Ísť also covers travel by car or train: ísť autom, ísť vlakom. Pešo means on foot.",
+    ],
+    examples: [
+      {
+        slovak: "Idem do práce.",
+        english: "I'm on my way to work.",
+        demonstrates: "**Ísť**: one trip, happening now.",
+      },
+      {
+        slovak: "Do práce chodím pešo.",
+        english: "I walk to work.",
+        demonstrates: "**Chodiť**: a habit, there and back every day.",
+      },
+      {
+        slovak: "Dieťa už chodí.",
+        english: "The child can already walk.",
+        demonstrates: "**Chodiť** also means being able to walk.",
+      },
+    ],
+    related: [
+      "ist",
+      "chodit",
+      "niest",
+      "nosit",
+      "letiet",
+      "lietat",
+      "prist",
+      "odist",
+      "aspect",
+      "future-tense",
+    ],
+    source: languageSource,
+    tags: ["verbs", "motion", "aspect", "intermediate"],
+    lookFor:
+      "Ask: one trip in one direction, or a habit and round trips? One trip takes **ísť**, **niesť**, **letieť**; a habit takes **chodiť**, **nosiť**, **lietať**.",
+    pathGroup: "Verbs",
+    order: 9,
+    rule: [
+      "One trip, now or at one moment: **ísť**, **niesť**, **viezť**, **letieť**, **bežať**.",
+      "A habit, round trips, or ability: **chodiť**, **nosiť**, **voziť**, **lietať**, **behať**.",
+      "A prefix makes a perfective: **prísť**, **odísť**. Its partner uses **-chádzať**: **prichádzať**, **odchádzať**.",
+    ],
+    pattern: {
+      label: "One trip, or a habit?",
+      columns: ["One trip", "Habit, round trips"],
+      rows: [
+        { label: "go", cells: ["ísť", "chodiť"] },
+        { label: "carry", cells: ["niesť", "nosiť"] },
+        { label: "drive, take by car", cells: ["viezť", "voziť"] },
+        { label: "fly", cells: ["letieť", "lietať"] },
+        { label: "run", cells: ["bežať", "behať"] },
+      ],
+      examples: [
+        {
+          slovak: "Bežím na autobus.",
+          english: "I'm running for the bus.",
+          demonstrates: "One run, right now: **bežať**.",
+        },
+        {
+          slovak: "Každé ráno behám.",
+          english: "I run every morning.",
+          demonstrates: "A habit: **behať**.",
+        },
+      ],
+    },
+    morePatterns: [
+      {
+        label: "Ísť — to go (one trip)",
+        lines: [
+          "ja idem · I go, I'm going",
+          "ty ideš · you go (informal)",
+          "on / ona / ono ide · he, she, it goes",
+          "my ideme · we go",
+          "vy idete · you go (formal or plural)",
+          "oni / ony idú · they go",
+        ],
+      },
+      {
+        label: "A prefix says where",
+        columns: ["Perfective", "Imperfective"],
+        rows: [
+          { label: "arrive, come", cells: ["prísť", "prichádzať"] },
+          { label: "leave", cells: ["odísť", "odchádzať"] },
+          { label: "go in", cells: ["vojsť", "vchádzať"] },
+          { label: "go out, go up", cells: ["vyjsť", "vychádzať"] },
+          { label: "cross, go through", cells: ["prejsť", "prechádzať"] },
+          { label: "bring", cells: ["priniesť", "prinášať"] },
+        ],
+        examples: [
+          { slovak: "Kedy prídeš?", english: "When are you coming?" },
+          {
+            slovak: "Vlak odchádza o ôsmej.",
+            english: "The train leaves at eight.",
+            demonstrates: "A timetable: imperfective **odchádzať**.",
+          },
+        ],
+      },
+      {
+        label: "Where, where to, where from",
+        columns: ["Where? (kde)", "Where to? (kam)", "Where from? (odkiaľ)"],
+        rows: [
+          { label: "the shop", cells: ["v obchode", "do obchodu", "z obchodu"] },
+          { label: "the post office", cells: ["na pošte", "na poštu", "z pošty"] },
+          { label: "the doctor", cells: ["u lekára", "k lekárovi", "od lekára"] },
+          { label: "home", cells: ["doma", "domov", "z domu"] },
+          { label: "here", cells: ["tu", "sem", "odtiaľto"] },
+        ],
+        examples: [
+          {
+            slovak: "Poď sem!",
+            english: "Come here!",
+            demonstrates: "**Sem** answers “where to?”. **Tu** answers “where?”.",
+          },
+        ],
+      },
+    ],
+    contrasts: {
+      label: "One trip, or again and again?",
+      intro:
+        "Both verbs mean “go”. **Ísť** is one trip in one direction. **Chodiť** is a habit, or there and back.",
+      frames: [
+        {
+          question: "Today, or every day?",
+          scene: "aspect",
+          choices: [
+            {
+              at: "now",
+              slovak: markedText([
+                "Dnes ",
+                { role: "contrast", text: "idem" },
+                " do školy autobusom.",
+              ]),
+              english: "Today I'm going to school by bus.",
+              when: "today, this one trip",
+            },
+            {
+              at: "habit",
+              slovak: markedText([
+                "Do školy ",
+                { role: "contrast", text: "chodím" },
+                " autobusom.",
+              ]),
+              english: "I go to school by bus.",
+              when: "every day",
+            },
+          ],
+        },
+        {
+          question: "One flight, or often?",
+          choices: [
+            {
+              slovak: markedText([
+                "Zajtra ",
+                { role: "contrast", text: "letím" },
+                " do Londýna.",
+              ]),
+              english: "Tomorrow I'm flying to London.",
+              when: "one flight",
+            },
+            {
+              slovak: markedText([
+                "Často ",
+                { role: "contrast", text: "lietam" },
+                " do Londýna.",
+              ]),
+              english: "I often fly to London.",
+              when: "often, there and back",
+            },
+          ],
+        },
+        {
+          question: "The visit, or the trip?",
+          choices: [
+            {
+              slovak: markedText([
+                "Včera ",
+                { role: "contrast", text: "som bol v kine" },
+                ".",
+              ]),
+              english: "Yesterday I was at the cinema.",
+              when: "you went and came back",
+            },
+            {
+              slovak: markedText([
+                "Včera ",
+                { role: "contrast", text: "som išiel do kina" },
+                ".",
+              ]),
+              english: "Yesterday I went to the cinema.",
+              when: "the trip there is the point",
+            },
+          ],
+        },
+      ],
+    },
+    watchOut: [
+      {
+        wrong: "Každý deň idem do práce.",
+        right: "Každý deň chodím do práce.",
+        why: "A habit takes **chodiť**.",
+      },
+      {
+        wrong: "budem ísť",
+        right: "pôjdem",
+        why: "**Ísť** has its own future.",
+      },
+      {
+        wrong: "Poď tu.",
+        right: "Poď sem.",
+        why: "**Sem** is where to.",
+      },
+    ],
+    nextSlug: "imperative",
+  },
+  {
+    slug: "imperative",
+    slovak: "rozkazovací spôsob",
+    english: "imperative: commands and requests",
+    category: "Verbs",
+    kind: "grammar",
+    summary:
+      "The imperative tells someone to do something: Píš! Píšte! Píšme! Build it from the they-form of the present tense.",
+    body: [
+      "Take the oni form of the present and drop the ending: robia → rob, píšu → píš, čítajú → čítaj. That is the form for one person you call ty.",
+      "Add -te for vy (one person formally, or several people), and -me for “let's”: robte, robme. When the stem ends in two consonants, add -i first: spia → spi, spite; myslia → mysli.",
+      "A final t, d, n, or l turns soft: platia → plať, sedia → seď.",
+      "Some common verbs have their own form: ísť → choď, prísť → príď, byť → buď, jesť → jedz, povedať → povedz. Poď means come here, or let's go: Poďme!",
+      "For one request, use the perfective: Zatvor dvere. For “don't”, use the imperfective: Nezatváraj dvere. A warning against an accident keeps the perfective: Nezabudni si kľúče!",
+    ],
+    examples: [
+      {
+        slovak: "Zatvor okno, prosím.",
+        english: "Close the window, please.",
+        demonstrates: "One request to a friend: perfective **zatvoriť** → **zatvor**.",
+      },
+      {
+        slovak: "Poďte ďalej.",
+        english: "Come in.",
+        demonstrates: "**Poď**, **poďte**: come here, come in.",
+      },
+      {
+        slovak: "Nezabudni si kľúče!",
+        english: "Don't forget your keys!",
+        demonstrates:
+          "A warning against an accident keeps the perfective: **nezabudni**.",
+      },
+    ],
+    related: [
+      "zatvorit",
+      "zatvarat",
+      "povedat",
+      "zabudnut",
+      "pomoct",
+      "ty-vs-vy",
+      "aspect",
+    ],
+    source: languageSource,
+    tags: ["verbs", "imperative", "intermediate"],
+    lookFor:
+      "Find a verb with no person ending, often at the start: **Rob**, **Píšte**, **Poďme**. No ending means **ty**, **-te** means **vy**, and **-me** means “let's”.",
+    pathGroup: "Verbs",
+    order: 10,
+    rule: [
+      "Take the **oni** form and drop the ending: **píšu → píš**. Add **-te** for **vy** and **-me** for “let's”.",
+      "One request: perfective (**zavolaj**). “Don't”: imperfective (**nevolaj**).",
+    ],
+    pattern: {
+      label: "From the they-form",
+      columns: ["ty", "vy", "my (let's)"],
+      rows: [
+        { label: "čítať (čítajú)", cells: ["čítaj", "čítajte", "čítajme"] },
+        { label: "robiť (robia)", cells: ["rob", "robte", "robme"] },
+        { label: "písať (píšu)", cells: ["píš", "píšte", "píšme"] },
+        { label: "platiť (platia)", cells: ["plať", "plaťte", "plaťme"] },
+        { label: "spať (spia)", cells: ["spi", "spite", "spime"] },
+        { label: "piť (pijú)", cells: ["pi", "pite", "pime"] },
+      ],
+      examples: [
+        { slovak: "Čítaj nahlas.", english: "Read aloud." },
+        {
+          slovak: "Pite veľa vody.",
+          english: "Drink a lot of water.",
+          demonstrates: "General advice: imperfective **piť** → **pite**.",
+        },
+      ],
+    },
+    morePatterns: [
+      {
+        label: "Verbs with their own imperative",
+        lines: [
+          "ísť → choď · go",
+          "prísť → príď · come",
+          "byť → buď · be",
+          "jesť → jedz · eat",
+          "povedať → povedz · say, tell",
+          "pomôcť → pomôž · help",
+          "poď, poďte, poďme · come here, come in, let's go",
+        ],
+        examples: [{ slovak: "Poďme na kávu.", english: "Let's go for a coffee." }],
+      },
+      {
+        label: "Nech: let someone do it",
+        lines: [
+          "Nech príde. · Let him come.",
+          "Nech sa páči. · Here you are. / Go ahead.",
+        ],
+      },
+    ],
+    contrasts: {
+      label: "Which form?",
+      intro:
+        "The person you talk to picks the ending. The situation picks the aspect: one request is perfective, “don't” is imperfective.",
+      frames: [
+        {
+          question: "Who are you asking?",
+          scene: "address",
+          choices: [
+            {
+              at: "friend",
+              slovak: markedText([{ role: "contrast", text: "Zavolaj" }, " mi zajtra."]),
+              english: "Call me tomorrow.",
+              when: "a friend",
+            },
+            {
+              at: "formal",
+              slovak: markedText([
+                { role: "contrast", text: "Zavolajte" },
+                " mi zajtra.",
+              ]),
+              english: "Call me tomorrow.",
+              when: "a stranger, or more than one person",
+            },
+          ],
+        },
+        {
+          question: "Do it, or don't?",
+          choices: [
+            {
+              slovak: markedText([{ role: "contrast", text: "Zatvor" }, " okno."]),
+              english: "Close the window.",
+              when: "one request: perfective",
+            },
+            {
+              slovak: markedText([{ role: "contrast", text: "Nezatváraj" }, " okno."]),
+              english: "Don't close the window.",
+              when: "don't: imperfective",
+            },
+          ],
+        },
+        {
+          question: "A rule, or a warning?",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Nevolaj" },
+                " mi po desiatej.",
+              ]),
+              english: "Don't call me after ten.",
+              when: "a rule: imperfective",
+            },
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Nezabudni" },
+                " mi zavolať.",
+              ]),
+              english: "Don't forget to call me.",
+              when: "a warning: perfective",
+            },
+          ],
+        },
+      ],
+    },
+    watchOut: [
+      {
+        wrong: "Nezatvor okno.",
+        right: "Nezatváraj okno.",
+        why: "“Don't” takes the imperfective.",
+      },
+      {
+        wrong: "Idi domov!",
+        right: "Choď domov!",
+        why: "**Ísť** has its own imperative.",
+      },
+      "Add **prosím** to make any request polite: **Zavolaj mi, prosím.**",
+    ],
+    nextSlug: "conditional",
+  },
+  {
+    slug: "conditional",
+    slovak: "podmieňovací spôsob",
+    english: "conditional: would",
+    category: "Verbs",
+    kind: "grammar",
+    summary:
+      "The conditional is the -l form plus by: robil by som, “I would do”. Use it for wishes, polite requests, and imagined situations.",
+    body: [
+      "Take the past -l form and add by, then som, si, sme, or ste: robil by som, robila by si, robili by sme. The third person has only by: Peter by prišiel.",
+      "By stands second in the sentence, like som: Rád by som išiel. Čo by si robil?",
+      "Use it for polite requests (Mohli by ste mi pomôcť?) and wishes (Chcel by som kávu).",
+      "In if-sentences, keby already contains by: Keby som mal čas, prišiel by som. Aby works the same way: Povedz mu, aby prišiel.",
+      "For something that may really happen, use ak with the future instead: Ak bude pršať, zostaneme doma.",
+    ],
+    examples: [
+      {
+        slovak: "Chcel by som kávu, prosím.",
+        english: "I'd like a coffee, please.",
+        demonstrates:
+          "**Chcel by som**: a polite way to ask. A woman says **chcela by som**.",
+      },
+      {
+        slovak: "Mohli by ste mi pomôcť?",
+        english: "Could you help me?",
+        demonstrates: "Formal **vy** takes the plural **mohli**.",
+      },
+      {
+        slovak: "Keby som mal čas, išiel by som s vami.",
+        english: "If I had time, I would go with you.",
+        demonstrates: "**Keby** already contains **by**: **keby som**.",
+      },
+    ],
+    related: ["chciet", "moct", "mat", "past-tense", "ty-vs-vy"],
+    source: languageSource,
+    tags: ["verbs", "conditional", "intermediate"],
+    lookFor:
+      "Find **by** (or **keby**, **aby**) and the **-l** form near it. Then **som**, **si**, **sme**, or **ste** tells you who.",
+    pathGroup: "Verbs",
+    order: 11,
+    rule: [
+      "Conditional = the **-l** form + **by** + **som**, **si**, **sme**, **ste**: **robil by som**.",
+      "**Keby** and **aby** already contain **by**: **keby som mal čas**.",
+    ],
+    pattern: {
+      label: "Robiť — would do",
+      columns: ["Masculine", "Feminine"],
+      rows: [
+        { label: "ja (I)", cells: ["robil by som", "robila by som"] },
+        { label: "ty (you, informal)", cells: ["robil by si", "robila by si"] },
+        { label: "on / ona (he, she)", cells: ["robil by", "robila by"] },
+        { label: "my (we)", cells: ["robili by sme", "robili by sme"] },
+        {
+          label: "vy (you, formal or plural)",
+          cells: ["robili by ste", "robili by ste"],
+        },
+        { label: "oni / ony (they)", cells: ["robili by", "robili by"] },
+      ],
+      examples: [{ slovak: "Čo by si robil?", english: "What would you do?" }],
+    },
+    morePatterns: [
+      {
+        label: "Polite phrases",
+        lines: [
+          "Chcel by som… · I would like… (a man)",
+          "Chcela by som… · I would like… (a woman)",
+          "Mohli by ste…? · Could you…? (formal)",
+          "Mohol by si…? · Could you…? (to a friend)",
+          "Bolo by dobré… · It would be good…",
+        ],
+      },
+      {
+        label: "Ak, keby, aby",
+        lines: [
+          "Ak bude pršať, zostaneme doma. · If it rains, we'll stay at home.",
+          "Keby pršalo, zostali by sme doma. · If it rained, we would stay at home.",
+          "Povedz mu, aby prišiel. · Tell him to come.",
+        ],
+      },
+    ],
+    contrasts: {
+      label: "Real, or imagined?",
+      intro:
+        "**Ak** talks about something that may really happen. **Keby** and the conditional talk about something imagined, or ask politely.",
+      frames: [
+        {
+          question: "Will it happen, or only maybe?",
+          choices: [
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Ak budem mať" },
+                " čas, ",
+                { role: "contrast", text: "prídem" },
+                ".",
+              ]),
+              english: "If I have time, I'll come.",
+              when: "it may really happen",
+            },
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Keby som mal" },
+                " čas, ",
+                { role: "contrast", text: "prišiel by som" },
+                ".",
+              ]),
+              english: "If I had time, I would come.",
+              when: "you don't have time, but imagine",
+            },
+          ],
+        },
+        {
+          question: "Want, or would like?",
+          choices: [
+            {
+              slovak: markedText([{ role: "contrast", text: "Chcem" }, " kávu."]),
+              english: "I want a coffee.",
+              when: "direct, a little blunt",
+            },
+            {
+              slovak: markedText([{ role: "contrast", text: "Chcel by som" }, " kávu."]),
+              english: "I'd like a coffee.",
+              when: "polite",
+            },
+          ],
+        },
+        {
+          question: "Can you, or could you?",
+          choices: [
+            {
+              slovak: markedText([{ role: "contrast", text: "Môžete" }, " mi pomôcť?"]),
+              english: "Can you help me?",
+              when: "a plain question",
+            },
+            {
+              slovak: markedText([
+                { role: "contrast", text: "Mohli by ste" },
+                " mi pomôcť?",
+              ]),
+              english: "Could you help me?",
+              when: "softer, more polite",
+            },
+          ],
+        },
+      ],
+    },
+    watchOut: [
+      {
+        wrong: "keby by som",
+        right: "keby som",
+        why: "**Keby** already contains **by**.",
+      },
+      {
+        wrong: "By som chcel kávu.",
+        right: "Chcel by som kávu.",
+        why: "**By** never comes first.",
+      },
+      "Formal Slovak adds **bol** for the past: **bol by som prišiel**, “I would have come”.",
+    ],
+    nextSlug: "reflexive-verbs",
+  },
+  {
+    slug: "reflexive-verbs",
+    slovak: "sa a si",
+    english: "verbs with sa and si",
+    category: "Verbs",
+    kind: "grammar",
+    summary:
+      "Many verbs come with sa or si. Sa often keeps the action on the subject; si means for yourself. Some verbs always need one of them.",
+    body: [
+      "Some verbs always take sa or si: báť sa (be afraid), smiať sa (laugh), páčiť sa (be liked), všimnúť si (notice). Learn them with the small word.",
+      "Others change meaning: umyť auto (wash the car), umyť sa (wash yourself); volať (call), volať sa (be called): Volám sa Anna.",
+      "Si often means “for yourself”: Dám si kávu. Kúpil som si bicykel. It also goes with body parts: Umyl som si ruky.",
+      "Sa and si stand second in the sentence, like som. In the past, ty needs both short words: Kde si sa narodil? Kúpil si si lístok?",
+      "With a plural subject, sa and si can mean “each other”: Poznáme sa. Písali si.",
+    ],
+    examples: [
+      {
+        slovak: "Volám sa Peter.",
+        english: "My name is Peter.",
+        demonstrates:
+          "**Volať sa**: to be called. Without **sa**, **volám** means “I call”.",
+      },
+      {
+        slovak: "Dám si kávu.",
+        english: "I'll have a coffee.",
+        demonstrates: "**Si**: for yourself.",
+      },
+      {
+        slovak: "Bojím sa psov.",
+        english: "I'm afraid of dogs.",
+        demonstrates: "**Báť sa** + genitive: always with **sa**.",
+      },
+    ],
+    related: ["bat", "smiat", "pacit", "umyt", "zobudit", "volat", "past-tense"],
+    source: languageSource,
+    tags: ["verbs", "reflexive", "beginner"],
+    lookFor:
+      "Find **sa** or **si** near the verb and look the two up together: **volať sa** is a different verb from **volať**.",
+    pathGroup: "Verbs",
+    order: 12,
+    rule: [
+      "**Sa**: the action stays with the subject (**umyť sa**, **zobudiť sa**), or the verb always needs it (**báť sa**).",
+      "**Si**: for yourself or to yourself (**dám si**, **umyť si ruky**). Both take second place in the sentence.",
+    ],
+    pattern: {
+      label: "With and without sa, si",
+      lines: [
+        "umyť auto · wash the car",
+        "umyť sa · wash (yourself)",
+        "umyť si ruky · wash your hands",
+        "zobudiť dieťa · wake the child",
+        "zobudiť sa · wake up",
+        "volať mame · call mom",
+        "volať sa · be called",
+      ],
+    },
+    morePatterns: [
+      {
+        label: "Always with sa or si",
+        lines: [
+          "báť sa · be afraid",
+          "smiať sa · laugh",
+          "páčiť sa · be liked, please",
+          "starať sa o · take care of",
+          "všimnúť si · notice",
+          "predstaviť si · imagine",
+          "pamätať si · remember",
+        ],
+        examples: [
+          {
+            slovak: "Páči sa mi tvoja izba.",
+            english: "I like your room.",
+            demonstrates: "**Páčiť sa**: the thing you like is the subject.",
+          },
+          { slovak: "Predstav si, čo sa stalo!", english: "Imagine what happened!" },
+        ],
+      },
+      {
+        label: "Sa and si in second place",
+        lines: [
+          "Ako sa voláš? · What's your name?",
+          "Kúpil som si lístok. · I bought a ticket.",
+          "Kde si sa narodil? · Where were you born?",
+          "Kúpil si si lístok? · Did you buy a ticket?",
+        ],
+      },
+    ],
+    contrasts: {
+      label: "Sa, si, or nothing?",
+      intro:
+        "The same verb can take an object, **sa**, or **si**. The small word says who the action is for.",
+      frames: [
+        {
+          question: "The car, yourself, or your hands?",
+          choices: [
+            {
+              slovak: markedText(["Umyl som ", { role: "contrast", text: "auto" }, "."]),
+              english: "I washed the car.",
+              when: "something else",
+            },
+            {
+              slovak: markedText(["Umyl som ", { role: "contrast", text: "sa" }, "."]),
+              english: "I washed.",
+              when: "yourself",
+            },
+            {
+              slovak: markedText([
+                "Umyl som ",
+                { role: "contrast", text: "si" },
+                " ruky.",
+              ]),
+              english: "I washed my hands.",
+              when: "a part of you",
+            },
+          ],
+        },
+        {
+          question: "Someone else, or you?",
+          choices: [
+            {
+              slovak: markedText([
+                "Zobudil som ",
+                { role: "contrast", text: "dieťa" },
+                ".",
+              ]),
+              english: "I woke the child.",
+              when: "you woke someone else",
+            },
+            {
+              slovak: markedText(["Zobudil som ", { role: "contrast", text: "sa" }, "."]),
+              english: "I woke up.",
+              when: "you woke up yourself",
+            },
+          ],
+        },
+        {
+          question: "A phone call, or a name?",
+          choices: [
+            {
+              slovak: markedText(["Volám ", { role: "contrast", text: "mame" }, "."]),
+              english: "I'm calling mom.",
+              when: "on the phone",
+            },
+            {
+              slovak: markedText(["Volám ", { role: "contrast", text: "sa" }, " Anna."]),
+              english: "My name is Anna.",
+              when: "your name",
+            },
+          ],
+        },
+      ],
+    },
+    watchOut: [
+      {
+        wrong: "Volám Anna.",
+        right: "Volám sa Anna.",
+        why: "Your name takes **volať sa**.",
+      },
+      {
+        wrong: "Sa volám Anna.",
+        right: "Volám sa Anna.",
+        why: "**Sa** never comes first.",
+      },
+      {
+        wrong: "Kde si narodil?",
+        right: "Kde si sa narodil?",
+        why: "Keep both **si** and **sa**.",
+      },
+      {
+        wrong: "Umyl som moje ruky.",
+        right: "Umyl som si ruky.",
+        why: "Body parts take **si**.",
+      },
     ],
     nextSlug: "word-order",
   },
