@@ -12,6 +12,9 @@
     children: Snippet;
     [key: string]: unknown;
   } = $props();
+
+  // Keep the label flush with the new-tab hint. A space inside the link
+  // shows up before punctuation that follows it.
 </script>
 
 <svelte:element
@@ -20,9 +23,7 @@
   {href}
   type={href ? undefined : "button"}
   {...rest}
+  >{@render children()}{#if rest.target === "_blank"}<span class="sr-only"
+      >{" (opens in a new tab)"}</span
+    >{/if}</svelte:element
 >
-  {@render children()}
-  {#if rest.target === "_blank"}
-    <span class="sr-only"> (opens in a new tab)</span>
-  {/if}
-</svelte:element>
