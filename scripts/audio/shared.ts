@@ -35,6 +35,7 @@ import {
   exerciseAnswerTexts,
   exerciseOptionTexts,
 } from "../../src/lib/catalog/lessons/audio";
+import { levelTestClips } from "../../src/lib/catalog/level-test/clips";
 import { readJsonFile, writeFileAtomic } from "../lib/json-file";
 import { ROOT } from "../lib/paths";
 
@@ -346,11 +347,31 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
   return sortAudioTargetsByKind([...byKey.values()]);
 }
 
-/** Dictionary and/or lesson targets (default: both). */
+/** Listen and Select words and Interactive Listening lines for /level-test. */
+export function collectLevelTestAudioTargets(baseConfig: AudioConfig): AudioTarget[] {
+  const byKey = new Map<string, AudioTarget>();
+  for (const clip of levelTestClips()) {
+    const text = normalizeAudioText(clip.text);
+    if (!text) continue;
+    const target: AudioTarget = clip.characterId
+      ? {
+          kind: clip.kind,
+          text,
+          characterId: clip.characterId,
+          voiceConfig: audioConfigForCharacter(clip.characterId, baseConfig),
+        }
+      : { kind: clip.kind, text };
+    byKey.set(targetKey(target, baseConfig), target);
+  }
+  return sortAudioTargetsByKind([...byKey.values()]);
+}
+
+/** Dictionary, lesson and level-test targets (default: all three). */
 export function collectAudioTargets(
   options?: {
     lemmasOnly?: boolean;
     lessonsOnly?: boolean;
+    levelTestOnly?: boolean;
     slugs?: Set<string>;
   },
   baseConfig?: AudioConfig,
@@ -359,6 +380,11 @@ export function collectAudioTargets(
     if (!baseConfig) throw new Error("collectAudioTargets(lessonsOnly) needs baseConfig");
     return collectLessonAudioTargets(baseConfig);
   }
+  if (options?.levelTestOnly) {
+    if (!baseConfig)
+      throw new Error("collectAudioTargets(levelTestOnly) needs baseConfig");
+    return collectLevelTestAudioTargets(baseConfig);
+  }
 
   const dictionary = collectDictionaryAudioTargets({
     lemmasOnly: options?.lemmasOnly,
@@ -366,10 +392,16 @@ export function collectAudioTargets(
   });
   if (options?.lemmasOnly || !baseConfig) return dictionary;
 
-  return sortAudioTargetsByKind([
+  const byKey = new Map<string, AudioTarget>();
+  for (const target of [
     ...dictionary,
     ...collectLessonAudioTargets(baseConfig),
-  ]);
+    ...collectLevelTestAudioTargets(baseConfig),
+  ]) {
+    const key = targetKey(target, baseConfig);
+    if (!byKey.has(key)) byKey.set(key, target);
+  }
+  return sortAudioTargetsByKind([...byKey.values()]);
 }
 
 /** Every dictionary and lesson target by its clip's `{kind}/{hash}.mp3` key. */
@@ -421,6 +453,7 @@ export function parseArgs(
   force: boolean;
   lemmasOnly: boolean;
   lessonsOnly: boolean;
+  levelTestOnly: boolean;
   limit: number | undefined;
   missingOnly: boolean;
   model: string | undefined;
@@ -438,6 +471,7 @@ export function parseArgs(
   let force = false;
   let lemmasOnly = false;
   let lessonsOnly = false;
+  let levelTestOnly = false;
   let examplesOnly = false;
   let missingOnly = false;
   let model: string | undefined;
@@ -457,6 +491,7 @@ export function parseArgs(
     else if (arg === "--force") force = true;
     else if (arg === "--lemmas-only") lemmasOnly = true;
     else if (arg === "--lessons-only") lessonsOnly = true;
+    else if (arg === "--level-test-only") levelTestOnly = true;
     else if (arg === "--examples-only") examplesOnly = true;
     else if (arg === "--missing-only") missingOnly = true;
     else if (arg === "--model") {
@@ -534,10 +569,10 @@ export function parseArgs(
     }
   }
 
-  if (lemmasOnly && lessonsOnly) {
-    throw new Error("Use either --lemmas-only or --lessons-only, not both");
+  if ([lemmasOnly, lessonsOnly, levelTestOnly].filter(Boolean).length > 1) {
+    throw new Error("Use only one of --lemmas-only, --lessons-only, --level-test-only");
   }
-  if (examplesOnly && (lemmasOnly || lessonsOnly)) {
+  if (examplesOnly && (lemmasOnly || lessonsOnly || levelTestOnly)) {
     throw new Error("--examples-only cannot combine with --lemmas-only/--lessons-only");
   }
 
@@ -548,6 +583,7 @@ export function parseArgs(
     force,
     lemmasOnly,
     lessonsOnly,
+    levelTestOnly,
     limit,
     missingOnly,
     model,

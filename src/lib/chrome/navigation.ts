@@ -12,6 +12,7 @@ export const primaryNavigation: NavigationItem[] = [
   { href: "/lessons", label: "Lessons" },
   { href: "/listening", label: "Listening" },
   { href: "/practice", label: "Practice" },
+  { href: "/level-test", label: "Level test" },
 ];
 
 /** The Reference menu, in the order it reads top to bottom. */

@@ -96,6 +96,37 @@ export const referenceSources: ReferenceSource[] = [
     ],
   },
   {
+    id: "snk-word-forms",
+    group: "corpus",
+    name: "Slovak National Corpus (SNK) word-form lists",
+    usedFor:
+      "Every attested word form, used by the level test to reject pseudowords that turn out to be real Slovak and to estimate how rare a word in a passage is.",
+    links: [
+      {
+        href: "https://korpus.juls.savba.sk/files/prim-8.0/tag/",
+        label: "prim-8.0 word-form frequency dumps (BZ2)",
+      },
+    ],
+  },
+  {
+    id: "opensubtitles-frequency",
+    group: "corpus",
+    name: "OpenSubtitles word frequencies (FrequencyWords)",
+    usedFor:
+      "Spoken-style word counts blended with SNK ranks to estimate how hard a word is for the level test; subtitle counts track learner word lists better than news-heavy corpora.",
+    license: "CC BY-SA 4.0 (content), MIT (code)",
+    links: [
+      {
+        href: "https://github.com/hermitdave/FrequencyWords",
+        label: "hermitdave/FrequencyWords",
+      },
+      {
+        href: "https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/sk/sk_50k.txt",
+        label: "Slovak top 50k list (2018)",
+      },
+    ],
+  },
+  {
     id: "snk-treebank",
     group: "corpus",
     name: "Slovak National Corpus treebank (UD Slovak-SNK)",

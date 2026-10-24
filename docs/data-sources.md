@@ -30,6 +30,21 @@ Top-3000 noun and top-2000 verb lemmas from the full SNK count dumps, plus top-1
 - [Top 1000 adjective lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adjectives-top-1000-lemmas/)
 - [Top 1000 adverb lemmas](https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adverbs-top-1000-lemmas/)
 
+### Slovak National Corpus (SNK) word-form lists
+
+Every attested word form, used by the level test to reject pseudowords that turn out to be real Slovak and to estimate how rare a word in a passage is.
+
+- [prim-8.0 word-form frequency dumps (BZ2)](https://korpus.juls.savba.sk/files/prim-8.0/tag/)
+
+### OpenSubtitles word frequencies (FrequencyWords)
+
+Spoken-style word counts blended with SNK ranks to estimate how hard a word is for the level test; subtitle counts track learner word lists better than news-heavy corpora.
+
+License: CC BY-SA 4.0 (content), MIT (code)
+
+- [hermitdave/FrequencyWords](https://github.com/hermitdave/FrequencyWords)
+- [Slovak top 50k list (2018)](https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/sk/sk_50k.txt)
+
 ### Slovak National Corpus treebank (UD Slovak-SNK)
 
 Checks the grammatical gender of dictionary nouns. Gender comes from the Slovak ending rule plus a reviewed exceptions list (content/dictionary/noun-gender-exceptions.json); scripts/dictionary/assign-noun-gender.ts flags any noun the treebank's hand annotation disagrees with.

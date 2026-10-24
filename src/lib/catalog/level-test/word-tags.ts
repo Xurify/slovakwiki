@@ -1,0 +1,176 @@
+import { words } from "../dictionary/words";
+import { pronounLemmas } from "../search/pronouns";
+import { formsVerified, searchFormsForLemma } from "../search/forms";
+import type { GrammaticalCase, WordClass, WordTag } from "$lib/level-test/types";
+
+/**
+ * Slovak's neplnovýznamové slová: prepositions, conjunctions and particles,
+ * plus the clitics sa and si. They never inflect, so one list covers them.
+ */
+const FUNCTION_WORDS = new Set(
+  [
+    "bez cez do k ku kvôli medzi na nad o od odo okolo okrem oproti po pod podľa počas",
+    "pre pred pri proti s so u v vedľa vo z za zo",
+    "a aby ak ako ale alebo ani až či i keď kým lebo než no pretože preto teda však že",
+    "aj asi iba len nech nie tiež už ešte veď",
+    "sa si",
+  ]
+    .join(" ")
+    .split(" "),
+);
+
+/** Question, relative and indefinite pronouns, which decline like the rest. */
+const OTHER_PRONOUN =
+  /^(?:kto|čo|koho|komu|čom|čím|niečo|nič|niekto|nikto|všetko|všetci|všetky|všetka|všetku)$|^(?:ktor|každ|niektor|mnoh|žiadn|nijak|všetk)(?:ý|á|é|í|ého|ej|ému|om|ú|ou|ých|ým|ými)$/u;
+
+const NUMBER =
+  /^(?:jeden|jedna|jedno|dva|dve|tri|štyri|päť|šesť|sedem|osem|deväť|desať|\p{L}+násť|dvadsať|tridsať|štyridsať|\p{L}+desiat|sto|tisíc)$|^(?:prv|druh|tret|štvrt|piat|šiest|siedm|ôsm|deviat|desiat)(?:ý|á|é|í|ej|ého|ému|om|ou|ú|ých|ým|ými)$/u;
+
+/** Forms of byť and mať, which have their own grammar pages and lessons. */
+const VERB_TOPICS = new Map<string, { lemma: string; topic: string }>([
+  ..."som je sme ste sú bol bola bolo boli budem budeš bude budeme budete budú byť"
+    .split(" ")
+    .map((form) => [form, { lemma: "byť", topic: "byt-present" }] as const),
+  ..."mám máš má máme máte majú mal mala malo mali mať"
+    .split(" ")
+    .map((form) => [form, { lemma: "mať", topic: "mat-present" }] as const),
+]);
+
+const CLASS_FOR_CATEGORY: Record<string, WordClass> = {
+  Nouns: "noun",
+  Places: "noun",
+  Verbs: "verb",
+  Adjectives: "adjective",
+};
+
+interface PronounForm {
+  lemma: string;
+  topic?: string;
+  cases: GrammaticalCase[];
+}
+
+interface DictionaryForm {
+  slug: string;
+  lemma: string;
+  class: WordClass;
+  verified: boolean;
+  rank: number;
+  /** A place or other name: its forms are capitalised, never a plain word. */
+  proper: boolean;
+}
+
+let pronounIndex: Map<string, PronounForm> | undefined;
+let dictionaryIndex: Map<string, DictionaryForm> | undefined;
+/** Headwords of every category, so "potom" stays an adverb, not a form of "pot". */
+let headwords: Map<string, DictionaryForm | null> | undefined;
+
+function lower(value: string): string {
+  return value.normalize("NFC").toLocaleLowerCase("sk");
+}
+
+function buildPronounIndex(): Map<string, PronounForm> {
+  const index = new Map<string, PronounForm>();
+  for (const pronoun of pronounLemmas) {
+    const topic = pronoun.topicId?.split("/")[1];
+    for (const row of pronoun.table) {
+      for (const forms of Object.values(row.cells)) {
+        for (const form of forms) {
+          const key = lower(form);
+          const entry = index.get(key) ?? { lemma: pronoun.lemma, topic, cases: [] };
+          if (!entry.cases.includes(row.case)) entry.cases.push(row.case);
+          index.set(key, entry);
+        }
+      }
+    }
+  }
+  return index;
+}
+
+/** Real forms beat search-key guesses; among equals the commoner lemma wins. */
+function better(next: DictionaryForm, current: DictionaryForm | undefined): boolean {
+  if (!current) return true;
+  if (next.verified !== current.verified) return next.verified;
+  return next.rank < current.rank;
+}
+
+function buildDictionaryIndex(): Map<string, DictionaryForm> {
+  const index = new Map<string, DictionaryForm>();
+  headwords = new Map();
+  for (const entry of words) {
+    const wordClass = CLASS_FOR_CATEGORY[entry.category];
+    if (!wordClass) {
+      if (!headwords.has(lower(entry.slovak))) headwords.set(lower(entry.slovak), null);
+      continue;
+    }
+    const candidate: DictionaryForm = {
+      slug: entry.slug,
+      lemma: entry.slovak,
+      class: wordClass,
+      verified: formsVerified(entry.slovak, entry.category, entry.gender),
+      rank: entry.frequency?.rank ?? Number.MAX_SAFE_INTEGER,
+      proper: entry.category === "Places" || /^\p{Lu}/u.test(entry.slovak),
+    };
+    const forms = [
+      entry.slovak,
+      ...searchFormsForLemma(entry.slovak, entry.category, entry.gender),
+    ];
+    for (const form of forms) {
+      const key = lower(form);
+      if (better(candidate, index.get(key))) index.set(key, candidate);
+    }
+    const head = headwords.get(lower(entry.slovak));
+    if (!head || better(candidate, head)) headwords.set(lower(entry.slovak), candidate);
+  }
+  return index;
+}
+
+/**
+ * Build-time only (it expands every dictionary lemma). Unknown words come back
+ * as "other": they still count, under vocabulary, but name no grammar topic.
+ */
+export function tagWord(surface: string): WordTag {
+  const word = lower(surface);
+  if (FUNCTION_WORDS.has(word)) return { class: "functionWord" };
+  if (OTHER_PRONOUN.test(word)) return { class: "pronoun" };
+  if (NUMBER.test(word)) return { class: "numeral", topic: "numbers-and-numerals" };
+
+  const verbTopic = VERB_TOPICS.get(word);
+  if (verbTopic) return { class: "verb", ...verbTopic };
+
+  pronounIndex ??= buildPronounIndex();
+  const pronoun = pronounIndex.get(word);
+  if (pronoun) {
+    return {
+      class: "pronoun",
+      lemma: pronoun.lemma,
+      ...(pronoun.topic ? { topic: pronoun.topic } : {}),
+      cases: pronoun.cases,
+    };
+  }
+
+  dictionaryIndex ??= buildDictionaryIndex();
+  const head = headwords?.get(word);
+  if (head === null) return { class: "other" };
+  const entry = head ?? dictionaryIndex.get(word);
+  if (entry) return { class: entry.class, lemma: entry.lemma, slug: entry.slug };
+
+  return { class: "other" };
+}
+
+/**
+ * A plain Slovak word as written in lower case: a dictionary word, one of its
+ * forms, or a function word. Names (Nemecka, Číny) and stray spellings are not.
+ */
+export function isCommonWord(surface: string): boolean {
+  const word = lower(surface);
+  if (FUNCTION_WORDS.has(word) || OTHER_PRONOUN.test(word) || NUMBER.test(word))
+    return true;
+  if (VERB_TOPICS.has(word)) return true;
+  pronounIndex ??= buildPronounIndex();
+  if (pronounIndex.has(word)) return true;
+  dictionaryIndex ??= buildDictionaryIndex();
+  const head = headwords?.get(word);
+  if (head === null) return true;
+  const entry = head ?? dictionaryIndex.get(word);
+  return entry !== undefined && !entry.proper;
+}
