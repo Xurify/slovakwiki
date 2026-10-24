@@ -2814,15 +2814,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "keys",
       },
-      "line": "marek: Áno! Ten kľúč je od auta.",
+      "line": "marek: Správne! Ten kľúč je od auta.",
       "plan": {
         "beats": [
-          "0 nod",
-          "750 show",
+          "50 nod",
+          "1050 show",
         ],
-        "ms": 2350,
-        "sentences": "0-408 750-2150",
-        "words": "0-408 750-991 991-1312 1312-1519 1519-1725 1725-2150",
+        "ms": 2750,
+        "sentences": "50-642 1050-2550",
+        "words": "50-642 1050-1308 1308-1652 1652-1874 1874-2095 2095-2550",
       },
       "props": [
         undefined,
@@ -2840,15 +2840,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "keys",
       },
-      "line": "anna: A čo je toto?",
+      "line": "anna: Super! A druhá vec?",
       "plan": {
         "beats": [
-          "0 ask",
+          "50 cheer",
+          "750 ask",
         ],
-        "ms": 1400,
-        "questions": "0-1250",
-        "sentences": "0-1250",
-        "words": "0-216 216-474 474-733 733-1250",
+        "ms": 2000,
+        "questions": "700-1850",
+        "sentences": "50-506 700-1850",
+        "words": "50-506 700-918 918-1544 1544-1850",
       },
       "staging": {
         "addressee": "marek",
@@ -2862,7 +2863,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
             "at": 0.5,
             "characterId": "marek",
             "gesture": "lean",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },
@@ -2871,16 +2872,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "marek: Je to žlté… je to ťažké… a vnútri sú strany.",
+      "line": "marek: Je to žlté… je to ťažké… a vnútri je papier.",
       "plan": {
         "beats": [
-          "150 show",
-          "2450 talk",
-          "4200 talk",
+          "250 show",
+          "2500 talk",
+          "4450 talk",
         ],
         "ms": 6000,
-        "sentences": "150-1011 2450-3095 4200-5700",
-        "words": "150-354 354-558 558-1011 2450-2597 2597-2744 2744-3095 4200-4380 4380-4932 4932-5196 5196-5700",
+        "sentences": "250-1132 2500-3266 4450-5900",
+        "words": "250-459 459-668 668-1132 2500-2675 2675-2849 2849-3266 4450-4628 4628-5175 5175-5389 5389-5900",
       },
       "props": [
         "bag",
@@ -2907,16 +2908,78 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "bag",
       },
-      "line": "anna: Žlté a ťažké… je to kniha?",
+      "line": "anna: Žlté a ťažké… je to krabica?",
       "plan": {
         "beats": [
           "0 talk",
-          "2550 ask",
+          "2650 ask",
         ],
-        "ms": 4000,
-        "questions": "2550-3800",
-        "sentences": "0-1340 2550-3800",
-        "words": "0-547 547-752 752-1340 2550-2850 2850-3150 3150-3800",
+        "ms": 4100,
+        "questions": "2650-3900",
+        "sentences": "0-1291 2650-3900",
+        "words": "0-527 527-725 725-1291 2650-2892 2892-3134 3134-3900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "bag",
+      },
+      "line": "marek: Nie, nie je to krabica. Má to veľa strán.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "3400 talk",
+        ],
+        "ms": 4900,
+        "sentences": "0-1925 3400-4700",
+        "words": "0-288 419-707 707-943 943-1178 1178-1925 3400-3667 3667-3886 3886-4323 4323-4700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "bag",
+      },
+      "line": "anna: Veľa strán… je to kniha?",
+      "plan": {
+        "beats": [
+          "0 talk",
+          "1850 ask",
+        ],
+        "ms": 3400,
+        "questions": "1850-3050",
+        "sentences": "0-827 1850-3050",
+        "words": "0-445 445-827 1850-2138 2138-2426 2426-3050",
       },
       "staging": {
         "addressee": "marek",
@@ -2939,17 +3002,18 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "held": {
         "marek": "book",
       },
-      "line": "marek: Áno, tá žltá kniha je slovník.",
+      "line": "marek: Presne tak! Tá žltá kniha je slovník.",
       "plan": {
         "beats": [
-          "0 show",
-          "1800 talk",
+          "50 nod",
+          "1200 show",
         ],
-        "ms": 2900,
-        "sentences": "0-2700",
-        "words": "0-465 590-867 867-1369 1369-1859 1859-2085 2085-2700",
+        "ms": 3400,
+        "sentences": "50-793 1200-3200",
+        "words": "50-546 546-793 1200-1462 1462-1938 1938-2402 2402-2617 2617-3200",
       },
       "props": [
+        undefined,
         "book",
       ],
       "staging": {
@@ -2963,7 +3027,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },
@@ -3046,16 +3110,81 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
         "anna": "book",
         "marek": "bag",
       },
-      "line": "anna: Zelené a sladké… jablko! To je jablko.",
+      "line": "anna: Zelené a sladké… hruška?",
+      "plan": {
+        "beats": [
+          "0 talk",
+          "3495 ask",
+        ],
+        "ms": 4350,
+        "questions": "3495-4150",
+        "sentences": "0-1857 3495-4150",
+        "words": "0-905 905-1139 1139-1857 3495-4150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "book",
+        "marek": "bag",
+      },
+      "line": "marek: Nie, hruška nie. Je to okrúhle.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "2950 talk",
+        ],
+        "ms": 4100,
+        "sentences": "0-1256 2950-3900",
+        "words": "0-288 419-968 968-1256 2950-3126 3126-3303 3303-3900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "anna",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "book",
+        "marek": "bag",
+      },
+      "line": "anna: Okrúhle a sladké… jablko! To je jablko.",
       "plan": {
         "beats": [
           "0 talk",
           "2750 talk",
-          "3750 talk",
+          "3800 talk",
         ],
-        "ms": 4900,
-        "sentences": "0-1384 2750-3234 3750-4700",
-        "words": "0-675 675-849 849-1384 2750-3234 3750-3940 3940-4130 4130-4700",
+        "ms": 5000,
+        "sentences": "0-1394 2750-3210 3800-4650",
+        "words": "0-697 697-868 868-1394 2750-3210 3800-3970 3970-4140 4140-4650",
       },
       "staging": {
         "addressee": "marek",
@@ -3074,15 +3203,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
         "anna": "book",
         "marek": "apple",
       },
-      "line": "marek: Presne. A to jablko je pre teba.",
+      "line": "marek: Výborne! A to jablko je pre teba.",
       "plan": {
         "beats": [
-          "50 nod",
-          "950 show",
+          "0 cheer",
+          "1000 show",
         ],
-        "ms": 2850,
-        "sentences": "50-496 950-2600",
-        "words": "50-496 950-1103 1103-1286 1286-1836 1836-2019 2019-2233 2233-2600",
+        "ms": 2900,
+        "sentences": "0-636 1000-2700",
+        "words": "0-636 1000-1157 1157-1346 1346-1913 1913-2102 2102-2322 2322-2700",
       },
       "props": [
         undefined,
