@@ -261,8 +261,8 @@ const school: ListeningChapter = {
     line(
       "anna-did-you-see-cake",
       "Anna",
-      ["A ", past("videli ste"), " koláč?"],
-      "And did you see the cake?",
+      ["Marekov koláč je preč. ", PAUSE, past("Videli ste"), " ho ráno?"],
+      "Marek's cake is gone. Did you see it in the morning?",
     ),
     line(
       "maria-saw-whole-cake",
@@ -271,7 +271,7 @@ const school: ListeningChapter = {
         past("Videla som"),
         ". ",
         past("Bol"),
-        " na stole, celý. ",
+        " na stole, ešte celý. ",
         PAUSE,
         "Marek mi ",
         past("ponúkol"),
@@ -279,7 +279,7 @@ const school: ListeningChapter = {
         past("som nechcela"),
         ". Ráno nejem sladké.",
       ],
-      "I did. It was on the table, whole. Marek offered me a piece, but I didn't want one. I don't eat sweets in the morning.",
+      "I did. It was on the table, still whole. Marek offered me a piece, but I didn't want one. I don't eat sweets in the morning.",
     ),
     line(
       "anna-how-long-there",
@@ -323,11 +323,19 @@ const school: ListeningChapter = {
       "You're welcome. And Anna… Marek was very hungry in the morning.",
     ),
     line(
-      "anna-hm-to-cafe",
+      "anna-interesting",
       "Anna",
-      ["Hm. ", PAUSE, "Ďakujem, dovidenia! ", PAUSE, "Teraz do kaviarne."],
-      "Hmm. Thank you, goodbye! Now to the café.",
+      ["Hm. ", PAUSE, "To je zaujímavé."],
+      "Hmm. That's interesting.",
     ),
+    line(
+      "maria-student-good-luck",
+      "Mária",
+      ["Prepáčte, o chvíľu mám študenta. ", PAUSE, "Veľa šťastia, pani detektívka!"],
+      "Excuse me, I have a student in a moment. Good luck, detective!",
+    ),
+    line("anna-thanks-goodbye", "Anna", ["Ďakujem. Dovidenia!"], "Thank you. Goodbye!"),
+    line("maria-goodbye", "Mária", ["Dovidenia."], "Goodbye."),
   ],
   checks: [
     {
@@ -410,8 +418,15 @@ const cafe: ListeningChapter = {
     line(
       "anna-and-the-cake",
       "Anna",
-      ["A koláč? ", past("Videli ste"), " ho?"],
-      "And the cake? Did you see it?",
+      [
+        "Na stole ",
+        past("bol"),
+        " koláč. Teraz je preč. ",
+        PAUSE,
+        past("Videli ste"),
+        " ho?",
+      ],
+      "There was a cake on the table. Now it's gone. Did you see it?",
     ),
     line(
       "waiter-marek-looked-at-cake",
@@ -420,7 +435,7 @@ const cafe: ListeningChapter = {
         past("Videl som"),
         ". ",
         past("Bol"),
-        " na stole, celý. ",
+        " na stole, ešte celý. ",
         PAUSE,
         "A Marek ",
         past("sedel"),
@@ -428,7 +443,7 @@ const cafe: ListeningChapter = {
         past("pozeral"),
         " na koláč.",
       ],
-      "I did. It was on the table, whole. And Marek was sitting at the table, looking at the cake.",
+      "I did. It was on the table, still whole. And Marek was sitting at the table, looking at the cake.",
     ),
     line(
       "anna-looked-at-cake",
@@ -473,7 +488,7 @@ const cafe: ListeningChapter = {
           id: "ate",
           label: "Jedol koláč.",
           whyWrong:
-            "**Jedol koláč** means he was eating the cake. The waiter saw it whole: **bol na stole, celý**.",
+            "**Jedol koláč** means he was eating the cake. The waiter saw it whole: **bol na stole, ešte celý**.",
         },
         {
           id: "coffee-with-anna",

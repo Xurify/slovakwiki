@@ -7,6 +7,8 @@ import plexLatin from "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-la
 import plexLatinExt from "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-ext-wght-normal.woff2?url";
 import serifLatin from "@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url";
 import serifLatinExt from "@fontsource-variable/source-serif-4/files/source-serif-4-latin-ext-wght-normal.woff2?url";
+import handLatin from "@fontsource-variable/caveat/files/caveat-latin-wght-normal.woff2?url";
+import handLatinExt from "@fontsource-variable/caveat/files/caveat-latin-ext-wght-normal.woff2?url";
 import "../styles.css";
 
 interface Props {
@@ -15,10 +17,16 @@ interface Props {
   description?: string;
   /** When true, adds `noindex, follow` (filter/search/session URLs). */
   noindex?: boolean;
+  /**
+   * The page draws the stick-figure stage, whose boards and stalls are
+   * lettered in Caveat. Loaded only once a scene shows, the font swapped in
+   * under the lettering as the scene came into view; preloading keeps it still.
+   */
+  stage?: boolean;
   title: string;
 }
 
-const { canonicalPath, description, noindex = false, title } = Astro.props;
+const { canonicalPath, description, noindex = false, stage = false, title } = Astro.props;
 const pathname = Astro.url.pathname;
 const query = Astro.url.searchParams.get("q") ?? "";
 const resolvedCanonicalPath = canonicalPath ?? pathname;
@@ -55,6 +63,20 @@ const ogImage = absoluteSiteUrl("/icon-512.png");
     <link rel="preload" href={plexLatinExt} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={serifLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={serifLatinExt} as="font" type="font/woff2" crossorigin />
+    {
+      stage && (
+        <>
+          <link rel="preload" href={handLatin} as="font" type="font/woff2" crossorigin />
+          <link
+            rel="preload"
+            href={handLatinExt}
+            as="font"
+            type="font/woff2"
+            crossorigin
+          />
+        </>
+      )
+    }
     <script is:inline>
       (function () {
         var storageKey = "slovak.wiki.theme-preference";

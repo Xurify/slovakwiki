@@ -957,7 +957,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
         "beats": [
           "0 show",
         ],
-        "ms": 1050,
+        "ms": 1150,
         "questions": "0-950",
         "sentences": "0-950",
         "words": "0-388 388-562 562-950",
@@ -1025,7 +1025,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
         "beats": [
           "50 show",
         ],
-        "ms": 1150,
+        "ms": 1300,
         "questions": "50-1050",
         "sentences": "50-1050",
         "words": "50-729 729-1050",
@@ -1847,8 +1847,8 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
           "50 tell",
         ],
         "ms": 1000,
-        "sentences": "50-1000",
-        "words": "50-372 372-1000",
+        "sentences": "50-850",
+        "words": "50-321 321-850",
       },
       "staging": {
         "addressee": "alex",
@@ -1910,13 +1910,13 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "waiter: Takže tento koláč a tamtú tortu. Hneď to bude.",
       "plan": {
         "beats": [
-          "279 point → kolac (near)",
-          "1345 point → torta (far)",
-          "3050 tell",
+          "302 point → kolac (near)",
+          "1427 point → torta (far)",
+          "3200 tell",
         ],
-        "ms": 3850,
-        "sentences": "50-2447 3050-3700",
-        "words": "50-479 479-908 908-1380 1380-1545 1545-2018 2018-2447 3050-3250 3250-3400 3400-3700",
+        "ms": 4100,
+        "sentences": "50-2578 3200-3900",
+        "words": "50-502 502-955 955-1453 1453-1627 1627-2126 2126-2578 3200-3415 3415-3577 3577-3900",
       },
       "staging": {
         "addressee": "anna",
@@ -4670,12 +4670,12 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       "plan": {
         "beats": [
           "0 wave",
-          "1050 nod",
-          "3084 show",
+          "1100 nod",
+          "3296 show",
         ],
-        "ms": 5300,
-        "sentences": "0-645 1050-2026 3084-5100",
-        "words": "0-433 433-645 1050-1408 1504-1678 1678-2026 3084-3729 3729-3941 3941-4344 4344-4556 4556-5100",
+        "ms": 5700,
+        "sentences": "0-689 1100-2165 3296-5450",
+        "words": "0-463 463-689 1100-1490 1596-1785 1785-2165 3296-3985 3985-4211 4211-4642 4642-4868 4868-5450",
       },
       "props": [
         undefined,
@@ -4706,16 +4706,17 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       "held": {
         "waiter": "cup",
       },
-      "line": "anna: A koláč? Videli ste ho?",
+      "line": "anna: Na stole bol koláč. Teraz je preč. Videli ste ho?",
       "plan": {
         "beats": [
-          "50 point → kolac",
-          "1000 ask",
+          "0 point → stol",
+          "700 point → kolac",
+          "3750 ask",
         ],
-        "ms": 2000,
-        "questions": "50-624 1000-1900",
-        "sentences": "50-624 1000-1900",
-        "words": "50-198 198-624 1000-1523 1523-1726 1726-1900",
+        "ms": 4900,
+        "questions": "3750-4650",
+        "sentences": "0-1290 1900-2538 3750-4650",
+        "words": "0-192 192-608 608-832 832-1290 1900-2207 2207-2349 2349-2538 3750-4273 4273-4476 4476-4650",
       },
       "staging": {
         "addressee": "waiter",
@@ -4729,7 +4730,7 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
             "at": 0.5,
             "characterId": "waiter",
             "gesture": "lean",
-            "sentence": 1,
+            "sentence": 2,
           },
         ],
       },
@@ -4738,17 +4739,17 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       "held": {
         "waiter": "cup",
       },
-      "line": "waiter: Videl som. Bol na stole, celý. A Marek sedel pri stole a pozeral na koláč.",
+      "line": "waiter: Videl som. Bol na stole, ešte celý. A Marek sedel pri stole a pozeral na koláč.",
       "plan": {
         "beats": [
           "0 tell",
-          "1229 point → stol",
-          "3700 tell",
-          "5709 point → kolac",
+          "1432 point → stol",
+          "4550 tell",
+          "6899 point → kolac",
         ],
-        "ms": 6500,
-        "sentences": "0-615 1050-2295 3700-6300",
-        "words": "0-400 400-615 1050-1254 1254-1429 1429-1808 1906-2295 3700-3836 3836-4191 4191-4545 4545-4736 4736-5091 5091-5227 5227-5745 5745-5909 5909-6300",
+        "ms": 7800,
+        "sentences": "0-696 1200-3015 4550-7550",
+        "words": "0-452 452-696 1200-1432 1432-1632 1632-2063 2174-2573 2573-3015 4550-4707 4707-5116 5116-5526 5526-5746 5746-6155 6155-6312 6312-6910 6910-7099 7099-7550",
       },
       "staging": {
         "addressee": "anna",
@@ -4805,12 +4806,12 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       "plan": {
         "beats": [
           "0 nod",
-          "800 tell",
-          "2540 tell",
+          "850 tell",
+          "2515 tell",
         ],
-        "ms": 5200,
-        "sentences": "0-439 800-1294 2540-4950",
-        "words": "0-439 800-1294 2540-3003 3003-3253 3253-3727 3727-4012 4012-4226 4226-4950",
+        "ms": 5150,
+        "sentences": "0-435 850-1281 2515-4900",
+        "words": "0-435 850-1281 2515-2973 2973-3220 3220-3690 3690-3972 3972-4183 4183-4900",
       },
       "staging": {
         "addressee": "anna",
@@ -4868,14 +4869,14 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       "plan": {
         "beats": [
           "0 self",
-          "700 shake",
-          "2250 tell",
-          "3661 point → kolac",
+          "750 shake",
+          "2200 tell",
+          "3761 point → kolac",
         ],
-        "ms": 4650,
-        "questions": "0-186",
-        "sentences": "0-186 650-786 2250-2897 3500-4500",
-        "words": "0-186 650-786 2250-2387 2387-2524 2524-2897 3500-3651 3651-3861 3861-4349 4349-4500",
+        "ms": 4800,
+        "questions": "0-190",
+        "sentences": "0-190 750-804 2200-2961 3600-4600",
+        "words": "0-190 750-804 2200-2361 2361-2523 2523-2961 3600-3751 3751-3961 3961-4449 4449-4600",
       },
       "staging": {
         "addressee": "anna",
@@ -6127,15 +6128,16 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
       "held": {
         "maria": "clipboard",
       },
-      "line": "anna: A videli ste koláč?",
+      "line": "anna: Marekov koláč je preč. Videli ste ho ráno?",
       "plan": {
         "beats": [
-          "50 ask",
+          "0 tell",
+          "2500 ask",
         ],
-        "ms": 1850,
-        "questions": "50-1650",
-        "sentences": "50-1650",
-        "words": "50-230 230-880 880-1133 1133-1650",
+        "ms": 3850,
+        "questions": "2500-3700",
+        "sentences": "0-1383 2500-3700",
+        "words": "0-555 555-974 974-1149 1149-1383 2500-2987 2987-3177 3177-3339 3339-3700",
       },
       "staging": {
         "addressee": "maria",
@@ -6149,7 +6151,7 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
             "at": 0.5,
             "characterId": "maria",
             "gesture": "lean",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },
@@ -6158,17 +6160,17 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
       "held": {
         "maria": "clipboard",
       },
-      "line": "maria: Videla som. Bol na stole, celý. Marek mi ponúkol kúsok, ale ja som nechcela. Ráno nejem sladké.",
+      "line": "maria: Videla som. Bol na stole, ešte celý. Marek mi ponúkol kúsok, ale ja som nechcela. Ráno nejem sladké.",
       "plan": {
         "beats": [
           "0 tell",
-          "1150 tell",
-          "3654 tell",
-          "7450 tell",
+          "1200 tell",
+          "4089 tell",
+          "7900 tell",
         ],
-        "ms": 8750,
-        "sentences": "0-797 1150-2538 3654-6840 7450-8550",
-        "words": "0-574 574-797 1150-1378 1378-1573 1573-1996 2105-2538 3654-4068 4068-4259 4259-4907 4907-5364 5470-5820 5820-6012 6012-6235 6235-6840 7450-7802 7802-8145 8145-8550",
+        "ms": 9300,
+        "sentences": "0-807 1200-2959 4089-7317 7900-9050",
+        "words": "0-581 581-807 1200-1425 1425-1618 1618-2037 2144-2530 2530-2959 4089-4509 4509-4703 4703-5359 5359-5822 5929-6284 6284-6478 6478-6704 6704-7317 7900-8268 8268-8627 8627-9050",
       },
       "staging": {
         "addressee": "anna",
@@ -6306,16 +6308,68 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
       "held": {
         "maria": "clipboard",
       },
-      "line": "anna: Hm. Ďakujem, dovidenia! Teraz do kaviarne.",
+      "line": "anna: Hm. To je zaujímavé.",
       "plan": {
         "beats": [
           "100 think",
-          "1500 nod",
-          "3600 tell",
+          "1550 tell",
         ],
-        "ms": 4800,
-        "sentences": "100-266 1500-2548 3600-4600",
-        "words": "100-266 1500-1918 1991-2548 3600-3931 3931-4083 4083-4600",
+        "ms": 3000,
+        "sentences": "100-284 1550-2700",
+        "words": "100-284 1550-1708 1708-1866 1866-2700",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "looksAt": "maria",
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Prepáčte, o chvíľu mám študenta. Veľa šťastia, pani detektívka!",
+      "plan": {
+        "beats": [
+          "0 apologize",
+          "3150 stress",
+        ],
+        "ms": 5200,
+        "sentences": "0-2039 3150-5000",
+        "words": "0-602 695-836 836-1241 1241-1476 1476-2039 3150-3467 3467-3872 3960-4278 4278-5000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "anna: Ďakujem. Dovidenia!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "850 wave",
+        ],
+        "ms": 1700,
+        "sentences": "0-523 850-1550",
+        "words": "0-523 850-1550",
       },
       "staging": {
         "addressee": "maria",
@@ -6330,9 +6384,31 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
             "at": 1,
             "characterId": "maria",
             "gesture": "nod",
-            "sentence": 1,
+            "sentence": 0,
           },
         ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Dovidenia.",
+      "plan": {
+        "beats": [
+          "0 wave",
+        ],
+        "ms": 900,
+        "sentences": "0-700",
+        "words": "0-700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "exit": 1,
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
       },
     },
   ],
@@ -8895,9 +8971,9 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
         "beats": [
           "0 tell",
         ],
-        "ms": 1000,
-        "sentences": "0-850",
-        "words": "0-262 262-458 458-850",
+        "ms": 1050,
+        "sentences": "0-950",
+        "words": "0-292 292-512 512-950",
       },
       "staging": {
         "addressee": "marek",
@@ -9067,9 +9143,9 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
         "beats": [
           "50 show",
         ],
-        "ms": 1800,
-        "sentences": "50-1550",
-        "words": "50-260 260-440 440-840 940-1150 1150-1550",
+        "ms": 1850,
+        "sentences": "50-1600",
+        "words": "50-267 267-453 453-866 970-1187 1187-1600",
       },
       "props": [
         "cup",
@@ -9135,11 +9211,11 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
       "line": "waiter: Dnes zatvárame o šiestej večer.",
       "plan": {
         "beats": [
-          "0 tell",
+          "50 tell",
         ],
-        "ms": 2200,
-        "sentences": "0-2000",
-        "words": "0-236 236-1015 1015-1163 1163-1616 1616-2000",
+        "ms": 2400,
+        "sentences": "50-2250",
+        "words": "50-310 310-1166 1166-1329 1329-1827 1827-2250",
       },
       "staging": {
         "addressee": "anna",

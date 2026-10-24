@@ -108,7 +108,7 @@ Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs 
 | Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                                                                         |
 | -------------- | ------------ | ------ | ------------------------ | --------------------- | ----------------------------------------------------------------------------- |
 | `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.                                                |
-| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). Second take; the first became the announcer. |
+| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). Fourth take, a young light tenor to match the figure; the first became the announcer. |
 
 ### System
 

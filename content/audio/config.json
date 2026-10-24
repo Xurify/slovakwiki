@@ -79,10 +79,10 @@
       "gender": "male",
       "kind": "oneOff",
       "blurb": "A café waiter in old town. He takes drink orders, serves pastries, and brings the bill.",
-      "voiceId": "k5XwAiAg3Dr3K90Axw1B",
+      "voiceId": "zo6iRsAIZFjklZHq6pKy",
       "voiceName": "Slovak Wiki Waiter",
       "speakers": ["Waiter", "Conductor"],
-      "note": "Voice Design, third take (preview 2): a waiter at the table, not on the loudspeaker."
+      "note": "Voice Design, fourth take (preview 0): a young waiter at the table, light tenor, matching the figure on stage."
     },
     "guide": {
       "displayName": "Guide",
