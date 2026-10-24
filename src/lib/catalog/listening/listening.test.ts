@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { spokenText } from "../audio/core";
 import { grammarEntries } from "../entries";
 import { characterIdForSpeaker, listedAudioSpeakers } from "../lessons/character-ids";
 import { lessonById } from "../lessons";
@@ -39,6 +40,13 @@ describe("listening episodes", () => {
     for (const line of listeningEpisodes.flatMap(episodeLines)) {
       expect(listed.has(line.speaker), `speaker ${line.speaker}`).toBe(true);
       expect(characterIdForSpeaker(line.speaker)).not.toBe("narrator");
+    }
+  });
+
+  it("says each line as it is written, its pauses aside", () => {
+    for (const line of listeningEpisodes.flatMap(episodeLines)) {
+      if (!line.audio) continue;
+      expect(spokenText(line.audio.transcript), line.id).toBe(line.slovak);
     }
   });
 

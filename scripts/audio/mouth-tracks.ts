@@ -8,6 +8,7 @@ import { spawn } from "node:child_process";
 import { access } from "node:fs/promises";
 import path from "node:path";
 
+import { spokenText } from "../../src/lib/catalog/audio/core";
 import type { MouthTracks } from "../../src/lib/catalog/audio/mouth";
 import {
   encodeMouthTrack,
@@ -128,7 +129,7 @@ export async function updateMouthTracks(options: {
       const loudness = encodeMouthTrack(samples, SAMPLE_RATE);
       const vowels = encodeVowelTrack(
         loudness,
-        alignSyllables(text, samples, SAMPLE_RATE),
+        alignSyllables(spokenText(text), samples, SAMPLE_RATE),
       );
       tracks[hash] = { g: generatedAt, m: loudness, v: vowels };
     } catch (error) {

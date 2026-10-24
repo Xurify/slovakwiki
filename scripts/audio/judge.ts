@@ -6,6 +6,7 @@
  * or weak Scribe logprob on the final content word.
  */
 
+import { spokenText } from "../../src/lib/catalog/audio/core";
 import {
   scoreTranscript,
   softFoldSlovak,
@@ -125,10 +126,11 @@ export function weakLastLogprob(
 }
 
 export async function judgeClip(
-  expected: string,
+  clipText: string,
   audioPath: string,
   options: JudgeOptions = {},
 ): Promise<JudgeResult> {
+  const expected = spokenText(clipText);
   const mode = options.mode ?? "dual";
   const reasons: string[] = [];
   let score = 1;
