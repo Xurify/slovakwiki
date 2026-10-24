@@ -253,12 +253,15 @@
       <ListenStage
         bind:this={stage}
         {chapter}
+        chapterCount={episode.chapters.length}
+        chapterIndex={active}
         audioSrcs={audioSrcs.srcByLineId}
         {autoplay}
         done={scores[chapter.id] === undefined ? null : { correct: scores[chapter.id]! }}
         heard={heard[chapter.id] ?? false}
         onfinish={finishChapter}
         onlistened={listened}
+        onstep={(step, playing) => openChapter(active + step, playing, false)}
         ontogglequestions={toggleQuestions}
         {questions}
         scene={stages?.scenes[chapter.id]}

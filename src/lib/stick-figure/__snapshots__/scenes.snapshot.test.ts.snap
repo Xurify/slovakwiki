@@ -3228,16 +3228,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "anna: Ktorý? Tento alebo tamten?",
+      "line": "anna: Ktorý? Ten od auta alebo ten od bytu?",
       "plan": {
         "beats": [
           "50 ask",
           "850 ask",
         ],
-        "ms": 2700,
-        "questions": "50-539 850-2450",
-        "sentences": "50-539 850-2450",
-        "words": "50-539 850-1323 1323-1941 1941-2450",
+        "ms": 3550,
+        "questions": "50-532 850-3200",
+        "sentences": "50-532 850-3200",
+        "words": "50-532 850-1094 1094-1304 1304-1734 1734-2327 2327-2572 2572-2781 2781-3200",
       },
       "staging": {
         "addressee": "marek",
@@ -3256,15 +3256,14 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "marek: Tamten. Ten od auta.",
+      "line": "marek: Ten od auta.",
       "plan": {
         "beats": [
           "50 talk",
-          "900 talk",
         ],
-        "ms": 2050,
-        "sentences": "50-486 900-1650",
-        "words": "50-486 900-1107 1107-1285 1285-1650",
+        "ms": 1150,
+        "sentences": "50-1000",
+        "words": "50-313 313-538 538-1000",
       },
       "staging": {
         "addressee": "anna",
@@ -3277,7 +3276,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 1,
+            "sentence": 0,
           },
         ],
       },
@@ -3743,16 +3742,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
         "words": "0-228 1750-1962 1962-2065 2700-3057 3057-3451 3451-3808 3808-4000",
       },
       "staging": {
-        "addressee": "anna",
+        "addressee": "lucia",
         "facing": {
           "anna": 1,
           "lucia": -1,
-          "marek": -1,
+          "marek": 1,
         },
         "reactions": [
           {
             "at": 0.5,
-            "characterId": "anna",
+            "characterId": "lucia",
             "gesture": "lean",
             "sentence": 2,
           },

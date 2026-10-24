@@ -65,7 +65,7 @@
 
     <button
       class={cx(
-        "inline-grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border-0",
+        "inline-grid size-9 shrink-0 cursor-pointer place-items-center self-center rounded-full border-0",
         "transition-colors duration-150 ease-out",
         current
           ? "bg-blue-600 text-paper hover:bg-blue-700"

@@ -18,6 +18,8 @@ function line(
   english: string,
   /** What the speaker holds per sentence on `/dev/scenes`, where the words would pick wrong. */
   props?: DialogueTurn["props"],
+  /** Who it is said to, when that is not who it replies to. */
+  to?: string,
 ): DialogueTurn {
   const marked = markedText(
     parts.flatMap((part): MarkedPart[] =>
@@ -47,6 +49,7 @@ function line(
     english,
     ...(said !== marked.text ? { audio: { transcript: said } } : {}),
     ...(props ? { props } : {}),
+    ...(to ? { to } : {}),
   };
 }
 
@@ -355,6 +358,9 @@ const market: ListeningChapter = {
       "Marek",
       ["Syr. ", PAUSE, "Dobrý deň! Koľko stojí ", { demonstrative: "tento" }, " syr?"],
       "Cheese. Hello! How much is this cheese?",
+      undefined,
+      // The one word answers Anna; the greeting and the question are for Lucia at her stall.
+      "Lucia",
     ),
     line(
       "lucia-this-cheese-five",
@@ -509,22 +515,23 @@ const home: ListeningChapter = {
       [null],
     ),
     line(
-      "anna-this-or-that",
+      "anna-car-or-flat",
       "Anna",
       [
         "Ktorý? ",
-        { demonstrative: "Tento" },
-        " alebo ",
-        { demonstrative: "tamten" },
-        "?",
+        { demonstrative: "Ten" },
+        " od auta alebo ",
+        { demonstrative: "ten" },
+        " od bytu?",
       ],
-      "Which one? This one or that one over there?",
+      "Which one? The car one or the flat one?",
     ),
     line(
-      "marek-that-one-car",
+      "marek-the-car-one",
       "Marek",
-      [{ demonstrative: "Tamten" }, ". ", { demonstrative: "Ten" }, " od auta."],
-      "That one over there. The car key.",
+      [{ demonstrative: "Ten" }, " od auta."],
+      "The car one.",
+      [null],
     ),
     line(
       "anna-in-that-bag",

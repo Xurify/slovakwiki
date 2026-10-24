@@ -27,10 +27,13 @@
     audioSrcs,
     autoplay = false,
     chapter,
+    chapterCount = 1,
+    chapterIndex = 0,
     done = null,
     heard = false,
     onfinish,
     onlistened,
+    onstep,
     ontogglequestions,
     questions = true,
     scene,
@@ -41,12 +44,17 @@
     audioSrcs: Record<string, string>;
     autoplay?: boolean;
     chapter: ListeningChapter;
+    /** Where the segment sits in its episode, for stepping to its neighbours. */
+    chapterCount?: number;
+    chapterIndex?: number;
     done?: { correct: number } | null;
     /** Played through already, so its questions come straight away. */
     heard?: boolean;
     onfinish?: (correct: number) => void;
     /** The segment has played to its end. */
     onlistened?: () => void;
+    /** Open the segment before or after this one; `playing` when this one was playing. */
+    onstep?: (step: -1 | 1, playing: boolean) => void;
     ontogglequestions?: () => void;
     /** Stop for the segment's questions once it has played; off, it only plays. */
     questions?: boolean;
@@ -77,10 +85,11 @@
     stage: () => sceneStage,
     isLast: (index) => index === lines.length - 1,
     onRunEnd: () => {
-      if (listened) return;
+      const first = !listened;
       listened = true;
+      // Every play-through goes on to the next segment, not only the first.
       onlistened?.();
-      if (!questions) return;
+      if (!questions || !first) return;
       if (checks.length === 0) {
         onfinish?.(0);
         void reveal("[data-listen-done]", true);
@@ -295,6 +304,18 @@
       <ListenControl onclick={() => (textOpen = !textOpen)}>
         {textOpen ? "Hide text" : "Show text"}
       </ListenControl>
+
+      {#if onstep && chapterIndex > 0}
+        <ListenControl onclick={() => onstep(-1, player.playing)}>
+          Previous segment
+        </ListenControl>
+      {/if}
+
+      {#if onstep && chapterIndex < chapterCount - 1 && stage !== "done"}
+        <ListenControl onclick={() => onstep(1, player.playing)}>
+          Next segment
+        </ListenControl>
+      {/if}
     </div>
   </div>
 
