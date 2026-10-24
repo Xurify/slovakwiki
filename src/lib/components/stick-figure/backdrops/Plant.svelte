@@ -1,9 +1,11 @@
 <script lang="ts">
+  import type { Plant } from "$lib/stick-figure/backdrop-parts";
+
   /** A potted plant whose pot stands on the floor at x, y. */
-  let { x, y }: { x: number; y: number } = $props();
+  let { plant }: { plant: Plant } = $props();
 </script>
 
-<g transform="translate({x} {y})">
+<g transform="translate({plant.x} {plant.y})">
   <ellipse cx="0" cy="0" rx="19" ry="3.5" class="fill-scene-line/15" />
   <ellipse
     cx="-13"

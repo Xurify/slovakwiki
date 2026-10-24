@@ -1,12 +1,11 @@
 <script lang="ts">
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import Chalkboard from "./Chalkboard.svelte";
-  import FloorShade from "./FloorShade.svelte";
   import Plant from "./Plant.svelte";
+  import Room from "./Room.svelte";
 </script>
 
-<rect x="-10" y="-10" width="980" height="236" class="fill-scene-warm" />
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<FloorShade />
+<Room wall="fill-scene-warm" floor="fill-scene-sand" />
 
 <path d="M100 204V112A88 88 0 0 1 276 112V204Z" class="fill-portrait-bib" />
 <path d="M110 200V112A78 78 0 0 1 266 112V200Z" class="fill-scene-sky" />
@@ -96,4 +95,4 @@
 <path d="M174 210h11v-7h-11ZM196 210h11v-7h-11Z" class="fill-portrait-bib" />
 <path d="M175 204h9M197 204h9" class="stroke-scene-wood" stroke-width="2" />
 
-<Plant x={44} y={246} />
+<Plant plant={PARTS.cafe.plant} />

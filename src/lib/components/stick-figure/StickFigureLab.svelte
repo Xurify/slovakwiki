@@ -1,44 +1,8 @@
-<script lang="ts" module>
-  import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-  import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import type { StickGestureId } from "$lib/stick-figure/gestures";
-  import type { StickPropId } from "$lib/stick-figure/props";
-
-  export interface StickLabLine {
-    characterId: LessonCharacterId;
-    english: string;
-    gestures?: StickGestureId[];
-    id: string;
-    /** Loudness track of the clip (`content/audio/mouth.json`). */
-    mouth?: string;
-    props?: Array<StickPropId | null>;
-    slovak: string;
-    speaker: string;
-    src?: string;
-    /** Who the line is said to, when it is not the person it replies to. */
-    to?: LessonCharacterId;
-    /** Aligned vowel per mouth frame. */
-    vowels?: string;
-  }
-
-  /** Dictionary links for a scene thing's word, where the dictionary has it. */
-  export interface StickThingWord {
-    href?: string;
-    /** The lemma clip. */
-    src?: string;
-  }
-
-  export interface StickLabScene {
-    id: string;
-    lines: StickLabLine[];
-    /** Where it plays: picks the drawn backdrop and the painted lesson plate. */
-    setting: StageSetting;
-    title: string;
-  }
-</script>
-
 <script lang="ts">
-  import { listedCharacters } from "$lib/catalog/lessons/character-ids";
+  import {
+    listedCharacters,
+    type LessonCharacterId,
+  } from "$lib/catalog/lessons/character-ids";
   import Button from "$lib/components/ui/Button.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
@@ -49,17 +13,18 @@
     panelClass,
     tagClass,
   } from "$lib/components/ui/system-ui";
-  import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-  import { STICK_GESTURE_IDS } from "$lib/stick-figure/gestures";
+  import { dressFor, type Headwear } from "$lib/stick-figure/dress";
+  import { STICK_GESTURE_IDS, type StickGestureId } from "$lib/stick-figure/gestures";
   import {
     gesturePlan,
     planLine,
     type LinePlan,
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
-  import { STICK_PROP_IDS } from "$lib/stick-figure/props";
+  import { STICK_PROP_IDS, type StickPropId } from "$lib/stick-figure/props";
   import { STICK_PICTURE_NAMES } from "$lib/stick-figure/pictures";
-  import { directScene, type DirectedLine } from "$lib/stick-figure/scene-direction";
+  import { directScene } from "$lib/stick-figure/scene-direction";
+  import type { Scene } from "$lib/stick-figure/scene-line";
   import {
     TIMES_OF_DAY,
     WEATHERS,
@@ -67,7 +32,6 @@
     type TimeOfDay,
     type Weather,
   } from "$lib/stick-figure/scene-mood";
-  import { stageName } from "$lib/stick-figure/stage-name";
   import type { StageReaction } from "$lib/stick-figure/staging";
   import { cx } from "$lib/ui/classes";
   import StickFigure from "./StickFigure.svelte";
@@ -84,9 +48,9 @@
     scenes,
     thingWords = {},
   }: {
-    scenes: StickLabScene[];
-    /** Keyed by the thing's word. */
-    thingWords?: Record<string, StickThingWord>;
+    scenes: Scene[];
+    /** Dictionary link and clip for a scene thing's word, keyed by the word. */
+    thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
   const characters = listedCharacters();
@@ -116,26 +80,14 @@
   let benchCharacter = $state<LessonCharacterId>("anna");
   let bench = $state<ActorState>({ cue: 0, talking: false });
   let benchGesture = $state<StickGestureId | null>(null);
-  let painted = $state(false);
   /** Light and weather picked here instead of read from the dialogue. */
   let timeOverride = $state<TimeOfDay>();
   let weatherOverride = $state<Weather>();
   let benchProp = $state<StickPropId | undefined>();
+  let benchHeadwear = $state<Headwear | undefined>();
   let tryLine = $state("Dobrý deň. Prepáčte, kde je stanica?");
   const scene = $derived(scenes.find((option) => option.id === sceneId) ?? scenes[0]);
-  const directedLines = $derived<DirectedLine[]>(
-    scene.lines.map((line) => ({
-      characterId: dialogueSpeakerLabel(line.speaker) ? line.characterId : null,
-      gestures: line.gestures,
-      mouth: line.mouth,
-      props: line.props,
-      slovak: line.slovak,
-      src: line.src,
-      to: line.to,
-      vowels: line.vowels,
-    })),
-  );
-  const direction = $derived(directScene(directedLines, scene.setting));
+  const direction = $derived(directScene(scene.lines, scene.setting));
   const spoken = $derived(sceneMood(scene.lines.map((line) => line.slovak)));
   const mood = $derived({
     time: timeOverride ?? spoken.time,
@@ -166,7 +118,7 @@
 
   function pointCopy(target: PointTarget, index: number): string {
     if (target.kind === "prop") {
-      const prop = direction.held[index]?.[target.holder];
+      const prop = direction.lines[index]?.held[target.holder];
       return `Points at ${nameOf(target.holder)}'s ${prop ?? "hands"}`;
     }
     const thing = direction.things.find((candidate) => candidate.id === target.id);
@@ -209,7 +161,7 @@
       }
 
       // Someone still walking on gets to their mark before they speak.
-      const walking = stage?.walking(directedLines[index].characterId) ?? 0;
+      const walking = stage?.ready(index) ?? 0;
       if (walking > 0) {
         sceneTimer = window.setTimeout(() => step(index), walking);
         return;
@@ -264,7 +216,7 @@
               type="button"
               onclick={() => selectScene(option.id)}
             >
-              {option.title}
+              {option.english ?? option.name}
             </button>
           {/each}
         </div>
@@ -282,15 +234,6 @@
             {voicedCount} of {scene.lines.length} lines have a clip, {trackedCount} a mouth
             track.
           </p>
-
-          <TextLink
-            class="ml-auto"
-            onclick={() => {
-              painted = !painted;
-            }}
-          >
-            {painted ? "Show drawn backdrop" : "Show painted backdrop"}
-          </TextLink>
         </div>
 
         <div
@@ -342,17 +285,15 @@
           bind:this={stage}
           class="border-b border-slate-200"
           {direction}
-          lines={directedLines}
+          lines={scene.lines}
           {mood}
-          {painted}
           setting={scene.setting}
           {thingWords}
         />
 
         <ol class="m-0 list-none divide-y divide-slate-200 p-0">
           {#each scene.lines as line, index (line.id)}
-            {@const staging = direction.stagings[index]}
-            {@const plan = direction.plans[index]}
+            {@const { plan, props, staging } = direction.lines[index]}
             <li>
               <button
                 class={cx(
@@ -364,7 +305,7 @@
                 onclick={() => playLine(index)}
               >
                 <span class="min-w-0 flex-1">
-                  <span class="{eyebrowMutedClass} block">{stageName(line.speaker)}</span>
+                  <span class="{eyebrowMutedClass} block">{line.speaker}</span>
                   <span
                     class="mt-1 block font-serif text-lg font-semibold text-slate-900"
                     lang="sk"
@@ -377,41 +318,41 @@
                   {/if}
 
                   <span class="mt-1.5 flex flex-wrap gap-x-4 text-sm text-slate-500">
-                    {#if dialogueSpeakerLabel(line.speaker)}
+                    {#if line.characterId}
                       <span>Gestures: {gestureSequence(plan)}</span>
                     {/if}
 
-                    {#if staging?.addressee}
+                    {#if staging.addressee}
                       <span>To {nameOf(staging.addressee)}</span>
                     {/if}
 
-                    {#each staging?.reactions ?? [] as reaction (reaction.characterId)}
+                    {#each staging.reactions as reaction (reaction.characterId)}
                       <span>{reactionCopy(reaction)}</span>
                     {/each}
 
-                    {#each [...new Set(direction.props[index]?.filter((prop) => prop))] as prop (prop)}
+                    {#each [...new Set(props.filter((prop) => prop))] as prop (prop)}
                       <span>Shows the {prop}</span>
                     {/each}
 
-                    {#each plan?.pictures ?? [] as cue (cue.picture)}
+                    {#each plan.pictures ?? [] as cue (cue.picture)}
                       <span>{STICK_PICTURE_NAMES[cue.picture]} over the head</span>
                     {/each}
 
-                    {#each plan?.beats ?? [] as beat, beatIndex (beatIndex)}
+                    {#each plan.beats as beat, beatIndex (beatIndex)}
                       {#if beat.point}
                         <span>{pointCopy(beat.point.target, index)}</span>
                       {/if}
                     {/each}
 
-                    {#if staging?.approach}
+                    {#if staging.approach}
                       <span>{nameOf(staging.approach.characterId)} walks over</span>
                     {/if}
 
-                    {#if staging?.enter}
+                    {#if staging.enter}
                       <span>{nameOf(staging.enter.characterId)} walks in</span>
                     {/if}
 
-                    {#if staging?.exit}
+                    {#if staging.exit}
                       <span>Walks off after</span>
                     {/if}
 
@@ -445,7 +386,8 @@
             characterId={benchCharacter}
             cue={bench.cue}
             plan={bench.plan}
-            prop={benchProp}
+            held={benchProp && { id: benchProp }}
+            dress={dressFor("clear", { headwear: benchHeadwear })}
             talking={bench.talking}
           />
         </div>
@@ -500,6 +442,21 @@
                 }}
               >
                 {prop}
+              </button>
+            {/each}
+          </div>
+
+          <p class="{eyebrowMutedClass} mt-5">Wears</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {#each [undefined, "headphones", "headset"] as const as headwear (headwear ?? "bare")}
+              <button
+                class={chipClass(headwear === benchHeadwear)}
+                type="button"
+                onclick={() => {
+                  benchHeadwear = headwear;
+                }}
+              >
+                {headwear ?? "Bare head"}
               </button>
             {/each}
           </div>

@@ -53,6 +53,14 @@ export function normalizeAudioText(text: string): string {
   return text.normalize("NFC").trim().replace(/\s+/g, " ");
 }
 
+/**
+ * What a clip says aloud: its text without the Eleven v4 audio tags, such
+ * as `[pause]`, that direct the voice and are not spoken.
+ */
+export function spokenText(text: string): string {
+  return normalizeAudioText(text.replace(/\[[^\]]*\]/g, " "));
+}
+
 function hashMaterial(text: string, config: AudioConfig): string {
   const normalized = normalizeAudioText(text);
   const settings = config.voiceSettings;

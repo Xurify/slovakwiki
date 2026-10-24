@@ -1,4 +1,5 @@
 import type { DialogueTurn, KeyPhrase } from "$lib/learning/types";
+import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
 export interface ListeningCheck {
   answerId: string;
@@ -24,6 +25,8 @@ export interface ListeningChapter {
   checks: ListeningCheck[];
   id: string;
   lines: DialogueTurn[];
+  /** Where the stick-figure stage acts the segment out; the podcast studio unless set. */
+  stage?: StageSetting;
   title: string;
   titleSk: string;
 }

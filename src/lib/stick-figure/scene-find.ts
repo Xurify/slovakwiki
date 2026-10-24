@@ -1,5 +1,7 @@
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { TextMark } from "$lib/learning/marked-text";
-import { isPlural, isProperName, type SceneThing } from "./scene-things";
+import { demonstrativeForm } from "$lib/learning/demonstratives/paradigm";
+import { isPlural, isProperName, slotOf, type SceneThing } from "./thing-words";
 
 /** Kde je torta? (where is it, the dictionary form) or Ukáž na tú tortu. (point at that one, the accusative). */
 export type FindAsk = "where" | "point";
@@ -22,13 +24,6 @@ export function accusativeOf(thing: SceneThing): string {
   return gender === "feminine" && !isPlural(thing) && word.endsWith("a")
     ? `${word.slice(0, -1)}u`
     : word;
-}
-
-function accusativeDemonstrative(thing: SceneThing): string {
-  if (isPlural(thing)) return "tie";
-  if (thing.gender === "feminine") return "tú";
-  if (thing.gender === "neuter") return "to";
-  return thing.gender === "masculine-animate" ? "toho" : "ten";
 }
 
 /** English says "the headphones are" where Slovak may not: slúchadlá, but also zelenina. */
@@ -80,7 +75,9 @@ export function findPrompt(thing: SceneThing, ask: FindAsk): FindPrompt {
   }
 
   const opening = "Ukáž na ";
-  const demonstrative = isProperName(thing) ? "" : `${accusativeDemonstrative(thing)} `;
+  const demonstrative = isProperName(thing)
+    ? ""
+    : `${demonstrativeForm("ten", slotOf(thing), "accusative")} `;
   const nounAt = opening.length + demonstrative.length;
   const pointed = isProperName(thing)
     ? english
@@ -112,6 +109,48 @@ export function thatIs(thing: SceneThing): string {
   return `To ${isAre(thing)} ${thing.word}.`;
 }
 
+/** What the learner hears on the right tap: "Áno, to je kopec." */
+export function yesThatIs(thing: SceneThing): string {
+  return `Áno, to ${isAre(thing)} ${thing.word}.`;
+}
+
+/**
+ * Who asks for each thing and answers each tap: the first of the cast who
+ * is on stage from the start, since someone still walking on cannot ask,
+ * and someone other than Alex where there is one, since the learner is
+ * the one looking.
+ */
+export function findAsker(direction: {
+  cast: readonly LessonCharacterId[];
+  lines: ReadonlyArray<{ staging: { enter?: { characterId: LessonCharacterId } } }>;
+}): LessonCharacterId | undefined {
+  const entering = new Set(
+    direction.lines.flatMap(({ staging }) =>
+      staging.enter ? [staging.enter.characterId] : [],
+    ),
+  );
+  const present = direction.cast.filter((id) => !entering.has(id));
+  return present.find((id) => id !== "alex") ?? present[0];
+}
+
+/**
+ * Everything the asker may say in a round over `things`, so each gets a
+ * clip: both asks and the three answers for each thing.
+ */
+export function findSayings(things: readonly SceneThing[]): string[] {
+  return [
+    ...new Set(
+      things.flatMap((thing) => [
+        findPrompt(thing, "where").slovak,
+        findPrompt(thing, "point").slovak,
+        thatIs(thing),
+        hereIs(thing),
+        yesThatIs(thing),
+      ]),
+    ),
+  ];
+}
+
 /** Shown when the learner gives up on one: "Tu je torta." */
 export function hereIs(thing: SceneThing): string {
   return `Tu ${isAre(thing)} ${thing.word}.`;
@@ -125,7 +164,7 @@ export function findEnglish(thing: SceneThing, tap: "wrong" | "right" | "shown")
   const name = theEnglish(thing);
   const be = englishPlural(thing) ? "are" : "is";
   if (tap === "wrong") return `That ${be} ${name}.`;
-  if (tap === "right") return `Yes, ${name}.`;
+  if (tap === "right") return `Yes, that ${be} ${name}.`;
   return `Here ${be} ${name}.`;
 }
 

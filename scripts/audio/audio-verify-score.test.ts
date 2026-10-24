@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  heardAsWritten,
   lastWordDisagreement,
   nearMissEndings,
   prefersNearMissEnding,
@@ -134,5 +135,21 @@ describe("near-miss / dual judge helpers", () => {
       ],
     };
     expect(weakLastLogprob(strong)).toBe(false);
+  });
+});
+
+describe("heardAsWritten", () => {
+  it("takes the words heard as the words written, punctuation and case aside", () => {
+    expect(
+      heardAsWritten("Áno, tá žltá kniha je slovník.", "Áno tá žltá kniha je slovník"),
+    ).toBe(true);
+    expect(
+      heardAsWritten(
+        "Presne tak! Tá žltá kniha je slovník.",
+        "presne tak, tá žltá kniha je slovník.",
+      ),
+    ).toBe(true);
+    expect(heardAsWritten("Je to kniha?", "Je to krabica?")).toBe(false);
+    expect(heardAsWritten("Ten kľúč je od auta.", "Ten kľúč je od")).toBe(false);
   });
 });

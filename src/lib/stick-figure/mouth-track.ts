@@ -21,16 +21,38 @@ const REFERENCE_PERCENTILE = 0.95;
 /** Lift quiet syllables so unstressed ones still read. */
 const OPEN_GAMMA = 0.7;
 
-export function encodeMouthTrack(samples: ArrayLike<number>, sampleRate: number): string {
-  const hop = Math.max(1, Math.round((sampleRate * MOUTH_FRAME_MS) / 1000));
+/** Samples in one `frameMs` frame. */
+export function frameHop(sampleRate: number, frameMs: number): number {
+  return Math.max(1, Math.round((sampleRate * frameMs) / 1000));
+}
+
+/**
+ * A clip's loudness frame by frame: the root mean square of each `frameMs`
+ * of samples. A shorter last frame counts too, unless `whole` drops it.
+ */
+export function rmsFrames(
+  samples: ArrayLike<number>,
+  sampleRate: number,
+  frameMs: number,
+  whole = false,
+): number[] {
+  const hop = frameHop(sampleRate, frameMs);
   const levels: number[] = [];
 
   for (let start = 0; start < samples.length; start += hop) {
     const end = Math.min(samples.length, start + hop);
+    if (whole && end - start < hop) break;
+
     let sum = 0;
     for (let index = start; index < end; index += 1) sum += samples[index] ** 2;
     levels.push(Math.sqrt(sum / (end - start)));
   }
+
+  return levels;
+}
+
+export function encodeMouthTrack(samples: ArrayLike<number>, sampleRate: number): string {
+  const levels = rmsFrames(samples, sampleRate, MOUTH_FRAME_MS);
 
   const loudest = Math.max(0, ...levels);
   if (loudest === 0) return "0".repeat(levels.length);
@@ -73,7 +95,7 @@ export interface LipShape {
 }
 
 /** Lip shape per vowel; a shut frame keeps the shape it closes from. */
-export const VOWEL_LIPS: Record<VowelShape, LipShape> = {
+const VOWEL_LIPS: Record<VowelShape, LipShape> = {
   a: { round: 0, width: 1 },
   e: { round: 0, width: 1.1 },
   i: { round: 0, width: 1.18 },

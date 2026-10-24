@@ -20,6 +20,7 @@ Reference implementations:
 The scene is a real conversation that the beats replay in pieces.
 
 - [ ] It must read naturally start to finish: a situation, a reason to talk, replies that answer what was said. Read it aloud. (The first present-tense scene — “Peter číta knihu. / Čítaš knihu?” — had no situation and no reason for either line.)
+- [ ] It must also sound natural at speaking pace: someone who has to think says so (`Hm…`) and pauses, and a beat falls between two clues or before a turn to someone else. Write a pause as `[pause]` inside the line's `audio.transcript`, with the same words as its text; at the start or end of a clip it makes no silence. See AGENTS.md → **Audio**.
 - [ ] Speakers come from the roster in `content/audio/config.json` (`speakers` arrays): `Anna`, `Mária`, `Marek`, `You`, `Receptionist`, `Waiter`, `Conductor`, and system labels `Notice` / `Sentence` / `Scene`. Any other name falls back to the narrator voice. Other people can be _mentioned_ (Tom, Peter) — they just can't speak.
 - [ ] Learner lines (`speaker: "You"`) get `sayChoices` with 1–2 plausible wrong replies, each with a `whyWrong`. Use `answerIds` when two replies are both correct.
 - [ ] Highlight the taught word with `marks` built via `markedText` (`src/lib/learning/marked-text.ts`). Add a role there if none fits.

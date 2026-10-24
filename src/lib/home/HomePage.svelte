@@ -128,8 +128,9 @@
         </Lead>
       </header>
 
+      <!-- The rail sticks only where the whole of it fits under the header; stuck on a shorter screen, its foot could never be scrolled into view. -->
       <aside
-        class="grid gap-6 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start"
+        class="grid gap-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start lg:[@media(min-height:88rem)]:sticky lg:[@media(min-height:88rem)]:top-24"
       >
         <LessonsContinueCard
           {focusLesson}

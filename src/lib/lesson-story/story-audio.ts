@@ -31,6 +31,7 @@ let pending:
       generation: number;
       onEnded?: () => void;
       rate: number;
+      silentMs?: number;
       src: string;
       startedAt: number;
     }
@@ -99,11 +100,13 @@ function scheduleEnded(
   generation: number,
   startedAt: number,
   onEnded?: () => void,
+  silentMs = 0,
 ): void {
   if (!onEnded) return;
 
   clearDwell();
-  const wait = Math.max(0, MIN_STORY_DWELL_MS - (Date.now() - startedAt));
+  const dwell = Math.max(MIN_STORY_DWELL_MS, silentMs);
+  const wait = Math.max(0, dwell - (Date.now() - startedAt));
   dwellTimer = window.setTimeout(() => {
     dwellTimer = 0;
     if (generation !== playGeneration) return;
@@ -116,10 +119,11 @@ function attachPlayback(
   generation: number,
   startedAt: number,
   onEnded?: () => void,
+  silentMs?: number,
 ): void {
   audio.onended = () => scheduleEnded(generation, startedAt, onEnded);
   audio.onerror = () => {
-    scheduleEnded(generation, startedAt, onEnded);
+    scheduleEnded(generation, startedAt, onEnded, silentMs);
   };
 }
 
@@ -129,9 +133,10 @@ function tryPlay(
   startedAt: number,
   onEnded?: () => void,
   rate = 1,
+  silentMs?: number,
 ): void {
   if (audioMuted()) {
-    scheduleEnded(generation, startedAt, onEnded);
+    scheduleEnded(generation, startedAt, onEnded, silentMs);
     return;
   }
 
@@ -140,7 +145,7 @@ function tryPlay(
   audio.playbackRate = rate;
   applyAudioVolume(audio);
   currentAudio = audio;
-  attachPlayback(audio, generation, startedAt, onEnded);
+  attachPlayback(audio, generation, startedAt, onEnded, silentMs);
 
   void audio.play().then(
     () => {
@@ -152,13 +157,13 @@ function tryPlay(
 
       const kind = classifyPlayFailure(reason);
       if (kind === "autoplay") {
-        pending = { generation, onEnded, rate, src, startedAt };
+        pending = { generation, onEnded, rate, silentMs, src, startedAt };
         return;
       }
 
       if (kind === "abort") return;
 
-      scheduleEnded(generation, startedAt, onEnded);
+      scheduleEnded(generation, startedAt, onEnded, silentMs);
     },
   );
 }
@@ -199,7 +204,7 @@ export function storyAudioClock(): StoryAudioClock | undefined {
 export function unlockStoryAudio(): void {
   if (!pending || audioMuted()) return;
 
-  const { generation, onEnded, rate, src, startedAt } = pending;
+  const { generation, onEnded, rate, silentMs, src, startedAt } = pending;
   if (generation !== playGeneration) {
     pending = undefined;
     return;
@@ -216,7 +221,7 @@ export function unlockStoryAudio(): void {
   }
 
   playGeneration += 1;
-  tryPlay(src, playGeneration, startedAt, onEnded, rate);
+  tryPlay(src, playGeneration, startedAt, onEnded, rate, silentMs);
 }
 
 export function primeStoryAudio(): void {
@@ -245,6 +250,11 @@ export interface PlayStoryLineOptions {
   /** Fires when playback finishes (honors a minimum on-screen dwell). */
   onEnded?: () => void;
   playbackRate?: number;
+  /**
+   * How long the line lasts when nothing plays (muted, missing or broken
+   * clip), so figures acting it out get to its end; the dwell floor otherwise.
+   */
+  silentMs?: number;
 }
 
 /** Play a lesson line; replaces any in-flight story audio. MP3 only — no TTS. */
@@ -257,17 +267,17 @@ export function playStoryLineAudio(
 
   ensureMuteListener();
 
-  const { onEnded, playbackRate = 1 } = options;
+  const { onEnded, playbackRate = 1, silentMs } = options;
   stopAll();
   const generation = playGeneration;
   const startedAt = Date.now();
 
   if (!src || audioMuted()) {
-    scheduleEnded(generation, startedAt, onEnded);
+    scheduleEnded(generation, startedAt, onEnded, silentMs);
     return;
   }
 
-  tryPlay(src, generation, startedAt, onEnded, playbackRate);
+  tryPlay(src, generation, startedAt, onEnded, playbackRate, silentMs);
 }
 
 export function stopStoryLineAudio(): void {

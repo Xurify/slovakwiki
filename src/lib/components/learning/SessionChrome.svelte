@@ -130,7 +130,7 @@
   </div>
 
   {#if onselect}
-    <nav class="flex gap-1" aria-label={progressLabel}>
+    <nav class="flex items-center gap-1" aria-label={progressLabel}>
       {#each segments as index (index)}
         {#if index <= activeIndex}
           <button

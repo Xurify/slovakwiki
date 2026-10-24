@@ -3,18 +3,13 @@
 
   import { scatter } from "$lib/stick-figure/scatter";
   import {
-    WEATHER_FADE_MS,
-    isOutdoors,
-    type SceneMood,
-  } from "$lib/stick-figure/scene-mood";
-  import {
     BACKDROP_HEIGHT,
     BACKDROP_WIDTH,
-    SCENE_THINGS,
-    backdropAlign,
     backdropScale,
     backdropToStage,
-  } from "$lib/stick-figure/scene-things";
+  } from "$lib/stick-figure/backdrop-geometry";
+  import { PLACES, backdropAlign } from "$lib/stick-figure/places";
+  import { WEATHER_FADE_MS, fallOf, type SceneMood } from "$lib/stick-figure/scene-mood";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
   /**
@@ -61,22 +56,24 @@
   const origin = $derived(
     backdropToStage({ x: 0, y: 0 }, width, height, backdropAlign(setting)),
   );
-  /** Where the weather shows, in stage px. */
+  /** Where the weather shows, in stage px, and how round its top is: an arched window's. */
   const area = $derived.by(() => {
-    if (isOutdoors(setting)) return { height, left: 0, top: 0, width };
+    const { glass, outdoors } = PLACES[setting];
+    if (outdoors) return { height, left: 0, round: 0, top: 0, width };
 
-    const box = SCENE_THINGS[setting]?.find((thing) => thing.id === "okno")?.box;
-    if (!box) return undefined;
+    if (!glass) return undefined;
     return {
-      height: box.height * scale,
-      left: origin.x + box.x * scale,
-      top: origin.y + box.y * scale,
-      width: box.width * scale,
+      height: glass.height * scale,
+      left: origin.x + glass.x * scale,
+      round: glass.arch ? (glass.width / 2) * scale : 0,
+      top: origin.y + glass.y * scale,
+      width: glass.width * scale,
     };
   });
-  const fall = $derived(
-    mood.weather === "rain" || mood.weather === "snow" ? FALLS[mood.weather] : undefined,
-  );
+  const fall = $derived.by(() => {
+    const falls = fallOf(mood.weather);
+    return falls && FALLS[falls];
+  });
 </script>
 
 {#if fall && area && width}
@@ -87,6 +84,7 @@
       style:left="{area.left}px"
       style:top="{area.top}px"
       style:width="{area.width}px"
+      style:border-radius="{area.round}px {area.round}px 0 0"
       transition:fade={{ duration: WEATHER_FADE_MS }}
     >
       {#each fall.layers as layer, depth (depth)}

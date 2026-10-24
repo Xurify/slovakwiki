@@ -98,7 +98,7 @@
     {:else if item === "strawberry"}
       <path
         d="M{c - 6} 142Q{c} 140 {c + 6} 142Q{c + 5} 150 {c} 154Q{c - 5} 150 {c - 6} 142Z"
-        class="fill-rose-500"
+        class="fill-scene-red"
       />
       <path d="M{c - 4} 142l4 -3l4 3Z" class="fill-scene-leaf" />
       <circle cx={c - 2} cy="146" r="0.9" class="fill-white/60" />

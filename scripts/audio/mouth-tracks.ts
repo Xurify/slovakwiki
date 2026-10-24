@@ -28,7 +28,7 @@ import {
 const MOUTH_PATH = path.join(ROOT, "content", "audio", "mouth.json");
 const SAMPLE_RATE = 16_000;
 
-function decodePcm(input: string | Buffer): Promise<Int16Array> {
+export function decodePcm(input: string | Buffer): Promise<Int16Array> {
   return new Promise((resolve, reject) => {
     const child = spawn(
       "ffmpeg",

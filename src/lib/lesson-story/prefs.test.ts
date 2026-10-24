@@ -4,8 +4,10 @@ import {
   STORY_SHOW_ENGLISH_DEFAULT,
   getStoryAutoAdvance,
   getStoryShowEnglish,
+  getStorySubtitles,
   setStoryAutoAdvance,
   setStoryShowEnglish,
+  setStorySubtitles,
   toggleStoryBool,
 } from "./prefs";
 
@@ -37,5 +39,12 @@ describe("lesson story prefs", () => {
     expect(getStoryAutoAdvance(storage)).toBe("off");
     expect(getStoryShowEnglish(storage)).toBe("on");
     expect(toggleStoryBool("off")).toBe("on");
+  });
+
+  it("shows subtitles until the learner turns them off", () => {
+    const storage = memoryStorage();
+    expect(getStorySubtitles(storage)).toBe("on");
+    setStorySubtitles("off", storage);
+    expect(getStorySubtitles(storage)).toBe("off");
   });
 });

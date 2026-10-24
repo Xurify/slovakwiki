@@ -10,7 +10,6 @@
     stopStoryLineAudio,
     storyAudioClock,
   } from "$lib/lesson-story/story-audio";
-  import { lessonSceneSrc } from "$lib/lesson-story/story-settings";
   import {
     gestureDuration,
     gesturePeak,
@@ -18,38 +17,55 @@
   } from "$lib/stick-figure/gestures";
   import {
     gesturePlan,
+    planLine,
     reactionPlan,
     type LineBeat,
     type LinePlan,
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
+  import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
+  import { turnDelays, type TurnDelays } from "$lib/stick-figure/turns";
+  import type { SpeechClock } from "$lib/stick-figure/performance";
   import { REST_POSE } from "$lib/stick-figure/pose";
-  import { STICK_BOX, solveRig, type Point } from "$lib/stick-figure/rig";
+  import { solveRig, type Point } from "$lib/stick-figure/rig";
   import type { DirectedLine, SceneDirection } from "$lib/stick-figure/scene-direction";
   import {
     aimAt,
-    backdropAlign,
     backdropToStage,
-    boxCenter,
     figureToStage,
+  } from "$lib/stick-figure/backdrop-geometry";
+  import { LOOKS } from "$lib/stick-figure/looks";
+  import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
+  import {
+    boxCenter,
     litKey,
     thingBoxes,
     thingCenter,
     thingWithDemonstrative,
-  } from "$lib/stick-figure/scene-things";
+  } from "$lib/stick-figure/thing-words";
   import { dressFor } from "$lib/stick-figure/dress";
-  import { DAYTIME, isOutdoors, type SceneMood } from "$lib/stick-figure/scene-mood";
-  import { STAGE_PADDING, STAGE_POSTS, stageMarks } from "$lib/stick-figure/stage-layout";
-  import type { StageSetting } from "$lib/stick-figure/stage-setting";
+  import type { Held } from "$lib/stick-figure/props";
+  import { DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
   import {
-    restFacing,
-    type CastFacing,
-    type Facing,
-    type LineStaging,
-  } from "$lib/stick-figure/staging";
-  import { playTramCue } from "$lib/stick-figure/ambience";
-  import { TRAM, type TramState } from "$lib/stick-figure/street";
-  import { stepsFor, walkDuration } from "$lib/stick-figure/walk";
+    blockingBefore,
+    endLine,
+    startLine,
+    type Blocking,
+  } from "$lib/stick-figure/stage-blocking";
+  import {
+    FLOOR,
+    markOf,
+    offStage,
+    stageFrame,
+    standing,
+    walkOns,
+    type Offsets,
+  } from "$lib/stick-figure/stage-frame";
+  import type { StageSetting } from "$lib/stick-figure/stage-setting";
+  import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
+  import { playSteps, playTramCue } from "$lib/stick-figure/ambience";
+  import type { TramState } from "$lib/stick-figure/street";
+  import { STEP_MS, stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
   import StickWeather from "./StickWeather.svelte";
@@ -61,16 +77,6 @@
     talking: boolean;
   }
 
-  /** Figure widths each figure stands from its mark. */
-  type Offsets = Partial<Record<LessonCharacterId, number>>;
-
-  /** Where a figure's box is drawn, before any walk moves it. */
-  interface Mark {
-    left: number;
-    top: number;
-    width: number;
-  }
-
   let {
     class: className = "",
     direction,
@@ -78,7 +84,6 @@
     lines,
     mood = DAYTIME,
     onthing,
-    painted = false,
     setting,
     thingWords = {},
   }: {
@@ -90,17 +95,11 @@
     mood?: SceneMood;
     /** Takes over a tap on a thing; without it the tap opens the thing's word card. */
     onthing?: (id: string) => void;
-    /** Show the painted lesson plate instead of the drawn backdrop. */
-    painted?: boolean;
     setting: StageSetting;
     /** Dictionary link and clip for a thing's word, keyed by the word. */
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
 
-  /** The stage's bottom padding, where the figures' feet stand. */
-  const FLOOR = 12;
-  /** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
-  const BESIDE_WIDTHS = 0.8;
   const LIT_MS = 1600;
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
@@ -111,6 +110,8 @@
 
   let actors = $state<Partial<Record<LessonCharacterId, ActorState>>>({});
   let facings = $state<CastFacing>({});
+  /** When each figure begins a turn: the speaker at once, the others a beat later. */
+  let turns = $state<TurnDelays>({});
   let offsets = $state<Offsets>({});
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** The line whose props are in hand: the one playing, or the last one played. */
@@ -129,6 +130,8 @@
   let aboard = $state(false);
   let stageWidth = $state(0);
   let stageHeight = $state(0);
+  /** The page has measured the stage, so marks and walk-ons are known. */
+  const measured = $derived(stageWidth > 0 && stageHeight > 0);
 
   /** When each walk in flight ends, on the `performance.now()` clock. */
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
@@ -136,18 +139,22 @@
   let walkCount = 0;
   let playToken = 0;
   let lineTimer = 0;
+  /** The line being said, for the clock the figures move to when no clip plays. */
+  let spoken = { at: 0, durationMs: 0, rate: 1 };
 
   const resting = $derived(restFacing(direction.cast));
+  const stagings = $derived(direction.lines.map(({ staging }) => staging));
   const holding = $derived(
-    (handedAt === heldAt ? direction.handed[heldAt] : undefined) ??
-      direction.held[heldAt] ??
+    (handedAt === heldAt ? direction.lines[heldAt]?.handed : undefined) ??
+      direction.lines[heldAt]?.held ??
       {},
   );
-  /** The studio and the street have no painted plate, so they stay drawn. */
-  const plate = $derived(painted ? plateFor(setting) : undefined);
   /** The weather on the cast: none indoors or once on the tram. */
   const dress = $derived(
-    dressFor(isOutdoors(setting) && !aboard ? mood.weather : "clear"),
+    dressFor(
+      PLACES[setting].outdoors && !aboard ? mood.weather : "clear",
+      PLACES[setting],
+    ),
   );
   /**
    * Each umbrella in hand, up or not. It comes out the way the weather on
@@ -164,31 +171,19 @@
       );
     });
   });
-  const entering = $derived(
-    Object.fromEntries(
-      direction.stagings.flatMap(({ enter }) =>
-        enter ? [[enter.characterId, enter.from]] : [],
-      ),
-    ) as Partial<Record<LessonCharacterId, Facing>>,
-  );
-  const post = $derived(STAGE_POSTS[setting]);
-  const layout = $derived(
-    stageMarks(
+  /** The scene's things as the stage shows them now: the sun only while it is out. */
+  const things = $derived(thingsIn(direction.things, setting, mood));
+  const frame = $derived(
+    stageFrame(
       direction.cast,
-      entering,
+      walkOns(stagings),
+      setting,
+      things,
       stageWidth,
-      post === undefined || !stageWidth
-        ? undefined
-        : backdropToStage(
-            { x: post, y: 0 },
-            stageWidth,
-            stageHeight,
-            backdropAlign(setting),
-          ).x,
-      stageHeight || undefined,
+      stageHeight,
     ),
   );
-  const pickedThing = $derived(direction.things.find((thing) => thing.id === picked));
+  const pickedThing = $derived(things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room
    * below. A thing as tall as the stage (a house on the square) has room on
@@ -231,8 +226,10 @@
   });
 
   // A new scene, or an edit to the script, starts everyone where its first line finds them.
+  // Placing needs the stage's size: who walks on stands off its edge.
   $effect(() => {
     void direction;
+    if (!measured) return;
     untrack(() => {
       stop();
       actors = {};
@@ -242,113 +239,52 @@
     });
   });
 
-  function plateFor(setting: StageSetting): string | undefined {
-    if (setting === "street" || setting === "studio") return undefined;
-    return lessonSceneSrc[setting];
-  }
-
-  function markOf(id: LessonCharacterId): Mark {
-    const width = layout.width;
-    return {
-      left: layout.marks[id] ?? 0,
-      top: stageHeight - FLOOR - (width * STICK_BOX.height) / STICK_BOX.width,
-      width,
-    };
-  }
-
-  function standing(mark: Mark, offset = 0): Mark {
-    return { ...mark, left: mark.left + offset * mark.width };
-  }
-
   /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
   function walkTo(id: LessonCharacterId, offset: number): void {
     const from = offsets[id] ?? 0;
     if (from === offset) return;
 
-    const ms = walkDuration(stepsFor(offset - from));
+    const steps = stepsFor(offset - from);
+    const ms = walkDuration(steps);
     walkCount += 1;
     walks = { ...walks, [id]: { cue: walkCount, ms } };
     offsets = { ...offsets, [id]: offset };
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       walkEndsAt[id] = performance.now() + ms;
+      playSteps(steps, STEP_MS, {
+        ground: PLACES[setting].ground,
+        shoes: LOOKS[id].shoes,
+      });
     }
   }
 
-  /** Figure widths from a figure's mark to where it stands beside `to`, wherever `to` stands in `at`. */
-  function beside(
-    id: LessonCharacterId,
-    to: LessonCharacterId,
-    toward: Facing,
-    at: Offsets = offsets,
-  ): number {
-    if (!stageWidth) return toward * 0.5;
-
-    const mark = markOf(id);
-    const gap = (standing(markOf(to), at[to]).left - mark.left) / mark.width;
-    const now = at[id] ?? 0;
-    // Close enough already, after a walk the two made together, is close enough.
-    return Math.abs(gap - now) > BESIDE_WIDTHS
-      ? gap - Math.sign(gap - now) * BESIDE_WIDTHS
-      : now;
+  function blocking(): Blocking {
+    return { aboard, facings, offsets, tram };
   }
 
-  /** Figure widths from a figure's mark to just past the stage edge on that side. */
-  function offStage(id: LessonCharacterId, direction: Facing): number {
-    if (!stageWidth) return direction * 4;
-
-    const mark = markOf(id);
-    const distance = direction > 0 ? stageWidth - mark.left : mark.left + mark.width;
-    return direction * (distance / mark.width + 0.1);
-  }
-
-  /** Whether a figure stands on the stage, as opposed to off one side of it. */
-  function onStage(id: LessonCharacterId, at: Offsets): boolean {
-    const mark = standing(markOf(id), at[id]);
-    return mark.left + mark.width > 0 && mark.left < stageWidth;
-  }
-
-  /**
-   * Figure widths everyone on stage moves, keeping their places in the row,
-   * to stand centred on stage x `to`, or as near as the stage edge allows.
-   */
-  function shiftTo(to: number, at: Offsets): { by: number; ids: LessonCharacterId[] } {
-    const ids = direction.cast.filter((id) => onStage(id, at));
-    if (!stageWidth || ids.length === 0) return { by: 0, ids };
-
-    const marks = ids.map((id) => standing(markOf(id), at[id]));
-    const left = Math.min(...marks.map((mark) => mark.left));
-    const right = Math.max(...marks.map((mark) => mark.left + mark.width));
-    const shift = to - (left + right) / 2;
-    const clamped = Math.min(
-      stageWidth - STAGE_PADDING - right,
-      Math.max(STAGE_PADDING - left, shift),
-    );
-    return { by: clamped / marks[0].width, ids };
-  }
-
-  /** Stage x of where a line takes everyone: a thing it names, or the tram's door. */
-  function destinationOf(staging: LineStaging, boarding: boolean): number | undefined {
-    const thing = direction.things.find((candidate) => candidate.id === staging.goTo);
-    const point = boarding ? { x: TRAM.door, y: 0 } : thing && thingCenter(thing);
-    if (!point || !stageWidth) return undefined;
-    return backdropToStage(point, stageWidth, stageHeight, backdropAlign(setting)).x;
-  }
-
-  /** Walk everyone on stage over to stand by stage x `to`, facing the way they go. */
-  function walkGroup(to: number): void {
-    const { by, ids } = shiftTo(to, offsets);
-    if (by === 0) return;
-
-    facings = {
-      ...facings,
-      ...Object.fromEntries(ids.map((id) => [id, by > 0 ? 1 : -1])),
-    };
-    for (const id of ids) walkTo(id, (offsets[id] ?? 0) + by);
+  /** Turn everyone as `next` has them at once, and walk whoever it moves. */
+  function block(next: Blocking): void {
+    facings = next.facings;
+    tram = next.tram;
+    aboard = next.aboard;
+    for (const id of direction.cast) {
+      const to = next.offsets[id] ?? 0;
+      if (to !== (offsets[id] ?? 0)) walkTo(id, to);
+    }
   }
 
   function boardBefore(index: number): string | undefined {
     return lines.slice(0, index).findLast((line) => line.characterId === null)?.slovak;
+  }
+
+  /** What a figure has in hand: an umbrella stays open or folded as it came out. */
+  function heldBy(id: LessonCharacterId): Held | undefined {
+    const prop = holding[id];
+    if (!prop) return undefined;
+    return prop === "umbrella"
+      ? { id: prop, open: umbrellas[id] ?? dress.umbrellaUp }
+      : { id: prop };
   }
 
   /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
@@ -358,48 +294,20 @@
 
   /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   export function place(index: number): void {
+    const placed = blockingBefore(
+      index,
+      lines.map((line) => line.characterId),
+      stagings,
+      frame,
+    );
+
     umbrellas = {};
-    let placedFacings: CastFacing = {};
-    const placed: Offsets = {};
-
-    for (const { enter } of direction.stagings) {
-      if (enter) placed[enter.characterId] = offStage(enter.characterId, enter.from);
-    }
-
-    direction.stagings.slice(0, index).forEach((staging, at) => {
-      const speaker = lines[at].characterId;
-      placedFacings = { ...placedFacings, ...staging.facing };
-
-      if (staging.enter) placed[staging.enter.characterId] = 0;
-      if (staging.approach && speaker) {
-        const { characterId, toward } = staging.approach;
-        placed[characterId] = beside(characterId, speaker, toward, placed);
-      }
-      if (staging.exit && speaker) {
-        placedFacings[speaker] = staging.exit;
-        placed[speaker] = offStage(speaker, staging.exit);
-      }
-      const to =
-        staging.goTo || staging.boards
-          ? destinationOf(staging, Boolean(staging.boards))
-          : undefined;
-      if (to !== undefined) {
-        const { by, ids } = shiftTo(to, placed);
-        for (const id of ids) {
-          placed[id] = (placed[id] ?? 0) + by;
-          if (by !== 0) placedFacings[id] = by > 0 ? 1 : -1;
-        }
-      }
-    });
-
-    facings = placedFacings;
-    offsets = placed;
+    facings = placed.facings;
+    offsets = placed.offsets;
+    tram = placed.tram;
+    aboard = placed.aboard;
     walks = {};
     walkEndsAt = {};
-    tram = direction.stagings.slice(0, index).some(({ arrives }) => arrives)
-      ? "here"
-      : "away";
-    aboard = direction.stagings.slice(0, index).some(({ boards }) => boards);
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -408,7 +316,7 @@
   /** Stage px of what a point aims at, as everyone stands now. */
   function targetOf(target: PointTarget): Point | undefined {
     if (target.kind === "thing") {
-      const thing = direction.things.find((candidate) => candidate.id === target.id);
+      const thing = things.find((candidate) => candidate.id === target.id);
       const box = thing && thingBoxes(thing)[target.copy ?? 0];
       if (!box || !stageWidth) return undefined;
       return backdropToStage(
@@ -422,7 +330,7 @@
     const facing = facings[target.holder] ?? resting[target.holder] ?? 1;
     return figureToStage(
       SHOWN_HAND,
-      standing(markOf(target.holder), offsets[target.holder]),
+      standing(markOf(frame, target.holder), offsets[target.holder]),
       facing,
     );
   }
@@ -437,7 +345,7 @@
     plan: LinePlan,
     holding: boolean,
   ): { facing?: Facing; plan: LinePlan } {
-    const from = figureToStage(SHOULDER, standing(markOf(id), offsets[id]), 1);
+    const from = figureToStage(SHOULDER, standing(markOf(frame, id), offsets[id]), 1);
     let facing: Facing | undefined;
 
     const beats = plan.beats.map((beat) => {
@@ -485,7 +393,7 @@
     const token = playToken;
     for (const id of direction.cast) {
       if (id === line.characterId) continue;
-      const mark = standing(markOf(id), offsets[id]);
+      const mark = standing(markOf(frame, id), offsets[id]);
       if (mark.left + mark.width < 0 || mark.left > stageWidth) continue;
 
       const centre = mark.left + mark.width / 2;
@@ -497,7 +405,7 @@
 
     window.setTimeout(() => {
       if (token !== playToken) return;
-      facings = { ...facings, ...direction.stagings[heldAt]?.facing };
+      facings = { ...facings, ...stagings[heldAt]?.facing };
     }, gestureDuration("glance"));
   }
 
@@ -509,9 +417,17 @@
     return { height: stageHeight, width: stageWidth };
   }
 
-  /** Ms until `id` reaches where they are walking, 0 when they stand. */
-  export function walking(id: LessonCharacterId | null): number {
-    return id ? Math.max(0, (walkEndsAt[id] ?? 0) - performance.now()) : 0;
+  /**
+   * Ms until the speaker of line `index` and the one they speak to stand
+   * where they say it, 0 when both do: nobody answers someone still on
+   * their way over.
+   */
+  export function ready(index: number): number {
+    const people = [lines[index]?.characterId, stagings[index]?.addressee];
+    return Math.max(
+      0,
+      ...people.map((id) => (id ? (walkEndsAt[id] ?? 0) - performance.now() : 0)),
+    );
   }
 
   /** One silent gesture, outside any line: a listener puzzled by what they heard. */
@@ -542,7 +458,7 @@
     const rest = { ...walks };
     delete rest[id];
     walks = rest;
-    offsets = { ...offsets, [id]: offStage(id, from) };
+    offsets = { ...offsets, [id]: offStage(frame, id, from) };
 
     const cast = direction.cast;
     const turned = Object.fromEntries(
@@ -550,18 +466,69 @@
         .filter((other) => other !== id)
         .map((other) => [other, cast.indexOf(id) > cast.indexOf(other) ? 1 : -1]),
     );
+    turns = turnDelays(direction.cast, id);
     facings = { ...facings, ...turned, [id]: from === 1 ? -1 : 1 };
+    // Counted from now, so whoever waits on the walk waits from the start.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      walkEndsAt[id] = performance.now() + walkDuration(stepsFor(offsets[id] ?? 0));
+    }
     // The jump off stage has to paint before the walk back, or it animates too.
     window.requestAnimationFrame(() => walkTo(id, 0));
   }
 
   /** A line in a speech bubble over a figure, for words that have no clip: a wrong guess said aloud. */
-  export function say(id: LessonCharacterId, text: string): void {
+  export function say(id: LessonCharacterId, text: string, ms = BUBBLE_MS): void {
     window.clearTimeout(bubbleTimer);
     bubble = { characterId: id, cue: (bubble?.cue ?? 0) + 1, text };
     bubbleTimer = window.setTimeout(() => {
       bubble = undefined;
-    }, BUBBLE_MS);
+    }, ms);
+  }
+
+  /**
+   * A line said outside the script, as a talk's answer to a slip: in a
+   * bubble for as long as it lasts, voiced, the mouth on its clip.
+   */
+  export function answer(
+    id: LessonCharacterId,
+    line: Pick<DirectedLine, "mouth" | "said" | "slovak" | "src" | "vowels">,
+    rate = 1,
+    bubble = true,
+  ): void {
+    const plan = planLine(line.slovak, {
+      lips: line.vowels ? decodeVowelTrack(line.vowels) : undefined,
+      said: line.said,
+      track: line.mouth ? decodeMouthTrack(line.mouth) : undefined,
+    });
+    if (bubble) say(id, line.slovak, Math.max(BUBBLE_MS, plan.durationMs / rate));
+    if (!line.src) return;
+
+    playToken += 1;
+    const token = playToken;
+    spoken = { at: performance.now(), durationMs: plan.durationMs, rate };
+    cueActor(id, plan);
+    playStoryLineAudio(line.src, line.slovak, {
+      onEnded: () => {
+        const actor = actors[id];
+        if (token === playToken && actor) actor.talking = false;
+      },
+      playbackRate: rate,
+      silentMs: plan.durationMs / rate,
+    });
+  }
+
+  /**
+   * Where the line being said is, for every figure acting it out: its clip,
+   * or with none playing (no clip, or sound off) the wall clock at the
+   * line's rate, so a slowed line and the timer that ends it agree.
+   */
+  export function clock(): SpeechClock | undefined {
+    return (
+      storyAudioClock() ?? {
+        durationMs: spoken.durationMs,
+        timeMs: (performance.now() - spoken.at) * spoken.rate,
+      }
+    );
   }
 
   /**
@@ -578,8 +545,8 @@
     playToken += 1;
     const token = playToken;
     const line = lines[index];
-    const plan = take?.plan ?? direction.plans[index];
-    const staging = direction.stagings[index];
+    const plan = take?.plan ?? direction.lines[index]?.plan;
+    const staging = stagings[index];
     if (!line) return;
 
     heldAt = index;
@@ -587,30 +554,22 @@
     if (line.characterId === null) board = line.slovak;
 
     for (const actor of Object.values(actors)) actor.talking = false;
+    spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
+    const speaker = line.characterId;
+    turns = turnDelays(direction.cast, speaker);
     facings = { ...facings, ...staging?.facing };
-    if (line.characterId && plan) {
-      const aimed = aimLine(
-        line.characterId,
-        plan,
-        Boolean(direction.held[index]?.[line.characterId]),
-      );
-      if (aimed.facing) facings = { ...facings, [line.characterId]: aimed.facing };
-      cueActor(line.characterId, aimed.plan);
+    // Aimed from where the speaker stands before anyone walks this line.
+    const aimed =
+      speaker && plan
+        ? aimLine(speaker, plan, Boolean(direction.lines[index]?.held[speaker]))
+        : undefined;
+    const standingAt = speaker ? offsets[speaker] : undefined;
+    if (staging) block(startLine(blocking(), staging, speaker, frame));
+    // A speaker walking somewhere faces the way they go, not where they point.
+    if (speaker && aimed?.facing && offsets[speaker] === standingAt) {
+      facings = { ...facings, [speaker]: aimed.facing };
     }
-    if (staging?.approach && line.characterId) {
-      const { characterId, toward } = staging.approach;
-      walkTo(characterId, beside(characterId, line.characterId, toward));
-    }
-    if (staging?.enter) {
-      const { characterId, from } = staging.enter;
-      facings = { ...facings, [characterId]: from === 1 ? -1 : 1 };
-      walkTo(characterId, 0);
-    }
-    if (staging?.goTo) {
-      const to = destinationOf(staging, false);
-      if (to !== undefined) walkGroup(to);
-    }
-    if (staging?.arrives) tram = "coming";
+    if (speaker && aimed) cueActor(speaker, aimed.plan);
 
     for (const reaction of staging?.reactions ?? []) {
       const span = plan?.sentences[reaction.sentence];
@@ -625,30 +584,26 @@
 
       for (const actor of Object.values(actors)) actor.talking = false;
       if (staging?.gives) handedAt = index;
-      if (staging?.exit && line.characterId) {
-        facings = { ...facings, [line.characterId]: staging.exit };
-        walkTo(line.characterId, offStage(line.characterId, staging.exit));
-      }
-      if (staging?.boards) {
-        const to = destinationOf(staging, true);
-        if (to !== undefined) walkGroup(to);
-        aboard = true;
-        foldUmbrellas();
-      }
-      if (direction.stagings[index + 1]?.arrives) playTramCue();
+      if (staging) block(endLine(blocking(), staging, speaker, frame));
+      if (staging?.boards) foldUmbrellas();
+      if (stagings[index + 1]?.arrives) playTramCue();
       onDone?.();
     };
 
     const src = take?.src ?? line.src;
     if (src) {
-      playStoryLineAudio(src, line.slovak, { onEnded, playbackRate: rate });
+      playStoryLineAudio(src, line.slovak, {
+        onEnded,
+        playbackRate: rate,
+        silentMs: spoken.durationMs / rate,
+      });
       return;
     }
 
     // No clip yet: run the line for its text-timed length on the wall clock.
     stopStoryLineAudio();
     window.clearTimeout(lineTimer);
-    lineTimer = window.setTimeout(onEnded, (plan?.durationMs ?? 1600) / rate);
+    lineTimer = window.setTimeout(onEnded, spoken.durationMs / rate);
   }
 
   /** A tap anywhere but the card or a thing puts the card away; so does Escape. */
@@ -684,65 +639,61 @@
   bind:clientWidth={stageWidth}
   bind:clientHeight={stageHeight}
 >
-  {#if plate}
-    <img
-      class="absolute inset-0 size-full object-cover object-center"
-      src={plate}
-      alt=""
-      width="1536"
-      height="1024"
-      decoding="async"
-    />
-  {:else}
-    <StickBackdrop
-      class="absolute inset-0 size-full"
-      {board}
-      {found}
-      height={stageHeight}
-      {lit}
-      {mood}
-      onpick={pickThing}
-      {picked}
-      {setting}
-      {tram}
-      width={stageWidth}
-    />
-    <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
+  <StickBackdrop
+    class="absolute inset-0 size-full"
+    {board}
+    {found}
+    height={stageHeight}
+    {lit}
+    {mood}
+    onpick={pickThing}
+    {picked}
+    {setting}
+    {tram}
+    width={stageWidth}
+  />
+  <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
+
+  <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
+  {#if measured}
+    {#each direction.cast as characterId (characterId)}
+      <div
+        class="pointer-events-none absolute transition-transform ease-linear"
+        style:bottom="{FLOOR}px"
+        style:left="{frame.marks[characterId] ?? 0}px"
+        style:width="{frame.figureWidth}px"
+        style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
+        style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
+      >
+        <StickFigureActor
+          {characterId}
+          {clock}
+          cue={actors[characterId]?.cue ?? 0}
+          facing={facings[characterId] ?? resting[characterId] ?? 1}
+          onbeat={onBeat}
+          plan={actors[characterId]?.plan}
+          held={heldBy(characterId)}
+          {dress}
+          talking={actors[characterId]?.talking ?? false}
+          turnDelay={turns[characterId] ?? 0}
+          walk={walks[characterId]}
+        />
+      </div>
+    {/each}
   {/if}
 
-  {#each direction.cast as characterId (characterId)}
-    <div
-      class="pointer-events-none absolute transition-transform ease-linear"
-      style:bottom="{FLOOR}px"
-      style:left="{layout.marks[characterId] ?? 0}px"
-      style:width="{layout.width}px"
-      style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
-      style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
-    >
-      <StickFigureActor
-        {characterId}
-        clock={storyAudioClock}
-        cue={actors[characterId]?.cue ?? 0}
-        facing={facings[characterId] ?? resting[characterId] ?? 1}
-        onbeat={onBeat}
-        plan={actors[characterId]?.plan}
-        prop={holding[characterId]}
-        dress={{ ...dress, umbrellaUp: umbrellas[characterId] ?? dress.umbrellaUp }}
-        talking={actors[characterId]?.talking ?? false}
-        walk={walks[characterId]}
-      />
-    </div>
-  {/each}
-
   {#if bubble}
-    {@const mark = standing(markOf(bubble.characterId), offsets[bubble.characterId])}
+    {@const mark = standing(
+      markOf(frame, bubble.characterId),
+      offsets[bubble.characterId],
+    )}
     {@const head = mark.left + mark.width / 2}
     {@const centre = Math.min(Math.max(head, 128), Math.max(128, stageWidth - 128))}
     {#key bubble.cue}
       <p
         class={cx(
           "absolute z-10 m-0 w-max max-w-60 -translate-x-1/2 animate-rise rounded-(--control-radius)",
-          "bg-surface px-3 py-2 font-serif text-base text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
+          "bg-surface px-3 py-2 text-center font-serif text-base text-balance text-slate-900 shadow-(--shadow-float) ring-1 ring-slate-200",
         )}
         style:left="{centre}px"
         style:top="{Math.max(4, mark.top - 8 - bubbleHeight)}px"
@@ -762,7 +713,7 @@
     {/key}
   {/if}
 
-  {#if pickedThing && card && !plate}
+  {#if pickedThing && card}
     {@const word = thingWords[pickedThing.word]}
     <div
       data-word-card

@@ -1,5 +1,4 @@
-import type { StageSetting } from "./stage-setting";
-import { foldLine } from "./line-gesture";
+import { foldLine, matchesWord, opens, type WordCues } from "./slovak-text";
 
 export type TimeOfDay = "morning" | "day" | "evening" | "night";
 export type Weather = "clear" | "sunny" | "cloudy" | "rain" | "snow";
@@ -14,20 +13,32 @@ export const DAYTIME: SceneMood = { time: "day", weather: "clear" };
 /** How long the sky takes to change, so rain coming on or easing off reads as weather, not a cut. */
 export const WEATHER_FADE_MS = 900;
 
+/** What each weather does: whether the sky is open, so the sun or the stars show, and what falls from it. */
+const WEATHER_TRAITS: Record<Weather, { fair: boolean; falls?: "rain" | "snow" }> = {
+  clear: { fair: true },
+  cloudy: { fair: false },
+  rain: { fair: false, falls: "rain" },
+  snow: { fair: false, falls: "snow" },
+  sunny: { fair: true },
+};
+
 /** No cloud, rain or snow: the sun or the stars can show. */
 export function isFair(weather: Weather): boolean {
-  return weather === "clear" || weather === "sunny";
+  return WEATHER_TRAITS[weather].fair;
+}
+
+/** Rain or snow coming down, or nothing. */
+export function fallOf(weather: Weather): "rain" | "snow" | undefined {
+  return WEATHER_TRAITS[weather].falls;
 }
 
 export function isFalling(weather: Weather): boolean {
-  return weather === "rain" || weather === "snow";
+  return fallOf(weather) !== undefined;
 }
 
-const OUTDOORS: readonly StageSetting[] = ["default", "market", "plaza", "street"];
-
-/** Under the sky, where weather falls on everything and the cast dresses for it. */
-export function isOutdoors(setting: StageSetting): boolean {
-  return OUTDOORS.includes(setting);
+/** Evening and night: the lamps are lit and the birds have gone quiet. */
+export function isDark(time: TimeOfDay): boolean {
+  return time === "evening" || time === "night";
 }
 
 export const TIMES_OF_DAY: readonly TimeOfDay[] = ["morning", "day", "evening", "night"];
@@ -49,23 +60,11 @@ const GREETING_TIMES: Array<[string, TimeOfDay]> = [
 ];
 
 /** Folded words for the weather: prší, sneží and slnko whole, dážď, sneh and oblak in any case. Sunny is clear with the sun out. */
-const WEATHER_WORDS: Array<[string, Weather]> = [
-  ["prsi", "rain"],
-  ["prsalo", "rain"],
-  ["prsat", "rain"],
-  ["snezi", "snow"],
-  ["snezilo", "snow"],
-  ["snezit", "snow"],
-  ["slnko", "sunny"],
-  ["slnecno", "sunny"],
-  ["oblacno", "cloudy"],
-  ["zamracene", "cloudy"],
-];
-const WEATHER_STEMS: Array<[string, Weather]> = [
-  ["dazd", "rain"],
-  ["sneh", "snow"],
-  ["oblak", "cloudy"],
-  ["mrak", "cloudy"],
+const WEATHER_CUES: Array<[Weather, WordCues]> = [
+  ["rain", { stems: ["dazd"], words: ["prsi", "prsalo", "prsat"] }],
+  ["snow", { stems: ["sneh"], words: ["snezi", "snezilo", "snezit"] }],
+  ["sunny", { words: ["slnko", "slnecno"] }],
+  ["cloudy", { stems: ["oblak", "mrak"], words: ["oblacno", "zamracene"] }],
 ];
 
 /**
@@ -79,22 +78,13 @@ export function sceneMood(lines: readonly string[], upTo = lines.length - 1): Sc
   const folded = lines.map(foldLine);
   const time =
     folded
-      .map(
-        (line) =>
-          GREETING_TIMES.find(
-            ([greeting]) => line === greeting || line.startsWith(`${greeting} `),
-          )?.[1],
-      )
+      .map((line) => GREETING_TIMES.find(([greeting]) => opens(line, greeting))?.[1])
       .find(Boolean) ?? "day";
   const weather =
     folded
       .slice(0, upTo + 1)
       .flatMap((line) => line.split(" "))
-      .map(
-        (word) =>
-          WEATHER_WORDS.find(([whole]) => word === whole)?.[1] ??
-          WEATHER_STEMS.find(([stem]) => word.startsWith(stem))?.[1],
-      )
+      .map((word) => WEATHER_CUES.find(([, cues]) => matchesWord(word, cues))?.[0])
       .findLast(Boolean) ?? "clear";
 
   const over = upTo >= lines.length && isFalling(weather);

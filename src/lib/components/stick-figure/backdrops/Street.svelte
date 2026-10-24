@@ -1,8 +1,12 @@
 <script lang="ts">
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import { TRAM, type TramState } from "$lib/stick-figure/street";
+  import Bench from "./Bench.svelte";
   import Cloud from "./Cloud.svelte";
   import Facades, { type Facade } from "./Facades.svelte";
   import FloorShade from "./FloorShade.svelte";
+  import StreetLamp from "./StreetLamp.svelte";
+  import Tree from "./Tree.svelte";
 
   let { tram }: { tram: TramState } = $props();
 
@@ -78,18 +82,8 @@
 <rect x="-10" y="254" width="980" height="56" class="fill-scene-sand" />
 <rect x="-10" y="252" width="980" height="4" class="fill-white/40" />
 
-<ellipse cx="100" cy="258" rx="34" ry="4" class="fill-scene-line/12" />
-<rect x="95" y="160" width="10" height="98" class="fill-scene-wood" />
-<circle cx="80" cy="160" r="24" class="fill-scene-leaf" />
-<circle cx="124" cy="156" r="26" class="fill-scene-leaf" />
-<circle cx="100" cy="132" r="32" class="fill-scene-leaf" />
-<circle cx="90" cy="124" r="14" class="fill-white/15" />
-
-<ellipse cx="300" cy="257" rx="12" ry="3" class="fill-scene-line/15" />
-<rect x="297" y="96" width="6" height="160" class="fill-scene-line/60" />
-<rect x="292" y="250" width="16" height="7" rx="2" class="fill-scene-line/60" />
-<path d="M288 96h24l-4-22h-16Z" class="fill-scene-honey" />
-<path d="M290 74h20l-10-8Z" class="fill-scene-line/60" />
+<Tree tree={PARTS.street.tree} />
+<StreetLamp lamp={PARTS.street.lamp} />
 
 <!-- The stop: a sign on a post, with a tram on it. -->
 <ellipse cx="650" cy="256" rx="8" ry="2" class="fill-scene-line/15" />
@@ -110,8 +104,4 @@
 <circle cx="645.5" cy="170.5" r="2" class="fill-scene-clay" />
 <circle cx="654.5" cy="170.5" r="2" class="fill-scene-clay" />
 
-<ellipse cx="733" cy="279" rx="70" ry="4" class="fill-scene-line/12" />
-<path d="M678 222h5v56h-5ZM783 222h5v56h-5Z" class="fill-scene-wood" />
-<rect x="668" y="250" width="130" height="10" rx="2" class="fill-scene-wood" />
-<rect x="672" y="222" width="122" height="10" rx="2" class="fill-scene-wood" />
-<rect x="668" y="260" width="130" height="3" class="fill-scene-line/12" />
+<Bench bench={PARTS.street.bench} />

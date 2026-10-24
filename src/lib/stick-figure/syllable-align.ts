@@ -1,4 +1,5 @@
 import { textTimeline } from "./line-plan";
+import { rmsFrames } from "./mouth-track";
 import type { VowelShape } from "./syllables";
 
 const FRAME_MS = 10;
@@ -17,19 +18,6 @@ export interface AlignedSyllable {
   /** Vowel centre in the clip, ms. */
   at: number;
   vowel: VowelShape;
-}
-
-function rmsFrames(samples: ArrayLike<number>, sampleRate: number): number[] {
-  const hop = Math.max(1, Math.round((sampleRate * FRAME_MS) / 1000));
-  const levels: number[] = [];
-
-  for (let start = 0; start + hop <= samples.length; start += hop) {
-    let sum = 0;
-    for (let index = start; index < start + hop; index += 1) sum += samples[index] ** 2;
-    levels.push(Math.sqrt(sum / hop));
-  }
-
-  return levels;
 }
 
 /** Scaled to the 95th-percentile frame and lightly smoothed. */
@@ -66,6 +54,11 @@ function voicedSpan(levels: number[]): [number, number] {
  * one 10 ms frame per syllable, in order and at least 70 ms apart, scoring
  * loudness (vowels are the loud part of a syllable) against distance from the
  * text-timed guess. Offline only — it runs in `scripts/audio/mouth.ts`.
+ *
+ * `text` is the clip text, tags and all: a `[pause]` is timed as silence, so
+ * the words after it are looked for after it. Fed the text without its
+ * pauses, only 63% of the podcast's syllables landed in their own word
+ * (Scribe word spans), against 86% with them and 91% for clips with none.
  */
 export function alignSyllables(
   text: string,
@@ -73,7 +66,7 @@ export function alignSyllables(
   sampleRate: number,
 ): AlignedSyllable[] {
   const { speechMs, syllables } = textTimeline(text);
-  const levels = rmsFrames(samples, sampleRate);
+  const levels = rmsFrames(samples, sampleRate, FRAME_MS, true);
   if (syllables.length === 0 || levels.length === 0) return [];
 
   const loud = loudness(levels);

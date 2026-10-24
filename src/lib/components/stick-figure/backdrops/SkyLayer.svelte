@@ -3,7 +3,7 @@
 
   import { scatter } from "$lib/stick-figure/scatter";
   import { WEATHER_FADE_MS, isFair, type SceneMood } from "$lib/stick-figure/scene-mood";
-  import { SUN_SPOTS } from "$lib/stick-figure/scene-things";
+  import { sunIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import Cloud from "./Cloud.svelte";
 
@@ -17,13 +17,7 @@
   const id = $props.id();
 
   const fair = $derived(isFair(mood.weather));
-  const sun = $derived.by(() => {
-    const spots = SUN_SPOTS[setting];
-    if (!spots) return undefined;
-    if (mood.time === "morning" && fair) return { ...spots.morning, r: 17 };
-    if (mood.time === "day" && mood.weather === "sunny") return { ...spots.day, r: 19 };
-    return undefined;
-  });
+  const sun = $derived(sunIn(setting, mood));
 
   const stars = scatter(30, 3, 960, 80);
 </script>
