@@ -199,9 +199,9 @@
   {#if subtitles}
     {@const turn = turns[shown]}
 
-    <!-- Room for two lines, so the controls stay put as the lines change. -->
+    <!-- A line tall before the first line comes, so the controls do not jump then. -->
     <div
-      class="min-h-[5.75rem] border-t border-slate-200/70 px-4 py-3 max-[600px]:min-h-[5rem] sm:px-5"
+      class="min-h-[3.6rem] border-t border-slate-200/70 px-4 py-3 max-[600px]:min-h-[3.25rem] sm:px-5"
     >
       {#if turn}
         {#key shown}
