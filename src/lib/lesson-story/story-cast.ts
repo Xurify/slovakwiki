@@ -31,6 +31,11 @@ const styles: Record<StoryCastId, Omit<StoryCastStyle, "id" | "side">> = {
     inkClass: "fill-blue-800",
     accentClass: "fill-rose-500",
   },
+  announcer: {
+    fillClass: "fill-slate-100",
+    inkClass: "fill-slate-700",
+    accentClass: "fill-blue-600",
+  },
   guide: {
     fillClass: "fill-slate-100",
     inkClass: "fill-slate-700",

@@ -4,9 +4,7 @@
  * buttons, "more" links) identical wherever they appear.
  */
 
-/** Small-caps label above titles, rail lists, card headers and columns. */
-export const eyebrowClass =
-  "m-0 font-sans text-[0.64rem] leading-tight font-bold tracking-[0.14em] uppercase";
+export const eyebrowClass = "m-0 font-sans text-sm leading-snug font-semibold";
 
 export const eyebrowMutedClass = `${eyebrowClass} text-slate-500`;
 

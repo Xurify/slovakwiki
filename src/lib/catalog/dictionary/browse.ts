@@ -1,6 +1,6 @@
 import { words } from "$lib/catalog/entries";
 import { dictionaryHrefForSense } from "$lib/catalog/dictionary/lemma-senses";
-import { searchFormsForLemma } from "$lib/catalog/search/forms";
+import { formsVerified, searchFormsForLemma } from "$lib/catalog/search/forms";
 import type { NounGender, PluralOnlyGender } from "$lib/catalog/types";
 
 import {
@@ -67,6 +67,8 @@ export interface DictionaryIndexSidecarEntry {
   category: string;
   english: string;
   forms?: string[];
+  /** The forms are real Slovak, not only search keys, so they may be shown. */
+  formsVerified?: true;
   frequencyRank?: number;
   gender?: NounGender;
   hash?: string;
@@ -80,7 +82,7 @@ export interface DictionaryIndexSidecarEntry {
 
 export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
   return words.map((word) => {
-    const forms = searchFormsForLemma(word.slovak, word.category);
+    const forms = searchFormsForLemma(word.slovak, word.category, word.gender);
     const href = dictionaryHrefForSense(word, words);
     return {
       slug: word.slug,
@@ -95,6 +97,9 @@ export function buildDictionaryIndexSidecar(): DictionaryIndexSidecarEntry[] {
       ...(word.gender ? { gender: word.gender } : {}),
       ...(word.pluralOnlyGender ? { pluralOnlyGender: word.pluralOnlyGender } : {}),
       ...(forms.length > 0 ? { forms } : {}),
+      ...(forms.length > 0 && formsVerified(word.slovak, word.category, word.gender)
+        ? { formsVerified: true as const }
+        : {}),
       ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
       ...(href.hash ? { hash: href.hash } : {}),
     };

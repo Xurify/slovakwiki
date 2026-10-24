@@ -92,4 +92,11 @@ describe("lemma senses", () => {
       }),
     ).toBe("/dictionary/malo#adverb");
   });
+
+  it("resolves senses within the word list it is given", () => {
+    const maloAdv = words.find((word) => word.slug === "malo-adv")!;
+    expect(dictionaryPathForSense(maloAdv, words)).toBe("/dictionary/malo#adverb");
+    expect(dictionaryPathForSense(maloAdv, [maloAdv])).toBe("/dictionary/malo-adv");
+    expect(lemmaSenseGroup(maloAdv, [])).toEqual([]);
+  });
 });

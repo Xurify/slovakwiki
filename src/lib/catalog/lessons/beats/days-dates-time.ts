@@ -23,7 +23,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Stretneme sa v utorok." },
         },
       ],
-      note: "Use v before the day when arranging a meeting.",
+      note: "On a day: v + accusative — v utorok, v stredu, but vo štvrtok.",
     },
   },
   {
@@ -43,7 +43,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "O pol tretej.",
           english: "2:30 — half past two.",
-          note: "Literally, halfway to three.",
+          note: "Literally “half of the third (hour)” — halfway to three.",
           audio: { transcript: "O pol tretej." },
         },
         {
@@ -114,7 +114,7 @@ export const daysDatesTimeBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Okolo tretej." },
         },
       ],
-      note: "Duration uses o + accusative. Okolo is approximate.",
+      note: "In X hours/minutes from now: o + accusative (o dve hodiny). Okolo is approximate.",
     },
   },
   {
@@ -141,9 +141,9 @@ export function withDaysDatesTimeExercises(
   return [
     { ...shells[0]!, exercises: rest.slice(0, 2) },
     { ...(clockTeach ?? shells[1]!), exercises: rest.slice(2, 5) },
-    { ...shells[2]!, exercises: rest.slice(5, 8) },
-    { ...shells[3]!, exercises: rest.slice(8, 9) },
-    { ...shells[4]!, exercises: rest.slice(9, 12) },
+    { ...shells[2]!, exercises: rest.slice(5, 9) },
+    { ...shells[3]!, exercises: rest.slice(9, 10) },
+    { ...shells[4]!, exercises: rest.slice(10, 13) },
     { ...shells[5]!, exercises: personal ? [personal] : [] },
   ];
 }

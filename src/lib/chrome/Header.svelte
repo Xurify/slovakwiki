@@ -228,13 +228,10 @@
                   {item.label}
 
                   {#if isActive(item.href)}
-                    <svg
-                      class="size-3.5 shrink-0 fill-none stroke-current stroke-[2.5]"
-                      viewBox="0 0 24 24"
+                    <span
+                      class="size-1.5 shrink-0 rounded-full bg-current"
                       aria-hidden="true"
-                    >
-                      <path d="M5 12l5 5L20 7" />
-                    </svg>
+                    ></span>
                   {/if}
                 </a>
               {/each}

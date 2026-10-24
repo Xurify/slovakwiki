@@ -7,7 +7,7 @@ const TOKEN_RE = /[\p{L}\p{M}]+/gu;
 /** Skip short surface forms (`je`, `si`, `sú`) — too many false positives. */
 const MIN_FORM_LENGTH = 3;
 
-function formKeysForLemma(lemma: string, category: string): Set<string> {
+function formKeysForLemma(lemma: string, category: string, gender?: string): Set<string> {
   const keys = new Set<string>();
   const lemmaLower = lemma.toLocaleLowerCase("sk");
 
@@ -23,7 +23,7 @@ function formKeysForLemma(lemma: string, category: string): Set<string> {
   };
 
   add(lemma);
-  for (const form of searchFormsForLemma(lemma, category)) {
+  for (const form of searchFormsForLemma(lemma, category, gender)) {
     add(form);
   }
 
@@ -42,11 +42,12 @@ export function highlightLemmaInText(
   slovakLine: string,
   lemma: string,
   category = "",
+  gender?: string,
 ): HighlightPart[] {
   const needle = lemma.trim();
   if (!needle) return [{ text: slovakLine, hit: false }];
 
-  const keys = formKeysForLemma(needle, category);
+  const keys = formKeysForLemma(needle, category, gender);
   TOKEN_RE.lastIndex = 0;
 
   let match: RegExpExecArray | null;

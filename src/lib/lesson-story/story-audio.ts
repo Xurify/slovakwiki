@@ -30,6 +30,7 @@ let pending:
   | {
       generation: number;
       onEnded?: () => void;
+      rate: number;
       src: string;
       startedAt: number;
     }
@@ -127,6 +128,7 @@ function tryPlay(
   generation: number,
   startedAt: number,
   onEnded?: () => void,
+  rate = 1,
 ): void {
   if (audioMuted()) {
     scheduleEnded(generation, startedAt, onEnded);
@@ -135,6 +137,7 @@ function tryPlay(
 
   const audio = sharedStoryAudio();
   audio.src = src;
+  audio.playbackRate = rate;
   applyAudioVolume(audio);
   currentAudio = audio;
   attachPlayback(audio, generation, startedAt, onEnded);
@@ -149,7 +152,7 @@ function tryPlay(
 
       const kind = classifyPlayFailure(reason);
       if (kind === "autoplay") {
-        pending = { generation, onEnded, src, startedAt };
+        pending = { generation, onEnded, rate, src, startedAt };
         return;
       }
 
@@ -170,6 +173,25 @@ export function isStoryLineAudioActive(): boolean {
   return Boolean(currentAudio && !currentAudio.paused);
 }
 
+export interface StoryAudioClock {
+  /** NaN until the clip's metadata loads. */
+  durationMs: number;
+  timeMs: number;
+}
+
+/**
+ * Position of the line now playing, so visuals follow the real playback
+ * (it can start late, stall, or wait for a tap). Undefined when the line
+ * has no clip to play: muted or missing.
+ */
+export function storyAudioClock(): StoryAudioClock | undefined {
+  if (!currentAudio) return undefined;
+  return {
+    durationMs: currentAudio.duration * 1000,
+    timeMs: currentAudio.currentTime * 1000,
+  };
+}
+
 /**
  * Call from a user gesture (Listen / Next / say-choice) so autoplay-blocked
  * lines can play the real ElevenLabs MP3.
@@ -177,7 +199,7 @@ export function isStoryLineAudioActive(): boolean {
 export function unlockStoryAudio(): void {
   if (!pending || audioMuted()) return;
 
-  const { generation, onEnded, src, startedAt } = pending;
+  const { generation, onEnded, rate, src, startedAt } = pending;
   if (generation !== playGeneration) {
     pending = undefined;
     return;
@@ -194,7 +216,7 @@ export function unlockStoryAudio(): void {
   }
 
   playGeneration += 1;
-  tryPlay(src, playGeneration, startedAt, onEnded);
+  tryPlay(src, playGeneration, startedAt, onEnded, rate);
 }
 
 export function primeStoryAudio(): void {
@@ -222,6 +244,7 @@ export function primeStoryAudio(): void {
 export interface PlayStoryLineOptions {
   /** Fires when playback finishes (honors a minimum on-screen dwell). */
   onEnded?: () => void;
+  playbackRate?: number;
 }
 
 /** Play a lesson line; replaces any in-flight story audio. MP3 only — no TTS. */
@@ -234,7 +257,7 @@ export function playStoryLineAudio(
 
   ensureMuteListener();
 
-  const { onEnded } = options;
+  const { onEnded, playbackRate = 1 } = options;
   stopAll();
   const generation = playGeneration;
   const startedAt = Date.now();
@@ -244,7 +267,7 @@ export function playStoryLineAudio(
     return;
   }
 
-  tryPlay(src, generation, startedAt, onEnded);
+  tryPlay(src, generation, startedAt, onEnded, playbackRate);
 }
 
 export function stopStoryLineAudio(): void {

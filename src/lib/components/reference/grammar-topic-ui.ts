@@ -1,7 +1,13 @@
+import { markRoleClass, type TextRole } from "$lib/learning/marked-text";
+
 /** Shared classes for grammar study pages. Slovak stays serif; English stays readable. */
 
 /** The part of a form the pattern is about: an ending, a prefix. */
 export const grammarEndingClass = "text-blue-800";
+
+export function grammarMarkClass(role: TextRole): string {
+  return role === "owner" || role === "ending" ? markRoleClass(role) : grammarEndingClass;
+}
 
 export const grammarFormClass =
   "font-serif text-xl leading-snug font-semibold text-slate-900";

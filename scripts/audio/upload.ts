@@ -5,6 +5,10 @@
  * Sets Cache-Control (immutable, 1y) + custom metadata (kind/hash/voice/text…).
  * Bun.S3Client lacks Cache-Control / x-amz-meta on this Bun version → aws4fetch PUT.
  *
+ * static/audio/ is gitignored, so it keeps other branches' clips after a switch. A clip
+ * the manifest does not list takes its text and voice from the line that produces it;
+ * a clip no line on this branch produces is skipped, left for the branch that made it.
+ *
  * Env:
  *   R2_ACCOUNT_ID
  *   R2_ACCESS_KEY_ID
@@ -33,6 +37,7 @@ import {
   AUDIO_DIR,
   DEFAULT_UPLOAD_CONCURRENCY,
   buildAudioObjectMetadata,
+  collectAudioTargetsByObjectKey,
   kindFromObjectKey,
   listAudioObjectKeys,
   loadConfig,
@@ -43,9 +48,9 @@ import {
   saveManifestFile,
   sortObjectKeysByKind,
   toR2AudioKey,
-  type AudioKind,
 } from "./shared";
 import { compareRemoteClip, type RemoteClip } from "./remote-clip";
+import { identifyUnknownClips, type ClipIdentity } from "./unknown-clips";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -93,12 +98,31 @@ async function main(): Promise<void> {
   if (examplesOnly) keys = keys.filter((k) => kindFromObjectKey(k) === "example");
   if (lessonsOnly) keys = keys.filter((k) => kindFromObjectKey(k) === "lesson");
 
+  const { identities, unmatched } = identifyUnknownClips(
+    keys,
+    manifest,
+    () => collectAudioTargetsByObjectKey(config),
+    config,
+  );
+
+  if (unmatched.length > 0) {
+    console.warn(
+      `skip ${unmatched.length} clips that no line on this branch produces ` +
+        "(generated for another branch, or an old take):",
+    );
+    for (const key of unmatched.slice(0, 12)) console.warn(`  ${key}`);
+    if (unmatched.length > 12) console.warn(`  … +${unmatched.length - 12} more`);
+
+    const skip = new Set(unmatched);
+    keys = keys.filter((key) => !skip.has(key));
+  }
+
   if (only) {
     const needle = only.toLocaleLowerCase("sk");
     keys = keys.filter((objectKey) => {
       const hash = path.basename(objectKey, ".mp3");
       if (hash.toLowerCase().includes(needle)) return true;
-      const text = manifest[hash]?.text ?? "";
+      const text = (manifest[hash] ?? identities.get(objectKey))?.text ?? "";
       return text.toLocaleLowerCase("sk").includes(needle);
     });
     if (keys.length === 0) {
@@ -168,7 +192,7 @@ async function main(): Promise<void> {
 
   function stampUploaded(
     hash: string,
-    kind: AudioKind,
+    clip: ClipIdentity,
     size: number,
     generatedAt: string,
   ): void {
@@ -178,8 +202,7 @@ async function main(): Promise<void> {
       entry.uploadedAt = new Date().toISOString();
     } else {
       manifest[hash] = {
-        text: "",
-        kind,
+        ...clip,
         bytes: size,
         generatedAt,
         uploadedAt: new Date().toISOString(),
@@ -196,7 +219,7 @@ async function main(): Promise<void> {
       const hash = path.basename(objectKey, ".mp3");
       const filePath = path.join(AUDIO_DIR, objectKey);
       const entry = manifest[hash];
-      const kind: AudioKind = entry?.kind ?? kindFromObjectKey(objectKey);
+      const clip = entry ?? identities.get(objectKey)!;
 
       if (entry?.uploadedAt && !force) {
         skipped += 1;
@@ -223,7 +246,7 @@ async function main(): Promise<void> {
           );
 
           if (remote === "same") {
-            stampUploaded(hash, kind, remoteClip?.bytes ?? info.size, generatedAt);
+            stampUploaded(hash, clip, remoteClip?.bytes ?? info.size, generatedAt);
             alreadyInR2 += 1;
             return;
           }
@@ -243,8 +266,8 @@ async function main(): Promise<void> {
           config,
           generatedAt,
           hash,
-          kind,
-          text: entry?.text ?? "",
+          kind: clip.kind,
+          text: clip.text,
         });
 
         const headers: Record<string, string> = {
@@ -268,7 +291,7 @@ async function main(): Promise<void> {
           throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
         }
 
-        stampUploaded(hash, kind, info.size, generatedAt);
+        stampUploaded(hash, clip, info.size, generatedAt);
         uploaded += 1;
         console.log(`ok ${uploaded} ${r2Key} (${info.size} B)`);
       } catch (error) {
@@ -294,7 +317,7 @@ async function main(): Promise<void> {
 
   console.log(
     `Done. uploaded=${uploaded} already-in-r2=${alreadyInR2} remote-newer=${remoteNewer}` +
-      ` skipped=${skipped} failed=${failed}` +
+      ` skipped=${skipped} unmatched=${unmatched.length} failed=${failed}` +
       ` rate=${rate}/s elapsed=${elapsedSec}s`,
   );
   if (failed > 0) process.exitCode = 1;

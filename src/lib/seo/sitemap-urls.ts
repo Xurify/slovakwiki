@@ -7,6 +7,7 @@ import {
 import { FREQUENCY_PARTS } from "$lib/catalog/frequency/types";
 import { canonicalWordSlug } from "$lib/catalog/dictionary/lemma-senses";
 import { lessonPath, lessonTracks, lessons } from "$lib/catalog/lessons";
+import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
 import { practiceSets } from "$lib/catalog/practice";
 import { SITE_ORIGIN } from "$lib/seo/site";
 
@@ -33,6 +34,7 @@ export function buildSitemapGroups(): SitemapGroup[] {
     "/dictionary",
     "/grammar",
     "/lessons",
+    "/listening",
     "/practice",
     "/pronunciation",
     "/glossary",
@@ -63,6 +65,10 @@ export function buildSitemapGroups(): SitemapGroup[] {
 
   const practice = uniqueSorted([...practiceSets.map((set) => `/practice/${set.id}`)]);
 
+  const listening = uniqueSorted(
+    listeningEpisodes.map((episode) => episodePath(episode)),
+  );
+
   const pronunciation = uniqueSorted(
     pronunciationEntries.map((entry) => `/pronunciation/${entry.slug}`),
   );
@@ -84,6 +90,11 @@ export function buildSitemapGroups(): SitemapGroup[] {
       filename: "sitemap-practice.xml",
       label: "practice",
       urls: practice.map(absolute),
+    },
+    {
+      filename: "sitemap-listening.xml",
+      label: "listening",
+      urls: listening.map(absolute),
     },
     {
       filename: "sitemap-pronunciation.xml",

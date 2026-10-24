@@ -2,13 +2,13 @@ import type { BuildExercise, PracticeItem } from "$lib/learning/types";
 import { shuffleArray } from "$lib/learning/time/clock";
 
 const MEETING_DAYS = [
-  { tile: "pondelok.", en: "Monday", inPhrase: "pondelok" },
-  { tile: "utorok.", en: "Tuesday", inPhrase: "utorok" },
-  { tile: "stredu.", en: "Wednesday", inPhrase: "stredu" },
-  { tile: "štvrtok.", en: "Thursday", inPhrase: "štvrtok" },
-  { tile: "piatok.", en: "Friday", inPhrase: "piatok" },
-  { tile: "sobotu.", en: "Saturday", inPhrase: "sobotu" },
-  { tile: "nedeľu.", en: "Sunday", inPhrase: "nedeľu" },
+  { tile: "pondelok.", en: "Monday", prep: "v", inPhrase: "pondelok" },
+  { tile: "utorok.", en: "Tuesday", prep: "v", inPhrase: "utorok" },
+  { tile: "stredu.", en: "Wednesday", prep: "v", inPhrase: "stredu" },
+  { tile: "štvrtok.", en: "Thursday", prep: "vo", inPhrase: "štvrtok" },
+  { tile: "piatok.", en: "Friday", prep: "v", inPhrase: "piatok" },
+  { tile: "sobotu.", en: "Saturday", prep: "v", inPhrase: "sobotu" },
+  { tile: "nedeľu.", en: "Sunday", prep: "v", inPhrase: "nedeľu" },
 ] as const;
 
 function assertBuildTask(item: PracticeItem): BuildExercise {
@@ -33,13 +33,16 @@ function materializeDayMeetingItem(
     rng,
   ).slice(0, 2);
 
-  const answer = ["Stretneme", "sa", "v", day.tile];
-  const tiles = shuffleArray(["v", "Stretneme", "sa", day.tile, ...distractorTiles], rng);
-  const correction = `Stretneme sa v ${day.inPhrase}.`;
+  const answer = ["Stretneme", "sa", day.prep, day.tile];
+  const tiles = shuffleArray(
+    [day.prep, "Stretneme", "sa", day.tile, ...distractorTiles],
+    rng,
+  );
+  const correction = `Stretneme sa ${day.prep} ${day.inPhrase}.`;
   const feedback = {
     correction,
     english: `We are meeting on ${day.en}.`,
-    why: "Use **v** + the day of the week for an appointment day: **v utorok**.",
+    why: "Use **v** + accusative for “on” a day: **v utorok**, **v stredu** — but **vo štvrtok**.",
   };
 
   return {

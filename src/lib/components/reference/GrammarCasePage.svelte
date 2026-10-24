@@ -19,7 +19,6 @@
 
   const overview = grammarEntries.find((entry) => entry.slug === "cases-overview");
   const caseMap = overview?.caseOverview ?? [];
-  const roles = new Map(caseMap.map((item) => [item.slug, item.role] as const));
 
   const question = $derived.by(() => {
     const [sk = "", en] = topic.question.split(" · ");
@@ -27,7 +26,6 @@
   });
 
   const position = $derived(caseTopics.findIndex((entry) => entry.slug === topic.slug));
-  const role = $derived(roles.get(topic.slug));
   const previous = $derived(caseTopics[position - 1]);
   const next = $derived(caseTopics[position + 1]);
 
@@ -53,15 +51,7 @@
         <TextLink href="/grammar/cases-overview">Cases</TextLink>
       </nav>
 
-      <p class="m-0 text-sm text-slate-500">
-        Case {position + 1} of {caseTopics.length}
-        {#if role}
-          <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
-          {role}
-        {/if}
-      </p>
-
-      <h1 class="m-0 mt-1 text-[1.85rem] leading-tight sm:text-[2.15rem]">
+      <h1 class="m-0 text-[1.85rem] leading-tight sm:text-[2.15rem]">
         {topic.name}
       </h1>
 

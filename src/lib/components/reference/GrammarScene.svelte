@@ -87,11 +87,19 @@
 {/snippet}
 
 <!-- Feet at the origin, 30 units tall. The thing is worn, held in the right hand, or stands beside. -->
-{#snippet figure(x: number, scale: number, className: string, withThing: boolean)}
+{#snippet figure(
+  x: number,
+  scale: number,
+  className: string,
+  withThing: boolean,
+  dress = false,
+)}
   <g class={className} transform="translate({x} 42) scale({scale})">
     <circle cx="0" cy="-26" r="3.4" />
 
-    {#if withThing && object === "shirt"}
+    {#if dress}
+      <path d="M-4.5 -21h9l3.5 11h-16Z" />
+    {:else if withThing && object === "shirt"}
       {@render thing(0, -15.5, 0.78)}
     {:else}
       <path d="M-5.5 -21h11l-1.5 11h-8Z" />
@@ -196,6 +204,22 @@
       <path d="M26 24c8 1 15 4 22 8" class={lit} />
       <path d="M43 28l5 4-6.5 1.5" class={lit} />
     {:else if at === "other"}
+      <path d="M94 24c-8 1-15 4-22 8" class={lit} />
+      <path d="M77 28l-5 4 6.5 1.5" class={lit} />
+    {/if}
+  {:else if kind === "gender"}
+    <path d="M4 42h112" class="text-slate-300" />
+
+    {@render figure(16, 1, tone("his"), false)}
+    {@render caption(16, 50, "he", tone("his"))}
+    {@render figure(104, 1, tone("hers"), false, true)}
+    {@render caption(104, 50, "she", tone("hers"))}
+    {@render thing(60, 33, 1)}
+
+    {#if at === "his"}
+      <path d="M26 24c8 1 15 4 22 8" class={lit} />
+      <path d="M43 28l5 4-6.5 1.5" class={lit} />
+    {:else if at === "hers"}
       <path d="M94 24c-8 1-15 4-22 8" class={lit} />
       <path d="M77 28l-5 4 6.5 1.5" class={lit} />
     {/if}

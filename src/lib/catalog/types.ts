@@ -202,7 +202,7 @@ export interface GrammarTerm {
 
 /** The small drawing beside each sentence of a contrast frame. */
 export type GrammarScene =
-  "space" | "time" | "owner" | "address" | "aspect" | "past" | "clock";
+  "space" | "time" | "owner" | "gender" | "address" | "aspect" | "past" | "clock";
 
 /** The thing the frame talks about, drawn in the scene where the sentence puts it. */
 export type GrammarObject =
@@ -218,7 +218,7 @@ export type GrammarObject =
 
 /**
  * What the scene highlights for one sentence: where the thing is (`me`, `them`,
- * `far`), when (`now`, `before`), who owns it (`own`, `other`), who you talk to
+ * `far`), when (`now`, `before`), who owns it (`own`, `other`; `his`, `hers`), who you talk to
  * (`friend`, `formal`, `group`), how the action runs (`now`, `ongoing`, `done`,
  * `habit`; the `past` scene draws them before now), or a clock time against a
  * length of time (`clock`, `span`).
@@ -231,6 +231,8 @@ export type GrammarCue =
   | "before"
   | "own"
   | "other"
+  | "his"
+  | "hers"
   | "friend"
   | "formal"
   | "group"

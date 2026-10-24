@@ -1,6 +1,7 @@
 import { caseTopics, grammarEntries, pronunciationEntries, words } from "../entries";
 import { dictionaryPathForSense } from "../dictionary/lemma-senses";
 import { lessons } from "../lessons";
+import { episodeLines, episodePath, listeningEpisodes } from "../listening";
 import { practiceSets } from "../practice";
 import { patternSearchLines } from "../reference/grammar-pattern";
 import { searchFormsForLemma } from "./forms";
@@ -92,7 +93,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         headword: [entry.slovak],
         forms: [
           ...(entry.aliases ?? []),
-          ...searchFormsForLemma(entry.slovak, entry.category),
+          ...searchFormsForLemma(entry.slovak, entry.category, entry.gender),
         ],
         gloss: [entry.english],
         body: [entry.summary, entry.category, ...entry.tags],
@@ -189,6 +190,25 @@ export function buildSearchDocuments(): SearchDocument[] {
         headword: [lesson.title],
         gloss: [lesson.promise, lesson.group, lesson.pattern?.title],
         examples: lesson.keyPhrases.flatMap((phrase) => [phrase.slovak, phrase.english]),
+      }),
+    });
+  }
+
+  for (const episode of listeningEpisodes) {
+    const lines = episodeLines(episode);
+    documents.push({
+      url: episodePath(episode),
+      kind: "listening",
+      title: episode.titleSk,
+      summary: episode.promise,
+      ...sections({
+        headword: [episode.titleSk, episode.title, episode.topic],
+        gloss: [episode.promise, episode.level],
+        body: episode.chapters.flatMap((chapter) => [chapter.titleSk, chapter.title]),
+        examples: [
+          ...episode.vocabulary.flatMap((phrase) => [phrase.slovak, phrase.english]),
+          ...lines.flatMap((line) => [line.slovak, line.english]),
+        ],
       }),
     });
   }

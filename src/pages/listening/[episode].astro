@@ -1,0 +1,45 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import EpisodePlayer from "$lib/components/listening/EpisodePlayer.svelte";
+import ListeningEpisodePage from "$lib/components/listening/ListeningEpisodePage.svelte";
+import { contentCacheKey } from "$lib/build/cache-key";
+import { listeningEpisodes } from "$lib/catalog/listening";
+import { episodeAudioSrcs } from "$lib/catalog/listening/audio";
+import { lessonById, lessonPath } from "$lib/catalog/lessons";
+import { practiceSetById } from "$lib/catalog/practice";
+
+export function getStaticPaths() {
+  return listeningEpisodes.map((episode) => {
+    const lesson = episode.lessonId ? lessonById.get(episode.lessonId) : undefined;
+    const practiceSet = episode.practiceSetId
+      ? practiceSetById.get(episode.practiceSetId)
+      : undefined;
+
+    const next = {
+      grammarHref: `/grammar/${episode.grammarSlug}`,
+      lessonHref: lesson ? lessonPath(lesson) : undefined,
+      practiceHref: practiceSet ? `/practice/${practiceSet.id}` : undefined,
+    };
+
+    const props = { episode, audio: episodeAudioSrcs(episode), next };
+
+    return {
+      params: { episode: episode.slug },
+      props,
+      cacheKey: contentCacheKey(props),
+    };
+  });
+}
+
+const { episode, audio, next } = Astro.props;
+---
+
+<SiteLayout
+  title={`${episode.titleSk} (${episode.topic}) | Slovak Wiki Listening`}
+  description={episode.promise}
+  canonicalPath={`/listening/${episode.slug}`}
+>
+  <ListeningEpisodePage data={{ episode }}>
+    <EpisodePlayer slot="player" client:load {episode} audioSrcs={audio} {next} />
+  </ListeningEpisodePage>
+</SiteLayout>

@@ -907,6 +907,29 @@ export const learningResources: LearningResource[] = [
     level: "All",
   },
   {
+    id: "doucma-slovak",
+    group: "tutors",
+    name: "DoučMa — Slovak tutors",
+    href: "https://www.doucma.sk/hladam-doucovanie?q=sloven%C4%8Dina+pre+cudzincov",
+    summary:
+      "Slovak 1:1 tutor marketplace, in person and online. This link opens tutors tagged slovenčina pre cudzincov.",
+    note: "Most of the site is school Slovak for native students. Tutors for foreigners use two subject tags, so open both searches.",
+    cost: "paid",
+    level: "All",
+    links: [
+      {
+        href: "https://www.doucma.sk/hladam-doucovanie?q=slovensky+jazyk",
+        label: "School Slovak tutors",
+        note: "Slovenský jazyk for Slovak students, in person and online.",
+      },
+      {
+        href: "https://www.doucma.sk/otazky/predmet/189-slovensky-jazyk",
+        label: "Grammar questions",
+        note: "Homework in Slovak: cases, adjective patterns, sentence analysis.",
+      },
+    ],
+  },
+  {
     id: "linguarte-school",
     group: "tutors",
     name: "Linguarte",

@@ -1,7 +1,7 @@
 /** Shared class bundles for the full search page. */
 
 export const sectionLabelClass =
-  "m-0 flex items-baseline gap-2 font-sans text-[0.68rem] font-bold tracking-[0.12em] text-slate-500 uppercase";
+  "m-0 flex items-baseline gap-2 font-sans text-sm font-semibold text-slate-500";
 
 export const matchMarkClass = "-mx-0.5 rounded-[3px] bg-mark px-0.5 text-inherit";
 

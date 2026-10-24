@@ -9,6 +9,7 @@ import {
   namesHourAhead,
   patternView,
   parsePatternRow,
+  patternForms,
   tableView,
 } from "./grammar-pattern";
 
@@ -90,7 +91,7 @@ describe("parsePattern", () => {
     ).toEqual(["toho", "tohto", "tamtoho"]);
     expect(objectView.rows[0]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
     expect(objectView.rows.map((row) => row.label)).toEqual([
-      "Masculine, a person",
+      "Masculine, a person or animal",
       "Masculine, a thing",
       "Feminine",
       "Neuter",
@@ -108,7 +109,10 @@ describe("parsePattern", () => {
         row.cells.map((cell) => `${cell.before}${cell.mark}${cell.after}`),
       ),
     ).toEqual([
+      ["tomu", "tomuto", "tamtomu"],
+      ["tej", "tejto", "tamtej"],
       ["tým", "týmto", "tamtým"],
+      ["tou", "touto", "tamtou"],
       ["tým", "týmto", "tamtým"],
       ["tými", "týmito", "tamtými"],
     ]);
@@ -212,5 +216,23 @@ describe("namesHourAhead", () => {
       true,
       false,
     ]);
+  });
+});
+
+describe("patternForms", () => {
+  it("lists a table's forms once each, lowercased", () => {
+    const topic = grammarEntries.find((entry) => entry.slug === "demonstratives");
+    const accusative = topic?.morePatterns?.[0];
+    expect(accusative).toBeDefined();
+    if (!accusative) return;
+
+    const forms = patternForms(accusative);
+    expect(forms).toContain("tamtú");
+    expect(forms).toContain("toho");
+    expect(forms.filter((form) => form === "ten")).toHaveLength(1);
+  });
+
+  it("returns nothing for line patterns", () => {
+    expect(patternForms({ label: "x", lines: ["jeho brat · his brother"] })).toEqual([]);
   });
 });

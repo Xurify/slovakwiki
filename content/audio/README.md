@@ -99,23 +99,24 @@ Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs 
 | ------------ | ------- | ------ | ----------------- | -------- | ----------------------------------- |
 | `alex`       | Alex    | male   | Slovak Wiki Alex  | `You`    | You. Learner turns in dialogue.     |
 | `anna`       | Anna    | female | Slovak Wiki Anna  | `Anna`   | Your Slovak friend. Informal ty.    |
-| `lucia`      | Lucia   | female | Slovak Wiki Lucia | _(none)_ | Works in a shop.                    |
+| `lucia`      | Lucia   | female | Slovak Wiki Lucia | `Lucia`  | Works in a shop; market stall.      |
 | `marek`      | Marek   | male   | Slovak Wiki Marek | `Marek`  | Classmate and coworker.             |
 | `maria`      | Mária   | female | Slovak Wiki Mária | `Mária`  | Course/office registrar. Formal vy. |
 
 ### One-off
 
-| Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                            |
-| -------------- | ------------ | ------ | ------------------------ | --------------------- | -------------------------------- |
-| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.   |
-| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). |
+| Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                                                                         |
+| -------------- | ------------ | ------ | ------------------------ | --------------------- | ----------------------------------------------------------------------------- |
+| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.                                                |
+| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). Second take; the first became the announcer. |
 
 ### System
 
-| Character id | Display  | Gender  | Voice                          | Speakers                      | Blurb                          |
-| ------------ | -------- | ------- | ------------------------------ | ----------------------------- | ------------------------------ |
-| `narrator`   | Narrator | female  | Slovak Wiki Dictionary Neutral | `Notice`, `Sentence`, `Scene` | Site host. Dictionary + signs. |
-| `guide`      | Guide    | neutral | Slovak Wiki Guide              | _(none)_                      | Key phrases — not a city NPC.  |
+| Character id | Display   | Gender  | Voice                          | Speakers                      | Blurb                                                                            |
+| ------------ | --------- | ------- | ------------------------------ | ----------------------------- | -------------------------------------------------------------------------------- |
+| `narrator`   | Narrator  | female  | Slovak Wiki Dictionary Neutral | `Notice`, `Sentence`, `Scene` | Site host. Dictionary + signs.                                                   |
+| `guide`      | Guide     | neutral | Slovak Wiki Guide              | _(none)_                      | Key phrases — not a city NPC.                                                    |
+| `announcer`  | Announcer | male    | Slovak Wiki Announcer          | `Announcement`                | The loudspeaker: tram and station announcements, public notices. Never on stage. |
 
 Mint a new Voice Design take, then point `voiceId` here and regen lesson clips for that character.
 

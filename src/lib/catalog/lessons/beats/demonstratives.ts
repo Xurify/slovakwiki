@@ -28,6 +28,7 @@ export const demonstrativesLineIds = {
   waiterThreeEuros: "demonstratives-waiter-three-euros",
   youThisCake: "demonstratives-you-this-cake",
   annaThatCake: "demonstratives-anna-that-cake",
+  waiterConfirmsOrder: "demonstratives-waiter-confirms-order",
 } as const;
 
 const SINGULAR: FormTableHeading = { english: "Singular", slovak: "jednotné číslo" };
@@ -38,10 +39,14 @@ const CATEGORIES: FormTableHeading[] = [
   { english: "Masculine", slovak: "mužský rod", example: "muž, dom" },
   { english: "Feminine", slovak: "ženský rod", example: "žena" },
   { english: "Neuter", slovak: "stredný rod", example: "auto, dievča" },
-  { english: "Masculine personal", slovak: "mužský rod životný", example: "muži" },
+  {
+    english: "Masculine personal",
+    slovak: "mužský rod životný (osoby)",
+    example: "muži",
+  },
   {
     english: "Every other plural",
-    slovak: "ostatné množné číslo",
+    slovak: "ostatné podstatné mená",
     example: "ženy, deti, kľúče",
   },
 ];
@@ -124,12 +129,21 @@ const CASE_HEADINGS: Record<GrammaticalCase, FormTableHeading> = {
   instrumental: { english: "Instrumental", slovak: "inštrumentál", example: "s …" },
 };
 
+const PLURAL_CASE_HEADINGS: Record<GrammaticalCase, FormTableHeading> = {
+  ...CASE_HEADINGS,
+  nominative: { ...CASE_HEADINGS.nominative, example: "Kde sú …?" },
+};
+
 function caseTable(
   series: DemonstrativeSeries,
   title: string,
   categories: number[],
   note?: string,
 ): FormTableVisual {
+  const headings = categories.every((category) => PLURAL_CATEGORIES.includes(category))
+    ? PLURAL_CASE_HEADINGS
+    : CASE_HEADINGS;
+
   return {
     type: "form-table",
     title,
@@ -139,7 +153,7 @@ function caseTable(
         rows: CASES.map((grammaticalCase) => {
           const forms = paradigmRow(series, grammaticalCase);
           return {
-            heading: CASE_HEADINGS[grammaticalCase],
+            heading: headings[grammaticalCase],
             cells: categories.map((category) => forms[category]!),
           };
         }),
@@ -154,7 +168,7 @@ const caseTables = [
     "ten",
     "**Ten** through the cases · singular",
     SINGULAR_CATEGORIES,
-    "Masculine accusative splits: people take **toho** (toho muža), things keep **ten** (ten dom).",
+    "Masculine accusative splits: people and animals take **toho** (toho muža, toho psa), things keep **ten** (ten dom).",
   ),
   caseTable(
     "ten",
@@ -230,7 +244,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Čo je to?" },
         },
       ],
-      note: "On its own, **to** means *this*, *that*, or *it*, and it never changes, whatever comes after it: To je môj brat. To je jeho žena. To sú fotky. Only the verb changes: **je** for one, **sú** for more. When a noun comes right after it, use the form that matches the noun: **tá** žena.",
+      note: "On its own, **to** means *this*, *that*, or *it*. In **to je** and **to sú** it stays **to**, whatever comes after it: To je môj brat. To je jeho žena. To sú fotky. Only the verb changes: **je** for one, **sú** for more. When a noun comes right after it, use the form that matches the noun: **tá** žena.",
     },
   },
   {
@@ -278,7 +292,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "Poznám toho muža.",
           english: "I know that man.",
-          note: "Accusative, people: **toho** — the noun changes too.",
+          note: "Accusative, people and animals: **toho** — the noun changes too.",
           audio: { transcript: "Poznám toho muža." },
         },
         {
@@ -320,6 +334,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         demonstrativesLineIds.waiterThreeEuros,
         demonstrativesLineIds.youThisCake,
         demonstrativesLineIds.annaThatCake,
+        demonstrativesLineIds.waiterConfirmsOrder,
       ],
       phrases: [
         {
@@ -365,7 +380,7 @@ export const demonstrativesBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "s tými chlapcami",
           english: "with those boys",
-          note: "Instrumental plural: **tými**. **Tým** is singular (s tým chlapcom) or dative plural (tým deťom).",
+          note: "Instrumental plural: **tými**. **Tým** is masculine or neuter instrumental singular (s tým chlapcom) or dative plural (tým deťom).",
           audio: { transcript: "s tými chlapcami" },
         },
       ],

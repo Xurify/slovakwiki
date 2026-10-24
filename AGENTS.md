@@ -9,6 +9,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                                    |
 | Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md)              |
 | Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
+| Write a listening episode (podcast)         | [`docs/listening-authoring.md`](docs/listening-authoring.md)                |
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)                        |
 | FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                          |
 | Slovak linguistic accuracy                  | [`slovak-language` skill](.agents/skills/slovak-language/SKILL.md)          |
@@ -101,6 +102,8 @@ After publish/enrich/curate/related or lesson/practice text changes: `bun run in
 
 **Skip when:** Pure UI/CSS/layout, infra, tests with no learner-facing Slovak strings, or copy-pasting existing verified Slovak unchanged.
 
+**Check:** `bun run test` covers content too. `src/lib/catalog/content-rules.test.ts` fails on rules that shipped wrong before and on rhythmic-law slips, `src/lib/learning/exercises/exercises-audit.test.ts` checks tile builds and subject-pronoun variants, and `src/lib/catalog/dictionary/dictionary-content.test.ts` checks that examples contain their headword and that Tatoeba sentences rejected in `content/dictionary/tatoeba-rejected.json` stay out. When you fix a false rule, add its old wording to `content-rules.test.ts` (the skill's `references/slovak-wiki-authoring.md` §10 lists them).
+
 Repo content tone and exercise UX → [`docs/lessons-practice-content.md`](docs/lessons-practice-content.md). The skill owns linguistic accuracy; that doc owns product/content conventions.
 
 ## Styling: Tailwind first (non-negotiable)
@@ -162,6 +165,8 @@ One vocabulary site-wide, so interactions read as the same calm reference site a
 - **Overlays** (drawer, menus, popovers): one translate or fade on the panel, `duration-200 ease-out`, elevated with `shadow-(--shadow-float)`. No staggered children.
 - **Content that appears** (feedback, revealed dialogue lines, results): `animate-rise` (200ms fade + 4px). Once, on mount.
 - **Icon state** (sound on/off, menu open/close, theme): swap the icon. No scale/blur morphs.
+- **Stick-figure cast** (`src/lib/stick-figure/`, dev only at `/dev/stick-figures` and `/dev/scenes` until promoted; see **Stick-figure scenes**): figures move only while a line plays. The speaker gestures (planned from the line) and moves its mouth (from the clip's loudness track); everyone turns to face the speaker with a 200 ms flip, and the one spoken to may answer with one silent gesture (lean in to a question, nod at an answer or thanks, hold up what is pointed at in their hands) or walk over to see what they are shown. In a talk, a reply that does not fit is taken as a Slovak would take it, with one reaction before they answer it: a puzzled tilt, a laugh, or folded arms. Someone who claims what is held up ("Áno, moje!") reaches out and takes it, and someone handed something ("Nech sa páči.", "…je pre teba.") reaches for it and keeps it. A speaker who names something in the backdrop or held up for them points at it on its word with a free hand, turning to it if it is behind them: a straight reaching arm for `tamten`, a bent one for `tento`. Where the backdrop has two of a thing, `tento` means the one by the cast and `tamten` the one further off, and only that one lights up; a demonstrative on its own points back at the noun it agrees with ("Tamten je lacnejší."). Someone who arrives with a hello walks on during the line before; someone whose last line takes them away walks off the stage. A word with a picture (a country's flag) pops it over the speaker's head with `animate-rise` for under two seconds. Then they return to rest. No idle sway, breathing, or blinking. Under reduced motion each gesture is one held pose, turns and walks are instant, and the mouth stays still.
+- **Weather:** rain and snow on the stage fall in a seamless loop (`animate-fall`), near drops faster than far ones, and fade in and out over 900 ms as the lines change the weather. It is the one loop on the site; reduced motion holds it still.
 - **Not used:** `active:scale-*`, hover zooms, 3D "key" lips, pulsing or drifting loops, bouncy easings. Reduced motion is handled globally in `styles.css`.
 
 ### UI composition
@@ -176,6 +181,34 @@ General rules for status blocks, compare views, summaries, and any “nested car
 - **Colocated `*-ui.ts` for repeated patterns.** Shared class bundles live next to the widget (e.g. `practice-feedback-ui.ts`); page shells handle layout only.
 
 Reference: miss feedback — `PracticeExerciseFeedback.svelte` + `practice-feedback-ui.ts`.
+
+### Avoid the generated look
+
+The site should read like a calm reference someone made by hand, not a template. Each pattern below came up in review as "AI slop". Don't add them, and remove them from any page you touch.
+
+**Labels and titles**
+
+- **No small caps.** No tiny uppercase tracked labels (`CHAPTERS`, `WORDS YOU'LL HEAR`). Label lists, rails and form groups in sentence case with `Eyebrow.svelte` or `eyebrowClass`. Counts are plain text: `1 of 6`, `Question 1 of 3`.
+- **No kicker over a heading.** Drop a word above a title that only repeats it: `Track` over "Everyday Slovak", `Area` over "Nouns", `Review` over "Nothing to review today". Keep a line above a title only when it adds something, such as the track a lesson belongs to on the continue card.
+- **No meta strip over a title.** A dot-joined row above the h1, like `Ten, tá, to · 4 min · A1–A2` or `Case 2 of 6 · Direct object`, is the template signature. When a reader needs the facts before starting, list them under the lead as labelled pairs (`Length 4 min`, `Level A1–A2`, `Grammar ten, tá, to`), as the listening episode page does. Otherwise leave them to the body, which often says them already.
+- **One language in a card or list title.** A story or episode name is the Slovak line alone (`Kde je ten kľúč?`). Its English goes under the title on its own page, not after a `·` on the card. A Slovak and English pair elsewhere sits side by side with a gap, as in `Koho? Čo?  Whom? What?`.
+- **Name stories after a line.** An episode or story dialogue is named after a line the learner will hear, not after the grammar it teaches.
+
+**Layout**
+
+- **No dot legends.** A coloured dot never looks like the mark it explains. Explain marks with a sentence that uses a real word styled exactly like the rows: "the word you pick is blue, like _táto_".
+- **No stacked headings.** A section heading, a subtitle and a card title in a row before the first action are three labels for one thing. Keep one.
+- **One primary action per state.** Everything else is a quiet text button, shown only when it applies.
+- **No empty sections.** Render a heading only when its content exists. Astro passes a named slot even when its condition is false, so check the data, not the snippet.
+- **No dead width.** Rows and table columns fit their content. A short phrase list is a grid of cells, not two columns pushed to the edges.
+- **No decoration for its own sake:** no gradient text, glows, sparkle or emoji icons, or badges on everything.
+
+**Content**
+
+- **Restyle, don't delete.** When a block looks wrong, change how it looks and keep what it says. The Slovak case terms on contrast cards were once removed for a cleaner look and had to come back. Ask before you drop information.
+- **Copy never contradicts the UI.** "The text opens after three questions" next to a Show text button is wrong. Say what happens in plain words, and name buttons with verbs: Listen, Next chapter, Show text.
+- **Plain copy.** No hype ("unlock", "master", "dive into", "journey", "seamless") and no emoji in UI text. Exclamation marks belong in the Slovak dialogue, not in the chrome.
+- **One feature, one home.** Don't embed a second interactive copy of a feature on a reference page. Link to where it lives: grammar pages link to the listening episode instead of running their own player.
 
 ## Astro islands (hydration)
 
@@ -223,6 +256,42 @@ Full-page hydrate only when the page **is** the interactive app (filters, player
 - Use standard HTML/Svelte elements only — no invented component names, no Framer Motion / motion libraries unless already imported in that file.
 - Colocate markup + Tailwind. Avoid a second stylesheet for a component.
 
+## Stick-figure scenes (prototype)
+
+The animated cast, its places and the scene player. Logic lives in `src/lib/stick-figure/` (plain TypeScript with tests), drawing and UI state in `src/lib/components/stick-figure/`. Both run only on `/dev/stick-figures` (the lab) and `/dev/scenes` (the player) until promoted. How things move is under **Motion** above; these are the decisions behind the rest.
+
+**Animate from the data, never by hand**
+
+- Gestures are picked from the Slovak text, one per sentence (`line-gesture.ts` → `line-plan.ts`). Set `DialogueTurn.gestures` only when the guess is wrong; lesson validation rejects more gestures than sentences.
+- Mouths follow the clip's loudness and vowel track in `content/audio/mouth.json`, which `scripts/audio/generate.ts` writes with every clip. Never drive a mouth from a timer: timer mouths matched the voice at r = 0.29, the track at r = 1.00.
+- Staging (who faces whom, enters, leaves, walks over, points, hands something over) is worked out from the dialogue in `staging.ts` and `scene-direction.ts`. Change a rule there, with a case in `scene-direction.test.ts`; never stage one scene by hand. A line sets `to` only when the order of replies guesses the listener wrong, and `stays` keeps Alex on stage after a goodbye.
+- What differs by place is data in a per-place table, not an `if` in a component. Hosts stay at their mics in the studio because `studio` is in `AT_MARKS`, which drops walks there.
+
+**Places and the stage**
+
+- Backdrops are drawn SVG in the cast's style with fixed light paints, so the dark-ink cast reads in both themes. Keep a place's landmark near the middle or above head height.
+- The stage is twice as wide as tall, up to 300px, and figures scale with its height. Check a changed place at 390px and at desktop width; Find it asks only for what the stage shows.
+- The sky (sun, stars, clouds) is drawn behind the scenery. The sun stands at its place's spot in `SUN_SPOTS`, and `scene-things.test.ts` fails when it leaves what a phone shows or touches a thing's box.
+- A tappable thing's box in `SCENE_THINGS` is in backdrop units and must match the drawing. Move both in the same change.
+- Each character reads as themselves at a glance (Marek has curls so he is not a second Alex). On stage the learner's lines belong to Alex, not "You" (`stageName`), and a line nobody says, like a board or a notice, gets no name tag.
+
+**Weather, dress and sound**
+
+- The words set the mood: `sceneMood` reads the lines up to the current one for the hour and the weather. Past the last line, rain and snow let up. Weather changes fade over `WEATHER_FADE_MS`.
+- Falling rain and snow are an HTML layer (`StickWeather`), never animation inside the backdrop SVG: WebKit repainted the whole stage every frame and dropped to 7.5 fps.
+- `dress.ts` decides what the weather does to a figure's things: umbrella up in rain, scarf in snow, neither indoors. Once open, an umbrella stays open until the stage folds it with `foldUmbrellas()`, on boarding the tram or at the scene's end. It never folds by itself. A new item that follows the weather works the same way: a field in the dress, and an explicit stage call to change it.
+- Background sound is synthesized with Web Audio in `ambience.ts`, so there is nothing to load. It is off until the learner turns it on, plays steadily under the voices, and one player lasts the visit: `set()` fades layers in and out instead of restarting them.
+
+**Player and games**
+
+- `/dev/scenes?scene=<id>` opens one scene; use these links in PR QA lists.
+- Modes are Watch, Play as (Pick the line, Build it, Say it, Adaptive) and Find it. A game that is not about the scene picked goes in the scene list under Games, not in the mode chips.
+- Find it asks in Slovak only, since English would give the answer away. It names each find in English after the tap and ends with the case behind the forms.
+- A talk (`talk.ts`) is a graph: the other person's lines, then Alex's replies. A reply that fits leads to a node and is voiced. A slip carries `why`, a reaction (`puzzle`, `laugh`, `frown`) and a voiced answer. `talk.test.ts` checks every talk: all nodes reachable, slips lead nowhere, ends are goodbyes, ty or vy fits who is spoken to.
+- A talk has a casual topic, and its intro says who the person is to Alex. When a talk gets long or its topic deserves more, give it a game of its own rather than lengthen the day.
+- Say it records in the browser and keeps the take there. Nothing is uploaded.
+- Every voiced scene line gets a clip and a mouth track (see **Audio**), slip answers included. Talks reach the generator through `dayTurns()` in `scripts/audio/shared.ts`.
+
 ## Loading states
 
 Pick the loading pattern by wait type:
@@ -239,7 +308,7 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 1. Blank line between script clusters: imports → props → state → derived → effects/lifecycle → functions.
 2. Never crush control flow: `{#if}` / `{:else}` / `{#each}` / `{#key}` open on their own line, body indented, close on its own line.
 3. Blank line between major markup sections (`<nav>`, `<header>`, each `<section>`, `<footer>`).
-4. Long Tailwind: prefer multiline `cx("…", "…")` or a `const …Class = "…"` — not one giant `class="…"`.
+4. Long Tailwind: split into a multiline `cx("…", "…")` on the element. Do not hoist classes into local `const …Class = "…"` variables in the script; keep them on the markup they style.
 5. Sibling interactive elements (`<a>`, `<button>`, `<span>`) on separate lines inside flex/grid rows.
 
 ## Stack habits
@@ -262,6 +331,7 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - [ ] No new selectors added to `styles.css` for one-off layout/look
 - [ ] Styling done with Tailwind utilities and/or an existing/shared component
 - [ ] Used theme tokens (`slate` / `blue` / `rose` / `emerald`, `font-serif`, …) not one-off hex in components
+- [ ] Nothing from **Avoid the generated look**: no small caps, kickers, meta strips over titles, dot legends or copy that contradicts the UI
 - [ ] Desktop + mobile still look correct
 - [ ] If a layout with a skeleton changed drastically: matching skeleton updated
 - [ ] Hydration: no new full-page `client:*` on mostly-static shells (see **Astro islands**)

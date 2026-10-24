@@ -24,7 +24,7 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["nouns", "gender", "beginner"],
     lookFor:
-      "Match the adjective ending to the noun's gender: **-ý**, **-á**, or **-é**.",
+      "Match the adjective ending to the noun's gender: **-ý**, **-á**, or **-é**. After a long syllable the ending is short: **krásny**, **krásna**, **krásne**.",
     pathGroup: "Nouns",
     order: 1,
     rule: [
@@ -46,7 +46,7 @@ export const grammarEntries: GrammarTopic[] = [
     kind: "grammar",
     summary: "Numbers change the form that follows them, especially from five upward.",
     body: [
-      "Use jeden with a singular noun. Dva or dve, tri, and štyri use different quantity patterns; dva is masculine and neuter, while dve is feminine and neuter.",
+      "Jeden (jedna, jedno) agrees with its noun and takes the singular: jeden lístok, jedna káva, jedno auto. Two has three forms: dve for feminine and neuter nouns (dve kávy, dve autá); dva for masculine things and animals (dva lístky, dva psy); dvaja for masculine nouns for people (dvaja bratia). Tri and štyri also have forms for people: traja, štyria. After 2–4 the noun is plural.",
       "With päť and higher numbers, the following noun usually uses a genitive plural form. Learn useful whole phrases for ages, prices, and quantities before tackling full declension tables.",
     ],
     examples: [
@@ -69,14 +69,14 @@ export const grammarEntries: GrammarTopic[] = [
     pathGroup: "Numbers",
     order: 1,
     rule: [
-      "**Jeden** goes with a singular noun; **dva / dve**, **tri**, and **štyri** use plural-like noun forms.",
+      "**Jeden** (**jedna**, **jedno**) goes with a singular noun. **Dve** (feminine and neuter), **dva** (masculine things and animals), **dvaja** (masculine nouns for people), **tri**, and **štyri** take the plural: **dve kávy**, **dva lístky**, **dvaja bratia**.",
       "**Päť** and higher numbers usually take a genitive plural noun form.",
     ],
     pattern: {
       label: "Quantity patterns",
       lines: [
         "jeden lístok · one ticket",
-        "dva / dve, tri, štyri + quantity form",
+        "dva / dvaja / dve, tri, štyri + plural",
         "päť+ + genitive plural",
       ],
     },
@@ -169,7 +169,7 @@ export const grammarEntries: GrammarTopic[] = [
     order: 4,
     rule: [
       "Slovak usually leaves out the pronoun, because each form already says who is meant.",
-      "Use **byť** for identity and location; use **mať** with **rokov** to state age.",
+      "Use **byť** for identity and location; use **mať** for age: **Mám dvadsať rokov**.",
     ],
     pattern: {
       label: "Irregular — six forms to memorize",
@@ -187,6 +187,11 @@ export const grammarEntries: GrammarTopic[] = [
         wrong: "Som dvadsať rokov.",
         right: "Mám dvadsať rokov.",
         why: "Age uses **mať**.",
+      },
+      {
+        wrong: "nieje",
+        right: "nie je",
+        why: "The negative of present **byť** is two words: **nie som**, **nie je**, **nie sú**.",
       },
     ],
     nextSlug: "mat-present",
@@ -232,7 +237,7 @@ export const grammarEntries: GrammarTopic[] = [
     order: 5,
     rule: [
       "Use **mať** for possession and availability, much like English “have.”",
-      "Use **mať** with **rokov** for age, and use **máte** for formal singular or plural you.",
+      "Use **mať** for age (**Mám dvadsať rokov**), and use **máte** for formal singular or plural you.",
     ],
     pattern: {
       label: "Long á in every form except majú",
@@ -567,7 +572,7 @@ export const grammarEntries: GrammarTopic[] = [
         id: "perfective",
         term: "dokonavý vid",
         gloss: "perfective",
-        body: "Marks a completed, bounded, or result-focused event: one trip to the finish line.",
+        body: "Marks a completed, bounded, or result-focused event: the action reaches its end.",
         examples: ["Napísal som list.", "Zajtra to napíšem."],
       },
       {
@@ -580,7 +585,7 @@ export const grammarEntries: GrammarTopic[] = [
     contrasts: {
       label: "Imperfective or perfective?",
       intro:
-        "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”.",
+        "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”. The last pair is not aspect: **chodiť** and **ísť** are both imperfective; **chodiť** is for habits, **ísť** for one trip.",
       frames: [
         {
           question: "Now, or later?",
@@ -1707,7 +1712,8 @@ export const grammarEntries: GrammarTopic[] = [
         name: "Instrumental",
         question: "S kým? S čím? · With whom? With what?",
         role: "Company or tool",
-        explanation: "Marks company, tools, and means, especially after **s** or **so**.",
+        explanation:
+          "Marks company after **s** or **so** (**s priateľom**), and a tool or means on its own (**perom**, **autobusom**).",
       },
     ],
     pathGroup: "Nouns",
@@ -1732,9 +1738,9 @@ export const grammarEntries: GrammarTopic[] = [
     summary:
       "Ten, tento, and tamten point at people and things, and agree with their noun in gender, number, and case.",
     body: [
-      "Ten (tá, to) is the everyday demonstrative. Slovak has no article, so ten also does the job of English “the”. Tento (táto, toto) points at something near you; tamten (tamtá, tamto) at something over there.",
+      "Ten (tá, to) is the everyday demonstrative. Slovak has no articles: most English “the” is simply left out, and ten points to a person or thing you both already know about. Tento (táto, toto) points at something near you; tamten (tamtá, tamto) at something over there.",
       "All three agree with their noun: ten muž, tá žena, to dievča. In the plural, only masculine nouns for people take tí; every other plural takes tie, including deti and ženy. In other cases they follow the noun: Poznám toho muža. Býva v tom dome. Idem s tou ženou.",
-      "On its own, to means this, that, or it, and it never changes. Only the verb changes, je for one and sú for more: To je môj brat. To sú moji rodičia.",
+      "In To je… and To sú…, to stays the same whatever the noun's gender or number; only the verb changes, je for one and sú for more: To je môj brat. To sú moji rodičia.",
     ],
     examples: [
       { slovak: "Kto je ten muž?", english: "Who is that man?" },
@@ -1767,7 +1773,7 @@ export const grammarEntries: GrammarTopic[] = [
     order: 3,
     rule: [
       "**Ten**, **tá**, **to** agree with the noun in gender, number, and case. **Tento** adds **-to** to every form, and **tamten** adds **tam-** in front.",
-      "On its own, **to** never changes; only the verb follows the noun: **To je** môj brat. **To sú** moji rodičia.",
+      "In **To je…** and **To sú…**, **to** stays **to** whatever the noun's gender or number; only the verb follows the noun: **To je** môj brat. **To sú** moji rodičia.",
     ],
     pattern: {
       label: "Nominative (agreement)",
@@ -1801,7 +1807,7 @@ export const grammarEntries: GrammarTopic[] = [
         label: "Accusative (as the object)",
         columns: ["the, that", "this", "that (over there)"],
         rows: [
-          { label: "Masculine, a person", cells: ["toho", "tohto", "tamtoho"] },
+          { label: "Masculine, a person or animal", cells: ["toho", "tohto", "tamtoho"] },
           { label: "Masculine, a thing", cells: ["ten", "tento", "tamten"] },
           { label: "Feminine", cells: ["tú", "túto", "tamtú"] },
           { label: "Neuter", cells: ["to", "toto", "tamto"] },
@@ -1816,7 +1822,7 @@ export const grammarEntries: GrammarTopic[] = [
           {
             slovak: "Poznám toho muža.",
             english: "I know that man.",
-            demonstrates: "Accusative for a person: **ten** becomes **toho**.",
+            demonstrates: "Accusative for a person or animal: **ten** becomes **toho**.",
           },
           {
             slovak: "Vidím ten dom.",
@@ -1833,12 +1839,18 @@ export const grammarEntries: GrammarTopic[] = [
         columns: ["the, that", "this", "that (over there)"],
         rows: [
           {
-            label: "Instrumental, with one person",
+            label: "Dative singular, masculine and neuter",
+            cells: ["tomu", "tomuto", "tamtomu"],
+          },
+          { label: "Dative singular, feminine", cells: ["tej", "tejto", "tamtej"] },
+          {
+            label: "Instrumental singular, masculine and neuter",
             cells: ["tým", "týmto", "tamtým"],
           },
-          { label: "Dative plural, to them", cells: ["tým", "týmto", "tamtým"] },
+          { label: "Instrumental singular, feminine", cells: ["tou", "touto", "tamtou"] },
+          { label: "Dative plural, every gender", cells: ["tým", "týmto", "tamtým"] },
           {
-            label: "Instrumental plural, with them",
+            label: "Instrumental plural, every gender",
             cells: ["tými", "týmito", "tamtými"],
           },
         ],
@@ -1885,7 +1897,7 @@ export const grammarEntries: GrammarTopic[] = [
         id: "mnozne-cislo",
         term: "množné číslo",
         gloss: "plural",
-        body: "More than one; one is **jednotné číslo**. Plural demonstratives split into people (**tí**, **títo**) and everything else (**tie**, **tieto**).",
+        body: "More than one; one is **jednotné číslo**. In the nominative, plural demonstratives split into masculine nouns for people (**tí**, **títo**) and everything else, women and children included (**tie**, **tieto**).",
         examples: ["tí muži", "tie ženy", "tieto domy"],
       },
     ],
@@ -2286,7 +2298,7 @@ export const grammarEntries: GrammarTopic[] = [
       {
         wrong: "Vidím ten muža.",
         right: "Vidím toho muža.",
-        why: "A man changes in the accusative; a thing doesn't.",
+        why: "A man or an animal changes in the accusative; a thing doesn't.",
       },
       "Czech is so close to Slovak that its forms slip in from TV, websites, and friends. Two that look right but aren't:",
       {
@@ -2451,7 +2463,9 @@ export const grammarEntries: GrammarTopic[] = [
         },
         {
           question: "Whose sister?",
+          object: "person",
           label: { en: "accusative", sk: "akuzatív" },
+          scene: "gender",
           choices: [
             {
               slovak: markedText([
@@ -2461,6 +2475,7 @@ export const grammarEntries: GrammarTopic[] = [
                 { role: "ending", text: "u" },
                 "?",
               ]),
+              at: "his",
               english: "Do you know his sister?",
               when: "Peter's",
             },
@@ -2472,6 +2487,7 @@ export const grammarEntries: GrammarTopic[] = [
                 { role: "ending", text: "u" },
                 "?",
               ]),
+              at: "hers",
               english: "Do you know her sister?",
               when: "Eva's",
             },
@@ -2589,7 +2605,7 @@ export const grammarEntries: GrammarTopic[] = [
       {
         wrong: "Svoj brat je učiteľ.",
         right: "Jej brat je učiteľ.",
-        why: "**Svoj** is never the subject.",
+        why: "**Svoj** points back to the subject, so it can't be part of the subject.",
       },
       {
         wrong: "s našim bratom",
@@ -2613,7 +2629,7 @@ export const grammarEntries: GrammarTopic[] = [
       "Slovak word order is flexible, but neutral sentences often follow subject–verb–object.",
     body: [
       "Case endings preserve grammatical roles, allowing speakers to move words for emphasis.",
-      "Place known information earlier and new or emphasized information later. Keep unstressed short pronouns near the beginning.",
+      "Place known information earlier and new or emphasized information later. Put unstressed short words such as som, sa, mi, and ho in second place, after the first word or phrase: Včera som ho videl.",
     ],
     examples: [
       { slovak: "Peter číta knihu.", english: "Peter is reading a book." },
@@ -2622,16 +2638,17 @@ export const grammarEntries: GrammarTopic[] = [
     related: ["present-tense", "cases-overview", "ty-vs-vy"],
     source: languageSource,
     tags: ["sentences", "word order", "intermediate"],
-    lookFor: "Compare what moves to the front. That position receives emphasis.",
+    lookFor:
+      "Compare what comes last. The end of the sentence carries the new or emphasized information.",
     pathGroup: "Sentence building",
     order: 4,
     rule: [
       "Slovak word order is flexible because case endings preserve grammatical roles.",
-      "Neutral sentences often follow subject–verb–object, while a moved word receives emphasis.",
+      "Neutral sentences often follow subject–verb–object; the word moved to the end receives the emphasis: **Knihu číta Peter.**",
     ],
     pattern: {
       label: "Position changes emphasis",
-      lines: ["subject + verb + object → neutral", "moved word → emphasis"],
+      lines: ["subject + verb + object → neutral", "word moved to the end → emphasis"],
     },
     watchOut: ["Flexible, not random: known things first, new or stressed things last."],
     nextSlug: "ty-vs-vy",
@@ -2676,11 +2693,12 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Informal and formal address",
-      lines: [
-        "ty máš · informal singular",
-        "vy máte · formal singular or plural",
-        "Prepáč · informal sorry",
-        "Prepáčte · formal sorry",
+      columns: ["ty · informal", "vy · formal or plural"],
+      rows: [
+        { label: "you are", cells: ["si", "ste"] },
+        { label: "you have", cells: ["máš", "máte"] },
+        { label: "thank you", cells: ["ďakujem ti", "ďakujem vám"] },
+        { label: "sorry", cells: ["prepáč", "prepáčte"] },
       ],
     },
     contrasts: {
@@ -2744,7 +2762,7 @@ export const grammarEntries: GrammarTopic[] = [
     kind: "grammar",
     summary: "Slovak usually makes a finite verb negative with ne-.",
     body: [
-      "Attach ne- to a finite verb: mám becomes nemám and rozumiem becomes nerozumiem. Nie can stand alone as “no,” but it does not normally sit separately before a finite verb.",
+      "Attach ne- to a finite verb: mám becomes nemám and rozumiem becomes nerozumiem. The present of byť is the exception and stays two words: nie som, nie si, nie je, nie sme, nie ste, nie sú. On its own, nie means “no.”",
       "Learn common negative verb forms as whole words. Slovak also regularly uses verbal negation with negative words such as nikto and nič.",
     ],
     examples: [
@@ -2768,16 +2786,22 @@ export const grammarEntries: GrammarTopic[] = [
     source: languageSource,
     tags: ["sentences", "negation", "beginner"],
     lookFor:
-      "Find **ne-** attached to the finite verb: **nemám**, **nerozumiem**, **neviem**.",
+      "Find **ne-** attached to the finite verb: **nemám**, **nerozumiem**, **neviem**. Present **byť** keeps **nie** apart: **nie je**.",
     pathGroup: "Sentence building",
     order: 6,
     rule: [
-      "Form most finite verb negatives with **ne-** attached to the verb.",
+      "Form finite verb negatives with **ne-** attached to the verb. The present of **byť** is the one exception: **nie som**, **nie je**, **nie sú** stay two words.",
       "Use **nie** alone for a negative answer; do not usually say *nie mám* or *nie rozumiem*.",
     ],
     pattern: {
-      label: "Negation attaches to the verb",
-      lines: ["mám → nemám", "rozumiem → nerozumiem", "Nie, ďakujem. · No, thank you."],
+      label: "Ne- joins the verb, except present byť",
+      lines: [
+        "mám → nemám",
+        "rozumiem → nerozumiem",
+        "som → nie som",
+        "je → nie je",
+        "Nie, ďakujem. · No, thank you.",
+      ],
     },
     watchOut: [
       {
@@ -2864,7 +2888,7 @@ export const grammarEntries: GrammarTopic[] = [
     category: "Numbers",
     kind: "grammar",
     summary:
-      "Slovak clock time looks ahead to the next hour, and the verb agrees with the number.",
+      "Slovak halves and quarters look ahead to the next hour, and the verb agrees with the number.",
     body: [
       "Ask Koľko je hodín? Answer with Je for one, Sú for two to four, and Je again for five and higher with a genitive plural noun form.",
       "Half and quarter phrases name the coming hour: pol tretej is 02:30, štvrť na tri is 02:15, and trištvrte na tri is 02:45.",
@@ -2907,7 +2931,7 @@ export const grammarEntries: GrammarTopic[] = [
     pathGroup: "Numbers",
     order: 2,
     rule: [
-      "Hours follow 1 / 2–4 / 5+: **Je jedna hodina**, **Sú tri hodiny**, **Je päť hodín**. **Minúta** does the same; **sekunda** follows the numbers hub.",
+      "Hours follow 1 / 2–4 / 5+: **Je jedna hodina**, **Sú tri hodiny**, **Je päť hodín**. **Minúta** and **sekunda** follow the same pattern: **dve minúty**, **päť sekúnd**.",
       "Half and quarter name the coming hour: **pol tretej** is 02:30, not 03:30. Always **Je pol…**, never *Sú pol…*.",
       "Appointments use **o** + locative (**o tretej**); approximate time uses **okolo** (**okolo piatej**).",
       "Duration from now uses **o** + accusative (**o dve hodiny**, **o päť minút**), not a clock position.",
@@ -2936,16 +2960,19 @@ export const grammarEntries: GrammarTopic[] = [
       {
         id: "pol",
         term: "pol",
+        gloss: "half",
         body: "**Pol** names the coming hour in the genitive: **pol tretej** is halfway to three (02:30). Always **Je pol…**, never *Sú pol…*",
       },
       {
         id: "stvrt",
         term: "štvrť na",
-        body: "**Štvrť na** + the next hour means quarter past the previous hour: **štvrť na tri** is 02:15. After twelve, prefer **štvrť na jednu**.",
+        gloss: "quarter past",
+        body: "**Štvrť na** + the next hour means quarter past the previous hour: **štvrť na tri** is 02:15. For 12:15, say **štvrť na jednu**, because **hodina** is feminine.",
       },
       {
         id: "tristvrte",
         term: "trištvrte na",
+        gloss: "quarter to",
         body: "**Trištvrte na** + the next hour means three-quarters toward that hour: **trištvrte na tri** is 02:45.",
       },
       {
@@ -3002,7 +3029,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     lessonLink: {
       href: "/lessons/everyday/days-dates-and-time",
-      label: "Days, dates, and time",
+      label: "Days and time",
     },
   },
 ];

@@ -13,6 +13,7 @@ package-lock.json
 # Prettier wraps short arrays to printWidth — CI format:check fails if hooks skipped.
 content/audio/manifest.json
 content/audio/runtime-index.json
+content/audio/mouth.json
 content/dictionary/words.json
 content/dictionary/related-clusters.json
 content/dictionary/curated-examples.json

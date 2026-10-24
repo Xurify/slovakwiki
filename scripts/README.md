@@ -34,22 +34,25 @@ Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.
 
 ### Content files
 
-| File                                             | Role                                                                             |
-| ------------------------------------------------ | -------------------------------------------------------------------------------- |
-| `content/dictionary/README.md`                   | Hand-add lemma template (fields, homes, slug/category, examples)                 |
-| `content/dictionary/words.json`                  | Live bulk dictionary (frequency publish + enrich/fill/curate). Prettier-ignored. |
-| `content/dictionary/curated-examples.json`       | Hand/pattern example overlay; apply with `apply-curated-examples.ts`             |
-| `content/dictionary/related-clusters.json`       | Semantic related peers for `apply-related.ts`                                    |
-| `content/audio/config.json`                      | ElevenLabs voice / model / settings + lesson `characters` cast                   |
-| `content/audio/README.md`                        | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                 |
-| `content/audio/manifest.json`                    | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only                   |
-| `content/audio/runtime-index.json`               | Slim build index (hash → kind + generatedAt); app via `readFile`                 |
-| `content/images/manifest.json`                   | Lemma image metadata (slug → file/license/attribution/status/uploadedAt)         |
-| `content/images/overrides.json`                  | Manual reject / force Commons file per slug                                      |
-| `src/lib/catalog/entries.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime                  |
-| `static/audio/`                                  | Local MP3 cache (gitignored; `.vercelignore`d)                                   |
-| `static/images/`                                 | Local dictionary thumbs (gitignored; upload to R2 for prod)                      |
-| `static/downloads/`                              | Local dictionary export JSON for `/downloads` (gitignored)                       |
+| File                                                      | Role                                                                             |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `content/dictionary/README.md`                            | Hand-add lemma template (fields, homes, slug/category, examples)                 |
+| `content/dictionary/words.json`                           | Live bulk dictionary (frequency publish + enrich/fill/curate). Prettier-ignored. |
+| `content/dictionary/curated-examples.json`                | Hand/pattern example overlay; apply with `apply-curated-examples.ts`             |
+| `content/dictionary/related-clusters.json`                | Semantic related peers for `apply-related.ts`                                    |
+| `content/dictionary/tatoeba-rejected.json`                | Tatoeba sentence IDs rejected as wrong Slovak (ID → reason); enrich skips them   |
+| `content/dictionary/tatoeba-lemma-rejected.json`          | Tatoeba rows wrong for one entry (`slug#ID` → reason); enrich skips them there   |
+| `content/audio/config.json`                               | ElevenLabs voice / model / settings + lesson `characters` cast                   |
+| `content/audio/README.md`                                 | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                 |
+| `content/audio/manifest.json`                             | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only                   |
+| `content/audio/runtime-index.json`                        | Slim build index (hash → kind + generatedAt); app via `readFile`                 |
+| `content/audio/mouth.json`                                | Lesson clip loudness + vowel per 50 ms (hash → take + tracks), stick-figure cast |
+| `content/images/manifest.json`                            | Lemma image metadata (slug → file/license/attribution/status/uploadedAt)         |
+| `content/images/overrides.json`                           | Manual reject / force Commons file per slug                                      |
+| `src/lib/catalog/dictionary/words.ts` (`curatedWordSeed`) | Hand-seeded beginner lemmas merged with `words.json` at runtime                  |
+| `static/audio/`                                           | Local MP3 cache (gitignored; `.vercelignore`d)                                   |
+| `static/images/`                                          | Local dictionary thumbs (gitignored; upload to R2 for prod)                      |
+| `static/downloads/`                                       | Local dictionary export JSON for `/downloads` (gitignored)                       |
 
 ## `dictionary/`
 
@@ -71,7 +74,7 @@ Frequency lists, live dictionary publish, Tatoeba examples. Hand-add fields: [`c
 | `merge-noun-gloss-batch.ts`    | `bun scripts/dictionary/merge-noun-gloss-batch.ts`                           | Merges noun batch into `glosses.json`                                                                                                                                                                                                        |
 | `report-missing-glosses.ts`    | `bun scripts/dictionary/report-missing-glosses.ts`                           | Writes `tmp/missing-glosses.json` and prints missing-gloss counts by part of speech                                                                                                                                                          |
 | `publish-frequency.ts`         | `bun scripts/dictionary/publish-frequency.ts`                                | Writes/updates `content/dictionary/words.json`; `-v`/`-n`/`-a` slug suffix on collisions                                                                                                                                                     |
-| `enrich-examples.ts`           | `bun scripts/dictionary/enrich-examples.ts`                                  | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--refresh-tatoeba`                                                                                        |
+| `enrich-examples.ts`           | `bun scripts/dictionary/enrich-examples.ts`                                  | Needs `tmp/tatoeba/*.tsv`; morph forms; appends onto underfilled (< store pool, default 8); pattern lemmas may pad after curated; `--refresh-tatoeba`; skips `tatoeba-rejected.json` IDs and per-entry `tatoeba-lemma-rejected.json` rows    |
 | `assign-noun-gender.ts`        | `bun scripts/dictionary/assign-noun-gender.ts`                               | Writes `gender` (+ `pluralOnlyGender`) on `Nouns` rows: exceptions file, else ending rule. Prints every gender it sets or changes — new masculine nouns for people/animals need an exception. Re-run after publishing new nouns. `--dry-run` |
 | `drop-mismatched-examples.ts`  | `bun scripts/dictionary/drop-mismatched-examples.ts -- --slugs chyba,chybat` | Drops Tatoeba rows that are not the lemma / a diacritic-true form. **Requires `--slugs`** — heuristic forms are too incomplete for a full sweep                                                                                              |
 | `author-verb-examples.ts`      | `bun scripts/dictionary/author-verb-examples.ts`                             | Writes hand/agent verb overlays from `HAND_OVERRIDES` + aspect clusters. Does **not** mint `Prečo sa ${sg2}?` stamps — unique sentences live in `curated-examples.json`                                                                      |
@@ -97,11 +100,12 @@ Needs `ELEVENLABS_API_KEY` in `.env`. Then `bun scripts/audio/upload.ts` before 
 
 | `generate.ts` | `bun scripts/audio/generate.ts` | Writes MP3s in **lemma → example → lesson** order; default `--concurrency 8` (v4 group `standard_eleven_v4` — see [`content/audio/README.md`](../content/audio/README.md#elevenlabs-plans--concurrency)); `--examples-only` / `--missing-only` / `--offset` / `--limit`; `--verify` caps concurrency at 4. Clips stamped `uploadedAt` count as present (on R2) even without a local file; `--force` re-synthesizes |
 | `voice-design.ts` | `bun scripts/audio/voice-design.ts` | ElevenLabs Voice Design → `tmp/voice-design/`; `--create` saves preview to library + patches `characters` in config |
-| `upload.ts` | `bun scripts/audio/upload.ts` | Parallel R2 sync to `audio/{kind}/`; HEADs each object and skips the same take (`generated-at` metadata), never overwrites a newer one; `--lemmas-only` / `--examples-only` / `--lessons-only` / `--force` / `--only`; needs `R2_*` |
+| `upload.ts` | `bun scripts/audio/upload.ts` | Parallel R2 sync to `audio/{kind}/`; HEADs each object and skips the same take (`generated-at` metadata), never overwrites a newer one; a clip on disk the manifest does not list takes its text and voice from the line that produces it, and is skipped with a warning when no line on this branch does (`static/audio/` keeps other branches' clips); `--lemmas-only` / `--examples-only` / `--lessons-only` / `--force` / `--only`; needs `R2_*` |
 | `check-build.ts` | `bun run audio:check` | After `bun run build` (CI): fails when built lesson pages reference no lesson clips |
 | `migrate-r2-prefix.ts` | `bun scripts/audio/migrate-r2-prefix.ts` | Copy bucket-root `{kind}/` → `audio/{kind}/`; `--delete-source` after prod is on new URLs |
-| `prune-orphans.ts` | `bun scripts/audio/prune-orphans.ts` | Dry-run orphan report (old hashes); `--delete` local+manifest; `--delete --r2` also DELETE on R2 |
+| `prune-orphans.ts` | `bun scripts/audio/prune-orphans.ts` | Dry-run orphan report (old hashes); `--delete` local+manifest; `--delete --r2` also DELETE on R2, except R2 orphans uploaded in the last 30 days, which an open branch may still need (`--keep-days N`; `--keep-days 0` deletes them too). A branch open longer than that can still lose clips: raise the window or check open branches first |
 | `status.ts` | `bun scripts/audio/status.ts` | Targets vs disk vs manifest |
+| `mouth.ts` | `bun scripts/audio/mouth.ts` | Lesson clip loudness + aligned vowels → `content/audio/mouth.json` for stick-figure lip sync. `generate.ts` already runs it for lesson clips it writes; run it to backfill or after pulling new takes. Reads local MP3s, else `PUBLIC_AUDIO_BASE_URL`; needs ffmpeg; `--force` re-measures all |
 | `verify.ts` | `bun scripts/audio/verify.ts` | Dual STT audit → `tmp/audio-verify-report.json` |
 | `judge.ts` | (lib) | Dual STT + near-miss ending + logprob gap |
 | `stt.ts` | (lib) | Scribe + Whisper adapters |
@@ -113,7 +117,7 @@ Layout: local `static/audio/{kind}/{hash}.mp3`. R2 `audio/{kind}/{hash}.mp3` (sa
 
 Generate lesson clips: `bun scripts/audio/generate.ts -- --lessons-only`. After voice swaps: add `--force`. Lesson content may churn — treat those MP3s as disposable.
 
-Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local: leave unset → `/audio/{kind}/{hash}.mp3`.
+Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local page URLs stay `/audio/{kind}/{hash}.mp3`. In `astro dev`, a missing file under `static/audio/` is proxied from that base when the env is set; a file on disk still wins.
 
 **QA / accuracy:** Default TTS is `eleven_v4` + `language_code: sk`. Spoken text is the learner line, with no synth rewrite. `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
 

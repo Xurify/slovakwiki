@@ -26,7 +26,11 @@ import {
 } from "../../src/lib/catalog/audio/characters";
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
+import { episodeLines, listeningEpisodes } from "../../src/lib/catalog/listening";
 import { lessonExercises } from "../../src/lib/learning/beats";
+import { RAIN_AND_TRAM, WEATHER_TODAY } from "../../src/lib/stick-figure/dev-scenes";
+import { dayTurns } from "../../src/lib/stick-figure/scene-day";
+import { SCENE_THINGS } from "../../src/lib/stick-figure/scene-things";
 import {
   exerciseAnswerTexts,
   exerciseOptionTexts,
@@ -239,6 +243,15 @@ export function collectDictionaryAudioTargets(options?: {
     }
   }
 
+  // Things on the stick-figure stage are tapped for their word, and some
+  // (torta, kávovar) have no dictionary entry to bring a clip with them.
+  if (!options?.slugs) {
+    for (const thing of Object.values(SCENE_THINGS).flat()) {
+      const word = normalizeAudioText(thing.word);
+      if (word && !byText.has(word)) byText.set(word, { kind: "lemma", text: word });
+    }
+  }
+
   if (!options?.lemmasOnly) {
     for (const sentence of grammarSentences(options?.slugs)) {
       const slovak = normalizeAudioText(sentence);
@@ -251,7 +264,7 @@ export function collectDictionaryAudioTargets(options?: {
 }
 
 /**
- * Lesson scene + key-phrase lines with per-character voices.
+ * Lesson scene + key-phrase lines and listening episodes, with per-character voices.
  * Note: lesson content may churn — clips are disposable regenerations.
  */
 export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[] {
@@ -298,6 +311,24 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
     }
   }
 
+  for (const episode of listeningEpisodes) {
+    for (const line of episodeLines(episode)) {
+      addLine(line.audio?.transcript ?? line.slovak, characterIdForSpeaker(line.speaker));
+    }
+
+    for (const phrase of episode.vocabulary) {
+      addLine(phrase.audio?.transcript ?? phrase.slovak, keyPhraseCharacterId());
+    }
+  }
+
+  for (const turn of dayTurns()) {
+    addLine(turn.slovak, characterIdForSpeaker(turn.speaker));
+  }
+
+  for (const line of [...RAIN_AND_TRAM, ...WEATHER_TODAY]) {
+    addLine(line.slovak, characterIdForSpeaker(line.speaker));
+  }
+
   for (const [characterId, preview] of Object.entries(VOICE_PREVIEW_LINES)) {
     addLine(preview.sampleSlovak, characterId as LessonCharacterId);
   }
@@ -331,17 +362,24 @@ export function collectAudioTargets(
   ]);
 }
 
+/** Every dictionary and lesson target by its clip's `{kind}/{hash}.mp3` key. */
+export function collectAudioTargetsByObjectKey(
+  baseConfig: AudioConfig,
+): Map<string, AudioTarget> {
+  const byKey = new Map<string, AudioTarget>();
+  for (const target of collectAudioTargets({}, baseConfig)) {
+    const voiceConfig = target.voiceConfig ?? baseConfig;
+    byKey.set(audioRelativePath(target.text, target.kind, voiceConfig), target);
+  }
+  return byKey;
+}
+
 /**
  * Live object keys for current config + content.
  * Anything else under static/audio/{kind}/ is an orphan (old model/settings hash).
  */
 export function collectExpectedAudioObjectKeys(baseConfig: AudioConfig): Set<string> {
-  const keys = new Set<string>();
-  for (const target of collectAudioTargets({}, baseConfig)) {
-    const voiceConfig = target.voiceConfig ?? baseConfig;
-    keys.add(audioRelativePath(target.text, target.kind, voiceConfig));
-  }
-  return keys;
+  return new Set(collectAudioTargetsByObjectKey(baseConfig).keys());
 }
 
 /** Lemma texts — examples that match a lemma resolve to `lemma/` path. */

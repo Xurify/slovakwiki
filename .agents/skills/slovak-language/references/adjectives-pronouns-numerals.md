@@ -159,7 +159,7 @@ To je muž, ktorého auto stojí vonku.     (whose = genitive of ktorý)
 | `aký`   | `nejaký`   | `nijaký`, `žiadny` | `hocijaký`, `akýkoľvek`    |
 | `ktorý` | `niektorý` | `žiadny`           | `hociktorý`, `ktorýkoľvek` |
 
-Negative words require a negated verb, and several can stack: `Nikto nič nevedel.` `Nikdy nikam nechodím.` Colloquial central and eastern speech uses `da-` (`dakto`, `dačo`, `dakde`) for `nie-`; keep it out of standard text.
+Negative words require a negated verb, and several can stack: `Nikto nič nevedel.` `Nikdy nikam nechodím.` `Dakto`, `dačo`, `dakde` are standard synonyms of `niekto`, `niečo`, `niekde` (KSSJ lists them without a label); the `nie-` forms are more common.
 
 ### `všetok`, `sám`, `každý`
 

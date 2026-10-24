@@ -29,6 +29,7 @@ class FakeAudio {
   onended: (() => void) | null = null;
   onerror: (() => void) | null = null;
   paused = true;
+  playbackRate = 1;
   preload = "";
   src = "";
   volume = 1;
@@ -103,6 +104,22 @@ describe("story line playback", () => {
 
     expect(FakeAudio.instances).toHaveLength(1);
     expect(FakeAudio.instances[0]?.src).toBe("/two.mp3");
+  });
+
+  it("keeps a slow rate through an autoplay unlock", async () => {
+    const audio = await loadStoryAudio();
+
+    audio.playStoryLineAudio("/slow.mp3", "Pomaly.", { playbackRate: 0.8 });
+    await flushPromises();
+    expect(FakeAudio.instances[0]?.playbackRate).toBe(0.8);
+
+    FakeAudio.allowPlay = true;
+    audio.unlockStoryAudio();
+    await flushPromises();
+    expect(FakeAudio.instances[0]?.playbackRate).toBe(0.8);
+
+    audio.playStoryLineAudio("/normal.mp3", "Normálne.");
+    expect(FakeAudio.instances[0]?.playbackRate).toBe(1);
   });
 
   it("unlocks with silence when no line is waiting", async () => {

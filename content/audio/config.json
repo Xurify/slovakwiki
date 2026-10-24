@@ -41,7 +41,7 @@
       "blurb": "A shop assistant in town. She helps customers find items, check prices, and pay at the register.",
       "voiceId": "QW7RcNLFTKhyMDZ9Jt3E",
       "voiceName": "Slovak Wiki Lucia",
-      "speakers": [],
+      "speakers": ["Lucia"],
       "note": "Voice Design. Shop assistant."
     },
     "receptionist": {
@@ -79,10 +79,10 @@
       "gender": "male",
       "kind": "oneOff",
       "blurb": "A café waiter in old town. He takes drink orders, serves pastries, and brings the bill.",
-      "voiceId": "vTjn72hcQp2zpBEqZUEs",
+      "voiceId": "k5XwAiAg3Dr3K90Axw1B",
       "voiceName": "Slovak Wiki Waiter",
       "speakers": ["Waiter", "Conductor"],
-      "note": "Voice Design. Café / restaurant service."
+      "note": "Voice Design, third take (preview 2): a waiter at the table, not on the loudspeaker."
     },
     "guide": {
       "displayName": "Guide",
@@ -103,6 +103,16 @@
       "voiceName": "Slovak Wiki Dictionary Neutral",
       "speakers": ["Notice", "Sentence", "Scene"],
       "note": "Same voice as dictionary Neutral. Unknown-speaker fallback."
+    },
+    "announcer": {
+      "displayName": "Announcer",
+      "gender": "male",
+      "kind": "system",
+      "blurb": "The loudspeaker. Reads out stops and stations on the tram, platform announcements and public notices.",
+      "voiceId": "vTjn72hcQp2zpBEqZUEs",
+      "voiceName": "Slovak Wiki Announcer",
+      "speakers": ["Announcement"],
+      "note": "The first Waiter take, which sounds like a tannoy. Never a person on stage."
     }
   }
 }
