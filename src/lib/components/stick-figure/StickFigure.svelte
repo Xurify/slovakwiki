@@ -44,10 +44,13 @@
   } = $props();
 
   const rig = $derived(solveRig(pose));
-  /** From the near cup over the crown of the hair to the far one, `lift` above the hair. */
+  /**
+   * From the near cup over the crown to the far one: half an ellipse round
+   * the head whose top sits `lift` above the hair, so the band hugs the
+   * hair all the way down instead of floating clear of it at the sides.
+   */
   function headband(lift: number): string {
-    const apex = look.crown - lift;
-    return `M17.9 25.6C16.6 ${n(apex + 4)} 22 ${n(apex)} 32 ${n(apex)}S47.4 ${n(apex + 4)} 46.1 25.6`;
+    return `M17.9 25.6A14.1 ${n(25.6 - (look.crown - lift))} 0 0 1 46.1 25.6`;
   }
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
@@ -184,8 +187,8 @@
 
       {#if dress.headwear === "headphones"}
         <!-- Open-back headphones in the head's own 64-unit space: a thin band over the hair, a light cup with a grille on the near ear. -->
-        <path d={headband(1.2)} class="stroke-portrait-ink" stroke-width="2" />
-        <path d={headband(1.2)} class="stroke-scene-edge" stroke-width="0.8" />
+        <path d={headband(0.4)} class="stroke-portrait-ink" stroke-width="2" />
+        <path d={headband(0.4)} class="stroke-scene-edge" stroke-width="0.8" />
         <rect
           x="14.5"
           y="25.2"
@@ -202,7 +205,7 @@
         />
       {:else if dress.headwear === "headset"}
         <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
-        <path d={headband(1)} class="stroke-portrait-ink" stroke-width="1.8" />
+        <path d={headband(0.2)} class="stroke-portrait-ink" stroke-width="1.8" />
         <circle
           cx="17.8"
           cy="29.4"
