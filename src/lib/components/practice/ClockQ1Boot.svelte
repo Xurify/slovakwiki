@@ -79,7 +79,7 @@
             </div>
 
             <button
-              class="audio-button relative inline-grid size-7 shrink-0 place-items-center rounded-full border border-slate-300 bg-(--surface) text-blue-900 shadow-(--shadow-border)"
+              class="audio-button relative inline-grid size-11 shrink-0 place-items-center rounded-full border border-slate-300 bg-(--surface) text-blue-900 shadow-(--shadow-border)"
               type="button"
               tabindex="-1"
               aria-hidden="true"

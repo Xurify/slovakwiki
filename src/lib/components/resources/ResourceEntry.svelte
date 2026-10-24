@@ -37,6 +37,7 @@
           target="_blank"
         >
           {resource.name}
+          <span class="sr-only"> (opens in a new tab)</span>
         </a>
 
         <div class="flex shrink-0 flex-wrap gap-1.5 pt-1 max-[560px]:pt-0">
@@ -72,6 +73,7 @@
                   target="_blank"
                 >
                   {link.label}
+                  <span class="sr-only"> (opens in a new tab)</span>
                 </a>
 
                 {#if link.note}
@@ -92,6 +94,7 @@
                 target="_blank"
               >
                 {link.label}
+                <span class="sr-only"> (opens in a new tab)</span>
               </a>
             {/each}
           </div>

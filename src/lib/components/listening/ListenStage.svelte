@@ -189,8 +189,8 @@
     ...(ontogglequestions
       ? [
           {
-            description: "Stop at the end of each segment for its questions",
-            label: "Stop for questions",
+            description: "Pause at the end of each segment for its questions",
+            label: "Pause at questions",
             on: questions,
             ontoggle: ontogglequestions,
           },

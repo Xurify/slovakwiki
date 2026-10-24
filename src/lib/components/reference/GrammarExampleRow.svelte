@@ -38,7 +38,7 @@
 
 <li class="flex items-start gap-2.5 border-t border-slate-200/70 py-3">
   {#if reserveAudioColumn}
-    <span class="mt-0.5 inline-grid size-7 shrink-0 place-items-center">
+    <span class="mt-0.5 inline-grid size-11 shrink-0 place-items-center">
       {#if audioKey}
         <span data-audio-mount={audioKey}></span>
       {/if}

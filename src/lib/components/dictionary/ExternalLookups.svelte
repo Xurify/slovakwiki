@@ -95,6 +95,7 @@
                       decoding="async"
                     />
                     <span>{link.label}</span>
+                    <span class="sr-only"> (opens in a new tab)</span>
                   </a>
                 </li>
               {/each}

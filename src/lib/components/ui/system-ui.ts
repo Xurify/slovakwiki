@@ -22,7 +22,7 @@ export const iconButtonClass =
 export const iconButtonToneClass = "text-slate-500 hover:bg-subtle hover:text-slate-900";
 
 const chipBase =
-  "inline-flex cursor-pointer items-center justify-center rounded-full border text-xs font-semibold no-underline transition-[color,background-color,border-color,box-shadow] duration-150 ease-out";
+  "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full border text-xs font-semibold no-underline transition-[color,background-color,border-color,box-shadow] duration-150 ease-out";
 
 const chipIdle =
   "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-subtle hover:text-slate-900";
@@ -36,7 +36,7 @@ export function chipClass(active: boolean): string {
 
 /** Square-ish chip for single letters. */
 export function letterChipClass(active: boolean): string {
-  return `${chipBase} h-8 min-w-8 px-2 ${active ? chipActive : chipIdle}`;
+  return `${chipBase} h-11 min-w-11 px-2 ${active ? chipActive : chipIdle}`;
 }
 
 /** Static tag: a cost, a level, a kind. Never interactive. */

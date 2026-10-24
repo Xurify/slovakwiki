@@ -247,7 +247,7 @@
       <ThemeToggle tone="inverse" />
 
       <button
-        class="flex min-h-10 min-w-10 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-panel-inverse-ink"
+        class="flex min-h-11 min-w-11 cursor-pointer items-center justify-center border-0 bg-transparent p-2 text-panel-inverse-ink"
         type="button"
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
