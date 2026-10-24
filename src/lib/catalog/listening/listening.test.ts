@@ -15,6 +15,7 @@ import {
   listeningEpisodes,
   validateListeningEpisodes,
 } from "./index";
+import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
 
 describe("listening episodes", () => {
   it("validate", () => {
@@ -35,12 +36,15 @@ describe("listening episodes", () => {
     }
   });
 
-  it("gives every speaker a voice of their own, never the narrator fallback", () => {
+  it("gives every speaker a voice of their own; only a scene card goes to the narrator", () => {
     const listed = new Set(listedAudioSpeakers().map((row) => row.speaker));
 
     for (const line of listeningEpisodes.flatMap(episodeLines)) {
       expect(listed.has(line.speaker), `speaker ${line.speaker}`).toBe(true);
-      expect(characterIdForSpeaker(line.speaker)).not.toBe("narrator");
+      // A scene card ("Scene") is nobody's line, so the narrator reads it; a person's never is.
+      if (dialogueSpeakerLabel(line.speaker) !== null) {
+        expect(characterIdForSpeaker(line.speaker), line.id).not.toBe("narrator");
+      }
     }
   });
 

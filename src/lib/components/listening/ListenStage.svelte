@@ -21,6 +21,7 @@
 
   import EpisodeCheck from "./EpisodeCheck.svelte";
   import EpisodeLine from "./EpisodeLine.svelte";
+  import { episodeSpeakerName } from "./episode-speaker";
   import ListenControl from "./ListenControl.svelte";
   import ListenScene from "./ListenScene.svelte";
   import SceneSettings, {
@@ -120,7 +121,8 @@
   const status = $derived.by(() => {
     const line = player.line;
     const position = `line ${player.cursor + 1} of ${lines.length}`;
-    if (player.speaking && line) return `${line.speaker} · ${position}`;
+    if (player.speaking && line)
+      return `${episodeSpeakerName(line.speaker)} · ${position}`;
     if (player.playing) return position;
     if (stage === "idle") return idleCopy;
     if (stage === "listening") return `Paused · ${position}`;
@@ -312,7 +314,7 @@
                 ? 'text-blue-800'
                 : 'text-slate-500'}"
             >
-              {speaker}
+              {episodeSpeakerName(speaker)}
             </span>
           </li>
         {/each}
