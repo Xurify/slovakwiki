@@ -9,7 +9,8 @@ export const SLOW_RATE = 0.8;
 export interface LineStage {
   /** `onStart` once the voice starts, which waits for anyone still walking over. */
   play(index: number, onEnded: () => void, rate: number, onStart: () => void): void;
-  stop(): void;
+  /** `leaving` when the player is done with the segment, not pausing it. */
+  stop(leaving?: boolean): void;
 }
 
 export interface LinePlayerOptions {
@@ -94,7 +95,7 @@ export class LinePlayer {
 
   destroy(): void {
     this.#clearGap();
-    this.#options.stage?.()?.stop();
+    this.#options.stage?.()?.stop(true);
     stopStoryLineAudio();
   }
 
@@ -108,11 +109,14 @@ export class LinePlayer {
       return;
     }
 
-    this.#gap = window.setTimeout(() => {
-      this.#gap = 0;
-      if (mine !== this.#epoch || !this.playing) return;
-      this.playFrom(index + 1);
-    }, LINE_GAP_MS);
+    this.#gap = window.setTimeout(
+      () => {
+        this.#gap = 0;
+        if (mine !== this.#epoch || !this.playing) return;
+        this.playFrom(index + 1);
+      },
+      LINE_GAP_MS + (this.#lines[index + 1]?.wait ?? 0),
+    );
   }
 
   #clearGap(): void {

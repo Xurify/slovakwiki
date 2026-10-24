@@ -9,7 +9,7 @@
   import Button from "$lib/components/ui/Button.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import { dataPanelClass } from "$lib/components/ui/data-list-ui";
-  import { panelClass } from "$lib/components/ui/system-ui";
+  import { iconButtonClass, panelClass } from "$lib/components/ui/system-ui";
   import { playStoryLineAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { cx } from "$lib/ui/classes";
@@ -44,7 +44,7 @@
   let heard = $state<Record<string, boolean>>({});
   let scores = $state<Record<string, number>>({});
   let restartCount = $state(0);
-  let stage = $state<{ pause: () => void }>();
+  let stage = $state<{ pause: () => void; playing: () => boolean }>();
   let stageEl: HTMLElement | undefined = $state();
 
   const totalChecks = episodeCheckCount(episode);
@@ -243,25 +243,70 @@
         </span>
       </h2>
 
-      <p class="m-0 shrink-0 text-sm text-slate-500 tabular-nums">
-        <span class="sr-only">Segment</span>
-        {active + 1} of {episode.chapters.length}
-      </p>
+      <div class="-mr-2 flex shrink-0 items-center gap-0.5">
+        <button
+          class={cx(
+            iconButtonClass,
+            "size-9 text-slate-500 hover:bg-subtle hover:text-slate-900",
+            active === 0 && "invisible",
+          )}
+          type="button"
+          aria-label="Previous segment"
+          title="Previous segment"
+          onclick={() => openChapter(active - 1, stage?.playing() ?? false, false)}
+        >
+          <svg
+            class="size-4 fill-none stroke-current"
+            viewBox="0 0 24 24"
+            stroke-width="2.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M14.5 6 8.5 12l6 6" />
+          </svg>
+        </button>
+
+        <p class="m-0 text-sm text-slate-500 tabular-nums">
+          <span class="sr-only">Segment</span>
+          {active + 1} of {episode.chapters.length}
+        </p>
+
+        <button
+          class={cx(
+            iconButtonClass,
+            "size-9 text-slate-500 hover:bg-subtle hover:text-slate-900",
+            active === episode.chapters.length - 1 && "invisible",
+          )}
+          type="button"
+          aria-label="Next segment"
+          title="Next segment"
+          onclick={() => openChapter(active + 1, stage?.playing() ?? false, false)}
+        >
+          <svg
+            class="size-4 fill-none stroke-current"
+            viewBox="0 0 24 24"
+            stroke-width="2.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9.5 6 6 6-6 6" />
+          </svg>
+        </button>
+      </div>
     </header>
 
     {#key `${chapter.id}-${restartCount}`}
       <ListenStage
         bind:this={stage}
         {chapter}
-        chapterCount={episode.chapters.length}
-        chapterIndex={active}
         audioSrcs={audioSrcs.srcByLineId}
         {autoplay}
         done={scores[chapter.id] === undefined ? null : { correct: scores[chapter.id]! }}
         heard={heard[chapter.id] ?? false}
         onfinish={finishChapter}
         onlistened={listened}
-        onstep={(step, playing) => openChapter(active + step, playing, false)}
         ontogglequestions={toggleQuestions}
         {questions}
         scene={stages?.scenes[chapter.id]}

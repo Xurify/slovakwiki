@@ -9,6 +9,8 @@
   /** One sound of the place for the episode: the next segment fades it over to its own. */
   let place: AmbiencePlayer | undefined;
   let quiet = 0;
+  /** When the sound is due to stop; an earlier call keeps its earlier time. */
+  let quietAt = Number.POSITIVE_INFINITY;
 </script>
 
 <script lang="ts">
@@ -118,15 +120,20 @@
     }, wait);
   }
 
-  export function stop(): void {
+  /**
+   * Stop the line. On a pause the place falls silent with the voice; on
+   * leaving the segment it is handed on to the next one instead.
+   */
+  export function stop(leaving = false): void {
     window.clearTimeout(waiting);
     live = false;
     stage?.stop();
-    hush(HANDOVER_MS);
+    hush(leaving ? HANDOVER_MS : 0);
   }
 
   function listen(): void {
     window.clearTimeout(quiet);
+    quietAt = Number.POSITIVE_INFINITY;
     if (!sound || getStoredSfxPreference() === "off") return;
 
     const ambience = ambienceFor(scene.setting, mood);
@@ -135,8 +142,12 @@
   }
 
   function hush(after: number): void {
+    const at = performance.now() + after;
+    if (at >= quietAt) return;
     window.clearTimeout(quiet);
+    quietAt = at;
     quiet = window.setTimeout(() => {
+      quietAt = Number.POSITIVE_INFINITY;
       place?.stop();
       place = undefined;
     }, after);

@@ -4,12 +4,25 @@ import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-demonstratives-";
 
-/** A beat of silence in the clip, where the speaker thinks or lets a clue sink in; not shown in the text. */
-const PAUSE = { tag: "pause" } as const;
-/** First in a line: said slowly, as Marek gives a clue for Anna to guess from. */
-const SLOWLY = { tag: "slowly" } as const;
+/** A direction to the voice, not shown in the text. */
+interface Direction {
+  readonly tag: "pause" | "sighs";
+}
 
-type Part = string | { demonstrative: string } | typeof PAUSE | typeof SLOWLY;
+/** A beat of silence in the clip, where the speaker thinks or lets a clue sink in. */
+const PAUSE: Direction = { tag: "pause" };
+/** A sigh before the words: fond exasperation, as when Marek has lost the keys again. */
+const SIGH: Direction = { tag: "sighs" };
+/** The listener gets this long to decide before the answer comes. */
+const THINK_MS = 2000;
+/**
+ * A clue trailing off in the text, a full stop in the clip: Eleven reads an
+ * ellipsis as trailing off, and with a direction to go slowly it made Marek's
+ * clues a drawn-out whisper. The beat comes from the PAUSE after it.
+ */
+const STOP = { said: ". ", shown: "… " } as const;
+
+type Part = string | { demonstrative: string } | Direction | typeof STOP;
 
 function line(
   id: string,
@@ -27,7 +40,9 @@ function line(
         ? [part]
         : "tag" in part
           ? []
-          : [{ role: "demonstrative", text: part.demonstrative }],
+          : "shown" in part
+            ? [part.shown]
+            : [{ role: "demonstrative", text: part.demonstrative }],
     ),
   );
   // Eleven v4 takes [pause] inside a line; at its start or end it makes next to no silence.
@@ -37,7 +52,9 @@ function line(
         ? part
         : "tag" in part
           ? `[${part.tag}] `
-          : part.demonstrative,
+          : "shown" in part
+            ? part.said
+            : part.demonstrative,
     )
     .join("");
 
@@ -51,6 +68,11 @@ function line(
     ...(props ? { props } : {}),
     ...(to ? { to } : {}),
   };
+}
+
+/** The answer to a question put to the listener: the player waits before it, since a pause at the start of a clip makes next to none. */
+function afterThinking(turn: DialogueTurn): DialogueTurn {
+  return { ...turn, wait: THINK_MS };
 }
 
 /** Anna only guesses: the thing is still in Marek's bag, so none of her `sentences` brings it out. */
@@ -147,12 +169,12 @@ const bag: ListeningChapter = {
       "marek-small-opens-doors",
       "Marek",
       [
-        SLOWLY,
         "Prvá vec. ",
         PAUSE,
         "Je ",
         { demonstrative: "to" },
-        " malé… ",
+        " malé",
+        STOP,
         PAUSE,
         "a otvára dvere.",
       ],
@@ -181,14 +203,15 @@ const bag: ListeningChapter = {
       "marek-heavy-paper",
       "Marek",
       [
-        SLOWLY,
         "Je ",
         { demonstrative: "to" },
-        " žlté… ",
+        " žlté",
+        STOP,
         PAUSE,
         "je ",
         { demonstrative: "to" },
-        " ťažké… ",
+        " ťažké",
+        STOP,
         PAUSE,
         "a vnútri je papier.",
       ],
@@ -243,10 +266,10 @@ const bag: ListeningChapter = {
       "marek-green-sweet",
       "Marek",
       [
-        SLOWLY,
         "Je ",
         { demonstrative: "to" },
-        " zelené… ",
+        " zelené",
+        STOP,
         PAUSE,
         "a je ",
         { demonstrative: "to" },
@@ -724,8 +747,8 @@ const quiz: ListeningChapter = {
     line(
       "anna-right-or-wrong",
       "Anna",
-      ["A teraz hra: správne alebo nesprávne?"],
-      "And now a game: right or wrong?",
+      ["A teraz hra: správne alebo nesprávne? Hádajte s nami!"],
+      "And now a game: right or wrong? Guess along with us!",
     ),
     line(
       "marek-first-sentence",
@@ -733,17 +756,19 @@ const quiz: ListeningChapter = {
       ["Dobre. Prvá veta: ", PAUSE, { demonstrative: "Tá" }, " dievča je moja sestra."],
       "OK. First sentence: Tá dievča je moja sestra. (Wrong on purpose.)",
     ),
-    line(
-      "anna-dievca-neuter",
-      "Anna",
-      [
-        "Nesprávne! ",
-        PAUSE,
-        "Dievča je stredný rod: ",
-        { demonstrative: "to" },
-        " dievča.",
-      ],
-      "Wrong! Dievča is neuter: to dievča.",
+    afterThinking(
+      line(
+        "anna-dievca-neuter",
+        "Anna",
+        [
+          "Nesprávne! ",
+          PAUSE,
+          "Dievča je stredný rod: ",
+          { demonstrative: "to" },
+          " dievča.",
+        ],
+        "Wrong! Dievča is neuter: to dievča.",
+      ),
     ),
     line(
       "marek-second-sentence",
@@ -751,22 +776,24 @@ const quiz: ListeningChapter = {
       ["Druhá veta: ", PAUSE, { demonstrative: "Tie" }, " deti sa hrajú vonku."],
       "Second sentence: Those children are playing outside.",
     ),
-    line(
-      "anna-tie-deti-right",
-      "Anna",
-      [
-        "Správne! ",
-        PAUSE,
-        { demonstrative: "Tie" },
-        " deti, ",
-        { demonstrative: "tie" },
-        " ženy. ",
-        { demonstrative: "Tí" },
-        " muži, ",
-        { demonstrative: "tí" },
-        " chlapci.",
-      ],
-      "Right! Tie deti, tie ženy. Tí muži, tí chlapci.",
+    afterThinking(
+      line(
+        "anna-tie-deti-right",
+        "Anna",
+        [
+          "Správne! ",
+          PAUSE,
+          { demonstrative: "Tie" },
+          " deti, ",
+          { demonstrative: "tie" },
+          " ženy. ",
+          { demonstrative: "Tí" },
+          " muži, ",
+          { demonstrative: "tí" },
+          " chlapci.",
+        ],
+        "Right! Tie deti, tie ženy. Tí muži, tí chlapci.",
+      ),
     ),
     line(
       "marek-third-sentence",
@@ -774,17 +801,19 @@ const quiz: ListeningChapter = {
       ["Tretia veta: ", PAUSE, "Poznáš ", { demonstrative: "tohoto" }, " muža?"],
       "Third sentence: Poznáš tohoto muža? (The Czech form, on purpose.)",
     ),
-    line(
-      "anna-tohto-not-tohoto",
-      "Anna",
-      [
-        "Pozor! ",
-        PAUSE,
-        "Tohoto je po česky. Po slovensky je ",
-        { demonstrative: "tohto" },
-        ".",
-      ],
-      "Careful! Tohoto is Czech. In Slovak it's tohto.",
+    afterThinking(
+      line(
+        "anna-tohto-not-tohoto",
+        "Anna",
+        [
+          "Pozor! ",
+          PAUSE,
+          "Tohoto je po česky. Po slovensky je ",
+          { demonstrative: "tohto" },
+          ".",
+        ],
+        "Careful! Tohoto is Czech. In Slovak it's tohto.",
+      ),
     ),
     line(
       "marek-tohto-now-i-know",
@@ -882,7 +911,7 @@ const outro: ListeningChapter = {
       "Anna? Where are those keys?",
       [null, null],
     ),
-    line("anna-marek", "Anna", ["Marek!"], "Marek!"),
+    line("anna-marek", "Anna", [SIGH, "Marek!"], "Marek!"),
   ],
   checks: [
     {

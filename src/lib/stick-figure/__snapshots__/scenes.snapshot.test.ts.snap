@@ -2764,12 +2764,12 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "plan": {
         "beats": [
           "100 talk",
-          "2000 talk",
-          "4697 point → dvere",
+          "1900 talk",
+          "4365 point → dvere",
         ],
-        "ms": 5550,
-        "sentences": "100-798 2000-2868 4050-5350",
-        "words": "100-558 558-798 2000-2206 2206-2411 2411-2868 4050-4224 4224-4897 4897-5350",
+        "ms": 5200,
+        "sentences": "100-751 1900-2683 3750-5000",
+        "words": "100-527 527-751 1900-2086 2086-2271 2271-2683 3750-3917 3917-4565 4565-5000",
       },
       "staging": {
         "addressee": "anna",
@@ -2875,13 +2875,13 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "marek: Je to žlté… je to ťažké… a vnútri je papier.",
       "plan": {
         "beats": [
-          "250 show",
-          "2500 talk",
-          "4450 talk",
+          "50 show",
+          "1900 talk",
+          "3600 talk",
         ],
-        "ms": 6000,
-        "sentences": "250-1132 2500-3266 4450-5900",
-        "words": "250-459 459-668 668-1132 2500-2675 2675-2849 2849-3266 4450-4628 4628-5175 5175-5389 5389-5900",
+        "ms": 5400,
+        "sentences": "50-846 1900-2773 3600-5150",
+        "words": "50-239 239-427 427-846 1900-2099 2099-2298 2298-2773 3600-3791 3791-4375 4375-4604 4604-5150",
       },
       "props": [
         "bag",
@@ -3077,12 +3077,12 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
       "line": "marek: Je to zelené… a je to sladké.",
       "plan": {
         "beats": [
-          "100 show",
-          "3050 talk",
+          "50 show",
+          "2050 talk",
         ],
-        "ms": 4650,
-        "sentences": "100-1497 3050-4500",
-        "words": "100-368 368-635 635-1497 3050-3274 3274-3543 3543-3812 3812-4500",
+        "ms": 3600,
+        "sentences": "50-1130 2050-3450",
+        "words": "50-257 257-464 464-1130 2050-2266 2266-2526 2526-2786 2786-3450",
       },
       "props": [
         "bag",
@@ -4270,11 +4270,11 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       "line": "anna: Marek!",
       "plan": {
         "beats": [
-          "0 talk",
+          "100 talk",
         ],
-        "ms": 750,
-        "sentences": "0-600",
-        "words": "0-600",
+        "ms": 2000,
+        "sentences": "100-1700",
+        "words": "100-1700",
       },
       "staging": {
         "addressee": "marek",
@@ -4317,16 +4317,17 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: A teraz hra: správne alebo nesprávne?",
+      "line": "anna: A teraz hra: správne alebo nesprávne? Hádajte s nami!",
       "plan": {
         "beats": [
-          "100 ask",
-          "1900 talk",
+          "50 ask",
+          "1850 talk",
+          "3500 talk",
         ],
-        "ms": 3650,
-        "questions": "100-3300",
-        "sentences": "100-3300",
-        "words": "100-290 290-786 786-1052 1179-1802 1802-2449 2449-3300",
+        "ms": 4650,
+        "questions": "50-2930",
+        "sentences": "50-2930 3500-4450",
+        "words": "50-221 221-667 667-907 1021-1581 1581-2164 2164-2930 3500-4097 4097-4097 4097-4450",
       },
       "staging": {
         "addressee": "marek",
@@ -4362,14 +4363,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "reactions": [
-          {
-            "at": 1,
-            "characterId": "anna",
-            "gesture": "nod",
-            "sentence": 1,
-          },
-        ],
       },
     },
     {

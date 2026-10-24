@@ -161,7 +161,10 @@ export class ScenePlayback {
       this.phase = "paused";
       return;
     }
-    this.#timer = window.setTimeout(() => this.#step(index + 1), LINE_GAP_MS);
+    this.#timer = window.setTimeout(
+      () => this.#step(index + 1),
+      LINE_GAP_MS + (this.#options.lines()[index + 1]?.wait ?? 0),
+    );
   }
 
   #say(index: number, onDone?: () => void): void {

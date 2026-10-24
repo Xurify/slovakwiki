@@ -43,10 +43,11 @@ describe("listening episodes", () => {
     }
   });
 
-  it("says each line as it is written, its pauses aside", () => {
+  it("says each line as it is written, its pauses and stops aside", () => {
+    const words = (text: string) => (text.match(/\p{L}+/gu) ?? []).join(" ");
     for (const line of listeningEpisodes.flatMap(episodeLines)) {
       if (!line.audio) continue;
-      expect(spokenText(line.audio.transcript), line.id).toBe(line.slovak);
+      expect(words(spokenText(line.audio.transcript)), line.id).toBe(words(line.slovak));
     }
   });
 

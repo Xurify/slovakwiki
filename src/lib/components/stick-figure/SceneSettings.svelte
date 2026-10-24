@@ -17,9 +17,12 @@
 
   let {
     class: className = "",
+    label = "Scene settings",
     settings,
   }: {
     class?: string;
+    /** What the menu is called, for the button and the dialog. */
+    label?: string;
     settings: SceneSetting[];
   } = $props();
 
@@ -54,11 +57,11 @@
       open ? "bg-subtle text-slate-900" : "text-slate-500",
     )}
     type="button"
-    aria-label="Scene settings"
+    aria-label={label}
     aria-expanded={open}
     aria-haspopup="dialog"
     aria-controls={open ? "scene-settings" : undefined}
-    title="Scene settings"
+    title={label}
     onclick={() => {
       open = !open;
     }}
@@ -74,7 +77,7 @@
         "rounded-(--frame-radius) bg-surface shadow-(--shadow-float)",
       )}
       role="dialog"
-      aria-label="Scene settings"
+      aria-label={label}
     >
       <ul class="m-0 list-none p-0">
         {#each settings as setting (setting.label)}

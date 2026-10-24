@@ -9,6 +9,7 @@
     getStoryPlaceSound,
     getStoryShowEnglish,
     setStoryPlaceSound,
+    setStoryShowEnglish,
   } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
@@ -20,6 +21,9 @@
   import EpisodeLine from "./EpisodeLine.svelte";
   import ListenControl from "./ListenControl.svelte";
   import ListenScene from "./ListenScene.svelte";
+  import SceneSettings, {
+    type SceneSetting,
+  } from "$lib/components/stick-figure/SceneSettings.svelte";
 
   let {
     actions,
@@ -27,13 +31,10 @@
     audioSrcs,
     autoplay = false,
     chapter,
-    chapterCount = 1,
-    chapterIndex = 0,
     done = null,
     heard = false,
     onfinish,
     onlistened,
-    onstep,
     ontogglequestions,
     questions = true,
     scene,
@@ -44,17 +45,12 @@
     audioSrcs: Record<string, string>;
     autoplay?: boolean;
     chapter: ListeningChapter;
-    /** Where the segment sits in its episode, for stepping to its neighbours. */
-    chapterCount?: number;
-    chapterIndex?: number;
     done?: { correct: number } | null;
     /** Played through already, so its questions come straight away. */
     heard?: boolean;
     onfinish?: (correct: number) => void;
     /** The segment has played to its end. */
     onlistened?: () => void;
-    /** Open the segment before or after this one; `playing` when this one was playing. */
-    onstep?: (step: -1 | 1, playing: boolean) => void;
     ontogglequestions?: () => void;
     /** Stop for the segment's questions once it has played; off, it only plays. */
     questions?: boolean;
@@ -139,6 +135,52 @@
   export function pause(): void {
     player.pause();
   }
+
+  export function playing(): boolean {
+    return player.playing;
+  }
+
+  /** What stays set from one segment to the next, behind one gear. */
+  const settings = $derived<SceneSetting[]>([
+    {
+      description: "Translations under the Slovak lines",
+      label: "Show English",
+      on: english,
+      ontoggle: () => {
+        english = !english;
+        setStoryShowEnglish(english ? "on" : "off");
+      },
+    },
+    {
+      description: "Lines play at four-fifths speed",
+      label: "Slower",
+      on: player.slow,
+      ontoggle: () => player.toggleSlow(),
+    },
+    ...(scene
+      ? [
+          {
+            description: "The sound of the place, quieter under the voices",
+            label: "Background sound",
+            on: placeSound,
+            ontoggle: () => {
+              placeSound = !placeSound;
+              setStoryPlaceSound(placeSound ? "on" : "off");
+            },
+          },
+        ]
+      : []),
+    ...(ontogglequestions
+      ? [
+          {
+            description: "Stop at the end of each segment for its questions",
+            label: "Stop for questions",
+            on: questions,
+            ontoggle: ontogglequestions,
+          },
+        ]
+      : []),
+  ]);
 
   function togglePlay(): void {
     const atEnd = listened && !player.playing && player.cursor === lines.length - 1;
@@ -272,32 +314,10 @@
 
     <p class="m-0 mt-2.5 text-sm text-slate-700 empty:hidden">{status}</p>
 
-    <div class="mt-2 -ml-2.5 flex flex-wrap gap-1">
+    <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
       {#if stage === "listening"}
         <ListenControl onclick={() => player.playFrom(player.cursor)}>
           Replay line
-        </ListenControl>
-      {/if}
-
-      <ListenControl pressed={player.slow} onclick={() => player.toggleSlow()}>
-        Slower
-      </ListenControl>
-
-      {#if scene}
-        <ListenControl
-          pressed={placeSound}
-          onclick={() => {
-            placeSound = !placeSound;
-            setStoryPlaceSound(placeSound ? "on" : "off");
-          }}
-        >
-          Background sound
-        </ListenControl>
-      {/if}
-
-      {#if ontogglequestions}
-        <ListenControl pressed={questions} onclick={ontogglequestions}>
-          Stop for questions
         </ListenControl>
       {/if}
 
@@ -305,17 +325,7 @@
         {textOpen ? "Hide text" : "Show text"}
       </ListenControl>
 
-      {#if onstep && chapterIndex > 0}
-        <ListenControl onclick={() => onstep(-1, player.playing)}>
-          Previous segment
-        </ListenControl>
-      {/if}
-
-      {#if onstep && chapterIndex < chapterCount - 1 && stage !== "done"}
-        <ListenControl onclick={() => onstep(1, player.playing)}>
-          Next segment
-        </ListenControl>
-      {/if}
+      <SceneSettings class="ml-auto -mr-1.5" label="Listening settings" {settings} />
     </div>
   </div>
 
@@ -382,13 +392,7 @@
 
   {#if textOpen}
     <div class="border-t border-slate-200/70">
-      <div class="flex items-center justify-between gap-3 px-4 pt-2.5 sm:px-5">
-        <p class="m-0 text-sm font-semibold text-slate-700">Text</p>
-
-        <ListenControl pressed={english} onclick={() => (english = !english)}>
-          English
-        </ListenControl>
-      </div>
+      <p class="m-0 px-4 pt-2.5 text-sm font-semibold text-slate-700 sm:px-5">Text</p>
 
       <ol class="m-0 list-none p-0" aria-label="Transcript">
         {#each lines as line, index (line.id)}

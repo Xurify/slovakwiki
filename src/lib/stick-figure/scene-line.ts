@@ -20,6 +20,8 @@ export interface SceneLine extends DirectedLine {
   sayChoices?: DialogueSayChoices;
   /** The name over the line: Alex, not You. */
   speaker: string;
+  /** Silence before the line, ms, for the listener to decide. */
+  wait?: number;
 }
 
 /** A conversation that branches on Alex's replies, with the one he talks with. */

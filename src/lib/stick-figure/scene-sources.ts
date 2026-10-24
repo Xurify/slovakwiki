@@ -57,6 +57,7 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
     src: srcs[turn.id],
     to: turn.to ? characterIdForSpeaker(turn.to) : undefined,
     vowels: mouths[turn.id]?.v,
+    wait: turn.wait,
   }));
 }
 
