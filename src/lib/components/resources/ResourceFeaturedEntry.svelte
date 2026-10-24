@@ -30,6 +30,7 @@
         target="_blank"
       >
         <span class="min-w-0">{resource.name}</span>
+        <span class="sr-only"> (opens in a new tab)</span>
         <ArrowRight class="mt-1 shrink-0 opacity-50 group-hover:opacity-100" />
       </a>
 
@@ -59,6 +60,7 @@
           target="_blank"
         >
           {link.label}
+          <span class="sr-only"> (opens in a new tab)</span>
         </a>
       {/each}
     </div>

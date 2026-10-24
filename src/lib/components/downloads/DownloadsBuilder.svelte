@@ -384,7 +384,11 @@
             disabled={rowsBusy}
             onclick={() => void downloadPack(pack)}
           >
-            {pendingPack === pack.id ? "Preparing…" : "Download"}
+            {pendingPack === pack.id
+              ? "Preparing…"
+              : pack.id === "anki"
+                ? "Download Anki TSV"
+                : `Download ${pack.formatNote}`}
           </Button>
         </div>
       </li>
@@ -593,7 +597,7 @@
         disabled={!canDownloadCustom}
         onclick={() => void downloadCustom()}
       >
-        {pendingPack === "custom" ? "Preparing…" : "Download"}
+        {pendingPack === "custom" ? "Preparing…" : `Download ${format.toUpperCase()}`}
       </Button>
     </footer>
   </form>

@@ -72,11 +72,19 @@
       .filter((word) => word.frequency?.partOfSpeech === partOfSpeech)
       .sort((left, right) => (left.frequency?.rank ?? 0) - (right.frequency?.rank ?? 0));
 
+    const entries = ranked.slice(0, 6);
+    const showRanks = entries.every((word, index) => {
+      const rank = word.frequency?.rank;
+      const previous = entries[index - 1]?.frequency?.rank;
+      return rank != null && (index === 0 || (previous != null && rank === previous + 1));
+    });
+
     return {
       partOfSpeech,
       label: FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech],
       total: ranked.length,
-      entries: ranked.slice(0, 6),
+      entries,
+      showRanks,
     };
   });
 
@@ -131,9 +139,7 @@
           trackLessonCount={focusGroup?.lessons.length ?? 0}
         />
 
-        <div class="max-lg:hidden">
-          <GrammarQuestionsCard />
-        </div>
+        <GrammarQuestionsCard />
       </aside>
 
       <div class="min-w-0 lg:col-start-1 lg:row-start-2 lg:mt-12">
@@ -258,13 +264,13 @@
             <SectionHead
               title="The words you will meet first"
               id="common-heading"
-              href="/dictionary/common/verb"
+              href="/dictionary/common"
               description="Ranked by how often they appear in the Slovak National Corpus. Each list runs to the top thousand or more."
             >
               {#snippet aside()}
                 <a
                   class="font-bold text-blue-800 no-underline hover:underline"
-                  href="/dictionary/common/verb"
+                  href="/dictionary/common"
                 >
                   All lists
                 </a>
@@ -280,12 +286,16 @@
                     {#each group.entries as word (word.slug)}
                       <li>
                         <a
-                          class="group grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-x-2 border-b border-slate-200/70 py-1.5 no-underline"
+                          class="group grid items-baseline gap-x-2 border-b border-slate-200/70 py-1.5 no-underline {group.showRanks
+                            ? 'grid-cols-[1.5rem_minmax(0,1fr)]'
+                            : 'grid-cols-1'}"
                           href={dictionaryPathForSense(word, words)}
                         >
-                          <span class="text-xs tabular-nums text-slate-500">
-                            {word.frequency?.rank}
-                          </span>
+                          {#if group.showRanks}
+                            <span class="text-xs tabular-nums text-slate-500">
+                              {word.frequency?.rank}
+                            </span>
+                          {/if}
                           <span class="grid gap-0.5">
                             <span class={wordClass} lang="sk">{word.slovak}</span>
                             <span class={glossClass}>{firstSense(word.english)}</span>

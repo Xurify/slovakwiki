@@ -207,7 +207,7 @@
 
         {#if lemmaAudioSrc}
           <span
-            class="inline-grid size-8 shrink-0 place-items-center"
+            class="inline-grid size-11 shrink-0 place-items-center"
             data-audio-mount="lemma"
           ></span>
         {/if}
@@ -335,7 +335,8 @@
                       class="text-blue-800 hover:underline"
                       href="https://tatoeba.org/"
                       rel="noopener noreferrer"
-                      target="_blank">Tatoeba</a
+                      target="_blank"
+                      >Tatoeba<span class="sr-only"> (opens in a new tab)</span></a
                     >
                     (CC BY 2.0 FR).
                   </p>
@@ -404,6 +405,7 @@
                     target="_blank"
                   >
                     {image.artist}
+                    <span class="sr-only"> (opens in a new tab)</span>
                   </a>
                 {:else}
                   <span>{image.artist}</span>
@@ -420,6 +422,7 @@
                     target="_blank"
                   >
                     {image.license}
+                    <span class="sr-only"> (opens in a new tab)</span>
                   </a>
                 {:else}
                   <span>{image.license}</span>
@@ -435,6 +438,7 @@
                   target="_blank"
                 >
                   {image.sourceLabel}
+                  <span class="sr-only"> (opens in a new tab)</span>
                 </a>
               {/if}
             </figcaption>

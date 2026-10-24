@@ -23,6 +23,7 @@
     results = [],
     subtitle,
     title,
+    titleTag = "p",
     total,
     viewIndex,
   }: {
@@ -41,6 +42,8 @@
     results?: readonly (AnswerGrade | "revealed")[];
     subtitle?: string;
     title?: string;
+    /** Lesson dialogs have no other h1. Practice keeps its question as the h1. */
+    titleTag?: "h1" | "p";
     total: number;
     /** Step on screen when reviewing behind `activeIndex`; defaults to it. */
     viewIndex?: number;
@@ -71,14 +74,14 @@
   const segmentBarClass =
     "h-1.5 min-w-0 flex-1 rounded-full transition-[background-color,opacity] duration-300";
   const segmentButtonClass =
-    "group -my-2 flex min-w-0 flex-1 cursor-pointer items-center border-0 bg-transparent py-2";
+    "group -my-2 flex min-h-11 min-w-0 flex-1 cursor-pointer items-center border-0 bg-transparent py-2";
 </script>
 
 <header class="grid gap-3.5 {className}">
   <div class="flex min-w-0 items-center gap-3">
     {#if backHref}
       <a
-        class="{iconButtonClass} {iconButtonToneClass} -ml-1.5 size-9"
+        class="{iconButtonClass} {iconButtonToneClass} -ml-1.5 size-11"
         href={backHref}
         aria-label={closeLabel ?? `Back to ${backLabel}`}
       >
@@ -97,11 +100,12 @@
 
     <div class="min-w-0 flex-1">
       {#if title}
-        <p
+        <svelte:element
+          this={titleTag}
           class="m-0 truncate font-serif text-base font-semibold leading-snug text-slate-900"
         >
           {title}
-        </p>
+        </svelte:element>
       {/if}
 
       {#if subtitle}
@@ -151,7 +155,7 @@
       aria-label={progressLabel}
       aria-valuemin={0}
       aria-valuemax={total}
-      aria-valuenow={complete ? total : activeIndex}
+      aria-valuenow={complete ? total : Math.min(displayIndex, total)}
       aria-valuetext={progressText}
     >
       {#each segments as index (index)}

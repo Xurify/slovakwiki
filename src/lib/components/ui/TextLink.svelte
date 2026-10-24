@@ -22,4 +22,7 @@
   {...rest}
 >
   {@render children()}
+  {#if rest.target === "_blank"}
+    <span class="sr-only"> (opens in a new tab)</span>
+  {/if}
 </svelte:element>

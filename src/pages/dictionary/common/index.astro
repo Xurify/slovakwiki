@@ -1,0 +1,63 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import Lead from "$lib/components/ui/Lead.svelte";
+import PageShell from "$lib/components/ui/PageShell.svelte";
+import TextLink from "$lib/components/ui/TextLink.svelte";
+import { loadAllFrequencyLists } from "$lib/catalog/frequency/load";
+import {
+  FREQUENCY_PART_OF_SPEECH_LABEL,
+  FREQUENCY_PARTS,
+} from "$lib/catalog/frequency/types";
+
+const lists = await loadAllFrequencyLists();
+const parts = FREQUENCY_PARTS.map((partOfSpeech) => ({
+  href: `/dictionary/common/${partOfSpeech}`,
+  label: FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech],
+  count: lists[partOfSpeech].entries.filter((entry) => entry.lemma.trim().length > 1)
+    .length,
+}));
+---
+
+<SiteLayout
+  title="Most common words — Slovak Wiki"
+  description="The most common Slovak verbs, nouns, adjectives, and adverbs from the Slovak National Corpus."
+  canonicalPath="/dictionary/common"
+>
+  <main class="py-12 pb-20 max-[600px]:py-8">
+    <PageShell class="max-w-[720px]">
+      <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
+        <TextLink href="/dictionary">Dictionary</TextLink>
+        <span aria-hidden="true">/</span>
+        <span>Most common</span>
+      </nav>
+
+      <header class="max-w-[640px]">
+        <h1>Most common words</h1>
+        <Lead>
+          Four lists from the Slovak National Corpus, ranked by how often each word
+          appears. Open a list, then a word, for its meaning, examples, and forms.
+        </Lead>
+      </header>
+
+      <ul
+        class="m-0 mt-8 list-none divide-y divide-slate-200 border-y border-slate-200 p-0"
+      >
+        {
+          parts.map((part) => (
+            <li>
+              <a
+                class="flex items-baseline justify-between gap-4 py-3.5 no-underline hover:bg-blue-50/40"
+                href={part.href}
+              >
+                <span class="font-serif text-lg text-blue-800">{part.label}</span>
+                <span class="text-sm text-slate-500 tabular-nums">
+                  {part.count.toLocaleString("en")}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </PageShell>
+  </main>
+</SiteLayout>
