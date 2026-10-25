@@ -110,6 +110,8 @@
 
   let actors = $state<Partial<Record<LessonCharacterId, ActorState>>>({});
   let facings = $state<CastFacing>({});
+  /** Who is talking to the listeners, head turned to the front. */
+  let front = $state<LessonCharacterId | undefined>();
   /** When each figure begins a turn: the speaker at once, the others a beat later. */
   let turns = $state<TurnDelays>({});
   let offsets = $state<Offsets>({});
@@ -552,6 +554,7 @@
     for (const actor of Object.values(actors)) actor.talking = false;
     spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
     const speaker = line.characterId;
+    front = staging?.audience && speaker ? speaker : undefined;
     turns = turnDelays(direction.cast, speaker);
     facings = { ...facings, ...staging?.facing };
     // Aimed from where the speaker stands before anyone walks this line.
@@ -669,6 +672,7 @@
             {clock}
             cue={actors[characterId]?.cue ?? 0}
             facing={facings[characterId] ?? resting[characterId] ?? 1}
+            front={front === characterId}
             onbeat={onBeat}
             plan={actors[characterId]?.plan}
             held={heldBy(characterId)}

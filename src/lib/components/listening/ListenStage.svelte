@@ -321,20 +321,34 @@
       </ul>
     </div>
 
-    <div class="mt-4 flex gap-1" aria-hidden="true">
+    <ol class="m-0 mt-2 flex list-none gap-1 p-0" aria-label="Lines">
       {#each lines as line, index (line.id)}
-        <span
-          class={cx(
-            "h-1 flex-1 rounded-full transition-colors duration-150 ease-out",
-            index < player.cursor || (index === player.cursor && stage !== "idle")
-              ? "bg-blue-600"
-              : "bg-slate-200",
-          )}
-        ></span>
+        <li class="flex-1">
+          <button
+            class="block w-full cursor-pointer border-0 bg-transparent px-0 py-2"
+            type="button"
+            aria-label="Play line {index + 1} of {lines.length}, {episodeSpeakerName(
+              line.speaker,
+            )}"
+            aria-current={index === player.cursor && stage !== "idle"
+              ? "true"
+              : undefined}
+            onclick={() => player.playFrom(index)}
+          >
+            <span
+              class={cx(
+                "block h-1 rounded-full transition-colors duration-150 ease-out",
+                index < player.cursor || (index === player.cursor && stage !== "idle")
+                  ? "bg-blue-600"
+                  : "bg-slate-200 hover:bg-slate-300",
+              )}
+            ></span>
+          </button>
+        </li>
       {/each}
-    </div>
+    </ol>
 
-    <p class="m-0 mt-2.5 text-sm text-slate-700 empty:hidden">{status}</p>
+    <p class="m-0 mt-0.5 text-sm text-slate-700 empty:hidden">{status}</p>
 
     <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
       {#if stage === "listening"}

@@ -23,6 +23,7 @@
     characterId,
     class: className = "",
     facing = 1,
+    front = false,
     picture,
     pose = REST_POSE,
     held,
@@ -32,6 +33,8 @@
     characterId: LessonCharacterId;
     class?: string;
     facing?: 1 | -1;
+    /** Talking to the listeners: the face turned to the front instead of three-quarters to the side. */
+    front?: boolean;
     /** Shown in a bubble over the head, the right way round whichever way the figure faces. */
     picture?: StickPictureId;
     pose?: StickPose;
@@ -124,7 +127,7 @@
     <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 
     <g transform={headTransform}>
-      <StickHead {characterId} part="back" {pose} />
+      <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} />
 
       {#if dress.headwear === "headphones"}
         <!-- The far cup, behind the head in the three-quarter view. -->
@@ -183,7 +186,7 @@
     {@render hand(rig.leadArm.end)}
 
     <g transform={headTransform}>
-      <StickHead {characterId} {pose} />
+      <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
 
       {#if dress.headwear === "headphones"}
         <!-- Open-back headphones in the head's own 64-unit space: a thin band over the hair, a light cup with a grille on the near ear. -->

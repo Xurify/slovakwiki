@@ -3323,8 +3323,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -3712,8 +3712,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -3731,9 +3731,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -3796,8 +3796,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -4169,9 +4169,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -4187,8 +4187,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "reactions": [
@@ -4213,9 +4213,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -4231,8 +4231,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -4376,8 +4376,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "looksAt": "marek",
@@ -4875,8 +4875,8 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
       "staging": {
         "addressee": "waiter",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "waiter": -1,
         },
         "reactions": [
@@ -4949,15 +4949,15 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "anna: A pozri na svoju tašku. Omrvinky.",
+      "line": "anna: A tvoja taška. Daj mi ju, prosím.",
       "plan": {
         "beats": [
-          "50 tell",
-          "3000 tell",
+          "100 tell",
+          "1950 tell",
         ],
-        "ms": 4000,
-        "sentences": "50-1770 3000-3800",
-        "words": "50-222 222-669 669-876 876-1323 1323-1770 3000-3800",
+        "ms": 3450,
+        "sentences": "100-1042 1950-3250",
+        "words": "100-252 252-647 647-1042 1950-2192 2192-2399 2399-2606 2721-3250",
       },
       "staging": {
         "addressee": "marek",
@@ -4968,6 +4968,67 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
+      "handed": {
+        "anna": "bag",
+      },
+      "held": {
+        "marek": "bag",
+      },
+      "line": "marek: Nech sa páči.",
+      "plan": {
+        "beats": [
+          "50 show",
+        ],
+        "ms": 1000,
+        "sentences": "50-750",
+        "words": "50-236 236-396 396-750",
+      },
+      "props": [
+        "bag",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "gives": "anna",
+        "reactions": [
+          {
+            "at": 0.8,
+            "characterId": "anna",
+            "gesture": "show",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "anna: Hm… Omrvinky.",
+      "plan": {
+        "beats": [
+          "150 show",
+          "2000 stress",
+        ],
+        "ms": 3000,
+        "sentences": "150-385 2000-2700",
+        "words": "150-385 2000-2700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
       "line": "marek: Omrvinky… Počkaj… Možno som ho zjedol ja?",
       "plan": {
         "beats": [
@@ -4997,6 +5058,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "anna: Ty. Spomínaš si?",
       "plan": {
         "beats": [
@@ -5025,16 +5089,22 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "marek: Hm… Ráno som pracoval a mal som hlad. Vzal som si malý kúsok.",
+      "held": {
+        "anna": "bag",
+      },
+      "line": "marek: Hm… Ráno som pracoval… a mal som hlad. Vzal som si… malý kúsok. Len jeden.",
       "plan": {
         "beats": [
           "100 think",
-          "1650 tell",
-          "5200 tell",
+          "1600 muse",
+          "3568 tell",
+          "5416 muse",
+          "7086 tell",
+          "8900 tell",
         ],
-        "ms": 6900,
-        "sentences": "100-306 1650-3824 5200-6700",
-        "words": "100-306 1650-2080 2080-2306 2306-2952 2952-3114 3114-3340 3340-3566 3566-3824 5200-5447 5447-5662 5662-5847 5847-6258 6258-6700",
+        "ms": 9800,
+        "sentences": "100-279 1600-2525 3568-4373 5416-6042 7086-7910 8900-9550",
+        "words": "100-279 1600-1906 1906-2066 2066-2525 3568-3717 3717-3926 3926-4134 4134-4373 5416-5655 5655-5863 5863-6042 7086-7483 7483-7910 8900-9128 9128-9550",
       },
       "staging": {
         "addressee": "anna",
@@ -5047,12 +5117,15 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 2,
+            "sentence": 5,
           },
         ],
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "anna: A potom?",
       "plan": {
         "beats": [
@@ -5080,16 +5153,22 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "marek: Potom ešte jeden. Pri káve ešte jeden… A potom som už nepočítal.",
+      "held": {
+        "anna": "bag",
+      },
+      "line": "marek: Potom… ešte jeden. Pri káve… ešte jeden. A potom… som už nepočítal.",
       "plan": {
         "beats": [
-          "100 tell",
-          "2250 muse",
-          "4550 tell",
+          "50 muse",
+          "1244 tell",
+          "3050 muse",
+          "4200 tell",
+          "5700 muse",
+          "6800 self",
         ],
-        "ms": 6500,
-        "sentences": "100-1218 2250-3583 4550-6300",
-        "words": "100-483 483-836 836-1218 2250-2456 2456-2848 2848-3200 3200-3583 4550-4703 4703-5099 5099-5313 5313-5496 5496-6300",
+        "ms": 8100,
+        "sentences": "50-373 1244-1865 3050-3241 4200-4733 5700-6051 6800-7900",
+        "words": "50-373 1244-1542 1542-1865 3050-3116 3116-3241 4200-4456 4456-4733 5700-5798 5798-6051 6800-6996 6996-7164 7164-7900",
       },
       "staging": {
         "addressee": "anna",
@@ -5102,12 +5181,15 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 2,
+            "sentence": 5,
           },
         ],
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "anna: Takže celý koláč.",
       "plan": {
         "beats": [
@@ -5126,6 +5208,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "marek: Celý koláč. Prepáč, Anna. Ja som si to ani nevšimol.",
       "plan": {
         "beats": [
@@ -5154,6 +5239,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "anna: Prípad uzavretý. Zajtra koláč kupujem ja. A schovám ho.",
       "plan": {
         "beats": [
@@ -5174,6 +5262,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "marek: Kam?",
       "plan": {
         "beats": [
@@ -5201,6 +5292,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "anna: To ti nepoviem.",
       "plan": {
         "beats": [
@@ -5227,6 +5321,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
+      "held": {
+        "anna": "bag",
+      },
       "line": "-: Koniec. Ďakujeme, že počúvate.",
       "plan": {
         "beats": [
@@ -6605,8 +6702,8 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "reactions": [
@@ -6679,8 +6776,8 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -6698,9 +6795,9 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -6846,8 +6943,8 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "looksAt": "marek",
@@ -6897,9 +6994,9 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -6916,8 +7013,8 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "reactions": [
@@ -6942,9 +7039,9 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -7833,8 +7930,8 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "reactions": [
@@ -8084,12 +8181,12 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
           "characterId": "marek",
           "toward": -1,
         },
+        "audience": true,
         "enter": {
           "characterId": "marek",
           "from": -1,
         },
         "facing": {
-          "anna": 1,
           "marek": -1,
           "maria": -1,
         },
@@ -8925,12 +9022,12 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
       },
       "staging": {
         "addressee": "waiter",
+        "audience": true,
         "enter": {
           "characterId": "waiter",
           "from": 1,
         },
         "facing": {
-          "anna": 1,
           "marek": -1,
           "waiter": -1,
         },
@@ -9759,8 +9856,8 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -9938,8 +10035,8 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -9980,9 +10077,9 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -9999,8 +10096,8 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "reactions": [
@@ -10154,8 +10251,8 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "reactions": [
@@ -10399,9 +10496,9 @@ exports[`every scene, directed > podcast podcast-telling-time-tram-stop 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
