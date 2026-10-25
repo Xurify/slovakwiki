@@ -1,17 +1,37 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { REQUESTS_PER_WINDOW, allowRequest, isSameOrigin } from "./guard";
-import { SCORING_MODEL, ScoringRefusedError, parseScore, scoreProduction } from "./score";
+import {
+  SCORING_MODEL,
+  ScoringBusyError,
+  ScoringRefusedError,
+  parseScore,
+  scoreProduction,
+} from "./score";
 import { transcribeSlovak } from "./transcribe";
 
-type Client = Parameters<typeof scoreProduction>[0];
+function stubFetch(
+  reply: { finish_reason?: string; content?: unknown; refusal?: string },
+  status = 200,
+) {
+  const fetchImpl = vi.fn().mockResolvedValue(
+    new Response(
+      JSON.stringify({
+        choices: [
+          {
+            finish_reason: reply.finish_reason ?? "stop",
+            message: { content: reply.content, refusal: reply.refusal },
+          },
+        ],
+      }),
+      { status },
+    ),
+  );
+  return { config: { apiKey: "key", fetchImpl }, fetchImpl };
+}
 
-function stubClient(reply: { stop_reason: string; text?: string }) {
-  const create = vi.fn().mockResolvedValue({
-    stop_reason: reply.stop_reason,
-    content: reply.text === undefined ? [] : [{ type: "text", text: reply.text }],
-  });
-  return { client: { beta: { messages: { create } } } as unknown as Client, create };
+function sentBody(fetchImpl: ReturnType<typeof vi.fn>) {
+  return JSON.parse(fetchImpl.mock.calls[0]?.[1]?.body as string);
 }
 
 describe("parseScore", () => {
@@ -62,8 +82,8 @@ describe("scoreProduction", () => {
   });
 
   it("asks for the spoken schema and keeps the learner text inside answer tags", async () => {
-    const { client, create } = stubClient({ stop_reason: "end_turn", text: reply });
-    const result = await scoreProduction(client, {
+    const { config, fetchImpl } = stubFetch({ content: reply });
+    const result = await scoreProduction(config, {
       kind: "speakPhoto",
       prompt: "Opíšte fotku.",
       response: "Na fotke je trh.",
@@ -71,36 +91,82 @@ describe("scoreProduction", () => {
       imageUrl: "https://images.unsplash.com/photo-1",
     });
 
-    const params = create.mock.calls[0]?.[0];
-    expect(params.model).toBe(SCORING_MODEL);
-    expect(params.fallbacks).toBe("default");
-    expect(params.output_config.format.schema.required).toContain("fluency");
-    const [image, text] = params.messages[0].content;
-    expect(image.source.url).toBe("https://images.unsplash.com/photo-1");
+    expect(fetchImpl.mock.calls[0]?.[0]).toBe(
+      "https://openrouter.ai/api/v1/chat/completions",
+    );
+    expect(fetchImpl.mock.calls[0]?.[1]?.headers.Authorization).toBe("Bearer key");
+    const body = sentBody(fetchImpl);
+    expect(body.model).toBe(SCORING_MODEL);
+    expect(body.provider.require_parameters).toBe(true);
+    expect(body.response_format.json_schema.schema.required).toContain("fluency");
+    const [image, text] = body.messages[1].content;
+    expect(image.image_url.url).toBe("https://images.unsplash.com/photo-1");
     expect(text.text).toContain("<answer>\nNa fotke je trh.\n</answer>");
     expect(text.text).toContain("8 words per minute");
     expect(result.criteria.fluency).toBe(30);
     expect(result.level).toBe("A2");
   });
 
+  it("uses the model it is given", async () => {
+    const { config, fetchImpl } = stubFetch({ content: reply });
+    await scoreProduction(
+      { ...config, model: "moonshotai/kimi-k3.1-pro" },
+      { kind: "writePhoto", prompt: "x", response: "y" },
+    );
+    expect(sentBody(fetchImpl).model).toBe("moonshotai/kimi-k3.1-pro");
+  });
+
+  it("reads a reply the model wrapped in a code fence", async () => {
+    const { config } = stubFetch({
+      content: `Here you go:\n\`\`\`json\n${reply}\n\`\`\``,
+    });
+    const result = await scoreProduction(config, {
+      kind: "speakPhoto",
+      prompt: "x",
+      response: "y",
+    });
+    expect(result.score).toBe(26);
+  });
+
   it("never forwards a photo from another host", async () => {
-    const { client, create } = stubClient({ stop_reason: "end_turn", text: reply });
-    await scoreProduction(client, {
+    const { config, fetchImpl } = stubFetch({ content: reply });
+    await scoreProduction(config, {
       kind: "writePhoto",
       prompt: "x",
       response: "y",
       imageUrl: "https://attacker.example/a.png",
     });
-    const content = create.mock.calls[0]?.[0].messages[0].content;
+    const content = sentBody(fetchImpl).messages[1].content;
     expect(content).toHaveLength(1);
     expect(content[0].type).toBe("text");
   });
 
   it("raises on a refusal instead of reading empty content", async () => {
-    const { client } = stubClient({ stop_reason: "refusal" });
+    for (const refused of [{ finish_reason: "content_filter" }, { refusal: "No." }]) {
+      const { config } = stubFetch(refused);
+      await expect(
+        scoreProduction(config, { kind: "writePhoto", prompt: "x", response: "y" }),
+      ).rejects.toBeInstanceOf(ScoringRefusedError);
+    }
+  });
+
+  it("raises when the reply was cut off", async () => {
+    const { config } = stubFetch({ finish_reason: "length", content: '{"content": 3' });
     await expect(
-      scoreProduction(client, { kind: "writePhoto", prompt: "x", response: "y" }),
-    ).rejects.toBeInstanceOf(ScoringRefusedError);
+      scoreProduction(config, { kind: "writePhoto", prompt: "x", response: "y" }),
+    ).rejects.toThrow("out of tokens");
+  });
+
+  it("tells a rate limit from other failures", async () => {
+    const busy = stubFetch({}, 429);
+    await expect(
+      scoreProduction(busy.config, { kind: "writePhoto", prompt: "x", response: "y" }),
+    ).rejects.toBeInstanceOf(ScoringBusyError);
+
+    const down = stubFetch({}, 500);
+    await expect(
+      scoreProduction(down.config, { kind: "writePhoto", prompt: "x", response: "y" }),
+    ).rejects.toThrow("500");
   });
 });
 

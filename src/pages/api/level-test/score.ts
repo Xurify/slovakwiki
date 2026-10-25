@@ -1,4 +1,3 @@
-import Anthropic from "@anthropic-ai/sdk";
 import type { APIRoute } from "astro";
 import { getSecret } from "astro:env/server";
 
@@ -7,6 +6,7 @@ import {
   isPhotoUrl,
   MAX_PROMPT_CHARS,
   MAX_RESPONSE_CHARS,
+  ScoringBusyError,
   ScoringRefusedError,
   scoreProduction,
   type ScoreRequest,
@@ -64,7 +64,7 @@ function parseRequest(body: unknown): ScoreRequest | null {
 }
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
-  const apiKey = getSecret("ANTHROPIC_API_KEY");
+  const apiKey = getSecret("OPENROUTER_API_KEY");
   if (!apiKey) return json({ error: "AI scoring is not switched on" }, 503);
   if (!isSameOrigin(request)) return json({ error: "Forbidden" }, 403);
   if (!allowRequest(`score:${clientAddress}`))
@@ -74,12 +74,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!scoreRequest) return json({ error: "Bad request" }, 400);
 
   try {
-    const result = await scoreProduction(new Anthropic({ apiKey }), scoreRequest);
+    const result = await scoreProduction(
+      { apiKey, model: getSecret("SCORING_MODEL") || undefined },
+      scoreRequest,
+    );
     return json(result);
   } catch (error) {
     if (error instanceof ScoringRefusedError)
       return json({ error: "Could not score" }, 422);
-    if (error instanceof Anthropic.RateLimitError) return json({ error: "Busy" }, 503);
+    if (error instanceof ScoringBusyError) return json({ error: "Busy" }, 503);
     console.error("level-test score failed", error);
     return json({ error: "Scoring failed" }, 502);
   }
