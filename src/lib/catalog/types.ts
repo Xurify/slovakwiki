@@ -178,7 +178,8 @@ export interface GrammarTableRow {
 
 interface GrammarPatternShared {
   label: string;
-  examples?: Example[];
+  /** One or two sentences under the heading. Rich text: `**form**`, `[text](/path)`. */
+  intro?: string;
 }
 
 /** Labelled lines, verb paradigms, and arrow rows. */
@@ -188,11 +189,16 @@ export interface GrammarLinePattern extends GrammarPatternShared {
 
 /** A table. Cells are data, not a comma-split string. */
 export interface GrammarTablePattern extends GrammarPatternShared {
+  /** Heading over the row labels (Meaning, Person, Gender), so every column has one. */
+  rowLabel: string;
   columns: string[];
   rows: GrammarTableRow[];
 }
 
 export type GrammarPattern = GrammarLinePattern | GrammarTablePattern;
+
+/** A further table, with the sentences that show it. The main table's are the topic's `examples`. */
+export type GrammarMorePattern = GrammarPattern & { examples?: Example[] };
 
 /** A grammar label in English and in the Slovak school term (nominatív, mužský rod životný). */
 export interface GrammarTerm {
@@ -333,7 +339,7 @@ export interface GrammarTopic extends ContentEntry {
   pathGroup: "Nouns" | "Verbs" | "Sentence building" | "Numbers";
   pattern: GrammarPattern;
   /** Further tables on the same page, each with its own heading. */
-  morePatterns?: GrammarPattern[];
+  morePatterns?: GrammarMorePattern[];
   rule: string[];
   /** Optional deep-link sections for dictionary gloss term tips. */
   termSections?: GrammarTermSection[];

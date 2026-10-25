@@ -27,7 +27,8 @@
     beforePlay?: () => void;
     class?: string;
     label?: string;
-    size?: "sm" | "md" | "lg";
+    /** `xs` (28px) sits on a line of example text; it still clears the 24px minimum target. */
+    size?: "xs" | "sm" | "md" | "lg";
     src?: string;
     text: string;
     variant?: "default" | "inverse";
@@ -181,9 +182,13 @@
     else play();
   }
 
-  const sizeClass = $derived(size === "lg" ? "size-12" : "size-11");
+  const sizeClass = $derived(
+    size === "lg" ? "size-12" : size === "xs" ? "size-7" : "size-11",
+  );
 
-  const iconClass = $derived(size === "lg" ? "size-6" : "size-5");
+  const iconClass = $derived(
+    size === "lg" ? "size-6" : size === "xs" ? "size-3.5" : "size-5",
+  );
 
   const variantClass = $derived(
     variant === "inverse"

@@ -3,10 +3,9 @@
 
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import GrammarScene from "$lib/components/reference/GrammarScene.svelte";
+  import GrammarSentence from "$lib/components/reference/GrammarSentence.svelte";
   import {
     grammarEndingClass,
-    grammarFormClass,
-    grammarGlossClass,
     grammarMarkClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import type { GrammarContrast, GrammarContrastSet } from "$lib/catalog/types";
@@ -47,10 +46,14 @@
   }
 
   const labelled = $derived(allFrames.some((frame) => frame.label));
+  const withScenes = $derived(allFrames.some((frame) => frame.scene));
 </script>
 
 {#snippet frames(list: GrammarContrast[], prefix: string)}
   {#each list as frame, frameIndex (frame.question + frameIndex)}
+    {@const keys = frame.choices.map((_, index) => `${prefix}-${frameIndex}-${index}`)}
+    {@const reserveAudio = keys.some((key) => audioKeys.includes(key))}
+
     <li class="border-t border-slate-200 first:border-t-0">
       <p
         class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-slate-200 bg-subtle/60 px-4 py-2 sm:px-5"
@@ -58,7 +61,7 @@
         <span class="text-sm font-semibold text-slate-900">{frame.question}</span>
 
         {#if frame.label}
-          <span class="text-right text-xs leading-snug">
+          <span class="text-xs leading-snug sm:text-right">
             <span class="font-semibold text-slate-700" lang="sk">
               {caseTerms(frame.label.sk)}
             </span>
@@ -68,46 +71,52 @@
         {/if}
       </p>
 
+      <!-- Rows, not columns: a frame's sentences stack, so the word that changes
+           sits under the word it replaces, and every sentence starts on the
+           same keyline whatever its situation says. -->
       <ol class="m-0 list-none p-0">
         {#each frame.choices as choice, choiceIndex (choice.slovak.text)}
-          {@const audioKey = `${prefix}-${frameIndex}-${choiceIndex}`}
+          {@const audioKey = keys[choiceIndex]}
 
           <li
             class={cx(
-              "grid grid-cols-1 gap-y-2 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
-              "sm:grid-cols-[11rem_minmax(0,1fr)] sm:items-center sm:gap-x-6 sm:px-5",
+              "grid gap-x-6 gap-y-2 border-t border-slate-200/70 px-4 py-3 first:border-t-0 sm:px-5",
+              frame.scene ? "md:items-center" : "md:items-start",
+              withScenes
+                ? "md:grid-cols-[21rem_minmax(0,1fr)]"
+                : "md:grid-cols-[13rem_minmax(0,1fr)]",
             )}
           >
-            <div class="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1.5">
+            <div class="flex min-w-0 items-center gap-3">
               {#if frame.scene}
                 <GrammarScene kind={frame.scene} at={choice.at} object={frame.object} />
               {/if}
 
-              <span class="text-xs leading-snug text-slate-600">{choice.when}</span>
+              <!-- Without a scene, the situation sits on the Slovak's baseline,
+                   like an example's note. -->
+              <span
+                class={cx(
+                  "min-w-0 text-sm leading-snug text-slate-600",
+                  !frame.scene && "md:pt-1.5",
+                )}
+              >
+                {choice.when}
+              </span>
             </div>
 
-            <div class="flex items-start gap-2.5">
-              {#if audioKeys.includes(audioKey)}
-                <span
-                  class="mt-0.5 inline-flex size-11 shrink-0"
-                  data-audio-mount={audioKey}
-                ></span>
-              {/if}
-
-              <div class="min-w-0">
-                <p class={cx(grammarFormClass, "m-0 text-lg")} lang="sk">
-                  {#each segmentsFromMarks(choice.slovak.text, choice.slovak.marks) as segment, index (index)}
-                    {#if segment.role}
-                      <span class={grammarMarkClass(segment.role)}>{segment.text}</span>
-                    {:else}
-                      {segment.text}
-                    {/if}
-                  {/each}
-                </p>
-
-                <p class={cx(grammarGlossClass, "m-0 mt-0.5")}>{choice.english}</p>
-              </div>
-            </div>
+            <GrammarSentence
+              audioKey={audioKey && audioKeys.includes(audioKey) ? audioKey : undefined}
+              {reserveAudio}
+              english={choice.english}
+            >
+              {#each segmentsFromMarks(choice.slovak.text, choice.slovak.marks) as segment, index (index)}
+                {#if segment.role}
+                  <span class={grammarMarkClass(segment.role)}>{segment.text}</span>
+                {:else}
+                  {segment.text}
+                {/if}
+              {/each}
+            </GrammarSentence>
           </li>
         {/each}
       </ol>
@@ -116,7 +125,7 @@
 {/snippet}
 
 {#if key || labelled}
-  <p class="m-0 mb-3 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+  <p class="m-0 mb-3 max-w-[75ch] text-sm leading-relaxed text-slate-600">
     {#if key}
       In each sentence the word you pick is blue, like
       <span class="font-serif font-semibold {grammarEndingClass}" lang="sk"

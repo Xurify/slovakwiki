@@ -7,6 +7,7 @@ import {
   markAgainst,
   markSuffix,
   namesHourAhead,
+  patternAnchor,
   patternView,
   parsePatternRow,
   patternForms,
@@ -77,6 +78,7 @@ describe("parsePattern", () => {
     expect(view.kind).toBe("grid");
     if (view.kind !== "grid") return;
 
+    expect(view.rowLabel).toBe("Gender");
     expect(view.columns).toEqual(["the, that", "this", "that (over there)"]);
     expect(view.rows[1]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
 
@@ -99,7 +101,9 @@ describe("parsePattern", () => {
       "Every other plural",
     ]);
 
-    const trap = topic?.morePatterns?.[1];
+    const trap = topic?.morePatterns?.find(
+      (pattern) => pattern.label === "Dative and instrumental",
+    );
     if (!trap || !isGrammarTable(trap)) throw new Error("missing tým pattern");
     const trapView = patternView(trap);
     expect(trapView.kind).toBe("grid");
@@ -122,6 +126,7 @@ describe("parsePattern", () => {
     expect(() =>
       tableView({
         label: "As the object",
+        rowLabel: "Gender",
         columns: ["the, that", "this", "that (over there)"],
         rows: [{ label: "Feminine", cells: ["tú", "túto"] }],
       }),
@@ -131,6 +136,18 @@ describe("parsePattern", () => {
   it("falls back to rows for everything else", () => {
     expect(patternFor("negation").kind).toBe("rows");
     expect(patternFor("questions").kind).toBe("rows");
+  });
+});
+
+describe("patternAnchor", () => {
+  it("turns a table heading into a plain anchor", () => {
+    expect(patternAnchor("Arrive, leave, go in, go out")).toBe(
+      "arrive-leave-go-in-go-out",
+    );
+    expect(patternAnchor("Ísť — to go (one trip)")).toBe("ist-to-go-one-trip");
+    expect(patternAnchor("Where, where to, where from")).toBe(
+      "where-where-to-where-from",
+    );
   });
 });
 

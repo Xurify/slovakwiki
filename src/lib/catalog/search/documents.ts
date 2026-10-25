@@ -3,7 +3,7 @@ import { dictionaryPathForSense } from "../dictionary/lemma-senses";
 import { lessons } from "../lessons";
 import { episodeLines, episodePath, listeningEpisodes } from "../listening";
 import { practiceSets } from "../practice";
-import { patternSearchLines } from "../reference/grammar-pattern";
+import { grammarExamples, patternSearchLines } from "../reference/grammar-pattern";
 import { searchFormsForLemma } from "./forms";
 import { wordCategoryLabel } from "./pronouns";
 import { normalizeSearchText, type SearchDocKind } from "./ui";
@@ -24,7 +24,7 @@ export { SEARCH_WEIGHTS, type SearchWeight };
 
 /** Grammar copy marks Slovak with `**bold**` and `*avoid*`. */
 function plainText(text: string): string {
-  return text.replace(/\*/g, "");
+  return text.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\*/g, "");
 }
 
 export interface SearchSection {
@@ -129,16 +129,19 @@ export function buildSearchDocuments(): SearchDocument[] {
             ),
           ),
           ...entry.rule.map(plainText),
+          ...patterns.flatMap((pattern) =>
+            pattern.intro ? [plainText(pattern.intro)] : [],
+          ),
           ...patterns.flatMap(patternSearchLines),
           ...entry.body,
           ...frames.map((frame) => frame.question),
           ...choices.map((choice) => choice.when),
         ],
         examples: [
-          ...[
-            ...patterns.flatMap((pattern) => pattern.examples ?? []),
-            ...entry.examples,
-          ].flatMap((example) => [example.slovak, example.english]),
+          ...grammarExamples(entry).flatMap((example) => [
+            example.slovak,
+            example.english,
+          ]),
           ...choices.flatMap((choice) => [choice.slovak.text, choice.english]),
         ],
       }),

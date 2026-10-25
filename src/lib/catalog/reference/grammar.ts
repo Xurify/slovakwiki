@@ -280,6 +280,16 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     examples: [
       {
+        slovak: "Čo si robil cez víkend?",
+        english: "What did you do at the weekend?",
+        demonstrates: "Asking a man. To a woman: **Čo si robila?**",
+      },
+      {
+        slovak: "Dieťa spalo.",
+        english: "The child was sleeping.",
+        demonstrates: "**Dieťa** is neuter, so the **-l** form ends in **-lo**.",
+      },
+      {
         slovak: "Včera som bol doma.",
         english: "Yesterday I was at home.",
         demonstrates: "**Som** stands second in the sentence, right after **včera**.",
@@ -309,6 +319,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Robiť — to do, in the past",
+      rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
         { label: "ja (I)", cells: ["robil som", "robila som"] },
@@ -318,40 +329,32 @@ export const grammarEntries: GrammarTopic[] = [
         { label: "vy (you, formal or plural)", cells: ["robili ste", "robili ste"] },
         { label: "oni / ony (they)", cells: ["robili", "robili"] },
       ],
-      examples: [
-        {
-          slovak: "Čo si robil cez víkend?",
-          english: "What did you do at the weekend?",
-          demonstrates: "Asking a man. To a woman: **Čo si robila?**",
-        },
-        {
-          slovak: "Dieťa spalo.",
-          english: "The child was sleeping.",
-          demonstrates: "**Dieťa** is neuter, so the **-l** form ends in **-lo**.",
-        },
-      ],
     },
     morePatterns: [
       {
         label: "From the infinitive to the -l form",
-        lines: [
-          "robiť → robil · did",
-          "čítať → čítal · read",
-          "pracovať → pracoval · worked",
-          "piť → pil · drank",
-          "vidieť → videl · saw",
-          "chcieť → chcel · wanted",
+        rowLabel: "Meaning",
+        columns: ["Infinitive", "-l form"],
+        rows: [
+          { label: "do", cells: ["robiť", "robil"] },
+          { label: "read", cells: ["čítať", "čítal"] },
+          { label: "work", cells: ["pracovať", "pracoval"] },
+          { label: "drink", cells: ["piť", "pil"] },
+          { label: "see", cells: ["vidieť", "videl"] },
+          { label: "want", cells: ["chcieť", "chcel"] },
         ],
       },
       {
         label: "Verbs with their own -l form",
-        lines: [
-          "ísť → išiel, išla · went",
-          "prísť → prišiel, prišla · came",
-          "jesť → jedol, jedla · ate",
-          "môcť → mohol, mohla · could",
-          "niesť → niesol, niesla · carried",
-          "zabudnúť → zabudol, zabudla · forgot",
+        rowLabel: "Meaning",
+        columns: ["Infinitive", "Masculine", "Feminine"],
+        rows: [
+          { label: "go", cells: ["ísť", "išiel", "išla"] },
+          { label: "come", cells: ["prísť", "prišiel", "prišla"] },
+          { label: "eat", cells: ["jesť", "jedol", "jedla"] },
+          { label: "can, be able", cells: ["môcť", "mohol", "mohla"] },
+          { label: "carry", cells: ["niesť", "niesol", "niesla"] },
+          { label: "forget", cells: ["zabudnúť", "zabudol", "zabudla"] },
         ],
         examples: [
           {
@@ -480,11 +483,6 @@ export const grammarEntries: GrammarTopic[] = [
         english: "He wrote the letter (finished it).",
         demonstrates: "Perfective **napísať**: the letter is done.",
       },
-      {
-        slovak: "Začal som sa učiť slovenčinu.",
-        english: "I started learning Slovak.",
-        demonstrates: "After **začať**, the imperfective: **učiť sa**.",
-      },
     ],
     related: [
       "robit",
@@ -512,18 +510,21 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "A prefix: the same verb, finished",
-      lines: [
-        "písať → napísať · write",
-        "čítať → prečítať · read",
-        "robiť → urobiť · do",
-        "variť → uvariť · cook",
-        "piť → vypiť · drink",
-        "volať → zavolať · call",
+      rowLabel: "Meaning",
+      columns: ["Imperfective", "Perfective"],
+      rows: [
+        { label: "write", cells: ["písať", "napísať"] },
+        { label: "read", cells: ["čítať", "prečítať"] },
+        { label: "do", cells: ["robiť", "urobiť"] },
+        { label: "cook", cells: ["variť", "uvariť"] },
+        { label: "drink", cells: ["piť", "vypiť"] },
+        { label: "call", cells: ["volať", "zavolať"] },
       ],
     },
     morePatterns: [
       {
         label: "A new suffix or a new verb: learn both",
+        rowLabel: "Meaning",
         columns: ["Imperfective", "Perfective"],
         rows: [
           { label: "buy", cells: ["kupovať", "kúpiť"] },
@@ -558,6 +559,13 @@ export const grammarEntries: GrammarTopic[] = [
           "Prišiel, sadol si a otvoril list. · one event after another: perfective",
           "Keď som varil, zazvonil telefón. · background, then an event: both",
         ],
+        examples: [
+          {
+            slovak: "Začal som sa učiť slovenčinu.",
+            english: "I started learning Slovak.",
+            demonstrates: "After **začať**, the imperfective: **učiť sa**.",
+          },
+        ],
       },
     ],
     termSections: [
@@ -578,14 +586,14 @@ export const grammarEntries: GrammarTopic[] = [
       {
         id: "habitual",
         term: "Habitual motion",
-        body: "Motion verbs like **chodiť** cover repeated or multi-direction travel. **Ísť** covers one trip now or once.",
+        body: "Motion verbs like **chodiť** cover repeated or multi-direction travel. **Ísť** covers one trip now or once. See [Motion verbs](/grammar/motion-verbs).",
         examples: ["Chodím do školy.", "Teraz idem do školy."],
       },
     ],
     contrasts: {
       label: "Imperfective or perfective?",
       intro:
-        "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”. The last pair is not aspect: **chodiť** and **ísť** are both imperfective; **chodiť** is for habits, **ísť** for one trip.",
+        "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”. The last pair is not aspect: **chodiť** and **ísť** are both imperfective; **chodiť** is for habits, **ísť** for one trip. More on [Motion verbs](/grammar/motion-verbs).",
       frames: [
         {
           question: "Now, or later?",
@@ -758,21 +766,16 @@ export const grammarEntries: GrammarTopic[] = [
       "Ísť has its own future: pôjdem, pôjdeš, pôjde. Other one-trip motion verbs can take po- too: ponesiem, poletím, pobežím.",
     ],
     examples: [
+      { slovak: "Budeš doma?", english: "Will you be at home?" },
+      {
+        slovak: "Budeme čakať pred kinom.",
+        english: "We will wait in front of the cinema.",
+        demonstrates: "**Budeme** + imperfective **čakať**.",
+      },
       {
         slovak: "Zajtra budem celý deň doma.",
         english: "Tomorrow I will be at home all day.",
         demonstrates: "**Budem** is the future of **byť**.",
-      },
-      {
-        slovak: "Večer ti zavolám.",
-        english: "I'll call you in the evening.",
-        demonstrates:
-          "Perfective **zavolať**: the present form **zavolám** means the future.",
-      },
-      {
-        slovak: "V lete pôjdeme k moru.",
-        english: "In summer we will go to the sea.",
-        demonstrates: "**Ísť** makes its own future: **pôjdeme**.",
       },
     ],
     related: ["byt", "ist", "zavolat", "volat", "aspect", "motion-verbs"],
@@ -796,18 +799,11 @@ export const grammarEntries: GrammarTopic[] = [
         "vy budete · you will (formal or plural)",
         "oni / ony budú · they will",
       ],
-      examples: [
-        { slovak: "Budeš doma?", english: "Will you be at home?" },
-        {
-          slovak: "Budeme čakať pred kinom.",
-          english: "We will wait in front of the cinema.",
-          demonstrates: "**Budeme** + imperfective **čakať**.",
-        },
-      ],
     },
     morePatterns: [
       {
         label: "Imperfective or perfective future",
+        rowLabel: "Meaning",
         columns: ["Imperfective", "Perfective"],
         rows: [
           { label: "write", cells: ["budem písať", "napíšem"] },
@@ -822,15 +818,31 @@ export const grammarEntries: GrammarTopic[] = [
             english: "I'll send it to you tomorrow.",
             demonstrates: "One act, then done: perfective **poslať** → **pošlem**.",
           },
+          {
+            slovak: "Večer ti zavolám.",
+            english: "I'll call you in the evening.",
+            demonstrates:
+              "Perfective **zavolať**: the present form **zavolám** means the future.",
+          },
         ],
       },
       {
         label: "One-trip motion verbs take po-",
-        lines: [
-          "ísť → pôjdem · I will go",
-          "niesť → ponesiem · I will carry",
-          "letieť → poletím · I will fly",
-          "bežať → pobežím · I will run",
+        rowLabel: "Meaning",
+        columns: ["Infinitive", "Future (I will)"],
+        rows: [
+          { label: "go", cells: ["ísť", "pôjdem"] },
+          { label: "carry", cells: ["niesť", "ponesiem"] },
+          { label: "fly", cells: ["letieť", "poletím"] },
+          { label: "run", cells: ["bežať", "pobežím"] },
+        ],
+        examples: [
+          {
+            slovak: "V lete pôjdeme k moru.",
+            english: "In summer we will go to the sea.",
+            demonstrates:
+              "**Ísť** makes its own future: **pôjdeme**. See [Motion verbs](/grammar/motion-verbs).",
+          },
         ],
       },
     ],
@@ -924,14 +936,39 @@ export const grammarEntries: GrammarTopic[] = [
     body: [
       "Ísť, niesť, viezť, letieť, and bežať describe one trip in one direction, now or at one moment. Chodiť, nosiť, voziť, lietať, and behať describe habits, round trips, ability, or moving around.",
       "Both verbs in a pair are imperfective. The one-trip verb makes its future with po-: pôjdem, ponesiem, poletím.",
-      "A prefix on the one-trip verb makes a perfective with a new meaning: prísť (arrive), odísť (leave), vojsť (go in), vyjsť (go out). The imperfective partner uses another stem: prichádzať, odchádzať.",
+      "A prefix gives the trip an end point and makes a perfective: prísť (arrive), odísť (leave), vojsť (go in), vyjsť (go out). Use it for one arrival or departure, seen as done. The imperfective partner in -chádzať (prichádzať, odchádzať) is for a habit, a timetable, or an arrival still going on.",
       "Ísť also covers travel by car or train: ísť autom, ísť vlakom. Pešo means on foot.",
     ],
     examples: [
       {
-        slovak: "Idem do práce.",
-        english: "I'm on my way to work.",
-        demonstrates: "**Ísť**: one trip, happening now.",
+        slovak: "Bežím na autobus.",
+        english: "I'm running for the bus.",
+        demonstrates: "One run, right now: **bežať**.",
+      },
+      {
+        slovak: "Každé ráno behám.",
+        english: "I run every morning.",
+        demonstrates: "A habit: **behať**.",
+      },
+      {
+        slovak: "Nesiem ti kávu.",
+        english: "I'm bringing you a coffee.",
+        demonstrates: "Carrying it this moment, one way: **niesť**.",
+      },
+      {
+        slovak: "Nosím okuliare.",
+        english: "I wear glasses.",
+        demonstrates: "Day after day: **nosiť**, which also means to wear.",
+      },
+      {
+        slovak: "Veziem deti do školy.",
+        english: "I'm driving the kids to school.",
+        demonstrates: "One trip by car, now: **viezť**.",
+      },
+      {
+        slovak: "Vozím deti do školy.",
+        english: "I drive the kids to school.",
+        demonstrates: "Every morning, there and back: **voziť**.",
       },
       {
         slovak: "Do práce chodím pešo.",
@@ -942,6 +979,11 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Dieťa už chodí.",
         english: "The child can already walk.",
         demonstrates: "**Chodiť** also means being able to walk.",
+      },
+      {
+        slovak: "Deti behajú po dvore.",
+        english: "The children are running around the yard.",
+        demonstrates: "Running about, no single direction: **behať**, even right now.",
       },
     ],
     related: [
@@ -964,11 +1006,16 @@ export const grammarEntries: GrammarTopic[] = [
     order: 9,
     rule: [
       "One trip, now or at one moment: **ísť**, **niesť**, **viezť**, **letieť**, **bežať**.",
-      "A habit, round trips, or ability: **chodiť**, **nosiť**, **voziť**, **lietať**, **behať**.",
-      "A prefix makes a perfective: **prísť**, **odísť**. Its partner uses **-chádzať**: **prichádzať**, **odchádzať**.",
+      "A habit, round trips, moving about, or ability: **chodiť**, **nosiť**, **voziť**, **lietať**, **behať**.",
+      "Both verbs in a pair are imperfective. The one-trip verb makes its future with **po-**: **pôjdem**, **ponesiem**, **poletím**, never *budem ísť*. More on [Future tense](/grammar/future-tense).",
+      "A prefix gives the trip an end point: **prísť** is to arrive, **odísť** to leave. These verbs are perfective, for one arrival or departure seen as done, so their present form means the future: **prídem**, I will come. For a habit, a timetable, or an arrival still going on, use the imperfective partner in **-chádzať**: **prichádzať**, **odchádzať**. The full rule is on [Aspect](/grammar/aspect).",
+      "**Ísť** also covers a car or a train: **ísť autom**, **ísť vlakom**. **Pešo** is on foot.",
     ],
     pattern: {
       label: "One trip, or a habit?",
+      intro:
+        "Both verbs in a pair are imperfective. The choice is about the shape of the trip, not about finishing it.",
+      rowLabel: "Meaning",
       columns: ["One trip", "Habit, round trips"],
       rows: [
         { label: "go", cells: ["ísť", "chodiť"] },
@@ -976,18 +1023,6 @@ export const grammarEntries: GrammarTopic[] = [
         { label: "drive, take by car", cells: ["viezť", "voziť"] },
         { label: "fly", cells: ["letieť", "lietať"] },
         { label: "run", cells: ["bežať", "behať"] },
-      ],
-      examples: [
-        {
-          slovak: "Bežím na autobus.",
-          english: "I'm running for the bus.",
-          demonstrates: "One run, right now: **bežať**.",
-        },
-        {
-          slovak: "Každé ráno behám.",
-          english: "I run every morning.",
-          demonstrates: "A habit: **behať**.",
-        },
       ],
     },
     morePatterns: [
@@ -1001,9 +1036,29 @@ export const grammarEntries: GrammarTopic[] = [
           "vy idete · you go (formal or plural)",
           "oni / ony idú · they go",
         ],
+        examples: [
+          {
+            slovak: "Idem do práce.",
+            english: "I'm on my way to work.",
+            demonstrates: "**Ísť**: one trip, happening now.",
+          },
+          {
+            slovak: "Ideme autom alebo vlakom?",
+            english: "Are we going by car or by train?",
+            demonstrates: "**Ísť** covers a car or a train too: **autom**, **vlakom**.",
+          },
+          {
+            slovak: "Zajtra pôjdeme na výlet.",
+            english: "Tomorrow we'll go on a trip.",
+            demonstrates: "The future of **ísť** is **pôjdem**, not *budem ísť*.",
+          },
+        ],
       },
       {
-        label: "A prefix says where",
+        label: "Arrive, leave, go in, go out",
+        intro:
+          "A short prefix on **ísť** or **niesť** gives the trip an end point: **pri-** arrives, **od-** leaves, **v-** goes in, **vy-** goes out, **pre-** crosses. The perfective is one arrival or departure, seen as done, and its present form means the future: **prídem**, I will come. The imperfective is a habit, a timetable, or something still going on. [Aspect](/grammar/aspect) explains the two in full.",
+        rowLabel: "Meaning",
         columns: ["Perfective", "Imperfective"],
         rows: [
           { label: "arrive, come", cells: ["prísť", "prichádzať"] },
@@ -1014,16 +1069,62 @@ export const grammarEntries: GrammarTopic[] = [
           { label: "bring", cells: ["priniesť", "prinášať"] },
         ],
         examples: [
-          { slovak: "Kedy prídeš?", english: "When are you coming?" },
+          {
+            slovak: "Kedy prídeš?",
+            english: "When are you coming?",
+            demonstrates:
+              "One arrival, still ahead: perfective **prísť**, and **prídeš** means the future.",
+          },
+          {
+            slovak: "Prišli sme domov o šiestej.",
+            english: "We got home at six.",
+            demonstrates: "One arrival, done: perfective **prísť**.",
+          },
+          {
+            slovak: "Mama vždy prichádza načas.",
+            english: "Mum always arrives on time.",
+            demonstrates: "A habit: imperfective **prichádzať**.",
+          },
           {
             slovak: "Vlak odchádza o ôsmej.",
             english: "The train leaves at eight.",
             demonstrates: "A timetable: imperfective **odchádzať**.",
           },
+          {
+            slovak: "Odišli pred hodinou.",
+            english: "They left an hour ago.",
+            demonstrates: "One departure, done: perfective **odísť**.",
+          },
+          {
+            slovak: "Vošiel do obchodu a kúpil chlieb.",
+            english: "He went into the shop and bought bread.",
+            demonstrates:
+              "One event after another: perfective **vojsť**, then **kúpiť**.",
+          },
+          {
+            slovak: "Slnko vychádza o šiestej.",
+            english: "The sun rises at six.",
+            demonstrates:
+              "Every day: imperfective **vychádzať**, which also means to rise.",
+          },
+          {
+            slovak: "Prešli sme cez most.",
+            english: "We crossed the bridge.",
+            demonstrates: "One crossing, done: perfective **prejsť**.",
+          },
+          {
+            slovak: "Prinesiem ti vodu.",
+            english: "I'll bring you some water.",
+            demonstrates:
+              "Perfective **priniesť**: the present form **prinesiem** means the future.",
+          },
         ],
       },
       {
         label: "Where, where to, where from",
+        intro:
+          "Where you are, where you are going, and where you come from each take their own form. **Kde** goes with **v** or **na**, **kam** with **do**, **na**, or **k**, and **odkiaľ** with **z** or **od**.",
+        rowLabel: "Place",
         columns: ["Where? (kde)", "Where to? (kam)", "Where from? (odkiaľ)"],
         rows: [
           { label: "the shop", cells: ["v obchode", "do obchodu", "z obchodu"] },
@@ -1033,6 +1134,36 @@ export const grammarEntries: GrammarTopic[] = [
           { label: "here", cells: ["tu", "sem", "odtiaľto"] },
         ],
         examples: [
+          {
+            slovak: "Som v obchode.",
+            english: "I'm at the shop.",
+            demonstrates: "Where? **V obchode**.",
+          },
+          {
+            slovak: "Idem do obchodu.",
+            english: "I'm going to the shop.",
+            demonstrates: "Where to? **Do obchodu**.",
+          },
+          {
+            slovak: "Idem z obchodu.",
+            english: "I'm coming from the shop.",
+            demonstrates: "Where from? **Z obchodu**.",
+          },
+          {
+            slovak: "Idem k lekárovi.",
+            english: "I'm going to the doctor.",
+            demonstrates: "A person you go to takes **k**: **k lekárovi**.",
+          },
+          {
+            slovak: "Boli sme u lekára.",
+            english: "We were at the doctor's.",
+            demonstrates: "At a person's place: **u lekára**.",
+          },
+          {
+            slovak: "Idem domov.",
+            english: "I'm going home.",
+            demonstrates: "**Domov** is where to. **Doma** is where.",
+          },
           {
             slovak: "Poď sem!",
             english: "Come here!",
@@ -1155,15 +1286,16 @@ export const grammarEntries: GrammarTopic[] = [
       "For one request, use the perfective: Zatvor dvere. For “don't”, use the imperfective: Nezatváraj dvere. A warning against an accident keeps the perfective: Nezabudni si kľúče!",
     ],
     examples: [
+      { slovak: "Čítaj nahlas.", english: "Read aloud." },
+      {
+        slovak: "Pite veľa vody.",
+        english: "Drink a lot of water.",
+        demonstrates: "General advice: imperfective **piť** → **pite**.",
+      },
       {
         slovak: "Zatvor okno, prosím.",
         english: "Close the window, please.",
         demonstrates: "One request to a friend: perfective **zatvoriť** → **zatvor**.",
-      },
-      {
-        slovak: "Poďte ďalej.",
-        english: "Come in.",
-        demonstrates: "**Poď**, **poďte**: come here, come in.",
       },
       {
         slovak: "Nezabudni si kľúče!",
@@ -1193,6 +1325,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "From the they-form",
+      rowLabel: "Verb (they-form)",
       columns: ["ty", "vy", "my (let's)"],
       rows: [
         { label: "čítať (čítajú)", cells: ["čítaj", "čítajte", "čítajme"] },
@@ -1202,28 +1335,29 @@ export const grammarEntries: GrammarTopic[] = [
         { label: "spať (spia)", cells: ["spi", "spite", "spime"] },
         { label: "piť (pijú)", cells: ["pi", "pite", "pime"] },
       ],
-      examples: [
-        { slovak: "Čítaj nahlas.", english: "Read aloud." },
-        {
-          slovak: "Pite veľa vody.",
-          english: "Drink a lot of water.",
-          demonstrates: "General advice: imperfective **piť** → **pite**.",
-        },
-      ],
     },
     morePatterns: [
       {
         label: "Verbs with their own imperative",
-        lines: [
-          "ísť → choď · go",
-          "prísť → príď · come",
-          "byť → buď · be",
-          "jesť → jedz · eat",
-          "povedať → povedz · say, tell",
-          "pomôcť → pomôž · help",
-          "poď, poďte, poďme · come here, come in, let's go",
+        rowLabel: "Verb",
+        columns: ["ty", "vy", "my (let's)"],
+        rows: [
+          { label: "ísť (go)", cells: ["choď", "choďte", "choďme"] },
+          { label: "prísť (come)", cells: ["príď", "príďte", "príďme"] },
+          { label: "byť (be)", cells: ["buď", "buďte", "buďme"] },
+          { label: "jesť (eat)", cells: ["jedz", "jedzte", "jedzme"] },
+          { label: "povedať (say, tell)", cells: ["povedz", "povedzte", "povedzme"] },
+          { label: "pomôcť (help)", cells: ["pomôž", "pomôžte", "pomôžme"] },
+          { label: "come here, come in, let's go", cells: ["poď", "poďte", "poďme"] },
         ],
-        examples: [{ slovak: "Poďme na kávu.", english: "Let's go for a coffee." }],
+        examples: [
+          { slovak: "Poďme na kávu.", english: "Let's go for a coffee." },
+          {
+            slovak: "Poďte ďalej.",
+            english: "Come in.",
+            demonstrates: "**Poď**, **poďte**: come here, come in.",
+          },
+        ],
       },
       {
         label: "Nech: let someone do it",
@@ -1327,24 +1461,7 @@ export const grammarEntries: GrammarTopic[] = [
       "In if-sentences, keby already contains by: Keby som mal čas, prišiel by som. Aby works the same way: Povedz mu, aby prišiel.",
       "For something that may really happen, use ak with the future instead: Ak bude pršať, zostaneme doma.",
     ],
-    examples: [
-      {
-        slovak: "Chcel by som kávu, prosím.",
-        english: "I'd like a coffee, please.",
-        demonstrates:
-          "**Chcel by som**: a polite way to ask. A woman says **chcela by som**.",
-      },
-      {
-        slovak: "Mohli by ste mi pomôcť?",
-        english: "Could you help me?",
-        demonstrates: "Formal **vy** takes the plural **mohli**.",
-      },
-      {
-        slovak: "Keby som mal čas, išiel by som s vami.",
-        english: "If I had time, I would go with you.",
-        demonstrates: "**Keby** already contains **by**: **keby som**.",
-      },
-    ],
+    examples: [{ slovak: "Čo by si robil?", english: "What would you do?" }],
     related: ["chciet", "moct", "mat", "past-tense", "ty-vs-vy"],
     source: languageSource,
     tags: ["verbs", "conditional", "intermediate"],
@@ -1358,6 +1475,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Robiť — would do",
+      rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
         { label: "ja (I)", cells: ["robil by som", "robila by som"] },
@@ -1370,7 +1488,6 @@ export const grammarEntries: GrammarTopic[] = [
         },
         { label: "oni / ony (they)", cells: ["robili by", "robili by"] },
       ],
-      examples: [{ slovak: "Čo by si robil?", english: "What would you do?" }],
     },
     morePatterns: [
       {
@@ -1382,6 +1499,19 @@ export const grammarEntries: GrammarTopic[] = [
           "Mohol by si…? · Could you…? (to a friend)",
           "Bolo by dobré… · It would be good…",
         ],
+        examples: [
+          {
+            slovak: "Chcel by som kávu, prosím.",
+            english: "I'd like a coffee, please.",
+            demonstrates:
+              "**Chcel by som**: a polite way to ask. A woman says **chcela by som**.",
+          },
+          {
+            slovak: "Mohli by ste mi pomôcť?",
+            english: "Could you help me?",
+            demonstrates: "Formal **vy** takes the plural **mohli**.",
+          },
+        ],
       },
       {
         label: "Ak, keby, aby",
@@ -1389,6 +1519,13 @@ export const grammarEntries: GrammarTopic[] = [
           "Ak bude pršať, zostaneme doma. · If it rains, we'll stay at home.",
           "Keby pršalo, zostali by sme doma. · If it rained, we would stay at home.",
           "Povedz mu, aby prišiel. · Tell him to come.",
+        ],
+        examples: [
+          {
+            slovak: "Keby som mal čas, išiel by som s vami.",
+            english: "If I had time, I would go with you.",
+            demonstrates: "**Keby** already contains **by**: **keby som**.",
+          },
         ],
       },
     ],
@@ -1499,11 +1636,6 @@ export const grammarEntries: GrammarTopic[] = [
         english: "I'll have a coffee.",
         demonstrates: "**Si**: for yourself.",
       },
-      {
-        slovak: "Bojím sa psov.",
-        english: "I'm afraid of dogs.",
-        demonstrates: "**Báť sa** + genitive: always with **sa**.",
-      },
     ],
     related: ["bat", "smiat", "pacit", "umyt", "zobudit", "volat", "past-tense"],
     source: languageSource,
@@ -1547,6 +1679,11 @@ export const grammarEntries: GrammarTopic[] = [
             demonstrates: "**Páčiť sa**: the thing you like is the subject.",
           },
           { slovak: "Predstav si, čo sa stalo!", english: "Imagine what happened!" },
+          {
+            slovak: "Bojím sa psov.",
+            english: "I'm afraid of dogs.",
+            demonstrates: "**Báť sa** + genitive: always with **sa**.",
+          },
         ],
       },
       {
@@ -1743,26 +1880,19 @@ export const grammarEntries: GrammarTopic[] = [
       "In To je… and To sú…, to stays the same whatever the noun's gender or number; only the verb changes, je for one and sú for more: To je môj brat. To sú moji rodičia.",
     ],
     examples: [
+      { slovak: "Táto taška je moja.", english: "This bag is mine." },
+      { slovak: "Toto mesto je krásne.", english: "This town is beautiful." },
+      {
+        slovak: "Tí chlapci hrajú futbal.",
+        english: "Those boys are playing football.",
+      },
+      {
+        slovak: "Tieto kľúče sú moje.",
+        english: "These keys are mine.",
+        demonstrates: "**Kľúč** is masculine, but keys are not people, so **tieto**.",
+      },
       { slovak: "Kto je ten muž?", english: "Who is that man?" },
-      { slovak: "Dám si tento koláč.", english: "I'll have this cake." },
       { slovak: "To sú moji rodičia.", english: "These are my parents." },
-      {
-        slovak: "Býva v tom dome vedľa nás.",
-        english: "He lives in that house next to us.",
-        demonstrates: "After **v** (in), **ten** takes the locative: **tom**.",
-      },
-      {
-        slovak: "Bývame na tejto ulici.",
-        english: "We live on this street.",
-        demonstrates:
-          "Feminine locative: **tej**, and **tento** adds **-to**: **tejto**.",
-      },
-      {
-        slovak: "Pracujem s tou ženou.",
-        english: "I work with that woman.",
-        demonstrates:
-          "After **s** (with), feminine **ten** takes the instrumental: **tou**.",
-      },
     ],
     related: ["grammatical-gender", "cases-overview", "dievca", "dieta"],
     source: languageSource,
@@ -1777,6 +1907,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Nominative (agreement)",
+      rowLabel: "Gender",
       columns: ["the, that", "this", "that (over there)"],
       rows: [
         { label: "Masculine", cells: ["ten", "tento", "tamten"] },
@@ -1788,23 +1919,11 @@ export const grammarEntries: GrammarTopic[] = [
         },
         { label: "Every other plural", cells: ["tie", "tieto", "tamtie"] },
       ],
-      examples: [
-        { slovak: "Táto taška je moja.", english: "This bag is mine." },
-        { slovak: "Toto mesto je krásne.", english: "This town is beautiful." },
-        {
-          slovak: "Tí chlapci hrajú futbal.",
-          english: "Those boys are playing football.",
-        },
-        {
-          slovak: "Tieto kľúče sú moje.",
-          english: "These keys are mine.",
-          demonstrates: "**Kľúč** is masculine, but keys are not people, so **tieto**.",
-        },
-      ],
     },
     morePatterns: [
       {
         label: "Accusative (as the object)",
+        rowLabel: "Gender",
         columns: ["the, that", "this", "that (over there)"],
         rows: [
           { label: "Masculine, a person or animal", cells: ["toho", "tohto", "tamtoho"] },
@@ -1832,10 +1951,35 @@ export const grammarEntries: GrammarTopic[] = [
           { slovak: "Vidíš tamto auto?", english: "Do you see that car over there?" },
           { slovak: "Poznáš tých chlapcov?", english: "Do you know those boys?" },
           { slovak: "Kúpim si tieto topánky.", english: "I'll buy these shoes." },
+          { slovak: "Dám si tento koláč.", english: "I'll have this cake." },
+        ],
+      },
+      {
+        label: "Locative (after v, na, o)",
+        rowLabel: "Gender",
+        columns: ["the, that", "this", "that (over there)"],
+        rows: [
+          { label: "Masculine and neuter", cells: ["tom", "tomto", "tamtom"] },
+          { label: "Feminine", cells: ["tej", "tejto", "tamtej"] },
+          { label: "Plural, every gender", cells: ["tých", "týchto", "tamtých"] },
+        ],
+        examples: [
+          {
+            slovak: "Býva v tom dome vedľa nás.",
+            english: "He lives in that house next to us.",
+            demonstrates: "After **v** (in), **ten** takes the locative: **tom**.",
+          },
+          {
+            slovak: "Bývame na tejto ulici.",
+            english: "We live on this street.",
+            demonstrates:
+              "Feminine locative: **tej**, and **tento** adds **-to**: **tejto**.",
+          },
         ],
       },
       {
         label: "Dative and instrumental",
+        rowLabel: "Case and gender",
         columns: ["the, that", "this", "that (over there)"],
         rows: [
           {
@@ -1869,6 +2013,12 @@ export const grammarEntries: GrammarTopic[] = [
             slovak: "Dnes večer ide s tými kolegami do kina.",
             english: "Tonight he's going to the cinema with those colleagues.",
             demonstrates: "Instrumental plural after **s** (with): **tými**.",
+          },
+          {
+            slovak: "Pracujem s tou ženou.",
+            english: "I work with that woman.",
+            demonstrates:
+              "After **s** (with), feminine **ten** takes the instrumental: **tou**.",
           },
         ],
       },
@@ -2332,25 +2482,21 @@ export const grammarEntries: GrammarTopic[] = [
       "Jeho, jej, and ich never change, even after a preposition: s jeho bratom. Svoj means the subject's own. Use it when the owner is the subject of the same sentence: Anna hľadá svoje kľúče. Jej kľúče would be another woman's keys.",
     ],
     examples: [
+      { slovak: "Tvoj byt je krásny.", english: "Your flat is beautiful." },
       {
-        slovak: "Tom píše list svojmu najlepšiemu priateľovi.",
-        english: "Tom is writing a letter to his best friend.",
-        demonstrates:
-          "Tom is the subject and the owner, so **svoj**, in the dative: **svojmu**.",
-        practiceItemId: "grammar/possessive-svoj-choice",
+        slovak: "To je moja sestra.",
+        english: "This is my sister.",
+        practiceItemId: "grammar/possessive-agreement",
       },
       {
-        slovak: "Idem do kina so svojou sestrou.",
-        english: "I'm going to the cinema with my sister.",
-        demonstrates:
-          "With **ja** as the owner, **mojou** works too: **s mojou sestrou**.",
+        slovak: "To sú moji priatelia.",
+        english: "These are my friends.",
+        demonstrates: "**Priateľ** is masculine and a person, so **moji**.",
       },
       {
-        slovak: "To je auto môjho brata.",
-        english: "That is my brother's car.",
-        demonstrates:
-          "The owner comes after the thing, in the genitive: **môjho brata**.",
-        practiceItemId: "grammar/possessive-genitive-build",
+        slovak: "Naše deti chodia do školy.",
+        english: "Our children go to school.",
+        demonstrates: "**Deti** are people, but not a masculine noun, so **naše**.",
       },
     ],
     related: ["demonstratives", "grammatical-gender", "cases-overview", "ty-vs-vy"],
@@ -2366,6 +2512,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Nominative (agreement)",
+      rowLabel: "Gender",
       columns: ["my", "your (ty)", "our", "your (vy)"],
       rows: [
         { label: "Masculine", cells: ["môj", "tvoj", "náš", "váš"] },
@@ -2377,26 +2524,43 @@ export const grammarEntries: GrammarTopic[] = [
         },
         { label: "Every other plural", cells: ["moje", "tvoje", "naše", "vaše"] },
       ],
-      examples: [
-        { slovak: "Tvoj byt je krásny.", english: "Your flat is beautiful." },
-        {
-          slovak: "To je moja sestra.",
-          english: "This is my sister.",
-          practiceItemId: "grammar/possessive-agreement",
-        },
-        {
-          slovak: "To sú moji priatelia.",
-          english: "These are my friends.",
-          demonstrates: "**Priateľ** is masculine and a person, so **moji**.",
-        },
-        {
-          slovak: "Naše deti chodia do školy.",
-          english: "Our children go to school.",
-          demonstrates: "**Deti** are people, but not a masculine noun, so **naše**.",
-        },
-      ],
     },
     morePatterns: [
+      {
+        label: "Môj and svoj in other cases",
+        intro:
+          "**Tvoj** and **svoj** take the same endings as **môj**: **svojho**, **svojmu**, **svojou**. In the accusative, a feminine noun takes **moju**, a masculine person or animal **môjho**, and masculine people in the plural **mojich**. Every other accusative looks like the nominative.",
+        rowLabel: "Case",
+        columns: ["Masculine and neuter", "Feminine", "Plural"],
+        rows: [
+          { label: "Genitive (of, from)", cells: ["môjho", "mojej", "mojich"] },
+          { label: "Dative (to)", cells: ["môjmu", "mojej", "mojim"] },
+          { label: "Locative (in, about)", cells: ["mojom", "mojej", "mojich"] },
+          { label: "Instrumental (with)", cells: ["mojím", "mojou", "mojimi"] },
+        ],
+        examples: [
+          {
+            slovak: "Tom píše list svojmu najlepšiemu priateľovi.",
+            english: "Tom is writing a letter to his best friend.",
+            demonstrates:
+              "Tom is the subject and the owner, so **svoj**, in the dative: **svojmu**.",
+            practiceItemId: "grammar/possessive-svoj-choice",
+          },
+          {
+            slovak: "Idem do kina so svojou sestrou.",
+            english: "I'm going to the cinema with my sister.",
+            demonstrates:
+              "**Svojou**: the owner is **ja**, the subject. **Mojou** works too: **s mojou sestrou**.",
+          },
+          {
+            slovak: "To je auto môjho brata.",
+            english: "That is my brother's car.",
+            demonstrates:
+              "The owner comes after the thing, in the genitive: **môjho brata**.",
+            practiceItemId: "grammar/possessive-genitive-build",
+          },
+        ],
+      },
       {
         label: "Jeho, jej, ich never change",
         lines: [
@@ -2693,6 +2857,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Informal and formal address",
+      rowLabel: "Meaning",
       columns: ["ty · informal", "vy · formal or plural"],
       rows: [
         { label: "you are", cells: ["si", "ste"] },
