@@ -105,10 +105,10 @@ Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs 
 
 ### One-off
 
-| Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                                                                                                                         |
-| -------------- | ------------ | ------ | ------------------------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.                                                                                                |
-| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). Fifth take, a boyish, bright tenor pitched well above Marek; the first became the announcer. |
+| Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                                                                                                                                            |
+| -------------- | ------------ | ------ | ------------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.                                                                                                                   |
+| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). Sixth take, a grown man of about 28, smooth and warm, a shade lower than Marek; the first became the announcer. |
 
 ### System
 
@@ -174,3 +174,11 @@ Lesson dialogue/content may churn — treat `lesson/` MP3s as disposable regener
 | Lesson scene / exercise context | `characterIdForSpeaker(line.speaker)` → `lesson/`                         |
 | Lesson key phrases              | `keyPhraseCharacterId()` → `guide` → `lesson/`                            |
 | Practice cloze (reuse)          | `practice-audio.ts` — only if spoken frame already in dictionary manifest |
+
+## Spare voices
+
+Designed takes that did not fit the figure they were made for, kept in the ElevenLabs library for a character to come. Not in `config.json`, so nothing uses them.
+
+| Voice id               | Sounds like                                                             | Made for |
+| ---------------------- | ----------------------------------------------------------------------- | -------- |
+| `5YDe2nLAVwkbKkGii7je` | A boy of about twelve: bright, quick, eager. A child character one day. | Waiter   |

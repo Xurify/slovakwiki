@@ -79,10 +79,10 @@
       "gender": "male",
       "kind": "oneOff",
       "blurb": "A café waiter in old town. He takes drink orders, serves pastries, and brings the bill.",
-      "voiceId": "5YDe2nLAVwkbKkGii7je",
+      "voiceId": "n1FgRA8rScZwFwdQpAVZ",
       "voiceName": "Slovak Wiki Waiter",
       "speakers": ["Waiter", "Conductor"],
-      "note": "Voice Design, fifth take (preview 0): a boyish 19-year-old waiter, bright and quick, pitched well above Marek."
+      "note": "Voice Design, sixth take (preview 0): a grown waiter of about 28, smooth and warm, a shade lower than Marek. The fifth take (5YDe2nLAVwkbKkGii7je) sounded like a boy and is kept for a child character."
     },
     "guide": {
       "displayName": "Guide",

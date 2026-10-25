@@ -92,7 +92,7 @@ const CAST: CastBrief[] = [
     gender: "male",
     voiceName: "Slovak Wiki Waiter",
     voiceDescription:
-      "Slovak man of 19, a slim, boyish student waiting tables in an old-town café, talking to guests at their table. Noticeably higher and lighter than a man in his late twenties: a bright, quick, animated tenor with a smile in it, a touch nasal, brisk tempo, eager to please, clear rising question intonation. Not a calm, reserved, medium-pitched voice. Close and natural, as if standing right beside you in a quiet room: not a telephone, loudspeaker or announcer sound, no radio delivery. Central European accent.",
+      "Adult Slovak man of about 28, a slim, well-groomed waiter who has worked in an old-town café for years, talking to guests at their table. A grown man's voice, clearly not a teenager: smooth, warm and resonant, a shade lower than a young office colleague, relaxed and attentive, with the polished friendliness of good service and a clear rising question intonation. Close and natural, as if standing right beside you in a quiet room: not a telephone, loudspeaker or announcer sound, no radio delivery. Central European accent.",
   },
   {
     characterId: "receptionist",
