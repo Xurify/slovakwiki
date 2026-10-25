@@ -125,7 +125,7 @@
 {/snippet}
 
 {#if key || labelled}
-  <p class="m-0 mb-3 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+  <p class="m-0 mb-3 max-w-[75ch] text-sm leading-relaxed text-slate-600">
     {#if key}
       In each sentence the word you pick is blue, like
       <span class="font-serif font-semibold {grammarEndingClass}" lang="sk"

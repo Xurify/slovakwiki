@@ -14,6 +14,7 @@
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
   import {
     grammarHeadingClass,
+    grammarIntroClass,
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
@@ -105,7 +106,7 @@
 </script>
 
 <main class="py-10 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[800px]">
+  <PageShell class="max-w-[680px]">
     <header>
       <nav
         class="mb-4 flex flex-wrap gap-2 text-xs text-slate-500"
@@ -122,7 +123,7 @@
 
       <p class="m-0 mt-1 font-serif text-xl text-blue-800" lang="sk">{topic.slovak}</p>
 
-      <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-600">
+      <p class="m-0 mt-3 max-w-[75ch] text-[1.02rem] leading-relaxed text-slate-600">
         {topic.summary}
       </p>
 
@@ -162,7 +163,7 @@
       {#if topic.caseOverview}
         <h2 id="cases" class={grammarHeadingClass}>The six cases</h2>
 
-        <p class="m-0 mt-1.5 mb-4 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+        <p class="{grammarIntroClass} mt-1.5 mb-4">
           Learn the nominative first. The rest is a map of common roles — open a case for
           its examples.
         </p>
@@ -178,7 +179,7 @@
         <h2 id="pattern" class={grammarHeadingClass}>{topic.pattern.label}</h2>
 
         {#if topic.pattern.intro}
-          <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+          <p class="{grammarIntroClass} mt-1.5">
             <GrammarRichText text={topic.pattern.intro} />
           </p>
         {/if}
@@ -205,7 +206,7 @@
             </h2>
 
             {#if extra.intro}
-              <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+              <p class="{grammarIntroClass} mt-1.5">
                 <GrammarRichText text={extra.intro} />
               </p>
             {/if}
@@ -232,7 +233,7 @@
         {/each}
       </div>
 
-      <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-800">
+      <p class="{grammarProseClass} mt-3">
         <span class="font-semibold">When you read. </span>
         <GrammarRichText text={topic.lookFor} />
       </p>
@@ -245,7 +246,7 @@
         </h2>
 
         {#if topic.contrasts.intro}
-          <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+          <p class="{grammarIntroClass} mt-1.5">
             <GrammarRichText text={topic.contrasts.intro} />
           </p>
         {/if}
@@ -308,7 +309,7 @@
       <section id="clock-faces" class="mt-8" aria-labelledby="clock-heading">
         <h2 id="clock-heading" class={grammarHeadingClass}>See the time</h2>
 
-        <p class="m-0 mt-1.5 mb-4 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+        <p class="{grammarIntroClass} mt-1.5 mb-4">
           Match each face to the Slovak phrase. Quarters and halves name the hour ahead.
         </p>
 

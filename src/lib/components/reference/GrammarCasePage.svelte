@@ -9,6 +9,7 @@
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import {
     grammarHeadingClass,
+    grammarIntroClass,
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { caseTopics } from "$lib/catalog/entries";
@@ -39,7 +40,7 @@
 </script>
 
 <main class="py-10 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[800px]">
+  <PageShell class="max-w-[680px]">
     <header>
       <nav
         class="mb-4 flex flex-wrap gap-2 text-xs text-slate-500"
@@ -65,7 +66,7 @@
         {/if}
       </p>
 
-      <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-600">
+      <p class="m-0 mt-3 max-w-[75ch] text-[1.02rem] leading-relaxed text-slate-600">
         {topic.summary}
       </p>
     </header>
@@ -79,7 +80,7 @@
             <p class={grammarProseClass}><GrammarRichText text={paragraph} /></p>
           {/each}
         {:else}
-          <p class="m-0 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-600">
+          <p class="m-0 max-w-[75ch] text-[1.02rem] leading-relaxed text-slate-600">
             This case page is still being written. The cases overview has its role and
             question words.
           </p>

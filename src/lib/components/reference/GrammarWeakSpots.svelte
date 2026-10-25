@@ -34,7 +34,7 @@
   <section id="weak-spots" class="mt-8 animate-rise" aria-labelledby="weak-spots-heading">
     <h2 id="weak-spots-heading" class={grammarHeadingClass}>Your weak spots</h2>
 
-    <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+    <p class="m-0 mt-1.5 max-w-[75ch] text-sm leading-relaxed text-slate-600">
       From your practice on this device. The rules you miss most are at the top.
     </p>
 
