@@ -7,6 +7,7 @@ import { mkdir, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { caseTopics, grammarEntries, words } from "../../src/lib/catalog/entries";
+import { grammarExamples } from "../../src/lib/catalog/reference/grammar-pattern";
 import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-limits";
 import {
   type AudioConfig,
@@ -197,23 +198,19 @@ function targetKey(target: AudioTarget, baseConfig: AudioConfig): string {
   return `${target.kind}|${config.voiceId}|${normalizeAudioText(target.text)}`;
 }
 
-/** Every sentence a case page shows under "In real sentences". */
+/** Every example sentence a case page shows. */
 function caseSentences(slugs?: Set<string>): string[] {
   return caseTopics
     .filter((topic) => !slugs || slugs.has(topic.slug))
     .flatMap((topic) => topic.examples.map((example) => example.slovak));
 }
 
-/** Every sentence a grammar page shows: examples, table examples, contrast cards. */
+/** Every sentence a grammar page shows: table examples and contrast cards. */
 function grammarSentences(slugs?: Set<string>): string[] {
   return grammarEntries
     .filter((topic) => !slugs || slugs.has(topic.slug))
     .flatMap((topic) => [
-      ...topic.examples.map((example) => example.slovak),
-      ...(topic.pattern.examples ?? []).map((example) => example.slovak),
-      ...(topic.morePatterns ?? []).flatMap((pattern) =>
-        (pattern.examples ?? []).map((example) => example.slovak),
-      ),
+      ...grammarExamples(topic).map((example) => example.slovak),
       ...[...(topic.contrasts?.frames ?? []), ...(topic.contrasts?.more ?? [])].flatMap(
         (frame) => frame.choices.map((choice) => choice.slovak.text),
       ),

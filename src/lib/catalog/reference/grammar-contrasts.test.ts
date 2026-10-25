@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { practiceItemHref } from "../practice";
 import { segmentsFromMarks } from "$lib/learning/marked-text";
 import { grammarEntries } from "./grammar";
+import { grammarExamples } from "./grammar-pattern";
 
 const contrastTopics = grammarEntries.filter((topic) => topic.contrasts);
 
@@ -74,11 +75,7 @@ describe("grammar contrast cards", () => {
 describe("grammar example practice links", () => {
   it("point at practice items that exist", () => {
     const missing = grammarEntries.flatMap((topic) =>
-      [
-        ...topic.examples,
-        ...(topic.pattern.examples ?? []),
-        ...(topic.morePatterns ?? []).flatMap((pattern) => pattern.examples ?? []),
-      ]
+      grammarExamples(topic)
         .filter((example) => example.practiceItemId)
         .filter((example) => !practiceItemHref(example.practiceItemId!))
         .map((example) => `${topic.slug}:${example.practiceItemId}`),

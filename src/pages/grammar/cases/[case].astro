@@ -21,7 +21,7 @@ export function getStaticPaths() {
           key: `ex-${index}`,
           props: {
             label: `Play: ${example.slovak}`,
-            size: "sm" as const,
+            size: "xs" as const,
             src: resolveKeyedAudioSrc(example.slovak, kind),
             text: example.slovak,
           },

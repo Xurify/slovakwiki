@@ -17,12 +17,13 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Peter číta knihu.",
         english: "Peter is reading a book.",
-        note: "Peter is nominative because he performs the action.",
+        demonstrates: "Peter is nominative because he performs the action.",
       },
       {
         slovak: "Mesto je veľké.",
         english: "The city is large.",
-        note: "**Mesto** is nominative because it is the subject being described.",
+        demonstrates:
+          "**Mesto** is nominative because it is the subject being described.",
       },
     ],
     researchPrompts: [
@@ -47,12 +48,12 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Som z Kanady.",
         english: "I am from Canada.",
-        note: "**Z** takes the genitive: **Kanada** becomes **Kanady**.",
+        demonstrates: "**Z** takes the genitive: **Kanada** becomes **Kanady**.",
       },
       {
         slovak: "Pohár vody.",
         english: "A glass of water.",
-        note: "**Vody** identifies what the glass contains.",
+        demonstrates: "**Vody** identifies what the glass contains.",
       },
     ],
     researchPrompts: [
@@ -77,12 +78,12 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Dám Petrovi knihu.",
         english: "I will give Peter a book.",
-        note: "**Petrovi** is the recipient.",
+        demonstrates: "**Petrovi** is the recipient.",
       },
       {
         slovak: "Pomáham mame.",
         english: "I am helping my mother.",
-        note: "**Mame** is the person receiving help.",
+        demonstrates: "**Mame** is the person receiving help.",
       },
     ],
     researchPrompts: [
@@ -107,12 +108,12 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Mám kávu.",
         english: "I have coffee.",
-        note: "**Kávu** is the direct object of **mám**.",
+        demonstrates: "**Kávu** is the direct object of **mám**.",
       },
       {
         slovak: "Vidím mesto.",
         english: "I see the city.",
-        note: "**Mesto** is the thing directly seen.",
+        demonstrates: "**Mesto** is the thing directly seen.",
       },
     ],
     researchPrompts: [
@@ -137,17 +138,18 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Bývam v meste.",
         english: "I live in the city.",
-        note: "**V meste** expresses a location.",
+        demonstrates: "**V meste** expresses a location.",
       },
       {
         slovak: "Hovorím o škole.",
         english: "I am talking about school.",
-        note: "**O škole** marks the topic.",
+        demonstrates: "**O škole** marks the topic.",
       },
       {
         slovak: "Stretneme sa o tretej.",
         english: "We will meet at three.",
-        note: "**O** + locative for a clock time. For a duration (in two hours), **o** takes the accusative: **o dve hodiny**.",
+        demonstrates:
+          "**O** + locative for a clock time. For a duration (in two hours), **o** takes the accusative: **o dve hodiny**.",
       },
     ],
     researchPrompts: [
@@ -172,12 +174,12 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Idem s priateľom.",
         english: "I am going with a friend.",
-        note: "**S priateľom** marks company.",
+        demonstrates: "**S priateľom** marks company.",
       },
       {
         slovak: "Píšem perom.",
         english: "I write with a pen.",
-        note: "**Perom** identifies the tool.",
+        demonstrates: "**Perom** identifies the tool.",
       },
     ],
     researchPrompts: [

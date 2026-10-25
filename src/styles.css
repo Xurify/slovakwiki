@@ -127,6 +127,11 @@
   /* The studio's on-air sign and screen, and the strawberries: the light theme's red and blue, fixed. */
   --color-scene-red: #c23b35;
   --color-scene-blue: #3b82f6;
+  /* The cast's clothes, robot shells and props: the light theme's reds and greens, fixed, since the backdrop is. */
+  --color-scene-red-mid: #d9918a;
+  --color-scene-pale: #cbd5e1;
+  --color-scene-green: #1f6b5c;
+  --color-scene-green-mid: #74a89b;
   --color-flag-red: #d52b1e;
   --color-flag-blue: #0b4ea2;
   --color-flag-gold: #ffcd00;
@@ -237,10 +242,11 @@
     --muted-strong: #cbd5e1;
     --line: #334155;
     --line-strong: #475569;
-    --accent: #3b82f6;
+    /* Blue-400 for the accent so the dark ink on buttons and chips reads at 5.7:1; blue-500 was 3.9:1. */
+    --accent: #60a5fa;
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
-    --accent-strong: #60a5fa;
+    --accent-strong: #93c5fd;
     --accent-soft: #1e3a8a;
     --action: #e07068;
     --action-strong: #f09088;
@@ -254,14 +260,14 @@
     --green-mid: color-mix(in srgb, var(--green) 68%, var(--green-light));
     --panel-inverse: #0f172a;
     --panel-inverse-ink: #f1f5f9;
-    --cta: #3b82f6;
-    --cta-strong: #2563eb;
-    --cta-ink: #ffffff;
+    --cta: #60a5fa;
+    --cta-strong: #3b82f6;
+    --cta-ink: #0f172a;
     --saffron: #60a5fa;
     --saffron-ink: #93c5fd;
     --mark: #1e3a8a;
-    --brand: #3b82f6;
-    --brand-ink: #ffffff;
+    --brand: #60a5fa;
+    --brand-ink: #0f172a;
     --shadow-color: #000000;
     --shadow-border:
       0 0 0 1px var(--line),
@@ -357,14 +363,105 @@
   }
 
   :focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent) 78%, var(--surface));
-    outline-offset: 3px;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
     outline: none;
+  }
+
+  /*
+   * Volume sliders. The keyboard ring goes round the thumb rather than the
+   * field, which is why inputs drop the outline above.
+   */
+  input[type="range"] {
+    --range-fill: 0%;
+    width: 100%;
+    height: 1.25rem;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background-color: var(--line-strong);
+    background-image: linear-gradient(
+      to right,
+      var(--accent) var(--range-fill),
+      transparent var(--range-fill)
+    );
+  }
+
+  input[type="range"]::-moz-range-track,
+  input[type="range"]::-moz-range-progress {
+    height: 4px;
+    border-radius: 999px;
+  }
+
+  input[type="range"]::-moz-range-track {
+    background-color: var(--line-strong);
+  }
+
+  input[type="range"]::-moz-range-progress {
+    background-color: var(--accent);
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    margin-top: -5px;
+    border: 0;
+    border-radius: 999px;
+    appearance: none;
+    background-color: #ffffff;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--shadow-color) 18%, transparent),
+      0 1px 2px color-mix(in srgb, var(--shadow-color) 26%, transparent);
+    transition: box-shadow 150ms ease-out;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 999px;
+    background-color: #ffffff;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--shadow-color) 18%, transparent),
+      0 1px 2px color-mix(in srgb, var(--shadow-color) 26%, transparent);
+    transition: box-shadow 150ms ease-out;
+  }
+
+  input[type="range"]:hover::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 2px var(--surface),
+      0 0 0 3px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  input[type="range"]:hover::-moz-range-thumb {
+    box-shadow:
+      0 0 0 2px var(--surface),
+      0 0 0 3px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  input[type="range"]:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 2px var(--surface),
+      0 0 0 4px var(--accent);
+  }
+
+  input[type="range"]:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 0 0 2px var(--surface),
+      0 0 0 4px var(--accent);
   }
 
   /* English headings are set in the UI sans; serif is reserved for Slovak. */

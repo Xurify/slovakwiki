@@ -35,7 +35,7 @@
 {#if round.target && round.ask}
   {@const prompt = findPrompt(round.target, round.ask)}
 
-  <p class={eyebrowMutedClass}>Tap it in the scene</p>
+  <p class={eyebrowMutedClass}>Tap or click it in the scene</p>
   {#key prompt.slovak}
     <p
       class="m-0 mt-1 animate-rise font-serif text-3xl text-slate-900 max-[600px]:text-2xl"

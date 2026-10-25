@@ -1,6 +1,11 @@
 /** Turns a grammar pattern into the shape the topic page lays out. */
 
-import type { Example, GrammarPattern, GrammarTablePattern } from "../types";
+import type {
+  Example,
+  GrammarPattern,
+  GrammarTablePattern,
+  GrammarTopic,
+} from "../types";
 
 export function isGrammarTable(pattern: GrammarPattern): pattern is GrammarTablePattern {
   return "rows" in pattern;
@@ -47,7 +52,7 @@ export interface PatternGridRow {
 export type PatternView =
   | { kind: "paradigm"; singular: ParadigmCell[]; plural: ParadigmCell[] }
   | { kind: "tiles"; tiles: PatternTile[] }
-  | { kind: "grid"; columns: string[]; rows: PatternGridRow[] }
+  | { kind: "grid"; rowLabel: string; columns: string[]; rows: PatternGridRow[] }
   | { kind: "rows"; rows: PatternRow[] };
 
 const PERSONS = [
@@ -159,7 +164,7 @@ export function markAgainst(base: string, form: string): MarkedPhrase {
 }
 
 export function tableView(pattern: GrammarTablePattern): PatternView {
-  const { columns, rows } = pattern;
+  const { rowLabel, columns, rows } = pattern;
 
   for (const row of rows) {
     if (row.cells.length !== columns.length) {
@@ -171,6 +176,7 @@ export function tableView(pattern: GrammarTablePattern): PatternView {
 
   return {
     kind: "grid",
+    rowLabel,
     columns: [...columns],
     rows: rows.map((row) => ({
       label: row.label,
@@ -219,6 +225,16 @@ export function patternView(
   return parsePattern(pattern.lines, examples);
 }
 
+/** Anchor for a further table's heading ("Arrive, leave, go in, go out" → arrive-leave-go-in-go-out). */
+export function patternAnchor(label: string): string {
+  return label
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export function patternForms(pattern: GrammarPattern): string[] {
   if (!isGrammarTable(pattern)) return [];
 
@@ -244,4 +260,12 @@ export function patternSearchLines(pattern: GrammarPattern): string[] {
 /** Quarters and halves name the coming hour (štvrť na tri, pol tretej, trištvrte na tri). */
 export function namesHourAhead(minute: number): boolean {
   return minute === 15 || minute === 30 || minute === 45;
+}
+
+/** Every example on a topic page: the main table's, then each further table's. */
+export function grammarExamples(topic: GrammarTopic): Example[] {
+  return [
+    ...topic.examples,
+    ...(topic.morePatterns ?? []).flatMap((pattern) => pattern.examples ?? []),
+  ];
 }

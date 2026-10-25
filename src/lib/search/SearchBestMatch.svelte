@@ -133,46 +133,53 @@
     class:hidden={!hasFooter}
   >
     {#if related.length > 0}
-      <dt class={footerLabelClass}>Related</dt>
+      <div class="contents">
+        <dt class={footerLabelClass}>Related</dt>
 
-      <dd class="m-0 {footerValueClass}">
-        {#each related as pronoun (pronoun.id)}
-          <a
-            class={inlineLinkClass}
-            href={`/search?q=${encodeURIComponent(pronoun.lemma)}`}
-          >
-            <span lang="sk">{pronoun.lemma}</span>
-            {#if showGlosses}
-              <span class="font-normal text-slate-500">· {pronoun.english}</span>
-            {/if}
-          </a>
-        {/each}
-      </dd>
+        <dd class="m-0 {footerValueClass}">
+          {#each related as pronoun (pronoun.id)}
+            <a
+              class={inlineLinkClass}
+              href={`/search?q=${encodeURIComponent(pronoun.lemma)}`}
+            >
+              <span lang="sk">{pronoun.lemma}</span>
+              {#if showGlosses}
+                <span class="font-normal text-slate-500">· {pronoun.english}</span>
+              {/if}
+            </a>
+          {/each}
+        </dd>
+      </div>
     {/if}
 
     {#if topic}
-      <dt class={footerLabelClass}>Learn it</dt>
+      <div class="contents">
+        <dt class={footerLabelClass}>Learn it</dt>
 
-      <dd class="m-0 {footerValueClass}">
-        {#each topic.links as link (link.href)}
-          <a
-            class={inlineLinkClass}
-            href={link.href}
-            onclick={() =>
-              onvisit({ href: link.href, kind: link.kind, label: topic.title })}
-          >
-            {link.label}
-          </a>
-        {/each}
-      </dd>
+        <dd class="m-0 {footerValueClass}">
+          {#each topic.links as link (link.href)}
+            <a
+              class={inlineLinkClass}
+              href={link.href}
+              onclick={() =>
+                onvisit({ href: link.href, kind: link.kind, label: topic.title })}
+            >
+              {link.label}
+            </a>
+          {/each}
+        </dd>
+      </div>
     {/if}
 
     {#if entryHref}
-      <dd class="m-0 {related.length > 0 || topic ? 'col-start-2' : 'col-span-2'}">
-        <a class={inlineLinkClass} href={entryHref} onclick={visitEntry}>
-          Open the full entry
-        </a>
-      </dd>
+      <div class="contents">
+        <dt class="sr-only">Dictionary</dt>
+        <dd class="m-0 {related.length > 0 || topic ? 'col-start-2' : 'col-span-2'}">
+          <a class={inlineLinkClass} href={entryHref} onclick={visitEntry}>
+            Open the full entry
+          </a>
+        </dd>
+      </div>
     {/if}
   </dl>
 </article>

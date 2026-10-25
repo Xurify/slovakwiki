@@ -66,7 +66,7 @@
         width="6"
         height="4"
         rx="1.2"
-        class="fill-slate-700 stroke-portrait-ink"
+        class="fill-portrait-vest stroke-portrait-ink"
         stroke-width="1.2"
       />
       <path
@@ -80,7 +80,7 @@
         width="11"
         height="9"
         rx="2.4"
-        class="fill-slate-800 stroke-portrait-ink"
+        class="fill-portrait-ink stroke-portrait-ink"
         stroke-width="0.9"
       />
       <circle cx="32" cy="55" r="1.8" class={robot.chest} />

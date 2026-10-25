@@ -20,7 +20,7 @@
 
 <div
   class={cx(
-    "inline-flex max-w-full rounded-(--control-radius) bg-subtle p-0.5 ring-1 ring-slate-200 ring-inset",
+    "inline-flex max-w-full flex-wrap rounded-(--control-radius) bg-subtle p-0.5 ring-1 ring-slate-200 ring-inset",
     className,
   )}
   role="group"

@@ -2,6 +2,7 @@
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import { ClockIllustration } from "$lib/learning/time";
 
+  import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import {
     grammarEndingClass,
     grammarFormClass,
@@ -11,6 +12,7 @@
     addedPrefix,
     isGrammarTable,
     namesHourAhead,
+    patternForms,
     patternView,
     type MarkedPhrase,
     type ParadigmCell,
@@ -22,10 +24,14 @@
   let {
     pattern,
     examples = [],
+    audioKeys = [],
+    audioKeyPrefix,
     withClocks = false,
   }: {
     pattern: GrammarPattern;
     examples?: Example[];
+    audioKeys?: string[];
+    audioKeyPrefix?: string;
     withClocks?: boolean;
   } = $props();
 
@@ -65,6 +71,10 @@
   }
 
   const view = $derived(withClocks ? undefined : patternView(pattern, examples));
+
+  const examplesInTiles = $derived(
+    view?.kind === "tiles" && view.tiles.every((tile) => tile.example),
+  );
 
   const phrases = $derived(
     view?.kind === "rows" &&
@@ -203,11 +213,19 @@
     </div>
   {:else if view?.kind === "grid"}
     <div>
-      <div class="overflow-x-auto">
+      <div class="overflow-x-auto" role="region" aria-label={pattern.label} tabindex="0">
         <table class="w-full border-collapse">
           <thead>
             <tr class="border-b border-slate-200 bg-subtle/60">
-              <td class="py-2.5 pr-3 pl-4 text-left max-sm:hidden sm:pl-5"></td>
+              <th
+                scope="col"
+                class={cx(
+                  eyebrowMutedClass,
+                  "py-2 pr-3 pl-4 text-left align-bottom max-sm:hidden sm:pl-5",
+                )}
+              >
+                {view.rowLabel}
+              </th>
 
               {#each view.columns as column, index (column)}
                 {@const [head, note] = column.split(" · ")}
@@ -219,7 +237,8 @@
                     "px-3 py-2 text-left align-bottom last:pr-4 sm:last:pr-5",
                     view.columns.length > 3 && "max-sm:w-1/4 sm:w-1/6",
                     view.columns.length === 3 && "max-sm:w-1/3 sm:w-1/4",
-                    view.columns.length === 2 && "max-sm:w-1/2 sm:w-[38%]",
+                    view.columns.length === 2 && "max-sm:w-1/2",
+                    view.columns.length === 2 && (index === 0 ? "sm:w-1/4" : "sm:w-1/2"),
                     index === 0 && "max-sm:pl-4",
                   )}
                 >
@@ -384,5 +403,16 @@
         {/each}
       </ul>
     </div>
+  {/if}
+
+  {#if examples.length > 0 && !examplesInTiles}
+    <GrammarExampleList
+      {examples}
+      {audioKeys}
+      {audioKeyPrefix}
+      framed={false}
+      highlight={patternForms(pattern)}
+      label="Examples"
+    />
   {/if}
 </div>

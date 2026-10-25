@@ -28,9 +28,9 @@
     <path d="M-6.6 9h13.2" class="stroke-white/50" stroke-width="1.2" />
   {:else if prop === "basket"}
     <path d="M-6 7Q-6 -1 0 -1Q6 -1 6 7" fill="none" stroke-width="1.1" />
-    <circle cx="-3.6" cy="6.4" r="2.2" class="fill-rose-400" />
-    <circle cx="0.4" cy="5.8" r="2.2" class="fill-rose-400" />
-    <circle cx="4" cy="6.6" r="2.2" class="fill-rose-400" />
+    <circle cx="-3.6" cy="6.4" r="2.2" class="fill-scene-red-mid" />
+    <circle cx="0.4" cy="5.8" r="2.2" class="fill-scene-red-mid" />
+    <circle cx="4" cy="6.6" r="2.2" class="fill-scene-red-mid" />
     <path d="M-8 7h16l-2 8.5h-12Z" class="fill-scene-wood" />
     <path d="M-7 10h14M-6.4 13h12.8" class="stroke-scene-line/40" stroke-width="0.7" />
   {:else if prop === "book"}

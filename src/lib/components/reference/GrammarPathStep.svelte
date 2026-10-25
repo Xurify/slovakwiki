@@ -3,6 +3,7 @@
   import { motifArtSrc } from "$lib/catalog/motifs/art";
   import { grammarMotifId } from "$lib/catalog/reference/grammar-motifs";
   import { sentenceCase } from "$lib/catalog/search/ui";
+  import { grammarExamples } from "$lib/catalog/reference/grammar-pattern";
   import type { GrammarTopic } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
 
@@ -28,7 +29,7 @@
     "max-[480px]:grid-cols-1",
   );
 
-  const exampleCount = $derived(topic.examples.length);
+  const exampleCount = $derived(grammarExamples(topic).length);
 </script>
 
 <li class="group/step relative grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3.5">

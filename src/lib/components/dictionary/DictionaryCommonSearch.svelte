@@ -67,7 +67,7 @@
 
 <p class={dataRangeClass}>
   <strong class="font-semibold tabular-nums text-slate-900">{range}</strong>
-  <span class="text-slate-400">
+  <span class="text-slate-600">
     {#if isFiltering}
       matching “{query.trim()}”
     {:else}

@@ -19,13 +19,15 @@ import type { DialogueTurn } from "$lib/learning/types";
 
 /** A direction to the voice, not shown in the text. */
 export interface Direction {
-  readonly tag: "pause" | "sighs";
+  readonly tag: "chuckles" | "pause" | "sighs";
 }
 
 /** A beat of silence in the clip, where the speaker thinks or lets a clue sink in. */
 export const PAUSE: Direction = { tag: "pause" };
 /** A sigh before the words: fond exasperation, as when Marek has lost the keys again. */
 export const SIGH: Direction = { tag: "sighs" };
+/** A chuckle before the words: Anna keeping the cake's hiding place to herself. */
+export const CHUCKLE: Direction = { tag: "chuckles" };
 /** Words trailing off in the text, a full stop in the clip; the beat comes from the PAUSE after it. */
 export const STOP = { said: ". ", shown: "… " } as const;
 /** The listener gets this long to decide before the answer comes. */
@@ -34,6 +36,8 @@ export const THINK_MS = 2000;
 export type Part = string | Exclude<MarkedPart, string> | Direction | typeof STOP;
 
 export interface LineOptions {
+  /** A gesture per sentence on the stage, where the one read from the words is wrong. */
+  gestures?: DialogueTurn["gestures"];
   /** What the speaker holds per sentence on the stage, where the words would pick wrong. */
   props?: DialogueTurn["props"];
   /** Who it is said to, when that is not who it replies to. */
@@ -47,7 +51,7 @@ export function lineWriter(prefix: string) {
     speaker: string,
     parts: Part[],
     english: string,
-    { props, to }: LineOptions = {},
+    { gestures, props, to }: LineOptions = {},
   ): DialogueTurn {
     const marked = markedText(
       parts.flatMap((part): MarkedPart[] =>
@@ -79,6 +83,7 @@ export function lineWriter(prefix: string) {
       marks: marked.marks,
       english,
       ...(said !== marked.text ? { audio: { transcript: said } } : {}),
+      ...(gestures ? { gestures } : {}),
       ...(props ? { props } : {}),
       ...(to ? { to } : {}),
     };

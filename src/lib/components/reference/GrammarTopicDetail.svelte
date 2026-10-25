@@ -9,21 +9,24 @@
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarContrastList from "$lib/components/reference/GrammarContrastList.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
+  import GrammarPathNeighbors from "$lib/components/reference/GrammarPathNeighbors.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
   import {
     grammarHeadingClass,
+    grammarIntroClass,
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
   import { ClockGrid } from "$lib/learning/time";
   import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
+  import { grammarEntries } from "$lib/catalog/reference/grammar";
   import {
     grammarGroupAnchor,
     grammarNeighbors,
   } from "$lib/catalog/reference/grammar-path";
-  import { patternForms, patternView } from "$lib/catalog/reference/grammar-pattern";
+  import { grammarExamples, patternAnchor } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
@@ -75,25 +78,17 @@
       })),
   );
 
-  const topics = $derived(
-    relatedEntries
-      .filter((entry) => entry.kind !== "word")
-      .map((entry) => ({
-        href: entry.href,
-        primary: sentenceCase(entry.english),
-        secondary: entry.slovak,
-        slug: entry.slug,
-      })),
-  );
-
-  const patternIncludesExamples = $derived.by(() => {
-    if (topic.caseOverview || isTime) return false;
-    const view = patternView(topic.pattern, topic.examples);
-    return view.kind === "tiles" && view.tiles.every((tile) => tile.example);
+  /** Topics the path below already shows are left out, so nothing is listed twice. */
+  const relatedTopics = $derived.by(() => {
+    const onPath = new Set([neighbors.previous?.slug, neighbors.next?.slug]);
+    return topic.related
+      .filter((slug) => !onPath.has(slug))
+      .map((slug) => grammarEntries.find((entry) => entry.slug === slug))
+      .filter((entry) => entry !== undefined);
   });
 
   const practiceHref = $derived(
-    topic.examples
+    grammarExamples(topic)
       .map(
         (example) => example.practiceItemId && practiceItemHref(example.practiceItemId),
       )
@@ -101,17 +96,10 @@
   );
 
   const episode = $derived(episodeForGrammarSlug(topic.slug));
-
-  const steps = $derived(
-    [
-      neighbors.previous && { label: "Previous", topic: neighbors.previous, rel: "prev" },
-      neighbors.next && { label: "Next", topic: neighbors.next, rel: "next" },
-    ].filter((step) => step !== undefined),
-  );
 </script>
 
 <main class="py-10 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[800px]">
+  <PageShell class="max-w-[680px]">
     <header>
       <nav
         class="mb-4 flex flex-wrap gap-2 text-xs text-slate-500"
@@ -128,7 +116,7 @@
 
       <p class="m-0 mt-1 font-serif text-xl text-blue-800" lang="sk">{topic.slovak}</p>
 
-      <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-600">
+      <p class="m-0 mt-3 max-w-[75ch] text-[1.02rem] leading-relaxed text-slate-600">
         {topic.summary}
       </p>
 
@@ -168,14 +156,26 @@
       {#if topic.caseOverview}
         <h2 id="cases" class={grammarHeadingClass}>The six cases</h2>
 
-        <p class="m-0 mt-1.5 mb-4 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+        <p class="{grammarIntroClass} mt-1.5 mb-4">
           Learn the nominative first. The rest is a map of common roles — open a case for
           its examples.
         </p>
 
         <GrammarCaseMap cases={topic.caseOverview} />
+
+        {#if topic.examples.length > 0}
+          <div class="mt-4">
+            <GrammarExampleList examples={topic.examples} {audioKeys} label="Examples" />
+          </div>
+        {/if}
       {:else}
         <h2 id="pattern" class={grammarHeadingClass}>{topic.pattern.label}</h2>
+
+        {#if topic.pattern.intro}
+          <p class="{grammarIntroClass} mt-1.5">
+            <GrammarRichText text={topic.pattern.intro} />
+          </p>
+        {/if}
 
         {#if isTime}
           <p class="m-0 mt-1.5 text-sm text-slate-600">
@@ -187,41 +187,31 @@
           <GrammarPatternList
             pattern={topic.pattern}
             examples={topic.examples}
+            {audioKeys}
             withClocks={isTime}
           />
         </div>
 
-        {#if topic.pattern.examples?.length}
-          <div class="mt-5">
-            <GrammarExampleList
-              examples={topic.pattern.examples}
-              {audioKeys}
-              audioKeyPrefix="pattern-ex"
-              highlight={patternForms(topic.pattern)}
-              label="Examples"
-            />
-          </div>
-        {/if}
-
         {#each topic.morePatterns ?? [] as extra, index (extra.label)}
           <div class="mt-8">
-            <h2 class={grammarHeadingClass}>{extra.label}</h2>
+            <h2 id={patternAnchor(extra.label)} class={grammarHeadingClass}>
+              {extra.label}
+            </h2>
+
+            {#if extra.intro}
+              <p class="{grammarIntroClass} mt-1.5">
+                <GrammarRichText text={extra.intro} />
+              </p>
+            {/if}
 
             <div class="mt-3">
-              <GrammarPatternList pattern={extra} />
+              <GrammarPatternList
+                pattern={extra}
+                examples={extra.examples}
+                {audioKeys}
+                audioKeyPrefix="more-{index}-ex"
+              />
             </div>
-
-            {#if extra.examples?.length}
-              <div class="mt-5">
-                <GrammarExampleList
-                  examples={extra.examples}
-                  {audioKeys}
-                  audioKeyPrefix="more-{index}-ex"
-                  highlight={patternForms(extra)}
-                  label="Examples"
-                />
-              </div>
-            {/if}
           </div>
         {/each}
       {/if}
@@ -236,7 +226,7 @@
         {/each}
       </div>
 
-      <p class="m-0 mt-3 max-w-[62ch] text-[1.02rem] leading-relaxed text-slate-800">
+      <p class="{grammarProseClass} mt-3">
         <span class="font-semibold">When you read. </span>
         <GrammarRichText text={topic.lookFor} />
       </p>
@@ -249,7 +239,7 @@
         </h2>
 
         {#if topic.contrasts.intro}
-          <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+          <p class="{grammarIntroClass} mt-1.5">
             <GrammarRichText text={topic.contrasts.intro} />
           </p>
         {/if}
@@ -312,7 +302,7 @@
       <section id="clock-faces" class="mt-8" aria-labelledby="clock-heading">
         <h2 id="clock-heading" class={grammarHeadingClass}>See the time</h2>
 
-        <p class="m-0 mt-1.5 mb-4 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+        <p class="{grammarIntroClass} mt-1.5 mb-4">
           Match each face to the Slovak phrase. Quarters and halves name the hour ahead.
         </p>
 
@@ -326,76 +316,91 @@
       </section>
     {/if}
 
-    {#if topic.examples.length > 0 && !patternIncludesExamples}
-      <section id="examples" class="mt-8" aria-labelledby="examples-heading">
-        <h2 id="examples-heading" class={grammarHeadingClass}>In real sentences</h2>
-
-        <div class="mt-3">
-          <GrammarExampleList examples={topic.examples} {audioKeys} />
-        </div>
-      </section>
-    {/if}
-
     {#if weakSpots}
       {@render weakSpots()}
     {/if}
 
-    {#if words.length > 0 || topics.length > 0}
-      <div class="mt-10 grid gap-8 sm:grid-cols-2">
-        {#each [{ title: "Words", links: words, sk: true }, { title: "Related", links: topics, sk: false }] as group (group.title)}
-          {#if group.links.length > 0}
-            <section aria-label={group.title}>
-              <h2 class={grammarHeadingClass}>{group.title}</h2>
+    {#if words.length > 0}
+      <section id="words" class="mt-8" aria-labelledby="words-heading">
+        <h2 id="words-heading" class={grammarHeadingClass}>Words on this page</h2>
 
-              <ul class="m-0 mt-2 list-none p-0">
-                {#each group.links as link (link.slug)}
-                  <li>
-                    <a class="group block py-1.5 no-underline" href={link.href}>
-                      <span
-                        class="block font-serif leading-snug text-slate-900 group-hover:text-blue-800"
-                        lang={group.sk ? "sk" : undefined}
-                      >
-                        {link.primary}
-                      </span>
-                      <span
-                        class="block text-sm leading-snug text-slate-500"
-                        lang={group.sk ? undefined : "sk"}
-                      >
-                        {link.secondary}
-                      </span>
-                    </a>
-                  </li>
-                {/each}
-              </ul>
-            </section>
-          {/if}
-        {/each}
-      </div>
+        <!-- Cells instead of a single column, so a short word list fills the width
+             rather than running down the page. -->
+        <ul
+          class={cx(
+            dataPanelClass,
+            "m-0 mt-3 grid list-none p-0",
+            words.length === 1 && "grid-cols-1",
+            words.length === 2 && "grid-cols-2",
+            words.length > 2 && "grid-cols-2 sm:grid-cols-3",
+          )}
+        >
+          {#each words as link (link.slug)}
+            <li class="-mr-px -mb-px border-r border-b border-slate-200/70">
+              <a
+                class="group block h-full px-4 py-3 no-underline transition-colors duration-150 ease-out hover:bg-subtle/60 sm:px-5"
+                href={link.href}
+              >
+                <span
+                  class="block font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
+                  lang="sk"
+                >
+                  {link.primary}
+                </span>
+
+                <span class="mt-0.5 block text-sm leading-snug text-slate-500">
+                  {link.secondary}
+                </span>
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </section>
     {/if}
 
-    {#if steps.length > 0}
-      <nav
-        class="mt-10 grid gap-3 border-t border-slate-200 pt-4 sm:grid-cols-2"
-        aria-label="More grammar topics"
-      >
-        {#each steps as step (step.label)}
-          <a
-            class="group text-sm no-underline {step.rel === 'next'
-              ? 'sm:text-right'
-              : ''}"
-            href="/grammar/{step.topic.slug}"
-            rel={step.rel}
-          >
-            <span class="text-slate-500">{step.label}</span>
-            <span
-              class="mt-0.5 block font-serif text-base text-blue-800 group-hover:underline"
-            >
-              {sentenceCase(step.topic.english)}
-            </span>
-          </a>
-        {/each}
-      </nav>
+    {#if relatedTopics.length > 0}
+      <section id="related" class="mt-8" aria-labelledby="related-heading">
+        <h2 id="related-heading" class={grammarHeadingClass}>Related topics</h2>
+
+        <ul class={cx(dataPanelClass, "m-0 mt-3 list-none p-0")}>
+          {#each relatedTopics as related (related.slug)}
+            <li class="border-b border-slate-200/70 last:border-b-0">
+              <a
+                class={cx(
+                  "group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 px-4 py-3 no-underline sm:px-5",
+                  "transition-colors duration-150 ease-out hover:bg-subtle/60",
+                )}
+                href="/grammar/{related.slug}"
+              >
+                <span class="min-w-0">
+                  <span class="flex flex-wrap items-baseline gap-x-2.5">
+                    <span
+                      class="font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
+                    >
+                      {sentenceCase(related.english)}
+                    </span>
+
+                    <span class="font-serif text-sm text-slate-500" lang="sk">
+                      {related.slovak}
+                    </span>
+                  </span>
+
+                  <span
+                    class="mt-0.5 line-clamp-2 block text-sm leading-snug text-pretty text-slate-600"
+                  >
+                    {related.summary}
+                  </span>
+                </span>
+
+                <ArrowRight class="text-slate-400 group-hover:text-blue-800" />
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </section>
     {/if}
+
+    <GrammarPathNeighbors {topic} />
 
     <p class="m-0 mt-8 text-sm text-slate-500">
       Source:

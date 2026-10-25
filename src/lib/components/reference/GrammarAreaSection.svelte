@@ -4,6 +4,7 @@
   import SectionHead from "$lib/components/ui/SectionHead.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import { grammarExamples } from "$lib/catalog/reference/grammar-pattern";
   import type { GrammarTopic } from "$lib/catalog/types";
 
   let {
@@ -19,7 +20,7 @@
   } = $props();
 
   const exampleCount = $derived(
-    topics.reduce((total, topic) => total + topic.examples.length, 0),
+    topics.reduce((total, topic) => total + grammarExamples(topic).length, 0),
   );
 </script>
 

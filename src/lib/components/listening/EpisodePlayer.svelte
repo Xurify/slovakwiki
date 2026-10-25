@@ -232,16 +232,17 @@
     aria-labelledby="stage-title"
     tabindex="-1"
   >
-    <header class="flex items-baseline justify-between gap-4 px-4 pt-4 sm:px-5">
-      <h2
-        id="stage-title"
-        class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900"
-      >
-        <span lang="sk">{chapter.titleSk}</span>
-        <span class="font-sans text-base font-normal tracking-normal text-slate-500">
-          · {chapter.title}
-        </span>
-      </h2>
+    <header class="flex items-start justify-between gap-4 px-4 pt-4 sm:px-5">
+      <div class="min-w-0">
+        <h2
+          id="stage-title"
+          class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900"
+          lang="sk"
+        >
+          {chapter.titleSk}
+        </h2>
+        <p class="m-0 text-sm leading-snug text-slate-600">{chapter.title}</p>
+      </div>
 
       <div class="-mr-2 flex shrink-0 items-center gap-2">
         <button
@@ -346,7 +347,7 @@
                   ? "bg-emerald-50 text-emerald-700"
                   : current
                     ? "bg-blue-600 text-paper"
-                    : "bg-subtle text-slate-500",
+                    : "bg-subtle text-slate-600",
               )}
               aria-hidden="true"
             >
@@ -375,7 +376,7 @@
                 {entry.titleSk}
               </span>
 
-              <span class="block text-sm leading-snug text-slate-500">{entry.title}</span>
+              <span class="block text-sm leading-snug text-slate-600">{entry.title}</span>
             </span>
 
             {#if score !== undefined && entry.checks.length > 0}

@@ -65,7 +65,7 @@
   });
 </script>
 
-<div aria-live="polite">
+<div>
   {#if listenFirst && playing}
     <p class="m-0 font-serif text-2xl leading-snug text-slate-400 max-[600px]:text-xl">
       Listen…

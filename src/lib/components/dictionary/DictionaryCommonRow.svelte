@@ -20,14 +20,11 @@
 </script>
 
 <tr class="border-b border-slate-200/70">
-  <th
-    class="px-4 py-2.5 text-right text-sm font-normal text-slate-500 tabular-nums sm:px-5"
-    scope="row"
-  >
+  <td class="px-4 py-2.5 text-right text-sm text-slate-500 tabular-nums sm:px-5">
     {entry.rank}
-  </th>
+  </td>
 
-  <td class="px-2 py-2.5">
+  <th class="px-2 py-2.5 text-left font-normal" scope="row">
     {#if href}
       <a
         class="font-serif text-base text-blue-800 no-underline hover:underline"
@@ -39,7 +36,7 @@
     {:else}
       <span class="font-serif text-base text-slate-700" lang="sk">{entry.lemma}</span>
     {/if}
-  </td>
+  </th>
 
   <td class="px-2 py-2.5 text-sm text-slate-600">
     {live?.english ?? "Not in the dictionary yet"}

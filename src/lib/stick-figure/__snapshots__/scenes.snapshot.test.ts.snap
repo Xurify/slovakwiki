@@ -957,7 +957,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
         "beats": [
           "0 show",
         ],
-        "ms": 1050,
+        "ms": 1150,
         "questions": "0-950",
         "sentences": "0-950",
         "words": "0-388 388-562 562-950",
@@ -1025,10 +1025,10 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
         "beats": [
           "50 show",
         ],
-        "ms": 1150,
-        "questions": "50-1050",
-        "sentences": "50-1050",
-        "words": "50-729 729-1050",
+        "ms": 1300,
+        "questions": "50-1300",
+        "sentences": "50-1300",
+        "words": "50-898 898-1300",
       },
       "props": [
         "menu",
@@ -1061,11 +1061,11 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
       "plan": {
         "beats": [
           "0 tell",
-          "1200 shake",
+          "1150 shake",
         ],
-        "ms": 2450,
-        "sentences": "0-808 1200-2200",
-        "words": "0-808 1200-1420 1420-1600 1600-1780 1780-1990 1990-2200",
+        "ms": 2350,
+        "sentences": "0-790 1150-2150",
+        "words": "0-790 1150-1370 1370-1550 1550-1730 1730-1940 1940-2150",
       },
       "staging": {
         "addressee": "waiter",
@@ -1788,12 +1788,12 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "plan": {
         "beats": [
           "0 wave",
-          "950 ask",
+          "1000 ask",
         ],
-        "ms": 1800,
-        "questions": "950-1600",
-        "sentences": "0-582 950-1600",
-        "words": "0-391 391-582 950-1104 1104-1258 1258-1600",
+        "ms": 1850,
+        "questions": "1000-1700",
+        "sentences": "0-618 1000-1700",
+        "words": "0-415 415-618 1000-1166 1166-1332 1332-1700",
       },
       "staging": {
         "addressee": "anna",
@@ -1910,13 +1910,13 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "waiter: Takže tento koláč a tamtú tortu. Hneď to bude.",
       "plan": {
         "beats": [
-          "279 point → kolac (near)",
-          "1345 point → torta (far)",
-          "3050 tell",
+          "296 point → kolac (near)",
+          "1407 point → torta (far)",
+          "3150 tell",
         ],
-        "ms": 3850,
-        "sentences": "50-2447 3050-3700",
-        "words": "50-479 479-908 908-1380 1380-1545 1545-2018 2018-2447 3050-3250 3250-3400 3400-3700",
+        "ms": 4000,
+        "sentences": "50-2545 3150-3850",
+        "words": "50-496 496-943 943-1435 1435-1607 1607-2099 2099-2545 3150-3365 3365-3527 3527-3850",
       },
       "staging": {
         "addressee": "anna",
@@ -3323,8 +3323,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -3712,8 +3712,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -3731,9 +3731,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -3796,8 +3796,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -4169,9 +4169,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -4187,8 +4187,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "reactions": [
@@ -4213,9 +4213,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -4231,8 +4231,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
       },
@@ -4376,8 +4376,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
       "staging": {
         "addressee": "marek",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
         },
         "looksAt": "marek",
@@ -4604,6 +4604,6117 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "reproduktor",
     "rastlina",
     "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
+{
+  "cast": [
+    "anna",
+    "waiter",
+  ],
+  "lines": [
+    {
+      "line": "-: Kaviareň. Štyri hodiny.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1150 tell",
+        ],
+        "ms": 2200,
+        "sentences": "50-676 1150-2000",
+        "words": "50-676 1150-1506 1506-2000",
+      },
+      "staging": {
+        "addressee": null,
+        "enter": {
+          "characterId": "anna",
+          "from": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Dobrý deň. Vy ste dnes boli u nás v štúdiu, áno?",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1900 ask",
+        ],
+        "ms": 4500,
+        "questions": "1900-4300",
+        "sentences": "0-666 1900-4300",
+        "words": "0-448 448-666 1900-2077 2077-2284 2284-2520 2520-2874 2874-3021 3021-3267 3267-3267 3267-3838 3936-4300",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "waiter",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "waiter: Dobrý deň! Áno, na obed. Priniesol som kávu pre Mareka.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1050 nod",
+          "3200 tell",
+        ],
+        "ms": 5050,
+        "sentences": "0-620 1050-1946 3200-4900",
+        "words": "0-416 416-620 1050-1378 1467-1627 1627-1946 3200-3744 3744-3923 3923-4263 4263-4441 4441-4900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Na stole bol koláč. Teraz je preč. Videli ste ho?",
+      "plan": {
+        "beats": [
+          "0 point → stol",
+          "700 point → kolac",
+          "3750 ask",
+        ],
+        "ms": 4900,
+        "questions": "3750-4650",
+        "sentences": "0-1290 1900-2538 3750-4650",
+        "words": "0-192 192-608 608-832 832-1290 1900-2207 2207-2349 2349-2538 3750-4273 4273-4476 4476-4650",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "waiter",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "waiter: Videl som. Bol na stole, ešte celý. A Marek sedel pri stole a pozeral na koláč.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1260 point → stol",
+          "4200 tell",
+          "6337 point → kolac",
+        ],
+        "ms": 7150,
+        "sentences": "0-641 1050-2776 4200-6950",
+        "words": "0-416 416-641 1050-1271 1271-1460 1460-1871 1976-2355 2355-2776 4200-4344 4344-4719 4719-5094 5094-5296 5296-5671 5671-5815 5815-6363 6363-6537 6537-6950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Pozeral na koláč?",
+      "plan": {
+        "beats": [
+          "613 point → kolac",
+        ],
+        "ms": 1450,
+        "questions": "50-1250",
+        "sentences": "50-1250",
+        "words": "50-630 630-813 813-1250",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "waiter",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "waiter: Áno. Dlho. Potom som išiel späť do kaviarne.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "900 tell",
+          "2500 tell",
+        ],
+        "ms": 4500,
+        "sentences": "50-432 900-1174 2500-4350",
+        "words": "50-432 900-1174 2500-2855 2855-3047 3047-3411 3411-3630 3630-3794 3794-4350",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: A vy? Jedli ste niečo v štúdiu?",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "800 ask",
+        ],
+        "ms": 2500,
+        "questions": "50-377 800-2300",
+        "sentences": "50-377 800-2300",
+        "words": "50-199 199-377 800-1170 1170-1370 1370-1749 1749-1749 1749-2300",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "waiter",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "waiter: Ja? Nie! Nič som nejedol. Ja mám koláče tu.",
+      "plan": {
+        "beats": [
+          "0 self",
+          "700 shake",
+          "1900 tell",
+          "3379 point → kolac",
+        ],
+        "ms": 4400,
+        "questions": "0-176",
+        "sentences": "0-176 650-743 1900-2736 3200-4250",
+        "words": "0-176 650-743 1900-2077 2077-2255 2255-2736 3200-3359 3359-3579 3579-4091 4091-4250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Pravda. Ďakujem. Teraz na trh, za Luciou.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "900 nod",
+          "2950 tell",
+        ],
+        "ms": 4900,
+        "sentences": "50-537 900-1615 2950-4700",
+        "words": "50-537 900-1615 2950-3374 3374-3570 3570-3798 3907-4102 4102-4700",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "audience": true,
+        "facing": {
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "waiter",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+  ],
+  "setting": "cafe",
+  "things": [
+    "okno",
+    "lampa",
+    "tabula",
+    "pult",
+    "kolac",
+    "torta",
+    "kavovar",
+    "stol",
+    "stolicka",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "-: Päť minút neskôr.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1550,
+        "sentences": "0-1250",
+        "words": "0-239 239-727 727-1250",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "anna: Marek. Ty si bol v štúdiu celý deň. Ráno si bol hladný. Na obed si už nemal hlad.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1600 tell",
+          "3850 tell",
+          "5550 tell",
+        ],
+        "ms": 7450,
+        "sentences": "0-419 1600-3439 3850-5169 5550-7200",
+        "words": "0-419 1600-1788 1788-1976 1976-2196 2196-2196 2196-2801 2801-3219 3219-3439 3850-4272 4272-4462 4462-4684 4684-5169 5550-5744 5744-6132 6132-6326 6326-6521 6521-6941 6941-7200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: A tvoja taška. Daj mi ju, prosím.",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "1950 tell",
+        ],
+        "ms": 3450,
+        "sentences": "100-1042 1950-3250",
+        "words": "100-252 252-647 647-1042 1950-2192 2192-2399 2399-2606 2721-3250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "handed": {
+        "anna": "bag",
+      },
+      "held": {
+        "marek": "bag",
+      },
+      "line": "marek: Nech sa páči.",
+      "plan": {
+        "beats": [
+          "50 show",
+        ],
+        "ms": 1000,
+        "sentences": "50-750",
+        "words": "50-236 236-396 396-750",
+      },
+      "props": [
+        "bag",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "gives": "anna",
+        "reactions": [
+          {
+            "at": 0.8,
+            "characterId": "anna",
+            "gesture": "show",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "anna: Hm… Omrvinky.",
+      "plan": {
+        "beats": [
+          "150 show",
+          "2000 stress",
+        ],
+        "ms": 3000,
+        "sentences": "150-385 2000-2700",
+        "words": "150-385 2000-2700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "marek: Omrvinky… Počkaj… Možno som ho zjedol ja?",
+      "plan": {
+        "beats": [
+          "100 muse",
+          "1900 think",
+          "3250 think",
+        ],
+        "ms": 4900,
+        "questions": "3250-4750",
+        "sentences": "100-825 1900-2304 3250-4750",
+        "words": "100-825 1900-2304 3250-3674 3674-3902 3902-4098 4098-4554 4554-4750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "anna: Ty. Spomínaš si?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1300 ask",
+        ],
+        "ms": 2400,
+        "questions": "1300-2250",
+        "sentences": "50-243 1300-2250",
+        "words": "50-243 1300-2041 2041-2250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "marek: Hm… Ráno som pracoval… a mal som hlad. Vzal som si… malý kúsok. Len jeden.",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1600 muse",
+          "3568 tell",
+          "5416 muse",
+          "7086 tell",
+          "8900 tell",
+        ],
+        "ms": 9800,
+        "sentences": "100-279 1600-2525 3568-4373 5416-6042 7086-7910 8900-9550",
+        "words": "100-279 1600-1906 1906-2066 2066-2525 3568-3717 3717-3926 3926-4134 4134-4373 5416-5655 5655-5863 5863-6042 7086-7483 7483-7910 8900-9128 9128-9550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 5,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "anna: A potom?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 900,
+        "questions": "0-800",
+        "sentences": "0-800",
+        "words": "0-222 222-800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "marek: Potom… ešte jeden. Pri káve… ešte jeden. A potom… som už nepočítal.",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "1244 tell",
+          "3050 muse",
+          "4200 tell",
+          "5700 muse",
+          "6800 self",
+        ],
+        "ms": 8100,
+        "sentences": "50-373 1244-1865 3050-3241 4200-4733 5700-6051 6800-7900",
+        "words": "50-373 1244-1542 1542-1865 3050-3116 3116-3241 4200-4456 4456-4733 5700-5798 5798-6051 6800-6996 6996-7164 7164-7900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 5,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "anna: Takže celý koláč.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1850,
+        "sentences": "50-1700",
+        "words": "50-577 577-1118 1118-1700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "marek: Celý koláč. Prepáč, Anna. Ja som si to ani nevšimol.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2150 apologize",
+          "4050 self",
+        ],
+        "ms": 5700,
+        "sentences": "50-868 2150-2809 4050-5500",
+        "words": "50-444 444-868 2150-2480 2551-2809 4050-4205 4205-4387 4387-4542 4542-4697 4697-4982 4982-5500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "anna: Prípad uzavretý. Zajtra koláč kupujem ja. A schovám ho.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2650 tell",
+          "4650 tell",
+        ],
+        "ms": 5700,
+        "sentences": "50-1375 2650-4251 4650-5500",
+        "words": "50-549 549-1375 2650-3070 3070-3501 3501-4071 4071-4251 4650-4811 4811-5306 5306-5500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "marek: Kam?",
+      "plan": {
+        "beats": [
+          "100 ask",
+        ],
+        "ms": 600,
+        "questions": "100-450",
+        "sentences": "100-450",
+        "words": "100-450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "anna: To ti nepoviem.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 2100,
+        "sentences": "0-1950",
+        "words": "0-362 362-724 724-1950",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "bag",
+      },
+      "line": "-: Koniec. Ďakujeme, že počúvate.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1150 nod",
+        ],
+        "ms": 2750,
+        "sentences": "50-480 1150-2600",
+        "words": "50-480 1150-1743 1826-1974 1974-2600",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-past-tense-market 1`] = `
+{
+  "cast": [
+    "anna",
+    "lucia",
+  ],
+  "lines": [
+    {
+      "line": "-: Trh. Pol piatej.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "950 tell",
+        ],
+        "ms": 1950,
+        "sentences": "50-345 950-1750",
+        "words": "50-345 950-1213 1213-1750",
+      },
+      "staging": {
+        "addressee": null,
+        "enter": {
+          "characterId": "anna",
+          "from": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Ahoj, Lucia. Mám pre teba otázku.",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "1200 tell",
+        ],
+        "ms": 2650,
+        "sentences": "50-854 1200-2500",
+        "words": "50-387 480-854 1200-1432 1432-1627 1627-1961 1961-2500",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+      },
+    },
+    {
+      "line": "lucia: Ahoj, Anna! Čo sa stalo?",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1150 ask",
+        ],
+        "ms": 2100,
+        "questions": "1150-1900",
+        "sentences": "0-807 1150-1900",
+        "words": "0-354 453-807 1150-1330 1330-1510 1510-1900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Marekov koláč je preč. Kde si bola dnes o jednej?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2750 ask",
+        ],
+        "ms": 4500,
+        "questions": "2750-4250",
+        "sentences": "50-1530 2750-4250",
+        "words": "50-644 644-1092 1092-1280 1280-1530 2750-2952 2952-3125 3125-3471 3471-3702 3702-3846 3846-4250",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "lucia: O jednej? Bola som u vás v štúdiu. Prišla som po svoj dáždnik.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1600 tell",
+          "3450 tell",
+        ],
+        "ms": 5050,
+        "questions": "50-590",
+        "sentences": "50-590 1600-3051 3450-4850",
+        "words": "50-192 192-590 1600-1937 1937-2134 2134-2274 2274-2508 2508-2508 2508-3051 3450-3832 3832-4023 4023-4186 4186-4405 4405-4850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: A čo si tam robila?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1550,
+        "questions": "50-1400",
+        "sentences": "50-1400",
+        "words": "50-211 211-404 404-596 596-821 821-1400",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "lucia: Nič. Vzala som si dáždnik a išla som domov. Bola som tam päť minút.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "800 tell",
+          "4400 tell",
+        ],
+        "ms": 6100,
+        "sentences": "50-277 800-3234 4400-5900",
+        "words": "50-277 800-1199 1199-1414 1414-1598 1598-2099 2099-2252 2252-2620 2620-2835 2835-3234 4400-4780 4780-5002 5002-5224 5224-5446 5446-5900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Videla si koláč?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 1450,
+        "questions": "0-1250",
+        "sentences": "0-1250",
+        "words": "0-587 587-783 783-1250",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "lucia: Videla. Bol na stole. Ale už len polovica.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1700 tell",
+          "3350 tell",
+        ],
+        "ms": 4800,
+        "sentences": "0-511 1700-2243 3350-4600",
+        "words": "0-511 1700-1846 1846-1972 1972-2243 3350-3636 3636-3793 3793-3975 3975-4600",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Len polovica? O jednej?",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "1450 ask",
+        ],
+        "ms": 2350,
+        "questions": "0-1075 1450-2150",
+        "sentences": "0-1075 1450-2150",
+        "words": "0-243 243-1075 1450-1634 1634-2150",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "lucia: Áno. A Marek bol sám. Povedal, že už nemá hlad.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "900 tell",
+          "3600 tell",
+        ],
+        "ms": 5600,
+        "sentences": "50-495 900-2130 3600-5400",
+        "words": "50-495 900-1084 1084-1564 1564-1822 1822-2130 3600-4214 4322-4516 4516-4710 4710-5141 5141-5400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Už nemá hlad… Ďakujem, Lucia. Maj sa! Teraz späť do štúdia.",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "1800 nod",
+          "3000 wave",
+          "4100 tell",
+        ],
+        "ms": 5700,
+        "sentences": "50-779 1800-2664 3000-3331 4100-5500",
+        "words": "50-210 210-566 566-779 1800-2260 2341-2664 3000-3178 3178-3331 4100-4493 4493-4735 4735-4916 4916-5500",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "exit": -1,
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "lucia",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+  ],
+  "setting": "market",
+  "things": [
+    "ovocie",
+    "zelenina",
+    "syr",
+    "jahody",
+    "stanok",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "-: Štvrtok. Tri hodiny popoludní. Štúdio Slovak Wiki.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1050 tell",
+          "2750 tell",
+        ],
+        "ms": 4250,
+        "pictures": [
+          "3326 flag-sk",
+        ],
+        "sentences": "0-453 1050-2367 2750-4100",
+        "words": "0-453 1050-1230 1230-1692 1692-2367 2750-3326 3326-3743 3743-4100",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "marek: Anna! Môj koláč je preč!",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "1400 stress",
+        ],
+        "ms": 3000,
+        "sentences": "0-402 1400-2800",
+        "words": "0-402 1400-1718 1718-2265 2265-2495 2495-2800",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Aký koláč?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 1150,
+        "questions": "0-1000",
+        "sentences": "0-1000",
+        "words": "0-463 463-1000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Ráno som priniesol koláč. Veľký makový koláč. Bol tu, na stole. A teraz je tu len tanier.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1950 tell",
+          "4869 point → stol",
+          "6850 tell",
+        ],
+        "ms": 8650,
+        "sentences": "50-1934 1950-3953 4250-5545 6850-8450",
+        "words": "50-499 499-734 734-1452 1452-1934 1950-2548 2548-3355 3355-3953 4250-4507 4507-4727 4849-5069 5069-5545 6850-7006 7006-7411 7411-7598 7598-7785 7785-8003 8003-8450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 3,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Hm. Prázdny tanier. Kto bol dnes v štúdiu?",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1050 tell",
+          "2950 ask",
+        ],
+        "ms": 4500,
+        "questions": "2950-4300",
+        "sentences": "100-302 1050-1735 2950-4300",
+        "words": "100-302 1050-1415 1415-1735 2950-3179 3179-3407 3407-3669 3669-3669 3669-4300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Ja. Ty. A ešte traja ľudia.",
+      "plan": {
+        "beats": [
+          "0 self",
+          "900 tell",
+          "2200 tell",
+        ],
+        "ms": 3800,
+        "sentences": "0-208 900-833 2200-3550",
+        "words": "0-208 900-833 2200-2356 2356-2730 2730-3135 3135-3550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Kto?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 600,
+        "questions": "50-500",
+        "sentences": "50-500",
+        "words": "50-500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Ráno prišla Mária zo školy. Na obed prišiel čašník z kaviarne. A o jednej prišla Lucia.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3150 tell",
+          "6200 tell",
+        ],
+        "ms": 8200,
+        "sentences": "50-2053 3150-5275 6200-7950",
+        "words": "50-463 463-897 897-1465 1465-1651 1651-2053 3150-3335 3335-3704 3704-4177 4177-4649 4649-4649 4649-5275 6200-6370 6370-6541 6541-7018 7018-7495 7495-7950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: A ty, Anna? Kde si bola ty?",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1150 ask",
+        ],
+        "ms": 2250,
+        "questions": "50-810 1150-2050",
+        "sentences": "50-810 1150-2050",
+        "words": "50-194 194-367 463-810 1150-1353 1353-1527 1527-1876 1876-2050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Ja? Ja som bola celý deň v meste. Prišla som o tretej.",
+      "plan": {
+        "beats": [
+          "0 self",
+          "750 self",
+          "2800 tell",
+        ],
+        "ms": 4000,
+        "questions": "0-187",
+        "sentences": "0-187 750-2379 2800-4000",
+        "words": "0-187 750-918 918-1113 1113-1448 1448-1821 1821-2016 2016-2016 2016-2379 2800-3220 3220-3430 3430-3580 3580-4000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: A ty, Marek? Čo si robil?",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1100 ask",
+        ],
+        "ms": 2000,
+        "questions": "50-815 1100-1850",
+        "sentences": "50-815 1100-1850",
+        "words": "50-190 190-358 451-815 1100-1280 1280-1460 1460-1850",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Pracoval som. Celý deň som bol tu.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1250 tell",
+        ],
+        "ms": 2900,
+        "sentences": "50-935 1250-2650",
+        "words": "50-705 705-935 1250-1713 1713-1956 1956-2199 2199-2442 2442-2650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: A raňajky?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1000,
+        "questions": "50-900",
+        "sentences": "50-900",
+        "words": "50-227 227-900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Nemal som čas. Ráno som bol veľmi hladný.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2474 tell",
+        ],
+        "ms": 4900,
+        "sentences": "50-1106 2474-4650",
+        "words": "50-558 558-832 832-1106 2474-2995 2995-3269 3269-3542 3542-4051 4051-4650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Aha. Dobre. Ja som teraz detektívka. Najprv do školy, za Máriou.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1700 nod",
+          "2600 self",
+          "5000 tell",
+        ],
+        "ms": 7050,
+        "sentences": "0-343 1700-1839 2600-3876 5000-6900",
+        "words": "0-343 1700-1839 2600-2744 2744-2911 2911-3222 3222-3876 5000-5429 5429-5613 5613-6011 6113-6297 6297-6900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
+{
+  "cast": [
+    "anna",
+    "maria",
+  ],
+  "lines": [
+    {
+      "line": "-: Jazyková škola. Pol štvrtej.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1600 tell",
+        ],
+        "ms": 2600,
+        "sentences": "0-1272 1600-2400",
+        "words": "0-841 841-1272 1600-1855 1855-2400",
+      },
+      "staging": {
+        "addressee": null,
+        "enter": {
+          "characterId": "anna",
+          "from": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Dobrý deň, pani Mária. Mám pre vás otázku.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1600 tell",
+        ],
+        "ms": 3050,
+        "sentences": "0-1475 1600-2950",
+        "words": "0-384 384-572 662-983 983-1475 1600-1862 1862-2081 2081-2343 2343-2950",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "maria: Dobrý deň, Anna. Pýtajte sa.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1300 tell",
+        ],
+        "ms": 2200,
+        "sentences": "0-978 1300-2000",
+        "words": "0-382 382-569 658-978 1300-1841 1841-2000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Boli ste dnes ráno v štúdiu?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 2000,
+        "questions": "0-1750",
+        "sentences": "0-1750",
+        "words": "0-352 352-557 557-792 792-1183 1183-1183 1183-1750",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Áno, bola som tam o deviatej. Priniesla som Marekovi formulár.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "3600 show",
+        ],
+        "ms": 5700,
+        "sentences": "50-2129 3600-5500",
+        "words": "50-433 536-908 908-1126 1126-1343 1343-1498 1498-2129 3600-4150 4150-4331 4331-4950 4950-5500",
+      },
+      "props": [
+        undefined,
+        "clipboard",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "approach": {
+          "characterId": "anna",
+          "toward": 1,
+        },
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "anna: Marekov koláč je preč. Videli ste ho ráno?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2500 ask",
+        ],
+        "ms": 3850,
+        "questions": "2500-3700",
+        "sentences": "0-1383 2500-3700",
+        "words": "0-555 555-974 974-1149 1149-1383 2500-2987 2987-3177 3177-3339 3339-3700",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "looksAt": "maria",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Videla som. Bol na stole, ešte celý. Marek mi ponúkol kúsok, ale ja som nechcela. Ráno nejem sladké.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1200 tell",
+          "4089 tell",
+          "7900 tell",
+        ],
+        "ms": 9300,
+        "sentences": "0-807 1200-2959 4089-7317 7900-9050",
+        "words": "0-581 581-807 1200-1425 1425-1618 1618-2037 2144-2530 2530-2959 4089-4509 4509-4703 4703-5359 5359-5822 5929-6284 6284-6478 6478-6704 6704-7317 7900-8268 8268-8627 8627-9050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 3,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "anna: Ako dlho ste tam boli?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 1550,
+        "questions": "0-1350",
+        "sentences": "0-1350",
+        "words": "0-303 303-634 634-827 827-1019 1019-1350",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "looksAt": "maria",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Desať minút. O pol desiatej som už bola v škole. Celý deň som pracovala tu.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1400 tell",
+          "4850 tell",
+        ],
+        "ms": 6750,
+        "sentences": "0-882 1400-3539 4850-6550",
+        "words": "0-419 419-882 1400-1552 1552-1765 1765-2383 2383-2596 2596-2778 2778-3143 3143-3143 3143-3539 4850-5239 5239-5443 5443-5647 5647-6375 6375-6550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "anna: Ďakujem. To je všetko.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "950 tell",
+        ],
+        "ms": 1800,
+        "sentences": "0-533 950-1600",
+        "words": "0-533 950-1100 1100-1250 1250-1600",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "looksAt": "maria",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "maria",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Prosím. A Anna… Marek bol ráno veľmi hladný.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1600 muse",
+          "3450 tell",
+        ],
+        "ms": 5700,
+        "sentences": "0-510 1600-2238 3450-5450",
+        "words": "0-510 1600-1788 1788-2238 3450-3872 3872-4099 4099-4531 4531-4953 4953-5450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "anna: Hm. To je zaujímavé.",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1550 tell",
+        ],
+        "ms": 3000,
+        "sentences": "100-284 1550-2700",
+        "words": "100-284 1550-1708 1708-1866 1866-2700",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "looksAt": "maria",
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Prepáčte, o chvíľu mám študenta. Veľa šťastia, pani detektívka!",
+      "plan": {
+        "beats": [
+          "0 apologize",
+          "3150 stress",
+        ],
+        "ms": 5200,
+        "sentences": "0-2039 3150-5000",
+        "words": "0-602 695-836 836-1241 1241-1476 1476-2039 3150-3467 3467-3872 3960-4278 4278-5000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "anna: Ďakujem. Dovidenia!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "850 wave",
+        ],
+        "ms": 1700,
+        "sentences": "0-523 850-1550",
+        "words": "0-523 850-1550",
+      },
+      "staging": {
+        "addressee": "maria",
+        "exit": -1,
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+        "looksAt": "maria",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "maria",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "maria": "clipboard",
+      },
+      "line": "maria: Dovidenia.",
+      "plan": {
+        "beats": [
+          "0 wave",
+        ],
+        "ms": 900,
+        "sentences": "0-700",
+        "words": "0-700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "exit": 1,
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+      },
+    },
+  ],
+  "setting": "registration",
+  "things": [
+    "hodiny",
+    "stolicka",
+    "rastlina",
+    "pult",
+    "pocitac",
+    "zvoncek",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "-: Štúdio. Päť hodín.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1200 tell",
+        ],
+        "ms": 2200,
+        "sentences": "0-734 1200-2000",
+        "words": "0-734 1200-1463 1463-2000",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "anna: Marek, sadni si. Toto vieme.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2650 tell",
+        ],
+        "ms": 3550,
+        "sentences": "0-1237 2650-3350",
+        "words": "0-455 572-1027 1027-1237 2650-2982 2982-3350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Mária hovorí: o deviatej bol koláč celý.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2650 muse",
+        ],
+        "ms": 3800,
+        "sentences": "50-3550",
+        "words": "50-685 685-1355 1471-1644 1644-2349 2349-2591 2591-3088 3088-3550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: A potom na obed: čašník hovorí, že koláč bol celý. A že ty si sedel a pozeral na koláč.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2650 muse",
+          "5050 tell",
+        ],
+        "ms": 7950,
+        "sentences": "50-3919 5050-7700",
+        "words": "50-214 214-640 640-837 837-1230 1340-1842 1842-2476 2585-2782 2782-3252 3252-3482 3482-3919 5050-5215 5215-5413 5413-5611 5611-5809 5809-6238 6238-6402 6402-7029 7029-7227 7227-7700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Len som sa pozeral!",
+      "plan": {
+        "beats": [
+          "0 stress",
+        ],
+        "ms": 1600,
+        "sentences": "0-1250",
+        "words": "0-224 224-449 449-641 641-1250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: A o jednej? Lucia hovorí, že na stole bola už len polovica.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "2000 tell",
+          "3109 point → stol",
+        ],
+        "ms": 5200,
+        "questions": "50-753",
+        "sentences": "50-753 2000-5000",
+        "words": "50-196 196-343 343-753 2000-2364 2364-2891 2982-3145 3145-3309 3309-3664 3664-3991 3991-4155 4155-4345 4345-5000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Mária nejedla. Čašník nejedol. Lucia nejedla. A ja som bola celý deň v meste.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1550 tell",
+          "3100 tell",
+          "5300 tell",
+        ],
+        "ms": 7450,
+        "sentences": "50-1229 1550-2693 3100-4094 5300-7200",
+        "words": "50-629 629-1229 1550-2061 2061-2693 3100-3510 3510-4094 5300-5450 5450-5630 5630-5840 5840-6200 6200-6600 6600-6810 6810-6810 6810-7200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Tak kto bol v štúdiu celý deň? Kto bol ráno hladný a na obed už nie? Hádajte s nami!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "3250 ask",
+          "6950 stress",
+        ],
+        "ms": 8000,
+        "questions": "50-2005 3250-5680",
+        "sentences": "50-2005 3250-5680 6950-7850",
+        "words": "50-276 276-501 501-727 727-727 727-1350 1350-1780 1780-2005 3250-3465 3465-3681 3681-4091 4091-4562 4562-4716 4716-4901 4901-5270 5270-5454 5454-5680 6950-7516 7516-7516 7516-7850",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Hm… neviem.",
+      "plan": {
+        "beats": [
+          "50 think",
+          "1902 shrug",
+        ],
+        "ms": 2650,
+        "sentences": "50-321 1902-2550",
+        "words": "50-321 1902-2550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: Ahojte! Tu je podcast Slovak Wiki. Ja som Anna.",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "950 point",
+          "2900 self",
+        ],
+        "ms": 3850,
+        "pictures": [
+          "1778 flag-sk",
+        ],
+        "sentences": "50-598 950-2575 2900-3700",
+        "words": "50-598 950-1134 1134-1318 1318-1778 1778-2207 2207-2575 2900-3092 3092-3316 3316-3700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: A ja som Marek. Ahojte!",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "1150 wave",
+        ],
+        "ms": 1900,
+        "sentences": "100-913 1150-1700",
+        "words": "100-231 231-389 389-572 572-913 1150-1700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Dnes máme tému: môj, tvoj, jeho, jej. A svoj.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2600 muse",
+          "5550 tell",
+        ],
+        "ms": 6500,
+        "sentences": "0-3966 5550-6250",
+        "words": "0-381 381-1015 1015-1650 1808-2205 2364-2744 2903-3474 3633-3966 5550-5819 5819-6250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "marek": "umbrella",
+      },
+      "line": "marek: Dobrá téma. Mám tu dáždnik. Čí je to dáždnik?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1150 show",
+          "3250 show",
+        ],
+        "ms": 4600,
+        "questions": "3250-4350",
+        "sentences": "0-854 1150-2170 3250-4350",
+        "words": "0-442 442-854 1150-1427 1427-1627 1627-2170 3250-3476 3476-3661 3661-3846 3846-4350",
+      },
+      "props": [
+        undefined,
+        "umbrella",
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "anna: Hm… Môj nie. Môj dáždnik je doma.",
+      "plan": {
+        "beats": [
+          "100 show",
+          "1600 tell",
+          "2900 show",
+        ],
+        "ms": 4250,
+        "sentences": "100-313 1600-2110 2900-4050",
+        "words": "100-313 1600-1872 1872-2110 2900-3125 3125-3565 3565-3727 3727-4050",
+      },
+      "props": [
+        undefined,
+        undefined,
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "marek: Tvoj nie, môj nie. Tak čí?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2800 ask",
+        ],
+        "ms": 3800,
+        "questions": "2800-3600",
+        "sentences": "50-1507 2800-3600",
+        "words": "50-389 389-701 842-1196 1196-1507 2800-3191 3191-3600",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "anna",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "anna: To je dobrá otázka. Ideme na to!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1600 stress",
+        ],
+        "ms": 2500,
+        "sentences": "50-1236 1600-2300",
+        "words": "50-206 206-362 362-734 734-1236 1600-2010 2010-2155 2155-2300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "marek: To je všetko na dnes.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1550,
+        "sentences": "50-1200",
+        "words": "50-223 223-395 395-798 798-970 970-1200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Ďakujeme, že počúvate. Majte sa pekne!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1750 wave",
+        ],
+        "ms": 2800,
+        "sentences": "0-1514 1750-2650",
+        "words": "0-619 706-860 860-1514 1750-2116 2116-2284 2284-2650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Ahojte!",
+      "plan": {
+        "beats": [
+          "50 wave",
+        ],
+        "ms": 750,
+        "sentences": "50-600",
+        "words": "50-600",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Marek, vonku prší. Kde je môj dáždnik?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2700 ask",
+        ],
+        "ms": 4250,
+        "questions": "2700-4050",
+        "sentences": "0-1498 2700-4050",
+        "words": "0-457 574-1030 1030-1498 2700-2951 2951-3166 3166-3465 3465-4050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Tvoj dáždnik? Tvoj dáždnik je doma, Anna.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "2250 tell",
+        ],
+        "ms": 4200,
+        "questions": "50-872",
+        "sentences": "50-872 2250-4000",
+        "words": "50-320 320-872 2250-2493 2493-2988 2988-3171 3171-3535 3636-4000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Áno. Môj dáždnik je doma.",
+      "plan": {
+        "beats": [
+          "100 nod",
+          "1244 tell",
+        ],
+        "ms": 3450,
+        "sentences": "100-680 1244-3250",
+        "words": "100-680 1244-1636 1636-2404 2404-2686 2686-3250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "handed": {
+        "anna": "umbrella",
+      },
+      "held": {
+        "marek": "umbrella",
+      },
+      "line": "marek: Nech sa páči, tu máš môj.",
+      "plan": {
+        "beats": [
+          "50 show",
+        ],
+        "ms": 1950,
+        "sentences": "50-1750",
+        "words": "50-277 277-472 472-905 1014-1209 1209-1479 1479-1750",
+      },
+      "props": [
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "gives": "anna",
+        "reactions": [
+          {
+            "at": 0.8,
+            "characterId": "anna",
+            "gesture": "show",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "anna: Ďakujem! Tvoj dáždnik je naozaj malý.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1900 show",
+        ],
+        "ms": 4100,
+        "sentences": "50-682 1900-3900",
+        "words": "50-682 1900-2159 2159-2689 2689-2884 2884-3468 3468-3900",
+      },
+      "props": [
+        undefined,
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "marek: Malý, ale môj!",
+      "plan": {
+        "beats": [
+          "0 stress",
+        ],
+        "ms": 1700,
+        "sentences": "0-1550",
+        "words": "0-574 718-1191 1191-1550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "anna",
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Anna, mám tu telefón. Na telefóne mám fotky.",
+      "plan": {
+        "beats": [
+          "50 show",
+          "1950 show",
+        ],
+        "ms": 3550,
+        "sentences": "50-1445 1950-3250",
+        "words": "50-385 478-710 710-878 878-1445 1950-2098 2098-2723 2723-2929 2929-3250",
+      },
+      "props": [
+        "phone",
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Ukáž! Kto je to?",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "850 ask",
+        ],
+        "ms": 1600,
+        "questions": "850-1500",
+        "sentences": "0-451 850-1500",
+        "words": "0-451 850-1089 1089-1295 1295-1500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Prvá fotka. Hádaj: kto je ten muž?",
+      "plan": {
+        "beats": [
+          "100 show",
+          "1850 show",
+        ],
+        "ms": 3850,
+        "questions": "1850-3700",
+        "sentences": "100-994 1850-3700",
+        "words": "100-553 553-994 1850-2444 2582-2872 2872-3120 3120-3410 3410-3700",
+      },
+      "props": [
+        "phone",
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Hm… Je to tvoj brat?",
+      "plan": {
+        "beats": [
+          "150 think",
+          "2050 ask",
+        ],
+        "ms": 3200,
+        "questions": "2050-3050",
+        "sentences": "150-402 2050-3050",
+        "words": "150-402 2050-2264 2264-2479 2479-2764 2764-3050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Nie, to nie je môj brat. To je môj kamarát Peter.",
+      "plan": {
+        "beats": [
+          "0 show",
+          "2950 show",
+        ],
+        "ms": 4500,
+        "sentences": "0-1459 2950-4250",
+        "words": "0-231 336-525 525-756 756-944 944-1207 1207-1459 2950-3095 3095-3241 3241-3443 3443-3935 3935-4250",
+      },
+      "props": [
+        "phone",
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Aha. A ten pes? To je jeho pes?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1050 point → marek's prop",
+          "2250 ask",
+        ],
+        "ms": 3550,
+        "questions": "1050-1681 2250-3350",
+        "sentences": "50-477 1050-1681 2250-3350",
+        "words": "50-477 1050-1216 1216-1448 1448-1681 2250-2463 2463-2676 2676-3102 3102-3350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0,
+            "characterId": "marek",
+            "gesture": "show",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Áno, to je jeho pes. Volá sa Dunčo.",
+      "plan": {
+        "beats": [
+          "0 show",
+          "1900 show",
+        ],
+        "ms": 3050,
+        "sentences": "0-1462 1900-2850",
+        "words": "0-386 491-679 679-866 866-1242 1242-1462 1900-2292 2292-2468 2468-2850",
+      },
+      "props": [
+        "phone",
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Jeho pes je veľký! A druhá fotka?",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "2150 ask",
+        ],
+        "ms": 3450,
+        "questions": "2150-3250",
+        "sentences": "0-1528 2150-3250",
+        "words": "0-466 466-738 738-971 971-1528 2150-2320 2320-2808 2808-3250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Druhá fotka: dom a auto.",
+      "plan": {
+        "beats": [
+          "50 show",
+        ],
+        "ms": 2600,
+        "sentences": "50-2400",
+        "words": "50-662 662-1218 1360-1659 1659-1873 1873-2400",
+      },
+      "props": [
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: To je tvoj dom?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1150,
+        "questions": "50-1000",
+        "sentences": "50-1000",
+        "words": "50-261 261-472 472-754 754-1000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Nie, to je dom mojich rodičov. Ich dom je pri lese.",
+      "plan": {
+        "beats": [
+          "0 show",
+          "3750 show",
+        ],
+        "ms": 5200,
+        "sentences": "0-2313 3750-5050",
+        "words": "0-275 400-625 625-850 850-1113 1113-1600 1600-2313 3750-3955 3955-4195 4195-4400 4400-4639 4639-5050",
+      },
+      "props": [
+        "phone",
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: A to auto? To je ich auto?",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1300 ask",
+        ],
+        "ms": 2650,
+        "questions": "50-921 1300-2500",
+        "sentences": "50-921 1300-2500",
+        "words": "50-237 237-460 460-921 1300-1537 1537-1775 1775-2012 2012-2500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Nie, to je moje auto. Ich auto je červené.",
+      "plan": {
+        "beats": [
+          "0 show",
+          "2100 show",
+        ],
+        "ms": 3700,
+        "sentences": "0-1587 2100-3500",
+        "words": "0-248 360-563 563-765 765-1170 1170-1587 2100-2288 2288-2675 2675-2863 2863-3500",
+      },
+      "props": [
+        "phone",
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Tvoje auto je staré, Marek.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 2350,
+        "sentences": "50-2150",
+        "words": "50-490 490-908 908-1111 1111-1597 1710-2150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Staré, ale moje! A tretia fotka: žena a dievča.",
+      "plan": {
+        "beats": [
+          "50 show",
+          "2650 show",
+        ],
+        "ms": 5400,
+        "sentences": "50-1518 2650-5200",
+        "words": "50-567 688-1085 1085-1518 2650-2840 2840-3386 3386-3881 4007-4464 4464-4654 4654-5200",
+      },
+      "props": [
+        "phone",
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Hm… To je tvoja sestra?",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1900 ask",
+        ],
+        "ms": 3200,
+        "questions": "1900-3100",
+        "sentences": "100-325 1900-3100",
+        "words": "100-325 1900-2085 2085-2269 2269-2669 2669-3100",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Presne tak! To je moja sestra Zuzana. A to je jej dcéra Ema.",
+      "plan": {
+        "beats": [
+          "50 show",
+          "1200 show",
+          "4100 tell",
+        ],
+        "ms": 5850,
+        "sentences": "50-722 1200-2900 4100-5600",
+        "words": "50-498 498-722 1200-1382 1382-1564 1564-1928 1928-2353 2353-2900 4100-4252 4252-4434 4434-4617 4617-4830 4830-5266 5266-5600",
+      },
+      "props": [
+        "phone",
+        "phone",
+        undefined,
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Jej dcéra je milá. Koľko má rokov?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1700 ask",
+        ],
+        "ms": 2900,
+        "questions": "1700-2700",
+        "sentences": "0-1277 1700-2700",
+        "words": "0-220 220-670 670-858 858-1277 1700-2090 2090-2310 2310-2700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Má päť rokov.",
+      "plan": {
+        "beats": [
+          "0 show",
+        ],
+        "ms": 1200,
+        "sentences": "0-1050",
+        "words": "0-282 282-551 551-1050",
+      },
+      "props": [
+        "phone",
+      ],
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "anna: Pekné fotky. Ale ten dáždnik nie je ich.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2169 point → marek's prop",
+        ],
+        "ms": 4000,
+        "sentences": "50-934 2000-3800",
+        "words": "50-513 513-934 2000-2369 2369-2604 2604-3152 3152-3398 3398-3599 3599-3800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0,
+            "characterId": "marek",
+            "gesture": "show",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "marek: Nie. Možno je zo školy. Poďme do jazykovej školy!",
+      "plan": {
+        "beats": [
+          "50 shake",
+          "1650 think",
+          "2740 stress",
+        ],
+        "ms": 4600,
+        "sentences": "50-264 1650-2390 2740-4400",
+        "words": "50-264 1650-1903 1903-2020 2020-2137 2137-2390 2740-3118 3118-3293 3293-4021 4021-4400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: Sme späť v štúdiu. A teraz hra: správne alebo nesprávne? Hádajte s nami!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2500 ask",
+          "6000 stress",
+        ],
+        "ms": 7150,
+        "questions": "2500-5430",
+        "sentences": "0-1216 2500-5430 6000-7000",
+        "words": "0-248 248-531 531-531 531-1216 2500-2674 2674-3128 3128-3372 3488-4058 4058-4651 4651-5430 6000-6629 6629-6629 6629-7000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Prvá veta: Moja brat je učiteľ.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 3550,
+        "sentences": "50-3400",
+        "words": "50-478 478-863 1987-2373 2373-2629 2629-2822 2822-3400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nesprávne! Brat je mužský rod: môj brat.",
+      "plan": {
+        "beats": [
+          "50 shake",
+          "2453 tell",
+        ],
+        "ms": 5000,
+        "sentences": "50-986 2453-4800",
+        "words": "50-986 2453-2788 2788-3040 3040-3682 3682-3976 4115-4465 4465-4800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Druhá veta: Idem do kina so svojou sestrou.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2600 muse",
+        ],
+        "ms": 3850,
+        "sentences": "0-3700",
+        "words": "0-418 418-767 1787-2136 2136-2311 2311-2661 2661-2836 2836-3253 3253-3700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne! Ja idem a sestra je moja: so svojou sestrou.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1950 self",
+          "4550 tell",
+        ],
+        "ms": 5800,
+        "sentences": "50-674 1950-5600",
+        "words": "50-674 1950-2183 2183-2649 2649-2843 2843-3387 3387-3620 3620-4086 4215-4448 4448-5005 5005-5600",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Tretia veta: Svoj brat je učiteľ.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 3600,
+        "sentences": "50-3450",
+        "words": "50-531 531-934 2108-2376 2376-2645 2645-2846 2846-3450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nesprávne! Svoj ukazuje späť na subjekt. Tu je subjekt brat. Správne je: jeho brat je učiteľ.",
+      "plan": {
+        "beats": [
+          "50 shake",
+          "1950 tell",
+          "4450 point",
+          "6700 nod",
+        ],
+        "ms": 9600,
+        "sentences": "50-830 1950-4150 4450-5793 6700-9450",
+        "words": "50-830 1950-2243 2243-3087 3087-3380 3380-3600 3600-4150 4450-4680 4680-4910 4910-5486 5486-5793 6700-7345 7345-7582 7713-8187 8187-8503 8503-8739 8739-9450",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: A posledná veta: Ich auto je červené.",
+      "plan": {
+        "beats": [
+          "100 tell",
+        ],
+        "ms": 3800,
+        "sentences": "100-3550",
+        "words": "100-246 246-870 870-1221 2244-2419 2419-2780 2780-2956 2956-3550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne! Jeho, jej, ich sa nikdy nemenia. Jeho auto, jej auto, ich auto.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1950 tell",
+          "5550 tell",
+        ],
+        "ms": 8600,
+        "sentences": "50-725 1950-5066 5550-8400",
+        "words": "50-725 1950-2484 2632-2944 3092-3359 3359-3626 3626-4205 4205-5066 5550-6048 6048-6560 6698-6989 6989-7501 7639-7888 7888-8400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Jeho, jej, ich. To je ľahké!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2650 stress",
+        ],
+        "ms": 3700,
+        "sentences": "0-1192 2650-3500",
+        "words": "0-452 577-841 966-1192 2650-2844 2844-3037 3037-3500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Výborne, Marek!",
+      "plan": {
+        "beats": [
+          "0 cheer",
+        ],
+        "ms": 1400,
+        "sentences": "0-1200",
+        "words": "0-665 775-1200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+    "maria",
+  ],
+  "lines": [
+    {
+      "held": {
+        "anna": "clipboard",
+      },
+      "line": "anna: Teraz sme v jazykovej škole, na registrácii.",
+      "plan": {
+        "beats": [
+          "50 show",
+        ],
+        "ms": 3200,
+        "sentences": "50-3050",
+        "words": "50-441 441-652 652-652 652-1405 1405-1796 1896-2077 2077-3050",
+      },
+      "props": [
+        "clipboard",
+      ],
+      "staging": {
+        "addressee": "marek",
+        "approach": {
+          "characterId": "marek",
+          "toward": -1,
+        },
+        "audience": true,
+        "enter": {
+          "characterId": "marek",
+          "from": -1,
+        },
+        "facing": {
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "clipboard",
+      },
+      "line": "marek: Dobrý deň!",
+      "plan": {
+        "beats": [
+          "0 wave",
+        ],
+        "ms": 800,
+        "sentences": "0-650",
+        "words": "0-437 437-650",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "looksAt": "anna",
+      },
+    },
+    {
+      "line": "maria: Dobrý deň. Ako vám môžem pomôcť?",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "950 ask",
+        ],
+        "ms": 2500,
+        "questions": "950-2200",
+        "sentences": "0-570 950-2200",
+        "words": "0-383 383-570 950-1231 1231-1443 1443-1809 1809-2200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "umbrella",
+      },
+      "line": "marek: Máme tu dáždnik. Nie je náš. Je váš?",
+      "plan": {
+        "beats": [
+          "0 show",
+          "1450 shake",
+          "3150 ask",
+        ],
+        "ms": 3950,
+        "questions": "3150-3800",
+        "sentences": "0-1142 1450-2220 3150-3800",
+        "words": "0-427 427-619 619-1142 1450-1711 1711-1924 1924-2220 3150-3422 3422-3800",
+      },
+      "props": [
+        "umbrella",
+        undefined,
+        undefined,
+      ],
+      "staging": {
+        "addressee": "maria",
+        "approach": {
+          "characterId": "maria",
+          "toward": -1,
+        },
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "umbrella",
+        "maria": "umbrella",
+      },
+      "line": "maria: Hm… Môj nie. Môj dáždnik je čierny a tento je modrý.",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1250 tell",
+          "2600 show",
+        ],
+        "ms": 5550,
+        "sentences": "100-307 1250-2057 2600-5350",
+        "words": "100-307 1250-1679 1679-2057 2600-2875 2875-3414 3414-3612 3612-4085 4085-4250 4250-4679 4679-4877 4877-5350",
+      },
+      "props": [
+        undefined,
+        undefined,
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "marek",
+        "approach": {
+          "characterId": "marek",
+          "toward": 1,
+        },
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Možno je to dáždnik vašej študentky?",
+      "plan": {
+        "beats": [
+          "0 think",
+        ],
+        "ms": 2350,
+        "questions": "0-2200",
+        "sentences": "0-2200",
+        "words": "0-380 380-555 555-730 730-1207 1207-1587 1587-2200",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Moment, pozriem sa. Áno! Tu je meno: Lucia. Lucia je naša študentka.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1950 nod",
+          "2900 point",
+          "5000 tell",
+        ],
+        "ms": 6750,
+        "sentences": "0-1112 1950-2473 2900-3988 5000-6500",
+        "words": "0-403 499-940 940-1112 1950-2473 2900-3061 3061-3221 3221-3542 3631-3988 5000-5382 5382-5554 5554-5898 5898-6500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 3,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Výborne! A kde je vaša študentka?",
+      "plan": {
+        "beats": [
+          "0 cheer",
+          "1100 ask",
+        ],
+        "ms": 2800,
+        "questions": "1100-2650",
+        "sentences": "0-647 1100-2650",
+        "words": "0-647 1100-1252 1252-1465 1465-1647 1647-2012 2012-2650",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Dnes tu nie je. Jej kurz je zajtra o deviatej.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1400 tell",
+        ],
+        "ms": 3400,
+        "sentences": "0-878 1400-3200",
+        "words": "0-257 257-449 449-685 685-878 1400-1609 1609-1848 1848-2027 2027-2444 2444-2593 2593-3200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Dobre, prídeme zajtra. Ďakujeme!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1900 nod",
+        ],
+        "ms": 2650,
+        "sentences": "0-1491 1900-2550",
+        "words": "0-383 481-1079 1079-1491 1900-2550",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "maria",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Prosím. Tak zajtra!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "950 stress",
+        ],
+        "ms": 2100,
+        "sentences": "0-619 950-1950",
+        "words": "0-619 950-1283 1283-1950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dovidenia!",
+      "plan": {
+        "beats": [
+          "0 wave",
+        ],
+        "ms": 900,
+        "sentences": "0-800",
+        "words": "0-800",
+      },
+      "staging": {
+        "addressee": "maria",
+        "exit": -1,
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Dovidenia! A teraz poďme na námestie.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1950 tell",
+        ],
+        "ms": 3950,
+        "sentences": "0-798 1950-3750",
+        "words": "0-798 1950-2103 2103-2502 2502-2901 2901-3085 3085-3750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "exit": -1,
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+  ],
+  "setting": "registration",
+  "things": [
+    "hodiny",
+    "stolicka",
+    "rastlina",
+    "pult",
+    "pocitac",
+    "zvoncek",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+    "lucia",
+  ],
+  "lines": [
+    {
+      "line": "anna: Teraz sme na námestí. Marek, pozri, tam je Lucia!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2500 stress",
+        ],
+        "ms": 4900,
+        "sentences": "50-1564 2500-4550",
+        "words": "50-463 463-685 685-876 876-1564 2500-2952 3068-3519 3635-3878 3878-4087 4087-4550",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "enter": {
+          "characterId": "lucia",
+          "from": 1,
+        },
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "lucia: Ahoj, Anna! Ahoj, Marek!",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1050 wave",
+        ],
+        "ms": 2000,
+        "sentences": "0-727 1050-1800",
+        "words": "0-319 408-727 1050-1368 1456-1800",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ahoj, Lucia! Čo tu robíš?",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1150 ask",
+        ],
+        "ms": 2100,
+        "questions": "1150-1900",
+        "sentences": "0-813 1150-1900",
+        "words": "0-340 435-813 1150-1321 1321-1492 1492-1900",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "lucia: Hľadám svoj dáždnik. Nie je v škole a nie je doma.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2600 shake",
+        ],
+        "ms": 5050,
+        "sentences": "0-1465 2600-4850",
+        "words": "0-566 566-862 862-1465 2600-2891 2891-3129 3129-3129 3129-3646 3646-3844 3844-4135 4135-4374 4374-4850",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "umbrella",
+      },
+      "line": "marek: Modrý dáždnik?",
+      "plan": {
+        "beats": [
+          "0 show",
+        ],
+        "ms": 1300,
+        "questions": "0-1100",
+        "sentences": "0-1100",
+        "words": "0-514 514-1100",
+      },
+      "props": [
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "lucia",
+        "approach": {
+          "characterId": "lucia",
+          "toward": -1,
+        },
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "umbrella",
+      },
+      "line": "lucia: Áno! Modrý.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "750 tell",
+        ],
+        "ms": 1450,
+        "sentences": "0-415 750-1300",
+        "words": "0-415 750-1300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "umbrella",
+      },
+      "line": "marek: Čí je tento dáždnik?",
+      "plan": {
+        "beats": [
+          "0 show",
+        ],
+        "ms": 1600,
+        "questions": "0-1400",
+        "sentences": "0-1400",
+        "words": "0-241 241-438 438-864 864-1400",
+      },
+      "props": [
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "lucia",
+        "approach": {
+          "characterId": "lucia",
+          "toward": -1,
+        },
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "lucia": "umbrella",
+      },
+      "line": "lucia: Môj! To je môj dáždnik! Ďakujem!",
+      "plan": {
+        "beats": [
+          "0 show",
+          "900 show",
+          "2300 nod",
+        ],
+        "ms": 3300,
+        "sentences": "0-294 900-2008 2300-3100",
+        "words": "0-294 900-1081 1081-1263 1263-1514 1514-2008 2300-3100",
+      },
+      "props": [
+        undefined,
+        "umbrella",
+        undefined,
+      ],
+      "staging": {
+        "addressee": "marek",
+        "approach": {
+          "characterId": "marek",
+          "toward": 1,
+        },
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Bol v našom štúdiu.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1450,
+        "sentences": "0-1300",
+        "words": "0-231 231-231 231-661 661-1300",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "lucia: Vo vašom štúdiu? Aha, áno. Prepáčte!",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "1500 tell",
+          "2900 apologize",
+        ],
+        "ms": 3700,
+        "questions": "0-1233",
+        "sentences": "0-1233 1500-2477 2900-3550",
+        "words": "0-193 193-611 611-1233 1500-1903 2025-2477 2900-3550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Nič sa nestalo. Lucia hľadá svoj dáždnik a ja hľadám svoje kľúče.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2700 tell",
+          "5300 muse",
+        ],
+        "ms": 6400,
+        "sentences": "0-1149 2700-6200",
+        "words": "0-251 251-467 467-1149 2700-3142 3142-3616 3616-3881 3881-4422 4422-4588 4588-4787 4787-5295 5295-5725 5725-6200",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Zase? Tvoje kľúče sú v tvojej taške, Marek.",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "1076 tell",
+        ],
+        "ms": 4500,
+        "questions": "100-588",
+        "sentences": "100-588 1076-4250",
+        "words": "100-588 1076-1605 1605-2189 2189-2487 2487-2487 2487-3057 3057-3585 3721-4250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "keys",
+      },
+      "line": "marek: V mojej taške… Áno! Tu sú.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "2350 show",
+          "3050 point",
+        ],
+        "ms": 3700,
+        "sentences": "0-909 2350-2564 3050-3450",
+        "words": "0-0 0-455 455-909 2350-2564 3050-3230 3230-3450",
+      },
+      "props": [
+        undefined,
+        "keys",
+        undefined,
+      ],
+      "staging": {
+        "addressee": "anna",
+        "approach": {
+          "characterId": "anna",
+          "toward": 1,
+        },
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "lucia: Marek a jeho kľúče! Ďakujem ešte raz. Majte sa!",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "2700 nod",
+          "4050 wave",
+        ],
+        "ms": 4800,
+        "sentences": "0-1390 2700-3678 4050-4650",
+        "words": "0-408 408-564 564-940 940-1390 2700-3189 3189-3498 3498-3678 4050-4461 4461-4650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "exit": 1,
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Maj sa, Lucia! Poďme späť do štúdia.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1950 tell",
+        ],
+        "ms": 3450,
+        "sentences": "0-829 1950-3100",
+        "words": "0-195 195-363 456-829 1950-2273 2273-2471 2471-2620 2620-3100",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "exit": -1,
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "plaza",
+  "things": [
+    "veza",
+    "hodiny",
+    "dom",
+    "lavicka",
+    "lampa",
+    "strom",
+    "oblak",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+    "waiter",
+  ],
+  "lines": [
+    {
+      "line": "anna: Teraz sme v kaviarni.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1600,
+        "sentences": "50-1450",
+        "words": "50-501 501-744 744-744 744-1450",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "audience": true,
+        "enter": {
+          "characterId": "waiter",
+          "from": 1,
+        },
+        "facing": {
+          "marek": -1,
+          "waiter": -1,
+        },
+      },
+    },
+    {
+      "line": "waiter: Dobrý deň! Čo si dáte?",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "1000 ask",
+        ],
+        "ms": 1800,
+        "questions": "1000-1650",
+        "sentences": "50-632 1000-1650",
+        "words": "50-441 441-632 1000-1154 1154-1308 1308-1650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Dobrý deň. Dáme si dve kávy, prosím.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1000 tell",
+        ],
+        "ms": 3000,
+        "sentences": "0-640 1000-2750",
+        "words": "0-430 430-640 1000-1400 1400-1580 1580-1790 1790-2190 2290-2750",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "waiter",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "waiter: Hneď to bude.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1050,
+        "sentences": "0-900",
+        "words": "0-277 277-485 485-900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "waiter": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Marek, koľko je hodín?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 2000,
+        "questions": "0-1800",
+        "sentences": "0-1800",
+        "words": "0-471 592-1063 1063-1281 1281-1800",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "waiter",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Je jedenásť hodín a päť minút.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 2650,
+        "sentences": "50-2450",
+        "words": "50-262 262-1015 1015-1521 1521-1697 1697-1944 1944-2450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Dobre. O tretej máme v štúdiu hosťa.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "800 tell",
+        ],
+        "ms": 2900,
+        "sentences": "0-399 800-2750",
+        "words": "0-399 800-951 951-1373 1373-1775 1775-1775 1775-2358 2358-2750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: O tri hodiny? To je o druhej!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1850 stress",
+        ],
+        "ms": 3050,
+        "questions": "50-925",
+        "sentences": "50-925 1850-2850",
+        "words": "50-196 196-400 400-925 1850-2044 2044-2237 2237-2398 2398-2850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Nie, Marek. Nie o tri hodiny. O tretej. O tretej je čas na hodinách: tri nula nula.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "1050 shake",
+          "2550 tell",
+          "4650 tell",
+        ],
+        "ms": 7950,
+        "sentences": "0-792 1050-2442 2550-3479 4650-7750",
+        "words": "0-245 357-792 1050-1323 1323-1510 1510-1771 1771-2442 2550-2795 2795-3479 4650-4817 4817-5286 5286-5486 5486-5721 5721-5921 5921-6601 6713-6947 6947-7349 7349-7750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Aha! O tretej, tri hodiny. A o tri hodiny je okolo druhej.",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "750 tell",
+          "3400 tell",
+        ],
+        "ms": 5800,
+        "sentences": "0-341 750-2181 3400-5500",
+        "words": "0-341 750-901 901-1325 1425-1637 1637-2181 3400-3546 3546-3692 3692-3896 3896-4421 4421-4596 4596-5092 5092-5500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+      },
+    },
+    {
+      "handed": {
+        "marek": "cup",
+      },
+      "held": {
+        "waiter": "cup",
+      },
+      "line": "waiter: Nech sa páči, dve kávy.",
+      "plan": {
+        "beats": [
+          "50 show",
+        ],
+        "ms": 1950,
+        "sentences": "50-1750",
+        "words": "50-288 288-492 492-945 1059-1297 1297-1750",
+      },
+      "props": [
+        "cup",
+      ],
+      "staging": {
+        "addressee": "marek",
+        "approach": {
+          "characterId": "marek",
+          "toward": 1,
+        },
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "waiter": -1,
+        },
+        "gives": "marek",
+        "reactions": [
+          {
+            "at": 0.8,
+            "characterId": "marek",
+            "gesture": "show",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "cup",
+      },
+      "line": "anna: Ďakujeme. Kedy zatvárate?",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1800 ask",
+        ],
+        "ms": 3000,
+        "questions": "1800-2850",
+        "sentences": "0-703 1800-2850",
+        "words": "0-703 1800-2129 2129-2850",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "waiter",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "cup",
+      },
+      "line": "waiter: Dnes zatvárame o šiestej večer.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 2250,
+        "sentences": "0-2150",
+        "words": "0-254 254-1091 1091-1250 1250-1737 1737-2150",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "waiter": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "marek": "cup",
+      },
+      "line": "marek: O šiestej… to je o sedem hodín. Máme čas!",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "1750 tell",
+          "3150 stress",
+        ],
+        "ms": 4000,
+        "sentences": "50-635 1750-2919 3150-3850",
+        "words": "50-194 194-635 1750-1908 1908-2066 2066-2198 2198-2541 2541-2919 3150-3609 3609-3850",
+      },
+      "staging": {
+        "addressee": "waiter",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "waiter": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "cup",
+        "marek": "cup",
+      },
+      "line": "anna: Máme čas na kávu, nie na sedem hodín. O pol jednej ideme späť.",
+      "plan": {
+        "beats": [
+          "0 show",
+          "4050 tell",
+        ],
+        "ms": 5950,
+        "sentences": "0-2811 4050-5700",
+        "words": "0-448 448-683 683-885 885-1333 1445-1691 1691-1893 1893-2329 2329-2811 4050-4212 4212-4438 4438-4891 4891-5441 5441-5700",
+      },
+      "props": [
+        "cup",
+        undefined,
+      ],
+      "staging": {
+        "addressee": "marek",
+        "approach": {
+          "characterId": "marek",
+          "toward": -1,
+        },
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "cup",
+        "marek": "cup",
+      },
+      "line": "marek: Pol jednej… dvanásť tridsať. Dobre.",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "1850 tell",
+          "3400 nod",
+        ],
+        "ms": 3950,
+        "sentences": "50-751 1850-2965 3400-3800",
+        "words": "50-284 284-751 1850-2431 2431-2965 3400-3800",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "waiter": -1,
+        },
+        "looksAt": "anna",
+      },
+    },
+  ],
+  "setting": "cafe",
+  "things": [
+    "okno",
+    "lampa",
+    "tabula",
+    "pult",
+    "kolac",
+    "torta",
+    "kavovar",
+    "stol",
+    "stolicka",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-telling-time-clock-game 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: Malá hra. Ja poviem čas po slovensky a ty povieš čísla.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1950 self",
+        ],
+        "ms": 5300,
+        "pictures": [
+          "3067 flag-sk",
+        ],
+        "sentences": "50-738 1950-5100",
+        "words": "50-501 501-738 1950-2151 2151-2631 2631-2866 2866-3067 3067-3771 3771-3938 3938-4139 4139-4620 4620-5100",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dobre.",
+      "plan": {
+        "beats": [
+          "0 nod",
+        ],
+        "ms": 650,
+        "sentences": "0-500",
+        "words": "0-500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Prvý čas: sú dve hodiny.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1377 point → hodiny",
+        ],
+        "ms": 2500,
+        "sentences": "50-2300",
+        "words": "50-586 586-867 1001-1296 1296-1577 1577-2300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ľahké. Dve nula nula.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "850 tell",
+        ],
+        "ms": 2200,
+        "sentences": "50-538 850-2000",
+        "words": "50-538 850-1110 1110-1555 1555-2000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne. Druhý čas: je štvrť na tri.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1100 tell",
+        ],
+        "ms": 3700,
+        "sentences": "50-746 1100-3500",
+        "words": "50-746 1100-1753 1753-2072 2224-2497 2497-2908 2908-3181 3181-3500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Štvrť na tri… tri pätnásť?",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "2050 ask",
+        ],
+        "ms": 3050,
+        "questions": "2050-2900",
+        "sentences": "50-830 2050-2900",
+        "words": "50-369 369-582 582-830 2050-2305 2305-2900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Nie! Štvrť na tri je dve pätnásť. Slovenčina sa pozerá dopredu, na tretiu hodinu.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "850 tell",
+          "3665 tell",
+          "6265 muse",
+        ],
+        "ms": 7800,
+        "pictures": [
+          "3665 flag-sk",
+        ],
+        "sentences": "0-254 850-2451 3665-7550",
+        "words": "0-254 850-1131 1131-1318 1318-1536 1536-1723 1723-1942 1942-2451 3665-4567 4567-4775 4775-5446 5446-6105 6220-6428 6428-6926 6926-7550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Aha. Štvrť na tri, dve pätnásť. A pol tretej je dve tridsať!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "900 tell",
+          "4350 stress",
+        ],
+        "ms": 6400,
+        "sentences": "50-471 900-2793 4350-6200",
+        "words": "50-471 900-1250 1250-1484 1484-1756 1886-2158 2158-2793 4350-4521 4521-4761 4761-5241 5241-5446 5446-5686 5686-6200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Presne tak! A trištvrte na tri?",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1200 ask",
+        ],
+        "ms": 2650,
+        "questions": "1200-2500",
+        "sentences": "50-765 1200-2500",
+        "words": "50-526 526-765 1200-1367 1367-2067 2067-2267 2267-2500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Hm… dve štyridsaťpäť!",
+      "plan": {
+        "beats": [
+          "200 think",
+          "1700 stress",
+        ],
+        "ms": 3150,
+        "sentences": "200-417 1700-2950",
+        "words": "200-417 1700-1950 1950-2950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Výborne! Tretí čas: je päť hodín.",
+      "plan": {
+        "beats": [
+          "0 cheer",
+          "1150 tell",
+          "2580 point → hodiny",
+        ],
+        "ms": 3600,
+        "sentences": "0-820 1150-3400",
+        "words": "0-820 1150-1770 1770-2073 2217-2477 2477-2780 2780-3400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Päť nula nula. Prečo je päť hodín, ale sú dve hodiny?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2862 point → hodiny",
+        ],
+        "ms": 5050,
+        "questions": "2300-4850",
+        "sentences": "50-1023 2300-4850",
+        "words": "50-270 270-646 646-1023 2300-2681 2681-2857 2857-3062 3062-3482 3580-3902 3902-4117 4117-4322 4322-4850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Jedna hodina, dve hodiny, päť hodín. Je jedna, sú dve, tri, štyri, a je päť.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1454 point → hodiny",
+          "4762 tell",
+        ],
+        "ms": 8350,
+        "sentences": "0-3361 4762-8150",
+        "words": "0-520 520-1241 1374-1654 1654-2374 2508-2788 2788-3361 4762-5002 5002-5522 5656-5949 5949-6229 6363-6643 6776-7296 7430-7630 7630-7870 7870-8150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Je jedna hodina. Sú dve hodiny. Je päť hodín. Už viem.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1988 point → hodiny",
+          "5700 tell",
+        ],
+        "ms": 6500,
+        "sentences": "0-1360 1550-2990 3150-4436 5700-6250",
+        "words": "0-221 221-699 699-1360 1550-1877 1877-2188 2188-2990 3150-3432 3432-3762 3762-4436 5700-5930 5930-6250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Super. A teraz poďme von, na zastávku. Naša električka ide o desiatej.",
+      "plan": {
+        "beats": [
+          "50 cheer",
+          "850 tell",
+          "4200 tell",
+        ],
+        "ms": 6500,
+        "sentences": "50-450 850-2934 4200-6300",
+        "words": "50-450 850-1002 1002-1396 1396-1791 1791-2003 2104-2286 2286-2934 4200-4539 4539-5274 5274-5584 5584-5726 5726-6300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: Ahojte! Tu je podcast Slovak Wiki. Ja som Anna. A Marek… tu nie je.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "950 point",
+          "2900 self",
+          "4850 muse",
+          "6250 point",
+        ],
+        "ms": 7150,
+        "pictures": [
+          "1749 flag-sk",
+        ],
+        "sentences": "0-546 950-2519 2900-3642 4850-5251 6250-6900",
+        "words": "0-546 950-1128 1128-1305 1305-1749 1749-2164 2164-2519 2900-3078 3078-3286 3286-3642 4850-4961 4961-5251 6250-6452 6452-6698 6698-6900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ahojte! Prepáč, Anna, meškám.",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "1050 apologize",
+        ],
+        "ms": 3150,
+        "sentences": "50-708 1050-2950",
+        "words": "50-708 1050-1641 1769-2231 2359-2950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Marek! Koľko je hodín?",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "1142 point → hodiny",
+        ],
+        "ms": 1950,
+        "questions": "800-1750",
+        "sentences": "0-390 800-1750",
+        "words": "0-390 800-1171 1171-1342 1342-1750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Je… pol desiatej.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "1500 tell",
+        ],
+        "ms": 2650,
+        "sentences": "0-215 1500-2450",
+        "words": "0-215 1500-1743 1743-2450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Áno, je pol desiatej. A naša nahrávka je o pol deviatej!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "3100 stress",
+        ],
+        "ms": 5600,
+        "sentences": "0-1647 3100-5400",
+        "words": "0-415 527-728 728-963 963-1647 3100-3250 3250-3610 3610-4250 4250-4430 4430-4580 4580-4790 4790-5400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Pol deviatej… Ja som myslel, že to je deväť tridsať.",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "2200 self",
+        ],
+        "ms": 4900,
+        "sentences": "50-967 2200-4700",
+        "words": "50-285 285-967 2200-2397 2397-2626 2626-3084 3193-3390 3390-3586 3586-3783 3783-4209 4209-4700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nie, Marek. Pol deviatej je osem tridsať. A to je dnešná téma: koľko je hodín.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "1100 tell",
+          "4500 tell",
+          "6695 point → hodiny",
+        ],
+        "ms": 7600,
+        "sentences": "0-821 1100-3330 4500-7400",
+        "words": "0-254 370-821 1100-1359 1359-2110 2110-2332 2332-2776 2776-3330 4500-4676 4676-4887 4887-5099 5099-5639 5639-6109 6226-6684 6684-6895 6895-7400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dobrá téma. Pre mňa.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2100 tell",
+        ],
+        "ms": 2750,
+        "sentences": "0-920 2100-2550",
+        "words": "0-477 477-920 2100-2325 2325-2550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Áno, pre teba. Ideme na to!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1550 stress",
+        ],
+        "ms": 2400,
+        "sentences": "0-1054 1550-2300",
+        "words": "0-375 476-689 689-1054 1550-1990 1990-2145 2145-2300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "marek: To je všetko na dnes.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1550,
+        "sentences": "50-1200",
+        "words": "50-223 223-395 395-798 798-970 970-1200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Ďakujeme, že počúvate. Majte sa pekne!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1750 wave",
+        ],
+        "ms": 2800,
+        "sentences": "0-1514 1750-2650",
+        "words": "0-619 706-860 860-1514 1750-2116 2116-2284 2284-2650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Ahojte! Anna, koľko je hodín?",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "1700 ask",
+          "2558 point → hodiny",
+        ],
+        "ms": 3400,
+        "questions": "1700-3200",
+        "sentences": "50-608 1700-3200",
+        "words": "50-608 1700-2070 2173-2573 2573-2758 2758-3200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Je presne jedna hodina. Prečo?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1950 ask",
+        ],
+        "ms": 2600,
+        "questions": "1950-2400",
+        "sentences": "50-1627 1950-2400",
+        "words": "50-236 236-668 668-1070 1070-1627 1950-2400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Hosť príde o tretej. To je o tri hodiny!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "3286 point → hodiny",
+        ],
+        "ms": 4250,
+        "sentences": "0-1397 2800-4000",
+        "words": "0-270 270-755 755-924 924-1397 2800-2971 2971-3143 3143-3286 3286-3486 3486-4000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: O dve hodiny, Marek.",
+      "plan": {
+        "beats": [
+          "547 point → hodiny",
+        ],
+        "ms": 3000,
+        "sentences": "100-2600",
+        "words": "100-370 370-747 747-1719 1899-2600",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: Sme späť v štúdiu a je jedna hodina. A teraz hra: správne alebo nesprávne? Hádajte s nami!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "3650 ask",
+          "7100 stress",
+        ],
+        "ms": 8250,
+        "questions": "3650-6561",
+        "sentences": "0-2564 3650-6561 7100-8050",
+        "words": "0-235 235-504 504-504 504-1153 1153-1321 1321-1523 1523-1959 1959-2564 3650-3823 3823-4274 4274-4516 4632-5198 5198-5787 5787-6561 7100-7697 7697-7697 7697-8050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Prvá veta: Sú päť hodín.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2241 point → hodiny",
+        ],
+        "ms": 3150,
+        "sentences": "50-2900",
+        "words": "50-477 477-861 1982-2217 2217-2441 2441-2900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nesprávne! Päť a viac: je päť hodín, je desať hodín.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "2200 tell",
+          "3610 point → hodiny",
+        ],
+        "ms": 6200,
+        "sentences": "0-932 2200-6050",
+        "words": "0-932 2200-2507 2507-2727 2727-3093 3239-3503 3503-3810 3810-4440 4586-4850 4850-5421 5421-6050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Druhá veta: Pol tretej je tri tridsať.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2600 muse",
+        ],
+        "ms": 3850,
+        "sentences": "0-3650",
+        "words": "0-474 474-871 2029-2261 2261-2724 2724-2922 2922-3154 3154-3650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nesprávne! Pol tretej je dve tridsať. Pozeráme sa na tretiu hodinu.",
+      "plan": {
+        "beats": [
+          "50 shake",
+          "2109 tell",
+          "4299 tell",
+        ],
+        "ms": 7000,
+        "sentences": "50-852 2109-3868 4299-6800",
+        "words": "50-852 2109-2360 2360-2863 2863-3078 3078-3329 3329-3868 4299-5208 5208-5424 5424-5639 5639-6154 6154-6800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Tretia veta: Stretneme sa o tretej.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 3200,
+        "sentences": "50-3000",
+        "words": "50-444 444-774 1736-2313 2313-2478 2478-2615 2615-3000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne! O tretej, o štvrtej, o piatej: čas na hodinách.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1900 tell",
+          "4980 point → hodiny",
+        ],
+        "ms": 6200,
+        "sentences": "50-685 1900-6000",
+        "words": "50-685 1900-2102 2102-2666 2801-3002 3002-3607 3742-3943 3943-4521 4656-4938 4938-5180 5180-6000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: A posledná veta: Zavolám ti o dve hodiny.",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "2828 point → hodiny",
+        ],
+        "ms": 3800,
+        "sentences": "100-3500",
+        "words": "100-231 231-790 790-1105 2023-2556 2556-2713 2713-2844 2844-3028 3028-3500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne! O dve hodiny: nie čas, ale ako dlho. Teraz je jedna, zavolám ti o dve hodiny, o tretej.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1941 point → hodiny",
+          "5664 tell",
+          "8264 muse",
+        ],
+        "ms": 9600,
+        "sentences": "50-585 1750-4517 5664-9400",
+        "words": "50-585 1750-1913 1913-2141 2141-2727 2835-3074 3074-3302 3410-3769 3769-4127 4127-4517 5664-6090 6090-6287 6287-6713 6822-7488 7488-7685 7685-7849 7849-8078 8078-8668 8777-8941 8941-9400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Je jedna hodina, sú dve hodiny, je päť hodín. Už to viem!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1831 point → hodiny",
+          "5100 stress",
+        ],
+        "ms": 5950,
+        "sentences": "50-3795 5100-5800",
+        "words": "50-267 267-739 739-1391 1512-1777 1777-2031 2031-2683 2804-3022 3022-3275 3275-3795 5100-5307 5307-5513 5513-5800",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Výborne, Marek!",
+      "plan": {
+        "beats": [
+          "0 cheer",
+        ],
+        "ms": 1400,
+        "sentences": "0-1200",
+        "words": "0-665 775-1200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "pocitac",
+    "sluchadla",
+    "mikrofon",
+    "okno",
+    "reproduktor",
+    "rastlina",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-telling-time-tram-stop 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "marek: Teraz sme na ulici, na zastávke.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1519 point → zastavka",
+        ],
+        "ms": 2650,
+        "sentences": "50-2400",
+        "words": "50-465 465-688 688-879 879-1422 1528-1719 1719-2400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Koľko je hodín, Marek?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1700,
+        "questions": "50-1500",
+        "sentences": "50-1500",
+        "words": "50-430 430-605 605-1023 1120-1500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Je trištvrte na desať.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1600,
+        "sentences": "0-1450",
+        "words": "0-189 189-851 851-1040 1040-1450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Dobre. Električka ide o desiatej. Čakáme pätnásť minút.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "800 tell",
+          "3850 tell",
+        ],
+        "ms": 5600,
+        "sentences": "0-407 800-2737 3850-5400",
+        "words": "0-407 800-1608 1608-1950 1950-2105 2105-2737 3850-4449 4449-4956 4956-5400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Takže električka príde o pätnásť minút.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 3150,
+        "sentences": "50-2950",
+        "words": "50-474 474-1321 1321-1788 1788-1951 1951-2483 2483-2950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Áno. O desiatej, to je čas na hodinách. O pätnásť minút, to je, ako dlho čakáme.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "750 tell",
+          "4500 tell",
+        ],
+        "ms": 7950,
+        "sentences": "50-460 700-3321 4500-7700",
+        "words": "50-460 700-877 877-1597 1715-1928 1928-2140 2140-2388 2388-2601 2601-3321 4500-4666 4666-5206 5206-5681 5791-5990 5990-6188 6299-6663 6663-7060 7060-7700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Aha. A stôl v kaviarni máme o jedenástej, áno?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1700 ask",
+        ],
+        "ms": 4750,
+        "questions": "1700-4550",
+        "sentences": "50-399 1700-4550",
+        "words": "50-399 1700-1848 1848-2126 2126-2126 2126-2729 2729-3125 3125-3273 3273-4085 4184-4550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Áno, o jedenástej.",
+      "plan": {
+        "beats": [
+          "0 nod",
+        ],
+        "ms": 1700,
+        "sentences": "0-1500",
+        "words": "0-385 490-646 646-1500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Pozri, už ide električka!",
+      "plan": {
+        "beats": [
+          "50 point",
+        ],
+        "ms": 1850,
+        "sentences": "50-1750",
+        "words": "50-422 518-690 690-1005 1005-1750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "arrives": "tram",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Je presne desať hodín. Nastúpme!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2700 stress",
+        ],
+        "ms": 3550,
+        "sentences": "0-1530 2700-3350",
+        "words": "0-194 194-646 646-1066 1066-1530 2700-3350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "boards": true,
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "street",
+  "things": [
+    "dom",
+    "strom",
+    "lampa",
+    "zastavka",
+    "lavicka",
+    "oblak",
   ],
 }
 `;
