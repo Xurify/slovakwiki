@@ -1026,9 +1026,9 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
           "50 show",
         ],
         "ms": 1300,
-        "questions": "50-1050",
-        "sentences": "50-1050",
-        "words": "50-729 729-1050",
+        "questions": "50-1150",
+        "sentences": "50-1150",
+        "words": "50-796 796-1150",
       },
       "props": [
         "menu",
@@ -1790,10 +1790,10 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
           "0 wave",
           "950 ask",
         ],
-        "ms": 1800,
-        "questions": "950-1600",
-        "sentences": "0-582 950-1600",
-        "words": "0-391 391-582 950-1104 1104-1258 1258-1600",
+        "ms": 1850,
+        "questions": "950-1700",
+        "sentences": "0-618 950-1700",
+        "words": "0-415 415-618 950-1128 1128-1305 1305-1700",
       },
       "staging": {
         "addressee": "anna",
@@ -1846,7 +1846,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
         "beats": [
           "50 tell",
         ],
-        "ms": 1000,
+        "ms": 1150,
         "sentences": "50-850",
         "words": "50-321 321-850",
       },
@@ -1912,11 +1912,11 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
         "beats": [
           "302 point → kolac (near)",
           "1427 point → torta (far)",
-          "3200 tell",
+          "3100 tell",
         ],
         "ms": 4100,
-        "sentences": "50-2578 3200-3900",
-        "words": "50-502 502-955 955-1453 1453-1627 1627-2126 2126-2578 3200-3415 3415-3577 3577-3900",
+        "sentences": "50-2578 3100-3900",
+        "words": "50-502 502-955 955-1453 1453-1627 1627-2126 2126-2578 3100-3346 3346-3531 3531-3900",
       },
       "staging": {
         "addressee": "anna",
@@ -4668,11 +4668,11 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
         "beats": [
           "0 wave",
           "1100 nod",
-          "3296 tell",
+          "3387 tell",
         ],
-        "ms": 5700,
-        "sentences": "0-689 1100-2165 3296-5450",
-        "words": "0-463 463-689 1100-1490 1596-1785 1785-2165 3296-3985 3985-4211 4211-4642 4642-4868 4868-5450",
+        "ms": 5800,
+        "sentences": "0-708 1100-2225 3387-5600",
+        "words": "0-476 476-708 1100-1512 1623-1824 1824-2225 3387-4095 4095-4327 4327-4770 4770-5002 5002-5600",
       },
       "staging": {
         "addressee": "anna",
@@ -4724,13 +4724,13 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       "plan": {
         "beats": [
           "0 tell",
-          "1432 point → stol",
-          "4550 tell",
-          "6899 point → kolac",
+          "1384 point → stol",
+          "4800 tell",
+          "7191 point → kolac",
         ],
-        "ms": 7800,
-        "sentences": "0-696 1200-3015 4550-7550",
-        "words": "0-452 452-696 1200-1432 1432-1632 1632-2063 2174-2573 2573-3015 4550-4707 4707-5116 5116-5526 5526-5746 5746-6155 6155-6312 6312-6910 6910-7099 7099-7550",
+        "ms": 8100,
+        "sentences": "0-724 1100-3135 4800-7850",
+        "words": "0-470 470-724 1100-1361 1361-1584 1584-2068 2192-2639 2639-3135 4800-4960 4960-5376 5376-5792 5792-6016 6016-6432 6432-6592 6592-7199 7199-7391 7391-7850",
       },
       "staging": {
         "addressee": "anna",
@@ -4781,11 +4781,11 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
         "beats": [
           "0 nod",
           "850 tell",
-          "2515 tell",
+          "2600 tell",
         ],
-        "ms": 5150,
-        "sentences": "0-435 850-1281 2515-4900",
-        "words": "0-435 850-1281 2515-2973 2973-3220 3220-3690 3690-3972 3972-4183 4183-4900",
+        "ms": 4750,
+        "sentences": "0-404 850-1189 2600-4550",
+        "words": "0-404 850-1189 2600-2975 2975-3176 3176-3561 3561-3791 3791-3964 3964-4550",
       },
       "staging": {
         "addressee": "anna",
@@ -4836,14 +4836,14 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       "plan": {
         "beats": [
           "0 self",
-          "750 shake",
+          "700 shake",
           "2200 tell",
-          "3761 point → kolac",
+          "3679 point → kolac",
         ],
-        "ms": 4800,
-        "questions": "0-190",
-        "sentences": "0-190 750-804 2200-2961 3600-4600",
-        "words": "0-190 750-804 2200-2361 2361-2523 2523-2961 3600-3751 3751-3961 3961-4449 4449-4600",
+        "ms": 4750,
+        "questions": "0-188",
+        "sentences": "0-188 700-795 2200-2929 3500-4550",
+        "words": "0-188 700-795 2200-2355 2355-2509 2509-2929 3500-3659 3659-3879 3879-4391 4391-4550",
       },
       "staging": {
         "addressee": "anna",
@@ -6523,14 +6523,14 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "marek: Bol pekný.",
+      "line": "marek: Len som sa pozeral!",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 stress",
         ],
-        "ms": 1200,
-        "sentences": "0-800",
-        "words": "0-263 263-800",
+        "ms": 1600,
+        "sentences": "0-1250",
+        "words": "0-224 224-449 449-641 641-1250",
       },
       "staging": {
         "addressee": "anna",
@@ -8941,12 +8941,12 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
       "plan": {
         "beats": [
           "0 wave",
-          "950 ask",
+          "1000 ask",
         ],
-        "ms": 1800,
-        "questions": "950-1600",
-        "sentences": "0-582 950-1600",
-        "words": "0-391 391-582 950-1104 1104-1258 1258-1600",
+        "ms": 1850,
+        "questions": "1000-1700",
+        "sentences": "0-618 1000-1700",
+        "words": "0-415 415-618 1000-1166 1166-1332 1332-1700",
       },
       "staging": {
         "addressee": "anna",
@@ -8999,9 +8999,9 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
         "beats": [
           "0 tell",
         ],
-        "ms": 1050,
-        "sentences": "0-950",
-        "words": "0-292 292-512 512-950",
+        "ms": 1150,
+        "sentences": "0-1000",
+        "words": "0-308 308-538 538-1000",
       },
       "staging": {
         "addressee": "marek",
@@ -9171,9 +9171,9 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
         "beats": [
           "50 show",
         ],
-        "ms": 1850,
-        "sentences": "50-1600",
-        "words": "50-267 267-453 453-866 970-1187 1187-1600",
+        "ms": 1950,
+        "sentences": "50-1750",
+        "words": "50-288 288-492 492-945 1059-1297 1297-1750",
       },
       "props": [
         "cup",
@@ -9239,11 +9239,11 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
       "line": "waiter: Dnes zatvárame o šiestej večer.",
       "plan": {
         "beats": [
-          "50 tell",
+          "0 tell",
         ],
         "ms": 2400,
-        "sentences": "50-2250",
-        "words": "50-310 310-1166 1166-1329 1329-1827 1827-2250",
+        "sentences": "0-2200",
+        "words": "0-260 260-1116 1116-1279 1279-1777 1777-2200",
       },
       "staging": {
         "addressee": "anna",

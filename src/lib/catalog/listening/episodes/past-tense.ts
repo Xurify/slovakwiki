@@ -764,7 +764,12 @@ const whodunit: ListeningChapter = {
       ],
       "And then at noon: the waiter says the cake was whole. And that you were sitting there, looking at the cake.",
     ),
-    line("marek-it-was-pretty", "Marek", [past("Bol"), " pekný."], "It was pretty."),
+    line(
+      "marek-only-looking",
+      "Marek",
+      ["Len ", past("som sa pozeral"), "!"],
+      "I was only looking!",
+    ),
     line(
       "anna-one-lucia-half",
       "Anna",
