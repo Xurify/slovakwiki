@@ -414,6 +414,8 @@ const cafe: ListeningChapter = {
       "Waiter",
       ["Dobrý deň! Áno, na obed. ", PAUSE, past("Priniesol som"), " kávu pre Mareka."],
       "Good day! Yes, at noon. I brought a coffee for Marek.",
+      // The coffee was at noon; he has nothing in his hands now.
+      { props: [null, null, null] },
     ),
     line(
       "anna-and-the-cake",

@@ -3,6 +3,7 @@
     ambienceFor,
     playAmbience,
     playSegmentCue,
+    stopSteps,
     type AmbiencePlayer,
   } from "$lib/stick-figure/ambience";
 
@@ -148,6 +149,8 @@
     live = false;
     speaking = false;
     stage?.stop();
+    // A walk-off at the segment's end would go on sounding under the next segment's card.
+    stopSteps();
     hush(leaving ? HANDOVER_MS : 0);
   }
 

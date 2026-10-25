@@ -515,6 +515,15 @@ const GROUND_STEPS: Record<
  * underfoot: heels click on it, soft soles land dull, plain shoes are the
  * ground's own sound.
  */
+/** The footsteps still sounding, so a stage that stops can silence them. */
+const stepping = new Set<GainNode>();
+
+/** Silence every walk still sounding: the stage has stopped, or handed on to the next segment. */
+export function stopSteps(): void {
+  for (const out of stepping) out.disconnect();
+  stepping.clear();
+}
+
 export function playSteps(
   steps: number,
   stepMs: number,
@@ -542,6 +551,7 @@ export function playSteps(
   const out = ctx.createGain();
   out.gain.value = 0.3 * getAudioVolume();
   out.connect(ctx.destination);
+  stepping.add(out);
 
   for (let step = 0; step < steps; step += 1) {
     // The heel lands at the widest stride, halfway through each step.
@@ -592,7 +602,13 @@ export function playSteps(
     }
   }
 
-  window.setTimeout(() => out.disconnect(), steps * stepMs + 500);
+  window.setTimeout(
+    () => {
+      out.disconnect();
+      stepping.delete(out);
+    },
+    steps * stepMs + 500,
+  );
 }
 
 /**

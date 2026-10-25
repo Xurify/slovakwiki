@@ -4663,31 +4663,19 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "waiter: Dobrý deň! Áno, na obed. Priniesol som kávu pre Mareka.",
       "plan": {
         "beats": [
           "0 wave",
           "1100 nod",
-          "3296 show",
+          "3296 tell",
         ],
         "ms": 5700,
         "sentences": "0-689 1100-2165 3296-5450",
         "words": "0-463 463-689 1100-1490 1596-1785 1785-2165 3296-3985 3985-4211 4211-4642 4642-4868 4868-5450",
       },
-      "props": [
-        undefined,
-        undefined,
-        "cup",
-      ],
       "staging": {
         "addressee": "anna",
-        "approach": {
-          "characterId": "anna",
-          "toward": 1,
-        },
         "facing": {
           "anna": 1,
           "waiter": -1,
@@ -4703,9 +4691,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "anna: Na stole bol koláč. Teraz je preč. Videli ste ho?",
       "plan": {
         "beats": [
@@ -4724,7 +4709,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "waiter",
         "reactions": [
           {
             "at": 0.5,
@@ -4736,9 +4720,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "waiter: Videl som. Bol na stole, ešte celý. A Marek sedel pri stole a pozeral na koláč.",
       "plan": {
         "beats": [
@@ -4768,9 +4749,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "anna: Pozeral na koláč?",
       "plan": {
         "beats": [
@@ -4787,7 +4765,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "waiter",
         "reactions": [
           {
             "at": 0.5,
@@ -4799,9 +4776,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "waiter: Áno. Dlho. Potom som išiel späť do kaviarne.",
       "plan": {
         "beats": [
@@ -4830,9 +4804,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "anna: A vy? Jedli ste niečo v štúdiu?",
       "plan": {
         "beats": [
@@ -4850,7 +4821,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "waiter",
         "reactions": [
           {
             "at": 0.5,
@@ -4862,9 +4832,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "waiter: Ja? Nie! Nič som nejedol. Ja mám koláče tu.",
       "plan": {
         "beats": [
@@ -4895,9 +4862,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "held": {
-        "waiter": "cup",
-      },
       "line": "anna: Pravda. Ďakujem. Teraz na trh, za Luciou.",
       "plan": {
         "beats": [
@@ -4915,7 +4879,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "waiter",
         "reactions": [
           {
             "at": 1,
