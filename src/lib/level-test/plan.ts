@@ -11,13 +11,13 @@ import type {
 } from "./types";
 
 /**
- * One pass through the adaptive formats. Counts follow the DET's per-test
- * ranges (Read and Select 15–18, Fill in the Blanks 6–9, Read and Complete 3–6,
- * Listen and Type 6–9) spread over three rounds; Listen and Select is the audio
- * yes/no format from the original DET paper. Three formats are this test's own,
- * for what Slovak has and English does not: vowel length that changes meaning
- * (Short or Long: mala, malá), verbal aspect (Choose the Verb: písal, napísal) and
- * clitics fixed in second position (Where Does It Go: Včera som sa…).
+ * One pass through the adaptive formats. Item counts (Read and Select 15–18,
+ * Fill in the Blanks 6–9, Read and Complete 3–6, Listen and Type 6–9) are spread
+ * over three rounds; Listen and Select is the audio yes/no format. Three formats
+ * are this test's own, for what Slovak has and English does not: vowel length
+ * that changes meaning (Short or Long: mala, malá), verbal aspect (Choose the
+ * Verb: písal, napísal) and clitics fixed in second position (Where Does It Go:
+ * Včera som sa…).
  */
 const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
   [
@@ -61,8 +61,8 @@ const ROUNDS: readonly (readonly AdaptiveFormat[])[] = [
 ];
 
 /**
- * The first items climb through the scale before the estimate takes over, like
- * the DET's calibration phase (one item from each of the lower difficulty bins).
+ * The first items climb through the scale before the estimate takes over,
+ * acting as a calibration phase (one item from each of the lower difficulty bins).
  */
 export const CALIBRATION_TARGETS = [5, 20, 35, 50] as const;
 
@@ -101,9 +101,8 @@ export const SECTION_LABEL: Record<TestSection, string> = {
 };
 
 /**
- * Seconds per screen, from the DET 2026 scoring guide, except the three typing
- * tasks: Slovak accents cost extra keystrokes and most takers here are A1–B1,
- * so they get about a third more than the DET (timed on the longest passage).
+ * Seconds per screen, adjusted for typing tasks: Slovak accents cost extra
+ * keystrokes and most takers here are A1–B1 (timed on the longest passage).
  */
 export const TIME_LIMIT_SECONDS: Partial<Record<StepKind, number>> = {
   readSelect: 5,
@@ -257,7 +256,7 @@ export function seededRandom(seed: number): () => number {
 /**
  * Pick one of the few unused candidates nearest the target difficulty. Choosing
  * at random among the nearest (not always the single nearest) keeps two test
- * takers at the same level from seeing the same items, as the DET's bins do.
+ * takers at the same level from seeing the same items.
  */
 /**
  * How much farther from the target (scale points, about 0.8 logit) an item a

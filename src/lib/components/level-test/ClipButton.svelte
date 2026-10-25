@@ -3,7 +3,7 @@
 
   import { applyAudioVolume } from "$lib/audio/volume";
 
-  /** A clip the learner may play a fixed number of times, like the DET's audio items. */
+  /** A clip the learner may play a fixed number of times. */
   let {
     src,
     maxPlays = Number.POSITIVE_INFINITY,

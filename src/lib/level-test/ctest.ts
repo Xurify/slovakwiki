@@ -19,10 +19,9 @@ function canDamage(word: string, startsSentence: boolean): boolean {
 }
 
 /**
- * The classic C-test rule as the DET applies it: leave the first and last
- * sentences whole, then cut the second half of every other word (the larger
- * half when the length is odd). One-letter words and names are never cut and
- * do not count toward the alternation.
+ * The classic C-test rule: leave the first and last sentences whole, then cut
+ * the second half of every other word (the larger half when the length is odd).
+ * One-letter words and names are never cut and do not count toward the alternation.
  */
 export function damagePassage(
   text: string,

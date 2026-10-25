@@ -50,7 +50,7 @@
     if (previous !== undefined) lastInputs[previous]?.focus();
   }
 
-  /** Each damaged word is its own item, as on the DET. */
+  /** Each damaged word is scored as its own item. */
   function submit(): void {
     if (done) return;
     done = true;

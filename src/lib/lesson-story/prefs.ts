@@ -9,7 +9,7 @@ export const STORY_SUBTITLES_KEY = "slovak.wiki.story-subtitles";
 export const STORY_PREFS_CHANGE_EVENT = "slovak-story-prefs-change";
 
 /**
- * Defaults match common story/dialogue apps (Duolingo Stories, etc.):
+ * Defaults match common story/dialogue apps:
  * auto-advance through lines after audio; English gloss opt-in for immersion.
  */
 export const STORY_AUTO_ADVANCE_DEFAULT: StoryBoolPreference = "on";

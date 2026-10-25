@@ -1,10 +1,10 @@
 import type { CefrLevel } from "$lib/level-test/scale";
 
 /**
- * Read and Complete source passages, written to a target CEFR level the way
- * the DET's expert-written passages were. Gaps are cut by `damagePassage` when
- * the bank is built: keep the first and last sentences free of anything a
- * learner must produce, and keep names capitalized so they are never cut.
+ * Read and Complete source passages, written to a target CEFR level.
+ * Gaps are cut by `damagePassage` when the bank is built: keep the first
+ * and last sentences free of anything a learner must produce, and keep
+ * names capitalized so they are never cut.
  */
 export interface CTestPassage {
   id: string;

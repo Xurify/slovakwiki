@@ -27,7 +27,7 @@
     listening:
       "Listen to a short scenario, note what you heard, then take part in a conversation. Each line in the conversation plays only once.",
     writing:
-      "Write in Slovak. An AI scorer rates content, organisation, grammar and vocabulary, the criteria the DET uses.",
+      "Write in Slovak. An AI scorer rates content, organisation, grammar and vocabulary.",
     speaking:
       "Speak in Slovak. Allow the microphone when your browser asks. You get one take for each answer.",
   };

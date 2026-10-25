@@ -355,10 +355,9 @@
 
   <section class="grid gap-4 border-t border-slate-200 pt-6">
     <p class="m-0 max-w-[70ch] text-sm text-slate-500">
-      This is an estimate, not a certificate. Question difficulty comes from word
-      frequency, sentence length and the level each text was written for, the way the
-      Duolingo English Test was first built; it gets more precise as more people take the
-      test.
+      This is an estimate, not a certificate. Question difficulty is predicted from word
+      frequency, sentence length and text level; it gets more precise as more people take
+      the test.
     </p>
 
     <div class="flex flex-wrap gap-3">

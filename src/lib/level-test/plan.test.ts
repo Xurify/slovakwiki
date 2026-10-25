@@ -32,7 +32,7 @@ describe("buildPlan", () => {
     expect(plan.filter((step) => step.kind === "placeClitic")).toHaveLength(2);
   });
 
-  it("matches the DET's per-test counts in the full test", () => {
+  it("matches the planned per-test counts in the full test", () => {
     const plan = buildPlan({ mode: "full", capabilities: allOn, speaking: true });
     const count = (kind: string) => plan.filter((step) => step.kind === kind).length;
     expect(count("readSelect")).toBe(18);

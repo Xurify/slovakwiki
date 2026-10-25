@@ -9,7 +9,7 @@ const END = "$";
 /**
  * Character n-gram model over lemmas. Sampling invents Slovak-looking strings
  * (pseudoword candidates); the average log-probability says how "wordlike" a
- * string is, the DET's frequency stand-in for words that have no frequency.
+ * string is, acting as a frequency stand-in for words that have no frequency.
  */
 export class CharModel {
   readonly order: number;

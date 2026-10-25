@@ -1,7 +1,6 @@
 /**
  * The test's 0–100 ability scale. Each CEFR level sits on a fixed anchor, as in
- * Settles et al. (2020), "Machine Learning–Driven Language Assessment", Table 1
- * (the scale the Duolingo English Test was first built on).
+ * Settles et al. (2020), "Machine Learning–Driven Language Assessment", Table 1.
  */
 export const CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 

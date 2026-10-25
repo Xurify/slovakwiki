@@ -43,9 +43,8 @@
         <h1 class="text-balance">Find your Slovak level</h1>
 
         <Lead class="text-pretty">
-          An adaptive test modelled on the Duolingo English Test. Every answer sets the
-          difficulty of the next question, so a short test places you on the CEFR scale
-          from A1 to C2.
+          An adaptive placement test. Every answer sets the difficulty of the next
+          question, so a short test places you on the CEFR scale from A1 to C2.
         </Lead>
       </header>
 
@@ -114,12 +113,22 @@
           </li>
           <li>
             Writing and speaking are scored by AI on content, organisation, grammar and
-            vocabulary, the criteria the DET publishes, mapped onto the same scale.
+            vocabulary, mapped onto the same scale.
           </li>
         </ol>
 
         <p class="m-0 mt-5 text-sm text-slate-500">
           The result is an estimate for your own learning, not a certificate.
+        </p>
+
+        <p class="m-0 mt-3 text-xs text-slate-500">
+          Methodology inspired by the open research behind the
+          <a
+            class="text-slate-600 underline underline-offset-2 hover:text-slate-900"
+            href="https://transacl.org/ojs/index.php/tacl/article/view/2070"
+            target="_blank"
+            rel="noopener noreferrer">Duolingo English Test (Settles et al., 2020)</a
+          >.
         </p>
       </section>
     </div>

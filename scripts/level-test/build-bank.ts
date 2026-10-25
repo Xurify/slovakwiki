@@ -3,12 +3,11 @@
  *
  *   bun scripts/level-test/build-bank.ts
  *
- * Follows the method in Settles et al. (2020), the paper behind the Duolingo
- * English Test: item difficulty is predicted from the text (corpus and
- * subtitle frequency, length, a character language model) instead of from
- * pilot testing, and pseudowords come from a character model, filtered against
- * every attested word form. Downloads the SNK word-form lists to tmp/snk/ and
- * the OpenSubtitles counts to tmp/opensubtitles/ on the first run.
+ * Item difficulty is predicted from the text (corpus and subtitle frequency,
+ * length, a character language model) instead of from pilot testing, and
+ * pseudowords come from a character model, filtered against every attested word
+ * form. Downloads the SNK word-form lists to tmp/snk/ and the OpenSubtitles
+ * counts to tmp/opensubtitles/ on the first run.
  * Then voice and check the Listen and Select pseudowords, and repeat until
  * check-spoken reports nothing new:
  *   bun scripts/audio/generate.ts -- --level-test-only --missing-only
@@ -314,9 +313,9 @@ async function loadRealWords(
   });
 
   /**
-   * The DET found movie-subtitle counts track CEFR word lists better than
-   * written corpora; SNK is mostly news. The geometric mean of both ranks
-   * keeps "prázdniny" from looking like a B2 word.
+   * Movie-subtitle counts track CEFR word lists better than written corpora;
+   * SNK is mostly news. The geometric mean of both ranks keeps "prázdniny"
+   * from looking like a B2 word.
    */
   const snkRank = rankBy(ranked, (row) => row.snkCount);
   const subtitleRank = rankBy(ranked, (row) => row.subtitles);
@@ -443,10 +442,9 @@ function generatePseudowords(
 
 /**
  * Pseudowords have no frequency, so their difficulty comes from what a word
- * looks like, as in the DET's vocabulary scale model: fit difficulty on real
- * words from character-model likelihood and length, predict pseudowords, then
- * map the predictions onto the real-word distribution so both kinds cover the
- * same range of the scale.
+ * looks like: fit difficulty on real words from character-model likelihood
+ * and length, predict pseudowords, then map the predictions onto the
+ * real-word distribution so both kinds cover the same range of the scale.
  */
 function assignPseudowordDifficulty(
   real: readonly RealWord[],

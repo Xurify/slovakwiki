@@ -66,10 +66,10 @@ const TASK_BRIEF: Record<ProductionKind, string> = {
 };
 
 /**
- * The DET's production criteria, mapped onto this test's 0–100 CEFR scale.
+ * Production criteria mapped onto this test's 0–100 CEFR scale.
  * Pronunciation is left out: a transcript cannot show it.
  */
-const SYSTEM_PROMPT = `You score answers on the slovak.wiki Slovak level test, an adaptive test modelled on the Duolingo English Test. The learner writes or speaks in Slovak.
+const SYSTEM_PROMPT = `You score answers on the slovak.wiki Slovak level test, an adaptive placement test. The learner writes or speaks in Slovak.
 
 Use a 0–100 scale on which the CEFR levels sit at A1 = 0, A2 = 20, B1 = 40, B2 = 60, C1 = 80, C2 = 100 (so 30 is between A2 and B1).
 

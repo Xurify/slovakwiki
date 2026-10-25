@@ -19,7 +19,7 @@ export interface ScoreSummary {
 export type IntegratedSkill =
   "literacy" | "comprehension" | "conversation" | "production";
 
-/** The DET's integrated subscores, each the pair of skills it combines. */
+/** Integrated subscores, each the pair of skills it combines. */
 export const INTEGRATED_SKILLS: Record<
   IntegratedSkill,
   { label: string; skills: [Skill, Skill] }
@@ -66,8 +66,7 @@ function productionScores(
 /**
  * Reading and listening come from the item responses; writing from the AI
  * scores; speaking from Read Aloud (scored like items) plus the AI scores. The
- * overall score averages whichever skills were measured, as the DET's overall
- * score is built from its subscores.
+ * overall score averages whichever skills were measured.
  */
 export function computeResult(
   responses: readonly ItemResponse[],

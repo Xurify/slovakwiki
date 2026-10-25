@@ -1,7 +1,7 @@
 import { SCALE_MAX, SCALE_MIN, clampScale, probabilityCorrect } from "./scale";
 
 /**
- * One graded response. `score` is soft (0–1), like the DET's probabilistic
+ * One graded response. `score` is soft (0–1), using probabilistic
  * grading: a dictation that is 80% right counts as 0.8 of a correct answer.
  */
 export interface Observation {

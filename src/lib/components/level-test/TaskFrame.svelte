@@ -5,8 +5,8 @@
   import { taskHeadingClass } from "./level-test-ui";
 
   /**
-   * One test screen, laid out like the DET: the clock top left, the
-   * instruction centred, the task, and Next at the bottom right.
+   * One test screen: the clock top left, the instruction centred,
+   * the task, and Next at the bottom right.
    */
   let {
     heading,

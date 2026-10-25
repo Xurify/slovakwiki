@@ -1,8 +1,8 @@
 <script lang="ts">
   /**
-   * A damaged word: the given start, then one box per missing letter, as on
-   * the DET. Every box is its own input, so a learner can click any letter
-   * and fix it; typing moves on, Backspace on an empty box moves back.
+   * A damaged word: the given start, then one box per missing letter.
+   * Every box is its own input, so a learner can click any letter and fix
+   * it; typing moves on, Backspace on an empty box moves back.
    */
   let {
     prefix,

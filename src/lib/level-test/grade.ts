@@ -2,8 +2,7 @@ import { levenshtein } from "$lib/string/levenshtein";
 
 /**
  * Partial credit for an answer whose only fault is missing or wrong diacritics.
- * The DET marks those wrong; a learner site is kinder because many keyboards
- * make č, ľ and ô slow to type.
+ * A learner site is kinder because many keyboards make č, ľ and ô slow to type.
  */
 export const ACCENT_ONLY_CREDIT = 0.5;
 
@@ -111,8 +110,8 @@ function wordsMatch(expected: string, actual: string): boolean {
 }
 
 /**
- * Listen and Complete: credit for getting the idea in, spelling aside (the DET
- * ignores spelling here too). Long rambles that bury the answer lose a little.
+ * Listen and Complete: credit for getting the idea in, spelling aside.
+ * Long rambles that bury the answer lose a little.
  */
 export function gradeIdeaGap(accepted: readonly string[], typed: string): number {
   const attempt = tokenizeWords(typed);
