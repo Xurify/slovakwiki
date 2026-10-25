@@ -105,10 +105,10 @@ Custom voices were created with `bun scripts/audio/voice-design.ts` (ElevenLabs 
 
 ### One-off
 
-| Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                                                                                                                                            |
-| -------------- | ------------ | ------ | ------------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.                                                                                                                   |
-| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). Sixth take, a grown man of about 28, smooth and warm, a shade lower than Marek; the first became the announcer. |
+| Character id   | Display      | Gender | Voice                    | Speakers              | Blurb                                                                                                                                                                 |
+| -------------- | ------------ | ------ | ------------------------ | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `receptionist` | Receptionist | female | Slovak Wiki Receptionist | `Receptionist`        | Hotel/clinic desk — not Mária.                                                                                                                                        |
+| `waiter`       | Waiter       | male   | Slovak Wiki Waiter       | `Waiter`, `Conductor` | Café waiter (+ conductor extra). Seventh take, designed with the v3 design model on his own table talk so he talks rather than reads; the first became the announcer. |
 
 ### System
 

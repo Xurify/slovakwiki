@@ -40,9 +40,24 @@ interface CastBrief {
   characterId: string;
   displayName: string;
   gender: "female" | "male" | "neutral";
+  /** What the previews say; the shared SAMPLE_TEXT unless the part needs its own talk. */
+  sampleText?: string;
   voiceDescription: string;
   voiceName: string;
 }
+
+/**
+ * What a waiter actually says at a table, so the design hears talk, not a
+ * read passage: the shared sample is a learner's introduction, and every
+ * take made on it came out reading it, like an audiobook.
+ */
+const WAITER_TALK = [
+  "Dobrý deň, nech sa páči, sadnite si. Čo si dáte?",
+  "Kávu? Jasné. Espresso, alebo s mliekom?",
+  "A dáte si k tomu aj niečo sladké? Dnes máme makový koláč, je naozaj dobrý.",
+  "Dobre, takže dve kávy a jeden koláč. Hneď to bude.",
+  "Nech sa páči. Keby ste ešte niečo potrebovali, stačí zavolať.",
+].join(" ");
 
 /** Core lesson cast — designed specifically for Slovak Wiki dialogue. */
 const CAST: CastBrief[] = [
@@ -92,7 +107,8 @@ const CAST: CastBrief[] = [
     gender: "male",
     voiceName: "Slovak Wiki Waiter",
     voiceDescription:
-      "Adult Slovak man of about 28, a slim, well-groomed waiter who has worked in an old-town café for years, talking to guests at their table. A grown man's voice, clearly not a teenager: smooth, warm and resonant, a shade lower than a young office colleague, relaxed and attentive, with the polished friendliness of good service and a clear rising question intonation. Close and natural, as if standing right beside you in a quiet room: not a telephone, loudspeaker or announcer sound, no radio delivery. Central European accent.",
+      "Slovak man of about 28 chatting with guests at their table in a small old-town café. Real everyday speech, not reading: he talks to the person in front of him, casually and off the cuff, with the loose rhythm of conversation, little lifts and drops, a half-smile in the voice, quick and light on the small talk, a rising, genuinely asked question. A grown man's natural, medium-warm voice, a shade lower than a young colleague, recorded close in a quiet room. Not a narrator, not an audiobook, not an announcer, not a language-course recording. Central European accent.",
+    sampleText: WAITER_TALK,
   },
   {
     characterId: "receptionist",
@@ -168,7 +184,11 @@ function parseArgs(argv: string[]): {
   return { create, dryRun, only, pick };
 }
 
-async function designVoice(brief: CastBrief, apiKey: string): Promise<DesignResponse> {
+async function designVoice(
+  brief: CastBrief,
+  apiKey: string,
+  model = "eleven_ttv_v3",
+): Promise<DesignResponse> {
   const response = await fetch("https://api.elevenlabs.io/v1/text-to-voice/design", {
     method: "POST",
     headers: {
@@ -177,8 +197,8 @@ async function designVoice(brief: CastBrief, apiKey: string): Promise<DesignResp
     },
     body: JSON.stringify({
       voice_description: brief.voiceDescription,
-      model_id: "eleven_multilingual_ttv_v2",
-      text: SAMPLE_TEXT,
+      model_id: model,
+      text: brief.sampleText ?? SAMPLE_TEXT,
       auto_generate_text: false,
       should_enhance: true,
       guidance_scale: 4,
@@ -188,11 +208,19 @@ async function designVoice(brief: CastBrief, apiKey: string): Promise<DesignResp
 
   if (!response.ok) {
     const body = await response.text();
+    // The v3 design model is not on every plan; the older one always is.
+    if (model === "eleven_ttv_v3") {
+      console.log(
+        `  v3 design refused (${response.status}); trying eleven_multilingual_ttv_v2`,
+      );
+      return designVoice(brief, apiKey, "eleven_multilingual_ttv_v2");
+    }
     throw new Error(
       `design ${brief.characterId}: ${response.status} ${body.slice(0, 500)}`,
     );
   }
 
+  console.log(`  designed with ${model}`);
   return (await response.json()) as DesignResponse;
 }
 
