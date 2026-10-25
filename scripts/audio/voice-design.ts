@@ -15,6 +15,7 @@
  *   bun scripts/audio/voice-design.ts -- --create     # design + save preview 0 + update config
  *   bun scripts/audio/voice-design.ts -- --create --pick 1
  *   bun scripts/audio/voice-design.ts -- --only anna,alex --create
+ *   bun scripts/audio/voice-design.ts -- --only waiter --keep 1   # save preview 1 of the last design
  *
  * Needs Voice Design access on ELEVENLABS_API_KEY.
  */
@@ -107,7 +108,7 @@ const CAST: CastBrief[] = [
     gender: "male",
     voiceName: "Slovak Wiki Waiter",
     voiceDescription:
-      "Slovak man of about 28 chatting with guests at their table in a small old-town café. Real everyday speech, not reading: he talks to the person in front of him, casually and off the cuff, with the loose rhythm of conversation, little lifts and drops, a half-smile in the voice, quick and light on the small talk, a rising, genuinely asked question. A grown man's natural, medium-warm voice, a shade lower than a young colleague, recorded close in a quiet room. Not a narrator, not an audiobook, not an announcer, not a language-course recording. Central European accent.",
+      "Slovak man of about 23 chatting with guests at their table in a small old-town café, a student who has waited tables there for a couple of years. Real everyday speech, not reading: he talks to the person in front of him, casually and off the cuff, with the loose rhythm of conversation, little lifts and drops, a half-smile in the voice, quick and light on the small talk, a rising, genuinely asked question. A young man's natural, light-warm voice, clearly an adult, recorded close in a quiet room. Not a narrator, not an audiobook, not an announcer, not a language-course recording. Central European accent.",
     sampleText: WAITER_TALK,
   },
   {
@@ -149,11 +150,14 @@ interface CreatedVoice {
 function parseArgs(argv: string[]): {
   create: boolean;
   dryRun: boolean;
+  /** Save this preview of the last design in tmp/voice-design instead of designing again. */
+  keep: number | undefined;
   only: Set<string> | undefined;
   pick: number;
 } {
   let create = false;
   let dryRun = false;
+  let keep: number | undefined;
   let only: Set<string> | undefined;
   let pick = 0;
 
@@ -161,7 +165,14 @@ function parseArgs(argv: string[]): {
     const arg = argv[i];
     if (arg === "--create") create = true;
     else if (arg === "--dry-run") dryRun = true;
-    else if (arg === "--pick") {
+    else if (arg === "--keep") {
+      const value = Number(argv[i + 1]);
+      if (!Number.isFinite(value) || value < 0) {
+        throw new Error("--keep requires a non-negative preview index");
+      }
+      keep = Math.floor(value);
+      i += 1;
+    } else if (arg === "--pick") {
       const value = Number(argv[i + 1]);
       if (!Number.isFinite(value) || value < 0) {
         throw new Error("--pick requires a non-negative index");
@@ -181,14 +192,10 @@ function parseArgs(argv: string[]): {
     }
   }
 
-  return { create, dryRun, only, pick };
+  return { create, dryRun, keep, only, pick };
 }
 
-async function designVoice(
-  brief: CastBrief,
-  apiKey: string,
-  model = "eleven_ttv_v3",
-): Promise<DesignResponse> {
+async function designVoice(brief: CastBrief, apiKey: string): Promise<DesignResponse> {
   const response = await fetch("https://api.elevenlabs.io/v1/text-to-voice/design", {
     method: "POST",
     headers: {
@@ -197,7 +204,7 @@ async function designVoice(
     },
     body: JSON.stringify({
       voice_description: brief.voiceDescription,
-      model_id: model,
+      model_id: "eleven_ttv_v3",
       text: brief.sampleText ?? SAMPLE_TEXT,
       auto_generate_text: false,
       should_enhance: true,
@@ -208,19 +215,11 @@ async function designVoice(
 
   if (!response.ok) {
     const body = await response.text();
-    // The v3 design model is not on every plan; the older one always is.
-    if (model === "eleven_ttv_v3") {
-      console.log(
-        `  v3 design refused (${response.status}); trying eleven_multilingual_ttv_v2`,
-      );
-      return designVoice(brief, apiKey, "eleven_multilingual_ttv_v2");
-    }
     throw new Error(
       `design ${brief.characterId}: ${response.status} ${body.slice(0, 500)}`,
     );
   }
 
-  console.log(`  designed with ${model}`);
   return (await response.json()) as DesignResponse;
 }
 
@@ -284,7 +283,7 @@ async function main(): Promise<void> {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) throw new Error("ELEVENLABS_API_KEY missing (set in .env)");
 
-  const { create, dryRun, only, pick } = parseArgs(process.argv.slice(2));
+  const { create, dryRun, keep, only, pick } = parseArgs(process.argv.slice(2));
   const briefs = CAST.filter((brief) => !only || only.has(brief.characterId));
 
   if (briefs.length === 0) {
@@ -292,6 +291,11 @@ async function main(): Promise<void> {
   }
 
   await loadConfig();
+
+  if (keep !== undefined) {
+    await keepPreviews(briefs, keep, apiKey);
+    return;
+  }
   await mkdir(OUT_DIR, { recursive: true });
 
   console.log(
@@ -389,6 +393,46 @@ async function main(): Promise<void> {
     console.log("\nAudition MP3s in tmp/voice-design/{character}/preview-N.mp3");
     console.log("Then: bun scripts/audio/voice-design.ts -- --create --pick 0");
   }
+}
+
+/**
+ * Save preview `index` of each brief's last design, auditioned from
+ * tmp/voice-design, as the character's voice. Designing again would make
+ * three new previews, and the one that sounded right would be gone.
+ */
+async function keepPreviews(
+  briefs: CastBrief[],
+  index: number,
+  apiKey: string,
+): Promise<void> {
+  const created: Array<{ characterId: string; voiceId: string; voiceName: string }> = [];
+
+  for (const brief of briefs) {
+    const metaPath = path.join(OUT_DIR, brief.characterId, "meta.json");
+    const meta = JSON.parse(await readFile(metaPath, "utf8")) as {
+      previews: Array<{ generatedVoiceId: string; index: number }>;
+    };
+    const chosen = meta.previews.find((preview) => preview.index === index);
+    if (!chosen)
+      throw new Error(`${brief.characterId}: no preview ${index} in ${metaPath}`);
+
+    const voice = await createVoice(brief, chosen.generatedVoiceId, apiKey);
+    if (!voice.voice_id)
+      throw new Error(`${brief.characterId}: create returned no voice_id`);
+    created.push({
+      characterId: brief.characterId,
+      voiceId: voice.voice_id,
+      voiceName: brief.voiceName,
+    });
+    console.log(
+      `→ ${brief.characterId}: kept preview ${index} as voice_id=${voice.voice_id}`,
+    );
+    await sleep(400);
+  }
+
+  await patchConfig(created);
+  console.log(`\nUpdated ${CONFIG_PATH} (${created.length} characters)`);
+  console.log("Next: bun scripts/audio/generate.ts -- --lessons-only --missing-only");
 }
 
 main().catch((error: unknown) => {
