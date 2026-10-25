@@ -3,11 +3,9 @@
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
-  import {
-    grammarEndingClass,
-    grammarFormClass,
-    grammarGlossClass,
-  } from "$lib/components/reference/grammar-topic-ui";
+  import GrammarSentence from "$lib/components/reference/GrammarSentence.svelte";
+  import { exampleParts } from "$lib/components/reference/grammar-example";
+  import { grammarEndingClass } from "$lib/components/reference/grammar-topic-ui";
   import type { Example } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
 
@@ -25,50 +23,41 @@
     reserveAudioColumn: boolean;
   } = $props();
 
-  const parts = $derived(
-    example.slovak
-      .split(/(\p{L}+)/u)
-      .filter((part) => part !== "")
-      .map((text) => ({
-        text,
-        highlighted: forms.has(text.toLocaleLowerCase("sk")),
-      })),
-  );
+  const parts = $derived(exampleParts(example.slovak, forms, example.demonstrates));
 </script>
 
-<li class="flex items-start gap-2.5 border-t border-slate-200/70 py-3">
-  {#if reserveAudioColumn}
-    <span class="mt-0.5 inline-grid size-11 shrink-0 place-items-center">
-      {#if audioKey}
-        <span data-audio-mount={audioKey}></span>
+<!-- The note starts at the panel's midpoint, the same keyline as a three-column
+     table's middle column, with its first line level with the Slovak's. -->
+<li
+  class={cx(
+    "grid gap-x-6 gap-y-1 border-t border-slate-200/70 px-4 py-2.5 first:border-t-0 sm:px-5",
+    "md:grid-cols-2",
+  )}
+>
+  <GrammarSentence {audioKey} reserveAudio={reserveAudioColumn} english={example.english}>
+    {#each parts as part, index (index)}
+      {#if part.highlighted}
+        <span class={grammarEndingClass}>{part.text}</span>
+      {:else}
+        {part.text}
       {/if}
-    </span>
+    {/each}
+  </GrammarSentence>
+
+  {#if example.demonstrates || practiceHref}
+    <div class={cx("min-w-0", reserveAudioColumn && "pl-10 md:pl-0")}>
+      {#if example.demonstrates}
+        <p class="m-0 text-sm leading-snug text-pretty text-slate-500 md:pt-1.5">
+          <GrammarRichText text={example.demonstrates} />
+        </p>
+      {/if}
+
+      {#if practiceHref}
+        <a class={cx(moreLinkClass, "mt-1")} href={practiceHref}>
+          Practice
+          <ArrowRight />
+        </a>
+      {/if}
+    </div>
   {/if}
-
-  <div class="min-w-0 flex-1">
-    <p class={cx(grammarFormClass, "m-0 text-lg")} lang="sk">
-      {#each parts as part, index (index)}
-        {#if part.highlighted}
-          <span class={grammarEndingClass}>{part.text}</span>
-        {:else}
-          {part.text}
-        {/if}
-      {/each}
-    </p>
-
-    <p class={cx(grammarGlossClass, "m-0 mt-0.5")}>{example.english}</p>
-
-    {#if example.demonstrates}
-      <p class="m-0 mt-1.5 text-sm leading-relaxed text-slate-500">
-        <GrammarRichText text={example.demonstrates} />
-      </p>
-    {/if}
-
-    {#if practiceHref}
-      <a class={cx(moreLinkClass, "mt-1.5")} href={practiceHref}>
-        Practice
-        <ArrowRight />
-      </a>
-    {/if}
-  </div>
 </li>

@@ -1,6 +1,11 @@
 /** Turns a grammar pattern into the shape the topic page lays out. */
 
-import type { Example, GrammarPattern, GrammarTablePattern } from "../types";
+import type {
+  Example,
+  GrammarPattern,
+  GrammarTablePattern,
+  GrammarTopic,
+} from "../types";
 
 export function isGrammarTable(pattern: GrammarPattern): pattern is GrammarTablePattern {
   return "rows" in pattern;
@@ -255,4 +260,12 @@ export function patternSearchLines(pattern: GrammarPattern): string[] {
 /** Quarters and halves name the coming hour (štvrť na tri, pol tretej, trištvrte na tri). */
 export function namesHourAhead(minute: number): boolean {
   return minute === 15 || minute === 30 || minute === 45;
+}
+
+/** Every example on a topic page: the main table's, then each further table's. */
+export function grammarExamples(topic: GrammarTopic): Example[] {
+  return [
+    ...topic.examples,
+    ...(topic.morePatterns ?? []).flatMap((pattern) => pattern.examples ?? []),
+  ];
 }

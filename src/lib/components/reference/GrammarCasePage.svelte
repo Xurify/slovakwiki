@@ -36,15 +36,6 @@
   const position = $derived(caseTopics.findIndex((entry) => entry.slug === topic.slug));
   const previous = $derived(caseTopics[position - 1]);
   const next = $derived(caseTopics[position + 1]);
-
-  /** Case notes explain the example, so they read as "what this shows". */
-  const examples = $derived(
-    topic.examples.map((example) => ({
-      ...example,
-      demonstrates: example.demonstrates ?? example.note,
-      note: undefined,
-    })),
-  );
 </script>
 
 <main class="py-10 pb-20 max-[600px]:py-8">
@@ -96,12 +87,15 @@
       </div>
     </section>
 
-    {#if topic.status === "ready" && examples.length > 0}
+    {#if topic.status === "ready" && topic.examples.length > 0}
       <section id="examples" class="mt-8" aria-labelledby="examples-heading">
-        <h2 id="examples-heading" class={grammarHeadingClass}>In real sentences</h2>
+        <h2 id="examples-heading" class={grammarHeadingClass}>Examples</h2>
 
         <div class="mt-3">
-          <GrammarExampleList {examples} audioKeys={data.audioKeys ?? []} />
+          <GrammarExampleList
+            examples={topic.examples}
+            audioKeys={data.audioKeys ?? []}
+          />
         </div>
       </section>
     {/if}

@@ -2,8 +2,8 @@
   import type { GrammarCue, GrammarObject, GrammarScene } from "$lib/catalog/types";
 
   /**
-   * A 120×52 sketch of the situation one sentence of a contrast frame is said
-   * in. Every frame of a kind draws the same scene; only the lit part moves,
+   * A sketch, 120 units wide, of the situation one sentence of a contrast frame
+   * is said in. Every frame of a kind draws the same scene; only the lit part moves,
    * so three rows read as the thing passing from you, to them, to far away.
    * In the space scene the lit figure wears, holds, or stands by the thing.
    */
@@ -24,6 +24,28 @@
     const cues = typeof cue === "string" ? [cue] : cue;
     return at !== undefined && cues.includes(at) ? lit : dim;
   }
+
+  /**
+   * Top and bottom of what each kind draws, strokes included. The sketch is cut
+   * to them, so every scene sits the same distance from the card edge and from
+   * its situation, whatever blank space its kind leaves in the 52-unit box.
+   */
+  const EXTENT: Record<GrammarScene, readonly [number, number]> = {
+    space: [11, 52],
+    time: [13, 52],
+    owner: [11, 43],
+    gender: [11, 52],
+    address: [6, 43],
+    aspect: [13, 52],
+    past: [13, 52],
+    clock: [9, 46],
+  };
+
+  /** The 128px width draws 120 units, so each unit is 16/15 of a pixel. */
+  const PX_PER_UNIT = 128 / 120;
+
+  const top = $derived(EXTENT[kind][0]);
+  const height = $derived(EXTENT[kind][1] - EXTENT[kind][0]);
 
   const worn = $derived(object === "shirt" || object === "shoes");
   const held = $derived(object === "book" || object === "keys");
@@ -147,8 +169,9 @@
 {/snippet}
 
 <svg
-  class="h-14 w-32 shrink-0 fill-none stroke-current"
-  viewBox="0 0 120 52"
+  class="w-32 shrink-0 fill-none stroke-current"
+  style:height="{height * PX_PER_UNIT}px"
+  viewBox="0 {top} 120 {height}"
   stroke-width="1.7"
   stroke-linecap="round"
   stroke-linejoin="round"

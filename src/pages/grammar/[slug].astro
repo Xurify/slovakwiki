@@ -38,7 +38,7 @@ export function getStaticPaths() {
           key,
           props: {
             label: `Listen: ${slovak}`,
-            size: "sm" as const,
+            size: "xs" as const,
             src: resolveKeyedAudioSrc(slovak, kind),
             text: slovak,
           },
@@ -63,7 +63,6 @@ export function getStaticPaths() {
 
     const audioTargets: AudioMountTarget[] = [
       ...exampleTargets(entry.examples, "ex"),
-      ...exampleTargets(entry.pattern.examples ?? [], "pattern-ex"),
       ...(entry.morePatterns ?? []).flatMap((pattern, index) =>
         exampleTargets(pattern.examples ?? [], `more-${index}-ex`),
       ),

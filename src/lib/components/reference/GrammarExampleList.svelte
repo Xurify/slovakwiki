@@ -2,17 +2,23 @@
   import GrammarExampleRow from "$lib/components/reference/GrammarExampleRow.svelte";
   import { practiceItemHref } from "$lib/catalog/practice";
   import type { Example } from "$lib/catalog/types";
+  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import { cx } from "$lib/ui/classes";
 
   let {
     examples,
     audioKeys = [],
     audioKeyPrefix = "ex",
+    framed = true,
     highlight = [],
     label,
   }: {
     examples: Example[];
     audioKeys?: string[];
     audioKeyPrefix?: string;
+    /** Off when the rows sit inside another panel, such as the table they illustrate. */
+    framed?: boolean;
     highlight?: readonly string[];
     label?: string;
   } = $props();
@@ -33,12 +39,21 @@
   const forms = $derived(new Set(highlight.map((form) => form.toLocaleLowerCase("sk"))));
 </script>
 
-<div>
+<div class={cx(framed && dataPanelClass)}>
   {#if label}
-    <p class="m-0 mb-1 text-sm font-semibold text-slate-700">{label}</p>
+    <p
+      class={cx(
+        eyebrowMutedClass,
+        "border-b border-slate-200 bg-subtle/60 px-4 py-2 sm:px-5",
+        !framed && "border-t",
+      )}
+    >
+      {label}
+    </p>
   {/if}
 
-  <ul class="m-0 grid list-none gap-x-8 p-0 md:grid-cols-2">
+  <!-- One example per row, so the eye runs down a column instead of zig-zagging between two. -->
+  <ul class="m-0 list-none p-0">
     {#each rows as { audioKey, example, practiceHref } (example.slovak)}
       <GrammarExampleRow
         {example}

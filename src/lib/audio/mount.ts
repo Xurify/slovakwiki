@@ -3,7 +3,7 @@ export type AudioMountTarget = {
   props: {
     class?: string;
     label?: string;
-    size?: "sm" | "md" | "lg";
+    size?: "xs" | "sm" | "md" | "lg";
     src?: string;
     text: string;
     variant?: "default" | "inverse";

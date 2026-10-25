@@ -101,7 +101,9 @@ describe("parsePattern", () => {
       "Every other plural",
     ]);
 
-    const trap = topic?.morePatterns?.[1];
+    const trap = topic?.morePatterns?.find(
+      (pattern) => pattern.label === "Dative and instrumental",
+    );
     if (!trap || !isGrammarTable(trap)) throw new Error("missing tým pattern");
     const trapView = patternView(trap);
     expect(trapView.kind).toBe("grid");

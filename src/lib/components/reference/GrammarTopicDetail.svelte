@@ -23,11 +23,7 @@
     grammarGroupAnchor,
     grammarNeighbors,
   } from "$lib/catalog/reference/grammar-path";
-  import {
-    patternAnchor,
-    patternForms,
-    patternView,
-  } from "$lib/catalog/reference/grammar-pattern";
+  import { grammarExamples, patternAnchor } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
@@ -90,14 +86,8 @@
       })),
   );
 
-  const patternIncludesExamples = $derived.by(() => {
-    if (topic.caseOverview || isTime) return false;
-    const view = patternView(topic.pattern, topic.examples);
-    return view.kind === "tiles" && view.tiles.every((tile) => tile.example);
-  });
-
   const practiceHref = $derived(
-    topic.examples
+    grammarExamples(topic)
       .map(
         (example) => example.practiceItemId && practiceItemHref(example.practiceItemId),
       )
@@ -178,6 +168,12 @@
         </p>
 
         <GrammarCaseMap cases={topic.caseOverview} />
+
+        {#if topic.examples.length > 0}
+          <div class="mt-4">
+            <GrammarExampleList examples={topic.examples} {audioKeys} label="Examples" />
+          </div>
+        {/if}
       {:else}
         <h2 id="pattern" class={grammarHeadingClass}>{topic.pattern.label}</h2>
 
@@ -197,21 +193,10 @@
           <GrammarPatternList
             pattern={topic.pattern}
             examples={topic.examples}
+            {audioKeys}
             withClocks={isTime}
           />
         </div>
-
-        {#if topic.pattern.examples?.length}
-          <div class="mt-5">
-            <GrammarExampleList
-              examples={topic.pattern.examples}
-              {audioKeys}
-              audioKeyPrefix="pattern-ex"
-              highlight={patternForms(topic.pattern)}
-              label="Examples"
-            />
-          </div>
-        {/if}
 
         {#each topic.morePatterns ?? [] as extra, index (extra.label)}
           <div class="mt-8">
@@ -226,20 +211,13 @@
             {/if}
 
             <div class="mt-3">
-              <GrammarPatternList pattern={extra} />
+              <GrammarPatternList
+                pattern={extra}
+                examples={extra.examples}
+                {audioKeys}
+                audioKeyPrefix="more-{index}-ex"
+              />
             </div>
-
-            {#if extra.examples?.length}
-              <div class="mt-5">
-                <GrammarExampleList
-                  examples={extra.examples}
-                  {audioKeys}
-                  audioKeyPrefix="more-{index}-ex"
-                  highlight={patternForms(extra)}
-                  label="Examples"
-                />
-              </div>
-            {/if}
           </div>
         {/each}
       {/if}
@@ -341,16 +319,6 @@
             {@render clockDrill()}
           </div>
         {/if}
-      </section>
-    {/if}
-
-    {#if topic.examples.length > 0 && !patternIncludesExamples}
-      <section id="examples" class="mt-8" aria-labelledby="examples-heading">
-        <h2 id="examples-heading" class={grammarHeadingClass}>In real sentences</h2>
-
-        <div class="mt-3">
-          <GrammarExampleList examples={topic.examples} {audioKeys} />
-        </div>
       </section>
     {/if}
 
