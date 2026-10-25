@@ -44,6 +44,7 @@ const { episode, audio, next, stages } = Astro.props;
   title={`${episode.titleSk} (${episode.topic}) | Slovak Wiki Listening`}
   description={episode.promise}
   canonicalPath={`/listening/${episode.slug}`}
+  stage
 >
   <ListeningEpisodePage data={{ episode }}>
     <EpisodePlayer

@@ -2,6 +2,7 @@
   import { eyebrowMutedClass, iconButtonClass } from "$lib/components/ui/system-ui";
   import { onMount } from "svelte";
   import LessonSettingsToggle from "$lib/components/lessons/LessonSettingsToggle.svelte";
+  import LessonSettingsVolume from "$lib/components/lessons/LessonSettingsVolume.svelte";
   import {
     THEME_CHANGE_EVENT,
     applyTheme,
@@ -98,14 +99,6 @@
     darkOn = applyTheme(darkOn ? "light" : "dark") === "dark";
   }
 
-  function onVolumeInput(event: Event): void {
-    const target = event.currentTarget;
-    if (!(target instanceof HTMLInputElement)) return;
-    volume = setAudioVolume(Number(target.value) / 100);
-  }
-
-  const volumePercent = $derived(Math.round(volume * 100));
-
   const triggerClass = $derived(
     [
       iconButtonClass,
@@ -164,34 +157,13 @@
         </li>
 
         <li class="border-b border-slate-200/70 last:border-b-0">
-          <div class="px-3.5 py-3">
-            <label
-              class="flex items-baseline justify-between gap-3"
-              for="lesson-story-volume"
-            >
-              <span class="text-sm font-semibold text-slate-900">Volume</span>
-              <span class="text-xs tabular-nums text-slate-500">{volumePercent}%</span>
-            </label>
-
-            <input
-              id="lesson-story-volume"
-              class="mt-2.5 block w-full cursor-pointer accent-blue-700"
-              type="range"
-              min="0"
-              max="100"
-              step="1"
-              value={volumePercent}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={volumePercent}
-              aria-valuetext="{volumePercent} percent"
-              oninput={onVolumeInput}
-            />
-
-            <p class="m-0 mt-1.5 text-xs leading-snug text-pretty text-slate-500">
-              How loud story and listen audio plays
-            </p>
-          </div>
+          <LessonSettingsVolume
+            description="How loud story and listen audio plays"
+            id="lesson-story-volume"
+            label="Volume"
+            oninput={(value) => (volume = setAudioVolume(value))}
+            value={volume}
+          />
         </li>
 
         <li class="border-b border-slate-200/70 last:border-b-0">

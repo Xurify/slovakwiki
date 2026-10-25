@@ -48,6 +48,27 @@ describe("stageMarks", () => {
   });
 });
 
+describe("lines to the listeners", () => {
+  it("faces the front for a riddle or a hello to everyone, not for a hello with a name in it", () => {
+    const direction = directScene(
+      [
+        { characterId: "anna", slovak: "Tak kto bol v štúdiu celý deň? Hádajte s nami!" },
+        { characterId: "marek", slovak: "Ahojte! Prepáč, Anna, meškám." },
+        { characterId: "marek", slovak: "A ja som Marek. Ahojte!" },
+        { characterId: "marek", slovak: "Ďakujem, Anna. Maj sa! Teraz späť do štúdia." },
+      ],
+      "studio",
+    );
+
+    expect(direction.lines.map((line) => line.staging.audience ?? false)).toEqual([
+      true,
+      false,
+      true,
+      false,
+    ]);
+  });
+});
+
 describe("props in hand", () => {
   it("brings out no cup for an order", () => {
     expect(propForSentence("Ja si dám čaj.")).toBeUndefined();

@@ -1,16 +1,27 @@
 <script lang="ts" module>
-  export interface SceneSetting {
+  export interface SceneSettingToggle {
     description: string;
     label: string;
     on: boolean;
     ontoggle: () => void;
   }
+
+  export interface SceneSettingVolume {
+    description: string;
+    kind: "volume";
+    label: string;
+    oninput: (value: number) => void;
+    value: number;
+  }
+
+  export type SceneSetting = SceneSettingToggle | SceneSettingVolume;
 </script>
 
 <script lang="ts">
   import { onMount, tick } from "svelte";
 
   import LessonSettingsToggle from "$lib/components/lessons/LessonSettingsToggle.svelte";
+  import LessonSettingsVolume from "$lib/components/lessons/LessonSettingsVolume.svelte";
   import { iconButtonClass } from "$lib/components/ui/system-ui";
   import { cx } from "$lib/ui/classes";
   import SceneIcon from "./SceneIcon.svelte";
@@ -37,7 +48,7 @@
    * Where the menu stands, in viewport pixels: it is fixed, so the clipped
    * card the gear sits in cannot cut it off. Unset while it is measured.
    */
-  let at = $state<{ right: number; top: number }>();
+  let at = $state<{ maxHeight: number; right: number; top: number }>();
   let root: HTMLDivElement | undefined = $state();
   let menu: HTMLDivElement | undefined = $state();
   let toggle: HTMLButtonElement | undefined = $state();
@@ -53,19 +64,30 @@
     menu?.querySelector("button")?.focus({ preventScroll: true });
   }
 
-  /** Stand the menu by its gear: on `side`, unless that puts it under the sticky header or off the bottom of the screen. */
+  /**
+   * Stand the menu by its gear: on `side` when it fits there, else on the side
+   * with more room, and never taller than the room it has — a phone screen can
+   * be shorter than five rows, and the top row must stay reachable.
+   */
   function place(): void {
     if (!root || !menu) return;
 
     const header = document.querySelector("header")?.getBoundingClientRect().bottom ?? 0;
     const box = root.getBoundingClientRect();
     const height = menu.offsetHeight;
-    const fitsAbove = box.top - GAP - height >= header;
-    const fitsBelow = box.bottom + GAP + height <= window.innerHeight;
-    const above = side === "top" ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove;
+    const roomAbove = box.top - GAP - Math.max(header, 0);
+    const roomBelow = window.innerHeight - box.bottom - GAP;
+    const above =
+      side === "top"
+        ? roomBelow < height || roomAbove >= roomBelow
+        : roomBelow < height && roomAbove > roomBelow;
+    const room = Math.max(0, above ? roomAbove : roomBelow);
     at = {
+      maxHeight: room,
       right: window.innerWidth - box.right,
-      top: above ? box.top - GAP - height : box.bottom + GAP,
+      top: above
+        ? Math.max(header, box.top - GAP - Math.min(height, room))
+        : box.bottom + GAP,
     };
   }
 
@@ -138,19 +160,35 @@
       bind:this={menu}
       id="scene-settings"
       class={cx(
-        "fixed z-40 w-[min(17.5rem,calc(100vw-2rem))] overflow-hidden",
+        "fixed z-40 w-[min(17.5rem,calc(100vw-2rem))] overflow-x-hidden overflow-y-auto",
         at === undefined && "invisible",
         "rounded-(--frame-radius) bg-surface shadow-(--shadow-float)",
       )}
       style:right={at ? `${at.right}px` : undefined}
       style:top={at ? `${at.top}px` : undefined}
+      style:max-height={at ? `${at.maxHeight}px` : undefined}
       role="dialog"
       aria-label={label}
     >
       <ul class="m-0 list-none p-0">
         {#each settings as setting (setting.label)}
           <li class="border-b border-slate-200/70 last:border-b-0">
-            <LessonSettingsToggle {...setting} />
+            {#if setting.kind === "volume"}
+              <LessonSettingsVolume
+                description={setting.description}
+                id="scene-settings-volume"
+                label={setting.label}
+                oninput={setting.oninput}
+                value={setting.value}
+              />
+            {:else}
+              <LessonSettingsToggle
+                label={setting.label}
+                description={setting.description}
+                on={setting.on}
+                ontoggle={setting.ontoggle}
+              />
+            {/if}
           </li>
         {/each}
       </ul>

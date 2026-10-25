@@ -26,9 +26,9 @@
 </script>
 
 <li
-  class="group/row grid grid-cols-[2rem_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-slate-200/70 py-3 last:border-b-0 max-[560px]:grid-cols-[2rem_minmax(0,1fr)]"
+  class="group/row grid grid-cols-[2.75rem_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-slate-200/70 py-3 last:border-b-0 max-[560px]:grid-cols-[2.75rem_minmax(0,1fr)]"
 >
-  <span class="grid h-7 place-items-center">
+  <span class="grid min-h-7 place-items-center">
     {#if audioKey}
       <span class="inline-grid size-11 place-items-center" data-audio-mount={audioKey}
       ></span>

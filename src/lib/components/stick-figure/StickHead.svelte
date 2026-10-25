@@ -112,7 +112,7 @@
     width="28"
     height="23.5"
     rx="9.5"
-    class="fill-slate-800 stroke-portrait-ink"
+    class="fill-portrait-ink stroke-portrait-ink"
     stroke-width="1.3"
   />
   <rect x={21.5 + eyeX} y="23" width="4.8" height="6.8" rx="2.4" class={robot.eyes} />

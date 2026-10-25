@@ -20,6 +20,7 @@
   import { focusUnlessTyping } from "$lib/listening/focus";
 
   import EpisodeReplayButton from "./EpisodeReplayButton.svelte";
+  import { episodeSpeakerName } from "./episode-speaker";
 
   let {
     check,
@@ -127,7 +128,7 @@
     {#if replayLine}
       <EpisodeReplayButton
         src={replaySrc}
-        label="Hear {replayLine.speaker} again"
+        label="Hear {episodeSpeakerName(replayLine.speaker)} again"
         onbeforeplay={onbeforereplay}
         play={playReplay}
         stop={stopReplay}

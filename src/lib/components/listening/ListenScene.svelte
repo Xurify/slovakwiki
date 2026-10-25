@@ -3,6 +3,7 @@
     ambienceFor,
     playAmbience,
     playSegmentCue,
+    stopSteps,
     type AmbiencePlayer,
   } from "$lib/stick-figure/ambience";
 
@@ -16,7 +17,6 @@
 <script lang="ts">
   import { untrack } from "svelte";
 
-  import { getStoredSfxPreference } from "$lib/audio/sfx";
   import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
   import type { DialogueTurn } from "$lib/learning/types";
@@ -148,13 +148,15 @@
     live = false;
     speaking = false;
     stage?.stop();
+    // A walk-off at the segment's end would go on sounding under the next segment's card.
+    stopSteps();
     hush(leaving ? HANDOVER_MS : 0);
   }
 
   function listen(): void {
     window.clearTimeout(quiet);
     quietAt = Number.POSITIVE_INFINITY;
-    if (!sound || getStoredSfxPreference() === "off") return;
+    if (!sound) return;
 
     const ambience = ambienceFor(scene.setting, mood);
     if (place) place.set(ambience);

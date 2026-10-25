@@ -79,7 +79,7 @@
     width="4"
     height="3.6"
     rx="1"
-    class="fill-slate-700 stroke-portrait-ink"
+    class="fill-portrait-vest stroke-portrait-ink"
     stroke-width="0.9"
   />
   <rect
@@ -97,7 +97,7 @@
     width="7.6"
     height="9"
     rx="2"
-    class="fill-slate-800 stroke-portrait-ink"
+    class="fill-portrait-ink stroke-portrait-ink"
     stroke-width="0.9"
   />
   <circle cx="0" cy="-20.7" r="1.5" class={look.robot.chest} />

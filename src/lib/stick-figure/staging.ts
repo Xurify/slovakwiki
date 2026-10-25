@@ -1,4 +1,7 @@
-import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import {
+  listedCharacters,
+  type LessonCharacterId,
+} from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import type { LinePoint } from "./line-plan";
 import type { ReadLine } from "./line-reading";
@@ -50,12 +53,50 @@ export interface LineStaging {
   arrives?: "tram";
   /** Everyone walks to the tram's door as this line ends. */
   boards?: boolean;
+  /** Said to the listeners ("Hádajte s nami!"): the speaker faces the front, not a figure. */
+  audience?: boolean;
 }
 
 /** Folded sentence openers the one spoken to nods at. */
 const NOD_AT = [...THANKS, "tesi ma", ...APOLOGIES];
 /** Folded phrases that end someone's part in a scene: goodbyes, or going to fetch the order. */
 const LEAVING = [...GOODBYES, "pekny den", "hned to bude", "hned som spat", "musim ist"];
+/**
+ * Folded phrases a host says to the listeners, not to anyone on stage: the
+ * show's hellos and goodbyes, a riddle put to them, and telling them where
+ * the hosts are or go next.
+ */
+const TO_LISTENERS = [
+  "hadajte s nami",
+  "dakujeme ze pocuvate",
+  "majte sa pekne",
+  "tu je podcast",
+  "toto je podcast",
+  "ideme na to",
+  "to je vsetko na dnes",
+  "vitajte",
+  "ahojte",
+  "teraz sme",
+  "teraz do",
+  "teraz spat do",
+  "teraz na",
+];
+
+/**
+ * Whether the line calls someone in `cast` by name ("Prepáč, Anna, meškám"):
+ * then it is to them, whatever else it says. "Ja som Anna" names nobody.
+ */
+function callsByName(slovak: string, cast: readonly LessonCharacterId[]): boolean {
+  const names = listedCharacters()
+    .filter((character) => cast.includes(character.id))
+    .map((character) => character.displayName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  return names.some((name) =>
+    new RegExp(`(^|[.!?…]\\s*)${name}[,!?]|,\\s*(pani |pán )?${name}\\b`, "u").test(
+      slovak,
+    ),
+  );
+}
+
 /** Folded phrases that call the one spoken to over. */
 const COME_OVER = ["pod dalej", "podte dalej", "pod sem", "podte sem"];
 /** Folded phrases that call someone in under the speaker's umbrella, so they come right up. */
@@ -202,10 +243,14 @@ export function stageLine(
   const hasStop = things.some((thing) => thing.id === "zastavka");
   const arrives = hasStop && tramComing(line);
 
+  const audience =
+    sentences.some((sentence) => mentions(sentence, TO_LISTENERS)) &&
+    !callsByName(line.slovak, cast);
+
   for (const id of cast) {
     if (arrives) facing[id] = 1;
     else if (id !== speaker) facing[id] = toward(cast, id, speaker);
-    else if (onStage) facing[id] = toward(cast, id, addressee);
+    else if (onStage && !audience) facing[id] = toward(cast, id, addressee);
   }
 
   const reaction = onStage ? reactionTo(lines, index, addressee, points) : undefined;
@@ -247,5 +292,6 @@ export function stageLine(
       tramHere && sentences.some((sentence) => mentions(sentence, BOARDING))
         ? true
         : undefined,
+    audience: audience ? true : undefined,
   };
 }
