@@ -97,8 +97,8 @@ export const caseTopics: CaseTopic[] = [
       {
         person: ["brat[a]", "brat[ov]"],
         thing: ["dom[u]", "dom[ov]"],
-        feminine: ["ruk[y]", "rúk"],
-        neuter: ["mest[a]", "miest"],
+        feminine: ["ruk[y]", "r[ú]k"],
+        neuter: ["mest[a]", "m[ie]st"],
       },
     ),
     status: "ready",

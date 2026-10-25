@@ -114,7 +114,12 @@
   </li>
 {/snippet}
 
-<div class={dataPanelClass}>
+<div
+  class={cx(
+    dataPanelClass,
+    view?.kind === "grid" && examples.length === 0 && "sm:w-fit sm:max-w-full",
+  )}
+>
   {#if time}
     <div>
       <ol class="m-0 list-none p-0" aria-label="Clock times">
@@ -223,7 +228,7 @@
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
-                  "w-px py-2 pr-6 pl-4 text-left align-bottom max-sm:hidden sm:min-w-52 sm:pl-5",
+                  "w-px py-2 pr-6 pl-4 text-left align-bottom max-sm:hidden sm:pl-5",
                 )}
               >
                 {view.rowLabel}
@@ -274,7 +279,7 @@
               <tr>
                 <th
                   scope="row"
-                  class="py-2 pr-6 pl-4 text-left align-baseline text-[0.95rem] leading-snug font-normal text-slate-600 max-sm:hidden sm:pl-5"
+                  class="py-1.5 pr-6 pl-4 text-left align-baseline text-sm leading-snug font-normal whitespace-nowrap text-slate-600 max-sm:hidden sm:pl-5"
                 >
                   {row.label}
                 </th>
@@ -282,8 +287,8 @@
                 {#each row.cells as cell, index (index)}
                   <td
                     class={cx(
-                      grammarFormClass,
-                      "py-2 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0.5 sm:last:pr-5",
+                      "font-serif text-lg leading-snug font-semibold text-slate-900",
+                      "py-1.5 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0.5 sm:last:pr-5",
                       index < row.cells.length - 1 && "w-px pr-8 sm:pr-10",
                       index === 0 && "max-sm:pl-4",
                     )}

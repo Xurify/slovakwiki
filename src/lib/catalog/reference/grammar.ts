@@ -322,12 +322,12 @@ export const grammarEntries: GrammarTopic[] = [
       rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
-        { label: "ja (I)", cells: ["robil som", "robila som"] },
-        { label: "ty (you, informal)", cells: ["robil si", "robila si"] },
-        { label: "on / ona (he, she)", cells: ["robil", "robila"] },
-        { label: "my (we)", cells: ["robili sme", "robili sme"] },
-        { label: "vy (you, formal or plural)", cells: ["robili ste", "robili ste"] },
-        { label: "oni / ony (they)", cells: ["robili", "robili"] },
+        { label: "ja (I)", cells: ["robi[l] som", "robi[la] som"] },
+        { label: "ty (you, informal)", cells: ["robi[l] si", "robi[la] si"] },
+        { label: "on / ona (he, she)", cells: ["robi[l]", "robi[la]"] },
+        { label: "my (we)", cells: ["robi[li] sme", "robi[li] sme"] },
+        { label: "vy (you, formal or plural)", cells: ["robi[li] ste", "robi[li] ste"] },
+        { label: "oni / ony (they)", cells: ["robi[li]", "robi[li]"] },
       ],
     },
     morePatterns: [
@@ -336,12 +336,12 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Meaning",
         columns: ["Infinitive", "-l form"],
         rows: [
-          { label: "do", cells: ["robiť", "robil"] },
-          { label: "read", cells: ["čítať", "čítal"] },
-          { label: "work", cells: ["pracovať", "pracoval"] },
-          { label: "drink", cells: ["piť", "pil"] },
-          { label: "see", cells: ["vidieť", "videl"] },
-          { label: "want", cells: ["chcieť", "chcel"] },
+          { label: "do", cells: ["robi[ť]", "robi[l]"] },
+          { label: "read", cells: ["číta[ť]", "číta[l]"] },
+          { label: "work", cells: ["pracova[ť]", "pracova[l]"] },
+          { label: "drink", cells: ["pi[ť]", "pi[l]"] },
+          { label: "see", cells: ["vid[ieť]", "vid[el]"] },
+          { label: "want", cells: ["chc[ieť]", "chc[el]"] },
         ],
       },
       {
@@ -349,12 +349,12 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Meaning",
         columns: ["Infinitive", "Masculine", "Feminine"],
         rows: [
-          { label: "go", cells: ["ísť", "išiel", "išla"] },
-          { label: "come", cells: ["prísť", "prišiel", "prišla"] },
-          { label: "eat", cells: ["jesť", "jedol", "jedla"] },
-          { label: "can, be able", cells: ["môcť", "mohol", "mohla"] },
-          { label: "carry", cells: ["niesť", "niesol", "niesla"] },
-          { label: "forget", cells: ["zabudnúť", "zabudol", "zabudla"] },
+          { label: "go", cells: ["ís[ť]", "iš[iel]", "iš[la]"] },
+          { label: "come", cells: ["prís[ť]", "priš[iel]", "priš[la]"] },
+          { label: "eat", cells: ["jes[ť]", "jed[ol]", "jed[la]"] },
+          { label: "can, be able", cells: ["môc[ť]", "moh[ol]", "moh[la]"] },
+          { label: "carry", cells: ["nies[ť]", "nies[ol]", "nies[la]"] },
+          { label: "forget", cells: ["zabudnú[ť]", "zabud[ol]", "zabud[la]"] },
         ],
         examples: [
           {
@@ -806,11 +806,11 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Meaning",
         columns: ["Imperfective", "Perfective"],
         rows: [
-          { label: "write", cells: ["budem písať", "napíšem"] },
-          { label: "read", cells: ["budem čítať", "prečítam"] },
-          { label: "cook", cells: ["budem variť", "uvarím"] },
-          { label: "call", cells: ["budem volať", "zavolám"] },
-          { label: "buy", cells: ["budem kupovať", "kúpim"] },
+          { label: "write", cells: ["[budem] písať", "[na]píšem"] },
+          { label: "read", cells: ["[budem] čítať", "[pre]čítam"] },
+          { label: "cook", cells: ["[budem] variť", "[u]varím"] },
+          { label: "call", cells: ["[budem] volať", "[za]volám"] },
+          { label: "buy", cells: ["[budem] kupovať", "kúpim"] },
         ],
         examples: [
           {
@@ -832,9 +832,9 @@ export const grammarEntries: GrammarTopic[] = [
         columns: ["Infinitive", "Future (I will)"],
         rows: [
           { label: "go", cells: ["ísť", "pôjdem"] },
-          { label: "carry", cells: ["niesť", "ponesiem"] },
-          { label: "fly", cells: ["letieť", "poletím"] },
-          { label: "run", cells: ["bežať", "pobežím"] },
+          { label: "carry", cells: ["niesť", "[po]nesiem"] },
+          { label: "fly", cells: ["letieť", "[po]letím"] },
+          { label: "run", cells: ["bežať", "[po]bežím"] },
         ],
         examples: [
           {
@@ -1127,10 +1127,10 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Place",
         columns: ["Where? (kde)", "Where to? (kam)", "Where from? (odkiaľ)"],
         rows: [
-          { label: "the shop", cells: ["v obchode", "do obchodu", "z obchodu"] },
-          { label: "the post office", cells: ["na pošte", "na poštu", "z pošty"] },
-          { label: "the doctor", cells: ["u lekára", "k lekárovi", "od lekára"] },
-          { label: "home", cells: ["doma", "domov", "z domu"] },
+          { label: "the shop", cells: ["v obchod[e]", "do obchod[u]", "z obchod[u]"] },
+          { label: "the post office", cells: ["na pošt[e]", "na pošt[u]", "z pošt[y]"] },
+          { label: "the doctor", cells: ["u lekár[a]", "k lekár[ovi]", "od lekár[a]"] },
+          { label: "home", cells: ["doma", "domov", "z dom[u]"] },
           { label: "here", cells: ["tu", "sem", "odtiaľto"] },
         ],
         examples: [
@@ -1478,15 +1478,15 @@ export const grammarEntries: GrammarTopic[] = [
       rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
-        { label: "ja (I)", cells: ["robil by som", "robila by som"] },
-        { label: "ty (you, informal)", cells: ["robil by si", "robila by si"] },
-        { label: "on / ona (he, she)", cells: ["robil by", "robila by"] },
-        { label: "my (we)", cells: ["robili by sme", "robili by sme"] },
+        { label: "ja (I)", cells: ["robi[l] by som", "robi[la] by som"] },
+        { label: "ty (you, informal)", cells: ["robi[l] by si", "robi[la] by si"] },
+        { label: "on / ona (he, she)", cells: ["robi[l] by", "robi[la] by"] },
+        { label: "my (we)", cells: ["robi[li] by sme", "robi[li] by sme"] },
         {
           label: "vy (you, formal or plural)",
-          cells: ["robili by ste", "robili by ste"],
+          cells: ["robi[li] by ste", "robi[li] by ste"],
         },
-        { label: "oni / ony (they)", cells: ["robili by", "robili by"] },
+        { label: "oni / ony (they)", cells: ["robi[li] by", "robi[li] by"] },
       ],
     },
     morePatterns: [
@@ -2863,9 +2863,9 @@ export const grammarEntries: GrammarTopic[] = [
       rowLabel: "Meaning",
       columns: ["ty · informal", "vy · formal or plural"],
       rows: [
-        { label: "you are", cells: ["si", "ste"] },
-        { label: "you have", cells: ["máš", "máte"] },
-        { label: "thank you", cells: ["ďakujem ti", "ďakujem vám"] },
+        { label: "you are", cells: ["s[i]", "s[te]"] },
+        { label: "you have", cells: ["má[š]", "má[te]"] },
+        { label: "thank you", cells: ["ďakujem [ti]", "ďakujem [vám]"] },
         { label: "sorry", cells: ["prepáč", "prepáčte"] },
       ],
     },
