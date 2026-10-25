@@ -247,7 +247,9 @@
 
     pagefindUnavailable = found === null;
 
-    if (!words.best && spell && index.length > 0) {
+    const namesTopic = namedTopicHits(found?.topics ?? []).length > 0;
+
+    if (!words.best && !namesTopic && spell && index.length > 0) {
       spellingCandidates ??= buildSpellingCandidates(index);
       const fix = suggestSpelling(value, spellingCandidates)?.text ?? null;
       // A lesson that happens to mention the typo doesn't make it a word.

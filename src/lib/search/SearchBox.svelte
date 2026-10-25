@@ -62,6 +62,15 @@
   let rootEl = $state<HTMLDivElement | null>(null);
   let searchGeneration = 0;
 
+  const TOPIC_KINDS = [
+    "grammar",
+    "case",
+    "pronunciation",
+    "lesson",
+    "listening",
+    "practice",
+  ];
+
   const trimmedQuery = $derived(query.trim());
   const searching = $derived(loading || pending);
   const showPanel = $derived(open);
@@ -223,15 +232,28 @@
       unavailable = false;
       void api.preload(normalized);
 
-      const response = await api.search(normalized);
+      const [allResponse, topicResponse] = await Promise.all([
+        api.search(normalized),
+        api.search(normalized, { filters: { kind: { any: TOPIC_KINDS } } }),
+      ]);
       if (generation !== searchGeneration) {
         return;
       }
 
       const dictionaryPending = lookupDictionary(normalized);
-      const page = await Promise.all(
-        response.results.slice(0, 8).map((result) => result.data()),
-      );
+      const rawResults = [
+        ...topicResponse.results.slice(0, 6),
+        ...allResponse.results.slice(0, 8),
+      ];
+      const seenIds = new Set<string>();
+      const uniqueResults = rawResults.filter((item) => {
+        if (seenIds.has(item.id)) {
+          return false;
+        }
+        seenIds.add(item.id);
+        return true;
+      });
+      const page = await Promise.all(uniqueResults.map((result) => result.data()));
 
       if (generation !== searchGeneration) {
         return;

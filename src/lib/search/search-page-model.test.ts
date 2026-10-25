@@ -167,7 +167,7 @@ describe("topic rows", () => {
       "Practice",
       "Grammar",
     ]);
-    expect(rows[0]?.slovak).toBe("ukazovacie zámená");
+    expect(rows[0]?.slovak).toBe("ukazovacie zámená: ten, tento, tamten");
     expect(rows[1]?.links).toEqual([
       { label: "Case", kind: "case", href: "/grammar/cases/genitive" },
     ]);

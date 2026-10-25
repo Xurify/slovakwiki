@@ -1,6 +1,6 @@
 import { dictionaryPathFromIndexFields } from "$lib/catalog/dictionary/lemma-senses";
 import { fetchDictionaryIndex } from "$lib/catalog/dictionary/browse-query";
-import { normalizeSearchText } from "$lib/catalog/search/ui";
+import { normalizeSearchText, SEARCH_WEIGHTS } from "$lib/catalog/search/ui";
 import type { NounGender, PluralOnlyGender, WordRegister } from "$lib/catalog/types";
 
 import type { PagefindResultData } from "./pagefind-client";
@@ -203,9 +203,43 @@ export async function lookupDictionary(
     }));
 }
 
-function pageTitleMatchesQuery(result: PagefindResultData, query: string): boolean {
+function pageTitleMatchesQuery(
+  result: PagefindResultData,
+  normalizedQuery: string,
+): boolean {
   const title = normalizeSearchText(result.meta.title ?? "");
-  return title.includes(normalizeSearchText(query));
+  return title.includes(normalizedQuery);
+}
+
+function pageResultMatchesQuery(
+  result: PagefindResultData,
+  normalizedQuery: string,
+): boolean {
+  if (!normalizedQuery) {
+    return true;
+  }
+
+  if (pageTitleMatchesQuery(result, normalizedQuery)) {
+    return true;
+  }
+
+  const kind = result.meta.kind;
+  if (!kind || kind === "word") {
+    return false;
+  }
+
+  const summary = normalizeSearchText(result.meta.summary ?? "");
+  if (summary.includes(normalizedQuery)) {
+    return true;
+  }
+
+  if (normalizeSearchText(kind).includes(normalizedQuery)) {
+    return true;
+  }
+
+  return result.weighted_locations.some(
+    (location) => location.weight >= SEARCH_WEIGHTS.gloss,
+  );
 }
 
 export function mergeSearchResults(
@@ -216,11 +250,36 @@ export function mergeSearchResults(
 ): PagefindResultData[] {
   const seen = new Set<string>();
   const merged: PagefindResultData[] = [];
-  const pageHits = query
-    ? pagefind.filter((result) => pageTitleMatchesQuery(result, query))
+  const normalizedQuery = query ? normalizeSearchText(query) : "";
+  const pageHits = normalizedQuery
+    ? pagefind.filter((result) => pageResultMatchesQuery(result, normalizedQuery))
     : pagefind;
 
-  for (const result of [...dictionary, ...pageHits]) {
+  let ordered: PagefindResultData[];
+  if (normalizedQuery) {
+    const exactDictionaryHits = dictionary.filter(
+      (result) => normalizeSearchText(result.meta.title ?? "") === normalizedQuery,
+    );
+    const otherDictionaryHits = dictionary.filter(
+      (result) => normalizeSearchText(result.meta.title ?? "") !== normalizedQuery,
+    );
+    const topicHits = pageHits.filter(
+      (result) => result.meta.kind && result.meta.kind !== "word",
+    );
+    const wordPageHits = pageHits.filter(
+      (result) => !result.meta.kind || result.meta.kind === "word",
+    );
+    ordered = [
+      ...exactDictionaryHits,
+      ...topicHits,
+      ...otherDictionaryHits,
+      ...wordPageHits,
+    ];
+  } else {
+    ordered = [...dictionary, ...pageHits];
+  }
+
+  for (const result of ordered) {
     if (seen.has(result.url)) {
       continue;
     }
