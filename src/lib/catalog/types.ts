@@ -178,6 +178,8 @@ export interface GrammarTableRow {
 
 interface GrammarPatternShared {
   label: string;
+  /** One or two sentences under the heading. Rich text: `**form**`, `[text](/path)`. */
+  intro?: string;
   examples?: Example[];
 }
 
@@ -188,6 +190,8 @@ export interface GrammarLinePattern extends GrammarPatternShared {
 
 /** A table. Cells are data, not a comma-split string. */
 export interface GrammarTablePattern extends GrammarPatternShared {
+  /** Heading over the row labels (Meaning, Person, Gender), so every column has one. */
+  rowLabel: string;
   columns: string[];
   rows: GrammarTableRow[];
 }

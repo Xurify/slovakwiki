@@ -47,7 +47,7 @@ export interface PatternGridRow {
 export type PatternView =
   | { kind: "paradigm"; singular: ParadigmCell[]; plural: ParadigmCell[] }
   | { kind: "tiles"; tiles: PatternTile[] }
-  | { kind: "grid"; columns: string[]; rows: PatternGridRow[] }
+  | { kind: "grid"; rowLabel: string; columns: string[]; rows: PatternGridRow[] }
   | { kind: "rows"; rows: PatternRow[] };
 
 const PERSONS = [
@@ -159,7 +159,7 @@ export function markAgainst(base: string, form: string): MarkedPhrase {
 }
 
 export function tableView(pattern: GrammarTablePattern): PatternView {
-  const { columns, rows } = pattern;
+  const { rowLabel, columns, rows } = pattern;
 
   for (const row of rows) {
     if (row.cells.length !== columns.length) {
@@ -171,6 +171,7 @@ export function tableView(pattern: GrammarTablePattern): PatternView {
 
   return {
     kind: "grid",
+    rowLabel,
     columns: [...columns],
     rows: rows.map((row) => ({
       label: row.label,

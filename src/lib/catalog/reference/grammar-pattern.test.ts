@@ -77,6 +77,7 @@ describe("parsePattern", () => {
     expect(view.kind).toBe("grid");
     if (view.kind !== "grid") return;
 
+    expect(view.rowLabel).toBe("Gender");
     expect(view.columns).toEqual(["the, that", "this", "that (over there)"]);
     expect(view.rows[1]?.cells.map((cell) => cell.mark)).toEqual(["", "to", "tam"]);
 
@@ -122,6 +123,7 @@ describe("parsePattern", () => {
     expect(() =>
       tableView({
         label: "As the object",
+        rowLabel: "Gender",
         columns: ["the, that", "this", "that (over there)"],
         rows: [{ label: "Feminine", cells: ["tú", "túto"] }],
       }),

@@ -177,6 +177,12 @@
       {:else}
         <h2 id="pattern" class={grammarHeadingClass}>{topic.pattern.label}</h2>
 
+        {#if topic.pattern.intro}
+          <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+            <GrammarRichText text={topic.pattern.intro} />
+          </p>
+        {/if}
+
         {#if isTime}
           <p class="m-0 mt-1.5 text-sm text-slate-600">
             A note marks the rows that name the hour you are heading toward.
@@ -206,6 +212,12 @@
         {#each topic.morePatterns ?? [] as extra, index (extra.label)}
           <div class="mt-8">
             <h2 class={grammarHeadingClass}>{extra.label}</h2>
+
+            {#if extra.intro}
+              <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">
+                <GrammarRichText text={extra.intro} />
+              </p>
+            {/if}
 
             <div class="mt-3">
               <GrammarPatternList pattern={extra} />

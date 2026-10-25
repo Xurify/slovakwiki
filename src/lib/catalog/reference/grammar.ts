@@ -309,6 +309,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Robiť — to do, in the past",
+      rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
         { label: "ja (I)", cells: ["robil som", "robila som"] },
@@ -524,6 +525,7 @@ export const grammarEntries: GrammarTopic[] = [
     morePatterns: [
       {
         label: "A new suffix or a new verb: learn both",
+        rowLabel: "Meaning",
         columns: ["Imperfective", "Perfective"],
         rows: [
           { label: "buy", cells: ["kupovať", "kúpiť"] },
@@ -578,14 +580,14 @@ export const grammarEntries: GrammarTopic[] = [
       {
         id: "habitual",
         term: "Habitual motion",
-        body: "Motion verbs like **chodiť** cover repeated or multi-direction travel. **Ísť** covers one trip now or once.",
+        body: "Motion verbs like **chodiť** cover repeated or multi-direction travel. **Ísť** covers one trip now or once. See [Motion verbs](/grammar/motion-verbs).",
         examples: ["Chodím do školy.", "Teraz idem do školy."],
       },
     ],
     contrasts: {
       label: "Imperfective or perfective?",
       intro:
-        "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”. The last pair is not aspect: **chodiť** and **ísť** are both imperfective; **chodiť** is for habits, **ísť** for one trip.",
+        "Both sentences are correct. Are you talking about doing something, or about getting it done? Careful: **napíšem** looks like now, but it means “I will write”. The last pair is not aspect: **chodiť** and **ísť** are both imperfective; **chodiť** is for habits, **ísť** for one trip. More on [Motion verbs](/grammar/motion-verbs).",
       frames: [
         {
           question: "Now, or later?",
@@ -772,7 +774,8 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "V lete pôjdeme k moru.",
         english: "In summer we will go to the sea.",
-        demonstrates: "**Ísť** makes its own future: **pôjdeme**.",
+        demonstrates:
+          "**Ísť** makes its own future: **pôjdeme**. See [Motion verbs](/grammar/motion-verbs).",
       },
     ],
     related: ["byt", "ist", "zavolat", "volat", "aspect", "motion-verbs"],
@@ -808,6 +811,7 @@ export const grammarEntries: GrammarTopic[] = [
     morePatterns: [
       {
         label: "Imperfective or perfective future",
+        rowLabel: "Meaning",
         columns: ["Imperfective", "Perfective"],
         rows: [
           { label: "write", cells: ["budem písať", "napíšem"] },
@@ -924,7 +928,7 @@ export const grammarEntries: GrammarTopic[] = [
     body: [
       "Ísť, niesť, viezť, letieť, and bežať describe one trip in one direction, now or at one moment. Chodiť, nosiť, voziť, lietať, and behať describe habits, round trips, ability, or moving around.",
       "Both verbs in a pair are imperfective. The one-trip verb makes its future with po-: pôjdem, ponesiem, poletím.",
-      "A prefix on the one-trip verb makes a perfective with a new meaning: prísť (arrive), odísť (leave), vojsť (go in), vyjsť (go out). The imperfective partner uses another stem: prichádzať, odchádzať.",
+      "A prefix gives the trip an end point and makes a perfective: prísť (arrive), odísť (leave), vojsť (go in), vyjsť (go out). Use it for one arrival or departure, seen as done. The imperfective partner in -chádzať (prichádzať, odchádzať) is for a habit, a timetable, or an arrival still going on.",
       "Ísť also covers travel by car or train: ísť autom, ísť vlakom. Pešo means on foot.",
     ],
     examples: [
@@ -942,6 +946,21 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Dieťa už chodí.",
         english: "The child can already walk.",
         demonstrates: "**Chodiť** also means being able to walk.",
+      },
+      {
+        slovak: "Deti behajú po dvore.",
+        english: "The children are running around the yard.",
+        demonstrates: "Running about, no single direction: **behať**, even right now.",
+      },
+      {
+        slovak: "Ideme autom alebo vlakom?",
+        english: "Are we going by car or by train?",
+        demonstrates: "**Ísť** covers a car or a train too: **autom**, **vlakom**.",
+      },
+      {
+        slovak: "Zajtra pôjdeme na výlet.",
+        english: "Tomorrow we'll go on a trip.",
+        demonstrates: "The future of **ísť** is **pôjdem**, not *budem ísť*.",
       },
     ],
     related: [
@@ -964,11 +983,16 @@ export const grammarEntries: GrammarTopic[] = [
     order: 9,
     rule: [
       "One trip, now or at one moment: **ísť**, **niesť**, **viezť**, **letieť**, **bežať**.",
-      "A habit, round trips, or ability: **chodiť**, **nosiť**, **voziť**, **lietať**, **behať**.",
-      "A prefix makes a perfective: **prísť**, **odísť**. Its partner uses **-chádzať**: **prichádzať**, **odchádzať**.",
+      "A habit, round trips, moving about, or ability: **chodiť**, **nosiť**, **voziť**, **lietať**, **behať**.",
+      "Both verbs in a pair are imperfective. The one-trip verb makes its future with **po-**: **pôjdem**, **ponesiem**, **poletím**, never *budem ísť*. More on [Future tense](/grammar/future-tense).",
+      "A prefix gives the trip an end point: **prísť** is to arrive, **odísť** to leave. These verbs are perfective, for one arrival or departure seen as done, so their present form means the future: **prídem**, I will come. For a habit, a timetable, or an arrival still going on, use the imperfective partner in **-chádzať**: **prichádzať**, **odchádzať**. The full rule is on [Aspect](/grammar/aspect).",
+      "**Ísť** also covers a car or a train: **ísť autom**, **ísť vlakom**. **Pešo** is on foot.",
     ],
     pattern: {
       label: "One trip, or a habit?",
+      intro:
+        "Both verbs in a pair are imperfective. The choice is about the shape of the trip, not about finishing it.",
+      rowLabel: "Meaning",
       columns: ["One trip", "Habit, round trips"],
       rows: [
         { label: "go", cells: ["ísť", "chodiť"] },
@@ -988,6 +1012,26 @@ export const grammarEntries: GrammarTopic[] = [
           english: "I run every morning.",
           demonstrates: "A habit: **behať**.",
         },
+        {
+          slovak: "Nesiem ti kávu.",
+          english: "I'm bringing you a coffee.",
+          demonstrates: "Carrying it this moment, one way: **niesť**.",
+        },
+        {
+          slovak: "Nosím okuliare.",
+          english: "I wear glasses.",
+          demonstrates: "Day after day: **nosiť**, which also means to wear.",
+        },
+        {
+          slovak: "Veziem deti do školy.",
+          english: "I'm driving the kids to school.",
+          demonstrates: "One trip by car, now: **viezť**.",
+        },
+        {
+          slovak: "Vozím deti do školy.",
+          english: "I drive the kids to school.",
+          demonstrates: "Every morning, there and back: **voziť**.",
+        },
       ],
     },
     morePatterns: [
@@ -1003,7 +1047,10 @@ export const grammarEntries: GrammarTopic[] = [
         ],
       },
       {
-        label: "A prefix says where",
+        label: "Arrive, leave, go in, go out",
+        intro:
+          "A short prefix on **ísť** or **niesť** gives the trip an end point: **pri-** arrives, **od-** leaves, **v-** goes in, **vy-** goes out, **pre-** crosses. The verb on the left is perfective: one arrival or departure, seen as done, and its present form means the future (**prídem**, I will come). The one on the right is imperfective: a habit, a timetable, or something still going on. [Aspect](/grammar/aspect) explains the two in full.",
+        rowLabel: "Meaning",
         columns: ["Perfective", "Imperfective"],
         rows: [
           { label: "arrive, come", cells: ["prísť", "prichádzať"] },
@@ -1014,16 +1061,62 @@ export const grammarEntries: GrammarTopic[] = [
           { label: "bring", cells: ["priniesť", "prinášať"] },
         ],
         examples: [
-          { slovak: "Kedy prídeš?", english: "When are you coming?" },
+          {
+            slovak: "Kedy prídeš?",
+            english: "When are you coming?",
+            demonstrates:
+              "One arrival, still ahead: perfective **prísť**, and **prídeš** means the future.",
+          },
+          {
+            slovak: "Prišli sme domov o šiestej.",
+            english: "We got home at six.",
+            demonstrates: "One arrival, done: perfective **prísť**.",
+          },
+          {
+            slovak: "Mama vždy prichádza načas.",
+            english: "Mum always arrives on time.",
+            demonstrates: "A habit: imperfective **prichádzať**.",
+          },
           {
             slovak: "Vlak odchádza o ôsmej.",
             english: "The train leaves at eight.",
             demonstrates: "A timetable: imperfective **odchádzať**.",
           },
+          {
+            slovak: "Odišli pred hodinou.",
+            english: "They left an hour ago.",
+            demonstrates: "One departure, done: perfective **odísť**.",
+          },
+          {
+            slovak: "Vošiel do obchodu a kúpil chlieb.",
+            english: "He went into the shop and bought bread.",
+            demonstrates:
+              "One event after another: perfective **vojsť**, then **kúpiť**.",
+          },
+          {
+            slovak: "Slnko vychádza o šiestej.",
+            english: "The sun rises at six.",
+            demonstrates:
+              "Every day: imperfective **vychádzať**, which also means to rise.",
+          },
+          {
+            slovak: "Prešli sme cez most.",
+            english: "We crossed the bridge.",
+            demonstrates: "One crossing, done: perfective **prejsť**.",
+          },
+          {
+            slovak: "Prinesiem ti vodu.",
+            english: "I'll bring you some water.",
+            demonstrates:
+              "Perfective **priniesť**: the present form **prinesiem** means the future.",
+          },
         ],
       },
       {
         label: "Where, where to, where from",
+        intro:
+          "Where you are, where you are going, and where you come from each take their own form. **Kde** goes with **v** or **na**, **kam** with **do**, **na**, or **k**, and **odkiaľ** with **z** or **od**.",
+        rowLabel: "Place",
         columns: ["Where? (kde)", "Where to? (kam)", "Where from? (odkiaľ)"],
         rows: [
           { label: "the shop", cells: ["v obchode", "do obchodu", "z obchodu"] },
@@ -1033,6 +1126,36 @@ export const grammarEntries: GrammarTopic[] = [
           { label: "here", cells: ["tu", "sem", "odtiaľto"] },
         ],
         examples: [
+          {
+            slovak: "Som v obchode.",
+            english: "I'm at the shop.",
+            demonstrates: "Where? **V obchode**.",
+          },
+          {
+            slovak: "Idem do obchodu.",
+            english: "I'm going to the shop.",
+            demonstrates: "Where to? **Do obchodu**.",
+          },
+          {
+            slovak: "Idem z obchodu.",
+            english: "I'm coming from the shop.",
+            demonstrates: "Where from? **Z obchodu**.",
+          },
+          {
+            slovak: "Idem k lekárovi.",
+            english: "I'm going to the doctor.",
+            demonstrates: "A person you go to takes **k**: **k lekárovi**.",
+          },
+          {
+            slovak: "Boli sme u lekára.",
+            english: "We were at the doctor's.",
+            demonstrates: "At a person's place: **u lekára**.",
+          },
+          {
+            slovak: "Idem domov.",
+            english: "I'm going home.",
+            demonstrates: "**Domov** is where to. **Doma** is where.",
+          },
           {
             slovak: "Poď sem!",
             english: "Come here!",
@@ -1193,6 +1316,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "From the they-form",
+      rowLabel: "Verb (they-form)",
       columns: ["ty", "vy", "my (let's)"],
       rows: [
         { label: "čítať (čítajú)", cells: ["čítaj", "čítajte", "čítajme"] },
@@ -1358,6 +1482,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Robiť — would do",
+      rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
         { label: "ja (I)", cells: ["robil by som", "robila by som"] },
@@ -1777,6 +1902,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Nominative (agreement)",
+      rowLabel: "Gender",
       columns: ["the, that", "this", "that (over there)"],
       rows: [
         { label: "Masculine", cells: ["ten", "tento", "tamten"] },
@@ -1805,6 +1931,7 @@ export const grammarEntries: GrammarTopic[] = [
     morePatterns: [
       {
         label: "Accusative (as the object)",
+        rowLabel: "Gender",
         columns: ["the, that", "this", "that (over there)"],
         rows: [
           { label: "Masculine, a person or animal", cells: ["toho", "tohto", "tamtoho"] },
@@ -1836,6 +1963,7 @@ export const grammarEntries: GrammarTopic[] = [
       },
       {
         label: "Dative and instrumental",
+        rowLabel: "Case and gender",
         columns: ["the, that", "this", "that (over there)"],
         rows: [
           {
@@ -2366,6 +2494,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Nominative (agreement)",
+      rowLabel: "Gender",
       columns: ["my", "your (ty)", "our", "your (vy)"],
       rows: [
         { label: "Masculine", cells: ["môj", "tvoj", "náš", "váš"] },
@@ -2693,6 +2822,7 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Informal and formal address",
+      rowLabel: "Meaning",
       columns: ["ty · informal", "vy · formal or plural"],
       rows: [
         { label: "you are", cells: ["si", "ste"] },

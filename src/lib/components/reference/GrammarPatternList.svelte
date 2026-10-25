@@ -207,7 +207,15 @@
         <table class="w-full border-collapse">
           <thead>
             <tr class="border-b border-slate-200 bg-subtle/60">
-              <td class="py-2.5 pr-3 pl-4 text-left max-sm:hidden sm:pl-5"></td>
+              <th
+                scope="col"
+                class={cx(
+                  eyebrowMutedClass,
+                  "py-2 pr-3 pl-4 text-left align-bottom max-sm:hidden sm:pl-5",
+                )}
+              >
+                {view.rowLabel}
+              </th>
 
               {#each view.columns as column, index (column)}
                 {@const [head, note] = column.split(" · ")}

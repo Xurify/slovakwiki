@@ -24,7 +24,7 @@ export { SEARCH_WEIGHTS, type SearchWeight };
 
 /** Grammar copy marks Slovak with `**bold**` and `*avoid*`. */
 function plainText(text: string): string {
-  return text.replace(/\*/g, "");
+  return text.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\*/g, "");
 }
 
 export interface SearchSection {
@@ -129,6 +129,9 @@ export function buildSearchDocuments(): SearchDocument[] {
             ),
           ),
           ...entry.rule.map(plainText),
+          ...patterns.flatMap((pattern) =>
+            pattern.intro ? [plainText(pattern.intro)] : [],
+          ),
           ...patterns.flatMap(patternSearchLines),
           ...entry.body,
           ...frames.map((frame) => frame.question),
