@@ -976,6 +976,26 @@ export const learningResources: LearningResource[] = [
     note: "Close but not the same — false friends and different endings. Side path only, not a Slovak course.",
     cost: "freemium",
   },
+  {
+    id: "powertoys-quick-accent",
+    group: "adjacent",
+    name: "PowerToys Quick Accent (Windows)",
+    href: "https://learn.microsoft.com/en-us/windows/powertoys/quick-accent",
+    summary:
+      "Type č, ľ, ô, ä and the rest without switching to a Slovak keyboard: hold the base letter, press Space or an arrow key, and pick the accented one.",
+    note: "Windows only. In Quick Accent settings, choose the Slovak character set so the picker shows only Slovak letters.",
+    cost: "free",
+  },
+  {
+    id: "deepl-translator",
+    group: "adjacent",
+    name: "DeepL Translator",
+    href: "https://www.deepl.com/en/translator",
+    summary:
+      "Machine translation that handles Slovak well. Useful for checking the gist of a text or a sentence you wrote.",
+    note: "Not a teacher: it can pick the wrong case, aspect, or ty/vy without telling you. Check unfamiliar forms in a dictionary.",
+    cost: "freemium",
+  },
 ];
 
 export function resourcesByGroup(groupId: ResourceGroupId): LearningResource[] {
