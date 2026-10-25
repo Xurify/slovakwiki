@@ -16,11 +16,16 @@
    */
   let {
     class: className = "",
+    tone = "default",
   }: {
     class?: string;
+    /** `inverse` sits on the top bar. */
+    tone?: "default" | "inverse";
   } = $props();
 
-  let preference = $state<SfxPreference>(getInitialSfxPreference());
+  // Stay on "on" until mount so SSR and hydration render the same button. The
+  // icon itself follows `html[data-sfx-preference]`, set before first paint.
+  let preference = $state<SfxPreference>("on");
 
   onMount(() => {
     preference = getInitialSfxPreference();
@@ -45,10 +50,16 @@
   const label = $derived(
     enabled ? "Sound on. Click to mute." : "Sound muted. Click to unmute.",
   );
+
+  const toneClass = $derived(
+    tone === "inverse"
+      ? "text-panel-inverse-ink/80 hover:bg-panel-inverse-ink/10 hover:text-panel-inverse-ink"
+      : iconButtonToneClass,
+  );
 </script>
 
 <button
-  class="{iconButtonClass} {iconButtonToneClass} size-11 data-muted:text-slate-400 {className}"
+  class="{iconButtonClass} {toneClass} size-11 data-muted:text-slate-400 {className}"
   type="button"
   aria-label={label}
   aria-pressed={enabled}

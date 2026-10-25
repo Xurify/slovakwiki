@@ -22,6 +22,7 @@
     clock,
     cue = 0,
     facing = 1,
+    front = false,
     onbeat,
     plan,
     held,
@@ -36,6 +37,8 @@
     /** Bump to perform `plan` from the start. */
     cue?: number;
     facing?: 1 | -1;
+    /** Talking to the listeners: the head turned to the front. */
+    front?: boolean;
     onbeat?: (beat: LineBeat) => void;
     plan?: LinePlan;
     /** In the lead hand. */
@@ -126,6 +129,7 @@
 <StickFigure
   {characterId}
   facing={turned ?? facing}
+  {front}
   {picture}
   {pose}
   {held}

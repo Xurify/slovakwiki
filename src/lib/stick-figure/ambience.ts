@@ -1,5 +1,5 @@
-import { getStoredSfxPreference } from "$lib/audio/sfx";
-import { getAudioVolume } from "$lib/audio/volume";
+import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/audio/sfx";
+import { AUDIO_VOLUME_CHANGE_EVENT, getAudioVolume } from "$lib/audio/volume";
 import type { Shoes } from "./looks";
 import { PLACES, type Ground } from "./places";
 import { isDark, isFalling, type SceneMood } from "./scene-mood";
@@ -273,9 +273,21 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
   const ctx = new Context();
   const master = ctx.createGain();
   master.gain.value = 0;
-  master.gain.setTargetAtTime(LEVEL * getAudioVolume(), ctx.currentTime, 0.3);
+  master.gain.setTargetAtTime(level(), ctx.currentTime, 0.3);
   master.connect(ctx.destination);
   const noise = noiseBuffer(ctx);
+
+  function level(): number {
+    return getStoredSfxPreference() === "off" ? 0 : LEVEL * getAudioVolume();
+  }
+
+  // Retune while it plays, so muting mid-segment quietens the place too.
+  function retune(): void {
+    master.gain.setTargetAtTime(level(), ctx.currentTime, 0.3);
+  }
+
+  window.addEventListener(SFX_CHANGE_EVENT, retune);
+  window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, retune);
 
   /** Each layer by name and whether it is heard through a window. */
   const running = new Map<string, () => void>();
@@ -345,6 +357,9 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
   return {
     set,
     stop() {
+      window.removeEventListener(SFX_CHANGE_EVENT, retune);
+      window.removeEventListener(AUDIO_VOLUME_CHANGE_EVENT, retune);
+
       for (const stop of running.values()) stop();
       running.clear();
       master.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
@@ -515,6 +530,15 @@ const GROUND_STEPS: Record<
  * underfoot: heels click on it, soft soles land dull, plain shoes are the
  * ground's own sound.
  */
+/** The footsteps still sounding, so a stage that stops can silence them. */
+const stepping = new Set<GainNode>();
+
+/** Silence every walk still sounding: the stage has stopped, or handed on to the next segment. */
+export function stopSteps(): void {
+  for (const out of stepping) out.disconnect();
+  stepping.clear();
+}
+
 export function playSteps(
   steps: number,
   stepMs: number,
@@ -542,6 +566,7 @@ export function playSteps(
   const out = ctx.createGain();
   out.gain.value = 0.3 * getAudioVolume();
   out.connect(ctx.destination);
+  stepping.add(out);
 
   for (let step = 0; step < steps; step += 1) {
     // The heel lands at the widest stride, halfway through each step.
@@ -592,7 +617,13 @@ export function playSteps(
     }
   }
 
-  window.setTimeout(() => out.disconnect(), steps * stepMs + 500);
+  window.setTimeout(
+    () => {
+      out.disconnect();
+      stepping.delete(out);
+    },
+    steps * stepMs + 500,
+  );
 }
 
 /**

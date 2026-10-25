@@ -2,6 +2,11 @@
   import { onDestroy, onMount, tick, untrack, type Snippet } from "svelte";
 
   import { unlockSfx } from "$lib/audio/sfx";
+  import {
+    AUDIO_VOLUME_CHANGE_EVENT,
+    getAudioVolume,
+    setAudioVolume,
+  } from "$lib/audio/volume";
   import type { ListeningChapter } from "$lib/catalog/listening/types";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Button from "$lib/components/ui/Button.svelte";
@@ -21,6 +26,7 @@
 
   import EpisodeCheck from "./EpisodeCheck.svelte";
   import EpisodeLine from "./EpisodeLine.svelte";
+  import { episodeSpeakerName } from "./episode-speaker";
   import ListenControl from "./ListenControl.svelte";
   import ListenScene from "./ListenScene.svelte";
   import SceneSettings, {
@@ -73,6 +79,7 @@
   let english = $state(false);
   let placeSound = $state(true);
   let subtitles = $state(true);
+  let volume = $state(1);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
 
   const lines = chapter.lines;
@@ -120,7 +127,8 @@
   const status = $derived.by(() => {
     const line = player.line;
     const position = `line ${player.cursor + 1} of ${lines.length}`;
-    if (player.speaking && line) return `${line.speaker} · ${position}`;
+    if (player.speaking && line)
+      return `${episodeSpeakerName(line.speaker)} · ${position}`;
     if (player.playing) return position;
     if (stage === "idle") return idleCopy;
     if (stage === "listening") return `Paused · ${position}`;
@@ -143,8 +151,16 @@
     return player.playing;
   }
 
-  /** What stays set from one segment to the next, behind one gear. */
   const settings = $derived<SceneSetting[]>([
+    {
+      description: "How loud the episode and the place under it play",
+      kind: "volume",
+      label: "Volume",
+      oninput: (value) => {
+        volume = setAudioVolume(value);
+      },
+      value: volume,
+    },
     ...(scene
       ? [
           {
@@ -228,6 +244,11 @@
     english = getStoryShowEnglish() === "on";
     placeSound = getStoryPlaceSound() === "on";
     subtitles = getStorySubtitles() === "on";
+    volume = getAudioVolume();
+
+    function onVolumeChange(): void {
+      volume = getAudioVolume();
+    }
 
     const controls = "a, button, input, label, select, textarea";
     const gestures = ["touchend", "click", "keydown"] as const;
@@ -245,7 +266,11 @@
 
     if (autoplay && !done) player.playFrom(0);
 
+    window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+
     return () => {
+      window.removeEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+
       for (const type of gestures) {
         window.removeEventListener(type, primePlaybackOnGesture);
       }
@@ -312,32 +337,46 @@
                 ? 'text-blue-800'
                 : 'text-slate-500'}"
             >
-              {speaker}
+              {episodeSpeakerName(speaker)}
             </span>
           </li>
         {/each}
       </ul>
     </div>
 
-    <div class="mt-4 flex gap-1" aria-hidden="true">
+    <ol class="m-0 mt-2 flex list-none gap-1 p-0" aria-label="Lines">
       {#each lines as line, index (line.id)}
-        <span
-          class={cx(
-            "h-1 flex-1 rounded-full transition-colors duration-150 ease-out",
-            index < player.cursor || (index === player.cursor && stage !== "idle")
-              ? "bg-blue-600"
-              : "bg-slate-200",
-          )}
-        ></span>
+        <li class="flex-1">
+          <button
+            class="block w-full cursor-pointer border-0 bg-transparent px-0 py-2"
+            type="button"
+            aria-label="Play line {index + 1} of {lines.length}, {episodeSpeakerName(
+              line.speaker,
+            )}"
+            aria-current={index === player.cursor && stage !== "idle"
+              ? "true"
+              : undefined}
+            onclick={() => player.playFrom(index)}
+          >
+            <span
+              class={cx(
+                "block h-1 rounded-full transition-colors duration-150 ease-out",
+                index < player.cursor || (index === player.cursor && stage !== "idle")
+                  ? "bg-blue-600"
+                  : "bg-slate-200 hover:bg-slate-300",
+              )}
+            ></span>
+          </button>
+        </li>
       {/each}
-    </div>
+    </ol>
 
-    <p class="m-0 mt-2.5 text-sm text-slate-700 empty:hidden">{status}</p>
+    <p class="m-0 mt-0.5 text-sm text-slate-700 empty:hidden">{status}</p>
 
     <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
       {#if stage === "listening"}
-        <ListenControl onclick={() => player.playFrom(player.cursor)}>
-          Replay line
+        <ListenControl onclick={() => player.back()}>
+          {player.justBegun && player.cursor > 0 ? "Previous line" : "Replay line"}
         </ListenControl>
       {/if}
 

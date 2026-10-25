@@ -1,10 +1,18 @@
 import type { DialogueTurn } from "$lib/learning/types";
 import { demonstrativesEpisode } from "./episodes/demonstratives";
+import { pastTenseEpisode } from "./episodes/past-tense";
+import { possessivesEpisode } from "./episodes/possessives";
+import { tellingTimeEpisode } from "./episodes/telling-time";
 import type { ListeningChapter, ListeningEpisode } from "./types";
 
 export type { ListeningChapter, ListeningCheck, ListeningEpisode } from "./types";
 
-export const listeningEpisodes: ListeningEpisode[] = [demonstrativesEpisode];
+export const listeningEpisodes: ListeningEpisode[] = [
+  demonstrativesEpisode,
+  possessivesEpisode,
+  tellingTimeEpisode,
+  pastTenseEpisode,
+];
 
 export const episodeBySlug = new Map(
   listeningEpisodes.map((episode) => [episode.slug, episode]),

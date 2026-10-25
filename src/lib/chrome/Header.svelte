@@ -2,6 +2,7 @@
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import type { Snippet } from "svelte";
 
+  import SfxMuteToggle from "$lib/audio/SfxMuteToggle.svelte";
   import ThemeToggle from "./ThemeToggle.svelte";
   import BrandLockup from "$lib/components/ui/BrandLockup.svelte";
   import {
@@ -240,10 +241,12 @@
         </div>
       </details>
 
-      <ThemeToggle class="ml-1" tone="inverse" />
+      <SfxMuteToggle class="ml-1" tone="inverse" />
+      <ThemeToggle tone="inverse" />
     </nav>
 
     <div class="ml-auto flex shrink-0 items-center gap-0.5 min-[801px]:hidden">
+      <SfxMuteToggle tone="inverse" />
       <ThemeToggle tone="inverse" />
 
       <button

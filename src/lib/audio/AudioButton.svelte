@@ -131,6 +131,7 @@
 
   function play(): void {
     if (supported === false) return;
+    if (getStoredSfxPreference() === "off") return;
 
     beforePlay?.();
     stop();
