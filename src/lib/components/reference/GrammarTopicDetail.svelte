@@ -327,55 +327,76 @@
       {@render weakSpots()}
     {/if}
 
-    {#if words.length > 0 || topics.length > 0}
-      <div class="mt-10 grid gap-8 sm:grid-cols-2">
-        {#each [{ title: "Words", links: words, sk: true }, { title: "Related", links: topics, sk: false }] as group (group.title)}
-          {#if group.links.length > 0}
-            <section aria-label={group.title}>
-              <h2 class={grammarHeadingClass}>{group.title}</h2>
+    {#each [{ id: "words", title: "Words on this page", links: words, sk: true }, { id: "related", title: "Related topics", links: topics, sk: false }] as group (group.id)}
+      {#if group.links.length > 0}
+        <section id={group.id} class="mt-8" aria-labelledby="{group.id}-heading">
+          <h2 id="{group.id}-heading" class={grammarHeadingClass}>{group.title}</h2>
 
-              <ul class="m-0 mt-2 list-none p-0">
-                {#each group.links as link (link.slug)}
-                  <li>
-                    <a class="group block py-1.5 no-underline" href={link.href}>
-                      <span
-                        class="block font-serif leading-snug text-slate-900 group-hover:text-blue-800"
-                        lang={group.sk ? "sk" : undefined}
-                      >
-                        {link.primary}
-                      </span>
-                      <span
-                        class="block text-sm leading-snug text-slate-500"
-                        lang={group.sk ? undefined : "sk"}
-                      >
-                        {link.secondary}
-                      </span>
-                    </a>
-                  </li>
-                {/each}
-              </ul>
-            </section>
-          {/if}
-        {/each}
-      </div>
-    {/if}
+          <!-- Cells instead of a single column: a short word list fills the width
+               rather than running down the page beside an empty one. -->
+          <ul
+            class={cx(
+              dataPanelClass,
+              "m-0 mt-3 grid list-none grid-cols-2 p-0",
+              group.sk && "sm:grid-cols-3",
+            )}
+          >
+            {#each group.links as link (link.slug)}
+              <li class="-mr-px -mb-px border-r border-b border-slate-200/70">
+                <a
+                  class="group block h-full px-4 py-3 no-underline transition-colors duration-150 ease-out hover:bg-subtle/60 sm:px-5"
+                  href={link.href}
+                >
+                  <span
+                    class="block font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
+                    lang={group.sk ? "sk" : undefined}
+                  >
+                    {link.primary}
+                  </span>
+
+                  <span
+                    class="mt-0.5 block text-sm leading-snug text-slate-500"
+                    lang={group.sk ? undefined : "sk"}
+                  >
+                    {link.secondary}
+                  </span>
+                </a>
+              </li>
+            {/each}
+          </ul>
+        </section>
+      {/if}
+    {/each}
 
     {#if steps.length > 0}
       <nav
-        class="mt-10 grid gap-3 border-t border-slate-200 pt-4 sm:grid-cols-2"
+        class={cx(dataPanelClass, "mt-10 grid sm:grid-cols-2")}
         aria-label="More grammar topics"
       >
         {#each steps as step (step.label)}
           <a
-            class="group text-sm no-underline {step.rel === 'next'
-              ? 'sm:text-right'
-              : ''}"
+            class={cx(
+              "group -mr-px -mb-px block border-r border-b border-slate-200/70 px-4 py-3 no-underline sm:px-5",
+              "transition-colors duration-150 ease-out hover:bg-subtle/60",
+              step.rel === "next" && "sm:col-start-2 sm:text-right",
+            )}
             href="/grammar/{step.topic.slug}"
             rel={step.rel}
           >
-            <span class="text-slate-500">{step.label}</span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-slate-500">
+              {#if step.rel === "prev"}
+                <ArrowRight class="rotate-180" />
+              {/if}
+
+              {step.label}
+
+              {#if step.rel === "next"}
+                <ArrowRight />
+              {/if}
+            </span>
+
             <span
-              class="mt-0.5 block font-serif text-base text-blue-800 group-hover:underline"
+              class="mt-0.5 block font-serif text-lg leading-snug font-semibold text-balance text-slate-900 group-hover:text-blue-800"
             >
               {sentenceCase(step.topic.english)}
             </span>
