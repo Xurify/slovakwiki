@@ -9,6 +9,7 @@
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarContrastList from "$lib/components/reference/GrammarContrastList.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
+  import GrammarPathNeighbors from "$lib/components/reference/GrammarPathNeighbors.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
@@ -20,6 +21,7 @@
   import { ClockGrid } from "$lib/learning/time";
   import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
+  import { grammarEntries } from "$lib/catalog/reference/grammar";
   import {
     grammarGroupAnchor,
     grammarNeighbors,
@@ -76,16 +78,14 @@
       })),
   );
 
-  const topics = $derived(
-    relatedEntries
-      .filter((entry) => entry.kind !== "word")
-      .map((entry) => ({
-        href: entry.href,
-        primary: sentenceCase(entry.english),
-        secondary: entry.slovak,
-        slug: entry.slug,
-      })),
-  );
+  /** Topics the path below already shows are left out, so nothing is listed twice. */
+  const relatedTopics = $derived.by(() => {
+    const onPath = new Set([neighbors.previous?.slug, neighbors.next?.slug]);
+    return topic.related
+      .filter((slug) => !onPath.has(slug))
+      .map((slug) => grammarEntries.find((entry) => entry.slug === slug))
+      .filter((entry) => entry !== undefined);
+  });
 
   const practiceHref = $derived(
     grammarExamples(topic)
@@ -96,13 +96,6 @@
   );
 
   const episode = $derived(episodeForGrammarSlug(topic.slug));
-
-  const steps = $derived(
-    [
-      neighbors.previous && { label: "Previous", topic: neighbors.previous, rel: "prev" },
-      neighbors.next && { label: "Next", topic: neighbors.next, rel: "next" },
-    ].filter((step) => step !== undefined),
-  );
 </script>
 
 <main class="py-10 pb-20 max-[600px]:py-8">
@@ -327,83 +320,87 @@
       {@render weakSpots()}
     {/if}
 
-    {#each [{ id: "words", title: "Words on this page", links: words, sk: true }, { id: "related", title: "Related topics", links: topics, sk: false }] as group (group.id)}
-      {#if group.links.length > 0}
-        <section id={group.id} class="mt-8" aria-labelledby="{group.id}-heading">
-          <h2 id="{group.id}-heading" class={grammarHeadingClass}>{group.title}</h2>
+    {#if words.length > 0}
+      <section id="words" class="mt-8" aria-labelledby="words-heading">
+        <h2 id="words-heading" class={grammarHeadingClass}>Words on this page</h2>
 
-          <!-- Cells instead of a single column: a short word list fills the width
-               rather than running down the page beside an empty one. -->
-          <ul
-            class={cx(
-              dataPanelClass,
-              "m-0 mt-3 grid list-none grid-cols-2 p-0",
-              group.sk && "sm:grid-cols-3",
-            )}
-          >
-            {#each group.links as link (link.slug)}
-              <li class="-mr-px -mb-px border-r border-b border-slate-200/70">
-                <a
-                  class="group block h-full px-4 py-3 no-underline transition-colors duration-150 ease-out hover:bg-subtle/60 sm:px-5"
-                  href={link.href}
+        <!-- Cells instead of a single column, so a short word list fills the width
+             rather than running down the page. -->
+        <ul
+          class={cx(
+            dataPanelClass,
+            "m-0 mt-3 grid list-none p-0",
+            words.length === 1 && "grid-cols-1",
+            words.length === 2 && "grid-cols-2",
+            words.length > 2 && "grid-cols-2 sm:grid-cols-3",
+          )}
+        >
+          {#each words as link (link.slug)}
+            <li class="-mr-px -mb-px border-r border-b border-slate-200/70">
+              <a
+                class="group block h-full px-4 py-3 no-underline transition-colors duration-150 ease-out hover:bg-subtle/60 sm:px-5"
+                href={link.href}
+              >
+                <span
+                  class="block font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
+                  lang="sk"
                 >
-                  <span
-                    class="block font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
-                    lang={group.sk ? "sk" : undefined}
-                  >
-                    {link.primary}
-                  </span>
+                  {link.primary}
+                </span>
 
-                  <span
-                    class="mt-0.5 block text-sm leading-snug text-slate-500"
-                    lang={group.sk ? undefined : "sk"}
-                  >
-                    {link.secondary}
-                  </span>
-                </a>
-              </li>
-            {/each}
-          </ul>
-        </section>
-      {/if}
-    {/each}
-
-    {#if steps.length > 0}
-      <nav
-        class={cx(dataPanelClass, "mt-10 grid sm:grid-cols-2")}
-        aria-label="More grammar topics"
-      >
-        {#each steps as step (step.label)}
-          <a
-            class={cx(
-              "group -mr-px -mb-px block border-r border-b border-slate-200/70 px-4 py-3 no-underline sm:px-5",
-              "transition-colors duration-150 ease-out hover:bg-subtle/60",
-              step.rel === "next" && "sm:col-start-2 sm:text-right",
-            )}
-            href="/grammar/{step.topic.slug}"
-            rel={step.rel}
-          >
-            <span class="inline-flex items-center gap-1.5 text-sm text-slate-500">
-              {#if step.rel === "prev"}
-                <ArrowRight class="rotate-180" />
-              {/if}
-
-              {step.label}
-
-              {#if step.rel === "next"}
-                <ArrowRight />
-              {/if}
-            </span>
-
-            <span
-              class="mt-0.5 block font-serif text-lg leading-snug font-semibold text-balance text-slate-900 group-hover:text-blue-800"
-            >
-              {sentenceCase(step.topic.english)}
-            </span>
-          </a>
-        {/each}
-      </nav>
+                <span class="mt-0.5 block text-sm leading-snug text-slate-500">
+                  {link.secondary}
+                </span>
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </section>
     {/if}
+
+    {#if relatedTopics.length > 0}
+      <section id="related" class="mt-8" aria-labelledby="related-heading">
+        <h2 id="related-heading" class={grammarHeadingClass}>Related topics</h2>
+
+        <ul class={cx(dataPanelClass, "m-0 mt-3 list-none p-0")}>
+          {#each relatedTopics as related (related.slug)}
+            <li class="border-b border-slate-200/70 last:border-b-0">
+              <a
+                class={cx(
+                  "group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 px-4 py-3 no-underline sm:px-5",
+                  "transition-colors duration-150 ease-out hover:bg-subtle/60",
+                )}
+                href="/grammar/{related.slug}"
+              >
+                <span class="min-w-0">
+                  <span class="flex flex-wrap items-baseline gap-x-2.5">
+                    <span
+                      class="font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
+                    >
+                      {sentenceCase(related.english)}
+                    </span>
+
+                    <span class="font-serif text-sm text-slate-500" lang="sk">
+                      {related.slovak}
+                    </span>
+                  </span>
+
+                  <span
+                    class="mt-0.5 line-clamp-2 block text-sm leading-snug text-pretty text-slate-600"
+                  >
+                    {related.summary}
+                  </span>
+                </span>
+
+                <ArrowRight class="text-slate-400 group-hover:text-blue-800" />
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </section>
+    {/if}
+
+    <GrammarPathNeighbors {topic} />
 
     <p class="m-0 mt-8 text-sm text-slate-500">
       Source:

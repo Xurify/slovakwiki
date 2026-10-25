@@ -4,6 +4,7 @@ import { grammarEntries } from "./grammar";
 import {
   grammarNeighbors,
   grammarReadingOrder,
+  grammarStep,
   grammarTopicsInGroup,
 } from "./grammar-path";
 
@@ -54,5 +55,22 @@ describe("grammarNeighbors", () => {
 
   it("returns nothing for unknown slugs", () => {
     expect(grammarNeighbors("nope")).toEqual({});
+  });
+});
+
+describe("grammarStep", () => {
+  const topic = (slug: string) => grammarEntries.find((entry) => entry.slug === slug)!;
+
+  it("numbers a topic inside its area, as the index does", () => {
+    expect(grammarStep(topic("motion-verbs"))).toEqual({
+      group: "Verbs",
+      step: 7,
+      total: 10,
+    });
+  });
+
+  it("starts each area at 1", () => {
+    expect(grammarStep(topic("present-tense")).step).toBe(1);
+    expect(grammarStep(topic("grammatical-gender")).step).toBe(1);
   });
 });

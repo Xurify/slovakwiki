@@ -48,3 +48,20 @@ export function grammarNeighbors(slug: string): GrammarNeighbors {
     next: grammarReadingOrder[index + 1],
   };
 }
+
+export interface GrammarStep {
+  group: GrammarGroup;
+  /** 1-based, numbered as on the grammar index. */
+  step: number;
+  total: number;
+}
+
+/** Where a topic sits in its area's path. */
+export function grammarStep(topic: GrammarTopic): GrammarStep {
+  const topics = grammarTopicsInGroup(topic.pathGroup);
+  return {
+    group: topic.pathGroup,
+    step: topics.findIndex((entry) => entry.slug === topic.slug) + 1,
+    total: topics.length,
+  };
+}

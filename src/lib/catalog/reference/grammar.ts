@@ -333,24 +333,28 @@ export const grammarEntries: GrammarTopic[] = [
     morePatterns: [
       {
         label: "From the infinitive to the -l form",
-        lines: [
-          "robiť → robil · did",
-          "čítať → čítal · read",
-          "pracovať → pracoval · worked",
-          "piť → pil · drank",
-          "vidieť → videl · saw",
-          "chcieť → chcel · wanted",
+        rowLabel: "Meaning",
+        columns: ["Infinitive", "-l form"],
+        rows: [
+          { label: "do", cells: ["robiť", "robil"] },
+          { label: "read", cells: ["čítať", "čítal"] },
+          { label: "work", cells: ["pracovať", "pracoval"] },
+          { label: "drink", cells: ["piť", "pil"] },
+          { label: "see", cells: ["vidieť", "videl"] },
+          { label: "want", cells: ["chcieť", "chcel"] },
         ],
       },
       {
         label: "Verbs with their own -l form",
-        lines: [
-          "ísť → išiel, išla · went",
-          "prísť → prišiel, prišla · came",
-          "jesť → jedol, jedla · ate",
-          "môcť → mohol, mohla · could",
-          "niesť → niesol, niesla · carried",
-          "zabudnúť → zabudol, zabudla · forgot",
+        rowLabel: "Meaning",
+        columns: ["Infinitive", "Masculine", "Feminine"],
+        rows: [
+          { label: "go", cells: ["ísť", "išiel", "išla"] },
+          { label: "come", cells: ["prísť", "prišiel", "prišla"] },
+          { label: "eat", cells: ["jesť", "jedol", "jedla"] },
+          { label: "can, be able", cells: ["môcť", "mohol", "mohla"] },
+          { label: "carry", cells: ["niesť", "niesol", "niesla"] },
+          { label: "forget", cells: ["zabudnúť", "zabudol", "zabudla"] },
         ],
         examples: [
           {
@@ -506,13 +510,15 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "A prefix: the same verb, finished",
-      lines: [
-        "písať → napísať · write",
-        "čítať → prečítať · read",
-        "robiť → urobiť · do",
-        "variť → uvariť · cook",
-        "piť → vypiť · drink",
-        "volať → zavolať · call",
+      rowLabel: "Meaning",
+      columns: ["Imperfective", "Perfective"],
+      rows: [
+        { label: "write", cells: ["písať", "napísať"] },
+        { label: "read", cells: ["čítať", "prečítať"] },
+        { label: "do", cells: ["robiť", "urobiť"] },
+        { label: "cook", cells: ["variť", "uvariť"] },
+        { label: "drink", cells: ["piť", "vypiť"] },
+        { label: "call", cells: ["volať", "zavolať"] },
       ],
     },
     morePatterns: [
@@ -822,11 +828,13 @@ export const grammarEntries: GrammarTopic[] = [
       },
       {
         label: "One-trip motion verbs take po-",
-        lines: [
-          "ísť → pôjdem · I will go",
-          "niesť → ponesiem · I will carry",
-          "letieť → poletím · I will fly",
-          "bežať → pobežím · I will run",
+        rowLabel: "Meaning",
+        columns: ["Infinitive", "Future (I will)"],
+        rows: [
+          { label: "go", cells: ["ísť", "pôjdem"] },
+          { label: "carry", cells: ["niesť", "ponesiem"] },
+          { label: "fly", cells: ["letieť", "poletím"] },
+          { label: "run", cells: ["bežať", "pobežím"] },
         ],
         examples: [
           {
@@ -1331,14 +1339,16 @@ export const grammarEntries: GrammarTopic[] = [
     morePatterns: [
       {
         label: "Verbs with their own imperative",
-        lines: [
-          "ísť → choď · go",
-          "prísť → príď · come",
-          "byť → buď · be",
-          "jesť → jedz · eat",
-          "povedať → povedz · say, tell",
-          "pomôcť → pomôž · help",
-          "poď, poďte, poďme · come here, come in, let's go",
+        rowLabel: "Verb",
+        columns: ["ty", "vy", "my (let's)"],
+        rows: [
+          { label: "ísť (go)", cells: ["choď", "choďte", "choďme"] },
+          { label: "prísť (come)", cells: ["príď", "príďte", "príďme"] },
+          { label: "byť (be)", cells: ["buď", "buďte", "buďme"] },
+          { label: "jesť (eat)", cells: ["jedz", "jedzte", "jedzme"] },
+          { label: "povedať (say, tell)", cells: ["povedz", "povedzte", "povedzme"] },
+          { label: "pomôcť (help)", cells: ["pomôž", "pomôžte", "pomôžme"] },
+          { label: "come here, come in, let's go", cells: ["poď", "poďte", "poďme"] },
         ],
         examples: [
           { slovak: "Poďme na kávu.", english: "Let's go for a coffee." },
