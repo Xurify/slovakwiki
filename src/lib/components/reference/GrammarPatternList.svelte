@@ -223,7 +223,7 @@
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
-                  "py-2 pr-3 pl-4 text-left align-bottom max-sm:hidden sm:pl-5",
+                  "w-px py-2 pr-6 pl-4 text-left align-bottom max-sm:hidden sm:min-w-52 sm:pl-5",
                 )}
               >
                 {view.rowLabel}
@@ -236,11 +236,8 @@
                   scope="col"
                   class={cx(
                     eyebrowMutedClass,
-                    "px-3 py-2 text-left align-bottom last:pr-4 sm:last:pr-5",
-                    view.columns.length > 3 && "max-sm:w-1/4 sm:w-1/6",
-                    view.columns.length === 3 && "max-sm:w-1/3 sm:w-1/4",
-                    view.columns.length === 2 && "max-sm:w-1/2",
-                    view.columns.length === 2 && (index === 0 ? "sm:w-1/4" : "sm:w-1/2"),
+                    "py-2 pr-4 pl-0 text-left align-bottom whitespace-nowrap last:pr-4 sm:last:pr-5",
+                    index < view.columns.length - 1 && "w-px pr-8 sm:pr-10",
                     index === 0 && "max-sm:pl-4",
                   )}
                 >
@@ -268,7 +265,7 @@
                 <th
                   scope="rowgroup"
                   colspan={view.columns.length}
-                  class="px-4 pt-2.5 pb-0 text-left text-[0.8125rem] leading-snug font-normal text-slate-500"
+                  class="px-4 pt-2 pb-0 text-left text-[0.8125rem] leading-snug font-normal text-slate-500"
                 >
                   {row.label}
                 </th>
@@ -277,7 +274,7 @@
               <tr>
                 <th
                   scope="row"
-                  class="py-2.5 pr-3 pl-4 text-left align-baseline text-[0.95rem] leading-snug font-normal text-slate-600 max-sm:hidden sm:pl-5"
+                  class="py-2 pr-6 pl-4 text-left align-baseline text-[0.95rem] leading-snug font-normal text-slate-600 max-sm:hidden sm:pl-5"
                 >
                   {row.label}
                 </th>
@@ -286,7 +283,8 @@
                   <td
                     class={cx(
                       grammarFormClass,
-                      "px-3 py-2.5 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0.5 sm:last:pr-5",
+                      "py-2 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0.5 sm:last:pr-5",
+                      index < row.cells.length - 1 && "w-px pr-8 sm:pr-10",
                       index === 0 && "max-sm:pl-4",
                     )}
                     lang="sk"

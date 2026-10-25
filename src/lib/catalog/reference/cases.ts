@@ -2,8 +2,8 @@ import { languageSource } from "../sources";
 import type { CaseTopic, GrammarTablePattern } from "../types";
 
 const NOUNS = {
-  person: "Masculine, person: brat",
-  thing: "Masculine, thing: dom",
+  person: "Masculine person: brat",
+  thing: "Masculine thing: dom",
   feminine: "Feminine: ruka",
   neuter: "Neuter: mesto",
 } as const;

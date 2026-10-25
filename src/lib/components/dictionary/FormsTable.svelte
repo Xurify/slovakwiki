@@ -15,11 +15,11 @@
   } = $props();
 
   /** Row headings line up with the card padding (px-4 / sm:px-6). */
-  const edgeCellClass = "pr-2 pl-4 sm:pr-3 sm:pl-6";
+  const edgeCellClass = "pr-4 pl-4 sm:pr-8 sm:pl-6";
   const cellPaddingClass = "px-2 sm:px-3";
   const headClass = "pb-2 align-bottom text-xs leading-snug font-semibold text-slate-700";
   const formCellClass =
-    "py-2.5 align-baseline font-serif text-base whitespace-nowrap text-slate-900";
+    "py-2 align-baseline font-serif text-base whitespace-nowrap text-slate-900";
   const endingClass = "rounded-sm bg-mark px-px font-semibold";
 
   const pluralNominative = $derived(
@@ -49,8 +49,10 @@
     <table class="w-full border-collapse text-left text-sm">
       <thead>
         <tr class="border-b border-slate-200">
-          <th scope="col" class="{edgeCellClass} {headClass}">Case</th>
-          <th scope="col" class="{cellPaddingClass} {headClass}">Singular</th>
+          <th scope="col" class="{edgeCellClass} {headClass} w-px">Case</th>
+          <th scope="col" class="{cellPaddingClass} {headClass} w-px sm:pr-10"
+            >Singular</th
+          >
           <th scope="col" class="{cellPaddingClass} {headClass}">Plural</th>
         </tr>
       </thead>
@@ -60,7 +62,7 @@
           <tr class="border-b border-slate-200/70 last:border-b-0">
             <th
               scope="row"
-              class="{edgeCellClass} py-2.5 align-baseline text-xs leading-snug font-semibold text-slate-700"
+              class="{edgeCellClass} w-px py-2 align-baseline text-xs leading-snug font-semibold whitespace-nowrap text-slate-700"
             >
               <a
                 class="text-blue-800 no-underline hover:underline"
@@ -68,12 +70,15 @@
               >
                 {sentenceCase(row.caseName)}
               </a>
-              <span class="block font-serif text-sm font-normal text-slate-500" lang="sk">
+              <span
+                class="block font-serif text-sm font-normal text-slate-500 sm:ml-2 sm:inline"
+                lang="sk"
+              >
                 {row.question}
               </span>
             </th>
 
-            <td class="{cellPaddingClass} {formCellClass}" lang="sk">
+            <td class="{cellPaddingClass} {formCellClass} w-px sm:pr-10" lang="sk">
               {@render form(row.singular.stem, row.singular.ending)}
             </td>
 
