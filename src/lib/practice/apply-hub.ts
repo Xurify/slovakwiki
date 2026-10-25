@@ -20,14 +20,9 @@ function paintBrowse(view: PracticeHubView): void {
   }
 
   for (const track of document.querySelectorAll<HTMLElement>("[data-practice-track]")) {
-    const lessonIds = new Set<string>();
-
-    for (const row of track.querySelectorAll<HTMLElement>("[data-browse-lesson]")) {
-      if (row.dataset.browseLesson) lessonIds.add(row.dataset.browseLesson);
-    }
-
-    const doneCount = [...lessonIds].filter((id) => completed.has(id)).length;
-    const pct = lessonIds.size ? Math.round((doneCount / lessonIds.size) * 100) : 0;
+    const rows = [...track.querySelectorAll<HTMLElement>("[data-browse-sheet]")];
+    const doneCount = rows.filter((row) => row.dataset.state === "done").length;
+    const pct = rows.length ? Math.round((doneCount / rows.length) * 100) : 0;
 
     const done = track.querySelector<HTMLElement>("[data-track-done]");
     const bar = track.querySelector<HTMLElement>("[data-track-bar]");

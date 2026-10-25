@@ -163,6 +163,21 @@ export function markAgainst(base: string, form: string): MarkedPhrase {
   return { before: form, mark: "", after: "" };
 }
 
+const EXPLICIT_MARK = /^(.*)\[(.+)\](.*)$/u;
+
+/** A table cell without its `[ending]` brackets. */
+export function plainCell(cell: string): string {
+  return cell.replace(/[[\]]/gu, "");
+}
+
+/** `moj[ej]` marks the ending where the form does not grow out of the row's first cell. */
+function markCell(base: string, cell: string): MarkedPhrase {
+  const explicit = EXPLICIT_MARK.exec(cell);
+  if (!explicit) return markAgainst(base, cell);
+
+  return { before: explicit[1]!, mark: explicit[2]!, after: explicit[3]! };
+}
+
 export function tableView(pattern: GrammarTablePattern): PatternView {
   const { rowLabel, columns, rows } = pattern;
 
@@ -180,7 +195,7 @@ export function tableView(pattern: GrammarTablePattern): PatternView {
     columns: [...columns],
     rows: rows.map((row) => ({
       label: row.label,
-      cells: row.cells.map((form) => markAgainst(row.cells[0] ?? "", form)),
+      cells: row.cells.map((form) => markCell(plainCell(row.cells[0] ?? ""), form)),
     })),
   } satisfies PatternView;
 }
@@ -241,7 +256,7 @@ export function patternForms(pattern: GrammarPattern): string[] {
   const forms = new Set<string>();
   for (const row of pattern.rows) {
     for (const cell of row.cells) {
-      for (const word of cell.match(/\p{L}+/gu) ?? []) {
+      for (const word of plainCell(cell).match(/\p{L}+/gu) ?? []) {
         forms.add(word.toLocaleLowerCase("sk"));
       }
     }
@@ -252,7 +267,7 @@ export function patternForms(pattern: GrammarPattern): string[] {
 /** Labels and forms a table contributes to search, in place of the old line strings. */
 export function patternSearchLines(pattern: GrammarPattern): string[] {
   if (isGrammarTable(pattern)) {
-    return pattern.rows.flatMap((row) => [row.label, ...row.cells]);
+    return pattern.rows.flatMap((row) => [row.label, ...row.cells.map(plainCell)]);
   }
   return [...pattern.lines];
 }

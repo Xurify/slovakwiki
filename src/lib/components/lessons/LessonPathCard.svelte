@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { panelClass, panelHoverClass } from "$lib/components/ui/system-ui";
   import type { Lesson } from "$lib/learning/types";
   import type { LessonStatus } from "$lib/lesson-progress/progress";
   import LessonMotif from "$lib/components/lessons/LessonMotif.svelte";
@@ -26,14 +25,14 @@
 
   const rowClass = $derived(
     useMotif
-      ? `${panelClass} ${panelHoverClass} group grid grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3.5 border-2 px-3 py-3 no-underline`
-      : `${panelClass} ${panelHoverClass} group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 border-2 px-3.5 py-3.5 no-underline`,
+      ? "group grid grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3.5 px-3 py-3 no-underline"
+      : "group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-3.5 py-3.5 no-underline",
   );
 </script>
 
 <li>
   <a
-    class="{rowClass} {status === 'active' ? 'border-blue-600' : 'border-transparent'}"
+    class="{rowClass} transition-colors duration-150 ease-out hover:bg-subtle data-[lesson-status=active]:bg-blue-50"
     data-lesson-card={lesson.id}
     data-lesson-index={numberLabel}
     data-lesson-leading={leading}

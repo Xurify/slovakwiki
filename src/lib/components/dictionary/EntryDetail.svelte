@@ -455,15 +455,11 @@
               {#each entriesNear as nearby (nearby.slovak)}
                 <li>
                   {#if nearby.current}
-                    <span
-                      class={cx(
-                        railRowClass,
-                        "-mx-2 rounded-(--control-radius) bg-mark px-2",
-                      )}
-                      aria-current="true"
-                    >
-                      <span class={cx(railWordClass, "font-semibold")} lang="sk">
-                        {nearby.slovak}
+                    <span class={railRowClass} aria-current="true">
+                      <span class={cx(railWordClass, "justify-self-start")} lang="sk">
+                        <span class="rounded-sm bg-mark font-semibold">
+                          {nearby.slovak}
+                        </span>
                       </span>
                       <span class={cx(railGlossClass, "text-slate-700")}>
                         {nearby.english}
@@ -516,10 +512,7 @@
             <ol class="m-0 list-none p-0">
               {#each frequencyNeighbors as row (row.rank)}
                 <li
-                  class={cx(
-                    "grid grid-cols-[2.75rem_minmax(0,1fr)_auto] items-baseline gap-x-2 py-1.5",
-                    row.current && "-mx-2 rounded-(--control-radius) bg-mark px-2",
-                  )}
+                  class="grid grid-cols-[2.75rem_minmax(0,1fr)_auto] items-baseline gap-x-2 py-1.5"
                   aria-current={row.current ? "true" : undefined}
                 >
                   <span class="text-xs tabular-nums text-slate-700">#{row.rank}</span>
@@ -536,11 +529,14 @@
                       {row.lemma}
                     </a>
                   {:else}
-                    <span
-                      class={cx(railWordClass, row.current && "font-semibold")}
-                      lang="sk"
-                    >
-                      {row.lemma}
+                    <span class={railWordClass} lang="sk">
+                      <span
+                        class={row.current
+                          ? "rounded-sm bg-mark font-semibold"
+                          : undefined}
+                      >
+                        {row.lemma}
+                      </span>
                     </span>
                   {/if}
 

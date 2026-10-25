@@ -86,7 +86,9 @@
 </script>
 
 {#snippet marked(phrase: MarkedPhrase)}
-  {phrase.before}<span class={grammarEndingClass}>{phrase.mark}</span>{phrase.after}
+  {phrase.before}{#if phrase.mark}<span
+      class={cx(grammarEndingClass, "rounded-sm bg-mark px-px")}>{phrase.mark}</span
+    >{/if}{phrase.after}
 {/snippet}
 
 {#snippet formCell(cell: ParadigmCell)}

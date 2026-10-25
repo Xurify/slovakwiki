@@ -45,7 +45,7 @@
   </GrammarSentence>
 
   {#if example.demonstrates || practiceHref}
-    <div class={cx("min-w-0", reserveAudioColumn && "pl-10 md:pl-0")}>
+    <div class={cx("flex min-w-0 flex-col", reserveAudioColumn && "pl-10 md:pl-0")}>
       {#if example.demonstrates}
         <p class="m-0 text-sm leading-snug text-pretty text-slate-500 md:pt-1.5">
           <GrammarRichText text={example.demonstrates} />
@@ -53,7 +53,7 @@
       {/if}
 
       {#if practiceHref}
-        <a class={cx(moreLinkClass, "mt-1")} href={practiceHref}>
+        <a class={cx(moreLinkClass, "mt-auto self-start pt-1")} href={practiceHref}>
           Practice
           <ArrowRight />
         </a>

@@ -173,6 +173,7 @@ export interface ContentEntry {
 
 export interface GrammarTableRow {
   label: string;
+  /** One per column. Wrap the ending in brackets (`moj[ej]`) when it does not extend the first cell. */
   cells: string[];
 }
 
@@ -313,6 +314,8 @@ export interface CaseReference {
 export interface CaseTopic {
   body: string[];
   examples: Example[];
+  /** Endings on four reference nouns, singular and plural. */
+  forms?: GrammarTablePattern;
   name: string;
   /** Slovak grammar term for the case (genitív). */
   slovakName: string;

@@ -15,8 +15,6 @@
     exerciseCount: number;
     featuredId: string;
   } = $props();
-
-  const lessonCount = $derived(new Set(sheets.map((sheet) => sheet.set.lessonId)).size);
 </script>
 
 <section
@@ -31,15 +29,12 @@
     description={track.description}
   >
     {#snippet aside()}
-      <span data-track-done>0</span> of {lessonCount}
-      {lessonCount === 1 ? "lesson" : "lessons"} done
+      <span data-track-done>0</span> of {sheets.length}
+      {sheets.length === 1 ? "set" : "sets"} done
     {/snippet}
   </SectionHead>
 
   <p class="m-0 mt-2 text-xs tabular-nums text-slate-500">
-    {sheets.length}
-    {sheets.length === 1 ? "set" : "sets"}
-    <span class="mx-1 text-slate-400" aria-hidden="true">·</span>
     {exerciseCount}
     {exerciseCount === 1 ? "exercise" : "exercises"}
   </p>
@@ -52,7 +47,9 @@
     ></span>
   </span>
 
-  <ol class="m-0 flex list-none flex-col gap-3 p-0">
+  <ol
+    class="m-0 list-none divide-y divide-slate-200/70 overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border)"
+  >
     {#each sheets as sheet, index (sheet.set.id)}
       <PracticePathStep
         {sheet}

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { panelClass, panelHoverClass } from "$lib/components/ui/system-ui";
   import type { PracticeHubSheet, PracticeStepState } from "$lib/catalog/practice/hub";
   import PracticeSetPoster from "$lib/components/practice/PracticeSetPoster.svelte";
   import { cx } from "$lib/ui/classes";
@@ -15,56 +14,46 @@
     state?: PracticeStepState;
   } = $props();
 
-  const railClass =
-    "absolute left-[1.125rem] w-0.5 -translate-x-1/2 bg-slate-200 group-data-[state=done]/step:bg-emerald-100";
-
   const nodeClass = cx(
-    "relative z-10 flex size-9 items-center justify-center self-center rounded-full border-2",
+    "flex size-9 items-center justify-center self-center rounded-full border-2",
     "border-slate-300 bg-surface font-serif text-sm font-semibold tabular-nums text-slate-500",
     "group-data-[state=next]/step:border-blue-600 group-data-[state=next]/step:bg-blue-600 group-data-[state=next]/step:text-paper",
     "group-data-[state=done]/step:border-emerald-100 group-data-[state=done]/step:bg-emerald-100 group-data-[state=done]/step:text-emerald-700",
   );
 
-  const cardClass = cx(
-    panelClass,
-    panelHoverClass,
-    "group grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3.5",
-    "border-2 border-transparent px-3 py-3 no-underline",
-    "group-data-[state=next]/step:border-blue-600 group-data-[state=next]/step:bg-surface",
-    "max-[480px]:grid-cols-[minmax(0,1fr)_auto]",
+  const rowClass = cx(
+    "group grid min-w-0 grid-cols-[2.25rem_3.5rem_minmax(0,1fr)_auto] items-center gap-3.5",
+    "px-3 py-3 no-underline transition-colors duration-150 ease-out hover:bg-subtle",
+    "group-data-[state=next]/step:bg-blue-50",
+    "max-[480px]:grid-cols-[2.25rem_minmax(0,1fr)_auto]",
   );
 </script>
 
 <li
-  class="group/step relative grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3.5"
+  class="group/step"
   data-browse-sheet={sheet.set.id}
   data-browse-lesson={sheet.set.lessonId}
   data-state={state}
 >
-  <span class="{railClass} top-0 h-1/2 group-first/step:hidden" aria-hidden="true"></span>
+  <a class={rowClass} href="/practice/{sheet.set.id}">
+    <span class={nodeClass} aria-hidden="true">
+      <span class="group-data-[state=done]/step:hidden">{step}</span>
 
-  <span class="{railClass} top-1/2 -bottom-3 group-last/step:hidden" aria-hidden="true"
-  ></span>
+      <svg
+        class="hidden size-4 group-data-[state=done]/step:block"
+        viewBox="0 0 16 16"
+        fill="none"
+      >
+        <path
+          d="M3.5 8.5 6.5 11.5 12.5 4.5"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
 
-  <span class={nodeClass} aria-hidden="true">
-    <span class="group-data-[state=done]/step:hidden">{step}</span>
-
-    <svg
-      class="hidden size-4 group-data-[state=done]/step:block"
-      viewBox="0 0 16 16"
-      fill="none"
-    >
-      <path
-        d="M3.5 8.5 6.5 11.5 12.5 4.5"
-        stroke="currentColor"
-        stroke-width="2.25"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </span>
-
-  <a class={cardClass} href="/practice/{sheet.set.id}">
     <span class="max-[480px]:hidden">
       <PracticeSetPoster {sheet} />
     </span>
@@ -94,9 +83,9 @@
     </span>
 
     <span
-      class="hidden min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-paper group-data-[state=next]/step:inline-flex"
+      class="hidden text-xs font-semibold text-blue-800 group-data-[state=next]/step:inline"
     >
-      Start
+      Up next
     </span>
   </a>
 </li>

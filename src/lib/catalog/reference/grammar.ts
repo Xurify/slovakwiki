@@ -2516,13 +2516,16 @@ export const grammarEntries: GrammarTopic[] = [
       columns: ["my", "your (ty)", "our", "your (vy)"],
       rows: [
         { label: "Masculine", cells: ["môj", "tvoj", "náš", "váš"] },
-        { label: "Feminine", cells: ["moja", "tvoja", "naša", "vaša"] },
-        { label: "Neuter", cells: ["moje", "tvoje", "naše", "vaše"] },
+        { label: "Feminine", cells: ["moj[a]", "tvoj[a]", "naš[a]", "vaš[a]"] },
+        { label: "Neuter", cells: ["moj[e]", "tvoj[e]", "naš[e]", "vaš[e]"] },
         {
           label: "Masculine nouns for people, plural",
-          cells: ["moji", "tvoji", "naši", "vaši"],
+          cells: ["moj[i]", "tvoj[i]", "naš[i]", "vaš[i]"],
         },
-        { label: "Every other plural", cells: ["moje", "tvoje", "naše", "vaše"] },
+        {
+          label: "Every other plural",
+          cells: ["moj[e]", "tvoj[e]", "naš[e]", "vaš[e]"],
+        },
       ],
     },
     morePatterns: [
@@ -2533,10 +2536,10 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Case",
         columns: ["Masculine and neuter", "Feminine", "Plural"],
         rows: [
-          { label: "Genitive (of, from)", cells: ["môjho", "mojej", "mojich"] },
-          { label: "Dative (to)", cells: ["môjmu", "mojej", "mojim"] },
-          { label: "Locative (in, about)", cells: ["mojom", "mojej", "mojich"] },
-          { label: "Instrumental (with)", cells: ["mojím", "mojou", "mojimi"] },
+          { label: "Genitive (of, from)", cells: ["môj[ho]", "moj[ej]", "moj[ich]"] },
+          { label: "Dative (to)", cells: ["môj[mu]", "moj[ej]", "moj[im]"] },
+          { label: "Locative (in, about)", cells: ["moj[om]", "moj[ej]", "moj[ich]"] },
+          { label: "Instrumental (with)", cells: ["moj[ím]", "moj[ou]", "moj[imi]"] },
         ],
         examples: [
           {
