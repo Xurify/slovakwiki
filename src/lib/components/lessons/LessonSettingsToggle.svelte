@@ -27,7 +27,7 @@
 </script>
 
 <button
-  class="flex w-full cursor-pointer items-start justify-between gap-3 px-3.5 py-3 text-left transition-colors hover:bg-subtle"
+  class="flex w-full cursor-pointer items-start justify-between gap-3 px-3.5 py-3 text-left transition-colors hover:bg-subtle focus-visible:outline-offset-[-2px]"
   type="button"
   aria-pressed={on}
   onclick={ontoggle}

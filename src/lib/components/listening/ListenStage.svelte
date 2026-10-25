@@ -2,6 +2,11 @@
   import { onDestroy, onMount, tick, untrack, type Snippet } from "svelte";
 
   import { unlockSfx } from "$lib/audio/sfx";
+  import {
+    AUDIO_VOLUME_CHANGE_EVENT,
+    getAudioVolume,
+    setAudioVolume,
+  } from "$lib/audio/volume";
   import type { ListeningChapter } from "$lib/catalog/listening/types";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Button from "$lib/components/ui/Button.svelte";
@@ -74,6 +79,7 @@
   let english = $state(false);
   let placeSound = $state(true);
   let subtitles = $state(true);
+  let volume = $state(1);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
 
   const lines = chapter.lines;
@@ -145,8 +151,16 @@
     return player.playing;
   }
 
-  /** What stays set from one segment to the next, behind one gear. */
   const settings = $derived<SceneSetting[]>([
+    {
+      description: "How loud the episode and the place under it play",
+      kind: "volume",
+      label: "Volume",
+      oninput: (value) => {
+        volume = setAudioVolume(value);
+      },
+      value: volume,
+    },
     ...(scene
       ? [
           {
@@ -230,6 +244,11 @@
     english = getStoryShowEnglish() === "on";
     placeSound = getStoryPlaceSound() === "on";
     subtitles = getStorySubtitles() === "on";
+    volume = getAudioVolume();
+
+    function onVolumeChange(): void {
+      volume = getAudioVolume();
+    }
 
     const controls = "a, button, input, label, select, textarea";
     const gestures = ["touchend", "click", "keydown"] as const;
@@ -247,7 +266,11 @@
 
     if (autoplay && !done) player.playFrom(0);
 
+    window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+
     return () => {
+      window.removeEventListener(AUDIO_VOLUME_CHANGE_EVENT, onVolumeChange);
+
       for (const type of gestures) {
         window.removeEventListener(type, primePlaybackOnGesture);
       }

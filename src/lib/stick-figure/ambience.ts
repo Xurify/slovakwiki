@@ -1,5 +1,5 @@
-import { getStoredSfxPreference } from "$lib/audio/sfx";
-import { getAudioVolume } from "$lib/audio/volume";
+import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/audio/sfx";
+import { AUDIO_VOLUME_CHANGE_EVENT, getAudioVolume } from "$lib/audio/volume";
 import type { Shoes } from "./looks";
 import { PLACES, type Ground } from "./places";
 import { isDark, isFalling, type SceneMood } from "./scene-mood";
@@ -273,9 +273,21 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
   const ctx = new Context();
   const master = ctx.createGain();
   master.gain.value = 0;
-  master.gain.setTargetAtTime(LEVEL * getAudioVolume(), ctx.currentTime, 0.3);
+  master.gain.setTargetAtTime(level(), ctx.currentTime, 0.3);
   master.connect(ctx.destination);
   const noise = noiseBuffer(ctx);
+
+  function level(): number {
+    return getStoredSfxPreference() === "off" ? 0 : LEVEL * getAudioVolume();
+  }
+
+  // Retune while it plays, so muting mid-segment quietens the place too.
+  function retune(): void {
+    master.gain.setTargetAtTime(level(), ctx.currentTime, 0.3);
+  }
+
+  window.addEventListener(SFX_CHANGE_EVENT, retune);
+  window.addEventListener(AUDIO_VOLUME_CHANGE_EVENT, retune);
 
   /** Each layer by name and whether it is heard through a window. */
   const running = new Map<string, () => void>();
@@ -345,6 +357,9 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
   return {
     set,
     stop() {
+      window.removeEventListener(SFX_CHANGE_EVENT, retune);
+      window.removeEventListener(AUDIO_VOLUME_CHANGE_EVENT, retune);
+
       for (const stop of running.values()) stop();
       running.clear();
       master.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
