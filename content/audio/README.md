@@ -139,6 +139,7 @@ bun scripts/audio/prune-orphans.ts               # dry-run: old v2/settings hash
 bun scripts/audio/prune-orphans.ts -- --delete --r2
 bun scripts/audio/voice-design.ts                # design previews → tmp/voice-design/
 bun scripts/audio/voice-design.ts -- --create --pick 0   # save preview + patch config characters
+bun scripts/audio/voice-design.ts -- --only waiter --keep 1  # keep preview 1 of the last design
 bun scripts/audio/status.ts -- --lessons-only
 ```
 
