@@ -1,5 +1,3 @@
-import type Anthropic from "@anthropic-ai/sdk";
-
 import { cefrForScore, clampScale } from "../scale";
 import {
   AI_ISSUE_TOPICS,
@@ -11,7 +9,13 @@ import {
   type ProductionKind,
 } from "../types";
 
-export const SCORING_MODEL = "claude-opus-5-5";
+const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+/** Default scorer; set `SCORING_MODEL` in the environment to try another slug. */
+export const SCORING_MODEL = "anthropic/claude-opus-5-5";
+
+/** Reasoning tokens count against this too, so it is well above the JSON's ~300. */
+const MAX_COMPLETION_TOKENS = 6_000;
 
 export const MAX_PROMPT_CHARS = 1_000;
 export const MAX_RESPONSE_CHARS = 4_000;
@@ -226,44 +230,78 @@ function parseIssues(value: unknown): AiIssue[] {
 
 export class ScoringRefusedError extends Error {}
 
-/** One Messages API call per answer; `client` is injected so tests can stub it. */
+export class ScoringBusyError extends Error {}
+
+export interface ScorerConfig {
+  apiKey: string;
+  /** An OpenRouter model slug; defaults to `SCORING_MODEL`. */
+  model?: string;
+  fetchImpl?: typeof fetch;
+}
+
+interface ChatCompletion {
+  choices?: Array<{
+    finish_reason?: string | null;
+    message?: { content?: unknown; refusal?: unknown };
+  }>;
+}
+
+/** Models without strict JSON mode sometimes wrap the object in a code fence or a sentence. */
+function jsonObjectIn(text: string): string {
+  const start = text.indexOf("{");
+  const end = text.lastIndexOf("}");
+  return start >= 0 && end > start ? text.slice(start, end + 1) : text;
+}
+
+/** One chat completion per answer; `fetchImpl` is injected so tests can stub it. */
 export async function scoreProduction(
-  client: Pick<Anthropic, "beta">,
+  config: ScorerConfig,
   request: ScoreRequest,
 ): Promise<AiScore> {
   const spoken = SPOKEN.has(request.kind);
-  const message = await client.beta.messages.create({
-    model: SCORING_MODEL,
-    max_tokens: 4_000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    output_config: {
-      effort: "medium",
-      format: { type: "json_schema", schema: schemaFor(spoken) },
+  const response = await (config.fetchImpl ?? fetch)(OPENROUTER_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${config.apiKey}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": "https://www.slovak.wiki",
+      "X-Title": "slovak.wiki level test",
     },
-    system: SYSTEM_PROMPT,
-    messages: [
-      {
-        role: "user",
-        content: [
-          ...(request.imageUrl && isPhotoUrl(request.imageUrl)
-            ? [
-                {
-                  type: "image" as const,
-                  source: { type: "url" as const, url: request.imageUrl },
-                },
-              ]
-            : []),
-          { type: "text" as const, text: userMessage(request) },
-        ],
+    body: JSON.stringify({
+      model: config.model ?? SCORING_MODEL,
+      max_tokens: MAX_COMPLETION_TOKENS,
+      reasoning: { effort: "medium" },
+      response_format: {
+        type: "json_schema",
+        json_schema: { name: "score", strict: true, schema: schemaFor(spoken) },
       },
-    ],
+      // Without this a provider that ignores the schema can be picked silently.
+      provider: { require_parameters: true },
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        {
+          role: "user",
+          content: [
+            ...(request.imageUrl && isPhotoUrl(request.imageUrl)
+              ? [{ type: "image_url", image_url: { url: request.imageUrl } }]
+              : []),
+            { type: "text", text: userMessage(request) },
+          ],
+        },
+      ],
+    }),
   });
 
-  if (message.stop_reason === "refusal")
-    throw new ScoringRefusedError("Scoring declined");
+  if (response.status === 429) throw new ScoringBusyError("Rate limited");
+  if (!response.ok) throw new Error(`Scoring failed (${response.status})`);
 
-  const text = message.content.find((block) => block.type === "text");
-  if (!text || text.type !== "text") throw new Error("Scorer returned no text");
-  return parseScore(text.text, spoken);
+  const choice = ((await response.json()) as ChatCompletion).choices?.[0];
+  if (choice?.finish_reason === "content_filter" || choice?.message?.refusal)
+    throw new ScoringRefusedError("Scoring declined");
+  if (choice?.finish_reason === "length") throw new Error("Scorer ran out of tokens");
+
+  const text = choice?.message?.content;
+  if (typeof text !== "string" || !text.trim())
+    throw new Error("Scorer returned no text");
+  return parseScore(jsonObjectIn(text), spoken);
 }

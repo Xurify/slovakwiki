@@ -58,7 +58,7 @@ Ordered by how much they limit the results.
 5. **Pronunciation is measured only as being understood.** Read Aloud compares a speech-recognition transcript with the sentence; recognition repairs accents and length, so it cannot judge them. Phoneme-level scoring needs a pronunciation service that supports Slovak (not yet checked).
 6. **Short or Long covers vowel length only.** Soft consonants (ď, ť, ň, ľ against d, t, n, l) are not tested. Its difficulty is a fixed A2 base nudged by word rarity, not calibrated. Clips are kept only when speech-to-text heard them exactly, which drops about a third of TTS clips; some of those may be speech-recognition bias toward the commoner form rather than a bad clip.
 7. **Formal and informal address (ty / vy) is not tested.** Interactive Listening uses both registers but scores the reply, not the register.
-8. **Writing and speaking need keys.** Without `ANTHROPIC_API_KEY` and `ELEVENLABS_API_KEY` those skills show as planned. Interactive Speaking is always planned.
+8. **Writing and speaking need keys.** Without `OPENROUTER_API_KEY` and `ELEVENLABS_API_KEY` those skills show as planned. Interactive Speaking is always planned.
 9. **Retake variety is per device.** Items seen before are stored in `localStorage` and picked last; another browser starts fresh.
 
 ## Rebuilding the bank

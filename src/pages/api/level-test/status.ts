@@ -9,7 +9,7 @@ export const prerender = false;
 /** Which AI-scored tasks can run; the test shows the rest as planned. */
 export const GET: APIRoute = () => {
   const capabilities: ScoringCapabilities = {
-    scoring: Boolean(getSecret("ANTHROPIC_API_KEY")),
+    scoring: Boolean(getSecret("OPENROUTER_API_KEY")),
     transcription: Boolean(getSecret("ELEVENLABS_API_KEY")),
   };
   return json(capabilities);
