@@ -527,6 +527,32 @@ const curatedWordSeed: WordSeed[] = [
     related: ["jedlo", "vecera", "obed", "chlieb", "maslo", "caj"],
   },
   {
+    slug: "omrvinky",
+    slovak: "omrvinky",
+    english: "crumbs",
+    category: "Nouns",
+    gender: "plural-only",
+    pluralOnlyGender: "feminine",
+    topics: ["Food"],
+    examples: [
+      { slovak: "Na stole sú omrvinky.", english: "There are crumbs on the table." },
+      {
+        slovak: "Kto jedol koláč? Všade sú omrvinky.",
+        english: "Who ate the cake? There are crumbs everywhere.",
+      },
+      {
+        slovak: "Marek má na taške omrvinky.",
+        english: "Marek has crumbs on his bag.",
+      },
+      {
+        slovak: "Pozametaj tie omrvinky, prosím.",
+        english: "Sweep up those crumbs, please.",
+      },
+      { slovak: "Vtáky jedia omrvinky z chleba.", english: "Birds eat breadcrumbs." },
+    ],
+    related: ["kolac", "chlieb", "stol", "tanier"],
+  },
+  {
     slug: "mlieko",
     slovak: "mlieko",
     english: "milk",

@@ -19,13 +19,15 @@ import type { DialogueTurn } from "$lib/learning/types";
 
 /** A direction to the voice, not shown in the text. */
 export interface Direction {
-  readonly tag: "pause" | "sighs";
+  readonly tag: "chuckles" | "pause" | "sighs";
 }
 
 /** A beat of silence in the clip, where the speaker thinks or lets a clue sink in. */
 export const PAUSE: Direction = { tag: "pause" };
 /** A sigh before the words: fond exasperation, as when Marek has lost the keys again. */
 export const SIGH: Direction = { tag: "sighs" };
+/** A chuckle before the words: Anna keeping the cake's hiding place to herself. */
+export const CHUCKLE: Direction = { tag: "chuckles" };
 /** Words trailing off in the text, a full stop in the clip; the beat comes from the PAUSE after it. */
 export const STOP = { said: ". ", shown: "… " } as const;
 /** The listener gets this long to decide before the answer comes. */

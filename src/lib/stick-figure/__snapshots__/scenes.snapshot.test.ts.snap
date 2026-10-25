@@ -5005,17 +5005,17 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "marek: Omrvinky… Aha. Áno. Zjedol som ho.",
+      "line": "marek: Omrvinky… Počkaj… Možno som ho zjedol ja?",
       "plan": {
         "beats": [
           "100 muse",
-          "1900 tell",
-          "3100 nod",
-          "3800 tell",
+          "1900 think",
+          "3250 think",
         ],
         "ms": 4900,
-        "sentences": "100-791 1900-2115 3100-3477 3750-4600",
-        "words": "100-791 1900-2115 3100-3477 3750-4191 4191-4411 4411-4600",
+        "questions": "3250-4750",
+        "sentences": "100-825 1900-2304 3250-4750",
+        "words": "100-825 1900-2304 3250-3674 3674-3902 3902-4098 4098-4554 4554-4750",
       },
       "staging": {
         "addressee": "anna",
@@ -5023,18 +5023,27 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
       },
     },
     {
-      "line": "anna: Kedy?",
+      "line": "anna: Ty. Spomínaš si?",
       "plan": {
         "beats": [
-          "0 ask",
+          "50 tell",
+          "1300 ask",
         ],
-        "ms": 650,
-        "questions": "0-450",
-        "sentences": "0-450",
-        "words": "0-450",
+        "ms": 2400,
+        "questions": "1300-2250",
+        "sentences": "50-243 1300-2250",
+        "words": "50-243 1300-2041 2041-2250",
       },
       "staging": {
         "addressee": "marek",
@@ -5047,23 +5056,22 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
             "at": 0.5,
             "characterId": "marek",
             "gesture": "lean",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },
     },
     {
-      "line": "marek: Prvý kúsok o desiatej. Druhý na obed, po káve. A zvyšok o druhej. Bol som sám a koláč bol veľmi dobrý.",
+      "line": "marek: Hm… Ráno som pracoval a mal som hlad. Vzal som si malý kúsok.",
       "plan": {
         "beats": [
-          "100 tell",
-          "2650 tell",
-          "5150 tell",
-          "6700 tell",
+          "100 think",
+          "1650 tell",
+          "5200 tell",
         ],
-        "ms": 9550,
-        "sentences": "100-1704 2650-4428 5150-6637 6700-9300",
-        "words": "100-504 504-937 937-1089 1089-1704 2650-3113 3113-3307 3307-3695 3803-3997 3997-4428 5150-5346 5346-5893 5893-6089 6089-6637 6700-6939 6939-7179 7179-7464 7464-7635 7635-8125 8125-8365 8365-8810 8810-9300",
+        "ms": 6900,
+        "sentences": "100-306 1650-3824 5200-6700",
+        "words": "100-306 1650-2080 2080-2306 2306-2952 2952-3114 3114-3340 3340-3566 3566-3824 5200-5447 5447-5662 5662-5847 5847-6258 6258-6700",
       },
       "staging": {
         "addressee": "anna",
@@ -5076,21 +5084,21 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 3,
+            "sentence": 2,
           },
         ],
       },
     },
     {
-      "line": "anna: A zabudol si?",
+      "line": "anna: A potom?",
       "plan": {
         "beats": [
-          "50 ask",
+          "0 ask",
         ],
-        "ms": 1300,
-        "questions": "50-1200",
-        "sentences": "50-1200",
-        "words": "50-242 242-970 970-1200",
+        "ms": 900,
+        "questions": "0-800",
+        "sentences": "0-800",
+        "words": "0-222 222-800",
       },
       "staging": {
         "addressee": "marek",
@@ -5109,15 +5117,62 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "marek: Zabudol som. Prepáč, Anna.",
+      "line": "marek: Potom ešte jeden. Pri káve ešte jeden… A potom som už nepočítal.",
       "plan": {
         "beats": [
-          "0 tell",
-          "2100 apologize",
+          "100 tell",
+          "2250 muse",
+          "4550 tell",
         ],
-        "ms": 3300,
-        "sentences": "0-893 2100-3150",
-        "words": "0-653 653-893 2100-2625 2739-3150",
+        "ms": 6500,
+        "sentences": "100-1218 2250-3583 4550-6300",
+        "words": "100-483 483-836 836-1218 2250-2456 2456-2848 2848-3200 3200-3583 4550-4703 4703-5099 5099-5313 5313-5496 5496-6300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Takže celý koláč.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1850,
+        "sentences": "50-1700",
+        "words": "50-577 577-1118 1118-1700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Celý koláč. Prepáč, Anna. Ja som si to ani nevšimol.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2150 apologize",
+          "4050 self",
+        ],
+        "ms": 5700,
+        "sentences": "50-868 2150-2809 4050-5500",
+        "words": "50-444 444-868 2150-2480 2551-2809 4050-4205 4205-4387 4387-4542 4542-4697 4697-4982 4982-5500",
       },
       "staging": {
         "addressee": "anna",
@@ -5186,11 +5241,11 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       "line": "anna: To ti nepoviem.",
       "plan": {
         "beats": [
-          "50 tell",
+          "0 tell",
         ],
-        "ms": 1200,
-        "sentences": "50-1000",
-        "words": "50-226 226-403 403-1000",
+        "ms": 2100,
+        "sentences": "0-1950",
+        "words": "0-362 362-724 724-1950",
       },
       "staging": {
         "addressee": "marek",
@@ -6466,15 +6521,15 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "anna: O deviatej prišla Mária. Koláč bol celý.",
+      "line": "anna: Mária hovorí: o deviatej bol koláč celý.",
       "plan": {
         "beats": [
           "50 tell",
-          "1950 tell",
+          "2650 muse",
         ],
-        "ms": 3400,
-        "sentences": "50-1791 1950-3200",
-        "words": "50-201 201-815 815-1238 1238-1791 1950-2467 2467-2719 2719-3200",
+        "ms": 3800,
+        "sentences": "50-3550",
+        "words": "50-685 685-1355 1471-1644 1644-2349 2349-2591 2591-3088 3088-3550",
       },
       "staging": {
         "addressee": "marek",
@@ -6485,16 +6540,16 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "anna: Na obed prišiel čašník. Koláč bol celý. A ty si sedel a pozeral na koláč.",
+      "line": "anna: A potom na obed: čašník hovorí, že koláč bol celý. A že ty si sedel a pozeral na koláč.",
       "plan": {
         "beats": [
-          "0 tell",
-          "2100 tell",
-          "4400 tell",
+          "50 tell",
+          "2650 muse",
+          "5050 tell",
         ],
-        "ms": 7300,
-        "sentences": "0-1688 2100-3307 4400-7100",
-        "words": "0-208 208-624 624-1156 1156-1688 2100-2599 2599-2843 2843-3307 4400-4582 4582-4800 4800-5017 5017-5490 5490-5671 5671-6361 6361-6579 6579-7100",
+        "ms": 7950,
+        "sentences": "50-3919 5050-7700",
+        "words": "50-214 214-640 640-837 837-1230 1340-1842 1842-2476 2585-2782 2782-3252 3252-3482 3482-3919 5050-5215 5215-5413 5413-5611 5611-5809 5809-6238 6238-6402 6402-7029 7029-7227 7227-7700",
       },
       "staging": {
         "addressee": "marek",
@@ -6523,15 +6578,17 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "anna: O jednej prišla Lucia. Na stole bola už len polovica.",
+      "line": "anna: A o jednej? Lucia hovorí, že na stole bola už len polovica.",
       "plan": {
         "beats": [
-          "50 tell",
-          "3050 point → stol",
+          "50 ask",
+          "2000 tell",
+          "3109 point → stol",
         ],
         "ms": 5200,
-        "sentences": "50-1570 3050-4950",
-        "words": "50-214 214-673 673-1133 1133-1570 3050-3218 3218-3581 3581-3916 3916-4084 4084-4279 4279-4950",
+        "questions": "50-753",
+        "sentences": "50-753 2000-5000",
+        "words": "50-196 196-343 343-753 2000-2364 2364-2891 2982-3145 3145-3309 3309-3664 3664-3991 3991-4155 4155-4345 4345-5000",
       },
       "staging": {
         "addressee": "marek",
@@ -6539,6 +6596,14 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
       },
     },
     {
