@@ -23,7 +23,11 @@
     grammarGroupAnchor,
     grammarNeighbors,
   } from "$lib/catalog/reference/grammar-path";
-  import { patternForms, patternView } from "$lib/catalog/reference/grammar-pattern";
+  import {
+    patternAnchor,
+    patternForms,
+    patternView,
+  } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
@@ -211,7 +215,9 @@
 
         {#each topic.morePatterns ?? [] as extra, index (extra.label)}
           <div class="mt-8">
-            <h2 class={grammarHeadingClass}>{extra.label}</h2>
+            <h2 id={patternAnchor(extra.label)} class={grammarHeadingClass}>
+              {extra.label}
+            </h2>
 
             {#if extra.intro}
               <p class="m-0 mt-1.5 max-w-[62ch] text-sm leading-relaxed text-slate-600">

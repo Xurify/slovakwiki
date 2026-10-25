@@ -7,6 +7,7 @@ import {
   markAgainst,
   markSuffix,
   namesHourAhead,
+  patternAnchor,
   patternView,
   parsePatternRow,
   patternForms,
@@ -133,6 +134,18 @@ describe("parsePattern", () => {
   it("falls back to rows for everything else", () => {
     expect(patternFor("negation").kind).toBe("rows");
     expect(patternFor("questions").kind).toBe("rows");
+  });
+});
+
+describe("patternAnchor", () => {
+  it("turns a table heading into a plain anchor", () => {
+    expect(patternAnchor("Arrive, leave, go in, go out")).toBe(
+      "arrive-leave-go-in-go-out",
+    );
+    expect(patternAnchor("Ísť — to go (one trip)")).toBe("ist-to-go-one-trip");
+    expect(patternAnchor("Where, where to, where from")).toBe(
+      "where-where-to-where-from",
+    );
   });
 });
 

@@ -220,6 +220,16 @@ export function patternView(
   return parsePattern(pattern.lines, examples);
 }
 
+/** Anchor for a further table's heading ("Arrive, leave, go in, go out" → arrive-leave-go-in-go-out). */
+export function patternAnchor(label: string): string {
+  return label
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export function patternForms(pattern: GrammarPattern): string[] {
   if (!isGrammarTable(pattern)) return [];
 
