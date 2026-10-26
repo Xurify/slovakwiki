@@ -27,6 +27,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Prečo sa učíš slovenčinu?", english: "Why are you learning Slovak?" },
       { slovak: "Prečo nie?", english: "Why not?" },
+      { slovak: "Prečo si neprišiel?", english: "Why didn't you come?" },
+      { slovak: "Neviem, prečo plače.", english: "I don't know why she's crying." },
     ],
     related: ["ako", "co", "kedy"],
   },
@@ -39,6 +41,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Kedy prídeš?", english: "When will you come?" },
       { slovak: "Kedy to bolo?", english: "When was that?" },
+      {
+        slovak: "Kedy ide vlak do Žiliny?",
+        english: "When does the train to Žilina leave?",
+      },
+      { slovak: "Kedy máš narodeniny?", english: "When is your birthday?" },
     ],
     related: ["preco", "kde", "ako"],
   },
@@ -51,6 +58,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Aký je to deň?", english: "What kind of day is it?" },
       { slovak: "Akú farbu máš rád?", english: "What color do you like?" },
+      { slovak: "Aký je tvoj nový šéf?", english: "What's your new boss like?" },
+      { slovak: "Aké je dnes počasie?", english: "What's the weather like today?" },
     ],
     related: ["ktory", "co", "kolko"],
   },
@@ -71,6 +80,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
         english: "Which book do you like?",
         note: "Curated",
       },
+      {
+        slovak: "Ktorý autobus ide na stanicu?",
+        english: "Which bus goes to the station?",
+      },
+      {
+        slovak: "To je kniha, ktorú práve čítam.",
+        english: "That's the book I'm reading at the moment.",
+      },
     ],
     related: ["aky", "kto", "co"],
   },
@@ -86,6 +103,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
         slovak: "Nevieš, či je obchod otvorený?",
         english: "Do you know if the shop is open?",
       },
+      {
+        slovak: "Spýtam sa, či majú voľnú izbu.",
+        english: "I'll ask whether they have a free room.",
+      },
+      {
+        slovak: "Daj mi vedieť, či prídeš.",
+        english: "Let me know whether you're coming.",
+      },
     ],
     related: ["ano", "nie", "co"],
   },
@@ -98,6 +123,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Odkiaľ si?", english: "Where are you from?" },
       { slovak: "Odkiaľ ide tento vlak?", english: "Where does this train come from?" },
+      { slovak: "Odkiaľ to vieš?", english: "How do you know that?" },
+      {
+        slovak: "Odkiaľ pochádzajú tvoji rodičia?",
+        english: "Where are your parents from?",
+      },
     ],
     related: ["kde", "kam", "kto"],
   },
@@ -110,6 +140,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Kam ideš?", english: "Where are you going?" },
       { slovak: "Kam to patrí?", english: "Where does this belong?" },
+      { slovak: "Kam pôjdeme na dovolenku?", english: "Where shall we go on holiday?" },
+      { slovak: "Kam si dal kľúče?", english: "Where did you put the keys?" },
     ],
     related: ["kde", "odkial", "ako"],
   },
@@ -124,6 +156,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Tento dom je starý.", english: "This house is old." },
       { slovak: "Tento človek je môj priateľ.", english: "This person is my friend." },
+      {
+        slovak: "Tento týždeň mám veľa práce.",
+        english: "I have a lot of work this week.",
+      },
+      { slovak: "Koľko stojí tento sveter?", english: "How much is this sweater?" },
     ],
     related: ["ten", "to", "tu"],
   },
@@ -136,6 +173,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Ten muž je učiteľ.", english: "That man is a teacher." },
       { slovak: "Ten deň bol krásny.", english: "That day was beautiful." },
+      { slovak: "Ten film bol nudný.", english: "That film was boring." },
+      { slovak: "Podaj mi ten pohár.", english: "Pass me that glass." },
     ],
     related: ["tento", "to", "tam"],
   },
@@ -148,6 +187,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "To je pravda.", english: "That is true." },
       { slovak: "Čo je to?", english: "What is that?" },
+      { slovak: "To je dobrý nápad!", english: "That's a good idea!" },
+      { slovak: "To vôbec nevadí.", english: "That doesn't matter at all." },
     ],
     related: ["co", "tento", "ten"],
   },
@@ -160,6 +201,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Som tu.", english: "I am here." },
       { slovak: "Tu je toaleta.", english: "The toilet is here." },
+      { slovak: "Tu sa nesmie fajčiť.", english: "You can't smoke here." },
+      { slovak: "Bývam tu už päť rokov.", english: "I've lived here for five years." },
     ],
     related: ["tam", "kde", "to"],
   },
@@ -172,6 +215,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Je to tam.", english: "It is there." },
       { slovak: "Tam bývam.", english: "I live there." },
+      { slovak: "Bol si tam už?", english: "Have you been there yet?" },
+      { slovak: "Stretneme sa tam o piatej.", english: "We'll meet there at five." },
     ],
     related: ["tu", "kde", "kam"],
   },
@@ -184,6 +229,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Niekto volá.", english: "Someone is calling." },
       { slovak: "Je tu niekto?", english: "Is someone here?" },
+      {
+        slovak: "Hovorí tu niekto po anglicky?",
+        english: "Does anyone here speak English?",
+      },
+      {
+        slovak: "Niekto tu zabudol dáždnik.",
+        english: "Someone forgot an umbrella here.",
+      },
     ],
     related: ["nikto", "nieco", "kto"],
   },
@@ -196,6 +249,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Chcem niečo jesť.", english: "I want something to eat." },
       { slovak: "Niečo sa stalo.", english: "Something happened." },
+      { slovak: "Videl som niečo zaujímavé.", english: "I saw something interesting." },
+      { slovak: "Potrebuješ ešte niečo?", english: "Do you need anything else?" },
     ],
     related: ["nic", "co", "niekto", "daco"],
   },
@@ -238,6 +293,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Nikto neprišiel.", english: "No one came." },
       { slovak: "Nikto to nevie.", english: "Nobody knows that." },
+      { slovak: "Nikto nie je doma.", english: "Nobody is home." },
+      { slovak: "Nikto mi nezavolal.", english: "Nobody called me." },
     ],
     related: ["niekto", "nic", "nie"],
   },
@@ -250,6 +307,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Nič sa nestalo.", english: "Nothing happened." },
       { slovak: "Nemám nič.", english: "I have nothing." },
+      { slovak: "Ďakujem, nič nepotrebujem.", english: "Thanks, I don't need anything." },
+      { slovak: "V chladničke nie je nič.", english: "There's nothing in the fridge." },
     ],
     related: ["nieco", "nikto", "nie"],
   },
@@ -262,6 +321,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Každý deň cvičím.", english: "I exercise every day." },
       { slovak: "Každý to vie.", english: "Everyone knows that." },
+      { slovak: "Autobus ide každú hodinu.", english: "The bus runs every hour." },
+      {
+        slovak: "Každé leto chodíme k moru.",
+        english: "Every summer we go to the seaside.",
+      },
     ],
     related: ["niekto", "kolko", "den"],
   },
@@ -276,6 +340,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Ja som študent.", english: "I am a student." },
       { slovak: "Ja rozumiem.", english: "I understand." },
+      { slovak: "Ja varím, ty umývaš riad.", english: "I cook, you wash the dishes." },
+      { slovak: "Kto to urobil? — Ja.", english: "Who did that? — Me." },
     ],
     related: ["ty", "on", "my"],
   },
@@ -288,6 +354,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Ty si môj priateľ.", english: "You are my friend." },
       { slovak: "Ako sa máš ty?", english: "How are you?" },
+      { slovak: "A ty? Odkiaľ si?", english: "And you? Where are you from?" },
+      { slovak: "Ty si to nevedel?", english: "You didn't know that?" },
     ],
     related: ["ja", "vy", "on"],
   },
@@ -300,6 +368,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "On je učiteľ.", english: "He is a teacher." },
       { slovak: "On hovorí po anglicky.", english: "He speaks English." },
+      { slovak: "On to nevie, spýtaj sa jej.", english: "He doesn't know, ask her." },
+      { slovak: "Aj on chce ísť s nami.", english: "He wants to come with us too." },
     ],
     related: ["ona", "oni", "ja"],
   },
@@ -312,6 +382,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Ona je lekárka.", english: "She is a doctor." },
       { slovak: "Ona býva v Bratislave.", english: "She lives in Bratislava." },
+      {
+        slovak: "Ja som unavený, ale ona chce ísť von.",
+        english: "I'm tired, but she wants to go out.",
+      },
+      {
+        slovak: "Ona nie je moja sestra, ale sesternica.",
+        english: "She isn't my sister, she's my cousin.",
+      },
     ],
     related: ["on", "oni", "zena"],
   },
@@ -324,6 +402,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "My sme priatelia.", english: "We are friends." },
       { slovak: "My ideme domov.", english: "We are going home." },
+      {
+        slovak: "My bývame tu, oni bývajú vedľa.",
+        english: "We live here, they live next door.",
+      },
+      { slovak: "Aj my ideme do kina.", english: "We're going to the cinema too." },
     ],
     related: ["vy", "oni", "ja"],
   },
@@ -336,6 +419,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Vy ste z Kanady?", english: "Are you from Canada?" },
       { slovak: "Čo chcete vy?", english: "And what do you want?" },
+      {
+        slovak: "Ďakujem, aj vy majte pekný deň.",
+        english: "Thank you, you have a nice day too.",
+      },
+      { slovak: "Vy dvaja ste bratia?", english: "Are you two brothers?" },
     ],
     related: ["ty", "my", "dobry-den"],
   },
@@ -348,6 +436,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Oni sú študenti.", english: "They are students." },
       { slovak: "Oni prídu zajtra.", english: "They will come tomorrow." },
+      {
+        slovak: "My ideme pešo, oni idú autom.",
+        english: "We're walking, they're going by car.",
+      },
+      {
+        slovak: "Peter a Martin? Oni tu už nebývajú.",
+        english: "Peter and Martin? They don't live here anymore.",
+      },
     ],
     related: ["on", "ona", "my"],
   },
@@ -360,6 +456,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Toto je môj dom.", english: "This is my house." },
       { slovak: "Moja mama je tu.", english: "My mom is here." },
+      { slovak: "Môj brat býva v Nitre.", english: "My brother lives in Nitra." },
+      { slovak: "Môj telefón nefunguje.", english: "My phone isn't working." },
     ],
     related: ["tvoj", "svoj", "ja"],
   },
@@ -372,6 +470,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Kde je tvoj telefón?", english: "Where is your phone?" },
       { slovak: "Tvoja sestra je milá.", english: "Your sister is nice." },
+      { slovak: "Je to tvoj kabát?", english: "Is this your coat?" },
+      { slovak: "Páči sa mi tvoje auto.", english: "I like your car." },
     ],
     related: ["moj", "vas", "ty"],
   },
@@ -384,6 +484,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Mám svoju knihu.", english: "I have my own book." },
       { slovak: "Rob si svoju prácu.", english: "Do your own work." },
+      { slovak: "Peter predal svoje auto.", english: "Peter sold his car." },
+      { slovak: "Každý má svoj kľúč.", english: "Everyone has their own key." },
     ],
     related: ["moj", "tvoj", "nas"],
   },
@@ -396,6 +498,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Náš dom je malý.", english: "Our house is small." },
       { slovak: "Naša rodina je veľká.", english: "Our family is big." },
+      { slovak: "Náš syn má desať rokov.", english: "Our son is ten years old." },
+      { slovak: "Naši susedia sú veľmi milí.", english: "Our neighbours are very nice." },
     ],
     related: ["vas", "moj", "my"],
   },
@@ -408,6 +512,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Vaša kancelária je tu.", english: "Your office is here." },
       { slovak: "Váš návrh je dobrý.", english: "Your proposal is good." },
+      { slovak: "Je toto váš kufor?", english: "Is this your suitcase?" },
+      { slovak: "Ďakujem za vašu pomoc.", english: "Thank you for your help." },
     ],
     related: ["nas", "tvoj", "vy"],
   },
@@ -422,6 +528,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Chlieb a maslo.", english: "Bread and butter." },
       { slovak: "Ja a ty.", english: "You and I." },
+      { slovak: "Mám brata a sestru.", english: "I have a brother and a sister." },
+      {
+        slovak: "Prišiel domov a hneď zaspal.",
+        english: "He came home and fell asleep right away.",
+      },
     ],
     related: ["ale", "alebo", "ze"],
   },
@@ -434,6 +545,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Chcem ísť, ale prší.", english: "I want to go, but it is raining." },
       { slovak: "Je to malé, ale pekné.", english: "It is small, but nice." },
+      {
+        slovak: "Rád by som prišiel, ale nemám čas.",
+        english: "I'd like to come, but I don't have time.",
+      },
+      {
+        slovak: "Chcel som zavolať, ale zabudol som.",
+        english: "I wanted to call, but I forgot.",
+      },
     ],
     related: ["a", "alebo", "lebo"],
   },
@@ -446,6 +565,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Čaj alebo káva?", english: "Tea or coffee?" },
       { slovak: "Dnes alebo zajtra.", english: "Today or tomorrow." },
+      {
+        slovak: "Pôjdeme autom alebo vlakom?",
+        english: "Shall we go by car or by train?",
+      },
+      { slovak: "Zavolaj mi alebo napíš.", english: "Call me or send a message." },
     ],
     related: ["a", "ale", "ci"],
   },
@@ -458,6 +582,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Hovorí, že príde.", english: "He says that he will come." },
       { slovak: "Myslím, že áno.", english: "I think so." },
+      { slovak: "Viem, že máš pravdu.", english: "I know you're right." },
+      { slovak: "Som rád, že si prišiel.", english: "I'm glad you came." },
     ],
     related: ["ci", "lebo", "a"],
   },
@@ -472,6 +598,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
       {
         slovak: "Keď bolo pekne, išli sme von.",
         english: "When it was nice, we went out.",
+      },
+      {
+        slovak: "Zavolám ti, keď prídem domov.",
+        english: "I'll call you when I get home.",
+      },
+      {
+        slovak: "Keď som bol malý, býval som v Prešove.",
+        english: "When I was little, I lived in Prešov.",
       },
     ],
     related: ["kedy", "ci", "lebo"],
@@ -491,6 +625,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
         slovak: "Pretože prší, zostávam doma.",
         english: "Because it is raining, I am staying home.",
       },
+      {
+        slovak: "Idem spať, pretože som unavený.",
+        english: "I'm going to bed because I'm tired.",
+      },
+      {
+        slovak: "Meškal som, pretože nešiel autobus.",
+        english: "I was late because the bus didn't come.",
+      },
     ],
     related: ["lebo", "ze", "preco"],
   },
@@ -506,6 +648,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
         english: "I can't, because I don't have time.",
       },
       { slovak: "Lebo som unavený.", english: "Because I am tired." },
+      {
+        slovak: "Ponáhľam sa, lebo mi ide vlak.",
+        english: "I'm in a hurry because my train is leaving.",
+      },
+      {
+        slovak: "Zober si bundu, lebo je zima.",
+        english: "Take a jacket, because it's cold.",
+      },
     ],
     related: ["pretoze", "preco", "ze"],
   },
@@ -550,6 +700,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Som v meste.", english: "I am in the city." },
       { slovak: "Je to v taške.", english: "It is in the bag." },
+      { slovak: "Pracujem v nemocnici.", english: "I work in a hospital." },
+      { slovak: "Stretneme sa v pondelok.", english: "We'll meet on Monday." },
     ],
     related: ["na", "do", "o"],
   },
@@ -562,6 +714,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Kniha je na stole.", english: "The book is on the table." },
       { slovak: "Idem na stanicu.", english: "I am going to the station." },
+      { slovak: "Čakám na autobus.", english: "I'm waiting for the bus." },
+      { slovak: "Bol som na pošte.", english: "I was at the post office." },
     ],
     related: ["v", "do", "po"],
   },
@@ -574,6 +728,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Idem do školy.", english: "I am going to school." },
       { slovak: "Vlož to do tašky.", english: "Put it in the bag." },
+      { slovak: "Pracujem od deviatej do piatej.", english: "I work from nine to five." },
+      {
+        slovak: "Cez víkend ideme do Tatier.",
+        english: "At the weekend we're going to the Tatras.",
+      },
     ],
     related: ["z", "od", "na"],
   },
@@ -586,6 +745,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Som z Bratislavy.", english: "I am from Bratislava." },
       { slovak: "Vyjdi z domu.", english: "Come out of the house." },
+      { slovak: "Vlak z Košíc mešká.", english: "The train from Košice is late." },
+      {
+        slovak: "Vybral kľúče z vrecka.",
+        english: "He took the keys out of his pocket.",
+      },
     ],
     related: ["zo", "od", "do"],
   },
@@ -598,6 +762,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Som zo Slovenska.", english: "I am from Slovakia." },
       { slovak: "Je zo školy.", english: "He is from school." },
+      { slovak: "Zo stanice idem pešo.", english: "From the station I walk." },
+      {
+        slovak: "Zo začiatku som nič nerozumel.",
+        english: "At first I didn't understand anything.",
+      },
     ],
     related: ["z", "od", "odkial"],
   },
@@ -610,6 +779,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Idem s priateľom.", english: "I am going with a friend." },
       { slovak: "Káva s mliekom.", english: "Coffee with milk." },
+      { slovak: "Rozprávam sa s mamou.", english: "I'm talking with my mum." },
+      { slovak: "Dám si čaj s citrónom.", english: "I'll have tea with lemon." },
     ],
     related: ["so", "a", "pre"],
   },
@@ -622,6 +793,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Som so sestrou.", english: "I am with my sister." },
       { slovak: "Chlieb so syrom.", english: "Bread with cheese." },
+      { slovak: "Hovoril som so šéfom.", english: "I spoke with the boss." },
+      { slovak: "Dám si kávu so smotanou.", english: "I'll have coffee with cream." },
     ],
     related: ["s", "a", "v"],
   },
@@ -634,6 +807,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Hovoríme o práci.", english: "We are talking about work." },
       { slovak: "O siedmej.", english: "At seven o'clock." },
+      { slovak: "Film začína o ôsmej.", english: "The film starts at eight." },
+      { slovak: "Čo vieš o Slovensku?", english: "What do you know about Slovakia?" },
     ],
     related: ["na", "v", "pre"],
   },
@@ -646,6 +821,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Toto je pre teba.", english: "This is for you." },
       { slovak: "Kúpil som to pre mamu.", english: "I bought it for Mom." },
+      { slovak: "Tento film nie je pre deti.", english: "This film isn't for children." },
+      {
+        slovak: "Varím večeru pre celú rodinu.",
+        english: "I'm cooking dinner for the whole family.",
+      },
     ],
     related: ["o", "s", "na"],
   },
@@ -658,6 +838,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Od rána pracujem.", english: "I have been working since morning." },
       { slovak: "Dostal som list od mamy.", english: "I got a letter from mom." },
+      { slovak: "Od pondelka mám dovolenku.", english: "I'm on holiday from Monday." },
+      {
+        slovak: "Bývam kúsok od centra.",
+        english: "I live a short way from the centre.",
+      },
     ],
     related: ["z", "do", "odkial"],
   },
@@ -670,6 +855,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Po obede idem spať.", english: "After lunch I go to sleep." },
       { slovak: "Po slovensky.", english: "In Slovak." },
+      { slovak: "Prechádzame sa po meste.", english: "We're walking around the town." },
+      { slovak: "Zavolám ti po práci.", english: "I'll call you after work." },
     ],
     related: ["na", "do", "za"],
   },
@@ -682,6 +869,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Ďakujem za pomoc.", english: "Thank you for the help." },
       { slovak: "Za týždeň prídem.", english: "I will come in a week." },
+      { slovak: "Za domom je záhrada.", english: "There's a garden behind the house." },
+      {
+        slovak: "Zaplatil som za lístok desať eur.",
+        english: "I paid ten euros for the ticket.",
+      },
     ],
     related: ["pre", "po", "od"],
   },
@@ -694,6 +886,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Len jednu kávu, prosím.", english: "Just one coffee, please." },
       { slovak: "Len trochu.", english: "Just a little." },
+      { slovak: "Mám len päť eur.", english: "I only have five euros." },
+      { slovak: "Počkaj len chvíľu.", english: "Just wait a moment." },
     ],
     related: ["tiez", "este", "nie"],
   },
@@ -706,6 +900,11 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Ja tiež.", english: "Me too." },
       { slovak: "Ona tiež rozumie.", english: "She understands too." },
+      { slovak: "Mám tiež psa.", english: "I have a dog too." },
+      {
+        slovak: "Martin tiež príde na večeru.",
+        english: "Martin is coming to dinner too.",
+      },
     ],
     related: ["len", "a", "ano"],
   },
@@ -718,6 +917,14 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Dobrý večer, pán Kováč.", english: "Good evening, Mr. Kováč." },
       { slovak: "Dobrý večer všetkým.", english: "Good evening, everyone." },
+      {
+        slovak: "Dobrý večer, máte rezerváciu?",
+        english: "Good evening, do you have a reservation?",
+      },
+      {
+        slovak: "Dobrý večer, prosím si stôl pre dvoch.",
+        english: "Good evening, a table for two, please.",
+      },
     ],
     related: ["dobry-den", "dobru-noc", "ahoj"],
   },
@@ -730,6 +937,8 @@ export const curatedEssentialsSeed: WordSeed[] = [
     examples: [
       { slovak: "Dobrú noc, mama.", english: "Good night, mom." },
       { slovak: "Dobrú noc a sladké sny.", english: "Good night and sweet dreams." },
+      { slovak: "Už idem spať. Dobrú noc!", english: "I'm off to bed now. Good night!" },
+      { slovak: "Popraj deťom dobrú noc.", english: "Say good night to the children." },
     ],
     related: ["dobry-vecer", "dovidenia", "ahoj"],
   },
