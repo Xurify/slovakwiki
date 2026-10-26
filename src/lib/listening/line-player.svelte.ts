@@ -5,6 +5,9 @@ export const LINE_GAP_MS = 450;
 
 export const SLOW_RATE = 0.8;
 
+/** After the listener's pick, a beat before the answer, so it lands as a reply and not a snap. */
+export const ANSWER_BEAT_MS = 900;
+
 /**
  * Heard this much of a line, Replay line starts it over; before that it goes
  * back a line, the way a player's previous button does on a track just begun.
@@ -20,7 +23,11 @@ export interface LineStage {
 }
 
 export interface LinePlayerOptions {
+  /** The line puts a question to the listener: the run holds after it until `answered`. */
+  holdsAfter?: (index: number) => boolean;
   isLast: (index: number) => boolean;
+  /** The line after `index`, where some lines are on another path; the following one unless set. */
+  next?: (index: number) => number | undefined;
   onRunEnd: (index: number) => void;
   /** The stage to play each line on, once there is one; the clip alone until then. */
   stage?: () => LineStage | undefined;
@@ -34,6 +41,8 @@ export class LinePlayer {
   slow = $state(false);
   /** Less than BACK_MS of the line heard: Replay line would go back a line instead. */
   justBegun = $state(true);
+  /** Stopped after the line for the listener's answer; play goes on from the next line. */
+  held = $state(false);
 
   #epoch = 0;
   #begun = 0;
@@ -67,6 +76,7 @@ export class LinePlayer {
     this.#epoch += 1;
     const mine = this.#epoch;
     this.cursor = index;
+    this.held = false;
     this.playing = true;
     this.speaking = false;
     this.#heardMs = 0;
@@ -95,6 +105,7 @@ export class LinePlayer {
   pause(): void {
     this.#clearGap();
     this.#epoch += 1;
+    this.held = false;
     this.playing = false;
     this.speaking = false;
     this.#heardMs = this.#heard();
@@ -133,7 +144,22 @@ export class LinePlayer {
 
   toggle(): void {
     if (this.playing) this.pause();
+    else if (this.held) this.answered();
     else this.playFrom(this.cursor);
+  }
+
+  /** On from a held line, after a beat: the listener has done the thinking the next line's wait is for. */
+  answered(): void {
+    if (!this.held) return;
+    this.held = false;
+    this.playing = true;
+    const mine = this.#epoch;
+    this.#gap = window.setTimeout(() => {
+      this.#gap = 0;
+      if (mine !== this.#epoch || !this.playing) return;
+      const next = this.#next(this.cursor);
+      if (next !== undefined) this.playFrom(next);
+    }, ANSWER_BEAT_MS);
   }
 
   toggleSlow(): void {
@@ -152,20 +178,32 @@ export class LinePlayer {
     if (mine !== this.#epoch || !this.playing) return;
 
     this.speaking = false;
+    if (this.#options.holdsAfter?.(index) && !this.#options.isLast(index)) {
+      this.playing = false;
+      this.held = true;
+      return;
+    }
     if (this.#options.isLast(index)) {
       this.playing = false;
       this.#options.onRunEnd(index);
       return;
     }
 
+    const next = this.#next(index);
+    if (next === undefined) return;
     this.#gap = window.setTimeout(
       () => {
         this.#gap = 0;
         if (mine !== this.#epoch || !this.playing) return;
-        this.playFrom(index + 1);
+        this.playFrom(next);
       },
-      LINE_GAP_MS + (this.#lines[index + 1]?.wait ?? 0),
+      LINE_GAP_MS + (this.#lines[next]?.wait ?? 0),
     );
+  }
+
+  #next(index: number): number | undefined {
+    if (this.#options.next) return this.#options.next(index);
+    return index + 1 < this.#lines.length ? index + 1 : undefined;
   }
 
   /** Safe on the server too, where destroy runs after a render and there is no window. */

@@ -7,6 +7,9 @@ const TOKEN_RE = /[\p{L}\p{M}]+/gu;
 /** Skip short surface forms (`je`, `si`, `sú`) — too many false positives. */
 const MIN_FORM_LENGTH = 3;
 
+/** Slovak negates with `ne-`: `netýka` is a form of `týkať`. */
+const NEGATION_PREFIX = "ne";
+
 function formKeysForLemma(lemma: string, category: string, gender?: string): Set<string> {
   const keys = new Set<string>();
   const lemmaLower = lemma.toLocaleLowerCase("sk");
@@ -31,7 +34,14 @@ function formKeysForLemma(lemma: string, category: string, gender?: string): Set
 }
 
 function tokenMatches(token: string, keys: Set<string>): boolean {
-  return keys.has(token.toLocaleLowerCase("sk"));
+  const lower = token.toLocaleLowerCase("sk");
+  if (keys.has(lower)) return true;
+  if (!lower.startsWith(NEGATION_PREFIX)) return false;
+
+  // The bare form keeps the length floor, so `nemá` never lights up `má` on
+  // every line that has one.
+  const bare = lower.slice(NEGATION_PREFIX.length);
+  return bare.length >= MIN_FORM_LENGTH && keys.has(bare);
 }
 
 /**

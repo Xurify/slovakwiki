@@ -144,8 +144,8 @@ const CONTENT_RULES: ContentRule[] = [
 const RHYTHMIC_LAW =
   /(?<![\p{L}*])\p{L}*?(?:[áéíóúýô]|i[aeu])([^\P{L}aáäeéiíoóôuúyý]+)(?:ý|ého|ému|ých|ými|ám|áš|áme|áte|ím|íš|íme|íte)(?!\p{L})/giu;
 
-/** Instrumental pronouns keep -ím after a long syllable (niečím, ničím). */
-const RHYTHMIC_EXCEPTIONS = new Set(["niečím", "ničím", "čímsi", "hocičím"]);
+/** Instrumental pronouns (niečím, ničím) and neuter -ie nouns (lístie → lístím) keep -ím after a long syllable. */
+const RHYTHMIC_EXCEPTIONS = new Set(["niečím", "ničím", "čímsi", "hocičím", "lístím"]);
 
 /** A consonant run with r or l inside (ú-pl-ný) holds its own syllable, so the law skips it. */
 function hasSyllabicLiquid(consonants: string): boolean {
