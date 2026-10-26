@@ -123,11 +123,11 @@
     ]),
   );
 
-  const leadTopic = $derived(
-    wordResults.best?.type === "pronoun"
-      ? topicRows.find((row) => row.key === wordResults.best?.pronoun.topicId)
-      : undefined,
-  );
+  const leadTopic = $derived.by(() => {
+    const best = wordResults.best;
+    if (best?.type !== "pronoun") return undefined;
+    return topicRows.find((row) => row.key === best.pronoun.topicId);
+  });
   /** The best-match card already links its own topic; don't list it again below. */
   const listedTopicRows = $derived(
     filter === "topics" ? topicRows : topicRows.filter((row) => row !== leadTopic),

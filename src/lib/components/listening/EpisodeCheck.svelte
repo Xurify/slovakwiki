@@ -42,7 +42,8 @@
     onresolve: (correct: boolean) => void;
     /** Replays the line some other way than its clip alone, such as acted on a stage. */
     playReplay?: (onEnded: () => void) => void;
-    replayLine?: DialogueTurn;
+    /** Only who says it is shown; a stage line and a lesson turn both have that. */
+    replayLine?: Pick<DialogueTurn, "speaker">;
     replaySrc?: string;
     stopReplay?: () => void;
     total: number;
