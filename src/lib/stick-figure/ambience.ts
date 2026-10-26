@@ -372,26 +372,22 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
  * What you hear on a Bratislava platform as a tram comes in: the driver's
  * bell, the rails starting to hum, the wheels knocking over the rail joints
  * as it gets close, the motor whining down, and the brakes as it stops.
- * About four seconds; plays on its own, background sound or not.
+ * About four seconds; plays on its own, background sound or not, and
+ * stops with the stage like the other cues.
  */
 export function playTramCue(): void {
   if (getStoredSfxPreference() === "off") return;
-  const Context =
-    window.AudioContext ??
-    (window as unknown as { webkitAudioContext?: typeof AudioContext })
-      .webkitAudioContext;
-  if (!Context) return;
+  const cue = cues();
+  if (!cue) return;
 
-  const ctx = new Context();
-  const out = ctx.createGain();
-  out.gain.value = 0.5 * getAudioVolume();
-  out.connect(ctx.destination);
+  const { ctx } = cue;
+  const out = cueOut(ctx, 0.5, 4800);
   const kit: Kit = {
     ctx,
     dark: false,
     every: () => {},
     indoors: false,
-    noise: noiseBuffer(ctx),
+    noise: cue.noise,
     out,
   };
   const now = ctx.currentTime;
@@ -442,8 +438,6 @@ export function playTramCue(): void {
   brake.connect(brakeGain).connect(out);
   brake.start(now + 2.9);
   brake.stop(now + 3.6);
-
-  window.setTimeout(() => void ctx.close(), 4800);
 }
 
 let cueContext: { ctx: AudioContext; noise: AudioBuffer } | undefined;
@@ -525,7 +519,7 @@ const GROUND_STEPS: Record<
   },
 };
 
-/** The cues still sounding (footsteps, a phone, the sting), so a stage that stops or skips can silence them. */
+/** The cues still sounding (footsteps, a phone, the sting, a tram), so a stage that stops or skips can silence them. */
 const sounding = new Set<GainNode>();
 
 /** An output for one cue, silenced by stopCues or let go after `ms`. */
