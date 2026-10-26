@@ -94,15 +94,17 @@
 {#snippet formCell(cell: ParadigmCell)}
   <li
     class={cx(
-      "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
-      "sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]",
+      "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-1.5 last:border-b-0 sm:px-5",
+      "sm:grid-cols-[7rem_8rem_minmax(0,1fr)]",
     )}
   >
     <span class="text-sm text-slate-500" lang="sk">{cell.pronoun}</span>
 
     <span class={grammarFormClass} lang="sk">
       {#if cell.stem && cell.ending}
-        {cell.stem}<span class={grammarEndingClass}>{cell.ending}</span>
+        {cell.stem}<span class={cx(grammarEndingClass, "rounded-sm bg-mark px-px")}
+          >{cell.ending}</span
+        >
       {:else}
         {cell.form}
       {/if}
@@ -182,10 +184,7 @@
   {:else if view?.kind === "tiles"}
     <div>
       <div
-        class={cx(
-          dataColumnHeadClass,
-          "gap-x-6 sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]",
-        )}
+        class={cx(dataColumnHeadClass, "gap-x-6 sm:grid-cols-[8rem_11rem_minmax(0,1fr)]")}
         aria-hidden="true"
       >
         <span>Gender</span>
@@ -197,8 +196,8 @@
         {#each view.tiles as tile (tile.label)}
           <li
             class={cx(
-              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
-              "sm:grid-cols-[9.5rem_13rem_minmax(0,1fr)]",
+              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-1.5 last:border-b-0 sm:px-5",
+              "sm:grid-cols-[8rem_11rem_minmax(0,1fr)]",
             )}
           >
             <span class="text-sm text-slate-500">{tile.label}</span>
@@ -228,7 +227,7 @@
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
-                  "w-px py-2 pr-6 pl-4 text-left align-bottom max-sm:hidden sm:pl-5",
+                  "w-px py-2 pr-6 pl-4 text-left align-bottom whitespace-nowrap max-sm:hidden sm:pl-5",
                 )}
               >
                 {view.rowLabel}
@@ -306,10 +305,7 @@
   {:else if view?.kind === "paradigm"}
     <div>
       <div
-        class={cx(
-          dataColumnHeadClass,
-          "gap-x-6 sm:grid-cols-[9.5rem_8rem_minmax(0,1fr)]",
-        )}
+        class={cx(dataColumnHeadClass, "gap-x-6 sm:grid-cols-[7rem_8rem_minmax(0,1fr)]")}
         aria-hidden="true"
       >
         <span>Person</span>
@@ -351,8 +347,8 @@
       aria-label={pattern.label}
     >
       {#each view.rows as row, index (index)}
-        <li class="border-r border-b border-slate-200/70 px-4 py-3 sm:px-5">
-          <span class={cx(grammarFormClass, "block text-lg")} lang="sk">{row.main}</span>
+        <li class="border-r border-b border-slate-200/70 px-4 py-2 sm:px-5">
+          <span class={cx(grammarFormClass, "block")} lang="sk">{row.main}</span>
           <span class="mt-0.5 block text-sm leading-snug text-slate-500">{row.gloss}</span
           >
         </li>
@@ -366,14 +362,11 @@
 
           <li
             class={cx(
-              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
+              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-1.5 last:border-b-0 sm:px-5",
               "sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]",
             )}
           >
-            <span
-              class={cx(grammarFormClass, "text-lg")}
-              lang={row.gloss || prefix ? "sk" : undefined}
-            >
+            <span class={grammarFormClass} lang={row.gloss || prefix ? "sk" : undefined}>
               {#if row.label}
                 <span class="mr-3 font-sans text-sm font-normal text-slate-500">
                   {row.label}
