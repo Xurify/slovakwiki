@@ -155,12 +155,12 @@
       {#if dress.headwear === "headphones"}
         <!-- The far cup, behind the head in the three-quarter view. -->
         <rect
-          x="42.9"
-          y="25.2"
-          width="6.6"
-          height="8.4"
-          rx="3.2"
-          class="fill-scene-cool stroke-portrait-ink"
+          x="42.2"
+          y="23"
+          width="8.6"
+          height="12.6"
+          rx="4.1"
+          class="fill-portrait-vest stroke-portrait-ink"
           stroke-width="1.3"
         />
       {:else if dress.headwear === "headset"}
@@ -212,22 +212,34 @@
       <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
 
       {#if dress.headwear === "headphones"}
-        <!-- Open-back headphones in the head's own 64-unit space: a thin band over the hair, a light cup with a grille on the near ear. -->
-        <path d={headband(0.4)} class="stroke-portrait-ink" stroke-width="2" />
-        <path d={headband(0.4)} class="stroke-scene-edge" stroke-width="0.8" />
+        <!-- Closed-back studio headphones in the head's own 64-unit space: a padded band over the hair, a deep cup over the near ear. -->
+        <path d={headband(1.2)} class="stroke-portrait-ink" stroke-width="4.4" />
+        <path d={headband(1.2)} class="stroke-portrait-vest" stroke-width="2.6" />
         <rect
-          x="14.5"
-          y="25.2"
-          width="6.6"
-          height="8.4"
-          rx="3.2"
-          class="fill-scene-cool stroke-portrait-ink"
+          x="13.4"
+          y="23"
+          width="8.8"
+          height="12.8"
+          rx="4.2"
+          class="fill-portrait-ink stroke-portrait-ink"
           stroke-width="1.3"
         />
-        <path
-          d="M16.2 27.4h3.2M16.2 29.4h3.2M16.2 31.4h3.2"
-          class="stroke-scene-line"
-          stroke-width="0.9"
+        <rect
+          x="12.2"
+          y="23.6"
+          width="7.6"
+          height="11.6"
+          rx="3.8"
+          class="fill-portrait-vest stroke-portrait-ink"
+          stroke-width="1.3"
+        />
+        <rect
+          x="13.9"
+          y="25.6"
+          width="4.2"
+          height="7.6"
+          rx="2.1"
+          class="fill-scene-line/60"
         />
       {:else if dress.headwear === "headset"}
         <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
