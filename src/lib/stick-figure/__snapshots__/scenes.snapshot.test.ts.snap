@@ -4472,11 +4472,20 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
         "words": "0-377 377-547 1650-2153 2153-2302 2302-2450",
       },
       "staging": {
-        "addressee": "narrator",
+        "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
         },
         "looksAt": "anna",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
       },
     },
     {
@@ -4554,9 +4563,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
         "looksAt": "anna",
         "reactions": [
@@ -4636,9 +4645,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
         "looksAt": "anna",
         "reactions": [
@@ -4835,11 +4844,20 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
         "words": "0-400",
       },
       "staging": {
-        "addressee": "narrator",
+        "addressee": "anna",
         "facing": {
           "anna": 1,
+          "marek": -1,
         },
         "looksAt": "anna",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
       },
     },
     {
@@ -4894,11 +4912,20 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
         "words": "50-287 1450-1980 1980-2208 3200-4000",
       },
       "staging": {
-        "addressee": "narrator",
+        "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
         },
         "looksAt": "anna",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
       },
     },
     {
@@ -5111,9 +5138,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
         "looksAt": "anna",
       },
@@ -5169,11 +5196,20 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
         "words": "0-463 591-822 822-1054 1054-1606 3200-3430 3430-3627 3736-4600",
       },
       "staging": {
-        "addressee": "narrator",
+        "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
         },
         "looksAt": "anna",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
       },
     },
     {
@@ -5421,9 +5457,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
         "looksAt": "anna",
         "reactions": [
@@ -5532,9 +5568,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
         "looksAt": "anna",
       },

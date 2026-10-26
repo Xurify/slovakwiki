@@ -679,7 +679,6 @@ const quiz: ListeningChapter = {
       "Marek",
       ["Viete čo? ", PAUSE, "Pomôžte mi vy!"],
       "You know what? You help me!",
-      { to: "listener" },
     ),
     line(
       "anna-you-choose",
@@ -787,7 +786,7 @@ const quiz: ListeningChapter = {
       ),
       { ask: `${PREFIX}marek-what-do-you-think`, picks: ["ta"] },
     ),
-    onPath(line("marek-they-did", "Marek", ["Oni!"], "They did!", { to: "listener" }), {
+    onPath(line("marek-they-did", "Marek", ["Oni!"], "They did!"), {
       ask: `${PREFIX}marek-what-do-you-think`,
       picks: ["ta"],
     }),
@@ -815,7 +814,6 @@ const quiz: ListeningChapter = {
         "Marek",
         [mark("Tie"), STOP, PAUSE, "alebo ", mark("tí"), "? ", PAUSE, "Pomôžte!"],
         "Tie… or tí? Help!",
-        { to: "listener" },
       ),
       {
         prompt: "Čo má Marek povedať?",
@@ -929,7 +927,6 @@ const quiz: ListeningChapter = {
         "Marek",
         ["Ojoj, to je ťažké. ", PAUSE, "Tak čo, pomocníci?"],
         "Uh-oh, that's hard. So what, helpers?",
-        { to: "listener" },
       ),
       {
         prompt: "Čo má Marek povedať?",
