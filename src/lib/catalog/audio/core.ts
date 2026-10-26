@@ -25,6 +25,12 @@ export interface AudioCharacter {
   speakers?: string[];
   voiceId: string;
   voiceName: string;
+  /**
+   * This character's own settings over the shared ones. Settings are part of
+   * a clip's hash, so a clip made before they were set keeps playing until
+   * it is made again (`audioConfigForClip`).
+   */
+  voiceSettings?: Partial<AudioVoiceSettings>;
 }
 
 export interface AudioConfig {

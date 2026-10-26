@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { isOutdoors } from "./places";
-import { sceneMood } from "./scene-mood";
+import { clockHour, sceneMood, toldHour } from "./scene-mood";
 
 describe("sceneMood", () => {
   it("reads the time of day from the first greeting that names one", () => {
@@ -53,5 +53,25 @@ describe("sceneMood", () => {
       false,
       false,
     ]);
+  });
+});
+
+describe("toldHour", () => {
+  it("reads the time a scene card or a line tells", () => {
+    expect(toldHour(["Staré mesto. Pol dvanástej."])).toBe(11.5);
+    expect(toldHour(["Haló?", "Je sedem hodín, vstávaj!"])).toBe(7);
+    expect(toldHour(["Je štvrť na deväť."])).toBe(8.25);
+    expect(toldHour(["Je poludnie."])).toBe(0);
+  });
+
+  it("leaves out a time something happens at, and a bare number", () => {
+    expect(toldHour(["O dvanástej ide von."])).toBeUndefined();
+    expect(toldHour(["Príde o pol hodiny."])).toBeUndefined();
+    expect(toldHour(["Mám sedem jabĺk."])).toBeUndefined();
+  });
+
+  it("sets the clocks, and the time of day's hour holds when no time is told", () => {
+    expect(clockHour(sceneMood(["Trh. Pol piatej."]))).toBe(4.5);
+    expect(clockHour(sceneMood(["Dobrý večer!"]))).toBe(19);
   });
 });

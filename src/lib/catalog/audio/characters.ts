@@ -1,4 +1,9 @@
-import { audioConfigData, type AudioCharacter, type AudioConfig } from "./core";
+import {
+  audioConfigData,
+  audioHash,
+  type AudioCharacter,
+  type AudioConfig,
+} from "./core";
 import type { LessonCharacterId } from "../lessons/character-ids";
 
 export type CharacterGender = "female" | "male" | "neutral";
@@ -34,5 +39,25 @@ export function audioConfigForCharacter(
     ...base,
     voiceId: character.voiceId,
     voiceName: character.voiceName,
+    voiceSettings: { ...base.voiceSettings, ...character.voiceSettings },
   };
+}
+
+/**
+ * The voice a clip of `text` was made in: this character's settings, or the
+ * shared ones it had before its own were set, when only that older take
+ * exists (`has`). A clip not made yet gets the character's settings.
+ */
+export function audioConfigForClip(
+  text: string,
+  characterId: LessonCharacterId,
+  has: (hash: string) => boolean,
+  base: AudioConfig = audioConfigData,
+): AudioConfig {
+  const config = audioConfigForCharacter(characterId, base);
+  if (!characters[characterId]?.voiceSettings || has(audioHash(text, config)))
+    return config;
+
+  const earlier = { ...config, voiceSettings: base.voiceSettings };
+  return has(audioHash(text, earlier)) ? earlier : config;
 }

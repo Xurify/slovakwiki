@@ -19,7 +19,8 @@ import type { DialogueTurn } from "$lib/learning/types";
 
 /** A direction to the voice, not shown in the text. */
 export interface Direction {
-  readonly tag: "chuckles" | "pause" | "sighs" | "yawns";
+  readonly tag:
+    "chuckles" | "excited" | "happy" | "pause" | "sighs" | "surprised" | "yawns";
 }
 
 /** A beat of silence in the clip, where the speaker thinks or lets a clue sink in. */
@@ -30,6 +31,16 @@ export const SIGH: Direction = { tag: "sighs" };
 export const CHUCKLE: Direction = { tag: "chuckles" };
 /** A yawn before the words: still half asleep. The stage acts each of these three out too. */
 export const YAWN: Direction = { tag: "yawns" };
+/**
+ * The feeling a line is said with, where the moment carries one: the steady
+ * voice of a host (Marek's settings) reads flat without it. Untried on Eleven
+ * v4 until each is heard back; say in the PR how each should sound.
+ */
+export const EXCITED: Direction = { tag: "excited" };
+/** Glad and warm: good news, a dish that tastes good. */
+export const HAPPY: Direction = { tag: "happy" };
+/** Caught off guard: the phone ringing, a hot spoon. */
+export const SURPRISED: Direction = { tag: "surprised" };
 /** Words trailing off in the text, a full stop in the clip; the beat comes from the PAUSE after it. */
 export const STOP = { said: ". ", shown: "… " } as const;
 /** The listener gets this long to decide before the answer comes. */
