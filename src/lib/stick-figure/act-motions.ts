@@ -956,11 +956,22 @@ export function motionFor(
     }
     case "beckon": {
       // The hand out low and scooping back in to the chest twice: come in, come here. Low and toward the body, it does not read as a raised fist.
+      // Seated, it scoops over the table: at the standing height it flapped under the board.
+      const seated = world.seated?.includes(who);
+      const scoop = seated
+        ? [
+            { x: 8, y: 1 },
+            { x: 18, y: 5 },
+          ]
+        : [
+            { x: 9, y: 12 },
+            { x: 20, y: 19 },
+          ];
       const keys: MotionKey[] = [{ at: 0 }];
       for (let at = 300, curl = 0; at <= 1300; at += 250, curl += 1) {
         keys.push({
           at,
-          ...hands(free, { up: curl % 2 ? { x: 9, y: 12 } : { x: 20, y: 19 } }),
+          ...hands(free, { up: scoop[curl % 2 ? 0 : 1] }),
           body: { lean: 2, tilt: 3, brow: 0.5, look: 0.8 },
         });
       }

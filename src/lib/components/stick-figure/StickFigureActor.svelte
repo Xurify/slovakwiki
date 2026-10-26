@@ -22,6 +22,7 @@
   } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
+  import { alive } from "$lib/stick-figure/idle";
   import { sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
   import {
     headClearOfMic,
@@ -224,7 +225,11 @@
     if (doing) untrack(run);
   });
 
-  $effect(() => () => cancelAnimationFrame(frame));
+  // Breathing from the start, before any line plays.
+  $effect(() => {
+    untrack(run);
+    return () => cancelAnimationFrame(frame);
+  });
 
   /** The arm of a hand holding something that spills, held up rather than at rest or gesturing; a cue's reach still takes it from there. */
   function steady(pose: StickPose): StickPose {
@@ -251,8 +256,8 @@
     if (!frame) frame = requestAnimationFrame(tick);
   }
 
-  // The loop runs only while a line, its last gesture, a picture or a walk is in
-  // flight, then parks on the rest pose: no idle motion between lines.
+  // Between lines the loop keeps the figure breathing and blinking (idle.ts);
+  // with reduced motion it parks on the rest pose once nothing is in flight.
   function tick(now: number): void {
     const next = plan
       ? performFrame(plan, act, {
@@ -301,11 +306,14 @@
       ? easeInOut(Math.min(1, (now - released.at) / RELEASE_MS))
       : 1;
     const still = released ? lerpPose(released.pose, stepping, easing) : stepping;
+    const living = reducedMotion
+      ? (acted?.pose ?? still)
+      : alive(acted?.pose ?? still, now, characterId, !acted && !released);
     // A listener leaning in to a question leaned into the mic too.
     pose =
       mic && sitting.current > 0.5
-        ? headClearOfMic(acted?.pose ?? still, sitting.current, mic)
-        : (acted?.pose ?? still);
+        ? headClearOfMic(living, sitting.current, mic)
+        : living;
     turn =
       acted?.turn ??
       (released
@@ -321,7 +329,7 @@
     sign = acted?.sign;
 
     frame =
-      !(next?.settled ?? true) || walking || acting || released
+      !reducedMotion || !(next?.settled ?? true) || walking || acting || released
         ? requestAnimationFrame(tick)
         : 0;
   }

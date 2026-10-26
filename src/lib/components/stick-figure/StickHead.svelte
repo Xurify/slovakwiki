@@ -269,6 +269,11 @@
       class="stroke-portrait-ink"
       stroke-width="1.3"
     />
+  {:else if pose.shut > 0}
+    <!-- Lids coming down, as in a blink: shut at 0.5, past that the eyes squeeze. -->
+    {@const ry = Math.max(0.35, 2 * (1 - pose.shut * 2))}
+    <ellipse cx={26.2 + eyeX} cy={eyeY} rx="2" {ry} class="fill-portrait-ink" />
+    <ellipse cx={37.8 + eyeX} cy={eyeY} rx="2" {ry} class="fill-portrait-ink" />
   {:else}
     <circle cx={26.2 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
     <circle cx={37.8 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
