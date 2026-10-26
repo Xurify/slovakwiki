@@ -16,6 +16,13 @@
     "sm:col-span-3 sm:grid-cols-subgrid",
   );
 
+  // A tip has no wrong / right columns, so it skips the subgrid and its text
+  // starts beside the mark.
+  const tipRowClass = cx(
+    "grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-5",
+    "border-b border-slate-200 py-2.5 sm:col-span-3",
+  );
+
   const formClass =
     "inline-flex items-baseline gap-2 whitespace-nowrap font-serif text-lg";
 </script>
@@ -53,10 +60,10 @@
   <ul class={cx(listClass, "mt-3 border-t border-slate-200")}>
     {#each items as item, index (index)}
       {#if typeof item === "string"}
-        <li class={rowClass}>
+        <li class={tipRowClass}>
           {@render mark("tip")}
 
-          <span class="text-[0.95rem] leading-relaxed text-slate-700 sm:col-span-2">
+          <span class="text-[0.95rem] leading-relaxed text-slate-700">
             <GrammarRichText text={item} />
           </span>
         </li>
