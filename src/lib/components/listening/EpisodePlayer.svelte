@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
 
   import { playFinishSfx } from "$lib/audio/sfx";
   import { episodeCheckCount } from "$lib/catalog/listening";
@@ -46,6 +46,12 @@
   let restartCount = $state(0);
   let stage = $state<{ pause: () => void; playing: () => boolean }>();
   let stageEl: HTMLElement | undefined = $state();
+  /** Open beside the player on a wide screen; folded on a phone, where it would push the next steps far down. */
+  let segmentsOpen = $state(true);
+
+  onMount(() => {
+    segmentsOpen = window.matchMedia("(min-width: 640px)").matches;
+  });
 
   const totalChecks = episodeCheckCount(episode);
   const chapter = $derived(episode.chapters[active]!);
@@ -318,7 +324,7 @@
     </ul>
   </section>
 
-  <details class="group">
+  <details class="group" bind:open={segmentsOpen}>
     <summary
       class="flex min-h-11 cursor-pointer list-none items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 [&::-webkit-details-marker]:hidden"
     >
@@ -332,7 +338,7 @@
       >
         <path d="m9.5 6 6 6-6 6" />
       </svg>
-      All segments
+      Segments
       <span class="font-normal text-slate-500 tabular-nums">
         {episode.chapters.filter(
           (entry) => scores[entry.id] !== undefined || heard[entry.id],

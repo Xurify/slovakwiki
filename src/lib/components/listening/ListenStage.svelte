@@ -11,16 +11,19 @@
   import Button from "$lib/components/ui/Button.svelte";
   import {
     getListenPlayAlong,
+    getListenShowVoices,
     getStoryPlaceSound,
     getStoryShowEnglish,
     getStorySubtitles,
     setListenPlayAlong,
+    setListenShowVoices,
     setStoryPlaceSound,
     setStoryShowEnglish,
     setStorySubtitles,
   } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
+  import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
   import { nextOnPath, onPath } from "$lib/listening/listener-path";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
@@ -85,12 +88,14 @@
   let volume = $state(1);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
   let playAlong = $state(true);
+  let showVoices = $state(true);
   /** The listener's answer to each line that asks for one, this time through. */
   let picks = $state<Record<string, string>>({});
   /** The ask whose answer has started to be heard, so the pick can be marked. */
   let revealedFor = $state<string | null>(null);
 
   const lines = chapter.lines;
+  const speakers = [...new Set(lines.map((line) => line.speaker))];
   // Switching questions on mid-segment changes only what comes at its end.
   const checks = $derived(questions ? chapter.checks : []);
 
@@ -201,7 +206,8 @@
 
   const status = $derived.by(() => {
     const line = player.line;
-    if (player.speaking && line) return episodeSpeakerName(line.speaker);
+    if (player.speaking && line)
+      return showVoices ? "" : episodeSpeakerName(line.speaker);
     if (stage === "idle") return idleCopy;
     if (stage === "listening" && !player.playing) return "Paused";
     return "";
@@ -273,6 +279,15 @@
           },
         ]
       : []),
+    {
+      description: "The hosts' faces beside the play button",
+      label: "Voices",
+      on: showVoices,
+      ontoggle: () => {
+        showVoices = !showVoices;
+        setListenShowVoices(showVoices ? "on" : "off");
+      },
+    },
     ...(asks
       ? [
           {
@@ -332,6 +347,7 @@
     placeSound = getStoryPlaceSound() === "on";
     subtitles = getStorySubtitles() === "on";
     playAlong = getListenPlayAlong() === "on";
+    showVoices = getListenShowVoices() === "on";
     volume = getAudioVolume();
 
     function onVolumeChange(): void {
@@ -438,6 +454,32 @@
         </Button>
 
         <p class="m-0 text-sm text-slate-700 empty:hidden" aria-live="polite">{status}</p>
+
+        {#if showVoices}
+          <ul class="m-0 ml-auto flex list-none gap-3 p-0" aria-label="Voices">
+            {#each speakers as speaker (speaker)}
+              {@const speaking = player.speaking && player.line?.speaker === speaker}
+
+              <li class="flex flex-col items-center gap-1">
+                <LessonCharacterAvatar
+                  {speaker}
+                  size="md"
+                  class={speaking
+                    ? "ring-2 ring-blue-600 ring-offset-2 ring-offset-surface"
+                    : ""}
+                />
+
+                <span
+                  class="text-xs font-semibold {speaking
+                    ? 'text-blue-800'
+                    : 'text-slate-500'}"
+                >
+                  {episodeSpeakerName(speaker)}
+                </span>
+              </li>
+            {/each}
+          </ul>
+        {/if}
       </div>
     {/if}
 
