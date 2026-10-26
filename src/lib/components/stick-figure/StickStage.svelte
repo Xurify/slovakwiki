@@ -34,6 +34,7 @@
     backdropToStage,
     figureToStage,
   } from "$lib/stick-figure/backdrop-geometry";
+  import { leashSpan } from "$lib/stick-figure/leash";
   import { LOOKS } from "$lib/stick-figure/looks";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import {
@@ -73,6 +74,7 @@
   import StickWeather from "./StickWeather.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
   import StickFurniture from "./StickFurniture.svelte";
+  import StickLeash from "./StickLeash.svelte";
 
   interface ActorState {
     cue: number;
@@ -287,10 +289,25 @@
   function heldBy(id: LessonCharacterId): Held | undefined {
     const prop = holding[id];
     if (!prop) return undefined;
-    return prop === "umbrella"
-      ? { id: prop, open: umbrellas[id] ?? dress.umbrellaUp }
-      : { id: prop };
+    if (prop === "umbrella") return { id: prop, open: umbrellas[id] ?? dress.umbrellaUp };
+    // A lead is open once it is on the dog.
+    if (prop === "leash") return { id: prop, open: dog !== undefined };
+    return { id: prop };
   }
+
+  const dog = $derived(direction.cast.find((id) => LOOKS[id].dog));
+  const leash = $derived.by(() => {
+    const holder = direction.cast.find((id) => holding[id] === "leash");
+    if (!holder || !dog) return undefined;
+    const at = (id: LessonCharacterId) => ({
+      facing: sitting[id] ?? facings[id] ?? resting[id] ?? 1,
+      mark: standing(markOf(frame, id), offsets[id]),
+    });
+    return {
+      ms: Math.max(walks[holder]?.ms ?? 0, walks[dog]?.ms ?? 0),
+      span: leashSpan(at(holder), at(dog)),
+    };
+  });
 
   /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
   export function foldUmbrellas(): void {
@@ -663,6 +680,7 @@
       onpick={pickThing}
       {picked}
       {setting}
+      taken={Object.values(holding).filter((prop) => prop !== undefined)}
       {tram}
       width={stageWidth}
     />
@@ -710,6 +728,9 @@
           />
         </div>
       {/each}
+      {#if leash}
+        <StickLeash ms={leash.ms} span={leash.span} />
+      {/if}
     {/if}
 
     {#if bubble}
