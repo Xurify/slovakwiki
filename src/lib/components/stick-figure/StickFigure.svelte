@@ -371,15 +371,15 @@
     <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 
     <g transform={headTransform}>
-      <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} {round} />
-
-      <!-- The band's far half goes down behind the head: only what clears the hair shows, and the far cup is hidden, as from three-quarters it would be. -->
+      <!-- Under the hair behind the head as well as the skull: drawn over a lob, the far half framed the face like a hood. -->
       {#if dress.headwear === "headphones"}
-        <path d={headband(1.4, "far")} class="stroke-portrait-ink" stroke-width="4.2" />
-        <path d={headband(1.4, "far")} class="stroke-scene-line" stroke-width="2.2" />
+        <path d={headband(1.2, "far")} class="stroke-portrait-ink" stroke-width="3.2" />
+        <path d={headband(1.2, "far")} class="stroke-scene-line" stroke-width="1.5" />
       {:else if dress.headwear === "headset"}
         <path d={headband(0.4, "far")} class="stroke-portrait-ink" stroke-width="1.8" />
       {/if}
+
+      <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} {round} />
     </g>
 
     {@render arm(rig.rearShoulder, rig.rearArm)}
@@ -415,34 +415,26 @@
 
       {#if dress.headwear === "headphones"}
         <!-- Closed-back studio headphones in the head's own 64-unit space: a padded band over the hair, a deep cup over the near ear. -->
-        <path d={headband(1.4, "near")} class="stroke-portrait-ink" stroke-width="4.2" />
-        <path d={headband(1.4, "near")} class="stroke-scene-line" stroke-width="2.2" />
-        <rect
-          x="13.4"
-          y="23"
-          width="8.8"
-          height="12.8"
-          rx="4.2"
+        <path d={headband(1.2, "near")} class="stroke-portrait-ink" stroke-width="3.2" />
+        <path d={headband(1.2, "near")} class="stroke-scene-line" stroke-width="1.5" />
+        <!-- The cushion against the head, then the shell, both centred on the ear (x 18, y 29.6). -->
+        <ellipse
+          cx="18.6"
+          cy="29.6"
+          rx="4.4"
+          ry="6.4"
           class="fill-portrait-ink stroke-portrait-ink"
-          stroke-width="1.3"
+          stroke-width="1.2"
         />
-        <rect
-          x="12.2"
-          y="23.6"
-          width="7.6"
-          height="11.6"
-          rx="3.8"
+        <ellipse
+          cx="17.6"
+          cy="29.6"
+          rx="4"
+          ry="5.9"
           class="fill-portrait-vest stroke-portrait-ink"
-          stroke-width="1.3"
+          stroke-width="1.2"
         />
-        <rect
-          x="13.9"
-          y="25.6"
-          width="4.2"
-          height="7.6"
-          rx="2.1"
-          class="fill-scene-line/60"
-        />
+        <ellipse cx="16.9" cy="28.4" rx="1.5" ry="2.8" class="fill-scene-line/60" />
       {:else if dress.headwear === "headset"}
         <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
         <path d={headband(0.4, "near")} class="stroke-portrait-ink" stroke-width="1.8" />
