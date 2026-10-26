@@ -258,6 +258,8 @@ export interface GrammarChoice {
   slovak: MarkedText;
   /** The situation in a few words: “in your hand”. */
   when: string;
+  /** What picks the form, at the row's right edge: “Owner is the subject: **svoj**”. */
+  why?: string;
 }
 
 /** One sentence said two or three ways; the situation picks the form. */

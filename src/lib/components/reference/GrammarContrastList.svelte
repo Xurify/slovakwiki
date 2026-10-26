@@ -2,6 +2,7 @@
   import { dataMoreRowClass, dataPanelClass } from "$lib/components/ui/data-list-ui";
 
   import TextLink from "$lib/components/ui/TextLink.svelte";
+  import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarScene from "$lib/components/reference/GrammarScene.svelte";
   import GrammarSentence from "$lib/components/reference/GrammarSentence.svelte";
   import {
@@ -83,11 +84,13 @@
               "grid gap-x-6 gap-y-2 border-t border-slate-200/70 px-4 py-3 first:border-t-0 sm:px-5",
               frame.scene ? "md:items-center" : "md:items-start",
               withScenes
-                ? "md:grid-cols-[21rem_minmax(0,1fr)]"
-                : "md:grid-cols-[13rem_minmax(0,1fr)]",
+                ? "md:grid-cols-[8rem_minmax(0,1fr)_minmax(0,10rem)]"
+                : "md:grid-cols-[10rem_minmax(0,1fr)_minmax(0,10rem)]",
             )}
           >
-            <div class="flex min-w-0 items-center gap-3">
+            <div
+              class="flex min-w-0 items-center gap-3 md:flex-col md:items-start md:gap-1"
+            >
               {#if frame.scene}
                 <GrammarScene kind={frame.scene} at={choice.at} object={frame.object} />
               {/if}
@@ -117,6 +120,18 @@
                 {/if}
               {/each}
             </GrammarSentence>
+
+            {#if choice.why}
+              <p
+                class={cx(
+                  "m-0 min-w-0 text-sm leading-snug text-pretty text-slate-600 md:text-right",
+                  !frame.scene && "md:pt-1.5",
+                  reserveAudio && "pl-10 md:pl-0",
+                )}
+              >
+                <GrammarRichText text={choice.why} />
+              </p>
+            {/if}
           </li>
         {/each}
       </ol>
