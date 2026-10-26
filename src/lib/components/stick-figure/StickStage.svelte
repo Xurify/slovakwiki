@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack, type ComponentProps } from "svelte";
-  import { cubicInOut } from "svelte/easing";
+  import { cubicInOut, sineIn } from "svelte/easing";
   import { Tween } from "svelte/motion";
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
@@ -95,6 +95,7 @@
     BOARD_CARRYING,
     CARRYING,
     CLOSE_DOOR,
+    OPEN_DOOR,
     sampleMotion,
     type Effect,
     type Motion,
@@ -120,6 +121,14 @@
     type LineTimes,
     type ScheduledCue,
   } from "$lib/stick-figure/act-schedule";
+  import {
+    AJAR,
+    DOORS,
+    DOOR_OPEN_MS,
+    DOOR_SHUT_MS,
+    HANDLE,
+    doorPoint,
+  } from "$lib/stick-figure/door";
   import { playFoley } from "$lib/stick-figure/foley";
   import type { Hand } from "$lib/stick-figure/reach";
   import {
@@ -242,7 +251,7 @@
   let passingDeep = $state<LessonCharacterId[]>([]);
   /** Who is being walked past, and steps back to make room. */
   let roomFor = $state<LessonCharacterId[]>([]);
-  /** Who stands in the doorway, a step further back than the room, to come in through it. */
+  /** Who stands back in the doorway, or by the door to push it to, on its sill rather than in the room (`doorLane`). */
   let doorway = $state<LessonCharacterId[]>([]);
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
@@ -356,7 +365,8 @@
   let dimmed = $state(false);
   // While the story skips ahead the whole place shows, so the clock in its pool of light is never cut by a close shot.
   const shot = $derived(dimmed ? WIDE : (world?.camera ?? WIDE));
-  let doorOpen = $state(false);
+  /** How far the door has swung in, from 0 shut. */
+  const doorSwing = new Tween(0);
   /** Who has not come in yet. */
   let outside = $state<LessonCharacterId[]>([]);
   /** In the doorway, the hall dark behind them. */
@@ -370,10 +380,10 @@
   let actTimers: number[] = [];
   /** How long a motion takes to take over from the one before it. */
   const TAKE_OVER_MS = 260;
-  /** From the door opening to the one coming in stepping through it. */
-  const DOOR_MS = 1100;
-  /** How long the door takes to swing open past edge on (DOOR_OPEN_MS in all) before whoever is behind it shows. */
-  const DOOR_OPENING_MS = 400;
+  /** From the door opening to the one coming in stepping through it, as their hand leaves it (OPEN_DOOR). */
+  const DOOR_MS = DOOR_OPEN_MS + 400;
+  /** How long the door takes to swing open far enough to show whoever is pushing it, their face clear of its edge. */
+  const DOOR_OPENING_MS = 560;
   /** Bumped when the stage stops or jumps, so cues still on the clock let go. */
   let actToken = 0;
   type ActorAct = ComponentProps<typeof StickFigureActor>["doing"];
@@ -435,8 +445,21 @@
   }
 
   function toRig(id: LessonCharacterId, point: Point): Point {
-    return { x: (point.x - castLeft(id) + STICK_BOX.x) * facingOf(id), y: point.y };
+    const y = doorway.includes(id) ? point.y - doorLane : point.y;
+    return { x: (point.x - castLeft(id) + STICK_BOX.x) * facingOf(id), y };
   }
+
+  /**
+   * From the room's floor up to the door's sill, the floor line of the wall
+   * it is in, in cast units (negative, as up): whoever is in the doorway or
+   * by the door stands on it, at the size they are in the room. Standing in
+   * the room, in front of that wall, the handle was over their heads; drawn
+   * smaller too, it was at their mouth.
+   */
+  const doorLane = $derived.by(() => {
+    const door = DOORS[setting];
+    return door && unit ? castY(door.top + door.height) - GROUND_Y : 0;
+  });
 
   /** Where a figure's middle stands, in cast units. */
   function castMiddle(id: LessonCharacterId): number {
@@ -468,6 +491,11 @@
     facing: Facing,
     state = world,
   ): Point | undefined {
+    const door = DOORS[setting];
+    if (name === "door-handle" && door) {
+      const handle = doorPoint(door, doorSwing.current, HANDLE.u, HANDLE.v);
+      return { x: castX(handle.x), y: castY(handle.y) };
+    }
     const at = stagePoint(stageContext(state), name, as, facing);
     if (at) return at;
     const thing = things.find((candidate) => candidate.id === name);
@@ -639,45 +667,70 @@
     perched = { ...seated };
   }
 
-  /** In through the door: it opens, they stand in it, and walk on to `to`. */
+  /**
+   * The door swung open or shut. Shut, it speeds up to the end, so it
+   * bumps into its frame under the hand pushing it rather than easing in.
+   */
+  function swingDoor(open: boolean): void {
+    void doorSwing.set(
+      open ? AJAR : 0,
+      open
+        ? { duration: DOOR_OPEN_MS, easing: cubicInOut }
+        : { duration: DOOR_SHUT_MS, easing: sineIn },
+    );
+  }
+
+  /** Down from by the door into the room, as they set off. */
+  function stepDown(id: LessonCharacterId): void {
+    if (doorway.includes(id)) doorway = doorway.filter((other) => other !== id);
+  }
+
+  /** `motion` on `id` from `start`, with its sounds. */
+  function performHeard(id: LessonCharacterId, motion: Motion, start: number): void {
+    perform(id, motion, start);
+    for (const { at, id: sound } of motion.sounds ?? [])
+      later(start + at - performance.now(), () => playFoley(sound));
+  }
+
+  /** In through the door: they push it open, step in past it, and push it to behind them. */
   function comeIn(id: LessonCharacterId, to: string | undefined): void {
     const door = set?.door ?? "door";
     const at = spotOf(id, door);
-    doorOpen = true;
-    playFoley("door");
     const { [id]: _, ...still } = walks;
     walks = still;
     if (at) {
       offsets = { ...offsets, [id]: at.offset };
       facings = { ...facings, [id]: at.facing };
     }
-    // The door swings open on them standing in the doorway, in the hall's
-    // shadow: there at once, as a door opening shows someone, not faded in.
-    // They stand back in it, and step down into the room as they walk in.
+    // They stand back in the doorway, in the hall's shadow, a hand on the
+    // handle from the click of the latch, and show once the door has swung
+    // far enough: there at once, as a door opening shows someone, not faded
+    // in. They stay back by the door to push it to, and step down into the
+    // room on their next walk.
+    swingDoor(true);
     shaded = [...shaded, id];
     doorway = [...doorway, id];
+    performHeard(id, OPEN_DOOR, performance.now());
     later(DOOR_OPENING_MS, () => {
       outside = outside.filter((other) => other !== id);
     });
     later(DOOR_MS, () => {
       shaded = shaded.filter((other) => other !== id);
-      doorway = doorway.filter((other) => other !== id);
       const inside = to && to !== door ? spotOf(id, to) : undefined;
       if (!inside || !at) {
-        doorOpen = false;
+        swingDoor(false);
+        later(DOOR_SHUT_MS, () => playFoley("door-shut"));
         return;
       }
       walkToSpot(id, to);
-      // In, they turn back and push the door to behind them, then face the room.
+      // In, they turn to the door and push it to behind them, then face the room.
       const walk = walkDuration(stepsFor(inside.offset - at.offset), id);
       later(walk, () => {
-        const back: Facing = at.offset < inside.offset ? -1 : 1;
+        const handle = castPoint("door-handle", "grip", facingOf(id));
+        const back: Facing = handle && handle.x < castMiddle(id) ? -1 : 1;
         facings = { ...facings, [id]: back };
-        perform(id, CLOSE_DOOR, performance.now() + TURN_MS * 0.6);
-        later(TURN_MS * 0.6 + CLOSE_DOOR.takes!, () => {
-          doorOpen = false;
-          playFoley("door");
-        });
+        performHeard(id, CLOSE_DOOR, performance.now() + TURN_MS * 0.6);
+        later(TURN_MS * 0.6 + CLOSE_DOOR.takes!, () => swingDoor(false));
         later(TURN_MS * 0.6 + CLOSE_DOOR.ms, () => {
           facings = { ...facings, [id]: inside.facing };
         });
@@ -703,9 +756,11 @@
         comeIn(who, cue.to);
         return;
       case "go":
+        stepDown(who);
         walkToSpot(who, cue.to);
         return;
       case "sit":
+        stepDown(who);
         walkToSpot(who, cue.to, true);
         return;
       case "face": {
@@ -923,7 +978,7 @@
     pouring = {};
     sunk = {};
     dimmed = false;
-    doorOpen = false;
+    void doorSwing.set(0, { duration: 0 });
   }
 
   /** What a figure has in each hand: a pot carried in both is drawn once, in the lead hand. */
@@ -1797,7 +1852,7 @@
       <StickBackdrop
         class="absolute inset-0 size-full"
         {board}
-        door={doorOpen}
+        door={doorSwing.current}
         bind:drawnAt
         minutes={world?.minutes ?? 0}
         skipping={dimmed}
@@ -1870,9 +1925,11 @@
                 ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
                 : passing.includes(characterId)
                   ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
-                  : roomFor.includes(characterId) || doorway.includes(characterId)
-                    ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
-                    : "none"}
+                  : doorway.includes(characterId)
+                    ? `translateY(${doorLane * unit}px)`
+                    : roomFor.includes(characterId)
+                      ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
+                      : "none"}
             >
               <StickFigureActor
                 {characterId}

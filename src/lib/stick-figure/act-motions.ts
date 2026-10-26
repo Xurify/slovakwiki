@@ -11,6 +11,7 @@ import {
   type SetPlan,
   type World,
 } from "./acts";
+import { DOOR_OPEN_MS, DOOR_SHUT_MS } from "./door";
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
 import { HEAD_RADIUS, solveRig, type Point } from "./rig";
@@ -79,7 +80,8 @@ export type FoleyId =
   | "steam"
   | "hop"
   | "knock"
-  | "door"
+  | "door-open"
+  | "door-shut"
   | "tap"
   | "fill"
   | "pour"
@@ -1843,28 +1845,50 @@ export function frameBetween(
   };
 }
 
-/** How long the door takes to swing open, and shut: a second or so, as a door does. */
-export const DOOR_OPEN_MS = 800;
-export const DOOR_SHUT_MS = 900;
+/**
+ * The door's handle wherever the swing has it, so a hand on it moves with
+ * the door. A fixed point in the figure's space was right for one stage
+ * size only: on another the hand met the door's bottom edge.
+ */
+const ON_HANDLE: Target = { to: "door-handle" };
 
 /**
- * The door pushed to behind someone just come in: a hand out to its edge
- * at the handle's height as it starts to swing (`takes`), a push, and the
- * door swings shut on its own. The handle is halfway up the door, which
- * stands further back than the figure, so it is level with their chin: at
- * the hip the hand was on the door's bottom edge.
+ * The door pushed open from the doorway: the hand on its handle from the
+ * click of the latch, leaning in as it swings, a beat holding it open, then
+ * letting go to step in.
+ */
+export const OPEN_DOOR: Motion = {
+  ms: DOOR_OPEN_MS + 550,
+  keys: [
+    { at: 0, lead: ON_HANDLE, body: { lean: 4 } },
+    { at: DOOR_OPEN_MS * 0.6, lead: ON_HANDLE, body: { lean: 8 } },
+    { at: DOOR_OPEN_MS + 200, lead: ON_HANDLE, body: { lean: 3 } },
+    { at: DOOR_OPEN_MS + 550 },
+  ],
+  sounds: [{ at: 0, id: "door-open" }],
+};
+
+/** When the hand that pushes the door to is on its handle and the door starts to swing. */
+const CLOSE_GRIP = 350;
+
+/**
+ * The door pushed to behind someone just come in: a hand out to its
+ * handle, a push, and the hand on it until it shuts, so the bump into the
+ * frame lands under the hand. Let go of mid-swing, it shut on its own once
+ * the hand had dropped.
  */
 export const CLOSE_DOOR: Motion = {
-  ms: 1450,
-  // The swing eases in, so starting it as the hand is still on its way puts the first visible movement under the hand.
-  takes: 250,
+  ms: CLOSE_GRIP + DOOR_SHUT_MS + 500,
+  takes: CLOSE_GRIP,
   keys: [
     { at: 0 },
-    { at: 300, lead: { at: { x: 28, y: 57 } }, body: { lean: 6 } },
-    { at: 250 + DOOR_SHUT_MS * 0.4, lead: { at: { x: 23, y: 58 } }, body: { lean: 4 } },
-    { at: 250 + DOOR_SHUT_MS * 0.75, lead: { at: { x: 16, y: 66 } }, body: { lean: 2 } },
-    { at: 1450 },
+    { at: CLOSE_GRIP, lead: ON_HANDLE, body: { lean: 4 } },
+    { at: CLOSE_GRIP + DOOR_SHUT_MS * 0.5, lead: ON_HANDLE, body: { lean: 8 } },
+    { at: CLOSE_GRIP + DOOR_SHUT_MS, lead: ON_HANDLE, body: { lean: 10 } },
+    { at: CLOSE_GRIP + DOOR_SHUT_MS + 150, lead: ON_HANDLE, body: { lean: 6 } },
+    { at: CLOSE_GRIP + DOOR_SHUT_MS + 500 },
   ],
+  sounds: [{ at: CLOSE_GRIP + DOOR_SHUT_MS, id: "door-shut" }],
 };
 
 /** Carrying a heavy pot in both hands between cues: the arms stay on its handles. */

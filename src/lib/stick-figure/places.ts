@@ -161,9 +161,10 @@ const KITCHEN_SET: PlaceSet = {
     ]),
   ],
   spots: {
-    door: { x: 226, facing: 1 },
-    // A step in from the door, short of the end chair's back.
-    inside: { x: 236, facing: 1 },
+    // The door opens into the room on hinges at its left: whoever pushes it open stands on its latch side, facing it.
+    door: { x: 244, facing: -1 },
+    // In past the open door, on its hinge side, to push it to from where its handle faces.
+    inside: { x: 202, facing: 1 },
     // Clear of the table's end chair, where the guests stand about and talk, a step apart.
     middle: { x: 498, facing: 1 },
     chat: { x: 567, facing: -1 },
