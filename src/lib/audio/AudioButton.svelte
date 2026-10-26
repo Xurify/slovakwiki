@@ -187,13 +187,16 @@
   );
 
   const iconClass = $derived(
-    size === "lg" ? "size-6" : size === "xs" ? "size-3.5" : "size-5",
+    size === "lg" ? "size-6" : size === "xs" ? "size-4" : "size-5",
   );
 
   const variantClass = $derived(
     variant === "inverse"
       ? "border-panel-inverse-ink/50 bg-panel-inverse-ink/12 text-panel-inverse-ink hover:border-panel-inverse-ink/75 hover:bg-panel-inverse-ink/20 [&.playing]:border-panel-inverse-ink/80 [&.playing]:bg-panel-inverse-ink/28"
-      : "border-slate-300 bg-(--surface) text-blue-900 shadow-(--shadow-border) hover:border-blue-700 hover:bg-blue-50 hover:shadow-(--shadow-border-hover) [&.playing]:border-blue-800 [&.playing]:bg-blue-50 [&.playing]:shadow-(--shadow-border-hover)",
+      : size === "xs"
+        ? // At 28px a border and a shadow read as two blurred rings; the border alone is crisp.
+          "border-slate-300 bg-(--surface) text-blue-900 hover:border-blue-700 hover:bg-blue-50 [&.playing]:border-blue-800 [&.playing]:bg-blue-50"
+        : "border-slate-300 bg-(--surface) text-blue-900 shadow-(--shadow-border) hover:border-blue-700 hover:bg-blue-50 hover:shadow-(--shadow-border-hover) [&.playing]:border-blue-800 [&.playing]:bg-blue-50 [&.playing]:shadow-(--shadow-border-hover)",
   );
 
   const buttonClass = $derived(

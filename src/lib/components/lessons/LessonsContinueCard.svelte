@@ -111,7 +111,7 @@
           class="w-full px-4"
           data-continue-cta
         >
-          <span data-continue-cta-label>Continue</span>
+          <span data-continue-cta-label>Start lesson</span>
           <ArrowRight />
         </Button>
 

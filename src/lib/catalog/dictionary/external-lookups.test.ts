@@ -23,6 +23,7 @@ describe("externalLookupsForLemma", () => {
       "sme-slovnik",
       "synonyma",
       "zoznam",
+      "slovnik-iz",
       "google-images",
     ]);
 
@@ -55,6 +56,9 @@ describe("externalLookupsForLemma", () => {
       `https://www.google.com/search?tbm=isch&q=${q}`,
     );
 
+    expect(byId["slovnik-iz"]?.href).toBe(`https://slovnik.iz.sk/?word=${q}`);
+    expect(byId.verbix).toBeUndefined();
+
     for (const link of links) {
       expect(link.icon.startsWith("/icons/lookups/")).toBe(true);
     }
@@ -72,5 +76,19 @@ describe("externalLookupsForLemma", () => {
     expect(narecie?.href).toBe(`https://narecie.sk/${q}+`);
     expect(narecie?.icon).toBe("/icons/lookups/narecie.png");
     expect(links.at(-1)?.id).toBe("google-images");
+  });
+
+  it("links Verbix forms for verbs, nouns and adjectives only", () => {
+    const verbix = (lemma: string, category: string) =>
+      externalLookupsForLemma(lemma, { category }).find((link) => link.id === "verbix");
+
+    expect(verbix("čakať", "Verbs")?.href).toBe(
+      `https://www.verbix.com/slovak/verb/${encodeURIComponent("čakať")}`,
+    );
+    expect(verbix("dom", "Nouns")?.href).toBe("https://www.verbix.com/slovak/noun/dom");
+    expect(verbix("dobrý", "Adjectives")?.href).toBe(
+      `https://www.verbix.com/slovak/adjective/${encodeURIComponent("dobrý")}`,
+    );
+    expect(verbix("rýchlo", "Adverbs")).toBeUndefined();
   });
 });

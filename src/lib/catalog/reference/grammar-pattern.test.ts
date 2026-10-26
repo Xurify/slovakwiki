@@ -11,6 +11,7 @@ import {
   patternView,
   parsePatternRow,
   patternForms,
+  patternSearchLines,
   tableView,
 } from "./grammar-pattern";
 
@@ -131,6 +132,24 @@ describe("parsePattern", () => {
         rows: [{ label: "Feminine", cells: ["tú", "túto"] }],
       }),
     ).toThrow(/Feminine/);
+  });
+
+  it("marks a bracketed ending and leaves it out of search and highlight forms", () => {
+    const pattern = {
+      label: "Cases",
+      rowLabel: "Case",
+      columns: ["Masculine", "Feminine"],
+      rows: [{ label: "Genitive", cells: ["môj[ho]", "moj[ej]"] }],
+    };
+    const view = tableView(pattern);
+    if (view.kind !== "grid") throw new Error("expected a grid");
+
+    expect(view.rows[0]?.cells).toEqual([
+      { before: "môj", mark: "ho", after: "" },
+      { before: "moj", mark: "ej", after: "" },
+    ]);
+    expect(patternSearchLines(pattern)).toEqual(["Genitive", "môjho", "mojej"]);
+    expect(patternForms(pattern)).toEqual(["môjho", "mojej"]);
   });
 
   it("falls back to rows for everything else", () => {

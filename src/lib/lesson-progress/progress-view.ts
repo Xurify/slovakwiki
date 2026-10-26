@@ -107,7 +107,7 @@ function buildContinueCard(
     trackTitle: track.title,
     lessonTitle: lesson.title,
     promise: lesson.promise,
-    ctaLabel: review ? "Review lesson" : "Continue",
+    ctaLabel: review ? "Review lesson" : done === 0 ? "Start lesson" : "Continue",
     ctaHref: bootLessonHref(lesson),
     trackHref: `/lessons/${track.id}`,
     lessonNumber: Math.max(track.lessonIds.indexOf(lesson.id) + 1, 1),

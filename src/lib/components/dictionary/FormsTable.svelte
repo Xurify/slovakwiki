@@ -1,10 +1,13 @@
 <script lang="ts">
   import type { DeclensionRow } from "$lib/catalog/dictionary/declension";
   import { sentenceCase } from "$lib/catalog/search/ui";
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
+  import { cx } from "$lib/ui/classes";
 
   /**
    * Six cases × singular / plural with the ending highlighted. Styled like the
-   * lessons' FormTable.
+   * grammar pages' tables; the panel is only as wide as the forms.
    */
   let {
     lemma,
@@ -13,14 +16,6 @@
     lemma: string;
     rows: DeclensionRow[];
   } = $props();
-
-  /** Row headings line up with the card padding (px-4 / sm:px-6). */
-  const edgeCellClass = "pr-2 pl-4 sm:pr-3 sm:pl-6";
-  const cellPaddingClass = "px-2 sm:px-3";
-  const headClass = "pb-2 align-bottom text-xs leading-snug font-semibold text-slate-700";
-  const formCellClass =
-    "py-2.5 align-baseline font-serif text-base whitespace-nowrap text-slate-900";
-  const endingClass = "rounded-sm bg-mark px-px font-semibold";
 
   const pluralNominative = $derived(
     rows[0] ? `${rows[0].plural.stem}${rows[0].plural.ending}` : "",
@@ -33,51 +28,57 @@
 </script>
 
 {#snippet form(stem: string, ending: string)}
-  {stem}{#if ending}<span class={endingClass}>{ending}</span>{/if}
+  {stem}{#if ending}<span class="rounded-sm bg-mark/60 px-px text-blue-800">{ending}</span
+    >{/if}
 {/snippet}
 
-<figure
-  class="m-0 overflow-hidden rounded-(--frame-radius) bg-subtle shadow-(--shadow-border)"
->
-  <figcaption class="px-4 pt-4 pb-3 sm:px-6">
-    <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
-      Forms of <span class="font-serif text-base" lang="sk">{lemma}</span>
-    </h3>
-  </figcaption>
-
+<div class={cx(dataPanelClass, "sm:w-fit sm:max-w-full")}>
   <div class="overflow-x-auto">
-    <table class="w-full border-collapse text-left text-sm">
+    <table class="w-full border-collapse text-left">
+      <caption class="sr-only">Forms of {lemma}</caption>
+
       <thead>
-        <tr class="border-b border-slate-200">
-          <th scope="col" class="{edgeCellClass} {headClass}">Case</th>
-          <th scope="col" class="{cellPaddingClass} {headClass}">Singular</th>
-          <th scope="col" class="{cellPaddingClass} {headClass}">Plural</th>
+        <tr class="border-b border-slate-200 bg-subtle/60">
+          <th scope="col" class={cx(eyebrowMutedClass, "w-px py-2 pr-6 pl-4 sm:pl-5")}>
+            Case
+          </th>
+
+          <th scope="col" class={cx(eyebrowMutedClass, "w-px py-2 pr-8")}>Singular</th>
+
+          <th scope="col" class={cx(eyebrowMutedClass, "py-2 pr-4 sm:pr-5")}>Plural</th>
         </tr>
       </thead>
 
-      <tbody class="bg-surface/70">
+      <tbody>
         {#each rows as row (row.caseSlug)}
           <tr class="border-b border-slate-200/70 last:border-b-0">
             <th
               scope="row"
-              class="{edgeCellClass} py-2.5 align-baseline text-xs leading-snug font-semibold text-slate-700"
+              class="w-px py-1.5 pr-6 pl-4 align-baseline text-sm leading-snug font-normal whitespace-nowrap sm:pl-5"
             >
               <a
-                class="text-blue-800 no-underline hover:underline"
+                class="font-semibold text-blue-800 no-underline hover:underline"
                 href="/grammar/cases/{row.caseSlug}"
               >
                 {sentenceCase(row.caseName)}
               </a>
-              <span class="block font-serif text-sm font-normal text-slate-500" lang="sk">
+
+              <span class="block font-serif text-slate-500 sm:ml-2 sm:inline" lang="sk">
                 {row.question}
               </span>
             </th>
 
-            <td class="{cellPaddingClass} {formCellClass}" lang="sk">
+            <td
+              class="w-px py-1.5 pr-8 align-baseline font-serif text-lg font-semibold whitespace-nowrap text-slate-900"
+              lang="sk"
+            >
               {@render form(row.singular.stem, row.singular.ending)}
             </td>
 
-            <td class="{cellPaddingClass} {formCellClass}" lang="sk">
+            <td
+              class="py-1.5 pr-4 align-baseline font-serif text-lg font-semibold whitespace-nowrap text-slate-900 sm:pr-5"
+              lang="sk"
+            >
               {@render form(row.plural.stem, row.plural.ending)}
             </td>
           </tr>
@@ -88,7 +89,7 @@
 
   {#if softLNote}
     <p
-      class="m-0 border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-pretty text-slate-600 sm:px-6"
+      class="m-0 border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-pretty text-slate-600 sm:px-5"
     >
       Before <span class="font-serif" lang="sk">i</span> and
       <span class="font-serif" lang="sk">e</span>,
@@ -97,4 +98,4 @@
       <span class="font-serif text-slate-900" lang="sk">{pluralNominative}</span>.
     </p>
   {/if}
-</figure>
+</div>

@@ -34,11 +34,7 @@
     <span class="sr-only" data-lesson-done={lessonId}>Completed</span>
   {/if}
 {:else if status === "active"}
-  <span
-    class="inline-flex min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-paper"
-  >
-    Start
-  </span>
+  <span class="text-xs font-semibold text-blue-800">Up next</span>
 {:else}
   <span class="sr-only">Not started</span>
 {/if}
