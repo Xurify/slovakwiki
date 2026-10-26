@@ -93,7 +93,8 @@ export type FoleyId =
   | "chair"
   | "thud"
   | "sniff"
-  | "rattle";
+  | "rattle"
+  | "ring";
 
 /** Something the stage draws while a motion runs: water from the tap, a stream from a jug, salt. */
 export interface Effect {
@@ -212,8 +213,12 @@ export function motionFor(
         };
       }
       if (where && "pocket" in where) {
+        const hand = freeHand(world, who, what) ?? "lead";
         return {
-          motion: pocketMotion("out", what, freeHand(world, who, what) ?? "lead"),
+          motion:
+            object?.kind === "phone"
+              ? phoneOutMotion(hand)
+              : pocketMotion("out", what, hand),
         };
       }
       if (where && "wear" in where) return { motion: offHeadMotion() };
@@ -247,18 +252,23 @@ export function motionFor(
           },
         };
       }
+      // A spoon picked up at the table is held there, the fist on the edge: in the lap it was out of sight behind the table.
+      const atTable = object?.kind === "cutlery" && world.seated?.includes(who);
       return {
         motion: {
           ms: 900,
           face: what,
           takes: REACHED + 80,
+          ...(atTable ? { hold: true } : {}),
           sounds: [{ at: REACHED + 60, id: soundOf(object?.kind) }],
           ...(object?.kind === "lid" ? { sounds: lidSounds(world, what) } : {}),
           keys: [
             { at: 0 },
             { at: REACHED, ...hands(into, { to: what, dy: -3 }), body: { lean: 3 } },
             { at: REACHED + 100, ...hands(into, { to: what }), body: { lean: 3 } },
-            { at: 900 },
+            atTable
+              ? { at: 900, ...hands(into, ON_TABLE_EDGE), turn: { [into]: -90 } }
+              : { at: 900 },
           ],
         },
       };
@@ -843,8 +853,15 @@ export function motionFor(
         },
       };
     case "call":
-      // The ear pose is the figure's own (StickFigure's `call`); this lifts the phone to it.
-      return { motion: { ms: 500, takes: 250, keys: [] } };
+      // The ear pose is the figure's own (StickFigure's `call`); this lifts the phone to it,
+      // from where the hand held it, not from a drop to the side first.
+      return {
+        motion: {
+          ms: 500,
+          takes: 0,
+          keys: [{ at: 0 }, { at: 500, ...hands(hand, PHONE_SCREEN) }],
+        },
+      };
     case "hangup":
       return {
         motion: {
@@ -1418,6 +1435,37 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
             { at: 600, ...hands(hand, pocket) },
             { at: 1000 },
           ],
+  };
+}
+
+/** A seated hand resting on the table's edge in front, from the shoulder. */
+const ON_TABLE_EDGE = { up: { x: 9, y: 8 } };
+
+/** A phone held up to read who calls: out past the chest, or the far hand holds it behind the body. */
+const PHONE_SCREEN = { up: { x: 17, y: 0 } };
+
+/**
+ * A ringing phone out of the pocket and up in front of the chest, the head
+ * bent to its screen to see who it is, held there till it goes to the ear.
+ * At the hip, a seated caller's phone was behind the table the whole time.
+ */
+function phoneOutMotion(hand: Hand): Motion {
+  const screen = PHONE_SCREEN;
+  const reading = { tilt: 8, look: 0.8, nod: 2 };
+  return {
+    ms: 1100,
+    takes: 450,
+    hold: true,
+    sounds: [
+      { at: 0, id: "ring" },
+      { at: 1000, id: "ring" },
+    ],
+    keys: [
+      { at: 0 },
+      { at: 380, ...hands(hand, { up: { x: 3, y: 27 } }), body: { tilt: 6, look: -0.2 } },
+      { at: 800, ...hands(hand, screen), body: reading },
+      { at: 1100, ...hands(hand, screen), body: reading },
+    ],
   };
 }
 

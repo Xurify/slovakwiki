@@ -718,12 +718,17 @@
 
     const face = faceToward(who, motion.face ?? cue.what);
     const handsFree = motion.keys.every((key) => !key.lead && !key.rear);
-    if (face && seated[who] !== undefined && handsFree && face !== facingOf(who)) {
+    const behind =
+      face !== undefined && seated[who] !== undefined && face !== facingOf(who);
+    let played = motion;
+    if (behind && (handsFree || cue.do === "point")) {
       // Seated, a look behind is a turn of the head: the chair swung round with the legs read as sitting backwards.
+      // A point back goes over the shoulder with the far hand.
       glancing = [...glancing.filter((other) => other !== who), who];
+      if (!handsFree) played = overShoulder(motion);
     } else if (face && seated[who] !== undefined) turned = { ...turned, [who]: face };
     else if (face) facings = { ...facings, [who]: face };
-    perform(who, motion, item.start, item);
+    perform(who, played, item.start, item);
     for (const { at, id } of motion.sounds ?? []) later(at, () => playFoley(id));
     for (const effect of motion.effects ?? []) {
       later(effect.from, () => showEffect(who, effect, true));
@@ -738,6 +743,21 @@
       later(contact.from - margin, () => sink(who, contact.hand, into));
       later(contact.until + margin, () => sink(who, contact.hand, undefined));
     }
+  }
+
+  /** A one-handed motion done with the rear hand instead, the eyes going back with it. */
+  function overShoulder(motion: Motion): Motion {
+    return {
+      ...motion,
+      keys: motion.keys.map(({ lead, sign, body, ...key }) => ({
+        ...key,
+        ...(lead ? { rear: lead } : {}),
+        ...(sign?.lead ? { sign: { rear: sign.lead } } : {}),
+        ...(body
+          ? { body: { ...body, look: body.look === undefined ? undefined : -body.look } }
+          : {}),
+      })),
+    };
   }
 
   function sink(id: LessonCharacterId, hand: Hand, into: string | undefined): void {

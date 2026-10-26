@@ -161,6 +161,11 @@ export function playFoley(id: FoleyId): void {
     case "rattle":
       for (const at of [0, 0.12, 0.27, 0.4]) ring([480, 1130], 0.06, 0.12, at);
       break;
+    case "ring":
+      // A phone's trill: two notes a third apart, alternating fast.
+      for (const [index, at] of [0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42].entries())
+        ring([index % 2 ? 1760 : 1397], 0.05, 0.07, at);
+      break;
   }
 
   window.setTimeout(() => out.disconnect(), 2600);

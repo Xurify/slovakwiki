@@ -949,10 +949,9 @@ const TABLE_ACTS: Record<string, Cue[]> = {
     { do: "shrug", on: "start" },
     { do: "take", what: "spoon-l", on: "after" },
   ],
-  // He reaches for it while it rings, and the others look over at once.
+  // He reaches for it while it rings, and Mária looks over at once; Anna, across the table, already faces him and keeps her spoon up.
   "marek-its-her": [
     { do: "take", what: "phone", on: "before" },
-    { who: "anna", do: "look", to: "marek", on: "before" },
     { who: "maria", do: "look", to: "marek", on: "before" },
     { do: "call", what: "phone", on: "ahoj" },
   ],
