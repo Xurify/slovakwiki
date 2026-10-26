@@ -14,7 +14,7 @@ import {
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
 import { HEAD_RADIUS, solveRig, type Point } from "./rig";
-import { OBJECT_SIZE, SINK, tipFromHand } from "./set-pieces";
+import { OBJECT_SIZE, SINK, intoDeskMic, tipFromHand } from "./set-pieces";
 
 /**
  * How each verb moves the body: keys in time, each hand on a target or
@@ -1340,6 +1340,12 @@ export interface Surroundings {
   meetWith(who: LessonCharacterId): Point | undefined;
   /** Where what is being put down will be held once it is there. */
   landing?(): Point | undefined;
+  /**
+   * Seated behind a desk mic: the side of the rig it is on (-1 when turned
+   * away from it) and what each hand holds. Hands, what they hold and the
+   * head go round it.
+   */
+  mic?: { side: 1 | -1; held: Partial<Record<Hand, ObjectKind>> };
 }
 
 export interface MotionFrame {
@@ -1394,6 +1400,46 @@ export function targetPoint(
   }
   const at = around.pointOf(target.to, target.as ?? "grip");
   return at ? { x: at.x + (target.dx ?? 0), y: at.y + (target.dy ?? 0) } : rest;
+}
+
+/** Half a hand, with room to spare: the drawn hand is 2.3 across from its middle. */
+const MIC_HAND = 2.8;
+
+/**
+ * A hand, and what it holds, moved the least way out of a seated host's
+ * desk mic: back toward the body when it goes to the mouth, otherwise up
+ * over the mic. Behind it, a hand read as gripping the mic.
+ */
+function clearOfMic(
+  point: Point,
+  mic: NonNullable<Surroundings["mic"]>,
+  hand: Hand,
+  turn: number,
+  back: boolean,
+): Point {
+  const kind = mic.held[hand];
+  const tip = kind ? tipFromHand(kind, turn) : undefined;
+  const into = (at: Point) =>
+    Math.max(
+      intoDeskMic(at, MIC_HAND, mic.side),
+      ...(tip
+        ? [0.5, 1].map((share) =>
+            intoDeskMic(
+              { x: at.x + tip.x * share, y: at.y + tip.y * share },
+              0.5,
+              mic.side,
+            ),
+          )
+        : []),
+    );
+  if (into(point) <= 0) return point;
+  for (let by = 0.5; by <= 24; by += 0.5) {
+    const moved = back
+      ? { x: point.x - by * mic.side, y: point.y }
+      : { x: point.x, y: point.y - by };
+    if (into(moved) <= 0) return moved;
+  }
+  return point;
 }
 
 /** The steepest a point goes below level, as a slope: about 6 degrees. */
@@ -1504,6 +1550,26 @@ export function frameBetween(
     points[hand] = { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t) };
   }
 
+  const turn: Partial<Record<Hand, number>> = {};
+  for (const hand of ["lead", "rear"] as const) {
+    const a = from.turn?.[hand];
+    const b = to.turn?.[hand];
+    if (a === undefined && b === undefined) continue;
+    turn[hand] = lerp(a ?? 0, b ?? 0, t);
+  }
+
+  const mic = sit > 0.5 ? around.mic : undefined;
+  if (mic) {
+    for (const hand of ["lead", "rear"] as const) {
+      const point = points[hand];
+      if (!point) continue;
+      const atMouth = [from[hand], to[hand]].some(
+        (target) => target && "mouth" in target,
+      );
+      points[hand] = clearOfMic(point, mic, hand, turn[hand] ?? 0, atMouth);
+    }
+  }
+
   // A reach below the waist bends the figure down to it, more the lower it goes.
   const lowest = Math.max(0, ...Object.values(points).map((point) => point?.y ?? 0));
   if (lowest > STOOP_Y && sit === 0) {
@@ -1518,18 +1584,16 @@ export function frameBetween(
   body.lean += leaned;
   if (low && sit === 0) body.bob += leaned * 0.5;
 
+  // A lean that would put the head into the mic stops short of it.
+  for (let step = 0; mic && step < 40; step += 1) {
+    if (intoDeskMic(solveRig(body, sit).head, HEAD_RADIUS, mic.side) <= 0) break;
+    body.lean -= mic.side * 0.5;
+  }
+
   let pose = body;
   for (const hand of ["lead", "rear"] as const) {
     const point = points[hand];
     if (point) pose = { ...pose, ...reachFor(pose, hand, point, sit) };
-  }
-
-  const turn: Partial<Record<Hand, number>> = {};
-  for (const hand of ["lead", "rear"] as const) {
-    const a = from.turn?.[hand];
-    const b = to.turn?.[hand];
-    if (a === undefined && b === undefined) continue;
-    turn[hand] = lerp(a ?? 0, b ?? 0, t);
   }
 
   return {

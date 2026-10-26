@@ -666,12 +666,24 @@ export function checkCues(
       // The mic stays on the seat's side: a host turned round has it behind them.
       const side = (seat.facing * seen.facing) as Facing;
       const into = (point: Point, half: number) => intoDeskMic(point, half, side);
+      const kind = (hand: "lead" | "rear") =>
+        [world, after]
+          .map((at) => {
+            const id = heldBy(at, mover)[hand];
+            return id ? at.objects[id]?.kind : undefined;
+          })
+          .find(Boolean);
+      // As the stage plays it: the motion steers round the mic it knows about.
+      const around: Surroundings = {
+        ...seen.around,
+        mic: { side, held: { lead: kind("lead"), rear: kind("rear") } },
+      };
       const first = new Map<string, { at: number; depth: number }>();
       const note = (what: string, at: number, depth: number) => {
         if (depth > MIC_SLACK && !first.has(what)) first.set(what, { at, depth });
       };
       for (let at = 0; at <= moves.ms; at += MIC_SAMPLE_MS) {
-        const moment = sampleMotion(moves, at, REST_POSE, seen.around, 1);
+        const moment = sampleMotion(moves, at, REST_POSE, around, 1);
         const rig = solveRig(moment.pose, 1);
         note("head", at, into(rig.head, HEAD_RADIUS));
         const held = heldBy(at < (moves.takes ?? moves.ms) ? world : after, mover);

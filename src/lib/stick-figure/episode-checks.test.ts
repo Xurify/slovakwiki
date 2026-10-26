@@ -2,10 +2,14 @@ import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
+import { sampleMotion, type Surroundings } from "./act-motions";
 import { startWorld, type Cue, type World } from "./acts";
 import baseline from "./episode-checks.baseline.json";
 import { checkCues, checkEpisode, type Finding } from "./episode-checks";
 import { PLACES } from "./places";
+import { REST_POSE } from "./pose";
+import { solveRig } from "./rig";
+import { intoDeskMic } from "./set-pieces";
 import { stageFrame } from "./stage-frame";
 
 /** A finding's key in the baseline: episode, segment, line and rule. */
@@ -155,7 +159,7 @@ describe("cues against the set", () => {
     expect(overlaps(0)).toEqual([]);
   });
 
-  it("flags a seated host drinking through the desk mic, but not waving past it", () => {
+  it("finds a seated host's drink and wave clear of the desk mic", () => {
     const studio = PLACES.studio.set!;
     const withCup = {
       ...studio,
@@ -173,10 +177,35 @@ describe("cues against the set", () => {
         rule.endsWith("space/mic"),
       );
     };
-    expect(mic([{ do: "take", what: "cup" }], [{ do: "taste", what: "cup" }])).toContain(
-      "error space/mic",
+    expect(mic([{ do: "take", what: "cup" }], [{ do: "taste", what: "cup" }])).toEqual(
+      [],
     );
     expect(mic([{ do: "wave" }])).toEqual([]);
+  });
+
+  it("steers a hand going to the mouth round the desk mic, back toward the body", () => {
+    // From a hand out beyond the mic, as a mug comes off the desk, in to the lips.
+    const keys = [
+      { at: 0, lead: { at: { x: 26, y: 80 } } },
+      { at: 600, lead: { mouth: true as const, dx: 6 } },
+    ];
+    const motion = { ms: 600, keys };
+    const around = (mic?: Surroundings["mic"]): Surroundings => ({
+      pointOf: () => undefined,
+      meetWith: () => undefined,
+      mic,
+    });
+    const deepest = (seen: Surroundings) =>
+      Math.max(
+        ...[100, 200, 300, 400, 500].map((at) =>
+          intoDeskMic(
+            solveRig(sampleMotion(motion, at, REST_POSE, seen, 1).pose, 1).leadArm.end,
+            1,
+          ),
+        ),
+      );
+    expect(deepest(around())).toBeGreaterThan(0);
+    expect(deepest(around({ side: 1, held: {} }))).toBeLessThanOrEqual(0);
   });
 
   it("flags a card from nowhere and a hand-over of what nobody holds", () => {

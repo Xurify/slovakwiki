@@ -446,6 +446,35 @@
         const at = what && objectGrip(item.after, what, geometry, facingOf(id));
         return at ? toRig(id, at) : undefined;
       },
+      mic: deskMic(id, item?.before ?? world, item?.after),
+    };
+  }
+
+  /**
+   * The desk mic in front of a host in their seat at the studio desk, on the
+   * side they face it from, with what each hand holds over the cue: what it
+   * takes up as well as what it has.
+   */
+  function deskMic(
+    id: LessonCharacterId,
+    before: World | undefined,
+    after: World | undefined,
+  ): Surroundings["mic"] {
+    if (!frame.desk || !before || before.spots[id] || before.out?.includes(id))
+      return undefined;
+    const seat = frame.seats[direction.cast.indexOf(id)];
+    if (!seat) return undefined;
+    const kind = (hand: Hand) =>
+      [before, after].map((at) => {
+        const held = at && heldIn(at, id)[hand];
+        return held ? at.objects[held]?.kind : undefined;
+      });
+    return {
+      side: seat.facing === facingOf(id) ? 1 : -1,
+      held: {
+        lead: kind("lead").find(Boolean),
+        rear: kind("rear").find(Boolean),
+      },
     };
   }
 
