@@ -2,7 +2,12 @@ import type { APIRoute } from "astro";
 import { getSecret } from "astro:env/server";
 
 import { allowRequest, isSameOrigin, json } from "$lib/level-test/server/guard";
-import { MAX_AUDIO_BYTES, transcribeSlovak } from "$lib/level-test/server/transcribe";
+import {
+  isAllowedAudioType,
+  MAX_AUDIO_BYTES,
+  MAX_AUDIO_SECONDS,
+  transcribeSlovak,
+} from "$lib/level-test/server/transcribe";
 
 export const prerender = false;
 
@@ -19,12 +24,21 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const form = await request.formData().catch(() => null);
   const audio = form?.get("audio");
-  if (!(audio instanceof Blob) || audio.size === 0 || audio.size > MAX_AUDIO_BYTES) {
+  if (
+    !(audio instanceof Blob) ||
+    audio.size === 0 ||
+    audio.size > MAX_AUDIO_BYTES ||
+    !isAllowedAudioType(audio.type)
+  ) {
     return json({ error: "Bad request" }, 400);
   }
 
   try {
-    return json(await transcribeSlovak(audio, apiKey));
+    const transcript = await transcribeSlovak(audio, apiKey);
+    if ((transcript.durationSeconds ?? 0) > MAX_AUDIO_SECONDS) {
+      return json({ error: "Recording too long" }, 413);
+    }
+    return json(transcript);
   } catch (error) {
     console.error("level-test transcription failed", error);
     return json({ error: "Transcription failed" }, 502);

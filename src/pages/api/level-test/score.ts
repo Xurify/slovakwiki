@@ -15,6 +15,12 @@ import type { ProductionKind } from "$lib/level-test/types";
 
 export const prerender = false;
 
+/** The largest valid request, all Slovak at two bytes a character, is about 15 KB. */
+const MAX_BODY_BYTES = 20_000;
+
+/** The longest summary point in the listening bank is about 180 characters. */
+const MAX_CONTENT_KEY_CHARS = 300;
+
 const KINDS: ReadonlySet<ProductionKind> = new Set([
   "summarizeConversation",
   "writePhoto",
@@ -43,6 +49,7 @@ function parseRequest(body: unknown): ScoreRequest | null {
         .filter((line): line is string => typeof line === "string")
         .slice(0, 8)
     : undefined;
+  if (contentKey?.some((line) => line.length > MAX_CONTENT_KEY_CHARS)) return null;
   const durationSeconds =
     typeof input.durationSeconds === "number" && Number.isFinite(input.durationSeconds)
       ? Math.min(600, Math.max(0, input.durationSeconds))
@@ -63,6 +70,14 @@ function parseRequest(body: unknown): ScoreRequest | null {
   };
 }
 
+function parseJson(text: string): unknown {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   const apiKey = getSecret("OPENROUTER_API_KEY");
   if (!apiKey) return json({ error: "AI scoring is not switched on" }, 503);
@@ -70,7 +85,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!allowRequest(`score:${clientAddress}`))
     return json({ error: "Too many requests" }, 429);
 
-  const scoreRequest = parseRequest(await request.json().catch(() => null));
+  const length = Number(request.headers.get("content-length") ?? 0);
+  if (length > MAX_BODY_BYTES) return json({ error: "Request too large" }, 413);
+  const text = await request.text().catch(() => "");
+  if (text.length > MAX_BODY_BYTES) return json({ error: "Request too large" }, 413);
+
+  const scoreRequest = parseRequest(parseJson(text));
   if (!scoreRequest) return json({ error: "Bad request" }, 400);
 
   try {
