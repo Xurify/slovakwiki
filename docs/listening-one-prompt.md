@@ -14,6 +14,8 @@ Every iteration in the first four episodes came from something nobody had decide
 - [ ] One line per segment saying what happens, in order, with where it is, and why the characters are there: a visit with no reason reads as confusing.
 - [ ] Fewer places, each worked out: who is there, what they want, how it starts and ends. Three thin segments and a one-word payoff read as rushed; give the ending room.
 - [ ] Every line is something that person would say then, real and natural first; the forms fit into it. Nobody knows what they could not know: someone tells them.
+- [ ] Speech sounds spoken: fillers where people use them (`No nič…`, `Tak…`), and a delivery that fits each line's feeling.
+- [ ] The ending has a set-up, a pause and a reaction; a good last joke is not cut short.
 
 **Cast and voices**
 
@@ -26,6 +28,10 @@ Every iteration in the first four episodes came from something nobody had decide
 - [ ] Each segment's `stage`: `studio` (default), `cafe`, `classroom`, `home`, `market`, `plaza`, `registration`, `street` (tram stop). A new place is a row in `places.ts` plus a drawing in `StickBackdrop`, a much bigger job: say so in the brief or avoid it.
 - [ ] Things the lines point at must be drawn in that place (`things` in its `PLACES` row) and props must exist (`STICK_PROP_IDS` in `props.ts`). A noun with neither is said, not shown. A new thing needs a drawing, a word in `thing-words.ts` and a clip.
 - [ ] The set is what the lines call it, and people do what they would there: pupils sit at desks, a meal is eaten at a table, a message pings or a call rings. What a line names is inside the middle 600 of the 960 drawing, or a phone's stage cuts it off.
+- [ ] People stand at a talking distance and where the room puts them (on the rug, at the table), aware of what is around them.
+- [ ] A clock on the set shows the story's time; with none given, pick one that fits.
+- [ ] No prop appears from nowhere: it is fetched, handed over or already in view, and stays until someone moves it.
+- [ ] The camera opens close and widens as people and things come in.
 - [ ] How each change of place is said: the last line before (`Poďme na trh!`) and the first after (`Teraz sme na trhu.`), or a scene card (`Trh. Pol piatej.`).
 
 ## 2. The prompt

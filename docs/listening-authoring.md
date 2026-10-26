@@ -69,3 +69,13 @@ From the review of episode 5 (the imperative), by a person on the episode page:
 - **Things on the set that the stage cuts off.** The studio's clock was cut in half, a speaker showed as a sliver, and the plant the whole episode was about was off the stage. What a line names must be inside what a phone's 2:1 stage shows.
 - **News with no sound.** `Lucia práve píše…` with no ping. A message pings; better still, the phone rings and the call is played.
 - **A voice with a tone nobody chose.** Marek's voice read as suggestive on a plain question to the teacher, and his tired line did not sound tired. Hear a voice on its own lines in the episode before voicing them all, and give a directed feeling its tag (`YAWN`).
+
+From the review of the robot story (#77):
+
+- **People who stand wrong.** Figures too close or too far apart, and Marek barely on the carpet. People stand at a talking distance and where the room puts them (on the rug, by the table, at the door): they know the room is there.
+- **A clock that says another time.** The story says noon and the wall clock says ten. A clock on the set shows the time the story gives; when the story gives none, pick one that fits and keep it.
+- **A prop from nowhere.** The leash was suddenly in the dog's mouth, then gone on the walk. A prop is fetched, handed over or already in view, and stays where it was until someone moves it.
+- **A line that the voice does not carry.** A plain list of chores read as lost. A delivery fits what is being said; if the voice cannot carry it, direct it or rewrite it.
+- **No filler where people use one.** `Výborne. Kde sú moje kľúče?` jumps topic. A real speaker bridges: `No nič…`, `Tak…`, `Dobre, a…`.
+- **An abrupt end.** A good last joke cut short. The last beat gets a set-up, a pause and a reaction.
+- **Kept: the camera.** The stage growing as the scene grew was liked. Open close and widen as people and things come in.
