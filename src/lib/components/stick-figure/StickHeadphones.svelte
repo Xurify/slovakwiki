@@ -47,28 +47,20 @@
 </script>
 
 {#snippet cup(at: Point)}
-  <rect
-    x={at.x - 3}
-    y={at.y - CUP_TOP}
-    width="6"
-    height="9"
-    rx="2.8"
+  <ellipse
+    cx={at.x}
+    cy={at.y}
+    rx="3.2"
+    ry={CUP_TOP}
     class="fill-portrait-vest stroke-portrait-ink"
     stroke-width="1.1"
   />
-  <rect
-    x={at.x - 1.4}
-    y={at.y - 2.8}
-    width="2.8"
-    height="5.6"
-    rx="1.4"
-    class="fill-scene-line/60"
-  />
+  <ellipse cx={at.x - 0.4} cy={at.y - 0.6} rx="1.2" ry="2.2" class="fill-scene-line/60" />
 {/snippet}
 
 {#snippet half(d: string)}
-  <path {d} class="stroke-portrait-ink" stroke-width="3.4" fill="none" />
-  <path {d} class="stroke-scene-line" stroke-width="1.8" fill="none" />
+  <path {d} class="stroke-portrait-ink" stroke-width="2.6" fill="none" />
+  <path {d} class="stroke-scene-line" stroke-width="1.2" fill="none" />
 {/snippet}
 
 {#if part !== "near"}
