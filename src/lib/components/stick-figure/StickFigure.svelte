@@ -121,15 +121,25 @@
    */
   function carriedRound(from: StickPose): StickPose {
     const tuck = 1 - round;
-    if (tuck <= 0 || call > 0 || (hands.lead && hands.rear)) return from;
+    if (tuck <= 0 || call > 0) return from;
+    const holding = (["lead", "rear"] as const).filter((hand) =>
+      hand === "lead" ? hands.lead || held : hands.rear,
+    );
+    if (!holding.length) return from;
     const ends = solveRig(from, sit, sitPath);
+    const endOf = (hand: "lead" | "rear") =>
+      ends[hand === "lead" ? "leadArm" : "rearArm"].end;
+    // Both hands on one thing (a board, a pot) move together, so it keeps its shape.
+    const middle = {
+      x: holding.reduce((sum, hand) => sum + endOf(hand).x, 0) / holding.length,
+      y: holding.reduce((sum, hand) => sum + endOf(hand).y, 0) / holding.length,
+    };
     let to = from;
-    for (const hand of ["lead", "rear"] as const) {
-      if (!(hand === "lead" ? hands.lead || held : hands.rear)) continue;
-      const end = ends[hand === "lead" ? "leadArm" : "rearArm"].end;
+    for (const hand of holding) {
+      const end = endOf(hand);
       const at = {
-        x: end.x + (IN_FRONT.x - end.x) * tuck,
-        y: end.y + (IN_FRONT.y - end.y) * tuck,
+        x: end.x + (IN_FRONT.x - middle.x) * tuck,
+        y: end.y + (IN_FRONT.y - middle.y) * tuck,
       };
       to = { ...to, ...reachFor(to, hand, at, sit) };
     }

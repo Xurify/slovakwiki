@@ -188,6 +188,13 @@
    */
   const ROOM_LANE = -0.22;
   const ROOM_SCALE = 0.9;
+  /**
+   * Passing someone at the counter, who has no room to step back, the walker
+   * goes as far toward the camera as the floor in front allows: at PASS_LANE
+   * alone his head lay over hers.
+   */
+  const DEEP_LANE = 0.17;
+  const DEEP_SCALE = 1.12;
   /** Half a body, in figure widths: overlapping a counter by this much, a step back would be into it. */
   const BODY_HALF = 0.15;
   /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
@@ -226,6 +233,8 @@
   let striding = $state<LessonCharacterId[]>([]);
   /** Who walks past someone standing: a step toward the camera, so they pass in front, not through. */
   let passing = $state<LessonCharacterId[]>([]);
+  /** Who passes someone with their back to the counter, so a step further toward the camera. */
+  let passingDeep = $state<LessonCharacterId[]>([]);
   /** Who is being walked past, and steps back to make room. */
   let roomFor = $state<LessonCharacterId[]>([]);
   /** Who stands in the doorway, a step further back than the room, to come in through it. */
@@ -1195,8 +1204,10 @@
       // Someone at the counter or the stove has their back to it: stepping back, they went into it.
       const room = passed.filter((other) => !backed(other));
       roomFor = [...roomFor.filter((other) => !passed.includes(other)), ...room];
+      if (room.length < passed.length) passingDeep = [...passingDeep, id];
       later(Math.max(0, ms - PASS_MS), () => {
         passing = passing.filter((other) => other !== id);
+        passingDeep = passingDeep.filter((other) => other !== id);
         roomFor = roomFor.filter((other) => !passed.includes(other));
       });
     }
@@ -1346,6 +1357,7 @@
     walkEndsAt = {};
     striding = [];
     passing = [];
+    passingDeep = [];
     roomFor = [];
     doorway = [];
     heldAt = index - 1;
@@ -1836,11 +1848,13 @@
           >
             <div
               class="origin-bottom transition-transform duration-300 ease-in-out"
-              style:transform={passing.includes(characterId)
-                ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
-                : roomFor.includes(characterId) || doorway.includes(characterId)
-                  ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
-                  : "none"}
+              style:transform={passingDeep.includes(characterId)
+                ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
+                : passing.includes(characterId)
+                  ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
+                  : roomFor.includes(characterId) || doorway.includes(characterId)
+                    ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
+                    : "none"}
             >
               <StickFigureActor
                 {characterId}
