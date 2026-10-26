@@ -1,12 +1,18 @@
 import { describe, expect, it } from "vitest";
 
+import examplePatterns from "../../../../content/dictionary/example-patterns.json";
+import words from "../../../../content/dictionary/words.json";
 import type { Example } from "../types";
 import { groupExamplesByPattern } from "./example-groups";
 
-function grouped(examples: Example[], lemma: string): Record<string, string[]> {
+function grouped(
+  examples: Example[],
+  slovak: string,
+  slug = "test",
+): Record<string, string[]> {
   const items = examples.map((example, index) => ({ example, index }));
   return Object.fromEntries(
-    groupExamplesByPattern(items, lemma, "Verbs").map((group) => [
+    groupExamplesByPattern(items, { slug, slovak, category: "Verbs" }).map((group) => [
       group.label,
       group.items.map((item) => item.example.slovak),
     ]),
@@ -152,5 +158,95 @@ describe("groupExamplesByPattern", () => {
     );
     expect(groups["chodiť — habit (see chodiť)"]).toEqual(["Chodím do školy."]);
     expect(groups["ísť — now / one trip"]).toContain("Chcem ísť domov.");
+  });
+
+  it("places hand-filed sentences, under a meaning of their own when needed", () => {
+    const groups = grouped(
+      [
+        {
+          slovak: "Kladie veľa otázok.",
+          english: "He asks a lot of questions.",
+          demonstrates: "to ask (questions)",
+        },
+        {
+          slovak: "Kládol drevené dosky na záhradný plot.",
+          english: "He was laying wooden boards on the garden fence.",
+          demonstrates: "to lay",
+        },
+        {
+          slovak: "Kladie taniere na stôl pred večerou.",
+          english: "She is putting plates on the table before dinner.",
+        },
+      ],
+      "klásť",
+      "klast",
+    );
+    expect(groups["to lay"]).toContain("Kladie taniere na stôl pred večerou.");
+
+    const dojst = grouped(
+      [
+        {
+          slovak: "Dôjdeme tam pešo za dvadsať minút.",
+          english: "We'll get there on foot in twenty minutes.",
+          demonstrates: "to arrive",
+        },
+        {
+          slovak: "Mlieko došlo skôr, než sme čakali.",
+          english: "The milk ran out sooner than we expected.",
+        },
+      ],
+      "dôjsť",
+      "dojst",
+    );
+    expect(dojst["to run out"]).toEqual(["Mlieko došlo skôr, než sme čakali."]);
+  });
+});
+
+describe("group order", () => {
+  const examples: Example[] = [
+    {
+      slovak: "Kladie veľa otázok.",
+      english: "He asks a lot of questions.",
+      demonstrates: "to ask (questions)",
+    },
+    {
+      slovak: "Kládol drevené dosky na záhradný plot.",
+      english: "He was laying wooden boards on the garden fence.",
+      demonstrates: "to lay",
+    },
+  ];
+  const items = examples.map((example, index) => ({ example, index }));
+  const labels = (english: string) =>
+    groupExamplesByPattern(items, { slug: "klast", slovak: "klásť", english }).map(
+      (group) => group.label,
+    );
+
+  it("follows the meanings list", () => {
+    expect(labels("to lay; to put; to ask (questions)")).toEqual([
+      "to lay",
+      "to ask (questions)",
+    ]);
+  });
+
+  it("keeps the curated order when a group names no meaning", () => {
+    expect(labels("to lay; to put")).toEqual(["to ask (questions)", "to lay"]);
+  });
+});
+
+describe("example-patterns.json", () => {
+  it("names only sentences its entry has", () => {
+    const sentencesBySlug = new Map(
+      (words as { slug: string; examples: Example[] }[]).map((word) => [
+        word.slug,
+        new Set(word.examples.map((example) => example.slovak)),
+      ]),
+    );
+    const missing = Object.entries(examplePatterns).flatMap(([slug, labels]) =>
+      Object.values(labels)
+        .flat()
+        .filter((sentence) => !sentencesBySlug.get(slug)?.has(sentence))
+        .map((sentence) => `${slug}: ${sentence}`),
+    );
+    expect(missing).toEqual([]);
   });
 });

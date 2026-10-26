@@ -291,7 +291,7 @@
 
                 {#if grouped}
                   <div class="mt-3 grid gap-6">
-                    {#each groupExamplesByPattern(visibleItems, senseEntry.slovak, senseEntry.category, senseEntry.gender) as group (group.label)}
+                    {#each groupExamplesByPattern(visibleItems, senseEntry) as group (group.label)}
                       <div>
                         <Eyebrow tone="muted" class="mb-1">{group.label}</Eyebrow>
                         {@render exampleList(

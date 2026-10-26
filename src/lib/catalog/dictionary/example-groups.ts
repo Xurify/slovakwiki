@@ -1,5 +1,18 @@
+import examplePatterns from "../../../../content/dictionary/example-patterns.json";
 import type { Example } from "../types";
 import { highlightLemmaInText } from "./highlight-lemma";
+
+/** Hand-placed sentences the cues would misfile: slug → label → sentences. */
+const PLACED: Record<string, Record<string, string[]>> = examplePatterns;
+
+export interface ExampleGroupLemma {
+  slug: string;
+  slovak: string;
+  /** The meanings list (`to lay; to put`); groups follow its order. */
+  english?: string;
+  category?: string;
+  gender?: string;
+}
 
 export interface ExampleGroup<T extends { example: Example }> {
   label: string;
@@ -69,7 +82,12 @@ function parsePattern(label: string, lemma: string): Pattern {
   const cues = words(slovak)
     .filter((word) => !headword.has(word))
     .flatMap((word) => (LITERAL_CUES[word] ? [LITERAL_CUES[word]] : []));
-  const glosses = english
+
+  return { label, cues, glosses: glossList(english) };
+}
+
+function glossList(english: string): string[] {
+  return english
     .replace(/\([^)]*\)/gu, "")
     .split(/[/;,]/u)
     .map((gloss) =>
@@ -79,8 +97,34 @@ function parsePattern(label: string, lemma: string): Pattern {
         .replace(/^to\s+/u, ""),
     )
     .filter(Boolean);
+}
 
-  return { label, cues, glosses };
+/**
+ * Put the groups in the order of the meanings list, so the first meaning's
+ * sentences come first. Only when every curated group names one of the
+ * meanings: moving a group that names none would bury the headword's own
+ * pattern. A hand-placed meaning the list lacks goes last.
+ */
+function inMeaningOrder<T extends { example: Example }>(
+  groups: ExampleGroup<T>[],
+  english: string | undefined,
+  lemma: string,
+): ExampleGroup<T>[] {
+  if (!english) return groups;
+  const meanings = glossList(english);
+  const own = groups.filter((group) => !group.label.includes("(see "));
+  const rank = new Map<ExampleGroup<T>, number>();
+  for (const group of own) {
+    const glosses = parsePattern(group.label, lemma).glosses;
+    const index = meanings.findIndex((meaning) => glosses.includes(meaning));
+    const curated = group.items.some((item) => item.example.demonstrates);
+    if (index === -1 && curated) return groups;
+    rank.set(group, index === -1 ? meanings.length : index);
+  }
+  return [
+    ...own.toSorted((a, b) => rank.get(a)! - rank.get(b)!),
+    ...groups.filter((group) => !rank.has(group)),
+  ];
 }
 
 interface LemmaContext {
@@ -157,23 +201,23 @@ function glossScore(glosses: string[], english: string): number {
  * `že` / `mať` / location cue in the headword's clause first, then the English gloss,
  * then the first pattern of the headword itself. Contrast patterns
  * (`… (see …)`) belong to another verb and never take extra sentences.
+ * `content/dictionary/example-patterns.json` places by hand the sentences
+ * those cues misfile, and may name a meaning no curated sentence shows.
  */
 export function groupExamplesByPattern<T extends { example: Example }>(
   items: T[],
-  lemma: string,
-  category = "",
-  gender?: string,
+  { slug, slovak: lemma, english, category = "", gender }: ExampleGroupLemma,
 ): ExampleGroup<T>[] {
+  const placed = new Map<string, string>();
+  for (const [label, sentences] of Object.entries(PLACED[slug] ?? {})) {
+    for (const sentence of sentences) placed.set(sentence, label);
+  }
+
   const groups: ExampleGroup<T>[] = [];
   const byLabel = new Map<string, ExampleGroup<T>>();
   const unlabeled: T[] = [];
 
-  for (const item of items) {
-    const label = item.example.demonstrates?.trim();
-    if (!label) {
-      unlabeled.push(item);
-      continue;
-    }
+  const addTo = (label: string, item: T): void => {
     let group = byLabel.get(label);
     if (!group) {
       group = { label, items: [] };
@@ -181,9 +225,21 @@ export function groupExamplesByPattern<T extends { example: Example }>(
       groups.push(group);
     }
     group.items.push(item);
+  };
+
+  for (const item of items) {
+    const label = item.example.demonstrates?.trim();
+    if (label) addTo(label, item);
+  }
+  for (const item of items) {
+    if (item.example.demonstrates?.trim()) continue;
+    const label = placed.get(item.example.slovak);
+    if (label) addTo(label, item);
+    else unlabeled.push(item);
   }
 
   const patterns = groups
+    .filter((group) => group.items.some((item) => item.example.demonstrates))
     .map((group) => parsePattern(group.label, lemma))
     .filter((pattern) => !pattern.label.includes("(see "));
 
@@ -216,5 +272,6 @@ export function groupExamplesByPattern<T extends { example: Example }>(
     }
   }
 
-  return other ? [...groups, other] : groups;
+  const ordered = inMeaningOrder(groups, english, lemma);
+  return other ? [...ordered, other] : ordered;
 }
