@@ -22,13 +22,13 @@ Code: engine in `src/lib/level-test/`, content in `src/lib/catalog/level-test/`,
 | Read Aloud                 | speaking  | being understood (speech-recognition match)                                                                                     |
 | Speaking tasks (AI)        | speaking  | skill; every part the AI sees used, accents aside; named mistakes as for writing                                                |
 
-Writing and speaking are tracked without a task of their own: the scorer counts, for each part (noun endings, verb forms, aspect, adjective agreement, function words, word order, accents in writing, vocabulary), how often it came up in the learner's own words and how often it was right. Each scored answer adds one observation per part, at the level that answer was scored at, so a long essay does not outweigh the short tasks. Interactive Reading gaps carry their part in `reading.ts`; each set has one aspect gap and one word-order gap.
+Writing and speaking are tracked without a task of their own: the scorer counts, for each part (noun endings, verb forms, aspect, adjective agreement, function words, word order, accents in writing, vocabulary), how often it came up in the learner's own words and how often it was right. Each scored answer adds one observation per part, so a long essay does not outweigh the short tasks. The observation sits about 17 points below the level the answer was scored at, so a writer who gets 85% of a part right reads as at level, not ahead of it. Interactive Reading gaps carry their part in `reading.ts`; each set has one aspect gap and one word-order gap.
 
-Word classes come from `tagWord` (`src/lib/catalog/level-test/word-tags.ts`) at build time: SNK and dictionary forms for nouns, adjectives and verbs, the pronoun tables, and fixed lists for function words and numbers. Spelling evidence counts only words whose letters were otherwise right, so a missing háček is not also counted as a grammar mistake.
+Word classes come from `tagWord` (`src/lib/catalog/level-test/word-tags.ts`) at build time: SNK and dictionary forms for nouns, adjectives and verbs, the pronoun tables, and fixed lists for function words and numbers. Spelling evidence counts only words whose letters were otherwise right, so a missing háček is not also counted as a grammar mistake, and only the letters the learner typed: an accent in the printed half of a gap is not evidence. An i/y slip in a gap counts under spelling only.
 
 ## Evidence per run
 
-Simulated with 200 runs per level (answers per part; a part needs 3 to be judged):
+Simulated with 200 runs per level (answers per part; a part needs 3 to be judged). A part is a strength or a gap only when it differs from the overall level by at least 5 points and by 1.2 times its own uncertainty, and a gap also needs two misses, so one slip is not a gap.
 
 | Part                 | Quick test                     | Full test                                     |
 | -------------------- | ------------------------------ | --------------------------------------------- |
