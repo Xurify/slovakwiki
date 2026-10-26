@@ -23,6 +23,7 @@ export const STICK_GESTURE_IDS = [
   "chuckle",
   "sigh",
   "yawn",
+  "compute",
 ] as const;
 
 export type StickGestureId = (typeof STICK_GESTURE_IDS)[number];
@@ -92,6 +93,8 @@ const armsUp = {
   brow: 1,
 };
 const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, look: 0 };
+/** Head up and still, eyes off to one side: a robot working something out. */
+const computing = { tilt: -7, look: -0.6, brow: 0.4, bob: -0.4 };
 const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: -0.4, brow: 0.6 };
 const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 const holdOut = { leadRaise: 55, leadBend: 45, lean: 2, tilt: 3, look: 1, brow: 0.6 };
@@ -274,6 +277,12 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
     key(1000),
   ]),
   apologize: gesture(sorry, [key(0), key(320, sorry), key(950, sorry), key(1250)]),
+  compute: gesture(computing, [
+    key(0),
+    key(300, computing),
+    key(1500, computing),
+    key(1800),
+  ]),
   think: gesture(handOnChin, [
     key(0),
     key(340, handOnChin),

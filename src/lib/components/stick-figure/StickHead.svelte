@@ -17,11 +17,14 @@
    * the body so the shoulders cover its ends; `face` is the rest.
    */
   let {
+    calling = false,
     characterId,
     part = "face",
     pose = REST_POSE,
     turn,
   }: {
+    /** On a call: a robot's antenna light blinks while it talks over the line. */
+    calling?: boolean;
     characterId: LessonCharacterId;
     part?: "back" | "face";
     pose?: StickPose;
@@ -97,13 +100,127 @@
     />
     <path d="M19.4 32.6q1.6 3.4.4 7.4" class="stroke-portrait-ink" stroke-width="1.1" />
   {/if}
+{:else if look.dog}
+  <!-- A dog's face from the front: floppy ears, a light muzzle, the nose on top. -->
+  <path
+    d="M19.6 17.6Q12.4 18.4 12.2 30.4Q13.4 36.8 17.6 35.2Q20.2 26.4 22.6 20.2Z"
+    class="{look.dog.patch} stroke-portrait-ink"
+    stroke-width="1.5"
+  />
+  <path
+    d="M44.4 17.6Q51.6 18.4 51.8 30.4Q50.6 36.8 46.4 35.2Q43.8 26.4 41.4 20.2Z"
+    class="{look.dog.patch} stroke-portrait-ink"
+    stroke-width="1.5"
+  />
+  <ellipse
+    cx="32"
+    cy="29"
+    rx="12.6"
+    ry="13.4"
+    class="{look.dog.coat} stroke-portrait-ink"
+    stroke-width="1.6"
+  />
+  <ellipse cx="32" cy="35.6" rx="7" ry="5.6" class="fill-portrait-bib" />
+  <circle cx={n(27 + eyeX * 0.4)} cy={n(eyeY - 1)} r="1.6" class="fill-portrait-ink" />
+  <circle cx={n(37 + eyeX * 0.4)} cy={n(eyeY - 1)} r="1.6" class="fill-portrait-ink" />
+  <ellipse cx="32" cy="33.2" rx="2.6" ry="1.9" class="fill-portrait-ink" />
+  {#if mouthOpen}
+    <path
+      d="M29 37Q32 {n(37.6 + pose.mouth * 3.4)} 35 37Z"
+      class="fill-scene-apple stroke-portrait-ink"
+      stroke-width="0.9"
+    />
+  {:else}
+    <path
+      d="M32 35.1v1.9M29.4 37.4q2.6 1.4 5.2 0"
+      class="stroke-portrait-ink"
+      stroke-width="1"
+    />
+  {/if}
+{:else if robot?.metal}
+  <path d="M32 14V8.4" class="stroke-portrait-ink" stroke-width="1.4" />
+  <circle
+    cx="32"
+    cy="7.6"
+    r="2.2"
+    class="{robot.light} stroke-portrait-ink {calling
+      ? 'motion-safe:animate-compute-dot'
+      : ''}"
+    stroke-width="1.2"
+  />
+  <rect
+    x="12.6"
+    y="23"
+    width="4.4"
+    height="9"
+    rx="1.2"
+    class="fill-scene-steel-dark stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <rect
+    x="47"
+    y="23"
+    width="4.4"
+    height="9"
+    rx="1.2"
+    class="fill-scene-steel-dark stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <rect
+    x="16"
+    y="14"
+    width="32"
+    height="29"
+    rx="3.6"
+    class="fill-scene-steel stroke-portrait-ink"
+    stroke-width="1.6"
+  />
+  <path d="M19 16.4H45" class="stroke-scene-steel-light" stroke-width="1.3" />
+  <rect
+    x={n(19 + eyeX * 0.5)}
+    y="20"
+    width="26"
+    height="11"
+    rx="2.4"
+    class="fill-portrait-ink"
+  />
+  <circle cx={n(25.6 + eyeX)} cy="25.5" r="2.6" class={robot.eyes} />
+  <circle cx={n(38.4 + eyeX)} cy="25.5" r="2.6" class={robot.eyes} />
+  <rect
+    x={n(25 + eyeX * 0.5)}
+    y="34"
+    width="14"
+    height="5.4"
+    rx="1"
+    class="fill-portrait-ink"
+  />
+  {#if mouthOpen}
+    <!-- The grille lights up with the voice, like a level meter. -->
+    {#each [0, 1, 2, 3] as bar (bar)}
+      {@const h = n(1 + pose.mouth * (bar % 3 === 0 ? 2.6 : 4))}
+      <rect
+        x={n(26.4 + eyeX * 0.5 + bar * 3)}
+        y={n(36.7 - Number(h) / 2)}
+        width="2"
+        height={h}
+        class={robot.eyes}
+      />
+    {/each}
+  {:else}
+    <path d="M{n(28 + eyeX * 0.5)} 36.7h8" class={robot.smile} stroke-width="1.2" />
+  {/if}
+  {#each [[18.6, 16.8], [45.4, 16.8], [18.6, 40.4], [45.4, 40.4]] as [x, y] (`${x}-${y}`)}
+    <circle cx={x} cy={y} r="0.85" class="fill-scene-steel-dark" />
+  {/each}
 {:else if robot}
   <path d="M32 14.5V9" class="stroke-portrait-ink" stroke-width="1.4" />
   <circle
     cx="32"
     cy="8.5"
     r="2.2"
-    class="{robot.light} stroke-portrait-ink"
+    class="{robot.light} stroke-portrait-ink {calling
+      ? 'motion-safe:animate-compute-dot'
+      : ''}"
     stroke-width="1.2"
   />
   <rect

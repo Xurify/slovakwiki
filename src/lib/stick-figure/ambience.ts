@@ -652,14 +652,14 @@ export function playSegmentCue(): void {
 }
 
 /** How long the phone sounds before the line that answers or reads it, ms. */
-export const PHONE_CUE_MS = { call: 2600, message: 800 } as const;
+export const PHONE_CUE_MS = { call: 2600, dial: 4200, message: 800 } as const;
 
 /**
  * A phone in the room: a call rings twice, a pair of warbling bursts each;
  * a message pings once, two quick notes. Plays with background sound off,
  * like footsteps, but not with sound off.
  */
-export function playPhoneCue(kind: "call" | "message"): void {
+export function playPhoneCue(kind: "call" | "dial" | "message"): void {
   if (getStoredSfxPreference() === "off") return;
   const kit = cues();
   if (!kit) return;
@@ -687,6 +687,12 @@ export function playPhoneCue(kind: "call" | "message"): void {
   if (kind === "message") {
     beep(1320, 0, 0.09, 0.35);
     beep(1760, 0.12, 0.16, 0.3);
+  } else if (kind === "dial") {
+    // Six keypad tones, then the far end ringing twice: 425 Hz, the European ringback.
+    [1336, 1209, 1477, 1336, 1209, 1477].forEach((frequency, key) =>
+      beep(frequency, key * 0.16, 0.1, 0.18),
+    );
+    for (const at of [1.2, 2.7]) beep(425, at, 1, 0.16);
   } else {
     for (const ring of [0, 1.3]) {
       for (let burst = 0; burst < 10; burst += 1) {
@@ -694,5 +700,5 @@ export function playPhoneCue(kind: "call" | "message"): void {
       }
     }
   }
-  window.setTimeout(() => out.disconnect(), 3200);
+  window.setTimeout(() => out.disconnect(), 4400);
 }

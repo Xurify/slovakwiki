@@ -73,6 +73,34 @@
       class="stroke-scene-honey"
       stroke-width="1.2"
     />
+  {:else if prop === "leash"}
+    <!-- The loop round the hand and the lead hanging from it, the clip at its end. -->
+    <ellipse cx="0" cy="-1" rx="2.8" ry="3.4" fill="none" stroke-width="2.4" />
+    <ellipse
+      cx="0"
+      cy="-1"
+      rx="2.8"
+      ry="3.4"
+      fill="none"
+      class="stroke-scene-red"
+      stroke-width="1.1"
+    />
+    <path d="M0.6 2.2Q1.4 12 7.2 15.4" fill="none" stroke-width="2.4" />
+    <path
+      d="M0.6 2.2Q1.4 12 7.2 15.4"
+      fill="none"
+      class="stroke-scene-red"
+      stroke-width="1.1"
+    />
+    <rect
+      x="6.4"
+      y="14.6"
+      width="2.6"
+      height="3.4"
+      rx="1"
+      transform="rotate(-30 7.7 16.3)"
+      class="fill-scene-edge"
+    />
   {:else if prop === "letter"}
     <rect x="-5" y="-8" width="11" height="7.5" rx="0.8" class="fill-portrait-bib" />
     <path d="M-5 -8l5.5 4 5.5-4" stroke-width="0.7" />

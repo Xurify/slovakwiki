@@ -686,6 +686,15 @@ describe("pictures", () => {
     expect(linePictures("Dobrý deň.")).toEqual([]);
   });
 
+  it("shows the working-out over the head on a sentence directed to compute", () => {
+    const plan = planLine("Hľadám v slovníku. Haf: zvuk psa.", {
+      gestures: ["compute"],
+    });
+
+    expect(plan.pictures).toEqual([{ at: plan.beats[0].at, picture: "computing" }]);
+    expect(planLine("Hľadám v slovníku.").pictures).toEqual([]);
+  });
+
   it("pops the picture up as its word is said", () => {
     const plan = planLine("Som z Kanady.");
     const cue = plan.pictures?.[0];

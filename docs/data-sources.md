@@ -54,3 +54,16 @@ License: CC BY 2.0 FR (attribute Tatoeba)
 - [API (optional; not used in v1)](https://api.tatoeba.org/)
   - Reserved for future on-demand lookup. Enrichment uses dumps.
 - [Using the Tatoeba corpus](https://en.wiki.tatoeba.org/articles/show/using-the-tatoeba-corpus)
+
+## Sounds
+
+Recordings heard in listening episodes that no voice can say.
+
+### Dog barking, by Dr. Nono YesMaybe (Wikimedia Commons)
+
+Every bark of Bobík, the dog in the story Čo hovorí Bobík?, cut from this one recording by scripts/audio/barks.ts.
+
+License: CC BY-SA 4.0
+
+- [File:Dog barking.webm](https://commons.wikimedia.org/wiki/File:Dog_barking.webm)
+- [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)

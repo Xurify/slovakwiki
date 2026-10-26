@@ -1,3 +1,4 @@
+import { LOOKS } from "./looks";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { TextMark } from "$lib/learning/marked-text";
 import { demonstrativeForm } from "$lib/learning/demonstratives/paradigm";
@@ -118,7 +119,7 @@ export function yesThatIs(thing: SceneThing): string {
  * Who asks for each thing and answers each tap: the first of the cast who
  * is on stage from the start, since someone still walking on cannot ask,
  * and someone other than Alex where there is one, since the learner is
- * the one looking.
+ * the one looking. A dog cannot ask.
  */
 export function findAsker(direction: {
   cast: readonly LessonCharacterId[];
@@ -129,7 +130,7 @@ export function findAsker(direction: {
       staging.enter ? [staging.enter.characterId] : [],
     ),
   );
-  const present = direction.cast.filter((id) => !entering.has(id));
+  const present = direction.cast.filter((id) => !entering.has(id) && !LOOKS[id].dog);
   return present.find((id) => id !== "alex") ?? present[0];
 }
 

@@ -84,6 +84,26 @@
       "speakers": ["Waiter", "Conductor"],
       "note": "Voice Design (eleven_ttv_v3), seventh design, preview 1 kept: designed on a waiter's own table talk, not the learner sample, so he talks instead of reading. The fifth take (5YDe2nLAVwkbKkGii7je) sounded like a boy and is kept for a child character."
     },
+    "robo": {
+      "displayName": "Robo",
+      "gender": "male",
+      "kind": "oneOff",
+      "blurb": "Marek's new home robot. He knows a hundred languages, but not the one his dog speaks.",
+      "voiceId": "8tx4iZUtyK5wGuXh29VW",
+      "voiceName": "Slovak Wiki Robo",
+      "speakers": ["Robo"],
+      "note": "Voice Design, briefed on Robo's own lines in the dog story. Custom Voice Design."
+    },
+    "bobik": {
+      "displayName": "Bobík",
+      "gender": "male",
+      "kind": "oneOff",
+      "blurb": "Marek's dog. He says only haf, and means something different every time.",
+      "voiceId": "recording:dog-barking",
+      "voiceName": "Bobík (recorded barks)",
+      "speakers": ["Bobík"],
+      "note": "No voice: a real dog's barks, cut from a recording by scripts/audio/barks.ts."
+    },
     "guide": {
       "displayName": "Guide",
       "gender": "neutral",

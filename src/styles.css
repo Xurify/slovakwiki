@@ -31,6 +31,30 @@
   --animate-rise: rise 200ms ease-out both;
   /* Rain and snow on the stage; each layer sets its own duration and --fall-x / --fall-y. */
   --animate-fall: fall 1s linear infinite;
+  /* A robot working something out: a bar filling over and over, and dots taking turns. */
+  --animate-compute: compute 1.2s ease-in-out infinite;
+  --animate-compute-dot: compute-dot 0.9s ease-in-out infinite;
+
+  @keyframes compute {
+    from {
+      transform: scaleX(0.08);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes compute-dot {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
 
   @keyframes fall {
     to {
@@ -132,6 +156,10 @@
   --color-scene-pale: #cbd5e1;
   --color-scene-green: #1f6b5c;
   --color-scene-green-mid: #74a89b;
+  /* A metal robot: brushed grey, with a lighter edge and darker rivets and joints. */
+  --color-scene-steel: #a9b5be;
+  --color-scene-steel-light: #d3dbe0;
+  --color-scene-steel-dark: #6d7b86;
   --color-flag-red: #d52b1e;
   --color-flag-blue: #0b4ea2;
   --color-flag-gold: #ffcd00;

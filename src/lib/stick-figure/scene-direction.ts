@@ -1,3 +1,4 @@
+import { LOOKS } from "./looks";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { planLine, type LinePlan } from "./line-plan";
@@ -90,7 +91,8 @@ function callers(
   const on: Array<LessonCharacterId | undefined> = lines.map(() => undefined);
   lines.forEach((line, start) => {
     const answers = line.characterId;
-    if (line.ring !== "call" || !answers || !cast.includes(answers)) return;
+    if ((line.ring !== "call" && line.ring !== "dial") || !answers) return;
+    if (!cast.includes(answers)) return;
 
     let end = start;
     for (let index = start + 1; index < lines.length; index += 1) {
@@ -116,7 +118,13 @@ export function directScene(
   const calls = callers(lines, cast);
   const held = heldProps(read).map((props, index) => {
     const caller = calls[index];
-    return caller ? { ...props, [caller]: "phone" as const } : props;
+    const withCall = caller ? { ...props, [caller]: "phone" as const } : props;
+    // A robot is its own phone: it never takes one out, to call or to show.
+    return Object.fromEntries(
+      Object.entries(withCall).filter(
+        ([id, prop]) => !(prop === "phone" && LOOKS[id as LessonCharacterId].robot),
+      ),
+    ) as typeof withCall;
   });
   // What the scene has named so far, which a bare tamten can point back at.
   const named: NamedThing[] = [];
