@@ -4516,19 +4516,20 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "held": {
         "marek": "keys",
       },
-      "line": "anna: Nesprávne! Tohoto je po česky. Správne je tohto.",
+      "line": "anna: Skoro, ale nie celkom. Tohoto je po česky. Po slovensky hovoríme tohto.",
       "plan": {
         "beats": [
           "50 shake",
-          "1950 tell",
-          "3600 nod",
+          "3150 tell",
+          "4750 tell",
         ],
-        "ms": 5300,
+        "ms": 7000,
         "pictures": [
-          "3018 flag-cz",
+          "3911 flag-cz",
+          "4938 flag-sk",
         ],
-        "sentences": "50-814 1950-3481 3600-5100",
-        "words": "50-814 1950-2591 2591-2805 2805-3018 3018-3481 3600-4293 4293-4548 4548-5100",
+        "sentences": "50-1660 3150-4241 4750-6800",
+        "words": "50-480 590-954 954-1197 1197-1660 3150-3607 3607-3759 3759-3911 3911-4241 4750-4938 4938-5597 5597-6392 6392-6800",
       },
       "staging": {
         "addressee": "marek",

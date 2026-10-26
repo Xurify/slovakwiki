@@ -690,8 +690,15 @@ const quiz: ListeningChapter = {
       line(
         "anna-tohto-not-tohoto",
         "Anna",
-        ["Nesprávne! ", PAUSE, "Tohoto je po česky. Správne je ", mark("tohto"), "."],
-        "Wrong! Tohoto is Czech. The right form is tohto.",
+        [
+          "Skoro, ale nie celkom. ",
+          PAUSE,
+          "Tohoto je po česky. Po slovensky hovoríme ",
+          mark("tohto"),
+          ".",
+        ],
+        "Close, but not quite. Tohoto is Czech. In Slovak we say tohto.",
+        { gestures: ["shake"] },
       ),
     ),
     line(
@@ -718,7 +725,7 @@ const quiz: ListeningChapter = {
           id: "man",
           label: "Poznáš tohoto muža?",
           whyWrong:
-            "Anna says **nesprávne**: **tohoto** is Czech, the Slovak form is **tohto**.",
+            "Anna says **nie celkom**: **tohoto** is Czech, the Slovak form is **tohto**.",
         },
       ],
       answerId: "children",
@@ -748,8 +755,8 @@ const quiz: ListeningChapter = {
       ],
       answerId: "tohto",
       feedback: {
-        english: "In Slovak it's tohto.",
-        why: "Anna says **po slovensky je tohto**.",
+        english: "In Slovak we say tohto.",
+        why: "Anna says **po slovensky hovoríme tohto**.",
       },
     },
   ],
