@@ -19,6 +19,7 @@
   import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/catalog/frequency/types";
   import { declensionRows } from "$lib/catalog/dictionary/declension";
   import type { NearbyEntry } from "$lib/catalog/dictionary/entries-near";
+  import { groupExamplesByPattern } from "$lib/catalog/dictionary/example-groups";
   import { EXAMPLE_DISPLAY_LIMIT } from "$lib/catalog/dictionary/example-limits";
   import type { FrequencyNeighbor } from "$lib/catalog/dictionary/frequency-neighbors";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
@@ -135,29 +136,6 @@
   const railWordClass = "font-serif text-sm leading-snug break-words text-slate-900";
   const railGlossClass = "text-xs leading-snug text-slate-500";
   const moreLinkClass = `${sharedMoreLinkClass} mt-2`;
-
-  function groupExamplesByPattern(
-    items: { example: Example; index: number }[],
-  ): { label: string; items: { example: Example; index: number }[] }[] {
-    const groups: {
-      label: string;
-      items: { example: Example; index: number }[];
-    }[] = [];
-    const indexByLabel = new Map<string, number>();
-
-    for (const item of items) {
-      const label = item.example.demonstrates?.trim() || "Other";
-      const existing = indexByLabel.get(label);
-      if (existing === undefined) {
-        indexByLabel.set(label, groups.length);
-        groups.push({ label, items: [item] });
-      } else {
-        groups[existing]!.items.push(item);
-      }
-    }
-
-    return groups;
-  }
 
   function categoryLabel(category: string): string {
     return (category === "Nouns" ? "noun" : category.replace(/s$/, "")).toLowerCase();
@@ -307,7 +285,7 @@
 
                 {#if grouped}
                   <div class="mt-3 grid gap-6">
-                    {#each groupExamplesByPattern(visibleItems) as group (group.label)}
+                    {#each groupExamplesByPattern(visibleItems, senseEntry.slovak, senseEntry.category, senseEntry.gender) as group (group.label)}
                       <div>
                         <Eyebrow tone="muted" class="mb-1">{group.label}</Eyebrow>
                         {@render exampleList(
