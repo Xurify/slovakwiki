@@ -2,6 +2,7 @@
   import { untrack, type Component } from "svelte";
   import { cubicInOut } from "svelte/easing";
   import { Tween } from "svelte/motion";
+  import { DOOR_OPEN_MS, DOOR_SHUT_MS } from "$lib/stick-figure/act-motions";
 
   import {
     BACKDROP_HEIGHT,
@@ -127,18 +128,15 @@
   /**
    * The door swings rather than snaps, about as long as a door takes, and
    * only part way: wide enough to come in by, and its edge still in reach
-   * of whoever turns back to push it to.
+   * of whoever turns back to push it to. In 450 ms it flew open and shut.
    */
   const AJAR = 0.5;
   const swing = new Tween(
     untrack(() => (door ? AJAR : 0)),
-    {
-      duration: 450,
-      easing: cubicInOut,
-    },
+    { easing: cubicInOut },
   );
   $effect(() => {
-    void swing.set(door ? AJAR : 0);
+    void swing.set(door ? AJAR : 0, { duration: door ? DOOR_OPEN_MS : DOOR_SHUT_MS });
   });
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));

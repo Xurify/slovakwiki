@@ -170,7 +170,14 @@
    * them. Less read as walking through them.
    */
   const PASS_LANE = 0.1;
-  const PASS_SCALE = 1.06;
+  const PASS_SCALE = 1.07;
+  /**
+   * Whoever is passed makes room: a step back, away from the camera, up and
+   * a little smaller. With the walker only a step nearer, at the floor's
+   * edge, heads met and they read as walking through each other.
+   */
+  const ROOM_LANE = -0.14;
+  const ROOM_SCALE = 0.93;
   /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
   const CHAIR_HALF = 0.22;
   /** The step back into line starts this long before the walk ends, and the lane's transition is about as long. */
@@ -194,6 +201,10 @@
   let striding = $state<LessonCharacterId[]>([]);
   /** Who walks past someone standing: a step toward the camera, so they pass in front, not through. */
   let passing = $state<LessonCharacterId[]>([]);
+  /** Who is being walked past, and steps back to make room. */
+  let roomFor = $state<LessonCharacterId[]>([]);
+  /** Who stands in the doorway, a step further back than the room, to come in through it. */
+  let doorway = $state<LessonCharacterId[]>([]);
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
   /** A line that gave something away and has ended, so it is in the new hand. */
@@ -317,10 +328,10 @@
   let actTimers: number[] = [];
   /** How long a motion takes to take over from the one before it. */
   const TAKE_OVER_MS = 260;
-  /** From the door opening to the one coming in standing in it. */
-  const DOOR_MS = 700;
-  /** How long the door takes to swing open past edge on (StickBackdrop swings it in 450) before whoever is behind it shows. */
-  const DOOR_OPENING_MS = 300;
+  /** From the door opening to the one coming in stepping through it. */
+  const DOOR_MS = 1100;
+  /** How long the door takes to swing open past edge on (DOOR_OPEN_MS in all) before whoever is behind it shows. */
+  const DOOR_OPENING_MS = 400;
   /** Bumped when the stage stops or jumps, so cues still on the clock let go. */
   let actToken = 0;
   type ActorAct = ComponentProps<typeof StickFigureActor>["doing"];
@@ -578,12 +589,15 @@
     }
     // The door swings open on them standing in the doorway, in the hall's
     // shadow: there at once, as a door opening shows someone, not faded in.
+    // They stand back in it, and step down into the room as they walk in.
     shaded = [...shaded, id];
+    doorway = [...doorway, id];
     later(DOOR_OPENING_MS, () => {
       outside = outside.filter((other) => other !== id);
     });
     later(DOOR_MS, () => {
       shaded = shaded.filter((other) => other !== id);
+      doorway = doorway.filter((other) => other !== id);
       const inside = to && to !== door ? spotOf(id, to) : undefined;
       if (!inside || !at) {
         doorOpen = false;
@@ -1078,12 +1092,14 @@
     offsets = { ...offsets, [id]: offset };
     striding = [...striding.filter((other) => other !== id), id];
     later(ms, () => (striding = striding.filter((other) => other !== id)));
-    if (passesSomeone(id, from, offset) || passesFurniture(id, from, offset)) {
+    const passed = passedBy(id, from, offset);
+    if (passed.length || passesFurniture(id, from, offset)) {
       passing = [...passing.filter((other) => other !== id), id];
-      later(
-        Math.max(0, ms - PASS_MS),
-        () => (passing = passing.filter((other) => other !== id)),
-      );
+      roomFor = [...roomFor.filter((other) => !passed.includes(other)), ...passed];
+      later(Math.max(0, ms - PASS_MS), () => {
+        passing = passing.filter((other) => other !== id);
+        roomFor = roomFor.filter((other) => !passed.includes(other));
+      });
     }
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -1095,12 +1111,16 @@
     }
   }
 
-  /** Someone standing still is in the way: their middle lies inside the walk, not at its ends. */
-  function passesSomeone(id: LessonCharacterId, from: number, to: number): boolean {
+  /** Who stands still in the way: their middle lies inside the walk, not at its ends. */
+  function passedBy(
+    id: LessonCharacterId,
+    from: number,
+    to: number,
+  ): LessonCharacterId[] {
     const left = Math.min(from, to) + PASS_CLEAR;
     const right = Math.max(from, to) - PASS_CLEAR;
     const mark = frame.marks[id] ?? 0;
-    return direction.cast.some((other) => {
+    return direction.cast.filter((other) => {
       if (other === id || striding.includes(other) || outside.includes(other))
         return false;
       const at =
@@ -1210,6 +1230,8 @@
     walkEndsAt = {};
     striding = [];
     passing = [];
+    roomFor = [];
+    doorway = [];
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -1661,7 +1683,9 @@
               class="origin-bottom transition-transform duration-300 ease-in-out"
               style:transform={passing.includes(characterId)
                 ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
-                : "none"}
+                : roomFor.includes(characterId) || doorway.includes(characterId)
+                  ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
+                  : "none"}
             >
               <StickFigureActor
                 {characterId}

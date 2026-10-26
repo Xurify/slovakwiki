@@ -339,10 +339,10 @@ export function motionFor(
       };
     }
     case "raise": {
-      // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, above a desk mic.
+      // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, straight up beside the head, where the arm clears a desk mic too.
       const up =
         object?.kind === "mic"
-          ? { ...hands(hand, { up: { x: 14, y: -24 } }), body: { lean: -1, brow: 0.4 } }
+          ? { ...hands(hand, { up: { x: 7, y: -26 } }), body: { lean: -1, brow: 0.4 } }
           : { ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }), turn: { [hand]: -20 } };
       return {
         motion: {
@@ -1258,7 +1258,8 @@ function liftMotion(what: string, sink?: string): Motion {
 
 /** A hand into the trouser pocket and out with what is in it, or the other way. */
 function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Motion {
-  const pocket = { at: { x: 3, y: 96 } };
+  // From the shoulder, so it is the hip at a desk too, where the hand goes down behind the desk's front with it.
+  const pocket = { up: { x: 3, y: 27 } };
   return {
     ms: 1000,
     takes: way === "out" ? 450 : 500,
@@ -1268,8 +1269,8 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
         ? [
             { at: 0 },
             { at: 380, ...hands(hand, pocket), body: { tilt: 6, look: -0.2 } },
-            { at: 700, ...hands(hand, { at: { x: 13, y: 76 } }), body: { tilt: 4 } },
-            { at: 1000, ...hands(hand, { at: { x: 13, y: 76 } }) },
+            { at: 700, ...hands(hand, { up: { x: 12, y: 16 } }), body: { tilt: 4 } },
+            { at: 1000, ...hands(hand, { up: { x: 12, y: 16 } }) },
           ]
         : [
             { at: 0 },
@@ -1605,20 +1606,25 @@ export function frameBetween(
   };
 }
 
+/** How long the door takes to swing open, and shut: a second or so, as a door does. */
+export const DOOR_OPEN_MS = 800;
+export const DOOR_SHUT_MS = 900;
+
 /**
  * The door pushed to behind someone just come in: a hand out to its edge
  * as it starts to swing (`takes`), riding the edge in as it shuts, and back.
  */
 export const CLOSE_DOOR: Motion = {
-  ms: 1100,
+  ms: 1450,
   // The swing eases in, so starting it as the hand is still on its way puts the first visible movement under the hand.
-  takes: 200,
+  takes: 250,
   keys: [
     { at: 0 },
     { at: 300, lead: { at: { x: 28, y: 75 } }, body: { lean: 8 } },
-    { at: 550, lead: { at: { x: 23, y: 76 } }, body: { lean: 6 } },
-    { at: 800, lead: { at: { x: 18, y: 77 } }, body: { lean: 4 } },
-    { at: 1100 },
+    { at: 250 + DOOR_SHUT_MS * 0.45, lead: { at: { x: 24, y: 76 } }, body: { lean: 6 } },
+    { at: 250 + DOOR_SHUT_MS * 0.85, lead: { at: { x: 19, y: 77 } }, body: { lean: 4 } },
+    { at: 250 + DOOR_SHUT_MS, lead: { at: { x: 18, y: 77 } }, body: { lean: 3 } },
+    { at: 1450 },
   ],
 };
 

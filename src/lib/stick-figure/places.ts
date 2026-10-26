@@ -83,7 +83,7 @@ export interface Place {
 export type PlaceSet = Omit<SetPlan, "pieces"> & { pieces: readonly SetPiece[] };
 
 /** Where each seat's bowl stands on the kitchen table, from its middle. */
-const PLACE_DX = { l: -40, bl: -18, br: 18, r: 40 } as const;
+const PLACE_DX = { l: -35, bl: -15, br: 15, r: 35 } as const;
 
 /**
  * Mária's kitchen, against the tiles on the right: the counter with the sink
@@ -127,8 +127,8 @@ const KITCHEN_SET: PlaceSet = {
     { id: "side", kind: "counter", at: { piece: "stove", dx: 37 }, width: 36 },
     // Under the wall cupboards, out of a tall pot's way.
     { id: "rail", kind: "rail", at: { piece: "side", dx: 0 }, width: 30, height: 88 },
-    // A small table for four, so the floor between its end chair and the counter is free to stand on.
-    { id: "table", kind: "table", x: 370, width: 96, front: true },
+    // A small table for four, so the floor between its end chairs and the door and the counter is free to stand on, clear of the chairs' backs.
+    { id: "table", kind: "table", x: 370, width: 84, front: true },
   ],
   objects: [
     { id: "pot", kind: "pot", start: { where: { on: "cupboard", dx: 0 } } },
@@ -154,7 +154,7 @@ const KITCHEN_SET: PlaceSet = {
         id: `spoon-${seat}`,
         kind: "cutlery" as const,
         start: {
-          where: { on: "table", dx: PLACE_DX[seat] + (PLACE_DX[seat] < 0 ? 12 : -12) },
+          where: { on: "table", dx: PLACE_DX[seat] + (PLACE_DX[seat] < 0 ? 10 : -10) },
         },
       },
     ]),
@@ -314,11 +314,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     post: 618,
     // Round the table: one at each end, two behind it.
     furniture: [
-      { kind: "chair", x: 286, facing: 1 },
-      { kind: "chair", x: 345, facing: 1 },
-      { kind: "chair", x: 395, facing: -1 },
+      { kind: "chair", x: 292, facing: 1 },
+      { kind: "chair", x: 349, facing: 1 },
+      { kind: "chair", x: 391, facing: -1 },
       // Close in to the table's end, so whoever sits there has their knees under it.
-      { kind: "chair", x: 452, facing: -1 },
+      { kind: "chair", x: 446, facing: -1 },
     ],
     glass: { height: 64, width: 88, x: 360, y: 62 },
     set: KITCHEN_SET,
