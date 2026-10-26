@@ -25,6 +25,22 @@ export function stepsFor(widths: number): number {
   return Math.max(2, Math.round(Math.abs(widths) / STEP_WIDTHS));
 }
 
+/**
+ * Lowering onto a chair and getting up off it, at `who`'s own pace, so two
+ * people sitting down together never go down as one. At 850 ms eased, the
+ * drop read as a hinge.
+ */
+export const SIT_MS = 1150;
+export const STAND_MS = 950;
+/** A chair scooted in to the table under someone, or pushed back before they get up. */
+export const SCOOT_MS = 600;
+/** Rig units an empty chair at a table stands drawn back, room to step in front of it. */
+export const CHAIR_OUT = 12;
+
+export function sitMs(who?: LessonCharacterId, rising = false): number {
+  return Math.round((rising ? STAND_MS : SIT_MS) * ((who && LOOKS[who]?.gait) || 1));
+}
+
 export function walkDuration(steps: number, who?: LessonCharacterId): number {
   return Math.max(1, Math.round(steps)) * stepMs(who);
 }

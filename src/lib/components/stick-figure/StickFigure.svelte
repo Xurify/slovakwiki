@@ -6,6 +6,7 @@
     GROUND_Y,
     HEAD_RADIUS,
     solveRig,
+    type SitPath,
     STICK_VIEWBOX,
     type Point,
     type StickLimb,
@@ -39,6 +40,7 @@
     pose = REST_POSE,
     held,
     sit = 0,
+    sitPath,
     call = 0,
     dress = dressFor("clear"),
     turnDelay = 0,
@@ -58,6 +60,8 @@
     held?: Held;
     /** 0 standing, 1 sitting on a chair. */
     sit?: number;
+    /** The way onto the chair, or off it. */
+    sitPath?: SitPath;
     /** 0 the phone in hand or none, 1 held at the ear. */
     call?: number;
     /** What the weather on them does to what they wear. */
@@ -108,7 +112,7 @@
     call > 0.5 && (held?.id === "phone" || hands.rear?.kind === "phone"),
   );
 
-  const rig = $derived(solveRig(atEar(pose, call), sit));
+  const rig = $derived(solveRig(atEar(pose, call), sit, sitPath));
   /**
    * Headphones in both hands, a cup in each, while the hands are a band's
    * width or so apart. Round the head they are held as worn: the rear hand
@@ -132,7 +136,7 @@
   const leadAtFace = $derived.by(() => {
     if (pair) return !pair.onHead;
     const at = rig.leadArm.end;
-    const lips = mouthOf(pose, sit);
+    const lips = mouthOf(pose, sit, sitPath);
     if (hands.lead && Math.hypot(at.x - lips.x, at.y - lips.y) < 15) return true;
     return Math.hypot(at.x - rig.head.x, at.y - rig.head.y) < HEAD_RADIUS + 1;
   });
@@ -393,7 +397,7 @@
     {/if}
 
     <g transform={torsoTransform}>
-      <StickTorso {characterId} knee={lapKnee} scarf={dress.scarf} {sit} />
+      <StickTorso {characterId} knee={lapKnee} scarf={dress.scarf} sit={rig.seated} />
     </g>
 
     {#if !leadAtFace}
@@ -465,7 +469,7 @@
     {/if}
 
     {#if emote}
-      {@const mouth = mouthOf(pose, sit)}
+      {@const mouth = mouthOf(pose, sit, sitPath)}
       <g transform="translate({n(mouth.x + 8.5)} {n(mouth.y - 1)})">
         <!-- A CSS animation's transform would replace the attribute's, so it rises in a group of its own. -->
         <g class="animate-rise">

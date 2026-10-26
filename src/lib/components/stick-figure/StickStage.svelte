@@ -1,5 +1,7 @@
 <script lang="ts">
   import { untrack, type ComponentProps } from "svelte";
+  import { cubicInOut } from "svelte/easing";
+  import { Tween } from "svelte/motion";
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
@@ -69,7 +71,14 @@
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { playSteps, playTramCue, stopCues } from "$lib/stick-figure/ambience";
   import type { TramState } from "$lib/stick-figure/street";
-  import { stepMs, stepsFor, walkDuration } from "$lib/stick-figure/walk";
+  import {
+    CHAIR_OUT,
+    SCOOT_MS,
+    sitMs,
+    stepMs,
+    stepsFor,
+    walkDuration,
+  } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
   import StickWeather from "./StickWeather.svelte";
@@ -158,8 +167,6 @@
   } = $props();
 
   const LIT_MS = 1600;
-  /** Sitting down takes as long as StickFigureActor makes it. */
-  const SIT_MS = 850;
   /** Turning round to a chair, as far as a person gets before they start to lower. */
   const SIT_TURN_MS = TURN_MS * 0.7;
   const WALKING = new Set<Cue["do"]>(["go", "enter", "sit"]);
@@ -200,6 +207,17 @@
   let turns = $state<TurnDelays>({});
   let offsets = $state<Offsets>({});
   let seated = $state<Blocking["seated"]>({});
+  /**
+   * How far each chair stands drawn back from its place, in rig units: an
+   * empty one out from the table, so whoever sits there steps in front of it
+   * rather than stand wedged between it and the table.
+   */
+  const chairsOut = Array.from(
+    { length: 6 },
+    () => new Tween(CHAIR_OUT, { easing: cubicInOut }),
+  );
+  /** The chair someone walks to sit on, sits on, or has just got up from, so its pull moves them with it. */
+  let perched = $state<Blocking["seated"]>({});
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** Who is on the move: drawn over whoever stands still, as they pass behind their back. */
   let striding = $state<LessonCharacterId[]>([]);
@@ -532,7 +550,9 @@
         : walkDuration(stepsFor(to - from), id);
     const enter =
       cue.do === "enter" ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS : 0;
-    return walk + enter + (cue.do === "sit" ? SIT_TURN_MS + SIT_MS : 0);
+    const sit =
+      cue.do === "sit" ? SIT_TURN_MS + sitMs(id) + (frame.desk ? 0 : SCOOT_MS) : 0;
+    return walk + enter + sit;
   }
 
   /** Which way `id` turns to reach `target`: an object, a piece, a person, a thing. */
@@ -576,7 +596,27 @@
     if (!sit || at.chair === undefined) return;
     // Back to the chair before lowering onto it: a bow begun mid-turn bends away from the table.
     const turned = moves && at.facing !== walking ? SIT_TURN_MS : 0;
-    later(there + turned, () => (seated = { ...seated, [id]: at.chair! }));
+    const chair = at.chair;
+    perched = { ...perched, [id]: chair };
+    later(there + turned, () => (seated = { ...seated, [id]: chair }));
+    if (frame.desk) return;
+    // Down on it, they scoot it in to the table under them.
+    later(there + turned + sitMs(id), () => {
+      void chairsOut[chair]?.set(0, { duration: SCOOT_MS });
+      playFoley("chair");
+    });
+  }
+
+  function chairOut(chair: number | undefined): number {
+    return chair === undefined || frame.desk ? 0 : (chairsOut[chair]?.current ?? 0);
+  }
+
+  /** Each chair in or out as `seated` has it, at once. */
+  function settleChairs(): void {
+    const taken = Object.values(seated);
+    for (const [index, chair] of chairsOut.entries())
+      void chair.set(taken.includes(index) ? 0 : CHAIR_OUT, { duration: 0 });
+    perched = { ...seated };
   }
 
   /** In through the door: it opens, they stand in it, and walk on to `to`. */
@@ -660,9 +700,18 @@
         });
         break;
       case "stand": {
-        const { [who]: _, ...rest } = seated;
-        seated = rest;
-        unturn(who);
+        const chair = seated[who];
+        const rise = () => {
+          const { [who]: _, ...rest } = seated;
+          seated = rest;
+          unturn(who);
+        };
+        // The chair pushed back first, then up off it: getting up wedged against the table read as rising through it.
+        if (chair === undefined || frame.desk) rise();
+        else {
+          void chairsOut[chair]?.set(CHAIR_OUT, { duration: SCOOT_MS });
+          later(SCOOT_MS, rise);
+        }
         break;
       }
     }
@@ -1048,6 +1097,7 @@
           ? { ...rest, [id]: at.chair }
           : rest;
     }
+    settleChairs();
     outside = world.out ?? [];
   }
 
@@ -1109,6 +1159,8 @@
 
     const steps = stepsFor(offset - from);
     const ms = walkDuration(steps, id);
+    const { [id]: _, ...still } = perched;
+    perched = still;
     walkCount += 1;
     walks = { ...walks, [id]: { cue: walkCount, ms } };
     offsets = { ...offsets, [id]: offset };
@@ -1205,6 +1257,7 @@
   function block(next: Blocking): void {
     facings = next.facings;
     seated = next.seated;
+    settleChairs();
     tram = next.tram;
     aboard = next.aboard;
     for (const id of direction.cast) {
@@ -1246,6 +1299,7 @@
     facings = placed.facings;
     offsets = placed.offsets;
     seated = placed.seated;
+    settleChairs();
     tram = placed.tram;
     aboard = placed.aboard;
     walks = {};
@@ -1699,10 +1753,17 @@
           <StickSet {geometry} layer="behind" {running} view={castView} {world} />
         {/if}
         {#each PLACES[setting].furniture ?? [] as piece, index (index)}
+          {@const chair = (PLACES[setting].furniture ?? [])
+            .slice(0, index)
+            .filter(({ kind }) => kind === "chair").length}
           <div
             class="pointer-events-none absolute"
             style:bottom="{FLOOR}px"
-            style:left="{stageX(frame, { x: piece.x, y: 0 }) - frame.figureWidth / 2}px"
+            style:left="{stageX(frame, { x: piece.x, y: 0 }) -
+              frame.figureWidth / 2 -
+              (piece.kind === 'chair'
+                ? (piece.facing ?? 1) * chairOut(chair) * unit
+                : 0)}px"
             style:width="{frame.figureWidth}px"
           >
             <StickFurniture {piece} />
@@ -1753,6 +1814,8 @@
                 doing={acts[characterId]}
                 hands={handsOf(characterId)}
                 seated={seated[characterId] !== undefined}
+                out={chairOut(perched[characterId])}
+                atTable={perched[characterId] !== undefined}
                 mic={deskMic(characterId, world, undefined)?.side}
                 onCall={acted
                   ? onCall(characterId)

@@ -16,7 +16,7 @@
   import { REST_POSE, overTable, type StickPose } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
-  import { stepMs, walkPose } from "$lib/stick-figure/walk";
+  import { sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
   import {
     headClearOfMic,
     type Effect,
@@ -27,8 +27,6 @@
   import StickFigure from "./StickFigure.svelte";
   import type { ObjectLook } from "./StickSetObject.svelte";
 
-  /** Sitting down or getting up takes about as long as a step and a half. */
-  const SIT_MS = 850;
   /** Bringing the phone up to the ear, or down. */
   const PHONE_MS = 400;
   const RESTING_ARMS = {
@@ -56,6 +54,8 @@
     held,
     dress,
     seated = false,
+    out = 0,
+    atTable = false,
     mic,
     onCall = false,
     talking = false,
@@ -80,6 +80,10 @@
     dress?: Dress;
     /** On a chair: they sit once any walk there is over, and get up before walking on. */
     seated?: boolean;
+    /** Rig units their chair is drawn back from its place, while they get on or off it. */
+    out?: number;
+    /** At their chair, about to sit or just up. */
+    atTable?: boolean;
     /** Seated behind a desk mic: 1 on the side they face, -1 turned away from it. */
     mic?: 1 | -1;
     /** On a call: the phone at their ear. */
@@ -123,7 +127,8 @@
   let sign = $state<Partial<Record<"lead" | "rear", Sign>>>();
 
   let pose = $state<StickPose>(REST_POSE);
-  const sitting = new Tween(0, { easing: cubicInOut });
+  // Linear: the rig shapes the hips' path and the bow along it.
+  const sitting = new Tween(0);
   const calling = new Tween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
@@ -179,7 +184,7 @@
       const walkLeft = Math.max(0, walkStartedAt + walkMs - performance.now());
       void sitting.set(down ? 1 : 0, {
         delay: down && !still ? walkLeft : 0,
-        duration: still ? 0 : SIT_MS,
+        duration: still ? 0 : sitMs(characterId, !down),
       });
     });
   });
@@ -244,8 +249,10 @@
     const acting = doing && now < doing.until;
     const talked = next?.pose ?? REST_POSE;
     // Busy hands do not talk: a beat would swing the can that is pouring, or the hand the cue leaves alone.
+    // Getting onto a chair or off it, the hands go to that; a talker's open hand swung into whoever sat beside.
+    const busy = acting || (atTable && sitting.current < 1);
     const body = steady(
-      acting ? { ...talked, ...RESTING_ARMS } : overTable(talked, sitting.current),
+      busy ? { ...talked, ...RESTING_ARMS } : overTable(talked, sitting.current),
     );
     const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
     const acted = acting ? doing.sample(now, stepping, sitting.current) : undefined;
@@ -272,6 +279,7 @@
   {held}
   {dress}
   sit={sitting.current}
+  sitPath={{ out, rising: !seated }}
   call={calling.current}
   turnDelay={turned ? 0 : turnDelay}
   {emote}

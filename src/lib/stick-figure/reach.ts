@@ -1,5 +1,5 @@
 import type { StickPose } from "./pose";
-import { solveRig, type Point } from "./rig";
+import { solveRig, type Point, type SitPath } from "./rig";
 
 /** The arm bones in rig.ts: upper arm, forearm. */
 const UPPER_ARM = 15;
@@ -66,8 +66,8 @@ export function reachFor(
 }
 
 /** Where a figure's lips are in rig space, on `pose`, as StickHead draws them on the face. */
-export function mouthOf(pose: StickPose, sit = 0): Point {
-  const { head, headAngle } = solveRig(pose, sit);
+export function mouthOf(pose: StickPose, sit = 0, path?: SitPath): Point {
+  const { head, headAngle } = solveRig(pose, sit, path);
   const angle = headAngle * RAD;
   // StickHead draws the mouth at x 32 + 2.6 * 0.9 + look * 1.2 and about y 37
   // of its 64-unit space, centred on 32, 29, and the figure scales that by 0.82.

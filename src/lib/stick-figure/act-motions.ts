@@ -15,6 +15,7 @@ import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
 import { HEAD_RADIUS, solveRig, type Point } from "./rig";
 import { OBJECT_SIZE, SINK, intoDeskMic, tipFromHand } from "./set-pieces";
+import { SCOOT_MS, sitMs } from "./walk";
 
 /**
  * How each verb moves the body: keys in time, each hand on a target or
@@ -1232,7 +1233,14 @@ export function motionFor(
       // The lights dip and the clock runs on: SKIP_MS in StickStage.
       return { motion: { ms: 2600, keys: [], takes: 1300 } };
     case "stand":
-      return { motion: { ms: 650, keys: [], sounds: [{ at: 100, id: "chair" }] } };
+      // The chair pushed back from the table, then up off it, before anything else they do.
+      return {
+        motion: {
+          ms: SCOOT_MS + sitMs(who, true),
+          keys: [],
+          sounds: [{ at: 100, id: "chair" }],
+        },
+      };
     case "go":
     case "enter":
     case "sit":

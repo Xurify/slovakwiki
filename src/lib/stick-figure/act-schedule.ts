@@ -38,6 +38,11 @@ const BETWEEN_MS = 120;
  * this move as one, like a drill; the later one goes a beat after.
  */
 export const APART_MS = 400;
+/**
+ * Two people sitting down: one is most of the way onto the chair before
+ * the other starts to lower. 400 apart, they still went down together.
+ */
+export const SIT_APART_MS = 800;
 const BEAT_MS = 550;
 /**
  * Two people starting a gesture closer together than this (both waving
@@ -72,7 +77,7 @@ export function scheduleCues(
   let last: number | undefined;
   let dark: number | undefined;
   /** The walks of this line so far, by whom and when. */
-  const moves: Array<{ who: LessonCharacterId; start: number; end: number }> = [];
+  const moves: Move[] = [];
   /** When each gesture of this line so far starts, and whose. */
   const gestures: Array<{ who: LessonCharacterId; start: number }> = [];
 
@@ -106,7 +111,8 @@ export function scheduleCues(
       partner ? (free[partner.who] ?? 0) : 0,
     );
     const ms = WALKS.has(cue.do) ? walkMs(who, cue, state) : motion.ms;
-    if (WALKS.has(cue.do) && ms > 0) start = apart(start, ms, who, moves);
+    const sits = cue.do === "sit";
+    if (WALKS.has(cue.do) && ms > 0) start = apart(start, ms, who, sits, moves);
     const gesture = !WALKS.has(cue.do) && cue.do !== "camera" && ms > 0;
     if (gesture && !partner) {
       while (
@@ -117,7 +123,7 @@ export function scheduleCues(
         start += REACT_MS;
     }
     const end = start + ms;
-    if (WALKS.has(cue.do) && ms > 0) moves.push({ who, start, end });
+    if (WALKS.has(cue.do) && ms > 0) moves.push({ who, start, end, sits });
     if (gesture) gestures.push({ who, start });
 
     const next = applyCue(state, who, cue, plan);
@@ -185,12 +191,21 @@ export function leadingCount(cues: readonly Cue[]): number {
   return count;
 }
 
+interface Move {
+  who: LessonCharacterId;
+  start: number;
+  end: number;
+  /** A walk to a chair, ending on it. */
+  sits: boolean;
+}
+
 /** When `who` sets off on a walk of `ms` from `start`: a beat later while it would start or end with someone else's. */
 function apart(
   start: number,
   ms: number,
   who: LessonCharacterId,
-  moves: ReadonlyArray<{ who: LessonCharacterId; start: number; end: number }>,
+  sits: boolean,
+  moves: readonly Move[],
 ): number {
   let at = start;
   for (let tries = 0; tries < 4; tries += 1) {
@@ -198,7 +213,7 @@ function apart(
       (move) =>
         move.who !== who &&
         (Math.abs(move.start - at) < APART_MS ||
-          Math.abs(move.end - (at + ms)) < APART_MS),
+          Math.abs(move.end - (at + ms)) < (sits && move.sits ? SIT_APART_MS : APART_MS)),
     );
     if (!clash) return at;
     at += BEAT_MS;

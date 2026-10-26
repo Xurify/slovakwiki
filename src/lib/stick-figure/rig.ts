@@ -26,6 +26,8 @@ export interface StickRig {
   rearArm: StickLimb;
   rearLeg: StickLimb;
   rearShoulder: Point;
+  /** How far down onto the seat the hips are, 0 standing to 1 seated. */
+  seated: number;
 }
 
 export const GROUND_Y = 130;
@@ -92,44 +94,100 @@ function leg(hip: Point, foot: Point): StickLimb {
 
 /**
  * Sitting down, a person bows forward and pushes the hips back over the seat
- * as they lower, then sits up once on it; getting up runs the same way back.
- * Degrees and px at the middle of the move.
+ * as they lower, the arms coming forward against the bow, then sits up once
+ * on it. Getting up leans in first, then rises. Degrees and px at the most.
  */
 const SIT_BOW = 18;
+const SIT_REACH = 1.5;
+/** The head stays this much nearer level than the bowing torso, eyes on where they sit. */
+const SIT_HEAD_LEVEL = 0.7;
+/** Without a chair drawn back to step in front of, the hips still go back that much. */
 const SIT_BACK = 6;
 
-/** `sit` runs from 0, standing, to 1, on a chair: the hip lowers onto the seat and the feet come forward. */
-export function solveRig(pose: StickPose, sit = 0): StickRig {
-  const standingHip = GROUND_Y - HIP_HEIGHT + pose.bob;
-  const midway = Math.sin(Math.PI * Math.min(1, Math.max(0, sit)));
-  const hip = {
-    x: -3 * sit - SIT_BACK * midway,
-    y: standingHip + (SEAT_Y - 2 - standingHip) * sit,
+/** How a figure gets onto or off a chair, for `solveRig`. */
+export interface SitPath {
+  /** Rig units the chair is drawn back from its place: the figure stood at the place, and sits that much further back. */
+  out?: number;
+  /** Getting up, as opposed to sitting down. */
+  rising?: boolean;
+}
+
+function smooth(t: number): number {
+  const clamped = Math.min(1, Math.max(0, t));
+  return clamped * clamped * (3 - 2 * clamped);
+}
+
+/**
+ * Over a sit, from 0 standing to 1 seated: how far the hips have gone back,
+ * how far down, and the bow. Down, the hips go back before they drop; up,
+ * the bow brings the weight over the feet before the hips lift.
+ */
+function sitPhases(
+  sit: number,
+  rising: boolean,
+): { back: number; down: number; bow: number } {
+  if (rising) {
+    const up = 1 - sit;
+    return {
+      back: 1 - smooth((up - 0.08) / 0.62),
+      down: 1 - smooth((up - 0.22) / 0.72),
+      bow: Math.sin(Math.PI * Math.min(1, Math.max(0, up / 0.85))),
+    };
+  }
+  return {
+    back: smooth(sit / 0.78),
+    down: smooth((sit - 0.12) / 0.86),
+    bow: Math.sin(Math.PI * Math.min(1, Math.max(0, (sit - 0.04) / 0.9))),
   };
-  const lean = pose.lean + SIT_BOW * midway;
+}
+
+/** `sit` runs from 0, standing, to 1, on a chair: the hip lowers onto the seat and the feet come forward. */
+export function solveRig(pose: StickPose, sit = 0, path: SitPath = {}): StickRig {
+  const standingHip = GROUND_Y - HIP_HEIGHT + pose.bob;
+  const amount = Math.min(1, Math.max(0, sit));
+  const out = path.out ?? 0;
+  const { back, down, bow } =
+    amount > 0 && amount < 1
+      ? sitPhases(amount, path.rising ?? false)
+      : { back: amount, down: amount, bow: 0 };
+  const hip = {
+    x: -(3 + out) * back - Math.max(0, SIT_BACK - out / 2) * bow,
+    y: standingHip + (SEAT_Y - 2 - standingHip) * down,
+  };
+  const lean = pose.lean + SIT_BOW * bow;
+  const reach = SIT_BOW * SIT_REACH * bow;
   const up = 180 - lean;
   const neck = along(hip, up, TORSO);
   const shoulders = along(hip, up, TORSO - SHOULDER_DROP);
   const leadShoulder = along(shoulders, 90 - lean, SHOULDER_HALF_WIDTH);
   const rearShoulder = along(shoulders, -90 - lean, SHOULDER_HALF_WIDTH);
-  const head = along(neck, up - pose.tilt, NECK + HEAD_RADIUS - pose.nod);
+  const level = SIT_BOW * SIT_HEAD_LEVEL * bow;
+  const head = along(neck, up - pose.tilt + level, NECK + HEAD_RADIUS - pose.nod);
 
   return {
     hip,
+    seated: down,
     lean,
     neck,
     leadShoulder,
     rearShoulder,
     head,
-    headAngle: lean + pose.tilt,
-    leadArm: arm(leadShoulder, lean, 1, pose.leadRaise, pose.leadBend),
-    rearArm: arm(rearShoulder, lean, -1, pose.rearRaise, pose.rearBend),
+    headAngle: lean + pose.tilt - level,
+    leadArm: arm(leadShoulder, lean, 1, pose.leadRaise + reach, pose.leadBend + bow * 12),
+    rearArm: arm(
+      rearShoulder,
+      lean,
+      -1,
+      pose.rearRaise - reach,
+      pose.rearBend - bow * 12,
+    ),
+    // Planted where they stood: the seat is `out` behind them, so the feet end that much nearer it.
     leadLeg: leg(hip, {
-      x: pose.stance + pose.stride * STRIDE + 10 * sit,
+      x: pose.stance + pose.stride * STRIDE + (10 - out) * back,
       y: GROUND_Y - Math.max(0, pose.lift),
     }),
     rearLeg: leg(hip, {
-      x: -pose.stance - pose.stride * STRIDE + (pose.stance + 4) * sit,
+      x: -pose.stance - pose.stride * STRIDE + (pose.stance + 4 - out) * back,
       y: GROUND_Y - Math.max(0, -pose.lift),
     }),
   };
