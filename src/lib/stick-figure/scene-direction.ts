@@ -81,7 +81,7 @@ export function castFor(
 /**
  * Who is on the phone during each line: from the line that answers a ringing
  * call to the last line said over it, the one who answered holds it to their
- * ear, through their goodbye. Anyone else on stage speaking ends it.
+ * ear, through their goodbye, whoever else in the room joins in.
  */
 function callers(
   lines: readonly DirectedLine[],
@@ -92,11 +92,12 @@ function callers(
     const answers = line.characterId;
     if (line.ring !== "call" || !answers || !cast.includes(answers)) return;
 
+    // Someone else in the room may say something into the call ("Nech príde."); it lasts to the far end's last line.
     let end = start;
     for (let index = start + 1; index < lines.length; index += 1) {
       const next = lines[index];
+      if (next.ring) break;
       if (next.overPhone) end = index;
-      else if (next.characterId !== answers) break;
     }
     // The goodbye after the far end's last line is said into the phone too.
     while (lines[end + 1]?.characterId === answers && !lines[end + 1].overPhone) end += 1;

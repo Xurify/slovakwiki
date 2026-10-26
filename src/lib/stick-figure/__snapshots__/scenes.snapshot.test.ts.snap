@@ -6120,6 +6120,9 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
+      "held": {
+        "marek": "phone",
+      },
       "line": "maria: Nech príde. Polievky je dosť.",
       "plan": {
         "beats": [
@@ -6140,6 +6143,9 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
+      "held": {
+        "marek": "phone",
+      },
       "line": "lucia: Dobre. Tak o pol hodiny. Ahoj!",
       "plan": {
         "beats": [
@@ -6156,6 +6162,9 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
+      "held": {
+        "marek": "phone",
+      },
       "line": "marek: Ahoj! Príde o pol hodiny.",
       "plan": {
         "beats": [
