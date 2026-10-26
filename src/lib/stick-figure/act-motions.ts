@@ -371,7 +371,14 @@ export function motionFor(
           contacts: [{ hand, tip: "in", to, from: 600, until: 1050 }],
           keys: [
             { at: 0 },
-            { at: 420, ...into(-1, -4), turn, body: { lean: 4 } },
+            // Over the pot upright first and tipped bowl down there: tipped on the way, the bowl swung out past the hip.
+            {
+              at: 300,
+              ...hands(hand, { to, as: "top", dy: -15 }),
+              turn: { [hand]: 20 },
+              body: { lean: 3 },
+            },
+            { at: 520, ...into(-1, -4), turn, body: { lean: 4 } },
             { at: 650, ...into(-3, 5), turn, body: { lean: 5 } },
             { at: 820, ...into(3, 6), turn, body: { lean: 5 } },
             { at: 1000, ...into(0, 4), turn, body: { lean: 5 } },
