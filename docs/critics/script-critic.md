@@ -39,8 +39,16 @@ Read every segment out loud in your head at speaking pace, as the scene, picturi
 
 1. **Language claims.** Before you report a grammar, spelling or word-form error, ask whether you are certain a native editor would mark it. Many forms look odd to a learner and are correct (numbers written as one word such as dvadsaťjeden, a perfective negative used as a warning). If you are not certain, do not report it as an error; at most add it under "Ask a native" at the end, with your doubt in one line.
 2. **Merge.** When several findings share one root cause (the same device, the same missing prop, the same flat ending), merge them into one finding that names the cause and lists the lines.
-3. **Cut.** Keep at most 15 findings. Drop anything a first-time viewer would not notice.
+3. **Cut.** Report as blockers only what a first-time viewer would notice; keep at most five nits.
 
 ## Output
 
-A list of at most 15 findings, most serious first, then an optional short "Ask a native" list. For each: segment title, line number, the quoted Slovak, which pass found it, what is wrong in one or two sentences, and a concrete fix. No scores and no praise: do not list what works. Do not pad: only things a viewer would actually notice.
+Reply in your message, never in a file. First the **blockers**, most serious first, one JSON object per line:
+
+```text
+{"class": "D", "segment": "At the market", "line": 7, "who": "Lucia", "what": "jumps from the price of apples to her sister's wedding with no trigger or bridge; give her one, such as something she sees", "evidence": "Ďakujem. Kedy je svadba? (pass 2.2)"}
+```
+
+`class` is the letter of the kind of problem: A words and picture disagree, B an object's place or state, C space and the frame's edge, D dialogue, E logic and motivation, F structure and pacing, G sets and characters, H voice and delivery, I motion and contact. `line` is the line's number in the table, or 0 for a finding about the whole episode; a merged finding gives its first line and lists the others in `evidence`. `evidence` quotes the Slovak and names the pass. `what` says what is wrong and gives a concrete fix.
+
+Then at most five **nits**, one plain line each, and an optional short **Ask a native** list. No scores and no praise: do not list what works.

@@ -16,4 +16,12 @@ For every frame ask:
 
 ## Output
 
-At most 15 findings, most serious first. For each: segment, line number, what the viewer sees, what is wrong in one or two sentences, and the fix. Only things a first-time viewer would notice. No praise.
+Reply in your message, never in a file. First the **blockers**, anything a first-time viewer would notice, most serious first, one JSON object per line:
+
+```text
+{"class": "B", "segment": "At the market", "line": 7, "who": "Lucia", "what": "a bag is in her hand with no frame showing her take it; she should pick it up from the stall", "evidence": "line 7 frame, compared with line 6"}
+```
+
+`class` is the letter of the kind of problem: A words and picture disagree, B an object's place or state, C space and the frame's edge, D dialogue, E logic and motivation, F structure and pacing, G sets and characters, H voice and delivery, I motion and contact. `line` is the line's number on the sheet. `what` says what is wrong and, in a few words, the fix.
+
+Then at most five **nits**, one plain line each. Nothing else, no praise.

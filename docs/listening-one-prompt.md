@@ -37,6 +37,8 @@ Every iteration in the first four episodes came from something nobody had decide
 
 - [ ] A world sheet (each place, what is drawn there, who is there and why, every object and where it starts) and a beat sheet (per segment, what a viewer sees happen, in order, and how it ends) before any dialogue.
 - [ ] The critic loop in **5** on the beat sheet, the script and the staged frames, before the person sees any of them.
+- [ ] The script locked before any clip: the script critic loop clean and the council's native ear (`docs/critics/council.md`) through every line. A clip fix costs a regenerate, a verify and an upload.
+- [ ] No stops for the person: never end a turn on a question unless the step cannot be undone. Go on with the option you recommend, say which, and take open questions to the council.
 
 ## 2. The prompt
 
@@ -60,17 +62,18 @@ Follow docs/listening-authoring.md (all of it, including "Slips we shipped")
 and docs/listening-one-prompt.md, with demonstratives.ts [or past-tense.ts]
 as the reference episode. Use the `slovak-language` skill on every line.
 
-Before generating any clip, show me the script as a table per segment
-(speaker, Slovak, English, directions, props/to/gestures) and the checks,
-and read it against "Slips we shipped" and the staging list in
-docs/listening-one-prompt.md section 3. Run the critic loop in section 5
-on the beat sheet, the script and the staged frames, and show me what
-is still open after it. Then generate, verify, wire in and
-open a PR with the QA list from section 4, including the lines a person
-must judge by ear.
+Lock the script before generating any clip: read it against
+"Slips we shipped" and the staging list in docs/listening-one-prompt.md
+section 3, run the critic loop in section 5 on the beat sheet and the
+script, and take open questions to the council and its native ear, not
+to me. Don't stop to ask me anything that can be undone: go on with the
+option you recommend and say which. Then generate, verify and wire in,
+run the gate in section 5 from the first full render, show me a gated
+preview at each milestone, and open a PR with the QA list from section 4,
+including the lines a person must judge by ear.
 ```
 
-Asking for the script table first is the one stop worth keeping: a script fix is free, a clip fix costs a regenerate, a re-verify and an upload.
+Locking the script first is the one order worth keeping: a script fix is free, a clip fix costs a regenerate, a re-verify and an upload. The critics and the council lock it, not a stop for the person.
 
 ## 3. Pain points and what fixes them
 
@@ -141,18 +144,20 @@ What went wrong, why, and where the fix lives now. The left column is what to lo
 
 The writer cannot judge their own lines: drafts self-scored 9/10 on dialogue and story had a dozen problems each that a cold reader found at once. So every stage is read by a **critic**, a fresh agent on a different model from the writer's (Sonnet when the writer is Opus) that gets only the artifact and a brief, never the plan or the grammar goals.
 
-| Stage            | What the critic gets                                                                                                                                                                                                                                                          | Brief                            |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
-| Beats and script | Tables per segment with what is drawn on each set: `SLUG=<slug> OUT=<file> bunx vitest run scripts/critic/dump-script.test.ts`                                                                                                                                                | `docs/critics/script-critic.md`  |
-| Staged episode   | A contact sheet per segment, one frame per line: `node scripts/critic/snap-frames.cjs <slug> <dir>` with `astro dev` running, then `python3 scripts/critic/contact-sheets.py <dir> <script.md> <out>`                                                                         | `docs/critics/picture-critic.md` |
-| Acted segment    | A recording of it played, cut into strips of consecutive frames, six a second, zoomed on what moved: `python3 scripts/critic/motion-strips.py <video> <dir>` (`--cues <file>` for one strip per cue), with the segment's beats in plain words. About twenty strips per critic | `docs/critics/motion-critic.md`  |
+| Stage            | What the critic gets                                                                                                                                                                                                                                                                                                                                                                                                                      | Brief                            |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| Beats and script | Tables per segment with what is drawn on each set: `SLUG=<slug> OUT=<file> bunx vitest run scripts/critic/dump-script.test.ts`                                                                                                                                                                                                                                                                                                            | `docs/critics/script-critic.md`  |
+| Staged episode   | A contact sheet per segment, one frame per line: `node scripts/critic/snap-frames.cjs <slug> <dir>` with `astro dev` running, then `python3 scripts/critic/contact-sheets.py <dir> <script.md> <out>`                                                                                                                                                                                                                                     | `docs/critics/picture-critic.md` |
+| Acted segment    | Frames rendered on Playwright's virtual clock, `node scripts/stage-review/render-frames.cjs --segment "<title>"`, cut into strips per line, six frames a second and zoomed on what moved, `python3 scripts/stage-review/frame-strips.py <frames> <dir> --lines <changed>`, with the segment's beats in plain words. About twenty strips per critic. `scripts/critic/motion-strips.py <video> <dir>` cuts the same strips from a recording | `docs/critics/motion-critic.md`  |
+
+The `scripts/stage-review/` tools are on `feat/faster-review-loop` until it merges. Its README says how a render stays true to the browser: walks, turns and the camera are CSS transitions on the real clock, so `render-frames.cjs` sets each one to the virtual time after every step. A capture on `page.clock` that does not do this shows walks ahead of or behind the lines.
 
 The loop, at each stage:
 
-1. Run the critic twice, independently, and merge the lists: single runs miss different things.
+1. Run the critic twice, independently, and merge the lists: single runs miss different things. Critics reply with their blockers as JSON lines in their message, never in a file (two critics lost their reports writing files), and at most five nits. `python3 scripts/stage-review/merge-findings.py <replies> --out triage.md` merges them into one table, with how many critics saw each. Frames stay out of the writer's context: subagents read them and return text.
 2. Fix each finding by its class, not only its line. A missing bridge in one place means checking every change of topic.
 3. A finding may be rejected, with the reason written down.
-4. At most three rounds, with small fixes each. What is still open after round three, and the script critic's **Ask a native** doubts, go to the person with the script, each with its reason.
+4. At most three rounds, with small fixes each. A motion round after a fix renders and reads only the lines whose cues changed and the line after each, where a move can end. What is still open after round three, and the script critic's **Ask a native** doubts, go to the council, not the person.
 
 Write the opening and the ending three times blind (each by a fresh agent that has not seen the others) and let the critic pick: they are where first drafts are weakest.
 
@@ -160,11 +165,11 @@ Write the opening and the ending three times blind (each by a fresh agent that h
 
 **After a review.** Every point the person raises is a class: add a question for it to the brief, add the reviewed version and the point to the calibration set, check the other episodes for the same class, and rerun the calibration so the brief still finds the person's past points. Do it in the same commit as the fix, not at the end of the day: other threads start from these files.
 
-**The gate.** Nothing goes to the person, no video and no QA link, until CI passes and the script, picture and motion critics have no blocker open. Whoever made the frames never signs them off. The kitchen of episode 5 went to Xurify as a video while its independent review was still running, and Xurify found five motion problems in it (section 6, class I).
+**The gate.** Run it from the first full render, not after the person's review: CI, then the critics. A segment is done when CI is green and no blocker is open, and it goes straight to whatever waits on it (the clips, the next segment, the PR). Polish a viewer would not notice at normal speed, such as a blink or idle breathing, goes to a backlog file listed in the PR, not into the fix round; what the person has raised before, moving in step and stiff hands included, is never polish. Nothing goes to the person, no video and no QA link, until the gate is clean. Then show a gated preview at each milestone (the script locked, the first acted segment, the whole episode), not only at the end. The real-time video with voices is only for those previews: `node scripts/stage-review/record-video.cjs`, from a thread not linked to the person's computer, which cannot reach the clips. Whoever made the frames never signs them off. The kitchen of episode 5 went to Xurify as a video while its independent review was still running, and Xurify found five motion problems in it (section 6, class I).
 
 **Proof in the PR.** Next to the QA list, a **Proof** section of what was observed, not claimed: the verify output, `silencedetect` for clips with pauses, lip-sync scores, the critic rounds (fixed, rejected with reasons, still open) and the contact sheets.
 
-**The council.** A question the writer would otherwise take to Xurify (rejecting a critic finding, an **Ask a native** doubt, a choice between drafts, cutting or moving a segment) goes to the council in `docs/critics/council.md`: five reviewers who answer alone, a weighted vote, a second round on a close call or a blocker. Xurify sees the episode once it is regenerated and ready to verify, with the verdicts in the PR, and only what needs a person: how voices sound, and the final call.
+**The council.** A question the writer would otherwise take to Xurify (rejecting a critic finding, an **Ask a native** doubt, a choice between drafts, cutting or moving a segment) goes to the council in `docs/critics/council.md`: five reviewers who answer alone, a weighted vote, a second round on a close call or a blocker. Xurify sees the gated previews and the finished episode, with the verdicts in the PR, and only what needs a person: how voices sound, and the final call.
 
 ## 6. Failure classes
 
