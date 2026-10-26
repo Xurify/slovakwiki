@@ -135,6 +135,53 @@ describe("diagnose", () => {
     expect(result.accentSlips).toMatchObject([{ kind: "long", count: 3 }]);
   });
 
+  it("judges accents only in the letters the learner typed", () => {
+    const printed = [1, 2, 3].map((n) => gap("tímu", "tímu", noun, 20 + n));
+    const result = diagnose(printed, [], 30, QUICK);
+    expect(statusOf(result, "spelling")?.kind).toBe("skipped");
+
+    const typed = [1, 2, 3].map((n) => gap("malá", "mala", noun, 20 + n));
+    expect(diagnose(typed, [], 30, QUICK).accentSlips).toMatchObject([
+      { kind: "long", count: 3 },
+    ]);
+  });
+
+  it("counts an i or y slip in a letter gap under spelling only", () => {
+    const responses = [1, 2, 3].map((n) => gap("ženy", "ženi", noun, 20 + n));
+    const result = diagnose(responses, [], 30, QUICK);
+
+    expect(percent(result, "nouns")).toBe(100);
+    expect(result.accentSlips).toMatchObject([{ kind: "iy", count: 3 }]);
+  });
+
+  it("does not call two right in three at the learner's level a strength", () => {
+    const responses = [
+      gap("chodí", "chodí", verb, 30),
+      gap("chodí", "chodí", verb, 30),
+      gap("chodí", "chodia", verb, 30),
+    ];
+    expect(diagnose(responses, [], 30, QUICK).strengths).toEqual([]);
+  });
+
+  it("does not call a single miss a gap, however easy the item", () => {
+    const responses = [
+      gap("školy", "školy", noun, 20),
+      gap("školy", "školy", noun, 20),
+      gap("školy", "školu", noun, 20),
+    ];
+    const result = diagnose(responses, [], 70, QUICK);
+    const nouns = statusOf(result, "nouns");
+    expect(nouns?.kind === "measured" && nouns.summary.delta).toBeLessThan(-5);
+    expect(result.gaps).toEqual([]);
+  });
+
+  it("calls three misses at the learner's level a gap", () => {
+    const responses = [1, 2, 3].map(() => gap("školy", "školu", noun, 30));
+    expect(diagnose(responses, [], 30, QUICK).gaps.map((entry) => entry.area)).toEqual([
+      "nouns",
+    ]);
+  });
+
   it("names the kind of accent slip", () => {
     const responses = [
       gap("manželkou", "manzelkou", noun),
@@ -300,6 +347,28 @@ describe("diagnose", () => {
     expect(aspect?.kind === "measured" && aspect.summary.total).toBe(3);
     expect(percent(result, "aspect")).toBe(50);
     expect(percent(result, "wordOrder")).toBe(100);
+  });
+
+  it("does not count 70% right in writing as at the writer's level", () => {
+    const record = (id: string): ProductionRecord => ({
+      id,
+      kind: "writingSample",
+      skill: "writing",
+      prompt: "",
+      response: "",
+      status: "scored",
+      result: {
+        score: 40,
+        level: "B1",
+        criteria: { content: 40, coherence: 40, grammar: 40, lexis: 40 },
+        feedback: "",
+        usage: { nounEndings: { right: 7, wrong: 3 } },
+      },
+    });
+    const result = diagnose([], [record("a"), record("b"), record("c")], 40, QUICK);
+    const nouns = statusOf(result, "nouns");
+    expect(nouns?.kind === "measured" && nouns.summary.delta).toBeLessThan(0);
+    expect(result.strengths).toEqual([]);
   });
 
   it("turns repeated writing slips into a gap with the right page", () => {
