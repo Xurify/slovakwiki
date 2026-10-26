@@ -176,6 +176,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["hum"],
     // The cook works at the stove end; guests eat at the table by the window.
     staff: ["maria"],
+    // At the counter, between the sink and the stove, where the cooking is.
+    post: 640,
     furniture: [
       { kind: "chair", x: 360, facing: 1 },
       { kind: "table", x: 440 },

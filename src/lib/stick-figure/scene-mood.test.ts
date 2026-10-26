@@ -70,6 +70,12 @@ describe("toldHour", () => {
     expect(toldHour(["Mám sedem jabĺk."])).toBeUndefined();
   });
 
+  it("takes the time of day a line says it is", () => {
+    expect(sceneMood(["Anna, je ešte skoro ráno."]).time).toBe("morning");
+    expect(sceneMood(["Je ráno a sme späť v štúdiu."]).time).toBe("morning");
+    expect(sceneMood(["Zajtra ráno poďme skoro."]).time).toBe("day");
+  });
+
   it("sets the clocks, and the time of day's hour holds when no time is told", () => {
     expect(clockHour(sceneMood(["Trh. Pol piatej."]))).toBe(4.5);
     expect(clockHour(sceneMood(["Dobrý večer!"]))).toBe(19);
