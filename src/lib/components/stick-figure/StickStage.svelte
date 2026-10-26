@@ -182,6 +182,8 @@
   const ROOM_SCALE = 0.93;
   /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
   const CHAIR_HALF = 0.22;
+  /** A seated host's point, degrees below level: the hand ends in under the desk mic, short of its boom (probed with solveRig). */
+  const DESK_POINT_RISE = -30;
   /** The step back into line starts this long before the walk ends, and the lane's transition is about as long. */
   const PASS_MS = 350;
   /** Stopping beside someone, in figure widths, is not passing them: two bodies' widths, as the checks count it. */
@@ -716,6 +718,17 @@
       world = applyCue(world ?? item.before, item.who, item.cue, set);
     } catch {
       world = item.after;
+    }
+    // Put down the way it was held, so it does not flip round as the hand lets go.
+    const put = item.cue.do === "put" ? world.objects[item.cue.what ?? ""] : undefined;
+    if (put && world) {
+      const turned = facingOf(item.who) === -1;
+      if (Boolean(put.turned) !== turned) {
+        world = {
+          ...world,
+          objects: { ...world.objects, [item.cue.what!]: { ...put, turned } },
+        };
+      }
     }
   }
 
@@ -1355,7 +1368,39 @@
   }
 
   function cueActor(id: LessonCharacterId, plan: LinePlan | undefined): void {
-    actors[id] = { cue: (actors[id]?.cue ?? 0) + 1, plan, talking: true };
+    actors[id] = {
+      cue: (actors[id]?.cue ?? 0) + 1,
+      plan: atDesk(id, plan),
+      talking: true,
+    };
+  }
+
+  /**
+   * A seated host's gestures kept off the desk mic in front of them: a wave
+   * with the outer hand, and a point low and near, in under the mic. Out
+   * level, the near hand landed behind the mic's boom and read as gripping it.
+   */
+  function atDesk(id: LessonCharacterId, plan: LinePlan): LinePlan;
+  function atDesk(
+    id: LessonCharacterId,
+    plan: LinePlan | undefined,
+  ): LinePlan | undefined;
+  function atDesk(
+    id: LessonCharacterId,
+    plan: LinePlan | undefined,
+  ): LinePlan | undefined {
+    if (!plan || deskMic(id, world, undefined)?.side !== 1) return plan;
+    const beats = plan.beats.map((beat) =>
+      beat.gesture === "wave"
+        ? { ...beat, gesture: "waveOut" as const }
+        : beat.point
+          ? {
+              ...beat,
+              point: { ...beat.point, reach: "near" as const, rise: DESK_POINT_RISE },
+            }
+          : beat,
+    );
+    return { ...plan, beats };
   }
 
   export function size(): { height: number; width: number } {
@@ -1377,7 +1422,7 @@
 
   /** One silent gesture, outside any line: a listener puzzled by what they heard. */
   export function gesture(id: LessonCharacterId, gesture: StickGestureId): void {
-    const plan = gesturePlan(gesture);
+    const plan = atDesk(id, gesturePlan(gesture));
     const cue = (actors[id]?.cue ?? 0) + 1;
     actors[id] = { cue, plan, talking: true };
     window.setTimeout(() => {

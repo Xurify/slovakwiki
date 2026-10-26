@@ -26,7 +26,7 @@
   import StickPicture from "./StickPicture.svelte";
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
-  import { cubicInOut } from "svelte/easing";
+  import { sineInOut } from "svelte/easing";
   import { prefersReducedMotion, Tween } from "svelte/motion";
   import { untrack } from "svelte";
 
@@ -143,7 +143,7 @@
   // the other way. A flip through edge-on read as a paper cut-out.
   const turning = new Tween<number>(
     untrack(() => facing),
-    { easing: cubicInOut },
+    { easing: sineInOut },
   );
   $effect(() => {
     void turning.set(facing, {

@@ -156,6 +156,8 @@ export interface ObjectState {
   call?: boolean;
   /** Whose it is: the headphones one host wears, bareheaded once they are off. */
   of?: LessonCharacterId;
+  /** Drawn mirrored, the way someone facing left holds it: a mug's handle on their far side, so it does not flip as they take or put it. */
+  turned?: boolean;
 }
 
 /** An object in a place's set, where it starts. */

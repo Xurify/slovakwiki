@@ -37,7 +37,7 @@ const INTRO_ACTS: Record<string, Cue[]> = {
   "marek-drinking": [
     { do: "take", what: "cup-marek", on: "dobre" },
     { do: "taste", what: "cup-marek", on: "pijem" },
-    { do: "put", what: "cup-marek", to: "desk", dx: 20, on: "after" },
+    { do: "put", what: "cup-marek", to: "desk", dx: 17, on: "after" },
   ],
   "marek-yellow-plant": [
     { do: "point", to: "plant", on: "rastlinku" },
@@ -69,13 +69,14 @@ const intro: ListeningChapter = {
         kind: "cup",
         start: { where: { on: "desk", dx: -25 }, fill: "coffee" },
       },
+      // Its handle away from Marek, as he holds it to drink.
       {
         id: "cup-marek",
         kind: "cup",
-        start: { where: { on: "desk", dx: 20 }, fill: "coffee" },
+        start: { where: { on: "desk", dx: 17 }, fill: "coffee", turned: true },
       },
       // In front of Marek, clear of his mic's clamp and his mug.
-      { id: "recorder", kind: "mic", start: { where: { on: "desk", dx: 31 } } },
+      { id: "recorder", kind: "mic", start: { where: { on: "desk", dx: 33 } } },
     ],
     state: { plant: { wilt: 1 } },
   },

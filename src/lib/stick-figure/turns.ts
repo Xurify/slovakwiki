@@ -1,7 +1,7 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 
-/** A turn round, through the front, this long. */
-export const TURN_MS = 400;
+/** A turn round, through the front, this long: at 400 ms, eased, the face was at the front for under a frame of a 6 fps review and the turn read as a snap. */
+export const TURN_MS = 520;
 /** The others turn to the speaker this long after the speaker turns. */
 export const TURN_AFTER_MS = 180;
 /** Each figure further from the speaker turns this much later than the last. */

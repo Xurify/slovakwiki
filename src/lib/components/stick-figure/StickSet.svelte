@@ -335,7 +335,7 @@
       </clipPath>
     {/if}
     <g clip-path={sink ? `url(#${uid}-sink-${id})` : undefined}>
-      <g transform="translate({n(at.x)} {n(at.y)})">
+      <g transform="translate({n(at.x)} {n(at.y)}){state.turned ? ' scale(-1 1)' : ''}">
         <StickSetObject
           kind={state.kind}
           fill={state.fill}

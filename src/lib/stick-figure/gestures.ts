@@ -5,6 +5,7 @@ export const STICK_GESTURE_IDS = [
   "stress",
   "muse",
   "wave",
+  "waveOut",
   "nod",
   "shake",
   "ask",
@@ -64,6 +65,7 @@ const stressing = { leadRaise: 46, leadBend: 12, nod: 1.6, look: 0.6, brow: 0.5 
 /** Words that trail off, or a long thought: head on one side, hands still. */
 const musing = { tilt: 6, lean: 1, look: 0.3, brow: 0.35 };
 const waveUp = { leadRaise: 120, tilt: 4, brow: 0.6 };
+const waveOut = { rearRaise: 140, tilt: 4, brow: 0.6 };
 const openHands = {
   leadRaise: 36,
   leadBend: 46,
@@ -238,6 +240,16 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
     key(640, { ...waveUp, leadBend: 25 }),
     key(820, { ...waveUp, leadBend: -15 }),
     key(1000, { ...waveUp, leadBend: 10 }),
+    key(1350),
+  ]),
+  // With the other hand, up beside the head: seated behind a desk mic, the near one waved into its boom.
+  waveOut: gesture({ ...waveOut, rearBend: -10 }, [
+    key(0),
+    key(280, { ...waveOut, rearBend: -25 }),
+    key(460, { ...waveOut, rearBend: 15 }),
+    key(640, { ...waveOut, rearBend: -25 }),
+    key(820, { ...waveOut, rearBend: 15 }),
+    key(1000, { ...waveOut, rearBend: -10 }),
     key(1350),
   ]),
   nod: gesture({ nod: 3, look: 0.6, brow: 0.3 }, [
