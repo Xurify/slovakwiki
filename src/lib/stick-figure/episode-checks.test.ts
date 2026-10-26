@@ -1,3 +1,4 @@
+import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
@@ -109,3 +110,17 @@ describe("cues against the set", () => {
     ]);
   });
 });
+
+// For writers: SLUG=<slug> OUT=<file> bunx vitest run src/lib/stick-figure/episode-checks.test.ts
+it.skipIf(!process.env.SLUG || !process.env.OUT)(
+  "writes every finding for one episode, review flags included",
+  () => {
+    const episode = listeningEpisodes.find(({ slug }) => slug === process.env.SLUG);
+    if (!episode) throw new Error(`No listed episode "${process.env.SLUG}"`);
+    const rows = checkEpisode(episode).map(
+      (finding) =>
+        `- ${keyOf(episode.slug, finding)} [${finding.level}] ${finding.message}${finding.slovak ? ` ("${finding.slovak}")` : ""}`,
+    );
+    writeFileSync(process.env.OUT!, `${rows.join("\n")}\n`);
+  },
+);
