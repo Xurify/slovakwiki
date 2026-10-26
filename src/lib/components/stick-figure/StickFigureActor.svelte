@@ -153,6 +153,13 @@
   let lastActed:
     { pose: StickPose; turn: Partial<Record<"lead" | "rear", number>> } | undefined;
   let released: (typeof lastActed & { at: number }) | undefined;
+  /**
+   * Where the body was as a cue began, eased out of over ENTER_MS: a cue
+   * takes the arms from the rest pose, so a talking hand out over the pot
+   * jumped to the hip before it went for the salt.
+   */
+  const ENTER_MS = 250;
+  let entered: { pose: StickPose; at: number; doing: typeof doing } | undefined;
   let reducedMotion = false;
   let walkStartedAt = 0;
   let walkMs = 0;
@@ -270,7 +277,18 @@
       busy ? { ...talked, ...RESTING_ARMS } : overTable(talked, sitting.current),
     );
     const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
-    const acted = acting ? doing.sample(now, stepping, sitting.current) : undefined;
+    const sampled = acting ? doing.sample(now, stepping, sitting.current) : undefined;
+    if (sampled && entered?.doing !== doing) {
+      entered = { pose: $state.snapshot(pose), at: now, doing };
+    }
+    const entering =
+      sampled && entered && !reducedMotion
+        ? easeInOut(Math.min(1, (now - entered.at) / ENTER_MS))
+        : 1;
+    const acted =
+      sampled && entered && entering < 1
+        ? { ...sampled, pose: lerpPose(entered.pose, sampled.pose, entering) }
+        : sampled;
     if (acted) {
       lastActed = { pose: acted.pose, turn: acted.turn };
       released = undefined;

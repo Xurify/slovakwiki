@@ -36,7 +36,7 @@
   /* Water running from a tap, a jug or a can, and salt falling: dashes slide down the stream. */
   --animate-pour: pour 0.35s linear infinite;
   /* Chopped pieces sliding along a tipped board to its far end, where they drop off. */
-  --animate-slide-off: slide-off 0.7s ease-in both;
+  --animate-slide-off: slide-off 0.75s ease-in both;
   /* Water coming up in a pot under the running tap, over as long as tapFillMotion runs it. */
   --animate-fill-up: fill-up 2.1s ease-in-out both;
   /* A gas flame, never quite still. */
@@ -50,14 +50,16 @@
     }
   }
 
+  /* Faded only once past the board's end (OBJECT_SIZE.board, 11 from its middle) and dropping: faded on the board, they read as vanishing. */
   @keyframes slide-off {
-    60% {
+    70% {
       opacity: 1;
+      transform: translateX(12px);
     }
 
     to {
       opacity: 0;
-      transform: translateX(10px);
+      transform: translate(16px, 7px);
     }
   }
 
