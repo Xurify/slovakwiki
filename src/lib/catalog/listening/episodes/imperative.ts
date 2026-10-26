@@ -35,8 +35,14 @@ const intro: ListeningChapter = {
     line(
       "marek-still-early",
       "Marek",
-      [YAWN, "A ja som Marek. ", PAUSE, mark("Prepáčte"), ", je ešte strašne skoro."],
-      "And I'm Marek. Sorry, it's still terribly early.",
+      [
+        YAWN,
+        "A ja som Marek. ",
+        PAUSE,
+        mark("Prepáčte"),
+        ", ešte spím. Je strašne skoro.",
+      ],
+      "And I'm Marek. Sorry, I'm still asleep. It's terribly early.",
     ),
     line(
       "anna-dont-sleep",
@@ -88,15 +94,15 @@ const intro: ListeningChapter = {
     line(
       "anna-on-you",
       "Anna",
-      ["Lebo ju nikto nepolieva. ", PAUSE, "Marek, tento týždeň je to na tebe."],
-      "Because nobody waters it. Marek, this week that's on you.",
+      ["Lebo ju nikto nepolieva. ", PAUSE, "Marek, tento týždeň si na rade ty."],
+      "Because nobody waters it. Marek, this week it's your turn.",
       { to: "Marek" },
     ),
     line(
       "marek-on-me",
       "Marek",
-      [SURPRISED, "Na mne? ", PAUSE, "Aha", STOP, "no jasné."],
-      "On me? Oh… right, sure.",
+      [SURPRISED, "Ja? ", PAUSE, "Aha", STOP, "no jasné."],
+      "Me? Oh… right, sure.",
     ),
     line(
       "anna-water-plant",
@@ -113,20 +119,37 @@ const intro: ListeningChapter = {
     line(
       "anna-tonight-maria",
       "Anna",
-      [CHUCKLE, "Uvidíme. ", PAUSE, "Inak, dnes večer ideme k Márii."],
+      [CHUCKLE, "Uvidíme. ", PAUSE, "Inak, dnes večer ideme k pani Márii."],
       "We'll see. By the way, tonight we're going to Mária's.",
     ),
     line(
       "marek-maria-soup",
       "Marek",
-      [EXCITED, "Jaj, hej! Ukáže nám, ako robí tú svoju polievku. ", PAUSE, "Mňam."],
-      "Oh yes! She's showing us how she makes that soup of hers. Yum.",
+      [
+        EXCITED,
+        "Jaj, hej! Ukáže nám, ako robí tú svoju polievku. ",
+        PAUSE,
+        "A príde aj Lucia, nie?",
+      ],
+      "Oh yes! She's showing us how she makes that soup of hers. And Lucia's coming too, right?",
     ),
     line(
-      "anna-lots-of-orders",
+      "anna-lucia-late",
       "Anna",
-      ["Mária v kuchyni stále len rozkazuje. ", PAUSE, "Tak ", mark("počúvajte"), "!"],
-      "In the kitchen Mária does nothing but give orders. So listen!",
+      ["Príde. ", PAUSE, "Ale asi zase bude meškať."],
+      "She is. But she'll probably be late again.",
+    ),
+    line(
+      "marek-take-mic",
+      "Marek",
+      [
+        "A Mária v kuchyni stále len rozkazuje. ",
+        PAUSE,
+        "Zoberieme so sebou mikrofón, tak ",
+        mark("počúvajte"),
+        "!",
+      ],
+      "And in the kitchen Mária does nothing but give orders. We'll take a microphone along, so listen!",
     ),
   ],
   checks: [
@@ -144,10 +167,10 @@ const intro: ListeningChapter = {
             "**O káve** means about coffee. Anna tells Marek to drink it, then says the episode is about commands: **samé rozkazy**.",
         },
         {
-          id: "plants",
-          label: "O rastlinách.",
+          id: "soup",
+          label: "O polievke.",
           whyWrong:
-            "**O rastlinách** means about plants. One needs water, but the episode is about commands: **samé rozkazy**.",
+            "**O polievke** means about soup. They cook one tonight, but the episode is about commands: **samé rozkazy**.",
         },
       ],
       answerId: "imperative",
@@ -200,26 +223,48 @@ const game: ListeningChapter = {
     line(
       "marek-game-now",
       "Marek",
-      [EXCITED, "Včera u Márie sme počuli veľa rozkazov. ", PAUSE, "Tak teraz hra!"],
-      "Yesterday at Mária's we heard lots of commands. So now, a game!",
+      [
+        "Včera sme u Márie počuli veľa rozkazov. ",
+        PAUSE,
+        "A Lucia vravela, že o pol hodiny",
+        STOP,
+        "a prišla až o hodinu a pol!",
+      ],
+      "Yesterday at Mária's we heard lots of commands. And Lucia said half an hour… and only came an hour and a half later!",
     ),
     line(
       "anna-game-rules",
       "Anna",
-      ["Hra je jednoduchá. Ja poviem sloveso v tvare oni, ty z neho urobíš rozkaz."],
-      "The game is simple. I'll say a verb in the oni (they) form, you turn it into a command.",
+      [
+        CHUCKLE,
+        "Ako vždy. ",
+        PAUSE,
+        "No nič, zahráme sa. ",
+        PAUSE,
+        "Ja poviem sloveso v tvare oni, ty z neho urobíš rozkaz.",
+      ],
+      "As always. Anyway, let's play. I'll say a verb in the oni (they) form, you turn it into a command.",
     ),
     line(
       "marek-guess-with-us",
       "Marek",
-      ["Dobre. ", mark("Hádajte"), " s nami!"],
-      "OK. Guess along with us!",
+      ["Dobre. ", mark("Hrajte"), " s nami!"],
+      "OK. Play along with us!",
     ),
     line(
       "anna-first-verb",
       "Anna",
-      ["Prvé sloveso: ", PAUSE, "čítajú."],
-      "First verb: čítajú, they read.",
+      [
+        "Napríklad: robia",
+        STOP,
+        mark("rob"),
+        ". ",
+        PAUSE,
+        "Prvé sloveso: ",
+        PAUSE,
+        "čítajú.",
+      ],
+      "For example: robia (they do)… rob, do. First verb: čítajú, they read.",
     ),
     line(
       "marek-citaj",
@@ -252,7 +297,7 @@ const game: ListeningChapter = {
     line(
       "anna-ends-in-i",
       "Anna",
-      ["Nie, spaj nie. ", PAUSE, "Končí sa na i."],
+      ["Nie, to nie je spaj. ", PAUSE, "Končí sa na i."],
       "No, not spaj. It ends in i.",
     ),
     line("marek-spi", "Marek", ["Na i… ", PAUSE, mark("spi"), "!"], "In i… spi, sleep!"),
@@ -305,8 +350,22 @@ const game: ListeningChapter = {
     line(
       "anna-good-today",
       "Anna",
-      ["Super! ", PAUSE, "Marek, dnes si dobrý."],
-      "Great! Marek, you're good today.",
+      [
+        "Super! ",
+        PAUSE,
+        "Pozor, na konci je mäkké ť: ",
+        mark("plať"),
+        ". ",
+        PAUSE,
+        "Marek, dnes ti to ide!",
+      ],
+      "Great! Careful, there's a soft ť at the end: plať. Marek, you're on a roll today!",
+    ),
+    line(
+      "marek-slept",
+      "Marek",
+      ["Lebo som sa vyspal!"],
+      "Because I got a good night's sleep!",
     ),
   ],
   checks: [
@@ -338,7 +397,7 @@ const game: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-chod`,
-      prompt: "Aký rozkaz je od slovesa ísť?",
+      prompt: "Aký je rozkaz od slovesa ísť?",
       promptEnglish: "What is the command for ísť, to go?",
       replayLineId: `${PREFIX}anna-own-form`,
       choices: [
@@ -350,10 +409,9 @@ const game: ListeningChapter = {
             "**Idi** is Marek's wrong guess, built from **idú**. Anna says **nie**: ísť has its own form, **choď**.",
         },
         {
-          id: "pod",
-          label: "Poď!",
-          whyWrong:
-            "**Poď** means come here, and **poďme** let's go. Go somewhere is **choď**.",
+          id: "ides",
+          label: "Ideš!",
+          whyWrong: "**Ideš** means you go: it says what you do, it is not a command.",
         },
       ],
       answerId: "chod",
@@ -374,14 +432,14 @@ const kitchen: ListeningChapter = {
     line(
       "maria-counting-veg",
       "Mária",
-      ["Tak", STOP, "mrkva, zemiaky, cibuľa", STOP],
-      "Right… carrots, potatoes, onion…",
+      ["Tak", STOP, "mrkva, soľ", STOP],
+      "Right… carrots, salt…",
     ),
     line(
       "anna-good-evening",
       "Anna",
       ["Dobrý večer, pani Mária!"],
-      "Good evening, Mária!",
+      "Good evening, Mrs. Mária!",
     ),
     line(
       "maria-come-in",
@@ -407,7 +465,7 @@ const kitchen: ListeningChapter = {
         PAUSE,
         "Najprv si ",
         mark("umyte"),
-        " ruky, tamto pri dreze.",
+        " ruky, tam pri dreze.",
       ],
       "Come on, come on. First wash your hands, over there at the sink.",
     ),
@@ -443,11 +501,11 @@ const kitchen: ListeningChapter = {
     line(
       "maria-fill-pot",
       "Mária",
-      ["Hej, ten. ", mark("Napusti"), " doň vodu a ", mark("daj"), " ho na sporák."],
-      "Yes, that one. Fill it with water and put it on the stove.",
+      ["Hej, ten. ", mark("Nalej"), " do neho vodu a ", mark("daj"), " ho na sporák."],
+      "Yes, that one. Pour water into it and put it on the stove.",
       { to: "Marek" },
     ),
-    line("anna-like-this", "Anna", ["Pani Mária, takto?"], "Mária, like this?", {
+    line("anna-like-this", "Anna", ["Pani Mária, takto?"], "Mrs. Mária, like this?", {
       to: "Mária",
     }),
     line(
@@ -460,9 +518,18 @@ const kitchen: ListeningChapter = {
     line(
       "maria-salt",
       "Mária",
-      ["Marek, ", mark("daj"), " tam soľ. ", PAUSE, "Ale len trošku!"],
-      "Marek, put the salt in. But just a little!",
-      { to: "Marek" },
+      [
+        "Anna, ",
+        mark("hoď"),
+        " mrkvu do hrnca. ",
+        PAUSE,
+        "A Marek, ",
+        mark("daj"),
+        " tam soľ. ",
+        PAUSE,
+        "Ale len trošku!",
+      ],
+      "Anna, throw the carrots in the pot. And Marek, put the salt in. But just a little!",
     ),
     line(
       "marek-a-little",
@@ -473,8 +540,8 @@ const kitchen: ListeningChapter = {
     line(
       "maria-not-a-little",
       "Mária",
-      [SIGH, "Marek! ", PAUSE, "Preboha, to nie je trošku!"],
-      "Marek! Good grief, that's not a little!",
+      [SIGH, "Marek! ", PAUSE, "Preboha, ", mark("nesyp"), " toľko!"],
+      "Marek! Good grief, don't pour so much!",
     ),
     line(
       "anna-top-up",
@@ -483,10 +550,17 @@ const kitchen: ListeningChapter = {
       "Never mind. We'll top it up with water.",
     ),
     line(
+      "maria-cook-an-hour",
+      "Mária",
+      ["Tak. ", PAUSE, "A teraz to necháme hodinku variť."],
+      "Right. And now we'll let it cook for an hour.",
+    ),
+    line("anna-smells-good", "Anna", ["Mmm, to vonia!"], "Mmm, that smells good!"),
+    line(
       "maria-soup-ready",
       "Mária",
       [
-        "Tak, polievka je hotová. ",
+        "Hodinka ubehla. Polievka je hotová. ",
         PAUSE,
         "Marek, ",
         mark("ochutnaj"),
@@ -494,45 +568,20 @@ const kitchen: ListeningChapter = {
         PAUSE,
         "Pozor, je horúca!",
       ],
-      "Right, the soup's ready. Marek, taste it. Careful, it's hot!",
-      {
-        act: [
-          { do: "go", to: "stove", on: "before" },
-          { do: "take", what: "lid", on: "polievka" },
-          { do: "take", what: "spoon", on: "hotová" },
-          { who: "marek", do: "go", to: "maria", on: "Marek" },
-          { do: "dip", what: "spoon", to: "pot" },
-          { do: "offer", what: "spoon", to: "marek", on: "Pozor" },
-          { who: "marek", do: "camera", to: "marek", zoom: 1.7, on: "horúca" },
-        ],
-      },
+      "The hour has gone by. The soup is ready. Marek, taste it. Careful, it's hot!",
     ),
     line(
       "marek-burns",
       "Marek",
       [SURPRISED, "Au! ", PAUSE, "To páli!"],
       "Ow! That burns!",
-      {
-        act: [
-          { do: "take", what: "spoon", on: "before" },
-          { do: "taste", what: "spoon" },
-          { do: "burn", on: "Au" },
-        ],
-      },
     ),
     line(
       "anna-is-it-good",
       "Anna",
       [CHUCKLE, "No ", mark("povedz"), ", je dobrá?"],
       "Well, tell us, is it good?",
-      {
-        to: "Marek",
-        act: [
-          { do: "camera", to: "wide", on: "start" },
-          { who: "maria", do: "put", what: "lid", to: "pot", on: "start" },
-          { who: "marek", do: "blow", what: "spoon", on: "povedz" },
-        ],
-      },
+      { to: "Marek" },
     ),
     line(
       "marek-bit-salty",
@@ -569,8 +618,35 @@ const kitchen: ListeningChapter = {
       },
     },
     {
+      id: `${PREFIX}check-nesyp`,
+      gap: "Marek! Preboha, ___ toľko!",
+      prompt: "Ktoré slovo povedala Mária?",
+      promptEnglish: "Which word did Mária say?",
+      replayLineId: `${PREFIX}maria-not-a-little`,
+      choices: [
+        { id: "nesyp", label: "nesyp" },
+        {
+          id: "syp",
+          label: "syp",
+          whyWrong:
+            "**Syp** means pour, the opposite of what Mária wants. She stops him: **nesyp**, don't pour.",
+        },
+        {
+          id: "nesypes",
+          label: "nesypeš",
+          whyWrong:
+            "**Nesypeš** means you don't pour: it says what he does, it is not a command.",
+        },
+      ],
+      answerId: "nesyp",
+      feedback: {
+        english: "Marek! Good grief, don't pour so much!",
+        why: "A “don't” is **ne-** in front of the command: **syp**, **nesyp**.",
+      },
+    },
+    {
       id: `${PREFIX}check-umyte`,
-      gap: "Najprv si ___ ruky, tamto pri dreze.",
+      gap: "Najprv si ___ ruky, tam pri dreze.",
       prompt: "Ktoré slovo povedala Mária?",
       promptEnglish: "Which word did Mária say?",
       replayLineId: `${PREFIX}maria-wash-hands`,
@@ -608,15 +684,14 @@ const table: ListeningChapter = {
       "maria-sit-down",
       "Mária",
       [
-        "Tak, ",
-        mark("sadnite"),
+        mark("Sadnite"),
         " si. ",
         PAUSE,
         "A Lucia stále nikde? ",
         PAUSE,
         "Veď mala prísť.",
       ],
-      "Right, sit down. And still no Lucia? She was supposed to come.",
+      "Sit down. And still no Lucia? She was supposed to come.",
     ),
     line("anna-late-again", "Anna", ["Asi zase mešká."], "Probably late again."),
     line(
@@ -639,14 +714,14 @@ const table: ListeningChapter = {
       [
         "Ahoj! ",
         mark("Prepáčte"),
-        ", ešte som v práci. ",
+        ", ešte som v práci. Asi neprídem. ",
         PAUSE,
         mark("Nečakajte"),
         " na mňa, pokojne ",
         mark("jedzte"),
         ".",
       ],
-      "Hi! Sorry, I'm still at work. Don't wait for me, go ahead and eat.",
+      "Hi! Sorry, I'm still at work. I probably won't make it. Don't wait for me, go ahead and eat.",
       { overPhone: true },
     ),
     line(
@@ -678,8 +753,8 @@ const table: ListeningChapter = {
     line(
       "anna-we-will-wait",
       "Anna",
-      ["Tak na ňu počkáme, nie?"],
-      "Then we'll wait for her, right?",
+      ["Tak ", mark("počkajme"), " na ňu."],
+      "Then let's wait for her.",
       { to: "Mária" },
     ),
     line(
@@ -728,7 +803,7 @@ const table: ListeningChapter = {
           id: "hot",
           label: "Polievka je horúca.",
           whyWrong:
-            "It was hot, but that is not why. Anna says **tak na ňu počkáme**: then we'll wait for her.",
+            "It was hot, but that is not why. Anna says **tak počkajme na ňu**: then let's wait for her.",
         },
         {
           id: "no-soup",
@@ -739,8 +814,8 @@ const table: ListeningChapter = {
       ],
       answerId: "lucia",
       feedback: {
-        english: "Then we'll wait for her, right?",
-        why: "Lucia is coming in half an hour, and Anna says **tak na ňu počkáme**. Mária agrees: **počkáme**.",
+        english: "Then let's wait for her.",
+        why: "Lucia is coming in half an hour, and Anna says **tak počkajme na ňu**. Mária agrees: **počkáme**.",
       },
     },
   ],
@@ -754,21 +829,32 @@ const quiz: ListeningChapter = {
     line(
       "marek-right-or-wrong",
       "Marek",
-      ["Ďakujem. ", PAUSE, "A teraz ty, Anna: správne alebo nesprávne?"],
-      "Thanks. And now it's your turn, Anna: right or wrong?",
+      ["A teraz ty, Anna: ", PAUSE, "správne alebo nesprávne?"],
+      "And now it's your turn, Anna: right or wrong?",
     ),
     line(
       "marek-first-sentence",
       "Marek",
-      ["Prvá veta: ", PAUSE, "Nezatvor dvere."],
-      "First sentence: Nezatvor dvere. (Wrong on purpose.)",
+      ["Prvá veta: ", PAUSE, "Píšajte nám."],
+      "First sentence: Píšajte nám. (Wrong on purpose.)",
     ),
     afterThinking(
       line(
-        "anna-nezatvaraj",
+        "anna-piste",
         "Anna",
-        ["Nesprávne! ", PAUSE, "Správne je: ", mark("Nezatváraj"), " dvere."],
-        "Wrong! The right one is: Nezatváraj dvere, don't close the door.",
+        [
+          "Nesprávne! ",
+          PAUSE,
+          "Píšu",
+          STOP,
+          mark("píš"),
+          ". ",
+          PAUSE,
+          "Správne je: ",
+          mark("Píšte"),
+          " nám.",
+        ],
+        "Wrong! Píšu (they write)… píš. The right one is: Píšte nám, write to us.",
       ),
     ),
     line(
@@ -788,15 +874,26 @@ const quiz: ListeningChapter = {
     line(
       "marek-last-sentence",
       "Marek",
-      ["A posledná veta: ", PAUSE, "Povedaj mi to."],
-      "And the last sentence: Povedaj mi to. (Wrong on purpose.)",
+      ["A posledná veta: ", PAUSE, "Hovoraj pomalšie."],
+      "And the last sentence: Hovoraj pomalšie. (Wrong on purpose.)",
     ),
     afterThinking(
       line(
-        "anna-povedz",
+        "anna-hovor",
         "Anna",
-        ["Nesprávne! ", PAUSE, "Povedať má vlastný tvar: ", mark("Povedz"), " mi to."],
-        "Wrong! Povedať has its own form: Povedz mi to, tell me.",
+        [
+          "Nesprávne! ",
+          PAUSE,
+          "Hovoria",
+          STOP,
+          mark("hovor"),
+          ". ",
+          PAUSE,
+          "Správne je: ",
+          mark("Hovor"),
+          " pomalšie, prosím.",
+        ],
+        "Wrong! Hovoria (they speak)… hovor. The right one is: Hovor pomalšie, prosím, speak more slowly, please.",
       ),
     ),
     line("marek-excellent", "Marek", ["Výborne, Anna!"], "Excellent, Anna!"),
@@ -809,15 +906,16 @@ const quiz: ListeningChapter = {
       choices: [
         { id: "quiet", label: "Buďte ticho, prosím." },
         {
-          id: "door",
-          label: "Nezatvor dvere.",
+          id: "write",
+          label: "Píšajte nám.",
           whyWrong:
-            "Anna says **nesprávne**: a “don't” takes the imperfective, **nezatváraj dvere**.",
+            "Anna says **nesprávne**: from **píšu** comes **píš**, so to everyone it is **píšte nám**.",
         },
         {
-          id: "tell",
-          label: "Povedaj mi to.",
-          whyWrong: "Anna says **nesprávne**: povedať has its own form, **povedz**.",
+          id: "slowly",
+          label: "Hovoraj pomalšie.",
+          whyWrong:
+            "Anna says **nesprávne**: from **hovoria** comes **hovor**, so **hovor pomalšie**.",
         },
       ],
       answerId: "quiet",
@@ -827,30 +925,30 @@ const quiz: ListeningChapter = {
       },
     },
     {
-      id: `${PREFIX}check-povedz`,
-      gap: "___ mi to.",
-      prompt: "Ako Anna opravila Mareka?",
-      promptEnglish: "How did Anna correct Marek?",
-      replayLineId: `${PREFIX}anna-povedz`,
+      id: `${PREFIX}check-hovor`,
+      gap: "___ pomalšie, prosím.",
+      prompt: "Ako to Anna povedala správne?",
+      promptEnglish: "How did Anna say it correctly?",
+      replayLineId: `${PREFIX}anna-hovor`,
       choices: [
-        { id: "povedz", label: "Povedz" },
+        { id: "hovor", label: "Hovor" },
         {
-          id: "povedaj",
-          label: "Povedaj",
+          id: "hovoraj",
+          label: "Hovoraj",
           whyWrong:
-            "**Povedaj** is the wrong form Marek reads out. Povedať has its own imperative: **povedz**.",
+            "**Hovoraj** is the wrong form Marek reads out, built like **čítaj**. From **hovoria** comes **hovor**.",
         },
         {
-          id: "povedzte",
-          label: "Povedzte",
+          id: "hovori",
+          label: "Hovori",
           whyWrong:
-            "**Povedzte** is for vy. Anna corrects the sentence for one friend: **povedz mi to**.",
+            "**Hovori** is not a command. Drop the ending of **hovoria** and nothing more: **hovor**.",
         },
       ],
-      answerId: "povedz",
+      answerId: "hovor",
       feedback: {
-        english: "Povedať has its own form: Povedz mi to.",
-        why: "Anna says **povedať má vlastný tvar: povedz mi to**.",
+        english: "Speak more slowly, please.",
+        why: "Anna says **hovoria… hovor**: drop the ending, and **hovor pomalšie, prosím**.",
       },
     },
   ],
@@ -861,12 +959,12 @@ const outro: ListeningChapter = {
   titleSk: "Záver",
   title: "That's all for today",
   lines: [
-    line("marek-thats-all", "Marek", ["To je všetko na dnes."], "That's all for today."),
+    line("marek-thats-all", "Marek", ["To je na dnes všetko."], "That's all for today."),
     line(
       "anna-thanks-write-to-us",
       "Anna",
       [
-        "Ďakujeme, že počúvate. ",
+        "Ďakujeme, že ste nás počúvali. ",
         mark("Píšte"),
         " nám a ",
         mark("počúvajte"),
@@ -877,21 +975,28 @@ const outro: ListeningChapter = {
     line(
       "anna-and-the-plant",
       "Anna",
-      [SIGH, "Marek? ", PAUSE, "A tá rastlinka?"],
-      "Marek? And that little plant?",
+      [
+        SIGH,
+        "Marek? ",
+        PAUSE,
+        "A tá rastlinka? ",
+        PAUSE,
+        "Včera si sľúbil: hneď po nahrávaní.",
+      ],
+      "Marek? And that little plant? Yesterday you promised: right after the recording.",
       { to: "Marek" },
     ),
     line(
       "marek-right-away",
       "Marek",
-      [SURPRISED, "Rastlinka! ", PAUSE, "Hneď!"],
-      "The little plant! Right away!",
+      [SURPRISED, "Jaj, rastlinka! ", PAUSE, "Už idem!"],
+      "Oh no, the little plant! I'm coming!",
     ),
     line(
       "marek-sorry-plant",
       "Marek",
-      ["Prepáč, rastlinka. ", PAUSE, "Tu máš vodu."],
-      "Sorry, little plant. Here's some water.",
+      ["Prepáč, rastlinka. ", PAUSE, "Tu máš vodu. ", PAUSE, "A ", mark("nezaspi"), "!"],
+      "Sorry, little plant. Here's some water. And don't fall asleep!",
       // He pours from the watering can by the plant, not from his coffee cup.
       { props: [null, null] },
     ),
@@ -900,16 +1005,20 @@ const outro: ListeningChapter = {
       "Anna",
       [
         CHUCKLE,
+        "Marek, to ",
+        mark("povedz"),
+        " sebe, nie rastlinke! ",
+        PAUSE,
         "A vy, milí poslucháči, ",
         mark("nezabudnite"),
         ": ",
         mark("polejte"),
-        " svoje kvety! ",
+        " si rastlinky! ",
         PAUSE,
         mark("Majte"),
         " sa pekne!",
       ],
-      "And you, dear listeners, don't forget: water your flowers! Take care!",
+      "Marek, tell that to yourself, not the plant! And you, dear listeners, don't forget: water your plants! Take care!",
     ),
     line("marek-bye", "Marek", ["Ahojte!"], "Bye!"),
   ],
@@ -964,12 +1073,12 @@ const outro: ListeningChapter = {
       answerId: "waters",
       feedback: {
         english: "Sorry, little plant. Here's some water.",
-        why: "Anna said at the start: **tak ju hneď polej**. Marek promised to do it after the recording, but only now says **prepáč, rastlinka, tu máš vodu**.",
+        why: "Anna said at the start: **tak ju hneď polej**. Marek promised to do it right after the recording, but only the next day says **prepáč, rastlinka, tu máš vodu**.",
       },
     },
     {
       id: `${PREFIX}check-polejte`,
-      gap: "A vy, milí poslucháči, nezabudnite: ___ svoje kvety!",
+      gap: "A vy, milí poslucháči, nezabudnite: ___ si rastlinky!",
       prompt: "Ktoré slovo povedala Anna poslucháčom?",
       promptEnglish: "Which word did Anna say to the listeners?",
       replayLineId: `${PREFIX}anna-water-yours-too`,
@@ -990,7 +1099,7 @@ const outro: ListeningChapter = {
       ],
       answerId: "polejte",
       feedback: {
-        english: "Don't forget: water your flowers!",
+        english: "Don't forget: water your plants!",
         why: "The title's **polej** for one friend, **polejte** for all the listeners.",
       },
     },
@@ -1002,8 +1111,8 @@ export const imperativeEpisode: ListeningEpisode = {
   slug: "imperative",
   number: 5,
   level: "A1–A2",
-  titleSk: "Polej tú rastlinu!",
-  title: "Water that plant!",
+  titleSk: "Polej tú rastlinku!",
+  title: "Water that little plant!",
   topic: "rob, robte, robme",
   promise:
     "Anna and Marek cook soup at Mária's and take Lucia's call, then play a verb game and quiz each other the next morning, while the studio plant waits for water.",

@@ -387,7 +387,10 @@
       showEnglish = getStoryShowEnglish() === "on";
     };
     window.addEventListener(STORY_PREFS_CHANGE_EVENT, sync);
-    return () => window.removeEventListener(STORY_PREFS_CHANGE_EVENT, sync);
+    return () => {
+      window.removeEventListener(STORY_PREFS_CHANGE_EVENT, sync);
+      window.clearTimeout(answerTimer);
+    };
   });
 
   /** Play the scene, unless it is a round of Find it: the next scene starts this way. */
