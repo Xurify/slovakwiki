@@ -4,14 +4,17 @@ import {
   freeHand,
   handHolding,
   heldBy,
+  putDown,
+  sinkAt,
   type Cue,
   type ObjectKind,
+  type SetPlan,
   type World,
 } from "./acts";
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
 import { HEAD_RADIUS, solveRig, type Point } from "./rig";
-import { tipFromHand } from "./set-pieces";
+import { OBJECT_SIZE, SINK, tipFromHand } from "./set-pieces";
 
 /**
  * How each verb moves the body: keys in time, each hand on a target or
@@ -47,7 +50,7 @@ export interface MotionKey {
   /** A hand's target; left out, the hand is wherever the talking puts it. */
   lead?: Target;
   rear?: Target;
-  /** The other hand on the far side of what the lead one holds: a pot carried by both handles. */
+  /** The other hand on the near handle of the pot the lead one holds by its far one. */
   both?: boolean;
   /** Added to the talking pose. */
   body?: Partial<StickPose>;
@@ -103,7 +106,8 @@ export interface Effect {
  */
 export interface Contact {
   hand: Hand;
-  tip: "over" | "in" | "lips";
+  /** What the held thing does at `to`: pours over its opening, dips in it, is at the lips, or stands down in it (a pot in the sink). */
+  tip: "over" | "in" | "lips" | "down";
   to?: string;
   from: number;
   until: number;
@@ -129,13 +133,13 @@ export interface Motion {
 
 const REACHED = 420;
 /**
- * A pot is carried turned side-on to the stage, a handle in each hand: the
- * near hand on the handle toward us and the far one just behind it, on the
- * handle away from us.
+ * A pot is held by both handles, the lead hand on the far one and the other
+ * hand a pot's width back on the near one, so both hands show on it. Side-on,
+ * with the hands one behind the other, it read as a bag held by one fist.
  */
-const FAR_HAND: Point = { x: -2.5, y: 1 };
-/** Low in front of the body, arms bent a little, where both hands carry a pot. */
-export const CARRY: Point = { x: 17, y: 84 };
+const FAR_HAND: Point = { x: -2 * OBJECT_SIZE.pot.grip.x, y: 0 };
+/** Against the belly, elbows bent, where both hands carry a pot: the arms cannot hold it further out. */
+export const CARRY: Point = { x: 24, y: 79 };
 
 function hands(hand: Hand, target: Target | undefined): Pick<MotionKey, Hand> {
   return hand === "lead" ? { lead: target } : { rear: target };
@@ -159,12 +163,14 @@ function aim(kind: ObjectKind, turn: number, dx = 0, dy = 0): { dx: number; dy: 
 
 /**
  * The motion for `cue` by `who`, from the world it starts in. A hand-over
- * also moves the other person: `partner` is their half of it.
+ * also moves the other person: `partner` is their half of it. `plan` says
+ * where the set's sinks are.
  */
 export function motionFor(
   cue: Cue,
   who: LessonCharacterId,
   world: World,
+  plan?: SetPlan,
 ): { motion: Motion; partner?: { who: LessonCharacterId; motion: Motion } } {
   const what = cue.what ?? "";
   const to = cue.to ?? "";
@@ -191,7 +197,7 @@ export function motionFor(
       }
       if (where && "wear" in where) return { motion: offHeadMotion() };
       const into = freeHand(world, who, what) ?? "lead";
-      if (heavy) return { motion: liftMotion(what) };
+      if (heavy) return { motion: liftMotion(what, sinkAt(plan, where)) };
       return {
         motion: {
           ms: 900,
@@ -221,6 +227,8 @@ export function motionFor(
       };
     case "put": {
       const where = { landing: true } as const;
+      const sink = heavy && plan ? sinkAt(plan, putDown(plan, world, cue)) : undefined;
+      if (sink) return { motion: intoSinkMotion(sink) };
       if (heavy) {
         return {
           motion: {
@@ -514,23 +522,22 @@ export function motionFor(
       };
     }
     case "fill": {
-      // The pot (or jug, or can) set in the sink under the running tap.
+      // The jug (or can) held under the running tap; a pot stands in the sink under it.
+      const standing = sinkAt(plan, object?.where);
+      if (standing || (heavy && !holding))
+        return { motion: tapFillMotion(standing ?? (to || "basin")) };
       const sink = to || "basin";
-      const both = heavy;
-      const hold = { lead: { to: sink, as: "grip" as const, dy: -12 }, both };
+      const hold = { lead: { to: sink, as: "grip" as const, dy: -12 } };
       return {
         motion: {
           ms: 3000,
           face: sink,
           takes: 2300,
           keys: [
-            { at: 0, ...(both ? { lead: { at: CARRY }, both } : {}) },
+            { at: 0 },
             { at: 600, ...hold, body: { lean: 6 } },
-            { at: 2400, ...hold, body: { lean: 6, bob: both ? 2 : 0 } },
-            {
-              at: 3000,
-              ...(both ? { lead: { at: CARRY }, both, body: { lean: -4, bob: 2 } } : {}),
-            },
+            { at: 2400, ...hold, body: { lean: 6 } },
+            { at: 3000 },
           ],
           sounds: [{ at: 650, id: "fill" }],
           effects: [{ kind: "tap", from: 650, until: 2300, piece: sink }],
@@ -1036,8 +1043,94 @@ function lidSounds(world: World, lid: string): Motion["sounds"] {
   ];
 }
 
-/** Bending to a heavy pot by both handles and coming up with it, a step unsteady. */
-function liftMotion(what: string): Motion {
+/**
+ * Over the worktop is how a pot goes in and out of the sink: held low in
+ * front of the counter it would seem to pass through it. `dy` from its grip
+ * standing in the sink to its base just clear of the worktop.
+ */
+const OVER_SINK = -SINK.depth - 3;
+
+/** A heavy pot lifted over the sink's edge and stood down in it, under the tap. */
+function intoSinkMotion(sink: string): Motion {
+  return {
+    ms: 1400,
+    face: sink,
+    takes: 850,
+    sounds: [{ at: 820, id: "thud" }],
+    keys: [
+      { at: 0, lead: { at: CARRY }, both: true },
+      { at: 450, lead: { landing: true, dy: OVER_SINK }, both: true, body: { lean: 5 } },
+      { at: 850, lead: { landing: true }, both: true, body: { lean: 7, bob: 1 } },
+      { at: 1050, lead: { landing: true }, both: true, body: { lean: 5 } },
+      { at: 1400 },
+    ],
+    contacts: [{ hand: "lead", tip: "down", to: sink, from: 850, until: 850 }],
+  };
+}
+
+/**
+ * Filling what stands in the sink: the tap's lever turned on (StickSet
+ * draws it 7 right of the sink and 7 up), the hands away from the stream
+ * while it runs, so it is seen going in, and the lever off.
+ */
+function tapFillMotion(sink: string): Motion {
+  const lever = { lead: { to: sink, dx: 7, dy: -7 } };
+  return {
+    ms: 3400,
+    face: sink,
+    takes: 2700,
+    keys: [
+      { at: 0 },
+      { at: 400, ...lever, body: { lean: 5 } },
+      { at: 560, ...lever, body: { lean: 5, look: 0.2 } },
+      { at: 950, body: { lean: 2, tilt: 4 } },
+      { at: 1800, body: { lean: 1, tilt: 6, look: 0.2 } },
+      { at: 2400, body: { lean: 2, tilt: 4 } },
+      { at: 2700, ...lever, body: { lean: 5 } },
+      { at: 2850, ...lever, body: { lean: 5 } },
+      { at: 3400 },
+    ],
+    sounds: [{ at: 560, id: "fill" }],
+    effects: [{ kind: "tap", from: 560, until: 2700, piece: sink }],
+  };
+}
+
+/**
+ * Bending to a heavy pot by both handles and coming up with it, a step
+ * unsteady; out of a sink, up over its edge first.
+ */
+function liftMotion(what: string, sink?: string): Motion {
+  if (sink) {
+    return {
+      ms: 1900,
+      face: what,
+      takes: 750,
+      keys: [
+        { at: 0 },
+        {
+          at: 450,
+          lead: { to: what, as: "grip", dy: -2 },
+          both: true,
+          body: { lean: 5 },
+        },
+        { at: 750, lead: { to: what, as: "grip" }, both: true, body: { lean: 6 } },
+        {
+          at: 1200,
+          lead: { to: what, as: "grip", dy: OVER_SINK },
+          both: true,
+          body: { lean: 2, bob: 1, brow: 1 },
+        },
+        {
+          at: 1650,
+          lead: { at: CARRY },
+          both: true,
+          body: { lean: -6, bob: 2, brow: 0.6 },
+        },
+        { at: 1900, lead: { at: CARRY }, both: true, body: { lean: -4 } },
+      ],
+      contacts: [{ hand: "lead", tip: "down", to: sink, from: 750, until: 750 }],
+    };
+  }
   return {
     ms: 2200,
     face: what,
@@ -1049,16 +1142,14 @@ function liftMotion(what: string): Motion {
       { at: 900, lead: { to: what, as: "grip" }, both: true },
       {
         at: 1300,
-        lead: { at: { x: 19, y: 92 } },
+        lead: { at: { x: 24, y: 92 } },
         both: true,
-        turn: { lead: 6 },
         body: { lean: -6, bob: 4 },
       },
       {
         at: 1600,
-        lead: { at: { x: 18, y: 88 } },
+        lead: { at: { x: 24, y: 85 } },
         both: true,
-        turn: { lead: -3 },
         body: { lean: -10, bob: 2, brow: 1 },
       },
       {
@@ -1361,6 +1452,8 @@ const ON_MARK = 1.5;
 const AT_LIPS = 2.5;
 /** The highest a stream or salt is poured from, above the rim: any higher, with the stove at the hip, the jug is at the face. */
 const POUR_HEIGHT = 10;
+/** A pot fills the sink, so it stands within this of the sink's middle or its side shows through the worktop. */
+const IN_SINK = 1.5;
 /** Closer than this to the head's middle, what a hand works with is in front of the face. */
 const FACE_CLEAR = HEAD_RADIUS + 4;
 /** Over a repeated action, the tool moves at least this much (units, or degrees turned) in any stretch of FROZEN_MS. */
@@ -1423,6 +1516,11 @@ export function motionMisses(
       }
       const { top, half, depth } = opening!;
       const across = Math.abs(tip.x - top.x);
+      if (contact.tip === "down") {
+        // Down in it, `tip` is its base: under the tap, the rim over the worktop and enough water showing above it.
+        const rim = tip.y - OBJECT_SIZE[kind].top;
+        return across > IN_SINK || rim > top.y - 2 || rim < top.y - SINK.spout + 4;
+      }
       return contact.tip === "over"
         ? across > half - 1 || tip.y >= top.y || top.y - tip.y > POUR_HEIGHT
         : across > half - 1.5 || tip.y <= top.y + 1 || tip.y >= top.y + depth;
@@ -1442,14 +1540,16 @@ export function motionMisses(
           ? "at the lips"
           : contact.tip === "over"
             ? `over ${contact.to}'s opening`
-            : `down inside ${contact.to}`;
+            : contact.tip === "down"
+              ? `standing in ${contact.to} under the tap`
+              : `down inside ${contact.to}`;
       const off =
         contact.tip === "lips" || !opening
           ? ""
           : ` (${(miss.tip.x - opening.top.x).toFixed(1)} across, ${(miss.tip.y - opening.top.y).toFixed(1)} below the rim)`;
       misses.push(`the ${kind}'s tip is not ${where} at ${miss.at} ms${off}`);
     }
-    if (contact.tip === "lips") continue;
+    if (contact.tip === "lips" || contact.tip === "down") continue;
     const window = FROZEN_MS / SAMPLE_MS;
     for (let start = 0; start + window < tips.length; start += 1) {
       const span = tips.slice(start, start + window + 1);

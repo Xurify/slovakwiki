@@ -109,7 +109,9 @@
   import {
     OBJECT_SIZE,
     OPENING,
+    SINK,
     handOverY,
+    isSink,
     objectGrip,
     placePieces,
     spotAt,
@@ -385,9 +387,9 @@
     return direction.cast.includes(name as LessonCharacterId);
   }
 
-  function stageContext(): StageContext {
+  function stageContext(at = world): StageContext {
     return {
-      world,
+      world: at,
       set,
       geometry,
       castX,
@@ -404,8 +406,9 @@
     name: string,
     as: "grip" | "top" | "base",
     facing: Facing,
+    state = world,
   ): Point | undefined {
-    const at = stagePoint(stageContext(), name, as, facing);
+    const at = stagePoint(stageContext(state), name, as, facing);
     if (at) return at;
     const thing = things.find((candidate) => candidate.id === name);
     const box = thing && thingBoxes(thing)[0];
@@ -414,10 +417,13 @@
     return { x: castX(centre.x), y: castY(centre.y) };
   }
 
-  function surroundings(id: LessonCharacterId, landing?: ScheduledCue): Surroundings {
+  function surroundings(id: LessonCharacterId, item?: ScheduledCue): Surroundings {
     return {
       pointOf: (name, as = "grip") => {
-        const at = castPoint(name, as, facingOf(id));
+        // What the cue has just taken is where it was taken from, so the hand moves on from there rather than snapping to its side.
+        const at =
+          castPoint(name, as, facingOf(id)) ??
+          (item && castPoint(name, as, facingOf(id), item.before));
         return at && toRig(id, at);
       },
       meetWith: (other) => {
@@ -429,8 +435,8 @@
         return toRig(id, { x, y });
       },
       landing: () => {
-        const what = landing?.cue.what;
-        const at = what && objectGrip(landing.after, what, geometry, facingOf(id));
+        const what = item?.cue.what;
+        const at = what && objectGrip(item.after, what, geometry, facingOf(id));
         return at ? toRig(id, at) : undefined;
       },
     };
@@ -621,11 +627,13 @@
       later(effect.until, () => showEffect(who, effect, false));
     }
     for (const contact of motion.contacts ?? []) {
-      if (contact.tip !== "in" || !contact.to) continue;
+      if ((contact.tip !== "in" && contact.tip !== "down") || !contact.to) continue;
       const into = contact.to;
       // From a little before the tip reaches the rim to a little after it leaves, so no frame shows it in front of the pot.
-      later(contact.from - 200, () => sink(who, contact.hand, into));
-      later(contact.until + 200, () => sink(who, contact.hand, undefined));
+      // A pot stood in the sink is lifted over the worktop in the 400 ms either side, and is over it by then.
+      const margin = contact.tip === "in" ? 200 : 300;
+      later(contact.from - margin, () => sink(who, contact.hand, into));
+      later(contact.until + margin, () => sink(who, contact.hand, undefined));
     }
   }
 
@@ -789,7 +797,12 @@
     name: string,
   ): { left: number; right: number; rim: number } | undefined {
     const kind = world?.objects[name]?.kind;
-    const size = kind && OPENING[kind];
+    // A unit past a sink's sides, so the outline of a pot that fills it goes under the worktop too.
+    const size = kind
+      ? OPENING[kind]
+      : isSink(set, geometry, name)
+        ? { half: SINK.half + 1 }
+        : undefined;
     const top = surroundings(id).pointOf(name, "top");
     if (!size || !top) return undefined;
     return { left: top.x - size.half, right: top.x + size.half, rim: top.y };

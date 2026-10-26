@@ -174,6 +174,8 @@ const KITCHEN_SET: PlaceSet = {
     "board-across": { piece: "counter", dx: 42, facing: -1 },
     // At the stove from the counter's side, far enough back that a jug or shaker held over the pot is in front of the chest, not the face.
     "pot-left": { piece: "stove", dx: -30, facing: 1 },
+    // Close in at the stove's left, to set the big pot on the hob by both handles.
+    "hob-near": { piece: "stove", dx: -16, facing: 1 },
     // Mária's place, at the side counter by the stove, facing the room.
     cook: { piece: "side", dx: -10, facing: -1 },
     "seat-l": { chair: 0 },

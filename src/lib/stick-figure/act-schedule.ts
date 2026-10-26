@@ -89,7 +89,7 @@ export function scheduleCues(
       continue;
     }
 
-    const { motion, partner } = motionFor(cue, who, state);
+    const { motion, partner } = motionFor(cue, who, state, plan);
     const anchor = anchorTime(cue.on, times);
     const after = cue.on === undefined ? (last ?? times.speech) : anchor;
     let start = Math.max(

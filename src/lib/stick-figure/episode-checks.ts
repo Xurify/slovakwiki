@@ -35,7 +35,9 @@ import { STICK_BOX, type Point } from "$lib/stick-figure/rig";
 import {
   DESK_REACH,
   OPENING,
+  SINK,
   handOverY,
+  isSink,
   objectBase,
   pieceSize,
   objectGrip,
@@ -526,7 +528,7 @@ export function checkCues(
   ): string[] => {
     const middle = standsAt(world, who);
     if (middle === undefined || cue.on === "dark") return [];
-    const { motion, partner } = motionFor(cue, who, world);
+    const { motion, partner } = motionFor(cue, who, world, set);
     const check = (
       mover: LessonCharacterId,
       moves: Motion,
@@ -567,7 +569,13 @@ export function checkCues(
       };
       const openingOf = (name: string): Opening | undefined => {
         const kind = world.objects[name]?.kind;
-        const size = kind && OPENING[kind];
+        // A sink is only stood in, by a pot to fill: nothing dips down to a depth in it.
+        const sink = !kind && isSink(set, geometry, name);
+        const size = kind
+          ? OPENING[kind]
+          : sink
+            ? { half: SINK.half, depth: 0 }
+            : undefined;
         const top = pointOf(name, "top");
         return size && top ? { top, ...size } : undefined;
       };
@@ -585,7 +593,7 @@ export function checkCues(
   const headClashes = (world: World, who: LessonCharacterId, cue: Cue): string[] => {
     const middle = standsAt(world, who);
     if (middle === undefined || cue.on === "dark") return [];
-    const { motion } = motionFor(cue, who, world);
+    const { motion } = motionFor(cue, who, world, set);
     const lean = Math.max(0, ...motion.keys.map((key) => key.body?.lean ?? 0));
     if (lean < 3) return [];
     const facing = facingFor(world, who, motion.face ?? cue.what);

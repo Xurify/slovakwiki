@@ -217,7 +217,7 @@
         object.turn ?? 0,
       )}) translate({n(-grip.x)} {n(grip.y)})"
     >
-      <StickSetObject {...object} carried={object.kind === "pot"} />
+      <StickSetObject {...object} />
     </g>
   </g>
   {#if object.effect}
@@ -225,28 +225,34 @@
     <!-- Down to the rim it pours over, where the pot's side, drawn behind the figure, would otherwise show it falling past. -->
     {@const fall = Math.max(2, (object.lands ?? tip.y + 16) - tip.y)}
     {#if object.effect === "stream"}
+      <!-- Outlined, so water shows against the white tiles. -->
+      <path
+        d="M{n(tip.x)} {n(tip.y)}v{n(fall)}"
+        class="stroke-portrait-ink/35"
+        stroke-width="2.6"
+      />
       <path
         d="M{n(tip.x)} {n(tip.y)}v{n(fall)}"
         class="animate-pour {object.kind === 'ladle'
           ? 'stroke-scene-carrot'
-          : 'stroke-scene-sky'}"
-        stroke-width="1.5"
-        stroke-dasharray="2.5 1.5"
+          : 'stroke-scene-water'}"
+        stroke-width="1.7"
+        stroke-dasharray="3 1"
       />
     {:else if object.effect === "salt"}
       <!-- A pinch from each flick, the grains spreading a little as they fall, outlined so white salt shows against white tiles. -->
       {@const grains = `M${n(tip.x)} ${n(tip.y + 0.5)}l-0.9 ${n(fall - 0.5)}M${n(tip.x + 0.3)} ${n(tip.y + 0.5)}v${n(fall - 0.5)}M${n(tip.x + 0.6)} ${n(tip.y + 0.5)}l0.9 ${n(fall - 0.5)}`}
       <path
         d={grains}
-        class="animate-pour stroke-portrait-ink/45"
-        stroke-width="1.35"
-        stroke-dasharray="0.3 1.7"
+        class="animate-pour stroke-portrait-ink/60"
+        stroke-width="1.7"
+        stroke-dasharray="0.4 1.6"
       />
       <path
         d={grains}
         class="animate-pour stroke-white"
-        stroke-width="0.8"
-        stroke-dasharray="0.3 1.7"
+        stroke-width="1.05"
+        stroke-dasharray="0.4 1.6"
       />
     {:else}
       <path
@@ -272,6 +278,10 @@
   {/if}
   {#if hands.lead}
     {@render inHand(rig.leadArm.end, hands.lead, "lead")}
+  {/if}
+  <!-- The other hand on the pot's near handle, round from behind the body: drawn under the pot, it was not seen holding it. -->
+  {#if hands.lead?.kind === "pot"}
+    {@render hand(rig.rearArm.end)}
   {/if}
 
   {@render hand(rig.leadArm.end)}

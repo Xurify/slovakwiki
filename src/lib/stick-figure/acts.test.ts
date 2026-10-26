@@ -26,21 +26,21 @@ describe("the world the cues leave", () => {
     expect(heldBy(after[3], "marek")).toEqual({ lead: "spoon" });
   });
 
-  it("takes a lid in the other hand, out of the way", () => {
+  it("takes a board in the other hand, out of the way", () => {
     const [, after] = worlds(
       [
         {
-          characterId: "maria",
+          characterId: "anna",
           act: [
-            { do: "take", what: "lid" },
-            { do: "take", what: "spoon" },
+            { do: "take", what: "board" },
+            { do: "take", what: "knife" },
           ],
         },
       ],
       KITCHEN,
     );
 
-    expect(heldBy(after, "maria")).toEqual({ lead: "spoon", rear: "lid" });
+    expect(heldBy(after, "anna")).toEqual({ lead: "knife", rear: "board" });
   });
 
   it("refuses an object the set does not have, so nothing comes from nowhere", () => {
@@ -58,7 +58,7 @@ describe("the world the cues leave", () => {
     ).toThrow(CueError);
     expect(() =>
       worlds(
-        [{ characterId: "marek", act: [{ do: "put", what: "lid", to: "pot" }] }],
+        [{ characterId: "marek", act: [{ do: "put", what: "ladle", to: "pot" }] }],
         KITCHEN,
       ),
     ).toThrow(CueError);
@@ -74,8 +74,10 @@ describe("cooking with the kitchen's set", () => {
           act: [
             { do: "go", to: "cupboard" },
             { do: "take", what: "pot" },
+            { do: "put", what: "pot", to: "basin" },
             { do: "fill", what: "pot" },
-            { do: "go", to: "pot-left" },
+            { do: "take", what: "pot" },
+            { do: "go", to: "hob-near" },
             { do: "put", what: "pot", to: "hob" },
           ],
         },
@@ -108,6 +110,23 @@ describe("cooking with the kitchen's set", () => {
     expect(played[2].objects.carrot.where).toEqual({ in: "pot" });
     expect(played[3].objects.pot).toMatchObject({ fill: "soup", heat: 1 });
     expect(played[3].minutes).toBe(60);
+  });
+
+  it("fills the pot only stood in the sink, where the water is seen going in", () => {
+    expect(() =>
+      worlds(
+        [
+          {
+            characterId: "marek",
+            act: [
+              { do: "take", what: "pot" },
+              { do: "fill", what: "pot" },
+            ],
+          },
+        ],
+        KITCHEN,
+      ),
+    ).toThrow(/sink/);
   });
 
   it("needs both hands free for the pot, and fills both with it", () => {
@@ -213,15 +232,15 @@ describe("cues on the clock", () => {
 
   it("plays a cue before the voice when asked, and waits for someone still busy", () => {
     const cues: Cue[] = [
-      { do: "take", what: "lid", on: "before" },
+      { do: "take", what: "salt", on: "before" },
       { do: "take", what: "spoon", on: "start" },
     ];
-    const [lid, spoon] = scheduleCues(cues, "maria", world, times, () => 0, {
+    const [salt, spoon] = scheduleCues(cues, "maria", world, times, () => 0, {
       maria: 1500,
     });
 
-    expect(lid.start).toBe(1500);
-    expect(spoon.start).toBeGreaterThanOrEqual(lid.end);
+    expect(salt.start).toBe(1500);
+    expect(spoon.start).toBeGreaterThanOrEqual(salt.end);
   });
 });
 

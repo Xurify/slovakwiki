@@ -178,7 +178,8 @@ export type Spot =
 
 /** What the cast works at and with: pieces, objects, and the named spots and places. */
 export interface SetPlan {
-  pieces: readonly { id: string }[];
+  /** `sink`: a counter's sink, rig units from its middle (SetPiece). */
+  pieces: readonly { id: string; sink?: number }[];
   objects: readonly SetObject[];
   spots?: Readonly<Record<string, Spot>>;
   /** Where things are put down by name: a seat's place at the table. */
@@ -346,7 +347,21 @@ function on<T>(list: readonly T[] | undefined, item: T, yes: boolean): T[] {
 }
 
 /** Where `put` leaves an object: in another, at a named place, or on a piece. */
-function putDown(plan: SetPlan | undefined, world: World, cue: Cue): Where {
+/** The named place of a counter's sink that `where` stands down in, if it does: where a pot is stood to fill. */
+export function sinkAt(
+  plan: Pick<SetPlan, "pieces" | "places"> | undefined,
+  where: Where | undefined,
+): string | undefined {
+  if (!plan?.places || !where || !("on" in where)) return undefined;
+  const piece = plan.pieces.find((candidate) => candidate.id === where.on);
+  if (piece?.sink === undefined || piece.sink !== where.dx) return undefined;
+  return Object.entries(plan.places).find(
+    ([, place]) => place.piece === where.on && place.dx === where.dx,
+  )?.[0];
+}
+
+/** Where `cue` puts what it puts down: in an object, on a named place, or on a piece. */
+export function putDown(plan: SetPlan | undefined, world: World, cue: Cue): Where {
   const to = cue.to ?? "";
   if (world.objects[to]) return { in: to };
   const place = plan?.places?.[to];
@@ -481,7 +496,12 @@ export function applyCue(
       });
     }
     case "fill":
-      holds(world, who, cue);
+      // A pot is stood in the sink and filled from the tap: held under it, the arms hid the water.
+      if (object && HEAVY.includes(object.kind)) {
+        if (plan && !sinkAt(plan, object.where)) {
+          throw new CueError(`${who} fill ${what}: put it in the sink first`);
+        }
+      } else holds(world, who, cue);
       return setObject(world, what!, { fill: "water" });
     case "pour": {
       holds(world, who, cue);

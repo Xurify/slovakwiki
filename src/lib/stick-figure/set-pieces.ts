@@ -68,16 +68,15 @@ export function pieceTop(piece: Pick<SetPiece, "kind" | "height">): number {
 
 /**
  * How each kind is held, from the point it stands on (y up from its base):
- * a pot by both handles at its rim, turned side-on as it comes up (the
- * hands meet over its middle), a spoon by the end of its handle, a cup by
- * the handle on its right, a bowl from underneath. `top` is how tall it
- * stands, for what goes in or on it.
+ * a pot by its far handle, the other hand on the near one, a spoon by the
+ * end of its handle, a cup by the handle on its right, a bowl from
+ * underneath. `top` is how tall it stands, for what goes in or on it.
  */
 export const OBJECT_SIZE: Record<
   ObjectKind,
   { grip: Point; top: number; width: number }
 > = {
-  pot: { grip: { x: 0, y: 12.5 }, top: 15, width: 31 },
+  pot: { grip: { x: 13.75, y: 11.5 }, top: 15, width: 31 },
   lid: { grip: { x: 0, y: 5.6 }, top: 4, width: 26 },
   spoon: { grip: { x: 0, y: 5 }, top: 15, width: 5 },
   crock: { grip: { x: 0, y: 11 }, top: 11, width: 9 },
@@ -141,6 +140,13 @@ export const OPENING: Partial<Record<ObjectKind, { half: number; depth: number }
   crock: { half: 4, depth: 10 },
 };
 
+/**
+ * A counter's sink, sunk in the worktop (StickSet.svelte): half its width,
+ * how high over the worktop the tap's spout is, and how far down in it what
+ * stands there stands: a pot's rim shows, with the water falling in.
+ */
+export const SINK = { half: 12, spout: 15, depth: 10 };
+
 /** How far down into what holds it an object sits: a spoon in the crock, a lid on the rim, carrots on the board. */
 const INSIDE: Partial<Record<ObjectKind, number>> = {
   lid: 0,
@@ -181,7 +187,8 @@ export function objectBase(
     const piece = pieceOf(geometry, where.on);
     const x = geometry.pieceX(where.on);
     if (!piece || x === undefined) return undefined;
-    return { x: x + where.dx, y: pieceTop(piece) };
+    const down = piece.sink === where.dx ? SINK.depth : 0;
+    return { x: x + where.dx, y: pieceTop(piece) + down };
   }
   if ("in" in where) {
     const holder = world.objects[where.in];
@@ -209,6 +216,16 @@ export function objectGrip(
   if (hangs(world, id, geometry)) return { x: base.x, y: base.y + 2 };
   const { grip } = OBJECT_SIZE[kind];
   return { x: base.x + grip.x * facing, y: base.y - grip.y };
+}
+
+/** Whether a named place of the set is a counter's sink, which a pot is stood down in to fill. */
+export function isSink(
+  set: Pick<SetPlan, "places"> | undefined,
+  geometry: SetGeometry,
+  name: string,
+): boolean {
+  const place = set?.places?.[name];
+  return place !== undefined && pieceOf(geometry, place.piece)?.sink === place.dx;
 }
 
 /** Whether an object hangs from a rail rather than standing on something. */

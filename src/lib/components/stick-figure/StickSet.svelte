@@ -3,6 +3,7 @@
   import { n } from "$lib/stick-figure/draw";
   import { GROUND_Y } from "$lib/stick-figure/rig";
   import {
+    SINK,
     hangs,
     objectBase,
     pieceSize,
@@ -35,6 +36,7 @@
   } = $props();
 
   const FLAT = new Set(["phone", "keys"]);
+  const uid = $props.id();
 
   const pieces = $derived(
     geometry.pieces.filter(
@@ -57,7 +59,7 @@
         // Carrots in the pot are bits in the soup, drawn with it.
         if (state.kind === "carrot" && holder?.kind === "pot") return [];
         const at = objectBase(world, id, geometry);
-        return at ? [{ id, state, at, depth: depthOf(id) }] : [];
+        return at ? [{ id, state, at, depth: depthOf(id), sink: sinkOf(id) }] : [];
       })
       .sort((a, b) => a.depth - b.depth),
   );
@@ -70,6 +72,18 @@
       where = world.objects[where.in]?.where;
     }
     return depth;
+  }
+
+  /** The sink an object stands down in, in cast units: what is under the worktop there is hidden. */
+  function sinkOf(id: string): { left: number; right: number; top: number } | undefined {
+    const where = world.objects[id]?.where;
+    if (!where || !("on" in where)) return undefined;
+    const piece = geometry.pieces.find((candidate) => candidate.id === where.on);
+    if (!piece || piece.sink !== where.dx) return undefined;
+    const x = pieceX(piece) + piece.sink;
+    // A unit past the sink's sides, so the outline of a pot that fills it goes under the worktop too.
+    const half = SINK.half + 1;
+    return { left: x - half, right: x + half, top: pieceTop(piece) };
   }
 
   function lidOn(id: string): boolean {
@@ -183,10 +197,14 @@
         />
         {#if sink !== undefined}
           <!-- The sink, sunk in the worktop, and its tap curving over it from the back. -->
-          <path d="M{sink - 12} {top - 0.6}h24l-1.5 3h-21Z" class="fill-scene-line/45" />
           <path
-            d="M{sink + 6} {top - 1}V{top - 12}Q{sink + 6} {top - 15} {sink + 3} {top -
-              15}H{sink}"
+            d="M{sink - SINK.half} {top - 0.6}h{SINK.half * 2}l-1.5 3h{3 -
+              SINK.half * 2}Z"
+            class="fill-scene-line/45"
+          />
+          <path
+            d="M{sink + 6} {top - 1}V{top - SINK.spout + 3}Q{sink + 6} {top -
+              SINK.spout} {sink + 3} {top - SINK.spout}H{sink}"
             class="stroke-scene-line/70"
             stroke-width="1.6"
           />
@@ -196,11 +214,17 @@
             stroke-width="1.2"
           />
           {#if running.includes(piece.id)}
+            <!-- Outlined, so water shows against the white tiles. -->
             <path
-              d="M{sink} {top - 14}V{top - 1}"
-              class="animate-pour stroke-scene-sky"
-              stroke-width="1.6"
-              stroke-dasharray="2.5 1.5"
+              d="M{sink} {top - SINK.spout + 1}V{top - 1}"
+              class="stroke-portrait-ink/35"
+              stroke-width="2.8"
+            />
+            <path
+              d="M{sink} {top - SINK.spout + 1}V{top - 1}"
+              class="animate-pour stroke-scene-water"
+              stroke-width="1.8"
+              stroke-dasharray="3 1"
             />
           {/if}
         {/if}
@@ -298,21 +322,35 @@
     </g>
   {/each}
 
-  {#each placed as { id, state, at } (id)}
-    <g transform="translate({n(at.x)} {n(at.y)})">
-      <StickSetObject
-        kind={state.kind}
-        fill={state.fill}
-        heat={state.heat}
-        cut={state.cut}
-        wilt={state.wilt}
-        flat={FLAT.has(state.kind)}
-        hang={hangs(world, id, geometry)}
-        open={state.kind === "pot" ? !lidOn(id) : undefined}
-        bits={state.kind === "pot" &&
-          contents(world, id).some((inside) => world.objects[inside]?.kind === "carrot")}
-        rattle={state.kind === "lid" && rattles(id)}
-      />
+  {#each placed as { id, state, at, sink } (id)}
+    {#if sink}
+      <clipPath id="{uid}-sink-{id}">
+        <path
+          d="M{n(view.x)} {n(view.y)}h{n(view.width)}v{n(view.height)}h{n(
+            -view.width,
+          )}ZM{n(sink.left)} {n(sink.top)}H{n(sink.right)}V{n(GROUND_Y)}H{n(sink.left)}Z"
+          clip-rule="evenodd"
+        />
+      </clipPath>
+    {/if}
+    <g clip-path={sink ? `url(#${uid}-sink-${id})` : undefined}>
+      <g transform="translate({n(at.x)} {n(at.y)})">
+        <StickSetObject
+          kind={state.kind}
+          fill={state.fill}
+          heat={state.heat}
+          cut={state.cut}
+          wilt={state.wilt}
+          flat={FLAT.has(state.kind)}
+          hang={hangs(world, id, geometry)}
+          open={state.kind === "pot" ? !lidOn(id) : undefined}
+          bits={state.kind === "pot" &&
+            contents(world, id).some(
+              (inside) => world.objects[inside]?.kind === "carrot",
+            )}
+          rattle={state.kind === "lid" && rattles(id)}
+        />
+      </g>
     </g>
   {/each}
 </svg>

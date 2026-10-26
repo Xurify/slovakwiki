@@ -565,15 +565,16 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "take", what: "pot", on: "no" },
     { who: "anna", do: "chop", what: "carrot", on: "start" },
   ],
-  // Mária lights her own burner once the pot is on it, and Marek steps back out of the cooks' way.
+  // The pot stands in the sink to fill, so the water is seen going in. Mária lights her burner once the pot is on it, and Marek steps back out of the cooks' way.
   "maria-fill-pot": [
     { do: "nod", on: "hej" },
-    { who: "marek", do: "fill", what: "pot", on: "nalej" },
-    { who: "marek", do: "go", to: "pot-left" },
+    { who: "marek", do: "put", what: "pot", to: "basin", on: "nalej" },
+    { who: "marek", do: "fill", what: "pot" },
+    { who: "marek", do: "take", what: "pot" },
+    { who: "marek", do: "go", to: "hob-near" },
     { who: "marek", do: "put", what: "pot", to: "hob" },
-    { who: "marek", do: "go", to: "aside" },
-    { do: "nod", on: "sporák" },
     { do: "switch", what: "stove", to: "on" },
+    { who: "marek", do: "go", to: "aside" },
   ],
   // She shows the cut, not points at the carrot she stands over.
   "anna-like-this": [

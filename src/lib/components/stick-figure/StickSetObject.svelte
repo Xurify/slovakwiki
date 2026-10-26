@@ -20,8 +20,6 @@
     hang?: boolean;
     /** What lies on it, carried with it: the carrots on a board. `dx`, `dy` from its base. */
     on?: Array<ObjectLook & { dx: number; dy: number }>;
-    /** In someone's hands, turned side-on: a pot's handles point at us and away. */
-    carried?: boolean;
   }
 </script>
 
@@ -34,7 +32,6 @@
    */
   let {
     bits = false,
-    carried = false,
     cut = 0,
     fill,
     flat = false,
@@ -129,32 +126,25 @@
     <circle cx="0" cy="13" r="9" class="stroke-white/20" fill="none" />
     <circle cx="0" cy="13" r="1.8" class="fill-portrait-vest" />
   {:else if kind === "pot"}
-    {#if !carried}
-      <path d="M-15.5 -11.5h3.5M12 -11.5h3.5" stroke-width="2.2" />
-    {/if}
+    <path d="M-15.5 -11.5h3.5M12 -11.5h3.5" stroke-width="2.2" />
     <path d="M-12 -15h24v11a4 4 0 0 1-4 4h-16a4 4 0 0 1-4-4Z" class="fill-scene-line" />
-    {#if carried}
-      <!-- The handle toward us, under the hands. -->
-      <rect
-        x="-3"
-        y="-13.6"
-        width="6"
-        height="2.6"
-        rx="1.2"
-        class="fill-scene-line"
-        stroke-width="0.8"
-      />
-    {/if}
     <path d="M-12 -12h24" class="stroke-white/25" stroke-width="1" />
-    {#if open && fill}
+    {#if open}
+      <!-- The open top, seen a little from above, and what is in it: empty, it is dark inside. -->
+      <ellipse cx="0" cy="-15" rx="12" ry="2.2" class="fill-scene-line" />
       <ellipse
         cx="0"
-        cy="-14.6"
-        rx="11"
-        ry="1.6"
-        class={soup ? "fill-scene-carrot" : "fill-scene-sky"}
+        cy="-14.8"
+        rx="10.4"
+        ry="1.5"
+        class={!fill
+          ? "fill-portrait-vest"
+          : soup
+            ? "fill-scene-carrot"
+            : "fill-scene-water"}
+        stroke="none"
       />
-      {#if bits}
+      {#if fill && bits}
         {#each [-7, -3, 1, 5, 8] as x (x)}
           <circle cx={x} cy="-14.7" r="0.7" class="fill-scene-honey" stroke="none" />
         {/each}
@@ -251,7 +241,7 @@
     {#if fill === "water"}
       <path
         d="M-4.7 -7H4.8L4.6 -1Q4.5 -0.5 3.5 -0.5H-3.5Q-4.5 -0.5 -4.6 -1Z"
-        class="fill-scene-sky"
+        class="fill-scene-water"
         stroke="none"
       />
     {/if}
