@@ -5,7 +5,7 @@
     playAmbience,
     playPhoneCue,
     playSegmentCue,
-    stopSteps,
+    stopCues,
     type AmbiencePlayer,
   } from "$lib/stick-figure/ambience";
 
@@ -79,6 +79,8 @@
   let live = $state(false);
   let settled = !follows;
   let waiting = 0;
+  /** The line on stage has played to its end, so the next one follows on from it. */
+  let finished = true;
 
   const direction = $derived(
     directScene(scene.lines, scene.setting, scene.order, scene.carried),
@@ -109,7 +111,14 @@
     onStart: () => void,
   ): void {
     window.clearTimeout(waiting);
-    if (index !== at + 1) stage?.place(index);
+    // Anything but the next line once this one is over is a jump: a skip, a
+    // replay, or a click ahead while a walk or a ring is still going. The stage
+    // stops, which silences its cues, and puts everyone where the line finds them.
+    if (index !== at + 1 || !finished) {
+      stage?.stop();
+      stage?.place(index);
+    }
+    finished = false;
     at = index;
     live = true;
     listen();
@@ -138,6 +147,7 @@
         index,
         () => {
           speaking = false;
+          finished = true;
           if (last) {
             live = false;
             hush(HANDOVER_MS);
@@ -159,7 +169,7 @@
     speaking = false;
     stage?.stop();
     // A walk-off at the segment's end would go on sounding under the next segment's card.
-    stopSteps();
+    stopCues();
     hush(leaving ? HANDOVER_MS : 0);
   }
 

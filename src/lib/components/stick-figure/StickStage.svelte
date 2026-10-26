@@ -65,7 +65,7 @@
   } from "$lib/stick-figure/stage-frame";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
-  import { playSteps, playTramCue } from "$lib/stick-figure/ambience";
+  import { playSteps, playTramCue, stopCues } from "$lib/stick-figure/ambience";
   import type { TramState } from "$lib/stick-figure/street";
   import { STEP_MS, stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
@@ -316,6 +316,8 @@
 
   /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   export function place(index: number): void {
+    // Nobody walks there, so no walk scheduled before should go on sounding.
+    stopCues();
     const placed = blockingBefore(
       index,
       lines.map((line) => line.characterId),
@@ -466,6 +468,7 @@
 
   export function stop(): void {
     playToken += 1;
+    stopCues();
     window.clearTimeout(lineTimer);
     window.clearTimeout(bubbleTimer);
     bubble = undefined;
