@@ -11,7 +11,9 @@ Every iteration in the first four episodes came from something nobody had decide
 - [ ] The grammar page (`grammarSlug`) and the forms to cover: every row and every column of its tables, other cases too, and each contrast frame. A big table is not heard cell by cell: the imperative's 13 verbs × 3 persons fit a show only as one form per row.
 - [ ] The shape: a magazine show (intro, game, places, quiz, outro, as in `demonstratives.ts`) or a radio play with scene cards and no quiz (`past-tense.ts`). A play does not say anything wrong on purpose.
 - [ ] The thread: one object or problem from the first segment that comes back in the last line (the car key, the umbrella, the cake).
-- [ ] One line per segment saying what happens, in order, with where it is.
+- [ ] One line per segment saying what happens, in order, with where it is, and why the characters are there: a visit with no reason reads as confusing.
+- [ ] Fewer places, each worked out: who is there, what they want, how it starts and ends. Three thin segments and a one-word payoff read as rushed; give the ending room.
+- [ ] Every line is something that person would say then, real and natural first; the forms fit into it. Nobody knows what they could not know: someone tells them.
 
 **Cast and voices**
 
@@ -23,6 +25,7 @@ Every iteration in the first four episodes came from something nobody had decide
 
 - [ ] Each segment's `stage`: `studio` (default), `cafe`, `classroom`, `home`, `market`, `plaza`, `registration`, `street` (tram stop). A new place is a row in `places.ts` plus a drawing in `StickBackdrop`, a much bigger job: say so in the brief or avoid it.
 - [ ] Things the lines point at must be drawn in that place (`things` in its `PLACES` row) and props must exist (`STICK_PROP_IDS` in `props.ts`). A noun with neither is said, not shown. A new thing needs a drawing, a word in `thing-words.ts` and a clip.
+- [ ] The set is what the lines call it, and people do what they would there: pupils sit at desks, a meal is eaten at a table, a message pings or a call rings. What a line names is inside the middle 600 of the 960 drawing, or a phone's stage cuts it off.
 - [ ] How each change of place is said: the last line before (`Poďme na trh!`) and the first after (`Teraz sme na trhu.`), or a scene card (`Trh. Pol piatej.`).
 
 ## 2. The prompt

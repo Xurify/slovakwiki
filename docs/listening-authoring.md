@@ -57,3 +57,15 @@ Each of these went out in the first episode and had to be fixed. Read a script a
 - **A feeling that does not fit.** `Marek!` said flat when he has lost the keys again. A `SIGH` before it. Say how every directed line should feel, and listen back.
 - **A pause at the start of a clip.** It makes next to none; the player waits instead (`wait` on the line).
 - **The mouth on the wrong word.** The vowel track was aligned on the line without its pauses. `bun scripts/audio/lipsync.ts -- --only "…"` scores a clip; under 80% is wrong.
+
+From the review of episode 5 (the imperative), by a person on the episode page:
+
+- **A visit with no reason.** The hosts went to Mária's class with nothing said about why; it read as dropping in on her. Set up why the characters go somewhere, in a line before they go.
+- **Scenes written for the forms, not the people.** A lesson nobody would teach that way, and `Tak ho nezatváraj. A zavolaj Lucii. Nech príde na večeru.` three commands in a row because the table had them. Each line is what that person would say at that moment; the forms find their place in it.
+- **Someone who knows what they could not.** Marek came up with `choď` himself, the one form nobody can build. Someone tells him (`Ísť má vlastný tvar: choď.`) and he says it back.
+- **A game whose trick is never said.** Anna gave every verb in its oni form and nobody said why, so the listener wondered why it was always "they". When a game rests on a rule, a line says the rule.
+- **Too many places, too little in each, and a rushed end.** Classroom, home, quiz and outro were short and mashed together, and the payoff was one word (`Pi!`). Fewer places, each with a beginning, a middle and an end, and room for the last beat.
+- **A set that is not what it says.** A classroom with no desks, everyone standing. A place looks like what the lines call it, and people do what they would there: pupils sit (`Sadnite si.`).
+- **Things on the set that the stage cuts off.** The studio's clock was cut in half, a speaker showed as a sliver, and the plant the whole episode was about was off the stage. What a line names must be inside what a phone's 2:1 stage shows.
+- **News with no sound.** `Lucia práve píše…` with no ping. A message pings; better still, the phone rings and the call is played.
+- **A voice with a tone nobody chose.** Marek's voice read as suggestive on a plain question to the teacher, and his tired line did not sound tired. Hear a voice on its own lines in the episode before voicing them all, and give a directed feeling its tag (`YAWN`).
