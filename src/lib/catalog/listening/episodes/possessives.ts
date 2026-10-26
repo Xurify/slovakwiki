@@ -1,5 +1,5 @@
 import type { MarkedPart } from "$lib/learning/marked-text";
-import { PAUSE, SIGH, afterThinking, lineWriter } from "../dialogue";
+import { PAUSE, SIGH, afterThinking, lineWriter, rightOrWrong } from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-possessives-";
@@ -727,11 +727,14 @@ const quiz: ListeningChapter = {
       ],
       "We're back in the studio. And now a game: right or wrong? Guess along with us!",
     ),
-    line(
-      "marek-first-sentence",
-      "Marek",
-      ["Prvá veta: ", PAUSE, mark("Moja"), " brat je učiteľ."],
-      "First sentence: Moja brat je učiteľ. (Wrong on purpose.)",
+    rightOrWrong(
+      line(
+        "marek-first-sentence",
+        "Marek",
+        ["Prvá veta: ", PAUSE, mark("Moja"), " brat je učiteľ."],
+        "First sentence: Moja brat je učiteľ.",
+      ),
+      "wrong",
     ),
     afterThinking(
       line(
@@ -741,11 +744,14 @@ const quiz: ListeningChapter = {
         "Wrong! Brat is masculine: môj brat.",
       ),
     ),
-    line(
-      "marek-second-sentence",
-      "Marek",
-      ["Druhá veta: ", PAUSE, "Idem do kina so ", mark("svojou"), " sestrou."],
-      "Second sentence: I'm going to the cinema with my sister.",
+    rightOrWrong(
+      line(
+        "marek-second-sentence",
+        "Marek",
+        ["Druhá veta: ", PAUSE, "Idem do kina so ", mark("svojou"), " sestrou."],
+        "Second sentence: I'm going to the cinema with my sister.",
+      ),
+      "right",
     ),
     afterThinking(
       line(
@@ -763,11 +769,14 @@ const quiz: ListeningChapter = {
         "Right! I am going and the sister is mine: so svojou sestrou.",
       ),
     ),
-    line(
-      "marek-third-sentence",
-      "Marek",
-      ["Tretia veta: ", PAUSE, mark("Svoj"), " brat je učiteľ."],
-      "Third sentence: Svoj brat je učiteľ. (Wrong on purpose.)",
+    rightOrWrong(
+      line(
+        "marek-third-sentence",
+        "Marek",
+        ["Tretia veta: ", PAUSE, mark("Svoj"), " brat je učiteľ."],
+        "Third sentence: Svoj brat je učiteľ.",
+      ),
+      "wrong",
     ),
     afterThinking(
       line(
@@ -786,11 +795,14 @@ const quiz: ListeningChapter = {
         "Wrong! Svoj points back to the subject. Here the subject is brat. The right form is: jeho brat je učiteľ.",
       ),
     ),
-    line(
-      "marek-last-sentence",
-      "Marek",
-      ["A posledná veta: ", PAUSE, mark("Ich"), " auto je červené."],
-      "And the last sentence: Their car is red.",
+    rightOrWrong(
+      line(
+        "marek-last-sentence",
+        "Marek",
+        ["A posledná veta: ", PAUSE, mark("Ich"), " auto je červené."],
+        "And the last sentence: Their car is red.",
+      ),
+      "right",
     ),
     afterThinking(
       line(

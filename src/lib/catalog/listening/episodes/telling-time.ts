@@ -1,5 +1,5 @@
 import type { MarkedPart } from "$lib/learning/marked-text";
-import { PAUSE, SIGH, STOP, afterThinking, lineWriter } from "../dialogue";
+import { PAUSE, SIGH, STOP, afterThinking, lineWriter, rightOrWrong } from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-telling-time-";
@@ -740,11 +740,14 @@ const quiz: ListeningChapter = {
       ],
       "We're back in the studio and it's one o'clock. And now a game: right or wrong? Guess along with us!",
     ),
-    line(
-      "marek-first-sentence",
-      "Marek",
-      ["Prvá veta: ", PAUSE, mark("Sú päť hodín"), "."],
-      "First sentence: Sú päť hodín. (Wrong on purpose.)",
+    rightOrWrong(
+      line(
+        "marek-first-sentence",
+        "Marek",
+        ["Prvá veta: ", PAUSE, mark("Sú päť hodín"), "."],
+        "First sentence: Sú päť hodín.",
+      ),
+      "wrong",
     ),
     afterThinking(
       line(
@@ -762,11 +765,14 @@ const quiz: ListeningChapter = {
         "Wrong! Five and more: je päť hodín, je desať hodín.",
       ),
     ),
-    line(
-      "marek-second-sentence",
-      "Marek",
-      ["Druhá veta: ", PAUSE, mark("Pol tretej"), " je tri tridsať."],
-      "Second sentence: Pol tretej is three thirty. (Wrong on purpose.)",
+    rightOrWrong(
+      line(
+        "marek-second-sentence",
+        "Marek",
+        ["Druhá veta: ", PAUSE, mark("Pol tretej"), " je tri tridsať."],
+        "Second sentence: Pol tretej is three thirty.",
+      ),
+      "wrong",
     ),
     afterThinking(
       line(
@@ -781,11 +787,14 @@ const quiz: ListeningChapter = {
         "Wrong! Pol tretej is two thirty. We look toward the third hour.",
       ),
     ),
-    line(
-      "marek-third-sentence",
-      "Marek",
-      ["Tretia veta: ", PAUSE, "Stretneme sa ", mark("o tretej"), "."],
-      "Third sentence: We'll meet at three.",
+    rightOrWrong(
+      line(
+        "marek-third-sentence",
+        "Marek",
+        ["Tretia veta: ", PAUSE, "Stretneme sa ", mark("o tretej"), "."],
+        "Third sentence: We'll meet at three.",
+      ),
+      "right",
     ),
     afterThinking(
       line(
@@ -804,11 +813,14 @@ const quiz: ListeningChapter = {
         "Right! At three, at four, at five: a time on the clock.",
       ),
     ),
-    line(
-      "marek-last-sentence",
-      "Marek",
-      ["A posledná veta: ", PAUSE, "Zavolám ti ", mark("o dve hodiny"), "."],
-      "And the last sentence: I'll call you in two hours.",
+    rightOrWrong(
+      line(
+        "marek-last-sentence",
+        "Marek",
+        ["A posledná veta: ", PAUSE, "Zavolám ti ", mark("o dve hodiny"), "."],
+        "And the last sentence: I'll call you in two hours.",
+      ),
+      "right",
     ),
     afterThinking(
       line(

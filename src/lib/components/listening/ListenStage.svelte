@@ -11,9 +11,11 @@
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import {
+    getListenPlayAlong,
     getStoryPlaceSound,
     getStoryShowEnglish,
     getStorySubtitles,
+    setListenPlayAlong,
     setStoryPlaceSound,
     setStoryShowEnglish,
     setStorySubtitles,
@@ -26,6 +28,7 @@
 
   import EpisodeCheck from "./EpisodeCheck.svelte";
   import EpisodeLine from "./EpisodeLine.svelte";
+  import ListenerAsk from "./ListenerAsk.svelte";
   import { episodeSpeakerName } from "./episode-speaker";
   import ListenControl from "./ListenControl.svelte";
   import ListenScene from "./ListenScene.svelte";
@@ -81,14 +84,22 @@
   let subtitles = $state(true);
   let volume = $state(1);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
+  let playAlong = $state(true);
+  /** The listener's answer to each line that asks for one, this time through. */
+  let picks = $state<Record<string, string>>({});
+  /** The ask whose answer has started to be heard, so the pick can be marked. */
+  let revealedFor = $state<string | null>(null);
 
   const lines = chapter.lines;
   // Switching questions on mid-segment changes only what comes at its end.
   const checks = $derived(questions ? chapter.checks : []);
   const speakers = [...new Set(lines.map((line) => line.speaker))];
 
+  const asks = lines.some((line) => line.ask);
+
   const player = new LinePlayer(lines, audioSrcs, {
     stage: () => sceneStage,
+    holdsAfter: (index) => playAlong && Boolean(lines[index]?.ask),
     isLast: (index) => index === lines.length - 1,
     onRunEnd: () => {
       const first = !listened;
@@ -104,6 +115,38 @@
       void reveal("[data-listen-checks]");
     },
   });
+
+  /** The asking line whose card shows: held for an answer, or answered while the answer plays. */
+  const askAt = $derived.by(() => {
+    if (player.held) return lines[player.cursor]?.ask ? player.cursor : -1;
+    const before = lines[player.cursor - 1];
+    return before?.ask && picks[before.id] ? player.cursor - 1 : -1;
+  });
+  const askLine = $derived(askAt >= 0 ? lines[askAt] : undefined);
+
+  // Held again, as after replaying the question: a fresh go at it.
+  $effect(() => {
+    if (!player.held) return;
+    const id = lines[player.cursor]?.id;
+    untrack(() => {
+      if (!id || !(id in picks)) return;
+      const { [id]: _, ...rest } = picks;
+      picks = rest;
+      revealedFor = null;
+    });
+  });
+
+  $effect(() => {
+    if (askLine && player.speaking && player.cursor === askAt + 1) {
+      revealedFor = askLine.id;
+    }
+  });
+
+  function pick(id: string): void {
+    if (!askLine) return;
+    picks = { ...picks, [askLine.id]: id };
+    player.answered();
+  }
 
   const check = $derived(checks[checkAt]);
   const stage = $derived.by((): Stage => {
@@ -129,6 +172,7 @@
     const position = `line ${player.cursor + 1} of ${lines.length}`;
     if (player.speaking && line)
       return `${episodeSpeakerName(line.speaker)} · ${position}`;
+    if (player.held) return `Your turn · ${position}`;
     if (player.playing) return position;
     if (stage === "idle") return idleCopy;
     if (stage === "listening") return `Paused · ${position}`;
@@ -138,6 +182,7 @@
 
   const playLabel = $derived.by(() => {
     if (player.playing) return "Pause";
+    if (player.held) return "Go on";
     if (stage === "idle") return "Listen";
     if (stage === "listening") return "Resume";
     return "Listen again";
@@ -202,6 +247,19 @@
           },
         ]
       : []),
+    ...(asks
+      ? [
+          {
+            description: "Stop when the hosts ask you to guess along",
+            label: "Play along",
+            on: playAlong,
+            ontoggle: () => {
+              playAlong = !playAlong;
+              setListenPlayAlong(playAlong ? "on" : "off");
+            },
+          },
+        ]
+      : []),
     ...(ontogglequestions
       ? [
           {
@@ -244,6 +302,7 @@
     english = getStoryShowEnglish() === "on";
     placeSound = getStoryPlaceSound() === "on";
     subtitles = getStorySubtitles() === "on";
+    playAlong = getListenPlayAlong() === "on";
     volume = getAudioVolume();
 
     function onVolumeChange(): void {
@@ -298,6 +357,21 @@
       {thingWords}
       turns={lines}
     />
+  {/if}
+
+  {#if askLine?.ask}
+    {@const answerer = lines[askAt + 1]?.speaker}
+
+    {#key askLine.id}
+      <ListenerAsk
+        answerer={answerer ? episodeSpeakerName(answerer) : "the host"}
+        ask={askLine.ask}
+        onpick={pick}
+        onskip={() => player.answered()}
+        picked={picks[askLine.id] ?? null}
+        revealed={revealedFor === askLine.id}
+      />
+    {/key}
   {/if}
 
   <div class="px-4 pt-3 pb-4 sm:px-5">

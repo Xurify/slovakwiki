@@ -95,6 +95,31 @@ export function afterThinking(turn: DialogueTurn): DialogueTurn {
   return { ...turn, wait: THINK_MS };
 }
 
+const RIGHT_OR_WRONG = [
+  { id: "right", label: "Správne", english: "Right" },
+  { id: "wrong", label: "Nesprávne", english: "Wrong" },
+];
+
+/**
+ * A sentence the hosts' game puts to the listener as well: the player holds
+ * after it until they pick right or wrong, and the verdict that follows is
+ * theirs to check.
+ */
+export function rightOrWrong(
+  turn: DialogueTurn,
+  answerId: "right" | "wrong",
+): DialogueTurn {
+  return {
+    ...turn,
+    ask: {
+      prompt: "Správne alebo nesprávne?",
+      promptEnglish: "Right or wrong?",
+      choices: RIGHT_OR_WRONG,
+      answerId,
+    },
+  };
+}
+
 /** A guess at something not yet shown: none of the speaker's sentences brings a prop out. */
 export function guess(sentences: number): null[] {
   return Array.from({ length: sentences }, () => null);

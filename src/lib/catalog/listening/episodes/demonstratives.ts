@@ -1,5 +1,13 @@
 import type { MarkedPart } from "$lib/learning/marked-text";
-import { PAUSE, SIGH, STOP, afterThinking, guess, lineWriter } from "../dialogue";
+import {
+  PAUSE,
+  SIGH,
+  STOP,
+  afterThinking,
+  guess,
+  lineWriter,
+  rightOrWrong,
+} from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-demonstratives-";
@@ -624,11 +632,14 @@ const quiz: ListeningChapter = {
       ["A teraz hra: správne alebo nesprávne? Hádajte s nami!"],
       "And now a game: right or wrong? Guess along with us!",
     ),
-    line(
-      "marek-first-sentence",
-      "Marek",
-      ["Dobre. Prvá veta: ", PAUSE, mark("Tá"), " dievča je moja sestra."],
-      "OK. First sentence: Tá dievča je moja sestra. (Wrong on purpose.)",
+    rightOrWrong(
+      line(
+        "marek-first-sentence",
+        "Marek",
+        ["Dobre. Prvá veta: ", PAUSE, mark("Tá"), " dievča je moja sestra."],
+        "OK. First sentence: Tá dievča je moja sestra.",
+      ),
+      "wrong",
     ),
     afterThinking(
       line(
@@ -638,11 +649,14 @@ const quiz: ListeningChapter = {
         "Wrong! Dievča is neuter: to dievča.",
       ),
     ),
-    line(
-      "marek-second-sentence",
-      "Marek",
-      ["Druhá veta: ", PAUSE, mark("Tie"), " deti sa hrajú vonku."],
-      "Second sentence: Those children are playing outside.",
+    rightOrWrong(
+      line(
+        "marek-second-sentence",
+        "Marek",
+        ["Druhá veta: ", PAUSE, mark("Tie"), " deti sa hrajú vonku."],
+        "Second sentence: Those children are playing outside.",
+      ),
+      "right",
     ),
     afterThinking(
       line(
@@ -663,11 +677,14 @@ const quiz: ListeningChapter = {
         "Right! Tie deti, tie ženy. Tí muži, tí chlapci.",
       ),
     ),
-    line(
-      "marek-last-sentence",
-      "Marek",
-      ["A posledná veta: ", PAUSE, "Poznáš ", mark("tohoto"), " muža?"],
-      "And the last sentence: Poznáš tohoto muža? (The Czech form, on purpose.)",
+    rightOrWrong(
+      line(
+        "marek-last-sentence",
+        "Marek",
+        ["A posledná veta: ", PAUSE, "Poznáš ", mark("tohoto"), " muža?"],
+        "And the last sentence: Poznáš tohoto muža?",
+      ),
+      "wrong",
     ),
     afterThinking(
       line(
