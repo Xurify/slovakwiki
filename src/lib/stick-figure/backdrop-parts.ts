@@ -77,6 +77,10 @@ export const PARTS = {
     clock: { hand: 12, r: 20, x: 800, y: 78 },
     plant: { x: 944, y: 232 },
   },
+  default: {
+    bench: { ground: 266, width: 104, x: 662 },
+    lamp: { ground: 264, x: 252 },
+  },
   home: { plant: { x: 40, y: 244 } },
   plaza: {
     bench: { ground: 251, width: 112, x: 24 },
