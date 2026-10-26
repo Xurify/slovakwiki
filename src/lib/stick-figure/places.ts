@@ -158,6 +158,29 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     post: 360,
     glass: { height: 100, width: 130, x: 106, y: 54 },
   },
+  kitchen: {
+    ground: "wood",
+    label: "In the kitchen",
+    outdoors: false,
+    things: [
+      drawn(WORDS.dvere, [190, 40, 72, 186]),
+      drawn(WORDS.chladnicka, [280, 66, 56, 160]),
+      drawn(WORDS.okno, [372, 54, 104, 80]),
+      drawn(WORDS.hodiny, clockBox(PARTS.kitchen.clock)),
+      drawn(WORDS.umyvadlo, [582, 116, 54, 34]),
+      drawn(WORDS.hrniec, [690, 100, 62, 42]),
+      drawn(WORDS.sporak, [684, 142, 80, 84]),
+    ],
+    sounds: ["hum"],
+    // The cook works at the stove end; guests eat at the table by the window.
+    staff: ["maria"],
+    furniture: [
+      { kind: "chair", x: 360, facing: 1 },
+      { kind: "table", x: 440 },
+      { kind: "chair", x: 520, facing: -1 },
+    ],
+    glass: { height: 64, width: 88, x: 380, y: 62 },
+  },
   market: {
     ground: "stone",
     label: "At the market",

@@ -119,7 +119,6 @@
   let turns = $state<TurnDelays>({});
   let offsets = $state<Offsets>({});
   let seated = $state<Blocking["seated"]>({});
-  const sitting = $derived(seatedFacings(seated, frame));
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
@@ -190,6 +189,8 @@
       stageHeight,
     ),
   );
+  /** Someone on a chair faces the way it does, whoever points or talks. */
+  const sitting = $derived(seatedFacings(seated, frame));
   const pickedThing = $derived(things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room

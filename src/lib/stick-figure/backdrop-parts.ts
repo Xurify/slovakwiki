@@ -84,6 +84,9 @@ export const PARTS = {
     lamp: { ground: 231, x: 779 },
     tree: { ground: 250, planter: true, x: 902 },
   },
+  kitchen: {
+    clock: { hand: 10, r: 18, ticks: false, x: 520, y: 70 },
+  },
   registration: {
     clock: { hand: 12, r: 24, ticks: true, x: 300, y: 72 },
     plant: { x: 256, y: 228 },

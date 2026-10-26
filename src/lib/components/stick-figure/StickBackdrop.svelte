@@ -19,6 +19,7 @@
   import Registration from "./backdrops/Registration.svelte";
   import Street from "./backdrops/Street.svelte";
   import Studio from "./backdrops/Studio.svelte";
+  import Kitchen from "./backdrops/Kitchen.svelte";
   import MoodLayer from "./backdrops/MoodLayer.svelte";
   import SkyLayer from "./backdrops/SkyLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
@@ -70,6 +71,7 @@
     classroom: Classroom,
     default: Park,
     home: Home,
+    kitchen: Kitchen,
     market: Market,
     plaza: Plaza,
     registration: Registration,
