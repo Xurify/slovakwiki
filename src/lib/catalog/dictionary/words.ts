@@ -764,16 +764,18 @@ function frequencyExampleNote(examples: Example[]): string {
     (example) => example.note === "Curated" || example.demonstrates,
   );
 
+  const meaning = "English meanings were added with the corpus frequency list.";
+
   if (hasTatoeba && !hasReviewed) {
-    return "English gloss from the frequency publish path. Example sentences from Tatoeba (CC BY 2.0 FR).";
+    return `${meaning} Example sentences come from Tatoeba.`;
   }
   if (hasTatoeba) {
-    return "English gloss from the frequency publish path. Includes Tatoeba example sentences when present.";
+    return `${meaning} Some example sentences are hand-checked; the rest come from Tatoeba.`;
   }
   if (hasReviewed) {
-    return "English gloss from the frequency publish path. Hand-reviewed example sentences.";
+    return `${meaning} Example sentences are hand-checked.`;
   }
-  return "English gloss from the frequency publish path.";
+  return meaning;
 }
 
 function wordAttribution(origin: WordOrigin, examples: Example[]) {

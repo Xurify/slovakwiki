@@ -26,11 +26,12 @@
 </script>
 
 <li
-  class="group/row grid grid-cols-[2.75rem_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-slate-200/70 py-3 last:border-b-0 max-[560px]:grid-cols-[2.75rem_minmax(0,1fr)]"
+  class="group/row grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-slate-200/70 py-3 last:border-b-0 max-[560px]:grid-cols-[1.75rem_minmax(0,1fr)]"
 >
-  <span class="grid min-h-7 place-items-center">
+  <!-- Centred on the Slovak line's lowercase letters, as in GrammarSentence. -->
+  <span class="mt-0.5 grid min-h-7 place-items-center">
     {#if audioKey}
-      <span class="inline-grid size-11 place-items-center" data-audio-mount={audioKey}
+      <span class="inline-grid size-7 place-items-center" data-audio-mount={audioKey}
       ></span>
     {:else}
       <span class="text-xs text-slate-400" aria-hidden="true">•</span>
@@ -38,7 +39,10 @@
   </span>
 
   <div class="min-w-0">
-    <p class="m-0 font-serif text-lg leading-snug text-pretty text-slate-900" lang="sk">
+    <p
+      class="m-0 pt-0.5 font-serif text-lg leading-snug text-pretty text-slate-900"
+      lang="sk"
+    >
       {#each parts as part, partIndex (`${partIndex}-${part.text}`)}
         {#if part.hit}
           <span class="rounded-sm bg-mark px-px font-semibold">{part.text}</span>
