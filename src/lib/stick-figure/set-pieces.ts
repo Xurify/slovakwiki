@@ -134,7 +134,8 @@ export const OBJECT_SIZE: Record<
   cutlery: { grip: { x: -4, y: 0.6 }, top: 1, width: 10 },
   towel: { grip: { x: 0, y: -4 }, top: 0, width: 7 },
   phone: { grip: { x: 0, y: 3.5 }, top: 1, width: 4 },
-  keys: { grip: { x: 0, y: 2 }, top: 1, width: 5 },
+  // Held by the ring, the keys hanging under the fist.
+  keys: { grip: { x: 0, y: 6.4 }, top: 1, width: 5 },
   mic: { grip: { x: 0, y: 3.5 }, top: 12.7, width: 5 },
   cup: { grip: { x: 5, y: 4 }, top: 7, width: 9 },
   can: { grip: { x: -2, y: 14 }, top: 12, width: 26 },
@@ -188,9 +189,11 @@ export const OPENING: Partial<Record<ObjectKind, { half: number; depth: number }
 /**
  * A counter's sink, sunk in the worktop (StickSet.svelte): half its width,
  * how high over the worktop the tap's spout is, and how far down in it what
- * stands there stands: a pot's rim shows, with the water falling in.
+ * stands there stands: two thirds of a pot stands out of it, both handles
+ * showing, under a spout well over its rim, so the stream is seen falling
+ * in. Sunk deeper, only its top showed and it read as a flat pan.
  */
-export const SINK = { half: 12, spout: 15, depth: 10 };
+export const SINK = { half: 12, spout: 19, depth: 5 };
 
 /** How far down into what holds it an object sits: a spoon in the crock, a lid on the rim, carrots on the board. */
 const INSIDE: Partial<Record<ObjectKind, number>> = {
@@ -349,8 +352,8 @@ export function stagePoint(
   return at && { x: at.x, y: 84 };
 }
 
-/** Chest high, where two people's hands meet to hand something over. */
-const HANDOVER_Y = 76;
+/** Chest high, where two people's hands meet to hand something over: six under the shoulders (66). Ten under, by the worktop, it read as handed at the hip. */
+const HANDOVER_Y = 72;
 
 /**
  * How high two hands meet between cast x `from` and `to`: chest high, or

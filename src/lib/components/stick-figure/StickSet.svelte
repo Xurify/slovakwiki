@@ -3,6 +3,7 @@
   import { n } from "$lib/stick-figure/draw";
   import { GROUND_Y } from "$lib/stick-figure/rig";
   import {
+    OBJECT_SIZE,
     SINK,
     hangs,
     objectBase,
@@ -86,6 +87,28 @@
     const half = SINK.half + 1;
     return { left: x - half, right: x + half, top: pieceTop(piece) };
   }
+
+  /**
+   * Taps running into what stands in their sink: the stream ends on the
+   * water inside its opening, drawn over its near rim, and the level comes
+   * up while it runs.
+   */
+  const filling = $derived(
+    placed.flatMap(({ id, state, at, sink }) => {
+      const where = state.where;
+      if (!sink || !("on" in where) || !running.includes(where.on)) return [];
+      return [
+        {
+          id,
+          piece: where.on,
+          x: at.x,
+          rim: at.y - OBJECT_SIZE[state.kind].top,
+          spout: sink.top - SINK.spout,
+          empty: !state.fill,
+        },
+      ];
+    }),
+  );
 
   function lidOn(id: string): boolean {
     return contents(world, id).some((inside) => world.objects[inside]?.kind === "lid");
@@ -214,7 +237,7 @@
             class="stroke-scene-line/70"
             stroke-width="1.2"
           />
-          {#if running.includes(piece.id)}
+          {#if running.includes(piece.id) && !filling.some((pot) => pot.piece === piece.id)}
             <!-- Outlined, so water shows against the white tiles. -->
             <path
               d="M{sink} {top - SINK.spout + 1}V{top - 1}"
@@ -353,5 +376,34 @@
         />
       </g>
     </g>
+  {/each}
+
+  {#each filling as pot (pot.id)}
+    {#if pot.empty}
+      <ellipse
+        cx={n(pot.x)}
+        cy={n(pot.rim + 0.2)}
+        rx="10.4"
+        ry="1.5"
+        class="animate-fill-up fill-scene-water [transform-box:fill-box] origin-center"
+        stroke="none"
+      />
+    {/if}
+    <path
+      d="M{n(pot.x)} {n(pot.spout + 1)}V{n(pot.rim + 0.4)}"
+      class="stroke-portrait-ink/35"
+      stroke-width="2.8"
+    />
+    <path
+      d="M{n(pot.x)} {n(pot.spout + 1)}V{n(pot.rim + 0.4)}"
+      class="animate-pour stroke-scene-water"
+      stroke-width="1.8"
+      stroke-dasharray="3 1"
+    />
+    <path
+      d="M{n(pot.x - 3.2)} {n(pot.rim + 0.3)}q1.6 -1.3 3.2 0q1.6 -1.3 3.2 0"
+      class="stroke-white/80"
+      stroke-width="0.6"
+    />
   {/each}
 </svg>
