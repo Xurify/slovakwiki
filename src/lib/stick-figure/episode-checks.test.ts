@@ -2,7 +2,7 @@ import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
-import type { Cue } from "./acts";
+import { startWorld, type Cue, type World } from "./acts";
 import baseline from "./episode-checks.baseline.json";
 import { checkCues, checkEpisode, type Finding } from "./episode-checks";
 import { PLACES } from "./places";
@@ -134,6 +134,49 @@ describe("cues against the set", () => {
     expect(rules(checkCues(walk.chapter, walk.lines, behind, frame))).toContain(
       "error space/furniture",
     );
+  });
+
+  it("flags setting the knife down on the jug, but not back where the set lays it out", () => {
+    const put = (dx: number) =>
+      segment("maria", [
+        { do: "go", to: "board-across" },
+        { do: "take", what: "knife" },
+        { do: "put", what: "knife", to: "counter", dx },
+      ]);
+    const overlaps = (dx: number) => {
+      const { chapter, lines } = put(dx);
+      return rules(checkCues(chapter, lines, KITCHEN, FRAME)).filter((rule) =>
+        rule.endsWith("props/overlap"),
+      );
+    };
+    // The set lays the knife at dx 40 and the jug at 49, overlapping a little: the knife lies in front.
+    expect(overlaps(46)).toEqual(["error props/overlap"]);
+    expect(overlaps(40)).toEqual([]);
+    expect(overlaps(0)).toEqual([]);
+  });
+
+  it("flags a seated host drinking through the desk mic, but not waving past it", () => {
+    const studio = PLACES.studio.set!;
+    const withCup = {
+      ...studio,
+      objects: [
+        ...(studio.objects ?? []),
+        { id: "cup", kind: "cup" as const, start: { where: { on: "desk", dx: 20 } } },
+      ],
+    };
+    const frame = stageFrame(["anna", "marek"], {}, "studio", [], 960, 480);
+    // The stage seats the hosts in the world, as scene-sources does.
+    const seated: World = { ...startWorld(withCup.objects), seated: ["anna", "marek"] };
+    const mic = (...acts: Cue[][]) => {
+      const { chapter, lines } = segment("marek", ...acts);
+      return rules(checkCues(chapter, lines, withCup, frame, seated)).filter((rule) =>
+        rule.endsWith("space/mic"),
+      );
+    };
+    expect(mic([{ do: "take", what: "cup" }], [{ do: "taste", what: "cup" }])).toContain(
+      "error space/mic",
+    );
+    expect(mic([{ do: "wave" }])).toEqual([]);
   });
 
   it("flags a card from nowhere and a hand-over of what nobody holds", () => {

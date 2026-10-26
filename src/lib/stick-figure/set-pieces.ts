@@ -56,6 +56,48 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
  */
 export const DESK_REACH = 46;
 
+/**
+ * A desk mic in the rig space of the host seated facing +x behind it, and
+ * the mouth it points at from the chin. It stands a hand's width out from
+ * the lips, so a head that leans in on a word still clears it.
+ */
+export const DESK_MIC = { at: { x: 19, y: 73 }, mouth: { x: -1, y: 69 } };
+
+/**
+ * The mic's head as StudioDesk draws it, on the line from DESK_MIC.at to the
+ * mouth: the foam's middle 5 units mouthward, the body's rounded end 5.4
+ * back, and 4 thick.
+ */
+const MIC_HEAD = (() => {
+  const { at, mouth } = DESK_MIC;
+  const length = Math.hypot(mouth.x - at.x, mouth.y - at.y);
+  const along = (by: number): Point => ({
+    x: at.x + ((mouth.x - at.x) / length) * by,
+    y: at.y + ((mouth.y - at.y) / length) * by,
+  });
+  return { foam: along(5), tail: along(-5.4), thick: 4 };
+})();
+
+/**
+ * How far something round, `half` across from its middle at `point`, goes
+ * into the desk mic of a seated host, in their rig space: `side` is -1 when
+ * they have turned away from their seat's facing. Over 0 it overlaps.
+ */
+export function intoDeskMic(point: Point, half: number, side: 1 | -1 = 1): number {
+  const [a, b] = [MIC_HEAD.foam, MIC_HEAD.tail].map((end) => ({
+    x: end.x * side,
+    y: end.y,
+  }));
+  const [dx, dy] = [b.x - a.x, b.y - a.y];
+  const t = Math.max(
+    0,
+    Math.min(1, ((point.x - a.x) * dx + (point.y - a.y) * dy) / (dx * dx + dy * dy)),
+  );
+  return (
+    half + MIC_HEAD.thick - Math.hypot(point.x - (a.x + dx * t), point.y - (a.y + dy * t))
+  );
+}
+
 export function pieceSize(piece: Pick<SetPiece, "kind" | "height" | "width">): {
   width: number;
   height: number;

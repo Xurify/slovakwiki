@@ -31,12 +31,15 @@ import {
   type World,
 } from "$lib/stick-figure/acts";
 import { PLACES, type PlaceSet } from "$lib/stick-figure/places";
-import { STICK_BOX, type Point } from "$lib/stick-figure/rig";
+import { HEAD_RADIUS, STICK_BOX, solveRig, type Point } from "$lib/stick-figure/rig";
+import { REST_POSE } from "$lib/stick-figure/pose";
 import {
   DESK_REACH,
+  OBJECT_SIZE,
   OPENING,
   SINK,
   handOverY,
+  intoDeskMic,
   isSink,
   objectBase,
   pieceSize,
@@ -45,12 +48,14 @@ import {
   spotAt,
   stagePoint,
   surfaceAt,
+  tipFromHand,
   type SetGeometry,
   type StageContext,
 } from "$lib/stick-figure/set-pieces";
 import {
   motionFor,
   motionMisses,
+  sampleMotion,
   type Motion,
   type Opening,
   type Surroundings,
@@ -412,6 +417,14 @@ const HEADS = 30;
 const HEAD_ABOVE_HIP = 45.5;
 /** Someone stood more than this inside a walk, in rig units, is passed, not stopped beside (StickStage's PASS_CLEAR). */
 const PASS_CLEAR = 20;
+/** Two things set down on one surface may touch by this much, in rig units, before one sits in the other. */
+const OVERLAP_SLACK = 2;
+/** A hand, about 2 rig units across the knuckles, by the desk mic. */
+const HAND_HALF = 1;
+/** Into the desk mic by this much, about 3 px on a wide stage, nobody sees it. */
+const MIC_SLACK = 1;
+/** How often a motion is sampled for what crosses the mic. */
+const MIC_SAMPLE_MS = 50;
 /** Verbs that leave someone standing or sitting somewhere new. */
 const MOVES = new Set<Cue["do"]>(["go", "enter", "sit"]);
 
@@ -519,6 +532,44 @@ export function checkCues(
     seatX: (chair) => seats[chair] && seats[chair].x / unit,
   });
 
+  /** What a cue's motion for `mover` reaches toward, in their rig space as they face for it. */
+  const surroundings = (
+    world: World,
+    after: World,
+    mover: LessonCharacterId,
+    cue: Cue,
+    toward?: string,
+  ): { around: Surroundings; facing: Facing } | undefined => {
+    const centre = standsAt(world, mover);
+    if (centre === undefined) return undefined;
+    const facing = facingFor(world, mover, toward);
+    const context = stageContext(world);
+    const toRig = (point: Point): Point => ({
+      x: (point.x - centre) * facing,
+      y: point.y,
+    });
+    const around: Surroundings = {
+      pointOf: (name, as = "grip") => {
+        const point = stagePoint(context, name, as, facing);
+        return point && toRig(point);
+      },
+      meetWith: (other) => {
+        const there = standsAt(world, other);
+        return there === undefined
+          ? undefined
+          : toRig({
+              x: (centre + there) / 2,
+              y: handOverY(world, geometry, centre, there),
+            });
+      },
+      landing: () => {
+        const grip = cue.what && objectGrip(after, cue.what, geometry, facing);
+        return grip ? toRig(grip) : undefined;
+      },
+    };
+    return { around, facing };
+  };
+
   /** Where the hands of `who` go and what they hold land, on the stage as the cue finds it. */
   const contactMisses = (
     world: World,
@@ -534,34 +585,9 @@ export function checkCues(
       moves: Motion,
       toward?: string,
     ): string[] => {
-      const centre = standsAt(world, mover);
-      if (centre === undefined) return [];
-      const facing = facingFor(world, mover, toward);
-      const context = stageContext(world);
-      const toRig = (point: Point): Point => ({
-        x: (point.x - centre) * facing,
-        y: point.y,
-      });
-      const pointOf = (name: string, as: "grip" | "top" | "base" = "grip") => {
-        const point = stagePoint(context, name, as, facing);
-        return point && toRig(point);
-      };
-      const around: Surroundings = {
-        pointOf,
-        meetWith: (other) => {
-          const there = standsAt(world, other);
-          return there === undefined
-            ? undefined
-            : toRig({
-                x: (centre + there) / 2,
-                y: handOverY(world, geometry, centre, there),
-              });
-        },
-        landing: () => {
-          const grip = cue.what && objectGrip(after, cue.what, geometry, facing);
-          return grip ? toRig(grip) : undefined;
-        },
-      };
+      const seen = surroundings(world, after, mover, cue, toward);
+      if (!seen) return [];
+      const { around } = seen;
       const held = heldBy(world, mover);
       const holding: Partial<Record<Hand, ObjectKind>> = {
         lead: held.lead ? world.objects[held.lead]?.kind : undefined,
@@ -576,7 +602,7 @@ export function checkCues(
           : sink
             ? { half: SINK.half, depth: 0 }
             : undefined;
-        const top = pointOf(name, "top");
+        const top = around.pointOf(name, "top");
         return size && top ? { top, ...size } : undefined;
       };
       const sit =
@@ -611,7 +637,83 @@ export function checkCues(
     });
   };
 
-  let world = opening(lines, start ?? startWorld(set.objects));
+  /** The desk seat `who` sits at with a mic in front of them, if they do. */
+  const deskSeat = (world: World, who: LessonCharacterId) => {
+    if (!frame.desk || world.out?.includes(who)) return undefined;
+    const spot = world.spots[who];
+    if (!spot) return seats[frame.cast.indexOf(who)];
+    const at = set.spots?.[spot];
+    return at && "chair" in at ? seats[at.chair] : undefined;
+  };
+
+  /** What of a seated host's goes into their desk mic over a cue: the head, a hand, what a hand holds. */
+  const micClashes = (
+    world: World,
+    after: World,
+    who: LessonCharacterId,
+    cue: Cue,
+  ): string[] => {
+    if (!frame.desk || cue.on === "dark" || MOVES.has(cue.do)) return [];
+    const { motion, partner } = motionFor(cue, who, world, set);
+    const check = (
+      mover: LessonCharacterId,
+      moves: Motion,
+      toward?: string,
+    ): string[] => {
+      const seat = deskSeat(world, mover);
+      const seen = seat && surroundings(world, after, mover, cue, toward);
+      if (!seat || !seen) return [];
+      // The mic stays on the seat's side: a host turned round has it behind them.
+      const side = (seat.facing * seen.facing) as Facing;
+      const into = (point: Point, half: number) => intoDeskMic(point, half, side);
+      const first = new Map<string, { at: number; depth: number }>();
+      const note = (what: string, at: number, depth: number) => {
+        if (depth > MIC_SLACK && !first.has(what)) first.set(what, { at, depth });
+      };
+      for (let at = 0; at <= moves.ms; at += MIC_SAMPLE_MS) {
+        const moment = sampleMotion(moves, at, REST_POSE, seen.around, 1);
+        const rig = solveRig(moment.pose, 1);
+        note("head", at, into(rig.head, HEAD_RADIUS));
+        const held = heldBy(at < (moves.takes ?? moves.ms) ? world : after, mover);
+        for (const hand of ["lead", "rear"] as const) {
+          const end = rig[hand === "lead" ? "leadArm" : "rearArm"].end;
+          note(`${hand} hand`, at, into(end, HAND_HALF));
+          const id = held[hand];
+          const kind = id && (world.objects[id] ?? after.objects[id])?.kind;
+          if (!kind) continue;
+          const tip = tipFromHand(kind, moment.turn[hand] ?? 0);
+          const along = [0.25, 0.5, 0.75, 1].map((t) =>
+            into({ x: end.x + tip.x * t, y: end.y + tip.y * t }, 0),
+          );
+          note(id, at, Math.max(...along));
+        }
+      }
+      return [...first].map(
+        ([what, { at, depth }]) =>
+          `${mover}'s ${what} goes ${depth.toFixed(1)} rig units into the desk mic ${at} ms in`,
+      );
+    };
+    return [
+      ...check(who, motion, motion.face ?? cue.what),
+      ...(partner ? check(partner.who, partner.motion, partner.motion.face) : []),
+    ];
+  };
+
+  const layout = startWorld(set.objects);
+  /** Whether `id` stands where the set lays it out: there, overlapping its neighbour is drawn on purpose, one in front of the other. */
+  const laidOut = (world: World, id: string): boolean => {
+    const [was, now] = [layout.objects[id]?.where, world.objects[id]?.where];
+    return (
+      !!was &&
+      !!now &&
+      "on" in was &&
+      "on" in now &&
+      was.on === now.on &&
+      was.dx === now.dx
+    );
+  };
+
+  let world = opening(lines, start ?? layout);
   lines.forEach((line, index) => {
     const turn = chapter.lines[index];
     const at = { chapter: chapter.id, line: turn.id, slovak: turn.slovak };
@@ -638,6 +740,33 @@ export function checkCues(
           ...at,
           message: `${clash}. Stand further off, or lean less.`,
         });
+      }
+      for (const clash of micClashes(world, after, who, cue)) {
+        findings.push({
+          rule: "space/mic",
+          level: "error",
+          ...at,
+          message: `${who} "${cue.do} ${cue.what ?? cue.to ?? ""}": ${clash}. Keep clear of it: the outer hand, a path below it, or sitting back.`,
+        });
+      }
+      for (const [id, state] of Object.entries(after.objects)) {
+        const where = state.where;
+        if (!("on" in where) || world.objects[id]?.where === where) continue;
+        for (const [other, there] of Object.entries(after.objects)) {
+          const near = there.where;
+          if (other === id || !("on" in near) || near.on !== where.on) continue;
+          if (laidOut(after, id) && laidOut(after, other)) continue;
+          const overlap =
+            (OBJECT_SIZE[state.kind].width + OBJECT_SIZE[there.kind].width) / 2 -
+            Math.abs(where.dx - near.dx);
+          if (overlap <= OVERLAP_SLACK) continue;
+          findings.push({
+            rule: "props/overlap",
+            level: "error",
+            ...at,
+            message: `${who} "${cue.do} ${cue.what ?? ""}" leaves the ${id} ${Math.round(overlap)} rig units over the ${other} on the ${where.on} (dx ${where.dx} and ${near.dx}). Put it where the surface is clear.`,
+          });
+        }
       }
       for (const miss of contactMisses(world, after, who, cue)) {
         findings.push({

@@ -1,8 +1,9 @@
 # Usage: python3 scripts/stage-review/merge-findings.py <critic reply files...> [--out triage.md] [--window 1500]
 # Merges the critics' blocker lines into one list. Each critic replies with JSON lines:
 #   {"class": "I", "segment": "U Márie", "t_ms": 26500, "who": "Anna", "what": "...", "evidence": "strip 27"}
-# Anything else in a reply is ignored. Findings on the same segment, class and person within the window
-# are one problem; the count says how many critics saw it, which is a rough confidence.
+# The script and picture critics work per line, so they give "line" (its number or id) instead of "t_ms".
+# Anything else in a reply is ignored. Findings on the same segment, class and person within the window,
+# or on the same line, are one problem; the count says how many critics saw it, which is a rough confidence.
 import argparse, json, re, sys
 
 ap = argparse.ArgumentParser()
@@ -22,31 +23,46 @@ for i, path in enumerate(args.files):
             f = json.loads(m.group(0))
         except json.JSONDecodeError:
             continue
-        if {"class", "segment", "t_ms", "what"} <= f.keys():
+        if {"class", "segment", "what"} <= f.keys() and ("t_ms" in f or "line" in f):
             f["critic"] = i
             found.append(f)
 
-found.sort(key=lambda f: (f["segment"], str(f["class"]), str(f.get("who", "")), f["t_ms"]))
+
+def place(f):
+    """Timed findings first, by time; then per-line ones, numbered lines in order before ids."""
+    if "t_ms" in f:
+        return (0, f["t_ms"], "")
+    line = f["line"]
+    return (1, line, "") if isinstance(line, (int, float)) else (2, 0, str(line))
+
+
+found.sort(key=lambda f: (f["segment"], str(f["class"]), str(f.get("who", "")), place(f)))
 groups = []
 for f in found:
     g = groups[-1] if groups else None
-    if (
+    same = (
         g
         and g["segment"] == f["segment"]
         and g["class"] == f["class"]
         and g.get("who") == f.get("who")
-        and f["t_ms"] - g["to_ms"] <= args.window
-    ):
-        g["to_ms"] = max(g["to_ms"], f["t_ms"])
+        and ("t_ms" in g) == ("t_ms" in f)
+    )
+    if same and ("t_ms" in f and f["t_ms"] - g["to_ms"] <= args.window or "t_ms" not in f and f["line"] == g["line"]):
+        if "t_ms" in f:
+            g["to_ms"] = max(g["to_ms"], f["t_ms"])
         g["critics"].add(f["critic"])
         g["notes"].append(f)
     else:
-        groups.append({**f, "from_ms": f["t_ms"], "to_ms": f["t_ms"], "critics": {f["critic"]}, "notes": [f]})
+        timed = {"from_ms": f["t_ms"], "to_ms": f["t_ms"]} if "t_ms" in f else {}
+        groups.append({**f, **timed, "critics": {f["critic"]}, "notes": [f]})
 
-groups.sort(key=lambda g: (g["segment"], g["from_ms"]))
-rows = ["| # | Segment | Time | Class | Who | Problem | Critics | Evidence |", "|---|---|---|---|---|---|---|---|"]
+groups.sort(key=lambda g: (g["segment"], place({**g, "t_ms": g["from_ms"]} if "t_ms" in g else g)))
+rows = ["| # | Segment | Time or line | Class | Who | Problem | Critics | Evidence |", "|---|---|---|---|---|---|---|---|"]
 for n, g in enumerate(groups, 1):
-    span = f'{g["from_ms"] / 1000:.1f}s' + (f'–{g["to_ms"] / 1000:.1f}s' if g["to_ms"] > g["from_ms"] else "")
+    if "t_ms" in g:
+        span = f'{g["from_ms"] / 1000:.1f}s' + (f'–{g["to_ms"] / 1000:.1f}s' if g["to_ms"] > g["from_ms"] else "")
+    else:
+        span = f'line {g["line"]}'
     what = " / ".join(dict.fromkeys(x["what"] for x in g["notes"]))
     ev = "; ".join(dict.fromkeys(str(x.get("evidence", "")) for x in g["notes"] if x.get("evidence")))
     rows.append(f'| {n} | {g["segment"]} | {span} | {g["class"]} | {g.get("who", "")} | {what} | {len(g["critics"])} | {ev} |')

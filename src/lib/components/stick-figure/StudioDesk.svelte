@@ -1,6 +1,6 @@
 <script lang="ts">
   import { GROUND_Y, SEAT_Y, STICK_BOX } from "$lib/stick-figure/rig";
-  import { DESK_REACH } from "$lib/stick-figure/set-pieces";
+  import { DESK_MIC, DESK_REACH } from "$lib/stick-figure/set-pieces";
   import { FLOOR, type StageFrame } from "$lib/stick-figure/stage-frame";
 
   /**
@@ -28,10 +28,7 @@
 
   /** Lower than a real desk's elbow height: the figures' short torsos would sink behind one. */
   const TOP = GROUND_Y - 28;
-  /** The mouth of a host seated facing +x, from their seat: the mic points at it from the chin. */
-  const MOUTH = { x: -1, y: 69 };
-  // A hand's width out from the lips, so a head that leans in on a word still clears it.
-  const MIC = { x: 19, y: 73 };
+  const { at: MIC, mouth: MOUTH } = DESK_MIC;
   const ELBOW = { x: 34, y: 56 };
 
   /** Rig y 136, the bottom of a figure's box, stands on the stage's floor padding. */
