@@ -173,7 +173,8 @@ const RHYTHMIC_LAW =
 
 /**
  * Instrumental pronouns keep -ím and -ým after a long syllable (niečím, niekým),
- * and loanwords keep their own length (protégé).
+ * neuter -ie nouns keep -ím (lístie → lístím), and loanwords keep their own
+ * length (protégé).
  */
 const RHYTHMIC_EXCEPTIONS = new Set([
   "niečím",
@@ -184,6 +185,7 @@ const RHYTHMIC_EXCEPTIONS = new Set([
   "nikým",
   "kýmsi",
   "hocikým",
+  "lístím",
   "protégé",
 ]);
 

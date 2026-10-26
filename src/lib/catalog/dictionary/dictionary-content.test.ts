@@ -111,4 +111,21 @@ describe("dictionary examples", () => {
       .map(([frame, slugs]) => `${frame} (${slugs.size} headwords)`);
     expect(stamped).toEqual([]);
   });
+
+  it("gives each part of speech of one spelling its own sentences", () => {
+    // večer the noun once showed the adverb's "dnes večer" lines, and the page
+    // hides a sentence the entry above already showed, so the adverb had none.
+    const seen = new Map<string, string>();
+    const shared: string[] = [];
+    for (const word of words) {
+      for (const example of word.examples) {
+        const key = `${word.slovak}\u0000${example.slovak}`;
+        const other = seen.get(key);
+        if (other && other !== word.slug)
+          shared.push(`${other} / ${word.slug}: ${example.slovak}`);
+        else seen.set(key, word.slug);
+      }
+    }
+    expect(shared).toEqual([]);
+  });
 });
