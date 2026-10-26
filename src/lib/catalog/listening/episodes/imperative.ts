@@ -168,8 +168,8 @@ const game: ListeningChapter = {
     line(
       "marek-spaj",
       "Marek",
-      ["Spia… ", PAUSE, "spaj?"],
-      "Spia… spaj? (Wrong: built like čítaj.)",
+      ["Spia… ", PAUSE, "je to spaj?"],
+      "Spia… is it spaj? (Wrong: built like čítaj.)",
     ),
     line(
       "anna-ends-in-i",
@@ -410,7 +410,7 @@ const classroom: ListeningChapter = {
       "maria-dont-forget-test",
       "Mária",
       [
-        "Na koniec: ",
+        "Nakoniec: ",
         PAUSE,
         mark("nezabudnite"),
         ", v piatok je test. ",

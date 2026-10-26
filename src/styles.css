@@ -124,6 +124,8 @@
   --color-scene-cabbage: #c5dba5;
   --color-scene-onion: #d9a35e;
   --color-scene-potato: #b98a58;
+  /* What is in a cup: dark enough to read as coffee against the white cup. */
+  --color-scene-coffee: #6b4a33;
   /* The studio's on-air sign and screen, and the strawberries: the light theme's red and blue, fixed. */
   --color-scene-red: #c23b35;
   --color-scene-blue: #3b82f6;
