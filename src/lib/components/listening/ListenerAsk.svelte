@@ -47,7 +47,7 @@
 
 <div
   bind:this={root}
-  class="animate-rise border-t border-slate-200/70 bg-subtle/60 px-4 pt-4 pb-3 sm:px-5"
+  class="animate-rise border-t border-slate-200/70 bg-subtle/60 px-4 py-4 sm:px-5"
   role="group"
   aria-labelledby="listener-ask-prompt"
 >
@@ -69,7 +69,7 @@
 
       <button
         class={cx(
-          "inline-flex min-h-12 min-w-32 items-center justify-center gap-2 rounded-(--control-radius) border px-4 py-2",
+          "inline-flex min-h-12 min-w-32 flex-1 items-center justify-center gap-2 rounded-(--control-radius) border px-4 py-2 sm:flex-none",
           "transition-[background-color,border-color,color] duration-150 ease-out",
           picked ? "cursor-default" : "cursor-pointer",
           markRight && "border-emerald-600 bg-emerald-50 text-emerald-800",
@@ -111,11 +111,12 @@
         {/if}
       </button>
     {/each}
-  </div>
 
-  <div class="mt-1 -ml-2.5 min-h-11">
     {#if !picked}
-      <ListenControl onclick={onskip}>Let {answerer} answer</ListenControl>
+      <!-- On a phone it wraps to its own row, so its text lines up with the card's left edge. -->
+      <ListenControl class="-ml-2.5 min-h-12 sm:-mr-2.5 sm:ml-auto" onclick={onskip}>
+        Let {answerer} answer
+      </ListenControl>
     {/if}
   </div>
 

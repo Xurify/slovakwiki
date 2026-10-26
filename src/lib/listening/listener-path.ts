@@ -46,3 +46,19 @@ export function nextOnPath(
   }
   return undefined;
 }
+
+/** The asking line whose card shows: held for an answer, or answered until the next ask. */
+export function cardAt(
+  lines: readonly DialogueTurn[],
+  picks: Picks,
+  cursor: number,
+  held: boolean,
+): number {
+  if (held) return lines[cursor]?.ask ? cursor : -1;
+  // From the current line: in the beat after a pick the cursor is still on the ask.
+  for (let index = cursor; index >= 0; index -= 1) {
+    const line = lines[index]!;
+    if (line.ask) return picks[line.id] ? index : -1;
+  }
+  return -1;
+}

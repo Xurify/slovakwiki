@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import type { DialogueTurn } from "$lib/learning/types";
 
-import { NO_PICK, nextOnPath, pathScore } from "./listener-path";
+import { NO_PICK, cardAt, nextOnPath, pathScore } from "./listener-path";
 
 function turn(id: string, extra: Partial<DialogueTurn> = {}): DialogueTurn {
   return { id, speaker: "Anna", slovak: id, english: id, ...extra };
@@ -54,5 +54,12 @@ describe("listener path", () => {
   it("scores a pick left to the host as right", () => {
     expect(pathScore(lines, { q1: "b" })).toBe(1);
     expect(pathScore(lines, { q1: "b", q2: "a" })).toBe(0);
+  });
+
+  it("keeps the answered card, not the one before, in the beat after a pick", () => {
+    expect(cardAt(lines, { q1: "a", q2: "b" }, 3, false)).toBe(3);
+    expect(cardAt(lines, { q1: "a" }, 3, true)).toBe(3);
+    expect(cardAt(lines, { q1: "a" }, 4, false)).toBe(-1);
+    expect(cardAt(lines, { q1: "a" }, 1, false)).toBe(0);
   });
 });

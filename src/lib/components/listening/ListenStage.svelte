@@ -25,7 +25,7 @@
   import { focusUnlessTyping } from "$lib/listening/focus";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
-  import { nextOnPath, onPath } from "$lib/listening/listener-path";
+  import { cardAt, nextOnPath, onPath } from "$lib/listening/listener-path";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { cx } from "$lib/ui/classes";
 
@@ -121,15 +121,7 @@
     },
   });
 
-  /** The asking line whose card shows: held for an answer, or answered until the next ask. */
-  const askAt = $derived.by(() => {
-    if (player.held) return lines[player.cursor]?.ask ? player.cursor : -1;
-    for (let index = player.cursor - 1; index >= 0; index -= 1) {
-      const line = lines[index]!;
-      if (line.ask) return picks[line.id] ? index : -1;
-    }
-    return -1;
-  });
+  const askAt = $derived(cardAt(lines, picks, player.cursor, player.held));
   /** The lines this listener's answers lead through, in order. */
   const path = $derived(
     lines
