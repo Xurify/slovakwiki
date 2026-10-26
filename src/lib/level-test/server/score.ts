@@ -17,6 +17,8 @@ export const SCORING_MODEL = "anthropic/claude-opus-5-5";
 /** Reasoning tokens count against this too, so it is well above the JSON's ~300. */
 const MAX_COMPLETION_TOKENS = 6_000;
 
+const UPSTREAM_TIMEOUT_MS = 45_000;
+
 export const MAX_PROMPT_CHARS = 1_000;
 export const MAX_RESPONSE_CHARS = 4_000;
 
@@ -140,6 +142,11 @@ function schemaFor(spoken: boolean) {
   };
 }
 
+/** A learner who types `</answer>` would otherwise close the frame and write to the scorer. */
+function escapeAnswerTags(text: string): string {
+  return text.replace(/<(\s*\/?\s*answer)/giu, "&lt;$1");
+}
+
 function userMessage(request: ScoreRequest): string {
   const lines = [
     `Task: ${TASK_BRIEF[request.kind]}.`,
@@ -155,7 +162,7 @@ function userMessage(request: ScoreRequest): string {
       `Recording: ${Math.round(request.durationSeconds)} seconds, ${perMinute} words per minute.`,
     );
   }
-  lines.push(`<answer>\n${request.response}\n</answer>`);
+  lines.push(`<answer>\n${escapeAnswerTags(request.response)}\n</answer>`);
   return lines.join("\n");
 }
 
@@ -166,6 +173,9 @@ function scaleValue(value: unknown): number {
   return Math.round(clampScale(value));
 }
 
+/** Criteria and overall share the 0–100 scale, so this is a tenth of it. */
+const MAX_OVERALL_DRIFT = 10;
+
 export function parseScore(text: string, spoken: boolean): AiScore {
   const raw = JSON.parse(text) as Record<string, unknown>;
   const criteria: AiCriterionScores = {
@@ -175,7 +185,16 @@ export function parseScore(text: string, spoken: boolean): AiScore {
     lexis: scaleValue(raw.lexis),
   };
   if (spoken) criteria.fluency = scaleValue(raw.fluency);
-  const score = scaleValue(raw.score);
+  const values = Object.values(criteria);
+  const mean = values.reduce((total, value) => total + value, 0) / values.length;
+  // A model that drifts, or is talked into a high score, cannot move the
+  // overall result far from its own criteria.
+  const score = Math.round(
+    Math.min(
+      mean + MAX_OVERALL_DRIFT,
+      Math.max(mean - MAX_OVERALL_DRIFT, scaleValue(raw.score)),
+    ),
+  );
   const feedback =
     typeof raw.feedback === "string" ? raw.feedback.trim().slice(0, 400) : "";
   return {
@@ -183,8 +202,8 @@ export function parseScore(text: string, spoken: boolean): AiScore {
     level: cefrForScore(score),
     criteria,
     feedback,
-    issues: parseIssues(raw.issues),
-    usage: parseUsage(raw.usage),
+    issues: parseIssues(raw.issues, spoken),
+    usage: parseUsage(raw.usage, spoken),
   };
 }
 
@@ -196,10 +215,20 @@ function count(value: unknown): number {
   return Math.max(0, Math.min(MAX_USAGE_COUNT, Math.round(value)));
 }
 
-function parseUsage(value: unknown): Partial<Record<AiIssueTopic, AiUsage>> {
+/** A transcript's diacritics are the recogniser's, not the learner's. */
+function topicsFor(spoken: boolean): readonly AiIssueTopic[] {
+  return spoken
+    ? AI_ISSUE_TOPICS.filter((topic) => topic !== "accents")
+    : AI_ISSUE_TOPICS;
+}
+
+function parseUsage(
+  value: unknown,
+  spoken: boolean,
+): Partial<Record<AiIssueTopic, AiUsage>> {
   if (typeof value !== "object" || value === null) return {};
   const usage: Partial<Record<AiIssueTopic, AiUsage>> = {};
-  for (const topic of AI_ISSUE_TOPICS) {
+  for (const topic of topicsFor(spoken)) {
     const entry = (value as Record<string, unknown>)[topic];
     if (typeof entry !== "object" || entry === null) continue;
     const right = count((entry as Record<string, unknown>).right);
@@ -209,14 +238,15 @@ function parseUsage(value: unknown): Partial<Record<AiIssueTopic, AiUsage>> {
   return usage;
 }
 
-function parseIssues(value: unknown): AiIssue[] {
+function parseIssues(value: unknown, spoken: boolean): AiIssue[] {
   if (!Array.isArray(value)) return [];
+  const topics = topicsFor(spoken);
   return value
     .filter(
       (issue): issue is AiIssue =>
         typeof issue === "object" &&
         issue !== null &&
-        AI_ISSUE_TOPICS.includes((issue as AiIssue).topic) &&
+        topics.includes((issue as AiIssue).topic) &&
         typeof (issue as AiIssue).wrote === "string" &&
         typeof (issue as AiIssue).correct === "string",
     )
@@ -290,6 +320,7 @@ export async function scoreProduction(
         },
       ],
     }),
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
 
   if (response.status === 429) throw new ScoringBusyError("Rate limited");

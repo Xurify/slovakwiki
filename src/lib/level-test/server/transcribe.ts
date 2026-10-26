@@ -1,5 +1,24 @@
-/** Vercel functions reject request bodies over 4.5 MB; three minutes of Opus is far below. */
-export const MAX_AUDIO_BYTES = 4_000_000;
+/**
+ * The longest speaking task is three minutes. The recorder sets no bitrate, and
+ * browsers default to as much as 128 kbit/s, so this is 200 s at that rate.
+ */
+export const MAX_AUDIO_BYTES = 3_200_000;
+
+/** Three minutes and a little for the learner who stops late. */
+export const MAX_AUDIO_SECONDS = 200;
+
+const UPSTREAM_TIMEOUT_MS = 45_000;
+
+/** What the recorder produces: WebM/Opus in Chrome and Firefox, MP4/AAC in Safari, Ogg as a fallback. */
+const AUDIO_TYPES: ReadonlySet<string> = new Set([
+  "audio/webm",
+  "audio/ogg",
+  "audio/mp4",
+]);
+
+export function isAllowedAudioType(type: string): boolean {
+  return AUDIO_TYPES.has(type.split(";")[0]?.trim().toLowerCase() ?? "");
+}
 
 export interface Transcript {
   text: string;
@@ -22,6 +41,7 @@ export async function transcribeSlovak(
     method: "POST",
     headers: { "xi-api-key": apiKey },
     body: form,
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (!response.ok) {
     throw new Error(`Speech-to-text failed (${response.status})`);
