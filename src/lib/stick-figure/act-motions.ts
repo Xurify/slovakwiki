@@ -63,7 +63,7 @@ export interface MotionKey {
   turn?: Partial<Record<Hand, number>>;
   /** A mark drawn at the mouth: heat off a burnt tongue, a breath blown out. */
   emote?: Emote;
-  /** What an empty hand shows, turned by `turn`: a bare circle could not wag a finger or give a thumbs up. */
+  /** What an empty hand shows, turned by `turn`, only where the gesture is the finger itself (a thumbs up, counting): anywhere else a finger sticking out of the circle looks wrong. */
   sign?: Partial<Record<Hand, Sign>>;
 }
 
@@ -899,7 +899,6 @@ export function motionFor(
           at: 110,
           ...away,
           ...hands(fan, { mouth: true, dx: 9, dy: -0.5 }),
-          sign: { [fan]: "open" },
           body: { lean: -6, tilt: -12, bob: -2.5, brow: -0.8, look: -0.4, mouth: 0.8 },
           emote: "hot",
         },
@@ -909,7 +908,6 @@ export function motionFor(
           at,
           ...away,
           ...hands(fan, { mouth: true, dx: 9, dy: flap % 2 ? -4 : 2 }),
-          sign: { [fan]: "open" },
           turn: { [fan]: flap % 2 ? 30 : -10 },
           body: {
             lean: -3,
@@ -935,41 +933,34 @@ export function motionFor(
     }
     case "wag": {
       // Out in front, toward who it is for: any nearer, seen side-on, the hand reads as on the chin. Seated, the desk's microphone is out there, so nearer.
-      // Side to side is across the line of sight, so it is the finger that wags, tipping each way, more than the hand moves.
+      // Hands are plain circles (Xurify: a finger only where the line is about one), so the whole hand goes side to side, and the head shakes with it.
       const out = world.seated?.includes(who) ? 15 : 21;
-      const finger = { sign: { [free]: "finger" as const } };
       const keys: MotionKey[] = [
         { at: 0 },
         {
           at: 300,
           ...hands(free, { up: { x: out, y: -11 } }),
-          ...finger,
           body: { brow: 0.8, nod: 0.6, tilt: -3 },
         },
       ];
       for (let at = 440, wag = 0; at <= 1280; at += 140, wag += 1) {
         keys.push({
           at,
-          ...hands(free, { up: { x: out + (wag % 2 ? 1.5 : -1.5), y: -11 } }),
-          ...finger,
-          turn: { [free]: wag % 2 ? 26 : -26 },
-          body: { brow: 0.8, nod: 0.6, tilt: wag % 2 ? -4 : -2 },
+          ...hands(free, { up: { x: out + (wag % 2 ? 4 : -4), y: wag % 2 ? -12 : -10 } }),
+          body: { brow: 0.8, nod: 0.6, tilt: wag % 2 ? -4 : -2, look: wag % 2 ? 0.7 : 1 },
         });
       }
-      keys.push({ at: 1420, ...hands(free, { up: { x: out, y: -11 } }), ...finger });
+      keys.push({ at: 1420, ...hands(free, { up: { x: out, y: -11 } }) });
       keys.push({ at: 1750 });
       return { motion: { ms: 1750, keys } };
     }
     case "beckon": {
-      // The hand out, palm up, the finger pointing at them and curling back twice: come in, come here. Without the finger, the hand read as a raised fist.
-      const finger = { sign: { [free]: "finger" as const } };
+      // The hand out low and scooping back in to the chest twice: come in, come here. Low and toward the body, it does not read as a raised fist.
       const keys: MotionKey[] = [{ at: 0 }];
       for (let at = 300, curl = 0; at <= 1300; at += 250, curl += 1) {
         keys.push({
           at,
-          ...hands(free, { up: curl % 2 ? { x: 13, y: 15 } : { x: 19, y: 18 } }),
-          ...finger,
-          turn: { [free]: curl % 2 ? -15 : 75 },
+          ...hands(free, { up: curl % 2 ? { x: 9, y: 12 } : { x: 20, y: 19 } }),
           body: { lean: 2, tilt: 3, brow: 0.5, look: 0.8 },
         });
       }
@@ -1161,7 +1152,6 @@ export function motionFor(
     }
     case "point": {
       // The arm comes up as the figure turns round to what it points at (TURN_MS), and stays long enough to follow.
-      const finger = { sign: { [free]: "finger" as const } };
       return {
         motion: {
           ms: 1900,
@@ -1171,13 +1161,11 @@ export function motionFor(
             {
               at: 450,
               ...hands(free, { toward: to }),
-              ...finger,
               body: { look: 1, brow: 0.3 },
             },
             {
               at: 1500,
               ...hands(free, { toward: to }),
-              ...finger,
               body: { look: 1, brow: 0.3 },
             },
             { at: 1900 },
@@ -1186,13 +1174,11 @@ export function motionFor(
       };
     }
     case "shrug": {
-      // Elbows in, forearms out, palms up and open, and the head sinking between shoulders that cannot rise. Seated, the hands stay above the desk.
+      // Elbows in, forearms out, hands up at the sides, and the head sinking between shoulders that cannot rise. Seated, the hands stay above the desk.
       const drop = world.seated?.includes(who) ? 15 : 22;
       const open = (y: number, lift: number) => ({
         lead: { up: { x: 13, y } },
         rear: { up: { x: -9, y } },
-        sign: { lead: "open" as const, rear: "open" as const },
-        turn: { lead: 30, rear: -30 },
         body: { tilt: 8 * lift, brow: lift, nod: 2 * lift, mouth: 0 },
       });
       return {
@@ -1851,7 +1837,10 @@ export const DOOR_SHUT_MS = 900;
 
 /**
  * The door pushed to behind someone just come in: a hand out to its edge
- * as it starts to swing (`takes`), riding the edge in as it shuts, and back.
+ * at the handle's height as it starts to swing (`takes`), a push, and the
+ * door swings shut on its own. The handle is halfway up the door, which
+ * stands further back than the figure, so it is level with their chin: at
+ * the hip the hand was on the door's bottom edge.
  */
 export const CLOSE_DOOR: Motion = {
   ms: 1450,
@@ -1859,10 +1848,9 @@ export const CLOSE_DOOR: Motion = {
   takes: 250,
   keys: [
     { at: 0 },
-    { at: 300, lead: { at: { x: 28, y: 75 } }, body: { lean: 8 } },
-    { at: 250 + DOOR_SHUT_MS * 0.45, lead: { at: { x: 24, y: 76 } }, body: { lean: 6 } },
-    { at: 250 + DOOR_SHUT_MS * 0.85, lead: { at: { x: 19, y: 77 } }, body: { lean: 4 } },
-    { at: 250 + DOOR_SHUT_MS, lead: { at: { x: 18, y: 77 } }, body: { lean: 3 } },
+    { at: 300, lead: { at: { x: 28, y: 57 } }, body: { lean: 6 } },
+    { at: 250 + DOOR_SHUT_MS * 0.4, lead: { at: { x: 23, y: 58 } }, body: { lean: 4 } },
+    { at: 250 + DOOR_SHUT_MS * 0.75, lead: { at: { x: 16, y: 66 } }, body: { lean: 2 } },
     { at: 1450 },
   ],
 };

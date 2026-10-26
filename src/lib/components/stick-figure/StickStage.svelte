@@ -188,6 +188,8 @@
    */
   const ROOM_LANE = -0.22;
   const ROOM_SCALE = 0.9;
+  /** Half a body, in figure widths: overlapping a counter by this much, a step back would be into it. */
+  const BODY_HALF = 0.15;
   /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
   const CHAIR_HALF = 0.22;
   /** A seated host's point, degrees below level: the hand ends in under the desk mic, short of its boom (probed with solveRig). */
@@ -1190,7 +1192,9 @@
     const passed = passedBy(id, from, offset);
     if (passed.length || passesFurniture(id, from, offset)) {
       passing = [...passing.filter((other) => other !== id), id];
-      roomFor = [...roomFor.filter((other) => !passed.includes(other)), ...passed];
+      // Someone at the counter or the stove has their back to it: stepping back, they went into it.
+      const room = passed.filter((other) => !backed(other));
+      roomFor = [...roomFor.filter((other) => !passed.includes(other)), ...room];
       later(Math.max(0, ms - PASS_MS), () => {
         passing = passing.filter((other) => other !== id);
         roomFor = roomFor.filter((other) => !passed.includes(other));
@@ -1221,6 +1225,21 @@
       const at =
         ((frame.marks[other] ?? 0) - mark) / frame.figureWidth + (offsets[other] ?? 0);
       return at > left && at < right;
+    });
+  }
+
+  /** Whether a counter or the stove stands right behind `id`, so there is no room to step back. */
+  function backed(id: LessonCharacterId): boolean {
+    const middle =
+      (frame.marks[id] ?? 0) +
+      frame.figureWidth / 2 +
+      (offsets[id] ?? 0) * frame.figureWidth;
+    return geometry.pieces.some((piece) => {
+      if (piece.front || (piece.kind !== "counter" && piece.kind !== "stove"))
+        return false;
+      const at = (geometry.pieceX(piece.id) ?? 0) * unit;
+      const half = (pieceSize(piece).width / 2) * unit + BODY_HALF * frame.figureWidth;
+      return Math.abs(middle - at) < half;
     });
   }
 
