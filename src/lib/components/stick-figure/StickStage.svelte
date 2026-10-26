@@ -183,10 +183,11 @@
   /**
    * Whoever is passed makes room: a step back, away from the camera, up and
    * a little smaller. With the walker only a step nearer, at the floor's
-   * edge, heads met and they read as walking through each other.
+   * edge, heads met and they read as walking through each other; at 0.14
+   * back, the heads still lay one over the other as he went by.
    */
-  const ROOM_LANE = -0.14;
-  const ROOM_SCALE = 0.93;
+  const ROOM_LANE = -0.22;
+  const ROOM_SCALE = 0.9;
   /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
   const CHAIR_HALF = 0.22;
   /** A seated host's point, degrees below level: the hand ends in under the desk mic, short of its boom (probed with solveRig). */
