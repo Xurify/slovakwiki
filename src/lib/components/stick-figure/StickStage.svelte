@@ -298,12 +298,7 @@
 
   const dog = $derived(direction.cast.find((id) => LOOKS[id].dog));
   /** The robot on a call while the far end speaks: it plays the voice out loud. */
-  const relayedBy = $derived.by(() => {
-    const line = lines[heldAt];
-    const caller = direction.lines[heldAt]?.call;
-    if (!line?.overPhone || !line.characterId || !caller || !LOOKS[caller].robot) return;
-    return actors[line.characterId]?.talking ? caller : undefined;
-  });
+  let relaying = $state<LessonCharacterId>();
 
   const leashed = $derived(
     dog !== undefined && direction.cast.some((id) => holding[id] === "leash"),
@@ -474,6 +469,7 @@
     bubble = undefined;
     stopStoryLineAudio();
     for (const actor of Object.values(actors)) actor.talking = false;
+    relaying = undefined;
   }
 
   /**
@@ -580,6 +576,8 @@
     if (line.characterId === null) board = line.slovak;
 
     for (const actor of Object.values(actors)) actor.talking = false;
+    const caller = direction.lines[index]?.call;
+    relaying = line.overPhone && caller && LOOKS[caller].robot ? caller : undefined;
     spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
     // A voice over the phone has nobody on stage to move.
     const speaker =
@@ -614,6 +612,7 @@
       if (token !== playToken) return;
 
       for (const actor of Object.values(actors)) actor.talking = false;
+      relaying = undefined;
       if (staging?.gives) handedAt = index;
       if (staging) block(endLine(blocking(), staging, speaker, frame));
       if (staging?.boards) foldUmbrellas();
@@ -733,7 +732,7 @@
             held={heldBy(characterId)}
             seated={seated[characterId] !== undefined}
             onCall={direction.lines[heldAt]?.call === characterId}
-            relaying={relayedBy === characterId}
+            relaying={relaying === characterId}
             {dress}
             talking={actors[characterId]?.talking ?? false}
             turnDelay={turns[characterId] ?? 0}

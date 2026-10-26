@@ -324,10 +324,12 @@
       {#if relaying}
         <g transform={torsoTransform}>
           {#each [0, 1, 2] as wave (wave)}
+            {@const x = 10 + wave * 4.6}
+            {@const half = 4 + wave * 1.8}
             <path
-              d="M{6 + wave * 3.4} -26.4Q{9.6 + wave * 3.4} -21.3 {6 + wave * 3.4} -16.2"
-              class="stroke-portrait-ink motion-safe:animate-sound-wave"
-              stroke-width="1.1"
+              d="M{x} {-21.3 - half}Q{x + half * 0.9} -21.3 {x} {-21.3 + half}"
+              class="stroke-scene-honey motion-safe:animate-sound-wave"
+              stroke-width="1.8"
               style:animation-delay="{wave * 400}ms"
             />
           {/each}
