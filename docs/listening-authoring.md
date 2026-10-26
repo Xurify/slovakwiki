@@ -79,3 +79,9 @@ From the review of the robot story (#77):
 - **No filler where people use one.** `Výborne. Kde sú moje kľúče?` jumps topic. A real speaker bridges: `No nič…`, `Tak…`, `Dobre, a…`.
 - **An abrupt end.** A good last joke cut short. The last beat gets a set-up, a pause and a reaction.
 - **Kept: the camera.** The stage growing as the scene grew was liked. Open close and widen as people and things come in.
+
+From the frame-by-frame review of episode 5's acted kitchen and studio (rules under **Acting from cues** in `AGENTS.md`):
+
+- **A hand that only nearly does it.** The tasted spoon stopped at the cheek; the pot hung from one hand at the hip like a bag. A spoon goes into the mouth, and each thing is held as its kind is held.
+- **Footsteps louder than the room.** Steps clacked on every floor. They sound like the floor (kitchen tiles pat, carpet thuds) and stay soft indoors.
+- **Furniture that fights the people.** People stood in front of a chair's back as if gripping it, at someone's elbow, or walked through each other to the sink; a watering can hid half behind the desk and the plant's leaves ran off a phone's stage. Spots go in the gaps, the nearer person leads the way, and every prop stays in view on a phone.

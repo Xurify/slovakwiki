@@ -32,6 +32,7 @@ Every iteration in the first four episodes came from something nobody had decide
 - [ ] A clock on the set shows the story's time; with none given, pick one that fits.
 - [ ] No prop appears from nowhere: it is fetched, handed over or already in view, and stays until someone moves it.
 - [ ] The camera opens close and widens as people and things come in.
+- [ ] An acted segment (`act` cues) is watched frame by frame at desktop and 390px: hands really do the thing, nobody stands at someone's elbow or in front of a chair's back, no prop is half hidden or cut off. See **Acting from cues** in `AGENTS.md`.
 - [ ] How each change of place is said: the last line before (`Poďme na trh!`) and the first after (`Teraz sme na trhu.`), or a scene card (`Trh. Pol piatej.`).
 
 ## 2. The prompt
