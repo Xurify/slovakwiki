@@ -4655,6 +4655,10 @@ exports[`every scene, directed > podcast podcast-imperative-classroom 1`] = `
           "marek": 1,
           "maria": -1,
         },
+        "sit": [
+          "anna",
+          "marek",
+        ],
       },
     },
     {
@@ -5388,7 +5392,6 @@ exports[`every scene, directed > podcast podcast-imperative-game 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -5805,7 +5808,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -5887,7 +5889,7 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       "line": "anna: Marek? A tá rastlina?",
       "plan": {
         "beats": [
-          "50 ask",
+          "50 sigh",
           "2225 point → rastlina",
         ],
         "ms": 4000,
@@ -5948,7 +5950,6 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -6149,7 +6150,6 @@ exports[`every scene, directed > podcast podcast-imperative-quiz 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
