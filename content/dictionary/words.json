@@ -40,18 +40,6 @@
         "english": "When I grow up, I want to be king.",
         "note": "Tatoeba",
         "tatoebaId": 1548476
-      },
-      {
-        "slovak": "On nemôže byť mladým.",
-        "english": "He can't be young.",
-        "note": "Tatoeba",
-        "tatoebaId": 2430561
-      },
-      {
-        "slovak": "Je jasné, čo musí byť vykonané.",
-        "english": "It is clear what must be done.",
-        "note": "Tatoeba",
-        "tatoebaId": 2914677
       }
     ],
     "related": [
@@ -10605,22 +10593,10 @@
         "demonstrates": "mať + rád + noun — liking"
       },
       {
-        "slovak": "Rád čítam knihy.",
-        "english": "I like reading books.",
+        "slovak": "Som rád, že si prišiel.",
+        "english": "I'm glad you came.",
         "note": "Curated",
-        "demonstrates": "rád + verb — like doing"
-      },
-      {
-        "slovak": "Rád by som si dal koláč ako dezert.",
-        "english": "I'd like to have cake for dessert.",
-        "note": "Tatoeba",
-        "tatoebaId": 1036111
-      },
-      {
-        "slovak": "Pedro má motorku a rád na nej jazdí.",
-        "english": "Pedro has a motorcycle and loves to ride it.",
-        "note": "Tatoeba",
-        "tatoebaId": 1036113
+        "demonstrates": "byť rád — glad"
       },
       {
         "slovak": "Nikdy som nemal rád biológiu.",
@@ -10635,16 +10611,16 @@
         "tatoebaId": 1223457
       },
       {
+        "slovak": "Mám rád čaj.",
+        "english": "I like tea.",
+        "note": "Tatoeba",
+        "tatoebaId": 2428893
+      },
+      {
         "slovak": "Mám rád zajace.",
         "english": "I like hares.",
         "note": "Tatoeba",
         "tatoebaId": 1817985
-      },
-      {
-        "slovak": "Rád by som Tomáša lepšie spoznal.",
-        "english": "I'd like to get to know Tom better.",
-        "note": "Tatoeba",
-        "tatoebaId": 2229067
       }
     ],
     "related": [
@@ -11150,12 +11126,6 @@
         "slovak": "Máme ročný plán.",
         "english": "We have an annual plan.",
         "note": "Curated"
-      },
-      {
-        "slovak": "V Ankare sú všetky ročné obdobia ako zima.",
-        "english": "In Ankara, all the seasons are like winter.",
-        "note": "Tatoeba",
-        "tatoebaId": 1044671
       },
       {
         "slovak": "Myslím, že jeseň je najkrajšie ročné obdobie.",
@@ -13446,12 +13416,6 @@
         "tatoebaId": 10056085
       },
       {
-        "slovak": "Je jasné, čo musí byť vykonané.",
-        "english": "It is clear what must be done.",
-        "note": "Tatoeba",
-        "tatoebaId": 2914677
-      },
-      {
         "slovak": "Je jasné, čo sa musí spraviť.",
         "english": "It is clear what must be done.",
         "note": "Tatoeba",
@@ -15670,12 +15634,6 @@
         "english": "Stop calling me Tom.",
         "note": "Tatoeba",
         "tatoebaId": 8976147
-      },
-      {
-        "slovak": "Blahoslavení, ktorí tvoria pokoj, lebo synmi Božími oni budú sa volať.",
-        "english": "Blessed are the peacemakers: for they will be called children of God.",
-        "note": "Tatoeba",
-        "tatoebaId": 9750447
       },
       {
         "slovak": "Môžem ťa volať Tom?",
@@ -22812,12 +22770,6 @@
     "english": "to occur; to come about",
     "category": "Verbs",
     "examples": [
-      {
-        "slovak": "A nastal večer, a nastalo ráno, deň tretí.",
-        "english": "And the evening and the morning were the third day.",
-        "note": "Tatoeba",
-        "tatoebaId": 9733897
-      },
       {
         "slovak": "Ak nastane problém, zavolajte nás.",
         "english": "If a problem occurs, call us.",
@@ -47697,12 +47649,6 @@
     "category": "Verbs",
     "examples": [
       {
-        "slovak": "Toto ráno sa mi Tom ospravedlnil.",
-        "english": "Tom apologized to me this morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 8956477
-      },
-      {
         "slovak": "Ospravedlnil som sa mu za to.",
         "english": "I apologized to him for that.",
         "note": "Tatoeba",
@@ -69552,52 +69498,24 @@
     "gender": "feminine",
     "examples": [
       {
-        "slovak": "Prosím, zabočte doprava.",
-        "english": "Please turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 8862861
+        "slovak": "Ráno je na diaľnici hustá doprava.",
+        "english": "In the morning there is heavy traffic on the motorway.",
+        "note": "Curated"
       },
       {
-        "slovak": "Odbočil som doprava.",
-        "english": "I turned right.",
-        "note": "Tatoeba",
-        "tatoebaId": 9000243
+        "slovak": "Verejná doprava funguje aj v noci.",
+        "english": "Public transport runs at night too.",
+        "note": "Curated"
       },
       {
-        "slovak": "Choď rovno, potom zaboč doprava.",
-        "english": "Go straight, then turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 10142700
+        "slovak": "Cena zahŕňa aj dopravu na letisko.",
+        "english": "The price includes transport to the airport.",
+        "note": "Curated"
       },
       {
-        "slovak": "Choď rovno, potom odboč doprava.",
-        "english": "Go straight, then turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 10142701
-      },
-      {
-        "slovak": "Choď rovno, potom zahni doprava.",
-        "english": "Go straight, then turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 10142702
-      },
-      {
-        "slovak": "Choďte rovno, potom zabočte doprava.",
-        "english": "Go straight, then turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 10142703
-      },
-      {
-        "slovak": "Choďte rovno, potom odbočte doprava.",
-        "english": "Go straight, then turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 10142704
-      },
-      {
-        "slovak": "Choďte rovno, potom zahnite doprava.",
-        "english": "Go straight, then turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 10142705
+        "slovak": "Po nehode stála doprava v centre hodinu.",
+        "english": "After the accident, traffic in the centre stood still for an hour.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -73779,11 +73697,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Škoda, že sme nestihli posledný autobus domov.",
-        "english": "Pity we missed the last bus home.",
-        "note": "Curated"
-      },
-      {
         "slovak": "Oprava škody na fasáde potrvá celý mesiac.",
         "english": "Repairing the facade damage will take a whole month.",
         "note": "Curated"
@@ -77733,28 +77646,9 @@
     "gender": "masculine-inanimate",
     "examples": [
       {
-        "slovak": "Kam pôjdeme dnes večer?",
-        "english": "Where shall we go tonight?",
-        "note": "Tatoeba",
-        "tatoebaId": 8863074
-      },
-      {
-        "slovak": "Myslím, že bude dnes večer mrznúť.",
-        "english": "I think it'll freeze tonight.",
-        "note": "Tatoeba",
-        "tatoebaId": 8935887
-      },
-      {
-        "slovak": "Uvidí ich dnes večer.",
-        "english": "He will see them this evening.",
-        "note": "Tatoeba",
-        "tatoebaId": 8936446
-      },
-      {
-        "slovak": "Dnes večer odídem.",
-        "english": "I'll leave tonight.",
-        "note": "Tatoeba",
-        "tatoebaId": 8947506
+        "slovak": "Bol to krásny večer.",
+        "english": "It was a lovely evening.",
+        "note": "Curated"
       },
       {
         "slovak": "Dobrý večer!",
@@ -77763,22 +77657,20 @@
         "tatoebaId": 8962092
       },
       {
+        "slovak": "Celý večer sme sa rozprávali.",
+        "english": "We talked all evening.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Teším sa na piatkový večer.",
+        "english": "I'm looking forward to Friday evening.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Večer strávil čítaním knihy.",
         "english": "He spent the evening reading a book.",
         "note": "Tatoeba",
         "tatoebaId": 9697518
-      },
-      {
-        "slovak": "A nastal večer, a nastalo ráno, deň tretí.",
-        "english": "And the evening and the morning were the third day.",
-        "note": "Tatoeba",
-        "tatoebaId": 9733897
-      },
-      {
-        "slovak": "A nastal večer, a nastalo ráno, deň štvrtý.",
-        "english": "And the evening and morning were the fourth day.",
-        "note": "Tatoeba",
-        "tatoebaId": 9733908
       }
     ],
     "related": [
@@ -81143,28 +81035,9 @@
     "gender": "feminine",
     "examples": [
       {
-        "slovak": "V Ankare sú všetky ročné obdobia ako zima.",
-        "english": "In Ankara, all the seasons are like winter.",
-        "note": "Tatoeba",
-        "tatoebaId": 1044671
-      },
-      {
-        "slovak": "Nie je ti zima?",
-        "english": "Aren't you cold?",
-        "note": "Tatoeba",
-        "tatoebaId": 7680840
-      },
-      {
-        "slovak": "Je ti ešte zima?",
-        "english": "Are you still cold?",
-        "note": "Tatoeba",
-        "tatoebaId": 7708139
-      },
-      {
-        "slovak": "Vonku je zima. Obleč si kabát.",
-        "english": "It is cold outdoors. Put on your coat.",
-        "note": "Tatoeba",
-        "tatoebaId": 8996794
+        "slovak": "Tento rok prišla zima skoro.",
+        "english": "Winter came early this year.",
+        "note": "Curated"
       },
       {
         "slovak": "Bola to veľmi studená zima.",
@@ -81173,16 +81046,14 @@
         "tatoebaId": 9765917
       },
       {
-        "slovak": "Je vonku zima?",
-        "english": "Is it cold outside?",
-        "note": "Tatoeba",
-        "tatoebaId": 9765928
+        "slovak": "V zime chodíme na hory lyžovať.",
+        "english": "In winter we go skiing in the mountains.",
+        "note": "Curated"
       },
       {
-        "slovak": "Stále ti je zima?",
-        "english": "Are you still cold?",
-        "note": "Tatoeba",
-        "tatoebaId": 9765931
+        "slovak": "Na zimu si kúpim teplé topánky.",
+        "english": "I'll buy warm shoes for the winter.",
+        "note": "Curated"
       },
       {
         "slovak": "Zima je studená.",
@@ -84259,52 +84130,24 @@
     "gender": "masculine-inanimate",
     "examples": [
       {
-        "slovak": "Zavolám im zajtra, keď prídem domov.",
-        "english": "I'll phone them tomorrow when I come home.",
-        "note": "Tatoeba",
-        "tatoebaId": 1548474
+        "slovak": "Slovensko je môj druhý domov.",
+        "english": "Slovakia is my second home.",
+        "note": "Curated"
       },
       {
-        "slovak": "Brnknem im zajtra, keď prídem domov.",
-        "english": "I'll ring them tomorrow when I come home.",
-        "note": "Tatoeba",
-        "tatoebaId": 1548475
+        "slovak": "Tento byt sa stal naším domovom.",
+        "english": "This flat has become our home.",
+        "note": "Curated"
       },
       {
-        "slovak": "Tom je akýsi unavený. Chce ísť domov.",
-        "english": "Tom is kind of tired. He wants to go home.",
-        "note": "Tatoeba",
-        "tatoebaId": 1865239
+        "slovak": "Hľadajú nový domov pre psa.",
+        "english": "They are looking for a new home for the dog.",
+        "note": "Curated"
       },
       {
-        "slovak": "Radšej by som mal ísť domov.",
-        "english": "I'd better get home.",
-        "note": "Tatoeba",
-        "tatoebaId": 2921809
-      },
-      {
-        "slovak": "Odviezla ma domov.",
-        "english": "She gave me a ride home.",
-        "note": "Tatoeba",
-        "tatoebaId": 2921852
-      },
-      {
-        "slovak": "Prečo nejdeme domov?",
-        "english": "Why don't we go home?",
-        "note": "Tatoeba",
-        "tatoebaId": 4776191
-      },
-      {
-        "slovak": "Chlapec prišiel domov.",
-        "english": "The boy has come home.",
-        "note": "Tatoeba",
-        "tatoebaId": 4776196
-      },
-      {
-        "slovak": "Prečo neideš domov?",
-        "english": "Why don't you go home?",
-        "note": "Tatoeba",
-        "tatoebaId": 8189462
+        "slovak": "Babka býva v domove dôchodcov.",
+        "english": "Grandma lives in a retirement home.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -92717,16 +92560,15 @@
     "gender": "neuter",
     "examples": [
       {
-        "slovak": "V tie dni som zvykol vstávať o šiestej každé ráno.",
-        "english": "In those days, I used to get up at six every morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 2913792
+        "slovak": "Bolo krásne slnečné ráno.",
+        "english": "It was a beautiful sunny morning.",
+        "note": "Curated"
       },
       {
-        "slovak": "Dnes ráno ma pohrýzol pes.",
-        "english": "A dog bit me this morning.",
+        "slovak": "Pršalo celé ráno.",
+        "english": "It's been raining all morning.",
         "note": "Tatoeba",
-        "tatoebaId": 8195389
+        "tatoebaId": 8978066
       },
       {
         "slovak": "Tom bol celé ráno zaneprázdnený.",
@@ -92735,34 +92577,16 @@
         "tatoebaId": 8850023
       },
       {
+        "slovak": "V tie dni som zvykol vstávať o šiestej každé ráno.",
+        "english": "In those days, I used to get up at six every morning.",
+        "note": "Tatoeba",
+        "tatoebaId": 2913792
+      },
+      {
         "slovak": "Na strednej škole som sa zobúdzal o šiestej každé ráno.",
         "english": "Back in high school, I got up at 6 a.m. every morning.",
         "note": "Tatoeba",
         "tatoebaId": 8862479
-      },
-      {
-        "slovak": "Prvá skupina sa učí ráno a druhá skupina popoludní.",
-        "english": "The first group studies in the morning, and the second group studies in the afternoon.",
-        "note": "Tatoeba",
-        "tatoebaId": 8923902
-      },
-      {
-        "slovak": "Kam všetci idete tak skoro ráno?",
-        "english": "Where are you all going so early in the morning?",
-        "note": "Tatoeba",
-        "tatoebaId": 8936386
-      },
-      {
-        "slovak": "Toto ráno sa mi Tom ospravedlnil.",
-        "english": "Tom apologized to me this morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 8956477
-      },
-      {
-        "slovak": "Pršalo celé ráno.",
-        "english": "It's been raining all morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 8978066
       }
     ],
     "related": [
@@ -95726,12 +95550,6 @@
         "tatoebaId": 8996680
       },
       {
-        "slovak": "V diaľke počujem zvuk ticho šumiacich ciest.",
-        "english": "In the distance I hear the sound of softly murmuring roads.",
-        "note": "Tatoeba",
-        "tatoebaId": 9801883
-      },
-      {
         "slovak": "Ktorý zvuk sa ti najťažšie vyslovuje?",
         "english": "Which sound is the hardest for you to pronounce?",
         "note": "Tatoeba",
@@ -95772,44 +95590,23 @@
     "gender": "neuter",
     "examples": [
       {
-        "slovak": "Je príliš teplo a ja som veľmi unavený.",
-        "english": "It's too hot and I'm very tired.",
-        "note": "Tatoeba",
-        "tatoebaId": 8846810
-      },
-      {
-        "slovak": "Teplo sa obleč!",
-        "english": "Dress warmly!",
-        "note": "Tatoeba",
-        "tatoebaId": 8923848
-      },
-      {
-        "slovak": "Dnes je pomerne teplo.",
-        "english": "It's fairly warm today.",
-        "note": "Tatoeba",
-        "tatoebaId": 8947572
-      },
-      {
-        "slovak": "Je príliš teplo a ja som veľmi unavená.",
-        "english": "It's too hot and I'm very tired.",
-        "note": "Tatoeba",
-        "tatoebaId": 9797539
-      },
-      {
-        "slovak": "Zajtra bude teplo.",
-        "english": "It is going to be warm tomorrow.",
-        "note": "Tatoeba",
-        "tatoebaId": 12701134
-      },
-      {
-        "slovak": "Zajtra má byť teplo.",
-        "english": "It's supposed to be hot tomorrow.",
-        "note": "Tatoeba",
-        "tatoebaId": 13627036
-      },
-      {
         "slovak": "Teplo z kachlí zohrialo celú izbu.",
         "english": "The heat from the stove warmed the whole room.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cítila na tvári teplo slnka.",
+        "english": "She felt the warmth of the sun on her face.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mačka vyhľadáva teplo pri peci.",
+        "english": "The cat seeks out the warmth by the stove.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dom stráca veľa tepla oknami.",
+        "english": "The house loses a lot of heat through the windows.",
         "note": "Curated"
       }
     ],
@@ -133706,12 +133503,6 @@
     "category": "Adjectives",
     "examples": [
       {
-        "slovak": "Bolo super.",
-        "english": "It was great.",
-        "note": "Tatoeba",
-        "tatoebaId": 13416307
-      },
-      {
         "slovak": "Film bol fakt super od začiatku do konca.",
         "english": "The film was really great from start to finish.",
         "note": "Curated"
@@ -140066,46 +139857,20 @@
     "gender": "neuter",
     "examples": [
       {
-        "slovak": "Požiadal som Toma, aby bol ticho.",
-        "english": "I asked Tom to be quiet.",
-        "note": "Tatoeba",
-        "tatoebaId": 8862752
-      },
-      {
-        "slovak": "Mária ticho zatvorila dvere.",
-        "english": "Mary closed the door quietly.",
-        "note": "Tatoeba",
-        "tatoebaId": 8950164
-      },
-      {
-        "slovak": "Na okamih buďte ticho.",
-        "english": "Stay quiet for a moment.",
-        "note": "Tatoeba",
-        "tatoebaId": 8951680
-      },
-      {
-        "slovak": "Buďte ticho!",
-        "english": "Be quiet!",
-        "note": "Tatoeba",
-        "tatoebaId": 7584018
-      },
-      {
-        "slovak": "V diaľke počujem zvuk ticho šumiacich ciest.",
-        "english": "In the distance I hear the sound of softly murmuring roads.",
-        "note": "Tatoeba",
-        "tatoebaId": 9801883
-      },
-      {
-        "slovak": "Tom bol celý čas ticho.",
-        "english": "Tom remained silent the whole time.",
-        "note": "Tatoeba",
-        "tatoebaId": 10890105
-      },
-      {
         "slovak": "V lese znova ostalo ticho.",
         "english": "It became quiet again in the forest.",
         "note": "Tatoeba",
         "tatoebaId": 12686727
+      },
+      {
+        "slovak": "V izbe zavládlo ticho.",
+        "english": "Silence fell over the room.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Potrebujem na prácu ticho.",
+        "english": "I need quiet to work.",
+        "note": "Curated"
       },
       {
         "slovak": "Môže ticho odhaliť pravdu?",
@@ -140915,10 +140680,24 @@
     "gender": "feminine",
     "examples": [
       {
-        "slovak": "Hindčina sa píše a číta zľava doprava.",
-        "english": "Hindi is written and read from left to right.",
-        "note": "Tatoeba",
-        "tatoebaId": 13125667
+        "slovak": "Študenti majú zľavu na cestovné.",
+        "english": "Students get a discount on fares.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dostali sme zľavu za skorú rezerváciu.",
+        "english": "We got a discount for booking early.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na tieto topánky dávajú dvadsaťpercentnú zľavu.",
+        "english": "They're giving twenty percent off these shoes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zľava platí do konca mesiaca.",
+        "english": "The discount is valid until the end of the month.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -142282,6 +142061,11 @@
         "english": "I'm free today.",
         "note": "Tatoeba",
         "tatoebaId": 9734203
+      },
+      {
+        "slovak": "Zajtra si beriem voľno.",
+        "english": "I'm taking the day off tomorrow.",
+        "note": "Curated"
       },
       {
         "slovak": "V stredu mám voľno.",
@@ -143763,12 +143547,6 @@
         "english": "I came from very far away.",
         "note": "Tatoeba",
         "tatoebaId": 13039410
-      },
-      {
-        "slovak": "V diaľke počujem zvuk ticho šumiacich ciest.",
-        "english": "In the distance I hear the sound of softly murmuring roads.",
-        "note": "Tatoeba",
-        "tatoebaId": 9801883
       },
       {
         "slovak": "V diaľke sme videli vežu.",
@@ -166605,52 +166383,24 @@
     "category": "Nouns",
     "examples": [
       {
-        "slovak": "Desaťtisíc plus päťtisíc päťsto sa rovná pätnásťtisíc päťsto.",
-        "english": "Ten thousand plus five thousand five hundred makes fifteen thousand five hundred.",
-        "note": "Tatoeba",
-        "tatoebaId": 8944703
+        "slovak": "Veľkým plusom bytu je balkón.",
+        "english": "The flat's big plus is the balcony.",
+        "note": "Curated"
       },
       {
-        "slovak": "Päť plus dva rovná sa sedem.",
-        "english": "Five plus two equals seven.",
-        "note": "Tatoeba",
-        "tatoebaId": 8994724
+        "slovak": "Znalosť jazykov je pri hľadaní práce veľké plus.",
+        "english": "Knowing languages is a big plus when looking for work.",
+        "note": "Curated"
       },
       {
-        "slovak": "Dva plus dva sú štyri.",
-        "english": "Two and two is four.",
-        "note": "Tatoeba",
-        "tatoebaId": 12268512
+        "slovak": "Každé riešenie má svoje plusy aj mínusy.",
+        "english": "Every solution has its pluses and minuses.",
+        "note": "Curated"
       },
       {
-        "slovak": "Tri plus päť sa rovná osem.",
-        "english": "Three plus five equals eight.",
-        "note": "Tatoeba",
-        "tatoebaId": 12695540
-      },
-      {
-        "slovak": "Tri plus päť je osem.",
-        "english": "Three plus five equals eight.",
-        "note": "Tatoeba",
-        "tatoebaId": 12695544
-      },
-      {
-        "slovak": "Jeden plus dva sa rovná tri.",
-        "english": "One plus two equals three.",
-        "note": "Tatoeba",
-        "tatoebaId": 12695567
-      },
-      {
-        "slovak": "Tri plus päť rovná sa osem.",
-        "english": "Three plus five equals eight.",
-        "note": "Tatoeba",
-        "tatoebaId": 12696378
-      },
-      {
-        "slovak": "Päť plus dva sa rovná sedem.",
-        "english": "Five plus two equals seven.",
-        "note": "Tatoeba",
-        "tatoebaId": 12696380
+        "slovak": "Pre firmu je to jednoznačne plus.",
+        "english": "For the company it's clearly a plus.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -196278,28 +196028,10 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Zavolám im zajtra, keď prídem domov.",
-        "english": "I'll phone them tomorrow when I come home.",
+        "slovak": "Chlapec prišiel domov.",
+        "english": "The boy has come home.",
         "note": "Tatoeba",
-        "tatoebaId": 1548474
-      },
-      {
-        "slovak": "Brnknem im zajtra, keď prídem domov.",
-        "english": "I'll ring them tomorrow when I come home.",
-        "note": "Tatoeba",
-        "tatoebaId": 1548475
-      },
-      {
-        "slovak": "Tom je akýsi unavený. Chce ísť domov.",
-        "english": "Tom is kind of tired. He wants to go home.",
-        "note": "Tatoeba",
-        "tatoebaId": 1865239
-      },
-      {
-        "slovak": "Radšej by som mal ísť domov.",
-        "english": "I'd better get home.",
-        "note": "Tatoeba",
-        "tatoebaId": 2921809
+        "tatoebaId": 4776196
       },
       {
         "slovak": "Odviezla ma domov.",
@@ -196314,16 +196046,34 @@
         "tatoebaId": 4776191
       },
       {
-        "slovak": "Chlapec prišiel domov.",
-        "english": "The boy has come home.",
+        "slovak": "Zavolám im zajtra, keď prídem domov.",
+        "english": "I'll phone them tomorrow when I come home.",
         "note": "Tatoeba",
-        "tatoebaId": 4776196
+        "tatoebaId": 1548474
+      },
+      {
+        "slovak": "Tom je akýsi unavený. Chce ísť domov.",
+        "english": "Tom is kind of tired. He wants to go home.",
+        "note": "Tatoeba",
+        "tatoebaId": 1865239
+      },
+      {
+        "slovak": "Radšej by som mal ísť domov.",
+        "english": "I'd better get home.",
+        "note": "Tatoeba",
+        "tatoebaId": 2921809
       },
       {
         "slovak": "Prečo neideš domov?",
         "english": "Why don't you go home?",
         "note": "Tatoeba",
         "tatoebaId": 8189462
+      },
+      {
+        "slovak": "Brnknem im zajtra, keď prídem domov.",
+        "english": "I'll ring them tomorrow when I come home.",
+        "note": "Tatoeba",
+        "tatoebaId": 1548475
       }
     ],
     "related": []
@@ -196335,10 +196085,26 @@
     "category": "Adverbs",
     "examples": [
       {
+        "slovak": "Prídem až večer.",
+        "english": "I'll only come in the evening.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Večer chodím behať.",
+        "english": "In the evening I go running.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Kam pôjdeme dnes večer?",
         "english": "Where shall we go tonight?",
         "note": "Tatoeba",
         "tatoebaId": 8863074
+      },
+      {
+        "slovak": "Dnes večer odídem.",
+        "english": "I'll leave tonight.",
+        "note": "Tatoeba",
+        "tatoebaId": 8947506
       },
       {
         "slovak": "Myslím, že bude dnes večer mrznúť.",
@@ -196351,36 +196117,6 @@
         "english": "He will see them this evening.",
         "note": "Tatoeba",
         "tatoebaId": 8936446
-      },
-      {
-        "slovak": "Dnes večer odídem.",
-        "english": "I'll leave tonight.",
-        "note": "Tatoeba",
-        "tatoebaId": 8947506
-      },
-      {
-        "slovak": "Dobrý večer!",
-        "english": "Good evening.",
-        "note": "Tatoeba",
-        "tatoebaId": 8962092
-      },
-      {
-        "slovak": "Večer strávil čítaním knihy.",
-        "english": "He spent the evening reading a book.",
-        "note": "Tatoeba",
-        "tatoebaId": 9697518
-      },
-      {
-        "slovak": "A nastal večer, a nastalo ráno, deň tretí.",
-        "english": "And the evening and the morning were the third day.",
-        "note": "Tatoeba",
-        "tatoebaId": 9733897
-      },
-      {
-        "slovak": "A nastal večer, a nastalo ráno, deň štvrtý.",
-        "english": "And the evening and morning were the fourth day.",
-        "note": "Tatoeba",
-        "tatoebaId": 9733908
       }
     ],
     "related": []
@@ -196392,10 +196128,9 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "V tie dni som zvykol vstávať o šiestej každé ráno.",
-        "english": "In those days, I used to get up at six every morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 2913792
+        "slovak": "Ráno pijem kávu.",
+        "english": "In the morning I drink coffee.",
+        "note": "Curated"
       },
       {
         "slovak": "Dnes ráno ma pohrýzol pes.",
@@ -196404,40 +196139,16 @@
         "tatoebaId": 8195389
       },
       {
-        "slovak": "Tom bol celé ráno zaneprázdnený.",
-        "english": "Tom has been busy all morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 8850023
-      },
-      {
-        "slovak": "Na strednej škole som sa zobúdzal o šiestej každé ráno.",
-        "english": "Back in high school, I got up at 6 a.m. every morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 8862479
-      },
-      {
-        "slovak": "Prvá skupina sa učí ráno a druhá skupina popoludní.",
-        "english": "The first group studies in the morning, and the second group studies in the afternoon.",
-        "note": "Tatoeba",
-        "tatoebaId": 8923902
-      },
-      {
         "slovak": "Kam všetci idete tak skoro ráno?",
         "english": "Where are you all going so early in the morning?",
         "note": "Tatoeba",
         "tatoebaId": 8936386
       },
       {
-        "slovak": "Toto ráno sa mi Tom ospravedlnil.",
-        "english": "Tom apologized to me this morning.",
+        "slovak": "Prvá skupina sa učí ráno a druhá skupina popoludní.",
+        "english": "The first group studies in the morning, and the second group studies in the afternoon.",
         "note": "Tatoeba",
-        "tatoebaId": 8956477
-      },
-      {
-        "slovak": "Pršalo celé ráno.",
-        "english": "It's been raining all morning.",
-        "note": "Tatoeba",
-        "tatoebaId": 8978066
+        "tatoebaId": 8923902
       }
     ],
     "related": []
@@ -196449,10 +196160,24 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Aká škoda!",
-        "english": "What a pity!",
-        "note": "Tatoeba",
-        "tatoebaId": 9798165
+        "slovak": "Škoda, že sme nestihli posledný autobus domov.",
+        "english": "Pity we missed the last bus home.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Škoda, že dnes prší.",
+        "english": "Pity it's raining today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bolo by škoda nevyužiť také pekné počasie.",
+        "english": "It would be a shame not to make use of such nice weather.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Škoda, že nemôžeš prísť.",
+        "english": "Pity you can't come.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -196464,22 +196189,10 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Požiadal som Toma, aby bol ticho.",
-        "english": "I asked Tom to be quiet.",
-        "note": "Tatoeba",
-        "tatoebaId": 8862752
-      },
-      {
         "slovak": "Mária ticho zatvorila dvere.",
         "english": "Mary closed the door quietly.",
         "note": "Tatoeba",
         "tatoebaId": 8950164
-      },
-      {
-        "slovak": "Na okamih buďte ticho.",
-        "english": "Stay quiet for a moment.",
-        "note": "Tatoeba",
-        "tatoebaId": 8951680
       },
       {
         "slovak": "Buďte ticho!",
@@ -196488,28 +196201,22 @@
         "tatoebaId": 7584018
       },
       {
-        "slovak": "V diaľke počujem zvuk ticho šumiacich ciest.",
-        "english": "In the distance I hear the sound of softly murmuring roads.",
+        "slovak": "Na okamih buďte ticho.",
+        "english": "Stay quiet for a moment.",
         "note": "Tatoeba",
-        "tatoebaId": 9801883
+        "tatoebaId": 8951680
+      },
+      {
+        "slovak": "Požiadal som Toma, aby bol ticho.",
+        "english": "I asked Tom to be quiet.",
+        "note": "Tatoeba",
+        "tatoebaId": 8862752
       },
       {
         "slovak": "Tom bol celý čas ticho.",
         "english": "Tom remained silent the whole time.",
         "note": "Tatoeba",
         "tatoebaId": 10890105
-      },
-      {
-        "slovak": "V lese znova ostalo ticho.",
-        "english": "It became quiet again in the forest.",
-        "note": "Tatoeba",
-        "tatoebaId": 12686727
-      },
-      {
-        "slovak": "Môže ticho odhaliť pravdu?",
-        "english": "Can silence reveal the truth?",
-        "note": "Tatoeba",
-        "tatoebaId": 12777812
       }
     ],
     "related": []
@@ -196521,10 +196228,25 @@
     "category": "Adverbs",
     "examples": [
       {
+        "slovak": "Druhý zľava je môj brat.",
+        "english": "Second from the left is my brother.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Auto prišlo zľava.",
+        "english": "The car came from the left.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Hindčina sa píše a číta zľava doprava.",
         "english": "Hindi is written and read from left to right.",
         "note": "Tatoeba",
         "tatoebaId": 13125667
+      },
+      {
+        "slovak": "Vietor fúkal zľava.",
+        "english": "The wind was blowing from the left.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -196593,28 +196315,10 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Je príliš teplo a ja som veľmi unavený.",
-        "english": "It's too hot and I'm very tired.",
-        "note": "Tatoeba",
-        "tatoebaId": 8846810
-      },
-      {
-        "slovak": "Teplo sa obleč!",
-        "english": "Dress warmly!",
-        "note": "Tatoeba",
-        "tatoebaId": 8923848
-      },
-      {
         "slovak": "Dnes je pomerne teplo.",
         "english": "It's fairly warm today.",
         "note": "Tatoeba",
         "tatoebaId": 8947572
-      },
-      {
-        "slovak": "Je príliš teplo a ja som veľmi unavená.",
-        "english": "It's too hot and I'm very tired.",
-        "note": "Tatoeba",
-        "tatoebaId": 9797539
       },
       {
         "slovak": "Zajtra bude teplo.",
@@ -196623,10 +196327,28 @@
         "tatoebaId": 12701134
       },
       {
+        "slovak": "Teplo sa obleč!",
+        "english": "Dress warmly!",
+        "note": "Tatoeba",
+        "tatoebaId": 8923848
+      },
+      {
         "slovak": "Zajtra má byť teplo.",
         "english": "It's supposed to be hot tomorrow.",
         "note": "Tatoeba",
         "tatoebaId": 13627036
+      },
+      {
+        "slovak": "Je príliš teplo a ja som veľmi unavený.",
+        "english": "It's too hot and I'm very tired.",
+        "note": "Tatoeba",
+        "tatoebaId": 8846810
+      },
+      {
+        "slovak": "Je príliš teplo a ja som veľmi unavená.",
+        "english": "It's too hot and I'm very tired.",
+        "note": "Tatoeba",
+        "tatoebaId": 9797539
       }
     ],
     "related": []
@@ -196656,6 +196378,11 @@
         "tatoebaId": 10142700
       },
       {
+        "slovak": "Pozri sa doľava aj doprava.",
+        "english": "Look left and right.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Choď rovno, potom odboč doprava.",
         "english": "Go straight, then turn right.",
         "note": "Tatoeba",
@@ -196678,12 +196405,6 @@
         "english": "Go straight, then turn right.",
         "note": "Tatoeba",
         "tatoebaId": 10142704
-      },
-      {
-        "slovak": "Choďte rovno, potom zahnite doprava.",
-        "english": "Go straight, then turn right.",
-        "note": "Tatoeba",
-        "tatoebaId": 10142705
       }
     ],
     "related": []
@@ -196734,10 +196455,10 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "V Ankare sú všetky ročné obdobia ako zima.",
-        "english": "In Ankara, all the seasons are like winter.",
+        "slovak": "Vonku je zima. Obleč si kabát.",
+        "english": "It is cold outdoors. Put on your coat.",
         "note": "Tatoeba",
-        "tatoebaId": 1044671
+        "tatoebaId": 8996794
       },
       {
         "slovak": "Nie je ti zima?",
@@ -196746,40 +196467,22 @@
         "tatoebaId": 7680840
       },
       {
-        "slovak": "Je ti ešte zima?",
-        "english": "Are you still cold?",
-        "note": "Tatoeba",
-        "tatoebaId": 7708139
-      },
-      {
-        "slovak": "Vonku je zima. Obleč si kabát.",
-        "english": "It is cold outdoors. Put on your coat.",
-        "note": "Tatoeba",
-        "tatoebaId": 8996794
-      },
-      {
-        "slovak": "Bola to veľmi studená zima.",
-        "english": "It was a very cold winter.",
-        "note": "Tatoeba",
-        "tatoebaId": 9765917
-      },
-      {
         "slovak": "Je vonku zima?",
         "english": "Is it cold outside?",
         "note": "Tatoeba",
         "tatoebaId": 9765928
       },
       {
+        "slovak": "Je ti ešte zima?",
+        "english": "Are you still cold?",
+        "note": "Tatoeba",
+        "tatoebaId": 7708139
+      },
+      {
         "slovak": "Stále ti je zima?",
         "english": "Are you still cold?",
         "note": "Tatoeba",
         "tatoebaId": 9765931
-      },
-      {
-        "slovak": "Zima je studená.",
-        "english": "Winter is cold.",
-        "note": "Tatoeba",
-        "tatoebaId": 9765954
       }
     ],
     "related": []
@@ -196795,6 +196498,21 @@
         "english": "It was great.",
         "note": "Tatoeba",
         "tatoebaId": 13416307
+      },
+      {
+        "slovak": "Varíš super!",
+        "english": "You cook great!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na koncerte to bolo super.",
+        "english": "The concert was great.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Všetko dopadlo super.",
+        "english": "Everything turned out great.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -196802,20 +196520,13 @@
   {
     "slug": "plus-adv",
     "slovak": "plus",
-    "english": "plus; advantage",
+    "english": "plus (in sums); above zero",
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Desaťtisíc plus päťtisíc päťsto sa rovná pätnásťtisíc päťsto.",
-        "english": "Ten thousand plus five thousand five hundred makes fifteen thousand five hundred.",
-        "note": "Tatoeba",
-        "tatoebaId": 8944703
-      },
-      {
-        "slovak": "Päť plus dva rovná sa sedem.",
-        "english": "Five plus two equals seven.",
-        "note": "Tatoeba",
-        "tatoebaId": 8994724
+        "slovak": "Vonku je plus päť stupňov.",
+        "english": "It's plus five degrees outside.",
+        "note": "Curated"
       },
       {
         "slovak": "Dva plus dva sú štyri.",
@@ -196824,10 +196535,10 @@
         "tatoebaId": 12268512
       },
       {
-        "slovak": "Tri plus päť sa rovná osem.",
-        "english": "Three plus five equals eight.",
+        "slovak": "Päť plus dva rovná sa sedem.",
+        "english": "Five plus two equals seven.",
         "note": "Tatoeba",
-        "tatoebaId": 12695540
+        "tatoebaId": 8994724
       },
       {
         "slovak": "Tri plus päť je osem.",
@@ -196842,16 +196553,22 @@
         "tatoebaId": 12695567
       },
       {
+        "slovak": "Desaťtisíc plus päťtisíc päťsto sa rovná pätnásťtisíc päťsto.",
+        "english": "Ten thousand plus five thousand five hundred makes fifteen thousand five hundred.",
+        "note": "Tatoeba",
+        "tatoebaId": 8944703
+      },
+      {
+        "slovak": "Tri plus päť sa rovná osem.",
+        "english": "Three plus five equals eight.",
+        "note": "Tatoeba",
+        "tatoebaId": 12695540
+      },
+      {
         "slovak": "Tri plus päť rovná sa osem.",
         "english": "Three plus five equals eight.",
         "note": "Tatoeba",
         "tatoebaId": 12696378
-      },
-      {
-        "slovak": "Päť plus dva sa rovná sedem.",
-        "english": "Five plus two equals seven.",
-        "note": "Tatoeba",
-        "tatoebaId": 12696380
       }
     ],
     "related": []
@@ -196859,9 +196576,20 @@
   {
     "slug": "rad-adv",
     "slovak": "rád",
-    "english": "gladly; with pleasure; (mať rád) to like",
+    "english": "gladly; with pleasure",
     "category": "Adverbs",
     "examples": [
+      {
+        "slovak": "Rád čítam knihy.",
+        "english": "I like reading books.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rád to počujem.",
+        "english": "I am glad to hear it.",
+        "note": "Tatoeba",
+        "tatoebaId": 2859003
+      },
       {
         "slovak": "Rád by som si dal koláč ako dezert.",
         "english": "I'd like to have cake for dessert.",
@@ -196875,40 +196603,10 @@
         "tatoebaId": 1036113
       },
       {
-        "slovak": "Nikdy som nemal rád biológiu.",
-        "english": "I never liked biology.",
-        "note": "Tatoeba",
-        "tatoebaId": 1058173
-      },
-      {
-        "slovak": "Mám rád čokoládovú zmrzlinu!",
-        "english": "I like chocolate ice cream!",
-        "note": "Tatoeba",
-        "tatoebaId": 1223457
-      },
-      {
-        "slovak": "Mám rád zajace.",
-        "english": "I like hares.",
-        "note": "Tatoeba",
-        "tatoebaId": 1817985
-      },
-      {
         "slovak": "Rád by som Tomáša lepšie spoznal.",
         "english": "I'd like to get to know Tom better.",
         "note": "Tatoeba",
         "tatoebaId": 2229067
-      },
-      {
-        "slovak": "Mám rád čaj.",
-        "english": "I like tea.",
-        "note": "Tatoeba",
-        "tatoebaId": 2428893
-      },
-      {
-        "slovak": "Rád to počujem.",
-        "english": "I am glad to hear it.",
-        "note": "Tatoeba",
-        "tatoebaId": 2859003
       }
     ],
     "related": []
@@ -196916,26 +196614,23 @@
   {
     "slug": "volno-adv",
     "slovak": "voľno",
-    "english": "free; off work",
+    "english": "free; vacant",
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Dnes mám voľno.",
-        "english": "I'm free today.",
-        "note": "Tatoeba",
-        "tatoebaId": 9734203
+        "slovak": "Je tu voľno?",
+        "english": "Is this seat free?",
+        "note": "Curated"
       },
       {
-        "slovak": "V stredu mám voľno.",
-        "english": "Wednesday I am free.",
-        "note": "Tatoeba",
-        "tatoebaId": 12273746
+        "slovak": "Na parkovisku je ešte voľno.",
+        "english": "There's still room in the car park.",
+        "note": "Curated"
       },
       {
-        "slovak": "V pondelok mám voľno.",
-        "english": "Monday I am free.",
-        "note": "Tatoeba",
-        "tatoebaId": 12273748
+        "slovak": "V autobuse bolo voľno, tak som si sadol.",
+        "english": "There was room on the bus, so I sat down.",
+        "note": "Curated"
       }
     ],
     "related": []
