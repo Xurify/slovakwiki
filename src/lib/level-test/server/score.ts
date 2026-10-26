@@ -267,6 +267,14 @@ export interface ScorerConfig {
   /** An OpenRouter model slug; defaults to `SCORING_MODEL`. */
   model?: string;
   fetchImpl?: typeof fetch;
+  /** Called with OpenRouter's token counts (and cost, when it sends one) for each reply. */
+  onUsage?: (usage: ScorerUsage) => void;
+}
+
+export interface ScorerUsage {
+  promptTokens: number;
+  completionTokens: number;
+  cost?: number;
 }
 
 interface ChatCompletion {
@@ -274,6 +282,7 @@ interface ChatCompletion {
     finish_reason?: string | null;
     message?: { content?: unknown; refusal?: unknown };
   }>;
+  usage?: { prompt_tokens?: unknown; completion_tokens?: unknown; cost?: unknown };
 }
 
 /** Models without strict JSON mode sometimes wrap the object in a code fence or a sentence. */
@@ -326,7 +335,16 @@ export async function scoreProduction(
   if (response.status === 429) throw new ScoringBusyError("Rate limited");
   if (!response.ok) throw new Error(`Scoring failed (${response.status})`);
 
-  const choice = ((await response.json()) as ChatCompletion).choices?.[0];
+  const completion = (await response.json()) as ChatCompletion;
+  if (config.onUsage && completion.usage) {
+    const { prompt_tokens, completion_tokens, cost } = completion.usage;
+    config.onUsage({
+      promptTokens: typeof prompt_tokens === "number" ? prompt_tokens : 0,
+      completionTokens: typeof completion_tokens === "number" ? completion_tokens : 0,
+      cost: typeof cost === "number" ? cost : undefined,
+    });
+  }
+  const choice = completion.choices?.[0];
   if (choice?.finish_reason === "content_filter" || choice?.message?.refusal)
     throw new ScoringRefusedError("Scoring declined");
   if (choice?.finish_reason === "length") throw new Error("Scorer ran out of tokens");
