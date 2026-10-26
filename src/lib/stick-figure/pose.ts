@@ -71,3 +71,39 @@ export function easeInOut(t: number): number {
   const clamped = Math.min(1, Math.max(0, t));
   return clamped < 0.5 ? 4 * clamped ** 3 : 1 - (-2 * clamped + 2) ** 3 / 2;
 }
+
+/**
+ * A seated talker's beat: the share of the arm's swing out that it keeps,
+ * and the forearm's angle from straight down. The elbow stays by the side
+ * and the forearm comes up, so the hand beats in front of the chest, between
+ * the desk's mug and the microphone, not out along the desk.
+ */
+const OVER_TABLE = { swing: 0.4, forearm: 112 };
+/** An arm raised further than this from rest points or waves, and is left be. */
+const RAISED = 50;
+
+/**
+ * Seated at a table or desk, a talking hand gestures over it. An arm held
+ * out from the body draws in and bends up the more the figure sits; one
+ * folded to the chest or chin, or raised to point, stays as it is.
+ */
+export function overTable(pose: StickPose, sit: number): StickPose {
+  if (sit <= 0) return pose;
+  const lift = (raise: number, bend: number, rest: number) => {
+    const out = raise - rest;
+    if (bend < -30 || Math.abs(out) < 4 || Math.abs(out) > RAISED) return { raise, bend };
+    const k = sit * Math.min(1, Math.abs(out) / 20);
+    const drawn = raise - out * (1 - OVER_TABLE.swing) * sit;
+    const up = Math.sign(out) * OVER_TABLE.forearm - drawn;
+    return { raise: drawn, bend: bend + (up - bend) * k };
+  };
+  const lead = lift(pose.leadRaise, pose.leadBend, REST_POSE.leadRaise);
+  const rear = lift(pose.rearRaise, pose.rearBend, REST_POSE.rearRaise);
+  return {
+    ...pose,
+    leadRaise: lead.raise,
+    leadBend: lead.bend,
+    rearRaise: rear.raise,
+    rearBend: rear.bend,
+  };
+}

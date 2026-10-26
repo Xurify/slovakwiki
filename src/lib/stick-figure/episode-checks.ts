@@ -21,22 +21,40 @@ import {
   CueError,
   applyCue,
   cueActor,
+  heldBy,
   isActed,
   opening,
   startWorld,
   type ActedLine,
   type Cue,
+  type ObjectKind,
   type World,
 } from "$lib/stick-figure/acts";
 import { PLACES, type PlaceSet } from "$lib/stick-figure/places";
-import { STICK_BOX } from "$lib/stick-figure/rig";
+import { STICK_BOX, type Point } from "$lib/stick-figure/rig";
 import {
+  DESK_REACH,
+  OPENING,
+  handOverY,
   objectBase,
+  pieceSize,
+  objectGrip,
   placePieces,
   spotAt,
+  stagePoint,
   surfaceAt,
   type SetGeometry,
+  type StageContext,
 } from "$lib/stick-figure/set-pieces";
+import {
+  motionFor,
+  motionMisses,
+  type Motion,
+  type Opening,
+  type Surroundings,
+} from "$lib/stick-figure/act-motions";
+import type { Hand } from "$lib/stick-figure/reach";
+import type { Facing } from "$lib/stick-figure/staging";
 import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
 /** A set shows a place when its id is listed or its label names it: the park is drawn as `default`. */
@@ -382,6 +400,16 @@ const ARM = 36;
  * stand about 45 apart.
  */
 const ELBOW_ROOM = 30;
+/** A chair's back and seat front from its middle (StickFurniture.svelte), facing +x. */
+const CHAIR = { back: 13.5, front: 11 };
+/** Half a standing figure's width, its hands resting at its sides. */
+const BODY = 9;
+/** Two heads with their hair, in rig units: centres closer than this touch. */
+const HEADS = 30;
+/** From the hip to the middle of the head, which a lean swings forward. */
+const HEAD_ABOVE_HIP = 45.5;
+/** Someone stood more than this inside a walk, in rig units, is passed, not stopped beside (StickStage's PASS_CLEAR). */
+const PASS_CLEAR = 20;
 /** Verbs that leave someone standing or sitting somewhere new. */
 const MOVES = new Set<Cue["do"]>(["go", "enter", "sit"]);
 
@@ -424,6 +452,157 @@ export function checkCues(
     return mark === undefined ? undefined : (mark + frame.figureWidth / 2) / unit;
   };
 
+  /** What a person standing at cast x `x` would stand in: a chair, or the strip behind a table people sit at. */
+  const furnitureAt = (x: number): string | undefined => {
+    for (const [index, seat] of seats.entries()) {
+      if (frame.desk) break;
+      const middle = seat.x / unit;
+      const [back, front] = [
+        middle - CHAIR.back * seat.facing,
+        middle + CHAIR.front * seat.facing,
+      ];
+      const [left, right] = back < front ? [back, front] : [front, back];
+      if (x > left - BODY && x < right + BODY)
+        return `${Math.round(Math.min(Math.abs(x - left), Math.abs(x - right)))} rig units into chair ${index}`;
+    }
+    if (frame.desk && seats.length) {
+      const [left, right] = [
+        seats[0].x / unit - DESK_REACH,
+        seats[seats.length - 1].x / unit + DESK_REACH,
+      ];
+      if (x > left - BODY && x < right + BODY)
+        return `${Math.round(Math.min(Math.abs(x - left), Math.abs(x - right)) + BODY)} rig units behind the desk's end`;
+    }
+    for (const piece of set.pieces) {
+      if (piece.kind !== "table" || !piece.front) continue;
+      const middle = geometry.pieceX(piece.id);
+      if (middle === undefined) continue;
+      const half = pieceSize(piece).width / 2;
+      if (Math.abs(x - middle) < half + BODY / 2)
+        return `behind the ${piece.id}, between it and its chairs`;
+    }
+    return undefined;
+  };
+
+  /** The way `who` faces there: their spot's, their chair's or desk seat's, then round to what the cue works on. */
+  const facingFor = (world: World, who: LessonCharacterId, toward?: string): Facing => {
+    const spot = world.spots[who];
+    const at = spot ? set.spots?.[spot] : undefined;
+    const index = frame.cast.indexOf(who);
+    let facing: Facing =
+      at && "chair" in at
+        ? (seats[at.chair]?.facing ?? 1)
+        : spot
+          ? (spotAt(set, geometry, spot, castX)?.facing ?? 1)
+          : frame.desk && index !== -1
+            ? (seats[index]?.facing ?? 1)
+            : 1;
+    const middle = standsAt(world, who);
+    const x = toward
+      ? stagePoint(stageContext(world), toward, "base", facing)?.x
+      : undefined;
+    if (x !== undefined && middle !== undefined && Math.abs(x - middle) >= 6)
+      facing = x > middle ? 1 : -1;
+    return facing;
+  };
+  const stageContext = (world: World): StageContext => ({
+    world,
+    set,
+    geometry,
+    castX,
+    middleOf: (name) =>
+      frame.cast.includes(name as LessonCharacterId)
+        ? standsAt(world, name as LessonCharacterId)
+        : undefined,
+    seatX: (chair) => seats[chair] && seats[chair].x / unit,
+  });
+
+  /** Where the hands of `who` go and what they hold land, on the stage as the cue finds it. */
+  const contactMisses = (
+    world: World,
+    after: World,
+    who: LessonCharacterId,
+    cue: Cue,
+  ): string[] => {
+    const middle = standsAt(world, who);
+    if (middle === undefined || cue.on === "dark") return [];
+    const { motion, partner } = motionFor(cue, who, world);
+    const check = (
+      mover: LessonCharacterId,
+      moves: Motion,
+      toward?: string,
+    ): string[] => {
+      const centre = standsAt(world, mover);
+      if (centre === undefined) return [];
+      const facing = facingFor(world, mover, toward);
+      const context = stageContext(world);
+      const toRig = (point: Point): Point => ({
+        x: (point.x - centre) * facing,
+        y: point.y,
+      });
+      const pointOf = (name: string, as: "grip" | "top" | "base" = "grip") => {
+        const point = stagePoint(context, name, as, facing);
+        return point && toRig(point);
+      };
+      const around: Surroundings = {
+        pointOf,
+        meetWith: (other) => {
+          const there = standsAt(world, other);
+          return there === undefined
+            ? undefined
+            : toRig({
+                x: (centre + there) / 2,
+                y: handOverY(world, geometry, centre, there),
+              });
+        },
+        landing: () => {
+          const grip = cue.what && objectGrip(after, cue.what, geometry, facing);
+          return grip ? toRig(grip) : undefined;
+        },
+      };
+      const held = heldBy(world, mover);
+      const holding: Partial<Record<Hand, ObjectKind>> = {
+        lead: held.lead ? world.objects[held.lead]?.kind : undefined,
+        rear: held.rear ? world.objects[held.rear]?.kind : undefined,
+      };
+      const openingOf = (name: string): Opening | undefined => {
+        const kind = world.objects[name]?.kind;
+        const size = kind && OPENING[kind];
+        const top = pointOf(name, "top");
+        return size && top ? { top, ...size } : undefined;
+      };
+      const sit =
+        world.seated?.includes(mover) || (frame.desk && !world.spots[mover]) ? 1 : 0;
+      return motionMisses(moves, around, holding, openingOf, sit);
+    };
+    return [
+      ...check(who, motion, motion.face ?? cue.what),
+      ...(partner ? check(partner.who, partner.motion, partner.motion.face) : []),
+    ];
+  };
+
+  /** Whose head a lean of `who` brings within touching of their own, and how close. */
+  const headClashes = (world: World, who: LessonCharacterId, cue: Cue): string[] => {
+    const middle = standsAt(world, who);
+    if (middle === undefined || cue.on === "dark") return [];
+    const { motion } = motionFor(cue, who, world);
+    const lean = Math.max(0, ...motion.keys.map((key) => key.body?.lean ?? 0));
+    if (lean < 3) return [];
+    const facing = facingFor(world, who, motion.face ?? cue.what);
+    const head = middle + facing * Math.sin((lean * Math.PI) / 180) * HEAD_ABOVE_HIP;
+    return frame.cast.flatMap((other) => {
+      if (other === who || world.out?.includes(other)) return [];
+      const there = standsAt(world, other);
+      if (there === undefined) return [];
+      const apart = Math.abs(head - there);
+      return apart < HEADS && apart < Math.abs(middle - there)
+        ? [
+            `${who} leans ${lean}° toward ${other}: heads ${Math.round(apart)} apart, and they touch under ${HEADS}`,
+          ]
+        : [];
+    });
+  };
+
   let world = opening(lines, start ?? startWorld(set.objects));
   lines.forEach((line, index) => {
     const turn = chapter.lines[index];
@@ -444,6 +623,22 @@ export function checkCues(
         });
         continue;
       }
+      for (const clash of headClashes(world, who, cue)) {
+        findings.push({
+          rule: "space/heads",
+          level: "error",
+          ...at,
+          message: `${clash}. Stand further off, or lean less.`,
+        });
+      }
+      for (const miss of contactMisses(world, after, who, cue)) {
+        findings.push({
+          rule: "contact/miss",
+          level: "error",
+          ...at,
+          message: `${who} "${cue.do} ${cue.what ?? cue.to ?? ""}": ${miss}.`,
+        });
+      }
       const target = workedOn(world, after, cue, set, geometry);
       const from = standsAt(world, who);
       if (target !== undefined && from !== undefined && Math.abs(target - from) > ARM) {
@@ -457,6 +652,32 @@ export function checkCues(
       }
       const there =
         MOVES.has(cue.do) && after.spots[who] ? standsAt(after, who) : undefined;
+      const blocked =
+        there !== undefined && !after.seated?.includes(who)
+          ? furnitureAt(there)
+          : undefined;
+      if (blocked) {
+        findings.push({
+          rule: "space/furniture",
+          level: "error",
+          ...at,
+          message: `${who} stands at ${after.spots[who]}, ${blocked}. A standing spot is clear of the table and its chairs.`,
+        });
+      }
+      const walked = from !== undefined && !world.out?.includes(who) && cue.on !== "dark";
+      for (const other of there === undefined || !walked ? [] : frame.cast) {
+        if (other === who || after.out?.includes(other)) continue;
+        const near = standsAt(after, other);
+        const [left, right] = from! < there! ? [from!, there!] : [there!, from!];
+        if (near === undefined || near < left + PASS_CLEAR || near > right - PASS_CLEAR)
+          continue;
+        findings.push({
+          rule: "space/passing",
+          level: "review",
+          ...at,
+          message: `${who} walks past ${other} (${after.spots[other] ?? "their mark"}) and steps toward the camera to pass in front. Check the pass reads as a step round them, not through.`,
+        });
+      }
       for (const other of there === undefined ? [] : frame.cast) {
         if (other === who || !after.spots[other] || after.out?.includes(other)) continue;
         const near = standsAt(after, other);

@@ -165,12 +165,13 @@ export function episodeStages(episode: ListeningEpisode): {
       const lines = sceneLines(chapter.lines).map(directedLine);
       const set = PLACES[setting].set;
       // Each segment starts on a wide shot, whatever the last one ended on.
-      const start = set
+      const opening = set
         ? setUp(
             { ...(left.get(setting) ?? startWorld(set.objects)), camera: WIDE },
             chapter.setup,
           )
         : undefined;
+      const start = opening && PLACES[setting].desk ? atDesk(opening, lines) : opening;
       if (set && start) left.set(setting, playedThrough(lines, set, start));
       return [
         chapter.id,
@@ -194,6 +195,15 @@ export function episodeStages(episode: ListeningEpisode): {
   );
 
   return { scenes, thingWords };
+}
+
+/** Hosts the stage seats at the desk, being nowhere else, are seated in the world too, so a cue knows they sit. */
+function atDesk(world: World, lines: readonly DirectedLine[]): World {
+  const hosts = [...new Set(lines.map(({ characterId }) => characterId))].filter(
+    (id): id is LessonCharacterId => !!id && !world.spots[id] && !world.out?.includes(id),
+  );
+  const seated = [...new Set([...(world.seated ?? []), ...hosts])];
+  return seated.length ? { ...world, seated } : world;
 }
 
 /** The world once a segment's cues have played; a cue that cannot be played (the episode checks name it) leaves it as it was. */

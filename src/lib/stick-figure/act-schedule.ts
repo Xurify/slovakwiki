@@ -33,6 +33,12 @@ const WALKS = new Set<Cue["do"]>(["go", "enter", "sit"]);
 
 /** A pause between one person's cues, so they read as two moves. */
 const BETWEEN_MS = 120;
+/**
+ * Two people setting off, sitting down or arriving closer together than
+ * this move as one, like a drill; the later one goes a beat after.
+ */
+export const APART_MS = 400;
+const BEAT_MS = 550;
 /** How far into a `skip` the lights are down, for the cues that happen in the dark. */
 export const DARK_MS = 1300;
 
@@ -59,6 +65,8 @@ export function scheduleCues(
   let state = world;
   let last: number | undefined;
   let dark: number | undefined;
+  /** The walks of this line so far, by whom and when. */
+  const moves: Array<{ who: LessonCharacterId; start: number; end: number }> = [];
 
   for (const cue of cues) {
     const who = cueActor(cue, speaker);
@@ -84,13 +92,15 @@ export function scheduleCues(
     const { motion, partner } = motionFor(cue, who, state);
     const anchor = anchorTime(cue.on, times);
     const after = cue.on === undefined ? (last ?? times.speech) : anchor;
-    const start = Math.max(
+    let start = Math.max(
       after ?? times.speech,
       free[who] ?? 0,
       partner ? (free[partner.who] ?? 0) : 0,
     );
     const ms = WALKS.has(cue.do) ? walkMs(who, cue, state) : motion.ms;
+    if (WALKS.has(cue.do) && ms > 0) start = apart(start, ms, who, moves);
     const end = start + ms;
+    if (WALKS.has(cue.do) && ms > 0) moves.push({ who, start, end });
 
     const next = applyCue(state, who, cue, plan);
     scheduled.push({ cue, who, motion, start, end, before: state, after: next });
@@ -155,4 +165,25 @@ export function leadingCount(cues: readonly Cue[]): number {
     else break;
   }
   return count;
+}
+
+/** When `who` sets off on a walk of `ms` from `start`: a beat later while it would start or end with someone else's. */
+function apart(
+  start: number,
+  ms: number,
+  who: LessonCharacterId,
+  moves: ReadonlyArray<{ who: LessonCharacterId; start: number; end: number }>,
+): number {
+  let at = start;
+  for (let tries = 0; tries < 4; tries += 1) {
+    const clash = moves.some(
+      (move) =>
+        move.who !== who &&
+        (Math.abs(move.start - at) < APART_MS ||
+          Math.abs(move.end - (at + ms)) < APART_MS),
+    );
+    if (!clash) return at;
+    at += BEAT_MS;
+  }
+  return at;
 }

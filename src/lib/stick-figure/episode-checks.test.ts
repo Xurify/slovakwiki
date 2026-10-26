@@ -61,7 +61,10 @@ describe("cues against the set", () => {
       { do: "go", to: "sink" },
       { do: "take", what: "spoon" },
     ]);
+    // The hand stops short of it too: once reaching for it, once lifting it out.
     expect(rules(checkCues(chapter, lines, KITCHEN, FRAME))).toEqual([
+      "error contact/miss",
+      "error contact/miss",
       "error space/out-of-reach",
     ]);
   });
@@ -78,7 +81,10 @@ describe("cues against the set", () => {
         { who: "maria", do: "take", what: "knife" },
       ],
     );
-    expect(checkCues(chapter, lines, KITCHEN, FRAME)).toEqual([]);
+    const errors = checkCues(chapter, lines, KITCHEN, FRAME).filter(
+      ({ level }) => level === "error",
+    );
+    expect(errors).toEqual([]);
   });
 
   it("flags stopping at someone's elbow, but not once they have moved off", () => {
@@ -96,6 +102,38 @@ describe("cues against the set", () => {
     expect(rules(checkCues(chapter, lines, KITCHEN, FRAME))).toEqual([
       "error space/crowded",
     ]);
+  });
+
+  it("flags a lean that brings two heads together, but not from a step further off", () => {
+    const at = (spot: string) =>
+      segment(
+        "marek",
+        [
+          { do: "go", to: spot },
+          { who: "anna", do: "go", to: "sink" },
+        ],
+        [{ who: "anna", do: "wash" }],
+      );
+    const close = at("board-back");
+    const apart = at("board");
+    expect(rules(checkCues(close.chapter, close.lines, KITCHEN, FRAME))).toEqual([
+      "error space/heads",
+    ]);
+    expect(checkCues(apart.chapter, apart.lines, KITCHEN, FRAME)).toEqual([]);
+  });
+
+  it("flags a standing spot behind the end of the studio desk", () => {
+    const studio = PLACES.studio.set!;
+    const frame = stageFrame(["anna", "marek"], {}, "studio", [], 960, 480);
+    const walk = segment("marek", [{ do: "go", to: "plant" }]);
+    const behind = {
+      ...studio,
+      spots: { ...studio.spots, plant: { piece: "corner", dx: -70, facing: 1 as const } },
+    };
+    expect(checkCues(walk.chapter, walk.lines, studio, frame)).toEqual([]);
+    expect(rules(checkCues(walk.chapter, walk.lines, behind, frame))).toContain(
+      "error space/furniture",
+    );
   });
 
   it("flags a card from nowhere and a hand-over of what nobody holds", () => {

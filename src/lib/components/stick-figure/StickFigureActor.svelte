@@ -13,16 +13,17 @@
     type SpeechClock,
   } from "$lib/stick-figure/performance";
   import type { StickPictureId } from "$lib/stick-figure/pictures";
-  import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
+  import { REST_POSE, overTable, type StickPose } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
-  import { walkPose } from "$lib/stick-figure/walk";
+  import { stepMs, walkPose } from "$lib/stick-figure/walk";
   import type { Effect, Emote } from "$lib/stick-figure/act-motions";
+  import type { ObjectKind } from "$lib/stick-figure/acts";
   import StickFigure from "./StickFigure.svelte";
   import type { ObjectLook } from "./StickSetObject.svelte";
 
   /** Sitting down or getting up takes about as long as a step and a half. */
-  const SIT_MS = 600;
+  const SIT_MS = 850;
   /** Bringing the phone up to the ear, or down. */
   const PHONE_MS = 400;
   const RESTING_ARMS = {
@@ -31,6 +32,10 @@
     rearRaise: REST_POSE.rearRaise,
     rearBend: REST_POSE.rearBend,
   };
+  /** What spills if it hangs from the hand: soup on a spoon or ladle, coffee in a cup. */
+  const STEADY = new Set<ObjectKind>(["spoon", "ladle", "cup"]);
+  /** Between moves such a thing is held up: elbow by the side, forearm level, the hand in front of the chest. */
+  const STEADY_ARM = { raise: 16, bend: 84 };
 
   let {
     characterId,
@@ -89,7 +94,16 @@
       };
     };
     /** Objects of the set in each hand. */
-    hands?: Partial<Record<"lead" | "rear", ObjectLook & { effect?: Effect["kind"] }>>;
+    hands?: Partial<
+      Record<
+        "lead" | "rear",
+        ObjectLook & {
+          effect?: Effect["kind"];
+          lands?: number;
+          sunk?: { left: number; right: number; rim: number };
+        }
+      >
+    >;
   } = $props();
 
   let turn = $state<Partial<Record<"lead" | "rear", number>>>({});
@@ -171,6 +185,18 @@
 
   $effect(() => () => cancelAnimationFrame(frame));
 
+  /** The arm of a hand holding something that spills, held up rather than at rest or gesturing; a cue's reach still takes it from there. */
+  function steady(pose: StickPose): StickPose {
+    const lead = hands.lead && STEADY.has(hands.lead.kind);
+    const rear = hands.rear && STEADY.has(hands.rear.kind);
+    if (!lead && !rear) return pose;
+    return {
+      ...pose,
+      ...(lead ? { leadRaise: STEADY_ARM.raise, leadBend: STEADY_ARM.bend } : {}),
+      ...(rear ? { rearRaise: -STEADY_ARM.raise, rearBend: -STEADY_ARM.bend } : {}),
+    };
+  }
+
   function run(): void {
     reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!frame) frame = requestAnimationFrame(tick);
@@ -197,8 +223,10 @@
     const acting = doing && now < doing.until;
     const talked = next?.pose ?? REST_POSE;
     // Busy hands do not talk: a beat would swing the can that is pouring, or the hand the cue leaves alone.
-    const body = acting ? { ...talked, ...RESTING_ARMS } : talked;
-    const stepping = walking ? walkPose(body, walked, walkMs) : body;
+    const body = steady(
+      acting ? { ...talked, ...RESTING_ARMS } : overTable(talked, sitting.current),
+    );
+    const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
     const acted = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     pose = acted?.pose ?? stepping;
     turn = acted?.turn ?? {};

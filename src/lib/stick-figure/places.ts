@@ -83,7 +83,7 @@ export interface Place {
 export type PlaceSet = Omit<SetPlan, "pieces"> & { pieces: readonly SetPiece[] };
 
 /** Where each seat's bowl stands on the kitchen table, from its middle. */
-const PLACE_DX = { l: -54, bl: -24, br: 24, r: 54 } as const;
+const PLACE_DX = { l: -40, bl: -18, br: 18, r: 40 } as const;
 
 /**
  * Mária's kitchen, against the tiles on the right: the counter with the sink
@@ -97,8 +97,9 @@ const PLACE_DX = { l: -54, bl: -24, br: 24, r: 54 } as const;
  *
  * Who works where keeps people about 45 rig units apart, a natural gap
  * between two people at a counter: the sink, the board, the stove's left,
- * and the side counter. Nobody idles in front of the towel or the end
- * chair's back, where a resting hand would seem to hold it.
+ * and the side counter. Nobody stands between the table and its chairs, or
+ * idles in front of the towel or a chair's back, where a resting hand would
+ * seem to hold it.
  */
 const KITCHEN_SET: PlaceSet = {
   pieces: [
@@ -116,7 +117,8 @@ const KITCHEN_SET: PlaceSet = {
     { id: "side", kind: "counter", at: { piece: "stove", dx: 37 }, width: 36 },
     // Under the wall cupboards, out of a tall pot's way.
     { id: "rail", kind: "rail", at: { piece: "side", dx: 0 }, width: 30, height: 92 },
-    { id: "table", kind: "table", x: 392, width: 128, front: true },
+    // A small table for four, so the floor between its end chair and the counter is free to stand on.
+    { id: "table", kind: "table", x: 370, width: 96, front: true },
   ],
   objects: [
     { id: "pot", kind: "pot", start: { where: { on: "cupboard", dx: 0 } } },
@@ -153,13 +155,13 @@ const KITCHEN_SET: PlaceSet = {
     door: { x: 226, facing: 1 },
     // A step in from the door, short of the end chair's back.
     inside: { x: 246, facing: 1 },
-    // By the table, where the guests stand about and talk, a step apart.
-    middle: { x: 438, facing: 1 },
-    chat: { x: 500, facing: -1 },
-    // Out of the cooks' way at the table's end, watching.
-    aside: { x: 470, facing: 1 },
-    // Round the counter's end, to set something on it.
-    "counter-end": { piece: "counter", dx: -68, facing: 1 },
+    // Clear of the table's end chair, where the guests stand about and talk, a step apart.
+    middle: { x: 498, facing: 1 },
+    chat: { x: 567, facing: -1 },
+    // Out of the cooks' way past the table's end, watching, far enough from the towel for someone to dry their hands.
+    aside: { x: 490, facing: 1 },
+    // Short of the counter's end, to set something on it.
+    "counter-end": { piece: "counter", dx: -80, facing: 1 },
     // Facing the towel, a step back from the sink.
     "by-towel": { piece: "counter", dx: -44, facing: -1 },
     sink: { piece: "counter", dx: -34, facing: 1 },
@@ -170,8 +172,8 @@ const KITCHEN_SET: PlaceSet = {
     "board-back": { piece: "counter", dx: -4, facing: 1 },
     // Across the board from whoever is at it, to show them.
     "board-across": { piece: "counter", dx: 42, facing: -1 },
-    // At the stove from the counter's side.
-    "pot-left": { piece: "stove", dx: -20, facing: 1 },
+    // At the stove from the counter's side, far enough back that a jug or shaker held over the pot is in front of the chest, not the face.
+    "pot-left": { piece: "stove", dx: -30, facing: 1 },
     // Mária's place, at the side counter by the stove, facing the room.
     cook: { piece: "side", dx: -10, facing: -1 },
     "seat-l": { chair: 0 },
@@ -302,10 +304,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     post: 618,
     // Round the table: one at each end, two behind it.
     furniture: [
-      { kind: "chair", x: 287, facing: 1 },
-      { kind: "chair", x: 357, facing: 1 },
-      { kind: "chair", x: 427, facing: -1 },
-      { kind: "chair", x: 497, facing: -1 },
+      { kind: "chair", x: 286, facing: 1 },
+      { kind: "chair", x: 345, facing: 1 },
+      { kind: "chair", x: 395, facing: -1 },
+      // Close in to the table's end, so whoever sits there has their knees under it.
+      { kind: "chair", x: 452, facing: -1 },
     ],
     glass: { height: 64, width: 88, x: 360, y: 62 },
     set: KITCHEN_SET,

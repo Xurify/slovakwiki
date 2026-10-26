@@ -1,5 +1,6 @@
 <script lang="ts">
   import { GROUND_Y, SEAT_Y, STICK_BOX } from "$lib/stick-figure/rig";
+  import { DESK_REACH } from "$lib/stick-figure/set-pieces";
   import { FLOOR, type StageFrame } from "$lib/stick-figure/stage-frame";
 
   /**
@@ -27,8 +28,6 @@
 
   /** Lower than a real desk's elbow height: the figures' short torsos would sink behind one. */
   const TOP = GROUND_Y - 28;
-  /** How far the desk runs past the outer hosts, in rig units. */
-  const REACH = 64;
   /** The mouth of a host seated facing +x, from their seat: the mic points at it from the chin. */
   const MOUTH = { x: -1, y: 69 };
   const MIC = { x: 15, y: 73 };
@@ -36,8 +35,10 @@
 
   /** Rig y 136, the bottom of a figure's box, stands on the stage's floor padding. */
   const base = $derived(height - FLOOR - (STICK_BOX.y + STICK_BOX.height) * unit);
-  const left = $derived(seats.length ? seats[0].x / unit - REACH : 0);
-  const right = $derived(seats.length ? seats[seats.length - 1].x / unit + REACH : 0);
+  const left = $derived(seats.length ? seats[0].x / unit - DESK_REACH : 0);
+  const right = $derived(
+    seats.length ? seats[seats.length - 1].x / unit + DESK_REACH : 0,
+  );
   const middle = $derived((left + right) / 2);
   const aim = (Math.atan2(MOUTH.y - MIC.y, MOUTH.x - MIC.x) * 180) / Math.PI;
 </script>

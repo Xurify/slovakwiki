@@ -24,16 +24,10 @@
     type PointTarget,
   } from "$lib/stick-figure/line-plan";
   import { decodeMouthTrack, decodeVowelTrack } from "$lib/stick-figure/mouth-track";
-  import { turnDelays, type TurnDelays } from "$lib/stick-figure/turns";
+  import { TURN_MS, turnDelays, type TurnDelays } from "$lib/stick-figure/turns";
   import type { SpeechClock } from "$lib/stick-figure/performance";
   import { REST_POSE, easeInOut, lerpPose, type StickPose } from "$lib/stick-figure/pose";
-  import {
-    GROUND_Y,
-    SEAT_Y,
-    STICK_BOX,
-    solveRig,
-    type Point,
-  } from "$lib/stick-figure/rig";
+  import { GROUND_Y, STICK_BOX, solveRig, type Point } from "$lib/stick-figure/rig";
   import type { DirectedLine, SceneDirection } from "$lib/stick-figure/scene-direction";
   import {
     aimAt,
@@ -75,7 +69,7 @@
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { playSteps, playTramCue, stopCues } from "$lib/stick-figure/ambience";
   import type { TramState } from "$lib/stick-figure/street";
-  import { STEP_MS, stepsFor, walkDuration } from "$lib/stick-figure/walk";
+  import { stepMs, stepsFor, walkDuration } from "$lib/stick-figure/walk";
   import { cx } from "$lib/ui/classes";
   import StickBackdrop from "./StickBackdrop.svelte";
   import StickWeather from "./StickWeather.svelte";
@@ -85,6 +79,7 @@
   import type { ObjectLook } from "./StickSetObject.svelte";
   import {
     CARRYING,
+    CLOSE_DOOR,
     sampleMotion,
     type Effect,
     type Motion,
@@ -113,12 +108,14 @@
   import type { Hand } from "$lib/stick-figure/reach";
   import {
     OBJECT_SIZE,
-    objectBase,
+    OPENING,
+    handOverY,
     objectGrip,
     placePieces,
     spotAt,
-    surfaceAt,
+    stagePoint,
     type SetGeometry,
+    type StageContext,
   } from "$lib/stick-figure/set-pieces";
   import { foldLine } from "$lib/stick-figure/slovak-text";
   import StudioDesk from "./StudioDesk.svelte";
@@ -157,11 +154,20 @@
 
   const LIT_MS = 1600;
   /** Sitting down takes as long as StickFigureActor makes it. */
-  const SIT_MS = 600;
+  const SIT_MS = 850;
+  /** Turning round to a chair, as far as a person gets before they start to lower. */
+  const SIT_TURN_MS = TURN_MS * 0.7;
   const WALKING = new Set<Cue["do"]>(["go", "enter", "sit"]);
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
   const CARD_WIDTH = 220;
+  /** Passing someone, a walker steps a little down and grows a little, as a step nearer the camera would. */
+  const PASS_LANE = 0.06;
+  const PASS_SCALE = 1.04;
+  /** The step back into line starts this long before the walk ends, and the lane's transition is about as long. */
+  const PASS_MS = 350;
+  /** Stopping beside someone, in figure widths, is not passing them: two bodies' widths, as the checks count it. */
+  const PASS_CLEAR = 0.25;
   /** Where an arm leaves the body, and where a hand holds a prop out to show it, in rig space. */
   const SHOULDER: Point = { x: 0, y: solveRig(REST_POSE).leadShoulder.y };
   const SHOWN_HAND: Point = solveRig(gesturePeak("show")).leadArm.end;
@@ -177,6 +183,8 @@
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** Who is on the move: drawn over whoever stands still, as they pass behind their back. */
   let striding = $state<LessonCharacterId[]>([]);
+  /** Who walks past someone standing: a step toward the camera, so they pass in front, not through. */
+  let passing = $state<LessonCharacterId[]>([]);
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
   /** A line that gave something away and has ended, so it is in the new hand. */
@@ -267,18 +275,25 @@
     }
   });
   let world = $state.raw<World>();
-  const shot = $derived(world?.camera ?? WIDE);
   /** What each figure does on cue right now. */
   let acts = $state.raw<Partial<Record<LessonCharacterId, Act>>>({});
   /** Pieces whose tap runs, and what pours from a hand: water from a jug, salt. */
   let running = $state<string[]>([]);
   let pouring = $state<
-    Partial<Record<LessonCharacterId, Partial<Record<Hand, Effect["kind"]>>>>
+    Partial<Record<LessonCharacterId, Partial<Record<Hand, Pick<Effect, "kind" | "to">>>>>
   >({});
+  /** What each hand's tool is down in: a spoon in the pot, hidden under its rim. */
+  let sunk = $state<Partial<Record<LessonCharacterId, Partial<Record<Hand, string>>>>>(
+    {},
+  );
   /** Who has swung round on their chair to do something: back to the chair's way once it is done. */
   let turned = $state<CastFacing>({});
+  /** Who, seated, has turned their head to the front to look at something behind them. */
+  let glancing = $state<LessonCharacterId[]>([]);
   /** The lights down while the story skips ahead. */
   let dimmed = $state(false);
+  // While the story skips ahead the whole place shows, so the clock in its pool of light is never cut by a close shot.
+  const shot = $derived(dimmed ? WIDE : (world?.camera ?? WIDE));
   let doorOpen = $state(false);
   /** Who has not come in yet. */
   let outside = $state<LessonCharacterId[]>([]);
@@ -370,35 +385,28 @@
     return direction.cast.includes(name as LessonCharacterId);
   }
 
-  /**
-   * A named point of the stage in cast units: an object (its grip, top or
-   * base), a place or piece of the set, a person's head, a spot, or a thing
-   * of the backdrop.
-   */
+  function stageContext(): StageContext {
+    return {
+      world,
+      set,
+      geometry,
+      castX,
+      middleOf: (name) => (isCast(name) ? castMiddle(name) : undefined),
+      seatX: (chair) => {
+        const seat = frame.seats[chair];
+        return seat && seat.x / unit;
+      },
+    };
+  }
+
+  /** A named point of the stage in cast units (`stagePoint`), or a thing of the backdrop. */
   function castPoint(
     name: string,
     as: "grip" | "top" | "base",
     facing: Facing,
   ): Point | undefined {
-    const state = world?.objects[name];
-    if (world && state) {
-      if (as === "grip") return objectGrip(world, name, geometry, facing);
-      const base = objectBase(world, name, geometry);
-      if (!base) return undefined;
-      return as === "top" ? { x: base.x, y: base.y - OBJECT_SIZE[state.kind].top } : base;
-    }
-    const place = set?.places?.[name];
-    if (place) return surfaceAt(geometry, place.piece, place.dx);
-    const piece = surfaceAt(geometry, name);
-    if (piece) return piece;
-    if (isCast(name)) return { x: castMiddle(name), y: 50 };
-    const chair = set?.spots?.[name];
-    if (chair && "chair" in chair) {
-      const seat = frame.seats[chair.chair];
-      return seat && { x: seat.x / unit, y: SEAT_Y };
-    }
-    const spot = set && spotAt(set, geometry, name, castX);
-    if (spot) return { x: spot.x, y: 84 };
+    const at = stagePoint(stageContext(), name, as, facing);
+    if (at) return at;
     const thing = things.find((candidate) => candidate.id === name);
     const box = thing && thingBoxes(thing)[0];
     if (!box) return undefined;
@@ -413,9 +421,12 @@
         return at && toRig(id, at);
       },
       meetWith: (other) => {
-        // Chest high, halfway: each reaches, neither has to step in.
+        // Halfway, so each reaches and neither has to step in.
         const x = (castMiddle(id) + castMiddle(other)) / 2;
-        return toRig(id, { x, y: 76 });
+        const y = world
+          ? handOverY(world, geometry, castMiddle(id), castMiddle(other))
+          : 76;
+        return toRig(id, { x, y });
       },
       landing: () => {
         const what = landing?.cue.what;
@@ -461,8 +472,10 @@
     const walk =
       from === undefined || to === undefined || Math.abs(to - from) < 0.05
         ? 0
-        : walkDuration(stepsFor(to - from));
-    return walk + (cue.do === "enter" ? DOOR_MS : 0) + (cue.do === "sit" ? SIT_MS : 0);
+        : walkDuration(stepsFor(to - from), id);
+    const enter =
+      cue.do === "enter" ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS : 0;
+    return walk + enter + (cue.do === "sit" ? SIT_TURN_MS + SIT_MS : 0);
   }
 
   /** Which way `id` turns to reach `target`: an object, a piece, a person, a thing. */
@@ -498,12 +511,15 @@
     if (!at) return;
     const from = offsets[id] ?? 0;
     const moves = Math.abs(at.offset - from) > 0.05;
-    if (moves) facings = { ...facings, [id]: at.offset > from ? 1 : -1 };
+    const walking = at.offset > from ? 1 : -1;
+    if (moves) facings = { ...facings, [id]: walking };
     walkTo(id, at.offset);
-    later(moves ? walkDuration(stepsFor(at.offset - from)) : 0, () => {
-      facings = { ...facings, [id]: at.facing };
-      if (sit && at.chair !== undefined) seated = { ...seated, [id]: at.chair };
-    });
+    const there = moves ? walkDuration(stepsFor(at.offset - from), id) : 0;
+    later(there, () => (facings = { ...facings, [id]: at.facing }));
+    if (!sit || at.chair === undefined) return;
+    // Back to the chair before lowering onto it: a bow begun mid-turn bends away from the table.
+    const turned = moves && at.facing !== walking ? SIT_TURN_MS : 0;
+    later(there + turned, () => (seated = { ...seated, [id]: at.chair! }));
   }
 
   /** In through the door: it opens, they stand in it, and walk on to `to`. */
@@ -518,18 +534,34 @@
       offsets = { ...offsets, [id]: at.offset };
       facings = { ...facings, [id]: at.facing };
     }
-    // The door swings open first; then they are in the doorway, in the hall's
-    // shadow, and come out of it as they step into the room.
+    // The door swings open on them standing in the doorway, in the hall's
+    // shadow: there at once, as a door opening shows someone, not faded in.
     shaded = [...shaded, id];
     later(DOOR_OPENING_MS, () => {
       outside = outside.filter((other) => other !== id);
     });
     later(DOOR_MS, () => {
       shaded = shaded.filter((other) => other !== id);
-      if (to && to !== door) walkToSpot(id, to);
-    });
-    later(DOOR_MS * 2.4, () => {
-      doorOpen = false;
+      const inside = to && to !== door ? spotOf(id, to) : undefined;
+      if (!inside || !at) {
+        doorOpen = false;
+        return;
+      }
+      walkToSpot(id, to);
+      // In, they turn back and push the door to behind them, then face the room.
+      const walk = walkDuration(stepsFor(inside.offset - at.offset), id);
+      later(walk, () => {
+        const back: Facing = at.offset < inside.offset ? -1 : 1;
+        facings = { ...facings, [id]: back };
+        perform(id, CLOSE_DOOR, performance.now() + TURN_MS * 0.6);
+        later(TURN_MS * 0.6 + CLOSE_DOOR.takes!, () => {
+          doorOpen = false;
+          playFoley("door");
+        });
+        later(TURN_MS * 0.6 + CLOSE_DOOR.ms, () => {
+          facings = { ...facings, [id]: inside.facing };
+        });
+      });
     });
   }
 
@@ -576,7 +608,11 @@
     }
 
     const face = faceToward(who, motion.face ?? cue.what);
-    if (face && seated[who] !== undefined) turned = { ...turned, [who]: face };
+    const handsFree = motion.keys.every((key) => !key.lead && !key.rear);
+    if (face && seated[who] !== undefined && handsFree && face !== facingOf(who)) {
+      // Seated, a look behind is a turn of the head: the chair swung round with the legs read as sitting backwards.
+      glancing = [...glancing.filter((other) => other !== who), who];
+    } else if (face && seated[who] !== undefined) turned = { ...turned, [who]: face };
     else if (face) facings = { ...facings, [who]: face };
     perform(who, motion, item.start, item);
     for (const { at, id } of motion.sounds ?? []) later(at, () => playFoley(id));
@@ -584,6 +620,17 @@
       later(effect.from, () => showEffect(who, effect, true));
       later(effect.until, () => showEffect(who, effect, false));
     }
+    for (const contact of motion.contacts ?? []) {
+      if (contact.tip !== "in" || !contact.to) continue;
+      const into = contact.to;
+      // From a little before the tip reaches the rim to a little after it leaves, so no frame shows it in front of the pot.
+      later(contact.from - 200, () => sink(who, contact.hand, into));
+      later(contact.until + 200, () => sink(who, contact.hand, undefined));
+    }
+  }
+
+  function sink(id: LessonCharacterId, hand: Hand, into: string | undefined): void {
+    sunk = { ...sunk, [id]: { ...sunk[id], [hand]: into } };
   }
 
   function showEffect(id: LessonCharacterId, effect: Effect, on: boolean): void {
@@ -596,7 +643,10 @@
     if (!effect.hand) return;
     pouring = {
       ...pouring,
-      [id]: { ...pouring[id], [effect.hand]: on ? effect.kind : undefined },
+      [id]: {
+        ...pouring[id],
+        [effect.hand]: on ? { kind: effect.kind, to: effect.to } : undefined,
+      },
     };
   }
 
@@ -679,6 +729,7 @@
   }
 
   function unturn(id: LessonCharacterId): void {
+    if (glancing.includes(id)) glancing = glancing.filter((other) => other !== id);
     if (turned[id] === undefined) return;
     const { [id]: _, ...rest } = turned;
     turned = rest;
@@ -706,6 +757,7 @@
     actsEnd = 0;
     running = [];
     pouring = {};
+    sunk = {};
     dimmed = false;
     doorOpen = false;
   }
@@ -719,9 +771,28 @@
     const look = (hand: Hand) => {
       const object = held[hand];
       if (!object || (hand === "rear" && held.lead === object)) return undefined;
-      return { ...lookOf(object), effect: pouring[id]?.[hand] };
+      const pours = pouring[id]?.[hand];
+      const into = sunk[id]?.[hand];
+      return {
+        ...lookOf(object),
+        effect: pours?.kind,
+        lands: pours?.to ? openingFor(id, pours.to)?.rim : undefined,
+        sunk: into ? openingFor(id, into) : undefined,
+      };
     };
     return { lead: look("lead"), rear: look("rear") };
+  }
+
+  /** The opening of what `id` pours into or dips in, in their figure's space: across its rim, and the rim's height. */
+  function openingFor(
+    id: LessonCharacterId,
+    name: string,
+  ): { left: number; right: number; rim: number } | undefined {
+    const kind = world?.objects[name]?.kind;
+    const size = kind && OPENING[kind];
+    const top = surroundings(id).pointOf(name, "top");
+    if (!size || !top) return undefined;
+    return { left: top.x - size.half, right: top.x + size.half, rim: top.y };
   }
 
   /** How an object looks, with what lies in or on it: the carrots on the board. */
@@ -952,20 +1023,41 @@
     if (from === offset) return;
 
     const steps = stepsFor(offset - from);
-    const ms = walkDuration(steps);
+    const ms = walkDuration(steps, id);
     walkCount += 1;
     walks = { ...walks, [id]: { cue: walkCount, ms } };
     offsets = { ...offsets, [id]: offset };
     striding = [...striding.filter((other) => other !== id), id];
     later(ms, () => (striding = striding.filter((other) => other !== id)));
+    if (passesSomeone(id, from, offset)) {
+      passing = [...passing.filter((other) => other !== id), id];
+      later(
+        Math.max(0, ms - PASS_MS),
+        () => (passing = passing.filter((other) => other !== id)),
+      );
+    }
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       walkEndsAt[id] = performance.now() + ms;
-      playSteps(steps, STEP_MS, {
+      playSteps(steps, stepMs(id), {
         ground: PLACES[setting].ground,
         shoes: LOOKS[id].shoes,
       });
     }
+  }
+
+  /** Someone standing still is in the way: their middle lies inside the walk, not at its ends. */
+  function passesSomeone(id: LessonCharacterId, from: number, to: number): boolean {
+    const left = Math.min(from, to) + PASS_CLEAR;
+    const right = Math.max(from, to) - PASS_CLEAR;
+    const mark = frame.marks[id] ?? 0;
+    return direction.cast.some((other) => {
+      if (other === id || striding.includes(other) || outside.includes(other))
+        return false;
+      const at =
+        ((frame.marks[other] ?? 0) - mark) / frame.figureWidth + (offsets[other] ?? 0);
+      return at > left && at < right;
+    });
   }
 
   /** Who turns to the one talking: in an acted scene, only those not at a spot of the set and not busy with a cue. */
@@ -1035,6 +1127,7 @@
     walks = {};
     walkEndsAt = {};
     striding = [];
+    passing = [];
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -1043,6 +1136,7 @@
     leading = undefined;
     acts = {};
     turned = {};
+    glancing = [];
     world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
     outside = [];
     shaded = [];
@@ -1210,7 +1304,7 @@
     facings = { ...facings, ...turned, [id]: from === 1 ? -1 : 1 };
     // Counted from now, so whoever waits on the walk waits from the start.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      walkEndsAt[id] = performance.now() + walkDuration(stepsFor(offsets[id] ?? 0));
+      walkEndsAt[id] = performance.now() + walkDuration(stepsFor(offsets[id] ?? 0), id);
     }
     // The jump off stage has to paint before the walk back, or it animates too.
     window.requestAnimationFrame(() => walkTo(id, 0));
@@ -1427,6 +1521,7 @@
         {board}
         door={doorOpen}
         minutes={world?.minutes ?? 0}
+        skipping={dimmed}
         {found}
         height={stageHeight}
         hint={onthing ? undefined : "Show the word"}
@@ -1471,31 +1566,38 @@
             style:left="{frame.marks[characterId] ?? 0}px"
             style:width="{frame.figureWidth}px"
             style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
-            style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 140ms, 600ms"
+            style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 0ms, 600ms"
             style:opacity={outside.includes(characterId) ? 0 : 1}
             style:filter={shaded.includes(characterId) ? "brightness(0.7)" : "none"}
             style:z-index={striding.includes(characterId) ? 2 : 1}
           >
-            <StickFigureActor
-              {characterId}
-              {clock}
-              cue={actors[characterId]?.cue ?? 0}
-              facing={facingOf(characterId)}
-              front={front === characterId}
-              onbeat={onBeat}
-              plan={actors[characterId]?.plan}
-              held={acted ? undefined : heldBy(characterId)}
-              doing={acts[characterId]}
-              hands={handsOf(characterId)}
-              seated={seated[characterId] !== undefined}
-              onCall={acted
-                ? onCall(characterId)
-                : direction.lines[heldAt]?.call === characterId}
-              dress={dressOf(characterId)}
-              talking={actors[characterId]?.talking ?? false}
-              turnDelay={turns[characterId] ?? 0}
-              walk={walks[characterId]}
-            />
+            <div
+              class="origin-bottom transition-transform duration-300 ease-in-out"
+              style:transform={passing.includes(characterId)
+                ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
+                : "none"}
+            >
+              <StickFigureActor
+                {characterId}
+                {clock}
+                cue={actors[characterId]?.cue ?? 0}
+                facing={facingOf(characterId)}
+                front={front === characterId || glancing.includes(characterId)}
+                onbeat={onBeat}
+                plan={actors[characterId]?.plan}
+                held={acted ? undefined : heldBy(characterId)}
+                doing={acts[characterId]}
+                hands={handsOf(characterId)}
+                seated={seated[characterId] !== undefined}
+                onCall={acted
+                  ? onCall(characterId)
+                  : direction.lines[heldAt]?.call === characterId}
+                dress={dressOf(characterId)}
+                talking={actors[characterId]?.talking ?? false}
+                turnDelay={turns[characterId] ?? 0}
+                walk={walks[characterId]}
+              />
+            </div>
           </div>
         {/each}
         <div class="pointer-events-none absolute inset-0 z-3">
@@ -1523,8 +1625,8 @@
         class="pointer-events-none absolute inset-0 z-4 transition-opacity duration-700 ease-in-out"
         style:opacity={dimmed ? 1 : 0}
         style:background={spotlight
-          ? `radial-gradient(circle at ${spotlight.x}px ${spotlight.y}px, transparent ${spotlight.r}px, rgb(15 23 42 / 0.86) ${spotlight.r + 14}px)`
-          : "rgb(15 23 42 / 0.86)"}
+          ? `radial-gradient(circle at ${spotlight.x}px ${spotlight.y}px, transparent ${spotlight.r}px, rgb(15 23 42 / 0.94) ${spotlight.r + 14}px)`
+          : "rgb(15 23 42 / 0.94)"}
         aria-hidden="true"
       ></div>
     </div>

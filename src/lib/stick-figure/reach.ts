@@ -55,7 +55,7 @@ export function reachFor(
   const { upper, joint } = elbows[0].joint.y >= elbows[1].joint.y ? elbows[0] : elbows[1];
   const fore = span > UPPER_ARM + FOREARM ? upper : direction(joint, target);
 
-  const raise = side * (upper + pose.lean);
+  const raise = side * (upper + rig.lean);
   const bend = side * (fore - upper);
   if (hand === "lead") {
     const leadRaise = nearest(raise, pose.leadRaise);

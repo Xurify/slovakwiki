@@ -377,7 +377,16 @@
     <path d="M-6 -11Q-1 -18 4 -11" fill="none" stroke-width="1.8" />
     <path d="M4.5 -4L12 -11.5" stroke-width="2.2" />
     <path d="M4.5 -4L12 -11.5" class="stroke-scene-green-mid" stroke-width="1" />
-    <path d="M11 -12.6L13.6 -10L14.4 -13.4Z" class="fill-scene-green-mid" />
+    <!-- The rose across the spout's end: a flat cap, where a point read as an arrow. -->
+    <ellipse
+      cx="12.6"
+      cy="-12.1"
+      rx="1.1"
+      ry="2.6"
+      transform="rotate(-45 12.6 -12.1)"
+      class="fill-scene-green-mid"
+      stroke-width="0.9"
+    />
     <path
       d="M-7 -11H5.6L6.4 -1Q6.4 0 5.4 0H-6Q-7 0 -7 -1Z"
       class="fill-scene-green-mid"

@@ -45,7 +45,8 @@ const INTRO_ACTS: Record<string, Cue[]> = {
   ],
   "anna-on-you": [{ do: "point", to: "marek", on: "ty" }],
   "marek-on-me": [{ do: "shrug", on: "jasné" }],
-  "anna-water-plant": [{ do: "point", to: "plant", on: "polej" }],
+  // Marek already pointed at the plant; "hneď" asks for the can right by it.
+  "anna-water-plant": [{ do: "point", to: "can", on: "polej" }],
   "marek-after-recording": [{ do: "nod", on: "polejem" }],
   "anna-tonight-maria": [{ do: "laugh", on: "start" }],
   "anna-lucia-late": [{ do: "shrug", on: "meškať" }],
@@ -520,57 +521,63 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   "maria-come-in": [
     { do: "beckon", to: "anna", on: "poď" },
     { who: "anna", do: "go", to: "middle", on: "ďalej" },
+    { who: "anna", do: "look", to: "door", on: "kde" },
     { do: "look", to: "door", on: "marek" },
   ],
   "marek-parking": [
     { do: "enter", to: "inside", on: "before" },
+    { who: "anna", do: "look", to: "marek", on: "dobrý" },
     { do: "pocket", what: "keys", on: "parkoval" },
   ],
   // The recorder goes on the counter's end, to catch the cooking and stay for supper; then Marek waits his turn at the sink.
-  // Anna, nearer, leads the way to the counter, so nobody walks through anybody.
+  // Anna goes when told to wash, and walks ahead of Marek, so nobody walks through anybody.
   "maria-wash-hands": [
     { do: "beckon", to: "marek", on: "poďte" },
-    { who: "anna", do: "go", to: "sink", on: "poďte" },
-    { who: "marek", do: "go", to: "counter-end", on: "najprv" },
+    { who: "anna", do: "go", to: "sink", on: "umyte" },
+    { who: "anna", do: "wash" },
+    { who: "marek", do: "go", to: "counter-end", on: "ruky" },
     { do: "point", to: "basin", on: "tam" },
     { do: "camera", to: "counter", zoom: 1.3, on: "tam" },
     { who: "marek", do: "take", what: "recorder" },
-    { who: "marek", do: "put", what: "recorder", to: "counter", dx: -46 },
+    { who: "marek", do: "put", what: "recorder", to: "counter", dx: -52 },
     { who: "marek", do: "go", to: "aside" },
   ],
-  "anna-help-with": [{ do: "wash", on: "start" }],
+  // Drying her hands as she offers to help.
+  "anna-help-with": [
+    { do: "go", to: "by-towel", on: "start" },
+    { do: "dry", to: "towel" },
+  ],
+  // Marek takes his turn at the sink as soon as Anna is at the board, and is dry and at the cupboard by "Tento?".
   "maria-peel-take-pot": [
-    { who: "anna", do: "go", to: "by-towel", on: "start" },
-    { who: "anna", do: "dry", to: "towel" },
-    { who: "anna", do: "go", to: "board" },
+    { who: "anna", do: "go", to: "board", on: "ošúp" },
     { who: "anna", do: "take", what: "knife" },
     { who: "anna", do: "peel", what: "carrot" },
     { do: "point", to: "carrot", on: "mrkvu" },
-    // Called, and Anna is long past the towel by then.
-    { who: "marek", do: "go", to: "sink", on: "marek" },
+    { who: "marek", do: "go", to: "sink", on: "mrkvu" },
     { who: "marek", do: "wash" },
+    { who: "marek", do: "go", to: "by-towel" },
+    { who: "marek", do: "dry", to: "towel" },
+    { who: "marek", do: "go", to: "cupboard" },
     { do: "point", to: "pot", on: "hrniec" },
   ],
   "marek-heavy-pot": [
-    { do: "go", to: "by-towel", on: "before" },
-    { do: "dry", to: "towel" },
-    { do: "go", to: "cupboard" },
-    { do: "point", to: "pot", on: "start" },
+    { do: "point", to: "pot", on: "tento" },
     { do: "take", what: "pot", on: "no" },
     { who: "anna", do: "chop", what: "carrot", on: "start" },
   ],
-  // Marek lights the burner he put the pot on, and steps back out of the cooks' way.
+  // Mária lights her own burner once the pot is on it, and Marek steps back out of the cooks' way.
   "maria-fill-pot": [
     { do: "nod", on: "hej" },
     { who: "marek", do: "fill", what: "pot", on: "nalej" },
     { who: "marek", do: "go", to: "pot-left" },
     { who: "marek", do: "put", what: "pot", to: "hob" },
-    { who: "marek", do: "switch", what: "stove", to: "on" },
     { who: "marek", do: "go", to: "aside" },
     { do: "nod", on: "sporák" },
+    { do: "switch", what: "stove", to: "on" },
   ],
+  // She shows the cut, not points at the carrot she stands over.
   "anna-like-this": [
-    { do: "point", to: "carrot", on: "takto" },
+    { do: "chop", what: "carrot", on: "takto" },
     { who: "maria", do: "look", to: "carrot", on: "takto" },
   ],
   // Anna steps back to make room at the board, and comes back to it.
@@ -600,8 +607,9 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   "marek-a-little": [{ do: "shake", what: "salt", to: "pot", on: "start" }],
   "maria-not-a-little": [
     { do: "take", what: "salt", on: "marek" },
-    { do: "facepalm", on: "preboha" },
+    { do: "wag", on: "nesyp" },
     { who: "anna", do: "laugh", on: "preboha" },
+    { who: "marek", do: "shrug", on: "toľko" },
     { do: "put", what: "salt", to: "salt-place", on: "after" },
     { who: "marek", do: "go", to: "aside", on: "after" },
   ],
@@ -626,15 +634,19 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "put", what: "lid", to: "rail", dx: -6 },
     { do: "take", what: "spoon" },
     { do: "dip", what: "spoon", to: "pot" },
-    { do: "offer", what: "spoon", to: "marek" },
+    // Called over, and held out to him once he is there.
     { who: "marek", do: "go", to: "pot-left", on: "marek" },
+    { do: "offer", what: "spoon", to: "marek", on: "ochutnaj" },
     { do: "camera", to: "marek", zoom: 1.6, on: "ochutnaj" },
-    { who: "anna", do: "go", to: "board", on: "pozor" },
+    // Over to watch the tasting, a step back from him so she can lean in.
+    { who: "anna", do: "go", to: "board-back", on: "ochutnaj" },
   ],
   "marek-burns": [
     { do: "take", what: "spoon", on: "before" },
     { do: "taste", what: "spoon" },
     { do: "burn", on: "start" },
+    { who: "anna", do: "look", to: "marek", on: "start" },
+    { who: "maria", do: "wag", on: "páli" },
   ],
   "anna-is-it-good": [
     { do: "camera", to: "counter", zoom: 1.3, on: "start" },
@@ -646,6 +658,9 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   "marek-bit-salty": [
     { do: "taste", what: "spoon", on: "before" },
     { do: "thumbs", on: "výborná" },
+    // The salt, paid off.
+    { who: "anna", do: "laugh", on: "slaná" },
+    { who: "maria", do: "facepalm", on: "slaná" },
     { do: "nod", on: "ale" },
     { do: "give", what: "spoon", to: "maria", on: "after" },
     { who: "maria", do: "put", what: "spoon", to: "crock" },
@@ -932,10 +947,11 @@ const TABLE_ACTS: Record<string, Cue[]> = {
     { do: "shrug", on: "start" },
     { do: "take", what: "spoon-l", on: "after" },
   ],
+  // He reaches for it while it rings, and the others look over at once.
   "marek-its-her": [
-    { do: "take", what: "phone", on: "zvoní" },
-    { who: "anna", do: "look", to: "marek", on: "zvoní" },
-    { who: "maria", do: "look", to: "marek", on: "zvoní" },
+    { do: "take", what: "phone", on: "before" },
+    { who: "anna", do: "look", to: "marek", on: "before" },
+    { who: "maria", do: "look", to: "marek", on: "before" },
     { do: "call", what: "phone", on: "ahoj" },
   ],
   "lucia-eat-without-me": [{ who: "maria", do: "lean", to: "marek", on: "start" }],
@@ -955,6 +971,9 @@ const TABLE_ACTS: Record<string, Cue[]> = {
     { do: "switch", what: "stove", to: "off" },
     { do: "take", what: "lid" },
     { do: "put", what: "lid", to: "pot" },
+    // Hungry, he checks how long half an hour is; the game picks up from there.
+    { who: "marek", do: "look", to: "hodiny", on: "after" },
+    { who: "anna", do: "laugh", on: "after" },
   ],
 };
 
@@ -1267,11 +1286,13 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
     { do: "point", to: "marek", on: "sebe" },
     { who: "marek", do: "shrug", on: "rastlinke" },
     { who: "marek", do: "sit", to: "desk-right" },
-    { do: "wave", on: "majte" },
   ],
+  // They wave together once; then the yawn from the start of the show, and Anna laughs at it.
   "marek-bye": [
     { do: "wave", on: "start" },
     { who: "anna", do: "wave", on: "start" },
+    { do: "yawn", on: "after" },
+    { who: "anna", do: "laugh", on: "after" },
   ],
 };
 

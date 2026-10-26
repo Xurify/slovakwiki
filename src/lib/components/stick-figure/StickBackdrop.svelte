@@ -38,6 +38,7 @@
     lit = [],
     minutes = 0,
     mood = DAYTIME,
+    skipping = false,
     onpick,
     picked,
     setting,
@@ -59,6 +60,8 @@
     lit?: readonly string[];
     /** How far the story has skipped ahead: the clock's hands run on that far. */
     minutes?: number;
+    /** The lights are down for a skip ahead: the hands run round to `minutes` rather than jump. */
+    skipping?: boolean;
     /** Time of day and weather, from the dialogue or picked in the lab. */
     mood?: SceneMood;
     /** Makes each thing a button that reports its id. */
@@ -114,8 +117,12 @@
   );
   $effect(() => {
     const to = clockHour(mood) + minutes / 60;
-    // A new scene or a jump back sets the clock; only going on runs it round.
-    void hour.set(to, { duration: to > hour.current ? 1200 : 0 });
+    // Untracked: reading the tween here would rerun this every frame, and each set restarts the easing from rest, so the hands crawl.
+    const from = untrack(() => hour.target);
+    if (to === from) return;
+    // Only a skip runs the hands round; a new scene, a seek or the first world just sets them.
+    const run = untrack(() => skipping) && to > from;
+    void hour.set(to, { duration: run ? 1200 : 0 });
   });
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));

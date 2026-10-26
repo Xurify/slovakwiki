@@ -4,6 +4,7 @@
   import { TURN_MS } from "$lib/stick-figure/turns";
   import {
     GROUND_Y,
+    HEAD_RADIUS,
     solveRig,
     STICK_VIEWBOX,
     type Point,
@@ -17,7 +18,7 @@
   import type { Emote } from "$lib/stick-figure/act-motions";
   import type { Effect } from "$lib/stick-figure/act-motions";
   import { mouthOf } from "$lib/stick-figure/reach";
-  import { OBJECT_SIZE } from "$lib/stick-figure/set-pieces";
+  import { OBJECT_SIZE, tipFromHand } from "$lib/stick-figure/set-pieces";
   import StickHead from "./StickHead.svelte";
   import StickSetObject, { type ObjectLook } from "./StickSetObject.svelte";
   import StickHeld from "./StickHeld.svelte";
@@ -71,28 +72,18 @@
     turn?: number;
     /** Water, salt or peel coming off it while a cue pours, shakes or peels. */
     effect?: Effect["kind"];
+    /** Where what pours lands, as a y in the figure's space: the rim it falls in over. */
+    lands?: number;
+    /** The opening it is down in, in the figure's space: what is under the rim is hidden behind the pot's side. */
+    sunk?: { left: number; right: number; rim: number };
   }
 
-  /** Where water, salt or peel leaves each kind, in its own drawing's space. */
-  const TIP: Partial<Record<InHand["kind"], Point>> = {
-    jug: { x: 7, y: -12 },
-    can: { x: 14, y: -12 },
-    ladle: { x: 0, y: -17 },
-    salt: { x: 0, y: -9 },
-    knife: { x: 5, y: -1 },
-  };
+  const id = $props.id();
 
   /** Where the tip of an object held at `at` is, turned `turn` degrees, in the figure's space. */
   function tipOf(at: Point, object: InHand): Point {
-    const tip = TIP[object.kind] ?? { x: 0, y: 0 };
-    const { grip } = OBJECT_SIZE[object.kind];
-    const x = tip.x - grip.x;
-    const y = tip.y + grip.y;
-    const angle = ((object.turn ?? 0) * Math.PI) / 180;
-    return {
-      x: at.x + x * Math.cos(angle) - y * Math.sin(angle),
-      y: at.y + x * Math.sin(angle) + y * Math.cos(angle),
-    };
+    const tip = tipFromHand(object.kind, object.turn ?? 0);
+    return { x: at.x + tip.x, y: at.y + tip.y };
   }
 
   /**
@@ -114,12 +105,16 @@
   );
 
   const rig = $derived(solveRig(atEar(pose, call), sit));
-  /** The lead hand up at the lips with something in it: a spoon to taste, a cup to drink. */
-  const leadAtMouth = $derived.by(() => {
-    if (!hands.lead) return false;
-    const lips = mouthOf(pose, sit);
+  /**
+   * The lead hand up at the face, in front of the head rather than hidden
+   * behind it: a spoon at the lips, a hand over a yawn, on the forehead, on
+   * the near ear's cup.
+   */
+  const leadAtFace = $derived.by(() => {
     const at = rig.leadArm.end;
-    return Math.hypot(at.x - lips.x, at.y - lips.y) < 15;
+    const lips = mouthOf(pose, sit);
+    if (hands.lead && Math.hypot(at.x - lips.x, at.y - lips.y) < 15) return true;
+    return Math.hypot(at.x - rig.head.x, at.y - rig.head.y) < HEAD_RADIUS + 1;
   });
 
   // A turn comes round through the front, as a person does: the face slides
@@ -140,17 +135,33 @@
   /** 1 side-on, 0 facing the front mid-turn. */
   const round = $derived(Math.min(1, Math.abs(turning.current)));
   /**
-   * From the near cup over the crown to the far one: half an ellipse round
-   * the head whose top sits `lift` above the hair, so the band hugs the
-   * hair all the way down instead of floating clear of it at the sides.
+   * Half of a band over the crown, its top `lift` above the hair: the near
+   * half from the cup up, or the far half from the crown down behind the
+   * head to the hidden ear. The crown is a little behind the middle of the
+   * head, which faces three-quarters to the front; a band drawn to the
+   * face side as well framed the face like a hood.
    */
-  function headband(lift: number): string {
-    return `M17.9 25.6A14.1 ${n(25.6 - (look.crown - lift))} 0 0 1 46.1 25.6`;
+  function headband(lift: number, half: "near" | "far"): string {
+    const ry = n(25.6 - (look.crown - lift));
+    const top = n(look.crown - lift);
+    return half === "near"
+      ? `M17.6 25.6A13.4 ${ry} 0 0 1 31 ${top}`
+      : `M31 ${top}A13.4 ${ry} 0 0 1 44.4 25.6`;
   }
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
+  /** The near knee in the torso's own space, turned back by the lean, for a skirt over the lap. */
+  const lapKnee = $derived.by(() => {
+    const dx = rig.leadLeg.joint.x - rig.hip.x;
+    const dy = rig.leadLeg.joint.y - rig.hip.y;
+    const angle = (-rig.lean * Math.PI) / 180;
+    return {
+      x: dx * Math.cos(angle) - dy * Math.sin(angle),
+      y: dx * Math.sin(angle) + dy * Math.cos(angle),
+    };
+  });
   const torsoTransform = $derived(
-    `translate(${n(rig.hip.x)} ${n(rig.hip.y)}) rotate(${n(pose.lean)})`,
+    `translate(${n(rig.hip.x)} ${n(rig.hip.y)}) rotate(${n(rig.lean)})`,
   );
 
   // The head is drawn in the 64×64 portrait space of StickHead, which the
@@ -187,20 +198,35 @@
   />
 {/snippet}
 
-{#snippet inHand(at: Point, object: InHand)}
+{#snippet inHand(at: Point, object: InHand, hand: "lead" | "rear")}
   {@const { grip } = OBJECT_SIZE[object.kind]}
-  <g
-    transform="translate({n(at.x)} {n(at.y)}) rotate({n(object.turn ?? 0)}) translate({n(
-      -grip.x,
-    )} {n(grip.y)})"
-  >
-    <StickSetObject {...object} carried={object.kind === "pot"} />
+  {#if object.sunk}
+    {@const { left, right, rim } = object.sunk}
+    <clipPath id="{id}-{hand}-sunk">
+      <path
+        d="M-300 -300H300V300H-300ZM{n(left)} {n(rim)}H{n(right)}V{n(rim + 60)}H{n(
+          left,
+        )}Z"
+        clip-rule="evenodd"
+      />
+    </clipPath>
+  {/if}
+  <g clip-path={object.sunk ? `url(#${id}-${hand}-sunk)` : undefined}>
+    <g
+      transform="translate({n(at.x)} {n(at.y)}) rotate({n(
+        object.turn ?? 0,
+      )}) translate({n(-grip.x)} {n(grip.y)})"
+    >
+      <StickSetObject {...object} carried={object.kind === "pot"} />
+    </g>
   </g>
   {#if object.effect}
     {@const tip = tipOf(at, object)}
+    <!-- Down to the rim it pours over, where the pot's side, drawn behind the figure, would otherwise show it falling past. -->
+    {@const fall = Math.max(2, (object.lands ?? tip.y + 16) - tip.y)}
     {#if object.effect === "stream"}
       <path
-        d="M{n(tip.x)} {n(tip.y)}v16"
+        d="M{n(tip.x)} {n(tip.y)}v{n(fall)}"
         class="animate-pour {object.kind === 'ladle'
           ? 'stroke-scene-carrot'
           : 'stroke-scene-sky'}"
@@ -208,11 +234,19 @@
         stroke-dasharray="2.5 1.5"
       />
     {:else if object.effect === "salt"}
+      <!-- A pinch from each flick, the grains spreading a little as they fall, outlined so white salt shows against white tiles. -->
+      {@const grains = `M${n(tip.x)} ${n(tip.y + 0.5)}l-0.9 ${n(fall - 0.5)}M${n(tip.x + 0.3)} ${n(tip.y + 0.5)}v${n(fall - 0.5)}M${n(tip.x + 0.6)} ${n(tip.y + 0.5)}l0.9 ${n(fall - 0.5)}`}
       <path
-        d="M{n(tip.x)} {n(tip.y + 1)}v12M{n(tip.x + 1.2)} {n(tip.y + 2)}v10"
+        d={grains}
+        class="animate-pour stroke-portrait-ink/45"
+        stroke-width="1.35"
+        stroke-dasharray="0.3 1.7"
+      />
+      <path
+        d={grains}
         class="animate-pour stroke-white"
         stroke-width="0.8"
-        stroke-dasharray="0.2 2"
+        stroke-dasharray="0.3 1.7"
       />
     {:else}
       <path
@@ -237,7 +271,7 @@
     <StickHeld {held} {rig} />
   {/if}
   {#if hands.lead}
-    {@render inHand(rig.leadArm.end, hands.lead)}
+    {@render inHand(rig.leadArm.end, hands.lead, "lead")}
   {/if}
 
   {@render hand(rig.leadArm.end)}
@@ -271,31 +305,18 @@
     <g transform={headTransform}>
       <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} {round} />
 
+      <!-- The band's far half goes down behind the head: only what clears the hair shows, and the far cup is hidden, as from three-quarters it would be. -->
       {#if dress.headwear === "headphones"}
-        <!-- The far cup, behind the head in the three-quarter view. -->
-        <rect
-          x="42.2"
-          y="23"
-          width="8.6"
-          height="12.6"
-          rx="4.1"
-          class="fill-portrait-vest stroke-portrait-ink"
-          stroke-width="1.3"
-        />
+        <path d={headband(1.4, "far")} class="stroke-portrait-ink" stroke-width="4.2" />
+        <path d={headband(1.4, "far")} class="stroke-scene-line" stroke-width="2.2" />
       {:else if dress.headwear === "headset"}
-        <circle
-          cx="46.2"
-          cy="29.4"
-          r="3.4"
-          class="fill-scene-line stroke-portrait-ink"
-          stroke-width="1.2"
-        />
+        <path d={headband(0.4, "far")} class="stroke-portrait-ink" stroke-width="1.8" />
       {/if}
     </g>
 
     {@render arm(rig.rearShoulder, rig.rearArm)}
     {#if hands.rear && !phoneAtEar}
-      {@render inHand(rig.rearArm.end, hands.rear)}
+      {@render inHand(rig.rearArm.end, hands.rear, "rear")}
     {/if}
     {@render hand(rig.rearArm.end)}
     {@render leg(rig.rearLeg)}
@@ -314,10 +335,10 @@
     {/if}
 
     <g transform={torsoTransform}>
-      <StickTorso {characterId} scarf={dress.scarf} />
+      <StickTorso {characterId} knee={lapKnee} scarf={dress.scarf} {sit} />
     </g>
 
-    {#if !leadAtMouth}
+    {#if !leadAtFace}
       {@render leadSide()}
     {/if}
 
@@ -326,8 +347,8 @@
 
       {#if dress.headwear === "headphones"}
         <!-- Closed-back studio headphones in the head's own 64-unit space: a padded band over the hair, a deep cup over the near ear. -->
-        <path d={headband(1.2)} class="stroke-portrait-ink" stroke-width="4.4" />
-        <path d={headband(1.2)} class="stroke-portrait-vest" stroke-width="2.6" />
+        <path d={headband(1.4, "near")} class="stroke-portrait-ink" stroke-width="4.2" />
+        <path d={headband(1.4, "near")} class="stroke-scene-line" stroke-width="2.2" />
         <rect
           x="13.4"
           y="23"
@@ -356,7 +377,7 @@
         />
       {:else if dress.headwear === "headset"}
         <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
-        <path d={headband(0.2)} class="stroke-portrait-ink" stroke-width="1.8" />
+        <path d={headband(0.4, "near")} class="stroke-portrait-ink" stroke-width="1.8" />
         <circle
           cx="17.8"
           cy="29.4"
@@ -380,7 +401,7 @@
       {/if}
     </g>
 
-    {#if leadAtMouth}
+    {#if leadAtFace}
       <!-- At the lips the near arm and what it holds are in front of the face: the spoon goes in, not behind the cheek. -->
       {@render leadSide()}
     {/if}

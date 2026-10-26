@@ -1,5 +1,5 @@
 import type { ObjectKind, SetPlan, World } from "./acts";
-import { GROUND_Y, type Point } from "./rig";
+import { GROUND_Y, SEAT_Y, type Point } from "./rig";
 
 /**
  * What a place's cast works at: a counter with a sink, a stove, a table.
@@ -47,6 +47,13 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
   desk: { width: 200, height: 28 },
 };
 
+/**
+ * How far StudioDesk runs past the outer hosts, in rig units: room for the
+ * mugs and the boom arms, and short of the studio plant, so whoever waters
+ * it stands clear of the desk's end, not half behind it.
+ */
+export const DESK_REACH = 46;
+
 export function pieceSize(piece: Pick<SetPiece, "kind" | "height" | "width">): {
   width: number;
   height: number;
@@ -90,6 +97,48 @@ export const OBJECT_SIZE: Record<
   can: { grip: { x: -2, y: 14 }, top: 12, width: 26 },
   plant: { grip: { x: 0, y: 12 }, top: 24, width: 25 },
   headphones: { grip: { x: 0, y: 6 }, top: 6, width: 10 },
+};
+
+/**
+ * The working end of each kind, in its own drawing's space: where a jug or
+ * can pours from, a shaker's holes, a spoon's or ladle's bowl, a cup's near
+ * rim, a board's far end. Motions aim it, not the hand, and the stage draws what pours from it.
+ */
+export const OBJECT_TIP: Partial<Record<ObjectKind, Point>> = {
+  jug: { x: 7, y: -12 },
+  can: { x: 14, y: -12 },
+  ladle: { x: 0, y: -18 },
+  spoon: { x: 0, y: -13 },
+  salt: { x: 0, y: -9 },
+  knife: { x: 5, y: -1 },
+  cup: { x: -3.5, y: -7 },
+  // The far end, where the pieces slide off.
+  board: { x: 10.5, y: -2.4 },
+};
+
+/** From the hand to the tip of a `kind` it holds turned `turn` degrees, in the holder's rig space. */
+export function tipFromHand(kind: ObjectKind, turn = 0): Point {
+  const tip = OBJECT_TIP[kind] ?? { x: 0, y: 0 };
+  const { grip } = OBJECT_SIZE[kind];
+  const x = tip.x - grip.x;
+  const y = tip.y + grip.y;
+  const angle = (turn * Math.PI) / 180;
+  return {
+    x: x * Math.cos(angle) - y * Math.sin(angle),
+    y: x * Math.sin(angle) + y * Math.cos(angle),
+  };
+}
+
+/**
+ * Half the width of what can be poured into or dipped in, inside its rim,
+ * and how deep it is under the rim (StickSetObject.svelte): a stream or a
+ * spoon outside this misses.
+ */
+export const OPENING: Partial<Record<ObjectKind, { half: number; depth: number }>> = {
+  pot: { half: 11, depth: 14 },
+  bowl: { half: 6, depth: 4.5 },
+  plant: { half: 10.5, depth: 4 },
+  crock: { half: 4, depth: 10 },
 };
 
 /** How far down into what holds it an object sits: a spoon in the crock, a lid on the rim, carrots on the board. */
@@ -189,6 +238,78 @@ export function spotAt(
     return x === undefined ? undefined : { x: x + at.dx, facing: at.facing };
   }
   return { x: backdropX(at.x), facing: at.facing };
+}
+
+/** What a stage point is worked out from: the world now, the set as laid out, and where the cast stand. */
+export interface StageContext {
+  world: World | undefined;
+  set: Pick<SetPlan, "spots" | "places"> | undefined;
+  geometry: SetGeometry;
+  /** A backdrop x in cast units. */
+  castX(x: number): number;
+  /** A cast member's middle in cast units; undefined for a name that is not one of the cast. */
+  middleOf(name: string): number | undefined;
+  /** A chair's middle in cast units. */
+  seatX(chair: number): number | undefined;
+}
+
+/**
+ * A named point of the stage in cast units: an object (its grip, top or
+ * base), a place or piece of the set (its surface), a person's head height,
+ * a chair's seat, or a spot. Backdrop things are the stage's to add.
+ */
+export function stagePoint(
+  context: StageContext,
+  name: string,
+  as: "grip" | "top" | "base",
+  facing: 1 | -1,
+): Point | undefined {
+  const { world, set, geometry } = context;
+  const state = world?.objects[name];
+  if (world && state) {
+    if (as === "grip") return objectGrip(world, name, geometry, facing);
+    const base = objectBase(world, name, geometry);
+    if (!base) return undefined;
+    return as === "top" ? { x: base.x, y: base.y - OBJECT_SIZE[state.kind].top } : base;
+  }
+  const place = set?.places?.[name];
+  if (place) return surfaceAt(geometry, place.piece, place.dx);
+  const piece = surfaceAt(geometry, name);
+  if (piece) return piece;
+  const middle = context.middleOf(name);
+  if (middle !== undefined) return { x: middle, y: 50 };
+  const spot = set?.spots?.[name];
+  if (spot && "chair" in spot) {
+    const x = context.seatX(spot.chair);
+    return x === undefined ? undefined : { x, y: SEAT_Y };
+  }
+  const at = set && spotAt(set, geometry, name, context.castX);
+  return at && { x: at.x, y: 84 };
+}
+
+/** Chest high, where two people's hands meet to hand something over. */
+const HANDOVER_Y = 76;
+
+/**
+ * How high two hands meet between cast x `from` and `to`: chest high, or
+ * above whatever stands between them, so a spoon handed across the stove
+ * goes over the pot and not in front of it.
+ */
+export function handOverY(
+  world: World,
+  geometry: SetGeometry,
+  from: number,
+  to: number,
+): number {
+  const [left, right] = from < to ? [from, to] : [to, from];
+  let y = HANDOVER_Y;
+  for (const [id, state] of Object.entries(world.objects)) {
+    if ("hand" in state.where) continue;
+    const base = objectBase(world, id, geometry);
+    if (!base || base.x < left + 4 || base.x > right - 4) continue;
+    y = Math.min(y, base.y - OBJECT_SIZE[state.kind].top - 8);
+  }
+  return y;
 }
 
 /** The middle x of each piece in cast space, given where the anchored ones are. */

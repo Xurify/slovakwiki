@@ -10,8 +10,8 @@ import {
 } from "./acts";
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
-import { solveRig, type Point } from "./rig";
-import { OBJECT_SIZE } from "./set-pieces";
+import { HEAD_RADIUS, solveRig, type Point } from "./rig";
+import { tipFromHand } from "./set-pieces";
 
 /**
  * How each verb moves the body: keys in time, each hand on a target or
@@ -35,6 +35,8 @@ export type Target =
   | { meet: LessonCharacterId }
   /** A point in the figure's own space, facing +x. */
   | { at: Point }
+  /** A point from the hand's own shoulder: up beside the head, where a seated figure's reach is as a standing one's. */
+  | { up: Point }
   /** Where the hand lets go of what it puts down: the object's grip once it is there. */
   | { landing: true; dx?: number; dy?: number }
   /** Toward a named point, the arm straight out: pointing at it. */
@@ -89,6 +91,22 @@ export interface Effect {
   /** For a tap, the piece it is on; otherwise the hand whose object it comes out of. */
   piece?: string;
   hand?: Hand;
+  /** What it falls into: the stream stops at its rim. */
+  to?: string;
+}
+
+/**
+ * Where the tip of what a hand holds must be over part of a motion. `over`:
+ * above the opening of `to`, so what pours falls in; `in`: down inside `to`,
+ * under its rim, where the stage hides it behind the pot's side; `lips`: at
+ * the mouth. The episode checks measure each one on the solved arm.
+ */
+export interface Contact {
+  hand: Hand;
+  tip: "over" | "in" | "lips";
+  to?: string;
+  from: number;
+  until: number;
 }
 
 export interface Motion {
@@ -106,6 +124,7 @@ export interface Motion {
   hold?: boolean | "line";
   /** Which way the figure faces while it moves: toward what it reaches for. */
   face?: string;
+  contacts?: Contact[];
 }
 
 const REACHED = 420;
@@ -128,32 +147,14 @@ function other(hand: Hand): Hand {
 
 const still: Motion = { ms: 0, keys: [] };
 
-/** The part of each kind that goes to the mouth, in its own drawing's space: a spoon's bowl, a cup's near rim. */
-const TO_MOUTH: Partial<Record<ObjectKind, Point>> = {
-  spoon: { x: 0, y: -13 },
-  ladle: { x: 0, y: -19 },
-  cup: { x: -3.5, y: -7 },
-};
-
 /**
- * Where the hand goes, from the lips, so that what it holds turned `turn`
- * degrees touches them; `ahead` and `below` hold it off that far.
+ * Where the hand goes, from a point, so that the tip of the `kind` it holds
+ * (OBJECT_TIP), turned `turn` degrees, lands `dx`, `dy` from that point:
+ * the spout over the pot, not the fist.
  */
-function toLips(
-  kind: ObjectKind,
-  turn: number,
-  ahead = 0.8,
-  below = 0,
-): { dx: number; dy: number } {
-  const tip = TO_MOUTH[kind] ?? { x: 0, y: 0 };
-  const { grip } = OBJECT_SIZE[kind];
-  const x = tip.x - grip.x;
-  const y = tip.y + grip.y;
-  const angle = (turn * Math.PI) / 180;
-  return {
-    dx: ahead - (x * Math.cos(angle) - y * Math.sin(angle)),
-    dy: below - (x * Math.sin(angle) + y * Math.cos(angle)),
-  };
+function aim(kind: ObjectKind, turn: number, dx = 0, dy = 0): { dx: number; dy: number } {
+  const tip = tipFromHand(kind, turn);
+  return { dx: dx - tip.x, dy: dy - tip.y };
 }
 
 /**
@@ -257,39 +258,24 @@ export function motionFor(
     case "pocket":
       return { motion: pocketMotion("in", what, hand) };
     case "dip": {
-      const tip = { [hand]: 160 };
+      // Down into the soup and once round the pot, the bowl under the rim, and up full.
+      const kind = object?.kind ?? "spoon";
+      const turn = { [hand]: 160 };
+      const into = (dx: number, dy: number) =>
+        hands(hand, { to, as: "top", ...aim(kind, 160, dx, dy) });
       return {
         motion: {
           ms: 1500,
           face: to,
           takes: 1000,
           sounds: [{ at: 620, id: "clink" }],
+          contacts: [{ hand, tip: "in", to, from: 600, until: 1050 }],
           keys: [
             { at: 0 },
-            {
-              at: 420,
-              ...hands(hand, { to, as: "top", dy: -12 }),
-              turn: tip,
-              body: { lean: 4 },
-            },
-            {
-              at: 650,
-              ...hands(hand, { to, as: "top", dy: -3 }),
-              turn: tip,
-              body: { lean: 5 },
-            },
-            {
-              at: 820,
-              ...hands(hand, { to, as: "top", dx: 2, dy: -2 }),
-              turn: tip,
-              body: { lean: 5 },
-            },
-            {
-              at: 1000,
-              ...hands(hand, { to, as: "top", dy: -4 }),
-              turn: tip,
-              body: { lean: 5 },
-            },
+            { at: 420, ...into(-1, -4), turn, body: { lean: 4 } },
+            { at: 650, ...into(-3, 5), turn, body: { lean: 5 } },
+            { at: 820, ...into(3, 6), turn, body: { lean: 5 } },
+            { at: 1000, ...into(0, 4), turn, body: { lean: 5 } },
             {
               at: 1250,
               ...hands(hand, { to, as: "top", dy: -14 }),
@@ -331,11 +317,14 @@ export function motionFor(
       };
     }
     case "taste": {
-      // Into the mouth: the spoon's bowl between the lips, a cup's rim at them.
+      // Into the mouth: the spoon's bowl between the lips, a cup's rim at them. At a desk the microphone is in front of the mouth, so a seated drinker sits back from it and tips the head back.
       const kind = object?.kind ?? "spoon";
       const tilt = kind === "cup" ? -40 : -55;
+      const back = world.seated?.includes(who)
+        ? { lean: -10, tilt: -6 }
+        : { lean: 0, tilt: 0 };
       const sip = {
-        ...hands(hand, { mouth: true, ...toLips(kind, tilt) }),
+        ...hands(hand, { mouth: true, ...aim(kind, tilt, 0.8) }),
         turn: { [hand]: tilt },
       };
       return {
@@ -343,16 +332,25 @@ export function motionFor(
           ms: 1300,
           takes: 700,
           sounds: [{ at: 620, id: "slurp" }],
+          contacts: [{ hand, tip: "lips", from: 560, until: 820 }],
           keys: [
             { at: 0 },
             {
               at: 380,
-              ...hands(hand, { mouth: true, ...toLips(kind, tilt * 0.7, 5, 3) }),
+              ...hands(hand, { mouth: true, ...aim(kind, tilt * 0.7, 5, 3) }),
               turn: { [hand]: tilt * 0.7 },
               body: { tilt: 3, lean: 1 },
             },
-            { at: 560, ...sip, body: { tilt: -2, lean: 2, brow: 0.3, mouth: 0.35 } },
-            { at: 820, ...sip, body: { tilt: -3, lean: 2, brow: 0.4, mouth: 0.25 } },
+            {
+              at: 560,
+              ...sip,
+              body: { tilt: -2 + back.tilt, lean: 2 + back.lean, brow: 0.3, mouth: 0.35 },
+            },
+            {
+              at: 820,
+              ...sip,
+              body: { tilt: -3 + back.tilt, lean: 2 + back.lean, brow: 0.4, mouth: 0.25 },
+            },
             {
               at: 1300,
               ...hands(hand, { mouth: true, dx: 18, dy: 12.5 }),
@@ -425,8 +423,8 @@ export function motionFor(
       for (let at = 350, rub = 0; at <= 1500; at += 190, rub += 1) {
         keys.push({
           at,
-          lead: { to, as: "base", dx: 1, dy: rub % 2 ? 4 : 9 },
-          rear: { to, as: "base", dx: -1, dy: rub % 2 ? 9 : 4 },
+          lead: { to, as: "base", dx: 1, dy: rub % 2 ? 0 : 4 },
+          rear: { to, as: "base", dx: -1, dy: rub % 2 ? 4 : 0 },
           body: { lean: 6 },
         });
       }
@@ -540,53 +538,93 @@ export function motionFor(
       };
     }
     case "pour": {
-      const kind = object?.kind;
+      const kind = object?.kind ?? "jug";
       const board = kind === "board";
-      // A board only tips enough for the pieces to slide off, its far end kept over the rim.
-      const tilt = board ? 22 : kind === "can" ? 40 : 75;
-      // The hand stays short of the target by what it pours from: a board's edge, a can's long spout.
-      const short = board ? -12 : kind === "can" ? -16 : -8;
-      const over = hands(hand, { to, as: "top", dx: short, dy: board ? -8 : -12 });
+      // A board only tips enough for the pieces to slide off its far end; a can's long spout needs less than a jug's lip.
+      const tilt = board ? 22 : kind === "can" ? 40 : 70;
+      // The spout just over the near side of the opening, so the jug itself stays outside the pot, at the chest rather than the face.
+      const spout = (turn: number, dy: number) => ({
+        ...hands(hand, { to, as: "top", ...aim(kind, turn, -2, dy) }),
+        turn: { [hand]: turn },
+      });
+      const high = board ? -2 : -4;
+      // Over the rim, not over the pot: a board held out leans the cook less than a jug does.
+      const lean = board ? 2 : 6;
       const ms = board ? 1800 : 2600;
       return {
         motion: {
           ms,
           face: to,
           takes: ms - 700,
+          contacts: [{ hand, tip: "over", to, from: 900, until: ms - 600 }],
           keys: [
             { at: 0 },
-            { at: 600, ...over, body: { lean: 5 } },
-            { at: 900, ...over, turn: { [hand]: tilt }, body: { lean: 6 } },
-            { at: ms - 600, ...over, turn: { [hand]: tilt }, body: { lean: 6 } },
-            { at: ms - 300, ...over, body: { lean: 4 } },
+            { at: 600, ...spout(tilt * 0.3, high - 4), body: { lean: lean - 1 } },
+            { at: 900, ...spout(tilt, high), body: { lean } },
+            // Tipped further as it empties, the spout kept where it was.
+            {
+              at: ms - 600,
+              ...spout(tilt + (board ? 6 : 14), high),
+              body: { lean: lean + 0.5 },
+            },
+            { at: ms - 300, ...spout(tilt * 0.3, high - 4), body: { lean: lean - 2 } },
             { at: ms },
           ],
           sounds: [{ at: 900, id: board ? "plop" : "pour" }],
-          effects: board ? [] : [{ kind: "stream", from: 900, until: ms - 600, hand }],
+          effects: board
+            ? []
+            : [{ kind: "stream", from: 900, until: ms - 600, hand, to }],
         },
       };
     }
     case "shake": {
-      const above = hands(hand, { to, as: "top", dx: -4, dy: -14 });
-      const keys: MotionKey[] = [{ at: 0 }, { at: 500, ...above, turn: { [hand]: 180 } }];
-      for (let at = 650, shake = 0; at <= 2700; at += 150, shake += 1) {
+      // Turned over, holes down above the pot, and shaken from the wrist: each flick down and a little further over drops a pinch.
+      const kind = object?.kind ?? "salt";
+      const over = (turn: number, dx: number, dy: number) => ({
+        ...hands(hand, { to, as: "top", ...aim(kind, turn, dx, dy) }),
+        turn: { [hand]: turn },
+      });
+      const keys: MotionKey[] = [
+        { at: 0 },
+        { at: 450, ...over(150, -3, -7), body: { lean: 4 } },
+      ];
+      const flicks: number[] = [];
+      for (let at = 650, flick = 0; at + 230 <= 3000; at += 230, flick += 1) {
+        // Wandering a little over the pot, as a hand does salting.
+        const dx = [-3, -1, -4, -2][flick % 4];
+        keys.push({ at, ...over(148, dx, -6.5), body: { lean: 4, brow: 0.3 } });
         keys.push({
-          at,
-          ...hands(hand, { to, as: "top", dx: -4, dy: shake % 2 ? -10 : -15 }),
-          turn: { [hand]: 180 },
-          body: { lean: 4, brow: 0.3 },
+          at: at + 110,
+          ...over(170, dx + 1, -3.5),
+          body: { lean: 4.6, bob: 0.5, brow: 0.4 },
         });
+        flicks.push(at + 110);
       }
-      keys.push({ at: 2900, ...above, turn: { [hand]: 180 } });
+      // Done, the shaker back upright in front of him, held out until it is taken from him.
+      keys.push({ at: 3150, ...over(150, -3, -8) });
+      keys.push({
+        at: 3500,
+        ...hands(hand, { at: { x: 15, y: 78 } }),
+        turn: { [hand]: 0 },
+      });
       return {
         motion: {
-          ms: 2900,
+          ms: 3500,
           face: to,
           takes: 1200,
           hold: true,
           keys,
-          sounds: [700, 1300, 1900, 2500].map((at) => ({ at, id: "salt" as const })),
-          effects: [{ kind: "salt", from: 650, until: 2750, hand }],
+          contacts: [
+            { hand, tip: "over", to, from: 650, until: flicks[flicks.length - 1] },
+          ],
+          sounds: flicks.map((at) => ({ at, id: "salt" as const })),
+          effects: flicks.map((at) => ({
+            kind: "salt" as const,
+            from: at - 30,
+            until: at + 230,
+            hand,
+            to,
+          })),
         },
       };
     }
@@ -686,7 +724,7 @@ export function motionFor(
       const held = heldBy(world, who);
       const spoonHand: Hand = held.lead ? "lead" : held.rear ? "rear" : "lead";
       const fan = other(spoonHand);
-      const away = hands(spoonHand, { at: { x: 20, y: 96 } });
+      const away = hands(spoonHand, { up: { x: 13, y: 24 } });
       const keys: MotionKey[] = [
         { at: 0 },
         {
@@ -724,12 +762,13 @@ export function motionFor(
       };
     }
     case "wag": {
+      // Out in front, toward who it is for: any nearer, seen side-on, the hand reads as on the chin. Seated, the desk's microphone is out there, so nearer.
+      const out = world.seated?.includes(who) ? 15 : 21;
       const keys: MotionKey[] = [{ at: 0 }];
       for (let at = 280, wag = 0; at <= 1100; at += 160, wag += 1) {
         keys.push({
           at,
-          // Out in front of the face: any nearer, seen side-on, the finger is lost against the cheek.
-          ...hands(free, { at: { x: 19 + (wag % 2 ? 2.5 : -2.5), y: 58 } }),
+          ...hands(free, { up: { x: out + (wag % 2 ? 2.5 : -2.5), y: -11 } }),
           body: { brow: 0.8, nod: 0.6, tilt: -3 },
         });
       }
@@ -753,11 +792,11 @@ export function motionFor(
       // Hands wiped down the front of an apron.
       const keys: MotionKey[] = [{ at: 0 }];
       for (let at = 250, stroke = 0; at <= 1100; at += 210, stroke += 1) {
-        const y = stroke % 2 ? 98 : 86;
+        const y = stroke % 2 ? 92 : 82;
         keys.push({
           at,
-          lead: { at: { x: 7, y } },
-          rear: { at: { x: 3, y: y + 1 } },
+          lead: { at: { x: 8, y } },
+          rear: { at: { x: 2, y: y + 1 } },
           body: { tilt: 8, look: -0.3 },
         });
       }
@@ -869,11 +908,17 @@ export function motionFor(
         },
       };
     case "wave": {
+      // The hand up beside the head, swinging from the elbow, clear of the hair and a headset's cup. Seated, a microphone is in front of the face, so the outer hand waves.
+      const side: Hand =
+        world.seated?.includes(who) && !heldBy(world, who).rear ? "rear" : free;
+      const out = side === "lead" ? 1 : -1;
       const keys: MotionKey[] = [{ at: 0 }];
       for (let at = 300, swing = 0; at <= 1500; at += 220, swing += 1) {
         keys.push({
           at,
-          ...hands(free, { at: { x: swing % 2 ? 16 : 9, y: 34 } }),
+          ...hands(side, {
+            up: { x: out * (swing % 2 ? 24 : 18), y: swing % 2 ? -15 : -22 },
+          }),
           body: { brow: 0.6, tilt: 3 },
         });
       }
@@ -1051,7 +1096,11 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
   };
 }
 
-/** Headphones off over the head, both hands. */
+/**
+ * Headphones off over the head, both hands: the near one on the cup over the
+ * near ear, the far one on the band's far side, lifted up and off. Set from
+ * the lips, so it fits a head on a chair as one standing.
+ */
 function offHeadMotion(): Motion {
   return {
     ms: 1100,
@@ -1060,17 +1109,17 @@ function offHeadMotion(): Motion {
       { at: 0 },
       {
         at: 380,
-        lead: { at: { x: 9, y: 40 } },
-        rear: { at: { x: -9, y: 40 } },
+        lead: { mouth: true, dx: -12, dy: -7 },
+        rear: { mouth: true, dx: 8, dy: -9 },
         body: { tilt: 4 },
       },
       {
         at: 650,
-        lead: { at: { x: 11, y: 32 } },
-        rear: { at: { x: -6, y: 33 } },
+        lead: { mouth: true, dx: -10, dy: -13 },
+        rear: { mouth: true, dx: 8, dy: -14 },
         body: { tilt: 2 },
       },
-      { at: 1100, lead: { at: { x: 14, y: 76 } } },
+      { at: 1100, lead: { up: { x: 10, y: 10 } } },
     ],
   };
 }
@@ -1106,13 +1155,15 @@ export interface MotionFrame {
   pose: StickPose;
   turn: Partial<Record<Hand, number>>;
   emote?: Emote;
+  /** Where each hand on a target was sent: the arm falls short of it when it is out of reach. */
+  aimed?: Partial<Record<Hand, Point>>;
 }
 
 function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
-function targetPoint(
+export function targetPoint(
   target: Target | undefined,
   hand: Hand,
   pose: StickPose,
@@ -1123,6 +1174,10 @@ function targetPoint(
   const rest = rig[hand === "lead" ? "leadArm" : "rearArm"].end;
   if (!target) return rest;
   if ("at" in target) return target.at;
+  if ("up" in target) {
+    const shoulder = hand === "lead" ? rig.leadShoulder : rig.rearShoulder;
+    return { x: shoulder.x + target.up.x, y: shoulder.y + target.up.y };
+  }
   if ("mouth" in target) {
     const mouth = mouthOf(pose, sit);
     return { x: mouth.x + (target.dx ?? 0), y: mouth.y + (target.dy ?? 0) };
@@ -1144,6 +1199,43 @@ function targetPoint(
   }
   const at = around.pointOf(target.to, target.as ?? "grip");
   return at ? { x: at.x + (target.dx ?? 0), y: at.y + (target.dy ?? 0) } : rest;
+}
+
+/** The arm's length, upper arm and forearm, a little short of straight. */
+const ARM_REACH = 28.5;
+/** The most a figure leans in, in degrees, to reach what is in front of it. */
+const MOST_LEAN = 14;
+
+/** How much further to lean so each hand reaches its point in front: none if they already do, or if leaning would not help. */
+function leanToReach(
+  body: StickPose,
+  points: Partial<Record<Hand, Point>>,
+  sit: number,
+): number {
+  // Low down, the knees bend with the lean, as they do lifting something off a low shelf.
+  const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
+  const shortfall = (lean: number) => {
+    const bob = low && sit === 0 ? lean * 0.5 : 0;
+    const rig = solveRig({ ...body, lean: body.lean + lean, bob: body.bob + bob }, sit);
+    let worst = 0;
+    for (const hand of ["lead", "rear"] as const) {
+      const point = points[hand];
+      if (!point) continue;
+      const shoulder = hand === "lead" ? rig.leadShoulder : rig.rearShoulder;
+      worst = Math.max(
+        worst,
+        Math.hypot(point.x - shoulder.x, point.y - shoulder.y) - ARM_REACH,
+      );
+    }
+    return worst;
+  };
+  if (shortfall(0) <= 0) return 0;
+  let best = 0;
+  for (let lean = 1; lean <= MOST_LEAN; lean += 1) {
+    if (shortfall(lean) < shortfall(best)) best = lean;
+    if (shortfall(lean) <= 0) return lean;
+  }
+  return best;
 }
 
 /** Lowest a hand reaches standing straight; below it the figure bends at the hip and knees. */
@@ -1214,6 +1306,12 @@ export function frameBetween(
     body.bob += depth * 0.9;
   }
 
+  // Still out of reach, the figure leans in to it, as far as it must.
+  const leaned = leanToReach(body, points, sit);
+  const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
+  body.lean += leaned;
+  if (low && sit === 0) body.bob += leaned * 0.5;
+
   let pose = body;
   for (const hand of ["lead", "rear"] as const) {
     const point = points[hand];
@@ -1228,8 +1326,20 @@ export function frameBetween(
     turn[hand] = lerp(a ?? 0, b ?? 0, t);
   }
 
-  return { pose, turn, emote: t < 0.5 ? from.emote : to.emote };
+  return { pose, turn, emote: t < 0.5 ? from.emote : to.emote, aimed: points };
 }
+
+/** The door pushed to behind someone just come in: a hand out flat to it, and back. */
+export const CLOSE_DOOR: Motion = {
+  ms: 900,
+  takes: 450,
+  keys: [
+    { at: 0 },
+    { at: 350, lead: { at: { x: 17, y: 76 } }, body: { lean: 4 } },
+    { at: 550, lead: { at: { x: 19, y: 76 } }, body: { lean: 5 } },
+    { at: 900 },
+  ],
+};
 
 /** Carrying a heavy pot in both hands between cues: the arms stay on its handles. */
 export const CARRYING: Omit<MotionKey, "at"> = {
@@ -1237,3 +1347,125 @@ export const CARRYING: Omit<MotionKey, "at"> = {
   both: true,
   body: { lean: -4 },
 };
+
+/** What can be poured into or dipped in, in the mover's rig space: the middle of its rim, and its opening (OPENING). */
+export interface Opening {
+  top: Point;
+  half: number;
+  depth: number;
+}
+
+/** Closer than this, in rig units, a hand is on its mark. */
+const ON_MARK = 1.5;
+/** A tip this near the lips is in the mouth. */
+const AT_LIPS = 2.5;
+/** The highest a stream or salt is poured from, above the rim: any higher, with the stove at the hip, the jug is at the face. */
+const POUR_HEIGHT = 10;
+/** Closer than this to the head's middle, what a hand works with is in front of the face. */
+const FACE_CLEAR = HEAD_RADIUS + 4;
+/** Over a repeated action, the tool moves at least this much (units, or degrees turned) in any stretch of FROZEN_MS. */
+const STIR = 0.6;
+const FROZEN_MS = 600;
+const SAMPLE_MS = 50;
+
+/**
+ * What a motion gets wrong about where hands and what they hold go,
+ * measured on the solved arm as the stage draws it: a hand short of its
+ * mark (out of reach), a tip that misses its contact (a stream beside the
+ * pot, a spoon not in it, a spoon not at the lips), a tool that freezes
+ * while the action it repeats goes on.
+ */
+export function motionMisses(
+  motion: Motion,
+  around: Surroundings,
+  holding: Partial<Record<Hand, ObjectKind>>,
+  openingOf: (name: string) => Opening | undefined,
+  sit = 0,
+): string[] {
+  const misses: string[] = [];
+  const frameAt = (ms: number) => sampleMotion(motion, ms, REST_POSE, around, sit);
+  const handAt = (frame: MotionFrame, hand: Hand) =>
+    solveRig(frame.pose, sit)[hand === "lead" ? "leadArm" : "rearArm"].end;
+
+  for (const key of motion.keys) {
+    const frame = frameBetween(key, key, 1, REST_POSE, around, sit);
+    for (const hand of ["lead", "rear"] as const) {
+      const target = key[hand];
+      const aimed = frame.aimed?.[hand];
+      if (!aimed || (target && "toward" in target)) continue;
+      const at = handAt(frame, hand);
+      const short = Math.hypot(at.x - aimed.x, at.y - aimed.y);
+      if (short > ON_MARK) {
+        misses.push(
+          `the ${hand} hand falls ${short.toFixed(1)} short of its mark at ${key.at} ms: out of reach from where they stand`,
+        );
+      }
+    }
+  }
+
+  for (const contact of motion.contacts ?? []) {
+    const kind = holding[contact.hand];
+    if (!kind) continue;
+    const opening = contact.to ? openingOf(contact.to) : undefined;
+    if (contact.tip !== "lips" && !opening) continue;
+    const tips: Array<{ at: number; tip: Point; turn: number }> = [];
+    for (let at = contact.from; at <= contact.until; at += SAMPLE_MS) {
+      const frame = frameAt(at);
+      const hand = handAt(frame, contact.hand);
+      const turn = frame.turn[contact.hand] ?? 0;
+      const offset = tipFromHand(kind, turn);
+      tips.push({ at, turn, tip: { x: hand.x + offset.x, y: hand.y + offset.y } });
+    }
+    const miss = tips.find(({ tip, at }) => {
+      if (contact.tip === "lips") {
+        const lips = mouthOf(frameAt(at).pose, sit);
+        return Math.hypot(tip.x - lips.x, tip.y - lips.y) > AT_LIPS;
+      }
+      const { top, half, depth } = opening!;
+      const across = Math.abs(tip.x - top.x);
+      return contact.tip === "over"
+        ? across > half - 1 || tip.y >= top.y || top.y - tip.y > POUR_HEIGHT
+        : across > half - 1.5 || tip.y <= top.y + 1 || tip.y >= top.y + depth;
+    });
+    const faced = tips.find(({ at }) => {
+      const frame = frameAt(at);
+      const { head } = solveRig(frame.pose, sit);
+      const hand = handAt(frame, contact.hand);
+      return Math.hypot(hand.x - head.x, hand.y - head.y) < FACE_CLEAR;
+    });
+    if (contact.tip !== "lips" && faced) {
+      misses.push(`the ${kind} is held up in front of the face at ${faced.at} ms`);
+    }
+    if (miss) {
+      const where =
+        contact.tip === "lips"
+          ? "at the lips"
+          : contact.tip === "over"
+            ? `over ${contact.to}'s opening`
+            : `down inside ${contact.to}`;
+      const off =
+        contact.tip === "lips" || !opening
+          ? ""
+          : ` (${(miss.tip.x - opening.top.x).toFixed(1)} across, ${(miss.tip.y - opening.top.y).toFixed(1)} below the rim)`;
+      misses.push(`the ${kind}'s tip is not ${where} at ${miss.at} ms${off}`);
+    }
+    if (contact.tip === "lips") continue;
+    const window = FROZEN_MS / SAMPLE_MS;
+    for (let start = 0; start + window < tips.length; start += 1) {
+      const span = tips.slice(start, start + window + 1);
+      const moved = Math.max(
+        ...span.map(({ tip }) =>
+          Math.hypot(tip.x - span[0].tip.x, tip.y - span[0].tip.y),
+        ),
+        ...span.map(({ turn }) => Math.abs(turn - span[0].turn) / 5),
+      );
+      if (moved < STIR) {
+        misses.push(
+          `the ${kind} hangs still for ${FROZEN_MS} ms from ${span[0].at} ms while it ${contact.tip === "in" ? "stirs" : "pours"}: a held tool keeps moving`,
+        );
+        break;
+      }
+    }
+  }
+  return misses;
+}

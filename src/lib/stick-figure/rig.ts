@@ -17,6 +17,8 @@ export interface StickRig {
   /** Head rotation for drawing, degrees clockwise. */
   headAngle: number;
   hip: Point;
+  /** The torso's lean for drawing, degrees toward the facing side: the pose's, and the bow of sitting down. */
+  lean: number;
   leadArm: StickLimb;
   leadLeg: StickLimb;
   leadShoulder: Point;
@@ -88,29 +90,40 @@ function leg(hip: Point, foot: Point): StickLimb {
   };
 }
 
+/**
+ * Sitting down, a person bows forward and pushes the hips back over the seat
+ * as they lower, then sits up once on it; getting up runs the same way back.
+ * Degrees and px at the middle of the move.
+ */
+const SIT_BOW = 18;
+const SIT_BACK = 6;
+
 /** `sit` runs from 0, standing, to 1, on a chair: the hip lowers onto the seat and the feet come forward. */
 export function solveRig(pose: StickPose, sit = 0): StickRig {
   const standingHip = GROUND_Y - HIP_HEIGHT + pose.bob;
+  const midway = Math.sin(Math.PI * Math.min(1, Math.max(0, sit)));
   const hip = {
-    x: -3 * sit,
+    x: -3 * sit - SIT_BACK * midway,
     y: standingHip + (SEAT_Y - 2 - standingHip) * sit,
   };
-  const up = 180 - pose.lean;
+  const lean = pose.lean + SIT_BOW * midway;
+  const up = 180 - lean;
   const neck = along(hip, up, TORSO);
   const shoulders = along(hip, up, TORSO - SHOULDER_DROP);
-  const leadShoulder = along(shoulders, 90 - pose.lean, SHOULDER_HALF_WIDTH);
-  const rearShoulder = along(shoulders, -90 - pose.lean, SHOULDER_HALF_WIDTH);
+  const leadShoulder = along(shoulders, 90 - lean, SHOULDER_HALF_WIDTH);
+  const rearShoulder = along(shoulders, -90 - lean, SHOULDER_HALF_WIDTH);
   const head = along(neck, up - pose.tilt, NECK + HEAD_RADIUS - pose.nod);
 
   return {
     hip,
+    lean,
     neck,
     leadShoulder,
     rearShoulder,
     head,
-    headAngle: pose.lean + pose.tilt,
-    leadArm: arm(leadShoulder, pose.lean, 1, pose.leadRaise, pose.leadBend),
-    rearArm: arm(rearShoulder, pose.lean, -1, pose.rearRaise, pose.rearBend),
+    headAngle: lean + pose.tilt,
+    leadArm: arm(leadShoulder, lean, 1, pose.leadRaise, pose.leadBend),
+    rearArm: arm(rearShoulder, lean, -1, pose.rearRaise, pose.rearBend),
     leadLeg: leg(hip, {
       x: pose.stance + pose.stride * STRIDE + 10 * sit,
       y: GROUND_Y - Math.max(0, pose.lift),
