@@ -6,17 +6,17 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 
 - [ ] One grammar page (`grammarSlug`), one promise sentence, level `A1–A2`.
 - [ ] Name it like a story, after a line the learner will hear: `titleSk: "Kde je ten kľúč?"`, with the English gloss in `title`. The grammar label goes in `topic` (`"ten, tá, to"`), lowercase because it is read in the first sentence: "A 4-minute episode on ten, tá, to."
-- [ ] 4–6 chapters of 4–14 lines. Each chapter is one situation (an intro, a game, a shop, a quiz, an outro) and brings in its own nouns, so the target forms turn up in different company.
-- [ ] Cover every form the grammar page's tables show, the other cases too, not only the nominative.
+- [ ] 4–6 chapters of 4–14 lines (a guessing game may run to 20). Each chapter is one situation (an intro, a game, a shop, a quiz, an outro) and brings in its own nouns, so the target forms turn up in different company.
+- [ ] Cover every row and every column of the grammar page's tables, the other cases too, not only the nominative, and each contrast frame. A big table (the imperative's 39 cells) is heard one form per row, not cell by cell.
 - [ ] Give the chapters a thread: something from an early chapter comes back later. The car key from the bag game goes missing at home, and again in the last line.
 - [ ] Keep the Slovak inside the level: present tense, high-frequency nouns, fixed chunks. Repetition is a feature: a learner should hear the taught forms many times.
-- [ ] Speakers come from the roster in `content/audio/config.json` (`characters[*].speakers`): `Anna`, `Marek`, `Lucia`, `Mária`, `Waiter`, `Receptionist`, plus `Scene` for a narrator's scene card and `Announcement` for a tannoy. List them in the episode's `speakers`; any other label falls back to the narrator voice and fails the speaker test.
+- [ ] Speakers come from the roster in `content/audio/config.json` (`characters[*].speakers`): `Anna`, `Marek`, `Lucia`, `Mária`, `Waiter` (also `Conductor`), `Receptionist`, `You` (Alex), plus `Scene` for a narrator's scene card and `Announcement` for a tannoy. List them in the episode's `speakers`; any other label falls back to the narrator voice and fails the speaker test.
 - [ ] Each chapter's `stage` is where the stick figures act it out (`studio` unless set; `cafe`, `classroom`, `home`, `market`, `plaza`, `registration`, `street`). What a line points at or brings out must be drawn there or be a prop.
 
 ## 2. Write the script
 
 - [ ] It must read like a show: a hello, a reason to talk, banter, a goodbye. Read it aloud.
-- [ ] Mark the taught word with a role, `{ role: "demonstrative", text: "ten" }` (episodes wrap it in a helper, `mark("ten")`), so the transcript lights it up after listening. Add a role in `marked-text.ts` when a new topic needs one, then run `bun run fouc:boot`.
+- [ ] Mark the taught word with a role, `{ role: "demonstrative", text: "ten" }` (episodes wrap it in a helper, `mark("ten")`), so the transcript lights it up after listening. Add a role in `marked-text.ts` when a new topic needs one (reusing `text-mark-time`), then run `bun run fouc:boot`; it also rewrites `clock-boot-script.generated.ts`. A wrong form said on purpose stays unmarked, so the transcript never lights it.
 - [ ] When a host says something wrong on purpose (a quiz), say so in the English gloss, so the transcript never teaches the wrong form.
 - [ ] Give the listener time where a person would take it: a beat between two clues, before a quiz sentence, between a verdict and its reason. Put `PAUSE` in the line's parts; the text skips it and the clip says `[pause]` there. Eleven v4 makes a pause only inside a line (about a second); at its start or end it makes next to none. When someone has to think before they answer, as in a guessing game, let them say so: `"Hm… ", PAUSE, …`, or say the clues back: `"Žlté a ťažké… ", PAUSE, …`.
 - [ ] A segment that moves to another place says so before it goes and when it gets there: the last line of the one before is `Poďme na trh!`, the first line of the next is `Teraz sme na trhu.` The stage fades in on the new place and its sound, the break's sting plays, and the first line waits a moment, but only words tell the listener where they are.
@@ -36,11 +36,11 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 
 ## 4. Wire it in
 
-- [ ] Add the episode to `listeningEpisodes` in `src/lib/catalog/listening/index.ts`.
-- [ ] `bun scripts/audio/generate.ts -- --lessons-only --missing-only`, then `bun scripts/audio/upload.ts -- --lessons-only`. Commit `content/audio/manifest.json` and `runtime-index.json`.
+- [ ] Add the episode to `listeningEpisodes` in `src/lib/catalog/listening/index.ts`. Leave out `lessonId` and `practiceSetId` when the topic has no lesson or practice set.
+- [ ] `bun scripts/audio/generate.ts -- --lessons-only --missing-only --verify`, then `bun scripts/audio/upload.ts -- --lessons-only`. Commit `content/audio/manifest.json` and `runtime-index.json`.
 - [ ] Update the `listening` count in `src/lib/seo/sitemap.test.ts`, and the stage snapshot (`bunx vitest run src/lib/stick-figure/scenes.snapshot.test.ts -u`); read its diff for the new segments.
 - [ ] `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
-- [ ] In the browser: play every chapter on the stage (`/dev/scenes?scene=podcast-<slug>-<chapter>` too), checking mouths, props and who faces whom; play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show transcript. Phone width and dark mode.
+- [ ] In the browser, on the episode page (`/listening/<slug>`), not `/dev/scenes`: play every chapter on the stage, checking mouths, props and who faces whom; play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show transcript. Phone width and dark mode.
 
 ## Slips we shipped
 
@@ -57,3 +57,25 @@ Each of these went out in the first episode and had to be fixed. Read a script a
 - **A feeling that does not fit.** `Marek!` said flat when he has lost the keys again. A `SIGH` before it. Say how every directed line should feel, and listen back.
 - **A pause at the start of a clip.** It makes next to none; the player waits instead (`wait` on the line).
 - **The mouth on the wrong word.** The vowel track was aligned on the line without its pauses. `bun scripts/audio/lipsync.ts -- --only "…"` scores a clip; under 80% is wrong.
+
+From the review of episode 5 (the imperative), by a person on the episode page:
+
+- **A visit with no reason.** The hosts went to Mária's class with nothing said about why; it read as dropping in on her. Set up why the characters go somewhere, in a line before they go.
+- **Scenes written for the forms, not the people.** A lesson nobody would teach that way, and `Tak ho nezatváraj. A zavolaj Lucii. Nech príde na večeru.` three commands in a row because the table had them. Each line is what that person would say at that moment; the forms find their place in it.
+- **Someone who knows what they could not.** Marek came up with `choď` himself, the one form nobody can build. Someone tells him (`Ísť má vlastný tvar: choď.`) and he says it back.
+- **A game whose trick is never said.** Anna gave every verb in its oni form and nobody said why, so the listener wondered why it was always "they". When a game rests on a rule, a line says the rule.
+- **Too many places, too little in each, and a rushed end.** Classroom, home, quiz and outro were short and mashed together, and the payoff was one word (`Pi!`). Fewer places, each with a beginning, a middle and an end, and room for the last beat.
+- **A set that is not what it says.** A classroom with no desks, everyone standing. A place looks like what the lines call it, and people do what they would there: pupils sit (`Sadnite si.`).
+- **Things on the set that the stage cuts off.** The studio's clock was cut in half, a speaker showed as a sliver, and the plant the whole episode was about was off the stage. What a line names must be inside what a phone's 2:1 stage shows.
+- **News with no sound.** `Lucia práve píše…` with no ping. A message pings; better still, the phone rings and the call is played.
+- **A voice with a tone nobody chose.** Marek's voice read as suggestive on a plain question to the teacher, and his tired line did not sound tired. Hear a voice on its own lines in the episode before voicing them all, and give a directed feeling its tag (`YAWN`).
+
+From the review of the robot story (#77):
+
+- **People who stand wrong.** Figures too close or too far apart, and Marek barely on the carpet. People stand at a talking distance and where the room puts them (on the rug, by the table, at the door): they know the room is there.
+- **A clock that says another time.** The story says noon and the wall clock says ten. A clock on the set shows the time the story gives; when the story gives none, pick one that fits and keep it.
+- **A prop from nowhere.** The leash was suddenly in the dog's mouth, then gone on the walk. A prop is fetched, handed over or already in view, and stays where it was until someone moves it.
+- **A line that the voice does not carry.** A plain list of chores read as lost. A delivery fits what is being said; if the voice cannot carry it, direct it or rewrite it.
+- **No filler where people use one.** `Výborne. Kde sú moje kľúče?` jumps topic. A real speaker bridges: `No nič…`, `Tak…`, `Dobre, a…`.
+- **An abrupt end.** A good last joke cut short. The last beat gets a set-up, a pause and a reaction.
+- **Kept: the camera.** The stage growing as the scene grew was liked. Open close and widen as people and things come in.
