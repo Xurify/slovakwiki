@@ -26,7 +26,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 
 ### Scripts (`scripts/`)
 
-`bun run typecheck` (`astro check`) typechecks **`scripts/**` as well as `src/`**. Husky pre-commit runs it after Prettier when the commit stages `src/` or `scripts/` code (or `package.json`, `tsconfig.json`, `astro.config.ts`, `svelte.config.js`, `eslint.config.js`). Manifest and other content-only commits skip it. New or edited scripts must still pass `bun run typecheck` before commit.
+`bun run typecheck` (`astro check`, then `svelte-check`) typechecks **`scripts/**` as well as `src/`**, `.svelte` files included: `astro check` alone does not report type errors inside them. Husky pre-commit runs it after Prettier when the commit stages `src/` or `scripts/` code (or `package.json`, `tsconfig.json`, `astro.config.ts`, `svelte.config.js`, `eslint.config.js`). Manifest and other content-only commits skip it. New or edited scripts must still pass `bun run typecheck` before commit.
 
 **Copy existing patterns; don't invent Bun-only APIs.**
 

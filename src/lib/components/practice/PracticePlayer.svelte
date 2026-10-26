@@ -451,11 +451,7 @@
   });
 
   const attemptLabel = $derived(
-    task.type === "choice" ||
-      task.type === "selectAll" ||
-      task.type === "findMistake" ||
-      task.type === "clock-grid" ||
-      task.type === "form-table"
+    task.type === "choice" || task.type === "selectAll" || task.type === "findMistake"
       ? "You picked"
       : task.type === "build"
         ? "You built"

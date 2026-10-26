@@ -74,10 +74,10 @@
     register === "appointment" ? appointmentChoiceWhy(time) : tellingChoiceWhy(time),
   );
   const feedbackWhy = $derived.by(() => {
-    if (!submitted || revealed || grade === "correct") return null;
+    if (!submitted || revealed || grade === "correct") return undefined;
     if (wrongRegisterHint) return `${wrongRegisterHint} ${registerWhy}`;
     if (grade === "incorrect" || grade === "accents") return registerWhy;
-    return null;
+    return undefined;
   });
 
   function focusAnswerInput(): void {
